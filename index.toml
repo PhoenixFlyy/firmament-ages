@@ -206,7 +206,7 @@ hash = "60b0fbafbde66ec190be0b9d17b4cfe28fb65a596167e6a23304f6577f70467d"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "9f265dc47fb8449e8dc27514123f8df4459d7871b24425661f08e4f2c8456d6e"
+hash = "80f0fc4216f3730bccf6ff40d7bb9c80f4fd1625ee037b6377eb4c8fee115002"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
@@ -218,7 +218,7 @@ hash = "9a67595e8811283c1befdb55f45a8af181f860a7032f3183d06d9ba106e51cbb"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
-hash = "6b82cb89a76006d464434576ed553d4368c63a61570b54da48e338c8bd611725"
+hash = "84712faa213374c4da1123a954e1534dc2a14b327799e5e54cf47a55c773fc79"
 
 [[files]]
 file = "kubejs/server_scripts/stages/mobs.js"

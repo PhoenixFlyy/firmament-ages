@@ -38,28 +38,34 @@
     }
   }
 
+  // Rhino throws "redeclaration of var" for const/let declared directly inside a try block,
+  // so the body lives in its own function and reconcile() only guards re-entry.
+  const reconcileNow = (player) => {
+    const idx = highestAge(player)
+    if (idx < 0) return
+    const age = FA.AGES[idx]
+
+    // Mob ladder.
+    const top = mobIndex(FA.MOB_STAGE_FOR[age])
+    for (let k = 0; k <= 9; k++) {
+      const wanted = FA.MOB_LADDER_CUMULATIVE ? k <= top : k === top
+      setStage(player, `mob_${k}`, wanted)
+    }
+
+    // Helper windows [from, to).
+    Object.keys(FA.HELPER_WINDOWS).forEach((helper) => {
+      const from = FA.HELPER_WINDOWS[helper][0]
+      const to = FA.HELPER_WINDOWS[helper][1]
+      const wanted = idx >= ageIndex(from) && (to === null || idx < ageIndex(to))
+      setStage(player, helper, wanted)
+    })
+  }
+
   const reconcile = (player) => {
     if (busy) return
     busy = true
     try {
-      const idx = highestAge(player)
-      if (idx < 0) return
-      const age = FA.AGES[idx]
-
-      // Mob ladder.
-      const top = mobIndex(FA.MOB_STAGE_FOR[age])
-      for (let k = 0; k <= 9; k++) {
-        const wanted = FA.MOB_LADDER_CUMULATIVE ? k <= top : k === top
-        setStage(player, `mob_${k}`, wanted)
-      }
-
-      // Helper windows [from, to).
-      Object.keys(FA.HELPER_WINDOWS).forEach((helper) => {
-        const from = FA.HELPER_WINDOWS[helper][0]
-        const to = FA.HELPER_WINDOWS[helper][1]
-        const wanted = idx >= ageIndex(from) && (to === null || idx < ageIndex(to))
-        setStage(player, helper, wanted)
-      })
+      reconcileNow(player)
     } finally {
       busy = false
     }

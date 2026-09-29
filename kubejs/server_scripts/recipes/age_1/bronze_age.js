@@ -78,8 +78,9 @@ ServerEvents.recipes((event) => {
   // ---- Millstone = mechanised TFC quern (Doc 08 section 9.4) -----------------------------------------
   // POC: copies every tfc:quern recipe whose result is a plain item stack. TFC results can be
   // ItemStackProviders with modifiers; those are skipped. Check the copied list in EMI.
+  // Rhino throws "redeclaration of var" for const/let declared directly inside a try block.
+  const querns = []
   try {
-    const querns = []
     event.forEachRecipe({ type: 'tfc:quern' }, (r) => {
       querns.push({ id: String(r.getId()), json: JSON.parse(String(r.json)) })
     })
