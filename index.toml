@@ -340,6 +340,11 @@ hash = "8e0a036130785555a20815bb51ea28912b01917aee9a3dce68deb7176a928ce6"
 metafile = true
 
 [[files]]
+file = "mods/astikorcarts-redux.pw.toml"
+hash = "5d9bdb9a8bcd02fe6f867d52c52a8f20100422de6db324b02543a1d2aff362fa"
+metafile = true
+
+[[files]]
 file = "mods/azimuth-api.pw.toml"
 hash = "3f829f54e19ebb32f23f554e05bd49c005dfc057933e07d0df4f85e7085d314d"
 metafile = true
@@ -372,6 +377,11 @@ metafile = true
 [[files]]
 file = "mods/better-compatibility-checker.pw.toml"
 hash = "7c3b1f4819e8a3b88cadd8ed968d74491c71f504738dd0f2cd60f3ff40d80f72"
+metafile = true
+
+[[files]]
+file = "mods/block-runner.pw.toml"
+hash = "05884675211a3b35feddbdef24e8da4d970954a21e5e5586a9bf5a97a1103033"
 metafile = true
 
 [[files]]
@@ -985,6 +995,11 @@ hash = "87f0464f6c3fb3d89d0fb18a331b7356b59365135e797e9a2e6ba9cd447c360b"
 metafile = true
 
 [[files]]
+file = "mods/puzzles-lib.pw.toml"
+hash = "6b1ee632cee2d75301016eaac99a3446ad605f11fbfda631effac0eb7da59f6c"
+metafile = true
+
+[[files]]
 file = "mods/resourceful-config.pw.toml"
 hash = "27721caca5a03b743bf25888e1d984142948069dace31453f103f94f7f24d2ce"
 metafile = true
@@ -1112,6 +1127,11 @@ metafile = true
 [[files]]
 file = "mods/tfc-ore-tooltips.pw.toml"
 hash = "56d00a78040251052e91a6f98a082a9a8b8ebec0dc8199e413aa48c5cf3810af"
+metafile = true
+
+[[files]]
+file = "mods/tfc-registry-api.pw.toml"
+hash = "49b6c30d5a476c0b734127c73552a437b80354afb7d95b561db50029605819f2"
 metafile = true
 
 [[files]]

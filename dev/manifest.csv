@@ -179,3 +179,7 @@ theurgy-kubejs,oXj2r26F,Theurgy KubeJS,1.21.1-neoforge-1.6.0,gOZLSUzC,release,20
 toms-storage,XZNI4Cpy,Tom's Simple Storage Mod,1.21-2.4.2,WQAMoIMC,release,2026-08-30,both,toms_storage-1.21-2.4.2.jar,856803,,,mod
 trash-cans,4QrnfueM,Trash Cans,1.1.1-neoforge-mc1.21,zjFylsMq,release,2026-09-25,both,trashcans-1.1.1-neoforge-mc1.21.jar,169263,,,mod
 woodencog,Dh6v8Snj,WoodenCog,1.2.19,iX6qLxlr,release,2026-09-02,both,woodencog-1.2.19-1.21.1.jar,1137064,,,mod
+tfc-registry-api,mrSESjNK,TFC Registry API,1.2,qh51dOax,release,2025-12-12,both,TFCRegistryAPI-1.21.x-1.2.jar,91559,"yes (via jar dep of tfc-astikor-carts, tfc-regrowing-forests)",,library
+astikorcarts-redux,mnLFouB0,AstikorCarts Redux,1.2.4,JtPCk233,release,2026-08-06,both,astikorcartsredux-1.2.4.jar,576717,yes (via jar dep of tfc-astikor-carts),,library
+block-runner,1VSGxqkt,Block Runner,v21.1.2-1.21.1-NeoForge,Cb7KF5iF,release,2025-02-20,both,BlockRunner-v21.1.2-1.21.1-NeoForge.jar,107012,yes (via jar dep of roads-and-roofs-tfc),,library
+puzzles-lib,QAGBst4M,Puzzles Lib,21.1.62,1TmfTuyw,release,2026-09-29,both,puzzleslib-v21.1.62-mc1.21.1+neoforge.jar,1450242,yes (via block-runner),,library

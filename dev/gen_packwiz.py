@@ -38,6 +38,13 @@ DOC_LIBS = [
     "mechanicals-lib", "dragonlib", "azimuth-api", "strut-your-stuff",
     "iglee-library", "brandons-core", "codechicken-lib", "cerbons-api", "cloth-config",
 ]
+# Libraries that mods require in their neoforge.mods.toml but do not declare on Modrinth
+# (found by the first test-server boot, 2026-09-30). Puzzles Lib follows from block-runner.
+JAR_DEPS = [
+    "tfc-registry-api",    # required by tfc-astikor-carts and tfc-regrowing-forests
+    "astikorcarts-redux",  # required by tfc-astikor-carts
+    "block-runner",        # required by roads-and-roofs-tfc (modId blockrunner)
+]
 # CurseForge-only core mods (doc 10 section 9.1).
 CF_ONLY = [
     # (name, CF slug, known CF project id or None, doc version); the FTB slug URLs 404 on cfwidget, ids work
@@ -169,7 +176,7 @@ def run():
     doc_ver.update({d["slug"]: d["chosen"] for d in doc_raw["deps"].values()})
     doc_ver.update(S2B_ADDITIONS)
 
-    wanted = [(s, "mod") for s in core] + [(s, "mod") for s in S2B_ADDITIONS] + [(s, "library") for s in DOC_LIBS]
+    wanted = [(s, "mod") for s in core] + [(s, "mod") for s in S2B_ADDITIONS] + [(s, "library") for s in DOC_LIBS + JAR_DEPS]
     pinfo = projects([s for s, _ in wanted])
 
     entries = {}  # project_id -> dict
