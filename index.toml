@@ -229,6 +229,10 @@ file = "kubejs/server_scripts/stages/on_stage_added.js"
 hash = "9113b6610d19ba294c29ea6d9a43c87d088ba05300b15451b63e2016bdd0174f"
 
 [[files]]
+file = "kubejs/server_scripts/tags/broken_mod_tags.js"
+hash = "05122d8261ba9eb856aa4db6715176a558231c7fa459df68a267ef916edf21a2"
+
+[[files]]
 file = "kubejs/server_scripts/tags/hidden_from_viewers.js"
 hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
 
