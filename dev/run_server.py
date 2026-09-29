@@ -40,7 +40,7 @@ CRASH_MARKERS = (
 )
 LEVEL_RE = re.compile(r"^\[[^\]]*\] \[[^\]]*/(ERROR|WARN|FATAL)\]")
 DONE_RE = re.compile(r"Done \((\d+(?:\.\d+)?)s\)!")
-MODCOUNT_RE = re.compile(r"Loading (\d+) mods")
+MODCOUNT_RE = re.compile(r"Found (\d+ mod files with \d+) mods")  # debug.log, ModValidator
 
 
 def reader(proc, q, logf):
@@ -108,7 +108,7 @@ def main():
     q = queue.Queue()
     threading.Thread(target=reader, args=(proc, q, logf), daemon=True).start()
 
-    state = {"done": None, "crash": [], "levels": [], "mods": None, "eof": False}
+    state = {"done": None, "crash": [], "levels": [], "eof": False}
     cmd_output = []  # (command, [lines])
     current = None
 
@@ -131,9 +131,6 @@ def main():
             m = DONE_RE.search(line)
             if m and state["done"] is None:
                 state["done"] = (time.time() - t0, m.group(1))
-            m = MODCOUNT_RE.search(line)
-            if m and state["mods"] is None:
-                state["mods"] = m.group(1)
             if any(k in line for k in CRASH_MARKERS):
                 state["crash"].append(line)
             if LEVEL_RE.match(line):
@@ -183,12 +180,10 @@ def main():
     print(f"=== run_server summary: {result} (exit code {proc.returncode}, {total:.0f}s total) ===")
     if state["done"]:
         print(f"Done after {state['done'][0]:.1f}s wall clock (server reported {state['done'][1]}s)")
-    mods = state["mods"]
-    if mods is None:
-        dbg = os.path.join(logs, "debug.log")
-        for line in tail_errors(dbg, MODCOUNT_RE, 1):
-            mods = MODCOUNT_RE.search(line).group(1)
-    print(f"Mods loaded: {mods or '?'}")
+    mods = None
+    for line in tail_errors(os.path.join(logs, "debug.log"), MODCOUNT_RE, 1):
+        mods = MODCOUNT_RE.search(line).group(1) + " mods"
+    print(f"Mods loaded: {mods or '?'} (jar-in-jar included, from logs/debug.log)")
     errs = [l for l in state["levels"] if "/ERROR]" in l or "/FATAL]" in l]
     warns = [l for l in state["levels"] if "/WARN]" in l]
     print(f"Console: {len(errs)} ERROR/FATAL, {len(warns)} WARN lines (full log: {console_path})")
