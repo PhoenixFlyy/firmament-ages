@@ -1,0 +1,64 @@
+# Firmament Ages - sink stage "disabled" (SevTech pattern). It is NEVER granted, so everything listed
+# here is permanently locked: unusable, not pickable, hidden in EMI/JEI. It backs up the static
+# unification in kubejs/server_scripts (recipe removal + c:hidden_from_recipe_viewers, Doc 10 v3 section 7).
+# Scope of this draft: everything that exists by the Iron Age. Never grant this stage, not even to admins:
+# `/stage bulk grant` and `/stage tag grant` would include it, so it carries no tags.
+
+[stage]
+id = "disabled"
+display_name = "Disabled"
+description = "Removed from Firmament Ages."
+icon = "minecraft:barrier"
+category = "Helpers"
+hidden = true
+
+[items]
+locked = [
+    # Create: TFC zinc and TFC brass are canonical; Create plates are replaced by TFC sheets.
+    # Ids checked against Create 6.0.10 lang/en_us.json. Zinc, copper and brass NUGGETS stay (Doc 10 v3 section 8.1).
+    "id:create:zinc_ore",
+    "id:create:deepslate_zinc_ore",
+    "id:create:raw_zinc",
+    "id:create:raw_zinc_block",
+    "id:create:zinc_ingot",
+    "id:create:zinc_block",
+    "id:create:brass_ingot",
+    "id:create:iron_sheet",
+    "id:create:copper_sheet",
+    "id:create:golden_sheet",
+    "id:create:brass_sheet",
+    "name:create:crushed_raw_",
+    # Occultism silver: TFC native silver is canonical; Iesnium stays.
+    # Ids checked against Occultism release/v1.21.1-1.224.4 item models.
+    "id:occultism:silver_ore",
+    "id:occultism:silver_ore_deepslate",
+    "id:occultism:raw_silver",
+    "id:occultism:raw_silver_block",
+    "id:occultism:silver_ingot",
+    "id:occultism:silver_block",
+    "id:occultism:silver_nugget",
+    "id:occultism:silver_dust",
+    # FTB Quests opens with the K key (Default Options), never with the book.
+    "id:ftbquests:book",
+]
+
+[advancements]
+# Hide the vanilla and TFC advancement trees; they spoil later items (Doc 03 section 5.5). id/mod/name only, no tags.
+# POC: the pack's own tree (kubejs/data/firmages/advancement/) is not written yet.
+locked = [
+    "mod:minecraft",
+    "mod:tfc",
+]
+
+[dimensions]
+# Stargate Journey worlds stay closed forever (Doc 08 section 6).
+# POC: ids are guesses from research-raw (sgjourney:abydos ...), check /execute in <tab> in the PoC.
+locked = [
+    "id:sgjourney:abydos",
+    "id:sgjourney:chulak",
+    "id:sgjourney:rima",
+    "id:sgjourney:unitas",
+    "id:sgjourney:cavum_tenebrae",
+    "id:sgjourney:lantea",
+    "id:sgjourney:athos",
+]

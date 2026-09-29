@@ -1,0 +1,181 @@
+slug,project_id,title,version_number,version_id,channel,date_published,side,filename,size_bytes,auto_dep,doc_version,kind
+ad-astra,3ufwT9JF,Ad Astra,1.16.26,9pnKHdCG,release,2026-09-13,both,adastra-1.21.1-1.16.26-neoforge.jar,7301791,,,mod
+advanced-tfc-tech-unofficial,wEKs9gH0,Advanced TFC Tech Unofficial,3.3,xzXArmox,release,2026-07-21,both,AdvancedTFCTech-NeoForge-1.21.1-3.3.jar,605525,,,mod
+advancedae,rxYaglEe,AdvancedAE,1.6.12-1.21.1,ablTMAjP,release,2026-08-02,both,AdvancedAE-1.6.12-1.21.1.jar,4791255,,,mod
+ae2,XxWD5pD3,Applied Energistics 2,19.2.18,KDnFUmMm,release,2026-09-27,both,appliedenergistics2-19.2.18.jar,8236552,,,mod
+almost-unified-ie,hCyAnqqq,AU: Immersive Engineering,1.21.1-1.0.1+neoforge,QNmpHq1W,beta,2025-09-29,server,almostunified_ie-neoforge-1.21.1-1.0.1.jar,8743,,,mod
+almostunified,sdaSaQEz,Almost Unified,1.21.1-1.4.2+neoforge,e8iYxxI3,release,2026-05-22,both,almostunified-neoforge-1.21.1-1.4.2.jar,295093,,,mod
+alternating-flux-neoforge,aT1p9B5V,Alternating Flux NeoForge,1.0.6,CSV83i5A,release,2026-08-03,both,alternatingflux-1.21.1-1.0.6.jar,69796,,,mod
+apotheosis,rqFWfVlz,Apotheosis,1.21.1-8.9.0,veL1ccTb,release,2026-09-27,both,Apotheosis-1.21.1-8.9.0.jar,7184314,,,mod
+apothic-attributes,DGaH8Rh0,Apothic Attributes,1.21.1-2.11.0,64fZbLnj,release,2026-09-29,both,ApothicAttributes-1.21.1-2.11.0.jar,319609,,,library
+apothic-enchanting,pL8MtgqY,Apothic-Enchanting,1.21.1-1.6.2,2vH7csNR,release,2026-09-03,both,ApothicEnchanting-1.21.1-1.6.2.jar,5415666,,,library
+apothic-spawners,DfxVkOAO,Apothic-Spawners,1.21.1-1.4.0,pWfxcfO2,release,2026-07-20,both,ApothicSpawners-1.21.1-1.4.0.jar,129784,,,library
+applied-energistics-2-wireless-terminals,pNabrMMw,Applied Energistics 2 Wireless Terminals,19.5.1,CxSEpEnO,release,2026-07-17,both,ae2wtlib-19.5.1.jar,252091,,,mod
+applied-mekanistics,IiATswDj,Applied Mekanistics,1.6.3,TpUCzFaW,release,2025-10-12,both,Applied-Mekanistics-1.6.3.jar,149709,,,mod
+arborfirmacraft-(afc),9q4wtMjp,ArborFirmaCraft (AFC),2.1.3-1.21,AnZ78Sun,release,2026-08-24,both,afc-2.1.3-1.21.1.jar,6481449,,,mod
+architectury-api,lhGA9TYQ,Architectury API,13.0.11+neoforge,1IiqEQGl,release,2026-07-23,both,architectury-13.0.11-neoforge.jar,584734,,,library
+ars-additions,GYK6Gk8R,Ars Additions,21.3.0,aQ0r5GD2,release,2026-02-18,both,ars_additions-1.21.1-21.3.0.jar,1458261,,,mod
+ars-creo,fZ324GMc,Ars Creo,5.4.0,LqOllHms,release,2026-05-24,both,ars_creo-1.21.1-5.4.0.jar,95973,,,mod
+ars-nouveau,TKB6INcv,Ars Nouveau,5.13.2,1VWyxABY,release,2026-09-27,both,ars_nouveau-1.21.1-5.13.2.jar,19837868,,,mod
+azimuth-api,RpH8tmT1,Azimuth API,1.4.9,j7UkVY7e,release,2026-09-18,both,azimuth-1.4.9.jar,143078,,,library
+balm,MBAkmtvl,Balm,21.0.66+neoforge-1.21.1,CquiaiDj,release,2026-09-25,both,balm-neoforge-1.21.1-21.0.66.jar,783793,,,library
+barrels-2012,hnvFIZaX,Barrels 2012,3.0.0,2p1WvYYQ,release,2025-11-23,both,Barrels_2012-NeoForge-1.21.1-3.0.0.jar,32281,,,mod
+bellsandwhistles,gJ5afkVv,Create: Bells & Whistles,v0.4.7-1.21.1,w0mifib8,release,2025-03-13,both,bellsandwhistles-0.4.7-1.21.1.jar,193619,,,mod
+beneath,6VieRZiz,Beneath,2.0.4,Ed3UcDqa,release,2026-08-22,both,Beneath-NeoForge-1.21.1-2.0.4.jar,1354485,,,mod
+better-advanced-tooltips,iHLDc0eo,Better Advanced Tooltips,2101.1.0-build.5,uPFbnD32,release,2026-08-04,both,better-advanced-tooltips-2101.1.0-build.5.jar,37653,,,library
+better-compatibility-checker,KJhXPbHQ,Better Compatibility Checker,21.1.8,NYkU1ldY,release,2026-01-01,both,better-compatability-checker-neoforge-21.1.8.jar,25085,,,mod
+blocks-bogies,j4ARnQwY,Create: Blocks & Bogies,1.0.8-1.21.1,nC19ZMKK,release,2026-08-24,both,create_bb-1.0.8-1.21.1.jar,2618795,,,mod
+bosses-of-mass-destruction-forge,hFUzfDsn,Bosses of Mass Destruction Forge,1.3.3,snhDYBxP,release,2026-07-17,both,BOMD-NeoForge-1.21-1.3.3.jar,1952017,,,mod
+brandons-core,iFDWVIFV,Brandons Core,3.2.1.309,56nwe5IX,release,2025-10-20,both,BrandonsCore-1.21.1-3.2.1.309.jar,1385131,,,library
+cerbons-api,GkIc6rRo,CERBON's API,1.3.0,5wbxkBQ1,release,2025-05-01,both,CerbonsAPI-NeoForge-1.21-1.3.0.jar,250545,,,library
+chunky,fALzjamp,Chunky,1.4.23,LuFhm4eU,release,2025-04-04,server,Chunky-NeoForge-1.4.23.jar,340572,,,mod
+cloth-config,9s6osm5g,Cloth Config API,15.0.140+neoforge,izKINKFg,release,2024-09-16,both,cloth-config-15.0.140-neoforge.jar,1163890,,,library
+clumps,Wnxd13zP,Clumps,19.0.0.1,jo7lDoK4,release,2024-08-13,both,Clumps-neoforge-1.21.1-19.0.0.1.jar,18382,,,mod
+codechicken-lib,2gq0ALnz,CodeChicken Lib,4.6.1.529,vLDGhjNJ,release,2026-07-23,both,CodeChickenLib-1.21.1-4.6.1.529.jar,1538382,,,library
+common-storage-lib,RgLrNK7l,Common Storage Lib,0.0.10,SCkdlli6,alpha,2026-07-12,both,common-storage-lib-neoforge-1.21.1-0.0.10.jar,309860,,,library
+controlling,xv94TkTM,Controlling,19.0.5,FaNppCJJ,release,2025-03-30,client,Controlling-neoforge-1.21.1-19.0.5.jar,77555,,,mod
+copycats,UT2M39wf,Create: Copycats+,3.0.9+mc.1.21.1-neoforge,bPYeUWZx,release,2026-09-06,both,copycats-3.0.9+mc.1.21.1-neoforge.jar,1799381,,,mod
+corgilib,ziOp6EO8,CorgiLib,1.21.1-5.0.0.9-NeoForge,nqrTa84r,release,2026-03-17,both,Corgilib-NeoForge-1.21.1-5.0.0.9.jar,309763,,,library
+crash-assistant,ix1qq8Ux,Crash Assistant,1.11.12,18SR4EJw,release,2026-08-13,client,CrashAssistant-neoforge-1.20.6-1.21.4-1.11.12.jar,3481341,,,mod
+create,LNytGWDc,Create,6.0.10+mc1.21.1,UjX6dr61,release,2026-04-21,both,create-1.21.1-6.0.10.jar,19123767,,,mod
+create-aeronautics,oWaK0Q19,Create Aeronautics,1.3.2+mc1.21.1,44pLdPGg,release,2026-08-29,both,create-aeronautics-bundled-1.21.1-1.3.2.jar,33123131,,,mod
+create-applied-kinetics,mYGTCuZY,Create: Applied Kinetics,1.5.4,Sk7TlTkT,release,2026-03-21,both,createappliedkinetics-1.5.4-1.21.1.jar,67161,,,mod
+create-big-cannons,GWp4jCJj,Create Big Cannons,5.11.7,bOiDu0LS,release,2026-06-22,both,createbigcannons-5.11.7+mc.1.21.1.jar,3771506,,,mod
+create-bits-n-bobs,T8bvmqVZ,Create: Bits 'n' Bobs,2.3.5,g9Lmjjc5,release,2026-09-15,both,bits_n_bobs-2.3.5.jar,2433531,,,mod
+create-connected,Vg5TIO6d,Create: Connected,1.3.3-mc1.21.1,Xe7EqzfQ,release,2026-08-31,both,create_connected-1.3.3-mc1.21.1.jar,6786783,,,mod
+create-contraption-terminals,gOPAFzp0,Create Contraption Terminals,1.21.1-1.4.0,gBvq8zOa,release,2026-08-12,both,createcontraptionterminals-1.21-1.4.0.jar,91226,,,mod
+create-deco,sMvUb4Rb,Create Deco,2.1.3,qrcMVoBD,release,2026-04-18,both,createdeco-2.1.3.jar,3328498,,,mod
+create-design-n-decor,x49wilh8,Create: Design n' Decor,2.2b,uQsIRky8,release,2026-05-28,both,Design-n-Decor-1.21.1-2.2b.jar,6329899,,,mod
+create-diesel-generators,ZM3tt6p1,Create: Diesel Generators,1.21.1-1.3.15,UoPH8lO1,release,2026-07-30,both,createdieselgenerators-1.21.1-1.3.15.jar,3154746,,,mod
+create-dragons-plus,dzb1a5WV,Create: Dragons Plus,1.11.9,b0u9vk8C,release,2026-09-17,both,CreateDragonsPlus-1.11.9.jar,1085674,,,library
+create-encased,hSSqdyU1,Create Encased,1.21.1-1.9.0-ht3,t6MATlU9,release,2026-07-31,both,Create Encased-1.21.1-1.9.0-ht3.jar,3110804,,,mod
+create-enchantable-machinery,eqrvp4NK,Create: Enchantable Machinery,3.6.0+mc1.21.1-neoforge,Cw5k6c0a,release,2026-03-16,both,createenchantablemachinery-3.6.0+mc1.21.1-neoforge.jar,575739,,,mod
+create-enchantment-industry,JWGBpFUP,Create: Enchantment Industry,2.5.4,WJ2VPWAG,beta,2026-09-17,both,create-enchantment-industry-2.5.4.jar,1607409,,2.4.2,mod
+create-framed,15fFZ3f4,Create: Framed,1.8.2+1.21.1,yioQUGiO,release,2026-07-08,both,createframed-1.21.1-1.8.2.jar,2871366,,,mod
+create-jetpack,UbFnAd4l,Create Jetpack,5.2.1,sCwiqLqq,release,2026-07-31,both,create_jetpack-forge-5.2.1.jar,495109,,,mod
+create-liquid-fuel,sH9tXU9f,Create: Liquid Fuel,3.0.0-1.21.1,rLn2bDVE,release,2026-09-05,server,createliquidfuel-3.0.0-1.21.1.jar,21815,,,mod
+create-mechanical-extruder,hGAlcCDJ,Create Mechanical Extruder,1.21.1-2.2.2-6.0.10,fFDOEXAA,release,2026-07-12,both,create_mechanical_extruder-1.21.1-2.2.2-6.0.10.jar,523501,,,mod
+create-mechanical-spawner,T1hmeGi9,Create Mechanical Spawner,1.21.1-1.3.2-6.0.10,k7Fepzl4,beta,2026-07-12,both,create_mechanical_spawner-1.21.1-1.3.2-6.0.10.jar,1215649,,,mod
+create-mobile-packages,1vXRfEHZ,Create: Mobile Packages,1.21.1-0.7.7,DFi1qAly,release,2026-07-24,both,create_mobile_packages-1.21.1-0.7.7.jar,605614,,,mod
+create-pattern-schematics,cpqKG67r,Create: Pattern Schematics,2.0.10,VSJhIkG2,release,2025-10-27,both,create_pattern_schematics-2.0.10.jar,221764,,,mod
+create-railways-navigator,Dq3STxps,Create Railways Navigator,1.21.1-beta-0.10.0-C6,rlsRwxq3,beta,2026-09-25,both,createrailwaysnavigator-neoforge-1.21.1-beta-0.10.0-C6.jar,4680276,,,mod
+create-steam-n-rails-1.21.1,L3Jv0QZI,Steam 'n' Rails Neoforge,0.3.0-beta.2+neoforge-mc1.21.1,czVeSmZo,beta,2026-07-27,both,railways-0.3.0-beta.2+neoforge-mc1.21.1.jar,18728584,,0.2.1+neoforge-mc1.21.1,mod
+create-stock-bridge,V7mbOBO4,Create Stock Bridge,1.21.1-0.2.0,fLyIEPoj,release,2026-05-05,both,createstockbridge-1.21.1-0.2.0.jar,180413,,,mod
+create-trainutilities,kVIxLqso,Create Train Utilities (Create Train Doors),3.1.0,MeF3ulWd,release,2026-08-16,both,trainutilities-neoforge-3.1.0.jar,5053928,,,mod
+create_factory_logistics,QMGO17gm,Create Factory Logistics,1.6.0,4Drrlfu3,beta,2026-07-17,both,create_factory_logistics-1.21.1-1.6.0-all.jar,1301344,,,mod
+createaddition,kU1G12Nn,Create Crafts & Additions,neoforge-1.21.1-1.7.1,vD7sHwsm,beta,2026-09-15,both,createaddition-1.7.1.jar,1726257,,neoforge-1.21.1-1.6.0,mod
+cucumber,Rw1NrDzF,Cucumber Library,8.0.16,8421rqFF,release,2026-05-04,both,Cucumber-1.21.1-8.0.16.jar,275588,,,library
+curios,vvuO3ImH,Curios API,9.5.1+1.21.1,yohfFbgD,release,2025-05-14,both,curios-neoforge-9.5.1+1.21.1.jar,410690,,,library
+data-anchor,z2XEADmE,Data Anchor,2.0.0.17-neoforge,Q3J2iejk,release,2026-09-19,both,Data_Anchor-neoforge-1.21.1-2.0.0.17.jar,119167,,,library
+default-options,WEg59z5b,Default Options,21.1.8+neoforge-1.21.1,1zt17WsC,release,2026-07-24,client,defaultoptions-neoforge-1.21.1-21.1.8.jar,105507,,,mod
+draconic-evolution,nBqivi8H,Draconic Evolution,3.1.4.633,84xwXpNh,beta,2026-09-03,both,Draconic-Evolution-1.21.1-3.1.4.633.jar,6046229,,,mod
+draconic-evolution-render-patcher,BNhriTkm,Draconic Evolution Render Patcher,2.0.0,qVGpp8dZ,release,2026-06-19,client,derenderpatcher-2.0.0.jar,31329,,,mod
+dragonlib,sbIsGaOV,DragonLib,1.21.1-beta-3.0.28,x376YU9w,beta,2026-05-31,both,dragonlib-neoforge-1.21.1-beta-3.0.28.jar,2107270,,,library
+emi,fRiHVvU7,EMI,1.1.24+1.21.1+neoforge,5sIPA1To,release,2026-05-13,both,emi-1.1.24+1.21.1+neoforge.jar,1111538,,,mod
+emi-loot,qbbO7Jns,EMI Loot,0.7.9+1.21+neoforge,QXkODMCT,release,2026-01-04,both,emi_loot-0.7.9+1.21+neoforge.jar,465870,,,mod
+engineered-schematics,t4meWc1o,Engineered Schematics,2.0,qLB02VDS,release,2026-06-23,both,engineered_schematics-2.0.jar,267923,,,mod
+enhanced-celestials,2rL16t1O,Enhanced Celestials,6.0.2.6-neoforge,bPhEKzZO,release,2026-08-07,both,Enhanced-Celestials-NeoForge-1.21.1-6.0.2.6.jar,1538905,,,mod
+entityculling,NNAgCjsB,Entity Culling,1.11.2,8w8FfUPs,release,2026-09-21,client,entityculling-neoforge-1.11.2-mc1.21.1.jar,1510018,,,mod
+evolved-mekanism,BLOykUqo,Evolved Mekanism,1.2.1-fix3,3vuQZTlx,release,2026-02-09,both,Evolved Mekanism-1.21.1-1.2.1-fix3.jar,2676340,,,mod
+extended-ae,JiOqfoFM,Extended AE,1.21-2.2.35-neoforge,bC302UUP,release,2026-08-08,both,ExtendedAE-1.21-2.2.35-neoforge.jar,5578031,,,mod
+fastsuite,roccmqou,FastSuite,1.21.1-6.0.7,OQZRQcDM,release,2026-06-19,both,FastSuite-1.21.1-6.0.7.jar,28192,,,mod
+fenns_totemic,GLffYJtD,Totemic,1.21.1-0.12.19,tS54LAQx,beta,2026-08-17,both,Totemic-neoforge-1.21.1-0.12.19.jar,1209417,,1.21.1-0.12.18,mod
+ferrite-core,uXXizFIs,FerriteCore,7.0.3-neoforge,x7kQWVju,release,2026-01-25,both,ferritecore-7.0.3-neoforge.jar,121559,,,mod
+firmalife,5bKeBHw2,Firmalife,3.0.15,uo4wPiqB,release,2026-09-27,both,Firmalife-NeoForge-1.21.1-3.0.15.jar,4529084,,,mod
+framedblocks,wbgfS34j,FramedBlocks,10.6.1,FBXGqSP5,release,2026-06-30,both,FramedBlocks-10.6.1.jar,4306703,,,mod
+fzzy-config,hYykXjDp,Fzzy Config,0.7.7+1.21+neoforge,uG7oHgw6,release,2026-09-15,both,fzzy_config-0.7.7+1.21+neoforge.jar,2392693,,,library
+gateways-to-eternity,8OIeAukW,Gateways to Eternity,1.21.1-5.1.0,FNtkt80G,release,2026-06-19,both,GatewaysToEternity-1.21.1-5.1.0.jar,649614,,,mod
+geckolib,8BmcQJ2H,Geckolib,4.9.3,Grwn5rUB,release,2026-09-16,both,geckolib-neoforge-1.21.1-4.9.3.jar,634531,,,library
+glodium,UhW5uCKw,Glodium,1.21-2.2-neoforge,pfbmdJ3b,release,2025-02-04,both,Glodium-1.21-2.2-neoforge.jar,61377,,,library
+gravestone-mod,RYtXKJPr,GraveStone Mod,neoforge-1.21.1-1.0.40,rMGJpjaM,release,2026-08-17,both,gravestone-neoforge-1.21.1-1.0.40.jar,322082,,,mod
+guideme,Ck4E7v7R,GuideME,21.1.19,hFpGwC6q,release,2026-09-16,both,guideme-21.1.19.jar,9311992,,,library
+hostile-neural-networks,6bLUlbZn,Hostile Neural Networks,1.21.1-6.5.1,ikdLP02G,release,2026-07-28,both,HostileNeuralNetworks-1.21.1-6.5.1.jar,490546,,,mod
+hypertube,ATDdrG1y,Create: Hypertubes,0.6.0,qYjOyvgW,release,2026-07-30,both,create_hypertube-0.6.0-NEOFORGE.jar,546142,,,mod
+iglee-library,6n6toXVb,Iglee's Library,1.2.7,5mObcFWo,release,2026-01-03,both,igleelib-1.21.1-1.2.7.jar,235777,,,library
+immediatelyfast,5ZwdcRci,ImmediatelyFast,1.6.14+1.21.1-neoforge,OUpXxw4n,release,2026-09-13,client,ImmediatelyFast-NeoForge-1.6.14+1.21.1.jar,365195,,,mod
+immersiveengineering,tIm2nV03,Immersive Engineering,12.4.2-194,uNRARSH2,release,2025-07-05,both,ImmersiveEngineering-1.21.1-12.4.2-194.jar,14232121,,,mod
+immersivepetroleum,MOw5TN6u,Immersive Petroleum,4.5.0-39,1nu6ZI52,release,2026-07-12,both,ImmersivePetroleum-1.21.1-4.5.0-39.jar,2005502,,,mod
+immersiveposts,UXrbgsTE,Immersive Posts,4.3.1-16,Au2u7RXp,release,2026-02-01,both,ImmersivePosts-1.21.1-4.3.1-16.jar,551535,,,mod
+jade,nvQzSEkH,Jade 🔍,15.10.6+neoforge,eYz2YBGT,release,2026-08-06,both,Jade-1.21.1-NeoForge-15.10.6.jar,726853,,,mod
+jei,u6dRKJwZ,Just Enough Items (JEI),19.57.0.450,Tn0dgwL0,beta,2026-09-29,both,jei-1.21.1-neoforge-19.57.0.450.jar,2253016,,19.51.0.418,mod
+jei-multiblocks,ffLYPaWN,Just Enough Immersive Multiblocks,1.21.1-1.0.6,kLhFXG0T,release,2025-10-20,client,jeimultiblocks-1.21.1-1.0.6.jar,16964,,,mod
+just-enough-mekanism-multiblocks,kRaE85yQ,Just Enough Mekanism Multiblocks,7.21,4OlLf9A1,release,2026-09-22,client,JustEnoughMekanismMultiblocks-1.21.1-7.21.jar,213205,,,mod
+kotlin-for-forge,ordsPcFz,Kotlin for Forge,5.12.0,uhJhCT7X,release,2026-06-28,both,kotlinforforge-5.12.0-all.jar,7279264,,,library
+kubejs,umyGl7zF,KubeJS,2101.7.2-build.377,THIGFPwf,release,2026-09-09,both,kubejs-neoforge-2101.7.2-build.377.jar,2294111,,,mod
+kubejs-additions,BZemjxZb,KubeJS Additions,kubejsadditions-neoforge-6.0.0,EK0wJfqY,release,2026-06-21,both,kubejsadditions-neoforge-1.21.1-6.0.0.jar,183984,,,mod
+kubejs-create,T38eAZQC,KubeJS Create,2101.3.1-build.18,1qmcLagN,beta,2025-11-12,both,kubejs-create-neoforge-2101.3.1-build.18.jar,38629,,,mod
+kubejs-mekanism,sY2Fy24K,KubeJS Mekanism,2101.1.7-build.18,sbx1D4Jz,beta,2025-11-12,both,kubejs-mekanism-neoforge-2101.1.7-build.18.jar,58054,,,mod
+kubejs-tfc,mhtClB2S,KubeJS TFC,2.1.0,rsBv9bL5,release,2026-09-09,both,kubejs_tfc-1.21.1-2.1.0.jar,782222,,,mod
+l_enders-cataclysm,46KJle7n,L_Ender's Cataclysm,3.33,PsPYpoCC,release,2026-09-20,both,L_Ender's Cataclysm 1.21.1-3.33.jar,73375667,,,mod
+lionfish-api,FoVacERa,Lionfish-API,3.1,fTRMVgyZ,release,2026-06-30,both,lionfishapi-3.1.jar,91596,,,library
+lithium,gvQqBUqZ,Lithium,mc1.21.1-0.15.4-neoforge,DDUrRVCA,release,2026-06-27,both,lithium-neoforge-0.15.4+mc1.21.1.jar,774220,,,mod
+lootjs,fJFETWDN,LootJS: KubeJS Addon,1.21.1-3.7.0+neoforge,5AZDyUSn,release,2026-04-29,server,lootjs-neoforge-1.21.1-3.7.0.jar,247689,,,mod
+mechanicals-lib,ProvjTA7,Mechanicals Lib,1.21.1-1.1.6,GBSlpwLT,release,2026-07-12,both,mechanicals-1.21.1-1.1.6.jar,2022181,,,library
+mega,jjuIRIVr,MEGA Cells,4.11.0,RPG4EriK,release,2026-04-19,both,megacells-4.11.0.jar,1137276,,,mod
+mekanism,Ce6I4WUE,Mekanism,10.7.19.85,5KzzycBT,release,2026-04-10,both,Mekanism-1.21.1-10.7.19.85.jar,11976009,,,mod
+mekanism-additions,a6F3uASn,Mekanism Additions,10.7.19.85,6mkdykZa,release,2026-04-10,both,MekanismAdditions-1.21.1-10.7.19.85.jar,1162551,,,mod
+mekanism-generators,OFVYKsAk,Mekanism Generators,10.7.19.85,a6gl7srE,release,2026-04-10,both,MekanismGenerators-1.21.1-10.7.19.85.jar,1114598,,,mod
+mekanism-lasers,hvFdcxrV,Mekanism Lasers,1.1.10.3-c,oCD9S63b,release,2026-07-06,both,mekanism_lasers-1.1.10.3-c.jar,196235,,,mod
+mekanism-neutron-activator,Y9OwWpF6,Mekanism: Neutron Activator,1.21.1-1.0.0,CgTxg5DK,release,2026-05-15,both,mekanismneutronactivator-1.21.1-1.0.0.jar,72787,,,mod
+mekanism-ponders,yriKr10n,Mekanism: Ponders,1.0.3-1.21.1,5RMWQ3C0,release,2026-04-28,both,mekanism_ponders-1.0.3-1.21.1.jar,1693587,,,mod
+mekanism-tools,tqQpq1lt,Mekanism Tools,10.7.19.85,v5zlSE9s,release,2026-04-10,both,MekanismTools-1.21.1-10.7.19.85.jar,526620,,,mod
+mekanismmoremachine,qDJXZJTz,Mekanism:More Machine,1.21.1-1.4.1,RYVVOm3d,release,2026-08-24,both,mekmm-1.21.1-1.4.1.jar,3659440,,,mod
+mekatfc,MQkUoDzI,MekaTFC,0.1.0,AxhXDBmz,release,2026-08-21,both,mekatfc-0.1.0.jar,2484187,,,mod
+mezzconfig,7tEfOcA7,MezzConfig,0.6.5,90lqHwWP,beta,2026-09-27,both,mezz_config-1.21.1-neoforge-0.6.5.jar,346663,yes (via jei),n/a,library
+modernfix,nmDcB62a,ModernFix,5.27.24+mc1.21.1,5HLHxQ2F,release,2026-08-31,both,modernfix-neoforge-5.27.24+mc1.21.1.jar,604333,,,mod
+modonomicon,692GClaE,Modonomicon,1.21.1-1.120.7,fbS7CiY6,release,2026-09-25,both,modonomicon-1.21.1-neoforge-1.120.7.jar,2407448,,,library
+more-immersive-wires,ekzqyEZL,More Immersive Wires,1.21.1-1.1.9,87TfvCVW,release,2026-02-21,both,more-immersive-wires-1.21.1-1.1.9.jar,220918,,,mod
+more-mekanism-processing,fVa04tKz,More Mekanism Processing,6.4,VvkdSVU7,release,2025-03-14,both,MoreMekanismProcessing-1.21.1-6.4.jar,619913,,,mod
+mouse-tweaks,aC3cM3Vq,Mouse Tweaks,1.21-2.26.1-neoforge,9I21YYxf,release,2024-08-17,client,MouseTweaks-neoforge-mc1.21-2.26.1.jar,73938,,,mod
+mowzies-mobs,BFbX9xcm,Mowzie's Mobs,1.8.2,xgAXTl17,release,2026-03-15,both,mowziesmobs-1.21.1-1.8.2.jar,36042925,,,mod
+mystical-agradditions,pl0jGXIx,Mystical Agradditions,8.0.14,31EVEM35,release,2026-07-26,both,MysticalAgradditions-1.21.1-8.0.14.jar,317874,,,mod
+mystical-agriculture,C95ReXie,Mystical Agriculture,8.0.28,PLakgT6X,release,2026-09-03,both,MysticalAgriculture-1.21.1-8.0.28.jar,2324648,,,mod
+mystical-customization,lNK9A4rh,Mystical Customization,6.0.2,ACBylvtB,release,2026-02-23,both,MysticalCustomization-1.21.1-6.0.2.jar,49374,,,mod
+occult-engineering,FHMHF9Qr,Create: Occult Engineering,1.21.1-0.13.1,Xu7rA3D4,beta,2026-08-03,both,occultengineering-1.21.1-0.13.1.jar,646041,,,mod
+occultism,sbJh4AZw,Occultism,1.21.1-neoforge-1.224.4,g2DSjK89,release,2026-08-27,both,occultism-1.21.1-neoforge-1.224.4.jar,6951660,,,mod
+occultism-kubejs,u5J68aYW,Occultism KubeJS,1.21.1-neoforge-1.11.0,785rsUjd,release,2026-01-17,both,occultism_kubejs-1.21.1-neoforge-1.11.0.jar,434372,,,mod
+packet-fixer,c7m1mi73,Packet Fixer,3.3.1,2C41Q8WX,release,2025-11-14,both,packetfixer-3.3.1-1.20.5-1.21.X-merged.jar,46623,,,mod
+patchouli,nU0bVIaL,Patchouli,1.21.1-93-neoforge,BIogJv2D,release,2026-03-08,both,Patchouli-1.21.1-93-NEOFORGE.jar,646777,,,library
+ping-wheel,QQXAdCzh,Ping Wheel,1.12.2,Zrh2Fmn9,beta,2026-04-26,both,Ping-Wheel-1.12.2-neoforge-1.21.1.jar,153528,,,mod
+placebo,tCkE8p2N,Placebo,1.21.1-9.9.2,1Ypo4tf4,release,2026-07-19,both,Placebo-1.21.1-9.9.2.jar,324058,,,library
+polymorph,tagwiZkJ,Polymorph,1.2.0+1.21.1,9yWvrF5o,beta,2026-09-10,both,polymorph-neoforge-1.2.0+1.21.1.jar,172671,,1.1.0+1.21.1,mod
+precision-prospecting,QV5ehY9M,Precision Prospecting,2.1,6byVqPH3,release,2026-08-17,both,precisionprospecting-1.21.1-2.1.jar,381915,,,mod
+progressivestages,rY4mdP4Q,ProgressiveStages,3.0.5,pZlloUS8,release,2026-09-14,both,progressivestages-3.0.5.jar,2454795,,,mod
+resourceful-config,M1953qlQ,Resourceful Config,3.0.11,lSbyRD6v,release,2025-04-26,both,resourcefulconfig-neoforge-1.21-3.0.11.jar,341009,,,library
+resourceful-lib,G1hIVOrD,Resourceful Lib,3.0.12,x99nCLTm,release,2024-12-08,both,resourcefullib-neoforge-1.21-3.0.12.jar,484332,,,library
+rhino,sk9knFPE,Rhino,2101.2.8-build.91+Rhino-1.21,SqkDvOLG,beta,2026-07-19,both,rhino-2101.2.8-build.91.jar,980936,,2101.2.7-build.85+Rhino-1.21,library
+roads-and-roofs-tfc,ca9X1Phr,Roads and Roofs TFC,1.0.4-1.21.1,xbtrNvLp,release,2026-06-28,both,rnr-1.0.4-1.21.1.jar,3409313,,,mod
+rpl,B3pb093D,Ritchie's Projectile Library,2.1.2,hZ6B2Z0x,release,2026-02-07,both,ritchiesprojectilelib-2.1.2+mc.1.21.1-neoforge.jar,76369,,,library
+sable,T9PomCSv,Sable,2.0.5+mc1.21.1,U678xqle,release,2026-08-18,both,sable-neoforge-1.21.1-2.0.5.jar,12986136,,,library
+searchables,fuuu3xnx,Searchables,1.0.2,iEE85X0w,release,2024-10-21,client,Searchables-neoforge-1.21.1-1.0.2.jar,77326,,,library
+sgjourney,qlc8dxM6,Stargate Journey,0.6.49,mZTmQ1wW,beta,2026-09-29,both,Stargate.Journey-1.21.1-0.6.49.jar,10990655,,,mod
+simple-backups,fzSKSXVK,Simple Backups,1.21-4.0.30,tHyCDNNH,beta,2026-04-22,server,SimpleBackups-1.21-4.0.30.jar,70269,,1.21-4.0.21,mod
+simple-voice-chat,9eGKb6K1,Simple Voice Chat,neoforge-1.21.1-2.6.24,qqNx1Yjm,beta,2026-09-20,both,voicechat-neoforge-1.21.1-2.6.24.jar,4934688,,neoforge-1.21.1-2.6.22,mod
+smartbrainlib,PuyPazRT,SmartBrainLib,1.16.11,O5EpeqI3,release,2025-10-01,both,SmartBrainLib-neoforge-1.21.1-1.16.11.jar,391053,,,library
+sodium,AANobbMI,Sodium,mc1.21.1-0.8.13-neoforge,uMOpc5uV,release,2026-08-28,client,sodium-neoforge-0.8.13+mc1.21.1.jar,1292934,,,mod
+sophisticated-backpacks,TyCTlI4b,Sophisticated Backpacks,1.21.1-3.26.6.2174,pJxNzk4X,release,2026-09-29,both,sophisticatedbackpacks-1.21.1-3.26.6.2174.jar,1239554,,,mod
+sophisticated-backpacks-create-integration,s85zLEDe,Sophisticated Backpacks Create Integration,1.21.1-0.2.1.171,xQr7vEEu,release,2026-09-27,both,sophisticatedbackpackscreateintegration-1.21.1-0.2.1.171.jar,94445,,,mod
+sophisticated-core,nmoqTijg,Sophisticated Core,1.21.1-1.5.2.2343,blXGSmAb,release,2026-09-27,both,sophisticatedcore-1.21.1-1.5.2.2343.jar,1809363,,,library
+spark,l6YH9Als,spark,1.10.124-neoforge-1.21.1,v5qtqRQi,release,2025-02-23,both,spark-1.10.124-neoforge.jar,3642581,,,mod
+strut-your-stuff,sHO3MhQx,Strut Your Stuff (Struts),1.3.1,BOTN7zzN,release,2026-09-05,both,struts-1.3.1.jar,216678,,,library
+summoningrituals,19smZ71v,Summoning Rituals,1.21.1-3.14.2+neoforge,UDFT3cby,release,2026-07-30,both,summoningrituals-neoforge-1.21.1-3.14.2.jar,354860,,,mod
+supermartijn642s-config-lib,LN9BxssP,SuperMartijn642's Config Lib,1.1.8-neoforge-mc1.21,qKL9jM75,release,2024-07-19,both,supermartijn642configlib-1.1.8-neoforge-mc1.21.jar,207514,,,library
+supermartijn642s-core-lib,rOUBggPv,SuperMartijn642's Core Lib,1.1.24a-neoforge-mc1.21,y8iP3aUs,release,2026-09-21,both,supermartijn642corelib-1.1.24a-neoforge-mc1.21.jar,562383,,,library
+terrafirmacraft,JaCEZUhg,TerraFirmaCraft,4.2.11,Cvw1rnGv,release,2026-09-27,both,TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar,65358988,,,mod
+terrafirmacraft-anvilhelper,WWgiFJZZ,TerraFirmaCraft AnvilHelper,1.0.1,o8IZuees,release,2025-09-19,client,TerraFirmaCraftAnvilHelper-1.0.1.jar,31717,,,mod
+tfc-astikor-carts,Q7dNt3PU,TFC Astikor Carts,1.2.4,B9JXgLXG,release,2026-05-07,both,TFCAstikorCarts-1.21.x-1.2.4.jar,717655,,,mod
+tfc-better-blast-furnace,tr715LZ4,TFC Better Blast Furnace,2.0.1,dJGvS6mC,release,2026-08-30,both,TFCBetterBlastFurnace-1.21.1-2.0.1.jar,21650,,,mod
+tfc-ie-crossover,IsYwQTKM,TFC + IE Crossover,2.1.3,q5cvg8JU,release,2026-04-21,both,TFC-IE-Crossover-NeoForge-1.21.1-2.1.3.jar,1139674,,,mod
+tfc-ore-tooltips,7lbkodjt,TFC Ore Tooltips,1.2.0,irJBFWlt,release,2026-08-05,client,TFC-Ore-Tooltips-1.2.0.jar,32745,,,mod
+tfc-regrowing-forests,Zh7v8m6u,TFC Regrowing Forests,2.2,JbsGsxZD,release,2026-02-10,both,TFCRegrowingForests-1.21.1-2.2.jar,1657683,,,mod
+tfc-ruins,2JRpLCvK,TFC Ruins,1.0.0,6PCcn8on,release,2025-11-15,server,tfc_ruins-1.0.0-neoforge-1.21.1.jar,64879,,,mod
+tfc-support-indicator,RL8eBaUL,TFC Support Indicator,1.0.7+mc1.21.1,MqLGbPEr,release,2026-03-02,client,tfc_support_indicator-1.0.7+mc1.21.1.jar,7699,,,mod
+tfc-vessel-tooltip,Xve2AFV9,TFC Vessel Tooltip,2.0,O3aknHl9,release,2025-09-28,client,TFCVesselTooltip-NeoForge-1.21.1-2.0.jar,5983,,,mod
+tfc-weld-button,K9CZ9PGx,TFC Weld Button,2.0,38S6qrZk,release,2025-09-29,both,TFCWeldButton-NeoForge-1.21.1-2.0.jar,11855,,,mod
+tfcgenviewer,yp9Ot3YC,TFCGenViewer,2.1.2,dxUTWTEa,release,2026-08-19,both,tfcgenviewer-1.21.1-2.1.2.jar,476499,,,mod
+tfcreate-compat,iaP7zFj9,TFCreate Compat,1.0.1,Kzhwzley,release,2026-08-01,both,tfcreate-1.0.1.jar,293593,,,mod
+theurgy,uOVMgoil,Theurgy,1.21.1-neoforge-1.76.1,R5jRgLze,release,2026-09-13,both,theurgy-1.21.1-neoforge-1.76.1.jar,5324579,,,mod
+theurgy-kubejs,oXj2r26F,Theurgy KubeJS,1.21.1-neoforge-1.6.0,gOZLSUzC,release,2026-09-08,both,theurgy_kubejs-1.21.1-neoforge-1.6.0.jar,25206,,,mod
+toms-storage,XZNI4Cpy,Tom's Simple Storage Mod,1.21-2.4.2,WQAMoIMC,release,2026-08-30,both,toms_storage-1.21-2.4.2.jar,856803,,,mod
+trash-cans,4QrnfueM,Trash Cans,1.1.1-neoforge-mc1.21,zjFylsMq,release,2026-09-25,both,trashcans-1.1.1-neoforge-mc1.21.jar,169263,,,mod
+woodencog,Dh6v8Snj,WoodenCog,1.2.19,iX6qLxlr,release,2026-09-02,both,woodencog-1.2.19-1.21.1.jar,1137064,,,mod

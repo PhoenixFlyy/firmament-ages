@@ -1,0 +1,35 @@
+# Firmament Ages - ProgressiveStages 3.0.5 main config (only the keys the pack changes or pins).
+# Key names verified against StageConfig.java at tag v3.0.5 (github.com/MCEnvision/ProgressiveStages).
+# NeoForge fills every key that is missing here with its default and rewrites the file on first start.
+# Stage definitions live in config/progressivestages/stages/*.toml.
+
+[general]
+	# Dawn is the caveman prologue; mob_0 is the first rung of the mob ladder.
+	starting_stages = ["dawn", "mob_0"]
+	# One FTB Teams party for the whole server = one shared progression.
+	team_mode = "ftb_teams"
+	# Granting a stage with missing dependencies fails (admin /stage grant asks twice).
+	linear_progression = false
+
+[team]
+	# Keep stages on the player record if someone leaves the party by accident.
+	persist_stages_on_leave = true
+
+[enforcement]
+	# Locked items render as "Unknown Item".
+	mask_locked_item_names = true
+
+[jei]
+	# JEI runs only as EMI's plugin backend, but it must hide locked content too (PoC item "EMI + JEI").
+	enabled = true
+
+[emi]
+	enabled = true
+	# Locked items and recipes disappear from EMI completely until the Age is reached.
+	show_locked_recipes = false
+
+[integration.ftbteams]
+	enabled = true
+
+[integration.ftbquests]
+	enabled = true

@@ -1,0 +1,13 @@
+name = "TFCreate Compat"
+filename = "tfcreate-1.0.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/iaP7zFj9/versions/Kzhwzley/tfcreate-1.0.1.jar"
+hash-format = "sha512"
+hash = "9cd442193e731d3f0b4d9aa8bf255df16a0f83e445cda47d30b07bc63161a0a8adf5f965b5788c086b2ad9869f337052d2fcd7003c589e2abe4193b25f988512"
+
+[update]
+[update.modrinth]
+mod-id = "iaP7zFj9"
+version = "Kzhwzley"

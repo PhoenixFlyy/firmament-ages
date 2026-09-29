@@ -1,0 +1,24 @@
+# Firmament Ages - Immersive Engineering 12.4.2-194 server config defaults.
+# Keys verified in IEServerConfig.java at tag 12.4.2-194 ([ores] -> one table per VeinType, "vein_size",
+# "Set to 0 to disable generation"). TFC + IE Crossover supplies bauxite, galena and uraninite as TFC veins.
+
+[ores]
+	retrogen_excavator_veins = false
+
+	[ores.bauxite]
+		vein_size = 0
+
+	[ores.lead]
+		vein_size = 0
+
+	[ores.silver]
+		vein_size = 0
+
+	[ores.nickel]
+		vein_size = 0
+
+	[ores.deep_nickel]
+		vein_size = 0
+
+	[ores.uranium]
+		vein_size = 0

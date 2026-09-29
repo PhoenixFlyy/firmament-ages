@@ -1,0 +1,27 @@
+# Firmament Ages - mob ladder stage "mob_1" (Bronze Age spawns).
+# Granted together with age_1 by kubejs/server_scripts/stages/grants.js.
+# DEVIATION (see dev/poc-checklist.md, open point): Doc 08 wants mob_N non-cumulative (mob_(N-1) revoked).
+# ProgressiveStages locks an entry while its stage is MISSING, so revoking mob_1 at the Iron Age would
+# re-lock skeletons and re-enable the creeper replacement. grants.js therefore keeps the ladder cumulative
+# (FA.MOB_LADDER_CUMULATIVE = true); flip it only if a later rung needs to remove mobs again.
+
+[stage]
+id = "mob_1"
+display_name = "Mob Tier 1"
+description = "Spawns of the Bronze Age."
+icon = "minecraft:zombie_head"
+category = "Mob Ladder"
+tags = ["mob"]
+hidden = true
+
+# Bronze: + skeletons, creepers (in mob_0 creepers are replaced by zombies, no skeletons).
+[mobs]
+locked_spawns = [
+    "id:minecraft:skeleton",
+    "id:minecraft:stray",
+]
+
+# Active while mob_1 is missing (Dawn + Stone Age). POC: replacement vs. TFC surface spawn rules.
+[[mobs.replacements]]
+target = "id:minecraft:creeper"
+replace_with = "id:minecraft:zombie"

@@ -1,0 +1,548 @@
+# Firmament Ages - stage "age_4" = Age 4: Industrial Age.
+# DRAFT beyond the PoC scope (Dawn to Iron Age): mod-wide locks and dimension locks from Doc 08 v3.
+# POC: every mod id below is unverified (derived from mod names) unless noted; a wrong id matches nothing.
+# Blocks between ">>> generated" and "<<< generated" are rewritten by dev/gen_stage_locks.py.
+
+[stage]
+id = "age_4"
+display_name = "Age 4: Industrial Age"
+description = "Coke, heavy steel, the first FE and Create packages."
+icon = "minecraft:blast_furnace"
+unlock_message = "&6&lAge 4: Industrial Age &r&7- a new chapter opens."
+dependency = "age_3"
+category = "Ages"
+tags = ["age"]
+
+[items]
+locked = [
+    "mod:immersiveengineering",
+    "mod:tfc_ie_addon",
+    "mod:advancedtfctech",
+    "mod:createaddition",
+    "mod:cataclysm",
+    "mod:create_aeronautics",
+    "mod:createbigcannons",
+    "mod:create_jetpack",
+    "mod:create_mechanical_spawner",
+    "id:create:packager",
+    "id:create:repackager",
+    "id:create:package_frogport",
+    "id:create:stock_link",
+    "id:create:stock_ticker",
+    "id:create:factory_gauge",
+    "id:create:chain_conveyor",
+    # >>> generated:items >>>
+    "id:tfc:gem/diamond",
+    "id:tfc:metal/anvil/black_steel",
+    "id:tfc:metal/axe/black_steel",
+    "id:tfc:metal/axe_head/black_steel",
+    "id:tfc:metal/bars/black_steel",
+    "id:tfc:metal/block/black_steel",
+    "id:tfc:metal/block/black_steel_slab",
+    "id:tfc:metal/block/black_steel_stairs",
+    "id:tfc:metal/block/nickel",
+    "id:tfc:metal/block/nickel_slab",
+    "id:tfc:metal/block/nickel_stairs",
+    "id:tfc:metal/boots/black_steel",
+    "id:tfc:metal/chain/black_steel",
+    "id:tfc:metal/chestplate/black_steel",
+    "id:tfc:metal/chisel/black_steel",
+    "id:tfc:metal/chisel_head/black_steel",
+    "id:tfc:metal/double_ingot/black_steel",
+    "id:tfc:metal/double_ingot/nickel",
+    "id:tfc:metal/double_sheet/black_steel",
+    "id:tfc:metal/double_sheet/nickel",
+    "id:tfc:metal/fish_hook/black_steel",
+    "id:tfc:metal/fishing_rod/black_steel",
+    "id:tfc:metal/grate/black_steel",
+    "id:tfc:metal/greaves/black_steel",
+    "id:tfc:metal/hammer/black_steel",
+    "id:tfc:metal/hammer_head/black_steel",
+    "id:tfc:metal/helmet/black_steel",
+    "id:tfc:metal/hoe/black_steel",
+    "id:tfc:metal/hoe_head/black_steel",
+    "id:tfc:metal/horse_armor/black_steel",
+    "id:tfc:metal/ingot/black_steel",
+    "id:tfc:metal/ingot/high_carbon_black_steel",
+    "id:tfc:metal/ingot/nickel",
+    "id:tfc:metal/javelin/black_steel",
+    "id:tfc:metal/javelin_head/black_steel",
+    "id:tfc:metal/knife/black_steel",
+    "id:tfc:metal/knife_blade/black_steel",
+    "id:tfc:metal/lamp/black_steel",
+    "id:tfc:metal/mace/black_steel",
+    "id:tfc:metal/mace_head/black_steel",
+    "id:tfc:metal/pickaxe/black_steel",
+    "id:tfc:metal/pickaxe_head/black_steel",
+    "id:tfc:metal/propick/black_steel",
+    "id:tfc:metal/propick_head/black_steel",
+    "id:tfc:metal/rod/black_steel",
+    "id:tfc:metal/rod/nickel",
+    "id:tfc:metal/saw/black_steel",
+    "id:tfc:metal/saw_blade/black_steel",
+    "id:tfc:metal/scythe/black_steel",
+    "id:tfc:metal/scythe_blade/black_steel",
+    "id:tfc:metal/shears/black_steel",
+    "id:tfc:metal/sheet/black_steel",
+    "id:tfc:metal/sheet/nickel",
+    "id:tfc:metal/shield/black_steel",
+    "id:tfc:metal/shovel/black_steel",
+    "id:tfc:metal/shovel_head/black_steel",
+    "id:tfc:metal/sword/black_steel",
+    "id:tfc:metal/sword_blade/black_steel",
+    "id:tfc:metal/trapdoor/black_steel",
+    "id:tfc:metal/tuyere/black_steel",
+    "id:tfc:metal/unfinished_boots/black_steel",
+    "id:tfc:metal/unfinished_chestplate/black_steel",
+    "id:tfc:metal/unfinished_greaves/black_steel",
+    "id:tfc:metal/unfinished_helmet/black_steel",
+    "id:tfc:metal/unfinished_lamp/black_steel",
+    "id:tfc:ore/diamond",
+    "id:tfc:ore/normal_garnierite",
+    "id:tfc:ore/poor_garnierite",
+    "id:tfc:ore/rich_garnierite",
+    "id:tfc:ore/small_garnierite",
+    "id:tfc:powder/diamond",
+    "id:tfc:powder/garnierite",
+    # <<< generated:items <<<
+]
+# IE silver dust is the canonical silver dust from the Iron Age crushing wheels (kubejs recipes/age_2).
+# POC: check that always_unlocked beats the mod: lock of this stage.
+always_unlocked = [
+    "immersiveengineering:dust_silver",
+]
+
+[mobs]
+# POC: entity ids unverified.
+locked_spawns = [
+    "id:cataclysm:netherite_monstrosity",
+]
+
+# >>> generated:ore_overrides >>>
+# 85 rows: TFC ore/deposit blocks stay disguised as rock until this stage is owned.
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:tfc:ore/diamond/tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:tfc:ore/normal_garnierite/tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:tfc:ore/poor_garnierite/tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:tfc:ore/rich_garnierite/tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:tfc:ore/small_garnierite"
+display_as = "id:tfc:rock/loose/granite"
+drop_as = "id:tfc:rock/loose/granite"
+# <<< generated:ore_overrides <<<

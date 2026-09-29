@@ -1,0 +1,146 @@
+{
+ "mods": 139,
+ "libraries": 41,
+ "auto_deps": 1,
+ "auto_dep_slugs": [
+  "mezzconfig <- jei"
+ ],
+ "cf_pending": 8,
+ "total_mb": 532.7,
+ "neoforge_version": "21.1.252",
+ "missing_project": [],
+ "missing_on_1211": [],
+ "dead_deps": [
+  {
+   "dep_id": "cC0JkO8i",
+   "required_by": "ars-creo"
+  },
+  {
+   "dep_id": "cC0JkO8i",
+   "required_by": "ars-additions"
+  }
+ ],
+ "incompatible_pairs": [],
+ "side_overrides": [
+  "smartbrainlib: server -> both (required by occultism, side both)"
+ ],
+ "sides": {
+  "both": 159,
+  "client": 15,
+  "server": 6
+ },
+ "channels": {
+  "release": 158,
+  "beta": 21,
+  "alpha": 1
+ },
+ "doc_version_diffs": [
+  "create-enchantment-industry: 2.4.2 -> 2.5.4 (beta)",
+  "create-steam-n-rails-1.21.1: 0.2.1+neoforge-mc1.21.1 -> 0.3.0-beta.2+neoforge-mc1.21.1 (beta)",
+  "createaddition: neoforge-1.21.1-1.6.0 -> neoforge-1.21.1-1.7.1 (beta)",
+  "fenns_totemic: 1.21.1-0.12.18 -> 1.21.1-0.12.19 (beta)",
+  "jei: 19.51.0.418 -> 19.57.0.450 (beta)",
+  "polymorph: 1.1.0+1.21.1 -> 1.2.0+1.21.1 (beta)",
+  "rhino: 2101.2.7-build.85+Rhino-1.21 -> 2101.2.8-build.91+Rhino-1.21 (beta)",
+  "simple-backups: 1.21-4.0.21 -> 1.21-4.0.30 (beta)",
+  "simple-voice-chat: neoforge-1.21.1-2.6.22 -> neoforge-1.21.1-2.6.24 (beta)"
+ ],
+ "cf": [
+  {
+   "name": "FTB Quests",
+   "slug": "ftb-quests-forge",
+   "doc_version": "2101.1.36",
+   "cf_id": 289412,
+   "file": "ftb-quests-neoforge-2101.1.36.jar",
+   "file_id": 8885017,
+   "type": "release",
+   "uploaded": "2026-09-15",
+   "size": 1609984,
+   "versions": "Client, 1.21.1, NeoForge, Server"
+  },
+  {
+   "name": "FTB Library",
+   "slug": "ftb-library-forge",
+   "doc_version": "2101.1.37",
+   "cf_id": 404465,
+   "file": "ftb-library-neoforge-2101.1.37.jar",
+   "file_id": 9008089,
+   "type": "release",
+   "uploaded": "2026-09-29",
+   "size": 1439881,
+   "versions": "Client, 1.21.1, NeoForge, Server"
+  },
+  {
+   "name": "FTB Teams",
+   "slug": "ftb-teams-forge",
+   "doc_version": "2101.1.11",
+   "cf_id": 404468,
+   "file": "ftb-teams-neoforge-2101.1.11.jar",
+   "file_id": 8724782,
+   "type": "release",
+   "uploaded": "2026-08-24",
+   "size": 308236,
+   "versions": "Client, 1.21.1, NeoForge, Server"
+  },
+  {
+   "name": "FTB XMod Compat",
+   "slug": "ftb-xmod-compat",
+   "doc_version": "21.1.12",
+   "cf_id": 889915,
+   "file": "ftb-xmod-compat-neoforge-21.1.12.jar",
+   "file_id": 8909889,
+   "type": "release",
+   "uploaded": "2026-09-18",
+   "size": 148575,
+   "versions": "Client, 1.21.1, NeoForge, Server"
+  },
+  {
+   "name": "FTB Chunks",
+   "slug": "ftb-chunks-forge",
+   "doc_version": "2101.1.22",
+   "cf_id": 314906,
+   "file": "ftb-chunks-neoforge-2101.1.22.jar",
+   "file_id": 8791113,
+   "type": "release",
+   "uploaded": "2026-09-02",
+   "size": 655807,
+   "versions": "Client, 1.21.1, NeoForge, Server"
+  },
+  {
+   "name": "The Twilight Forest",
+   "slug": "the-twilight-forest",
+   "doc_version": "4.8.3345",
+   "cf_id": 227639,
+   "file": "twilightforest-1.21.1-4.8.3345-universal.jar",
+   "file_id": 7797302,
+   "type": "release",
+   "uploaded": "2026-03-22",
+   "size": 27154121,
+   "versions": "Client, 1.21.1, NeoForge, Server"
+  },
+  {
+   "name": "Torque Link Create To TFC",
+   "slug": "torque-link-create-to-tfc",
+   "doc_version": "1.1.0",
+   "cf_id": 1481933,
+   "file": "c2tfc-1.1.0-1.21.1.jar",
+   "file_id": 8638215,
+   "type": "release",
+   "uploaded": "2026-08-13",
+   "size": 264229,
+   "versions": "Client, 1.21.1, NeoForge, Server"
+  },
+  {
+   "name": "AE2 Draconic Fusion Autocrafter",
+   "slug": "ae2-draconic-fusion-autocrafter",
+   "doc_version": "0.1.6",
+   "cf_id": 1521464,
+   "file": "ae2-draconic-fusion-autocrafter-neoforge-mc1.21.1-0.1.6.jar",
+   "file_id": 8940388,
+   "type": "beta",
+   "uploaded": "2026-09-21",
+   "size": 92147,
+   "versions": "Client, 1.21.1, NeoForge, Server"
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+# packwiz hashes metafiles byte for byte: keep LF everywhere
+* text=auto eol=lf
+*.jar binary
+*.png binary
+*.zip binary
+*.mrpack binary
+# cmd.exe needs CRLF batch files (labels/goto break with LF); server/ is outside the packwiz index
+*.bat text eol=crlf

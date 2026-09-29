@@ -1,0 +1,13 @@
+name = "Beneath"
+filename = "Beneath-NeoForge-1.21.1-2.0.4.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/6VieRZiz/versions/Ed3UcDqa/Beneath-NeoForge-1.21.1-2.0.4.jar"
+hash-format = "sha512"
+hash = "4dcfd0aba000a3b5a4cec4d024e7b0a6cf3099d98074a844c9b5cd9c06d824ec69ab11089e24883bfa9848dfb7371586f0c6b6640045a5060ac6824b261d8984"
+
+[update]
+[update.modrinth]
+mod-id = "6VieRZiz"
+version = "Ed3UcDqa"

@@ -1,0 +1,13 @@
+name = "MekaTFC"
+filename = "mekatfc-0.1.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/MQkUoDzI/versions/AxhXDBmz/mekatfc-0.1.0.jar"
+hash-format = "sha512"
+hash = "d01b778a8b9de0b12d3ec3454822719292efce017e2e43869c3a99a40956680ce728a5d9c653dbfb59b09f71db608323abe7921fbf4c70a6f087e109fa087119"
+
+[update]
+[update.modrinth]
+mod-id = "MQkUoDzI"
+version = "AxhXDBmz"

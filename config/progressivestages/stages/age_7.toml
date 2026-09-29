@@ -1,0 +1,43 @@
+# Firmament Ages - stage "age_7" = Age 7: Space Age.
+# DRAFT beyond the PoC scope (Dawn to Iron Age): mod-wide locks and dimension locks from Doc 08 v3.
+# POC: every mod id below is unverified (derived from mod names) unless noted; a wrong id matches nothing.
+# Blocks between ">>> generated" and "<<< generated" are rewritten by dev/gen_stage_locks.py.
+
+[stage]
+id = "age_7"
+display_name = "Age 7: Space Age"
+description = "Fission, rockets, Moon and Mars, the first Draconium."
+icon = "minecraft:firework_rocket"
+unlock_message = "&6&lAge 7: Space Age &r&7- a new chapter opens."
+dependency = "age_6"
+category = "Ages"
+tags = ["age"]
+
+[items]
+locked = [
+    "mod:ad_astra",
+    "mod:draconicevolution",
+    "mod:megacells",
+    # >>> generated:items >>>
+    # <<< generated:items <<<
+]
+
+[dimensions]
+# Each planet is locked together with its orbit (Doc 03 section 6.5). Ids from the Ad Astra 1.21.1 data folder (round-2 research).
+locked = [
+    "id:ad_astra:earth_orbit",
+    "id:ad_astra:moon",
+    "id:ad_astra:moon_orbit",
+    "id:ad_astra:mars",
+    "id:ad_astra:mars_orbit",
+]
+
+[mobs]
+# POC: entity ids unverified.
+locked_spawns = [
+    "id:cataclysm:the_harbinger",
+]
+
+# >>> generated:ore_overrides >>>
+# (no TFC ore becomes visible in this stage)
+# <<< generated:ore_overrides <<<

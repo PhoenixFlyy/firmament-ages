@@ -1,0 +1,22 @@
+# Firmament Ages - Mekanism 10.7.19 world config defaults (server config "Mekanism/world.toml").
+# Keys verified in WorldConfig.java at tag v1.21.1-10.7.19.85: one table per OreType registry suffix
+# (tin, osmium, uranium, fluorite, lead) with "shouldGenerate", plus [salt].shouldGenerate.
+# Osmium comes from a pack TFC vein, fluorite from TFC cryolite (Doc 10 v3 section 8.1).
+
+[tin]
+	shouldGenerate = false
+
+[osmium]
+	shouldGenerate = false
+
+[uranium]
+	shouldGenerate = false
+
+[fluorite]
+	shouldGenerate = false
+
+[lead]
+	shouldGenerate = false
+
+[salt]
+	shouldGenerate = false

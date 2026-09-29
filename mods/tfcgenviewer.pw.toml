@@ -1,0 +1,13 @@
+name = "TFCGenViewer"
+filename = "tfcgenviewer-1.21.1-2.1.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/yp9Ot3YC/versions/dxUTWTEa/tfcgenviewer-1.21.1-2.1.2.jar"
+hash-format = "sha512"
+hash = "3bb631cefd6294b9fbdfb4d4f5cb1b958dee07684962e35961fdb4cf8c3c1d8e79c037654a32000ef24d847ca0665988b02091959937e5eff761a557dd851f38"
+
+[update]
+[update.modrinth]
+mod-id = "yp9Ot3YC"
+version = "dxUTWTEa"

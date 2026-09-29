@@ -1,0 +1,10 @@
+dev/
+server/
+tools/
+test-server/
+README.md
+LICENSE
+.gitignore
+.gitattributes
+.git/
+*.bak*

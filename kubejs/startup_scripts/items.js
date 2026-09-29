@@ -1,0 +1,23 @@
+// Firmament Ages - pack items (namespace firmages). Needs a full game restart after changes.
+// Signature items: one per Age, crafted once, consumed by the Ultimate Singularity later (Doc 08 section 10.2).
+// Scope of this draft: Stone, Bronze and Iron Age. Textures go to kubejs/assets/firmages/textures/item/<path>.png;
+// until they exist the game shows the missing-texture checkerboard.
+// POC: check that KubeJS 2101 accepts ids with a sub path (firmages:dust/zinc, Doc 10 v3 section 8.1 naming).
+
+StartupEvents.registry('item', event => {
+  // ---- Age 0: Stone Age goal -------------------------------------------------------------
+  event.create('firmages:unfired_hearth_idol').displayName('Unfired Hearth Idol').maxStackSize(1)
+  event.create('firmages:hearth_idol').displayName('Hearth Idol').maxStackSize(1)
+  event.create('firmages:hearthstone').displayName('Hearthstone').maxStackSize(1)
+
+  // ---- Age 1: Bronze Age goal ------------------------------------------------------------
+  event.create('firmages:sky_disc').displayName('Sky Disc').maxStackSize(1)
+
+  // ---- Age 2: Iron Age goal --------------------------------------------------------------
+  event.create('firmages:steel_heart').displayName('Steel Heart').maxStackSize(1)
+
+  // ---- Canonical dusts for TFC-only metals (Doc 08 section 4.1) ---------------------------
+  // Crushing Wheels (Iron Age) turn TFC ore pieces into dust; dusts melt back in TFC vessels.
+  event.create('firmages:dust/zinc').displayName('Zinc Dust')
+  event.create('firmages:dust/bismuth').displayName('Bismuth Dust')
+})

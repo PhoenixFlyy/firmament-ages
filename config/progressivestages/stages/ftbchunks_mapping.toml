@@ -1,0 +1,15 @@
+# Firmament Ages - helper stage "ftbchunks_mapping": FTB Chunks map and minimap.
+# config/ftbchunks-world.snbt sets require_game_stage = true; FTB Chunks then asks the StageHelper
+# provider (ProgressiveStages registers itself) for this exact stage name.
+# Granted together with age_2 by kubejs/server_scripts/stages/grants.js (Doc 08 section 2.3).
+# POC: /progressivestages ftb status must show "Provider Registered: YES" (XMod also sets a provider).
+
+[stage]
+id = "ftbchunks_mapping"
+display_name = "Cartography"
+description = "The map and minimap of FTB Chunks."
+icon = "minecraft:filled_map"
+dependency = "age_2"
+category = "Helpers"
+tags = ["helper"]
+hidden = true

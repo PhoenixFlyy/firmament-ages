@@ -1,0 +1,8 @@
+# Firmament Ages - TerraFirmaCraft 4.2.11 server config defaults (copied into new worlds' serverconfig).
+# Key path verified in ServerConfig.java at tag v4.2.11: builder "mechanics" -> "vanillaChanges".
+# Food decay, stack windows and tool durability stay at TFC defaults on purpose (decision r7, Doc 08 section 12).
+
+[mechanics]
+	[mechanics.vanillaChanges]
+		# Default false. The Dawn nights need surface monsters; ProgressiveStages mob_N stages subtract again.
+		enableVanillaMonstersOnSurface = true

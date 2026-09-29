@@ -1,0 +1,24 @@
+# Firmament Ages - FTB Chunks 2101.1.22 modpack defaults (keys verified in FTBChunksWorldConfig.java, tag v2101.1.22).
+# FTB Chunks reads <instance>/config/ftbchunks-world.snbt as the pack default; a server admin can override it
+# in <world>/serverconfig/ftbchunks-world.snbt. Missing keys keep their defaults.
+# Design: map from the Iron Age (stage ftbchunks_mapping), no protection, PvP on, no claims until the
+# Industrial Age. The age_4 reward gives each player 25 extra claims and 25 extra force-loads
+# (/ftbchunks admin extra_claim_chunks <player> set 25, see kubejs/server_scripts/stages/grants.js);
+# party_limit_mode "largest" makes the party use the largest member limit, so the quota is 25 for the team.
+{
+	disable_protection: true
+	pvp_mode: "always"
+	require_game_stage: true
+	force_disable_minimap: false
+	claiming: {
+		max_claimed_chunks: 0
+		party_limit_mode: "largest"
+	}
+	force_loading: {
+		max_force_loaded_chunks: 0
+		# "never": force-loaded claims only tick while a party member is online. Matches TFC's
+		# enableTimeStopWhenServerEmpty (the calendar stops when nobody is online). Switch to "always"
+		# if automation must run offline (Doc 08 section 13 item 11, open decision).
+		force_load_mode: "never"
+	}
+}

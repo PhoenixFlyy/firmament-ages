@@ -1,0 +1,14 @@
+# Firmament Ages - stage "dawn" (caveman prologue, first half of the Stone Age chapter).
+# Starting stage (progressivestages.toml [general].starting_stages). It locks nothing itself:
+# everything the player may NOT use yet is locked in the stage file that unlocks it (age_0 ... age_9).
+#
+# PS semantics (ItemEnforcer/LockRegistry, v3.0.5): an entry is blocked while ANY stage that lists it
+# is missing. A selector listed in age_0 and again in age_1 therefore needs both stages.
+
+[stage]
+id = "dawn"
+display_name = "Dawn"
+description = "Stone, sticks and fire. No pickaxe, no clay, no metal."
+icon = "tfc:firestarter"
+category = "Ages"
+tags = ["age"]

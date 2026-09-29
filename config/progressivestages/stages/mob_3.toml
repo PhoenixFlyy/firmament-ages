@@ -1,0 +1,17 @@
+# Firmament Ages - mob ladder stage "mob_3" (Arcane Age spawns).
+# Granted together with age_3 by kubejs/server_scripts/stages/grants.js.
+# DEVIATION (see dev/poc-checklist.md, open point): Doc 08 wants mob_N non-cumulative (mob_(N-1) revoked).
+# ProgressiveStages locks an entry while its stage is MISSING, so revoking mob_1 at the Iron Age would
+# re-lock skeletons and re-enable the creeper replacement. grants.js therefore keeps the ladder cumulative
+# (FA.MOB_LADDER_CUMULATIVE = true); flip it only if a later rung needs to remove mobs again.
+
+[stage]
+id = "mob_3"
+display_name = "Mob Tier 3"
+description = "Spawns of the Arcane Age."
+icon = "minecraft:zombie_head"
+category = "Mob Ladder"
+tags = ["mob"]
+hidden = true
+
+# Arcane: + Nether mobs (dimension lock), Ars Wilden (age_3.toml), blood moon (Enhanced Celestials config, see dev/config-todo.md).

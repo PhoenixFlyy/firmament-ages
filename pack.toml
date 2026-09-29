@@ -1,0 +1,13 @@
+name = "Firmament Ages"
+author = "PhoenixFlyy"
+version = "0.1.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "80d97606de39f839d6a7d23e13ad38eeb500b65ddeb59293c57b82de0ddc7854"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.252"

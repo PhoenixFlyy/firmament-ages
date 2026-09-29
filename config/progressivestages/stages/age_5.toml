@@ -1,0 +1,87 @@
+# Firmament Ages - stage "age_5" = Age 5: Electric Age.
+# DRAFT beyond the PoC scope (Dawn to Iron Age): mod-wide locks and dimension locks from Doc 08 v3.
+# POC: every mod id below is unverified (derived from mod names) unless noted; a wrong id matches nothing.
+# Blocks between ">>> generated" and "<<< generated" are rewritten by dev/gen_stage_locks.py.
+
+[stage]
+id = "age_5"
+display_name = "Age 5: Electric Age"
+description = "MV/HV power, oil, aluminium and the excavator."
+icon = "minecraft:lightning_rod"
+unlock_message = "&6&lAge 5: Electric Age &r&7- a new chapter opens."
+dependency = "age_4"
+category = "Ages"
+tags = ["age"]
+
+[items]
+locked = [
+    "mod:immersivepetroleum",
+    "mod:alternatingflux",
+    "mod:createdieselgenerators",
+    "mod:create_mobile_packages",
+    "mod:create_hypertube",
+    # >>> generated:items >>>
+    "id:tfc:metal/anvil/red_steel",
+    "id:tfc:metal/axe/red_steel",
+    "id:tfc:metal/axe_head/red_steel",
+    "id:tfc:metal/bars/red_steel",
+    "id:tfc:metal/block/red_steel",
+    "id:tfc:metal/block/red_steel_slab",
+    "id:tfc:metal/block/red_steel_stairs",
+    "id:tfc:metal/boots/red_steel",
+    "id:tfc:metal/bucket/red_steel",
+    "id:tfc:metal/chain/red_steel",
+    "id:tfc:metal/chestplate/red_steel",
+    "id:tfc:metal/chisel/red_steel",
+    "id:tfc:metal/chisel_head/red_steel",
+    "id:tfc:metal/double_ingot/red_steel",
+    "id:tfc:metal/double_sheet/red_steel",
+    "id:tfc:metal/fish_hook/red_steel",
+    "id:tfc:metal/fishing_rod/red_steel",
+    "id:tfc:metal/grate/red_steel",
+    "id:tfc:metal/greaves/red_steel",
+    "id:tfc:metal/hammer/red_steel",
+    "id:tfc:metal/hammer_head/red_steel",
+    "id:tfc:metal/helmet/red_steel",
+    "id:tfc:metal/hoe/red_steel",
+    "id:tfc:metal/hoe_head/red_steel",
+    "id:tfc:metal/horse_armor/red_steel",
+    "id:tfc:metal/ingot/high_carbon_red_steel",
+    "id:tfc:metal/ingot/red_steel",
+    "id:tfc:metal/ingot/weak_red_steel",
+    "id:tfc:metal/javelin/red_steel",
+    "id:tfc:metal/javelin_head/red_steel",
+    "id:tfc:metal/knife/red_steel",
+    "id:tfc:metal/knife_blade/red_steel",
+    "id:tfc:metal/lamp/red_steel",
+    "id:tfc:metal/mace/red_steel",
+    "id:tfc:metal/mace_head/red_steel",
+    "id:tfc:metal/pickaxe/red_steel",
+    "id:tfc:metal/pickaxe_head/red_steel",
+    "id:tfc:metal/propick/red_steel",
+    "id:tfc:metal/propick_head/red_steel",
+    "id:tfc:metal/rod/red_steel",
+    "id:tfc:metal/saw/red_steel",
+    "id:tfc:metal/saw_blade/red_steel",
+    "id:tfc:metal/scythe/red_steel",
+    "id:tfc:metal/scythe_blade/red_steel",
+    "id:tfc:metal/shears/red_steel",
+    "id:tfc:metal/sheet/red_steel",
+    "id:tfc:metal/shield/red_steel",
+    "id:tfc:metal/shovel/red_steel",
+    "id:tfc:metal/shovel_head/red_steel",
+    "id:tfc:metal/sword/red_steel",
+    "id:tfc:metal/sword_blade/red_steel",
+    "id:tfc:metal/trapdoor/red_steel",
+    "id:tfc:metal/tuyere/red_steel",
+    "id:tfc:metal/unfinished_boots/red_steel",
+    "id:tfc:metal/unfinished_chestplate/red_steel",
+    "id:tfc:metal/unfinished_greaves/red_steel",
+    "id:tfc:metal/unfinished_helmet/red_steel",
+    "id:tfc:metal/unfinished_lamp/red_steel",
+    # <<< generated:items <<<
+]
+
+# >>> generated:ore_overrides >>>
+# (no TFC ore becomes visible in this stage)
+# <<< generated:ore_overrides <<<

@@ -1,0 +1,19 @@
+# Firmament Ages - mob ladder stage "mob_0" (Stone Age spawns).
+# Starting stage (progressivestages.toml); grants.js keeps it owned for every Age.
+# DEVIATION (see dev/poc-checklist.md, open point): Doc 08 wants mob_N non-cumulative (mob_(N-1) revoked).
+# ProgressiveStages locks an entry while its stage is MISSING, so revoking mob_1 at the Iron Age would
+# re-lock skeletons and re-enable the creeper replacement. grants.js therefore keeps the ladder cumulative
+# (FA.MOB_LADDER_CUMULATIVE = true); flip it only if a later rung needs to remove mobs again.
+
+[stage]
+id = "mob_0"
+display_name = "Mob Tier 0"
+description = "Spawns of the Stone Age."
+icon = "minecraft:zombie_head"
+category = "Mob Ladder"
+tags = ["mob"]
+hidden = true
+
+# mob_0 is a starting stage. Baseline (Dawn and Stone Age): TFC predators by climate, zombies and spiders
+# on the surface at night (TFC server config enableVanillaMonstersOnSurface = true), creepers replaced by zombies.
+# Nothing is locked here; the next rung (mob_1.toml) holds the rules that end with the Bronze Age.

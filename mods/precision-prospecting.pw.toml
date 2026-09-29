@@ -1,0 +1,13 @@
+name = "Precision Prospecting"
+filename = "precisionprospecting-1.21.1-2.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/QV5ehY9M/versions/6byVqPH3/precisionprospecting-1.21.1-2.1.jar"
+hash-format = "sha512"
+hash = "fd5ce4067640aca9bfff39e628c48d6c647d080fb75dd795f33dbadaca57f170d906304a7f462566553fb7a641f6668d6f59f3281fe25c8876c1f19795917509"
+
+[update]
+[update.modrinth]
+mod-id = "QV5ehY9M"
+version = "6byVqPH3"

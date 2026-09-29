@@ -1,0 +1,69 @@
+# Firmament Ages - server.properties template. Copy to server.properties in the server folder and fill
+# server-ip/motd as needed. server.properties is not part of the pack index: packwiz never overwrites it.
+# Vanilla keys only; everything the pack itself needs lives in config/ and defaultconfigs/.
+
+# --- access (friends only) ---
+online-mode=true
+white-list=true
+enforce-whitelist=true
+enforce-secure-profile=true
+max-players=10
+op-permission-level=4
+function-permission-level=2
+spawn-protection=0
+
+# --- gameplay (decision r8 A: PvP on, no claims/protection) ---
+pvp=true
+difficulty=hard
+hardcore=false
+gamemode=survival
+force-gamemode=false
+allow-nether=true
+spawn-monsters=true
+spawn-animals=true
+spawn-npcs=true
+# Create contraptions, jetpacks and later flight gear would otherwise trigger the fly kick.
+allow-flight=true
+enable-command-block=false
+
+# --- world: TerraFirmaCraft preset (tfc:overworld; TFC also sets it via general.defaultWorldPreset) ---
+level-name=world
+level-seed=
+level-type=tfc\:overworld
+generate-structures=true
+max-world-size=29999984
+
+# --- performance: TFC worldgen is heavy; pregenerate with Chunky before the first login ---
+# ProgressiveStages mob gating checks players inside the simulation distance.
+view-distance=10
+simulation-distance=8
+entity-broadcast-range-percentage=100
+max-tick-time=120000
+network-compression-threshold=256
+sync-chunk-writes=true
+max-chained-neighbor-updates=1000000
+rate-limit=0
+use-native-transport=true
+
+# --- network ---
+server-ip=
+server-port=25565
+enable-status=true
+enable-query=false
+query.port=25565
+enable-rcon=false
+rcon.port=25575
+rcon.password=
+motd=§6Firmament Ages§r §7- one team, ten Ages
+hide-online-players=false
+broadcast-console-to-ops=true
+broadcast-rcon-to-ops=true
+player-idle-timeout=0
+prevent-proxy-connections=false
+require-resource-pack=false
+resource-pack=
+resource-pack-prompt=
+resource-pack-sha1=
+text-filtering-config=
+initial-enabled-packs=vanilla
+initial-disabled-packs=

@@ -1,0 +1,13 @@
+name = "Mekanism Lasers"
+filename = "mekanism_lasers-1.1.10.3-c.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/hvFdcxrV/versions/oCD9S63b/mekanism_lasers-1.1.10.3-c.jar"
+hash-format = "sha512"
+hash = "a03c6ff5f0c0998321e1c9f6b071708267aa411012af7cdeae6e6b80c9b6c644932998d58b9210f9ea4a261d9b180e1056feb208f364ddddf2f14c1e2eb8ba1a"
+
+[update]
+[update.modrinth]
+mod-id = "hvFdcxrV"
+version = "oCD9S63b"

@@ -1,0 +1,43 @@
+# Firmament Ages - stage "age_8" = Age 8: Quantum Age.
+# DRAFT beyond the PoC scope (Dawn to Iron Age): mod-wide locks and dimension locks from Doc 08 v3.
+# POC: every mod id below is unverified (derived from mod names) unless noted; a wrong id matches nothing.
+# Blocks between ">>> generated" and "<<< generated" are rewritten by dev/gen_stage_locks.py.
+
+[stage]
+id = "age_8"
+display_name = "Age 8: Quantum Age"
+description = "Fusion, antimatter and the inner planets."
+icon = "minecraft:end_crystal"
+unlock_message = "&6&lAge 8: Quantum Age &r&7- a new chapter opens."
+dependency = "age_7"
+category = "Ages"
+tags = ["age"]
+
+[items]
+locked = [
+    "mod:evolvedmekanism",
+    "mod:advanced_ae",
+    # >>> generated:items >>>
+    # <<< generated:items <<<
+]
+
+[dimensions]
+# Each planet is locked together with its orbit (Doc 03 section 6.5). Ids from the Ad Astra 1.21.1 data folder (round-2 research).
+locked = [
+    "id:ad_astra:venus",
+    "id:ad_astra:venus_orbit",
+    "id:ad_astra:mercury",
+    "id:ad_astra:mercury_orbit",
+    "id:ad_astra:glacio",
+    "id:ad_astra:glacio_orbit",
+]
+
+[mobs]
+# POC: entity ids unverified.
+locked_spawns = [
+    "id:cataclysm:the_leviathan",
+]
+
+# >>> generated:ore_overrides >>>
+# (no TFC ore becomes visible in this stage)
+# <<< generated:ore_overrides <<<

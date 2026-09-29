@@ -1,0 +1,21 @@
+# Firmament Ages - mob ladder stage "mob_6" (Information Age spawns).
+# Granted together with age_6 by kubejs/server_scripts/stages/grants.js.
+# DEVIATION (see dev/poc-checklist.md, open point): Doc 08 wants mob_N non-cumulative (mob_(N-1) revoked).
+# ProgressiveStages locks an entry while its stage is MISSING, so revoking mob_1 at the Iron Age would
+# re-lock skeletons and re-enable the creeper replacement. grants.js therefore keeps the ladder cumulative
+# (FA.MOB_LADDER_CUMULATIVE = true); flip it only if a later rung needs to remove mobs again.
+
+[stage]
+id = "mob_6"
+display_name = "Mob Tier 6"
+description = "Spawns of the Information Age."
+icon = "minecraft:zombie_head"
+category = "Mob Ladder"
+tags = ["mob"]
+hidden = true
+
+# Information: + more endermen, End mobs; Ender Dragon checkpoint.
+[mobs]
+locked_spawns = [
+    "id:minecraft:ender_dragon",
+]

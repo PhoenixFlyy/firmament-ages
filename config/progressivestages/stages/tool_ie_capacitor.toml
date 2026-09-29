@@ -1,0 +1,21 @@
+# Firmament Ages - helper stage "tool_ie_capacitor" (station retreat, Doc 08 section 1 rule 4).
+# Granted with age_4 and revoked with age_6 by kubejs/server_scripts/stages/grants.js.
+# While this stage is missing (before age_4 and again from age_6) the BUILD RECIPE of the station is locked
+# and its item leaves EMI; placed blocks keep working and the item stays usable as an ingredient.
+# Replaced by Mekanism Energy Cubes. The HV capacitor stays (railgun, Humming Core). POC: ids unverified; audit every IE recipe that consumes LV/MV capacitors before the retreat.
+# POC: confirm that [recipes].locked_items does not block using the item in other recipes.
+
+[stage]
+id = "tool_ie_capacitor"
+display_name = "IE LV/MV Capacitors"
+description = "Build window for the IE LV/MV Capacitors."
+icon = "minecraft:crafting_table"
+category = "Helpers"
+tags = ["helper", "tool"]
+hidden = true
+
+[recipes]
+locked_items = [
+    "id:immersiveengineering:capacitor_lv",
+    "id:immersiveengineering:capacitor_mv",
+]

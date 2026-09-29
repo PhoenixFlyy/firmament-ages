@@ -1,0 +1,13 @@
+name = "TerraFirmaCraft AnvilHelper"
+filename = "TerraFirmaCraftAnvilHelper-1.0.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/WWgiFJZZ/versions/o8IZuees/TerraFirmaCraftAnvilHelper-1.0.1.jar"
+hash-format = "sha512"
+hash = "11bd1a93854e59f3da73aa52ae006f08cb3da4b0c3397a610c80d9a5aad99b1ebfb684095757a85f9039e88e35ca3f2a3fec9673491b33bef666d1309346ff0b"
+
+[update]
+[update.modrinth]
+mod-id = "WWgiFJZZ"
+version = "o8IZuees"

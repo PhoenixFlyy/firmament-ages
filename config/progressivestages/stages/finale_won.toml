@@ -1,0 +1,23 @@
+# Firmament Ages - stage "finale_won": the final boss in The Origin is defeated.
+# Decision s6 A (round 3): MekaSuit and Meka-Tool are trophies after the final boss and keep their
+# Mekanism chain recipes. Locking the items also locks every recipe that produces them.
+# POC: item ids from Mekanism 10.7 naming (mekasuit_helmet ... meka_tool), check against /kubejs hand.
+
+[stage]
+id = "finale_won"
+display_name = "Beyond the Firmament"
+description = "The Primordial has fallen. Trophies await."
+icon = "minecraft:dragon_egg"
+unlock_message = "&d&lThe Firmament is yours. &r&7Trophies unlocked."
+dependency = "age_9"
+category = "Ages"
+tags = ["finale"]
+
+[items]
+locked = [
+    "id:mekanism:mekasuit_helmet",
+    "id:mekanism:mekasuit_bodyarmor",
+    "id:mekanism:mekasuit_pants",
+    "id:mekanism:mekasuit_boots",
+    "id:mekanism:meka_tool",
+]
