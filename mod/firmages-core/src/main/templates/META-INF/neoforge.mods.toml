@@ -50,8 +50,8 @@ Custom glue for the Firmament Ages modpack: Age gating for machines and miners, 
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
-#[[mixins]]
-#config="${mod_id}.mixins.json"
+[[mixins]]
+config="${mod_id}.mixins.json"
 
 # The [[accessTransformers]] block allows you to declare where your AT file is.
 # If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
@@ -84,6 +84,134 @@ Custom glue for the Firmament Ages modpack: Age gating for machines and miners, 
     # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="${minecraft_version_range}"
     ordering="NONE"
+    side="BOTH"
+
+# ---- Firmament Ages dependencies (SPEC 1.4). All load before firmages-core (ordering AFTER).
+[[dependencies.${mod_id}]]
+    modId="progressivestages"
+    type="required"
+    reason="Age stages: firmages-core mirrors the ProgressiveStages Age stages"
+    versionRange="[3.0.5,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="modonomicon"
+    type="required"
+    reason="Shrine ring multiblocks and ghost preview"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="kubejs"
+    type="optional"
+    reason="FirmAges script binding"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="immersiveengineering"
+    type="optional"
+    reason="Excavator mineral mix filter"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="draconicevolution"
+    type="optional"
+    reason="Reactor refuelling and the Gathering"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="brandonscore"
+    type="optional"
+    reason="Draconic Evolution integration"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="codechickenlib"
+    type="optional"
+    reason="Draconic Evolution integration"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="occultism"
+    type="optional"
+    reason="Dimensional mineshaft cache flush"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="ars_nouveau"
+    type="optional"
+    reason="Enchanting apparatus cache flush"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="create"
+    type="optional"
+    reason="Recipe output extraction and drill filter"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="mekanism"
+    type="optional"
+    reason="Recipe output extraction and Digital Miner filter"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="ae2"
+    type="optional"
+    reason="Recipe output extraction"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="tfc"
+    type="optional"
+    reason="Recipe output extraction and prospecting"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="jade"
+    type="optional"
+    reason="Shrine tooltip"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="geckolib"
+    type="optional"
+    reason="Animated shrine idol"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="ftbteams"
+    type="optional"
+    reason="One-team guard"
+    versionRange="*"
+    ordering="AFTER"
     side="BOTH"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

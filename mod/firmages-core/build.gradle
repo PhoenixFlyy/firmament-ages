@@ -35,6 +35,7 @@ repositories {
     maven { name = 'klikli-dev (Occultism)'; url = 'https://dl.cloudsmith.io/public/klikli-dev/mods/maven/'; content { includeGroup 'com.klikli_dev' } }
     maven { name = 'NeoForged (AE2)'; url = 'https://maven.neoforged.net/releases'; content { includeGroup 'org.appliedenergistics' } }
     maven { name = 'FTB'; url = 'https://maven.ftb.dev/releases'; content { includeGroup 'dev.ftb.mods' } }
+    mavenCentral() // JUnit
 }
 
 base {
@@ -43,6 +44,14 @@ base {
 
 // Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+// GameTests (SPEC 12, level G): dev-only code and test data, loaded as part of the mod in dev runs, never in the jar.
+sourceSets {
+    gametest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
 
 neoForge {
     // Specify the version of NeoForge to use.
@@ -76,6 +85,8 @@ neoForge {
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
             type = "gameTestServer"
+            sourceSet = sourceSets.gametest
+            gameDirectory = project.file('run/gametest')
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
@@ -110,9 +121,11 @@ neoForge {
         // multi mod projects should define one per mod
         "${mod_id}" {
             sourceSet(sourceSets.main)
+            sourceSet(sourceSets.gametest)
         }
     }
 }
+neoForge.addModdingDependenciesTo(sourceSets.gametest)
 
 // Sets up a dependency configuration called 'localRuntime'.
 // This configuration should be used instead of 'runtimeOnly' to declare
@@ -120,6 +133,8 @@ neoForge {
 // "optional", meaning it will not be pulled by dependents of this mod.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
+    gametestCompileOnly.extendsFrom compileOnly
+    gametestRuntimeClasspath.extendsFrom localRuntime
 }
 
 dependencies {
@@ -147,6 +162,20 @@ dependencies {
     // No maven: exact Modrinth jars from the pack, stored in ./libs (see README)
     compileOnly files("libs/progressivestages-${progressivestages_version}.jar")
     compileOnly files("libs/TerraFirmaCraft-NeoForge-1.21.1-${tfc_version}.jar")
+    compileOnly files("libs/kubejs-neoforge-${kubejs_version}.jar")
+    compileOnly files("libs/rhino-${rhino_version}.jar")
+
+    // Required mods (and KubeJS for the binding) in dev runs: runServer, runGameTestServer
+    localRuntime files("libs/progressivestages-${progressivestages_version}.jar")
+    localRuntime files("libs/modonomicon-1.21.1-neoforge-${modonomicon_version}.jar")
+    localRuntime files("libs/kubejs-neoforge-${kubejs_version}.jar")
+    localRuntime files("libs/rhino-${rhino_version}.jar")
+
+    // Unit tests (SPEC 12, level U): pure Java, no Minecraft bootstrap
+    testImplementation platform("org.junit:junit-bom:${junit_version}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testRuntimeOnly 'com.google.code.gson:gson:2.10.1' // the Gson version Minecraft 1.21.1 ships
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -176,7 +205,7 @@ dependencies {
 // and checked against the sha512 in that file. libs/*.jar is git-ignored (TFC alone is 65 MB).
 // Bump a version by updating the pack; this task follows the .pw.toml automatically.
 def packModsDir = file('../../mods')
-def libMetafiles = ['progressivestages', 'terrafirmacraft'].collect { new File(packModsDir, "${it}.pw.toml") }
+def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon'].collect { new File(packModsDir, "${it}.pw.toml") }
 def libsDir = file('libs')
 def fetchLibs = tasks.register('fetchLibs') {
     group = 'firmages'
@@ -200,6 +229,24 @@ def fetchLibs = tasks.register('fetchLibs') {
     }
 }
 tasks.named('compileJava') { dependsOn fetchLibs }
+
+// The gametest run needs the KubeJS probe script (checks FirmAges.lockedOreBlocks() on the reload path).
+// Every run starts on a fresh world (no mirror, no SavedData), which is the boot path the tests expect.
+def cleanGametestWorld = tasks.register('cleanGametestWorld', Delete) {
+    delete 'run/gametest/world'
+}
+def prepareGametestRun = tasks.register('prepareGametestRun', Copy) {
+    group = 'firmages'
+    dependsOn cleanGametestWorld
+    from 'src/gametest/kubejs'
+    into 'run/gametest/kubejs'
+}
+tasks.matching { it.name == 'runGameTestServer' }.configureEach { dependsOn prepareGametestRun, fetchLibs }
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    testLogging { events 'failed'; exceptionFormat 'full' }
+}
 
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
