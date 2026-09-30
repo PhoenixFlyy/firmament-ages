@@ -13,6 +13,70 @@ file = "config/ftbchunks-world.snbt"
 hash = "e9531f4ced831d6e0d5263f0c14bb77dfbd28ee524ef514875a6c7dccc40ba4e"
 
 [[files]]
+file = "config/ftbquests/quests/chapter_groups.snbt"
+hash = "b1339ce49c5c08220086661d0e028c5277f811e6437e691a61a5ad2448097081"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/bronze_age.snbt"
+hash = "f7bf3b3c03c197dc61ec45525861187ba8d712dea82e97da70924c3c3fdf2d77"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/dawn.snbt"
+hash = "2ebde09665c2b01f2716ef28a4771edf5064331681cd95b372730dc441220423"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/iron_age.snbt"
+hash = "a097beeda19df81c9817827869059c66ecb757752d9bd19aa91bf08494c421b0"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/stone_age.snbt"
+hash = "a86cdd46ada929f68f556867fa216c1d1a348fce4825961ba9d65cd6fde5e7c9"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/the_firmament.snbt"
+hash = "ac206cfd1db720ef7bed3253a048a58fcc9d3b0f00468c0c895b09a1b784974a"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/welcome.snbt"
+hash = "de0c882b86ba2b102107228e1558fbc802d4f9397ea655a294b85d67d4853dca"
+
+[[files]]
+file = "config/ftbquests/quests/data.snbt"
+hash = "0b057ada548db053f7848e86ad6ece563ff193654886f1a0ecbf0ba8537a37e5"
+
+[[files]]
+file = "config/ftbquests/quests/lang/en_us.snbt"
+hash = "b9a7694a8647bdb7264a01cd02b1c69a4fd532971a107d2d71670f77199d86ea"
+
+[[files]]
+file = "config/ftbquests/quests/reward_tables/bronze_comfort.snbt"
+hash = "f9d5de7134918ef24360c209d11cbea96f5d6e62c2ffe52e9ec22d1af4325a65"
+
+[[files]]
+file = "config/ftbquests/quests/reward_tables/bronze_supplies.snbt"
+hash = "6103f041d7699da615aab2652b223d3980ce111d43b5f796321ee9bb42ccc8bf"
+
+[[files]]
+file = "config/ftbquests/quests/reward_tables/dawn_supplies.snbt"
+hash = "fd2b5b933f5f7483bce2c2cab79f29e85bff10c184048b8e333c6caa45261253"
+
+[[files]]
+file = "config/ftbquests/quests/reward_tables/iron_comfort.snbt"
+hash = "53f1a26b2bc6aadf4a42d6a3d40f63c3f64f2ac1e08c870edcbbcae6dd5f3d57"
+
+[[files]]
+file = "config/ftbquests/quests/reward_tables/iron_supplies.snbt"
+hash = "a448d277c21e52168d5f58c8bc75daa71d4a929639f74985d299f543544dd5a3"
+
+[[files]]
+file = "config/ftbquests/quests/reward_tables/stone_comfort.snbt"
+hash = "fbe8871f231668fd71577548a52d7c0f90705e286e8dab2adb0522652487af8a"
+
+[[files]]
+file = "config/ftbquests/quests/reward_tables/stone_supplies.snbt"
+hash = "afb2635501f8fdaf7e02c07e5ff07a45f7301ec653832f146b0f27ff9c6936c7"
+
+[[files]]
 file = "config/mysticalagriculture-common.toml"
 hash = "0c655427690916b78ec5262596ce37d24aaba68a95ea8fc87eccf69fa39c531f"
 
@@ -391,6 +455,14 @@ hash = "7d1ec89018284baa4e56e98ddae6d38b4c92b26734e9cc48a221cd8f21c7ab35"
 [[files]]
 file = "kubejs/server_scripts/debug/scan.js"
 hash = "ac50fa92ad56346fdadd78c14f43b5027bc15d2e8d457c911d0d5d87de848b6a"
+
+[[files]]
+file = "kubejs/server_scripts/firmages/miner_blacklist.js"
+hash = "747477090d7cfa38ceadb38767efeb2547dd1ae25c3bc0472f6766e967142ebd"
+
+[[files]]
+file = "kubejs/server_scripts/firmages/prospecting.js"
+hash = "f64d3c7f26df4dc09579fe5bcb54d197954b4b42fffb9835b4814cf0c9d8d47a"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_0/stone_age.js"
@@ -886,8 +958,8 @@ hash = "73360e397134d238ee8fd21d33fd7f9275e9441f74f8f1b6ed92278877c0b9f1"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.1.1.jar"
-hash = "82a29e07f93cc8b43a33a63212a4729a6f0b24f0c7f38d2000720a7aff8b5b71"
+file = "mods/firmages-core-0.2.0.jar"
+hash = "fd15dcdf80fc82cacdb8bdca27583daf91a251ef959d5d6a7296789765f49f64"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
