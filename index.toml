@@ -2062,8 +2062,8 @@ hash = "73360e397134d238ee8fd21d33fd7f9275e9441f74f8f1b6ed92278877c0b9f1"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.1.0.jar"
-hash = "fac62157428647a45b8f1ed3661b7cfd6b483a7454c3e14624141a51c7caef99"
+file = "mods/firmages-core-0.1.1.jar"
+hash = "82a29e07f93cc8b43a33a63212a4729a6f0b24f0c7f38d2000720a7aff8b5b71"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
