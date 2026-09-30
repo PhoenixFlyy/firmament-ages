@@ -1,5 +1,6 @@
 // Firmament Ages - static removals and unification (Doc 10 v3 sections 7.2, 7.3, 8.1).
-// Scope of this draft: everything that exists by the Iron Age (TFC, Create, Occultism silver, FTB Quests book).
+// Scope of this draft: everything that exists by the Iron Age (TFC, Create, Occultism silver, FTB Quests book),
+// plus the IE hammer grid recipes (Doc 10 v3 section 7.3).
 // Age-bound recipe shaping lives in recipes/age_N/*.js; dynamic locks live in the ProgressiveStages TOMLs.
 // Recipe ids below were checked against Create 6.0.10 generated data (tag mc1.21.1-6.0.10).
 
@@ -36,6 +37,11 @@ ServerEvents.recipes((event) => {
   event.remove({ type: 'create:splashing', input: /^create:crushed_raw_/ })
   // POC: TFCreate Compat ore doubling recipes - recipe ids unknown until /kubejs dump in the PoC:
   // event.remove({ mod: 'tfcreate', type: 'create:crushing' })
+
+  // ---- Immersive Engineering: no plates or ore dust from the Engineer's Hammer in the grid ----------------
+  // Doc 10 v3 section 7.3 (IE row): all crafting/plate_*_hammering, crafting/hammercrushing_* and
+  // crafting/raw_hammercrushing_* go; plates come from the TFC anvil / Create press / IE Metal Press.
+  event.remove({ id: /^immersiveengineering:crafting\/(plate_.*_hammering|hammercrushing_.*|raw_hammercrushing_.*)$/ })
 
   // ---- Occultism: TFC silver is canonical --------------------------------------------------------------
   // Item ids checked against Occultism release/v1.21.1-1.224.4 item models.

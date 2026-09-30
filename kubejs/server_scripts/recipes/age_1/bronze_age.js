@@ -19,6 +19,8 @@ ServerEvents.recipes((event) => {
   // ---- Andesite alloy: zinc only, from TFC andesite (Doc 10 v3 section 7.3) ----------------------------
   event.remove({ id: 'create:crafting/materials/andesite_alloy' }) // iron nugget variant
   event.remove({ id: 'create:mixing/andesite_alloy' }) // iron nugget variant
+  // WoodenCog knaps andesite alloy from andesite rocks alone (and deploys the same with a chisel): no zinc.
+  event.remove({ id: /^woodencog:rock_knapping\/andesite_alloy(_deploying)?$/ })
   // POC: which TFC andesite form (cobble, raw, loose rock) feels right; cobble = 4 loose rocks.
   event.replaceInput({ id: 'create:crafting/materials/andesite_alloy_from_zinc' }, 'minecraft:andesite', 'tfc:rock/cobble/andesite')
   event.replaceInput({ id: 'create:mixing/andesite_alloy_from_zinc' }, 'minecraft:andesite', 'tfc:rock/cobble/andesite')
