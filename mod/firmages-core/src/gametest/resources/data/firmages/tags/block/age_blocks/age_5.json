@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:gold_ore",
+    {
+      "id": "minecraft:not_a_block",
+      "required": false
+    }
+  ]
+}

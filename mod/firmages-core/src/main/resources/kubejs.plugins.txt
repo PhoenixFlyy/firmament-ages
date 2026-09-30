@@ -1,0 +1,1 @@
+dev.firmages.core.compat.kubejs.FirmagesKubeJSPlugin
