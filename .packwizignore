@@ -9,3 +9,4 @@ LICENSE
 .git/
 *.bak*
 mod/
+.claude/

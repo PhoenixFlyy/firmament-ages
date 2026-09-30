@@ -8,3 +8,6 @@ mod/firmages-core/.gradle/
 mod/firmages-core/run/
 mod/firmages-core/repo/
 mod/firmages-core/libs/*.jar
+
+# Claude Code worktrees and session files
+.claude/
