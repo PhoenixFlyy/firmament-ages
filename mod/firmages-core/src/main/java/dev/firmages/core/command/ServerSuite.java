@@ -9,6 +9,8 @@ import dev.firmages.core.age.AgeMirror;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.age.AgeSnapshot;
 import dev.firmages.core.compat.kubejs.FirmAgesJS;
+import dev.firmages.core.gate.GateReport;
+import dev.firmages.core.gate.RecipeGate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -94,6 +96,29 @@ public final class ServerSuite implements SelfTest.Suite {
             check(c.clean(), c.untaggedItems().size() + " PS-locked items without age tag, " + c.ageMismatches().size()
                 + " Age mismatches, " + c.untaggedOreBlocks().size() + " ore blocks without age_blocks tag (logs/" + AgeCoverage.REPORT_FILE + ")");
             return c.psAgeLocks() + " PS Age item locks covered";
+        });
+        r.test("gate_ran_with_live_ages", () -> {
+            check(RecipeGate.lastFailure() == null, "the last recipe gate run failed: " + RecipeGate.lastFailure());
+            GateReport rep = RecipeGate.lastReport();
+            check(rep != null, "the recipe gate did not run during the last datapack load (mixin not applied?)");
+            check(!rep.misconfigured(), "gate misconfigured: all age tags are empty");
+            AgeSnapshot live = AgeService.state(server).snapshot();
+            AgeService.Status st = AgeService.status(server);
+            boolean pending = st.phase() != dev.firmages.core.age.ReloadScheduler.Phase.IDLE;
+            check(pending || rep.unlocked().equals(live.unlockedIds()),
+                "last filter ran with " + rep.unlocked() + " but AgeState is " + live.unlockedIds() + " and no reload is pending");
+            return rep.summary();
+        });
+        r.test("gate_exempt_types_intact", () -> {
+            GateReport rep = RecipeGate.lastReport();
+            check(rep != null, "no gate report");
+            List<String> hit = new ArrayList<>();
+            for (String t : dev.firmages.core.config.ServerConfig.EXEMPT_RECIPE_TYPES.get()) {
+                GateReport.TypeStats s = rep.types().get(t);
+                if (s != null && s.dropped > 0) hit.add(t + " lost " + s.dropped);
+            }
+            checkEquals(List.of(), hit, "exempt types with dropped recipes");
+            return "exempt types untouched";
         });
         r.test("binding_consistent", () -> {
             AgeSnapshot snap = AgeService.snapshotForReload();

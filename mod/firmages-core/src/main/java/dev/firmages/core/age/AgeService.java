@@ -1,7 +1,5 @@
 package dev.firmages.core.age;
 
-import com.electronwill.nightconfig.core.Config;
-import com.electronwill.nightconfig.toml.TomlParser;
 import com.enviouse.progressivestages.common.api.ProgressiveStagesAPI;
 import com.enviouse.progressivestages.common.api.StageChangeEvent;
 import com.enviouse.progressivestages.common.api.StageId;
@@ -9,6 +7,8 @@ import com.enviouse.progressivestages.common.api.StagesBulkChangedEvent;
 import com.enviouse.progressivestages.common.stage.StageManager;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.compat.ftbteams.FtbTeamsCompat;
+import dev.firmages.core.config.EarlyServerConfig;
+import dev.firmages.core.gate.RecipeGate;
 import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.net.ReloadStatePayload;
 import net.minecraft.ChatFormatting;
@@ -18,7 +18,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelResource;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
@@ -28,8 +27,6 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -38,7 +35,6 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -97,7 +93,7 @@ public final class AgeService {
         if (!FMLEnvironment.dist.isDedicatedServer()) {
             return new BootSnapshot(fallbackSnapshot(null), BootSource.FALLBACK_NOT_DEDICATED, "singleplayer or dev client", null);
         }
-        Path worldDir = FMLPaths.GAMEDIR.get().resolve(levelNameFromServerProperties()).normalize();
+        Path worldDir = EarlyServerConfig.dedicatedWorldDir();
         Path mirror = worldDir.resolve(AgeMirror.RELATIVE_PATH);
         AgeMirror.ReadResult read = AgeMirror.read(mirror);
         AgeSnapshot snap = AgeMirror.snapshotOrFallback(read, read.status() == AgeMirror.Status.OK ? null : fallbackSnapshot(worldDir));
@@ -111,38 +107,13 @@ public final class AgeService {
         };
     }
 
-    private static String levelNameFromServerProperties() {
-        Path props = FMLPaths.GAMEDIR.get().resolve("server.properties");
-        Properties p = new Properties();
-        try (Reader r = Files.newBufferedReader(props)) {
-            p.load(r);
-        } catch (IOException e) {
-            return "world";
-        }
-        String name = p.getProperty("level-name", "world").trim();
-        return name.isEmpty() ? "world" : name;
-    }
-
     /**
      * {@code gate.bootFallbackStages}. Server configs load only after the initial datapack load, so on a dedicated
      * server the config file is read directly (world override, then config/, then defaultconfigs/); otherwise the spec default {@code [dawn]}.
      */
     private static AgeSnapshot fallbackSnapshot(Path worldDir) {
-        List<String> stages = null;
-        if (ServerConfig.loaded()) {
-            stages = new ArrayList<>(ServerConfig.BOOT_FALLBACK_STAGES.get());
-        } else {
-            List<Path> candidates = new ArrayList<>();
-            // NeoForge 21.1 keeps server configs in config/; <world>/serverconfig/ only holds per-world overrides,
-            // and defaultconfigs/ is the seed copied to config/ on first creation.
-            if (worldDir != null) candidates.add(worldDir.resolve("serverconfig").resolve("firmages-server.toml"));
-            candidates.add(FMLPaths.CONFIGDIR.get().resolve("firmages-server.toml"));
-            candidates.add(FMLPaths.GAMEDIR.get().resolve("defaultconfigs").resolve("firmages-server.toml"));
-            for (Path c : candidates) {
-                stages = readFallbackFromToml(c);
-                if (stages != null) break;
-            }
-        }
+        List<String> stages = ServerConfig.loaded() ? new ArrayList<>(ServerConfig.BOOT_FALLBACK_STAGES.get())
+            : EarlyServerConfig.stringList(worldDir, "gate.bootFallbackStages").orElse(null);
         if (stages == null) stages = ServerConfig.DEFAULT_BOOT_FALLBACK;
         EnumSet<AgeId> set = EnumSet.of(AgeId.DAWN);
         for (String s : stages) {
@@ -152,43 +123,41 @@ public final class AgeService {
         return new AgeSnapshot(set, 0, 0);
     }
 
-    private static List<String> readFallbackFromToml(Path file) {
-        if (!Files.isRegularFile(file)) return null;
-        try (Reader r = Files.newBufferedReader(file)) {
-            Config cfg = new TomlParser().parse(r);
-            Object v = cfg.get("gate.bootFallbackStages");
-            if (v instanceof List<?> list) return list.stream().map(String::valueOf).toList();
-        } catch (Exception e) {
-            FirmagesCore.LOGGER.warn("Cannot read gate.bootFallbackStages from {}: {}", file, e.toString());
-        }
-        return null;
-    }
-
     // ---------------------------------------------------------------- locked ore blocks (binding)
 
     /** lockedOreBlocks() answers given during the load in progress, checked against the final index. */
-    private static final List<List<String>> loadAnswers = new ArrayList<>();
+    private static final List<Answer> loadAnswers = new ArrayList<>();
     private static volatile boolean bootAnswersStale;
+
+    /**
+     * One lockedOreBlocks() answer given during a load. {@code captured}: given after this mod captured the load's
+     * resource manager (a runtime reload's pre-capture, or tag handlers that KubeJS runs inside the tag loader).
+     */
+    private record Answer(List<String> ids, boolean captured) {}
 
     /**
      * Registered block ids of {@code age_blocks} of every locked Age, for the load in progress (SPEC §3.4).
      * KubeJS 2101 runs tag handlers as a pre-capture: on a reload at the start of {@code loadResources} (this mod's
      * capture runs first, so the answer uses that load's tag JSON), on the initial load before the resource manager
-     * exists (the answer then comes from an empty index). Every answer given during a load is compared with the final
-     * index; a wrong initial-load answer triggers one reload right after start (fail-strict), see {@link #checkLoadAnswers}.
+     * exists (the answer then comes from an empty index). A handler that reads tag contents ({@code getObjectIds()},
+     * as the m1 prospecting script does) makes KubeJS drop the pre-capture of that registry and run all its handlers
+     * inside the tag loader, where the answer is right on the initial load too. Every answer given during a load is
+     * compared with the final index; a wrong answer that took effect triggers one reload right after start
+     * (fail-strict), see {@link #checkLoadAnswers}. Scripts must call this only inside {@code ServerEvents.tags}.
      */
     public static List<String> lockedOreBlocks() {
         AgeSnapshot snap = snapshotForReload();
         AgeIndex idx = AgeIndex.loading();
         List<String> ids = lockedBlockIds(idx, snap);
-        boolean inLoad = AgeIndex.loadInProgress() || liveState == null;
+        boolean captured = AgeIndex.loadInProgress();
+        boolean inLoad = captured || liveState == null;
         if (inLoad) {
             synchronized (loadAnswers) {
-                loadAnswers.add(ids);
+                loadAnswers.add(new Answer(ids, captured));
             }
         }
-        FirmagesCore.LOGGER.debug("FirmAges.lockedOreBlocks(): {} blocks (index gen {}, Ages {}, during load: {})",
-            ids.size(), idx.generation(), snap.unlockedIds(), inLoad);
+        FirmagesCore.LOGGER.debug("FirmAges.lockedOreBlocks(): {} blocks (index gen {}, Ages {}, during load: {}, captured: {})",
+            ids.size(), idx.generation(), snap.unlockedIds(), inLoad, captured);
         return ids;
     }
 
@@ -202,14 +171,24 @@ public final class AgeService {
 
     /** Apply phase of every datapack load: were the binding's answers during this load right? */
     static void checkLoadAnswers(AgeIndex finalIndex) {
-        List<List<String>> answers;
+        List<Answer> answers;
         synchronized (loadAnswers) {
             answers = List.copyOf(loadAnswers);
             loadAnswers.clear();
         }
         if (answers.isEmpty()) return;
+        if (liveState == null && answers.stream().anyMatch(Answer::captured)) {
+            // Initial load, and the block tag handlers also ran inside the tag loader: KubeJS dropped the
+            // pre-capture (and with it the answers of its pre-run), so only the in-loader answers took effect.
+            long early = answers.stream().filter(a -> !a.captured()).count();
+            if (early > 0) {
+                FirmagesCore.LOGGER.info("FirmAges.lockedOreBlocks(): ignoring {} pre-capture answer(s) of the initial load; "
+                    + "KubeJS ran the tag handlers inside the tag loader", early);
+            }
+            answers = answers.stream().filter(Answer::captured).toList();
+        }
         List<String> correct = lockedBlockIds(finalIndex, snapshotForReload());
-        long wrong = answers.stream().filter(a -> !a.equals(correct)).count();
+        long wrong = answers.stream().filter(a -> !a.ids().equals(correct)).count();
         if (wrong == 0) return;
         if (liveState == null) {
             bootAnswersStale = true;
@@ -342,6 +321,10 @@ public final class AgeService {
             if (AgeIndex.current().misconfigured()) {
                 player.sendSystemMessage(warn("firmages.warn.misconfigured",
                     "[Firmament Ages] All firmages:age_* tags are empty: the Age gate cannot lock anything."));
+            }
+            if (RecipeGate.lastFailure() != null) {
+                player.sendSystemMessage(warn("firmages.warn.gate_failed",
+                    "[Firmament Ages] The recipe Age gate failed on the last datapack load; recipes are not Age-filtered. See the server log."));
             }
             if (multiTeamDetected) {
                 player.sendSystemMessage(warn("firmages.warn.multiple_teams",

@@ -3,5 +3,6 @@
   "firmages.reload.failed": "[Firmament Ages] Age reload failed, see the server log.",
   "firmages.age.revoked.warning": "[Firmament Ages] Age revoked: restart the server to clear in-progress items",
   "firmages.warn.misconfigured": "[Firmament Ages] All firmages:age_* tags are empty: the Age gate cannot lock anything.",
+  "firmages.warn.gate_failed": "[Firmament Ages] The recipe Age gate failed on the last datapack load; recipes are not Age-filtered. See the server log.",
   "firmages.warn.multiple_teams": "[Firmament Ages] More than one team holds Age stages. The pack expects one shared team; Ages are the union of all teams."
 }

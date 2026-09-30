@@ -1,6 +1,8 @@
 {
   "values": [
     "minecraft:iron_ingot",
-    "#firmages:test/iron_tools"
+    "#firmages:test/iron_tools",
+    { "id": "immersiveengineering:dust_iron", "required": false },
+    { "id": "mekanism:dust_iron", "required": false }
   ]
 }

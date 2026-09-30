@@ -9,6 +9,7 @@ import dev.firmages.core.age.CacheGeneration;
 import dev.firmages.core.age.ReloadScheduler;
 import dev.firmages.core.command.SelfTest;
 import dev.firmages.core.command.CoreSuite;
+import dev.firmages.core.command.GateSuite;
 import dev.firmages.core.command.ServerSuite;
 import dev.firmages.core.compat.kubejs.FirmAgesJS;
 import net.minecraft.core.registries.Registries;
@@ -54,7 +55,7 @@ public final class CoreGameTests {
     /** The in-pack self-test suites pass on a fresh world with the test tags. */
     @GameTest(template = "empty", batch = "firmages_1_selftest")
     public static void selftestSuitesPass(GameTestHelper helper) {
-        SelfTest.Report report = SelfTest.run(List.of(new CoreSuite(), new ServerSuite(helper.getLevel().getServer())));
+        SelfTest.Report report = SelfTest.run(List.of(new CoreSuite(), new GateSuite(), new ServerSuite(helper.getLevel().getServer())));
         List<String> failed = report.cases().stream().filter(c -> !c.passed()).map(c -> c.suite() + "/" + c.name() + ": " + c.detail()).toList();
         helper.assertTrue(failed.isEmpty(), "selftest failures: " + failed);
         helper.succeed();

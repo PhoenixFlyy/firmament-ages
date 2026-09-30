@@ -5,6 +5,8 @@ import dev.firmages.core.age.AgeService;
 import dev.firmages.core.command.FirmagesCommands;
 import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.config.ServerConfig;
+import dev.firmages.core.miner.OreGuard;
+import net.neoforged.bus.api.EventPriority;
 import dev.firmages.core.net.FirmagesNetwork;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -33,6 +35,8 @@ public final class FirmagesCore {
         bus.addListener(AgeService::onStagesBulkChanged);
         bus.addListener(AgeService::onPlayerLoggedIn);
         bus.addListener(FirmagesCommands::register);
+        bus.addListener(EventPriority.HIGH, OreGuard::onBreak);
+        bus.addListener(EventPriority.LOW, OreGuard::onDrops);
         LOGGER.info("firmages-core loaded");
     }
 }

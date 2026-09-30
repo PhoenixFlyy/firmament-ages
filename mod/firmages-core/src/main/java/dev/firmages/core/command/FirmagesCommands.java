@@ -10,6 +10,11 @@ import dev.firmages.core.age.AgeId;
 import dev.firmages.core.age.AgeIndex;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.config.ServerConfig;
+import dev.firmages.core.gate.GateReport;
+import dev.firmages.core.gate.GateRules;
+import dev.firmages.core.gate.RecipeGate;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -24,9 +29,12 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 
-/** {@code /firmages} (SPEC §10), permission level 2. M1 subset: ages, ages sync, ages simulate, dump registry, reload, selftest. */
+/**
+ * {@code /firmages} (SPEC §10), permission level 2. M1: ages, ages sync, ages simulate, dump registry, reload,
+ * selftest. M2: recipes audit, recipes why, recipes locked.
+ */
 public final class FirmagesCommands {
-    private static final List<String> SUITES = List.of("all", "core", "server");
+    private static final List<String> SUITES = List.of("all", "core", "gate", "server");
     private static final SimpleCommandExceptionType SIMULATE_DISABLED = new SimpleCommandExceptionType(
         Component.literal("Simulation is disabled; set debug.allowSimulate = true in firmages-server.toml"));
     private static final SimpleCommandExceptionType UNKNOWN_AGE = new SimpleCommandExceptionType(Component.literal("Unknown Age"));
@@ -47,6 +55,13 @@ public final class FirmagesCommands {
                 .then(Commands.literal("simulate")
                     .then(Commands.literal("grant").then(stageArg().executes(c -> simulate(c, true))))
                     .then(Commands.literal("revoke").then(stageArg().executes(c -> simulate(c, false))))))
+            .then(Commands.literal("recipes")
+                .then(Commands.literal("audit").executes(FirmagesCommands::recipesAudit))
+                .then(Commands.literal("why").then(Commands.argument("recipe", ResourceLocationArgument.id())
+                    .executes(FirmagesCommands::recipesWhy)))
+                .then(Commands.literal("locked").then(Commands.argument("stage", StringArgumentType.word())
+                    .suggests((c, b) -> SharedSuggestionProvider.suggest(bucketNames(), b))
+                    .executes(FirmagesCommands::recipesLocked))))
             .then(Commands.literal("dump").then(Commands.literal("registry").executes(FirmagesCommands::dumpRegistry)))
             .then(Commands.literal("reload").executes(FirmagesCommands::reload))
             .then(Commands.literal("selftest")
@@ -116,6 +131,63 @@ public final class FirmagesCommands {
         return changed ? 1 : 0;
     }
 
+    private static final SimpleCommandExceptionType NO_REPORT = new SimpleCommandExceptionType(
+        Component.literal("The recipe gate has not run since start"));
+
+    private static GateReport report() throws CommandSyntaxException {
+        GateReport r = RecipeGate.lastReport();
+        if (r == null) throw NO_REPORT.create();
+        return r;
+    }
+
+    private static List<String> bucketNames() {
+        List<String> out = new java.util.ArrayList<>(AgeId.all().stream().map(AgeId::id).toList());
+        out.add(GateRules.DISABLED);
+        out.add("denied");
+        return out;
+    }
+
+    private static int recipesAudit(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        GateReport r = report();
+        Path file = FMLPaths.GAMEDIR.get().resolve("logs").resolve(GateReport.AUDIT_FILE);
+        try {
+            r.write(file);
+        } catch (IOException e) {
+            FirmagesCore.LOGGER.error("Cannot write {}", file, e);
+            c.getSource().sendFailure(Component.literal("Cannot write " + file + ": " + e.getMessage()));
+            return 0;
+        }
+        line(c.getSource(), r.summary());
+        line(c.getSource(), "Types with no detected output: " + r.typesWithoutDetectedOutput() + "; serializers: " + r.serializersWithoutDetectedOutput());
+        line(c.getSource(), "Audit written to " + file);
+        return r.dropped();
+    }
+
+    private static int recipesWhy(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        GateReport r = report();
+        ResourceLocation id = ResourceLocationArgument.getId(c, "recipe");
+        GateReport.Entry e = r.entry(id.toString());
+        if (e == null) {
+            c.getSource().sendFailure(Component.literal(id + " was not seen by the last filter run (unknown id, or added by code after it)"));
+            return 0;
+        }
+        GateRules.Verdict v = e.verdict();
+        line(c.getSource(), id + " [" + e.type() + ", " + e.serializer() + "]: " + (v.keep() ? "KEPT" : "DROPPED") + " (" + v.reason()
+            + (v.bucket() != null ? ", returns with " + v.bucket() : "") + (v.entry() != null ? ", locked by " + v.entry() : "") + ")"
+            + (r.enabled() ? "" : " [gate.enabled = false: log only]"));
+        line(c.getSource(), "Detected outputs: " + e.outputs());
+        return v.keep() ? 1 : 0;
+    }
+
+    private static int recipesLocked(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        GateReport r = report();
+        String stage = StringArgumentType.getString(c, "stage");
+        List<String> ids = r.droppedByBucket().getOrDefault(stage, List.of()).stream().sorted().toList();
+        line(c.getSource(), ids.size() + " recipes dropped until " + stage + (ids.size() > 50 ? " (first 50; all in the audit file)" : ""));
+        ids.stream().limit(50).forEach(id -> line(c.getSource(), "  " + id));
+        return ids.size();
+    }
+
     private static int dumpRegistry(CommandContext<CommandSourceStack> c) {
         try {
             RegistryDump.Result r = RegistryDump.write();
@@ -137,8 +209,9 @@ public final class FirmagesCommands {
     private static int selftest(CommandContext<CommandSourceStack> c, String suite) throws CommandSyntaxException {
         MinecraftServer server = c.getSource().getServer();
         List<SelfTest.Suite> suites = switch (suite) {
-            case "all" -> List.of(new CoreSuite(), new ServerSuite(server));
+            case "all" -> List.of(new CoreSuite(), new GateSuite(), new ServerSuite(server));
             case "core" -> List.of(new CoreSuite());
+            case "gate" -> List.of(new GateSuite());
             case "server" -> List.of(new ServerSuite(server));
             default -> throw UNKNOWN_SUITE.create();
         };
