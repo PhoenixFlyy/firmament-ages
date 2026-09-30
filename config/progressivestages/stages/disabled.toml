@@ -52,7 +52,8 @@ locked = [
 
 [dimensions]
 # Stargate Journey worlds stay closed forever (Doc 08 section 6).
-# POC: ids are guesses from research-raw (sgjourney:abydos ...), check /execute in <tab> in the PoC.
+# Ids checked against the dimensions the test server loaded (/fa_dims, 2026-09-30); destiny and tollan
+# were missing from the research list.
 locked = [
     "id:sgjourney:abydos",
     "id:sgjourney:chulak",
@@ -61,4 +62,6 @@ locked = [
     "id:sgjourney:cavum_tenebrae",
     "id:sgjourney:lantea",
     "id:sgjourney:athos",
+    "id:sgjourney:destiny",
+    "id:sgjourney:tollan",
 ]

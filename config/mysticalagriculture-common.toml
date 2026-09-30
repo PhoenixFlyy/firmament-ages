@@ -1,0 +1,8 @@
+# Firmament Ages - Mystical Agriculture 8.0.28 common config (only the keys the pack changes).
+# Doc 08 section 3.1 rule 2: foreign worldgen is off; Mystical Agriculture is a late seed layer (age_6), not an ore source.
+# Key names verified in the file the mod generated on the test server (2026-09-30). NeoForge adds every missing key.
+
+[World]
+	generateProsperityOre = false
+	generateInferiumOre = false
+	generateSoulstone = false
