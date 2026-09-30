@@ -171,11 +171,17 @@ dependencies {
     localRuntime files("libs/kubejs-neoforge-${kubejs_version}.jar")
     localRuntime files("libs/rhino-${rhino_version}.jar")
 
+    // GameTests also run with IE and Mekanism (self-contained jars), so the typed recipe extractors, the IE TagOutput
+    // accessor and the MineralMix mixin run against the real mod classes. Create and Occultism need further mods
+    // (Ponder/Flywheel, GeckoLib/SmartBrainLib) and are not in the run.
+    gametestRuntimeOnly("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}") { transitive = false }
+    gametestRuntimeOnly("mekanism:Mekanism:${mekanism_version}") { transitive = false }
+
     // Unit tests (SPEC 12, level U): pure Java, no Minecraft bootstrap
     testImplementation platform("org.junit:junit-bom:${junit_version}")
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testRuntimeOnly 'com.google.code.gson:gson:2.10.1' // the Gson version Minecraft 1.21.1 ships
+    testImplementation 'com.google.code.gson:gson:2.10.1' // the Gson version Minecraft 1.21.1 ships
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -230,7 +236,9 @@ def fetchLibs = tasks.register('fetchLibs') {
 }
 tasks.named('compileJava') { dependsOn fetchLibs }
 
-// The gametest run needs the KubeJS probe script (checks FirmAges.lockedOreBlocks() on the reload path).
+// The gametest run needs the KubeJS probe script (checks FirmAges.lockedOreBlocks() on the reload path) and the
+// pack's own firmages-core hand-off scripts (m1 prospecting and m3 miner blacklist, kubejs/server_scripts/firmages),
+// which the GameTests exercise against test tags.
 // Every run starts on a fresh world (no mirror, no SavedData), which is the boot path the tests expect.
 def cleanGametestWorld = tasks.register('cleanGametestWorld', Delete) {
     delete 'run/gametest/world'
@@ -239,6 +247,7 @@ def prepareGametestRun = tasks.register('prepareGametestRun', Copy) {
     group = 'firmages'
     dependsOn cleanGametestWorld
     from 'src/gametest/kubejs'
+    from('../../kubejs/server_scripts/firmages') { into 'server_scripts/firmages' }
     into 'run/gametest/kubejs'
 }
 tasks.matching { it.name == 'runGameTestServer' }.configureEach { dependsOn prepareGametestRun, fetchLibs }

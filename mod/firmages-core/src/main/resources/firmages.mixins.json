@@ -2,9 +2,15 @@
   "required": true,
   "minVersion": "0.8",
   "package": "dev.firmages.core.mixin",
+  "plugin": "dev.firmages.core.mixin.FirmagesMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ReloadableServerResourcesMixin"
+    "ReloadableServerResourcesMixin",
+    "RecipeManagerMixin",
+    "ie.MineralMixMixin",
+    "ie.TagOutputAccessor",
+    "occultism.MineshaftMixin",
+    "ars.ApparatusMixin"
   ],
   "injectors": {
     "defaultRequire": 1

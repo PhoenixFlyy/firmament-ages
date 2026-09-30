@@ -128,6 +128,14 @@ public final class ServerConfig {
         return loaded() ? COALESCE_TICKS.get() : 100;
     }
 
+    public static boolean minerIeExcavator() {
+        return !loaded() || MINER_IE_EXCAVATOR.get();
+    }
+
+    public static boolean minerOreGuard() {
+        return !loaded() || MINER_ORE_GUARD.get();
+    }
+
     public static boolean reloadOnRevoke() {
         return !loaded() || RELOAD_ON_REVOKE.get();
     }

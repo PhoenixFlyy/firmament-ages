@@ -10,16 +10,25 @@ Custom mod for the Firmament Ages pack (Minecraft 1.21.1, NeoForge 21.1.252, Jav
 Current state: milestone M1 of `SPEC.md` (the core): `AgeState` SavedData, the `<world>/firmages/ages.json` mirror,
 ProgressiveStages event subscription, `AgeIndex` from the `firmages:age_items|age_blocks|age_fluids/<age>` tags,
 the coalescing `ReloadScheduler`, the commands `/firmages ages [sync|simulate]`, `dump registry`, `reload`,
-`selftest <all|core|server>`, the KubeJS binding `FirmAges`, and `firmages-server.toml` / `firmages-client.toml`.
-No recipe filter yet (M2).
+`selftest <all|core|gate|server>`, the KubeJS binding `FirmAges`, and `firmages-server.toml` / `firmages-client.toml`.
+
+Milestones M2 and M3 (0.2.0): the machine-recipe Age gate (`RecipeManager#apply` TAIL filter with typed extractors for
+Create, IE, Mekanism and Occultism plus a JSON output walk, `/firmages recipes audit|why|locked`, the cache flush for the
+Occultism mineshaft and the Ars apparatus), the IE excavator filter (MineralMix mixin), the fake-player OreGuard, and
+the pack's KubeJS hand-off scripts `kubejs/server_scripts/firmages/` (Digital Miner blacklist, m1 prospecting tags).
+Implementation notes: `SPEC.md` §4.7 and §5.1.
 
 ## Tests
 
 - `gradlew build` runs the JUnit tests (`src/test`, level U of SPEC §12). They run the pure `CoreSuite`: mirror
   round trip, corrupt/missing mirror → fallback, atomic write, scheduler delay/coalescing/follow-up/failure,
   stage-change dedup, revoke, bulk-only-adds, tag JSON resolution, earliest-Age rule.
+  `GateSuite` (the m2 rules, report, excavator pick) and `JsonOutputWalkerFixtureTest` (recipe JSON copied from the
+  pinned Create, IE, Mekanism, Occultism, Ars, TFC and DE jars, in `src/test/resources/fixtures`).
 - `gradlew runGameTestServer` runs the GameTests (`src/gametest`, level G) on a fresh world with ProgressiveStages,
-  Modonomicon, KubeJS and Rhino from `libs/`: the self-test suites, the commands, the AgeIndex built from the test
+  Modonomicon, KubeJS and Rhino from `libs/`, and IE and Mekanism from maven (so the typed extractors and the MineralMix
+  mixin run against the real classes). The pack scripts `kubejs/server_scripts/firmages/` are copied into the run.
+  M2/M3: synthetic recipes `firmages:test/*` and the m1/m3 test tags; M1: the self-test suites, the commands, the AgeIndex built from the test
   tags, and unlock → reload → revoke → reload with the KubeJS probe script `src/gametest/kubejs`. No EULA file is needed.
 - In the pack: `/firmages selftest all` writes `logs/firmages-selftest.json` (suites `core` and `server`).
 

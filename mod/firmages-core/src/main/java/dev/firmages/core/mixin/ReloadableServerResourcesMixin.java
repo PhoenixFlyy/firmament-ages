@@ -1,7 +1,13 @@
 package dev.firmages.core.mixin;
 
 import dev.firmages.core.age.AgeIndex;
+import dev.firmages.core.gate.RecipeGate;
 import net.minecraft.commands.Commands;
+import net.minecraft.tags.TagManager;
+import net.minecraft.world.item.crafting.RecipeManager;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.server.RegistryLayer;
 import net.minecraft.server.ReloadableServerResources;
@@ -24,6 +30,18 @@ import java.util.concurrent.Executor;
  */
 @Mixin(value = ReloadableServerResources.class, priority = 500)
 public abstract class ReloadableServerResourcesMixin {
+    @Shadow
+    @Final
+    private RecipeManager recipes;
+    @Shadow
+    @Final
+    private TagManager tagManager;
+
+    /** m2: the recipe gate reads tag outputs from this load's tag manager (its result is complete before recipes apply). */
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void firmages$linkTags(CallbackInfo ci) {
+        RecipeGate.link(recipes, tagManager);
+    }
 
     @Inject(method = "loadResources", at = @At("HEAD"))
     private static void firmages$captureResourceManager(ResourceManager resourceManager, LayeredRegistryAccess<RegistryLayer> registries,
