@@ -2,8 +2,7 @@
 // TFC 4.2.11 tags its metals as c:ingots/<metal>, c:sheets/<metal>, c:double_ingots/<metal> and
 // c:ingots/wrought_iron (verified in the TFC data tree). Create 6.0.10 asks for c:plates/iron, c:ingots/iron,
 // c:storage_blocks/iron|copper and c:plates/gold (verified in its recipes). These additions bridge the two.
-// POC: Almost Unified (unify.json tagOwnerships, Doc 10 v3 8.2) may already do the same; then drop the
-// duplicates here. Check with /kubejs list_tag c:plates/iron in the PoC.
+// Almost Unified 1.4.2 only picks the target item per tag (materials.json); the tag contents are set here.
 
 ServerEvents.tags('item', (event) => {
   // Wrought iron IS iron in this pack (Doc 10 v3 section 8.1).
@@ -26,6 +25,33 @@ ServerEvents.tags('item', (event) => {
   event.add('firmages:plates/any_bronze', ['tfc:metal/sheet/bronze', 'tfc:metal/sheet/bismuth_bronze', 'tfc:metal/sheet/black_bronze'])
   event.add('firmages:ingots/any_bronze', ['tfc:metal/ingot/bronze', 'tfc:metal/ingot/bismuth_bronze', 'tfc:metal/ingot/black_bronze'])
   event.add('firmages:storage_blocks/any_bronze', ['tfc:metal/block/bronze', 'tfc:metal/block/bismuth_bronze', 'tfc:metal/block/black_bronze'])
+
+  // Almost Unified (config/almostunified/unification/materials.json) turns every member of a unify tag into
+  // the tag's target item, in recipe inputs AND outputs. TFC puts its alloys and ore powders into the base-metal
+  // tags, so without these removals AU turned rose gold into gold, black/red/blue steel into steel, cast iron
+  // into iron and a 5 mB TFC ore powder into a 100 mB Mekanism dust (PoC 2026-09-30, dev/poc-results.md).
+  const NOT_THE_METAL = {
+    'c:ingots/iron': ['tfc:metal/ingot/cast_iron', 'tfc:metal/ingot/pig_iron'],
+    'c:storage_blocks/iron': ['tfc:metal/block/cast_iron'],
+    'c:ingots/gold': ['tfc:metal/ingot/rose_gold'],
+    'c:storage_blocks/gold': ['tfc:metal/block/rose_gold'],
+    'c:ingots/silver': ['tfc:metal/ingot/sterling_silver'],
+    'c:storage_blocks/silver': ['tfc:metal/block/sterling_silver'],
+    'c:ingots/bronze': ['tfc:metal/ingot/bismuth_bronze', 'tfc:metal/ingot/black_bronze'],
+    'c:storage_blocks/bronze': ['tfc:metal/block/bismuth_bronze', 'tfc:metal/block/black_bronze'],
+    'c:ingots/steel': ['tfc:metal/ingot/black_steel', 'tfc:metal/ingot/blue_steel', 'tfc:metal/ingot/red_steel',
+      'tfc:metal/ingot/high_carbon_steel', 'tfc:metal/ingot/high_carbon_black_steel',
+      'tfc:metal/ingot/high_carbon_blue_steel', 'tfc:metal/ingot/high_carbon_red_steel'],
+    'c:storage_blocks/steel': ['tfc:metal/block/black_steel', 'tfc:metal/block/blue_steel', 'tfc:metal/block/red_steel']
+  }
+  Object.keys(NOT_THE_METAL).forEach((tag) => event.remove(tag, NOT_THE_METAL[tag]))
+  // TFC ore and gem powders are small fractions of an ingot or gem, not dusts (Doc 10 v3 8.1: "Verlierer").
+  const TFC_POWDERS = ['native_copper', 'malachite', 'tetrahedrite', 'cassiterite', 'native_gold', 'native_silver',
+    'hematite', 'magnetite', 'limonite', 'sphalerite', 'bismuthinite', 'garnierite', 'diamond', 'emerald']
+  ;['copper', 'tin', 'gold', 'silver', 'iron', 'zinc', 'bismuth', 'nickel', 'diamond', 'emerald'].forEach((m) =>
+    event.remove(`c:dusts/${m}`, TFC_POWDERS.map((p) => `tfc:powder/${p}`)))
+  // TFC rod where TFC has one (Doc 10 v3 8.1); wrought iron is iron.
+  event.add('c:rods/iron', 'tfc:metal/rod/wrought_iron')
 
   // Zinc nugget: Create's nugget is canonical and is the andesite alloy ingredient (Doc 10 v3 section 8.1).
   event.removeAll('c:nuggets/zinc')
