@@ -427,6 +427,16 @@ block = "tfc:rock/loose/granite"
 "name:mowziesmobs:umvuthana_mask" = "age_3"
 "id:mowziesmobs:sol_visage" = "age_3"
 "id:mowziesmobs:grant_suns_blessing" = "age_3"
+# Structure bosses are not spawn-locked (Doc 08 section 5.2); their drops follow the mob stage of the boss:
+# Frostmaw mob_4 (loot table entities/frostmaw), Sculptor and his Bluffs mob_5 (entities/sculptor, sculptor_test,
+# bluff; the monastery chest holds the Geomancer set, the staff and the sand rake).
+"id:mowziesmobs:ice_crystal" = "age_4"
+"id:mowziesmobs:music_disc_petiole" = "age_4"
+"id:mowziesmobs:sculptor_staff" = "age_5"
+"id:mowziesmobs:earthrend_gauntlet" = "age_5"
+"id:mowziesmobs:bluff_rod" = "age_5"
+"id:mowziesmobs:sand_rake" = "age_5"
+"name:mowziesmobs:geomancer_" = "age_5"
 # Trophies after the final boss (stage finale_won locks them on top).
 "id:mekanism:mekasuit_helmet" = "age_9"
 "id:mekanism:mekasuit_bodyarmor" = "age_9"

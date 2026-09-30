@@ -1415,6 +1415,8 @@
     {"id": "minecraft:netherite_shovel", "required": false},
     {"id": "minecraft:netherite_sword", "required": false},
     {"id": "minecraft:netherite_upgrade_smithing_template", "required": false},
+    {"id": "mowziesmobs:ice_crystal", "required": false},
+    {"id": "mowziesmobs:music_disc_petiole", "required": false},
     {"id": "occultism:netherite_dust", "required": false},
     {"id": "occultism:netherite_scrap_dust", "required": false},
     {"id": "occultism:ritual_dummy/misc_diamond_horse_armor", "required": false},
