@@ -45,11 +45,10 @@
     if (idx < 0) return
     const age = FA.AGES[idx]
 
-    // Mob ladder.
+    // Mob ladder. No const inside the loop body: Rhino reports "redeclaration of var" on the second pass.
     const top = mobIndex(FA.MOB_STAGE_FOR[age])
     for (let k = 0; k <= 9; k++) {
-      const wanted = FA.MOB_LADDER_CUMULATIVE ? k <= top : k === top
-      setStage(player, `mob_${k}`, wanted)
+      setStage(player, `mob_${k}`, FA.MOB_LADDER_CUMULATIVE ? k <= top : k === top)
     }
 
     // Helper windows [from, to).
@@ -120,5 +119,40 @@
     }
     reconcile(player)
     event.respond(Text.green(`Stages: ${String(ProgressiveStages.list(player))}`))
+  })
+
+  // PoC self-test without a player (op only, runs from the console): a FakePlayer walks dawn -> age_6 and back,
+  // reconcile() runs after every step and the stage list is printed. PS fires onGranted/onRevoked only for
+  // players in the server's player list, so reconcile() is called directly here; the event wiring itself
+  // needs a client (dev/poc-checklist.md C21). All stages of the fake player are removed at the end.
+  ServerEvents.basicCommand('fa_selftest', (event) => {
+    const FakePlayerFactory = Java.loadClass('net.neoforged.neoforge.common.util.FakePlayerFactory')
+    const GameProfile = Java.loadClass('com.mojang.authlib.GameProfile')
+    const UUID = Java.loadClass('java.util.UUID')
+    const level = event.server.overworld()
+    const fp = FakePlayerFactory.get(level, new GameProfile(UUID.fromString('fa000000-0000-4000-8000-00000000f1a0'), '[FA_Selftest]'))
+    const say = (msg) => {
+      event.respond(Text.gray(msg))
+      console.info(`[fa_selftest] ${msg}`)
+    }
+    const list = () => {
+      const l = []
+      ProgressiveStages.list(fp).forEach((s) => l.push(String(s).replace(/^progressivestages:/, '')))
+      return l.sort().join(',')
+    }
+    ProgressiveStages.revokeAll(fp)
+    say(`start: [${list()}]`)
+    ;['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6'].forEach((age) => {
+      const ok = ProgressiveStages.grant(fp, age)
+      reconcile(fp)
+      say(`grant ${age} -> ${ok}: [${list()}]`)
+    })
+    ;['age_6', 'age_5', 'age_4', 'age_3', 'age_2'].forEach((age) => {
+      const ok = ProgressiveStages.revoke(fp, age)
+      reconcile(fp)
+      say(`revoke ${age} -> ${ok}: [${list()}]`)
+    })
+    ProgressiveStages.revokeAll(fp)
+    say(`cleanup: [${list()}]`)
   })
 })()

@@ -21,14 +21,17 @@
     const pz = Math.floor(player.z)
     const counts = {}
     let total = 0
+    // No const inside the loop bodies: Rhino reports "redeclaration of var" on the second pass.
+    const tally = (id) => {
+      if (id.startsWith(prefix)) {
+        counts[id] = (counts[id] || 0) + 1
+        total++
+      }
+    }
     for (let x = px - radius; x <= px + radius; x++) {
       for (let z = pz - radius; z <= pz + radius; z++) {
         for (let y = Math.max(level.minBuildHeight, py - 64); y <= Math.min(level.maxBuildHeight - 1, py + 64); y++) {
-          const id = String(level.getBlock(x, y, z).id)
-          if (id.startsWith(prefix)) {
-            counts[id] = (counts[id] || 0) + 1
-            total++
-          }
+          tally(String(level.getBlock(x, y, z).id))
         }
       }
     }
