@@ -38,6 +38,19 @@ ServerEvents.recipes((event) => {
   // POC: TFCreate Compat ore doubling recipes - recipe ids unknown until /kubejs dump in the PoC:
   // event.remove({ mod: 'tfcreate', type: 'create:crushing' })
 
+  // ---- No vanilla furnace for ores (Doc 10 v3 section 6.1, Schmelzen losers) ----------------------------------
+  // TFC has no vanilla furnace, but Create fans run smelting and blasting recipes (bulk blasting). TFC ore pieces sit
+  // in c:raw_materials/<metal> and ore blocks in c:ores/<metal>, so a 10 mB small piece gave a whole ingot.
+  // Occultism iesnium (Nether ore, no TFC counterpart) keeps its smelting.
+  const furnaceOre = []
+  ;['minecraft:smelting', 'minecraft:blasting'].forEach((type) => {
+    event.forEachRecipe({ type: type }, (r) => {
+      const ing = String(r.json.get('ingredient'))
+      if (/"tag":"c:(ores|raw_materials)\//.test(ing) && ing.indexOf('iesnium') < 0) furnaceOre.push(String(r.getId()))
+    })
+  })
+  furnaceOre.forEach((id) => event.remove({ id: id }))
+
   // ---- Immersive Engineering: no plates or ore dust from the Engineer's Hammer in the grid ----------------
   // Doc 10 v3 section 7.3 (IE row): all crafting/plate_*_hammering, crafting/hammercrushing_* and
   // crafting/raw_hammercrushing_* go; plates come from the TFC anvil / Create press / IE Metal Press.

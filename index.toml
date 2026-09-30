@@ -66,7 +66,7 @@ hash = "7d7223d284710ed2acf21f30902c247f5635c0ea0f236c51ced85fc248753d40"
 
 [[files]]
 file = "config/progressivestages/stages/disabled.toml"
-hash = "0812e38a31e6237af8773e8dcf982de65904f87bb7105f490ac21c2d7a6854e2"
+hash = "e65b2ff54cd45fd20e47dd3d077f92a270d711fdf55e996fe4a75193b14787b1"
 
 [[files]]
 file = "config/progressivestages/stages/finale_won.toml"
@@ -246,7 +246,7 @@ hash = "5458575dbabf182945060e26a4f2fe2ad372e6e1b20cd2d956e26e36a1e064cd"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "d1f8fdcc2ffdfac9c73f051bb587596a3521244912c3fbb1da5e7371c9b49468"
+hash = "ec773ff5f29d25a825e59569b4c65b5a2c0173aa21a902fcdf8cb39e9f1f7a54"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
@@ -274,7 +274,7 @@ hash = "0089848efaae9af8f13066fb118d69cfdb90e74a160c178a6fcf0d3232a18640"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "0a824f9b41d0837b00b8bd29418dbd9f100dc35e4ebf47eb3875391b81a4af90"
+hash = "1eda21df07f2758f8a0b3b1142f734b3246065299c4ea32f2f7aa062c7749005"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -413,12 +413,16 @@ file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
 hash = "fa149720866717b95a9296e0ef0502647893438cba462992828ee690b773859f"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
+hash = "506de1df1a456538501ffbb708c4a51fddd41d9219e3b79771a9e71b48514652"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_6/mekatfc_osmium.js"
 hash = "efb7452159f08e7ffb74c7f9aab1d8969fc00069c33492554deb682f01b43dcc"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "ab4b62ffa9f8df00fa317a821532d133a99a852c45c4a6019f7fd0607ace9140"
+hash = "6e50b2c2057c809e9769c725d89ce4c421911117232cc2ac9afed0be7857a90b"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
@@ -450,7 +454,7 @@ hash = "a9aeff142b00206298cabd7e1cf80ca102ce31b811e579e9fdb1ef194823bc17"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "158b8be4d93623cc8968532e7adbc930213675097ff767b66604366571c132b3"
+hash = "845b0a8ad3ef80c238fd083d29ceee969290389db2f36f569513c967f6c0ee23"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
