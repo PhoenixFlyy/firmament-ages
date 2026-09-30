@@ -8,3 +8,4 @@ LICENSE
 .gitattributes
 .git/
 *.bak*
+mod/

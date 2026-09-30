@@ -1,3 +1,10 @@
 tools/
 test-server/
 *.bak*
+
+# firmages-core build outputs
+mod/firmages-core/build/
+mod/firmages-core/.gradle/
+mod/firmages-core/run/
+mod/firmages-core/repo/
+mod/firmages-core/libs/*.jar
