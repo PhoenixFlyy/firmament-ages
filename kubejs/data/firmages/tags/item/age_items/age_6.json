@@ -645,7 +645,6 @@
     {"id": "mekanism:dust_lead", "required": false},
     {"id": "mekanism:dust_lithium", "required": false},
     {"id": "mekanism:dust_netherite", "required": false},
-    {"id": "mekanism:dust_obsidian", "required": false},
     {"id": "mekanism:dust_osmium", "required": false},
     {"id": "mekanism:dust_quartz", "required": false},
     {"id": "mekanism:dust_refined_obsidian", "required": false},

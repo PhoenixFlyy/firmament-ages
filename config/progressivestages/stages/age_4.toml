@@ -32,7 +32,6 @@ locked_ids = [
     "mod:cataclysm",
     "mod:create_factory_logistics",
     "mod:create_mechanical_spawner",
-    "mod:createaddition",
     "mod:createbigcannons",
     "mod:engineered_schematics",
     "mod:immersiveengineering",

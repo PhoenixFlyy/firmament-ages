@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:arcane_creature_biomes",
+  "spawners": {
+    "type": "ars_nouveau:starbuncle",
+    "weight": 5,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}

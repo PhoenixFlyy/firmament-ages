@@ -61,7 +61,7 @@ global.FA = {
   // FTB Chunks quota granted with the Industrial Age (decision r8 A).
   CHUNK_QUOTA: { stage: 'age_4', claims: 25, forceLoads: 25 },
 
-  // Items that never appear in the pack (Doc 10 v3 section 7.2, scope: content that exists by the Iron Age).
+  // Items that never appear in the pack (Doc 10 v3 section 7.2, scope: content that exists by the Arcane Age).
   // Used by server_scripts/tags/hidden_from_viewers.js (tag c:hidden_from_recipe_viewers) and by
   // client_scripts/viewer_static.js (KubeJS RecipeViewerEvents). The PS stage "disabled" locks them too.
   HIDDEN_ITEMS: [
@@ -74,7 +74,9 @@ global.FA = {
     'create:crushed_raw_uranium', 'create:crushed_raw_nickel',
     'occultism:silver_ore', 'occultism:silver_ore_deepslate', 'occultism:raw_silver', 'occultism:raw_silver_block',
     'occultism:silver_ingot', 'occultism:silver_block', 'occultism:silver_nugget', 'occultism:silver_dust',
-    'ftbquests:book'
+    'ftbquests:book',
+    // Arcane Age (Doc 10 v3 sections 1.6, 7.2); same list as stages/disabled.toml.
+    'occultism:book_of_calling_foliot_transport_items', 'ars_additions:warp_index', 'ars_additions:stabilized_warp_index'
   ]
 }
 // Only plain data goes into `global`: functions created in the startup context are not reliably callable

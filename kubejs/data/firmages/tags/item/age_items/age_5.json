@@ -93,6 +93,7 @@
     {"id": "createdieselgenerators:wire_cutters", "required": false},
     {"id": "createdieselgenerators:wood_chip", "required": false},
     {"id": "createdieselgenerators:yellow_cement_bucket", "required": false},
+    {"id": "firmages:attuned_circuit", "required": false},
     {"id": "immersiveengineering:aluminum_hanging_sign", "required": false},
     {"id": "immersiveengineering:aluminum_sign", "required": false},
     {"id": "immersiveengineering:capacitor_hv", "required": false},

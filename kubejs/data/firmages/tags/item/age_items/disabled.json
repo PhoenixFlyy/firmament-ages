@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    {"id": "ars_additions:stabilized_warp_index", "required": false},
+    {"id": "ars_additions:warp_index", "required": false},
     {"id": "create:brass_ingot", "required": false},
     {"id": "create:brass_sheet", "required": false},
     {"id": "create:copper_sheet", "required": false},
@@ -26,6 +28,7 @@
     {"id": "create:zinc_ingot", "required": false},
     {"id": "create:zinc_ore", "required": false},
     {"id": "ftbquests:book", "required": false},
+    {"id": "occultism:book_of_calling_foliot_transport_items", "required": false},
     {"id": "occultism:raw_silver", "required": false},
     {"id": "occultism:raw_silver_block", "required": false},
     {"id": "occultism:silver_block", "required": false},

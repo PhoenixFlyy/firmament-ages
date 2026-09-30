@@ -1,0 +1,93 @@
+{
+  "type": "occultism:add_item",
+  "conditions": [
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.02
+    },
+    {
+      "condition": "minecraft:any_of",
+      "terms": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/beachgrass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/bear_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/bluegrass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/bromegrass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/cordgrass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/dry_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/fountain_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/orchard_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/pampas_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/raddia_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/red_oat_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/ryegrass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/scutch_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/star_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/switchgrass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/tall_fescue_grass"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "tfc:plant/timothy_grass"
+        }
+      ]
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "items": "#c:tools/shear"
+        }
+      }
+    }
+  ],
+  "count": 1,
+  "item": "occultism:datura_seeds"
+}

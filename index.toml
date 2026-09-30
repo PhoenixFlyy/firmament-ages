@@ -38,7 +38,7 @@ hash = "3c567bff83d03aec994958727539be808aee9e0e2d8237b9a154713bb4b601dc"
 
 [[files]]
 file = "config/progressivestages/stages/age_4.toml"
-hash = "85594def375145a7d05d22e7179b5f4a0bd54ded256ee78b87f986d0bc850282"
+hash = "a11f5741dc2b71663ad9d8250833ad8f583f30521041583e8dfd274518259441"
 
 [[files]]
 file = "config/progressivestages/stages/age_5.toml"
@@ -66,7 +66,7 @@ hash = "7d7223d284710ed2acf21f30902c247f5635c0ea0f236c51ced85fc248753d40"
 
 [[files]]
 file = "config/progressivestages/stages/disabled.toml"
-hash = "1fcd1358633975613bf3d4d1a607656223155023c30515636d6f9ed36f87b3b5"
+hash = "0812e38a31e6237af8773e8dcf982de65904f87bb7105f490ac21c2d7a6854e2"
 
 [[files]]
 file = "config/progressivestages/stages/finale_won.toml"
@@ -169,6 +169,22 @@ file = "kubejs/data/draconicevolution/neoforge/biome_modifier/overworld_draconiu
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/firmages/loot_modifiers/datura_seed_from_tfc_grass.json"
+hash = "4456bd6e6adf69b904906202f4eb2a11eb1aa769dfbef2a9f8ad199b9605d71f"
+
+[[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/ars_drygmy_spawn_tfc.json"
+hash = "b5377621525d3b89446353246f2da1aa114d9e5a88f88f92ee5e8c32566a4acc"
+
+[[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/ars_starbuncle_spawn_tfc.json"
+hash = "a86e99f31dc117d684481e627b61598e2a5d482b61f67c2b0716e8f442e75d32"
+
+[[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/ars_whirlisprig_spawn_tfc.json"
+hash = "d24822541bf7e6bcd0ea434f8671f735ce0b2861f7d454eb9d1f7b45d0c73187"
+
+[[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_0.json"
 hash = "4fbf163eea869e131b3d46cf9378b5fecd4d9fffe7c6d912cae3e297980c7ef7"
 
@@ -226,19 +242,19 @@ hash = "0784cbdf7e2af10a6e689374afce75d4a4fdbedb6e4548458136edec9ece358d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "0d2279c08a9583af85e7a57bd1034d184d29358cf511068366df23bf814dffdf"
+hash = "5458575dbabf182945060e26a4f2fe2ad372e6e1b20cd2d956e26e36a1e064cd"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "7f7a26c7f05514ab4bbbee61da5cd6b4e2567758f7cad67db8c003dd57784059"
+hash = "d1f8fdcc2ffdfac9c73f051bb587596a3521244912c3fbb1da5e7371c9b49468"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "2c113657c4427e5eacb4b830e31ccd3a01004f429ade8c7d4a0475983b149f6e"
+hash = "9132027b6ea139ea0184a41d28f53b9592ece8e255b0559a5ead12c6f45ae6ee"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "921a04a45300a5e6156d73e18b7d078f3fd7be19da4a2c55f9eb3879ff688b3e"
+hash = "2973ad084fabfb833132fa981e0e9ef72ec3357078185d0ccc0bb0ce1b7bf107"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
@@ -246,7 +262,7 @@ hash = "0c762c8a2de95bc58b6144607f97a9768351fa92f776e7638e437cbb9951b571"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "4c9a15954716d48498d588d59796f0653e683ac197af26bc8a0b332c1d5b2f1e"
+hash = "4f8ab133de10ae0d656894b2b7a3bfd0f38a77b0dfe13d80c731b67fd01cc0ea"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -258,7 +274,11 @@ hash = "0089848efaae9af8f13066fb118d69cfdb90e74a160c178a6fcf0d3232a18640"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "b44f7e004c53327584c7f81c1ab3c5a7eedcd138934e7156b666ce3f9c1f19e4"
+hash = "0a824f9b41d0837b00b8bd29418dbd9f100dc35e4ebf47eb3875391b81a4af90"
+
+[[files]]
+file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
+hash = "7655ff6addc912102765472bd7e3fe703b190fa03125f3ed14e4ba7251182c6b"
 
 [[files]]
 file = "kubejs/data/firmages/tfc/item_heat/create_zinc_nugget.json"
@@ -353,6 +373,10 @@ file = "kubejs/data/mysticalagradditions/neoforge/biome_modifier/nether_prosperi
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/neoforge/loot_modifiers/global_loot_modifiers.json"
+hash = "dd1b3cf7a6fb69f9668d30c73b4c4a2d30570b382d658aa03db37abd4c68a913"
+
+[[files]]
 file = "kubejs/data/occultism/neoforge/biome_modifier/add_ore_silver.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
@@ -382,7 +406,11 @@ hash = "b33480ccf5bac0748faedea398da5d179cf5729ae533524d94f540b67070e433"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
-hash = "e185d7e56bacda51a817f78b68fb552fbcddff076611e71c725c73175303c5df"
+hash = "54bf19c51bbe93e16837933783cb038981ba56a3eede7820bcb63f2d568631e1"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
+hash = "fa149720866717b95a9296e0ef0502647893438cba462992828ee690b773859f"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/mekatfc_osmium.js"
@@ -405,6 +433,10 @@ file = "kubejs/server_scripts/stages/on_stage_added.js"
 hash = "9113b6610d19ba294c29ea6d9a43c87d088ba05300b15451b63e2016bdd0174f"
 
 [[files]]
+file = "kubejs/server_scripts/tags/arcane_industrial.js"
+hash = "93733816ef7278234a5180d341462a600579a9c9245afad33708d362b02fb52b"
+
+[[files]]
 file = "kubejs/server_scripts/tags/broken_mod_tags.js"
 hash = "05122d8261ba9eb856aa4db6715176a558231c7fa459df68a267ef916edf21a2"
 
@@ -418,11 +450,11 @@ hash = "a9aeff142b00206298cabd7e1cf80ca102ce31b811e579e9fdb1ef194823bc17"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "42aaaaf6ac662e99da80fef9e614f6c4f75c2763b6ca143827dcc11dccc2b519"
+hash = "158b8be4d93623cc8968532e7adbc930213675097ff767b66604366571c132b3"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
-hash = "2f70784352acddeeb0de7e5562cb03e326daf215f2d1d5a185b011f2183a0afd"
+hash = "64c1a7c88f7f48175020bbeb3322195eb3a29b9c04d609308f54348da7198d46"
 
 [[files]]
 file = "mods/ad-astra.pw.toml"

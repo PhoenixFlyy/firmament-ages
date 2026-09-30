@@ -680,6 +680,8 @@
     {"id": "dndecor:netherite_sheet_metal", "required": false},
     {"id": "engineered_schematics:multiblock_schematic", "required": false},
     {"id": "engineered_schematics:schematic_table_block", "required": false},
+    {"id": "firmages:arcane_gearbox", "required": false},
+    {"id": "firmages:pressure_core", "required": false},
     {"id": "firmalife:bucket/metal/chromium", "required": false},
     {"id": "firmalife:bucket/metal/stainless_steel", "required": false},
     {"id": "firmalife:empty_jar_with_stainless_steel_lid", "required": false},

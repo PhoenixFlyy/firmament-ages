@@ -347,6 +347,11 @@ block = "tfc:rock/loose/granite"
 "id:firmages:hearthstone" = "age_0"
 "id:firmages:sky_disc" = "age_1"
 "id:firmages:steel_heart" = "age_2"
+"id:firmages:arcane_keystone" = "age_3"
+"id:firmages:arcane_gearbox" = "age_4"                   # magic tail of the Industrial Age (Doc 08 section 7.2)
+"id:firmages:pressure_core" = "age_4"
+"id:firmages:attuned_circuit" = "age_5"                  # stub: IE circuit board + spirit attuned crystal
+"id:firmages:awakened_keystone" = "age_8"                # stub: Marid ritual
 "id:firmages:dust/zinc" = "age_2"                        # canonical dusts come with the Iron Age crushing wheels
 "id:firmages:dust/bismuth" = "age_2"
 # Canonical metal dusts of the Iron Age crushing wheels (kubejs recipes/age_2, Doc 10 v3 section 8.1).
@@ -355,6 +360,8 @@ block = "tfc:rock/loose/granite"
 "id:mekanism:dust_gold" = "age_2"
 "id:mekanism:dust_iron" = "age_2"
 "id:immersiveengineering:dust_silver" = "age_2"
+# Obsidian dust for purple chalk (Djinni pentacles, Arcane Keystone); Almost Unified makes every obsidian dust Mekanism's.
+"id:mekanism:dust_obsidian" = "age_3"
 # Create: brass tier and everything Doc 10 v3 section 2.1 puts in the Iron Age ("brass" is a material word).
 "id:create:precision_mechanism" = "age_2"
 "id:create:incomplete_precision_mechanism" = "age_2"

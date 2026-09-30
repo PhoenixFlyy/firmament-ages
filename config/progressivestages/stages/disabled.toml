@@ -1,7 +1,7 @@
 # Firmament Ages - sink stage "disabled" (SevTech pattern). It is NEVER granted, so everything listed
 # here is permanently locked: unusable, not pickable, hidden in EMI/JEI. It backs up the static
 # unification in kubejs/server_scripts (recipe removal + c:hidden_from_recipe_viewers, Doc 10 v3 section 7).
-# Scope of this draft: everything that exists by the Iron Age. Never grant this stage, not even to admins:
+# Scope of this draft: everything that exists by the Arcane Age. Never grant this stage, not even to admins:
 # `/stage bulk grant` and `/stage tag grant` would include it, so it carries no tags.
 
 [stage]
@@ -38,6 +38,10 @@ locked = [
     "id:occultism:silver_block",
     "id:occultism:silver_nugget",
     "id:occultism:silver_dust",
+    # Arcane Age (Doc 10 v3 sections 1.6, 7.2): Starbuncles carry items, Occultism Dimensional Storage is the store.
+    "id:occultism:book_of_calling_foliot_transport_items",
+    "id:ars_additions:warp_index",
+    "id:ars_additions:stabilized_warp_index",
     # FTB Quests opens with the K key (Default Options), never with the book.
     "id:ftbquests:book",
 ]
