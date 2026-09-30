@@ -11,6 +11,10 @@ Usage:
   python dev/run_server.py
   python dev/run_server.py --cmd "progressivestages validate" --cmd "kubejs errors server" --wait 5
   python dev/run_server.py --wipe-world --timeout 900
+  python dev/run_server.py --hold 3600 --timeout 3700   keep it running for RCON (dev/rcon.py); "stop" ends it
+While holding, every line appended to <server>/logs/run_server-input.txt is sent to the console (the file is
+emptied after each read). Use it for commands whose output RCON loses, e.g. spark (it replies asynchronously):
+  echo "spark tps" >> test-server/logs/run_server-input.txt   -> output in logs/run_server-console.log
 Exit code: 0 = reached Done and stopped cleanly, 1 = crash/exit before Done, 2 = timeout.
 """
 import argparse
@@ -81,6 +85,8 @@ def main():
     ap.add_argument("--cmd", action="append", default=[], help="console command to send after Done (repeatable)")
     ap.add_argument("--wait", type=float, default=5.0, help="seconds to wait after each command")
     ap.add_argument("--settle", type=float, default=5.0, help="seconds to wait after Done before the first command")
+    ap.add_argument("--hold", type=float, default=0.0,
+                    help="seconds to keep the server running after the commands (RCON use), then send stop")
     ap.add_argument("--wipe-world", action="store_true", help="delete <server>/world before the boot")
     ap.add_argument("--max-lines", type=int, default=25, help="max lines per summary section")
     a = ap.parse_args()
@@ -156,6 +162,20 @@ def main():
             send(proc, c)
             pump(min(deadline, time.time() + a.wait))
             current = None
+        if a.hold > 0 and not state["eof"]:
+            print(f"Holding for {a.hold:.0f}s (RCON port in server.properties); send 'stop' to end early", flush=True)
+            inbox = os.path.join(logs, "run_server-input.txt")
+            open(inbox, "w").close()
+            hold_end = min(deadline, time.time() + a.hold)
+            while not state["eof"] and time.time() < hold_end:
+                pump(min(hold_end, time.time() + 1))
+                if os.path.getsize(inbox):
+                    with open(inbox, "r+", encoding="utf-8") as f:
+                        lines = [l.strip() for l in f if l.strip()]
+                        f.seek(0)
+                        f.truncate()
+                    for c in lines:
+                        send(proc, c)
         send(proc, "stop")
         stop_deadline = min(deadline + 60, time.time() + 120)
         while not state["eof"] and time.time() < stop_deadline:
