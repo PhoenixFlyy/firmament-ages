@@ -7,7 +7,30 @@ Custom mod for the Firmament Ages pack (Minecraft 1.21.1, NeoForge 21.1.252, Jav
 - Maven group: `dev.firmages`, base package `dev.firmages.core`
 - Build system: official NeoForged MDK for 1.21.1 (ModDevGradle 2.0.147, Gradle 9.2.1 wrapper, Parchment 2024.11.17)
 
-Current state: skeleton only. The main class `dev.firmages.core.FirmagesCore` logs `firmages-core loaded` and registers nothing.
+Current state: milestone M1 of `SPEC.md` (the core): `AgeState` SavedData, the `<world>/firmages/ages.json` mirror,
+ProgressiveStages event subscription, `AgeIndex` from the `firmages:age_items|age_blocks|age_fluids/<age>` tags,
+the coalescing `ReloadScheduler`, the commands `/firmages ages [sync|simulate]`, `dump registry`, `reload`,
+`selftest <all|core|server>`, the KubeJS binding `FirmAges`, and `firmages-server.toml` / `firmages-client.toml`.
+No recipe filter yet (M2).
+
+## Tests
+
+- `gradlew build` runs the JUnit tests (`src/test`, level U of SPEC §12). They run the pure `CoreSuite`: mirror
+  round trip, corrupt/missing mirror → fallback, atomic write, scheduler delay/coalescing/follow-up/failure,
+  stage-change dedup, revoke, bulk-only-adds, tag JSON resolution, earliest-Age rule.
+- `gradlew runGameTestServer` runs the GameTests (`src/gametest`, level G) on a fresh world with ProgressiveStages,
+  Modonomicon, KubeJS and Rhino from `libs/`: the self-test suites, the commands, the AgeIndex built from the test
+  tags, and unlock → reload → revoke → reload with the KubeJS probe script `src/gametest/kubejs`. No EULA file is needed.
+- In the pack: `/firmages selftest all` writes `logs/firmages-selftest.json` (suites `core` and `server`).
+
+## Notes for the other milestones
+
+- KubeJS 2101 runs `ServerEvents.tags` handlers as a pre-capture while the server scripts load: on a reload at the
+  start of `ReloadableServerResources#loadResources` (after this mod's capture, so `FirmAges.lockedOreBlocks()` reads
+  that load's tag JSON), but on the initial load before the resource manager exists. The initial-load answer is
+  therefore empty; `AgeService` detects the wrong answer and reloads once right after server start.
+- `/firmages dump registry` writes `logs/firmages-registry.json`: `{ "items": { "<mod>": [ids] }, "blocks": {...}, "fluids": {...} }`.
+- The age-coverage check against ProgressiveStages writes `logs/firmages-coverage.txt` at every server start.
 
 ## Build
 
@@ -33,8 +56,9 @@ JAVA_HOME=/d/Minecraft/MinecraftModServer/FirmamentAges/tools/jdk-21 ./gradlew b
 Output: `build/libs/firmages-core-<mod_version>.jar` (version is `mod_version` in `gradle.properties`).
 
 The first build downloads Gradle, NeoForge 21.1.252, Minecraft and the dependency jars (a few minutes);
-later builds take seconds. `./gradlew runClient` / `runServer` start a dev instance in `run/` (with only
-NeoForge and this mod, since all hooked mods are compileOnly).
+later builds take seconds. `./gradlew runClient` / `runServer` start a dev instance in `run/` with NeoForge, this
+mod and the `localRuntime` jars from `libs/` (ProgressiveStages and Modonomicon are required dependencies; KubeJS
+and Rhino for the binding). All other hooked mods are compileOnly.
 
 ## Shipping the jar in the pack
 
@@ -69,14 +93,15 @@ Versions live in `gradle.properties` and must be bumped together with the pack's
 | FTB Quests | `dev.ftb.mods:ftb-quests-neoforge` | 2101.1.36 | maven.ftb.dev/releases |
 | ProgressiveStages | `libs/progressivestages-3.0.5.jar` | 3.0.5 | no maven; Modrinth jar pinned in `mods/progressivestages.pw.toml` |
 | TerraFirmaCraft | `libs/TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar` | 4.2.11 | no maven; Modrinth jar pinned in `mods/terrafirmacraft.pw.toml` |
+| KubeJS + Rhino | `libs/kubejs-neoforge-2101.7.2-build.377.jar`, `libs/rhino-2101.2.8-build.91.jar` | as named | Modrinth jars pinned in `mods/kubejs.pw.toml`, `mods/rhino.pw.toml` (compileOnly and dev runtime) |
+| Modonomicon | `libs/modonomicon-1.21.1-neoforge-1.120.7.jar` | 1.120.7 | Modrinth jar pinned in `mods/modonomicon.pw.toml` (dev runtime only, until M4) |
 
 Notes:
 
 - `libs/`: the task `fetchLibs` (runs before `compileJava`) reads `url`, `filename` and the sha512 `hash`
-  from the two `.pw.toml` files, downloads the jar into `libs/` if missing or different, and fails on a hash
-  mismatch. The jars are git-ignored (TFC alone is 65 MB). Updating TFC or ProgressiveStages in the pack
-  updates the build automatically; only `tfc_version` / `progressivestages_version` in `gradle.properties`
-  must follow.
+  from the `.pw.toml` files listed in `build.gradle` (`libMetafiles`), downloads each jar into `libs/` if missing or
+  different, and fails on a hash mismatch. The jars are git-ignored (TFC alone is 65 MB). Updating one of these mods
+  in the pack updates the build automatically; only the matching `*_version` in `gradle.properties` must follow.
 - Create: the Modrinth jar is not byte-identical to any maven build (it bundles Ponder/Flywheel via Jar-in-Jar).
   Build 281 is the last 6.0.10 build and was published a day after the release jar's build timestamp
   (2026-04-21), so it matches the release. When code touches Create types from Ponder, Flywheel or Registrate,
