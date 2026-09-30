@@ -15,43 +15,30 @@ tags = ["age"]
 
 [items]
 locked = [
-    "mod:occultism",
-    "mod:ars_nouveau",
-    "mod:ars_additions",
-    "mod:theurgy",
-    "mod:summoningrituals",
-    "mod:create_enchantment_industry",
-    "mod:ars_creo",
-    "id:create:blaze_burner",
-    "id:create:empty_blaze_burner",
-    "id:create:blaze_cake",
-    "id:create:blaze_cake_base",
+    # Every item of this Age: one tag, generated from dev/age_map.toml by dev/gen_stage_locks.py
+    # (kubejs/data/firmages/tags/item/age_items/). Change Ages in the map, not here.
     # >>> generated:items >>>
-    "id:tfc:gem/amethyst",
-    "id:tfc:gem/emerald",
-    "id:tfc:gem/lapis_lazuli",
-    "id:tfc:gem/opal",
-    "id:tfc:gem/pyrite",
-    "id:tfc:gem/ruby",
-    "id:tfc:gem/sapphire",
-    "id:tfc:gem/topaz",
-    "id:tfc:ore/amethyst",
-    "id:tfc:ore/emerald",
-    "id:tfc:ore/lapis_lazuli",
-    "id:tfc:ore/opal",
-    "id:tfc:ore/pyrite",
-    "id:tfc:ore/ruby",
-    "id:tfc:ore/sapphire",
-    "id:tfc:ore/topaz",
-    "id:tfc:powder/amethyst",
-    "id:tfc:powder/emerald",
-    "id:tfc:powder/lapis_lazuli",
-    "id:tfc:powder/opal",
-    "id:tfc:powder/pyrite",
-    "id:tfc:powder/ruby",
-    "id:tfc:powder/sapphire",
-    "id:tfc:powder/topaz",
+    "tag:firmages:age_items/age_3",
     # <<< generated:items <<<
+]
+
+[recipes]
+# Grid recipes of the namespaces that enter with this Age (dev/age_map.toml [mods] and [recipes]).
+# A recipe whose result is locked is also blocked by the item tag above.
+locked_ids = [
+    # >>> generated:recipes >>>
+    "mod:apotheosis",
+    "mod:apothic_enchanting",
+    "mod:ars_additions",
+    "mod:ars_creo",
+    "mod:ars_nouveau",
+    "mod:beneath",
+    "mod:create_dragons_plus",
+    "mod:create_enchantment_industry",
+    "mod:occultengineering",
+    "mod:occultism",
+    "mod:theurgy",
+    # <<< generated:recipes <<<
 ]
 
 [dimensions]
@@ -70,7 +57,7 @@ locked_spawns = [
 ]
 
 # >>> generated:ore_overrides >>>
-# 168 rows: TFC ore/deposit blocks stay disguised as rock until this stage is owned.
+# 168 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
 
 [[ores.overrides]]
 target = "id:tfc:ore/amethyst/andesite"

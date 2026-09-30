@@ -15,92 +15,10 @@ tags = ["age"]
 
 [items]
 locked = [
-    # Clay knapping needs 5 items of this tag in hand; locking the item blocks the knapping GUI.
-    # POC: confirm that a locked clay ball cannot open the clay knapping screen (item use is cancelled).
-    "tag:tfc:clay_knapping",
+    # Every item of this Age: one tag, generated from dev/age_map.toml by dev/gen_stage_locks.py
+    # (kubejs/data/firmages/tags/item/age_items/). Change Ages in the map, not here.
     # >>> generated:items >>>
-    "id:tfc:metal/anvil/copper",
-    "id:tfc:metal/axe/copper",
-    "id:tfc:metal/axe_head/copper",
-    "id:tfc:metal/bars/copper",
-    "id:tfc:metal/block/copper",
-    "id:tfc:metal/block/copper_slab",
-    "id:tfc:metal/block/copper_stairs",
-    "id:tfc:metal/boots/copper",
-    "id:tfc:metal/chain/copper",
-    "id:tfc:metal/chestplate/copper",
-    "id:tfc:metal/chisel/copper",
-    "id:tfc:metal/chisel_head/copper",
-    "id:tfc:metal/double_ingot/copper",
-    "id:tfc:metal/double_sheet/copper",
-    "id:tfc:metal/exposed_block/copper",
-    "id:tfc:metal/exposed_block/copper_slab",
-    "id:tfc:metal/exposed_block/copper_stairs",
-    "id:tfc:metal/exposed_grate/copper",
-    "id:tfc:metal/fish_hook/copper",
-    "id:tfc:metal/fishing_rod/copper",
-    "id:tfc:metal/grate/copper",
-    "id:tfc:metal/greaves/copper",
-    "id:tfc:metal/hammer/copper",
-    "id:tfc:metal/hammer_head/copper",
-    "id:tfc:metal/helmet/copper",
-    "id:tfc:metal/hoe/copper",
-    "id:tfc:metal/hoe_head/copper",
-    "id:tfc:metal/horse_armor/copper",
-    "id:tfc:metal/ingot/copper",
-    "id:tfc:metal/javelin/copper",
-    "id:tfc:metal/javelin_head/copper",
-    "id:tfc:metal/knife/copper",
-    "id:tfc:metal/knife_blade/copper",
-    "id:tfc:metal/lamp/copper",
-    "id:tfc:metal/mace/copper",
-    "id:tfc:metal/mace_head/copper",
-    "id:tfc:metal/oxidized_block/copper",
-    "id:tfc:metal/oxidized_block/copper_slab",
-    "id:tfc:metal/oxidized_block/copper_stairs",
-    "id:tfc:metal/oxidized_grate/copper",
-    "id:tfc:metal/pickaxe/copper",
-    "id:tfc:metal/pickaxe_head/copper",
-    "id:tfc:metal/propick/copper",
-    "id:tfc:metal/propick_head/copper",
-    "id:tfc:metal/rod/copper",
-    "id:tfc:metal/saw/copper",
-    "id:tfc:metal/saw_blade/copper",
-    "id:tfc:metal/scythe/copper",
-    "id:tfc:metal/scythe_blade/copper",
-    "id:tfc:metal/shears/copper",
-    "id:tfc:metal/sheet/copper",
-    "id:tfc:metal/shield/copper",
-    "id:tfc:metal/shovel/copper",
-    "id:tfc:metal/shovel_head/copper",
-    "id:tfc:metal/sword/copper",
-    "id:tfc:metal/sword_blade/copper",
-    "id:tfc:metal/trapdoor/copper",
-    "id:tfc:metal/tuyere/copper",
-    "id:tfc:metal/unfinished_boots/copper",
-    "id:tfc:metal/unfinished_chestplate/copper",
-    "id:tfc:metal/unfinished_greaves/copper",
-    "id:tfc:metal/unfinished_helmet/copper",
-    "id:tfc:metal/unfinished_lamp/copper",
-    "id:tfc:metal/weathered_block/copper",
-    "id:tfc:metal/weathered_block/copper_slab",
-    "id:tfc:metal/weathered_block/copper_stairs",
-    "id:tfc:metal/weathered_grate/copper",
-    "id:tfc:ore/normal_malachite",
-    "id:tfc:ore/normal_native_copper",
-    "id:tfc:ore/normal_tetrahedrite",
-    "id:tfc:ore/poor_malachite",
-    "id:tfc:ore/poor_native_copper",
-    "id:tfc:ore/poor_tetrahedrite",
-    "id:tfc:ore/rich_malachite",
-    "id:tfc:ore/rich_native_copper",
-    "id:tfc:ore/rich_tetrahedrite",
-    "id:tfc:ore/small_malachite",
-    "id:tfc:ore/small_native_copper",
-    "id:tfc:ore/small_tetrahedrite",
-    "id:tfc:powder/malachite",
-    "id:tfc:powder/native_copper",
-    "id:tfc:powder/tetrahedrite",
+    "tag:firmages:age_items/age_0",
     # <<< generated:items <<<
 ]
 
@@ -110,8 +28,19 @@ locked = [
 # minecraft: recipe is locked until age_0. Knapping, heating etc. are NOT crafting-menu recipes and stay usable.
 # POC: locked_ids also hides these recipes in EMI during Dawn; check EMI still shows rock knapping.
 # POC: `mod:minecraft` covers the vanilla recipes TFC overrides (261 files); check nothing Dawn needs is in there.
+# The generated:recipes block holds the namespace locks of dev/age_map.toml for this Age (mod:minecraft, mod:afc, ...).
 locked_ids = [
+    # >>> generated:recipes >>>
+    "mod:afc",
+    "mod:firmages",
+    "mod:framedblocks",
+    "mod:ftbquests",
+    "mod:gravestone",
     "mod:minecraft",
+    "mod:mowziesmobs",
+    "mod:totemic",
+    "mod:trashcans",
+    # <<< generated:recipes <<<
     # >>> generated:dawn_crafting >>>
     "name:tfc:crafting/alabaster/",
     "name:tfc:crafting/brick/",
@@ -289,5 +218,5 @@ locked = [
 # advancement = "tfc:story/firepit"
 
 # >>> generated:ore_overrides >>>
-# (no TFC ore becomes visible in this stage)
+# (no ore becomes visible in this stage)
 # <<< generated:ore_overrides <<<

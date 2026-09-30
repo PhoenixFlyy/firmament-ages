@@ -15,7 +15,9 @@ import re
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DAWN = {"", "progressivestages:dawn"}
+AGES = ["dawn"] + [f"age_{i}" for i in range(10)]
+PS = "progressivestages:"
+AGE_TAGS = os.path.join(REPO, "kubejs", "data", "firmages", "tags", "item", "age_items")
 HIDDEN_ITEMS_RE = re.compile(r"HIDDEN_ITEMS:\s*\[(.*?)\]", re.S)
 
 
@@ -29,6 +31,21 @@ def main():
     dump = json.load(open(os.path.join(base, "recipes.json"), encoding="utf-8"))
     tags = json.load(open(os.path.join(base, "item_tags.json"), encoding="utf-8"))
     rows = [dict(zip(dump["columns"], r)) for r in dump["recipes"]]
+    lock_cols = ("recipe_lock", "output_lock", "item_lock")
+    for r in rows:  # /fa_dump joins several gating stages with "|"
+        r["locks"] = {s for c in lock_cols for s in (r[c] or "").split("|") if s}
+    item_age = {}
+    for st in AGES + ["disabled"]:
+        with open(os.path.join(AGE_TAGS, f"{st}.json"), encoding="utf-8") as f:
+            for v in json.load(f)["values"]:
+                item_age[v["id"] if isinstance(v, dict) else v] = st
+
+    def owned(stage):  # the cumulative Age stages of a team that has just reached `stage`
+        return {PS + s for s in AGES[: AGES.index(stage) + 1]}
+
+    def open_in(stage, recipes):
+        have = owned(stage)
+        return [r for r in recipes if r["locks"] <= have]
     by_id = {r["id"]: r for r in rows}
     failed = []
 
@@ -47,7 +64,7 @@ def main():
 
     # ---- Dawn crafting whitelist: crafting recipes a Dawn-only team can still use -----------------------
     crafting = [r for r in rows if r["type"] == "minecraft:crafting"]
-    open_ = [r for r in crafting if r["recipe_lock"] in DAWN and r["output_lock"] in DAWN and r["item_lock"] in DAWN]
+    open_ = open_in("dawn", crafting)
     by_ns = collections.Counter(r["id"].split(":")[0] for r in open_)
     tfc_open = sorted(r["id"] for r in open_ if r["id"].startswith("tfc:"))
     tfc_bad = [i for i in tfc_open if not re.match(
@@ -60,9 +77,38 @@ def main():
           not tfc_bad, [f"not whitelisted: {i}" for i in tfc_bad] or [f"open TFC: {len(tfc_open)} e.g. {tfc_open[:6]}"])
     print("    open in Dawn by namespace: " + ", ".join(f"{k}={v}" for k, v in by_ns.most_common()))
     other = [r for r in open_ if not r["id"].startswith(("tfc:", "minecraft:"))]
-    print(f"    non-TFC/non-vanilla grid recipes open in Dawn ({len(other)}), first {min(len(other), a.show)}:")
-    for r in sorted(other, key=lambda r: r["id"])[:a.show]:
-        print(f"      {r['id']} -> {r['result']}")
+    check("A-dawn-3 no grid recipe of another mod is open in Dawn (Doc 08 section 9.2)",
+          not other, [f"{r['id']} -> {r['result']}" for r in sorted(other, key=lambda r: r["id"])])
+
+    # ---- Stone, Bronze, Iron: what opens with each Age ------------------------------------------------------
+    # Every recipe open at a stage must make an item of that Age or earlier (age_items tags), the namespaces that
+    # enter later must stay shut, and a few landmark recipes must open exactly there.
+    landmarks = {
+        "age_0": (["tfc:crafting/wood/workbench/oak", "afc:crafting/wood/lumber/ipe_from_planks", "firmages:crafting/hearthstone"],
+                  ["create:", "firmalife:", "createdeco:", "immersiveengineering:"]),
+        "age_1": (["create:crafting/kinetics/cogwheel", "create:crafting/kinetics/water_wheel", "firmages:crafting/sky_disc"],
+                  ["createdeco:", "dndecor:", "railways:", "immersiveengineering:", "mekanism:"]),
+        "age_2": (["firmages:crafting/steel_heart", "create:crafting/kinetics/brass_hand", "railways:"],
+                  ["occultism:", "ars_nouveau:", "immersiveengineering:", "mekanism:", "mysticalagriculture:"]),
+    }
+    prev = {r["id"] for r in open_}
+    for st, (must, never) in landmarks.items():
+        now = open_in(st, crafting)
+        ids_now = {r["id"] for r in now}
+        new = [r for r in now if r["id"] not in prev]
+        too_late = [f"{r['id']} -> {r['result']} ({item_age.get(r['result'], '?')})" for r in now
+                    if r["result"] and AGES.index(item_age.get(r["result"], "dawn")) > AGES.index(st)
+                    if item_age.get(r["result"]) in AGES]
+        missing = [m for m in must if not any(i == m or (m.endswith(":") and i.startswith(m)) for i in ids_now)]
+        leaked = [i for i in sorted(ids_now) if i.startswith(tuple(never))]
+        byns = collections.Counter(r["id"].split(":")[0] for r in new)
+        check(f"A-{st} grid recipes open at {st}: results of that Age or earlier, landmarks open, later mods shut",
+              not too_late and not missing and not leaked,
+              [f"result from a later Age: {x}" for x in too_late] + [f"landmark not open: {m}" for m in missing]
+              + [f"later mod open: {x}" for x in leaked])
+        print(f"    open at {st}: {len(now)} (+{len(new)}); new by namespace: " +
+              ", ".join(f"{k}={v}" for k, v in byns.most_common(12)))
+        prev = ids_now
 
     # ---- Create plates / zinc / brass ---------------------------------------------------------------------
     sheet_out = ids(r"^create:(iron|copper|golden|brass)_sheet$", "result")
@@ -70,7 +116,7 @@ def main():
           not sheet_out and not ids(r"^create:pressing/(iron|copper|gold|brass)_ingot$"), sheet_out)
     # A result locked by the "disabled" stage can never be held, so such a recipe is no source.
     zinc_out = [r["id"] for r in rows if re.match(r"^create:(zinc_ingot|zinc_block|raw_zinc|raw_zinc_block|brass_ingot)$", r["result"] or "")
-                and r["item_lock"] != "progressivestages:disabled"]
+                and PS + "disabled" not in r["locks"]]
     chain = ["firmages:crafting/zinc_nugget", "firmages:heating/create_zinc_nugget",
              "create:crafting/materials/andesite_alloy_from_zinc", "create:mixing/andesite_alloy_from_zinc"]
     gone = ["create:mixing/brass_ingot", "create:crafting/materials/andesite_alloy", "create:mixing/andesite_alloy",

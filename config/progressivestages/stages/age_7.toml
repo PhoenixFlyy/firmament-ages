@@ -15,11 +15,23 @@ tags = ["age"]
 
 [items]
 locked = [
+    # Every item of this Age: one tag, generated from dev/age_map.toml by dev/gen_stage_locks.py
+    # (kubejs/data/firmages/tags/item/age_items/). Change Ages in the map, not here.
+    # >>> generated:items >>>
+    "tag:firmages:age_items/age_7",
+    # <<< generated:items <<<
+]
+
+[recipes]
+# Grid recipes of the namespaces that enter with this Age (dev/age_map.toml [mods] and [recipes]).
+# A recipe whose result is locked is also blocked by the item tag above.
+locked_ids = [
+    # >>> generated:recipes >>>
     "mod:ad_astra",
+    "mod:ae2_draconic_fusion_autocrafter",
     "mod:draconicevolution",
     "mod:megacells",
-    # >>> generated:items >>>
-    # <<< generated:items <<<
+    # <<< generated:recipes <<<
 ]
 
 [dimensions]
@@ -39,5 +51,325 @@ locked_spawns = [
 ]
 
 # >>> generated:ore_overrides >>>
-# (no TFC ore becomes visible in this stage)
+# 64 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/poor_uraninite/tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/normal_uraninite/tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/rich_uraninite/tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:tfc_ie_addon:ore/small_uraninite"
+display_as = "id:tfc:rock/loose/granite"
+drop_as = "id:tfc:rock/loose/granite"
 # <<< generated:ore_overrides <<<

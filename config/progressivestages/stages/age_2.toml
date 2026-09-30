@@ -15,212 +15,35 @@ tags = ["age"]
 
 [items]
 locked = [
-    # Create brass tier and everything Doc 10 v3 section 2.1 puts in the Iron Age.
-    # Item ids checked against Create 6.0.10 lang/en_us.json.
-    "name:create:brass_",
-    "id:create:precision_mechanism",
-    "id:create:incomplete_precision_mechanism",
-    "id:create:electron_tube",
-    "id:create:deployer",
-    "id:create:mechanical_arm",
-    "id:create:mechanical_crafter",
-    "id:create:crushing_wheel",
-    "id:create:steam_engine",
-    "id:create:steam_whistle",
-    "id:create:spout",
-    "id:create:fluid_pipe",
-    "id:create:mechanical_pump",
-    "id:create:fluid_tank",
-    "id:create:fluid_valve",
-    "id:create:smart_fluid_pipe",
-    "id:create:smart_chute",
-    "id:create:rotation_speed_controller",
-    "id:create:sequenced_gearshift",
-    "id:create:elevator_pulley",
-    "id:create:track",
-    "id:create:track_station",
-    "id:create:track_signal",
-    "id:create:track_observer",
-    "id:create:controls",
-    "id:create:railway_casing",
-    "id:create:schematicannon",
-    "id:create:schematic_table",
-    "id:create:empty_schematic",
-    "id:create:schematic_and_quill",
-    # Iron Age mods. POC: mod ids unverified except twilightforest.
+    # Every item of this Age: one tag, generated from dev/age_map.toml by dev/gen_stage_locks.py
+    # (kubejs/data/firmages/tags/item/age_items/). Change Ages in the map, not here.
+    # >>> generated:items >>>
+    "tag:firmages:age_items/age_2",
+    # <<< generated:items <<<
+]
+
+[recipes]
+# Grid recipes of the namespaces that enter with this Age (dev/age_map.toml [mods] and [recipes]).
+# A recipe whose result is locked is also blocked by the item tag above.
+locked_ids = [
+    # >>> generated:recipes >>>
+    "mod:bellsandwhistles",
+    "mod:bits_n_bobs",
+    "mod:copycats",
+    "mod:create_mechanical_extruder",
+    "mod:create_pattern_schematics",
+    "mod:createcasing",
+    "mod:createdeco",
+    "mod:createframed",
+    "mod:createrailwaysnavigator",
+    "mod:dndecor",
+    "mod:gateways",
     "mod:railways",
+    "mod:tfcbetterbf",
     "mod:tfcreate",
     "mod:toms_storage",
     "mod:twilightforest",
-    "mod:gateways",
-    # >>> generated:items >>>
-    "id:tfc:metal/anvil/steel",
-    "id:tfc:metal/anvil/wrought_iron",
-    "id:tfc:metal/axe/steel",
-    "id:tfc:metal/axe/wrought_iron",
-    "id:tfc:metal/axe_head/steel",
-    "id:tfc:metal/axe_head/wrought_iron",
-    "id:tfc:metal/bars/steel",
-    "id:tfc:metal/bars/wrought_iron",
-    "id:tfc:metal/block/cast_iron",
-    "id:tfc:metal/block/cast_iron_slab",
-    "id:tfc:metal/block/cast_iron_stairs",
-    "id:tfc:metal/block/steel",
-    "id:tfc:metal/block/steel_slab",
-    "id:tfc:metal/block/steel_stairs",
-    "id:tfc:metal/block/wrought_iron",
-    "id:tfc:metal/block/wrought_iron_slab",
-    "id:tfc:metal/block/wrought_iron_stairs",
-    "id:tfc:metal/boots/steel",
-    "id:tfc:metal/boots/wrought_iron",
-    "id:tfc:metal/chain/steel",
-    "id:tfc:metal/chain/wrought_iron",
-    "id:tfc:metal/chestplate/steel",
-    "id:tfc:metal/chestplate/wrought_iron",
-    "id:tfc:metal/chisel/steel",
-    "id:tfc:metal/chisel/wrought_iron",
-    "id:tfc:metal/chisel_head/steel",
-    "id:tfc:metal/chisel_head/wrought_iron",
-    "id:tfc:metal/double_ingot/cast_iron",
-    "id:tfc:metal/double_ingot/steel",
-    "id:tfc:metal/double_ingot/wrought_iron",
-    "id:tfc:metal/double_sheet/cast_iron",
-    "id:tfc:metal/double_sheet/steel",
-    "id:tfc:metal/double_sheet/wrought_iron",
-    "id:tfc:metal/exposed_block/steel",
-    "id:tfc:metal/exposed_block/steel_slab",
-    "id:tfc:metal/exposed_block/steel_stairs",
-    "id:tfc:metal/exposed_block/wrought_iron",
-    "id:tfc:metal/exposed_block/wrought_iron_slab",
-    "id:tfc:metal/exposed_block/wrought_iron_stairs",
-    "id:tfc:metal/exposed_grate/steel",
-    "id:tfc:metal/exposed_grate/wrought_iron",
-    "id:tfc:metal/fish_hook/steel",
-    "id:tfc:metal/fish_hook/wrought_iron",
-    "id:tfc:metal/fishing_rod/steel",
-    "id:tfc:metal/fishing_rod/wrought_iron",
-    "id:tfc:metal/grate/steel",
-    "id:tfc:metal/grate/wrought_iron",
-    "id:tfc:metal/greaves/steel",
-    "id:tfc:metal/greaves/wrought_iron",
-    "id:tfc:metal/hammer/steel",
-    "id:tfc:metal/hammer/wrought_iron",
-    "id:tfc:metal/hammer_head/steel",
-    "id:tfc:metal/hammer_head/wrought_iron",
-    "id:tfc:metal/helmet/steel",
-    "id:tfc:metal/helmet/wrought_iron",
-    "id:tfc:metal/hoe/steel",
-    "id:tfc:metal/hoe/wrought_iron",
-    "id:tfc:metal/hoe_head/steel",
-    "id:tfc:metal/hoe_head/wrought_iron",
-    "id:tfc:metal/horse_armor/steel",
-    "id:tfc:metal/horse_armor/wrought_iron",
-    "id:tfc:metal/ingot/cast_iron",
-    "id:tfc:metal/ingot/high_carbon_steel",
-    "id:tfc:metal/ingot/pig_iron",
-    "id:tfc:metal/ingot/steel",
-    "id:tfc:metal/ingot/weak_steel",
-    "id:tfc:metal/ingot/wrought_iron",
-    "id:tfc:metal/javelin/steel",
-    "id:tfc:metal/javelin/wrought_iron",
-    "id:tfc:metal/javelin_head/steel",
-    "id:tfc:metal/javelin_head/wrought_iron",
-    "id:tfc:metal/knife/steel",
-    "id:tfc:metal/knife/wrought_iron",
-    "id:tfc:metal/knife_blade/steel",
-    "id:tfc:metal/knife_blade/wrought_iron",
-    "id:tfc:metal/lamp/steel",
-    "id:tfc:metal/lamp/wrought_iron",
-    "id:tfc:metal/mace/steel",
-    "id:tfc:metal/mace/wrought_iron",
-    "id:tfc:metal/mace_head/steel",
-    "id:tfc:metal/mace_head/wrought_iron",
-    "id:tfc:metal/oxidized_block/steel",
-    "id:tfc:metal/oxidized_block/steel_slab",
-    "id:tfc:metal/oxidized_block/steel_stairs",
-    "id:tfc:metal/oxidized_block/wrought_iron",
-    "id:tfc:metal/oxidized_block/wrought_iron_slab",
-    "id:tfc:metal/oxidized_block/wrought_iron_stairs",
-    "id:tfc:metal/oxidized_grate/steel",
-    "id:tfc:metal/oxidized_grate/wrought_iron",
-    "id:tfc:metal/pickaxe/steel",
-    "id:tfc:metal/pickaxe/wrought_iron",
-    "id:tfc:metal/pickaxe_head/steel",
-    "id:tfc:metal/pickaxe_head/wrought_iron",
-    "id:tfc:metal/propick/steel",
-    "id:tfc:metal/propick/wrought_iron",
-    "id:tfc:metal/propick_head/steel",
-    "id:tfc:metal/propick_head/wrought_iron",
-    "id:tfc:metal/rod/cast_iron",
-    "id:tfc:metal/rod/steel",
-    "id:tfc:metal/rod/wrought_iron",
-    "id:tfc:metal/saw/steel",
-    "id:tfc:metal/saw/wrought_iron",
-    "id:tfc:metal/saw_blade/steel",
-    "id:tfc:metal/saw_blade/wrought_iron",
-    "id:tfc:metal/scythe/steel",
-    "id:tfc:metal/scythe/wrought_iron",
-    "id:tfc:metal/scythe_blade/steel",
-    "id:tfc:metal/scythe_blade/wrought_iron",
-    "id:tfc:metal/shears/steel",
-    "id:tfc:metal/shears/wrought_iron",
-    "id:tfc:metal/sheet/cast_iron",
-    "id:tfc:metal/sheet/steel",
-    "id:tfc:metal/sheet/wrought_iron",
-    "id:tfc:metal/shield/steel",
-    "id:tfc:metal/shield/wrought_iron",
-    "id:tfc:metal/shovel/steel",
-    "id:tfc:metal/shovel/wrought_iron",
-    "id:tfc:metal/shovel_head/steel",
-    "id:tfc:metal/shovel_head/wrought_iron",
-    "id:tfc:metal/sword/steel",
-    "id:tfc:metal/sword/wrought_iron",
-    "id:tfc:metal/sword_blade/steel",
-    "id:tfc:metal/sword_blade/wrought_iron",
-    "id:tfc:metal/trapdoor/steel",
-    "id:tfc:metal/trapdoor/wrought_iron",
-    "id:tfc:metal/tuyere/steel",
-    "id:tfc:metal/tuyere/wrought_iron",
-    "id:tfc:metal/unfinished_boots/steel",
-    "id:tfc:metal/unfinished_boots/wrought_iron",
-    "id:tfc:metal/unfinished_chestplate/steel",
-    "id:tfc:metal/unfinished_chestplate/wrought_iron",
-    "id:tfc:metal/unfinished_greaves/steel",
-    "id:tfc:metal/unfinished_greaves/wrought_iron",
-    "id:tfc:metal/unfinished_helmet/steel",
-    "id:tfc:metal/unfinished_helmet/wrought_iron",
-    "id:tfc:metal/unfinished_lamp/steel",
-    "id:tfc:metal/unfinished_lamp/wrought_iron",
-    "id:tfc:metal/weathered_block/steel",
-    "id:tfc:metal/weathered_block/steel_slab",
-    "id:tfc:metal/weathered_block/steel_stairs",
-    "id:tfc:metal/weathered_block/wrought_iron",
-    "id:tfc:metal/weathered_block/wrought_iron_slab",
-    "id:tfc:metal/weathered_block/wrought_iron_stairs",
-    "id:tfc:metal/weathered_grate/steel",
-    "id:tfc:metal/weathered_grate/wrought_iron",
-    "id:tfc:ore/bituminous_coal",
-    "id:tfc:ore/cinnabar",
-    "id:tfc:ore/cryolite",
-    "id:tfc:ore/lignite",
-    "id:tfc:ore/normal_hematite",
-    "id:tfc:ore/normal_limonite",
-    "id:tfc:ore/normal_magnetite",
-    "id:tfc:ore/poor_hematite",
-    "id:tfc:ore/poor_limonite",
-    "id:tfc:ore/poor_magnetite",
-    "id:tfc:ore/rich_hematite",
-    "id:tfc:ore/rich_limonite",
-    "id:tfc:ore/rich_magnetite",
-    "id:tfc:ore/small_hematite",
-    "id:tfc:ore/small_limonite",
-    "id:tfc:ore/small_magnetite",
-    "id:tfc:ore/sulfur",
-    "id:tfc:powder/hematite",
-    "id:tfc:powder/limonite",
-    "id:tfc:powder/magnetite",
-    "id:tfc:powder/sulfur",
-    # <<< generated:items <<<
+    # <<< generated:recipes <<<
 ]
 
 [dimensions]
@@ -236,7 +59,7 @@ locked_spawns = [
 ]
 
 # >>> generated:ore_overrides >>>
-# 255 rows: TFC ore/deposit blocks stay disguised as rock until this stage is owned.
+# 276 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
 
 [[ores.overrides]]
 target = "id:tfc:ore/cinnabar/andesite"
@@ -1512,4 +1335,109 @@ drop_as = "id:tfc:rock/loose/granite"
 target = "id:tfc:ore/small_magnetite"
 display_as = "id:tfc:rock/loose/granite"
 drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:tfcreate:quartz_tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
 # <<< generated:ore_overrides <<<

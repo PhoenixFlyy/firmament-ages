@@ -1,7 +1,9 @@
 // Firmament Ages - PoC helper commands that also run from the server console / RCON (op only).
 //   /fa_dump       write local/firmages/recipes.json (every loaded recipe: id, type, result, count, the
-//                  ProgressiveStages stage that locks the recipe id, its result by recipe lock, its result item)
-//                  and local/firmages/item_tags.json (every item tag with its items). dev/poc_analyze.py reads both.
+//                  ProgressiveStages stages that lock the recipe id, its result by recipe lock, its result item;
+//                  several stages are joined with "|"), local/firmages/item_tags.json (every item tag with its
+//                  items) and local/firmages/registries.json (every item, block and fluid id).
+//                  dev/poc_analyze.py reads the first two, dev/gen_stage_locks.py --registry reads all three.
 //   /fa_dims       list loaded dimensions with their ProgressiveStages dimension lock, then the number of
 //                  loaded [[ores.overrides]] rows per stage (ore disguise) and which of them target unknown blocks
 //   /fa_recipe <regex>  print up to 15 recipes whose id matches: type, result and the first items of each
@@ -15,6 +17,17 @@
   const OUT = 'local/firmages'
 
   const opt = (o) => (o && o.isPresent() ? String(o.get()) : '')
+  // All gating stages of a lock lookup (a Java Set<StageId>), sorted and joined, '' when unlocked.
+  const all = (set) => {
+    const out = []
+    set.forEach((s) => out.push(String(s)))
+    return out.sort().join('|')
+  }
+  const keysOf = (registry) => {
+    const out = []
+    registry.keySet().forEach((k) => out.push(String(k)))
+    return out.sort()
+  }
   const itemId = (item) => String(BuiltInRegistries.ITEM.getKey(item))
 
   // Rhino rejects const/let declared directly inside a try block, so the result lookup lives here.
@@ -22,7 +35,7 @@
     const stack = recipe.getResultItem(access)
     if (!stack || stack.isEmpty()) return ['', 0, '', '']
     const item = stack.getItem()
-    return [itemId(item), stack.getCount(), opt(locks.getRequiredStageForRecipeByOutput(item)), opt(locks.getRequiredStage(item))]
+    return [itemId(item), stack.getCount(), all(locks.getRequiredStagesForRecipeByOutput(item)), all(locks.getRequiredStages(item))]
   }
 
   ServerEvents.basicCommand('fa_dump', (event) => {
@@ -43,7 +56,7 @@
         failed++
       }
       recipes.push([String(id), String(BuiltInRegistries.RECIPE_TYPE.getKey(recipe.getType())), res[0], res[1],
-        opt(locks.getRequiredStageForRecipe(id)), res[2], res[3]])
+        all(locks.getRequiredStagesForRecipe(id)), res[2], res[3]])
     })
     const tags = {}
     BuiltInRegistries.ITEM.getTags().forEach((pair) => {
@@ -53,6 +66,8 @@
     })
     JsonIO.write(`${OUT}/recipes.json`, { columns: ['id', 'type', 'result', 'count', 'recipe_lock', 'output_lock', 'item_lock'], recipes: recipes })
     JsonIO.write(`${OUT}/item_tags.json`, tags)
+    JsonIO.write(`${OUT}/registries.json`, { item: keysOf(BuiltInRegistries.ITEM), block: keysOf(BuiltInRegistries.BLOCK),
+      fluid: keysOf(BuiltInRegistries.FLUID) })
     event.respond(Text.gold(`[fa_dump] ${recipes.length} recipes (${failed} without a readable result), ` +
       `${Object.keys(tags).length} item tags -> ${OUT}/`))
     if (firstError) event.respond(Text.gray(`  first unreadable result: ${firstError}`))

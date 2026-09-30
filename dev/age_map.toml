@@ -1,0 +1,435 @@
+# Firmament Ages - Age map: the ONE source for "which Age does this item, block or grid recipe belong to".
+#
+# dev/gen_stage_locks.py reads this file plus the registry snapshot dev/data/registry.json and writes
+#   - kubejs/data/firmages/tags/item/age_items/<stage>.json   every item in exactly one tag (its Age)
+#   - kubejs/data/firmages/tags/block/age_blocks/<stage>.json  ore and deposit blocks per Age
+#   - the generated blocks of config/progressivestages/stages/*.toml: "tag:firmages:age_items/<stage>" as the
+#     item lock, "mod:<ns>" grid-recipe locks, the Dawn crafting selectors and the [[ores.overrides]] rows.
+# The same tags feed the firmages-core recipe filter later (mod/firmages-core/SPEC.md section 2.1).
+#
+# How an item gets its Age (first rule that applies wins):
+#   1. listed in config/progressivestages/stages/disabled.toml  -> tag age_items/disabled (never unlocked)
+#   2. [items] "id:<item>"                                        -> that Age (may be EARLIER than the mod Age)
+#   3. [items] "name:<text>" / "tag:<item tag>" / "mod:<ns>", in file order
+#   4. [ore_families] and the TFC tables ([tfc_ores], [tfc_metals], [tfc_powders]): ore pieces, ore blocks,
+#      metal items (derived from dev/data/tfc-4.2.11-ids.json and the registry)
+#   5. max([mods] Age of the namespace, Age of every [materials] word in the item path)
+#      ("decoration of a metal or tech mod belongs to the Age of its materials", Doc 10 v3 section 8.1)
+# A namespace that is missing from [mods] makes the generator fail, so a new mod cannot slip through unmapped.
+#
+# Stages: dawn, age_0 .. age_9. Sources: Doc 10 v3 section 1 (Age column), section 6 (stations), section 8.1
+# (material canon); Doc 08 v3 sections 2 and 9.2.
+
+# ------------------------------------------------------------------------------------------------ mods
+# Age slot per namespace (Doc 10 v3 section 1). A range "a-b" in the doc starts at a; later items of that
+# mod are pulled up by [materials] words or [items] rules. Libraries and QoL mods without an Age column
+# take the Age of what they are made from.
+[mods]
+minecraft = "dawn"               # vanilla world items; metals and gems follow [materials]
+tfc = "dawn"                     # world, food, knapping; metals, ores, gems via the TFC tables
+afc = "dawn"                     # ArborFirmaCraft trees are world content (0+); its grid recipes follow TFC ([recipes])
+modonomicon = "dawn"             # guide books
+patchouli = "dawn"
+guideme = "dawn"
+ftbquests = "dawn"               # task screens and loot crates; the book is disabled
+ftblibrary = "dawn"
+gravestone = "dawn"              # graves must work from the first death; the craftable stone follows [recipes]
+azimuth = "dawn"                 # library (ponder helper item)
+dragonlib = "dawn"               # library
+firmages = "dawn"                # pack items: see [items]
+totemic = "age_0"                # 0-2
+mowziesmobs = "age_0"            # 0-5; boss drops per Age in [items]
+framedblocks = "age_0"           # wood decoration: planks need a TFC saw (Stone Age)
+trashcans = "age_0"              # stone and a chest; the FE can in [items]
+create = "age_1"                 # 1 (andesite), 2 (brass), 3 (blaze), 4 (packages)
+woodencog = "age_1"
+create_connected = "age_1"
+c2tfc = "age_1"
+precisionprospecting = "age_1"
+firmalife = "age_1"
+sophisticatedbackpacks = "age_1"
+sophisticatedcore = "age_1"
+tfcastikorcarts = "age_1"
+astikorcartsredux = "age_1"      # library of TFC Astikor Carts
+rnr = "age_1"                    # Roads and Roofs TFC, 1-2
+tfcreate = "age_2"               # 1-2; Fuel Heater for the heated basin (Iron Age). Its TFC welding recipes are no grid recipes
+railways = "age_2"
+toms_storage = "age_2"
+twilightforest = "age_2"
+gateways = "age_2"
+createdeco = "age_2"
+dndecor = "age_2"
+createframed = "age_2"
+createcasing = "age_2"           # Create Encased
+copycats = "age_2"
+bits_n_bobs = "age_2"
+bellsandwhistles = "age_2"
+trainutilities = "age_2"
+createrailwaysnavigator = "age_2"
+create_pattern_schematics = "age_2"
+create_mechanical_extruder = "age_2"
+tfcbetterbf = "age_2"
+occultism = "age_3"              # Afrit 5, Marid 8 via [materials]
+ars_nouveau = "age_3"            # Archmage 6 via [materials]
+ars_additions = "age_3"
+ars_creo = "age_3"
+theurgy = "age_3"                # Reformation 6 via [materials]
+summoningrituals = "age_3"
+create_enchantment_industry = "age_3"
+create_dragons_plus = "age_3"    # library of Enchantment Industry (dye and dragon-breath fluids, fan catalysts)
+occultengineering = "age_3"
+apotheosis = "age_3"
+apothic_enchanting = "age_3"
+beneath = "age_3"                # TFC Nether
+immersiveengineering = "age_4"   # LV 4; MV/HV 5 and aluminium 5, uranium 7 via [items]/[materials]
+tfc_ie_addon = "age_4"
+advancedtfctech = "age_4"
+immersiveposts = "age_4"
+engineered_schematics = "age_4"
+createaddition = "age_4"
+aeronautics = "age_4"
+simulated = "age_4"              # Create Aeronautics core
+offroad = "age_4"                # Create Aeronautics wheels
+createbigcannons = "age_4"
+create_jetpack = "age_4"
+create_mechanical_spawner = "age_4"
+mechanicals = "age_4"            # library of Mechanical Spawner/Extruder (one rare package item)
+create_factory_logistics = "age_4"
+cataclysm = "age_4"              # 4-9 bosses
+immersivepetroleum = "age_5"
+alternatingflux = "age_5"
+more_immersive_wires = "age_5"
+createdieselgenerators = "age_5"
+create_mobile_packages = "age_5"
+create_hypertube = "age_5"
+mekanism = "age_6"               # 6-8; dusts of the Iron Age crushing wheels in [items]
+mekanismgenerators = "age_6"
+mekanismtools = "age_6"
+mekanismadditions = "age_6"
+mekanism_lasers = "age_6"
+mekmm = "age_6"                  # Mekanism: More Machine
+moremekanismprocessing = "age_6"
+mekatfc = "age_6"                # osmium ore pieces and blocks visible from age_5 ([ore_families])
+appmek = "age_6"
+ae2 = "age_6"
+extendedae = "age_6"
+ae2wtlib = "age_6"
+hostilenetworks = "age_6"
+createstockbridge = "age_6"
+createappliedkinetics = "age_6"
+mysticalagriculture = "age_6"    # Imperium 7, Supremium 8
+bosses_of_mass_destruction = "age_6"
+igleelib = "age_6"               # library metals made from End stone and netherite templates; no pack use
+ad_astra = "age_7"               # Moon/Mars 7, Venus/Mercury/Glacio 8
+draconicevolution = "age_7"      # Wyvern 7, Draconic 8, Chaotic 9
+megacells = "age_7"
+mekanismneutronactivator = "age_7"
+ae2_draconic_fusion_autocrafter = "age_7"
+evolvedmekanism = "age_8"
+advanced_ae = "age_8"
+mysticalagradditions = "age_8"
+sgjourney = "age_9"
+
+# ------------------------------------------------------------------------------------------------ recipes
+# Grid-recipe lock per recipe namespace ("mod:<ns>" in [recipes].locked_ids of that stage). Default: the
+# namespace's [mods] Age, but never earlier than age_0: nothing but the TFC whitelist is craftable in Dawn
+# (Doc 08 section 9.2). A recipe whose RESULT is locked is blocked by the item lock anyway; the namespace
+# lock catches recipes of a later mod that make earlier items (Firmalife food, Mystical Agriculture essence).
+[recipes]
+tfc = "generated"                # [dawn_whitelist] below: every other TFC grid recipe needs age_0
+minecraft = "age_0"
+afc = "age_0"                    # AFC planks, slabs, signs: like the TFC wood recipes
+
+# ------------------------------------------------------------------------------------------------ dawn whitelist
+# Dawn crafting whitelist (Doc 08 section 9.2: "TFC workbench recipes except shafting and string").
+[dawn_whitelist]
+groups = ["stone"]               # tfc:crafting/stone/<tool>/<rock category> = stone tool assembly
+singles = [
+    "firestarter", "thatch", "straw", "straw_from_alfalfa", "straw_from_canola", "straw_from_hay",
+    "stick_bunch", "stick_bundle", "stick_from_bunch", "stick_from_bundle", "stick_from_tfc_bamboo",
+    "stick_from_twigs", "rope",
+    "obsidian_axe", "obsidian_hammer", "obsidian_hoe", "obsidian_javelin", "obsidian_knife",
+    "obsidian_macuahuitl", "obsidian_shovel",
+]
+
+# ------------------------------------------------------------------------------------------------ materials
+# Words in an item path (split at "/" and "_", compounds like black_steel match as a whole) and the Age of
+# that material (Doc 10 v3 section 8.1). Applied to every namespace except the TFC table items; the item
+# takes the latest Age of its mod and all its materials.
+[materials]
+copper = "age_0"
+tin = "age_1"
+zinc = "age_1"
+bismuth = "age_1"
+gold = "age_1"
+silver = "age_1"
+bronze = "age_1"
+bismuth_bronze = "age_1"
+black_bronze = "age_1"
+brass = "age_1"
+rose_gold = "age_1"
+sterling_silver = "age_1"
+iron = "age_2"
+wrought_iron = "age_2"
+cast_iron = "age_2"
+pig_iron = "age_2"
+steel = "age_2"
+netherite = "age_4"              # Netherite Monstrosity checkpoint (Doc 08 section 5)
+lead = "age_4"
+nickel = "age_4"
+constantan = "age_4"
+electrum = "age_4"
+black_steel = "age_4"
+aluminum = "age_5"
+aluminium = "age_5"
+red_steel = "age_5"
+chromium = "age_4"               # Firmalife; see [ore_families] firmalife:chromite
+stainless_steel = "age_4"        # Firmalife alloy of steel, nickel and chromium
+osmium = "age_6"
+blue_steel = "age_6"
+uranium = "age_7"
+# gems (TFC gem veins, Doc 08 v3 section 3.2)
+lapis = "age_3"
+amethyst = "age_3"
+emerald = "age_3"
+ruby = "age_3"
+sapphire = "age_3"
+topaz = "age_3"
+opal = "age_3"
+diamond = "age_4"
+# Tier words that only mean something inside one mod (same max rule, but only for that namespace).
+[mod_materials.occultism]
+afrit = "age_5"
+marid = "age_8"
+[mod_materials.ars_nouveau]
+archmage = "age_6"
+[mod_materials.theurgy]
+reformation = "age_6"
+[mod_materials.mysticalagriculture]
+imperium = "age_7"
+supremium = "age_8"
+[mod_materials.mysticalagradditions]
+insanium = "age_8"
+[mod_materials.mekanism]
+fission = "age_7"
+polonium = "age_7"
+plutonium = "age_7"
+antimatter = "age_8"
+sps = "age_8"
+teleporter = "age_7"
+digital_miner = "age_7"
+induction = "age_7"
+[mod_materials.mekanismgenerators]
+fission = "age_7"
+fusion = "age_8"
+[mod_materials.ae2]
+spatial = "age_7"
+[mod_materials.draconicevolution]
+draconic = "age_8"
+awakened = "age_8"
+chaotic = "age_9"
+chaos = "age_9"
+[mod_materials.ad_astra]
+calorite = "age_8"
+venus = "age_8"
+mercury = "age_8"
+glacio = "age_8"
+ice_shard = "age_8"
+tier_3 = "age_8"
+tier_4 = "age_8"
+
+# ------------------------------------------------------------------------------------------------ ore families
+# Non-TFC ores that generate as TFC-style veins (grades poor/normal/rich x 21 rocks, plus a small surface
+# ore). The Age is the stage in which the ore becomes visible; blocks, ore pieces and powder all get it,
+# so a team can mine and stock what it sees (Doc 10 v3 section 8.1). Every family found in the world scan
+# (dev/scan_regions.py, 2026-09-30) is listed; TFC's own ores are in [tfc_ores].
+[ore_families]
+"tfc_ie_addon:galena" = "age_4"          # lead, Industrial Age
+"tfc_ie_addon:bauxite" = "age_5"         # aluminium, Electric Age
+"tfc_ie_addon:uraninite" = "age_7"       # uranium, disguised until the Space Age
+"mekatfc:native_osmium" = "age_5"        # visible from age_5, Mekanism (and the ingot) in age_6
+"firmalife:chromite" = "age_4"           # chromium is only used for stainless steel, which needs nickel (age_4)
+# A key with {rock} is a single-grade ore block per rock (no poor/normal/rich).
+"tfcreate:quartz_{rock}" = "age_2"       # nether quartz from the TFCreate quartz vein, Iron Age (section 8.1)
+
+# ------------------------------------------------------------------------------------------------ TFC tables
+# Stage in which a TFC ore becomes visible/usable (Doc 08 v3 sections 3.2, 4.1). Copper ores are visible
+# from Dawn (no override) but their pieces are metal and locked until age_0 ("nothing metal in Dawn").
+[tfc_ores]
+native_copper = "age_0"
+malachite = "age_0"
+tetrahedrite = "age_0"
+cassiterite = "age_1"
+bismuthinite = "age_1"
+sphalerite = "age_1"
+native_silver = "age_1"
+native_gold = "age_1"
+graphite = "age_1"
+borax = "age_1"
+halite = "age_1"
+gypsum = "age_1"
+saltpeter = "age_1"
+sylvite = "age_1"
+hematite = "age_2"
+limonite = "age_2"
+magnetite = "age_2"
+bituminous_coal = "age_2"
+lignite = "age_2"
+cinnabar = "age_2"
+cryolite = "age_2"
+sulfur = "age_2"
+lapis_lazuli = "age_3"
+amethyst = "age_3"
+opal = "age_3"
+pyrite = "age_3"
+ruby = "age_3"
+sapphire = "age_3"
+topaz = "age_3"
+emerald = "age_3"
+garnierite = "age_4"
+diamond = "age_4"
+
+# Ore stages that stay visible (no [[ores.overrides]] row).
+[tfc_ores_visible]
+stages = ["dawn", "age_0"]
+
+[tfc_metals]
+copper = "age_0"
+bismuth = "age_1"
+bismuth_bronze = "age_1"
+black_bronze = "age_1"
+bronze = "age_1"
+brass = "age_1"
+rose_gold = "age_1"
+sterling_silver = "age_1"
+tin = "age_1"
+zinc = "age_1"
+gold = "age_1"
+silver = "age_1"
+wrought_iron = "age_2"
+cast_iron = "age_2"
+pig_iron = "age_2"
+steel = "age_2"
+high_carbon_steel = "age_2"
+weak_steel = "age_2"
+nickel = "age_4"
+black_steel = "age_4"
+high_carbon_black_steel = "age_4"
+red_steel = "age_5"
+weak_red_steel = "age_5"
+high_carbon_red_steel = "age_5"
+blue_steel = "age_6"
+weak_blue_steel = "age_6"
+high_carbon_blue_steel = "age_6"
+# "unknown" (failed alloy) is never locked.
+
+# Non-ore powders: flux and salt belong to the Bronze Age, the rest stays free.
+[tfc_powders]
+flux = "age_1"
+salt = "age_1"
+
+# Surface small ores have no rock; one neutral loose rock stands in for all of them.
+[small_ore_display]
+block = "tfc:rock/loose/granite"
+
+# ------------------------------------------------------------------------------------------------ items
+# Explicit rules. "id:" rules win over everything except disabled.toml; the other selectors apply in file order.
+[items]
+# Knapping gates: locking the item blocks the knapping GUI (clay 0; fire clay and leather 1).
+"tag:tfc:clay_knapping" = "age_0"
+"tag:tfc:fire_clay_knapping" = "age_1"
+"tag:tfc:leather_knapping" = "age_1"
+# Vanilla words that are not the metal.
+"id:minecraft:lead" = "dawn"                             # the leash
+# Pack items: each goal item is made in the Age before the one it unlocks.
+"id:firmages:unfired_hearth_idol" = "age_0"              # clay knapping, fired in a pit kiln (stone_age.js)
+"id:firmages:hearth_idol" = "age_0"
+"id:firmages:hearthstone" = "age_0"
+"id:firmages:sky_disc" = "age_1"
+"id:firmages:steel_heart" = "age_2"
+"id:firmages:dust/zinc" = "age_2"                        # canonical dusts come with the Iron Age crushing wheels
+"id:firmages:dust/bismuth" = "age_2"
+# Canonical metal dusts of the Iron Age crushing wheels (kubejs recipes/age_2, Doc 10 v3 section 8.1).
+"id:mekanism:dust_copper" = "age_2"
+"id:mekanism:dust_tin" = "age_2"
+"id:mekanism:dust_gold" = "age_2"
+"id:mekanism:dust_iron" = "age_2"
+"id:immersiveengineering:dust_silver" = "age_2"
+# Create: brass tier and everything Doc 10 v3 section 2.1 puts in the Iron Age ("brass" is a material word).
+"id:create:precision_mechanism" = "age_2"
+"id:create:incomplete_precision_mechanism" = "age_2"
+"id:create:electron_tube" = "age_2"
+"id:create:deployer" = "age_2"
+"id:create:mechanical_arm" = "age_2"
+"id:create:mechanical_crafter" = "age_2"
+"id:create:crushing_wheel" = "age_2"
+"id:create:steam_engine" = "age_2"
+"id:create:steam_whistle" = "age_2"
+"id:create:spout" = "age_2"
+"id:create:fluid_pipe" = "age_2"
+"id:create:mechanical_pump" = "age_2"
+"id:create:fluid_tank" = "age_2"
+"id:create:fluid_valve" = "age_2"
+"id:create:smart_fluid_pipe" = "age_2"
+"id:create:smart_chute" = "age_2"
+"id:create:rotation_speed_controller" = "age_2"
+"id:create:sequenced_gearshift" = "age_2"
+"id:create:elevator_pulley" = "age_2"
+"id:create:track" = "age_2"
+"id:create:track_station" = "age_2"
+"id:create:track_signal" = "age_2"
+"id:create:track_observer" = "age_2"
+"id:create:controls" = "age_2"
+"id:create:railway_casing" = "age_2"
+"id:create:schematicannon" = "age_2"
+"id:create:schematic_table" = "age_2"
+"id:create:empty_schematic" = "age_2"
+"id:create:schematic_and_quill" = "age_2"
+# Create blaze tier (Arcane Age) and packages (Industrial Age).
+"id:create:blaze_burner" = "age_3"
+"id:create:empty_blaze_burner" = "age_3"
+"id:create:blaze_cake" = "age_3"
+"id:create:blaze_cake_base" = "age_3"
+"id:create:packager" = "age_4"
+"id:create:repackager" = "age_4"
+"id:create:package_frogport" = "age_4"
+"id:create:stock_link" = "age_4"
+"id:create:stock_ticker" = "age_4"
+"id:create:factory_gauge" = "age_4"
+"id:create:chain_conveyor" = "age_4"
+# Immersive Engineering MV/HV (Electric Age, Doc 10 v3 section 1.3).
+"id:immersiveengineering:capacitor_mv" = "age_5"
+"id:immersiveengineering:capacitor_hv" = "age_5"
+"id:immersiveengineering:coil_mv" = "age_5"
+"id:immersiveengineering:coil_hv" = "age_5"
+"id:immersiveengineering:connector_mv" = "age_5"
+"id:immersiveengineering:connector_mv_relay" = "age_5"
+"id:immersiveengineering:connector_hv" = "age_5"
+"id:immersiveengineering:connector_hv_relay" = "age_5"
+"id:immersiveengineering:transformer" = "age_5"
+"id:immersiveengineering:transformer_hv" = "age_5"
+"id:immersiveengineering:wire_electrum" = "age_5"
+"id:immersiveengineering:wire_steel" = "age_5"
+"id:immersiveengineering:wirecoil_electrum" = "age_5"
+"id:immersiveengineering:wirecoil_electrum_ins" = "age_5"
+"id:immersiveengineering:wirecoil_steel" = "age_5"
+# Trash cans: the FE can needs power (Industrial Age).
+"id:trashcans:energy_trash_can" = "age_4"
+"id:trashcans:ultimate_trash_can" = "age_4"
+# Mowzie's Mobs drops follow the spawn locks of their mobs (Doc 08 section 5; stage files [mobs]).
+"id:mowziesmobs:captured_grottol" = "age_1"
+"id:mowziesmobs:foliaath_seed" = "age_1"
+"id:mowziesmobs:naga_fang" = "age_2"
+"id:mowziesmobs:naga_fang_dagger" = "age_2"
+"id:mowziesmobs:wrought_axe" = "age_2"
+"id:mowziesmobs:wrought_helmet" = "age_2"
+"name:mowziesmobs:elokosa_paw" = "age_3"
+"name:mowziesmobs:umvuthana_mask" = "age_3"
+"id:mowziesmobs:sol_visage" = "age_3"
+"id:mowziesmobs:grant_suns_blessing" = "age_3"
+# Trophies after the final boss (stage finale_won locks them on top).
+"id:mekanism:mekasuit_helmet" = "age_9"
+"id:mekanism:mekasuit_bodyarmor" = "age_9"
+"id:mekanism:mekasuit_pants" = "age_9"
+"id:mekanism:mekasuit_boots" = "age_9"
+"id:mekanism:meka_tool" = "age_9"

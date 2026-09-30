@@ -1,6 +1,6 @@
 // Firmament Ages - Age 2: Iron Age recipes.
 // Create brass tier, Crushing Wheels (TFC ore piece -> canonical dust, 1.5-1.9x), trains (Doc 10 v3 section 2.1).
-// The brass-tier items themselves are item-locked until age_2 (age_2.toml); brass comes from TFC
+// The brass-tier items themselves are item-locked until age_2 (dev/age_map.toml); brass comes from TFC
 // (crucible) or the WoodenCog heated basin, create:mixing/brass_ingot is removed in global_removals.js.
 
 ServerEvents.recipes((event) => {
@@ -13,7 +13,7 @@ ServerEvents.recipes((event) => {
   const YIELD = 1.7
   const GRADE_MB = { small: 10, poor: 15, normal: 25, rich: 35 }
   // Canonical dusts: Mekanism for Mekanism metals, IE for IE-only metals, KubeJS for TFC-only metals.
-  // Mekanism/IE are item-locked until their Ages; these dusts are exempted there (always_unlocked).
+  // Mekanism/IE are item-locked until their Ages; these dusts are age_2 items (dev/age_map.toml [items]).
   const ORE_DUST = {
     native_copper: 'mekanism:dust_copper', malachite: 'mekanism:dust_copper', tetrahedrite: 'mekanism:dust_copper',
     cassiterite: 'mekanism:dust_tin',

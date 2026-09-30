@@ -15,9 +15,20 @@ tags = ["age"]
 
 [items]
 locked = [
-    "mod:sgjourney",
+    # Every item of this Age: one tag, generated from dev/age_map.toml by dev/gen_stage_locks.py
+    # (kubejs/data/firmages/tags/item/age_items/). Change Ages in the map, not here.
     # >>> generated:items >>>
+    "tag:firmages:age_items/age_9",
     # <<< generated:items <<<
+]
+
+[recipes]
+# Grid recipes of the namespaces that enter with this Age (dev/age_map.toml [mods] and [recipes]).
+# A recipe whose result is locked is also blocked by the item tag above.
+locked_ids = [
+    # >>> generated:recipes >>>
+    "mod:sgjourney",
+    # <<< generated:recipes <<<
 ]
 
 [dimensions]
@@ -34,5 +45,5 @@ locked_spawns = [
 ]
 
 # >>> generated:ore_overrides >>>
-# (no TFC ore becomes visible in this stage)
+# (no ore becomes visible in this stage)
 # <<< generated:ore_overrides <<<

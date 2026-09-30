@@ -15,87 +15,36 @@ tags = ["age"]
 
 [items]
 locked = [
-    "mod:mekanism",
-    "mod:mekanismgenerators",
-    "mod:mekanismtools",
-    "mod:mekanismadditions",
-    "mod:ae2",
-    "mod:appmek",
-    "mod:extendedae",
-    "mod:ae2wtlib",
-    "mod:hostilenetworks",
-    "mod:mysticalagriculture",
-    "mod:mysticalagradditions",
-    "mod:create_stock_bridge",
-    "mod:create_applied_kinetics",
+    # Every item of this Age: one tag, generated from dev/age_map.toml by dev/gen_stage_locks.py
+    # (kubejs/data/firmages/tags/item/age_items/). Change Ages in the map, not here.
     # >>> generated:items >>>
-    "id:tfc:metal/anvil/blue_steel",
-    "id:tfc:metal/axe/blue_steel",
-    "id:tfc:metal/axe_head/blue_steel",
-    "id:tfc:metal/bars/blue_steel",
-    "id:tfc:metal/block/blue_steel",
-    "id:tfc:metal/block/blue_steel_slab",
-    "id:tfc:metal/block/blue_steel_stairs",
-    "id:tfc:metal/boots/blue_steel",
-    "id:tfc:metal/bucket/blue_steel",
-    "id:tfc:metal/chain/blue_steel",
-    "id:tfc:metal/chestplate/blue_steel",
-    "id:tfc:metal/chisel/blue_steel",
-    "id:tfc:metal/chisel_head/blue_steel",
-    "id:tfc:metal/double_ingot/blue_steel",
-    "id:tfc:metal/double_sheet/blue_steel",
-    "id:tfc:metal/fish_hook/blue_steel",
-    "id:tfc:metal/fishing_rod/blue_steel",
-    "id:tfc:metal/grate/blue_steel",
-    "id:tfc:metal/greaves/blue_steel",
-    "id:tfc:metal/hammer/blue_steel",
-    "id:tfc:metal/hammer_head/blue_steel",
-    "id:tfc:metal/helmet/blue_steel",
-    "id:tfc:metal/hoe/blue_steel",
-    "id:tfc:metal/hoe_head/blue_steel",
-    "id:tfc:metal/horse_armor/blue_steel",
-    "id:tfc:metal/ingot/blue_steel",
-    "id:tfc:metal/ingot/high_carbon_blue_steel",
-    "id:tfc:metal/ingot/weak_blue_steel",
-    "id:tfc:metal/javelin/blue_steel",
-    "id:tfc:metal/javelin_head/blue_steel",
-    "id:tfc:metal/knife/blue_steel",
-    "id:tfc:metal/knife_blade/blue_steel",
-    "id:tfc:metal/lamp/blue_steel",
-    "id:tfc:metal/mace/blue_steel",
-    "id:tfc:metal/mace_head/blue_steel",
-    "id:tfc:metal/pickaxe/blue_steel",
-    "id:tfc:metal/pickaxe_head/blue_steel",
-    "id:tfc:metal/propick/blue_steel",
-    "id:tfc:metal/propick_head/blue_steel",
-    "id:tfc:metal/rod/blue_steel",
-    "id:tfc:metal/saw/blue_steel",
-    "id:tfc:metal/saw_blade/blue_steel",
-    "id:tfc:metal/scythe/blue_steel",
-    "id:tfc:metal/scythe_blade/blue_steel",
-    "id:tfc:metal/shears/blue_steel",
-    "id:tfc:metal/sheet/blue_steel",
-    "id:tfc:metal/shield/blue_steel",
-    "id:tfc:metal/shovel/blue_steel",
-    "id:tfc:metal/shovel_head/blue_steel",
-    "id:tfc:metal/sword/blue_steel",
-    "id:tfc:metal/sword_blade/blue_steel",
-    "id:tfc:metal/trapdoor/blue_steel",
-    "id:tfc:metal/tuyere/blue_steel",
-    "id:tfc:metal/unfinished_boots/blue_steel",
-    "id:tfc:metal/unfinished_chestplate/blue_steel",
-    "id:tfc:metal/unfinished_greaves/blue_steel",
-    "id:tfc:metal/unfinished_helmet/blue_steel",
-    "id:tfc:metal/unfinished_lamp/blue_steel",
+    "tag:firmages:age_items/age_6",
     # <<< generated:items <<<
 ]
-# Mekanism dusts are the canonical dusts from the Iron Age crushing wheels (kubejs recipes/age_2).
-# POC: check that always_unlocked beats the mod: lock of this stage.
-always_unlocked = [
-    "mekanism:dust_copper",
-    "mekanism:dust_tin",
-    "mekanism:dust_gold",
-    "mekanism:dust_iron",
+
+[recipes]
+# Grid recipes of the namespaces that enter with this Age (dev/age_map.toml [mods] and [recipes]).
+# A recipe whose result is locked is also blocked by the item tag above.
+locked_ids = [
+    # >>> generated:recipes >>>
+    "mod:ae2",
+    "mod:ae2wtlib",
+    "mod:appmek",
+    "mod:bosses_of_mass_destruction",
+    "mod:createappliedkinetics",
+    "mod:createstockbridge",
+    "mod:extendedae",
+    "mod:hostilenetworks",
+    "mod:igleelib",
+    "mod:mekanism",
+    "mod:mekanism_lasers",
+    "mod:mekanismadditions",
+    "mod:mekanismgenerators",
+    "mod:mekanismtools",
+    "mod:mekmm",
+    "mod:moremekanismprocessing",
+    "mod:mysticalagriculture",
+    # <<< generated:recipes <<<
 ]
 
 [dimensions]
@@ -104,5 +53,5 @@ locked = [
 ]
 
 # >>> generated:ore_overrides >>>
-# (no TFC ore becomes visible in this stage)
+# (no ore becomes visible in this stage)
 # <<< generated:ore_overrides <<<

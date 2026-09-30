@@ -1,6 +1,1262 @@
 hash-format = "sha256"
 
 [[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/.packwizignore"
+hash = "ec15ea2414693b9668a549b35f7ffe3d5c956b9336edacd3c87501722621ea67"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/almostunified/unification/materials.json"
+hash = "2a668e1c33b57b4b10605ae91b71edf3e705614ff990d86d2490e42ddf161967"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/defaultoptions/keybindings.txt"
+hash = "1445f265c5411021e69372a4dc73b5704cdacaa05749168f3ea2170127043fcc"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/ftbchunks-world.snbt"
+hash = "e9531f4ced831d6e0d5263f0c14bb77dfbd28ee524ef514875a6c7dccc40ba4e"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/mysticalagriculture-common.toml"
+hash = "0c655427690916b78ec5262596ce37d24aaba68a95ea8fc87eccf69fa39c531f"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/progressivestages.toml"
+hash = "c0e07dcec16c5143d4d43382e8460ab3b59fb8e4fb94a6ff05ba7e88c1d21c35"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_0.toml"
+hash = "a4a7fb9e3979e34a9aa94d4f0b051fed45e4b5f35f3e2a6c2515b5e39f9616a9"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_1.toml"
+hash = "5d6eb5db94f88da9f6313f0c72c371fa64aaa2efc198a415db721fc3852138c9"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_2.toml"
+hash = "c82bfef2f0f57151b4a152185f5d1442580277b56389c26dd956490336517dda"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_3.toml"
+hash = "f4ddf6ba592346a4d4a891f153602565a56e0679cef024c2bb149fbc09d0e469"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_4.toml"
+hash = "d291278c2efb2edde924c7e9207ed11c1b58891c176ca2503563c770c09af0d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_5.toml"
+hash = "829587346c089837c4866cddbf1fee5cbca3ce2bf5c1f051ef8c8ee8ac55b80e"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_6.toml"
+hash = "3afb5579cadc4004259e95457ceb7e08be9316d4f2de0a638719c682eb51936c"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_7.toml"
+hash = "df12dec2935ac621e4d93e884a9170373d21ee470655f3bd11a57bb2605aa656"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_8.toml"
+hash = "4ed945a414fb2a3b675aa098ed5e10fe2f6654b9fd1887b98dd28ed95046098e"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/age_9.toml"
+hash = "af09e1243997a784d11c84e4a4b891106aaca42aa9ffaeac0567fff3c9c21bdb"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/dawn.toml"
+hash = "7d7223d284710ed2acf21f30902c247f5635c0ea0f236c51ced85fc248753d40"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/disabled.toml"
+hash = "1fcd1358633975613bf3d4d1a607656223155023c30515636d6f9ed36f87b3b5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/finale_won.toml"
+hash = "5371ed262e4209734bc062821fcdbbdd7ce1b9cbb0258b13f02a4ff7df7f229c"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/ftbchunks_mapping.toml"
+hash = "499359c271f785002e3b5aeddef2db682e3cef70da720231bbc42fb720eb8e9e"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_0.toml"
+hash = "61d83fed5a8c464c7401b1378ab8ca02f11aa50cc82965173502a4e7981e6536"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_1.toml"
+hash = "1bf124403f2de8f5951dc7516571147af26fe7b8134620817120fb9bd61210d0"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_2.toml"
+hash = "f92c02b220c9bda286b0c18381aaddcdb2bcd614cb790ca2eecadd463ba3aea7"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_3.toml"
+hash = "b9dd92b412c56e327035f4729b48b9ae2a67ffe42acc2aa88178931cda3e0ed0"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_4.toml"
+hash = "d5bac3313945c572b184b70ed05090770ae3a1af44b497fd38d4e1f4f6d84121"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_5.toml"
+hash = "d11fe850d7a115f7b625b116cfe53d04dbd67a9cafb1e8708c61f247e146caa7"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_6.toml"
+hash = "cdcb3ca0a57e143b10c9b858a6e00707d5d6faec63bfd7d7876c08e4097c7e88"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_7.toml"
+hash = "6aef37e0adc56438a855121ee0a4228f611ab005857d1935a753486b2d2b099b"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_8.toml"
+hash = "868ca2909131f57cd143fe6f9ff2e57a5866e623d68e9c734c238943a2949a22"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/mob_9.toml"
+hash = "6c326229018df109ddf5a7877f3aa817928e279e67d07d39fb76a37efa71968d"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/tool_ie_alloy_kiln.toml"
+hash = "2ffb9483edc2c6d7498865cdf1cc254169e970ca7f9ea6de944e578d96be3b5e"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/tool_ie_capacitor.toml"
+hash = "16eab21508363822e9d311fb1e91d38c72de86907985618f86b9ad7fc02506a3"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/tool_mech_spawner.toml"
+hash = "209012254553355ca0978d671457d1ef25609c428067eb9561257ecb7192e177"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/config/progressivestages/stages/tool_toms_storage.toml"
+hash = "6778b0af66a2e9e7a0b9575a7eac0a547194c2b454b952e79d1d58bdd326d789"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/defaultconfigs/Mekanism/world.toml"
+hash = "56013a8f29a698e52b927ae780a9468973bc4584d07f5c9e90a4f597f4e91f2c"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/defaultconfigs/immersiveengineering-server.toml"
+hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/defaultconfigs/tfc-server.toml"
+hash = "5f60406d187551a535aa98b8d78b8c6ed604f42278b49687ed90156626a68eb1"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/index.toml"
+hash = "0566e12dc7bc3a617392acb1b357d472cff3dad88dd210c23eac56dd160875b4"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/client_scripts/viewer_static.js"
+hash = "3138b9bbd922bf993dea48bf13a9b261eab30c67c157b0140d8311df0f0aa7ea"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/create/neoforge/biome_modifier/striated_ores_nether.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/create/neoforge/biome_modifier/striated_ores_overworld.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/create/neoforge/biome_modifier/zinc_ore.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/draconicevolution/neoforge/biome_modifier/nether_draconium_ore.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/draconicevolution/neoforge/biome_modifier/overworld_draconium_ore.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/create_zinc_nugget.json"
+hash = "f295c4b1f634ee09b4620105489331612c5457e49da110c826e4b57e7356c83f"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/dust_bismuth.json"
+hash = "33472e739b2114f3c1f520a5120a6a30e259cbd429a636bf67f9ea4525e1cc86"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/dust_copper.json"
+hash = "c6ca8f45c3d4cf42847a5e3aa14ab03992743c18515897fe32e4c646ddb9791b"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/dust_gold.json"
+hash = "5081ee90569c13bc587f20ea8eadc31ec3c24b0aa3f342b7bb6ede16f3b7b9aa"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/dust_iron.json"
+hash = "81e2e1897037048d8960dba29387d8bc241afb4256c86386b7b6e19dcb1a3ea3"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/dust_silver.json"
+hash = "f8427c56f8ba87fb158ad0e6b40d2d1b27a3b1977a063a63c9ae821864e2d5d3"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/dust_tin.json"
+hash = "2809f8359c578328473bf9997455b41419a5a092dfd0a76557a079e74bbe6e19"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/dust_zinc.json"
+hash = "b3afbd582fb0473161561574c1d2ace146d4533c50c4fa05fd86dd0b21284f33"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/firmages/tfc/item_heat/unfired_hearth_idol.json"
+hash = "04846cd8b228f86134e7614d12858119279bfaa1fc2972b08f1ee8173ff6ef32"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/mysticalagradditions/neoforge/biome_modifier/end_inferium_ore.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/mysticalagradditions/neoforge/biome_modifier/end_prosperity_ore.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/mysticalagradditions/neoforge/biome_modifier/nether_inferium_ore.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/mysticalagradditions/neoforge/biome_modifier/nether_prosperity_ore.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/occultism/neoforge/biome_modifier/add_ore_silver.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/data/occultism/neoforge/biome_modifier/add_ore_silver_deepslate.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/debug/dump.js"
+hash = "fd9f06c30307a2a988a8cc15c14252261d9867741c2b25dc4719ca1dd91becad"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/debug/scan.js"
+hash = "ac50fa92ad56346fdadd78c14f43b5027bc15d2e8d457c911d0d5d87de848b6a"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/recipes/age_0/stone_age.js"
+hash = "60b0fbafbde66ec190be0b9d17b4cfe28fb65a596167e6a23304f6577f70467d"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/recipes/age_1/bronze_age.js"
+hash = "5e62048e845218e0d4110c5018401f8c261a22a66fb2a566f5bd98e7eaa5cb13"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/recipes/age_2/iron_age.js"
+hash = "e355ce064681cec84d2c5b96a2ad0a1b7f2b17c6b2439f325fe46bd840f1b27a"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/recipes/global_removals.js"
+hash = "ab4b62ffa9f8df00fa317a821532d133a99a852c45c4a6019f7fd0607ace9140"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/stages/grants.js"
+hash = "8a99419ab0789b0c0c911953062444cc8df9fb26633161412a9cbc08472409ff"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/stages/mobs.js"
+hash = "3acfb474089073eed8f6631d625fbc258865ba552d6c9b9242c486e7fed9e2d2"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/stages/on_stage_added.js"
+hash = "9113b6610d19ba294c29ea6d9a43c87d088ba05300b15451b63e2016bdd0174f"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/tags/broken_mod_tags.js"
+hash = "05122d8261ba9eb856aa4db6715176a558231c7fa459df68a267ef916edf21a2"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/tags/hidden_from_viewers.js"
+hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/server_scripts/tags/unification.js"
+hash = "a9aeff142b00206298cabd7e1cf80ca102ce31b811e579e9fdb1ef194823bc17"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/startup_scripts/00_constants.js"
+hash = "42aaaaf6ac662e99da80fef9e614f6c4f75c2763b6ca143827dcc11dccc2b519"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/kubejs/startup_scripts/items.js"
+hash = "2f70784352acddeeb0de7e5562cb03e326daf215f2d1d5a185b011f2183a0afd"
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ad-astra.pw.toml"
+hash = "5386763a89493ea2c4ab581e66ace9317641e4c6c5f094769b13e83b1f6be7aa"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/advanced-tfc-tech-unofficial.pw.toml"
+hash = "ade5acf53ff267540fc59dba0f6cbfa011de41d61b53c4854b60f23b5c0edfff"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/advancedae.pw.toml"
+hash = "44791600b6d51fed024525689166334f8e3bc97cce2acef9190f244319ea6cf8"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ae2-draconic-fusion-autocrafter.pw.toml"
+hash = "c7a85d423442c5c5811502e115c3911a9715457467fed0f013011ff35293b8c8"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ae2.pw.toml"
+hash = "bcc34f607a107a148928c80c8fdef326170975df392ce7f476a47df956b1fc5c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/almost-unified-ie.pw.toml"
+hash = "a8e59ef8e09365c7feaebf2de286c93f0dbb490ccc9193e6ccaf37ac257f9019"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/almostunified.pw.toml"
+hash = "3805fe2877cffdae5e7bf74d85069a2535daa39a0f3ed766755be49294a07680"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/alternating-flux-neoforge.pw.toml"
+hash = "73eb1b11f9d84863c4b2b1c90114a9693b43ef26c3a0cf5b998022144f13557b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/apotheosis.pw.toml"
+hash = "e154d7fb16dc7eb6ace7b88b3896955bb66f58c2daafe93c7ae3327ee418a509"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/apothic-attributes.pw.toml"
+hash = "8f5f05a72596ecc0dd11be483785c8a521e987dc2fe6d2fef212c2a382a0c779"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/apothic-enchanting.pw.toml"
+hash = "953d08e4e58de5ce0e6ea9a5593747f5303206a5534a6acc87fad27b0dc673f8"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/apothic-spawners.pw.toml"
+hash = "e3cf8a1207e85580723e384bf59688be26b80373b49c1d64972528cdc0dcac6d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/applied-energistics-2-wireless-terminals.pw.toml"
+hash = "0b00e3fcc86a4ab7744269fc576bb23180a29dc0e44954511907a8b5386e3f53"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/applied-mekanistics.pw.toml"
+hash = "bd25db756e368a27d83240e4345e4cc26d0237943ef0ca56603db1de4e0818f3"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/arborfirmacraft--afc.pw.toml"
+hash = "c4bdfed4ca4d49307ee50d3ba7fff3d2a6b134914f03b70e99369ed2996db70f"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/architectury-api.pw.toml"
+hash = "187eafde5974beee1263538b462b7b8fe2fc8948c5d413980d9796d55928580b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ars-additions.pw.toml"
+hash = "08f46822b355882721807489cbf64a7e8ac03efc1476136e60acbc8dd7dc2880"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ars-creo.pw.toml"
+hash = "e735b472ad5c38359636d5abb84ed1baeb461f72aa19c324c349543823a16188"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ars-nouveau.pw.toml"
+hash = "8e0a036130785555a20815bb51ea28912b01917aee9a3dce68deb7176a928ce6"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/astikorcarts-redux.pw.toml"
+hash = "5d9bdb9a8bcd02fe6f867d52c52a8f20100422de6db324b02543a1d2aff362fa"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/azimuth-api.pw.toml"
+hash = "3f829f54e19ebb32f23f554e05bd49c005dfc057933e07d0df4f85e7085d314d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/balm.pw.toml"
+hash = "603cdc47142b5aa5729cbbf265a473574c9e2b55561de4318e9842d3d4b3b995"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/barrels-2012.pw.toml"
+hash = "11bf26e24ae18d9161d889a5ad0c6fceddd01ff9b44605021cab251fd8c2c573"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/bellsandwhistles.pw.toml"
+hash = "e1f4a53e3e52b534add5dd018597fefd345d9bd6350b9c46ef0ec281fc62af8e"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/beneath.pw.toml"
+hash = "60cb7c0263c5ce63d447c385f8b4e46f89f1e278300d7944024a57edfb13e7c9"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/better-advanced-tooltips.pw.toml"
+hash = "03084ff4f74cedc1b8ac6c85a98842f75956fb4fa811d285d8ca7caa8d54da5d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/better-compatibility-checker.pw.toml"
+hash = "7c3b1f4819e8a3b88cadd8ed968d74491c71f504738dd0f2cd60f3ff40d80f72"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/block-runner.pw.toml"
+hash = "05884675211a3b35feddbdef24e8da4d970954a21e5e5586a9bf5a97a1103033"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/blocks-bogies.pw.toml"
+hash = "07f30551060d5eb77a36ad9eb26131751d790d8e43378faf4143c6f53f0da245"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/bosses-of-mass-destruction-forge.pw.toml"
+hash = "74143850a12b0f9daf3ef2c503e61141319f3715a48a2fde53bc31b3c9719788"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/brandons-core.pw.toml"
+hash = "e86ba611faf7caeed1ea1191e17d6f396e9467a055facf94ab106ef87c24b305"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/cerbons-api.pw.toml"
+hash = "479dab388743fb59d3399d2d87a0a7dc0819a4184b74f734fa9cc1eecdd6f6f6"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/chunky.pw.toml"
+hash = "68cc51e721e993a8b7a2cbaf45369933b22b07a9c82327ab14757ee10684aa81"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/cloth-config.pw.toml"
+hash = "75181b55e0407d1fca1e2f346c6501f919f5109545990ddfb66db9cd1b771f8a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/clumps.pw.toml"
+hash = "2acaff560bbda5741538528a2967355ec86a8f7564adba0b2316989c66892374"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/codechicken-lib.pw.toml"
+hash = "1e1678b169096708fcb92496f251260471221554f70ca0dab1b99f2a6b72ea7b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/common-storage-lib.pw.toml"
+hash = "973d189eb0bb8a514bebc50e78bdbcc5f9e7b3d4869b3a9718ca63ca3afff215"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/controlling.pw.toml"
+hash = "65c8086d2ec3d39acc7bd36c7a0306ccc43b602b38fa07d13291bc478ef7dfff"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/copycats.pw.toml"
+hash = "4892513825f87217b6cc3f4d3ec4dcd3965b96dede8cc10d6578c4769102ae8e"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/corgilib.pw.toml"
+hash = "2b8c5286980b8d864085d02a6b2153cefa401a965833139ffac8e7661a322f7c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/crash-assistant.pw.toml"
+hash = "f13994485d9005720181e64c20c8b20204edea6749030877fdcbe0b6fd6de443"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-aeronautics.pw.toml"
+hash = "3b8895369640b2a52d3e05f7186185ba6798e44d513f11c5427a0fe9c16769e9"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-applied-kinetics.pw.toml"
+hash = "b3b2c990023501cc95e4061ef73e541bcd6e54db6e392a8694147b6da75eee71"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-big-cannons.pw.toml"
+hash = "a0e9ff95570cd9af3374ca8b44aa095447baf94e565f46ae99819d52a9b48dc1"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-bits-n-bobs.pw.toml"
+hash = "2aa588c0760e81c40fae4df29e14643ddb19d40474bf177206a8f687e70b953e"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-connected.pw.toml"
+hash = "6ac362d60bc8b13e03a5b6b9cdf9c7676f65d3e89e87c66f18514e7ee164cdb0"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-contraption-terminals.pw.toml"
+hash = "0eaabd71feeb13bb51455fc6528adf953639fe70b17d9bb90d54bacd8f6377a8"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-deco.pw.toml"
+hash = "67a405e6307f900d168deaa954a4309c3b44a6025e4efd7b8e774b6f9d3a69cd"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-design-n-decor.pw.toml"
+hash = "e05bc0c3ee97da0dfcf9dabd3c3eaee0e90819091ead3f500ddc3b1caf77fe54"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-diesel-generators.pw.toml"
+hash = "456f66abd180b3f5765473cda5e8acb1a6ea8b15b7ee34442be9a7af414cfc63"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-dragons-plus.pw.toml"
+hash = "dcbb37e828a2f915e64a2ef839a742761a553a2e3b923b000ffba95db7503ac3"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-encased.pw.toml"
+hash = "5625c978cee5102013e027c07d7ba815c597799a14cc447dfff63104d76b74be"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-enchantable-machinery.pw.toml"
+hash = "ff95732644994b3b955de5b0c927b3caccce9d22c19e53b95da96b887cff2525"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-enchantment-industry.pw.toml"
+hash = "1a9187d50e9a3a17dbdae3fbf8c3f691c43f9a5c6da8313fa6dffbf2ac0c49ba"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-framed.pw.toml"
+hash = "db683b65dc15a03dd6de2d34d5dc6ad0e3490744ced513a8cc584784ee9d3d8b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-jetpack.pw.toml"
+hash = "157b009cd9b2a7f55f2b7d0abdc2f9f7d49eade208a786c71cc6d2f8430bba4a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-liquid-fuel.pw.toml"
+hash = "810e114e3f827cb7f78a0c2cdb9087d50bb1393ebb20682daf554747e141322e"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-mechanical-extruder.pw.toml"
+hash = "6e064a3988937e06dfa307c8c395c73461819f9135197bc30563c6f13d1f1da4"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-mechanical-spawner.pw.toml"
+hash = "8d9f6438c0e03857f55b3b6fe2383fb8393c01c8d41012cf5032fdedd184575a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-mobile-packages.pw.toml"
+hash = "3956311952e50e1b437d8e7c5af4537feebd3d95bd5435192b78b251cab38bf2"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-pattern-schematics.pw.toml"
+hash = "faddfa6807d11014c93bbfd8e543e8843e6d44e53f70d54e0b7e3e95766d2021"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-railways-navigator.pw.toml"
+hash = "c0cb2bd911bed59edcc68e7c1e8e044acb51e791ff0d5f376138097def308cb6"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-steam-n-rails-1-21-1.pw.toml"
+hash = "80332cead695f1e3c27e99133a48709767d1106f836792bb2fc4d594b88f1a68"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-stock-bridge.pw.toml"
+hash = "e04ae91b53c33f6a4dea9ebc82be4255a56460a9e095a3a1fd748434e5dfb3bb"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create-trainutilities.pw.toml"
+hash = "37ee9db2ba1fd6ee9be7c576a73eadb08e2437cb881541c1b33ed59e41a19727"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create.pw.toml"
+hash = "dcaf5f2e28db0b9a127d0167456832341045ddc9aec058c3d9fcf53f618d2404"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/create_factory_logistics.pw.toml"
+hash = "5b9c2ce4c14ae1d3bce7e2b02f617596947e8f3b978a3f30e1dee4ea782777fa"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/createaddition.pw.toml"
+hash = "bcbcb4d32d5b2b6bcb4a578639a8830396eb87febe0ff3364a99ca6aee9a5bb7"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/cucumber.pw.toml"
+hash = "b2059d79bf6e41281a26b5b75a8f0cb20804079fe49a22042a26aa5ce28ba7f5"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/curios.pw.toml"
+hash = "36debf7653e95a855b4fedacc19027cf2e01960fc0b6d55ef2ffbffbcb455690"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/data-anchor.pw.toml"
+hash = "64bdeecf2b2217fc22d5237a6bcc3b5f54a4352233040aaa0dbec4e8216f6536"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/default-options.pw.toml"
+hash = "a6967d761dde867ccc1af53dc9f4e530eb9917a9cb21d0fc15708e8cd2c0f2ba"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/draconic-evolution-render-patcher.pw.toml"
+hash = "861d9f59b9c56ca8e1d3570b49a06f589a1ade07d1c2e57cc7403925ebb09f49"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/draconic-evolution.pw.toml"
+hash = "61dbbdcc41c7bf50540b8d1e83fdf61d9367f392690b45d3cdece8aad55370ac"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/dragonlib.pw.toml"
+hash = "f943c276fcebd5542c4b3dda60634728e1a70212f15dc9af8f0b7b9bb40199db"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/emi-loot.pw.toml"
+hash = "519f011d36736129795025f19301ad2d6141f422857d6154a3df2e2019f416f3"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/emi.pw.toml"
+hash = "67bb77eae0b644960be3b1074178ceb5d54facbb42f326981b9d94625238a54a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/engineered-schematics.pw.toml"
+hash = "afd9e0c8dff441e31978fe5db98de2ac53d65154180b592a686154afab338434"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/enhanced-celestials.pw.toml"
+hash = "e50f87650e3a5becf3cd1772e8053a8bc04c48859a6fa814e75e6c71eaa87e6c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/entityculling.pw.toml"
+hash = "30d6875d934c57d5827f29f35ca77efc72a21df361ad3d578b93e7e137a39654"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/evolved-mekanism.pw.toml"
+hash = "7473e2d1255dcc6a300ca58e821a87f255f16a032ffa868338297759a2cb961c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/extended-ae.pw.toml"
+hash = "03494a76b42b1b79e4d36a93317b8e884cafdb7e08f6103ce47ecd4e4df57645"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/fastsuite.pw.toml"
+hash = "336456ba2dae48ef86917e5777d8ca24a174dd6def2a8631853afe7c1b468baa"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/fenns_totemic.pw.toml"
+hash = "82bf6b377ba62db60101edf71f7ba58e074727a10d46416decac488c2b1dfa16"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ferrite-core.pw.toml"
+hash = "73360e397134d238ee8fd21d33fd7f9275e9441f74f8f1b6ed92278877c0b9f1"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/firmalife.pw.toml"
+hash = "9551040b2f383e95216a74618912bf60ed30a743886a330c6e105e51ca8d39ce"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/framedblocks.pw.toml"
+hash = "20eee73cffcd55bfe041b16bbc3adc64c38859bf928486bf1db1368b6dba2058"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ftb-chunks-forge.pw.toml"
+hash = "670df7985eec05c6a339d90ebbcfda0e5f1f5c63846ac65a441412f123471e14"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ftb-library-forge.pw.toml"
+hash = "19d86081a1c7654a91f437d85ea34af4e3f2b899c8e0e50d48a04ca97babf7b4"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ftb-quests-forge.pw.toml"
+hash = "93330f6ec85532067df176c6baee0e0f6d685c78088b1a2217726f6421899148"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ftb-teams-forge.pw.toml"
+hash = "c21c2308684a75cda7dd9d557d129c9f89f49be527da3d5aa675fff444c11f5e"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ftb-xmod-compat.pw.toml"
+hash = "6ad22c468d67dcbb65784e161d4af9e671d3437cb5bfb1e86a42ae25207cf25b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/fzzy-config.pw.toml"
+hash = "932c65fb598293dba5dc60a76fc64c2579db427018b10dd4757dd421d9abcaf0"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/gateways-to-eternity.pw.toml"
+hash = "677912b683eeda568c6e81d235c2411461c1d212608b5440a79d5abbd2c5fc1d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/geckolib.pw.toml"
+hash = "35779b39ddc06059ec483b33de2ecfdc3adb95c0a49e69b6701fb0024827e2f5"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/glodium.pw.toml"
+hash = "8b30d03470cc27030f42b6719cdb8975f163ed336fc8592f0277a4291bb08aec"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/gravestone-mod.pw.toml"
+hash = "d18f1ea4c6c1c2f99f18a8725d11e14c93abd29988df24c967794fc52e9c969c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/guideme.pw.toml"
+hash = "bc3920a3fb291a8bc8df9717233e54dd1c909b65528afbe1b617373c7b4b38c0"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/hostile-neural-networks.pw.toml"
+hash = "84c5f4cd596d3e74c8044920140016c7467589080df966ff0dde9208e0ecdbb5"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/hypertube.pw.toml"
+hash = "672fe2518a1795814efc943c3e3cf8dc1b993bc7d838cc62950acfaba348c2c7"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/iglee-library.pw.toml"
+hash = "2148b44cf26025607d1a73a03e5e4a0b3a7f05b1c7442736eccc1ed64de985cd"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/immediatelyfast.pw.toml"
+hash = "2863a3b187723e1f69ed2ad2b2c3d834e8442468a1347c80df5b310e243c8753"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/immersiveengineering.pw.toml"
+hash = "91875c996a9958aeea794843fb449915218625f52aaf0234ccd1faffa887e277"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/immersivepetroleum.pw.toml"
+hash = "07deb48161a03d4e701eb50da02343b06585fc04f2328aee5a9ad4bc62c2686a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/immersiveposts.pw.toml"
+hash = "8e5e9fe677e809b3a75330da078641370c702b8365c0b6e9bbd7f21c1c462f4d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/jade.pw.toml"
+hash = "4de3e4a1a49e332c1ad313283e0403c4273b628d634c17a9ff0c9da3d6b67f9a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/jei-multiblocks.pw.toml"
+hash = "2649d9273df4a10cceeec5ca5d051a929df04f13d46d5418e8c2f226628219bb"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/jei.pw.toml"
+hash = "c911d03476ac0e535c3c601ad98a725ce685e063032474abbf2a2fb9bf23f786"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/just-enough-mekanism-multiblocks.pw.toml"
+hash = "f1ea6ce3347c52e404cb9cc542cf94c93999f441b6215970db1b6ef98605402f"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/kotlin-for-forge.pw.toml"
+hash = "712a69b3569a8055979de6eea262068535fe182dffb3833e53e5833e9cbf9766"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/kubejs-additions.pw.toml"
+hash = "130cf40b3f297f7388c71fd628ed0e0c582f22af53b5a3c4df1f9d65be8389b9"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/kubejs-create.pw.toml"
+hash = "531aa276b74eabc24566c57412527767238c74ee16b9c646dff511f56dba990c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/kubejs-mekanism.pw.toml"
+hash = "828f12a754a929bf2e955cf9d0acca4cbe305f172e94c556fe9b0704bcaff7e0"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/kubejs-tfc.pw.toml"
+hash = "c1956665db06bd0fd43c40c8c44316d7ab65e328427d3cd5454543f07aea394d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/kubejs.pw.toml"
+hash = "7e0eca275f27b6543f06c36dec433851a956960cbedd2be57d19e159d636bfc1"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/l_enders-cataclysm.pw.toml"
+hash = "f262b49b1038ef9f67704e0629da6aafa84cf4f760273589f5d73530ca5d74b5"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/lionfish-api.pw.toml"
+hash = "64acab1580ca6edd8b1dd185e914aeee7aa551a88a7cd7f0f9370a82aaadfef6"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/lithium.pw.toml"
+hash = "51e129832b04acd57da470fc41725bad5e101b6a6b1d4901fd8ea7a92b14e13d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/lootjs.pw.toml"
+hash = "9b32e1374a3d85ccdd4803c8932f72fbeb6357e69d895980e3f24e1974a07ca6"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mechanicals-lib.pw.toml"
+hash = "c9e181185e3177d43fc9bd8d919288ac1bc0ce6b85e7049890f3eb231f5be10d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mega.pw.toml"
+hash = "c9f9996ced5f4abf2ab982bb2521bef1798cf1fc6d6ebc435e38075894921efe"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekanism-additions.pw.toml"
+hash = "086e5173f9d4dd76196a67e6604b5787b5f17312a6c3db49b1651fe2d972fe16"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekanism-generators.pw.toml"
+hash = "0ec2ceb5602df266d2e07bdc0bc409cdd3d325a6b5136554787779cdf8057a27"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekanism-lasers.pw.toml"
+hash = "572ed997330e5ef3bba1b8e951d29347c553eb976ffb0325c05ce13aeb40c8d6"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekanism-neutron-activator.pw.toml"
+hash = "1487085a432f3ba9838a812b40185217db7eb1fdf8cc36094e9a0edd1223935a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekanism-ponders.pw.toml"
+hash = "21ad99c8977e8ce8268c927c58a6a01408c5c0fdacee7d73882419ee9815d8cf"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekanism-tools.pw.toml"
+hash = "efafea92ef966ffe7c3c31209b643a9bbcccb3a8a5a02347b49ff50e015980fe"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekanism.pw.toml"
+hash = "42061fd570a0b7a8063c0860056c6391593190caa0f12d3b49105e52a56817fe"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekanismmoremachine.pw.toml"
+hash = "2998025f99be79a3b4813b687c83e7c4964cbc1a424c4a35dd20e08a7a594b51"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mekatfc.pw.toml"
+hash = "d192b0f200071c579af56a63f772a6f49e1223e5e08d39270372b850df72f7b9"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mezzconfig.pw.toml"
+hash = "1a0a919e4815e3869846483c937ecb395d0700fa10a1d1feae790508853773d8"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/modernfix.pw.toml"
+hash = "c84140c66f233909b392bd7253ca33c59903ffda51beff558d9a2a4a8c6bc269"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/modonomicon.pw.toml"
+hash = "d743823561a2b3008876af95193e8521e2d6239bd9e8d9bc13db62441cc879ee"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/more-immersive-wires.pw.toml"
+hash = "6a64bcb0c79672e279439912aa126edf76ca436910eea2b916299b823eccf667"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/more-mekanism-processing.pw.toml"
+hash = "c4c833c881e3a9b0de7333be6de247ccb78175f66640d69ac722dd402a95e782"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mouse-tweaks.pw.toml"
+hash = "6bc414cc0f2d4c078fe83f384d786343f701f371d657c5279b5b0df1595804bd"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mowzies-mobs.pw.toml"
+hash = "02aa4dcb8fa24cffcd2182c66683c2a476a95abf53002373f953a49737a587e3"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mystical-agradditions.pw.toml"
+hash = "82bf7c5ff643c33a07c32d26333eb4ab5552bffaa241c8c8527a5fb1bc0f18c0"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mystical-agriculture.pw.toml"
+hash = "0cba939c32c0b0a5848d329f07a5f523b3833e8d7e876bafcb1e8892fccf56e3"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/mystical-customization.pw.toml"
+hash = "219ff3a5001c0ec619f7cc8ef5eb3aa6a836e3738e734c384c6376efeacfbf21"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/occult-engineering.pw.toml"
+hash = "84cb2f1d090d544e250e0eeeb75aa7274578ef20c90db567ff3a290c24ce74f0"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/occultism-kubejs.pw.toml"
+hash = "d9550fc4468a0b7b5365f4d8e45be67e7a9378c6b059485c199b2866e58d93d9"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/occultism.pw.toml"
+hash = "b8c0d5c9a69b45135efd1e4a329e455d884c3378c4ebe3e0ad5794b5ddcc1414"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/packet-fixer.pw.toml"
+hash = "84cb0dcad9ac46d22adba4fb7924951affa6ac5e46027a3b25fa9a0db8d91b2b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/patchouli.pw.toml"
+hash = "d7f360ebb9f009d6dc0b368cd8fa399bdff70c0f6ef931687b2a35137f72715d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/ping-wheel.pw.toml"
+hash = "650330109d21831664d2ff597c7a90200eda69a1efaca4e9b0b6b6297ac3c364"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/placebo.pw.toml"
+hash = "2f9f0f8c05ce7e410a70cfed595e623fe8031df89a8a9ba9a8aaaa419eb4d18b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/polymorph.pw.toml"
+hash = "d935e4ce118d15c88b10809df85e801f0e9577855f870f3c28e5a0bd5e7fecf6"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/precision-prospecting.pw.toml"
+hash = "46803bb00ae1d56348da4079f516a34e035c60836532948b40276d83b386707c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/progressivestages.pw.toml"
+hash = "87f0464f6c3fb3d89d0fb18a331b7356b59365135e797e9a2e6ba9cd447c360b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/puzzles-lib.pw.toml"
+hash = "6b1ee632cee2d75301016eaac99a3446ad605f11fbfda631effac0eb7da59f6c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/resourceful-config.pw.toml"
+hash = "27721caca5a03b743bf25888e1d984142948069dace31453f103f94f7f24d2ce"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/resourceful-lib.pw.toml"
+hash = "c0b066684294c33972d562e0cb08ea17b2d31bcf86cd1d6c63b8e968f0eac7a2"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/rhino.pw.toml"
+hash = "673de9cae75d2ad02796368939384de0d7238cf5c782975d71848a2187f753e7"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/roads-and-roofs-tfc.pw.toml"
+hash = "b12960e45bf3d59e9aaae3873208bc1305f43e9b266182f2960edfc97e6d2a79"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/rpl.pw.toml"
+hash = "7815e5a589de0c02a62ae83590e1f75f4d0c269e48f2435ce2ac448976ddf49f"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/sable.pw.toml"
+hash = "a1fa121ed5d0207e4cdd3f545d043f68f9a4bb38dcb21278b968fad5e4cefe4a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/searchables.pw.toml"
+hash = "ce9ddada6ffd55a512149cc474c6a453281a997a5fdf1b7b4a2cc73f875e704a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/sgjourney.pw.toml"
+hash = "7837010af61c83f320abdfe890c9ab662c6c2bd8efc2929431f8eda3acc9368b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/simple-backups.pw.toml"
+hash = "bb3916bd466676b43fa6e5298a964c445191fa9178b956bf1692cc08249069a1"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/simple-voice-chat.pw.toml"
+hash = "8045c493b0eb0196880817b529417742bb65b250805cc14f7abe5ac5f1e4d4b1"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/smartbrainlib.pw.toml"
+hash = "6e7ce9c2aee5bb72d2698eb89035c9b2458d20daa0782e1a03cfba7a6647621e"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/sodium.pw.toml"
+hash = "2a001cdb3d5ac4970d422914083c27380eba8ebd40dfd435754fe6566ba78beb"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/sophisticated-backpacks-create-integration.pw.toml"
+hash = "f16653008ac36e8f4a4bc2461b9c8b798534d558c4890e6acdee4d29e49cd305"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/sophisticated-backpacks.pw.toml"
+hash = "d35f6e0d09bb9d89ccd5c4ed18f52a24e450ef8c7220c4a10a169e7c1d12b23f"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/sophisticated-core.pw.toml"
+hash = "5d4e493a74a7deb175d278274e6990f92d1a3910fae5d4866a1520bbca9acce2"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/spark.pw.toml"
+hash = "593fa7b30ab016aa45be07bd6bef3a9f160ed0f24689850d60bf84995d69b843"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/strut-your-stuff.pw.toml"
+hash = "aa89e067824ca42d818a81a6d02ce5296ce662d834c35dd2ff0d81189d3bc3f9"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/summoningrituals.pw.toml"
+hash = "690cda883ca6bd3a514dfabdca51765304c94e036e26985cd2a6de53e485920b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/supermartijn642s-config-lib.pw.toml"
+hash = "62bd7012826fdcccf17a089055be67f87fb7335c88e73efc52bc9e51a1bf3188"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/supermartijn642s-core-lib.pw.toml"
+hash = "68ef590d29c127c6b38d81662edfa45a2e1339d38f60aee345e31164c7c10017"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/terrafirmacraft-anvilhelper.pw.toml"
+hash = "dfd907584dd261da285c74186a7ecadc5a77a813031d239eef683f807a6eb94d"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/terrafirmacraft.pw.toml"
+hash = "120de879bd1e9e6f6395b1ccdef9cc58871a2d6c6f646ff29c32418fa429019c"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-astikor-carts.pw.toml"
+hash = "ee3f7f2a132e5bf3ebf3b71732d9994d2bcae1aedb5867329a290faa1a87fb79"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-better-blast-furnace.pw.toml"
+hash = "684c5ace6c3e22044bc07c9af9efbffa9121a51987a50bcd9c18cf778b44ab94"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-ie-crossover.pw.toml"
+hash = "b69f7042fff2400e4fb05f2cfc6f4e09ab155c1a20e547bc32bdf16ebe8a3358"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-ore-tooltips.pw.toml"
+hash = "56d00a78040251052e91a6f98a082a9a8b8ebec0dc8199e413aa48c5cf3810af"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-registry-api.pw.toml"
+hash = "49b6c30d5a476c0b734127c73552a437b80354afb7d95b561db50029605819f2"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-regrowing-forests.pw.toml"
+hash = "b44372feeb645582acaf98a081b1294a13ef70fb2e2548a2aea87ff71eea2a63"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-ruins.pw.toml"
+hash = "ba4b16ad80dbf85bcde5b8935119b01cb99493d13eac12afee510da869ab5b90"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-support-indicator.pw.toml"
+hash = "10bd34de2a963b7bf8d7dc711ca9c560521ae789e28eb81d40d983d6fc18eb4b"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-vessel-tooltip.pw.toml"
+hash = "4e9142d9fc1d7d1a056d77380bd625436233f9b0253a09990c037e9b31772a83"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfc-weld-button.pw.toml"
+hash = "cacf5fe4448dd60c0f572004aa1f34a0685c7c177202a8b8f0e61d238c4749d4"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfcgenviewer.pw.toml"
+hash = "3f9d3ff4efa6b049ad1124cdd84bf123c94f5028ce659812082b387f7557aadf"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/tfcreate-compat.pw.toml"
+hash = "e65debe2b0a2aca6a5eb0aa23102fc368c5375ce9aa46cde71e50eb66274ae80"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/the-twilight-forest.pw.toml"
+hash = "9088f93a00bc3242f0239a7115bdcbc4480e19c6120f5396fb3af27d77abda3e"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/theurgy-kubejs.pw.toml"
+hash = "8cf0e965913054f8f5c5b4a93549185912e6ad7241d5f6f8d424a554f3df0d3f"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/theurgy.pw.toml"
+hash = "9e916797940e94bc0594e789dd0ba548030589c201d86a353ad158a51961bffb"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/toms-storage.pw.toml"
+hash = "a303683e4c74640f419c31db329e9afc3ee8f388abc5c6a536dc6169c274b5c6"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/torque-link-create-to-tfc.pw.toml"
+hash = "1fbac130f664167f316e856f6bb88c6e5ae6f79a2b526d63d312fb27d1ed791a"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/trash-cans.pw.toml"
+hash = "3fccf4472b525c3dad0d6611c891086f133a6fefc1d43c3ade0dedb13faac587"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/mods/woodencog.pw.toml"
+hash = "db793e202fb8723b8a56f685ea46d33d1a9e79adce20b6da593648cf90f73bb3"
+metafile = true
+
+[[files]]
+file = ".claude/worktrees/wf_a92d1a4f-961-2/pack.toml"
+hash = "9d30737a81d8332869685fb6bd330fba2bb247556765bc08b6ecd69805370f2c"
+
+[[files]]
 file = "config/almostunified/unification/materials.json"
 hash = "2a668e1c33b57b4b10605ae91b71edf3e705614ff990d86d2490e42ddf161967"
 
@@ -22,43 +1278,43 @@ hash = "c0e07dcec16c5143d4d43382e8460ab3b59fb8e4fb94a6ff05ba7e88c1d21c35"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "a4a7fb9e3979e34a9aa94d4f0b051fed45e4b5f35f3e2a6c2515b5e39f9616a9"
+hash = "c982a44ae6e1429dfc9823b8a19c32774ad0ed27027287ca316e845beaf76cee"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
-hash = "5d6eb5db94f88da9f6313f0c72c371fa64aaa2efc198a415db721fc3852138c9"
+hash = "feccb95314d3e3c637c4ee3a23e3dba9a0bf9eb3d4157768da1c55b09c061102"
 
 [[files]]
 file = "config/progressivestages/stages/age_2.toml"
-hash = "c82bfef2f0f57151b4a152185f5d1442580277b56389c26dd956490336517dda"
+hash = "2101aeb6164df5c1da4f90ce54b22dc4e9385fa84fd18704896fce1fbbd3b685"
 
 [[files]]
 file = "config/progressivestages/stages/age_3.toml"
-hash = "f4ddf6ba592346a4d4a891f153602565a56e0679cef024c2bb149fbc09d0e469"
+hash = "3c567bff83d03aec994958727539be808aee9e0e2d8237b9a154713bb4b601dc"
 
 [[files]]
 file = "config/progressivestages/stages/age_4.toml"
-hash = "d291278c2efb2edde924c7e9207ed11c1b58891c176ca2503563c770c09af0d5"
+hash = "85594def375145a7d05d22e7179b5f4a0bd54ded256ee78b87f986d0bc850282"
 
 [[files]]
 file = "config/progressivestages/stages/age_5.toml"
-hash = "829587346c089837c4866cddbf1fee5cbca3ce2bf5c1f051ef8c8ee8ac55b80e"
+hash = "e096f4f70180505d492d582abab6d4eaeb2be48808d153d2ce957a1bb9ab8395"
 
 [[files]]
 file = "config/progressivestages/stages/age_6.toml"
-hash = "3afb5579cadc4004259e95457ceb7e08be9316d4f2de0a638719c682eb51936c"
+hash = "448ed2975c71103b7dd7b76b40a77c60fa7c66b2e4c577ee5139e48fe53ed00f"
 
 [[files]]
 file = "config/progressivestages/stages/age_7.toml"
-hash = "df12dec2935ac621e4d93e884a9170373d21ee470655f3bd11a57bb2605aa656"
+hash = "fab778570f501eaf77c533ad07213077f1c8ab279302e63055d9e6d99e12d46e"
 
 [[files]]
 file = "config/progressivestages/stages/age_8.toml"
-hash = "4ed945a414fb2a3b675aa098ed5e10fe2f6654b9fd1887b98dd28ed95046098e"
+hash = "31cbfa917f079171d3379fea2e8eef4ad2524c84f71f6eea59ffd8252697de43"
 
 [[files]]
 file = "config/progressivestages/stages/age_9.toml"
-hash = "af09e1243997a784d11c84e4a4b891106aaca42aa9ffaeac0567fff3c9c21bdb"
+hash = "7110bdcf42dcd1a072d01d2c73ee6d87fade814762f163502f4e0bf078dcc584"
 
 [[files]]
 file = "config/progressivestages/stages/dawn.toml"
@@ -169,6 +1425,98 @@ file = "kubejs/data/draconicevolution/neoforge/biome_modifier/overworld_draconiu
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_0.json"
+hash = "4fbf163eea869e131b3d46cf9378b5fecd4d9fffe7c6d912cae3e297980c7ef7"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_1.json"
+hash = "d68149a0c6400c9b819370b733739097c56b94cb2db56f97ea624c581619a522"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_2.json"
+hash = "fdbd251f2f636f1b58613819857ad64eae62e3b1f6b8ce521586e18d2029ad15"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_3.json"
+hash = "9710d7aabe4d5d3f7a448d965082cce66061fa4a7a886aebea6dec115d118cc0"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_4.json"
+hash = "84a38970be38cb56d520ea8b43de6b490bb9b8b924178850f1429aa7f58087cc"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_5.json"
+hash = "fa7467da808393da20d30af2ccac5f2c103364bedab6fc208b17a9feaec16253"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_6.json"
+hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_7.json"
+hash = "f6282bf394eb103a2304b1a8ddfdfd756357b81bb3b205a2bbb6b57be6b0ded7"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_8.json"
+hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/age_9.json"
+hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/age_blocks/dawn.json"
+hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
+hash = "29fad1e41a328e0a5317170df069641151db48c105854ff92590357bbf5f2866"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
+hash = "beee1fa1dbd11e7851048bf1e9a006041bb52e2f0bbbf94d00bae347d9174f2b"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
+hash = "0784cbdf7e2af10a6e689374afce75d4a4fdbedb6e4548458136edec9ece358d"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
+hash = "0d2279c08a9583af85e7a57bd1034d184d29358cf511068366df23bf814dffdf"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
+hash = "0609ed52f561dab8d6e01d4c4b02b17bcb8b5fca9f68cc6f7a1ec89a52547295"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
+hash = "63cef96599ae5d6537d1a5b2d343806b282cc8574aa2a5fd7b123496f4756bf0"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
+hash = "921a04a45300a5e6156d73e18b7d078f3fd7be19da4a2c55f9eb3879ff688b3e"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
+hash = "0c762c8a2de95bc58b6144607f97a9768351fa92f776e7638e437cbb9951b571"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
+hash = "4c9a15954716d48498d588d59796f0653e683ac197af26bc8a0b332c1d5b2f1e"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
+hash = "bda7223cfca539aa0a9f40227f19beef527c8e0627d8400eaefcadd50fcb18a2"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
+hash = "0089848efaae9af8f13066fb118d69cfdb90e74a160c178a6fcf0d3232a18640"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
+hash = "b44f7e004c53327584c7f81c1ab3c5a7eedcd138934e7156b666ce3f9c1f19e4"
+
+[[files]]
 file = "kubejs/data/firmages/tfc/item_heat/create_zinc_nugget.json"
 hash = "f295c4b1f634ee09b4620105489331612c5457e49da110c826e4b57e7356c83f"
 
@@ -230,7 +1578,7 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
 file = "kubejs/server_scripts/debug/dump.js"
-hash = "fd9f06c30307a2a988a8cc15c14252261d9867741c2b25dc4719ca1dd91becad"
+hash = "027dd3618324d6e420b69c770864b1fb37a5e7246be09cc0894d7637a3c3d227"
 
 [[files]]
 file = "kubejs/server_scripts/debug/scan.js"
@@ -246,7 +1594,7 @@ hash = "5e62048e845218e0d4110c5018401f8c261a22a66fb2a566f5bd98e7eaa5cb13"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
-hash = "e355ce064681cec84d2c5b96a2ad0a1b7f2b17c6b2439f325fe46bd840f1b27a"
+hash = "b33480ccf5bac0748faedea398da5d179cf5729ae533524d94f540b67070e433"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
