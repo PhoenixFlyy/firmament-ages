@@ -297,6 +297,46 @@ file = "kubejs/data/firmages/tfc/item_heat/unfired_hearth_idol.json"
 hash = "04846cd8b228f86134e7614d12858119279bfaa1fc2972b08f1ee8173ff6ef32"
 
 [[files]]
+file = "kubejs/data/mekatfc/recipe/dissolution/ore/normal_native_osmium.json"
+hash = "6ca0a726e2ad70fcaaaaa06ad03865424a0e456d06bcc31b76aa54b3b8553281"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/dissolution/ore/poor_native_osmium.json"
+hash = "6ca0a726e2ad70fcaaaaa06ad03865424a0e456d06bcc31b76aa54b3b8553281"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/dissolution/ore/rich_native_osmium.json"
+hash = "6ca0a726e2ad70fcaaaaa06ad03865424a0e456d06bcc31b76aa54b3b8553281"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/dissolution/ore/small_native_osmium.json"
+hash = "6ca0a726e2ad70fcaaaaa06ad03865424a0e456d06bcc31b76aa54b3b8553281"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/injecting/ore/normal_native_osmium.json"
+hash = "59a7ef27c78138a1542a5b41869a737bd72e86266b2afb748aac8173d55fc23a"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/injecting/ore/poor_native_osmium.json"
+hash = "59a7ef27c78138a1542a5b41869a737bd72e86266b2afb748aac8173d55fc23a"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/injecting/ore/rich_native_osmium.json"
+hash = "59a7ef27c78138a1542a5b41869a737bd72e86266b2afb748aac8173d55fc23a"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/purifying/ore/normal_native_osmium.json"
+hash = "976a445ff407c7e7377055c6c60f716ed8dba599645efd6b616c4fc7fcdae6f5"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/purifying/ore/poor_native_osmium.json"
+hash = "976a445ff407c7e7377055c6c60f716ed8dba599645efd6b616c4fc7fcdae6f5"
+
+[[files]]
+file = "kubejs/data/mekatfc/recipe/purifying/ore/rich_native_osmium.json"
+hash = "976a445ff407c7e7377055c6c60f716ed8dba599645efd6b616c4fc7fcdae6f5"
+
+[[files]]
 file = "kubejs/data/mysticalagradditions/neoforge/biome_modifier/end_inferium_ore.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
@@ -343,6 +383,10 @@ hash = "b33480ccf5bac0748faedea398da5d179cf5729ae533524d94f540b67070e433"
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
 hash = "e185d7e56bacda51a817f78b68fb552fbcddff076611e71c725c73175303c5df"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_6/mekatfc_osmium.js"
+hash = "efb7452159f08e7ffb74c7f9aab1d8969fc00069c33492554deb682f01b43dcc"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
