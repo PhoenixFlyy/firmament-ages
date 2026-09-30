@@ -125,7 +125,7 @@ public final class AgeService {
 
     /**
      * {@code gate.bootFallbackStages}. Server configs load only after the initial datapack load, so on a dedicated
-     * server the world's (or the default) config file is read directly; otherwise the spec default {@code [dawn]}.
+     * server the config file is read directly (world override, then config/, then defaultconfigs/); otherwise the spec default {@code [dawn]}.
      */
     private static AgeSnapshot fallbackSnapshot(Path worldDir) {
         List<String> stages = null;
@@ -133,7 +133,10 @@ public final class AgeService {
             stages = new ArrayList<>(ServerConfig.BOOT_FALLBACK_STAGES.get());
         } else {
             List<Path> candidates = new ArrayList<>();
+            // NeoForge 21.1 keeps server configs in config/; <world>/serverconfig/ only holds per-world overrides,
+            // and defaultconfigs/ is the seed copied to config/ on first creation.
             if (worldDir != null) candidates.add(worldDir.resolve("serverconfig").resolve("firmages-server.toml"));
+            candidates.add(FMLPaths.CONFIGDIR.get().resolve("firmages-server.toml"));
             candidates.add(FMLPaths.GAMEDIR.get().resolve("defaultconfigs").resolve("firmages-server.toml"));
             for (Path c : candidates) {
                 stages = readFallbackFromToml(c);
@@ -295,9 +298,12 @@ public final class AgeService {
         } else if (bootAnswersStale) {
             bootReconcileRequested = true;
             scheduler.requestNow("boot reconcile: FirmAges answers of the initial load");
+        } else if (wasUsed) {
+            FirmagesCore.LOGGER.info("Boot: AgeState {} matches the boot snapshot ({}) used during the initial load; no reload",
+                now.unlockedIds(), b.source());
         } else {
-            FirmagesCore.LOGGER.info("Boot: AgeState {} matches the boot snapshot ({}, used during load: {}); no reload",
-                now.unlockedIds(), b.source(), wasUsed);
+            FirmagesCore.LOGGER.info("Boot: nothing read the boot snapshot {} ({}) during the initial load; AgeState {}; no reload",
+                b.snapshot().unlockedIds(), b.source(), now.unlockedIds());
         }
         AgeCoverage.check(AgeIndex.current());
         if (AgeIndex.current().misconfigured()) {
