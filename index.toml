@@ -1597,6 +1597,10 @@ file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
 hash = "b33480ccf5bac0748faedea398da5d179cf5729ae533524d94f540b67070e433"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
+hash = "e185d7e56bacda51a817f78b68fb552fbcddff076611e71c725c73175303c5df"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
 hash = "ab4b62ffa9f8df00fa317a821532d133a99a852c45c4a6019f7fd0607ace9140"
 
