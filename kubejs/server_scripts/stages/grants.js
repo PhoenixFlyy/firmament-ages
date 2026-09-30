@@ -125,6 +125,7 @@
   // reconcile() runs after every step and the stage list is printed. PS fires onGranted/onRevoked only for
   // players in the server's player list, so reconcile() is called directly here; the event wiring itself
   // needs a client (dev/poc-checklist.md C21). All stages of the fake player are removed at the end.
+  // Each line carries the wall time of the ProgressiveStages call ("ps") and of reconcile() ("rc") in ms.
   ServerEvents.basicCommand('fa_selftest', (event) => {
     const FakePlayerFactory = Java.loadClass('net.neoforged.neoforge.common.util.FakePlayerFactory')
     const GameProfile = Java.loadClass('com.mojang.authlib.GameProfile')
@@ -143,14 +144,18 @@
     ProgressiveStages.revokeAll(fp)
     say(`start: [${list()}]`)
     ;['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6'].forEach((age) => {
+      const t0 = Date.now()
       const ok = ProgressiveStages.grant(fp, age)
+      const t1 = Date.now()
       reconcile(fp)
-      say(`grant ${age} -> ${ok}: [${list()}]`)
+      say(`grant ${age} -> ${ok} (ps ${t1 - t0} ms, rc ${Date.now() - t1} ms): [${list()}]`)
     })
     ;['age_6', 'age_5', 'age_4', 'age_3', 'age_2'].forEach((age) => {
+      const t0 = Date.now()
       const ok = ProgressiveStages.revoke(fp, age)
+      const t1 = Date.now()
       reconcile(fp)
-      say(`revoke ${age} -> ${ok}: [${list()}]`)
+      say(`revoke ${age} -> ${ok} (ps ${t1 - t0} ms, rc ${Date.now() - t1} ms): [${list()}]`)
     })
     ProgressiveStages.revokeAll(fp)
     say(`cleanup: [${list()}]`)

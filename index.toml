@@ -1606,7 +1606,7 @@ hash = "ab4b62ffa9f8df00fa317a821532d133a99a852c45c4a6019f7fd0607ace9140"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
-hash = "8a99419ab0789b0c0c911953062444cc8df9fb26633161412a9cbc08472409ff"
+hash = "8f4bc20b7d2fe792f621adec78cbc876720c634766442b7213631838ee7aa7e7"
 
 [[files]]
 file = "kubejs/server_scripts/stages/mobs.js"
