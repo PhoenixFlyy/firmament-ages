@@ -11,7 +11,7 @@ spawn -2912 / -2236). No player joined. Everything that needs a player is marked
 |---|---|
 | `run_server.py --hold N` | keeps the server running for RCON; lines appended to `test-server/logs/run_server-input.txt` go to the console (spark answers asynchronously, so RCON never sees its output) |
 | `rcon.py "cmd" ...` | minimal RCON client; reads port and password from `test-server/server.properties` |
-| `/fa_dump`, `/fa_recipe <regex>`, `/fa_dims` | console commands in `kubejs/server_scripts/debug/dump.js`: recipe and tag dump with all ProgressiveStages stages that lock each recipe, its output and its result item, plus `registries.json` (every item, block and fluid id); recipe inspector; dimension locks and ore-override count |
+| `/fa_dump`, `/fa_dump_full [regex]`, `/fa_recipe <regex>`, `/fa_dims` | console commands in `kubejs/server_scripts/debug/dump.js`: recipe and tag dump with all ProgressiveStages stages that lock each recipe, its output and its result item, plus `registries.json` (every item, block and fluid id); `recipes_full.json` (every recipe as its serializer JSON, for the C- checks); recipe inspector; dimension locks and ore-override count |
 | `/fa_selftest` | console command in `kubejs/server_scripts/stages/grants.js`: a FakePlayer walks dawn to age_6 and back, `reconcile()` runs after each step; each line shows the time of the PS call and of `reconcile()` |
 | `gen_stage_locks.py` | generates the Age tags and the stage-file locks from `dev/age_map.toml` (see "Age registry tags"); `--registry <dump dir>` refreshes `dev/data/registry.json`, `--explain <item>` prints the rule behind one item's Age |
 | `poc_analyze.py` | reads the `/fa_dump` files and the Age tags and prints PASS/FAIL per recipe or tag check, including the grid recipes that open at Dawn, Stone, Bronze and Iron |
@@ -184,6 +184,63 @@ afterwards) that calls `FirmAges.unlockedAges()` at script load and `FirmAges.lo
   `FirmAges`), so a plain restart logs `nothing read the boot snapshot …; no reload`. The fail-strict reload path starts
   working by itself once m2 or the m1/m3 tag scripts read the snapshot; the probe runs above prove it.
 
+## Content: Arcane and Industrial Age
+
+Date: 2026-09-30, branch `dev` (commits 7e6c7f7 to 9179de0). Test server synced with `packwiz-installer-bootstrap`
+from `packwiz serve`, pregenerated world of the first pass, no player online. Final boot: KubeJS 2/2 startup and
+17/17 server scripts, **0 errors**; `Added 557 recipes, removed 970 recipes, modified 43 recipes, with 0 failed
+recipes`; 35,114 recipes loaded. `python dev/poc_analyze.py`: **all checks PASS** (the earlier A- checks and the new
+C- checks). `gen_stage_locks.py --check`: 0 files to rewrite.
+
+### What the pack now contains
+
+| Area | Content | Where |
+|---|---|---|
+| Arcane goal | `firmages:arcane_keystone` (age_3): Occultism ritual, pentacle `occultism:craft_djinni`, bound Djinni book; Spirit Attuned Crystal, iesnium ingot, `#firmages:boss_token/age_3` (Wilden Tribute), Mercury Catalyst, `tfc:metal/ingot/steel`, source gem block | `recipes/age_3/arcane_age.js` |
+| Magic in a TFC world | 159 magic recipes rewritten by JSON (Ars types have no KubeJS schema, so `replaceInput` does not reach them): vanilla tools and armour to TFC heads, unfinished armour or sheets; crafting table, furnace, blast furnace, smoker, campfire, anvil, lantern, glass bottle, bucket, saplings, crops, meats, vanilla rocks, sand, gravel to TFC items or tags. 21 Arcane progression recipes take `#firmages:gems/arcane` (TFC emerald, ruby, sapphire, topaz, opal) instead of diamonds (kimberlite is age_4). Purple chalk takes TFC amethyst powder instead of End stone dust; `mekanism:dust_obsidian` (the unified obsidian dust) is age_3 | `recipes/age_3/arcane_tfc_inputs.js`, `dev/age_map.toml` |
+| World gaps | Archwood saplings (four colours) from a TFC sapling and TFC gem powder; source berry bush from a TFC blueberry; Datura seeds at 2 % from 17 TFC grasses (loot modifier); **Arcane Soil**: 8 TFC dirt + 1 amethyst give 8 vanilla farmland; TFC animals in Occultism's entity tags (`c:cows`, `c:pigs`, ... sacrifices and butcher-knife tallow); Starbuncle, Whirlisprig and Drygmy spawns in TFC land biomes; TFC grass in `animals_spawnable_on`; Summoning Rituals altar recipe | `arcane_age.js`, `kubejs/data/firmages/loot_modifiers`, `kubejs/data/firmages/neoforge/biome_modifier`, `tags/arcane_industrial.js` |
+| One magic carrier per function | Occultism crusher: no ore, raw ore, raw block, clump or metal-ingot recipes (iesnium stays). Theurgy: standard ore liquefaction removed; 15 `firmages:liquefaction/*` for RICH TFC pieces (copper, tin, zinc, gold, silver, iron, nickel, lead, aluminium, uranium, osmium); incubation gives the canonical dust. Foliot transporter ritual, Warp Index and the diamond Ritual of Scrying removed. Theurgy rods refuse `#firmages:age_blocks/age_4` to `age_9` | `arcane_age.js`, `tags/arcane_industrial.js` |
+| Industrial goal | `firmages:pressure_core` (age_4): black steel double sheet x2, IE Heavy Engineering Block, `firmages:arcane_gearbox`, `#firmages:boss_token/age_4` (`cataclysm:monstrous_horn`, a guaranteed Monstrosity drop). Arcane Gearbox (grid, Wixie-automatable) from source gems, steel sheets and a Create gearbox; it sits in the reinforced blast brick (4 per gearbox, Improved Blast Furnace). Netherite Monstrosity summon at the Summoning Rituals altar (boss fallback 1) | `recipes/age_4/industrial_age.js` |
+| IE unified | Coke oven: TFC coal only. Crusher: 60 `firmages:crusher/*` (15 ores x 4 grades): quern-amount TFC mineral powder as main output, canonical dust with chance 2 x piece mB / 100, IE's secondary metal at 5 % of that; IE tag recipes and TFC + IE powder recipes removed. Metal press: one-ingot plate mold removed for the 11 TFC metals (TFC + IE two-ingot sheet mold stays). Alloy kiln: 6 `firmages:alloy_kiln/*` in TFC ratios. Arc furnace ore doubling removed. Blast and alloy bricks rebuilt from TFC fire bricks (TFC + IE disables IE's recipes and adds none, so neither multiblock could be built) | `industrial_age.js` |
+| Disable list | IE steel gear, windmill, watermill, kinetic dynamo, conveyors except the basic belt, thermoelectric generator, refinery, IE silver/nickel/steel ingots, copper nugget, TFC-metal plates, IE silver/nickel ores; Crafts & Additions except Electric Motor and Alternator (both rebuilt with IE LV coils); CBC alloying, steel and cast iron; vanilla furnace ore recipes (they run in Create bulk blasting) | `industrial_age.js`, `global_removals.js`, `stages/disabled.toml`, `HIDDEN_ITEMS` (122 items) |
+| Create 6 packages | Packager, Frogport (IE iron component), Stock Link, Chain Conveyor (IE steel component); the rest is made from these; all age_4 | `industrial_age.js` |
+| Gear rule (age_4) | Netherite tools and armour, Cataclysm cursium/ignitium/monstrous helm and the Incinerator, Create netherite backtank and diving gear: the base is a TFC black steel part of the same slot. Create Jetpack and netherite jetpack direct (fluid tank and propeller instead of backtank and elytra). Apotheosis golden-to-diamond upgrades removed. IE shield from a steel double sheet | `industrial_age.js` |
+| MekaTFC | 10 broken originals switched off by `neoforge:false` overrides; 12 `firmages:{purifying,injecting,dissolution}/native_osmium_<grade>` in Mekanism 10.7 format (3x: small 7->2, poor 7->3, normal 4->3, rich 1->1 clumps; 4x: 5->2, 5->3, 1->1, 3->4 shards; 5x: 100/150/250/350 mB slurry); MekaTFC furnace, enriching and crusher ore recipes removed; pieces out of `c:raw_materials/osmium`, blocks out of `c:ores/osmium` | `recipes/age_6/mekatfc_osmium.js`, `kubejs/data/mekatfc/` |
+| Mowzie drops | Frostmaw ice crystal and Petiole disc age_4; Sculptor staff, earthrend gauntlet, Geomancer set, bluff rod, sand rake age_5 | `dev/age_map.toml` |
+| Stubs | `firmages:attuned_circuit` (age_5), `firmages:awakened_keystone` (age_8): items only, recipes come with their Ages | `startup_scripts/items.js` |
+
+### Checks (`poc_analyze.py`, needs `fa_dump` and `fa_dump_full`)
+
+The C- checks run a recipe-graph closure from what a TFC world yields without a recipe (every item of TFC, AFC,
+Firmalife and Beneath; vanilla mob drops and Nether blocks of the mob ladder; Wilden and Starbuncle drops; Datura
+seeds and tallow from the loot changes; saplings grow, Datura and Magebloom only with vanilla farmland).
+
+| # | Check | Result |
+|---|---|---|
+| C-3a | Keystone ritual: type, pentacle, 6 ingredients + activation book; item age_3, PS item lock age_3; boss token = Wilden Tribute | pass |
+| C-3b | Spirits, Source and Alchemy chain (40 items incl. stations, Mineshaft, Djinni miner, Starbuncle charm, Ritual of Flight, altar, Keystone) obtainable | pass (before the fixes: 685 magic recipes had an unobtainable input; Datura, archwood, chalks, spellbooks, imbuement chamber, source jar and the Wilden ritual were not makeable) |
+| C-3c/d | every chain item is age_3 or earlier, and the chain closes with age_3 items only | pass (before: Spirit Attuned Gem and 20 more needed diamonds; purple chalk needed End stone and Mekanism obsidian dust) |
+| C-3e/f | no Occultism ore crushing, only the 15 rich-piece spagyrics, no transporter/Warp Index/diamond scrying; no miner output of a later Age | pass |
+| C-4a/b | Pressure Core recipe and Ages; coke, blast, reinforced blast and alloy bricks, treated wood, engineering blocks, LV power, IE workbench, Alternator, Motor, package tier, Jetpack and the Pressure Core close with age_4 items | pass (before: blast and alloy bricks had no recipe) |
+| C-4c | IE-type recipes give no disabled item and no IE/vanilla ingot, plate or non-canonical dust of a TFC metal | pass |
+| C-4d | TFC ore pieces are consumed only by TFC hand stations, WoodenCog heated melting, Create crushing/milling, Theurgy, the IE Crusher and grid parts (stations up to age_4) | pass (before: IE crusher and arc furnace tag recipes, vanilla furnace via bulk blasting, CBC) |
+| C-4e | TFC sheets only from two ingots (stations up to age_4: TFC anvil, Create and WoodenCog press, IE Metal Press, sequenced assembly) | pass (before: IE plate mold, 1 ingot -> 1 sheet) |
+| C-4f | Alloy kiln = TFC ratios, no IE ratio left | pass (before: rose gold 3 copper : 1 gold, bronze 3:1, brass 1:1) |
+| C-4g | coke only from the coke oven on TFC coal; new TFC steel only from TFC, IE Blast Furnace and Arc Furnace | pass (before: CBC 2 iron + coal -> 2 steel in a heated mixer, reachable in the Iron Age) |
+| C-4h/i/j | C&A down to Motor and Alternator; package tier carries IE components; no age_4 gear eats gear (Cataclysm boss-weapon fusion excepted) | pass |
+| C-M | MekaTFC: 0 parse errors in `latest.log`, 12 grade recipes, no furnace/enriching/crushing of pieces, pieces out of the raw tag | pass |
+| C-W | Mowzie drop Ages | pass |
+
+Server-side plant test (`setblock` soil, plant, neighbour update, `execute if block`): Datura and Magebloom break on
+`tfc:farmland/mollisol` and stay on `minecraft:farmland`; archwood saplings, the source berry bush and the Otherworld
+sapling stay on TFC grass and dirt. Iesnium ore generates in the Beneath Nether (149 `occultism:iesnium_ore_natural`
+in the scanned Nether chunks). 0 Ars, Theurgy or Occultism blocks in 3,219 overworld chunks (the reason for the
+recipe route to archwood and source berries).
+
+Reload with the new content (2 runs, no player): stall 8.1 and 9.0 s, KubeJS recipe phase 3.6 to 3.7 s (was 5.6 to
+7.7 s and 2.0 to 2.5 s in M0). The JSON rewrite of the magic recipes and the forEachRecipe scans cost about 1.5 s per
+reload; still below the 10 s limit of SPEC section 3.
+
 ## Fixes made in the repo
 
 1. **Rhino loop-body `const` (A5).** `grants.js` `reconcileNow()` declared `const wanted` inside a `for` loop. Rhino
@@ -234,15 +291,10 @@ afterwards) that calls `FirmAges.unlockedAges()` at script load and `FirmAges.lo
 
 - **Client half of M0.** EMI/JEI rebuild after a reload and the stall with players connected (recipe and tag sync) need a
   client; the reload-vs-hot-swap verdict above is provisional until then.
-- **MekaTFC 0.1.0 recipes are broken or leak.** 10 of its osmium recipes fail to parse on every load (dissolution,
-  injecting, purifying: old Mekanism JSON without `per_tick_usage`), so osmium ore pieces have no 3x/4x/5x chain. Among
-  those that load are `minecraft:smelting`/`blasting` of osmium ore (the vanilla furnace for ores is a canon loser) and
-  `mekanism:enriching` of ore pieces (2x enrichment is a loser). Doc 10 v3 leaves keeping MekaTFC to the PoC: either
-  replace these with KubeJS recipes per grade or drop the mod for a pack osmium vein.
+- **MekaTFC 0.1.0 recipes:** resolved in "Content: Arcane and Industrial Age" (mod kept, grade recipes rebuilt).
 - **Chromite Age derived, not in the canon.** Firmalife chromite is age_4 because its only use, stainless steel, needs
   nickel (age_4); Doc 10 v3 section 8.1 has no chromium row.
-- **Mowzie's Mobs boss drops** outside the spawn locks (Frostmaw ice crystal, Sculptor staff, Geomancer set, earthrend
-  gauntlet) take the mod's age_0; the design docs give them no Age.
+- **Mowzie's Mobs boss drops:** resolved (Frostmaw age_4, Sculptor age_5).
 - **Fluid tags `age_fluids/<stage>`** (SPEC section 2.1) are not generated yet; the registry snapshot has no fluids yet
   (the dump has them).
 - **Tag `age_items/disabled`** sits next to dawn..age_9 so that every item PS locks has exactly one Age tag (SPEC coverage
@@ -256,4 +308,38 @@ afterwards) that calls `FirmAges.unlockedAges()` at script load and `FirmAges.lo
   reload (about 6 s) after start.
 - **`firmages-server.toml` is not shipped in `defaultconfigs/`:** each server creates it with the mod defaults
   (`bootFallbackStages = ["dawn"]`, `allowSimulate = false`), which fits the pack; ship it only if a pack value differs.
+- **Arcane and Industrial Age, needs a client:** Ars creature spawns in TFC biomes (Starbuncle, Whirlisprig and Drygmy
+  shards come only from wild creatures); the Wilden summon ritual with the age_3 spawn lock on the Wilden; Theurgy rods
+  refusing disguised ores; butcher-knife tallow from TFC animals; how vanilla farmland from Arcane Soil behaves (it dries
+  to vanilla dirt); the 159 rewritten magic recipes in EMI; the IE multiblocks with the rebuilt bricks.
+- **Theurgy spagyrics take only rich pieces.** Liquefaction reads one item without a count, so 2.5x of a 10 to 35 mB
+  piece cannot be a whole sulfur; rich pieces (the Mineshaft's only output) give one sulfur = one dust (about 2.9x),
+  poor, normal and small pieces have no spagyric path. Bismuth has no Theurgy sulfur.
+- **IE Crusher output shape.** The crusher takes one item and its main output has no chance, so the main output is the
+  TFC mineral powder in quern amount and the canonical dust comes as a chance output (exactly 2x on average).
+- **Alchemy depends on Spirits.** Sal ammoniac crystals (Theurgy solvent) come only from Occultism miners; the Theurgy
+  ore does not generate in TFC. The strands are not fully parallel; a pack source of sal ammoniac would decouple them.
+- **Mekanism raw-ore recipes on TFC pieces.** TFC puts its ore pieces into `c:raw_materials/<metal>`, so Mekanism,
+  More Mekanism Processing and Mekanism: More Machine apply vanilla raw-ore ratios to every grade (for example 3 small
+  pieces -> 2,000 mB slurry). Done for osmium; the other metals belong to the Information Age content (the
+  `oreLadder` helper in `recipes/age_6/mekatfc_osmium.js` is written for them).
+- **Magic recipes outside the Arcane chain.** 272 of 2,447 magic recipes still have an input the closure cannot reach:
+  mostly later tiers (Afrit, Marid, stabilizer tier 5), vanilla-only items (totem of undying, echo shards, specific
+  vanilla flowers) and Occultism entity sacrifice tags that the item-level model reads as items. The Arcane chain
+  itself closes (C-3b, C-3d).
+- **Cataclysm boss-weapon fusion** (for example Infernal Forge + Astrape -> Brontes) keeps its chain; the gear check
+  excepts it.
+- **Create Big Cannons casting** still runs on CBC molten metals (Doc 10 v3 section 7.3 wants TFC fluids); CBC's own
+  alloying, steel and cast iron are removed.
+- **IE basic conveyor stays**: it is a block of the Metal Press, Assembler and Auto Workbench multiblocks, although the
+  disable list names IE conveyors.
+- **TFC + IE sheets of IE metals** (aluminium, lead, constantan, electrum, uranium) stay next to the canonical IE
+  plates; they only feed TFC-style metal blocks.
+- **Magic tail for later Ages** is stubs only (Attuned Circuit, Awakened Keystone items); the Afrit book on an IE HV
+  coil, Archmage and Reformation gates and the fallback tokens (Wild Sigil, Forge Sigil) are not built.
+- **MekaTFC second routes left alone:** redstone mixture (enriching and barrel, 16 redstone) and pyrite -> sulfur in a
+  barrel are canon losers (redstone only from the quern, sulfur from TFC sulfur) but outside the osmium task.
+- **Reload time** rose to 8 to 9 s (KubeJS recipe phase 3.6 to 3.7 s); still below the 10 s limit, little headroom.
+- **Pre-existing parse errors:** 35 `Parsing error` lines in `latest.log` (TFC Regrowing Forests, WoodenCog, Create
+  Deco), none from pack scripts.
 - Everything marked needs client: C1, C3, C8, C9, C11 (Dawn EMI view), C14, C17, C19, C20, C21 in `poc-checklist.md`.
