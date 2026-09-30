@@ -386,7 +386,7 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
 file = "kubejs/server_scripts/debug/dump.js"
-hash = "027dd3618324d6e420b69c770864b1fb37a5e7246be09cc0894d7637a3c3d227"
+hash = "7d1ec89018284baa4e56e98ddae6d38b4c92b26734e9cc48a221cd8f21c7ab35"
 
 [[files]]
 file = "kubejs/server_scripts/debug/scan.js"

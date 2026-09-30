@@ -4,6 +4,8 @@
 //                  several stages are joined with "|"), local/firmages/item_tags.json (every item tag with its
 //                  items) and local/firmages/registries.json (every item, block and fluid id).
 //                  dev/poc_analyze.py reads the first two, dev/gen_stage_locks.py --registry reads all three.
+//   /fa_dump_full [regex]  write local/firmages/recipes_full.json: every loaded recipe (or those whose id matches) as
+//                  the JSON its serializer writes, after Almost Unified and KubeJS (dev/poc_analyze.py content checks)
 //   /fa_dims       list loaded dimensions with their ProgressiveStages dimension lock, then the number of
 //                  loaded [[ores.overrides]] rows per stage (ore disguise) and which of them target unknown blocks
 //   /fa_recipe <regex>  print up to 15 recipes whose id matches: type, result and the first items of each
@@ -71,6 +73,41 @@
     event.respond(Text.gold(`[fa_dump] ${recipes.length} recipes (${failed} without a readable result), ` +
       `${Object.keys(tags).length} item tags -> ${OUT}/`))
     if (firstError) event.respond(Text.gray(`  first unreadable result: ${firstError}`))
+  })
+
+  // /fa_dump_full [regex]: every loaded recipe (or those whose id matches) as the JSON its serializer writes,
+  // after Almost Unified and KubeJS changed it -> local/firmages/recipes_full.json ({id: json text}).
+  // dev/poc_analyze.py reads it for ingredient and output checks. Unencodable recipes are counted.
+  const encodeRecipe = (recipe, ops) => {
+    const res = RecipeClass.CODEC.encodeStart(ops, recipe).result()
+    return res.isPresent() ? String(res.get().toString()) : null
+  }
+  const RecipeClass = Java.loadClass('net.minecraft.world.item.crafting.Recipe')
+  ServerEvents.basicCommand('fa_dump_full', (event) => {
+    const text = String(event.input).trim()
+    const re = text ? new RegExp(text) : null
+    const ops = Java.loadClass('net.minecraft.resources.RegistryOps')
+      .create(Java.loadClass('com.mojang.serialization.JsonOps').INSTANCE, event.server.registryAccess())
+    const out = {}
+    let n = 0
+    let failed = 0
+    event.server.getRecipeManager().getRecipes().forEach((holder) => {
+      const id = String(holder.id())
+      if (re && !re.test(id)) return
+      let json = null
+      try {
+        json = encodeRecipe(holder.value(), ops)
+      } catch (e) {
+        json = null
+      }
+      if (json === null) failed++
+      else {
+        out[id] = json
+        n++
+      }
+    })
+    JsonIO.write(`${OUT}/recipes_full.json`, out)
+    event.respond(Text.gold(`[fa_dump_full] ${n} recipes encoded, ${failed} not encodable -> ${OUT}/recipes_full.json`))
   })
 
   const ingredientText = (ing) => {
