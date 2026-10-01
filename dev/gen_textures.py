@@ -1584,9 +1584,6 @@ def tex_file(ref):
 def check():
     errors, warnings = [], []
     referenced = set()
-    # 0. the consecrated family is referenced by the naming contract (dev/textures-notes.md), models come with the mod
-    for name in CONSECRATED:
-        referenced.add((MOD_TEX / "block" / (name + ".png")).resolve())
     # 1. models in both asset roots
     for root in (MOD_ASSETS, KJS_ASSETS):
         for p in sorted((root / "models").rglob("*.json")) if (root / "models").exists() else []:
@@ -1606,6 +1603,11 @@ def check():
                 mp = root / "models" / (parent.split(":", 1)[1] + ".json")
                 if not mp.exists():
                     errors.append(f"{p.relative_to(ROOT)}: parent model {parent} missing")
+    # 1b. the consecrated family (dev/textures-notes.md) must be used by the mod's models
+    for name in CONSECRATED:
+        f = MOD_TEX / "block" / (name + ".png")
+        if f.resolve() not in referenced:
+            errors.append(f"{f.relative_to(ROOT)}: consecrated texture not referenced by any mod model")
     # 2. blockstates -> models
     for p in sorted((MOD_ASSETS / "blockstates").glob("*.json")):
         data = json.loads(p.read_text(encoding="utf-8"))
