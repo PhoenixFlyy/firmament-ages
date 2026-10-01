@@ -206,6 +206,9 @@
 		}
 		{
 			dependencies: ["3C8510408C6A23D6"]
+			icon: {
+				id: "sgjourney:classic_stargate"
+			}
 			id: "5C8E39BBE00603BA"
 			shape: "gear"
 			size: 3.0d
