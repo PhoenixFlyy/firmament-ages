@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "firmages:block/consecrated_pillar_top",
-    "side": "firmages:block/consecrated_pillar"
+    "side": "firmages:block/consecrated_pillar_side"
   }
 }

@@ -1,8 +1,19 @@
 {
   "multipart": [
     {
+      "when": {
+        "lit": "false"
+      },
       "apply": {
         "model": "firmages:block/consecrated_lamp"
+      }
+    },
+    {
+      "when": {
+        "lit": "true"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_lamp_lit"
       }
     },
     {

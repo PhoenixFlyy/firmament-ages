@@ -1,9 +1,9 @@
 {
-  "parent": "minecraft:block/block",
   "render_type": "minecraft:cutout",
+  "ambientocclusion": false,
   "textures": {
-    "particle": "firmages:block/consecrated_accent_1",
-    "accent": "firmages:block/consecrated_accent_1"
+    "accent": "firmages:block/consecrated_accent_1",
+    "particle": "firmages:block/consecrated_accent_1"
   },
   "elements": [
     {
@@ -17,60 +17,35 @@
         16,
         16
       ],
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
+      },
       "faces": {
         "down": {
           "texture": "#accent",
-          "cullface": "down",
-          "neoforge_data": {
-            "block_light": 15,
-            "sky_light": 15,
-            "ambient_occlusion": false
-          }
+          "cullface": "down"
         },
         "up": {
           "texture": "#accent",
-          "cullface": "up",
-          "neoforge_data": {
-            "block_light": 15,
-            "sky_light": 15,
-            "ambient_occlusion": false
-          }
+          "cullface": "up"
         },
         "north": {
           "texture": "#accent",
-          "cullface": "north",
-          "neoforge_data": {
-            "block_light": 15,
-            "sky_light": 15,
-            "ambient_occlusion": false
-          }
+          "cullface": "north"
         },
         "south": {
           "texture": "#accent",
-          "cullface": "south",
-          "neoforge_data": {
-            "block_light": 15,
-            "sky_light": 15,
-            "ambient_occlusion": false
-          }
+          "cullface": "south"
         },
         "west": {
           "texture": "#accent",
-          "cullface": "west",
-          "neoforge_data": {
-            "block_light": 15,
-            "sky_light": 15,
-            "ambient_occlusion": false
-          }
+          "cullface": "west"
         },
         "east": {
           "texture": "#accent",
-          "cullface": "east",
-          "neoforge_data": {
-            "block_light": 15,
-            "sky_light": 15,
-            "ambient_occlusion": false
-          }
+          "cullface": "east"
         }
       }
     }
