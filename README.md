@@ -33,7 +33,7 @@ The design documents are in German and live outside this repo, in `../Modpack-Pl
 ## Current state (2026-10-01)
 
 - **Pack:** 192 mods (184 from Modrinth, 8 CurseForge-only: the FTB suite, The Twilight Forest, Torque Link Create To TFC, AE2 Draconic Fusion Autocrafter) plus the pack's own `firmages-core` jar. Content for all Ages from Dawn to Singularity, the quest book (`dev/gen_quests.py`), the shrine of Caelum and the finale in The Origin are in. `pack.toml` is still at version 0.1.0; the next release sets it.
-- **firmages-core 0.4.0:** milestones M1 to M5 of `mod/firmages-core/SPEC.md` (Age state and reloads, machine-recipe gate, miner filter and prospecting, reactor refuelling, the shrine multiblock), The Origin and the boss scaffolding.
+- **firmages-core 0.5.0:** milestones M1 to M6 of `mod/firmages-core/SPEC.md` (Age state and reloads, machine-recipe gate, miner filter and prospecting, reactor refuelling, the shrine multiblock, then Keystone lending, blessing effects, the energy rite and Jade tooltips), The Origin with its own age_9 travel lock and spawn list, and the boss scaffolding.
 - **Verified without a client:** the test server reaches `Done` (`dev/boot-report.md`), `dev/poc_analyze.py` runs its checks on a recipe dump, and the debug players of the mod walk the shrine, team and quest paths (`dev/poc-results.md`). The client checklist is `dev/client-test-brief.md`.
 - **Design calls** made while Felix was away are logged in `dev/decisions-while-away.md`.
 
@@ -57,7 +57,7 @@ gradlew build                        # JUnit tests and build/libs/firmages-core-
 gradlew runGameTestServer            # GameTests on a fresh world
 ```
 
-The version is `mod_version` in `mod/firmages-core/gradle.properties`. The build needs the local jars in `mod/firmages-core/libs/` (ProgressiveStages, Modonomicon, KubeJS, Rhino, Stargate Journey; git-ignored). To ship it, copy the jar to `mods/`, delete the old one and run `packwiz refresh`; packwiz tracks it as a plain file. Details: `mod/firmages-core/README.md`.
+The version is `mod_version` in `mod/firmages-core/gradle.properties`. The build needs the local jars in `mod/firmages-core/libs/` (ProgressiveStages, TerraFirmaCraft, Modonomicon, KubeJS, Rhino, Stargate Journey, Jade; git-ignored; `gradlew fetchLibs` downloads them from the pack's `.pw.toml` files). To ship it, copy the jar to `mods/`, delete the old one and run `packwiz refresh`; packwiz tracks it as a plain file. Details: `mod/firmages-core/README.md`.
 
 ## Dev client
 
