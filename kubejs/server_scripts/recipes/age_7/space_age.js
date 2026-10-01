@@ -11,9 +11,10 @@
 ServerEvents.recipes((event) => {
   // ======================================================================================== Ad Astra machines
   ;['ad_astra:compressing', 'ad_astra:alloying', 'ad_astra:refining'].forEach((t) => event.remove({ type: t }))
-  // Ad Astra smelts and blasts its planet ores and raw ores in the vanilla furnace (matrix 6.1 "Schmelzen" loser:
+  // Ad Astra smelts and blasts its planet ores (desh, ostrum, calorite, and the planet copper, iron, gold, coal,
+  // diamond, lapis, ice shard and cheese ores) and raw ores in the vanilla furnace (matrix 6.1 "Schmelzen" loser:
   // "Vanilla-Ofen für Erze"); these recipes use Ad Astra's own tags, so the global furnace-ore removal missed them.
-  event.remove({ id: /^ad_astra:(smelting|blasting)\/(desh|ostrum|calorite)_ingot_from_(smelting|blasting)_/ })
+  event.remove({ id: /^ad_astra:(smelting|blasting)\/.+_from_(smelting|blasting)_(.+_ore|raw_.+)$/ })
 
   // ======================================================================================== plates: the IE Metal Press
   // IE's own tag recipes press desh, ostrum and calorite plates (immersiveengineering:metalpress/plate_<m>, one ingot ->

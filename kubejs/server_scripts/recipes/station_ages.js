@@ -20,7 +20,8 @@ ServerEvents.recipes((event) => {
   put('age_3', ['occultism:crushing', 'occultism:crystallize', 'occultism:miner', 'occultism:ritual', 'occultism:spirit_fire',
     'occultism:spirit_trade', 'ars_nouveau:crush', 'ars_nouveau:enchanting_apparatus', 'ars_nouveau:imbuement',
     'ars_nouveau:glyph', 'ars_nouveau:alakarkinos_conversion', 'ars_nouveau:budding_conversion', 'ars_nouveau:scry_ritual',
-    'ars_nouveau:summon_ritual', 'ars_additions:bulk_scribing', 'ars_additions:charm_charging', 'ars_additions:imbue_scroll',
+    'ars_nouveau:summon_ritual', 'ars_nouveau:enchantment', 'ars_nouveau:armor_upgrade', 'ars_nouveau:reactive_enchantment',
+    'ars_nouveau:spell_write', 'ars_nouveau:dispel_entity', 'ars_nouveau:prestidigitation', 'ars_additions:bulk_scribing', 'ars_additions:charm_charging', 'ars_additions:imbue_scroll',
     'theurgy:accumulation', 'theurgy:calcination', 'theurgy:catalysation', 'theurgy:digestion', 'theurgy:distillation',
     'theurgy:fermentation', 'theurgy:incubation', 'theurgy:liquefaction', 'summoningrituals:altar',
     'create_enchantment_industry:grinding', 'create_enchantment_industry:infusing', 'apotheosis:gem_cutting',
@@ -47,24 +48,35 @@ ServerEvents.recipes((event) => {
     'mekanism:separating', 'mekanism:washing', 'ae2:inscriber', 'ae2:charger', 'ae2:transform', 'ae2:entropy',
     'extendedae:circuit_cutter', 'extendedae:crystal_assembler', 'extendedae:crystal_fixer',
     'mysticalagriculture:infusion', 'mysticalagriculture:reprocessor', 'mysticalagriculture:soul_extraction',
-    'mysticalagriculture:enchanter', 'mysticalagriculture:soulium_spawner', 'mysticalagriculture:awakening'])
+    'mysticalagriculture:enchanter', 'mysticalagriculture:soulium_spawner', 'mysticalagriculture:awakening',
+    // More Mekanism Processing's own serializers of the same machines (the type filter matches the JSON type)
+    'moremekanismprocessing:tag_purifying', 'moremekanismprocessing:tag_injecting', 'moremekanismprocessing:tag_enriching',
+    'moremekanismprocessing:tag_crushing', 'moremekanismprocessing:tag_crystallizing'])
 
   // ---- Space Age: Mekanism fission chain, Ad Astra, DE Fusion Crafting ----
   put('age_7', ['mekanism:activating', 'mekanism:centrifuging', 'ad_astra:cryo_freezing', 'ad_astra:nasa_workbench',
     'ad_astra:oxygen_loading', 'ad_astra:space_station_recipe', 'draconicevolution:fusion_crafting'])
 
   // ---- Quantum Age: antimatter and Evolved Mekanism ----
-  put('age_8', ['mekanism:nucleosynthesizing', 'mekanism:apt', 'mekanism:chemixing'])
+  put('age_8', ['mekanism:nucleosynthesizing', 'mekanism:apt', 'mekanism:chemixing', 'advanced_ae:reaction'])
 
   // ---- Singularity Age: Stargate Journey ----
   put('age_9', ['sgjourney:crystallizing', 'sgjourney:advanced_crystallizing', 'sgjourney:naquadah_liquidizing',
     'sgjourney:naquadah_heavy_liquidizing'])
 
+  // A type filter removes the mods' recipes, but not the ones the pack scripts added in this same event (event.custom),
+  // so those are found by type and removed by id (the arc furnace steels, the IE crusher and alloy kiln recipes, ...).
   let removed = 0
+  const added = []
   Object.keys(STATION_AGE).forEach((type) => {
     if (FirmAges.isUnlocked(STATION_AGE[type])) return
     event.remove({ type: type })
+    event.forEachRecipe({ type: type }, (r) => {
+      const id = String(r.getId())
+      if (id.indexOf('firmages:') === 0) added.push(id)
+    })
     removed++
   })
-  if (removed) console.info(`[firmages] station Ages: removed the recipes of ${removed} machine types of locked Ages`)
+  added.forEach((id) => event.remove({ id: id }))
+  if (removed) console.info(`[firmages] station Ages: removed the recipes of ${removed} machine types of locked Ages (${added.length} pack recipes)`)
 })

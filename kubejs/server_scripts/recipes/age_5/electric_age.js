@@ -8,23 +8,26 @@
 
 ServerEvents.recipes((event) => {
   const removeOutputPatterns = []
+  // Pack recipes in the Arc Furnace load only with its Age (recipes/station_ages.js cannot remove recipes added in the
+  // same event), so the arc furnace steels never show before the Electric Age.
+  const arc = (json, id) => { if (FirmAges.isUnlocked('age_5')) event.custom(json).id(id) }
   const sized = (tagId, n) => (n > 1 ? { basePredicate: { tag: tagId }, count: n } : { tag: tagId })
 
   // ======================================================================================== arc furnace: TFC steels
   // TFC + IE 2.1.3 ships weak steel from 2 BLACK steel + black bronze + nickel (a typo: TFC weak steel is 50-70 %
   // steel, 15-25 % nickel, 15-25 % black bronze). Rebuilt with steel, same ratio 2:1:1 -> 4.
   event.remove({ id: 'tfc_ie_addon:arcfurnace/weak_steel' })
-  event.custom({
+  arc({
     type: 'immersiveengineering:arc_furnace',
     input: sized('c:ingots/steel', 2),
     additives: [{ tag: 'c:ingots/black_bronze' }, { tag: 'c:ingots/nickel' }],
     results: [{ id: 'tfc:metal/ingot/weak_steel', count: 4 }],
     time: 100,
     energy: 51200
-  }).id('firmages:arc_furnace/weak_steel')
+  }, 'firmages:arc_furnace/weak_steel')
   // Black steel (Doc 10 v3 matrix 6.1, "IE Arc Furnace: Schwarzstahl (Pack-Rezept)"): TFC welds weak steel and pig
   // iron into high carbon black steel and hammers it into black steel; the arc furnace does both, with slag.
-  event.custom({
+  arc({
     type: 'immersiveengineering:arc_furnace',
     input: { item: 'tfc:metal/ingot/weak_steel' },
     additives: [{ item: 'tfc:metal/ingot/pig_iron' }],
@@ -32,18 +35,18 @@ ServerEvents.recipes((event) => {
     slag: { tag: 'c:slag' },
     time: 400,
     energy: 204800
-  }).id('firmages:arc_furnace/black_steel')
+  }, 'firmages:arc_furnace/black_steel')
   // Weak red steel, the alloy step only (TFC: black steel 50-55 %, steel 20-25 %, brass and rose gold 10-15 % each),
   // in the same 5:2:1:1 -> 9 shape as TFC + IE's weak blue steel. Red steel itself stays a hand weld in this Age; the
   // Mekanism Metallurgic Infuser takes over that step in the Information Age (recipes/age_6).
-  event.custom({
+  arc({
     type: 'immersiveengineering:arc_furnace',
     input: sized('c:ingots/black_steel', 5),
     additives: [sized('c:ingots/steel', 2), { tag: 'c:ingots/brass' }, { tag: 'c:ingots/rose_gold' }],
     results: [{ id: 'tfc:metal/ingot/weak_red_steel', count: 9 }],
     time: 100,
     energy: 51200
-  }).id('firmages:arc_furnace/weak_red_steel')
+  }, 'firmages:arc_furnace/weak_red_steel')
 
   // ======================================================================================== disabled parts of the Age
   // Immersive Petroleum: the gas generator is a second FE generator next to the IE Diesel Generator (Doc 10 v3 7.2).
@@ -85,7 +88,7 @@ ServerEvents.recipes((event) => {
   // slots take the Attuned Circuit, aluminium plates, red steel sheets and the age_5 boss token (Nether Star).
   // The diesel jerrycan of Doc 08 10.2 is left out: the arc furnace takes no fluids; diesel is the Oil strand's
   // keystone instead (decision log 2026-10-01).
-  event.custom({
+  arc({
     type: 'immersiveengineering:arc_furnace',
     input: { item: 'immersiveengineering:capacitor_hv' },
     additives: [
@@ -97,7 +100,7 @@ ServerEvents.recipes((event) => {
     results: [{ id: 'firmages:humming_core', count: 1 }],
     time: 800,
     energy: 1638400
-  }).id('firmages:arc_furnace/humming_core')
+  }, 'firmages:arc_furnace/humming_core')
 
   event.remove({ output: new RegExp(removeOutputPatterns.map((r) => r.source).join('|')) })
 })

@@ -109,5 +109,8 @@
   },
   "mysticalagriculture:peridot": {
     "enabled": false
+  },
+  "mysticalagradditions:awakened_draconium": {
+    "enabled": false
   }
 }

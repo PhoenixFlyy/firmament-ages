@@ -17,6 +17,7 @@ const FA_BYPRODUCTS = {
 
 ServerEvents.recipes((event) => {
   const lockedNow = (age) => age === 'disabled' || !FirmAges.isUnlocked(age)
+  const STATION_AGE = { 'immersiveengineering:crusher': 'age_4' } // the machine types of FA_BYPRODUCTS above age_2
   // Item id of one result entry: Create {id, chance} / {item}, IE secondaries {output: {item}}.
   const entryItem = (e) => {
     if (!e) return null
@@ -48,6 +49,9 @@ ServerEvents.recipes((event) => {
       return
     }
     event.remove({ id: id })
+    // While the station's Age is locked the recipe stays removed (recipes/station_ages.js removes the mod's original,
+    // but not a recipe re-added here).
+    if (STATION_AGE[json.type] && lockedNow(STATION_AGE[json.type])) return
     event.custom(json).id(id)
     stripped++
   })

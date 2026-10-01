@@ -46,7 +46,9 @@ ServerEvents.recipes((event) => {
   })
   minerIds.forEach((id) => event.remove({ id: id }))
 
-  Object.keys(RICH_ORES).forEach((ore) => {
+  // Pack recipes in a machine of this Age load only with it (recipes/station_ages.js cannot remove recipes added in the
+  // same event), so a later station never shows an earlier output before the station exists.
+  if (FirmAges.isUnlocked('age_3')) Object.keys(RICH_ORES).forEach((ore) => {
     event.custom({
       type: 'occultism:miner',
       ingredient: { tag: 'occultism:miners/ores' },
@@ -116,6 +118,7 @@ ServerEvents.recipes((event) => {
   }
   Object.keys(CANON_DUST).forEach((m) => {
     event.remove({ id: `theurgy:incubation/ingots_${m}_from_alchemical_sulfur_${m}` })
+    if (!FirmAges.isUnlocked('age_3')) return // station Age (recipes/station_ages.js)
     event.custom({
       type: 'theurgy:incubation',
       mercury: { item: 'theurgy:mercury_shard' },

@@ -158,9 +158,15 @@ ServerEvents.recipes((event) => {
     const next = rewrite(text, id)
     if (next !== text) todo.push([id, next])
   })
+  // A rewritten machine recipe (ritual, apparatus, Theurgy) is re-added only once its station's Age is open:
+  // recipes/station_ages.js removes the mods' originals, but not recipes re-added in this event. Grid recipes keep
+  // their ProgressiveStages namespace lock and are always re-added.
+  const age3 = FirmAges.isUnlocked('age_3')
   todo.forEach((t) => {
     event.remove({ id: t[0] })
-    event.custom(JSON.parse(t[1])).id(t[0])
+    const j = JSON.parse(t[1])
+    if (!age3 && !/^(minecraft:crafting|kubejs:)/.test(String(j.type))) return
+    event.custom(j).id(t[0])
   })
   console.info(`[firmages] arcane TFC inputs: ${todo.length} magic recipes rewritten`)
 

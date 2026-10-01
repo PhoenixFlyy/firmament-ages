@@ -19,7 +19,7 @@ ServerEvents.recipes((event) => {
   // tfc:metal/<m>") and its alloyer copies of AE2 processors and fluix.
   ;['mekanism:sawing', 'mekanism:planting', 'mekanism:recycling', 'mekanism:melting', 'mekanism:solidification',
     'mekanism:stamping', 'mekanism:lathing', 'mekanism:rolling_mill', 'mekanism:pressing',
-    'mekmm:stamper', 'mekmm:lathe', 'mekmm:rolling_mill', 'mekmm:presser', 'mekmm:planting', 'mekmm:recycler',
+    'mekmm:stamper', 'mekmm:lathe', 'mekmm:rolling_mill', 'mekmm:presser', 'mekmm:pressing', 'mekmm:planting', 'mekmm:recycler',
     'evolvedmekanism:melting', 'evolvedmekanism:solidifying']
     .forEach((t) => event.remove({ type: t }))
   removeIdPatterns.push(/^evolvedmekanism:alloying\/compat\/ae2\//)
@@ -52,7 +52,8 @@ ServerEvents.recipes((event) => {
     output: { count: 1, id: to },
     per_tick_usage: false
   }).id(id)
-  infuse('tfc:metal/ingot/weak_red_steel', 'tfc:metal/ingot/red_steel', 'firmages:metallurgic_infusing/red_steel')
+  // Both load only with the Age of their station (recipes/station_ages.js cannot remove recipes added in this event).
+  if (FirmAges.isUnlocked('age_6')) infuse('tfc:metal/ingot/weak_red_steel', 'tfc:metal/ingot/red_steel', 'firmages:metallurgic_infusing/red_steel')
   if (FirmAges.isUnlocked('age_7')) {
     infuse('tfc:metal/ingot/weak_blue_steel', 'tfc:metal/ingot/blue_steel', 'firmages:metallurgic_infusing/blue_steel')
   }
