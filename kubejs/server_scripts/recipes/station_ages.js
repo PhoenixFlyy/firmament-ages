@@ -9,7 +9,7 @@
 // World data types (IE mineral mixes = excavator veins, IP reservoirs, fuels, fertilisers) are never removed.
 // Ages: dev/age_map.toml [mods] for the mod default, overridden per type from Doc 10 v3 matrix 6.1 (IE MV/HV
 // machines age_5, Mekanism fission age_7, the antiprotonic nucleosynthesizer and Evolved Mekanism age_8, Theurgy
-// reformation age_6). Cost: one type filter (about 1.5 ms) per locked type and reload.
+// reformation age_6). Cost: one OR-filter pass over all recipes per reload.
 
 ServerEvents.recipes((event) => {
   // recipe type -> Age of its station
@@ -64,19 +64,12 @@ ServerEvents.recipes((event) => {
   put('age_9', ['sgjourney:crystallizing', 'sgjourney:advanced_crystallizing', 'sgjourney:naquadah_liquidizing',
     'sgjourney:naquadah_heavy_liquidizing'])
 
-  // A type filter removes the mods' recipes, but not the ones the pack scripts added in this same event (event.custom),
-  // so those are found by type and removed by id (the arc furnace steels, the IE crusher and alloy kiln recipes, ...).
-  let removed = 0
-  const added = []
-  Object.keys(STATION_AGE).forEach((type) => {
-    if (FirmAges.isUnlocked(STATION_AGE[type])) return
-    event.remove({ type: type })
-    event.forEachRecipe({ type: type }, (r) => {
-      const id = String(r.getId())
-      if (id.indexOf('firmages:') === 0) added.push(id)
-    })
-    removed++
-  })
-  added.forEach((id) => event.remove({ id: id }))
-  if (removed) console.info(`[firmages] station Ages: removed the recipes of ${removed} machine types of locked Ages (${added.length} pack recipes)`)
+  // One removal pass with an OR filter over every locked type: a pass per type cost one scan of all recipes each
+  // (117 types at Dawn). The pack's own recipes in these machines are not seen by a type filter in this same event,
+  // so they check FirmAges.isUnlocked themselves (arc furnace steels, IE crusher and alloy kiln recipes, ...).
+  const locked = Object.keys(STATION_AGE).filter((type) => !FirmAges.isUnlocked(STATION_AGE[type]))
+  if (locked.length) {
+    event.remove(locked.map((type) => ({ type: type })))
+    console.info(`[firmages] station Ages: removed the recipes of ${locked.length} machine types of locked Ages`)
+  }
 })
