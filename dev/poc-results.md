@@ -878,3 +878,137 @@ does.
 - **Create pressing** of ad hoc compat plates for lead, constantan, aluminium and uranium is gone (one ingot → plate was a
   second plate station); TFC + IE sheets stay.
 - **Transient Create crash** on one boot (see Boot); not reproduced.
+
+## Late Ages, Origin and finale
+
+Date: 2026-10-01, branch `dev` after the integration of the mod branch (reactor controller, The Origin, end-boss
+scaffolding) and the quest branch (chapters Arcane to Singularity), commits 0883c9b to 5f318f3. firmages-core
+**0.4.0**: `gradlew build` 63 JUnit tests pass, `runGameTestServer` "All 19 required tests passed" (also after the
+fixes below). The 0.4.0 jar replaces 0.3.3 in `mods/`, `packwiz refresh`. Test server synced with
+`packwiz-installer-bootstrap` from `packwiz serve` (quest folder deleted first; `kubejs/` and the quests are
+byte-identical with the repo, jar md5 equal), **fresh world** (`--wipe-world`). Two headless players Alpha and Beta in
+one FTB party, both survival. `debug.allowSimulate` and the whitelist were off only during the run; both are back.
+A first fresh-world run found the problems fixed below; the numbers here come from the final run on the committed state.
+
+### Merge decisions
+
+- **One Origin address.** The two branches had picked different addresses in parallel: the mod 9-16-21-33-2-37 (its
+  GameTest dials it), the content item tooltip and SPEC §14 9, 16, 31, 5, 21, 37. The mod's address stays; tooltip and
+  SPEC follow it. The quest "Gate Online" and the side mission "Into The Origin" give it.
+- **One reactor controller recipe** (`recipes/age_9/reactor_controller.js`); the second one with the same id in
+  `singularity_age.js` is gone.
+- Quests after the mod merge: "The Ultimate Singularity" is an item task (the KubeJS item exists), "Into The Origin" is a
+  new side mission with a dimension task on `firmages:origin` (345 quests, 1281 object ids), Space supplies drop the
+  disabled Ad Astra steel plate and Mekanism uranium ingot, `validate_quests.py` accepts firmages-core as the
+  `finale_won` grant path (0 errors, 0 warnings).
+
+### Boot (fresh world)
+
+| Check | Observed | Result |
+|---|---|---|
+| KubeJS | startup 2/2, server 31/31 scripts, 0 errors, 0 warnings; recipes "Added 460, removed 7061, modified 290, 0 failed" in 3.72 s (4.88 s before the station-Age fix); 0 `[ERROR]` lines in `logs/kubejs/server.log` over the whole run | pass |
+| ProgressiveStages | `progressivestages validate`: 28/28 stage files valid; 0 ERROR lines | pass |
+| FTB Quests | `Loaded 2 chapter groups, 13 chapters, 345 quests, 21 reward tables` (= `dev/quests-notes.md`), 0 ERROR lines | pass |
+| firmages-core | 0 ERROR lines; "Draconic reactor coupling enabled"; "The Origin: arena v1 built in 483 ms"; return stargate at 0 66 31, DHD 0 65 25, "in the network: true" | pass |
+| Gateways | "Registered 13 gateways" (with `firmages:the_origin`) | pass |
+| Other errors | tfcrf, woodencog, createdeco recipe parse errors, Sable `copycat_catwalk`, Polymorph EMI module, TF `dev_new_world`, DISTXFORM: as before | not ours |
+
+### (1) The ladder age_0 to age_9
+
+Rings 0 to 8 built at once by `build_shrine.py --heart 0 200 0 --rings 0-8 --platform` (550 commands); `dawn` and
+`age_0` by `stage grant` (the First Spark quest path), then every Age from the shrine: offering by `debug use` on the
+tier's plinth, the rite (tier 0 firestarter on the heart, tier 1 the bell, tiers 2 to 5 `build_shrine.py --rites N`,
+tiers 6 and 8 two praying, tiers 7 and 8 a clear night sky), prayer by `debug pray`. Every grant: exactly one
+`Age reload starting`, one FULL ceremony; `firmages ages` ends with all eleven stages.
+
+| Grant | Path | Reload (ms), final run | First run (before the station-Age fix) |
+|---|---|---|---|
+| age_0 | quest reward (`stage grant`), first reload after the boot | 8,775 | 13,943 |
+| age_1 | tier 0, Alpha | 7,054 | 9,322 |
+| age_2 | tier 1, Alpha | 6,995 | 9,197 |
+| age_3 | tier 2, Alpha | 6,837 | 8,393 |
+| age_4 | tier 3, Alpha | 6,824 | 7,037 |
+| age_5 | tier 4, Alpha | 6,551 | 6,818 |
+| age_6 | tier 5, Alpha | 6,601 | 6,596 |
+| age_7 | tier 6, Beta and Alpha (Chorus) | 6,775 | 6,831 |
+| age_8 | tier 7, Alpha (stars) | 6,818 | 6,726 |
+| age_9 | tier 8, Beta and Alpha (Chorus and stars) | 6,933 | 6,755 |
+
+Two operator reloads at age_9 with both players online: 6,496 and 6,625 ms (the Electric-to-Singularity run had 8.2 to
+8.3 s). The early Ages were the slow ones: `station_ages.js` ran a remove and a `forEachRecipe` pass per locked machine
+type (117 types at Dawn, 234 scans of about 35k recipes); one OR-filter pass cut the KubeJS phase of the boot at Dawn
+from 4.9 to 3.7 s. Note for testers: a held item (the Ars worn notebook every player gets at login) turns the prayer
+into an item use, so the prayer never starts.
+
+### (2) Reactor controller on a real DE reactor
+
+Core at 30 202 0, four stabilizers at distance 5 placed by `/setblock` with their `bc_managed_data.facing` set towards
+the core by `data merge`, one `debug use` on a stabilizer to form it (`structure_valid 1b`). Controller on top of the
+west stabilizer, a chest with 16 awakened draconium blocks on top of the controller, redstone wire beside it.
+
+| Step | Observed | Result |
+|---|---|---|
+| Cold empty reactor | READY within 3 s: fuel 10,368, 8 blocks taken from the chest, redstone 15 (wire `power=15`), comparator 15; DE state COLD | pass |
+| Burnt-down reactor (fuel 2073.6, chaos 8294.4 by `data merge`) | SWAP: chaos out to the controller's slots (6 large, 3 medium, 5 small fragments; a rest of 6.4 stays), 6 blocks in, fuel 9,849.6, "waiting for fuel", redstone 0 | pass |
+| 64 nuggets added to the chest | 32 nuggets pulled, fuel 10,361.6, READY, redstone 15; the reactor stays COLD (never started) | pass |
+
+RUNNING to SHUTDOWN at 80 % conversion was not forced on the server: an uncharged reactor set to RUNNING by NBT would
+fail its field and explode (scale 0.25). The GameTest `controllerCycleOnRealReactor` covers that path against the real
+DE 3.1.4 core (shutdown accepted, DE's own STOPPING, COOLING, COLD, then the swap).
+
+### (3) The Origin
+
+| Check | Observed | Result |
+|---|---|---|
+| Below age_9 (Alpha at age_8, survival) | `/firmages origin tp Alpha`: "Alpha was not let into The Origin", Alpha stays in the overworld, chat "This dimension is locked!" (ProgressiveStages) | pass |
+| At age_9 | `/firmages origin tp @a`: both players in `firmages:origin` at 0.5 65 14.5 | pass |
+| Address | `sgjourney stargateNetwork address firmages:origin`: "-9-16-21-33-2-37-"; extragalactic "-1-30-9-16-21-33-2-" | pass |
+| Arena and return gate | altar `firmages:origin_altar` at 0 65 0, `sgjourney:milky_way_stargate` at 0 66 31, `sgjourney:milky_way_dhd` at 0 65 25 | pass |
+| Quest | the "Into The Origin" dimension task ticks on arrival | pass |
+
+### (4) Gathering, end boss and finale
+
+The boss script did not exist, so `kubejs/server_scripts/finale/the_primordial.js` and the gate
+`kubejs/data/firmages/gateways/the_origin.json` were written (decision log). Both players moved next to the altar:
+
+| Step | Observed | Result |
+|---|---|---|
+| Gathering | "The Origin: Gathering #1 of 2 player(s)", chat line to both, script: gate `firmages:the_origin` opened above the altar | pass |
+| Waves | Maledictus (t+9 s), Ignis (t+20 s), Maledictus and Ignis (t+31 s), each killed by command; one gateway entity throughout | pass |
+| The Primordial | gate completed, an Ender Guardian named "The Primordial" with the tag `firmages.final_boss`, health 1024 (the attribute cap), armour 20; title to both players | pass |
+| Phases (on a tagged Ender Guardian, health set by NBT) | at 2/3: 2 Ender Golems and darkness on the players; at 1/3: 4 Endermapteras, lightning, resistance II on the boss; each phase once | pass |
+| Kill | `kill @e[tag=firmages.final_boss]`: "final boss ... defeated, granting finale_won"; Alpha and Beta have `finale_won`; one FULL `age_transition` payload per player (stage finale_won, tier -1, at the altar); "Ceremony FINALE"; `origin status` "DEFEATED (finale_won)"; a later tagged death: "another firmages.final_boss died after the finale; nothing to do" | pass |
+| Altar after the fight | present | pass |
+| Quests | the Singularity goal's `finale_won` task (`55C92C85FCE9B94B`) is done and the Firmament chapter's last quest is completed; the goal quest itself completes once its three keystones are done (FTB Quests flexible mode, as in the Stone Age run) | pass |
+
+Fixed on the way (first run):
+- **Server crash** from the script: `gate.level()` is shadowed by KubeJS's `level` bean getter, and the uncaught
+  TypeError inside `GateEvent$Completed` (fired from the entity tick) crashed the server. Every handler now catches and
+  logs its errors; the script reads the level by `getCommandSenderWorld()`.
+- **Boss tag not selectable**: `firmages:final_boss` cannot be written in a selector or in `/tag add` (unquoted word,
+  no colon). The mod's tag is now `firmages.final_boss` (0.4.0 rebuilt before any push).
+- **Altar destroyed** during the fight, so no later Gathering could start: the altar is in every Cataclysm `*_immune`
+  tag and in `wither_immune`/`dragon_immune` now; it survived both later fights.
+- **Phases never fired**: KubeJS `EntityEvents.afterHurt` did not fire on this server (not even for a zombie); the
+  script listens to NeoForge's `LivingDamageEvent$Post`. The summons of a phase needed `execute in ... positioned`.
+
+### (5) `poc_analyze.py` and (6) quests
+
+All-Ages dump of the final world (33,224 recipes): **59 checks, 0 FAIL**, among them R-age_5 to R-age_8, R-age_9
+Ultimate Singularity (8 chain items) and R-age_9 Classic Stargate base block (15), C-9a, C-G age_5 to age_9, G-1, G-3,
+G-4. `gen_stage_locks.py --check` clean. Quest book: all 32 gamestage tasks of the 13 chapters (each entry quest and
+goal, the Firmament goals, `finale_won`) are done in the team's progress file after the ladder and the finale;
+`validate_quests.py` 0 errors, 0 warnings.
+
+### Open points of this run
+
+- **Fight length**: The Primordial lost about 8 health to a 500-damage `/damage` hit (Cataclysm's damage cap and
+  armour). With 1024 health the real fight length with Chaotic gear needs a client test; the cap may need a lower
+  health or a Cataclysm config value.
+- **Needs a client**: the FINALE ceremony on screen, a real dial from a player-built Classic Stargate and the trip home
+  from the Origin DHD, whether ProgressiveStages bounces a player without age_9 after SGJ wormhole transport, the ring
+  quests (observation tasks), the controller with pipes on a reactor that really burns.
+- **Not built** (mod branch): blocking the Mekanism teleporter and Ars warp into The Origin; `mob_9` spawns; the trophy
+  monument. Boss fallback gateways of the earlier Ages are still open.
+- A crashed server hung on shutdown and its watchdog wrote a second crash report two minutes later; seen once, after the
+  script crash.
