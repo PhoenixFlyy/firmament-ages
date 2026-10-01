@@ -13,8 +13,14 @@ import dev.firmages.core.shrine.OfferingPlinthBlockEntity;
 import dev.firmages.core.shrine.ShrineHeartBlock;
 import dev.firmages.core.shrine.ShrineHeartBlockEntity;
 import dev.firmages.core.shrine.ShrineRegistry;
+import dev.firmages.core.compat.modonomicon.ShrineMultiblocks;
+import dev.firmages.core.shrine.ShrineData;
+import dev.firmages.core.shrine.ShrineDataLoader;
 import dev.firmages.core.shrine.ShrineSavedData;
 import dev.firmages.core.shrine.ShrineService;
+import dev.firmages.core.shrine.ShrineTier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Rotation;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
@@ -36,6 +42,7 @@ import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -90,6 +97,42 @@ public final class ShrineGameTests {
 
     private static boolean reloadIdle(MinecraftServer s) {
         return AgeService.status(s).phase() == ReloadScheduler.Phase.IDLE;
+    }
+
+    /**
+     * Data level, no ritual: the loaded shrine data (mod jar plus the test datapack) defines tiers 0..8, each with its
+     * own ring that Modonomicon loaded, one plinth at distance N + 2, the rite keys present in the ring, a known
+     * blessing and a grant of age_(N+1); the offerings cover age_0..age_8.
+     */
+    @GameTest(template = "empty", batch = "firmages_1_selftest")
+    public static void shrineLadderData(GameTestHelper h) {
+        ShrineData d = ShrineDataLoader.current();
+        ok(h, d.errors().isEmpty(), "shrine data errors: " + d.errors());
+        ok(h, d.highestRing() == ShrineData.MAX_TIER, "rings up to " + d.highestRing());
+        BlockPos heart = h.absolutePos(new BlockPos(1, 1, 1));
+        for (int n = 0; n <= ShrineData.MAX_TIER; n++) {
+            ShrineTier t = d.tier(n).orElse(null);
+            ok(h, t != null && !t.fallback(), "tier " + n + " has its own file");
+            ok(h, t.grants().equals("age_" + (n + 1)), "tier " + n + " grants " + t.grants());
+            ok(h, d.offeringFor(n).isPresent(), "tier " + n + " has an offering");
+            ok(h, t.blessing().map(d.blessings()::containsKey).orElse(false), "tier " + n + " blessing " + t.blessing());
+            ResourceLocation id = ResourceLocation.parse(t.multiblock().orElseThrow());
+            ok(h, ShrineMultiblocks.get(id).isPresent(), id + " loaded by Modonomicon");
+            List<BlockPos> plinth = ShrineMultiblocks.positions(h.getLevel(), heart, id, Rotation.NONE, t.plinthKey());
+            int dist = n + 2;
+            ok(h, plinth.size() == 1 && plinth.get(0).getY() == heart.getY()
+                && Math.abs(plinth.get(0).getX() - heart.getX()) + Math.abs(plinth.get(0).getZ() - heart.getZ()) == dist
+                && (plinth.get(0).getX() == heart.getX() || plinth.get(0).getZ() == heart.getZ()), id + " plinth at distance " + dist + ": " + plinth);
+            for (ShrineTier.Rite r : t.rites()) {
+                ok(h, r.type().supported(), "tier " + n + " rite " + r.type() + " is implemented");
+                if (r.type() == ShrineTier.Rite.Type.BLOCKSTATE) {
+                    ok(h, !ShrineMultiblocks.positions(h.getLevel(), heart, id, Rotation.NONE, r.key()).isEmpty(), id + " has rite key " + r.key());
+                }
+            }
+        }
+        for (int a = 0; a <= ShrineData.MAX_TIER; a++) ok(h, d.offerings().containsKey("age_" + a), "offering for age_" + a);
+        ok(h, d.tier(ShrineData.MAX_TIER + 1).isEmpty(), "no tier after age_8");
+        h.succeed();
     }
 
     @GameTest(template = "shrine_area", batch = "firmages_3_shrine", timeoutTicks = 3000)

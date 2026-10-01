@@ -1,0 +1,140 @@
+{
+  "values": [
+    {
+      "id": "tfc:candle",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/white",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/orange",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/magenta",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/light_blue",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/yellow",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/lime",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/pink",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/gray",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/light_gray",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/cyan",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/purple",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/blue",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/brown",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/green",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/red",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/black",
+      "required": false
+    },
+    {
+      "id": "minecraft:candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:white_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:orange_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:magenta_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:light_blue_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:yellow_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:lime_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:pink_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:gray_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:light_gray_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:cyan_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:purple_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:blue_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:brown_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:green_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:red_candle",
+      "required": false
+    },
+    {
+      "id": "minecraft:black_candle",
+      "required": false
+    }
+  ]
+}

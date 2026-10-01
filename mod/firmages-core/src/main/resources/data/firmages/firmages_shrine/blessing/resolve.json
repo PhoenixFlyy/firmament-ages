@@ -1,0 +1,7 @@
+{
+  "name": "firmages.blessing.resolve",
+  "description": "firmages.blessing.resolve.description",
+  "flags": [
+    "sanctuary"
+  ]
+}

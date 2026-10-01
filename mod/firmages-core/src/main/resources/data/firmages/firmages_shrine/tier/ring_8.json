@@ -1,0 +1,29 @@
+{
+  "multiblock": "firmages:shrine_ring_8",
+  "grants": "age_9",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "players_praying",
+      "min": 2,
+      "hint": "firmages.shrine.rite.chorus"
+    },
+    {
+      "type": "sky",
+      "hint": "firmages.shrine.rite.stars"
+    }
+  ],
+  "response": {
+    "beam_color": "#E0B0FF",
+    "sky_tint": "#301040",
+    "particles": [
+      "minecraft:end_rod",
+      "minecraft:electric_spark",
+      "minecraft:reverse_portal",
+      "minecraft:totem_of_undying"
+    ],
+    "sting": "minecraft:block.respawn_anchor.set_spawn",
+    "lightning": true
+  },
+  "blessing": "firmages:resolve"
+}

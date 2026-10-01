@@ -98,8 +98,8 @@ class ShrineRulesTest {
         ShrineData d = ShrineData.parse(files);
         assertEquals(java.util.List.of(), d.errors());
         assertEquals(java.util.List.of(), d.warnings());
-        assertEquals(java.util.Set.of(0, 1, 2), d.tiers().keySet());
-        assertEquals(2, d.highestRing());
+        assertEquals(java.util.Set.of(0, 1, 2, 3, 4, 5, 6, 7, 8), d.tiers().keySet(), "every tier has its own ring");
+        assertEquals(8, d.highestRing());
         assertEquals(Optional.of("firmages:hearthstone"), d.offeringFor(0));
         assertEquals(Optional.of("firmages:steel_heart"), d.offeringFor(2));
         assertEquals("age_1", d.tier(0).orElseThrow().grants());
@@ -110,13 +110,27 @@ class ShrineRulesTest {
         assertTrue(d.blessings().get("firmages:hearthward").has(Blessing.SANCTUARY));
         assertEquals(ShrineTier.Rite.Type.INTERACT, d.tier(1).orElseThrow().rites().get(0).type());
         assertEquals("firmages:shrine/bells", d.tier(1).orElseThrow().rites().get(0).tag());
-        // Tiers 3..8 fall back to the generic definition, so the structure never blocks progression.
-        ShrineTier t5 = d.tier(5).orElseThrow();
-        assertTrue(t5.fallback());
-        assertEquals("age_6", t5.grants());
-        assertEquals(Optional.empty(), t5.multiblock());
-        assertEquals("firmages.shrine.voice.age_6", t5.voiceKey());
-        assertEquals(Optional.of("firmages:humming_core"), d.offeringFor(5));
+        // Every tier 0..8 has its own ring, grants the next Age, takes the signature item of its Age, carries a known
+        // blessing and only rites that the mod implements. The generic fallback stays for packs that remove a ring.
+        String[] gifts = {"hearthstone", "sky_disc", "steel_heart", "arcane_keystone", "pressure_core", "humming_core",
+            "data_matrix", "star_chart", "quantum_core"};
+        for (int k = 0; k <= ShrineData.MAX_TIER; k++) {
+            ShrineTier t = d.tier(k).orElseThrow();
+            assertFalse(t.fallback(), "tier " + k + " has its own file");
+            assertEquals("age_" + (k + 1), t.grants());
+            assertEquals(Optional.of("firmages:shrine_ring_" + k), t.multiblock());
+            assertEquals(Optional.of("firmages:" + gifts[k]), d.offeringFor(k), "offering of age_" + k);
+            assertEquals("firmages.shrine.voice.age_" + (k + 1), t.voiceKey());
+            assertTrue(t.blessing().map(d.blessings()::containsKey).orElse(false), "tier " + k + " blessing " + t.blessing());
+            assertFalse(t.rites().isEmpty(), "tier " + k + " has a rite");
+            for (ShrineTier.Rite r : t.rites()) assertTrue(r.type().supported(), "tier " + k + " rite " + r.type());
+        }
+        assertEquals(9, d.offerings().size(), "offerings for age_0..age_8");
+        assertTrue(d.fallback().isPresent());
+        assertEquals(9, d.blessings().size());
+        assertEquals(ShrineTier.Rite.Type.PLAYERS_PRAYING, d.tier(6).orElseThrow().rites().get(0).type());
+        assertEquals(2, d.tier(6).orElseThrow().rites().get(0).min());
+        assertEquals(ShrineTier.Rite.Type.SKY, d.tier(7).orElseThrow().rites().get(0).type());
         assertEquals(Optional.empty(), d.tier(9));
         assertEquals(0xFFFFB347, t0.response().beamColor());
         assertEquals(0xFF8C3A, t0.response().skyTint());

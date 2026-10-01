@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "immersiveengineering:alu_scaffolding_standard",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:alu_scaffolding_grate_top",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:alu_scaffolding_wooden_top",
+      "required": false
+    }
+  ]
+}

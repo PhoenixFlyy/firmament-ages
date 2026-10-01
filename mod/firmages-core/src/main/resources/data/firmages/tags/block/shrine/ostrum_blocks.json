@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "ad_astra:ostrum_block",
+      "required": false
+    },
+    {
+      "id": "ad_astra:ostrum_pillar",
+      "required": false
+    }
+  ]
+}

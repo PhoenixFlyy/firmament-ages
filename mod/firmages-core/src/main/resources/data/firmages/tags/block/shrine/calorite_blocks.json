@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "ad_astra:calorite_plating",
+      "required": false
+    },
+    {
+      "id": "ad_astra:calorite_block",
+      "required": false
+    }
+  ]
+}

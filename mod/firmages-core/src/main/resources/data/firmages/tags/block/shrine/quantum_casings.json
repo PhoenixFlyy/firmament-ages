@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "mekanism:sps_casing",
+      "required": false
+    },
+    {
+      "id": "mekanismgenerators:fusion_reactor_frame",
+      "required": false
+    }
+  ]
+}
