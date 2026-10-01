@@ -1,0 +1,26 @@
+{
+  "multiblock": "firmages:shrine_ring_4",
+  "grants": "age_5",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "blockstate",
+      "key": "E",
+      "property": "active",
+      "value": "true",
+      "hint": "firmages.shrine.rite.lanterns"
+    }
+  ],
+  "response": {
+    "beam_color": "#F0F0F0",
+    "sky_tint": "#9AA0A8",
+    "particles": [
+      "minecraft:cloud",
+      "minecraft:large_smoke",
+      "minecraft:end_rod"
+    ],
+    "sting": "minecraft:block.piston.extend",
+    "lightning": true
+  },
+  "blessing": "firmages:tireless_hands"
+}

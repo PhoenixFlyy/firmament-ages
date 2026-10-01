@@ -20,5 +20,6 @@
     ],
     "sting": "firmages:shrine.sting.iron",
     "lightning": true
-  }
+  },
+  "blessing": "firmages:iron_will"
 }

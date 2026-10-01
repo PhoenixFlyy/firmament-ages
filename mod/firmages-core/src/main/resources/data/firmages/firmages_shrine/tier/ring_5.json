@@ -1,0 +1,25 @@
+{
+  "multiblock": "firmages:shrine_ring_5",
+  "grants": "age_6",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "blockstate",
+      "key": "L",
+      "property": "active",
+      "value": "true",
+      "hint": "firmages.shrine.rite.floodlights"
+    }
+  ],
+  "response": {
+    "beam_color": "#40E0FF",
+    "sky_tint": "#1A5A80",
+    "particles": [
+      "minecraft:electric_spark",
+      "minecraft:end_rod"
+    ],
+    "sting": "minecraft:item.trident.thunder",
+    "lightning": true
+  },
+  "blessing": "firmages:long_arm"
+}

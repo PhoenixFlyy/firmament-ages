@@ -427,6 +427,7 @@
     {"id": "draconicevolution:wyvern_shovel", "required": false},
     {"id": "draconicevolution:wyvern_sword", "required": false},
     {"id": "draconicevolution:wyvern_wireless_crystal", "required": false},
+    {"id": "firmages:star_chart", "required": false},
     {"id": "immersiveengineering:deepslate_ore_uranium", "required": false},
     {"id": "immersiveengineering:dust_uranium", "required": false},
     {"id": "immersiveengineering:ingot_uranium", "required": false},

@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "immersiveengineering:sheetmetal_aluminum",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:storage_aluminum",
+      "required": false
+    },
+    {
+      "id": "tfc_ie_addon:metal/block/aluminum",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "multiblock": "firmages:shrine_ring_3",
+  "grants": "age_4",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "blockstate",
+      "key": "K",
+      "property": "lit",
+      "value": "true",
+      "hint": "firmages.shrine.rite.candles"
+    }
+  ],
+  "response": {
+    "beam_color": "#9B59FF",
+    "sky_tint": "#4A2A80",
+    "particles": [
+      "minecraft:soul_fire_flame",
+      "minecraft:enchant",
+      "minecraft:witch"
+    ],
+    "sting": "minecraft:block.enchantment_table.use",
+    "lightning": true
+  },
+  "blessing": "firmages:attunement"
+}

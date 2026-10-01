@@ -1,0 +1,92 @@
+{
+  "values": [
+    {
+      "id": "ars_nouveau:gilded_sourcestone_alternating",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:gilded_sourcestone_basketweave",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:gilded_sourcestone_large_bricks",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:gilded_sourcestone_mosaic",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:gilded_sourcestone_small_bricks",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_gilded_sourcestone_alternating",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_gilded_sourcestone_basketweave",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_gilded_sourcestone_large_bricks",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_gilded_sourcestone_mosaic",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_gilded_sourcestone_small_bricks",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_sourcestone",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_sourcestone_alternating",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_sourcestone_basketweave",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_sourcestone_large_bricks",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_sourcestone_mosaic",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:smooth_sourcestone_small_bricks",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:sourcestone",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:sourcestone_alternating",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:sourcestone_basketweave",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:sourcestone_large_bricks",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:sourcestone_mosaic",
+      "required": false
+    },
+    {
+      "id": "ars_nouveau:sourcestone_small_bricks",
+      "required": false
+    }
+  ]
+}

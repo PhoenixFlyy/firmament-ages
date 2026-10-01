@@ -1,0 +1,83 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:shrine_heart"
+    },
+    "P": {
+      "type": "modonomicon:block",
+      "block": "firmages:offering_plinth"
+    },
+    "S": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/sourcestone"
+    },
+    "O": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/otherstone"
+    },
+    "G": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/source_gem_blocks"
+    },
+    "K": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/candles"
+    }
+  },
+  "pattern": [
+    [
+      "G_________G",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "G_________G"
+    ],
+    [
+      "O_________O",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "___________",
+      "O_________O"
+    ],
+    [
+      "O__K___K__O",
+      "___________",
+      "___________",
+      "K_________K",
+      "___________",
+      "___________",
+      "___________",
+      "K_________K",
+      "___________",
+      "___________",
+      "O__K___K__O"
+    ],
+    [
+      "OSSSSPSSSSO",
+      "S_________S",
+      "S_________S",
+      "S_________S",
+      "S_________S",
+      "S____0____S",
+      "S_________S",
+      "S_________S",
+      "S_________S",
+      "S_________S",
+      "OSSSSSSSSSO"
+    ]
+  ]
+}

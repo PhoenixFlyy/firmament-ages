@@ -500,6 +500,7 @@
     {"id": "extendedae:wireless_ex_pat", "required": false},
     {"id": "extendedae:wireless_hub", "required": false},
     {"id": "extendedae:wireless_tool", "required": false},
+    {"id": "firmages:data_matrix", "required": false},
     {"id": "hostilenetworks:blank_data_model", "required": false},
     {"id": "hostilenetworks:data_center", "required": false},
     {"id": "hostilenetworks:data_center_io_port", "required": false},

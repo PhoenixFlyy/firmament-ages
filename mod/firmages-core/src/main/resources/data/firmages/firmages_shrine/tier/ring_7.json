@@ -1,0 +1,23 @@
+{
+  "multiblock": "firmages:shrine_ring_7",
+  "grants": "age_8",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "sky",
+      "hint": "firmages.shrine.rite.stars"
+    }
+  ],
+  "response": {
+    "beam_color": "#E0E8FF",
+    "sky_tint": "#05051A",
+    "particles": [
+      "minecraft:end_rod",
+      "minecraft:reverse_portal",
+      "minecraft:white_ash"
+    ],
+    "sting": "minecraft:block.end_portal.spawn",
+    "lightning": true
+  },
+  "blessing": "firmages:starwalker"
+}

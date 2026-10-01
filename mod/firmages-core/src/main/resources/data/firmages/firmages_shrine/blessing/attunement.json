@@ -1,0 +1,7 @@
+{
+  "name": "firmages.blessing.attunement",
+  "description": "firmages.blessing.attunement.description",
+  "flags": [
+    "sanctuary"
+  ]
+}

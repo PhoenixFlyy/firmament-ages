@@ -18,5 +18,6 @@
     ],
     "sting": "firmages:shrine.sting.bronze",
     "lightning": false
-  }
+  },
+  "blessing": "firmages:skyreading"
 }

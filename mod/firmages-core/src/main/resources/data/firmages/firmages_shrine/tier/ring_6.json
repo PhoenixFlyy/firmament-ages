@@ -1,0 +1,24 @@
+{
+  "multiblock": "firmages:shrine_ring_6",
+  "grants": "age_7",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "players_praying",
+      "min": 2,
+      "hint": "firmages.shrine.rite.chorus"
+    }
+  ],
+  "response": {
+    "beam_color": "#40FF80",
+    "sky_tint": "#103820",
+    "particles": [
+      "minecraft:composter",
+      "minecraft:glow",
+      "minecraft:enchant"
+    ],
+    "sting": "minecraft:block.beacon.power_select",
+    "lightning": true
+  },
+  "blessing": "firmages:clarity"
+}

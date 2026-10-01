@@ -602,6 +602,7 @@
     {"id": "evolvedmekanism:upgrade_radioactive", "required": false},
     {"id": "evolvedmekanism:upgrade_solar", "required": false},
     {"id": "firmages:awakened_keystone", "required": false},
+    {"id": "firmages:quantum_core", "required": false},
     {"id": "mekanism:pellet_antimatter", "required": false},
     {"id": "mekanism:sps_casing", "required": false},
     {"id": "mekanism:sps_port", "required": false},
