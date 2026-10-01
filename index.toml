@@ -1347,7 +1347,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-0.6.0.jar"
-hash = "4b52006b8a646a0b6931cfd5422d72144d5e816ab81ea76d3c1f9f6d5e1e5ea5"
+hash = "a7c5588ef6f2d6231184951c9be4e021bbea490a303f453393750bddeed1ca22"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

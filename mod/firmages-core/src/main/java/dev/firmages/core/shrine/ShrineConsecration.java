@@ -80,11 +80,13 @@ public final class ShrineConsecration {
         final List<Task> tasks;
         final boolean afterReload;
         final long earliest;
-        long start = -1;
+        /** paced time when the batch started, and when the Age reload was first seen idle (after-reload batches) */
+        double start = -1;
+        double idleAt = -1;
         /** blocks changed so far and the ticks (relative to start) of the first and the last change */
         int changed;
-        long firstTick = -1;
-        long lastTick = -1;
+        double firstTick = -1;
+        double lastTick = -1;
         final java.util.Set<Integer> rings = new java.util.TreeSet<>();
 
         Batch(ResourceKey<Level> dimension, List<Task> tasks, boolean afterReload, long earliest) {
@@ -100,6 +102,17 @@ public final class ShrineConsecration {
     private static final Map<Long, Task> PENDING = new HashMap<>();
     private static final Map<UUID, Long> LAST_TOGGLE = new HashMap<>();
     private static long clock;
+    /**
+     * The batches' own time: one per server tick, except while the server catches up after a freeze. After a long
+     * tick (an Age reload, a grant stall) vanilla runs the missed ticks back to back whenever its "Can't keep up"
+     * warning is rate-limited (15 s), and on {@code clock} a 6 s ceremony would turn in a fraction of a second. While
+     * that debt lasts, a tick counts only its real duration. A server that is simply fast (the GameTest server,
+     * {@code /tick sprint}) has no debt and counts every tick.
+     */
+    private static double paced;
+    private static long lastTickNanos;
+    private static long behindNanos;
+    private static final long MAX_BEHIND_NANOS = 30_000_000_000L;
     private static boolean internal;
     private static boolean syncDirty;
     private static int converted;
@@ -262,6 +275,7 @@ public final class ShrineConsecration {
     /** Server tick: maintenance timer and countdown, scheduled consecrations, the client sync. */
     public static void tick(MinecraftServer s) {
         clock++;
+        paced += pacedStep(s);
         ShrineSavedData sd = ShrineSavedData.get(s);
         if (sd.maintenanceUntil() > 0) {
             if (!maintenanceActive(s)) {
@@ -280,14 +294,22 @@ public final class ShrineConsecration {
             }
             if (b.start < 0) {
                 if (clock < b.earliest) continue;
-                if (b.afterReload && AgeService.status(s).phase() != ReloadScheduler.Phase.IDLE) continue;
-                b.start = clock;
+                if (b.afterReload) {
+                    // CEREMONY_DELAY ticks after the Age reload is idle, so the reload freeze does not cut the batch in two
+                    if (AgeService.status(s).phase() != ReloadScheduler.Phase.IDLE) {
+                        b.idleAt = -1;
+                        continue;
+                    }
+                    if (b.idleAt < 0) b.idleAt = paced;
+                    if (paced < b.idleAt + CEREMONY_DELAY) continue;
+                }
+                b.start = paced;
             }
             boolean sound = false;
             List<Task> later = new ArrayList<>();
             for (Iterator<Task> ti = b.tasks.iterator(); ti.hasNext(); ) {
                 Task t = ti.next();
-                if (b.start + t.offset() > clock) break;
+                if (b.start + t.offset() > paced) break;
                 ti.remove();
                 if (!level.isLoaded(t.pos())) {
                     if (t.retries() < MAX_RETRIES) later.add(t.retry());
@@ -301,9 +323,9 @@ public final class ShrineConsecration {
                     sound = true;
                     b.changed++;
                     b.rings.add(t.ring());
-                    if (b.firstTick < 0) b.firstTick = clock - b.start;
-                    b.lastTick = clock - b.start;
-                    FirmagesCore.LOGGER.debug("Shrine: consecrated {} (ring {}, {}) at +{} ticks", t.pos().toShortString(), t.ring(), t.role(), clock - b.start);
+                    if (b.firstTick < 0) b.firstTick = paced - b.start;
+                    b.lastTick = paced - b.start;
+                    FirmagesCore.LOGGER.debug("Shrine: consecrated {} (ring {}, {}) at +{} ticks", t.pos().toShortString(), t.ring(), t.role(), Math.round(paced - b.start));
                 }
             }
             for (Task t : later) {
@@ -313,13 +335,32 @@ public final class ShrineConsecration {
             if (!later.isEmpty()) b.tasks.sort(Comparator.comparingInt(Task::offset));
             if (b.tasks.isEmpty()) {
                 it.remove();
-                if (b.changed > 0) FirmagesCore.LOGGER.info("Shrine: consecration done, {} block(s) of rings {} from +{} to +{} ticks", b.changed, b.rings, b.firstTick, b.lastTick);
+                if (b.changed > 0) FirmagesCore.LOGGER.info("Shrine: consecration done, {} block(s) of rings {} from +{} to +{} ticks", b.changed, b.rings, Math.round(b.firstTick), Math.round(b.lastTick));
             }
         }
         if (syncDirty && clock % 20 == 0) {
             syncDirty = false;
             syncAll(s);
         }
+    }
+
+    private static double pacedStep(MinecraftServer s) {
+        long now = System.nanoTime();
+        long dt = lastTickNanos == 0 ? 0 : now - lastTickNanos;
+        lastTickNanos = now;
+        long perTick = s.tickRateManager().nanosecondsPerTick();
+        if (dt == 0 || s.tickRateManager().isSprinting()) {
+            behindNanos = 0;
+            return 1.0;
+        }
+        if (dt > perTick) {
+            behindNanos = Math.min(MAX_BEHIND_NANOS, behindNanos + dt - perTick);
+            return 1.0;
+        }
+        if (behindNanos <= 0) return 1.0;
+        behindNanos -= perTick - dt;
+        if (dt >= perTick * 4 / 5) behindNanos = 0; // on schedule again
+        return (double) dt / perTick;
     }
 
     private static boolean consecrate(ServerLevel level, Task t, boolean withSound) {
