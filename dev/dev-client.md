@@ -93,12 +93,37 @@ Kurzfassung der Punkte aus `dev/poc-checklist.md`, Abschnitt C, die einen Client
 
 ### 6. Age-Wechsel-Titel (C20)
 
+Seit firmages-core 0.3.0 kündigt die Mod jede Age an (kurze Zeremonie bei `/stage grant` und Quests, volle Zeremonie am Schrein, Abschnitt 7). Das KubeJS-Feuerwerk gibt es für Ages nicht mehr.
+
 1. Einen zweiten Account (oder Freund) online haben, wenn möglich.
 2. `/stage grant @s age_0`, dann `/stage grant @s age_1`.
-   Erwartung bei allen Online-Spielern: Titel „Age 1: Bronze Age“, Untertitel, Sound, Feuerwerk, Chatzeile aus `unlock_message` („the first alloys. New veins can be found.“).
+   Erwartung bei allen Online-Spielern: genau ein Titel „The Bronze Age dawns“, Untertitel und Chatzeile „Caelum: A fire that keeps its shape. I see you.“, ein Klang, kurz gefärbter Himmel; dazu die Chatzeile aus `unlock_message`. Etwa 3 s später friert der Server kurz ein (Reload), die Aktionsleiste zeigt „The world realigns...“ bis er weiterläuft.
 3. `/stage grant @s age_2`.
-   Erwartung: Titel „Age 2: Iron Age“, Chatzeile „the map opens and iron veins become visible.“
+   Erwartung: Titel „The Iron Age dawns“, Chatzeile „the map opens and iron veins become visible.“
 4. Beim Entziehen (`/stage revoke @s age_2`) darf kein Titel kommen. Wenn doch, notieren.
+5. Nur ansehen, ohne Stage: `/firmages ceremony preview age_3 full` (oder `short`).
+
+### 7. Schrein: der Age-Übergang selbst (M4, m7)
+
+Vorbereitung: Welt im Stand `age_0` (`/stage grant @s age_0`). Im Creative-Modus geht es schneller; die Items liegen im Tab *Functional Blocks* (Shrine Heart, Offering Plinth). Im Survival: zwei Hearth Idols brennen, eins mit 4 Bruchstein und Holzkohle zum Shrine Heart, eins zum Hearthstone; der Sockel sind 4 Bruchstein.
+
+1. **Herz setzen.** Shrine Heart auf den Boden stellen. Rechtsklick mit leerer Hand aufs Herz.
+   Erwartung: Chat „Caelum, the Firmament...“ und „Caelum does not dwell in ruins: the Hearth Circle is not complete (1 of 22 blocks)“; ein Geisterbild zeigt die fehlenden Blöcke. **Bitte prüfen:** sitzt das Geisterbild genau um das Herz (nicht einen Block zu hoch oder zu tief)?
+2. **Herdkreis bauen** (5x5, Herz in der Mitte): 8 TFC-Bruchstein direkt um das Herz, an den 4 Ecken des 5x5-Quadrats je 2 Holzstämme übereinander, darauf je ein Stroh-Block (`tfc:thatch`), und ein Offering Plinth zwei Blöcke vor dem Herz in der Mitte einer Seite.
+   Erwartung: Rechtsklick aufs Herz sagt „Lay Hearthstone on its plinth first.“; über dem Herz fliegen Verzauberungs-Partikel (bereit). `/firmages shrine status` zeigt „Ring 0 ... complete“.
+3. **Opfern.** Mit dem Hearthstone in der Hand den Sockel rechtsklicken.
+   Erwartung: der Hearthstone liegt drehend auf dem Sockel, Chat „Hearthstone rests on the plinth...“ und der Hinweis „The heart is cold. Kindle it with a firestarter.“ Ein falsches Item wird mit „Caelum asks for Hearthstone on this plinth.“ abgelehnt. Schleichen + Rechtsklick mit leerer Hand holt das Opfer zurück.
+4. **Ritus.** Mit dem Feuerstarter (oder Feuerstein und Stahl) aufs Herz rechtsklicken.
+   Erwartung: Flammen auf dem Herz, Chat „The heart is kindled. Caelum watches.“
+5. **Beten.** Schleichen und Rechtsklick mit leerer Hand auf das Herz gedrückt halten.
+   Erwartung: Fortschrittsbalken in der Aktionsleiste, nach etwa 10 s (zu zweit 5 s, mindestens 4 s) antwortet Caelum: Musik aus, Klang, Partikel ziehen zum Herz, ein Lichtstrahl in Bernstein steigt auf, der Himmel färbt sich orange, dann Titel „The Bronze Age dawns“ mit „Caelum: A fire that keeps its shape. I see you.“ und eine Chatzeile zum Segen „Hearthward“. Nach etwa 3 s friert der Server für den Reload ein, die Zeremonie und „The world realigns...“ laufen weiter.
+6. **Danach.** EMI zeigt die Bronze-Rezepte ohne Relog; die Ziel-Quest „Hearthstone“ auf K ist erledigt; der Hearthstone schwebt leuchtend über dem Sockel und lässt sich im Survival nicht abbauen; `/firmages shrine relics` listet ihn.
+7. **Kaputt und repariert.** Einen Holzpfosten abbauen.
+   Erwartung: Chat „The shrine is broken. Caelum's blessings rest until it is repaired.“, die Age bleibt. Pfosten wieder setzen: „The shrine stands again.“
+8. **Zweites Herz.** Ein zweites Shrine Heart woanders setzen.
+   Erwartung: wird verweigert („Caelum already dwells at ...“).
+
+Hilfen: `/firmages shrine status` (Ringe mit fehlenden Blöcken, Opfer, Ritus, Gebet), `/firmages shrine locate`, `/firmages shrine extract <x y z>` (Relikt vom Sockel nehmen). Mit `debug.allowSimulate = true` in `firmages-server.toml` schließt `/firmages shrine simulate_pray` das Gebet sofort ab. Bronze-Ring (Ziegel, Bronzeblöcke, Glocke läuten) und Eisen-Ring (Pfeiler, Lampen anzünden) folgen demselben Ablauf mit Sky Disc und Steel Heart.
 
 ## Nach dem Test
 
