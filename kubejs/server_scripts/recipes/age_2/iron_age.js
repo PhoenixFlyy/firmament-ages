@@ -73,22 +73,8 @@ ServerEvents.recipes((event) => {
   }).id('firmages:crafting/steel_heart')
 
   // The only precision mechanism recipe (TFCreate's sequenced assembly on a gold sheet) lists create:crushed_raw_gold
-  // as a 2 % scrap output. That item is in age_items/disabled, and the firmages-core recipe gate drops every recipe
-  // with a disabled output, so the precision mechanism (and with it the Steel Heart) had no recipe at all.
-  // The scrap entry is removed; the recipe stays as it is otherwise.
-  const SCRAP_DISABLED = { 'tfcreate:sequenced_assembly/precision_mechanism': ['create:crushed_raw_gold'] }
-  Object.keys(SCRAP_DISABLED).forEach((id) => {
-    const found = []
-    event.forEachRecipe({ id: id }, (r) => found.push(JSON.parse(String(r.json))))
-    if (found.length !== 1) {
-      console.error(`[firmages] ${id}: expected 1 recipe, found ${found.length}`)
-      return
-    }
-    const json = found[0]
-    json.results = json.results.filter((res) => SCRAP_DISABLED[id].indexOf(res.id) < 0)
-    event.remove({ id: id })
-    event.custom(json).id(id)
-  })
+  // (age_items/disabled) as a scrap output; recipes/byproducts.js removes it, otherwise the gate drops the recipe and
+  // the Steel Heart has no precision mechanism.
 
   // TODO (Doc 08 section 9.4, Iron Age backfill): Sequenced Assembly "Smithing Die" for tool heads, rods and
   // armour parts, Create press on a heated bloom, heated compacting/welding over the TFCreate Fuel Heater.
