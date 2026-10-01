@@ -1,0 +1,261 @@
+2026-10-01 21:25:11 scan: 184 Modrinth metafiles
+2026-10-01 21:25:12 scan: jars present and sha512-verified
+2026-10-01 21:25:18 detect: exit 0; Found 184 files, submitting...
+2026-10-01 21:25:18 ad-astra.pw.toml: CF fingerprint match project 635042 file 8874894 (adastra-1.21.1-1.16.26-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 advanced-tfc-tech-unofficial.pw.toml: CF fingerprint match project 862559 file 8479012 (AdvancedTFCTech-NeoForge-1.21.1-3.3.jar), sha1 equal
+2026-10-01 21:25:18 advancedae.pw.toml: CF fingerprint match project 1084104 file 8564177 (AdvancedAE-1.6.12-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 ae2.pw.toml: CF fingerprint match project 223794 file 8992605 (appliedenergistics2-19.2.18.jar), sha1 equal
+2026-10-01 21:25:18 almost-unified-ie.pw.toml: CF fingerprint match project 1316631 file 7045712 (almostunified_ie-neoforge-1.21.1-1.0.1.jar), sha1 equal
+2026-10-01 21:25:18 almostunified.pw.toml: CF fingerprint match project 633823 file 8127603 (almostunified-neoforge-1.21.1-1.4.2.jar), sha1 equal
+2026-10-01 21:25:18 alternating-flux-neoforge.pw.toml: CF fingerprint match project 1555217 file 8572014 (alternatingflux-1.21.1-1.0.6.jar), sha1 equal
+2026-10-01 21:25:18 apotheosis.pw.toml: CF fingerprint match project 313970 file 8993983 (Apotheosis-1.21.1-8.9.0.jar), sha1 equal
+2026-10-01 21:25:18 apothic-attributes.pw.toml: CF fingerprint match project 898963 file 9006294 (ApothicAttributes-1.21.1-2.11.0.jar), sha1 equal
+2026-10-01 21:25:18 apothic-enchanting.pw.toml: CF fingerprint match project 1063926 file 8797650 (ApothicEnchanting-1.21.1-1.6.2.jar), sha1 equal
+2026-10-01 21:25:18 apothic-spawners.pw.toml: CF fingerprint match project 986583 file 8469405 (ApothicSpawners-1.21.1-1.4.0.jar), sha1 equal
+2026-10-01 21:25:18 applied-energistics-2-wireless-terminals.pw.toml: CF fingerprint match project 459929 file 8450398 (ae2wtlib-19.5.1.jar), sha1 equal
+2026-10-01 21:25:18 applied-mekanistics.pw.toml: CF fingerprint match project 574300 file 7096962 (Applied-Mekanistics-1.6.3.jar), sha1 equal
+2026-10-01 21:25:18 arborfirmacraft--afc.pw.toml: CF fingerprint match project 877545 file 8722148 (afc-2.1.3-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 architectury-api.pw.toml: CF fingerprint match project 419699 file 8492726 (architectury-13.0.11-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 ars-additions.pw.toml: CF fingerprint match project 974408 file 7646325 (ars_additions-1.21.1-21.3.0.jar), sha1 equal
+2026-10-01 21:25:18 ars-creo.pw.toml: CF fingerprint match project 575698 file 8139067 (ars_creo-1.21.1-5.4.0.jar), sha1 equal
+2026-10-01 21:25:18 ars-nouveau.pw.toml: CF fingerprint match project 401955 file 8993194 (ars_nouveau-1.21.1-5.13.2.jar), sha1 equal
+2026-10-01 21:25:18 astikorcarts-redux.pw.toml: CF fingerprint match project 916493 file 8590778 (astikorcartsredux-1.2.4.jar), sha1 equal
+2026-10-01 21:25:18 azimuth-api.pw.toml: CF fingerprint match project 1466331 file 8911024 (azimuth-1.4.9.jar), sha1 equal
+2026-10-01 21:25:18 balm.pw.toml: CF fingerprint match project 531761 file 8969738 (balm-neoforge-1.21.1-21.0.66.jar), sha1 equal
+2026-10-01 21:25:18 barrels-2012.pw.toml: CF fingerprint match project 662156 file 7255234 (Barrels_2012-NeoForge-1.21.1-3.0.0.jar), sha1 equal
+2026-10-01 21:25:18 bellsandwhistles.pw.toml: CF fingerprint match project 905040 file 6299879 (bellsandwhistles-0.4.7-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 beneath.pw.toml: CF fingerprint match project 1113980 file 8706916 (Beneath-NeoForge-1.21.1-2.0.4.jar), sha1 equal
+2026-10-01 21:25:18 better-advanced-tooltips.pw.toml: CF fingerprint match project 1637623 file 8576077 (better-advanced-tooltips-2101.1.0-build.5.jar), sha1 equal
+2026-10-01 21:25:18 better-compatibility-checker.pw.toml: CF fingerprint match project 551894 file 7404415 (better-compatability-checker-neoforge-21.1.8.jar), sha1 equal
+2026-10-01 21:25:18 block-runner.pw.toml: CF fingerprint match project 442842 file 6215039 (BlockRunner-v21.1.2-1.21.1-NeoForge.jar), sha1 equal
+2026-10-01 21:25:18 blocks-bogies.pw.toml: CF fingerprint match project 1317252 file 8723463 (create_bb-1.0.8-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 bosses-of-mass-destruction-forge.pw.toml: CF fingerprint match project 941573 file 8448640 (BOMD-NeoForge-1.21-1.3.3.jar), sha1 equal
+2026-10-01 21:25:18 brandons-core.pw.toml: CF fingerprint match project 231382 file 7130990 (BrandonsCore-1.21.1-3.2.1.309.jar), sha1 equal
+2026-10-01 21:25:18 cerbons-api.pw.toml: CF fingerprint match project 955605 file 6483943 (CerbonsAPI-NeoForge-1.21-1.3.0.jar), sha1 equal
+2026-10-01 21:25:18 chunky.pw.toml: CF fingerprint match project 485681 file 6383261 (Chunky-NeoForge-1.4.23.jar), sha1 equal
+2026-10-01 21:25:18 cloth-config.pw.toml: CF fingerprint match project 348521 file 5729127 (cloth-config-15.0.140-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 clumps.pw.toml: CF fingerprint match project 256717 file 5623731 (Clumps-neoforge-1.21.1-19.0.0.1.jar), sha1 equal
+2026-10-01 21:25:18 codechicken-lib.pw.toml: CF fingerprint match project 242818 file 8491811 (CodeChickenLib-1.21.1-4.6.1.529.jar), sha1 equal
+2026-10-01 21:25:18 common-storage-lib.pw.toml: CF fingerprint match project 1028211 file 8421542 (common-storage-lib-neoforge-1.21.1-0.0.10.jar), sha1 equal
+2026-10-01 21:25:18 controlling.pw.toml: CF fingerprint match project 250398 file 6368976 (Controlling-neoforge-1.21.1-19.0.5.jar), sha1 equal
+2026-10-01 21:25:18 copycats.pw.toml: CF fingerprint match project 968398 file 8822348 (copycats-3.0.9+mc.1.21.1-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 corgilib.pw.toml: CF fingerprint match project 693313 file 7773534 (Corgilib-NeoForge-1.21.1-5.0.0.9.jar), sha1 equal
+2026-10-01 21:25:18 crash-assistant.pw.toml: CF fingerprint match project 1154099 file 8636685 (CrashAssistant-neoforge-1.20.6-1.21.4-1.11.12.jar), sha1 equal
+2026-10-01 21:25:18 create-aeronautics.pw.toml: CF fingerprint match project 676721 file 8763471 (create-aeronautics-bundled-1.21.1-1.3.2.jar), sha1 equal
+2026-10-01 21:25:18 create-applied-kinetics.pw.toml: CF fingerprint match project 867328 file 7789362 (createappliedkinetics-1.5.4-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 create-big-cannons.pw.toml: CF fingerprint match project 646668 file 8303106 (createbigcannons-5.11.7+mc.1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 create-bits-n-bobs.pw.toml: CF fingerprint match project 1398383 file 8886545 (bits_n_bobs-2.3.5.jar), sha1 equal
+2026-10-01 21:25:18 create-connected.pw.toml: CF project 947914 create-connected has a same-version 1.21.1 NeoForge file (8777573, 'create_connected-1.3.3-mc1.21.1.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 create-contraption-terminals.pw.toml: CF fingerprint match project 1059879 file 8631983 (createcontraptionterminals-1.21-1.4.0.jar), sha1 equal
+2026-10-01 21:25:18 create-deco.pw.toml: CF fingerprint match project 509285 file 7943181 (createdeco-2.1.3.jar), sha1 equal
+2026-10-01 21:25:18 create-design-n-decor.pw.toml: CF fingerprint match project 923238 file 8156977 (Design-n-Decor-1.21.1-2.2b.jar), sha1 equal
+2026-10-01 21:25:18 create-diesel-generators.pw.toml: CF fingerprint match project 869316 file 8542167 (createdieselgenerators-1.21.1-1.3.15.jar), sha1 equal
+2026-10-01 21:25:18 create-dragons-plus.pw.toml: CF fingerprint match project 1216624 file 8900055 (CreateDragonsPlus-1.11.9.jar), sha1 equal
+2026-10-01 21:25:18 create-encased.pw.toml: CF fingerprint match project 829380 file 8549840 (Create Encased-1.21.1-1.9.0-ht3.jar), sha1 equal
+2026-10-01 21:25:18 create-enchantable-machinery.pw.toml: CF fingerprint match project 1061749 file 7766920 (createenchantablemachinery-3.6.0+mc1.21.1-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 create-enchantment-industry.pw.toml: CF fingerprint match project 688768 file 8900719 (create-enchantment-industry-2.5.4.jar), sha1 equal
+2026-10-01 21:25:18 create-framed.pw.toml: CF fingerprint match project 953126 file 8394637 (createframed-1.21.1-1.8.2.jar), sha1 equal
+2026-10-01 21:25:18 create-jetpack.pw.toml: CF fingerprint match project 655608 file 8545274 (create_jetpack-forge-5.2.1.jar), sha1 equal
+2026-10-01 21:25:18 create-liquid-fuel.pw.toml: CF project 840734 create-liquid-fuel has a same-version 1.21.1 NeoForge file (8812977, 'createliquidfuel-3.0.0-1.21.1.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 create-mechanical-extruder.pw.toml: CF fingerprint match project 686100 file 8418567 (create_mechanical_extruder-1.21.1-2.2.2-6.0.10.jar), sha1 equal
+2026-10-01 21:25:18 create-mechanical-spawner.pw.toml: CF fingerprint match project 821828 file 8418593 (create_mechanical_spawner-1.21.1-1.3.2-6.0.10.jar), sha1 equal
+2026-10-01 21:25:18 create-mobile-packages.pw.toml: CF fingerprint match project 1232978 file 8502329 (create_mobile_packages-1.21.1-0.7.7.jar), sha1 equal
+2026-10-01 21:25:18 create-pattern-schematics.pw.toml: CF fingerprint match project 1072349 file 7155413 (create_pattern_schematics-2.0.10.jar), sha1 equal
+2026-10-01 21:25:18 create-railways-navigator.pw.toml: CF fingerprint match project 935929 file 8974254 (createrailwaysnavigator-neoforge-1.21.1-beta-0.10.0-C6.jar), sha1 equal
+2026-10-01 21:25:18 create-steam-n-rails-1-21-1.pw.toml: CF fingerprint match project 1414670 file 8522154 (railways-0.3.0-beta.2+neoforge-mc1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 create-stock-bridge.pw.toml: CF fingerprint match project 1256341 file 8044769 (createstockbridge-1.21.1-0.2.0.jar), sha1 equal
+2026-10-01 21:25:18 create-trainutilities.pw.toml: CF fingerprint match project 1028420 file 8665338 (trainutilities-neoforge-3.1.0.jar), sha1 equal
+2026-10-01 21:25:18 create.pw.toml: CF fingerprint match project 328085 file 7963363 (create-1.21.1-6.0.10.jar), sha1 equal
+2026-10-01 21:25:18 create_factory_logistics.pw.toml: CF fingerprint match project 1218807 file 8452421 (create_factory_logistics-1.21.1-1.6.0-all.jar), sha1 equal
+2026-10-01 21:25:18 createaddition.pw.toml: CF fingerprint match project 439890 file 8887653 (createaddition-1.7.1.jar), sha1 equal
+2026-10-01 21:25:18 cucumber.pw.toml: CF fingerprint match project 272335 file 8035802 (Cucumber-1.21.1-8.0.16.jar), sha1 equal
+2026-10-01 21:25:18 curios.pw.toml: CF fingerprint match project 309927 file 6529130 (curios-neoforge-9.5.1+1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 data-anchor.pw.toml: CF fingerprint match project 1203668 file 8925499 (Data_Anchor-neoforge-1.21.1-2.0.0.17.jar), sha1 equal
+2026-10-01 21:25:18 default-options.pw.toml: CF fingerprint match project 232131 file 8498229 (defaultoptions-neoforge-1.21.1-21.1.8.jar), sha1 equal
+2026-10-01 21:25:18 draconic-evolution-render-patcher.pw.toml: CF fingerprint match project 1383702 file 8277268 (derenderpatcher-2.0.0.jar), sha1 equal
+2026-10-01 21:25:18 draconic-evolution.pw.toml: CF fingerprint match project 223565 file 8797042 (Draconic-Evolution-1.21.1-3.1.4.633.jar), sha1 equal
+2026-10-01 21:25:18 dragonlib.pw.toml: CF fingerprint match project 946163 file 8176502 (dragonlib-neoforge-1.21.1-beta-3.0.28.jar), sha1 equal
+2026-10-01 21:25:18 emi-loot.pw.toml: CF fingerprint match project 681783 file 7417271 (emi_loot-0.7.9+1.21+neoforge.jar), sha1 equal
+2026-10-01 21:25:18 emi.pw.toml: CF fingerprint match project 580555 file 8081408 (emi-1.1.24+1.21.1+neoforge.jar), sha1 equal
+2026-10-01 21:25:18 engineered-schematics.pw.toml: CF fingerprint match project 1207780 file 8308767 (engineered_schematics-2.0.jar), sha1 equal
+2026-10-01 21:25:18 enhanced-celestials.pw.toml: CF fingerprint match project 438447 file 8592330 (Enhanced-Celestials-NeoForge-1.21.1-6.0.2.6.jar), sha1 equal
+2026-10-01 21:25:18 entityculling.pw.toml: CF fingerprint match project 448233 file 8942303 (entityculling-neoforge-1.11.2-mc1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 evolved-mekanism.pw.toml: CF fingerprint match project 1230085 file 7599592 (Evolved Mekanism-1.21.1-1.2.1-fix3.jar), sha1 equal
+2026-10-01 21:25:18 extended-ae.pw.toml: CF fingerprint match project 892005 file 8511901 (ExtendedAE-1.21-2.2.35-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 fastsuite.pw.toml: CF project 475117 475117 has a same-version 1.21.1 NeoForge file (7527945, 'FastSuite-1.21.1-6.0.7.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 fenns_totemic.pw.toml: CF fingerprint match project 237541 file 8671071 (Totemic-neoforge-1.21.1-0.12.19.jar), sha1 equal
+2026-10-01 21:25:18 ferrite-core.pw.toml: CF fingerprint match project 429235 file 7524151 (ferritecore-7.0.3-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 firmalife.pw.toml: CF fingerprint match project 453394 file 8994973 (Firmalife-NeoForge-1.21.1-3.0.15.jar), sha1 equal
+2026-10-01 21:25:18 framedblocks.pw.toml: CF fingerprint match project 441647 file 8349218 (FramedBlocks-10.6.1.jar), sha1 equal
+2026-10-01 21:25:18 fzzy-config.pw.toml: CF fingerprint match project 1005914 file 8883390 (fzzy_config-0.7.7+1.21+neoforge.jar), sha1 equal
+2026-10-01 21:25:18 gateways-to-eternity.pw.toml: CF project 417802 gateways-to-eternity has a same-version 1.21.1 NeoForge file (6926284, 'GatewaysToEternity-1.21.1-5.1.0.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 geckolib.pw.toml: CF fingerprint match project 388172 file 8893490 (geckolib-neoforge-1.21.1-4.9.3.jar), sha1 equal
+2026-10-01 21:25:18 glodium.pw.toml: CF fingerprint match project 957920 file 5821676 (Glodium-1.21-2.2-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 gravestone-mod.pw.toml: CF fingerprint match project 238551 file 8671622 (gravestone-neoforge-1.21.1-1.0.40.jar), sha1 equal
+2026-10-01 21:25:18 guideme.pw.toml: CF fingerprint match project 1173950 file 8897145 (guideme-21.1.19.jar), sha1 equal
+2026-10-01 21:25:18 hostile-neural-networks.pw.toml: CF fingerprint match project 552574 file 8525006 (HostileNeuralNetworks-1.21.1-6.5.1.jar), sha1 equal
+2026-10-01 21:25:18 hypertube.pw.toml: CF fingerprint match project 1281336 file 8541877 (create_hypertube-0.6.0-NEOFORGE.jar), sha1 equal
+2026-10-01 21:25:18 iglee-library.pw.toml: CF fingerprint match project 541199 file 7000755 (igleelib-1.21.1-1.2.7.jar), sha1 equal
+2026-10-01 21:25:18 immediatelyfast.pw.toml: CF fingerprint match project 686911 file 8875640 (ImmediatelyFast-NeoForge-1.6.14+1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 immersiveengineering.pw.toml: CF fingerprint match project 231951 file 6733669 (ImmersiveEngineering-1.21.1-12.4.2-194.jar), sha1 equal
+2026-10-01 21:25:18 immersivepetroleum.pw.toml: CF fingerprint match project 268250 file 8420142 (ImmersivePetroleum-1.21.1-4.5.0-39.jar), sha1 equal
+2026-10-01 21:25:18 immersiveposts.pw.toml: CF fingerprint match project 314645 file 7434161 (ImmersivePosts-1.21.1-4.3.1-16.jar), sha1 equal
+2026-10-01 21:25:18 jade.pw.toml: CF fingerprint match project 324717 file 8591319 (Jade-1.21.1-NeoForge-15.10.6.jar), sha1 equal
+2026-10-01 21:25:18 jei-multiblocks.pw.toml: CF fingerprint match project 634571 file 7131196 (jeimultiblocks-1.21.1-1.0.6.jar), sha1 equal
+2026-10-01 21:25:18 jei.pw.toml: CF fingerprint match project 238222 file 9009406 (jei-1.21.1-neoforge-19.57.0.450.jar), sha1 equal
+2026-10-01 21:25:18 just-enough-mekanism-multiblocks.pw.toml: CF fingerprint match project 898746 file 8903943 (JustEnoughMekanismMultiblocks-1.21.1-7.21.jar), sha1 equal
+2026-10-01 21:25:18 kotlin-for-forge.pw.toml: CF project 351264 kotlin-for-forge has a same-version 1.21.1 NeoForge file (8335665, 'kotlinforforge-5.12.0-all.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 kubejs-additions.pw.toml: CF fingerprint match project 594387 file 8290338 (kubejsadditions-neoforge-1.21.1-6.0.0.jar), sha1 equal
+2026-10-01 21:25:18 kubejs-create.pw.toml: CF project 429371 429371 has a same-version 1.21.1 NeoForge file (7213667, 'kubejs-create-neoforge-2101.3.1-build.18.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 kubejs-mekanism.pw.toml: CF project 418651 kubejs-mekanism has a same-version 1.21.1 NeoForge file (7213666, 'kubejs-mekanism-neoforge-2101.1.7-build.18.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 kubejs-tfc.pw.toml: CF fingerprint match project 841001 file 8841292 (kubejs_tfc-1.21.1-2.1.0.jar), sha1 equal
+2026-10-01 21:25:18 kubejs.pw.toml: CF project 238086 kubejs has a same-version 1.21.1 NeoForge file (8843626, 'kubejs-neoforge-2101.7.2-build.377.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 l_enders-cataclysm.pw.toml: CF fingerprint match project 551586 file 8931182 (L_Ender's Cataclysm 1.21.1-3.33.jar), sha1 equal
+2026-10-01 21:25:18 lionfish-api.pw.toml: CF fingerprint match project 1001614 file 8345326 (lionfishapi-3.1.jar), sha1 equal
+2026-10-01 21:25:18 lithium.pw.toml: CF fingerprint match project 360438 file 8330365 (lithium-neoforge-0.15.4+mc1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 lootjs.pw.toml: CF fingerprint match project 570630 file 8009262 (lootjs-neoforge-1.21.1-3.7.0.jar), sha1 equal
+2026-10-01 21:25:18 mechanicals-lib.pw.toml: CF fingerprint match project 1253573 file 8418818 (mechanicals-1.21.1-1.1.6.jar), sha1 equal
+2026-10-01 21:25:18 mega.pw.toml: CF project 622112 mega-cells has a same-version 1.21.1 NeoForge file (7952621, 'megacells-4.11.0.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 mekanism-additions.pw.toml: CF fingerprint match project 345425 file 7904060 (MekanismAdditions-1.21.1-10.7.19.85.jar), sha1 equal
+2026-10-01 21:25:18 mekanism-generators.pw.toml: CF fingerprint match project 268566 file 7904061 (MekanismGenerators-1.21.1-10.7.19.85.jar), sha1 equal
+2026-10-01 21:25:18 mekanism-lasers.pw.toml: CF fingerprint match project 1060096 file 8383748 (mekanism_lasers-1.1.10.3-c.jar), sha1 equal
+2026-10-01 21:25:18 mekanism-neutron-activator.pw.toml: CF fingerprint match project 1326550 file 7868400 (mekanismneutronactivator-1.21.1-1.0.0.jar), sha1 equal
+2026-10-01 21:25:18 mekanism-ponders.pw.toml: CF fingerprint match project 1448575 file 8007326 (mekanism_ponders-1.0.3-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 mekanism-tools.pw.toml: CF fingerprint match project 268567 file 7904062 (MekanismTools-1.21.1-10.7.19.85.jar), sha1 equal
+2026-10-01 21:25:18 mekanism.pw.toml: CF fingerprint match project 268560 file 7904058 (Mekanism-1.21.1-10.7.19.85.jar), sha1 equal
+2026-10-01 21:25:18 mekanismmoremachine.pw.toml: CF fingerprint match project 1275257 file 8724947 (mekmm-1.21.1-1.4.1.jar), sha1 equal
+2026-10-01 21:25:18 mekatfc.pw.toml: no CurseForge project found (cfwidget slugs tried: mekatfc, None, mekatfc)
+2026-10-01 21:25:18 mezzconfig.pw.toml: CF fingerprint match project 1689768 file 8987766 (mezz_config-1.21.1-neoforge-0.6.5.jar), sha1 equal
+2026-10-01 21:25:18 modernfix.pw.toml: CF fingerprint match project 790626 file 8774737 (modernfix-neoforge-5.27.24+mc1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 modonomicon.pw.toml: CF fingerprint match project 538392 file 8970913 (modonomicon-1.21.1-neoforge-1.120.7.jar), sha1 equal
+2026-10-01 21:25:18 more-immersive-wires.pw.toml: CF fingerprint match project 850891 file 7658494 (more-immersive-wires-1.21.1-1.1.9.jar), sha1 equal
+2026-10-01 21:25:18 more-mekanism-processing.pw.toml: CF fingerprint match project 511965 file 6299463 (MoreMekanismProcessing-1.21.1-6.4.jar), sha1 equal
+2026-10-01 21:25:18 mouse-tweaks.pw.toml: CF fingerprint match project 60089 file 5637846 (MouseTweaks-neoforge-mc1.21-2.26.1.jar), sha1 equal
+2026-10-01 21:25:18 mowzies-mobs.pw.toml: CF fingerprint match project 250498 file 7760267 (mowziesmobs-1.21.1-1.8.2.jar), sha1 equal
+2026-10-01 21:25:18 mystical-agradditions.pw.toml: CF fingerprint match project 256247 file 8515974 (MysticalAgradditions-1.21.1-8.0.14.jar), sha1 equal
+2026-10-01 21:25:18 mystical-agriculture.pw.toml: CF fingerprint match project 246640 file 8796913 (MysticalAgriculture-1.21.1-8.0.28.jar), sha1 equal
+2026-10-01 21:25:18 mystical-customization.pw.toml: CF fingerprint match project 280441 file 7666340 (MysticalCustomization-1.21.1-6.0.2.jar), sha1 equal
+2026-10-01 21:25:18 occult-engineering.pw.toml: CF fingerprint match project 1206040 file 8569760 (occultengineering-1.21.1-0.13.1.jar), sha1 equal
+2026-10-01 21:25:18 occultism-kubejs.pw.toml: CF fingerprint match project 525693 file 7472859 (occultism_kubejs-1.21.1-neoforge-1.11.0.jar), sha1 equal
+2026-10-01 21:25:18 occultism.pw.toml: CF fingerprint match project 361026 file 8745224 (occultism-1.21.1-neoforge-1.224.4.jar), sha1 equal
+2026-10-01 21:25:18 packet-fixer.pw.toml: CF fingerprint match project 689467 file 7221528 (packetfixer-3.3.1-1.20.5-1.21.X-merged.jar), sha1 equal
+2026-10-01 21:25:18 patchouli.pw.toml: CF fingerprint match project 306770 file 7730942 (Patchouli-1.21.1-93-NEOFORGE.jar), sha1 equal
+2026-10-01 21:25:18 ping-wheel.pw.toml: CF fingerprint match project 734339 file 7996932 (Ping-Wheel-1.12.2-neoforge-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 placebo.pw.toml: CF fingerprint match project 283644 file 8463693 (Placebo-1.21.1-9.9.2.jar), sha1 equal
+2026-10-01 21:25:18 polymorph.pw.toml: CF fingerprint match project 388800 file 8849478 (polymorph-neoforge-1.2.0+1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 precision-prospecting.pw.toml: CF fingerprint match project 700638 file 8672142 (precisionprospecting-1.21.1-2.1.jar), sha1 equal
+2026-10-01 21:25:18 progressivestages.pw.toml: CF fingerprint match project 1460273 file 8882278 (progressivestages-3.0.5.jar), sha1 equal
+2026-10-01 21:25:18 puzzles-lib.pw.toml: CF fingerprint match project 495476 file 9007719 (puzzleslib-v21.1.62-mc1.21.1+neoforge.jar), sha1 equal
+2026-10-01 21:25:18 resourceful-config.pw.toml: CF fingerprint match project 714059 file 6467772 (resourcefulconfig-neoforge-1.21-3.0.11.jar), sha1 equal
+2026-10-01 21:25:18 resourceful-lib.pw.toml: CF fingerprint match project 570073 file 5973188 (resourcefullib-neoforge-1.21-3.0.12.jar), sha1 equal
+2026-10-01 21:25:18 rhino.pw.toml: CF fingerprint match project 416294 file 8463898 (rhino-2101.2.8-build.91.jar), sha1 equal
+2026-10-01 21:25:18 roads-and-roofs-tfc.pw.toml: CF fingerprint match project 1048212 file 8336335 (rnr-1.0.4-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 rpl.pw.toml: CF fingerprint match project 1279407 file 7587771 (ritchiesprojectilelib-2.1.2-mc.1.21.1-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 sable.pw.toml: CF fingerprint match project 1312371 file 8673825 (sable-neoforge-1.21.1-2.0.5.jar), sha1 equal
+2026-10-01 21:25:18 searchables.pw.toml: CF fingerprint match project 858542 file 5831692 (Searchables-neoforge-1.21.1-1.0.2.jar), sha1 equal
+2026-10-01 21:25:18 sgjourney.pw.toml: CF fingerprint match project 689083 file 9008306 (Stargate.Journey-1.21.1-0.6.49.jar), sha1 equal
+2026-10-01 21:25:18 simple-backups.pw.toml: CF fingerprint match project 583228 file 7965880 (SimpleBackups-1.21-4.0.30.jar), sha1 equal
+2026-10-01 21:25:18 simple-voice-chat.pw.toml: CF fingerprint match project 416089 file 8928478 (voicechat-neoforge-1.21.1-2.6.24.jar), sha1 equal
+2026-10-01 21:25:18 smartbrainlib.pw.toml: CF fingerprint match project 661293 file 7055149 (SmartBrainLib-neoforge-1.21.1-1.16.11.jar), sha1 equal
+2026-10-01 21:25:18 sodium.pw.toml: CF fingerprint match project 394468 file 8756580 (sodium-neoforge-0.8.13+mc1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 sophisticated-backpacks-create-integration.pw.toml: CF project 1238567 sophisticated-backpacks-create-integration has a same-version 1.21.1 NeoForge file (8985949, 'sophisticatedbackpackscreateintegration-1.21.1-0.2.1.171.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 sophisticated-backpacks.pw.toml: CF project 422301 sophisticated-backpacks has a same-version 1.21.1 NeoForge file (9008234, 'sophisticatedbackpacks-1.21.1-3.26.6.2174.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 sophisticated-core.pw.toml: CF project 618298 618298 has a same-version 1.21.1 NeoForge file (8985869, 'sophisticatedcore-1.21.1-1.5.2.2343.jar') but no fingerprint match (content differs)
+2026-10-01 21:25:18 spark.pw.toml: CF fingerprint match project 361579 file 6225208 (spark-1.10.124-neoforge.jar), sha1 equal
+2026-10-01 21:25:18 strut-your-stuff.pw.toml: CF fingerprint match project 1486746 file 8812965 (struts-1.3.1.jar), sha1 equal
+2026-10-01 21:25:18 summoningrituals.pw.toml: CF fingerprint match project 671040 file 8539417 (summoningrituals-neoforge-1.21.1-3.14.2.jar), sha1 equal
+2026-10-01 21:25:18 supermartijn642s-config-lib.pw.toml: CF fingerprint match project 438332 file 5546996 (supermartijn642configlib-1.1.8-neoforge-mc1.21.jar), sha1 equal
+2026-10-01 21:25:18 supermartijn642s-core-lib.pw.toml: CF fingerprint match project 454372 file 8943316 (supermartijn642corelib-1.1.24a-neoforge-mc1.21.jar), sha1 equal
+2026-10-01 21:25:18 terrafirmacraft-anvilhelper.pw.toml: CF fingerprint match project 1348176 file 7011636 (TerraFirmaCraftAnvilHelper-1.0.1.jar), sha1 equal
+2026-10-01 21:25:18 terrafirmacraft.pw.toml: CF fingerprint match project 302973 file 8995321 (TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar), sha1 equal
+2026-10-01 21:25:18 tfc-astikor-carts.pw.toml: CF fingerprint match project 844019 file 8054123 (TFCAstikorCarts-1.21.x-1.2.4.jar), sha1 equal
+2026-10-01 21:25:18 tfc-better-blast-furnace.pw.toml: CF fingerprint match project 1046432 file 8769052 (TFCBetterBlastFurnace-1.21.1-2.0.1.jar), sha1 equal
+2026-10-01 21:25:18 tfc-ie-crossover.pw.toml: CF fingerprint match project 830886 file 7961560 (TFC-IE-Crossover-NeoForge-1.21.1-2.1.3.jar), sha1 equal
+2026-10-01 21:25:18 tfc-ore-tooltips.pw.toml: no CurseForge project found (cfwidget slugs tried: tfc-ore-tooltips, None, tfc-ore-tooltips)
+2026-10-01 21:25:18 tfc-registry-api.pw.toml: CF fingerprint match project 1396119 file 7324760 (TFCRegistryAPI-1.21.x-1.2.jar), sha1 equal
+2026-10-01 21:25:18 tfc-regrowing-forests.pw.toml: CF fingerprint match project 1091993 file 7604340 (TFCRegrowingForests-1.21.1-2.2.jar), sha1 equal
+2026-10-01 21:25:18 tfc-ruins.pw.toml: CF fingerprint match project 1383031 file 7223678 (tfc_ruins-1.0.0-neoforge-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 tfc-support-indicator.pw.toml: CF fingerprint match project 1195624 file 7699998 (tfc_support_indicator-1.0.7+mc1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 tfc-vessel-tooltip.pw.toml: CF fingerprint match project 952386 file 7041417 (TFCVesselTooltip-NeoForge-1.21.1-2.0.jar), sha1 equal
+2026-10-01 21:25:18 tfc-weld-button.pw.toml: CF fingerprint match project 1093683 file 7045480 (TFCWeldButton-NeoForge-1.21.1-2.0.jar), sha1 equal
+2026-10-01 21:25:18 tfcgenviewer.pw.toml: CF fingerprint match project 1062270 file 8681793 (tfcgenviewer-1.21.1-2.1.2.jar), sha1 equal
+2026-10-01 21:25:18 tfcreate-compat.pw.toml: CF fingerprint match project 1605648 file 8553064 (tfcreate-1.0.1.jar), sha1 equal
+2026-10-01 21:25:18 theurgy-kubejs.pw.toml: CF fingerprint match project 963206 file 8838118 (theurgy_kubejs-1.21.1-neoforge-1.6.0.jar), sha1 equal
+2026-10-01 21:25:18 theurgy.pw.toml: CF fingerprint match project 430636 file 8871351 (theurgy-1.21.1-neoforge-1.76.1.jar), sha1 equal
+2026-10-01 21:25:18 toms-storage.pw.toml: CF fingerprint match project 378609 file 8769956 (toms_storage-1.21-2.4.2.jar), sha1 equal
+2026-10-01 21:25:18 trash-cans.pw.toml: CF fingerprint match project 394535 file 8972358 (trashcans-1.1.1-neoforge-mc1.21.jar), sha1 equal
+2026-10-01 21:25:18 woodencog.pw.toml: CF fingerprint match project 1179785 file 8793545 (woodencog-1.2.19-1.21.1.jar), sha1 equal
+2026-10-01 21:25:18 scan: done {'fingerprint': 170, 'cf_file_differs': 12, 'no_cf_project': 2}
+2026-10-01 21:25:18 create-connected.pw.toml: CF 947914 file 8777573 create_connected-1.3.3-mc1.21.1.jar; sha1 MR 96ae45fa44 CF 72c3653116; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['Lysine'] CF ['Lysine'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 create-liquid-fuel.pw.toml: CF 840734 file 8812977 createliquidfuel-3.0.0-1.21.1.jar; sha1 MR c061215a48 CF 9a88888ac9; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['Forsteri123'] CF ['Forsteri123'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 fastsuite.pw.toml: CF 475117 file 7527945 FastSuite-1.21.1-6.0.7.jar; sha1 MR 9dd867fe29 CF 664e626843; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['Shadows-of-Fire'] CF ['Shadows_of_Fire'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 gateways-to-eternity.pw.toml: CF 417802 file 6926284 GatewaysToEternity-1.21.1-5.1.0.jar; sha1 MR 594098a08a CF f91a593378; entries only MR/only CF/changed [1, 0, 16] e.g. ['.cache/103d9f3f36b01595f1aa5172191e60eff02e6924', 'META-INF/MANIFEST.MF', 'assets/gateways/lang/zh_cn.json']; authors MR ['Shadows-of-Fire'] CF ['Shadows_of_Fire'] -> cf_file_differs_accepted; CODE DIFFERS (changed .class files): the CF build is not the Modrinth build
+2026-10-01 21:25:18 kotlin-for-forge.pw.toml: CF 351264 file 8335665 kotlinforforge-5.12.0-all.jar; sha1 MR d10d062caf CF a2032c921e; entries only MR/only CF/changed [0, 0, 3] e.g. ['META-INF/jarjar/thedarkcolour.kfflang-5.12.0.jar', 'META-INF/jarjar/thedarkcolour.kfflib-5.12.0.jar', 'META-INF/jarjar/thedarkcolour.kffmod-5.12.0.jar']; authors MR ['thedarkcolour'] CF ['thedarkcolour'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 kubejs-create.pw.toml: CF 429371 file 7213667 kubejs-create-neoforge-2101.3.1-build.18.jar; sha1 MR f54d9ff539 CF d4dce8f82f; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['Lat'] CF ['Lat'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 kubejs-mekanism.pw.toml: CF 418651 file 7213666 kubejs-mekanism-neoforge-2101.1.7-build.18.jar; sha1 MR e605f4ef57 CF 4b3bcc7989; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['Lat'] CF ['Lat'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 kubejs.pw.toml: CF 238086 file 8843626 kubejs-neoforge-2101.7.2-build.377.jar; sha1 MR 7313fcd993 CF 150c5d6efc; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['Lat'] CF ['Lat'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 mega.pw.toml: CF 622112 file 7952621 megacells-4.11.0.jar; sha1 MR ba6fe208a9 CF f0b1a44bf3; entries only MR/only CF/changed [0, 0, 0] e.g. []; authors MR ['90'] CF ['ninety'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 sophisticated-backpacks-create-integration.pw.toml: CF 1238567 file 8985949 sophisticatedbackpackscreateintegration-1.21.1-0.2.1.171.jar; sha1 MR 043b6cd6a7 CF 2aceb2689c; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['P3pp3rF1y'] CF ['P3pp3rF1y'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 sophisticated-backpacks.pw.toml: CF 422301 file 9008234 sophisticatedbackpacks-1.21.1-3.26.6.2174.jar; sha1 MR c4f240d407 CF 796a0bd5df; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['P3pp3rF1y'] CF ['P3pp3rF1y'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:18 sophisticated-core.pw.toml: CF 618298 file 8985869 sophisticatedcore-1.21.1-1.5.2.2343.jar; sha1 MR 86a5cf1860 CF b6267d5268; entries only MR/only CF/changed [0, 0, 1] e.g. ['META-INF/MANIFEST.MF']; authors MR ['P3pp3rF1y'] CF ['P3pp3rF1y'] -> cf_file_differs_accepted; same code, packaging only
+2026-10-01 21:25:37 apply ad-astra.pw.toml -> ad-astra.pw.toml: project 635042 file 8874894, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Ad Astra" successfully added! (adastra-1.21.1-1.16.26-neoforge.jar)
+2026-10-01 21:25:38 apply advanced-tfc-tech-unofficial.pw.toml -> advanced-tfc-tech-unofficial.pw.toml: project 862559 file 8479012, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Advanced TFC Tech Unofficial" successfully added! (AdvancedTFCTech-NeoForge-1.21.1-3.3.jar)
+2026-10-01 21:25:39 apply advancedae.pw.toml -> advancedae.pw.toml: project 1084104 file 8564177, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "AdvancedAE" successfully added! (AdvancedAE-1.6.12-1.21.1.jar)
+2026-10-01 21:25:39 apply ae2.pw.toml -> applied-energistics-2.pw.toml: project 223794 file 8992605, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Applied Energistics 2" successfully added! (appliedenergistics2-19.2.18.jar)
+2026-10-01 21:25:40 apply almost-unified-ie.pw.toml -> almost-unified-ie.pw.toml: project 1316631 file 7045712, side server, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "AU: Immersive Engineering" successfully added! (almostunified_ie-neoforge-1.21.1-1.0.1.jar)
+2026-10-01 21:25:40 apply almostunified.pw.toml -> almostunified.pw.toml: project 633823 file 8127603, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:41 apply alternating-flux-neoforge.pw.toml -> alternating-flux-neoforge.pw.toml: project 1555217 file 8572014, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Alternating Flux NeoForge" successfully added! (alternatingflux-1.21.1-1.0.6.jar)
+2026-10-01 21:25:42 apply apotheosis.pw.toml -> apotheosis.pw.toml: project 313970 file 8993983, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Apotheosis" successfully added! (Apotheosis-1.21.1-8.9.0.jar)
+2026-10-01 21:25:42 apply apothic-attributes.pw.toml -> apothic-attributes.pw.toml: project 898963 file 9006294, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Apothic Attributes" successfully added! (ApothicAttributes-1.21.1-2.11.0.jar)
+2026-10-01 21:25:43 apply apothic-enchanting.pw.toml -> apothic-enchanting.pw.toml: project 1063926 file 8797650, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Apothic Enchanting" successfully added! (ApothicEnchanting-1.21.1-1.6.2.jar)
+2026-10-01 21:25:43 apply apothic-spawners.pw.toml -> apothic-spawners.pw.toml: project 986583 file 8469405, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Apothic Spawners" successfully added! (ApothicSpawners-1.21.1-1.4.0.jar)
+2026-10-01 21:25:44 apply applied-energistics-2-wireless-terminals.pw.toml -> applied-energistics-2-wireless-terminals.pw.toml: project 459929 file 8450398, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Applied Energistics 2 Wireless Terminals" successfully added! (ae2wtlib-19.5.1.jar)
+2026-10-01 21:25:45 apply applied-mekanistics.pw.toml -> applied-mekanistics.pw.toml: project 574300 file 7096962, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Applied Mekanistics" successfully added! (Applied-Mekanistics-1.6.3.jar)
+2026-10-01 21:25:45 apply arborfirmacraft--afc.pw.toml -> arborfirmacraft.pw.toml: project 877545 file 8722148, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "ArborFirmaCraft" successfully added! (afc-2.1.3-1.21.1.jar)
+2026-10-01 21:25:46 apply architectury-api.pw.toml -> architectury-api.pw.toml: project 419699 file 8492726, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:46 apply ars-additions.pw.toml -> ars-additions.pw.toml: project 974408 file 7646325, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Ars Additions" successfully added! (ars_additions-1.21.1-21.3.0.jar)
+2026-10-01 21:25:47 apply ars-creo.pw.toml -> ars-creo.pw.toml: project 575698 file 8139067, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Ars Creo" successfully added! (ars_creo-1.21.1-5.4.0.jar)
+2026-10-01 21:25:47 apply ars-nouveau.pw.toml -> ars-nouveau.pw.toml: project 401955 file 8993194, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:48 apply astikorcarts-redux.pw.toml -> astikor-carts-redux.pw.toml: project 916493 file 8590778, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:48 apply azimuth-api.pw.toml -> azimuth-api.pw.toml: project 1466331 file 8911024, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Azimuth API" successfully added! (azimuth-1.4.9.jar)
+2026-10-01 21:25:49 apply balm.pw.toml -> balm.pw.toml: project 531761 file 8969738, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:49 apply barrels-2012.pw.toml -> barrels-2012.pw.toml: project 662156 file 7255234, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Barrels 2012" successfully added! (Barrels_2012-NeoForge-1.21.1-3.0.0.jar)
+2026-10-01 21:25:50 apply bellsandwhistles.pw.toml -> bellsandwhistles.pw.toml: project 905040 file 6299879, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:50 apply beneath.pw.toml -> beneath.pw.toml: project 1113980 file 8706916, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Beneath" successfully added! (Beneath-NeoForge-1.21.1-2.0.4.jar)
+2026-10-01 21:25:51 apply better-advanced-tooltips.pw.toml -> better-advanced-tooltips.pw.toml: project 1637623 file 8576077, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:51 apply better-compatibility-checker.pw.toml -> better-compatibility-checker.pw.toml: project 551894 file 7404415, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:52 apply block-runner.pw.toml -> block-runner.pw.toml: project 442842 file 6215039, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Block Runner" successfully added! (BlockRunner-v21.1.2-1.21.1-NeoForge.jar)
+2026-10-01 21:25:52 apply blocks-bogies.pw.toml -> create-blocks-bogies.pw.toml: project 1317252 file 8723463, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Blocks & Bogies" successfully added! (create_bb-1.0.8-1.21.1.jar)
+2026-10-01 21:25:53 apply bosses-of-mass-destruction-forge.pw.toml -> bosses-of-mass-destruction-forge.pw.toml: project 941573 file 8448640, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Bosses of Mass Destruction [Forge | NeoForge]" successfully added! (BOMD-NeoForge-1.21-1.3.3.jar)
+2026-10-01 21:25:54 apply brandons-core.pw.toml -> brandons-core.pw.toml: project 231382 file 7130990, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Brandon's Core" successfully added! (BrandonsCore-1.21.1-3.2.1.309.jar)
+2026-10-01 21:25:54 apply cerbons-api.pw.toml -> cerbons-api.pw.toml: project 955605 file 6483943, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "CERBON's API [Forge | Fabric | NeoForge]" successfully added! (CerbonsAPI-NeoForge-1.21-1.3.0.jar)
+2026-10-01 21:25:55 apply chunky.pw.toml -> chunky-pregenerator-forge.pw.toml: project 485681 file 6383261, side server, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:55 apply cloth-config.pw.toml -> cloth-config.pw.toml: project 348521 file 5729127, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:55 apply clumps.pw.toml -> clumps.pw.toml: project 256717 file 5623731, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:56 apply codechicken-lib.pw.toml -> codechicken-lib-1-8.pw.toml: project 242818 file 8491811, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:56 apply common-storage-lib.pw.toml -> common-storage-lib.pw.toml: project 1028211 file 8421542, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:57 apply controlling.pw.toml -> controlling.pw.toml: project 250398 file 6368976, side client, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Controlling" successfully added! (Controlling-neoforge-1.21.1-19.0.5.jar)
+2026-10-01 21:25:57 apply copycats.pw.toml -> copycats.pw.toml: project 968398 file 8822348, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Copycats+" successfully added! (copycats-3.0.9+mc.1.21.1-neoforge.jar)
+2026-10-01 21:25:58 apply corgilib.pw.toml -> corgilib.pw.toml: project 693313 file 7773534, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:58 apply crash-assistant.pw.toml -> crash-assistant.pw.toml: project 1154099 file 8636685, side client, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:25:59 apply create-aeronautics.pw.toml -> create-aeronautics.pw.toml: project 676721 file 8763471, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create Aeronautics" successfully added! (create-aeronautics-bundled-1.21.1-1.3.2.jar)
+2026-10-01 21:25:59 apply create-applied-kinetics.pw.toml -> create-applied-kinetics.pw.toml: project 867328 file 7789362, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:26:00 apply create-big-cannons.pw.toml -> create-big-cannons.pw.toml: project 646668 file 8303106, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create Big Cannons" successfully added! (createbigcannons-5.11.7+mc.1.21.1.jar)
+2026-10-01 21:26:00 apply create-bits-n-bobs.pw.toml -> create-bits-n-bobs.pw.toml: project 1398383 file 8886545, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Bits 'n' Bobs" successfully added! (bits_n_bobs-2.3.5.jar)
+2026-10-01 21:26:01 apply create-connected.pw.toml -> create-connected.pw.toml: project 947914 file 8777573, side both, sha1 vs Modrinth jar DIFFERENT (CF build kept, see scan), sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Connected" successfully added! (create_connected-1.3.3-mc1.21.1.jar)
+2026-10-01 21:26:02 apply create-contraption-terminals.pw.toml -> create-contraption-terminals.pw.toml: project 1059879 file 8631983, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create Contraption Terminals" successfully added! (createcontraptionterminals-1.21-1.4.0.jar)
+2026-10-01 21:26:02 apply create-deco.pw.toml -> create-deco.pw.toml: project 509285 file 7943181, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:26:03 apply create-design-n-decor.pw.toml -> create-design-n-decor.pw.toml: project 923238 file 8156977, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Design n' Decor" successfully added! (Design-n-Decor-1.21.1-2.2b.jar)
+2026-10-01 21:26:03 apply create-diesel-generators.pw.toml -> create-diesel-generators.pw.toml: project 869316 file 8542167, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Diesel Generators" successfully added! (createdieselgenerators-1.21.1-1.3.15.jar)
+2026-10-01 21:26:04 apply create-dragons-plus.pw.toml -> create-dragons-plus.pw.toml: project 1216624 file 8900055, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Dragons Plus" successfully added! (CreateDragonsPlus-1.11.9.jar)
+2026-10-01 21:26:04 apply create-encased.pw.toml -> create-encased.pw.toml: project 829380 file 8549840, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create Encased" successfully added! (Create Encased-1.21.1-1.9.0-ht3.jar)
+2026-10-01 21:26:05 apply create-enchantable-machinery.pw.toml -> create-enchantable-machinery.pw.toml: project 1061749 file 7766920, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Enchantable Machinery" successfully added! (createenchantablemachinery-3.6.0+mc1.21.1-neoforge.jar)
+2026-10-01 21:26:05 apply create-enchantment-industry.pw.toml -> create-enchantment-industry.pw.toml: project 688768 file 8900719, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Enchantment Industry" successfully added! (create-enchantment-industry-2.5.4.jar)
+2026-10-01 21:26:06 apply create-framed.pw.toml -> create-framed.pw.toml: project 953126 file 8394637, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Framed" successfully added! (createframed-1.21.1-1.8.2.jar)
+2026-10-01 21:26:06 apply create-jetpack.pw.toml -> create-jetpack.pw.toml: project 655608 file 8545274, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create Jetpack" successfully added! (create_jetpack-forge-5.2.1.jar)
+2026-10-01 21:26:07 apply create-liquid-fuel.pw.toml -> create-liquid-fuel.pw.toml: project 840734 file 8812977, side server, sha1 vs Modrinth jar DIFFERENT (CF build kept, see scan), sha1 vs checked CF jar equal, filename equal
+2026-10-01 21:26:07 apply create-mechanical-extruder.pw.toml -> create-mechanical-extruder.pw.toml: project 686100 file 8418567, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create Mechanical Extruder" successfully added! (create_mechanical_extruder-1.21.1-2.2.2-6.0.10.jar)
+2026-10-01 21:26:08 apply create-mechanical-spawner.pw.toml -> create-mechanical-spawner.pw.toml: project 821828 file 8418593, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create Mechanical Spawner" successfully added! (create_mechanical_spawner-1.21.1-1.3.2-6.0.10.jar)
+2026-10-01 21:26:08 apply create-mobile-packages.pw.toml -> create-mobile-packages.pw.toml: project 1232978 file 8502329, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Mobile Packages" successfully added! (create_mobile_packages-1.21.1-0.7.7.jar)
+2026-10-01 21:26:09 apply create-pattern-schematics.pw.toml -> create-pattern-schematics.pw.toml: project 1072349 file 7155413, side both, sha1 vs Modrinth jar equal, sha1 vs checked CF jar equal, filename equal; prompts: Finding dependencies... / Dependencies found: / Would you like to add them? [Y/n]: Project "Create: Pattern Schematics" successfully added! (create_pattern_schematics-2.0.10.jar)
+2026-10-01 21:26:09 apply: 60 converted

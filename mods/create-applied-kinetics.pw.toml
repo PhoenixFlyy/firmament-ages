@@ -3,11 +3,11 @@ filename = "createappliedkinetics-1.5.4-1.21.1.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/mYGTCuZY/versions/Sk7TlTkT/createappliedkinetics-1.5.4-1.21.1.jar"
-hash-format = "sha512"
-hash = "1542a8395c91ff8de610206484c3a7acd2b0519854bc3a07e13a0d1230917e4f60a10cc3178de4bd01df733dca05d0a1ccdbf9f855c3252297cf0bbfb23a37ff"
+hash-format = "sha1"
+hash = "dd2df3b8febb78721be502aceff16af979a91314"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "mYGTCuZY"
-version = "Sk7TlTkT"
+[update.curseforge]
+file-id = 7789362
+project-id = 867328

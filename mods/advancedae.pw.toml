@@ -3,11 +3,11 @@ filename = "AdvancedAE-1.6.12-1.21.1.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/rxYaglEe/versions/ablTMAjP/AdvancedAE-1.6.12-1.21.1.jar"
-hash-format = "sha512"
-hash = "ab61c57355649a967a0bcf6b9413cd6b62728d26e914543b3231eea33bde5571536bd589ae1ac026d46799711508c942284c3419e19ff5d5bf80f1045442f33a"
+hash-format = "sha1"
+hash = "9358ccfa5477c7ab1c5ffab6c831e105fe46ecc3"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "rxYaglEe"
-version = "ablTMAjP"
+[update.curseforge]
+file-id = 8564177
+project-id = 1084104

@@ -3,11 +3,11 @@ filename = "alternatingflux-1.21.1-1.0.6.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/aT1p9B5V/versions/CSV83i5A/alternatingflux-1.21.1-1.0.6.jar"
-hash-format = "sha512"
-hash = "667c51ce1c4046d0b8e5640c3f1d2f8f0622c63cd9d394a0b92923e89af01e6329164a3705f6fd9ea36e3fe9527886f8e7f0e862cbcbeb6fea227d55a1629f84"
+hash-format = "sha1"
+hash = "5ee53bb3fd63d62d7b0d51401f679d0fc7cc71a3"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "aT1p9B5V"
-version = "CSV83i5A"
+[update.curseforge]
+file-id = 8572014
+project-id = 1555217

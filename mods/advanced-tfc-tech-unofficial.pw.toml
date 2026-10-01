@@ -3,11 +3,11 @@ filename = "AdvancedTFCTech-NeoForge-1.21.1-3.3.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/wEKs9gH0/versions/xzXArmox/AdvancedTFCTech-NeoForge-1.21.1-3.3.jar"
-hash-format = "sha512"
-hash = "8d928eb00001c59a4f0be735f1d7ff95d8872160ad33a58fc7c6bcd0557c84429d95356a39407cef1cadd58aabb792d1dbaafc0228a4fb72f8c04a272be732e8"
+hash-format = "sha1"
+hash = "d92a3968b33a14aa1e8f81077218f645f40129e9"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "wEKs9gH0"
-version = "xzXArmox"
+[update.curseforge]
+file-id = 8479012
+project-id = 862559
