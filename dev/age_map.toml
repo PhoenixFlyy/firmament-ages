@@ -358,6 +358,8 @@ block = "tfc:rock/loose/granite"
 "id:firmages:star_chart" = "age_7"                       # shrine offering of age_7 (DE fusion, wyvern)
 "id:firmages:quantum_core" = "age_8"                     # shrine offering of age_8, the last one (DE fusion, draconic)
 "id:firmages:awakened_keystone" = "age_8"                # stub: Marid ritual
+"id:firmages:reactor_controller" = "age_9"               # firmages-core 0.4: Draconic reactor controller (recipes/age_9)
+"id:firmages:origin_altar" = "age_9"                     # Gathering altar of The Origin; arena block, never crafted
 "id:firmages:dust/zinc" = "age_2"                        # canonical dusts come with the Iron Age crushing wheels
 "id:firmages:dust/bismuth" = "age_2"
 # Canonical metal dusts of the Iron Age crushing wheels (kubejs recipes/age_2, Doc 10 v3 section 8.1).

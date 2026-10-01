@@ -35,6 +35,8 @@
     {"id": "draconicevolution:large_chaos_frag", "required": false},
     {"id": "draconicevolution:medium_chaos_frag", "required": false},
     {"id": "draconicevolution:small_chaos_frag", "required": false},
+    {"id": "firmages:origin_altar", "required": false},
+    {"id": "firmages:reactor_controller", "required": false},
     {"id": "mekanism:meka_tool", "required": false},
     {"id": "mekanism:mekasuit_bodyarmor", "required": false},
     {"id": "mekanism:mekasuit_boots", "required": false},
