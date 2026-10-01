@@ -14,7 +14,7 @@ hash = "0b129185c5252400c94d0eb3314b63033ba3c982e0058bcce6e1ce3ae1606cec"
 
 [[files]]
 file = "config/cucumber-tags.json"
-hash = "c1bb409b8073165242f0d533e97f35f1dab2b0a53a605bd41f13fb747cf8b758"
+hash = "c91865b741fcf1048010d701bcc2d7500d80f546e4da8d237dee1a0f90b488d3"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
@@ -307,6 +307,78 @@ hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
 hash = "5f60406d187551a535aa98b8d78b8c6ed604f42278b49687ed90156626a68eb1"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/arcane_gearbox.png"
+hash = "a485d5cb7111498f0067e150f1a40ab4745f473f8ee0c2e0f5c74ae3bd7f17ff"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/arcane_keystone.png"
+hash = "897dfad60443f5285aa27c20b93e005d6053fb91a95af305bf3ef5f13eddd6c1"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/attuned_circuit.png"
+hash = "daac82b04fc50334fadbbd539b072ba19fc3b159442c685f713cb04ab5b10cbf"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/awakened_keystone.png"
+hash = "e558352620f0eaa972a3e20333b0e3d0f2653d01849f48c7d6357815543fb87d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/data_matrix.png"
+hash = "8521ec7b48a475409e493114971a9938451fdadb888161215194144811f5be55"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/dust/bismuth.png"
+hash = "3fc17f79f218595a44b92fa5549c74d60b01904a6205b124f2e7a44b14305e90"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/dust/zinc.png"
+hash = "bbb62b7f5e5bfe39f1267b873c089d48c3a4eea2dae1b67e712e5c86a827ad9e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/hearth_idol.png"
+hash = "8e9c103819155006c9f84f4227d0cdc6e00616c4550e11e5aa65c988e8fcdc5a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/hearthstone.png"
+hash = "0904a6c1589c2ec43a00d6a7e108af31526e903465d181af24c4ded262e73237"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/humming_core.png"
+hash = "c55258d114e6c78cc846af37d7f4a76c9056d00a033e00d7266a4e22b6350a3a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/origin_coordinates.png"
+hash = "771147809c9b4ada3d5b88c15dc65f03489f3d2961acf61d4db8ec8d384391bb"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/pressure_core.png"
+hash = "57e2574b3b2d12567bc8ea7a0f660fd75c783c8443f8849dafb53b79f97290d0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/quantum_core.png"
+hash = "91293d57afaad184a78fda65ce8f38d517f1d9ce7f6e81b34db812f5dd381f12"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/sky_disc.png"
+hash = "68c8d27bab6d5cfad1b3826915c9d1845fa83201f8a82694a3314905d6341a4d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/star_chart.png"
+hash = "039c90899e62e9edb1b11e5e03ca38ccb590788a7672d1a8d1ffac54f7a3f140"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/steel_heart.png"
+hash = "2c96bffa17d83a5e4647e67d9245db88d501dbd2816ac145b4ebb54256abe9df"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/ultimate_singularity.png"
+hash = "53819b4433b544a1b59390b52accf4ea7fa7fe9cda5aaf17edaa75f0f8e687c0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/unfired_hearth_idol.png"
+hash = "312ce6b7fa987e6b54d280581eed50d3a8e8c3f385041608ac514e72b1cf1cb6"
 
 [[files]]
 file = "kubejs/client_scripts/item_tooltips.js"
@@ -694,7 +766,7 @@ hash = "ac50fa92ad56346fdadd78c14f43b5027bc15d2e8d457c911d0d5d87de848b6a"
 
 [[files]]
 file = "kubejs/server_scripts/finale/the_primordial.js"
-hash = "77f04932be4085b8827bf10a73686b92a409043cafb688ad83f68ee3ca24d23c"
+hash = "0fefcc5f354ad55cb95e3391de729b0bebeb3831a9f8221b02b983b42bd23db8"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/miner_blacklist.js"
@@ -802,7 +874,7 @@ hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
 
 [[files]]
 file = "kubejs/server_scripts/tags/late_ages.js"
-hash = "afb9a2e092e3f28860022f4c03b0675e9823c216538aeac576a5213a7439a023"
+hash = "f37d16e492b1939c179c48ede5134e84b7896842bbb9b936afaf63751bf6f35e"
 
 [[files]]
 file = "kubejs/server_scripts/tags/tfc_stations.js"
@@ -1246,8 +1318,8 @@ hash = "73360e397134d238ee8fd21d33fd7f9275e9441f74f8f1b6ed92278877c0b9f1"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.4.0.jar"
-hash = "45ab7183f7108a9c17621610646d6c9db374860622bcf5faad63e3ee0752f1d9"
+file = "mods/firmages-core-0.5.0.jar"
+hash = "135fe340fd81746baa1769b1a143ce21238c1f50349f22745e322a589a20c0d7"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
