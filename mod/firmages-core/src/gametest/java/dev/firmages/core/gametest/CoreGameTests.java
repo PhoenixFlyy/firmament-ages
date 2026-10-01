@@ -7,7 +7,9 @@ import dev.firmages.core.age.AgeMirror;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.age.CacheGeneration;
 import dev.firmages.core.age.ReloadScheduler;
+import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.command.SelfTest;
+import dev.firmages.core.compat.progressivestages.LockSyncDedupe;
 import dev.firmages.core.command.CoreSuite;
 import dev.firmages.core.command.GateSuite;
 import dev.firmages.core.command.ServerSuite;
@@ -16,12 +18,15 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -165,5 +170,25 @@ public final class CoreGameTests {
                 helper.assertTrue(m2.snapshot().map(s -> !s.isUnlocked(AgeId.AGE_2)).orElse(false), "mirror without age_2");
             })
             .thenSucceed();
+    }
+
+    /** A joining player gets one ProgressiveStages lock sync, not two (mixin.ps.PlayerJoinMixin). */
+    @GameTest(template = "empty", batch = "firmages_1_ps_join", timeoutTicks = 100)
+    public static void joinSendsOneLockSync(GameTestHelper helper) {
+        if (!ModList.get().isLoaded("progressivestages")) {
+            helper.succeed();
+            return;
+        }
+        MinecraftServer server = helper.getLevel().getServer();
+        long before = LockSyncDedupe.skippedOnJoin();
+        ServerPlayer p = DebugPlayerCommands.spawn(server, helper.getLevel(), "gt_joiner", Vec3.atCenterOf(helper.absolutePos(new BlockPos(1, 1, 1))));
+        try {
+            long skipped = LockSyncDedupe.skippedOnJoin() - before;
+            FirmagesCore.LOGGER.info("GameTest joinSendsOneLockSync: {} duplicate lock sync(s) skipped on join", skipped);
+            helper.assertTrue(skipped >= 1, "the duplicate lock sync of onPlayerJoin was not skipped");
+        } finally {
+            DebugPlayerCommands.despawn(p);
+        }
+        helper.succeed();
     }
 }

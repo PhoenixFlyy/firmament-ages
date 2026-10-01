@@ -21,6 +21,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.ConfigValue<List<? extends String>> ALLOW_RECIPES;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> DENY_RECIPES;
     public static final ModConfigSpec.BooleanValue RELOAD_ON_REVOKE;
+    public static final ModConfigSpec.BooleanValue WARMUP_RELOAD;
+    public static final ModConfigSpec.IntValue WARMUP_DELAY_TICKS;
     // miner
     public static final ModConfigSpec.BooleanValue MINER_IE_EXCAVATOR;
     public static final ModConfigSpec.BooleanValue MINER_ORE_GUARD;
@@ -71,6 +73,11 @@ public final class ServerConfig {
         ALLOW_RECIPES = b.comment("Recipe ids that are always kept.").defineListAllowEmpty("allowRecipes", List.of(), () -> "", ServerConfig::isString);
         DENY_RECIPES = b.comment("Recipe ids that are always dropped.").defineListAllowEmpty("denyRecipes", List.of(), () -> "", ServerConfig::isString);
         RELOAD_ON_REVOKE = b.comment("Reload datapacks when an Age is revoked.").define("reloadOnRevoke", true);
+        WARMUP_RELOAD = b.comment("Dedicated server: one datapack reload with the same Ages shortly after start, while no player is online,",
+                "so the first Age reload players wait for runs warm (the first reload after a boot is about 1 s slower).",
+                "Skipped when a boot reconcile reload runs anyway, when a player is online or any reload already ran.")
+            .define("warmupReload", true);
+        WARMUP_DELAY_TICKS = b.comment("Ticks after server start before the warm-up reload.").defineInRange("warmupDelayTicks", 20, 0, 6000);
         b.pop();
 
         b.comment("Miner filter (m3)").push("miner");
@@ -164,6 +171,14 @@ public final class ServerConfig {
 
     public static boolean reloadOnRevoke() {
         return !loaded() || RELOAD_ON_REVOKE.get();
+    }
+
+    public static boolean warmupReload() {
+        return loaded() && WARMUP_RELOAD.get();
+    }
+
+    public static int warmupDelayTicks() {
+        return loaded() ? WARMUP_DELAY_TICKS.get() : 20;
     }
 
 

@@ -14,7 +14,8 @@
     "occultism.MineshaftMixin",
     "ars.ApparatusMixin",
     "ps.SyncPlayerMixin",
-    "ps.SendStageSyncMixin"
+    "ps.SendStageSyncMixin",
+    "ps.PlayerJoinMixin"
   ],
   "injectors": {
     "defaultRequire": 1

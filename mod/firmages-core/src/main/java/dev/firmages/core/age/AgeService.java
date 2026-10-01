@@ -67,6 +67,8 @@ public final class AgeService {
     private static boolean multiTeamDetected;
     private static String lastMirrorWrite = "not written yet";
     private static String lastReloadResult = "none since start";
+    /** Server tick at which the warm-up reload is due, -1 when none is pending. */
+    private static long warmupDueTick = -1;
 
     private AgeService() {}
 
@@ -236,10 +238,44 @@ public final class AgeService {
         multiTeamDetected = false;
         lastMirrorWrite = "not written yet";
         lastReloadResult = "none since start";
+        warmupDueTick = -1;
     }
 
     public static void onServerTick(ServerTickEvent.Post event) {
-        if (scheduler != null) scheduler.tick();
+        if (scheduler == null) return;
+        if (warmupDueTick >= 0) warmupTick(event.getServer());
+        scheduler.tick();
+    }
+
+    // ---------------------------------------------------------------- warm-up reload
+
+    /**
+     * {@code gate.warmupReload}: the first reload after a boot is about 1 s slower than the next ones (JIT and class
+     * loading of the reload path: KubeJS, recipe parsing, the reload workers; {@code dev/poc-results.md}). On a
+     * dedicated server one reload with the same Ages right after start, while nobody is online, takes that cost.
+     */
+    private static void scheduleWarmup(MinecraftServer s) {
+        if (!ServerConfig.warmupReload() || !s.isDedicatedServer() || bootReconcileRequested) return;
+        warmupDueTick = s.getTickCount() + Math.max(0, ServerConfig.warmupDelayTicks());
+        FirmagesCore.LOGGER.info("Warm-up reload due in {} ticks unless a player joins first (gate.warmupReload)", ServerConfig.warmupDelayTicks());
+    }
+
+    private static void warmupTick(MinecraftServer s) {
+        if (s.getTickCount() < warmupDueTick) return;
+        warmupDueTick = -1;
+        if (s.getPlayerCount() > 0) {
+            FirmagesCore.LOGGER.info("Warm-up reload skipped: a player is online");
+        } else if (scheduler.reloadsStarted() > 0 || scheduler.phase() != ReloadScheduler.Phase.IDLE) {
+            FirmagesCore.LOGGER.info("Warm-up reload skipped: a reload already ran or is pending");
+        } else {
+            scheduler.requestNow("warm-up after boot");
+        }
+    }
+
+    private static void cancelWarmup(String why) {
+        if (warmupDueTick < 0) return;
+        warmupDueTick = -1;
+        FirmagesCore.LOGGER.info("Warm-up reload skipped: {}", why);
     }
 
     /** Loads AgeState on the server thread (once per server). */
@@ -291,6 +327,7 @@ public final class AgeService {
         if (AgeIndex.current().misconfigured()) {
             FirmagesCore.LOGGER.error("All firmages:age_* tags are empty: the Age gate cannot lock anything");
         }
+        scheduleWarmup(s);
     }
 
     // ---------------------------------------------------------------- ProgressiveStages events (§3.1)
@@ -318,6 +355,7 @@ public final class AgeService {
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         MinecraftServer s = server;
         if (s == null || !(event.getEntity() instanceof ServerPlayer player)) return;
+        cancelWarmup(player.getGameProfile().getName() + " joined");
         state(s);
         processor.onStagesPresent(paths(ProgressiveStagesAPI.getStages(player)), "login of " + player.getGameProfile().getName());
         if (s.getPlayerList().isOp(player.getGameProfile())) {
@@ -428,8 +466,9 @@ public final class AgeService {
             return;
         }
         lastReloadResult = "ok in " + millis + " ms (" + reason + ")";
-        FirmagesCore.LOGGER.info("Age reload ({}) finished in {} ms; cache generation {}; duplicate PS lock syncs skipped so far: {}",
-            reason, millis, gen, LockSyncDedupe.skipped());
+        FirmagesCore.LOGGER.info("Age reload ({}) finished in {} ms; reload {} since start; cache generation {}; duplicate PS lock syncs "
+            + "skipped so far: {} (and {} on join)", reason, millis, scheduler == null ? -1 : scheduler.reloadsStarted(), gen,
+            LockSyncDedupe.skipped(), LockSyncDedupe.skippedOnJoin());
         AgeState st = state(s);
         st.ledger().setLastReloadGameTime(s.overworld().getGameTime());
         st.setDirty();
