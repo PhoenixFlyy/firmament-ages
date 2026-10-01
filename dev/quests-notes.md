@@ -35,7 +35,7 @@ sections 2 and 9, Doc 11 section 3 (shrine).
 | `quantum_age.snbt` | Ages | Age 8: Quantum Age | stage `age_8` | 32 | entry, strands Fusion / Inner Planets / Awakened (The Leviathan) / Marid, goal Offer the Quantum Core at the Shrine, 3 side missions (Draconic Tools, Ore Times Five, Scylla), 2 explanations, ring Raise the Quantum Ring |
 | `singularity_age.snbt` | Ages | Age 9: Singularity Age | stage `age_9` | 23 | entry, strands Chaos (Chaos Guardian, Reactor Online) / Singularity (keystone The Ultimate Singularity, item task) / Stargate (Gate Online), goal Beyond the Firmament (gamestage task `finale_won`), 3 side missions (Chaotic Armor, Chaotic Staff, Ignis), 2 explanations, no ring |
 
-Total 345 quests (226 of them in the Ages 3 to 9), 21 reward tables, 1281 object ids. Counts per chapter come from the
+Total 345 quests (226 of them in the Ages 3 to 9), 21 reward tables, 1282 object ids. Counts per chapter come from the
 validator output. Ring quests per chapter: 1 in Ages 3 to 8.
 
 Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn `544197C921D77FCB`, stone_age
@@ -238,8 +238,18 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
   keystone "The Ultimate Singularity" is an item task on `firmages:ultimate_singularity` (KubeJS item); the End portal
   frame has a recipe (`recipes/age_6/information_age.js`); Space supplies swap the disabled Ad Astra steel plate and
   Mekanism uranium ingot for desh and ostrum plates.
-- **Awakened Keystone recipe is a stub** (items.js) and Keystone lending (SPEC section 7.4) is not built: the Marid
-  keystone cannot be completed until both exist.
+- **Awakened Keystone (resolved 2026-10-01, content fixes).** The item is registered (items.js) and made by the Marid
+  ritual `firmages:ritual/awakened_keystone` from an Arcane Keystone (`recipes/age_8/quantum_age.js`), so the Marid
+  keystone (item task, not consumed) can be completed. Its text tells players to borrow the Arcane Keystone from the
+  Spirit Circle plinth by sneak-use (SPEC section 7.4) or to bind a second one with the Djinni, and to lay the Awakened
+  Keystone back. Keystone lending is a firmages-core milestone; if a release ships without it, drop the borrow clause
+  from `quantum/marid/key` in `dev/gen_quests.py`.
+- **End portal (2026-10-01).** "Your Own End Portal" (was "Eyes of Ender") asks for 12 crafted End portal frames
+  (`firmages:crafting/end_portal_frame`, age_6) and 12 eyes of ender; "The End" explains the ring.
+- **Gate Online** observes `sgjourney:classic_stargate`, the block of an assembled Classic Stargate. Stargate Journey
+  0.6.49 gives the block only `facing`, `orientation`, `part` and `waterlogged` (javap of AbstractStargateBlock), so
+  there is no "dialling" or "powered" state to observe; the side mission "Into The Origin" (dimension task) proves the
+  dial.
 - "Data Model: Tier 3" accepts any data model (the tier is a component an item task does not read).
 - FE proofs (Doc 08: sustained power as FE task) are observations of placed blocks; switch to `forge_energy` or task
   screen tasks once those are tested in the client.

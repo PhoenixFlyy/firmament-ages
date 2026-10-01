@@ -636,6 +636,9 @@
 		}
 		{
 			dependencies: ["0F1AE784BF392A25"]
+			icon: {
+				id: "minecraft:end_portal_frame"
+			}
 			id: "07205F9A9FA4E721"
 			rewards: [
 				{
@@ -648,6 +651,15 @@
 				{
 					count: 12L
 					id: "719E36824F786210"
+					item: {
+						count: 1
+						id: "minecraft:end_portal_frame"
+					}
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "555FFA453C769834"
 					item: {
 						count: 1
 						id: "minecraft:ender_eye"

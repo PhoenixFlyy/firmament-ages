@@ -50,7 +50,7 @@ hash = "6a836094e1f8589d595475b4d52e13ebc59c32cea4d2af88461a476e7830680c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "ef7af31ff73bb70b6d26d9b05e8e1f080bb403683563f37a23880fe4de9ab166"
+hash = "5cc760b6cd8bff9ea23bb1f4c2704dca9429f63fadcc3207d9f06aa9b6d82fcc"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
@@ -86,7 +86,7 @@ hash = "0b057ada548db053f7848e86ad6ece563ff193654886f1a0ecbf0ba8537a37e5"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "8398dbfd99b1aa0b80fa9d5c95f38d4e039001c6348101cb4369de2e6e1617f6"
+hash = "11dd5680a6f21ac908cd09192219d491832804350ed01d64115a8b9ea94b0116"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -694,7 +694,7 @@ hash = "ac50fa92ad56346fdadd78c14f43b5027bc15d2e8d457c911d0d5d87de848b6a"
 
 [[files]]
 file = "kubejs/server_scripts/finale/the_primordial.js"
-hash = "53b78f9078671d47810b6b828f1c0302b631ba53e4cee8a8e05bb78194afa4b9"
+hash = "008abd24eb619a14450392bbcf8cec593b5d38ddec2301305257b6b3d6025921"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/miner_blacklist.js"

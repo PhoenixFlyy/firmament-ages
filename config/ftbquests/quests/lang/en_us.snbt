@@ -157,9 +157,11 @@
 	]
 	quest.06FEAB3BC2EA4431.title: "Pyromantic Brazier"
 	quest.07205F9A9FA4E721.quest_desc: [
-		"TFC has no strongholds. Your team builds its own End portal."
+		"TFC has no strongholds, so your team builds its own End portal."
+		"Craft twelve End portal frames from obsidian, ender pearls and reinforced alloy,"
+		"and twelve eyes of ender from blaze powder and ender pearls."
 	]
-	quest.07205F9A9FA4E721.title: "Eyes of Ender"
+	quest.07205F9A9FA4E721.title: "Your Own End Portal"
 	quest.0725F0C2566548FA.quest_desc: ["The distiller makes mercury shards, the third principle."]
 	quest.0725F0C2566548FA.title: "Distiller"
 	quest.077BFA2D599B1A4B.quest_desc: [
@@ -844,8 +846,13 @@
 	]
 	quest.470272BFC8013E57.title: "Wilden Tribute"
 	quest.485FE6EFB6565F6E.quest_desc: [
-		"The Marid ritual awakens the Arcane Keystone. The Awakened Keystone goes into the"
-		"Ultimate Singularity."
+		"The Marid ritual awakens the Arcane Keystone. Borrow the Arcane Keystone from the plinth of"
+		"the Spirit Circle (sneak and use the plinth with an empty hand), or bind a second one with"
+		"the Djinni. Then perform the Marid ritual with two atomic alloys, a wyvern core and the"
+		"Leviathan's abyssal egg."
+		""
+		"Lay the Awakened Keystone back on the plinth of the Spirit Circle: the shrine keeps it as"
+		"the relic of the Arcane Age, and it goes into the Ultimate Singularity."
 	]
 	quest.485FE6EFB6565F6E.title: "Awakened Keystone"
 	quest.4868CA77D43496DE.quest_desc: ["The tier 1 rocket reaches the Moon."]
@@ -1041,7 +1048,8 @@
 	quest.5B849EF8FE147622.quest_desc: ["Reinforced blast bricks and preheaters make steel faster."]
 	quest.5B849EF8FE147622.title: "Improved Blast Furnace"
 	quest.5C0C8D3E5C081AA2.quest_desc: [
-		"Assemble the Stargate and power it from the Draconic reactor through a flux gate."
+		"Set the base, chevron and ring blocks as a ring and assemble the Stargate. It draws its"
+		"power from the Draconic reactor through a flux gate."
 		""
 		"The Coordinates of The Origin hold its address: 9, 16, 21, 33, 2, 37, then the point of origin."
 	]
@@ -1135,7 +1143,8 @@
 	quest.64CDFFD93C9CBDCE.quest_subtitle: "Goal of the Information Age: Caelum opens the Space Age"
 	quest.64CDFFD93C9CBDCE.title: "Offer the Data Matrix at the Shrine"
 	quest.64E0D1AE8C5265E7.quest_desc: [
-		"Build the End portal frame, fill it with eyes of ender and step through."
+		"Set the twelve frames as a ring around a 3 by 3 hole, all facing inwards,"
+		"fill them with the eyes of ender and step through."
 	]
 	quest.64E0D1AE8C5265E7.title: "The End"
 	quest.6522D484BFB67425.quest_desc: [
@@ -1479,6 +1488,7 @@
 	task.51A37CD127AB2DB7.title: "Look at your farmland"
 	task.52C50C8218E32C6B.title: "Look at a placed water wheel"
 	task.549B75B02A349FB4.title: "Fired ingot mold"
+	task.555FFA453C769834.title: "Eyes of ender"
 	task.55C92C85FCE9B94B.title: "Defeat the final boss in The Origin"
 	task.585C29CB2582C5B9.title: "Ring blocks"
 	task.58632406487259A5.title: "Unlock Age 4: Industrial Age"
@@ -1499,6 +1509,7 @@
 	task.6C03C2A36B8346CC.title: "Look at your placed alternator"
 	task.6C50E5C8F6FA0FC6.title: "Space pants"
 	task.715F70D28A1A4B47.title: "Look at the heart with the Tesla Crown complete"
+	task.719E36824F786210.title: "End portal frames"
 	task.72C67C8CA11A2DC3.title: "Look at a formed pumpjack"
 	task.750C20F730623328.title: "Unlock Age 5: Electric Age"
 	task.763BD161B2214A17.title: "Unlock Age 6: Information Age"
