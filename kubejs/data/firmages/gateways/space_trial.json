@@ -1,0 +1,69 @@
+{
+  "type": "gateways:normal",
+  "size": "large",
+  "color": "#E0E8FF",
+  "waves": [
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:wither_skeleton",
+          "count": 4
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:blaze",
+          "count": 2
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 100,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:wither",
+          "count": 1,
+          "nbt": {
+            "CustomNameVisible": 1,
+            "CustomName": "{\"text\": \"Echo of the Harbinger\", \"color\": \"red\"}"
+          },
+          "modifiers": [
+            {
+              "type": "gateways:attribute",
+              "attribute": "minecraft:generic.max_health",
+              "operation": "add_multiplied_total",
+              "value": 1.0
+            }
+          ]
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 6000,
+      "setup_time": 200
+    }
+  ],
+  "rewards": [
+    {
+      "type": "gateways:stack",
+      "stack": {
+        "id": "cataclysm:witherite_block",
+        "count": 1
+      }
+    }
+  ],
+  "failures": [],
+  "rules": {
+    "leash_range": 64.0
+  }
+}

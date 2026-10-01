@@ -563,8 +563,19 @@
 				{
 					entity: "twilightforest:naga"
 					id: "58B7F1D68605A4F4"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "4AF3A7318C7E5B6A"
+					item: {
+						count: 1
+						id: "twilightforest:naga_trophy"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 4.25d
@@ -587,8 +598,19 @@
 				{
 					entity: "twilightforest:lich"
 					id: "37B8FB455DDA9BDA"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "50FB3F18510792B8"
+					item: {
+						count: 1
+						id: "twilightforest:lich_trophy"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 6.0d

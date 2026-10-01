@@ -3,7 +3,8 @@
 // tables (2026-10-01).
 
 ServerEvents.tags('item', (event) => {
-  // Boss tokens: the real drop OR a fallback token (Doc 08 section 5.1). Fallback tokens are not registered yet.
+  // Boss tokens: the real drop (Doc 08 section 5.1). The fallback gateways pay out this same drop
+  // (firmages/boss_fallback.js, data/firmages/gateways/<age>_trial.json), so the tag needs no second token.
   event.add('firmages:boss_token/age_5', 'minecraft:nether_star')       // The Wither
   event.add('firmages:boss_token/age_6', 'minecraft:dragon_breath')     // Ender Dragon (Doc 08 10.2: dragon's breath in the Data Matrix)
   event.add('firmages:boss_token/age_7', 'cataclysm:witherite_block')   // The Harbinger, guaranteed drop

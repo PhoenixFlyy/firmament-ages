@@ -1,0 +1,91 @@
+{
+  "type": "gateways:normal",
+  "size": "medium",
+  "color": "#3E2060",
+  "waves": [
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:wither_skeleton",
+          "count": 4
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 100
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:wither_skeleton",
+          "count": 4
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:blaze",
+          "count": 3
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 150,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.25
+        }
+      ]
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:wither_skeleton",
+          "count": 1,
+          "nbt": {
+            "CustomNameVisible": 1,
+            "CustomName": "{\"text\": \"Withered Champion\", \"color\": \"red\"}"
+          },
+          "modifiers": [
+            {
+              "type": "gateways:attribute",
+              "attribute": "minecraft:generic.max_health",
+              "operation": "add_multiplied_total",
+              "value": 6.0
+            }
+          ]
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:wither_skeleton",
+          "count": 3
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 3600,
+      "setup_time": 200,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.5
+        }
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "type": "gateways:stack",
+      "stack": {
+        "id": "minecraft:nether_star",
+        "count": 1
+      }
+    }
+  ],
+  "failures": []
+}

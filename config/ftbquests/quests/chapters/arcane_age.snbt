@@ -465,8 +465,19 @@
 				{
 					entity: "ars_nouveau:wilden_boss"
 					id: "20FFE023AEA2D280"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "2A2FFBEEDEFD0069"
+					item: {
+						count: 1
+						id: "ars_nouveau:wilden_tribute"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 14.75d

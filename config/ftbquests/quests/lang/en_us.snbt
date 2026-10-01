@@ -43,8 +43,11 @@
 	quest.002A92F3E9C8D81F.quest_desc: ["Grow inferium and the resource seeds of unlocked materials."]
 	quest.002A92F3E9C8D81F.title: "Mystical Agriculture"
 	quest.00DEC03D1B329588.quest_desc: [
-		"A Gateway in the Nether calls the Netherite Monstrosity. Its horn goes into the Pressure Core."
-		"If the Gateway fails, the Summoning Rituals altar can call it too."
+		"The Summoning Rituals altar calls the Netherite Monstrosity: netherite as the initiator, blaze rods,"
+		"black steel double ingots and magma blocks. Its horn goes into the Pressure Core."
+		""
+		"Fallback: a Forge Sigil (black steel sheets, blaze rods, netherite) opens the Forge Trial."
+		"Clear it and it gives a Monstrous Horn."
 	]
 	quest.00DEC03D1B329588.title: "Netherite Monstrosity"
 	quest.00DFEEA122BF8999.quest_desc: [
@@ -97,7 +100,9 @@
 		"Weak steel with nickel and black bronze, worked on the anvil: black steel, the Age 4 metal."
 	]
 	quest.03A410CC86110162.title: "Black Steel"
-	quest.0416219650D02993.quest_desc: ["Summon the Wilden Chimera with its ritual and defeat it."]
+	quest.0416219650D02993.quest_desc: [
+		"Summon the Wilden Chimera with its ritual and defeat it, or clear the Wild Trial."
+	]
 	quest.0416219650D02993.title: "Wilden Chimera"
 	quest.046444D7885EFB7E.quest_desc: [
 		"Alternating Flux wire carries very high power with little loss."
@@ -241,6 +246,9 @@
 	quest.0D99128B070FE166.title: "Chaotic Armor"
 	quest.0E48C0E43D256E7D.quest_desc: [
 		"Summon the Wither and defeat it. The Humming Core needs its Nether Star."
+		""
+		"Fallback: a Wither Sigil (aluminium plates, soul sand, one wither skeleton skull) opens the"
+		"Wither Trial. Clear it and it gives a Nether Star."
 	]
 	quest.0E48C0E43D256E7D.title: "The Wither"
 	quest.0F1AE784BF392A25.quest_desc: [
@@ -335,6 +343,9 @@
 	quest.1661C5530B8C2FE2.title: "Umvuthi"
 	quest.16669304CEE25FCB.quest_desc: [
 		"Defeat the Harbinger. Its witherite block goes into the Star Chart."
+		""
+		"Fallback: a Space Sigil (desh and ostrum plates around a Nether Star) opens the Space Trial,"
+		"which ends with a Wither. Open it far from your base. Clear it and it gives a Witherite Block."
 	]
 	quest.16669304CEE25FCB.title: "The Harbinger"
 	quest.166C4569CC75A30A.quest_desc: [
@@ -384,7 +395,9 @@
 		"Red steel is the Age 5 metal: weak red steel worked on the anvil, then a sheet."
 	]
 	quest.1BF2818DC437F21D.title: "Red Steel"
-	quest.1C3849490BE7F034.quest_desc: ["Defeat the Naga in its courtyard."]
+	quest.1C3849490BE7F034.quest_desc: [
+		"Defeat the Naga in its courtyard, or bring its trophy from the Frontier Trial."
+	]
 	quest.1C3849490BE7F034.title: "The Naga"
 	quest.1CC29E163A94FCE6.quest_desc: [
 		"Place unfired pottery, cover it with straw and logs and set it on fire: a pit kiln."
@@ -481,7 +494,12 @@
 		"Afrits need an HV coil block for their book. They run the Dimensional Battlefield."
 	]
 	quest.21B580750CD1579A.title: "Bind an Afrit"
-	quest.21C2AA41F93E700F.quest_desc: ["The Ender Dragon now drops its heart."]
+	quest.21C2AA41F93E700F.quest_desc: [
+		"The Ender Dragon now drops its heart."
+		""
+		"Fallback: if the dragon cannot be fought, an End Sigil opens the End Trial; in this Age it also"
+		"gives a Dragon Heart."
+	]
 	quest.21C2AA41F93E700F.title: "Dragon Heart"
 	quest.222144A9AFE56147.quest_desc: ["The pressurized reaction chamber makes HDPE from ethene."]
 	quest.222144A9AFE56147.title: "HDPE"
@@ -779,7 +797,13 @@
 		"Bring 64 steel sheets from your press line through the package network."
 	]
 	quest.40FA4C9F6A00F51F.title: "Backfill Line"
-	quest.41B3251BB5EB3A3A.quest_desc: ["Bottle the dragon's breath. The Data Matrix needs it."]
+	quest.41B3251BB5EB3A3A.quest_desc: [
+		"Bottle the dragon's breath. The Data Matrix needs it."
+		""
+		"Fallback: if the dragon cannot be fought, craft an End Sigil (ender pearls, osmium, a basic control"
+		"circuit) and use it on open ground. Clear the End Trial and it gives four bottles of dragon's breath;"
+		"from the Space Age on it also gives a Dragon Heart."
+	]
 	quest.41B3251BB5EB3A3A.title: "Dragon's Breath"
 	quest.41B46B0D9C0E8AB4.quest_desc: ["Sphalerite pieces point to a zinc vein. Create needs zinc."]
 	quest.41B46B0D9C0E8AB4.title: "Zinc on the Surface"
@@ -843,6 +867,9 @@
 	quest.4637931365FDF60B.title: "Refined Naquadah"
 	quest.470272BFC8013E57.quest_desc: [
 		"The Chimera drops the Wilden Tribute. The Arcane Keystone needs it."
+		""
+		"Fallback: if the ritual cannot be done, craft a Wild Sigil (mercury shards, otherworld essence,"
+		"a source gem block) and use it on open ground. Clear the Wild Trial and it gives a Wilden Tribute."
 	]
 	quest.470272BFC8013E57.title: "Wilden Tribute"
 	quest.485FE6EFB6565F6E.quest_desc: [
@@ -989,7 +1016,9 @@
 	]
 	quest.5298B856BFEE50A2.quest_subtitle: "Goal of the Stone Age: Caelum opens the Bronze Age"
 	quest.5298B856BFEE50A2.title: "Offer the Hearthstone at the Shrine"
-	quest.532C13282586CA95.quest_desc: ["Destroy the crystals, then the dragon."]
+	quest.532C13282586CA95.quest_desc: [
+		"Destroy the crystals, then the dragon, or clear the End Trial."
+	]
 	quest.532C13282586CA95.title: "The Ender Dragon"
 	quest.53348C90243DE4F0.quest_desc: [
 		"Everybody on the server is in the same FTB team. Quest progress, Ages and rewards are shared."
@@ -1027,7 +1056,13 @@
 		"The archmage spellbook needs a Mekanism advanced control circuit."
 	]
 	quest.57663DC8E013A906.title: "Archmage"
-	quest.57F5B8C4363E589D.quest_desc: ["The Chaos Guardian waits on a Chaos Island in the End."]
+	quest.57F5B8C4363E589D.quest_desc: [
+		"The Chaos Guardian waits on a Chaos Island in the End."
+		""
+		"Fallback: if the guardian cannot be beaten (or will not take damage), craft a Chaos Sigil"
+		"(awakened draconium, naquadah, a dragon heart) and use it on open ground. The Chaos Trial ends"
+		"with a Wither and two guardian withers; clear it and it gives four Chaos Shards. It can be repeated."
+	]
 	quest.57F5B8C4363E589D.title: "Chaos Guardian"
 	quest.586717CB0F9BF963.quest_desc: [
 		"In the Stone Age your team raises one shrine: a heart of fired clay in a circle of stone,"
@@ -1274,7 +1309,13 @@
 		"Soak a hide in limewater, scrape it, then soak it in tannin."
 	]
 	quest.6DE17D691978916D.title: "Genuine Leather"
-	quest.6E4438CCF1A5BF3D.quest_desc: ["The Lich drops its trophy. The Steel Heart needs it."]
+	quest.6E4438CCF1A5BF3D.quest_desc: [
+		"The Lich drops its trophy. The Steel Heart needs it."
+		""
+		"Fallback: if the Twilight Forest has no Lich tower for you, craft a Frontier Sigil (steel sheets,"
+		"polished quartz, a precision mechanism) and use it on open ground. Its Gateway sends three waves;"
+		"clear them and it gives a Naga trophy and a Lich trophy."
+	]
 	quest.6E4438CCF1A5BF3D.title: "Lich Trophy"
 	quest.6F0E9B4D0BD4227A.quest_desc: [
 		"The IE crusher grinds TFC ore pieces into mineral powder and canonical dust: twice the metal,"
@@ -1285,9 +1326,14 @@
 	quest.6F9493CFB1887C79.title: "Desh"
 	quest.70B4778AD5C5B83E.quest_desc: [
 		"Defeat the Leviathan in the deep. Its abyssal egg goes into the Quantum Core."
+		""
+		"Fallback: an Abyss Sigil (calorite plates, ice shards, hypercharged alloy) opens the Abyss Trial."
+		"Clear it and it gives an Abyssal Egg."
 	]
 	quest.70B4778AD5C5B83E.title: "The Leviathan"
-	quest.70CBE25D834EEF9F.quest_desc: ["Climb the Lich tower and defeat the Lich."]
+	quest.70CBE25D834EEF9F.quest_desc: [
+		"Climb the Lich tower and defeat the Lich, or bring its trophy from the Frontier Trial."
+	]
 	quest.70CBE25D834EEF9F.title: "The Lich"
 	quest.71013FE9F62EC68E.quest_desc: ["Chaotic injectors fuse at the highest tier."]
 	quest.71013FE9F62EC68E.title: "Chaotic Injectors"

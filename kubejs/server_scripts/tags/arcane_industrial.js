@@ -15,7 +15,8 @@ ServerEvents.tags('item', (event) => {
   // Tallow: Occultism candles take c:tallow; the butcher knife gives occultism:tallow from the TFC animals
   // once they are in the entity tags below.
 
-  // Boss tokens: the real drop OR a fallback token (Doc 08 section 5.1). Fallback tokens are not registered yet.
+  // Boss tokens: the real drop (Doc 08 section 5.1). The fallback gateways pay out this same drop
+  // (firmages/boss_fallback.js, data/firmages/gateways/<age>_trial.json), so the tag needs no second token.
   event.add('firmages:boss_token/age_3', 'ars_nouveau:wilden_tribute')     // Wilden Chimera
   event.add('firmages:boss_token/age_4', 'cataclysm:monstrous_horn')       // Netherite Monstrosity, guaranteed drop
 

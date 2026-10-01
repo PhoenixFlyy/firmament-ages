@@ -631,8 +631,19 @@
 				{
 					entity: "minecraft:wither"
 					id: "593C27F2CF481B3B"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "7C7CF13F24E80B32"
+					item: {
+						count: 1
+						id: "minecraft:nether_star"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 7.75d

@@ -541,6 +541,7 @@
     {"id": "evolvedmekanism:ultimate_personal_chest", "required": false},
     {"id": "evolvedmekanism:upgrade_radioactive", "required": false},
     {"id": "evolvedmekanism:upgrade_solar", "required": false},
+    {"id": "firmages:abyss_sigil", "required": false},
     {"id": "firmages:awakened_keystone", "required": false},
     {"id": "firmages:quantum_core", "required": false},
     {"id": "mekanism:pellet_antimatter", "required": false},

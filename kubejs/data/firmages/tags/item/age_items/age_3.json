@@ -825,6 +825,7 @@
     {"id": "dndecor:small_amethyst_brick_wall", "required": false},
     {"id": "dndecor:small_amethyst_bricks", "required": false},
     {"id": "firmages:arcane_keystone", "required": false},
+    {"id": "firmages:wild_sigil", "required": false},
     {"id": "mekanism:dust_obsidian", "required": false},
     {"id": "minecraft:amethyst_block", "required": false},
     {"id": "minecraft:amethyst_cluster", "required": false},

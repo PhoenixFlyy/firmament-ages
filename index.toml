@@ -30,7 +30,7 @@ hash = "b1339ce49c5c08220086661d0e028c5277f811e6437e691a61a5ad2448097081"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/arcane_age.snbt"
-hash = "4e6673fd28a3e8d9261ca95ca490495d8966dbb2ed027080418797d240bceef2"
+hash = "3485966748779777f7318f6c8c1e3553b5fc7709c6021e91e0ca7f9e06e8cdfa"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
@@ -42,31 +42,31 @@ hash = "2ebde09665c2b01f2716ef28a4771edf5064331681cd95b372730dc441220423"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
-hash = "ee9e96f051b0db2057f95d5582ca5b41f743ab1b29cc010f8fb5e6c8053d4f59"
+hash = "5ff8312ccb82091c637bd4e485137fcd39eb64536a6d0fc5589511ce6fe53d7f"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/industrial_age.snbt"
-hash = "6a836094e1f8589d595475b4d52e13ebc59c32cea4d2af88461a476e7830680c"
+hash = "7bf0ce5d373e20813789d5121c7988e5a93725bc90d3b66ab0f66b72da4a6416"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "5cc760b6cd8bff9ea23bb1f4c2704dca9429f63fadcc3207d9f06aa9b6d82fcc"
+hash = "59411c5affc18a7416eab73a68fba35831c675348989a555f3cdbd14dc44a80c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "99a68e2c60507324c319766fe5f995d3abbcab4c6f6deb49fe81a8bbd5588ad8"
+hash = "14221c0a8f11e4263b25986c032bd19e0f89063e81c274e0152098adbcf8c003"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "5c613eee27a535b844b64f97542fa204ae201a6462ef2e2397d4e8e4b1e8f2fd"
+hash = "208c2d20dacc33def10b44dcae3154d2f2b3e2120b3db9699a8cc5dfcfc3ecbf"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "fb271c3424840e9ae4e8949f1feac0d639c8b59b9e3e6b10e0e60f7ccb243feb"
+hash = "9a482c3ce342868ebdc07dbba56ab82d33c046a0e23fabf3d5562bfe26577a54"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
-hash = "d7e980ac562722c60a3a27e7eda404338bbf9618f6a83a3966b990b6e61e9161"
+hash = "6ed5df1ea3a2dbd6f4eee2d8752f029ecd11d68dd9be7d569282eb369a127df6"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
@@ -86,7 +86,7 @@ hash = "0b057ada548db053f7848e86ad6ece563ff193654886f1a0ecbf0ba8537a37e5"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "11dd5680a6f21ac908cd09192219d491832804350ed01d64115a8b9ea94b0116"
+hash = "a1943dc3ab5f5d2f8683fa3adff935f0942916349faa0dbce91fcc4bb0c62247"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -309,6 +309,10 @@ file = "defaultconfigs/tfc-server.toml"
 hash = "5f60406d187551a535aa98b8d78b8c6ed604f42278b49687ed90156626a68eb1"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/item/abyss_sigil.png"
+hash = "66e2f36efac20b510c1c13f5062b91ea171a315116eeb4425b4be4c2c06e2307"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/item/arcane_gearbox.png"
 hash = "e6eb6b6b4339b595c4eae093b986e7380cec2bc689421a3bb4490161e4383638"
 
@@ -333,6 +337,10 @@ file = "kubejs/assets/firmages/textures/item/awakened_keystone.png.mcmeta"
 hash = "77d80b3fdecb850e7c91c6459be15f8c172813928599e88a2535817a7ddcc82f"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/item/chaos_sigil.png"
+hash = "575872911573026bf54d068d9d992ed00823f4d0a2dbd73445e828af635bb2d7"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/item/data_matrix.png"
 hash = "352903a9df7972525e95e6b6d6bfdcd0a55e1c20d6f7f87ad471ff41c5ff796c"
 
@@ -347,6 +355,18 @@ hash = "3fc17f79f218595a44b92fa5549c74d60b01904a6205b124f2e7a44b14305e90"
 [[files]]
 file = "kubejs/assets/firmages/textures/item/dust/zinc.png"
 hash = "bbb62b7f5e5bfe39f1267b873c089d48c3a4eea2dae1b67e712e5c86a827ad9e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/end_sigil.png"
+hash = "f08010d4900cedbdd6f28ab1018f08020a197149d0799c4d53ca109a6e1d3b72"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/forge_sigil.png"
+hash = "8e77ec2bbc4414ca04ca1784a0d40a96a35950eb3e498944d04e6aee24c37524"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/frontier_sigil.png"
+hash = "8d2df458844753546757b4a07964b0c5a3ce7e5be6c791003afa3aca14ee98b5"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/hearth_idol.png"
@@ -385,6 +405,10 @@ file = "kubejs/assets/firmages/textures/item/sky_disc.png"
 hash = "60e96b68e55b0a83c4c60dbe0398a8e906f35bec118dcefd6102e89c92155813"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/item/space_sigil.png"
+hash = "96dabf822a9b59f0a43187c704211293f13a76ae2ea98296dc59b5fd99f4618e"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/item/star_chart.png"
 hash = "6a28d131fed8c3f1a3dcb93fdfbd3f50505712f61c76b221f8b382c0b2740e90"
 
@@ -409,8 +433,16 @@ file = "kubejs/assets/firmages/textures/item/unfired_hearth_idol.png"
 hash = "0b2e05b22dfed9d4cfc83a35976cdef48a80fe395b45d055c4707ac1dfc3a0c7"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/item/wild_sigil.png"
+hash = "26a6bb30b45ca21d8768d7f35ca9f3789ccec137bd682bfb2b704cae5f06b860"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/wither_sigil.png"
+hash = "21c9f0bcc27b20b8709473d7bff650301e6e0a36ffe0e82c95202b281baa314d"
+
+[[files]]
 file = "kubejs/client_scripts/item_tooltips.js"
-hash = "4d05ca3ed392578544181666748c608ccf47dd0ebc7e44654f38ac7bb4444cf5"
+hash = "91fea7149d531bf25c6470db1ec4020f34952e92bb33b8946dce8fccbc76d837"
 
 [[files]]
 file = "kubejs/client_scripts/viewer_static.js"
@@ -426,7 +458,7 @@ hash = "9d2d0a3fb4b1a4f2babda3f278c5c5bed4a5c6afab14b2b26c2cd7fc9ad21540"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/calorite_plateblock.json"
-hash = "2608c9c692eabfdfa8a7d35e273c9b27f41f8fb1dda771fd88dff99ca8fe91b8"
+hash = "8077960718cc14e8ac37ed81a21d1c88f1506b58f659194228a968a365b582de"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/calorite_plating.json"
@@ -442,7 +474,7 @@ hash = "51dbb0d219d185b8badef62f05e6034358d8b6d98a7c1629a4c64c4cecb92af6"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/desh_plateblock.json"
-hash = "98643a17279c3a073258fbe22b7b20f017e2b4bb5416377e9f9046c5878de381"
+hash = "b886e951adf0b137e8e19bafbd9953167eef1080f9897d94a3ce1620894584f4"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/desh_plating.json"
@@ -478,7 +510,7 @@ hash = "b8e1366e3525102011251465056e67857ace53f7918a86098d4ac38d6aec90bd"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/iron_plateblock.json"
-hash = "65bc62dd9a59c1c1ae79d2a256073f7749351746db0af09348dae98048863e44"
+hash = "95f497d740908feb8bc6be1264d88587ff446face6e97e133076fd82b64d71af"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/iron_plating.json"
@@ -494,7 +526,7 @@ hash = "270d3ab51a2338bb1b555d430a90e860049b4da46efeeeff7ff4aff3578bcde2"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/ostrum_plateblock.json"
-hash = "18e0f6eed55baad114dc7f271cd48fdcd3c80741974a99a88bcf6d176d704937"
+hash = "3fb8bd4f9ae4c3de8f6fe7255c4e3c2e9ecf09f02314d14b7967e39f35b37071"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/ostrum_plating.json"
@@ -510,7 +542,7 @@ hash = "a0c4354cda92ebce96ceb4a5bb6ac567a19788c2807ed6d26b895395d665483c"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/steel_plateblock.json"
-hash = "c22d9ca913ef419f9668f92a0f5f2a67edd2b2d2cd237c982916396a51371d53"
+hash = "26ecfeb0586f9634d8283d881d5d8b9e9f42f74356cbc4ee5a141464cef461ab"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/steel_plating.json"
@@ -537,8 +569,44 @@ file = "kubejs/data/draconicevolution/neoforge/biome_modifier/overworld_draconiu
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/firmages/gateways/abyss_trial.json"
+hash = "f1ec5cd0bf97f2d0eee46059de789f5ab3fe87612b007ba098f8687f5a0a7592"
+
+[[files]]
+file = "kubejs/data/firmages/gateways/chaos_trial.json"
+hash = "d167b29f62f2528a888e688a9f8efa0d7d345650952ae15d558d71e7338d8897"
+
+[[files]]
+file = "kubejs/data/firmages/gateways/end_trial.json"
+hash = "2c91bc4c21c33844b619696d2bdb4c3ed2428479f00072e6d5214c6bcbc5e9f1"
+
+[[files]]
+file = "kubejs/data/firmages/gateways/forge_trial.json"
+hash = "921445e4df658164a5f30a140b9720e9fc5b6a63ca48a550a0b5d371148c1b07"
+
+[[files]]
+file = "kubejs/data/firmages/gateways/frontier_trial.json"
+hash = "f5b570402daf5b7b4c458439ab55cb73c456ad5f0ae6af297155f98f0a82e0c0"
+
+[[files]]
+file = "kubejs/data/firmages/gateways/space_trial.json"
+hash = "f433bfce92f7d7959bf7b385d379c047c3aa99a20b1e2080aad6fafdcc6a7a71"
+
+[[files]]
 file = "kubejs/data/firmages/gateways/the_origin.json"
 hash = "5a4bf5c21276c2de27f4314ecf83d3bca0818657646811801f2163f197854e7d"
+
+[[files]]
+file = "kubejs/data/firmages/gateways/the_origin_fallback.json"
+hash = "75d919a894773d86e038f633968dcadc43859a6c0e2e4b9ea60e9a728f0c6f1e"
+
+[[files]]
+file = "kubejs/data/firmages/gateways/wild_trial.json"
+hash = "de31c10cf1cf74db4352b6b8411113b628775f1a98893c813ab9340f40e04769"
+
+[[files]]
+file = "kubejs/data/firmages/gateways/wither_trial.json"
+hash = "dfaebb6a1a9bd5f2f348f62a578a73927ac28d9ef8f80d7e965edd1d05433213"
 
 [[files]]
 file = "kubejs/data/firmages/loot_modifiers/datura_seed_from_tfc_grass.json"
@@ -614,35 +682,35 @@ hash = "beee1fa1dbd11e7851048bf1e9a006041bb52e2f0bbbf94d00bae347d9174f2b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "0784cbdf7e2af10a6e689374afce75d4a4fdbedb6e4548458136edec9ece358d"
+hash = "df250ad12254c1b413f6c9bb09f3d0dcf5f6da3b55c17f718adfce2942759431"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "5458575dbabf182945060e26a4f2fe2ad372e6e1b20cd2d956e26e36a1e064cd"
+hash = "ff2a0e236579c9504bff2089fd1c1b4275bd1f43f8879f21499e878f9756d259"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "0e649d4a052644f33e43122bc6e714f456398b183dbbf4a2d6d934946b3f9cbb"
+hash = "191ba7fdf3e3eaba601e047895427cf23e4008a9e6e8bf8800e9b9c313e99ea6"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "9875263ab0850ecfc1c5fb80f66737ff36f25178bb7b92cf8d0a1f39d50c25ed"
+hash = "553c345574febfa84cfc49749d62cd9bdd12fa88d719b5fddde3cd1d0d2999b7"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "ba9429b9178f82dcfe03122fe0c0969ae1942c7c8e6a503d753ec2885ba14ef8"
+hash = "9673a4a45b95e3703945a2f227622ba707f4132a121dac211297c8a37433ad57"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "f13a816bc39f85ff87fdb7001570bbdb9fe6aaed0cfdd759425d12275c72675e"
+hash = "2bad69c5c5f98711ddfe08220acf8fcc28705dbc0af4376b43517ce83322677d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "3f5d5975bae5372b104655e1643ccf6a497d5d4f7d8bd45278f01d3853177767"
+hash = "1cc5e995c0f73c5a270f2ac3ec56e3ede3329c145d86b26448e604ac8807c7c7"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "a54390be781bc49cd7ef4b3047f7b9f6b3b7dbabb2fa6c7a580502b070753368"
+hash = "de65ee207f0525c72d9ff96a769ea4578250c9c31fadef796eb4388ba7300b01"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
@@ -655,6 +723,10 @@ hash = "a6617baaa95fb9ed15cbae792915b6392920eba02fd829790129bb2fd9f86c98"
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
 hash = "7655ff6addc912102765472bd7e3fe703b190fa03125f3ed14e4ba7251182c6b"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/create_brass_nugget.json"
+hash = "1e5d31b5bc5c3d02a2cb34367ba646bac0556d4e2093f578fca38ca5e5469a74"
 
 [[files]]
 file = "kubejs/data/firmages/tfc/item_heat/create_zinc_nugget.json"
@@ -797,6 +869,10 @@ file = "kubejs/server_scripts/finale/the_primordial.js"
 hash = "0fefcc5f354ad55cb95e3391de729b0bebeb3831a9f8221b02b983b42bd23db8"
 
 [[files]]
+file = "kubejs/server_scripts/firmages/boss_fallback.js"
+hash = "721bac569a3c554f1d1305be4e7752678b467a13142e9e17b0067d0195dff791"
+
+[[files]]
 file = "kubejs/server_scripts/firmages/miner_blacklist.js"
 hash = "747477090d7cfa38ceadb38767efeb2547dd1ae25c3bc0472f6766e967142ebd"
 
@@ -810,7 +886,7 @@ hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "d5814482c68754c959e13ecf2759b807d591b6e329882276bcc1e92c9bf91e3a"
+hash = "22103670f419077137cae70387c403dd3dafc1ce8ba026d0977ec9e1a27c6af7"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
@@ -857,12 +933,20 @@ file = "kubejs/server_scripts/recipes/age_9/singularity_age.js"
 hash = "b9c28d40987580a0dfb95f91ed7e43f334f33e582955d874b473944f8636c567"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/boss_sigils.js"
+hash = "4a30a3736a6720300eff104316673214d09843d61fe40f21a86a4a59b3608454"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/byproducts.js"
-hash = "791f6252d08b91db914a53f0117bb5fd837caadbb06613a3b628de8ba481ffc0"
+hash = "bc2c9fcc86f8c640b7cba64b4ff7614dfcb70b9284c7e59372ba6ac3a25763c0"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/dead_inputs.js"
+hash = "89b87005fb6e2ef07eeb789b837ab91708089593e4583dd3a08f7d9799e3b8b1"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/gear_rule.js"
-hash = "cf14694da940a61a745a46cdac4f2563ac5c0f8ec71ba965caa8c2cdf1d6b2f1"
+hash = "afbab765c680097a31ed76affb886b44f63aa1c666358c75e68716e7b13ae71d"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
@@ -874,7 +958,7 @@ hash = "bd8ce06acf47dbc305ad8eba7cbc1ec511303c8385de640144d160fe6f94845e"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/tfc_station_inputs.js"
-hash = "12f7e605d569a84329bb5f5db0643d339742e0f74daa7385009355aa7d019010"
+hash = "376e515c7ecd2375b013bc49813d21f2dc5c77182dd5028458e7748207b15d32"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
@@ -890,7 +974,7 @@ hash = "8d2aaeaeb7766f7d0035fb6ef21aaf290fa04072b5c25f6295d48c3784b2e745"
 
 [[files]]
 file = "kubejs/server_scripts/tags/arcane_industrial.js"
-hash = "93733816ef7278234a5180d341462a600579a9c9245afad33708d362b02fb52b"
+hash = "f419ed8678bf1bcc7464dc59287ffb80335ba6557c85d405e968283dbd414bde"
 
 [[files]]
 file = "kubejs/server_scripts/tags/broken_mod_tags.js"
@@ -902,7 +986,7 @@ hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
 
 [[files]]
 file = "kubejs/server_scripts/tags/late_ages.js"
-hash = "f37d16e492b1939c179c48ede5134e84b7896842bbb9b936afaf63751bf6f35e"
+hash = "97d59ab77d3a8043af081d508debd6d16084efe19846b9a4ce7562b47e47e1f6"
 
 [[files]]
 file = "kubejs/server_scripts/tags/tfc_stations.js"
@@ -910,7 +994,7 @@ hash = "f3ac29f73c344d50175341cac291e4c2d423f0344e3417f65235d0ad72bd0383"
 
 [[files]]
 file = "kubejs/server_scripts/tags/unification.js"
-hash = "aab97f8e32aeb665440de07d5da4fa10003869652c3d95121f371dba6da11c0a"
+hash = "4935515dc98c0d9920d6731c771b1d0cce0838e9e0f01a68a562eabd4e81bd0c"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
@@ -918,7 +1002,7 @@ hash = "f966b162d4911935ec43ff1e175b577ea17f00ec11241acaf0b20ab4cc09f221"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
-hash = "5ab2e79950f3179f52cd81adb49ecb48939d1c56d974518a2ad6c9d4dad88cf8"
+hash = "6dc9d0f19b0f179cb307fdca796d4fb623cd828d1b039af9f2f78b12c514cf18"
 
 [[files]]
 file = "mods/ad-astra.pw.toml"

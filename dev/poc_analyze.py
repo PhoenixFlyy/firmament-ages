@@ -1045,6 +1045,19 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           not iron_tier, iron_tier)
     occ_silver = sorted(r for r, j in full.items() if re.search(r'"occultism:silver_(ingot|nugget)"', inputs_text(j)))
     check("C-3s no recipe asks for Occultism silver ingots or nuggets (global_removals.js OCCULT_SILVER)", not occ_silver, occ_silver)
+    # C-Di: items no recipe makes (the disabled Create sheets, vanilla copper and gold ingots, iron block, lapis) must not
+    # be named as an ingredient by item id (recipes/dead_inputs.js DEAD, byproducts.js). Recipes that only make disabled
+    # items are dead anyway and left out.
+    src_dead = open(os.path.join(REPO, "kubejs", "server_scripts", "recipes", "dead_inputs.js"), encoding="utf-8").read()
+    dead_block = src_dead[src_dead.index("// BEGIN DEAD"):src_dead.index("// END DEAD")]
+    dead = set(re.findall(r"'([a-z0-9_]+:[a-z0-9_/]+)':", dead_block))
+    outs_of = {r: os_ for r, _, os_ in recs}
+    dead_rx = re.compile(r'"item": "(%s)"' % "|".join(re.escape(d) for d in sorted(dead)))
+    dead_in = sorted(f"{r}: {sorted(set(dead_rx.findall(inputs_text(j))))}" for r, j in full.items()
+                     if dead_rx.search(inputs_text(j))
+                     and not (outs_of.get(r) and all(item_age.get(o) == "disabled" for o in outs_of[r])))
+    check(f"C-Di no recipe with a live output names one of the {len(dead)} dead items of dead_inputs.js as an ingredient",
+          dead and not dead_in, dead_in)
     # C-3m: the Arcane MAP (recipes/age_3/arcane_tfc_inputs.js) runs on a fixed id list; no recipe of the magic mods
     # may still name one of its vanilla items as an ingredient.
     src3 = open(os.path.join(REPO, "kubejs", "server_scripts", "recipes", "age_3", "arcane_tfc_inputs.js"), encoding="utf-8").read()
@@ -1188,6 +1201,27 @@ REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
     ("age_9", "firmages:crafting/classic_stargate_base_block", STARGATE_CHAIN),
 ]
 
+# Boss fallbacks (Doc 08 section 5.1): (Age, sigil, gateway) of kubejs/server_scripts/firmages/boss_fallback.js.
+FALLBACKS = [("age_2", "firmages:frontier_sigil", "firmages:frontier_trial"), ("age_3", "firmages:wild_sigil", "firmages:wild_trial"),
+             ("age_4", "firmages:forge_sigil", "firmages:forge_trial"), ("age_5", "firmages:wither_sigil", "firmages:wither_trial"),
+             ("age_6", "firmages:end_sigil", "firmages:end_trial"), ("age_7", "firmages:space_sigil", "firmages:space_trial"),
+             ("age_8", "firmages:abyss_sigil", "firmages:abyss_trial"), ("age_9", "firmages:chaos_sigil", "firmages:chaos_trial")]
+# Boss drops that the start set gets elsewhere (MOB_DROPS); the R-F walk leaves them out too. NOT_BOSS: entries of
+# BOSS_DROPS that are world drops, not boss drops (the TFCreate quartz vein).
+BOSS_TOKEN_REAL = {"age_3": ["ars_nouveau:wilden_tribute"], "age_4": ["cataclysm:monstrous_horn"]}
+NOT_BOSS = {"tfcreate:unpolished_quartz"}
+# Items whose only recipe needed a dead part (Create sheets, barrel, a disabled rod, the brass nugget). Not here because
+# the walk does not model their chain: the MA soul extractor (Mystical Agriculture ores) and the AdvancedAE strength
+# card (quantum alloy from AE2 singularities); their recipes are checked by C-Di and C-Gv.
+LEFTOVERS = [("age_1", ["create:brass_nugget"]),
+             ("age_2", ["create_connected:control_chip", "createdeco:red_shipping_container", "createdeco:decal_fire",
+                        "railways:track_monorail", "trainutilities:sound_unit"]),
+             ("age_4", ["simulated:gyroscopic_mechanism", "simulated:engine_assembly", "create_factory_logistics:fluid_mechanism",
+                        "aeronautics:gyroscopic_propeller_bearing", "simulated:red_portable_engine"]),
+             ("age_5", ["create_hypertube:hypertube"]),
+             ("age_7", ["ad_astra:steel_plateblock", "ad_astra:iron_plateblock"]),
+             ("age_8", ["ad_astra:calorite_plateblock"])]
+
 
 def reach_checks(full, recs, items, tags, item_age, check):
     try:
@@ -1220,7 +1254,7 @@ def reach_checks(full, recs, items, tags, item_age, check):
             groups.append([f"draconicevolution:{lvl}_crafting_injector"])
         return groups
 
-    def start(n):
+    def start(n, without=()):
         have = {i for i in items if i.split(":")[0] in WORLD_NS}
         for st, words in VANILLA_BY_AGE.items():
             if AGES.index(st) <= n:
@@ -1235,10 +1269,10 @@ def reach_checks(full, recs, items, tags, item_age, check):
             if AGES.index(st) <= n:
                 have |= got
         have |= set(MOB_DROPS)
-        return {i for i in have if age_ix(i) <= n and item_age.get(i) != "disabled"}
+        return {i for i in have if age_ix(i) <= n and item_age.get(i) != "disabled" and i not in without}
 
-    def walk(n):
-        have = start(n)
+    def walk(n, without=()):
+        have = start(n, without)
         heat = {rid: HEAT_STATION.get(full[rid].get("heat_requirement")) for rid, _, _ in recs}
         stations = {rid: station_groups(rid) for rid, _, _ in recs}
         live = [(rid, sl, set(os_)) for rid, sl, os_ in recs
@@ -1299,8 +1333,12 @@ def reach_checks(full, recs, items, tags, item_age, check):
     # R-0: no recipe of a mod asks for a vanilla station block that a TFC world cannot make
     # (kubejs/server_scripts/recipes/tfc_station_inputs.js; the magic mods are in recipes/age_3/arcane_tfc_inputs.js)
     have_all = walk(AGES.index("age_9"))[0]
-    blocked = sorted({f"{rid}: {v}" for rid, sl, _ in recs if not rid.startswith("minecraft:") and rid not in STATION_TRANSFORMS
-                     for x in sl for k, v in x if len(x) == 1 and k == "item" and v in STATION_VANILLA and v not in have_all})
+    # Vanilla's own recipes are locked anyway; a mod recipe under the minecraft: namespace (createdeco's shipping
+    # containers) is judged by its output.
+    blocked = sorted({f"{rid}: {v}" for rid, sl, os_ in recs
+                      if not (rid.startswith("minecraft:") and all(o.startswith("minecraft:") for o in os_))
+                      and rid not in STATION_TRANSFORMS
+                      for x in sl for k, v in x if len(x) == 1 and k == "item" and v in STATION_VANILLA and v not in have_all})
     check(f"R-0 no recipe needs a vanilla station block without a source in the pack ({len(STATION_VANILLA)} blocks)",
           not blocked, blocked)
     for st, rid, chain in REACH_GOALS:
@@ -1326,6 +1364,37 @@ def reach_checks(full, recs, items, tags, item_age, check):
               f"reachable at {st} (outputs of {st} or earlier, stations by {st})",
               goal_ok and not chain_bad and all(x.startswith("ok") for x in lines),
               lines + [f"goal reached: {goal_ok}", f"chain items not reached: {chain_bad}"] + bad)
+
+    # R-F: the boss fallbacks of Doc 08 section 5.1 (firmages/boss_fallback.js). Each sigil is reachable at its Age
+    # WITHOUT any boss drop of that Age or later (it must not need the boss it stands in for), its gateway file exists,
+    # and the gate pays out every member of the Age's boss token tag, so each recipe slot accepts the payout.
+    gates_dir = os.path.join(REPO, "kubejs", "data", "firmages", "gateways")
+    for st, sigil, gate in FALLBACKS:
+        n = AGES.index(st)
+        drops = ({d for a, ds in BOSS_DROPS.items() if AGES.index(a) >= n for d in ds} - NOT_BOSS) | set(BOSS_TOKEN_REAL.get(st, []))
+        have, live, sat = walk(n, drops)
+        lines = [] if sigil in have else why(sigil, have, live, sat, n)
+        path = os.path.join(gates_dir, gate.split(":", 1)[1] + ".json")
+        paid = []
+        if os.path.isfile(path):
+            with open(path, encoding="utf-8") as f:
+                g = json.load(f)
+            paid = [r["stack"]["id"] for r in g.get("rewards", []) if r.get("type") == "gateways:stack"]
+        token = tags.get(f"firmages:boss_token/{st}", [])
+        unpaid = [t for t in token if t not in paid]
+        check(f"R-F {st} {sigil}: reachable at {st} without the boss drops ({len(drops)}); {gate} pays out the boss token",
+              sigil in have and os.path.isfile(path) and token and not unpaid,
+              lines + [f"gate file {os.path.relpath(path, REPO)} exists: {os.path.isfile(path)}", f"pays out {paid}",
+                       f"boss_token/{st} {token}, not paid out {unpaid}"])
+
+    # R-L: items whose only recipe was broken by a disabled part (leftovers run, 2026-10-01) are reachable at their Age.
+    for st, its in LEFTOVERS:
+        n = AGES.index(st)
+        have, live, sat = walk(n)
+        miss = [i for i in its if i not in have]
+        bad = [l for i in miss for l in why(i, have, live, sat, n)]
+        check(f"R-L {st}: {len(its)} leftover items reachable ({', '.join(i.split(':')[1] for i in its)})", not miss,
+              [f"not reached: {miss}"] + bad)
 
 
 if __name__ == "__main__":

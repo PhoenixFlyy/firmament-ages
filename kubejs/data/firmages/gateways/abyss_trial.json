@@ -1,0 +1,79 @@
+{
+  "type": "gateways:normal",
+  "size": "large",
+  "color": "#2C5A8A",
+  "waves": [
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:drowned",
+          "count": 6
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:guardian",
+          "count": 3
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 100,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:elder_guardian",
+          "count": 1,
+          "nbt": {
+            "CustomNameVisible": 1,
+            "CustomName": "{\"text\": \"Echo of the Leviathan\", \"color\": \"red\"}"
+          },
+          "modifiers": [
+            {
+              "type": "gateways:attribute",
+              "attribute": "minecraft:generic.max_health",
+              "operation": "add_multiplied_total",
+              "value": 3.0
+            }
+          ]
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:guardian",
+          "count": 2
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 6000,
+      "setup_time": 200,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.5
+        }
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "type": "gateways:stack",
+      "stack": {
+        "id": "cataclysm:abyssal_egg",
+        "count": 1
+      }
+    }
+  ],
+  "failures": []
+}

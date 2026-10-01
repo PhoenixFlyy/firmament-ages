@@ -43,6 +43,7 @@
     {"id": "draconicevolution:reactor_prt_stab_frame", "required": false},
     {"id": "draconicevolution:reactor_stabilizer", "required": false},
     {"id": "draconicevolution:small_chaos_frag", "required": false},
+    {"id": "firmages:chaos_sigil", "required": false},
     {"id": "firmages:origin_altar", "required": false},
     {"id": "firmages:origin_coordinates", "required": false},
     {"id": "firmages:reactor_controller", "required": false},

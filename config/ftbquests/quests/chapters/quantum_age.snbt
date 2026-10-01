@@ -511,8 +511,19 @@
 				{
 					entity: "cataclysm:the_leviathan"
 					id: "0C774C1086D1B5F3"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "601FF3DD54AE5566"
+					item: {
+						count: 1
+						id: "cataclysm:abyssal_egg"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 9.5d

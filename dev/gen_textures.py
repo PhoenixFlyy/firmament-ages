@@ -724,6 +724,33 @@ item("origin_coordinates", "Age 9", [
 ], {**shade("paper"), **legend(I=("arcane", 2), A=("draconium", 1), B=("draconium", 3), C=("violet", 3),
                                D=("violet", 4))})
 
+# Boss fallback sigils (Doc 08 section 5.1): one round seal for all eight, the disc in the Age's metal and the carved
+# gate rune in its beam colour, so a sigil reads as "the boss key of Age N" next to the Age's signature item.
+SIGIL = [
+    "................",
+    ".....oooooo.....",
+    "...oohhllmmoo...",
+    "..ohhlllmmmmdo..",
+    "..ohlmRRRRRmdo..",
+    ".ohlmRmmmmmRmdo.",
+    ".ohlRmmRRRmmRdo.",
+    ".olmRmRmmmRmRdo.",
+    ".olmRmRmGmRmRdo.",
+    ".olmRmmRRRmmRdo.",
+    ".oldmRmmmmmRddo.",
+    "..oldmRRRRRmddo.",
+    "..oldmmmmmmddo..",
+    "...ooddddddoo...",
+    ".....oooooo.....",
+    "................",
+]
+for _path, _age, _disc, _rune in [
+        ("frontier_sigil", "Age 2", "steel", "heat"), ("wild_sigil", "Age 3", "patina", "arcane"),
+        ("forge_sigil", "Age 4", "iron", "rust"), ("wither_sigil", "Age 5", "coal", "steam"),
+        ("end_sigil", "Age 6", "quartz", "data"), ("space_sigil", "Age 7", "navy", "star"),
+        ("abyss_sigil", "Age 8", "calorite", "cyan"), ("chaos_sigil", "Age 9", "void", "violet")]:
+    item(_path, _age, SIGIL, {**shade(_disc), **legend(R=(_rune, 3), G=(_rune, 4))})
+
 DUST = [
     "................",
     "................",

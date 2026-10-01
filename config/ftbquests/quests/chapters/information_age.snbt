@@ -710,8 +710,19 @@
 				{
 					entity: "minecraft:ender_dragon"
 					id: "1D690F39D441BAD5"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "2CF0BE54B78A04BD"
+					item: {
+						count: 1
+						id: "minecraft:dragon_breath"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 6.0d

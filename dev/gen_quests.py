@@ -133,11 +133,19 @@ def t_check(title=None):
     return {'type': 'checkmark'}, title
 
 
-def t_kill(entity=None, tag=None, value=1, title=None):
+def t_kill(entity=None, tag=None, value=1, title=None, optional=False):
     d = {'type': 'kill', 'entity': entity or 'minecraft:zombie', 'value': L(value)}
     if tag:
         d['entityTypeTag'] = tag
+    if optional:
+        d['optional_task'] = True
     return d, title
+
+
+def t_boss(entity, drop, count=1):
+    """Boss checkpoint (Doc 08 section 5.1): the kill OR the drop, so the fallback gateway (its sigil pays out the
+    drop, kubejs/server_scripts/firmages/boss_fallback.js) completes the quest too. Every task optional -> either one."""
+    return [t_kill(entity, value=1, optional=True), t_item(drop, count, optional=True, consume=False)]
 
 
 def t_observe(target, kind='block', timer=0, title=None):
@@ -648,12 +656,18 @@ IRON = age_chapter(
               desc=['Dig a 2x2 pool of water ringed by grass or dirt, put flowers around it and throw polished quartz into',
                     'the water. Polished quartz comes from the quartz veins of the Iron Age, polished with sandpaper.',
                     'Step through.']),
-            Q('iron/front/naga', 'The Naga', t_kill('twilightforest:naga', value=1), icon='twilightforest:naga_trophy',
-              desc=['Defeat the Naga in its courtyard.']),
-            Q('iron/front/lich', 'The Lich', t_kill('twilightforest:lich', value=1), icon='twilightforest:lich_trophy',
-              desc=['Climb the Lich tower and defeat the Lich.']),
+            Q('iron/front/naga', 'The Naga', t_boss('twilightforest:naga', 'twilightforest:naga_trophy'),
+              icon='twilightforest:naga_trophy',
+              desc=['Defeat the Naga in its courtyard, or bring its trophy from the Frontier Trial.']),
+            Q('iron/front/lich', 'The Lich', t_boss('twilightforest:lich', 'twilightforest:lich_trophy'),
+              icon='twilightforest:lich_trophy',
+              desc=['Climb the Lich tower and defeat the Lich, or bring its trophy from the Frontier Trial.']),
         ], Q('iron/front/key', 'Lich Trophy', t_item('twilightforest:lich_trophy', consume=False), kind='keystone',
-             desc=['The Lich drops its trophy. The Steel Heart needs it.'])),
+             desc=['The Lich drops its trophy. The Steel Heart needs it.',
+                   '',
+                   'Fallback: if the Twilight Forest has no Lich tower for you, craft a Frontier Sigil (steel sheets,',
+                   'polished quartz, a precision mechanism) and use it on open ground. Its Gateway sends three waves;',
+                   'clear them and it gives a Naga trophy and a Lich trophy.'])),
     ],
     goal=Q('iron/goal', 'Offer the Steel Heart at the Shrine',
            t_stage('age_3', 'Offer the Steel Heart at the shrine'), kind='goal', icon='firmages:steel_heart',
@@ -745,12 +759,15 @@ ARCANE = age_chapter(
               desc=['A Starbuncle carries items between chests: the item transport of the Arcane Age.']),
             Q('arcane/source/apprentice', 'Apprentice Spellbook', t_item('ars_nouveau:apprentice_spell_book'),
               desc=['The apprentice spellbook holds the stronger glyphs you need against the Wilden Chimera.']),
-            Q('arcane/source/chimera', 'Wilden Chimera', t_kill('ars_nouveau:wilden_boss', value=1),
+            Q('arcane/source/chimera', 'Wilden Chimera', t_boss('ars_nouveau:wilden_boss', 'ars_nouveau:wilden_tribute'),
               icon='ars_nouveau:ritual_wilden_summon',
-              desc=['Summon the Wilden Chimera with its ritual and defeat it.']),
+              desc=['Summon the Wilden Chimera with its ritual and defeat it, or clear the Wild Trial.']),
         ], Q('arcane/source/key', 'Wilden Tribute', t_item('ars_nouveau:wilden_tribute', consume=False),
              kind='keystone',
-             desc=['The Chimera drops the Wilden Tribute. The Arcane Keystone needs it.'])),
+             desc=['The Chimera drops the Wilden Tribute. The Arcane Keystone needs it.',
+                   '',
+                   'Fallback: if the ritual cannot be done, craft a Wild Sigil (mercury shards, otherworld essence,',
+                   'a source gem block) and use it on open ground. Clear the Wild Trial and it gives a Wilden Tribute.'])),
         ('Alchemy', [
             Q('arcane/alch/brazier', 'Pyromantic Brazier', t_item('theurgy:pyromantic_brazier'),
               desc=['Theurgy heats its apparatus with a pyromantic brazier. Read the Hermetica as you go.']),
@@ -854,9 +871,12 @@ INDUSTRIAL = age_chapter(
             Q('industrial/steel/anvil', 'Black Steel Anvil', t_item('tfc:metal/anvil/black_steel'),
               desc=['A black steel anvil works black steel double sheets.']),
             Q('industrial/steel/monstrosity', 'Netherite Monstrosity',
-              t_kill('cataclysm:netherite_monstrosity', value=1), icon='cataclysm:monstrous_horn',
-              desc=['A Gateway in the Nether calls the Netherite Monstrosity. Its horn goes into the Pressure Core.',
-                    'If the Gateway fails, the Summoning Rituals altar can call it too.']),
+              t_boss('cataclysm:netherite_monstrosity', 'cataclysm:monstrous_horn'), icon='cataclysm:monstrous_horn',
+              desc=['The Summoning Rituals altar calls the Netherite Monstrosity: netherite as the initiator, blaze rods,',
+                    'black steel double ingots and magma blocks. Its horn goes into the Pressure Core.',
+                    '',
+                    'Fallback: a Forge Sigil (black steel sheets, blaze rods, netherite) opens the Forge Trial.',
+                    'Clear it and it gives a Monstrous Horn.']),
         ], Q('industrial/steel/key', 'Black Steel Double Sheets', t_item('tfc:metal/double_sheet/black_steel', 2),
              kind='keystone', desc=['Two black steel double sheets for the Pressure Core.'])),
         ('Power', [
@@ -1030,8 +1050,12 @@ ELECTRIC = age_chapter(
                                                                 title='Look at a formed assembler'),
               icon='immersiveengineering:assembler',
               desc=['The assembler autocrafts grid recipes: the autocrafting of this Age.']),
-            Q('electric/circ/wither', 'The Wither', t_kill('minecraft:wither', value=1), icon='minecraft:nether_star',
-              desc=['Summon the Wither and defeat it. The Humming Core needs its Nether Star.']),
+            Q('electric/circ/wither', 'The Wither', t_boss('minecraft:wither', 'minecraft:nether_star'),
+              icon='minecraft:nether_star',
+              desc=['Summon the Wither and defeat it. The Humming Core needs its Nether Star.',
+                    '',
+                    'Fallback: a Wither Sigil (aluminium plates, soul sand, one wither skeleton skull) opens the',
+                    'Wither Trial. Clear it and it gives a Nether Star.']),
         ], Q('electric/circ/key', 'Attuned Circuits', t_item('firmages:attuned_circuit', 16), kind='keystone',
              desc=['A circuit board with a spirit attuned crystal: the magic tail of the Electric Age.',
                    'Let the assembler make them.'])),
@@ -1163,10 +1187,14 @@ INFORMATION = age_chapter(
             Q('information/end/enter', 'The End', t_dim('minecraft:the_end'), icon='minecraft:end_stone',
               desc=['Set the twelve frames as a ring around a 3 by 3 hole, all facing inwards,',
                     'fill them with the eyes of ender and step through.']),
-            Q('information/end/dragon', 'The Ender Dragon', t_kill('minecraft:ender_dragon', value=1),
-              icon='minecraft:dragon_head', desc=['Destroy the crystals, then the dragon.']),
+            Q('information/end/dragon', 'The Ender Dragon', t_boss('minecraft:ender_dragon', 'minecraft:dragon_breath'),
+              icon='minecraft:dragon_head', desc=['Destroy the crystals, then the dragon, or clear the End Trial.']),
         ], Q('information/end/key', 'Dragon\'s Breath', t_item('minecraft:dragon_breath', 4), kind='keystone',
-             desc=['Bottle the dragon\'s breath. The Data Matrix needs it.'])),
+             desc=['Bottle the dragon\'s breath. The Data Matrix needs it.',
+                   '',
+                   'Fallback: if the dragon cannot be fought, craft an End Sigil (ender pearls, osmium, a basic control',
+                   'circuit) and use it on open ground. Clear the End Trial and it gives four bottles of dragon\'s breath;',
+                   'from the Space Age on it also gives a Dragon Heart.'])),
     ],
     goal=Q('information/goal', 'Offer the Data Matrix at the Shrine',
            t_stage('age_7', 'Offer the Data Matrix at the shrine'), kind='goal', icon='firmages:data_matrix',
@@ -1260,16 +1288,22 @@ SPACE = age_chapter(
               desc=['Desh builds the tier 2 rocket.']),
             Q('space/mars/land', 'Mars', t_dim('ad_astra:mars'), icon='ad_astra:raw_ostrum', desc=['Land on Mars.']),
             Q('space/mars/ostrum', 'Ostrum', t_item('ad_astra:raw_ostrum', 16), desc=['Mine ostrum on Mars.']),
-            Q('space/mars/harbinger', 'The Harbinger', t_kill('cataclysm:the_harbinger', value=1),
+            Q('space/mars/harbinger', 'The Harbinger', t_boss('cataclysm:the_harbinger', 'cataclysm:witherite_block'),
               icon='cataclysm:witherite_block',
-              desc=['Defeat the Harbinger. Its witherite block goes into the Star Chart.']),
+              desc=['Defeat the Harbinger. Its witherite block goes into the Star Chart.',
+                    '',
+                    'Fallback: a Space Sigil (desh and ostrum plates around a Nether Star) opens the Space Trial,',
+                    'which ends with a Wither. Open it far from your base. Clear it and it gives a Witherite Block.']),
         ], Q('space/mars/key', 'Ostrum Plates', t_item('ad_astra:ostrum_plate', 32), kind='keystone',
              desc=['Thirty-two ostrum plates.'])),
         ('Draconium', [
             Q('space/drac/ingot', 'Draconium', t_item('draconicevolution:draconium_ingot', 16),
               desc=['Draconium ore lies in the End.']),
             Q('space/drac/heart', 'Dragon Heart', t_item('draconicevolution:dragon_heart', consume=False),
-              desc=['The Ender Dragon now drops its heart.']),
+              desc=['The Ender Dragon now drops its heart.',
+                    '',
+                    'Fallback: if the dragon cannot be fought, an End Sigil opens the End Trial; in this Age it also',
+                    'gives a Dragon Heart.']),
             Q('space/drac/core', 'Fusion Crafting Core', t_item('draconicevolution:crafting_core'),
               desc=['Fusion crafting is the one pedestal crafting of the tech Ages.']),
             Q('space/drac/injectors', 'Injectors',
@@ -1375,9 +1409,12 @@ QUANTUM = age_chapter(
               desc=['Draconic-level fusion needs awakened injectors.']),
             Q('quantum/awake/evolved', 'Evolved Mekanism', t_item('evolvedmekanism:alloy_hypercharged', 4),
               desc=['Evolved Mekanism adds the tiers above ultimate.']),
-            Q('quantum/awake/leviathan', 'The Leviathan', t_kill('cataclysm:the_leviathan', value=1),
+            Q('quantum/awake/leviathan', 'The Leviathan', t_boss('cataclysm:the_leviathan', 'cataclysm:abyssal_egg'),
               icon='cataclysm:abyssal_egg',
-              desc=['Defeat the Leviathan in the deep. Its abyssal egg goes into the Quantum Core.']),
+              desc=['Defeat the Leviathan in the deep. Its abyssal egg goes into the Quantum Core.',
+                    '',
+                    'Fallback: an Abyss Sigil (calorite plates, ice shards, hypercharged alloy) opens the Abyss Trial.',
+                    'Clear it and it gives an Abyssal Egg.']),
         ], Q('quantum/awake/key', 'Awakened Core', t_item('draconicevolution:awakened_core'), kind='keystone',
              desc=['The awakened core is the catalyst of the Quantum Core.'])),
         ('Marid', [
@@ -1449,9 +1486,14 @@ SINGULARITY = age_chapter(
                   'Three strands lead to the final battle: Chaos, Singularity and Stargate.']),
     strands=[
         ('Chaos', [
-            Q('singularity/chaos/guardian', 'Chaos Guardian', t_kill('draconicevolution:draconic_guardian', value=1),
+            Q('singularity/chaos/guardian', 'Chaos Guardian',
+              t_boss('draconicevolution:draconic_guardian', 'draconicevolution:chaos_shard'),
               icon='draconicevolution:chaos_shard',
-              desc=['The Chaos Guardian waits on a Chaos Island in the End.']),
+              desc=['The Chaos Guardian waits on a Chaos Island in the End.',
+                    '',
+                    'Fallback: if the guardian cannot be beaten (or will not take damage), craft a Chaos Sigil',
+                    '(awakened draconium, naquadah, a dragon heart) and use it on open ground. The Chaos Trial ends',
+                    'with a Wither and two guardian withers; clear it and it gives four Chaos Shards. It can be repeated.']),
             Q('singularity/chaos/shards', 'Chaos Shards', t_item('draconicevolution:chaos_shard', 8),
               desc=['Chaos shards drop from the guardian\'s crystals.']),
             Q('singularity/chaos/injectors', 'Chaotic Injectors',

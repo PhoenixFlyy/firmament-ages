@@ -1,0 +1,96 @@
+{
+  "type": "gateways:normal",
+  "size": "large",
+  "color": "#40FF80",
+  "waves": [
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "cataclysm:endermaptera",
+          "count": 4
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 100
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "cataclysm:endermaptera",
+          "count": 3
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "cataclysm:ender_golem",
+          "count": 1
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 150,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.25
+        }
+      ]
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "cataclysm:ender_golem",
+          "count": 1,
+          "nbt": {
+            "CustomNameVisible": 1,
+            "CustomName": "{\"text\": \"Herald of the End\", \"color\": \"red\"}"
+          },
+          "modifiers": [
+            {
+              "type": "gateways:attribute",
+              "attribute": "minecraft:generic.max_health",
+              "operation": "add_multiplied_total",
+              "value": 1.0
+            }
+          ]
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "cataclysm:ender_golem",
+          "count": 1
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "cataclysm:endermaptera",
+          "count": 3
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 4800,
+      "setup_time": 200,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.25
+        }
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "type": "gateways:stack",
+      "stack": {
+        "id": "minecraft:dragon_breath",
+        "count": 4
+      }
+    }
+  ],
+  "failures": []
+}

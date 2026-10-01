@@ -2455,6 +2455,7 @@
     {"id": "dndecor:zinc_sheet_metal", "required": false},
     {"id": "firmages:dust/bismuth", "required": false},
     {"id": "firmages:dust/zinc", "required": false},
+    {"id": "firmages:frontier_sigil", "required": false},
     {"id": "firmages:steel_heart", "required": false},
     {"id": "firmalife:iron_greenhouse_door", "required": false},
     {"id": "firmalife:iron_greenhouse_panel_roof", "required": false},

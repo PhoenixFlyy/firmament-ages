@@ -57,8 +57,19 @@
 				{
 					entity: "draconicevolution:draconic_guardian"
 					id: "0DA176C0F4AB0CAF"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "5CC6A9DAA864F95F"
+					item: {
+						count: 1
+						id: "draconicevolution:chaos_shard"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 2.5d

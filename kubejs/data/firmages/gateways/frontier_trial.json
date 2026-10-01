@@ -1,0 +1,103 @@
+{
+  "type": "gateways:normal",
+  "size": "medium",
+  "color": "#E06030",
+  "waves": [
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:zombie",
+          "count": 4
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:spider",
+          "count": 3
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 100
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:skeleton",
+          "count": 4
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:witch",
+          "count": 2
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 150,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.25
+        }
+      ]
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:vindicator",
+          "count": 1,
+          "nbt": {
+            "CustomNameVisible": 1,
+            "CustomName": "{\"text\": \"Frontier Warden\", \"color\": \"red\"}"
+          },
+          "modifiers": [
+            {
+              "type": "gateways:attribute",
+              "attribute": "minecraft:generic.max_health",
+              "operation": "add_multiplied_total",
+              "value": 4.0
+            }
+          ]
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:skeleton",
+          "count": 3
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 3600,
+      "setup_time": 200,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.5
+        }
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "type": "gateways:stack",
+      "stack": {
+        "id": "twilightforest:naga_trophy",
+        "count": 1
+      }
+    },
+    {
+      "type": "gateways:stack",
+      "stack": {
+        "id": "twilightforest:lich_trophy",
+        "count": 1
+      }
+    }
+  ],
+  "failures": []
+}

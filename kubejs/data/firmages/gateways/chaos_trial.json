@@ -1,0 +1,69 @@
+{
+  "type": "gateways:normal",
+  "size": "large",
+  "color": "#F4F0FF",
+  "waves": [
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "draconicevolution:guardian_wither",
+          "count": 2
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 4800,
+      "setup_time": 100
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:wither",
+          "count": 1,
+          "nbt": {
+            "CustomNameVisible": 1,
+            "CustomName": "{\"text\": \"Echo of Chaos\", \"color\": \"red\"}"
+          },
+          "modifiers": [
+            {
+              "type": "gateways:attribute",
+              "attribute": "minecraft:generic.max_health",
+              "operation": "add_multiplied_total",
+              "value": 2.0
+            }
+          ]
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "draconicevolution:guardian_wither",
+          "count": 2
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 6000,
+      "setup_time": 200,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.5
+        }
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "type": "gateways:stack",
+      "stack": {
+        "id": "draconicevolution:chaos_shard",
+        "count": 4
+      }
+    }
+  ],
+  "failures": [],
+  "rules": {
+    "leash_range": 64.0
+  }
+}

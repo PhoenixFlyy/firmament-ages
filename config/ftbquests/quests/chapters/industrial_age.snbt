@@ -250,8 +250,19 @@
 				{
 					entity: "cataclysm:netherite_monstrosity"
 					id: "20DEDE89AF1F525E"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "3B5C852C83E11A9D"
+					item: {
+						count: 1
+						id: "cataclysm:monstrous_horn"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 16.5d

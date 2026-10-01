@@ -64,8 +64,8 @@ ServerEvents.tags('item', (event) => {
   // Signature items, used by the Ultimate Singularity quest/recipe later.
   event.add('firmages:signature_items', ['firmages:hearthstone', 'firmages:sky_disc', 'firmages:steel_heart'])
 
-  // Boss tokens: recipe slots take the real drop OR the fallback token (Doc 08 section 5.1).
-  // POC: Twilight Forest 4.8 trophy id for the Lich; the "Frontier Sigil" fallback token is not registered yet.
+  // Boss tokens: recipe slots take the tag (Doc 08 section 5.1). The Frontier Trial gateway (Frontier Sigil,
+  // firmages/boss_fallback.js) pays out the Lich trophy itself, so the tag holds only the real drop.
   event.add('firmages:boss_token/age_2', 'twilightforest:lich_trophy')
 
   // Twilight Forest portal (Iron Age dimension, Doc 08 section 6). Its default activator #c:gems/diamond is age_4 in

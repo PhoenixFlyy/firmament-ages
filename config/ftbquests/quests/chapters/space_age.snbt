@@ -514,8 +514,19 @@
 				{
 					entity: "cataclysm:the_harbinger"
 					id: "2C9E3E8F3B63A5C9"
+					optional_task: true
 					type: "kill"
 					value: 1L
+				}
+				{
+					consume_items: false
+					id: "44878218794ADC2E"
+					item: {
+						count: 1
+						id: "cataclysm:witherite_block"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 7.75d

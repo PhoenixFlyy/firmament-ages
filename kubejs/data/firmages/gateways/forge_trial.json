@@ -1,0 +1,101 @@
+{
+  "type": "gateways:normal",
+  "size": "medium",
+  "color": "#A0522D",
+  "waves": [
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:blaze",
+          "count": 3
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:magma_cube",
+          "count": 3
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 100
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:piglin_brute",
+          "count": 2
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:blaze",
+          "count": 3
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 2400,
+      "setup_time": 150,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.25
+        }
+      ]
+    },
+    {
+      "entities": [
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:piglin_brute",
+          "count": 1,
+          "nbt": {
+            "CustomNameVisible": 1,
+            "CustomName": "{\"text\": \"Forge Warden\", \"color\": \"red\"}"
+          },
+          "modifiers": [
+            {
+              "type": "gateways:attribute",
+              "attribute": "minecraft:generic.max_health",
+              "operation": "add_multiplied_total",
+              "value": 5.0
+            }
+          ]
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:magma_cube",
+          "count": 3
+        },
+        {
+          "type": "gateways:standard",
+          "entity": "minecraft:blaze",
+          "count": 2
+        }
+      ],
+      "rewards": [],
+      "max_wave_time": 3600,
+      "setup_time": 200,
+      "modifiers": [
+        {
+          "type": "gateways:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "operation": "add_multiplied_total",
+          "value": 0.5
+        }
+      ]
+    }
+  ],
+  "rewards": [
+    {
+      "type": "gateways:stack",
+      "stack": {
+        "id": "cataclysm:monstrous_horn",
+        "count": 1
+      }
+    }
+  ],
+  "failures": []
+}

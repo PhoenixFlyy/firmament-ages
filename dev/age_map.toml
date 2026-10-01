@@ -364,6 +364,15 @@ block = "tfc:rock/loose/granite"
 "id:minecraft:end_portal_frame" = "age_6"
 "id:firmages:reactor_controller" = "age_9"               # firmages-core 0.4: Draconic reactor controller (recipes/age_9)
 "id:firmages:origin_altar" = "age_9"                     # Gathering altar of The Origin; arena block, never crafted
+# Boss fallback sigils (Doc 08 section 5.1, recipes/boss_sigils.js): each opens its Age's stand-in gateway.
+"id:firmages:frontier_sigil" = "age_2"
+"id:firmages:wild_sigil" = "age_3"
+"id:firmages:forge_sigil" = "age_4"
+"id:firmages:wither_sigil" = "age_5"
+"id:firmages:end_sigil" = "age_6"
+"id:firmages:space_sigil" = "age_7"
+"id:firmages:abyss_sigil" = "age_8"
+"id:firmages:chaos_sigil" = "age_9"
 "id:firmages:dust/zinc" = "age_2"                        # canonical dusts come with the Iron Age crushing wheels
 "id:firmages:dust/bismuth" = "age_2"
 # Canonical metal dusts of the Iron Age crushing wheels (kubejs recipes/age_2, Doc 10 v3 section 8.1).

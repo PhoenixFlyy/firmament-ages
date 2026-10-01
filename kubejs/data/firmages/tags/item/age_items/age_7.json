@@ -388,6 +388,7 @@
     {"id": "draconicevolution:wyvern_pickaxe", "required": false},
     {"id": "draconicevolution:wyvern_shovel", "required": false},
     {"id": "draconicevolution:wyvern_sword", "required": false},
+    {"id": "firmages:space_sigil", "required": false},
     {"id": "firmages:star_chart", "required": false},
     {"id": "immersiveengineering:deepslate_ore_uranium", "required": false},
     {"id": "immersiveengineering:dust_uranium", "required": false},
