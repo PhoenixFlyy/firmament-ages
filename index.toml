@@ -474,7 +474,7 @@ hash = "5e62048e845218e0d4110c5018401f8c261a22a66fb2a566f5bd98e7eaa5cb13"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
-hash = "b33480ccf5bac0748faedea398da5d179cf5729ae533524d94f540b67070e433"
+hash = "a652c6a1f823910f4dac0790f9f3c63ce8fa776e6fd7620e7cacae328f2985a9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
