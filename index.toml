@@ -94,7 +94,7 @@ hash = "0c655427690916b78ec5262596ce37d24aaba68a95ea8fc87eccf69fa39c531f"
 
 [[files]]
 file = "config/mysticalcustomization/configure-crops.json"
-hash = "be8c8ab008183160606d1b4523a6d7d423c8e2a0791097274ca310f70146e1f3"
+hash = "2877dd1b97cf16798f0d18f58d445c6232967564a13c1f48fe74a77796d38a57"
 
 [[files]]
 file = "config/progressivestages/progressivestages.toml"
