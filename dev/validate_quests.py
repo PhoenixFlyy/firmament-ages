@@ -12,8 +12,14 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
   structure  every Age chapter: required stage set, one entry quest (gamestage task = chapter stage), one goal
              quest that depends on every keystone, 3-4 keystones, 2-4 optional side quests, explanations
              optional. Goal of a shrine Age (an entry in the shrine offerings, see below): one gamestage
-             task on the next Age, the offering as icon, no stage reward (the shrine grants it). Goal of any other
-             Age (Dawn): its reward grants exactly the next Age stage, with auto "invisible"
+             task on the next Age, the offering as icon, no stage reward (the shrine grants it). Goal of the
+             Singularity Age (age_9, no shrine tier): one gamestage task on finale_won (the end boss script grants
+             it), no stage reward. Goal of any other Age (Dawn): its reward grants exactly the next Age stage, with
+             auto "invisible". Optional "Raise the ring" quests (tag ring): one block_state observation of
+             firmages:shrine_heart with ready=true and awakened=N in the chapter of age_N, only where ring_N exists
+  grants     one grant path per Age, book-wide: age_0 by one quest reward, age_1..age_9 by their shrine tier and
+             no quest reward, finale_won by no quest reward (warning while no KubeJS script grants it)
+  tables     a reward table carries tag age:<stage> and is used only by chapters of that Age
   shrine     the offerings firmages-core reads (data/firmages/firmages_shrine/offerings.json from the mod
              sources, or its kubejs/data override): flat {"age_N": item}, the item in the Age tag of its key
              (not yet registered: warning, that ring takes no offering); each ring_N tier grants age_(N+1)
@@ -36,7 +42,8 @@ import zipfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QDIR = os.path.join(ROOT, 'config', 'ftbquests', 'quests')
 AGES = ['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6', 'age_7', 'age_8', 'age_9']
-AGE_CHAPTER_STAGES = {'dawn', 'age_0', 'age_1', 'age_2'}  # chapters authored so far (rule set applies to these)
+AGE_CHAPTER_STAGES = set(AGES)  # every Age has its chapter (rule set applies to all of them)
+NEXT_STAGE = dict(zip(AGES, AGES[1:] + ['finale_won']))
 # Dimension -> (item tag that activates its portal, the jar default). The default stays in force unless a KubeJS tag
 # script calls removeAll on the tag.
 PORTAL_TAGS = {'twilightforest:twilight_forest': ('twilightforest:portal/activator', '#c:gems/diamond (age_4)')}
@@ -245,6 +252,21 @@ class JarIndex:
 
 
 VANILLA_DIMS = {'minecraft:overworld', 'minecraft:the_nether', 'minecraft:the_end'}
+# Vanilla entities have no lang file in the mod jars; kill tasks on them are accepted as they are.
+VANILLA_ENTITIES = {'minecraft:wither', 'minecraft:ender_dragon', 'minecraft:zombie', 'minecraft:blaze',
+                    'minecraft:wither_skeleton', 'minecraft:enderman'}
+
+
+OPTIONAL_TAGS = {'side', 'explain', 'ring'}
+
+
+def finale_script_grant():
+    """True if a KubeJS server script grants finale_won (stage grant command or a grant call naming it)."""
+    pat = re.compile(r"(stage\s+(grant|add)\b[^\n]*finale_won|grant\w*\([^)\n]*finale_won)")
+    for f in glob.glob(os.path.join(ROOT, 'kubejs', 'server_scripts', '**', '*.js'), recursive=True):
+        if pat.search(open(f, encoding='utf-8').read()):
+            return True
+    return False
 
 
 # ------------------------------------------------------------------------------------------------ checks
@@ -354,6 +376,8 @@ def main():
     # data/firmages/firmages_shrine/offerings.json; a pack copy at the same path in kubejs/data replaces it.
     pending_used = set()
     offerings = {}
+    ring_tiers = {}  # ring N -> stage it grants
+    quest_grants = {}  # stage -> [where] for every gamestage quest reward
     src = OFFERINGS_PACK if os.path.isfile(OFFERINGS_PACK) else OFFERINGS_MOD
     rel = os.path.relpath(src, ROOT).replace(os.sep, '/')
     stray = glob.glob(os.path.join(ROOT, 'kubejs', 'data', '*', 'shrine', 'offerings.json'))
@@ -382,6 +406,7 @@ def main():
             tier = json.load(open(tf, encoding='utf-8'))
             if tier.get('grants', 'age_%d' % (n + 1)) != 'age_%d' % (n + 1):
                 E('tier ring_%d: grants %r, expected age_%d' % (n, tier.get('grants'), n + 1))
+            ring_tiers[n] = tier.get('grants', 'age_%d' % (n + 1))
     else:
         W('%s is missing: every goal is checked as a quest grant' % rel)
 
@@ -427,7 +452,7 @@ def main():
                     if tag:
                         if jars and not jars.has('entity_tag', tag):
                             E('%s: entity type tag %s not found in the mod jars' % (tw, tag))
-                    elif jars and t.get('entity') not in jars.entities:
+                    elif jars and t.get('entity') not in jars.entities and t.get('entity') not in VANILLA_ENTITIES:
                         E('%s: entity %s not found in the mod jars' % (tw, t.get('entity')))
                 elif typ == 'observation':
                     ot, target = t.get('observation_type'), strval(t.get('to_observe'))
@@ -479,6 +504,7 @@ def main():
                     st = r.get('stage')
                     if st not in stage_ids:
                         E('%s: stage %r has no stage file' % (rw, st))
+                    quest_grants.setdefault(st, []).append(rw)
                     if r.get('auto') != 'invisible':
                         E('%s: stage reward must auto-claim invisibly (auto: "invisible")' % rw)
                     if 'interim_shrine' in r.get('tags', []):
@@ -509,13 +535,32 @@ def main():
                 E('chapters/%s: %d keystones (required strands), expected 3-4' % (cname, len(keys)))
             if not 2 <= len(sides) <= 4:
                 E('chapters/%s: %d side missions, expected 2-4' % (cname, len(sides)))
-            for s in sides + kinds.get('explain', []):
+            rings = kinds.get('ring', [])
+            for s in sides + kinds.get('explain', []) + rings:
                 if not s.get('optional'):
-                    E('chapters/%s: side/explanation quest %s is not optional' % (cname, s['id']))
+                    E('chapters/%s: side/explanation/ring quest %s is not optional' % (cname, s['id']))
             for qd in ch['quests']:
                 tags = qd.get('tags', [])
-                if not {'side', 'explain'} & set(tags) and qd.get('optional'):
+                if not OPTIONAL_TAGS & set(tags) and qd.get('optional'):
                     E('chapters/%s: required quest %s is marked optional' % (cname, qd['id']))
+            # "Raise the ring": only where the Age has its own ring, one block_state observation of the heart
+            n_age = int(stage[4:]) if stage.startswith('age_') else None
+            if len(rings) > 1:
+                E('chapters/%s: %d ring quests, expected at most 1' % (cname, len(rings)))
+            for rq in rings:
+                rqw = 'chapters/%s ring quest %s' % (cname, rq['id'])
+                if n_age is None or n_age not in ring_tiers:
+                    E('%s: %s has no shrine ring (no tier ring_N file)' % (rqw, stage))
+                ts = rq.get('tasks', [])
+                target = strval(ts[0].get('to_observe')) if len(ts) == 1 else None
+                if len(ts) != 1 or ts[0].get('type') != 'observation' or ts[0].get('observation_type') != 'block_state':
+                    E('%s: needs exactly one block_state observation task' % rqw)
+                elif not target or not target.startswith('firmages:shrine_heart['):
+                    E('%s: observes %r, expected firmages:shrine_heart[...]' % (rqw, target))
+                else:
+                    props = dict(kv.split('=', 1) for kv in target[target.index('[') + 1:-1].split(',') if '=' in kv)
+                    if props.get('ready') != 'true' or props.get('awakened') != str(n_age):
+                        E('%s: %s must set ready=true and awakened=%s' % (rqw, target, n_age))
             if len(goals) == 1:
                 g = goals[0]
                 gdeps = {d.upper() for d in g.get('dependencies', [])}
@@ -523,7 +568,7 @@ def main():
                 if missing:
                     E('chapters/%s: goal does not depend on keystone(s) %s' % (cname, ', '.join(missing)))
                 grants = [r.get('stage') for r in g.get('rewards', []) if r.get('type') == 'gamestage']
-                nxt = AGES[AGES.index(stage) + 1]
+                nxt = NEXT_STAGE[stage]
                 waits = [t.get('stage') for t in g.get('tasks', []) if t.get('type') == 'gamestage']
                 # Dawn: the goal grants age_0. From the Stone Age the shrine grants the next Age: the goal waits for
                 # it with a gamestage task and must not grant it too (one grant path, firmages-core 0.3.0).
@@ -537,6 +582,14 @@ def main():
                     if g.get('icon', {}).get('id') != offerings[stage]:
                         E('chapters/%s: goal icon %r is not the offering %s' % (cname, g.get('icon', {}).get('id'),
                                                                                 offerings[stage]))
+                elif nxt == 'finale_won':
+                    # Singularity Age: the end boss script grants finale_won; the goal only waits for it
+                    if grants:
+                        E('chapters/%s: goal grants %r; finale_won comes from the end boss, drop the reward'
+                          % (cname, grants))
+                    if waits != [nxt]:
+                        E('chapters/%s: goal must wait for finale_won with one gamestage task; waits for %r'
+                          % (cname, waits))
                 elif grants != [nxt]:
                     E('chapters/%s: goal grants %r, expected exactly [%r]' % (cname, grants, nxt))
             # every required quest must lead to the goal (no dead-end required quests)
@@ -555,7 +608,7 @@ def main():
                     reach.add(cur)
                     stack += [d.upper() for d in byid.get(cur, {}).get('dependencies', [])]
                 for qd in ch['quests']:
-                    if not {'side', 'explain'} & set(qd.get('tags', [])) and qd['id'].upper() not in reach:
+                    if not OPTIONAL_TAGS & set(qd.get('tags', [])) and qd['id'].upper() not in reach:
                         E('chapters/%s: required quest %s does not lead to the goal' % (cname, qd['id']))
 
     # ---- dependency cycles
@@ -576,11 +629,40 @@ def main():
     for k in quests:
         visit(k, [])
 
-    # ---- reward tables: items no later than the Age of every chapter using them
+    # ---- one grant path per Age (book-wide)
+    for st in AGES[1:] + ['finale_won']:
+        by_quest = quest_grants.get(st, [])
+        by_shrine = [n for n, g in ring_tiers.items() if g == st]
+        if st == 'age_0':
+            if len(by_quest) != 1:
+                E('grants: age_0 must come from exactly one quest reward (The First Spark), found %d' % len(by_quest))
+        elif st == 'finale_won':
+            if by_quest:
+                E('grants: finale_won is granted by quest reward(s) %s; the end boss script grants it'
+                  % ', '.join(by_quest))
+            elif not finale_script_grant():
+                W('grants: no KubeJS script grants finale_won yet (end boss, Doc 08 section 10.4); the Singularity '
+                  'goal waits for it')
+        else:
+            if len(by_shrine) != 1:
+                E('grants: %s must come from exactly one shrine tier, found %d' % (st, len(by_shrine)))
+            if by_quest:
+                E('grants: %s is also granted by quest reward(s) %s (second grant path)' % (st, ', '.join(by_quest)))
+    if quest_grants.get('dawn'):
+        E('grants: dawn is the start stage, no quest may grant it')
+
+    # ---- reward tables: items no later than the Age of every chapter using them; one table, one Age
     for name, t in tables.items():
         users = table_users.get(name, [])
         if not users:
             W('reward_tables/%s: not used by any quest' % name)
+        declared = [tg[4:] for tg in t.get('tags', []) if isinstance(tg, str) and tg.startswith('age:')]
+        if len(declared) != 1 or declared[0] not in AGES:
+            E('reward_tables/%s: needs exactly one tag age:<stage>, has %r' % (name, t.get('tags')))
+        else:
+            for cname_, cage_ in users:
+                if cage_ != declared[0]:
+                    E('reward_tables/%s: table of %s used by chapters/%s (%s)' % (name, declared[0], cname_, cage_))
         max_age = min((u[1] for u in users), key=age_index) if users else 'dawn'
         for r in t.get('rewards', []):
             typ = r.get('type', 'item')
@@ -623,9 +705,9 @@ def main():
     # ---- report
     for cname in chapters:
         c = counts[cname]
-        print('%-14s %3d quests  (entry %d, keystones %d, goal %d, side %d, explanations %d)' % (
+        print('%-16s %3d quests  (entry %d, keystones %d, goal %d, side %d, explanations %d, ring %d)' % (
             cname, c['total'], c.get('entry', 0), c.get('keystone', 0), c.get('goal', 0), c.get('side', 0),
-            c.get('explain', 0)))
+            c.get('explain', 0), c.get('ring', 0)))
     for cname, qid_, st in interim:
         print('interim stage reward: chapters/%s quest %s grants %s (shrine will grant this)' % (cname, qid_, st))
     print('shrine offerings: %s' % ', '.join('%s %s' % kv for kv in sorted(offerings.items())))
