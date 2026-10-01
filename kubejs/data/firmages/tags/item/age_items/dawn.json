@@ -1362,7 +1362,6 @@
     {"id": "minecraft:enchanted_golden_apple", "required": false},
     {"id": "minecraft:enchanting_table", "required": false},
     {"id": "minecraft:end_crystal", "required": false},
-    {"id": "minecraft:end_portal_frame", "required": false},
     {"id": "minecraft:end_rod", "required": false},
     {"id": "minecraft:end_stone", "required": false},
     {"id": "minecraft:end_stone_brick_slab", "required": false},

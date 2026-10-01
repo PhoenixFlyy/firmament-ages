@@ -14,7 +14,12 @@ global.FA_SIGNATURE_TOOLTIPS = {
   'firmages:humming_core': 'Signature item of the Electric Age. Offer it at the shrine.',
   'firmages:data_matrix': 'Signature item of the Information Age. Offer it at the shrine.',
   'firmages:star_chart': 'Signature item of the Space Age. Offer it at the shrine.',
-  'firmages:quantum_core': 'Signature item of the Quantum Age. Offer it at the shrine.'
+  'firmages:quantum_core': 'Signature item of the Quantum Age. Offer it at the shrine.',
+  'firmages:awakened_keystone': 'The Arcane Keystone, awakened by a Marid. It belongs in the Ultimate Singularity.',
+  'firmages:ultimate_singularity': 'All nine Ages in one. It goes into the base block of the Stargate.',
+  // The dial address of The Origin. firmages-core registers its Space Location with this galactic address of the
+  // Milky Way, not randomized (mod/firmages-core/SPEC.md section 14); keep both in step.
+  'firmages:origin_coordinates': 'Dial The Origin: 9, 16, 31, 5, 21, 37, then the point of origin (Milky Way, 7 chevrons).'
 }
 
 StartupEvents.registry('item', event => {
@@ -40,13 +45,17 @@ StartupEvents.registry('item', event => {
 
   // ---- Magic tail of later Ages (Doc 08 section 7.2) -------------------------------------------
   event.create('firmages:attuned_circuit').displayName('Attuned Circuit')                  // age_5: IE circuit board + spirit attuned crystal (recipes/age_5)
-  event.create('firmages:awakened_keystone').displayName('Awakened Keystone').maxStackSize(1).rarity('epic') // age_8: Marid ritual (stub)
+  event.create('firmages:awakened_keystone').displayName('Awakened Keystone').maxStackSize(1).rarity('epic') // age_8: Marid ritual (recipes/age_8)
 
   // ---- Age 5 to 8 goals: the shrine offerings of tiers 5..8 (Doc 08 section 10.2, firmages-core offerings.json) ----
   event.create('firmages:humming_core').displayName('Humming Core').maxStackSize(1).rarity('rare')   // IE Arc Furnace (recipes/age_5)
   event.create('firmages:data_matrix').displayName('Data Matrix').maxStackSize(1).rarity('rare')     // Mekanism + AE2 parts (recipes/age_6)
   event.create('firmages:star_chart').displayName('Star Chart').maxStackSize(1).rarity('epic')       // DE Fusion Crafting, wyvern (recipes/age_7)
   event.create('firmages:quantum_core').displayName('Quantum Core').maxStackSize(1).rarity('epic')   // DE Fusion Crafting, draconic (recipes/age_8)
+
+  // ---- Age 9: the finale (Doc 08 section 10) ------------------------------------------------------------------
+  event.create('firmages:ultimate_singularity').displayName('Ultimate Singularity').maxStackSize(1).rarity('epic') // DE fusion, chaotic (recipes/age_9)
+  event.create('firmages:origin_coordinates').displayName('Coordinates of The Origin').maxStackSize(1).rarity('rare') // paper + chaos shard (recipes/age_9)
 
   // ---- Canonical dusts for TFC-only metals (Doc 08 section 4.1) ---------------------------
   // Crushing Wheels (Iron Age) turn TFC ore pieces into dust; dusts melt back in TFC vessels.
