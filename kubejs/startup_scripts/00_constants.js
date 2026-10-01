@@ -336,7 +336,9 @@ global.FA = {
     'mysticalagriculture:tilling_aoe_i_augment', 'mysticalagriculture:tilling_aoe_ii_augment',
     'mysticalagriculture:tilling_aoe_iii_augment', 'mysticalagriculture:tilling_aoe_iv_augment',
     'mysticalagriculture:unattuned_augment', 'mysticalagriculture:water_breathing_augment',
-    'mysticalagriculture:weakness_resistance_augment', 'mysticalagriculture:wither_resistance_augment'
+    'mysticalagriculture:weakness_resistance_augment', 'mysticalagriculture:wither_resistance_augment',
+    // Mystical Agriculture soulium daggers (the dagger eats a golden sword, the tiers eat the dagger)
+    'mysticalagriculture:creative_soulium_dagger', 'mysticalagriculture:hostile_soulium_dagger', 'mysticalagriculture:passive_soulium_dagger', 'mysticalagriculture:soulium_dagger'
   ]
 }
 // Only plain data goes into `global`: functions created in the startup context are not reliably callable
