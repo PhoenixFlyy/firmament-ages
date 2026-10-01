@@ -30,31 +30,31 @@ ServerEvents.recipes((event) => {
   const age8 = FirmAges.isUnlocked('age_8')
 
   // ======================================================================================== removals
-  // One pass per Mekanism-family namespace (a mod filter costs about 3 ms); only the ore-processing serializers are
-  // read as JSON (painting and pigment recipes, about 850, are skipped by their type).
+  // One pass over the Mekanism-family namespaces (one OR filter: a filter per namespace was one scan of all recipes
+  // each); only the ore-processing serializers are read as JSON (painting and pigment recipes, about 850, are skipped
+  // by their type).
   const PLANET = /"c:(ores|raw_materials)\/(desh|ostrum|calorite|draconium)"|"c:storage_blocks\/raw_(desh|ostrum|calorite|draconium)"/
   const ORE_INPUT = /"tag":"c:(ores|raw_materials)\/|"tag":"c:storage_blocks\/raw_|"item":"(mekanism|mekmm|evolvedmekanism):(deepslate_|end_stone_|netherrack_)?[a-z]+_ore"|"item":"(mekanism|mekmm):raw_/
   const CRUSH_TYPES = ['mekanism:crushing', 'moremekanismprocessing:tag_crushing'] // serializer ids (JSON "type")
   const ORE_TYPES = /^(mekanism:(purifying|injecting|dissolution|enriching|crushing|combining)|moremekanismprocessing:tag_.*|minecraft:(smelting|blasting))$/
   const drop = []
-  ;['mekanism', 'moremekanismprocessing', 'mekmm', 'evolvedmekanism', 'mekatfc', 'extendedae', 'advanced_ae'].forEach((ns) => {
-    event.forEachRecipe({ mod: ns }, (r) => {
-      const id = String(r.getId())
-      if (ns === 'mekmm' && id.indexOf('mekmm:processing/silver/') === 0) { drop.push(id); return }
-      const type = r.json.has('type') ? String(r.json.get('type').getAsString()) : String(r.getType())
-      if (!ORE_TYPES.test(type)) return
-      const json = String(r.json)
-      if (ORE_INPUT.test(json) && !PLANET.test(json) && type !== 'minecraft:crafting_shaped' && type !== 'minecraft:crafting_shapeless') {
-        drop.push(id)
-        return
-      }
-      if (CRUSH_TYPES.indexOf(type) >= 0) {
-        // the crusher keeps clump -> dirty dust, bio fuel and gem/obsidian/quartz to dust
-        if (/"tag":"c:ingots\//.test(json) || /"id":"minecraft:(cobblestone|gravel|sand|red_sand|.*_tiles?|.*bricks?.*|.*stone.*|deepslate.*|tuff.*)"/.test(json)) drop.push(id)
-        return
-      }
-      if (type === 'mekanism:combining' && /"output":\{"id":"[a-z_]+:[a-z_]*(_ore|ancient_debris)"/.test(json)) drop.push(id)
-    })
+  const NAMESPACES = ['mekanism', 'moremekanismprocessing', 'mekmm', 'evolvedmekanism', 'mekatfc', 'extendedae', 'advanced_ae']
+  event.forEachRecipe(NAMESPACES.map((ns) => ({ mod: ns })), (r) => {
+    const id = String(r.getId())
+    if (id.indexOf('mekmm:processing/silver/') === 0) { drop.push(id); return }
+    const type = r.json.has('type') ? String(r.json.get('type').getAsString()) : String(r.getType())
+    if (!ORE_TYPES.test(type)) return
+    const json = String(r.json)
+    if (ORE_INPUT.test(json) && !PLANET.test(json) && type !== 'minecraft:crafting_shaped' && type !== 'minecraft:crafting_shapeless') {
+      drop.push(id)
+      return
+    }
+    if (CRUSH_TYPES.indexOf(type) >= 0) {
+      // the crusher keeps clump -> dirty dust, bio fuel and gem/obsidian/quartz to dust
+      if (/"tag":"c:ingots\//.test(json) || /"id":"minecraft:(cobblestone|gravel|sand|red_sand|.*_tiles?|.*bricks?.*|.*stone.*|deepslate.*|tuff.*)"/.test(json)) drop.push(id)
+      return
+    }
+    if (type === 'mekanism:combining' && /"output":\{"id":"[a-z_]+:[a-z_]*(_ore|ancient_debris)"/.test(json)) drop.push(id)
   })
   drop.forEach((id) => event.remove({ id: id }))
   // MekaTFC's furnace, 2x enrichment and crusher recipes of ore pieces (Doc 10 v3 7.3). The 10 unparseable originals are

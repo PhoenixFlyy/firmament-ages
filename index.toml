@@ -710,7 +710,7 @@ hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "154c685b3286d404d23656cb12d780008427f3d55a276a12864d87be31bb0705"
+hash = "d5814482c68754c959e13ecf2759b807d591b6e329882276bcc1e92c9bf91e3a"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
@@ -726,23 +726,23 @@ hash = "ee1d3e9f6aac75670e3f694ff8a3ff15698bcc73f6bcdd70caa49188e172c6cd"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
-hash = "f61396d3fed05e81b11867a9fa31a228f4ae78f88eedb439c3e82442133b7377"
+hash = "9502f87451b553c4e6e6dacf695303fe9226253eef7790a9adf52a6dee696adc"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
-hash = "0d138d393534b4819d2eddd708326e9f6b6efc378e4a7ac96c6b64935759432b"
+hash = "df309616d58f66d27c361602c2e93692f5057fab38a947125b4f899fd09a5eb2"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
-hash = "ccfedc6139e835cd060148e440f944364f9f82b5d7399eaa3873bd3d828825dd"
+hash = "bd4d694ff400059ee260dfd14c47fe03a523aace933831149c04ba7698b4642b"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
-hash = "48cf2a3d8367273ccba94166c046d52b44fb63381e6219d584f6072370c128d6"
+hash = "1fa78b10647ca07ab1c0aee6533da43f020aa14e6825897e3195480bbce4fa74"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_7/space_age.js"
-hash = "cc0e94c8a367b42e4af9b1e5caef3ae342208b738f0446bef8cbe0e182ca8387"
+hash = "16825d2888d1b5dce58a905baad94182cc1ddf0ba1cebe1b1f637cc905c7379b"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"
@@ -766,7 +766,7 @@ hash = "e8fbb58642935fb6571208142167052f4dd8bc09d455c23356b34ab452469011"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "28f6ff6dda6d08303e5afc860eec1c5c3ea6ec43c1554086c87427e761952c09"
+hash = "13d91a2ce56043844c8b38eb3598b3b377cde6d951c3f1cf4135561e59cc2345"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/station_ages.js"

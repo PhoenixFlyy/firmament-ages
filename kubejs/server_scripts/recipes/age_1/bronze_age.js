@@ -29,22 +29,20 @@ ServerEvents.recipes((event) => {
   // ---- Andesite tier: iron parts become bronze parts ---------------------------------------------------
   // Everything Create crafts except the Iron Age items keeps its recipe but takes any bronze instead of iron.
   // POC: walk the Create andesite tier in EMI (press, mixer, fan, saw, drill, harvester, belts, water wheel).
-  const IRON_AGE_OUTPUTS = [
-    'create:precision_mechanism', 'create:electron_tube', 'create:deployer', 'create:mechanical_arm',
-    'create:mechanical_crafter', 'create:crushing_wheel', 'create:steam_engine', 'create:steam_whistle',
-    'create:spout', 'create:fluid_pipe', 'create:mechanical_pump', 'create:fluid_tank', 'create:fluid_valve',
-    'create:smart_fluid_pipe', 'create:smart_chute', 'create:rotation_speed_controller',
-    'create:sequenced_gearshift', 'create:elevator_pulley', 'create:track', 'create:track_station',
-    'create:track_signal', 'create:track_observer', 'create:controls', 'create:railway_casing',
-    'create:schematicannon', 'create:schematic_table'
-  ]
-  // The tier is resolved to recipe ids once: a plain id list is a map lookup in KubeJS, the mod/output filter is a
-  // scan of all recipes on every call.
-  const andesiteTier = []
-  // One output pattern instead of 27 output filters (item ids are [a-z0-9_:/] only, so no escaping).
-  const notAndesite = new RegExp(`^(${IRON_AGE_OUTPUTS.join('|')})$|^create:brass_`)
-  event.findRecipeIds({ mod: 'create', not: { output: notAndesite } })
-    .forEach((id) => andesiteTier.push({ id: String(id) }))
+  // Fixed ids: the Create recipes outside the Iron Age outputs (precision mechanism, electron tube, deployer, arm,
+  // crafter, crushing wheel, steam engine and whistle, fluid parts, smart chute, speed controller, sequenced
+  // gearshift, elevator pulley, trains, schematics, brass) that ask for iron plates, ingots or blocks, read from the
+  // original recipes on 2026-10-01 (create:pressing/iron_ingot is removed in global_removals.js). Plain ids are a map
+  // lookup; resolving the tier from all 1,738 Create recipes cost about 120 ms of every reload. dev/poc_analyze.py
+  // check C-1a reports a Create recipe of the andesite tier that still asks for iron.
+  const andesiteTier = [
+    'create:crafting/kinetics/empty_blaze_burner', 'create:crafting/kinetics/item_vault',
+    'create:crafting/kinetics/mechanical_drill', 'create:crafting/kinetics/mechanical_press',
+    'create:crafting/kinetics/mechanical_saw', 'create:crafting/kinetics/metal_bracket',
+    'create:crafting/kinetics/metal_girder', 'create:crafting/kinetics/propeller', 'create:crafting/kinetics/super_glue',
+    'create:crafting/kinetics/whisk', 'create:crafting/logistics/packager', 'create:crafting/logistics/redstone_contact',
+    'create:industrial_iron_block_from_ingots_iron_stonecutting', 'create:weathered_iron_block_from_ingots_iron_stonecutting'
+  ].map((id) => ({ id: id }))
   event.replaceInput(andesiteTier, '#c:plates/iron', '#firmages:plates/any_bronze')
   event.replaceInput(andesiteTier, '#c:ingots/iron', '#firmages:ingots/any_bronze')
   event.replaceInput(andesiteTier, '#c:storage_blocks/iron', '#firmages:storage_blocks/any_bronze')

@@ -9,7 +9,10 @@
 // dragon's breath).
 
 ServerEvents.recipes((event) => {
+  // Reload cost: every type, regex or output filter is one scan of all ~35,000 recipes. The removed types are
+  // collected and removed with one OR filter, the id patterns with one regex, both at the end of this handler.
   const removeIdPatterns = []
+  const removeTypes = []
 
   // ======================================================================================== Mekanism stations
   // Doc 10 v3 7.2 / matrix 6.1 losers: the Precision Sawmill (the IE Sawmill saws), More Machine's planting station
@@ -21,7 +24,7 @@ ServerEvents.recipes((event) => {
     'mekanism:stamping', 'mekanism:lathing', 'mekanism:rolling_mill', 'mekanism:pressing',
     'mekmm:stamper', 'mekmm:lathe', 'mekmm:rolling_mill', 'mekmm:presser', 'mekmm:pressing', 'mekmm:planting', 'mekmm:recycler',
     'evolvedmekanism:melting', 'evolvedmekanism:solidifying']
-    .forEach((t) => event.remove({ type: t }))
+    .forEach((t) => removeTypes.push({ type: t }))
   removeIdPatterns.push(/^evolvedmekanism:alloying\/compat\/ae2\//)
 
   // ======================================================================================== AE2: one processor station
@@ -88,9 +91,10 @@ ServerEvents.recipes((event) => {
   // config/cucumber-tags.json), the farmland from TFC dirt instead of vanilla farmland, and no hoe-tilling recipe
   // (it eats a hoe). The crops of locked or foreign materials are off in config/mysticalcustomization/configure-crops.json;
   // tools, armour, paxels and augments are disabled (stages/disabled.toml).
-  event.replaceOutput({ mod: 'mysticalagriculture' }, 'minecraft:iron_ingot', 'tfc:metal/ingot/wrought_iron')
-  event.replaceOutput({ mod: 'mysticalagriculture' }, 'minecraft:coal', 'tfc:ore/bituminous_coal')
-  event.replaceOutput({ mod: 'mysticalagriculture' }, 'minecraft:amethyst_shard', 'tfc:gem/amethyst')
+  // One recipe each (the original recipes of 2026-10-01); a mod filter would scan all recipes three times.
+  event.replaceOutput({ id: 'mysticalagriculture:essence/minecraft/iron_ingot' }, 'minecraft:iron_ingot', 'tfc:metal/ingot/wrought_iron')
+  event.replaceOutput({ id: 'mysticalagriculture:essence/minecraft/coal' }, 'minecraft:coal', 'tfc:ore/bituminous_coal')
+  event.replaceOutput({ id: 'mysticalagriculture:essence/minecraft/amethyst' }, 'minecraft:amethyst_shard', 'tfc:gem/amethyst')
   ;['inferium', 'prudentium', 'tertium', 'imperium', 'supremium'].forEach((t) => {
     event.replaceInput({ id: `mysticalagriculture:${t}_farmland` }, 'minecraft:farmland', '#tfc:dirt')
     event.remove({ id: `mysticalagriculture:${t}_farmland_till` })
@@ -113,5 +117,6 @@ ServerEvents.recipes((event) => {
     T: '#firmages:boss_token/age_6'
   }).id('firmages:crafting/data_matrix')
 
+  event.remove(removeTypes)
   event.remove({ id: new RegExp(removeIdPatterns.map((r) => r.source).join('|')) })
 })

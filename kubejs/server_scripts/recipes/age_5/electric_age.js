@@ -7,7 +7,6 @@
 // Goal: the Humming Core (Attuned Circuit, IE HV capacitor, aluminium plates, red steel sheets, Wither drop).
 
 ServerEvents.recipes((event) => {
-  const removeOutputPatterns = []
   // Pack recipes in the Arc Furnace load only with its Age (recipes/station_ages.js cannot remove recipes added in the
   // same event), so the arc furnace steels never show before the Electric Age.
   const arc = (json, id) => { if (FirmAges.isUnlocked('age_5')) event.custom(json).id(id) }
@@ -50,7 +49,7 @@ ServerEvents.recipes((event) => {
 
   // ======================================================================================== disabled parts of the Age
   // Immersive Petroleum: the gas generator is a second FE generator next to the IE Diesel Generator (Doc 10 v3 7.2).
-  removeOutputPatterns.push(/^immersivepetroleum:gas_generator$/)
+  // It is disabled, so the firmages-core gate drops its recipe (no output filter: a full scan per reload).
   // Create: Diesel Generators: only the engines and their upgrades stay; they run on IP diesel through #c:diesel.
   // Its pumpjack, oil, distillation, fermenting, cement, asphalt and tools are a second oil economy (Doc 10 v3 7.2).
   const CDG_KEEP = ['diesel_engine', 'large_diesel_engine', 'huge_diesel_engine', 'engine_piston', 'engine_silencer',
@@ -61,8 +60,9 @@ ServerEvents.recipes((event) => {
     if (CDG_KEEP.indexOf(id) < 0) cdg.push(id)
   })
   cdg.forEach((id) => event.remove({ id: id }))
-  ;['basin_fermenting', 'bulk_fermenting', 'casting', 'compression_molding', 'distillation', 'hammering', 'wire_cutting']
-    .forEach((t) => event.remove({ type: `createdieselgenerators:${t}` }))
+  // One OR filter: a type filter per call is one scan of all recipes.
+  event.remove(['basin_fermenting', 'bulk_fermenting', 'casting', 'compression_molding', 'distillation', 'hammering', 'wire_cutting']
+    .map((t) => ({ type: `createdieselgenerators:${t}` })))
 
   // ======================================================================================== magic tail: Afrit
   // Doc 08 section 7.2: the Afrit binding book needs an IE HV coil block. One grid recipe each (the IE Assembler
@@ -101,6 +101,4 @@ ServerEvents.recipes((event) => {
     time: 800,
     energy: 1638400
   }, 'firmages:arc_furnace/humming_core')
-
-  event.remove({ output: new RegExp(removeOutputPatterns.map((r) => r.source).join('|')) })
 })

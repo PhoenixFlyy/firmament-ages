@@ -10,7 +10,7 @@
 
 ServerEvents.recipes((event) => {
   // ======================================================================================== Ad Astra machines
-  ;['ad_astra:compressing', 'ad_astra:alloying', 'ad_astra:refining'].forEach((t) => event.remove({ type: t }))
+  event.remove(['ad_astra:compressing', 'ad_astra:alloying', 'ad_astra:refining'].map((t) => ({ type: t }))) // one OR pass
   // Ad Astra smelts and blasts its planet ores (desh, ostrum, calorite, and the planet copper, iron, gold, coal,
   // diamond, lapis, ice shard and cheese ores) and raw ores in the vanilla furnace (matrix 6.1 "Schmelzen" loser:
   // "Vanilla-Ofen für Erze"); these recipes use Ad Astra's own tags, so the global furnace-ore removal missed them.

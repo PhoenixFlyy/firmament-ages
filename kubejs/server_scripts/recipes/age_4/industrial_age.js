@@ -7,10 +7,11 @@
 
 ServerEvents.recipes((event) => {
   // Reload cost: a plain id removal is a map lookup, but every regex, output or type filter scans all ~35,000
-  // recipes (about 17 ms per call on every Age reload). Open-ended id patterns and output patterns are therefore
-  // collected here and removed in one pass each at the end of this handler; fixed ids are removed one by one.
+  // recipes (about 17 ms per call on every Age reload). Open-ended id patterns are therefore collected here and
+  // removed in one pass at the end of this handler; fixed ids are removed one by one. Items that no recipe may make
+  // are in [hidden] of dev/age_map.toml (tag firmages:age_items/disabled): the firmages-core gate drops every recipe
+  // that makes one, so this script needs no output filter for them (poc_analyze.py G-1 checks it).
   const removeIdPatterns = []
-  const removeOutputPatterns = []
   const anyOf = (list) => new RegExp(list.map((r) => r.source).join('|'))
 
   // ======================================================================================== coke oven
@@ -113,15 +114,9 @@ ServerEvents.recipes((event) => {
   // Doc 10 v3 section 7.2: IE steel gear (TFC steel gear is canonical), wind/water mills and the kinetic dynamo
   // (the C&A Alternator is the one SU -> FE bridge), conveyors except the basic belt (it is a block of the Metal
   // Press, Assembler and Auto Workbench multiblocks), the thermoelectric generator (no passive power), the refinery
-  // (biodiesel), IE silver/nickel/steel ingots and IE plates of TFC metals. Items are also in disabled.toml.
-  removeOutputPatterns.push(/^immersiveengineering:(pickaxe|shovel|axe|hoe|sword)_steel$/)
-  removeOutputPatterns.push(/^immersiveengineering:armor_steel_(helmet|chestplate|leggings|boots)$/)
-  removeOutputPatterns.push(/^immersiveengineering:(windmill|windmill_blade|windmill_sail|watermill|waterwheel_segment|dynamo|thermoelectric_generator)$/)
-  removeOutputPatterns.push(/^immersiveengineering:conveyor_(dropper|extract|redstone|splitter|vertical)$/)
+  // (biodiesel), IE silver/nickel/steel ingots and IE plates of TFC metals. All these items are disabled (the
+  // gate drops every recipe that makes one, raw silver/nickel block conversions and the like included).
   event.remove([{ type: 'immersiveengineering:refinery' }, { type: 'immersiveengineering:thermoelectric_source' }])
-  // Nothing may make a disabled IE item (raw silver/nickel block conversions and the like). Item ids are
-  // [a-z0-9_:/] only, so they go into the pattern unescaped.
-  removeOutputPatterns.push(new RegExp(`^(${global.FA.HIDDEN_ITEMS.filter((i) => i.indexOf('immersiveengineering:') === 0).join('|')})$`))
 
   // TFC + IE Crossover switches off IE's blast brick, alloy brick and reinforced blast brick recipes and adds none,
   // so the Blast Furnace and the Alloy Kiln could not be built. TFC fire bricks take the place of vanilla bricks.
@@ -148,7 +143,7 @@ ServerEvents.recipes((event) => {
   event.remove({ mod: 'createaddition' })
   // A type filter takes one id, not a regex: the three C&A recipe types (CARecipes, createaddition 1.7.1).
   event.remove(['charging', 'rolling', 'liquid_burning'].map((t) => ({ type: `createaddition:${t}` })))
-  removeOutputPatterns.push(/^createaddition:/)
+  // Every other C&A item is disabled, so the gate drops the other mods' recipes for C&A wires and rods.
   event.custom({
     type: 'create:mechanical_crafting',
     accept_mirrored: true,
@@ -298,7 +293,6 @@ ServerEvents.recipes((event) => {
     ticks: 200
   }).id('firmages:altar/netherite_monstrosity')
 
-  // The collected patterns, one pass each (see the top of this handler).
+  // The collected patterns, one pass (see the top of this handler).
   event.remove({ id: anyOf(removeIdPatterns) })
-  event.remove({ output: anyOf(removeOutputPatterns) })
 })
