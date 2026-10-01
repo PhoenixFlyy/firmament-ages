@@ -904,6 +904,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     late_gear = re.compile(r"^(draconicevolution:(wyvern|draconic|chaotic)_(chestpiece|bow|staff|sword|axe|pickaxe|shovel|hoe)"
                            r"|evolvedmekanism:shield_)")
     gear |= {o for _, _, os_ in recs for o in os_ if late_gear.match(o)}
+    gear |= {"minecraft:elytra", "mekanism:hdpe_elytra"}  # wings carry no gear tag either
 
     def gear_chains(age):
         """Recipes that make gear of `age` from a finished tool or armour piece. A slot that holds the output
@@ -1030,6 +1031,17 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           not iron_tier, iron_tier)
     occ_silver = sorted(r for r, j in full.items() if re.search(r'"occultism:silver_(ingot|nugget)"', inputs_text(j)))
     check("C-3s no recipe asks for Occultism silver ingots or nuggets (global_removals.js OCCULT_SILVER)", not occ_silver, occ_silver)
+    # C-Gv: no recipe consumes a vanilla tool or armour piece that no recipe of the pack makes (a TFC world has no
+    # vanilla wooden, stone, iron or diamond tools); Apotheosis salvaging takes mob drops by design (decision log).
+    vanilla_gear = re.compile(r'"(minecraft:(?:wooden|stone|iron|golden|diamond|netherite)_(?:sword|pickaxe|axe|shovel|hoe)'
+                              r'|minecraft:(?:leather|chainmail|iron|golden|diamond|netherite)_(?:helmet|chestplate|leggings|boots)'
+                              r'|minecraft:(?:bow|crossbow|shield|trident|fishing_rod|shears|flint_and_steel|elytra|mace|brush))"')
+    made_items = {o for _, _, os_ in recs for o in os_}
+    dead_gear = sorted(f"{r}: {sorted(set(m) - made_items)}" for r, m in
+                       ((r, vanilla_gear.findall(inputs_text(j))) for r, j in full.items()
+                        if not r.startswith(("minecraft:", "apotheosis:salvaging/")))
+                       if set(m) - made_items)
+    check("C-Gv no recipe needs a vanilla tool or armour piece that no recipe makes", not dead_gear, dead_gear)
     # C-G: the gear rule for the Ages without their own C- gear check (age_3: C-3g, age_4: C-4j). Exceptions (Doc 08 section 8): MekaSuit and Meka-Tool (trophies after
     # finale_won), MekaSuit and Draconic modules, backpack upgrades.
     exempt = re.compile(r"^mekanism:(mekasuit_|meka_tool)|module|^sophisticatedbackpacks:")
@@ -1129,7 +1141,10 @@ MACHINE_MADE = {"mekanism:nuclear_waste": ["mekanism:fissile_fuel", "mekanismgen
                                         "mekanism:supercharged_coil"]}
 # Vanilla station blocks without a recipe in a TFC world, and the recipes that only transform such a block itself.
 STATION_VANILLA = {"minecraft:bucket", "minecraft:crafting_table", "minecraft:furnace", "minecraft:blast_furnace", "minecraft:smoker",
-                   "minecraft:campfire", "minecraft:anvil"}
+                   "minecraft:campfire", "minecraft:anvil",
+                   # content fixes after the late Ages: further vanilla blocks without a recipe in a TFC world
+                   "minecraft:enchanting_table", "minecraft:barrel", "minecraft:trapped_chest", "minecraft:lectern",
+                   "minecraft:fletching_table", "minecraft:soul_campfire", "minecraft:milk_bucket"}
 STATION_TRANSFORMS = {"mekanism:sawing/crafting_table", "create:haunting/soul_campfire"}
 # Create heat levels: a heated recipe needs a heater, a superheated one a Blaze Burner (with a blaze cake).
 HEAT_STATION = {"heated": ("tfcreate:primitive_heater", "create:blaze_burner"), "superheated": ("create:blaze_burner",)}

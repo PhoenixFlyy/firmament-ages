@@ -722,7 +722,7 @@ hash = "ae4d565beb894e798b5956c78640102a735246dd7068999c67a8cb2fcb166ee3"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
-hash = "ee1d3e9f6aac75670e3f694ff8a3ff15698bcc73f6bcdd70caa49188e172c6cd"
+hash = "91b87027c7165c9073ddabfef7345fa12101df98ceb0d872b39829b6cebd1b48"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
@@ -762,7 +762,7 @@ hash = "791f6252d08b91db914a53f0117bb5fd837caadbb06613a3b628de8ba481ffc0"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/gear_rule.js"
-hash = "e8fbb58642935fb6571208142167052f4dd8bc09d455c23356b34ab452469011"
+hash = "cf14694da940a61a745a46cdac4f2563ac5c0f8ec71ba965caa8c2cdf1d6b2f1"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
@@ -774,7 +774,7 @@ hash = "bd8ce06acf47dbc305ad8eba7cbc1ec511303c8385de640144d160fe6f94845e"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/tfc_station_inputs.js"
-hash = "0595abb09660fd2df7e20504d7c6858fb3d4c49f7cd5d42bd9b6556bdcd0847a"
+hash = "12f7e605d569a84329bb5f5db0643d339742e0f74daa7385009355aa7d019010"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
@@ -803,6 +803,10 @@ hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
 [[files]]
 file = "kubejs/server_scripts/tags/late_ages.js"
 hash = "afb9a2e092e3f28860022f4c03b0675e9823c216538aeac576a5213a7439a023"
+
+[[files]]
+file = "kubejs/server_scripts/tags/tfc_stations.js"
+hash = "f3ac29f73c344d50175341cac291e4c2d423f0344e3417f65235d0ad72bd0383"
 
 [[files]]
 file = "kubejs/server_scripts/tags/unification.js"

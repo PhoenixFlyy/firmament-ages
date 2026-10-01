@@ -1,6 +1,7 @@
 // Firmament Ages - vanilla station blocks in the recipes of the tech and utility mods.
-// A TFC world has no recipe for the vanilla crafting table, furnace, blast furnace, smoker, campfire or anvil,
-// so every recipe that consumes one as a part could never be crafted. Among them are the stations of the
+// A TFC world has no recipe for the vanilla crafting table, furnace, blast furnace, smoker, campfire, anvil,
+// enchanting table, barrel or trapped chest, and no vanilla bucket or milk bucket, so every recipe that consumes one
+// as a part could never be crafted. Among them are the stations of the
 // later Ages: the Mekanism Metallurgic Infuser (every Mekanism circuit and alloy), the AE2 Molecular Assembler and
 // Pattern Provider, the Ad Astra NASA Workbench (every rocket) and Fuel Refinery.
 // Each such input becomes the TFC counterpart the Arcane Age already uses (recipes/age_3/arcane_tfc_inputs.js, MAP);
@@ -11,6 +12,7 @@
 // "Reload performance").
 
 ServerEvents.recipes((event) => {
+  const TWILIGHT_WOODS = ['canopy', 'dark', 'mangrove', 'mining', 'sorting', 'time', 'transformation', 'twilight_oak']
   const TFC = {
     'minecraft:crafting_table': '#tfc:workbenches',
     'minecraft:furnace': 'tfc:crucible',
@@ -21,7 +23,15 @@ ServerEvents.recipes((event) => {
     // Not a station, but the same problem: a TFC world has no vanilla bucket recipe (the Arcane MAP uses the TFC
     // wooden bucket too). Among the users: the Mekanism Dynamic Tank, Osmium Compressor, Electric Pump and basic
     // mechanical pipe (the Space Age fission chain needs the PRC and the oxidizer, both built on the Dynamic Tank).
-    'minecraft:bucket': 'tfc:wooden_bucket'
+    'minecraft:bucket': 'tfc:wooden_bucket',
+    // Content fixes after the late Ages (2026-10-01): Apothic Enchanting's table is the pack's enchanting table
+    // (tome, diamonds, obsidian); TFC barrels, chests and trapped chests (tags/tfc_stations.js); milk is a fluid in a
+    // TFC bucket, so the ingredient is TFC's fluid-content test for 1000 mB of milk.
+    'minecraft:enchanting_table': 'apothic_enchanting:apothic_enchanting_table',
+    'minecraft:barrel': '#tfc:barrels',
+    'minecraft:chest': '#firmages:chests/tfc',
+    'minecraft:trapped_chest': '#firmages:chests/trapped_tfc',
+    'minecraft:milk_bucket': { type: 'tfc:fluid_content', fluid: { fluid: 'minecraft:milk', amount: 1000 } }
   }
   const USERS = {
     'minecraft:crafting_table': [
@@ -59,7 +69,17 @@ ServerEvents.recipes((event) => {
     'minecraft:anvil': [
       'apothic_enchanting:scrap_tome', 'cataclysm:mechanical_fusion_anvil',
       'create_enchantment_industry:smithing/blaze_forger', 'sophisticatedbackpacks:anvil_upgrade'
-    ]
+    ],
+    'minecraft:enchanting_table': [
+      'apotheosis:augmenting_table', 'apotheosis:simple_reforging_table', 'apothic_enchanting:library',
+      'create_enchantment_industry:smithing/blaze_enchanter', 'draconicevolution:machines/energy_transfuser',
+      'mysticalagriculture:enchanter'
+    ],
+    'minecraft:barrel': ['create_dragons_plus:crafting/fragile_fluid_tank', 'simulated:velocity_sensor'].concat(
+      ['black', 'blue', 'brown', 'cyan', 'gray', 'green', 'light_blue', 'light_gray', 'lime', 'magenta', 'orange', 'pink',
+        'purple', 'red', 'white', 'yellow'].map((c) => `create:crafting/logistics/${c}_postbox`)),
+    'minecraft:chest': TWILIGHT_WOODS.map((w) => `twilightforest:wood/${w}_chest`),
+    'minecraft:trapped_chest': TWILIGHT_WOODS.map((w) => `twilightforest:wood/${w}_trapped_chest`)
   }
   let n = 0
   Object.keys(USERS).forEach((from) => {
@@ -73,9 +93,11 @@ ServerEvents.recipes((event) => {
   // Types without a KubeJS schema (ExtendedAE crystal assembler, DE fusion crafting, the FramedBlocks framing saw,
   // Sophisticated Core upgrade recipes): replaceInput does not touch
   // them, so their JSON is rewritten and re-added under its own id, as in arcane_tfc_inputs.js.
+  // Create's cake takes the milk ingredient, which replaceInput cannot write.
   const AS_JSON = ['advanced_ae:eaelargeappupgrade', 'draconicevolution:machines/draconium_chest',
-    'extendedae:assembler/ex_pattern_provider', 'framedblocks:framing_saw/framed_tank', 'sophisticatedbackpacks:pump_upgrade']
-  const json = (v) => JSON.stringify(v.startsWith('#') ? { tag: v.slice(1) } : { item: v }).slice(1, -1)
+    'extendedae:assembler/ex_pattern_provider', 'framedblocks:framing_saw/framed_tank', 'sophisticatedbackpacks:pump_upgrade',
+    'create:crafting/curiosities/cake']
+  const json = (v) => JSON.stringify(typeof v !== 'string' ? v : v.startsWith('#') ? { tag: v.slice(1) } : { item: v }).slice(1, -1)
   const ITEM_RE = new RegExp(`"item":"(${Object.keys(TFC).join('|')})"`, 'g')
   const todo = []
   AS_JSON.forEach((id) => {

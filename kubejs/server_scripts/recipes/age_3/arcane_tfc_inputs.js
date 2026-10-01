@@ -28,6 +28,14 @@ ServerEvents.recipes((event) => {
     'minecraft:smoker': item('tfc:firepit'),
     'minecraft:campfire': item('tfc:firepit'),
     'minecraft:anvil': tag('tfc:anvils'),
+    // Content fixes after the late Ages (2026-10-01): a soul campfire is a firepit like the campfire, the TFC lecterns
+    // (tags/tfc_stations.js) for the Ars storage lectern, feathers for the fletching table of the projectile glyph,
+    // and milk, a fluid in a TFC bucket, through TFC's fluid-content test (abjuration essence, the dispel glyph and
+    // two Ars Additions charms).
+    'minecraft:soul_campfire': item('tfc:firepit'),
+    'minecraft:lectern': tag('firmages:lecterns'),
+    'minecraft:fletching_table': tag('c:feathers'),
+    'minecraft:milk_bucket': { type: 'tfc:fluid_content', fluid: { fluid: 'minecraft:milk', amount: 1000 } },
     'minecraft:lantern': tag('tfc:lamps'),
     'minecraft:tnt': item('minecraft:gunpowder'),
     'minecraft:mushroom_stew': item('minecraft:brown_mushroom'),

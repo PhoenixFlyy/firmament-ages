@@ -83,6 +83,9 @@ ServerEvents.recipes((event) => {
   swap('mekanism:module_silk_touch_unit', 'minecraft:diamond_pickaxe', part('steel', 'pickaxe'))
   ;['axe', 'pickaxe', 'shovel'].forEach((s) => swap('mekanism:module_vein_mining_unit', `minecraft:diamond_${s}`, part('steel', s)))
   swap('mekanism:flamethrower', 'minecraft:flint_and_steel', 'minecraft:blaze_powder')
+  // The HDPE Elytra is direct: a propeller takes the place of the vanilla elytra, as in the Create Jetpack
+  // (recipes/age_4/industrial_age.js; no End cities in this pack).
+  swap('mekanism:hdpe_elytra', 'minecraft:elytra', 'create:propeller')
   // Antimatter turning a bow into a crossbow and a diamond sword into a trident: gear from gear.
   event.remove({ id: 'mekanism:nucleosynthesizing/crossbow' })
   event.remove({ id: 'mekanism:nucleosynthesizing/trident' })
@@ -92,6 +95,17 @@ ServerEvents.recipes((event) => {
   ;['better_gold', 'plaslitherite', 'refined_redstone']
     .forEach((m) => swap(`evolvedmekanism:tools/${m}/shield`, 'minecraft:shield', 'tfc:metal/double_sheet/blue_steel'))
   swap('evolvedmekanism:module_capturing_unit', 'minecraft:netherite_sword', part('black_steel', 'sword'))
+
+  // ======================================================================================== Mystical Agriculture
+  // The seed reprocessor asked for two vanilla iron hoes (no recipe in a TFC world): wrought iron hoe heads.
+  swap('mysticalagriculture:seed_reprocessor', 'minecraft:iron_hoe', part('wrought_iron', 'hoe'))
+
+  // ======================================================================================== backpacks and quests
+  // Wooden and stone vanilla tools have no recipe in a TFC world; the copper part of the slot takes their place (the
+  // stone/copper rule of the Arcane MAP). The tool swapper upgrade is an exception to the gear rule (backpack upgrade).
+  ;['axe', 'pickaxe', 'shovel', 'sword'].forEach((t) =>
+    swap('sophisticatedbackpacks:tool_swapper_upgrade', `minecraft:wooden_${t}`, part('copper', t)))
+  swap('ftbquests:loot_crate_opener', 'minecraft:stone_pickaxe', part('copper', 'pickaxe'))
 
   // ======================================================================================== AE2 and AdvancedAE
   // Fluix tools from certus quartz instead of the certus tool of the same slot; the network tool from certus instead
