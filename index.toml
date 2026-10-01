@@ -482,7 +482,7 @@ hash = "54bf19c51bbe93e16837933783cb038981ba56a3eede7820bcb63f2d568631e1"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
-hash = "e014a58e32279172eeeac2b3648fc7b81e51b0d1f4077ef876a5b80c8cc268ce"
+hash = "a11f2baef076d33591f0bd361faf22907fbc9bdd918a057015366819b18745ea"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
@@ -502,7 +502,7 @@ hash = "6e50b2c2057c809e9769c725d89ce4c421911117232cc2ac9afed0be7857a90b"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
-hash = "8f4bc20b7d2fe792f621adec78cbc876720c634766442b7213631838ee7aa7e7"
+hash = "7cef67082aefcc21671e7cb950e639e949a133fa8f076c22a8c98334b366bd4c"
 
 [[files]]
 file = "kubejs/server_scripts/stages/mobs.js"
@@ -510,7 +510,7 @@ hash = "3acfb474089073eed8f6631d625fbc258865ba552d6c9b9242c486e7fed9e2d2"
 
 [[files]]
 file = "kubejs/server_scripts/stages/on_stage_added.js"
-hash = "a19ac08399215696dcee0225ec79743f46069eb98247813b15685b3f6948f78d"
+hash = "05fce900b6f0cc867aeab8759fe4beef6c053bc1db2c80c25f1d4494275c9238"
 
 [[files]]
 file = "kubejs/server_scripts/tags/arcane_industrial.js"
@@ -963,7 +963,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-0.3.0.jar"
-hash = "91537c1885bcc0f92754094743b4f2644f059c377d890bc0d2965bdd45cc0f92"
+hash = "f1e69093df120208bfd886850cc2a0ce28f7c78a4ddcf8b6c85469421f749c8c"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

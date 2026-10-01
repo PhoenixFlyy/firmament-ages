@@ -2,6 +2,7 @@ package dev.firmages.core;
 
 import com.mojang.logging.LogUtils;
 import dev.firmages.core.age.AgeService;
+import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.command.FirmagesCommands;
 import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.config.ServerConfig;
@@ -38,6 +39,7 @@ public final class FirmagesCore {
         bus.addListener(AgeService::onStagesBulkChanged);
         bus.addListener(AgeService::onPlayerLoggedIn);
         bus.addListener(FirmagesCommands::register);
+        bus.addListener(DebugPlayerCommands::onServerTick);
         bus.addListener(EventPriority.HIGH, OreGuard::onBreak);
         bus.addListener(EventPriority.LOW, OreGuard::onDrops);
         ShrineEvents.register(bus);

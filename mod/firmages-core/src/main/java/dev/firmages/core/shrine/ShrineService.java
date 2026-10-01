@@ -567,9 +567,14 @@ public final class ShrineService {
         Heart h = new Heart(level, pos, be);
         if (!be.prayers.containsKey(player.getUUID())) {
             validate(level, pos, be);
-            Optional<Component> no = refusal(level, h, Rites.SKIP_CHORUS, true, player);
+            Optional<Component> no = refusal(level, h, Rites.SKIP_CHORUS, false, player);
             if (no.isPresent()) {
-                if (tellThrottled(be, level, player, no.get())) level.playSound(null, pos, ShrineRegistry.REFUSED.get(), SoundSource.BLOCKS, 0.6F, 0.8F);
+                // a held use repeats every few ticks: the message, sound and ghost go out at most once a second
+                if (tellThrottled(be, level, player, no.get())) {
+                    level.playSound(null, pos, ShrineRegistry.REFUSED.get(), SoundSource.BLOCKS, 0.6F, 0.8F);
+                    ShrineRules.currentTier(unlocked(level.getServer())).filter(t -> !ringsReady(be, t))
+                        .ifPresent(t -> sendPreview(player, h, firstIncompleteRing(be).orElse(t)));
+                }
                 return;
             }
         }
@@ -819,16 +824,17 @@ public final class ShrineService {
             return out;
         }
         GlobalPos gp = sd.heart().get();
+        Optional<Heart> heart = heart(s);
+        // validate first, so the header shows this tick's state, not the last periodic validation
+        heart.ifPresent(x -> validate(x.level, x.pos, x.be));
         out.add(Component.literal("Heart " + gp.pos().toShortString() + " in " + gp.dimension().location() + "; intact " + sd.intact()
             + ", valid ring " + sd.lastValidRing() + ", awakened " + ShrineRules.awakened(unlocked) + ", relics " + sd.relics().size()
             + ", shrine grants " + sd.grantedStages()));
-        Optional<Heart> heart = heart(s);
         if (heart.isEmpty()) {
             out.add(Component.literal("Heart chunk not loaded; last validation at game time " + sd.lastValidated()));
             return out;
         }
         Heart h = heart.get();
-        validate(h.level, h.pos, h.be);
         for (int k = 0; k <= d.highestRing(); k++) {
             Optional<String> mb = d.tier(k).flatMap(ShrineTier::multiblock);
             if (mb.isEmpty()) continue;
