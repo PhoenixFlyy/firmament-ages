@@ -1129,3 +1129,100 @@ C-3m, C-3s, C-6e, C-Gv). `gen_stage_locks.py --check` clean. `validate_quests.py
   (craftable, but the gear_rule swap targets a diamond sword the recipe no longer has).
 - The headless debug players died in an earlier run and cannot respawn; a `debug player respawn` command in
   firmages-core would save moving their files.
+
+## M6, textures and release tooling
+
+Date: 2026-10-01, branch `dev`. Integrated: the mod branch (M6 Keystone lending, blessing effects, energy rite, Jade,
+The Origin's own travel lock, mob_9 spawn list, boss trigger hardening; 9f181e1 to 124b8f3) as merge aaf5ed4 and the
+texture branch (generated 16x16 textures, e43621f) as merge feb8ec5, both `--no-ff` on top of the content fixes and the
+release tooling. firmages-core **0.5.0**: `gradlew build` 67 JUnit tests, 0 failures; `runGameTestServer` "All 24
+required tests passed" (selftest core 17/17, gate 16/16). The 0.5.0 jar replaces 0.4.0 in `mods/`, `packwiz refresh`.
+Test server synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve` (quest folder deleted first),
+**fresh world** (`--wipe-world`). Alpha and Beta, survival, one FTB party. `debug.allowSimulate` and the whitelist were
+off only during the run; both are back on their old values.
+
+### Merge decisions
+
+- **Boss script**: the content-fix version stays (phases, `faInOrigin`, `faAltar`, announcements, tagged-death
+  listener); the gate id now comes from `FirmAges.finaleGateway()` (mod config `origin.finaleGateway`) instead of a
+  script constant, and the duplicate `faGateId` of the mod branch is gone. SPEC 16.3 keeps both texts (decision log).
+- **Line endings**: `config/cucumber-tags.json` and `kubejs/server_scripts/tags/late_ages.js` had CRLF in the working
+  tree while git stored LF, so `index.toml` carried hashes that an install from GitHub could never match ("Hash
+  invalid!", release run). Both are LF again and the index is refreshed; no served text file has CRLF now (416 index
+  entries checked). The other two files of the release report were already LF after the content commits.
+
+### Assets (the dedicated server cannot render)
+
+| Check | Observed | Result |
+|---|---|---|
+| `python dev/gen_textures.py --check` | 33 referenced textures, 0 errors, 0 warnings | pass |
+| Every JSON and `.mcmeta` under `mod/.../assets` and `kubejs/assets`, strict parse (duplicate keys refused) | 11 models, 4 blockstates, 1 lang, `sounds.json`, 1 `.mcmeta`: all valid; every model has `parent` or `elements`, every face texture variable is defined, every blockstate variant names a model, the `.mcmeta` has `animation`; no CRLF | pass |
+| Jar content | `firmages-core-0.5.0.jar` carries the block textures (16 PNG under `textures/block/`) and `version="0.5.0"` | pass |
+
+### Install and boot (fresh world)
+
+| Check | Observed | Result |
+|---|---|---|
+| Sync | bootstrap 416/416 entries, "Finished successfully"; `verify_install.py dir test-server --side server`: 401 expected, 0 missing; 5 config hash differences (`DraconicEvolution.cfg`, `createdieselgenerators-server.toml`, `ftbchunks-world.snbt`, `mysticalagriculture-common.toml`, `progressivestages.toml`) are the mods rewriting their own files on start (comments dropped) | pass |
+| Boot | `Done (10.972s)` | pass |
+| KubeJS | startup 2/2, server 32/32 scripts, 0 errors, 0 warnings; "Added 461, removed 7038, modified 333, 0 failed" in 3.25 s; 0 error lines in `logs/kubejs/*.log` | pass |
+| ProgressiveStages | `progressivestages validate`: 28/28 stage files valid; no ERROR lines | pass |
+| FTB Quests | `Loaded 2 chapter groups, 13 chapters, 345 quests, 21 reward tables` (= `dev/quests-notes.md`); `validate_quests.py`: 1282 object ids, 0 errors, 0 warnings | pass |
+| firmages-core | 0 ERROR or WARN lines at boot; Jade plugin `FirmagesJadePlugin` loading; "The Origin spawn list: monster minecraft:enderman w10, cataclysm:endermaptera w6, cataclysm:ignited_revenant w2, cataclysm:ender_golem w1"; arena built in 1352 ms, return gate at 0 66 31; `origin status` names the finale gateway `firmages:the_origin` and the spawn list | pass |
+| Gateways | "Registered 13 gateways" | pass |
+| Other ERROR lines | DISTXFORM, azimuth mixin, loot tables, tfcrf/woodencog/createdeco recipe parse errors, Sable `copycat_catwalk`, Polymorph EMI module, TF `dev_new_world`: as before | not ours |
+
+### The ladder and the M6 checks
+
+Rings 0 to 8 by `build_shrine.py --heart 0 200 0 --rings 0-8 --platform` (550 commands); `dawn` to `age_3` by `stage
+grant`, then tiers 3 to 8 from the shrine (offering by `debug use`, prayer by `debug pray`). `build_shrine.py --rites 5`
+now also puts 1,000,000 FE into each HV capacitor of the crown (IE's own block entity key `energy`, javap of
+`EnergyHelper.serializeTo`), because ring 5 has the energy rite since M6.
+
+| Grant | Path | Reload (ms) |
+|---|---|---|
+| age_0 to age_3 | four `stage grant`, one reload, the first after the boot | 11,664 |
+| age_4 | tier 3, Alpha (candles) | 7,954 |
+| age_5 | tier 4, Alpha (lanterns) | 7,110 |
+| age_6 | tier 5, Alpha (floodlights and capacitors) | 6,920 |
+| age_7 | tier 6, Beta and Alpha (Chorus) | 6,991 |
+| age_8 | tier 7, Beta and Alpha (stars) | 6,976 |
+| age_9 | tier 8, Beta and Alpha (Chorus, stars, Keystone back) | 7,310 |
+
+| Check | Observed | Result |
+|---|---|---|
+| Energy rite (tier 5) | capacitors set to 0 FE: `shrine status` "Charge the four capacitors of the crown with 1,000,000 FE together (now 0 FE)", the prayer stays refused with that actionbar line; 4 x 250,000 FE: "rites not done []", prayer heard, age_6 | pass |
+| Lend (age_8) | Alpha, empty hand, sneak-use on plinth 4 (0 200 -5): Alpha holds `firmages:arcane_keystone` (no components); chat "Caelum lends you ... for the rite of the Marid"; plinth BE `lent: 1b, relic: 0b, tier: 3`, no item; `shrine status` "relics 5, lent [firmages:arcane_keystone (tier 3)]", intact true, valid ring 8; the rites add "The lent ... must rest on its plinth again" | pass |
+| Offering while lent | Quantum Core on plinth 9: refused ("Bring it back to its plinth before this offering"), item kept, plinth empty | pass |
+| Marid ritual input | `fa_recipe`: `firmages:ritual/awakened_keystone [occultism:ritual]` takes `firmages:arcane_keystone`, 2 `mekanism:alloy_atomic`, `draconicevolution:wyvern_core`, `#firmages:boss_token/age_8`; the lent item is exactly that item id without components, so the plain item ingredient matches. The ritual itself (pentacle, bound Marid) was not run headless | pass (ingredient) |
+| Return | the lent Keystone taken away (the ritual consumes it), `firmages:awakened_keystone` in hand, use on plinth 4: "... rests on its plinth again. Caelum's circle is whole."; BE `item: awakened_keystone, relic: 1b, lent: 0b`; `shrine relics` "tier 3: firmages:awakened_keystone" | pass |
+| age_8 offering after the return | Quantum Core on plinth 9 accepted (BE `tier: 8`, item quantum_core); only the Chorus left; prayer by both, age_9 | pass |
+| Blessings inside the ring (age_8, radius 40) | Alpha at 1 200 -2: speed 0.105 (+5 %), max health 22 (2 x 5 %), block break speed 1.05, block interaction range 5.0, safe fall distance 4, fall damage multiplier 0.8; Beta max health 22 | pass |
+| Outside the ring | Alpha at 60 200 0, 2.5 s later: 0.100, 20, 1.0, 4.5, 3, 1.0, luck 0 | pass |
+| Broken shrine | one ring-0 post removed: "The shrine is broken...", `intact false`, sanctuary inactive, Alpha back to 0.100 / 20 / 4.5 within 2.5 s; repaired: "The shrine stands again...", attributes back within about 5 s (a read 2.5 s after the repair still showed the base values) | pass |
+| age_9 | Resolve added: max health 23, luck 1.0 | pass |
+| Origin, Alpha at age_8 (survival) | `execute in firmages:origin run tp Alpha` (console), `firmages origin tp Alpha` ("was not let into The Origin") and Alpha as operator running `execute in firmages:origin run tp @s`: Alpha stays in the overworld each time. ProgressiveStages answers first ("This dimension is locked! Required: Age 9"): its listener has the same HIGH priority and is registered earlier, so firmages-core's listener does not see these cancelled events | pass |
+| The mod's own lock alone | the `firmages:origin` line of `age_9.toml` commented out in the test-server copy, `progressivestages reload`, console tp: Alpha stays in the overworld, log "The Origin: Alpha was turned back (no age_9) from minecraft:overworld"; file restored (byte-identical with the repo) and reloaded | pass |
+| Origin at age_9 | console tp and `firmages origin tp Beta`: both in `firmages:origin`; back to the overworld by tp | pass |
+| Finale gate in the overworld | `open_gateway ... firmages:the_origin` in the overworld (players creative for the waves): Maledictus, Ignis, then both killed by command, gate gone after 28 s; no Ender Guardian, no entity with `firmages.final_boss`, no `[finale]` line | pass |
+| Tagged death outside The Origin | zombie with `firmages.final_boss` killed in the overworld: WARN "a firmages.final_boss died in minecraft:overworld ... not in The Origin; it does not count"; Alpha has no `finale_won`; `origin status` unchanged | pass |
+| mob_9 | spawn list loaded at boot and after every reload (log line above) and listed in `origin status` | pass (loaded) |
+
+### `poc_analyze.py`, quests and reload at age_9
+
+All-Ages dump of this world at age_9 (`fa_dump`, `fa_dump_full`: 33,204 recipes): **67 checks, all PASS**.
+`validate_quests.py` 0 errors, 0 warnings. Three operator reloads (`firmages reload`) at age_9 with Alpha and Beta
+online in the overworld, after about 25 minutes of server time and two dumps: **7,100 / 7,505 / 6,587 ms**.
+
+### Open points of this run
+
+- **Needs a client**: the textures in game (KubeJS auto-models for `firmages:dust/zinc` and `dust/bismuth`, the
+  animated lit heart top, the plinth and reactor models), the Jade tooltips, the real Marid ritual with a lent
+  Keystone, how many mob_9 mobs spawn in the lit arena.
+- **Blessing return delay**: after a repair the attributes came back a few seconds after the "stands again" line;
+  harmless, but a client tester may notice it.
+- **Debug players and `deop`**: with `enforce-whitelist=true`, a `deop` kicks every player not on the whitelist, the
+  headless debug players included, even after `whitelist off`. Avoid `op`/`deop` during a debug-player run or put the
+  players on the whitelist.
+- The pack version in `pack.toml` is still 0.1.0; `dev/release.ps1 -Version` bumps it for a release.
+- `origin/main` is still the skeleton; friends and the live server read main (release run).

@@ -10,7 +10,7 @@ Prints each ring's plinth position (needed for /firmages debug use).
   --rites N    also set the rite blockstates of tier N the way the game reaches them: tier 2 lights the four lamps
                (lit=true; a lamp without fuel goes out later, long enough for the prayer), tier 3 lights the candles
                (lit=true), tier 4 charges the IE electric lanterns, tier 5 charges the IE floodlights and puts a
-               redstone block on each. "Charged" = IE's own stored energy (block entity NBT; the lantern reads
+               redstone block on each and puts 1,000,000 FE into each of the four HV capacitors. "Charged" = IE's own stored energy (block entity NBT; the lantern reads
                energyStorage, the floodlight reads energy and writes energyStorage), so IE's tick switches
                active=true itself; wiring a generator by command is not possible.
   --dry-run    print the commands instead of sending them
@@ -63,12 +63,15 @@ PICK = {
     "quantum_casings": "mekanism:sps_casing",
     "awakened_draconium": "draconicevolution:awakened_draconium_block",
 }
-# tier -> (pattern key, block override, extra block placed above, or None)
+# tier -> [(pattern key, block override, extra block placed above, or None), ...]
+# Tier 5 also has the energy rite (ring_5.json, 1,000,000 FE summed over the four HV capacitors, nothing drained):
+# each capacitor gets 1,000,000 FE as IE's own block entity value (EnergyHelper.serializeTo writes the key "energy").
 RITES = {
-    2: ("L", "tfc:metal/lamp/wrought_iron[lit=true]", None),
-    3: ("K", "tfc:candle[candles=4,lit=true]", None),
-    4: ("E", "immersiveengineering:electric_lantern{energyStorage:2000000000}", None),
-    5: ("L", "immersiveengineering:floodlight{energy:2000000000}", "minecraft:redstone_block"),
+    2: [("L", "tfc:metal/lamp/wrought_iron[lit=true]", None)],
+    3: [("K", "tfc:candle[candles=4,lit=true]", None)],
+    4: [("E", "immersiveengineering:electric_lantern{energyStorage:2000000000}", None)],
+    5: [("L", "immersiveengineering:floodlight{energy:2000000000}", "minecraft:redstone_block"),
+        ("V", "immersiveengineering:capacitor_hv{energy:1000000}", None)],
 }
 
 
@@ -105,12 +108,13 @@ def commands(heart, n, rites):
                 if ch == "0":
                     continue  # the heart goes last (it validates on placement)
                 b = block_for(d["mapping"][ch])
-                if rites in RITES and RITES[rites][0] == ch and rites == n:
-                    b = RITES[rites][1]
+                rite = next((r for r in RITES.get(rites, []) if r[0] == ch), None) if rites == n else None
+                if rite:
+                    b = rite[1]
                     if "{" in b:  # an existing block keeps its block entity on setblock: merge the charge into it
                         extra.append(f"data merge block {x} {y} {z} {b[b.index('{'):]}")
-                    if RITES[rites][2]:
-                        extra.append(f"setblock {x} {y + 1} {z} {RITES[rites][2]}")
+                    if rite[2]:
+                        extra.append(f"setblock {x} {y + 1} {z} {rite[2]}")
                 if ch == "P":
                     plinth = (x, y, z)
                 out.append(f"setblock {x} {y} {z} {b}")
