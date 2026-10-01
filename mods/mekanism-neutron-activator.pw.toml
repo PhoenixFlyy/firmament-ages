@@ -3,11 +3,11 @@ filename = "mekanismneutronactivator-1.21.1-1.0.0.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/Y9OwWpF6/versions/CgTxg5DK/mekanismneutronactivator-1.21.1-1.0.0.jar"
-hash-format = "sha512"
-hash = "d2a34ae8adb729c308b4e00b86e683b5e3cc05605002884bc693ce4fdf5701fa0f1a7606c77221e7dd9971e4ba35f85eee3b175ad2d0e373610c7c492bce72bd"
+hash-format = "sha1"
+hash = "6b2f9da06c9d6fb71f43193cb9f73dcd8974dca9"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "Y9OwWpF6"
-version = "CgTxg5DK"
+[update.curseforge]
+file-id = 7868400
+project-id = 1326550

@@ -3,11 +3,11 @@ filename = "tfcreate-1.0.1.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/iaP7zFj9/versions/Kzhwzley/tfcreate-1.0.1.jar"
-hash-format = "sha512"
-hash = "9cd442193e731d3f0b4d9aa8bf255df16a0f83e445cda47d30b07bc63161a0a8adf5f965b5788c086b2ad9869f337052d2fcd7003c589e2abe4193b25f988512"
+hash-format = "sha1"
+hash = "599924ae3da7c300fbfa6a75518a003a4f05d97e"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "iaP7zFj9"
-version = "Kzhwzley"
+[update.curseforge]
+file-id = 8553064
+project-id = 1605648

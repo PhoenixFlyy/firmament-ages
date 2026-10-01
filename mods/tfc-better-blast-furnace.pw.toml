@@ -3,11 +3,11 @@ filename = "TFCBetterBlastFurnace-1.21.1-2.0.1.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/tr715LZ4/versions/dJGvS6mC/TFCBetterBlastFurnace-1.21.1-2.0.1.jar"
-hash-format = "sha512"
-hash = "82f1f1cf7409c13718ee78aa1285a01c7e079314d6ade2cdce0386bc204f087ee3d387c929ad440b9a8a204678fe73d8b76305316b17786ba702ac9a060283b6"
+hash-format = "sha1"
+hash = "6aa0695465bc0ad9369b1640a383d9067548cdd8"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "tr715LZ4"
-version = "dJGvS6mC"
+[update.curseforge]
+file-id = 8769052
+project-id = 1046432

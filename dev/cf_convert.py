@@ -324,6 +324,7 @@ def apply(limit=None):
         old.unlink()
         r = subprocess.run([str(PACKWIZ), "curseforge", "add", "--addon-id", str(e["project_id"]),
                             "--file-id", str(e["file_id"])], cwd=ROOT, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace",
                            input="n\n" * 20, timeout=300)
         created = sorted(set(MODS.glob("*.pw.toml")) - before)
         new = created[0] if len(created) == 1 else (MODS / e["meta"] if (MODS / e["meta"]).exists() else None)

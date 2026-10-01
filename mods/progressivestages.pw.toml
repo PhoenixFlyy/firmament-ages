@@ -3,11 +3,11 @@ filename = "progressivestages-3.0.5.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/rY4mdP4Q/versions/pZlloUS8/progressivestages-3.0.5.jar"
-hash-format = "sha512"
-hash = "54459e833f81646265efdf7dc5538c9365e63dde9f8762ecd604e995022bdf140539d625b5722d6700bbb138a461da3d2afbf241a28763e6f2ab96124a293b96"
+hash-format = "sha1"
+hash = "6d0913dce7bcc2d7b8626dff2086af08d81895cd"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "rY4mdP4Q"
-version = "pZlloUS8"
+[update.curseforge]
+file-id = 8882278
+project-id = 1460273

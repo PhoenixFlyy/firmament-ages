@@ -3,11 +3,11 @@ filename = "theurgy_kubejs-1.21.1-neoforge-1.6.0.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/oXj2r26F/versions/gOZLSUzC/theurgy_kubejs-1.21.1-neoforge-1.6.0.jar"
-hash-format = "sha512"
-hash = "06b4be377a590e0aa11f7c1627b8958766cfcd43c7c48bba6df072d5aebe55c559add62c945dbdae1c3413438ff6a66c1d730123f373214640fdb0ecd93ecd0a"
+hash-format = "sha1"
+hash = "c1aff07b124b56aa8f45e746e76d48697b7147ee"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "oXj2r26F"
-version = "gOZLSUzC"
+[update.curseforge]
+file-id = 8838118
+project-id = 963206

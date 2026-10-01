@@ -3,11 +3,11 @@ filename = "MoreMekanismProcessing-1.21.1-6.4.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/fVa04tKz/versions/VvkdSVU7/MoreMekanismProcessing-1.21.1-6.4.jar"
-hash-format = "sha512"
-hash = "fdf9151cda2606625848d32fa0bbd01bcb4db7f53cc9a5526faf1a6d374e70fca913e59591bcadc599364ca9722200a737eab4382b8678936a613976916b962e"
+hash-format = "sha1"
+hash = "9ceb1b599a0e7fddb65b01207bd0ce90bfe02ba9"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "fVa04tKz"
-version = "VvkdSVU7"
+[update.curseforge]
+file-id = 6299463
+project-id = 511965

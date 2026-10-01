@@ -3,11 +3,11 @@ filename = "TFCRegrowingForests-1.21.1-2.2.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/Zh7v8m6u/versions/JbsGsxZD/TFCRegrowingForests-1.21.1-2.2.jar"
-hash-format = "sha512"
-hash = "709a89ddc3fea7d257396e2032c9d611a63c7f9a52b7ed00011fffc499ec0e91f13f97e9e90795d3c3c88c0734cf14818702bf7487260d8bbf7f5a7410856b8f"
+hash-format = "sha1"
+hash = "d28581e0b1c695f5e7cc7f08dfda306e1a22134b"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "Zh7v8m6u"
-version = "JbsGsxZD"
+[update.curseforge]
+file-id = 7604340
+project-id = 1091993

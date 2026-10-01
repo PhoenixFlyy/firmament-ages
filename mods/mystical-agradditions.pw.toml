@@ -3,11 +3,11 @@ filename = "MysticalAgradditions-1.21.1-8.0.14.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/pl0jGXIx/versions/31EVEM35/MysticalAgradditions-1.21.1-8.0.14.jar"
-hash-format = "sha512"
-hash = "17f54c31bfef52152f2f54ed147b2f809c45f632bdb45846ddf0680dd5e95c0481cec4e8b43d1d22159b3ecafe54ba497248d306c636945579d1311ea2f253a2"
+hash-format = "sha1"
+hash = "e66484aa157c68e9ee26cbab4096c5fcbc4070c8"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "pl0jGXIx"
-version = "31EVEM35"
+[update.curseforge]
+file-id = 8515974
+project-id = 256247
