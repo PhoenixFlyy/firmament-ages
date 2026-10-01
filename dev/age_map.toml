@@ -459,6 +459,12 @@ block = "tfc:rock/loose/granite"
 "id:mowziesmobs:bluff_rod" = "age_5"
 "id:mowziesmobs:sand_rake" = "age_5"
 "name:mowziesmobs:geomancer_" = "age_5"
+# Station matrix (Doc 10 v3 sections 5 and 6.1): the Draconic Reactor and its Flux Gate are the power of the
+# Singularity Age, the Quantum Entangloporter is wireless power of the Space Age.
+"name:draconicevolution:reactor_" = "age_9"
+"id:draconicevolution:flux_gate" = "age_9"
+"id:mekanism:quantum_entangloporter" = "age_7"
+"id:mekmm:wireless_transmission_station" = "age_7"      # takes the Entangloporter
 # Trophies after the final boss (stage finale_won locks them on top).
 "id:mekanism:mekasuit_helmet" = "age_9"
 "id:mekanism:mekasuit_bodyarmor" = "age_9"
