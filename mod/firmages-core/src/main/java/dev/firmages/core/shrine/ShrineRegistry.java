@@ -40,6 +40,54 @@ public final class ShrineRegistry {
         () -> new BlockItem(SHRINE_HEART.get(), new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final DeferredItem<BlockItem> OFFERING_PLINTH_ITEM = ITEMS.registerSimpleBlockItem("offering_plinth", OFFERING_PLINTH);
 
+    /** The consecrated family (SPEC §17), one block per role; block items for operators only (no survival source). */
+    public static final java.util.Map<Consecration.Role, DeferredBlock<ConsecratedBlock>> CONSECRATED = registerConsecrated();
+    public static final java.util.Map<Consecration.Role, DeferredItem<BlockItem>> CONSECRATED_ITEMS = registerConsecratedItems();
+
+    private static java.util.Map<Consecration.Role, DeferredBlock<ConsecratedBlock>> registerConsecrated() {
+        java.util.Map<Consecration.Role, DeferredBlock<ConsecratedBlock>> out = new java.util.EnumMap<>(Consecration.Role.class);
+        for (Consecration.Role role : Consecration.Role.values()) {
+            out.put(role, BLOCKS.register("consecrated_" + role.id(), () -> {
+                BlockBehaviour.Properties p = BlockBehaviour.Properties.of()
+                    .strength(-1.0F, 3_600_000.0F).noLootTable().pushReaction(PushReaction.BLOCK).forceSolidOn()
+                    .isValidSpawn((s, l, pos, e) -> false)
+                    .mapColor(switch (role) {
+                        case METAL, SCAFFOLD -> MapColor.METAL;
+                        case GLASS -> MapColor.NONE;
+                        case LAMP -> MapColor.GOLD;
+                        default -> MapColor.QUARTZ;
+                    })
+                    .sound(switch (role) {
+                        case METAL -> SoundType.METAL;
+                        case SCAFFOLD -> SoundType.NETHERITE_BLOCK;
+                        case GLASS, LAMP -> SoundType.GLASS;
+                        default -> SoundType.STONE;
+                    });
+                if (role.transparent()) p = p.noOcclusion().isViewBlocking((s, l, pos) -> false).isSuffocating((s, l, pos) -> false)
+                    .isRedstoneConductor((s, l, pos) -> false);
+                if (role == Consecration.Role.LAMP) return new ConsecratedLampBlock(p.lightLevel(s -> s.getValue(ConsecratedLampBlock.LIT) ? 15 : 0));
+                return new ConsecratedBlock(role, p);
+            }));
+        }
+        return java.util.Collections.unmodifiableMap(out);
+    }
+
+    private static java.util.Map<Consecration.Role, DeferredItem<BlockItem>> registerConsecratedItems() {
+        java.util.Map<Consecration.Role, DeferredItem<BlockItem>> out = new java.util.EnumMap<>(Consecration.Role.class);
+        for (Consecration.Role role : Consecration.Role.values()) {
+            out.put(role, ITEMS.register("consecrated_" + role.id(),
+                () -> new BlockItem(CONSECRATED.get(role).get(), new Item.Properties().rarity(Rarity.EPIC))));
+        }
+        return java.util.Collections.unmodifiableMap(out);
+    }
+
+    /** The consecrated state of {@code role} with accent {@code accent} (lamps lit). */
+    public static net.minecraft.world.level.block.state.BlockState consecrated(Consecration.Role role, int accent) {
+        net.minecraft.world.level.block.state.BlockState s = CONSECRATED.get(role).get().defaultBlockState()
+            .setValue(ConsecratedBlock.ACCENT, Math.max(0, Math.min(Consecration.MAX_ACCENT, accent)));
+        return s.hasProperty(ConsecratedLampBlock.LIT) ? s.setValue(ConsecratedLampBlock.LIT, true) : s;
+    }
+
     @SuppressWarnings("DataFlowIssue") // the data fixer type is null by design for mod block entities
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ShrineHeartBlockEntity>> SHRINE_HEART_BE = BLOCK_ENTITIES.register("shrine_heart",
         () -> BlockEntityType.Builder.of(ShrineHeartBlockEntity::new, SHRINE_HEART.get()).build(null));
@@ -56,6 +104,8 @@ public final class ShrineRegistry {
     public static final DeferredHolder<SoundEvent, SoundEvent> REFUSED = sound("shrine.refused");
     public static final DeferredHolder<SoundEvent, SoundEvent> ACCEPTED = sound("shrine.accepted");
     public static final DeferredHolder<SoundEvent, SoundEvent> KINDLED = sound("shrine.kindled");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CONSECRATE = sound("shrine.consecrate");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MAINTENANCE = sound("shrine.maintenance");
 
     private static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, name)));
@@ -73,6 +123,9 @@ public final class ShrineRegistry {
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(SHRINE_HEART_ITEM.get());
             event.accept(OFFERING_PLINTH_ITEM.get());
+        }
+        if (event.getTabKey() == CreativeModeTabs.OP_BLOCKS && event.hasPermissions()) {
+            CONSECRATED_ITEMS.values().forEach(i -> event.accept(i.get()));
         }
     }
 }

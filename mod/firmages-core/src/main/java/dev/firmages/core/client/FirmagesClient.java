@@ -69,6 +69,7 @@ public final class FirmagesClient {
         public static void loggedOut(ClientPlayerNetworkEvent.LoggingOut event) {
             CeremonyPlayer.reset();
             PreviewBridge.clear();
+            dev.firmages.core.net.ShrineSyncPayload.clientReset();
         }
     }
 }

@@ -79,4 +79,18 @@ public final class FirmAgesJS {
         MinecraftServer s = ServerLifecycleHooks.getCurrentServer();
         return s != null && OriginSavedData.get(s).won();
     }
+
+    // ---- The shrine's consecration (SPEC §17) ----
+
+    /** True while the shrine's maintenance mode is on (consecrated blocks can be broken); false with no server running. */
+    public static boolean shrineMaintenance() {
+        MinecraftServer s = ServerLifecycleHooks.getCurrentServer();
+        return s != null && dev.firmages.core.shrine.ShrineConsecration.maintenanceActive(s);
+    }
+
+    /** Number of consecrated shrine positions with a stored original block (0 with no server running). */
+    public static int consecratedBlocks() {
+        MinecraftServer s = ServerLifecycleHooks.getCurrentServer();
+        return s == null ? 0 : dev.firmages.core.shrine.ShrineSavedData.get(s).originals().size();
+    }
 }

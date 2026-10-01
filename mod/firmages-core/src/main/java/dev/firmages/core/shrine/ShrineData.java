@@ -25,14 +25,15 @@ import java.util.regex.Pattern;
  * @param fallback  definition for every tier without an own file, so the structure never blocks progression
  * @param offerings Age stage (whose signature item it is) to item id, e.g. {@code age_0 -> firmages:hearthstone}
  * @param blessings by id
+ * @param consecration the ring block roles of {@code consecration.json} (SPEC §17)
  */
 public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fallback, Map<String, String> offerings,
-                         Map<String, Blessing> blessings, List<String> errors, List<String> warnings) {
+                         Map<String, Blessing> blessings, List<String> errors, List<String> warnings, Consecration consecration) {
 
     /** Tiers are 0..8: tier N is worked in age_N and grants age_(N+1); age_9 has no tier (the Gathering is M8). */
     public static final int MAX_TIER = 8;
 
-    public static final ShrineData EMPTY = new ShrineData(Map.of(), Optional.empty(), Map.of(), Map.of(), List.of(), List.of());
+    public static final ShrineData EMPTY = new ShrineData(Map.of(), Optional.empty(), Map.of(), Map.of(), List.of(), List.of(), Consecration.EMPTY);
 
     private static final Pattern RING_FILE = Pattern.compile("tier/ring_(\\d+)");
     private static final Pattern COLOR = Pattern.compile("#?([0-9a-fA-F]{6}|[0-9a-fA-F]{8})");
@@ -82,6 +83,7 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
         Map<String, Blessing> blessings = new TreeMap<>();
         List<String> errors = new ArrayList<>();
         List<String> warnings = new ArrayList<>();
+        Consecration consecration = Consecration.EMPTY;
         for (Map.Entry<String, JsonElement> e : new TreeMap<>(files).entrySet()) {
             String id = e.getKey();
             String ns = id.contains(":") ? id.substring(0, id.indexOf(':')) : "minecraft";
@@ -94,6 +96,10 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
                         if (!m.getKey().matches("age_[0-8]")) throw new IllegalArgumentException("offering key '" + m.getKey() + "' is not age_0..age_8");
                         offerings.put(m.getKey(), itemId(m.getValue().getAsString()));
                     }
+                } else if (path.equals("consecration")) {
+                    Consecration c = Consecration.parse(o);
+                    c.errors().forEach(err -> errors.add(id + ": " + err));
+                    consecration = c;
                 } else if (path.equals("tier/fallback")) {
                     fallback = parseTier(o, -1, true, warnings, id);
                 } else if (path.startsWith("tier/")) {
@@ -121,7 +127,7 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
             t.blessing().filter(b -> !blessings.containsKey(b)).ifPresent(b -> warnings.add("tier " + t.tier() + " names unknown blessing " + b));
         }
         return new ShrineData(Map.copyOf(tiers), Optional.ofNullable(fallback), Map.copyOf(offerings), Map.copyOf(blessings),
-            List.copyOf(errors), List.copyOf(warnings));
+            List.copyOf(errors), List.copyOf(warnings), consecration);
     }
 
     static ShrineTier parseTier(JsonObject o, int tier, boolean fallback, List<String> warnings, String id) {

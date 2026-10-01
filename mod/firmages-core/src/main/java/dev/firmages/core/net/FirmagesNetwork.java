@@ -14,5 +14,6 @@ public final class FirmagesNetwork {
         registrar.playToClient(ReloadStatePayload.TYPE, ReloadStatePayload.STREAM_CODEC, ReloadStatePayload::handle);
         registrar.playToClient(AgeTransitionPayload.TYPE, AgeTransitionPayload.STREAM_CODEC, AgeTransitionPayload::handle);
         registrar.playToClient(ShrinePreviewPayload.TYPE, ShrinePreviewPayload.STREAM_CODEC, ShrinePreviewPayload::handle);
+        registrar.playToClient(ShrineSyncPayload.TYPE, ShrineSyncPayload.STREAM_CODEC, ShrineSyncPayload::handle);
     }
 }

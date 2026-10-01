@@ -70,5 +70,23 @@
       }
     ],
     "subtitle": "subtitles.firmages.shrine.kindled"
+  },
+  "shrine.consecrate": {
+    "sounds": [
+      {
+        "name": "minecraft:block.amethyst_block.resonate",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.consecrate"
+  },
+  "shrine.maintenance": {
+    "sounds": [
+      {
+        "name": "minecraft:block.respawn_anchor.set_spawn",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.maintenance"
   }
 }

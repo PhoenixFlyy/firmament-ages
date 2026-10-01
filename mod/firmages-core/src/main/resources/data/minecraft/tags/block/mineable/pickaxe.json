@@ -1,6 +1,7 @@
 {
   "values": [
     "firmages:shrine_heart",
-    "firmages:offering_plinth"
+    "firmages:offering_plinth",
+    "#firmages:consecrated"
   ]
 }

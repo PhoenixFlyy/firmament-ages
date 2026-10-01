@@ -8,7 +8,15 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.ceremony.CeremonyService;
 import dev.firmages.core.config.ServerConfig;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import dev.firmages.core.compat.modonomicon.ShrineMultiblocks;
+import dev.firmages.core.shrine.ShrineConsecration;
+import dev.firmages.core.shrine.ShrineData;
+import dev.firmages.core.shrine.ShrineDataLoader;
 import dev.firmages.core.shrine.ShrineSavedData;
+import dev.firmages.core.shrine.ShrineTier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import dev.firmages.core.shrine.ShrineService;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -25,7 +33,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * {@code /firmages shrine status|locate|relics|extract <plinth>|simulate_pray} and
+ * {@code /firmages shrine status|locate|relics|extract <plinth>|simulate_pray|maintenance on|off|status|consecrate <ring>|originals} and
  * {@code /firmages ceremony preview <stage> [full|short]} (SPEC §10).
  */
 final class ShrineCommands {
@@ -42,7 +50,14 @@ final class ShrineCommands {
             .then(Commands.literal("locate").executes(ShrineCommands::locate))
             .then(Commands.literal("relics").executes(ShrineCommands::relics))
             .then(Commands.literal("extract").then(Commands.argument("plinth", BlockPosArgument.blockPos()).executes(ShrineCommands::extract)))
-            .then(Commands.literal("simulate_pray").executes(ShrineCommands::simulatePray));
+            .then(Commands.literal("simulate_pray").executes(ShrineCommands::simulatePray))
+            .then(Commands.literal("maintenance")
+                .then(Commands.literal("on").executes(c -> maintenance(c, true)))
+                .then(Commands.literal("off").executes(c -> maintenance(c, false)))
+                .then(Commands.literal("status").executes(ShrineCommands::maintenanceStatus)))
+            .then(Commands.literal("consecrate").then(Commands.argument("ring", IntegerArgumentType.integer(0, ShrineData.MAX_TIER))
+                .executes(ShrineCommands::consecrate)))
+            .then(Commands.literal("originals").executes(ShrineCommands::originals));
     }
 
     static LiteralArgumentBuilder<CommandSourceStack> ceremony() {
@@ -110,6 +125,49 @@ final class ShrineCommands {
         }
         c.getSource().sendSuccess(() -> Component.literal("Prayer completed (rites and praying players skipped)"), true);
         return 1;
+    }
+
+    private static int maintenance(CommandContext<CommandSourceStack> c, boolean on) throws CommandSyntaxException {
+        MinecraftServer s = c.getSource().getServer();
+        if (on && ShrineSavedData.get(s).heart().isEmpty()) throw NO_HEART.create();
+        ServerPlayer p = c.getSource().getPlayer();
+        boolean changed = ShrineConsecration.setMaintenance(s, on, p == null ? null : p.getGameProfile().getName());
+        c.getSource().sendSuccess(() -> Component.literal(changed ? "Maintenance mode " + (on ? "on" : "off")
+            : "Maintenance mode is already " + (on ? "on" : "off")), true);
+        return changed ? 1 : 0;
+    }
+
+    private static int maintenanceStatus(CommandContext<CommandSourceStack> c) {
+        MinecraftServer s = c.getSource().getServer();
+        boolean on = ShrineConsecration.maintenanceActive(s);
+        line(c.getSource(), Component.literal("Maintenance mode " + (on ? "on, " + ShrineConsecration.maintenanceSecondsLeft(s) + " s left" : "off")
+            + "; " + ShrineSavedData.get(s).originals().size() + " consecrated position(s) with a stored original"));
+        return on ? 1 : 0;
+    }
+
+    private static int consecrate(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        MinecraftServer s = c.getSource().getServer();
+        int ring = IntegerArgumentType.getInteger(c, "ring");
+        ShrineService.Heart h = ShrineService.heart(s).orElseThrow(NO_HEART::create);
+        Optional<String> mb = ShrineDataLoader.current().tier(ring).flatMap(ShrineTier::multiblock);
+        if (mb.isEmpty()) {
+            c.getSource().sendFailure(Component.literal("Tier " + ring + " has no ring"));
+            return 0;
+        }
+        ShrineMultiblocks.RingCheck check = ShrineMultiblocks.check(h.level(), h.pos(), ResourceLocation.parse(mb.get()));
+        if (!check.valid()) {
+            c.getSource().sendFailure(Component.literal("Ring " + ring + " is not complete (" + check.matched() + "/" + check.total() + ", missing " + check.missing() + ")"));
+            return 0;
+        }
+        int n = ShrineConsecration.scheduleRing(h.level(), h.pos(), ring, check.rotation(), false);
+        c.getSource().sendSuccess(() -> Component.literal("Consecrating " + n + " block(s) of ring " + ring), true);
+        return n;
+    }
+
+    private static int originals(CommandContext<CommandSourceStack> c) {
+        List<Component> lines = ShrineConsecration.originalsReport(c.getSource().getServer());
+        lines.forEach(l -> line(c.getSource(), l));
+        return ShrineSavedData.get(c.getSource().getServer()).originals().size();
     }
 
     private static int preview(CommandContext<CommandSourceStack> c, boolean full) throws CommandSyntaxException {
