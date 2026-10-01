@@ -5,8 +5,20 @@ Reads <server>/local/firmages/recipes.json and item_tags.json and prints one PAS
 followed by the evidence. Run "fa_dump" on the server first (console or: python dev/rcon.py fa_dump).
 The content checks of the Arcane and Industrial Age ("C-" lines) also need recipes_full.json from "fa_dump_full"
 (every recipe as its serializer JSON) and read <server>/logs/latest.log for recipe parse errors.
+The "R-" checks walk the recipe graph once per goal Age from the Dawn start set (world items, mob-ladder drops, the
+Age's boss drops) and report every goal ingredient (Steel Heart, Arcane Keystone, Pressure Core) not reached at its Age.
 
-Usage:  python dev/poc_analyze.py [--server-dir test-server] [--show 40]
+The "G-" checks test the firmages-core recipe gate (M2) against the Age tags: the dump records the Ages that were
+unlocked ("unlocked", written by fa_dump), and no recipe may make an item of a locked Age or of age_items/disabled.
+With --baseline <dir> (the fa_dump files of a world with every Age unlocked) they also check that every baseline
+recipe whose outputs are all unlocked is present, so the gate drops nothing more. G-3 (dump with every Age unlocked)
+finds recipes whose chance byproduct is later than their main output and station and checks that
+kubejs/server_scripts/recipes/byproducts.js strips it; G-4 compares the recipe types without a detected output in
+<server>/logs/firmages-recipe-audit.txt with dev/data/accepted_undetected.json.
+The ProgressiveStages recipe locks stay in the pack as a second layer; the A- and C- checks read them and need the
+whole recipe set, so they run only on a dump where dawn to age_9 are unlocked (after "firmages ages simulate grant").
+
+Usage:  python dev/poc_analyze.py [--server-dir test-server] [--dump-dir DIR] [--baseline DIR] [--show 40]
 Exit code: 0 = all checks pass, 1 = at least one FAIL.
 """
 import argparse
@@ -26,10 +38,12 @@ HIDDEN_ITEMS_RE = re.compile(r"HIDDEN_ITEMS:\s*\[(.*?)\]", re.S)
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--server-dir", default=os.path.join(REPO, "test-server"))
+    ap.add_argument("--dump-dir", help="fa_dump files to read (default <server>/local/firmages)")
+    ap.add_argument("--baseline", help="fa_dump files of a world with every Age unlocked (G-2)")
     ap.add_argument("--show", type=int, default=40, help="max evidence lines per check")
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    base = os.path.join(a.server_dir, "local", "firmages")
+    base = a.dump_dir or os.path.join(a.server_dir, "local", "firmages")
     dump = json.load(open(os.path.join(base, "recipes.json"), encoding="utf-8"))
     tags = json.load(open(os.path.join(base, "item_tags.json"), encoding="utf-8"))
     rows = [dict(zip(dump["columns"], r)) for r in dump["recipes"]]
@@ -63,6 +77,19 @@ def main():
         return sorted(r["id"] for r in rows if rx.search(r[field] or ""))
 
     print(f"{len(rows)} recipes, {len(tags)} item tags")
+
+    unlocked = dump.get("unlocked")
+    if unlocked is not None:
+        gate_checks(base, a.baseline, rows, tags, item_age, set(unlocked), check)
+        fullp = os.path.join(base, "recipes_full.json")
+        if os.path.isfile(fullp):
+            byproduct_checks(rows, {k: json.loads(v) for k, v in json.load(open(fullp, encoding="utf-8")).items()},
+                             tags, item_age, set(unlocked), a.baseline, check)
+        undetected_check(a.server_dir, check)
+    if unlocked is not None and not set(AGES) <= set(unlocked):
+        print(f"[SKIP] A- and C- checks: they need the whole recipe set, this dump was filtered at {sorted(unlocked, key=AGES.index)}")
+        print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
+        sys.exit(1 if failed else 0)
 
     # ---- Dawn crafting whitelist: crafting recipes a Dawn-only team can still use -----------------------
     crafting = [r for r in rows if r["type"] == "minecraft:crafting"]
@@ -186,6 +213,256 @@ def main():
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
     sys.exit(1 if failed else 0)
+
+
+# ================================================================================================ gate checks (M2)
+# Mirrors the rules of firmages-core gate/GateRules independently: deny/allow lists are empty in the pack, exempt types
+# are world data; an output item locks when its Age tag is locked or it is in age_items/disabled; a tag output locks
+# only when it has members and all are locked. Fluids have no Age tags yet (age_fluids is not generated).
+GATE_EXEMPT = {"immersiveengineering:mineral_mix", "tfc:collapse", "tfc:landslide"}
+_GATE_OUT_KEY = re.compile(r"^(results?|outputs?|.*_outputs?|.*_results?|outputs?_.*|results?_.*)$")
+# IE keys that the walker regex misses but the gate's IE extractor reads by its field scan (sawmill, arc furnace).
+_GATE_IE_KEYS = ("secondaryOutputs", "strippingSecondaries", "slag")
+# Mekanism-family serializers resolve a tag output to one stack the JSON does not name (the gate reads it through
+# getOutputDefinition); the mirror cannot tell which member, so G-2 lists these instead of failing.
+_GATE_MEK_TYPES = re.compile(r"^(mekanism|mekanismgenerators|evolvedmekanism|mekmm|moremekanismprocessing):")
+
+
+def _gate_outs(o, items, tags_, inres=False):
+    """Item ids and item tags in the output subtrees of a recipe JSON."""
+    if isinstance(o, dict):
+        for k, v in o.items():
+            kl = k.lower()
+            if any(w in kl for w in ("input", "ingredient", "catalyst", "reagent", "condition")) or kl in ("key", "pattern", "components"):
+                continue
+            r = inres or bool(_GATE_OUT_KEY.match(kl))
+            if r and kl in ("id", "item") and isinstance(v, str):
+                items.add(v)
+            elif r and kl == "tag" and isinstance(v, str):
+                tags_.add(v)
+            else:
+                _gate_outs(v, items, tags_, r)
+    elif isinstance(o, list):
+        for v in o:
+            _gate_outs(v, items, tags_, inres)
+    elif isinstance(o, str) and inres and ":" in o:
+        (tags_.add(o[1:]) if o.startswith("#") else items.add(o))
+
+
+def _load_rows(base):
+    d = json.load(open(os.path.join(base, "recipes.json"), encoding="utf-8"))
+    full = {k: json.loads(v) for k, v in json.load(open(os.path.join(base, "recipes_full.json"), encoding="utf-8")).items()}
+    return [dict(zip(d["columns"], r)) for r in d["recipes"]], full
+
+
+def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
+    path = os.path.join(base, "recipes_full.json")
+    if not os.path.isfile(path):
+        check("G-0 recipes_full.json present (run fa_dump_full)", False, [path])
+        return
+    full = {k: json.loads(v) for k, v in json.load(open(path, encoding="utf-8")).items()}
+    order = AGES + ["disabled"]
+
+    def lock_of(item):
+        st = item_age.get(item)
+        return st if st == "disabled" or (st in AGES and st not in unlocked) else None
+
+    def locks(rid, result, j, tagmap, special=None):
+        """(output, stage) for every output that keeps the recipe out at the unlocked set.
+        A special recipe (its JSON names no output, e.g. IE powerpack attach) is only judged by getResultItem;
+        with a `special` list it goes there instead, because its real output depends on its inputs."""
+        items, tg = set(), set()
+        if j is not None:
+            _gate_outs(j, items, tg)
+            for k in _GATE_IE_KEYS:
+                if j.get(k) is not None:
+                    _gate_outs({"results": j[k]}, items, tg)
+        if special is not None and not items and not tg:
+            if result and lock_of(result):
+                special.append(f"{rid} -> {result} ({lock_of(result)})")
+            return []
+        if result:
+            items.add(result)
+        out = [(i, lock_of(i)) for i in sorted(items) if lock_of(i)]
+        for t in sorted(tg):
+            mem = tagmap.get(t, [])
+            ls = [lock_of(m) for m in mem]
+            if mem and all(ls):
+                out.append(("#" + t, min(ls, key=order.index)))
+        return out
+    print(f"gate: dump filtered at {sorted(unlocked, key=AGES.index)}")
+    bad, special = [], []
+    for r in rows:
+        if r["type"] in GATE_EXEMPT:
+            continue
+        ls = locks(r["id"], r["result"], full.get(r["id"]), tags, special)
+        if ls:
+            bad.append(f"{r['id']} [{r['type']}] makes " + ", ".join(f"{o} ({st})" for o, st in ls))
+    check(f"G-1 no loaded recipe makes an item of a locked Age or of age_items/disabled ({len(rows)} recipes)", not bad, bad)
+    print(f"    special recipes (no output in their JSON) whose getResultItem is locked: {len(special)} {special[:10]}")
+    if not baseline:
+        return
+    brows, bfull = _load_rows(baseline)
+    btags = json.load(open(os.path.join(baseline, "item_tags.json"), encoding="utf-8"))
+    have = {r["id"] for r in rows}
+    missing, unresolved, per_age = [], [], collections.Counter()
+    for r in brows:
+        ls = [] if r["type"] in GATE_EXEMPT else locks(r["id"], r["result"], bfull.get(r["id"]), btags)
+        if ls:
+            per_age[max((st for _, st in ls), key=order.index)] += 1
+        elif r["id"] not in have:
+            j = bfull.get(r["id"]) or {}
+            it, tg = set(), set()
+            _gate_outs(j, it, tg)
+            line = f"{r['id']} [{r['type']}] -> {r['result']}"
+            (unresolved if tg and _GATE_MEK_TYPES.match(j.get("type", r["type"])) else missing).append(line)
+    extra = sorted(have - {r["id"] for r in brows})
+    print(f"    baseline {len(brows)} recipes; kept out here by Age of the latest locked output: "
+          + ", ".join(f"{k}={per_age[k]}" for k in order if per_age[k]))
+    check("G-2 every baseline recipe whose outputs are all unlocked is loaded (the gate drops nothing more)",
+          not missing, missing)
+    print(f"    Mekanism-family tag outputs the mirror cannot resolve (dropped by the gate's resolved stack): "
+          f"{len(unresolved)} {unresolved[:5]}")
+    print(f"    recipes here that the baseline lacks: {len(extra)} {extra[:10]}")
+
+
+BYPRODUCTS_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "byproducts.js")
+ACCEPTED_UNDETECTED = os.path.join(REPO, "dev", "data", "accepted_undetected.json")
+_BYP_KEYS = ("secondaries", "secondaryOutputs", "strippingSecondaries", "slag")
+
+
+def load_byproducts():
+    src = open(BYPRODUCTS_JS, encoding="utf-8").read()
+    m = re.search(r"// BEGIN BYPRODUCTS\s*const FA_BYPRODUCTS = (\{.*?\})\s*// END BYPRODUCTS", src, re.S)
+    return json.loads(m.group(1))
+
+
+def _entry_ids(e, tags):
+    """(item ids, from a tag) of one result entry: {id|item|tag}, {output: ...}, {basePredicate: ...}, a string."""
+    if isinstance(e, str):
+        return (tags.get(e[1:], []), True) if e.startswith("#") else ([e], False)
+    if not isinstance(e, dict):
+        return [], False
+    for k in ("output", "basePredicate", "stack"):
+        if isinstance(e.get(k), dict):
+            return _entry_ids(e[k], tags)
+    if isinstance(e.get("tag"), str):
+        return tags.get(e["tag"], []), True
+    i = e.get("id") or e.get("item")
+    return ([i], False) if isinstance(i, str) else ([], False)
+
+
+def split_outputs(j, tags, age_of):
+    """Main outputs and chance byproducts of a recipe JSON, as {label: Age index}. In a results list the entries
+    with the highest chance (no chance = 1; sequenced-assembly weights alike) are the main output, the rest are
+    byproducts; IE secondaries, sawmill secondaries and arc-furnace slag are byproducts. A tag counts with its
+    earliest member (the gate locks a tag only when every member is locked)."""
+    mains, byps = {}, {}
+
+    def put(dst, e):
+        ids, is_tag = _entry_ids(e, tags)
+        if not ids:
+            return
+        a = min(age_of(i) for i in ids)
+        lab = ("#" + (e.get("tag") if isinstance(e, dict) and "tag" in e else "?")) if is_tag else ids[0]
+        dst[lab] = max(dst.get(lab, -1), a)
+    res = j.get("results")
+    if isinstance(res, list) and res:
+        chance = [e.get("chance", 1) if isinstance(e, dict) and isinstance(e.get("chance", 1), (int, float)) else 1 for e in res]
+        for e, ch in zip(res, chance):
+            put(mains if ch == max(chance) else byps, e)
+    for k in ("result", "output"):
+        if isinstance(j.get(k), (dict, str)):
+            put(mains, j[k])
+    for k in _BYP_KEYS:
+        v = j.get(k)
+        for e in (v if isinstance(v, list) else [v] if v is not None else []):
+            put(byps, e)
+    return mains, byps
+
+
+def byproduct_checks(rows, full, tags, item_age, unlocked, baseline, check):
+    """G-3: no recipe waits for a chance byproduct (policy: byproducts.js strips it until its Age)."""
+    table = load_byproducts()
+    order = AGES + ["disabled"]
+    try:
+        import tomllib
+        with open(os.path.join(REPO, "dev", "age_map.toml"), "rb") as f:
+            mod_age = tomllib.load(f).get("mods", {})
+    except (ImportError, OSError):
+        mod_age = {}
+
+    def age_of(i):
+        st = item_age.get(i, "dawn")
+        return order.index(st) if st in order else 0
+    have = {r["id"]: r for r in rows}
+    top = max(AGES.index(u) for u in unlocked)
+    if set(AGES) <= set(unlocked):
+        need_entry, wrong = [], []
+        for r in rows:
+            j = full.get(r["id"])
+            if j is None or r["type"] in GATE_EXEMPT:
+                continue
+            mains, byps = split_outputs(j, tags, age_of)
+            if not mains or not byps:
+                continue
+            st = mod_age.get(j.get("type", r["type"]).split(":")[0], "dawn")
+            need = max(max(mains.values()), AGES.index(st) if st in AGES else 0)
+            late = {b: order[a] for b, a in byps.items() if a > need}
+            if not late:
+                continue
+            listed = table.get(r["id"], {})
+            miss = [f"{b} ({a})" for b, a in late.items() if listed.get(b) != a]
+            if miss:
+                need_entry.append(f"{r['id']} [{r['type']}] main {sorted(mains)} at {order[need]}: byproduct {miss}")
+        for rid, ent in table.items():
+            if rid not in full:
+                wrong.append(f"{rid}: table entry without a recipe")
+            for item, st in ent.items():
+                if item_age.get(item) != st:
+                    wrong.append(f"{rid}: {item} is {item_age.get(item)} in the Age tags, the table says {st}")
+        check(f"G-3 no recipe waits for a chance byproduct of a later Age (all listed in byproducts.js, {len(table)} entries)",
+              not need_entry and not wrong, need_entry + wrong)
+        return
+    if baseline is None:
+        print("    G-3 at a filtered dump needs --baseline (the main output Ages come from the all-Ages JSON)")
+        return
+    bfull = _load_rows(baseline)[1]
+    absent = []
+    for rid in table:
+        j = bfull.get(rid)
+        if j is None:
+            continue
+        mains, _ = split_outputs(j, tags, age_of)
+        st = mod_age.get(j.get("type", "x:").split(":")[0], "dawn")
+        need = max(max(mains.values(), default=0), AGES.index(st) if st in AGES else 0)
+        if need <= top and rid not in have:
+            absent.append(f"{rid}: main output and station are open at {AGES[top]} but the recipe is absent")
+    check(f"G-3 recipes of byproducts.js are loaded once their main output and station are open ({len(table)} entries)",
+          not absent, absent)
+
+
+def undetected_check(server_dir, check):
+    """G-4: every recipe type with no detected output (audit file) is accepted with a reason."""
+    path = os.path.join(server_dir, "logs", "firmages-recipe-audit.txt")
+    if not os.path.isfile(path):
+        print(f"[SKIP] G-4: no audit file {path} (run /firmages recipes audit)")
+        return
+    lines = open(path, encoding="utf-8").read().splitlines()
+    types, on = [], False
+    for ln in lines:
+        if ln.startswith("Types with no detected output"):
+            on = True
+            continue
+        if on:
+            if not ln.startswith("  "):
+                break
+            types.append(ln.strip().rsplit(" (", 1)[0])
+    acc = json.load(open(ACCEPTED_UNDETECTED, encoding="utf-8"))["types"]
+    new = [t for t in types if t not in acc]
+    gone = [t for t in acc if t not in types]
+    check(f"G-4 every recipe type without a detected output is accepted ({len(types)} types, {len(acc)} accepted)", not new,
+          [f"not accepted: {t}" for t in new] + [f"accepted but no longer undetected: {gone}"])
 
 
 # ================================================================================================ content checks
@@ -544,6 +821,140 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
            "mowziesmobs:geomancer_belt": "age_5", "mowziesmobs:geomancer_robe": "age_5", "mowziesmobs:geomancer_sandals": "age_5"}
     wrong_age = [f"{i}: {item_age.get(i)} != {st}" for i, st in mow.items() if item_age.get(i) != st]
     check("C-W Mowzie structure-boss drops follow the mob stage of their boss (Frostmaw age_4, Sculptor age_5)", not wrong_age, wrong_age)
+
+    reach_checks(full, recs, items, tags, item_age, check)
+
+
+# ================================================================================================ reachability per Age
+# R- checks: the goal chains close at their own Age. The walk starts from what a team has at Dawn without a recipe
+# (the TFC-world mods, vanilla world items and drops by the mob ladder of Doc 08 section 5, boss drops of the Age's
+# checkpoint) and fires a recipe only when every ingredient is reached, every output belongs to the Age or earlier
+# (the firmages-core gate) and its station exists by then (mod Age of the recipe type in dev/age_map.toml, Create
+# heat levels). Runs on a dump with every Age unlocked, like the A- and C- checks.
+VANILLA_BY_AGE = {
+    "dawn": "feather egg bone string spider_eye rotten_flesh ink_sac glow_ink_sac clay_ball flint snowball ice snow_block "
+            "charcoal stick cobweb rabbit_hide rabbit_foot leather bone_meal redstone clay sugar_cane sugar paper glass "
+            "white_wool brown_mushroom red_mushroom cactus dead_bush vine lily_pad kelp obsidian",
+    "age_1": "gunpowder arrow bow skeleton_skull",                       # mob_1: skeletons, creepers
+    "age_2": "slime_ball phantom_membrane glowstone_dust",               # mob_2: slimes, phantoms, witches
+    "age_3": "blaze_rod ghast_tear magma_cream nether_wart glowstone quartz netherrack soul_sand soul_soil basalt "
+             "blackstone gold_nugget gilded_blackstone crimson_fungus warped_fungus crimson_stem warped_stem shroomlight "
+             "ancient_debris magma_block crying_obsidian ender_pearl",  # mob_3 and the Beneath Nether
+    "age_5": "wither_skeleton_skull",                                    # mob_5
+}
+BOSS_DROPS = {"age_2": ["twilightforest:naga_scale", "twilightforest:naga_trophy", "twilightforest:lich_trophy",
+                       "tfcreate:unpolished_quartz"]}  # and the drop of the TFCreate quartz vein (ore family, age_2)
+# Create heat levels: a heated recipe needs a heater, a superheated one a Blaze Burner (with a blaze cake).
+HEAT_STATION = {"heated": ("tfcreate:primitive_heater", "create:blaze_burner"), "superheated": ("create:blaze_burner",)}
+REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
+    ("age_2", "firmages:crafting/steel_heart", ["create:precision_mechanism", "create:mechanical_crafter", "create:deployer",
+                                                 "create:mechanical_press", "tfcreate:primitive_heater", "tfc:metal/ingot/steel",
+                                                 "tfcreate:polished_quartz"]),  # Twilight portal activator (Frontier)
+    ("age_3", "firmages:ritual/arcane_keystone", ARCANE_CHAIN),
+    ("age_4", "firmages:crafting/pressure_core", INDUSTRIAL_CHAIN),
+]
+
+
+def reach_checks(full, recs, items, tags, item_age, check):
+    try:
+        import tomllib
+        with open(os.path.join(REPO, "dev", "age_map.toml"), "rb") as f:
+            mod_age = tomllib.load(f).get("mods", {})
+    except (ImportError, OSError):
+        mod_age = {}
+
+    def age_ix(i):
+        return AGES.index(item_age[i]) if item_age.get(i) in AGES else -1
+
+    def station_ix(rid):
+        st = mod_age.get(full[rid].get("type", "minecraft:x").split(":")[0], "dawn")
+        return AGES.index(st) if st in AGES else 0
+
+    def start(n):
+        have = {i for i in items if i.split(":")[0] in WORLD_NS}
+        for st, words in VANILLA_BY_AGE.items():
+            if AGES.index(st) <= n:
+                have |= {"minecraft:" + w for w in words.split()}
+        for st, drops in BOSS_DROPS.items():
+            if AGES.index(st) <= n:
+                have |= set(drops)
+        have |= set(MOB_DROPS)
+        return {i for i in have if age_ix(i) <= n and item_age.get(i) != "disabled"}
+
+    def walk(n):
+        have = start(n)
+        heat = {rid: HEAT_STATION.get(full[rid].get("heat_requirement")) for rid, _, _ in recs}
+        live = [(rid, sl, set(os_)) for rid, sl, os_ in recs
+                if station_ix(rid) <= n and os_ and all(age_ix(o) <= n and item_age.get(o) != "disabled" for o in os_)]
+
+        def sat(slot):
+            return any((k == "item" and x in have) or (k == "tag" and any(i in have for i in tags.get(x, []))) for k, x in slot)
+        grew = True
+        while grew:
+            grew = False
+            for rid, sl, os_ in live:
+                new = os_ - have
+                if not new or not all(sat(x) for x in sl):
+                    continue
+                if heat[rid] and not any(h in have for h in heat[rid]):
+                    continue
+                have |= new
+                grew = True
+            for seed, got in GROWN.items():
+                new = {g for g in got if seed in have and GROWN_NEEDS.get(seed, seed) in have and g not in have and age_ix(g) <= n}
+                if new:
+                    have |= new
+                    grew = True
+        return have, live, sat
+
+    def first_item(slot):
+        k, x = slot[0]
+        return x if k == "item" else (tags.get(x) or [x])[0]
+
+    def why(item, have, live, sat, n, depth=0, seen=None):
+        """Lines that explain why `item` is not reached at Age n (the unreached ingredients of up to 3 makers)."""
+        seen = set() if seen is None else seen
+        if item in seen or depth > 3:
+            return []
+        seen.add(item)
+        pad = "      " + "  " * depth
+        if age_ix(item) > n or item_age.get(item) == "disabled":
+            return [f"{pad}{item} belongs to {item_age.get(item)}"]
+        makers = [(rid, sl) for rid, sl, os_ in live if item in os_]
+        if not makers:
+            return [f"{pad}{item}: no recipe at {AGES[n]} (station Age, output Age) and not in the start set"]
+        out = []
+        for rid, sl in makers[:3]:
+            miss = [s for s in sl if not sat(s)]
+            label = [" | ".join(x for _, x in s)[:80] for s in miss][:4] or ["heat source"]
+            out.append(f"{pad}{item} <- {rid}: unreached {label}")
+            for s in miss[:2]:
+                out += why(first_item(s), have, live, sat, n, depth + 1, seen)
+        return out
+
+    for st, rid, chain in REACH_GOALS:
+        n = AGES.index(st)
+        j = full.get(rid)
+        if j is None:
+            check(f"R-{st} goal recipe {rid} present", False, [rid])
+            continue
+        have, live, sat = walk(n)
+        goal = _outs(j, [])
+        lines, bad = [], []
+        for s in _slots(j, []):
+            ok_ = sat(s)
+            lines.append(f"{'ok' if ok_ else 'NO'}  {' | '.join(x for _, x in s)[:100]}")
+            if not ok_:
+                bad += why(first_item(s), have, live, sat, n)
+        chain_bad = [c for c in chain if c not in have]
+        for c in chain_bad:
+            bad += why(c, have, live, sat, n)
+        goal_ok = bool(goal) and all(g in have for g in goal)
+        print(f"    R-{st}: {len(have)} items reached at {st} from the Dawn start set ({len(start(n))} items)")
+        check(f"R-{st} {goal[0] if goal else rid}: every goal ingredient, the goal and its chain ({len(chain)} items) are "
+              f"reachable at {st} (outputs of {st} or earlier, stations by {st})",
+              goal_ok and not chain_bad and all(x.startswith("ok") for x in lines),
+              lines + [f"goal reached: {goal_ok}", f"chain items not reached: {chain_bad}"] + bad)
 
 
 if __name__ == "__main__":

@@ -450,7 +450,7 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
 file = "kubejs/server_scripts/debug/dump.js"
-hash = "7d1ec89018284baa4e56e98ddae6d38b4c92b26734e9cc48a221cd8f21c7ab35"
+hash = "b57c7b5f385645b97dd1b51278c367727a1e68db5c26dee220279780dadb4fbc"
 
 [[files]]
 file = "kubejs/server_scripts/debug/scan.js"
