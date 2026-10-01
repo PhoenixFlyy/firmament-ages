@@ -680,4 +680,111 @@ reload ends just after the FULL timeline; "The world realigns..." covers the res
   of the PS lock and stage packets on the client, so it needs a client test first; not done.
 - **Reload with 4 players** was not measured; PS sync and EMI Loot scale at about 0.47 s per player after the fix.
 - **firmages-core version.** The shrine worktree (`worktree-wf_c2b18449-288-2`) also bumped firmages-core to 0.3.1
-  (rings 3..8). This branch serves 0.3.2 with the PS mixins only; the merge needs one combined build.
+  (rings 3..8). This branch serves 0.3.2 with the PS mixins only; the merge needs one combined build. Resolved: 0.3.3
+  ("Shrine ladder and reload v2").
+
+## Shrine ladder and reload v2
+
+Date: 2026-10-01, branch `dev` after the merge of the shrine ladder branch (rings 3..8, Humming Core to Quantum Core)
+with the reload fixes. firmages-core **0.3.3** = 0.3.1 (ring and blessing data) + 0.3.2 (PS lock-sync mixins):
+`gradlew build` 57 JUnit tests pass (`CoreSuiteTest` 18, `GateSuiteTest` 16, `JsonOutputWalkerFixtureTest` 15,
+`ShrineRingFilesTest` 1, `ShrineRulesTest` 7), `runGameTestServer` "All 14 required tests passed", selftest core
+17/0 and gate 16/0. Shipped in `mods/` (0.3.2 removed), `packwiz refresh`. Test server synced with
+`packwiz-installer-bootstrap` from `packwiz serve` (quest folder deleted and re-synced; `kubejs/` and the quests are
+byte-identical with the repo), **fresh world** (`--wipe-world`). Two headless players Alpha and Beta in one FTB party.
+`debug.allowSimulate` and the whitelist were off only during the run; both are back to `false`/on.
+
+### Boot (fresh world)
+
+| Check | Observed | Result |
+|---|---|---|
+| KubeJS | startup 2/2, server 25/25 scripts, 0 errors, 0 warnings; recipes "Added 572, removed 978, modified 43, 0 failed"; `arcane TFC inputs: 162 magic recipes rewritten`; `on_stage_added: Age titles by firmages-core ceremony` | pass |
+| ProgressiveStages | 0 ERROR lines (2 WARN: FTB Library stage provider override) | pass |
+| FTB Quests | `Loaded 2 chapter groups, 6 chapters, 119 quests, 7 reward tables`, 0 ERROR lines | pass |
+| firmages-core | 0 ERROR lines; `Shrine data: tiers [5, 6, 7, 8, 0, 1, 2, 3, 4], fallback true, rings up to 8, 9 offerings, blessings [iron_will, starwalker, clarity, tireless_hands, attunement, skyreading, long_arm, hearthward, resolve]`; `Boot: AgeState [dawn] ...; no reload` | pass |
+| Other errors | DISTXFORM, loot tables, Sable, Polymorph, TF `dev_new_world`, trainutilities advancements; recipe parse errors of tfcrf, woodencog and createdeco only | not ours |
+
+### Building the rings
+
+`dev/build_shrine.py` (new) reads the nine `shrine_ring_N.json` patterns from the mod resources and places one real
+pack block per pattern character with `/setblock` over RCON (one member of each `firmages:shrine/*` tag, for example
+`ars_nouveau:gilded_sourcestone_large_bricks`, `immersiveengineering:cokebrick`, `ae2:quartz_block`,
+`ad_astra:steel_plating`, `mekanism:sps_casing`, `draconicevolution:awakened_draconium_block`). With `--rites N` it
+also sets tier N's rite: the candles get `lit=true`; the IE electric lanterns and floodlights get stored energy in
+their block entity NBT, so IE's own tick switches them to `active=true` (wiring a generator by command is not
+possible); each floodlight gets a redstone block on top. Heart at 0 240 0 on a stone platform; all nine rings at once,
+550 commands, no unexpected reply. `shrine status`: `valid ring 8`, every ring `complete` (rotation CLOCKWISE_90).
+
+Dawn and age_0 to age_3 were given with `stage grant` (four grants, one reload, 9,909 ms, the first reload after the
+boot). From there every Age came from the shrine.
+
+### The ladder age_3 to age_9
+
+For each tier N one border block of ring N was removed first (`shrine status` showed ring N with one block missing
+and `valid ring N-1`). Then ring N was rebuilt with its rite, Alpha laid the offering on plinth N+1 with `debug use`,
+and the prayer was held with `debug pray`. "Reload end" counts from the FULL ceremony payload; the ceremony timeline
+is 12 s.
+
+| Tier | Ring (blocks) | Rite: before / after | Offering | Prayer | Reload (ms) | Grant stall | Reload end |
+|---|---|---|---|---|---|---|---|
+| 3 | Spirit Circle (61) | "Light the eight candles" / done | Arcane Keystone accepted (an Ars worn notebook was refused: "Caelum asks for Arcane Keystone") | Alpha alone, granting age_4 | 6,624 | 2.68 s | 12.27 s |
+| 4 | Foundry Nave (65) | "Power the four electric lanterns": prayer refused while unpowered / done after charging | Pressure Core accepted | Alpha alone, granting age_5 | 6,238 | none | 9.24 s |
+| 5 | Tesla Crown (73) | "Light the four floodlights ... power and a redstone signal" / done | Humming Core: at age_4 ProgressiveStages refuses the locked item ("This item is locked!"); at age_5 accepted | Alpha alone, granting age_6 | 6,277 | 2.65 s | 11.88 s |
+| 6 | Data Nave (77) | Chorus: "At least 2 of you must pray together" with Beta online / Alpha and Beta pray | Data Matrix accepted | by [Beta, Alpha], granting age_7 | 6,204 | none | 9.20 s |
+| 7 | Star Spire (89) | Stars: refused right after `weather clear` and `time set 18000` (the rain level fades over a few seconds) / done | Star Chart accepted | by [Beta, Alpha], granting age_8 | 6,290 | none | 9.29 s |
+| 8 | Quantum Ring (89) | Chorus and stars / both done | Quantum Core accepted | by [Beta, Alpha], granting age_9 | 6,150 | none | 9.15 s |
+
+Every grant had exactly one `Age reload starting (granted age_N+1)`, 3.0 s after the payload, and one `Ceremony FULL
+for age_N+1`; Beta holds every Age (one party). End state: `awakened 9, relics 6, shrine grants [age_4 .. age_9]`;
+`shrine relics` lists the six offerings on plinths 4 to 9; "No current tier (highest Age age_9)". The prayer needs an
+empty main hand: a held item (here the locked Humming Core) turns the use into an item use, so no prayer starts.
+
+**Reload performance holds across all Ages:** 6.15 to 6.62 s per grant from age_4 to age_9 with 2 players (limit
+10 s), and 6.20 and 6.22 s for the two operator reloads at age_9 after the station fix below (KubeJS phase 1.60 to
+1.71 s, "modified 80 recipes"). The grant stall of the earlier run is still there at the grants that change mob or
+helper stages (age_4 and age_6: 2.65 to 2.68 s); those two reloads end 12.27 s (age_4) and 11.88 s (age_6) after
+the payload, around the end of the 12 s ceremony.
+
+### Signature items reachable at their Age (`poc_analyze.py`, all-Ages dump)
+
+New R-checks R-age_5 to R-age_8 cover the Humming Core (`firmages:arc_furnace/humming_core`), Data Matrix
+(`firmages:crafting/data_matrix`), Star Chart (`firmages:fusion/star_chart`) and Quantum Core
+(`firmages:fusion/quantum_core`). Each has a chain of the Age's stations: arc furnace parts and HV wiring; Metallurgic
+Infuser, AE2 controller, Inscriber, Molecular Assembler and Pattern Provider; DE crafting core and injectors,
+polonium, the tier 1 to 4 rockets, desh, ostrum and calorite plates, ice shards and the SPS casing. The walk now also
+knows the boss tokens (Nether Star, dragon's breath, witherite block, abyssal egg) and the End as start items, the ore
+pieces of `[ore_families]` from their Age, the Ad Astra planets (stone, sand, raw desh, ostrum and calorite, ice
+shard) and End draconium dust. It reads Mekanism chemicals as ingredients and outputs (`item_output`,
+`chemical_output`; fluids count as available). Every late recipe type needs its station item (Mekanism machines, AE2
+inscriber and charger, Ad Astra workbench, compressor and refinery, the DE crafting core plus the injector of the
+recipe's tech level, the arc furnace parts). Chemicals that a multiblock makes without a recipe need its parts
+(fission reactor: nuclear waste; SPS: antimatter).
+
+First run: R-age_5 PASS; R-age_6, R-age_7 and R-age_8 FAIL. The Metallurgic Infuser (every Mekanism circuit and
+alloy) needs `minecraft:furnace`; the AE2 Molecular Assembler and Pattern Provider and the Ad Astra NASA Workbench
+(every rocket) need `minecraft:crafting_table`; a TFC world makes neither. A scan found 40 such recipes outside the
+magic mods (crafting table, furnace, blast furnace, smoker, campfire, anvil), not counting three that only transform
+the vanilla block itself.
+
+**Fix:** `kubejs/server_scripts/recipes/tfc_station_inputs.js` swaps those inputs for the TFC counterparts the Arcane
+Age already uses (`#tfc:workbenches`, `tfc:crucible`, `tfc:blast_furnace`, `tfc:firepit`, `#tfc:anvils`): 37
+`replaceInput` calls by plain id, and a JSON rewrite for the 3 recipes of schema-less types (ExtendedAE crystal
+assembler, DE fusion). The new check **R-0** fails on any recipe that still needs one of the six vanilla station
+blocks. After a `firmages reload` and a new dump: **45 checks, 0 FAIL**, among them R-0, R-age_2 to R-age_8, G-1 to
+G-4, C-3g and C-4j. `gen_stage_locks.py --registry` on the new dump rewrote 0 files (the hand-added signature item
+ids match the registry).
+
+### Open points of this run
+
+- **Gear in tech recipes.** About 30 recipes outside the magic mods still take finished vanilla tools or armour that
+  a TFC world cannot make (Mekanism paxels and MekaSuit modules, Mystical Agriculture augments and gear, DE wyvern
+  tools and modules, Apotheosis salvaging, SGJourney naquadah gear, `minecraft:netherite_*_smithing`). None is on a
+  goal chain. Each needs a gear-rule decision (tool head, unfinished armour or sheet), so they are not changed.
+- **Ad Astra stack sizes.** From the first reload on, 25 Ad Astra recipes (panels, plateblocks, factory and encased
+  blocks of steel, desh, ostrum, calorite and iron) fail to parse: "Item stack with stack size of 64 was larger than
+  maximum: 32". They are decorative blocks only; the cause (a stack-size limit in the pack) is not traced yet.
+- **Rites with real power.** The lanterns and floodlights ran on stored energy written into their block entities; IE
+  LV wiring to a generator was not built (it needs a player). The candle, chorus and star rites ran their real paths.
+- **Grant stall** (2.65 to 2.68 s at age_4 and age_6 with 2 players), as in "Reload performance": still open; it needs
+  the client test before the PS sync is coalesced.
+- The client half (ceremony, ghost previews of rings 3..8, tooltips of the four new items) stays Felix's test.
