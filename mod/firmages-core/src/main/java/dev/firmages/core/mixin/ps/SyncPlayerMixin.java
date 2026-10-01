@@ -22,7 +22,7 @@ public abstract class SyncPlayerMixin {
         target = "Lcom/enviouse/progressivestages/common/network/NetworkHandler;sendLockSync(Lnet/minecraft/server/level/ServerPlayer;)V"))
     private static void firmages$firstLockSync(ServerPlayer player, Operation<Void> original) {
         original.call(player);
-        LockSyncDedupe.markSent(player);
+        LockSyncDedupe.markSent(player, LockSyncDedupe.Site.RELOAD_SYNC);
     }
 
     @Inject(method = "syncPlayer", at = @At("RETURN"), require = 0)
