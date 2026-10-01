@@ -308,10 +308,26 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
     btags = json.load(open(os.path.join(baseline, "item_tags.json"), encoding="utf-8"))
     have = {r["id"] for r in rows}
     missing, unresolved, per_age = [], [], collections.Counter()
+    station_age = load_station_ages()
+    by_station = collections.Counter()
+
+    def station_lock(r, j):
+        """Age that keeps a recipe out by its station (recipes/station_ages.js, the 4x/5x ore ladder and the blue
+        steel infuser of the pack scripts), or None."""
+        for t in (r["type"], (j or {}).get("type", "")):
+            if station_age.get(t) and station_age[t] not in unlocked:
+                return station_age[t]
+        for rx, st in LATE_LOADED:
+            if re.match(rx, r["id"]) and st not in unlocked:
+                return st
+        return None
     for r in brows:
         ls = [] if r["type"] in GATE_EXEMPT else locks(r["id"], r["result"], bfull.get(r["id"]), btags)
+        sl = None if ls else station_lock(r, bfull.get(r["id"]))
         if ls:
             per_age[max((st for _, st in ls), key=order.index)] += 1
+        elif sl:
+            by_station[sl] += 1
         elif r["id"] not in have:
             j = bfull.get(r["id"]) or {}
             it, tg = set(), set()
@@ -321,11 +337,32 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
     extra = sorted(have - {r["id"] for r in brows})
     print(f"    baseline {len(brows)} recipes; kept out here by Age of the latest locked output: "
           + ", ".join(f"{k}={per_age[k]}" for k in order if per_age[k]))
+    print("    kept out by the Age of their station (station_ages.js and the late pack recipes): "
+          + ", ".join(f"{k}={by_station[k]}" for k in order if by_station[k]))
     check("G-2 every baseline recipe whose outputs are all unlocked is loaded (the gate drops nothing more)",
           not missing, missing)
     print(f"    Mekanism-family tag outputs the mirror cannot resolve (dropped by the gate's resolved stack): "
           f"{len(unresolved)} {unresolved[:5]}")
     print(f"    recipes here that the baseline lacks: {len(extra)} {extra[:10]}")
+
+
+STATION_AGES_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "station_ages.js")
+# Pack recipes that a script adds only once a later Age than their outputs is unlocked (FirmAges.isUnlocked).
+LATE_LOADED = [(r"^firmages:injecting/", "age_7"), (r"^firmages:dissolution/", "age_8"),
+               (r"^firmages:metallurgic_infusing/blue_steel$", "age_7")]
+
+
+def load_station_ages():
+    """recipe type -> Age of its station, read from the put('age_N', [...]) calls of station_ages.js."""
+    out = {}
+    try:
+        src = open(STATION_AGES_JS, encoding="utf-8").read()
+    except OSError:
+        return out
+    for age, body in re.findall(r"put\('(age_\d)', \[(.*?)\]\)", src, re.S):
+        for t in re.findall(r"'([a-z0-9_]+:[a-z0-9_/]+)'", body):
+            out[t] = age
+    return out
 
 
 BYPRODUCTS_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "byproducts.js")
@@ -518,10 +555,24 @@ INFORMATION_CHAIN = ("mekanism:advanced_control_circuit mekanism:metallurgic_inf
                      "tfc:metal/sheet/blue_steel").split()
 SPACE_CHAIN = ("draconicevolution:crafting_core draconicevolution:basic_crafting_injector "
                "draconicevolution:wyvern_crafting_injector draconicevolution:wyvern_core mekanism:pellet_polonium "
-               "ad_astra:tier_1_rocket ad_astra:tier_2_rocket ad_astra:desh_plate ad_astra:ostrum_plate").split()
+               "ad_astra:tier_1_rocket ad_astra:tier_2_rocket ad_astra:desh_plate ad_astra:ostrum_plate "
+               # Atomic strand: the fission fuel chain (fluorite from TFC cryolite, uranium from TFC + IE uraninite)
+               "mekanism:fluorite_gem mekanism:hydrofluoric_acid mekanism:yellow_cake_uranium mekanism:uranium_oxide "
+               "mekanism:uranium_hexafluoride mekanism:fissile_fuel mekanism:nuclear_waste mekanism:chemical_dissolution_chamber "
+               "mekanism:chemical_oxidizer mekanism:solar_neutron_activator mekanism:pressurized_reaction_chamber").split()
 QUANTUM_CHAIN = ("draconicevolution:awakened_crafting_injector draconicevolution:awakened_core mekanism:pellet_antimatter "
                  "mekanism:sps_casing ad_astra:tier_3_rocket ad_astra:tier_4_rocket ad_astra:calorite_plate "
-                 "ad_astra:ice_shard").split()
+                 "ad_astra:ice_shard occultism:book_of_binding_bound_marid firmages:awakened_keystone").split()
+# Singularity Age: the Chaos strand (chaotic injector and core, the Draconic Reactor) and the Ultimate Singularity, then
+# the Stargate strand (naquadah from Mercury through the Arc Furnace and Mekanism, Stargate Journey's crystals).
+FINALE_CHAIN = ("draconicevolution:chaotic_crafting_injector draconicevolution:chaotic_core evolvedmekanism:alloy_singular "
+                "draconicevolution:reactor_core draconicevolution:reactor_stabilizer draconicevolution:reactor_injector "
+                "draconicevolution:flux_gate firmages:awakened_keystone").split()
+STARGATE_CHAIN = ("sgjourney:naquadah_ingot sgjourney:naquadah_iron_alloy sgjourney:refined_naquadah sgjourney:pure_naquadah "
+                  "sgjourney:naquadah_liquidizer sgjourney:crystallizer sgjourney:crystal_base sgjourney:control_crystal "
+                  "sgjourney:communication_crystal sgjourney:transfer_crystal sgjourney:classic_stargate_ring_block "
+                  "sgjourney:classic_stargate_chevron_block sgjourney:classic_dhd firmages:ultimate_singularity "
+                  "firmages:origin_coordinates").split()
 ARCANE_CHAIN = (
     "occultism:datura_seeds occultism:dictionary_of_spirits occultism:chalk_white occultism:chalk_gold "
     "occultism:chalk_purple occultism:golden_sacrificial_bowl occultism:spirit_attuned_gem occultism:spirit_attuned_crystal "
@@ -621,12 +672,41 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         return {x for k, x in slot if k == "item"} | {i for k, x in slot if k == "tag" for i in tags.get(x, [])}
 
     # ---- obtainability closure: which items a TFC world can make at all --------------------------------------
+    # Tag outputs (More Mekanism Processing, IE, Occultism) resolve to the member Almost Unified keeps: the
+    # priority override of the tag, else the first member of a namespace in mod_priorities, else the first member
+    # (config/almostunified/unification/materials.json).
+    try:
+        au = json.load(open(os.path.join(REPO, "config", "almostunified", "unification", "materials.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        au = {}
+    au_prio = au.get("mod_priorities", [])
+    au_over = au.get("priority_overrides", {})
+
+    def tag_target(t):
+        mem = [m for m in tags.get(t, []) if m not in disabled]
+        if not mem:
+            return []
+        for ns in ([au_over[t]] if t in au_over else []) + au_prio:
+            hit = [m for m in mem if m.split(":")[0] == ns]
+            if hit:
+                return hit[:1]
+        return mem[:1]
+
+    def tag_outs(o, out, inres=False):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                r = inres or k in ("result", "results", "output", "outputs", "secondaries", "slag", "item_output")
+                if r and k == "tag" and isinstance(v, str):
+                    out |= set(tag_target(v))
+                else:
+                    tag_outs(v, out, r)
+        elif isinstance(o, list):
+            for v in o:
+                tag_outs(v, out, inres)
+        return out
+
     def outs_with_tags(j):
-        found = set(_outs(j, []))
-        res = j.get("result")
-        if isinstance(res, dict) and isinstance(res.get("tag"), str) and j.get("type") == "occultism:miner":
-            found |= set(tags.get(res["tag"], [])[:1])
-        return found
+        return set(_outs(j, [])) | tag_outs(j, set())
     def slots_of(j):
         sl = _slots(j, [])
         trans = j.get("transitional_item", {})
@@ -843,6 +923,97 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     check("C-4j gear rule for age_4 gear: no tool or armour as ingredient (Cataclysm boss-weapon fusion is an open point)",
           not chains, chains)
 
+    # ---- C-5 .. C-9: Electric to Singularity Age (Doc 10 v3 sections 6.1, 7, 8; recipes/age_5 .. age_9) ---------------
+    def types_making(pred):
+        return sorted({full[r].get("type", "") for r, sl, os_ in recs if any(pred(o) for o in os_)})
+
+    def makers(item):
+        return sorted(r for r, sl, os_ in recs if item in os_)
+    late_ns = ("mekanism", "moremekanismprocessing", "mekmm", "evolvedmekanism", "mekatfc")
+    # C-5a: the arc furnace steels and the IE/IP/CDG disable list
+    arc = {r for r in full if full[r].get("type") == "immersiveengineering:arc_furnace"}
+    want_arc = ["firmages:arc_furnace/weak_steel", "firmages:arc_furnace/black_steel", "firmages:arc_furnace/weak_red_steel"]
+    weak_in = json.dumps(full.get("firmages:arc_furnace/weak_steel", {}).get("input", {}))
+    cdg = sorted({o for r, sl, os_ in recs for o in os_ if o.startswith("createdieselgenerators:")})
+    cdg_keep = {"createdieselgenerators:" + p_ for p_ in ("diesel_engine", "large_diesel_engine", "huge_diesel_engine",
+                                                           "engine_piston", "engine_silencer", "engine_turbocharger")}
+    check("C-5a Electric Age: arc furnace weak steel from steel, black steel and weak red steel pack recipes; no TFC + IE "
+          "weak steel from black steel; Diesel Generators only engines; no IP gas generator",
+          all(w in arc for w in want_arc) and "c:ingots/steel" in weak_in and "tfc_ie_addon:arcfurnace/weak_steel" not in full
+          and set(cdg) <= cdg_keep and not makers("immersivepetroleum:gas_generator"),
+          ["missing " + w for w in want_arc if w not in arc] + ["weak steel input " + weak_in, "CDG outputs %s" % sorted(set(cdg) - cdg_keep)])
+    # C-6a: the ore ladder, one recipe per ore family, grade and step; no Mekanism-family recipe on TFC ore blocks/raw ores
+    fams = ("native_copper malachite tetrahedrite cassiterite native_gold hematite limonite magnetite galena uraninite "
+            "native_osmium sphalerite bismuthinite native_silver garnierite bauxite").split()
+    ladder_missing = ["firmages:%s/%s_%s" % (st, f, g) for st in ("purifying", "injecting", "dissolution") for f in fams
+                      for g in ("small", "poor", "normal", "rich") if "firmages:%s/%s_%s" % (st, f, g) not in full]
+    planet = re.compile(r'"c:(ores|raw_materials)/(desh|ostrum|calorite|draconium)"|"c:storage_blocks/raw_(desh|ostrum|calorite|draconium)"')
+    ore_in = re.compile(r'"tag": "c:(ores|raw_materials)/|"tag": "c:storage_blocks/raw_')
+    leftover = sorted(r for r, j in full.items() if r.split(":")[0] in late_ns and not j.get("type", "").startswith("minecraft:crafting")
+                      and ore_in.search(json.dumps({k: v for k, v in j.items() if k not in RESULT_KEYS}))
+                      and not planet.search(json.dumps(j)))
+    piece_mek = sorted({full[r].get("type") for r, sl, os_ in recs if r.split(":")[0] != "firmages"
+                        and full[r].get("type", "").startswith("mekanism:") and any(members(x) & pieces for x in sl)})
+    check("C-6a Mekanism ore ladder: 3x/4x/5x for 16 TFC ore families x 4 grades; no Mekanism-family recipe eats an ore "
+          "block, raw ore or raw block of a TFC metal or gem; ore pieces enter Mekanism only through the ladder",
+          not ladder_missing and not leftover and not piece_mek,
+          ["missing %d: %s" % (len(ladder_missing), ladder_missing[:5]), "leftover %s" % leftover[:10],
+           "other Mekanism types on pieces %s" % piece_mek])
+    # C-6b: one station per function for Mekanism (no sawmill, planting, recycling, molten metals, plate copies; the
+    # crusher keeps clumps, gems and bio fuel but crushes no ingot)
+    gone = {"mekanism:sawing", "mekanism:planting", "mekanism:recycling", "mekanism:melting", "mekanism:solidification",
+            "mekanism:stamping", "mekanism:lathing", "mekanism:rolling_mill", "mekanism:pressing", "mekmm:stamper",
+            "mekmm:lathe", "mekmm:rolling_mill", "mekmm:presser", "evolvedmekanism:melting", "evolvedmekanism:solidifying"}
+    present = sorted({j.get("type") for j in full.values()} & gone)
+    ingot_crush = sorted(r for r, j in full.items() if j.get("type") in ("mekanism:crushing", "moremekanismprocessing:tag_crushing")
+                         and '"c:ingots/' in json.dumps(j.get("input", {})))
+    steel_dust = [r for r in ("mekanism:processing/steel/enriched_iron_to_dust", "mekanism:processing/bronze/ingot/from_infusing") if r in full]
+    check("C-6b Mekanism: no Precision Sawmill, planting, recycling, molten-metal, stamping/lathe/rolling/presser recipes; "
+          "no ingot -> dust crushing; no Mekanism steel or bronze route", not present and not ingot_crush and not steel_dust,
+          ["types %s" % present, "ingot crushing %s" % ingot_crush[:8], "steel/bronze %s" % steel_dust])
+    # C-6c: AE2 processors and printed circuits only from the AE2 Inscriber
+    proc = types_making(lambda o: re.match(r"^ae2:(printed_)?(logic|calculation|engineering)_processor$|^ae2:printed_silicon$", o))
+    check("C-6c AE2 processors and printed circuits only from the AE2 Inscriber", proc == ["ae2:inscriber"], ["types %s" % proc])
+    # C-6d: Mystical Agriculture: no seeds of the switched-off crops; no vanilla iron or coal from essences; End frame
+    off = ("dirt stone wood ice coral prismarine sculk dye honey nature cow pig chicken sheep rabbit turtle squid armadillo fish "
+           "steel bronze brass refined_obsidian refined_glowstone constantan electrum invar rose_gold pig_iron draconium "
+           "awakened_draconium limestone marble platinum iridium apatite peridot").split()
+    seeds = ["mysticalagriculture:%s_seeds" % c for c in off if makers("mysticalagriculture:%s_seeds" % c)]
+    ma_vanilla = sorted(r for r, sl, os_ in recs if r.startswith("mysticalagriculture:") and os_ & {"minecraft:iron_ingot", "minecraft:coal"})
+    frame = makers("minecraft:end_portal_frame")
+    check("C-6d Mystical Agriculture: no seed of a switched-off crop, no vanilla iron or coal output; End portal frame "
+          "crafted (age_6)", not seeds and not ma_vanilla and frame == ["firmages:crafting/end_portal_frame"]
+          and item_age.get("minecraft:end_portal_frame") == "age_6",
+          ["seeds %s" % seeds, "vanilla outputs %s" % ma_vanilla, "frame makers %s" % frame,
+           "frame age %s" % item_age.get("minecraft:end_portal_frame")])
+    # C-7a: Ad Astra processing on the pack stations; planet plates only from the IE Metal Press
+    aa_types = sorted({j.get("type") for j in full.values() if j.get("type") in ("ad_astra:compressing", "ad_astra:alloying", "ad_astra:refining")})
+    plates = types_making(lambda o: o in ("ad_astra:desh_plate", "ad_astra:ostrum_plate", "ad_astra:calorite_plate"))
+    aa_smelt = sorted(r for r in full if re.match(r"^ad_astra:(smelting|blasting)/.+_from_(smelting|blasting)_(.+_ore|raw_.+)$", r))
+    check("C-7a Ad Astra: no compressor, alloying or refinery recipes; desh, ostrum and calorite plates only from the IE "
+          "Metal Press; no furnace smelting of planet ores", not aa_types and plates == ["immersiveengineering:metal_press"] and not aa_smelt,
+          ["types %s" % aa_types, "plate makers %s" % plates, "furnace %s" % aa_smelt[:6]])
+    # C-9a: the finale recipes
+    us = full.get("firmages:fusion/ultimate_singularity", {})
+    us_items = {i.get("ingredient", {}).get("item") for i in us.get("ingredients", [])}
+    relics = {"firmages:" + x for x in ("hearthstone sky_disc steel_heart awakened_keystone pressure_core humming_core "
+                                        "data_matrix star_chart quantum_core").split()}
+    base = json.dumps(full.get("firmages:crafting/classic_stargate_base_block", {}))
+    sgj_furnace = sorted(r for r in full if re.match(r"^sgjourney:(naquadah_ingot|refined_naquadah|naquadah_iron_alloy)_from_(smelting|blasting)", r))
+    check("C-9a Singularity: Ultimate Singularity by chaotic fusion from the nine signature items; the Stargate base block "
+          "takes it; no Stargate Journey furnace processing of naquadah",
+          us.get("techLevel") == "chaotic" and relics <= us_items and us.get("catalyst", {}).get("item") == "draconicevolution:chaotic_core"
+          and "firmages:ultimate_singularity" in base and not sgj_furnace,
+          ["tech %s" % us.get("techLevel"), "missing relics %s" % sorted(relics - us_items),
+           "base has singularity %s" % ("firmages:ultimate_singularity" in base), "SGJ furnace %s" % sgj_furnace])
+    # C-G: the gear rule for every later Age. Exceptions (Doc 08 section 8): MekaSuit and Meka-Tool (trophies after
+    # finale_won), MekaSuit and Draconic modules, backpack upgrades.
+    exempt = re.compile(r"^mekanism:(mekasuit_|meka_tool)|module|^sophisticatedbackpacks:")
+    for st in ("age_5", "age_6", "age_7", "age_8", "age_9"):
+        ch = [c for c in gear_chains(st) if not exempt.search(c.split(" eats ")[0])]
+        check("C-G %s gear rule: no tool or armour of %s is made from another tool or armour (exceptions: MekaSuit, "
+              "Meka-Tool, modules, backpack upgrades)" % (st, st), not ch, ch)
+
     # ---- C-M: MekaTFC --------------------------------------------------------------------------------------------
     log = os.path.join(server_dir, "logs", "latest.log")
     parse_err = []
@@ -889,15 +1060,18 @@ BOSS_DROPS = {"age_2": ["twilightforest:naga_scale", "twilightforest:naga_trophy
                        "tfcreate:unpolished_quartz"],  # and the drop of the TFCreate quartz vein (ore family, age_2)
               # boss tokens of kubejs/server_scripts/tags/late_ages.js (Doc 08 section 5.1)
               "age_5": ["minecraft:nether_star"],                           # The Wither
-              "age_6": ["minecraft:dragon_breath", "minecraft:dragon_egg"],  # Ender Dragon
+              "age_6": ["minecraft:dragon_breath", "minecraft:dragon_egg",  # Ender Dragon; DE adds its heart to the dragon loot
+                        "draconicevolution:dragon_heart"],
               "age_7": ["cataclysm:witherite_block"],                       # The Harbinger
-              "age_8": ["cataclysm:abyssal_egg"]}                           # The Leviathan
+              "age_8": ["cataclysm:abyssal_egg"],                           # The Leviathan
+              "age_9": ["draconicevolution:chaos_shard"]}                   # Chaos Guardian
 # What the rockets of the Space and Quantum Age reach without a recipe (Ad Astra planets: stone, sand, ore drops,
 # Moon cheese) and the draconium ore of the End (DE, dust drop). Regexes over the registry, per Age.
 LATE_WORLD = {"age_7": [r"^ad_astra:(moon|mars)_(stone|cobblestone|sand|deepslate)$", r"^ad_astra:(raw_desh|raw_ostrum|cheese)$",
                         r"^draconicevolution:draconium_dust$"],
               "age_8": [r"^ad_astra:(venus|mercury|glacio)_(stone|cobblestone|sand|deepslate)$",
-                        r"^ad_astra:(raw_calorite|ice_shard)$"]}
+                        r"^ad_astra:(raw_calorite|ice_shard)$"],
+              "age_9": [r"^sgjourney:raw_naquadah$"]}  # the pack vein on Mercury (kubejs/data/firmages/worldgen)
 # Stations of the late Ages as items: a recipe of these types fires only when every group has one reached item
 # (the machine, or the parts of a multiblock). Earlier types keep the mod-Age model (station_ix).
 _MEK = {"metallurgic_infusing": "metallurgic_infuser", "reaction": "pressurized_reaction_chamber",
@@ -917,6 +1091,9 @@ STATION_ITEMS.update({
     "ad_astra:refining": [["ad_astra:fuel_refinery"]], "ad_astra:cryo_freezing": [["ad_astra:cryo_freezer"]],
     "ad_astra:alloying": [["ad_astra:etrionic_blast_furnace"]], "ad_astra:oxygen_loading": [["ad_astra:oxygen_loader"]],
     "draconicevolution:fusion_crafting": [["draconicevolution:crafting_core"]],
+    "sgjourney:crystallizing": [["sgjourney:crystallizer"]], "sgjourney:advanced_crystallizing": [["sgjourney:advanced_crystallizer"]],
+    "sgjourney:naquadah_liquidizing": [["sgjourney:naquadah_liquidizer"]],
+    "sgjourney:naquadah_heavy_liquidizing": [["sgjourney:heavy_naquadah_liquidizer"]],
 })
 FUSION_INJECTOR = {"draconium": "basic", "wyvern": "wyvern", "draconic": "awakened", "chaotic": "chaotic"}
 # Chemicals a multiblock makes without a recipe: the fission reactor burns fissile fuel into nuclear waste, the SPS
@@ -927,7 +1104,7 @@ MACHINE_MADE = {"mekanism:nuclear_waste": ["mekanism:fissile_fuel", "mekanismgen
                 "mekanism:antimatter": ["mekanism:polonium", "mekanism:sps_casing", "mekanism:sps_port",
                                         "mekanism:supercharged_coil"]}
 # Vanilla station blocks without a recipe in a TFC world, and the recipes that only transform such a block itself.
-STATION_VANILLA = {"minecraft:crafting_table", "minecraft:furnace", "minecraft:blast_furnace", "minecraft:smoker",
+STATION_VANILLA = {"minecraft:bucket", "minecraft:crafting_table", "minecraft:furnace", "minecraft:blast_furnace", "minecraft:smoker",
                    "minecraft:campfire", "minecraft:anvil"}
 STATION_TRANSFORMS = {"mekanism:sawing/crafting_table", "create:haunting/soul_campfire"}
 # Create heat levels: a heated recipe needs a heater, a superheated one a Blaze Burner (with a blaze cake).
@@ -942,6 +1119,8 @@ REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
     ("age_6", "firmages:crafting/data_matrix", INFORMATION_CHAIN),
     ("age_7", "firmages:fusion/star_chart", SPACE_CHAIN),
     ("age_8", "firmages:fusion/quantum_core", QUANTUM_CHAIN),
+    ("age_9", "firmages:fusion/ultimate_singularity", FINALE_CHAIN),
+    ("age_9", "firmages:crafting/classic_stargate_base_block", STARGATE_CHAIN),
 ]
 
 
@@ -1077,7 +1256,7 @@ def reach_checks(full, recs, items, tags, item_age, check):
         for c in chain_bad:
             bad += why(c, have, live, sat, n)
         goal_ok = bool(goal) and all(g in have for g in goal)
-        print(f"    R-{st}: {len(have)} items reached at {st} from the Dawn start set ({len(start(n))} items)")
+        print(f"    R-{st} {rid}: {len(have)} items reached at {st} from the Dawn start set ({len(start(n))} items)")
         check(f"R-{st} {goal[0] if goal else rid}: every goal ingredient, the goal and its chain ({len(chain)} items) are "
               f"reachable at {st} (outputs of {st} or earlier, stations by {st})",
               goal_ok and not chain_bad and all(x.startswith("ok") for x in lines),
