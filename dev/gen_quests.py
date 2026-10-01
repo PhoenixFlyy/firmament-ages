@@ -358,7 +358,7 @@ STONE = age_chapter(
               desc=['Fire the idol in a pit kiln, like any other pottery. It becomes the Hearthstone.']),
             Q('stone/shrine/heart', 'The Shrine Heart',
               t_observe('firmages:shrine_heart', title='Look at your placed Shrine Heart'), icon='firmages:shrine_heart',
-              desc=['Fire a second Hearth Idol and set it in four cobblestone under a charcoal:',
+              desc=['Fire a second Hearth Idol and set it in three cobblestone under a charcoal:',
                     'that is the Shrine Heart.',
                     'Place it where your team wants its shrine. There is only one shrine in the world,',
                     'and every later Age adds a ring around it, so leave room: about 21 by 21 blocks.']),

@@ -107,7 +107,7 @@ Seit firmages-core 0.3.0 kündigt die Mod jede Age an (kurze Zeremonie bei `/sta
 
 Kurzfassung mit den genauen Chat-Texten. Der ausführliche Ablauf mit Server-Start, Freischalten und Zurücksetzen steht unten unter „Age-Übergang testen“.
 
-Vorbereitung: Welt im Stand `age_0` (`/stage grant @s age_0`). Im Creative-Modus geht es schneller; die Items liegen im Tab *Functional Blocks* (Shrine Heart, Offering Plinth). Im Survival: zwei Hearth Idols brennen, eins mit 4 Bruchstein und Holzkohle zum Shrine Heart, eins zum Hearthstone; der Sockel sind 4 Bruchstein.
+Vorbereitung: Welt im Stand `age_0` (`/stage grant @s age_0`). Im Creative-Modus geht es schneller; die Items liegen im Tab *Functional Blocks* (Shrine Heart, Offering Plinth). Im Survival: zwei Hearth Idols brennen, eins mit 3 Bruchstein und Holzkohle zum Shrine Heart, eins zum Hearthstone; der Sockel sind 4 Bruchstein.
 
 1. **Herz setzen.** Shrine Heart auf den Boden stellen. Rechtsklick mit leerer Hand aufs Herz.
    Erwartung: Chat „Caelum, the Firmament...“ und „Caelum does not dwell in ruins: the Hearth Circle is not complete (1 of 22 blocks)“; ein Geisterbild zeigt die fehlenden Blöcke. **Bitte prüfen:** sitzt das Geisterbild genau um das Herz (nicht einen Block zu hoch oder zu tief)?
@@ -207,7 +207,7 @@ Platz suchen, mindestens 21 × 21 Blöcke flach (später kommen neun weitere Rin
 /give @s tfc:thatch 8
 ```
 
-Was der Ring braucht (Ring-Datei `shrine_ring_0.json` der Mod), 5 × 5 um das Herz, 22 Blöcke ohne das Herz:
+Was der Ring braucht (Ring-Datei `shrine_ring_0.json` der Mod), 5 × 5 um das Herz, 21 Blöcke ohne das Herz (die Mod zählt das Herz mit: „of 22 blocks“):
 
 | Block | Anzahl | Hinweis |
 |---|---|---|

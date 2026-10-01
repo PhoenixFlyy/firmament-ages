@@ -46,7 +46,7 @@ hash = "0b057ada548db053f7848e86ad6ece563ff193654886f1a0ecbf0ba8537a37e5"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "40aeab26b228d35e3efce058a9a3c539076de052b9bcfe7437dd32663667fda7"
+hash = "e312bf604c21911911fdc57a56ec757ddf2a11b5b9a6afd15c57156aa1206a97"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/bronze_comfort.snbt"
