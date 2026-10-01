@@ -482,7 +482,7 @@ hash = "54bf19c51bbe93e16837933783cb038981ba56a3eede7820bcb63f2d568631e1"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
-hash = "fa149720866717b95a9296e0ef0502647893438cba462992828ee690b773859f"
+hash = "e014a58e32279172eeeac2b3648fc7b81e51b0d1f4077ef876a5b80c8cc268ce"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"

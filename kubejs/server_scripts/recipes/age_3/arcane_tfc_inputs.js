@@ -9,7 +9,8 @@
 // the magic mods that names one of the items below is re-read as JSON, rewritten and re-added under its own id.
 // Only ingredient objects ("item": ...) change; results use "id" in 1.21 and stay untouched.
 // Gear rule (Doc 08 section 8): tools and armour inside these recipes become tool heads, unfinished armour or
-// sheets, never a finished tool or armour piece.
+// sheets, never a finished tool or armour piece; the three apparatus upgrades of a finished tool (GEAR_FIX) take
+// materials instead.
 
 ServerEvents.recipes((event) => {
   const MAGIC = /^(occultism|ars_nouveau|ars_additions|ars_creo|theurgy|occultengineering|summoningrituals):/
@@ -60,6 +61,8 @@ ServerEvents.recipes((event) => {
     'minecraft:gravel': tag('c:gravels'),
     'minecraft:fishing_rod': tag('c:tools/fishing_rod'),
     'minecraft:shears': tag('c:tools/shear'),
+    // gear rule: the Iesnium Butcher Knife ritual took the finished butcher knife; a steel knife blade instead
+    'occultism:butcher_knife': item('tfc:metal/knife_blade/steel'),
     'minecraft:shield': item('tfc:metal/double_sheet/wrought_iron'),
     'minecraft:leather_boots': item('minecraft:leather'),
     'minecraft:stone_pickaxe': item('tfc:metal/pickaxe_head/copper'),
@@ -112,6 +115,16 @@ ServerEvents.recipes((event) => {
     'theurgy:crafting/shaped/divination_rod_t3', 'theurgy:crafting/shaped/sulfur_attuned_divination_rod_precious'
   ]
 
+  // Gear rule for Arcane gear (review 2026-10-01): these apparatus recipes upgrade a finished tool (fishing rod, bow,
+  // crossbow) as the reagent. The reagent becomes a material of the tier (archwood log, TFC steel rod) and the
+  // string the old tool carried moves onto a pedestal. dev/poc_analyze.py check C-3g guards it.
+  const GEAR_FIX = {
+    'ars_nouveau:enchanters_fishing_rod': { reagent: item('tfc:metal/rod/steel'), add: [tag('c:strings')] },
+    'ars_nouveau:spell_bow': { reagent: tag('c:logs/archwood'), add: [tag('c:strings'), tag('c:strings')] },
+    'ars_nouveau:spell_crossbow': { reagent: tag('c:logs/archwood'),
+      add: [tag('c:strings'), tag('c:strings'), item('tfc:metal/rod/steel')] }
+  }
+
   const rewrite = (text, id) => {
     let out = text
     Object.keys(MAP).forEach((from) => {
@@ -121,6 +134,14 @@ ServerEvents.recipes((event) => {
       out = out.split('"tag":"c:gems/diamond"').join('"tag":"firmages:gems/arcane"')
         .split('"item":"minecraft:diamond"').join('"tag":"firmages:gems/arcane"')
         .split('"tag":"c:storage_blocks/diamond"').join('"item":"ars_nouveau:source_gem_block"')
+    }
+    const fix = GEAR_FIX[id]
+    if (fix) {
+      const j = JSON.parse(out)
+      j.reagent = fix.reagent
+      j.pedestalItems = (j.pedestalItems || []).concat(fix.add)
+      j.keepNbtOfReagent = false
+      out = JSON.stringify(j)
     }
     return out
   }

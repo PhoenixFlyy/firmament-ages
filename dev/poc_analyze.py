@@ -786,18 +786,33 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         if item_age.get(o) != "age_4":
             pkg_bad.append(f"{o} age {item_age.get(o)}")
     check("C-4i Create 6 package tier: age_4 items, every grid recipe carries an IE component", not pkg_bad, pkg_bad)
+    # Gear = tools, weapons and armour. "minecraft:enchantable/durability" is left out: Occultism puts its chalks and
+    # miner spirits there, which are consumables and machine parts, not gear.
     gear = set()
-    for k in ("c:tools", "c:armors", "minecraft:enchantable/durability", "minecraft:enchantable/armor"):
+    for k in ("c:tools", "c:armors", "minecraft:enchantable/armor"):
         gear |= set(tags.get(k, []))
-    chains = []
-    for rid, sl, os_ in recs:
-        outs4 = [o for o in os_ if o in gear and item_age.get(o) == "age_4"]
-        if not outs4 or rid.startswith("cataclysm:weapon_infusion/"):
-            continue
-        for s in sl:
-            alts = members(s)
-            if alts and alts <= gear:
-                chains.append(f"{rid} -> {outs4[0]} eats {sorted(alts)[:2]}")
+
+    def gear_chains(age):
+        """Recipes that make gear of `age` from a finished tool or armour piece. A slot that holds the output
+        only (Ars dyeing, repair-style recipes) recolours the same item and is not an upgrade."""
+        chains = []
+        for rid, sl, os_ in recs:
+            outs = [o for o in os_ if o in gear and item_age.get(o) == age]
+            if not outs or rid.startswith("cataclysm:weapon_infusion/"):
+                continue
+            for s in sl:
+                alts = members(s)
+                if alts and alts <= gear and not alts <= set(outs):
+                    chains.append(f"{rid} -> {outs[0]} eats {sorted(alts)[:2]}")
+        return chains
+    chains3 = gear_chains("age_3")
+    fixed = ("ars_nouveau:enchanters_fishing_rod", "ars_nouveau:spell_bow", "ars_nouveau:spell_crossbow")
+    unreached = [o for o in fixed if o not in ok3]
+    check("C-3g gear rule for age_3 gear: no tool or armour as ingredient; the three Ars apparatus upgrades "
+          "(arcane_tfc_inputs.js GEAR_FIX) are made from materials reachable at age_3",
+          not chains3 and not unreached,
+          chains3 + [f"not reachable with age_3 items: {o}" for o in unreached])
+    chains = gear_chains("age_4")
     check("C-4j gear rule for age_4 gear: no tool or armour as ingredient (Cataclysm boss-weapon fusion is an open point)",
           not chains, chains)
 
