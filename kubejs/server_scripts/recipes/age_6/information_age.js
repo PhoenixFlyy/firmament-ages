@@ -81,7 +81,7 @@ ServerEvents.recipes((event) => {
   event.remove({ id: 'theurgy:crafting/shaped/sulfuric_flux_emitter' })
   event.shaped('theurgy:sulfuric_flux_emitter', [' a ', 'gSg', 'sRs'], {
     a: '#c:gems/sal_ammoniac', g: '#c:ingots/gold', S: '#theurgy:alchemical_sulfurs', s: '#c:stones', R: 'mekanism:alloy_reinforced'
-  }).id('firmages:crafting/sulfuric_flux_emitter')
+  }).id('theurgy:crafting/shaped/sulfuric_flux_emitter') // same id: the Theurgy guide book shows it
 
   // ======================================================================================== Mystical Agriculture
   // Doc 08 section 4.4: hard-coded vanilla outputs to the canonical items (the tag outputs are pinned in

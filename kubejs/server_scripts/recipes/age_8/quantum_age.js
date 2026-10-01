@@ -17,11 +17,11 @@ ServerEvents.recipes((event) => {
   event.shaped('occultism:book_of_binding_marid', ['cof', 'pbp', 'AWA'], {
     b: 'occultism:taboo_book', c: 'occultism:purified_ink', f: 'occultism:awakened_feather', o: '#c:dyes/green',
     p: '#c:dyes/green', A: 'mekanism:alloy_atomic', W: 'draconicevolution:wyvern_core'
-  }).id('firmages:crafting/book_of_binding_marid')
+  }).id('occultism:crafting/book_of_binding_marid') // same id: the Occultism guide book shows it
   event.shaped('occultism:book_of_binding_marid', [' o ', 'pbp', 'AWA'], {
     b: 'occultism:book_of_binding_empty', o: '#c:dyes/green', p: '#c:dyes/green', A: 'mekanism:alloy_atomic',
     W: 'draconicevolution:wyvern_core'
-  }).id('firmages:crafting/book_of_binding_marid_from_empty')
+  }).id('occultism:crafting/book_of_binding_marid_from_empty')
 
   // The Awakened Keystone: the Marid pentacle with the bound Marid book, like the Djinni ritual of the Arcane Keystone
   // (recipes/age_3/arcane_age.js). It takes an Arcane Keystone: the one lent from the shrine (SPEC section 7.4, M6) or

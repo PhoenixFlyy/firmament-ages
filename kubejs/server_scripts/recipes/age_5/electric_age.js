@@ -73,10 +73,10 @@ ServerEvents.recipes((event) => {
   event.shaped('occultism:book_of_binding_afrit', ['cpf', 'pbp', ' H '], {
     b: 'occultism:taboo_book', c: 'occultism:purified_ink', f: 'occultism:awakened_feather', p: '#c:dyes/yellow',
     H: 'immersiveengineering:coil_hv'
-  }).id('firmages:crafting/book_of_binding_afrit')
+  }).id('occultism:crafting/book_of_binding_afrit') // same id: the Occultism guide book shows it
   event.shaped('occultism:book_of_binding_afrit', [' p ', 'pbp', ' H '], {
     b: 'occultism:book_of_binding_empty', p: '#c:dyes/yellow', H: 'immersiveengineering:coil_hv'
-  }).id('firmages:crafting/book_of_binding_afrit_from_empty')
+  }).id('occultism:crafting/book_of_binding_afrit_from_empty')
 
   // ======================================================================================== magic tail: Attuned Circuit
   // IE circuit board with a spirit attuned crystal (Doc 08 section 7.2). A grid recipe, so the IE Assembler automates it.
