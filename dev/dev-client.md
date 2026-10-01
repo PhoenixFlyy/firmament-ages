@@ -13,7 +13,7 @@ Was die Instanz schon mitbringt:
 ## Start
 
 1. **Pack ausliefern.** `dev\serve.bat` doppelklicken, oder im Repo `tools\packwiz.exe serve` ausführen. Das Fenster muss offen bleiben. Prüfen: http://localhost:8080/pack.toml zeigt `name = "Firmament Ages"`.
-2. **Test-Server starten** (siehe `server/README.md`): `test-server\start.bat`. In der Server-Konsole Dich zum OP machen: `op <DeinName>`. Ohne OP gehen `/stage` und `/fa_reconcile` nicht.
+2. **Test-Server starten:** die Befehle stehen unten in „Age-Übergang testen“, Schritte 1 und 2 (Sync, Start mit Temurin 21, `whitelist add` und `op`). Ohne OP gehen `/stage` und `/fa_reconcile` nicht.
 3. **Prism starten:** `tools\PrismLauncher\prismlauncher.exe`.
 4. **Einloggen:** oben rechts *Accounts → Manage Accounts → Add Microsoft*. Den Login machst Du selbst im Browser. Zugangsdaten gehören nie in eine Datei im Repo oder in `tools/`. Prism speichert nur das Token in `tools/PrismLauncher/accounts.json`; die Datei bleibt lokal und ist über `tools/` aus Git raus.
 5. **Instanz starten:** *Firmament Ages Dev* doppelklicken. Zuerst läuft das packwiz-Fenster (Sync), dann startet das Spiel. Beim ersten Mal lädt Prism Minecraft, NeoForge und Bibliotheken nach. Im Multiplayer `localhost` verbinden.
@@ -95,10 +95,170 @@ Kurzfassung der Punkte aus `dev/poc-checklist.md`, Abschnitt C, die einen Client
 
 1. Einen zweiten Account (oder Freund) online haben, wenn möglich.
 2. `/stage grant @s age_0`, dann `/stage grant @s age_1`.
-   Erwartung bei allen Online-Spielern: Titel „Age 1: Bronze Age“, Untertitel, Sound, Feuerwerk, Chatzeile aus `unlock_message` („the first alloys. New veins can be found.“).
+   Erwartung bei allen Online-Spielern: Titel „Age 1: Bronze Age“, Untertitel, Sound, Chatzeile aus `unlock_message` („the first alloys. New veins can be found.“). Mit firmages-core 0.3.0 kommt der Titel aus der kurzen Zeremonie der Mod (kein Feuerwerk); mit älterer Mod aus `on_stage_added.js` (mit Feuerwerk). Nie beides.
 3. `/stage grant @s age_2`.
    Erwartung: Titel „Age 2: Iron Age“, Chatzeile „the map opens and iron veins become visible.“
 4. Beim Entziehen (`/stage revoke @s age_2`) darf kein Titel kommen. Wenn doch, notieren.
+
+## Age-Übergang testen (Schrein, firmages-core 0.3.0)
+
+Ziel: Du baust den Stone-Age-Schrein, legst den Hearthstone auf den Sockel, betest, und Caelum schaltet die Bronze Age frei. Stand 2026-10-01. Die Befehle von firmages-core 0.3.0 (`/firmages shrine …`, `/firmages ceremony …`) stehen in `mod/firmages-core/SPEC.md` §10; im Spiel gelaufen ist dieser Ablauf noch nie. Was abweicht, bitte notieren (Abschnitt „Was Du mir meldest“).
+
+**Wo testen: auf dem Test-Server `test-server/`, nicht im Singleplayer.** Nur der dedizierte Server benutzt die Spiegeldatei `world/firmages/ages.json` und schickt den Reload wirklich übers Netz zum Client. Das ist der Fall, der beim Spielen mit Freunden zählt. Singleplayer startet immer im strikten Fallback (SPEC §3.2) und zeigt das Einfrieren anders.
+
+### Voraussetzungen
+
+- `mods/` im Repo enthält firmages-core **0.3.0** (oder neuer), und `tools\packwiz.exe refresh` ist gelaufen. Prüfen: http://localhost:8080/pack.toml öffnen, dann `index.toml` nach `firmages-core-0.3` durchsuchen.
+- `packwiz serve` läuft (`dev\serve.bat`).
+- Kein anderer Server läuft auf Port 25565.
+
+### 1. Test-Server synchronisieren und starten
+
+In einer Eingabeaufforderung (cmd), Fenster offen lassen:
+
+```
+cd /d D:\Minecraft\MinecraftModServer\FirmamentAges\test-server
+..\tools\jdk-21\bin\java.exe -jar ..\tools\packwiz-installer-bootstrap.jar -g -s server http://localhost:8080/pack.toml
+..\tools\jdk-21\bin\java.exe -Xms6G -Xmx8G @libraries/net/neoforged/neoforge/21.1.252/win_args.txt nogui
+```
+
+Die erste Zeile holt Mods, Configs und Skripte vom laufenden `packwiz serve`. Die zweite startet den Server mit Temurin 21. Nimm nicht `run.bat`: die nutzt das `java` aus dem PATH (Corretto 25). Fertig ist er bei `Done (…)`. In der Konsole muss stehen: `[firmages] on_stage_added: Age titles by firmages-core ceremony`. Steht dort `by KubeJS`, ist noch die alte Mod geladen.
+
+Willst Du eine frische Welt: Server stoppen (`stop`), den Ordner `test-server\world` löschen und neu starten. Die TFC-Welt wird dann neu erzeugt (dauert einige Minuten).
+
+### 2. Dich freischalten (in der Server-Konsole, ohne Schrägstrich)
+
+```
+whitelist add <DeinName>
+op <DeinName>
+```
+
+Die Whitelist ist an (`white-list=true`, `enforce-whitelist=true`), ohne den ersten Befehl kommst Du nicht rein. Ohne OP gehen `/stage`, `/firmages` und `/gamemode` nicht.
+
+### 3. Client starten und verbinden
+
+Prism wie oben unter „Start“ (Schritte 3 bis 5), dann im Multiplayer `localhost` verbinden.
+
+### 4. Schnellweg in die Stone Age (im Spiel)
+
+```
+/firmages ages
+/stage grant @s age_0
+/firmages ages
+/gamemode creative
+```
+
+- Der erste `/firmages ages` zeigt `unlocked: [dawn]`.
+- `/stage grant @s age_0` spielt die **kurze** Zeremonie (Titel, Klang, Strahl nur, wenn schon ein Schrein steht) und löst nach etwa 3 s einen Reload aus. Der Server friert dabei einige Sekunden ein, das ist gewollt.
+- Der zweite `/firmages ages` zeigt `dawn, age_0`.
+- Alternativ ohne Befehl: das Dawn-Kapitel spielen. The First Spark vergibt `age_0` selbst.
+
+### 5. Shrine Heart besorgen
+
+Survival-Weg (Ton und Grubenofen der Stone Age):
+
+1. **Ton finden:** unter Gras nahe Wasser, erkennbar an den Ton-Pflanzen. Mit der Schaufel abbauen, das gibt Tonklumpen (`minecraft:clay_ball`, erst ab `age_0`).
+2. **Formen:** mit 5 Ton in der Hand Benutzen drücken, das öffnet das Knapping-Raster. Welches Muster das Herz braucht, zeigt EMI unter `firmages:shrine_heart` (Rezept kommt mit firmages-core 0.3.0; steht dort keins, den Schnellweg nehmen und es mir melden).
+3. **Brennen im Grubenofen:** das ungebrannte Stück auf den Boden legen, 8 Stroh (`tfc:straw`) und dann 8 Stämme darauf, mit dem Feuerstarter (`tfc:firestarter`) anzünden. Der Ofen braucht feste Blöcke ringsum, am einfachsten in einer Grube 1 Block tief. Genau beschrieben im TFC Field Guide, Kapitel Pottery, Abschnitt Pit Kiln. Nach einigen Minuten liegt dort das gebrannte Herz.
+
+Schnellweg:
+
+```
+/give @s firmages:shrine_heart
+/give @s firmages:offering_plinth
+```
+
+### 6. Den Herdkreis (Ring 0) bauen
+
+Platz suchen, mindestens 21 × 21 Blöcke flach (später kommen neun weitere Ringe dazu). Herz setzen. Dann:
+
+```
+/give @s tfc:rock/cobble/granite 16
+/give @s tfc:wood/log/oak 16
+/give @s tfc:thatch 8
+```
+
+Was der Ring laut Entwurf (`Modpack-Planung/research-raw/core-shrine.md` §3) braucht, 5 × 5 um das Herz:
+
+| Block | Anzahl | Hinweis |
+|---|---|---|
+| Shrine Heart `firmages:shrine_heart` | 1 | Mitte |
+| Bruchstein, beliebige TFC-Gesteinsart | 8 | Tag `#firmages:shrine/any_cobble` |
+| Holzstamm (`#minecraft:logs`) | 8 | 4 Pfosten, je 2 hoch |
+| Stroh-Block `tfc:thatch` | 4 | je einer oben auf einem Pfosten |
+| Opfersockel `firmages:offering_plinth` | 1 | Sockel 1 |
+
+Die genaue Lage jedes Blocks legt die Ring-Datei der Mod fest. So siehst Du sie:
+
+- Schleichen und mit leerer Hand das Herz benutzen: eine Geistervorschau zeigt die fehlenden Blöcke an ihrem Platz.
+- `/firmages shrine validate` listet die fehlenden Blöcke im Chat.
+- `/firmages shrine info` zeigt Phase, gültigen Ring und Relikte.
+
+Ist der Ring fertig, glüht das Herz gleichmäßig, und über dem Sockel pulsiert schwach ein Hearthstone („die Gottheit bittet“). Auf K wird jetzt „Raise the Shrine“ erfüllt, sobald Du das Herz anschaust („The Shrine Heart“ schon beim Setzen).
+
+### 7. Opfern und beten
+
+```
+/give @s firmages:hearthstone
+/give @s tfc:firestarter
+/gamemode survival
+```
+
+(Survival-Weg zum Hearthstone: Hearth Idol aus 5 Ton formen und im Grubenofen brennen, dann Idol, 2 Kupferbarren und 2 Holzkohle in der Werkbank, Muster in EMI.)
+
+1. **Opfern:** mit dem Hearthstone in der Hand den Sockel (oder das Herz) benutzen. Der Stein liegt danach schwebend über dem Sockel. Falsches Item: Absage mit dem Namen des erwarteten Items. Zurück bekommst Du ihn vor dem Beten mit Schleichen und Benutzen am Sockel.
+2. **Ritus:** das Herz mit dem Feuerstarter entzünden (Benutzen gedrückt halten wie an einer Feuerstelle). Das Herz brennt danach (`lit=true`).
+3. **Beten:** Hand leer, schleichen, Benutzen am Herz **gedrückt halten**, höchstens 6 Blöcke entfernt. Allein dauert es 10 s. Loslassen lässt den Fortschritt langsam sinken, nicht auf null.
+
+### 8. Was Du sehen und hören solltest
+
+Ungefähr in dieser Reihenfolge (SPEC §8, Zeiten ab Ende des Gebets):
+
+| Zeit | Erwartung |
+|---|---|
+| 0 s | Hintergrundmusik verstummt, Partikel ziehen zum Herz |
+| 2 s | Lichtstrahl in Bernstein steigt aus dem Herz, Chor- oder Glutklang |
+| 3 s | Reload: der Server friert einige Sekunden ein, die Aktionsleiste zeigt „The world realigns...“; Effekte am Client laufen weiter |
+| 4 s | Himmel und Nebel färben sich etwa 8 s lang ein |
+| 5 s | **Ein** Titel „Age 1: Bronze Age“, Untertitel „A fire that keeps its shape. I see you.“, eine Chatzeile „Caelum: …“ |
+| danach | Der Hearthstone bleibt sichtbar über dem Sockel. Kein zweiter Titel, kein Feuerwerk (das alte KubeJS-Feuerwerk ist ab 0.3.0 aus) |
+
+Prüfen danach:
+
+- `/firmages ages` zeigt `dawn, age_0, age_1`, dazu die Dauer des letzten Reloads.
+- **EMI ohne Relog:** `create:andesite_alloy` und `create:mechanical_press` haben jetzt Rezepte. Vorher (in der Stone Age) waren sie unsichtbar. Gegenprobe: `tfc:metal/ingot/bronze` ist jetzt sichtbar.
+- **K-Screen:** im Stone-Age-Kapitel ist „Offer the Hearthstone at the Shrine“ erledigt (wenn alle vier Keystones erledigt sind; vorher bleibt es offen, das ist so gewollt). Das Kapitel „Age 1: Bronze Age“ ist ohne Relog da. In „The Firmament“ ist Hearthstone abgehakt.
+- `/stage list @s` zeigt `age_1` und `mob_1`.
+- Gegenprobe kurze Zeremonie: `/firmages ceremony preview age_1 short` spielt sie nur Dir vor, ohne Vergabe.
+
+### 9. Zurücksetzen und noch einmal
+
+```
+/stage revoke @s age_1
+/firmages ages
+/firmages shrine release 1
+/ftbquests change_progress @s reset 5298B856BFEE50A2
+```
+
+1. `/stage revoke` entzieht die Age in ProgressiveStages. Die Mod folgt, lädt neu und warnt „Age revoked: restart the server to clear in-progress items“.
+2. `/firmages ages` muss wieder `dawn, age_0` zeigen.
+3. `/firmages shrine release 1` gibt den Hearthstone vom Sockel 1 zurück (Admin-Reparatur). Klappt das nicht, einfach einen neuen per `/give` holen.
+4. Der letzte Befehl setzt das Ziel-Quest auf K zurück (Syntax aus dem FTB-Quests-Jar abgeleitet: `change_progress <Spieler> reset|complete <Quest-ID>`).
+5. Danach den Server neu starten (`stop`, dann Schritt 1 ab der zweiten Zeile).
+
+Nur wenn `/firmages ages` nach dem Revoke noch `age_1` zeigt (Mod und ProgressiveStages uneinig): Server stoppen, in `test-server\config\firmages-server.toml` unter `[debug]` `allowSimulate = true` setzen, starten, `/firmages ages simulate revoke age_1`, danach wieder `allowSimulate = false` und neu starten. `simulate` ändert nur den Zustand der Mod, nie die Stages; für den normalen Reset ist `/stage revoke` richtig.
+
+Ganz frisch: Server stoppen, `test-server\world` löschen (siehe Schritt 1).
+
+### Was Du mir meldest
+
+- Jede Zeile der Tabelle in Schritt 8: gesehen ja/nein, ungefähre Zeit, Auffälliges.
+- Wie lange der Server eingefroren war (`/firmages ages` nennt die Reload-Dauer) und wie lange EMI danach ruckelte. Grenze: unter 30 s, sonst fliegt der Client raus.
+- Ob Du je Titel genau einen gesehen hast, bei `age_0` (kurz) und `age_1` (voll).
+- Ob die Geistervorschau und `/firmages shrine validate` zum gebauten Ring passten, und welche Blöcke der Ring wirklich wollte.
+- Ob es ein Rezept für das Shrine Heart und den Sockel gab (EMI) und wie es aussah.
+- Ob „The Shrine Heart“, „Raise the Shrine“ und das Ziel-Quest auf K ohne Relog umsprangen.
+- Fehlermeldungen im Chat und den Pfad zu `test-server\logs\latest.log`, falls etwas schiefging. Bei einem Client-Absturz: `tools\PrismLauncher\instances\FirmamentAgesDev\minecraft\crash-reports\`.
 
 ## Nach dem Test
 
