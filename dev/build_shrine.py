@@ -7,7 +7,8 @@ the heart in the centre and the plinth of every ring. Layers are placed bottom u
 Prints each ring's plinth position (needed for /firmages debug use).
 
   --platform   fill a stone platform under the 21x21 footprint and clear the air above it first
-  --rites N    also set the rite blockstates of tier N the way the game reaches them: tier 3 lights the candles
+  --rites N    also set the rite blockstates of tier N the way the game reaches them: tier 2 lights the four lamps
+               (lit=true; a lamp without fuel goes out later, long enough for the prayer), tier 3 lights the candles
                (lit=true), tier 4 charges the IE electric lanterns, tier 5 charges the IE floodlights and puts a
                redstone block on each. "Charged" = IE's own stored energy (block entity NBT; the lantern reads
                energyStorage, the floodlight reads energy and writes energyStorage), so IE's tick switches
@@ -64,6 +65,7 @@ PICK = {
 }
 # tier -> (pattern key, block override, extra block placed above, or None)
 RITES = {
+    2: ("L", "tfc:metal/lamp/wrought_iron[lit=true]", None),
     3: ("K", "tfc:candle[candles=4,lit=true]", None),
     4: ("E", "immersiveengineering:electric_lantern{energyStorage:2000000000}", None),
     5: ("L", "immersiveengineering:floodlight{energy:2000000000}", "minecraft:redstone_block"),
@@ -126,7 +128,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--heart", nargs=3, type=int, required=True, metavar=("X", "Y", "Z"))
     ap.add_argument("--rings", default="0-8")
-    ap.add_argument("--rites", type=int, help="also set the rite states of this tier (3, 4 or 5)")
+    ap.add_argument("--rites", type=int, help="also set the rite states of this tier (2, 3, 4 or 5)")
     ap.add_argument("--platform", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
