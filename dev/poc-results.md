@@ -727,7 +727,7 @@ is 12 s.
 
 | Tier | Ring (blocks) | Rite: before / after | Offering | Prayer | Reload (ms) | Grant stall | Reload end |
 |---|---|---|---|---|---|---|---|
-| 3 | Spirit Circle (61) | "Light the eight candles" / done | Arcane Keystone accepted (an Ars worn notebook was refused: "Caelum asks for Arcane Keystone") | Alpha alone, granting age_4 | 6,624 | 2.68 s | 12.27 s |
+| 3 | Spirit Circle (61) | "Light the eight candles" / done | Arcane Keystone accepted (an Ars worn notebook was refused: "Caelum asks for item.firmages.arcane_keystone on this plinth", the server log shows the lang key) | Alpha alone, granting age_4 | 6,624 | 2.68 s | 12.27 s |
 | 4 | Foundry Nave (65) | "Power the four electric lanterns": prayer refused while unpowered / done after charging | Pressure Core accepted | Alpha alone, granting age_5 | 6,238 | none | 9.24 s |
 | 5 | Tesla Crown (73) | "Light the four floodlights ... power and a redstone signal" / done | Humming Core: at age_4 ProgressiveStages refuses the locked item ("This item is locked!"); at age_5 accepted | Alpha alone, granting age_6 | 6,277 | 2.65 s | 11.88 s |
 | 6 | Data Nave (77) | Chorus: "At least 2 of you must pray together" with Beta online / Alpha and Beta pray | Data Matrix accepted | by [Beta, Alpha], granting age_7 | 6,204 | none | 9.20 s |
