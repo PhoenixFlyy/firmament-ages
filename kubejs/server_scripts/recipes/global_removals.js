@@ -15,6 +15,10 @@ ServerEvents.recipes((event) => {
   // ---- FTB Quests: the screen opens with K (config/defaultoptions/keybindings.txt), no book --------------
   removeOutputPatterns.push(/^ftbquests:book$/)
 
+  // ---- Twilight Forest: gear rule (Doc 08 section 8). Fiery armour and tools keep their direct recipes from fiery
+  // ingots; the variants that upgrade a finished vanilla iron piece go.
+  ;['helmet', 'chestplate', 'leggings', 'boots', 'pickaxe', 'sword'].forEach((s) => event.remove({ id: `twilightforest:equipment/fiery_iron_${s}` }))
+
   // ---- Create: TFC is the only zinc/brass/plate source -------------------------------------------------
   // Plates: TFC sheets are canonical (tags c:plates/<metal> get the TFC sheets in tags/unification.js).
   ;['iron_ingot', 'copper_ingot', 'gold_ingot', 'brass_ingot'].forEach((i) => event.remove({ id: `create:pressing/${i}` }))

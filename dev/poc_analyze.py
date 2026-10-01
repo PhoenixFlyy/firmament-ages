@@ -896,8 +896,14 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     # Gear = tools, weapons and armour. "minecraft:enchantable/durability" is left out: Occultism puts its chalks and
     # miner spirits there, which are consumables and machine parts, not gear.
     gear = set()
-    for k in ("c:tools", "c:armors", "minecraft:enchantable/armor"):
+    for k in ("c:tools", "c:armors", "minecraft:enchantable/armor", "minecraft:enchantable/bow",
+              "minecraft:enchantable/crossbow"):
         gear |= set(tags.get(k, []))
+    # enchantable/mining and /weapon stay out too (Occultism miners, crushing wheels, annihilation planes). Draconic
+    # Evolution armour and Evolved Mekanism shields carry none of these tags (DE chestpieces only curios:body).
+    late_gear = re.compile(r"^(draconicevolution:(wyvern|draconic|chaotic)_(chestpiece|bow|staff|sword|axe|pickaxe|shovel|hoe)"
+                           r"|evolvedmekanism:shield_)")
+    gear |= {o for _, _, os_ in recs for o in os_ if late_gear.match(o)}
 
     def gear_chains(age):
         """Recipes that make gear of `age` from a finished tool or armour piece. A slot that holds the output
@@ -1006,10 +1012,10 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           and "firmages:ultimate_singularity" in base and not sgj_furnace,
           ["tech %s" % us.get("techLevel"), "missing relics %s" % sorted(relics - us_items),
            "base has singularity %s" % ("firmages:ultimate_singularity" in base), "SGJ furnace %s" % sgj_furnace])
-    # C-G: the gear rule for every later Age. Exceptions (Doc 08 section 8): MekaSuit and Meka-Tool (trophies after
+    # C-G: the gear rule for the Ages without their own C- gear check (age_3: C-3g, age_4: C-4j). Exceptions (Doc 08 section 8): MekaSuit and Meka-Tool (trophies after
     # finale_won), MekaSuit and Draconic modules, backpack upgrades.
     exempt = re.compile(r"^mekanism:(mekasuit_|meka_tool)|module|^sophisticatedbackpacks:")
-    for st in ("age_5", "age_6", "age_7", "age_8", "age_9"):
+    for st in ("age_0", "age_1", "age_2", "age_5", "age_6", "age_7", "age_8", "age_9"):
         ch = [c for c in gear_chains(st) if not exempt.search(c.split(" eats ")[0])]
         check("C-G %s gear rule: no tool or armour of %s is made from another tool or armour (exceptions: MekaSuit, "
               "Meka-Tool, modules, backpack upgrades)" % (st, st), not ch, ch)
