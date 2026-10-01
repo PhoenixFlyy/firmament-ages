@@ -149,7 +149,7 @@
 		"Craft the Sky Disc: a bronze double sheet from the bronze anvil and gold sheets."
 		""
 		"Grow the shrine by its second ring, the Bronze Sanctum: rock bricks, four bronze blocks and"
-		"a bronze bell. Sneak and use the heart with an empty hand to see the missing blocks."
+		"a bronze bell. Use the heart with an empty hand to see the missing blocks."
 		"Lay the Sky Disc on the new plinth, ring the bell and pray at the heart."
 		""
 		"Caelum keeps the Sky Disc as a relic and opens the Iron Age for the whole team."
@@ -191,7 +191,7 @@
 		"and the Lich trophy."
 		""
 		"Grow the shrine by its third ring, the Iron Sanctum: four pillars of smooth rock with"
-		"wrought iron bars and four wrought iron lamps. Sneak and use the heart to see the missing blocks."
+		"wrought iron bars and four wrought iron lamps. Use the heart to see the missing blocks."
 		"Lay the Steel Heart on the new plinth, light the four lamps and pray at the heart."
 		""
 		"Caelum keeps the Steel Heart as a relic and opens the Arcane Age for the whole team."
@@ -223,11 +223,12 @@
 	]
 	quest.2F5F52EBC70FEF35.title: "Small Vessel"
 	quest.30A13F8701E9EF80.quest_desc: [
-		"Build the Hearth Circle around the heart: cobblestone of any rock, four log posts two blocks"
-		"high with thatch on top, and the first offering plinth."
-		"Sneak and use the heart with an empty hand to see the missing blocks in place."
+		"Build the Hearth Circle around the heart: eight cobblestone of any rock around it, four log"
+		"posts two blocks high on the corners of a 5x5 square with thatch on top, and an Offering Plinth"
+		"(four cobblestone) two blocks from the heart."
+		"Use the heart with an empty hand to see the missing blocks in place."
 		""
-		"When the circle is complete, the heart glows and the plinth shows the Hearthstone it asks for."
+		"When the circle is complete, the heart glows. Use it again: it names the offering Caelum asks for."
 	]
 	quest.30A13F8701E9EF80.title: "Raise the Shrine"
 	quest.3213BFEF5EB29C5C.quest_desc: [
@@ -506,7 +507,8 @@
 	]
 	quest.759550A45990B3C8.title: "Copper Ingot"
 	quest.7755ECDE0FFE3821.quest_desc: [
-		"The Shrine Heart is fired clay, like the idol: shape it, then fire it in a pit kiln."
+		"Fire a second Hearth Idol and set it in four cobblestone under a charcoal:"
+		"that is the Shrine Heart."
 		"Place it where your team wants its shrine. There is only one shrine in the world,"
 		"and every later Age adds a ring around it, so leave room: about 21 by 21 blocks."
 	]

@@ -69,10 +69,13 @@ Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn 
 | Bronze Age | Offer the Sky Disc at the Shrine `2070B77706F2CB8E` | the shrine (`firmages:sky_disc`, ring 1) | gamestage `age_2` |
 | Iron Age | Offer the Steel Heart at the Shrine `28A963AA218A4EE4` | the shrine (`firmages:steel_heart`, ring 2) | gamestage `age_3` |
 
-- The shrine offerings live in `kubejs/data/firmages/shrine/offerings.json` (firmages-core reads it, SPEC section 2.6).
-  `validate_quests.py` checks it (item registered, in the Age tag of its key, `grants` = next Age) and every goal of
-  a shrine Age: gamestage task on the next Age, the offering as icon, no stage reward. A stage reward there would
-  be a second grant path. The `interim_shrine` rewards are gone; one left on a shrine Age is an error.
+- The shrine offerings are the file firmages-core reads: `data/firmages/firmages_shrine/offerings.json` in the mod
+  (`mod/firmages-core/src/main/resources/...`, flat `{"age_N": item}`, SPEC section 2.6); a pack copy at
+  `kubejs/data/firmages/firmages_shrine/offerings.json` would replace it. `validate_quests.py` reads the same file
+  (item in the Age tag of its key, not yet registered = warning; every `ring_N` tier grants `age_(N+1)`) and checks
+  every goal of a shrine Age: exactly one gamestage task on the next Age, the offering as icon, no stage reward. A
+  stage reward there would be a second grant path. The `interim_shrine` rewards are gone; one left on a shrine Age
+  is an error. A file at the old path `kubejs/data/*/shrine/offerings.json` is an error (the mod never read it).
 - The goal completes when the shrine (or an admin `/stage grant`) gives the next Age and all keystones are done
   (flexible mode). Offering before the strands are done is possible; the goal then completes with the last keystone.
 - Stone Age strand "Hearth & Shrine": Unfired Hearth Idol, Hearth Idol, The Shrine Heart (observation of the placed
@@ -84,9 +87,9 @@ Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn 
 - `firmages:shrine_heart` and `firmages:offering_plinth` come with firmages-core 0.3.0; `dev/data/registry.json` is
   from 0.2.1, so the validator accepts them from `PENDING_MOD_IDS` with a warning. Re-dump the registry after 0.3.0
   and empty that set.
-- Bronze and Iron goal texts name the rings and rites of `Modpack-Planung/research-raw/core-shrine.md` section 3
-  (Bronze Sanctum + bell, Iron Sanctum + four lamps). Ring 2 is milestone M6; until its tier file exists the Iron Age
-  goal can only be completed by an admin grant.
+- Bronze and Iron goal texts name the rings and rites that firmages-core 0.3.0 ships (`tier/ring_1.json`: Bronze
+  Sanctum + bell; `tier/ring_2.json`: Iron Sanctum + four lamps, SPEC section 7.8). The goal has no item task: it
+  unlocks only after Raise the Shrine, and a Hearthstone laid on the plinth at once would never tick it.
 
 Stage reward settings (Dawn): type `gamestage`, `auto: "invisible"` (without it the reward falls back to the file
 default `disabled` and would wait for a click), not a team reward. Non-team stage rewards call FTB Library's

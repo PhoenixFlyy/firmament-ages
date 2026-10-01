@@ -1,0 +1,12 @@
+{
+  "plinth_radius": 12,
+  "response": {
+    "beam_color": "#F4F0FF",
+    "sky_tint": "#B8B0FF",
+    "particles": [
+      "minecraft:end_rod"
+    ],
+    "sting": "firmages:shrine.sting.stone",
+    "lightning": true
+  }
+}

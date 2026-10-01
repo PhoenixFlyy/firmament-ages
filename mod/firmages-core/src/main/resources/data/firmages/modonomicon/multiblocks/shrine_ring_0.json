@@ -1,0 +1,48 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:shrine_heart"
+    },
+    "P": {
+      "type": "modonomicon:block",
+      "block": "firmages:offering_plinth"
+    },
+    "C": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/hearth_stones"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/hearth_posts"
+    },
+    "T": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/thatch"
+    }
+  },
+  "pattern": [
+    [
+      "T___T",
+      "_____",
+      "_____",
+      "_____",
+      "T___T"
+    ],
+    [
+      "L___L",
+      "_____",
+      "_____",
+      "_____",
+      "L___L"
+    ],
+    [
+      "L_P_L",
+      "_CCC_",
+      "_C0C_",
+      "_CCC_",
+      "L___L"
+    ]
+  ]
+}

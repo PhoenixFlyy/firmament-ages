@@ -28,6 +28,9 @@ public final class AgeChangeProcessor {
 
         /** An Age was revoked (after persist and the reload request). */
         void revoked(AgeId age);
+
+        /** A single stage grant added an Age (after persist and the reload request): starts the m7 ceremony. */
+        default void granted(AgeId age) {}
     }
 
     private final AgeLedger ledger;
@@ -53,7 +56,8 @@ public final class AgeChangeProcessor {
         if (!changed) return false;
         sink.persist();
         sink.requestReload((granted ? "granted " : "revoked ") + age.get().id(), !granted);
-        if (!granted) sink.revoked(age.get());
+        if (granted) sink.granted(age.get());
+        else sink.revoked(age.get());
         return true;
     }
 

@@ -1,0 +1,22 @@
+{
+  "multiblock": "firmages:shrine_ring_1",
+  "grants": "age_2",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "interact",
+      "tag": "firmages:shrine/bells",
+      "hint": "firmages.shrine.rite.bell"
+    }
+  ],
+  "response": {
+    "beam_color": "#FFD54A",
+    "sky_tint": "#FFE08A",
+    "particles": [
+      "minecraft:end_rod",
+      "minecraft:wax_on"
+    ],
+    "sting": "firmages:shrine.sting.bronze",
+    "lightning": false
+  }
+}

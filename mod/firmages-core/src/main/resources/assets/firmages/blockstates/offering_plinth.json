@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "awakened=false": {
+      "model": "firmages:block/offering_plinth"
+    },
+    "awakened=true": {
+      "model": "firmages:block/offering_plinth_awakened"
+    }
+  }
+}

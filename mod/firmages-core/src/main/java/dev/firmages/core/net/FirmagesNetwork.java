@@ -12,5 +12,7 @@ public final class FirmagesNetwork {
     public static void register(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar(VERSION).optional();
         registrar.playToClient(ReloadStatePayload.TYPE, ReloadStatePayload.STREAM_CODEC, ReloadStatePayload::handle);
+        registrar.playToClient(AgeTransitionPayload.TYPE, AgeTransitionPayload.STREAM_CODEC, AgeTransitionPayload::handle);
+        registrar.playToClient(ShrinePreviewPayload.TYPE, ShrinePreviewPayload.STREAM_CODEC, ShrinePreviewPayload::handle);
     }
 }

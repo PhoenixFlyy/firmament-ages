@@ -31,7 +31,7 @@ import java.util.Locale;
 
 /**
  * {@code /firmages} (SPEC §10), permission level 2. M1: ages, ages sync, ages simulate, dump registry, reload,
- * selftest. M2: recipes audit, recipes why, recipes locked.
+ * selftest. M2: recipes audit, recipes why, recipes locked. M4: shrine, ceremony ({@link ShrineCommands}).
  */
 public final class FirmagesCommands {
     private static final List<String> SUITES = List.of("all", "core", "gate", "server");
@@ -64,6 +64,8 @@ public final class FirmagesCommands {
                     .executes(FirmagesCommands::recipesLocked))))
             .then(Commands.literal("dump").then(Commands.literal("registry").executes(FirmagesCommands::dumpRegistry)))
             .then(Commands.literal("reload").executes(FirmagesCommands::reload))
+            .then(ShrineCommands.shrine())
+            .then(ShrineCommands.ceremony())
             .then(Commands.literal("selftest")
                 .executes(c -> selftest(c, "all"))
                 .then(Commands.argument("suite", StringArgumentType.word())

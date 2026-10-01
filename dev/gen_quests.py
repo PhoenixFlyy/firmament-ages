@@ -358,18 +358,20 @@ STONE = age_chapter(
               desc=['Fire the idol in a pit kiln, like any other pottery. It becomes the Hearthstone.']),
             Q('stone/shrine/heart', 'The Shrine Heart',
               t_observe('firmages:shrine_heart', title='Look at your placed Shrine Heart'), icon='firmages:shrine_heart',
-              desc=['The Shrine Heart is fired clay, like the idol: shape it, then fire it in a pit kiln.',
+              desc=['Fire a second Hearth Idol and set it in four cobblestone under a charcoal:',
+                    'that is the Shrine Heart.',
                     'Place it where your team wants its shrine. There is only one shrine in the world,',
                     'and every later Age adds a ring around it, so leave room: about 21 by 21 blocks.']),
         ], Q('stone/shrine/key', 'Raise the Shrine',
              t_observe('firmages:shrine_heart[ready=true]', kind='block_state',
                        title='Look at the heart of the finished Hearth Circle'),
              kind='keystone', icon='firmages:offering_plinth',
-             desc=['Build the Hearth Circle around the heart: cobblestone of any rock, four log posts two blocks',
-                   'high with thatch on top, and the first offering plinth.',
-                   'Sneak and use the heart with an empty hand to see the missing blocks in place.',
+             desc=['Build the Hearth Circle around the heart: eight cobblestone of any rock around it, four log',
+                   'posts two blocks high on the corners of a 5x5 square with thatch on top, and an Offering Plinth',
+                   '(four cobblestone) two blocks from the heart.',
+                   'Use the heart with an empty hand to see the missing blocks in place.',
                    '',
-                   'When the circle is complete, the heart glows and the plinth shows the Hearthstone it asks for.'])),
+                   'When the circle is complete, the heart glows. Use it again: it names the offering Caelum asks for.'])),
     ],
     goal=Q('stone/goal', 'Offer the Hearthstone at the Shrine',
            t_stage('age_1', 'Offer the Hearthstone at the shrine'), kind='goal', icon='firmages:hearthstone',
@@ -496,7 +498,7 @@ BRONZE = age_chapter(
            desc=['Craft the Sky Disc: a bronze double sheet from the bronze anvil and gold sheets.',
                  '',
                  'Grow the shrine by its second ring, the Bronze Sanctum: rock bricks, four bronze blocks and',
-                 'a bronze bell. Sneak and use the heart with an empty hand to see the missing blocks.',
+                 'a bronze bell. Use the heart with an empty hand to see the missing blocks.',
                  'Lay the Sky Disc on the new plinth, ring the bell and pray at the heart.',
                  '',
                  'Caelum keeps the Sky Disc as a relic and opens the Iron Age for the whole team.']),
@@ -604,7 +606,7 @@ IRON = age_chapter(
                  'and the Lich trophy.',
                  '',
                  'Grow the shrine by its third ring, the Iron Sanctum: four pillars of smooth rock with',
-                 'wrought iron bars and four wrought iron lamps. Sneak and use the heart to see the missing blocks.',
+                 'wrought iron bars and four wrought iron lamps. Use the heart to see the missing blocks.',
                  'Lay the Steel Heart on the new plinth, light the four lamps and pray at the heart.',
                  '',
                  'Caelum keeps the Steel Heart as a relic and opens the Arcane Age for the whole team.']),
@@ -634,8 +636,9 @@ IRON = age_chapter(
 AGE_CHAPTERS = [DAWN, STONE, BRONZE, IRON]
 
 # Goal quests that grant the next Age as a quest reward. Only Dawn's First Spark: the shrine is built in the Stone
-# Age. From the Stone Age on the shrine grants the Age (kubejs/data/firmages/shrine/offerings.json) and the goal is a
-# gamestage task on the next Age without a stage reward (a second grant path would double the ceremony).
+# Age. From the Stone Age on the shrine grants the Age (firmages-core reads data/firmages/firmages_shrine/
+# offerings.json) and the goal is a gamestage task on the next Age without a stage reward (a second grant path
+# would double the ceremony).
 GOAL_GRANTS = {'dawn': 'age_0'}
 
 # ---------------------------------------------------------------- Welcome

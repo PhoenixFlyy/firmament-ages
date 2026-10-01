@@ -11,11 +11,12 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
              kubejs/data/firmages/tags/item/age_items/); disabled items are never allowed
   structure  every Age chapter: required stage set, one entry quest (gamestage task = chapter stage), one goal
              quest that depends on every keystone, 3-4 keystones, 2-4 optional side quests, explanations
-             optional. Goal of a shrine Age (an entry in kubejs/data/firmages/shrine/offerings.json): a gamestage
+             optional. Goal of a shrine Age (an entry in the shrine offerings, see below): one gamestage
              task on the next Age, the offering as icon, no stage reward (the shrine grants it). Goal of any other
              Age (Dawn): its reward grants exactly the next Age stage, with auto "invisible"
-  shrine     offerings.json: every item registered (or pending, see PENDING_MOD_IDS), in the Age tag of its key,
-             and "grants" is the next Age
+  shrine     the offerings firmages-core reads (data/firmages/firmages_shrine/offerings.json from the mod
+             sources, or its kubejs/data override): flat {"age_N": item}, the item in the Age tag of its key
+             (not yet registered: warning, that ring takes no offering); each ring_N tier grants age_(N+1)
   text       every chapter and quest has an English title in lang/en_us.snbt, no lang key points to a
              missing object, no German letters in player text
   data       data.snbt: book never dropped on death, no loot crates, no emergency items
@@ -39,7 +40,10 @@ AGE_CHAPTER_STAGES = {'dawn', 'age_0', 'age_1', 'age_2'}  # chapters authored so
 # Dimension -> (item tag that activates its portal, the jar default). The default stays in force unless a KubeJS tag
 # script calls removeAll on the tag.
 PORTAL_TAGS = {'twilightforest:twilight_forest': ('twilightforest:portal/activator', '#c:gems/diamond (age_4)')}
-OFFERINGS = os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'shrine', 'offerings.json')
+MOD_DATA = os.path.join(ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources', 'data', 'firmages', 'firmages_shrine')
+OFFERINGS_MOD = os.path.join(MOD_DATA, 'offerings.json')
+OFFERINGS_PACK = os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'firmages_shrine', 'offerings.json')
+SHRINE_TIERS = os.path.join(MOD_DATA, 'tier')
 # Ids that firmages-core 0.3.0 registers (SPEC section 7.1) but dev/data/registry.json, dumped from 0.2.1, does not
 # list yet. Accepted with a warning; empty this set once the registry is dumped again with 0.3.0.
 PENDING_MOD_IDS = {'firmages:shrine_heart', 'firmages:offering_plinth'}
@@ -346,25 +350,40 @@ def main():
         elif max_age is not None and age_index(a) is not None and age_index(a) > age_index(max_age):
             E('%s: %s item %s belongs to %s, later than %s' % (where, what, iid, a, max_age))
 
-    # ---- shrine offerings (firmages-core reads the same file, SPEC section 2.6)
+    # ---- shrine offerings: the file firmages-core reads (SPEC section 2.6). The mod jar ships
+    # data/firmages/firmages_shrine/offerings.json; a pack copy at the same path in kubejs/data replaces it.
     pending_used = set()
     offerings = {}
-    if os.path.isfile(OFFERINGS):
-        raw = json.load(open(OFFERINGS, encoding='utf-8')).get('offerings', {})
-        for age, entry in raw.items():
-            where = 'shrine/offerings.json %s' % age
-            if age not in AGES[:-1]:
-                E('%s: key is not an Age with a next Age' % where)
+    src = OFFERINGS_PACK if os.path.isfile(OFFERINGS_PACK) else OFFERINGS_MOD
+    rel = os.path.relpath(src, ROOT).replace(os.sep, '/')
+    stray = glob.glob(os.path.join(ROOT, 'kubejs', 'data', '*', 'shrine', 'offerings.json'))
+    for f in stray:
+        E('%s: firmages-core does not read this path; offerings live in data/<ns>/firmages_shrine/offerings.json'
+          % os.path.relpath(f, ROOT).replace(os.sep, '/'))
+    if os.path.isfile(src):
+        raw = json.load(open(src, encoding='utf-8'))
+        for age, iid in raw.items():
+            where = '%s %s' % (rel, age)
+            if not re.fullmatch(r'age_[0-8]', age):
+                E('%s: key is not age_0..age_8 (the mod rejects the whole file)' % where)
                 continue
-            iid, grants = entry.get('item'), entry.get('grants')
-            if grants != AGES[AGES.index(age) + 1]:
-                E('%s: grants %r, expected the next Age %r' % (where, grants, AGES[AGES.index(age) + 1]))
+            if not isinstance(iid, str):
+                E('%s: value must be an item id string (the mod rejects the whole file)' % where)
+                continue
+            if iid not in items and iid not in PENDING_MOD_IDS:
+                W('%s: %s is not registered yet, that ring cannot take its offering' % (where, iid))
+                continue
             check_item(iid, where, age, 'offering')
-            if isinstance(iid, str) and item_age.get(iid) not in (None, age):
+            if item_age.get(iid) not in (None, age):
                 E('%s: offering %s belongs to %s, not to the Age of its ring' % (where, iid, item_age.get(iid)))
             offerings[age] = iid
+        for tf in sorted(glob.glob(os.path.join(SHRINE_TIERS, 'ring_*.json'))):
+            n = int(re.search(r'ring_(\d+)', tf).group(1))
+            tier = json.load(open(tf, encoding='utf-8'))
+            if tier.get('grants', 'age_%d' % (n + 1)) != 'age_%d' % (n + 1):
+                E('tier ring_%d: grants %r, expected age_%d' % (n, tier.get('grants'), n + 1))
     else:
-        W('kubejs/data/firmages/shrine/offerings.json is missing: every goal is checked as a quest grant')
+        W('%s is missing: every goal is checked as a quest grant' % rel)
 
     table_users = {}
     interim = []
@@ -505,12 +524,16 @@ def main():
                     E('chapters/%s: goal does not depend on keystone(s) %s' % (cname, ', '.join(missing)))
                 grants = [r.get('stage') for r in g.get('rewards', []) if r.get('type') == 'gamestage']
                 nxt = AGES[AGES.index(stage) + 1]
+                waits = [t.get('stage') for t in g.get('tasks', []) if t.get('type') == 'gamestage']
+                # Dawn: the goal grants age_0. From the Stone Age the shrine grants the next Age: the goal waits for
+                # it with a gamestage task and must not grant it too (one grant path, firmages-core 0.3.0).
                 if stage in offerings:
                     if grants:
                         E('chapters/%s: goal of a shrine Age grants %r; the shrine grants %s, drop the reward'
                           % (cname, grants, nxt))
-                    if not any(t.get('type') == 'gamestage' and t.get('stage') == nxt for t in g.get('tasks', [])):
-                        E('chapters/%s: goal of a shrine Age has no gamestage task for %s' % (cname, nxt))
+                    if waits != [nxt]:
+                        E('chapters/%s: goal of a shrine Age must wait for %s with one gamestage task; waits for %r'
+                          % (cname, nxt, waits))
                     if g.get('icon', {}).get('id') != offerings[stage]:
                         E('chapters/%s: goal icon %r is not the offering %s' % (cname, g.get('icon', {}).get('id'),
                                                                                 offerings[stage]))

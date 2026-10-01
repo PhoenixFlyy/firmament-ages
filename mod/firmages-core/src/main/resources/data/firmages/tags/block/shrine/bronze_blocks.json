@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#c:storage_blocks/bronze",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/bismuth_bronze",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/black_bronze",
+      "required": false
+    }
+  ]
+}

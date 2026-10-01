@@ -93,16 +93,43 @@ Kurzfassung der Punkte aus `dev/poc-checklist.md`, Abschnitt C, die einen Client
 
 ### 6. Age-Wechsel-Titel (C20)
 
+Seit firmages-core 0.3.0 kündigt die Mod jede Age an (kurze Zeremonie bei `/stage grant` und Quests, volle Zeremonie am Schrein, Abschnitt 7). Das KubeJS-Feuerwerk gibt es für Ages nicht mehr.
+
 1. Einen zweiten Account (oder Freund) online haben, wenn möglich.
 2. `/stage grant @s age_0`, dann `/stage grant @s age_1`.
-   Erwartung bei allen Online-Spielern: Titel „Age 1: Bronze Age“, Untertitel, Sound, Chatzeile aus `unlock_message` („the first alloys. New veins can be found.“). Mit firmages-core 0.3.0 kommt der Titel aus der kurzen Zeremonie der Mod (kein Feuerwerk); mit älterer Mod aus `on_stage_added.js` (mit Feuerwerk). Nie beides.
+   Erwartung bei allen Online-Spielern: genau ein Titel „The Bronze Age dawns“, Untertitel und Chatzeile „Caelum: A fire that keeps its shape. I see you.“, ein Klang, kurz gefärbter Himmel; dazu die Chatzeile aus `unlock_message`. Etwa 3 s später friert der Server kurz ein (Reload), die Aktionsleiste zeigt „The world realigns...“ bis er weiterläuft.
 3. `/stage grant @s age_2`.
-   Erwartung: Titel „Age 2: Iron Age“, Chatzeile „the map opens and iron veins become visible.“
+   Erwartung: Titel „The Iron Age dawns“, Chatzeile „the map opens and iron veins become visible.“
 4. Beim Entziehen (`/stage revoke @s age_2`) darf kein Titel kommen. Wenn doch, notieren.
+5. Nur ansehen, ohne Stage: `/firmages ceremony preview age_3 full` (oder `short`).
+
+### 7. Schrein: der Age-Übergang selbst (M4, m7)
+
+Kurzfassung mit den genauen Chat-Texten. Der ausführliche Ablauf mit Server-Start, Freischalten und Zurücksetzen steht unten unter „Age-Übergang testen“.
+
+Vorbereitung: Welt im Stand `age_0` (`/stage grant @s age_0`). Im Creative-Modus geht es schneller; die Items liegen im Tab *Functional Blocks* (Shrine Heart, Offering Plinth). Im Survival: zwei Hearth Idols brennen, eins mit 4 Bruchstein und Holzkohle zum Shrine Heart, eins zum Hearthstone; der Sockel sind 4 Bruchstein.
+
+1. **Herz setzen.** Shrine Heart auf den Boden stellen. Rechtsklick mit leerer Hand aufs Herz.
+   Erwartung: Chat „Caelum, the Firmament...“ und „Caelum does not dwell in ruins: the Hearth Circle is not complete (1 of 22 blocks)“; ein Geisterbild zeigt die fehlenden Blöcke. **Bitte prüfen:** sitzt das Geisterbild genau um das Herz (nicht einen Block zu hoch oder zu tief)?
+2. **Herdkreis bauen** (5x5, Herz in der Mitte): 8 TFC-Bruchstein direkt um das Herz, an den 4 Ecken des 5x5-Quadrats je 2 Holzstämme übereinander, darauf je ein Stroh-Block (`tfc:thatch`), und ein Offering Plinth zwei Blöcke vor dem Herz in der Mitte einer Seite.
+   Erwartung: Rechtsklick aufs Herz sagt „Lay Hearthstone on its plinth first.“; über dem Herz fliegen Verzauberungs-Partikel (bereit). `/firmages shrine status` zeigt „Ring 0 ... complete“.
+3. **Opfern.** Mit dem Hearthstone in der Hand den Sockel rechtsklicken.
+   Erwartung: der Hearthstone liegt drehend auf dem Sockel, Chat „Hearthstone rests on the plinth...“ und der Hinweis „The heart is cold. Kindle it with a firestarter.“ Ein falsches Item wird mit „Caelum asks for Hearthstone on this plinth.“ abgelehnt. Schleichen + Rechtsklick mit leerer Hand holt das Opfer zurück.
+4. **Ritus.** Mit dem Feuerstarter (oder Feuerstein und Stahl) aufs Herz rechtsklicken.
+   Erwartung: Flammen auf dem Herz, Chat „The heart is kindled. Caelum watches.“
+5. **Beten.** Schleichen und Rechtsklick mit leerer Hand auf das Herz gedrückt halten.
+   Erwartung: Fortschrittsbalken in der Aktionsleiste, nach etwa 10 s (zu zweit 5 s, mindestens 4 s) antwortet Caelum: Musik aus, Klang, Partikel ziehen zum Herz, ein Lichtstrahl in Bernstein steigt auf, der Himmel färbt sich orange, dann Titel „The Bronze Age dawns“ mit „Caelum: A fire that keeps its shape. I see you.“ und eine Chatzeile zum Segen „Hearthward“. Nach etwa 3 s friert der Server für den Reload ein, die Zeremonie und „The world realigns...“ laufen weiter.
+6. **Danach.** EMI zeigt die Bronze-Rezepte ohne Relog; die Ziel-Quest „Hearthstone“ auf K ist erledigt; der Hearthstone schwebt leuchtend über dem Sockel und lässt sich im Survival nicht abbauen; `/firmages shrine relics` listet ihn.
+7. **Kaputt und repariert.** Einen Holzpfosten abbauen.
+   Erwartung: Chat „The shrine is broken. Caelum's blessings rest until it is repaired.“, die Age bleibt. Pfosten wieder setzen: „The shrine stands again.“
+8. **Zweites Herz.** Ein zweites Shrine Heart woanders setzen.
+   Erwartung: wird verweigert („Caelum already dwells at ...“).
+
+Hilfen: `/firmages shrine status` (Ringe mit fehlenden Blöcken, Opfer, Ritus, Gebet), `/firmages shrine locate`, `/firmages shrine extract <x y z>` (Relikt vom Sockel nehmen). Mit `debug.allowSimulate = true` in `firmages-server.toml` schließt `/firmages shrine simulate_pray` das Gebet sofort ab. Bronze-Ring (Ziegel, Bronzeblöcke, Glocke läuten) und Eisen-Ring (Pfeiler, Lampen anzünden) folgen demselben Ablauf mit Sky Disc und Steel Heart.
 
 ## Age-Übergang testen (Schrein, firmages-core 0.3.0)
 
-Ziel: Du baust den Stone-Age-Schrein, legst den Hearthstone auf den Sockel, betest, und Caelum schaltet die Bronze Age frei. Stand 2026-10-01. Die Befehle von firmages-core 0.3.0 (`/firmages shrine …`, `/firmages ceremony …`) stehen in `mod/firmages-core/SPEC.md` §10; im Spiel gelaufen ist dieser Ablauf noch nie. Was abweicht, bitte notieren (Abschnitt „Was Du mir meldest“).
+Ziel: Du baust den Stone-Age-Schrein, legst den Hearthstone auf den Sockel, betest, und Caelum schaltet die Bronze Age frei. Stand 2026-10-01. Die Befehle von firmages-core 0.3.0 (`/firmages shrine status|locate|relics|extract|simulate_pray`, `/firmages ceremony preview`) stehen in `mod/firmages-core/SPEC.md` §10. Serverseitig ist der Ablauf auf dem Test-Server geprüft (`dev/poc-results.md`, „Shrine M4 and ceremony“); mit Client noch nie. Was abweicht, bitte notieren (Abschnitt „Was Du mir meldest“).
 
 **Wo testen: auf dem Test-Server `test-server/`, nicht im Singleplayer.** Nur der dedizierte Server benutzt die Spiegeldatei `world/firmages/ages.json` und schickt den Reload wirklich übers Netz zum Client. Das ist der Fall, der beim Spielen mit Freunden zählt. Singleplayer startet immer im strikten Fallback (SPEC §3.2) und zeigt das Einfrieren anders.
 
@@ -158,8 +185,10 @@ Prism wie oben unter „Start“ (Schritte 3 bis 5), dann im Multiplayer `localh
 Survival-Weg (Ton und Grubenofen der Stone Age):
 
 1. **Ton finden:** unter Gras nahe Wasser, erkennbar an den Ton-Pflanzen. Mit der Schaufel abbauen, das gibt Tonklumpen (`minecraft:clay_ball`, erst ab `age_0`).
-2. **Formen:** mit 5 Ton in der Hand Benutzen drücken, das öffnet das Knapping-Raster. Welches Muster das Herz braucht, zeigt EMI unter `firmages:shrine_heart` (Rezept kommt mit firmages-core 0.3.0; steht dort keins, den Schnellweg nehmen und es mir melden).
-3. **Brennen im Grubenofen:** das ungebrannte Stück auf den Boden legen, 8 Stroh (`tfc:straw`) und dann 8 Stämme darauf, mit dem Feuerstarter (`tfc:firestarter`) anzünden. Der Ofen braucht feste Blöcke ringsum, am einfachsten in einer Grube 1 Block tief. Genau beschrieben im TFC Field Guide, Kapitel Pottery, Abschnitt Pit Kiln. Nach einigen Minuten liegt dort das gebrannte Herz.
+2. **Formen:** mit 5 Ton in der Hand Benutzen drücken, das öffnet das Knapping-Raster. Das Muster des Unfired Hearth Idol zeigt EMI.
+3. **Brennen im Grubenofen:** das ungebrannte Idol auf den Boden legen, 8 Stroh (`tfc:straw`) und dann 8 Stämme darauf, mit dem Feuerstarter (`tfc:firestarter`) anzünden. Der Ofen braucht feste Blöcke ringsum, am einfachsten in einer Grube 1 Block tief. Genau beschrieben im TFC Field Guide, Kapitel Pottery, Abschnitt Pit Kiln. Nach einigen Minuten liegt dort das gebrannte Hearth Idol.
+4. **Herz bauen (Werkbank):** Holzkohle oben in der Mitte, darunter Bruchstein, Hearth Idol, Bruchstein, unten in der Mitte Bruchstein (Rezept `firmages:crafting/shrine_heart`). Für den Hearthstone brauchst Du ein zweites Idol.
+5. **Sockel (Werkbank):** 4 Bruchstein, einer oben in der Mitte, drei darunter (`firmages:crafting/offering_plinth`).
 
 Schnellweg:
 
@@ -178,23 +207,22 @@ Platz suchen, mindestens 21 × 21 Blöcke flach (später kommen neun weitere Rin
 /give @s tfc:thatch 8
 ```
 
-Was der Ring laut Entwurf (`Modpack-Planung/research-raw/core-shrine.md` §3) braucht, 5 × 5 um das Herz:
+Was der Ring braucht (Ring-Datei `shrine_ring_0.json` der Mod), 5 × 5 um das Herz, 22 Blöcke ohne das Herz:
 
 | Block | Anzahl | Hinweis |
 |---|---|---|
 | Shrine Heart `firmages:shrine_heart` | 1 | Mitte |
-| Bruchstein, beliebige TFC-Gesteinsart | 8 | Tag `#firmages:shrine/any_cobble` |
-| Holzstamm (`#minecraft:logs`) | 8 | 4 Pfosten, je 2 hoch |
+| Bruchstein, beliebige TFC-Gesteinsart | 8 | direkt um das Herz, Tag `#firmages:shrine/hearth_stones` |
+| Holzstamm (`#minecraft:logs`) | 8 | 4 Pfosten, je 2 hoch, an den Ecken des 5 × 5 |
 | Stroh-Block `tfc:thatch` | 4 | je einer oben auf einem Pfosten |
-| Opfersockel `firmages:offering_plinth` | 1 | Sockel 1 |
+| Opfersockel `firmages:offering_plinth` | 1 | Sockel 1, zwei Blöcke vor dem Herz in der Mitte einer Seite |
 
 Die genaue Lage jedes Blocks legt die Ring-Datei der Mod fest. So siehst Du sie:
 
-- Schleichen und mit leerer Hand das Herz benutzen: eine Geistervorschau zeigt die fehlenden Blöcke an ihrem Platz.
-- `/firmages shrine validate` listet die fehlenden Blöcke im Chat.
-- `/firmages shrine info` zeigt Phase, gültigen Ring und Relikte.
+- Mit leerer Hand das Herz benutzen (ohne Schleichen; Schleichen ist Beten): Chat sagt, was fehlt, und eine Geistervorschau zeigt die fehlenden Blöcke an ihrem Platz.
+- `/firmages shrine status` listet Ringe mit fehlenden Blöcken, Opfer, Ritus, Phase und Gebet.
 
-Ist der Ring fertig, glüht das Herz gleichmäßig, und über dem Sockel pulsiert schwach ein Hearthstone („die Gottheit bittet“). Auf K wird jetzt „Raise the Shrine“ erfüllt, sobald Du das Herz anschaust („The Shrine Heart“ schon beim Setzen).
+Ist der Ring fertig, steigen Verzauberungs-Partikel über dem Herz auf (`ready=true`), und Benutzen sagt „Lay Hearthstone on its plinth first.“ Auf K wird jetzt „Raise the Shrine“ erfüllt, sobald Du das Herz anschaust („The Shrine Heart“ schon beim Setzen).
 
 ### 7. Opfern und beten
 
@@ -207,7 +235,7 @@ Ist der Ring fertig, glüht das Herz gleichmäßig, und über dem Sockel pulsier
 (Survival-Weg zum Hearthstone: Hearth Idol aus 5 Ton formen und im Grubenofen brennen, dann Idol, 2 Kupferbarren und 2 Holzkohle in der Werkbank, Muster in EMI.)
 
 1. **Opfern:** mit dem Hearthstone in der Hand den Sockel (oder das Herz) benutzen. Der Stein liegt danach schwebend über dem Sockel. Falsches Item: Absage mit dem Namen des erwarteten Items. Zurück bekommst Du ihn vor dem Beten mit Schleichen und Benutzen am Sockel.
-2. **Ritus:** das Herz mit dem Feuerstarter entzünden (Benutzen gedrückt halten wie an einer Feuerstelle). Das Herz brennt danach (`lit=true`).
+2. **Ritus:** das Herz mit dem Feuerstarter (auch Feuerstein und Stahl, Feuerkugel oder Fackel) einmal benutzen, sofort, nicht gedrückt halten. Das Herz brennt danach (`lit=true`).
 3. **Beten:** Hand leer, schleichen, Benutzen am Herz **gedrückt halten**, höchstens 6 Blöcke entfernt. Allein dauert es 10 s. Loslassen lässt den Fortschritt langsam sinken, nicht auf null.
 
 ### 8. Was Du sehen und hören solltest
@@ -216,11 +244,12 @@ Ungefähr in dieser Reihenfolge (SPEC §8, Zeiten ab Ende des Gebets):
 
 | Zeit | Erwartung |
 |---|---|
-| 0 s | Hintergrundmusik verstummt, Partikel ziehen zum Herz |
-| 2 s | Lichtstrahl in Bernstein steigt aus dem Herz, Chor- oder Glutklang |
+| 0 s | Hintergrundmusik verstummt, ein Klang, Partikel ziehen zum Herz |
+| 2 s | Lichtstrahl in Bernstein steigt aus dem Herz, Chorklang |
 | 3 s | Reload: der Server friert einige Sekunden ein, die Aktionsleiste zeigt „The world realigns...“; Effekte am Client laufen weiter |
-| 4 s | Himmel und Nebel färben sich etwa 8 s lang ein |
-| 5 s | **Ein** Titel „Age 1: Bronze Age“, Untertitel „A fire that keeps its shape. I see you.“, eine Chatzeile „Caelum: …“ |
+| 4 s | Himmel und Nebel färben sich bis zum Ende (12 s) orange |
+| 5 s | **Ein** Titel „The Bronze Age dawns“ mit Untertitel, eine Chatzeile „Caelum: A fire that keeps its shape. I see you.“ |
+| 8 s | Chatzeile zum Segen „Hearthward“ |
 | danach | Der Hearthstone bleibt sichtbar über dem Sockel. Kein zweiter Titel, kein Feuerwerk (das alte KubeJS-Feuerwerk ist ab 0.3.0 aus) |
 
 Prüfen danach:
@@ -236,13 +265,14 @@ Prüfen danach:
 ```
 /stage revoke @s age_1
 /firmages ages
-/firmages shrine release 1
+/firmages shrine relics
+/firmages shrine extract <x y z des Sockels>
 /ftbquests change_progress @s reset 5298B856BFEE50A2
 ```
 
 1. `/stage revoke` entzieht die Age in ProgressiveStages. Die Mod folgt, lädt neu und warnt „Age revoked: restart the server to clear in-progress items“.
 2. `/firmages ages` muss wieder `dawn, age_0` zeigen.
-3. `/firmages shrine release 1` gibt den Hearthstone vom Sockel 1 zurück (Admin-Reparatur). Klappt das nicht, einfach einen neuen per `/give` holen.
+3. `/firmages shrine relics` nennt die Position des Sockels, `/firmages shrine extract <x y z>` gibt den Hearthstone von dort zurück (Admin-Reparatur). Die Schrein-Daten merken sich nur das Relikt; die Age entzieht der Schrein nie.
 4. Der letzte Befehl setzt das Ziel-Quest auf K zurück (Syntax aus dem FTB-Quests-Jar abgeleitet: `change_progress <Spieler> reset|complete <Quest-ID>`).
 5. Danach den Server neu starten (`stop`, dann Schritt 1 ab der zweiten Zeile).
 
@@ -255,7 +285,7 @@ Ganz frisch: Server stoppen, `test-server\world` löschen (siehe Schritt 1).
 - Jede Zeile der Tabelle in Schritt 8: gesehen ja/nein, ungefähre Zeit, Auffälliges.
 - Wie lange der Server eingefroren war (`/firmages ages` nennt die Reload-Dauer) und wie lange EMI danach ruckelte. Grenze: unter 30 s, sonst fliegt der Client raus.
 - Ob Du je Titel genau einen gesehen hast, bei `age_0` (kurz) und `age_1` (voll).
-- Ob die Geistervorschau und `/firmages shrine validate` zum gebauten Ring passten, und welche Blöcke der Ring wirklich wollte.
+- Ob die Geistervorschau und `/firmages shrine status` zum gebauten Ring passten (sitzt die Vorschau genau um das Herz, nicht einen Block versetzt?).
 - Ob es ein Rezept für das Shrine Heart und den Sockel gab (EMI) und wie es aussah.
 - Ob „The Shrine Heart“, „Raise the Shrine“ und das Ziel-Quest auf K ohne Relog umsprangen.
 - Fehlermeldungen im Chat und den Pfad zu `test-server\logs\latest.log`, falls etwas schiefging. Bei einem Client-Absturz: `tools\PrismLauncher\instances\FirmamentAgesDev\minecraft\crash-reports\`.
