@@ -310,23 +310,35 @@ hash = "5f60406d187551a535aa98b8d78b8c6ed604f42278b49687ed90156626a68eb1"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/arcane_gearbox.png"
-hash = "a485d5cb7111498f0067e150f1a40ab4745f473f8ee0c2e0f5c74ae3bd7f17ff"
+hash = "e6eb6b6b4339b595c4eae093b986e7380cec2bc689421a3bb4490161e4383638"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/arcane_keystone.png"
-hash = "897dfad60443f5285aa27c20b93e005d6053fb91a95af305bf3ef5f13eddd6c1"
+hash = "be8fc200950c7a998dd180bef15bd442a8a506d1439bc7ec12cc0cc4d69d4ac6"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/arcane_keystone.png.mcmeta"
+hash = "0f0056cf25d199cc4880bdc37169e52fbf1b9aef2b603d5a87e492cf48dcb69b"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/attuned_circuit.png"
-hash = "daac82b04fc50334fadbbd539b072ba19fc3b159442c685f713cb04ab5b10cbf"
+hash = "577672fc03b698cd91cd5507857b1e22e48336e25d3b46eae85324b0ee68f530"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/awakened_keystone.png"
-hash = "e558352620f0eaa972a3e20333b0e3d0f2653d01849f48c7d6357815543fb87d"
+hash = "cf3e8212e055e3abc5f03be00d2e401c11176475a8791b6f02c829eb78a0b409"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/awakened_keystone.png.mcmeta"
+hash = "77d80b3fdecb850e7c91c6459be15f8c172813928599e88a2535817a7ddcc82f"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/data_matrix.png"
-hash = "8521ec7b48a475409e493114971a9938451fdadb888161215194144811f5be55"
+hash = "352903a9df7972525e95e6b6d6bfdcd0a55e1c20d6f7f87ad471ff41c5ff796c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/data_matrix.png.mcmeta"
+hash = "61d9ed0268db7dffd14d04ad022ec2da66c2d5f52c3b3f689331ae53880f9e40"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/dust/bismuth.png"
@@ -338,47 +350,63 @@ hash = "bbb62b7f5e5bfe39f1267b873c089d48c3a4eea2dae1b67e712e5c86a827ad9e"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/hearth_idol.png"
-hash = "8e9c103819155006c9f84f4227d0cdc6e00616c4550e11e5aa65c988e8fcdc5a"
+hash = "6605339fcc5f7e9a54f9f04c8a9074b96cb74090ba9f3634aac905675b3aa944"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/hearthstone.png"
-hash = "0904a6c1589c2ec43a00d6a7e108af31526e903465d181af24c4ded262e73237"
+hash = "e79a26fd00e88b00437059ddc3376a9c90d1856c5064da1243c442766a9aa447"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/humming_core.png"
-hash = "c55258d114e6c78cc846af37d7f4a76c9056d00a033e00d7266a4e22b6350a3a"
+hash = "46441448fd8f75290600139fd1bbc23cc369875f5ed6dee0f2ba8df181a3dbf3"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/humming_core.png.mcmeta"
+hash = "61d9ed0268db7dffd14d04ad022ec2da66c2d5f52c3b3f689331ae53880f9e40"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/origin_coordinates.png"
-hash = "771147809c9b4ada3d5b88c15dc65f03489f3d2961acf61d4db8ec8d384391bb"
+hash = "a26310a55e48940fa266733625e271c7ffca9036fa0d9a1c79538cab8e7258bb"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/pressure_core.png"
-hash = "57e2574b3b2d12567bc8ea7a0f660fd75c783c8443f8849dafb53b79f97290d0"
+hash = "eb0ef3b0f338a3d06b22a330aaa43d42830b7674517e3a3b8ef52b6610a579d1"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/quantum_core.png"
-hash = "91293d57afaad184a78fda65ce8f38d517f1d9ce7f6e81b34db812f5dd381f12"
+hash = "063633ad9aeced5ed5c742ef91f57e23773f6c47bf3f2d421a3f7724acc5008d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/quantum_core.png.mcmeta"
+hash = "b2d0e797914ac4c8e56ebadbee6190e907cdc00094e22c560ad50e6845d52430"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/sky_disc.png"
-hash = "68c8d27bab6d5cfad1b3826915c9d1845fa83201f8a82694a3314905d6341a4d"
+hash = "60e96b68e55b0a83c4c60dbe0398a8e906f35bec118dcefd6102e89c92155813"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/star_chart.png"
-hash = "039c90899e62e9edb1b11e5e03ca38ccb590788a7672d1a8d1ffac54f7a3f140"
+hash = "6a28d131fed8c3f1a3dcb93fdfbd3f50505712f61c76b221f8b382c0b2740e90"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/star_chart.png.mcmeta"
+hash = "77d80b3fdecb850e7c91c6459be15f8c172813928599e88a2535817a7ddcc82f"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/steel_heart.png"
-hash = "2c96bffa17d83a5e4647e67d9245db88d501dbd2816ac145b4ebb54256abe9df"
+hash = "263a52e8f924ad76279c7fbce4822a40630a0181342c4b6e374ced5b87776cdd"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/ultimate_singularity.png"
-hash = "53819b4433b544a1b59390b52accf4ea7fa7fe9cda5aaf17edaa75f0f8e687c0"
+hash = "ad1c8b67eb37352aae8bc731ac35e7216a4efe4cb4b1ee2104211bacc249d9f3"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/ultimate_singularity.png.mcmeta"
+hash = "eff55807164fe4f0db2f60ab8a75f03b75489abb0a3c89598e84a65db429ddb3"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/unfired_hearth_idol.png"
-hash = "312ce6b7fa987e6b54d280581eed50d3a8e8c3f385041608ac514e72b1cf1cb6"
+hash = "0b2e05b22dfed9d4cfc83a35976cdef48a80fe395b45d055c4707ac1dfc3a0c7"
 
 [[files]]
 file = "kubejs/client_scripts/item_tooltips.js"
@@ -1318,8 +1346,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.5.0.jar"
-hash = "135fe340fd81746baa1769b1a143ce21238c1f50349f22745e322a589a20c0d7"
+file = "mods/firmages-core-0.6.0.jar"
+hash = "c58c75b050cc8af5dfa9b809b3f5db0c0b93d28f036d5597317c3fd64dc983df"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
