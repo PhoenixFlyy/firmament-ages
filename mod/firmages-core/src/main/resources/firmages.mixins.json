@@ -6,6 +6,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ReloadableServerResourcesMixin",
+    "ReloadableServerResourcesLateMixin",
     "RecipeManagerMixin",
     "ie.MineralMixMixin",
     "ie.TagOutputAccessor",

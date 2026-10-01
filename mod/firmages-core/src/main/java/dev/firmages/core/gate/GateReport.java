@@ -42,6 +42,7 @@ public final class GateReport {
     private final List<String> notes = new ArrayList<>();
     private int errorCount;
     private long millis = -1;
+    private int late, lateDropped, resolvedDropped;
 
     public GateReport(Instant created, List<String> unlocked, boolean enabled, boolean misconfigured, String tagSource) {
         this.created = created;
@@ -78,6 +79,39 @@ public final class GateReport {
 
     public void finish(long millis) {
         this.millis = millis;
+    }
+
+    /**
+     * The late pass of the same load: recipes added after the recipe apply (already recorded), how many of them were
+     * dropped, how many kept recipes it dropped by their resolved result ({@link #reclassify}), and its time.
+     */
+    public void late(int recipes, int dropped, int resolved, long millis) {
+        this.late += recipes;
+        this.lateDropped += dropped;
+        this.resolvedDropped += resolved;
+        this.millis += millis;
+    }
+
+    public int lateRecipes() { return late; }
+    public int lateDropped() { return lateDropped; }
+    public int resolvedDropped() { return resolvedDropped; }
+
+    /** A recipe recorded as kept is dropped after all (late pass, resolved result): moves it in every count. */
+    public void reclassify(String recipeId, GateRules.Verdict v, String outputs) {
+        Entry old = entries.get(recipeId);
+        if (old == null || !old.verdict().keep() || v.keep()) return;
+        boolean wasUndetected = old.verdict().reason() == GateRules.Reason.UNDETECTED;
+        for (TypeStats t : List.of(types.get(old.type()), serializers.get(old.serializer()))) {
+            t.kept--;
+            t.dropped++;
+            if (wasUndetected) t.undetected--;
+        }
+        if (wasUndetected) {
+            List<String> ids = undetectedByType.get(old.type());
+            if (ids != null) ids.remove(recipeId);
+        }
+        droppedByBucket.computeIfAbsent(v.bucket() == null ? "denied" : v.bucket(), k -> new ArrayList<>()).add(recipeId);
+        entries.put(recipeId, new Entry(old.type(), old.serializer(), v, outputs));
     }
 
     public Instant created() { return created; }
@@ -132,9 +166,11 @@ public final class GateReport {
     }
 
     public String summary() {
-        return String.format(Locale.ROOT, "%s: %d recipes, %d dropped %s, %d undetected (%d types and %d serializers without any detected output), %d extraction errors, %d ms (Ages %s, tags from %s)%s",
+        return String.format(Locale.ROOT, "%s: %d recipes, %d dropped %s, %d undetected (%d types and %d serializers without any detected output), %d extraction errors, %d ms (Ages %s, tags from %s)%s%s",
             enabled ? "Recipe gate" : "Recipe gate (log only, gate.enabled = false)", total(), dropped(), droppedPerBucket(),
             undetected(), typesWithoutDetectedOutput().size(), serializersWithoutDetectedOutput().size(), errorCount, millis, unlocked, tagSource,
+            late > 0 || resolvedDropped > 0 ? String.format(Locale.ROOT, "; late pass: %d added after the recipe load (%d dropped), %d dropped by their resolved result",
+                late, lateDropped, resolvedDropped) : "",
             misconfigured ? "; MISCONFIGURED: all age tags are empty" : "");
     }
 

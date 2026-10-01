@@ -111,6 +111,11 @@ public final class GateGameTests {
                 helper.assertTrue(rep.entry(TAG_MIXED).verdict().reason() == GateRules.Reason.UNLOCKED, "mixed tag kept");
                 helper.assertTrue(rep.droppedPerBucket().getOrDefault("age_2", 0) > 0, "vanilla iron recipes dropped: " + rep.droppedPerBucket());
                 helper.assertTrue(rep.errorCount() == 0, "extraction errors: " + rep.errorCount());
+                // Late pass: recipes added after RecipeManager#apply (LateRecipeInjector) are gated with the same rules.
+                expectRecipes(helper, server, "dawn, late pass", List.of(LateRecipeInjector.LATE_STONE), List.of(LateRecipeInjector.LATE_IRON));
+                helper.assertTrue(rep.lateRecipes() >= 2 && rep.lateDropped() >= 1, "late pass counted: " + rep.summary());
+                GateReport.Entry late = rep.entry(LateRecipeInjector.LATE_IRON);
+                helper.assertTrue(late != null && !late.verdict().keep() && "age_2".equals(late.verdict().bucket()), "late iron verdict " + late);
             })
             .thenSucceed();
     }
@@ -316,7 +321,8 @@ public final class GateGameTests {
             })
             .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > gen[0] && idle(server), "age_2 reload not finished"))
             .thenExecute(() -> {
-                expectRecipes(helper, server, "age_2", List.of(STONE, COPPER, IRON, TAG_ALL_LOCKED, TAG_MIXED, "minecraft:iron_pickaxe"),
+                expectRecipes(helper, server, "age_2", List.of(STONE, COPPER, IRON, TAG_ALL_LOCKED, TAG_MIXED, "minecraft:iron_pickaxe",
+                        LateRecipeInjector.LATE_IRON, LateRecipeInjector.LATE_STONE),
                     List.of(DISABLED, FLUID));
                 helper.assertTrue(rollStubMix(2_000)[0] > 0, "excavator yields iron once age_2 is unlocked");
                 BlockEvent.BreakEvent e = new BlockEvent.BreakEvent(helper.getLevel(), helper.absolutePos(BlockPos.ZERO),
@@ -345,7 +351,8 @@ public final class GateGameTests {
             })
             .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > gen[0] && idle(server), "revoke reload not finished"))
             .thenExecute(() -> {
-                expectRecipes(helper, server, "dawn again", List.of(STONE, TAG_MIXED), List.of(IRON, COPPER, TAG_ALL_LOCKED));
+                expectRecipes(helper, server, "dawn again", List.of(STONE, TAG_MIXED, LateRecipeInjector.LATE_STONE),
+                    List.of(IRON, COPPER, TAG_ALL_LOCKED, LateRecipeInjector.LATE_IRON));
                 if (kubejs) helper.assertTrue(!Blocks.IRON_ORE.defaultBlockState().is(TFC_PROSPECTABLE), "iron ore hidden again");
             })
             .thenSucceed();
