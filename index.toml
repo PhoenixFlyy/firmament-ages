@@ -46,7 +46,7 @@ hash = "0b057ada548db053f7848e86ad6ece563ff193654886f1a0ecbf0ba8537a37e5"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "b9a7694a8647bdb7264a01cd02b1c69a4fd532971a107d2d71670f77199d86ea"
+hash = "a452dfeb6493548e63c406ea3c3808dc5332bb0c53c4685d1dff80c9a13d39bd"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/bronze_comfort.snbt"
@@ -526,7 +526,7 @@ hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
 
 [[files]]
 file = "kubejs/server_scripts/tags/unification.js"
-hash = "a9aeff142b00206298cabd7e1cf80ca102ce31b811e579e9fdb1ef194823bc17"
+hash = "aab97f8e32aeb665440de07d5da4fa10003869652c3d95121f371dba6da11c0a"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"

@@ -15,6 +15,8 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
   text       every chapter and quest has an English title in lang/en_us.snbt, no lang key points to a
              missing object, no German letters in player text
   data       data.snbt: book never dropped on death, no loot crates, no emergency items
+  portals    a dimension task needs its entry item: the KubeJS item tag that opens the portal (PORTAL_TAGS, read
+             from kubejs/server_scripts/tags/*.js) is overridden and holds only items of the chapter's Age or earlier
 With --mods <dir> (default test-server/mods if it exists) it also looks inside the mod jars for advancement,
 entity type, entity/block tag and dimension ids used by tasks. Exit code 1 on any error.
 """
@@ -30,6 +32,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QDIR = os.path.join(ROOT, 'config', 'ftbquests', 'quests')
 AGES = ['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6', 'age_7', 'age_8', 'age_9']
 AGE_CHAPTER_STAGES = {'dawn', 'age_0', 'age_1', 'age_2'}  # chapters authored so far (rule set applies to these)
+# Dimension -> (item tag that activates its portal, the jar default). The default stays in force unless a KubeJS tag
+# script calls removeAll on the tag.
+PORTAL_TAGS = {'twilightforest:twilight_forest': ('twilightforest:portal/activator', '#c:gems/diamond (age_4)')}
 
 
 # ------------------------------------------------------------------------------------------------ SNBT parser
@@ -177,6 +182,21 @@ def load_stage_ids():
     return ids
 
 
+def load_portal_tags():
+    """tag -> (removeAll seen, [item ids added]) from the KubeJS tag scripts, for the PORTAL_TAGS tags."""
+    out = {}
+    for f in glob.glob(os.path.join(ROOT, 'kubejs', 'server_scripts', 'tags', '*.js')):
+        src = open(f, encoding='utf-8').read()
+        for tag, _ in PORTAL_TAGS.values():
+            q = re.escape(tag)
+            removed = re.search(r"removeAll\(\s*'%s'\s*\)" % q, src) is not None
+            added = re.findall(r"\.add\(\s*'%s'\s*,\s*'([^']+)'\s*\)" % q, src)
+            if removed or added:
+                r0, a0 = out.get(tag, (False, []))
+                out[tag] = (r0 or removed, a0 + added)
+    return out
+
+
 def strval(x):
     return x if isinstance(x, str) else None
 
@@ -233,6 +253,7 @@ def main():
     blocks = set(registry.get('blocks', [])) | items  # block items cover placeable blocks
     item_age = load_age_tags()
     stage_ids = load_stage_ids()
+    portal_tags = load_portal_tags()
 
     jars = None
     mods_dir = args.mods or os.path.join(ROOT, 'test-server', 'mods')
@@ -373,6 +394,17 @@ def main():
                     dim = strval(t.get('dimension'))
                     if jars and dim not in VANILLA_DIMS and not jars.has('dimension', dim):
                         E('%s: dimension %s not found in the mod jars' % (tw, dim))
+                    if dim in PORTAL_TAGS:
+                        ptag, default = PORTAL_TAGS[dim]
+                        removed, added = portal_tags.get(ptag, (False, []))
+                        if not removed or not added:
+                            E('%s: portal tag %s is not overridden in kubejs/server_scripts/tags/, the jar default %s '
+                              'applies' % (tw, ptag, default))
+                        for iid in added:
+                            if iid.startswith('#'):
+                                E('%s: portal tag %s adds the tag %s; list items so their Age can be checked' % (tw, ptag, iid))
+                            else:
+                                check_item(iid, tw, cage, 'portal activator (%s)' % ptag)
                 elif typ in ('checkmark', 'stat', 'xp', 'location', 'biome', 'structure', 'fluid', 'custom'):
                     pass
                 else:

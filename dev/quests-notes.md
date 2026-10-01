@@ -116,7 +116,8 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
 7. Keystone rewards: the random supplies item goes to the claiming player once per team; side-mission choice screen
    offers only current-Age items; XP per player.
 8. Observation tasks: `tfc:support_beams` and `tfc:farmlands` block tags, `create:millstone` and
-   `create:water_wheel` blocks, `mowziesmobs:lantern` entity. Dimension task in the Twilight Forest.
+   `create:water_wheel` blocks, `mowziesmobs:lantern` entity. Dimension task in the Twilight Forest: a 2x2 water
+   pool ringed by TFC grass and flowers opens with polished quartz.
 9. Admin repair: `/stage grant <player> age_1` on a team without Dawn done opens the Bronze chapter entry at once
    (entry quests have no cross-chapter dependency).
 10. Edit mode round trip: open the editor, move one quest, save; FTB rewrites the files (comments vanish, the
@@ -124,10 +125,12 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
 
 ## Open points
 
-- **Twilight portal is blocked in the Iron Age.** `twilightforest:portal/activator` is `#c:gems/diamond`, and every
-  diamond item is `age_4` in the age map. Either move the TFC diamond to `age_2` or retag the activator to an Age 2
-  item (pack decision). The Frontier strand ("Into the Twilight" and the Lich trophy for the Steel Heart) cannot be
-  finished until then. The quest text says "portal gem" on purpose.
+- **Twilight portal (resolved 2026-10-01, `dev/decisions-while-away.md`).** `twilightforest:portal/activator` was
+  `#c:gems/diamond` (age_4). `kubejs/server_scripts/tags/unification.js` now sets it to `tfcreate:polished_quartz`
+  (the Iron Age quartz vein, age_2); the quest text names polished quartz. `validate_quests.py` checks every
+  dimension task against its portal tag (`PORTAL_TAGS`): the tag must be overridden in the KubeJS tag scripts and
+  hold only items of the chapter's Age or earlier. The pack test server confirms the tag
+  (`item_tags.json`: `["tfcreate:polished_quartz"]`) and `poc_analyze.py` R-age_2 reaches it at the Iron Age.
 - Signature items of Ages 3 to 8 (Arcane Keystone ... Quantum Core) are not registered yet, so their Firmament quests
   have no item icon. Set `icon` when the KubeJS items exist.
 - Automation proofs (Doc 08 section 9.1: task screens with pipe or belt input) are not used yet; the "Automated

@@ -426,7 +426,9 @@
 	]
 	quest.66EDA08DBD082046.title: "Hold the Ceiling"
 	quest.6A80066F26918539.quest_desc: [
-		"Ring a small pool of water with flowers and throw the portal gem into it. Step through."
+		"Dig a 2x2 pool of water ringed by grass or dirt, put flowers around it and throw polished quartz into"
+		"the water. Polished quartz comes from the quartz veins of the Iron Age, polished with sandpaper."
+		"Step through."
 	]
 	quest.6A80066F26918539.title: "Into the Twilight"
 	quest.6ABCB02049FE872B.quest_desc: ["Knap and fire a crucible. It mixes metals into alloys."]

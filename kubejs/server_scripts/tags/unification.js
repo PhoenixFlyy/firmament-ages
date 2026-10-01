@@ -67,4 +67,11 @@ ServerEvents.tags('item', (event) => {
   // Boss tokens: recipe slots take the real drop OR the fallback token (Doc 08 section 5.1).
   // POC: Twilight Forest 4.8 trophy id for the Lich; the "Frontier Sigil" fallback token is not registered yet.
   event.add('firmages:boss_token/age_2', 'twilightforest:lich_trophy')
+
+  // Twilight Forest portal (Iron Age dimension, Doc 08 section 6). Its default activator #c:gems/diamond is age_4 in
+  // dev/age_map.toml, so the portal could not open in the Iron Age. The Iron Age gem opens it instead: polished quartz
+  // from the TFCreate quartz vein (tfcreate:quartz_{rock}, age_2). dev/validate_quests.py checks this line against
+  // the Age of the chapter whose quest asks for the dimension (dev/decisions-while-away.md).
+  event.removeAll('twilightforest:portal/activator')
+  event.add('twilightforest:portal/activator', 'tfcreate:polished_quartz')
 })

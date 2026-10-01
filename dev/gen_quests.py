@@ -567,7 +567,9 @@ IRON = age_chapter(
         ('Frontier', [
             Q('iron/front/portal', 'Into the Twilight', t_dim('twilightforest:twilight_forest'),
               icon='twilightforest:twilight_portal_miniature_structure',
-              desc=['Ring a small pool of water with flowers and throw the portal gem into it. Step through.']),
+              desc=['Dig a 2x2 pool of water ringed by grass or dirt, put flowers around it and throw polished quartz into',
+                    'the water. Polished quartz comes from the quartz veins of the Iron Age, polished with sandpaper.',
+                    'Step through.']),
             Q('iron/front/naga', 'The Naga', t_kill('twilightforest:naga', value=1), icon='twilightforest:naga_trophy',
               desc=['Defeat the Naga in its courtyard.']),
             Q('iron/front/lich', 'The Lich', t_kill('twilightforest:lich', value=1), icon='twilightforest:lich_trophy',
