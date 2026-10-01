@@ -241,6 +241,120 @@ Reload with the new content (2 runs, no player): stall 8.1 and 9.0 s, KubeJS rec
 7.7 s and 2.0 to 2.5 s in M0). The JSON rewrite of the magic recipes and the forEachRecipe scans cost about 1.5 s per
 reload; still below the 10 s limit of SPEC section 3.
 
+## M2/M3, quests and content
+
+Date: 2026-10-01, branch `dev`, firmages-core **0.2.1** (late pass, see below). Test server synced with
+`packwiz-installer-bootstrap` from `packwiz serve` (no stray files: `kubejs/` equals the repo apart from KubeJS's
+generated `README.txt` and `config/`, the quest folder was deleted and re-synced byte-identical), **fresh world**
+(`--wipe-world`) for each of two runs, no player. Run 1 found the problems fixed below; run 2 is the final state and
+gives the numbers. `debug.allowSimulate = true` only during the runs, `false` again afterwards.
+
+### Boot
+
+| Check | Observed (run 2) | Result |
+|---|---|---|
+| KubeJS | startup 2/2, server 20/20 scripts, 0 errors, 0 warnings; `Added 562 recipes, removed 975 recipes, modified 43 recipes, with 0 failed recipes` | pass |
+| ProgressiveStages | 0 ERROR lines; `progressivestages validate`: 28/28 stage files valid | pass |
+| FTB Quests | `Loaded 2 chapter groups, 6 chapters, 117 quests, 7 reward tables`, translation tables for 1 language, 0 ERROR lines | pass |
+| firmages-core | 0 ERROR lines; `Boot Age snapshot [dawn] from FALLBACK_NO_MIRROR`, `AgeState [dawn] matches the boot snapshot ...; no reload`; `firmages selftest all` 44 passed, 0 failed | pass |
+| Other errors | only the known ones: 35 recipe parse errors of TFC Regrowing Forests, WoodenCog and Create Deco, Sable `copycat_catwalk`, TF `dev_new_world` function, three Train Utilities advancements, client-class DISTXFORM lines | not ours |
+
+### M2: recipe gate on the pack
+
+Every Age was unlocked with `firmages ages simulate grant age_0` ... `age_9`, one reload each; after each reload
+`fa_dump`, `fa_dump_full` and `fa_m3` wrote the state, and `poc_analyze.py --dump-dir <Age> --baseline <age_9>` ran
+the G-checks.
+
+| Unlocked up to | Recipes loaded | Dropped (latest locked output) | Late pass (175 added) | Resolved-result drops | Gate ms | Reload stall s |
+|---|---|---|---|---|---|---|
+| dawn (boot) | 12,339 | 22,775: age_0 1,209, age_1 3,899, age_2 7,461, age_3 2,401, age_4 1,750, age_5 368, age_6 3,577, age_7 763, age_8 725, age_9 616, disabled 6 | 175 dropped | 4 | 575 (534 + late) | boot |
+| age_0 | 13,544 | 21,541 | 103 dropped | 4 | 350 | 8.82 |
+| age_1 | 17,443 | 17,642 | 25 dropped | 4 | 412 | 8.84 |
+| age_2 | 24,904 | 10,181 | 0 | 4 | 351 | 7.84 |
+| age_3 | 27,304 | 7,781 | 0 | 5 | 278 | 7.28 |
+| age_4 | 29,054 | 6,031 | 0 | 2 | 278 | 7.48 |
+| age_5 | 29,422 | 5,663 | 0 | 2 | 346 | 7.30 |
+| age_6 | 33,000 | 2,085 | 0 | 0 | 250 | 7.06 |
+| age_7 | 33,743 | 1,342 | 0 | 0 | 255 | 7.29 |
+| age_8 | 34,463 | 622 | 0 | 0 | 254 | 7.15 |
+| age_9 | 35,079 | 6 (disabled) | 0 | 0 | 323 | 7.70 |
+
+- **Gate time:** 35,114 recipes (34,939 in `RecipeManager#apply` plus 175 added later). 534 to 575 ms on the
+  initial load (extractor class loading), 250 to 412 ms on every Age reload (late pass 11 to 41 ms of it). The
+  500 ms target holds on reloads; the boot load is 34 to 75 ms over it once per start. The audit
+  (`/firmages recipes audit`, `logs/firmages-recipe-audit.txt`) reports the same numbers.
+- **Reload stall** (spark `tickmonitor --threshold-tick 1000`, the tick that contains the reload): run 1 6.32 to
+  7.36 s, run 2 7.06 to 8.84 s over 10 reloads each; the KubeJS recipe phase is 2.65 to 3.56 s. Below the 10 s
+  limit of SPEC section 3. The 1 to 2 s ticks after each reload are the dump commands, not the game.
+- **Each Age's recipes appear after one reload:** one `Age reload (granted age_N) finished in` line per grant, and
+  the loaded count grows as in the table.
+
+| # | Check (`poc_analyze.py`) | Result |
+|---|---|---|
+| G-1 | no loaded recipe has an output of a locked Age or of `age_items/disabled` (independent mirror of GateRules on the full JSON, tag outputs locked only when every member is) | pass at all 11 states |
+| G-2 | every recipe of the all-Ages dump whose outputs are all unlocked is loaded (the gate drops nothing more) | pass at dawn to age_4. Run 1 failed: the mirror missed IE `secondaryOutputs`/`strippingSecondaries`/`slag`, which the gate's IE extractor reads (sawmill sawdust, arc-furnace slag; mirror fixed). 1 to 2 Evolved Mekanism solidifying recipes per state have a tag output the mirror cannot resolve; the gate drops them by the stack Mekanism resolves (`moremekanismprocessing:dust_amethyst`, age_6 station anyway); listed, not failed |
+| G-3 | no recipe waits for a chance byproduct of a later Age than its main output and station; every such recipe is in `recipes/byproducts.js`, and is loaded once its main output and station are open | pass (5 entries). Negative test with an empty table: lists exactly gravel splashing, tuff crushing (2) and the IE blaze-powder crusher recipe |
+| G-4 | every recipe type with no detected output is accepted (`dev/data/accepted_undetected.json`) | pass: 37 types, 37 accepted |
+
+- **Undetected outputs (audit review):** 813 recipes in 37 types and 99 serializers have no detected output. The 37
+  types make no item (fuels, fertilizer, windmill biomes, reservoirs, world data, rituals with an effect), change
+  only the input item (enchanting, upgrades, smoking, scroll writing) or have only inputs of the same late Age (AE2
+  cell disassembly, Ad Astra space station). Accepted, no extractor follow-up (decision log). The other 99
+  serializers belong to types where other recipes are detected (special crafting, TFC pot dynamic food).
+- **Late pass (firmages-core 0.2.1):** Create Dragons Plus adds 175 sandpaper polishing recipes at the TAIL of
+  `ReloadableServerResources#updateRegistryTags`, after `RecipeManager#apply`; 0.2.0 never saw them. The late pass
+  gates them (175 dropped at Dawn, 103 at age_0, 25 at age_1, 0 from age_2). It also drops 0 to 5 IE/Occultism
+  recipes per state whose tag result, resolved once the tags are bound, is a locked item (none from age_6 on, so
+  all of them resolve to Information Age items such as Mekanism dusts). Mystical Agriculture's code-added recipes (Cucumber `cucumber$apply`) are inside
+  `apply` and were always seen by the main pass (javap).
+- **Byproduct policy:** recipes dropped only because a chance byproduct is locked are not allowlisted;
+  `recipes/byproducts.js` strips the byproduct while its Age is locked (the precision mechanism's disabled scrap,
+  formerly in `iron_age.js`, moved there). The 8 IE crusher recipes of galena and native silver were dropped until
+  age_6 by their canonical lead dust; `mekanism:dust_lead` is now age_4 (decision log), so they open with the
+  Industrial Age. Without the precision-mechanism strip the Steel Heart had no recipe at all (run 1 found it).
+
+### M3: miners and prospecting (`/fa_m3`, 2,000 rolls per mineral mix)
+
+| Unlocked up to | Mixes with a locked ore | Locked rolls | Spoil rolls | Locked ore blocks | not in `mekanism:miner_blacklist` | `tfc:prospectable` size (locked members) | `precisionprospecting:prospectable_mineral` |
+|---|---|---|---|---|---|---|---|
+| dawn | 20 of 26 | 0 of 52,000 | 31,930 | 1,550 | 0 | 117 (0) | 3 (0) |
+| age_0 | 20 | 0 | 27,515 | 1,337 | 0 | 306 (0) | 3 (0) |
+| age_1 | 19 | 0 | 22,149 | 849 | 0 | 726 (0) | 108 (0) |
+| age_2 | 12 | 0 | 11,131 | 573 | 0 | 999 (0) | 171 (0) |
+| age_3 | 10 | 0 | 8,465 | 405 | 0 | 1,167 (0) | 339 (0) |
+| age_4 | 4 | 0 | 3,323 | 192 | 0 | 1,377 (0) | 360 (0) |
+| age_5 / age_6 | 3 / 1 | 0 | 1,936 / 1,315 | 64 | 0 | 1,503 (0) | 360 (0) |
+| age_7 to age_9 | 0 | 0 | 0 | 0 | 0 | 1,566 (0) | 360 (0) |
+
+IE (and TFC-IE Crossover) mineral mixes never yield a locked ore, the Digital Miner blacklist holds every locked
+ore block at every state, and both prospecting tags exclude locked ores at Dawn and regain them with each unlock.
+
+### Quests
+
+| Check | Observed | Result |
+|---|---|---|
+| Load | 0 FTB Quests errors; 6 chapters, 117 quests, 7 reward tables, 2 groups = `dev/quests-notes.md` | pass |
+| Stage rewards resolve | FTB Quests rewrote the files from memory on shutdown: the four goal rewards are still `type: "gamestage"` with `stage` age_0 to age_3, `auto: "invisible"` and the `interim_shrine` tags; `validate_quests.py --dir test-server/config/ftbquests/quests` on the rewritten files: 0 errors | pass |
+| Chapter visibility | the rewritten Age chapters keep `progressivestages_required_stage` (dawn, age_0, age_1, age_2), so ProgressiveStages' ChapterMixin read and wrote the key | pass |
+| Twilight portal | `twilightforest:portal/activator` = `["tfcreate:polished_quartz"]` in the live tags; quest text updated; `validate_quests.py` checks the portal tag Age against the chapter (negative test with `minecraft:diamond`: 1 error) | pass; building the portal needs client |
+
+### Content and reachability (all-Ages dump)
+
+All A- and C- checks pass after the merges (Arcane and Industrial Age unchanged). New **R- checks** walk the
+recipe graph once per goal Age from the Dawn start set (TFC-world items, vanilla world items and drops by the mob
+ladder, the Age's boss drops and the quartz-vein drop); a recipe fires only when all ingredients are reached, all
+outputs are of that Age or earlier and its station's mod belongs to that Age or earlier (Create heat levels need a
+heater). For each goal they report every ingredient that is not reached and why (the first unreached input of up to
+three makers, three levels deep).
+
+| # | Goal | Reached at its Age | Result |
+|---|---|---|---|
+| R-age_2 | Steel Heart: steel sheet, precision mechanism, wrought iron double sheets, Lich trophy; chain: mechanical crafter, deployer, press, fuel heater, steel, polished quartz (portal) | 10,662 items from 6,362 | pass (run 1 without the quartz-vein drop: polished quartz not reached, which the start set fixed) |
+| R-age_3 | Arcane Keystone and the 40-item Arcane chain | 12,581 items | pass |
+| R-age_4 | Pressure Core and the 29-item Industrial chain | 13,761 items | pass |
+
+Negative test: the Steel Heart at age_1 and the Pressure Core at age_2 fail with each ingredient's Age named.
+
 ## Fixes made in the repo
 
 1. **Rhino loop-body `const` (A5).** `grants.js` `reconcileNow()` declared `const wanted` inside a `for` loop. Rhino
@@ -286,6 +400,19 @@ reload; still below the 10 s limit of SPEC section 3.
    metal ores, weighted like Occultism's own ores (iron 750 split over 3 ores, copper 584 over 3, tin 602, silver 381,
    gold 311, zinc 186, bismuth 186). End stone (age_6) leaves the basic resources.
 11. **Self-test timing.** `/fa_selftest` prints the time of each PS call and of each reconcile (M0).
+12. **firmages-core 0.2.1, late pass (M2).** Recipes added after `RecipeManager#apply` (Create Dragons Plus, 175) were
+   not gated; `ReloadableServerResourcesLateMixin` gates them at the TAIL of `updateRegistryTags` and drops IE/Occultism
+   recipes whose resolved tag result is locked. GameTest `LateRecipeInjector` covers it (12/12 GameTests pass).
+13. **Precision mechanism and locked byproducts.** TFCreate's only precision mechanism recipe has the disabled
+   `create:crushed_raw_gold` as scrap, so the gate dropped it and the Steel Heart had no recipe.
+   `recipes/byproducts.js` strips locked chance byproducts until their Age (5 recipes), checked by G-3.
+14. **Lead dust Age.** `mekanism:dust_lead` age_6 -> age_4, so the Industrial Age IE crusher recipes of galena and
+   native silver load with the Industrial Age.
+15. **Twilight portal.** Activator `#c:gems/diamond` (age_4) -> `tfcreate:polished_quartz` (age_2); quest text and
+   `validate_quests.py` (portal tag Age per dimension task) updated.
+16. **Tooling.** `poc_analyze.py`: G-1 to G-4 and R- checks, the G-2 mirror reads IE secondary keys; `dump.js`:
+   `/fa_m3`, the unlocked Ages in `recipes.json`, explicit `getResultItem(HolderLookup$Provider)` overload (Ars caster
+   tomes made 50 results unreadable at age_3 and age_4).
 
 ## Open points
 
@@ -342,4 +469,16 @@ reload; still below the 10 s limit of SPEC section 3.
 - **Reload time** rose to 8 to 9 s (KubeJS recipe phase 3.6 to 3.7 s); still below the 10 s limit, little headroom.
 - **Pre-existing parse errors:** 35 `Parsing error` lines in `latest.log` (TFC Regrowing Forests, WoodenCog, Create
   Deco), none from pack scripts.
+- **Initial-load-only recipes.** The boot load has 29 recipes more than every later reload (34,939 vs 34,910 at the
+  gate's main pass, while KubeJS reports the same added/removed counts on both). 4 of them pass the gate at Dawn: the Twilight Forest giant block
+  to vanilla block recipes (`twilightforest:giant_log_to_oak_log` and three more), which vanish after the first Age
+  reload. Not a leak (dawn outputs), cause not found.
+- **Gate time on the initial load** is 534 to 575 ms (target 500 ms; every reload stays at 250 to 412 ms).
+- **Reload stall** 7.1 to 8.8 s in the last run (6.3 to 7.4 s in the first); little headroom below 10 s.
+- **Mekanism sulfur dust stays age_6** (decision log); the pack's TFC sulfur powder -> sulfur dust milling recipe opens
+  only in the Information Age.
+- **G-2 cannot resolve Mekanism-family tag outputs** (Evolved Mekanism solidifying); it lists them instead.
+- **M2/M3, needs client:** EMI shows each Age's recipes after the unlock reload (C19); the Twilight portal built from a
+  TFC grass ring, TFC flowers and polished quartz; Occultism Mineshaft and Ars apparatus cache flushes with a running
+  machine.
 - Everything marked needs client: C1, C3, C8, C9, C11 (Dawn EMI view), C14, C17, C19, C20, C21 in `poc-checklist.md`.
