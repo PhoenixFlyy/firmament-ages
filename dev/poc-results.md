@@ -1462,3 +1462,64 @@ of these runs; the pack's penalty is mostly KubeJS and 35,000 recipes, which the
 measured on the pack:** boot the test server, wait for "Age reload (warm-up after boot) finished", then join the debug
 players and time three reloads against the table above. With the warm-up on, "reload 1 after the boot" in later
 measurements is the second reload of the session.
+
+## Leftovers integration
+
+Date: 2026-10-02, branch `dev`. The worktree branch with the warm-up reload and the join lock-sync dedupe (9a86ca1,
+238c7a1, 26094f0) is merged into `dev` with `--no-ff` (2d5cbd8; the only conflicts were the appended sections of this
+file and of `dev/decisions-while-away.md`, both kept). firmages-core is **0.6.1** (5c088b9): `mods/firmages-core-0.6.1.jar`
+replaces 0.6.0, `packwiz refresh`; README and the CurseForge texts name the 0.6.1 jar. The pack version stays 0.6.0.
+
+### Checks
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` | exit 0 | pass |
+| `gradlew runGameTestServer` | "All 28 required tests passed", `joinSendsOneLockSync`: 1 duplicate lock sync skipped on join; selftest core 17/0, gate 16/0 | pass |
+| Sync | quest folder deleted, `packwiz-installer-bootstrap -g -s server` from `packwiz serve`: "Finished successfully", `firmages-core-0.6.1.jar` in `test-server/mods` | pass |
+| Boot, fresh world (`run_server.py --wipe-world`) | `Done (11.197s)`; KubeJS startup 2/2, server 35/35, 0 errors, 0 warnings; 0 ERROR lines from FirmagesCore, ProgressiveStages and FTB Quests; "Registered 22 gateways"; FTB Quests 13 chapters, 345 quests. The other ERROR lines are the known parse noise (TFC Regrowing Forests, WoodenCog, loot tables of absent mods), counted twice because of the warm-up reload | pass |
+| Warm-up after boot | "Warm-up reload due in 20 ticks", "Age reload (warm-up after boot) finished in 7884 ms; reload 1 since start" (fresh world, dawn) | pass |
+| Grants dawn to age_9 (Alpha and Beta online, `stage grant Alpha age_N`, one reload each) | 9.12 s for age_0, then 7.30 to 8.54 s; 2 duplicate lock syncs skipped per reload and 2 on join | pass |
+| `poc_analyze.py` (`firmages recipes audit`, `fa_dump`, `fa_dump_full` at age_9: 33,218 recipes) | **82 checks, all PASS** | pass |
+| `validate_quests.py` | 1291 object ids, 0 errors, 0 warnings | pass |
+| `gen_textures.py --check` | 60 referenced textures, 0 errors, 0 warnings | pass |
+| `firmages selftest all` (age_9) | 44 passed, 0 failed | pass |
+| Fallback gateway spot check: End Trial | Alpha (age_9) with 2 End Sigils, `debug use` on a bedrock block: "boss fallback: Alpha opened firmages:end_trial", one sigil left; waves killed by command, gate gone after about 22 s; "completed in age_7: one draconicevolution:dragon_heart added"; at the gate 4 dragon's breath and 1 dragon heart (plus the mob drops of the killed waves) | pass |
+
+### First reload after a boot, on the pack
+
+Same world, stopped at age_9 and booted again (`Done (4.346s)`, "AgeState ... matches the boot snapshot (MIRROR) ...;
+no reload"). The warm-up ran 20 ticks after the start, then Alpha and Beta joined (`firmages debug player join`) and
+three `firmages reload`:
+
+| | Warm-up (nobody online) | Reload 1 with players | Reload 2 | Reload 3 |
+|---|---|---|---|---|
+| Before (0.6.0, no warm-up; section above) | none | 9,441 ms | 8,345 ms | 7,937 ms |
+| After (0.6.1) | 8,127 ms | 8,986 ms | 8,023 ms | 7,790 ms |
+| KubeJS recipe phase, before | | 2.45 s | 2.07 s | 1.91 s |
+| KubeJS recipe phase, after | 2.37 s (first load at boot: 3.46 s) | 2.22 s | 1.95 s | 1.85 s |
+| firmages-core recipe gate / AgeIndex, after | 320 / 96 ms | 314 / 90 ms | 304 / 70 ms | 360 / 70 ms |
+
+The warm-up takes 0.46 s off the first reload players wait for (9.44 to 8.99 s) and a little off the next two, but the
+first reload with players online is still about 1 s slower than the third, and slower than the warm-up itself. So part
+of the penalty is tied to players being online for the first time (the per-player sync after the reload), which a
+reload with nobody online cannot warm; the gate and AgeIndex are again a small share. Not dug into further in this run.
+
+### Review of the commits since a3379fb
+
+- Diffs read: the mod changes (warm-up in `AgeService`, `LockSyncDedupe` sites, `PlayerJoinMixin`, configs) and the
+  boss-fallback hook. `PlayerJoinMixin` matches the PS 3.0.5 bytecode of `ServerEventHandler.onPlayerJoin` (javap:
+  `sendLockSync`, `getStages`, `sendStageSync` in a straight line, no branch between them).
+- No `tools/`, `test-server/`, build outputs, exports or secrets in the diff of `a3379fb..HEAD`; the jar in `mods/`
+  is the shipped mod. `packwiz refresh` after the last commit: no change.
+- Claims checked against this run's logs: KubeJS 35/35 with 0 errors, 82 PASS, quests 0 errors, End Trial heart from
+  age_7 and one sigil used, GameTest join dedupe 1 skip, `dead inputs: 97 of 97`, `byproducts: 5 recipe(s)`. All hold.
+- Trailers: 9a86ca1, 238c7a1 and 26094f0 end with "Claude Fable 5.1", the other commits with "Claude Opus 5.5" (the
+  session model of those runs). Left as is; rewriting merged history was not worth it.
+
+### Open points
+
+- First reload with players online is still about 1 s slower; the warm-up covers only half of it (see above).
+- Needs a client: waves fought for real, sigil textures and tooltips, gate names on the boss bar; packet order of the
+  join dedupe.
+- AdvancedAE strength card has no use (Quantum Armor disabled): disable or keep (Felix).
