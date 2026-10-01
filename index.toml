@@ -437,6 +437,10 @@ file = "kubejs/data/draconicevolution/neoforge/biome_modifier/overworld_draconiu
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/firmages/gateways/the_origin.json"
+hash = "5a4bf5c21276c2de27f4314ecf83d3bca0818657646811801f2163f197854e7d"
+
+[[files]]
 file = "kubejs/data/firmages/loot_modifiers/datura_seed_from_tfc_grass.json"
 hash = "4456bd6e6adf69b904906202f4eb2a11eb1aa769dfbef2a9f8ad199b9605d71f"
 
@@ -689,6 +693,10 @@ file = "kubejs/server_scripts/debug/scan.js"
 hash = "ac50fa92ad56346fdadd78c14f43b5027bc15d2e8d457c911d0d5d87de848b6a"
 
 [[files]]
+file = "kubejs/server_scripts/finale/the_primordial.js"
+hash = "53b78f9078671d47810b6b828f1c0302b631ba53e4cee8a8e05bb78194afa4b9"
+
+[[files]]
 file = "kubejs/server_scripts/firmages/miner_blacklist.js"
 hash = "747477090d7cfa38ceadb38767efeb2547dd1ae25c3bc0472f6766e967142ebd"
 
@@ -762,7 +770,7 @@ hash = "505ca355770108f9d75229d9b83ed1f57ebc36ac93490767989fcd01a29eb603"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/station_ages.js"
-hash = "2fe78afb4e1ede36e2bc21ca385a149971eaf2aad7d5c9fe45d76dcacfdf856a"
+hash = "bd8ce06acf47dbc305ad8eba7cbc1ec511303c8385de640144d160fe6f94845e"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/tfc_station_inputs.js"
@@ -1235,7 +1243,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-0.4.0.jar"
-hash = "a28aaf350d7efe85946c9b06d08ab793111aa07f09d1e0540d461a61eec03b14"
+hash = "45ab7183f7108a9c17621610646d6c9db374860622bcf5faad63e3ee0752f1d9"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
