@@ -486,7 +486,7 @@ hash = "a11f2baef076d33591f0bd361faf22907fbc9bdd918a057015366819b18745ea"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
-hash = "506de1df1a456538501ffbb708c4a51fddd41d9219e3b79771a9e71b48514652"
+hash = "ca5d36668058dd789ccc841d1750055190f66a26c14f232fc9494b8326c4e1fe"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/mekatfc_osmium.js"

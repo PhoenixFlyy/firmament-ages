@@ -90,6 +90,9 @@ def main():
     ap.add_argument("--wipe-world", action="store_true", help="delete <server>/world before the boot")
     ap.add_argument("--max-lines", type=int, default=25, help="max lines per summary section")
     a = ap.parse_args()
+    # The summary echoes console lines (section signs, typographic quotes); the Windows console codec is cp1252.
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
     sd = os.path.abspath(a.server_dir)
     args_file = os.path.join("libraries", "net", "neoforged", "neoforge", NEOFORGE, "win_args.txt")

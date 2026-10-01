@@ -134,7 +134,8 @@ ServerEvents.recipes((event) => {
   // Only the Electric Motor (FE -> SU) and the Alternator (SU -> FE) stay (Doc 10 v3 section 1.2). Their spools and
   // capacitor are C&A items, so both are rebuilt around IE parts: the Industrial Age gate in the recipe.
   event.remove({ mod: 'createaddition' })
-  event.remove({ type: /^createaddition:/ })
+  // A type filter takes one id, not a regex: the three C&A recipe types (CARecipes, createaddition 1.7.1).
+  ;['charging', 'rolling', 'liquid_burning'].forEach((t) => event.remove({ type: `createaddition:${t}` }))
   event.remove({ output: /^createaddition:/ })
   event.custom({
     type: 'create:mechanical_crafting',
