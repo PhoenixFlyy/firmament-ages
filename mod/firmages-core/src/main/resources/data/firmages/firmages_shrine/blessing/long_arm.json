@@ -1,7 +1,12 @@
 {
   "name": "firmages.blessing.long_arm",
   "description": "firmages.blessing.long_arm.description",
-  "flags": [
-    "sanctuary"
+  "effects": [
+    {
+      "type": "attribute",
+      "attribute": "minecraft:player.block_interaction_range",
+      "operation": "add_value",
+      "amount": 0.5
+    }
   ]
 }

@@ -55,6 +55,19 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
         return tier(tier).flatMap(ShrineTier::offering).or(() -> Optional.ofNullable(offerings.get("age_" + tier)));
     }
 
+    /** The {@code relic_returned} rite of {@code tier} that lends the relic of {@code relicTier}, if any (SPEC §7.4). */
+    public Optional<ShrineTier.Rite> lendingRite(int tier, int relicTier) {
+        return tier(tier).stream().flatMap(t -> t.rites().stream())
+            .filter(r -> r.type() == ShrineTier.Rite.Type.RELIC_RETURNED && r.relicTier() == relicTier).findFirst();
+    }
+
+    /** Items every tier accepts back for the lent relic of {@code relicTier}, besides the relic's own item. */
+    public Set<String> returnItems(int relicTier) {
+        Set<String> out = new LinkedHashSet<>();
+        for (int k = 0; k <= MAX_TIER; k++) lendingRite(k, relicTier).ifPresent(r -> out.addAll(r.items()));
+        return out;
+    }
+
     // ---------------------------------------------------------------- parsing
 
     /**
@@ -130,6 +143,9 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
         }
         for (ShrineTier.Rite r : rites) {
             if (!r.type().supported()) warnings.add(id + ": rite '" + r.type().name().toLowerCase(Locale.ROOT) + "' is not implemented yet and does not block the prayer");
+            if (r.type() == ShrineTier.Rite.Type.RELIC_RETURNED && !fallback && r.relicTier() >= tier) {
+                throw new IllegalArgumentException("rite relic_returned of tier " + tier + " must lend an earlier relic, not tier " + r.relicTier());
+            }
         }
         OptionalInt prayerTicks = OptionalInt.empty();
         if (o.has("prayer_ticks")) {
@@ -156,6 +172,11 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
         String tag = optString(r, "tag").map(t -> t.startsWith("#") ? t.substring(1) : t).orElse("");
         long amount = r.has("amount") ? r.get("amount").getAsLong() : 0;
         int min = r.has("min") ? r.get("min").getAsInt() : 0;
+        int relicTier = r.has("relic") ? r.get("relic").getAsInt() : -1;
+        List<String> items = new ArrayList<>();
+        if (r.has("items")) {
+            for (JsonElement i : r.getAsJsonArray("items")) items.add(itemId(i.getAsString()));
+        }
         String hint = optString(r, "hint").orElse("");
         switch (type) {
             case BLOCKSTATE -> {
@@ -170,9 +191,17 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
             case PLAYERS_PRAYING -> {
                 if (min < 1) throw new IllegalArgumentException("rite players_praying needs 'min' >= 1");
             }
+            case ENERGY -> {
+                if (key.length() != 1 || amount < 1) {
+                    throw new IllegalArgumentException("rite energy needs 'key' (one character: the ring blocks that store the FE) and 'amount' >= 1");
+                }
+            }
+            case RELIC_RETURNED -> {
+                if (relicTier < 0 || relicTier > MAX_TIER) throw new IllegalArgumentException("rite relic_returned needs 'relic' (the tier 0.." + MAX_TIER + " whose relic is lent)");
+            }
             default -> { }
         }
-        return new ShrineTier.Rite(type, key.isEmpty() ? ' ' : key.charAt(0), property, value, tag, amount, min, hint);
+        return new ShrineTier.Rite(type, key.isEmpty() ? ' ' : key.charAt(0), property, value, tag, amount, min, relicTier, List.copyOf(items), hint);
     }
 
     static ShrineTier.Response parseResponse(JsonObject r) {
@@ -200,7 +229,38 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
         if (o.has("flags")) {
             for (JsonElement f : o.getAsJsonArray("flags")) flags.add(f.getAsString());
         }
-        return new Blessing(id, nameKey, descKey, Set.copyOf(flags));
+        List<Blessing.Effect> effects = new ArrayList<>();
+        if (o.has("effects")) {
+            for (JsonElement e : o.getAsJsonArray("effects")) effects.add(parseEffect(e.getAsJsonObject()));
+        }
+        return new Blessing(id, nameKey, descKey, Set.copyOf(flags), List.copyOf(effects));
+    }
+
+    static Blessing.Effect parseEffect(JsonObject e) {
+        String typeName = e.get("type").getAsString();
+        double amount = e.has("amount") ? e.get("amount").getAsDouble() : 0;
+        return switch (typeName) {
+            case "attribute" -> {
+                String attr = optString(e, "attribute").map(ShrineData::resourceId)
+                    .orElseThrow(() -> new IllegalArgumentException("effect attribute needs 'attribute'"));
+                String op = optString(e, "operation").orElse("add_value");
+                if (!Blessing.Effect.OPERATIONS.contains(op)) throw new IllegalArgumentException("effect attribute: unknown operation '" + op + "'");
+                if (amount == 0 || Double.isNaN(amount) || Math.abs(amount) > 1024) throw new IllegalArgumentException("effect attribute needs a non-zero 'amount'");
+                yield new Blessing.Effect(Blessing.Effect.Kind.ATTRIBUTE, attr, op, amount, 0);
+            }
+            case "mob_effect" -> {
+                String eff = optString(e, "effect").map(ShrineData::resourceId)
+                    .orElseThrow(() -> new IllegalArgumentException("effect mob_effect needs 'effect'"));
+                int amp = e.has("amplifier") ? e.get("amplifier").getAsInt() : 0;
+                if (amp < 0 || amp > 9) throw new IllegalArgumentException("effect mob_effect: 'amplifier' must be 0..9");
+                yield new Blessing.Effect(Blessing.Effect.Kind.MOB_EFFECT, eff, "", 0, amp);
+            }
+            case "xp_bonus" -> {
+                if (!(amount > 0 && amount <= 10)) throw new IllegalArgumentException("effect xp_bonus needs 'amount' in (0, 10]");
+                yield new Blessing.Effect(Blessing.Effect.Kind.XP_BONUS, "", "", amount, 0);
+            }
+            default -> throw new IllegalArgumentException("unknown blessing effect type '" + typeName + "'");
+        };
     }
 
     /** {@code #RRGGBB} (alpha FF when {@code withAlpha}) or {@code #AARRGGBB}. */

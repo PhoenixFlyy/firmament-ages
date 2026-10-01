@@ -80,18 +80,18 @@ public final class OfferingPlinthBlock extends BaseEntityBlock {
         return InteractionResult.CONSUME;
     }
 
-    /** A plinth holding an item cannot be broken in survival; the relic stays forever. */
+    /** A plinth holding an item, or waiting for its lent relic, cannot be broken in survival; the relic stays forever. */
     @Override
     protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
-        if (!player.isCreative() && level.getBlockEntity(pos) instanceof OfferingPlinthBlockEntity be && !be.isEmpty()) return 0.0F;
+        if (!player.isCreative() && level.getBlockEntity(pos) instanceof OfferingPlinthBlockEntity be && (!be.isEmpty() || be.isLent())) return 0.0F;
         return super.getDestroyProgress(state, player, level, pos);
     }
 
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock()) && level instanceof ServerLevel sl && level.getBlockEntity(pos) instanceof OfferingPlinthBlockEntity be
-            && !be.isEmpty()) {
-            ShrineService.onPlinthRemoved(sl, pos, be.isRelic(), be.drainForRemoval());
+        if (!state.is(newState.getBlock()) && level instanceof ServerLevel sl && level.getBlockEntity(pos) instanceof OfferingPlinthBlockEntity be) {
+            if (!be.isEmpty()) ShrineService.onPlinthRemoved(sl, pos, be.isRelic(), be.drainForRemoval());
+            else if (be.isLent()) ShrineService.onLentPlinthRemoved(sl, pos);
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
     }

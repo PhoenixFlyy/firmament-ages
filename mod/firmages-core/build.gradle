@@ -166,6 +166,7 @@ dependencies {
     compileOnly files("libs/rhino-${rhino_version}.jar")
     compileOnly files("libs/modonomicon-1.21.1-neoforge-${modonomicon_version}.jar") // shrine rings, ghost preview
     compileOnly files("libs/Stargate.Journey-1.21.1-${sgjourney_version}.jar") // The Origin return gate (compat/sgjourney)
+    compileOnly files("libs/Jade-1.21.1-NeoForge-${jade_version}.jar") // shrine tooltips (compat/jade)
 
     // Required mods (and KubeJS for the binding) in dev runs: runServer, runGameTestServer
     localRuntime files("libs/progressivestages-${progressivestages_version}.jar")
@@ -184,6 +185,8 @@ dependencies {
     gametestRuntimeOnly("com.brandon3055.brandonscore:BrandonsCore:${brandonscore_version}") { transitive = false }
     gametestRuntimeOnly("io.codechicken:CodeChickenLib:${ccl_version}") { transitive = false }
     gametestRuntimeOnly files("libs/Stargate.Journey-1.21.1-${sgjourney_version}.jar")
+    // Jade, so the GameTest server loads the tooltip plugin class (its client half never runs there).
+    gametestRuntimeOnly files("libs/Jade-1.21.1-NeoForge-${jade_version}.jar")
 
     // Unit tests (SPEC 12, level U): pure Java, no Minecraft bootstrap
     testImplementation platform("org.junit:junit-bom:${junit_version}")
@@ -219,7 +222,7 @@ dependencies {
 // and checked against the sha512 in that file. libs/*.jar is git-ignored (TFC alone is 65 MB).
 // Bump a version by updating the pack; this task follows the .pw.toml automatically.
 def packModsDir = file('../../mods')
-def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon', 'sgjourney'].collect { new File(packModsDir, "${it}.pw.toml") }
+def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon', 'sgjourney', 'jade'].collect { new File(packModsDir, "${it}.pw.toml") }
 def libsDir = file('libs')
 def fetchLibs = tasks.register('fetchLibs') {
     group = 'firmages'

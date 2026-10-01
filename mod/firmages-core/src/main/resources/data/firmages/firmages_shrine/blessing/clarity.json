@@ -1,7 +1,12 @@
 {
   "name": "firmages.blessing.clarity",
   "description": "firmages.blessing.clarity.description",
-  "flags": [
-    "sanctuary"
+  "effects": [
+    {
+      "type": "attribute",
+      "attribute": "minecraft:generic.max_health",
+      "operation": "add_multiplied_base",
+      "amount": 0.05
+    }
   ]
 }

@@ -1,7 +1,12 @@
 {
   "name": "firmages.blessing.iron_will",
   "description": "firmages.blessing.iron_will.description",
-  "flags": [
-    "sanctuary"
+  "effects": [
+    {
+      "type": "attribute",
+      "attribute": "minecraft:generic.max_health",
+      "operation": "add_multiplied_base",
+      "amount": 0.05
+    }
   ]
 }

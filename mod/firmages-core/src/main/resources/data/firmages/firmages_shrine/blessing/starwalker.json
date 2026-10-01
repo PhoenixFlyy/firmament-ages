@@ -1,7 +1,18 @@
 {
   "name": "firmages.blessing.starwalker",
   "description": "firmages.blessing.starwalker.description",
-  "flags": [
-    "sanctuary"
+  "effects": [
+    {
+      "type": "attribute",
+      "attribute": "minecraft:generic.fall_damage_multiplier",
+      "operation": "add_value",
+      "amount": -0.2
+    },
+    {
+      "type": "attribute",
+      "attribute": "minecraft:generic.safe_fall_distance",
+      "operation": "add_value",
+      "amount": 1.0
+    }
   ]
 }

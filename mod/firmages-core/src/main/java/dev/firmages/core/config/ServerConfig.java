@@ -41,13 +41,16 @@ public final class ServerConfig {
     public static final ModConfigSpec.LongValue SHRINE_ENERGY_CAPACITY;
     public static final ModConfigSpec.BooleanValue SHRINE_PERMANENT_BEAM;
     public static final ModConfigSpec.BooleanValue SHRINE_CLEAR_WEATHER;
+    public static final ModConfigSpec.BooleanValue SHRINE_BLESSINGS_EVERYWHERE;
     // origin
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
+    public static final ModConfigSpec.ConfigValue<String> ORIGIN_FINALE_GATEWAY;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
     public static final List<String> DEFAULT_BOOT_FALLBACK = List.of("dawn");
+    public static final String DEFAULT_FINALE_GATEWAY = "firmages:the_origin";
     public static final List<String> DEFAULT_EXEMPT_TYPES = List.of("immersiveengineering:mineral_mix", "tfc:collapse", "tfc:landslide");
 
     static {
@@ -104,6 +107,10 @@ public final class ServerConfig {
         SHRINE_ENERGY_CAPACITY = b.defineInRange("energyCapacity", 100_000_000L, 0L, Long.MAX_VALUE);
         SHRINE_PERMANENT_BEAM = b.define("permanentBeam", false);
         SHRINE_CLEAR_WEATHER = b.define("clearWeather", true);
+        b.comment("Blessing effects (attributes, status effects, XP) act on players within the sanctuary radius of the heart while the shrine is intact.").push("blessings");
+        SHRINE_BLESSINGS_EVERYWHERE = b.comment("true: attribute and XP blessings act everywhere (team-wide, SPEC 7.6); status effects stay near the shrine.")
+            .define("everywhere", false);
+        b.pop();
         b.pop();
 
         b.comment("The Origin and the Gathering at its altar (the end-boss trigger)").push("origin");
@@ -111,6 +118,9 @@ public final class ServerConfig {
             .defineInRange("gatherRadius", 6, 1, 32);
         ORIGIN_GATHER_COOLDOWN = b.comment("Seconds before a broken-up Gathering can start the fight again.")
             .defineInRange("gatherCooldownSeconds", 30, 0, 3600);
+        ORIGIN_FINALE_GATEWAY = b.comment("Gateways to Eternity gate the end-boss script opens at the Gathering; only its completion in The Origin",
+                "summons the final boss (read by the script through FirmAges.finaleGateway()).")
+            .define("finaleGateway", DEFAULT_FINALE_GATEWAY, o -> o instanceof String str && str.matches("[a-z0-9_.-]+:[a-z0-9_./-]+"));
         b.pop();
 
         b.push("debug");
@@ -148,6 +158,12 @@ public final class ServerConfig {
 
     public static boolean reloadOnRevoke() {
         return !loaded() || RELOAD_ON_REVOKE.get();
+    }
+
+
+    /** {@code origin.finaleGateway}: the gate id the end-boss script opens and waits for. */
+    public static String finaleGateway() {
+        return loaded() ? ORIGIN_FINALE_GATEWAY.get() : DEFAULT_FINALE_GATEWAY;
     }
 
     public static boolean allowSimulate() {

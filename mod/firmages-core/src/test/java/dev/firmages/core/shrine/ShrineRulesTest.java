@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -131,6 +132,28 @@ class ShrineRulesTest {
         assertEquals(ShrineTier.Rite.Type.PLAYERS_PRAYING, d.tier(6).orElseThrow().rites().get(0).type());
         assertEquals(2, d.tier(6).orElseThrow().rites().get(0).min());
         assertEquals(ShrineTier.Rite.Type.SKY, d.tier(7).orElseThrow().rites().get(0).type());
+        // M6: the Tesla crown's capacitors hold 1 M FE (Doc 11 "Herz mit 1 Mio. FE laden"); tier 8 lends the Arcane
+        // Keystone (relic of tier 3) for the Marid ritual and wants it, or the Awakened Keystone, back.
+        ShrineTier.Rite energy = d.tier(5).orElseThrow().rites().stream().filter(r -> r.type() == ShrineTier.Rite.Type.ENERGY).findFirst().orElseThrow();
+        assertEquals('V', energy.key());
+        assertEquals(1_000_000L, energy.amount());
+        assertTrue(d.lendingRite(8, 3).isPresent());
+        assertEquals(java.util.Set.of("firmages:awakened_keystone"), d.returnItems(3));
+        for (int k = 0; k < 8; k++) assertTrue(d.tier(k).orElseThrow().rites().stream().noneMatch(r -> r.type() == ShrineTier.Rite.Type.RELIC_RETURNED));
+        // Every blessing does something real: Hearthward the sanctuary, the others their effects (core-shrine.md budget:
+        // +15 % max health, +10 % XP, +5 % break speed, +0.5 reach, -20 % fall damage, +1 luck, plus +5 % speed).
+        for (Blessing b : d.blessings().values()) assertTrue(b.has(Blessing.SANCTUARY) || !b.effects().isEmpty(), b.id() + " has an effect");
+        assertTrue(d.blessings().get("firmages:hearthward").effects().isEmpty());
+        double health = 0;
+        for (Blessing b : d.blessings().values()) {
+            for (Blessing.Effect e : b.effects()) {
+                if (e.target().equals("minecraft:generic.max_health")) health += e.amount();
+            }
+            if (!b.id().equals("firmages:hearthward")) assertFalse(b.has(Blessing.SANCTUARY), b.id() + " no longer stands in for the ward");
+        }
+        assertEquals(0.15, health, 1e-9, "max health +15 % over the game");
+        assertEquals(Blessing.Effect.Kind.XP_BONUS, d.blessings().get("firmages:attunement").effects().get(0).kind());
+        assertEquals(0.10, d.blessings().get("firmages:attunement").effects().get(0).amount(), 1e-9);
         assertEquals(Optional.empty(), d.tier(9));
         assertEquals(0xFFFFB347, t0.response().beamColor());
         assertEquals(0xFF8C3A, t0.response().skyTint());
@@ -152,10 +175,59 @@ class ShrineRulesTest {
         assertFalse(parseOne("firmages:tier/ring_1", "{\"multiblock\":\"firmages:x\",\"response\":{\"beam_color\":\"red\"}}").errors().isEmpty(), "bad colour");
         assertFalse(parseOne("firmages:offerings", "{\"age_9\":\"firmages:x\"}").errors().isEmpty(), "age_9 has no tier");
         assertFalse(parseOne("firmages:tier/ring_1", "{\"multiblock\":\"Not An Id\"}").errors().isEmpty(), "bad id");
-        ShrineData ok = parseOne("firmages:tier/ring_4", "{\"multiblock\":\"firmages:shrine_ring_4\",\"rites\":[{\"type\":\"energy\",\"amount\":1000000}]}");
-        assertTrue(ok.errors().isEmpty());
-        assertEquals(1, ok.warnings().size(), "unsupported rite is a warning, not an error");
+        assertFalse(parseOne("firmages:tier/ring_4", "{\"multiblock\":\"firmages:x\",\"rites\":[{\"type\":\"energy\",\"amount\":1000000}]}").errors().isEmpty(),
+            "energy rite without the key of its storage blocks");
+        assertFalse(parseOne("firmages:tier/ring_4", "{\"multiblock\":\"firmages:x\",\"rites\":[{\"type\":\"energy\",\"key\":\"V\"}]}").errors().isEmpty(),
+            "energy rite without an amount");
+        assertFalse(parseOne("firmages:tier/ring_8", "{\"multiblock\":\"firmages:x\",\"rites\":[{\"type\":\"relic_returned\"}]}").errors().isEmpty(),
+            "relic_returned without the relic's tier");
+        assertFalse(parseOne("firmages:tier/ring_3", "{\"multiblock\":\"firmages:x\",\"rites\":[{\"type\":\"relic_returned\",\"relic\":3}]}").errors().isEmpty(),
+            "a tier cannot lend its own or a later relic");
+        ShrineData ok = parseOne("firmages:tier/ring_4", "{\"multiblock\":\"firmages:shrine_ring_4\",\"rites\":[{\"type\":\"energy\",\"key\":\"V\",\"amount\":1000000}]}");
+        assertTrue(ok.errors().isEmpty(), "errors " + ok.errors());
+        assertEquals(List.of(), ok.warnings(), "energy is implemented now");
+        ShrineTier.Rite e = ok.tier(4).orElseThrow().rites().get(0);
+        assertEquals(ShrineTier.Rite.Type.ENERGY, e.type());
+        assertEquals('V', e.key());
+        assertEquals(1_000_000L, e.amount());
         assertEquals("firmages:shrine_ring_4", ok.tier(4).orElseThrow().multiblock().orElseThrow());
         assertEquals(Optional.empty(), ok.tier(3), "no fallback file: no definition");
+    }
+
+    @Test
+    void blessingEffectsParseAndRejectNonsense() {
+        ShrineData d = parseOne("firmages:blessing/test", "{\"effects\":[{\"type\":\"attribute\",\"attribute\":\"generic.max_health\","
+            + "\"operation\":\"add_multiplied_base\",\"amount\":0.05},{\"type\":\"mob_effect\",\"effect\":\"minecraft:haste\",\"amplifier\":1},"
+            + "{\"type\":\"xp_bonus\",\"amount\":0.1}]}");
+        assertEquals(List.of(), d.errors());
+        Blessing b = d.blessings().get("firmages:test");
+        assertEquals("firmages.blessing.test", b.nameKey());
+        assertEquals(3, b.effects().size());
+        assertEquals(new Blessing.Effect(Blessing.Effect.Kind.ATTRIBUTE, "minecraft:generic.max_health", "add_multiplied_base", 0.05, 0), b.effects().get(0));
+        assertEquals(new Blessing.Effect(Blessing.Effect.Kind.MOB_EFFECT, "minecraft:haste", "", 0, 1), b.effects().get(1));
+        assertEquals(new Blessing.Effect(Blessing.Effect.Kind.XP_BONUS, "", "", 0.1, 0), b.effects().get(2));
+        for (String bad : new String[] {
+            "{\"effects\":[{\"type\":\"fly\"}]}",
+            "{\"effects\":[{\"type\":\"attribute\",\"amount\":1}]}",
+            "{\"effects\":[{\"type\":\"attribute\",\"attribute\":\"generic.luck\",\"operation\":\"times\",\"amount\":1}]}",
+            "{\"effects\":[{\"type\":\"attribute\",\"attribute\":\"generic.luck\"}]}",
+            "{\"effects\":[{\"type\":\"mob_effect\"}]}",
+            "{\"effects\":[{\"type\":\"mob_effect\",\"effect\":\"minecraft:speed\",\"amplifier\":12}]}",
+            "{\"effects\":[{\"type\":\"xp_bonus\",\"amount\":0}]}"}) {
+            assertFalse(parseOne("firmages:blessing/bad", bad).errors().isEmpty(), "rejected: " + bad);
+        }
+    }
+
+    @Test
+    void lendingRiteLookup() {
+        ShrineData d = ShrineData.parse(Map.of(
+            "firmages:tier/ring_8", JsonParser.parseString("{\"multiblock\":\"firmages:x\",\"rites\":[{\"type\":\"relic_returned\",\"relic\":3,"
+                + "\"items\":[\"firmages:awakened_keystone\"]}]}"),
+            "firmages:tier/ring_7", JsonParser.parseString("{\"multiblock\":\"firmages:y\"}")));
+        assertEquals(List.of(), d.errors());
+        assertTrue(d.lendingRite(8, 3).isPresent(), "tier 8 lends the relic of tier 3");
+        assertTrue(d.lendingRite(8, 2).isEmpty() && d.lendingRite(7, 3).isEmpty(), "nothing else is lent");
+        assertEquals(java.util.Set.of("firmages:awakened_keystone"), d.returnItems(3));
+        assertEquals(java.util.Set.of(), d.returnItems(2));
     }
 }
