@@ -11,7 +11,11 @@ const FA_BYPRODUCTS = {
   "create:splashing/gravel": { "minecraft:iron_nugget": "age_2" },
   "create:crushing/tuff": { "minecraft:iron_nugget": "age_2", "immersiveengineering:nugget_electrum": "age_4" },
   "create:crushing/tuff_recycling": { "minecraft:iron_nugget": "age_2", "immersiveengineering:nugget_electrum": "age_4" },
-  "immersiveengineering:crusher/blaze_powder": { "mekanism:dust_sulfur": "age_6" }
+  "immersiveengineering:crusher/blaze_powder": { "mekanism:dust_sulfur": "age_6" },
+  "simulated:sequenced_assembly/engine_assembly": { "create:iron_sheet": "disabled" },
+  "simulated:sequenced_assembly/gyroscopic_mechanism": { "create:iron_sheet": "disabled", "create:crushed_raw_iron": "disabled" },
+  "create_connected:sequenced_assembly/control_chip": { "create:golden_sheet": "disabled", "create:iron_sheet": "disabled", "create:crushed_raw_gold": "disabled", "create:electron_tube": "age_2" },
+  "create_factory_logistics:sequenced_assembly/fluid_mechanism": { "create:copper_sheet": "disabled", "create:crushed_raw_copper": "disabled" }
 }
 // END BYPRODUCTS
 
@@ -24,6 +28,9 @@ ServerEvents.recipes((event) => {
     if (e.output) return entryItem(e.output)
     return e.id || e.item || null
   }
+  const SHEET_TAG = { 'create:iron_sheet': 'c:plates/iron', 'create:copper_sheet': 'c:plates/copper',
+    'create:golden_sheet': 'c:plates/gold', 'create:brass_sheet': 'c:plates/brass' }
+  const SHEET_RE = new RegExp(`"item":"(${Object.keys(SHEET_TAG).join('|')})"`, 'g')
   let stripped = 0
   Object.keys(FA_BYPRODUCTS).forEach((id) => {
     const table = FA_BYPRODUCTS[id]
@@ -48,11 +55,14 @@ ServerEvents.recipes((event) => {
       console.error(`[firmages] byproducts: ${id}: none of ${strip} found in its results`)
       return
     }
+    // A recipe rewritten here also loses its disabled Create sheet inputs (the Create sheets of DEAD in dead_inputs.js):
+    // the control chip starts on a golden sheet, the fluid mechanism on a copper sheet.
+    const text = JSON.stringify(json).replace(SHEET_RE, (m, from) => `"tag":"${SHEET_TAG[from]}"`)
     event.remove({ id: id })
     // While the station's Age is locked the recipe stays removed (recipes/station_ages.js removes the mod's original,
     // but not a recipe re-added here).
     if (STATION_AGE[json.type] && lockedNow(STATION_AGE[json.type])) return
-    event.custom(json).id(id)
+    event.custom(JSON.parse(text)).id(id)
     stripped++
   })
   console.info(`[firmages] byproducts: ${stripped} recipe(s) without their locked byproducts`)

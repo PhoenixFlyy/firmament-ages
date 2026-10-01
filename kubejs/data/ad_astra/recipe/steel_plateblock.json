@@ -6,7 +6,7 @@
       "tag": "ad_astra:steel_plates"
     },
     "|": {
-      "item": "ad_astra:steel_rod"
+      "tag": "c:rods/steel"
     }
   },
   "pattern": [

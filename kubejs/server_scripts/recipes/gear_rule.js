@@ -99,6 +99,9 @@ ServerEvents.recipes((event) => {
   // ======================================================================================== Mystical Agriculture
   // The seed reprocessor asked for two vanilla iron hoes (no recipe in a TFC world): wrought iron hoe heads.
   swap('mysticalagriculture:seed_reprocessor', 'minecraft:iron_hoe', part('wrought_iron', 'hoe'))
+  // The soul extractor asked for two soulium daggers, which are disabled with the other MA gear: soulium ingots, the
+  // material of the dagger's tier, instead.
+  swap('mysticalagriculture:soul_extractor', 'mysticalagriculture:soulium_dagger', 'mysticalagriculture:soulium_ingot')
 
   // ======================================================================================== backpacks and quests
   // Wooden and stone vanilla tools have no recipe in a TFC world; the copper part of the slot takes their place (the
@@ -112,7 +115,10 @@ ServerEvents.recipes((event) => {
   // of the certus wrench.
   ;['axe', 'hoe', 'pickaxe', 'shovel', 'sword'].forEach((s) => swap(`ae2:tools/fluix_${s}`, `#ae2:quartz_${s}`, '#c:gems/certus_quartz'))
   swap('ae2:tools/network_tool', '#ae2:quartz_wrench', '#c:gems/certus_quartz')
+  // The strength card eats four swords; the two vanilla ones become the TFC blade of the MAP rule (diamond -> steel,
+  // netherite -> black steel), the two AE2 swords stay (craftable, same Age).
   swap('advanced_ae:strength_card', 'minecraft:diamond_sword', part('steel', 'sword'))
+  swap('advanced_ae:strength_card', 'minecraft:netherite_sword', part('black_steel', 'sword'))
 
   // ======================================================================================== Ad Astra
   // Doc 08 section 8: the Netherite Space Suit and the Jet Suit are direct, from the plates of their tier and

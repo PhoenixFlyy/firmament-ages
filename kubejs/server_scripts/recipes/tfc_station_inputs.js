@@ -75,7 +75,8 @@ ServerEvents.recipes((event) => {
       'create_enchantment_industry:smithing/blaze_enchanter', 'draconicevolution:machines/energy_transfuser',
       'mysticalagriculture:enchanter'
     ],
-    'minecraft:barrel': ['create_dragons_plus:crafting/fragile_fluid_tank', 'simulated:velocity_sensor'].concat(
+    // create_dragons_plus:crafting/fragile_fluid_tank also takes a Create copper sheet: recipes/dead_inputs.js rewrites it.
+    'minecraft:barrel': ['simulated:velocity_sensor'].concat(
       ['black', 'blue', 'brown', 'cyan', 'gray', 'green', 'light_blue', 'light_gray', 'lime', 'magenta', 'orange', 'pink',
         'purple', 'red', 'white', 'yellow'].map((c) => `create:crafting/logistics/${c}_postbox`)),
     'minecraft:chest': TWILIGHT_WOODS.map((w) => `twilightforest:wood/${w}_chest`),

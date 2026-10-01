@@ -16,6 +16,14 @@ ServerEvents.recipes((event) => {
     .resultFluid(Fluid.of('tfc:metal/zinc', 10))
     .id('firmages:heating/create_zinc_nugget')
 
+  // ---- Brass nugget (canonical Create nugget, TFC brass), the same way as zinc -------------------------------
+  // Create's own nugget recipe from c:ingots/brass does not survive the load (leftovers run, 2026-10-01), so no recipe
+  // made create:brass_nugget although about 30 recipes ask for it (Simulated's gyroscopic mechanism, lamps, rails).
+  event.shapeless('9x create:brass_nugget', ['#c:ingots/brass']).id('firmages:crafting/brass_nugget')
+  tfc.heating('create:brass_nugget', 930)
+    .resultFluid(Fluid.of('tfc:metal/brass', 10))
+    .id('firmages:heating/create_brass_nugget')
+
   // ---- Andesite alloy: zinc only, from TFC andesite (Doc 10 v3 section 7.3) ----------------------------
   event.remove({ id: 'create:crafting/materials/andesite_alloy' }) // iron nugget variant
   event.remove({ id: 'create:mixing/andesite_alloy' }) // iron nugget variant
