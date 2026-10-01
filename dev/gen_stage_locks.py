@@ -26,7 +26,8 @@ Usage
   python dev/gen_stage_locks.py                      rewrite tags and stage files
   python dev/gen_stage_locks.py --check              exit 1 if anything is out of date
   python dev/gen_stage_locks.py --registry test-server/local/firmages
-                                                     refresh dev/data/registry.json from a /fa_dump, then rewrite
+                                                     refresh dev/data/registry.json from a /fa_dump taken with
+                                                     every Age unlocked (age_9), then rewrite
   python dev/gen_stage_locks.py --explain <item id>  print the rule that decides the Age of one item
 Exit code 2: a namespace in the registry has no [mods] entry, or a rule names an unknown stage.
 """
@@ -87,6 +88,11 @@ def refresh_registry(dump_dir, amap):
     reg = json.loads((dump_dir / "registries.json").read_text(encoding="utf-8"))
     item_tags = json.loads((dump_dir / "item_tags.json").read_text(encoding="utf-8"))
     recipes = json.loads((dump_dir / "recipes.json").read_text(encoding="utf-8"))
+    # The recipe gate drops every recipe of a locked Age, so a dump taken before age_9 lacks whole namespaces and
+    # the grid-recipe locks below would silently shrink. Dump with every Age unlocked
+    # (firmages ages simulate grant age_9, then /fa_dump).
+    if "age_9" not in recipes.get("unlocked", []):
+        die(f"{dump_dir}/recipes.json was dumped with Ages {recipes.get('unlocked')}; dump with age_9 unlocked")
     col = recipes["columns"].index("id"), recipes["columns"].index("type")
     grid_ns = sorted({r[col[0]].split(":", 1)[0] for r in recipes["recipes"] if r[col[1]] == "minecraft:crafting"})
     wanted = selector_tags(list(amap.get("items", {})) + disabled_selectors())

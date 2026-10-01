@@ -17,6 +17,8 @@
     {"id": "afc:wood/hanging_sign/copper/tualang", "required": false},
     {"id": "firmages:hearth_idol", "required": false},
     {"id": "firmages:hearthstone", "required": false},
+    {"id": "firmages:offering_plinth", "required": false},
+    {"id": "firmages:shrine_heart", "required": false},
     {"id": "firmages:unfired_hearth_idol", "required": false},
     {"id": "framedblocks:framed_activator_rail_slope", "required": false},
     {"id": "framedblocks:framed_adj_double_copycat_panel", "required": false},

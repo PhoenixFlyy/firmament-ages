@@ -44,9 +44,9 @@ MOD_DATA = os.path.join(ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources'
 OFFERINGS_MOD = os.path.join(MOD_DATA, 'offerings.json')
 OFFERINGS_PACK = os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'firmages_shrine', 'offerings.json')
 SHRINE_TIERS = os.path.join(MOD_DATA, 'tier')
-# Ids that firmages-core 0.3.0 registers (SPEC section 7.1) but dev/data/registry.json, dumped from 0.2.1, does not
-# list yet. Accepted with a warning; empty this set once the registry is dumped again with 0.3.0.
-PENDING_MOD_IDS = {'firmages:shrine_heart', 'firmages:offering_plinth'}
+# Ids a new firmages-core registers before dev/data/registry.json is dumped again (gen_stage_locks.py --registry).
+# Accepted with a warning. Empty since the 0.3.0 dump.
+PENDING_MOD_IDS = set()
 
 
 # ------------------------------------------------------------------------------------------------ SNBT parser
