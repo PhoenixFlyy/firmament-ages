@@ -13,7 +13,7 @@ Text and settings for the CurseForge **Mod** project of firmages-core. The descr
 | Source | optional: link the GitHub repository once it is public; leave empty while it is private |
 | Logo | `dev/cf/avatar-400.png` (400x400, CurseForge avatar size) |
 | Game version / loader | Minecraft 1.21.1, NeoForge, Java 21 |
-| Mod id / jar | `firmages`, `firmages-core-0.6.0.jar` |
+| Mod id / jar | `firmages`, `firmages-core-0.6.1.jar` |
 
 ---
 
@@ -57,7 +57,11 @@ MIT. The textures are generated pixel art made for this mod.
 
 ### Changelog
 
-**0.6.0** (first CurseForge release)
+**0.6.1** (first CurseForge release)
+- Warm-up reload: a dedicated server runs one Age reload right after it starts, while nobody is online, so the first reload players wait for is not the slow cold one (`gate.warmupReload`, `gate.warmupDelayTicks`).
+- Joining a world, changing dimension or respawning sends the ProgressiveStages lock sync once instead of twice.
+
+**0.6.0**
 - Consecration: when Caelum accepts a ring, its blocks turn into one consecrated family (sky marble with one colour accent per Age), from the heart outward. Consecrated blocks are unbreakable; sneak and punch the heart with an empty hand for 60 s of maintenance, then they break and drop their original material. Rings built before the update are consecrated when the shrine next checks them.
 - Textures v2: redrawn items, animated signature items and altar top.
 - MIT licence.
@@ -72,10 +76,10 @@ MIT. The textures are generated pixel art made for this mod.
 
 ## Upload checklist (Felix)
 
-1. **Build state:** upload `mods/firmages-core-0.6.0.jar`; its `neoforge.mods.toml` says `license="MIT"`, the same licence as the project. CurseForge moderators compare them.
+1. **Build state:** upload `mods/firmages-core-0.6.1.jar`; its `neoforge.mods.toml` says `license="MIT"`, the same licence as the project. CurseForge moderators compare them.
 2. **Project:** curseforge.com → *Create Project* → Minecraft → *Mods*. Fields from the table above, description from the section between the rules, avatar `dev/cf/avatar-400.png`. The modpack link in the first paragraph assumes the slug `firmament-ages`; fix it once the modpack project exists (or drop the link for the first submission).
-3. **File:** *Upload File* → the jar; *Release type* **Beta** (the pack is in development, and two required mods of the pack are beta); game versions **1.21.1**, loader **NeoForge**, Java 21; changelog: the 0.6.0 entry above.
+3. **File:** *Upload File* → the jar; *Release type* **Beta** (the pack is in development, and two required mods of the pack are beta); game versions **1.21.1**, loader **NeoForge**, Java 21; changelog: the 0.6.1 and 0.6.0 entries above.
 4. **Relations** (on the file): *Required Dependency* ProgressiveStages and Modonomicon; *Optional Dependency* KubeJS, Create, Immersive Engineering, Mekanism, Draconic Evolution, Stargate Journey, Jade.
 5. **Wait for approval** (usually hours to a few days). Note the **project id** and the **file id** shown on the file page.
-6. **Pack:** in the repo root `tools\packwiz.exe curseforge add --addon-id <project id> --file-id <file id>`, delete `mods/firmages-core-0.6.0.jar`, `tools\packwiz.exe refresh`, commit. From then on the pack lists the mod in the CurseForge manifest instead of carrying the jar in `overrides/`.
+6. **Pack:** in the repo root `tools\packwiz.exe curseforge add --addon-id <project id> --file-id <file id>`, delete `mods/firmages-core-0.6.1.jar`, `tools\packwiz.exe refresh`, commit. From then on the pack lists the mod in the CurseForge manifest instead of carrying the jar in `overrides/`.
 7. **Every later version:** upload the new jar to this project first, then update the pack's metafile (`packwiz curseforge add` with the new file id, or `packwiz update firmages-core`).

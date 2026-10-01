@@ -17,16 +17,16 @@ Stand 2026-10-01, Pack 0.5.0. Reihenfolge: Konto, dann **zuerst firmages-core al
 
 Texte und Felder: `dev/cf/firmages-core-description.md` (Tabelle oben, Beschreibung zwischen den Linien, Checkliste unten).
 
-1. **Jar:** `mods/firmages-core-0.6.0.jar` hochladen; es meldet `license="MIT"` in seiner `neoforge.mods.toml`, passend zur Projektlizenz.
+1. **Jar:** `mods/firmages-core-0.6.1.jar` hochladen; es meldet `license="MIT"` in seiner `neoforge.mods.toml`, passend zur Projektlizenz.
 2. Author Console → **Create Project** → Spiel *Minecraft*, Klasse **Mods**.
 3. Felder: Name „Firmament Ages Core“, Summary aus der Tabelle, Beschreibung einfügen, Hauptkategorie *Miscellaneous*, weitere Kategorien laut Tabelle, Lizenz **MIT**, Avatar `dev/cf/avatar-400.png` (CurseForge verlangt 400 × 400).
-4. Speichern, dann **Upload File**: das Jar, Release-Typ **Beta**, Spielversion **1.21.1**, Loader **NeoForge**, Java 21, Changelog = Abschnitt „0.6.0“ der Beschreibung.
+4. Speichern, dann **Upload File**: das Jar, Release-Typ **Beta**, Spielversion **1.21.1**, Loader **NeoForge**, Java 21, Changelog = Abschnitte „0.6.1“ und „0.6.0“ der Beschreibung.
 5. Beziehungen an der Datei: *Required Dependency* ProgressiveStages und Modonomicon, *Optional Dependency* KubeJS, Create, Immersive Engineering, Mekanism, Draconic Evolution, Stargate Journey, Jade.
 6. Auf die Freigabe warten (meist Stunden, selten ein paar Tage). Danach auf der Dateiseite **Projekt-ID** und **Datei-ID** notieren.
 7. Im Repo (Hauptordner):
    ```
    tools\packwiz.exe curseforge add --addon-id <Projekt-ID> --file-id <Datei-ID>
-   del mods\firmages-core-0.6.0.jar
+   del mods\firmages-core-0.6.1.jar
    tools\packwiz.exe refresh
    ```
    Abhängigkeitsfragen mit `n` beantworten (alle Abhängigkeiten sind schon im Pack). Dann `mods/*.pw.toml`, `index.toml` und `pack.toml` committen. Ab jetzt steht firmages-core im Manifest statt als Jar in `overrides/`.
