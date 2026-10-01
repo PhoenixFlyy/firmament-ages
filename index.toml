@@ -521,6 +521,10 @@ file = "kubejs/server_scripts/recipes/global_removals.js"
 hash = "505ca355770108f9d75229d9b83ed1f57ebc36ac93490767989fcd01a29eb603"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/tfc_station_inputs.js"
+hash = "7f51b9b4ccf50a5db1ceb6e9956a441e3c7f6df635ac56375335a69503684555"
+
+[[files]]
 file = "kubejs/server_scripts/stages/grants.js"
 hash = "7cef67082aefcc21671e7cb950e639e949a133fa8f076c22a8c98334b366bd4c"
 
