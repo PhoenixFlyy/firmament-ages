@@ -482,3 +482,99 @@ Negative test: the Steel Heart at age_1 and the Pressure Core at age_2 fail with
   TFC grass ring, TFC flowers and polished quartz; Occultism Mineshaft and Ars apparatus cache flushes with a running
   machine.
 - Everything marked needs client: C1, C3, C8, C9, C11 (Dawn EMI view), C14, C17, C19, C20, C21 in `poc-checklist.md`.
+
+## Shrine M4 and ceremony
+
+Date: 2026-10-01, branch `dev`, firmages-core **0.3.0** (shrine and Age ceremony, merged from the shrine branch). Test
+server synced with `packwiz-installer-bootstrap` from `packwiz serve` (quest folder deleted and re-synced
+byte-identical), **fresh world** (`--wipe-world`), then one restart on the same world. `debug.allowSimulate = true`
+and the whitelist off only during the run (the whitelist kicks every non-listed player when an op changes); both are
+back to `false`/on.
+
+**Headless players.** No client can run here, so firmages-core got `/firmages debug player join|leave <name>`,
+`debug use <name> <pos> [sneak]`, `debug pray <name> <pos> <seconds>` and `debug run <name> <command>` (all behind
+`debug.allowSimulate`, `command/DebugPlayerCommands`). A debug player is a real `ServerPlayer` on an in-memory
+connection placed with `PlayerList.placeNewPlayer`, like vanilla's GameTest mock player, with a payload setup that
+accepts every mod channel. So FTB Teams, FTB Quests and ProgressiveStages see a normal login, and the shrine runs its
+real code: `use` and `pray` go through `ServerPlayerGameMode.useItemOn` and the `RightClickBlock` event. The player logs
+every firmages payload, title and chat line it receives as `[debug-player <name>]`. Players Alpha, Beta and Gamma, one
+FTB party "Firmament" (created with `debug run ... ftbteams party create/invite/join`).
+
+### Boot (fresh world)
+
+| Check | Observed | Result |
+|---|---|---|
+| KubeJS | startup 2/2, server 20/20 scripts, 0 errors, 0 warnings; `on_stage_added: Age titles by firmages-core ceremony`; `arcane TFC inputs: 162 magic recipes rewritten` | pass (after fixes 1 and 2 below; the first boot had 1 error and 1 warning) |
+| ProgressiveStages | 0 ERROR lines | pass |
+| FTB Quests | `Loaded 2 chapter groups, 6 chapters, 119 quests, 7 reward tables`, 0 ERROR lines | pass |
+| firmages-core | 0 ERROR lines; `Shrine data: tiers [0, 1, 2], fallback true, rings up to 2, 9 offerings, blessings [firmages:hearthward]`; `Boot: AgeState [dawn] ...; no reload` | pass |
+| Other errors | loot tables of dndecor, railways, create_connected, createcasing, more_immersive_wires, extendedae; Sable `copycat_catwalk`; WoodenCog recipe parse errors; Polymorph EMI module; TF `dev_new_world`; DISTXFORM lines | not ours |
+
+### The Stone Age shrine, step by step
+
+Heart at -1408 221 -800 on a stone platform. The ring was set with `/setblock` from pack materials:
+`tfc:rock/cobble/granite`, `tfc:wood/log/oak`, `tfc:thatch`, `firmages:offering_plinth`.
+
+| Step | Observed | Result |
+|---|---|---|
+| `stage grant Alpha age_0` | Alpha, Beta and Gamma all have `age_0` (one party). One SHORT `firmages:age_transition` payload per player, PS chat line, no title packet (the KubeJS title is off). One reload, 10,685 ms | pass |
+| Ring 0 built | `shrine status`: `Ring 0 ... complete, rotation CLOCKWISE_90`; `execute if block ... shrine_heart[ready=true]` passes; phase READY, rite "The heart is cold" | pass |
+| Broken ring (one post block removed) | offering refused and prayer refused: "Caelum does not dwell in ruins: the Hearth Circle is not complete (21 of 22 blocks)", with the `shrine_preview` payload for ring 0; `ready` false; after the repair `ready` is true again | pass |
+| Wrong item (stick) on the plinth | "Caelum asks for (Hearthstone) on this plinth.", item kept | pass |
+| Hearthstone from Beta | "(Hearthstone) rests on the plinth...", Beta's hand empty (one item taken) | pass |
+| Second Hearthstone from Alpha | "This plinth already holds (Hearthstone).", Alpha keeps it | pass |
+| Prayer on a cold heart | actionbar "The heart is cold. Kindle it with a firestarter." | pass |
+| `tfc:firestarter` on the heart | "The heart is kindled. Caelum watches.", `lit=true`, phase RITE_DONE | pass |
+| Gamma leaves; Alpha and Beta pray | actionbar "2 pray to Caelum", heard after about 6 s (200 ticks alone, halved for 2): `Shrine prayer heard (tier 0, by [Beta, Alpha]): granting age_1` | pass |
+| Ceremony | one FULL payload per online player (stage age_1, tier 0, heart position, beam and sky colours); `Ceremony FULL for age_1`; PS chat line; actionbar "Caelum is answering." | pass |
+| One reload inside the ceremony | `Age reload starting (granted age_1)` 3 s after the payload (t60), `finished in 8671 ms`, so it ends at about 12 s, the end of the 240-tick timeline. Exactly one reload; `firmages ages` shows `dawn, age_0, age_1` | pass |
+| Team grant | `stage check` age_1: Alpha and Beta yes; Gamma (offline during the prayer) has it on rejoin, from the team storage (no shrine catch-up line) | pass |
+| Relic | `shrine relics`: `tier 0: firmages:hearthstone on -1408, 221, -802`; plinth BE `item: hearthstone, relic: 1b`, blockstate `awakened=true`; `shrine grants [age_1]`; Hearthward radius 12 active | pass |
+| Goal quest | at the grant, the goal's gamestage task `6494AD8893357940` completes. The goal `5298B856BFEE50A2` stays started while keystones are open. Keystones forced with `ftbquests change_progress ... complete` do not re-check their dependants. After all 4 keystones were done, the goal was reset and the player relogged: the stage task completed again from `age_1`, and so did the goal | pass (see note) |
+| Broken after awakening | a post removed: "The shrine is broken. Caelum's blessings rest until it is repaired.", sanctuary inactive, `age_1` kept; repaired: "The shrine stands again. Caelum's blessings return." | pass |
+
+Item names appear as `item.firmages.hearthstone` in the server log only: the dedicated server has no KubeJS client lang;
+the client renders the translatable name.
+
+Note on the goal quest: in normal play a keystone completes through its tasks. FTB Quests' `Quest.onCompleted` then
+calls `checkForDependantCompletion` (javap, 2101.1.36), which completes a flexible-mode dependant whose tasks are
+already done. So offering before the strands are done is fine. Only the admin command `change_progress complete` skips
+that check.
+
+### Restart (same world)
+
+`Boot Age snapshot [dawn, age_0, age_1] from MIRROR`, `matches the boot snapshot ...; no reload`; no
+`age_transition` payload at login; `shrine status`: heart, ring 0 complete, `awakened 1, relics 1, shrine grants
+[age_1]`, sanctuary active; the plinth BE still holds the Hearthstone as relic; all three players have `age_1`; the quest
+data kept the completed task. `ready=false` is correct now: tier 1 needs the Bronze Sanctum, which is not built.
+
+### Fixes from this run
+
+1. **`on_stage_added.js`:** Rhino threw "redeclaration of var m" on a `const` in the version check. The script fell
+   back to KubeJS titles, so every Age would have had two titles. It now uses `let`.
+2. **`arcane_tfc_inputs.js`:** the same Rhino error at `const j` in the GEAR_FIX branch aborted the whole recipes
+   event, so none of the 162 magic rewrites (diamond substitutes, the gear rule) applied. It now uses `let`.
+3. **`grants.js`:** `PlayerEvents.advancement` got a null advancement for join-time advancements and logged one error
+   per join. It now has a guard.
+4. **firmages-core `shrine status`:** the header showed the previous validation's `intact`. It now validates first.
+5. **firmages-core prayer refusal:** a held prayer on a broken ring sent the ghost preview 4 times a second. The
+   preview now goes out with the throttled message, once a second (checked: 4 previews in 4 s).
+6. **Offerings:** `kubejs/data/firmages/shrine/offerings.json` was never read by the mod, and its format would have
+   been rejected at the mod's path. It is removed; `validate_quests.py` reads the mod's
+   `data/firmages/firmages_shrine/offerings.json` (merge commit).
+
+### Open points of this run
+
+- **Reload time is now over the 10 s limit of SPEC §3.** age_0 took 10.7 s with three players online, age_1 8.7 s.
+  The all-Ages dump run (no players, `simulate grant age_0`..`age_9`) took 11.0 to 19.3 s per reload ("Age reload ...
+  finished in"). The KubeJS recipe phase alone took 4.6 to 6.3 s (20.7 s on the first one), against 2.65 to 3.56 s in
+  the 0.2.1 run. Likely cause: the 162 magic recipe rewrites of `arcane_tfc_inputs.js` (remove plus `event.custom` per
+  recipe on every reload), which never ran before fix 2. Not measured with spark; still below the 30 s client timeout.
+- `dev/data/registry.json` was refreshed from an all-Ages dump (+2 items: shrine heart and plinth, `age_0`).
+  `gen_stage_locks.py --registry` now refuses a dump taken before age_9. A Dawn dump had silently dropped 53 grid-recipe
+  namespace locks, because the gate removes their recipes.
+- The client half (beam, sky tint, title, voice line, sounds, plinth renderer, ghost alignment, EMI update) is Felix's
+  dev-client test (`dev/dev-client.md` section 7 and "Age-Übergang testen").
+- Rings 1 and 2 (TFC bricks, bronze blocks, bell, smooth stone, lamps) were not built in the world.
+- From the console, FTB Teams' team argument accepts neither the display name nor the UUID (`Team ... not found`,
+  `unexpected error`); `party join @a[name=<owner>]` works for an op player.

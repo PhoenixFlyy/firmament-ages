@@ -84,9 +84,9 @@ Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn 
   old "Hearth" strand (keystone Hearth Idol), so the chapter keeps 4 keystones (Doc 08 section 9.1). FTB Quests
   2101.1.36 matches `block_state` with `BlockInput.test` on the listed properties only (javap of ObservationTask),
   so `[ready=true]` ignores `awakened` and `lit`.
-- `firmages:shrine_heart` and `firmages:offering_plinth` come with firmages-core 0.3.0; `dev/data/registry.json` is
-  from 0.2.1, so the validator accepts them from `PENDING_MOD_IDS` with a warning. Re-dump the registry after 0.3.0
-  and empty that set.
+- `firmages:shrine_heart` and `firmages:offering_plinth` come with firmages-core 0.3.0 and are in
+  `dev/data/registry.json` since the all-Ages dump of 2026-10-01 (both `age_0` in `dev/age_map.toml`); `PENDING_MOD_IDS`
+  in the validator is empty.
 - Bronze and Iron goal texts name the rings and rites that firmages-core 0.3.0 ships (`tier/ring_1.json`: Bronze
   Sanctum + bell; `tier/ring_2.json`: Iron Sanctum + four lamps, SPEC section 7.8). The goal has no item task: it
   unlocks only after Raise the Shrine, and a Hearthstone laid on the plinth at once would never tick it.
