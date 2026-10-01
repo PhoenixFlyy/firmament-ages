@@ -17,7 +17,11 @@ ServerEvents.recipes((event) => {
     'minecraft:blast_furnace': 'tfc:blast_furnace',
     'minecraft:smoker': 'tfc:firepit',
     'minecraft:campfire': 'tfc:firepit',
-    'minecraft:anvil': '#tfc:anvils'
+    'minecraft:anvil': '#tfc:anvils',
+    // Not a station, but the same problem: a TFC world has no vanilla bucket recipe (the Arcane MAP uses the TFC
+    // wooden bucket too). Among the users: the Mekanism Dynamic Tank, Osmium Compressor, Electric Pump and basic
+    // mechanical pipe (the Space Age fission chain needs the PRC and the oxidizer, both built on the Dynamic Tank).
+    'minecraft:bucket': 'tfc:wooden_bucket'
   }
   const USERS = {
     'minecraft:crafting_table': [
@@ -44,6 +48,14 @@ ServerEvents.recipes((event) => {
       'railways:crafting/smokestack_oilburner', 'railways:crafting/smokestack_streamlined',
       'railways:crafting/smokestack_woodburner'
     ],
+    'minecraft:bucket': [
+      'advanced_ae:reactionchamber', 'draconicevolution:fluid_gate', 'draconicevolution:rain_sensor',
+      'framedblocks:framed_tank', 'immersiveengineering:crafting/chemthrower', 'immersiveengineering:crafting/jerrycan',
+      'immersivepetroleum:oil_can', 'mekanism:dynamic_tank', 'mekanism:electric_pump', 'mekanism:osmium_compressor',
+      'mekanism:thermal_evaporation/controller', 'mekanism:transmitter/mechanical_pipe/basic',
+      'mekanismgenerators:saturating_condenser', 'sgjourney:naquadah_liquidizer', 'sophisticatedbackpacks:pump_upgrade',
+      'toms_storage:paint_kit'
+    ],
     'minecraft:anvil': [
       'apothic_enchanting:scrap_tome', 'cataclysm:mechanical_fusion_anvil',
       'create_enchantment_industry:smithing/blaze_forger', 'sophisticatedbackpacks:anvil_upgrade'
@@ -56,10 +68,13 @@ ServerEvents.recipes((event) => {
       n++
     })
   })
-  // Types without a KubeJS schema (ExtendedAE crystal assembler, DE fusion crafting): replaceInput does not touch
+  // Steam 'n' Rails boilers (about 130 colour and wrap variants): one regex id filter instead of 130 ids.
+  event.replaceInput({ id: /^railways:mechanical_crafting\/.*locometal_boiler$/ }, 'minecraft:bucket', 'tfc:wooden_bucket')
+  // Types without a KubeJS schema (ExtendedAE crystal assembler, DE fusion crafting, the FramedBlocks framing saw,
+  // Sophisticated Core upgrade recipes): replaceInput does not touch
   // them, so their JSON is rewritten and re-added under its own id, as in arcane_tfc_inputs.js.
   const AS_JSON = ['advanced_ae:eaelargeappupgrade', 'draconicevolution:machines/draconium_chest',
-    'extendedae:assembler/ex_pattern_provider']
+    'extendedae:assembler/ex_pattern_provider', 'framedblocks:framing_saw/framed_tank', 'sophisticatedbackpacks:pump_upgrade']
   const json = (v) => JSON.stringify(v.startsWith('#') ? { tag: v.slice(1) } : { item: v }).slice(1, -1)
   const ITEM_RE = new RegExp(`"item":"(${Object.keys(TFC).join('|')})"`, 'g')
   const todo = []
