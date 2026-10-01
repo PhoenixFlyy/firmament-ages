@@ -10,11 +10,13 @@
 
 ServerEvents.recipes((event) => {
   // ======================================================================================== Ad Astra machines
-  event.remove(['ad_astra:compressing', 'ad_astra:alloying', 'ad_astra:refining'].map((t) => ({ type: t }))) // one OR pass
-  // Ad Astra smelts and blasts its planet ores (desh, ostrum, calorite, and the planet copper, iron, gold, coal,
-  // diamond, lapis, ice shard and cheese ores) and raw ores in the vanilla furnace (matrix 6.1 "Schmelzen" loser:
-  // "Vanilla-Ofen für Erze"); these recipes use Ad Astra's own tags, so the global furnace-ore removal missed them.
-  event.remove({ id: /^ad_astra:(smelting|blasting)\/.+_from_(smelting|blasting)_(.+_ore|raw_.+)$/ })
+  // The Ad Astra compressor, alloying and refinery recipes go, and so do its furnace recipes of planet ores and raw
+  // ores (desh, ostrum, calorite, and the planet copper, iron, gold, coal, diamond, lapis, ice shard and cheese ores;
+  // matrix 6.1 "Schmelzen" loser: "Vanilla-Ofen für Erze"): they use Ad Astra's own tags, so the global furnace-ore
+  // removal misses them. Fixed ids, 12 + 50, read from the original recipes on 2026-10-01 (a type or regex filter is
+  // one scan of all recipes per reload); poc_analyze.py C-7a reports any recipe of these types or ad_astra
+  // smelting/blasting id ..._from_..._ore that is left.
+  event.remove(AD_ASTRA_REMOVALS.map((id) => ({ id: id })))
 
   // ======================================================================================== plates: the IE Metal Press
   // IE's own tag recipes press desh, ostrum and calorite plates (immersiveengineering:metalpress/plate_<m>, one ingot ->
@@ -50,3 +52,64 @@ ServerEvents.recipes((event) => {
     ]
   }).id('firmages:fusion/star_chart')
 })
+
+// Ad Astra machine and planet-ore furnace recipes, as fixed ids (see the removals at the top of the handler).
+const AD_ASTRA_REMOVALS = [
+  'ad_astra:alloying/steel_ingot_from_alloying_iron_ingot_and_barrier',
+  'ad_astra:blasting/calorite_ingot_from_blasting_deepslate_calorite_ore',
+  'ad_astra:blasting/calorite_ingot_from_blasting_raw_calorite',
+  'ad_astra:blasting/calorite_ingot_from_blasting_venus_calorite_ore',
+  'ad_astra:blasting/cheese_from_blasting_moon_cheese_ore', 'ad_astra:blasting/coal_from_blasting_glacio_coal_ore',
+  'ad_astra:blasting/coal_from_blasting_venus_coal_ore',
+  'ad_astra:blasting/copper_ingot_from_blasting_glacio_copper_ore',
+  'ad_astra:blasting/desh_ingot_from_blasting_deepslate_desh_ore',
+  'ad_astra:blasting/desh_ingot_from_blasting_moon_desh_ore', 'ad_astra:blasting/desh_ingot_from_blasting_raw_desh',
+  'ad_astra:blasting/diamond_from_blasting_mars_diamond_ore',
+  'ad_astra:blasting/diamond_from_blasting_venus_diamond_ore',
+  'ad_astra:blasting/gold_ingot_from_blasting_venus_gold_ore',
+  'ad_astra:blasting/ice_shard_from_blasting_deepslate_ice_shard_ore',
+  'ad_astra:blasting/ice_shard_from_blasting_glacio_ice_shard_ore',
+  'ad_astra:blasting/ice_shard_from_blasting_mars_ice_shard_ore',
+  'ad_astra:blasting/ice_shard_from_blasting_moon_ice_shard_ore',
+  'ad_astra:blasting/iron_ingot_from_blasting_glacio_iron_ore',
+  'ad_astra:blasting/iron_ingot_from_blasting_mars_iron_ore',
+  'ad_astra:blasting/iron_ingot_from_blasting_mercury_iron_ore',
+  'ad_astra:blasting/iron_ingot_from_blasting_moon_iron_ore',
+  'ad_astra:blasting/lapis_lazuli_from_blasting_glacio_lapis_ore',
+  'ad_astra:blasting/ostrum_ingot_from_blasting_deepslate_ostrum_ore',
+  'ad_astra:blasting/ostrum_ingot_from_blasting_mars_ostrum_ore',
+  'ad_astra:blasting/ostrum_ingot_from_blasting_raw_ostrum',
+  'ad_astra:compressing/calorite_plate_from_compressing_calorite_blocks',
+  'ad_astra:compressing/calorite_plate_from_compressing_calorite_ingots',
+  'ad_astra:compressing/desh_plate_from_compressing_desh_blocks',
+  'ad_astra:compressing/desh_plate_from_compressing_desh_ingots',
+  'ad_astra:compressing/iron_plate_from_compressing_iron_block',
+  'ad_astra:compressing/iron_plate_from_compressing_iron_ingot',
+  'ad_astra:compressing/ostrum_plate_from_compressing_ostrum_blocks',
+  'ad_astra:compressing/ostrum_plate_from_compressing_ostrum_ingots',
+  'ad_astra:compressing/steel_plate_from_compressing_steel_blocks',
+  'ad_astra:compressing/steel_plate_from_compressing_steel_ingots', 'ad_astra:refining/fuel_from_refining_oil',
+  'ad_astra:smelting/calorite_ingot_from_smelting_deepslate_calorite_ore',
+  'ad_astra:smelting/calorite_ingot_from_smelting_raw_calorite',
+  'ad_astra:smelting/calorite_ingot_from_smelting_venus_calorite_ore',
+  'ad_astra:smelting/cheese_from_smelting_moon_cheese_ore', 'ad_astra:smelting/coal_from_smelting_glacio_coal_ore',
+  'ad_astra:smelting/coal_from_smelting_venus_coal_ore',
+  'ad_astra:smelting/copper_ingot_from_smelting_glacio_copper_ore',
+  'ad_astra:smelting/desh_ingot_from_smelting_deepslate_desh_ore',
+  'ad_astra:smelting/desh_ingot_from_smelting_moon_desh_ore', 'ad_astra:smelting/desh_ingot_from_smelting_raw_desh',
+  'ad_astra:smelting/diamond_from_smelting_mars_diamond_ore',
+  'ad_astra:smelting/diamond_from_smelting_venus_diamond_ore',
+  'ad_astra:smelting/gold_ingot_from_smelting_venus_gold_ore',
+  'ad_astra:smelting/ice_shard_from_smelting_deepslate_ice_shard_ore',
+  'ad_astra:smelting/ice_shard_from_smelting_glacio_ice_shard_ore',
+  'ad_astra:smelting/ice_shard_from_smelting_mars_ice_shard_ore',
+  'ad_astra:smelting/ice_shard_from_smelting_moon_ice_shard_ore',
+  'ad_astra:smelting/iron_ingot_from_smelting_glacio_iron_ore',
+  'ad_astra:smelting/iron_ingot_from_smelting_mars_iron_ore',
+  'ad_astra:smelting/iron_ingot_from_smelting_mercury_iron_ore',
+  'ad_astra:smelting/iron_ingot_from_smelting_moon_iron_ore',
+  'ad_astra:smelting/lapis_lazuli_from_smelting_glacio_lapis_ore',
+  'ad_astra:smelting/ostrum_ingot_from_smelting_deepslate_ostrum_ore',
+  'ad_astra:smelting/ostrum_ingot_from_smelting_mars_ostrum_ore',
+  'ad_astra:smelting/ostrum_ingot_from_smelting_raw_ostrum'
+]

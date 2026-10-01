@@ -970,7 +970,8 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     # crusher keeps clumps, gems and bio fuel but crushes no ingot)
     gone = {"mekanism:sawing", "mekanism:planting", "mekanism:recycling", "mekanism:melting", "mekanism:solidification",
             "mekanism:stamping", "mekanism:lathing", "mekanism:rolling_mill", "mekanism:pressing", "mekmm:stamper",
-            "mekmm:lathe", "mekmm:rolling_mill", "mekmm:presser", "evolvedmekanism:melting", "evolvedmekanism:solidifying"}
+            "mekmm:lathe", "mekmm:rolling_mill", "mekmm:presser", "mekmm:pressing", "mekmm:planting", "mekmm:recycler",
+            "evolvedmekanism:melting", "evolvedmekanism:solidifying"}
     present = sorted({j.get("type") for j in full.values()} & gone)
     ingot_crush = sorted(r for r, j in full.items() if j.get("type") in ("mekanism:crushing", "moremekanismprocessing:tag_crushing")
                          and '"c:ingots/' in json.dumps(j.get("input", {})))
@@ -978,6 +979,19 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     check("C-6b Mekanism: no Precision Sawmill, planting, recycling, molten-metal, stamping/lathe/rolling/presser recipes; "
           "no ingot -> dust crushing; no Mekanism steel or bronze route", not present and not ingot_crush and not steel_dust,
           ["types %s" % present, "ingot crushing %s" % ingot_crush[:8], "steel/bronze %s" % steel_dust])
+    # C-6e: the rest of the fixed ORE_LADDER_REMOVALS list (recipes/age_6/ore_ladder.js): no Mekanism-family combiner
+    # recipe makes an ore block, no Mekanism crusher crushes stone, gravel or sand, no More Machine silver chain
+    mek_ns = ("mekanism:", "moremekanismprocessing:", "mekmm:", "evolvedmekanism:", "mekatfc:", "extendedae:", "advanced_ae:")
+    comb_ore = sorted(r for r, j in full.items() if r.startswith(mek_ns) and j.get("type") == "mekanism:combining"
+                      and re.search(r"(_ore|ancient_debris)$", str(j.get("output", {}).get("id", ""))))
+    stone_crush = sorted(r for r, j in full.items() if r.startswith(mek_ns)
+                         and j.get("type") in ("mekanism:crushing", "moremekanismprocessing:tag_crushing")
+                         and re.search(r'"minecraft:(cobblestone|gravel|sand|red_sand|.*_tiles?|.*bricks?.*|.*stone.*|deepslate.*|tuff.*)"',
+                                       json.dumps(j.get("output", {}))))
+    mm_silver = sorted(r for r in full if r.startswith("mekmm:processing/silver/"))
+    check("C-6e Mekanism ore ladder removals: no combiner ore blocks, no stone/gravel/sand crushing, no More Machine silver chain",
+          not comb_ore and not stone_crush and not mm_silver,
+          ["combiner %s" % comb_ore[:8], "stone crushing %s" % stone_crush[:8], "silver %s" % mm_silver[:8]])
     # C-6c: AE2 processors and printed circuits only from the AE2 Inscriber
     proc = types_making(lambda o: re.match(r"^ae2:(printed_)?(logic|calculation|engineering)_processor$|^ae2:printed_silicon$", o))
     check("C-6c AE2 processors and printed circuits only from the AE2 Inscriber", proc == ["ae2:inscriber"], ["types %s" % proc])
@@ -1031,6 +1045,18 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           not iron_tier, iron_tier)
     occ_silver = sorted(r for r, j in full.items() if re.search(r'"occultism:silver_(ingot|nugget)"', inputs_text(j)))
     check("C-3s no recipe asks for Occultism silver ingots or nuggets (global_removals.js OCCULT_SILVER)", not occ_silver, occ_silver)
+    # C-3m: the Arcane MAP (recipes/age_3/arcane_tfc_inputs.js) runs on a fixed id list; no recipe of the magic mods
+    # may still name one of its vanilla items as an ingredient.
+    src3 = open(os.path.join(REPO, "kubejs", "server_scripts", "recipes", "age_3", "arcane_tfc_inputs.js"), encoding="utf-8").read()
+    map_start = src3.index("const MAP = {")
+    map_block = src3[map_start:src3.index(chr(10) + "  }" + chr(10), map_start)]
+    map_keys = set(re.findall(r"^\s*'([a-z0-9_]+:[a-z0-9_/]+)':", map_block, re.M))
+    magic_ns = ("occultism:", "ars_nouveau:", "ars_additions:", "ars_creo:", "theurgy:", "occultengineering:", "summoningrituals:")
+    magic_left = sorted(f"{r}: {sorted(set(m) & map_keys)}" for r, m in
+                        ((r, re.findall(r'"item": "([a-z0-9_]+:[a-z0-9_/]+)"', inputs_text(j))) for r, j in full.items()
+                         if r.startswith(magic_ns)) if set(m) & map_keys)
+    check(f"C-3m no magic-mod recipe names one of the {len(map_keys)} vanilla items of the Arcane MAP (REWRITE_IDS)",
+          map_keys and not magic_left, magic_left)
     # C-Gv: no recipe consumes a vanilla tool or armour piece that no recipe of the pack makes (a TFC world has no
     # vanilla wooden, stone, iron or diamond tools); Apotheosis salvaging takes mob drops by design (decision log).
     vanilla_gear = re.compile(r'"(minecraft:(?:wooden|stone|iron|golden|diamond|netherite)_(?:sword|pickaxe|axe|shovel|hoe)'

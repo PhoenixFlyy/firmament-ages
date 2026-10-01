@@ -722,7 +722,7 @@ hash = "ae4d565beb894e798b5956c78640102a735246dd7068999c67a8cb2fcb166ee3"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
-hash = "91b87027c7165c9073ddabfef7345fa12101df98ceb0d872b39829b6cebd1b48"
+hash = "e8b693c4f86a504cfd32dc5a68acfd46c0c6773660c42b49717a6bb76c1c2bf5"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
@@ -730,7 +730,7 @@ hash = "9502f87451b553c4e6e6dacf695303fe9226253eef7790a9adf52a6dee696adc"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
-hash = "df309616d58f66d27c361602c2e93692f5057fab38a947125b4f899fd09a5eb2"
+hash = "a18367c42e35fc313b9a47c8ceb7af2f3885761acdefa5e84ced4d90b3e80254"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
@@ -738,11 +738,11 @@ hash = "bd4d694ff400059ee260dfd14c47fe03a523aace933831149c04ba7698b4642b"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
-hash = "1fa78b10647ca07ab1c0aee6533da43f020aa14e6825897e3195480bbce4fa74"
+hash = "3abcf329d452771f2c694a0a3ee90303c0c4af98194cba479d063fbaefdc92ca"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_7/space_age.js"
-hash = "16825d2888d1b5dce58a905baad94182cc1ddf0ba1cebe1b1f637cc905c7379b"
+hash = "1094b35d0e1a73ffa96cde024fa1f7974ebd597f860318ded23daee612805c8b"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"

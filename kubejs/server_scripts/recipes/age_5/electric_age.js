@@ -60,9 +60,9 @@ ServerEvents.recipes((event) => {
     if (CDG_KEEP.indexOf(id) < 0) cdg.push(id)
   })
   cdg.forEach((id) => event.remove({ id: id }))
-  // One OR filter: a type filter per call is one scan of all recipes.
-  event.remove(['basin_fermenting', 'bulk_fermenting', 'casting', 'compression_molding', 'distillation', 'hammering', 'wire_cutting']
-    .map((t) => ({ type: `createdieselgenerators:${t}` })))
+  // Every recipe of the Diesel Generators machine types (fermenting, casting, compression molding, distillation,
+  // hammering, wire cutting) has a createdieselgenerators id (all 47 on 2026-10-01), so the pass above takes them too;
+  // a type filter would be one more scan of all recipes. poc_analyze.py C-5a reports a Diesel Generators output left.
 
   // ======================================================================================== magic tail: Afrit
   // Doc 08 section 7.2: the Afrit binding book needs an IE HV coil block. One grid recipe each (the IE Assembler

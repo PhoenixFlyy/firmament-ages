@@ -13,7 +13,6 @@
 // materials instead.
 
 ServerEvents.recipes((event) => {
-  const MAGIC = /^(occultism|ars_nouveau|ars_additions|ars_creo|theurgy|occultengineering|summoningrituals):/
   const item = (id) => ({ item: id })
   const tag = (id) => ({ tag: id })
 
@@ -159,8 +158,89 @@ ServerEvents.recipes((event) => {
     return out
   }
 
+  // The magic recipes that name a MAP item, an Arcane diamond or a GEAR_FIX reagent, as fixed ids: 167 of the 2,714
+  // recipes of the magic mods (Occultism, Ars Nouveau and Additions, Theurgy; read from the original recipes on
+  // 2026-10-01). A plain id list is a map lookup; reading every magic recipe as JSON cost about 55 ms of every reload.
+  // dev/poc_analyze.py check C-3m reports a magic recipe that still names a MAP item (add its id here).
+  const REWRITE_IDS = [
+    'ars_additions:apparatus/dispel_protection_charm', 'ars_additions:apparatus/ender_mask_charm',
+    'ars_additions:apparatus/fall_prevention_charm', 'ars_additions:apparatus/fire_resistance_charm',
+    'ars_additions:apparatus/golden_charm', 'ars_additions:apparatus/night_vision_charm',
+    'ars_additions:apparatus/powdered_snow_walk_charm', 'ars_additions:apparatus/sonic_boom_protection_charm',
+    'ars_additions:apparatus/undying_charm', 'ars_additions:apparatus/void_protection_charm',
+    'ars_additions:apparatus/water_breathing_charm', 'ars_additions:apparatus/wither_protection_charm',
+    'ars_additions:apparatus/xp_jar', 'ars_additions:glyph_retaliate', 'ars_nouveau:agronomic_sourcelink',
+    'ars_nouveau:air_essence_to_snow_bucket', 'ars_nouveau:alchemists_crown', 'ars_nouveau:amulet_of_mana_boost',
+    'ars_nouveau:amulet_of_mana_regen', 'ars_nouveau:apprentice_book_upgrade', 'ars_nouveau:arcanist_boots',
+    'ars_nouveau:arcanist_hood', 'ars_nouveau:arcanist_leggings', 'ars_nouveau:arcanist_robes',
+    'ars_nouveau:battlemage_boots', 'ars_nouveau:battlemage_hood', 'ars_nouveau:battlemage_leggings',
+    'ars_nouveau:battlemage_robes', 'ars_nouveau:drygmy_charm', 'ars_nouveau:efficiency_1',
+    'ars_nouveau:efficiency_2', 'ars_nouveau:efficiency_3', 'ars_nouveau:efficiency_4', 'ars_nouveau:efficiency_5',
+    'ars_nouveau:enchanters_fishing_rod', 'ars_nouveau:enchanters_gauntlet', 'ars_nouveau:enchanters_shield',
+    'ars_nouveau:enchanters_sword', 'ars_nouveau:enchanting_apparatus', 'ars_nouveau:glyph_amplify',
+    'ars_nouveau:glyph_break', 'ars_nouveau:glyph_burst', 'ars_nouveau:glyph_craft', 'ars_nouveau:glyph_cut',
+    'ars_nouveau:glyph_dispel', 'ars_nouveau:glyph_explosion', 'ars_nouveau:glyph_fell', 'ars_nouveau:glyph_glide',
+    'ars_nouveau:glyph_gravity', 'ars_nouveau:glyph_harm', 'ars_nouveau:glyph_harvest', 'ars_nouveau:glyph_infuse',
+    'ars_nouveau:glyph_light', 'ars_nouveau:glyph_linger', 'ars_nouveau:glyph_projectile', 'ars_nouveau:glyph_pull',
+    'ars_nouveau:glyph_self', 'ars_nouveau:glyph_smelt', 'ars_nouveau:glyph_underfoot', 'ars_nouveau:glyph_wall',
+    'ars_nouveau:glyph_wind_shear', 'ars_nouveau:imbuement_abjuration_essence', 'ars_nouveau:imbuement_amplify_arrow',
+    'ars_nouveau:jar_of_light', 'ars_nouveau:manipulation_essence_to_andesite',
+    'ars_nouveau:manipulation_essence_to_calcite', 'ars_nouveau:manipulation_essence_to_deepslate',
+    'ars_nouveau:manipulation_essence_to_diorite', 'ars_nouveau:manipulation_essence_to_granite',
+    'ars_nouveau:manipulation_essence_to_tuff', 'ars_nouveau:mycelial_sourcelink', 'ars_nouveau:novice_spell_book',
+    'ars_nouveau:novice_spellbook_alt', 'ars_nouveau:planarium', 'ars_nouveau:potion_diffuser',
+    'ars_nouveau:potion_flask', 'ars_nouveau:ring_of_greater_discount', 'ars_nouveau:ring_of_lesser_discount',
+    'ars_nouveau:ritual_burrowing', 'ars_nouveau:ritual_conjure_island_desert', 'ars_nouveau:ritual_containment',
+    'ars_nouveau:ritual_disintegration', 'ars_nouveau:ritual_fertility', 'ars_nouveau:ritual_flight',
+    'ars_nouveau:ritual_gravity', 'ars_nouveau:ritual_harvest', 'ars_nouveau:scryers_oculus',
+    'ars_nouveau:shapers_focus', 'ars_nouveau:sorcerer_boots', 'ars_nouveau:sorcerer_hood',
+    'ars_nouveau:sorcerer_leggings', 'ars_nouveau:sorcerer_robes', 'ars_nouveau:source_berry_roll',
+    'ars_nouveau:spell_bow', 'ars_nouveau:spell_crossbow', 'ars_nouveau:storage_lectern',
+    'ars_nouveau:thread_repairing', 'ars_nouveau:void_jar', 'ars_nouveau:water_essence_to_bucket',
+    'ars_nouveau:whirlisprig_charm', 'ars_nouveau:wilden_summon_alt', 'ars_nouveau:wixie_charm',
+    'occultism:crafting/book_of_calling_djinni_manage_machine', 'occultism:crafting/chalk_red_impure',
+    'occultism:crafting/nature_paste_mossy_cobblestone', 'occultism:crushing/calcite_dust',
+    'occultism:ritual/craft_iesnium_anvil', 'occultism:ritual/craft_iesnium_butcher_knife',
+    'occultism:ritual/craft_miner_marid_master', 'occultism:ritual/craft_soul_gem',
+    'occultism:ritual/familiar_blacksmith', 'occultism:ritual/familiar_chimera',
+    'occultism:ritual/misc_reinforced_deepslate', 'occultism:ritual/misc_wild_trim',
+    'occultism:ritual/possess_hoglin', 'occultism:ritual/possess_random_animal_rideable',
+    'occultism:ritual/possess_villager', 'occultism:ritual/possess_witch',
+    'occultism:ritual/summon_afrit_crystallizer', 'occultism:ritual/summon_afrit_smelter',
+    'occultism:ritual/summon_demonic_husband', 'occultism:ritual/summon_demonic_wife',
+    'occultism:ritual/summon_djinni_day_time', 'occultism:ritual/summon_djinni_manage_machine',
+    'occultism:ritual/summon_djinni_smelter', 'occultism:ritual/summon_foliot_farmer',
+    'occultism:ritual/summon_foliot_lumberjack', 'occultism:ritual/summon_foliot_otherrock_trader',
+    'occultism:ritual/summon_foliot_otherstone_trader', 'occultism:ritual/summon_foliot_sapling_trader',
+    'occultism:ritual/summon_foliot_smelter', 'occultism:ritual/wild_creeper', 'occultism:ritual/wild_drowned',
+    'occultism:ritual/wild_random_animal_rideable', 'occultism:ritual/wild_silverfish',
+    'occultism:ritual/wild_villager', 'occultism:spirit_fire/otherrock', 'occultism:spirit_fire/otherstone',
+    'occultism:spirit_fire/otherworld_sapling_natural', 'occultism:spirit_fire/spirit_attuned_gem',
+    'theurgy:calcination/alchemical_salt_creature_from_beef',
+    'theurgy:calcination/alchemical_salt_creature_from_chicken',
+    'theurgy:calcination/alchemical_salt_creature_from_mutton',
+    'theurgy:calcination/alchemical_salt_creature_from_porkchop',
+    'theurgy:calcination/alchemical_salt_strata_from_gravel',
+    'theurgy:crafting/shaped/caloric_flux_emitter_from_campfire', 'theurgy:crafting/shaped/divination_rod_t3',
+    'theurgy:crafting/shaped/sulfur_attuned_divination_rod_precious', 'theurgy:crafting/shapeless/lava_bucket',
+    'theurgy:crafting/shapeless/water_bucket', 'theurgy:distillation/beef', 'theurgy:distillation/chicken',
+    'theurgy:distillation/porkchop', 'theurgy:liquefaction/alchemical_sulfur_andesite_from_andesite',
+    'theurgy:liquefaction/alchemical_sulfur_apple_from_apple',
+    'theurgy:liquefaction/alchemical_sulfur_beef_from_beef',
+    'theurgy:liquefaction/alchemical_sulfur_carrot_from_carrot',
+    'theurgy:liquefaction/alchemical_sulfur_chicken_from_chicken',
+    'theurgy:liquefaction/alchemical_sulfur_deepslate_from_deepslate',
+    'theurgy:liquefaction/alchemical_sulfur_diorite_from_diorite',
+    'theurgy:liquefaction/alchemical_sulfur_granite_from_granite',
+    'theurgy:liquefaction/alchemical_sulfur_gravel_from_gravel',
+    'theurgy:liquefaction/alchemical_sulfur_mutton_from_mutton',
+    'theurgy:liquefaction/alchemical_sulfur_porkchop_from_porkchop',
+    'theurgy:liquefaction/alchemical_sulfur_potato_from_potato',
+    'theurgy:liquefaction/alchemical_sulfur_stone_from_stone',
+    'theurgy:liquefaction/alchemical_sulfur_wheat_from_wheat'
+  ]
   const todo = []
-  event.forEachRecipe({ id: MAGIC }, (r) => {
+  event.forEachRecipe(REWRITE_IDS.map((id) => ({ id: id })), (r) => {
     const id = String(r.getId())
     const text = String(r.json)
     const next = rewrite(text, id)

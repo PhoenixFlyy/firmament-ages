@@ -30,36 +30,24 @@ ServerEvents.recipes((event) => {
   const age8 = FirmAges.isUnlocked('age_8')
 
   // ======================================================================================== removals
-  // One pass over the Mekanism-family namespaces (one OR filter: a filter per namespace was one scan of all recipes
-  // each); only the ore-processing serializers are read as JSON (painting and pigment recipes, about 850, are skipped
-  // by their type).
-  const PLANET = /"c:(ores|raw_materials)\/(desh|ostrum|calorite|draconium)"|"c:storage_blocks\/raw_(desh|ostrum|calorite|draconium)"/
-  const ORE_INPUT = /"tag":"c:(ores|raw_materials)\/|"tag":"c:storage_blocks\/raw_|"item":"(mekanism|mekmm|evolvedmekanism):(deepslate_|end_stone_|netherrack_)?[a-z]+_ore"|"item":"(mekanism|mekmm):raw_/
-  const CRUSH_TYPES = ['mekanism:crushing', 'moremekanismprocessing:tag_crushing'] // serializer ids (JSON "type")
-  const ORE_TYPES = /^(mekanism:(purifying|injecting|dissolution|enriching|crushing|combining)|moremekanismprocessing:tag_.*|minecraft:(smelting|blasting))$/
-  const drop = []
-  const NAMESPACES = ['mekanism', 'moremekanismprocessing', 'mekmm', 'evolvedmekanism', 'mekatfc', 'extendedae', 'advanced_ae']
-  event.forEachRecipe(NAMESPACES.map((ns) => ({ mod: ns })), (r) => {
-    const id = String(r.getId())
-    if (id.indexOf('mekmm:processing/silver/') === 0) { drop.push(id); return }
-    const type = r.json.has('type') ? String(r.json.get('type').getAsString()) : String(r.getType())
-    if (!ORE_TYPES.test(type)) return
-    const json = String(r.json)
-    if (ORE_INPUT.test(json) && !PLANET.test(json) && type !== 'minecraft:crafting_shaped' && type !== 'minecraft:crafting_shapeless') {
-      drop.push(id)
-      return
-    }
-    if (CRUSH_TYPES.indexOf(type) >= 0) {
-      // the crusher keeps clump -> dirty dust, bio fuel and gem/obsidian/quartz to dust
-      if (/"tag":"c:ingots\//.test(json) || /"id":"minecraft:(cobblestone|gravel|sand|red_sand|.*_tiles?|.*bricks?.*|.*stone.*|deepslate.*|tuff.*)"/.test(json)) drop.push(id)
-      return
-    }
-    if (type === 'mekanism:combining' && /"output":\{"id":"[a-z_]+:[a-z_]*(_ore|ancient_debris)"/.test(json)) drop.push(id)
-  })
-  drop.forEach((id) => event.remove({ id: id }))
+  // ORE_LADDER_REMOVALS below: every Mekanism-family recipe (Mekanism, More Mekanism Processing, Mekanism: More
+  // Machine, Evolved Mekanism) that eats an ore block, raw ore or raw-ore block of a TFC metal or gem, crushes an
+  // ingot, stone, gravel or sand in a Mekanism crusher, makes an ore block in the combiner, or belongs to More
+  // Machine's silver chain. The planet and End metals (desh, ostrum, calorite, draconium) keep theirs.
+  event.remove(ORE_LADDER_REMOVALS.map((id) => ({ id: id })))
   // MekaTFC's furnace, 2x enrichment and crusher recipes of ore pieces (Doc 10 v3 7.3). The 10 unparseable originals are
   // switched off by same-path overrides with a neoforge:false condition (kubejs/data/mekatfc/recipe/...).
-  event.remove({ id: /^mekatfc:(smelting|blasting|enriching|crushing)\/ore\// })
+  // Fixed ids, the 15 MekaTFC ships (a regex filter is one scan of all recipes; poc_analyze.py C-M reports a leftover).
+  event.remove([
+    'mekatfc:blasting/ore/normal_native_osmium', 'mekatfc:blasting/ore/poor_native_osmium',
+    'mekatfc:blasting/ore/rich_native_osmium', 'mekatfc:blasting/ore/small_native_osmium',
+    'mekatfc:crushing/ore/normal_native_osmium', 'mekatfc:crushing/ore/poor_native_osmium',
+    'mekatfc:crushing/ore/rich_native_osmium', 'mekatfc:enriching/ore/normal_native_osmium',
+    'mekatfc:enriching/ore/poor_native_osmium', 'mekatfc:enriching/ore/rich_native_osmium',
+    'mekatfc:enriching/ore/small_native_osmium', 'mekatfc:smelting/ore/normal_native_osmium',
+    'mekatfc:smelting/ore/poor_native_osmium', 'mekatfc:smelting/ore/rich_native_osmium',
+    'mekatfc:smelting/ore/small_native_osmium'
+  ].map((id) => ({ id: id })))
   // Mekanism's steel and bronze routes (losers of the "Stahl" and "Legieren" rows): enriched iron -> steel dust, and
   // copper + tin infusion. Enriched iron itself stays (fusion reactor glass).
   ;['mekanism:processing/steel/enriched_iron_to_dust', 'mekanism:processing/bronze/dust/from_infusing',
@@ -137,3 +125,222 @@ ServerEvents.recipes((event) => {
     output: { count: 2, id: 'mekanism:fluorite_gem' }
   }).id('firmages:enriching/fluorite_from_cryolite')
 })
+
+// The removals of the ore ladder as fixed ids, read on 2026-10-01 from the original recipes with the rules above
+// (330 recipes; the 14 combiner recipes of vanilla ore blocks were missed by the earlier JSON pass, whose pattern
+// expected "id" before "count"). Plain ids are a map lookup; the JSON pass over 2,700 Mekanism-family recipes cost
+// about 65 ms of every reload. dev/poc_analyze.py C-6a, C-6b and C-6e report a recipe that the list misses.
+const ORE_LADDER_REMOVALS = [
+  'evolvedmekanism:processing/better_gold/dust/from_ingot', 'evolvedmekanism:processing/fluorite/to_end_stone_ore',
+  'evolvedmekanism:processing/fluorite/to_netherrack_ore', 'evolvedmekanism:processing/lead/ingot/from_ore_blasting',
+  'evolvedmekanism:processing/lead/ingot/from_ore_smelting', 'evolvedmekanism:processing/lead/ore/end_stone_from_raw',
+  'evolvedmekanism:processing/lead/ore/netherrack_from_raw',
+  'evolvedmekanism:processing/osmium/ingot/from_ore_blasting',
+  'evolvedmekanism:processing/osmium/ingot/from_ore_smelting',
+  'evolvedmekanism:processing/osmium/ore/end_stone_from_raw',
+  'evolvedmekanism:processing/osmium/ore/netherrack_from_raw',
+  'evolvedmekanism:processing/plaslitherite/dust/from_ingot',
+  'evolvedmekanism:processing/refined_redstone/ingot_to_dust',
+  'evolvedmekanism:processing/tin/ingot/from_ore_blasting', 'evolvedmekanism:processing/tin/ingot/from_ore_smelting',
+  'evolvedmekanism:processing/tin/ore/end_stone_from_raw', 'evolvedmekanism:processing/tin/ore/netherrack_from_raw',
+  'evolvedmekanism:processing/uranium/ingot/from_ore_blasting',
+  'evolvedmekanism:processing/uranium/ingot/from_ore_smelting',
+  'evolvedmekanism:processing/uranium/ore/end_stone_from_raw',
+  'evolvedmekanism:processing/uranium/ore/netherrack_from_raw',
+  'mekanism:crushing/blackstone/bricks_to_cracked_bricks', 'mekanism:crushing/blackstone/chiseled_bricks_to_bricks',
+  'mekanism:crushing/blackstone/from_cracked_bricks', 'mekanism:crushing/blackstone/from_polished',
+  'mekanism:crushing/blackstone/polished_slabs_to_slabs', 'mekanism:crushing/blackstone/polished_stairs_to_stairs',
+  'mekanism:crushing/blackstone/polished_wall_to_wall', 'mekanism:crushing/chiseled_nether_bricks_to_nether_bricks',
+  'mekanism:crushing/cobblestone_to_gravel', 'mekanism:crushing/deepslate/brick_slabs_to_tile',
+  'mekanism:crushing/deepslate/brick_stairs_to_tile', 'mekanism:crushing/deepslate/brick_wall_to_tile',
+  'mekanism:crushing/deepslate/bricks_to_cracked_bricks', 'mekanism:crushing/deepslate/cracked_bricks_to_tile',
+  'mekanism:crushing/deepslate/from_chiseled', 'mekanism:crushing/deepslate/polished_slabs_to_brick',
+  'mekanism:crushing/deepslate/polished_stairs_to_brick', 'mekanism:crushing/deepslate/polished_to_bricks',
+  'mekanism:crushing/deepslate/polished_wall_to_brick', 'mekanism:crushing/deepslate/tile_to_cracked_tile',
+  'mekanism:crushing/gravel_to_sand', 'mekanism:crushing/nether_bricks_to_cracked_nether_bricks',
+  'mekanism:crushing/pointed_dripstone_from_block', 'mekanism:crushing/quartz/smooth_to_bricks',
+  'mekanism:crushing/red_sandstone_to_sand', 'mekanism:crushing/sandstone_to_sand',
+  'mekanism:crushing/stone/bricks_to_cracked_bricks', 'mekanism:crushing/stone/chiseled_bricks_to_bricks',
+  'mekanism:crushing/stone/from_cracked_bricks', 'mekanism:crushing/stone/slabs_to_cobblestone_slabs',
+  'mekanism:crushing/stone/stairs_to_cobblestone_stairs', 'mekanism:crushing/stone/to_cobblestone',
+  'mekanism:crushing/tuff/chiseled_to_brick', 'mekanism:crushing/tuff/from_polished',
+  'mekanism:crushing/tuff/slab_to_brick', 'mekanism:crushing/tuff/slabs_from_polished',
+  'mekanism:crushing/tuff/stairs_from_polished', 'mekanism:crushing/tuff/stairs_to_brick',
+  'mekanism:crushing/tuff/wall_from_polished', 'mekanism:crushing/tuff/wall_to_brick',
+  'mekanism:enriching/ice_shard_or_to_ice_shards', 'mekanism:processing/bronze/dust/from_ingot',
+  'mekanism:processing/coal/from_ore', 'mekanism:processing/coal/to_deepslate_ore', 'mekanism:processing/coal/to_ore',
+  'mekanism:processing/copper/clump/from_ore', 'mekanism:processing/copper/clump/from_raw_block',
+  'mekanism:processing/copper/clump/from_raw_ore', 'mekanism:processing/copper/dust/from_ingot',
+  'mekanism:processing/copper/dust/from_ore', 'mekanism:processing/copper/dust/from_raw_block',
+  'mekanism:processing/copper/dust/from_raw_ore', 'mekanism:processing/copper/ore/deepslate_from_raw',
+  'mekanism:processing/copper/ore/from_raw', 'mekanism:processing/copper/shard/from_ore',
+  'mekanism:processing/copper/shard/from_raw_block', 'mekanism:processing/copper/shard/from_raw_ore',
+  'mekanism:processing/copper/slurry/dirty/from_ore', 'mekanism:processing/copper/slurry/dirty/from_raw_block',
+  'mekanism:processing/copper/slurry/dirty/from_raw_ore', 'mekanism:processing/diamond/from_ore',
+  'mekanism:processing/diamond/to_deepslate_ore', 'mekanism:processing/diamond/to_ore',
+  'mekanism:processing/emerald/from_ore', 'mekanism:processing/emerald/to_deepslate_ore',
+  'mekanism:processing/emerald/to_ore', 'mekanism:processing/fluorite/from_ore',
+  'mekanism:processing/gold/clump/from_ore', 'mekanism:processing/gold/clump/from_raw_block',
+  'mekanism:processing/gold/clump/from_raw_ore', 'mekanism:processing/gold/dust/from_ingot',
+  'mekanism:processing/gold/dust/from_ore', 'mekanism:processing/gold/dust/from_raw_block',
+  'mekanism:processing/gold/dust/from_raw_ore', 'mekanism:processing/gold/ore/deepslate_from_raw',
+  'mekanism:processing/gold/ore/from_raw', 'mekanism:processing/gold/ore/nether_from_raw',
+  'mekanism:processing/gold/shard/from_ore', 'mekanism:processing/gold/shard/from_raw_block',
+  'mekanism:processing/gold/shard/from_raw_ore', 'mekanism:processing/gold/slurry/dirty/from_ore',
+  'mekanism:processing/gold/slurry/dirty/from_raw_block', 'mekanism:processing/gold/slurry/dirty/from_raw_ore',
+  'mekanism:processing/iron/clump/from_ore', 'mekanism:processing/iron/clump/from_raw_block',
+  'mekanism:processing/iron/clump/from_raw_ore', 'mekanism:processing/iron/dust/from_ingot',
+  'mekanism:processing/iron/dust/from_ore', 'mekanism:processing/iron/dust/from_raw_block',
+  'mekanism:processing/iron/dust/from_raw_ore', 'mekanism:processing/iron/ore/deepslate_from_raw',
+  'mekanism:processing/iron/ore/from_raw', 'mekanism:processing/iron/shard/from_ore',
+  'mekanism:processing/iron/shard/from_raw_block', 'mekanism:processing/iron/shard/from_raw_ore',
+  'mekanism:processing/iron/slurry/dirty/from_ore', 'mekanism:processing/iron/slurry/dirty/from_raw_block',
+  'mekanism:processing/iron/slurry/dirty/from_raw_ore', 'mekanism:processing/lapis_lazuli/from_ore',
+  'mekanism:processing/lapis_lazuli/to_deepslate_ore', 'mekanism:processing/lapis_lazuli/to_ore',
+  'mekanism:processing/lead/clump/from_ore', 'mekanism:processing/lead/clump/from_raw_block',
+  'mekanism:processing/lead/clump/from_raw_ore', 'mekanism:processing/lead/dust/from_ingot',
+  'mekanism:processing/lead/dust/from_ore', 'mekanism:processing/lead/dust/from_raw_block',
+  'mekanism:processing/lead/dust/from_raw_ore', 'mekanism:processing/lead/ingot/from_ore_blasting',
+  'mekanism:processing/lead/ingot/from_ore_smelting', 'mekanism:processing/lead/ingot/from_raw_blasting',
+  'mekanism:processing/lead/ingot/from_raw_smelting', 'mekanism:processing/lead/ore/deepslate_from_raw',
+  'mekanism:processing/lead/ore/from_raw', 'mekanism:processing/lead/shard/from_ore',
+  'mekanism:processing/lead/shard/from_raw_block', 'mekanism:processing/lead/shard/from_raw_ore',
+  'mekanism:processing/lead/slurry/dirty/from_ore', 'mekanism:processing/lead/slurry/dirty/from_raw_block',
+  'mekanism:processing/lead/slurry/dirty/from_raw_ore', 'mekanism:processing/netherite/ancient_debris_to_dirty_scrap',
+  'mekanism:processing/netherite/ancient_debris_to_scrap', 'mekanism:processing/netherite/dust_to_ancient_debris',
+  'mekanism:processing/netherite/ingot_to_dust', 'mekanism:processing/osmium/clump/from_ore',
+  'mekanism:processing/osmium/clump/from_raw_block', 'mekanism:processing/osmium/clump/from_raw_ore',
+  'mekanism:processing/osmium/dust/from_ingot', 'mekanism:processing/osmium/dust/from_ore',
+  'mekanism:processing/osmium/dust/from_raw_block', 'mekanism:processing/osmium/dust/from_raw_ore',
+  'mekanism:processing/osmium/ingot/from_ore_blasting', 'mekanism:processing/osmium/ingot/from_ore_smelting',
+  'mekanism:processing/osmium/ingot/from_raw_blasting', 'mekanism:processing/osmium/ingot/from_raw_smelting',
+  'mekanism:processing/osmium/ore/deepslate_from_raw', 'mekanism:processing/osmium/ore/from_raw',
+  'mekanism:processing/osmium/shard/from_ore', 'mekanism:processing/osmium/shard/from_raw_block',
+  'mekanism:processing/osmium/shard/from_raw_ore', 'mekanism:processing/osmium/slurry/dirty/from_ore',
+  'mekanism:processing/osmium/slurry/dirty/from_raw_block', 'mekanism:processing/osmium/slurry/dirty/from_raw_ore',
+  'mekanism:processing/quartz/from_ore', 'mekanism:processing/quartz/to_ore', 'mekanism:processing/redstone/from_ore',
+  'mekanism:processing/redstone/to_deepslate_ore', 'mekanism:processing/redstone/to_ore',
+  'mekanism:processing/refined_glowstone/ingot_to_dust', 'mekanism:processing/refined_obsidian/dust/from_ingot',
+  'mekanism:processing/steel/ingot_to_dust', 'mekanism:processing/tin/clump/from_ore',
+  'mekanism:processing/tin/clump/from_raw_block', 'mekanism:processing/tin/clump/from_raw_ore',
+  'mekanism:processing/tin/dust/from_ingot', 'mekanism:processing/tin/dust/from_ore',
+  'mekanism:processing/tin/dust/from_raw_block', 'mekanism:processing/tin/dust/from_raw_ore',
+  'mekanism:processing/tin/ingot/from_ore_blasting', 'mekanism:processing/tin/ingot/from_ore_smelting',
+  'mekanism:processing/tin/ingot/from_raw_blasting', 'mekanism:processing/tin/ingot/from_raw_smelting',
+  'mekanism:processing/tin/ore/deepslate_from_raw', 'mekanism:processing/tin/ore/from_raw',
+  'mekanism:processing/tin/shard/from_ore', 'mekanism:processing/tin/shard/from_raw_block',
+  'mekanism:processing/tin/shard/from_raw_ore', 'mekanism:processing/tin/slurry/dirty/from_ore',
+  'mekanism:processing/tin/slurry/dirty/from_raw_block', 'mekanism:processing/tin/slurry/dirty/from_raw_ore',
+  'mekanism:processing/uranium/clump/from_ore', 'mekanism:processing/uranium/clump/from_raw_block',
+  'mekanism:processing/uranium/clump/from_raw_ore', 'mekanism:processing/uranium/dust/from_ingot',
+  'mekanism:processing/uranium/dust/from_ore', 'mekanism:processing/uranium/dust/from_raw_block',
+  'mekanism:processing/uranium/dust/from_raw_ore', 'mekanism:processing/uranium/ingot/from_ore_blasting',
+  'mekanism:processing/uranium/ingot/from_ore_smelting', 'mekanism:processing/uranium/ingot/from_raw_blasting',
+  'mekanism:processing/uranium/ingot/from_raw_smelting', 'mekanism:processing/uranium/ore/deepslate_from_raw',
+  'mekanism:processing/uranium/ore/from_raw', 'mekanism:processing/uranium/shard/from_ore',
+  'mekanism:processing/uranium/shard/from_raw_block', 'mekanism:processing/uranium/shard/from_raw_ore',
+  'mekanism:processing/uranium/slurry/dirty/from_ore', 'mekanism:processing/uranium/slurry/dirty/from_raw_block',
+  'mekanism:processing/uranium/slurry/dirty/from_raw_ore', 'mekmm:processing/silver/clump/from_ore',
+  'mekmm:processing/silver/clump/from_raw_block', 'mekmm:processing/silver/clump/from_raw_ore',
+  'mekmm:processing/silver/clump/from_shard', 'mekmm:processing/silver/crystal/from_slurry',
+  'mekmm:processing/silver/dirty_dust/from_clump', 'mekmm:processing/silver/dust/from_dirty_dust',
+  'mekmm:processing/silver/dust/from_ingot', 'mekmm:processing/silver/dust/from_ore',
+  'mekmm:processing/silver/dust/from_raw_block', 'mekmm:processing/silver/dust/from_raw_ore',
+  'mekmm:processing/silver/ingot/from_ore_blasting', 'mekmm:processing/silver/ingot/from_ore_smelting',
+  'mekmm:processing/silver/ingot/from_raw_blasting', 'mekmm:processing/silver/ingot/from_raw_smelting',
+  'mekmm:processing/silver/ore/deepslate_from_raw', 'mekmm:processing/silver/ore/from_raw',
+  'mekmm:processing/silver/raw/from_raw_block', 'mekmm:processing/silver/raw_storage_blocks/from_raw',
+  'mekmm:processing/silver/shard/from_crystal', 'mekmm:processing/silver/shard/from_ore',
+  'mekmm:processing/silver/shard/from_raw_block', 'mekmm:processing/silver/shard/from_raw_ore',
+  'mekmm:processing/silver/slurry/clean', 'mekmm:processing/silver/slurry/dirty/from_ore',
+  'mekmm:processing/silver/slurry/dirty/from_raw_block', 'mekmm:processing/silver/slurry/dirty/from_raw_ore',
+  'moremekanismprocessing:processing/aluminum/clump/from_ore',
+  'moremekanismprocessing:processing/aluminum/clump/from_raw_ore',
+  'moremekanismprocessing:processing/aluminum/clump/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/aluminum/dust/from_ingot',
+  'moremekanismprocessing:processing/aluminum/dust/from_ore',
+  'moremekanismprocessing:processing/aluminum/dust/from_raw_ore',
+  'moremekanismprocessing:processing/aluminum/dust/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/aluminum/shard/from_ore',
+  'moremekanismprocessing:processing/aluminum/shard/from_raw_ore',
+  'moremekanismprocessing:processing/aluminum/shard/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/aluminum/slurry/dirty/ore',
+  'moremekanismprocessing:processing/aluminum/slurry/dirty/raw_ore',
+  'moremekanismprocessing:processing/aluminum/slurry/dirty/raw_storage_blocks',
+  'moremekanismprocessing:processing/amethyst/clump/from_ore',
+  'moremekanismprocessing:processing/amethyst/gem/from_ore',
+  'moremekanismprocessing:processing/amethyst/shard/from_ore',
+  'moremekanismprocessing:processing/amethyst/slurry/dirty/ore',
+  'moremekanismprocessing:processing/azure_silver/dust/from_ingot',
+  'moremekanismprocessing:processing/bismuth/clump/from_ore',
+  'moremekanismprocessing:processing/bismuth/clump/from_raw_ore',
+  'moremekanismprocessing:processing/bismuth/dust/from_ingot',
+  'moremekanismprocessing:processing/bismuth/dust/from_ore',
+  'moremekanismprocessing:processing/bismuth/dust/from_raw_ore',
+  'moremekanismprocessing:processing/bismuth/shard/from_ore',
+  'moremekanismprocessing:processing/bismuth/shard/from_raw_ore',
+  'moremekanismprocessing:processing/bismuth/slurry/dirty/ore',
+  'moremekanismprocessing:processing/bismuth/slurry/dirty/raw_ore',
+  'moremekanismprocessing:processing/calorite/dust/from_ingot',
+  'moremekanismprocessing:processing/cinnabar/clump/from_ore',
+  'moremekanismprocessing:processing/cinnabar/gem/from_ore',
+  'moremekanismprocessing:processing/cinnabar/shard/from_ore',
+  'moremekanismprocessing:processing/cinnabar/slurry/dirty/ore',
+  'moremekanismprocessing:processing/cobalt/dust/from_ingot',
+  'moremekanismprocessing:processing/crimson_iron/dust/from_ingot',
+  'moremekanismprocessing:processing/desh/dust/from_ingot',
+  'moremekanismprocessing:processing/draconium/dust/from_ingot',
+  'moremekanismprocessing:processing/iridium/dust/from_ingot',
+  'moremekanismprocessing:processing/lithium/dust/from_ingot',
+  'moremekanismprocessing:processing/nickel/clump/from_ore',
+  'moremekanismprocessing:processing/nickel/clump/from_raw_ore',
+  'moremekanismprocessing:processing/nickel/clump/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/nickel/dust/from_ingot',
+  'moremekanismprocessing:processing/nickel/dust/from_ore',
+  'moremekanismprocessing:processing/nickel/dust/from_raw_ore',
+  'moremekanismprocessing:processing/nickel/dust/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/nickel/shard/from_ore',
+  'moremekanismprocessing:processing/nickel/shard/from_raw_ore',
+  'moremekanismprocessing:processing/nickel/shard/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/nickel/slurry/dirty/ore',
+  'moremekanismprocessing:processing/nickel/slurry/dirty/raw_ore',
+  'moremekanismprocessing:processing/nickel/slurry/dirty/raw_storage_blocks',
+  'moremekanismprocessing:processing/ostrum/dust/from_ingot',
+  'moremekanismprocessing:processing/platinum/dust/from_ingot',
+  'moremekanismprocessing:processing/ruby/clump/from_ore', 'moremekanismprocessing:processing/ruby/gem/from_ore',
+  'moremekanismprocessing:processing/ruby/shard/from_ore', 'moremekanismprocessing:processing/ruby/slurry/dirty/ore',
+  'moremekanismprocessing:processing/sapphire/clump/from_ore',
+  'moremekanismprocessing:processing/sapphire/gem/from_ore',
+  'moremekanismprocessing:processing/sapphire/shard/from_ore',
+  'moremekanismprocessing:processing/sapphire/slurry/dirty/ore',
+  'moremekanismprocessing:processing/silver/clump/from_ore',
+  'moremekanismprocessing:processing/silver/clump/from_raw_ore',
+  'moremekanismprocessing:processing/silver/clump/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/silver/dust/from_ingot',
+  'moremekanismprocessing:processing/silver/dust/from_ore',
+  'moremekanismprocessing:processing/silver/dust/from_raw_ore',
+  'moremekanismprocessing:processing/silver/dust/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/silver/shard/from_ore',
+  'moremekanismprocessing:processing/silver/shard/from_raw_ore',
+  'moremekanismprocessing:processing/silver/shard/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/silver/slurry/dirty/ore',
+  'moremekanismprocessing:processing/silver/slurry/dirty/raw_ore',
+  'moremekanismprocessing:processing/silver/slurry/dirty/raw_storage_blocks',
+  'moremekanismprocessing:processing/sulfur/clump/from_ore', 'moremekanismprocessing:processing/sulfur/dust/from_ore',
+  'moremekanismprocessing:processing/sulfur/shard/from_ore',
+  'moremekanismprocessing:processing/sulfur/slurry/dirty/ore',
+  'moremekanismprocessing:processing/titanium/dust/from_ingot',
+  'moremekanismprocessing:processing/tungsten/dust/from_ingot',
+  'moremekanismprocessing:processing/zinc/clump/from_ore',
+  'moremekanismprocessing:processing/zinc/clump/from_raw_ore',
+  'moremekanismprocessing:processing/zinc/clump/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/zinc/dust/from_ingot', 'moremekanismprocessing:processing/zinc/dust/from_ore',
+  'moremekanismprocessing:processing/zinc/dust/from_raw_ore',
+  'moremekanismprocessing:processing/zinc/dust/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/zinc/shard/from_ore',
+  'moremekanismprocessing:processing/zinc/shard/from_raw_ore',
+  'moremekanismprocessing:processing/zinc/shard/from_raw_storage_blocks',
+  'moremekanismprocessing:processing/zinc/slurry/dirty/ore',
+  'moremekanismprocessing:processing/zinc/slurry/dirty/raw_ore',
+  'moremekanismprocessing:processing/zinc/slurry/dirty/raw_storage_blocks'
+]
