@@ -1,0 +1,13 @@
+name = "[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft"
+filename = "tfc_ruins-1.0.0-neoforge-1.21.1.jar"
+side = "server"
+
+[download]
+hash-format = "sha1"
+hash = "deff37ce5afb45ad3d9b63e3eed655028180a785"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 7223678
+project-id = 1383031

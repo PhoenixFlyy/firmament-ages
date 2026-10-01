@@ -1,0 +1,13 @@
+name = "Alternating Flux NeoForge"
+filename = "alternatingflux-1.21.1-1.0.6.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "5ee53bb3fd63d62d7b0d51401f679d0fc7cc71a3"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8572014
+project-id = 1555217

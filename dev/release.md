@@ -13,11 +13,11 @@ Das Skript prüft die Zeilenenden, führt `tools\packwiz.exe refresh` aus, setzt
 
 | Datei | Befehl | Inhalt |
 |---|---|---|
-| `FirmamentAges-<v>.mrpack` | `packwiz modrinth export -o …` | 184 Modrinth-Mods als Download-Links, die 8 CurseForge-only-Mods und `firmages-core-*.jar` als Jars in `overrides/mods/`, dazu `config/`, `defaultconfigs/`, `kubejs/` |
-| `FirmamentAges-<v>-curseforge.zip` | `packwiz curseforge export -s client -o …` | die 8 CurseForge-Mods im Manifest, alle anderen Jars (Modrinth, firmages-core) eingebettet |
+| `FirmamentAges-<v>.mrpack` | `packwiz modrinth export -o …` | seit 2026-10-01 nur noch 8 Modrinth-Mods als Download-Links; die 184 CurseForge-Mods und `firmages-core-*.jar` liegen als Jars in `overrides/mods/` (etwa 490 MB), dazu `config/`, `defaultconfigs/`, `kubejs/` |
+| `FirmamentAges-<v>-curseforge.zip` | `packwiz curseforge export -s client -o …` | 179 CurseForge-Mods im Manifest (ohne reine Server-Mods), die Modrinth-Jars und firmages-core eingebettet (privater Prüfstand für `verify_install.py cfzip`, **nicht** die Upload-Datei) |
 | `FirmamentAges-<v>.sha256.txt` | `Get-FileHash` | SHA-256 beider Dateien |
 
-Beide Exporte laufen ohne Zusatzschalter durch (`--restrictDomains` bleibt an; alle Modrinth-Dateien liegen auf `cdn.modrinth.com`). Weil beide Dateien fremde Jars enthalten, **nur privat** weitergeben, nie an ein öffentliches GitHub-Release hängen.
+Die Datei für den CurseForge-Upload baut `python dev\cf\export_cf.py` (siehe `dev/cf/UPLOAD-ANLEITUNG.md`). Beide Exporte laufen ohne Zusatzschalter durch (`--restrictDomains` bleibt an; alle Modrinth-Dateien liegen auf `cdn.modrinth.com`). Weil beide Dateien fremde Jars enthalten, **nur privat** weitergeben, nie an ein öffentliches GitHub-Release hängen.
 
 Das Skript committet, taggt und pusht nicht. Danach von Hand: `pack.toml`/`index.toml` committen, `dev` nach `main` mergen, Tag `vX.Y.Z`, push. Server und Freunde lesen `main`.
 

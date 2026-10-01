@@ -37,6 +37,16 @@ REUSE_DIRS = [ROOT / "dev" / "exports" / "test-client" / "client" / "mods"]
 # cfwidget answers 404 on the slug path for some projects; these ids come from `packwiz curseforge add "<title>"`
 # in the scratch pack (search), confirmed by author and filename below.
 CF_IDS = {"fastsuite": 475117, "kubejs-create": 429371, "sophisticated-core": 618298}
+# CurseForge files whose authors disabled third-party downloads ("excluded from the CurseForge API"): packwiz-installer
+# (Prism instances of the friends, the server) cannot fetch them and stops with a manual-download prompt. They stay
+# Modrinth metafiles in mods/ (byte-identical jar, fingerprint match); their CurseForge metafile is kept in
+# dev/cf/swap/ and dev/cf/export_cf.py swaps it in for the CurseForge upload zip. Found by a packwiz-installer run
+# against `packwiz serve` on 2026-10-01 (client and server side).
+DISTRIBUTION_BLOCKED = {1555217: "Alternating Flux", 676721: "Create Aeronautics", 923238: "Create: Design n' Decor",
+                        1218807: "Create Factory Logistics", 448233: "Entity Culling",
+                        1383031: "TFC Ruins"}  # TFC Ruins: server-only, found by the server-side installer run
+SWAP = ROOT / "dev" / "cf" / "swap"
+BASE_COMMIT = "3846499"  # last commit before the conversion: source of the Modrinth metafiles
 # Same person under different names on the two sites (checked on the project pages and the GitHub repo).
 AUTHOR_ALIASES = {"90": "ninety"}
 UA = {"User-Agent": "PhoenixFlyy/FirmamentAges cf_convert (private modpack tooling)"}
@@ -349,10 +359,31 @@ def apply(limit=None):
     log(f"apply: {done} converted")
 
 
+def keep_modrinth():
+    """Move the CF metafiles of DISTRIBUTION_BLOCKED to dev/cf/swap/ and restore their Modrinth metafiles."""
+    plan = {e.get("project_id"): e for e in json.loads(PLAN.read_text(encoding="utf-8"))}
+    SWAP.mkdir(parents=True, exist_ok=True)
+    for pid, title in DISTRIBUTION_BLOCKED.items():
+        e = plan[pid]
+        cf = [f for f in MODS.glob("*.pw.toml")
+              if tomllib.loads(f.read_text(encoding="utf-8")).get("update", {}).get("curseforge", {}).get("project-id") == pid]
+        if not cf:
+            continue  # swapped on an earlier run
+        (SWAP / cf[0].name).write_bytes(cf[0].read_bytes())
+        cf[0].unlink()
+        old = subprocess.run(["git", "show", f"{BASE_COMMIT}:mods/{e['meta']}"], cwd=ROOT, capture_output=True,
+                             check=True).stdout
+        (MODS / e["meta"]).write_bytes(old.replace(bytes([13, 10]), bytes([10])))
+        log(f"keep-modrinth {title}: CF project {pid} blocks third-party downloads; mods/{e['meta']} is the Modrinth "
+            f"metafile again (same jar, sha1 {e['sha1'][:10]}), CF metafile kept as dev/cf/swap/{cf[0].name}")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "scan"
     if cmd == "scan":
         scan()
+    elif cmd == "keep-modrinth":
+        keep_modrinth()
     elif cmd == "differs":
         differs()
     elif cmd == "apply":
