@@ -1352,3 +1352,45 @@ Heart at 0 200 0 on a stone platform, ring 0 by `build_shrine.py --rings 0 --pla
   positions as air; the counts are right. Cosmetic.
 - The first operator reload after the restart took 9.4 s (the next two 8.3 and 7.9 s); the Age grants stayed at
   5.9 to 6.1 s.
+
+## First reload after a boot (firmages-core, branch core-boot-reload)
+
+Where the extra second goes, from the test-server log of the 22:41 boot (age_9, 2 headless players, three
+`firmages reload`):
+
+| Part | Reload 1 | Reload 2 | Reload 3 |
+|---|---|---|---|
+| Whole reload | 9,441 ms | 8,345 ms | 7,937 ms |
+| Start to "Posted recipe events" (scripts, reload workers, tags) | 5.15 s | 4.71 s | 4.27 s |
+| KubeJS recipe phase ("taking ... in total") | 2.45 s | 2.07 s | 1.91 s |
+| firmages-core recipe gate | 331 ms | 305 ms | 324 ms |
+| firmages-core AgeIndex build | 95 ms | 77 ms | 67 ms |
+| Late pass to "finished" (PlayerList sync, PS) | 0.94 s | 0.68 s | 0.80 s |
+| Duplicate PS lock syncs skipped (running total) | 2 | 4 | 6 |
+
+The mod's own parts warm up by about 50 ms; the rest is KubeJS, recipe parsing and the vanilla reload path. The
+lock-sync dedupe already covers the first reload. Changes:
+
+- `gate.warmupReload` (default true) and `gate.warmupDelayTicks` (20): on a dedicated server one reload with the same
+  Ages after start while nobody is online; skipped on a boot reconcile, after an earlier reload or when a player joins
+  first.
+- `mixin/ps/PlayerJoinMixin`: PS `onPlayerJoin` (login, dimension change, respawn) sent the lock sync twice like
+  `syncPlayer`; the second one is skipped now (GameTest `joinSendsOneLockSync`: 1 skipped for one join).
+- The AgeIndex is not cached across reloads (40 to 95 ms; a cache cheaper than reading the tag files could go stale).
+
+Dev dedicated server (firmages-core with KubeJS, PS, IE, Mekanism, DE, about 4,700 recipes; `runServer` with the
+gametest classpath, flat world, no player), `firmages reload` after the boot, ms:
+
+| Run | Warm-up | Reload 1 | 2 | 3 | 4 |
+|---|---|---|---|---|---|
+| warmupReload = false | none | 1,844 | 1,619 | 1,948 | 1,733 |
+| warmupReload = false | none | 2,179 | 1,861 | 1,886 | 1,719 |
+| warmupReload = true | 2,122 | 1,921 | 1,826 | 1,667 | |
+| warmupReload = true | 2,224 | 1,902 | 1,788 | 1,706 | 1,767 |
+| warmupReload = true | 2,227 | 1,953 | 1,808 | 1,770 | 1,780 |
+
+In the dev world the first reload a player would wait for drops from 2.01 s to 1.93 s on average, inside the noise
+of these runs; the pack's penalty is mostly KubeJS and 35,000 recipes, which the dev world does not have. **Not yet
+measured on the pack:** boot the test server, wait for "Age reload (warm-up after boot) finished", then join the debug
+players and time three reloads against the table above. With the warm-up on, "reload 1 after the boot" in later
+measurements is the second reload of the session.
