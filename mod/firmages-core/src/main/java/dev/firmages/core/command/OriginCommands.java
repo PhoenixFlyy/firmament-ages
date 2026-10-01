@@ -83,6 +83,10 @@ final class OriginCommands {
             alt.getX(), alt.getY(), alt.getZ(), altar ? "present" : (level.isLoaded(alt) ? "MISSING" : "(chunk not loaded)")));
         line(c, String.format(Locale.ROOT, "  Gathering: %d start(s), gathered now %s (radius %.0f); final boss %s",
             sd.gatherings(), OriginService.gathered(c.getSource().getServer()), OriginService.gatherRadius(), sd.won() ? "DEFEATED (finale_won)" : "alive"));
+        line(c, "  Finale gateway " + dev.firmages.core.config.ServerConfig.finaleGateway() + "; spawn list "
+            + java.util.Arrays.stream(net.minecraft.world.entity.MobCategory.values()).filter(m -> !dev.firmages.core.origin.OriginSpawns.spawns(m).isEmpty())
+                .map(m -> m.getSerializedName() + " " + dev.firmages.core.origin.OriginSpawns.spawns(m).stream()
+                    .map(d -> net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(d.type) + " w" + d.getWeight().asInt()).toList()).toList());
         return 1;
     }
 

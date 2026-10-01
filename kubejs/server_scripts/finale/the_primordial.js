@@ -13,7 +13,6 @@
 
 const FA_FINALE = {
   dim: 'firmages:origin',
-  gate: 'firmages:the_origin',
   boss: 'cataclysm:ender_guardian',
   health: 1024, // the vanilla cap of generic.max_health
   armor: 20,
@@ -28,6 +27,12 @@ function faDimId(level) {
   } catch (e) {
     return String(level.dimension)
   }
+}
+
+// The finale gate id comes from firmages-core (server config origin.finaleGateway, default firmages:the_origin), read
+// at each use, so mod config and script always mean the same gate; the literal is the fallback for firmages-core < 0.5.0.
+function faFinaleGate() {
+  return (typeof FirmAges.finaleGateway === 'function') ? String(FirmAges.finaleGateway()) : 'firmages:the_origin'
 }
 
 // A script error inside a NeoForge event would crash the server tick (an entity tick fires GateEvent): log it instead.
@@ -61,14 +66,32 @@ NativeEvents.onEvent(Java.loadClass('dev.firmages.core.origin.OriginEvent$Gather
   const server = level.getServer()
   if (FirmAges.isFinaleWon() || faFightRunning(level)) return
   const a = event.getAltar()
-  faRun(server, `open_gateway ${a.getX() + 0.5} ${a.getY() + 3} ${a.getZ() + 0.5} ${FA_FINALE.gate}`)
+  faRun(server, `open_gateway ${a.getX() + 0.5} ${a.getY() + 3} ${a.getZ() + 0.5} ${faFinaleGate()}`)
   faRun(server, `tellraw @a[distance=..48,x=${a.getX()},y=${a.getY()},z=${a.getZ()}] {"text":"The Firmament answers. Something stirs beyond the gate.","color":"dark_purple","italic":true}`)
-  console.info(`[finale] Gathering ${event.getCount()}: gate ${FA_FINALE.gate} opened at the altar`)
+  console.info(`[finale] Gathering ${event.getCount()}: gate ${faFinaleGate()} opened at the altar`)
 }))
 
+const FA_GATEWAYS = Java.loadClass('dev.shadowsoffire.gateways.gate.GatewayRegistry')
+
+// Id of the gate a GatewayEntity runs (Placebo DynamicRegistry#getKey), '' if unknown.
+function faGateId(gate) {
+  try {
+    return String(FA_GATEWAYS.INSTANCE.getKey(gate.getGateway()))
+  } catch (e) {
+    return ''
+  }
+}
+
 NativeEvents.onEvent(Java.loadClass('dev.shadowsoffire.gateways.event.GateEvent$Completed'), faGuard('gate completed', (event) => {
-  const level = event.getEntity().getCommandSenderWorld()
+  const gate = event.getEntity()
+  const level = gate.getCommandSenderWorld()
+  // Only the finale gate in The Origin summons the boss; any other gate completed there (or this one elsewhere) does not.
   if (faDimId(level) != FA_FINALE.dim || FirmAges.isFinaleWon()) return
+  const gateId = faGateId(gate)
+  if (gateId != faFinaleGate()) {
+    console.info(`[finale] gate ${gateId} completed in The Origin; not the finale gate ${faFinaleGate()}, no boss`)
+    return
+  }
   const alt = FirmAges.originAltar()
   const a = { x: alt[0], y: alt[1], z: alt[2] }
   const nbt = `{Tags:["${FirmAges.finalBossTag()}"],PersistenceRequired:1b,CustomNameVisible:1b,` +

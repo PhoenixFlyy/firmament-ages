@@ -1,7 +1,19 @@
 package dev.firmages.core.gametest;
 
 import com.enviouse.progressivestages.common.api.ProgressiveStagesAPI;
+import com.enviouse.progressivestages.common.api.StageCause;
 import com.enviouse.progressivestages.common.api.StageId;
+import dev.firmages.core.age.AgeId;
+import dev.firmages.core.age.AgeService;
+import dev.firmages.core.age.ReloadScheduler;
+import dev.firmages.core.origin.OriginAccess;
+import dev.firmages.core.origin.OriginSpawns;
+import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.event.entity.EntityTravelToDimensionEvent;
+import java.util.List;
 import com.enviouse.progressivestages.server.enforcement.DimensionEnforcer;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.ceremony.CeremonyService;
@@ -190,6 +202,10 @@ public final class OriginGameTests {
             Zombie plain = spawnZombie(o, al.east(4), false);
             plain.hurt(plain.damageSources().genericKill(), Float.MAX_VALUE);
             ok(h, !OriginSavedData.get(server).won() && victories == 0, "an untagged death changes nothing");
+            // A tagged boss that dies outside The Origin (lured through a portal, summoned elsewhere) wins nothing.
+            Zombie elsewhere = spawnZombie(h.getLevel(), h.absolutePos(new BlockPos(1, 1, 1)), true);
+            elsewhere.hurt(elsewhere.damageSources().genericKill(), Float.MAX_VALUE);
+            ok(h, elsewhere.isDeadOrDying() && !OriginSavedData.get(server).won() && victories == 0, "a tagged death in the overworld does not count");
 
             int sentBefore = CeremonyService.sentCount();
             Zombie boss = spawnZombie(o, al.east(4), true);
@@ -211,6 +227,74 @@ public final class OriginGameTests {
             OriginService.reset(server);
         }
         h.succeed();
+    }
+
+    /**
+     * The mod's own Origin lock (OriginAccess) next to ProgressiveStages': a survival player without age_9 is turned
+     * back by the travel event itself; creative passes; once age_9 is a real ProgressiveStages grant, the call
+     * Stargate Journey's wormhole makes for players ({@code ServerPlayer#teleportTo(ServerLevel, ...)}, verified with
+     * javap in 0.6.49) brings him in.
+     */
+    @GameTest(template = "empty", batch = "firmages_5_origin_travel", timeoutTicks = 2400)
+    public static void originTravelLock(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel o = origin(h);
+        ServerPlayer[] p = new ServerPlayer[1];
+        StageId age9 = StageId.of("age_9");
+        h.startSequence()
+            .thenExecute(() -> {
+                p[0] = DebugPlayerCommands.spawn(server, h.getLevel(), "gt_traveller", Vec3.atCenterOf(h.absolutePos(new BlockPos(1, 1, 1))));
+                p[0].setGameMode(GameType.SURVIVAL);
+                ok(h, !AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9), "test starts without age_9");
+                ok(h, !OriginAccess.mayEnter(p[0]), "no entry without age_9");
+                EntityTravelToDimensionEvent in = new EntityTravelToDimensionEvent(p[0], OriginRegistry.ORIGIN);
+                OriginAccess.onTravel(in);
+                ok(h, in.isCanceled(), "travel into The Origin cancelled by firmages-core itself");
+                EntityTravelToDimensionEvent nether = new EntityTravelToDimensionEvent(p[0], net.minecraft.world.level.Level.NETHER);
+                OriginAccess.onTravel(nether);
+                ok(h, !nether.isCanceled(), "other dimensions are none of its business");
+                BlockPos a = OriginArena.ARRIVAL;
+                p[0].teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
+                ok(h, p[0].level() != o, "the wormhole path leaves a player without age_9 outside");
+                p[0].setGameMode(GameType.CREATIVE);
+                ok(h, OriginAccess.mayEnter(p[0]), "creative passes, as with ProgressiveStages");
+                p[0].setGameMode(GameType.SURVIVAL);
+                if (!ProgressiveStagesAPI.grantStage(p[0], age9, StageCause.API)) ProgressiveStagesAPI.grantStageBypass(p[0], age9, StageCause.API);
+            })
+            .thenWaitUntil(() -> h.assertTrue(AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9) && reloadIdle(server), "age_9 grant and its reload"))
+            .thenExecute(() -> {
+                ok(h, OriginAccess.mayEnter(p[0]), "age_9 opens The Origin");
+                BlockPos a = OriginArena.ARRIVAL;
+                p[0].teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
+                ok(h, p[0].level() == o, "an age_9 player comes through the wormhole path, now in " + p[0].level().dimension().location());
+                BlockPos back = h.absolutePos(new BlockPos(1, 1, 1));
+                p[0].teleportTo(h.getLevel(), back.getX() + 0.5, back.getY(), back.getZ() + 0.5, 0, 0);
+                ok(h, p[0].level() == h.getLevel(), "and home again");
+                ProgressiveStagesAPI.revokeStage(p[0], age9, StageCause.API);
+            })
+            .thenWaitUntil(() -> h.assertTrue(!AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9) && reloadIdle(server), "age_9 revoke and its reload"))
+            .thenExecute(() -> DebugPlayerCommands.despawn(p[0]))
+            .thenSucceed();
+    }
+
+    /** mob_9: The Origin spawns only from data/firmages/origin/spawns.json (Cataclysm entries are skipped without the mod). */
+    @GameTest(template = "empty", batch = "firmages_5_origin_world")
+    public static void originSpawnList(GameTestHelper h) {
+        ServerLevel o = origin(h);
+        WeightedRandomList<MobSpawnSettings.SpawnerData> none = WeightedRandomList.create();
+        List<Object> monsters = EventHooks.getPotentialSpawns(o, MobCategory.MONSTER, OriginArena.ALTAR.above(), none).unwrap().stream()
+            .map(d -> (Object) d.type).toList();
+        ok(h, monsters.equals(List.of(EntityType.ENDERMAN)), "Origin monsters from the spawn list (vanilla part in this run): " + monsters);
+        WeightedRandomList<MobSpawnSettings.SpawnerData> cows = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.COW, 8, 4, 4));
+        ok(h, EventHooks.getPotentialSpawns(o, MobCategory.CREATURE, OriginArena.ALTAR.above(), cows).isEmpty(), "no passive mobs in The Origin");
+        ok(h, EventHooks.getPotentialSpawns(h.getLevel(), MobCategory.CREATURE, h.absolutePos(BlockPos.ZERO), cows).unwrap().size() == 1,
+            "other dimensions keep their own lists");
+        ok(h, OriginSpawns.list().errors().isEmpty() && OriginSpawns.list().of("monster").size() == 4, "spawn list file parsed: " + OriginSpawns.list());
+        h.succeed();
+    }
+
+    private static boolean reloadIdle(MinecraftServer s) {
+        return AgeService.status(s).phase() == ReloadScheduler.Phase.IDLE;
     }
 
     private static Zombie spawnZombie(ServerLevel level, BlockPos at, boolean boss) {
