@@ -141,7 +141,8 @@ class AgeMap:
         rules = amap.get("items", {})
         self.id_rules = {k[3:]: v for k, v in rules.items() if k.startswith("id:")}
         self.other_rules = [(k, v) for k, v in rules.items() if not k.startswith("id:")]
-        self.disabled = disabled_selectors()
+        # disabled.toml (ProgressiveStages stage "disabled") plus [hidden] (tag only, no PS lock)
+        self.disabled = disabled_selectors() + [f"id:{i}" for i in amap.get("hidden", {}).get("items", [])]
         self.table_items, self.blocks, self.overrides = self._tables()
 
     # TFC tables and ore families: item id -> Age, block id -> Age, override rows per stage.
@@ -257,7 +258,7 @@ class AgeMap:
         """(stage, reason) of one item."""
         for sel in self.disabled:
             if selector_matches(sel, item, self.tags):
-                return "disabled", f"disabled.toml {sel}"
+                return "disabled", f"disabled.toml or [hidden] {sel}"
         if item in self.id_rules:
             return self.id_rules[item], f"[items] id:{item}"
         for sel, st in self.other_rules:
