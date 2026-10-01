@@ -28,6 +28,8 @@ public final class ShrineEvents {
     public static void register(IEventBus bus) {
         bus.addListener(ShrineEvents::onReloadListeners);
         bus.addListener(ShrineEvents::onRightClickBlock);
+        bus.addListener(ShrineEvents::onLeftClickBlock);
+        bus.addListener(net.neoforged.bus.api.EventPriority.HIGH, ShrineConsecration::onBreak);
         bus.addListener(ShrineEvents::onBreak);
         bus.addListener(ShrineEvents::onPlace);
         bus.addListener(ShrineEvents::onExplosion);
@@ -63,7 +65,21 @@ public final class ShrineEvents {
         if (event.getLevel() instanceof ServerLevel sl && event.getEntity() instanceof ServerPlayer sp) ShrineService.onBlockUsed(sl, pos, state, sp);
     }
 
+    /**
+     * Sneak plus an empty-hand punch on the heart toggles maintenance mode (SPEC §17). Server side only, so the
+     * client still sends the action; the punch never breaks the heart (not even in creative).
+     */
+    private static void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+        if (event.getAction() != PlayerInteractEvent.LeftClickBlock.Action.START) return;
+        if (!(event.getLevel() instanceof ServerLevel sl) || !(event.getEntity() instanceof ServerPlayer sp)) return;
+        if (!sp.isShiftKeyDown() || !sp.getMainHandItem().isEmpty()) return;
+        if (!sl.getBlockState(event.getPos()).is(ShrineRegistry.SHRINE_HEART.get())) return;
+        ShrineConsecration.toggleMaintenance(sl, event.getPos(), sp);
+        event.setCanceled(true);
+    }
+
     private static void onBreak(BlockEvent.BreakEvent event) {
+        if (event.isCanceled()) return;
         if (event.getLevel() instanceof ServerLevel sl) ShrineService.onBlockChanged(sl, event.getPos());
     }
 
@@ -73,13 +89,18 @@ public final class ShrineEvents {
 
     private static void onExplosion(ExplosionEvent.Detonate event) {
         if (!(event.getLevel() instanceof ServerLevel sl)) return;
+        // Consecrated blocks never go, whatever the explosion's power (SPEC §17).
+        event.getAffectedBlocks().removeIf(p -> sl.getBlockState(p).getBlock() instanceof ConsecratedBlock);
         for (BlockPos p : event.getAffectedBlocks()) {
             ShrineService.onBlockChanged(sl, p);
         }
     }
 
     private static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity() instanceof ServerPlayer sp) ShrineService.onLogin(sp);
+        if (event.getEntity() instanceof ServerPlayer sp) {
+            ShrineService.onLogin(sp);
+            ShrineConsecration.sync(sp);
+        }
     }
 
     private static void onStageChange(StageChangeEvent event) {
@@ -88,6 +109,7 @@ public final class ShrineEvents {
 
     private static void onServerTick(ServerTickEvent.Post event) {
         CeremonyService.tick(event.getServer());
+        ShrineConsecration.tick(event.getServer());
         Blessings.tick(event.getServer());
     }
 
@@ -100,6 +122,7 @@ public final class ShrineEvents {
 
     private static void onServerStopped(ServerStoppedEvent event) {
         ShrineState.clear();
+        ShrineConsecration.clear();
         CeremonyService.onServerStopped();
         Blessings.clear();
     }

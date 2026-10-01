@@ -1,10 +1,28 @@
 {
-  "variants": {
-    "lit=false": {
-      "model": "firmages:block/shrine_heart"
+  "multipart": [
+    {
+      "when": {
+        "lit": "false"
+      },
+      "apply": {
+        "model": "firmages:block/shrine_heart"
+      }
     },
-    "lit=true": {
-      "model": "firmages:block/shrine_heart_lit"
+    {
+      "when": {
+        "lit": "true"
+      },
+      "apply": {
+        "model": "firmages:block/shrine_heart_lit"
+      }
+    },
+    {
+      "when": {
+        "maintenance": "true"
+      },
+      "apply": {
+        "model": "firmages:block/shrine_heart_maintenance"
+      }
     }
-  }
+  ]
 }

@@ -41,7 +41,18 @@ public final class ShrineSavedData extends SavedData {
         }
     }
 
+    /**
+     * The original block of a consecrated position (SPEC §17), in the heart's dimension.
+     *
+     * @param ring  the ring (= accent) the position belongs to
+     * @param state the original block state, {@link Consecration#encodeState} format
+     */
+    public record Original(BlockPos pos, int ring, String state) {}
+
     @Nullable private GlobalPos heart;
+    private final Map<Long, Original> originals = new TreeMap<>();
+    /** Overworld game time when maintenance mode ends; 0 = off. */
+    private long maintenanceUntil;
     private boolean intact;
     private int lastValidRing = -1;
     private long lastValidated;
@@ -62,6 +73,7 @@ public final class ShrineSavedData extends SavedData {
         if (pos == null) {
             intact = false;
             lastValidRing = -1;
+            maintenanceUntil = 0;
         }
         setDirty();
     }
@@ -109,6 +121,39 @@ public final class ShrineSavedData extends SavedData {
         return relics.values().stream().filter(Relic::lent).toList();
     }
 
+    public Map<Long, Original> originals() {
+        return java.util.Collections.unmodifiableMap(originals);
+    }
+
+    public Optional<Original> original(BlockPos pos) {
+        return Optional.ofNullable(originals.get(pos.asLong()));
+    }
+
+    public void putOriginal(Original o) {
+        Original old = originals.put(o.pos().asLong(), o);
+        if (!o.equals(old)) setDirty();
+    }
+
+    public Optional<Original> removeOriginal(BlockPos pos) {
+        Original o = originals.remove(pos.asLong());
+        if (o != null) setDirty();
+        return Optional.ofNullable(o);
+    }
+
+    public void clearOriginals() {
+        if (!originals.isEmpty()) setDirty();
+        originals.clear();
+    }
+
+    public long maintenanceUntil() {
+        return maintenanceUntil;
+    }
+
+    public void setMaintenanceUntil(long until) {
+        if (maintenanceUntil != until) setDirty();
+        maintenanceUntil = until;
+    }
+
     public Set<String> grantedStages() {
         return Set.copyOf(grantedStages);
     }
@@ -138,6 +183,13 @@ public final class ShrineSavedData extends SavedData {
         }
         ListTag gl = tag.getList("granted", Tag.TAG_STRING);
         for (int i = 0; i < gl.size(); i++) d.grantedStages.add(gl.getString(i));
+        ListTag ol = tag.getList("originals", Tag.TAG_COMPOUND);
+        for (int i = 0; i < ol.size(); i++) {
+            CompoundTag o = ol.getCompound(i);
+            BlockPos p = BlockPos.of(o.getLong("pos"));
+            d.originals.put(p.asLong(), new Original(p, o.getInt("ring"), o.getString("state")));
+        }
+        d.maintenanceUntil = tag.getLong("maintenanceUntil");
         return d;
     }
 
@@ -163,6 +215,16 @@ public final class ShrineSavedData extends SavedData {
         ListTag gl = new ListTag();
         grantedStages.forEach(s -> gl.add(StringTag.valueOf(s)));
         tag.put("granted", gl);
+        ListTag ol = new ListTag();
+        for (Original o : originals.values()) {
+            CompoundTag c = new CompoundTag();
+            c.putLong("pos", o.pos().asLong());
+            c.putInt("ring", o.ring());
+            c.putString("state", o.state());
+            ol.add(c);
+        }
+        tag.put("originals", ol);
+        if (maintenanceUntil > 0) tag.putLong("maintenanceUntil", maintenanceUntil);
         return tag;
     }
 

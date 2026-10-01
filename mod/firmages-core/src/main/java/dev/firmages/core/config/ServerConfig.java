@@ -42,6 +42,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue SHRINE_PERMANENT_BEAM;
     public static final ModConfigSpec.BooleanValue SHRINE_CLEAR_WEATHER;
     public static final ModConfigSpec.BooleanValue SHRINE_BLESSINGS_EVERYWHERE;
+    public static final ModConfigSpec.IntValue SHRINE_MAINTENANCE_SECONDS;
+    public static final ModConfigSpec.IntValue SHRINE_CONSECRATION_TICKS;
     // origin
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
@@ -107,6 +109,10 @@ public final class ServerConfig {
         SHRINE_ENERGY_CAPACITY = b.defineInRange("energyCapacity", 100_000_000L, 0L, Long.MAX_VALUE);
         SHRINE_PERMANENT_BEAM = b.define("permanentBeam", false);
         SHRINE_CLEAR_WEATHER = b.define("clearWeather", true);
+        SHRINE_MAINTENANCE_SECONDS = b.comment("Maintenance mode (sneak and punch the heart with an empty hand): seconds until it ends by itself. Only while it is on, consecrated shrine blocks can be broken.")
+            .defineInRange("maintenanceSeconds", 60, 5, 3600);
+        SHRINE_CONSECRATION_TICKS = b.comment("Ticks the consecration of a ring takes, from the heart outward (after the Age reload).")
+            .defineInRange("consecrationTicks", 120, 0, 1200);
         b.comment("Blessing effects (attributes, status effects, XP) act on players within the sanctuary radius of the heart while the shrine is intact.").push("blessings");
         SHRINE_BLESSINGS_EVERYWHERE = b.comment("true: attribute and XP blessings act everywhere (team-wide, SPEC 7.6); status effects stay near the shrine.")
             .define("everywhere", false);

@@ -37,20 +37,22 @@ import org.jetbrains.annotations.Nullable;
 /**
  * {@code firmages:shrine_heart} (SPEC §2.5, §7.1): the fired-clay heart of the one shrine. Blockstate
  * {@code awakened} (0..10), {@code ready} (the current tier's rings stand) and {@code lit} (kindled, the Stone rite)
- * are read by FTB Quests observation tasks. Breaking it needs sneaking and a pickaxe.
+ * are read by FTB Quests observation tasks; {@code maintenance} shows maintenance mode (SPEC §17). Breaking it needs sneaking and a pickaxe.
  */
 public final class ShrineHeartBlock extends BaseEntityBlock {
     public static final MapCodec<ShrineHeartBlock> CODEC = simpleCodec(ShrineHeartBlock::new);
     public static final IntegerProperty AWAKENED = IntegerProperty.create("awakened", 0, 10);
     public static final BooleanProperty READY = BooleanProperty.create("ready");
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
+    /** Maintenance mode is on (SPEC §17): consecrated blocks may be broken; drawn as a scaffold cage. */
+    public static final BooleanProperty MAINTENANCE = BooleanProperty.create("maintenance");
     /** Items that kindle the heart (the Stone Age rite). */
     public static final TagKey<Item> KINDLERS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("firmages", "shrine/kindlers"));
     private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 15, 15);
 
     public ShrineHeartBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(AWAKENED, 0).setValue(READY, false).setValue(LIT, false));
+        registerDefaultState(stateDefinition.any().setValue(AWAKENED, 0).setValue(READY, false).setValue(LIT, false).setValue(MAINTENANCE, false));
     }
 
     @Override
@@ -60,7 +62,7 @@ public final class ShrineHeartBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(AWAKENED, READY, LIT);
+        builder.add(AWAKENED, READY, LIT, MAINTENANCE);
     }
 
     @Override

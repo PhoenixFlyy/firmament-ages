@@ -134,6 +134,7 @@ public final class ShrineService {
     public static void onHeartRemoved(ServerLevel level, BlockPos pos) {
         ShrineSavedData sd = ShrineSavedData.get(level.getServer());
         if (sd.heart().filter(g -> g.dimension() == level.dimension() && g.pos().equals(pos)).isEmpty()) return;
+        ShrineConsecration.onHeartRemoved(level);
         sd.setHeart(null);
         ShrineState.clear();
         FirmagesCore.LOGGER.info("Shrine heart at {} removed; relics stay on their plinths", pos);
@@ -149,12 +150,14 @@ public final class ShrineService {
         ShrineData d = data();
         int highest = d.highestRing();
         Rotation[] rot = new Rotation[highest + 1];
+        ShrineMultiblocks.RingCheck[] checks = new ShrineMultiblocks.RingCheck[highest + 1];
         int valid = -1;
         boolean chain = true;
         for (int k = 0; k <= highest; k++) {
             Optional<String> mb = d.tier(k).flatMap(ShrineTier::multiblock);
             if (mb.isEmpty()) continue; // a tier without own ring adds nothing to the structure
             ShrineMultiblocks.RingCheck c = ShrineMultiblocks.check(level, pos, ResourceLocation.parse(mb.get()));
+            checks[k] = c;
             rot[k] = c.rotation();
             if (chain && c.valid()) valid = k;
             else chain = false;
@@ -168,7 +171,8 @@ public final class ShrineService {
         boolean ready = tier.isPresent() && ringsReady(be, tier.get());
         BlockState state = level.getBlockState(pos);
         if (state.is(ShrineRegistry.SHRINE_HEART.get())) {
-            BlockState ns = state.setValue(ShrineHeartBlock.AWAKENED, Math.min(10, awakened)).setValue(ShrineHeartBlock.READY, ready);
+            BlockState ns = state.setValue(ShrineHeartBlock.AWAKENED, Math.min(10, awakened)).setValue(ShrineHeartBlock.READY, ready)
+                .setValue(ShrineHeartBlock.MAINTENANCE, ShrineConsecration.maintenanceActive(level.getServer()));
             if (ns != state) level.setBlock(pos, ns, 3);
         }
         ShrineSavedData sd = ShrineSavedData.get(level.getServer());
@@ -184,6 +188,7 @@ public final class ShrineService {
         }
         be.validationDue = false;
         be.nextValidation = level.getGameTime() + VALIDATE_INTERVAL;
+        ShrineConsecration.afterValidation(level, pos, checks, awakened);
     }
 
     /** True when every ring the tier needs stands (rings above the highest defined ring are not required). */
@@ -652,6 +657,7 @@ public final class ShrineService {
         if (tier.isEmpty()) return Optional.of(msg(ShrineRules.highest(unlocked) == AgeId.DAWN ? "firmages.shrine.sleeping" : "firmages.shrine.complete"));
         Optional<ShrineTier> t = data().tier(tier.get());
         if (t.isEmpty()) return Optional.of(msg("firmages.shrine.plinth.unknown_offering"));
+        if (ShrineConsecration.maintenanceActive(level.getServer())) return Optional.of(msg("firmages.shrine.maintenance.no_prayer"));
         if (!ringsReady(h.be, tier.get())) {
             if (sendPreview && player != null) sendPreview(player, h, firstIncompleteRing(h.be).orElse(tier.get()));
             return Optional.of(ruinsMessage(level, h, firstIncompleteRing(h.be).orElse(tier.get())));
@@ -792,6 +798,10 @@ public final class ShrineService {
         BlockPos plinth = plinthOf(level, h.pos, h.be, t).orElseThrow();
         OfferingPlinthBlockEntity pb = (OfferingPlinthBlockEntity) level.getBlockEntity(plinth);
         pb.enshrine(t.tier());
+        // Caelum accepts the ring: it is consecrated from the heart outward once the Age reload is through (SPEC §17)
+        if (t.multiblock().isPresent() && t.tier() < h.be.ringRotations.length) {
+            ShrineConsecration.scheduleRing(level, h.pos, t.tier(), h.be.ringRotations[t.tier()], true);
+        }
         ShrineSavedData sd = ShrineSavedData.get(s);
         sd.putRelic(new ShrineSavedData.Relic(plinth.immutable(), t.tier(), BuiltInRegistries.ITEM.getKey(pb.item().getItem()).toString()));
         sd.addGranted(stage.id());
@@ -915,7 +925,13 @@ public final class ShrineService {
         if (mb.isEmpty()) return msg("firmages.shrine.ruins.unknown");
         ResourceLocation id = ResourceLocation.parse(mb.get());
         ShrineMultiblocks.RingCheck c = ShrineMultiblocks.check(level, h.pos, id);
-        return msg("firmages.shrine.ruins", ShrineMultiblocks.name(id), c.matched(), c.total());
+        return msg(consecratedRing(level.getServer(), ring) ? "firmages.shrine.ruins_consecrated" : "firmages.shrine.ruins",
+            ShrineMultiblocks.name(id), c.matched(), c.total());
+    }
+
+    /** Ring {@code ring} belongs to an awakened tier, so it is (or becomes) consecrated (SPEC §17). */
+    static boolean consecratedRing(MinecraftServer s, int ring) {
+        return ring < ShrineRules.awakened(unlocked(s));
     }
 
     private static void refuseRuins(ServerLevel level, Heart h, @Nullable ServerPlayer player, int tier) {
@@ -930,6 +946,13 @@ public final class ShrineService {
         ResourceLocation id = ResourceLocation.parse(mb.get());
         ShrineMultiblocks.RingCheck c = ShrineMultiblocks.check(h.level, h.pos, id);
         if (!c.known()) return;
+        if (consecratedRing(h.level.getServer(), ring)) {
+            // The Modonomicon ghost shows Age materials and would mark every consecrated block as wrong: sparks mark the holes.
+            for (BlockPos p : c.missingPositions()) {
+                h.level.sendParticles(player, ParticleTypes.WAX_OFF, true, p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, 8, 0.3, 0.3, 0.3, 0.0);
+            }
+            return;
+        }
         PacketDistributor.sendToPlayer(player, new ShrinePreviewPayload(id, h.pos, c.bestRotation().ordinal(), false));
     }
 
@@ -987,6 +1010,7 @@ public final class ShrineService {
         out.add(Component.literal("Phase " + phase(h) + "; rites not done " + rites + "; prayer " + h.be.prayerProgress + "/"
             + ShrineRules.prayerTarget(prayerTicks(t), minPrayerTicks(), Math.max(1, h.be.prayers.size())) + " with " + h.be.prayers.size()
             + " praying" + (h.be.awakening(now) ? "; awakening for " + (h.be.awakeningUntil - now) + " ticks" : "")));
+        out.add(ShrineConsecration.statusLine(s));
         out.add(Component.literal("Sanctuary radius " + Blessings.sanctuaryRadius(s) + " (active: " + Blessings.sanctuaryActive(s) + "); blessings "
             + Blessings.activeBlessings(s).stream().map(Blessing::id).toList() + (Blessings.everywhere() ? " everywhere" : " within that radius")));
         return out;

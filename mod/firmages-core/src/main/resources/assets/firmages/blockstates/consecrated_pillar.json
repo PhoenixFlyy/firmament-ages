@@ -1,0 +1,81 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "firmages:block/consecrated_pillar"
+      }
+    },
+    {
+      "when": {
+        "accent": "0"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_0"
+      }
+    },
+    {
+      "when": {
+        "accent": "1"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_1"
+      }
+    },
+    {
+      "when": {
+        "accent": "2"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_2"
+      }
+    },
+    {
+      "when": {
+        "accent": "3"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_3"
+      }
+    },
+    {
+      "when": {
+        "accent": "4"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_4"
+      }
+    },
+    {
+      "when": {
+        "accent": "5"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_5"
+      }
+    },
+    {
+      "when": {
+        "accent": "6"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_6"
+      }
+    },
+    {
+      "when": {
+        "accent": "7"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_7"
+      }
+    },
+    {
+      "when": {
+        "accent": "8"
+      },
+      "apply": {
+        "model": "firmages:block/consecrated_accent_8"
+      }
+    }
+  ]
+}

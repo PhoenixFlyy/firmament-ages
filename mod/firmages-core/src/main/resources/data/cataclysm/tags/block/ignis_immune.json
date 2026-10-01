@@ -1,6 +1,13 @@
 {
   "replace": false,
   "values": [
-    {"id": "firmages:origin_altar", "required": false}
+    {
+      "id": "firmages:origin_altar",
+      "required": false
+    },
+    {
+      "id": "#firmages:consecrated",
+      "required": false
+    }
   ]
 }

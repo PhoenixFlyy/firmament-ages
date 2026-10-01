@@ -22,6 +22,8 @@ public record ShrineTier(int tier, Optional<String> multiblock, char plinthKey, 
                          List<Rite> rites, OptionalInt prayerTicks, Response response, Optional<String> blessing, boolean fallback) {
 
     public static final char DEFAULT_PLINTH_KEY = 'P';
+    /** Pattern character of the heart in every ring (the anchor). */
+    public static final char HEART_KEY = '0';
     public static final int DEFAULT_PLINTH_RADIUS = 12;
 
     /**
