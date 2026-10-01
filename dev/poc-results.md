@@ -1352,3 +1352,71 @@ Heart at 0 200 0 on a stone platform, ring 0 by `build_shrine.py --rings 0 --pla
   positions as air; the counts are right. Cosmetic.
 - The first operator reload after the restart took 9.4 s (the next two 8.3 and 7.9 s); the Age grants stayed at
   5.9 to 6.1 s.
+
+## Leftovers
+
+Date: 2026-10-02, branch `dev` on top of a3379fb (pack 0.6.0, firmages-core 0.6.0 unchanged). Fresh test world
+(`run_server.py --wipe-world`), test server synced from `packwiz serve` (`-g -s server`, "Finished successfully").
+Debug players Alpha and Beta (`firmages debug player join`), survival; Ages granted to Alpha with `stage grant` one
+at a time, one reload each (7.3 to 8.9 s). Design calls are in `dev/decisions-while-away.md` (rows of 2026-10-02).
+
+### What changed
+
+1. **Boss fallback gateways (Doc 08 §5.1).** Eight sigils (`firmages:frontier_sigil`, `wild_`, `forge_`, `wither_`,
+   `end_`, `space_`, `abyss_`, `chaos_sigil`): KubeJS items with textures (`gen_textures.py`), one grid recipe each
+   from the materials of its Age (`recipes/boss_sigils.js`, never the boss drop), each in its Age tag. Used on a block,
+   a sigil opens `firmages:<name>_trial` (`kubejs/data/firmages/gateways/`) the way a gate pearl does
+   (`server_scripts/firmages/boss_fallback.js`; the clicked block's GUI never opens, creative keeps the sigil). The
+   gate pays out the real boss drop, so `firmages:boss_token/<age>`, the quests and the recipes that name the drop by
+   id accept it unchanged. From `age_7` on the End Trial also gives a Dragon Heart (hook on `GateEvent$Completed`).
+   Tooltips and gate names (boss bar) in `client_scripts/item_tooltips.js`. `the_origin_fallback.json` is the finale
+   gate with vanilla echoes of Maledictus and Ignis, switched on only by `origin.finaleGateway`.
+   Quests (`gen_quests.py`): each boss quest is "kill OR bring the drop" (both tasks optional), and every keystone or
+   boss quest of a fallback Age names its sigil, ingredients and payout. The Twilight Hydra is no checkpoint in this
+   pack (Doc 08 §2.2: Naga and Lich), so it has no gate; Ignis has none of its own (side mission; finale fallback
+   above).
+2. **Sequenced assemblies with disabled chance outputs** (`byproducts.js`): Simulated engine assembly and gyroscopic
+   mechanism, Create Connected control chip, Create Factory Logistics fluid mechanism lose their disabled outputs
+   (Create sheets, crushed ores) and take `c:plates/<metal>` instead of the Create sheet as input; the control chip's
+   electron tube byproduct waits for age_2.
+3. **Dead inputs** (`recipes/dead_inputs.js`, new): 97 recipes named by item id something no recipe makes (the four
+   Create sheets, vanilla copper and gold ingots, iron block, lapis) and now take the common tag; among them the 16
+   createdeco shipping containers, whose vanilla barrel became `#tfc:barrels` (with the Create Dragons Plus fragile
+   fluid tank, moved here from `tfc_station_inputs.js`). Also: `create:brass_nugget` from TFC brass (no recipe made it,
+   about 30 recipes ask for it) with TFC heat data, Ad Astra plateblocks on `c:rods/<metal>`, the MA soul extractor
+   on soulium ingots (the soulium dagger is disabled).
+4. **Gear rule, AdvancedAE strength card** (`gear_rule.js`): the netherite sword becomes a black steel sword blade
+   (diamond sword -> steel blade as before; the AE2 fluix and certus swords stay).
+5. **`poc_analyze.py`**: new checks C-Di (no live recipe names a dead item), R-F (each sigil reachable at its Age
+   without that Age's or later boss drops, its gate file exists and pays out every member of the boss token tag), R-L
+   (the 15 items whose only recipe was broken are reachable at their Age); R-0 judges a mod recipe under the
+   `minecraft:` namespace (createdeco containers) by its output.
+
+### Results
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot | `Done (11.514s)`; KubeJS startup 2/2, server 35/35 scripts, 0 errors, 0 warnings (also after the `reload` with the hook fix); "Registered 22 gateways"; FTB Quests 13 chapters, 345 quests | pass |
+| KubeJS lines at age_9 | `byproducts: 5 recipe(s)`, `dead inputs: 97 of 97 recipes now take the common tag`, `TFC station inputs: 92 replacements` | pass |
+| `poc_analyze.py`, all-Ages dump (`fa_dump`, `fa_dump_full`: 33,218 recipes, audit at age_9) | **82 checks, all PASS**, among them C-Di, C-Gv, R-0, R-F age_2 to age_9, R-L age_1/2/4/5/7/8 | pass |
+| The four assemblies in the dump | e.g. `simulated:sequenced_assembly/engine_assembly` takes `c:plates/iron`, no disabled result; `control_chip` starts on `c:plates/gold`; all four reachable at their Age (R-L) | pass |
+| createdeco container, strength card in the dump | `minecraft:red_shipping_container`: `#tfc:barrels`, `#c:plates/iron`, red dye; `advanced_ae:strength_card`: black steel and steel sword blades, fluix and certus quartz swords, quantum upgrade base | pass |
+| Each gate with its sigil (Alpha, all Ages, `debug use` on a bedrock block, waves killed by command) | all eight opened ("boss fallback: Alpha opened ..."), one sigil used each, gate gone after 18 to 26 s; payout at the gate: Frontier naga + lich trophy, Wild wilden tribute, Forge monstrous horn, Wither nether star, End 4 dragon's breath + 1 dragon heart, Space witherite block, Abyss abyssal egg, Chaos 4 chaos shards | pass |
+| End Trial at age_6 (`stage revoke` age_9, 8, 7) | 4 dragon's breath, no dragon heart | pass |
+| Sigil of a locked Age | Beta (dawn only) with a Frontier Sigil: "This item is locked!", no gate, sigil kept; at age_6 `recipes why firmages:crafting/space_sigil`: DROPPED (returns with age_7), `end_sigil` KEPT | pass |
+| Finale fallback gate in the overworld | `open_gateway ... firmages:the_origin_fallback`: Echo of Maledictus, Echo of Ignis, both; gone after 33 s; no `[finale]` line | pass |
+| `validate_quests.py` | 1291 object ids, 0 errors, 0 warnings | pass |
+| `gen_textures.py --check` | 60 referenced textures, 0 errors, 0 warnings | pass |
+
+Bug found and fixed in this run: the first End Trial hook declared a `const` inside `try`, which Rhino refuses
+("redeclaration of var gate"); it logged the error and the gate still paid its file rewards.
+
+### Open points of this run
+
+- **Needs a client:** the waves fought for real (here every wave was killed by command), the sigil textures and
+  tooltips, the gate names on the boss bar.
+- **AdvancedAE strength card** only upgrades the Quantum Armor, which is disabled; the card is craftable at age_8 but
+  has no use. Disable it or leave it (Felix).
+- **G-4 needs the audit of the dump's world state:** `firmages recipes audit` at dawn lists
+  `immersiveengineering:bottling_machine` and `mixer` as undetected types and G-4 fails; the audit at age_9 passes.
+  Run the audit after the grants, as in the earlier runs.
