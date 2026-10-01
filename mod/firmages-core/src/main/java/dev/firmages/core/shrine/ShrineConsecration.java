@@ -81,6 +81,11 @@ public final class ShrineConsecration {
         final boolean afterReload;
         final long earliest;
         long start = -1;
+        /** blocks changed so far and the ticks (relative to start) of the first and the last change */
+        int changed;
+        long firstTick = -1;
+        long lastTick = -1;
+        final java.util.Set<Integer> rings = new java.util.TreeSet<>();
 
         Batch(ResourceKey<Level> dimension, List<Task> tasks, boolean afterReload, long earliest) {
             this.dimension = dimension;
@@ -290,15 +295,26 @@ public final class ShrineConsecration {
                     continue;
                 }
                 PENDING.remove(t.pos().asLong());
-                if (t.revert()) revert(level, t);
-                else if (consecrate(level, t, !sound)) sound = true;
+                if (t.revert()) {
+                    revert(level, t);
+                } else if (consecrate(level, t, !sound)) {
+                    sound = true;
+                    b.changed++;
+                    b.rings.add(t.ring());
+                    if (b.firstTick < 0) b.firstTick = clock - b.start;
+                    b.lastTick = clock - b.start;
+                    FirmagesCore.LOGGER.debug("Shrine: consecrated {} (ring {}, {}) at +{} ticks", t.pos().toShortString(), t.ring(), t.role(), clock - b.start);
+                }
             }
             for (Task t : later) {
                 PENDING.put(t.pos().asLong(), t);
                 b.tasks.add(t);
             }
             if (!later.isEmpty()) b.tasks.sort(Comparator.comparingInt(Task::offset));
-            if (b.tasks.isEmpty()) it.remove();
+            if (b.tasks.isEmpty()) {
+                it.remove();
+                if (b.changed > 0) FirmagesCore.LOGGER.info("Shrine: consecration done, {} block(s) of rings {} from +{} to +{} ticks", b.changed, b.rings, b.firstTick, b.lastTick);
+            }
         }
         if (syncDirty && clock % 20 == 0) {
             syncDirty = false;

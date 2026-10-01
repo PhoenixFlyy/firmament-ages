@@ -27,6 +27,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.game.ClientboundBundlePacket;
+import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
@@ -59,7 +61,7 @@ import java.util.Set;
  * server, so the shrine runs its real code paths (block use, prayer, ProgressiveStages and FTB Teams/Quests through
  * the player list) without a client. A test player is a real {@link ServerPlayer} on an in-memory connection, placed
  * with {@code PlayerList.placeNewPlayer} like vanilla's GameTest mock player; it accepts every mod payload and logs
- * the firmages payloads, titles and chat lines it receives as {@code [debug-player <name>]}. Its UUID is the offline
+ * the firmages payloads, particles, titles and chat lines it receives as {@code [debug-player <name>]}. Its UUID is the offline
  * UUID of the name, so it keeps its player data across restarts. {@code debug run <name> <command>} runs a command as
  * that player (for player-only commands such as {@code ftbteams party create}). {@code debug punch} sends one left
  * click (start of mining, optionally sneaking) and aborts it; {@code debug mine} mines a block the survival way: start,
@@ -94,6 +96,8 @@ public final class DebugPlayerCommands {
                     .then(Commands.literal("sneak").executes(c -> punch(c, true))))))
             .then(Commands.literal("mine").then(Commands.argument("name", StringArgumentType.word())
                 .then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(DebugPlayerCommands::mine))))
+            .then(Commands.literal("break").then(Commands.argument("name", StringArgumentType.word())
+                .then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(DebugPlayerCommands::breakBlock))))
             .then(Commands.literal("run").then(Commands.argument("name", StringArgumentType.word())
                 .then(Commands.argument("command", StringArgumentType.greedyString()).executes(DebugPlayerCommands::run))))
             .then(Commands.literal("pray").then(Commands.argument("name", StringArgumentType.word())
@@ -231,6 +235,23 @@ public final class DebugPlayerCommands {
         return 1;
     }
 
+    /**
+     * The server side of a finished mining (what a client claiming the break triggers): {@code ServerPlayerGameMode.destroyBlock},
+     * with the {@code BreakEvent} and the block's own drop logic, without the destroy-progress check.
+     */
+    private static int breakBlock(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        check();
+        ServerPlayer p = player(c);
+        BlockPos pos = BlockPosArgument.getLoadedBlockPos(c, "pos");
+        BlockState before = p.serverLevel().getBlockState(pos);
+        boolean broken = p.gameMode.destroyBlock(pos);
+        BlockState after = p.serverLevel().getBlockState(pos);
+        FirmagesCore.LOGGER.info("[debug-player {}] break {} {} with {}: {} -> {}", p.getGameProfile().getName(), pos.toShortString(), before,
+            p.getMainHandItem(), broken ? "broken" : "refused", after);
+        c.getSource().sendSuccess(() -> Component.literal("break -> " + (broken ? "broken" : "refused") + ", now " + after), false);
+        return 1;
+    }
+
     private static void tickMining(MinecraftServer server) {
         Iterator<Map.Entry<String, Prayer>> it = MINING.entrySet().iterator();
         while (it.hasNext()) {
@@ -326,7 +347,7 @@ public final class DebugPlayerCommands {
         }
     }
 
-    /** Drops every outbound packet; logs the firmages payloads, titles and chat lines. */
+    /** Drops every outbound packet; logs the firmages payloads, particles, titles and chat lines. */
     private static final class Capture extends ChannelOutboundHandlerAdapter {
         private final String name;
         private long lastOverlay;
@@ -352,6 +373,9 @@ public final class DebugPlayerCommands {
                 for (Packet<?> p : bundle.subPackets()) log(p);
             } else if (msg instanceof ClientboundCustomPayloadPacket cp && cp.payload().type().id().getNamespace().equals(FirmagesCore.MOD_ID)) {
                 FirmagesCore.LOGGER.info("[debug-player {}] payload {}: {}", name, cp.payload().type().id(), cp.payload());
+            } else if (msg instanceof ClientboundLevelParticlesPacket pp) {
+                FirmagesCore.LOGGER.info("[debug-player {}] particles {} x{} at {} {} {}", name, BuiltInRegistries.PARTICLE_TYPE.getKey(pp.getParticle().getType()),
+                    pp.getCount(), Math.floor(pp.getX()), Math.floor(pp.getY()), Math.floor(pp.getZ()));
             } else if (msg instanceof ClientboundSetTitleTextPacket t) {
                 FirmagesCore.LOGGER.info("[debug-player {}] title: {}", name, t.text().getString());
             } else if (msg instanceof ClientboundSetSubtitleTextPacket t) {

@@ -4,7 +4,8 @@
 Reads the ring patterns from the firmages-core resources (data/firmages/modonomicon/multiblocks/shrine_ring_N.json),
 places one real pack block per pattern character (PICK below, one concrete member of each firmages:shrine/* tag),
 the heart in the centre and the plinth of every ring. Layers are placed bottom up so candles and lamps have support.
-Prints each ring's plinth position (needed for /firmages debug use).
+Prints each ring's plinth position (needed for /firmages debug use). A standing heart is left alone, so a later ring can
+be added to an awakened shrine without resetting the heart.
 
   --platform   fill a stone platform under the 21x21 footprint and clear the air above it first
   --rites N    also set the rite blockstates of tier N the way the game reaches them: tier 2 lights the four lamps
@@ -148,7 +149,9 @@ def main():
         c, p = commands(a.heart, n, a.rites)
         cmds += c
         plinths[n] = p
-    cmds.append(f"setblock {hx} {hy} {hz} firmages:shrine_heart")
+    # Only a missing heart is placed: a setblock over a standing heart resets its state (lit, awakened, maintenance).
+    heart_cmd = f"execute unless block {hx} {hy} {hz} firmages:shrine_heart run setblock {hx} {hy} {hz} firmages:shrine_heart"
+    cmds.append(heart_cmd)
     for n, p in plinths.items():
         print(f"ring {n}: plinth {n + 1} at {p[0]} {p[1]} {p[2]}")
     if a.dry_run:
@@ -159,6 +162,8 @@ def main():
     bad = 0
     for cmd in cmds:
         out = rcon.COLOR.sub("", r.command(cmd))
+        if cmd == heart_cmd and not out.strip():
+            continue  # the heart stands already
         if not (out.startswith("Changed the block") or out.startswith("Could not set the block") or out.startswith("Successfully filled") or "force loaded" in out
                 or out.startswith("Marked") or out.startswith("Modified block data")):
             bad += 1
