@@ -92,6 +92,9 @@
 		}
 		{
 			dependencies: ["652657C4C5B8CAC5"]
+			icon: {
+				id: "firmages:arcane_keystone"
+			}
 			id: "077BFA2D599B1A4B"
 			shape: "hexagon"
 			size: 1.5d
@@ -108,6 +111,9 @@
 		}
 		{
 			dependencies: ["077BFA2D599B1A4B"]
+			icon: {
+				id: "firmages:pressure_core"
+			}
 			id: "663A4EAE1B3FAF8C"
 			shape: "hexagon"
 			size: 1.5d
@@ -124,6 +130,9 @@
 		}
 		{
 			dependencies: ["663A4EAE1B3FAF8C"]
+			icon: {
+				id: "firmages:humming_core"
+			}
 			id: "32D33BE8EB20FCA6"
 			shape: "hexagon"
 			size: 1.5d
@@ -140,6 +149,9 @@
 		}
 		{
 			dependencies: ["32D33BE8EB20FCA6"]
+			icon: {
+				id: "firmages:data_matrix"
+			}
 			id: "40280EBC4CC9F8F6"
 			shape: "hexagon"
 			size: 1.5d
@@ -156,6 +168,9 @@
 		}
 		{
 			dependencies: ["40280EBC4CC9F8F6"]
+			icon: {
+				id: "firmages:star_chart"
+			}
 			id: "33818E6B3089AF9E"
 			shape: "hexagon"
 			size: 1.5d
@@ -172,6 +187,9 @@
 		}
 		{
 			dependencies: ["33818E6B3089AF9E"]
+			icon: {
+				id: "firmages:quantum_core"
+			}
 			id: "3C8510408C6A23D6"
 			shape: "hexagon"
 			size: 1.5d

@@ -684,12 +684,12 @@ FIRMAMENT = [
     ('hearthstone', 'Hearthstone', 'Age 0: Stone Age', 'age_1', 'firmages:hearthstone'),
     ('sky_disc', 'Sky Disc', 'Age 1: Bronze Age', 'age_2', 'firmages:sky_disc'),
     ('steel_heart', 'Steel Heart', 'Age 2: Iron Age', 'age_3', 'firmages:steel_heart'),
-    ('arcane_keystone', 'Arcane Keystone', 'Age 3: Arcane Age', 'age_4', None),
-    ('pressure_core', 'Pressure Core', 'Age 4: Industrial Age', 'age_5', None),
-    ('humming_core', 'Humming Core', 'Age 5: Electric Age', 'age_6', None),
-    ('data_matrix', 'Data Matrix', 'Age 6: Information Age', 'age_7', None),
-    ('star_chart', 'Star Chart', 'Age 7: Space Age', 'age_8', None),
-    ('quantum_core', 'Quantum Core', 'Age 8: Quantum Age', 'age_9', None),
+    ('arcane_keystone', 'Arcane Keystone', 'Age 3: Arcane Age', 'age_4', 'firmages:arcane_keystone'),
+    ('pressure_core', 'Pressure Core', 'Age 4: Industrial Age', 'age_5', 'firmages:pressure_core'),
+    ('humming_core', 'Humming Core', 'Age 5: Electric Age', 'age_6', 'firmages:humming_core'),
+    ('data_matrix', 'Data Matrix', 'Age 6: Information Age', 'age_7', 'firmages:data_matrix'),
+    ('star_chart', 'Star Chart', 'Age 7: Space Age', 'age_8', 'firmages:star_chart'),
+    ('quantum_core', 'Quantum Core', 'Age 8: Quantum Age', 'age_9', 'firmages:quantum_core'),
     ('beyond', 'Beyond the Firmament', 'Age 9: Singularity Age', 'finale_won', None),
 ]
 
