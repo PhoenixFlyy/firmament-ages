@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "tfc:metal/lamp/wrought_iron",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/black_steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/blue_steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/red_steel",
+      "required": false
+    }
+  ]
+}

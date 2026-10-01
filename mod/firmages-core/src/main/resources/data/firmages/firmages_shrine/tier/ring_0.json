@@ -1,0 +1,26 @@
+{
+  "multiblock": "firmages:shrine_ring_0",
+  "grants": "age_1",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "blockstate",
+      "key": "0",
+      "property": "lit",
+      "value": "true",
+      "hint": "firmages.shrine.rite.kindle"
+    }
+  ],
+  "response": {
+    "beam_color": "#FFB347",
+    "sky_tint": "#FF8C3A",
+    "particles": [
+      "minecraft:flame",
+      "minecraft:lava",
+      "minecraft:end_rod"
+    ],
+    "sting": "firmages:shrine.sting.stone",
+    "lightning": false
+  },
+  "blessing": "firmages:hearthward"
+}

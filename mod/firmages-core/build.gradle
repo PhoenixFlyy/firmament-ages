@@ -164,6 +164,7 @@ dependencies {
     compileOnly files("libs/TerraFirmaCraft-NeoForge-1.21.1-${tfc_version}.jar")
     compileOnly files("libs/kubejs-neoforge-${kubejs_version}.jar")
     compileOnly files("libs/rhino-${rhino_version}.jar")
+    compileOnly files("libs/modonomicon-1.21.1-neoforge-${modonomicon_version}.jar") // shrine rings, ghost preview
 
     // Required mods (and KubeJS for the binding) in dev runs: runServer, runGameTestServer
     localRuntime files("libs/progressivestages-${progressivestages_version}.jar")

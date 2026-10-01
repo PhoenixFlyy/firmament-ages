@@ -6,6 +6,8 @@ import com.enviouse.progressivestages.common.api.StageId;
 import com.enviouse.progressivestages.common.api.StagesBulkChangedEvent;
 import com.enviouse.progressivestages.common.stage.StageManager;
 import dev.firmages.core.FirmagesCore;
+import dev.firmages.core.ceremony.CeremonyService;
+import dev.firmages.core.shrine.ShrineService;
 import dev.firmages.core.compat.ftbteams.FtbTeamsCompat;
 import dev.firmages.core.config.EarlyServerConfig;
 import dev.firmages.core.gate.RecipeGate;
@@ -471,6 +473,13 @@ public final class AgeService {
             FirmagesCore.LOGGER.warn("Age {} revoked: restart the server to clear in-progress items", age.id());
             messageOps(s, warn("firmages.age.revoked.warning",
                 "[Firmament Ages] Age revoked: restart the server to clear in-progress items"));
+            ShrineService.onAgeChanged(s);
+        }
+
+        @Override
+        public void granted(AgeId age) {
+            CeremonyService.onAgeGranted(s, age);
+            ShrineService.onAgeChanged(s);
         }
     }
 

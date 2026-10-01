@@ -1,0 +1,103 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "minecraft:block/terracotta",
+    "side": "minecraft:block/orange_glazed_terracotta",
+    "base": "minecraft:block/terracotta",
+    "top": "minecraft:block/terracotta",
+    "band": "minecraft:block/gold_block"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        4,
+        15
+      ],
+      "faces": {
+        "up": {
+          "texture": "#base"
+        },
+        "north": {
+          "texture": "#base"
+        },
+        "south": {
+          "texture": "#base"
+        },
+        "west": {
+          "texture": "#base"
+        },
+        "east": {
+          "texture": "#base"
+        },
+        "down": {
+          "texture": "#base",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        4,
+        3
+      ],
+      "to": [
+        13,
+        13,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "west": {
+          "texture": "#side"
+        },
+        "east": {
+          "texture": "#side"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        13,
+        2
+      ],
+      "to": [
+        14,
+        15,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#band"
+        },
+        "south": {
+          "texture": "#band"
+        },
+        "west": {
+          "texture": "#band"
+        },
+        "east": {
+          "texture": "#band"
+        },
+        "down": {
+          "texture": "#band"
+        },
+        "up": {
+          "texture": "#top"
+        }
+      }
+    }
+  ]
+}

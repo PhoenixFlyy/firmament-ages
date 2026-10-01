@@ -1,0 +1,15 @@
+{
+  "values": [
+    {
+      "id": "tfc:firestarter",
+      "required": false
+    },
+    "minecraft:flint_and_steel",
+    "minecraft:fire_charge",
+    {
+      "id": "tfc:torch",
+      "required": false
+    },
+    "minecraft:torch"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:shrine_heart"
+    },
+    "P": {
+      "type": "modonomicon:block",
+      "block": "firmages:offering_plinth"
+    },
+    "B": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/sanctum_bricks"
+    },
+    "Z": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/bronze_blocks"
+    },
+    "G": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/bells"
+    }
+  },
+  "pattern": [
+    [
+      "_______",
+      "_______",
+      "_______",
+      "_______",
+      "_______",
+      "_______",
+      "___G___"
+    ],
+    [
+      "ZBBPBBZ",
+      "B_____B",
+      "B_____B",
+      "B__0__B",
+      "B_____B",
+      "B_____B",
+      "ZBBBBBZ"
+    ]
+  ]
+}

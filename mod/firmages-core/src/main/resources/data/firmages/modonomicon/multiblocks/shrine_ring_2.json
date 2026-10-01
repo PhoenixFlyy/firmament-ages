@@ -1,0 +1,71 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:shrine_heart"
+    },
+    "P": {
+      "type": "modonomicon:block",
+      "block": "firmages:offering_plinth"
+    },
+    "S": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/smooth_stones"
+    },
+    "I": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/iron_bars"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:shrine/iron_lamps"
+    }
+  },
+  "pattern": [
+    [
+      "L_______L",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "L_______L"
+    ],
+    [
+      "S_______S",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "S_______S"
+    ],
+    [
+      "SI_____IS",
+      "I_______I",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "I_______I",
+      "SI_____IS"
+    ],
+    [
+      "SSSSPSSSS",
+      "S_______S",
+      "S_______S",
+      "S_______S",
+      "S___0___S",
+      "S_______S",
+      "S_______S",
+      "S_______S",
+      "SSSSSSSSS"
+    ]
+  ]
+}

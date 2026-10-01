@@ -1,0 +1,24 @@
+{
+  "multiblock": "firmages:shrine_ring_2",
+  "grants": "age_3",
+  "plinth_key": "P",
+  "rites": [
+    {
+      "type": "blockstate",
+      "key": "L",
+      "property": "lit",
+      "value": "true",
+      "hint": "firmages.shrine.rite.lamps"
+    }
+  ],
+  "response": {
+    "beam_color": "#E06030",
+    "sky_tint": "#803018",
+    "particles": [
+      "minecraft:flame",
+      "minecraft:electric_spark"
+    ],
+    "sting": "firmages:shrine.sting.iron",
+    "lightning": true
+  }
+}

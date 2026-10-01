@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "tfc:metal/bars/wrought_iron",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/bars/steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/bars/black_steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/bars/blue_steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/bars/red_steel",
+      "required": false
+    }
+  ]
+}

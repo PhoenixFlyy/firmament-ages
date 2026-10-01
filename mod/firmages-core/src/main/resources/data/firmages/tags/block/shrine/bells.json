@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "tfc:bronze_bell",
+      "required": false
+    },
+    {
+      "id": "tfc:brass_bell",
+      "required": false
+    }
+  ]
+}

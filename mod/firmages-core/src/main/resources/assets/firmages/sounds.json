@@ -1,0 +1,74 @@
+{
+  "shrine.sting.stone": {
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.activate",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.sting"
+  },
+  "shrine.sting.bronze": {
+    "sounds": [
+      {
+        "name": "minecraft:block.bell.resonate",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.sting"
+  },
+  "shrine.sting.iron": {
+    "sounds": [
+      {
+        "name": "minecraft:block.anvil.land",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.sting"
+  },
+  "shrine.choir": {
+    "sounds": [
+      {
+        "name": "minecraft:block.conduit.activate",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.choir"
+  },
+  "shrine.prayer": {
+    "sounds": [
+      {
+        "name": "minecraft:block.enchantment_table.use",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.prayer"
+  },
+  "shrine.refused": {
+    "sounds": [
+      {
+        "name": "minecraft:block.fire.extinguish",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.refused"
+  },
+  "shrine.accepted": {
+    "sounds": [
+      {
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.accepted"
+  },
+  "shrine.kindled": {
+    "sounds": [
+      {
+        "name": "minecraft:item.firecharge.use",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.kindled"
+  }
+}
