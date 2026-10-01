@@ -14,3 +14,6 @@ mod/firmages-core/libs/*.jar
 dev/shrine-viewer/out/
 dev/shrine-viewer/viewer.html
 dev/shrine-viewer/shrine_data.json
+
+# release exports and install tests (dev/release.ps1, dev/make_friends_zip.ps1)
+dev/exports/
