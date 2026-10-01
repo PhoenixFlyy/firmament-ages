@@ -1,0 +1,113 @@
+{
+  "mysticalagriculture:dirt": {
+    "enabled": false
+  },
+  "mysticalagriculture:stone": {
+    "enabled": false
+  },
+  "mysticalagriculture:wood": {
+    "enabled": false
+  },
+  "mysticalagriculture:ice": {
+    "enabled": false
+  },
+  "mysticalagriculture:coral": {
+    "enabled": false
+  },
+  "mysticalagriculture:prismarine": {
+    "enabled": false
+  },
+  "mysticalagriculture:sculk": {
+    "enabled": false
+  },
+  "mysticalagriculture:dye": {
+    "enabled": false
+  },
+  "mysticalagriculture:honey": {
+    "enabled": false
+  },
+  "mysticalagriculture:nature": {
+    "enabled": false
+  },
+  "mysticalagriculture:cow": {
+    "enabled": false
+  },
+  "mysticalagriculture:pig": {
+    "enabled": false
+  },
+  "mysticalagriculture:chicken": {
+    "enabled": false
+  },
+  "mysticalagriculture:sheep": {
+    "enabled": false
+  },
+  "mysticalagriculture:rabbit": {
+    "enabled": false
+  },
+  "mysticalagriculture:turtle": {
+    "enabled": false
+  },
+  "mysticalagriculture:squid": {
+    "enabled": false
+  },
+  "mysticalagriculture:armadillo": {
+    "enabled": false
+  },
+  "mysticalagriculture:fish": {
+    "enabled": false
+  },
+  "mysticalagriculture:steel": {
+    "enabled": false
+  },
+  "mysticalagriculture:bronze": {
+    "enabled": false
+  },
+  "mysticalagriculture:brass": {
+    "enabled": false
+  },
+  "mysticalagriculture:refined_obsidian": {
+    "enabled": false
+  },
+  "mysticalagriculture:refined_glowstone": {
+    "enabled": false
+  },
+  "mysticalagriculture:constantan": {
+    "enabled": false
+  },
+  "mysticalagriculture:electrum": {
+    "enabled": false
+  },
+  "mysticalagriculture:invar": {
+    "enabled": false
+  },
+  "mysticalagriculture:rose_gold": {
+    "enabled": false
+  },
+  "mysticalagriculture:pig_iron": {
+    "enabled": false
+  },
+  "mysticalagriculture:draconium": {
+    "enabled": false
+  },
+  "mysticalagriculture:awakened_draconium": {
+    "enabled": false
+  },
+  "mysticalagriculture:limestone": {
+    "enabled": false
+  },
+  "mysticalagriculture:marble": {
+    "enabled": false
+  },
+  "mysticalagriculture:platinum": {
+    "enabled": false
+  },
+  "mysticalagriculture:iridium": {
+    "enabled": false
+  },
+  "mysticalagriculture:apatite": {
+    "enabled": false
+  },
+  "mysticalagriculture:peridot": {
+    "enabled": false
+  }
+}

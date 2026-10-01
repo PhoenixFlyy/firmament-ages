@@ -1,0 +1,17 @@
+{
+  "__comment": "Firmament Ages: Mystical Agriculture tag outputs pinned to the canonical items (Doc 08 section 4.4, Doc 10 v3 section 8.1). Instructions: https://blakesmods.com/docs/cucumber/tags-config",
+  "c:silicon": "ae2:silicon",
+  "c:ingots/lead": "immersiveengineering:ingot_lead",
+  "c:gems/ruby": "tfc:gem/ruby",
+  "c:gems/sapphire": "tfc:gem/sapphire",
+  "c:dusts/saltpeter": "immersiveengineering:dust_saltpeter",
+  "c:dusts/sulfur": "mekanism:dust_sulfur",
+  "c:dusts/niter": "null",
+  "c:gems/apatite": "null",
+  "c:gems/peridot": "null",
+  "c:ingots/platinum": "null",
+  "c:ingots/iridium": "null",
+  "c:ingots/invar": "null",
+  "c:ingots/graphite": "null",
+  "c:rubbers": "null"
+}
