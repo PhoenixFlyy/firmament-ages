@@ -694,7 +694,7 @@ hash = "ac50fa92ad56346fdadd78c14f43b5027bc15d2e8d457c911d0d5d87de848b6a"
 
 [[files]]
 file = "kubejs/server_scripts/finale/the_primordial.js"
-hash = "008abd24eb619a14450392bbcf8cec593b5d38ddec2301305257b6b3d6025921"
+hash = "77f04932be4085b8827bf10a73686b92a409043cafb688ad83f68ee3ca24d23c"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/miner_blacklist.js"
