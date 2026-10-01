@@ -588,6 +588,21 @@ M0–M4 must ship before the first playtest beyond the Stone Age. Shipping: copy
 2. `kubejs/server_scripts`: the miner-blacklist tag script (m3) and the prospecting tag script (m1, gated by `FirmAges`) are written (`kubejs/server_scripts/firmages/`, §5.1). `stages/on_stage_added.js` is silent for Age stages when firmages-core 0.3.0 or newer is loaded (`Platform.getInfo('firmages').getVersion()`, the binding has no version; it still announces `finale_won`). The Shrine Heart (the pit-kiln fired Hearth Idol set in cobble under charcoal) and Offering Plinth recipes are in `recipes/age_0/stone_age.js`; the shrine block tags and `offerings.json` ship in the mod jar (§2.6, §7.8).
 3. FTB Quests (done 2026-10-01, `dev/quests-notes.md`): the Stone, Bronze and Iron goals are StageTasks on the next Age without stage reward and without an item task ("Offer the X at the Shrine"); Dawn's First Spark keeps its `age_0` reward. The Stone Age strand "Hearth & Shrine" ends in "Raise the Shrine", an ObservationTask `block_state` `firmages:shrine_heart[ready=true]`; its step "The Shrine Heart" observes the placed heart (`firmages:shrine_heart`). Both use the block id and the `ready` property of §2.5 as 0.3.0 registers them. Optional "Raise the ring" quests for rings 1 and 2 are still open.
 4. Pack: add the jar to `mods/` and run packwiz refresh; the dependency entries in `neoforge.mods.toml` (§1.4).
+5. Finale content (pack, 2026-10-01, `kubejs/server_scripts/recipes/age_9/singularity_age.js`), what the mod side relies on:
+   - **The Origin's dial address.** The pack item `firmages:origin_coordinates` (paper + ink + a chaos shard, age_9) shows the
+     Milky Way galactic address **9, 16, 31, 5, 21, 37** (then the point of origin, 7 chevrons). The mod's Space Location for
+     `firmages:origin` uses exactly this address with `randomizable: false` (Stargate Journey 0.6.49 `address_region` format:
+     `galactic_addresses."sgjourney:milky_way".address.symbols`); the server runs `random_addresses_from_seed = true`, so a
+     randomizable address would differ per world. The symbols collide with no shipped SGJ region. If the mod picks another
+     address, change the tooltip line in `kubejs/startup_scripts/items.js` (`global.FA_SIGNATURE_TOOLTIPS`) with it.
+   - **Ultimate Singularity** (`firmages:fusion/ultimate_singularity`): DE fusion, `techLevel` chaotic, catalyst
+     `draconicevolution:chaotic_core`, ingredients the item ids of the nine relics (`firmages:hearthstone` ... `firmages:quantum_core`,
+     with `firmages:awakened_keystone` in the Arcane slot), two `#firmages:boss_token/age_9` (chaos shard) and
+     `evolvedmekanism:alloy_singular`; 12 injectors, 2,000,000,000 FE. The Gathering (§7.5, M8) only has to move the relics into
+     injectors; the recipe needs no change. The Awakened Keystone comes from the pack's Marid ritual
+     (`firmages:ritual/awakened_keystone`), which consumes an Arcane Keystone (lent, §7.4, or crafted again).
+   - **Reactor Controller** (`firmages:crafting/reactor_controller`): the grid recipe loads only when `Item.exists('firmages:reactor_controller')`,
+     so the pack runs with and without M5.
 
 ## 15. Open points
 

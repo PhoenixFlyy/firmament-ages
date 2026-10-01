@@ -469,7 +469,7 @@ Negative test: the Steel Heart at age_1 and the Pressure Core at age_2 fail with
 - **Reload time** rose to 8 to 9 s (KubeJS recipe phase 3.6 to 3.7 s); still below the 10 s limit, little headroom.
 - **Pre-existing parse errors:** 35 `Parsing error` lines in `latest.log` (TFC Regrowing Forests, WoodenCog, Create
   Deco), none from pack scripts.
-- **Initial-load-only recipes.** The boot load has 29 recipes more than every later reload (34,939 vs 34,910 at the
+- **Initial-load-only recipes** (cause found in "Content: Electric to Singularity": TFC stack sizes; fixed). The boot load has 29 recipes more than every later reload (34,939 vs 34,910 at the
   gate's main pass, while KubeJS reports the same added/removed counts on both). 4 of them pass the gate at Dawn: the Twilight Forest giant block
   to vanilla block recipes (`twilightforest:giant_log_to_oak_log` and three more), which vanish after the first Age
   reload. Not a leak (dawn outputs), cause not found.
@@ -776,11 +776,11 @@ ids match the registry).
 
 ### Open points of this run
 
-- **Gear in tech recipes.** About 30 recipes outside the magic mods still take finished vanilla tools or armour that
+- **Gear in tech recipes** (resolved in "Content: Electric to Singularity", `recipes/gear_rule.js`). About 30 recipes outside the magic mods still take finished vanilla tools or armour that
   a TFC world cannot make (Mekanism paxels and MekaSuit modules, Mystical Agriculture augments and gear, DE wyvern
   tools and modules, Apotheosis salvaging, SGJourney naquadah gear, `minecraft:netherite_*_smithing`). None is on a
   goal chain. Each needs a gear-rule decision (tool head, unfinished armour or sheet), so they are not changed.
-- **Ad Astra stack sizes.** From the first reload on, 25 Ad Astra recipes (panels, plateblocks, factory and encased
+- **Ad Astra stack sizes** (resolved in "Content: Electric to Singularity": TFC's late stack-size table). From the first reload on, 25 Ad Astra recipes (panels, plateblocks, factory and encased
   blocks of steel, desh, ostrum, calorite and iron) fail to parse: "Item stack with stack size of 64 was larger than
   maximum: 32". They are decorative blocks only; the cause (a stack-size limit in the pack) is not traced yet.
 - **Rites with real power.** The lanterns and floodlights ran on stored energy written into their block entities; IE
@@ -788,3 +788,93 @@ ids match the registry).
 - **Grant stall** (2.65 to 2.68 s at age_4 and age_6 with 2 players), as in "Reload performance": still open; it needs
   the client test before the PS sync is coalesced.
 - The client half (ceremony, ghost previews of rings 3..8, tooltips of the four new items) stays Felix's test.
+
+## Content: Electric to Singularity
+
+Date: 2026-10-01, branch `dev` (commits e437de7 to b5835dd), firmages-core 0.3.3 unchanged. Test server synced with
+`packwiz-installer-bootstrap` from `packwiz serve` (`kubejs/` and the changed configs byte-identical with the repo), the
+world of the shrine run at age_9 (no wipe). Iterations synced the scripts by copy; the final boot came from the packwiz
+sync. `debug.allowSimulate` and the whitelist were off only during the partial-Age and player runs; both are back.
+
+### Boot
+
+| Check | Observed | Result |
+|---|---|---|
+| KubeJS | startup 2/2, server 29/29 scripts, 0 errors, 0 warnings; "Added 811, removed 2448, modified 290, 0 failed" | pass |
+| Recipe parse errors of the pack | none; 0 "stack size larger than maximum" (was 29 per reload); left: tfcrf, woodencog, createdeco (pre-existing) | pass |
+| Mods | Mystical Customization reads `configure-crops.json` without an unknown crop (after b5835dd); Cucumber loads `cucumber-tags.json` | pass |
+| Other ERROR lines | DISTXFORM, loot tables, Sable, azimuth mixin: as before, none from the pack | not ours |
+| One transient crash | one boot of four failed in Create's `RegisterEvent` (ExceptionInInitializerError, before any pack script); the retry booted with the same files | open point |
+
+### What the pack now contains
+
+| Age | Content | Where |
+|---|---|---|
+| all | **Station Ages:** every machine recipe waits for the Age of its machine (55 types, Doc 10 v3 matrix 6.1 per type; world data types never). Pack recipes in such machines check `FirmAges.isUnlocked` themselves, because a type filter does not see recipes added in the same event (0 found on the server) | `recipes/station_ages.js`, guards in `age_3`, `age_4`, `age_5`, `age_6`, `byproducts.js`, `arcane_tfc_inputs.js` |
+| all | **Stack sizes:** 25 Ad Astra and 4 Twilight Forest recipes give one TFC stack (32, logs 16) by same-path datapack files. Root cause: TFC applies its size table after the datapack load, so only the first load of a boot accepted 64 | `kubejs/data/ad_astra/recipe/`, `kubejs/data/twilightforest/recipe/` |
+| all | **Disable list** Doc 10 v3 §7.2 for the late mods: 516 items in `[hidden]` (tag `age_items/disabled`, gate drops their recipes, EMI hides them, no PS lock); `HIDDEN_ITEMS` 638 | `dev/age_map.toml`, `00_constants.js` |
+| all | **Vanilla bucket** in 16 recipe ids and the Steam 'n' Rails boilers → TFC wooden bucket (no vanilla bucket recipe in a TFC world) | `recipes/tfc_station_inputs.js` |
+| 5 Electric | Arc furnace: weak steel from steel (TFC + IE took black steel), black steel from weak steel + pig iron, weak red steel 5:2:1:1. Diesel Generators: engines and upgrades only (oil chunks off). IP gas generator off. Afrit book with an IE HV coil block. Excavator: TFC + IE mixes (IE's own mixes keep `minecraft:is_overworld`, which no TFC biome carries, so they do not generate) | `recipes/age_5/electric_age.js`, `config/createdieselgenerators-server.toml` |
+| 6 Information | Ore ladder: 192 `firmages:{purifying,injecting,dissolution}/<ore>_<grade>` for 16 families (4x from age_7, 5x from age_8); every Mekanism-family recipe on TFC ore blocks, raw ores or raw blocks, ingot crushing, stone crushing, combiner ores, the More Machine silver chain, the Mek steel and bronze routes removed; fluorite from cryolite. Precision Sawmill, planting, recycling, Evolved molten metals, More Machine stamper/lathe/rolling mill/presser removed. AE2 Inscriber is the one processor station; presses by recipe. Red steel by the Metallurgic Infuser (blue from age_7). End portal frame recipe. Archmage book and Theurgy flux emitter with Mekanism parts. Mystical Agriculture crops, outputs and farmland canonical | `recipes/age_6/ore_ladder.js`, `information_age.js`, `config/mysticalcustomization/`, `config/cucumber-tags.json`, AU `materials.json` |
+| 7 Space | Ad Astra compressing, alloying, refining and its planet-ore furnace recipes removed; desh, ostrum, calorite plates only from IE's Metal Press; IP kerosene in `#ad_astra:fuel` (diesel was already in); DE transfuser and More Machine large SNA without disabled inputs | `recipes/age_7/space_age.js`, `tags/late_ages.js` |
+| 8 Quantum | Marid book with atomic alloy and Wyvern Core; Awakened Keystone by the Marid ritual (Arcane Keystone, 2 atomic alloy, Wyvern Core, Leviathan token); AdvancedAE reaction chamber without the Vibration Chamber | `recipes/age_8/quantum_age.js` |
+| 9 Singularity | Ultimate Singularity (DE chaotic fusion, the nine relic ids, 2 chaos shards, singular alloy, 2 billion FE); naquadah vein in Mercury stone; naquadah through the Arc Furnace, the Infuser and the nucleosynthesizer; SGJ crystals on TFC gems; the Classic Stargate base block takes the Singularity; Coordinates of The Origin (address 9, 16, 31, 5, 21, 37, SPEC §14 item 5); Reactor Controller recipe when the block exists; DE config (fuel 0.5, explosion 0.25, dragon dust 16) | `recipes/age_9/singularity_age.js`, `kubejs/data/firmages/worldgen/`, `config/brandon3055/DraconicEvolution.cfg` |
+| 5-9 | **Gear rule:** about 60 recipes direct or on TFC parts (list in the decision log); paxels, MA gear and augments, AdvancedAE Quantum Armor disabled; MekaSuit and Meka-Tool keep their chains (trophies) | `recipes/gear_rule.js` |
+
+### Checks (`poc_analyze.py`)
+
+All-Ages dump (33,223 recipes): **59 checks, 0 FAIL**. New: C-5a, C-6a to C-6d, C-7a, C-9a, C-G for age_5 to age_9,
+R-age_9 twice. The R-walk now resolves tag outputs to the Almost Unified target, knows the dragon heart as a dragon drop,
+raw naquadah on Mercury and the SGJ machines as stations.
+
+| # | Goal | Reached at its Age | Result |
+|---|---|---|---|
+| R-0 | no recipe needs a vanilla station block or bucket without a source (7 blocks) | | pass (first run: 4 bucket users, fixed) |
+| R-age_5 | Humming Core + 12 chain items | 14,401 items | pass |
+| R-age_6 | Data Matrix + 9 | 15,843 | pass |
+| R-age_7 | Star Chart + 20 (now with the fission fuel chain) | 16,292 | pass (first run: no vanilla bucket, so no Dynamic Tank, PRC, oxidizer, polonium) |
+| R-age_8 | Quantum Core + 10 (Awakened Keystone, bound Marid book) | 16,687 | pass |
+| R-age_9 | Ultimate Singularity + 8 (chaotic injector and core, singular alloy, reactor core, stabilizer, injector, flux gate) | 16,842 | pass |
+| R-age_9 | Classic Stargate base block + 15 (naquadah ingot, alloy, refined and pure naquadah, liquidizer, crystallizer, crystals, ring, chevron, DHD, coordinates) | 16,842 | pass (first runs: SGJ crystals named `minecraft:diamond`, naquadah buckets needed a vanilla bucket) |
+| C-G | gear rule age_5..age_9 | | pass (first run: MA soulium daggers) |
+| C-6c / C-6d / C-7a / C-9a | | | pass (first run: More Machine presser type `mekmm:pressing`, the awakened draconium crop key, planet ore smelting, a too wide regex in the check) |
+
+Partial Ages with the all-Ages dump as baseline (`--baseline`): at **age_5** and at **age_2** G-1 to G-4 pass. G-2 now
+counts what the station Ages keep out (age_5: 1,554 of age_6, 16 / 20 / 2 of age_7 to age_9; age_2: 374 of age_3, 222
+of age_4, 160 of age_5, 1,197 of age_6). The world went back to age_9 afterwards.
+
+Naquadah on Mercury: `place feature firmages:ore_naquadah_mercury` places ore in Mercury stone; in four fresh Mercury
+chunks (forceloaded at 4000/4000) two 16x16 columns held 45 and 49 naquadah ore from y -48 to 40, one of them 30 more
+from y 41 to 96.
+
+### Reload performance (age_9)
+
+| Condition | Before (0.3.3 run) | After |
+|---|---|---|
+| no player | 6.20, 6.22 | 8.90 (first after boot), 7.69, 7.45 |
+| 2 headless players | 6.15 to 6.62 | 8.24, 8.25, 8.33 (9.40 to 9.60 while the 516 late items were in the PS disabled stage) |
+
+KubeJS recipe phase 2.6 to 2.9 s (was 1.6 to 1.7; "Posted recipe events" 1.0 s, was 0.4). The scripts of this run cost
+about 0.5 s (information 166 ms, ore ladder 143, electric 75, space 38, gear 29) plus the larger add/remove sets.
+Still below the 10 s limit of SPEC §3; with the 3 s grant stall the FULL ceremony (12 s) now ends about as the reload
+does.
+
+### Open points of this run
+
+- **Reload headroom** is down to about 1.7 s with 2 players. Next cuts: the per-recipe JSON passes in `ore_ladder.js`,
+  `information_age.js` (three `replaceOutput` mod scans), and `global_removals.js`/`bronze_age.js` (pre-existing).
+- **Quest text** for the late Ages (address of The Origin, the Awakened Keystone, the naquadah route) is not written;
+  `dev/gen_quests.py` belongs to the quest workflow. The address item and its recipe exist.
+- **Keystone lending** (SPEC §7.4) and the **Gathering** (§7.5) are mod milestones; until then the Marid takes a second
+  Arcane Keystone, and the relics leave their plinths through `/firmages shrine extract` (the age_9 sneak-use release
+  of SPEC §7.5 was not tested).
+- **Boss fallbacks** (Gateways "Chaos Trial", sigils) are not built for any Age; the Chaos Guardian's soft-lock bugs
+  stay a risk. The dragon heart in the R-walk assumes DE's default dragon loot (needs a kill).
+- **Needs a client:** the Ad Astra rocket burning IP diesel and kerosene, the crafted End portal frame lighting with
+  vanilla eyes, SGJ crystallizers fed with liquid naquadah through pipes, the Afrit/Marid book pages in the Occultism
+  guide, EMI per Age with the station gating.
+- **Not covered by recipes:** Mekanism and Evolved Mekanism radiation, fusion and reactor balance (Doc 10 v3 §7.4 values
+  set only for DE); `immersiveengineering:mineral_mix` vanilla mixes are dead data (no TFC biome), not removed.
+- **Create pressing** of ad hoc compat plates for lead, constantan, aluminium and uranium is gone (one ingot → plate was a
+  second plate station); TFC + IE sheets stay.
+- **Transient Create crash** on one boot (see Boot); not reproduced.
