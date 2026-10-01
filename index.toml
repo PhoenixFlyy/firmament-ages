@@ -18,7 +18,7 @@ hash = "b1339ce49c5c08220086661d0e028c5277f811e6437e691a61a5ad2448097081"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "f7bf3b3c03c197dc61ec45525861187ba8d712dea82e97da70924c3c3fdf2d77"
+hash = "634db94781d6e84829af04625256aa79f515518bb952318cfafd2c446d2e8537"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
@@ -26,11 +26,11 @@ hash = "2ebde09665c2b01f2716ef28a4771edf5064331681cd95b372730dc441220423"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "a097beeda19df81c9817827869059c66ecb757752d9bd19aa91bf08494c421b0"
+hash = "99a68e2c60507324c319766fe5f995d3abbcab4c6f6deb49fe81a8bbd5588ad8"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "a86cdd46ada929f68f556867fa216c1d1a348fce4825961ba9d65cd6fde5e7c9"
+hash = "98732072c6927c747818ab1608ee5d808a7d2ea1ab8bbab0d66cdb8d19c9ac94"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
@@ -38,7 +38,7 @@ hash = "ac206cfd1db720ef7bed3253a048a58fcc9d3b0f00468c0c895b09a1b784974a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/welcome.snbt"
-hash = "de0c882b86ba2b102107228e1558fbc802d4f9397ea655a294b85d67d4853dca"
+hash = "72760524b22e8d630ea97e88c0535b5bbdcf7043cbd4ee9657bde597f91d5a15"
 
 [[files]]
 file = "config/ftbquests/quests/data.snbt"
@@ -46,7 +46,7 @@ hash = "0b057ada548db053f7848e86ad6ece563ff193654886f1a0ecbf0ba8537a37e5"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "a452dfeb6493548e63c406ea3c3808dc5332bb0c53c4685d1dff80c9a13d39bd"
+hash = "0c01f242db782f97bdb1d1678df6c352a7bf4864e6b930377e5712cdf93352ef"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/bronze_comfort.snbt"
@@ -247,6 +247,10 @@ hash = "a86e99f31dc117d684481e627b61598e2a5d482b61f67c2b0716e8f442e75d32"
 [[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/ars_whirlisprig_spawn_tfc.json"
 hash = "d24822541bf7e6bcd0ea434f8671f735ce0b2861f7d454eb9d1f7b45d0c73187"
+
+[[files]]
+file = "kubejs/data/firmages/shrine/offerings.json"
+hash = "0ceef10f0cec2af2599d99c082ecd7e3bfa4327c8bbb1a425bd66f317dc4f405"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_0.json"
@@ -510,7 +514,7 @@ hash = "3acfb474089073eed8f6631d625fbc258865ba552d6c9b9242c486e7fed9e2d2"
 
 [[files]]
 file = "kubejs/server_scripts/stages/on_stage_added.js"
-hash = "9113b6610d19ba294c29ea6d9a43c87d088ba05300b15451b63e2016bdd0174f"
+hash = "a19ac08399215696dcee0225ec79743f46069eb98247813b15685b3f6948f78d"
 
 [[files]]
 file = "kubejs/server_scripts/tags/arcane_industrial.js"

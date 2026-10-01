@@ -21,14 +21,14 @@ sections 2 and 9, Doc 11 section 3 (shrine).
 
 | File | Group | Title | Visible | Quests | Content |
 |---|---|---|---|---|---|
-| `welcome.snbt` | default | Welcome | always | 6 | checkmarks: pack overview and K key, the Ages and recipe/EMI/ore locks, how a chapter reads, one team, the shrine to come, survival notes |
+| `welcome.snbt` | default | Welcome | always | 6 | checkmarks: pack overview and K key, the Ages and recipe/EMI/ore locks, how a chapter reads, one team, the shrine and Caelum, survival notes |
 | `the_firmament.snbt` | default | The Firmament | always | 11 | one quest per Age goal: The First Spark, Hearthstone, Sky Disc, Steel Heart, Arcane Keystone, Pressure Core, Humming Core, Data Matrix, Star Chart, Quantum Core, Beyond the Firmament. Gamestage tasks (age_0 ... age_9, finale_won), `progression_mode: linear` + `hide_quest_details_until_startable`, so the whole road is visible from minute one and each quest opens only after the previous goal |
 | `dawn.snbt` | Ages | Dawn | stage `dawn` (start) | 15 | entry, strands Stone / Shelter / Hunt, goal The First Spark, 2 side missions, 1 explanation |
-| `stone_age.snbt` | Ages | Age 0: Stone Age | stage `age_0` | 25 | entry, strands Fire & Clay / First Metal / Camp / Hearth, goal Hearthstone, 3 side missions, 3 explanations |
-| `bronze_age.snbt` | Ages | Age 1: Bronze Age | stage `age_1` | 31 | entry, strands Smithing / Prospecting / Alloys / Kinetics, goal Sky Disc, 4 side missions, 2 explanations |
-| `iron_age.snbt` | Ages | Age 2: Iron Age | stage `age_2` | 29 | entry, strands Metallurgy / Power & Motion / Survival / Frontier, goal Steel Heart, 3 side missions, 2 explanations |
+| `stone_age.snbt` | Ages | Age 0: Stone Age | stage `age_0` | 27 | entry, strands Fire & Clay / First Metal / Camp / Hearth & Shrine (ends in Raise the Shrine), goal Offer the Hearthstone at the Shrine, 3 side missions, 3 explanations |
+| `bronze_age.snbt` | Ages | Age 1: Bronze Age | stage `age_1` | 31 | entry, strands Smithing / Prospecting / Alloys / Kinetics, goal Offer the Sky Disc at the Shrine, 4 side missions, 2 explanations |
+| `iron_age.snbt` | Ages | Age 2: Iron Age | stage `age_2` | 29 | entry, strands Metallurgy / Power & Motion / Survival / Frontier, goal Offer the Steel Heart at the Shrine, 3 side missions, 2 explanations |
 
-Total 117 quests, 7 reward tables, 445 object ids. Counts per chapter come from the validator output.
+Total 119 quests, 7 reward tables, 448 object ids. Counts per chapter come from the validator output.
 
 Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn `544197C921D77FCB`, stone_age
 `1ECA2119E26A0A06`, bronze_age `5546E96FD2574ABB`, iron_age `1D01936AE318F34B`; group Ages `7E67E59034114849`.
@@ -39,7 +39,9 @@ Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn 
   `/stage grant` also opens the chapter correctly.
 - 3 or 4 required strands, each a dependency chain from the entry to a keystone (hexagon, size 1.5, tag
   `keystone`). Keystone reward: XP and one random item from the Age's supplies table (team reward).
-- One goal quest (gear, size 3, tag `goal`) that depends on every keystone. Item task with `consume_items: false`.
+- One goal quest (gear, size 3, tag `goal`) that depends on every keystone. From the Stone Age on: a gamestage task
+  on the next Age ("Offer the X at the shrine"), icon = the signature item, no stage reward (section "Age grants").
+  Dawn: item and advancement tasks plus the `age_0` stage reward.
 - Side missions: `optional: true`, circle, tag `side`; reward XP and a choice of one comfort item (team reward).
 - Explanations: checkmark, `optional: true`, gear, tag `explain`, dependency lines hidden.
 - Chapter `progression_mode: flexible`: tasks count early, but a quest completes only when its dependencies are done
@@ -58,25 +60,48 @@ Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn 
 - Kill tasks count kills (Doc 08 section 2.2): `tfc:animals` tag, `twilightforest:naga`, `twilightforest:lich`,
   `mowziesmobs:grottol`, `mowziesmobs:ferrous_wroughtnaut`.
 
-## Stage rewards
+## Age grants: quest reward in Dawn, the shrine from the Stone Age on
 
-| Chapter | Goal quest | Grants | Status |
+| Chapter | Goal quest | Next Age comes from | Goal task |
 |---|---|---|---|
-| Dawn | The First Spark `724BED62EE9DF8FB` | `age_0` | permanent (the shrine is built in the Stone Age, Doc 11 section 3) |
-| Stone Age | Hearthstone `5298B856BFEE50A2` | `age_1` | **INTERIM: shrine will grant this** |
-| Bronze Age | Sky Disc `2070B77706F2CB8E` | `age_2` | **INTERIM: shrine will grant this** |
-| Iron Age | Steel Heart `28A963AA218A4EE4` | `age_3` | **INTERIM: shrine will grant this** |
+| Dawn | The First Spark `724BED62EE9DF8FB` | quest reward `age_0` (no shrine yet, Doc 11 section 3) | firestarter item + `tfc:story/firepit` |
+| Stone Age | Offer the Hearthstone at the Shrine `5298B856BFEE50A2` | the shrine (offering `firmages:hearthstone`, ring 0) | gamestage `age_1` |
+| Bronze Age | Offer the Sky Disc at the Shrine `2070B77706F2CB8E` | the shrine (`firmages:sky_disc`, ring 1) | gamestage `age_2` |
+| Iron Age | Offer the Steel Heart at the Shrine `28A963AA218A4EE4` | the shrine (`firmages:steel_heart`, ring 2) | gamestage `age_3` |
 
-The interim rewards carry the object tag `interim_shrine` (survives in-game edits) and a `// INTERIM` comment line
-in the chapter file (dropped when FTB Quests rewrites the file). When firmages-core M4 grants the Ages, remove these
-rewards and turn the goals into "Offer X at the shrine" (Doc 11 section 3); `validate_quests.py` lists them.
+- The shrine offerings live in `kubejs/data/firmages/shrine/offerings.json` (firmages-core reads it, SPEC section 2.6).
+  `validate_quests.py` checks it (item registered, in the Age tag of its key, `grants` = next Age) and every goal of
+  a shrine Age: gamestage task on the next Age, the offering as icon, no stage reward. A stage reward there would
+  be a second grant path. The `interim_shrine` rewards are gone; one left on a shrine Age is an error.
+- The goal completes when the shrine (or an admin `/stage grant`) gives the next Age and all keystones are done
+  (flexible mode). Offering before the strands are done is possible; the goal then completes with the last keystone.
+- Stone Age strand "Hearth & Shrine": Unfired Hearth Idol, Hearth Idol, The Shrine Heart (observation of the placed
+  block `firmages:shrine_heart`), keystone Raise the Shrine (observation `block_state`
+  `firmages:shrine_heart[ready=true]`: ring 0 valid and plinth 1 empty, SPEC section 2.5). The strand replaces the
+  old "Hearth" strand (keystone Hearth Idol), so the chapter keeps 4 keystones (Doc 08 section 9.1). FTB Quests
+  2101.1.36 matches `block_state` with `BlockInput.test` on the listed properties only (javap of ObservationTask),
+  so `[ready=true]` ignores `awakened` and `lit`.
+- `firmages:shrine_heart` and `firmages:offering_plinth` come with firmages-core 0.3.0; `dev/data/registry.json` is
+  from 0.2.1, so the validator accepts them from `PENDING_MOD_IDS` with a warning. Re-dump the registry after 0.3.0
+  and empty that set.
+- Bronze and Iron goal texts name the rings and rites of `Modpack-Planung/research-raw/core-shrine.md` section 3
+  (Bronze Sanctum + bell, Iron Sanctum + four lamps). Ring 2 is milestone M6; until its tier file exists the Iron Age
+  goal can only be completed by an admin grant.
 
-Stage reward settings: type `gamestage`, `auto: "invisible"` (without it the reward falls back to the file default
-`disabled` and would wait for a click), not a team reward. Non-team stage rewards call FTB Library's StageHelper
-provider, which is ProgressiveStages (PoC A10); with `team_mode = "ftb_teams"` the stage lands on the whole team.
-(A team reward would also work: ProgressiveStages' StageRewardMixin routes team rewards of PS stages to its provider
-instead of FTB Teams' own stage storage.) grants.js derives mob stages and helper stages from the Age stage, and
-on_stage_added.js shows the title.
+Stage reward settings (Dawn): type `gamestage`, `auto: "invisible"` (without it the reward falls back to the file
+default `disabled` and would wait for a click), not a team reward. Non-team stage rewards call FTB Library's
+StageHelper provider, which is ProgressiveStages (PoC A10); with `team_mode = "ftb_teams"` the stage lands on the
+whole team. grants.js derives mob stages and helper stages from the Age stage.
+
+## Age titles: KubeJS or the mod ceremony
+
+`kubejs/server_scripts/stages/on_stage_added.js` shows title, subtitle, sound and firework on every Age grant only
+while firmages-core is older than 0.3.0. From 0.3.0 the mod owns the transition (SPEC section 8: the full ceremony
+at the shrine, the short one for admin and quest grants such as The First Spark), and the script stays silent for
+the Age stages; it still announces `finale_won`, which is not an Age. The script reads the version with
+`Platform.getInfo('firmages').getVersion()` (KubeJS `PlatformWrapper`, checked with javap), because the `FirmAges`
+binding has no version or ceremony flag. The server log says which path is active:
+`[firmages] on_stage_added: Age titles by firmages-core ceremony` (or `by KubeJS`).
 
 ## Rewards
 
@@ -110,9 +135,12 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
 4. Dawn walk: advancement tasks tick (find rock, stone tool, logging, straw, firepit), the javelin either/or quest
    completes with one javelin, the thatch-bed observation completes when looking at the bed, the animal kill counts.
 5. The First Spark completes only after the three keystones, grants `age_0` without a click, the Stone Age chapter
-   appears without relog, the title and firework from on_stage_added.js play, grants.js keeps `mob_0`.
-6. Repeat for Hearthstone (`age_1`), Sky Disc (`age_2`: map opens, `tool_toms_storage`), Steel Heart (`age_3`).
-   The goal item stays in the inventory (`consume_items: false`).
+   appears without relog, one title plays (the short ceremony of firmages-core 0.3.0; the KubeJS title only with an
+   older mod), grants.js keeps `mob_0`.
+6. Stone Age shrine: The Shrine Heart completes when looking at the placed heart, Raise the Shrine when looking at
+   it with the Hearth Circle complete. Offering the Hearthstone and praying grants `age_1`; the goal completes once
+   the keystones are done, the Bronze chapter appears, one title (the full ceremony), the Hearthstone stays on the
+   plinth. Then Sky Disc (`age_2`: map opens, `tool_toms_storage`) and Steel Heart (`age_3`, needs ring 2).
 7. Keystone rewards: the random supplies item goes to the claiming player once per team; side-mission choice screen
    offers only current-Age items; XP per player.
 8. Observation tasks: `tfc:support_beams` and `tfc:farmlands` block tags, `create:millstone` and
@@ -120,8 +148,8 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
    pool ringed by TFC grass and flowers opens with polished quartz.
 9. Admin repair: `/stage grant <player> age_1` on a team without Dawn done opens the Bronze chapter entry at once
    (entry quests have no cross-chapter dependency).
-10. Edit mode round trip: open the editor, move one quest, save; FTB rewrites the files (comments vanish, the
-    `interim_shrine` tags stay); `validate_quests.py` still passes.
+10. Edit mode round trip: open the editor, move one quest, save; FTB rewrites the files (comments vanish);
+    `validate_quests.py` still passes.
 
 ## Open points
 

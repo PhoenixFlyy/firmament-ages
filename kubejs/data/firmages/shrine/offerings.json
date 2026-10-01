@@ -1,0 +1,17 @@
+{
+  "_comment": [
+    "Firmament Ages shrine offerings (firmages-core SPEC section 2.6). Key: the Age whose ring holds the offering",
+    "(ring N = age_N, plinth N+1). item: the signature item laid on the plinth (enshrined as a relic). grants: the Age",
+    "the prayer unlocks, always the next one. Ages without an entry cannot be offered yet: their signature item is not",
+    "registered (Humming Core age_5, Data Matrix age_6, Star Chart age_7, Quantum Core age_8). Add them with the item.",
+    "Dawn has no entry: the shrine is built in the Stone Age, The First Spark quest grants age_0. Checked by",
+    "dev/validate_quests.py (item registered, item Age = key, grants = next Age, goal quest of the chapter)."
+  ],
+  "offerings": {
+    "age_0": { "item": "firmages:hearthstone", "grants": "age_1" },
+    "age_1": { "item": "firmages:sky_disc", "grants": "age_2" },
+    "age_2": { "item": "firmages:steel_heart", "grants": "age_3" },
+    "age_3": { "item": "firmages:arcane_keystone", "grants": "age_4" },
+    "age_4": { "item": "firmages:pressure_core", "grants": "age_5" }
+  }
+}

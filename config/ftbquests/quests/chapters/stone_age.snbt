@@ -473,15 +473,66 @@
 		}
 		{
 			dependencies: ["4573A3F0CD529A5B"]
-			id: "369FC0B23809B048"
+			id: "3B588CB49C0F4193"
 			rewards: [
 				{
-					id: "659660A3D57E336C"
+					id: "7551734866613215"
+					type: "xp"
+					xp: 20
+				}
+			]
+			tasks: [
+				{
+					id: "344AF86D2038D7B9"
+					item: {
+						count: 1
+						id: "firmages:hearth_idol"
+					}
+					type: "item"
+				}
+			]
+			x: 4.25d
+			y: 3.75d
+		}
+		{
+			dependencies: ["3B588CB49C0F4193"]
+			icon: {
+				id: "firmages:shrine_heart"
+			}
+			id: "7755ECDE0FFE3821"
+			rewards: [
+				{
+					id: "10C6BD43D9011ADB"
+					type: "xp"
+					xp: 20
+				}
+			]
+			tasks: [
+				{
+					id: "6912FF34FC324B3D"
+					observation_type: "block"
+					timer: 0L
+					to_observe: "firmages:shrine_heart"
+					type: "observation"
+				}
+			]
+			x: 6.0d
+			y: 3.75d
+		}
+		{
+			dependencies: ["7755ECDE0FFE3821"]
+			icon: {
+				id: "firmages:offering_plinth"
+			}
+			id: "30A13F8701E9EF80"
+			rewards: [
+				{
+					id: "784CF363B71955C4"
 					type: "xp"
 					xp: 60
 				}
 				{
-					id: "516F3F83A2F1FB54"
+					id: "4B1EB300F9564B2E"
 					table_id: 235440819556917287L
 					team_reward: true
 					type: "random"
@@ -492,15 +543,14 @@
 			tags: ["keystone"]
 			tasks: [
 				{
-					id: "7DEA1BB8A064F888"
-					item: {
-						count: 1
-						id: "firmages:hearth_idol"
-					}
-					type: "item"
+					id: "4B6C1BDA1DC7E548"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[ready=true]"
+					type: "observation"
 				}
 			]
-			x: 4.5d
+			x: 8.0d
 			y: 3.75d
 		}
 		{
@@ -508,8 +558,11 @@
 				"3213BFEF5EB29C5C"
 				"6DE0808A3F92C2E7"
 				"4A34D752E7A4B499"
-				"369FC0B23809B048"
+				"30A13F8701E9EF80"
 			]
+			icon: {
+				id: "firmages:hearthstone"
+			}
 			id: "5298B856BFEE50A2"
 			rewards: [
 				{
@@ -517,27 +570,15 @@
 					type: "xp"
 					xp: 200
 				}
-				{
-					auto: "invisible"
-					id: "1AB630F1102C3000"
-					stage: "age_1"
-					// INTERIM: shrine will grant this (firmages-core M4); dev note only, see dev/quests-notes.md
-					tags: ["interim_shrine"]
-					type: "gamestage"
-				}
 			]
 			shape: "gear"
 			size: 3.0d
 			tags: ["goal"]
 			tasks: [
 				{
-					consume_items: false
 					id: "6494AD8893357940"
-					item: {
-						count: 1
-						id: "firmages:hearthstone"
-					}
-					type: "item"
+					stage: "age_1"
+					type: "gamestage"
 				}
 			]
 			x: 13.0d

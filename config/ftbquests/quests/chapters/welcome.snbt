@@ -104,7 +104,7 @@
 		{
 			dependencies: ["2004E11B844D1C4B"]
 			icon: {
-				id: "firmages:hearth_idol"
+				id: "firmages:hearthstone"
 			}
 			id: "586717CB0F9BF963"
 			rewards: [

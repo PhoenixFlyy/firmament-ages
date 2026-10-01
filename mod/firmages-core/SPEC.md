@@ -178,6 +178,8 @@ Rite types:
 | `players_praying` | At least N players pray at once. With `min_online_ratio` the rule applies only when 2 or more players are online |
 | `relic_returned` | The lent Keystone is back on plinth 4 |
 
+- **Offerings (pack data, written):** `data/firmages/shrine/offerings.json` (in the pack: `kubejs/data/firmages/shrine/offerings.json`) maps each Age to its signature item: `{"offerings": {"age_0": {"item": "firmages:hearthstone", "grants": "age_1"}, ...}}`. The key is the Age whose ring holds the plinth (ring N = `age_N`, plinth N+1); `grants` is always the next Age. Entries today: `age_0` Hearthstone, `age_1` Sky Disc, `age_2` Steel Heart, `age_3` Arcane Keystone, `age_4` Pressure Core. Ages whose item is not registered yet (`age_5`..`age_8`) and `dawn` (no shrine yet) have no entry: such a ring cannot take an offering and its Age comes only from an admin grant. The reader ignores keys starting with `_` (comments), logs WARN and skips an entry whose item is not registered. This file is the source of the offering: a tier file's `offering`/`grants` are optional and default to the entry for its ring; if a tier file gives a different item or Age, the offerings entry wins and a WARN is logged. `dev/validate_quests.py` checks the file against the item registry, the Age tags and the goal quests.
+
 Blessings live in `data/firmages/firmages_shrine/blessing/<name>.json`: attribute modifiers, flags such as `sanctuary` and `skyreading`, and an XP multiplier. Their values can be overridden in the server config.
 
 ## 3. Core: AgeState and reload orchestration
@@ -544,8 +546,8 @@ M0–M4 must ship before the first playtest beyond the Stone Age. Shipping: copy
 ## 14. Hand-offs to other workflows (not in this mod)
 
 1. `dev/gen_stage_locks.py`: emit the `age_items`/`age_blocks`/`age_fluids` tags into `kubejs/data/firmages/tags/`, expanding `mod:` entries from `/firmages dump registry`.
-2. `kubejs/server_scripts`: the miner-blacklist tag script (m3) and the prospecting tag script (m1, gated by `FirmAges`) are written (`kubejs/server_scripts/firmages/`, §5.1); still open: trim `stages/on_stage_added.js`; the Shrine Heart pit-kiln recipe; the shrine block tags (`#firmages:shrine/*`).
-3. FTB Quests: goal quests become StageTasks without stage rewards; optional "Raise the ring" observation quests.
+2. `kubejs/server_scripts`: the miner-blacklist tag script (m3) and the prospecting tag script (m1, gated by `FirmAges`) are written (`kubejs/server_scripts/firmages/`, §5.1). `stages/on_stage_added.js` is silent for Age stages when firmages-core 0.3.0 or newer is loaded (`Platform.getInfo('firmages').getVersion()`, the binding has no version; it still announces `finale_won`). `kubejs/data/firmages/shrine/offerings.json` is written (§2.6). Still open: the Shrine Heart pit-kiln recipe; the shrine block tags (`#firmages:shrine/*`).
+3. FTB Quests (done 2026-10-01, `dev/quests-notes.md`): the Stone, Bronze and Iron goals are StageTasks on the next Age without stage reward ("Offer the X at the Shrine"); Dawn's First Spark keeps its `age_0` reward. The Stone Age strand "Hearth & Shrine" ends in "Raise the Shrine", an ObservationTask `block_state` `firmages:shrine_heart[ready=true]`; its step "The Shrine Heart" observes the placed heart (`firmages:shrine_heart`). Both need the block id and the `ready` property exactly as §2.5.
 4. Pack: add the jar to `mods/` and run packwiz refresh; the dependency entries in `neoforge.mods.toml` (§1.4).
 
 ## 15. Open points

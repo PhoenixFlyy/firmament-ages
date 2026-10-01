@@ -634,6 +634,9 @@
 				"3F8D45ADF9515576"
 				"6E4438CCF1A5BF3D"
 			]
+			icon: {
+				id: "firmages:steel_heart"
+			}
 			id: "28A963AA218A4EE4"
 			rewards: [
 				{
@@ -641,27 +644,15 @@
 					type: "xp"
 					xp: 500
 				}
-				{
-					auto: "invisible"
-					id: "1CC6DE2BE8521750"
-					stage: "age_3"
-					// INTERIM: shrine will grant this (firmages-core M4); dev note only, see dev/quests-notes.md
-					tags: ["interim_shrine"]
-					type: "gamestage"
-				}
 			]
 			shape: "gear"
 			size: 3.0d
 			tags: ["goal"]
 			tasks: [
 				{
-					consume_items: false
 					id: "377CE4E779C2C6AA"
-					item: {
-						count: 1
-						id: "firmages:steel_heart"
-					}
-					type: "item"
+					stage: "age_3"
+					type: "gamestage"
 				}
 			]
 			x: 16.5d
