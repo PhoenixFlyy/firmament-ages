@@ -442,7 +442,7 @@ A crash after step 3 loses only the show. There are no C2S packets: all interact
 - **Sky tint MVP:** `ViewportEvent.ComputeFogColor` blends towards the tint, and an `AFTER_SKY` translucent box around the camera (no depth test, no depth write, so terrain covers it) tints the sky; no mixin. Client config `effects.skyTint`, `effects.stopMusic`, `effects.particleScale` apply.
 - **Reload hint:** while `ReloadStatePayload(true)` is active the client re-shows "The world realigns..." every 2 s from its own tick, so it stays visible through the freeze.
 - **Sounds:** `firmages:shrine.sting.{stone,bronze,iron}`, `shrine.choir`, `shrine.prayer`, `shrine.refused`, `shrine.accepted`, `shrine.kindled`, mapped in `assets/firmages/sounds.json` onto vanilla sound events (no audio files).
-- **Lang:** Age names, titles and voice lines for age_0..age_9 (age_0, given by the First Spark quest, gets a new line: "A spark in the dark. I have seen you."), every shrine message, the blessing and the subtitles in `assets/firmages/lang/en_us.json`. **Hand-off done:** `kubejs/server_scripts/stages/on_stage_added.js` (title, sound and firework on every Age) is removed; the PS `unlock_message` chat line stays.
+- **Lang:** Age names, titles and voice lines for age_0..age_9 (age_0, given by the First Spark quest, gets a new line: "A spark in the dark. I have seen you."), every shrine message, the blessing and the subtitles in `assets/firmages/lang/en_us.json`. **Hand-off done:** `kubejs/server_scripts/stages/on_stage_added.js` skips the Age stages now (it keeps title and firework for `finale_won` only); the PS `unlock_message` chat line stays.
 
 ## 9. Config (NeoForge `ModConfigSpec`)
 
@@ -572,7 +572,7 @@ M0–M4 must ship before the first playtest beyond the Stone Age. Shipping: copy
 ## 14. Hand-offs to other workflows (not in this mod)
 
 1. `dev/gen_stage_locks.py`: emit the `age_items`/`age_blocks`/`age_fluids` tags into `kubejs/data/firmages/tags/`, expanding `mod:` entries from `/firmages dump registry`.
-2. `kubejs/server_scripts`: the miner-blacklist tag script (m3) and the prospecting tag script (m1, gated by `FirmAges`) are written (`kubejs/server_scripts/firmages/`, §5.1). 0.3.0: `stages/on_stage_added.js` is removed; the Shrine Heart (the pit-kiln fired Hearth Idol set in cobble under charcoal) and Offering Plinth recipes are in `recipes/age_0/stone_age.js`; the shrine block tags ship in the mod jar (§7.8).
+2. `kubejs/server_scripts`: the miner-blacklist tag script (m3) and the prospecting tag script (m1, gated by `FirmAges`) are written (`kubejs/server_scripts/firmages/`, §5.1). 0.3.0: `stages/on_stage_added.js` skips the Age stages (the mod's ceremony announces them); the Shrine Heart (the pit-kiln fired Hearth Idol set in cobble under charcoal) and Offering Plinth recipes are in `recipes/age_0/stone_age.js`; the shrine block tags ship in the mod jar (§7.8).
 3. FTB Quests: 0.3.0 turns the Stone, Bronze and Iron goals into "offer at the shrine" quests (item task plus StageTask, no stage reward); optional "Raise the ring" observation quests are still open.
 4. Pack: add the jar to `mods/` and run packwiz refresh; the dependency entries in `neoforge.mods.toml` (§1.4).
 

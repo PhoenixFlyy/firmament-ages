@@ -1,6 +1,8 @@
-// Firmament Ages - announce a new Age to everyone online (one team = one progression).
+// Firmament Ages - announce a finale stage to everyone online (one team = one progression).
 // Chat line: [stage].unlock_message in the stage TOML. Here: title, subtitle, sound, firework.
 // ProgressiveStages.onGranted fires for every engine grant (quest reward, command, trigger, script).
+// Age stages (dawn, age_0..age_9) are announced by firmages-core's Age ceremony (title, Caelum's line, beam,
+// sky), so they are skipped here; otherwise players would see two titles (SPEC section 8).
 
 (() => {
   const FA = global.FA
@@ -10,7 +12,7 @@
   ProgressiveStages.onGranted((player, stage) => {
     const s = short(stage)
     const title = FA.AGE_TITLES[s]
-    if (!title || s === 'dawn') return // dawn is the starting stage, nothing to celebrate
+    if (!title || s === 'dawn' || /^age_\d$/.test(s)) return // Ages: firmages-core ceremony
     const server = player.server
     const sub = FA.AGE_SUBTITLES[s] || ''
 

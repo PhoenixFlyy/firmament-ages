@@ -24,6 +24,26 @@ ServerEvents.recipes((event) => {
     .resultItem('firmages:hearth_idol')
     .id('firmages:heating/hearth_idol')
 
+  // The shrine (firmages-core 0.3.0, SPEC section 7): the heart is a fired Hearth Idol set in hearth stones
+  // under a coal, so the team fires two idols in the Stone Age: one for the heart, one for the Hearthstone.
+  event.shaped('firmages:shrine_heart', [
+    ' C ',
+    'SIS',
+    ' S '
+  ], {
+    I: 'firmages:hearth_idol',
+    S: '#c:cobblestones/normal',
+    C: 'minecraft:charcoal'
+  }).id('firmages:crafting/shrine_heart')
+
+  // One plinth per ring; the Hearth Circle needs the first.
+  event.shaped('firmages:offering_plinth', [
+    ' S ',
+    'SSS'
+  ], {
+    S: '#c:cobblestones/normal'
+  }).id('firmages:crafting/offering_plinth')
+
   event.shaped('firmages:hearthstone', [
     ' K ',
     'CIC',
