@@ -46,7 +46,7 @@ hash = "0b057ada548db053f7848e86ad6ece563ff193654886f1a0ecbf0ba8537a37e5"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "0c01f242db782f97bdb1d1678df6c352a7bf4864e6b930377e5712cdf93352ef"
+hash = "40aeab26b228d35e3efce058a9a3c539076de052b9bcfe7437dd32663667fda7"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/bronze_comfort.snbt"
@@ -247,10 +247,6 @@ hash = "a86e99f31dc117d684481e627b61598e2a5d482b61f67c2b0716e8f442e75d32"
 [[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/ars_whirlisprig_spawn_tfc.json"
 hash = "d24822541bf7e6bcd0ea434f8671f735ce0b2861f7d454eb9d1f7b45d0c73187"
-
-[[files]]
-file = "kubejs/data/firmages/shrine/offerings.json"
-hash = "0ceef10f0cec2af2599d99c082ecd7e3bfa4327c8bbb1a425bd66f317dc4f405"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_0.json"
@@ -470,7 +466,7 @@ hash = "f64d3c7f26df4dc09579fe5bcb54d197954b4b42fffb9835b4814cf0c9d8d47a"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_0/stone_age.js"
-hash = "60b0fbafbde66ec190be0b9d17b4cfe28fb65a596167e6a23304f6577f70467d"
+hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
@@ -966,8 +962,8 @@ hash = "73360e397134d238ee8fd21d33fd7f9275e9441f74f8f1b6ed92278877c0b9f1"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.2.1.jar"
-hash = "7bd31a1b8ad433c220958c80ace206df963514d5ea2eb3c9011215a14d2a8475"
+file = "mods/firmages-core-0.3.0.jar"
+hash = "91537c1885bcc0f92754094743b4f2644f059c377d890bc0d2965bdd45cc0f92"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
