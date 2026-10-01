@@ -1,16 +1,38 @@
 // Firmament Ages - announce a new Age to everyone online (one team = one progression).
 // Chat line: [stage].unlock_message in the stage TOML. Here: title, subtitle, sound, firework.
 // ProgressiveStages.onGranted fires for every engine grant (quest reward, command, trigger, script).
+//
+// firmages-core 0.3.0 and later owns the Age transition (SPEC section 8): the shrine plays the full ceremony and
+// every other Age grant gets the short one (title, sting, beam). This script then stays silent for the Age stages,
+// otherwise players would see two titles. It still announces finale_won, which is not an Age. The version comes
+// from the mod list (Platform.getInfo), because the FirmAges binding has no version or ceremony flag.
 
 (() => {
   const FA = global.FA
   const short = (stage) => String(stage).replace(/^progressivestages:/, '')
   const json = (obj) => JSON.stringify(obj)
 
+  // true when the loaded firmages-core is 0.3.0 or newer ("0.3.0", "0.3.1-beta" ...)
+  const modOwnsCeremony = (() => {
+    try {
+      if (!Platform.isLoaded('firmages')) return false
+      const m = String(Platform.getInfo('firmages').getVersion()).match(/^(\d+)\.(\d+)/)
+      if (!m) return false
+      const major = parseInt(m[1], 10)
+      const minor = parseInt(m[2], 10)
+      return major > 0 || minor >= 3
+    } catch (e) {
+      console.warn(`[firmages] on_stage_added: cannot read the firmages-core version (${e}); KubeJS titles stay on`)
+      return false
+    }
+  })()
+  console.info(`[firmages] on_stage_added: Age titles by ${modOwnsCeremony ? 'firmages-core ceremony' : 'KubeJS'}`)
+
   ProgressiveStages.onGranted((player, stage) => {
     const s = short(stage)
     const title = FA.AGE_TITLES[s]
     if (!title || s === 'dawn') return // dawn is the starting stage, nothing to celebrate
+    if (modOwnsCeremony && FA.AGES.indexOf(s) >= 0) return // the shrine ceremony shows this Age
     const server = player.server
     const sub = FA.AGE_SUBTITLES[s] || ''
 
