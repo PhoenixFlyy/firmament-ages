@@ -219,7 +219,7 @@ dependencies {
 
 // ---- libs/: mods without a maven --------------------------------------------------------
 // The exact jars the pack pins in FirmamentAges/mods/<name>.pw.toml are downloaded into libs/
-// and checked against the sha512 in that file. libs/*.jar is git-ignored (TFC alone is 65 MB).
+// and checked against the hash in that file (sha1 for CurseForge, sha512 for Modrinth metafiles). libs/*.jar is git-ignored (TFC alone is 65 MB).
 // Bump a version by updating the pack; this task follows the .pw.toml automatically.
 def packModsDir = file('../../mods')
 def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon', 'sgjourney', 'jade'].collect { new File(packModsDir, "${it}.pw.toml") }
@@ -233,15 +233,23 @@ def fetchLibs = tasks.register('fetchLibs') {
         libsDir.mkdirs()
         libMetafiles.each { File meta ->
             def text = meta.getText('UTF-8')
-            def filename = (text =~ /(?m)^filename\s*=\s*"([^"]+)"/)[0][1]
-            def url = (text =~ /(?m)^url\s*=\s*"([^"]+)"/)[0][1]
-            def expected = (text =~ /(?m)^hash\s*=\s*"([^"]+)"/)[0][1]
+            def field = { String key -> def m = (text =~ /(?m)^${key}\s*=\s*"?([^"\s]+)"?/); m.find() ? m.group(1) : null }
+            def filename = field('filename')
+            def expected = field('hash')
+            def algorithm = [sha1: 'SHA-1', sha256: 'SHA-256', sha512: 'SHA-512'][field('hash-format')]
+            // Modrinth metafiles carry the url; CurseForge metafiles (mode metadata:curseforge) only the file id.
+            def url = field('url')
+            if (url == null && field('file-id') != null) {
+                def id = field('file-id') as long
+                url = "https://edge.forgecdn.net/files/${id.intdiv(1000)}/${id % 1000}/${URLEncoder.encode(filename, 'UTF-8').replace('+', '%20')}"
+            }
+            if (filename == null || expected == null || algorithm == null || url == null) throw new GradleException("fetchLibs: cannot read ${meta.name}")
             def target = new File(libsDir, filename)
-            def sha512 = { File f -> java.security.MessageDigest.getInstance('SHA-512').digest(f.bytes).encodeHex().toString() }
-            if (target.exists() && sha512(target) == expected) return
+            def digest = { File f -> java.security.MessageDigest.getInstance(algorithm).digest(f.bytes).encodeHex().toString() }
+            if (target.exists() && digest(target) == expected) return
             println "fetchLibs: downloading ${filename}"
             new URL(url).withInputStream { i -> target.withOutputStream { o -> o << i } }
-            if (sha512(target) != expected) { target.delete(); throw new GradleException("sha512 mismatch for ${filename} (from ${meta.name})") }
+            if (digest(target) != expected) { target.delete(); throw new GradleException("${field('hash-format')} mismatch for ${filename} (from ${meta.name})") }
         }
     }
 }
