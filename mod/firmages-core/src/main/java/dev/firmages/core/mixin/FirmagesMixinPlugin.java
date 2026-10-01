@@ -18,7 +18,8 @@ public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
     private static final Map<String, String> MOD_OF_PACKAGE = Map.of(
         "ie", "immersiveengineering",
         "occultism", "occultism",
-        "ars", "ars_nouveau");
+        "ars", "ars_nouveau",
+        "ps", "progressivestages");
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {

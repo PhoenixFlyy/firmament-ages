@@ -11,7 +11,9 @@
     "ie.MineralMixMixin",
     "ie.TagOutputAccessor",
     "occultism.MineshaftMixin",
-    "ars.ApparatusMixin"
+    "ars.ApparatusMixin",
+    "ps.SyncPlayerMixin",
+    "ps.SendStageSyncMixin"
   ],
   "injectors": {
     "defaultRequire": 1

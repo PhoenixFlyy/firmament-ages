@@ -7,6 +7,7 @@ import com.enviouse.progressivestages.common.api.StagesBulkChangedEvent;
 import com.enviouse.progressivestages.common.stage.StageManager;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.ceremony.CeremonyService;
+import dev.firmages.core.compat.progressivestages.LockSyncDedupe;
 import dev.firmages.core.shrine.ShrineService;
 import dev.firmages.core.compat.ftbteams.FtbTeamsCompat;
 import dev.firmages.core.config.EarlyServerConfig;
@@ -427,7 +428,8 @@ public final class AgeService {
             return;
         }
         lastReloadResult = "ok in " + millis + " ms (" + reason + ")";
-        FirmagesCore.LOGGER.info("Age reload ({}) finished in {} ms; cache generation {}", reason, millis, gen);
+        FirmagesCore.LOGGER.info("Age reload ({}) finished in {} ms; cache generation {}; duplicate PS lock syncs skipped so far: {}",
+            reason, millis, gen, LockSyncDedupe.skipped());
         AgeState st = state(s);
         st.ledger().setLastReloadGameTime(s.overworld().getGameTime());
         st.setDirty();
