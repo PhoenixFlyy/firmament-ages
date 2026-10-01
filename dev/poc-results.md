@@ -578,3 +578,106 @@ data kept the completed task. `ready=false` is correct now: tier 1 needs the Bro
 - Rings 1 and 2 (TFC bricks, bronze blocks, bell, smooth stone, lamps) were not built in the world.
 - From the console, FTB Teams' team argument accepts neither the display name nor the UUID (`Team ... not found`,
   `unexpected error`); `party join @a[name=<owner>]` works for an op player.
+
+## Reload performance
+
+Date: 2026-10-01, branch `dev`, test server with the world of the shrine run (not pregenerated: 4 region files; the
+pregenerated M0 world was wiped by the shrine run), `debug.allowSimulate` and the whitelist off only during the run.
+Reloads with `firmages reload` (the same filtered path as an Age grant); the stall is the mod's `Age reload ...
+finished in` value (it wraps `reloadResources`, which blocks the server thread). Profiles: `spark profiler start
+--thread Server thread` around 3 reloads, `stop --save-to-file` (local files, not uploaded), read with a local
+.sparkprofile reader; per-handler times from temporary `Date.now()` logs in the test-server copy of the scripts.
+Two headless players (`firmages debug player join Alpha|Beta`).
+
+### Stall per reload (s)
+
+| Condition | Before (b55015e) | After |
+|---|---|---|
+| age_4, no player (profiler on) | 7.08, 6.91, 6.63 | not measured |
+| age_4, 2 players (no profiler) | not measured | 6.49, 6.57, 6.55 |
+| age_9, no player (profiler on) | 6.67, 6.80, 6.63 | not measured |
+| age_9, 2 players (profiler on) | 8.50, 8.09, 8.16 | 6.93, 6.86, 6.73 |
+| age_9, 2 players (no profiler) | not measured | 8.02 (first reload after boot), 7.22, 6.78 |
+| `stage grant Alpha age_5` (SHORT ceremony), 2 players | not measured | 6.60 |
+
+KubeJS recipe phase ("taking ... in total"): 2.6 to 2.9 s before, 1.77 to 1.96 s after; "Posted recipe events" 1.38 s
+before, 0.40 s after. Recipe gate: 232 to 290 ms before, 237 to 273 ms after (the gate is unchanged). The boot load
+had a KubeJS phase of 5.3 s before (cold JIT).
+
+### Where a reload goes (age_9, 2 players, per reload, server thread)
+
+| Part | Before | After | Note |
+|---|---|---|---|
+| KubeJS recipe event | 2.47 | 1.61 | script handlers 1.32 -> 0.53; parsing the 35,387 original recipes (`discoverRecipes`) about 1.0, fixed |
+| ProgressiveStages reload listener | 1.52 | 0.92 | player sync 1.17 -> 0.59 (duplicate lock sync, below); stage files and editor catalog 0.33 |
+| Waiting for the reload workers | 1.71 | 1.69 | vanilla preparation on 15 worker threads: tag loading, recipe and loot JSON reads |
+| `PlayerList.reloadResources` | 0.57 | 0.57 | EMI Loot sends the loot tables to every player (0.34) |
+| Almost Unified | 0.48 | 0.39 | |
+| Recipe decoding (vanilla codecs) | 0.42 | about 0.4 | |
+| `updateRegistryTags` | 0.37 | 0.38 | |
+| firmages-core recipe gate | 0.24 | 0.24 | |
+| Advancements | 0.22 | 0.19 | |
+
+Not a cost: `debug/dump.js` only registers commands (loads in 1 ms, runs nothing on reload), `byproducts.js` takes
+0 to 1 ms, FTB Quests stays under 0.15 s, the tag scripts run inside the worker phase. The light-engine polling of
+the M0 profile does not appear on this world; the server thread waits in `waitForTasks` instead.
+
+### KubeJS filter costs (per call, one reload, 35,387 recipes)
+
+| Filter | ms |
+|---|---|
+| plain id `{ id: 'a:b' }` (KubeJS looks it up in a map; also an array of plain ids) | 0 |
+| `{ type: ... }` | 1.5 |
+| `{ mod: ... }` | 3.4 |
+| regex id | 13.5 to 17 |
+| output item or output regex | 10.6 to 20 |
+| input tag | 101 |
+
+### Fixes
+
+1. `arcane_tfc_inputs.js`: one global regex pass per magic recipe instead of 80 `split`/`join` passes (431 -> 58 ms).
+   Same 162 rewrites; checked offline with node against all 35,081 dumped recipe texts, 0 differences.
+2. `industrial_age.js`, `global_removals.js`, `arcane_age.js`, `bronze_age.js`: regexes that list fixed ids became id
+   lists; open-ended id and output patterns are collected and removed in one pass per handler; the Occultism miner
+   patterns are tested on the miner ids of one type pass; the Create andesite tier is resolved to ids once for its
+   three `replaceInput` calls (industrial 338 -> 81 ms, global removals 247 -> 100 ms, Arcane 132 -> 17 ms, Bronze
+   210 -> 122 ms; its remaining cost is the first output filter of the event). The all-Ages `fa_dump_full` is
+   identical before and after apart from two randomised components (Occultism spirit names, an Ars tome colour);
+   Added/removed/modified stay 563/974/43.
+3. firmages-core 0.3.2: ProgressiveStages `syncPlayer` sent the lock sync twice per player (once itself, once inside
+   `sendStageSync`), 0.27 s each. Two fail-soft mixins skip the second one only inside the same `syncPlayer` call
+   (`compat/progressivestages/LockSyncDedupe`); the order of the packets stays. The reload log line counts the
+   skipped syncs (2 per reload with 2 players). JUnit and 13 GameTests pass.
+4. `industrial_age.js` passed a regex as a recipe `type` filter (KubeJS boot warning `Could not create ID from
+   '/^createaddition:/'`); it removes the three C&A types by id now. `dev/run_server.py` writes UTF-8.
+
+**No hot swap.** After the fixes every reload stays below the 10 s limit of SPEC section 3 (6.5 to 7.2 s with 2
+players, 8.0 s for the first reload after a boot), so the phase-2 hot swap was not built.
+
+### Arcane gear rule on the real dump
+
+`poc_analyze.py` on the all-Ages dump after the fixes: all checks PASS, among them C-3g and C-4j. The three Ars
+apparatus recipes load (they are in `fa_dump_full`, encoded by their serializer) and are reachable at age_3:
+`enchanters_fishing_rod` takes `tfc:metal/rod/steel` as reagent and 5 pedestals (2 gold blocks, 2 source blocks,
+string); `spell_bow` takes `#c:logs/archwood` and 5 pedestals (source block, gold block, manipulation essence, 2
+string); `spell_crossbow` takes `#c:logs/archwood` and 6 pedestals (gold block, manipulation essence, source block, 2
+string, steel rod). All three have `keepNbtOfReagent: false`. 0 KubeJS errors, no recipe errors for these ids.
+
+### Ceremony
+
+The FULL ceremony runs 240 client ticks (12 s) and the reload starts at t60, so it covers a reload stall of up to 9 s;
+the measured 6.5 to 7.2 s end at about t190 to t205. An Age grant has a second, earlier stall: the KubeJS stage hook
+(`stages/grants.js`) grants and revokes the mob and helper stages, and every one of those makes ProgressiveStages
+resync each team member with a full lock sync. With 2 players that freezes the grant tick for 2.6 s ("Can't keep up!
+Running 2630ms"), between the ceremony payload and t1. Wall clock after the payload: 2.6 + 3 + 6.6 = 12.2 s, so the
+reload ends just after the FULL timeline; "The world realigns..." covers the rest.
+
+### Open points
+
+- **Grant-time stall.** About 0.3 s per stage change and team member (2.6 s with 2 players at age_5). It grows with the
+  team: with 4 players the grant tick and the reload together will run past the 12 s ceremony. A root fix is one
+  lock sync per player per tick (coalesce the PS `sendLockSync` calls to the end of the tick). That changes the order
+  of the PS lock and stage packets on the client, so it needs a client test first; not done.
+- **Reload with 4 players** was not measured; PS sync and EMI Loot scale at about 0.47 s per player after the fix.
+- **firmages-core version.** The shrine worktree (`worktree-wf_c2b18449-288-2`) also bumped firmages-core to 0.3.1
+  (rings 3..8). This branch serves 0.3.2 with the PS mixins only; the merge needs one combined build.
