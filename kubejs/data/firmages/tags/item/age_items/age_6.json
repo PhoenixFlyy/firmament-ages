@@ -642,7 +642,6 @@
     {"id": "mekanism:dust_emerald", "required": false},
     {"id": "mekanism:dust_fluorite", "required": false},
     {"id": "mekanism:dust_lapis_lazuli", "required": false},
-    {"id": "mekanism:dust_lead", "required": false},
     {"id": "mekanism:dust_lithium", "required": false},
     {"id": "mekanism:dust_netherite", "required": false},
     {"id": "mekanism:dust_osmium", "required": false},

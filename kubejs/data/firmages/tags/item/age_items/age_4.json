@@ -1304,6 +1304,7 @@
     {"id": "immersiveposts:stick_nickel", "required": false},
     {"id": "immersiveposts:stick_silver", "required": false},
     {"id": "mechanicals:rare_oierbravo_package", "required": false},
+    {"id": "mekanism:dust_lead", "required": false},
     {"id": "minecraft:deepslate_diamond_ore", "required": false},
     {"id": "minecraft:diamond", "required": false},
     {"id": "minecraft:diamond_axe", "required": false},
