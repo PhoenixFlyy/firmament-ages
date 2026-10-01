@@ -64,3 +64,17 @@ Alles hier lief nur auf dem Server ohne Bild; was folgt, kann nur ein Client zei
 **The Origin und Endkampf:** Wie viele Endermen, Endermapteras, Ignited Revenants und Ender Golems erscheinen in der beleuchteten Arena (soll wenige, keine Tiere)? Den Kampf gegen The Primordial einmal echt durchspielen: Auf dem Server dauerte Dauerschlagen 4 min 46 s, echt erwartet etwa 7 Minuten. Erscheinen die Phasen-Untertitel bei 2/3 und 1/3, kommen die Helfer, und verschwinden sie beim Tod? FINALE genau einmal.
 
 **Milch:** Ein Rezept mit TFC-Holzeimer voll Milch (z. B. der Create-Kuchen oder ein Ars-Rezept) in EMI ansehen und einmal craften.
+
+## Neu ab firmages-core 0.6.0: Weihe, Wartungsmodus, Texturen v2 (Stand 2026-10-01)
+
+Auf dem Server ohne Bild geprüft (`dev/poc-results.md`, „M7 consecration and textures v2“); hier nur, was ein Client zeigen kann.
+
+**Weihe ansehen:** Ring 0 bauen, Hearthstone opfern, Herz entzünden, beten. Nach dem Reload (etwa 1 s später) werden die Blöcke über etwa 6 s vom Herz nach außen und von unten nach oben zu hellem Himmelsmarmor mit goldenen Adern, mit End-Rod- und Verzauberungs-Partikeln und einem Klang. Achte darauf: Leuchtet der orange Akzent (Ecken, Rune) auch im Dunkeln (voll hell)? Flackert das Akzent-Overlay (Z-Fighting)? Säulen: Stirnseite mit Goldring, Seiten mit Kanneluren. Bei höheren Ringen: Glas durchsichtig mit Akzent, Gerüst mit Löchern, Lampen hell (Licht 15).
+
+**Unzerstörbar:** Im Survival mit Spitzhacke auf einen geweihten Block: kein Abbau-Riss, kein kurz verschwindender Block, Hinweis in der Aktionsleiste.
+
+**Wartung:** Schleichen und mit leerer Hand auf das Herz schlagen (Linksklick). Das Herz bekommt einen Gerüst-Käfig, die Aktionsleiste zählt 60 s herunter. Jetzt bricht ein geweihter Block mit Spitzhacke (normaler Abbau-Riss) und lässt das Original fallen (Ring 0: Granit-Bruchstein). Das Original wieder setzen, nochmal schleichend schlagen: der Block wird wieder geweiht.
+
+**Jade:** Auf einen geweihten Block: „Consecrated …“, „Ring of the …“, „Original: …“ und „Unbreakable (maintenance mode at the heart)“ bzw. die Restzeit.
+
+**Animierte Texturen:** In EMI `firmages:` filtern: Arcane und Awakened Keystone, Humming Core, Data Matrix, Star Chart, Quantum Core und Ultimate Singularity bewegen sich; der Origin-Altar pulsiert oben. Die geweihten Blöcke stehen unter Operator Utilities im Kreativ-Menü (Lampe als leuchtende Lampe).

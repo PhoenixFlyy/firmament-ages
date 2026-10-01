@@ -1226,3 +1226,129 @@ online in the overworld, after about 25 minutes of server time and two dumps: **
   players on the whitelist.
 - The pack version in `pack.toml` is still 0.1.0; `dev/release.ps1 -Version` bumps it for a release.
 - `origin/main` is still the skeleton; friends and the live server read main (release run).
+
+## M7 consecration and textures v2
+
+Date: 2026-10-01, branch `dev`. Integrated: the M7 branch (consecration and maintenance mode, SPEC §17; 1f6dcb5,
+3f7cb79) as merge a8806bc and the textures v2 branch (18 redrawn items, 9 animated textures, 19 consecrated block
+textures; 9a256f6, bb2d000) as merge 011a1d7, both `--no-ff`, on top of the CurseForge conversion. Both worktrees
+and branches are removed. firmages-core **0.6.0** (MIT): `gradlew build` 70 JUnit tests, 0 failures;
+`runGameTestServer` "All 27 required tests passed" (selftest core 17/17, gate 16/16), last run on the final code
+5318cb7. The jar's `META-INF/neoforge.mods.toml` says `license="MIT"`, `version="0.6.0"`. 0.6.0 replaces 0.5.0 in
+`mods/`, `packwiz refresh`. Two debug players Alpha and Beta in one FTB party, survival; `debug.allowSimulate` and
+the whitelist were off only during the run and are back on their old values.
+
+### Merge decisions
+
+- **Textures over placeholders:** the 17 PNGs both branches added (`textures/block/consecrated_*`) are the textures
+  v2 files; the M7 placeholder `consecrated_pillar.png` is gone, the pillar side is `consecrated_pillar_side.png`.
+- **Models follow `dev/textures-notes.md`:** `blockstates/consecrated_lamp.json` picks `consecrated_lamp` for
+  `lit=false` and the new `consecrated_lamp_lit` for `lit=true` (M7 had one unlit model for both); the lamp's item
+  model uses the lit model; the nine accent overlays carry `neoforge_data` (block and sky light 15, no AO) on the
+  element plus `ambientocclusion: false`; the pillar is a `cube_column` with `consecrated_pillar_side` and `_top`.
+  The other base models and blockstates were already identical.
+- **`gen_textures.py --check`:** the exemption for `consecrated_*` is gone; instead every consecrated texture that no
+  mod model references is an error (tested: without `consecrated_lamp_lit.json` the check reports 3 errors).
+- **Decision log:** both branches' rows kept (CurseForge rows first, then M7, then textures v2).
+
+### Fixes from this run
+
+1. **`fetchLibs` after the CurseForge conversion** (`build.gradle`): the seven lib metafiles now have no `url` and a
+   sha1 hash, so the build failed at once ("index is out of range"). It reads `hash-format`, builds the forgecdn URL
+   from `file-id` and verifies with that algorithm (tested by deleting the Rhino jar: downloaded again, byte-equal).
+2. **Consecration in real time** (`ShrineConsecration.pacedStep`): in the first ladder run ring 3 turned in 0.34 s
+   instead of 6 s. The age_4 grant stalls 2.7 s, vanilla's "Can't keep up" warning is rate-limited to 15 s and only
+   that warning skips missed ticks, so after the reload 6 s later the server ran 120 ticks back to back. A catch-up
+   tick now counts by its real duration; the GameTest server (unthrottled) and `/tick sprint` count every tick. The
+   batch also starts 20 ticks after the reload is idle, as SPEC §17.3 says (it started on the idle tick).
+3. **`build_shrine.py`** set the heart unconditionally; over an awakened heart that resets `lit`, `awakened` and
+   `maintenance`. It now only places a missing heart, so later rings can be added to a standing shrine.
+4. **Tools for this proof:** debug players got `debug punch <name> <pos> [sneak]` (left click, the maintenance
+   toggle), `debug mine <name> <pos>` (survival mining through `handleBlockBreakAction`) and `debug break` (the server
+   side of a finished mining); they log particle packets. The consecration logs each block at DEBUG (`debug.log`) and
+   one INFO line per finished batch.
+
+### Assets (the dedicated server cannot render)
+
+| Check | Observed | Result |
+|---|---|---|
+| `python dev/gen_textures.py --check` | 52 referenced textures, 0 errors, 0 warnings | pass |
+| Every JSON and `.mcmeta` under `mod/.../assets` and `kubejs/assets`, strict parse (duplicate keys refused) | 38 models, 12 blockstates, 9 `.mcmeta`, lang and `sounds.json`: all valid; every model has `parent` or `elements`, every face texture variable is defined, every blockstate has `variants` or `multipart`, every `.mcmeta` has `animation`; no CRLF | pass |
+| Blockstate properties | multipart `when` uses `accent` 0..8 (`ConsecratedBlock.ACCENT`) and `lit` (lamp only) | pass |
+| Jar content | `firmages-core-0.6.0.jar` holds the 19 consecrated block textures and `consecrated_lamp_lit.json`, no `consecrated_pillar.png` | pass |
+
+### Install and boot (fresh world)
+
+| Check | Observed | Result |
+|---|---|---|
+| CurseForge metafiles, clean install | empty folder, `packwiz-installer-bootstrap -g -s client` from `packwiz serve`: 423/423, "Finished successfully", no "must be downloaded manually"; `verify_install.py dir --side client`: 417 expected, 0 missing, 0 hash mismatch. The five client-side Modrinth-kept mods (Alternating Flux, Create Aeronautics, Design n' Decor, Create Factory Logistics, Entity Culling) are installed | pass |
+| Test server sync | `-g -s server` (quest folder deleted first): 423/423, "Finished successfully", 0 error lines; `verify_install.py dir test-server --side server`: 408 expected, 0 missing; 6 config hash differences are mods rewriting their own files on start (`DraconicEvolution.cfg`, `createdieselgenerators-server.toml`, `cucumber-tags.json`, `ftbchunks-world.snbt`, `mysticalagriculture-common.toml`, `progressivestages.toml`; the installer keeps them as cached). TFC Ruins (Modrinth, server only) is installed | pass |
+| Boot | `Done (9.984s)`; the restart on the same world `Done (3.049s)` | pass |
+| KubeJS | startup 2/2, server 32/32 scripts, 0 errors, 0 warnings | pass |
+| FTB Quests | `Loaded 2 chapter groups, 13 chapters, 345 quests, 21 reward tables` | pass |
+| firmages-core | 0 WARN or ERROR lines over the boot and the whole run; "Shrine consecration: roles for 9 rings"; arena built in 476 ms | pass |
+| Other ERROR lines | DISTXFORM, loot tables (dndecor, railways, create_connected, createcasing, more_immersive_wires, extendedae), tfcrf and woodencog recipe parse errors, Sable `copycat_catwalk`, Polymorph EMI module, TF `dev_new_world`, trainutilities advancements: as before | not ours |
+
+### Ring 0: ceremony and consecration
+
+Heart at 0 200 0 on a stone platform, ring 0 by `build_shrine.py --rings 0 --platform` from Age materials
+(`tfc:rock/cobble/granite`, `tfc:wood/log/oak`, `tfc:thatch`); `stage grant` dawn and age_0.
+
+| Check | Observed | Result |
+|---|---|---|
+| Before | `shrine status`: ring 0 complete, phase READY; `execute if block` cobble, log and thatch pass; `shrine originals` 0 | pass |
+| Offering and prayer | Hearthstone on plinth 0 200 -2, `tfc:firestarter` on the heart ("The heart is kindled"), Alpha and Beta pray: `Shrine prayer heard (tier 0, by [Beta, Alpha]): granting age_1`, `Shrine: consecrating ring 0 (20 blocks, after the reload)`, one reload (6,108 ms) | pass |
+| Spread, server log | reload finished 22:28:12.701; the four stones next to the heart at 13.744 (+0), the four diagonal stones at 15.141 (+28), the posts bottom up at 19.843, 19.890 and 19.941 (+121 to +123): `consecration done, 20 block(s) of rings [0] from +0 to +123 ticks`, 6.2 s from the heart outward | pass |
+| Spread, players | Alpha receives `end_rod x6` and `enchant x10` particle packets at each block position at the same times | pass |
+| Result | all 20 positions are `consecrated_<role>[accent=0]`: 8 stone (cobble), 8 pillar (logs), 4 trim (thatch); heart and plinth unchanged; `shrine originals` 20 (the 22 blocks of ring 0 minus heart and plinth; the brief's "21" counted the plinth); ring 0 complete, intact true, valid ring 0 | pass |
+
+### Unbreakable, maintenance, repair
+
+| Check | Observed | Result |
+|---|---|---|
+| Survival mining outside maintenance | copper pickaxe, `debug mine`: "destroy progress 0, mining aborted"; `debug break` on a stone and a post: "refused", blocks unchanged, actionbar "Consecrated by Caelum. Sneak and punch the Shrine Heart with an empty hand to start maintenance." | pass |
+| Toggle needs sneak and an empty hand | sneak-punch holding the pickaxe, and a plain punch with an empty hand: maintenance stays off | pass |
+| Sneak-punch | empty hand, `debug punch ... sneak`: heart `maintenance=true`, chat to both "Alpha opened the shrine for maintenance: for 60 s ...", actionbar countdown from 60 s; a prayer during maintenance: "Caelum does not listen while the shrine is under maintenance." | pass |
+| Break in maintenance | `debug mine` (progress 0.023 per tick): broken after 31 ticks, "dropped [1 tfc:rock/cobble/granite]", the item entity lies at the spot; ring 0 21/22, "The shrine is broken. Caelum's blessings rest until it is repaired."; Ages unchanged (dawn, age_0, age_1) | pass |
+| Repair | granite cobble placed by Alpha (`debug use`): "The shrine stands again"; the second sneak-punch ends maintenance ("Alpha ended the shrine maintenance. Caelum consecrates what stands again."), `consecrating 1 standing block(s)`, the stone is `consecrated_stone[accent=0]` again with the new original | pass |
+| Command and timer | `shrine maintenance on` at 22:29:13.456, actionbar 60 s, 30 s, 1 s, "Shrine maintenance off (timer or console)" at 22:30:13.439 (60.0 s), heart `maintenance=false`; `on` then `off` by command | pass |
+| TNT | two primed TNT on top of ring 0 (players moved away): the three dirt blocks next to them are gone, heart and plinth stand, all 20 positions still consecrated with accent 0, ring complete | pass |
+| Pistons | a piston pushing down onto a stone, a piston pushing sideways into a stone, a sticky piston on a stone: none extends; ring unchanged | pass |
+
+### Migration and the ladder
+
+| Check | Observed | Result |
+|---|---|---|
+| Migration (pre-M7 world) | `stage grant Alpha age_2` (an Age from a quest or an old world), then ring 1 built from Age materials: `consecrating 24 standing block(s) of awakened rings (rings [1])`, `consecration done, 24 block(s) of rings [1] from +0 to +120 ticks`; 19 brick, 5 metal (bronze blocks, bell), accent 1; ring 1 complete. The load path itself (the heart's first validation after loading) is the GameTest `awakenedRingMigrates` | pass |
+| Ladder | tiers 2 to 8 from the shrine with `dev/build_shrine.py --rings N [--rites N]`, offering by `debug use`, Alpha and Beta pray; tiers 7 and 8 at `time set midnight` (TFC disables `/weather`, and its `/time set` refuses 18000) | pass |
+| End state | `shrine originals` **537** (20, 24, 51, 59, 63, 71, 75, 87, 87 = SPEC §17.2); every one is `consecrated_<role>[accent=ring]`; `shrine status` valid ring 8, intact true, awakened 9, all nine rings complete; `firmages ages` 11 unlocked | pass |
+| Restart (same world) | after the chunks load: 537 originals, all consecrated, no consecration batch, 0 firmages WARN/ERROR | pass |
+
+| Grant | Path | Reload (ms) | Consecration, wall clock |
+|---|---|---|---|
+| age_0 | `stage grant` | 6,842 | none |
+| age_1 | tier 0 (ring 0, 20 blocks) | 6,108 | 13.744 to 19.941 (6.2 s) |
+| age_2 | `stage grant` (then ring 1 migrates, 24 blocks) | 5,935 | +0 to +120 ticks |
+| age_3 | tier 2 (ring 2, 51) | 6,049 | 34.891 to 41.092 (6.2 s) |
+| age_4 | tier 3 (ring 3, 59) | 5,934 | 04.141 to 10.540 (6.4 s; 0.34 s before fix 2) |
+| age_5 | tier 4 (ring 4, 63) | 5,862 | 35.239 to 41.491 (6.3 s) |
+| age_6 | tier 5 (ring 5, 71) | 5,933 | 13.889 to 20.289 (6.4 s) |
+| age_7 | tier 6 (ring 6, 75) | 5,895 | 40.989 to 47.191 (6.2 s) |
+| age_8 | tier 7 (ring 7, 87) | 6,113 | 05.389 to 11.641 (6.3 s) |
+| age_9 | tier 8 (ring 8, 87) | 6,014 | 35.040 to 41.190 (6.2 s) |
+| operator | `firmages reload` three times at age_9, 2 players, after the restart | 9,441 / 8,345 / 7,937 | none |
+
+### Open points of this run
+
+- **Needs a client:** the consecrated look (marble base, accent overlay full-bright through `neoforge_data`, no
+  z-fighting of the coplanar overlay, translucent glass and cutout scaffold under the overlay, the lamp's lit and
+  unlit models), the heart's scaffold cage in maintenance, the 9 animated textures (items and altar top), the
+  destroy prediction during maintenance (crack animation; outside maintenance no ghost break, from
+  `firmages:shrine_sync`), the consecrate sound and the particles as seen, the Jade lines of consecrated blocks and
+  the heart, the item models in EMI and the creative tab. The client checklist is `dev/client-test-brief.md`.
+- **Store images:** `dev/shrine-viewer/render_shrine.py` and `dev/cf/make_logo.py` still draw the shrine in Age
+  materials; the CurseForge images should be rendered again with the consecrated look.
+- **`shrine originals` on unloaded chunks** marks every entry "(not consecrated now)" because it reads unloaded
+  positions as air; the counts are right. Cosmetic.
+- The first operator reload after the restart took 9.4 s (the next two 8.3 and 7.9 s); the Age grants stayed at
+  5.9 to 6.1 s.

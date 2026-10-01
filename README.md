@@ -33,7 +33,7 @@ The design documents are in German and live outside this repo, in `../Modpack-Pl
 ## Current state (2026-10-01)
 
 - **Pack:** 192 mods (184 from Modrinth, 8 CurseForge-only: the FTB suite, The Twilight Forest, Torque Link Create To TFC, AE2 Draconic Fusion Autocrafter) plus the pack's own `firmages-core` jar. Content for all Ages from Dawn to Singularity, the quest book (`dev/gen_quests.py`), the shrine of Caelum and the finale in The Origin are in. `pack.toml` is still at version 0.1.0; the next release sets it.
-- **firmages-core 0.5.0:** milestones M1 to M6 of `mod/firmages-core/SPEC.md` (Age state and reloads, machine-recipe gate, miner filter and prospecting, reactor refuelling, the shrine multiblock, then Keystone lending, blessing effects, the energy rite and Jade tooltips), The Origin with its own age_9 travel lock and spawn list, and the boss scaffolding.
+- **firmages-core 0.6.0:** milestones M1 to M7 of `mod/firmages-core/SPEC.md` (Age state and reloads, machine-recipe gate, miner filter and prospecting, reactor refuelling, the shrine multiblock, then Keystone lending, blessing effects, the energy rite and Jade tooltips, then the consecration of the rings with maintenance mode), The Origin with its own age_9 travel lock and spawn list, and the boss scaffolding.
 - **Verified without a client:** the test server reaches `Done` (`dev/boot-report.md`), `dev/poc_analyze.py` runs its checks on a recipe dump, and the debug players of the mod walk the shrine, team and quest paths (`dev/poc-results.md`). The client checklist is `dev/client-test-brief.md`.
 - **Design calls** made while Felix was away are logged in `dev/decisions-while-away.md`.
 
