@@ -101,7 +101,7 @@ industrial_age `66BF343917FA056F`, electric_age `12AE834BF6E07368`, information_
 | Information Age | Offer the Data Matrix at the Shrine `64CDFFD93C9CBDCE` | the shrine (`firmages:data_matrix`, ring 6) | gamestage `age_7` |
 | Space Age | Offer the Star Chart at the Shrine `44FB988268E119B4` | the shrine (`firmages:star_chart`, ring 7) | gamestage `age_8` |
 | Quantum Age | Offer the Quantum Core at the Shrine `67314514BDCA1DB3` | the shrine (`firmages:quantum_core`, ring 8) | gamestage `age_9` |
-| Singularity Age | Beyond the Firmament `1D5C854562BD6F58` | firmages-core 0.4.0 (first death of the `firmages:final_boss` entity, OriginService) | gamestage `finale_won` |
+| Singularity Age | Beyond the Firmament `1D5C854562BD6F58` | firmages-core 0.4.0 (first death of the `firmages.final_boss` entity, OriginService) | gamestage `finale_won` |
 
 `validate_quests.py` checks one grant path per Age over the whole book: `age_0` by exactly one quest reward,
 `age_1` to `age_9` by exactly one shrine tier (`tier/ring_N.json` grants) and no quest reward, `finale_won` by no quest
@@ -233,7 +233,7 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
 - Signature items of Ages 3 to 8 are registered (all-Ages dump of 2026-10-01); their Firmament quests and goals use
   them as icons.
 - **Resolved at integration (firmages-core 0.4.0, 2026-10-01).** firmages-core grants `finale_won` on the death of the
-  `firmages:final_boss` entity (the validator accepts `OriginService` as the one grant path); "Into The Origin" is a
+  `firmages.final_boss` entity (the validator accepts `OriginService` as the one grant path); "Into The Origin" is a
   side mission with a dimension task on `firmages:origin`, and "Gate Online" names the address 9, 16, 21, 33, 2, 37;
   keystone "The Ultimate Singularity" is an item task on `firmages:ultimate_singularity` (KubeJS item); the End portal
   frame has a recipe (`recipes/age_6/information_age.js`); Space supplies swap the disabled Ad Astra steel plate and

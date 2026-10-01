@@ -39,8 +39,11 @@ import java.util.List;
  * waves, the Cataclysm boss, its phases) is KubeJS; this class only provides the trigger and the result.
  */
 public final class OriginService {
-    /** Scoreboard tag ({@code Entity#addTag}) that marks the final boss; its death wins the game. */
-    public static final String FINAL_BOSS_TAG = "firmages:final_boss";
+    /**
+     * Scoreboard tag ({@code Entity#addTag}) that marks the final boss; its death wins the game. A dot, not a colon:
+     * selectors ({@code @e[tag=...]}) and {@code /tag ... add} read an unquoted word, which cannot hold a colon.
+     */
+    public static final String FINAL_BOSS_TAG = "firmages.final_boss";
     public static final String FINALE_STAGE = "finale_won";
     public static final ResourceLocation START_FUNCTIONS = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "origin/start");
     public static final ResourceLocation WON_FUNCTIONS = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "origin/won");

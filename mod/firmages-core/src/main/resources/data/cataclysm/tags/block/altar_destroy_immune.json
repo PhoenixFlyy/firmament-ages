@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "firmages:origin_altar", "required": false}
+  ]
+}

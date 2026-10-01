@@ -52,7 +52,7 @@ public abstract class OriginEvent extends Event {
         }
     }
 
-    /** An entity with the scoreboard tag {@code firmages:final_boss} died; {@code finale_won} is granted. */
+    /** An entity with the scoreboard tag {@code firmages.final_boss} died; {@code finale_won} is granted. */
     public static final class Victory extends OriginEvent {
         private final LivingEntity boss;
 
