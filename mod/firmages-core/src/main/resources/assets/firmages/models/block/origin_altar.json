@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "side": "minecraft:block/respawn_anchor_side4",
-    "top": "minecraft:block/respawn_anchor_top",
-    "bottom": "minecraft:block/respawn_anchor_bottom"
+    "side": "firmages:block/origin_altar_side",
+    "top": "firmages:block/origin_altar_top",
+    "bottom": "firmages:block/origin_altar_bottom"
   }
 }

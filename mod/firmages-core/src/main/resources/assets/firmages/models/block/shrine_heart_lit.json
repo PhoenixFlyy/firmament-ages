@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "minecraft:block/terracotta",
-    "side": "minecraft:block/orange_glazed_terracotta",
-    "base": "minecraft:block/terracotta",
-    "top": "minecraft:block/magma",
-    "band": "minecraft:block/gold_block"
+    "particle": "firmages:block/shrine_heart_base",
+    "side": "firmages:block/shrine_heart_side",
+    "base": "firmages:block/shrine_heart_base",
+    "top": "firmages:block/shrine_heart_top_lit",
+    "band": "firmages:block/shrine_heart_band"
   },
   "elements": [
     {

@@ -1,9 +1,9 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "minecraft:block/stone_bricks",
-    "side": "minecraft:block/stone_bricks",
-    "top": "minecraft:block/gold_block"
+    "particle": "firmages:block/offering_plinth_side",
+    "side": "firmages:block/offering_plinth_side",
+    "top": "firmages:block/offering_plinth_top_awakened"
   },
   "elements": [
     {
