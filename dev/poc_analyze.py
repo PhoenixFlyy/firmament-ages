@@ -6,7 +6,9 @@ followed by the evidence. Run "fa_dump" on the server first (console or: python 
 The content checks of the Arcane and Industrial Age ("C-" lines) also need recipes_full.json from "fa_dump_full"
 (every recipe as its serializer JSON) and read <server>/logs/latest.log for recipe parse errors.
 The "R-" checks walk the recipe graph once per goal Age from the Dawn start set (world items, mob-ladder drops, the
-Age's boss drops) and report every goal ingredient (Steel Heart, Arcane Keystone, Pressure Core) not reached at its Age.
+Age's boss drops, ore veins, the planets) and report every goal ingredient (Steel Heart, Arcane Keystone, Pressure
+Core, Humming Core, Data Matrix, Star Chart, Quantum Core) not reached at its Age. R-0 reports recipes that still need
+a vanilla station block (crafting table, furnace, ...) that a TFC world cannot make.
 
 The "G-" checks test the firmages-core recipe gate (M2) against the Age tags: the dump records the Ages that were
 unlocked ("unlocked", written by fa_dump), and no recipe may make an item of a locked Age or of age_items/disabled.
@@ -503,6 +505,23 @@ INDUSTRIAL_CHAIN = ("immersiveengineering:cokebrick immersiveengineering:blastbr
                     "immersiveengineering:hammer createaddition:alternator createaddition:electric_motor create:packager "
                     "create:package_frogport create:stock_link create:stock_ticker create:chain_conveyor create_jetpack:jetpack "
                     "firmages:arcane_gearbox firmages:pressure_core").split()
+# Station parts of the late goals (Doc 10 v3 section 6.1): the arc furnace and HV power (age_5), Mekanism's
+# infuser and AE2 autocrafting (age_6), DE fusion crafting with wyvern and draconic injectors and the rockets that
+# reach the ores of the goal (age_7, age_8).
+ELECTRIC_CHAIN = ("firmages:attuned_circuit immersiveengineering:capacitor_hv immersiveengineering:coil_hv "
+                  "immersiveengineering:wirecoil_steel immersiveengineering:connector_hv immersiveengineering:transformer_hv "
+                  "immersiveengineering:graphite_electrode immersiveengineering:sheetmetal_steel "
+                  "immersiveengineering:light_engineering immersiveengineering:heavy_engineering "
+                  "immersiveengineering:plate_aluminum tfc:metal/sheet/red_steel").split()
+INFORMATION_CHAIN = ("mekanism:advanced_control_circuit mekanism:metallurgic_infuser mekanism:alloy_infused "
+                     "ae2:cell_component_64k ae2:controller ae2:molecular_assembler ae2:inscriber ae2:pattern_provider "
+                     "tfc:metal/sheet/blue_steel").split()
+SPACE_CHAIN = ("draconicevolution:crafting_core draconicevolution:basic_crafting_injector "
+               "draconicevolution:wyvern_crafting_injector draconicevolution:wyvern_core mekanism:pellet_polonium "
+               "ad_astra:tier_1_rocket ad_astra:tier_2_rocket ad_astra:desh_plate ad_astra:ostrum_plate").split()
+QUANTUM_CHAIN = ("draconicevolution:awakened_crafting_injector draconicevolution:awakened_core mekanism:pellet_antimatter "
+                 "mekanism:sps_casing ad_astra:tier_3_rocket ad_astra:tier_4_rocket ad_astra:calorite_plate "
+                 "ad_astra:ice_shard").split()
 ARCANE_CHAIN = (
     "occultism:datura_seeds occultism:dictionary_of_spirits occultism:chalk_white occultism:chalk_gold "
     "occultism:chalk_purple occultism:golden_sacrificial_bowl occultism:spirit_attuned_gem occultism:spirit_attuned_crystal "
@@ -521,6 +540,13 @@ def _slots(o, out, key=None):
     if isinstance(o, dict):
         if "amount" in o and ("fluid" in o or "fluid" in str(o.get("type", ""))):
             return out  # fluid ingredient
+        if "amount" in o and "count" not in o and isinstance(o.get("tag") or o.get("chemical"), str):
+            # an amount without a count is a fluid or a Mekanism chemical. A chemical ("chemical": id, or a tag under
+            # a chemical_* key; a chemical tag is named after its chemical, e.g. mekanism:redstone) is reached when a
+            # recipe or a machine (MACHINE_MADE) has produced it; fluids are taken as available
+            if "chemical" in o or (key and "chemical" in key.lower()):
+                out.append([("chem", o.get("chemical") or o.get("tag"))])
+            return out
         if isinstance(o.get("item"), str):
             out.append([("item", o["item"])])
             return out
@@ -564,7 +590,7 @@ def _outs(o, out, inres=False):
     if isinstance(o, dict):
         for k, v in o.items():
             r = inres or k in ("result", "results", "output", "outputs", "secondaries", "secondaryOutputs", "slag",
-                               "output_item", "result_item")
+                               "output_item", "result_item", "item_output", "chemical_output")
             if r and k in ("id", "item") and isinstance(v, str):
                 out.append(v)
             elif r and k == "stack" and isinstance(v, dict) and "id" in v:
@@ -616,7 +642,8 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         have = {i for i in have if fits(i)}
 
         def sat_(slot):
-            return any((k == "item" and x in have) or (k == "tag" and any(i in have for i in tags.get(x, []))) for k, x in slot)
+            return any((k in ("item", "chem") and x in have) or (k == "tag" and any(i in have for i in tags.get(x, [])))
+                       for k, x in slot)
         grew = True
         while grew:
             grew = False
@@ -856,9 +883,53 @@ VANILLA_BY_AGE = {
              "blackstone gold_nugget gilded_blackstone crimson_fungus warped_fungus crimson_stem warped_stem shroomlight "
              "ancient_debris magma_block crying_obsidian ender_pearl",  # mob_3 and the Beneath Nether
     "age_5": "wither_skeleton_skull",                                    # mob_5
+    "age_6": "end_stone chorus_fruit chorus_flower shulker_shell purpur_block elytra dragon_head",  # the End (age_6 boss)
 }
 BOSS_DROPS = {"age_2": ["twilightforest:naga_scale", "twilightforest:naga_trophy", "twilightforest:lich_trophy",
-                       "tfcreate:unpolished_quartz"]}  # and the drop of the TFCreate quartz vein (ore family, age_2)
+                       "tfcreate:unpolished_quartz"],  # and the drop of the TFCreate quartz vein (ore family, age_2)
+              # boss tokens of kubejs/server_scripts/tags/late_ages.js (Doc 08 section 5.1)
+              "age_5": ["minecraft:nether_star"],                           # The Wither
+              "age_6": ["minecraft:dragon_breath", "minecraft:dragon_egg"],  # Ender Dragon
+              "age_7": ["cataclysm:witherite_block"],                       # The Harbinger
+              "age_8": ["cataclysm:abyssal_egg"]}                           # The Leviathan
+# What the rockets of the Space and Quantum Age reach without a recipe (Ad Astra planets: stone, sand, ore drops,
+# Moon cheese) and the draconium ore of the End (DE, dust drop). Regexes over the registry, per Age.
+LATE_WORLD = {"age_7": [r"^ad_astra:(moon|mars)_(stone|cobblestone|sand|deepslate)$", r"^ad_astra:(raw_desh|raw_ostrum|cheese)$",
+                        r"^draconicevolution:draconium_dust$"],
+              "age_8": [r"^ad_astra:(venus|mercury|glacio)_(stone|cobblestone|sand|deepslate)$",
+                        r"^ad_astra:(raw_calorite|ice_shard)$"]}
+# Stations of the late Ages as items: a recipe of these types fires only when every group has one reached item
+# (the machine, or the parts of a multiblock). Earlier types keep the mod-Age model (station_ix).
+_MEK = {"metallurgic_infusing": "metallurgic_infuser", "reaction": "pressurized_reaction_chamber",
+        "activating": "solar_neutron_activator", "centrifuging": "isotopic_centrifuge", "chemical_infusing": "chemical_infuser",
+        "compressing": "osmium_compressor", "combining": "combiner", "crushing": "crusher", "crystallizing": "chemical_crystallizer",
+        "dissolution": "chemical_dissolution_chamber", "enriching": "enrichment_chamber",
+        "evaporating": "thermal_evaporation_controller", "injecting": "chemical_injection_chamber",
+        "nucleosynthesizing": "antiprotonic_nucleosynthesizer", "oxidizing": "chemical_oxidizer",
+        "purifying": "purification_chamber", "rotary": "rotary_condensentrator", "sawing": "precision_sawmill",
+        "separating": "electrolytic_separator", "washing": "chemical_washer"}
+STATION_ITEMS = {f"mekanism:{t}": [[f"mekanism:{m}"]] for t, m in _MEK.items()}
+STATION_ITEMS.update({
+    "immersiveengineering:arc_furnace": [["immersiveengineering:graphite_electrode"], ["immersiveengineering:sheetmetal_steel"],
+                                         ["immersiveengineering:heavy_engineering"], ["immersiveengineering:light_engineering"]],
+    "ae2:inscriber": [["ae2:inscriber"]], "ae2:charger": [["ae2:charger"]],
+    "ad_astra:compressing": [["ad_astra:compressor"]], "ad_astra:nasa_workbench": [["ad_astra:nasa_workbench"]],
+    "ad_astra:refining": [["ad_astra:fuel_refinery"]], "ad_astra:cryo_freezing": [["ad_astra:cryo_freezer"]],
+    "ad_astra:alloying": [["ad_astra:etrionic_blast_furnace"]], "ad_astra:oxygen_loading": [["ad_astra:oxygen_loader"]],
+    "draconicevolution:fusion_crafting": [["draconicevolution:crafting_core"]],
+})
+FUSION_INJECTOR = {"draconium": "basic", "wyvern": "wyvern", "draconic": "awakened", "chaotic": "chaotic"}
+# Chemicals a multiblock makes without a recipe: the fission reactor burns fissile fuel into nuclear waste, the SPS
+# turns polonium into antimatter. Each needs all listed items or chemicals.
+MACHINE_MADE = {"mekanism:nuclear_waste": ["mekanism:fissile_fuel", "mekanismgenerators:fission_reactor_casing",
+                                           "mekanismgenerators:fission_fuel_assembly", "mekanismgenerators:control_rod_assembly",
+                                           "mekanismgenerators:fission_reactor_port"],
+                "mekanism:antimatter": ["mekanism:polonium", "mekanism:sps_casing", "mekanism:sps_port",
+                                        "mekanism:supercharged_coil"]}
+# Vanilla station blocks without a recipe in a TFC world, and the recipes that only transform such a block itself.
+STATION_VANILLA = {"minecraft:crafting_table", "minecraft:furnace", "minecraft:blast_furnace", "minecraft:smoker",
+                   "minecraft:campfire", "minecraft:anvil"}
+STATION_TRANSFORMS = {"mekanism:sawing/crafting_table", "create:haunting/soul_campfire"}
 # Create heat levels: a heated recipe needs a heater, a superheated one a Blaze Burner (with a blaze cake).
 HEAT_STATION = {"heated": ("tfcreate:primitive_heater", "create:blaze_burner"), "superheated": ("create:blaze_burner",)}
 REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
@@ -867,6 +938,10 @@ REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
                                                  "tfcreate:polished_quartz"]),  # Twilight portal activator (Frontier)
     ("age_3", "firmages:ritual/arcane_keystone", ARCANE_CHAIN),
     ("age_4", "firmages:crafting/pressure_core", INDUSTRIAL_CHAIN),
+    ("age_5", "firmages:arc_furnace/humming_core", ELECTRIC_CHAIN),
+    ("age_6", "firmages:crafting/data_matrix", INFORMATION_CHAIN),
+    ("age_7", "firmages:fusion/star_chart", SPACE_CHAIN),
+    ("age_8", "firmages:fusion/quantum_core", QUANTUM_CHAIN),
 ]
 
 
@@ -874,9 +949,17 @@ def reach_checks(full, recs, items, tags, item_age, check):
     try:
         import tomllib
         with open(os.path.join(REPO, "dev", "age_map.toml"), "rb") as f:
-            mod_age = tomllib.load(f).get("mods", {})
+            amap = tomllib.load(f)
     except (ImportError, OSError):
-        mod_age = {}
+        amap = {}
+    mod_age = amap.get("mods", {})
+    # ore pieces of the non-TFC ore veins ([ore_families]: "ns:name" = Age), mined in the world from their Age
+    ore_pieces = collections.defaultdict(set)
+    for fam, st in amap.get("ore_families", {}).items():
+        if "{rock}" in fam or st not in AGES:
+            continue
+        ns, name = fam.split(":", 1)
+        ore_pieces[st] |= {i for i in items if i.startswith(ns + ":ore/") and name in i}
 
     def age_ix(i):
         return AGES.index(item_age[i]) if item_age.get(i) in AGES else -1
@@ -884,6 +967,14 @@ def reach_checks(full, recs, items, tags, item_age, check):
     def station_ix(rid):
         st = mod_age.get(full[rid].get("type", "minecraft:x").split(":")[0], "dawn")
         return AGES.index(st) if st in AGES else 0
+
+    def station_groups(rid):
+        t = full[rid].get("type", "")
+        groups = list(STATION_ITEMS.get(t, []))
+        if t == "draconicevolution:fusion_crafting":
+            lvl = FUSION_INJECTOR.get(str(full[rid].get("techLevel", "draconium")).lower(), "basic")
+            groups.append([f"draconicevolution:{lvl}_crafting_injector"])
+        return groups
 
     def start(n):
         have = {i for i in items if i.split(":")[0] in WORLD_NS}
@@ -893,17 +984,25 @@ def reach_checks(full, recs, items, tags, item_age, check):
         for st, drops in BOSS_DROPS.items():
             if AGES.index(st) <= n:
                 have |= set(drops)
+        for st, pats in LATE_WORLD.items():
+            if AGES.index(st) <= n:
+                have |= {i for i in items if any(re.search(p_, i) for p_ in pats)}
+        for st, got in ore_pieces.items():
+            if AGES.index(st) <= n:
+                have |= got
         have |= set(MOB_DROPS)
         return {i for i in have if age_ix(i) <= n and item_age.get(i) != "disabled"}
 
     def walk(n):
         have = start(n)
         heat = {rid: HEAT_STATION.get(full[rid].get("heat_requirement")) for rid, _, _ in recs}
+        stations = {rid: station_groups(rid) for rid, _, _ in recs}
         live = [(rid, sl, set(os_)) for rid, sl, os_ in recs
                 if station_ix(rid) <= n and os_ and all(age_ix(o) <= n and item_age.get(o) != "disabled" for o in os_)]
 
         def sat(slot):
-            return any((k == "item" and x in have) or (k == "tag" and any(i in have for i in tags.get(x, []))) for k, x in slot)
+            return any((k in ("item", "chem") and x in have) or (k == "tag" and any(i in have for i in tags.get(x, [])))
+                       for k, x in slot)
         grew = True
         while grew:
             grew = False
@@ -913,8 +1012,14 @@ def reach_checks(full, recs, items, tags, item_age, check):
                     continue
                 if heat[rid] and not any(h in have for h in heat[rid]):
                     continue
+                if not all(any(i in have for i in grp) for grp in stations[rid]):
+                    continue
                 have |= new
                 grew = True
+            for chem, needs in MACHINE_MADE.items():
+                if chem not in have and all(x in have for x in needs):
+                    have.add(chem)
+                    grew = True
             for seed, got in GROWN.items():
                 new = {g for g in got if seed in have and GROWN_NEEDS.get(seed, seed) in have and g not in have and age_ix(g) <= n}
                 if new:
@@ -947,6 +1052,13 @@ def reach_checks(full, recs, items, tags, item_age, check):
                 out += why(first_item(s), have, live, sat, n, depth + 1, seen)
         return out
 
+    # R-0: no recipe of a mod asks for a vanilla station block that a TFC world cannot make
+    # (kubejs/server_scripts/recipes/tfc_station_inputs.js; the magic mods are in recipes/age_3/arcane_tfc_inputs.js)
+    have_all = walk(AGES.index("age_9"))[0]
+    blocked = sorted({f"{rid}: {v}" for rid, sl, _ in recs if not rid.startswith("minecraft:") and rid not in STATION_TRANSFORMS
+                     for x in sl for k, v in x if len(x) == 1 and k == "item" and v in STATION_VANILLA and v not in have_all})
+    check(f"R-0 no recipe needs a vanilla station block without a source in the pack ({len(STATION_VANILLA)} blocks)",
+          not blocked, blocked)
     for st, rid, chain in REACH_GOALS:
         n = AGES.index(st)
         j = full.get(rid)
