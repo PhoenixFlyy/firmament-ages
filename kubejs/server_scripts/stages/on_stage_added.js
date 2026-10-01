@@ -16,11 +16,10 @@
   const modOwnsCeremony = (() => {
     try {
       if (!Platform.isLoaded('firmages')) return false
-      const m = String(Platform.getInfo('firmages').getVersion()).match(/^(\d+)\.(\d+)/)
-      if (!m) return false
-      const major = parseInt(m[1], 10)
-      const minor = parseInt(m[2], 10)
-      return major > 0 || minor >= 3
+      // let, not const: Rhino rejects a const inside this try block ("redeclaration of var m")
+      let v = String(Platform.getInfo('firmages').getVersion()).match(/^(\d+)\.(\d+)/)
+      if (!v) return false
+      return parseInt(v[1], 10) > 0 || parseInt(v[2], 10) >= 3
     } catch (e) {
       console.warn(`[firmages] on_stage_added: cannot read the firmages-core version (${e}); KubeJS titles stay on`)
       return false

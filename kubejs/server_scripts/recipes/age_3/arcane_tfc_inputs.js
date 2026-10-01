@@ -137,7 +137,8 @@ ServerEvents.recipes((event) => {
     }
     const fix = GEAR_FIX[id]
     if (fix) {
-      const j = JSON.parse(out)
+      // let, not const: Rhino rejects a block-scoped const on the second call ("redeclaration of var j")
+      let j = JSON.parse(out)
       j.reagent = fix.reagent
       j.pedestalItems = (j.pedestalItems || []).concat(fix.add)
       j.keepNbtOfReagent = false

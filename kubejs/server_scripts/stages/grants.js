@@ -106,6 +106,8 @@
   // Age is granted by its goal quest. Entries look like  'tfc:story/firepit': 'age_0'.
   const ADVANCEMENT_GRANTS = {}
   PlayerEvents.advancement((event) => {
+    // event.advancement is null for some advancements a new player gets on first join (seen with mock players)
+    if (!event.advancement) return
     const stage = ADVANCEMENT_GRANTS[String(event.advancement.id)]
     if (stage) ProgressiveStages.grant(event.player, stage)
   })
