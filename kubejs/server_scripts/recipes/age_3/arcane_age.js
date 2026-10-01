@@ -37,7 +37,14 @@ ServerEvents.recipes((event) => {
     // End stone belongs to the End (age_6).
     /^occultism:miner\/basic_resources\/end_stone$/
   ]
-  REMOVE.forEach((id) => event.remove({ type: 'occultism:miner', id: id }))
+  // One type pass, the patterns tested on the ~90 miner ids: every regex filter scans all ~35,000 recipes (about
+  // 17 ms each on every Age reload).
+  const minerIds = []
+  event.forEachRecipe({ type: 'occultism:miner' }, (r) => {
+    const id = String(r.getId())
+    if (REMOVE.some((re) => re.test(id))) minerIds.push(id)
+  })
+  minerIds.forEach((id) => event.remove({ id: id }))
 
   Object.keys(RICH_ORES).forEach((ore) => {
     event.custom({
@@ -65,7 +72,8 @@ ServerEvents.recipes((event) => {
   // Item transport is the Starbuncles' job; the Foliot transporter ritual goes (Doc 10 v3 section 7.3).
   event.remove({ id: 'occultism:ritual/summon_foliot_transport_items' })
   // Remote storage is Occultism's Dimensional Storage until AE2 (age_6); the Ars Additions Warp Index goes.
-  event.remove({ id: /^ars_additions:apparatus\/(stabilized_)?warp_index$/ })
+  event.remove({ id: 'ars_additions:apparatus/warp_index' })
+  event.remove({ id: 'ars_additions:apparatus/stabilized_warp_index' })
   // Ore leak (Doc 08 section 3.4): the Ritual of Scrying must not find diamonds (kimberlite opens with age_4).
   event.remove({ id: 'ars_nouveau:scry_ritual/diamond_ores' })
 

@@ -125,12 +125,16 @@ ServerEvents.recipes((event) => {
       add: [tag('c:strings'), tag('c:strings'), item('tfc:metal/rod/steel')] }
   }
 
+  // One regex pass per recipe text finds every '"item":"<mapped id>"' (the closing quote makes it an exact id match).
+  // It replaces one split/join per MAP key: 80 string passes over each of the ~2,500 magic recipes cost about 0.4 s
+  // of every Age reload (dev/poc-results.md, "Reload performance").
+  // Item ids are [a-z0-9_:/] only, so they need no escaping inside the alternation.
+  const ITEM_RE = new RegExp(`"item":"(${Object.keys(MAP).join('|')})"`, 'g')
+  const TO_ARCANE = {}
+  DIAMOND_TO_ARCANE.forEach((id) => { TO_ARCANE[id] = true })
   const rewrite = (text, id) => {
-    let out = text
-    Object.keys(MAP).forEach((from) => {
-      out = out.split(`"item":"${from}"`).join(JSON.stringify(MAP[from]).slice(1, -1))
-    })
-    if (DIAMOND_TO_ARCANE.indexOf(id) >= 0) {
+    let out = text.replace(ITEM_RE, (m, from) => JSON.stringify(MAP[from]).slice(1, -1))
+    if (TO_ARCANE[id]) {
       out = out.split('"tag":"c:gems/diamond"').join('"tag":"firmages:gems/arcane"')
         .split('"item":"minecraft:diamond"').join('"tag":"firmages:gems/arcane"')
         .split('"tag":"c:storage_blocks/diamond"').join('"item":"ars_nouveau:source_gem_block"')

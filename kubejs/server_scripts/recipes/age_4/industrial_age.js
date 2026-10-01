@@ -6,9 +6,17 @@
 // Goal: the Pressure Core (black steel double sheet, IE Heavy Engineering Block, Arcane Gearbox, Monstrosity drop).
 
 ServerEvents.recipes((event) => {
+  // Reload cost: a plain id removal is a map lookup, but every regex, output or type filter scans all ~35,000
+  // recipes (about 17 ms per call on every Age reload). Open-ended id patterns and output patterns are therefore
+  // collected here and removed in one pass each at the end of this handler; fixed ids are removed one by one.
+  const removeIdPatterns = []
+  const removeOutputPatterns = []
+  const anyOf = (list) => new RegExp(list.map((r) => r.source).join('|'))
+
   // ======================================================================================== coke oven
   // TFC + IE Crossover cokes TFC bituminous coal and lignite. IE's own recipes want vanilla coal (no TFC source).
-  event.remove({ id: /^immersiveengineering:cokeoven\/coke(_block)?$/ })
+  event.remove({ id: 'immersiveengineering:cokeoven/coke' })
+  event.remove({ id: 'immersiveengineering:cokeoven/coke_block' })
 
   // ======================================================================================== crusher (ore -> dust)
   // Matrix Doc 10 v3 6.1: IE Crusher = 2x plus by-products. TFC ore pieces sit in c:raw_materials/<metal> and TFC
@@ -22,7 +30,7 @@ ServerEvents.recipes((event) => {
     })
   })
   oreRecipes.forEach((id) => event.remove({ id: id }))
-  event.remove({ id: /^tfc_ie_addon:crusher\/ore\// })
+  removeIdPatterns.push(/^tfc_ie_addon:crusher\/ore\//)
   event.remove({ id: 'tfc_ie_addon:crusher/wrought_iron_ingot' }) // same as immersiveengineering:crusher/ingot_iron
 
   // The IE Crusher takes ONE item and its main output has no chance, so 2x of a 10-35 mB piece cannot be a whole
@@ -103,14 +111,14 @@ ServerEvents.recipes((event) => {
   // (the C&A Alternator is the one SU -> FE bridge), conveyors except the basic belt (it is a block of the Metal
   // Press, Assembler and Auto Workbench multiblocks), the thermoelectric generator (no passive power), the refinery
   // (biodiesel), IE silver/nickel/steel ingots and IE plates of TFC metals. Items are also in disabled.toml.
-  event.remove({ output: /^immersiveengineering:(pickaxe|shovel|axe|hoe|sword)_steel$/ })
-  event.remove({ output: /^immersiveengineering:armor_steel_(helmet|chestplate|leggings|boots)$/ })
-  event.remove({ output: /^immersiveengineering:(windmill|windmill_blade|windmill_sail|watermill|waterwheel_segment|dynamo|thermoelectric_generator)$/ })
-  event.remove({ output: /^immersiveengineering:conveyor_(dropper|extract|redstone|splitter|vertical)$/ })
-  event.remove({ type: 'immersiveengineering:refinery' })
-  event.remove({ type: 'immersiveengineering:thermoelectric_source' })
-  // Nothing may make a disabled IE item (raw silver/nickel block conversions and the like).
-  event.remove({ output: global.FA.HIDDEN_ITEMS.filter((i) => i.indexOf('immersiveengineering:') === 0) })
+  removeOutputPatterns.push(/^immersiveengineering:(pickaxe|shovel|axe|hoe|sword)_steel$/)
+  removeOutputPatterns.push(/^immersiveengineering:armor_steel_(helmet|chestplate|leggings|boots)$/)
+  removeOutputPatterns.push(/^immersiveengineering:(windmill|windmill_blade|windmill_sail|watermill|waterwheel_segment|dynamo|thermoelectric_generator)$/)
+  removeOutputPatterns.push(/^immersiveengineering:conveyor_(dropper|extract|redstone|splitter|vertical)$/)
+  event.remove([{ type: 'immersiveengineering:refinery' }, { type: 'immersiveengineering:thermoelectric_source' }])
+  // Nothing may make a disabled IE item (raw silver/nickel block conversions and the like). Item ids are
+  // [a-z0-9_:/] only, so they go into the pattern unescaped.
+  removeOutputPatterns.push(new RegExp(`^(${global.FA.HIDDEN_ITEMS.filter((i) => i.indexOf('immersiveengineering:') === 0).join('|')})$`))
 
   // TFC + IE Crossover switches off IE's blast brick, alloy brick and reinforced blast brick recipes and adds none,
   // so the Blast Furnace and the Alloy Kiln could not be built. TFC fire bricks take the place of vanilla bricks.
@@ -127,16 +135,17 @@ ServerEvents.recipes((event) => {
   // ======================================================================================== Create Big Cannons
   // CBC ships its own alloying, steel and cast iron (heated mixing and compacting); these are second stations for
   // TFC metals (Doc 10 v3 section 6.1 losers "CBC-Stahl", "CBC-Gusseisen"). Melting and forging for cannon casts stay.
-  event.remove({ id: /^createbigcannons:mixing\/alloy_/ })
-  event.remove({ id: /^createbigcannons:compacting\/iron_to_cast_iron_(ingot|block)$/ })
+  removeIdPatterns.push(/^createbigcannons:mixing\/alloy_/)
+  event.remove({ id: 'createbigcannons:compacting/iron_to_cast_iron_ingot' })
+  event.remove({ id: 'createbigcannons:compacting/iron_to_cast_iron_block' })
 
   // ======================================================================================== Create Crafts & Additions
   // Only the Electric Motor (FE -> SU) and the Alternator (SU -> FE) stay (Doc 10 v3 section 1.2). Their spools and
   // capacitor are C&A items, so both are rebuilt around IE parts: the Industrial Age gate in the recipe.
   event.remove({ mod: 'createaddition' })
   // A type filter takes one id, not a regex: the three C&A recipe types (CARecipes, createaddition 1.7.1).
-  ;['charging', 'rolling', 'liquid_burning'].forEach((t) => event.remove({ type: `createaddition:${t}` }))
-  event.remove({ output: /^createaddition:/ })
+  event.remove(['charging', 'rolling', 'liquid_burning'].map((t) => ({ type: `createaddition:${t}` })))
+  removeOutputPatterns.push(/^createaddition:/)
   event.custom({
     type: 'create:mechanical_crafting',
     accept_mirrored: true,
@@ -169,13 +178,15 @@ ServerEvents.recipes((event) => {
   // Doc 10 v3 section 2.1: the package tier (item-locked until age_4) carries an IE part in its recipe.
   // Packager and Frogport take an IE iron mechanical component, Stock Link and Chain Conveyor a steel one;
   // Stock Ticker, Factory Gauge, Redstone Requester and the Repackager are made from these.
-  event.remove({ id: /^(create:crafting\/logistics\/packager|tfcreate:packager)$/ })
+  event.remove({ id: 'create:crafting/logistics/packager' })
+  event.remove({ id: 'tfcreate:packager' })
   event.shaped('create:packager', [' C ', 'CAC', 'RCR'], {
     A: 'create:cardboard_block',
     C: 'immersiveengineering:component_iron',
     R: '#c:dusts/redstone'
   }).id('firmages:crafting/packager')
-  event.remove({ id: /^(create:crafting\/logistics\/package_frogport|tfcreate:package_frogport)$/ })
+  event.remove({ id: 'create:crafting/logistics/package_frogport' })
+  event.remove({ id: 'tfcreate:package_frogport' })
   event.shaped('create:package_frogport', ['B', 'A', 'C'], {
     A: 'create:item_vault',
     B: 'tfc:glue',
@@ -214,17 +225,19 @@ ServerEvents.recipes((event) => {
   event.replaceInput({ id: 'cataclysm:smithing/monstrous_helm' }, 'minecraft:netherite_helmet', PART.helmet)
   event.replaceInput({ id: 'cataclysm:the_incinerator' }, 'minecraft:netherite_sword', PART.sword)
   // Apotheosis tier upgrades golden -> diamond are a gear chain; diamond gear keeps its plain grid recipes.
-  event.remove({ id: /^apotheosis:smithing\/upgrade_golden_.+_to_diamond_.+$/ })
+  removeIdPatterns.push(/^apotheosis:smithing\/upgrade_golden_.+_to_diamond_.+$/)
   // IE shield: from a vanilla shield (itself gear, and without a TFC recipe) -> a steel double sheet.
   event.replaceInput({ id: 'immersiveengineering:crafting/shield' }, 'minecraft:shield', 'tfc:metal/double_sheet/steel')
   // Create netherite diving gear and backtank: direct from the copper-free parts, never from the copper piece.
-  event.remove({ id: /^create:crafting\/appliances\/netherite_(backtank|diving_helmet|diving_boots)_from_netherite$/ })
+  ;['backtank', 'diving_helmet', 'diving_boots']
+    .forEach((p) => event.remove({ id: `create:crafting/appliances/netherite_${p}_from_netherite` }))
   event.replaceInput({ id: 'create:crafting/appliances/netherite_backtank' }, 'create:copper_backtank', 'create:fluid_tank')
   event.replaceInput({ id: 'create:crafting/appliances/netherite_diving_helmet' }, 'create:copper_diving_helmet', PART.helmet)
   event.replaceInput({ id: 'create:crafting/appliances/netherite_diving_boots' }, 'create:copper_diving_boots', PART.boots)
   // Create Jetpack (Doc 08 section 8: "Create Jetpack 5.2.1 (direkt)"): no backtank, and a propeller for the
   // elytra (no End cities in this pack). The netherite jetpack is its own recipe, not an upgrade of the jetpack.
-  event.remove({ id: /^create_jetpack:(jetpack|netherite_jetpack|netherite_jetpack_upgrade|netherite_jetpack_upgrade_from_netherite)$/ })
+  ;['jetpack', 'netherite_jetpack', 'netherite_jetpack_upgrade', 'netherite_jetpack_upgrade_from_netherite']
+    .forEach((id) => event.remove({ id: `create_jetpack:${id}` }))
   const jetpack = (id, plate, extra) => ({
     type: 'create:mechanical_crafting',
     accept_mirrored: true,
@@ -281,4 +294,8 @@ ServerEvents.recipes((event) => {
     entity_outputs: [{ entity: { id: 'cataclysm:netherite_monstrosity' } }],
     ticks: 200
   }).id('firmages:altar/netherite_monstrosity')
+
+  // The collected patterns, one pass each (see the top of this handler).
+  event.remove({ id: anyOf(removeIdPatterns) })
+  event.remove({ output: anyOf(removeOutputPatterns) })
 })

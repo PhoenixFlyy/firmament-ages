@@ -20,7 +20,8 @@ ServerEvents.recipes((event) => {
   event.remove({ id: 'create:crafting/materials/andesite_alloy' }) // iron nugget variant
   event.remove({ id: 'create:mixing/andesite_alloy' }) // iron nugget variant
   // WoodenCog knaps andesite alloy from andesite rocks alone (and deploys the same with a chisel): no zinc.
-  event.remove({ id: /^woodencog:rock_knapping\/andesite_alloy(_deploying)?$/ })
+  event.remove({ id: 'woodencog:rock_knapping/andesite_alloy' })
+  event.remove({ id: 'woodencog:rock_knapping/andesite_alloy_deploying' })
   // POC: which TFC andesite form (cobble, raw, loose rock) feels right; cobble = 4 loose rocks.
   event.replaceInput({ id: 'create:crafting/materials/andesite_alloy_from_zinc' }, 'minecraft:andesite', 'tfc:rock/cobble/andesite')
   event.replaceInput({ id: 'create:mixing/andesite_alloy_from_zinc' }, 'minecraft:andesite', 'tfc:rock/cobble/andesite')
@@ -37,7 +38,13 @@ ServerEvents.recipes((event) => {
     'create:track_signal', 'create:track_observer', 'create:controls', 'create:railway_casing',
     'create:schematicannon', 'create:schematic_table'
   ]
-  const andesiteTier = { mod: 'create', not: [{ output: IRON_AGE_OUTPUTS }, { output: /^create:brass_/ }] }
+  // The tier is resolved to recipe ids once: a plain id list is a map lookup in KubeJS, the mod/output filter is a
+  // scan of all recipes on every call.
+  const andesiteTier = []
+  // One output pattern instead of 27 output filters (item ids are [a-z0-9_:/] only, so no escaping).
+  const notAndesite = new RegExp(`^(${IRON_AGE_OUTPUTS.join('|')})$|^create:brass_`)
+  event.findRecipeIds({ mod: 'create', not: { output: notAndesite } })
+    .forEach((id) => andesiteTier.push({ id: String(id) }))
   event.replaceInput(andesiteTier, '#c:plates/iron', '#firmages:plates/any_bronze')
   event.replaceInput(andesiteTier, '#c:ingots/iron', '#firmages:ingots/any_bronze')
   event.replaceInput(andesiteTier, '#c:storage_blocks/iron', '#firmages:storage_blocks/any_bronze')

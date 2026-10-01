@@ -470,7 +470,7 @@ hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "5e62048e845218e0d4110c5018401f8c261a22a66fb2a566f5bd98e7eaa5cb13"
+hash = "154c685b3286d404d23656cb12d780008427f3d55a276a12864d87be31bb0705"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
@@ -478,15 +478,15 @@ hash = "5f75100fb59a014496b934f14c61aa1d5c39c2b2fae8ae5b3d3ea677fe708552"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
-hash = "54bf19c51bbe93e16837933783cb038981ba56a3eede7820bcb63f2d568631e1"
+hash = "8f9bcde5c5d1e8dcb3873f4052a82b88b6f4cd33564d97d2991d7916f47837b0"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
-hash = "a11f2baef076d33591f0bd361faf22907fbc9bdd918a057015366819b18745ea"
+hash = "e51c7537613130e39de7fa817411509df7e37fc1079bdcb7101e3aa1d4f9603d"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
-hash = "ca5d36668058dd789ccc841d1750055190f66a26c14f232fc9494b8326c4e1fe"
+hash = "3c1e8ba1ede0fd4caf21fb021a5c736194c8edf9835b3fe7b912788462f45e86"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/mekatfc_osmium.js"
@@ -498,7 +498,7 @@ hash = "4583cf5cf15e43dca8fa6785ca79c0c72286215536cbfe1f4b2965ae5aa6514b"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "6e50b2c2057c809e9769c725d89ce4c421911117232cc2ac9afed0be7857a90b"
+hash = "505ca355770108f9d75229d9b83ed1f57ebc36ac93490767989fcd01a29eb603"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
