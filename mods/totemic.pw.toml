@@ -1,0 +1,13 @@
+name = "Totemic"
+filename = "Totemic-neoforge-1.21.1-0.12.19.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "ea04d92b0a368c05a32e6a7ae4a76d300345e047"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8671071
+project-id = 237541

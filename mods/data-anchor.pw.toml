@@ -3,11 +3,11 @@ filename = "Data_Anchor-neoforge-1.21.1-2.0.0.17.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/z2XEADmE/versions/Q3J2iejk/Data_Anchor-neoforge-1.21.1-2.0.0.17.jar"
-hash-format = "sha512"
-hash = "f760e127bc3a4701548da6d80012027aaad8b65c6895362b3f42c224bdf3d0083e0a8b94ec42d01c3f8d03a0e1d8123632f364f819882aa00913a2eee7907a5e"
+hash-format = "sha1"
+hash = "8794eb858535764839e1c1299d3f3ba82d275ad0"
+mode = "metadata:curseforge"
 
 [update]
-[update.modrinth]
-mod-id = "z2XEADmE"
-version = "Q3J2iejk"
+[update.curseforge]
+file-id = 8925499
+project-id = 1203668
