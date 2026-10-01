@@ -34,7 +34,7 @@ hash = "98732072c6927c747818ab1608ee5d808a7d2ea1ab8bbab0d66cdb8d19c9ac94"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
-hash = "ac206cfd1db720ef7bed3253a048a58fcc9d3b0f00468c0c895b09a1b784974a"
+hash = "1ceb56a9a4db89802fb60858c5067754ab39209dd81929302346a6e1ae2978ac"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/welcome.snbt"
@@ -209,6 +209,10 @@ file = "defaultconfigs/tfc-server.toml"
 hash = "5f60406d187551a535aa98b8d78b8c6ed604f42278b49687ed90156626a68eb1"
 
 [[files]]
+file = "kubejs/client_scripts/item_tooltips.js"
+hash = "4d05ca3ed392578544181666748c608ccf47dd0ebc7e44654f38ac7bb4444cf5"
+
+[[files]]
 file = "kubejs/client_scripts/viewer_static.js"
 hash = "3138b9bbd922bf993dea48bf13a9b261eab30c67c157b0140d8311df0f0aa7ea"
 
@@ -314,19 +318,19 @@ hash = "0e649d4a052644f33e43122bc6e714f456398b183dbbf4a2d6d934946b3f9cbb"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "9132027b6ea139ea0184a41d28f53b9592ece8e255b0559a5ead12c6f45ae6ee"
+hash = "dd7c7a37b38a18a40e7904b4eee832f500c82734a84537f35434c56e9c0f3749"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "5a6ea610f48a74abd4fbce81b80d240ca72f5f831a9d3e62f99faca6ee5a8f4e"
+hash = "7fa77d4fd3c1cb1ee449d204fad3264ab42da4012069473283da64fa097b2b48"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "0c762c8a2de95bc58b6144607f97a9768351fa92f776e7638e437cbb9951b571"
+hash = "7755cde22b6629eee211d6934655e8903ecff46e384237234124904fcabb97e4"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "4f8ab133de10ae0d656894b2b7a3bfd0f38a77b0dfe13d80c731b67fd01cc0ea"
+hash = "ac7b6d5043bc528398860dddd16938531d5baae472d738424768404d2d0b533e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -489,8 +493,24 @@ file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
 hash = "3c1e8ba1ede0fd4caf21fb021a5c736194c8edf9835b3fe7b912788462f45e86"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
+hash = "8cabe0aa17cfb5934b6d9c4d5ca42dad8414f3cfd5baa7f2fe0c4ce35eaf074b"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_6/information_age.js"
+hash = "5503ac0303d11a3414ed3072ea2254fba8a8471f7d80cf99261933b262e5825f"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_6/mekatfc_osmium.js"
 hash = "efb7452159f08e7ffb74c7f9aab1d8969fc00069c33492554deb682f01b43dcc"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_7/space_age.js"
+hash = "f3b261ee88b36ff8fb4535ceb8f6876d51f0e2570a029e705ef142e58746db91"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"
+hash = "005afa0a22b9bc07434d03fbb44269e12a71069b3144b87df80dec673f9f3bcc"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/byproducts.js"
@@ -525,6 +545,10 @@ file = "kubejs/server_scripts/tags/hidden_from_viewers.js"
 hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
 
 [[files]]
+file = "kubejs/server_scripts/tags/late_ages.js"
+hash = "6be27b4b8df896438e79399934e991457fa9d405dfe1424fd3409970d1ab80b4"
+
+[[files]]
 file = "kubejs/server_scripts/tags/unification.js"
 hash = "aab97f8e32aeb665440de07d5da4fa10003869652c3d95121f371dba6da11c0a"
 
@@ -534,7 +558,7 @@ hash = "845b0a8ad3ef80c238fd083d29ceee969290389db2f36f569513c967f6c0ee23"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
-hash = "64c1a7c88f7f48175020bbeb3322195eb3a29b9c04d609308f54348da7198d46"
+hash = "0eb1f315c1c0354cc1d67c27aa5f4315c108e143105515431c5913b6359f7827"
 
 [[files]]
 file = "mods/ad-astra.pw.toml"
@@ -962,8 +986,8 @@ hash = "73360e397134d238ee8fd21d33fd7f9275e9441f74f8f1b6ed92278877c0b9f1"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.3.2.jar"
-hash = "b635e3a788696d10ff7d1605a9045a6464a256572c23595f7fddc2f4ad783bca"
+file = "mods/firmages-core-0.3.3.jar"
+hash = "f8113a54eb57d0259419102bcd3cfaf9f8c2c60ec328e3b0fcf1f1272fcdee1b"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
