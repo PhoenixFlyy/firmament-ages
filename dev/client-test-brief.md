@@ -73,8 +73,10 @@ Auf dem Server ohne Bild geprüft (`dev/poc-results.md`, „M7 consecration and 
 
 **Unzerstörbar:** Im Survival mit Spitzhacke auf einen geweihten Block: kein Abbau-Riss, kein kurz verschwindender Block, Hinweis in der Aktionsleiste.
 
-**Wartung:** Schleichen und mit leerer Hand auf das Herz schlagen (Linksklick). Das Herz bekommt einen Gerüst-Käfig, die Aktionsleiste zählt 60 s herunter. Jetzt bricht ein geweihter Block mit Spitzhacke (normaler Abbau-Riss) und lässt das Original fallen (Ring 0: Granit-Bruchstein). Das Original wieder setzen, nochmal schleichend schlagen: der Block wird wieder geweiht.
+**Wartung:** Schleichen und mit leerer Hand auf das Herz schlagen (Linksklick). Das Herz bekommt einen Gerüst-Käfig, die Aktionsleiste zählt 60 s herunter. Jetzt bricht ein geweihter Block mit Spitzhacke (normaler Abbau-Riss) und lässt das Original fallen (Ring 0: Granit-Bruchstein). Das Original wieder setzen, nochmal schleichend schlagen: der Block wird wieder geweiht. Während der Wartung: Beten wird abgelehnt (Chat), ein Loch im Ring pausiert nur den Segen, die Ages bleiben. Nach 60 s endet die Wartung von selbst (Chat an alle, Käfig weg), stehende Blöcke werden wieder geweiht. Gegenprobe: schleichend mit Spitzhacke in der Hand oder ohne Schleichen schlagen schaltet nichts um.
 
 **Jade:** Auf einen geweihten Block: „Consecrated …“, „Ring of the …“, „Original: …“ und „Unbreakable (maintenance mode at the heart)“ bzw. die Restzeit.
+
+**Texturen v2:** Alle Gegenstands-Texturen von `firmages:` (16 Dateien) sind neu gezeichnet (Hearthstone bis Ultimate Singularity, auch Unfired Hearth Idol und Sky Disc). Achte auf Lesbarkeit im Inventar und darauf, dass keine lila-schwarze Fehltextur auftaucht.
 
 **Animierte Texturen:** In EMI `firmages:` filtern: Arcane und Awakened Keystone, Humming Core, Data Matrix, Star Chart, Quantum Core und Ultimate Singularity bewegen sich; der Origin-Altar pulsiert oben. Die geweihten Blöcke stehen unter Operator Utilities im Kreativ-Menü (Lampe als leuchtende Lampe).

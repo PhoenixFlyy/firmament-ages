@@ -25,7 +25,7 @@ Items, blocks and recipes of a locked Age are hidden in EMI and cannot be used. 
 
 ## The Shrine
 
-Each signature item is not crafted into the next tier. It is **offered at the Shrine**, an altar you build at the heart of your base and extend with one ring per Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. When the ring is complete, the offering lies on its plinth and the Age's rite is fulfilled, your team prays together at the Shrine Heart. Caelum, the god of the firmament, answers: a beam of light, a changed sky, a new Age. Every awakened ring adds a blessing around the shrine, starting with a circle where no monsters spawn. The offerings stay on the shrine as relics. You will need all nine again at the end.
+Each signature item is not crafted into the next tier. It is **offered at the Shrine**, an altar you build at the heart of your base and extend with one ring per Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. When the ring is complete, the offering lies on its plinth and the Age's rite is fulfilled, your team prays together at the Shrine Heart. Caelum, the god of the firmament, answers: a beam of light, a changed sky, a new Age. The accepted ring is consecrated: its blocks turn, from the heart outward, into one sky-marble structure with the Age's colour accent. Consecrated blocks cannot be broken, blown up or moved; to rebuild, sneak and punch the Shrine Heart with an empty hand for 60 seconds of maintenance mode, and a broken block gives back its original material. Every awakened ring adds a blessing around the shrine, starting with a circle where no monsters spawn. The offerings stay on the shrine as relics. You will need all nine again at the end.
 
 ## The Finale
 

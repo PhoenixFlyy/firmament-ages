@@ -1,6 +1,6 @@
 """Build the CurseForge upload zip: dev/exports/FirmamentAges-<version>-curseforge-upload.zip
 
-Why not plain `packwiz curseforge export` in the repo: five mods stay Modrinth metafiles in mods/ because their
+Why not plain `packwiz curseforge export` in the repo: six mods stay Modrinth metafiles in mods/ because their
 CurseForge files are excluded from third-party downloads (packwiz-installer could not fetch them for the friends'
 Prism instances and the server). Their CurseForge metafiles live in dev/cf/swap/. This script copies the served pack
 into dev/exports/cf-work/upload-pack/, replaces each Modrinth metafile whose jar filename matches a swap file by
