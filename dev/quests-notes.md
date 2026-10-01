@@ -60,23 +60,24 @@ Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn 
 
 ## Stage rewards
 
-| Chapter | Goal quest | Grants | Status |
+| Chapter | Goal quest | Next Age | How |
 |---|---|---|---|
-| Dawn | The First Spark `724BED62EE9DF8FB` | `age_0` | permanent (the shrine is built in the Stone Age, Doc 11 section 3) |
-| Stone Age | Hearthstone `5298B856BFEE50A2` | `age_1` | **INTERIM: shrine will grant this** |
-| Bronze Age | Sky Disc `2070B77706F2CB8E` | `age_2` | **INTERIM: shrine will grant this** |
-| Iron Age | Steel Heart `28A963AA218A4EE4` | `age_3` | **INTERIM: shrine will grant this** |
+| Dawn | The First Spark `724BED62EE9DF8FB` | `age_0` | stage reward (the shrine is built in the Stone Age, Doc 11 section 3) |
+| Stone Age | Hearthstone `5298B856BFEE50A2` | `age_1` | the shrine grants it; the goal has the item task plus a gamestage task `age_1`, no stage reward |
+| Bronze Age | Sky Disc `2070B77706F2CB8E` | `age_2` | the shrine, as above (`age_2`) |
+| Iron Age | Steel Heart `28A963AA218A4EE4` | `age_3` | the shrine, as above (`age_3`) |
 
-The interim rewards carry the object tag `interim_shrine` (survives in-game edits) and a `// INTERIM` comment line
-in the chapter file (dropped when FTB Quests rewrites the file). When firmages-core M4 grants the Ages, remove these
-rewards and turn the goals into "Offer X at the shrine" (Doc 11 section 3); `validate_quests.py` lists them.
+Since firmages-core 0.3.0 the shrine grants the Ages from the Stone Age on (offer the signature item, pray). The goal
+quest then completes through its gamestage task, so there is exactly one grant path; `validate_quests.py` checks that
+Dawn's goal grants `age_0` and every later goal waits for the next Age without granting it. The goal descriptions
+explain the ring to build and the rite.
 
 Stage reward settings: type `gamestage`, `auto: "invisible"` (without it the reward falls back to the file default
 `disabled` and would wait for a click), not a team reward. Non-team stage rewards call FTB Library's StageHelper
 provider, which is ProgressiveStages (PoC A10); with `team_mode = "ftb_teams"` the stage lands on the whole team.
 (A team reward would also work: ProgressiveStages' StageRewardMixin routes team rewards of PS stages to its provider
-instead of FTB Teams' own stage storage.) grants.js derives mob stages and helper stages from the Age stage, and
-on_stage_added.js shows the title.
+instead of FTB Teams' own stage storage.) grants.js derives mob stages and helper stages from the Age stage; the
+title, Caelum's line and the beam come from firmages-core's Age ceremony (on_stage_added.js skips Age stages).
 
 ## Rewards
 
@@ -110,9 +111,10 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
 4. Dawn walk: advancement tasks tick (find rock, stone tool, logging, straw, firepit), the javelin either/or quest
    completes with one javelin, the thatch-bed observation completes when looking at the bed, the animal kill counts.
 5. The First Spark completes only after the three keystones, grants `age_0` without a click, the Stone Age chapter
-   appears without relog, the title and firework from on_stage_added.js play, grants.js keeps `mob_0`.
-6. Repeat for Hearthstone (`age_1`), Sky Disc (`age_2`: map opens, `tool_toms_storage`), Steel Heart (`age_3`).
-   The goal item stays in the inventory (`consume_items: false`).
+   appears without relog, the short Age ceremony plays (one title "The Stone Age dawns"), grants.js keeps `mob_0`.
+6. Hearthstone: holding it ticks the item task only; the quest completes when the shrine prayer grants `age_1`
+   (full ceremony, one title). Repeat for Sky Disc (`age_2`: map opens, `tool_toms_storage`) and Steel Heart
+   (`age_3`) with their rings. The goal item stays in the inventory (`consume_items: false`) until it is offered.
 7. Keystone rewards: the random supplies item goes to the claiming player once per team; side-mission choice screen
    offers only current-Age items; XP per player.
 8. Observation tasks: `tfc:support_beams` and `tfc:farmlands` block tags, `create:millstone` and
@@ -120,8 +122,8 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
    pool ringed by TFC grass and flowers opens with polished quartz.
 9. Admin repair: `/stage grant <player> age_1` on a team without Dawn done opens the Bronze chapter entry at once
    (entry quests have no cross-chapter dependency).
-10. Edit mode round trip: open the editor, move one quest, save; FTB rewrites the files (comments vanish, the
-    `interim_shrine` tags stay); `validate_quests.py` still passes.
+10. Edit mode round trip: open the editor, move one quest, save; FTB rewrites the files (comments vanish);
+    `validate_quests.py` still passes.
 
 ## Open points
 

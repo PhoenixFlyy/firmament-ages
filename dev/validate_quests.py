@@ -469,8 +469,14 @@ def main():
                     E('chapters/%s: goal does not depend on keystone(s) %s' % (cname, ', '.join(missing)))
                 grants = [r.get('stage') for r in g.get('rewards', []) if r.get('type') == 'gamestage']
                 nxt = AGES[AGES.index(stage) + 1]
-                if grants != [nxt]:
+                waits = [t.get('stage') for t in g.get('tasks', []) if t.get('type') == 'gamestage']
+                # Dawn: the goal grants age_0. From the Stone Age the shrine grants the next Age: the goal waits for
+                # it with a gamestage task and must not grant it too (one grant path, firmages-core 0.3.0).
+                if stage == 'dawn' and grants != [nxt]:
                     E('chapters/%s: goal grants %r, expected exactly [%r]' % (cname, grants, nxt))
+                if stage != 'dawn' and (grants or waits != [nxt]):
+                    E('chapters/%s: goal must wait for %r (gamestage task, the shrine grants it) and grant no stage; '
+                      'grants %r, waits for %r' % (cname, nxt, grants, waits))
             # every required quest must lead to the goal (no dead-end required quests)
             dependants = {}
             for qd in ch['quests']:

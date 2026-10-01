@@ -731,20 +731,15 @@
 				"26D594F0567CC39A"
 				"07D42ECD95337D7C"
 			]
+			icon: {
+				id: "firmages:sky_disc"
+			}
 			id: "2070B77706F2CB8E"
 			rewards: [
 				{
 					id: "514D15DD71E155AF"
 					type: "xp"
 					xp: 350
-				}
-				{
-					auto: "invisible"
-					id: "28BF09646A2D5259"
-					stage: "age_2"
-					// INTERIM: shrine will grant this (firmages-core M4); dev note only, see dev/quests-notes.md
-					tags: ["interim_shrine"]
-					type: "gamestage"
 				}
 			]
 			shape: "gear"
@@ -759,6 +754,11 @@
 						id: "firmages:sky_disc"
 					}
 					type: "item"
+				}
+				{
+					id: "649CC86711B7263B"
+					stage: "age_2"
+					type: "gamestage"
 				}
 			]
 			x: 14.75d

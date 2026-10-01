@@ -148,9 +148,13 @@
 	quest.2070B77706F2CB8E.quest_desc: [
 		"Craft the Sky Disc: a bronze double sheet from the bronze anvil and gold sheets."
 		""
-		"For now this quest opens the Iron Age. Later the Sky Disc is offered at the shrine."
+		"Raise the Bronze Sanctum around the Hearth Circle: a 7x7 ring of rock bricks with bronze blocks"
+		"on the corners, a bronze bell on the brick opposite the new plinth, and a second Offering Plinth"
+		"three blocks from the heart."
+		""
+		"Lay the Sky Disc on the new plinth, ring the bell, then pray at the heart."
 	]
-	quest.2070B77706F2CB8E.quest_subtitle: "Goal of the Bronze Age: grants the Iron Age"
+	quest.2070B77706F2CB8E.quest_subtitle: "Goal of the Bronze Age: offer the Sky Disc at the shrine"
 	quest.2070B77706F2CB8E.title: "Sky Disc"
 	quest.20986504959DC566.quest_desc: [
 		"Melt copper with tin, bismuth or gold and silver in the right ratio."
@@ -186,9 +190,13 @@
 		"Craft the Steel Heart: a steel sheet, a precision mechanism, wrought iron double sheets"
 		"and the Lich trophy."
 		""
-		"For now this quest opens the Arcane Age. Later the Steel Heart is offered at the shrine."
+		"Raise the Iron Sanctum: a 9x9 ring of smooth stone with a three block pillar on each corner,"
+		"a wrought iron lamp on each pillar, two wrought iron bars beside each pillar, and a third"
+		"Offering Plinth four blocks from the heart."
+		""
+		"Lay the Steel Heart on the new plinth, light the four lamps, then pray at the heart."
 	]
-	quest.28A963AA218A4EE4.quest_subtitle: "Goal of the Iron Age: grants the Arcane Age"
+	quest.28A963AA218A4EE4.quest_subtitle: "Goal of the Iron Age: offer the Steel Heart at the shrine"
 	quest.28A963AA218A4EE4.title: "Steel Heart"
 	quest.29BF6EA4F2FCD8F4.quest_desc: [
 		"Mine the tin and zinc veins you found and cast their ingots."
@@ -352,11 +360,17 @@
 	quest.50299FDC54036A8A.quest_desc: ["Craft a quern and a handstone."]
 	quest.50299FDC54036A8A.title: "The Grind"
 	quest.5298B856BFEE50A2.quest_desc: [
-		"Craft the Hearthstone: the fired hearth idol, copper ingots and charcoal."
+		"Craft the Hearthstone: a fired hearth idol, copper ingots and charcoal."
 		""
-		"For now this quest opens the Bronze Age. Later the Hearthstone is offered at the shrine."
+		"Fire a second idol and set it in cobble under a charcoal: that is the Shrine Heart."
+		"Build the Hearth Circle around it: eight cobble around the heart, four log posts two high on the"
+		"corners of a 5x5 square, thatch on top, and an Offering Plinth two blocks from the heart."
+		"Use the heart with an empty hand: it shows what is missing."
+		""
+		"Lay the Hearthstone on the plinth, kindle the heart with a firestarter, then sneak and hold"
+		"use on the heart with an empty hand. When Caelum answers, the Bronze Age begins."
 	]
-	quest.5298B856BFEE50A2.quest_subtitle: "Goal of the Stone Age: grants the Bronze Age"
+	quest.5298B856BFEE50A2.quest_subtitle: "Goal of the Stone Age: offer the Hearthstone at the shrine"
 	quest.5298B856BFEE50A2.title: "Hearthstone"
 	quest.53348C90243DE4F0.quest_desc: [
 		"Everybody on the server is in the same FTB team. Quest progress, Ages and rewards are shared."
@@ -374,11 +388,14 @@
 	quest.573FF798650E3338.quest_subtitle: "Read me first"
 	quest.573FF798650E3338.title: "Welcome to Firmament Ages"
 	quest.586717CB0F9BF963.quest_desc: [
-		"In a later update your team builds a shrine in the Stone Age."
-		"Each Age then ends with an offering: the Age's signature item on the shrine."
-		"Until then, the goal quest of each Age opens the next Age directly."
+		"In the Stone Age your team builds a shrine to Caelum, the Firmament, around a fired Shrine Heart."
+		"Each Age ends with an offering: build the next ring, lay the Age's signature item on its plinth,"
+		"do the small rite and pray: sneak and hold use on the heart with an empty hand."
+		"More players praying together pray faster. Caelum answers and the next Age begins."
+		""
+		"The offerings stay on their plinths as relics. A broken shrine pauses its blessing until repaired."
 	]
-	quest.586717CB0F9BF963.title: "The Shrine (coming)"
+	quest.586717CB0F9BF963.title: "The Shrine"
 	quest.5C8E39BBE00603BA.quest_desc: [
 		"Nine signature items, one Singularity, one gate. The end of the road."
 	]
@@ -503,6 +520,7 @@
 	task.0149A8AC82C0DC26.title: "Look at a finished thatch bed"
 	task.020A5C88D011752D.title: "Shafts"
 	task.0A489537ED4F84AB.title: "Look at a placed millstone"
+	task.1655D67A968D0BA8.title: "Offer it at the shrine"
 	task.17DC9CAF05E44B90.title: "Our cellar is stocked for the winter"
 	task.21240DE6DE504A9E.title: "Unlock Age 2: Iron Age"
 	task.2402C857B3F0E700.title: "Unlock Age 8: Quantum Age"
@@ -512,6 +530,7 @@
 	task.2C4E966B70722C00.title: "Unlock Age 0: Stone Age"
 	task.2E191734D8AA6C6F.title: "Kill any TFC animal"
 	task.375DD780913A8CE0.title: "Unlock Age 7: Space Age"
+	task.3D8F0CE2AD688534.title: "Offer it at the shrine"
 	task.4C0A6C7296C239BF.title: "A firestarter"
 	task.4EB78033832BDE1A.title: "Unlock Age 1: Bronze Age"
 	task.5066EB11BB353E02.title: "Fired pickaxe head mold"
@@ -523,6 +542,7 @@
 	task.5DE22F71BE32AF59.title: "Unlock Age 9: Singularity Age"
 	task.5EBCDBD25D48AA10.title: "Light a firepit"
 	task.64198A294CAF4FB8.title: "Cogwheels"
+	task.649CC86711B7263B.title: "Offer it at the shrine"
 	task.750C20F730623328.title: "Unlock Age 5: Electric Age"
 	task.763BD161B2214A17.title: "Unlock Age 6: Information Age"
 	task.7C32F9C6C5A6BCCA.title: "Unlock the end: defeat the final boss"

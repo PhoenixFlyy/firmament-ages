@@ -510,20 +510,15 @@
 				"4A34D752E7A4B499"
 				"369FC0B23809B048"
 			]
+			icon: {
+				id: "firmages:hearthstone"
+			}
 			id: "5298B856BFEE50A2"
 			rewards: [
 				{
 					id: "7BD61BA8CC33F80C"
 					type: "xp"
 					xp: 200
-				}
-				{
-					auto: "invisible"
-					id: "1AB630F1102C3000"
-					stage: "age_1"
-					// INTERIM: shrine will grant this (firmages-core M4); dev note only, see dev/quests-notes.md
-					tags: ["interim_shrine"]
-					type: "gamestage"
 				}
 			]
 			shape: "gear"
@@ -538,6 +533,11 @@
 						id: "firmages:hearthstone"
 					}
 					type: "item"
+				}
+				{
+					id: "1655D67A968D0BA8"
+					stage: "age_1"
+					type: "gamestage"
 				}
 			]
 			x: 13.0d

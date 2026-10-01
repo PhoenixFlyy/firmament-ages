@@ -164,12 +164,8 @@ def r_choice(table_key):
     return {'type': 'choice', 'table': table_key, 'team_reward': True}
 
 
-def r_stage(stage, interim):
-    d = {'type': 'gamestage', 'stage': stage, 'auto': 'invisible'}
-    if interim:
-        d['tags'] = ['interim_shrine']
-        d['//tags'] = 'INTERIM: shrine will grant this (firmages-core M4); dev note only, see dev/quests-notes.md'
-    return d
+def r_stage(stage):
+    return {'type': 'gamestage', 'stage': stage, 'auto': 'invisible'}
 
 
 # ------------------------------------------------------------------------------------------------ reward tables
@@ -360,11 +356,18 @@ STONE = age_chapter(
         ], Q('stone/hearth/key', 'Hearth Idol', t_item('firmages:hearth_idol'), kind='keystone',
              desc=['Fire the idol in a pit kiln, like any other pottery.'])),
     ],
-    goal=Q('stone/goal', 'Hearthstone', t_item('firmages:hearthstone', consume=False), kind='goal',
-           sub='Goal of the Stone Age: grants the Bronze Age',
-           desc=['Craft the Hearthstone: the fired hearth idol, copper ingots and charcoal.',
+    goal=Q('stone/goal', 'Hearthstone',
+           [t_item('firmages:hearthstone', consume=False), t_stage('age_1', 'Offer it at the shrine')], kind='goal',
+           icon='firmages:hearthstone', sub='Goal of the Stone Age: offer the Hearthstone at the shrine',
+           desc=['Craft the Hearthstone: a fired hearth idol, copper ingots and charcoal.',
                  '',
-                 'For now this quest opens the Bronze Age. Later the Hearthstone is offered at the shrine.']),
+                 'Fire a second idol and set it in cobble under a charcoal: that is the Shrine Heart.',
+                 'Build the Hearth Circle around it: eight cobble around the heart, four log posts two high on the',
+                 'corners of a 5x5 square, thatch on top, and an Offering Plinth two blocks from the heart.',
+                 'Use the heart with an empty hand: it shows what is missing.',
+                 '',
+                 'Lay the Hearthstone on the plinth, kindle the heart with a firestarter, then sneak and hold',
+                 'use on the heart with an empty hand. When Caelum answers, the Bronze Age begins.']),
     sides=[
         ('stone/clay/kiln', [
             Q('stone/side/candle', 'Tallow and Candles', t_item('tfc:candle', 4), kind='side',
@@ -475,11 +478,16 @@ BRONZE = age_chapter(
              kind='keystone', icon='create:millstone',
              desc=['Power a millstone from a water wheel. It grinds what the quern grinds by hand.'])),
     ],
-    goal=Q('bronze/goal', 'Sky Disc', t_item('firmages:sky_disc', consume=False), kind='goal',
-           sub='Goal of the Bronze Age: grants the Iron Age',
+    goal=Q('bronze/goal', 'Sky Disc',
+           [t_item('firmages:sky_disc', consume=False), t_stage('age_2', 'Offer it at the shrine')], kind='goal',
+           icon='firmages:sky_disc', sub='Goal of the Bronze Age: offer the Sky Disc at the shrine',
            desc=['Craft the Sky Disc: a bronze double sheet from the bronze anvil and gold sheets.',
                  '',
-                 'For now this quest opens the Iron Age. Later the Sky Disc is offered at the shrine.']),
+                 'Raise the Bronze Sanctum around the Hearth Circle: a 7x7 ring of rock bricks with bronze blocks',
+                 'on the corners, a bronze bell on the brick opposite the new plinth, and a second Offering Plinth',
+                 'three blocks from the heart.',
+                 '',
+                 'Lay the Sky Disc on the new plinth, ring the bell, then pray at the heart.']),
     sides=[
         ('bronze/smith/weld', [
             Q('bronze/side/backpack', 'Pack Mule', t_item('sophisticatedbackpacks:backpack'), kind='side',
@@ -577,12 +585,17 @@ IRON = age_chapter(
         ], Q('iron/front/key', 'Lich Trophy', t_item('twilightforest:lich_trophy', consume=False), kind='keystone',
              desc=['The Lich drops its trophy. The Steel Heart needs it.'])),
     ],
-    goal=Q('iron/goal', 'Steel Heart', t_item('firmages:steel_heart', consume=False), kind='goal',
-           sub='Goal of the Iron Age: grants the Arcane Age',
+    goal=Q('iron/goal', 'Steel Heart',
+           [t_item('firmages:steel_heart', consume=False), t_stage('age_3', 'Offer it at the shrine')], kind='goal',
+           icon='firmages:steel_heart', sub='Goal of the Iron Age: offer the Steel Heart at the shrine',
            desc=['Craft the Steel Heart: a steel sheet, a precision mechanism, wrought iron double sheets',
                  'and the Lich trophy.',
                  '',
-                 'For now this quest opens the Arcane Age. Later the Steel Heart is offered at the shrine.']),
+                 'Raise the Iron Sanctum: a 9x9 ring of smooth stone with a three block pillar on each corner,',
+                 'a wrought iron lamp on each pillar, two wrought iron bars beside each pillar, and a third',
+                 'Offering Plinth four blocks from the heart.',
+                 '',
+                 'Lay the Steel Heart on the new plinth, light the four lamps, then pray at the heart.']),
     sides=[
         ('iron/power/brass', [
             Q('iron/side/rails', 'Trains', t_item('create:track', 16), kind='side',
@@ -608,9 +621,11 @@ IRON = age_chapter(
 
 AGE_CHAPTERS = [DAWN, STONE, BRONZE, IRON]
 
-# Goal quests and the stage each grants. Dawn's First Spark stays a quest reward for good (the shrine is built
-# in the Stone Age); the others are interim until the shrine (firmages-core M4) grants the Ages.
-GOAL_GRANTS = {'dawn': ('age_0', False), 'stone': ('age_1', True), 'bronze': ('age_2', True), 'iron': ('age_3', True)}
+# Goal quests: Dawn's First Spark grants age_0 as a quest reward (the shrine is built in the Stone Age). From the
+# Stone Age on the shrine grants the next Age (firmages-core 0.3.0): those goals carry a gamestage task on it and
+# no stage reward, so there is exactly one grant path.
+GOAL_GRANTS = {'dawn': 'age_0'}
+SHRINE_GOALS = {'stone': 'age_1', 'bronze': 'age_2', 'iron': 'age_3'}
 
 # ---------------------------------------------------------------- Welcome
 WELCOME = [
@@ -634,11 +649,14 @@ WELCOME = [
     Q('welcome/team', 'One Team', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:player_head',
       desc=['Everybody on the server is in the same FTB team. Quest progress, Ages and rewards are shared.',
             'Split the strands between you: one friend smiths, one prospects, one builds.']),
-    Q('welcome/shrine', 'The Shrine (coming)', t_check(), deps=['welcome/ages'], kind='info',
+    Q('welcome/shrine', 'The Shrine', t_check(), deps=['welcome/ages'], kind='info',
       icon='firmages:hearth_idol',
-      desc=['In a later update your team builds a shrine in the Stone Age.',
-            'Each Age then ends with an offering: the Age\'s signature item on the shrine.',
-            'Until then, the goal quest of each Age opens the next Age directly.']),
+      desc=['In the Stone Age your team builds a shrine to Caelum, the Firmament, around a fired Shrine Heart.',
+            'Each Age ends with an offering: build the next ring, lay the Age\'s signature item on its plinth,',
+            'do the small rite and pray: sneak and hold use on the heart with an empty hand.',
+            'More players praying together pray faster. Caelum answers and the next Age begins.',
+            '',
+            'The offerings stay on their plinths as relics. A broken shrine pauses its blessing until repaired.']),
     Q('welcome/tfc', 'Survival Notes', t_check(), deps=['welcome/team'], kind='info', icon='tfc:ceramic/large_vessel',
       desc=['Food decays and tools wear out as in plain TerraFirmaCraft. Nothing is softened.',
             'Everything you need in quantity can be automated later. Hand work comes first.']),
@@ -771,8 +789,8 @@ def build_age_chapter(ch):
         key_x = max(key_x, x)
     goal = ch['goal']
     goal['deps'] = [k[2]['key'] for k in ch['strands']]
-    stage, interim = GOAL_GRANTS[ch['key']]
-    quests.append(quest_nbt(goal, key_x + 3.25, 0, [r_xp(xp * 10), r_stage(stage, interim)]))
+    rewards = [r_xp(xp * 10)] + ([r_stage(GOAL_GRANTS[ch['key']])] if ch['key'] in GOAL_GRANTS else [])
+    quests.append(quest_nbt(goal, key_x + 3.25, 0, rewards))
     # side missions above the top row, explanations below the bottom row
     top, bottom = min(rows), max(rows)
     cursor = -1e9
