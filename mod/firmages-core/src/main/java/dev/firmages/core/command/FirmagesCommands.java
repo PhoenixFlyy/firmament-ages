@@ -67,6 +67,8 @@ public final class FirmagesCommands {
             .then(Commands.literal("reload").executes(FirmagesCommands::reload))
             .then(ShrineCommands.shrine())
             .then(ShrineCommands.ceremony())
+            .then(OriginCommands.origin())
+            .then(OriginCommands.reactor())
             .then(DebugPlayerCommands.debug())
             .then(Commands.literal("selftest")
                 .executes(c -> selftest(c, "all"))

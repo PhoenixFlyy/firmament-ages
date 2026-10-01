@@ -165,6 +165,7 @@ dependencies {
     compileOnly files("libs/kubejs-neoforge-${kubejs_version}.jar")
     compileOnly files("libs/rhino-${rhino_version}.jar")
     compileOnly files("libs/modonomicon-1.21.1-neoforge-${modonomicon_version}.jar") // shrine rings, ghost preview
+    compileOnly files("libs/Stargate.Journey-1.21.1-${sgjourney_version}.jar") // The Origin return gate (compat/sgjourney)
 
     // Required mods (and KubeJS for the binding) in dev runs: runServer, runGameTestServer
     localRuntime files("libs/progressivestages-${progressivestages_version}.jar")
@@ -177,6 +178,12 @@ dependencies {
     // (Ponder/Flywheel, GeckoLib/SmartBrainLib) and are not in the run.
     gametestRuntimeOnly("blusunrize.immersiveengineering:ImmersiveEngineering:${ie_version}") { transitive = false }
     gametestRuntimeOnly("mekanism:Mekanism:${mekanism_version}") { transitive = false }
+    // Draconic Evolution (with Brandon's Core and CCL) for the reactor controller and fuel port against a real reactor,
+    // Stargate Journey for The Origin's space location and return gate.
+    gametestRuntimeOnly("com.brandon3055.draconicevolution:Draconic-Evolution:${draconic_version}") { transitive = false }
+    gametestRuntimeOnly("com.brandon3055.brandonscore:BrandonsCore:${brandonscore_version}") { transitive = false }
+    gametestRuntimeOnly("io.codechicken:CodeChickenLib:${ccl_version}") { transitive = false }
+    gametestRuntimeOnly files("libs/Stargate.Journey-1.21.1-${sgjourney_version}.jar")
 
     // Unit tests (SPEC 12, level U): pure Java, no Minecraft bootstrap
     testImplementation platform("org.junit:junit-bom:${junit_version}")
@@ -212,7 +219,7 @@ dependencies {
 // and checked against the sha512 in that file. libs/*.jar is git-ignored (TFC alone is 65 MB).
 // Bump a version by updating the pack; this task follows the .pw.toml automatically.
 def packModsDir = file('../../mods')
-def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon'].collect { new File(packModsDir, "${it}.pw.toml") }
+def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon', 'sgjourney'].collect { new File(packModsDir, "${it}.pw.toml") }
 def libsDir = file('libs')
 def fetchLibs = tasks.register('fetchLibs') {
     group = 'firmages'
@@ -251,7 +258,13 @@ def prepareGametestRun = tasks.register('prepareGametestRun', Copy) {
     from('../../kubejs/server_scripts/firmages') { into 'server_scripts/firmages' }
     into 'run/gametest/kubejs'
 }
-tasks.matching { it.name == 'runGameTestServer' }.configureEach { dependsOn prepareGametestRun, fetchLibs }
+// ProgressiveStages stand-ins of the pack stages the Origin tests need (age_9 dimension lock, finale_won).
+def prepareGametestConfig = tasks.register('prepareGametestConfig', Copy) {
+    group = 'firmages'
+    from 'src/gametest/config'
+    into 'run/gametest/config'
+}
+tasks.matching { it.name == 'runGameTestServer' }.configureEach { dependsOn prepareGametestRun, prepareGametestConfig, fetchLibs }
 
 tasks.named('test', Test) {
     useJUnitPlatform()

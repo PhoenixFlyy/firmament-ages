@@ -82,6 +82,30 @@ public final class CeremonyService {
         PacketDistributor.sendToPlayer(player, payload(age, full, heartOf(player.server), tierGranting(age)));
     }
 
+    /** Stage id the FINALE payload carries; the client takes title and voice from it like an Age's. */
+    public static final String FINALE = "finale_won";
+
+    /**
+     * The FINALE variant (SPEC §16.3): the final boss fell. One FULL payload for stage {@code finale_won} at
+     * {@code at} (the Origin altar): title "Beyond the Firmament", Caelum's last line, a gold beam of particles,
+     * a white-violet sky and the trophy line in the blessing slot, plus visual lightning around the altar. There is
+     * no datapack reload (finale_won is no Age).
+     */
+    public static void startFinale(MinecraftServer s, GlobalPos at) {
+        AgeTransitionPayload payload = new AgeTransitionPayload(FINALE, -1, true, Optional.of(at), 0xFFFFE9A8, 0xD9C2FF,
+            ResourceLocation.withDefaultNamespace("ui.toast.challenge_complete"), "firmages.shrine.voice." + FINALE,
+            List.of(ResourceLocation.withDefaultNamespace("end_rod"), ResourceLocation.withDefaultNamespace("totem_of_undying")),
+            "firmages.finale.trophies.name", "firmages.finale.trophies.description");
+        broadcast(payload);
+        long now = s.getTickCount();
+        for (int i = 0; i < 8; i++) {
+            double a = Math.PI * 2 * i / 8;
+            BlockPos p = at.pos().offset((int) Math.round(Math.cos(a) * 9), 0, (int) Math.round(Math.sin(a) * 9));
+            bolts.add(new Bolt(GlobalPos.of(at.dimension(), p), now + 20 + i * 6L));
+        }
+        FirmagesCore.LOGGER.info("Ceremony FINALE at {}", at);
+    }
+
     private static void startFull(MinecraftServer s, Pending p) {
         pending = new Pending(p.stage, p.heart, p.tier, p.tick, true);
         AgeTransitionPayload payload = payload(p.stage, true, Optional.of(p.heart), Optional.of(p.tier));

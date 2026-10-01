@@ -122,5 +122,14 @@
   "subtitles.firmages.shrine.prayer": "Prayer",
   "subtitles.firmages.shrine.refused": "The shrine stays silent",
   "subtitles.firmages.shrine.accepted": "Offering accepted",
-  "subtitles.firmages.shrine.kindled": "The heart is kindled"
+  "subtitles.firmages.shrine.kindled": "The heart is kindled",
+  "block.firmages.reactor_controller": "Reactor Controller",
+  "block.firmages.origin_altar": "Altar of the Origin",
+  "solar_system.firmages.origin": "The Origin",
+  "firmages.origin.gathering": "The altar answers: all of you stand before it. Something vast wakes in the dark.",
+  "firmages.age.finale_won.name": "Beyond the Firmament",
+  "firmages.age.finale_won.title": "Beyond the Firmament",
+  "firmages.shrine.voice.finale_won": "The first light is yours now. No sky stands above you any more.",
+  "firmages.finale.trophies.name": "Trophies",
+  "firmages.finale.trophies.description": "MekaSuit and Meka-Tool are unlocked"
 }

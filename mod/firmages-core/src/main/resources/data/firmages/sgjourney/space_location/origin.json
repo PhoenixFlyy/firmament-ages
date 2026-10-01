@@ -1,0 +1,6 @@
+{
+  "point_of_origin": "sgjourney:floating_islands",
+  "symbols": "sgjourney:galaxy_milky_way",
+  "address_region": "firmages:origin",
+  "preload_stargate": true
+}

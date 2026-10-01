@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "ready=false": {
+      "model": "firmages:block/reactor_controller"
+    },
+    "ready=true": {
+      "model": "firmages:block/reactor_controller_ready"
+    }
+  }
+}

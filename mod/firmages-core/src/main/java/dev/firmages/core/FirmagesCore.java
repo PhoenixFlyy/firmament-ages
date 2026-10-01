@@ -9,6 +9,9 @@ import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.miner.OreGuard;
 import net.neoforged.bus.api.EventPriority;
 import dev.firmages.core.net.FirmagesNetwork;
+import dev.firmages.core.origin.OriginRegistry;
+import dev.firmages.core.origin.OriginService;
+import dev.firmages.core.reactor.ReactorRegistry;
 import dev.firmages.core.shrine.ShrineEvents;
 import dev.firmages.core.shrine.ShrineRegistry;
 import net.neoforged.bus.api.IEventBus;
@@ -28,6 +31,8 @@ public final class FirmagesCore {
         container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         modEventBus.addListener(FirmagesNetwork::register);
         ShrineRegistry.register(modEventBus);
+        ReactorRegistry.register(modEventBus);
+        OriginRegistry.register(modEventBus);
 
         IEventBus bus = NeoForge.EVENT_BUS;
         bus.addListener(AgeService::onAddReloadListeners);
@@ -43,6 +48,7 @@ public final class FirmagesCore {
         bus.addListener(EventPriority.HIGH, OreGuard::onBreak);
         bus.addListener(EventPriority.LOW, OreGuard::onDrops);
         ShrineEvents.register(bus);
+        OriginService.register(bus);
         LOGGER.info("firmages-core loaded");
     }
 }

@@ -1,0 +1,14 @@
+# GameTest copy of the pack's age_9 dimension lock (config/progressivestages/stages/age_9.toml): only age_9 may
+# enter The Origin. Copied into run/gametest/config by prepareGametestRun; OriginGameTests checks the lock.
+
+[stage]
+id = "age_9"
+display_name = "Age 9: Singularity Age (GameTest)"
+description = "GameTest stand-in for the pack stage."
+icon = "minecraft:nether_star"
+category = "Ages"
+
+[dimensions]
+locked = [
+    "id:firmages:origin",
+]
