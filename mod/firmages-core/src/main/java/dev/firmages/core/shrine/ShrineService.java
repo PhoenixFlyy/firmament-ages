@@ -268,6 +268,18 @@ public final class ShrineService {
         return Optional.empty();
     }
 
+    /** True for an item that some tier expects as its offering (plinths let other block items be placed normally). */
+    public static boolean isOffering(ItemStack stack) {
+        for (String id : data().offerings().values()) {
+            ResourceLocation rl = ResourceLocation.tryParse(id);
+            if (rl != null && BuiltInRegistries.ITEM.getOptional(rl).filter(stack::is).isPresent()) return true;
+        }
+        for (ShrineTier t : data().tiers().values()) {
+            if (t.offering().map(ResourceLocation::tryParse).flatMap(BuiltInRegistries.ITEM::getOptional).filter(stack::is).isPresent()) return true;
+        }
+        return false;
+    }
+
     static Optional<Item> offeringItem(int tier) {
         return data().offeringFor(tier).map(ResourceLocation::tryParse).flatMap(BuiltInRegistries.ITEM::getOptional)
             .filter(i -> i != net.minecraft.world.item.Items.AIR);
@@ -543,7 +555,7 @@ public final class ShrineService {
     /** Sneak plus held use on the heart with an empty main hand. */
     public static void pray(ServerLevel level, BlockPos pos, ServerPlayer player) {
         if (!(level.getBlockEntity(pos) instanceof ShrineHeartBlockEntity be)) return;
-        if (!ShrineSavedData.get(level.getServer()).heart().filter(g -> g.dimension() == level.dimension() && g.pos().equals(pos)).isPresent()) {
+        if (!isTheHeart(level, pos)) {
             tellThrottled(be, level, player, msg("firmages.shrine.inert"));
             return;
         }
@@ -564,9 +576,18 @@ public final class ShrineService {
         be.prayers.put(player.getUUID(), now);
     }
 
-    /** Heart server tick: validation schedule, prayer progress, completion. */
+    /** True when {@code pos} is the recorded heart; a heart without record (record lost) claims the shrine. */
+    static boolean isTheHeart(ServerLevel level, BlockPos pos) {
+        ShrineSavedData sd = ShrineSavedData.get(level.getServer());
+        if (sd.heart().isEmpty()) onHeartPlaced(level, pos);
+        return sd.heart().filter(g -> g.dimension() == level.dimension() && g.pos().equals(pos)).isPresent();
+    }
+
+    /** Heart server tick: validation schedule, prayer progress, completion. An inert second heart does nothing. */
     static void tickHeart(ServerLevel level, BlockPos pos, BlockState state, ShrineHeartBlockEntity be) {
         long now = level.getGameTime();
+        if (now % 20 == 0) be.inert = !isTheHeart(level, pos);
+        if (be.inert) return;
         if (be.validationDue || now >= be.nextValidation) validate(level, pos, be);
         if (be.awakening(now)) {
             be.prayers.clear();
@@ -732,6 +753,10 @@ public final class ShrineService {
         Long last = be.lastMessage.get(player.getUUID());
         if (last != null && level.getGameTime() - last < MESSAGE_COOLDOWN) return;
         be.lastMessage.put(player.getUUID(), level.getGameTime());
+        if (!isTheHeart(level, pos)) {
+            player.sendSystemMessage(msg("firmages.shrine.inert"));
+            return;
+        }
         validate(level, pos, be);
         Heart h = new Heart(level, pos, be);
         Set<AgeId> unlocked = unlocked(level.getServer());

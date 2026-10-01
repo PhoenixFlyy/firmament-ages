@@ -35,6 +35,8 @@ public final class ShrineHeartBlockEntity extends BlockEntity {
     Rotation[] ringRotations = new Rotation[0];
     int validRing = -1;
     boolean validationDue = true;
+    /** A second heart that is not the shrine (checked once a second); it neither validates nor hears prayers. */
+    boolean inert;
     long nextValidation;
 
     public ShrineHeartBlockEntity(BlockPos pos, BlockState state) {
