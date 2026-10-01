@@ -30,6 +30,7 @@ import net.minecraft.network.protocol.game.ClientboundBundlePacket;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
+import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -38,6 +39,7 @@ import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.connection.ConnectionType;
@@ -59,7 +61,9 @@ import java.util.Set;
  * with {@code PlayerList.placeNewPlayer} like vanilla's GameTest mock player; it accepts every mod payload and logs
  * the firmages payloads, titles and chat lines it receives as {@code [debug-player <name>]}. Its UUID is the offline
  * UUID of the name, so it keeps its player data across restarts. {@code debug run <name> <command>} runs a command as
- * that player (for player-only commands such as {@code ftbteams party create}).
+ * that player (for player-only commands such as {@code ftbteams party create}). {@code debug punch} sends one left
+ * click (start of mining, optionally sneaking) and aborts it; {@code debug mine} mines a block the survival way: start,
+ * then stop once the destroy progress allows it, through {@code ServerPlayerGameMode.handleBlockBreakAction}.
  */
 public final class DebugPlayerCommands {
     private static final SimpleCommandExceptionType DISABLED = new SimpleCommandExceptionType(
@@ -69,6 +73,9 @@ public final class DebugPlayerCommands {
     private static final Map<String, Prayer> PRAYING = new HashMap<>();
 
     private record Prayer(BlockPos pos, int[] ticksLeft) {}
+
+    /** name -> block being mined and the ticks until the stop action */
+    private static final Map<String, Prayer> MINING = new HashMap<>();
 
     private DebugPlayerCommands() {}
 
@@ -81,6 +88,12 @@ public final class DebugPlayerCommands {
                 .then(Commands.argument("pos", BlockPosArgument.blockPos())
                     .executes(c -> use(c, false))
                     .then(Commands.literal("sneak").executes(c -> use(c, true))))))
+            .then(Commands.literal("punch").then(Commands.argument("name", StringArgumentType.word())
+                .then(Commands.argument("pos", BlockPosArgument.blockPos())
+                    .executes(c -> punch(c, false))
+                    .then(Commands.literal("sneak").executes(c -> punch(c, true))))))
+            .then(Commands.literal("mine").then(Commands.argument("name", StringArgumentType.word())
+                .then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(DebugPlayerCommands::mine))))
             .then(Commands.literal("run").then(Commands.argument("name", StringArgumentType.word())
                 .then(Commands.argument("command", StringArgumentType.greedyString()).executes(DebugPlayerCommands::run))))
             .then(Commands.literal("pray").then(Commands.argument("name", StringArgumentType.word())
@@ -132,6 +145,7 @@ public final class DebugPlayerCommands {
     /** Disconnects a player made by {@link #spawn}. */
     public static void despawn(ServerPlayer p) {
         PRAYING.remove(p.getGameProfile().getName());
+        MINING.remove(p.getGameProfile().getName());
         p.connection.onDisconnect(new DisconnectionDetails(Component.literal("debug player left")));
     }
 
@@ -164,6 +178,74 @@ public final class DebugPlayerCommands {
         }
     }
 
+    private static void action(ServerPlayer p, BlockPos pos, ServerboundPlayerActionPacket.Action action) {
+        p.gameMode.handleBlockBreakAction(pos, action, Direction.UP, p.serverLevel().getMaxBuildHeight(), 0);
+    }
+
+    /** One left click on {@code pos} (START_DESTROY_BLOCK), then ABORT so no mining stays in progress. */
+    private static int punch(CommandContext<CommandSourceStack> c, boolean sneak) throws CommandSyntaxException {
+        check();
+        ServerPlayer p = player(c);
+        BlockPos pos = BlockPosArgument.getLoadedBlockPos(c, "pos");
+        BlockState before = p.serverLevel().getBlockState(pos);
+        p.setShiftKeyDown(sneak);
+        try {
+            action(p, pos, ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK);
+            action(p, pos, ServerboundPlayerActionPacket.Action.ABORT_DESTROY_BLOCK);
+        } finally {
+            p.setShiftKeyDown(false);
+        }
+        BlockState after = p.serverLevel().getBlockState(pos);
+        FirmagesCore.LOGGER.info("[debug-player {}] punch{} {} with {}: {} -> {}", p.getGameProfile().getName(), sneak ? " (sneak)" : "",
+            pos.toShortString(), p.getMainHandItem(), before, after);
+        c.getSource().sendSuccess(() -> Component.literal("punch -> " + after), false);
+        return 1;
+    }
+
+    /**
+     * Survival mining of {@code pos}: START_DESTROY_BLOCK now; with a destroy progress above 0 the STOP action follows
+     * once the progress reaches vanilla's 0.7 threshold (at most 30 s). Progress 0 (unbreakable) aborts at once.
+     */
+    private static int mine(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        check();
+        ServerPlayer p = player(c);
+        BlockPos pos = BlockPosArgument.getLoadedBlockPos(c, "pos");
+        String name = p.getGameProfile().getName();
+        BlockState state = p.serverLevel().getBlockState(pos);
+        float progress = state.getDestroyProgress(p, p.serverLevel(), pos);
+        action(p, pos, ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK);
+        BlockState now = p.serverLevel().getBlockState(pos);
+        String result;
+        if (now != state) {
+            result = "broken at once (progress " + progress + ")";
+        } else if (progress <= 0) {
+            action(p, pos, ServerboundPlayerActionPacket.Action.ABORT_DESTROY_BLOCK);
+            result = "destroy progress 0, mining aborted";
+        } else {
+            int ticks = Math.min(600, (int) Math.ceil(0.7f / progress) + 1);
+            MINING.put(name, new Prayer(pos.immutable(), new int[] {ticks}));
+            result = "mining, progress " + progress + " per tick, stop in " + ticks + " ticks";
+        }
+        FirmagesCore.LOGGER.info("[debug-player {}] mine {} {} with {}: {}", name, pos.toShortString(), state, p.getMainHandItem(), result);
+        c.getSource().sendSuccess(() -> Component.literal("mine -> " + result), false);
+        return 1;
+    }
+
+    private static void tickMining(MinecraftServer server) {
+        Iterator<Map.Entry<String, Prayer>> it = MINING.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, Prayer> e = it.next();
+            if (--e.getValue().ticksLeft()[0] > 0) continue;
+            it.remove();
+            ServerPlayer p = server.getPlayerList().getPlayerByName(e.getKey());
+            if (p == null) continue;
+            BlockPos pos = e.getValue().pos();
+            BlockState before = p.serverLevel().getBlockState(pos);
+            action(p, pos, ServerboundPlayerActionPacket.Action.STOP_DESTROY_BLOCK);
+            FirmagesCore.LOGGER.info("[debug-player {}] mine {} done: {} -> {}", e.getKey(), pos.toShortString(), before, p.serverLevel().getBlockState(pos));
+        }
+    }
+
     /** Runs a command as the player itself (player-only commands such as {@code ftbteams party ...}). */
     private static int run(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
         check();
@@ -187,8 +269,9 @@ public final class DebugPlayerCommands {
 
     /** Holds sneak plus use on the heart: one use every 5 ticks, as a held use button does. */
     public static void onServerTick(ServerTickEvent.Post event) {
-        if (PRAYING.isEmpty()) return;
         MinecraftServer server = event.getServer();
+        if (!MINING.isEmpty()) tickMining(server);
+        if (PRAYING.isEmpty()) return;
         Iterator<Map.Entry<String, Prayer>> it = PRAYING.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<String, Prayer> e = it.next();
