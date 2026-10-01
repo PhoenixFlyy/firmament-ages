@@ -1012,3 +1012,120 @@ goal, the Firmament goals, `finale_won`) are done in the team's progress file af
   monument. Boss fallback gateways of the earlier Ages are still open.
 - A crashed server hung on shutdown and its watchdog wrote a second crash report two minutes later; seen once, after the
   script crash.
+
+## Content fixes after the late Ages
+
+Date: 2026-10-01, branch `dev`, commits b379cb4 to b0e2c49 on top of b2f2249; firmages-core 0.4.0 unchanged. Test
+server: the world of the late-Ages run at age_9 (no wipe). Iterations synced `kubejs/` and the quests by copy; the
+final boot came from `packwiz-installer-bootstrap` against `packwiz serve` (`kubejs/` and the quest folder identical
+with the repo). `debug.allowSimulate` was on only during the run (back to false); the whitelist stayed on (the debug
+players join through `placeNewPlayer`, which skips it). Both debug players were dead in this world (health 0, they
+cannot respawn without a client); their player files were moved aside, so Alpha and Beta rejoined fresh in the same
+FTB party. Recipe-set comparisons: `fa_dump_full` before and after each change, compared with creation dates, colours
+and Occultism spirit names left out.
+
+### Boot (final, packwiz sync)
+
+| Check | Observed | Result |
+|---|---|---|
+| KubeJS | startup 2/2, server 32/32 scripts, 0 errors, 0 warnings; "Added 818, removed 2441, modified 333, 0 failed" in 3.28 s (3.54 s before); 0 error lines in `logs/kubejs/server.log` | pass |
+| ProgressiveStages | `progressivestages validate`: 28/28 stage files valid | pass |
+| FTB Quests | `Loaded 2 chapter groups, 13 chapters, 345 quests, 21 reward tables` | pass |
+| Gateways | "Registered 13 gateways" | pass |
+| Recipe parse errors | tfcrf 22, woodencog 12, createdeco 1 (as before); none of the pack | not ours |
+| Other ERROR lines | DISTXFORM, azimuth and bits_n_bobs mixins, loot tables, Sable `copycat_catwalk`, Polymorph EMI module: as before | not ours |
+
+### (1) Quests against the content
+
+| Point | Finding | Change |
+|---|---|---|
+| Ultimate Singularity | `firmages:ultimate_singularity` is registered (`items.js`); the keystone was already an item task (not consumed, the Singularity goes into the Stargate base block) | none |
+| End portal frame | recipe `firmages:crafting/end_portal_frame` exists (age_6, C-6d); the quest said nothing about it | "Your Own End Portal": 12 frames + 12 eyes of ender; "The End" explains the ring |
+| Gate Online | Stargate Journey 0.6.49 gives `sgjourney:classic_stargate` only `facing`, `orientation`, `part`, `waterlogged` (javap), so no "dialling" or "powered" state exists | keeps the observation of the assembled gate; "Into The Origin" (dimension task) proves the dial; the text says how to assemble |
+| Awakened Keystone | no stub any more: the Marid ritual `firmages:ritual/awakened_keystone` takes `firmages:arcane_keystone` | quest text: borrow the keystone from the Spirit Circle plinth (SPEC 7.4) or bind a second one with the Djinni, lay the Awakened Keystone back; SPEC 7.4 names the item ids |
+| Generator and validator | `gen_quests.py`, `validate_quests.py` | 345 quests, 1282 object ids, 0 errors, 0 warnings |
+
+### (2) End boss
+
+| Check | Observed | Result |
+|---|---|---|
+| Gathering | Alpha and Beta at the altar: "Gathering #1 of 2", one gate `firmages:the_origin` (gate NBT read back), still one listener after three script reloads | pass |
+| Waves to boss | Maledictus and Ignis killed by command; "gate firmages:the_origin completed"; The Primordial with health 1024, armour 20, toughness 20, knockback resistance 1, tag `firmages.final_boss` | pass |
+| Foreign gate | `gateways:basic/enderman` opened and completed in The Origin after `origin reset` (probe: "gate completed gateways:basic/enderman"): no boss, no finale line | pass |
+| Damage intake (phase 1) | `damage ... minecraft:mob_attack` without attacker, 20 s each: 17.5 every 0.31 s 4.57/s, 17.5 every 0.10 s 4.59/s, 22.5 every 1 s 4.50/s | independent of the hit pattern |
+| Full fight, 17.5 every 0.31 s | 1024 -> 683 in 78 s (4.4/s), phase 2 to 341 in 93 s (3.6/s, Resistance I), phase 3 to 0 in 109 s (3.1/s, Resistance II); dead after 4 min 46 s | 5 to 10 min with real uptime |
+| Phases | subtitles "The Primordial calls the stone of the End" and "The Primordial hardens; the sky breaks" plus one chat line each, to both players | pass |
+| Death | script line "The Primordial died (tag firmages.final_boss)"; firmages-core "defeated, granting finale_won", FINALE payload to both, ceremony at the altar; chat "The Primordial falls..."; no helper left (`firmages.primordial_add`), altar present | pass |
+
+Why the numbers: Cataclysm caps the Ender Guardian at 22 damage per hit and drains a 13-per-second damage bucket
+(`LLibrary_Boss_Monster.hurt`/`tick`, javap); the vanilla hurt cooldown allows two full hits a second. A Chaotic sword
+(DE 3.1.4: 17.5 damage, 3.2 swings a second) or staff (22.5, once a second) is far above that for one player, so team
+size and gear barely change the rate; armour toughness 20 makes the share that armour keeps nearly equal for small
+and large hits. Decision log: "Länge des Endkampfs", "Endkampf-Skript abgesichert".
+
+### (3) Reload (age_9, 2 headless players, `firmages reload`, fresh boots)
+
+| Condition | Before (b2f2249) | After |
+|---|---|---|
+| Reload 1 / 2 / 3 after the boot, players in the overworld | 8.09 / 7.11 / 7.06 s | 7.70 / 6.80 / 6.51 s |
+| Final synced boot, players logged in at the Origin arena | not measured | 8.42 / 7.66 / 7.24 s |
+| Same boot, players moved to the overworld (reloads 4 to 6) | not measured | 6.95 / 6.94 / 6.72 s |
+| KubeJS recipe phase ("taking ... in total"), reloads 2 and 3 | 2.13 / 2.18 s | 1.69 / 1.61 s |
+| "Posted recipe events" | 0.83 to 0.93 s | 0.33 to 0.39 s |
+| Script handlers (temporary timers in the test-server copy) | about 850 ms | about 320 ms |
+
+The cuts, each checked with a before/after `fa_dump_full` (identical apart from the 14 combiner recipes below):
+
+| Script | Before (ms) | After (ms) | Change |
+|---|---|---|---|
+| `bronze_age.js` | 135 to 160 | 12 | andesite tier = 14 fixed ids (was a scan of 1,738 Create recipes and three `replaceInput` over them) |
+| `information_age.js` | 97 to 125 | 45 | 18 type removals as one OR filter; MA essence swaps by id (was three `replaceOutput` mod scans) |
+| `ore_ladder.js` | 94 to 120 | 4 | 330 fixed ids (was a JSON pass over 2,700 Mekanism-family recipes); MekaTFC 15 ids |
+| `global_removals.js` | 122 to 128 | 80 | no output filter for disabled items (the gate drops their recipes); Occultism silver 15 ids |
+| `industrial_age.js` | 110 to 129 | 70 | no output filter for disabled IE and C&A items |
+| `arcane_tfc_inputs.js` | 56 to 81 | 8 | the MAP rewrite reads 167 fixed ids (was all 2,714 magic recipes as JSON) |
+| `electric_age.js` | 50 to 80 | 8 | Diesel Generators type pass dropped (its namespace pass covers it), no output filter |
+| `space_age.js` | 36 to 38 | 0 | 62 fixed ids |
+
+The 14 Mekanism combiner recipes of vanilla ore blocks were meant to go (`ore_ladder.js`, matrix 6.1) but the old JSON
+pattern expected `"id"` before `"count"`; the fixed list removes them. Every fixed list has a guard in
+`poc_analyze.py` that names a recipe the list misses (C-1a, C-3m, C-3s, C-6a, C-6b, C-6e, C-7a, C-M, G-1). The steady
+reload is under 7.5 s with the players in the overworld; the first reload after a boot (cold JIT) and reloads with
+both players in The Origin are not (7.7 to 8.4 s). What is left is mostly outside the pack scripts: parsing 35,000
+recipes (about 0.8 s), the ProgressiveStages player sync and EMI Loot per player, the reload workers. The stall also
+drifted up by about 0.7 s over 20 reloads with fa_dump runs in one server session.
+
+### (4) Stations and gear across all Ages
+
+R-0 now covers 14 vanilla blocks. Seven more had no source in a TFC world: enchanting table (6 recipes, among them the
+DE Energy Transfuser and the MA Enchanter), barrel (18: Create postboxes, Fragile Fluid Tank, Velocity Sensor), chest
+and trapped chest of the 16 Twilight chests, lectern (Ars storage lectern), fletching table (projectile glyph), soul
+campfire (Afrit smelter), milk bucket (abjuration essence, dispel glyph, two Ars Additions charms, Create cake). They
+take the Apothic enchanting table, TFC barrels, chests and lecterns (`tags/tfc_stations.js`), feathers, the firepit
+and TFC's `tfc:fluid_content` for 1000 mB of milk. New check C-Gv (no recipe needs a vanilla tool or armour piece that
+no recipe makes) found the MA seed reprocessor (iron hoes), the backpack tool swapper (wooden tools) and the FTB loot
+crate opener (stone pickaxe); the elytra now counts as gear, so C-G found the HDPE Elytra (now on a propeller). No
+recipe of a late-Age mod still names `minecraft:crafting_table` or `minecraft:furnace` (the remaining ones are vanilla
+`minecraft:` recipes: crafter, blast furnace, furnace minecart).
+
+`poc_analyze.py` on the all-Ages dump of the final boot (33,203 recipes): **67 checks, 0 FAIL** (62 before; new C-1a,
+C-3m, C-3s, C-6e, C-Gv). `gen_stage_locks.py --check` clean. `validate_quests.py` 0 errors, 0 warnings.
+
+### Open points of this run
+
+- **Reload after a boot** stays at 7.7 to 8.4 s with 2 players, and about 0.5 s more while the players stand in The
+  Origin. Further cuts need the mod side (coalescing the ProgressiveStages lock syncs, SPEC 1.2 hot swap) or less
+  recipe parsing; the scripts are down to about 0.3 s.
+- **Needs a client:** Ars accepting a TFC bucket of milk on its pedestals and glyph press (`tfc:fluid_content` loads in
+  those recipes, no parse error), EMI showing it; the real fight against The Primordial (uptime, the Ender Guardian's
+  teleports and the helpers); the subtitles on screen.
+- **Keystone lending** (SPEC 7.4) is still a mod milestone; the Marid quest already describes it. If a release ships
+  without it, drop the borrow clause from `quantum/marid/key`.
+- **Found, not changed:** the sequenced assemblies `simulated:...gyroscopic_mechanism`, `simulated:...engine_assembly`,
+  `create_connected:...control_chip` and `create_factory_logistics:...fluid_mechanism` are dropped because a chance
+  output is a disabled Create sheet (before this run by the output filter, now by the gate); unless another recipe
+  makes these items they need a `byproducts.js` entry (G-3 cannot see removed recipes). The `createdeco` shipping
+  containers need a barrel and the disabled Create iron sheet. `advanced_ae:strength_card` keeps a netherite sword
+  (craftable, but the gear_rule swap targets a diamond sword the recipe no longer has).
+- The headless debug players died in an earlier run and cannot respawn; a `debug player respawn` command in
+  firmages-core would save moving their files.
