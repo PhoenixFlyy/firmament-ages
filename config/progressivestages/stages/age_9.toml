@@ -32,7 +32,7 @@ locked_ids = [
 ]
 
 [dimensions]
-# firmages:origin is the pack datapack dimension (not created yet).
+# firmages:origin is the datapack dimension shipped in the firmages-core jar (0.4.0); reached by the crafted Stargate.
 locked = [
     "id:firmages:origin",
 ]

@@ -222,7 +222,7 @@ hash = "31cbfa917f079171d3379fea2e8eef4ad2524c84f71f6eea59ffd8252697de43"
 
 [[files]]
 file = "config/progressivestages/stages/age_9.toml"
-hash = "7110bdcf42dcd1a072d01d2c73ee6d87fade814762f163502f4e0bf078dcc584"
+hash = "249f8c2aba62c26cf80e890eb7a780806eab24c06834e7856d21d5d06a1e336f"
 
 [[files]]
 file = "config/progressivestages/stages/dawn.toml"
@@ -530,11 +530,11 @@ hash = "9875263ab0850ecfc1c5fb80f66737ff36f25178bb7b92cf8d0a1f39d50c25ed"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "1cf6cd0971a1726cd418f59a78fe62e3efb4e619573eb7700361313a32e0468c"
+hash = "ba9429b9178f82dcfe03122fe0c0969ae1942c7c8e6a503d753ec2885ba14ef8"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "b7fcae673294a89d17931735309c1ef350cb02b313fe8d53011a0a9a4d4b6357"
+hash = "f13a816bc39f85ff87fdb7001570bbdb9fe6aaed0cfdd759425d12275c72675e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
@@ -542,7 +542,7 @@ hash = "3f5d5975bae5372b104655e1643ccf6a497d5d4f7d8bd45278f01d3853177767"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "1deaaeb8ed04d404e95045a6298afdc4349323d27996aa2bfee39ece1855dff5"
+hash = "a54390be781bc49cd7ef4b3047f7b9f6b3b7dbabb2fa6c7a580502b070753368"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
@@ -766,7 +766,7 @@ hash = "e8fbb58642935fb6571208142167052f4dd8bc09d455c23356b34ab452469011"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "505ca355770108f9d75229d9b83ed1f57ebc36ac93490767989fcd01a29eb603"
+hash = "28f6ff6dda6d08303e5afc860eec1c5c3ea6ec43c1554086c87427e761952c09"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/station_ages.js"
