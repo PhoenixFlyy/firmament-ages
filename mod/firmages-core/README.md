@@ -26,8 +26,10 @@ Implementation notes: `SPEC.md` §4.7 and §5.1.
   `GateSuite` (the m2 rules, report, excavator pick) and `JsonOutputWalkerFixtureTest` (recipe JSON copied from the
   pinned Create, IE, Mekanism, Occultism, Ars, TFC and DE jars, in `src/test/resources/fixtures`).
 - `gradlew runGameTestServer` runs the GameTests (`src/gametest`, level G) on a fresh world with ProgressiveStages,
-  Modonomicon, KubeJS and Rhino from `libs/`, and IE and Mekanism from maven (so the typed extractors and the MineralMix
-  mixin run against the real classes). The pack scripts `kubejs/server_scripts/firmages/` are copied into the run.
+  Modonomicon, KubeJS, Rhino and Stargate Journey from `libs/`, and IE, Mekanism, Draconic Evolution, Brandon's Core
+  and CCL from maven (so the typed extractors, the MineralMix mixin, the reactor controller and The Origin's gate run
+  against the real classes). The pack scripts `kubejs/server_scripts/firmages/` are copied into the run, and the
+  ProgressiveStages stand-in stages of `src/gametest/config` into `run/gametest/config`.
   M2/M3: synthetic recipes `firmages:test/*` and the m1/m3 test tags; M1: the self-test suites, the commands, the AgeIndex built from the test
   tags, and unlock → reload → revoke → reload with the KubeJS probe script `src/gametest/kubejs`. No EULA file is needed.
 - In the pack: `/firmages selftest all` writes `logs/firmages-selftest.json` (suites `core` and `server`).
@@ -104,6 +106,7 @@ Versions live in `gradle.properties` and must be bumped together with the pack's
 | TerraFirmaCraft | `libs/TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar` | 4.2.11 | no maven; Modrinth jar pinned in `mods/terrafirmacraft.pw.toml` |
 | KubeJS + Rhino | `libs/kubejs-neoforge-2101.7.2-build.377.jar`, `libs/rhino-2101.2.8-build.91.jar` | as named | Modrinth jars pinned in `mods/kubejs.pw.toml`, `mods/rhino.pw.toml` (compileOnly and dev runtime) |
 | Modonomicon | `libs/modonomicon-1.21.1-neoforge-1.120.7.jar` | 1.120.7 | Modrinth jar pinned in `mods/modonomicon.pw.toml` (dev runtime only, until M4) |
+| Stargate Journey | `libs/Stargate.Journey-1.21.1-0.6.49.jar` | 0.6.49 | Modrinth jar pinned in `mods/sgjourney.pw.toml` (compileOnly for `compat/sgjourney`, GameTest runtime) |
 
 Notes:
 

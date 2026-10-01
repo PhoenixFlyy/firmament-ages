@@ -1,0 +1,9 @@
+# GameTest stand-in for the pack stage finale_won (config/progressivestages/stages/finale_won.toml), without its
+# age_9 dependency and item locks. OriginGameTests checks that the final boss grants it.
+
+[stage]
+id = "finale_won"
+display_name = "Beyond the Firmament (GameTest)"
+description = "GameTest stand-in for the pack stage."
+icon = "minecraft:dragon_egg"
+category = "Ages"

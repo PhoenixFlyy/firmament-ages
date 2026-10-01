@@ -112,19 +112,10 @@ ServerEvents.recipes((event) => {
     U: 'firmages:ultimate_singularity', T: 'sgjourney:transfer_crystal', D: 'sgjourney:control_crystal'
   }).id('firmages:crafting/classic_stargate_base_block')
 
+  // The Draconic Reactor Controller recipe lives in recipes/age_9/reactor_controller.js (firmages-core 0.4.0).
+
   // The address of The Origin (firmages-core registers the Space Location, SPEC section 14): a paper with the
   // coordinates, written with a chaos shard of the Guardian.
   event.shapeless('firmages:origin_coordinates', ['minecraft:paper', 'minecraft:ink_sac', '#firmages:boss_token/age_9'])
     .id('firmages:crafting/origin_coordinates')
-
-  // ======================================================================================== the Draconic Reactor Controller
-  // firmages-core M5 (SPEC 6.2) registers firmages:reactor_controller: it refuels the reactor from pipes and emits
-  // redstone 15 when the reactor is READY; starting it stays manual. The recipe loads only once the block exists, so
-  // this script also runs against a firmages-core build without M5.
-  if (Item.exists('firmages:reactor_controller')) {
-    event.shaped('firmages:reactor_controller', ['DCD', 'RWR', 'DCD'], {
-      D: '#c:ingots/draconium_awakened', C: 'mekanism:ultimate_control_circuit', R: 'minecraft:comparator',
-      W: 'draconicevolution:wyvern_core'
-    }).id('firmages:crafting/reactor_controller')
-  }
 })

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "firmages:blocks/reactor_controller",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "firmages:reactor_controller"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

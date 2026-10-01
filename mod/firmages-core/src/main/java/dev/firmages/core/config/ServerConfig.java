@@ -29,12 +29,9 @@ public final class ServerConfig {
     // reactor
     public static final ModConfigSpec.BooleanValue REACTOR_ITEM_HANDLER;
     public static final ModConfigSpec.BooleanValue REACTOR_CONTROLLER_ENABLED;
-    public static final ModConfigSpec.BooleanValue REACTOR_AUTO_RESTART;
     public static final ModConfigSpec.DoubleValue REACTOR_SHUTDOWN_AT_CONVERSION;
     public static final ModConfigSpec.IntValue REACTOR_MIN_FUEL;
     public static final ModConfigSpec.IntValue REACTOR_MAX_CHAOS;
-    public static final ModConfigSpec.IntValue REACTOR_STABLE_SECONDS;
-    public static final ModConfigSpec.IntValue REACTOR_MIN_FIELD_PERCENT;
     // shrine
     public static final ModConfigSpec.IntValue SHRINE_PRAYER_SECONDS;
     public static final ModConfigSpec.IntValue SHRINE_MIN_PRAYER_SECONDS;
@@ -44,6 +41,9 @@ public final class ServerConfig {
     public static final ModConfigSpec.LongValue SHRINE_ENERGY_CAPACITY;
     public static final ModConfigSpec.BooleanValue SHRINE_PERMANENT_BEAM;
     public static final ModConfigSpec.BooleanValue SHRINE_CLEAR_WEATHER;
+    // origin
+    public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
+    public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -78,15 +78,18 @@ public final class ServerConfig {
         b.pop();
 
         b.comment("Draconic reactor refuelling (m4)").push("reactor");
-        REACTOR_ITEM_HANDLER = b.define("itemHandler", true);
-        b.push("controller");
+        REACTOR_ITEM_HANDLER = b.comment("Stabilizers and injectors take awakened draconium and give chaos fragments to pipes while the reactor is COLD.")
+            .define("itemHandler", true);
+        b.comment("firmages:reactor_controller: shuts the reactor down, swaps chaos for fuel when COLD and emits redstone when READY.",
+            "It never starts the reactor (no charge, no activation): starting stays a player action.").push("controller");
         REACTOR_CONTROLLER_ENABLED = b.define("enabled", true);
-        REACTOR_AUTO_RESTART = b.define("autoRestart", false);
-        REACTOR_SHUTDOWN_AT_CONVERSION = b.defineInRange("shutdownAtConversion", 0.80, 0.0, 1.0);
-        REACTOR_MIN_FUEL = b.defineInRange("minFuel", 10368, 0, 10383);
-        REACTOR_MAX_CHAOS = b.defineInRange("maxChaos", 0, 0, 10383);
-        REACTOR_STABLE_SECONDS = b.defineInRange("stableSeconds", 10, 0, 600);
-        REACTOR_MIN_FIELD_PERCENT = b.defineInRange("minFieldPercent", 30, 0, 100);
+        REACTOR_SHUTDOWN_AT_CONVERSION = b.comment("Converted share (chaos / (fuel + chaos)) at which a running reactor is shut down; 0.80 = 20 % fuel left.")
+            .defineInRange("shutdownAtConversion", 0.80, 0.0, 1.0);
+        REACTOR_MIN_FUEL = b.comment("Fuel the swap tops up to before READY (10368 = 8 awakened draconium blocks, the maximum).",
+                "Also met once not even a nugget fits any more.")
+            .defineInRange("minFuel", 10368, 0, 10383);
+        REACTOR_MAX_CHAOS = b.comment("Chaos that may stay in the reactor at READY. A rest below 16 always stays (no fragment holds it).")
+            .defineInRange("maxChaos", 0, 0, 10383);
         b.pop();
         b.pop();
 
@@ -101,6 +104,13 @@ public final class ServerConfig {
         SHRINE_ENERGY_CAPACITY = b.defineInRange("energyCapacity", 100_000_000L, 0L, Long.MAX_VALUE);
         SHRINE_PERMANENT_BEAM = b.define("permanentBeam", false);
         SHRINE_CLEAR_WEATHER = b.define("clearWeather", true);
+        b.pop();
+
+        b.comment("The Origin and the Gathering at its altar (the end-boss trigger)").push("origin");
+        ORIGIN_GATHER_RADIUS = b.comment("Every online player (spectators excepted) must stand this close to the altar to start the fight.")
+            .defineInRange("gatherRadius", 6, 1, 32);
+        ORIGIN_GATHER_COOLDOWN = b.comment("Seconds before a broken-up Gathering can start the fight again.")
+            .defineInRange("gatherCooldownSeconds", 30, 0, 3600);
         b.pop();
 
         b.push("debug");

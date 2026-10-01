@@ -1,0 +1,13 @@
+{
+  "type": "firmages:origin",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "firmages:origin",
+      "lakes": false,
+      "features": false,
+      "layers": [],
+      "structure_overrides": []
+    }
+  }
+}

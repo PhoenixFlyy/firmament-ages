@@ -362,6 +362,8 @@ block = "tfc:rock/loose/granite"
 "id:firmages:origin_coordinates" = "age_9"               # the dial address of The Origin (recipes/age_9)
 # The End opens with the Information Age through a crafted portal frame (recipes/age_6, Doc 08 section 6).
 "id:minecraft:end_portal_frame" = "age_6"
+"id:firmages:reactor_controller" = "age_9"               # firmages-core 0.4: Draconic reactor controller (recipes/age_9)
+"id:firmages:origin_altar" = "age_9"                     # Gathering altar of The Origin; arena block, never crafted
 "id:firmages:dust/zinc" = "age_2"                        # canonical dusts come with the Iron Age crushing wheels
 "id:firmages:dust/bismuth" = "age_2"
 # Canonical metal dusts of the Iron Age crushing wheels (kubejs recipes/age_2, Doc 10 v3 section 8.1).

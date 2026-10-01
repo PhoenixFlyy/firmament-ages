@@ -16,7 +16,8 @@ Marking: **[verified]** means read in source or javap during research. **[PoC]**
 | m6+m9 | The Shrine: one multiblock that is Tribal Hearth and Singularity Altar, worship of a deity | build |
 | m7 | Age transition ceremony | build (staged at the shrine) |
 | m1 | Stage-aware prospecting | build (Felix, 2026-09-30); config default on |
-| later | Own end boss, The Origin dimension, world events per Age | not in this spec |
+| m10 | The Origin (datapack dimension `firmages:origin`, arena, Stargate Journey address, return gate) and the end-boss scaffolding (Origin Gathering trigger, `finale_won` on the tagged boss's death, FINALE ceremony) | build (0.4.0, §16); the boss itself is KubeJS + Gateways to Eternity + Cataclysm |
+| later | Own end-boss entity, world events per Age | not in this spec |
 | no | Age Codex screen, team chronicle, lore fragments, Dawn flair | never. Progress UI is the FTB Quests screen (key K) |
 | later, if needed | Own interactive quest overview | only if FTB Quests on K turns out not clear or interactive enough (Felix, note on idea 5). It would replace, not duplicate, the K screen. Not in this spec |
 
@@ -65,15 +66,19 @@ dev.firmages.core
   age/     AgeId, AgeIndex, AgeState (SavedData), AgeMirror, AgeService, ReloadScheduler, CacheGeneration
   gate/    RecipeGate, OutputSink, OutputExtractor, JsonOutputWalker, GateReport, extract/<mod>Extractor
   miner/   OreGuard
-  reactor/ ReactorFuelHandler, ReactorControllerBlock(+BE), ReactorProbe          (DE present only)
+  reactor/ ReactorView, ReactorFuel, ReactorCycle (pure), ReactorLookup, ReactorFuelPort, ReactorItems,
+           ReactorControllerBlock(+BE), ReactorRegistry                        (DE coupling in compat/draconic)
+  origin/  OriginRegistry, OriginArena, OriginSavedData, OriginService, OriginEvent (§16)
   shrine/  ShrineHeartBlock(+BE), OfferingPlinthBlock, ShrineSavedData, ShrineStateMachine,
            TierDefinition, TierReloadListener, rite/*, Blessings, Sanctuary, Gathering (DE compat)
   ceremony/ CeremonyService
   net/     payloads + handlers
   command/ FirmagesCommands, SelfTest
-  compat/  kubejs (plugin + binding), modonomicon (adapter), jade, geckolib, draconic, ie, occultism, ars
+  compat/  kubejs (plugin + binding), modonomicon (adapter), jade, geckolib, draconic (DraconicReactors),
+           sgjourney (SgjGates), ie, occultism, ars
   client/  ShrineHeartRenderer, CeremonyPlayer, SkyEffects, MusicControl, PreviewBridge
-  mixin/   RecipeManagerMixin; ie.MineralMixMixin; occultism.MineshaftMixin; ars.ApparatusMixin; client.ClientLevelSkyMixin
+  mixin/   RecipeManagerMixin; GameTestServerMixin (GameTests only); ie.MineralMixMixin; occultism.MineshaftMixin;
+           ars.ApparatusMixin; ps.*
   config/  ServerConfig, ClientConfig
 ```
 
@@ -90,7 +95,8 @@ Rules:
 | KubeJS | 2101.7.2-build.377 | optional, compileOnly (**add**) | binding `FirmAges` |
 | Modonomicon | 1.120.7 | required, compileOnly (**add**) | ring multiblocks, ghost preview |
 | Immersive Engineering | 12.4.2-194 | optional | `MineralMix` mixin |
-| Draconic Evolution / Brandon's Core / CCL | 3.1.4.633 / 3.2.1.309 / 4.6.1.529 | optional | reactor, Gathering |
+| Draconic Evolution / Brandon's Core / CCL | 3.1.4.633 / 3.2.1.309 / 4.6.1.529 | optional (also in the GameTest run since 0.4.0) | reactor controller and fuel port, Gathering |
+| Stargate Journey | 0.6.49 | optional, compileOnly (libs/, fetched from `mods/sgjourney.pw.toml`; also in the GameTest run) | The Origin's return gate (`compat/sgjourney`); the space location is plain data |
 | Occultism | 1.224.4 | optional | mineshaft flush, extractor |
 | Ars Nouveau | 5.13.2 | optional, compileOnly (**add**) | apparatus flush, extractor |
 | Create, Mekanism, AE2, TFC | pinned in `gradle.properties` | optional | extractors, OreGuard drop override |
@@ -344,11 +350,24 @@ m1 (config `prospecting.enabled`, default `true`; Felix confirmed on 2026-09-30)
 
 ### 6.2 Reactor Controller (M, config `reactor.controller.enabled`)
 
+> **Superseded in part (0.4.0, §6.3):** Felix decided on 2026-09-30 that the controller never starts the reactor; the CHARGE and ACTIVATE states and the keys `autoRestart`, `stableSeconds` and `minFieldPercent` are not built and were removed from the config. The fuel port is `ReactorFuelPort`, the probe is `DraconicReactors.init`.
+
+
 - A block `firmages:reactor_controller` placed touching a stabilizer or injector. Its states are MONITOR, SHUTDOWN, COOLING, SWAP, READY, and optionally CHARGE and ACTIVATE.
 - MONITOR → SHUTDOWN when `convertedFuel / (reactableFuel + convertedFuel) >= reactor.controller.shutdownAtConversion` (default 0.80), via `shutdownReactor()`.
 - COOLING waits for COLD. SWAP lets pipes use the capability until `reactableFuel >= reactor.controller.minFuel` and chaos is at or below `maxChaos`. READY emits redstone 15.
 - With `reactor.controller.autoRestart = true` (default **false**, open question for Felix): `chargeReactor()`, then `activateReactor()` once `canActivate()`. This requires that `failSafeMode` is on and that the field input rate has covered the drain for `reactor.controller.stableSeconds` (default 10). If the field strength falls below `minFieldPercent` (default 30) at any time, the controller calls `shutdownReactor()`.
 - Its comparator output is the fuel percentage.
+
+### 6.3 Implementation notes (M5, firmages-core 0.4.0)
+
+- **Classes:** pure `reactor/ReactorView` (phase, fuel, chaos, shutdown, add fuel, remove chaos), `ReactorFuel` (DE's numbers: block/ingot/nugget and large/medium/small fragment = 1296/144/16, cap 10368 + 15 with DE's integer truncation, the fragment split of the GUI slots, conversion, comparator), `ReactorCycle` (the state machine); MC side `ReactorLookup` (providers that map a reactor part to its core's view; DE registers one, GameTests may add a stub), `ReactorFuelPort` (m4 item port), `ReactorItems` (DE items by registry id, so only `compat/draconic/DraconicReactors` links DE classes), `ReactorControllerBlock`(+`BlockEntity`), `ReactorRegistry`.
+- **DE 3.1.4 [verified, javap]:** a stabilizer or injector (`TileReactorComponent`) resolves its core with `tryGetCore()` (null while unbound); `TileReactorCore.reactableFuel`/`convertedFuel` are public `ManagedDouble`s (`add`/`subtract` sync themselves), `reactorState` a `ManagedEnum<ReactorState>` (INVALID, COLD, WARMING_UP, RUNNING, STOPPING, COOLING, BEYOND_HOPE), `shutdownReactor()` acts only while WARMING_UP or RUNNING (`canStop`); DE then goes STOPPING -> COOLING (temperature <= 2000) -> COLD (<= 100). `ReactorMenu.clicked` itself checks no state, the port and the controller add the COLD condition of §6.1. `DraconicReactors.init` (common setup) checks the fields and methods once; a `LinkageError` or a missing member disables the coupling with one ERROR line, the capability registration is guarded the same way.
+- **m4 port:** `Capabilities.ItemHandler.BLOCK` on `TILE_REACTOR_STABILIZER` and `TILE_REACTOR_INJECTOR`, as in §6.1 (slot 0 fuel in, slot 1 chaos out, both only while COLD, `reactor.itemHandler`). A chaos rest below 16 cannot leave (no fragment holds it), as in DE's GUI.
+- **Controller (`firmages:reactor_controller`, age_9):** every 10 ticks the block entity runs `ReactorCycle` against the core of the first touching bound stabilizer or injector: MONITOR -> SHUTDOWN once `RUNNING` and conversion >= `reactor.controller.shutdownAtConversion` (0.80) -> COOLING until DE reports COLD -> SWAP -> READY. A cold reactor found in MONITOR (new, or stopped by hand) goes straight to SWAP. SWAP takes chaos out first (largest fragments, into its own output slots 1..3, then into touching inventories) and then fuel in (blocks, ingots, nuggets, from its own slot 0, then from touching inventories; never from reactor parts or other controllers) until `reactableFuel >= reactor.controller.minFuel` (10368) or not even a nugget fits; READY also needs `convertedFuel - maxChaos < 16`. READY sets the blockstate `ready=true` (redstone 15 on every side, lamp texture); a start by a player (WARMING_UP/RUNNING) returns to MONITOR; a cold reactor that loses fuel while READY is swapped again. The controller never charges or activates (no CHARGE/ACTIVATE state). Comparator: the unconverted share `round(15 * fuel / (fuel + chaos))`, 0 when empty. Its inventory is open to pipes on every side: insert awakened draconium into slot 0 only, extract from slots 1..3 only; the items drop when the block is broken. Use with an empty hand prints the status; `/firmages reactor status [pos]` lists the loaded controllers. Config `reactor.controller.enabled|shutdownAtConversion|minFuel|maxChaos`.
+- **Recipe (pack, `kubejs/server_scripts/recipes/age_9/reactor_controller.js`):** grid, a reactor stabilizer frame between two Mekanism elite control circuits, an awakened draconium ingot above and below. Age map: `firmages:reactor_controller` = age_9.
+- **Tests:** U `ReactorCycleTest` (6: full cycle with exactly one shutdown and no start, waiting for fuel and for output room, the leftover fuel that cannot reach `minFuel`, manual stops and restarts, configurable thresholds, DE's arithmetic). G `ReactorGameTests.controllerCycleOnRealReactor` with Draconic Evolution, Brandon's Core and CCL in the GameTest run: a real core with four stabilizers formed by `attemptInitialization` (COLD), the controller on a stabilizer with 16 blocks in slot 0 and a chest of 64 nuggets on top: pipe rules, READY with 10368 fuel, redstone 15 and comparator 15; the port refuses fuel while full and while RUNNING; the burnt state (2073.6 fuel, 8294.4 chaos, RUNNING) is shut down at 80 %, DE cools by itself, the controller swaps 6 large, 3 medium and 5 small fragments out and 6 blocks plus 32 nuggets in (fuel 10361.6, nothing more fits), READY again, the reactor stays COLD; pipes extract the fragments; the port adds 2 ingots when 383 fit and gives chaos largest first down to the rest of 2.4; `/firmages reactor status` runs. The reactor is never charged in the test (temperature 20), so it cannot heat or explode.
+- **[PoC] in the pack:** a hopper or pipe chain on the controller with a running reactor in a client (DE's own GUI and field drain during a real burn; SPEC §12 m4 M row).
 
 ## 7. m6+m9: the Shrine
 
@@ -471,8 +490,9 @@ A crash after step 3 loses only the show. There are no C2S packets: all interact
 | `miner.ieExcavator` / `miner.oreGuard` | true / true | m3 parts |
 | `prospecting.enabled` | true | m1; read by the KubeJS script through `FirmAges` |
 | `reactor.itemHandler` | true | m4 capability |
-| `reactor.controller.enabled` / `.autoRestart` | true / false | |
-| `reactor.controller.shutdownAtConversion` / `.minFuel` / `.maxChaos` / `.stableSeconds` / `.minFieldPercent` | 0.80 / 10368 / 0 / 10 / 30 | |
+| `reactor.controller.enabled` | true | §6.3; there is no auto-restart (Felix, 2026-09-30) |
+| `reactor.controller.shutdownAtConversion` / `.minFuel` / `.maxChaos` | 0.80 / 10368 / 0 | §6.3 |
+| `origin.gatherRadius` / `origin.gatherCooldownSeconds` | 6 / 30 | §16.3: every online non-spectator within this radius of the altar starts the fight; a broken-up Gathering re-arms after the cooldown |
 | `shrine.prayerSeconds` / `shrine.minPrayerSeconds` / `shrine.prayRadius` | 10 / 4 / 6 | |
 | `shrine.sanctuary.baseRadius` / `.perTier` | 12 / 4 | |
 | `shrine.blessings.<name>.<value>` | from §7.6 | |
@@ -507,7 +527,9 @@ A crash after step 3 loses only the show. There are no C2S packets: all interact
 | `shrine simulate_pray` | Complete the current prayer (needs `debug.allowSimulate`) |
 | `debug player join|leave <name>`, `debug use <name> <pos> [sneak]`, `debug pray <name> <pos> <seconds>`, `debug run <name> <command>` | Headless test players for the dedicated test server (needs `debug.allowSimulate`): a real `ServerPlayer` on an in-memory connection (vanilla GameTest mock style, every payload channel accepted), offline UUID of the name; it logs the firmages payloads, titles and chat it receives as `[debug-player <name>]`. Used for the server-side shrine proof (`dev/poc-results.md`, "Shrine M4 and ceremony") |
 | `ceremony preview <stage> [full|short]` | Play the ceremony to yourself, no grant |
-| `reactor info` | State of the looked-at reactor and controller |
+| `reactor status [pos]` | Every loaded reactor controller (or the one at `pos`): state, reason, reactor phase, fuel, chaos, conversion, redstone, comparator, settings, buffers (0.4.0; replaces `reactor info`) |
+| `origin tp [players]` | Teleport to The Origin's arrival point (normal teleport path, so the age_9 dimension lock applies outside creative) |
+| `origin status` / `origin reset` / `origin rebuild` | Arena version, return gate, altar, Gathering count, boss state / let the Gathering and the boss happen again (finale_won stays) / rebuild the arena and place the gate again |
 | `selftest <suite|all>` | Server-side test suites (§12), report in `logs/firmages-selftest.json` |
 
 ## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "1")
@@ -577,7 +599,9 @@ Test levels:
 
 M0–M4 must ship before the first playtest beyond the Stone Age. Shipping: copy the jar to `FirmamentAges/mods/` and run `packwiz refresh` (hand-off).
 
-**State (2026-10-01):** M0 measured (server half). M1 shipped as 0.1.1. M2 and M3 implemented in 0.2.0; 0.2.1 adds the late pass (§4.7). M4 (shrine MVP: rings 0..2 plus the fallback tier) and m7 (ceremony) are implemented in 0.3.0 (§7.8, §8.1); 0.3.1 adds the ring and blessing data of M6 for tiers 3..8 (data only, no new effect types): U and G green (`ShrineRulesTest` 7 cases, `ShrineRingFilesTest` 1, `ShrineGameTests` 2 tests, all 14 GameTests pass); 0.3.3 is the first shipped build with both the ring data and the ProgressiveStages sync mixins of 0.3.2 (14 GameTests pass); on the pack server the rings 0..8 validate from pack blocks and tiers 3..8 each grant age_(N+1) through offering, rite and prayer with one reload of 6.2 to 6.6 s (`dev/poc-results.md`, "Shrine ladder and reload v2"); the client side is unverified until Felix's dev-client test. Green at levels U and G, and the pack P runs are recorded in `dev/poc-results.md` ("M2/M3, quests and content"):
+**State (2026-10-01, 0.4.0 branch `core-m5-origin`):** M5 (fuel port and reactor controller, §6.3) and m10 (The Origin and the end-boss scaffolding, §16) are implemented; U and G green (`gradlew build`: 63 unit tests; `runGameTestServer`: 19 GameTests with DE, Brandon's Core, CCL and Stargate Journey in the run).
+
+**State (2026-10-01, before 0.4.0):** M0 measured (server half). M1 shipped as 0.1.1. M2 and M3 implemented in 0.2.0; 0.2.1 adds the late pass (§4.7). M4 (shrine MVP: rings 0..2 plus the fallback tier) and m7 (ceremony) are implemented in 0.3.0 (§7.8, §8.1); 0.3.1 adds the ring and blessing data of M6 for tiers 3..8 (data only, no new effect types): U and G green (`ShrineRulesTest` 7 cases, `ShrineRingFilesTest` 1, `ShrineGameTests` 2 tests, all 14 GameTests pass); 0.3.3 is the first shipped build with both the ring data and the ProgressiveStages sync mixins of 0.3.2 (14 GameTests pass); on the pack server the rings 0..8 validate from pack blocks and tiers 3..8 each grant age_(N+1) through offering, rite and prayer with one reload of 6.2 to 6.6 s (`dev/poc-results.md`, "Shrine ladder and reload v2"); the client side is unverified until Felix's dev-client test. Green at levels U and G, and the pack P runs are recorded in `dev/poc-results.md` ("M2/M3, quests and content"):
 - U (`gradlew build`): `CoreSuiteTest` (18), `GateSuiteTest` (16: walker keys and exclusions, deny/allow/exempt, locked and unlocked items, latest-Age bucket, tag all-locked / mixed / empty, disabled, fluid ids, undetected, report and audit text, excavator pick), `JsonOutputWalkerFixtureTest` (15: recipe JSON copied from the Create, IE, Mekanism, Occultism, Ars, TFC and DE jars, plus a rules run on them).
 - G (`gradlew runGameTestServer`, vanilla + ProgressiveStages + Modonomicon + KubeJS + IE + Mekanism, 12 tests): boot filter with `[dawn]` on the synthetic `firmages:test/*` recipes (item, tag all-locked, tag mixed, disabled, fluid byproduct, and the two late recipes of `LateRecipeInjector`) and on vanilla iron recipes; the recipes commands and audit file; IE crusher tag outputs through the TagOutput accessor and Mekanism output definitions; mineral mixes exempt and the MineralMix mixin (0 locked ores rolled); the pack's m1/m3 KubeJS scripts against test tags; OreGuard break and drop paths; the excavator filter on a stub mix (10,000 rolls); `age_0` then `age_2` unlocked through real reloads and revoked again (recipes, tags, excavator, OreGuard follow).
 - P (pack server, 0.2.1): m2 at Dawn and after each grant age_0 to age_9 (`poc_analyze.py` G-1 to G-4), m3 excavator rolls, Digital Miner blacklist and prospecting tags per Age (`/fa_m3`), Cucumber ordering, Create/Occultism extractors at runtime (0 extraction errors on 35,114 recipes). Still open: the flush mixins (`MineshaftMixin`, `ApparatusMixin`) with a running Mineshaft or apparatus, which needs a client.
@@ -590,22 +614,52 @@ M0–M4 must ship before the first playtest beyond the Stone Age. Shipping: copy
 4. Pack: add the jar to `mods/` and run packwiz refresh; the dependency entries in `neoforge.mods.toml` (§1.4).
 5. Finale content (pack, 2026-10-01, `kubejs/server_scripts/recipes/age_9/singularity_age.js`), what the mod side relies on:
    - **The Origin's dial address.** The pack item `firmages:origin_coordinates` (paper + ink + a chaos shard, age_9) shows the
-     Milky Way galactic address **9, 16, 31, 5, 21, 37** (then the point of origin, 7 chevrons). The mod's Space Location for
-     `firmages:origin` uses exactly this address with `randomizable: false` (Stargate Journey 0.6.49 `address_region` format:
-     `galactic_addresses."sgjourney:milky_way".address.symbols`); the server runs `random_addresses_from_seed = true`, so a
-     randomizable address would differ per world. The symbols collide with no shipped SGJ region. If the mod picks another
-     address, change the tooltip line in `kubejs/startup_scripts/items.js` (`global.FA_SIGNATURE_TOOLTIPS`) with it.
+     Milky Way galactic address **9, 16, 21, 33, 2, 37** (then the point of origin, 7 chevrons), the address the mod ships in
+     `data/firmages/sgjourney/address_region/origin.json` with `randomizable: false` (§16; integration 0.4.0 took the mod's
+     GameTest-dialled address over the earlier pack proposal 9, 16, 31, 5, 21, 37). The server runs
+     `random_addresses_from_seed = true`, so only a non-randomizable address is the same in every world. If the address
+     changes, change the tooltip line in `kubejs/startup_scripts/items.js` (`global.FA_SIGNATURE_TOOLTIPS`) and the GameTest with it.
    - **Ultimate Singularity** (`firmages:fusion/ultimate_singularity`): DE fusion, `techLevel` chaotic, catalyst
      `draconicevolution:chaotic_core`, ingredients the item ids of the nine relics (`firmages:hearthstone` ... `firmages:quantum_core`,
      with `firmages:awakened_keystone` in the Arcane slot), two `#firmages:boss_token/age_9` (chaos shard) and
      `evolvedmekanism:alloy_singular`; 12 injectors, 2,000,000,000 FE. The Gathering (§7.5, M8) only has to move the relics into
      injectors; the recipe needs no change. The Awakened Keystone comes from the pack's Marid ritual
      (`firmages:ritual/awakened_keystone`), which consumes an Arcane Keystone (lent, §7.4, or crafted again).
-   - **Reactor Controller** (`firmages:crafting/reactor_controller`): the grid recipe loads only when `Item.exists('firmages:reactor_controller')`,
-     so the pack runs with and without M5.
+   - **Reactor Controller** (`firmages:crafting/reactor_controller`): one grid recipe in `recipes/age_9/reactor_controller.js`
+     (stabilizer frame, two elite control circuits, two awakened draconium ingots); the duplicate in `singularity_age.js` was dropped at integration.
 
 ## 15. Open points
+
+- **0.4.0 (core-m5-origin), needs a client or the pack server:** the controller with pipes and a really burning reactor; The Origin's look (End sky with `ambient_light` 0.1, the lights of the arena) and a real dial from a player-built Classic Stargate with power (the GameTest dials the address with SGJ's `SIMULATE_ENOUGH_ENERGY` from a Milky Way pedestal gate); whether SGJ's address randomizer (`randomizable: false` here) leaves the fixed address alone in an existing world; the return trip (dial home from the Origin DHD, whose energy core SGJ's `generate()` adds); the Mekanism teleporter and Ars warp into The Origin (Doc 08 §10.3, not blocked yet); `mob_9` spawns (the biome has none).
 
 - **Felix (decided 2026-09-30):** m1 build; reactor controller refuels and signals READY by redstone, NO auto-restart (ACTIVATE state stays disabled); offerings are ENSHRINED (kept as relics, Keystone lent in Age 8, Ultimate Singularity forged at the shrine); EMI shows no next-Age preview, by design.
 - **PoC:** reload stall and client rebuild (M0); TAIL ordering against Cucumber; StageChangeEvent once per member; mekanism_lasers/mekmm breakers; DE injector placement; TFC nutrition health vs percentage modifiers; sky overlay with Sodium/Enhanced Celestials; rings 3..8 built in the world and their rites (the ids are checked against the registry dump, `lit` and `active` against the blockstate files of the TFC and IE jars; the IE lantern and floodlight `active` flip and TFC candles are unverified in game); machine caches actually refresh after the unlock reload (§12, only `RecipeManager` presence is covered by P tests); the Awakened Keystone item id. `SelectMusicEvent` exists in NeoForge 21.1.252 [verified, review], so the ceremony can suppress music with it instead of a mixin.
 - **After M2/M3 (done 2026-10-01, `dev/poc-results.md`):** the audit is reviewed: the 37 types with no detected output are accepted with a reason in `dev/data/accepted_undetected.json` (checked by `poc_analyze.py` G-4), no extractor follow-up. Recipes that only a chance byproduct of a later Age keeps out are not allowlisted; `kubejs/server_scripts/recipes/byproducts.js` strips the byproduct until its Age (checked by G-3). The gate time is measured. `gate_cases.json` is still not written (the G-checks of `poc_analyze.py` cover the pack instead).
+
+## 16. m10: The Origin and the end-boss scaffolding (firmages-core 0.4.0)
+
+Design source: Doc 08 §10 (finale: Ultimate Singularity, Stargate, The Origin, script-first end boss r10 A). The mod provides the place, the way in, the trigger and the result; the fight itself (Gateways to Eternity waves with Maledictus and Ignis, then "The Primordial", a Cataclysm boss with KubeJS attributes and phases) is a KubeJS script of the pack. Not to be confused with the shrine's Gathering of §7.5 (ring 9, M8).
+
+### 16.1 The dimension
+
+- **Data in the mod jar** (`data/firmages/`): `dimension/origin.json` (generator `minecraft:flat` with no layers, biome `firmages:origin`, no features or structures: a void), `dimension_type/origin.json` (no skylight, End sky effects, `ambient_light` 0.1, fixed time, beds and anchors do not work, height 0..256), `worldgen/biome/origin.json` (no precipitation, no spawns, no features, dark violet fog). Doc 08 §10.3 put the dimension under `kubejs/data/`; it ships in the jar so the GameTests and the arena code see the same files, and the pack can still override it with the same path under `kubejs/data/firmages/`.
+- **Lock:** `config/progressivestages/stages/age_9.toml` `[dimensions] locked = ["id:firmages:origin"]` (verified: the id matches the dimension key). ProgressiveStages 3.0.5 `DimensionEnforcer` checks a player's dimension change before travel and bounces a player back who arrived in a locked dimension anyway (`handlePostTravelSafetyNet`); creative players bypass it (`allow_creative_bypass`). **[PoC]** the bounce for Stargate Journey's wormhole transport is unverified (needs a client). G `OriginGameTests.originNeedsAge9` uses a GameTest copy of the stage file (`src/gametest/config/progressivestages/stages/age_9.toml`, copied into the run by `prepareGametestConfig`): a survival player without age_9 is locked out and a teleport leaves him where he was.
+- **GameTests and datapack dimensions:** vanilla's `GameTestServer` bakes its world from the flat preset with an empty dimension registry, so no datapack dimension loads there [verified, 21.1.252 source]. `mixin/GameTestServerMixin` (test infrastructure; a normal server never runs `GameTestServer`) passes this mod's own datapack dimensions into that bake.
+
+### 16.2 Arena, Stargate address and return gate
+
+- **Arena (`origin/OriginArena`, built once at server start, `OriginSavedData` `firmages_origin` keeps `arena_version` and `gate_built`):** a floating disc of radius 20 at y 64 around (0, 0) (polished deepslate with gilded-blackstone rings and sea lanterns, a blackstone-brick rim with eight lantern posts and a gap to the south, an inverted cone of mixed rock below), the `firmages:origin_altar` at (0, 65, 0) on a crying-obsidian dais, nine small floating islands, one per shrine Age (mossy cobble, cut copper, smooth stone, amethyst, bricks, oxidized copper, quartz bricks, end stone bricks, crying obsidian on top, an end rod each), 45 to 75 blocks out, and a bridge south to the gate pedestal. Vanilla blocks only. `/firmages origin rebuild` builds it again; bump `OriginArena.VERSION` to rebuild existing worlds.
+- **Arrival point:** (0, 65, 14) on the arena, between gate and altar, outside the Gathering radius. Players dialling in step out of the gate at z about 30 and walk north past the DHD.
+- **Altar `firmages:origin_altar`:** unbreakable in survival (hardness -1), no loot table, light 12; Age map `age_9`; never crafted.
+- **Stargate Journey 0.6.49 [verified, javap and jar data]:** `data/firmages/sgjourney/space_location/origin.json` (point of origin `sgjourney:floating_islands`, symbols `sgjourney:galaxy_milky_way`, address region `firmages:origin`, `preload_stargate`; `in_stargate_network` defaults to true, `generate_in_address_tables` to false, so the address never appears on cartouches) and `data/firmages/sgjourney/address_region/origin.json` (name `solar_system.firmages.origin` = "The Origin"; Milky Way address **9-16-21-33-2-37** plus the point of origin, extragalactic 1-30-9-16-21-33-2; both `randomizable: false`). The address does not collide with the regions SGJ ships. The quests give the address (hand-off).
+- **Return gate:** with Stargate Journey loaded, `OriginArena.buildGate` places SGJ's own template `sgjourney:stargate/milky_way/pedestal/stargate_pedestal_1` (Milky Way gate with its DHD) south of the arena (gate base (0, 66, 31) facing north, DHD (0, 65, 25)) and `compat/sgjourney/SgjGates.finishPlacement` does what SGJ's worldgen does for its structures: `generateInStructure` (SETUP to READY) and `generate()` (the gate joins the network, the DHD gets its energy core). Without that step a code-placed gate never joins the network, because its chunk does not tick. G `originDimensionArenaAndGate`: dimension type and biome, arena, altar, gate and DHD block entities, the space location with the region and the exact address, the gate in `StargateNetwork`. G `overworldGateCanDialTheOrigin`: a pedestal gate placed in the overworld test area dials 9-16-21-33-2-37 with SGJ's `Dialing.Action.SIMULATE_ENOUGH_ENERGY` and gets `CONNECTION_ESTABLISHED_INTERSTELLAR`; an unknown address gets `INVALID_ADDRESS`.
+- **Commands:** `/firmages origin tp [players]` (normal teleport, so the age_9 lock applies), `origin status`, `origin reset`, `origin rebuild` (§10).
+
+### 16.3 Gathering trigger, final boss, FINALE
+
+- **Gathering (`OriginService.checkGathering`, every 20 ticks):** true when every online player who is not a spectator is alive in The Origin within `origin.gatherRadius` (6) of the altar, and the altar stands. On the transition to true, outside `origin.gatherCooldownSeconds` (30, in memory, reset at boot) since the last start and while the boss has not fallen, the mod tells the players (`firmages.origin.gathering`), increments the count in `OriginSavedData`, posts `OriginEvent.Gathering` (level, altar, players, count) on `NeoForge.EVENT_BUS` and runs the function tag `#firmages:origin/start` as the server at the altar (permission 2). The mod ships the tag empty; the pack adds its functions under `kubejs/data/firmages/tags/function/origin/start.json`.
+- **Final boss:** any `LivingEntity` with the scoreboard tag `firmages:final_boss` (`entity.addTag(...)`) that dies (`LivingDeathEvent`). The first such death sets `won`, grants `finale_won` through ProgressiveStages to every online player (team mode: the first grant covers the team; refused grants retry with `grantStageBypass`; players who log in later receive it), plays the FINALE ceremony, posts `OriginEvent.Victory` (boss level, altar, boss) and runs `#firmages:origin/won`. A second tagged death does nothing. The boss AI, the waves and the phases stay out of the mod.
+- **FINALE ceremony (`CeremonyService.startFinale`):** one FULL `AgeTransitionPayload` with stage `finale_won`, tier -1, at the altar: title "Beyond the Firmament" (`firmages.age.finale_won.title`), Caelum's line `firmages.shrine.voice.finale_won`, sting `minecraft:ui.toast.challenge_complete`, end-rod and totem particles, a white-violet sky, the blessing slot as "Trophies: MekaSuit and Meka-Tool are unlocked", and eight visual lightning bolts around the altar. No reload (finale_won is no Age). The beam is particles only (the beacon beam is drawn by the shrine heart's renderer). `kubejs/server_scripts/stages/on_stage_added.js` stays silent for `finale_won` from firmages-core 0.4.0 on, so there is one title.
+- **KubeJS binding additions:** `FirmAges.originDimension()` (`"firmages:origin"`), `FirmAges.originAltar()` ({x, y, z}), `FirmAges.finalBossTag()` (`"firmages:final_boss"`), `FirmAges.isFinaleWon()`.
+- **Hand-off to the boss script (KubeJS):** listen with `NativeEvents.onEvent('dev.firmages.core.origin.OriginEvent$Gathering', e => ...)` or put a function into `#firmages:origin/start`; spawn the Gateways to Eternity gate and the waves around `FirmAges.originAltar()`; give the final boss `FirmAges.finalBossTag()`; do not grant `finale_won` from the script. After a wipe the Gathering fires again once the players come back after the cooldown, so the script must ignore a start while its own fight runs (or check its own state).
+- **Tests:** G `gatheringAndFinalBoss` (a creative headless player, `/firmages origin tp`, no start at the arrival point, one start at the altar with one event, no second start while gathered, none after breaking up within the cooldown, a function tag at the altar, an untagged zombie changes nothing, the tagged zombie's death wins, grants finale_won and sends exactly one FINALE payload at the altar, a second tagged death and a later Gathering do nothing).

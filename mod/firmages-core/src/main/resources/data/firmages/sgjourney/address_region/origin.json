@@ -1,0 +1,33 @@
+{
+  "name": "solar_system.firmages.origin",
+  "point_of_origin": "sgjourney:floating_islands",
+  "symbols": "sgjourney:galaxy_milky_way",
+  "symbol_prefix": 1,
+  "extragalactic_address": {
+    "symbols": [
+      1,
+      30,
+      9,
+      16,
+      21,
+      33,
+      2
+    ],
+    "randomizable": false
+  },
+  "galactic_addresses": {
+    "sgjourney:milky_way": {
+      "address": {
+        "symbols": [
+          9,
+          16,
+          21,
+          33,
+          2,
+          37
+        ],
+        "randomizable": false
+      }
+    }
+  }
+}

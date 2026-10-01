@@ -106,27 +106,39 @@ public final class DebugPlayerCommands {
             c.getSource().sendSuccess(() -> Component.literal(name + " is already online"), false);
             return 0;
         }
+        spawn(server, c.getSource().getLevel(), name, c.getSource().getPosition());
+        c.getSource().sendSuccess(() -> Component.literal("Debug player " + name + " joined"), true);
+        return 1;
+    }
+
+    /**
+     * A headless test player: a real {@link ServerPlayer} on an in-memory connection, in the player list, with the
+     * offline UUID of {@code name}. Also used by the GameTests (vanilla's mock player always counts as creative).
+     */
+    public static ServerPlayer spawn(MinecraftServer server, ServerLevel level, String name, Vec3 at) {
         GameProfile profile = new GameProfile(UUIDUtil.createOfflinePlayerUUID(name), name);
         CommonListenerCookie cookie = CommonListenerCookie.createInitial(profile, false);
-        ServerLevel level = c.getSource().getLevel();
         ServerPlayer player = new ServerPlayer(server, level, profile, cookie.clientInformation());
         Connection connection = new Connection(PacketFlow.SERVERBOUND);
         EmbeddedChannel channel = new EmbeddedChannel(new Capture(name), connection);
         ChannelAttributes.setConnectionType(connection, ConnectionType.NEOFORGE);
         ChannelAttributes.setPayloadSetup(connection, new NetworkPayloadSetup(new AllProtocols()));
         server.getPlayerList().placeNewPlayer(connection, player, cookie);
-        Vec3 at = c.getSource().getPosition();
         player.teleportTo(level, at.x, at.y, at.z, player.getYRot(), player.getXRot());
         FirmagesCore.LOGGER.info("[debug-player {}] joined as {} at {} (channel open {})", name, profile.getId(), BlockPos.containing(at).toShortString(), channel.isOpen());
-        c.getSource().sendSuccess(() -> Component.literal("Debug player " + name + " joined"), true);
-        return 1;
+        return player;
+    }
+
+    /** Disconnects a player made by {@link #spawn}. */
+    public static void despawn(ServerPlayer p) {
+        PRAYING.remove(p.getGameProfile().getName());
+        p.connection.onDisconnect(new DisconnectionDetails(Component.literal("debug player left")));
     }
 
     private static int leave(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
         check();
         ServerPlayer p = player(c);
-        PRAYING.remove(p.getGameProfile().getName());
-        p.connection.onDisconnect(new DisconnectionDetails(Component.literal("debug player left")));
+        despawn(p);
         c.getSource().sendSuccess(() -> Component.literal("Debug player " + p.getGameProfile().getName() + " left"), true);
         return 1;
     }

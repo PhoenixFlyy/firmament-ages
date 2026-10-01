@@ -19,7 +19,7 @@ global.FA_SIGNATURE_TOOLTIPS = {
   'firmages:ultimate_singularity': 'All nine Ages in one. It goes into the base block of the Stargate.',
   // The dial address of The Origin. firmages-core registers its Space Location with this galactic address of the
   // Milky Way, not randomized (mod/firmages-core/SPEC.md section 14); keep both in step.
-  'firmages:origin_coordinates': 'Dial The Origin: 9, 16, 31, 5, 21, 37, then the point of origin (Milky Way, 7 chevrons).'
+  'firmages:origin_coordinates': 'Dial The Origin: 9, 16, 21, 33, 2, 37, then the point of origin (Milky Way, 7 chevrons).'
 }
 
 StartupEvents.registry('item', event => {

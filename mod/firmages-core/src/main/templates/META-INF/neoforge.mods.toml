@@ -143,6 +143,13 @@ config="${mod_id}.mixins.json"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
+    modId="sgjourney"
+    type="optional"
+    reason="The Origin's space location and return stargate"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.${mod_id}]]
     modId="occultism"
     type="optional"
     reason="Dimensional mineshaft cache flush"

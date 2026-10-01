@@ -3,6 +3,12 @@ package dev.firmages.core.compat.kubejs;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.config.ServerConfig;
+import dev.firmages.core.origin.OriginArena;
+import dev.firmages.core.origin.OriginRegistry;
+import dev.firmages.core.origin.OriginSavedData;
+import dev.firmages.core.origin.OriginService;
+import net.minecraft.server.MinecraftServer;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,5 +47,28 @@ public final class FirmAgesJS {
     /** {@code prospecting.enabled} (m1). True while the server config is not loaded yet (initial load). */
     public static boolean prospectingEnabled() {
         return ServerConfig.prospectingEnabled();
+    }
+
+    // ---- The Origin (SPEC §16.3), for the end-boss script ----
+
+    /** Dimension id of The Origin, {@code firmages:origin}. */
+    public static String originDimension() {
+        return OriginRegistry.ORIGIN_ID.toString();
+    }
+
+    /** The altar of the Gathering, {x, y, z} in The Origin (spawn the waves and the boss around it). */
+    public static int[] originAltar() {
+        return new int[] {OriginArena.ALTAR.getX(), OriginArena.ALTAR.getY(), OriginArena.ALTAR.getZ()};
+    }
+
+    /** Scoreboard tag the boss script adds to the final boss ({@code entity.addTag(FirmAges.finalBossTag())}). */
+    public static String finalBossTag() {
+        return OriginService.FINAL_BOSS_TAG;
+    }
+
+    /** True once the tagged final boss died (also false with no server running). */
+    public static boolean isFinaleWon() {
+        MinecraftServer s = ServerLifecycleHooks.getCurrentServer();
+        return s != null && OriginSavedData.get(s).won();
     }
 }
