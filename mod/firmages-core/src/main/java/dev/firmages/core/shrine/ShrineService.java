@@ -286,12 +286,12 @@ public final class ShrineService {
     }
 
     /** Result of an offering attempt (also used by the GameTests). */
-    public enum OfferResult { ACCEPTED, ACCEPTED_LATE, WRONG_ITEM, OCCUPIED, NOT_SHRINE, LATER_TIER, RUINS, NO_TIER, UNKNOWN_OFFERING }
+    public enum OfferResult { ACCEPTED, ACCEPTED_LATE, WRONG_ITEM, OCCUPIED, NOT_SHRINE, LATER_TIER, RUINS, NO_TIER, UNKNOWN_OFFERING, RELIC_LENT, RETURNED }
 
     /** Right-click on a plinth with an item. */
     public static OfferResult offerAtPlinth(ServerLevel level, BlockPos plinthPos, ItemStack stack, @Nullable ServerPlayer player) {
         OfferResult r = tryOffer(level, plinthPos, stack, player);
-        if (player != null && r != OfferResult.ACCEPTED && r != OfferResult.ACCEPTED_LATE) {
+        if (player != null && r != OfferResult.ACCEPTED && r != OfferResult.ACCEPTED_LATE && r != OfferResult.RETURNED) {
             level.playSound(null, plinthPos, ShrineRegistry.REFUSED.get(), SoundSource.BLOCKS, 0.6F, 1.2F);
         }
         return r;
@@ -299,6 +299,7 @@ public final class ShrineService {
 
     private static OfferResult tryOffer(ServerLevel level, BlockPos plinthPos, ItemStack stack, @Nullable ServerPlayer player) {
         if (!(level.getBlockEntity(plinthPos) instanceof OfferingPlinthBlockEntity pb)) return OfferResult.NOT_SHRINE;
+        if (pb.isLent()) return returnRelic(level, plinthPos, pb, stack, player);
         Optional<Heart> heart = heartNear(level, plinthPos, shrineRadius() + 1);
         if (heart.isEmpty()) {
             tell(player, msg("firmages.shrine.no_heart"));
@@ -335,6 +336,11 @@ public final class ShrineService {
         if (!stack.is(expected.get())) {
             tell(player, msg("firmages.shrine.plinth.wrong", new ItemStack(expected.get()).getHoverName()));
             return OfferResult.WRONG_ITEM;
+        }
+        Optional<ShrineSavedData.Relic> away = lentRelicBlocking(level.getServer(), k);
+        if (away.isPresent()) {
+            tell(player, msg("firmages.shrine.plinth.relic_lent", itemName(away.get().item())));
+            return OfferResult.RELIC_LENT;
         }
         if (!ringsReady(h.be, k)) {
             refuseRuins(level, h, player, k);
@@ -391,6 +397,11 @@ public final class ShrineService {
     /** Empty-hand use on a plinth: sneak takes an offering back; otherwise it says what lies or belongs there. */
     public static void usePlinthEmptyHand(ServerLevel level, BlockPos pos, ServerPlayer player) {
         if (!(level.getBlockEntity(pos) instanceof OfferingPlinthBlockEntity pb)) return;
+        if (pb.isLent()) {
+            Optional<ShrineSavedData.Relic> r = Optional.ofNullable(ShrineSavedData.get(level.getServer()).relics().get(pos.asLong()));
+            tell(player, msg("firmages.shrine.plinth.lent_waiting", r.map(x -> itemName(x.item())).orElse(Component.literal("?"))));
+            return;
+        }
         if (pb.isEmpty()) {
             Optional<Heart> h = heartNear(level, pos, shrineRadius() + 1);
             Optional<Integer> slot = h.flatMap(x -> tierOfPlinth(level, x.pos, x.be, pos, ShrineRules.currentTier(unlocked(level.getServer()))));
@@ -400,6 +411,7 @@ public final class ShrineService {
             return;
         }
         if (pb.isRelic()) {
+            if (player.isShiftKeyDown() && lend(level, pos, player) != null) return;
             tell(player, msg("firmages.shrine.relic_locked", pb.item().getHoverName()));
             return;
         }
@@ -424,6 +436,85 @@ public final class ShrineService {
             ShrineSavedData.get(level.getServer()).removeRelic(pos);
             FirmagesCore.LOGGER.warn("Relic plinth at {} was removed; the relic {} dropped", pos, item);
         }
+    }
+
+    /** A plinth whose relic is lent was removed (creative, commands): its record goes, nothing waits for the relic any more. */
+    public static void onLentPlinthRemoved(ServerLevel level, BlockPos pos) {
+        ShrineSavedData.get(level.getServer()).removeRelic(pos)
+            .ifPresent(r -> FirmagesCore.LOGGER.warn("Plinth at {} was removed while its relic {} was lent; the record is gone", pos, r.item()));
+    }
+
+    // ---------------------------------------------------------------- relic lending (SPEC §7.4)
+
+    /**
+     * The relic of a tier whose lending blocks tier {@code tier} now: tier {@code tier} has a {@code relic_returned}
+     * rite and that relic is lent. Its offering is refused and its prayer not heard until the relic is back.
+     */
+    public static Optional<ShrineSavedData.Relic> lentRelicBlocking(MinecraftServer s, int tier) {
+        ShrineData d = data();
+        for (ShrineSavedData.Relic r : ShrineSavedData.get(s).lentRelics()) {
+            if (d.lendingRite(tier, r.tier()).isPresent()) return Optional.of(r);
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Sneak-use with an empty hand on a relic plinth: the shrine lends the relic when the current tier has a
+     * {@code relic_returned} rite for it (age_8: the Arcane Keystone for the Marid ritual). Ring, intact flag and
+     * blessings stay as they are; the record stays and is marked lent. @return the lent item, or null if refused
+     */
+    @Nullable
+    public static ItemStack lend(ServerLevel level, BlockPos pos, @Nullable ServerPlayer player) {
+        if (!(level.getBlockEntity(pos) instanceof OfferingPlinthBlockEntity pb) || !pb.isRelic()) return null;
+        Optional<Integer> current = ShrineRules.currentTier(unlocked(level.getServer()));
+        if (current.isEmpty() || data().lendingRite(current.get(), pb.tier()).isEmpty()) return null;
+        Optional<Heart> h = heartNear(level, pos, shrineRadius() + 1);
+        if (h.isEmpty()) return null;
+        if (h.get().be.awakening(level.getGameTime())) {
+            tell(player, msg("firmages.shrine.awakening"));
+            return ItemStack.EMPTY;
+        }
+        ShrineSavedData sd = ShrineSavedData.get(level.getServer());
+        ShrineSavedData.Relic rec = sd.relics().get(pos.asLong());
+        ItemStack out = pb.lend();
+        String id = BuiltInRegistries.ITEM.getKey(out.getItem()).toString();
+        sd.putRelic(new ShrineSavedData.Relic(pos.immutable(), pb.tier(), rec != null ? rec.item() : id, true));
+        if (player != null && !player.getInventory().add(out.copy())) player.drop(out.copy(), false);
+        level.playSound(null, pos, ShrineRegistry.ACCEPTED.get(), SoundSource.BLOCKS, 0.8F, 0.6F);
+        level.sendParticles(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 25, 0.3, 0.4, 0.3, 0.02);
+        Set<String> back = data().returnItems(pb.tier());
+        Component also = back.isEmpty() ? out.getHoverName() : itemName(back.iterator().next());
+        tell(player, msg("firmages.shrine.relic_lent", out.getHoverName(), also).withStyle(ChatFormatting.GOLD));
+        FirmagesCore.LOGGER.info("Shrine lent the relic {} of tier {} at {} to {}", id, pb.tier(), pos, player == null ? "test" : player.getGameProfile().getName());
+        return out;
+    }
+
+    /** Use on a lent plinth with an item: the relic itself or one of the rite's {@code items} (the Awakened Keystone) is enshrined again. */
+    private static OfferResult returnRelic(ServerLevel level, BlockPos pos, OfferingPlinthBlockEntity pb, ItemStack stack, @Nullable ServerPlayer player) {
+        ShrineSavedData sd = ShrineSavedData.get(level.getServer());
+        ShrineSavedData.Relic rec = sd.relics().get(pos.asLong());
+        String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        Set<String> ok = new java.util.LinkedHashSet<>(data().returnItems(pb.tier()));
+        if (rec != null) ok.add(rec.item());
+        if (!ok.contains(id)) {
+            tell(player, msg("firmages.shrine.plinth.lent_waiting", rec != null ? itemName(rec.item()) : Component.literal("?")));
+            return OfferResult.WRONG_ITEM;
+        }
+        ItemStack one = stack.split(1);
+        pb.returnRelic(one);
+        sd.putRelic(new ShrineSavedData.Relic(pos.immutable(), pb.tier(), id, false));
+        level.playSound(null, pos, ShrineRegistry.KINDLED.get(), SoundSource.BLOCKS, 1.0F, 1.2F);
+        level.sendParticles(ParticleTypes.END_ROD, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 30, 0.3, 0.5, 0.3, 0.03);
+        tell(player, msg("firmages.shrine.relic_returned", one.getHoverName()).withStyle(ChatFormatting.GOLD));
+        FirmagesCore.LOGGER.info("Relic of tier {} returned to {} as {}", pb.tier(), pos, id);
+        heartNear(level, pos, shrineRadius() + 1).ifPresent(h -> h.be.invalidate());
+        return OfferResult.RETURNED;
+    }
+
+    static Component itemName(String id) {
+        ResourceLocation rl = ResourceLocation.tryParse(id);
+        Optional<Item> item = rl == null ? Optional.empty() : BuiltInRegistries.ITEM.getOptional(rl);
+        return item.filter(i -> i != net.minecraft.world.item.Items.AIR).map(i -> new ItemStack(i).getHoverName()).orElse(Component.literal(id));
     }
 
     /** {@code /firmages shrine extract}: takes a relic or offering off a plinth. */
@@ -479,10 +570,42 @@ public final class ShrineService {
         List<Component> out = new ArrayList<>();
         for (ShrineTier.Rite rite : t.rites()) {
             if (!rite.type().supported() || (skipChorus && rite.type() == ShrineTier.Rite.Type.PLAYERS_PRAYING) || riteDone(level, h, t, rite)) continue;
-            out.add(rite.hint().isEmpty() ? msg("firmages.shrine.rite." + rite.type().name().toLowerCase(java.util.Locale.ROOT), rite.min())
-                : msg(rite.hint(), rite.min()));
+            Object arg = switch (rite.type()) {
+                case ENERGY -> String.format(java.util.Locale.ROOT, "%,d", rite.amount());
+                case RELIC_RETURNED -> ShrineSavedData.get(level.getServer()).relicForTier(rite.relicTier()).map(r -> itemName(r.item()))
+                    .orElse(Component.literal("?"));
+                default -> rite.min();
+            };
+            Object arg2 = rite.type() == ShrineTier.Rite.Type.ENERGY
+                ? String.format(java.util.Locale.ROOT, "%,d", storedEnergy(level, ringPositions(level, h, t, rite.key()))) : "";
+            out.add(rite.hint().isEmpty() ? msg("firmages.shrine.rite." + rite.type().name().toLowerCase(java.util.Locale.ROOT), arg, arg2)
+                : msg(rite.hint(), arg, arg2));
         }
         return out;
+    }
+
+    /** Ring positions of pattern key {@code key} of tier {@code t} (empty while the ring is not validated). */
+    static List<BlockPos> ringPositions(ServerLevel level, Heart h, ShrineTier t, char key) {
+        if (t.multiblock().isEmpty()) return List.of();
+        Rotation r = t.tier() < h.be.ringRotations.length ? h.be.ringRotations[t.tier()] : null;
+        if (r == null) return List.of();
+        return ShrineMultiblocks.positions(level, h.pos, ResourceLocation.parse(t.multiblock().get()), r, key);
+    }
+
+    /**
+     * FE stored in the blocks at {@code positions} together (the {@code energy} rite): NeoForge's block energy
+     * capability, asked without a side first, then per side (machines that expose storage only on some sides).
+     */
+    public static long storedEnergy(ServerLevel level, List<BlockPos> positions) {
+        long sum = 0;
+        for (BlockPos p : positions) {
+            net.neoforged.neoforge.energy.IEnergyStorage e = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, p, null);
+            for (int i = 0; e == null && i < net.minecraft.core.Direction.values().length; i++) {
+                e = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, p, net.minecraft.core.Direction.values()[i]);
+            }
+            if (e != null) sum += Math.max(0, e.getEnergyStored());
+        }
+        return sum;
     }
 
     private static boolean riteDone(ServerLevel level, Heart h, ShrineTier t, ShrineTier.Rite rite) {
@@ -501,7 +624,8 @@ public final class ShrineService {
             case INTERACT -> h.be.interacted.contains(rite.tag());
             case SKY -> level.isNight() && level.canSeeSky(h.pos.above()) && !level.isRaining();
             case PLAYERS_PRAYING -> level.getServer().getPlayerCount() < rite.min() || h.be.prayers.size() >= rite.min();
-            default -> true;
+            case ENERGY -> t.multiblock().isEmpty() || storedEnergy(level, ringPositions(level, h, t, rite.key())) >= rite.amount();
+            case RELIC_RETURNED -> ShrineSavedData.get(level.getServer()).lentRelics().stream().noneMatch(r -> r.tier() == rite.relicTier());
         };
     }
 
@@ -829,6 +953,7 @@ public final class ShrineService {
         heart.ifPresent(x -> validate(x.level, x.pos, x.be));
         out.add(Component.literal("Heart " + gp.pos().toShortString() + " in " + gp.dimension().location() + "; intact " + sd.intact()
             + ", valid ring " + sd.lastValidRing() + ", awakened " + ShrineRules.awakened(unlocked) + ", relics " + sd.relics().size()
+            + (sd.lentRelics().isEmpty() ? "" : ", lent " + sd.lentRelics().stream().map(r -> r.item() + " (tier " + r.tier() + ")").toList())
             + ", shrine grants " + sd.grantedStages()));
         if (heart.isEmpty()) {
             out.add(Component.literal("Heart chunk not loaded; last validation at game time " + sd.lastValidated()));
@@ -862,7 +987,8 @@ public final class ShrineService {
         out.add(Component.literal("Phase " + phase(h) + "; rites not done " + rites + "; prayer " + h.be.prayerProgress + "/"
             + ShrineRules.prayerTarget(prayerTicks(t), minPrayerTicks(), Math.max(1, h.be.prayers.size())) + " with " + h.be.prayers.size()
             + " praying" + (h.be.awakening(now) ? "; awakening for " + (h.be.awakeningUntil - now) + " ticks" : "")));
-        out.add(Component.literal("Sanctuary radius " + Blessings.sanctuaryRadius(s) + " (active: " + Blessings.sanctuaryActive(s) + ")"));
+        out.add(Component.literal("Sanctuary radius " + Blessings.sanctuaryRadius(s) + " (active: " + Blessings.sanctuaryActive(s) + "); blessings "
+            + Blessings.activeBlessings(s).stream().map(Blessing::id).toList() + (Blessings.everywhere() ? " everywhere" : " within that radius")));
         return out;
     }
 

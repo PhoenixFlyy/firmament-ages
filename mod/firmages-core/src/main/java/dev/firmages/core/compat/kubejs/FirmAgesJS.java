@@ -61,6 +61,14 @@ public final class FirmAgesJS {
         return new int[] {OriginArena.ALTAR.getX(), OriginArena.ALTAR.getY(), OriginArena.ALTAR.getZ()};
     }
 
+    /**
+     * The Gateways to Eternity gate the boss script opens at the Gathering ({@code origin.finaleGateway}, default
+     * {@code firmages:the_origin}); the script summons the final boss only when exactly this gate completes in The Origin.
+     */
+    public static String finaleGateway() {
+        return ServerConfig.finaleGateway();
+    }
+
     /** Scoreboard tag the boss script adds to the final boss ({@code entity.addTag(FirmAges.finalBossTag())}). */
     public static String finalBossTag() {
         return OriginService.FINAL_BOSS_TAG;

@@ -98,7 +98,8 @@ class ShrineRingFilesTest {
             if (tier.has("rites")) {
                 for (JsonElement r : tier.getAsJsonArray("rites")) {
                     JsonObject rite = r.getAsJsonObject();
-                    if (rite.get("type").getAsString().equals("blockstate")) {
+                    String type = rite.get("type").getAsString();
+                    if (type.equals("blockstate") || type.equals("energy")) {
                         assertTrue(used.contains(rite.get("key").getAsString().charAt(0)), where + ": rite key " + rite.get("key"));
                     }
                 }

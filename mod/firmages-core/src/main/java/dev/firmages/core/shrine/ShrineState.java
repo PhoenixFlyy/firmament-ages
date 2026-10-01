@@ -21,7 +21,7 @@ public final class ShrineState {
         return current;
     }
 
-    static void set(ResourceKey<Level> dimension, BlockPos heart, boolean intact, int awakened) {
+    public static void set(ResourceKey<Level> dimension, BlockPos heart, boolean intact, int awakened) {
         current = new Snapshot(dimension, heart.immutable(), intact, awakened);
     }
 

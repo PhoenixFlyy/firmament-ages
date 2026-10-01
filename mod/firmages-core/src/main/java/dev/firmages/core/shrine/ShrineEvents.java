@@ -34,6 +34,8 @@ public final class ShrineEvents {
         bus.addListener(ShrineEvents::onLogin);
         bus.addListener(ShrineEvents::onStageChange);
         bus.addListener(Blessings::onSpawnCheck);
+        bus.addListener(Blessings::onPickupXp);
+        bus.addListener(Blessings::onLogout);
         bus.addListener(ShrineEvents::onServerTick);
         bus.addListener(ShrineEvents::onServerStarted);
         bus.addListener(ShrineEvents::onServerStopped);
@@ -86,6 +88,7 @@ public final class ShrineEvents {
 
     private static void onServerTick(ServerTickEvent.Post event) {
         CeremonyService.tick(event.getServer());
+        Blessings.tick(event.getServer());
     }
 
     private static void onServerStarted(ServerStartedEvent event) {
@@ -98,5 +101,6 @@ public final class ShrineEvents {
     private static void onServerStopped(ServerStoppedEvent event) {
         ShrineState.clear();
         CeremonyService.onServerStopped();
+        Blessings.clear();
     }
 }

@@ -9,6 +9,12 @@
       "property": "active",
       "value": "true",
       "hint": "firmages.shrine.rite.floodlights"
+    },
+    {
+      "type": "energy",
+      "key": "V",
+      "amount": 1000000,
+      "hint": "firmages.shrine.rite.capacitors"
     }
   ],
   "response": {

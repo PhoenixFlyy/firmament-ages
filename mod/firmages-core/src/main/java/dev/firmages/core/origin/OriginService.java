@@ -157,9 +157,18 @@ public final class OriginService {
 
     // ---- the final boss --------------------------------------------------------------------------------------
 
+    /**
+     * A tagged boss counts only when it dies in The Origin: a tagged entity that a player lures through a portal,
+     * a copy summoned elsewhere, or a tag added by hand in another dimension wins nothing.
+     */
     private static void onLivingDeath(LivingDeathEvent event) {
         LivingEntity e = event.getEntity();
         if (e.level().isClientSide || !e.getTags().contains(FINAL_BOSS_TAG)) return;
+        if (e.level().dimension() != OriginRegistry.ORIGIN) {
+            FirmagesCore.LOGGER.warn("The Origin: a {} died in {} at {}, not in The Origin; it does not count", FINAL_BOSS_TAG,
+                e.level().dimension().location(), e.blockPosition());
+            return;
+        }
         if (e.getServer() != null) bossDefeated(e.getServer(), e);
     }
 

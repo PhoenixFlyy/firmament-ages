@@ -20,7 +20,6 @@
 // fell in 4 min 46 s of uninterrupted hitting, so about 7 minutes with the dodging, teleports and helpers of a fight.
 
 const FA_FINALE = {
-  gate: 'firmages:the_origin', // the gateway of this fight (kubejs/data/firmages/gateways/the_origin.json)
   boss: 'cataclysm:ender_guardian',
   health: 1024, // the vanilla cap of generic.max_health
   armor: 20, // the Ender Guardian's own armour
@@ -38,6 +37,12 @@ function faDimId(level) {
   } catch (e) {
     return String(level.dimension)
   }
+}
+
+// The gateway of this fight (kubejs/data/firmages/gateways/the_origin.json) comes from firmages-core's server config
+// origin.finaleGateway (default firmages:the_origin), read at each use, so mod config and script mean the same gate.
+function faFinaleGate() {
+  return String(FirmAges.finaleGateway())
 }
 
 // A script error inside a NeoForge event would crash the server tick (an entity tick fires GateEvent): log it instead.
@@ -74,7 +79,7 @@ function faIsBoss(entity) {
 function faFightRunning(level) {
   for (const e of level.getAllEntities()) {
     if (!e.isAlive()) continue
-    if (String(e.getEncodeId()).startsWith('gateways:') && faGateId(e) == FA_FINALE.gate) return true
+    if (String(e.getEncodeId()).startsWith('gateways:') && faGateId(e) == faFinaleGate()) return true
     if (faIsBoss(e)) return true
   }
   return false
@@ -109,15 +114,21 @@ NativeEvents.onEvent(Java.loadClass('dev.firmages.core.origin.OriginEvent$Gather
   const server = level.getServer()
   if (!faInOrigin(level) || FirmAges.isFinaleWon() || faFightRunning(level)) return
   const a = event.getAltar()
-  faRun(server, `open_gateway ${a.getX() + 0.5} ${a.getY() + 3} ${a.getZ() + 0.5} ${FA_FINALE.gate}`)
+  faRun(server, `open_gateway ${a.getX() + 0.5} ${a.getY() + 3} ${a.getZ() + 0.5} ${faFinaleGate()}`)
   faTell(server, 'The Firmament answers. Something stirs beyond the gate.', 'dark_purple')
-  console.info(`[finale] Gathering ${event.getCount()}: gate ${FA_FINALE.gate} opened at the altar`)
+  console.info(`[finale] Gathering ${event.getCount()}: gate ${faFinaleGate()} opened at the altar`)
 }))
 
 NativeEvents.onEvent(Java.loadClass('dev.shadowsoffire.gateways.event.GateEvent$Completed'), faGuard('gate completed', (event) => {
   const gate = event.getEntity()
   const level = gate.getCommandSenderWorld()
-  if (!faInOrigin(level) || faGateId(gate) != FA_FINALE.gate || FirmAges.isFinaleWon()) return
+  // Only the finale gate in The Origin summons the boss; any other gate completed there (or this one elsewhere) does not.
+  if (!faInOrigin(level) || FirmAges.isFinaleWon()) return
+  const gateId = faGateId(gate)
+  if (gateId != faFinaleGate()) {
+    console.info(`[finale] gate ${gateId} completed in The Origin; not the finale gate ${faFinaleGate()}, no boss`)
+    return
+  }
   const server = level.getServer()
   const a = faAltar()
   const nbt = `{Tags:["${FirmAges.finalBossTag()}"],PersistenceRequired:1b,CustomNameVisible:1b,` +
@@ -126,7 +137,7 @@ NativeEvents.onEvent(Java.loadClass('dev.shadowsoffire.gateways.event.GateEvent$
     `{id:"minecraft:generic.armor_toughness",base:${FA_FINALE.toughness}d},{id:"minecraft:generic.knockback_resistance",base:1.0d}]}`
   faRun(server, `summon ${FA_FINALE.boss} ${a.x + 0.5} ${a.y + 2} ${a.z + 8.5} ${nbt}`)
   faTitle(server, FA_FINALE.name, 'The first of all things wakes')
-  console.info(`[finale] gate ${FA_FINALE.gate} completed: ${FA_FINALE.name} (${FA_FINALE.boss}) summoned`)
+  console.info(`[finale] gate ${faFinaleGate()} completed: ${FA_FINALE.name} (${FA_FINALE.boss}) summoned`)
 }))
 
 // KubeJS 2101.7 EntityEvents.afterHurt did not fire on the test server (not even for a zombie), so the phases listen to

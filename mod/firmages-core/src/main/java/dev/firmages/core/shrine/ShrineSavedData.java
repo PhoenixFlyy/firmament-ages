@@ -29,8 +29,17 @@ import java.util.TreeMap;
 public final class ShrineSavedData extends SavedData {
     public static final String DATA_NAME = "firmages_shrine";
 
-    /** One enshrined relic. */
-    public record Relic(BlockPos plinth, int tier, String item) {}
+    /**
+     * One enshrined relic.
+     *
+     * @param item the relic's item id (after a return: what came back, e.g. the Awakened Keystone)
+     * @param lent true while the shrine has lent it out (SPEC §7.4); the record stays, so ring and blessings stay valid
+     */
+    public record Relic(BlockPos plinth, int tier, String item, boolean lent) {
+        public Relic(BlockPos plinth, int tier, String item) {
+            this(plinth, tier, item, false);
+        }
+    }
 
     @Nullable private GlobalPos heart;
     private boolean intact;
@@ -95,6 +104,11 @@ public final class ShrineSavedData extends SavedData {
         return relics.values().stream().filter(r -> r.tier() == tier).findFirst();
     }
 
+    /** Relics the shrine has lent out now. */
+    public java.util.List<Relic> lentRelics() {
+        return relics.values().stream().filter(Relic::lent).toList();
+    }
+
     public Set<String> grantedStages() {
         return Set.copyOf(grantedStages);
     }
@@ -120,7 +134,7 @@ public final class ShrineSavedData extends SavedData {
         for (int i = 0; i < rl.size(); i++) {
             CompoundTag r = rl.getCompound(i);
             BlockPos p = BlockPos.of(r.getLong("pos"));
-            d.relics.put(p.asLong(), new Relic(p, r.getInt("tier"), r.getString("item")));
+            d.relics.put(p.asLong(), new Relic(p, r.getInt("tier"), r.getString("item"), r.getBoolean("lent")));
         }
         ListTag gl = tag.getList("granted", Tag.TAG_STRING);
         for (int i = 0; i < gl.size(); i++) d.grantedStages.add(gl.getString(i));
@@ -142,6 +156,7 @@ public final class ShrineSavedData extends SavedData {
             c.putLong("pos", r.plinth().asLong());
             c.putInt("tier", r.tier());
             c.putString("item", r.item());
+            if (r.lent()) c.putBoolean("lent", true);
             rl.add(c);
         }
         tag.put("relics", rl);

@@ -11,6 +11,14 @@
     {
       "type": "sky",
       "hint": "firmages.shrine.rite.stars"
+    },
+    {
+      "type": "relic_returned",
+      "relic": 3,
+      "items": [
+        "firmages:awakened_keystone"
+      ],
+      "hint": "firmages.shrine.rite.keystone"
     }
   ],
   "response": {

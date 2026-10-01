@@ -42,22 +42,29 @@ public record ShrineTier(int tier, Optional<String> multiblock, char plinthKey, 
     /**
      * A rite: one small Age-flavoured act that must be done before the prayer is heard.
      *
-     * @param hint lang key of the message that tells the players what to do (empty = a generic text)
+     * @param amount    {@code energy}: FE the ring positions with {@code key} must hold together
+     * @param relicTier {@code relic_returned}: the tier whose relic the shrine lends during this tier (-1 otherwise)
+     * @param items     {@code relic_returned}: item ids accepted back besides the lent relic itself (the Awakened Keystone)
+     * @param hint      lang key of the message that tells the players what to do (empty = a generic text)
      */
-    public record Rite(Type type, char key, String property, String value, String tag, long amount, int min, String hint) {
+    public record Rite(Type type, char key, String property, String value, String tag, long amount, int min, int relicTier,
+                       List<String> items, String hint) {
         public enum Type {
             /** All ring positions with {@code key} have blockstate property {@code property} = {@code value}. */
             BLOCKSTATE(true),
             /** A player used a block of block tag {@code tag} inside the shrine since the last awakening. */
             INTERACT(true),
-            /** The heart holds {@code amount} FE. Not implemented yet (no energy buffer in the MVP). */
-            ENERGY(false),
+            /** The ring blocks with pattern key {@code key} (capacitors) hold {@code amount} FE together (NeoForge energy capability). */
+            ENERGY(true),
             /** Night, the heart sees the sky, no rain. */
             SKY(true),
             /** At least {@code min} players pray at once (only when that many players are online). */
             PLAYERS_PRAYING(true),
-            /** The lent Keystone is back. Not implemented yet (Keystone lending is M6). */
-            RELIC_RETURNED(false);
+            /**
+             * The relic of tier {@code relicTier} is not lent: while this tier is worked the shrine lends that relic
+             * (the Arcane Keystone for the Marid ritual, SPEC §7.4) and wants it, or one of {@code items}, back.
+             */
+            RELIC_RETURNED(true);
 
             private final boolean supported;
 
