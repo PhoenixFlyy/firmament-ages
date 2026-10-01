@@ -7,17 +7,26 @@ Reads, read-only, from the firmages-core data folder:
   tags/block/shrine/<tag>.json                 what each tag letter means in materials
   ../../assets/firmages/lang/en_us.json        Age names, multiblock names, blessing and rite text (optional)
 
+  firmages_shrine/consecration.json            ring matcher -> consecrated role (SPEC §17)
+
 Writes to <this folder>/out/:
-  ring_N.png               isometric voxel view of ring N alone
-  shrine_after_age_N.png   isometric view of the cumulative shrine (rings 0..N)
-  plan_after_age_N.png     top-down plan, one panel per layer, for builders
-  overview_all_rings.png   the cumulative shrine at every tier, 3 x 3 panels, shared legend
-and <this folder>/shrine_data.json (voxel data for viewer.html).
+  ring_N.png                         isometric voxel view of ring N alone, as built (the build recipe)
+  shrine_after_age_N.png             isometric view of the cumulative shrine (rings 0..N), consecrated look
+  plan_after_age_N.png               top-down build plan in Age materials, one panel per layer
+  plan_after_age_N_consecrated.png   the same plan in consecrated roles, cell borders in the Age accents
+  shrine_cutout_age_N.png            final shrine alone on a transparent background (dev/cf/make_logo.py input)
+  overview_all_rings.png             the cumulative shrine at every tier, 3 x 3 panels, shared legend
+and <this folder>/shrine_data.json (voxel data, roles and accents for viewer.html).
+
+Consecrated look: once Caelum accepts a ring, its blocks become one pale sky-marble family (one base tone per role:
+stone, brick, pillar, metal, glass, trim, scaffold, lamp) and the ring's Age keeps its beam colour as a thin accent on
+the block edges. Heart and plinths are unchanged. --as-built draws the cumulative renders in the Age materials.
 
 Usage:
   python render_shrine.py                       render PNGs + shrine_data.json
   python render_shrine.py --build-html          ... and inline the JSON into viewer.html
   python render_shrine.py --no-png --build-html only JSON + HTML (fast)
+  python render_shrine.py --as-built            cumulative renders and overview in Age materials
   python render_shrine.py --data-root <path>    other data/firmages folder
 
 Only matplotlib and numpy are required (Python 3.13).
@@ -44,7 +53,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.colors import to_rgb  # noqa: E402
+from matplotlib.colors import to_hex, to_rgb  # noqa: E402
 from matplotlib.patches import Patch, Rectangle  # noqa: E402
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection  # noqa: E402
 
@@ -101,6 +110,29 @@ COLOR_HINTS = [
 FALLBACK_PALETTE = ["#8e6bbf", "#4f9d8c", "#c76b6b", "#5b8fd6", "#b58d3c", "#6fa84f", "#c35fa0", "#5fb3c3"]
 GROUND_COLORS = ("#6f8a4c", "#66814a")
 
+# Consecrated look (SPEC §17, dev/textures-notes.md): when Caelum accepts a ring every ring block becomes
+# firmages:consecrated_<role>, one pale sky-marble family (gen_textures PAL["marble"], gold veins PAL["vein"]) with
+# the ring's beam colour as a thin accent overlay. Heart and plinths keep their own look. Roles come from
+# firmages_shrine/consecration.json; the per-role value differences below mirror the textures (brick darker mortar,
+# pillar/trim/metal with gold fillets, glass translucent, scaffold see-through, lamp lit and warm).
+ROLE_ORDER = ["stone", "brick", "pillar", "metal", "glass", "trim", "scaffold", "lamp"]
+ROLE_STYLE: dict[str, dict] = {
+    "stone":    {"name": "Consecrated stone",    "color": "#d9d6e3", "alpha": 1.0,  "glow": False},
+    "brick":    {"name": "Consecrated brick",    "color": "#c7c3d3", "alpha": 1.0,  "glow": False},
+    "pillar":   {"name": "Consecrated pillar",   "color": "#ebe5e2", "alpha": 1.0,  "glow": False},  # gold fillets
+    "metal":    {"name": "Consecrated metal",    "color": "#bbb8c8", "alpha": 1.0,  "glow": False},
+    "glass":    {"name": "Consecrated glass",    "color": "#f1f0f9", "alpha": 0.6,  "glow": False},
+    "trim":     {"name": "Consecrated trim",     "color": "#e0d6c8", "alpha": 1.0,  "glow": False},  # gold moulding
+    "scaffold": {"name": "Consecrated scaffold", "color": "#b1aebf", "alpha": 0.85, "glow": False},
+    "lamp":     {"name": "Consecrated lamp",     "color": "#f9edd0", "alpha": 1.0,  "glow": True},
+}
+ROLE_CODE = {"stone": "ST", "brick": "BR", "pillar": "PI", "metal": "ME", "glass": "GL", "trim": "TR",
+             "scaffold": "SC", "lamp": "LA"}
+MARBLE_EDGE = "#8e8ba0"          # darkest marble tone, used as the swatch outline
+ACCENT_FACE_TINT = 0.14          # how far a consecrated face leans towards its Age accent
+ACCENT_EDGE_ALPHA = 0.85
+ACCENT_EDGE_WIDTH = 0.75         # block edges in the accent colour (the emissive overlay in game)
+
 # Camera and light for every isometric panel (orthographic). Light comes from the upper left of the camera.
 VIEW_ELEV, VIEW_AZIM = 28.0, -50.0
 LIGHT_AZDEG, LIGHT_ALTDEG = 200.0, 48.0
@@ -150,6 +182,60 @@ class Ring:
     blocks: list[tuple[int, int, int, str]]  # (x east, y up, z south, material key), heart at origin
     size: tuple[int, int, int]  # (width x, height y, depth z)
     notes: list[str] = field(default_factory=list)
+    roles: dict[str, str | None] = field(default_factory=dict)  # material key -> consecrated role (None: stays as built)
+
+
+@dataclass
+class Look:
+    """How blocks are coloured: as built (Age materials) or consecrated (role marble plus the Age's accent)."""
+    consecrated: bool
+    roles: dict[int, dict[str, str | None]] = field(default_factory=dict)   # ring n -> material key -> role
+    accents: dict[int, str] = field(default_factory=dict)                    # ring n -> beam colour
+    age_names: dict[int, str] = field(default_factory=dict)
+
+    def role_of(self, ring_n: int, key: str) -> str | None:
+        if not self.consecrated:
+            return None
+        return self.roles.get(ring_n, {}).get(key)
+
+    @property
+    def tag(self) -> str:
+        return "consecrated" if self.consecrated else "as built"
+
+
+def load_consecration(data_root: Path, notes: list[str]) -> dict:
+    path = data_root / "firmages_shrine" / "consecration.json"
+    if not path.is_file():
+        notes.append(f"consecration.json missing ({path}); consecrated renders fall back to the Age materials")
+        return {"roles": {}, "patterns": {}}
+    data = load_json(path)
+    bad = [r for r in data.get("roles", {}).values() if r not in ROLE_STYLE]
+    for r in sorted(set(bad)):
+        notes.append(f"consecration.json: unknown role {r!r}")
+    return data
+
+
+def assign_roles(rings: list[Ring], consecration: dict, notes: list[str]) -> None:
+    """Resolve every ring letter to a consecrated role like Consecration.java: pattern override, then the matcher."""
+    roles = consecration.get("roles", {})
+    patterns = consecration.get("patterns", {})
+    for ring in rings:
+        override = patterns.get(ring.mb_id, {})
+        for letter, key in ring.letters.items():
+            if key in (HEART_BLOCK, PLINTH_BLOCK):
+                ring.roles[key] = None
+                continue
+            role = override.get(letter)
+            if role is None:
+                if ":" in key:                      # block id matcher (block-state properties are not part of the key)
+                    role = roles.get(key)
+                else:                               # tag matcher, stored without the "firmages:shrine/" prefix
+                    role = roles.get(f"#firmages:shrine/{key}", roles.get(f"#{key}"))
+            if role is not None and role not in ROLE_STYLE:
+                role = None
+            if role is None:
+                notes.append(f"ring {ring.n}: letter {letter!r} ({key}) has no consecration role, stays Age material")
+            ring.roles[key] = role
 
 
 def humanize(key: str) -> str:
@@ -486,13 +572,45 @@ def face_shade(normal: tuple[int, int, int], light: np.ndarray) -> float:
     return 0.65 + 0.35 * float(np.dot(normal, light))
 
 
+def accent_edge(accent: str) -> tuple[float, float, float]:
+    """Edge colour for an Age accent: pale accents (Industrial, Space) get the textures' dark halo so they read on marble."""
+    r, g, b = rgb(accent)
+    lum = 0.299 * r + 0.587 * g + 0.114 * b
+    return blend(accent, "#4a4668", 0.5) if lum > 0.8 else blend(accent, "#2a2640", 0.12)
+
+
+@dataclass
+class CellStyle:
+    rgb: tuple[float, float, float]
+    alpha: float
+    edge: tuple[float, float, float, float]
+    glow: bool
+    linewidth: float
+
+    @property
+    def occludes(self) -> bool:
+        return self.alpha >= 1.0
+
+
+def cell_style(key: str, ring_n: int, materials: dict[str, Material], look: Look, edge_alpha: float) -> CellStyle:
+    mat = materials[key]
+    role = look.role_of(ring_n, key)
+    if role is None:
+        return CellStyle(to_rgb(mat.color), 1.0, (0.0, 0.0, 0.0, edge_alpha), mat.glow, 0.35)
+    st = ROLE_STYLE[role]
+    accent = look.accents.get(ring_n, "#FFFFFF")
+    return CellStyle(blend(st["color"], accent, ACCENT_FACE_TINT), st["alpha"], (*accent_edge(accent), ACCENT_EDGE_ALPHA),
+                     st["glow"], ACCENT_EDGE_WIDTH)
+
+
 def build_quads(blocks, materials: dict[str, Material], bounds, beam_color: str | None, beam_headroom: int,
-                edge_alpha: float):
+                edge_alpha: float, look: Look):
     """Exposed, camera-facing quads of the ground slab, the blocks and the beam.
 
-    Returns (verts [N,4,3], facecolors [N,4], edgecolors [N,4], nx, ny, nz, heart_ix, heart_iy).
+    Returns (verts [N,4,3], facecolors [N,4], edgecolors [N,4], linewidths [N], nx, ny, nz, heart_ix, heart_iy).
     Axes: X = east, Y = south (north is the near side for azim -50), Z = up. Cell (ix, iy, iz) spans
     [ix, ix+1] x [iy, iy+1] x [iz, iz+1]; the ground slab is Z index 0, blocks start at Z index 1.
+    Blocks are (x, y, z, key) or (x, y, z, key, ring_n); without a ring number the look is always as built.
     """
     minx, maxx, minz, maxz, maxy = bounds
     margin = 1
@@ -504,30 +622,34 @@ def build_quads(blocks, materials: dict[str, Material], bounds, beam_color: str 
     visible = [n for n in CUBE_FACES if np.dot(n, view) > 1e-9]   # back faces can never be seen (ortho camera)
     shade = {n: face_shade(n, light) for n in visible}
 
-    # cell -> (rgb, edge rgba, glow)
-    cells: dict[tuple[int, int, int], tuple[tuple[float, float, float], tuple[float, float, float, float], bool]] = {}
+    cells: dict[tuple[int, int, int], CellStyle] = {}
     for ix in range(nx):
         for iy in range(ny):
-            cells[(ix, iy, 0)] = (to_rgb(GROUND_COLORS[(ix + iy) % 2]), (0.0, 0.0, 0.0, 0.06), False)
-    for x, y, z, key, *_ in blocks:
-        mat = materials[key]
-        cells[(x - minx + margin, z - minz + margin, y + 1)] = (to_rgb(mat.color), (0.0, 0.0, 0.0, edge_alpha), mat.glow)
+            cells[(ix, iy, 0)] = CellStyle(to_rgb(GROUND_COLORS[(ix + iy) % 2]), 1.0, (0.0, 0.0, 0.0, 0.06), False, 0.35)
+    for x, y, z, key, *rest in blocks:
+        ring_n = rest[0] if rest else -1
+        cells[(x - minx + margin, z - minz + margin, y + 1)] = cell_style(key, ring_n, materials, look, edge_alpha)
 
     verts: list[list[tuple[float, float, float]]] = []
     fcs: list[tuple[float, float, float, float]] = []
     ecs: list[tuple[float, float, float, float]] = []
-    for (ix, iy, iz), (col, edge, glow) in cells.items():
+    lws: list[float] = []
+    for (ix, iy, iz), st in cells.items():
+        col = st.rgb
         for n in visible:
-            if (ix + n[0], iy + n[1], iz + n[2]) in cells:
-                continue  # face between two solid cells, never visible
-            if glow:
+            nb = cells.get((ix + n[0], iy + n[1], iz + n[2]))
+            # a face towards a neighbour is only visible when this cell is opaque and the neighbour translucent
+            if nb is not None and (nb.occludes or not st.occludes):
+                continue
+            if st.glow:
                 c = blend(matplotlib.colors.to_hex(col), "#ffffff", 0.45) if n == (0, 0, 1) else col
                 f = 1.0
             else:
                 c, f = col, shade[n]
             verts.append([(ix + dx, iy + dy, iz + dz) for dx, dy, dz in CUBE_FACES[n]])
-            fcs.append((c[0] * f, c[1] * f, c[2] * f, 1.0))
-            ecs.append(edge)
+            fcs.append((c[0] * f, c[1] * f, c[2] * f, st.alpha))
+            ecs.append(st.edge)
+            lws.append(st.linewidth)
 
     heart_ix, heart_iy = -minx + margin + 0.5, -minz + margin + 0.5
     if beam_color:
@@ -547,16 +669,17 @@ def build_quads(blocks, materials: dict[str, Material], bounds, beam_color: str 
                     verts.append([(xs[i], ys[i], a), (xs[i + 1], ys[i + 1], a), (xs[i + 1], ys[i + 1], b), (xs[i], ys[i], b)])
                     fcs.append(rgba)
                     ecs.append(rgba)  # edge in the face colour hides anti-aliasing seams between segments
+                    lws.append(0.35)
     return (np.asarray(verts, dtype=float), np.asarray(fcs, dtype=float), np.asarray(ecs, dtype=float),
-            nx, ny, nz, heart_ix, heart_iy)
+            np.asarray(lws, dtype=float), nx, ny, nz, heart_ix, heart_iy)
 
 
-def draw_voxels(ax, blocks, materials: dict[str, Material], bounds, beam_color: str | None,
+def draw_voxels(ax, blocks, materials: dict[str, Material], bounds, beam_color: str | None, look: Look,
                 beam_headroom: int = 4, zoom: float = 1.0, edge_alpha: float = 0.22, north_label: bool = True) -> int:
     """Draw blocks (x east, y up, z south) on a ground slab with the beam above the heart. Returns the quad count."""
-    verts, fcs, ecs, nx, ny, nz, heart_ix, heart_iy = build_quads(blocks, materials, bounds, beam_color,
-                                                                 beam_headroom, edge_alpha)
-    coll = Poly3DCollection(verts, facecolors=fcs, edgecolors=ecs, linewidths=0.35, zsort="average")
+    verts, fcs, ecs, lws, nx, ny, nz, heart_ix, heart_iy = build_quads(blocks, materials, bounds, beam_color,
+                                                                      beam_headroom, edge_alpha, look)
+    coll = Poly3DCollection(verts, facecolors=fcs, edgecolors=ecs, linewidths=lws, zsort="average")
     ax.add_collection3d(coll)
     if north_label:
         # compass letters painted on the ground slab's margin row (north is the near side)
@@ -591,6 +714,42 @@ def legend_handles(materials: dict[str, Material], keys: list[str], counts: dict
     return handles
 
 
+def consecrated_legend(blocks, materials: dict[str, Material], look: Look, counts: bool = True):
+    """Legend for the consecrated look: unchanged blocks (heart, plinth, roleless), the roles, then one accent per Age."""
+    other: dict[str, int] = {}
+    per_role: dict[str, int] = {}
+    per_ring: dict[int, int] = {}
+    for x, y, z, key, *rest in blocks:
+        ring_n = rest[0] if rest else -1
+        role = look.role_of(ring_n, key)
+        if role is None:
+            other[key] = other.get(key, 0) + 1
+        else:
+            per_role[role] = per_role.get(role, 0) + 1
+            per_ring[ring_n] = per_ring.get(ring_n, 0) + 1
+
+    def cnt(n: int) -> str:
+        return f"  ({n})" if counts else ""
+
+    handles = []
+    for key in sorted(other, key=lambda k: materials[k].index):
+        mat = materials[key]
+        handles.append(Patch(facecolor=mat.color, edgecolor="#333333", linewidth=0.6,
+                             label=f"{mat.plan_letter:<2}  {mat.name}{cnt(other[key])}"))
+    for role in ROLE_ORDER:
+        if role not in per_role:
+            continue
+        st = ROLE_STYLE[role]
+        handles.append(Patch(facecolor=(*to_rgb(st["color"]), st["alpha"]), edgecolor=MARBLE_EDGE, linewidth=0.8,
+                             label=f"{ROLE_CODE[role]:<2}  {st['name']}{cnt(per_role[role])}"))
+    for ring_n in sorted(per_ring):
+        accent = look.accents.get(ring_n, "#FFFFFF")
+        age = look.age_names.get(ring_n, f"Age {ring_n}")
+        handles.append(Patch(facecolor=accent, edgecolor=to_hex(accent_edge(accent)), linewidth=1.2,
+                             label=f"Accent of Age {ring_n}: {age}{cnt(per_ring[ring_n])}"))
+    return handles
+
+
 def legend_columns(n_entries: int, max_rows: int) -> int:
     return max(1, math.ceil(n_entries / max_rows))
 
@@ -611,11 +770,17 @@ def footer_lines(ring: Ring, width: int) -> list[str]:
     return lines
 
 
-def render_3d(blocks, materials, ring: Ring, title: str, subtitle: str, out: Path, ring_legend: Ring | None) -> int:
+def render_3d(blocks, materials, ring: Ring, title: str, subtitle: str, out: Path, ring_legend: Ring | None,
+              look: Look) -> int:
     counts: dict[str, int] = {}
     for b in blocks:
         counts[b[3]] = counts.get(b[3], 0) + 1
-    handles = legend_handles(materials, list(counts), counts, ring_legend)
+    if look.consecrated:
+        handles = consecrated_legend(blocks, materials, look)
+        legend_title = "Consecrated roles and Age accents  (code, count)"
+    else:
+        handles = legend_handles(materials, list(counts), counts, ring_legend)
+        legend_title = "Materials  (code, count)"
     # layout in inches: title band, 3D view (left), legend column(s) (right), footer band with wrapped text
     legend_fs, legend_rows = 9.0, 18
     ncol = legend_columns(len(handles), legend_rows)
@@ -630,10 +795,10 @@ def render_3d(blocks, materials, ring: Ring, title: str, subtitle: str, out: Pat
     fig.patch.set_facecolor(blend("#ffffff", ring.sky_tint, 0.08))
     ax = fig.add_axes([0.0, bottom_band / fig_h, view_w / fig_w, 1 - (top_band + bottom_band) / fig_h], projection="3d")
     ax.set_facecolor((0, 0, 0, 0))
-    quads = draw_voxels(ax, blocks, materials, bounds_of(blocks), ring.beam_color, zoom=1.45)
+    quads = draw_voxels(ax, blocks, materials, bounds_of(blocks), ring.beam_color, look, zoom=1.45)
 
     leg = fig.legend(handles=handles, loc="upper left", bbox_to_anchor=(view_w / fig_w, 1 - (top_band + 0.05) / fig_h),
-                     ncol=ncol, frameon=False, fontsize=legend_fs, title="Materials  (code, count)",
+                     ncol=ncol, frameon=False, fontsize=legend_fs, title=legend_title,
                      title_fontsize=legend_fs + 0.5, handlelength=1.5, labelspacing=0.55, columnspacing=1.2,
                      borderaxespad=0.0, alignment="left")
     leg.get_title().set_color("#444444")
@@ -656,7 +821,19 @@ def render_3d(blocks, materials, ring: Ring, title: str, subtitle: str, out: Pat
     return quads
 
 
-def render_plan(blocks, materials: dict[str, Material], ring: Ring, out: Path) -> None:
+def render_cutout(blocks, materials, ring: Ring, out: Path, look: Look) -> int:
+    """The isometric view alone on a transparent background (no title, legend or compass): dev/cf/make_logo.py input."""
+    fig = plt.figure(figsize=(8.0, 6.3), dpi=200)
+    fig.patch.set_alpha(0.0)
+    ax = fig.add_axes([0.0, 0.0, 1.0, 1.0], projection="3d")
+    ax.set_facecolor((0, 0, 0, 0))
+    quads = draw_voxels(ax, blocks, materials, bounds_of(blocks), ring.beam_color, look, zoom=1.45, north_label=False)
+    fig.savefig(out, transparent=True)
+    plt.close(fig)
+    return quads
+
+
+def render_plan(blocks, materials: dict[str, Material], ring: Ring, out: Path, look: Look) -> None:
     minx, maxx, minz, maxz, maxy = bounds_of(blocks)
     layers = maxy + 1
     per_row = 4 if layers > 4 else layers
@@ -668,12 +845,25 @@ def render_plan(blocks, materials: dict[str, Material], ring: Ring, out: Path) -
     for b in blocks:
         by_layer.setdefault(b[1], []).append(b)
         present[b[3]] = present.get(b[3], 0) + 1
+    if look.consecrated:
+        handles = consecrated_legend(blocks, materials, look)
+    else:
+        handles = []
+        for key in sorted(present, key=lambda k: materials[k].index):
+            mat = materials[key]
+            ring_letters = {rl for rn, rl in mat.ring_letters.items() if rn <= ring.n}
+            extra = ""
+            if ring_letters and ring_letters != {mat.plan_letter}:
+                extra = "  (in JSON: " + ", ".join(f"ring {rn}: {rl}" for rn, rl in sorted(mat.ring_letters.items())
+                                                   if rn <= ring.n) + ")"
+            handles.append(Patch(facecolor=mat.color, edgecolor="#333333", linewidth=0.6,
+                                 label=f"{mat.plan_letter:<2}  {mat.name}  x{present[key]}{extra}"))
     # layout in inches: square panels, title band, legend band (up to 4 columns, 9 rows each)
     panel_in = max(3.6, min(5.4, 0.45 * max(w, d) + 1.3))
     gap_in, side_in = 0.55, 0.6
     fig_w = max(10.67, per_row * panel_in + (per_row - 1) * gap_in + 2 * side_in)
-    ncol = min(4, legend_columns(len(present), 9))
-    legend_rows = (len(present) + ncol - 1) // ncol
+    ncol = min(4, legend_columns(len(handles), 9))
+    legend_rows = (len(handles) + ncol - 1) // ncol
     legend_in = 0.22 * legend_rows + 0.3
     title_in, panel_title_in = 1.05, 0.5
     fig_h = title_in + nrows * (panel_in + panel_title_in) + (nrows - 1) * 0.3 + legend_in + 0.35
@@ -697,12 +887,17 @@ def render_plan(blocks, materials: dict[str, Material], ring: Ring, out: Path) -
         # faint heart marker on every layer so builders can line layers up
         ax.add_patch(Rectangle((-0.5, -0.5), 1, 1, facecolor="none", edgecolor=MATERIAL_COLORS[HEART_BLOCK],
                                linewidth=1.2, linestyle=(0, (2, 2)), zorder=1))
-        for x, yy, z, key, *_ in by_layer.get(y, []):
+        for x, yy, z, key, *rest in by_layer.get(y, []):
             mat = materials[key]
-            ax.add_patch(Rectangle((x - 0.5, z - 0.5), 1, 1, facecolor=mat.color, edgecolor="#333333",
-                                   linewidth=0.7, zorder=2))
-            ax.text(x, z, mat.plan_letter, ha="center", va="center", fontsize=fs if len(mat.plan_letter) == 1 else fs - 1,
-                    fontweight="bold", color=text_color_for(mat.color), zorder=3)
+            role = look.role_of(rest[0], key) if rest else None
+            if role is None:
+                face, code, edge, lw = mat.color, mat.plan_letter, "#333333", 0.7
+            else:
+                face, code = ROLE_STYLE[role]["color"], ROLE_CODE[role]
+                edge, lw = to_hex(accent_edge(look.accents.get(rest[0], "#FFFFFF"))), 1.6
+            ax.add_patch(Rectangle((x - 0.5, z - 0.5), 1, 1, facecolor=face, edgecolor=edge, linewidth=lw, zorder=2))
+            ax.text(x, z, code, ha="center", va="center", fontsize=fs if len(code) == 1 else fs - 1,
+                    fontweight="bold", color=text_color_for(face), zorder=3)
         ticks_x = list(range(minx, maxx + 1))
         ticks_z = list(range(minz, maxz + 1))
         step = 1 if max(w, d) <= 13 else 2
@@ -718,26 +913,21 @@ def render_plan(blocks, materials: dict[str, Material], ring: Ring, out: Path) -
         ax.set_title(f"Layer y={y}  ({where})  -  {count} blocks", fontsize=10.5, color="#333333", pad=16)
         ax.text(0.5, 1.004, "N", transform=ax.transAxes, ha="center", va="bottom", fontsize=8, color="#999999")
         ax.text(1.012, 0.5, "E", transform=ax.transAxes, ha="left", va="center", fontsize=8, color="#999999")
-    handles = []
-    for key in sorted(present, key=lambda k: materials[k].index):
-        mat = materials[key]
-        ring_letters = {rl for rn, rl in mat.ring_letters.items() if rn <= ring.n}
-        extra = ""
-        if ring_letters and ring_letters != {mat.plan_letter}:
-            extra = "  (in JSON: " + ", ".join(f"ring {rn}: {rl}" for rn, rl in sorted(mat.ring_letters.items())
-                                               if rn <= ring.n) + ")"
-        handles.append(Patch(facecolor=mat.color, edgecolor="#333333", linewidth=0.6,
-                             label=f"{mat.plan_letter:<2}  {mat.name}  x{present[key]}{extra}"))
     fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, 0.12 / fig_h), ncol=ncol, frameon=False,
                fontsize=9.5, handlelength=1.4, columnspacing=2.0, labelspacing=0.45, alignment="left")
     total = len(blocks)
-    fig.text(0.03, 1 - 0.32 / fig_h, f"Build plan: Firmament Ages Shrine after the {ring.age_name} (rings 0-{ring.n})",
-             fontsize=15, fontweight="bold", ha="left", va="center", color="#222222")
-    fig.text(0.03, 1 - 0.68 / fig_h,
-             f"{w} x {d} footprint, {layers} layer{'s' if layers != 1 else ''}, {total} blocks.  Coordinates are "
-             f"offsets from the Shrine Heart (x east, z south; north is up).  Dashed square = heart column.  "
-             f"Cell codes are the material codes of the legend.",
-             fontsize=10, color="#555555", va="center")
+    if look.consecrated:
+        head = f"Consecrated shrine after the {ring.age_name} (rings 0-{ring.n})"
+        tail = ("Cell codes are the consecrated roles of the legend; the cell border has the accent colour of the "
+                "Age whose ring the block belongs to.")
+    else:
+        head = f"Build plan: Firmament Ages Shrine after the {ring.age_name} (rings 0-{ring.n})"
+        tail = "Cell codes are the material codes of the legend."
+    fig.text(0.03, 1 - 0.32 / fig_h, head, fontsize=15, fontweight="bold", ha="left", va="center", color="#222222")
+    sub = (f"{w} x {d} footprint, {layers} layer{'s' if layers != 1 else ''}, {total} blocks.  Coordinates are "
+           f"offsets from the Shrine Heart (x east, z south; north is up).  Dashed square = heart column.  {tail}")
+    fig.text(0.03, 1 - 0.56 / fig_h, "\n".join(textwrap.wrap(sub, width=int((fig_w - 0.6) / 0.074))),
+             fontsize=10, color="#555555", va="top", linespacing=1.4)
     fig.subplots_adjust(left=side_in / fig_w, right=1 - side_in / fig_w, top=1 - (title_in + panel_title_in) / fig_h,
                         bottom=(legend_in + 0.35) / fig_h, wspace=gap_in / panel_in, hspace=(panel_title_in + 0.3) / panel_in)
     fig.savefig(out, facecolor="#ffffff")
@@ -745,7 +935,7 @@ def render_plan(blocks, materials: dict[str, Material], ring: Ring, out: Path) -
 
 
 def render_overview(rings: list[Ring], cumul: dict[int, list], materials: dict[str, Material], out: Path,
-                    progress=print) -> int:
+                    look: Look, progress=print) -> int:
     """All tiers in a 3-column grid at the same scale, one shared legend below."""
     n = len(rings)
     per_row = min(n, 3)
@@ -754,7 +944,8 @@ def render_overview(rings: list[Ring], cumul: dict[int, list], materials: dict[s
     title_in, panel_title_in = 1.05, 0.62
     all_blocks = cumul[rings[-1].n]
     present = sorted({b[3] for b in all_blocks}, key=lambda k: materials[k].index)
-    handles = legend_handles(materials, present)
+    handles = consecrated_legend(all_blocks, materials, look, counts=False) if look.consecrated \
+        else legend_handles(materials, present)
     fig_w = max(10.67, panel_in * per_row + 0.5)
     ncol = min(4, legend_columns(len(handles), 9))
     legend_rows = (len(handles) + ncol - 1) // ncol
@@ -772,21 +963,28 @@ def render_overview(rings: list[Ring], cumul: dict[int, list], materials: dict[s
         bottom = (legend_in + 0.25 + (nrows - 1 - r) * (panel_h + panel_title_in)) / fig_h
         ax = fig.add_axes([left, bottom, panel_in / fig_w, panel_h / fig_h], projection="3d")
         ax.set_facecolor((0, 0, 0, 0))
-        quads += draw_voxels(ax, blocks, materials, bounds, ring.beam_color, zoom=1.4, edge_alpha=0.18, north_label=False)
+        quads += draw_voxels(ax, blocks, materials, bounds, ring.beam_color, look, zoom=1.4, edge_alpha=0.18,
+                             north_label=False)
         fig.text(left + panel_in / fig_w / 2, bottom + (panel_h + 0.08) / fig_h,
                  f"after the {ring.age_name} (ring {ring.n})", fontsize=11.5, color="#222222", ha="center", va="bottom")
         fig.text(left + panel_in / fig_w / 2, bottom + (panel_h + 0.08) / fig_h - 0.21 / fig_h,
-                 f"+ {ring.display_name}: {len(blocks)} blocks, beam {ring.beam_color}",
+                 f"+ {ring.display_name}: {len(blocks)} blocks, {'accent and ' if look.consecrated else ''}beam {ring.beam_color}",
                  fontsize=9.5, color="#666666", ha="center", va="top")
         progress(f"  overview panel {i + 1}/{n} (ring {ring.n}, {len(blocks)} blocks)")
     fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, 0.12 / fig_h), ncol=ncol,
                frameon=False, fontsize=9.5, handlelength=1.4, columnspacing=1.6, labelspacing=0.45,
-               title="Materials (code)", title_fontsize=10, alignment="left")
+               title="Consecrated roles and Age accents (code)" if look.consecrated else "Materials (code)",
+               title_fontsize=10, alignment="left")
     fig.text(0.03, 1 - 0.34 / fig_h, "Firmament Ages Shrine: growth of the sacred site of Caelum, the Firmament",
              fontsize=15, fontweight="bold", ha="left", va="center", color="#222222")
-    fig.text(0.03, 1 - 0.70 / fig_h, "Cumulative shrine after each Age. All rings share the Shrine Heart; each Age "
-             "adds a larger ring outward. Same scale in every panel; the beam has the ring's beam color.",
-             fontsize=10, color="#555555", va="center")
+    if look.consecrated:
+        sub = ("Consecrated shrine after each Age: Caelum turns every accepted ring into one sky-marble structure, "
+               "the ring's Age keeps its colour as a thin accent. Same scale in every panel; the beam has the newest ring's colour.")
+    else:
+        sub = ("Cumulative shrine after each Age, as built. All rings share the Shrine Heart; each Age "
+               "adds a larger ring outward. Same scale in every panel; the beam has the ring's beam color.")
+    fig.text(0.03, 1 - 0.56 / fig_h, "\n".join(textwrap.wrap(sub, width=int((fig_w - 0.6) / 0.074))),
+             fontsize=10, color="#555555", va="top", linespacing=1.4)
     fig.savefig(out, facecolor="#ffffff")
     plt.close(fig)
     return quads
@@ -796,6 +994,7 @@ def render_overview(rings: list[Ring], cumul: dict[int, list], materials: dict[s
 def export_json(rings: list[Ring], cumul: dict[int, list], materials: dict[str, Material], notes: list[str],
                 data_root: Path, out: Path) -> dict:
     mats = sorted(materials.values(), key=lambda m: m.index)
+    ring_by_n = {r.n: r for r in rings}
     data = {
         "meta": {
             "generated": _dt.datetime.now().isoformat(timespec="seconds"),
@@ -832,6 +1031,21 @@ def export_json(rings: list[Ring], cumul: dict[int, list], materials: dict[str, 
                                    max(b[2] for b in cumul[r.n])]},
             } for r in rings
         ],
+        "consecration": {
+            "about": "After Caelum accepts a ring its blocks become firmages:consecrated_<role> with accent = ring n; "
+                     "the Age materials are replaced by one sky-marble family, the Age keeps its beam colour as a thin accent. "
+                     "Heart and plinth are unchanged (role null).",
+            "roles": [
+                {"key": role, "code": ROLE_CODE[role], "name": ROLE_STYLE[role]["name"], "color": ROLE_STYLE[role]["color"],
+                 "alpha": ROLE_STYLE[role]["alpha"], "glow": ROLE_STYLE[role]["glow"]}
+                for role in ROLE_ORDER
+            ],
+            "ring_roles": {str(r.n): {str(materials[k].index): role for k, role in r.roles.items()} for r in rings},
+            "accents": {str(r.n): r.beam_color for r in rings},
+            "accent_edges": {str(r.n): to_hex(accent_edge(r.beam_color)) for r in rings},
+            "face_tint": ACCENT_FACE_TINT,
+            "positions": sum(1 for (x, y, z, k, rn) in cumul[rings[-1].n] if ring_by_n[rn].roles.get(k)),
+        },
         "notes": notes,
     }
     out.write_text(json.dumps(data, indent=1), encoding="utf-8")
@@ -856,6 +1070,9 @@ def main(argv=None) -> int:
     ap.add_argument("--out", type=Path, default=HERE / "out", help="PNG output folder")
     ap.add_argument("--build-html", action="store_true", help="inline shrine_data.json into viewer.html")
     ap.add_argument("--no-png", action="store_true", help="skip the PNG renders")
+    ap.add_argument("--as-built", action="store_true",
+                    help="draw the cumulative shrine and the overview in the Age materials instead of the consecrated look")
+    ap.add_argument("--no-consecrated-plan", action="store_true", help="skip plan_after_age_N_consecrated.png")
     args = ap.parse_args(argv)
     t_start = time.perf_counter()
 
@@ -881,12 +1098,19 @@ def main(argv=None) -> int:
     if numbers != list(range(numbers[0], numbers[-1] + 1)) or numbers[0] != 0:
         notes.append(f"ring numbers are not contiguous from 0: {numbers}")
     assign_plan_codes(materials)
+    assign_roles(rings, load_consecration(data_root, notes), notes)
     cumul = {r.n: cumulative_blocks(rings, r.n, notes) for r in rings}
     # heart position sanity across rings: every ring must contain the heart at the origin
     for r in rings:
         if not any((x, y, z) == (0, 0, 0) and k == HEART_BLOCK for x, y, z, k in r.blocks):
             notes.append(f"ring {r.n}: no Shrine Heart at the shared heart position")
-    progress(f"parsed {len(rings)} rings, {len(materials)} materials, {len(cumul[rings[-1].n])} blocks in the final shrine")
+    as_built = Look(consecrated=False)
+    consecrated = Look(consecrated=True, roles={r.n: r.roles for r in rings}, accents={r.n: r.beam_color for r in rings},
+                       age_names={r.n: r.age_name for r in rings})
+    main_look = as_built if args.as_built else consecrated
+    positions = sum(1 for (x, y, z, k, rn) in cumul[rings[-1].n] if consecrated.role_of(rn, k))
+    progress(f"parsed {len(rings)} rings, {len(materials)} materials, {len(cumul[rings[-1].n])} blocks in the final "
+             f"shrine, {positions} consecrated positions; cumulative renders {main_look.tag}")
 
     args.out.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
@@ -896,26 +1120,38 @@ def main(argv=None) -> int:
             sub = (f"Built in the {r.age_name}; {r.size[0]} x {r.size[2]} footprint, {r.size[1]} layer"
                    f"{'s' if r.size[1] != 1 else ''}, {len(r.blocks)} blocks. Heart and plinth shown for alignment.")
             p = args.out / f"ring_{r.n}.png"
-            quads = render_3d(r.blocks, materials, r, title, sub, p, ring_legend=r)
+            quads = render_3d(r.blocks, materials, r, title, sub, p, ring_legend=r, look=as_built)
             written.append(p)
             progress(f"wrote {p.name} ({quads} quads)")
 
             blocks = cumul[r.n]
             minx, maxx, minz, maxz, maxy = bounds_of(blocks)
-            title = f"Firmament Ages Shrine, after the {r.age_name} (ring {r.n})"
+            title = f"Firmament Ages Shrine, after the {r.age_name} (ring {r.n}), {main_look.tag}"
             sub = (f"Rings 0-{r.n} stacked; {maxx - minx + 1} x {maxz - minz + 1} footprint, {maxy + 1} layers, "
                    f"{len(blocks)} blocks. Newest ring: {r.display_name}.")
+            if main_look.consecrated:
+                sub += " Every accepted ring is sky-marble; the Age's colour stays as a thin accent."
             p = args.out / f"shrine_after_age_{r.n}.png"
-            quads = render_3d(blocks, materials, r, title, sub, p, ring_legend=None)
+            quads = render_3d(blocks, materials, r, title, sub, p, ring_legend=None, look=main_look)
             written.append(p)
             progress(f"wrote {p.name} ({quads} quads)")
 
             p = args.out / f"plan_after_age_{r.n}.png"
-            render_plan(blocks, materials, r, p)
+            render_plan(blocks, materials, r, p, as_built)
             written.append(p)
             progress(f"wrote {p.name}")
+            if not args.no_consecrated_plan:
+                p = args.out / f"plan_after_age_{r.n}_consecrated.png"
+                render_plan(blocks, materials, r, p, consecrated)
+                written.append(p)
+                progress(f"wrote {p.name}")
+        last = rings[-1]
+        p = args.out / f"shrine_cutout_age_{last.n}.png"
+        quads = render_cutout(cumul[last.n], materials, last, p, main_look)
+        written.append(p)
+        progress(f"wrote {p.name} ({quads} quads, transparent, for dev/cf/make_logo.py)")
         p = args.out / "overview_all_rings.png"
-        quads = render_overview(rings, cumul, materials, p, progress)
+        quads = render_overview(rings, cumul, materials, p, main_look, progress)
         written.append(p)
         progress(f"wrote {p.name} ({quads} quads in {len(rings)} panels)")
 

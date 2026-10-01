@@ -158,7 +158,7 @@
 <div class="wrap">
   <header>
     <h1>Firmament Shrine</h1>
-    <p>The sacred site of Caelum, the Firmament. The team builds a ring around the Shrine Heart in every Age, lays the Age's relic on the Offering Plinth and prays; Caelum answers with a beam and a tinted sky.</p>
+    <p>The sacred site of Caelum, the Firmament. The team builds a ring around the Shrine Heart in every Age, lays the Age's relic on the Offering Plinth and prays; Caelum answers with a beam and a tinted sky, and consecrates the ring: its blocks turn into one sky-marble family, the Age keeps its colour as a thin accent.</p>
   </header>
 
   <div class="row" role="tablist" aria-label="Shrine tier" id="tiers">
@@ -166,6 +166,7 @@
   </div>
   <div class="row" id="options">
     <span class="row-label">View</span>
+    <button class="chip" id="opt-consecrated" aria-pressed="true" title="On: consecrated sky-marble roles with the Age accents. Off: the Age materials as built"><span class="dot"></span>Consecrated</button>
     <button class="chip" id="opt-ring" aria-pressed="false"><span class="dot"></span>Ring only</button>
     <button class="chip" id="opt-rotate" aria-pressed="true"><span class="dot"></span>Auto-rotate</button>
     <button class="chip" id="opt-sky" aria-pressed="true"><span class="dot"></span>Sky tint</button>
@@ -189,7 +190,7 @@
     <section class="card">
       <h2>Materials <span id="block-count" style="text-transform:none;letter-spacing:0"></span></h2>
       <ul class="legend" id="legend"></ul>
-      <p style="margin:10px 0 0;font-size:0.8rem;color:var(--muted)">Click a material to highlight it. Codes are the build-plan codes (unique across all rings); the multiblock JSON letter is shown when it differs.</p>
+      <p style="margin:10px 0 0;font-size:0.8rem;color:var(--muted)" id="legend-help"></p>
     </section>
   </div>
 
@@ -237,7 +238,27 @@
   var materials = DATA.materials;
   var rings = DATA.rings;
   var cumulative = DATA.cumulative;
-  var state = { tier: rings.length - 1, ringOnly: false, rotate: true, sky: true, beam: true, highlight: -1 };
+  // consecrated look (SPEC 17): role -> marble style, ring n -> accent colour, ring n -> material index -> role
+  var cons = DATA.consecration && DATA.consecration.roles && DATA.consecration.roles.length ? DATA.consecration : null;
+  var roleStyle = {};
+  if (cons) cons.roles.forEach(function (r) { roleStyle[r.key] = r; });
+  $('opt-consecrated').style.display = cons ? '' : 'none';
+  // highlight: null, or { kind: 'material' | 'role' | 'ring', value }
+  var state = { tier: rings.length - 1, ringOnly: false, rotate: true, sky: true, beam: true, consecrated: !!cons, highlight: null };
+  function roleOf(mi, ringN) {
+    if (!state.consecrated || !cons) return null;
+    var rr = cons.ring_roles[String(ringN)];
+    return (rr && rr[String(mi)]) || null;
+  }
+  function accentOf(ringN) { return (cons && cons.accents[String(ringN)]) || '#ffffff'; }
+  function accentEdgeOf(ringN) { return (cons && cons.accent_edges && cons.accent_edges[String(ringN)]) || accentOf(ringN); }
+  function matchesHighlight(ud) {
+    var h = state.highlight;
+    if (!h) return true;
+    if (h.kind === 'material') return ud.materialIndex === h.value && !ud.role;
+    if (h.kind === 'role') return ud.role === h.value;
+    return !!ud.role && ud.ring === h.value;
+  }
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) state.rotate = false;
 
@@ -300,12 +321,16 @@
     disposeGroup(ground);
     var blocks = currentBlocks();
     var ring = rings[state.tier];
-    var counts = {}, byMat = {};
+    var counts = {}, roleCounts = {}, ringCounts = {}, otherCounts = {}, groups = {};
     var minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity, maxY = 0;
     blocks.forEach(function (b) {
-      var mi = b[3];
+      var mi = b[3], rn = b.length > 4 ? b[4] : ring.n;
       counts[mi] = (counts[mi] || 0) + 1;
-      (byMat[mi] = byMat[mi] || []).push(b);
+      var role = roleOf(mi, rn);
+      if (role) { roleCounts[role] = (roleCounts[role] || 0) + 1; ringCounts[rn] = (ringCounts[rn] || 0) + 1; }
+      else otherCounts[mi] = (otherCounts[mi] || 0) + 1;
+      var k = role ? 'r:' + role + ':' + rn : 'm:' + mi;
+      (groups[k] = groups[k] || { mi: mi, role: role, ring: rn, list: [] }).list.push(b);
       if (b[0] < minX) minX = b[0]; if (b[0] > maxX) maxX = b[0];
       if (b[2] < minZ) minZ = b[2]; if (b[2] > maxZ) maxZ = b[2];
       if (b[1] > maxY) maxY = b[1];
@@ -314,19 +339,31 @@
     var meshes = [];
     var m4 = new THREE.Matrix4();
 
-    Object.keys(byMat).forEach(function (miStr) {
-      var mi = +miStr, mat = materials[mi], list = byMat[mi];
-      var params = { color: new THREE.Color(mat.color), polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 };
-      var material = new THREE.MeshLambertMaterial(params);
-      if (mat.glow) {
-        material.emissive = new THREE.Color(mat.color);
-        material.emissiveIntensity = 0.95;
-      } else if (isEmissive(mat)) {
-        material.emissive = new THREE.Color(mat.color);
-        material.emissiveIntensity = 0.45;
-      } else if (/plinth/.test(mat.key)) {
-        material.emissive = new THREE.Color(mat.color);
-        material.emissiveIntensity = 0.12;
+    Object.keys(groups).forEach(function (k) {
+      var g = groups[k], mat = materials[g.mi], list = g.list, alpha = 1;
+      var params = { polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 };
+      var material;
+      if (g.role) {
+        // consecrated: role marble leaning towards the Age accent, the accent as a faint emissive glow
+        var st = roleStyle[g.role], accent = new THREE.Color(accentOf(g.ring));
+        alpha = st.alpha == null ? 1 : st.alpha;
+        params.color = new THREE.Color(st.color).lerp(accent, cons.face_tint || 0.12);
+        material = new THREE.MeshLambertMaterial(params);
+        if (st.glow) { material.emissive = new THREE.Color(st.color); material.emissiveIntensity = 0.55; }
+        else { material.emissive = accent; material.emissiveIntensity = 0.07; }
+      } else {
+        params.color = new THREE.Color(mat.color);
+        material = new THREE.MeshLambertMaterial(params);
+        if (mat.glow) {
+          material.emissive = new THREE.Color(mat.color);
+          material.emissiveIntensity = 0.95;
+        } else if (isEmissive(mat)) {
+          material.emissive = new THREE.Color(mat.color);
+          material.emissiveIntensity = 0.45;
+        } else if (/plinth/.test(mat.key)) {
+          material.emissive = new THREE.Color(mat.color);
+          material.emissiveIntensity = 0.12;
+        }
       }
       var mesh = new THREE.InstancedMesh(boxGeo, material, list.length);
       list.forEach(function (b, i) {
@@ -334,27 +371,37 @@
         mesh.setMatrixAt(i, m4);
       });
       mesh.instanceMatrix.needsUpdate = true;
-      mesh.userData.materialIndex = mi;
+      mesh.userData = { materialIndex: g.mi, role: g.role, ring: g.ring, alpha: alpha };
+      if (alpha < 1) mesh.renderOrder = 2;   // translucent glass and scaffold after the opaque marble
       world.add(mesh);
       meshes.push(mesh);
     });
 
     // block edges, one merged line set
+    // consecrated blocks get their Age accent as the edge colour (the emissive overlay in game), others a dark edge
     var pos = new Float32Array(blocks.length * 24 * 3);
+    var col = new Float32Array(blocks.length * 24 * 3);
     var E = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
     var C = [[-1,-1,-1],[1,-1,-1],[1,-1,1],[-1,-1,1],[-1,1,-1],[1,1,-1],[1,1,1],[-1,1,1]];
-    var p = 0;
+    var p = 0, anyAccent = false, dark = new THREE.Color(state.consecrated ? '#3a3744' : '#000000');
     blocks.forEach(function (b) {
+      var rn = b.length > 4 ? b[4] : ring.n;
+      var role = roleOf(b[3], rn);
+      var ec = role ? new THREE.Color(accentEdgeOf(rn)) : dark;
+      if (role) anyAccent = true;
       for (var e = 0; e < 12; e++) {
         for (var k = 0; k < 2; k++) {
           var c = C[E[e][k]];
-          pos[p++] = b[0] + c[0] * 0.5; pos[p++] = b[1] + c[1] * 0.5; pos[p++] = b[2] + c[2] * 0.5;
+          col[p] = ec.r; pos[p++] = b[0] + c[0] * 0.5;
+          col[p] = ec.g; pos[p++] = b[1] + c[1] * 0.5;
+          col[p] = ec.b; pos[p++] = b[2] + c[2] * 0.5;
         }
       }
     });
     var edgeGeo = new THREE.BufferGeometry();
     edgeGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    var edges = new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.22 }));
+    edgeGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    var edges = new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: anyAccent ? 0.7 : 0.22 }));
     world.add(edges);
 
     // beam above the heart
@@ -393,7 +440,8 @@
     heartLight.position.set(0, 0.8, 0);
     heartLight.color = beamColor.clone().lerp(new THREE.Color('#ff8a2a'), 0.5);
 
-    sceneInfo = { blocks: blocks, counts: counts, width: width, depth: depth, height: height, meshes: meshes };
+    sceneInfo = { blocks: blocks, counts: counts, roleCounts: roleCounts, ringCounts: ringCounts, otherCounts: otherCounts,
+                  width: width, depth: depth, height: height, meshes: meshes };
     applyHighlight();
     applySky();
     fitCamera(false);
@@ -401,10 +449,10 @@
 
   function applyHighlight() {
     sceneInfo.meshes.forEach(function (mesh) {
-      var on = state.highlight < 0 || mesh.userData.materialIndex === state.highlight;
-      mesh.material.transparent = !on;
-      mesh.material.opacity = on ? 1 : 0.18;
-      mesh.material.depthWrite = on;
+      var on = matchesHighlight(mesh.userData), alpha = mesh.userData.alpha;
+      mesh.material.transparent = !on || alpha < 1;
+      mesh.material.opacity = on ? alpha : 0.18;
+      mesh.material.depthWrite = on && alpha >= 1;
       mesh.material.needsUpdate = true;
     });
   }
@@ -538,7 +586,7 @@
     Array.prototype.forEach.call(tiersEl.querySelectorAll('[role="tab"]'), function (el, k) {
       el.setAttribute('aria-selected', String(k === i));
     });
-    state.highlight = -1;
+    state.highlight = null;
     buildWorld();
     updateInfo();
   }
@@ -551,7 +599,8 @@
       if (after) after();
     });
   }
-  toggle('opt-ring', 'ringOnly', function () { state.highlight = -1; buildWorld(); updateInfo(); });
+  toggle('opt-consecrated', 'consecrated', function () { state.highlight = null; buildWorld(); updateInfo(); });
+  toggle('opt-ring', 'ringOnly', function () { state.highlight = null; buildWorld(); updateInfo(); });
   toggle('opt-rotate', 'rotate');
   toggle('opt-sky', 'sky', applySky);
   toggle('opt-beam', 'beam', function () { var b = world.getObjectByName('beam'); if (b) b.visible = state.beam; });
@@ -570,7 +619,8 @@
     $('badge').innerHTML =
       '<b>' + esc(state.ringOnly ? 'Ring ' + ring.n + ' only: ' + ring.display_name : 'After the ' + ring.age_name) + '</b><br>' +
       count + ' blocks' + (state.ringOnly ? '' : ' (ring ' + ring.n + ' adds ' + added + ')') +
-      ' &middot; ' + sceneInfo.width + ' &times; ' + sceneInfo.depth + ', ' + sceneInfo.height + ' layer' + (sceneInfo.height === 1 ? '' : 's');
+      ' &middot; ' + sceneInfo.width + ' &times; ' + sceneInfo.depth + ', ' + sceneInfo.height + ' layer' + (sceneInfo.height === 1 ? '' : 's') +
+      (cons ? ' &middot; ' + (state.consecrated ? 'consecrated' : 'as built') : '');
     $('tier-heading').textContent = state.ringOnly ? 'Ring ' + ring.n + ' only' : 'After the ' + ring.age_name + ' (rings 0 to ' + ring.n + ')';
     var grants = ring.grants ? esc(ring.grants) + (ring.grants_name ? ' (' + esc(ring.grants_name) + ')' : '') : 'nothing';
     var blessing = ring.blessing_name ? '<b>' + esc(ring.blessing_name) + '</b>' + (ring.blessing_desc ? ': ' + esc(ring.blessing_desc) : '') : 'none';
@@ -582,7 +632,7 @@
       '<dt>Blessing</dt><dd>' + blessing + '</dd>' +
       '<dt>Rite</dt><dd>' + rites + '</dd>' +
       '<dt>Plinth</dt><dd>letter ' + esc(ring.plinth_key || '?') + '</dd>' +
-      '<dt>Beam</dt><dd><span class="swatch" style="background:' + esc(ring.beam_color) + '"></span>' + esc(ring.beam_color) + '</dd>' +
+      '<dt>' + (cons ? 'Beam, accent' : 'Beam') + '</dt><dd><span class="swatch" style="background:' + esc(ring.beam_color) + '"></span>' + esc(ring.beam_color) + '</dd>' +
       '<dt>Sky tint</dt><dd><span class="swatch" style="background:' + esc(ring.sky_tint) + '"></span>' + esc(ring.sky_tint) + '</dd>' +
       '<dt>Footprint</dt><dd>' + ring.size[0] + ' &times; ' + ring.size[2] + ', ' + ring.size[1] + ' layer' + (ring.size[1] === 1 ? '' : 's') + ' (this ring)</dd>';
     $('voice').textContent = ring.voice ? 'Caelum: "' + ring.voice + '"' : '';
@@ -590,32 +640,60 @@
 
     var legend = $('legend');
     legend.innerHTML = '';
-    var present = Object.keys(sceneInfo.counts).map(Number).sort(function (a, b) { return a - b; });
-    present.forEach(function (mi) {
-      var mat = materials[mi];
+    function addEntry(swatch, letter, name, count, examples, hl) {
       var li = document.createElement('li');
-      li.dataset.on = String(state.highlight === mi);
-      li.dataset.dim = String(state.highlight >= 0 && state.highlight !== mi);
+      var on = !!state.highlight && state.highlight.kind === hl.kind && state.highlight.value === hl.value;
+      li.dataset.on = String(on);
+      li.dataset.dim = String(!!state.highlight && !on);
+      li.innerHTML =
+        '<span class="sw" style="' + swatch + '"></span>' +
+        '<span class="letter">' + esc(letter) + '</span>' +
+        '<span>' + name + '</span>' +
+        '<span class="count">' + count + '</span>' +
+        (examples ? '<span class="examples">' + esc(examples) + '</span>' : '');
+      li.addEventListener('click', function () {
+        state.highlight = on ? null : hl;
+        applyHighlight();
+        updateInfo();
+      });
+      legend.appendChild(li);
+    }
+    function materialEntry(mi, count) {
+      var mat = materials[mi];
       var jsonLetter = mat.ring_letters[String(ring.n)];
       var letter = state.ringOnly && jsonLetter ? jsonLetter : mat.plan_letter;
       var differs = Object.keys(mat.ring_letters).map(function (k) { return mat.ring_letters[k]; }).some(function (l) { return l !== letter; });
       var ex = mat.examples && mat.examples.length && mat.examples[0] !== mat.key
         ? mat.examples.slice(0, 3).join(', ') + (mat.example_count > 3 ? ' and ' + (mat.example_count - 3) + ' more' : '')
         : '';
-      li.innerHTML =
-        '<span class="sw" style="background:' + esc(mat.color) + '"></span>' +
-        '<span class="letter">' + esc(letter) + '</span>' +
-        '<span>' + esc(mat.name) + (differs ? ' <span style="color:var(--muted);font-size:0.8em">(JSON: ' +
-          Object.keys(mat.ring_letters).map(function (k) { return 'ring ' + k + ': ' + esc(mat.ring_letters[k]); }).join(', ') + ')</span>' : '') + '</span>' +
-        '<span class="count">' + sceneInfo.counts[mi] + '</span>' +
-        (ex ? '<span class="examples">' + esc(ex) + '</span>' : '');
-      li.addEventListener('click', function () {
-        state.highlight = state.highlight === mi ? -1 : mi;
-        applyHighlight();
-        updateInfo();
+      var name = esc(mat.name) + (differs ? ' <span style="color:var(--muted);font-size:0.8em">(JSON: ' +
+        Object.keys(mat.ring_letters).map(function (k) { return 'ring ' + k + ': ' + esc(mat.ring_letters[k]); }).join(', ') + ')</span>' : '');
+      addEntry('background:' + esc(mat.color), letter, name, count, ex, { kind: 'material', value: mi });
+    }
+    var anyRole = Object.keys(sceneInfo.roleCounts).length > 0;
+    if (anyRole) {
+      Object.keys(sceneInfo.otherCounts).map(Number).sort(function (a, b) { return a - b; }).forEach(function (mi) {
+        materialEntry(mi, sceneInfo.otherCounts[mi]);
       });
-      legend.appendChild(li);
-    });
+      cons.roles.forEach(function (r) {
+        if (!sceneInfo.roleCounts[r.key]) return;
+        var sw = 'background:' + esc(r.color) + (r.alpha < 1 ? ';opacity:' + (0.4 + 0.6 * r.alpha).toFixed(2) : '');
+        addEntry(sw, r.code, esc(r.name), sceneInfo.roleCounts[r.key], '', { kind: 'role', value: r.key });
+      });
+      Object.keys(sceneInfo.ringCounts).map(Number).sort(function (a, b) { return a - b; }).forEach(function (rn) {
+        var r = rings.filter(function (x) { return x.n === rn; })[0];
+        addEntry('background:' + esc(accentOf(rn)), 'A' + rn, 'Accent of Age ' + rn + (r ? ': ' + esc(r.age_name) : ''),
+          sceneInfo.ringCounts[rn], '', { kind: 'ring', value: rn });
+      });
+      $('legend-help').textContent = 'Click a role or an accent to highlight it. Consecrated blocks are one sky-marble family; ' +
+        'edge and glow carry the accent of the Age whose ring they belong to. Switch off "Consecrated" for the build recipe in Age materials.';
+    } else {
+      Object.keys(sceneInfo.counts).map(Number).sort(function (a, b) { return a - b; }).forEach(function (mi) {
+        materialEntry(mi, sceneInfo.counts[mi]);
+      });
+      $('legend-help').textContent = 'Click a material to highlight it. Codes are the build-plan codes (unique across all rings); ' +
+        'the multiblock JSON letter is shown when it differs.';
+    }
 
     var notes = $('notes');
     notes.innerHTML = '';

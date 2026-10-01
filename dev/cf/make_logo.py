@@ -1,22 +1,20 @@
 """CurseForge images from the shrine render: logo.png (512x512), avatar-400.png (400x400, CF's avatar size)
 and banner.png (1920x1080).
 
-Input: dev/shrine-viewer/out/shrine_after_age_8.png (python dev/shrine-viewer/render_shrine.py writes it).
-The light render background is removed by a flood fill from the image border, so light blocks inside the shrine
-(quartz, smooth stone) stay opaque. Fonts: Windows Georgia Bold / Constantia.
+Input: dev/shrine-viewer/out/shrine_cutout_age_8.png, the final shrine in its consecrated look (sky-marble with the
+Age accents) on a transparent background; python dev/shrine-viewer/render_shrine.py writes it. Fonts: Windows
+Georgia Bold / Constantia.
 Usage: python dev/cf/make_logo.py
 """
 import math
 import random
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[2]
-SRC = ROOT / "dev" / "shrine-viewer" / "out" / "shrine_after_age_8.png"
+SRC = ROOT / "dev" / "shrine-viewer" / "out" / "shrine_cutout_age_8.png"
 OUT = ROOT / "dev" / "cf"
-CROP = (110, 300, 1090, 1105)          # the isometric shrine without title, legend and caption
-LABELS = [(311, 907, 327, 925), (957, 882, 967, 898)]   # the compass letters N and E on the ground slab
 FONT_TITLE = "C:/Windows/Fonts/georgiab.ttf"
 FONT_SUB = "C:/Windows/Fonts/constan.ttf"
 SKY_TOP, SKY_BOTTOM = (14, 10, 34), (52, 20, 70)       # night sky into the shrine's Quantum sky tint #301040
@@ -24,31 +22,11 @@ GOLD = (244, 214, 140)
 
 
 def shrine_cutout():
+    """The transparent render trimmed to the shrine; its alpha is the mask (no flood fill: the marble is as pale as
+    any light background would be)."""
     im = Image.open(SRC).convert("RGBA")
-    px = im.load()
-    for x0, y0, x1, y1 in LABELS:         # replace the dark letter pixels by the slab texture left of the letter
-        shift = x1 - x0 + 4
-        for y in range(y0 - 1, y1 + 2):
-            for x in range(x0 - 1, x1 + 2):
-                if sum(px[x, y][:3]) < 230:
-                    px[x, y] = px[x - shift, y]
-    im = im.crop(CROP)
-    # flood fill the background from every border pixel into a mask
-    rgb = im.convert("RGB")
-    marker = (255, 0, 255)
-    w, h = rgb.size
-    for x in range(0, w, 7):
-        for y in (0, h - 1):
-            if rgb.getpixel((x, y)) != marker:
-                ImageDraw.floodfill(rgb, (x, y), marker, thresh=18)
-    for y in range(0, h, 7):
-        for x in (0, w - 1):
-            if rgb.getpixel((x, y)) != marker:
-                ImageDraw.floodfill(rgb, (x, y), marker, thresh=18)
-    mask = Image.eval(ImageChops.difference(rgb, Image.new("RGB", rgb.size, marker)).convert("L"),
-                      lambda v: 0 if v < 8 else 255)
-    mask = mask.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.8))
-    im.putalpha(mask)
+    if im.getextrema()[3][0] == 255:
+        raise SystemExit(f"{SRC} has no transparent background; re-run dev/shrine-viewer/render_shrine.py")
     return im.crop(im.getbbox())
 
 
