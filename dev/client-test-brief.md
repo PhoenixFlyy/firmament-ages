@@ -1,5 +1,16 @@
 # Client-Test
 
+## 0.7.2 Nachtrag: TFC-Reiter im Inventar (firmages-core 0.7.2)
+
+Links am Inventar hängen die TFC-Reiter jetzt an der Age. **Dawn:** nur der Inventar-Reiter. **Ab der Steinzeit**
+(`/stage grant @s age_0`): darunter der Kalender. **Ab der Eisenzeit** (`age_2`): darunter das Klima, direkt unter dem
+Kalender. **Nie:** Ernährung und Field Guide (Buch). Die Reiter rücken ohne Lücke nach oben, auch in den Kalender- und
+Klima-Seiten selbst und im Kreativ-Inventar, falls TFC dort Reiter zeigt. Eine neue Age gilt beim nächsten Öffnen des
+Inventars (offenes Inventar einmal schließen). Einstellbar pro Welt in `firmages-server.toml` unter `[ui]`
+(`calendarTabFromAge`, `climateTabFromAge`, `nutritionTabFromAge`, `fieldGuideTabFromAge`; eine Age-ID oder `never`).
+Server-Teil per GameTest geprüft (der Server öffnet eine gesperrte Seite auch nicht, wenn ein Client sie anfragt), im
+Spiel noch offen.
+
 ## 0.7.1 Nachtrag (Entscheidungen 2026-10-13 spät, Pack 0.7.1, firmages-core 0.7.1)
 
 Drei Dinge ändern die 0.7.0-Liste unten; der Rest gilt unverändert. Server-Teil statisch geprüft

@@ -20,7 +20,8 @@
     "ars.RewardsMixin",
     "trainutilities.JoinNoticeMixin",
     "tfc.PlayerInfoMixin",
-    "tfc.TfcDamageMixin"
+    "tfc.TfcDamageMixin",
+    "tfc.SwitchInventoryTabMixin"
   ],
   "client": [
     "client.ChatComponentMixin",

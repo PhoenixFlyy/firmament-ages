@@ -18,7 +18,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 /**
- * Server half of the immersion features (SPEC §18): the {@code firmages:age_status} sync and the first-join welcome.
+ * Server half of the immersion features (SPEC §18): the {@code firmages:age_status} sync (EMI, Jade and the TFC tabs
+ * by Age) and the first-join welcome.
  * The welcome flag is a player data attachment ({@code firmages:welcomed}), saved with the player and kept through
  * death, so every friend who joins the shared world later gets the welcome once too.
  */
@@ -38,7 +39,7 @@ public final class ImmersionService {
     /** The status the server would send now. */
     public static AgeStatus status(MinecraftServer s) {
         return AgeStatus.of(AgeService.state(s).snapshot(), tier -> ShrineDataLoader.current().offeringFor(tier),
-            ServerConfig.emiFromAge(), ServerConfig.jadeFromAge());
+            ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge);
     }
 
     /** After every change of the global Age state (called by AgeService). */

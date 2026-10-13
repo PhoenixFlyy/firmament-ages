@@ -5,9 +5,12 @@ import dev.firmages.core.age.AgeSnapshot;
 import dev.firmages.core.compat.tfc.NutritionFloor;
 import org.junit.jupiter.api.Test;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,10 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** SPEC §18: the pure decisions behind the immersion features (Age status, EMI gate, HUD fade, chat, nutrition). */
+/** SPEC §18: the pure decisions behind the immersion features (Age status, EMI gate, TFC tabs, HUD fade, chat, nutrition). */
 class ImmersionTest {
     private static final Map<Integer, String> OFFERINGS = Map.of(0, "firmages:hearthstone", 1, "firmages:sky_disc", 8, "firmages:quantum_core");
     private static final IntFunction<Optional<String>> OFFERING = t -> Optional.ofNullable(OFFERINGS.get(t));
+    private static final Function<InventoryTab, Optional<AgeId>> NO_TABS = t -> Optional.empty();
+    private static final Function<InventoryTab, Optional<AgeId>> DEFAULT_TABS = t -> t.fromAge(t.defaultValue());
 
     private static AgeSnapshot ages(AgeId... ids) {
         return AgeSnapshot.of(List.of(ids), 1, 0);
@@ -26,7 +31,7 @@ class ImmersionTest {
 
     @Test
     void statusAtDawnHidesEverything() {
-        AgeStatus s = AgeStatus.of(AgeSnapshot.DAWN_ONLY, OFFERING, AgeId.AGE_0, AgeId.AGE_0);
+        AgeStatus s = AgeStatus.of(AgeSnapshot.DAWN_ONLY, OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS);
         assertEquals(AgeId.DAWN, s.age());
         assertEquals("", s.goalItem(), "Dawn's goal is the First Spark quest, no item");
         assertFalse(s.recipeViewer());
@@ -35,13 +40,13 @@ class ImmersionTest {
 
     @Test
     void statusOpensViewerAndOverlayAtTheirAge() {
-        AgeStatus stone = AgeStatus.of(ages(AgeId.AGE_0), OFFERING, AgeId.AGE_0, AgeId.AGE_1);
+        AgeStatus stone = AgeStatus.of(ages(AgeId.AGE_0), OFFERING, AgeId.AGE_0, AgeId.AGE_1, NO_TABS);
         assertEquals(AgeId.AGE_0, stone.age());
         assertEquals("firmages:hearthstone", stone.goalItem());
         assertTrue(stone.recipeViewer());
         assertFalse(stone.blockInfo(), "Jade threshold age_1 not reached in age_0");
 
-        AgeStatus bronze = AgeStatus.of(ages(AgeId.AGE_0, AgeId.AGE_1), OFFERING, AgeId.AGE_0, AgeId.AGE_1);
+        AgeStatus bronze = AgeStatus.of(ages(AgeId.AGE_0, AgeId.AGE_1), OFFERING, AgeId.AGE_0, AgeId.AGE_1, NO_TABS);
         assertEquals(AgeId.AGE_1, bronze.age());
         assertEquals("firmages:sky_disc", bronze.goalItem());
         assertTrue(bronze.blockInfo());
@@ -51,9 +56,9 @@ class ImmersionTest {
     void statusUsesTheHighestAgeAndHasNoGoalInTheLastAge() {
         // a gap (age_3 granted by an admin without age_2) still counts the highest Age
         assertEquals(AgeId.AGE_3, AgeStatus.current(ages(AgeId.AGE_0, AgeId.AGE_3)));
-        assertEquals("firmages:quantum_core", AgeStatus.of(ages(AgeId.AGE_8), OFFERING, AgeId.AGE_0, AgeId.AGE_0).goalItem());
-        assertEquals("", AgeStatus.of(ages(AgeId.AGE_9), OFFERING, AgeId.AGE_0, AgeId.AGE_0).goalItem());
-        assertEquals("", AgeStatus.of(ages(AgeId.AGE_2), OFFERING, AgeId.AGE_0, AgeId.AGE_0).goalItem(), "missing offering -> no item");
+        assertEquals("firmages:quantum_core", AgeStatus.of(ages(AgeId.AGE_8), OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS).goalItem());
+        assertEquals("", AgeStatus.of(ages(AgeId.AGE_9), OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS).goalItem());
+        assertEquals("", AgeStatus.of(ages(AgeId.AGE_2), OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS).goalItem(), "missing offering -> no item");
     }
 
     @Test
@@ -62,6 +67,60 @@ class ImmersionTest {
         assertEquals(AgeId.AGE_0, AgeStatus.parse("stone", AgeId.AGE_0));
         assertTrue(AgeStatus.reached(AgeId.AGE_0, AgeId.AGE_0));
         assertFalse(AgeStatus.reached(AgeId.DAWN, AgeId.AGE_0));
+    }
+
+    @Test
+    void tabDefaults() {
+        // Felix 2026-10-13: calendar from the Stone Age, climate from the Iron Age, nutrition and Field Guide never
+        assertEquals("age_0", InventoryTab.CALENDAR.defaultValue());
+        assertEquals("age_2", InventoryTab.CLIMATE.defaultValue());
+        assertEquals("never", InventoryTab.NUTRITION.defaultValue());
+        assertEquals("never", InventoryTab.FIELD_GUIDE.defaultValue());
+        assertEquals(List.of("calendarTabFromAge", "climateTabFromAge", "nutritionTabFromAge", "fieldGuideTabFromAge"),
+            List.of(InventoryTab.values()).stream().map(InventoryTab::configKey).toList());
+        for (InventoryTab t : InventoryTab.values()) assertTrue(InventoryTab.isValid(t.defaultValue()), t + " default is valid");
+    }
+
+    @Test
+    void tabConfigParsing() {
+        assertEquals(Optional.of(AgeId.AGE_4), InventoryTab.CALENDAR.fromAge("age_4"));
+        assertEquals(Optional.of(AgeId.AGE_4), InventoryTab.CALENDAR.fromAge("progressivestages:age_4"));
+        assertEquals(Optional.of(AgeId.DAWN), InventoryTab.NUTRITION.fromAge("dawn"));
+        assertEquals(Optional.empty(), InventoryTab.CALENDAR.fromAge("never"));
+        assertEquals(Optional.empty(), InventoryTab.CALENDAR.fromAge(" Never "));
+        // an unknown value counts as the tab's default
+        assertEquals(Optional.of(AgeId.AGE_0), InventoryTab.CALENDAR.fromAge("stone"));
+        assertEquals(Optional.of(AgeId.AGE_2), InventoryTab.CLIMATE.fromAge(null));
+        assertEquals(Optional.empty(), InventoryTab.FIELD_GUIDE.fromAge("book"));
+        assertTrue(InventoryTab.isValid("never"));
+        assertTrue(InventoryTab.isValid("age_9"));
+        assertFalse(InventoryTab.isValid("stone"));
+        assertFalse(InventoryTab.isValid(""));
+        assertFalse(InventoryTab.isValid(2));
+    }
+
+    @Test
+    void tabsOpenByAgeWithTheDefaults() {
+        for (AgeId age : AgeId.all()) {
+            Set<InventoryTab> expected = EnumSet.noneOf(InventoryTab.class);
+            if (age.ordinal() >= AgeId.AGE_0.ordinal()) expected.add(InventoryTab.CALENDAR);
+            if (age.ordinal() >= AgeId.AGE_2.ordinal()) expected.add(InventoryTab.CLIMATE);
+            assertEquals(expected, InventoryTab.open(age, DEFAULT_TABS), "tabs in " + age);
+        }
+        AgeStatus dawn = AgeStatus.of(AgeSnapshot.DAWN_ONLY, OFFERING, AgeId.AGE_1, AgeId.AGE_0, DEFAULT_TABS);
+        assertEquals(Set.of(), dawn.tabs(), "Dawn: only the Inventory tab");
+        AgeStatus iron = AgeStatus.of(ages(AgeId.AGE_0, AgeId.AGE_1, AgeId.AGE_2), OFFERING, AgeId.AGE_1, AgeId.AGE_0, DEFAULT_TABS);
+        assertEquals(Set.of(InventoryTab.CALENDAR, InventoryTab.CLIMATE), iron.tabs());
+        assertEquals(AgeStatus.UNKNOWN.tabs(), Set.of(), "before the first status no tab opens");
+        // all four open from Dawn when configured so
+        assertEquals(EnumSet.allOf(InventoryTab.class), InventoryTab.open(AgeId.DAWN, t -> Optional.of(AgeId.DAWN)));
+    }
+
+    @Test
+    void tabMaskRoundTrip() {
+        for (int mask = 0; mask < 16; mask++) assertEquals(mask, InventoryTab.mask(InventoryTab.fromMask(mask)));
+        assertEquals(Set.of(InventoryTab.CALENDAR, InventoryTab.CLIMATE), InventoryTab.fromMask(InventoryTab.mask(EnumSet.of(InventoryTab.CALENDAR, InventoryTab.CLIMATE))));
+        assertEquals(Set.of(), InventoryTab.fromMask(0));
     }
 
     @Test

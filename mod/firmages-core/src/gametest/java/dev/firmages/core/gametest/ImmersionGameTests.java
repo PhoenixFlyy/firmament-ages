@@ -1,16 +1,21 @@
 package dev.firmages.core.gametest;
 
 import dev.firmages.core.FirmagesCore;
+import dev.firmages.core.age.AgeId;
 import dev.firmages.core.age.AgeService;
+import dev.firmages.core.age.AgeSnapshot;
 import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.immersion.AgeStatus;
 import dev.firmages.core.immersion.ImmersionService;
+import dev.firmages.core.immersion.InventoryTab;
 import dev.firmages.core.net.AgeStatusPayload;
 import dev.firmages.core.net.WelcomePayload;
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -24,12 +29,19 @@ import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Level G tests of the immersion features (SPEC §18): the login status and the once-per-player welcome on real
- * (headless) players, the status broadcast, and the TerraFirmaCraft thirst and nutrition mixins against TFC's own
- * player data (TFC and Patchouli are in the GameTest run). Client-only parts are unit-tested ({@code ImmersionTest}).
+ * (headless) players, the status broadcast, the TFC tabs per Age as synced, and the TerraFirmaCraft thirst, nutrition
+ * and tab mixins against TFC itself (TFC and Patchouli are only in the opt-in run {@code -PgametestTfc}). Client-only
+ * parts are unit-tested ({@code ImmersionTest}).
  */
 @GameTestHolder(FirmagesCore.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -113,6 +125,64 @@ public final class ImmersionGameTests {
             DebugPlayerCommands.despawn(p);
         }
         h.succeed();
+    }
+
+    /**
+     * SPEC §18.6: the TFC tabs as the client receives them ({@code firmages:age_status} encoded and decoded) in every
+     * Age with Felix's defaults: none in Dawn, the calendar from the Stone Age, the climate page from the Iron Age,
+     * nutrition and the Field Guide never. A config change applies to the next status.
+     */
+    @GameTest(template = "empty", batch = "firmages_6_immersion")
+    public static void tfcTabsFollowAges(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        // Felix 2026-10-13: the defaults a new world gets
+        Map<InventoryTab, String> defaults = Map.of(InventoryTab.CALENDAR, "age_0", InventoryTab.CLIMATE, "age_2",
+            InventoryTab.NUTRITION, "never", InventoryTab.FIELD_GUIDE, "never");
+        for (InventoryTab t : InventoryTab.values()) {
+            ok(h, defaults.get(t).equals(ServerConfig.UI_TAB_FROM_AGE.get(t).getDefault()),
+                "default " + t.configKey() + " = " + defaults.get(t) + ", got " + ServerConfig.UI_TAB_FROM_AGE.get(t).getDefault());
+        }
+        Map<InventoryTab, String> was = new HashMap<>();
+        for (InventoryTab t : InventoryTab.values()) was.put(t, ServerConfig.UI_TAB_FROM_AGE.get(t).get());
+        try {
+            defaults.forEach((t, v) -> ServerConfig.UI_TAB_FROM_AGE.get(t).set(v));
+            List<AgeId> unlocked = new ArrayList<>();
+            for (AgeId age : AgeId.all()) {
+                unlocked.add(age);
+                AgeStatus status = AgeStatus.of(AgeSnapshot.of(List.copyOf(unlocked), 1, 0), tier -> Optional.empty(),
+                    ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge);
+                AgeStatus synced = sync(server, status);
+                Set<InventoryTab> expected = EnumSet.noneOf(InventoryTab.class);
+                if (age.ordinal() >= AgeId.AGE_0.ordinal()) expected.add(InventoryTab.CALENDAR);
+                if (age.ordinal() >= AgeId.AGE_2.ordinal()) expected.add(InventoryTab.CLIMATE);
+                ok(h, synced.equals(status) && synced.tabs().equals(expected), age + ": client gets tabs " + expected + ", got " + synced);
+            }
+            AgeStatus now = ImmersionService.status(server);
+            ok(h, now.tabs().equals(InventoryTab.open(now.age(), ServerConfig::tabFromAge)), "the server status uses ui.*TabFromAge: " + now);
+            ServerConfig.UI_TAB_FROM_AGE.get(InventoryTab.NUTRITION).set("dawn");
+            ok(h, ImmersionService.status(server).tabs().contains(InventoryTab.NUTRITION), "nutritionTabFromAge = dawn opens the tab at once");
+            ServerConfig.UI_TAB_FROM_AGE.get(InventoryTab.CALENDAR).set("never");
+            ok(h, !ImmersionService.status(server).tabs().contains(InventoryTab.CALENDAR), "calendarTabFromAge = never closes the tab");
+        } finally {
+            was.forEach((t, v) -> ServerConfig.UI_TAB_FROM_AGE.get(t).set(v));
+        }
+        if (ModList.get().isLoaded("tfc")) { // the server guard against TFC's own packet handler (opt-in run -PgametestTfc)
+            ServerPlayer p = join(h, "gt_tfc_tabs");
+            try {
+                p.setGameMode(GameType.SURVIVAL);
+                TfcProbe.tabGuard(h, p);
+            } finally {
+                DebugPlayerCommands.despawn(p);
+            }
+        }
+        h.succeed();
+    }
+
+    /** The status after the trip through {@code firmages:age_status}'s codec, as the client decodes it. */
+    private static AgeStatus sync(MinecraftServer server, AgeStatus status) {
+        RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), server.registryAccess());
+        AgeStatusPayload.STREAM_CODEC.encode(buf, AgeStatusPayload.of(status));
+        return AgeStatusPayload.STREAM_CODEC.decode(buf).status();
     }
 
     /**

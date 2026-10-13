@@ -1,9 +1,14 @@
 package dev.firmages.core.config;
 
 import dev.firmages.core.age.AgeId;
+import dev.firmages.core.immersion.InventoryTab;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
+import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * {@code firmages-server.toml} (per world, SPEC §9). Server configs load when the server starts, so values read
@@ -55,6 +60,8 @@ public final class ServerConfig {
     // ui (immersion, SPEC §18)
     public static final ModConfigSpec.ConfigValue<String> UI_EMI_FROM_AGE;
     public static final ModConfigSpec.ConfigValue<String> UI_JADE_FROM_AGE;
+    /** {@code ui.calendarTabFromAge}, {@code climateTabFromAge}, {@code nutritionTabFromAge}, {@code fieldGuideTabFromAge}. */
+    public static final Map<InventoryTab, ModConfigSpec.ConfigValue<String>> UI_TAB_FROM_AGE;
     public static final ModConfigSpec.BooleanValue UI_WELCOME;
     // tfc (SPEC §18.6)
     public static final ModConfigSpec.BooleanValue TFC_DISABLE_THIRST;
@@ -160,6 +167,17 @@ public final class ServerConfig {
             .define("emiFromAge", DEFAULT_EMI_FROM_AGE.id(), ServerConfig::isAgeId);
         UI_JADE_FROM_AGE = b.comment("First Age with the block-info overlay (Jade).")
             .define("jadeFromAge", DEFAULT_JADE_FROM_AGE.id(), ServerConfig::isAgeId);
+        Map<InventoryTab, ModConfigSpec.ConfigValue<String>> tabs = new EnumMap<>(InventoryTab.class);
+        tabs.put(InventoryTab.CALENDAR, b.comment("First Age with TerraFirmaCraft's calendar tab in the inventory, or \"never\".")
+            .define(InventoryTab.CALENDAR.configKey(), InventoryTab.CALENDAR.defaultValue(), InventoryTab::isValid));
+        tabs.put(InventoryTab.CLIMATE, b.comment("First Age with TerraFirmaCraft's climate tab, or \"never\".")
+            .define(InventoryTab.CLIMATE.configKey(), InventoryTab.CLIMATE.defaultValue(), InventoryTab::isValid));
+        tabs.put(InventoryTab.NUTRITION, b.comment("First Age with TerraFirmaCraft's nutrition tab, or \"never\" (nutrition only gives a bonus here, see [tfc]).")
+            .define(InventoryTab.NUTRITION.configKey(), InventoryTab.NUTRITION.defaultValue(), InventoryTab::isValid));
+        tabs.put(InventoryTab.FIELD_GUIDE, b.comment("First Age with TerraFirmaCraft's Field Guide tab, or \"never\". A hidden tab cannot be opened at all,",
+                "its server packet included; the Field Guide item is not affected.")
+            .define(InventoryTab.FIELD_GUIDE.configKey(), InventoryTab.FIELD_GUIDE.defaultValue(), InventoryTab::isValid));
+        UI_TAB_FROM_AGE = Collections.unmodifiableMap(tabs);
         UI_WELCOME = b.comment("Each player's first join shows the title and the one-time welcome screen.")
             .define("welcome", true);
         b.pop();
@@ -233,6 +251,11 @@ public final class ServerConfig {
 
     public static AgeId jadeFromAge() {
         return loaded() ? AgeId.byId(UI_JADE_FROM_AGE.get()).orElse(DEFAULT_JADE_FROM_AGE) : DEFAULT_JADE_FROM_AGE;
+    }
+
+    /** The first Age with TFC's {@code tab} in the inventory, empty for never. */
+    public static Optional<AgeId> tabFromAge(InventoryTab tab) {
+        return tab.fromAge(loaded() ? UI_TAB_FROM_AGE.get(tab).get() : tab.defaultValue());
     }
 
     public static boolean welcome() {

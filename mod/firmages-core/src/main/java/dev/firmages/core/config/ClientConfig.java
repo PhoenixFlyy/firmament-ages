@@ -74,7 +74,7 @@ public final class ClientConfig {
         b.comment("TerraFirmaCraft displays (SPEC 18.6)").push("tfc");
         HIDE_THIRST_BAR = b.comment("Hide TFC's thirst bar (thirst is off, see tfc.disableThirst in firmages-server.toml).")
             .define("hideThirstBar", true);
-        HIDE_NUTRITION = b.comment("Hide TFC's nutrition tab in the inventory and the nutrition lines of food tooltips.")
+        HIDE_NUTRITION = b.comment("Hide the nutrition lines of TFC's food tooltips. TFC's inventory tabs follow the server's [ui] *TabFromAge.")
             .define("hideNutrition", true);
         b.pop();
         SPEC = b.build();
