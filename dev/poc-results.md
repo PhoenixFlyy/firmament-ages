@@ -1523,3 +1523,49 @@ reload with nobody online cannot warm; the gate and AgeIndex are again a small s
 - Needs a client: waves fought for real, sigil textures and tooltips, gate names on the boss bar; packet order of the
   join dedupe.
 - AdvancedAE strength card has no use (Quantum Armor disabled): disable or keep (Felix).
+
+## Maintenance 2026-10-13
+
+Date: 2026-10-13, branch `dev` on top of 281130f (pack 0.6.1, firmages-core 0.6.1).
+
+### Mod updates
+
+`tools/packwiz.exe update --all -y`: 30 updates (28 CurseForge metafiles, 2 Modrinth). Jade 15.10.6, Gateways 5.1.0 and
+the rest stay. The six Modrinth-kept mods (`dev/cf/swap/`): Create Factory Logistics and Entity Culling moved on
+Modrinth; their CurseForge swap metafiles are updated to the same files (`packwiz update --all` in a scratch pack of
+the six swap files; CurseForge sha1 equals the Modrinth sha1 of both jars, so `export_cf.py` still matches them by
+filename). Alternating Flux 1.0.6, Create Aeronautics 1.3.2, Design n' Decor 2.2b and TFC Ruins 1.0.0 have no newer
+file on either site.
+
+| Mod | Before | After | Source |
+|---|---|---|---|
+| Apothic Enchanting | `ApothicEnchanting-1.21.1-1.6.2.jar` | `ApothicEnchanting-1.21.1-1.6.4.jar` | CurseForge |
+| Ars Nouveau | `ars_nouveau-1.21.1-5.13.2.jar` | `ars_nouveau-1.21.1-5.13.3.jar` | CurseForge |
+| Azimuth API | `azimuth-1.4.9.jar` | `azimuth-1.4.10.jar` | CurseForge |
+| CorgiLib | `Corgilib-NeoForge-1.21.1-5.0.0.9.jar` | `Corgilib-NeoForge-1.21.1-5.0.0.10.jar` | CurseForge |
+| Create Crafts & Additions | `createaddition-1.7.1.jar` | `createaddition-1.7.2.jar` | CurseForge |
+| Create Factory Logistics | `create_factory_logistics-1.21.1-1.6.0-all.jar` | `create_factory_logistics-1.21.1-1.6.1-all.jar` | Modrinth |
+| Create: Enchantment Industry | `create-enchantment-industry-2.5.4.jar` | `create-enchantment-industry-2.5.4b.jar` | CurseForge |
+| Create: Mobile Packages | `create_mobile_packages-1.21.1-0.7.7.jar` | `create_mobile_packages-1.21.1-0.7.8.jar` | CurseForge |
+| DragonLib | `dragonlib-neoforge-1.21.1-beta-3.0.28.jar` | `dragonlib-3.0.29+mc1.21.1-neoforge.jar` | CurseForge |
+| Entity Culling | `entityculling-neoforge-1.11.2-mc1.21.1.jar` | `entityculling-neoforge-1.11.3-mc1.21.1.jar` | Modrinth |
+| ExtendedAE | `ExtendedAE-1.21-2.2.35-neoforge.jar` | `ExtendedAE-1.21-2.2.41-neoforge.jar` | CurseForge |
+| FramedBlocks | `FramedBlocks-10.6.1.jar` | `FramedBlocks-10.6.3.jar` | CurseForge |
+| Just Enough Items (JEI) | `jei-1.21.1-neoforge-19.57.0.450.jar` | `jei-1.21.1-neoforge-19.64.0.453.jar` | CurseForge |
+| Just Enough Mekanism Multiblocks | `JustEnoughMekanismMultiblocks-1.21.1-7.21.jar` | `JustEnoughMekanismMultiblocks-1.21.1-7.23.jar` | CurseForge |
+| Mekanism: Ponders | `mekanism_ponders-1.0.3-1.21.1.jar` | `mekanism_ponders-1.0.4-1.21.1.jar` | CurseForge |
+| MezzConfig | `mezz_config-1.21.1-neoforge-0.6.5.jar` | `mezz_config-1.21.1-neoforge-0.6.8-standalone.jar` | CurseForge |
+| ModernFix | `modernfix-neoforge-5.27.24+mc1.21.1.jar` | `modernfix-neoforge-5.27.26+mc1.21.1.jar` | CurseForge |
+| More Mekanism Processing | `MoreMekanismProcessing-1.21.1-6.4.jar` | `MoreMekanismProcessing-1.21.1-6.8.jar` | CurseForge |
+| Mystical Agradditions | `MysticalAgradditions-1.21.1-8.0.14.jar` | `MysticalAgradditions-1.21.1-8.0.15.jar` | CurseForge |
+| Occultism | `occultism-1.21.1-neoforge-1.224.4.jar` | `occultism-1.21.1-neoforge-1.224.5.jar` | CurseForge |
+| Placebo | `Placebo-1.21.1-9.9.2.jar` | `Placebo-1.21.1-9.9.4.jar` | CurseForge |
+| ProgressiveStages | `progressivestages-3.0.5.jar` | `progressivestages-3.0.6.jar` | CurseForge |
+| Puzzles Lib | `puzzleslib-v21.1.62-mc1.21.1+neoforge.jar` | `puzzleslib-v21.1.64-mc1.21.1+neoforge.jar` | CurseForge |
+| Sable | `sable-neoforge-1.21.1-2.0.5.jar` | `sable-neoforge-1.21.1-2.0.6.jar` | CurseForge |
+| Sophisticated Backpacks | `sophisticatedbackpacks-1.21.1-3.26.6.2174.jar` | `sophisticatedbackpacks-1.21.1-3.26.12.2208.jar` | CurseForge |
+| Sophisticated Backpacks Create Integration | `sophisticatedbackpackscreateintegration-1.21.1-0.2.1.171.jar` | `sophisticatedbackpackscreateintegration-1.21.1-0.2.3.194.jar` | CurseForge |
+| Sophisticated Core | `sophisticatedcore-1.21.1-1.5.2.2343.jar` | `sophisticatedcore-1.21.1-1.5.11.2394.jar` | CurseForge |
+| Stargate Journey | `Stargate.Journey-1.21.1-0.6.49.jar` | `Stargate.Journey-1.21.1-0.6.51.jar` | CurseForge |
+| SuperMartijn642's Core Lib | `supermartijn642corelib-1.1.24a-neoforge-mc1.21.jar` | `supermartijn642corelib-1.1.25-neoforge-mc1.21.jar` | CurseForge |
+| Theurgy | `theurgy-1.21.1-neoforge-1.76.1.jar` | `theurgy-1.21.1-neoforge-1.78.0.jar` | CurseForge |
