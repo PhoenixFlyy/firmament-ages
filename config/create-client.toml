@@ -1,0 +1,6 @@
+# Firmament Ages: Create client config, only the keys the pack pins (NeoForge fills the rest).
+
+[client]
+	# No Create config button (goggles) on the title and pause screens: 0 disables it (Create 6.0.10 OpenConfigButtonHandler).
+	mainMenuConfigButtonRow = 0
+	ingameMenuConfigButtonRow = 0

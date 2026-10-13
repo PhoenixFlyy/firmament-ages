@@ -35,11 +35,12 @@ element {
   instance_identifier = fa_title_version
   anchor_point = bottom-left
   x = 28
-  y = -18
+  y = -20
   width = 200
-  height = 10
+  height = 16
   base_color = #A99CC8
   scale = 1.0
+  text_border = 2
   shadow = true
   parse_markdown = false
   auto_line_wrapping = false
@@ -52,7 +53,7 @@ vanilla_button {
   instance_identifier = mc_titlescreen_singleplayer_button
   anchor_point = top-left
   x = 28
-  y = 118
+  y = 110
   width = 200
   height = 20
   backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
@@ -66,7 +67,7 @@ vanilla_button {
   instance_identifier = mc_titlescreen_multiplayer_button
   anchor_point = top-left
   x = 28
-  y = 144
+  y = 136
   width = 200
   height = 20
   backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
@@ -80,7 +81,7 @@ vanilla_button {
   instance_identifier = mc_titlescreen_options_button
   anchor_point = top-left
   x = 28
-  y = 180
+  y = 172
   width = 200
   height = 20
   backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
@@ -94,7 +95,7 @@ vanilla_button {
   instance_identifier = mc_titlescreen_quit_button
   anchor_point = top-left
   x = 28
-  y = 206
+  y = 198
   width = 200
   height = 20
   backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
@@ -112,18 +113,6 @@ vanilla_button {
 vanilla_button {
   element_type = vanilla_button
   instance_identifier = mc_titlescreen_realms_button
-  is_hidden = true
-}
-
-vanilla_button {
-  element_type = vanilla_button
-  instance_identifier = mc_titlescreen_language_button
-  is_hidden = true
-}
-
-vanilla_button {
-  element_type = vanilla_button
-  instance_identifier = mc_titlescreen_accessibility_button
   is_hidden = true
 }
 
@@ -150,10 +139,3 @@ vanilla_button {
   instance_identifier = minecraft_realms_notification_icons_widget
   is_hidden = true
 }
-
-vanilla_button {
-  element_type = vanilla_button
-  instance_identifier = title_screen_copyright_button
-  is_hidden = true
-}
-

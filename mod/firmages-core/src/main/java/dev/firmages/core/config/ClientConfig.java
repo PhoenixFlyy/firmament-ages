@@ -57,7 +57,7 @@ public final class ClientConfig {
             .defineListAllowEmpty("blockedToasts", DEFAULT_BLOCKED_TOASTS, () -> "", ClientConfig::isString);
         REDIRECT_ADVANCEMENTS = b.comment("The advancements screen opens the quest screen instead (FTB Quests).")
             .define("redirectAdvancements", true);
-        HIDE_MENU_BUTTONS = b.comment("Hide the Mods and Advancements buttons on the title and pause screens.")
+        HIDE_MENU_BUTTONS = b.comment("Hide the Mods and Advancements buttons on the title and pause screens, and the Language and Accessibility buttons on the title screen.")
             .define("hideMenuButtons", true);
         HIDE_MOD_NAME_TOOLTIPS = b.comment("Drop item tooltip lines that are only a mod's name.")
             .define("hideModNameTooltips", true);

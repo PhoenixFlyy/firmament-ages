@@ -12,7 +12,12 @@ layout-meta {
 
 vanilla_button {
   element_type = vanilla_button
-  instance_identifier = mc_pausescreen_return_to_game_button
+  instance_identifier = pause_return_to_game_button
+  anchor_point = mid-centered
+  x = -102
+  y = -40
+  width = 204
+  height = 20
   backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
   backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
   label_base_color = #ECE4FF
@@ -21,7 +26,12 @@ vanilla_button {
 
 vanilla_button {
   element_type = vanilla_button
-  instance_identifier = mc_pausescreen_stats_button
+  instance_identifier = pause_options_button
+  anchor_point = mid-centered
+  x = -102
+  y = -16
+  width = 204
+  height = 20
   backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
   backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
   label_base_color = #ECE4FF
@@ -30,7 +40,12 @@ vanilla_button {
 
 vanilla_button {
   element_type = vanilla_button
-  instance_identifier = mc_pausescreen_options_button
+  instance_identifier = pause_disconnect_button
+  anchor_point = mid-centered
+  x = -102
+  y = 16
+  width = 204
+  height = 20
   backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
   backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
   label_base_color = #ECE4FF
@@ -39,37 +54,42 @@ vanilla_button {
 
 vanilla_button {
   element_type = vanilla_button
-  instance_identifier = mc_pausescreen_lan_button
-  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
-  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
-  label_base_color = #ECE4FF
-  label_hover_color = #F4D68C
-}
-
-vanilla_button {
-  element_type = vanilla_button
-  instance_identifier = mc_pausescreen_disconnect_button
-  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
-  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
-  label_base_color = #ECE4FF
-  label_hover_color = #F4D68C
-}
-
-vanilla_button {
-  element_type = vanilla_button
-  instance_identifier = mc_pausescreen_advancements_button
+  instance_identifier = pause_advancements_button
   is_hidden = true
 }
 
 vanilla_button {
   element_type = vanilla_button
-  instance_identifier = mc_pausescreen_feedback_button
+  instance_identifier = pause_stats_button
   is_hidden = true
 }
 
 vanilla_button {
   element_type = vanilla_button
-  instance_identifier = mc_pausescreen_report_bugs_button
+  instance_identifier = pause_send_feedback_button
   is_hidden = true
 }
 
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = pause_report_bugs_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = pause_feedback_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = pause_server_links_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = pause_share_to_lan_button
+  is_hidden = true
+}

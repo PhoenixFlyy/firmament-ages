@@ -15,11 +15,18 @@ import java.util.List;
  * advancements button is {@code gui.advancements} (half width, next to Statistics). Both are hidden. On the pause
  * screen the gaps close: Statistics takes the advancements button's place at full width, and the rows below the mods
  * button move up one row. The title screen is only hidden, its layout belongs to FancyMenu.
+ * <p>
+ * The title screen's Language and Accessibility icon buttons are hidden here too: vanilla 1.21.1 labels them
+ * {@code options.language} / {@code options.accessibility} ({@code CommonButtons}, icon-only), while FancyMenu 3.9.14's
+ * {@code TitleScreenWidgetIdentificationContext} still maps the pre-1.20.5 keys {@code narrator.button.*}, so its
+ * {@code mc_titlescreen_language_button} / {@code _accessibility_button} ids never resolve [verified, javap].
  */
 final class MenuButtons {
     static final String MODS = "fml.menu.mods";
     static final String ADVANCEMENTS = "gui.advancements";
     static final String STATS = "gui.stats";
+    static final String LANGUAGE = "options.language";
+    static final String ACCESSIBILITY = "options.accessibility";
     /** Row pitch of the pause menu grid (20 px button, 4 px padding). */
     private static final int PAUSE_ROW = 24;
 
@@ -33,7 +40,11 @@ final class MenuButtons {
         AbstractWidget advancements = find(widgets, ADVANCEMENTS);
         hide(mods);
         hide(advancements);
-        if (!pause) return;
+        if (!pause) {
+            hide(find(widgets, LANGUAGE));
+            hide(find(widgets, ACCESSIBILITY));
+            return;
+        }
         if (advancements != null) {
             AbstractWidget stats = find(widgets, STATS);
             if (stats != null && stats.getY() == advancements.getY()) {
