@@ -128,8 +128,10 @@ ServerEvents.recipes((event) => {
 
 // The removals of the ore ladder as fixed ids, read on 2026-10-01 from the original recipes with the rules above
 // (330 recipes; the 14 combiner recipes of vanilla ore blocks were missed by the earlier JSON pass, whose pattern
-// expected "id" before "count"). Plain ids are a map lookup; the JSON pass over 2,700 Mekanism-family recipes cost
-// about 65 ms of every reload. dev/poc_analyze.py C-6a, C-6b and C-6e report a recipe that the list misses.
+// expected "id" before "count"), plus the ingot crushing of the five metals More Mekanism Processing 6.8 added
+// (antimony, boron, magnesium, palladium, thorium; 2026-10-13). Plain ids are a map lookup; the JSON pass over
+// 2,700 Mekanism-family recipes cost about 65 ms of every reload. dev/poc_analyze.py C-6a, C-6b and C-6e report a
+// recipe that the list misses.
 const ORE_LADDER_REMOVALS = [
   'evolvedmekanism:processing/better_gold/dust/from_ingot', 'evolvedmekanism:processing/fluorite/to_end_stone_ore',
   'evolvedmekanism:processing/fluorite/to_netherrack_ore', 'evolvedmekanism:processing/lead/ingot/from_ore_blasting',
@@ -271,6 +273,7 @@ const ORE_LADDER_REMOVALS = [
   'moremekanismprocessing:processing/amethyst/gem/from_ore',
   'moremekanismprocessing:processing/amethyst/shard/from_ore',
   'moremekanismprocessing:processing/amethyst/slurry/dirty/ore',
+  'moremekanismprocessing:processing/antimony/dust/from_ingot',
   'moremekanismprocessing:processing/azure_silver/dust/from_ingot',
   'moremekanismprocessing:processing/bismuth/clump/from_ore',
   'moremekanismprocessing:processing/bismuth/clump/from_raw_ore',
@@ -281,6 +284,7 @@ const ORE_LADDER_REMOVALS = [
   'moremekanismprocessing:processing/bismuth/shard/from_raw_ore',
   'moremekanismprocessing:processing/bismuth/slurry/dirty/ore',
   'moremekanismprocessing:processing/bismuth/slurry/dirty/raw_ore',
+  'moremekanismprocessing:processing/boron/dust/from_ingot',
   'moremekanismprocessing:processing/calorite/dust/from_ingot',
   'moremekanismprocessing:processing/cinnabar/clump/from_ore',
   'moremekanismprocessing:processing/cinnabar/gem/from_ore',
@@ -292,6 +296,7 @@ const ORE_LADDER_REMOVALS = [
   'moremekanismprocessing:processing/draconium/dust/from_ingot',
   'moremekanismprocessing:processing/iridium/dust/from_ingot',
   'moremekanismprocessing:processing/lithium/dust/from_ingot',
+  'moremekanismprocessing:processing/magnesium/dust/from_ingot',
   'moremekanismprocessing:processing/nickel/clump/from_ore',
   'moremekanismprocessing:processing/nickel/clump/from_raw_ore',
   'moremekanismprocessing:processing/nickel/clump/from_raw_storage_blocks',
@@ -306,6 +311,7 @@ const ORE_LADDER_REMOVALS = [
   'moremekanismprocessing:processing/nickel/slurry/dirty/raw_ore',
   'moremekanismprocessing:processing/nickel/slurry/dirty/raw_storage_blocks',
   'moremekanismprocessing:processing/ostrum/dust/from_ingot',
+  'moremekanismprocessing:processing/palladium/dust/from_ingot',
   'moremekanismprocessing:processing/platinum/dust/from_ingot',
   'moremekanismprocessing:processing/ruby/clump/from_ore', 'moremekanismprocessing:processing/ruby/gem/from_ore',
   'moremekanismprocessing:processing/ruby/shard/from_ore', 'moremekanismprocessing:processing/ruby/slurry/dirty/ore',
@@ -329,6 +335,7 @@ const ORE_LADDER_REMOVALS = [
   'moremekanismprocessing:processing/sulfur/clump/from_ore', 'moremekanismprocessing:processing/sulfur/dust/from_ore',
   'moremekanismprocessing:processing/sulfur/shard/from_ore',
   'moremekanismprocessing:processing/sulfur/slurry/dirty/ore',
+  'moremekanismprocessing:processing/thorium/dust/from_ingot',
   'moremekanismprocessing:processing/titanium/dust/from_ingot',
   'moremekanismprocessing:processing/tungsten/dust/from_ingot',
   'moremekanismprocessing:processing/zinc/clump/from_ore',

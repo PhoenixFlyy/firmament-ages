@@ -66,6 +66,8 @@
     {"id": "sgjourney:ancient_gene_detector", "required": false},
     {"id": "sgjourney:ancient_transport_ring", "required": false},
     {"id": "sgjourney:ancient_transport_rings", "required": false},
+    {"id": "sgjourney:andromeda_dhd", "required": false},
+    {"id": "sgjourney:andromeda_stargate", "required": false},
     {"id": "sgjourney:archeologist_notebook", "required": false},
     {"id": "sgjourney:archeology_table", "required": false},
     {"id": "sgjourney:auto_dialer", "required": false},

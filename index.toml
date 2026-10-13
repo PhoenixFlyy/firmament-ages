@@ -698,7 +698,7 @@ hash = "553c345574febfa84cfc49749d62cd9bdd12fa88d719b5fddde3cd1d0d2999b7"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "9673a4a45b95e3703945a2f227622ba707f4132a121dac211297c8a37433ad57"
+hash = "2fcba91f9d8afda62bd755b4615feba95b659637bab1bc655fe3a253f4bb8acc"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
@@ -710,11 +710,11 @@ hash = "adc595b62652beea7a3e89d65e9c75be8c93c2c92f37e46f10fc4fd7c214cd90"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "de65ee207f0525c72d9ff96a769ea4578250c9c31fadef796eb4388ba7300b01"
+hash = "466567ac64de39088b12acdedd0291521cdae9451ab12dbae74efcb8bb014445"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "d4b2396280745bbe4efb9985021b1ad82f5cb492b90e2dd7213652facb04b30c"
+hash = "9796069e86d71f9eb187285987658460d6b9aefeadb5f0752e038281df9e3fdd"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
@@ -914,7 +914,7 @@ hash = "bd4d694ff400059ee260dfd14c47fe03a523aace933831149c04ba7698b4642b"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
-hash = "3abcf329d452771f2c694a0a3ee90303c0c4af98194cba479d063fbaefdc92ca"
+hash = "ee20ba492c98da435a8083c98f1a8a33d751b1f8a50cda1badcb09925b900b39"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_7/space_age.js"
