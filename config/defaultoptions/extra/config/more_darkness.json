@@ -1,0 +1,12 @@
+{
+  "enableMod": true,
+  "darkOverworld": true,
+  "darkNether": false,
+  "darkEnd": false,
+  "moonPhaseEffect": true,
+  "minimumMoonBrightness": 0.05,
+  "caveDarkness": 0.0,
+  "eyeAdaptation": false,
+  "darkerWater": true,
+  "disableWithShaders": true
+}

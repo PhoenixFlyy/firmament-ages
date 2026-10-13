@@ -7,6 +7,7 @@
 //   - mob ladder mob_N                           (Doc 08 section 5)
 //   - helper stages ftbchunks_mapping, tool_<station> windows (Doc 08 section 2.3, Doc 10 v3 section 6.2)
 //   - FTB Chunks claim/force-load quota with the Industrial Age (decision r8 A)
+//   - gamerule reducedDebugInfo: F3 coordinates from FA.COORDS_FROM_AGE (Felix 2026-10-13, H5)
 // reconcile() is idempotent: it runs on every ProgressiveStages grant/revoke and on login, so admin
 // repairs (/stage grant ... age_N) and late joiners converge to the same state.
 //
@@ -58,6 +59,13 @@
       const wanted = idx >= ageIndex(from) && (to === null || idx < ageIndex(to))
       setStage(player, helper, wanted)
     })
+
+    // Coordinates in F3 (H5): hidden until FA.COORDS_FROM_AGE. One team = one Age, so the world gamerule follows it
+    // (gamerules.js sets it true on every start). Only for real players: /fa_selftest reconciles a FakePlayer that
+    // must not flip the world rule.
+    if (player.server.getPlayerList().getPlayer(player.getUUID())) {
+      player.server.runCommandSilent(`gamerule reducedDebugInfo ${idx < ageIndex(FA.COORDS_FROM_AGE)}`)
+    }
   }
 
   const reconcile = (player) => {
