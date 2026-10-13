@@ -1881,3 +1881,81 @@ so that gap was run-to-run, not caused by the osmium change.
 - Upload (Felix): firmages-core 0.6.2 first, then `FirmamentAges-0.6.3-curseforge-upload.zip` and the server pack
   (`dev/cf/UPLOAD-ANLEITUNG.md`). Merge `dev` into `main`, tag and push are his.
 - `debug.allowSimulate` in `test-server/config/firmages-server.toml` is back to `false` after the run.
+
+## Item Ages by reachability
+
+Date: 2026-10-13, branch `dev` on top of 6896165. Felix's decision 7: an item takes the later of its `age_map` Age
+and the first Age a team can reach it; an item no source yields is disabled. Fresh test world (`run_server.py
+--wipe-world`), test server synced from `packwiz serve` (`-g -s server`, "Finished successfully"), debug players Alpha
+and Beta in one FTB party, `debug.allowSimulate` on for the run only (back to `false`).
+
+### What changed
+
+- **`dev/derive_ages.py`** (new). Walks the recipe graph once per Age, dawn to age_9, with the walk of the R- checks
+  (`poc_analyze.make_walk`, now module level like `recipe_records`; the poc_analyze output on the old dump stayed
+  byte-identical after that move). Per Age a recipe fires when its station exists, its ingredients are reached, every
+  output has an `age_map` Age of that Age or earlier (the gate) and, for crafting-menu types only (crafting, smithing,
+  stonecutting), its ProgressiveStages recipe lock is owned. Vanilla cooking needs a furnace, blast furnace, smoker,
+  campfire, Create encased fan or Mekanism energized smelter. Start set: the R- start set plus what `--scan` reads from
+  the jars and `kubejs/data` into `dev/data/world_sources.json` (loot tables, loot modifiers, world generation per
+  dimension, structure templates with their chests and spawners, mob spawns): entity loot at the mob's Age (spawn
+  biomes, structures, mod Age, then the spawn lock and mob ladder), chest loot at its structure's Age, block loot of
+  generated blocks; quest and reward-table rewards at their chapter Age; the boss gates' payouts. Hand-kept mechanics
+  in the script: vanilla interactions and special recipes (bottles, buckets of every registered fluid, brewing,
+  fireworks, maps), copper weathering and waxing, AE2 condenser, blaze burner, Create schematics, packages and toolbox
+  dyeing, HNN data models, IE core samples, Roads and Roofs concrete drying, Ad Astra planet trees, Apotheosis gems.
+- **Structures**: a structure template yields only the blocks of its own namespace (a Twilight castle yields castle
+  bricks; the crafting table a mod's tower is furnished with is no source of crafting tables). Vanilla overworld
+  structures never generate in the TFC overworld (their biome tags hold no TFC biome).
+- **Output**: `dev/age_map.toml` section `# >>> generated:derived >>>` with `[derived]` (1,784 items moved later) and
+  `[derived_hidden]` (3,898 never reachable items). `gen_stage_locks.py` applies them (`rule_age`, then the later
+  derived Age; hidden items go to `age_items/disabled`) and writes `kubejs/data/c/tags/item/hidden_from_recipe_viewers.json`,
+  so EMI and JEI hide the never reachable items; they are not ProgressiveStages-locked, like `[hidden]`.
+  `dev/data/derived_ages.json` lists every changed item with the step that first reaches it; `--explain ITEM` for any.
+- **Known gaps** (`KNOWN_GAPS` in the script): the item stays at its rule Age and counts as a source; each is an open
+  point below.
+- **Checks**: `validate_quests.py` accepts a never reachable item as an icon (display only, not stage-locked); G-3
+  counts a byproduct as late only when it is also later than the recipe's ingredients; C-3f leaves out the eldritch
+  miner (never reachable); the A- checks no longer crash on a disabled result.
+
+### Numbers
+
+| | Before | After |
+|---|---|---|
+| Items (registry) | 23,537 | 23,537 |
+| `age_items/dawn` | 5,279 (1,180 vanilla) | 4,263 (197 vanilla: TFC-made glass, wool, dyes, terracotta, world drops) |
+| `age_items/disabled` | 640 | 4,538 (3,898 never reachable) |
+| Vanilla items moved later | – | 891 (age_0 103, age_1 145, age_2 255, age_3 332, age_4 4, age_5 28, age_7 1, age_8 9, age_9 14) |
+| Never reachable, top namespaces | – | createcasing 527 (vanilla-wood variants, encased forms), woodencog 473 (unused unfinished parts), tfcastikorcarts 329 (AFC woods without recipes), createframed 259, MA 222 (compat seeds), occultism 213 (ritual dummies, spawn eggs), MMP 176 (absent metals), theurgy 170, vanilla 166 (spawn eggs, creative blocks, vanilla tools) |
+
+`derive_ages.py --check` on the dump taken after the reload (the gate had already dropped the recipes of hidden
+items) reports the section up to date, so the derivation is a fixed point; `gen_stage_locks.py --check` exit 0.
+
+### Proof on the test server
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot (fresh world) | `Done (12.705s)`; KubeJS server 38/38 scripts, 0 errors, 0 warnings; no tag load error; ERROR lines only the known noise (recipe parse errors of createdeco and woodencog, Sable catwalk, TF `dev_new_world`, trainutilities advancements) | pass |
+| Vanilla items in Dawn | live `item_tags.json`: `minecraft:crafting_table` and `furnace` in `age_items/age_9` (only source: desert villages of the Stargate planets), `iron_ingot`, `torch` and `bucket` age_2, `chest` age_3, `stick` dawn, `barrier` disabled; `fa_dump` row `twilightforest:berry_torch` now carries `item_lock progressivestages:age_2` (was empty) | pass |
+| EMI hiding | `progressivestages.toml` `[emi] enabled = true`, `show_locked_recipes = false`: the PS EMI plugin removes every stack the stage files lock (`tag:firmages:age_items/<Age>`). Never reachable items: live tag `c:hidden_from_recipe_viewers` 4,552 entries, all 3,898 derived ones in it | pass (client look open) |
+| `poc_analyze.py` (`fa_dump`, `fa_dump_full` at age_9, 32,263 recipes) | **82 checks, all PASS** (R- signature chains, R-F, R-L included) | pass |
+| `validate_quests.py` | 1291 object ids, 0 errors, 0 warnings | pass |
+| Reloads at age_9, 2 players (`firmages reload`) | 9,082 / 8,760 / 8,612 ms on a busy host (other sessions running). A/B in the same server, tags swapped between runs: old tags 8,531 / 8,625 / 8,404 / 8,416 / 8,543 / 8,416 ms (mean 8,489), new tags 8,408 / 8,578 / 8,574 / 8,590 / 8,341 / 8,499 ms (mean 8,498) | no change from this work; the 7.7 s mark needs an idle host |
+
+### Open points
+
+- Known gaps kept at their rule Age: Mystical Agriculture has no source at all (ores off in
+  `mysticalagriculture-common.toml`, nothing yields prosperity shards or inferium essence; the Information Age quest
+  asks for the essence); the Industrial Age quest "Any Advanced TFC Tech machine" asks for formed multiblocks (no item
+  form) and the fleshing machine (needs `component_electronic`, first reached at age_5); the Create Dragons Plus blaze
+  upgrade template has no data-visible first source; Apothic Enchanting's table needs diamonds (age_4) while the
+  Arcane Age quest's Blaze Enchanter is made from it. Each needs a design call (quest or recipe change).
+- `mekanism:module_base` needs `c:nuggets/bronze`, whose only member is the Create Big Cannons bronze scrap (no
+  source), so all MekaSuit modules are hidden. Pre-existing; needs a recipe change.
+- Sources only code knows stay unmodelled unless listed in the script; cosmetic variants obtainable only that way (IE
+  shaders, colored plastics, createframed colored glass) are hidden. If something hidden turns up in play, add its
+  source to `INTERACTIONS`, `CODE_DROPS` or `CODE_WORLD` in `dev/derive_ages.py` and rerun.
+- Needs a client: EMI in Dawn shows no crafting table, furnace or torch; hidden items are absent from the index; quest
+  icons of hidden items render.
+- Rerun after any recipe, loot or mod change: `fa_dump` + `fa_dump_full` at age_9, `derive_ages.py` (with `--scan`
+  after jar changes), `gen_stage_locks.py`, sync, reload.
