@@ -11,7 +11,7 @@ tools\packwiz.exe refresh
 python dev\cf\export_cf.py
 ```
 
-Ergebnis: `dev\exports\FirmamentAges-0.6.2-curseforge-upload.zip` (etwa 3 MB). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
+Ergebnis: `dev\exports\FirmamentAges-0.6.2-curseforge-upload.zip` (etwa 1 MB). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
 
 ## 2. In der CurseForge-App importieren
 
@@ -74,4 +74,4 @@ Das Pack hält den Server-Zustand auf dem höchsten vergebenen Age. Zurück auf 
 
 ## 6. Nach dem Test: Veröffentlichung
 
-Die Upload-Schritte stehen in `dev\cf\UPLOAD-ANLEITUNG.md`. Vorher sind zwei Entscheidungen offen (`dev\curseforge-readiness.md`): MekaTFC und TFC Ore Tooltips. Solange eines der beiden Jars im Zip liegt, lehnt die Moderation ab.
+Die Upload-Schritte stehen in `dev\cf\UPLOAD-ANLEITUNG.md`. Offene Entscheidungen gibt es keine mehr: MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen (`dev\curseforge-readiness.md`).

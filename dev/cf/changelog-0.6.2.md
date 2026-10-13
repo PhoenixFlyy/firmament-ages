@@ -4,7 +4,7 @@ First public release on CurseForge, as a beta: the whole progression is playable
 
 ## 0.6.2
 
-- **Osmium is the pack's own ore.** The Information Age's osmium now comes from a TerraFirmaCraft vein of the pack (rock variants and grades like every other TFC ore); MekaTFC is no longer part of the pack. The osmium processing recipes follow the new ore.
+- **Osmium is the pack's own ore.** The Information Age's osmium now comes from a TerraFirmaCraft vein of the pack: poor, normal and rich ore in ten igneous and metamorphic rocks, small surface and cave pieces as indicators, hidden until the Electric Age as before. The pieces melt in a crucible and cast into Mekanism osmium ingots, two ingots weld into an osmium double ingot (osmium ingots can now be heated, so the weld works), and the Mekanism ore ladder takes the new pieces. MekaTFC is no longer part of the pack.
 - **TFC Ore Tooltips removed.** The TerraFirmaCraft field guide lists the host rocks of every ore; nothing else depended on the mod.
 - **30 mod updates** (2026-10-13), among them ProgressiveStages 3.0.6, Stargate Journey 0.6.51, Occultism 1.224.5, Ars Nouveau 5.13.3, Theurgy 1.78.0, JEI 19.64, Sophisticated Backpacks 3.26.12, More Mekanism Processing 6.8, ModernFix 5.27.26 and FramedBlocks 10.6.3.
 - The ingot crushing that More Mekanism Processing 6.8 added for antimony, boron, magnesium, palladium and thorium is removed, like the other ingot-to-dust shortcuts of the ore ladder.

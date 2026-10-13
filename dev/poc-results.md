@@ -1659,3 +1659,75 @@ on join, as with PS 3.0.5.
 - Needs a client: the updated client-side mods (JEI, Entity Culling, FramedBlocks, Sophisticated Backpacks), a real
   dial and trip through a player-built gate.
 - The pack version stays 0.6.1; the next release (`dev/release.ps1 -Version`) raises it.
+
+## Osmium vein and Ore Tooltips removal
+
+Date: 2026-10-13, branch `dev` on top of 37f9f69 (pack 0.6.2, firmages-core 0.6.1). Felix's decisions (1) and (2) of
+2026-10-13: the pack's own osmium vein replaces MekaTFC 0.1.0, TFC Ore Tooltips 1.2.0 is dropped. Decision rows in
+`dev/decisions-while-away.md`.
+
+### What changed
+
+| Part | Files |
+|---|---|
+| 30 ore blocks `firmages:ore/{poor,normal,rich}_native_osmium/<rock>` in the ten rocks of MekaTFC's vein (granite, diorite, gabbro, rhyolite, basalt, andesite, dacite, quartzite, schist, gneiss), model `tfc:block/ore` with a grade overlay; TFC ore hardness (6.5 plus the rock category), resistance 10, pickaxe, `c:ores` and `c:ores/osmium` (block tags only) | `kubejs/startup_scripts/osmium.js` |
+| Small piece `firmages:ore/small_native_osmium` as a TFC groundcover block (KubeJS TFC `tfc:groundcover`, `.ore()`), its own item | same |
+| Ore pieces `firmages:ore/{poor,normal,rich}_native_osmium`, double ingot `firmages:metal/double_ingot/osmium` | `kubejs/startup_scripts/items.js` |
+| Vein `firmages:vein/osmium` (`tfc:cluster_vein`, MekaTFC's numbers: rarity 50, size 30, density 0.45, y -40 to 60, grades 35/40/25) in `#tfc:in_biome/veins`; indicator on the surface (rarity 15, depth 35) and underground (`underground_count` 5, new) | `kubejs/data/firmages/worldgen/`, `kubejs/data/tfc/tags/worldgen/placed_feature/in_biome/veins.json` |
+| Loot (one piece per block, survives explosion, like TFC ores), item heat (pieces, nugget, ingot, double ingot; TFC rule: forging 0.6, welding 0.8 of the 1230 °C melt), fluid heat for `evolvedmekanism:molten_osmium`, `#tfc:molten_metals`, `tfc:ore_pieces`, `tfc:small_ore_pieces`, `c:double_ingots/osmium` | `kubejs/data/firmages/loot_table/`, `kubejs/data/firmages/tfc/`, `kubejs/data/tfc/tags/`, `kubejs/data/c/tags/` |
+| TFC metalworking: 7 heating recipes to molten osmium (4 pieces, nugget, ingot, double ingot), casting in both ingot molds to `mekanism:ingot_osmium`, welding of the double ingot and of the Steel Casing (wrought iron sheet + double ingot) | `kubejs/server_scripts/recipes/age_6/osmium.js` |
+| Ore ladder and spagyric on the new pieces (ids unchanged); MekaTFC tag removals, recipe removals and the 10 `neoforge:false` overrides gone | `recipes/age_6/ore_ladder.js`, `recipes/age_3/arcane_age.js`, `kubejs/data/mekatfc/` (deleted) |
+| Common tags MekaTFC set for TFC ores (see below) | `kubejs/server_scripts/tags/tfc_common_tags.js`; `tags/broken_mod_tags.js` keeps only the WoodenCog fix |
+| Ages: `[ore_families] "firmages:native_osmium" = "age_5"`; `mekatfc` left `[mods]`; registry refreshed | `dev/age_map.toml`, `dev/data/registry.json`, `age_items/age_5.json`, `age_items/age_6.json`, `age_blocks/age_5.json`, `stages/age_5.toml` |
+| Textures: osmium palette, 4 piece items, double ingot, 3 grade overlays (KubeJS block textures); `--check` now also reads texture ids from every startup script | `dev/gen_textures.py`, `kubejs/assets/firmages/textures/` |
+| Metafiles `mods/mekatfc.pw.toml`, `mods/tfc-ore-tooltips.pw.toml` removed | `mods/`, `index.toml` |
+| Checks: C-M rewritten for the vein; piece regex of C-4d, by-design results, Mekanism namespaces of C-6 without MekaTFC; scan default matches `firmages:ore/` | `dev/poc_analyze.py`, `dev/scan_regions.py` |
+
+### Tags MekaTFC carried
+
+A baseline run of the pack before this change (HEAD 37f9f69 exported to a scratch folder, `packwiz serve`, fresh
+world, every Age by `firmages ages simulate grant`, `fa_dump` and `fa_dump_full`) against the first run without
+MekaTFC showed that MekaTFC also tagged every TFC ore block as `c:ores/<metal>`, every TFC ore piece as
+`c:raw_materials/<metal>`, the hay block as `c:storage_blocks/wheat` and `#c:ingots/wrought_iron` as `c:ingots/iron`.
+Without them the two Occultism animal rituals failed to load (KubeJS: `arcane_tfc_inputs.js#257` "Component
+'ingredient' is not allowed to be empty", `c:storage_blocks/wheat`), and Theurgy's mercury distillation, mineral salt
+calcination and divination rods lost the TFC ores. `tags/tfc_common_tags.js` restores them. After it, the item-tag
+diff against the baseline is only the entries the pack's canon rejects (`unification.js`): TFC alloy sheets in
+`c:sheets/{bronze,gold,silver,steel}`, the wrought iron sheet in `c:sheets/iron` (no recipe uses that tag), TFC
+charcoal and lapis powder in `c:dusts`, Mekanism sulfur dust in `c:powders/sulfur`.
+
+### Proof on the test server
+
+Test server synced with packwiz-installer-bootstrap `-g -s server` from `packwiz serve` (MekaTFC jar removed by the
+installer), fresh world (`run_server.py --wipe-world`), `debug.allowSimulate` on for the run only.
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot | `Done (14.229s)`; KubeJS startup 3/3, server 37/37, 0 errors in every load; 0 "Couldn't load tag"; no "AgeIndex: tagged ids are not registered" | pass |
+| Block loot (`loot insert ... mine ... diamond_pickaxe`) | normal granite block: 1 `firmages:ore/normal_native_osmium` from `firmages:blocks/ore/normal_native_osmium/granite`; rich gneiss: 1 rich piece; small piece: itself; every stack carries `tfc:heat` | pass |
+| Pregen and scan (`chunky spawn` = 3456 1408, radius 256, 1,089 chunks in about 30 s; `scan_regions.py --radius 256`, 812 full chunks) | 18,081 osmium ore blocks in 12 ids (gabbro 11,006, basalt 3,206, schist 2,196, diorite 1,673; normal 7,228, poor 6,295, rich 4,558); 135 `firmages:ore/small_native_osmium` (TFC's small pieces: 2,209 in 10 ids, bismuthinite 196). A first world (spawn 576 1600, same radius, indicator without underground pieces) had 40,143 ore blocks and 0 indicators, hence `underground_count` 5 | pass |
+| Disguise (`fa_dims`) | `[[ores.overrides]]` age_5 95 rows (64 TFC + IE bauxite, 30 osmium blocks, 1 small piece), total 1,304, 0 targets that are not registered blocks, spoof active | pass |
+| Prospecting (`execute if block ... #tfc:prospectable` on a placed osmium block) | Dawn: no; age_0 to age_4: no (garnierite of age_4: yes); after `simulate grant age_5`: yes; uraninite (age_7) at age_5: no. `precisionprospecting:prospectable_mineral` holds no metal ores in any Age | pass |
+| Reloads (2 grants of several Ages, 2 single) | 8,356 ms (age_0 to age_4), 7,285 ms (age_5), 7,251 ms (age_6 to age_9), 6,957 ms (operator) | pass |
+| `poc_analyze.py` (age_9 dump) | 82 PASS, 0 FAIL; C-M: no `mekatfc:` or Ore Tooltips id, 30 ore blocks, 12 ladder recipes on the four pack pieces, pieces eaten only by the ladder, TFC heating and the spagyric, 7 heating, 2 casting, 2 welding recipes, pieces and blocks out of `c:raw_materials/osmium` and `c:ores/osmium` (items), pieces and blocks age_5, double ingot age_6; R- checks (Data Matrix and later goals) reach their Ages | pass |
+| `gen_stage_locks.py --registry` / `--check` | 23,537 items; age_5 388 items, 95 blocks; `--check` clean | pass |
+| `validate_quests.py` | 1291 object ids, 0 errors, 0 warnings | pass |
+| `gen_textures.py --check` | 68 referenced textures, 0 errors, 0 warnings | pass |
+| `python dev/cf/export_cf.py` | `FirmamentAges-0.6.2-curseforge-upload.zip` 0.9 MB, 190 manifest files, overrides: only `firmages-core-0.6.1.jar` | pass |
+
+Recipes against the baseline (both at age_9): 33,277 before, 33,202 after. Gone: the 79 MekaTFC recipes (67 heating
+recipes of pieces and of every ore block, 4 metal heating, 2 casting, 2 welding, the redstone mixture and its barrel
+and enriching recipes, pyrite to sulfur in a barrel), new: the 11 of `recipes/age_6/osmium.js`. Changed: the Mekanism osmium ingot as a result now
+carries `tfc:heat` (MekaTFC's heat files sat in `item_heats/`, which TFC 4.2 does not read, so the ingot could not be
+heated or welded before), the ladder recipes take the new pieces, and Ars tomes, Draconic modules and two Occultism
+books differ only in a random spirit name or the order of their data components.
+
+### Open points
+
+- Needs a client: the ore overlays on the ten rocks, the piece and double ingot textures, the groundcover indicator
+  model, block and item names (KubeJS lang), the disguise as raw rock before age_5, the crucible and welding in play.
+- 7 auto-generated `create_dragons_plus:sandpaper_polishing/*` recipes (Mars and Mercury stone, Moon stone stairs,
+  three sourcestone parts, blackstone wall) were in the baseline dump and are missing in this one; Create Dragons
+  Plus builds them at runtime, they have nothing to do with osmium, and the cause is not found.
+- A world that generated chunks with MekaTFC loses those osmium blocks and MekaTFC items on the update.
+- The IE Excavator mix with osmium (Doc 08 §3.2, Electric Age) is still not built.

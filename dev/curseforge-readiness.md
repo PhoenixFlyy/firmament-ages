@@ -1,6 +1,6 @@
 # CurseForge-Bereitschaft
 
-Stand 2026-10-01, Pack 0.5.0, 193 Mods. Regel von CurseForge ([Moderation Policies](https://support.curseforge.com/support/solutions/articles/9000197279-project-and-modpack-moderation-policies), Abschnitt „Non-CurseForge Mods“): Ein Modpack darf nur Mods enthalten, die auf CurseForge liegen oder auf der Liste [Non-CurseForge Approved](https://docs.google.com/spreadsheets/d/176Wv-PZUo9hFxy6oC6N8tWdquBLPRtSuLbNK-r0_byM/edit#gid=0) stehen. Neue Einträge beantragt man über das [Antragsformular](https://forms.monday.com/forms/a46faa60c3d9cf097763311811db5bbd?r=use1) (verlinkt im Kopf der Liste). Mods, die ein CurseForge-Projekt haben, gehören ausdrücklich **nicht** auf die Liste.
+Stand 2026-10-13, Pack 0.6.2, 191 Mods (190 CurseForge-Dateien im Manifest plus firmages-core). Erste Fassung 2026-10-01 (Pack 0.5.0, 193 Mods). Regel von CurseForge ([Moderation Policies](https://support.curseforge.com/support/solutions/articles/9000197279-project-and-modpack-moderation-policies), Abschnitt „Non-CurseForge Mods“): Ein Modpack darf nur Mods enthalten, die auf CurseForge liegen oder auf der Liste [Non-CurseForge Approved](https://docs.google.com/spreadsheets/d/176Wv-PZUo9hFxy6oC6N8tWdquBLPRtSuLbNK-r0_byM/edit#gid=0) stehen. Neue Einträge beantragt man über das [Antragsformular](https://forms.monday.com/forms/a46faa60c3d9cf097763311811db5bbd?r=use1) (verlinkt im Kopf der Liste). Mods, die ein CurseForge-Projekt haben, gehören ausdrücklich **nicht** auf die Liste.
 
 ## Ergebnis
 
@@ -12,22 +12,22 @@ Stand 2026-10-01, Pack 0.5.0, 193 Mods. Regel von CurseForge ([Moderation Polici
 | … byte-gleich (CurseForge-Fingerprint-Treffer, sha1 gleich) | 170 |
 | … gleiche Version, andere Datei (nur `MANIFEST.MF` bzw. Zip-Packung, gleicher Code) | 11 |
 | … gleiche Version, **anderer Code** | 1 (Gateways to Eternity) |
-| Mods ohne CurseForge-Projekt | 2 (MekaTFC, TFC Ore Tooltips) |
+| Mods ohne CurseForge-Projekt | 0 (MekaTFC und TFC Ore Tooltips sind seit 2026-10-13 nicht mehr im Pack) |
 | eigene Mod, noch nicht auf CurseForge | 1 (firmages-core) |
-| Jars in `overrides/mods/` des Upload-Zips heute | 3 |
-| Jars in `overrides/` nach Schritt 1 und 2 unten | 0 |
+| Jars in `overrides/mods/` des Upload-Zips heute | 1 (`firmages-core-0.6.1.jar`; `python dev/cf/export_cf.py`, 2026-10-13) |
+| Jars in `overrides/` nach dem Upload von firmages-core | 0 |
 
 Keine Mod hatte auf CurseForge nur eine andere Versionsnummer: jede gefundene Datei ist dieselbe Version wie die Modrinth-Datei des Packs.
 
-## Was Du entscheiden musst
+## Entscheidungen (getroffen 2026-10-13)
 
-| Mod | Lizenz (Modrinth / Repo) | Auf der Approved-Liste? | Status | Vorschlag |
-|---|---|---|---|---|
-| **MekaTFC** 0.1.0 (zhixuan45), [Modrinth](https://modrinth.com/mod/mekatfc), [GitHub](https://github.com/zhixuan45/MekaTFC) | All Rights Reserved (Modrinth); das Repo hat keine LICENSE-Datei | nein | **request-needed**, aber bei ARR nur mit schriftlicher Erlaubnis des Autors | Am einfachsten: zhixuan45 bitten, die Mod auf CurseForge hochzuladen (dann normaler Manifest-Eintrag), sonst um Erlaubnis bitten und sie mit dem Antrag einreichen. **replace-candidate**, falls er nicht antwortet: eine CurseForge-Mod mit Osmium in TFC-Gesteinen gibt es nicht (Suche „tfc mekanism“, „tfc osmium“ ohne Treffer). Ersatz wäre eigene Datenarbeit: eine TFC-Erzader mit Mekanisms eigenem `mekanism:osmium_ore` (ohne Gesteinsvarianten und ohne die drei Güten) und die Osmium-Rezepte von `ore_ladder.js` darauf umstellen. MekaTFC liefert heute die Osmium-Erze (arm, normal, reich, in jedem TFC-Gestein), die die Information Age braucht. **Nicht streichen ohne Ersatz.** |
-| **TFC Ore Tooltips** 1.2.0 (Grimm147), [Modrinth](https://modrinth.com/mod/tfc-ore-tooltips) | MIT (Modrinth); kein Repo angegeben | nein | **request-needed** (MIT erlaubt das Weitergeben, der Antrag sollte durchgehen) | Antrag stellen. Fällt er durch: **drop**. Die Mod ist reine Client-Hilfe (Gesteine und Höhen im Erz-Tooltip); das TFC-Feldbuch zeigt dieselben Wirtsgesteine, und die Stationsmatrix hängt an ihr nicht. Eine CurseForge-Alternative mit derselben Funktion gibt es nicht. |
-| **firmages-core** 0.5.0 (eigene Mod) | MIT (neu, `mod/firmages-core/LICENSE`) | – | eigenes Projekt | Zuerst als eigenes Mod-Projekt hochladen (`dev/cf/firmages-core-description.md`), danach per `packwiz curseforge add` ins Pack. Kein Antrag nötig. |
+| Mod | Lizenz (Modrinth / Repo) | Auf der Approved-Liste? | Entscheidung |
+|---|---|---|---|
+| **MekaTFC** 0.1.0 (zhixuan45), [Modrinth](https://modrinth.com/mod/mekatfc), [GitHub](https://github.com/zhixuan45/MekaTFC) | All Rights Reserved (Modrinth); das Repo hat keine LICENSE-Datei | nein | **ersetzt** durch die eigene Osmium-Ader des Packs: KubeJS-Erzblöcke `firmages:ore/<güte>_native_osmium/<gestein>` (arm, normal, reich in den zehn magmatischen und metamorphen Gesteinen der MekaTFC-Ader), Erzstücke, kleines Oberflächenstück, TFC-Ader `firmages:vein/osmium`, Schmelzen und Gießen zum Mekanism-Osmiumbarren, Doppelbarren und Steel-Casing-Schweißen (`kubejs/startup_scripts/osmium.js`, `kubejs/server_scripts/recipes/age_6/osmium.js`, `kubejs/data/firmages/`). Die Common-Tags, die MekaTFC für TFC-Erze nebenbei setzte, stehen jetzt in `kubejs/server_scripts/tags/tfc_common_tags.js`. Nachweis: `dev/poc-results.md`, Abschnitt „Osmium vein and Ore Tooltips removal“. |
+| **TFC Ore Tooltips** 1.2.0 (Grimm147), [Modrinth](https://modrinth.com/mod/tfc-ore-tooltips) | MIT (Modrinth); kein Repo angegeben | nein | **gestrichen**. Reine Client-Hilfe (Gesteine und Höhen im Erz-Tooltip); das TFC-Feldbuch zeigt dieselben Wirtsgesteine, nichts im Pack hing an ihr. |
+| **firmages-core** 0.6.1 (eigene Mod) | MIT (`mod/firmages-core/LICENSE`) | – | eigenes Projekt: zuerst als Mod-Projekt hochladen (`dev/cf/UPLOAD-ANLEITUNG.md`), danach per `packwiz curseforge add` ins Pack. Kein Antrag nötig. |
 
-Bis die beiden Anträge durch sind, lehnt die Moderation ein Upload-Zip mit ihren Jars ab. Zwei Wege: warten, oder die erste Version ohne sie hochladen (MekaTFC fehlt dann für die Information Age, also nur mit Ersatz).
+Damit braucht das Upload-Zip keinen Antrag auf der Approved-Liste mehr.
 
 ## Sonderfälle der Umstellung
 
@@ -43,7 +43,7 @@ Elf Mods: Create: Connected, Create: Liquid Fuel, FastSuite, Kotlin for Forge, K
 
 ### Seitenangabe
 
-`side` jeder Metadatei ist von der Modrinth-Fassung übernommen (171 both, 15 client, 6 server). Das Upload-Zip wird mit `-s both` gebaut: Eine CurseForge-Installation spielt auch Einzelspieler, und dort müssen die reinen Server-Mods (LootJS, TFC Ruins, Almost Unified IE, Create: Liquid Fuel, Chunky, Simple Backups) mitlaufen.
+`side` jeder Metadatei ist von der Modrinth-Fassung übernommen (170 both, 14 client, 6 server; Stand 2026-10-13). Das Upload-Zip wird mit `-s both` gebaut: Eine CurseForge-Installation spielt auch Einzelspieler, und dort müssen die reinen Server-Mods (LootJS, TFC Ruins, Almost Unified IE, Create: Liquid Fuel, Chunky, Simple Backups) mitlaufen.
 
 ## Werkzeuge
 
