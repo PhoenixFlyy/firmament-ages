@@ -1569,3 +1569,93 @@ file on either site.
 | Stargate Journey | `Stargate.Journey-1.21.1-0.6.49.jar` | `Stargate.Journey-1.21.1-0.6.51.jar` | CurseForge |
 | SuperMartijn642's Core Lib | `supermartijn642corelib-1.1.24a-neoforge-mc1.21.jar` | `supermartijn642corelib-1.1.25-neoforge-mc1.21.jar` | CurseForge |
 | Theurgy | `theurgy-1.21.1-neoforge-1.76.1.jar` | `theurgy-1.21.1-neoforge-1.78.0.jar` | CurseForge |
+
+### firmages-core against the new jars
+
+`gradle.properties` pins ProgressiveStages 3.0.6, Stargate Journey 0.6.51 and Occultism 1.224.5 (the other pinned
+mods did not change); `fetchLibs` downloaded the new PS and SGJ jars (hash from the metafiles). javap, old against new:
+
+| Target | Observed | Result |
+|---|---|---|
+| PS `ProgressiveStagesAPI.syncPlayer`, `NetworkHandler.sendStageSync`, `ServerEventHandler.onPlayerJoin` (the three mixins) | bytecode identical, offsets included (constant-pool indices ignored) | pass |
+| PS API (`ProgressiveStagesAPI`, `StageChangeEvent`, `StagesBulkChangedEvent`, `LockRegistry`, `StageManager`, `StageCause`, `StageId`, `NetworkHandler`) | no member removed or changed; new: `grantStageFromSourceWithDependencyBypass` and private helpers; one new class (a PS GameTest) | pass |
+| SGJ `StructureGenEntity` (and `Step`), `AbstractDHDEntity`, `AbstractStargateEntity`, `StargateNetwork` | only added members (`isWormholeEstablished`, `isDialing`, `findStargatesInLevel`); every `data/` file of 0.6.49 is byte-identical in 0.6.51, new are the Andromeda gate files; the `stargate_pedestal_1` template is present | pass |
+| Occultism `DimensionalMineshaftBlockEntity` (`tick()`, `possibleResults`), `MinerRecipe` and the four recipe results | identical | pass |
+| Ars Nouveau 5.13.3 `EnchantingApparatusTile` (`memo`, `Memoizer.memoize` in `<init>`, `getRecipe`) | bytecode identical to 5.13.2 | pass |
+| IE MineralMix, Jade, Modonomicon, Gateways `GateEvent`, Create, Mekanism | not updated | n/a |
+| `gradlew build` (also with `compileJava --rerun jar --rerun`) | exit 0; the jar is **byte-identical** to `mods/firmages-core-0.6.1.jar` (460 entries, same sha1) | pass |
+| `gradlew runGameTestServer` | "All 28 required tests passed"; "GameTest dial: Origin address -> CONNECTION_ESTABLISHED_INTERSTELLAR, unknown address -> INVALID_ADDRESS" against SGJ 0.6.51; selftest gate 16/0 | pass |
+
+The jar does not change, so firmages-core stays **0.6.1** (nothing to ship); SPEC §1.4 and the README name the new
+versions. The GameTest log carries one KubeJS error that is not new: `boss_fallback.js` loads Gateways'
+`GatewayRegistry`, and Gateways is not in the GameTest run.
+
+### AdvancedAE strength card
+
+Disabled (decision log): `[hidden]` of the Age map and `HIDDEN_ITEMS`; the two sword swaps in `gear_rule.js` are gone.
+In the age_9 dump no recipe names `advanced_ae:strength_card`; the item is in `c:hidden_from_recipe_viewers` and in
+`firmages:age_items/disabled`.
+
+### Server pack for CurseForge
+
+`packwiz curseforge export -s server` exists, but it writes a manifest zip, and CurseForge server packs (the
+"Additional File" of a modpack file) are unpacked server folders with the jars. `dev/release.ps1` step 5 now builds
+`dev/exports/FirmamentAges-<version>-server.zip`: `packwiz serve` on port 8091, packwiz-installer-bootstrap `-g -s
+server` into `dev/exports/server-work/` (the sync of a live server), plus `server/start.bat`, `start.ps1`,
+`user_jvm_args.txt`, `server.properties` from the template, the new `server/README-SERVERPACK.md` (English) and the
+NeoForge installer; `-SkipServerPack` skips it. The zip entries use `/` (the first try with .NET Framework's
+`ZipFile.CreateFromDirectory` wrote `\`). 0.6.1: 435 entries, 178 jars in `mods/`, 508.6 MB, `release.ps1` exit 0.
+`dev/cf/UPLOAD-ANLEITUNG.md` §4 step 4 describes the upload.
+
+### Proof on the test server
+
+Fresh world (`run_server.py --wipe-world`), synced with packwiz-installer-bootstrap `-g -s server` from `packwiz
+serve`: "Finished successfully", 444 index entries, 429 server-side files resolved (the updated CurseForge files
+included), 15 client-only skipped; `mods/` holds exactly the 178 server jars of the metafiles, no stale old version.
+Debug players Alpha and Beta, survival, one FTB party; `debug.allowSimulate` was on for the run only.
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot | `Done (12.430s)`; KubeJS startup 2/2, server 35/35, 0 errors, 0 warnings; recipes "Added 573, removed 7189, modified 332, 0 failed"; `byproducts: 8 recipe(s)`, `dead inputs: 97 of 97`, `TFC station inputs: 92 replacements`; "Registered 22 gateways"; FTB Quests 13 chapters, 345 quests | pass |
+| ERROR lines | 0 from FirmagesCore, ProgressiveStages and FTB Quests; the rest is the known noise (DISTXFORM, client mixins of azimuth, bits_n_bobs, woodencog and simulated, loot tables of railways, dndecor and create_connected, tfcrf and woodencog recipe parse errors, createdeco placard, Sable `copycat_catwalk`, Polymorph EMI module, TF `dev_new_world`, trainutilities advancements) | pass |
+| Warm-up after boot | "Age reload (warm-up after boot) finished in 7577 ms" | pass |
+| Ladder (shrine at 0 200 0, rings 0 to 8 by `build_shrine.py`) | dawn and age_0 by `stage grant`, then tiers 0 to 8: offering by `debug use`, rites (firestarter on the heart, the bell, `build_shrine.py --rites 2..5`, Chorus, `time set midnight`), prayer by `debug pray`; exactly one "Age reload starting" and one "Ceremony FULL" per Age; end state awakened 9, relics 9, valid ring 8 | pass |
+| `firmages selftest all` (age_9) | 44 passed, 0 failed | pass |
+| Origin at age_8 | `firmages origin tp Alpha`: "Alpha was not let into The Origin", Alpha stays in the overworld | pass |
+| Origin at age_9 | `firmages origin tp @a`: both in `firmages:origin` at 0.5 65 14.5; `sgjourney stargateNetwork address firmages:origin`: "-9-16-21-33-2-37-" (as with 0.6.49); `origin status` "return gate built, altar at 0 65 0 present"; return DHD at 0 65 25 | pass |
+| Stargate dial with SGJ 0.6.51 | GameTest `overworldGateCanDialTheOrigin` (simulated dial from an overworld Milky Way gate): CONNECTION_ESTABLISHED_INTERSTELLAR; an unknown address: INVALID_ADDRESS | pass |
+| Fallback gateway: End Trial (Alpha at age_9, 2 End Sigils, `debug use` on bedrock) | "boss fallback: Alpha opened firmages:end_trial", one sigil left; waves killed by command, gate gone after 34 s; "completed in age_7: one draconicevolution:dragon_heart added"; at the gate 4 dragon's breath and 1 dragon heart | pass |
+| Reactor controller on a real DE reactor (core 30 202 0, four stabilizers by `/setblock`, facing by `data merge`, formed by `debug use`) | cold empty reactor: READY, fuel 10,368, 8 blocks taken, redstone wire 15; burnt down (fuel 2073.6, chaos 8294.4 by NBT): SWAP, 6 large, 3 medium and 5 small fragments out, fuel 9,850, redstone 0; 64 nuggets in the chest: 32 taken, READY, fuel 10,362, redstone 15; the reactor stays COLD | pass |
+| `poc_analyze.py` (`firmages recipes audit`, `fa_dump`, `fa_dump_full` at age_9) | first run 81 PASS, **1 FAIL: C-6b**: More Mekanism Processing 6.8 added ingot crushing for antimony, boron, magnesium, palladium and thorium. Fixed in `ore_ladder.js` (five ids in `ORE_LADDER_REMOVALS`), synced, `firmages reload` (6,884 ms), new dump (33,277 recipes): **82 checks, all PASS** | pass after fix |
+| `gen_stage_locks.py --registry` on the age_9 dump | 23,572 items; new items assigned: the 35 MMP items of the five metals and the ExtendedAE vacuum interface (age_6), the SGJ Andromeda gate and DHD (age_9), the 8 consecrated shrine blocks (dawn); `--check` clean | pass |
+| `validate_quests.py` | 1291 object ids, 0 errors, 0 warnings | pass |
+| `gen_textures.py --check` | 60 referenced textures, 0 errors, 0 warnings | pass |
+
+Reload times with 2 players online, ms (each grant one reload):
+
+| Grant | Path | Reload |
+|---|---|---|
+| age_0 | `stage grant` (first reload with players, after the warm-up) | 6,670 |
+| age_1 | tier 0, Alpha (firestarter) | 6,951 |
+| age_2 | tier 1, Alpha (bell) | 7,959 |
+| age_3 | tier 2, Alpha (lamps) | 7,163 |
+| age_4 | tier 3, Alpha (candles) | 6,933 |
+| age_5 | tier 4, Alpha (lanterns) | 7,242 |
+| age_6 | tier 5, Alpha (floodlights, capacitors) | 6,643 |
+| age_7 | tier 6, Beta and Alpha (Chorus) | 6,602 |
+| age_8 | tier 7, Alpha (stars) | 6,526 |
+| age_9 | tier 8, Beta and Alpha (Chorus, stars) | 6,661 |
+| operator `firmages reload` at age_9 | after the ore-ladder fix | 6,884 |
+
+All below the 10 s limit and in the range of the earlier ladders; 2 duplicate PS lock syncs skipped per reload and 2
+on join, as with PS 3.0.5.
+
+### Open points
+
+- The server zip is 508.6 MB; CurseForge names no size limit for additional files. If the Author Console refuses
+  it, ask CurseForge support.
+- MezzConfig now uses the file named `mezz_config-1.21.1-neoforge-0.6.8-standalone.jar` (the newest CurseForge file
+  of the project); the server boots with it, the client (JEI 19.64) is untested.
+- Needs a client: the updated client-side mods (JEI, Entity Culling, FramedBlocks, Sophisticated Backpacks), a real
+  dial and trip through a player-built gate.
+- The pack version stays 0.6.1; the next release (`dev/release.ps1 -Version`) raises it.
