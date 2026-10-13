@@ -31,16 +31,24 @@ Optional (the mod hooks into them when they are present):
 - Draconic Evolution with Brandon's Core and CodeChicken Lib (reactor controller)
 - Stargate Journey (The Origin's gate)
 - Jade (shrine tooltips)
+- FTB Quests (quest text spacing)
 
 ## Configuration
 
-`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst and nutrition, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons and TerraFirmaCraft displays).
+`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays, quest paragraph gap).
 
 ## Source and license
 
 MIT License. Source: the `mod/firmages-core` folder of the pack repository, [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages/tree/main/mod/firmages-core). Issues go to the [pack's issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues). The textures are generated pixel art made for this mod.
 
 ## Changelog
+
+**0.7.2**
+
+- TerraFirmaCraft inventory tabs by Age: `ui.calendarTabFromAge` (default Stone Age), `ui.climateTabFromAge` (Iron Age), `ui.nutritionTabFromAge` and `ui.fieldGuideTabFromAge` (both `never`). The server sends the open tabs with `firmages:age_status` (one more byte; client and server need 0.7.2), the client removes locked tab buttons and closes the gaps, and a server mixin refuses TFC's tab packet for a locked tab.
+- The client setting `tfc.hideNutrition` now only hides the nutrition lines in food tooltips; the nutrition tab follows the server key.
+- Title screen: the Language and Accessibility buttons are hidden (`ui.hideMenuButtons`), FancyMenu 3.9.14 no longer finds them on 1.21.1.
+- FTB Quests: a blank description line becomes a gap of `ui.questParagraphGap` pixels (client, default 4, 0 to 9) instead of a full text line, and the gap after the subtitle takes the same value.
 
 **0.7.1**
 

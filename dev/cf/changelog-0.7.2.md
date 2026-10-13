@@ -1,6 +1,15 @@
-# Firmament Ages 0.7.1
+# Firmament Ages 0.7.2
 
 Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. This changelog covers everything since 0.5.0 (the first release candidate that was never published).
+
+## 0.7.2
+
+- **Title and pause menus fixed.** The title screen shows only Singleplayer, Multiplayer, Options and Quit; the Language and Accessibility buttons and Create's config button are gone (both settings stay under Options), and the version line is no longer cut off. The pause menu keeps Back to Game, Options and Disconnect, restyled and centred; Advancements, Statistics, feedback, bug report, server links and Open to LAN are hidden.
+- **TerraFirmaCraft inventory tabs open with the Ages.** The calendar tab appears with the Stone Age and the climate tab with the Iron Age; the nutrition tab and the Field Guide tab stay hidden. The remaining tabs move up without gaps, and the server refuses a locked tab. Each tab can be set per world in the Firmament Ages Core config (`ui.calendarTabFromAge`, `ui.climateTabFromAge`, `ui.nutritionTabFromAge`, `ui.fieldGuideTabFromAge`).
+- **Simple Voice Chat removed.** Its keys are free again (Alt+M among them).
+- **Mystical Agriculture ores come from TerraFirmaCraft veins.** Inferium ore (every rock type), prosperity ore (igneous and metamorphic rock, deep) and soulstone with soulium ore (basalt only) generate as veins in new chunks. Until the Information Age they look like plain rock, drop plain rock and do not show up when prospecting. The Information Age side quest for Mystical Agriculture now asks for essence, shards and soulstone.
+- **Tighter quest text.** Paragraphs in the quest view sit closer together (14 instead of 18 pixels; `ui.questParagraphGap` in the client config of Firmament Ages Core).
+- **Firmament Ages Core 0.7.2** with the menu buttons, the TerraFirmaCraft tabs and the quest text spacing.
 
 ## 0.7.1
 

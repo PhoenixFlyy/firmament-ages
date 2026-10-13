@@ -25,6 +25,10 @@ file = "config/crash_assistant/config.toml"
 hash = "4b3b59c1c8b25c64411302b5b9dd0622ec58fc8fdd4f3a5373d827d210f1cc7f"
 
 [[files]]
+file = "config/create-client.toml"
+hash = "95752e09d01178db3c5bdc0dce1634e3a4882ace629df1be5f4707e1a36f6519"
+
+[[files]]
 file = "config/createdieselgenerators-server.toml"
 hash = "0b129185c5252400c94d0eb3314b63033ba3c982e0058bcce6e1ce3ae1606cec"
 
@@ -37,12 +41,8 @@ file = "config/defaultoptions/extra/config/emi.css"
 hash = "f07814d325cf9c953876322078b4b630e3f45050211440423b113cb0a14f929b"
 
 [[files]]
-file = "config/defaultoptions/extra/config/voicechat/voicechat-client.properties"
-hash = "2102e77318ef3c32b4eb17e45a870c3e387fae6883eba54e9b372de05ff3ed38"
-
-[[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "7a9513a76eb032f4e1716cbb45d0522051108321270d846caef363446da5b3c7"
+hash = "f1094423b1d6697f5eb92ac3a4baedf322e079ec75ca18aed26e458773408c9e"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -94,11 +94,11 @@ hash = "73465c2f699837e6251bfa42dcee3af318bc84813de28e1ca39d284556d212ec"
 
 [[files]]
 file = "config/fancymenu/customization/pause_screen_layout.txt"
-hash = "4edb8f05453276d87794d03f3a7e08f155295ca63fdcccae96124a909502c47b"
+hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "3b993ecce52c9a00926a529c6a3a5f3dfa7ebc89c1e9b9b90128523251d17a56"
+hash = "64e2d5b520e8c94b41e0691a18f5e0f7d13baef2394ae29a2335f0e8d2850331"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -182,7 +182,7 @@ hash = "f89459d0af5b15a1be29e55915bc61796c4bb8a16ecbc4f65f08862efe5ba531"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "571cec34970ca2f6a51035ad811a7252a5124d36d4ba88ecf7b24be9f2c3d097"
+hash = "6c5353804bdbc93f8bb9965791e01923850467975d0fb5c9b6a57c28586d8670"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
@@ -218,7 +218,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "33db1f30e632f23f8ec24e7c34b98f10340a982e463160ce27225bef8aeda0fd"
+hash = "38f0abf24ecd9182fa6803b8a814547ee19373a26f1b8ca2eab18f3dd3fe2437"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -314,7 +314,7 @@ hash = "cb630b2561ab3c192709d34f00e1535a483fc8873bd17f6309218722aa5a3a5f"
 
 [[files]]
 file = "config/mysticalagriculture-common.toml"
-hash = "0c655427690916b78ec5262596ce37d24aaba68a95ea8fc87eccf69fa39c531f"
+hash = "5dff4c007152c73d7fe1e56239b4dc729438fb96586c0e2aa6993ed3a9e2ca4d"
 
 [[files]]
 file = "config/mysticalcustomization/configure-crops.json"
@@ -354,7 +354,7 @@ hash = "a0c26f937238bea281f356569c83dfce4f1e353381232378e2f90ba98cf68b57"
 
 [[files]]
 file = "config/progressivestages/stages/age_6.toml"
-hash = "448ed2975c71103b7dd7b76b40a77c60fa7c66b2e4c577ee5139e48fe53ed00f"
+hash = "64bd64748db9242133ba5e6948d1b30c16942091ce69dc5df8690cbd98fcf0e3"
 
 [[files]]
 file = "config/progressivestages/stages/age_7.toml"
@@ -1066,7 +1066,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "eaebd598f5069004a56034fbb9c6ddd5b52becf2f6ba424207685eba96d7a428"
+hash = "690f30427077b1007e5e701813f66f606fd03af88ed748cd1685393834d04dad"
 
 [[files]]
 file = "kubejs/data/create/neoforge/biome_modifier/striated_ores_nether.json"
@@ -1131,6 +1131,90 @@ hash = "dfaebb6a1a9bd5f2f348f62a578a73927ac28d9ef8f80d7e965edd1d05433213"
 [[files]]
 file = "kubejs/data/firmages/loot_modifiers/datura_seed_from_tfc_grass.json"
 hash = "4456bd6e6adf69b904906202f4eb2a11eb1aa769dfbef2a9f8ad199b9605d71f"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/andesite.json"
+hash = "aa08d08fc0b182e6ff18f59e9a2a1992e3c541df82662ef954877cb37de3718a"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/basalt.json"
+hash = "b101dc7c1cd22d33d46902169b551aacc9ae86895cb60148aae2b9064a6e6d28"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/chalk.json"
+hash = "1accd054faad52978660e4c78d0512ea279aaf5db4a114b9ed29645dce013d74"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/chert.json"
+hash = "c5e6b137c976c336c36a386e36031e3c555df9ad0116505749bf96f09cf6b884"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/claystone.json"
+hash = "5fcebed9fab3b06d3ad582aef5b28d123c65658d863ce63bb8a269520ff2dab1"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/conglomerate.json"
+hash = "8ad73908a82cd8d739d6b933b609043b0eb08c6ce5ea73a025a07e5a8f13faf3"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/dacite.json"
+hash = "2f4b25247f0dce305ca273fbc73eb83a696ac532e4a74296951e768caca3e7b6"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/diorite.json"
+hash = "47b1efd2280166450514982f42fd15930290039f08c138a801be476582866058"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/dolomite.json"
+hash = "ab0fda1a5afe082dadff68c6223ac2678e8e860ceae6de292c06dca461d561c3"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/gabbro.json"
+hash = "b00012eeecf9c3dfa6caa40eeda7f40d6c5953b5ac8cc7e6c7a3e32570b65ac2"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/gneiss.json"
+hash = "d394ee7dea7a1503d7cb3f3a1019b1ec2bc9572e1d0b9934c11f4b1c4665d53e"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/granite.json"
+hash = "c6fc00369dd9606059ac93221bda720513db9d76eeae205b3e8680cb2fcae084"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/limestone.json"
+hash = "ce749e228eb11255450b01ee0f02ce19faa8ff423b1de2f5880a57705d287184"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/marble.json"
+hash = "336a30dd5a2b2760fe91f9a27927978b962b965acc0723e17e68569888f76710"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/phyllite.json"
+hash = "2b41a1471e2ea5526b29d35020a5639ec5c687bee5ffcd2c0314b017e58337f3"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/quartzite.json"
+hash = "711b66df49e1939eeb154e392cd671d85aca608f121a1a1b937888a841acfa84"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/rhyolite.json"
+hash = "abb555435cf008fa6189524609ffb0edbe67cbe21b228f94766b5f471e88c083"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/schist.json"
+hash = "2879da26c5a7932afbc9210fc2e5a12e01e15ca940c0dfba9093922773aca13b"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/shale.json"
+hash = "745826ef1bd2efd66cfeef73eaeb3ec5f3e348ba78dd70a8ddaf015c11962b44"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/slate.json"
+hash = "6221c8cb6274f2bdda2c7c0bca4f02224ef6db92da65168a1a2f16df42eefa3a"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/tuff.json"
+hash = "4c485b0040e0af26ff1ce90893c5ee21025904fb7045f1d1a41b4699fd765ffb"
 
 [[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/andesite.json"
@@ -1211,6 +1295,58 @@ hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
 [[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/schist.json"
 hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/andesite.json"
+hash = "b047941df6def26ed4ca72f55770cc7f29e8e35d7e64bd63dfd48ebc6207d387"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/basalt.json"
+hash = "f59396109ee92c486da25cafd499f68004a03c8fb26b201906e34c227e17536a"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/dacite.json"
+hash = "aea1c5525b871a7b809425ea2ea04cc2adeda858367a7805dc73fdc0450b6b4c"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/diorite.json"
+hash = "8514eb117899950203affa9ee73286f27401d16d116d1e5fb350880b17ae4b7d"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/gabbro.json"
+hash = "36eefbbb2f8c6034b74b327c0e3a9e34b3d466d8c6b742778fd2eac744f4b740"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/gneiss.json"
+hash = "bccc7fd2854e4bdf797ec6825143c0b78b006fea51d3a5aa1ddfd38b21f3f3a3"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/granite.json"
+hash = "8d05a91a7f7473027e759e8b36b7fed127e7fec5563b1aeb951967b0fdcd79cb"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/marble.json"
+hash = "5c942e28a7e03c5db6b1e25395d5342066646f584801e2593742f989a22ad9d9"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/phyllite.json"
+hash = "3a4eebd5f5e13e87a1d72d1d30572f76943776e5dbddd0fbd8006f48c43fb67f"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/quartzite.json"
+hash = "fec6a67c1681ee00ab1f33e1a2624451c29138f7268c3e5e565d946936bd81ec"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/rhyolite.json"
+hash = "5278efc6731ebf5ce3b32721c3814a7a7584438db62c21dfaf67638bd38eb532"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/schist.json"
+hash = "4a129748877efe7f5db002b2698c6c06129f1768212dc2628f338cf8103984c9"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/slate.json"
+hash = "658788df1ea55f209a42c2bc71de7de7312bebc9a09fe803c99b55b82198c08a"
 
 [[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/andesite.json"
@@ -1294,7 +1430,7 @@ hash = "11e6db371b8f682d70f14d753ef8d2daaafe7c6734f3d3cc3f24cac5de29d93b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_6.json"
-hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
+hash = "039624ab946e23759da847f2785c9927f20c02a479edbbef0217621cb2de3818"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_7.json"
@@ -1338,7 +1474,7 @@ hash = "f858294e0c48a741235d2a9f77b7e29021a521a3e2961a745d1feb59135e0ba9"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "6fa28ea146708bec294d12f71ffac7630735fa0282e097183dc3f7879a7f9821"
+hash = "103c887ee691197257a9d3ec3faaf1b563a372b677e594240b2ce2223fd2505c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
@@ -1358,7 +1494,7 @@ hash = "2c8cc8dc9880d1e8ba685d865abf5fd755f4fa1ff6aa9108f9ff0557dca11325"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "91a4c9345da5cdff61c2aa45401b238b131ba999632a8a344e76a09fdeeed147"
+hash = "33c8c35a0b11c50c7849ae9293a98da83380e75930d94fc8383e583d7a3ae455"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -1429,16 +1565,40 @@ file = "kubejs/data/firmages/worldgen/configured_feature/ore_naquadah_mercury.js
 hash = "26a046016f9a4781004e962949d1b91e17ae7cf75ed6da60305d3b68f3f38f8a"
 
 [[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vein/inferium.json"
+hash = "212592c0bba792d5819e3f59bd6821f1e831b2b982a5febe23006d3a405772e4"
+
+[[files]]
 file = "kubejs/data/firmages/worldgen/configured_feature/vein/osmium.json"
 hash = "e8418256445e64301a01939f2d5e7a16eca765038b7e481c71ac05fd19fdc640"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vein/prosperity.json"
+hash = "41659a91145d59b29cb640ec81cb390c81d5da16064c14205a2e3a4923f602d8"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vein/soulstone.json"
+hash = "2c757e17a724fd8054ae8269c16330c2f8e6a142d267255b1b1833fa6b04c888"
 
 [[files]]
 file = "kubejs/data/firmages/worldgen/placed_feature/ore_naquadah_mercury.json"
 hash = "fc00945295762a682434b84afad33cab4d8911b9eed43aebc47dfba2b5a2eeee"
 
 [[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vein/inferium.json"
+hash = "eb672d4245cf7b7e40b6c7c48acffbbea7f6b1e8ea5a972bc409385806f7cdd7"
+
+[[files]]
 file = "kubejs/data/firmages/worldgen/placed_feature/vein/osmium.json"
 hash = "e0790d4bedfe997a32a78832cc564682d14759e8cf6574db8e7fad14fd4e6c90"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vein/prosperity.json"
+hash = "5f35aebdcf3b5cd5000e9d8e746f346b3370a3b270bf56311be0b54f96494a73"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vein/soulstone.json"
+hash = "6e607bbda910d5a80cea71f26bbb9b3f15b7482ae53d4be50a697de430b7ab4e"
 
 [[files]]
 file = "kubejs/data/immersiveengineering/structure/multiblocks/arcfurnace.nbt"
@@ -1489,6 +1649,10 @@ file = "kubejs/data/occultism/neoforge/biome_modifier/add_ore_silver_deepslate.j
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/tfc/tags/block/prospectable.json"
+hash = "fc23170db8af12f32258103069969ed68b44093cf7e0c00b17fa72ee3bc4cce2"
+
+[[files]]
 file = "kubejs/data/tfc/tags/fluid/molten_metals.json"
 hash = "73cc82e39df4f2450649f894aa7e0e102573ce14938ec94c14cc18ab8db620b4"
 
@@ -1502,7 +1666,7 @@ hash = "382d6532623604358d02758c0ed4512c448cb13f9eaab337d1c0c9bdc501f70a"
 
 [[files]]
 file = "kubejs/data/tfc/tags/worldgen/placed_feature/in_biome/veins.json"
-hash = "d09446b3faa973bb34222c4ba9cf0666e961b40d4e5923c66b4a23bb2e91b345"
+hash = "ab3ba70bbc90d059ec25478e3c2346d5a5100c19ca09d691511fed848cb541d1"
 
 [[files]]
 file = "kubejs/data/twilightforest/recipe/giant_cobblestone_to_cobblestone.json"
@@ -1679,6 +1843,10 @@ hash = "ab64d8795d3cd8c82b82fa6315fe4429361cdb7c8f2f14f7ea631339e962ad09"
 [[files]]
 file = "kubejs/startup_scripts/items.js"
 hash = "8752a58a267c0ce79d3c711fc5bfe085f0a989cf05d1b9907d59a640720e094c"
+
+[[files]]
+file = "kubejs/startup_scripts/mystical_veins.js"
+hash = "22f0a3eb12fb7b9627997add4190eece92d99b21927b9c115f1e8c63f0764c07"
 
 [[files]]
 file = "kubejs/startup_scripts/osmium.js"
@@ -2130,8 +2298,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.7.1.jar"
-hash = "58a7fe02780f2eb70e49aa84d16d8820bb0301848c24a6f9ed6edb8675fe1ca4"
+file = "mods/firmages-core-0.7.2.jar"
+hash = "549adaa3703bc6e6ec2c6c8898a053f99a83a17ef2be0225bd150137fdf6bbf7"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
@@ -2506,11 +2674,6 @@ metafile = true
 [[files]]
 file = "mods/simple-backups.pw.toml"
 hash = "96b64b2096ea8ee1144025b52cb769bfcd001db8fb38f72a4b5828a719a2196c"
-metafile = true
-
-[[files]]
-file = "mods/simple-voice-chat.pw.toml"
-hash = "9e324cddedb5c8a25b577a4fcf23cb27e96ae4cb638b57854fac68dda294c20f"
 metafile = true
 
 [[files]]
