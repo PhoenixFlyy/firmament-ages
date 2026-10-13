@@ -1441,6 +1441,26 @@ file = "kubejs/data/firmages/worldgen/placed_feature/vein/osmium.json"
 hash = "e0790d4bedfe997a32a78832cc564682d14759e8cf6574db8e7fad14fd4e6c90"
 
 [[files]]
+file = "kubejs/data/immersiveengineering/structure/multiblocks/arcfurnace.nbt"
+hash = "014ff281003ddac097af557ea211c87386031635523a684682094ece476db993"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/structure/multiblocks/bucket_wheel.nbt"
+hash = "b41150c1a843abafaed6e3ac7bf9e28fc53a60a6f7ed033a7f761b65ee656eac"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/structure/multiblocks/excavator_full.nbt"
+hash = "b19334c424eb5ef0ae0bf07f6b31ad6e317ebbffda8f6efa925a60b9eece47d8"
+
+[[files]]
+file = "kubejs/data/immersivepetroleum/structure/multiblocks/cokerunit.nbt"
+hash = "89c5a6b08dafa441a5ceed9e0744257fcf560c209ff6105818f43286ec01fadd"
+
+[[files]]
+file = "kubejs/data/immersivepetroleum/structure/multiblocks/pumpjack.nbt"
+hash = "df14855a6d9d71f12372e3b3e4ea6bd40f9089f5f728ab276cf8ce3a2126957e"
+
+[[files]]
 file = "kubejs/data/mysticalagradditions/neoforge/biome_modifier/end_inferium_ore.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
