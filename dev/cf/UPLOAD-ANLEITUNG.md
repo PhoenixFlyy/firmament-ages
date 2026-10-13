@@ -1,6 +1,6 @@
 # Firmament Ages auf CurseForge hochladen
 
-Stand 2026-10-01, Pack 0.5.0. Reihenfolge: Konto, dann **zuerst firmages-core als Mod-Projekt**, dann das Modpack. Was vorher entschieden sein muss, steht in `dev/curseforge-readiness.md` (MekaTFC, TFC Ore Tooltips).
+Stand 2026-10-13, Pack 0.6.1 (Server-Pack ergänzt). Reihenfolge: Konto, dann **zuerst firmages-core als Mod-Projekt**, dann das Modpack. Was vorher entschieden sein muss, steht in `dev/curseforge-readiness.md` (MekaTFC, TFC Ore Tooltips).
 
 ## 0. Vorher entscheiden
 
@@ -61,7 +61,22 @@ Texte und Felder: `dev/cf/firmages-core-description.md` (Tabelle oben, Beschreib
    Nicht `dev\release.ps1` dafür nehmen: dessen CurseForge-Zip ist der private Prüfstand (Client-Seite, ohne Tausch der sechs gesperrten Mods).
 2. Projekt → **Upload File**: das Zip.
 3. Felder: Display Name „Firmament Ages 0.5.0“, Release-Typ **Beta**, Spielversion **1.21.1** (wird aus dem Manifest gelesen), Changelog = Inhalt von `dev/cf/changelog-0.5.0.md`.
-4. Server-Pack: CurseForge will ihn als **Additional File** an genau dieser Datei, nicht als eigene Hauptdatei. Fürs erste weglassen; die Beschreibung kündigt ihn nur an.
+4. Server-Pack als **Additional File** an genau dieser Datei (nicht als eigene Hauptdatei):
+   ```
+   powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1
+   ```
+   Schritt 5 des Skripts schreibt `dev\exports\FirmamentAges-<Version>-server.zip`: ein startfertiger Server-Ordner
+   (`mods/` mit allen Server-Jars, `config/`, `defaultconfigs/`, `kubejs/`, `start.bat`, `start.ps1`,
+   `user_jvm_args.txt`, `server.properties`, `README-SERVERPACK.md`, NeoForge-Installer), gefüllt von
+   packwiz-installer (`-s server`) aus einem lokalen `packwiz serve`, also genau so wie ein echter Server synchronisiert.
+   `packwiz curseforge export -s server` gibt es zwar, schreibt aber nur ein Manifest-Zip; das installiert CurseForge
+   für Server nicht, CurseForge-Server-Packs sind entpackbare Ordner mit den Jars.
+   Auf der Dateiseite des Modpacks (Files → die eben hochgeladene Datei) **Upload Additional File** wählen, das
+   Server-Zip hochladen, Display Name „Firmament Ages <Version> Server Pack“, Release-Typ wie die Hauptdatei. Die
+   Versionsnummer im Namen muss zur Hauptdatei passen. Größe bei 0.6.1: 508,6 MB; eine Grenze nennt CurseForge
+   nicht, lehnt die Console die Größe ab, Support fragen. Dieselbe Moderationsregel wie in Abschnitt 5 gilt auch
+   hier: das MekaTFC-Jar liegt im Server-Zip, solange MekaTFC nicht freigegeben ist (TFC Ore Tooltips ist client-only
+   und fehlt im Server-Zip).
 5. Absenden.
 
 ## 5. Was die Moderation prüft
