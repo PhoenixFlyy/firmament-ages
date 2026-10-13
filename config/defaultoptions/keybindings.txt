@@ -2,7 +2,6 @@ key_key.sprint:key.keyboard.left.shift
 key_key.sneak:key.keyboard.left.control
 key_key.ftbquests.quests:key.keyboard.k
 key_key.kubejs.kubedex:key.keyboard.unknown
-key_tfcgenviewer.key.open_viewer:key.keyboard.unknown
 key_key.advancements:key.keyboard.unknown
 key_key.saveToolbarActivator:key.keyboard.unknown
 key_key.loadToolbarActivator:key.keyboard.unknown

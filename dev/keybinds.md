@@ -52,7 +52,7 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 ## Unbound by default (rebind in Controls if wanted)
 
 Vanilla: advancements screen (L, the quest book is the progress screen), social interactions (P), save/load toolbar
-(C/X). Mods: KubeDex (K), TFC Gen Viewer (K), Mekanism armour modes (feet/legs/chest/head) and boost,
+(C/X). Mods: KubeDex (K), Mekanism armour modes (feet/legs/chest/head) and boost,
 hide icons (H), Immersive Petroleum projector flip, Ars head curio and documentation, Cataclysm boots,
 Create Big Cannons pitch, Draconic tool config and place item, Sophisticated Backpacks inventory interaction, Twilight
 Forest map cycle, hotbar swap and zoom, Astikor slow, Ad Astra radio and suit flight, Occultism ender bag and storage

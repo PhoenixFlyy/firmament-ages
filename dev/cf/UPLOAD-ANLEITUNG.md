@@ -9,7 +9,7 @@ Jeder Feldwert steht fertig in zwei Dateien, hier wird nur verwiesen:
 | `dev/cf/firmages-core-fields.md` | jedes Feld des Mod-Projekts (Name, Summary, Kategorien, Lizenz, Quelle, Datei, Relationen) |
 | `dev/cf/modpack-fields.md` | jedes Feld des Modpack-Projekts (Name, Summary, Kategorien, Lizenz, Quelle, Galerie, Datei, Server-Pack) |
 | `dev/cf/firmages-core-description.md` / `.html` | Beschreibung des Mod-Projekts (HTML für den Editor) mit Changelog 0.1.0 bis 0.7.2 |
-| `dev/cf/modpack-description.md` / `.html` | Beschreibung des Modpacks mit Credits (196 Mods, Autor und Link) |
+| `dev/cf/modpack-description.md` / `.html` | Beschreibung des Modpacks mit Credits (193 Mods, Autor und Link) |
 | `dev/cf/changelog-0.7.2.md` | Changelog der Modpack-Datei (kumuliert seit 0.5.0) |
 | `dev/cf/avatar-400.png`, `logo.png`, `banner.png` | Modpack-Bilder (400², 512², 1920×1080) |
 | `dev/cf/firmages-core-avatar-400.png`, `firmages-core-logo.png` | Mod-Bilder (400², 512²) |
@@ -84,9 +84,9 @@ Felder: `dev/cf/modpack-fields.md`. Beschreibung: `dev/cf/modpack-description.ht
 - **Erste Datei eines neuen Projekts:** Handprüfung, meist ein bis drei Tage. Spätere Dateien gehen oft schneller durch.
 - **Fremde Jars in `overrides/`:** nur Mods der Approved-Liste und eigene Mods ohne CurseForge-Projekt. Ein Mod mit CurseForge-Projekt als Jar ist ein sicherer Ablehnungsgrund; deshalb tauscht `export_cf.py` die sechs gesperrten Mods gegen ihre CurseForge-Einträge, und deshalb kommt firmages-core zuerst als eigenes Projekt.
 - **Manifest:** CurseForge verlangt das Format der CurseForge App und verbietet Handänderungen am Manifest. packwiz schreibt genau dieses Format (`manifest.json`, `modlist.html`, `overrides/`), von Hand geändert wird nichts. Lehnt ein Moderator das Zip trotzdem ab („must be created with the CurseForge App“): das Zip in der CurseForge App importieren (*Create Custom Profile → Import*), Profil starten, einmal schließen, dann *Export Profile* mit den Ordnern `config`, `defaultconfigs`, `kubejs` und das exportierte Zip hochladen (`LOKAL-TESTEN.md`).
-- **Beschreibung und Bilder:** Avatar nicht einfarbig, 400 × 400. Credits sind Pflicht für fremde Inhalte; der Credits-Abschnitt nennt jede der 195 Mods mit Autor und Link.
+- **Beschreibung und Bilder:** Avatar nicht einfarbig, 400 × 400. Credits sind Pflicht für fremde Inhalte; der Credits-Abschnitt nennt jede der 192 Mods mit Autor und Link.
 - **Lizenz:** Projektlizenz MIT; das Jar von firmages-core meldet `license="MIT"` in seiner `neoforge.mods.toml`, Moderatoren vergleichen beides. Der Lizenztext liegt im Repo als `LICENSE` (eigene Teile des Packs) und `mod/firmages-core/LICENSE` (die Mod).
-- **Loader:** alle Mods müssen NeoForge-Dateien für 1.21.1 sein. Das ist für alle 195 Manifest-Einträge so ausgewählt.
+- **Loader:** alle Mods müssen NeoForge-Dateien für 1.21.1 sein. Das ist für alle 192 Manifest-Einträge so ausgewählt.
 - **Gelöschte oder archivierte Dateien:** Zieht ein Mod-Autor eine Datei zurück, lehnt CurseForge spätere Uploads mit dieser Datei ab. Dann die Mod im Pack aktualisieren (`tools\packwiz.exe update <name>`) und neu exportieren.
 
 ## 7. Später: neue Version

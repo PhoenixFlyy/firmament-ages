@@ -17,9 +17,9 @@ Ergebnis: `dev\exports\FirmamentAges-0.7.2-curseforge-upload.zip` (etwa 7 MB, we
 
 1. CurseForge-App starten, links **Minecraft** wählen.
 2. Oben **Create Custom Profile** (oder das Plus), dann **Import**.
-3. Das Zip aus Schritt 1 auswählen. Die App liest `manifest.json`, legt das Profil „Firmament Ages“ an und lädt alle 195 Mods. Beim ersten Mal dauert das einige Minuten, etwa 500 MB.
+3. Das Zip aus Schritt 1 auswählen. Die App liest `manifest.json`, legt das Profil „Firmament Ages“ an und lädt alle 192 Mods. Beim ersten Mal dauert das einige Minuten, etwa 500 MB.
 4. Die App richtet Java 21 selbst ein. Falls sie nach einem Launcher fragt, den normalen Minecraft Launcher nehmen.
-5. Im Profil **Settings** öffnen und den RAM auf 10 GB setzen (Standard sind 4 GB, zu wenig für 196 Mods).
+5. Im Profil **Settings** öffnen und den RAM auf 10 GB setzen (Standard sind 4 GB, zu wenig für 193 Mods).
 6. **Play**. Der erste Start braucht wegen der Shader-Vorbereitung drei bis fünf Minuten.
 
 Wenn der Import mit einer Fehlermeldung zu einer Mod-Datei abbricht: Mod-Name und Meldung notieren und mir schicken, dann ist eine CurseForge-Datei zurückgezogen worden.

@@ -39,7 +39,7 @@ In the Singularity Age the relics come off their plinths and are fused into the 
 
 - **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you.
 - **RAM:** 10 GB for the game is recommended; set it in the CurseForge App under *Settings → Minecraft → Java Settings* (the default of 4 GB is not enough). A PC with 16 GB of RAM is the practical minimum.
-- **191 mods.** The first start takes a few minutes.
+- **193 mods.** The first start takes a few minutes.
 - **Dedicated server:** 10 GB heap recommended. A ready-to-run server pack is attached to every release as an additional file.
 
 ## Multiplayer
@@ -79,10 +79,10 @@ The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmamen
 
 <!-- credits:start -->
 
-Firmament Ages 0.7.2 contains 196 mods. Thank you to every author.
+Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
-- **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
+- **Ad Astra** by terrariumearth, AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
 - **Advanced TFC Tech Unofficial** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-tfc-tech-unofficial))
 - **AdvancedAE** by pedroksl ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advancedae))
 - **AE2 Draconic Fusion Autocrafter** by Franchino961 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ae2-draconic-fusion-autocrafter))
@@ -121,7 +121,6 @@ Firmament Ages 0.7.2 contains 196 mods. Thank you to every author.
 - **Common Storage Lib** by terrariumearth, CodexAdrian ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/common-storage-lib))
 - **Controlling** by Jaredlll08 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/controlling))
 - **CorgiLib** by Corgi_Taco, JT122406 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/corgilib))
-- **Crash Assistant** by KostromDan ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/crash-assistant))
 - **Create** by simibubi, IThundxr ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/create))
 - **Create Aeronautics** by ryanhcode, singularity_cyvack, Starlotte_117, keyberries, beeisyou, Eriksonn, kyanbirb ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/create-aeronautics))
 - **Create Big Cannons** by rbasamoyai ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/create-big-cannons))
@@ -232,7 +231,6 @@ Firmament Ages 0.7.2 contains 196 mods. Thank you to every author.
 - **Occultism KubeJS** by kli_kli, MaxNeedsSnacks ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/occultism-kubejs))
 - **Packet Fixer** by TonimatasDEV ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/packet-fixer))
 - **Patchouli** by Vazkii ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/patchouli))
-- **Ping Wheel** by LukenSkyne ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ping-wheel))
 - **Placebo** by Shadows_of_Fire ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/placebo))
 - **Polymorph** by TheIllusiveC4 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/polymorph))
 - **Precision Prospecting** by NotEnoughMail ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/precision-prospecting))
@@ -267,7 +265,6 @@ Firmament Ages 0.7.2 contains 196 mods. Thank you to every author.
 - **TFC Support Indicator** by floweynt ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-support-indicator))
 - **TFC Vessel Tooltip** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-vessel-tooltip))
 - **TFC Weld Button** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-weld-button))
-- **TFCGenViewer** by NotEnoughMail ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfcgenviewer))
 - **TFCreate Compat** by Ayaibu ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfcreate-compat))
 - **The Twilight Forest** by Benimatic, Drullkus, Squiggly_Androsa, Tamaized, GizmoTheMoonPig, jodlodi ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest))
 - **Theurgy** by kli_kli ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/theurgy))

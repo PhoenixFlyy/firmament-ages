@@ -88,6 +88,7 @@ def main():
             byproduct_checks(rows, {k: json.loads(v) for k, v in json.load(open(fullp, encoding="utf-8")).items()},
                              tags, item_age, set(unlocked), a.baseline, check)
         undetected_check(a.server_dir, check)
+    unify_check(a.server_dir, tags, item_age, check)
     if unlocked is not None and not set(AGES) <= set(unlocked):
         print(f"[SKIP] A- and C- checks: they need the whole recipe set, this dump was filtered at {sorted(unlocked, key=AGES.index)}")
         print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -216,6 +217,64 @@ def main():
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
     sys.exit(1 if failed else 0)
+
+
+# ================================================================================================ unification (U-1)
+# Every tag of a unify family (materials.json "tags", e.g. c:ingots/{material}) must show exactly one item in EMI.
+# Visible = not in age_items/disabled, not in c:hidden_from_recipe_viewers, not hidden by Almost Unified. AU
+# (recipe_viewer_hiding) hides every member but its target in each tag whose material is in AU's placeholders.json
+# and that is not in ignored_tags; ignored_items take no part. The pack ships no placeholders.json, so AU writes its
+# default list; the server's copy is read when present. Tags with no visible member are fine when nothing was hidden
+# by AU (the material is disabled as a whole); a tag whose AU target is disabled or hidden while AU hides the usable
+# members is a violation. UNIFY_ALLOWLIST holds tags where two or more visible members are intended.
+UNIFY_ALLOWLIST = {}  # tag -> reason
+AU_DEFAULT_MATERIALS = [
+    "aeternium", "aluminum", "amber", "apatite", "bitumen", "brass", "bronze", "chrome", "cinnabar", "cobalt",
+    "constantan", "copper", "diamond", "electrum", "elementium", "emerald", "enderium", "fluorite", "gold", "graphite",
+    "invar", "iridium", "iron", "lapis", "lead", "lumium", "mithril", "netherite", "nickel", "obsidian", "osmium",
+    "peridot", "platinum", "potassium_nitrate", "ruby", "sapphire", "signalum", "silver", "steel", "sulfur", "tin",
+    "tungsten", "uranium", "zinc"]
+
+
+def unify_check(server_dir, tags, item_age, check):
+    au = load_au()
+    try:
+        ph = json.load(open(os.path.join(server_dir, "config", "almostunified", "placeholders.json"), encoding="utf-8"))
+        materials = set(ph["material"])
+    except (OSError, ValueError, KeyError):
+        materials = set(AU_DEFAULT_MATERIALS)
+    ignored_items = set(au.get("ignored_items", []))
+    ignored_tags = set(au.get("ignored_tags", []))
+    off = {i for i, st in item_age.items() if st == "disabled"} | set(tags.get("c:hidden_from_recipe_viewers", []))
+    fams = [re.compile("^" + re.escape(p).replace(re.escape("{material}"), "([a-z0-9_]+)") + "$")
+            for p in au.get("tags", [])]
+    family = {}  # tag -> material
+    for t in tags:
+        for rx in fams:
+            m = rx.match(t)
+            if m:
+                family[t] = m.group(1)
+    au_hidden, targets = set(), {}
+    for t, mat in family.items():
+        if mat not in materials or t in ignored_tags:
+            continue
+        mem = [m for m in tags[t] if m not in ignored_items]
+        tgt = au_target(t, mem, au, fallback_first=False)
+        if len(mem) > 1 and tgt:
+            targets[t] = tgt[0]
+            au_hidden |= set(mem) - set(tgt)
+    bad = []
+    for t in sorted(family):
+        vis = [m for m in tags[t] if m not in off and m not in au_hidden]
+        lost = [m for m in tags[t] if m in au_hidden and m not in off]
+        if t in UNIFY_ALLOWLIST or len(vis) == 1 or (not vis and not lost):
+            continue
+        mat = family[t]
+        how = (f"AU target {targets[t]}" if t in targets else
+               "not unified: material not in AU placeholders" if mat not in materials else
+               "not unified: ignored tag" if t in ignored_tags else "not unified: no member of a priority mod")
+        bad.append(f"{t} ({how}): visible {vis}" + (f", AU hid {lost}" if not vis else ""))
+    check(f"U-1 one visible item per unify tag ({len(family)} tags, {len(UNIFY_ALLOWLIST)} allowlisted)", not bad, bad)
 
 
 # ================================================================================================ gate checks (M2)
@@ -663,27 +722,37 @@ def _outs(o, out, inres=False):
     return out
 
 
+AU_MATERIALS = os.path.join(REPO, "config", "almostunified", "unification", "materials.json")
+
+
+def load_au():
+    try:
+        return json.load(open(AU_MATERIALS, encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def au_target(t, mem, au, fallback_first=True):
+    """The member of tag `t` Almost Unified keeps: the priority override of the tag, else the first member of a
+    namespace in mod_priorities (config/almostunified/unification/materials.json). Without such a member AU leaves the
+    tag alone; `fallback_first` then guesses the first member (recipe outputs), else the result is empty."""
+    if not mem:
+        return []
+    over = au.get("priority_overrides", {})
+    for ns in ([over[t]] if t in over else []) + au.get("mod_priorities", []):
+        hit = [m for m in mem if m.split(":")[0] == ns]
+        if hit:
+            return hit[:1]
+    return mem[:1] if fallback_first else []
+
+
 def recipe_records(full, tags, disabled):
     """(recipe id, ingredient slots, output items) of every recipe JSON; `disabled` items never stand for a tag output."""
-    # Tag outputs (More Mekanism Processing, IE, Occultism) resolve to the member Almost Unified keeps: the
-    # priority override of the tag, else the first member of a namespace in mod_priorities, else the first member
-    # (config/almostunified/unification/materials.json).
-    try:
-        au = json.load(open(os.path.join(REPO, "config", "almostunified", "unification", "materials.json"), encoding="utf-8"))
-    except (OSError, ValueError):
-        au = {}
-    au_prio = au.get("mod_priorities", [])
-    au_over = au.get("priority_overrides", {})
+    # Tag outputs (More Mekanism Processing, IE, Occultism) resolve to the member Almost Unified keeps (au_target).
+    au = load_au()
 
     def tag_target(t):
-        mem = [m for m in tags.get(t, []) if m not in disabled]
-        if not mem:
-            return []
-        for ns in ([au_over[t]] if t in au_over else []) + au_prio:
-            hit = [m for m in mem if m.split(":")[0] == ns]
-            if hit:
-                return hit[:1]
-        return mem[:1]
+        return au_target(t, [m for m in tags.get(t, []) if m not in disabled], au)
 
     def tag_outs(o, out, inres=False):
         if isinstance(o, dict):

@@ -105,7 +105,7 @@ Start eines frischen Profils.
    **Tab** (Spielerliste und „Rotate mode“ von Create Simulated) und **Y** (Cataclysm „Ability“ und
    „Chestplate ability“). Ab 0.7.1 umgelegt (siehe Nachtrag oben). Jeder andere Konflikt: melden.
 5. **Beitreten (frischer Spieler).** Kein Bildschirm „Enhanced Celestials 2“, keine Chat-Zeilen von Mods (Ars Nouveau
-   Lichter oder Makeship, Train Utilities, Crash Assistant, Backups, ProgressiveStages,
+   Lichter oder Makeship, Train Utilities, Backups, ProgressiveStages,
    keine Zeile „Reloaded with no KubeJS errors“). Kein „Worn Notebook“ von Ars Nouveau im Inventar. Die Verbindung
    klappt ohne Fehler „missing channels“ (FancyMenu, Drippy, Melody, Konkrete und CQA sind nur auf dem Client).
    Nach etwa 2 s Titel „Firmament Ages“ mit Untertitel „The sky remembers. Kindle the first spark.“, etwa 5 s später
@@ -162,7 +162,6 @@ Start eines frischen Profils.
 - Erledigt (Nachtrag 2026-10-13): Quest „Advanced TFC Tech“ verlangt jetzt den geformten Thresher (Blick darauf);
   `ftbquests:loot_crate_opener` und `ftbquests:task_screen_configurator` sind versteckt. Im Client prüfen: die
   Quest schließt beim Blick auf einen geformten Thresher ab, beide Items fehlen in EMI.
-- Crash Assistant: `help_link` steht noch auf `CHANGE_ME` (Discord-Einladung fehlt).
 - Die Versionszeile im Titelbild ist fester Text (`config/fancymenu/customization/title_screen_layout.txt`), seit
   0.7.1 „Firmament Ages 0.7.1“; bei jedem Release mit hochziehen.
 - Die Release-Dateien in `dev/exports/` (0.7.0) sind vor dem Review-Commit gebaut; vor dem Upload

@@ -62,7 +62,7 @@ Kurzfassung der Punkte aus `dev/poc-checklist.md`, Abschnitt C, die einen Client
 
 ### 3. Erz-Tarnung (C3)
 
-1. Stand `dawn`. Im Creative-Modus (`/gamemode creative`) eine Kassiterit-Ader in Granit oder Basalt suchen, z. B. mit TFCGenViewer oder `/fa_scan 48 tfc:ore/`.
+1. Stand `dawn`. Im Creative-Modus (`/gamemode creative`) eine Kassiterit-Ader in Granit oder Basalt suchen, z. B. mit `/fa_scan 48 tfc:ore/`.
    Erwartung: die Ader sieht aus wie Rohgestein. Jade zeigt Gestein. Ein Kies-Deposit sieht aus wie Kies.
 2. `/gamemode survival`, einen Erzblock abbauen.
    Erwartung: es fällt loser Stein.
