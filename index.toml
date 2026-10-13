@@ -34,7 +34,7 @@ hash = "c91865b741fcf1048010d701bcc2d7500d80f546e4da8d237dee1a0f90b488d3"
 
 [[files]]
 file = "config/defaultoptions/extra/config/emi.css"
-hash = "751168fcf129a896cf2a28f2850cfd77cd6fa052779c9904b9f2df258d8d9e6b"
+hash = "f07814d325cf9c953876322078b4b630e3f45050211440423b113cb0a14f929b"
 
 [[files]]
 file = "config/defaultoptions/extra/config/voicechat/voicechat-client.properties"
@@ -302,7 +302,7 @@ hash = "afb2635501f8fdaf7e02c07e5ff07a45f7301ec653832f146b0f27ff9c6936c7"
 
 [[files]]
 file = "config/jade/plugins.json"
-hash = "069457c3be434bebaad0dd85145294677ca9156c8c5db96d1552cf251d8e25e8"
+hash = "c564d96490a38db106b0ed1f9489922f215c4d73ac5b0c256e4feaddd8264c5c"
 
 [[files]]
 file = "config/jei/client/default/jei-mod-id-format.ini"
@@ -322,7 +322,7 @@ hash = "06364c8fe7cc156a892d52aa7398d045946ea540e788cd893cbea426660d0c04"
 
 [[files]]
 file = "config/progressivestages/progressivestages.toml"
-hash = "03bccfaa1d5f1eac742e03735e6f5aaf18a79b8ae1afee0166ca80b826ce2e27"
+hash = "f44aade0e0f4940a6e1871779b31a847c67892a121e79673d5e2c59494bd6ad7"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
