@@ -19,10 +19,6 @@ key_key.mekanism.mode:key.keyboard.n:ALT
 key_key.mekanism.key_hud:key.keyboard.h:ALT
 key_key.mekanism.key_boost:key.keyboard.unknown
 key_tfc.key.place_block:key.keyboard.v
-key_key.voice_chat:key.keyboard.caps.lock
-key_key.voice_chat_group:key.keyboard.unknown
-key_key.disable_voice_chat:key.keyboard.unknown
-key_key.mute_microphone:key.keyboard.m:ALT
 key_key.hide_icons:key.keyboard.unknown
 key_key.ftbchunks.map:key.keyboard.m
 key_tfc.key.cycle_chisel_mode:key.keyboard.semicolon

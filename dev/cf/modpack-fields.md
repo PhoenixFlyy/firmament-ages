@@ -25,7 +25,7 @@ Every value to type or pick in the CurseForge Author Console (authors.curseforge
 Open the editor's HTML (source) view and paste the content of `dev/cf/modpack-description.html`. Regenerate before pasting when anything changed:
 
 ```
-python dev\cf\gen_credits.py      # credits: 197 mods, every one with author and link
+python dev\cf\gen_credits.py      # credits: 196 mods, every one with author and link
 python dev\cf\md2html.py          # modpack-description.html and firmages-core-description.html
 ```
 
@@ -59,7 +59,7 @@ Build the zip first: `tools\packwiz.exe refresh` then `python dev\cf\export_cf.p
 | Mod loader | NeoForge |
 | Java version | Java 21 (if the console offers the field) |
 | Changelog | content of `dev/cf/changelog-0.7.1.md` (Markdown; switch the changelog editor to Markdown, or paste as plain text) |
-| Relations | Required dependency: Firmament Ages Core (once its project exists). The other 196 mods are in the manifest and need no relation. |
+| Relations | Required dependency: Firmament Ages Core (once its project exists). The other 195 mods are in the manifest and need no relation. |
 
 ## Additional File (server pack)
 

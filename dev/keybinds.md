@@ -29,7 +29,6 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 | U | Deep Learner (Hostile Networks) | `key.hostilenetworks.open_deep_learner` |
 | Y | Cataclysm ability | `key.cataclysm.ability` |
 | ' (apostrophe; Ä on a German keyboard) | Cataclysm chestplate ability (its default Y clashed with the ability) | `key.cataclysm.chestplate_ability` |
-| Caps Lock | Voice chat push-to-talk | `key.voice_chat` |
 | ; (semicolon) | TFC chisel mode | `tfc.key.cycle_chisel_mode` |
 | . (period) | Tom's Storage terminal | `key.toms_storage.open_terminal` |
 | , (comma) | Physics Staff rotate mode (Create Simulated; its default Tab clashed with the player list) | `simulated.keyinfo.rotate_mode` |
@@ -45,7 +44,6 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 | Alt+G | Portable stock ticker (Create Mobile Packages) | `create_mobile_packages.keyinfo.open_portable_stock_ticker` |
 | Alt+H | Mekanism HUD | `key.mekanism.key_hud` |
 | Alt+J | Jetpack hover | `key.jetpack.toggle_hover.description` |
-| Alt+M | Mute microphone | `key.mute_microphone` |
 | Alt+N | Mekanism item mode | `key.mekanism.mode` |
 | Alt+R | Railways route overlay options | `key.createrailwaysnavigator.route_overlay_options` |
 | Alt+S | IE magnet equip | `key.immersiveengineering.magnetEquip` |
@@ -54,8 +52,8 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 ## Unbound by default (rebind in Controls if wanted)
 
 Vanilla: advancements screen (L, the quest book is the progress screen), social interactions (P), save/load toolbar
-(C/X). Mods: KubeDex (K), TFC Gen Viewer (K), Mekanism armour modes (feet/legs/chest/head) and boost, voice-chat group
-and disable, hide icons (H), Immersive Petroleum projector flip, Ars head curio and documentation, Cataclysm boots,
+(C/X). Mods: KubeDex (K), TFC Gen Viewer (K), Mekanism armour modes (feet/legs/chest/head) and boost,
+hide icons (H), Immersive Petroleum projector flip, Ars head curio and documentation, Cataclysm boots,
 Create Big Cannons pitch, Draconic tool config and place item, Sophisticated Backpacks inventory interaction, Twilight
 Forest map cycle, hotbar swap and zoom, Astikor slow, Ad Astra radio and suit flight, Occultism ender bag and storage
 remote, Mekanism Additions voice, ExtendedAE view pattern, Jade overlay toggle, config, show recipes and show uses
