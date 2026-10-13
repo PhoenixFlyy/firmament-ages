@@ -15,6 +15,8 @@ Ergebnis: `dev\exports\FirmamentAges-0.8.0-curseforge-upload.zip` (etwa 7 MB, we
 
 ## 2. In der CurseForge-App importieren
 
+Für 0.8.0 das Profil **neu importieren**, ein altes Profil (0.7.x) weder aktualisieren noch weiter nutzen: Es braucht das neue `firmages-core-0.8.0.jar` (Netzwerkprotokoll 2, der Server weist einen 0.7.x-Client ab), die neuen Default Options greifen nur beim ersten Start eines frischen Profils, und nur dann starten die Shader (Complementary Reimagined) eingeschaltet.
+
 1. CurseForge-App starten, links **Minecraft** wählen.
 2. Oben **Create Custom Profile** (oder das Plus), dann **Import**.
 3. Das Zip aus Schritt 1 auswählen. Die App liest `manifest.json`, legt das Profil „Firmament Ages“ an und lädt alle 206 Mods und die zwei Shaderpacks. Beim ersten Mal dauert das einige Minuten, etwa 500 MB.
@@ -26,23 +28,24 @@ Wenn der Import mit einer Fehlermeldung zu einer Mod-Datei abbricht: Mod-Name un
 
 ## 3. Mit dem Test-Server verbinden
 
-Der Test-Server liegt in `test-server\` und hat die Whitelist an. Zwei Fenster:
+Der Test-Server liegt in `test-server\`. Er läuft zurzeit **ohne Whitelist** (`white-list=false` in `test-server\server.properties`), weil nur Du testest; `whitelist add` ist nicht nötig. Steht dort noch `white-list=true`, nach dem Start einmal `whitelist off` in die Server-Konsole tippen (das schreibt `white-list=false`). Zwei Fenster:
 
-Fenster 1, Server starten (Java 21 aus `tools`, nicht das System-Java):
+Fenster 1, Server starten (Java 21 aus `tools`, nicht das System-Java). Für eine frische Dawn-Welt vorher den Ordner `test-server\world` löschen (Explorer oder PowerShell `Remove-Item -Recurse -Force test-server\world`). Dann:
 
 ```
 cd D:\Minecraft\MinecraftModServer\FirmamentAges
-python dev\run_server.py --hold 0
+powershell -NoProfile -ExecutionPolicy Bypass -File dev\start_test_server.ps1
 ```
 
-Warten, bis in der Konsole `Done` steht. Dann in dieselbe Konsole eintippen:
+Der Server läuft im Vordergrund, bis Du `stop` eintippst; die Konsole nimmt Befehle direkt an. `python dev\run_server.py` ist nur für automatische Läufe da: `--hold 0` schickt gleich nach `Done` ein `stop`, und `--timeout` beendet die JVM.
+
+Warten, bis in der Konsole `Done` steht. Fenster 2: in der CurseForge-App das Profil spielen, **Multiplayer**, Server `localhost` hinzufügen, verbinden. Zuerst den Dawn-Join prüfen (`dev\client-test-brief.md`: stiller Join, Willkommen, kein EMI und kein Jade), **erst danach** in die Server-Konsole:
 
 ```
-whitelist add DEIN_MINECRAFT_NAME
 op DEIN_MINECRAFT_NAME
 ```
 
-Fenster 2: in der CurseForge-App das Profil spielen, **Multiplayer**, Server `localhost` hinzufügen, verbinden.
+Vorher kein `op`, sonst stehen Op-Meldungen im Chat und verfälschen den stillen Join.
 
 Alternativ geht auch **Singleplayer** im Profil. Dann fehlt nur der Mehrspieler-Teil der Zeremonie, alles andere läuft gleich.
 

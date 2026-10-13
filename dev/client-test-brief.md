@@ -10,6 +10,13 @@ Zip aus `dev/cf/LOKAL-TESTEN.md`): Default Options kopiert die Shader-Voreinstel
 neuen Tasten nur in ein frisches Profil. Die Test-Welt ist frisch (Dawn), auf dem Test-Server gelten schon
 `torchTicks = 43200` und `jadeFromAge = "age_1"`.
 
+**Server starten (korrigiert):** im Repo-Hauptordner den Ordner `test-server\world` löschen (frische Dawn-Welt), dann
+`powershell -NoProfile -ExecutionPolicy Bypass -File dev\start_test_server.ps1`. Der Server läuft im Vordergrund, bis
+Du `stop` in seine Konsole tippst. Nicht `python dev\run_server.py --hold 0`: das schickt gleich nach `Done` ein `stop`,
+und sein `--timeout` beendet die JVM; `run_server.py` bleibt für automatische Läufe. Der Test-Server läuft ohne
+Whitelist (`white-list=false`, nur Du testest; steht in `test-server\server.properties` noch `white-list=true`, einmal
+`whitelist off` in die Konsole). `op <Name>` erst nach dem Dawn-Join-Check (`dev/cf/LOKAL-TESTEN.md`, Schritt 3).
+
 1. **Erster Start und Shader.** Das Spiel startet mit Iris und **Complementary Reimagined r5.9.3** an. **O** öffnet
    das Shader-Menü: dort auf **MakeUp Ultra Fast** wechseln oder Shader ganz aus; die Wahl bleibt nach einem Neustart.
    R (Shader neu laden) und K (Shader an/aus) von Iris sind nicht belegt, R bleibt die Wagen-Aktion, K das Questbuch.
@@ -155,8 +162,10 @@ Start eines frischen Profils.
 1. Zip bauen und **als neues Profil** importieren (`dev\cf\LOKAL-TESTEN.md`, Schritte 1 und 2). Ein bestehendes
    Profil behält seine `options.txt` und `emi.css`; Default Options greift nur beim ersten Start. Wer das alte Profil
    nimmt: dort `config\emi.css` löschen und die Tasten unten von Hand prüfen.
-2. Test-Server starten (`LOKAL-TESTEN.md`, Schritt 3), **frische Welt** (`python dev\run_server.py --wipe-world --hold 0`),
-   `whitelist add <Name>`, noch **kein** `op` (sonst kommen RCON- und Op-Meldungen in den Chat).
+2. Test-Server starten (`LOKAL-TESTEN.md`, Schritt 3), **frische Welt**: `test-server\world` löschen, dann
+   `powershell -NoProfile -ExecutionPolicy Bypass -File dev\start_test_server.ps1` (läuft, bis Du `stop` tippst;
+   `run_server.py` ist nur für automatische Läufe, `--hold 0` stoppt den Server gleich nach `Done`). Der Server läuft
+   ohne Whitelist (`white-list=false`), noch **kein** `op` (sonst kommen RCON- und Op-Meldungen in den Chat).
 
 ### Was Du anschaust, in dieser Reihenfolge
 

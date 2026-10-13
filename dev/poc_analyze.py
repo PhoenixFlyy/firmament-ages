@@ -220,23 +220,75 @@ def main():
 
 
 # ================================================================================================ unification (U-1)
-# Every tag of a unify family (materials.json "tags", e.g. c:ingots/{material}) must show exactly one item in EMI.
-# Visible = not in age_items/disabled, not in c:hidden_from_recipe_viewers, not hidden by Almost Unified. AU
-# (recipe_viewer_hiding) hides every member but its target in each tag whose material is in AU's placeholders.json
-# and that is not in ignored_tags; ignored_items take no part. The pack ships config/almostunified/placeholders.json
-# (AU's default list plus the pack's materials); without it AU uses its default list (AU_DEFAULT_MATERIALS). Tags
-# with no visible member are fine when nothing was hidden by AU (the material is disabled as a whole); a tag whose AU
-# target is disabled or hidden while AU hides the usable members is a violation. UNIFY_ALLOWLIST holds tags where two or more visible members are intended.
-UNIFY_ALLOWLIST = {}  # tag -> reason
+UNIFY_ALLOWLIST = {}  # tag -> reason; tags where two or more visible members are intended (empty: umbrellas go by rule)
 AU_DEFAULT_MATERIALS = [
     "aeternium", "aluminum", "amber", "apatite", "bitumen", "brass", "bronze", "chrome", "cinnabar", "cobalt",
     "constantan", "copper", "diamond", "electrum", "elementium", "emerald", "enderium", "fluorite", "gold", "graphite",
     "invar", "iridium", "iron", "lapis", "lead", "lumium", "mithril", "netherite", "nickel", "obsidian", "osmium",
     "peridot", "platinum", "potassium_nitrate", "ruby", "sapphire", "signalum", "silver", "steel", "sulfur", "tin",
     "tungsten", "uranium", "zinc"]
+# A last id segment that one mod uses for this many item forms names a material of that mod
+# (tfc:wood/log/acacia, tfc:wood/planks/acacia, tfc:wood/twig/acacia, ...; tfc:powder/saltpeter has only 2 forms).
+ID_MATERIAL_FORMS = 3
+
+
+def umbrella_materials(t, vis, rx, tags, materials, id_forms):
+    """The material of each visible member when tag `t` is an umbrella tag, else None.
+
+    An umbrella groups several materials under one name of the family (c:rods/all_metal, c:storage_blocks/alloys,
+    c:rods/wooden). `t` is one when its last path segment is not an AU material and its visible members are of
+    pairwise different materials. A member's materials, first rule that gives any:
+      1. per-material tags of the same family that hold it: the other tags of the family pattern (c:rods/steel for
+         c:rods/all_metal) and the tags nested under `t` (c:storage_blocks/alloys/infused);
+      2. the material in its id: the last path segment when the mod uses it for at least ID_MATERIAL_FORMS item forms
+         (the twig of each wood species: tfc:wood/twig/acacia);
+      3. none of these: the plain item of the umbrella (minecraft:stick in c:rods/wooden) takes the umbrella's own
+         segment, so a second plain member, or a member whose id material is that segment, makes it no umbrella.
+    A real one-material tag outside the AU placeholders (c:dusts/saltpeter with IE dust and TFC powder) is no umbrella:
+    both members end up with the same material by rule 2 or 3."""
+    prefix, seg = t.rsplit("/", 1)
+    if seg in materials:
+        return None
+    per_mat = {}  # per-material tag -> its material
+    for o in tags:
+        if o == t:
+            continue
+        m = rx.match(o)
+        if m:
+            per_mat[o] = m.group(1)
+        elif o.startswith(t + "/"):
+            per_mat[o] = o[len(t) + 1:]
+    held = collections.defaultdict(set)
+    for o, mat in per_mat.items():
+        for i in tags[o]:
+            held[i].add(mat)
+    out = {}
+    for i in vis:
+        mats = held.get(i)
+        if not mats:
+            ns, path = i.split(":", 1)
+            last = path.rsplit("/", 1)[-1] if "/" in path else None
+            mats = {last} if last and id_forms.get((ns, last), 0) >= ID_MATERIAL_FORMS else {seg}
+        out[i] = mats
+    seen = set()
+    for mats in out.values():
+        if mats & seen:
+            return None
+        seen |= mats
+    return out
 
 
 def unify_check(tags, item_age, check):
+    """U-1: every tag of a unify family (materials.json "tags", e.g. c:ingots/{material}) shows exactly one item in EMI.
+
+    Visible = not in age_items/disabled, not in c:hidden_from_recipe_viewers, not hidden by Almost Unified. AU
+    (recipe_viewer_hiding) hides every member but its target in each tag whose material is in AU's placeholders.json
+    and that is not in ignored_tags; ignored_items take no part. The pack ships config/almostunified/placeholders.json
+    (AU's default list plus the pack's materials); without it AU uses its default list (AU_DEFAULT_MATERIALS). Tags
+    with no visible member are fine when nothing was hidden by AU (the material is disabled as a whole); a tag whose AU
+    target is disabled or hidden while AU hides the usable members is a violation.
+    Umbrella tags (umbrella_materials: last segment not a material, one visible member per material) are skipped by
+    rule and printed as "umbrella" notes; UNIFY_ALLOWLIST stays for intended exceptions and is empty."""
     au = load_au()
     try:
         ph = json.load(open(AU_PLACEHOLDERS, encoding="utf-8"))
@@ -248,12 +300,18 @@ def unify_check(tags, item_age, check):
     off = {i for i, st in item_age.items() if st == "disabled"} | set(tags.get("c:hidden_from_recipe_viewers", []))
     fams = [re.compile("^" + re.escape(p).replace(re.escape("{material}"), "([a-z0-9_]+)") + "$")
             for p in au.get("tags", [])]
-    family = {}  # tag -> material
+    family, family_rx = {}, {}  # tag -> material, tag -> its family pattern
     for t in tags:
         for rx in fams:
             m = rx.match(t)
             if m:
                 family[t] = m.group(1)
+                family_rx[t] = rx
+    id_forms = collections.Counter()  # (namespace, last id segment) -> item forms using it
+    for i in set(item_age) | {m for ms in tags.values() for m in ms}:
+        ns, path = i.split(":", 1)
+        if "/" in path:
+            id_forms[(ns, path.rsplit("/", 1)[1])] += 1
     au_hidden, targets = set(), {}
     for t, mat in family.items():
         if mat not in materials or t in ignored_tags:
@@ -263,18 +321,24 @@ def unify_check(tags, item_age, check):
         if len(mem) > 1 and tgt:
             targets[t] = tgt[0]
             au_hidden |= set(mem) - set(tgt)
-    bad = []
+    bad, umbrellas = [], []
     for t in sorted(family):
         vis = [m for m in tags[t] if m not in off and m not in au_hidden]
         lost = [m for m in tags[t] if m in au_hidden and m not in off]
         if t in UNIFY_ALLOWLIST or len(vis) == 1 or (not vis and not lost):
+            continue
+        um = umbrella_materials(t, vis, family_rx[t], tags, materials, id_forms) if len(vis) > 1 else None
+        if um:
+            mats = sorted({x for ms in um.values() for x in ms})
+            umbrellas.append(f"umbrella {t}: {len(vis)} visible, one per material ({', '.join(mats)})")
             continue
         mat = family[t]
         how = (f"AU target {targets[t]}" if t in targets else
                "not unified: material not in AU placeholders" if mat not in materials else
                "not unified: ignored tag" if t in ignored_tags else "not unified: no member of a priority mod")
         bad.append(f"{t} ({how}): visible {vis}" + (f", AU hid {lost}" if not vis else ""))
-    check(f"U-1 one visible item per unify tag ({len(family)} tags, {len(UNIFY_ALLOWLIST)} allowlisted)", not bad, bad)
+    check(f"U-1 one visible item per unify tag ({len(family)} tags, {len(umbrellas)} umbrella, "
+          f"{len(UNIFY_ALLOWLIST)} allowlisted)", not bad, bad + umbrellas)
 
 
 # ================================================================================================ gate checks (M2)
