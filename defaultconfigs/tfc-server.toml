@@ -6,3 +6,10 @@
 	[mechanics.vanillaChanges]
 		# Default false. The Dawn nights need surface monsters; ProgressiveStages mob_N stages subtract again.
 		enableVanillaMonstersOnSurface = true
+
+[blocks]
+	[blocks.torch]
+		# H3 (Felix 2026-10-13): torches burn out after 43200 ticks (36 TFC hours, 36 real minutes) instead of 86400.
+		# fireStarterChance stays at TFC's file value 0.25: TFC 4.2.11 reads the firestarter AND flint and pyrite
+		# from that one key (defined twice), so raising it would make both easier, not harder.
+		torchTicks = 43200

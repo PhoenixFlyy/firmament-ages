@@ -1,0 +1,13 @@
+name = "More Darkness"
+filename = "more_darkness-neoforge-1.21.1-2.0.1+1.21.1.jar"
+side = "client"
+
+[download]
+hash-format = "sha1"
+hash = "7f783520b5f51e92d2be7378079a0455567c165d"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8574545
+project-id = 1511006

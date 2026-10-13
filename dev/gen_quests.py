@@ -315,7 +315,8 @@ DAWN = age_chapter(
         ], Q('dawn/shelter/key', 'Shelter', t_observe('tfc:thatch_bed', title='Look at a finished thatch bed'),
              kind='keystone', icon='tfc:thatch_bed',
              desc=['Place two thatch blocks side by side and use a large raw hide on them.',
-                   'The thatch bed sets your spawn point. You cannot sleep through the night in it.',
+                   'The thatch bed sets your spawn point. You cannot sleep through the night in it. '
+                   'Beds that skip the night come with the Iron Age.',
                    'Large hides come from large animals: the Hunt strand gets them.'])),
         ('Hunt', [
             Q('dawn/hunt/javelin', 'A Stone Javelin',

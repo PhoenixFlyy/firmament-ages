@@ -61,6 +61,9 @@ global.FA = {
   // FTB Chunks quota granted with the Industrial Age (decision r8 A).
   CHUNK_QUOTA: { stage: 'age_4', claims: 25, forceLoads: 25 },
 
+  // F3 shows coordinates from the Bronze Age on; gamerule reducedDebugInfo until then (Felix 2026-10-13, H5).
+  COORDS_FROM_AGE: 'age_1',
+
   // Items that never appear in the pack (Doc 10 v3 section 7.2, all Ages).
   // Used by server_scripts/tags/hidden_from_viewers.js (tag c:hidden_from_recipe_viewers) and by
   // client_scripts/viewer_static.js (KubeJS RecipeViewerEvents). The PS stage "disabled" locks them too.

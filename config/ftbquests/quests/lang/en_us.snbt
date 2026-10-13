@@ -319,7 +319,7 @@
 	quest.15070FF77006AFB6.title: "Reactor Online"
 	quest.153E204EC2BA3ACA.quest_desc: [
 		"Place two thatch blocks side by side and use a large raw hide on them."
-		"The thatch bed sets your spawn point. You cannot sleep through the night in it."
+		"The thatch bed sets your spawn point. You cannot sleep through the night in it. Beds that skip the night come with the Iron Age."
 		"Large hides come from large animals: the Hunt strand gets them."
 	]
 	quest.153E204EC2BA3ACA.title: "Shelter"

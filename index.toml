@@ -2019,6 +2019,11 @@ hash = "7904c140247e0d8a87231cf4d36718fc018e0f851dbec2517b673acdc25547df"
 metafile = true
 
 [[files]]
+file = "mods/cave-dweller-reevolved.pw.toml"
+hash = "0a8a4286c00017318d37ce7be4ac1d52f94933805bebb386dd9858d5c8d4db6b"
+metafile = true
+
+[[files]]
 file = "mods/cerbons-api.pw.toml"
 hash = "1cb3db95dbf424de74a4572994d7b32fc8560dc31e0495d10825f195b2103462"
 metafile = true
@@ -2498,6 +2503,11 @@ hash = "00bacfc5a98d9b0dff90bbad503def28abf970a2061c9456f721e442bc32ab29"
 metafile = true
 
 [[files]]
+file = "mods/lambdynamiclights.pw.toml"
+hash = "a18e3ccdf71e346bcd5f772c235ad9244aec9dfc128402486e91bffc807832a9"
+metafile = true
+
+[[files]]
 file = "mods/lendercataclysm.pw.toml"
 hash = "0f04f325e69159d49ef7ad0593d9fa2caaca3825bc519b3d54c253bfcb0ae435"
 metafile = true
@@ -2585,6 +2595,11 @@ metafile = true
 [[files]]
 file = "mods/modonomicon.pw.toml"
 hash = "fbda79a507db8950e0cb1366bf6bab367b2fdb661781c79bee87706019874c5b"
+metafile = true
+
+[[files]]
+file = "mods/more-darkness.pw.toml"
+hash = "1272d31ac2214b9fbb5e5e84359d6db7321da0909f70a5dd98658c6681adc90a"
 metafile = true
 
 [[files]]
@@ -2870,4 +2885,6 @@ metafile = true
 [[files]]
 file = "shaderpacks/makeup-ultra-fast-shader.pw.toml"
 hash = "cf2ddccf7330564a1f33e089f602ce2600777a280e605a4351b6d78827a29526"
+file = "mods/yacl.pw.toml"
+hash = "492daa3391b6079b541685db276007b286774bab3b9881505127b7aef6b3f16c"
 metafile = true

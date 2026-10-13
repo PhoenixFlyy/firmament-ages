@@ -1,0 +1,9 @@
+# Firmament Ages: Cave Dweller ReEvolved 1.4-rc2 (Felix 2026-10-13, H12). One dweller at a time (mod default 3),
+# Overworld only (also the mod default; the Twilight Forest and later dimensions stay free of it). It stops with the
+# Iron Age: kubejs/server_scripts/firmages/cave_dweller.js. Keys from pt.gif.cave_dweller.config.ServerConfig
+# (Fzzy Config 0.7.7, id cave_dweller:server_config); Fzzy adds every other key with its default on the first start.
+version = 0
+
+[spawnConditions]
+maximumAmount = 1
+dimensionWhitelist = ["minecraft:overworld"]

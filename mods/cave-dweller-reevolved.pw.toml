@@ -1,0 +1,13 @@
+name = "Cave Dweller ReEvolved"
+filename = "cave_dweller-1.4-rc2.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "ea54512db5ad7f8d11edbb8cb5614391eeb9283f"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8859771
+project-id = 1316039
