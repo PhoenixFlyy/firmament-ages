@@ -1,0 +1,10 @@
+# Firmament Ages: Ars Nouveau client config, only the keys the pack pins (NeoForge fills the rest with defaults).
+# Key names from the generated ars_nouveau-client.toml of Ars Nouveau 5.13.x.
+
+[lights]
+	# No "support the dynamic-lights author" line.
+	showSupporterMessage = false
+
+[overlays]
+	# No "Ars Nouveau adds built in dynamic lights. Enable with /ars-light on" chat line on first join.
+	informLights = false

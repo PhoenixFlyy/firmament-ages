@@ -1,0 +1,5 @@
+# Firmament Ages: L_Ender's Cataclysm client config, only the keys the pack pins (NeoForge fills the rest).
+
+[client]
+	# Dead option in 3.33 (nothing reads it), pinned off for future versions.
+	"showLoginNotice(on/off)" = false

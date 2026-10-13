@@ -1,0 +1,5 @@
+# Firmament Ages: Ars Nouveau common config, only the keys the pack pins (NeoForge fills the rest with defaults).
+
+[general]
+	# No Worn Notebook in the inventory on first join (Ars is an Arcane Age mod; Dawn shows nothing of it).
+	spawnBook = false

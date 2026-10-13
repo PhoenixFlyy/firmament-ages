@@ -18,6 +18,18 @@
 [enforcement]
 	# Locked items render as "Unknown Item".
 	mask_locked_item_names = true
+	# Immersion: no "This item is locked!" chat lines (the lock sound and the tooltips stay).
+	show_lock_message = false
+	# No "creative bypasses locks" chat warning for ops.
+	show_creative_bypass_popup = false
+
+[client]
+	# No second "progression map" button next to the recipe book; FTB Quests (K) is the only progress screen.
+	show_inventory_button = false
+
+[messages]
+	# No mod name in command output.
+	prefix = ""
 
 [jei]
 	# JEI runs only as EMI's plugin backend, but it must hide locked content too (PoC item "EMI + JEI").

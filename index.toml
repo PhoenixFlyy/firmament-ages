@@ -5,8 +5,24 @@ file = "config/almostunified/unification/materials.json"
 hash = "e62438097c456ac83919cc7ca3bafd799fa68d49866d7bfe6ed1127e7d54d279"
 
 [[files]]
+file = "config/ars_nouveau-client.toml"
+hash = "6f8bc253ab41ef23013c4716fb62d6eb0cdffc7df83e4379e47d253052442650"
+
+[[files]]
+file = "config/ars_nouveau-common.toml"
+hash = "525f46f7bdb425f331c51ee591b41521cc914f34d57e9ce69a3765ecfde6c2a6"
+
+[[files]]
 file = "config/brandon3055/DraconicEvolution.cfg"
 hash = "16b87d346751be22275155555bbe466c73bee7297b3425bc1282d9e224942957"
+
+[[files]]
+file = "config/cataclysm-client.toml"
+hash = "4fa2149a895f6578d424174d6b6a3304949153b1f38554442623e13760d221f0"
+
+[[files]]
+file = "config/crash_assistant/config.toml"
+hash = "4b3b59c1c8b25c64411302b5b9dd0622ec58fc8fdd4f3a5373d827d210f1cc7f"
 
 [[files]]
 file = "config/createdieselgenerators-server.toml"
@@ -17,8 +33,120 @@ file = "config/cucumber-tags.json"
 hash = "c91865b741fcf1048010d701bcc2d7500d80f546e4da8d237dee1a0f90b488d3"
 
 [[files]]
+file = "config/defaultoptions/extra/config/emi.css"
+hash = "751168fcf129a896cf2a28f2850cfd77cd6fa052779c9904b9f2df258d8d9e6b"
+
+[[files]]
+file = "config/defaultoptions/extra/config/voicechat/voicechat-client.properties"
+hash = "2102e77318ef3c32b4eb17e45a870c3e387fae6883eba54e9b372de05ff3ed38"
+
+[[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "1445f265c5411021e69372a4dc73b5704cdacaa05749168f3ea2170127043fcc"
+hash = "f8b5c826ab19410dadf2c4671215b4f53b2edfce5ca23385946e27d6b8eab86f"
+
+[[files]]
+file = "config/defaultoptions/options.txt"
+hash = "e5f4f9b8d33ac5949b7bd20de04cd5af6af3c9457dfb08c9d350701d0d13e006"
+
+[[files]]
+file = "config/drippyloadingscreen/options.txt"
+hash = "71f0c2ab6c14dc769b9461fad07cf5903a821494a9dd8a98f855bc9190d4fd5b"
+
+[[files]]
+file = "config/fancymenu/assets/firmament/bar_bg.png"
+hash = "559c9a1acf45fef116a6f7b1e70622928a8b64530c71f68541f164a0b4ab7c1b"
+
+[[files]]
+file = "config/fancymenu/assets/firmament/bar_fill.png"
+hash = "f10bd1154b881199c94a6d59b04034ccf38a0d7f58d86786d286e7d61f5444a0"
+
+[[files]]
+file = "config/fancymenu/assets/firmament/btn_hover.png"
+hash = "e550f8ec78151e52c713341efc662f6dac3c9781b7185e6f9c9dc4b7c86c1211"
+
+[[files]]
+file = "config/fancymenu/assets/firmament/btn_normal.png"
+hash = "67875cadb78d2eee9c13d37fb5bb80a542894fbb85764968969fffa005a1664f"
+
+[[files]]
+file = "config/fancymenu/assets/firmament/icon16.png"
+hash = "696e90220b8d07585189936df4bd9040bf8ab68d03bb57d811d4c116162f1cac"
+
+[[files]]
+file = "config/fancymenu/assets/firmament/icon32.png"
+hash = "742d031bb42357beca97599ca80b53b292d4b18df2630b79aee01f2b81a6f66e"
+
+[[files]]
+file = "config/fancymenu/assets/firmament/loading_bg.png"
+hash = "33a5cb691f38e1dd6a264c40da99352224fdeb234f3b3a88cc412ae57c3ae3c3"
+
+[[files]]
+file = "config/fancymenu/assets/firmament/wordmark.png"
+hash = "378b1b12826591e6a68421a9f78dfeed9783c223d2f976fe5b571454c31da07d"
+
+[[files]]
+file = "config/fancymenu/customizablemenus.txt"
+hash = "ce0d84b2b57cf5f1f8223fe000ffe065ed91791a27b82411a9028bf2b85d8647"
+
+[[files]]
+file = "config/fancymenu/customization/drippy_loading_overlay_layout.txt"
+hash = "73465c2f699837e6251bfa42dcee3af318bc84813de28e1ca39d284556d212ec"
+
+[[files]]
+file = "config/fancymenu/customization/pause_screen_layout.txt"
+hash = "4edb8f05453276d87794d03f3a7e08f155295ca63fdcccae96124a909502c47b"
+
+[[files]]
+file = "config/fancymenu/customization/title_screen_layout.txt"
+hash = "71fd188e9d7155eb70799af5d7725b83bd5d510cc08f4f1eb17bb86fbc554b52"
+
+[[files]]
+file = "config/fancymenu/options.txt"
+hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_0.png"
+hash = "ccc78fb6e5e83bba9b4b65bfcae195daf8d1438db4e071936edf00bfe4238e6e"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_1.png"
+hash = "c3049860e8fbfbb3b4b72bca3e6897e8f18f041d2fb6379b82aec4584e0877fd"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_2.png"
+hash = "95c0f741288816633fa3297b98b89d3b16885c243cf4354e01ab29a0637af254"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_3.png"
+hash = "ae9eaa088c8a3329124104693b53b6b7ac12ca2ae48cfc5f1938eb5d1ad905ad"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_4.png"
+hash = "c917304a25615b8b5a9efc88c904833d6bfb2a871ec57c929dae3de29967356a"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_5.png"
+hash = "6556c23ca1556edb00129c36910295a23cca8910a5ea00ac167eb2cb4319b42b"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_6.png"
+hash = "0fb3c720c0964c550019e3af28cd9a5cc8dbfa6b1ea65c6ace2859f2a1e6952b"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_7.png"
+hash = "95e732fdfa9010e28fba5cb6b0cd56c5dba8ffb0ce406597f7fb65810bfd8f28"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/images/age_8.png"
+hash = "555b4e437735ed2f5fec0850af46222a0f6e5b7641fe8d35b372ca938c0bd376"
+
+[[files]]
+file = "config/fancymenu/slideshows/firmament/properties.txt"
+hash = "0eefdf957efeacf256536e51cd7ed8c7b1ba85049196729bbc6ec73d2f2b49b1"
+
+[[files]]
+file = "config/fml.toml"
+hash = "8da9165b9aed77b251b7fcf28872f539b22deec30942c4c0461317375ef99550"
 
 [[files]]
 file = "config/ftbchunks-world.snbt"
@@ -173,6 +301,14 @@ file = "config/ftbquests/quests/reward_tables/stone_supplies.snbt"
 hash = "afb2635501f8fdaf7e02c07e5ff07a45f7301ec653832f146b0f27ff9c6936c7"
 
 [[files]]
+file = "config/jade/plugins.json"
+hash = "069457c3be434bebaad0dd85145294677ca9156c8c5db96d1552cf251d8e25e8"
+
+[[files]]
+file = "config/jei/client/default/jei-mod-id-format.ini"
+hash = "cb630b2561ab3c192709d34f00e1535a483fc8873bd17f6309218722aa5a3a5f"
+
+[[files]]
 file = "config/mysticalagriculture-common.toml"
 hash = "0c655427690916b78ec5262596ce37d24aaba68a95ea8fc87eccf69fa39c531f"
 
@@ -181,8 +317,12 @@ file = "config/mysticalcustomization/configure-crops.json"
 hash = "2877dd1b97cf16798f0d18f58d445c6232967564a13c1f48fe74a77796d38a57"
 
 [[files]]
+file = "config/neoforge-client.toml"
+hash = "06364c8fe7cc156a892d52aa7398d045946ea540e788cd893cbea426660d0c04"
+
+[[files]]
 file = "config/progressivestages/progressivestages.toml"
-hash = "c0e07dcec16c5143d4d43382e8460ab3b59fb8e4fb94a6ff05ba7e88c1d21c35"
+hash = "03bccfaa1d5f1eac742e03735e6f5aaf18a79b8ae1afee0166ca80b826ce2e27"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
@@ -295,6 +435,10 @@ hash = "209012254553355ca0978d671457d1ef25609c428067eb9561257ecb7192e177"
 [[files]]
 file = "config/progressivestages/stages/tool_toms_storage.toml"
 hash = "6778b0af66a2e9e7a0b9575a7eac0a547194c2b454b952e79d1d58bdd326d789"
+
+[[files]]
+file = "config/simplebackups-common.toml"
+hash = "080c9eda509bc06c8fc32b590903d179bcfb202276c542a76dc091005fe1b8da"
 
 [[files]]
 file = "defaultconfigs/Mekanism/world.toml"
@@ -473,12 +617,28 @@ file = "kubejs/assets/firmages/textures/item/wither_sigil.png"
 hash = "21c9f0bcc27b20b8709473d7bff650301e6e0a36ffe0e82c95202b281baa314d"
 
 [[files]]
+file = "kubejs/assets/neoforge/lang/en_us.json"
+hash = "fdcf3def4f21c68a435cfd74f24d7ffcdd2e844eeab8086fd7a8447c8e5c88a6"
+
+[[files]]
 file = "kubejs/client_scripts/item_tooltips.js"
 hash = "91fea7149d531bf25c6470db1ec4020f34952e92bb33b8946dce8fccbc76d837"
 
 [[files]]
 file = "kubejs/client_scripts/viewer_static.js"
 hash = "3138b9bbd922bf993dea48bf13a9b261eab30c67c157b0140d8311df0f0aa7ea"
+
+[[files]]
+file = "kubejs/config/client.json"
+hash = "4de6194bcc5c1a39c63c2471f4b6c9f5f3ef2e865f29eb8431e1157eb7b1d462"
+
+[[files]]
+file = "kubejs/config/common.json"
+hash = "4acaf256c1ddbbc1ff32969a6f2cf9e70856533a547d240b0100a76f1832cc6b"
+
+[[files]]
+file = "kubejs/config/web_server.json"
+hash = "62e7dc15d755bfdb73271fa00bb3223ad04b2cde2fb93f696050e2fe58ad19a8"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/calorite_factory_block.json"
@@ -1037,6 +1197,10 @@ file = "kubejs/server_scripts/firmages/boss_fallback.js"
 hash = "721bac569a3c554f1d1305be4e7752678b467a13142e9e17b0067d0195dff791"
 
 [[files]]
+file = "kubejs/server_scripts/firmages/gamerules.js"
+hash = "73de383a5b01a9e07fde0140f7257e3d8514cb5ee6c70f6a684cd1547d85adb2"
+
+[[files]]
 file = "kubejs/server_scripts/firmages/miner_blacklist.js"
 hash = "747477090d7cfa38ceadb38767efeb2547dd1ae25c3bc0472f6766e967142ebd"
 
@@ -1561,6 +1725,16 @@ hash = "d864568b2c2985e825ffcb783990e4b45486ee9fefc69e45f9cacb47a1feb1a1"
 metafile = true
 
 [[files]]
+file = "mods/drippy-early-loading-module.pw.toml"
+hash = "19776c75ad7111c0f687a1a1fd87e73ee9327c94ce9caf8fc58188969dce487e"
+metafile = true
+
+[[files]]
+file = "mods/drippy-loading-screen.pw.toml"
+hash = "a0a08557c2985af8f6c92adef8b654c8f8b239277c4bb8eb94810b22109cc351"
+metafile = true
+
+[[files]]
 file = "mods/emi-loot.pw.toml"
 hash = "2bfe1523d89098c72c7072531f60eb24c6b41fea2ee294bfcb86c3c385464c08"
 metafile = true
@@ -1593,6 +1767,11 @@ metafile = true
 [[files]]
 file = "mods/ex-pattern-provider.pw.toml"
 hash = "58c8a64f256889552536342d3544d6a957a6dbf0cf9f22ebf7f2c493acf34c0e"
+metafile = true
+
+[[files]]
+file = "mods/fancymenu.pw.toml"
+hash = "0a5ade10e9b270da0cb791c4675e350042c23b4fe01a6ddc1ddebcbf356ed86d"
 metafile = true
 
 [[files]]
@@ -1730,6 +1909,11 @@ hash = "bbb880e43d194d68b3cd5916e7eb8886f3b15ba8a79845ff57f8492a37bcff6e"
 metafile = true
 
 [[files]]
+file = "mods/konkrete.pw.toml"
+hash = "05aa5d04a38f1c1829e39056462b003a8cd313e22c5cd9e015a8bb413a14fdc7"
+metafile = true
+
+[[files]]
 file = "mods/kotlin-for-forge.pw.toml"
 hash = "1506a3d749a45bc760b3ad57ef1fbb959f0c166b6d1d4955114fd66db7a4855d"
 metafile = true
@@ -1827,6 +2011,11 @@ metafile = true
 [[files]]
 file = "mods/mekanism.pw.toml"
 hash = "290b13afab94146d1159d821b73c8c98f5299b4df75fd28e826f9fd409e9bb40"
+metafile = true
+
+[[files]]
+file = "mods/melody.pw.toml"
+hash = "331f9551b85f075a6398c8cf1d9ced0d2c0b643ab4db6ea1609666846c0208f1"
 metafile = true
 
 [[files]]
