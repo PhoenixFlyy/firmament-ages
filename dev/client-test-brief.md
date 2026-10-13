@@ -1,5 +1,69 @@
 # Client-Test
 
+## 0.8.0 Nachtrag (Runde B, Pack 0.8.0, firmages-core 0.8.0)
+
+Sechs Arbeitsstränge auf Deine Antworten zu „Firmament Ideen 2“ hin; die Listen für 0.7.2, 0.7.1 und 0.7.0 darunter
+gelten sonst weiter. Server-Teil geprüft (`dev/poc-results.md`, Abschnitt „Round B (2026-10-13)“: GameTests, frische
+Welt mit Dump, Blutmond- und Cave-Dweller-Probe; die Koordinaten-Probe fand einen Skriptfehler, behoben, siehe
+Punkt 4), im Spiel noch offen. **Neues Profil importieren** (das
+Zip aus `dev/cf/LOKAL-TESTEN.md`): Default Options kopiert die Shader-Voreinstellung, die Dunkelheits-Werte und die
+neuen Tasten nur in ein frisches Profil. Die Test-Welt ist frisch (Dawn), auf dem Test-Server gelten schon
+`torchTicks = 43200` und `jadeFromAge = "age_1"`.
+
+1. **Erster Start und Shader.** Das Spiel startet mit Iris und **Complementary Reimagined r5.9.3** an. **O** öffnet
+   das Shader-Menü: dort auf **MakeUp Ultra Fast** wechseln oder Shader ganz aus; die Wahl bleibt nach einem Neustart.
+   R (Shader neu laden) und K (Shader an/aus) von Iris sind nicht belegt, R bleibt die Wagen-Aktion, K das Questbuch.
+   Prüfe mit beiden Packs: Create-Contraptions (ein fahrender Zug oder eine Mechanical Bearing) sehen richtig aus
+   (Colorwheel; MakeUp läuft im Fallback-Modus), TFC-Pflanzen und Feldfrüchte leuchten nicht und wackeln nicht seltsam
+   (Iris Block Compat ohne Wackel-Liste), Ars-Nouveau-Himmel (Skyweave) ohne Fehler. Auf einem Ad-Astra-Planeten oder
+   Orbit und in The Origin schalten sich Shader von selbst ab, beim Rückweg wieder an. Beim Join kein Bildschirm und
+   keine Chatzeile von Enhanced Celestials 2. Ein Blutmond (ab der Eisenzeit, Punkt 4) färbt den Himmel auch unter
+   Complementary rot. Melde die FPS auf der RTX 3060 mit Complementary und mit MakeUp (Dynamic FPS senkt sie, wenn das
+   Fenster im Hintergrund ist; AllTheLeaks und BadOptimizations laufen still mit).
+2. **Titelbild „Constellation“.** Nachthimmel als Hintergrund, darüber alle 12 Sekunden eine Sternkarte des Schreins
+   der nächsten Age (neun Folien, Überblendung, die vorige Age blass dahinter, Age-Name unten rechts). Die Karte
+   bewegt sich mit der Maus etwas stärker als der Himmel. Wortmarke, die vier Knöpfe und die Versionszeile unten links
+   („Firmament Ages 0.8.0“) wie in 0.7.2. Bitte bei 1920x1080 oder 2560x1440 mit GUI-Scale 2, 3 und Auto ansehen.
+3. **Questbuch als Fenster (Deine Wahl A).** **K** öffnet das Questbuch als mittiges Fenster mit 75 % des
+   Spielfensters, die Welt drumherum unscharf und abgedunkelt. Kapitelliste, Karte, Quest-Ansicht und Pop-ups (z. B.
+   die Item-Liste einer Aufgabe, Rechtsklick-Menüs) bleiben im Fenster. Die Quest-Ansicht füllt das Fenster randlos:
+   Titel und erster Buchstabe jeder Zeile sichtbar, kein Streifen rechts oder unten (der Fehler aus 0.7.2). Prüfe
+   GUI-Scale 2, 3 und Auto, und ändere bei offenem Buch (auch bei offener Quest) die Fenstergröße oder den GUI-Scale:
+   das Fenster folgt. Die Kapitelliste gleitet am linken Fensterrand herein und ist außerhalb nicht zu sehen; Zoomen
+   mit dem Mausrad hält die Kartenmitte. Die Abstände zwischen Titel, Aufgaben, Trennlinie und Text sind enger.
+   `config/firmages-client.toml` `[ui] questWindowPercent` (0 = Vollbild wie früher, 50 bis 100) gilt beim nächsten
+   Öffnen. Offen: bei GUI-Scale 3 und Auto brechen lange Questzeilen ein zweites Mal um (Flattersatz); melde, wie
+   störend das ist.
+4. **Härte der frühen Ages.**
+   - **Betten ab der Eisenzeit.** In Dawn bis Bronzezeit kein Vanilla-Bett in EMI und keins herstellbar; das
+     TFC-Strohbett setzt den Spawn, überspringt aber nie die Nacht (die Quest „Shelter“ sagt das). Ab `age_2` die 16
+     Betten; mit zwei Spielern reicht einer im Bett, um die Nacht zu überspringen (50 %).
+   - **Fackeln brennen 36 Minuten** statt 72 (eine gesetzte TFC-Fackel geht nach 36 echten Minuten aus).
+   - **Echte Dunkelheit.** Ohne Shader (O-Menü aus): Nächte dunkel, je nach Mondphase (Neumond fast schwarz), Höhlen
+     ohne Fackel stockdunkel; eine Fackel in der Hand leuchtet um Dich (LambDynamicLights). Mit Complementary bzw.
+     MakeUp sorgen die mitgelieferten Shader-Einstellungen für dunkle Nächte und Höhlen. Melde, ob es zu dunkel oder
+     zu hell ist, mit und ohne Shader.
+   - **Keine Koordinaten bis zur Bronzezeit.** F3 zeigt in Dawn und Steinzeit keine XYZ-, Block-, Chunk- und
+     Blickrichtungs-Zeilen; nach `/stage grant @s age_1` sind sie da (ohne Relog). Bitte zusätzlich `/gamerule reducedDebugInfo` abfragen:
+     vor `age_1` `true`, danach `false`. Das ist auf dem Server noch nicht bewiesen: im Boot warf `grants.js` einen
+     Fehler und die Regel blieb `true`; die Korrektur ist im Pack, lief aber noch in keinem Boot. Der Gravestone-Mod gibt beim Tod
+     keinen Nachruf mit Grab-Koordinaten mehr.
+   - **Blutmond erst ab der Eisenzeit.** `/ec lunarForecast` listet vor `age_2` keinen Blutmond; nach
+     `/stage grant @s age_2` wird die Vorhersage neu gewürfelt und Blutmonde kommen wieder.
+   - **Cave Dweller bis zur Eisenzeit.** In Dawn bis Bronzezeit jagt höchstens ein Cave Dweller in den Höhlen der
+     Overworld; probieren: unter Y 40 im Dunkeln `/cave_dweller fast_forward minecraft:overworld 12000 12000`, das
+     gibt Höhlengeräusche und einen Dweller. Nach `/stage grant @s age_2` ist ein vorhandener sofort weg,
+     `/summon cave_dweller:cave_dweller` scheitert, derselbe Befehl gibt weder Dweller noch Geräusch.
+   - **Jade erst ab der Bronzezeit,** zusammen mit EMI (bisher Jade ab der Steinzeit): in Dawn und Steinzeit kein
+     Block-Overlay, nach `/stage grant @s age_1` ohne Relog da.
+5. **Entfernt: Ping Wheel, Crash Assistant, TFCGenViewer.** In den Steuerungs-Einstellungen fehlen Ping Wheel und
+   TFCGenViewer, nach einem Absturz kommt kein Crash-Assistant-Fenster. Ein altes Profil behält deren Configs, die kannst Du löschen.
+6. **Erinnerung: TFC-Reiter (aus 0.7.2, noch ungeprüft).** Dawn nur Inventar, ab der Steinzeit der Kalender, ab der
+   Eisenzeit das Klima direkt darunter, nie Ernährung und Field Guide, keine Lücken (Punkt 3 des 0.7.2-Nachtrags).
+
+Melde: Punkte 1 bis 6 ja/nein, FPS mit Complementary und MakeUp, Dunkelheit zu dunkel / passt / zu hell (mit und
+ohne Shader), und ob Dich der Umbruch im Quest-Fenster stört.
+
 ## 0.7.2 Nachtrag (Feedback 2, Pack 0.7.2, firmages-core 0.7.2)
 
 Fünf Änderungen auf Deine Screenshots und Entscheidungen hin; die 0.7.1- und 0.7.0-Listen darunter gelten sonst

@@ -2358,3 +2358,94 @@ rare near this spawn: soulstone needs a basalt region, which may be thousands of
 - MA vein overlay without black pixels, disguise below age_6, veins findable with the prospector in one session.
 - Quest paragraph gap 14 px, `questParagraphGap` applied after reopening a quest; choice A or B for the cut-off
   fullscreen quest view (not fixed yet).
+
+## Round B (2026-10-13)
+
+Date: 2026-10-13, `dev` from 4346658 (pack 0.7.2). Felix's answers on "Firmament Ideen 2", worked on in six branches and
+merged here with `--no-ff` in this order: `rb/removals` (Ping Wheel, Crash Assistant, TFCGenViewer removed; check U-1),
+`rb/shaders` (Iris, Complementary Reimagined r5.9.3 on by default, MakeUp Ultra Fast, Enhanced Celestials 2, Dynamic
+FPS, AllTheLeaks, BadOptimizations), `rb/hardship` (beds from age_2, torches, More Darkness and LambDynamicLights,
+hidden coordinates, blood moon gate, Cave Dweller ReEvolved), `rb/core` (Jade from the Bronze Age, Cave Dweller gate,
+EC2 join silence), `rb/quest-window` (quest book as a 75 % window) and `rb/title` (Constellation title screen).
+Conflicts: `dev/decisions-while-away.md` (all rows kept), `index.toml` and `pack.toml` (refreshed afterwards), SPEC
+§18.7 to §19 (18.8, 18.9, then 19; §18.7 lists `jadeFromAge = "age_1"`, `caveDweller` and `questWindowPercent`) and
+`dev/check_menus.py` (shader and slideshow checks both kept). `FirmagesMixinPlugin` merged without conflict (9 pairs in
+`Map.of`). Then pack 0.8.0 and firmages-core 0.8.0.
+
+Integration fixes:
+
+- **One Cave Dweller gate.** `rb/hardship` shipped `kubejs/server_scripts/firmages/cave_dweller.js` (cancel the join from
+  a fixed `age_2`), `rb/core` the configurable `CaveDwellerService`. The script would have overruled
+  `caveDwellerUntilAge = "never"`; it is gone, the mod gate stays.
+- **Network protocol "2"** (`FirmagesNetwork`, SPEC §11): `firmages:age_status` grew in 0.7.2 and 0.8.0. NeoForge
+  21.1.252 refuses a version mismatch at negotiation even for optional payloads (`NetworkComponentNegotiator`, javap),
+  so an old client gets a clear message.
+- **`grants.js` real-player check** (found by the boot below): `player.getUUID()` is hidden from KubeJS scripts and
+  threw a TypeError on every login and Age grant, so `reducedDebugInfo` never dropped to false and the code after
+  `reconcile()` in the grant callback (FTB Chunks quota at age_4) never ran. Now `!player.isFake()` (KubeJS
+  `PlayerKJS`, instanceof NeoForge `FakePlayer`). **Not yet proven in a boot** (one boot only in this round).
+
+### Build and static checks
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (firmages-core 0.8.0, merged tree) | BUILD SUCCESSFUL; JUnit 100 tests, 0 failures, 0 errors (93 of `rb/core` plus 7 `QuestWindowTest`); the jar carries `mixin/ftbq/*` (5 mixins) and `hardship/CaveDweller*`; rebuilt after a javadoc edit: byte-identical (sha1 9db5788f) | pass |
+| `gradlew runGameTestServer` (generated `firmages-server.toml` moved to `firmages-server-6.toml.bak` first) | "All 34 required tests passed" (`caveDwellerGoneFromItsAge` new); selftest core 17/0, gate 16/0; new config: `jadeFromAge = "age_1"`, `[hardship] caveDwellerUntilAge = "age_2"` | pass |
+| `gradlew runGameTestServer -PgametestTfc` | 34 tests, 21 passed, 13 failed: the known shrine and gate failures of this mode (`consecrationCycle`, `shrineRitualEndToEnd`, `unlockTwoAgesThroughReload`, `keystoneLending`, `recipeGateAtBoot`, `excavatorFilterStubMix`, `recipeCommandsRun`, `modExtractorsAndExcavatorAtBoot`, `oreGuardDrops`, `oreGuardBreak`, `kubejsOreTagsAtBoot`, `gatheringAndFinalBoss`, `awakenedRingMigrates`); the TFC tests ran against TFC and passed: `tfcTabsFollowAges` (with the server guard against TFC's tab packet) and `tfcThirstAndNutrition` | pass (expected failures) |
+| `python dev/check_menus.py` | all checks pass: version line `Firmament Ages 0.8.0`; default shader pack `ComplementaryReimagined_r5.9.3.zip` has a metafile; shaders off in `firmages:origin` and the 11 Ad Astra dimensions; slideshow `firmament_constellation` 9 slides; every local file a layout names exists | pass |
+| `tools/packwiz.exe refresh` | 682 index entries: `kubejs` 349, `mods` 207, `config` 120, `defaultconfigs` 4, `shaderpacks` 2; nothing outside the pack paths, every listed file exists; no Ping Wheel, Crash Assistant, TFCGenViewer, EC1, `cave_dweller.js`, old shrine slideshow or `firmages-core-0.7.2.jar` | pass |
+| Mod count | 206 metafiles in `mods/` plus `firmages-core-0.8.0.jar` = **207 mods**; 2 shader packs (not mods); `gen_credits.py`: 207 credits (206 CurseForge after the swaps, 1 own) | pass |
+
+### Server proof (fresh world)
+
+Test server synced with packwiz-installer-bootstrap `-g -s server` from `packwiz serve` (682/682, "Finished
+successfully"; EC1 jar and `firmages-core-0.7.2.jar` removed, the client-only mods skipped), deploy values set
+(`config/tfc-server.toml` `torchTicks = 43200`, `config/firmages-server.toml` `jadeFromAge = "age_1"`), instance leftovers
+`config/pingwheel.server.json` and `config/crash_assistant/` deleted. One boot: `run_server.py --wipe-world --hold 0`
+with 49 console commands (15 s apart), debug player Alpha (creative), `debug.allowSimulate` on for the run only.
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot | `Done (12.885s)` (112.8 s wall clock, world creation included), 208 mod files with 200 mods; KubeJS startup 4/4 and server 39/39, 0 errors, 0 warnings; warm-up reload 8678 ms | pass |
+| ERROR lines | none from FirmagesCore, Enhanced Celestials 2, Cave Dweller, AllTheLeaks or any Iris-related mod (the Iris family, Colorwheel, More Darkness, LambDynamicLights, YACL, Dynamic FPS and BadOptimizations are client-only and not on the server; no client-class load error names them); **5 KubeJS errors from `grants.js`** (TypeError `getUUID`, fixed above); the rest is the known noise (DISTXFORM, azimuth, bits_n_bobs, woodencog and simulated client mixins, loot tables of dndecor, railways, create_connected, createcasing, more_immersive_wires and extendedae, tfcrf, woodencog and createdeco recipe parse errors, Sable, Polymorph, TF `dev_new_world`) | pass after fix (fix unproven in a boot) |
+| H5 `/gamerule reducedDebugInfo` | fresh world `true`; after Alpha's login `true`; after `stage grant Alpha age_1` **`true`** (expected `false`), also at age_2. Cause: the `grants.js` TypeError; fixed, not re-booted | **fail, fixed** |
+| H8 blood moon gate (`/ec lunarForecast`) | fresh world, nobody online: 4 blood moons in the forecast (1d, 76d, 82d, super 39d); `/ec scheduleLunarEvent insert ...:blood_moon 3` adds one (gate waits without players); 9 s after Alpha joins: "removed 6 blood moon(s) from the forecast (no mob_2 yet)", forecast without blood moons; at age_1 a scheduled blood moon is removed within 1 s; `stage grant Alpha age_2`: `mob_2` granted, "lunar forecast rolled again with blood moons", forecast with 4 blood moons, a scheduled one stays 30 s later | pass |
+| H12 Cave Dweller | before age_2: `execute at Alpha run summon cave_dweller:cave_dweller ~4 ~ ~4` "Summoned", `execute if entity` count 1; at age_2 (`caveDweller=false` in Alpha's `firmages:age_status`): count 0, a new summon is refused (`Cave Dweller refused at 340 67 1124 (hardship.caveDwellerUntilAge)` in debug.log; vanilla still prints "Summoned" because `tryAddFreshEntityWithPassengers` ignores a cancelled join). The first dweller was gone before age_2 (no "Removed" line), so the discard of loaded dwellers on the Age change is not shown here; it is covered by GameTest `caveDwellerGoneFromItsAge` | pass |
+| H9 Jade | `firmages:age_status` to Alpha: `blockInfo=false` in Dawn and age_0, `blockInfo=true` from age_1 (`jadeFromAge = "age_1"`), `caveDweller=true` until age_1 and `false` at age_2, `tabs` 0/1/1/3 | pass |
+| H3 torches | TFC has no config command (`net/dries007/tfc/common/commands`: no config); `config/tfc-server.toml` holds `torchTicks = 43200` and the server kept it | trust the file |
+| `fa_dump`, `fa_dump_full` at age_9 (`firmages ages simulate grant age_3` .. `age_9` after the proofs) | 32,330 recipes (0 without a readable result), 3,496 item tags; 32,330 encoded, 0 not encodable; recipe audit written | pass |
+| Reloads | age_0 8237, age_1 8026, age_2 8235 ms (Alpha online); age_3 to age_9 simulated without players 7760, 7361, 7402, 7477, 7661, 7381 and 7364 ms | pass (all below 10 s) |
+| `derive_ages.py --check` | "generated:derived is up to date"; final per Age dawn 4,263, age_0 649, age_1 2,732, age_2 4,657 (the 16 beds), age_3 1,915, age_4 1,370, age_5 400, age_6 1,505, age_7 557, age_8 673, age_9 364, disabled 4,486 | pass |
+| `gen_stage_locks.py --check` and `--registry test-server/local/firmages` | 0 files to rewrite; `dev/data/registry.json` unchanged (EC2 and Cave Dweller register no items) | pass |
+| `validate_quests.py`, `gen_textures.py --check`, `gen_multiblock_templates.py --check` | 1292 ids, 0 errors, 0 warnings; 68 textures, 0 errors; 35 templates, up to date | pass |
+| `poc_analyze.py` | 88 checks: 87 PASS, **1 FAIL: U-1** with 15 tags (expected; list below) | expected |
+| Cleanup | `stop`, exit 0; `test-server/world` deleted (Felix starts a fresh Dawn world); `whitelist.json`, `ops.json`, `server.properties` byte-identical to before (the server had rewritten the last two, restored from the copy); `debug.allowSimulate = false` again; `firmages-server.toml` otherwise only gained `[hardship]`; after the `grants.js` fix one more sync (682/682) so the test server has it | pass |
+
+U-1 (one visible item per unify tag; all 15 "not unified: material not in AU placeholders"), visible members:
+
+| Tag | Visible items |
+|---|---|
+| `c:dusts/amethyst` | `moremekanismprocessing:dust_amethyst`, `occultism:amethyst_dust` |
+| `c:dusts/saltpeter` | `immersiveengineering:dust_saltpeter`, `tfc:powder/saltpeter` |
+| `c:dusts/wood` | `mekanism:sawdust`, `immersiveengineering:dust_wood` |
+| `c:gems/amethyst` | `minecraft:amethyst_shard`, `tfc:gem/amethyst` |
+| `c:gems/certus_quartz` | `ae2:certus_quartz_crystal`, `ae2:charged_certus_quartz_crystal` |
+| `c:gems/quartz` | `minecraft:quartz`, `tfcreate:polished_quartz`, `tfc_ie_addon:mineral/quartz_shard` |
+| `c:ingots/cast_iron` | `createbigcannons:cast_iron_ingot`, `tfc:metal/ingot/cast_iron` |
+| `c:ingots/sterling_silver` | `tfc:metal/ingot/sterling_silver`, `occultengineering:sterling_silver_ingot` |
+| `c:plates/andesite_alloy` | `createdeco:andesite_sheet`, `createcasing:andesite_sheet` |
+| `c:rods/all_metal` | `immersiveengineering:stick_aluminum`, `tfc:metal/rod/wrought_iron`, `tfc:metal/rod/steel`, `immersiveengineering:stick_netherite`, `immersiveposts:stick_lead`, `immersiveposts:stick_constantan`, `immersiveposts:stick_electrum`, `immersiveposts:stick_uranium` |
+| `c:rods/wooden` | `minecraft:stick`, `immersiveengineering:stick_treated`, 20 `tfc:wood/twig/*`, 21 `afc:wood/twig/*`, `beneath:wood/twig/crimson`, `beneath:wood/twig/warped` |
+| `c:storage_blocks/alloys` | `evolvedmekanism:block_alloy_{infused,reinforced,atomic,hypercharged,subatomic,singular,exoversal}` |
+| `c:storage_blocks/cast_iron` | `createbigcannons:cast_iron_block`, `tfc:metal/block/cast_iron` |
+| `c:storage_blocks/slime` | `minecraft:slime_block`, `twilightforest:maze_slime_block` |
+| `c:storage_blocks/sterling_silver` | `tfc:metal/block/sterling_silver`, `occultengineering:sterling_silver_block` |
+
+### Open points
+
+- Prove the `grants.js` fix in the next boot: `/gamerule reducedDebugInfo` false after `stage grant <player> age_1`, no
+  KubeJS error on login or grant, FTB Chunks quota at age_4.
+- U-1: the 15 tags above (polish stage: unify, hide or allowlist).
+- `neoforge config showfile tfc SERVER` failed (the type is lower case); the TFC config path was not shown.
+- Needs a client (Felix, `dev/client-test-brief.md`, 0.8.0 Nachtrag): shaders and FPS, title screen, quest window,
+  darkness with and without shaders, F3, Jade, Cave Dweller sounds, removed mods.
