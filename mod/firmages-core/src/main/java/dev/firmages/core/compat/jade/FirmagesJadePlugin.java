@@ -2,6 +2,7 @@ package dev.firmages.core.compat.jade;
 
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.age.AgeId;
+import dev.firmages.core.client.immersion.ImmersionClient;
 import dev.firmages.core.net.ShrineSyncPayload;
 import dev.firmages.core.shrine.ConsecratedBlock;
 import dev.firmages.core.shrine.OfferingPlinthBlock;
@@ -25,7 +26,8 @@ import snownee.jade.api.config.IPluginConfig;
  * whether it is kindled and maintenance mode; a plinth shows its Age, its relic or offering, and a lent relic; a
  * consecrated block (M7, SPEC §17) its role, the Age of its ring, its original material and the maintenance state.
  * Everything comes from the synced blockstates, the plinth block entity and the {@code firmages:shrine_sync}
- * payload, so no server data provider is needed. Jade finds this class by
+ * payload, so no server data provider is needed. Before {@code ui.jadeFromAge} the overlay is suppressed entirely
+ * (SPEC §18.3). Jade finds this class by
  * its annotation and loads it only when Jade is installed.
  */
 @WailaPlugin
@@ -39,6 +41,10 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Heart.INSTANCE, ShrineHeartBlock.class);
         registration.registerBlockComponent(Plinth.INSTANCE, OfferingPlinthBlock.class);
         registration.registerBlockComponent(Consecrated.INSTANCE, ConsecratedBlock.class);
+        // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
+        // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
+        // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
+        registration.addRayTraceCallback(10000, (hit, accessor, original) -> ImmersionClient.blockInfoAllowed() ? accessor : null);
     }
 
     enum Heart implements IBlockComponentProvider {

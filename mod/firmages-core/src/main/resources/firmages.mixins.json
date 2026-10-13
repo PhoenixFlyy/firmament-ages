@@ -16,7 +16,17 @@
     "ps.SyncPlayerMixin",
     "ps.SendStageSyncMixin",
     "ps.PlayerJoinMixin",
-    "ps.StageSyncCoalesceMixin"
+    "ps.StageSyncCoalesceMixin",
+    "ars.RewardsMixin",
+    "trainutilities.JoinNoticeMixin",
+    "tfc.PlayerInfoMixin",
+    "tfc.TfcDamageMixin"
+  ],
+  "client": [
+    "client.ChatComponentMixin",
+    "corgilib.AnnouncementTickerMixin",
+    "tfc.TfcHealthBarMixin",
+    "tfc.InventoryTabAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

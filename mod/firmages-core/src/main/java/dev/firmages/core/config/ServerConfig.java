@@ -52,11 +52,20 @@ public final class ServerConfig {
     public static final ModConfigSpec.ConfigValue<String> ORIGIN_FINALE_GATEWAY;
     // sync
     public static final ModConfigSpec.BooleanValue SYNC_COALESCE;
+    // ui (immersion, SPEC §18)
+    public static final ModConfigSpec.ConfigValue<String> UI_EMI_FROM_AGE;
+    public static final ModConfigSpec.ConfigValue<String> UI_JADE_FROM_AGE;
+    public static final ModConfigSpec.BooleanValue UI_WELCOME;
+    // tfc (SPEC §18.6)
+    public static final ModConfigSpec.BooleanValue TFC_DISABLE_THIRST;
+    public static final ModConfigSpec.BooleanValue TFC_NO_NUTRITION_MALUS;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
     public static final List<String> DEFAULT_BOOT_FALLBACK = List.of("dawn");
     public static final String DEFAULT_FINALE_GATEWAY = "firmages:the_origin";
+    /** Felix 2026-10-13: recipe viewer and block overlay open with the Stone Age; nothing of the machinery shows in Dawn. */
+    public static final AgeId DEFAULT_UI_FROM_AGE = AgeId.AGE_0;
     public static final List<String> DEFAULT_EXEMPT_TYPES = List.of("immersiveengineering:mineral_mix", "tfc:collapse", "tfc:landslide");
 
     static {
@@ -144,6 +153,23 @@ public final class ServerConfig {
             .define("coalesce", true);
         b.pop();
 
+        b.comment("Immersion: what players see of the pack's machinery (SPEC 18)").push("ui");
+        UI_EMI_FROM_AGE = b.comment("First Age with the recipe viewer (EMI). Before it EMI is hidden, its toggle key included.")
+            .define("emiFromAge", DEFAULT_UI_FROM_AGE.id(), ServerConfig::isAgeId);
+        UI_JADE_FROM_AGE = b.comment("First Age with the block-info overlay (Jade).")
+            .define("jadeFromAge", DEFAULT_UI_FROM_AGE.id(), ServerConfig::isAgeId);
+        UI_WELCOME = b.comment("Each player's first join shows the title and the one-time welcome screen.")
+            .define("welcome", true);
+        b.pop();
+
+        b.comment("TerraFirmaCraft survival (SPEC 18.6); food decay and tool durability stay TFC's").push("tfc");
+        TFC_DISABLE_THIRST = b.comment("Thirst never drops (it stays full), so dehydration effects never apply.")
+            .define("disableThirst", true);
+        TFC_NO_NUTRITION_MALUS = b.comment("Nutrition only gives a bonus: the health modifier never drops below TFC's starting value",
+                "(nutritionDefaultHealthModifier); a varied diet still raises it up to the maximum.")
+            .define("noNutritionMalus", true);
+        b.pop();
+
         b.push("debug");
         DEBUG_ALLOW_SIMULATE = b.comment("Enables /firmages ages simulate (self-tests only).").define("allowSimulate", false);
         b.pop();
@@ -197,6 +223,26 @@ public final class ServerConfig {
     /** {@code origin.finaleGateway}: the gate id the end-boss script opens and waits for. */
     public static String finaleGateway() {
         return loaded() ? ORIGIN_FINALE_GATEWAY.get() : DEFAULT_FINALE_GATEWAY;
+    }
+
+    public static AgeId emiFromAge() {
+        return loaded() ? AgeId.byId(UI_EMI_FROM_AGE.get()).orElse(DEFAULT_UI_FROM_AGE) : DEFAULT_UI_FROM_AGE;
+    }
+
+    public static AgeId jadeFromAge() {
+        return loaded() ? AgeId.byId(UI_JADE_FROM_AGE.get()).orElse(DEFAULT_UI_FROM_AGE) : DEFAULT_UI_FROM_AGE;
+    }
+
+    public static boolean welcome() {
+        return !loaded() || UI_WELCOME.get();
+    }
+
+    public static boolean tfcDisableThirst() {
+        return !loaded() || TFC_DISABLE_THIRST.get();
+    }
+
+    public static boolean tfcNoNutritionMalus() {
+        return !loaded() || TFC_NO_NUTRITION_MALUS.get();
     }
 
     public static boolean allowSimulate() {

@@ -187,6 +187,13 @@ dependencies {
     gametestRuntimeOnly files("libs/Stargate.Journey-1.21.1-${sgjourney_version}.jar")
     // Jade, so the GameTest server loads the tooltip plugin class (its client half never runs there).
     gametestRuntimeOnly files("libs/Jade-1.21.1-NeoForge-${jade_version}.jar")
+    // Opt-in (gradlew runGameTestServer -PgametestTfc): TerraFirmaCraft and its required Patchouli, for the thirst and
+    // nutrition mixins against TFC's real player data (SPEC 18.6). Not in the default run: TFC changes the vanilla
+    // stand-in blocks and recipes the shrine and gate GameTests are built on.
+    if (project.hasProperty('gametestTfc')) {
+        gametestRuntimeOnly files("libs/TerraFirmaCraft-NeoForge-1.21.1-${tfc_version}.jar")
+        gametestRuntimeOnly files("libs/Patchouli-${patchouli_version}-NEOFORGE.jar")
+    }
 
     // Unit tests (SPEC 12, level U): pure Java, no Minecraft bootstrap
     testImplementation platform("org.junit:junit-bom:${junit_version}")
@@ -222,7 +229,7 @@ dependencies {
 // and checked against the hash in that file (sha1 for CurseForge, sha512 for Modrinth metafiles). libs/*.jar is git-ignored (TFC alone is 65 MB).
 // Bump a version by updating the pack; this task follows the .pw.toml automatically.
 def packModsDir = file('../../mods')
-def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon', 'sgjourney', 'jade'].collect { new File(packModsDir, "${it}.pw.toml") }
+def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon', 'sgjourney', 'jade', 'patchouli'].collect { new File(packModsDir, "${it}.pw.toml") }
 def libsDir = file('libs')
 def fetchLibs = tasks.register('fetchLibs') {
     group = 'firmages'

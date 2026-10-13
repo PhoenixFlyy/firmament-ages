@@ -11,7 +11,8 @@ import java.util.Set;
 
 /**
  * Skips the mod-specific mixins (SPEC §1.3) when their mod is not installed: {@code mixin.<pkg>.*} needs the mod
- * id mapped here. Mixins directly in {@code dev.firmages.core.mixin} (vanilla targets) always apply.
+ * id mapped here. Mixins directly in {@code dev.firmages.core.mixin} and in {@code mixin.client} (vanilla targets)
+ * always apply.
  */
 public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
     private static final String BASE = "dev.firmages.core.mixin.";
@@ -19,7 +20,10 @@ public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
         "ie", "immersiveengineering",
         "occultism", "occultism",
         "ars", "ars_nouveau",
-        "ps", "progressivestages");
+        "ps", "progressivestages",
+        "tfc", "tfc",
+        "trainutilities", "trainutilities",
+        "corgilib", "corgilib");
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
