@@ -2116,3 +2116,76 @@ Alpha held the Engineer's Hammer, looked north (yaw 180) and used the trigger bl
 - The same teardown drop affects IE's arc furnace (TFC-IE Crossover's template), bucket wheel and excavator and
   Immersive Petroleum's coker unit and pumpjack, which also contain `immersiveengineering:storage_steel`; they form
   with the TFC block through the tag but give the disabled block back when taken apart. Not changed here.
+
+## IE templates
+
+Date: 2026-10-13, branch `dev` at dd8a8d4 (pack 0.7.0). Follow-up to the open point of "ATFC multiblocks": every
+IE-style multiblock template of the pack, not only the ATFC ones. Decision in `dev/decisions-while-away.md`.
+
+### Scan (`dev/gen_multiblock_templates.py`, replaces `dev/gen_atfc_templates.py`)
+
+36 template files in four jars (`data/<ns>/structure/multiblocks/*.nbt`: Immersive Engineering 25, Immersive Petroleum
+6, Advanced TFC Tech 4, TFC + IE Crossover 1), 35 paths: the Crossover's `immersiveengineering:arcfurnace` (TFC fire
+bricks) overrides IE's (the jar whose mod is not the namespace owner wins). The only palette block in
+`age_items/disabled` or `c:hidden_from_recipe_viewers` is `immersiveengineering:storage_steel`, in 7 templates:
+
+| Template | Source | `storage_steel` | Pack copy |
+|---|---|---|---|
+| `advancedtfctech:grist_mill`, `power_loom` | ATFC | 1, 1 | existing, byte-identical |
+| `immersiveengineering:arcfurnace` | TFC + IE Crossover | 6 | new |
+| `immersiveengineering:bucket_wheel` | IE | 9 | new |
+| `immersiveengineering:excavator_full` | IE (manual preview of excavator + wheel) | 9 | new |
+| `immersivepetroleum:cokerunit` | IP | 1 | new |
+| `immersivepetroleum:pumpjack` | IP | 2 | new |
+
+All copies swap `storage_steel` for `tfc:metal/block/steel`, nothing else. `immersiveengineering:excavator` itself has
+no steel block. `--check` exits 0; it fails on a missing, stale or unneeded copy and on a disabled or hidden block
+without a canonical replacement.
+
+### World test
+
+Fresh world (`run_server.py --wipe-world`), debug player Alpha, `firmages ages simulate grant age_5`, `stage grant`
+dawn ... age_5 (`debug.allowSimulate` on for the run, off again). Each template built unrotated at y 180 with
+`dev/build_multiblock.py --sub immersiveengineering:storage_steel=tfc:metal/block/steel` (arc furnace from the
+Crossover jar), Engineer's Hammer, yaw 180, `firmages debug use` on the trigger (offsets from the multiblock classes:
+arc furnace 2 0 4, bucket wheel 3 3 0, excavator 1 1 5, coker unit 4 1 4, pumpjack 1 1 4). Round A breaks a non-steel
+part with a steel pickaxe (`debug break`), round B re-forms and breaks a steel part. After each break every template
+position was tested, item entities within 60 blocks and Alpha's inventory counted.
+
+| Multiblock | Form (A, B) | Round A: steel positions after teardown | Round B: steel part broken | `storage_steel` anywhere |
+|---|---|---|---|---|
+| Arc furnace (Crossover) | SUCCESS, SUCCESS | 6/6 `tfc:metal/block/steel` | drop `tfc:metal/block/steel` x1, other 5/5 TFC | none |
+| Bucket wheel | SUCCESS, SUCCESS | 9/9 TFC | drop TFC x1, other 8/8 TFC | none |
+| Excavator | SUCCESS, SUCCESS | no steel position; disassembled (0 formed parts left) | non-steel part (none in template) | none |
+| Coker unit | SUCCESS, SUCCESS | 1/1 TFC | drop TFC x1 | none |
+| Pumpjack | SUCCESS, SUCCESS | 2/2 TFC | drop TFC x1, other 1/1 TFC | none |
+
+The drop proves the server loads the pack copy over the Crossover override (KubeJS data sits above the mod packs).
+Boot: KubeJS startup and server 0 error lines.
+
+### R-M (`poc_analyze.py`)
+
+R-M now covers all 35 templates the server loads (pack copy before jar), grouped by the multiblock's Age: [mods] Age
+of the namespace, `MULTIBLOCK_AGE` lifts the IE MV/HV machines to age_5 (arc furnace, sawmill, mixer, bottling machine,
+excavator, excavator_full, bucket wheel, diesel generator, lightning rod, radio tower). Each block must be obtainable
+at that Age and none disabled or hidden. IE's chunk loader is in `MULTIBLOCK_UNBUILT` (needs
+`minecraft:calibrated_sculk_sensor`, which no Age reaches; chunk loading is FTB Chunks) and R-M checks it stays
+unbuildable at age_9.
+
+| Check | Result |
+|---|---|
+| R-M age_4 (18 templates) | PASS |
+| R-M age_5 (16 templates) | PASS |
+| R-M unbuildable (chunk loader) | PASS |
+| All checks (existing `fa_dump` with dawn ... age_9, recipes unchanged by this work) | **85 checks, all PASS** |
+| Pack copies moved away (negative test) | R-M age_4 and age_5 FAIL on `storage_steel` |
+
+### Open points
+
+- Needs a client: the IE manual previews (arc furnace, bucket wheel, excavator, coker unit, pumpjack) show the TFC
+  steel block.
+- `immersiveengineering:slab_storage_steel` (16 in the coker unit) is a second steel slab next to
+  `tfc:metal/block/steel_slab`; it is obtainable at age_4 from `#c:storage_blocks/steel` and not disabled, so the
+  template keeps it.
+- IE's chunk loader multiblock cannot be built (no sculk sensor); whether it should be disabled outright is a call for
+  Felix.

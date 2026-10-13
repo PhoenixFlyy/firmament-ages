@@ -1236,6 +1236,18 @@ REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
     ("age_9", "firmages:crafting/classic_stargate_base_block", STARGATE_CHAIN),
 ]
 
+# Multiblock Age where it is later than the [mods] Age of the template namespace (dev/age_map.toml): the IE MV/HV
+# machines of the Electric Age (Doc 10 v3 matrix 6.1; recipe types in kubejs/server_scripts/recipes/station_ages.js),
+# the excavator with its bucket wheel (quest chapter Electric Age) and the IE power and HV structures built from
+# age_5 parts (generator block, HV coils and capacitors, aluminium, resonanz engineering).
+MULTIBLOCK_AGE = {f"immersiveengineering:{m}": "age_5" for m in (
+    "arcfurnace", "sawmill", "mixer", "bottling_machine", "excavator", "excavator_full", "bucket_wheel",
+    "diesel_generator", "lightning_rod", "radio_tower")}
+# Multiblocks that stay unbuildable in every Age, with the reason. R-M checks that one of their blocks is still out of
+# reach at age_9, so a later change that makes them buildable shows up. IE's chunk loader needs a calibrated sculk
+# sensor (no deep dark in a TFC world); chunk loading is FTB Chunks' job (one station per function).
+MULTIBLOCK_UNBUILT = {"immersiveengineering:chunk_loader": "chunk loading is FTB Chunks (force-load quota from age_4)"}
+
 # Boss fallbacks (Doc 08 section 5.1): (Age, sigil, gateway) of kubejs/server_scripts/firmages/boss_fallback.js.
 FALLBACKS = [("age_2", "firmages:frontier_sigil", "firmages:frontier_trial"), ("age_3", "firmages:wild_sigil", "firmages:wild_trial"),
              ("age_4", "firmages:forge_sigil", "firmages:forge_trial"), ("age_5", "firmages:wither_sigil", "firmages:wither_trial"),
@@ -1466,40 +1478,63 @@ def reach_checks(full, recs, items, tags, item_age, check, server_dir=None):
               lines + [f"gate file {os.path.relpath(path, REPO)} exists: {os.path.isfile(path)}", f"pays out {paid}",
                        f"boss_token/{st} {token}, not paid out {unpaid}"])
 
-    # R-M: every block of the Advanced TFC Tech multiblock templates is obtainable at age_4 (Industrial Age). The pack
-    # copy under kubejs/data/advancedtfctech/structure/multiblocks/ (dev/gen_atfc_templates.py) replaces the jar's
-    # template. A disabled block fails even where IE's matcher would take a tag member: IE puts the template block back
-    # on teardown and drops it when that part is broken (world test, poc-results "ATFC multiblocks").
+    # R-M: every block of every IE-style multiblock template the server loads (IE, Immersive Petroleum, Advanced TFC
+    # Tech, TFC + IE Crossover's arc furnace over IE's) is obtainable at the multiblock's Age, and none is disabled or
+    # hidden. The pack copy under kubejs/data/<ns>/structure/multiblocks/ (dev/gen_multiblock_templates.py) replaces the
+    # jar's template. A disabled block fails even where IE's matcher would take a tag member: IE puts the template block
+    # back on teardown and drops it when that part is broken (world tests, poc-results "ATFC multiblocks", "IE templates").
+    # Multiblock Age: [mods] Age of the template namespace, MULTIBLOCK_AGE for the Electric Age machines of IE.
     if server_dir:
-        import glob
-        import zipfile
+        import tomllib
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         from derive_ages import _nbt
-        n = AGES.index("age_4")
-        have, live, sat = walk(n)
-        jars = glob.glob(os.path.join(server_dir, "mods", "AdvancedTFCTech-*.jar"))
-        pack_dir = os.path.join(REPO, "kubejs", "data", "advancedtfctech", "structure", "multiblocks")
-        lines, bad, names = [], [], []
-        if jars:
-            with zipfile.ZipFile(jars[0]) as z:
-                names = sorted(x for x in z.namelist() if re.match(r"data/advancedtfctech/structure/multiblocks/.*\.nbt$", x))
-                for nm in names:
-                    base_name = nm.rsplit("/", 1)[1]
-                    pack = os.path.join(pack_dir, base_name)
-                    if os.path.isfile(pack):
-                        with open(pack, "rb") as f:
-                            t = _nbt(f.read())
-                    else:
-                        t = _nbt(z.read(nm))
-                    blocks = sorted({p["Name"] for p in t["palette"]} - {"minecraft:air"})
-                    miss = [b for b in blocks if b not in have]
-                    lines.append(f"{base_name}{' (pack copy)' if os.path.isfile(pack) else ''}: {len(blocks)} blocks, "
-                                 f"not obtainable {miss}")
-                    for b in miss:
-                        bad += why(b, have, live, sat, n)
-        check(f"R-M Advanced TFC Tech multiblocks ({len(names)} templates): every block is obtainable at age_4",
-              bool(jars) and not bad and all(l.endswith("[]") for l in lines),
-              (lines + bad) if jars else ["AdvancedTFCTech jar not found in <server>/mods"])
+        from gen_multiblock_templates import effective_templates, pack_path
+        with open(os.path.join(REPO, "dev", "age_map.toml"), "rb") as f:
+            mb_mod_age = tomllib.load(f).get("mods", {})
+        off = {i for i, st in item_age.items() if st == "disabled"} | set(tags.get("c:hidden_from_recipe_viewers", []))
+        templates = effective_templates(os.path.join(server_dir, "mods"))
+        by_age = collections.defaultdict(list)
+        unbuilt = []
+        for (ns, name), (jar, data, _) in sorted(templates.items()):
+            if f"{ns}:{name}" in MULTIBLOCK_UNBUILT:
+                unbuilt.append((ns, name, jar, data))
+                continue
+            st = MULTIBLOCK_AGE.get(f"{ns}:{name}", mb_mod_age.get(ns, "age_9"))
+            by_age[st].append((ns, name, jar, data))
+        for st in sorted(by_age, key=AGES.index):
+            n = AGES.index(st)
+            have, live, sat = walk(n)
+            lines, bad, ok = [], [], True
+            for ns, name, jar, data in by_age[st]:
+                pack = pack_path(ns, name)
+                if os.path.isfile(pack):
+                    with open(pack, "rb") as f:
+                        t = _nbt(f.read())
+                    src = "pack copy"
+                else:
+                    t = _nbt(data)
+                    src = jar.split("-")[0]
+                blocks = sorted({p["Name"] for p in t["palette"]} - {"minecraft:air"})
+                miss = [b for b in blocks if b not in have]
+                dis = [b for b in blocks if b in off]
+                ok = ok and not miss and not dis
+                lines.append(f"{ns}:{name} ({src}): {len(blocks)} blocks, not obtainable {miss}, disabled or hidden {dis}")
+                for b in miss:
+                    bad += why(b, have, live, sat, n)
+            check(f"R-M {st} multiblocks ({len(by_age[st])} templates): every template block is obtainable at {st}, none "
+                  f"disabled or hidden", ok, lines + bad)
+        if unbuilt or MULTIBLOCK_UNBUILT:
+            have = walk(AGES.index("age_9"))[0]
+            lines = []
+            for ns, name, jar, data in unbuilt:
+                out = sorted({p["Name"] for p in _nbt(data)["palette"]} - have - {"minecraft:air"})
+                lines.append(f"{ns}:{name}: out of reach at age_9 {out} ({MULTIBLOCK_UNBUILT[f'{ns}:{name}']})")
+            gone = sorted(set(MULTIBLOCK_UNBUILT) - {f"{ns}:{name}" for ns, name, _, _ in unbuilt})
+            check(f"R-M unbuildable multiblocks ({len(MULTIBLOCK_UNBUILT)}): still unbuildable at age_9",
+                  not gone and all(not l.split(" at age_9 ", 1)[1].startswith("[]") for l in lines),
+                  lines + [f"template not found: {gone}"])
+        if not templates:
+            check("R-M multiblock templates", False, [f"no data/*/structure/multiblocks/*.nbt in {server_dir}/mods"])
 
     # R-L: items whose only recipe was broken by a disabled part (leftovers run, 2026-10-01) are reachable at their Age.
     for st, its in LEFTOVERS:
