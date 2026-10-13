@@ -267,12 +267,13 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
 
 ## Open points
 
-- **Twilight portal (resolved 2026-10-01, `dev/decisions-while-away.md`).** `twilightforest:portal/activator` was
-  `#c:gems/diamond` (age_4). `kubejs/server_scripts/tags/unification.js` now sets it to `tfcreate:polished_quartz`
-  (the Iron Age quartz vein, age_2); the quest text names polished quartz. `validate_quests.py` checks every
-  dimension task against its portal tag (`PORTAL_TAGS`): the tag must be overridden in the KubeJS tag scripts and
-  hold only items of the chapter's Age or earlier. The pack test server confirms the tag
-  (`item_tags.json`: `["tfcreate:polished_quartz"]`) and `poc_analyze.py` R-age_2 reaches it at the Iron Age.
+- **Twilight portal (resolved 2026-10-01, changed 2026-10-13, `dev/decisions-while-away.md`).**
+  `twilightforest:portal/activator` was `#c:gems/diamond` (age_4), then `tfcreate:polished_quartz` (the Iron Age
+  quartz vein, age_2). Since Almost Unified keeps only nether quartz in `c:gems/quartz` (polish stage), the tag holds
+  `minecraft:quartz` (age_1; the vein's unpolished quartz plus sandpaper gives it, and the dimension stays locked to
+  age_2 by ProgressiveStages); the quest text names nether quartz. `validate_quests.py` checks every dimension task
+  against its portal tag (`PORTAL_TAGS`): the tag must be overridden in the KubeJS tag scripts and hold only items
+  of the chapter's Age or earlier. `poc_analyze.py` R-age_2 reaches `minecraft:quartz` at the Iron Age.
 - Signature items of Ages 3 to 8 are registered (all-Ages dump of 2026-10-01); their Firmament quests and goals use
   them as icons.
 - **Resolved at integration (firmages-core 0.4.0, 2026-10-01).** firmages-core grants `finale_won` on the death of the

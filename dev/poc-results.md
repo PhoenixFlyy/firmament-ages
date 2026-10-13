@@ -2449,3 +2449,23 @@ U-1 (one visible item per unify tag; all 15 "not unified: material not in AU pla
 - `neoforge config showfile tfc SERVER` failed (the type is lower case); the TFC config path was not shown.
 - Needs a client (Felix, `dev/client-test-brief.md`, 0.8.0 Nachtrag): shaders and FPS, title screen, quest window,
   darkness with and without shaders, F3, Jade, Cave Dweller sounds, removed mods.
+
+## Polish after round B (2026-10-13)
+
+Static only, no server boot. The round-B dump (`test-server/local/firmages`) predates these changes; for U-1 a copy
+of it with the two tag removals and the new portal tag applied was checked as well.
+
+| Check | Result | Verdict |
+|---|---|---|
+| U-1 root cause | The pack shipped no `config/almostunified/placeholders.json`; AU 1.4.2 only knew its 44 default materials. Now shipped: the defaults (read from the AU jar) plus amethyst, andesite_alloy, bismuth, cast_iron, certus_quartz, draconium, quartz, saltpeter, sterling_silver, wood; four new priority overrides (`dev/decisions-while-away.md`) | fixed |
+| `poc_analyze.py` (round-B dump, tags as dumped) | 87 PASS, U-1 FAIL with 4 tags: `c:rods/all_metal`, `c:rods/wooden`, `c:storage_blocks/alloys`, `c:storage_blocks/slime` (the maze slime removal is not in this dump) | expected |
+| `poc_analyze.py` (same dump with the tag edits of `unification.js` applied) | 87 PASS, U-1 FAIL with 3 tags: `c:rods/all_metal`, `c:rods/wooden`, `c:storage_blocks/alloys` (aggregate tags, open for Felix); R-age_2 reaches `minecraft:quartz` | open |
+| Quest descriptions | `paragraphs()` joins each paragraph to one entry: 82 of 880 lang keys change, all `quest_desc`, each new entry equals its old paragraph joined; chapters, data and reward tables byte-identical | pass |
+| `validate_quests.py` | 1292 ids, 0 errors, 0 warnings (portal tag `minecraft:quartz`, age_1, chapter age_2) | pass |
+| `derive_ages.py --check` | up to date, per-Age counts as in round B; MA awakening altar, pedestal and essence vessel at age_6 (`--explain`) | pass |
+| `gen_stage_locks.py --check`, `check_menus.py`, `gen_textures.py --check`, `gen_multiblock_templates.py --check` | 0 files; all checks pass; 68 textures, 0 errors; 35 templates, up to date | pass |
+| packwiz | `refresh`: 683 entries; the seven changed pack files copied to `test-server` | pass |
+
+Next boot: `fa_dump`, then `poc_analyze.py` (U-1 should list only the 3 aggregate tags), `tfcreate:quartz` should give
+`minecraft:quartz` in `recipes.json`, and `derive_ages.py` may move the AU losers that lost every producer (for
+example `tfcreate:polished_quartz`) to disabled; run `gen_stage_locks.py` after it.

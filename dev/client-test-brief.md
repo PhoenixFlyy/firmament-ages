@@ -32,8 +32,8 @@ neuen Tasten nur in ein frisches Profil. Die Test-Welt ist frisch (Dawn), auf de
    das Fenster folgt. Die Kapitelliste gleitet am linken Fensterrand herein und ist außerhalb nicht zu sehen; Zoomen
    mit dem Mausrad hält die Kartenmitte. Die Abstände zwischen Titel, Aufgaben, Trennlinie und Text sind enger.
    `config/firmages-client.toml` `[ui] questWindowPercent` (0 = Vollbild wie früher, 50 bis 100) gilt beim nächsten
-   Öffnen. Offen: bei GUI-Scale 3 und Auto brechen lange Questzeilen ein zweites Mal um (Flattersatz); melde, wie
-   störend das ist.
+   Öffnen. Questtexte: jeder Absatz ist jetzt ein Eintrag, FTB bricht ihn selbst auf die Spaltenbreite um. Bei
+   GUI-Scale 3 und Auto endet eine Zeile nur noch am Spaltenrand oder am Absatzende (kein Flattersatz mehr).
 4. **Härte der frühen Ages.**
    - **Betten ab der Eisenzeit.** In Dawn bis Bronzezeit kein Vanilla-Bett in EMI und keins herstellbar; das
      TFC-Strohbett setzt den Spawn, überspringt aber nie die Nacht (die Quest „Shelter“ sagt das). Ab `age_2` die 16
@@ -60,9 +60,17 @@ neuen Tasten nur in ein frisches Profil. Die Test-Welt ist frisch (Dawn), auf de
    TFCGenViewer, nach einem Absturz kommt kein Crash-Assistant-Fenster. Ein altes Profil behält deren Configs, die kannst Du löschen.
 6. **Erinnerung: TFC-Reiter (aus 0.7.2, noch ungeprüft).** Dawn nur Inventar, ab der Steinzeit der Kalender, ab der
    Eisenzeit das Klima direkt darunter, nie Ernährung und Field Guide, keine Lücken (Punkt 3 des 0.7.2-Nachtrags).
+7. **Ein Item pro Material (Politur).** EMI zeigt jetzt auch Amethyst nur als TFC-Edelstein, Quarz nur als
+   Netherquarz, Salpeter nur als TFC-Pulver, Gusseisen und Sterlingsilber nur von TFC, Holzstaub nur von IE,
+   Amethyst-Staub nur von Occultism und Andesit-Blech nur von Create Deco; Rezepte, die das versteckte Item ausgeben,
+   geben das sichtbare. Unpolierter Quarz aus der Quarzader plus Schleifpapier gibt jetzt Netherquarz, und
+   Netherquarz öffnet das Twilight-Forest-Portal (Quest „Into the Twilight“). Die Nebenquest „Mystical Agriculture“
+   will statt 8 Seelenstein nur noch den Blick auf einen Seelenstein-Körper (ohne Behutsamkeit fällt Seelenstein als
+   Bruchstein). Prüfe: in EMI zeigen `#c:gems/quartz` und `#c:gems/amethyst` je ein Item; das Schleifpapier-Rezept
+   zeigt Netherquarz; das Portal zündet mit Netherquarz.
 
-Melde: Punkte 1 bis 6 ja/nein, FPS mit Complementary und MakeUp, Dunkelheit zu dunkel / passt / zu hell (mit und
-ohne Shader), und ob Dich der Umbruch im Quest-Fenster stört.
+Melde: Punkte 1 bis 7 ja/nein, FPS mit Complementary und MakeUp, Dunkelheit zu dunkel / passt / zu hell (mit und
+ohne Shader), und ob die Questtexte bei GUI-Scale 3 und Auto glatt umbrechen.
 
 ## 0.7.2 Nachtrag (Feedback 2, Pack 0.7.2, firmages-core 0.7.2)
 
