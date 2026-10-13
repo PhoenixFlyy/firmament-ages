@@ -36,6 +36,8 @@ Damit braucht das Upload-Zip keinen Antrag auf der Approved-Liste mehr.
 
 Die CurseForge-Dateien von **Alternating Flux, Create Aeronautics, Create: Design n' Decor, Create Factory Logistics, Entity Culling** und **TFC Ruins** sind für Drittprogramme gesperrt („excluded from the CurseForge API“). packwiz-installer (Prism-Instanzen der Freunde, der Server) bricht bei ihnen mit „must be downloaded manually“ ab; gefunden mit einem Testlauf gegen `packwiz serve` (Client- und Server-Seite). Darum stehen sie in `mods/` weiter als Modrinth-Metadateien (dieselben Jars, Fingerprint-Treffer). Ihre CurseForge-Metadateien liegen in `dev/cf/swap/`; `python dev/cf/export_cf.py` tauscht sie für das Upload-Zip ein. Nach dem Tausch laufen beide Installer-Testläufe durch: Client 410 von 410 Dateien, Server 401 von 401, alle Hashes gleich (`dev/verify_install.py dir`).
 
+Später genauso behandelt: **Iris Veil Compat** (Shader-Zweig, Runde B) und **More Darkness** (gefunden mit der sauberen Client-Installation vom 2026-10-13). Damit sind es acht Mods, dazu der Shader Complementary Reimagined aus Lizenzgründen.
+
 ### Gleiche Version, andere Datei (CurseForge-Datei übernommen)
 
 Elf Mods: Create: Connected, Create: Liquid Fuel, FastSuite, Kotlin for Forge, KubeJS, KubeJS Create, KubeJS Mekanism, MEGA Cells, Sophisticated Backpacks, Sophisticated Backpacks Create Integration, Sophisticated Core. Unterschied nur in `META-INF/MANIFEST.MF` (Zeitstempel der Builds) bzw. in der Zip-Packung (MEGA Cells: gleiche Einträge, gleiche CRCs; Kotlin for Forge: die eingebetteten Jars haben gleichen Inhalt). Gleicher Autor auf beiden Seiten (MEGA Cells: „90“ auf Modrinth = „ninety“ auf CurseForge).

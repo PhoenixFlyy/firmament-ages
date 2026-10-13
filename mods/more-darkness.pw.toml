@@ -3,11 +3,11 @@ filename = "more_darkness-neoforge-1.21.1-2.0.1+1.21.1.jar"
 side = "client"
 
 [download]
-hash-format = "sha1"
-hash = "7f783520b5f51e92d2be7378079a0455567c165d"
-mode = "metadata:curseforge"
+url = "https://cdn.modrinth.com/data/ghnOnAJe/versions/6jywYHaX/more_darkness-neoforge-1.21.1-2.0.1%2B1.21.1.jar"
+hash-format = "sha512"
+hash = "e08c8e75c249e2c74cc2f223bbd8c89b66270533d1835fc525e5223813009c6ccd406f5b81c0893fa315fdbf60ab2e379ff8fb0f22ffed84f5963776158773d1"
 
 [update]
-[update.curseforge]
-file-id = 8574545
-project-id = 1511006
+[update.modrinth]
+mod-id = "ghnOnAJe"
+version = "6jywYHaX"

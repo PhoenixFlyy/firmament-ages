@@ -2647,7 +2647,7 @@ metafile = true
 
 [[files]]
 file = "mods/more-darkness.pw.toml"
-hash = "4e596fc3e75bcb144655cf5868f5c2f9d58258a460259090eb99c4ef2ec0ba60"
+hash = "fb7931b3a4acb5f6cff55e1e84bff75074db84e71baec2130ba1dc941cf98ffd"
 metafile = true
 
 [[files]]

@@ -2469,3 +2469,20 @@ of it with the two tag removals and the new portal tag applied was checked as we
 Next boot: `fa_dump`, then `poc_analyze.py` (U-1 should list only the 3 aggregate tags), `tfcreate:quartz` should give
 `minecraft:quartz` in `recipes.json`, and `derive_ages.py` may move the AU losers that lost every producer (for
 example `tfcreate:polished_quartz`) to disabled; run `gen_stage_locks.py` after it.
+
+## Clean client install after round B (2026-10-13)
+
+Round B added 13 client-only CurseForge files (12 mod metafiles and the MakeUp shader pack); the test server sync
+(`-s server`) skips all of them, so this run checks that packwiz-installer can fetch each one. No server boot.
+
+| Check | Observed | Result |
+|---|---|---|
+| Clean client install, first run | empty scratch folder, packwiz-installer-bootstrap `-g -s client` from `packwiz serve`: stops at "Resolving CurseForge metadata" with "More Darkness: This mod is excluded from the CurseForge API and must be downloaded manually" (CF 1511006/8574545); nothing else named | **fail** |
+| Swap | Modrinth has the same jar (`more_darkness-neoforge-1.21.1-2.0.1+1.21.1.jar`, sha1 `7f783520…` in the CF metafile and on Modrinth version `6jywYHaX`); `mods/more-darkness.pw.toml` is now that Modrinth metafile (`side = "client"` kept), the CF metafile moved to `dev/cf/swap/more-darkness.pw.toml`; `packwiz refresh` (683 entries) | done |
+| Clean client install, second run | new empty folder, same command: 683/683, "Finished successfully", no "must be downloaded manually"; `verify_install.py dir --side client`: 677 expected, 677 found, 0 missing, 0 extra, 0 hash mismatch. From CurseForge: Iris Shaders, Colorwheel, Dynamic FPS, BadOptimizations, YetAnotherConfigLib, LambDynamicLights, Iris Block Compat, Ars Skyweave Shader Fix, Enhanced Celestials 2: Shader Support, MakeUp Ultra Fast; from Modrinth (swap): More Darkness, Iris Veil Compat, Complementary Reimagined | pass |
+| `export_cf.py` | "swapped 9" (the eight mods plus Complementary), manifest 208 files, only `overrides/mods/firmages-core-0.8.0.jar` as jar | pass |
+| `gen_credits.py` | 207 credits (206 CurseForge, 1 own), `modpack-description.md` unchanged (More Darkness credited with its CurseForge project) | pass |
+| `check_menus.py` | all checks pass | pass |
+
+Still open: no client has loaded the round-B client jars in NeoForge yet (the server skips them). That is Felix's
+client test (`dev/client-test-brief.md`, 0.8.0 Nachtrag).
