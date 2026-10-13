@@ -4,8 +4,8 @@
 
 Sechs Arbeitsstränge auf Deine Antworten zu „Firmament Ideen 2“ hin; die Listen für 0.7.2, 0.7.1 und 0.7.0 darunter
 gelten sonst weiter. Server-Teil geprüft (`dev/poc-results.md`, Abschnitt „Round B (2026-10-13)“: GameTests, frische
-Welt mit Dump, Blutmond- und Cave-Dweller-Probe; die Koordinaten-Probe fand einen Skriptfehler, behoben, siehe
-Punkt 4), im Spiel noch offen. **Neues Profil importieren** (das
+Welt mit Dump, Blutmond- und Cave-Dweller-Probe; die Koordinaten-Probe fand einen Skriptfehler, behoben und im Boot
+„0.8.0 final checks“ bewiesen, siehe Punkt 4), im Spiel noch offen. **Neues Profil importieren** (das
 Zip aus `dev/cf/LOKAL-TESTEN.md`): Default Options kopiert die Shader-Voreinstellung, die Dunkelheits-Werte und die
 neuen Tasten nur in ein frisches Profil. Die Test-Welt ist frisch (Dawn), auf dem Test-Server gelten schon
 `torchTicks = 43200` und `jadeFromAge = "age_1"`.
@@ -52,8 +52,8 @@ Whitelist (`white-list=false`, nur Du testest; steht in `test-server\server.prop
      zu hell ist, mit und ohne Shader.
    - **Keine Koordinaten bis zur Bronzezeit.** F3 zeigt in Dawn und Steinzeit keine XYZ-, Block-, Chunk- und
      Blickrichtungs-Zeilen; nach `/stage grant @s age_1` sind sie da (ohne Relog). Bitte zusätzlich `/gamerule reducedDebugInfo` abfragen:
-     vor `age_1` `true`, danach `false`. Das ist auf dem Server noch nicht bewiesen: im Boot warf `grants.js` einen
-     Fehler und die Regel blieb `true`; die Korrektur ist im Pack, lief aber noch in keinem Boot. Der Gravestone-Mod gibt beim Tod
+     vor `age_1` `true`, danach `false`. Auf dem Server ist das bewiesen (`dev/poc-results.md`, „0.8.0 final checks“:
+     `true` in Dawn und age_0, `false` ab `age_1`). Der Gravestone-Mod gibt beim Tod
      keinen Nachruf mit Grab-Koordinaten mehr.
    - **Blutmond erst ab der Eisenzeit.** `/ec lunarForecast` listet vor `age_2` keinen Blutmond; nach
      `/stage grant @s age_2` wird die Vorhersage neu gewürfelt und Blutmonde kommen wieder.

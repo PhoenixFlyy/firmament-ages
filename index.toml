@@ -1106,7 +1106,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "690f30427077b1007e5e701813f66f606fd03af88ed748cd1685393834d04dad"
+hash = "2cb8c513bea1fe5028b95ded81434125f2f079277482620395d13094bad66db0"
 
 [[files]]
 file = "kubejs/data/create/neoforge/biome_modifier/striated_ores_nether.json"
@@ -1498,15 +1498,15 @@ hash = "47454fa2d297469a42edd2eb597cd017be87ae8496a313e450765dbfd63025c0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "e890a11ea240e467e6f53491d498c56f5a4647d3f34b980eb6ad098ea1462475"
+hash = "d09071f7326bc6a5af310405f422dadf0fbc510033bba09806db49187453ca77"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "a37d86b0887bd3e8c8bcb65645d9aa18a3a57455b40e696d43f7309dcac68026"
+hash = "8a80cb144ca18efb7836d4e425cb85e89dbb24c405c5f2951e6b893bf87f998f"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "377b00448ef1f0d3fe11681390969b2f582cc0e68f1222e3b084383e550aa54f"
+hash = "ab2634e72af7c533d5db25f1e262cb13d18f2456caef6cd2a6c48f1833fcee30"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
@@ -1514,7 +1514,7 @@ hash = "f858294e0c48a741235d2a9f77b7e29021a521a3e2961a745d1feb59135e0ba9"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "103c887ee691197257a9d3ec3faaf1b563a372b677e594240b2ce2223fd2505c"
+hash = "6a2a0bdeec7fd4ba7f1df4314dce703d7066b28bd38e8206ffbf9b64fe2fd488"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
@@ -1534,7 +1534,7 @@ hash = "2c8cc8dc9880d1e8ba685d865abf5fd755f4fa1ff6aa9108f9ff0557dca11325"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "33c8c35a0b11c50c7849ae9293a98da83380e75930d94fc8383e583d7a3ae455"
+hash = "b090216eab12d3d5dc226a55becfacf71f199d83d6dc49257782262b4c564659"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"

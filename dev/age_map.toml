@@ -2631,7 +2631,6 @@ items = [
 "occultengineering:chalk_brass_impure" = "age_4"
 "occultengineering:mechanical_upgrade_afrit" = "age_6"
 "occultengineering:mechanical_upgrade_marid" = "age_8"
-"occultism:amethyst_dust" = "age_6"
 "occultism:chalk_black" = "age_6"
 "occultism:chalk_black_impure" = "age_6"
 "occultism:chalk_blue" = "age_8"
@@ -3357,9 +3356,11 @@ items = [
     "createbigcannons:cast_iron_autocannon_barrel",
     "createbigcannons:cast_iron_autocannon_breech",
     "createbigcannons:cast_iron_autocannon_recoil_spring",
+    "createbigcannons:cast_iron_block",
     "createbigcannons:cast_iron_cannon_barrel",
     "createbigcannons:cast_iron_cannon_chamber",
     "createbigcannons:cast_iron_cannon_end",
+    "createbigcannons:cast_iron_ingot",
     "createbigcannons:cast_iron_quickfiring_breech",
     "createbigcannons:cast_iron_sliding_breech",
     "createbigcannons:creative_autocannon_ammo_container",
@@ -3477,6 +3478,7 @@ items = [
     "createcasing:andesite_encased_zinc_cogwheel",
     "createcasing:andesite_encased_zinc_large_cogwheel",
     "createcasing:andesite_encased_zinc_shaft",
+    "createcasing:andesite_sheet",
     "createcasing:bamboo_cogwheel",
     "createcasing:bamboo_large_cogwheel",
     "createcasing:birch_cogwheel",
@@ -4326,6 +4328,7 @@ items = [
     "immersiveengineering:dust_gold",
     "immersiveengineering:dust_iron",
     "immersiveengineering:dust_lead",
+    "immersiveengineering:dust_saltpeter",
     "immersiveengineering:dust_steel",
     "immersiveengineering:dust_uranium",
     "immersiveengineering:excavator",
@@ -4494,6 +4497,7 @@ items = [
     "mekanism:creative_energy_cube",
     "mekanism:creative_fluid_tank",
     "mekanism:dirty_netherite_scrap",
+    "mekanism:sawdust",
     "mekanism_lasers:creative_laser",
     "mekanism_lasers:creative_toggleable_laser",
     "mekanism_lasers:laser_configurator",
@@ -4823,6 +4827,7 @@ items = [
     "moremekanismprocessing:draconium_ingot",
     "moremekanismprocessing:draconium_nugget",
     "moremekanismprocessing:dust_aluminum",
+    "moremekanismprocessing:dust_amethyst",
     "moremekanismprocessing:dust_antimony",
     "moremekanismprocessing:dust_azure_silver",
     "moremekanismprocessing:dust_bismuth",
@@ -5131,6 +5136,8 @@ items = [
     "occultengineering:ritual_dummy_craft_mechanical_upgrade_marid",
     "occultengineering:ritual_dummy_craft_otherworld_detector",
     "occultengineering:ritual_dummy_craft_phlogiport",
+    "occultengineering:sterling_silver_block",
+    "occultengineering:sterling_silver_ingot",
     "occultengineering:zinc_dust",
     "occultism:advancement_icon",
     "occultism:beaver_nugget",
@@ -5912,6 +5919,7 @@ items = [
     "tfcastikorcarts:wheel/weeping_maple",
     "tfcastikorcarts:wheel/weeping_willow",
     "tfcbetterbf:insulated_fire_bricks",
+    "tfcreate:polished_quartz",
     "tfcreate:quartz_andesite",
     "tfcreate:quartz_basalt",
     "tfcreate:quartz_chalk",

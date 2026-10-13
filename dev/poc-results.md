@@ -2486,3 +2486,60 @@ Round B added 13 client-only CurseForge files (12 mod metafiles and the MakeUp s
 
 Still open: no client has loaded the round-B client jars in NeoForge yet (the server skips them). That is Felix's
 client test (`dev/client-test-brief.md`, 0.8.0 Nachtrag).
+
+## 0.8.0 final checks (2026-10-13)
+
+`dev` at eed4bd1 (pack 0.8.0, firmages-core 0.8.0), boot at 01:05 on 2026-10-14. Before it the two pack files changed
+since the last sync were copied to `test-server` (quest lang with the Frontier Sigil text, the comment in
+`defaultconfigs/tfc-server.toml`); `verify_install.py dir test-server --side server`: 0 missing, the remaining hash
+mismatches are files the mods rewrite at start (FTB Quests, Cucumber, Cave Dweller and other configs).
+
+One boot: `run_server.py --wipe-world --hold 300 --timeout 900 --wait 15` with 24 console commands,
+`debug.allowSimulate = true` for the run only. Debug player Alpha (`firmages debug player join Alpha`, creative)
+took every Age with `stage grant Alpha age_0` .. `age_9` and stayed online for all grants (round B simulated age_3 and
+later without players).
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot | `Done (10.455s)` (94.0 s wall clock, world creation included), 208 mod files with 200 mods; KubeJS startup 4/4 and server 39/39 at the boot and each of the 11 reloads, 0 errors, 0 warnings; warm-up reload 7103 ms; `stop`, exit 0 (762 s in all) | pass |
+| H5 `/gamerule reducedDebugInfo` (proves 67d3382) | fresh world `true`; after Alpha's join (Dawn) `true`; after `stage grant Alpha age_0` `true`; after `stage grant Alpha age_1` **`false`**; at age_9 `false` | pass |
+| `grants.js` after `reconcile()` | at age_4 `ftbchunks admin extra_claim_chunks Alpha get`: "Alpha has 25 extra claimed chunks", `extra_force_load_chunks`: 25 (`FA.CHUNK_QUOTA`), so the grant callback runs to its end | pass |
+| Blood moon gate (EC2) | on Alpha's join "removed 6 blood moon(s) from the forecast (no mob_2 yet)"; at age_2 "mob_2 reached, lunar forecast rolled again with blood moons" | pass |
+| Reloads (Alpha online) | age_0 7012, age_1 6378, age_2 6339, age_3 6386, age_4 6236, age_5 6265, age_6 6282, age_7 6343, age_8 6217, age_9 6237 ms | pass (all below 10 s) |
+| `firmages ages`, `firmages recipes audit` at age_9 | 11 Ages unlocked, 0 locked; Age index 19,085 items, 1,553 blocks, per Age as in round B; gate 33,671 recipes, 1,343 dropped (all `disabled`), 0 extraction errors; audit written | pass |
+| `fa_dump`, `fa_dump_full` at age_9 | 32,328 recipes (0 without a readable result), 3,496 item tags; 32,328 encoded, 0 not encodable | pass |
+| `logs/latest.log` | 0 `TypeError`; no ERROR or WARN line from firmages-core, Enhanced Celestials 2 or Cave Dweller and no stack frame of theirs (Cave Dweller only: WARN "Reference map 'cave_dweller.refmap.json' ... could not be read" at mixin setup). The rest is the known noise: DISTXFORM of client classes, client mixins of azimuth (1,603 FATAL lines), bits_n_bobs, simulated and woodencog, loot tables of dndecor, railways, create_connected, createcasing, more_immersive_wires and extendedae at every reload, recipe parse errors of tfcrf, woodencog and createdeco, Sable (`copycats:copycat_catwalk`), TF `dev_new_world`, the trainutilities advancements (also in the round-B log), Polymorph's EMI module | pass |
+| Cleanup | `test-server/world` deleted; `debug.allowSimulate = false` again (`firmages-server.toml` byte-identical to before); `whitelist.json` byte-identical; the server rewrote `ops.json` (trailing newline) and `server.properties` (date comment, CRLF), both put back byte-identical from the copy taken before the boot, as in round B | pass |
+
+Checks with the fresh dump:
+
+| Check | Observed | Result |
+|---|---|---|
+| `poc_analyze.py` | 88 checks: 87 PASS, **1 FAIL: C-1a** (below). **U-1 PASS** (495 tags, 3 umbrella, 0 allowlisted), notes only: `c:rods/all_metal` (8 visible, one per metal), `c:rods/wooden` (45: stick, treated stick, 43 twigs, one per wood species), `c:storage_blocks/alloys` (7 Evolved Mekanism alloy blocks); R-age_2 reaches `minecraft:quartz` | U-1 pass, C-1a open |
+| TFCreate quartz | `tfcreate:quartz` makes `minecraft:quartz`; no recipe makes `tfcreate:polished_quartz` | pass |
+| `derive_ages.py --check` (first run) | out of date: 9 AU losers have no producer left and go to disabled: `tfcreate:polished_quartz`, `createbigcannons:cast_iron_ingot` and `cast_iron_block`, `occultengineering:sterling_silver_ingot` and `sterling_silver_block`, `immersiveengineering:dust_saltpeter`, `mekanism:sawdust`, `moremekanismprocessing:dust_amethyst`, `createcasing:andesite_sheet`; `occultism:amethyst_dust` (AU target of `c:dusts/amethyst`) back to its age_map Age age_3 (was age_6) | regenerated |
+| `derive_ages.py`, `gen_stage_locks.py` | `generated:derived` and 6 tag files rewritten; final per Age dawn 4,263, age_0 649, age_1 2,732, age_2 4,655, age_3 1,914, age_4 1,367, age_5 400, age_6 1,502, age_7 557, age_8 673, age_9 364, disabled 4,495; then `derive_ages.py --check` up to date, `gen_stage_locks.py --check` 0 files; `poc_analyze.py` again: same result | pass |
+| `validate_quests.py`, `check_menus.py`, `gen_textures.py --check`, `gen_multiblock_templates.py --check` | 1292 ids, 0 errors, 0 warnings; all checks pass; 68 textures, 0 errors; 35 templates, up to date | pass |
+| `tools/packwiz.exe refresh` | 683 entries: `kubejs` 349, `mods` 207, `config` 121, `defaultconfigs` 4, `shaderpacks` 2; nothing outside the pack paths, every listed file exists, nothing from `dev/` (`.packwizignore` lists `dev/`) | pass |
+| test-server | the 6 regenerated tag files copied; `verify_install.py`: 0 missing | pass |
+
+C-1a (new): `create:crafting/curiosities/minecart_coupling`, `create:crafting/kinetics/mechanical_harvester` and
+`create:crafting/kinetics/mechanical_plough` ask for `#c:plates/iron`. The requirement is not new: in the round-B dump
+the same three recipes were `tfcreate:minecart_coupling`, `tfcreate:mechanical_harvester` and
+`tfcreate:mechanical_plough` with the same iron plate, and C-1a only looks at `create:` ids. With `andesite_alloy` in the
+AU placeholders, `create:andesite_alloy` inputs became `#c:ingots/andesite_alloy`, and the TFCreate twins are gone while
+the Create ids are present (also for `mechanical_arm`, `steam_engine` and `pulse_timer`); that AU's duplicate handling
+does this is inferred from the dumps, not read in its code. The three items are age_2 in the Age tags (first reachable
+at age_2 through the iron plate), so the pack is consistent; whether they belong to the bronze andesite tier is open
+(decision row).
+
+### Open points
+
+- C-1a: Felix decides (row in `dev/decisions-while-away.md`).
+- The boot ran with the tag set before the regeneration; the 9 newly disabled items have no producing recipe, so the
+  gate result does not change, and AU already hid them in EMI. Not re-booted.
+- `dev/start_test_server.ps1` parses (PowerShell parser, 0 errors) and its paths resolve; it has not started a server
+  (one boot only).
+- `test-server/server.properties` still says `white-list=true`; the docs say the test server runs without whitelist and
+  tell Felix to type `whitelist off` if it is still on.
+- Needs a client (Felix, `dev/client-test-brief.md`, 0.8.0 Nachtrag).
