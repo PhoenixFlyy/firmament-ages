@@ -28,10 +28,13 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 | R | Cart action (Astikor Carts) | `key.astikorcartsredux.action` |
 | U | Deep Learner (Hostile Networks) | `key.hostilenetworks.open_deep_learner` |
 | Y | Cataclysm ability | `key.cataclysm.ability` |
+| ' (apostrophe; Ä on a German keyboard) | Cataclysm chestplate ability (its default Y clashed with the ability) | `key.cataclysm.chestplate_ability` |
 | Caps Lock | Voice chat push-to-talk | `key.voice_chat` |
 | ; (semicolon) | TFC chisel mode | `tfc.key.cycle_chisel_mode` |
 | . (period) | Tom's Storage terminal | `key.toms_storage.open_terminal` |
+| , (comma) | Physics Staff rotate mode (Create Simulated; its default Tab clashed with the player list) | `simulated.keyinfo.rotate_mode` |
 | H (hold) | Show the Age indicator (firmages-core HUD) | `key.firmages.show_age` |
+| Tab | Player list (vanilla, kept) | `key.playerlist` |
 
 ## Alt combos (late-Age tools and secondary functions)
 
@@ -61,5 +64,9 @@ Create Mobile Packages player networks.
 
 Hold-modifier bindings that share Left Shift / Left Control (Jade details, Apotheosis compare, Hypertube escape,
 Mekanism details, AE2 wheel modifier, Create modifiers) are left alone: they only act while held inside a GUI.
+
+Tab and Y (Felix, 2026-10-13 late): Tab stays the vanilla player list and Y the Cataclysm ability; the two bindings
+that shared them moved to keys no binding of the pack uses with or without a modifier (checked against this file and
+the defaults in the client jars: comma and apostrophe are only GUI-internal keys of a few screens).
 
 Verify in-game with Controlling's "Conflicts" filter after the first launch of a fresh profile.

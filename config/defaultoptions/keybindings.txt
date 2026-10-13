@@ -41,6 +41,7 @@ key_key.ars_nouveau.previous_slot:key.keyboard.z
 key_key.ars_nouveau.open_documentation:key.keyboard.unknown
 key_key.cataclysm.helmet_ability:key.keyboard.c:ALT
 key_key.cataclysm.ability:key.keyboard.y
+key_key.cataclysm.chestplate_ability:key.keyboard.apostrophe
 key_key.cataclysm.boots_ability:key.keyboard.unknown
 key_key.createbigcannons.pitch_mode:key.keyboard.unknown
 key_key.draconicevolution.tool_config:key.keyboard.unknown
@@ -54,6 +55,7 @@ key_key.astikorcartsredux.slow:key.keyboard.unknown
 key_key.ad_astra.open_radio:key.keyboard.unknown
 key_key.ad_astra.toggle_suit_flight:key.keyboard.unknown
 key_key.createrailwaysnavigator.route_overlay_options:key.keyboard.r:ALT
+key_simulated.keyinfo.rotate_mode:key.keyboard.comma
 key_key.occultism.ender_bag:key.keyboard.unknown
 key_key.occultism.storage_remote:key.keyboard.unknown
 key_key.hostilenetworks.open_deep_learner:key.keyboard.u
