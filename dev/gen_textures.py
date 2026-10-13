@@ -1844,11 +1844,15 @@ def check():
     for path in ITEMS:
         if path not in ids:
             warnings.append(f"gen_textures.py draws firmages:{path} but no startup script registers it")
-    # 5. every PNG: 16 wide, height 16 or n*16 with .mcmeta; orphans; mcmeta shape and LF
+    # 5. every block/item PNG: 16 wide, height 16 or n*16 with .mcmeta; orphans; mcmeta shape and LF
+    #    (textures/gui/ holds the quest theme art of dev/gen_quest_art.py: full-size images, not 16 px textures)
+    def blockitem(f, root):
+        return f.relative_to(root).parts[0] != "gui"
+
     for root in (MOD_TEX, KJS_TEX):
         if not root.exists():
             continue
-        for p in sorted(root.rglob("*.png")):
+        for p in sorted(x for x in root.rglob("*.png") if blockitem(x, root)):
             img = Image.open(p)
             if img.width != 16 or img.height % 16 != 0:
                 errors.append(f"{p.relative_to(ROOT)}: size {img.width}x{img.height}, want 16 x n*16")
@@ -1861,7 +1865,7 @@ def check():
                 warnings.append(f"{p.relative_to(ROOT)}: {img.height // 16} frames, keep animations at 4..8")
             if p.resolve() not in referenced:
                 warnings.append(f"{p.relative_to(ROOT)}: not referenced by any model or items.js")
-        for m in sorted(root.rglob("*.mcmeta")):
+        for m in sorted(x for x in root.rglob("*.mcmeta") if blockitem(x, root)):
             if not m.with_suffix("").exists():
                 errors.append(f"{m.relative_to(ROOT)}: mcmeta without png")
             raw = m.read_bytes()
