@@ -1,5 +1,7 @@
 package dev.firmages.core.client;
 
+import dev.firmages.core.client.immersion.ImmersionClient;
+import dev.firmages.core.net.AgeStatusPayload;
 import dev.firmages.core.net.AgeTransitionPayload;
 import dev.firmages.core.net.ShrinePreviewPayload;
 
@@ -9,6 +11,14 @@ public final class ClientPayloads {
 
     public static void ceremony(AgeTransitionPayload payload) {
         CeremonyPlayer.start(payload);
+    }
+
+    public static void ageStatus(AgeStatusPayload payload) {
+        ImmersionClient.onStatus(payload.status());
+    }
+
+    public static void welcome() {
+        ImmersionClient.onWelcome();
     }
 
     public static void preview(ShrinePreviewPayload payload) {

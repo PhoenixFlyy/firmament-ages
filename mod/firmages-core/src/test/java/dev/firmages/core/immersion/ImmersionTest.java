@@ -1,0 +1,141 @@
+package dev.firmages.core.immersion;
+
+import dev.firmages.core.age.AgeId;
+import dev.firmages.core.age.AgeSnapshot;
+import dev.firmages.core.compat.tfc.NutritionFloor;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.IntFunction;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/** SPEC §18: the pure decisions behind the immersion features (Age status, EMI gate, HUD fade, chat, nutrition). */
+class ImmersionTest {
+    private static final Map<Integer, String> OFFERINGS = Map.of(0, "firmages:hearthstone", 1, "firmages:sky_disc", 8, "firmages:quantum_core");
+    private static final IntFunction<Optional<String>> OFFERING = t -> Optional.ofNullable(OFFERINGS.get(t));
+
+    private static AgeSnapshot ages(AgeId... ids) {
+        return AgeSnapshot.of(List.of(ids), 1, 0);
+    }
+
+    @Test
+    void statusAtDawnHidesEverything() {
+        AgeStatus s = AgeStatus.of(AgeSnapshot.DAWN_ONLY, OFFERING, AgeId.AGE_0, AgeId.AGE_0);
+        assertEquals(AgeId.DAWN, s.age());
+        assertEquals("", s.goalItem(), "Dawn's goal is the First Spark quest, no item");
+        assertFalse(s.recipeViewer());
+        assertFalse(s.blockInfo());
+    }
+
+    @Test
+    void statusOpensViewerAndOverlayAtTheirAge() {
+        AgeStatus stone = AgeStatus.of(ages(AgeId.AGE_0), OFFERING, AgeId.AGE_0, AgeId.AGE_1);
+        assertEquals(AgeId.AGE_0, stone.age());
+        assertEquals("firmages:hearthstone", stone.goalItem());
+        assertTrue(stone.recipeViewer());
+        assertFalse(stone.blockInfo(), "Jade threshold age_1 not reached in age_0");
+
+        AgeStatus bronze = AgeStatus.of(ages(AgeId.AGE_0, AgeId.AGE_1), OFFERING, AgeId.AGE_0, AgeId.AGE_1);
+        assertEquals(AgeId.AGE_1, bronze.age());
+        assertEquals("firmages:sky_disc", bronze.goalItem());
+        assertTrue(bronze.blockInfo());
+    }
+
+    @Test
+    void statusUsesTheHighestAgeAndHasNoGoalInTheLastAge() {
+        // a gap (age_3 granted by an admin without age_2) still counts the highest Age
+        assertEquals(AgeId.AGE_3, AgeStatus.current(ages(AgeId.AGE_0, AgeId.AGE_3)));
+        assertEquals("firmages:quantum_core", AgeStatus.of(ages(AgeId.AGE_8), OFFERING, AgeId.AGE_0, AgeId.AGE_0).goalItem());
+        assertEquals("", AgeStatus.of(ages(AgeId.AGE_9), OFFERING, AgeId.AGE_0, AgeId.AGE_0).goalItem());
+        assertEquals("", AgeStatus.of(ages(AgeId.AGE_2), OFFERING, AgeId.AGE_0, AgeId.AGE_0).goalItem(), "missing offering -> no item");
+    }
+
+    @Test
+    void parseFallsBack() {
+        assertEquals(AgeId.AGE_4, AgeStatus.parse("progressivestages:age_4", AgeId.AGE_0));
+        assertEquals(AgeId.AGE_0, AgeStatus.parse("stone", AgeId.AGE_0));
+        assertTrue(AgeStatus.reached(AgeId.AGE_0, AgeId.AGE_0));
+        assertFalse(AgeStatus.reached(AgeId.DAWN, AgeId.AGE_0));
+    }
+
+    @Test
+    void viewerGateForcesOffWhileLockedAndSwitchesOnOnce() {
+        // locked: always off, also after the player toggled EMI on
+        assertEquals(Boolean.FALSE, ViewerGate.target(false, null, true));
+        assertEquals(Boolean.FALSE, ViewerGate.target(false, false, true));
+        assertNull(ViewerGate.target(false, false, false));
+        // first status after joining an open world: on
+        assertEquals(Boolean.TRUE, ViewerGate.target(true, null, false));
+        // the Age opens it: on once
+        assertEquals(Boolean.TRUE, ViewerGate.target(true, false, false));
+        // later the player's own toggle stays
+        assertNull(ViewerGate.target(true, true, false));
+        assertNull(ViewerGate.target(true, true, true));
+    }
+
+    @Test
+    void nutritionKeys() {
+        assertTrue(ViewerGate.isNutritionKey("tfc.tooltip.nutrition"));
+        assertTrue(ViewerGate.isNutritionKey("tfc.tooltip.nutrition_water"));
+        assertTrue(ViewerGate.isNutritionKey("tfc.tooltip.hold_shift_for_nutrition_info"));
+        assertTrue(ViewerGate.isNutritionKey("tfc.enum.nutrient.grain"));
+        assertFalse(ViewerGate.isNutritionKey("tfc.tooltip.food_expiry_date"), "decay stays visible");
+        assertFalse(ViewerGate.isNutritionKey("tfc.tooltip.food_trait.salted"));
+    }
+
+    @Test
+    void hudFades() {
+        long six = 6000;
+        long t0 = 10_000;
+        assertEquals(1f, HudFade.alpha(HudFade.Mode.FADE, t0, t0, six, false, Long.MIN_VALUE));
+        assertEquals(1f, HudFade.alpha(HudFade.Mode.FADE, t0 + 4999, t0, six, false, Long.MIN_VALUE));
+        assertEquals(0.5f, HudFade.alpha(HudFade.Mode.FADE, t0 + 5500, t0, six, false, Long.MIN_VALUE), 1e-4);
+        assertEquals(0f, HudFade.alpha(HudFade.Mode.FADE, t0 + 6000, t0, six, false, Long.MIN_VALUE));
+        assertEquals(0f, HudFade.alpha(HudFade.Mode.FADE, t0, Long.MIN_VALUE, six, false, Long.MIN_VALUE), "never triggered");
+        // key: full while held, then a 1 s fade
+        assertEquals(1f, HudFade.alpha(HudFade.Mode.FADE, t0 + 60_000, t0, six, true, Long.MIN_VALUE));
+        long rel = t0 + 60_000;
+        assertEquals(0.75f, HudFade.alpha(HudFade.Mode.FADE, rel + 250, t0, six, false, rel), 1e-4);
+        assertEquals(0f, HudFade.alpha(HudFade.Mode.FADE, rel + 1000, t0, six, false, rel));
+        // modes
+        assertEquals(1f, HudFade.alpha(HudFade.Mode.ALWAYS, t0 + 99_999, t0, six, false, Long.MIN_VALUE));
+        assertEquals(0f, HudFade.alpha(HudFade.Mode.NEVER, t0, t0, six, true, Long.MIN_VALUE));
+        // a show time shorter than the fade fades from the start
+        assertEquals(0.5f, HudFade.alpha(HudFade.Mode.FADE, t0 + 500, t0, 500, false, Long.MIN_VALUE), 1e-4);
+    }
+
+    @Test
+    void chatBlocklistShipsTheJoinNotices() {
+        ChatBlocklist list = ChatBlocklist.compile(ChatBlocklist.DEFAULT_PATTERNS);
+        assertTrue(list.errors().isEmpty());
+        // Create Train Utilities 3.1.0, the literal from net.adeptstack.Main [verified, javap]
+        assertTrue(list.blocks("ATTENTION (Create Train Utilities): \nCreate Train Utilities will be renamed Create Train Doors in version 4."));
+        assertTrue(list.blocks("Click here to order a Starbuncle Plush from Makeship!"));
+        assertFalse(list.blocks("<Felix> the train utilities are great"));
+        assertFalse(list.blocks("Caelum: A spark in the dark. I have seen you."));
+        assertFalse(list.blocks(""));
+    }
+
+    @Test
+    void chatBlocklistSkipsInvalidPatterns() {
+        ChatBlocklist list = ChatBlocklist.compile(List.of("([unclosed", "", "Backup (started|completed)"));
+        assertEquals(1, list.errors().size());
+        assertTrue(list.blocks("Backup started..."));
+        assertEquals(List.of("([unclosed", "", "Backup (started|completed)"), list.source());
+    }
+
+    @Test
+    void nutritionOnlyAsBonus() {
+        float base = 0.85f; // TFC 4.2.11 nutritionDefaultHealthModifier default
+        assertEquals(0.85f, NutritionFloor.apply(0.2f, base, true), "a one-sided diet keeps the starting health");
+        assertEquals(2.1f, NutritionFloor.apply(2.1f, base, true), "a varied diet still adds health");
+        assertEquals(0.2f, NutritionFloor.apply(0.2f, base, false), "off: TFC as shipped");
+        assertEquals(0.5f, NutritionFloor.apply(0.5f, 0f, true), "no usable baseline: unchanged");
+    }
+}

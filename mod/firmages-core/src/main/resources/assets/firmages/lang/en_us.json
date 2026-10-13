@@ -184,5 +184,21 @@
   "firmages.jade.maintenance": "Maintenance mode: %s s left",
   "subtitles.firmages.shrine.consecrate": "Shrine block consecrated",
   "subtitles.firmages.shrine.maintenance": "Shrine maintenance toggled",
-  "config.jade.plugin_firmages.consecrated": "Consecrated shrine blocks"
+  "config.jade.plugin_firmages.consecrated": "Consecrated shrine blocks",
+
+  "key.categories.firmages": "Firmament Ages",
+  "key.firmages.show_age": "Show Age (hold)",
+  "firmages.hud.goal": "Goal: %s",
+  "firmages.hud.goal.dawn": "the First Spark",
+  "firmages.hud.goal.age_9": "the Gathering",
+  "firmages.welcome.title": "Firmament Ages",
+  "firmages.welcome.subtitle": "The sky remembers. Kindle the first spark.",
+  "firmages.welcome.ages.heading": "The Ages",
+  "firmages.welcome.ages.text": "The world begins in Dawn, before fire and tools. Every Age after it is earned at the Shrine: raise it, lay your Age's offering upon it, and pray. When the sky answers, a new Age begins for all of you.",
+  "firmages.welcome.path.heading": "Your Path",
+  "firmages.welcome.path.text": "Press %s to see your path: what this Age asks of you, and what you have already done. Whenever you wonder what comes next, look there.",
+  "firmages.welcome.caelum.heading": "Caelum Watches",
+  "firmages.welcome.caelum.text": "Above the firmament, Caelum watches and remembers. It speaks seldom, and only at the Shrine. Give it a reason to notice you.",
+  "firmages.welcome.open": "Show my path (%s)",
+  "firmages.welcome.close": "Into the world"
 }

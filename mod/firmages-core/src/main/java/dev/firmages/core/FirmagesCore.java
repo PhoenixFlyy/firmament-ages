@@ -7,6 +7,7 @@ import dev.firmages.core.command.FirmagesCommands;
 import dev.firmages.core.compat.progressivestages.StageSyncCoalescer;
 import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.config.ServerConfig;
+import dev.firmages.core.immersion.ImmersionService;
 import dev.firmages.core.miner.OreGuard;
 import net.neoforged.bus.api.EventPriority;
 import dev.firmages.core.net.FirmagesNetwork;
@@ -46,6 +47,7 @@ public final class FirmagesCore {
         bus.addListener(AgeService::onStageChange);
         bus.addListener(AgeService::onStagesBulkChanged);
         bus.addListener(AgeService::onPlayerLoggedIn);
+        ImmersionService.register(modEventBus, bus); // after AgeService: the login status sees the login's Ages
         bus.addListener(FirmagesCommands::register);
         bus.addListener(DebugPlayerCommands::onServerTick);
         bus.addListener(StageSyncCoalescer::onServerTick);

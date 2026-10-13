@@ -1,0 +1,229 @@
+package dev.firmages.core.client.immersion;
+
+import com.mojang.blaze3d.platform.InputConstants;
+import dev.firmages.core.FirmagesCore;
+import dev.firmages.core.compat.ftbquests.FtbQuestsScreens;
+import dev.firmages.core.compat.tfc.TfcClient;
+import dev.firmages.core.config.ClientConfig;
+import dev.firmages.core.immersion.AgeStatus;
+import dev.firmages.core.immersion.ViewerGate;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.advancements.AdvancementsScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.client.event.ToastAddEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforgespi.language.IModInfo;
+import org.lwjgl.glfw.GLFW;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Client half of the immersion features (SPEC §18): silent joins (blocked screens and toasts), no advancements screen
+ * or mod list, EMI and Jade gated by Age, the HUD Age indicator, the first-join welcome and the TFC display tweaks.
+ * Physical client only.
+ */
+public final class ImmersionClient {
+    /** Hold to show the Age indicator. Left Alt: free as a plain key in the pack (ux-screens §4.3 uses Alt only as a modifier). */
+    public static final KeyMapping SHOW_AGE = new KeyMapping("key.firmages.show_age", KeyConflictContext.IN_GAME,
+        InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, "key.categories.firmages");
+    private static final ResourceLocation TFC_THIRST_LAYER = ResourceLocation.fromNamespaceAndPath("tfc", "thirst");
+    /** Ticks after the first status before the welcome title, and from the title to the welcome screen. */
+    private static final int WELCOME_TITLE_DELAY = 40;
+    private static final int WELCOME_SCREEN_DELAY = 100;
+
+    private static boolean keyHeld;
+    private static long keyReleasedAt = Long.MIN_VALUE;
+    private static Boolean viewerWasAllowed;
+    private static boolean openQuestsNextTick;
+    private static int welcomePhase; // 0 none, 1 waiting for the title, 2 waiting for the screen
+    private static int welcomeTicks;
+    private static Set<String> modNames;
+
+    private ImmersionClient() {}
+
+    static boolean ageKeyHeld() {
+        return keyHeld;
+    }
+
+    static long ageKeyReleasedAt() {
+        return keyReleasedAt;
+    }
+
+    /** {@code firmages:age_status} arrived. */
+    public static void onStatus(AgeStatus status) {
+        ClientAgeStatus.receive(status);
+    }
+
+    /** {@code firmages:welcome} arrived: title first, then the screen. */
+    public static void onWelcome() {
+        welcomePhase = 1;
+        welcomeTicks = 0;
+    }
+
+    /** Jade's ray-trace callback asks this (SPEC §18.3); before the first status, nothing is shown. */
+    public static boolean blockInfoAllowed() {
+        return ClientAgeStatus.known() && ClientAgeStatus.get().blockInfo();
+    }
+
+    @EventBusSubscriber(modid = FirmagesCore.MOD_ID, value = Dist.CLIENT)
+    public static final class ModEvents {
+        private ModEvents() {}
+
+        @SubscribeEvent
+        public static void keys(RegisterKeyMappingsEvent event) {
+            event.register(SHOW_AGE);
+        }
+
+        @SubscribeEvent
+        public static void layers(RegisterGuiLayersEvent event) {
+            event.registerBelow(VanillaGuiLayers.BOSS_OVERLAY, AgeIndicatorLayer.ID, AgeIndicatorLayer::render);
+        }
+    }
+
+    @EventBusSubscriber(modid = FirmagesCore.MOD_ID, value = Dist.CLIENT)
+    public static final class GameEvents {
+        private GameEvents() {}
+
+        @SubscribeEvent
+        public static void toast(ToastAddEvent event) {
+            if (!ClientConfig.get(ClientConfig.HIDE_TOASTS, true)) return;
+            if (ClientConfig.get(ClientConfig.BLOCKED_TOASTS, ClientConfig.DEFAULT_BLOCKED_TOASTS).contains(event.getToast().getClass().getName())) {
+                event.setCanceled(true);
+            }
+        }
+
+        @SubscribeEvent
+        public static void screenOpening(ScreenEvent.Opening event) {
+            if (event.getNewScreen() == null) return;
+            String name = event.getNewScreen().getClass().getName();
+            if (ClientConfig.get(ClientConfig.BLOCKED_SCREENS, ClientConfig.DEFAULT_BLOCKED_SCREENS).contains(name)) {
+                FirmagesCore.LOGGER.info("Screen {} blocked (ui.blockedScreens)", name);
+                event.setCanceled(true);
+            } else if (event.getNewScreen() instanceof AdvancementsScreen && ClientConfig.get(ClientConfig.REDIRECT_ADVANCEMENTS, true)) {
+                event.setCanceled(true);
+                openQuestsNextTick = FtbQuestsScreens.available(); // not inside setScreen
+            }
+        }
+
+        @SubscribeEvent(priority = EventPriority.LOW) // after TFC adds its inventory tabs
+        public static void screenInit(ScreenEvent.Init.Post event) {
+            if (ClientConfig.get(ClientConfig.HIDE_MENU_BUTTONS, true)) MenuButtons.apply(event);
+            if (ClientConfig.get(ClientConfig.HIDE_NUTRITION, true) && TfcClient.available()) TfcClient.hideNutritionTab(event);
+        }
+
+        @SubscribeEvent
+        public static void tick(ClientTickEvent.Post event) {
+            Minecraft mc = Minecraft.getInstance();
+            boolean down = mc.player != null && SHOW_AGE.isDown();
+            if (keyHeld && !down) keyReleasedAt = Util.getMillis();
+            keyHeld = down;
+            if (mc.player == null) return;
+            gateViewer();
+            if (openQuestsNextTick) {
+                openQuestsNextTick = false;
+                FtbQuestsScreens.open();
+            }
+            tickWelcome(mc);
+        }
+
+        @SubscribeEvent
+        public static void layer(RenderGuiLayerEvent.Pre event) {
+            if (event.getName().equals(TFC_THIRST_LAYER) && ClientConfig.get(ClientConfig.HIDE_THIRST_BAR, true)) event.setCanceled(true);
+        }
+
+        @SubscribeEvent(priority = EventPriority.LOWEST) // after every mod added its lines
+        public static void tooltip(ItemTooltipEvent event) {
+            List<Component> lines = event.getToolTip();
+            if (lines.size() < 2) return;
+            boolean nutrition = ClientConfig.get(ClientConfig.HIDE_NUTRITION, true);
+            boolean modName = ClientConfig.get(ClientConfig.HIDE_MOD_NAME_TOOLTIPS, true);
+            if (!nutrition && !modName) return;
+            Set<String> names = modName ? modNames() : Set.of();
+            for (int i = lines.size() - 1; i >= 1; i--) { // line 0 is the item name
+                Component line = lines.get(i);
+                if ((nutrition && mentionsNutrition(line))
+                    || (modName && names.contains(ChatFormatting.stripFormatting(line.getString()).trim()))) {
+                    lines.remove(i);
+                }
+            }
+        }
+
+        @SubscribeEvent
+        public static void loggedOut(ClientPlayerNetworkEvent.LoggingOut event) {
+            ClientAgeStatus.reset();
+            viewerWasAllowed = null;
+            openQuestsNextTick = false;
+            welcomePhase = 0;
+        }
+    }
+
+    /** EMI follows the Age (ViewerGate); before the first status the world counts as Dawn. */
+    private static void gateViewer() {
+        if (!EmiBridge.available()) return;
+        boolean allowed = ClientAgeStatus.known() && ClientAgeStatus.get().recipeViewer();
+        Boolean set = ViewerGate.target(allowed, viewerWasAllowed, EmiBridge.isEnabled());
+        if (set != null) {
+            EmiBridge.setEnabled(set);
+            if (viewerWasAllowed == null || viewerWasAllowed != allowed) FirmagesCore.LOGGER.info("EMI {} (Age {})", set ? "shown" : "hidden", ClientAgeStatus.get().age());
+        }
+        viewerWasAllowed = allowed;
+    }
+
+    private static void tickWelcome(Minecraft mc) {
+        if (welcomePhase == 0 || mc.level == null) return;
+        if (mc.screen != null) return; // wait for the terrain screen and anything else
+        welcomeTicks++;
+        if (welcomePhase == 1 && welcomeTicks >= WELCOME_TITLE_DELAY) {
+            mc.gui.setTimes(10, 70, 20);
+            mc.gui.setSubtitle(Component.translatable("firmages.welcome.subtitle").withStyle(ChatFormatting.GRAY));
+            mc.gui.setTitle(Component.translatable("firmages.welcome.title").withStyle(ChatFormatting.GOLD));
+            welcomePhase = 2;
+            welcomeTicks = 0;
+        } else if (welcomePhase == 2 && welcomeTicks >= WELCOME_SCREEN_DELAY) {
+            welcomePhase = 0;
+            mc.setScreen(new WelcomeScreen());
+        }
+    }
+
+    private static boolean mentionsNutrition(FormattedText text) {
+        if (!(text instanceof Component c)) return false;
+        if (c.getContents() instanceof TranslatableContents tc) {
+            if (ViewerGate.isNutritionKey(tc.getKey())) return true;
+            for (Object arg : tc.getArgs()) if (arg instanceof Component a && mentionsNutrition(a)) return true;
+        }
+        for (Component sibling : c.getSiblings()) if (mentionsNutrition(sibling)) return true;
+        return false;
+    }
+
+    /** Display names of every loaded mod plus "Minecraft", for lines that only name a mod. */
+    private static Set<String> modNames() {
+        if (modNames == null) {
+            Set<String> names = new HashSet<>();
+            names.add("Minecraft");
+            for (IModInfo info : ModList.get().getMods()) names.add(info.getDisplayName());
+            modNames = Set.copyOf(names);
+        }
+        return modNames;
+    }
+}

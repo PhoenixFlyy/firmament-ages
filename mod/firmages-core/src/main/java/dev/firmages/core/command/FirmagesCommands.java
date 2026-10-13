@@ -13,6 +13,8 @@ import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.gate.GateReport;
 import dev.firmages.core.gate.GateRules;
 import dev.firmages.core.gate.RecipeGate;
+import dev.firmages.core.immersion.ImmersionService;
+import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.ChatFormatting;
@@ -70,11 +72,28 @@ public final class FirmagesCommands {
             .then(OriginCommands.origin())
             .then(OriginCommands.reactor())
             .then(DebugPlayerCommands.debug())
+            .then(Commands.literal("welcome")
+                .then(Commands.literal("reset").then(Commands.argument("targets", EntityArgument.players())
+                    .executes(c -> welcome(c, false))))
+                .then(Commands.literal("show").then(Commands.argument("targets", EntityArgument.players())
+                    .executes(c -> welcome(c, true)))))
             .then(Commands.literal("selftest")
                 .executes(c -> selftest(c, "all"))
                 .then(Commands.argument("suite", StringArgumentType.word())
                     .suggests((c, b) -> SharedSuggestionProvider.suggest(SUITES, b))
                     .executes(c -> selftest(c, StringArgumentType.getString(c, "suite"))))));
+    }
+
+    /** SPEC §18.5: {@code reset} lets the targets see the welcome again on their next join, {@code show} shows it now. */
+    private static int welcome(CommandContext<CommandSourceStack> c, boolean show) throws CommandSyntaxException {
+        var targets = EntityArgument.getPlayers(c, "targets");
+        for (var p : targets) {
+            if (show) ImmersionService.showWelcome(p);
+            else ImmersionService.resetWelcome(p);
+        }
+        int n = targets.size();
+        c.getSource().sendSuccess(() -> Component.literal((show ? "Welcome shown to " : "Welcome reset for ") + n + " player(s)"), true);
+        return n;
     }
 
     private static com.mojang.brigadier.builder.RequiredArgumentBuilder<CommandSourceStack, String> stageArg() {

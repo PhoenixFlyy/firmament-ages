@@ -6,6 +6,7 @@ import com.enviouse.progressivestages.common.api.StageId;
 import com.enviouse.progressivestages.common.api.StagesBulkChangedEvent;
 import com.enviouse.progressivestages.common.stage.StageManager;
 import dev.firmages.core.FirmagesCore;
+import dev.firmages.core.immersion.ImmersionService;
 import dev.firmages.core.ceremony.CeremonyService;
 import dev.firmages.core.compat.progressivestages.LockSyncDedupe;
 import dev.firmages.core.shrine.ShrineService;
@@ -498,6 +499,7 @@ public final class AgeService {
             st.setDirty();
             writeMirror(s, st.snapshot());
             FirmagesCore.LOGGER.info("AgeState now {} (version {})", st.snapshot().unlockedIds(), st.snapshot().version());
+            ImmersionService.broadcast(s);
         }
 
         @Override
