@@ -103,12 +103,11 @@ ServerEvents.recipes((event) => {
   // material of the dagger's tier, instead.
   swap('mysticalagriculture:soul_extractor', 'mysticalagriculture:soulium_dagger', 'mysticalagriculture:soulium_ingot')
 
-  // ======================================================================================== backpacks and quests
+  // ======================================================================================== backpacks
   // Wooden and stone vanilla tools have no recipe in a TFC world; the copper part of the slot takes their place (the
   // stone/copper rule of the Arcane MAP). The tool swapper upgrade is an exception to the gear rule (backpack upgrade).
   ;['axe', 'pickaxe', 'shovel', 'sword'].forEach((t) =>
     swap('sophisticatedbackpacks:tool_swapper_upgrade', `minecraft:wooden_${t}`, part('copper', t)))
-  swap('ftbquests:loot_crate_opener', 'minecraft:stone_pickaxe', part('copper', 'pickaxe'))
 
   // ======================================================================================== AE2 and AdvancedAE
   // Fluix tools from certus quartz instead of the certus tool of the same slot; the network tool from certus instead
