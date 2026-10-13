@@ -1731,3 +1731,153 @@ books differ only in a random spirit name or the order of their data components.
   Plus builds them at runtime, they have nothing to do with osmium, and the cause is not found.
 - A world that generated chunks with MekaTFC loses those osmium blocks and MekaTFC items on the update.
 - The IE Excavator mix with osmium (Doc 08 §3.2, Electric Age) is still not built.
+
+## CF final prep
+
+Date: 2026-10-13, branch `dev` on top of 4961701 (pack 0.6.2, firmages-core 0.6.2 with `sync.coalesce`). This run
+measures the Age-grant fix on the pack, walks the full shrine ladder, spot-checks the osmium vein, adds the root
+`LICENSE` and builds the 0.6.3 release and CurseForge upload zip.
+
+Test server synced with packwiz-installer-bootstrap `-g -s server` from `packwiz serve`: "Modpack is already up to
+date" (the server had been synced to the same index, sha256 `5727…a9a3`, after 4961701); `mods/` holds 177 jars,
+among them `firmages-core-0.6.2.jar`, no MekaTFC and no TFC Ore Tooltips. Three fresh worlds (`run_server.py
+--wipe-world`): A with `sync.coalesce = false` (the old behaviour), B with the shipped `true`, C for the ladder.
+Debug players Alpha and Beta, survival, one FTB party; spark `tickmonitor --threshold-tick 100`;
+`debug.allowSimulate` on for the run only.
+
+**Host load.** A game (Battlefield 6) started on the host at 15:30:48, between run B and run C, and ran through the
+rest of the run (about 6.5 of 16 cores). Runs A and B were before it. Every time from run C (boot, ladder, warm
+reloads) is inflated two- to threefold and is not a performance result.
+
+### Boot (run B, shipped configs)
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot | `Done (11.845s)`; 207 mod files with 201 mods | pass |
+| KubeJS | startup 3/3, server 37/37, 0 errors, 0 warnings; `byproducts: 8 recipe(s)`, `dead inputs: 97 of 97`, `TFC station inputs: 92 replacements, 6 recipes rewritten as JSON` | pass |
+| FTB Quests, Gateways | 13 chapters, 345 quests, 21 reward tables; "Registered 22 gateways" | pass |
+| firmages-core | `Boot: AgeState [dawn] matches the boot snapshot (FALLBACK_NO_MIRROR) ...; no reload`; warm-up reload 7,439 ms | pass |
+| ERROR lines | 0 from FirmagesCore, ProgressiveStages, FTB Quests and KubeJS. The rest is the known noise: DISTXFORM, client mixins of azimuth, bits_n_bobs, simulated and woodencog, loot tables, recipe parse errors of tfcrf (44), woodencog (24) and createdeco (2), Sable, Polymorph, TF `dev_new_world`, trainutilities advancements | pass |
+
+### Age-grant stall, before and after (runs A and B)
+
+Same sequence in both worlds: `stage grant Alpha dawn` to `age_3` (one reload), then `age_4`, `age_5` and `age_6`
+one at a time, each followed by its reload. "Grant ticks" are the ticks over 100 ms between the grant and the reload
+start (60 ticks later); syncs are the `progressivestages:lock_sync` and `stage_sync` payloads each debug player
+received in that window.
+
+| Grant | Before: grant ticks (ms) | Before: syncs per player | After: grant ticks (ms) | After: coalescer line | After: syncs per player |
+|---|---|---|---|---|---|
+| age_4 | 3,016 ("Can't keep up! ... Running 2977ms") | 5 lock + 5 stage | 400 + 570 | "10 request(s) sent as 2 sync(s) in 482 ms" | 1 lock + 1 stage |
+| age_5 | 1,735 | 3 + 3 | 299 + 646 | "6 request(s) sent as 2 sync(s) in 490 ms" | 1 + 1 |
+| age_6 | 2,926 ("Running 2883ms") | 5 + 5 | 386 + 568 | "10 request(s) sent as 2 sync(s) in 483 ms" | 1 + 1 |
+
+An RCON command runs between two ticks, so with the fix the grant itself (PS, `stages/grants.js`, FTB Quests, the
+ceremony payload) shows up in one tick and the deferred syncs in the next one; the server thread is blocked about
+0.95 to 0.97 s in total instead of 2.9 to 3.0 s (age_4 and age_6), and no "Can't keep up" warning comes from a grant
+any more. Each player gets exactly one lock sync followed by one stage sync per grant; the reload then sends its own
+full sync (1 + 1 per player, the duplicate lock sync skipped: the counter in the `Age reload ... finished` line grows
+by 2 per reload). Reloads: before 7,264 / 6,810 / 7,017 ms, after 6,932 / 6,717 / 6,788 ms. On the shrine path
+(run C) the prayer completes inside a tick, so the grant and the flush land in the same tick: 1.25 to 2.17 s there
+under the host load above, again 1 + 1 syncs per player at every one of the nine grants.
+
+### Shrine ladder (run C)
+
+Heart at 0 200 0, rings 0 to 8 by `build_shrine.py --rings 0-8 --platform` (550 commands; `shrine status` valid
+ring 8, all rings complete); dawn and age_0 by `stage grant`; tiers 0 to 8 from the shrine: offering by `debug use`,
+rites (firestarter on the heart, the bell, `build_shrine.py --rings N --rites N` for 2 to 5, Chorus for 6 and 8,
+`time set midnight` for 7 and 8), prayer by `debug pray`.
+
+| Grant | Path | Coalescer | Syncs per player (grant / reload) | Reload (ms, under host load) |
+|---|---|---|---|---|
+| dawn, age_0 | `stage grant` (two commands, two ticks) | 4 requests -> 2 syncs | 2+2 / 1+1 | 11,827 |
+| age_1 | tier 0, Alpha | 4 -> 2 | 1+1 / 1+1 | 17,721 |
+| age_2 | tier 1, Alpha | 8 -> 2 | 1+1 / 1+1 | 13,027 |
+| age_3 | tier 2, Alpha | 4 -> 2 | 1+1 / 1+1 | 13,090 |
+| age_4 | tier 3, Alpha | 10 -> 2 | 1+1 / 1+1 | 17,918 |
+| age_5 | tier 4, Alpha | 6 -> 2 | 1+1 / 1+1 | 19,447 |
+| age_6 | tier 5, Alpha | 10 -> 2 | 1+1 / 1+1 | 21,402 |
+| age_7 | tier 6, Beta and Alpha | 4 -> 2 | 1+1 / 1+1 | 21,495 |
+| age_8 | tier 7, Alpha | 4 -> 2 | 1+1 / 1+1 | 23,478 |
+| age_9 | tier 8, Beta and Alpha | 4 -> 2 | 1+1 / 1+1 | 20,440 |
+| warm reloads at age_9 | `firmages reload` x3 | none | 0 / 1+1 | 21,936 / 20,282 / 22,205 |
+
+Every Age had exactly one "Shrine prayer heard", one `Ceremony FULL` and one "Age reload starting". End state:
+`shrine status` valid ring 8, intact, awakened 9, relics 9, shrine grants age_1 to age_9; `firmages ages` 11 unlocked.
+The reload times are two to three times those of runs A and B (6.7 to 7.7 s) and of the earlier ladders (6.5 to
+8.0 s); they follow the host load, not the pack, and are no basis for the 10 s limit. The warm reloads need a re-run
+on an idle host.
+
+### Osmium spot check (run C)
+
+| Check | Observed | Result |
+|---|---|---|
+| age_4 | `firmages:ore/normal_native_osmium/granite` and `rich_native_osmium/gabbro` placed: not `#tfc:prospectable`; Alpha (steel pickaxe, `debug break`) gets `tfc:rock/loose/granite` (the override's `drop_as`) | pass |
+| age_5 (after tier 4) | both blocks `#tfc:prospectable`; mined: one `firmages:ore/normal_native_osmium` and one `rich_native_osmium`, both with `tfc:heat` | pass |
+| Small piece | `firmages:ore/small_native_osmium` not prospectable at age_5, the same as TFC's own `tfc:ore/small_native_copper` | pass |
+| Mekanism ladder (age_9 world, 3x path) | Purification Chamber with 3 rich pieces and oxygen: 3 `mekanism:clump_osmium` (`firmages:purifying/native_osmium_rich`, 1:1); Crusher, 3 clumps: 3 dirty dust; Enrichment Chamber, 3 dirty dust: 3 dust; Energized Smelter, 3 dust: 3 `mekanism:ingot_osmium` (with `tfc:heat`) | pass |
+
+The machines were placed by `/setblock`; energy, oxygen and the inputs were written by `data merge` (Mekanism 10.7
+keys `items`, `energy_containers`, `chemical_tanks`), each step with fresh items of the previous step's output id
+and count, the outputs read from the block entity. No pipes and no player GUI.
+
+### Checks (run C, age_9)
+
+| Check | Observed | Result |
+|---|---|---|
+| `firmages selftest all` | 44 passed, 0 failed | pass |
+| `firmages recipes audit` | 33,677 recipes, 468 dropped (disabled), 0 extraction errors | pass |
+| `poc_analyze.py` (`fa_dump`, `fa_dump_full`: 33,209 recipes) | 82 checks, all PASS (C-M included) | pass |
+| `validate_quests.py` | 1291 object ids, 0 errors, 0 warnings | pass |
+| `gen_textures.py --check` | 68 referenced textures, 0 errors, 0 warnings | pass |
+| `gen_stage_locks.py --check` / `--registry` | exit 0; the registry refresh from the age_9 dump rewrote 0 files; ore overrides 1,304 (age_5 95) | pass |
+
+The dump has 7 recipes more than the one of "Osmium vein and Ore Tooltips removal" (33,202): the
+`create_dragons_plus:sandpaper_polishing` recipes listed missing there (`ad_astra/mars_stone`, `mercury_stone`,
+`moon_stone_stairs` and `minecraft/blackstone_wall` among them) are back. Create Dragons Plus builds them at runtime,
+so that gap was run-to-run, not caused by the osmium change.
+
+### License, credits, release
+
+- `LICENSE` (MIT, 2026, PhoenixFlyy; the same text as `mod/firmages-core/LICENSE`) at the repo root, named in
+  `README.md` and in the description's license section; `.packwizignore` already lists it, so it is not served.
+- `gen_credits.py`: still 191 mods (190 CurseForge, 1 own); the credits line now names 0.6.3; `md2html.py` rerun.
+- `dev/cf/changelog-0.6.2.md` is now `changelog-0.6.3.md` with a 0.6.3 entry (grant freeze fix, license file).
+- `release.ps1 -Version 0.6.3`: exit 0; `FirmamentAges-0.6.3.mrpack` 468.6 MB, `-curseforge.zip` 39.1 MB,
+  `-server.zip` 506.4 MB (478 entries, 177 jars in `mods/` like the test server, no backslash in entry names), sha256
+  list; `index.toml` unchanged, only the version line of `pack.toml`.
+- `export_cf.py`: `FirmamentAges-0.6.3-curseforge-upload.zip` 0.9 MB, 6 swaps, manifest "Firmament Ages" 0.6.3,
+  Minecraft 1.21.1, `neoforge-21.1.252`, **190 files**, all required, no duplicate project id; overrides hold one
+  jar, `overrides/mods/firmages-core-0.6.2.jar`, sha1 equal to `mods/firmages-core-0.6.2.jar` and to the
+  `gradlew build` output.
+- `UPLOAD-ANLEITUNG.md`, `LOKAL-TESTEN.md`, `modpack-fields.md` and `curseforge-readiness.md` name the 0.6.3 pack
+  files; firmages-core stays 0.6.2.
+
+### Review of the commits since 6dd74ee
+
+- Files: 125 changed. Binaries are only the shipped `mods/firmages-core-0.6.2.jar` (sha1 `1aa35a8a…` = the
+  `gradlew build` output; 0.6.1 removed) and PNG assets (7 CurseForge images in `dev/cf/`, 8 osmium textures in
+  `kubejs/assets/`). Nothing from `tools/`, `test-server/`, `dev/exports/` or the mod's build folders; no
+  password, token or key in the added lines.
+- `packwiz refresh` after the last commit: no change to `index.toml` or `pack.toml`.
+- Trailers: all 11 commits end with a Co-Authored-By line; 65ad3d9, 37f9f69, 04ab72f and e0cf849 name "Claude
+  Fable 5.1", the others "Claude Opus 5.5" (the model of the session that wrote them). Left as is.
+- Claims of the earlier sections against this run's logs: KubeJS startup 3/3 and server 37/37 with 0 errors; the
+  age_5 override rows (95, total 1,304); prospecting off at age_4 and on at age_5; ore blocks dropping their
+  piece with `tfc:heat`; 82 PASS with C-M; the upload zip with 190 manifest files and only the firmages-core jar in
+  the overrides. All hold. The GameTest claim of 4961701 ("All 29 required tests passed",
+  `stageBatchSyncsOncePerPlayer` 10 requests for 2 players -> 1 lock + 1 stage sync each) is in the GameTest log of
+  that build and matches the pack (10 requests -> 2 syncs at age_4 and age_6). The decision log's "2,6 s mit 2
+  Spielern" for the old stall is 2.9 to 3.0 s on today's pack (age_4 and age_6); the row now carries
+  the measured numbers.
+
+### Open points
+
+- Reload times on an idle host: the ladder and the three warm reloads at age_9 ran under a concurrent game and say
+  nothing about the 10 s limit (6.7 to 7.7 s in runs A and B before the game started). Re-run
+  `firmages reload` x3 at age_9 when the host is idle.
+- Needs a client: the packet order after the coalescing (stage updates, toasts and the ceremony payload of the
+  grant tick before the one lock and stage sync), the osmium textures and names, the disguise as raw rock.
+- Upload (Felix): firmages-core 0.6.2 first, then `FirmamentAges-0.6.3-curseforge-upload.zip` and the server pack
+  (`dev/cf/UPLOAD-ANLEITUNG.md`). Merge `dev` into `main`, tag and push are his.
+- `debug.allowSimulate` in `test-server/config/firmages-server.toml` is back to `false` after the run.
