@@ -1869,6 +1869,11 @@ hash = "c7a85d423442c5c5811502e115c3911a9715457467fed0f013011ff35293b8c8"
 metafile = true
 
 [[files]]
+file = "mods/alltheleaks.pw.toml"
+hash = "c71a37f05849d41b3b2a883c55afc4d32de7e05beff02b6f94a833be0c59635c"
+metafile = true
+
+[[files]]
 file = "mods/almost-unified-ie.pw.toml"
 hash = "90112880819ada5f8ec6f67cd80f55bb7c5e6ebec0cf609299b49aac3c7769e7"
 metafile = true
@@ -1944,6 +1949,11 @@ hash = "21dfd3b22c8fd9ea0b89f53460169693258b31dbcbdb3b6fea73c76d29fd1b84"
 metafile = true
 
 [[files]]
+file = "mods/ars-sky-shader-fix.pw.toml"
+hash = "453ed9bab6911b2fcbba073438c44b4d280de99e4412fb7a72cf6b663914de47"
+metafile = true
+
+[[files]]
 file = "mods/astikor-carts-redux.pw.toml"
 hash = "b6fccc38e9a017fcaa57097233536956cfa26502e4391489eecf4ce4f66f37dd"
 metafile = true
@@ -1956,6 +1966,11 @@ metafile = true
 [[files]]
 file = "mods/azimuth-api.pw.toml"
 hash = "b57781f292afbad67aa4dddaa6a13f170301a488bd9d3e93d82158381fe98349"
+metafile = true
+
+[[files]]
+file = "mods/badoptimizations.pw.toml"
+hash = "e2f2a6f6ff38054ce8d91a43a20b79ea7b4e84cb924142fb7d2bcfdd95fe5b57"
 metafile = true
 
 [[files]]
@@ -2031,6 +2046,11 @@ metafile = true
 [[files]]
 file = "mods/codechicken-lib-1-8.pw.toml"
 hash = "107f1089debe869dc912e119eedbc3f6b523dbdd8193719ba51ce476914f4f5a"
+metafile = true
+
+[[files]]
+file = "mods/colorwheel.pw.toml"
+hash = "0e24a9cd861019dd29864b337768b9affe535c72b16698fa95f68a15ec819b9b"
 metafile = true
 
 [[files]]
@@ -2239,6 +2259,11 @@ hash = "a0a08557c2985af8f6c92adef8b654c8f8b239277c4bb8eb94810b22109cc351"
 metafile = true
 
 [[files]]
+file = "mods/dynamic-fps.pw.toml"
+hash = "e2a3aca8101a179153b92e99000a10d06e4b5d285d358fbe457a53690d12dab5"
+metafile = true
+
+[[files]]
 file = "mods/emi-loot.pw.toml"
 hash = "2bfe1523d89098c72c7072531f60eb24c6b41fea2ee294bfcb86c3c385464c08"
 metafile = true
@@ -2254,8 +2279,18 @@ hash = "a4a1e440890871a19bbb34ec41422ac6dfea15c2e890bfad90bdbea1bb508a39"
 metafile = true
 
 [[files]]
-file = "mods/enhanced-celestials.pw.toml"
-hash = "f113b102932b3c13497a59652d61a2baa5d004313f2c4a2e44f37fd44398e957"
+file = "mods/enhanced-celestials-2-core.pw.toml"
+hash = "36d2f68f0dca1967b9fe35fe16e4ebf4fad0c74bfd8e9dba8be141e1a670286e"
+metafile = true
+
+[[files]]
+file = "mods/enhanced-celestials-2-default-lunar-events.pw.toml"
+hash = "6141f35e0fddcd76762523da4d0ae541058b9688aad1549f52c4d7f09db2681d"
+metafile = true
+
+[[files]]
+file = "mods/enhanced-celestials-2-shader-support.pw.toml"
+hash = "09b3f2721c5396c8501b662940065cd23487bf62c35ffd21ce208887f49c9153"
 metafile = true
 
 [[files]]
@@ -2390,6 +2425,21 @@ metafile = true
 [[files]]
 file = "mods/immersiveposts.pw.toml"
 hash = "cbb304e473209f205d70863acdc9a544bc78a65aa5cac1626d3cbf70cc3b1ab3"
+metafile = true
+
+[[files]]
+file = "mods/iris-block-compat.pw.toml"
+hash = "42db6f6fe60a34ae8819f8fe3decfe191d842bc9b7a0842791ee90dcbf09c140"
+metafile = true
+
+[[files]]
+file = "mods/iris-veil-compat.pw.toml"
+hash = "b476c11bda5022790fab2474dbdae4a21b23c84d652615ab1e7678503f6d3888"
+metafile = true
+
+[[files]]
+file = "mods/irisshaders.pw.toml"
+hash = "763ed0c115b2b9a1e37e38cb153748c9c3f3c31869fd3d56acfaad54c63e78af"
 metafile = true
 
 [[files]]
@@ -2810,4 +2860,14 @@ metafile = true
 [[files]]
 file = "mods/woodencog.pw.toml"
 hash = "276dd3e7f9e20fb9a34fb0cbe5da5a18dcb3b0becb9c2f2b716e9e9a61ca8c96"
+metafile = true
+
+[[files]]
+file = "shaderpacks/complementary-reimagined.pw.toml"
+hash = "507cb3963240110bc71ed7c75cac1682e66d3609536b0bc5ef90a01db3cce21f"
+metafile = true
+
+[[files]]
+file = "shaderpacks/makeup-ultra-fast-shader.pw.toml"
+hash = "cf2ddccf7330564a1f33e089f602ce2600777a280e605a4351b6d78827a29526"
 metafile = true

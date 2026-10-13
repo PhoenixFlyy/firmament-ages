@@ -1,0 +1,13 @@
+name = "Ars Skyweave Shader Fix"
+filename = "arsskyfix-1.0.1.jar"
+side = "client"
+
+[download]
+hash-format = "sha1"
+hash = "bc67d491c26937019493d0b6bb05ce96b019229c"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 9029923
+project-id = 1640980

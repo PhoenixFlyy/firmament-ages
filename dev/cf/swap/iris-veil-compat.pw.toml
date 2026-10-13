@@ -1,0 +1,13 @@
+name = "Iris Veil Compat"
+filename = "irisveil-0.4.0.jar"
+side = "client"
+
+[download]
+hash-format = "sha1"
+hash = "16cf9ea1a129d8aeccdff75affcd722bd2753948"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 9059655
+project-id = 1541252
