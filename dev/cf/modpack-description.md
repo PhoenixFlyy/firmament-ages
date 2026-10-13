@@ -79,7 +79,7 @@ The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmamen
 
 <!-- credits:start -->
 
-Firmament Ages 0.7.1 contains 197 mods. Thank you to every author.
+Firmament Ages 0.7.1 contains 196 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
@@ -246,7 +246,6 @@ Firmament Ages 0.7.1 contains 197 mods. Thank you to every author.
 - **Sable** by ryanhcode, Eriksonn ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/sable))
 - **Searchables** by Jaredlll08 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/searchables))
 - **Simple Backups** by MelanX ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/simple-backups))
-- **Simple Voice Chat** by henkelmax ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat))
 - **SmartBrainLib (Forge/Fabric/Quilt)** by Scimiguy ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/smartbrainlib))
 - **Sodium** by JellySquid ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/sodium))
 - **Sophisticated Backpacks** by P3pp3rF1y ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/sophisticated-backpacks))

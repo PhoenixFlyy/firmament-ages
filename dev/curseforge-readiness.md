@@ -1,12 +1,12 @@
 # CurseForge-Bereitschaft
 
-Stand 2026-10-13, Pack 0.7.1, 197 Mods (196 CurseForge-Dateien im Manifest plus firmages-core). Erste Fassung 2026-10-01 (Pack 0.5.0, 193 Mods). Regel von CurseForge ([Moderation Policies](https://support.curseforge.com/support/solutions/articles/9000197279-project-and-modpack-moderation-policies), Abschnitt „Non-CurseForge Mods“): Ein Modpack darf nur Mods enthalten, die auf CurseForge liegen oder auf der Liste [Non-CurseForge Approved](https://docs.google.com/spreadsheets/d/176Wv-PZUo9hFxy6oC6N8tWdquBLPRtSuLbNK-r0_byM/edit#gid=0) stehen. Neue Einträge beantragt man über das [Antragsformular](https://forms.monday.com/forms/a46faa60c3d9cf097763311811db5bbd?r=use1) (verlinkt im Kopf der Liste). Mods, die ein CurseForge-Projekt haben, gehören ausdrücklich **nicht** auf die Liste.
+Stand 2026-10-13, Pack 0.7.1, 196 Mods (195 CurseForge-Dateien im Manifest plus firmages-core). Erste Fassung 2026-10-01 (Pack 0.5.0, 193 Mods). Regel von CurseForge ([Moderation Policies](https://support.curseforge.com/support/solutions/articles/9000197279-project-and-modpack-moderation-policies), Abschnitt „Non-CurseForge Mods“): Ein Modpack darf nur Mods enthalten, die auf CurseForge liegen oder auf der Liste [Non-CurseForge Approved](https://docs.google.com/spreadsheets/d/176Wv-PZUo9hFxy6oC6N8tWdquBLPRtSuLbNK-r0_byM/edit#gid=0) stehen. Neue Einträge beantragt man über das [Antragsformular](https://forms.monday.com/forms/a46faa60c3d9cf097763311811db5bbd?r=use1) (verlinkt im Kopf der Liste). Mods, die ein CurseForge-Projekt haben, gehören ausdrücklich **nicht** auf die Liste.
 
 ## Ergebnis
 
 | | Anzahl |
 |---|---|
-| Mods mit CurseForge-Datei im Upload-Zip (Manifest) | 196 |
+| Mods mit CurseForge-Datei im Upload-Zip (Manifest) | 195 |
 | davon schon vorher CurseForge (FTB, Twilight Forest, Torque Link …) | 8 |
 | davon umgestellt von Modrinth (`dev/cf_convert.py`, Protokoll `dev/cf-convert.log`) | 182 |
 | … byte-gleich (CurseForge-Fingerprint-Treffer, sha1 gleich) | 170 |
