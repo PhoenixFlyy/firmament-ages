@@ -42,7 +42,7 @@ hash = "2102e77318ef3c32b4eb17e45a870c3e387fae6883eba54e9b372de05ff3ed38"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "f8b5c826ab19410dadf2c4671215b4f53b2edfce5ca23385946e27d6b8eab86f"
+hash = "45f9d66b18f64b92b7219fa228e54d362441b01775e36e3004b2316728f88133"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -158,63 +158,63 @@ hash = "b1339ce49c5c08220086661d0e028c5277f811e6437e691a61a5ad2448097081"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/arcane_age.snbt"
-hash = "3485966748779777f7318f6c8c1e3553b5fc7709c6021e91e0ca7f9e06e8cdfa"
+hash = "4d3666ca9885da97a472ed343e060ddbb181de73d3cf589f9a84b649f733f231"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "634db94781d6e84829af04625256aa79f515518bb952318cfafd2c446d2e8537"
+hash = "c505f6ad0e87e9bbf5553e03e5ce8cad5e9a0da3e5d521482906e9d5e0fb5044"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
-hash = "2ebde09665c2b01f2716ef28a4771edf5064331681cd95b372730dc441220423"
+hash = "152d70206d0311ba4d99a10bb4e463f650d153967642b06ff9c98bc22c21a3f7"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
-hash = "5ff8312ccb82091c637bd4e485137fcd39eb64536a6d0fc5589511ce6fe53d7f"
+hash = "3f671e167f3eaca595ef40e60d8fb9538fb6d15745c8d3cce078ce2da7b45ea3"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/industrial_age.snbt"
-hash = "7bf0ce5d373e20813789d5121c7988e5a93725bc90d3b66ab0f66b72da4a6416"
+hash = "ffc5e16154f24a16fd57dcae29295bad946439679ce230357b7c62cc529ca42f"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "59411c5affc18a7416eab73a68fba35831c675348989a555f3cdbd14dc44a80c"
+hash = "571cec34970ca2f6a51035ad811a7252a5124d36d4ba88ecf7b24be9f2c3d097"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "14221c0a8f11e4263b25986c032bd19e0f89063e81c274e0152098adbcf8c003"
+hash = "139a2b5ed43b17614b77b91ed2616620b6df336e7a370d125f51c37aefd0cc4d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "208c2d20dacc33def10b44dcae3154d2f2b3e2120b3db9699a8cc5dfcfc3ecbf"
+hash = "335b15a61e14bd0ca7e5cecc8fe5568e8dc90040cbdc200fccca90ef03ef097c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "9a482c3ce342868ebdc07dbba56ab82d33c046a0e23fabf3d5562bfe26577a54"
+hash = "15f0bfad6388635dbcbafb4ca073fe9fa4dc2b76c56976d3795f52e3b90768c9"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
-hash = "6ed5df1ea3a2dbd6f4eee2d8752f029ecd11d68dd9be7d569282eb369a127df6"
+hash = "3c55445bf0c64be019ffa758a190a284e62435b9fdeda5d58c2e5c0a43364b2e"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "98732072c6927c747818ab1608ee5d808a7d2ea1ab8bbab0d66cdb8d19c9ac94"
+hash = "d25b99ea5cce260fc2838741a9593cba78f3d9cf067cf8dc78f6e5ff1a4fa590"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
-hash = "d1fd96838dc752b2f5a691c9adc3d4d0828f86a617a1f25061900da9238bc116"
+hash = "0ecb22200b66cf67d4dd1dcbd2a1193d9165bda2ff19faa8f3747a6f4cc35184"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/welcome.snbt"
-hash = "72760524b22e8d630ea97e88c0535b5bbdcf7043cbd4ee9657bde597f91d5a15"
+hash = "c244f741a4977cb6131c06a928d01abd5146c76624f7e62e64a5fb8cb694df66"
 
 [[files]]
 file = "config/ftbquests/quests/data.snbt"
-hash = "0b057ada548db053f7848e86ad6ece563ff193654886f1a0ecbf0ba8537a37e5"
+hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "a1943dc3ab5f5d2f8683fa3adff935f0942916349faa0dbce91fcc4bb0c62247"
+hash = "7401d89196cefb814e61432b0e4c35845485f49261866fe0ec9cbb6c9e82b75e"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -445,12 +445,124 @@ file = "defaultconfigs/Mekanism/world.toml"
 hash = "56013a8f29a698e52b927ae780a9468973bc4584d07f5c9e90a4f597f4e91f2c"
 
 [[files]]
+file = "defaultconfigs/certain_questing_additions/client-config.snbt"
+hash = "ff6400d5cf03e4b564cbb0f7150c0d3d8ac8b464159eb9d2d4e5d3e5eda0dbca"
+
+[[files]]
 file = "defaultconfigs/immersiveengineering-server.toml"
 hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
 hash = "5f60406d187551a535aa98b8d78b8c6ed604f42278b49687ed90156626a68eb1"
+
+[[files]]
+file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
+hash = "6cd830fc39d3278d417e7ba0f06b7f0ce68d60a69190e6ec2162e9c046dcb1cd"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_0.fsh"
+hash = "a1c3000cc69725af817460cc692df568400c741a0f818ce27af73c1705c3b3e8"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_0.json"
+hash = "5fedf27e83879c8619c54ad8c12d5fb523187b01a98bbea8c4a7b5ac169da1c3"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_1.fsh"
+hash = "331bfb8ea51b70a86ac5842703ae5c346ac98c1422d486facfd0d4083ec60ae3"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_1.json"
+hash = "c2d0a6b0da0819de92e7a289b4fe2647230951ba53ee2ac479a4ae8e1415d760"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_2.fsh"
+hash = "13f4e2772b9a6fb2f1d7737a3cd5895fe43cc9204e5bb0fc2981fbcad52c4859"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_2.json"
+hash = "4923ef255b5f19b71d387c2aa2bc9b1687066f22e4dbb0f6fb45af6047210c87"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_3.fsh"
+hash = "8cad21656a01e31ec241cc3ab9c10d2d8516672c6e2adbb233ab4d9f2046e615"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_3.json"
+hash = "140d1273110de15100292e446a4f43536404db5d007652e61fb4c5b852aa908b"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_4.fsh"
+hash = "7ceae0256a6c46f1b432b58ef4c53950689cde03aa024a04d928bf2539314bc7"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_4.json"
+hash = "05ccdaf91f4dae9103cbcd2c50085017a0854ec2e6e8b33e037edc7102f26e2d"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_5.fsh"
+hash = "f3e6b288d231a10d3dda779a39195db875ef51f22cf8122e68474bcf64d7427e"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_5.json"
+hash = "5caf04d7713a79dfd4ed6342416320319b0e466b4436557f60e73b3afd62332e"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_6.fsh"
+hash = "90719a9c1c204692e0519e88eb6479412e25e99310366a4d82a13bb9e1bbd337"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_6.json"
+hash = "17388bfbaa39fbe2ec47f4db373359a9a2ebed1b81894412462d4bf0e1d50058"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_7.fsh"
+hash = "619435606526b3d4db2955c346a0b3f7ff8499919e9c395870781f460ad6e4dd"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_7.json"
+hash = "b5d2124e7bb065f6415024c6b406113946fd13309ce6272452481ad337ac650a"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_8.fsh"
+hash = "532c5e43ca438e92565cc15bae1250774d7ad73ea388f1f14523f91925fbefe4"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_8.json"
+hash = "d6bfa0816e01b4a226de00587095f3b469dddfcb94fcec7985889c8b2c5ce627"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_9.fsh"
+hash = "ef1aa8239789b897a68511fd2bf195bd5864d00803a2e7cf0638764b5d10db1d"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_age_9.json"
+hash = "161de7f7500df16684199182a3981d1031d6af9c18a46e0f6909af0ade2d454a"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_dawn.fsh"
+hash = "5eadbad766138b1cde7e29fbec034fa4b5d7d857573b0d3d8b3098cc5e07b219"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_dawn.json"
+hash = "4e842f7ea43d3c9277b6544ef74cfb223ca4900d5534a10fb87a6c184f7f1e36"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_firmament.fsh"
+hash = "077b94122d3e75b1edc9187f03da8fda64801c64b3882e9fbdcfea432ced2c9f"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_firmament.json"
+hash = "ad5757ad39c5e674ac97bed199e9b32a0f042a1d82bbc5e211d9aa23a3d20c05"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_welcome.fsh"
+hash = "470d15a7cdcfe8ea37cdc235c543bdae213bd40e5c06004a4fa3ca8b8b73680a"
+
+[[files]]
+file = "kubejs/assets/firmages/shaders/core/sky_welcome.json"
+hash = "dbd39d52d07c21ff96cd2e65e8cc231ef7749b71914769dd659d67da0635605c"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/block/ore/normal_native_osmium.png"
@@ -463,6 +575,122 @@ hash = "dd1d11ffc6252f7e8f3c4e5ee1841975004c33ff4e9c35b359b2140233db7e84"
 [[files]]
 file = "kubejs/assets/firmages/textures/block/ore/rich_native_osmium.png"
 hash = "e1591f8680fe3e1f5fd547780b465b33723e73d31e0e75a43c80203d2a787901"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_0.png"
+hash = "538c2a5aca95a097d0158b0f2c4b2a3dbdead7cecf028d53b781cefb970da000"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_1.png"
+hash = "33230ea7fdc6238b26f92d4a461e57688f7fe232ebe72ebc6f483120a65b7df1"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_2.png"
+hash = "210090317396efc55d37b8f136778b4bd779d680bd6bd1dfe79fe284bd9042b4"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_3.png"
+hash = "096695c372638154a6ca46f2b83edab8bbe2d65fce6df99b918cdb2e3870423b"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_4.png"
+hash = "b0fada5d68a1c95f927dcf0a4b4314ae3d2bd6de05ae24fd1aa9634cbd159b03"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_5.png"
+hash = "92a8e1851bda025d50f38980886319c8bc52b27f437212dfef53ac212c2c4e20"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_6.png"
+hash = "cc672c9a6a7e68ce75a42296b442cc600ae6aad9f1db8f1cfce9cdb1f07a5976"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_7.png"
+hash = "4cf283e16a42dc8073af3f86a2a22e648861a00c6cb1be17e280243a7ebc2a75"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_8.png"
+hash = "d1a129ca31a90968605e2a824b91c68b22ce5330525261ed0631c21ea1282d99"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_age_9.png"
+hash = "9c59815866e0c716abeb0e20240079c2d41e1104ec961929df71e13f4a434310"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_dawn.png"
+hash = "c4ba800a63d095953e3ff097ec34ad0d9391bc3fd733710842169ba55a8a35b0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_firmament.png"
+hash = "707f17246589fba08360827c020f72558cd913a0e38720f7c251e3ea9404379b"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/banner_welcome.png"
+hash = "3dbbc9288332af8bc704be1567b65ef1228285d497403cc420a39c68fb6d6515"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_0.png"
+hash = "13b449d28074648439b4fdfa5d67e76f13a508c5c51880ddd1252b001f2dbc6f"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_1.png"
+hash = "7275fbee57f0bcaa931ecb031bdcd37a95dcd3ed96b29e2707b0f6efc4fe069d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_2.png"
+hash = "87f4a3a6c6563879248adb7bb6601b3f46f3faf6406631262acfe4fb727a010e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_3.png"
+hash = "76ece92b58a4bb6f6903313df6f2ddb02c6e38a0235477943cf2075eeec9de8b"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_4.png"
+hash = "237867c7eb9c2372ecedc66011c9794414f11268b6ceec8682ddab366cbc03a2"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_5.png"
+hash = "e8e4496107eb4a045775614d83ce4e6fc991bf432a7a1bdfd83457b8d1672609"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_6.png"
+hash = "1d5948b251e82f6c90d3af1a85fcc4f2bfcc55e96ea121e70250eae43212f039"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_7.png"
+hash = "1bc9ff8f36db38a1a50b47ee65299ec4d97b53856d958b180026cd134cdcc031"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_8.png"
+hash = "9324daf55adb7f351f6734637c034390f2570ba0d25bfdf4cb19376784b7a31e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_age_9.png"
+hash = "b385b1aca7df8a157db0a79a796dba9ea85a2aedc9ea225cca877b9a578b981d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_dawn.png"
+hash = "3a855e803d9b3648939ffb768cf46f5cfa50b260b90af56152e13e6490947589"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_firmament.png"
+hash = "0b393e1c683abfe9f3f3da8478a3e0f880d6e62cea334df415388f7361e62ea8"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/bg_welcome.png"
+hash = "8846dceb78aaa63f571f1c5d8fff84d9a5b0f86990e3ed6b9433fc446ad7af24"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/dependency.png"
+hash = "ba5b50a5f39eabfb0c7b26c7318fe6de4a51fff4ea139eb4815543f91f0f151e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/firmament.png"
+hash = "657d502300ce8435bf4178e8648e78ba2c467e497e07fb93759142ddfb3b34c0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/panel.png"
+hash = "e33f69d19fd4e72b0fba48c5f8dfb4eb62ce2a5f7870172c9d1c9f31e2e883ad"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/abyss_sigil.png"
@@ -615,6 +843,82 @@ hash = "26a6bb30b45ca21d8768d7f35ca9f3789ccec137bd682bfb2b704cae5f06b860"
 [[files]]
 file = "kubejs/assets/firmages/textures/item/wither_sigil.png"
 hash = "21c9f0bcc27b20b8709473d7bff650301e6e0a36ffe0e82c95202b281baa314d"
+
+[[files]]
+file = "kubejs/assets/ftbquests/ftb_quests_theme.txt"
+hash = "4c9ea126154b6537732975e560c6ccb44ed34da10ace2a38aeedfa624602c308"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/ember/background.png"
+hash = "2d9e4a13acb105c9e6faf230f8fd5ee7a3e506af5fa8c254801b4f324ac48adc"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/ember/background.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/ember/outline.png"
+hash = "71401b25d546de598db76b41f3c30df3fe5ea29d45acc69c1fe622a3af6d3829"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/ember/outline.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/ember/shape.png"
+hash = "637bb98cd6ab728a5a7e08bd94c96aeb5d105817a82bb8b493bd43c5ae577b01"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/ember/shape.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/gilded/background.png"
+hash = "d0c6694d443101121fb0138339b9b72f689cdbfb87020646971f03902e572362"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/gilded/background.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/gilded/outline.png"
+hash = "cc7e97bcc1378a9a3761ff0fa9e4ca090bd79d54e452204570308d48570d14ef"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/gilded/outline.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/gilded/shape.png"
+hash = "c8938111b3897e5e9aedba5a10735d69b925c12c43eac9d326c07a630b153e23"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/gilded/shape.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/rune/background.png"
+hash = "ed2b188fc225c7c643100b01c8c51328cf7fa1779c8f889a318c7c3f1ae90667"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/rune/background.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/rune/outline.png"
+hash = "42e4d2ba740af6cd4fdb4d5462e586f70f32cbdb10cbc1f6c715c4b61ca0132a"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/rune/outline.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/rune/shape.png"
+hash = "edf7a53e0569c7aff5f8df6fa31aaaa946b52f6bd5c1b2f8e00dc4fc6b2edd62"
+
+[[files]]
+file = "kubejs/assets/ftbquests/textures/shapes/rune/shape.png.mcmeta"
+hash = "a4f5e3c3235dd128ee6d2ce397217e8c77037dbcf641aaa5bef65824e3b4b168"
 
 [[files]]
 file = "kubejs/assets/neoforge/lang/en_us.json"
@@ -1509,6 +1813,11 @@ hash = "1cb3db95dbf424de74a4572994d7b32fc8560dc31e0495d10825f195b2103462"
 metafile = true
 
 [[files]]
+file = "mods/certain-questing-additions.pw.toml"
+hash = "3a9769ac61e000581bd95dbb9c13aaa4271e0b54348a03d1a1071ae6fc0a0dec"
+metafile = true
+
+[[files]]
 file = "mods/chunky-pregenerator-forge.pw.toml"
 hash = "6f3b2586044baf55d5b1cb07752c9def847208270480bf9d893c803277493c1f"
 metafile = true
@@ -1789,8 +2098,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.6.2.jar"
-hash = "b7d170706424d7a8b2a3aaad320395644909821572883a706dfe3345a169e427"
+file = "mods/firmages-core-0.7.0.jar"
+hash = "103cc04713dc042028670654187c9e597ca82b8729fd901aebc11dca403f1f0b"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
