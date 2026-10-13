@@ -22,6 +22,12 @@ Static proof for config/fancymenu/ (FancyMenu 3.9.14, Drippy 3.1.5, MC 1.21.1, N
              in shaderpacks/ (same filename); config/irisblockcompat-common.toml disables shaders in firmages:origin
              and in every Ad Astra dimension (data/ad_astra/dimension/*.json of the Ad Astra jar in the CurseForge
              instance, or --adastra-jar) and keeps its waving list empty (Complementary maps that id to light sources)
+  slideshows every slideshow_name used in a layout (menu_background or element) is a folder under
+             config/fancymenu/slideshows/ with properties.txt and images/ (SlideshowHandler's rule), the properties
+             name equals the folder name, images/ holds at least one .png/.jpg, and every PNG in it is readable and
+             has the width x height the properties declare; slideshows no layout uses are listed as notes
+  files      every [source:local] path in a layout and every texture path in config/drippyloadingscreen/options.txt
+             exists in the pack
 
 Usage: python dev/check_menus.py [--jar PATH_TO_FANCYMENU_JAR] [--adastra-jar PATH_TO_AD_ASTRA_JAR]
 With --jar (or the jar found in the CurseForge instance), every KNOWN id is also searched in the jar's classes.
@@ -30,6 +36,7 @@ Exit code 0 = all checks pass.
 import argparse
 import math
 import re
+import struct
 import sys
 import tomllib
 import zipfile
@@ -38,6 +45,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 FM = ROOT / "config" / "fancymenu"
 LAYOUTS = FM / "customization"
+SLIDESHOWS = FM / "slideshows"
+DRIPPY_OPTIONS = ROOT / "config" / "drippyloadingscreen" / "options.txt"
 MENU_BUTTONS = ROOT / "mod" / "firmages-core" / "src" / "main" / "java" / "dev" / "firmages" / "core" / "client" / "immersion" / "MenuButtons.java"
 DEFAULT_JAR = Path("C:/Users/Felix/curseforge/minecraft/Instances/Firmament Ages/mods/fancymenu_neoforge_3.9.14_MC_1.21.1.jar")
 INSTANCE_MODS = DEFAULT_JAR.parent
@@ -180,6 +189,71 @@ def check_shaders(adastra_jar, errors, notes):
         if d not in disabled:
             errors.append(f"irisblockcompat-common.toml: Ad Astra dimension {d} not in disabledDimensions")
     notes.append(f"shaders off in {ORIGIN_DIM} and the {len(dims)} Ad Astra dimensions of {jar.name}")
+def png_size(path):
+    """(width, height) from the IHDR chunk, None if the file is not a PNG."""
+    head = path.read_bytes()[:24]
+    if head[:8] != b"\x89PNG\r\n\x1a\n" or head[12:16] != b"IHDR":
+        return None
+    return struct.unpack(">II", head[16:24])
+
+
+def check_slideshows(layouts, errors, notes):
+    """Slideshow names used in layouts resolve to complete slideshow folders; slide files match the properties."""
+    shows = {}
+    for d in sorted(p for p in SLIDESHOWS.iterdir() if p.is_dir()) if SLIDESHOWS.is_dir() else []:
+        props, images = d / "properties.txt", d / "images"
+        if not props.is_file() or not images.is_dir():
+            errors.append(f"slideshows/{d.name}: needs properties.txt and images/ (FancyMenu skips it otherwise)")
+            continue
+        meta = dict(parse_layout(props)).get("slideshow-meta", {})
+        if meta.get("name") != d.name:
+            errors.append(f"slideshows/{d.name}/properties.txt: name '{meta.get('name')}' != folder name")
+        files = sorted((f for f in images.iterdir() if f.suffix.lower() in (".png", ".jpg", ".jpeg")),
+                       key=lambda f: f.name.lower())
+        if not files:
+            errors.append(f"slideshows/{d.name}/images: no .png/.jpg slides")
+        want = (int(meta["width"]), int(meta["height"])) if "width" in meta and "height" in meta else None
+        for f in files:
+            if f.suffix.lower() != ".png":
+                continue
+            size = png_size(f)
+            if size is None:
+                errors.append(f"slideshows/{d.name}/images/{f.name}: not a PNG")
+            elif want and size != want:
+                errors.append(f"slideshows/{d.name}/images/{f.name}: {size[0]}x{size[1]}, properties say {want[0]}x{want[1]}")
+        shows[d.name] = files
+    used = set()
+    for screen, (f, secs) in layouts.items():
+        for n, d in secs:
+            name = d.get("slideshow_name")
+            if name is None:
+                continue
+            used.add(name)
+            if name not in shows:
+                errors.append(f"{f.name}: {n} {d.get('instance_identifier', '?')} uses slideshow '{name}', "
+                              f"no such folder in config/fancymenu/slideshows/")
+            else:
+                notes.append(f"{f.name}: slideshow '{name}' -> {len(shows[name])} slides "
+                             f"({', '.join(x.name for x in shows[name][:1])} .. {shows[name][-1].name})"
+                             if shows[name] else f"{f.name}: slideshow '{name}'")
+    for name in sorted(set(shows) - used):
+        notes.append(f"slideshows/{name} is not used by any layout")
+
+
+def check_files(layouts, errors):
+    """Every local file a layout or Drippy's early loading screen points at exists."""
+    for screen, (f, secs) in layouts.items():
+        for n, d in secs:
+            for k, v in d.items():
+                if v.startswith("[source:local]"):
+                    rel = v[len("[source:local]"):].lstrip("/")
+                    if not (ROOT / rel).is_file():
+                        errors.append(f"{f.name}: {d.get('instance_identifier', n)} {k} -> {rel} missing")
+    if DRIPPY_OPTIONS.is_file():
+        for m in re.finditer(r"^S:(\w+_path) = '([^']+)';", DRIPPY_OPTIONS.read_text(encoding="utf-8"), re.M):
+            rel = m[2].lstrip("/")
+            if rel and not (ROOT / rel).is_file():
+                errors.append(f"drippyloadingscreen/options.txt: {m[1]} -> {rel} missing")
 
 
 def main():
@@ -227,6 +301,9 @@ def main():
             for d in vb:
                 if d.get("is_hidden") != "true" and not all(k in d for k in ("anchor_point", "x", "y", "width", "height")):
                     errors.append(f"{f.name}: {d['instance_identifier']} has no explicit position and size")
+
+    check_slideshows(layouts, errors, notes)
+    check_files(layouts, errors)
 
     # firmages-core part of the hide list
     src = MENU_BUTTONS.read_text(encoding="utf-8")

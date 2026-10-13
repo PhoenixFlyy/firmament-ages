@@ -11,10 +11,37 @@ layout-meta {
 }
 
 menu_background {
-  background_type = slideshow
-  slideshow_name = firmament
+  background_type = image
+  image_path = [source:local]/config/fancymenu/assets/firmament/sky_2304x1296.png
   instance_identifier = fa_title_bg
   show_background = true
+  slide = false
+  repeat_texture = false
+  parallax = true
+  parallax_intensity_x = 0.03
+  parallax_intensity_y = 0.03
+  invert_parallax = false
+  restart_animated_on_menu_load = false
+}
+
+element {
+  element_type = slideshow
+  slideshow_name = firmament_constellation
+  instance_identifier = fa_title_constellation
+  anchor_point = top-left
+  x = 0
+  y = 0
+  width = 640
+  height = 360
+  stretch_x = true
+  stretch_y = true
+  stay_on_screen = false
+  enable_parallax = true
+  invert_parallax = false
+  parallax_intensity_x = 0.6
+  parallax_intensity_y = 0.6
+  fade_in = no_fading
+  opacity = 1.0
 }
 
 element {
