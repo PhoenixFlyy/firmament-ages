@@ -64,8 +64,10 @@ public final class ServerConfig {
 
     public static final List<String> DEFAULT_BOOT_FALLBACK = List.of("dawn");
     public static final String DEFAULT_FINALE_GATEWAY = "firmages:the_origin";
-    /** Felix 2026-10-13: recipe viewer and block overlay open with the Stone Age; nothing of the machinery shows in Dawn. */
-    public static final AgeId DEFAULT_UI_FROM_AGE = AgeId.AGE_0;
+    /** Felix 2026-10-13 (late): the block overlay (Jade) opens with the Stone Age, the recipe viewer (EMI) with the
+     *  Bronze Age; nothing of the machinery shows in Dawn. */
+    public static final AgeId DEFAULT_EMI_FROM_AGE = AgeId.AGE_1;
+    public static final AgeId DEFAULT_JADE_FROM_AGE = AgeId.AGE_0;
     public static final List<String> DEFAULT_EXEMPT_TYPES = List.of("immersiveengineering:mineral_mix", "tfc:collapse", "tfc:landslide");
 
     static {
@@ -155,9 +157,9 @@ public final class ServerConfig {
 
         b.comment("Immersion: what players see of the pack's machinery (SPEC 18)").push("ui");
         UI_EMI_FROM_AGE = b.comment("First Age with the recipe viewer (EMI). Before it EMI is hidden, its toggle key included.")
-            .define("emiFromAge", DEFAULT_UI_FROM_AGE.id(), ServerConfig::isAgeId);
+            .define("emiFromAge", DEFAULT_EMI_FROM_AGE.id(), ServerConfig::isAgeId);
         UI_JADE_FROM_AGE = b.comment("First Age with the block-info overlay (Jade).")
-            .define("jadeFromAge", DEFAULT_UI_FROM_AGE.id(), ServerConfig::isAgeId);
+            .define("jadeFromAge", DEFAULT_JADE_FROM_AGE.id(), ServerConfig::isAgeId);
         UI_WELCOME = b.comment("Each player's first join shows the title and the one-time welcome screen.")
             .define("welcome", true);
         b.pop();
@@ -226,11 +228,11 @@ public final class ServerConfig {
     }
 
     public static AgeId emiFromAge() {
-        return loaded() ? AgeId.byId(UI_EMI_FROM_AGE.get()).orElse(DEFAULT_UI_FROM_AGE) : DEFAULT_UI_FROM_AGE;
+        return loaded() ? AgeId.byId(UI_EMI_FROM_AGE.get()).orElse(DEFAULT_EMI_FROM_AGE) : DEFAULT_EMI_FROM_AGE;
     }
 
     public static AgeId jadeFromAge() {
-        return loaded() ? AgeId.byId(UI_JADE_FROM_AGE.get()).orElse(DEFAULT_UI_FROM_AGE) : DEFAULT_UI_FROM_AGE;
+        return loaded() ? AgeId.byId(UI_JADE_FROM_AGE.get()).orElse(DEFAULT_JADE_FROM_AGE) : DEFAULT_JADE_FROM_AGE;
     }
 
     public static boolean welcome() {
