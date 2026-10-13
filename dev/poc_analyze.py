@@ -128,8 +128,8 @@ def main():
         ids_now = {r["id"] for r in now}
         new = [r for r in now if r["id"] not in prev]
         too_late = [f"{r['id']} -> {r['result']} ({item_age.get(r['result'], '?')})" for r in now
-                    if r["result"] and AGES.index(item_age.get(r["result"], "dawn")) > AGES.index(st)
-                    if item_age.get(r["result"]) in AGES]
+                    if r["result"] and item_age.get(r["result"]) in AGES
+                    and AGES.index(item_age.get(r["result"], "dawn")) > AGES.index(st)]
         missing = [m for m in must if not any(i == m or (m.endswith(":") and i.startswith(m)) for i in ids_now)]
         leaked = [i for i in sorted(ids_now) if i.startswith(tuple(never))]
         byns = collections.Counter(r["id"].split(":")[0] for r in new)
@@ -448,6 +448,11 @@ def byproduct_checks(rows, full, tags, item_age, unlocked, baseline, check):
                 continue
             st = mod_age.get(j.get("type", r["type"]).split(":")[0], "dawn")
             need = max(max(mains.values()), AGES.index(st) if st in AGES else 0)
+            # the recipe cannot run before its ingredients exist either (each slot: its earliest member), so a
+            # byproduct no later than the last ingredient costs nothing (items moved by dev/derive_ages.py)
+            ins = [min((age_of(i) for k, x in sl for i in ([x] if k == "item" else tags.get(x, []) if k == "tag" else [])),
+                       default=0) for sl in _slots(j, [])]
+            need = max([need] + ins)
             late = {b: order[a] for b, a in byps.items() if a > need}
             if not late:
                 continue
@@ -657,22 +662,8 @@ def _outs(o, out, inres=False):
     return out
 
 
-def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
-    path = os.path.join(base, "recipes_full.json")
-    if not os.path.isfile(path):
-        check("C-0 recipes_full.json present (run fa_dump_full)", False, [path])
-        return
-    full = {k: json.loads(v) for k, v in json.load(open(path, encoding="utf-8")).items()}
-    items = set(json.load(open(os.path.join(base, "registries.json"), encoding="utf-8"))["item"])
-    disabled = {i for i, st in item_age.items() if st == "disabled"} | set(tags.get("c:hidden_from_recipe_viewers", []))
-
-    def age_ix(i):
-        return AGES.index(item_age[i]) if item_age.get(i) in AGES else -1
-
-    def members(slot):
-        return {x for k, x in slot if k == "item"} | {i for k, x in slot if k == "tag" for i in tags.get(x, [])}
-
-    # ---- obtainability closure: which items a TFC world can make at all --------------------------------------
+def recipe_records(full, tags, disabled):
+    """(recipe id, ingredient slots, output items) of every recipe JSON; `disabled` items never stand for a tag output."""
     # Tag outputs (More Mekanism Processing, IE, Occultism) resolve to the member Almost Unified keeps: the
     # priority override of the tag, else the first member of a namespace in mod_priorities, else the first member
     # (config/almostunified/unification/materials.json).
@@ -713,7 +704,26 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         trans = j.get("transitional_item", {})
         tid = trans.get("id") if isinstance(trans, dict) else None
         return [x for x in sl if not (tid and ("item", tid) in x)]  # Create sequenced assembly loops on its own item
-    recs = [(rid, slots_of(j), outs_with_tags(j)) for rid, j in full.items()]
+    return [(rid, slots_of(j), outs_with_tags(j)) for rid, j in full.items()]
+
+
+def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
+    path = os.path.join(base, "recipes_full.json")
+    if not os.path.isfile(path):
+        check("C-0 recipes_full.json present (run fa_dump_full)", False, [path])
+        return
+    full = {k: json.loads(v) for k, v in json.load(open(path, encoding="utf-8")).items()}
+    items = set(json.load(open(os.path.join(base, "registries.json"), encoding="utf-8"))["item"])
+    disabled = {i for i, st in item_age.items() if st == "disabled"} | set(tags.get("c:hidden_from_recipe_viewers", []))
+
+    def age_ix(i):
+        return AGES.index(item_age[i]) if item_age.get(i) in AGES else -1
+
+    def members(slot):
+        return {x for k, x in slot if k == "item"} | {i for k, x in slot if k == "tag" for i in tags.get(x, [])}
+
+    # ---- obtainability closure: which items a TFC world can make at all --------------------------------------
+    recs = recipe_records(full, tags, disabled)
 
     def closure(max_age=None):
         """Items obtainable from the world set; with max_age only items of that Age or earlier may enter."""
@@ -791,7 +801,8 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
            f"firmages spagyric recipes: {len(spag)}", f"still present: {gone}"])
     miner_bad = [f"{rid} -> {o}" for rid, j in full.items() if j.get("type") == "occultism:miner"
                  for o in _outs(j, []) if age_ix(o) > AGES.index("age_3")
-                 and not rid.startswith(("occultism:miner/deeps", "occultism:miner/master"))]
+                 and not rid.startswith(("occultism:miner/deeps", "occultism:miner/master", "occultism:miner/eldritch"))]
+    # the ancient eldritch miner (miner/eldritch) has no source in the pack (dev/derive_ages.py: never reachable)
     check("C-3f miners of the Arcane Age give nothing of a later Age", not miner_bad, miner_bad)
 
     # ---- C-4: Industrial Age -----------------------------------------------------------------------------------
@@ -1246,13 +1257,18 @@ LEFTOVERS = [("age_1", ["create:brass_nugget"]),
              ("age_8", ["ad_astra:calorite_plateblock"])]
 
 
-def reach_checks(full, recs, items, tags, item_age, check):
-    try:
-        import tomllib
-        with open(os.path.join(REPO, "dev", "age_map.toml"), "rb") as f:
-            amap = tomllib.load(f)
-    except (ImportError, OSError):
-        amap = {}
+def make_walk(full, recs, items, tags, item_age, amap, extra=None):
+    """The recipe-graph walk of the R- checks: (age_ix, start, walk).
+
+    start(n, without) is the start set of Age index n, walk(n, without, via) returns (have, live, sat) with every item
+    reached at n. dev/derive_ages.py adds what the R- checks leave out through `extra`:
+      "start":       function n -> further start items (loot, world generation, quest rewards); filtered like the rest
+      "transforms":  [(n0, needs, outs)]: from Age index n0, once every item of `needs` is reached, each item of `outs`
+                     that fits the Age is reached (block and entity loot, interactions); each output on its own
+      "recipe_open": function (recipe id, n) -> False when a ProgressiveStages recipe lock keeps the recipe shut at n
+      "stations":    {recipe type: [[items]]} like STATION_ITEMS for types the R- checks leave to the mod-Age model
+    `via` (a dict) receives item -> recipe id or source of the step that first reached it."""
+    extra = extra or {}
     mod_age = amap.get("mods", {})
     # ore pieces of the non-TFC ore veins ([ore_families]: "ns:name" = Age), mined in the world from their Age
     ore_pieces = collections.defaultdict(set)
@@ -1265,45 +1281,67 @@ def reach_checks(full, recs, items, tags, item_age, check):
     def age_ix(i):
         return AGES.index(item_age[i]) if item_age.get(i) in AGES else -1
 
+    def fits(i, n):
+        return age_ix(i) <= n and item_age.get(i) != "disabled"
+
     def station_ix(rid):
         st = mod_age.get(full[rid].get("type", "minecraft:x").split(":")[0], "dawn")
         return AGES.index(st) if st in AGES else 0
 
     def station_groups(rid):
         t = full[rid].get("type", "")
-        groups = list(STATION_ITEMS.get(t, []))
+        groups = list(STATION_ITEMS.get(t, extra.get("stations", {}).get(t, [])))
         if t == "draconicevolution:fusion_crafting":
             lvl = FUSION_INJECTOR.get(str(full[rid].get("techLevel", "draconium")).lower(), "basic")
             groups.append([f"draconicevolution:{lvl}_crafting_injector"])
         return groups
 
-    def start(n, without=()):
-        have = {i for i in items if i.split(":")[0] in WORLD_NS}
+    def start(n, without=(), via=None):
+        src = {}
+        for i in items:
+            if i.split(":")[0] in WORLD_NS:
+                src[i] = "world namespace"
         for st, words in VANILLA_BY_AGE.items():
             if AGES.index(st) <= n:
-                have |= {"minecraft:" + w for w in words.split()}
+                src.update({"minecraft:" + w: f"vanilla world {st}" for w in words.split()})
         for st, drops in BOSS_DROPS.items():
             if AGES.index(st) <= n:
-                have |= set(drops)
+                src.update({d: f"boss drop {st}" for d in drops})
         for st, pats in LATE_WORLD.items():
             if AGES.index(st) <= n:
-                have |= {i for i in items if any(re.search(p_, i) for p_ in pats)}
+                src.update({i: f"planet/End world {st}" for i in items if any(re.search(p_, i) for p_ in pats)})
         for st, got in ore_pieces.items():
             if AGES.index(st) <= n:
-                have |= got
-        have |= set(MOB_DROPS)
-        return {i for i in have if age_ix(i) <= n and item_age.get(i) != "disabled" and i not in without}
+                src.update({i: f"ore vein {st}" for i in got})
+        src.update({i: "mob drop (MOB_DROPS)" for i in MOB_DROPS})
+        if "start" in extra:
+            for i, why_ in extra["start"](n).items():
+                src.setdefault(i, why_)
+        have = {i for i in src if fits(i, n) and i not in without}
+        if via is not None:
+            for i in have:
+                via.setdefault(i, src[i])
+        return have
 
-    def walk(n, without=()):
-        have = start(n, without)
+    def walk(n, without=(), via=None):
+        have = start(n, without, via)
         heat = {rid: HEAT_STATION.get(full[rid].get("heat_requirement")) for rid, _, _ in recs}
         stations = {rid: station_groups(rid) for rid, _, _ in recs}
+        is_open = extra.get("recipe_open", lambda rid, n_: True)
         live = [(rid, sl, set(os_)) for rid, sl, os_ in recs
-                if station_ix(rid) <= n and os_ and all(age_ix(o) <= n and item_age.get(o) != "disabled" for o in os_)]
+                if station_ix(rid) <= n and os_ and all(fits(o, n) for o in os_) and is_open(rid, n)]
+        transforms = [(set(needs), [o for o in outs if fits(o, n) and o not in without], why_)
+                      for n0, needs, outs, why_ in extra.get("transforms", ()) if n0 <= n]
 
         def sat(slot):
             return any((k in ("item", "chem") and x in have) or (k == "tag" and any(i in have for i in tags.get(x, [])))
                        for k, x in slot)
+
+        def add(new, why_):
+            have.update(new)
+            if via is not None:
+                for i in new:
+                    via.setdefault(i, why_)
         grew = True
         while grew:
             grew = False
@@ -1315,18 +1353,35 @@ def reach_checks(full, recs, items, tags, item_age, check):
                     continue
                 if not all(any(i in have for i in grp) for grp in stations[rid]):
                     continue
-                have |= new
+                add(new, rid)
                 grew = True
             for chem, needs in MACHINE_MADE.items():
                 if chem not in have and all(x in have for x in needs):
-                    have.add(chem)
+                    add({chem}, "machine " + "+".join(needs))
                     grew = True
             for seed, got in GROWN.items():
                 new = {g for g in got if seed in have and GROWN_NEEDS.get(seed, seed) in have and g not in have and age_ix(g) <= n}
                 if new:
-                    have |= new
+                    add(new, "grown from " + seed)
+                    grew = True
+            for needs, outs, why_ in transforms:
+                new = {o for o in outs if o not in have}
+                if new and needs <= have:
+                    add(new, why_)
                     grew = True
         return have, live, sat
+
+    return age_ix, start, walk
+
+
+def reach_checks(full, recs, items, tags, item_age, check):
+    try:
+        import tomllib
+        with open(os.path.join(REPO, "dev", "age_map.toml"), "rb") as f:
+            amap = tomllib.load(f)
+    except (ImportError, OSError):
+        amap = {}
+    age_ix, start, walk = make_walk(full, recs, items, tags, item_age, amap)
 
     def first_item(slot):
         k, x = slot[0]
