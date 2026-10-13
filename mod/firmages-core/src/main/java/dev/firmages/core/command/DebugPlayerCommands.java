@@ -26,6 +26,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientboundBundlePacket;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -50,9 +51,11 @@ import net.neoforged.neoforge.network.registration.NetworkChannel;
 import net.neoforged.neoforge.network.registration.NetworkPayloadSetup;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -78,6 +81,9 @@ public final class DebugPlayerCommands {
 
     /** name -> block being mined and the ticks until the stop action */
     private static final Map<String, Prayer> MINING = new HashMap<>();
+
+    /** name -> the mod payloads received since {@link #record} (GameTests read the packet order from it) */
+    private static final Map<String, List<CustomPacketPayload>> RECORDED = new java.util.concurrent.ConcurrentHashMap<>();
 
     private DebugPlayerCommands() {}
 
@@ -146,10 +152,25 @@ public final class DebugPlayerCommands {
         return player;
     }
 
+    /** Starts (or restarts) recording every mod payload the test player {@code name} receives. */
+    public static void record(String name) {
+        RECORDED.put(name, Collections.synchronizedList(new ArrayList<>()));
+    }
+
+    /** The payloads recorded for {@code name} so far, oldest first (empty when not recording). */
+    public static List<CustomPacketPayload> recorded(String name) {
+        List<CustomPacketPayload> l = RECORDED.get(name);
+        if (l == null) return List.of();
+        synchronized (l) {
+            return List.copyOf(l);
+        }
+    }
+
     /** Disconnects a player made by {@link #spawn}. */
     public static void despawn(ServerPlayer p) {
         PRAYING.remove(p.getGameProfile().getName());
         MINING.remove(p.getGameProfile().getName());
+        RECORDED.remove(p.getGameProfile().getName());
         p.connection.onDisconnect(new DisconnectionDetails(Component.literal("debug player left")));
     }
 
@@ -347,7 +368,10 @@ public final class DebugPlayerCommands {
         }
     }
 
-    /** Drops every outbound packet; logs the firmages payloads, particles, titles and chat lines. */
+    /**
+     * Drops every outbound packet; logs the firmages payloads, the ProgressiveStages lock and stage syncs (id only),
+     * particles, titles and chat lines; records the mod payloads while {@link #record} is on.
+     */
     private static final class Capture extends ChannelOutboundHandlerAdapter {
         private final String name;
         private long lastOverlay;
@@ -371,8 +395,15 @@ public final class DebugPlayerCommands {
         private void log(Object msg) {
             if (msg instanceof ClientboundBundlePacket bundle) {
                 for (Packet<?> p : bundle.subPackets()) log(p);
-            } else if (msg instanceof ClientboundCustomPayloadPacket cp && cp.payload().type().id().getNamespace().equals(FirmagesCore.MOD_ID)) {
-                FirmagesCore.LOGGER.info("[debug-player {}] payload {}: {}", name, cp.payload().type().id(), cp.payload());
+            } else if (msg instanceof ClientboundCustomPayloadPacket cp) {
+                List<CustomPacketPayload> rec = RECORDED.get(name);
+                if (rec != null) rec.add(cp.payload());
+                ResourceLocation id = cp.payload().type().id();
+                if (id.getNamespace().equals(FirmagesCore.MOD_ID)) {
+                    FirmagesCore.LOGGER.info("[debug-player {}] payload {}: {}", name, id, cp.payload());
+                } else if (id.getNamespace().equals("progressivestages") && (id.getPath().equals("lock_sync") || id.getPath().equals("stage_sync"))) {
+                    FirmagesCore.LOGGER.info("[debug-player {}] payload {}", name, id);
+                }
             } else if (msg instanceof ClientboundLevelParticlesPacket pp) {
                 FirmagesCore.LOGGER.info("[debug-player {}] particles {} x{} at {} {} {}", name, BuiltInRegistries.PARTICLE_TYPE.getKey(pp.getParticle().getType()),
                     pp.getCount(), Math.floor(pp.getX()), Math.floor(pp.getY()), Math.floor(pp.getZ()));

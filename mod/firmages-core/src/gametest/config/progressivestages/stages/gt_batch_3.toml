@@ -1,0 +1,9 @@
+# GameTest-only stage: CoreGameTests.stageBatchSyncsOncePerPlayer grants and revokes gt_batch_1..4 in one tick
+# (the shape of an Age grant in kubejs/server_scripts/stages/grants.js: the Age plus mob and helper stages).
+
+[stage]
+id = "gt_batch_3"
+display_name = "Sync batch 3 (GameTest)"
+description = "GameTest stage for the sync coalescer."
+icon = "minecraft:paper"
+category = "GameTest"

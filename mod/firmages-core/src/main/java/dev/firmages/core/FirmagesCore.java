@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.command.FirmagesCommands;
+import dev.firmages.core.compat.progressivestages.StageSyncCoalescer;
 import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.miner.OreGuard;
@@ -47,6 +48,8 @@ public final class FirmagesCore {
         bus.addListener(AgeService::onPlayerLoggedIn);
         bus.addListener(FirmagesCommands::register);
         bus.addListener(DebugPlayerCommands::onServerTick);
+        bus.addListener(StageSyncCoalescer::onServerTick);
+        bus.addListener(StageSyncCoalescer::onServerStopped);
         bus.addListener(EventPriority.HIGH, OreGuard::onBreak);
         bus.addListener(EventPriority.LOW, OreGuard::onDrops);
         ShrineEvents.register(bus);

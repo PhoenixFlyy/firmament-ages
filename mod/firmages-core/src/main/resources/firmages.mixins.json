@@ -15,7 +15,8 @@
     "ars.ApparatusMixin",
     "ps.SyncPlayerMixin",
     "ps.SendStageSyncMixin",
-    "ps.PlayerJoinMixin"
+    "ps.PlayerJoinMixin",
+    "ps.StageSyncCoalesceMixin"
   ],
   "injectors": {
     "defaultRequire": 1
