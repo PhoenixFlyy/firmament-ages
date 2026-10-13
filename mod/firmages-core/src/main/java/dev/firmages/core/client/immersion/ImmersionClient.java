@@ -5,6 +5,7 @@ import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.compat.ftbquests.FtbQuestsScreens;
 import dev.firmages.core.compat.tfc.TfcClient;
 import dev.firmages.core.config.ClientConfig;
+import dev.firmages.core.hardship.CaveDwellerGate;
 import dev.firmages.core.immersion.AgeStatus;
 import dev.firmages.core.immersion.ViewerGate;
 import net.minecraft.ChatFormatting;
@@ -12,6 +13,7 @@ import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -28,6 +30,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.ToastAddEvent;
+import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -41,7 +44,7 @@ import java.util.Set;
 /**
  * Client half of the immersion features (SPEC §18): silent joins (blocked screens and toasts), no advancements screen
  * or mod list, EMI, Jade and the TFC inventory tabs gated by Age, the HUD Age indicator, the first-join welcome and the
- * TFC display tweaks.
+ * TFC display tweaks; and the Cave Dweller sound mute (SPEC §19).
  * Physical client only.
  */
 public final class ImmersionClient {
@@ -146,6 +149,17 @@ public final class ImmersionClient {
                 FtbQuestsScreens.open();
             }
             tickWelcome(mc);
+        }
+
+        /** SPEC §19: once the status says the Cave Dweller no longer hunts, every sound of its namespace is dropped
+         *  (its timed cave noises arrive by its own packet even though no dweller can exist). */
+        @SubscribeEvent
+        public static void sound(PlaySoundEvent event) {
+            SoundInstance s = event.getSound();
+            if (s != null && CaveDwellerGate.SOUND_NAMESPACE.equals(s.getLocation().getNamespace())
+                && ClientAgeStatus.known() && !ClientAgeStatus.get().caveDweller()) {
+                event.setSound(null);
+            }
         }
 
         @SubscribeEvent

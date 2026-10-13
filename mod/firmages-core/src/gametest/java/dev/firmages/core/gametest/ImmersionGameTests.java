@@ -101,9 +101,9 @@ public final class ImmersionGameTests {
         ok(h, st.age() == AgeStatus.current(AgeService.state(server).snapshot()), "status Age is the highest unlocked Age: " + st);
         ok(h, st.recipeViewer() == AgeStatus.reached(st.age(), ServerConfig.emiFromAge())
             && st.blockInfo() == AgeStatus.reached(st.age(), ServerConfig.jadeFromAge()), "viewer and overlay follow ui.*FromAge: " + st);
-        // Felix 2026-10-13 (late): Jade from the Stone Age, EMI from the Bronze Age (the defaults a new world gets)
-        ok(h, "age_1".equals(ServerConfig.UI_EMI_FROM_AGE.getDefault()) && "age_0".equals(ServerConfig.UI_JADE_FROM_AGE.getDefault()),
-            "defaults emiFromAge = age_1, jadeFromAge = age_0, got " + ServerConfig.UI_EMI_FROM_AGE.getDefault() + ", " + ServerConfig.UI_JADE_FROM_AGE.getDefault());
+        // Felix 2026-10-13: EMI and Jade both from the Bronze Age (H9; the defaults a new world gets)
+        ok(h, "age_1".equals(ServerConfig.UI_EMI_FROM_AGE.getDefault()) && "age_1".equals(ServerConfig.UI_JADE_FROM_AGE.getDefault()),
+            "defaults emiFromAge = age_1, jadeFromAge = age_1, got " + ServerConfig.UI_EMI_FROM_AGE.getDefault() + ", " + ServerConfig.UI_JADE_FROM_AGE.getDefault());
         String was = ServerConfig.UI_EMI_FROM_AGE.get();
         try {
             ServerConfig.UI_EMI_FROM_AGE.set("dawn");
@@ -150,7 +150,7 @@ public final class ImmersionGameTests {
             for (AgeId age : AgeId.all()) {
                 unlocked.add(age);
                 AgeStatus status = AgeStatus.of(AgeSnapshot.of(List.copyOf(unlocked), 1, 0), tier -> Optional.empty(),
-                    ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge);
+                    ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge, ServerConfig.caveDwellerUntil());
                 AgeStatus synced = sync(server, status);
                 Set<InventoryTab> expected = EnumSet.noneOf(InventoryTab.class);
                 if (age.ordinal() >= AgeId.AGE_0.ordinal()) expected.add(InventoryTab.CALENDAR);

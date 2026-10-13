@@ -12,11 +12,13 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
- * S2C {@code firmages:age_status} (SPEC §11, §18): the world's current Age, its goal item, whether EMI and Jade may
- * show and which TerraFirmaCraft inventory tabs are open ({@link InventoryTab} bit mask). Sent on login and after every
- * change of the global Age state. Drives the HUD Age indicator, the EMI/Jade gating and the TFC tabs on the client.
+ * S2C {@code firmages:age_status} (SPEC §11, §18, §19): the world's current Age, its goal item, whether EMI and Jade
+ * may show, which TerraFirmaCraft inventory tabs are open ({@link InventoryTab} bit mask) and whether the Cave Dweller
+ * still hunts. Sent on login and after every change of the global Age state. Drives the HUD Age indicator, the
+ * EMI/Jade gating, the TFC tabs and the Cave Dweller sound mute on the client.
  */
-public record AgeStatusPayload(String age, String goalItem, boolean recipeViewer, boolean blockInfo, byte tabs) implements CustomPacketPayload {
+public record AgeStatusPayload(String age, String goalItem, boolean recipeViewer, boolean blockInfo, byte tabs, boolean caveDweller)
+    implements CustomPacketPayload {
     public static final Type<AgeStatusPayload> TYPE =
         new Type<>(ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "age_status"));
     public static final StreamCodec<RegistryFriendlyByteBuf, AgeStatusPayload> STREAM_CODEC = StreamCodec.of(
@@ -26,15 +28,16 @@ public record AgeStatusPayload(String age, String goalItem, boolean recipeViewer
             buf.writeBoolean(p.recipeViewer);
             buf.writeBoolean(p.blockInfo);
             buf.writeByte(p.tabs);
+            buf.writeBoolean(p.caveDweller);
         },
-        buf -> new AgeStatusPayload(buf.readUtf(), buf.readUtf(), buf.readBoolean(), buf.readBoolean(), buf.readByte()));
+        buf -> new AgeStatusPayload(buf.readUtf(), buf.readUtf(), buf.readBoolean(), buf.readBoolean(), buf.readByte(), buf.readBoolean()));
 
     public static AgeStatusPayload of(AgeStatus s) {
-        return new AgeStatusPayload(s.age().id(), s.goalItem(), s.recipeViewer(), s.blockInfo(), (byte) InventoryTab.mask(s.tabs()));
+        return new AgeStatusPayload(s.age().id(), s.goalItem(), s.recipeViewer(), s.blockInfo(), (byte) InventoryTab.mask(s.tabs()), s.caveDweller());
     }
 
     public AgeStatus status() {
-        return new AgeStatus(AgeId.byId(age).orElse(AgeId.DAWN), goalItem, recipeViewer, blockInfo, InventoryTab.fromMask(tabs));
+        return new AgeStatus(AgeId.byId(age).orElse(AgeId.DAWN), goalItem, recipeViewer, blockInfo, InventoryTab.fromMask(tabs), caveDweller);
     }
 
     @Override
