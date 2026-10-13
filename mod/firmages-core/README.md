@@ -4,6 +4,10 @@ Custom mod for the Firmament Ages pack (Minecraft 1.21.1, NeoForge 21.1.252, Jav
 
 - Mod id: `firmages`
 - Display name: Firmament Ages Core
+- License: MIT (`LICENSE`; the jar's `neoforge.mods.toml` says `license="MIT"`)
+- Distribution: the CurseForge project **Firmament Ages Core** (the pack lists it as a dependency; project texts,
+  images and console fields in `../../dev/cf/firmages-core-description.md`, `firmages-core-fields.md`). Source:
+  this folder of the public repository `https://github.com/PhoenixFlyy/firmament-ages`.
 - Maven group: `dev.firmages`, base package `dev.firmages.core`
 - Build system: official NeoForged MDK for 1.21.1 (ModDevGradle 2.0.147, Gradle 9.2.1 wrapper, Parchment 2024.11.17)
 
@@ -73,11 +77,14 @@ and Rhino for the binding). All other hooked mods are compileOnly.
 
 ## Shipping the jar in the pack
 
-The mod is not on Modrinth or CurseForge, so it goes into the pack as a plain jar:
+Until the CurseForge project is approved, the mod goes into the pack as a plain jar:
 
 1. Copy `build/libs/firmages-core-<version>.jar` into `FirmamentAges/mods/` (delete the previous version's jar).
 2. Run `packwiz refresh` in `FirmamentAges/`. packwiz tracks the jar directly in `index.toml`
    (hash of the file, no `.pw.toml` metafile), so clients get it via packwiz-installer.
+
+Once the CurseForge project exists, every version is uploaded there first (`dev/cf/UPLOAD-ANLEITUNG.md` section 3)
+and the pack references it with `packwiz curseforge add` / `packwiz update firmages-core`; the jar leaves `mods/`.
 
 `mod/` is listed in `FirmamentAges/.packwizignore`, so sources and build output never enter the pack index.
 The repo root `.gitignore` excludes `mod/firmages-core/build/`, `.gradle/`, `run/`, `repo/` and `libs/*.jar`.

@@ -21,33 +21,62 @@ You start in **Dawn**, a cave-dweller prologue: no pickaxe, no fire, only stones
 | Quantum Age | Fusion, antimatter, Evolved Mekanism, the outer planets | Quantum Core |
 | Singularity Age | Chaotic Draconic gear, the Draconic Reactor, a Stargate | the final boss |
 
-Items, blocks and recipes of a locked Age are hidden in EMI and cannot be used. Machines follow the same rule: no machine produces anything from an Age you have not reached, and automated miners only dig the ores of your Ages. Everything you need in quantity has an automated way, so the pack stays hard without turning into a grind. The quest book is on **K**: every Age is a chapter with three or four main strands that friends can split up, side lines, and one goal quest.
+Items, blocks and recipes of a locked Age are hidden in EMI and cannot be used. Machines follow the same rule: no machine produces anything from an Age you have not reached, and automated miners only dig the ores of your Ages. Ores of a later Age sit in the TerraFirmaCraft veins of your world from day one, disguised as rock until their Age. Everything you need in quantity has an automated way, so the pack stays hard without turning into a grind. The quest book is on **K**: every Age is a chapter with three or four main strands that friends can split up, side lines, and one goal quest.
 
 ## The Shrine
 
-Each signature item is not crafted into the next tier. It is **offered at the Shrine**, an altar you build at the heart of your base and extend with one ring per Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. When the ring is complete, the offering lies on its plinth and the Age's rite is fulfilled, your team prays together at the Shrine Heart. Caelum, the god of the firmament, answers: a beam of light, a changed sky, a new Age. The accepted ring is consecrated: its blocks turn, from the heart outward, into one sky-marble structure with the Age's colour accent. Consecrated blocks cannot be broken, blown up or moved; to rebuild, sneak and punch the Shrine Heart with an empty hand for 60 seconds of maintenance mode, and a broken block gives back its original material. Every awakened ring adds a blessing around the shrine, starting with a circle where no monsters spawn. The offerings stay on the shrine as relics. You will need all nine again at the end.
+Each signature item is not crafted into the next tier. It is **offered at the Shrine**, an altar you build at the heart of your base and extend with one ring per Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. When the ring is complete, the offering lies on its plinth and the Age's rite is fulfilled, your team prays together at the Shrine Heart. Caelum, the god of the firmament, answers: a beam of light, a changed sky, a new Age.
+
+The accepted ring is consecrated: its blocks turn, from the heart outward, into one sky-marble structure with the Age's colour accent. Consecrated blocks cannot be broken, blown up or moved; to rebuild, sneak and punch the Shrine Heart with an empty hand for 60 seconds of maintenance mode, and a broken block gives back its original material. Every awakened ring adds a blessing around the shrine, starting with a circle where no monsters spawn, later faster walking, more health, more XP, faster mining, longer reach, softer falls and luck. The offerings stay on the shrine as relics. You will need all nine again at the end.
 
 ## The Finale
 
-The nine relics are fused into the **Ultimate Singularity**, powered by a Draconic Reactor. It is the heart of a Stargate. Dial the address of **The Origin**, a dimension of floating islands made of the stone of every Age, and face the waves of the gateway, Maledictus and Ignis, and finally The Primordial.
+In the Singularity Age the relics come off their plinths and are fused into the **Ultimate Singularity**, powered by a Draconic Reactor that the pack's own Reactor Controller keeps fuelled. The Singularity is the heart of a Stargate. Dial the address of **The Origin**, a dimension of floating islands made of the stone of every Age, and face the waves of the gateway, Maledictus and Ignis, and finally The Primordial.
 
 ## Requirements
 
-- **Minecraft 1.21.1, NeoForge 21.1.252, Java 21** (the CurseForge App sets up NeoForge and Java for you).
-- **RAM:** 8 GB for the game (set it in the CurseForge App under *Settings → Minecraft → Java Settings*). A PC with 16 GB of RAM is the practical minimum; with less it gets tight.
-- **Dedicated server:** 10 GB heap recommended. A server pack will be offered as an additional file of the release.
-- Built for co-op in one team (FTB Teams). Single player works too.
-- Some mods are in beta on 1.21.1 (Draconic Evolution, Stargate Journey). Back up your world.
+- **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you.
+- **RAM:** 10 GB for the game is recommended; set it in the CurseForge App under *Settings → Minecraft → Java Settings* (the default of 4 GB is not enough). A PC with 16 GB of RAM is the practical minimum.
+- **191 mods.** The first start takes a few minutes.
+- **Dedicated server:** 10 GB heap recommended. A ready-to-run server pack is attached to every release as an additional file.
+
+## Multiplayer
+
+Firmament Ages is written for **one team per server** (FTB Teams). The Ages are server-wide: the shrine, the ceremony and every unlock belong to the whole team, and a player who joins later is in the same Age as everybody else. Two competing teams on one server are not supported. Single player works like a team of one.
+
+## Beta: what to expect
+
+This is a beta. The whole progression is playable from Dawn to the final boss, and every Age, every ring of the shrine, the reactor controller and The Origin have been walked through on a dedicated server. Balance and texts will still change. Known limitations:
+
+- Unlocking an Age reloads the server's datapacks. Expect a freeze of about six to eight seconds during the ceremony, and a slightly longer one for the first unlock after a server start.
+- Draconic Evolution and Stargate Journey are beta mods on 1.21.1. Back up your world before the Space Age.
+- The consecrated shrine, the animated textures and the ceremony visuals have been verified with renders and on the server, not yet in a long client session. Report what looks wrong.
+- The final fight in The Origin has been run with its waves spawned by command; a full real-player run is still ahead. Gateways to Eternity runs the CurseForge build of 5.1.0, which is older than the Modrinth build of the same version.
+- The relics do not float into the injectors on their own: from the Singularity Age on, sneak and use a plinth with an empty hand to take its relic back, then feed them to the fusion crafter. The shrine has no animated idol and the ceremony uses vanilla sounds.
+- Osmium, the ore of the Information Age, comes from the pack's own TerraFirmaCraft vein since 0.6.2 and has seen little play testing.
+- The server pack is about 510 MB.
+
+Please report bugs on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 ## Built with
 
 Firmament Ages Core (firmages-core), the pack's own mod, runs the Ages: the shared Age state, the machine-recipe gate, the miner filter, the Shrine and its ceremony, the Draconic reactor refuelling and The Origin. TerraFirmaCraft carries the early game, Create the kinetics and logistics, Immersive Engineering, Mekanism and Draconic Evolution the tech ladder, Occultism and Ars Nouveau the magic, ProgressiveStages and KubeJS the gating, FTB Quests the quest book.
 
+## Links
+
+- Source (quests, scripts, configs and the mod): [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages)
+- Issues: [github.com/PhoenixFlyy/firmament-ages/issues](https://github.com/PhoenixFlyy/firmament-ages/issues)
+- Firmament Ages Core on CurseForge: the pack's own mod, listed as a dependency of every release
+
+## License
+
+The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmament Ages Core, are released under the MIT License. Every other mod belongs to its authors and keeps its own license; the credits below name each one.
+
 ## Credits
 
 <!-- credits:start -->
 
-Firmament Ages 0.5.0 contains 193 mods. Thank you to every author.
+Firmament Ages 0.6.2 contains 191 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
@@ -180,7 +209,6 @@ Firmament Ages 0.5.0 contains 193 mods. Thank you to every author.
 - **Mekanism: Neutron Activator** by michanide ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mekanism-neutron-activator))
 - **Mekanism: Ponders** by alyx20 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mekanism-ponders))
 - **Mekanism:More Machine** by lost_myself8 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mekanism-more-machine))
-- **MekaTFC** by zhixuan45 ([Modrinth](https://modrinth.com/mod/mekatfc))
 - **MezzConfig** by mezz ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mezzconfig))
 - **ModernFix** by embeddedt ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modernfix))
 - **Modonomicon** by kli_kli ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modonomicon))
@@ -226,7 +254,6 @@ Firmament Ages 0.5.0 contains 193 mods. Thank you to every author.
 - **TerraFirmaCraft AnvilHelper** by Fox2Code ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/terrafirmacraft-anvilhelper))
 - **TFC + IE Crossover** by Nmagpie ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ie-crossover))
 - **TFC Better Blast Furnace** by tadashi_3 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-better-blast-furnace))
-- **TFC Ore Tooltips** by Grimm147 ([Modrinth](https://modrinth.com/mod/tfc-ore-tooltips))
 - **TFC Registry API** by Verph ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-registry-api))
 - **TFC Regrowing Forests** by Verph ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-regrowing-forests))
 - **TFC Support Indicator** by floweynt ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-support-indicator))

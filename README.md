@@ -8,6 +8,8 @@ Each Age has one goal item, and its quest unlocks the next Age. ProgressiveStage
 
 The design documents are in German and live outside this repo, in `../Modpack-Planung/docs/` (`08-Ages-Design.md`, `10-Kernmodliste-v3.md`, `03-Progression-Gating-Technik.md`). All player-facing text in the pack is English.
 
+**Distribution and license.** The pack is published on CurseForge as **Firmament Ages** (beta) with the pack's own mod as the CurseForge project **Firmament Ages Core**; the texts, images and console fields for both are in `dev/cf/` (`UPLOAD-ANLEITUNG.md` is the step list). The pack's own parts (quests, KubeJS scripts, configs, textures, `mod/firmages-core`) are MIT-licensed; every other mod belongs to its authors. Friends install from this repository with packwiz-installer (`dev/release.md`).
+
 ## Repository layout
 
 | Path | Contents | git | packwiz |

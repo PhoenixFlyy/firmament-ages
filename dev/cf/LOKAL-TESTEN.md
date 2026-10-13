@@ -11,7 +11,7 @@ tools\packwiz.exe refresh
 python dev\cf\export_cf.py
 ```
 
-Ergebnis: `dev\exports\FirmamentAges-0.6.2-curseforge-upload.zip` (etwa 3 MB). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet sind heute drei: `firmages-core`, `mekatfc`, `TFC-Ore-Tooltips`.
+Ergebnis: `dev\exports\FirmamentAges-0.6.2-curseforge-upload.zip` (etwa 3 MB). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
 
 ## 2. In der CurseForge-App importieren
 

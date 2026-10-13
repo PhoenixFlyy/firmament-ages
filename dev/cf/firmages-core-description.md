@@ -1,85 +1,84 @@
-# CurseForge mod project: Firmament Ages Core (firmages-core)
-
-Text and settings for the CurseForge **Mod** project of firmages-core. The description (between the two rules) is English and goes into the project's description field as is. The upload checklist below it is for Felix.
-
-| Field | Value |
-|---|---|
-| Project name | Firmament Ages Core |
-| Summary (max. 255 characters) | The core mod of the Firmament Ages modpack: shared Ages for one team, a machine-recipe gate, a miner filter, the Shrine of Caelum with its ceremony, Draconic reactor refuelling and The Origin. |
-| Class | Mods |
-| Main category | Miscellaneous |
-| Additional categories | Server Utility, Magic (the Shrine), API and Library |
-| License | MIT License (`mod/firmages-core/LICENSE`) |
-| Source | optional: link the GitHub repository once it is public; leave empty while it is private |
-| Logo | `dev/cf/avatar-400.png` (400x400, CurseForge avatar size) |
-| Game version / loader | Minecraft 1.21.1, NeoForge, Java 21 |
-| Mod id / jar | `firmages`, `firmages-core-0.6.1.jar` |
-
----
-
-## Firmament Ages Core
+# Firmament Ages Core
 
 **Firmament Ages Core** is the companion mod of the [Firmament Ages](https://www.curseforge.com/minecraft/modpacks/firmament-ages) modpack (Minecraft 1.21.1, NeoForge). It turns a list of progression stages into Ages that a whole team reaches together, makes every machine respect them, and gives the pack its centrepiece: the Shrine of Caelum.
 
-> This mod is made for Firmament Ages. Its Ages, tags, recipes and quests come from the pack's data. In another pack it starts, but it does nothing useful until you provide the same kind of data.
+> This mod is made for Firmament Ages. Its Ages, tags, recipes and quests come from the pack's data. In another pack it starts and does nothing until you provide the same kind of data (stage names, the `firmages:age_items/<stage>` tags and the shrine files). It is published here so the pack can list it as a dependency.
 
-### What it does
+## What it does
 
-- **Shared Ages.** One server-wide Age state (Dawn, then Stone to Singularity Age), mirrored from ProgressiveStages and saved with the world. The pack has one team, so the team's stages are the server's stages.
-- **Machine-recipe gate.** No machine in any mod makes an item of a locked Age. The mod filters the recipe list when it loads, with readers for Create, Immersive Engineering, Mekanism, Occultism, Ars Nouveau, TerraFirmaCraft and Draconic Evolution plus a generic JSON scan. One datapack reload per new Age brings the next Age's recipes back. `/firmages recipes why <id>` explains every decision.
-- **Miner filter.** The Immersive Engineering excavator, fake-player block breakers and Mekanism's Digital Miner only yield ores of unlocked Ages. Prospecting tools only report unlocked ores.
-- **The Shrine.** A Shrine Heart and one Offering Plinth per Age. Each Age adds a ring to the shrine (a Modonomicon multiblock, shown as a ghost preview). Offer the Age's signature item, fulfil the ring's rite (pray at night, keep a lamp lit, charge the capacitors, pray together), then pray at the heart. Caelum answers with a ceremony: music fades, a beam of light, a tinted sky, a title, and the next Age for the whole team. Every awakened ring adds a blessing around the shrine, starting with a circle where no monsters spawn. The offerings stay on the shrine as relics; the Arcane Keystone can be borrowed for the Quantum Age and must be brought back. An accepted ring is consecrated: its blocks become one unbreakable sky-marble family with the Age's colour accent, and a short maintenance mode at the heart lets the team rebuild it.
-- **Draconic reactor refuelling.** A Reactor Controller block refuels a Draconic Evolution reactor through pipes and signals READY by redstone. It never restarts the reactor on its own.
+- **Shared Ages.** One server-wide Age state (Dawn, then Stone to Singularity Age), mirrored from ProgressiveStages and saved with the world. The pack has one team, so the team's stages are the server's stages. A player who joins later is in the same Age as everybody else.
+- **Global recipe gate.** No machine in any mod makes an item of a locked Age. The mod filters the recipe list when it loads, with typed readers for Create, Immersive Engineering, Mekanism, Occultism, Ars Nouveau, TerraFirmaCraft and Draconic Evolution plus a generic JSON scan for everything else. One datapack reload per new Age brings the next Age's recipes back; a dedicated server runs a warm-up reload right after it starts so the first one players wait for is not the slow cold one. `/firmages recipes why <id>` explains every decision.
+- **Miner and prospecting filters.** The Immersive Engineering excavator, fake-player block breakers and Mekanism's Digital Miner only yield ores of unlocked Ages. Prospecting tools only report unlocked ores.
+- **The Shrine.** A Shrine Heart and one Offering Plinth per Age. Each Age adds a ring to the shrine (a Modonomicon multiblock, shown as a ghost preview). Offer the Age's signature item, fulfil the ring's rite (pray at night, keep a lamp lit, charge the capacitors, pray together), then pray at the heart. Caelum answers with a ceremony: music fades, a beam of light, a tinted sky, a title, and the next Age for the whole team. Every awakened ring adds a blessing around the shrine, starting with a circle where no monsters spawn. The offerings stay on the shrine as relics; the Arcane Keystone can be borrowed for the Quantum Age and must be brought back; from the last Age on the relics can be taken for the finale.
+- **Consecration and maintenance mode.** An accepted ring is consecrated: its blocks become one unbreakable sky-marble family with the Age's colour accent, from the heart outward. Sneak and punch the heart with an empty hand for 60 seconds of maintenance mode; then the blocks break and drop their original material, and the ring can be rebuilt.
+- **Reactor Controller.** A block that refuels a Draconic Evolution reactor through pipes or from an adjacent chest and signals READY by redstone. It never restarts the reactor on its own.
 - **The Origin.** The finale dimension of the pack: a fixed Stargate Journey address, an arena, its own spawn list and travel lock, and the end-boss trigger. The fight itself is a KubeJS script of the pack.
-- **Tools for pack makers.** `/firmages ages`, `/firmages recipes audit|why|locked`, `/firmages dump registry`, `/firmages shrine status`, `/firmages selftest`, a KubeJS binding `FirmAges`, Jade tooltips for the shrine. Shrine rings, tiers, offerings, rites and blessings are data files (`data/firmages/firmages_shrine/`, `data/firmages/modonomicon/multiblocks/`) and can be replaced by a datapack.
+- **Tools for pack makers.** `/firmages ages`, `/firmages recipes audit|why|locked`, `/firmages dump registry`, `/firmages shrine status`, `/firmages selftest`, `/firmages ceremony preview`, headless debug players for server-side tests, a KubeJS binding `FirmAges`, Jade tooltips for the shrine. Shrine rings, tiers, offerings, rites and blessings are data files (`data/firmages/firmages_shrine/`, `data/firmages/modonomicon/multiblocks/`) and can be replaced by a datapack.
 
-### Dependencies
+## Dependencies
 
 Required:
-- [NeoForge](https://neoforged.net) 21.1.252 or newer for Minecraft 1.21.1
+
+- [NeoForge](https://neoforged.net) 21.1.252 or newer for Minecraft 1.21.1, Java 21
 - [ProgressiveStages](https://www.curseforge.com/minecraft/mc-mods/progressivestages) 3.0.5 or newer
 - [Modonomicon](https://www.curseforge.com/minecraft/mc-mods/modonomicon)
 
 Optional (the mod hooks into them when they are present):
-- KubeJS (binding `FirmAges`), FTB Teams
-- Create, Immersive Engineering, Mekanism, Occultism, Ars Nouveau, TerraFirmaCraft, Applied Energistics 2 (compat hooks)
+
+- KubeJS (binding `FirmAges`), FTB Teams (one-team guard)
+- Create, Immersive Engineering, Mekanism, Occultism, Ars Nouveau, TerraFirmaCraft, Applied Energistics 2 (recipe readers and miner hooks)
 - Draconic Evolution with Brandon's Core and CodeChicken Lib (reactor controller)
 - Stargate Journey (The Origin's gate)
-- Jade (shrine tooltips), GeckoLib
+- Jade (shrine tooltips)
 
-### Configuration
+## Configuration
 
-`config/firmages-server.toml` (gate, miner filter, prospecting, shrine, blessings, ceremony timing, debug commands) and `config/firmages-client.toml` (ceremony visuals and music).
+`config/firmages-server.toml` (gate, warm-up reload, miner filter, prospecting, shrine, blessings, ceremony timing, debug commands) and `config/firmages-client.toml` (ceremony visuals and music).
 
-### License
+## Source and license
 
-MIT. The textures are generated pixel art made for this mod.
+MIT License. Source: the `mod/firmages-core` folder of the pack repository, [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages/tree/main/mod/firmages-core). Issues go to the [pack's issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues). The textures are generated pixel art made for this mod.
 
-### Changelog
+## Changelog
 
 **0.6.1** (first CurseForge release)
+
 - Warm-up reload: a dedicated server runs one Age reload right after it starts, while nobody is online, so the first reload players wait for is not the slow cold one (`gate.warmupReload`, `gate.warmupDelayTicks`).
 - Joining a world, changing dimension or respawning sends the ProgressiveStages lock sync once instead of twice.
+- Builds against ProgressiveStages 3.0.6, Stargate Journey 0.6.51 and Occultism 1.224.5; the 3.0.5 lower bound for ProgressiveStages stays.
 
 **0.6.0**
+
 - Consecration: when Caelum accepts a ring, its blocks turn into one consecrated family (sky marble with one colour accent per Age), from the heart outward. Consecrated blocks are unbreakable; sneak and punch the heart with an empty hand for 60 s of maintenance, then they break and drop their original material. Rings built before the update are consecrated when the shrine next checks them.
-- Textures v2: redrawn items, animated signature items and altar top.
-- MIT licence.
+- Textures v2: redrawn items, animated signature items and altar top, the consecrated block family.
+- MIT License.
 
 **0.5.0**
-- Shrine: rings 0 to 8 with their rites and blessings (sanctuary, walking speed, health, XP, mining speed, reach, fall damage, luck), the Keystone lending of the Quantum Age, Jade tooltips, generated block textures.
-- The Origin: own travel lock, `mob_9` spawn list, hardened boss trigger.
-- Reactor Controller for the Draconic reactor (0.4.0), The Origin and the end-boss scaffolding (0.4.0).
-- Machine-recipe gate with late pass, miner filter, stage-aware prospecting (0.2.x), core Age state and reload orchestration (0.1.x).
 
----
+- Keystone lending: the Arcane Keystone can be borrowed from its plinth in the Quantum Age and must rest on it again before the next ceremony.
+- Blessing effects for rings 0 to 8: sanctuary, walking speed, health, XP, mining speed, reach, fall damage, luck.
+- The energy rite of the Electric ring (charged IE capacitors), Jade tooltips for the heart and the plinths.
+- The Origin: own travel lock from the Singularity Age, its own spawn list, hardened boss trigger.
+- Generated block textures.
 
-## Upload checklist (Felix)
+**0.4.0**
 
-1. **Build state:** upload `mods/firmages-core-0.6.1.jar`; its `neoforge.mods.toml` says `license="MIT"`, the same licence as the project. CurseForge moderators compare them.
-2. **Project:** curseforge.com → *Create Project* → Minecraft → *Mods*. Fields from the table above, description from the section between the rules, avatar `dev/cf/avatar-400.png`. The modpack link in the first paragraph assumes the slug `firmament-ages`; fix it once the modpack project exists (or drop the link for the first submission).
-3. **File:** *Upload File* → the jar; *Release type* **Beta** (the pack is in development, and two required mods of the pack are beta); game versions **1.21.1**, loader **NeoForge**, Java 21; changelog: the 0.6.1 and 0.6.0 entries above.
-4. **Relations** (on the file): *Required Dependency* ProgressiveStages and Modonomicon; *Optional Dependency* KubeJS, Create, Immersive Engineering, Mekanism, Draconic Evolution, Stargate Journey, Jade.
-5. **Wait for approval** (usually hours to a few days). Note the **project id** and the **file id** shown on the file page.
-6. **Pack:** in the repo root `tools\packwiz.exe curseforge add --addon-id <project id> --file-id <file id>`, delete `mods/firmages-core-0.6.1.jar`, `tools\packwiz.exe refresh`, commit. From then on the pack lists the mod in the CurseForge manifest instead of carrying the jar in `overrides/`.
-7. **Every later version:** upload the new jar to this project first, then update the pack's metafile (`packwiz curseforge add` with the new file id, or `packwiz update firmages-core`).
+- Reactor Controller for the Draconic reactor (refuel through pipes, READY by redstone, no auto-restart) and the fuel-port item capability.
+- The Origin: the dimension, the arena, the fixed Stargate Journey address and the return gate, the end-boss scaffolding.
+
+**0.3.0 to 0.3.3**
+
+- The Shrine: Shrine Heart, Offering Plinths, rings 0 to 2 as Modonomicon multiblocks with ghost preview, the state machine (offering, rite, prayer), the Age ceremony with beam, sky tint, titles and music fade (0.3.0).
+- Rings 3 to 8 and one blessing per Age as data (0.3.1).
+- The duplicate ProgressiveStages lock sync inside a reload is skipped (0.3.2); 0.3.3 is the first build shipped with both.
+
+**0.2.0 and 0.2.1**
+
+- The machine-recipe Age gate with typed readers for Create, Immersive Engineering, Mekanism and Occultism plus the JSON output scan, `/firmages recipes audit|why|locked`, cache flush for the Occultism mineshaft and the Ars apparatus (0.2.0).
+- The IE excavator filter, the fake-player ore guard, stage-aware prospecting through the KubeJS binding (0.2.0).
+- Late pass of the gate for recipes other mods inject after the recipe manager loads (0.2.1).
+
+**0.1.0 and 0.1.1**
+
+- Age state saved with the world and mirrored to `<world>/firmages/ages.json`, the Age index from the `firmages:age_items|age_blocks|age_fluids/<age>` tags, the coalescing reload scheduler, the commands `/firmages ages|dump registry|reload|selftest`, the KubeJS binding `FirmAges`, the server and client configs.
+- Boot fallback read from `config/` (0.1.1).

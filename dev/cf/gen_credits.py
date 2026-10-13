@@ -23,6 +23,9 @@ CACHE = ROOT / "dev" / "exports" / "cf-work" / "api"
 UA = {"User-Agent": "PhoenixFlyy/FirmamentAges gen_credits (private modpack tooling)"}
 START, END = "<!-- credits:start -->", "<!-- credits:end -->"
 OWN_JARS = {"firmages-core": ("Firmament Ages Core (firmages-core)", "PhoenixFlyy", "part of this pack")}
+# Metafiles that are not in the CurseForge upload (decided 2026-10-13: MekaTFC replaced by the pack's own osmium vein,
+# TFC Ore Tooltips dropped). Listed by metafile stem so the credits are right even while the files are still in mods/.
+EXCLUDE = {"mekatfc", "tfc-ore-tooltips"}
 
 
 def get_json(url, cache_name):
@@ -57,6 +60,8 @@ def entries():
         swap[d["filename"]] = d
     out = []
     for f in sorted(MODS.glob("*.pw.toml")):
+        if f.name[: -len(".pw.toml")] in EXCLUDE:
+            continue
         d = tomllib.loads(f.read_text(encoding="utf-8"))
         d = swap.get(d["filename"], d)
         up = d.get("update", {})
