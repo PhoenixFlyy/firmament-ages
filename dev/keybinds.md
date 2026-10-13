@@ -31,6 +31,7 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 | Caps Lock | Voice chat push-to-talk | `key.voice_chat` |
 | ; (semicolon) | TFC chisel mode | `tfc.key.cycle_chisel_mode` |
 | . (period) | Tom's Storage terminal | `key.toms_storage.open_terminal` |
+| H (hold) | Show the Age indicator (firmages-core HUD) | `key.firmages.show_age` |
 
 ## Alt combos (late-Age tools and secondary functions)
 

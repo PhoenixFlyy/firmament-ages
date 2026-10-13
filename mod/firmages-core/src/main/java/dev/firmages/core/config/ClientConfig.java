@@ -47,7 +47,7 @@ public final class ClientConfig {
 
         b.comment("Immersion (SPEC 18): what the client shows of the pack's machinery").push("ui");
         HUD_MODE = b.comment("Age indicator top left: FADE = shown after joining and after an Age change, then fades;",
-                "also shown while the 'Show Age' key is held (default Left Alt). ALWAYS or NEVER.")
+                "also shown while the 'Show Age' key is held (default H). ALWAYS or NEVER.")
             .defineEnum("hudMode", HudFade.Mode.FADE);
         HUD_FADE_SECONDS = b.comment("Seconds the Age indicator stays after joining or an Age change (FADE).")
             .defineInRange("hudFadeSeconds", 6, 1, 120);

@@ -64,3 +64,4 @@ key_key.jade.config:key.keyboard.unknown
 key_key.jade.show_recipes:key.keyboard.unknown
 key_key.jade.show_uses:key.keyboard.unknown
 key_key.immersiveengineering.railgunZoom:key.keyboard.unknown
+key_key.firmages.show_age:key.keyboard.h

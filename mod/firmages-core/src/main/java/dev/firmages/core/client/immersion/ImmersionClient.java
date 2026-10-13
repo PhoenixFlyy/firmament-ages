@@ -44,9 +44,9 @@ import java.util.Set;
  * Physical client only.
  */
 public final class ImmersionClient {
-    /** Hold to show the Age indicator. Left Alt: free as a plain key in the pack (ux-screens §4.3 uses Alt only as a modifier). */
+    /** Hold to show the Age indicator. H: free as a plain key in the pack (Left Alt is Create's tool menu/toolbelt, Railways and Copycats; dev/keybinds.md). */
     public static final KeyMapping SHOW_AGE = new KeyMapping("key.firmages.show_age", KeyConflictContext.IN_GAME,
-        InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, "key.categories.firmages");
+        InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, "key.categories.firmages");
     private static final ResourceLocation TFC_THIRST_LAYER = ResourceLocation.fromNamespaceAndPath("tfc", "thirst");
     /** Ticks after the first status before the welcome title, and from the title to the welcome screen. */
     private static final int WELCOME_TITLE_DELAY = 40;
