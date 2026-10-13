@@ -1,5 +1,7 @@
 # Firmament Ages - Mystical Agriculture 8.0.28 common config (only the keys the pack changes).
-# Doc 08 section 3.1 rule 2: foreign worldgen is off; Mystical Agriculture is a late seed layer (age_6), not an ore source.
+# Doc 08 section 3.1 rule 2: foreign worldgen is off; Mystical Agriculture is a late seed layer (age_6). Its inferium,
+# prosperity and soulstone (with soulium ore) come from the pack's TFC veins instead, hidden until age_6
+# (kubejs/startup_scripts/mystical_veins.js, decision 8A); souliumOreChance does not apply to them.
 # Key names verified in the file the mod generated on the test server (2026-09-30). NeoForge adds every missing key.
 
 [World]

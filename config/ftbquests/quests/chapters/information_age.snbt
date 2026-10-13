@@ -808,6 +808,9 @@
 		}
 		{
 			dependencies: ["12AA975B971EC62B"]
+			icon: {
+				id: "mysticalagriculture:inferium_essence"
+			}
 			id: "002A92F3E9C8D81F"
 			optional: true
 			rewards: [
@@ -833,6 +836,24 @@
 					item: {
 						count: 1
 						id: "mysticalagriculture:inferium_essence"
+					}
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "18B431469A1330AA"
+					item: {
+						count: 1
+						id: "mysticalagriculture:prosperity_shard"
+					}
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "632D11C7696BF019"
+					item: {
+						count: 1
+						id: "mysticalagriculture:soulstone"
 					}
 					type: "item"
 				}

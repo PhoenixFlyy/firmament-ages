@@ -53,5 +53,185 @@ locked = [
 ]
 
 # >>> generated:ore_overrides >>>
-# (no ore becomes visible in this stage)
+# 36 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/chalk"
+display_as = "id:tfc:rock/raw/chalk"
+drop_as = "id:tfc:rock/loose/chalk"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/chert"
+display_as = "id:tfc:rock/raw/chert"
+drop_as = "id:tfc:rock/loose/chert"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/claystone"
+display_as = "id:tfc:rock/raw/claystone"
+drop_as = "id:tfc:rock/loose/claystone"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/conglomerate"
+display_as = "id:tfc:rock/raw/conglomerate"
+drop_as = "id:tfc:rock/loose/conglomerate"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/dolomite"
+display_as = "id:tfc:rock/raw/dolomite"
+drop_as = "id:tfc:rock/loose/dolomite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/limestone"
+display_as = "id:tfc:rock/raw/limestone"
+drop_as = "id:tfc:rock/loose/limestone"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/shale"
+display_as = "id:tfc:rock/raw/shale"
+drop_as = "id:tfc:rock/loose/shale"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:firmages:ore/inferium/tuff"
+display_as = "id:tfc:rock/raw/tuff"
+drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/andesite"
+display_as = "id:tfc:rock/raw/andesite"
+drop_as = "id:tfc:rock/loose/andesite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/basalt"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/dacite"
+display_as = "id:tfc:rock/raw/dacite"
+drop_as = "id:tfc:rock/loose/dacite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/gneiss"
+display_as = "id:tfc:rock/raw/gneiss"
+drop_as = "id:tfc:rock/loose/gneiss"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/marble"
+display_as = "id:tfc:rock/raw/marble"
+drop_as = "id:tfc:rock/loose/marble"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/phyllite"
+display_as = "id:tfc:rock/raw/phyllite"
+drop_as = "id:tfc:rock/loose/phyllite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/quartzite"
+display_as = "id:tfc:rock/raw/quartzite"
+drop_as = "id:tfc:rock/loose/quartzite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/rhyolite"
+display_as = "id:tfc:rock/raw/rhyolite"
+drop_as = "id:tfc:rock/loose/rhyolite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/schist"
+display_as = "id:tfc:rock/raw/schist"
+drop_as = "id:tfc:rock/loose/schist"
+
+[[ores.overrides]]
+target = "id:firmages:ore/prosperity/slate"
+display_as = "id:tfc:rock/raw/slate"
+drop_as = "id:tfc:rock/loose/slate"
+
+[[ores.overrides]]
+target = "id:mysticalagriculture:soulstone"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
+
+[[ores.overrides]]
+target = "id:mysticalagriculture:soulium_ore"
+display_as = "id:tfc:rock/raw/basalt"
+drop_as = "id:tfc:rock/loose/basalt"
 # <<< generated:ore_overrides <<<

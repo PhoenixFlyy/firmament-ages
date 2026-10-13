@@ -715,6 +715,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         return
     full = {k: json.loads(v) for k, v in json.load(open(path, encoding="utf-8")).items()}
     items = set(json.load(open(os.path.join(base, "registries.json"), encoding="utf-8"))["item"])
+    reg_blocks = set(json.load(open(os.path.join(base, "registries.json"), encoding="utf-8"))["block"])
     disabled = {i for i, st in item_age.items() if st == "disabled"} | set(tags.get("c:hidden_from_recipe_viewers", []))
 
     def age_ix(i):
@@ -1137,6 +1138,64 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           [f"leftover ids {gone_ns[:5]}", f"ore blocks {len(osm_blocks)}", f"ladder {len(ladder)} on {ladder_in}",
            f"other consumers {bad_eaters}", f"heating {len(heat)}", f"casting {cast}", f"welding {weld}",
            f"raw/ore tag {raw_tag}", f"wrong Age {bad_age[:5]}"])
+
+    # ---- C-MA: the Mystical Agriculture veins (decision 8A, 2026-10-13; startup_scripts/mystical_veins.js) -------
+    # Three TFC veins replace MA's own ore generation (off in config/mysticalagriculture-common.toml): each block they
+    # place is registered, sits in its host rock, is in age_blocks/age_6 and nowhere else, and has an age_6 ore
+    # override that shows (and drops) exactly its host rock; the blocks' items and MA's mined products are age_6.
+    kdata = os.path.join(REPO, "kubejs", "data")
+    ma_veins = {"inferium": "mysticalagriculture:inferium_essence", "prosperity": "mysticalagriculture:prosperity_shard",
+                "soulstone": None}
+    vein_tag = json.load(open(os.path.join(kdata, "tfc", "tags", "worldgen", "placed_feature", "in_biome", "veins.json"),
+                              encoding="utf-8"))["values"]
+    stage_text = open(os.path.join(REPO, "config", "progressivestages", "stages", "age_6.toml"), encoding="utf-8").read()
+    ovr = {m.group(1): (m.group(2), m.group(3)) for m in re.finditer(
+        r'target = "id:([^"]+)"\ndisplay_as = "id:([^"]+)"\ndrop_as = "id:([^"]+)"', stage_text)}
+    block_age = {}
+    for p in sorted(os.listdir(os.path.join(kdata, "firmages", "tags", "block", "age_blocks"))):
+        for v in json.load(open(os.path.join(kdata, "firmages", "tags", "block", "age_blocks", p), encoding="utf-8"))["values"]:
+            block_age.setdefault(v["id"] if isinstance(v, dict) else v, []).append(p[:-5])
+    ma_bad, placed = [], set()
+    for vein, product in ma_veins.items():
+        cf = os.path.join(kdata, "firmages", "worldgen", "configured_feature", "vein", vein + ".json")
+        pf = os.path.join(kdata, "firmages", "worldgen", "placed_feature", "vein", vein + ".json")
+        if not (os.path.isfile(cf) and os.path.isfile(pf)) or f"firmages:vein/{vein}" not in vein_tag:
+            ma_bad.append(f"{vein}: configured/placed feature or the tfc:in_biome/veins entry missing")
+            continue
+        for b in json.load(open(cf, encoding="utf-8"))["config"]["blocks"]:
+            rocks = [r.rsplit("/", 1)[1] for r in b["replace"] if r.startswith("tfc:rock/raw/")]
+            if len(rocks) != 1 or len(b["replace"]) != 1:
+                ma_bad.append(f"{vein}: replace {b['replace']} is not one TFC raw rock")
+                continue
+            for w in b["with"]:
+                blk = w["block"]
+                placed.add(blk)
+                if blk not in reg_blocks:
+                    ma_bad.append(f"{vein}: {blk} is not a registered block")
+                if blk.startswith("firmages:") and not blk.endswith("/" + rocks[0]):
+                    ma_bad.append(f"{vein}: {blk} placed in {rocks[0]}")
+                if block_age.get(blk) != ["age_6"]:
+                    ma_bad.append(f"{vein}: {blk} in age_blocks {block_age.get(blk)}, want only age_6")
+                if ovr.get(blk) != (f"tfc:rock/raw/{rocks[0]}", f"tfc:rock/loose/{rocks[0]}"):
+                    ma_bad.append(f"{vein}: {blk} age_6 override {ovr.get(blk)}, want its host rock {rocks[0]}")
+                if blk in items and item_age.get(blk) != "age_6":
+                    ma_bad.append(f"{vein}: item {blk} is {item_age.get(blk)}")
+                lt = os.path.join(kdata, "firmages", "loot_table", "blocks", *blk.split(":", 1)[1].split("/")) + ".json"
+                if product and (not os.path.isfile(lt) or product not in open(lt, encoding="utf-8").read()):
+                    ma_bad.append(f"{vein}: {blk} has no loot table dropping {product}")
+    for i in ("mysticalagriculture:inferium_essence", "mysticalagriculture:prosperity_shard",
+              "mysticalagriculture:soulium_dust", "mysticalagriculture:soulstone", "mysticalagriculture:soulstone_cobble"):
+        if item_age.get(i) != "age_6":
+            ma_bad.append(f"{i} is {item_age.get(i)}, want age_6")
+    ma_cfg = open(os.path.join(REPO, "config", "mysticalagriculture-common.toml"), encoding="utf-8").read()
+    ma_gen_on = [k for k in ("generateProsperityOre", "generateInferiumOre", "generateSoulstone")
+                 if not re.search(r"\b%s\s*=\s*false" % k, ma_cfg)]
+    check("C-MA Mystical Agriculture veins: inferium (21 rocks), prosperity (13) and soulstone (basalt) as TFC veins; "
+          "every placed block registered, in its host rock, only in age_blocks/age_6, disguised as that rock until "
+          "age_6; block items, essence, shards, soulium dust and soulstone age_6; MA's own ore generation off",
+          not ma_bad and not ma_gen_on and len([b for b in placed if b.startswith("firmages:ore/inferium/")]) == 21
+          and len([b for b in placed if b.startswith("firmages:ore/prosperity/")]) == 13,
+          ma_bad + [f"MA worldgen on: {ma_gen_on}"] * bool(ma_gen_on) + [f"placed blocks {len(placed)}"])
 
     # ---- C-W: Mowzie's Mobs boss drops -------------------------------------------------------------------------
     mow = {"mowziesmobs:ice_crystal": "age_4", "mowziesmobs:music_disc_petiole": "age_4", "mowziesmobs:sculptor_staff": "age_5",

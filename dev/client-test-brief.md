@@ -1,5 +1,16 @@
 # Client-Test
 
+## Mystical-Agriculture-Adern (Entscheidung 8A)
+
+Neu: Inferium-Erz (alle Gesteine, y -32 bis 100), Prosperity-Erz (magmatisch und metamorph, tief, y -64 bis 30) und
+Seelenstein mit etwas Soulium-Erz (nur in Basalt) kommen als TFC-Adern; bis zur Informationszeit sehen sie aus wie ihr
+Gestein und lassen auch nur Gestein fallen. In einer neuen Welt (Adern entstehen nur in neuen Chunks) mit
+`/stage grant @s age_5` eine Ader suchen und abbauen: Fels, kein Treffer im Prospektor. Nach `/stage grant @s age_6`:
+der Block zeigt das Gestein mit MAs grünem bzw. hellblauem Erz-Overlay (achte auf schwarze Pixel um das Overlay),
+gibt Inferium-Essenz bzw. Prosperity-Splitter, der Prospektor findet ihn; Seelenstein erscheint in Basalt und
+taucht mit seinen Baublöcken in EMI auf. Die Nebenquest „Mystical Agriculture“ der Informationszeit verlangt jetzt
+Essenz, Splitter und Seelenstein. Melde, ob Du die Adern in einer Sitzung mit dem Prospektor findest.
+
 ## 0.7.1 Nachtrag (Entscheidungen 2026-10-13 spät, Pack 0.7.1, firmages-core 0.7.1)
 
 Drei Dinge ändern die 0.7.0-Liste unten; der Rest gilt unverändert. Server-Teil statisch geprüft

@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "firmages:vein/osmium"
+    "firmages:vein/osmium",
+    "firmages:vein/inferium",
+    "firmages:vein/prosperity",
+    "firmages:vein/soulstone"
   ]
 }
