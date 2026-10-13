@@ -1,4 +1,6 @@
-# Client-Test (Stand 2026-10-13, Pack 0.7.0, firmages-core 0.7.0)
+# Client-Test
+
+## 0.7.0 Immersion (Stand 2026-10-13, Pack 0.7.0, firmages-core 0.7.0, nach Review)
 
 Diese Phase heißt **Immersion**: Ladebildschirm, Titelbild, Standard-Optionen, stiller Join, EMI und Jade erst ab
 der Steinzeit, HUD-Age-Anzeige, Willkommen, Questbuch im Firmament-Stil mit versteckten Kapiteln, TFC ohne Durst und
@@ -6,7 +8,7 @@ ohne Ernährungsstrafe. Der Server-Teil ist auf dem Test-Server geprüft (`dev/p
 alles unten kann nur ein echter Client zeigen. Reihenfolge so lassen: die ersten Punkte gibt es nur beim allerersten
 Start eines frischen Profils.
 
-## Vorbereitung
+### Vorbereitung
 
 1. Zip bauen und **als neues Profil** importieren (`dev\cf\LOKAL-TESTEN.md`, Schritte 1 und 2). Ein bestehendes
    Profil behält seine `options.txt` und `emi.css`; Default Options greift nur beim ersten Start. Wer das alte Profil
@@ -14,11 +16,11 @@ Start eines frischen Profils.
 2. Test-Server starten (`LOKAL-TESTEN.md`, Schritt 3), **frische Welt** (`python dev\run_server.py --wipe-world --hold 0`),
    `whitelist add <Name>`, noch **kein** `op` (sonst kommen RCON- und Op-Meldungen in den Chat).
 
-## Was Du anschaust, in dieser Reihenfolge
+### Was Du anschaust, in dieser Reihenfolge
 
 1. **Erster Start, frühes Ladefenster.** Statt des roten NeoForge-Fensters: dunkler Firmament-Hintergrund, Wortmarke,
    goldener Balken, kein Log-Text. Ist der allererste Start noch rot, ein zweites Mal starten und dort prüfen
-   (`configml.toml` muss `earlyWindowProvider = "drippy_early_window"` enthalten).
+   (`config/fml.toml` muss `earlyWindowProvider = "drippy_early_window"` enthalten).
 2. **Spätes Laden (Resource-Reload).** Wortmarke und goldener Fortschrittsbalken auf dem Hintergrundbild, kein
    Mojang-Logo.
 3. **Titelbildschirm.** Diashow der neun Shrine-Bilder (etwa 9 s pro Bild, Überblendung), Wortmarke oben links, vier
@@ -28,9 +30,14 @@ Start eines frischen Profils.
 4. **Optionen eines frischen Profils.** GUI-Scale 3, Fenster (kein Vollbild), dunkler Ladehintergrund, keine
    Tutorial-Toasts, keine Barrierefreiheits-Abfrage, keine Mehrspieler-Warnung. **Steuerung:** Sprint = Shift links,
    Schleichen = Strg links, Questbuch = K, „Show Age (hold)“ = **H** (Kategorie Firmament Ages), Fortschritte (L)
-   ungebunden. Controlling: Filter „Conflicts“ zeigt für normale Spieltasten nichts.
+   ungebunden. Controlling, Filter „Conflicts“: erwartet sind nur noch die Halte-Modifikatoren auf Shift/Strg
+   (Create, AE2, Jade, Mekanism, Apotheosis, Hypertube) und zwei Restkonflikte, die das Review gefunden hat:
+   **Tab** (Spielerliste und „Rotate mode“ von Create Simulated) und **Y** (Cataclysm „Ability“ und
+   „Chestplate ability“). Sag, ob Dich die beiden stören; dann legen wir sie um. Jeder andere Konflikt: melden.
 5. **Beitreten (frischer Spieler).** Kein Bildschirm „Enhanced Celestials 2“, keine Chat-Zeilen von Mods (Ars Nouveau
-   Lichter oder Makeship, Train Utilities, Crash Assistant, Simple Voice Chat „Press V“, Backups, ProgressiveStages).
+   Lichter oder Makeship, Train Utilities, Crash Assistant, Simple Voice Chat „Press V“, Backups, ProgressiveStages,
+   keine Zeile „Reloaded with no KubeJS errors“). Kein „Worn Notebook“ von Ars Nouveau im Inventar. Die Verbindung
+   klappt ohne Fehler „missing channels“ (FancyMenu, Drippy, Melody, Konkrete und CQA sind nur auf dem Client).
    Nach etwa 2 s Titel „Firmament Ages“ mit Untertitel „The sky remembers. Kindle the first spark.“, etwa 5 s später
    der Willkommensbildschirm mit drei Feldern (The Ages, Your Path mit der K-Taste, Caelum Watches). „Show my path (K)“
    öffnet das Questbuch, Esc führt zurück ins Spiel. Bei schmalem und breitem Fenster ansehen.
@@ -40,7 +47,9 @@ Start eines frischen Profils.
    oben und blendet aus; solange **H** gehalten wird, ist sie da und blendet nach dem Loslassen in 1 s aus. Bei F1, F3
    und offenen Bildschirmen unsichtbar.
 8. **Dawn: nichts von der Maschinerie.** EMI fehlt ganz, auch mit Strg+O; kein Rezeptbuch-Knopf im Inventar; Jade zeigt
-   beim Anschauen eines Blocks nichts. Item-Tooltips ohne Modnamen (auch kein blauer „Minecraft“).
+   beim Anschauen eines Blocks nichts. Item-Tooltips ohne Modnamen (auch kein blauer „Minecraft“). Im Inventar
+   oben links **keine FTB-Knöpfe** (Seitenleiste ist aus, `config/ftblibrary-client.snbt`, neu im Review). R oder U
+   über einem Item im Inventar öffnet nichts.
 9. **Questbuch (K).** Firmament-Look: Nachthimmel mit dem Shrine der Age hinter den Quests, Age-Banner über der oberen
    Reihe ohne Überlappung, Quest-Formen (gold für Ziel, Rune für Einstieg und Keystones, Glut für Nebenquests),
    bewegter Sternhimmel (Certain Questing Additions), der beim Scrollen und Zoomen mitgeht. Sichtbar sind **nur
@@ -59,13 +68,37 @@ Start eines frischen Profils.
     „Stone Age · Goal: Hearthstone“, EMI erscheint, Jade zeigt Blöcke (ohne Modnamen-Zeile), das Kapitel Stone Age
     taucht im Questbuch auf. In EMI fehlen Werkbank, Ofen, Fackel und Eimer (spätere Age) und nie erreichbare Items;
     Quest-Icons solcher Items (Multiblöcke, Stargate) werden trotzdem gezeigt.
-14. **Weitere Age** (`/stage grant @s age_1`): genau ein neues Kapitel (Bronze Age), HUD mit dem neuen Ziel.
+14. **Weitere Age** (`/stage grant @s age_1`): genau ein neues Kapitel (Bronze Age), HUD mit dem neuen Ziel. Im
+    Chat steht dabei die ProgressiveStages-Zeile „Age 1: Bronze Age - …“ (siehe unten, Entscheidung offen).
+15. **Neue Belegung im Alltag.** In einer Create-Hypertube mit **Shift** (jetzt Sprint) aussteigen; mit **Strg**
+    schleichend an AE2-Kabel und Create-Blöcken bauen. Sag, ob sich etwas falsch anfühlt.
 
-## Was Du meldest
+### Was Du meldest
 
 - Pro Punkt ja oder nein, bei Nein ein Screenshot.
 - `logs\latest.log` des Client-Profils, wenn etwas fehlt oder rot ist; bei einem Absturz den Crash-Report.
 - Ob Dir an Texten (Willkommen, HUD, Welcome-Kapitel) etwas nicht gefällt.
+
+### Offen nach dem Review (Deine Entscheidung, kein Client-Test)
+
+- **Eigene Schrift** (Entscheidung 2: „custom logo/buttons/font“) ist **nicht** umgesetzt: Logo und Knöpfe sind
+  eigene Bilder, die Texte nutzen die Minecraft-Schrift. Willst Du eine eigene Schrift (ganzes Spiel oder nur Titel)?
+- EMI und Jade öffnen mit der **Steinzeit (`age_0`)**; im Auftrag stand `age_1`, das ist hier die Bronzezeit. Ändern:
+  `ui.emiFromAge` und `ui.jadeFromAge` in `firmages-server.toml`.
+- Ernährung: Untergrenze ist TFCs Startwert (0,85, Lebensanzeige etwa 850), nicht der volle Vanilla-Wert (1,0).
+  Volle Gesundheit ab Start: in `tfc-server.toml` `nutritionDefaultHealthModifier = 1.0`.
+- Jede neue Age schreibt die ProgressiveStages-Zeile „Age N: …“ in den Chat (`unlock_message` in
+  `config/progressivestages/stages/age_N.toml`). Behalten oder leeren?
+- Industrial Age, Strang Logistik: Quest „Advanced TFC Tech“ ist in ihrer Age nicht erfüllbar (geformte Multiblöcke
+  geben kein Item, die Fleshing Machine braucht ein Bauteil der Electric Age); sie blockiert den Keystone
+  „Backfill Line“ und damit das Kapitelziel (nicht den Schrein). Vorschlag: Aufgabe auf ein erreichbares Bauteil
+  ändern oder die Quest zur Nebenquest machen.
+- `ftbquests:loot_crate_opener` und `ftbquests:task_screen_configurator` stehen ab der Bronzezeit in EMI.
+  Vorschlag: in `dev/age_map.toml` unter `[hidden]`.
+- Crash Assistant: `help_link` steht noch auf `CHANGE_ME` (Discord-Einladung fehlt).
+- Die Versionszeile „Firmament Ages 0.7.0“ im Titelbild ist fester Text; beim nächsten Release mit hochziehen.
+- Die Release-Dateien in `dev/exports/` (0.7.0) sind vor dem Review-Commit gebaut; vor dem Upload
+  `dev/release.ps1 -Version 0.7.0` neu laufen lassen, damit `config/ftblibrary-client.snbt` drin ist.
 
 ## Frühere Phase: Client-Test: Age-Übergang am Schrein (firmages-core 0.3.0)
 
