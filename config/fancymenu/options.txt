@@ -1,0 +1,20 @@
+##[general]
+B:force_fullscreen = 'false';
+I:default_gui_scale = '3';
+
+##[customization]
+B:modpack_mode = 'true';
+B:show_customization_overlay = 'false';
+B:advanced_customization_mode = 'false';
+
+##[window]
+S:custom_window_title = 'Firmament Ages';
+B:show_custom_window_icon = 'true';
+S:custom_window_icon_16 = '/config/fancymenu/assets/firmament/icon16.png';
+S:custom_window_icon_32 = '/config/fancymenu/assets/firmament/icon32.png';
+
+##[tutorial]
+B:show_welcome_screen = 'false';
+
+##[dev]
+B:mcp_server_enabled = 'false';

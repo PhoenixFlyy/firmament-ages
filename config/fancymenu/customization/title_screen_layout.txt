@@ -1,0 +1,159 @@
+type = fancymenu_layout
+
+layout-meta {
+  identifier = title_screen
+  render_custom_elements_behind_vanilla = true
+  is_enabled = true
+  layout_index = 0
+  randommode = false
+  randomgroup = 1
+  randomonlyfirsttime = false
+}
+
+menu_background {
+  background_type = slideshow
+  slideshow_name = firmament
+  instance_identifier = fa_title_bg
+  show_background = true
+}
+
+element {
+  element_type = image
+  source = [source:local]/config/fancymenu/assets/firmament/wordmark.png
+  instance_identifier = fa_title_wordmark
+  anchor_point = top-left
+  x = 28
+  y = 22
+  width = 240
+  height = 60
+}
+
+element {
+  element_type = text_v2
+  source = Firmament Ages 0.7.0
+  source_mode = direct
+  instance_identifier = fa_title_version
+  anchor_point = bottom-left
+  x = 28
+  y = -18
+  width = 200
+  height = 10
+  base_color = #A99CC8
+  scale = 1.0
+  shadow = true
+  parse_markdown = false
+  auto_line_wrapping = false
+  enable_scrolling = false
+  interactable = false
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_singleplayer_button
+  anchor_point = top-left
+  x = 28
+  y = 118
+  width = 200
+  height = 20
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_multiplayer_button
+  anchor_point = top-left
+  x = 28
+  y = 144
+  width = 200
+  height = 20
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_options_button
+  anchor_point = top-left
+  x = 28
+  y = 180
+  width = 200
+  height = 20
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_quit_button
+  anchor_point = top-left
+  x = 28
+  y = 206
+  width = 200
+  height = 20
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = forge_titlescreen_mods_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_realms_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_language_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_titlescreen_accessibility_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = minecraft_logo_widget
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = minecraft_splash_widget
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = minecraft_branding_widget
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = minecraft_realms_notification_icons_widget
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = title_screen_copyright_button
+  is_hidden = true
+}
+

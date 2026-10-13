@@ -1,0 +1,58 @@
+type = fancymenu_layout
+
+layout-meta {
+  identifier = drippy_loading_overlay
+  render_custom_elements_behind_vanilla = false
+  is_enabled = true
+  layout_index = 0
+  randommode = false
+  randomgroup = 1
+  randomonlyfirsttime = false
+}
+
+menu_background {
+  background_type = image
+  image_path = [source:local]/config/fancymenu/assets/firmament/loading_bg.png
+  instance_identifier = fa_loading_bg
+  show_background = true
+}
+
+element {
+  element_type = image
+  source = [source:local]/config/fancymenu/assets/firmament/wordmark.png
+  instance_identifier = fa_loading_wordmark
+  anchor_point = mid-centered
+  x = -160
+  y = -90
+  width = 320
+  height = 80
+}
+
+element {
+  element_type = progress_bar
+  progress_source = {"placeholder":"game_loading_progress"}
+  value_mode = percentage
+  direction = right
+  smooth_filling_animation = true
+  bar_color = #FFC9A227
+  background_color = #DC0C091E
+  instance_identifier = fa_loading_bar
+  anchor_point = mid-centered
+  x = -120
+  y = 30
+  width = 240
+  height = 6
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mojang_logo
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = progress_bar
+  is_hidden = true
+}
+

@@ -1,0 +1,75 @@
+type = fancymenu_layout
+
+layout-meta {
+  identifier = pause_screen
+  render_custom_elements_behind_vanilla = true
+  is_enabled = true
+  layout_index = 0
+  randommode = false
+  randomgroup = 1
+  randomonlyfirsttime = false
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_pausescreen_return_to_game_button
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_pausescreen_stats_button
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_pausescreen_options_button
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_pausescreen_lan_button
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_pausescreen_disconnect_button
+  backgroundnormal = [source:local]/config/fancymenu/assets/firmament/btn_normal.png
+  backgroundhovered = [source:local]/config/fancymenu/assets/firmament/btn_hover.png
+  label_base_color = #ECE4FF
+  label_hover_color = #F4D68C
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_pausescreen_advancements_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_pausescreen_feedback_button
+  is_hidden = true
+}
+
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mc_pausescreen_report_bugs_button
+  is_hidden = true
+}
+
