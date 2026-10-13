@@ -1,5 +1,24 @@
 # Client-Test
 
+## 0.7.1 Nachtrag (Entscheidungen 2026-10-13 spät, Pack 0.7.1, firmages-core 0.7.1)
+
+Drei Dinge ändern die 0.7.0-Liste unten; der Rest gilt unverändert. Server-Teil statisch geprüft
+(`dev/poc-results.md`, Abschnitt „Decisions 2026-10-13 late“), im Spiel noch offen.
+
+1. **Tasten (Punkt 4).** **Tab** bleibt die Spielerliste, **Y** bleibt Cataclysm „Ability“. Umgelegt:
+   „Physics Staff Rotate Mode“ (Create Simulated) liegt jetzt auf **Komma**, „Cataclysm Chestplate Ability“ auf
+   **Apostroph** (auf der deutschen Tastatur die Taste **Ä**). Controlling, Filter „Conflicts“: Tab und Y tauchen nicht
+   mehr auf. Sicher greift das nur in einem frischen Profil (Default Options); in einem älteren Profil stehen die zwei
+   Tasten noch auf Tab und Y, dann in der Steuerung „Reset“ drücken oder von Hand umlegen.
+2. **Jade ab der Steinzeit, EMI erst ab der Bronzezeit (Punkte 13 und 14).** Nach `/stage grant @s age_0`: Jade zeigt
+   Blöcke, **EMI bleibt weg** (auch mit Strg+O). Nach `/stage grant @s age_1`: EMI erscheint ohne Neuverbinden; die
+   EMI-Prüfungen aus Punkt 13 (keine Werkbank, kein Ofen, keine Fackel, kein Eimer, keine nie erreichbaren Items)
+   machst Du dort. Bestehende Welten behalten ihre `firmages-server.toml`; auf dem Test-Server steht
+   `emiFromAge = "age_1"` schon drin, eine neue Welt bekommt es als Standard.
+3. **Versteckt:** die TFC-Stahlstufe (`tfc:metal/block/steel_slab` samt verwitterten Stufen) und IEs Resonanz-Observer
+   (Chunk Loader) fehlen in EMI; die IE-Stahlstufe ist da (ab der Industriezeit). MekaSuit- und Meka-Tool-Module sind
+   in EMI sichtbar, sobald ihre Age erreicht ist (Modul-Basis ab der Informationszeit, aus TFC-Bronzebarren).
+
 ## 0.7.0 Immersion (Stand 2026-10-13, Pack 0.7.0, firmages-core 0.7.0, nach Review)
 
 Diese Phase heißt **Immersion**: Ladebildschirm, Titelbild, Standard-Optionen, stiller Join, EMI und Jade erst ab
@@ -33,7 +52,7 @@ Start eines frischen Profils.
    ungebunden. Controlling, Filter „Conflicts“: erwartet sind nur noch die Halte-Modifikatoren auf Shift/Strg
    (Create, AE2, Jade, Mekanism, Apotheosis, Hypertube) und zwei Restkonflikte, die das Review gefunden hat:
    **Tab** (Spielerliste und „Rotate mode“ von Create Simulated) und **Y** (Cataclysm „Ability“ und
-   „Chestplate ability“). Sag, ob Dich die beiden stören; dann legen wir sie um. Jeder andere Konflikt: melden.
+   „Chestplate ability“). Ab 0.7.1 umgelegt (siehe Nachtrag oben). Jeder andere Konflikt: melden.
 5. **Beitreten (frischer Spieler).** Kein Bildschirm „Enhanced Celestials 2“, keine Chat-Zeilen von Mods (Ars Nouveau
    Lichter oder Makeship, Train Utilities, Crash Assistant, Simple Voice Chat „Press V“, Backups, ProgressiveStages,
    keine Zeile „Reloaded with no KubeJS errors“). Kein „Worn Notebook“ von Ars Nouveau im Inventar. Die Verbindung
@@ -83,8 +102,8 @@ Start eines frischen Profils.
 
 - **Eigene Schrift** (Entscheidung 2: „custom logo/buttons/font“) ist **nicht** umgesetzt: Logo und Knöpfe sind
   eigene Bilder, die Texte nutzen die Minecraft-Schrift. Willst Du eine eigene Schrift (ganzes Spiel oder nur Titel)?
-- EMI und Jade öffnen mit der **Steinzeit (`age_0`)**; im Auftrag stand `age_1`, das ist hier die Bronzezeit. Ändern:
-  `ui.emiFromAge` und `ui.jadeFromAge` in `firmages-server.toml`.
+- Entschieden (2026-10-13 spät, 0.7.1): Jade ab der Steinzeit, EMI ab der Bronzezeit (`ui.jadeFromAge = "age_0"`,
+  `ui.emiFromAge = "age_1"` in `firmages-server.toml`, so auch der Standard für neue Welten).
 - Ernährung: Untergrenze ist TFCs Startwert (0,85, Lebensanzeige etwa 850), nicht der volle Vanilla-Wert (1,0).
   Volle Gesundheit ab Start: in `tfc-server.toml` `nutritionDefaultHealthModifier = 1.0`.
 - Jede neue Age schreibt die ProgressiveStages-Zeile „Age N: …“ in den Chat (`unlock_message` in
@@ -93,7 +112,8 @@ Start eines frischen Profils.
   `ftbquests:loot_crate_opener` und `ftbquests:task_screen_configurator` sind versteckt. Im Client prüfen: die
   Quest schließt beim Blick auf einen geformten Thresher ab, beide Items fehlen in EMI.
 - Crash Assistant: `help_link` steht noch auf `CHANGE_ME` (Discord-Einladung fehlt).
-- Die Versionszeile „Firmament Ages 0.7.0“ im Titelbild ist fester Text; beim nächsten Release mit hochziehen.
+- Die Versionszeile im Titelbild ist fester Text (`config/fancymenu/customization/title_screen_layout.txt`), seit
+  0.7.1 „Firmament Ages 0.7.1“; bei jedem Release mit hochziehen.
 - Die Release-Dateien in `dev/exports/` (0.7.0) sind vor dem Review-Commit gebaut; vor dem Upload
   `dev/release.ps1 -Version 0.7.0` neu laufen lassen, damit `config/ftblibrary-client.snbt` drin ist.
 

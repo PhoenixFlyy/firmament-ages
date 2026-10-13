@@ -2189,3 +2189,56 @@ unbuildable at age_9.
   template keeps it.
 - IE's chunk loader multiblock cannot be built (no sculk sensor); whether it should be disabled outright is a call for
   Felix.
+
+## Decisions 2026-10-13 late
+
+Date: 2026-10-13, branch `dev` from 36d47a0 (pack 0.7.1, firmages-core 0.7.1). Felix's answers 3, 4, 5, 6, 7 and 9.
+The test server was not used (Felix is testing on it): proof is JUnit, GameTests, javap and the static checks on the
+`fa_dump` of 2026-10-13 19:29 (copied to a scratch folder). Design calls in `dev/decisions-while-away.md`.
+
+### What changed
+
+| Decision | Change |
+|---|---|
+| 3: Tab stays the player list | `simulated.keyinfo.rotate_mode` (Create Simulated Physics Staff, default Tab) on Comma |
+| 4: Y stays the Cataclysm ability | `key.cataclysm.chestplate_ability` (default Y) on Apostrophe |
+| 5: Jade from the Stone Age, EMI from the Bronze Age | firmages-core 0.7.1: `ui.jadeFromAge` default `age_0`, `ui.emiFromAge` default `age_1`; the pack ships no `firmages-server.toml` |
+| 6: one steel slab | `tfc:metal/block/steel_slab` and its exposed, weathered and oxidized stages in `[hidden]` and `HIDDEN_ITEMS`; `immersiveengineering:slab_storage_steel` stays (`age_4`) |
+| 7: no IE chunk loader | `immersiveengineering:chunk_loader` in `[hidden]` and `HIDDEN_ITEMS`; the template stays unbuildable |
+| 9: MekaSuit modules | `mekanism:module_base` from four `#c:ingots/bronze` (was `#c:nuggets/bronze`, no source), `recipes/age_6/information_age.js` |
+
+### Keys
+
+Mapping names from the jars: `SimKeys` (Create Simulated, jar-in-jar of Create Aeronautics 1.3.2) registers
+`simulated.keyinfo.rotate_mode` with key 258 (Tab); Cataclysm 3.33 `ModKeybind` registers `key.cataclysm.chestplate_ability`
+with 89 (Y). A javap scan of the `KeyMapping` classes of all 197 client jars (CurseForge instance) found no default on
+Comma (44) or Apostrophe (39) outside screen-internal keys (Create stock keeper, IE redstone connector, Ars spell book);
+`keybindings.txt` uses neither, with or without a modifier. Plain keys after the change: only G is shared (Curios and
+GuideME, by design).
+
+### Checks
+
+| Check | Result |
+|---|---|
+| `gradlew build` (JUnit) | 85 tests, 0 failures |
+| `gradlew runGameTestServer` (generated config removed first, so the run took the new defaults: `emiFromAge = "age_1"`, `jadeFromAge = "age_0"`) | "All 32 required tests passed"; `statusFollowsAgesAndConfig` now also asserts the two defaults. KubeJS `boss_fallback.js` errors (no Gateways in the GameTest run) as in the 18:37 run |
+| javap `mods/firmages-core-0.7.1.jar` | `DEFAULT_EMI_FROM_AGE` = `AgeId.AGE_1`, `DEFAULT_JADE_FROM_AGE` = `AgeId.AGE_0`; `neoforge.mods.toml` version 0.7.1; jar byte-identical to `build/libs` |
+| `derive_ages.py` on the simulated dump (below) | modules out of `[derived_hidden]`: base and 10 modules `age_6`, 18 `age_7`, 3 plus the 4 Evolved Mekanism modules `age_8`; Mekanism Generators' solar and geothermal modules stay disabled. `[derived_hidden]` 3,902 -> 3,865, `[derived]` 1,783 -> 1,804, `[hidden]` 519 -> 524, disabled tag 4,544 -> 4,512 |
+| `gen_stage_locks.py --check`, `derive_ages.py --check` (simulated dump), `validate_quests.py` (1290 ids), `gen_textures.py --check` (68 textures), `gen_multiblock_templates.py --check` (35 templates) | all exit 0 |
+| `poc_analyze.py` on the simulated dump | **86 checks, all PASS** (new: R-L age_6 `mekanism:module_base`; C-Gv: no module needs vanilla gear without a recipe) |
+| `poc_analyze.py` on the unchanged dump (negative test) | 83 PASS, 3 FAIL as expected: G-1 (the TFC slab recipes are still loaded there), A9 (the hidden tag lacks the four slabs), R-L age_6 (no module base recipe) |
+
+Simulated dump: the gate drops every recipe whose output is disabled, so the module recipes were missing from the dump
+and `derive_ages.py` alone would have kept the modules hidden. The copy gets the 36 jar recipes of the Mekanism and
+Evolved Mekanism modules with the pack's edits (module base above; `gear_rule.js` swaps: wrought iron sword blade,
+pickaxe and hoe heads, steel greaves and pickaxe, axe and shovel heads, `#c:tools/shear`, black steel sword blade), loses
+the four recipes that make the TFC steel slabs (TFC grid, three Create Dragons Plus sandpaper polishings) and gets the
+new `HIDDEN_ITEMS` in `c:hidden_from_recipe_viewers`: what the server does on its next reload.
+
+### Needs the server or a client
+
+- Next server run: `fa_dump` + `fa_dump_full` at `age_9`, then `poc_analyze.py` (86 PASS expected) and
+  `derive_ages.py --check` ("up to date" expected). In the dump: `mekanism:module_base` with `#c:ingots/bronze`,
+  every module recipe present, no recipe makes a TFC steel slab, `c:hidden_from_recipe_viewers` holds the slabs.
+- Client: EMI absent in Dawn and the Stone Age, present after `stage grant @s age_1` without relog; Jade from `age_0`;
+  Controlling "Conflicts" without Tab and Y on a fresh profile; the slabs and the Resonanz Observer absent in EMI.
