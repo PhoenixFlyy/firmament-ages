@@ -1,0 +1,106 @@
+// Firmament Ages theme for FTB Quests 2101.1.36 (FTB Library theme engine).
+// ThemeLoader reads every ftbquests:ftb_quests_theme.txt in the resource stack, the mod's own file first, and later
+// packs override key by key; kubejs/assets is such a pack. Reload in game: F3+T or the quest screen's reload key.
+// Selectors: [*] everything, [#tag] objects with that tag. QuestScreen resolves properties against the open chapter,
+// so [#age_3] gives the Arcane Age its own backdrop. Chapter tags come from dev/gen_quests.py; the art from
+// dev/gen_quest_art.py (kubejs/assets/firmages/textures/gui/quests/).
+// Palette: deep night blue #101A3E and violet #2A1B4E, gold #E8C56A / #8A6A24, warm off-white text #F2E6C9.
+
+[*]
+background:                   firmages:textures/gui/quests/bg_firmament.png
+chapter_panel_background:     hollow_rectangle:{{widget_border}}; round_edges + firmages:textures/gui/quests/panel.png; tile_size=64; color=#F4FFFFFF; padding=1
+key_reference_background:     firmages:textures/gui/quests/panel.png; tile_size=64; color=#F4FFFFFF
+selected_chapter_highlight_1: #60E8C56A
+selected_chapter_highlight_2: #28E8C56A
+
+text_color:          #F2E6C9
+hover_text_color:    #FFD27A
+disabled_text_color: #8C8CA8
+
+widget_border:     #8A6A24
+widget_background: #A0101A3E
+symbol_in:         #E8C56A
+symbol_out:        #8A6A24
+
+button:                hollow_rectangle:{{widget_border}}
+panel:                 {{container_slot}}
+disabled_button:       hollow_rectangle:#3C3650
+hover_button:          {{button}} + {{widget_background}}; padding=1
+context_menu:          hollow_rectangle:{{widget_border}}; round_edges + firmages:textures/gui/quests/panel.png; tile_size=64; color=#F4FFFFFF; padding=1
+scroll_bar_background: {{widget_background}}
+scroll_bar:            {{button}} + {{widget_background}}; padding=1
+container_slot:        {{button}}; padding=-1
+text_box:              hollow_rectangle:{{widget_border}} + {{widget_background}}; padding=1
+
+wiki_url:             -
+modpack_icon:         firmages:textures/gui/quests/firmament.png
+pin_icon_on:          ftbquests:textures/gui/pin.png; color=#E8C56A
+pin_icon_off:         ftbquests:textures/gui/pin.png; color=#8C8CA8
+hidden_icon:          ftbquests:textures/gui/hidden.png; color=#8C8CA8
+link_icon:            ftbquests:textures/gui/link.png; color=#8C8CA8
+guide_icon:           ftbquests:textures/gui/guide.png; color=#E8C56A
+shop_icon:            ftbquests:textures/gui/shop.png; color=#E8C56A
+collect_rewards_icon: ftbquests:textures/gui/collect_rewards.png; color=#E8C56A
+emergency_items_icon: ftbquests:textures/gui/emergency_items.png; color=#F2E6C9
+
+full_screen_quest:                  1
+tasks_text_color:                   #A9C4FF
+rewards_text_color:                 #E8C56A
+quest_view_background:              {{context_menu}}
+quest_view_border:                  {{widget_border}}
+quest_view_title:                   #E8C56A
+quest_completed_color:              #D9E8C56A
+quest_started_color:                #D9F2E6C9
+quest_not_started_color:            #99A9B4D8
+quest_locked_color:                 #D93C3650
+dependency_line_texture:            firmages:textures/gui/quests/dependency.png
+dependency_line_completed_color:    #E8C56A
+dependency_line_uncompleted_color:  #96B8A890
+dependency_line_unavailable_color:  #6E6A6080
+dependency_line_requires_color:     #40E0FF
+dependency_line_required_for_color: #FFD27A
+dependency_line_selected_speed:     1.5
+dependency_line_unselected_speed:   0.35
+dependency_line_thickness:          0.22
+quest_spacing:                      1.0
+pinned_quest_size:                  0.75
+
+// one sky per chapter: the chapter's Age, its shrine as it stands then, its beam colour in the nebula
+[#welcome]
+background: firmages:textures/gui/quests/bg_welcome.png
+
+[#firmament]
+background: firmages:textures/gui/quests/bg_firmament.png
+
+[#dawn]
+background: firmages:textures/gui/quests/bg_dawn.png
+
+[#age_0]
+background: firmages:textures/gui/quests/bg_age_0.png
+
+[#age_1]
+background: firmages:textures/gui/quests/bg_age_1.png
+
+[#age_2]
+background: firmages:textures/gui/quests/bg_age_2.png
+
+[#age_3]
+background: firmages:textures/gui/quests/bg_age_3.png
+
+[#age_4]
+background: firmages:textures/gui/quests/bg_age_4.png
+
+[#age_5]
+background: firmages:textures/gui/quests/bg_age_5.png
+
+[#age_6]
+background: firmages:textures/gui/quests/bg_age_6.png
+
+[#age_7]
+background: firmages:textures/gui/quests/bg_age_7.png
+
+[#age_8]
+background: firmages:textures/gui/quests/bg_age_8.png
+
+[#age_9]
+background: firmages:textures/gui/quests/bg_age_9.png

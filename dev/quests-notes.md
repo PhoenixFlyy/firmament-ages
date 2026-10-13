@@ -21,7 +21,7 @@ sections 2 and 9, Doc 11 section 3 (shrine).
 
 | File | Group | Title | Visible | Quests | Content |
 |---|---|---|---|---|---|
-| `welcome.snbt` | default | Welcome | always | 6 | checkmarks: pack overview and K key, the Ages and recipe/EMI/ore locks, how a chapter reads, one team, the shrine and Caelum, survival notes |
+| `welcome.snbt` | default | Welcome | always | 7 | checkmarks written in-world (2026-10-13, no mod or recipe-viewer talk): the Chronicle on K, the Ages as layers of the sky, how a chapter reads (rune keystones, gilded goal, ember side missions), one fellowship, the shrine and Caelum, the Age sign top left (HUD indicator, firmages-core), survival notes (no thirst, no nutrition malus) |
 | `the_firmament.snbt` | default | The Firmament | always | 11 | one quest per Age goal: The First Spark, Hearthstone, Sky Disc, Steel Heart, Arcane Keystone, Pressure Core, Humming Core, Data Matrix, Star Chart, Quantum Core, Beyond the Firmament. Gamestage tasks (age_0 ... age_9, finale_won), `progression_mode: linear` + `hide_quest_details_until_startable`, so the whole road is visible from minute one and each quest opens only after the previous goal. Every signature item is the icon of its quest; the last, locked goal (the final boss in The Origin, stage `finale_won`) shows the classic Stargate |
 | `dawn.snbt` | Ages | Dawn | stage `dawn` (start) | 15 | entry, strands Stone / Shelter / Hunt, goal The First Spark, 2 side missions, 1 explanation |
 | `stone_age.snbt` | Ages | Age 0: Stone Age | stage `age_0` | 27 | entry, strands Fire & Clay / First Metal / Camp / Hearth & Shrine (ends in Raise the Shrine), goal Offer the Hearthstone at the Shrine, 3 side missions, 3 explanations |
@@ -35,8 +35,50 @@ sections 2 and 9, Doc 11 section 3 (shrine).
 | `quantum_age.snbt` | Ages | Age 8: Quantum Age | stage `age_8` | 32 | entry, strands Fusion / Inner Planets / Awakened (The Leviathan) / Marid, goal Offer the Quantum Core at the Shrine, 3 side missions (Draconic Tools, Ore Times Five, Scylla), 2 explanations, ring Raise the Quantum Ring |
 | `singularity_age.snbt` | Ages | Age 9: Singularity Age | stage `age_9` | 23 | entry, strands Chaos (Chaos Guardian, Reactor Online) / Singularity (keystone The Ultimate Singularity, item task) / Stargate (Gate Online), goal Beyond the Firmament (gamestage task `finale_won`), 3 side missions (Chaotic Armor, Chaotic Staff, Ignis), 2 explanations, no ring |
 
-Total 345 quests (226 of them in the Ages 3 to 9), 21 reward tables, 1282 object ids. Counts per chapter come from the
+Total 346 quests (226 of them in the Ages 3 to 9), 21 reward tables, 1294 object ids. Counts per chapter come from the
 validator output. Ring quests per chapter: 1 in Ages 3 to 8.
+
+### Look: theme, chapter tags, banners, shapes (2026-10-13)
+
+- **Theme** `kubejs/assets/ftbquests/ftb_quests_theme.txt` (FTB Library theme engine; ThemeLoader merges every
+  `ftbquests:ftb_quests_theme.txt` of the resource stack key by key, the mod's own file first; javap 2101.1.36).
+  Firmament palette: night blue `#101A3E`, violet `#2A1B4E`, gold `#E8C56A`/`#8A6A24`, text `#F2E6C9`, no parchment.
+  `full_screen_quest: 1` (ViewQuestPanel takes the whole screen). Quest state colours: completed gold, started
+  off-white, not started pale blue, locked slate. Dependency lines use `textures/gui/quests/dependency.png` with a
+  slow flow (`dependency_line_unselected_speed: 0.35`).
+- **Chapter tags**: every chapter carries one tag, `welcome`, `firmament`, `dawn`, `age_0` ... `age_9` (the stage
+  id). `[#age_3]` in the theme selects the chapter's own `background` (QuestScreen resolves theme properties against
+  the selected chapter). The same keys name the art: `bg_<key>.png`, `banner_<key>.png`, shader `firmages:sky_<key>`.
+- **Art** from `dev/gen_quest_art.py` (Pillow, numpy; the shrine cutouts through `dev/shrine-viewer/render_shrine.py`,
+  cached in `dev/shrine-viewer/out/quest_cutout_age_N.png`, untracked): 13 backgrounds 1280 x 720 (night sky,
+  nebula in the Age's beam colour from the tier file, the cumulative shrine of that Age low in the picture; Dawn and
+  Welcome show a pre-dawn horizon, Age 9 the void), 13 banners 1024 x 256 (Age name and a poetic line), the panel tile,
+  the modpack icon, the dependency texture. `background` icons without `tile_size` are stretched over the panel
+  (ImageIcon.draw, javap FTB Library 2101.1.37), so the images are 16:9.
+- **Banner**: one `ChapterImage` per chapter (`images: [...]`, keys x, y, width, height, rotation, image, color, alpha,
+  order, position_locked; javap ChapterImage.readData), 8 x 2 grid units, centred above the top row (side missions
+  sit at `top - 2.5`, the banner at `top - 5.25`). Ids are stable (`qid('image/<chapter>/banner')`).
+- **Shapes** (`kubejs/assets/ftbquests/textures/shapes/<name>/{shape,background,outline}.png` + `.mcmeta`
+  `{"texture":{"blur":true}}`; FTB Quests builds the paths with `FTBQuestsAPI.rl`, so the namespace must be
+  `ftbquests`; the shape id is the folder name): `gilded` (goal, eight-point rosette, size 3), `rune` (entry size 2,
+  keystone size 1.5, the Firmament's keystones: hexagon with an engraved inner hexagon), `ember` (side missions,
+  size 0.85, round with a flame notch). Steps keep the chapter default `hexagon`, explanations `gear`, ring quests
+  `diamond`. `shape.png` is the silhouette tinted by the state colour, `background.png` the radial highlight,
+  `outline.png` the border (QuestButton.draw order: shape, background, outline).
+- **Certain Questing Additions 1.2.0.4** (CF 1372051, client): `kubejs/assets/certain_questing_additions/
+  chapter_shaders.json` (written by `gen_quests.py`, keys are the chapter ids lower-case) maps every chapter to
+  `firmages:sky_<key>`; the shaders live in `kubejs/assets/firmages/shaders/core/sky_<key>.{json,fsh}` (GLSL 150,
+  vertex `minecraft:position_tex`, uniforms `size`, `scrollOffset`, `scrollSize`, `time`, `zoom` as in the mod's own
+  `custom_background`). Default config `defaultconfigs/certain_questing_additions/client-config.snbt`
+  (`shader_background: true`); on 1.21.1 the mod reads `local/certain_questing_additions/client-config.snbt` and
+  copies the default there on first start (ConfigUtil.loadDefaulted). With the shader on, the static backgrounds are
+  the fallback.
+- **Hidden chapters**: `progressivestages_required_stage` is enough. ProgressiveStages 3.0.6 `ChapterMixin` injects
+  `Chapter.isVisible(TeamData)` at HEAD (cancellable, returns false without the stage) and `ChapterPanel` lists
+  `DefaultChapterGroup.getVisibleChapters(TeamData)`, so a locked Age is absent from the sidebar, not greyed (javap).
+- `data.snbt`: `default_quest_disable_jei: true`, no "Quests" category in the recipe viewer.
+- Preview of the look: `python dev/gen_quest_art.py` writes `dev/shrine-viewer/out/quest_theme_preview.png` (mock
+  composite; real zoom, fonts and panel chrome come from FTB Quests).
 
 Chapter ids: welcome `2F7890D901468DC7`, the_firmament `7D0742BC787AAFAC`, dawn `544197C921D77FCB`, stone_age
 `1ECA2119E26A0A06`, bronze_age `5546E96FD2574ABB`, iron_age `1D01936AE318F34B`, arcane_age `40D4D715E3F4DB36`,

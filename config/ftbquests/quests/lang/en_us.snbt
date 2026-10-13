@@ -11,7 +11,7 @@
 	chapter.1D01936AE318F34B.title: "Age 2: Iron Age"
 	chapter.1ECA2119E26A0A06.chapter_subtitle: ["Clay, pit kilns and the first cast copper."]
 	chapter.1ECA2119E26A0A06.title: "Age 0: Stone Age"
-	chapter.2F7890D901468DC7.chapter_subtitle: ["How Firmament Ages works. Press K to open this screen."]
+	chapter.2F7890D901468DC7.chapter_subtitle: ["The Chronicle of your fellowship. Press K to open it."]
 	chapter.2F7890D901468DC7.title: "Welcome"
 	chapter.40D4D715E3F4DB36.chapter_subtitle: ["Spirits, source and alchemy. The Nether opens."]
 	chapter.40D4D715E3F4DB36.title: "Age 3: Arcane Age"
@@ -117,11 +117,11 @@
 	]
 	quest.049A5B04B3B800F6.title: "After the Battle"
 	quest.04AB34FB1FD2E8B6.quest_desc: [
-		"Every Age chapter has one entry quest, three or four required strands and one goal."
-		"Each strand ends in a keystone (the larger quests). The goal needs every keystone."
+		"Every Age chapter has one entry, three or four strands and one goal."
+		"A strand ends in a keystone, the large engraved hexagon. The goal, the gilded star, needs every keystone."
 		"Round quests are side missions: optional, with a comfort reward."
-		"Diamonds mark the optional ring quest: look at the shrine heart once the Age's ring stands."
-		"Gears are explanations: tick them once you have read them."
+		"Diamonds mark the ring quest: look at the shrine heart once the Age's ring stands."
+		"Gears are notes: tick them once you have read them."
 	]
 	quest.04AB34FB1FD2E8B6.title: "Reading a Chapter"
 	quest.04DAC1D51AABFF20.quest_desc: [
@@ -449,11 +449,12 @@
 	quest.1FD61E2A23294166.quest_desc: ["Chaos shards drop from the guardian's crystals."]
 	quest.1FD61E2A23294166.title: "Chaos Shards"
 	quest.2004E11B844D1C4B.quest_desc: [
-		"Each Age has its own chapter. A chapter appears when your team reaches its Age."
-		"Recipes of a later Age do not exist yet, anywhere: not in the crafting grid, not in machines."
-		"EMI shows them once their Age is unlocked."
+		"An Age is one layer of the sky. The world holds only what the current Age allows:"
+		"the tools, the metals and the crafts of a later Age are not in the world yet, anywhere."
+		"Veins of a later Age sleep as plain stone until their Age."
 		""
-		"Ores of later Ages look like plain stone until their Age."
+		"When the next layer opens, its chapter appears in this Chronicle and the world grows with it."
+		"Chapters of Ages you have not reached are not shown."
 	]
 	quest.2004E11B844D1C4B.title: "The Ages"
 	quest.203071592A4D660A.quest_desc: [
@@ -643,6 +644,13 @@
 	]
 	quest.3240A673372AF11A.quest_subtitle: "Goal of Age 0: Stone Age"
 	quest.3240A673372AF11A.title: "Hearthstone"
+	quest.32561F3017350CAF.quest_desc: [
+		"Top left of your view, a small sign names the Age you live in. It fades a few breaths after"
+		"you arrive and after a new Age opens; hold the Age key (Controls, Firmament Ages) to see it again."
+		""
+		"It is the only mark the Firmament leaves on your sight. Everything else is in this Chronicle."
+	]
+	quest.32561F3017350CAF.title: "The Sign in the Corner"
 	quest.32C8626D60896E8F.quest_desc: [
 		"Pick up a loose rock from the ground. Rocks are knapped by using them in hand."
 	]
@@ -741,7 +749,8 @@
 	]
 	quest.3BAC7E39FA05241C.title: "In Flux"
 	quest.3C3FF2D0079C4F17.quest_desc: [
-		"Food decays and tools wear out as in plain TerraFirmaCraft. Nothing is softened."
+		"Food spoils and tools wear out, as they always have in this land. Nothing is softened."
+		"You will not thirst, and a plain table does you no harm; a varied one only does you good."
 		"Everything you need in quantity can be automated later. Hand work comes first."
 	]
 	quest.3C3FF2D0079C4F17.title: "Survival Notes"
@@ -1021,10 +1030,11 @@
 	]
 	quest.532C13282586CA95.title: "The Ender Dragon"
 	quest.53348C90243DE4F0.quest_desc: [
-		"Everybody on the server is in the same FTB team. Quest progress, Ages and rewards are shared."
+		"Everybody on this server is one fellowship. Progress, Ages and rewards are shared by all of you."
 		"Split the strands between you: one friend smiths, one prospects, one builds."
+		"Whoever claims a reward first holds it for the rest; experience is paid to each of you."
 	]
-	quest.53348C90243DE4F0.title: "One Team"
+	quest.53348C90243DE4F0.title: "One Fellowship"
 	quest.533C7CC2EEA570E4.quest_desc: [
 		"Purification gives three times the metal from every ore piece."
 	]
@@ -1045,10 +1055,12 @@
 	]
 	quest.5628873FCDD13028.title: "Starbuncle"
 	quest.573FF798650E3338.quest_desc: [
-		"Firmament Ages is a TerraFirmaCraft pack in Ages: Dawn, then Age 0 to Age 9."
-		"The whole server is one team with one shared progress."
+		"You wake beneath a sky that watches. Nothing in your hands, nothing in your pockets."
 		""
-		"Press K to open this quest screen at any time. There is no quest book item."
+		"This is the Chronicle: the one record of what your fellowship has done and what comes next."
+		"Press K to open it at any time. There is no book to carry, and no other list to keep."
+		""
+		"The world is lived in Ages: Dawn first, then Age 0 to Age 9. Each Age has its own chapter here."
 	]
 	quest.573FF798650E3338.quest_subtitle: "Read me first"
 	quest.573FF798650E3338.title: "Welcome to Firmament Ages"
@@ -1065,7 +1077,7 @@
 	]
 	quest.57F5B8C4363E589D.title: "Chaos Guardian"
 	quest.586717CB0F9BF963.quest_desc: [
-		"In the Stone Age your team raises one shrine: a heart of fired clay in a circle of stone,"
+		"In the Stone Age your fellowship raises one shrine: a heart of fired clay in a circle of stone,"
 		"logs and thatch. It is the hearth of the whole server and the altar of Caelum, the Firmament:"
 		"the sky that watches every fire lit beneath it, and opens one layer for every gift."
 		""

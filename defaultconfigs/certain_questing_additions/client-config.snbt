@@ -1,0 +1,20 @@
+{
+	# Certain Questing Additions 1.2.0.4 (client add-on for FTB Quests). On 1.21.1 the mod loads
+	# local/certain_questing_additions/client-config.snbt and, when that is missing, copies this file there
+	# (FTB Library ConfigUtil.loadDefaulted -> SNBTConfig.load(local, defaultconfigs/<mod>/<file>)).
+	animations: {
+		quest_hover: true
+		panel_button_hover: true
+		panel_animation: true
+		smooth_scrolling: true
+	}
+	appearance: {
+		smooth_animations: true
+		# animated firmament sky per chapter: kubejs/assets/certain_questing_additions/chapter_shaders.json and
+		# kubejs/assets/firmages/shaders/core/sky_<chapter>.{json,fsh}; false falls back to the theme's static
+		# backgrounds (kubejs/assets/ftbquests/ftb_quests_theme.txt)
+		shader_background: true
+		button_hover_glow_alpha: 40
+		quest_hover_glow_alpha: 90
+	}
+}

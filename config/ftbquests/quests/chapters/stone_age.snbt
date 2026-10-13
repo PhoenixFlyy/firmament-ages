@@ -9,7 +9,21 @@
 		id: "firmages:hearthstone"
 	}
 	id: "1ECA2119E26A0A06"
-	images: [ ]
+	images: [
+		{
+			alpha: 255
+			color: 16777215
+			height: 2.0d
+			id: "5777287ECDB4AF1A"
+			image: "firmages:textures/gui/quests/banner_age_0.png"
+			order: 0
+			position_locked: true
+			rotation: 0.0d
+			width: 8.0d
+			x: 6.5d
+			y: -9.0d
+		}
+	]
 	order_index: 1
 	progression_mode: "flexible"
 	progressivestages_required_stage: "age_0"
@@ -27,7 +41,7 @@
 					xp: 20
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 2.0d
 			tags: ["entry"]
 			tasks: [
@@ -148,7 +162,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -304,7 +318,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -432,7 +446,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -538,7 +552,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -571,7 +585,7 @@
 					xp: 200
 				}
 			]
-			shape: "gear"
+			shape: "gilded"
 			size: 3.0d
 			tags: ["goal"]
 			tasks: [
@@ -604,7 +618,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -638,7 +653,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -668,7 +684,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -742,4 +759,5 @@
 			y: 6.25d
 		}
 	]
+	tags: ["age_0"]
 }
