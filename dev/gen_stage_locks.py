@@ -2,7 +2,8 @@
 """Generate the Age registry tags and the ProgressiveStages locks from ONE source, dev/age_map.toml.
 
 Inputs
-  dev/age_map.toml               Age per mod namespace, material words, ore families, TFC tables, explicit rules, and
+  dev/age_map.toml               Age per mod namespace, material words, ore families and ore blocks, TFC tables, explicit
+                                 rules, and
                                  the section dev/derive_ages.py generates ([derived] later first reachable Ages,
                                  [derived_hidden] never reachable items; an item takes the later of rule and derived Age)
   dev/data/registry.json         snapshot of every item id, the ore/rock block ids, the item tags the rules use
@@ -103,7 +104,7 @@ def refresh_registry(dump_dir, amap):
     snap = {
         "source": f"/fa_dump in {dump_dir.as_posix()} (kubejs/server_scripts/debug/dump.js)",
         "items": sorted(i for i in reg["item"] if i != "minecraft:air"),
-        "blocks": sorted(b for b in reg["block"] if BLOCK_KEEP.search(b)),
+        "blocks": sorted(b for b in reg["block"] if BLOCK_KEEP.search(b) or b in amap.get("ore_blocks", {})),
         "item_tags": {t: sorted(item_tags.get(t, [])) for t in wanted},
         "grid_recipe_namespaces": grid_ns,
     }
@@ -134,6 +135,7 @@ class AgeMap:
         self.amap, self.reg, self.tfc = amap, reg, tfc
         for key in ("mods", "recipes", "materials", "ore_families", "tfc_ores", "tfc_metals", "tfc_powders", "items"):
             check_stages(amap.get(key, {}), key)
+        check_stages({b: v["stage"] for b, v in amap.get("ore_blocks", {}).items()}, "ore_blocks")
         self.mods = amap["mods"]
         self.materials = amap["materials"]
         self.mod_materials = amap.get("mod_materials", {})
@@ -238,6 +240,14 @@ class AgeMap:
                     items[extra] = st
             if not found:
                 die(f"[ore_families] {fam}: no ore blocks in the registry snapshot")
+        # [ore_blocks]: a mod's own block that a pack vein places in one host rock, disguised as that rock
+        for b, v in a.get("ore_blocks", {}).items():
+            if b not in self.blocks_set:
+                die(f"[ore_blocks] {b}: not in the registry snapshot")
+            if v["rock"] not in rocks:
+                die(f"[ore_blocks] {b}: unknown TFC rock {v['rock']!r}")
+            blocks[b] = v["stage"]
+            ovr(v["stage"], (b, f"tfc:rock/raw/{v['rock']}", f"tfc:rock/loose/{v['rock']}"))
 
         # The item form of an ore or deposit block follows the block (silk touch, creative, loot).
         for b, st in blocks.items():
@@ -285,7 +295,7 @@ class AgeMap:
             if selector_matches(sel, item, self.tags):
                 return st, f"[items] {sel}"
         if item in self.table_items:
-            return self.table_items[item], "TFC table / [ore_families]"
+            return self.table_items[item], "TFC table / [ore_families] / [ore_blocks]"
         ns, path = item.split(":", 1)
         base = self.mods[ns]
         mat, words = self.material_age(ns, path)

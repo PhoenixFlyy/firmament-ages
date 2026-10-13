@@ -21,7 +21,8 @@ Walk (dev/poc_analyze.py make_walk, the walk of the R- checks), once per Age daw
     recipe while one output is locked) and its ProgressiveStages recipe locks are owned (recipe_lock column of
     recipes.json: mod:minecraft, the Dawn crafting whitelist, ...). Outputs are the JSON outputs plus the result
     the server reports (recipes.json), so recipe types with unusual output keys count too.
-  - start set: the start set of the R- checks plus WORLD_SOURCES below.
+  - start set: the start set of the R- checks plus WORLD_SOURCES below, and the block loot of every ore and deposit
+    block of the Age map (TFC tables, [ore_families], [ore_blocks]) from the Age it becomes visible.
   - transforms: the block loot of every reached block item, crop and wall blocks, INTERACTIONS (bottles, buckets,
     brewing, special crafting), fishing and piglin bartering.
   An item's first Age is the first walk that reaches it. Each loot or world output is reached on its own once its
@@ -167,11 +168,6 @@ CODE_DROPS = [
 # Pre-existing design gaps: items the walk cannot reach from any source although the design uses them. They stay at
 # their age_map Age (visible from that Age) instead of being hidden, and each is an open point in dev/poc-results.md.
 KNOWN_GAPS = {
-    # Mystical Agriculture: config/mysticalagriculture-common.toml turns the prosperity and inferium ores off and no
-    # other source of prosperity shards or inferium essence exists, so the whole seed tree is unreachable; the
-    # Information Age quest "inferium essence" (information_age.snbt) still asks for it.
-    "mysticalagriculture:prosperity_shard": "Mystical Agriculture ores are off and nothing else yields prosperity shards",
-    "mysticalagriculture:inferium_essence": "Mystical Agriculture ores are off and nothing else yields inferium essence",
     # Create Enchantment Industry's Blaze Enchanter (Arcane Age quest task) is smithed with Create Dragons Plus's blaze
     # upgrade template, whose only recipe copies a template; the first one comes from no loot table or modifier file.
     "create_dragons_plus:blaze_upgrade_smithing_template": "first template has no data-visible source",
@@ -862,6 +858,11 @@ def derive(dump_dir, show):
     for b, (st, why) in world.world_blocks.items():
         ns, path = b.split(":", 1)
         give(st, table_items(f"{ns}:blocks/{path}"), f"block {b} ({why})")
+    # ore and deposit blocks of the Age map (TFC tables, [ore_families], [ore_blocks]): TFC places its veins through a
+    # placed-feature tag the world scan does not follow, so each block's loot is reached from the Age it becomes visible
+    for b, st in am.blocks.items():
+        ns, path = b.split(":", 1)
+        give(st, table_items(f"{ns}:blocks/{path}"), f"ore vein block {b} ({st})")
     # block loot of every block item; blocks without an item (crops, wall variants) drop what places them
     for tid in loot:
         ns, path = tid.split(":", 1)

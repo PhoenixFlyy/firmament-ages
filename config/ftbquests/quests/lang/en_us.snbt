@@ -40,7 +40,14 @@
 		"A storage terminal shows every connected chest in one screen."
 	]
 	quest.00276F8FDCF146F5.title: "Tom's Storage"
-	quest.002A92F3E9C8D81F.quest_desc: ["Grow inferium and the resource seeds of unlocked materials."]
+	quest.002A92F3E9C8D81F.quest_desc: [
+		"Three new veins show up from this Age. Find them with a prospector's pick:"
+		"inferium ore lies in every kind of rock, from deep underground up into the hills;"
+		"prosperity ore lies deep, in igneous and metamorphic rock;"
+		"soulstone forms large bodies in basalt, with a little soulium ore inside."
+		""
+		"Then grow inferium and the resource seeds of unlocked materials."
+	]
 	quest.002A92F3E9C8D81F.title: "Mystical Agriculture"
 	quest.00DEC03D1B329588.quest_desc: [
 		"The Summoning Rituals altar calls the Netherite Monstrosity: netherite as the initiator, blaze rods,"
@@ -253,7 +260,7 @@
 	quest.0E48C0E43D256E7D.title: "The Wither"
 	quest.0F1AE784BF392A25.quest_desc: [
 		"Mekanism triples ore, AE2 stores and crafts everything, and the End can be reached."
-		"Osmium and certus quartz veins are visible now."
+		"Certus quartz and the Mystical Agriculture veins (inferium, prosperity, soulstone) are visible now."
 		""
 		"Four strands lead to the Data Matrix: Digital, Mekanism, Mob Data and The End."
 	]
@@ -1502,6 +1509,7 @@
 	task.124D117E2BC55E5C.title: "Iesnium ingots"
 	task.16FDD9AB98818001.title: "Offer the Sky Disc at the shrine"
 	task.17DC9CAF05E44B90.title: "Our cellar is stocked for the winter"
+	task.18B431469A1330AA.title: "Prosperity shards"
 	task.19AE69BBB724B329.title: "Basic injectors"
 	task.1CFB0568626363E1.title: "Turbine blades"
 	task.1D485243176A7A7F.title: "A data model trained to tier 3"
@@ -1516,6 +1524,7 @@
 	task.27E4A128E0DFD3E5.title: "Molecular assembler"
 	task.2870985978512D69.title: "Look at a formed distillation tower"
 	task.28C817A38D1D30A5.title: "Unlock Age 3: Arcane Age"
+	task.29A5335D061994F0.title: "Inferium essence"
 	task.29D0A23AC7AFD1C3.title: "Look at the heart with the Quantum Ring complete"
 	task.2B21C54106B6FCC7.title: "Look at the heart of the fully awakened shrine"
 	task.2B2D77F115A16E27.title: "Logic processor"
@@ -1559,6 +1568,7 @@
 	task.5DE22F71BE32AF59.title: "Unlock Age 9: Singularity Age"
 	task.5EBCDBD25D48AA10.title: "Light a firepit"
 	task.5EE1D4B01D9C11FE.title: "Offer the Pressure Core at the shrine"
+	task.632D11C7696BF019.title: "Soulstone"
 	task.638DC09ED1F3ECF4.title: "Turbine rotors"
 	task.64198A294CAF4FB8.title: "Cogwheels"
 	task.6494AD8893357940.title: "Offer the Hearthstone at the shrine"

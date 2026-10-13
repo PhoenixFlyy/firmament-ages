@@ -1,0 +1,28 @@
+{
+  "type": "tfc:cluster_vein",
+  "config": {
+    "rarity": 16,
+    "density": 0.7,
+    "min_y": -64,
+    "max_y": 70,
+    "size": 24,
+    "random_name": "soulstone",
+    "blocks": [
+      {
+        "replace": [
+          "tfc:rock/raw/basalt"
+        ],
+        "with": [
+          {
+            "weight": 95,
+            "block": "mysticalagriculture:soulstone"
+          },
+          {
+            "weight": 5,
+            "block": "mysticalagriculture:soulium_ore"
+          }
+        ]
+      }
+    ]
+  }
+}

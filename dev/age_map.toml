@@ -11,7 +11,7 @@
 #   1. listed in config/progressivestages/stages/disabled.toml  -> tag age_items/disabled (never unlocked)
 #   2. [items] "id:<item>"                                        -> that Age (may be EARLIER than the mod Age)
 #   3. [items] "name:<text>" / "tag:<item tag>" / "mod:<ns>", in file order
-#   4. [ore_families] and the TFC tables ([tfc_ores], [tfc_metals], [tfc_powders]): ore pieces, ore blocks,
+#   4. [ore_families], [ore_blocks] and the TFC tables ([tfc_ores], [tfc_metals], [tfc_powders]): ore pieces, ore blocks,
 #      metal items (derived from dev/data/tfc-4.2.11-ids.json and the registry)
 #   5. max([mods] Age of the namespace, Age of every [materials] word in the item path)
 #      ("decoration of a metal or tech mod belongs to the Age of its materials", Doc 10 v3 section 8.1)
@@ -250,6 +250,13 @@ tier_4 = "age_8"
 "firmalife:chromite" = "age_4"           # chromium is only used for stainless steel, which needs nickel (age_4)
 # A key with {rock} is a single-grade ore block per rock (no poor/normal/rich).
 "tfcreate:quartz_{rock}" = "age_2"       # nether quartz from the TFCreate quartz vein, Iron Age (section 8.1)
+"firmages:ore/inferium/{rock}" = "age_6"    # Mystical Agriculture veins (startup_scripts/mystical_veins.js, decision
+"firmages:ore/prosperity/{rock}" = "age_6"  # 8A): MA's own ore generation is off, hidden until the Information Age
+
+# A pack vein that places a mod's own block in ONE host rock: the block is disguised as that rock until its Age.
+[ore_blocks]
+"mysticalagriculture:soulstone" = { stage = "age_6", rock = "basalt" }     # the soulstone vein (decision 8A)
+"mysticalagriculture:soulium_ore" = { stage = "age_6", rock = "basalt" }   # 5 % of the soulstone vein, as in MA
 
 # ------------------------------------------------------------------------------------------------ TFC tables
 # Stage in which a TFC ore becomes visible/usable (Doc 08 v3 sections 3.2, 4.1). Copper ores are visible
@@ -4936,13 +4943,10 @@ items = [
     "mysticalagriculture:awakened_supremium_staff",
     "mysticalagriculture:awakened_supremium_upgrade",
     "mysticalagriculture:awakened_supremium_watering_can",
-    "mysticalagriculture:awakening_altar",
-    "mysticalagriculture:awakening_pedestal",
     "mysticalagriculture:basalt_essence",
     "mysticalagriculture:basalt_seeds",
     "mysticalagriculture:basalz_essence",
     "mysticalagriculture:basalz_seeds",
-    "mysticalagriculture:blank_skull",
     "mysticalagriculture:blazing_crystal_essence",
     "mysticalagriculture:blazing_crystal_seeds",
     "mysticalagriculture:blitz_essence",
@@ -4995,8 +4999,6 @@ items = [
     "mysticalagriculture:energetic_alloy_seeds",
     "mysticalagriculture:energized_steel_essence",
     "mysticalagriculture:energized_steel_seeds",
-    "mysticalagriculture:essence_vessel",
-    "mysticalagriculture:experience_capsule",
     "mysticalagriculture:fertilized_essence",
     "mysticalagriculture:fish_essence",
     "mysticalagriculture:fish_seeds",
@@ -5090,26 +5092,8 @@ items = [
     "mysticalagriculture:signalum_seeds",
     "mysticalagriculture:slimesteel_essence",
     "mysticalagriculture:slimesteel_seeds",
-    "mysticalagriculture:soul_dust",
-    "mysticalagriculture:soul_glass",
     "mysticalagriculture:soularium_essence",
     "mysticalagriculture:soularium_seeds",
-    "mysticalagriculture:soulium_ore",
-    "mysticalagriculture:soulstone",
-    "mysticalagriculture:soulstone_bricks",
-    "mysticalagriculture:soulstone_bricks_slab",
-    "mysticalagriculture:soulstone_bricks_stairs",
-    "mysticalagriculture:soulstone_bricks_wall",
-    "mysticalagriculture:soulstone_chiseled_bricks",
-    "mysticalagriculture:soulstone_cobble",
-    "mysticalagriculture:soulstone_cobble_slab",
-    "mysticalagriculture:soulstone_cobble_stairs",
-    "mysticalagriculture:soulstone_cobble_wall",
-    "mysticalagriculture:soulstone_cracked_bricks",
-    "mysticalagriculture:soulstone_slab",
-    "mysticalagriculture:soulstone_smooth",
-    "mysticalagriculture:soulstone_smooth_slab",
-    "mysticalagriculture:soulstone_stairs",
     "mysticalagriculture:spirited_crystal_essence",
     "mysticalagriculture:spirited_crystal_seeds",
     "mysticalagriculture:squid_essence",
@@ -5130,9 +5114,6 @@ items = [
     "mysticalagriculture:uraninite_seeds",
     "mysticalagriculture:vibrant_alloy_essence",
     "mysticalagriculture:vibrant_alloy_seeds",
-    "mysticalagriculture:witherproof_block",
-    "mysticalagriculture:witherproof_bricks",
-    "mysticalagriculture:witherproof_glass",
     "mysticalagriculture:wood_essence",
     "mysticalagriculture:wood_seeds",
     "mysticalagriculture:yellorium_essence",

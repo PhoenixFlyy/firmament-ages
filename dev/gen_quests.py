@@ -1114,7 +1114,7 @@ INFORMATION = age_chapter(
     entry=Q('information/entry', 'Welcome to the Information Age', t_stage('age_6'), kind='entry',
             icon='mekanism:advanced_control_circuit', sub='Age 6',
             desc=['Mekanism triples ore, AE2 stores and crafts everything, and the End can be reached.',
-                  'Osmium and certus quartz veins are visible now.',
+                  'Certus quartz and the Mystical Agriculture veins (inferium, prosperity, soulstone) are visible now.',
                   '',
                   'Four strands lead to the Data Matrix: Digital, Mekanism, Mob Data and The End.']),
     strands=[
@@ -1212,8 +1212,17 @@ INFORMATION = age_chapter(
                  'Caelum keeps the Data Matrix as a relic and opens the Space Age for the whole team.']),
     sides=[
         ('information/mek/osmium', [
-            Q('information/side/mystical', 'Mystical Agriculture', t_item('mysticalagriculture:inferium_essence', 32),
-              kind='side', desc=['Grow inferium and the resource seeds of unlocked materials.']),
+            Q('information/side/mystical', 'Mystical Agriculture',
+              [t_item('mysticalagriculture:inferium_essence', 32, title='Inferium essence'),
+               t_item('mysticalagriculture:prosperity_shard', 8, title='Prosperity shards'),
+               t_item('mysticalagriculture:soulstone', 8, title='Soulstone')],
+              kind='side', icon='mysticalagriculture:inferium_essence',
+              desc=["Three new veins show up from this Age. Find them with a prospector's pick:",
+                    'inferium ore lies in every kind of rock, from deep underground up into the hills;',
+                    'prosperity ore lies deep, in igneous and metamorphic rock;',
+                    'soulstone forms large bodies in basalt, with a little soulium ore inside.',
+                    '',
+                    'Then grow inferium and the resource seeds of unlocked materials.']),
         ]),
         ('information/digital/silicon', [
             Q('information/side/archmage', 'Archmage', t_item('ars_nouveau:archmage_spell_book'), kind='side',
