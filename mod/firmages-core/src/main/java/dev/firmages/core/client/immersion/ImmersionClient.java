@@ -40,7 +40,8 @@ import java.util.Set;
 
 /**
  * Client half of the immersion features (SPEC §18): silent joins (blocked screens and toasts), no advancements screen
- * or mod list, EMI and Jade gated by Age, the HUD Age indicator, the first-join welcome and the TFC display tweaks.
+ * or mod list, EMI, Jade and the TFC inventory tabs gated by Age, the HUD Age indicator, the first-join welcome and the
+ * TFC display tweaks.
  * Physical client only.
  */
 public final class ImmersionClient {
@@ -129,7 +130,7 @@ public final class ImmersionClient {
         @SubscribeEvent(priority = EventPriority.LOW) // after TFC adds its inventory tabs
         public static void screenInit(ScreenEvent.Init.Post event) {
             if (ClientConfig.get(ClientConfig.HIDE_MENU_BUTTONS, true)) MenuButtons.apply(event);
-            if (ClientConfig.get(ClientConfig.HIDE_NUTRITION, true) && TfcClient.available()) TfcClient.hideNutritionTab(event);
+            if (TfcClient.available()) TfcClient.applyTabs(event, ClientAgeStatus.get().tabs()); // before the first status: Dawn
         }
 
         @SubscribeEvent

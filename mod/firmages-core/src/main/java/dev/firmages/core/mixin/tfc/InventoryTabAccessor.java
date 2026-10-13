@@ -5,9 +5,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 /**
- * TFC's inventory tab buttons (Inventory, Calendar, Nutrition, Climate) keep their tab and icon position in private
- * fields [verified, javap, TFC 4.2.11]; the nutrition tab is hidden and the climate tab moved up into its place
- * (SPEC §18.6).
+ * TFC's inventory tab buttons (Inventory, Calendar, Nutrition, Climate, Field Guide) keep their tab and icon position
+ * in private fields [verified, javap, TFC 4.2.11]; tabs whose Age is not open are removed and the rest move up
+ * (SPEC §18.6, {@code compat/tfc/TfcClient}).
  */
 @Mixin(value = PlayerInventoryTabButton.class, remap = false)
 public interface InventoryTabAccessor {
