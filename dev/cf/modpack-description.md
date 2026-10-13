@@ -70,13 +70,13 @@ Firmament Ages Core (firmages-core), the pack's own mod, runs the Ages: the shar
 
 ## License
 
-The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmament Ages Core, are released under the MIT License. Every other mod belongs to its authors and keeps its own license; the credits below name each one.
+The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmament Ages Core, are released under the MIT License (the `LICENSE` file of the source repository). Every other mod belongs to its authors and keeps its own license; the credits below name each one.
 
 ## Credits
 
 <!-- credits:start -->
 
-Firmament Ages 0.6.2 contains 191 mods. Thank you to every author.
+Firmament Ages 0.6.3 contains 191 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))

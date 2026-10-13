@@ -1,6 +1,6 @@
 # Firmament Ages auf CurseForge hochladen
 
-Stand 2026-10-13, Pack 0.6.2, firmages-core 0.6.2. Alle Entscheidungen sind getroffen (MekaTFC durch eine eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen, Lizenz MIT, Release-Typ Beta, GitHub-Repo öffentlich als Quelle). Reihenfolge: Konto, dann **zuerst firmages-core als Mod-Projekt**, dann das Modpack.
+Stand 2026-10-13, Pack 0.6.3, firmages-core 0.6.2. Alle Entscheidungen sind getroffen (MekaTFC durch eine eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen, Lizenz MIT, Release-Typ Beta, GitHub-Repo öffentlich als Quelle). Reihenfolge: Konto, dann **zuerst firmages-core als Mod-Projekt**, dann das Modpack.
 
 Jeder Feldwert steht fertig in zwei Dateien, hier wird nur verwiesen:
 
@@ -10,7 +10,7 @@ Jeder Feldwert steht fertig in zwei Dateien, hier wird nur verwiesen:
 | `dev/cf/modpack-fields.md` | jedes Feld des Modpack-Projekts (Name, Summary, Kategorien, Lizenz, Quelle, Galerie, Datei, Server-Pack) |
 | `dev/cf/firmages-core-description.md` / `.html` | Beschreibung des Mod-Projekts (HTML für den Editor) mit Changelog 0.1.0 bis 0.6.2 |
 | `dev/cf/modpack-description.md` / `.html` | Beschreibung des Modpacks mit Credits (191 Mods, Autor und Link) |
-| `dev/cf/changelog-0.6.2.md` | Changelog der Modpack-Datei (kumuliert seit 0.5.0) |
+| `dev/cf/changelog-0.6.3.md` | Changelog der Modpack-Datei (kumuliert seit 0.5.0) |
 | `dev/cf/avatar-400.png`, `logo.png`, `banner.png` | Modpack-Bilder (400², 512², 1920×1080) |
 | `dev/cf/firmages-core-avatar-400.png`, `firmages-core-logo.png` | Mod-Bilder (400², 512²) |
 | `dev/cf/gallery/01…05.png` | fünf Galeriebilder 1920×1080 (Schrein nach Stone, Arcane, Quantum Age, Bauplan, Signatur-Items) |
@@ -68,15 +68,15 @@ Felder: `dev/cf/modpack-fields.md`. Beschreibung: `dev/cf/modpack-description.ht
    tools\packwiz.exe refresh
    python dev\cf\export_cf.py
    ```
-   Das Skript schreibt `dev\exports\FirmamentAges-0.6.2-curseforge-upload.zip` und listet die Manifest-Zahl und jedes Jar in `overrides/`. **Dort darf nur noch `firmages-core-0.6.2.jar` stehen** (nach Schritt 3.5: keins). MekaTFC und TFC Ore Tooltips sind nicht mehr im Pack.
+   Das Skript schreibt `dev\exports\FirmamentAges-0.6.3-curseforge-upload.zip` und listet die Manifest-Zahl und jedes Jar in `overrides/`. **Dort darf nur noch `firmages-core-0.6.2.jar` stehen** (nach Schritt 3.5: keins). MekaTFC und TFC Ore Tooltips sind nicht mehr im Pack.
    Nicht `dev\release.ps1` dafür nehmen: dessen CurseForge-Zip ist der private Prüfstand (Client-Seite, ohne Tausch der sechs gesperrten Mods).
-3. Projekt → **Upload File**: das Zip, Display Name „Firmament Ages 0.6.2“, Release-Typ **Beta**, Spielversion **1.21.1** (wird aus dem Manifest gelesen), Loader **NeoForge**, Changelog = Inhalt von `dev/cf/changelog-0.6.2.md`, Relation *Required Dependency* Firmament Ages Core (sobald das Mod-Projekt existiert).
+3. Projekt → **Upload File**: das Zip, Display Name „Firmament Ages 0.6.3“, Release-Typ **Beta**, Spielversion **1.21.1** (wird aus dem Manifest gelesen), Loader **NeoForge**, Changelog = Inhalt von `dev/cf/changelog-0.6.3.md`, Relation *Required Dependency* Firmament Ages Core (sobald das Mod-Projekt existiert).
 4. Server-Pack als **Additional File** an genau dieser Datei (nicht als eigene Hauptdatei):
    ```
    powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1
    ```
-   Schritt 5 des Skripts schreibt `dev\exports\FirmamentAges-0.6.2-server.zip`: ein startfertiger Server-Ordner (`mods/` mit allen Server-Jars, `config/`, `defaultconfigs/`, `kubejs/`, `start.bat`, `start.ps1`, `user_jvm_args.txt`, `server.properties`, `README-SERVERPACK.md`, NeoForge-Installer), gefüllt von packwiz-installer (`-s server`) aus einem lokalen `packwiz serve`, also genau so wie ein echter Server synchronisiert. `packwiz curseforge export -s server` schreibt nur ein Manifest-Zip; das installiert CurseForge für Server nicht.
-   Auf der Dateiseite des Modpacks (Files → die eben hochgeladene Datei) **Upload Additional File** wählen, das Server-Zip hochladen, Display Name „Firmament Ages 0.6.2 Server Pack“, Release-Typ **Beta**, Changelog aus `modpack-fields.md`. Größe etwa 510 MB; eine Grenze nennt CurseForge nicht, lehnt die Console die Größe ab, Support fragen.
+   Schritt 5 des Skripts schreibt `dev\exports\FirmamentAges-0.6.3-server.zip`: ein startfertiger Server-Ordner (`mods/` mit allen Server-Jars, `config/`, `defaultconfigs/`, `kubejs/`, `start.bat`, `start.ps1`, `user_jvm_args.txt`, `server.properties`, `README-SERVERPACK.md`, NeoForge-Installer), gefüllt von packwiz-installer (`-s server`) aus einem lokalen `packwiz serve`, also genau so wie ein echter Server synchronisiert. `packwiz curseforge export -s server` schreibt nur ein Manifest-Zip; das installiert CurseForge für Server nicht.
+   Auf der Dateiseite des Modpacks (Files → die eben hochgeladene Datei) **Upload Additional File** wählen, das Server-Zip hochladen, Display Name „Firmament Ages 0.6.3 Server Pack“, Release-Typ **Beta**, Changelog aus `modpack-fields.md`. Größe etwa 510 MB; eine Grenze nennt CurseForge nicht, lehnt die Console die Größe ab, Support fragen.
 5. Absenden.
 
 ## 6. Was die Moderation prüft
@@ -85,7 +85,7 @@ Felder: `dev/cf/modpack-fields.md`. Beschreibung: `dev/cf/modpack-description.ht
 - **Fremde Jars in `overrides/`:** nur Mods der Approved-Liste und eigene Mods ohne CurseForge-Projekt. Ein Mod mit CurseForge-Projekt als Jar ist ein sicherer Ablehnungsgrund; deshalb tauscht `export_cf.py` die sechs gesperrten Mods gegen ihre CurseForge-Einträge, und deshalb kommt firmages-core zuerst als eigenes Projekt.
 - **Manifest:** CurseForge verlangt das Format der CurseForge App und verbietet Handänderungen am Manifest. packwiz schreibt genau dieses Format (`manifest.json`, `modlist.html`, `overrides/`), von Hand geändert wird nichts. Lehnt ein Moderator das Zip trotzdem ab („must be created with the CurseForge App“): das Zip in der CurseForge App importieren (*Create Custom Profile → Import*), Profil starten, einmal schließen, dann *Export Profile* mit den Ordnern `config`, `defaultconfigs`, `kubejs` und das exportierte Zip hochladen (`LOKAL-TESTEN.md`).
 - **Beschreibung und Bilder:** Avatar nicht einfarbig, 400 × 400. Credits sind Pflicht für fremde Inhalte; der Credits-Abschnitt nennt jede der 191 Mods mit Autor und Link.
-- **Lizenz:** Projektlizenz MIT; das Jar von firmages-core meldet `license="MIT"` in seiner `neoforge.mods.toml`, Moderatoren vergleichen beides.
+- **Lizenz:** Projektlizenz MIT; das Jar von firmages-core meldet `license="MIT"` in seiner `neoforge.mods.toml`, Moderatoren vergleichen beides. Der Lizenztext liegt im Repo als `LICENSE` (eigene Teile des Packs) und `mod/firmages-core/LICENSE` (die Mod).
 - **Loader:** alle Mods müssen NeoForge-Dateien für 1.21.1 sein. Das ist für alle 190 Manifest-Einträge so ausgewählt.
 - **Gelöschte oder archivierte Dateien:** Zieht ein Mod-Autor eine Datei zurück, lehnt CurseForge spätere Uploads mit dieser Datei ab. Dann die Mod im Pack aktualisieren (`tools\packwiz.exe update <name>`) und neu exportieren.
 

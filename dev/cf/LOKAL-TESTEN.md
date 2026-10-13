@@ -1,6 +1,6 @@
 # Lokal testen mit der CurseForge-App
 
-Stand 2026-10-13, Pack 0.6.2. Du testest genau das Zip, das später hochgeladen wird. Die CurseForge-App lädt die Mods selbst von CurseForge, nur die eigenen Dateien stecken im Zip.
+Stand 2026-10-13, Pack 0.6.3. Du testest genau das Zip, das später hochgeladen wird. Die CurseForge-App lädt die Mods selbst von CurseForge, nur die eigenen Dateien stecken im Zip.
 
 ## 1. Zip bauen (einmal pro Stand)
 
@@ -11,7 +11,7 @@ tools\packwiz.exe refresh
 python dev\cf\export_cf.py
 ```
 
-Ergebnis: `dev\exports\FirmamentAges-0.6.2-curseforge-upload.zip` (etwa 1 MB). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
+Ergebnis: `dev\exports\FirmamentAges-0.6.3-curseforge-upload.zip` (etwa 1 MB). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
 
 ## 2. In der CurseForge-App importieren
 

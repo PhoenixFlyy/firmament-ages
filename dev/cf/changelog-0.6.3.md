@@ -1,6 +1,11 @@
-# Firmament Ages 0.6.2
+# Firmament Ages 0.6.3
 
 First public release on CurseForge, as a beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. This changelog covers everything since 0.5.0 (the first release candidate that was never published).
+
+## 0.6.3
+
+- **No more extra freeze when an Age unlocks.** Firmament Ages Core 0.6.2: ProgressiveStages used to resend its full lock list to every team member once for each stage an Age grant changes (the Age, the mob ladder, the helper stages), which froze the server for about three seconds per unlock with two players, on top of the datapack reload. The mod now sends one lock update and one stage update per player at the end of the tick; on the test server that freeze dropped from about three seconds to about one with two players.
+- The pack's own parts (quests, scripts, configs, textures, Firmament Ages Core) carry an MIT license file in the source repository.
 
 ## 0.6.2
 
