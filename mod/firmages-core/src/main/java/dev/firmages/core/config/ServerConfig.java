@@ -50,6 +50,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
     public static final ModConfigSpec.ConfigValue<String> ORIGIN_FINALE_GATEWAY;
+    // sync
+    public static final ModConfigSpec.BooleanValue SYNC_COALESCE;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -136,6 +138,12 @@ public final class ServerConfig {
             .define("finaleGateway", DEFAULT_FINALE_GATEWAY, o -> o instanceof String str && str.matches("[a-z0-9_.-]+:[a-z0-9_./-]+"));
         b.pop();
 
+        b.comment("ProgressiveStages client syncs").push("sync");
+        SYNC_COALESCE = b.comment("Send the ProgressiveStages lock and stage sync once per player at the end of the tick instead of once per",
+                "stage change (an Age grant changes several stages; each full sync costs about 0.3 s per player). Order unchanged.")
+            .define("coalesce", true);
+        b.pop();
+
         b.push("debug");
         DEBUG_ALLOW_SIMULATE = b.comment("Enables /firmages ages simulate (self-tests only).").define("allowSimulate", false);
         b.pop();
@@ -159,6 +167,10 @@ public final class ServerConfig {
 
     public static int coalesceTicks() {
         return loaded() ? COALESCE_TICKS.get() : 100;
+    }
+
+    public static boolean syncCoalesce() {
+        return !loaded() || SYNC_COALESCE.get();
     }
 
     public static boolean minerIeExcavator() {

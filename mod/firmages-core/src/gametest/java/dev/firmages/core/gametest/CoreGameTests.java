@@ -1,5 +1,9 @@
 package dev.firmages.core.gametest;
 
+import com.enviouse.progressivestages.common.api.ProgressiveStagesAPI;
+import com.enviouse.progressivestages.common.api.StageCause;
+import com.enviouse.progressivestages.common.api.StageId;
+import com.enviouse.progressivestages.common.network.NetworkHandler;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.age.AgeIndex;
@@ -10,11 +14,13 @@ import dev.firmages.core.age.ReloadScheduler;
 import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.command.SelfTest;
 import dev.firmages.core.compat.progressivestages.LockSyncDedupe;
+import dev.firmages.core.compat.progressivestages.StageSyncCoalescer;
 import dev.firmages.core.command.CoreSuite;
 import dev.firmages.core.command.GateSuite;
 import dev.firmages.core.command.ServerSuite;
 import dev.firmages.core.compat.kubejs.FirmAgesJS;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -35,6 +41,8 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Level G tests of the core (SPEC §12) in the dev GameTest server: {@code gradlew runGameTestServer}.
@@ -190,5 +198,140 @@ public final class CoreGameTests {
             DebugPlayerCommands.despawn(p);
         }
         helper.succeed();
+    }
+
+    private static final List<String> BATCH_PLAYERS = List.of("gt_sync_a", "gt_sync_b");
+
+    private static StageId batchStage(int i) {
+        return StageId.of("gt_batch_" + i);
+    }
+
+    private static void grant(ServerPlayer p, StageId s) {
+        if (!ProgressiveStagesAPI.grantStage(p, s, StageCause.API)) ProgressiveStagesAPI.grantStageBypass(p, s, StageCause.API);
+    }
+
+    /** The ProgressiveStages lock_sync and stage_sync payloads the test player received while recording, in order. */
+    private static List<CustomPacketPayload> psSyncs(String name) {
+        return DebugPlayerCommands.recorded(name).stream().filter(pl -> {
+            ResourceLocation id = pl.type().id();
+            return id.getNamespace().equals("progressivestages") && (id.getPath().equals("lock_sync") || id.getPath().equals("stage_sync"));
+        }).toList();
+    }
+
+    private static List<String> paths(List<CustomPacketPayload> l) {
+        return l.stream().map(pl -> pl.type().id().getPath()).toList();
+    }
+
+    /**
+     * sync.coalesce (StageSyncCoalescer, mixin.ps.StageSyncCoalesceMixin): five stage changes per player in one tick,
+     * the shape of an Age grant in grants.js (gt_batch_1..4 granted, gt_batch_2 revoked again), reach each of two
+     * players as one lock sync followed by one stage sync at the end of the tick, and that stage sync carries the
+     * server's final stages. A syncPlayer in the same tick as a deferred sync sends at once with one lock sync and
+     * replaces the deferred one. Then a batch with coalescing off sends one pair per change (the old behaviour).
+     */
+    @GameTest(template = "empty", batch = "firmages_1_ps_coalesce", timeoutTicks = 200)
+    public static void stageBatchSyncsOncePerPlayer(GameTestHelper helper) {
+        if (!ModList.get().isLoaded("progressivestages")) {
+            helper.succeed();
+            return;
+        }
+        MinecraftServer server = helper.getLevel().getServer();
+        ServerPlayer[] p = new ServerPlayer[BATCH_PLAYERS.size()];
+        long[] nanos = new long[2];
+        long[] requested = new long[1];
+        helper.startSequence()
+            .thenExecute(() -> {
+                for (int i = 0; i < p.length; i++) {
+                    p[i] = DebugPlayerCommands.spawn(server, helper.getLevel(), BATCH_PLAYERS.get(i), Vec3.atCenterOf(helper.absolutePos(new BlockPos(1 + i, 1, 1))));
+                }
+            })
+            .thenIdle(2)
+            .thenExecute(() -> {
+                StageSyncCoalescer.overrideEnabled(true);
+                BATCH_PLAYERS.forEach(DebugPlayerCommands::record);
+                requested[0] = StageSyncCoalescer.requested();
+                long t0 = System.nanoTime();
+                for (ServerPlayer pl : p) {
+                    for (int i = 1; i <= 4; i++) grant(pl, batchStage(i));
+                    ProgressiveStagesAPI.revokeStage(pl, batchStage(2), StageCause.API);
+                }
+                nanos[0] = System.nanoTime() - t0;
+                requested[0] = StageSyncCoalescer.requested() - requested[0];
+                for (String n : BATCH_PLAYERS) {
+                    helper.assertTrue(psSyncs(n).isEmpty(), n + " got a ProgressiveStages sync before the end of the tick: " + paths(psSyncs(n)));
+                }
+                helper.assertTrue(requested[0] >= 2L * p.length, "the batch deferred only " + requested[0] + " stage syncs");
+            })
+            .thenIdle(1)
+            .thenExecute(() -> {
+                try {
+                    for (int i = 0; i < p.length; i++) {
+                        String n = BATCH_PLAYERS.get(i);
+                        List<CustomPacketPayload> syncs = psSyncs(n);
+                        helper.assertTrue(paths(syncs).equals(List.of("lock_sync", "stage_sync")),
+                            n + ": expected one lock_sync then one stage_sync, got " + paths(syncs));
+                        Set<ResourceLocation> client = Set.copyOf(((NetworkHandler.StageSyncPayload) syncs.get(1)).stages());
+                        Set<ResourceLocation> serverSide = ProgressiveStagesAPI.getStages(p[i]).stream().map(StageId::getResourceLocation).collect(Collectors.toSet());
+                        helper.assertTrue(client.equals(serverSide), n + ": client stages " + client + " differ from the server's " + serverSide);
+                        for (int k : new int[] {1, 3, 4}) helper.assertTrue(client.contains(batchStage(k).getResourceLocation()), n + " lacks gt_batch_" + k);
+                        helper.assertTrue(!client.contains(batchStage(2).getResourceLocation()), n + " still has the revoked gt_batch_2");
+                    }
+                    FirmagesCore.LOGGER.info("GameTest stageBatchSyncsOncePerPlayer: coalesced: {} stage sync requests for {} players -> 1 lock + 1 stage sync each; "
+                        + "changes {} ms, flush {} ms", requested[0], p.length, String.format("%.1f", nanos[0] / 1e6), String.format("%.1f", StageSyncCoalescer.lastFlushMillis()));
+
+                    // A full sync (syncPlayer, as after a reload) in the same tick sends at once, keeps its duplicate
+                    // lock-sync skip, and replaces the deferred sync of that player.
+                    BATCH_PLAYERS.forEach(DebugPlayerCommands::record);
+                    requested[0] = LockSyncDedupe.skipped();
+                    for (ServerPlayer pl : p) {
+                        grant(pl, batchStage(2));
+                        ProgressiveStagesAPI.syncPlayer(pl);
+                    }
+                    helper.assertTrue(LockSyncDedupe.skipped() - requested[0] == p.length, "syncPlayer skipped "
+                        + (LockSyncDedupe.skipped() - requested[0]) + " duplicate lock syncs for " + p.length + " players");
+                    for (String n : BATCH_PLAYERS) {
+                        helper.assertTrue(paths(psSyncs(n)).equals(List.of("lock_sync", "stage_sync")), n + ": syncPlayer sent " + paths(psSyncs(n)));
+                    }
+                } catch (RuntimeException e) {
+                    StageSyncCoalescer.overrideEnabled(null);
+                    for (ServerPlayer pl : p) DebugPlayerCommands.despawn(pl);
+                    throw e;
+                }
+            })
+            .thenIdle(1)
+            .thenExecute(() -> {
+                try {
+                    for (int i = 0; i < p.length; i++) {
+                        String n = BATCH_PLAYERS.get(i);
+                        helper.assertTrue(paths(psSyncs(n)).equals(List.of("lock_sync", "stage_sync")),
+                            n + ": the deferred sync was sent after syncPlayer: " + paths(psSyncs(n)));
+                        Set<ResourceLocation> client = Set.copyOf(((NetworkHandler.StageSyncPayload) psSyncs(n).get(1)).stages());
+                        helper.assertTrue(client.contains(batchStage(2).getResourceLocation()), n + ": syncPlayer's stage sync lacks gt_batch_2");
+                    }
+
+                    StageSyncCoalescer.overrideEnabled(false);
+                    BATCH_PLAYERS.forEach(DebugPlayerCommands::record);
+                    long t0 = System.nanoTime();
+                    for (ServerPlayer pl : p) {
+                        grant(pl, batchStage(2));
+                        for (int k : new int[] {1, 2, 3, 4}) ProgressiveStagesAPI.revokeStage(pl, batchStage(k), StageCause.API);
+                    }
+                    nanos[1] = System.nanoTime() - t0;
+                    StringBuilder counts = new StringBuilder();
+                    for (String n : BATCH_PLAYERS) {
+                        List<String> got = paths(psSyncs(n));
+                        long locks = got.stream().filter("lock_sync"::equals).count();
+                        long stages = got.stream().filter("stage_sync"::equals).count();
+                        helper.assertTrue(locks == stages && stages >= 2, n + ": uncoalesced batch sent " + got);
+                        counts.append(' ').append(n).append('=').append(stages);
+                    }
+                    FirmagesCore.LOGGER.info("GameTest stageBatchSyncsOncePerPlayer: sync.coalesce off: lock+stage sync pairs per player:{}; changes with syncs {} ms",
+                        counts, String.format("%.1f", nanos[1] / 1e6));
+                } finally {
+                    StageSyncCoalescer.overrideEnabled(null);
+                    for (ServerPlayer pl : p) DebugPlayerCommands.despawn(pl);
+                }
+            })
+            .thenSucceed();
     }
 }

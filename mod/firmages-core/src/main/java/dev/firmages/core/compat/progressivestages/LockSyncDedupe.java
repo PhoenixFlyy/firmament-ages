@@ -44,6 +44,15 @@ public final class LockSyncDedupe {
         SENT.remove();
     }
 
+    /**
+     * True inside a full sync of {@code player} ({@code syncPlayer}, or {@code onPlayerJoin} after its first lock
+     * sync) on this thread: {@link StageSyncCoalescer} sends its {@code sendStageSync} at once, so the duplicate
+     * skip and the packet order of that full sync stay as they are.
+     */
+    public static boolean inScope(ServerPlayer player) {
+        return player != null && player == ACTIVE.get();
+    }
+
     public static void markSent(ServerPlayer player, Site site) {
         if (player == ACTIVE.get()) SENT.set(site);
     }
