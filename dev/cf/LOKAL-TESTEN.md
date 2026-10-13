@@ -1,6 +1,6 @@
 # Lokal testen mit der CurseForge-App
 
-Stand 2026-10-13, Pack 0.7.2. Du testest genau das Zip, das später hochgeladen wird. Die CurseForge-App lädt die Mods selbst von CurseForge, nur die eigenen Dateien stecken im Zip.
+Stand 2026-10-13, Pack 0.8.0. Du testest genau das Zip, das später hochgeladen wird. Die CurseForge-App lädt die Mods selbst von CurseForge, nur die eigenen Dateien stecken im Zip.
 
 ## 1. Zip bauen (einmal pro Stand)
 
@@ -11,15 +11,15 @@ tools\packwiz.exe refresh
 python dev\cf\export_cf.py
 ```
 
-Ergebnis: `dev\exports\FirmamentAges-0.7.2-curseforge-upload.zip` (etwa 7 MB, wegen der Titelbild-Diashow und der Questbuch-Bilder). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
+Ergebnis: `dev\exports\FirmamentAges-0.8.0-curseforge-upload.zip` (etwa 7 MB, wegen der Titelbild-Diashow und der Questbuch-Bilder). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
 
 ## 2. In der CurseForge-App importieren
 
 1. CurseForge-App starten, links **Minecraft** wählen.
 2. Oben **Create Custom Profile** (oder das Plus), dann **Import**.
-3. Das Zip aus Schritt 1 auswählen. Die App liest `manifest.json`, legt das Profil „Firmament Ages“ an und lädt alle 192 Mods. Beim ersten Mal dauert das einige Minuten, etwa 500 MB.
+3. Das Zip aus Schritt 1 auswählen. Die App liest `manifest.json`, legt das Profil „Firmament Ages“ an und lädt alle 206 Mods und die zwei Shaderpacks. Beim ersten Mal dauert das einige Minuten, etwa 500 MB.
 4. Die App richtet Java 21 selbst ein. Falls sie nach einem Launcher fragt, den normalen Minecraft Launcher nehmen.
-5. Im Profil **Settings** öffnen und den RAM auf 10 GB setzen (Standard sind 4 GB, zu wenig für 193 Mods).
+5. Im Profil **Settings** öffnen und den RAM auf 10 GB setzen (Standard sind 4 GB, zu wenig für 207 Mods).
 6. **Play**. Der erste Start braucht wegen der Shader-Vorbereitung drei bis fünf Minuten.
 
 Wenn der Import mit einer Fehlermeldung zu einer Mod-Datei abbricht: Mod-Name und Meldung notieren und mir schicken, dann ist eine CurseForge-Datei zurückgezogen worden.
@@ -48,11 +48,12 @@ Alternativ geht auch **Singleplayer** im Profil. Dann fehlt nur der Mehrspieler-
 
 ## 4. Was du testest
 
-Die Checkliste steht in `dev\client-test-brief.md`, oben die Nachträge für 0.7.2 und 0.7.1 und darunter der Abschnitt für 0.7.0 in der Reihenfolge, in der Du ihn abarbeitest. **Für 0.7.0 bis 0.7.2 ein neues Profil importieren** (nicht das alte aktualisieren): Default Options, das frühe Ladefenster und der Willkommensbildschirm zeigen sich nur beim ersten Start eines frischen Profils bzw. bei einem neuen Spieler in einer frischen Welt. Kurz:
+Die Checkliste steht in `dev\client-test-brief.md`, oben die Nachträge für 0.8.0, 0.7.2 und 0.7.1 und darunter der Abschnitt für 0.7.0 in der Reihenfolge, in der Du ihn abarbeitest. **Für 0.7.0 bis 0.8.0 ein neues Profil importieren** (nicht das alte aktualisieren): Default Options (auch die Shader-Voreinstellung), das frühe Ladefenster und der Willkommensbildschirm zeigen sich nur beim ersten Start eines frischen Profils bzw. bei einem neuen Spieler in einer frischen Welt. Kurz:
 
 - Neu in 0.7.0: Ladebildschirm und Titelbild, Standard-Tasten (Sprint Shift, Schleichen Strg, Age-Anzeige H), stiller Join, Willkommen, HUD-Age-Anzeige, kein EMI und kein Jade in Dawn, Questbuch im Firmament-Stil mit nur freigeschalteten Kapiteln, TFC ohne Durst und ohne Ernährungsstrafe.
 - Neu in 0.7.1: EMI erst ab der Bronzezeit (Jade weiter ab der Steinzeit), Physics-Staff-Drehmodus auf Komma und Cataclysm-Brustplatte auf Apostroph (Ä) statt Tab und Y, MekaSuit-Module herstellbar, TFC-Stahlstufe und IE-Chunk-Loader versteckt.
 - Neu in 0.7.2: Titel- und Pausemenü repariert (nur noch die gewollten Knöpfe, Versionszeile lesbar), TFC-Reiter im Inventar nach Age (Kalender ab Steinzeit, Klima ab Eisenzeit, Ernährung und Field Guide nie), Simple Voice Chat entfernt, Mystical-Agriculture-Erze als TFC-Adern ab der Informationszeit, engere Absätze in der Quest-Ansicht.
+- Neu in 0.8.0: Shader standardmäßig an (Complementary, MakeUp als leichte Alternative, O-Menü), Enhanced Celestials 2, Leistungs-Mods, Titelbild „Constellation“, Questbuch als Fenster (75 %), Betten ab der Eisenzeit, Fackeln 36 Minuten, echte Dunkelheit, keine Koordinaten vor der Bronzezeit, Blutmond ab der Eisenzeit, Cave Dweller bis zur Eisenzeit, Jade ab der Bronzezeit, Ping Wheel, Crash Assistant und TFCGenViewer entfernt.
 
 Aus den früheren Phasen, weiter gültig:
 

@@ -1,6 +1,24 @@
-# Firmament Ages 0.7.2
+# Firmament Ages 0.8.0
 
 Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. This changelog covers everything since 0.5.0 (the first release candidate that was never published).
+
+## 0.8.0
+
+- **Shaders on by default.** Iris with Complementary Shaders – Reimagined (r5.9.3) starts switched on in a new install. MakeUp – Ultra Fast is included for weaker PCs; press **O** to switch packs or turn shaders off, and your choice stays. Shaders switch off by themselves on Ad Astra planets and orbits and in the Origin. Create contraptions render correctly under both packs (Colorwheel).
+- **Enhanced Celestials 2** replaces Enhanced Celestials: the same blood, blue and harvest moons, with a shader bridge so a blood moon also tints the sky under Complementary. Joining stays silent.
+- **Performance:** Dynamic FPS (lower frame rate in the background), AllTheLeaks (memory leak fixes) and BadOptimizations (small client-side render optimizations).
+- **Beds from the Iron Age.** Vanilla beds open with the Iron Age; the TerraFirmaCraft thatch bed still sets your spawn but never skips the night. Half of the players online in bed are enough to skip the night.
+- **Torches burn for 36 minutes** instead of 72 (TerraFirmaCraft `torchTicks`).
+- **Real darkness.** Nights and caves are dark (More Darkness, darker moon phases); a torch in your hand lights your way (LambDynamicLights). With shaders, the shader settings shipped with the pack keep nights and caves dark as well.
+- **No coordinates until the Bronze Age.** The debug screen (F3) hides your position until the Bronze Age; the gravestone no longer comes with an obituary that names its coordinates.
+- **Blood moons from the Iron Age.** No blood moon rises while nobody has reached the Iron Age mobs; after that they come back right away.
+- **Cave Dweller until the Iron Age.** Cave Dweller ReEvolved hunts the caves of the early Ages, one at a time and only in the Overworld. From the Iron Age on it is gone, its sounds included.
+- **Block info (Jade) from the Bronze Age,** together with the recipe viewer (new worlds; an existing world keeps its Firmament Ages Core config).
+- **The quest book is a window.** It opens as a centred window of 75 percent of the game window (client setting `ui.questWindowPercent`, 0 for fullscreen) and no longer cuts off the quest view; the gaps between the parts of a quest are tighter.
+- **Constellation title screen:** the night sky with the Shrine of every Age drawn as a star chart.
+- **Removed:** Ping Wheel, Crash Assistant and TFCGenViewer.
+- **One item per material.** The pack's checks now flag every material (ingots, dusts, plates and the like) that shows more than one item in the recipe viewer.
+- **Firmament Ages Core 0.8.0** with the Jade default, the Cave Dweller gate and the quest window.
 
 ## 0.7.2
 

@@ -31,17 +31,26 @@ Optional (the mod hooks into them when they are present):
 - Draconic Evolution with Brandon's Core and CodeChicken Lib (reactor controller)
 - Stargate Journey (The Origin's gate)
 - Jade (shrine tooltips)
-- FTB Quests (quest text spacing)
+- FTB Quests (quest window and text spacing)
+- Cave Dweller ReEvolved (Cave Dweller until an Age)
 
 ## Configuration
 
-`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays, quest paragraph gap).
+`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, Cave Dweller Age, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays, quest window size and paragraph gap).
 
 ## Source and license
 
 MIT License. Source: the `mod/firmages-core` folder of the pack repository, [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages/tree/main/mod/firmages-core). Issues go to the [pack's issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues). The textures are generated pixel art made for this mod.
 
 ## Changelog
+
+**0.8.0**
+
+- `ui.jadeFromAge` defaults to the Bronze Age (`age_1`), the same Age as the recipe viewer. Existing configs keep their values.
+- Cave Dweller ReEvolved until an Age: `hardship.caveDwellerUntilAge` (server, default `age_2`, the Iron Age; an Age id or `never`). From that Age on the server refuses the dweller when it would join a level (its own spawns, `/summon`, dwellers saved in chunks) and removes loaded ones after every Age change; `firmages:age_status` carries whether it still hunts, and the client then drops every `cave_dweller` sound (its cave noises come on a timer even without a dweller).
+- Quest book as a window (FTB Quests): `ui.questWindowPercent` (client, default 75, 0 = fullscreen) sizes the quest screen to that share of the game window, centred, with the chapter list, the map and every pop-up inside it. Pop-ups are clamped in screen coordinates (FTB Library put a screen-sized quest view 10 pixels off the edge), and the map centre and the chapter list work on a window. The gaps between title, tasks, separator and text of the quest view shrink with `ui.questParagraphGap`.
+- Enhanced Celestials 2 has no join screen; `ui.blockedScreens` ships empty.
+- Network protocol version 2 (`firmages:age_status` grew in 0.7.2 and 0.8.0): client and server need 0.8.0.
 
 **0.7.2**
 

@@ -21,6 +21,14 @@ file = "config/cataclysm-client.toml"
 hash = "4fa2149a895f6578d424174d6b6a3304949153b1f38554442623e13760d221f0"
 
 [[files]]
+file = "config/cave_dweller/server_config.toml"
+hash = "774a7e54146dbc902e82c2b815767a853bfb3066b08fc98cb971f0c0745b9a35"
+
+[[files]]
+file = "config/colorwheel-client.toml"
+hash = "956dfd6f528457e82b72142da3e8731bdd6a6130202b9917e0ce6d22494473cf"
+
+[[files]]
 file = "config/create-client.toml"
 hash = "95752e09d01178db3c5bdc0dce1634e3a4882ace629df1be5f4707e1a36f6519"
 
@@ -37,8 +45,24 @@ file = "config/defaultoptions/extra/config/emi.css"
 hash = "f07814d325cf9c953876322078b4b630e3f45050211440423b113cb0a14f929b"
 
 [[files]]
+file = "config/defaultoptions/extra/config/iris.properties"
+hash = "986d86a083159ab70ed8a7bdbd6a12473ed5ec74fa32ce7c9e2b254893f8fbb3"
+
+[[files]]
+file = "config/defaultoptions/extra/config/more_darkness.json"
+hash = "c32dbc77652f73f4fe3c2e4c4e5aaafbadf27da6389d22ccadcc4152d2cb1fab"
+
+[[files]]
+file = "config/defaultoptions/extra/shaderpacks/ComplementaryReimagined_r5.9.3.zip.txt"
+hash = "6149840d0deb7bd93b206df162e32adbf971f2471e3baa0075a4736dec80a4bf"
+
+[[files]]
+file = "config/defaultoptions/extra/shaderpacks/MakeUp-UltraFast-9.5g.zip.txt"
+hash = "5868f972e3d32de91fda224402a07ae78ac32bc1e69f2a14afd341ec3c894e07"
+
+[[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "f1094423b1d6697f5eb92ac3a4baedf322e079ec75ca18aed26e458773408c9e"
+hash = "89f1e5e77d161fc2310193ca213ae35aad91d0964339a2f2556e066fdbf60de8"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -47,6 +71,10 @@ hash = "e5f4f9b8d33ac5949b7bd20de04cd5af6af3c9457dfb08c9d350701d0d13e006"
 [[files]]
 file = "config/drippyloadingscreen/options.txt"
 hash = "71f0c2ab6c14dc769b9461fad07cf5903a821494a9dd8a98f855bc9190d4fd5b"
+
+[[files]]
+file = "config/enhancedcelestials2core/translations.json"
+hash = "ca187fe5c82c892b512d33479b28c0ade281734322ad2261732654cb3fb52d88"
 
 [[files]]
 file = "config/fancymenu/assets/firmament/bar_bg.png"
@@ -77,6 +105,10 @@ file = "config/fancymenu/assets/firmament/loading_bg.png"
 hash = "33a5cb691f38e1dd6a264c40da99352224fdeb234f3b3a88cc412ae57c3ae3c3"
 
 [[files]]
+file = "config/fancymenu/assets/firmament/sky_2304x1296.png"
+hash = "41c2e376da20a0ef7a9d2dd09056fdba625997e0092a88417a7bf8dbe52317b9"
+
+[[files]]
 file = "config/fancymenu/assets/firmament/wordmark.png"
 hash = "378b1b12826591e6a68421a9f78dfeed9783c223d2f976fe5b571454c31da07d"
 
@@ -94,51 +126,51 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "64e2d5b520e8c94b41e0691a18f5e0f7d13baef2394ae29a2335f0e8d2850331"
+hash = "c6d9ebbab25c25a9c2b3469072bc2c982e1dc1eecf479da1c1d8e4e8e83065b9"
 
 [[files]]
 file = "config/fancymenu/options.txt"
 hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_0.png"
-hash = "ccc78fb6e5e83bba9b4b65bfcae195daf8d1438db4e071936edf00bfe4238e6e"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_0.png"
+hash = "f1a0873006f154963db06446b55fa543b24e561971ad77a645c4553efd90b1d7"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_1.png"
-hash = "c3049860e8fbfbb3b4b72bca3e6897e8f18f041d2fb6379b82aec4584e0877fd"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_1.png"
+hash = "9f435f2631d011b2b6ead967c8499877e4b2d709c976802da1f281499c1e6b6a"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_2.png"
-hash = "95c0f741288816633fa3297b98b89d3b16885c243cf4354e01ab29a0637af254"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_2.png"
+hash = "348665838550cf3a4467d9c0bca903405ebd92a677d292a1133235cc318b9d7b"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_3.png"
-hash = "ae9eaa088c8a3329124104693b53b6b7ac12ca2ae48cfc5f1938eb5d1ad905ad"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_3.png"
+hash = "3867684ce461bf2e0a22be9ae1c7e14d70553ce18bb4e63254d973a8a9291c86"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_4.png"
-hash = "c917304a25615b8b5a9efc88c904833d6bfb2a871ec57c929dae3de29967356a"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_4.png"
+hash = "8a35f119eea06b6ab48460da619715bfad6bd1a7e3e006a21e3c7451375c2650"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_5.png"
-hash = "6556c23ca1556edb00129c36910295a23cca8910a5ea00ac167eb2cb4319b42b"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_5.png"
+hash = "31679cdbce53f5b4e78a970cca183b6ffdf02255f46e0983632da89e661cbe1f"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_6.png"
-hash = "0fb3c720c0964c550019e3af28cd9a5cc8dbfa6b1ea65c6ace2859f2a1e6952b"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_6.png"
+hash = "82c4085c27b19dd611b8d2cf476e6a81ef79313554148cb054dc4607746aca21"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_7.png"
-hash = "95e732fdfa9010e28fba5cb6b0cd56c5dba8ffb0ce406597f7fb65810bfd8f28"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_7.png"
+hash = "d78b397b28f9a2ebbc063ae44b556359602414481b437a2fb1a80499b7a0bd31"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/images/age_8.png"
-hash = "555b4e437735ed2f5fec0850af46222a0f6e5b7641fe8d35b372ca938c0bd376"
+file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_8.png"
+hash = "b932bcdf46b1da9ff0ceffb6b3adc605d840ad68225140686c9fedb51b930635"
 
 [[files]]
-file = "config/fancymenu/slideshows/firmament/properties.txt"
-hash = "0eefdf957efeacf256536e51cd7ed8c7b1ba85049196729bbc6ec73d2f2b49b1"
+file = "config/fancymenu/slideshows/firmament_constellation/properties.txt"
+hash = "78c2635b569ab3eb76250742804a9959ce3077a1dc5b1edfd843ae47299e21d3"
 
 [[files]]
 file = "config/fml.toml"
@@ -214,7 +246,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "38f0abf24ecd9182fa6803b8a814547ee19373a26f1b8ca2eab18f3dd3fe2437"
+hash = "44082ea545d1ad205dae41acbf620cd01adcf461ddae66e0f1d7ce2a89b5a20a"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -299,6 +331,14 @@ hash = "fbe8871f231668fd71577548a52d7c0f90705e286e8dab2adb0522652487af8a"
 [[files]]
 file = "config/ftbquests/quests/reward_tables/stone_supplies.snbt"
 hash = "afb2635501f8fdaf7e02c07e5ff07a45f7301ec653832f146b0f27ff9c6936c7"
+
+[[files]]
+file = "config/gravestone-server.toml"
+hash = "8b7f6e3dd09dfc4416a57f87ae3c9cd47662ffb7e13191ba81ef86bce44a82f9"
+
+[[files]]
+file = "config/irisblockcompat-common.toml"
+hash = "8290ddc3ade8d293e4e60523a1cc7f141f673fca7c20c01da2bd42a42941c98b"
 
 [[files]]
 file = "config/jade/plugins.json"
@@ -454,7 +494,7 @@ hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
-hash = "5f60406d187551a535aa98b8d78b8c6ed604f42278b49687ed90156626a68eb1"
+hash = "95736432adc55d2abefec85b0ef3e4d7b56efafbaccbebadf30f2cb38cc127b2"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
@@ -1446,7 +1486,7 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "f4035af4a2d7bee6f7e5bcca34e63dea740620da4b7609394dc267486b9e81d4"
+hash = "7cc2e6fa9286184ac0e203654b42850ecfe769d70fdc6d42396b08993cef0b07"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
@@ -1454,7 +1494,7 @@ hash = "47454fa2d297469a42edd2eb597cd017be87ae8496a313e450765dbfd63025c0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "c718c2d0d1d925f993fc07b25cc2253017df353ed71643076c533f1272a1726c"
+hash = "e890a11ea240e467e6f53491d498c56f5a4647d3f34b980eb6ad098ea1462475"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
@@ -1693,12 +1733,16 @@ file = "kubejs/server_scripts/finale/the_primordial.js"
 hash = "0fefcc5f354ad55cb95e3391de729b0bebeb3831a9f8221b02b983b42bd23db8"
 
 [[files]]
+file = "kubejs/server_scripts/firmages/blood_moon.js"
+hash = "45a52fafb4a50ff997288b9310eae6f13d3568aa847265a0af7533c26d0ab6b4"
+
+[[files]]
 file = "kubejs/server_scripts/firmages/boss_fallback.js"
 hash = "721bac569a3c554f1d1305be4e7752678b467a13142e9e17b0067d0195dff791"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/gamerules.js"
-hash = "73de383a5b01a9e07fde0140f7257e3d8514cb5ee6c70f6a684cd1547d85adb2"
+hash = "f56ee400f79b46bfb03d010c61f173643d6298cb5343d371f9e12e214c1586fc"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/miner_blacklist.js"
@@ -1794,7 +1838,7 @@ hash = "376e515c7ecd2375b013bc49813d21f2dc5c77182dd5028458e7748207b15d32"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
-hash = "7cef67082aefcc21671e7cb950e639e949a133fa8f076c22a8c98334b366bd4c"
+hash = "d345bc094fc079a58682727e9e1ffcfde7cac2ea7f8a181673ed27a244edbe54"
 
 [[files]]
 file = "kubejs/server_scripts/stages/mobs.js"
@@ -1834,7 +1878,7 @@ hash = "4935515dc98c0d9920d6731c771b1d0cce0838e9e0f01a68a562eabd4e81bd0c"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "ab64d8795d3cd8c82b82fa6315fe4429361cdb7c8f2f14f7ea631339e962ad09"
+hash = "2df776ce128718e1e0149175429894a1b0ad1cc506a8561f5426c831454ff6c7"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
@@ -1950,7 +1994,7 @@ metafile = true
 
 [[files]]
 file = "mods/ars-sky-shader-fix.pw.toml"
-hash = "453ed9bab6911b2fcbba073438c44b4d280de99e4412fb7a72cf6b663914de47"
+hash = "95d80a9efda371d1aa086bc394f8f22c3d66be0264d8377196f0b1297a1514a2"
 metafile = true
 
 [[files]]
@@ -1970,7 +2014,7 @@ metafile = true
 
 [[files]]
 file = "mods/badoptimizations.pw.toml"
-hash = "e2f2a6f6ff38054ce8d91a43a20b79ea7b4e84cb924142fb7d2bcfdd95fe5b57"
+hash = "8b4cb33940d2a5771439131c9b80d68b099efaf5c957ced3ab5ba6c59a0e85ae"
 metafile = true
 
 [[files]]
@@ -2055,7 +2099,7 @@ metafile = true
 
 [[files]]
 file = "mods/colorwheel.pw.toml"
-hash = "0e24a9cd861019dd29864b337768b9affe535c72b16698fa95f68a15ec819b9b"
+hash = "9e56a7f98188269a914b3ae302829a3c29b50ac8b14d19d2f2d5c407920bf7af"
 metafile = true
 
 [[files]]
@@ -2265,7 +2309,7 @@ metafile = true
 
 [[files]]
 file = "mods/dynamic-fps.pw.toml"
-hash = "e2a3aca8101a179153b92e99000a10d06e4b5d285d358fbe457a53690d12dab5"
+hash = "8bc57beb0d3d0c34a2ac8c50d70490623dd350ce62d0ccde9a16a1b000a514b1"
 metafile = true
 
 [[files]]
@@ -2295,7 +2339,7 @@ metafile = true
 
 [[files]]
 file = "mods/enhanced-celestials-2-shader-support.pw.toml"
-hash = "09b3f2721c5396c8501b662940065cd23487bf62c35ffd21ce208887f49c9153"
+hash = "8e14ccc2df62fad02daa0dd60291faa502eaf9e98361da07377a89d1af3e0fbb"
 metafile = true
 
 [[files]]
@@ -2329,8 +2373,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.7.2.jar"
-hash = "549adaa3703bc6e6ec2c6c8898a053f99a83a17ef2be0225bd150137fdf6bbf7"
+file = "mods/firmages-core-0.8.0.jar"
+hash = "4d08c889d68ae11e26c51aa5bb576338c7feb551cf510db5ded1e8e73a6f13a5"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
@@ -2434,17 +2478,17 @@ metafile = true
 
 [[files]]
 file = "mods/iris-block-compat.pw.toml"
-hash = "42db6f6fe60a34ae8819f8fe3decfe191d842bc9b7a0842791ee90dcbf09c140"
+hash = "32c679f46330406949a37d0d293f10d89a0ce7ccc3d716b129f3b193d94e0e32"
 metafile = true
 
 [[files]]
 file = "mods/iris-veil-compat.pw.toml"
-hash = "b476c11bda5022790fab2474dbdae4a21b23c84d652615ab1e7678503f6d3888"
+hash = "a485506e10aa312fe8786763a5a26a406ff3240541ecbdb7d4777d2efa1ceb40"
 metafile = true
 
 [[files]]
 file = "mods/irisshaders.pw.toml"
-hash = "763ed0c115b2b9a1e37e38cb153748c9c3f3c31869fd3d56acfaad54c63e78af"
+hash = "bc0ed43619af3b5e453ccb36412d72aef8d066594946a927155d2fbd440e4b40"
 metafile = true
 
 [[files]]
@@ -2504,7 +2548,7 @@ metafile = true
 
 [[files]]
 file = "mods/lambdynamiclights.pw.toml"
-hash = "a18e3ccdf71e346bcd5f772c235ad9244aec9dfc128402486e91bffc807832a9"
+hash = "7211de0ddeab153fc2bf9588f5922de705006be507002ec03cb9f8e6b67ab4cf"
 metafile = true
 
 [[files]]
@@ -2599,7 +2643,7 @@ metafile = true
 
 [[files]]
 file = "mods/more-darkness.pw.toml"
-hash = "1272d31ac2214b9fbb5e5e84359d6db7321da0909f70a5dd98658c6681adc90a"
+hash = "4e596fc3e75bcb144655cf5868f5c2f9d58258a460259090eb99c4ef2ec0ba60"
 metafile = true
 
 [[files]]
@@ -2878,13 +2922,16 @@ hash = "276dd3e7f9e20fb9a34fb0cbe5da5a18dcb3b0becb9c2f2b716e9e9a61ca8c96"
 metafile = true
 
 [[files]]
+file = "mods/yacl.pw.toml"
+hash = "b253b695322802d24cde85a9cbb7b9084abff52eec5042c3123a797e0d30ab5c"
+metafile = true
+
+[[files]]
 file = "shaderpacks/complementary-reimagined.pw.toml"
-hash = "507cb3963240110bc71ed7c75cac1682e66d3609536b0bc5ef90a01db3cce21f"
+hash = "75d1d2488a0c332a9a58af7e57f980a1b006c02b3a1c580fbd50443088e4eab0"
 metafile = true
 
 [[files]]
 file = "shaderpacks/makeup-ultra-fast-shader.pw.toml"
-hash = "cf2ddccf7330564a1f33e089f602ce2600777a280e605a4351b6d78827a29526"
-file = "mods/yacl.pw.toml"
-hash = "492daa3391b6079b541685db276007b286774bab3b9881505127b7aef6b3f16c"
+hash = "93120da675ad6ba5dad13488b12603b8fe281b1a13f80aaa3a28e26d31627cd4"
 metafile = true

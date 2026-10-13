@@ -39,7 +39,7 @@ In the Singularity Age the relics come off their plinths and are fused into the 
 
 - **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you.
 - **RAM:** 10 GB for the game is recommended; set it in the CurseForge App under *Settings → Minecraft → Java Settings* (the default of 4 GB is not enough). A PC with 16 GB of RAM is the practical minimum.
-- **193 mods.** The first start takes a few minutes.
+- **207 mods.** The first start takes a few minutes.
 - **Dedicated server:** 10 GB heap recommended. A ready-to-run server pack is attached to every release as an additional file.
 
 ## Multiplayer
@@ -83,13 +83,14 @@ Firmament Ages starts with shaders turned on: it uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
+Firmament Ages 0.8.0 contains 207 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
-- **Ad Astra** by terrariumearth, AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
+- **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
 - **Advanced TFC Tech Unofficial** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-tfc-tech-unofficial))
 - **AdvancedAE** by pedroksl ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advancedae))
 - **AE2 Draconic Fusion Autocrafter** by Franchino961 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ae2-draconic-fusion-autocrafter))
+- **AllTheLeaks (Memory Leak Fix)** by Uncandango ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/alltheleaks))
 - **Almost Unified** by AlmostReliable, Relentless, Lytho ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/almostunified))
 - **Alternating Flux NeoForge** by Arctonix ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/alternating-flux-neoforge))
 - **Apotheosis** by Shadows_of_Fire ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/apotheosis))
@@ -104,10 +105,12 @@ Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
 - **Ars Additions** by Jarva ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ars-additions))
 - **Ars Creo** by baileyholl2 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ars-creo))
 - **Ars Nouveau** by baileyholl2, Gootastic ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ars-nouveau))
+- **Ars Skyweave Shader Fix** by Kasch_X ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ars-sky-shader-fix))
 - **Astikor Carts TFC** by Verph ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/astikor-carts-tfc))
 - **AstikorCarts Redux** by jusipat ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/astikor-carts-redux))
 - **AU: Immersive Engineering** by Relentless ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/almost-unified-ie))
 - **Azimuth API** by CakeIsTastyDeveloper ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/azimuth-api))
+- **BadOptimizations** by thosea ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/badoptimizations))
 - **Balm** by BlayTheNinth ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/balm))
 - **Barrels 2012** by EERussianguy ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/barrels-2012))
 - **Beneath** by EERussianguy ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/beneath))
@@ -116,12 +119,14 @@ Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
 - **Block Runner** by Fuzs ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/block-runner))
 - **Bosses of Mass Destruction [Forge | NeoForge]** by Cerbon ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/bosses-of-mass-destruction-forge))
 - **Brandon's Core** by brandon3055 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/brandons-core))
+- **Cave Dweller ReEvolved** by UnanimatedGif ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/cave-dweller-reevolved))
 - **CERBON's API [Forge | Fabric | NeoForge]** by Cerbon ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/cerbons-api))
 - **Certain Questing Additions** by HollowHorizon ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/certain-questing-additions))
 - **Chunky (Forge/NeoForge)** by pop4959 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/chunky-pregenerator-forge))
 - **Cloth Config API (Fabric/Forge/NeoForge)** by shedaniel, LinkieIsBetterThanK9 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/cloth-config))
 - **Clumps** by Jaredlll08 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/clumps))
 - **CodeChicken Lib 1.8.+** by covers1624, Chicken_Bones ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/codechicken-lib-1-8))
+- **Colorwheel** by djefrey ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/colorwheel))
 - **Common Storage Lib** by terrariumearth, CodexAdrian ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/common-storage-lib))
 - **Controlling** by Jaredlll08 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/controlling))
 - **CorgiLib** by Corgi_Taco, JT122406 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/corgilib))
@@ -165,10 +170,13 @@ Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
 - **DragonLib** by MrJulsen ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/dragonlib))
 - **Drippy Early Loading Module** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/drippy-early-loading-module))
 - **Drippy Loading Screen** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/drippy-loading-screen))
+- **Dynamic FPS** by juliand665, LostLuma ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/dynamic-fps))
 - **EMI** by EmilyPloszaj ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/emi))
 - **EMI Loot** by fzzyhmstrs ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/emi-loot))
 - **Engineered Schematics** by Muddykat ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/engineered-schematics))
-- **Enhanced Celestials - Blood, Blue, & Harvest (Super) Moons** by corgi_taco_archive, UHQ_GAMES ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials))
+- **Enhanced Celestials 2: Core** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-core))
+- **Enhanced Celestials 2: Default Lunar Events** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-default-lunar-events))
+- **Enhanced Celestials 2: Shader Support** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-shader-support))
 - **Entity Culling Fabric/Forge** by tr7zw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/entityculling))
 - **Evolved Mekanism** by iglee42, WoXayZ ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/evolved-mekanism))
 - **ExtendedAE** by GlodBlock ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ex-pattern-provider))
@@ -195,6 +203,9 @@ Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
 - **Immersive Engineering** by BluSunrize, Sky_Som, malte0811 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/immersive-engineering))
 - **Immersive Petroleum** by Flaxbeard ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/immersive-petroleum))
 - **Immersive Posts** by TwistedGate ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/immersiveposts))
+- **Iris Block Compat** by juds ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/iris-block-compat))
+- **Iris Shaders** by coderbot, IMS21 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/irisshaders))
+- **Iris Veil Compat** by leon_mout ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/iris-veil-compat))
 - **Jade 🔍** by Snownee ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/jade))
 - **Just Enough Immersive Multiblocks** by aronson_1 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/just-enough-immersive-multiblocks))
 - **Just Enough Items (JEI)** by mezz ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/jei))
@@ -207,6 +218,7 @@ Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
 - **KubeJS Mekanism** by Lat ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/kubejs-mekanism))
 - **KubeJS TFC** by NotEnoughMail ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/kubejs-tfc))
 - **L_Ender 's Cataclysm** by mcl_ender ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/lendercataclysm))
+- **LambDynamicLights** by LambdAurora ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/lambdynamiclights))
 - **Lionfish API** by mcl_ender ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/lionfish-api))
 - **Lithium (Fabric/NeoForge)** by JellySquid ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/lithium))
 - **LootJS: KubeJS Addon** by Lytho ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/lootjs))
@@ -224,6 +236,7 @@ Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
 - **MezzConfig** by mezz ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mezzconfig))
 - **ModernFix** by embeddedt ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modernfix))
 - **Modonomicon** by kli_kli ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modonomicon))
+- **More Darkness** by payangar_dev ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/more-darkness))
 - **More Immersive Wires** by tom54541 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/more-immersive-wires))
 - **More Mekanism Processing** by gisellevonbingen ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/more-mekanism-processing))
 - **Mouse Tweaks** by YaLTeR ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mouse-tweaks))
@@ -278,5 +291,6 @@ Firmament Ages 0.7.2 contains 193 mods. Thank you to every author.
 - **Totemic** by ljfa2, Forge_User_22859052 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/totemic))
 - **Trash Cans** by SuperMartijn642 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/trash-cans))
 - **WoodenCog** by Manwe_b ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/woodencog))
+- **YetAnotherConfigLib** by isXander ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/yacl))
 
 <!-- credits:end -->

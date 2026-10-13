@@ -572,7 +572,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `origin status` / `origin reset` / `origin rebuild` | Arena version, return gate, altar, Gathering count, boss state / let the Gathering and the boss happen again (finale_won stays) / rebuild the arena and place the gate again |
 | `selftest <suite|all>` | Server-side test suites (§12), report in `logs/firmages-selftest.json` |
 
-## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "1")
+## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "2")
 
 | Payload | Fields | Client action |
 |---|---|---|
