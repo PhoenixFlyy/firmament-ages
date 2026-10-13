@@ -1,5 +1,23 @@
 # Client-Test
 
+## 0.7.2 Nachtrag: Titel- und Pausemenü
+
+Deine 0.7.0-Screenshots, Ursachen per Jar-Analyse gefunden, statisch geprüft (`python dev/check_menus.py`), im Spiel
+noch offen. Bitte bei 1920x1080 oder 2560x1440 je mit GUI-Scale 2, 3 und Auto anschauen.
+
+1. **Titelbild (Punkt 3).** Nur noch Singleplayer, Multiplayer, Options, Quit (8 px höher als bisher), Wortmarke,
+   Diashow und unten links die Versionszeile, jetzt vollständig lesbar. **Weg:** Sprache, Barrierefreiheit (beides
+   unter Options), Creates Brillen-Knopf. **Bleibt:** „Copyright Mojang AB. Do not distribute!“ unten rechts, das
+   blendet FancyMenu absichtlich nie aus (siehe Entscheidungen).
+2. **Pausemenü (Punkt 11, ersetzt die Liste dort).** Nur noch gestylt **Back to Game**, **Options** und mit etwas
+   Abstand **Disconnect** (im Einzelspieler „Save and Quit to Title“), mittig untereinander. Weg: Advancements,
+   Statistics, Give Feedback, Report Bugs, Open to LAN (im Mehrspieler Player Reporting), Mods, Creates Brille.
+   Das 0.7.0-Layout griff gar nicht (falsche FancyMenu-IDs), darum sahst Du die Vanilla-Knöpfe.
+3. **Nur mit neuem firmages-core-Jar:** Sprache und Barrierefreiheit blendet firmages-core aus. Fehlen sie nicht,
+   ist noch das alte Jar im Profil.
+4. In einem älteren Profil überschreibt das Update `config/create-client.toml`; ist die Brille noch da, die zwei
+   Werte `mainMenuConfigButtonRow` und `ingameMenuConfigButtonRow` dort auf 0 prüfen.
+
 ## 0.7.1 Nachtrag (Entscheidungen 2026-10-13 spät, Pack 0.7.1, firmages-core 0.7.1)
 
 Drei Dinge ändern die 0.7.0-Liste unten; der Rest gilt unverändert. Server-Teil statisch geprüft
