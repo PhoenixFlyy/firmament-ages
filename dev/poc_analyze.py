@@ -1145,7 +1145,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     wrong_age = [f"{i}: {item_age.get(i)} != {st}" for i, st in mow.items() if item_age.get(i) != st]
     check("C-W Mowzie structure-boss drops follow the mob stage of their boss (Frostmaw age_4, Sculptor age_5)", not wrong_age, wrong_age)
 
-    reach_checks(full, recs, items, tags, item_age, check)
+    reach_checks(full, recs, items, tags, item_age, check, server_dir)
 
 
 # ================================================================================================ reachability per Age
@@ -1375,7 +1375,7 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
     return age_ix, start, walk
 
 
-def reach_checks(full, recs, items, tags, item_age, check):
+def reach_checks(full, recs, items, tags, item_age, check, server_dir=None):
     try:
         import tomllib
         with open(os.path.join(REPO, "dev", "age_map.toml"), "rb") as f:
@@ -1465,6 +1465,41 @@ def reach_checks(full, recs, items, tags, item_age, check):
               sigil in have and os.path.isfile(path) and token and not unpaid,
               lines + [f"gate file {os.path.relpath(path, REPO)} exists: {os.path.isfile(path)}", f"pays out {paid}",
                        f"boss_token/{st} {token}, not paid out {unpaid}"])
+
+    # R-M: every block of the Advanced TFC Tech multiblock templates is obtainable at age_4 (Industrial Age). The pack
+    # copy under kubejs/data/advancedtfctech/structure/multiblocks/ (dev/gen_atfc_templates.py) replaces the jar's
+    # template. A disabled block fails even where IE's matcher would take a tag member: IE puts the template block back
+    # on teardown and drops it when that part is broken (world test, poc-results "ATFC multiblocks").
+    if server_dir:
+        import glob
+        import zipfile
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from derive_ages import _nbt
+        n = AGES.index("age_4")
+        have, live, sat = walk(n)
+        jars = glob.glob(os.path.join(server_dir, "mods", "AdvancedTFCTech-*.jar"))
+        pack_dir = os.path.join(REPO, "kubejs", "data", "advancedtfctech", "structure", "multiblocks")
+        lines, bad, names = [], [], []
+        if jars:
+            with zipfile.ZipFile(jars[0]) as z:
+                names = sorted(x for x in z.namelist() if re.match(r"data/advancedtfctech/structure/multiblocks/.*\.nbt$", x))
+                for nm in names:
+                    base_name = nm.rsplit("/", 1)[1]
+                    pack = os.path.join(pack_dir, base_name)
+                    if os.path.isfile(pack):
+                        with open(pack, "rb") as f:
+                            t = _nbt(f.read())
+                    else:
+                        t = _nbt(z.read(nm))
+                    blocks = sorted({p["Name"] for p in t["palette"]} - {"minecraft:air"})
+                    miss = [b for b in blocks if b not in have]
+                    lines.append(f"{base_name}{' (pack copy)' if os.path.isfile(pack) else ''}: {len(blocks)} blocks, "
+                                 f"not obtainable {miss}")
+                    for b in miss:
+                        bad += why(b, have, live, sat, n)
+        check(f"R-M Advanced TFC Tech multiblocks ({len(names)} templates): every block is obtainable at age_4",
+              bool(jars) and not bad and all(l.endswith("[]") for l in lines),
+              (lines + bad) if jars else ["AdvancedTFCTech jar not found in <server>/mods"])
 
     # R-L: items whose only recipe was broken by a disabled part (leftovers run, 2026-10-01) are reachable at their Age.
     for st, its in LEFTOVERS:

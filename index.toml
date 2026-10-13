@@ -1049,6 +1049,14 @@ file = "kubejs/data/ad_astra/recipe/steel_plating.json"
 hash = "530c0f9b2f02bb4c7c6aaa07909cdb7533b3dc8673d43a6c0f051c0c135f1ec9"
 
 [[files]]
+file = "kubejs/data/advancedtfctech/structure/multiblocks/grist_mill.nbt"
+hash = "950cffa5f819349fbe5f89a2bddc657a75499f5e587141e5759308453d2af7ac"
+
+[[files]]
+file = "kubejs/data/advancedtfctech/structure/multiblocks/power_loom.nbt"
+hash = "3a229b62d529c179c64a98cac0cc4fc90e9b12ebb33377245cba7cb6182a0097"
+
+[[files]]
 file = "kubejs/data/c/tags/item/double_ingots.json"
 hash = "4b567828874dc0156fefcfc477fad9aafe005340462fb33eb6537718d715f376"
 

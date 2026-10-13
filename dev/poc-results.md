@@ -2065,3 +2065,54 @@ run, both listed for Felix in `dev/client-test-brief.md`; decisions in `dev/deci
 - Grist mill and power loom: whether IE's multiblock matcher accepts a TFC steel block (via `c:storage_blocks/steel`)
   in place of the disabled `immersiveengineering:storage_steel` is unchecked. If not, both are unbuildable; the quest
   no longer depends on them, but the machines are design content (needs a world test or a template change).
+
+## ATFC multiblocks
+
+Date: 2026-10-13, branch `dev` at 88ab82a (pack 0.7.0). Follow-up to the open point of "Immersion follow-up": can
+the four Advanced TFC Tech multiblocks be built in the Industrial Age with pack materials? Decision in
+`dev/decisions-while-away.md`.
+
+### Templates (Advanced TFC Tech 3.3, `data/advancedtfctech/structure/multiblocks/*.nbt`)
+
+| Multiblock | Size | Blocks (count) | Disabled in the pack |
+|---|---|---|---|
+| Thresher | 3x3x3 | `sheetmetal_steel` 14, `light_engineering` 5, `rs_engineering` 1, `minecraft:hopper` 1 | none |
+| Grist mill | 4x3x3 | `steel_scaffolding_standard` 9, `sheetmetal_steel` 3, `light_engineering` 4, `rs_engineering` 1, `slab_sheetmetal_steel` 4, `storage_steel` 1 (the trigger block), `minecraft:hopper` 1 | `immersiveengineering:storage_steel` |
+| Power loom | 3x3x5 | `steel_scaffolding_standard` 13, `light_engineering` 3, `heavy_engineering` 3, `sheetmetal_steel` 5, `rs_engineering` 1, `steel_fence` 1, `storage_steel` 1 | `immersiveengineering:storage_steel` |
+| Beamhouse | 4x3x4 | `steel_scaffolding_standard` 10, `light_engineering` 7, `sheetmetal_iron` 10, `slab_sheetmetal_iron` 6, `heavy_engineering` 1, `rs_engineering` 1, `fluid_pipe` 3 | none |
+
+All other blocks are in `age_items/age_4` (the hopper in age_2). ATFC registers no matcher of its own.
+
+### How IE 12.4.2 matches
+
+`BlockMatcher.matches` runs the global predicates of `IEMultiblocks.init`: equal block, plus a tag predicate that
+allows a found block when expected and found share one of IE's tags (`c:storage_blocks/<metal>` and
+`c:sheetmetals/<metal>` of every IE metal, steel and aluminium scaffolding, treated wood and slabs, steel and aluminium
+fences). `c:storage_blocks/steel` (block tag) holds both `immersiveengineering:storage_steel` and
+`tfc:metal/block/steel` (TFC data), so the TFC block is accepted. But `TemplateMultiblock.disassemble` puts the
+**template** state back, and a broken part drops the template block.
+
+### World test
+
+Fresh world (`run_server.py --wipe-world`), debug player Alpha, `firmages ages simulate grant` and `stage grant`
+age_0 ... age_4 (`debug.allowSimulate` on for the run, off again). Each template was set unrotated with
+`dev/build_multiblock.py` (new: template from the jar, `--sub immersiveengineering:storage_steel=tfc:metal/block/steel`),
+Alpha held the Engineer's Hammer, looked north (yaw 180) and used the trigger block (`firmages debug use`).
+
+| Step | Observed | Result |
+|---|---|---|
+| Form, jar templates, TFC steel block in place of `storage_steel` | thresher, grist mill, power loom, beamhouse: `use -> SUCCESS`, the trigger position is the ATFC multiblock block (4/4) | pass |
+| Teardown, jar templates | grist mill: breaking the hopper part turned the TFC block position into `immersiveengineering:storage_steel`; power loom: breaking the steel part with a steel pickaxe dropped `immersiveengineering:storage_steel`; mining that block drops the same disabled item | **fail** (disabled block handed out) |
+| Fix | `dev/gen_atfc_templates.py` writes pack copies of `grist_mill.nbt` and `power_loom.nbt` with `tfc:metal/block/steel` in the palette (byte-level swap of the palette string, re-parsed) to `kubejs/data/advancedtfctech/structure/multiblocks/`; `--check` exit 0 | done |
+| Form after the fix (restart, same world) | all four formed again (4/4) | pass |
+| Teardown after the fix | grist mill: hopper part broken, the steel position is `tfc:metal/block/steel`; power loom: steel part broken with a pickaxe, drop `tfc:metal/block/steel` | pass |
+| Boot after the fix | KubeJS startup and server 0 error lines (`gear_rule.js` without the `loot_crate_opener` swap) | pass |
+| `poc_analyze.py` (age_0 ... age_9 granted, `fa_dump` 32,260 recipes, `fa_dump_full`) | **83 checks, all PASS**; new R-M: four templates, every block obtainable at age_4 (grist mill and power loom from the pack copy). Without the pack copies R-M fails on `storage_steel` ("belongs to disabled") | pass |
+
+### Open points
+
+- Needs a client: the IE manual / ATFC multiblock preview of grist mill and power loom shows the TFC steel block
+  (IE syncs the server template to the client).
+- The same teardown drop affects IE's arc furnace (TFC-IE Crossover's template), bucket wheel and excavator and
+  Immersive Petroleum's coker unit and pumpjack, which also contain `immersiveengineering:storage_steel`; they form
+  with the TFC block through the tag but give the disabled block back when taken apart. Not changed here.
