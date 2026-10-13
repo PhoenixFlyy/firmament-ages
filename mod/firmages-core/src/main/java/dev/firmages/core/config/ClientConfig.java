@@ -33,9 +33,9 @@ public final class ClientConfig {
         "net.minecraft.client.gui.components.toasts.RecipeToast",
         "net.minecraft.client.gui.components.toasts.TutorialToast",
         "vazkii.patchouli.client.base.ClientAdvancements$LexiconToast");
-    /** Enhanced Celestials 6.0.2.6 opens this on every world join ("Enhanced Celestials 2 is here!"). */
-    public static final List<String> DEFAULT_BLOCKED_SCREENS = List.of(
-        "dev.corgitaco.enhancedcelestials.client.gui.EC2AnnouncementScreen");
+    /** None shipped: the one join screen of the pack's mods was Enhanced Celestials 1's "Enhanced Celestials 2 is here!"
+     *  (gone with the switch to Enhanced Celestials 2, which opens no screen on join; SPEC §18.1). */
+    public static final List<String> DEFAULT_BLOCKED_SCREENS = List.of();
 
     static {
         ModConfigSpec.Builder b = new ModConfigSpec.Builder();

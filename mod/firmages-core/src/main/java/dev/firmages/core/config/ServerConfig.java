@@ -1,6 +1,7 @@
 package dev.firmages.core.config;
 
 import dev.firmages.core.age.AgeId;
+import dev.firmages.core.hardship.CaveDwellerGate;
 import dev.firmages.core.immersion.InventoryTab;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -66,15 +67,17 @@ public final class ServerConfig {
     // tfc (SPEC §18.6)
     public static final ModConfigSpec.BooleanValue TFC_DISABLE_THIRST;
     public static final ModConfigSpec.BooleanValue TFC_NO_NUTRITION_MALUS;
+    // hardship (SPEC §19)
+    public static final ModConfigSpec.ConfigValue<String> HARDSHIP_CAVE_DWELLER_UNTIL;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
     public static final List<String> DEFAULT_BOOT_FALLBACK = List.of("dawn");
     public static final String DEFAULT_FINALE_GATEWAY = "firmages:the_origin";
-    /** Felix 2026-10-13 (late): the block overlay (Jade) opens with the Stone Age, the recipe viewer (EMI) with the
-     *  Bronze Age; nothing of the machinery shows in Dawn. */
+    /** Felix 2026-10-13: the recipe viewer (EMI) and the block overlay (Jade) both open with the Bronze Age (Jade
+     *  moved from the Stone Age, H9); nothing of the machinery shows in Dawn or the Stone Age. */
     public static final AgeId DEFAULT_EMI_FROM_AGE = AgeId.AGE_1;
-    public static final AgeId DEFAULT_JADE_FROM_AGE = AgeId.AGE_0;
+    public static final AgeId DEFAULT_JADE_FROM_AGE = AgeId.AGE_1;
     public static final List<String> DEFAULT_EXEMPT_TYPES = List.of("immersiveengineering:mineral_mix", "tfc:collapse", "tfc:landslide");
 
     static {
@@ -190,6 +193,12 @@ public final class ServerConfig {
             .define("noNutritionMalus", true);
         b.pop();
 
+        b.comment("Hardship of the early Ages (SPEC 19)").push("hardship");
+        HARDSHIP_CAVE_DWELLER_UNTIL = b.comment("First Age without Cave Dweller ReEvolved, or \"never\". From this Age on it cannot spawn or be",
+                "summoned, dwellers in loaded chunks vanish, saved ones are refused when their chunk loads, and its cave noises are muted.")
+            .define("caveDwellerUntilAge", CaveDwellerGate.DEFAULT_UNTIL.id(), CaveDwellerGate::isValid);
+        b.pop();
+
         b.push("debug");
         DEBUG_ALLOW_SIMULATE = b.comment("Enables /firmages ages simulate (self-tests only).").define("allowSimulate", false);
         b.pop();
@@ -268,6 +277,11 @@ public final class ServerConfig {
 
     public static boolean tfcNoNutritionMalus() {
         return !loaded() || TFC_NO_NUTRITION_MALUS.get();
+    }
+
+    /** {@code hardship.caveDwellerUntilAge}: the first Age without the Cave Dweller, empty for never. */
+    public static Optional<AgeId> caveDwellerUntil() {
+        return CaveDwellerGate.until(loaded() ? HARDSHIP_CAVE_DWELLER_UNTIL.get() : CaveDwellerGate.DEFAULT_UNTIL.id());
     }
 
     public static boolean allowSimulate() {
