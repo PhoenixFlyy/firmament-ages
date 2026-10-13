@@ -1,15 +1,10 @@
 {
   "replace": false,
   "values": [
-    {"id": "advancedtfctech:beamhouse", "required": false},
     {"id": "advancedtfctech:fiber_winded_pirn", "required": false},
     {"id": "advancedtfctech:fleshing_blades", "required": false},
-    {"id": "advancedtfctech:fleshing_machine", "required": false},
-    {"id": "advancedtfctech:grist_mill", "required": false},
     {"id": "advancedtfctech:pirn", "required": false},
-    {"id": "advancedtfctech:power_loom", "required": false},
     {"id": "advancedtfctech:silk_winded_pirn", "required": false},
-    {"id": "advancedtfctech:thresher", "required": false},
     {"id": "advancedtfctech:wool_winded_pirn", "required": false},
     {"id": "aeronautics:adjustable_burner", "required": false},
     {"id": "aeronautics:andesite_propeller", "required": false},

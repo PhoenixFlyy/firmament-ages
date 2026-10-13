@@ -124,7 +124,8 @@ industrial_age `66BF343917FA056F`, electric_age `12AE834BF6E07368`, information_
   without a jar lookup (`VANILLA_ENTITIES`).
 - IE and Immersive Petroleum multiblocks are observation tasks on the formed block (`immersiveengineering:coke_oven`,
   `blast_furnace`, `advanced_blast_furnace`, `crusher`, `metal_press`, `alloy_smelter`, `diesel_generator`,
-  `arc_furnace`, `excavator`, `assembler`, `immersivepetroleum:pumpjack`, `distillation_tower`). No FE or task-screen
+  `arc_furnace`, `excavator`, `assembler`, `immersivepetroleum:pumpjack`, `distillation_tower`), and so is the
+  Advanced TFC Tech thresher (`advancedtfctech:thresher`; its multiblock items have no item form). No FE or task-screen
   task is used yet: "Grid Online (LV)", "Reactor Online" and "Gate Online" observe the placed block.
 - Dimension tasks: `minecraft:the_nether` (Beneath ritual), `minecraft:the_end`, `ad_astra:moon`, `mars`, `venus`,
   `mercury`, `glacio`, and `firmages:origin` (side mission "Into The Origin" after "Gate Online", firmages-core 0.4.0).

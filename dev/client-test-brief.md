@@ -89,12 +89,9 @@ Start eines frischen Profils.
   Volle Gesundheit ab Start: in `tfc-server.toml` `nutritionDefaultHealthModifier = 1.0`.
 - Jede neue Age schreibt die ProgressiveStages-Zeile „Age N: …“ in den Chat (`unlock_message` in
   `config/progressivestages/stages/age_N.toml`). Behalten oder leeren?
-- Industrial Age, Strang Logistik: Quest „Advanced TFC Tech“ ist in ihrer Age nicht erfüllbar (geformte Multiblöcke
-  geben kein Item, die Fleshing Machine braucht ein Bauteil der Electric Age); sie blockiert den Keystone
-  „Backfill Line“ und damit das Kapitelziel (nicht den Schrein). Vorschlag: Aufgabe auf ein erreichbares Bauteil
-  ändern oder die Quest zur Nebenquest machen.
-- `ftbquests:loot_crate_opener` und `ftbquests:task_screen_configurator` stehen ab der Bronzezeit in EMI.
-  Vorschlag: in `dev/age_map.toml` unter `[hidden]`.
+- Erledigt (Nachtrag 2026-10-13): Quest „Advanced TFC Tech“ verlangt jetzt den geformten Thresher (Blick darauf);
+  `ftbquests:loot_crate_opener` und `ftbquests:task_screen_configurator` sind versteckt. Im Client prüfen: die
+  Quest schließt beim Blick auf einen geformten Thresher ab, beide Items fehlen in EMI.
 - Crash Assistant: `help_link` steht noch auf `CHANGE_ME` (Discord-Einladung fehlt).
 - Die Versionszeile „Firmament Ages 0.7.0“ im Titelbild ist fester Text; beim nächsten Release mit hochziehen.
 - Die Release-Dateien in `dev/exports/` (0.7.0) sind vor dem Review-Commit gebaut; vor dem Upload

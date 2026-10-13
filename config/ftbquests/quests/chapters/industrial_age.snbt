@@ -701,7 +701,7 @@
 		{
 			dependencies: ["1BDBAA8EB6E2DA83"]
 			icon: {
-				id: "advancedtfctech:power_loom"
+				id: "advancedtfctech:pirn"
 			}
 			id: "124DDC9853158E78"
 			rewards: [
@@ -714,48 +714,10 @@
 			tasks: [
 				{
 					id: "7AE00F2A016BF75A"
-					item: {
-						count: 1
-						id: "advancedtfctech:thresher"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "44FF135BB7E16C9F"
-					item: {
-						count: 1
-						id: "advancedtfctech:grist_mill"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "54D7E7B64C9071FE"
-					item: {
-						count: 1
-						id: "advancedtfctech:beamhouse"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "4D583163AD87524F"
-					item: {
-						count: 1
-						id: "advancedtfctech:fleshing_machine"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "2E6F32530C88EC8F"
-					item: {
-						count: 1
-						id: "advancedtfctech:power_loom"
-					}
-					optional_task: true
-					type: "item"
+					observation_type: "block"
+					timer: 0L
+					to_observe: "advancedtfctech:thresher"
+					type: "observation"
 				}
 			]
 			x: 9.5d

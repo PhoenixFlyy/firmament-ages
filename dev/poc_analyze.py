@@ -547,7 +547,8 @@ INDUSTRIAL_CHAIN = ("immersiveengineering:cokebrick immersiveengineering:blastbr
                     "immersiveengineering:workbench immersiveengineering:component_iron immersiveengineering:component_steel "
                     "immersiveengineering:hammer createaddition:alternator createaddition:electric_motor create:packager "
                     "create:package_frogport create:stock_link create:stock_ticker create:chain_conveyor create_jetpack:jetpack "
-                    "firmages:arcane_gearbox firmages:pressure_core").split()
+                    "firmages:arcane_gearbox firmages:pressure_core immersiveengineering:sheetmetal_steel "
+                    "immersiveengineering:rs_engineering minecraft:hopper advancedtfctech:pirn").split()
 # Station parts of the late goals (Doc 10 v3 section 6.1): the arc furnace and HV power (age_5), Mekanism's
 # infuser and AE2 autocrafting (age_6), DE fusion crafting with wyvern and draconic injectors and the rockets that
 # reach the ores of the goal (age_7, age_8).

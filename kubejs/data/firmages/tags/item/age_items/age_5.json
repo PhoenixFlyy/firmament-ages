@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    {"id": "advancedtfctech:fleshing_machine", "required": false},
     {"id": "afc:wood/hanging_sign/red_steel/araucaria", "required": false},
     {"id": "afc:wood/hanging_sign/red_steel/baobab", "required": false},
     {"id": "afc:wood/hanging_sign/red_steel/beech", "required": false},

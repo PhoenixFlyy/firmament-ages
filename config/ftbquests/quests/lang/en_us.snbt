@@ -287,7 +287,10 @@
 	quest.11D75C261FA24AE3.quest_desc: ["A wrought iron anvil can work steel."]
 	quest.11D75C261FA24AE3.title: "Iron Anvil"
 	quest.124DDC9853158E78.quest_desc: [
-		"Thresher, grist mill, beamhouse, fleshing machine and power loom take over the TFC hand work."
+		"Thresher, grist mill, beamhouse and power loom take over the TFC hand work. Build them from"
+		"IE engineering blocks and steel and form them with the Engineer's Hammer, like the crusher."
+		"The thresher is the smallest: steel sheet metal, light engineering blocks, a redstone"
+		"engineering block and a hopper. The fleshing machine follows with electronic components."
 	]
 	quest.124DDC9853158E78.title: "Advanced TFC Tech"
 	quest.12AA975B971EC62B.quest_desc: ["Native osmium is a TFC-style vein from this Age."]
@@ -1574,6 +1577,7 @@
 	task.76580C7802686F82.title: "Engineering processor"
 	task.779342C0C35572D7.title: "Offer the Data Matrix at the shrine"
 	task.794087CA08B1FDE3.title: "Look at the heart with the Data Nave complete"
+	task.7AE00F2A016BF75A.title: "Look at a formed thresher"
 	task.7C2F5D2903FE109A.title: "Space boots"
 	task.7C32F9C6C5A6BCCA.title: "Unlock the end: defeat the final boss"
 	task.7DCF88631F1E8D70.title: "Look at a placed support beam"

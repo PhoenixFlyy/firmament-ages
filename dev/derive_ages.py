@@ -172,14 +172,6 @@ KNOWN_GAPS = {
     # Information Age quest "inferium essence" (information_age.snbt) still asks for it.
     "mysticalagriculture:prosperity_shard": "Mystical Agriculture ores are off and nothing else yields prosperity shards",
     "mysticalagriculture:inferium_essence": "Mystical Agriculture ores are off and nothing else yields inferium essence",
-    # Industrial Age quest "Any Advanced TFC Tech machine" (gen_quests.py) asks for the items of formed multiblocks,
-    # which breaking the multiblock never yields (immersiveengineering:multiblock loot), and for the fleshing machine,
-    # whose electronic component the walk first reaches at age_5.
-    "advancedtfctech:thresher": "formed multiblock, no item; Industrial Age quest task",
-    "advancedtfctech:grist_mill": "formed multiblock, no item; Industrial Age quest task",
-    "advancedtfctech:beamhouse": "formed multiblock, no item; Industrial Age quest task",
-    "advancedtfctech:power_loom": "formed multiblock, no item; Industrial Age quest task",
-    "advancedtfctech:fleshing_machine": "needs immersiveengineering:component_electronic (age_5); Industrial Age quest task",
     # Create Enchantment Industry's Blaze Enchanter (Arcane Age quest task) is smithed with Create Dragons Plus's blaze
     # upgrade template, whose only recipe copies a template; the first one comes from no loot table or modifier file.
     "create_dragons_plus:blaze_upgrade_smithing_template": "first template has no data-visible source",

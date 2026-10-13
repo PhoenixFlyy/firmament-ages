@@ -1022,6 +1022,10 @@ items = [
     "mysticalagriculture:hostile_soulium_dagger",
     "mysticalagriculture:passive_soulium_dagger",
     "mysticalagriculture:soulium_dagger",
+    # FTB Quests utility items without a role in the pack: no quest gives loot crates (data.snbt drop_loot_crates
+    # false), and task screens are set up on the screen itself. The task screens stay (Doc 08 section 9.1).
+    "ftbquests:loot_crate_opener",
+    "ftbquests:task_screen_configurator",
 ]
 
 # ------------------------------------------------------------------------------------------------ derived
@@ -1064,6 +1068,7 @@ items = [
 "ad_astra:stripped_glacian_log" = "age_8"
 "ad_astra:strophar_cap" = "age_8"
 "ad_astra:strophar_mushroom" = "age_8"
+"advancedtfctech:fleshing_machine" = "age_5"
 "apotheosis:reforging_table" = "age_4"
 "apothic_enchanting:melonshelf" = "age_4"
 "apothic_enchanting:sightshelf_t2" = "age_4"
@@ -1558,12 +1563,10 @@ items = [
 "framedblocks:framing_saw" = "age_2"
 "framedblocks:phantom_paste" = "age_2"
 "framedblocks:powered_framing_saw" = "age_2"
-"ftbquests:loot_crate_opener" = "age_1"
 "ftbquests:screen_1" = "age_1"
 "ftbquests:screen_3" = "age_1"
 "ftbquests:screen_5" = "age_1"
 "ftbquests:screen_7" = "age_1"
-"ftbquests:task_screen_configurator" = "age_1"
 "gravestone:gravestone" = "age_2"
 "immersiveengineering:alu_catwalk" = "age_5"
 "immersiveengineering:alu_catwalk_stairs" = "age_5"
@@ -2854,7 +2857,11 @@ items = [
     "ad_astra:zombified_pygro_spawn_egg",
     "advanced_ae:adv_processing_pattern",
     "advanced_ae:quantum_infusion_bucket",
+    "advancedtfctech:beamhouse",
+    "advancedtfctech:grist_mill",
     "advancedtfctech:pineapple_winded_pirn",
+    "advancedtfctech:power_loom",
+    "advancedtfctech:thresher",
     "ae2:cable_bus",
     "ae2:crafting_pattern",
     "ae2:creative_energy_cell",
