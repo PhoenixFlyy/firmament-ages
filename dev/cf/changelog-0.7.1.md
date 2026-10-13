@@ -1,6 +1,15 @@
-# Firmament Ages 0.7.0
+# Firmament Ages 0.7.1
 
 Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. This changelog covers everything since 0.5.0 (the first release candidate that was never published).
+
+## 0.7.1
+
+- **The recipe viewer comes with the Bronze Age.** The block info overlay (Jade) still appears with the Stone Age, the recipe viewer (EMI) now with the Bronze Age. This is the default for new worlds; an existing world keeps the values in its Firmament Ages Core config (`ui.emiFromAge`, `ui.jadeFromAge`).
+- **Two key conflicts resolved for new installs:** Tab stays the player list and Y the Cataclysm ability; the Physics Staff rotate mode (Create Simulated) moves to Comma and the Cataclysm chestplate ability to Apostrophe.
+- **MekaSuit and Meka-Tool modules can be made.** The module base asked for bronze nuggets, which nothing in this pack makes; it now takes TerraFirmaCraft bronze ingots, so every module opens with its Age.
+- **One steel slab.** The TerraFirmaCraft steel slab is disabled; the Immersive Engineering steel slab (part of the coker unit) remains.
+- **No Immersive Engineering chunk loader.** The Resonanz Observer is disabled; chunk loading is FTB Chunks' job (force-loaded chunks from the Industrial Age).
+- **Firmament Ages Core 0.7.1** with the new defaults.
 
 ## 0.7.0: Immersion
 

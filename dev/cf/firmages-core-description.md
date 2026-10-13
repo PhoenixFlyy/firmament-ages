@@ -42,6 +42,10 @@ MIT License. Source: the `mod/firmages-core` folder of the pack repository, [git
 
 ## Changelog
 
+**0.7.1**
+
+- New defaults: `ui.emiFromAge` = Bronze Age (`age_1`), `ui.jadeFromAge` = Stone Age (`age_0`). Existing configs keep their values.
+
 **0.7.0**
 
 - Immersion: silent joins (Enhanced Celestials screen, Ars Nouveau, Train Utilities and Corgilib notices, a client chat blocklist as safety net), no advancement, recipe or tutorial toasts, the advancement screen redirected to FTB Quests, Mods and Advancements buttons hidden, mod-name tooltip lines removed.

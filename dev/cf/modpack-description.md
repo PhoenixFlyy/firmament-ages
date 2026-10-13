@@ -79,7 +79,7 @@ The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmamen
 
 <!-- credits:start -->
 
-Firmament Ages 0.7.0 contains 197 mods. Thank you to every author.
+Firmament Ages 0.7.1 contains 197 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))

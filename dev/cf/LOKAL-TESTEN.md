@@ -1,6 +1,6 @@
 # Lokal testen mit der CurseForge-App
 
-Stand 2026-10-13, Pack 0.7.0. Du testest genau das Zip, das später hochgeladen wird. Die CurseForge-App lädt die Mods selbst von CurseForge, nur die eigenen Dateien stecken im Zip.
+Stand 2026-10-13, Pack 0.7.1. Du testest genau das Zip, das später hochgeladen wird. Die CurseForge-App lädt die Mods selbst von CurseForge, nur die eigenen Dateien stecken im Zip.
 
 ## 1. Zip bauen (einmal pro Stand)
 
@@ -11,7 +11,7 @@ tools\packwiz.exe refresh
 python dev\cf\export_cf.py
 ```
 
-Ergebnis: `dev\exports\FirmamentAges-0.7.0-curseforge-upload.zip` (etwa 7 MB, wegen der Titelbild-Diashow und der Questbuch-Bilder). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
+Ergebnis: `dev\exports\FirmamentAges-0.7.1-curseforge-upload.zip` (etwa 7 MB, wegen der Titelbild-Diashow und der Questbuch-Bilder). Das Skript listet am Ende, welche Jars in `overrides\mods` liegen. Erwartet ist nur noch `firmages-core` (MekaTFC ist durch die eigene Osmium-Ader ersetzt, TFC Ore Tooltips gestrichen); nach der Freigabe des Mod-Projekts keins.
 
 ## 2. In der CurseForge-App importieren
 
@@ -48,9 +48,10 @@ Alternativ geht auch **Singleplayer** im Profil. Dann fehlt nur der Mehrspieler-
 
 ## 4. Was du testest
 
-Die Checkliste steht in `dev\client-test-brief.md`, oben der Abschnitt für 0.7.0 in der Reihenfolge, in der Du ihn abarbeitest. **Für 0.7.0 ein neues Profil importieren** (nicht das alte aktualisieren): Default Options, das frühe Ladefenster und der Willkommensbildschirm zeigen sich nur beim ersten Start eines frischen Profils bzw. bei einem neuen Spieler in einer frischen Welt. Kurz:
+Die Checkliste steht in `dev\client-test-brief.md`, oben der Nachtrag für 0.7.1 und darunter der Abschnitt für 0.7.0 in der Reihenfolge, in der Du ihn abarbeitest. **Für 0.7.0 und 0.7.1 ein neues Profil importieren** (nicht das alte aktualisieren): Default Options, das frühe Ladefenster und der Willkommensbildschirm zeigen sich nur beim ersten Start eines frischen Profils bzw. bei einem neuen Spieler in einer frischen Welt. Kurz:
 
 - Neu in 0.7.0: Ladebildschirm und Titelbild, Standard-Tasten (Sprint Shift, Schleichen Strg, Age-Anzeige H), stiller Join, Willkommen, HUD-Age-Anzeige, kein EMI und kein Jade in Dawn, Questbuch im Firmament-Stil mit nur freigeschalteten Kapiteln, TFC ohne Durst und ohne Ernährungsstrafe.
+- Neu in 0.7.1: EMI erst ab der Bronzezeit (Jade weiter ab der Steinzeit), Physics-Staff-Drehmodus auf Komma und Cataclysm-Brustplatte auf Apostroph (Ä) statt Tab und Y, MekaSuit-Module herstellbar, TFC-Stahlstufe und IE-Chunk-Loader versteckt.
 
 Aus den früheren Phasen, weiter gültig:
 
