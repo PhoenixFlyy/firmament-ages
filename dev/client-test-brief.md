@@ -80,3 +80,13 @@ Auf dem Server ohne Bild geprüft (`dev/poc-results.md`, „M7 consecration and 
 **Texturen v2:** Alle Gegenstands-Texturen von `firmages:` (16 Dateien) sind neu gezeichnet (Hearthstone bis Ultimate Singularity, auch Unfired Hearth Idol und Sky Disc). Achte auf Lesbarkeit im Inventar und darauf, dass keine lila-schwarze Fehltextur auftaucht.
 
 **Animierte Texturen:** In EMI `firmages:` filtern: Arcane und Awakened Keystone, Humming Core, Data Matrix, Star Chart, Quantum Core und Ultimate Singularity bewegen sich; der Origin-Altar pulsiert oben. Die geweihten Blöcke stehen unter Operator Utilities im Kreativ-Menü (Lampe als leuchtende Lampe).
+
+## Mod-Updates vom 2026-10-13 (Pack 0.6.1, firmages-core unverändert 0.6.1)
+
+30 Mods sind aktualisiert (Liste: `dev/poc-results.md`, „Maintenance 2026-10-13“); der Server ist damit komplett geprüft, der Client noch nicht. Bitte die Prism-Instanz neu syncen und achten auf:
+
+- **Start und Menüs:** Client startet ohne Absturz. MezzConfig ist jetzt die Datei `…-0.6.8-standalone`; das Mod-Konfig-Menü (Mods-Liste → Config) öffnet sich, EMI und JEI 19.64 zeigen Rezepte wie vorher.
+- **Client-Mods:** Entity Culling (Mobs hinter Wänden flackern nicht), FramedBlocks (Rahmenblöcke setzen und texturieren), Sophisticated Backpacks (Rucksack öffnen, Upgrades einsetzen).
+- **Stargate Journey 0.6.51:** Wer Zeit hat, wählt wie im Abschnitt 0.4.0 von einem selbst gebauten Gate 9-16-21-33-2-37 und kommt in The Origin an. Neu in der Mod ist ein Andromeda-Gate mit DHD (age_9).
+- **Entfernt:** Die AdvancedAE Strength Card ist deaktiviert (sie rüstete nur die ebenfalls deaktivierte Quantum-Rüstung auf); in EMI darf sie nicht auftauchen.
+- **More Mekanism Processing 6.8:** Neue Metalle (Antimon, Bor, Magnesium, Palladium, Thorium) erscheinen ab age_6, ohne Barren-zu-Staub-Zerkleinern.
