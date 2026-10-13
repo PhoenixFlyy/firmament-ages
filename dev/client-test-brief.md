@@ -1,8 +1,77 @@
-# Client-Test: Age-Übergang am Schrein (firmages-core 0.3.0)
+# Client-Test (Stand 2026-10-13, Pack 0.7.0, firmages-core 0.7.0)
+
+Diese Phase heißt **Immersion**: Ladebildschirm, Titelbild, Standard-Optionen, stiller Join, EMI und Jade erst ab
+der Steinzeit, HUD-Age-Anzeige, Willkommen, Questbuch im Firmament-Stil mit versteckten Kapiteln, TFC ohne Durst und
+ohne Ernährungsstrafe. Der Server-Teil ist auf dem Test-Server geprüft (`dev/poc-results.md`, Abschnitt „Immersion“);
+alles unten kann nur ein echter Client zeigen. Reihenfolge so lassen: die ersten Punkte gibt es nur beim allerersten
+Start eines frischen Profils.
+
+## Vorbereitung
+
+1. Zip bauen und **als neues Profil** importieren (`dev\cf\LOKAL-TESTEN.md`, Schritte 1 und 2). Ein bestehendes
+   Profil behält seine `options.txt` und `emi.css`; Default Options greift nur beim ersten Start. Wer das alte Profil
+   nimmt: dort `config\emi.css` löschen und die Tasten unten von Hand prüfen.
+2. Test-Server starten (`LOKAL-TESTEN.md`, Schritt 3), **frische Welt** (`python dev\run_server.py --wipe-world --hold 0`),
+   `whitelist add <Name>`, noch **kein** `op` (sonst kommen RCON- und Op-Meldungen in den Chat).
+
+## Was Du anschaust, in dieser Reihenfolge
+
+1. **Erster Start, frühes Ladefenster.** Statt des roten NeoForge-Fensters: dunkler Firmament-Hintergrund, Wortmarke,
+   goldener Balken, kein Log-Text. Ist der allererste Start noch rot, ein zweites Mal starten und dort prüfen
+   (`configml.toml` muss `earlyWindowProvider = "drippy_early_window"` enthalten).
+2. **Spätes Laden (Resource-Reload).** Wortmarke und goldener Fortschrittsbalken auf dem Hintergrundbild, kein
+   Mojang-Logo.
+3. **Titelbildschirm.** Diashow der neun Shrine-Bilder (etwa 9 s pro Bild, Überblendung), Wortmarke oben links, vier
+   Knöpfe links (Singleplayer, Multiplayer, Options, Quit) auf jedem Bild lesbar, unten links „Firmament Ages 0.7.0“.
+   Es fehlen: Mods, Realms, Sprache, Barrierefreiheit, Splash-Text, die Zeile „NeoForge (N mods)“. Bei GUI-Scale 3 und
+   „Auto“ auf Überlappungen achten. Fenstertitel „Firmament Ages“ mit Pack-Icon.
+4. **Optionen eines frischen Profils.** GUI-Scale 3, Fenster (kein Vollbild), dunkler Ladehintergrund, keine
+   Tutorial-Toasts, keine Barrierefreiheits-Abfrage, keine Mehrspieler-Warnung. **Steuerung:** Sprint = Shift links,
+   Schleichen = Strg links, Questbuch = K, „Show Age (hold)“ = **H** (Kategorie Firmament Ages), Fortschritte (L)
+   ungebunden. Controlling: Filter „Conflicts“ zeigt für normale Spieltasten nichts.
+5. **Beitreten (frischer Spieler).** Kein Bildschirm „Enhanced Celestials 2“, keine Chat-Zeilen von Mods (Ars Nouveau
+   Lichter oder Makeship, Train Utilities, Crash Assistant, Simple Voice Chat „Press V“, Backups, ProgressiveStages).
+   Nach etwa 2 s Titel „Firmament Ages“ mit Untertitel „The sky remembers. Kindle the first spark.“, etwa 5 s später
+   der Willkommensbildschirm mit drei Feldern (The Ages, Your Path mit der K-Taste, Caelum Watches). „Show my path (K)“
+   öffnet das Questbuch, Esc führt zurück ins Spiel. Bei schmalem und breitem Fenster ansehen.
+6. **Neu verbinden.** Der Willkommensbildschirm kommt **nicht** noch einmal (auf dem Server einmal pro Spieler gespeichert).
+   Erneut ansehen: `/firmages welcome reset <Name>` (op) und neu verbinden.
+7. **HUD-Age-Anzeige.** Oben links eine Zeile mit Icon: „Dawn · Goal: the First Spark“. Nach etwa 6 s gleitet sie nach
+   oben und blendet aus; solange **H** gehalten wird, ist sie da und blendet nach dem Loslassen in 1 s aus. Bei F1, F3
+   und offenen Bildschirmen unsichtbar.
+8. **Dawn: nichts von der Maschinerie.** EMI fehlt ganz, auch mit Strg+O; kein Rezeptbuch-Knopf im Inventar; Jade zeigt
+   beim Anschauen eines Blocks nichts. Item-Tooltips ohne Modnamen (auch kein blauer „Minecraft“).
+9. **Questbuch (K).** Firmament-Look: Nachthimmel mit dem Shrine der Age hinter den Quests, Age-Banner über der oberen
+   Reihe ohne Überlappung, Quest-Formen (gold für Ziel, Rune für Einstieg und Keystones, Glut für Nebenquests),
+   bewegter Sternhimmel (Certain Questing Additions), der beim Scrollen und Zoomen mitgeht. Sichtbar sind **nur
+   Welcome, The Firmament und Dawn**; die Ages-Gruppe zeigt keine grauen Einträge. Die sieben Welcome-Texte lesen
+   (kein Wort über Mods oder Maschinerie). Danach `logs\latest.log` des Profils nach `certain_questing_additions`,
+   `CqaMixinConfigPlugin` und `ShaderInstance` durchsuchen: keine Fehler.
+10. **Fortschritte und Toasts.** Einen Baumstamm abbauen oder etwas craften: kein Advancement-, Rezept- oder
+    Tutorial-Toast, keine Chat-Zeile „has made the advancement“. FTB-Quests-Toasts erscheinen weiter.
+11. **Pausemenü (Esc).** Gestylte Knöpfe (Back to Game, Statistics, Options, Open to LAN, Disconnect); es fehlen Mods,
+    Advancements, Feedback und Report Bugs, ohne Lücke (Statistics volle Breite). Hier wirken FancyMenu und
+    firmages-core beide auf dieselben Knöpfe: genau auf verrutschte oder doppelt verschobene Zeilen achten.
+12. **TFC.** Kein Durstbalken; im Inventar kein Ernährungs-Tab, der Klima-Tab rückt nach und alle Tabs gehen, auch mit
+    dem Rezeptbuch-Platz. Essens-Tooltips ohne Nährwertzeilen, Verfall und Eigenschaften stehen da. Die TFC-Lebensanzeige
+    fällt nie unter den Startwert (etwa 850 HP-Anzeige), auch nach einer Weile einseitigem Essen.
+13. **Steinzeit freischalten** (`op <Name>`, dann `/stage grant @s age_0`). Ohne Neuverbinden: HUD erscheint wieder mit
+    „Stone Age · Goal: Hearthstone“, EMI erscheint, Jade zeigt Blöcke (ohne Modnamen-Zeile), das Kapitel Stone Age
+    taucht im Questbuch auf. In EMI fehlen Werkbank, Ofen, Fackel und Eimer (spätere Age) und nie erreichbare Items;
+    Quest-Icons solcher Items (Multiblöcke, Stargate) werden trotzdem gezeigt.
+14. **Weitere Age** (`/stage grant @s age_1`): genau ein neues Kapitel (Bronze Age), HUD mit dem neuen Ziel.
+
+## Was Du meldest
+
+- Pro Punkt ja oder nein, bei Nein ein Screenshot.
+- `logs\latest.log` des Client-Profils, wenn etwas fehlt oder rot ist; bei einem Absturz den Crash-Report.
+- Ob Dir an Texten (Willkommen, HUD, Welcome-Kapitel) etwas nicht gefällt.
+
+## Frühere Phase: Client-Test: Age-Übergang am Schrein (firmages-core 0.3.0)
 
 Ausführlich: `dev/dev-client.md`, Abschnitt „Age-Übergang testen“. Hier die Kurzfassung.
 
-## Was Du tust
+### Was Du tust
 
 1. `dev\serve.bat` starten. Test-Server syncen und mit `tools\jdk-21` starten (Befehle in dev-client.md, Schritt 1; nicht `run.bat`).
 2. Server-Konsole: `whitelist add <Name>`, `op <Name>`. Prism-Instanz „Firmament Ages Dev“ starten, `localhost` verbinden.
@@ -15,7 +84,7 @@ Ausführlich: `dev/dev-client.md`, Abschnitt „Age-Übergang testen“. Hier di
 9. Hand leer, schleichen, Benutzen am Herz gedrückt halten (max. 6 Blöcke Abstand), ca. 10 s.
 10. Danach: einen Stamm abbauen und wieder setzen; zum Schluss ein zweites Herz woanders setzen.
 
-## Worauf Du achtest
+### Worauf Du achtest
 
 - Sitzt die Geistervorschau genau um das Herz (nicht einen Block zu hoch/tief)?
 - Zeremonie: Musik aus, Lichtstrahl (bernstein), Himmel orange, **genau ein** Titel „The Bronze Age dawns“, Chat „Caelum: A fire that keeps its shape. I see you.“, danach Segen „Hearthward“.
@@ -23,21 +92,21 @@ Ausführlich: `dev/dev-client.md`, Abschnitt „Age-Übergang testen“. Hier di
 - EMI ohne Relog: `create:andesite_alloy` hat jetzt ein Rezept. K-Screen: Ziel-Quest „Offer the Hearthstone at the Shrine“ erledigt (sobald alle Keystones fertig sind).
 - Hearthstone schwebt sichtbar über dem Sockel und lässt sich nicht abbauen. Stamm weg: „The shrine is broken...“, Age bleibt.
 
-## Was Du meldest
+### Was Du meldest
 
 - Pro Punkt oben: ja/nein, ungefähre Zeit, Auffälliges (gern Screenshot).
 - Reload-Dauer aus `/firmages ages` und ob EMI danach ruckelte.
 - Fehler im Chat; bei Problemen `test-server\logs\latest.log`, bei Client-Absturz den Crash-Report aus der Prism-Instanz.
 
-## Seit dem Schreiben geändert (Stand 2026-10-01, firmages-core 0.3.3)
+### Seit dem Schreiben geändert (Stand 2026-10-01, firmages-core 0.3.3)
 
 Die Schritte oben gelten unverändert; Ring 0, Hearthstone, Zeremonie und Segen „Hearthward“ sind gleich geblieben, nur heißt die Mod-Version jetzt 0.3.3 statt 0.3.0. Der Reload dauert auf dem Test-Server jetzt etwa 6,2 bis 6,6 s statt gut 8 s (2 Test-Spieler, alle Ages; der erste Reload nach dem Start bis etwa 8 bis 10 s). Bei Age-Vergaben, die auch Mob- oder Helfer-Stages ändern (gemessen bei age_4 und age_6), friert der Server zusätzlich etwa 2,6 s ein, bevor der Reload beginnt; dann endet der Reload erst um 12 s nach Zeremonie-Beginn, also knapp nach der 12-s-Zeremonie. Melde deshalb bitte auch, ob das Einfrieren gleich nach dem Titel kommt und ob „The world realigns...“ bis zum Ende sichtbar bleibt. Neu sind die Ringe 3 bis 8 (Spirit Circle bis Quantum Ring, 11x11 bis 21x21) mit eigenen Riten und Segen sowie die Signatur-Items Humming Core, Data Matrix, Star Chart und Quantum Core. Wenn Du Zeit hast: `/firmages shrine status` und die Geistervorschau eines späten Rings ansehen und den Tooltip „Signature item of the … Age“ an einem Signatur-Item prüfen (die neuen Items haben noch keine Textur).
 
-## Neu ab firmages-core 0.4.0: The Origin, Endboss, Reaktor (Stand 2026-10-01)
+### Neu ab firmages-core 0.4.0: The Origin, Endboss, Reaktor (Stand 2026-10-01)
 
 Über den Schrein hinaus kannst Du jetzt drei Dinge im Client testen, am besten zu zweit und in Creative-Vorbereitung. **The Origin:** `/stage grant @s age_9`, dann `/firmages origin tp` (ohne age_9 muss „This dimension is locked!“ kommen). Achte auf End-Himmel, dunkles Licht, die schwebende Scheibe mit Altar, neun Inseln und das Rück-Stargate mit DHD; vom DHD aus nach Hause wählen und prüfen, ob Du heil ankommst. Wer Zeit hat, baut in der Overworld ein Classic Stargate (`/give` die Teile) und wählt 9-16-21-33-2-37 plus Ursprungssymbol (steht auch im Tooltip von „Coordinates of The Origin“). **Endboss:** Alle Online-Spieler (nicht Zuschauer) stellen sich höchstens 6 Blöcke um den Altar. Dann öffnet sich das Gateway mit drei Wellen (Maledictus, Ignis, beide), danach erscheint „The Primordial“ mit Phasen bei 2/3 und 1/3 Leben. Melde, wie lange der Kampf mit Chaotic-Ausrüstung dauert (auf dem Server zog ein 500-Schaden-Treffer nur etwa 8 Leben ab; er ist evtl. zu zäh), ob die FINALE-Zeremonie (Titel „Beyond the Firmament“, Stimme, Partikel, Himmel, Blitze) genau einmal läuft und ob im K-Screen das Finale abgehakt ist. `finale_won` lässt sich nicht zurücknehmen; `/firmages origin reset` startet nur den Kampf neu, also bitte in einer Testwelt. **Reaktor:** Einen Draconic Reactor in Creative bauen, den Reactor Controller an einen Stabilisator setzen, eine Truhe mit erweckten Draconium-Blöcken daneben und Redstone-Draht daran. Der Controller füllt den kalten Reaktor auf und meldet READY mit Redstone 15; laden und starten musst Du selbst. Im Betrieb muss er bei 80 % Umwandlung herunterfahren, nach dem Abkühlen Chaos-Splitter herausnehmen, Brennstoff nachfüllen und wieder READY melden, aber **nie** selbst starten. Status: leere Hand am Controller oder `/firmages reactor status`. Teste auch Rohre an Stabilisatoren (Brennstoff rein, Chaos raus, nur im kalten Zustand).
 
-## Neu ab firmages-core 0.5.0: Texturen, Keystone-Leihe, Segen, Origin-Sperre (Stand 2026-10-01)
+### Neu ab firmages-core 0.5.0: Texturen, Keystone-Leihe, Segen, Origin-Sperre (Stand 2026-10-01)
 
 Alles hier lief nur auf dem Server ohne Bild; was folgt, kann nur ein Client zeigen.
 
@@ -65,7 +134,7 @@ Alles hier lief nur auf dem Server ohne Bild; was folgt, kann nur ein Client zei
 
 **Milch:** Ein Rezept mit TFC-Holzeimer voll Milch (z. B. der Create-Kuchen oder ein Ars-Rezept) in EMI ansehen und einmal craften.
 
-## Neu ab firmages-core 0.6.0: Weihe, Wartungsmodus, Texturen v2 (Stand 2026-10-01)
+### Neu ab firmages-core 0.6.0: Weihe, Wartungsmodus, Texturen v2 (Stand 2026-10-01)
 
 Auf dem Server ohne Bild geprüft (`dev/poc-results.md`, „M7 consecration and textures v2“); hier nur, was ein Client zeigen kann.
 
@@ -81,7 +150,7 @@ Auf dem Server ohne Bild geprüft (`dev/poc-results.md`, „M7 consecration and 
 
 **Animierte Texturen:** In EMI `firmages:` filtern: Arcane und Awakened Keystone, Humming Core, Data Matrix, Star Chart, Quantum Core und Ultimate Singularity bewegen sich; der Origin-Altar pulsiert oben. Die geweihten Blöcke stehen unter Operator Utilities im Kreativ-Menü (Lampe als leuchtende Lampe).
 
-## Mod-Updates vom 2026-10-13 (Pack 0.6.1, firmages-core unverändert 0.6.1)
+### Mod-Updates vom 2026-10-13 (Pack 0.6.1, firmages-core unverändert 0.6.1)
 
 30 Mods sind aktualisiert (Liste: `dev/poc-results.md`, „Maintenance 2026-10-13“); der Server ist damit komplett geprüft, der Client noch nicht. Bitte die Prism-Instanz neu syncen und achten auf:
 

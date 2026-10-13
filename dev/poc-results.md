@@ -1959,3 +1959,66 @@ items) reports the section up to date, so the derivation is a fixed point; `gen_
   icons of hidden items render.
 - Rerun after any recipe, loot or mod change: `fa_dump` + `fa_dump_full` at age_9, `derive_ages.py` (with `--scan`
   after jar changes), `gen_stage_locks.py`, sync, reload.
+
+## Immersion
+
+Date: 2026-10-13, branch `dev` after merging the firmages-core immersion branch (c27a7c7, 65e94bd) and the quest
+theme branch (fa572ed, 7196ab5, bce26e7) on top of the screens (a4bc0c8..6896165) and item-Ages (6e543c1..3857d07)
+commits. firmages-core 0.7.0, pack 0.7.0. Integration fixes: the HUD hold key moved from Left Alt to H (Left Alt is
+Create's tool menu and toolbelt, Railways and Copycats in the live keymap), `gen_textures.py --check` skips
+`textures/gui/` (quest theme art). Felix's decisions (1) to (7) of 2026-10-13 are the scope; client-only behaviour
+is listed in `dev/client-test-brief.md` (section 0.7.0) for Felix.
+
+### Build and install
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (0.7.0) | 85 JUnit tests, 0 failed (10 new in `ImmersionTest`) | pass |
+| `gradlew runGameTestServer` | "All 32 required tests passed" (welcome once per player, status follows Ages and config; the TFC test skips itself without `-PgametestTfc`, its opt-in run passed on the branch) | pass |
+| Shipped jar | `mods/firmages-core-0.7.0.jar` byte-identical to the build output (sha1 `55a7f7b2…`), 0.6.2 removed, index refreshed | pass |
+| Clean client install | empty folder, packwiz-installer-bootstrap `-g -s client` from `packwiz serve`: 610/610, "Finished successfully", no "must be downloaded manually"; `verify_install.py dir --side client`: 604 expected, 0 missing, 0 extra, 0 hash mismatch. FancyMenu 3.9.14, Konkrete 1.9.9, Melody 1.0.10, Drippy Loading Screen 3.1.5, Drippy Early Loading Module 3.1.5 and Certain Questing Additions 1.2.0.4 all came from CurseForge, so none of them joins the swap list | pass |
+| Test server sync | quest folder deleted, `-g -s server`: 610/610 "Finished successfully", `firmages-core-0.7.0.jar` in `mods/`; config hash differences only in files the mods rewrite on start (values kept: `show_lock_message = false`, `spawnBook = false`, KubeJS `web_server` `enabled = false`) | pass |
+
+### Server proof (fresh world, debug players Alpha and Beta, one FTB party)
+
+A temporary KubeJS probe in `test-server/kubejs/server_scripts/zz_probe/` (removed after the run, not part of the
+pack) drove `ServerPlayer.doTick()` for the debug players (they have no ticking connection; verified by a Luck effect
+counting down 204 ticks in 10 s), read TFC `IPlayerInfo` and evaluated chapter visibility.
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot | `Done (12.927s)`; KubeJS startup 3/3, server 39/39 (38 plus the probe), 0 errors; FTB Quests "2 chapter groups, 13 chapters, 346 quests, 21 reward tables"; 22 gateways; ERROR lines only the known noise (DISTXFORM, client mixins of azimuth, bits_n_bobs, simulated, woodencog, loot tables of dndecor and railways, recipe parse errors of tfcrf and woodencog, Sable catwalk, Polymorph EMI module, TF `dev_new_world`) | pass |
+| `announceAdvancements` | `gamerule announceAdvancements` → false (from `kubejs/server_scripts/firmages/gamerules.js`) | pass |
+| Join packets (each player) | `lock_sync`, `stage_sync`, `firmages:age_status` (age=dawn, goalItem empty, recipeViewer=false, blockInfo=false), `firmages:welcome`, `firmages:shrine_sync` | pass |
+| Join-time system chat | none from mods. Remaining lines: vanilla "Beta joined the game" and the op echo of the RCON/debug command ("[Rcon: Debug player Beta joined]", only because the debug players are ops) | pass |
+| Welcome once per player | first join: one `firmages:welcome` each; leave and rejoin: none; server restart and rejoin: none (flag in the player data) | pass |
+| ProgressiveStages lock message | Alpha in Dawn uses a crafting table (age_9) on the ground: not placed, no chat or action bar line | pass |
+| TFC thirst, 10 min | 12,000 driven ticks (17:51:47 to 18:01:51): thirst 100 for both players. Control: `tfc.disableThirst = false` and 40 exhaustion → thirst 60 and food 13 within 3 s; back to `true` → thirst 100 on the next tick | pass |
+| TFC nutrition floor | Alpha's modifier fell to 0.793 (below TFC's start 0.85) after the control; `damage Alpha 2` cost 2.353 HP (= 2/0.85), not 2.522 (= 2/0.793) | pass |
+| Age ladder dawn → age_9 (`stage grant`) | one `age_status` per player and grant with the Age's offering (`hearthstone`, `sky_disc`, `steel_heart`, `arcane_keystone`, `pressure_core`, `humming_core`, `data_matrix`, `star_chart`, `quantum_core`, empty at age_9) and recipeViewer/blockInfo true from age_0; one SHORT ceremony per grant; reloads 11,369 (age_0) / 8,314 / 8,243 / 8,659 / 8,126 / 8,629 / 8,551 / 8,134 / 8,544 / 8,166 ms | pass |
+| Hidden chapters (client rule) | visible chapters: Dawn 3 (Welcome, The Firmament, Dawn), age_0 4, age_1 5, age_2 6, age_3 7, age_4 8, … age_9 13; later Ages absent, not greyed. Evaluated as the client does (`hasStageClient` of the chapter's `progressivestages_required_stage`) with the server's stages. The server path of ProgressiveStages 3.0.6 (`hasStageForServerLogic`) answers "visible" for every chapter: it calls `getCurrentPlayer` on the `Optional` that `ServerQuestFile.getInstance()` returns (javap) and falls back to true; only the client view matters for the book | pass (client look open) |
+| Theme and Certain Questing Additions | client-only resources and a client-side mod: nothing on the server to load; `validate_quests.py` 1294 ids, 0 errors, 0 warnings; `gen_quest_art.py` reproduces every committed theme file byte for byte | client open |
+| `firmages selftest all` (age_9) | 44 passed, 0 failed | pass |
+| `poc_analyze.py` (`fa_dump`, `fa_dump_full` at age_9, 32,263 recipes) | **82 checks, all PASS** | pass |
+| `gen_textures.py --check` | 68 referenced textures, 0 errors, 0 warnings | pass |
+| `gen_stage_locks.py --check`, `derive_ages.py --check` | exit 0; `generated:derived` up to date | pass |
+
+### Remaining chat lines (not on join)
+
+- Every Age grant posts the ProgressiveStages stage line to the team ("Age 0: Stone Age - fire tamed. Clay and
+  copper await."). It is in-world text, but carries the "Age N:" stage name; the FULL shrine ceremony adds its own
+  title. It is the stage's `unlock_message` in `config/progressivestages/stages/age_N.toml`; left as is (design text),
+  emptying those lines leaves only the ceremony.
+- Vanilla join/leave lines ("Beta joined the game") stay.
+
+### Open points
+
+- Everything a client draws (loading screens, title, pause menu, HUD, welcome screen, EMI/Jade hiding, quest theme,
+  CQA shaders, TFC displays, Default Options) is unverified until Felix's client run (`dev/client-test-brief.md`).
+- Pause menu: FancyMenu's `pause_screen_layout.txt` restyles the vanilla buttons while firmages-core hides Mods and
+  Advancements and moves the rows below up by 24 px in `ScreenEvent.Init.Post`; the layout sets no positions, but
+  whether FancyMenu re-applies cached widget positions after that move is only visible in the client.
+- EMI and Jade open at age_0 (Stone Age) as Felix's brief says ("Stone Age"); the brief's id `age_1` is the Bronze
+  Age in this pack (decision row of the core branch).
+- The test world was switched to peaceful during the run (zombies killed the ticking debug players); the next run
+  wipes it.
