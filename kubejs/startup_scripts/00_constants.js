@@ -338,7 +338,12 @@ global.FA = {
     'mysticalagriculture:unattuned_augment', 'mysticalagriculture:water_breathing_augment',
     'mysticalagriculture:weakness_resistance_augment', 'mysticalagriculture:wither_resistance_augment',
     // Mystical Agriculture soulium daggers (the dagger eats a golden sword, the tiers eat the dagger)
-    'mysticalagriculture:creative_soulium_dagger', 'mysticalagriculture:hostile_soulium_dagger', 'mysticalagriculture:passive_soulium_dagger', 'mysticalagriculture:soulium_dagger'
+    'mysticalagriculture:creative_soulium_dagger', 'mysticalagriculture:hostile_soulium_dagger', 'mysticalagriculture:passive_soulium_dagger', 'mysticalagriculture:soulium_dagger',
+    // One steel slab: the TerraFirmaCraft steel slab and its weathered stages (the Immersive Engineering slab stays)
+    'tfc:metal/block/steel_slab', 'tfc:metal/exposed_block/steel_slab', 'tfc:metal/weathered_block/steel_slab',
+    'tfc:metal/oxidized_block/steel_slab',
+    // Immersive Engineering Resonanz Observer (chunk loader multiblock): chunk loading is FTB Chunks
+    'immersiveengineering:chunk_loader'
   ]
 }
 // Only plain data goes into `global`: functions created in the startup context are not reliably callable

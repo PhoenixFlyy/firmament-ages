@@ -1459,7 +1459,6 @@
     {"id": "immersiveengineering:bucket_wheel", "required": false},
     {"id": "immersiveengineering:bulwark_spawn_egg", "required": false},
     {"id": "immersiveengineering:capacitor_creative", "required": false},
-    {"id": "immersiveengineering:chunk_loader", "required": false},
     {"id": "immersiveengineering:coke_oven", "required": false},
     {"id": "immersiveengineering:commando_spawn_egg", "required": false},
     {"id": "immersiveengineering:concrete_sprayed", "required": false},

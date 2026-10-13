@@ -1066,7 +1066,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "fec711d147ab8069606faf1c4f743471f53a342ea4230e6c2d32b7342ab23633"
+hash = "58139ca915c1542c871f6d26e2b2ecaa21a4e903e007f1d28c0cb7221b1624de"
 
 [[files]]
 file = "kubejs/data/create/neoforge/biome_modifier/striated_ores_nether.json"
@@ -1322,7 +1322,7 @@ hash = "47454fa2d297469a42edd2eb597cd017be87ae8496a313e450765dbfd63025c0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "65e5acbd4e34f191e5b9b220268cc351d304ce6b4cc5797c5fc978b4ecf89b04"
+hash = "c718c2d0d1d925f993fc07b25cc2253017df353ed71643076c533f1272a1726c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
@@ -1358,7 +1358,7 @@ hash = "2c8cc8dc9880d1e8ba685d865abf5fd755f4fa1ff6aa9108f9ff0557dca11325"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "2049731ecd5e6f6eed2a5e8260253aeb19a30d48c67344884d8dc7b66f60eed0"
+hash = "5eb6ab2cfdc1f8200a7efbab7caaed120deb66acb57e3193074721666d5cf02d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -1674,7 +1674,7 @@ hash = "4935515dc98c0d9920d6731c771b1d0cce0838e9e0f01a68a562eabd4e81bd0c"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "531218ab6c108dd803b3aef472f9531154e0c186df7ab32184cdd3ed3783b6ca"
+hash = "ab64d8795d3cd8c82b82fa6315fe4429361cdb7c8f2f14f7ea631339e962ad09"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"

@@ -2012,7 +2012,6 @@
   "immersiveengineering:bullet_flare": ["age_4","age_5","age_5","immersiveengineering:blueprint/bullet_flare_red"],
   "immersiveengineering:bulwark_spawn_egg": ["age_4",null,"disabled",null],
   "immersiveengineering:capacitor_creative": ["age_4",null,"disabled",null],
-  "immersiveengineering:chunk_loader": ["age_4",null,"disabled",null],
   "immersiveengineering:coke_oven": ["age_4",null,"disabled",null],
   "immersiveengineering:commando_spawn_egg": ["age_4",null,"disabled",null],
   "immersiveengineering:component_electronic": ["age_4","age_5","age_5","immersiveengineering:blueprint/component_electronic"],

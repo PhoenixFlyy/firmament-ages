@@ -1026,6 +1026,15 @@ items = [
     # false), and task screens are set up on the screen itself. The task screens stay (Doc 08 section 9.1).
     "ftbquests:loot_crate_opener",
     "ftbquests:task_screen_configurator",
+    # One steel slab (Felix 2026-10-13 late): the Immersive Engineering steel slab stays (block of the coker unit
+    # template, from #c:storage_blocks/steel), the TerraFirmaCraft steel slab goes with its weathered stages.
+    "tfc:metal/block/steel_slab",
+    "tfc:metal/exposed_block/steel_slab",
+    "tfc:metal/weathered_block/steel_slab",
+    "tfc:metal/oxidized_block/steel_slab",
+    # Immersive Engineering Resonanz Observer (chunk loader multiblock; Felix 2026-10-13 late): chunk loading is FTB
+    # Chunks' job (force-load quota from the Industrial Age). Its parts stay (resonanz engineering builds the radio tower).
+    "immersiveengineering:chunk_loader",
 ]
 
 # ------------------------------------------------------------------------------------------------ derived
@@ -4279,7 +4288,6 @@ items = [
     "immersiveengineering:bucket_wheel",
     "immersiveengineering:bulwark_spawn_egg",
     "immersiveengineering:capacitor_creative",
-    "immersiveengineering:chunk_loader",
     "immersiveengineering:coke_oven",
     "immersiveengineering:commando_spawn_egg",
     "immersiveengineering:concrete_sprayed",
