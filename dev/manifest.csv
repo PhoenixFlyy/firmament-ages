@@ -36,7 +36,6 @@ common-storage-lib,RgLrNK7l,Common Storage Lib,0.0.10,SCkdlli6,alpha,2026-07-12,
 controlling,xv94TkTM,Controlling,19.0.5,FaNppCJJ,release,2025-03-30,client,Controlling-neoforge-1.21.1-19.0.5.jar,77555,,,mod
 copycats,UT2M39wf,Create: Copycats+,3.0.9+mc.1.21.1-neoforge,bPYeUWZx,release,2026-09-06,both,copycats-3.0.9+mc.1.21.1-neoforge.jar,1799381,,,mod
 corgilib,ziOp6EO8,CorgiLib,1.21.1-5.0.0.9-NeoForge,nqrTa84r,release,2026-03-17,both,Corgilib-NeoForge-1.21.1-5.0.0.9.jar,309763,,,library
-crash-assistant,ix1qq8Ux,Crash Assistant,1.11.12,18SR4EJw,release,2026-08-13,client,CrashAssistant-neoforge-1.20.6-1.21.4-1.11.12.jar,3481341,,,mod
 create,LNytGWDc,Create,6.0.10+mc1.21.1,UjX6dr61,release,2026-04-21,both,create-1.21.1-6.0.10.jar,19123767,,,mod
 create-aeronautics,oWaK0Q19,Create Aeronautics,1.3.2+mc1.21.1,44pLdPGg,release,2026-08-29,both,create-aeronautics-bundled-1.21.1-1.3.2.jar,33123131,,,mod
 create-applied-kinetics,mYGTCuZY,Create: Applied Kinetics,1.5.4,Sk7TlTkT,release,2026-03-21,both,createappliedkinetics-1.5.4-1.21.1.jar,67161,,,mod
@@ -136,7 +135,6 @@ occultism,sbJh4AZw,Occultism,1.21.1-neoforge-1.224.4,g2DSjK89,release,2026-08-27
 occultism-kubejs,u5J68aYW,Occultism KubeJS,1.21.1-neoforge-1.11.0,785rsUjd,release,2026-01-17,both,occultism_kubejs-1.21.1-neoforge-1.11.0.jar,434372,,,mod
 packet-fixer,c7m1mi73,Packet Fixer,3.3.1,2C41Q8WX,release,2025-11-14,both,packetfixer-3.3.1-1.20.5-1.21.X-merged.jar,46623,,,mod
 patchouli,nU0bVIaL,Patchouli,1.21.1-93-neoforge,BIogJv2D,release,2026-03-08,both,Patchouli-1.21.1-93-NEOFORGE.jar,646777,,,library
-ping-wheel,QQXAdCzh,Ping Wheel,1.12.2,Zrh2Fmn9,beta,2026-04-26,both,Ping-Wheel-1.12.2-neoforge-1.21.1.jar,153528,,,mod
 placebo,tCkE8p2N,Placebo,1.21.1-9.9.2,1Ypo4tf4,release,2026-07-19,both,Placebo-1.21.1-9.9.2.jar,324058,,,library
 polymorph,tagwiZkJ,Polymorph,1.2.0+1.21.1,9yWvrF5o,beta,2026-09-10,both,polymorph-neoforge-1.2.0+1.21.1.jar,172671,,1.1.0+1.21.1,mod
 precision-prospecting,QV5ehY9M,Precision Prospecting,2.1,6byVqPH3,release,2026-08-17,both,precisionprospecting-1.21.1-2.1.jar,381915,,,mod
@@ -171,7 +169,6 @@ tfc-ruins,2JRpLCvK,TFC Ruins,1.0.0,6PCcn8on,release,2025-11-15,server,tfc_ruins-
 tfc-support-indicator,RL8eBaUL,TFC Support Indicator,1.0.7+mc1.21.1,MqLGbPEr,release,2026-03-02,client,tfc_support_indicator-1.0.7+mc1.21.1.jar,7699,,,mod
 tfc-vessel-tooltip,Xve2AFV9,TFC Vessel Tooltip,2.0,O3aknHl9,release,2025-09-28,client,TFCVesselTooltip-NeoForge-1.21.1-2.0.jar,5983,,,mod
 tfc-weld-button,K9CZ9PGx,TFC Weld Button,2.0,38S6qrZk,release,2025-09-29,both,TFCWeldButton-NeoForge-1.21.1-2.0.jar,11855,,,mod
-tfcgenviewer,yp9Ot3YC,TFCGenViewer,2.1.2,dxUTWTEa,release,2026-08-19,both,tfcgenviewer-1.21.1-2.1.2.jar,476499,,,mod
 tfcreate-compat,iaP7zFj9,TFCreate Compat,1.0.1,Kzhwzley,release,2026-08-01,both,tfcreate-1.0.1.jar,293593,,,mod
 theurgy,uOVMgoil,Theurgy,1.21.1-neoforge-1.76.1,R5jRgLze,release,2026-09-13,both,theurgy-1.21.1-neoforge-1.76.1.jar,5324579,,,mod
 theurgy-kubejs,oXj2r26F,Theurgy KubeJS,1.21.1-neoforge-1.6.0,gOZLSUzC,release,2026-09-08,both,theurgy_kubejs-1.21.1-neoforge-1.6.0.jar,25206,,,mod

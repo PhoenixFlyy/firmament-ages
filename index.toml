@@ -21,10 +21,6 @@ file = "config/cataclysm-client.toml"
 hash = "4fa2149a895f6578d424174d6b6a3304949153b1f38554442623e13760d221f0"
 
 [[files]]
-file = "config/crash_assistant/config.toml"
-hash = "4b3b59c1c8b25c64411302b5b9dd0622ec58fc8fdd4f3a5373d827d210f1cc7f"
-
-[[files]]
 file = "config/create-client.toml"
 hash = "95752e09d01178db3c5bdc0dce1634e3a4882ace629df1be5f4707e1a36f6519"
 
@@ -2058,11 +2054,6 @@ hash = "88b8e547b137f1435b0e383b933062ef0085454561f6adecff585b2fb9b50dd6"
 metafile = true
 
 [[files]]
-file = "mods/crash-assistant.pw.toml"
-hash = "8cb7ed61c9d40c9f60a3c7d360f7fba1e3902a75127a6377ce2f0733825982d0"
-metafile = true
-
-[[files]]
 file = "mods/create-aeronautics.pw.toml"
 hash = "3b8895369640b2a52d3e05f7186185ba6798e44d513f11c5427a0fe9c16769e9"
 metafile = true
@@ -2602,11 +2593,6 @@ hash = "3718e8a37d0dc2939cc350cce74bcb9c36b59f48baf4560e62804f7ca6478185"
 metafile = true
 
 [[files]]
-file = "mods/ping-wheel.pw.toml"
-hash = "fc58a3e283c0769d6861b3d07c0a919ba8a35dbca9fa040fbb574a1f5d7bad1a"
-metafile = true
-
-[[files]]
 file = "mods/placebo.pw.toml"
 hash = "1762970777e293ba6d7a6a7b43dde2ac87604820e0fd90dd712beb744d068266"
 metafile = true
@@ -2779,11 +2765,6 @@ metafile = true
 [[files]]
 file = "mods/tfc-weld-button.pw.toml"
 hash = "c4b24789903cc018cb97125468a9694b98ca11812aea20787751cbc0e169ff83"
-metafile = true
-
-[[files]]
-file = "mods/tfcgenviewer.pw.toml"
-hash = "70ea1c0679be1a222e1154447a0a6e3a73ca6b5f43d9b69307548cd42dcd5921"
 metafile = true
 
 [[files]]
