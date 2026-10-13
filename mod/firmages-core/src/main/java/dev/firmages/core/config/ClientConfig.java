@@ -23,6 +23,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue HIDE_MOD_NAME_TOOLTIPS;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLOCKED_SCREENS;
     public static final ModConfigSpec.IntValue QUEST_PARAGRAPH_GAP;
+    public static final ModConfigSpec.IntValue QUEST_WINDOW_PERCENT;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> CHAT_BLOCKLIST;
     public static final ModConfigSpec.BooleanValue HIDE_THIRST_BAR;
     public static final ModConfigSpec.BooleanValue HIDE_NUTRITION;
@@ -65,8 +66,13 @@ public final class ClientConfig {
         BLOCKED_SCREENS = b.comment("Fully qualified screen class names that are never opened (mod announcement screens).")
             .defineListAllowEmpty("blockedScreens", DEFAULT_BLOCKED_SCREENS, () -> "", ClientConfig::isString);
         QUEST_PARAGRAPH_GAP = b.comment("Pixels (GUI scale 1) between the paragraphs of a quest description and after its subtitle.",
-                "FTB Quests itself uses a full blank line (9) between paragraphs and 7 after the subtitle; a text line is 9.")
+                "FTB Quests itself uses a full blank line (9) between paragraphs and 7 after the subtitle; a text line is 9.",
+                "Below 6 the gaps title to task headings, task icons to separator and separator to text shrink by 6 minus this",
+                "value (at most 4); 9 gives FTB's original spacing everywhere.")
             .defineInRange("questParagraphGap", 4, 0, 9);
+        QUEST_WINDOW_PERCENT = b.comment("Size of the quest book (FTB Quests) in percent of the game window, centred; follows window size and GUI scale.",
+                "0 or 100 = fullscreen as in FTB Quests; values from 1 to 49 count as 50.")
+            .defineInRange("questWindowPercent", 75, 0, 100);
         b.pop();
 
         b.comment("Chat safety net (SPEC 18.1)").push("chat");

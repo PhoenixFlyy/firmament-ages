@@ -24,7 +24,8 @@ public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
         "tfc", "tfc",
         "trainutilities", "trainutilities",
         "corgilib", "corgilib",
-        "ftbquests", "ftbquests");
+        "ftbquests", "ftbquests",
+        "ftbq", "ftbquests");
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {

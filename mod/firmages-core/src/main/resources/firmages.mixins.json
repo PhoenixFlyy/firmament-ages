@@ -29,7 +29,12 @@
     "tfc.TfcHealthBarMixin",
     "tfc.InventoryTabAccessor",
     "ftbquests.ViewQuestPanelMixin",
-    "ftbquests.TextFieldAccessor"
+    "ftbquests.TextFieldAccessor",
+    "ftbq.QuestScreenSizeMixin",
+    "ftbq.BaseScreenModalMixin",
+    "ftbq.ChapterPanelWindowMixin",
+    "ftbq.QuestViewSpacingMixin",
+    "ftbq.QuestPanelCentreMixin"
   ],
   "injectors": {
     "defaultRequire": 1
