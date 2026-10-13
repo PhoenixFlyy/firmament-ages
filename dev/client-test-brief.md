@@ -1,57 +1,55 @@
 # Client-Test
 
-## 0.7.2 Nachtrag: Titel- und Pausemenü
+## 0.7.2 Nachtrag (Feedback 2, Pack 0.7.2, firmages-core 0.7.2)
 
-Deine 0.7.0-Screenshots, Ursachen per Jar-Analyse gefunden, statisch geprüft (`python dev/check_menus.py`), im Spiel
-noch offen. Bitte bei 1920x1080 oder 2560x1440 je mit GUI-Scale 2, 3 und Auto anschauen.
+Fünf Änderungen auf Deine Screenshots und Entscheidungen hin; die 0.7.1- und 0.7.0-Listen darunter gelten sonst
+weiter. Server-Teil geprüft (`dev/poc-results.md`, Abschnitt „Feedback 2 (2026-10-13)“: GameTests, frische Welt mit
+Dump und Adern-Scan), im Spiel noch offen. **Neues Profil importieren** (das Zip aus `dev/cf/LOKAL-TESTEN.md`); in
+einem alten Profil fehlt sonst das neue firmages-core-Jar oder `config/create-client.toml`. Die Test-Welt ist frisch
+(Dawn).
 
-1. **Titelbild (Punkt 3).** Nur noch Singleplayer, Multiplayer, Options, Quit (8 px höher als bisher), Wortmarke,
-   Diashow und unten links die Versionszeile, jetzt vollständig lesbar. **Weg:** Sprache, Barrierefreiheit (beides
-   unter Options), Creates Brillen-Knopf. **Bleibt:** „Copyright Mojang AB. Do not distribute!“ unten rechts, das
-   blendet FancyMenu absichtlich nie aus (siehe Entscheidungen).
+1. **Titelbild (Punkt 3 der 0.7.0-Liste).** Bitte bei 1920x1080 oder 2560x1440 je mit GUI-Scale 2, 3 und Auto
+   ansehen. Nur noch Singleplayer, Multiplayer, Options, Quit (8 px höher als bisher), Wortmarke, Diashow und unten
+   links die Versionszeile „Firmament Ages 0.7.2“, jetzt vollständig lesbar. **Weg:** Sprache und Barrierefreiheit
+   (beides weiter unter Options; das blendet firmages-core aus, sind sie noch da, läuft das alte Jar) und Creates
+   Brillen-Knopf. **Bleibt:** „Copyright Mojang AB. Do not distribute!“ unten rechts, das blendet FancyMenu absichtlich
+   nie aus (Entscheidung offen, siehe `dev/decisions-while-away.md`). Ursachen und Prüfung: `python dev/check_menus.py`.
 2. **Pausemenü (Punkt 11, ersetzt die Liste dort).** Nur noch gestylt **Back to Game**, **Options** und mit etwas
    Abstand **Disconnect** (im Einzelspieler „Save and Quit to Title“), mittig untereinander. Weg: Advancements,
-   Statistics, Give Feedback, Report Bugs, Open to LAN (im Mehrspieler Player Reporting), Mods, Creates Brille.
-   Das 0.7.0-Layout griff gar nicht (falsche FancyMenu-IDs), darum sahst Du die Vanilla-Knöpfe.
-3. **Nur mit neuem firmages-core-Jar:** Sprache und Barrierefreiheit blendet firmages-core aus. Fehlen sie nicht,
-   ist noch das alte Jar im Profil.
-4. In einem älteren Profil überschreibt das Update `config/create-client.toml`; ist die Brille noch da, die zwei
-   Werte `mainMenuConfigButtonRow` und `ingameMenuConfigButtonRow` dort auf 0 prüfen.
+   Statistics, Give Feedback, Report Bugs, Server Links, Open to LAN (im Mehrspieler Player Reporting), Mods, Creates
+   Brille. Das 0.7.0-Layout griff gar nicht (falsche FancyMenu-IDs), darum sahst Du die Vanilla-Knöpfe. Ist die
+   Brille in einem älteren Profil noch da: in `config/create-client.toml` `mainMenuConfigButtonRow` und
+   `ingameMenuConfigButtonRow` auf 0 prüfen.
+3. **TFC-Reiter im Inventar nach Age.** **Dawn:** nur der Inventar-Reiter. **Ab der Steinzeit**
+   (`/stage grant @s age_0`): darunter der Kalender. **Ab der Eisenzeit** (`age_2`): darunter das Klima, direkt unter
+   dem Kalender. **Nie:** Ernährung und Field Guide (Buch). Die Reiter rücken ohne Lücke nach oben, auch in den
+   Kalender- und Klima-Seiten selbst und im Kreativ-Inventar, falls TFC dort Reiter zeigt. Eine neue Age gilt beim
+   nächsten Öffnen des Inventars (offenes Inventar einmal schließen). Einstellbar pro Welt in `firmages-server.toml`
+   unter `[ui]` (`calendarTabFromAge`, `climateTabFromAge`, `nutritionTabFromAge`, `fieldGuideTabFromAge`; eine Age-ID
+   oder `never`). Der Server öffnet eine gesperrte Seite auch nicht, wenn ein Client sie anfragt (GameTest).
+4. **Simple Voice Chat ist weg.** Beim Join kein Voice-Chat-Hinweis, keine Mikrofon-Abfrage, keine V-Taste; Alt+M ist
+   frei. Ein altes Profil behält `config/voicechat/`, das kannst Du löschen.
+5. **Mystical-Agriculture-Adern.** Inferium-Erz (alle Gesteine, y -32 bis 100), Prosperity-Erz (magmatisch und
+   metamorph, tief, y -64 bis 30) und Seelenstein mit etwas Soulium-Erz (nur in Basalt) kommen als TFC-Adern; bis zur
+   Informationszeit sehen sie aus wie ihr Gestein und lassen auch nur Gestein fallen. Mit `/stage grant @s age_5` eine
+   Ader suchen und abbauen: Fels, kein Treffer im Prospektor. Nach `/stage grant @s age_6`: der Block zeigt das Gestein
+   mit MAs grünem bzw. hellblauem Erz-Overlay (achte auf schwarze Pixel um das Overlay), gibt Inferium-Essenz bzw.
+   Prosperity-Splitter, der Prospektor findet ihn. Seelenstein liegt nur in Basalt, und Basalt ist selten: um den
+   Spawn der Testwelt gab es keinen, 2000 Blöcke weiter östlich und 4000 Blöcke südlich schon. Seelenstein taucht ab
+   der Informationszeit mit seinen Baublöcken in EMI auf. Die Nebenquest „Mystical Agriculture“ der Informationszeit
+   verlangt jetzt Essenz, Splitter und Seelenstein. Melde, ob Du die Adern in einer Sitzung mit dem Prospektor findest.
+6. **Quest-Ansicht, engere Absätze.** Öffne mit **K** eine Quest, zuerst „Welcome to Firmament Ages“. Absätze stehen
+   jetzt 14 statt 18 Pixel auseinander (bei GUI-Scale 3 also 42 statt 54 Bildschirmpixel), der Abstand vom kursiven
+   Untertitel zum Text ist derselbe; Zeilen innerhalb eines Absatzes bleiben bei 9 Pixeln, enger geht es mit der
+   Minecraft-Schrift nicht. Zu eng oder zu weit: in `config/firmages-client.toml` unter `[ui]` `questParagraphGap`
+   ändern (0 bis 9, Standard 4; 9 ist der alte Abstand), die Quest schließen und neu öffnen, kein Neustart (noch
+   ungeprüft). **Noch nicht behoben:** die Vollbild-Ansicht sitzt weiter 10 Pixel zu weit links und oben (Titel und
+   erster Buchstabe jeder Zeile abgeschnitten, rechts und unten ein Streifen). Ursache ist Code in FTB Library, kein
+   Theme und keine Config; die Behebung hängt an Deiner Wahl zwischen A (Quest-Fenster bei 75 % des Bildschirms) und
+   B (Vollbild repariert), siehe `Modpack-Planung/research-raw/fb2-quest-screen.md`, Abschnitte 5 und 6.
 
-## 0.7.2 Nachtrag: TFC-Reiter im Inventar (firmages-core 0.7.2)
-
-Links am Inventar hängen die TFC-Reiter jetzt an der Age. **Dawn:** nur der Inventar-Reiter. **Ab der Steinzeit**
-(`/stage grant @s age_0`): darunter der Kalender. **Ab der Eisenzeit** (`age_2`): darunter das Klima, direkt unter dem
-Kalender. **Nie:** Ernährung und Field Guide (Buch). Die Reiter rücken ohne Lücke nach oben, auch in den Kalender- und
-Klima-Seiten selbst und im Kreativ-Inventar, falls TFC dort Reiter zeigt. Eine neue Age gilt beim nächsten Öffnen des
-Inventars (offenes Inventar einmal schließen). Einstellbar pro Welt in `firmages-server.toml` unter `[ui]`
-(`calendarTabFromAge`, `climateTabFromAge`, `nutritionTabFromAge`, `fieldGuideTabFromAge`; eine Age-ID oder `never`).
-Server-Teil per GameTest geprüft (der Server öffnet eine gesperrte Seite auch nicht, wenn ein Client sie anfragt), im
-Spiel noch offen.
-
-## Mystical-Agriculture-Adern (Entscheidung 8A)
-
-Neu: Inferium-Erz (alle Gesteine, y -32 bis 100), Prosperity-Erz (magmatisch und metamorph, tief, y -64 bis 30) und
-Seelenstein mit etwas Soulium-Erz (nur in Basalt) kommen als TFC-Adern; bis zur Informationszeit sehen sie aus wie ihr
-Gestein und lassen auch nur Gestein fallen. In einer neuen Welt (Adern entstehen nur in neuen Chunks) mit
-`/stage grant @s age_5` eine Ader suchen und abbauen: Fels, kein Treffer im Prospektor. Nach `/stage grant @s age_6`:
-der Block zeigt das Gestein mit MAs grünem bzw. hellblauem Erz-Overlay (achte auf schwarze Pixel um das Overlay),
-gibt Inferium-Essenz bzw. Prosperity-Splitter, der Prospektor findet ihn; Seelenstein erscheint in Basalt und
-taucht mit seinen Baublöcken in EMI auf. Die Nebenquest „Mystical Agriculture“ der Informationszeit verlangt jetzt
-Essenz, Splitter und Seelenstein. Melde, ob Du die Adern in einer Sitzung mit dem Prospektor findest.
-
-## Nachtrag: Quest-Ansicht, engere Textabstände (firmages-core nach 0.7.1)
-
-Öffne mit **K** eine Quest, zuerst „Welcome to Firmament Ages“. Absätze stehen jetzt 14 statt 18 Pixel auseinander
-(bei GUI-Scale 3 also 42 statt 54 Bildschirmpixel), der Abstand vom kursiven Untertitel zum Text ist derselbe; Zeilen
-innerhalb eines Absatzes bleiben bei 9 Pixeln, enger geht es mit der Minecraft-Schrift nicht. Wenn Dir der Absatz zu
-eng oder zu weit ist: in `config/firmages-client.toml` unter `[ui]` den Wert `questParagraphGap` ändern (0 bis 9,
-Standard 4; 9 ist der alte Abstand), die Quest schließen und neu öffnen, kein Neustart. **Noch nicht behoben:** die
-Vollbild-Ansicht sitzt weiter 10 Pixel zu weit links und oben (Titel und erster Buchstabe jeder Zeile abgeschnitten,
-rechts und unten ein Streifen). Ursache ist Code in FTB Library, kein Theme und keine Config; die Behebung hängt an
-Deiner Wahl zwischen A (Quest-Fenster bei 75 % des Bildschirms) und B (Vollbild repariert), siehe
-`Modpack-Planung/research-raw/fb2-quest-screen.md`, Abschnitte 5 und 6. Melde: Absatzabstand passt / enger / weiter,
-und A oder B.
+Melde: Punkte 1 bis 6 ja/nein, Absatzabstand passt / enger / weiter, A oder B für die Quest-Ansicht, und ob die
+Copyright-Zeile bleiben darf.
 
 ## 0.7.1 Nachtrag (Entscheidungen 2026-10-13 spät, Pack 0.7.1, firmages-core 0.7.1)
 

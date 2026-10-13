@@ -2304,3 +2304,57 @@ and cobbled soulstone are `age_6`; MA's own ore generation stays off; 21 inferiu
   no at `age_5`, yes after `firmages ages simulate grant age_6`; same for `mysticalagriculture:soulstone`.
 - Client: below `age_6` a vein looks and drops like its rock; from `age_6` the inferium and prosperity blocks show
   the rock with MA's ore overlay (no black pixels) and drop essence or shards; soulstone shows in basalt.
+
+## Feedback 2 (2026-10-13)
+
+Date: 2026-10-13, `dev` from 21d6ae3 (pack 0.7.1). Felix's second client feedback, worked on in five branches and
+merged here with `--no-ff` in this order: `fb2/menus` (title and pause menu), `fb2/tfc-tabs` (TFC inventory tabs by
+Age), `fb2/voicechat` (Simple Voice Chat removed), `fb2/ma-veins` (Mystical Agriculture veins, section above),
+`fb2/quest-screen` (quest paragraph spacing). Conflicts only in the docs (`dev/client-test-brief.md`,
+`dev/decisions-while-away.md`, SPEC §18.7): both sides kept, SPEC §18.7 lists the tab keys, the tab bits and
+`questParagraphGap`. Then pack 0.7.2 and firmages-core 0.7.2. Design calls of the branches in
+`dev/decisions-while-away.md`; root causes and the quest-view variants A and B in
+`Modpack-Planung/research-raw/fb2-quest-screen.md`.
+
+### Build and static checks
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (firmages-core 0.7.2, merged tree) | BUILD SUCCESSFUL; JUnit 89 tests, 0 failures, 0 errors (85 before plus 4 tab tests); the jar carries `SwitchInventoryTabMixin`, `InventoryTabAccessor`, `ViewQuestPanelMixin`, `TextFieldAccessor`, `MenuButtons` | pass |
+| `gradlew runGameTestServer` (generated `firmages-server.toml` moved away first) | "All 33 required tests passed" (`tfcTabsFollowAges` included); the new config holds `calendarTabFromAge = "age_0"`, `climateTabFromAge = "age_2"`, `nutritionTabFromAge = "never"`, `fieldGuideTabFromAge = "never"` | pass |
+| `python -I dev/check_menus.py` | all checks pass (version line `Firmament Ages 0.7.2` = `pack.toml`; 1920x1080 and 2560x1440 at GUI 2, 3 and auto; every id in the FancyMenu 3.9.14 jar) | pass |
+| `tools/packwiz.exe refresh` | 659 index entries, only under `config/`, `defaultconfigs/`, `kubejs/`, `mods/` (no `.wt`, no `.claude`); `simple-voice-chat.pw.toml`, the voicechat default config and `firmages-core-0.7.1.jar` gone; `firmages-core-0.7.2.jar`, `config/create-client.toml`, the 34 MA loot tables, 3 vein features and `mystical_veins.js` in | pass |
+| Static tools on the simulated MA dump (`scratchpad/maveins/dump`) | `poc_analyze.py` 87 PASS; `derive_ages.py --check` up to date; `gen_stage_locks.py --check` 0 files; `validate_quests.py` 1292 ids, 0 errors, 0 warnings; `gen_textures.py --check` 68 textures, 0 errors; `gen_multiblock_templates.py --check` 35 templates, up to date | pass |
+
+### Server proof (fresh world)
+
+Test server synced with packwiz-installer-bootstrap `-g -s server` from `packwiz serve` (659/659, "Finished
+successfully"; `voicechat-neoforge` and the old `firmages-core-0.7.0.jar` removed by the installer), then one boot with
+`run_server.py --wipe-world --hold`. Debug player Alpha, `difficulty peaceful`, `debug.allowSimulate` on for the run
+only. World spawn -752, -3200.
+
+| Check | Observed | Result |
+|---|---|---|
+| Boot | `Done (12.296s)`, 206 mod files with 199 mods; KubeJS startup 4/4 and server 38/38, 0 errors, 0 warnings; warm-up reload 7786 ms | pass |
+| ERROR lines | none from FirmagesCore, KubeJS, ProgressiveStages, FTB Quests or Mystical Agriculture; the rest is the known noise (DISTXFORM, azimuth, bits_n_bobs, woodencog and simulated client mixins, loot tables of dndecor, railways, create_connected, createcasing, more_immersive_wires and extendedae, tfcrf and woodencog recipe parse errors, createdeco placard, Sable tag physics, TF `dev_new_world`, trainutilities advancements) | pass |
+| TFC tabs on the wire | `firmages:age_status` to Alpha: `tabs=0` in Dawn, `1` (calendar) at age_0 and age_1, `3` (calendar and climate) from age_2 to age_6 | pass |
+| Prospecting gate | `setblock` of `firmages:ore/inferium/granite`, `mysticalagriculture:soulstone`, `firmages:ore/prosperity/basalt`; `execute if block ... #tfc:prospectable` at age_5: "Test failed" for inferium and soulstone; after `stage grant Alpha age_6`: "Test passed" for all three | pass |
+| `fa_dump`, `fa_dump_full` at age_9 | 32,331 recipes (0 without a readable result), 3,496 item tags; 32,331 encoded, 0 not encodable | pass |
+| `derive_ages.py --check` on the fresh dump | "generated:derived is up to date"; final per Age as in the simulation (age_6 1,505, disabled 4,486) | pass |
+| `poc_analyze.py` on the fresh dump | **87 checks, all PASS** (C-MA included) | pass |
+| `gen_stage_locks.py --registry test-server/local/firmages` | rewrote 0 files; `dev/data/registry.json` unchanged (the 34 vein blocks, soulstone and soulium ore were already in it) | pass |
+| Worldgen at spawn (Chunky radius 256, 1,089 chunks, `save-all flush`, `scan_regions.py`, 812 full chunks) | inferium 15,938 (gabbro 14,217, granite 1,721), prosperity 10,518 (granite 6,418, gabbro 4,100); no basalt within the radius, so no soulstone; no `mysticalagriculture:inferium_ore`, `prosperity_ore` or deepslate forms | pass |
+| Worldgen, eight patches (Chunky radius 64 at 2,000 and 4,000 blocks east, west, north and south of spawn) | basalt in three patches; soulstone 8,477 with 434 soulium ore at 1248, -3200 and 747 with 38 at -752, 800 (19.5 : 1 and 19.7 : 1); prosperity in basalt at 3248, -3200 (1,371) | pass |
+| All nine areas together (the three `setblock` blocks subtracted) | inferium 24,184 in 11 rocks (andesite, basalt, chalk, chert, diorite, dolomite, gabbro, granite, marble, quartzite, schist); prosperity 18,261 in 8 rocks, all igneous or metamorphic (basalt, diorite, gabbro, gneiss, granite, marble, quartzite, schist); soulstone 9,224 to soulium ore 472; no MA ore of MA's own generation | pass |
+| Cleanup | `stop`, exit code 0; `test-server/world` deleted (Felix starts a fresh Dawn world); `whitelist.json`, `ops.json`, `server.properties` byte-identical to before (the server had rewritten the last two, restored from the copy); `config/firmages-server.toml`: `allowSimulate = false` again, only the four new tab keys with their defaults added | pass |
+
+`locate biome` finds nothing under TFC's biome source, so basalt had to be found by pregenerating patches. Basalt is
+rare near this spawn: soulstone needs a basalt region, which may be thousands of blocks away.
+
+### Needs a client (Felix, `dev/client-test-brief.md`, 0.7.2 Nachtrag)
+
+- Title and pause menus at 1920x1080 and 2560x1440, GUI 2, 3 and auto; the Mojang copyright line stays (decision open).
+- TFC tabs per Age without gaps, also in the Calendar and Climate screens and the creative inventory.
+- MA vein overlay without black pixels, disguise below age_6, veins findable with the prospector in one session.
+- Quest paragraph gap 14 px, `questParagraphGap` applied after reopening a quest; choice A or B for the cut-off
+  fullscreen quest view (not fixed yet).
