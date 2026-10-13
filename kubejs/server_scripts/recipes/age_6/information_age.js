@@ -27,6 +27,18 @@ ServerEvents.recipes((event) => {
     .forEach((t) => removeTypes.push({ type: t }))
   removeIdPatterns.push(/^evolvedmekanism:alloying\/compat\/ae2\//)
 
+  // ======================================================================================== MekaSuit modules
+  // Every MekaSuit and Meka-Tool module is built on the module base, which asked for four c:nuggets/bronze. The
+  // material canon has no bronze nugget (Doc 10 v3 8.1: Mekanism's bronze nugget is a loser, disabled; the Create Big
+  // Cannons bronze scrap has no source), so no module could be made (Felix 2026-10-13 late): TFC bronze ingots instead,
+  // the rest of Mekanism's recipe unchanged. The modules' vanilla tools are swapped in gear_rule.js.
+  event.remove({ id: 'mekanism:module_base' })
+  event.shaped('2x mekanism:module_base', ['NIN', 'I#I', 'NIN'], {
+    N: '#c:ingots/bronze',
+    I: '#c:ingots/tin',
+    '#': 'mekanism:hdpe_sheet'
+  }).id('mekanism:module_base')
+
   // ======================================================================================== AE2: one processor station
   // Create: Applied Kinetics 1.21.1 has no processor recipes (it ships an energy provider and an ME proxy only), so
   // the AE2 Inscriber stays the one press and processor station (decision log). ExtendedAE's circuit cutter and its

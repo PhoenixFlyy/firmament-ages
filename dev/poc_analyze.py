@@ -1257,7 +1257,7 @@ FALLBACKS = [("age_2", "firmages:frontier_sigil", "firmages:frontier_trial"), ("
 # BOSS_DROPS that are world drops, not boss drops (the TFCreate quartz vein).
 BOSS_TOKEN_REAL = {"age_3": ["ars_nouveau:wilden_tribute"], "age_4": ["cataclysm:monstrous_horn"]}
 NOT_BOSS = {"tfcreate:unpolished_quartz"}
-# Items whose only recipe needed a dead part (Create sheets, barrel, a disabled rod, the brass nugget). Not here because
+# Items whose only recipe needed a dead part (Create sheets, barrel, a disabled rod, the brass nugget, the bronze nugget). Not here because
 # the walk does not model their chain: the MA soul extractor (Mystical Agriculture ores) and the AdvancedAE strength
 # card (quantum alloy from AE2 singularities); their recipes are checked by C-Di and C-Gv.
 LEFTOVERS = [("age_1", ["create:brass_nugget"]),
@@ -1266,6 +1266,7 @@ LEFTOVERS = [("age_1", ["create:brass_nugget"]),
              ("age_4", ["simulated:gyroscopic_mechanism", "simulated:engine_assembly", "create_factory_logistics:fluid_mechanism",
                         "aeronautics:gyroscopic_propeller_bearing", "simulated:red_portable_engine"]),
              ("age_5", ["create_hypertube:hypertube"]),
+             ("age_6", ["mekanism:module_base"]),  # c:nuggets/bronze had no source; TFC bronze ingots (age_6/information_age.js)
              ("age_7", ["ad_astra:steel_plateblock", "ad_astra:iron_plateblock"]),
              ("age_8", ["ad_astra:calorite_plateblock"])]
 

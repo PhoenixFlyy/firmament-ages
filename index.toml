@@ -1066,7 +1066,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "58139ca915c1542c871f6d26e2b2ecaa21a4e903e007f1d28c0cb7221b1624de"
+hash = "eaebd598f5069004a56034fbb9c6ddd5b52becf2f6ba424207685eba96d7a428"
 
 [[files]]
 file = "kubejs/data/create/neoforge/biome_modifier/striated_ores_nether.json"
@@ -1338,15 +1338,15 @@ hash = "f858294e0c48a741235d2a9f77b7e29021a521a3e2961a745d1feb59135e0ba9"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "d279c575e1c057adeb5df559e41af27316545eef86674503e63dd86437abea61"
+hash = "6fa28ea146708bec294d12f71ffac7630735fa0282e097183dc3f7879a7f9821"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "5e5bf6235efdf3f19cc3c769d96e2dfdd3de3bf413f66612003e098f3986f004"
+hash = "e34ca5c0e4ce3dfb93fa32fe1db89af2ad78ab9635cf1c3dfc3dfbe3280415f8"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "6bd8b437e5405e0d3b8a602a405940549d376ddc5a448d89420b84d35a1d4913"
+hash = "a7073e1b2c82a4fdba6e436fa86b9a9a370f7060245577292ebb0b5203932fcd"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -1358,7 +1358,7 @@ hash = "2c8cc8dc9880d1e8ba685d865abf5fd755f4fa1ff6aa9108f9ff0557dca11325"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "5eb6ab2cfdc1f8200a7efbab7caaed120deb66acb57e3193074721666d5cf02d"
+hash = "91a4c9345da5cdff61c2aa45401b238b131ba999632a8a344e76a09fdeeed147"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -1578,7 +1578,7 @@ hash = "a18367c42e35fc313b9a47c8ceb7af2f3885761acdefa5e84ced4d90b3e80254"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
-hash = "bd4d694ff400059ee260dfd14c47fe03a523aace933831149c04ba7698b4642b"
+hash = "818655abd0a9a8b7184dd003bf06cfc783962eb1d896c1200f677365d8f9c34b"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
