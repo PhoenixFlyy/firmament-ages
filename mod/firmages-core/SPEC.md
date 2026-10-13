@@ -80,7 +80,7 @@ dev.firmages.core
            sgjourney (SgjGates), ie, occultism, ars
   client/  ShrineHeartRenderer, CeremonyPlayer, SkyEffects, MusicControl, PreviewBridge
   mixin/   RecipeManagerMixin; GameTestServerMixin (GameTests only); ie.MineralMixMixin; occultism.MineshaftMixin;
-           ars.ApparatusMixin; ps.*
+           ars.ApparatusMixin; ps.*; ftbquests.* (client, §18.8)
   config/  ServerConfig, ClientConfig
 ```
 
@@ -808,8 +808,14 @@ TFC 4.2.11 [verified, javap]: thirst lives in `PlayerInfo.thirst` (start 100); `
 ### 18.7 Config, network, tests
 
 - `firmages-server.toml`: `[ui] emiFromAge = "age_1"`, `jadeFromAge = "age_0"`, `welcome = true`; `[tfc] disableThirst = true`, `noNutritionMalus = true`.
-- `firmages-client.toml`: `[ui] hudMode = FADE`, `hudFadeSeconds = 6`, `hideToasts`, `blockedToasts`, `redirectAdvancements`, `hideMenuButtons`, `hideModNameTooltips`, `blockedScreens`; `[chat] blocklist`; `[tfc] hideThirstBar`, `hideNutrition` (all true by default).
+- `firmages-client.toml`: `[ui] hudMode = FADE`, `hudFadeSeconds = 6`, `hideToasts`, `blockedToasts`, `redirectAdvancements`, `hideMenuButtons`, `hideModNameTooltips`, `blockedScreens`, `questParagraphGap = 4` (§18.8); `[chat] blocklist`; `[tfc] hideThirstBar`, `hideNutrition` (all true by default).
 - Network (§11, S2C, optional): `firmages:age_status` (age id, goal item id, recipeViewer, blockInfo), `firmages:welcome` (no fields).
 - U `ImmersionTest` (10): the status (Dawn hides everything, viewer and overlay open at their Age, highest Age with gaps, offerings per tier, no goal in age_9 or without an offering), config parsing, `ViewerGate` (forced off while locked, on once, then the player's choice), the nutrition tooltip keys, `HudFade` (6 s with the last second fading, key hold and release, ALWAYS, NEVER, short show times), the chat blocklist (the Train Utilities literal from the jar and the Makeship line blocked, player chat and Caelum not, invalid patterns skipped), `NutritionFloor`.
 - G `ImmersionGameTests` (3; the TFC test runs in the opt-in run `gradlew runGameTestServer -PgametestTfc`, which adds TerraFirmaCraft and Patchouli and in which 13 older shrine and gate tests fail because TFC changes the vanilla stand-in blocks and recipes they use; without TFC it passes empty): `welcomeOncePerPlayer` (headless player: the login status equals the server status and there is one welcome; a rejoin with the saved player data gets the status and no welcome; reset gives exactly one more), `statusFollowsAgesAndConfig` (status = highest Age and `ui.*FromAge`, config changes apply, a broadcast reaches a player once), `tfcThirstAndNutrition` (`setThirst(10)` and `addThirst(-60)` stay at 100; with the switch off TFC's value stays and the first tick after switching on refills it; at 0 nutrition TFC's modifier is 0.2, yet 2 damage costs 2 / 0.85; with the switch off 1 / 0.2).
 - **Client [M], for Felix:** no EC2 screen on join; no Train Utilities, Ars or Corgilib text; no advancement, recipe or tutorial toasts; L opens FTB Quests; pause menu without Mods and Advancements and without gaps; EMI and Jade hidden in Dawn (Ctrl+O and Jade's key do nothing); Jade back in the Stone Age and EMI in the Bronze Age, both without relog; the HUD indicator (look, fade, hold H); the welcome title and screen on a fresh player, the button opens the quest screen; TFC thirst bar gone, nutrition tab gone with the climate tab moved up, food tooltips without nutrition, the TFC health bar showing at least the starting health.
+
+### 18.8 Quest description spacing (Felix, 2026-10-13)
+
+FTB Quests 2101.1.36 `ViewQuestPanel.addDescriptionText` [verified, javap] puts each description line in its own text field (line pitch 9 px, the font height) stacked with a 1 px gap, so a blank line, the pack's paragraph break, costs a full 9 px line (paragraphs 18 px apart), and the subtitle is followed by a fixed 7 px spacer. No theme key controls either. `mixin/ftbquests/ViewQuestPanelMixin` (client; skipped without `ftbquests`): `@WrapOperation` on the third `BlankPanel.add` of the method replaces the field of a blank line with a `VerticalSpaceWidget` of `ui.questParagraphGap` px (default 4, range 0..9) unless the player is in edit mode (there the blank line stays an editable field); `@ModifyConstant` on the 7 makes the subtitle gap the same value. Result: paragraphs 14 px apart, subtitle to text 14 px, lines 9 px. The blank test reads the field's raw text through `mixin/ftbquests/TextFieldAccessor` (FTB Library `TextField.rawText`). With the client config not loaded the values fall back to FTB's own (9 and 7).
+
+The detail view's size and the cut-off with `full_screen_quest: 1` (FTB Library's `pushModalPanel` clamp moves a screen-sized panel 10 px left and up) are not part of this; research and the two variants Felix chooses between: `Modpack-Planung/research-raw/fb2-quest-screen.md`.

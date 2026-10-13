@@ -1,5 +1,18 @@
 # Client-Test
 
+## Nachtrag: Quest-Ansicht, engere Textabstände (firmages-core nach 0.7.1)
+
+Öffne mit **K** eine Quest, zuerst „Welcome to Firmament Ages“. Absätze stehen jetzt 14 statt 18 Pixel auseinander
+(bei GUI-Scale 3 also 42 statt 54 Bildschirmpixel), der Abstand vom kursiven Untertitel zum Text ist derselbe; Zeilen
+innerhalb eines Absatzes bleiben bei 9 Pixeln, enger geht es mit der Minecraft-Schrift nicht. Wenn Dir der Absatz zu
+eng oder zu weit ist: in `config/firmages-client.toml` unter `[ui]` den Wert `questParagraphGap` ändern (0 bis 9,
+Standard 4; 9 ist der alte Abstand), die Quest schließen und neu öffnen, kein Neustart. **Noch nicht behoben:** die
+Vollbild-Ansicht sitzt weiter 10 Pixel zu weit links und oben (Titel und erster Buchstabe jeder Zeile abgeschnitten,
+rechts und unten ein Streifen). Ursache ist Code in FTB Library, kein Theme und keine Config; die Behebung hängt an
+Deiner Wahl zwischen A (Quest-Fenster bei 75 % des Bildschirms) und B (Vollbild repariert), siehe
+`Modpack-Planung/research-raw/fb2-quest-screen.md`, Abschnitte 5 und 6. Melde: Absatzabstand passt / enger / weiter,
+und A oder B.
+
 ## 0.7.1 Nachtrag (Entscheidungen 2026-10-13 spät, Pack 0.7.1, firmages-core 0.7.1)
 
 Drei Dinge ändern die 0.7.0-Liste unten; der Rest gilt unverändert. Server-Teil statisch geprüft
