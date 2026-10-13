@@ -104,6 +104,33 @@ def lang(obj_type, oid, field, text):
     LANG['%s.%s.%s' % (obj_type, oid, field)] = text
 
 
+BULLETS = ('- ', '* ', '• ')
+
+
+def paragraphs(lines):
+    """Description lines -> one entry per paragraph. FTB Quests draws every entry of a description list as a line of
+    its own and wraps it to the width of the quest window, so a source line broken by hand ends early and the window
+    wraps it again: ragged text at GUI scale 3 and auto in the 75 % quest window. Consecutive source lines join with
+    one space; an empty line stays as the paragraph break; a bullet line ('- ', '* ', '• ') starts an entry of
+    its own and takes the lines that follow it up to the next empty or bullet line."""
+    out, cur = [], []
+    for line in lines:
+        s = line.strip()
+        if s and not s.startswith(BULLETS) and cur:
+            cur.append(s)
+            continue
+        if cur:
+            out.append(' '.join(cur))
+            cur = []
+        if s:
+            cur = [s]
+        else:
+            out.append('')
+    if cur:
+        out.append(' '.join(cur))
+    return out
+
+
 # task constructors: each returns (dict without id, optional title)
 def t_item(i, count=1, title=None, optional=False, consume=None):
     d = {'type': 'item', 'item': {'count': 1, 'id': i}}
@@ -256,6 +283,8 @@ def table_long_id(key):
 # ------------------------------------------------------------------------------------------------ content
 # Quest spec: dict(key, title, sub, desc[list], tasks[list of (task, title) or ([tasks], title)], deps[keys],
 #                  rewards[list], kind in entry|step|keystone|goal|side|explain|info, icon)
+# desc: source lines; '' is a paragraph break. The lines of a paragraph become one entry (paragraphs()), so line
+# breaks inside a paragraph are only source layout and the quest window wraps the text itself.
 def Q(key, title, tasks, deps=(), desc=(), sub=None, kind='step', rewards=None, icon=None):
     return dict(key=key, title=title, tasks=tasks if isinstance(tasks, list) else [tasks], deps=list(deps),
                 desc=list(desc), sub=sub, kind=kind, rewards=rewards, icon=icon)
@@ -1746,7 +1775,7 @@ def quest_nbt(quest, x, y, rewards, extra=None):
     if quest['sub']:
         lang('quest', oid, 'quest_subtitle', quest['sub'])
     if quest['desc']:
-        lang('quest', oid, 'quest_desc', quest['desc'])
+        lang('quest', oid, 'quest_desc', paragraphs(quest['desc']))
     return d
 
 
