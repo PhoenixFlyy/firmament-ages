@@ -18,6 +18,7 @@ Marking: **[verified]** means read in source or javap during research. **[PoC]**
 | m1 | Stage-aware prospecting | build (Felix, 2026-09-30); config default on |
 | M7 | Consecration of the shrine (one unified structure: accepted rings turn into one consecrated block family with one accent per Age) and maintenance mode (consecrated blocks are unbreakable except in maintenance, they drop their stored original) | build (Felix, 2026-10-01); §17 |
 | m10 | The Origin (datapack dimension `firmages:origin`, arena, Stargate Journey address, return gate) and the end-boss scaffolding (Origin Gathering trigger, `finale_won` on the tagged boss's death, FINALE ceremony) | build (0.4.0, §16); the boss itself is KubeJS + Gateways to Eternity + Cataclysm |
+| immersion | Silent join, no advancement UI or mod list, EMI and Jade by Age, HUD Age indicator, first-join welcome, TFC without thirst and without nutrition malus | build (Felix, 2026-10-13); §18 |
 | later | Own end-boss entity, world events per Age | not in this spec |
 | no | Age Codex screen, team chronicle, lore fragments, Dawn flair | never. Progress UI is the FTB Quests screen (key K) |
 | later, if needed | Own interactive quest overview | only if FTB Quests on K turns out not clear or interactive enough (Felix, note on idea 5). It would replace, not duplicate, the K screen. Not in this spec |
@@ -103,7 +104,8 @@ Rules:
 | Create, Mekanism, AE2, TFC | pinned in `gradle.properties` | optional | extractors, OreGuard drop override |
 | Jade | 15.10.6 | optional, compileOnly (libs/, fetched from `mods/jade.pw.toml`; also in the GameTest run, M6) | shrine tooltip (`compat/jade`) |
 | GeckoLib | 4.9.3 | optional, compileOnly (**add**, M9) | animated idol |
-| FTB Quests/Teams | pinned | none at runtime | quest data only; FTB Teams is read for the one-team guard (optional) |
+| FTB Quests/Teams | pinned | optional, compileOnly | quest data; the client opens the FTB Quests screen (`compat/ftbquests`, §18); FTB Teams is read for the one-team guard (optional) |
+| EMI, Enhanced Celestials, Create Train Utilities, Corgilib, Patchouli | pack versions | none (by name: reflection, screen class names, `@Pseudo` mixins) | §18 immersion; TFC and Patchouli join the GameTest run only with `-PgametestTfc` |
 
 All entries use `ordering = "AFTER"`; everything except ProgressiveStages and Modonomicon is `type = "optional"`.
 
@@ -539,6 +541,9 @@ A crash after step 3 loses only the show. There are no C2S packets: all interact
 | `effects.stopMusic` | true |
 | `effects.particleScale` | 1.0 |
 | `effects.ambientDrone` | true |
+| `ui.*`, `chat.blocklist`, `tfc.*` | §18.7 (immersion) |
+
+The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`, `ui.welcome`, `tfc.disableThirst`, `tfc.noNutritionMalus`) are listed in §18.7.
 
 ## 10. Commands (`/firmages`, permission level 2)
 
@@ -575,6 +580,8 @@ A crash after step 3 loses only the show. There are no C2S packets: all interact
 | `firmages:shrine_preview` | multiblock id, anchor pos, rotation, clear flag | `PreviewBridge` → `MultiblockPreviewRenderer.setMultiblock` + `anchorTo` [verified] |
 | `firmages:shrine_fx` | pos, fx type (refused, returned, rekindled, dormant) | small local response |
 | `firmages:shrine_sync` | heart dimension, maintenance, seconds left, position -> original block id | M7 (§17): client copy for the destroy-progress prediction (consecrated blocks break only in maintenance) and the Jade tooltip; on login, on every maintenance change, at most once a second when the originals change |
+| `firmages:age_status` | current Age id, goal item id, recipe viewer allowed, block overlay allowed | §18.3/18.4: EMI and Jade gating, HUD Age indicator; on login and after every Age state change |
+| `firmages:welcome` | none | §18.5: first join of a player: title, then the welcome screen |
 
 The BE state uses vanilla block-entity sync. There is no C2S payload.
 
@@ -634,6 +641,8 @@ Test levels:
 | M10 | Own sounds (CC0 or self-made), particles, sky tint, Sodium check (was M7 until 2026-10-01) | M | M test with Sodium and Enhanced Celestials |
 
 M0–M4 must ship before the first playtest beyond the Stone Age. Shipping: copy the jar to `FirmamentAges/mods/` and run `packwiz refresh` (hand-off).
+
+**State (2026-10-13, immersion, §18):** implemented; U and G green (`gradlew build`: 85 unit tests; `runGameTestServer`: "All 32 required tests passed"; the TFC thirst and nutrition test passed in the opt-in run `-PgametestTfc`). Every client-side part (screens, HUD, EMI, Jade, chat, toasts, TFC displays) is checked by code reading, javap and unit tests only and needs a client **[PoC]** (§18.7).
 
 **State (2026-10-01, M7 branch `core-m7`, after 0.5.0):** M7 (consecration and maintenance mode, §17) is implemented: the consecrated block family (8 roles, accent 0..8, textures v2), `consecration.json`, validation with consecrated equivalents, the ceremony's consecration from the heart outward with the originals stored, the migration of standing awakened rings, maintenance mode with original drops and repair, the heart's revert, commands, sync payload, Jade and KubeJS. U and G green (`gradlew build`: 70 unit tests; `runGameTestServer`: "All 27 required tests passed"). The look (models, overlay, full-bright accent, the heart's scaffold cage) and the Jade lines need a client **[PoC]**.
 
@@ -748,3 +757,59 @@ Felix's decisions of 2026-10-01: the shrine becomes **one unified structure**. W
 
 - U `ConsecrationTest` (3): the shipped `consecration.json` parses, every block key of all nine rings has a role (heart and plinth excluded), all eight roles used, 537 positions, the file loads through `ShrineData` without warnings; bad entries rejected (bad id, unknown role, two-character key, unknown key) and pattern overrides apply to their multiblock only, block-state matchers lose their properties; the original-state string round trip (sorted properties, no properties, malformed strings rejected).
 - G `ConsecrationGameTests` (3): `ringValidatesBeforeDuringAfter` (ring 0 from vanilla stand-ins in Age material, half consecrated, fully consecrated, a wrong role fails, any accent fits, Age material next to consecrated blocks, plinth key positions unchanged); `consecrationCycle` (prayer schedules the 20 blocks, nothing before the reload, the ring stays valid while it turns and the inner stones turn before the corner posts, 20 originals with their properties and an NBT round trip, valid and intact; an explosion of power 3, a powered piston and fluids change nothing; survival break refused outside maintenance; the sneak-punch through `ServerPlayerGameMode.handleBlockBreakAction` turns maintenance on with the heart standing and `maintenance=true`, the prayer refused, the block breaks and drops cobblestone, ring and intact fall, Ages stay; cobblestone repairs it without consecration during maintenance; the second punch ends it and the stone is consecrated again with its new original; the 5 s timer ends a mode by itself; removing the heart turns all 20 back); `awakenedRingMigrates` (age_1 held, ring 0 built in Age material: consecrated on the heart's first validation with 20 originals, valid and intact; heart removal reverts). The M4 ritual test now also sees ring 0 consecrating after its prayer.
+
+## 18. Immersion (Felix, 2026-10-13)
+
+Felix's decisions of 2026-10-13: full immersion. In Dawn nothing of the pack's machinery is visible: no mod chat or pop-ups on join, no recipe viewer and no block overlay until a later Age, no advancement toasts, chat or screen, no mod list and no mod names. The quest UI stays FTB Quests on K (themed, with Certain Questing Additions; Felix's choice B); this mod adds a small HUD Age indicator, a first-join welcome and the TerraFirmaCraft survival changes. Pack files (configs, FancyMenu, Default Options, the quest theme) belong to other workflows; this section is the code side. Classes: `immersion/*` (common, pure where possible), `client/immersion/*`, `compat/tfc/*`, `compat/ftbquests/FtbQuestsScreens`, `mixin/client`, `mixin/ars`, `mixin/trainutilities`, `mixin/corgilib`, `mixin/tfc`. Research: `Modpack-Planung/research-raw/ux-chat-and-popups.md`, `ux-screens.md`, `ux-quest-ui.md`.
+
+### 18.1 Silent join
+
+| Source | What it did | Hook |
+|---|---|---|
+| Enhanced Celestials 6.0.2.6 | "Enhanced Celestials 2 is here!" screen on every world join | `ScreenEvent.Opening` cancelled by class name (`ui.blockedScreens`, default `dev.corgitaco.enhancedcelestials.client.gui.EC2AnnouncementScreen`) [verified, javap] |
+| Ars Nouveau 5.13.3 | remote one-time Starbuncle Plush gift and Makeship chat ad | `mixin/ars/RewardsMixin`: `Rewards.init()` cancelled at HEAD (`require = 0`) [verified, javap] |
+| Create Train Utilities 3.1.0 | red rename notice on every join (Architectury `PLAYER_JOIN` lambda, no config) | `mixin/trainutilities/JoinNoticeMixin`: `net.adeptstack.Main.lambda$init$0(ServerPlayer)` cancelled (`require = 0`; the lambda name is version-fragile, the chat blocklist is the fallback) [verified, javap] |
+| Corgilib 5.0.0.10 | remote announcement (chat or widget), its config has no "off" | `mixin/corgilib/AnnouncementTickerMixin` (client): `checkedAnnouncementTicker(Player)` cancelled [verified, javap] |
+| any | system or mod chat | `mixin/client/ChatComponentMixin` on `ChatComponent.addMessage(Component, MessageSignature, GuiMessageTag)` (the one-argument overload delegates to it) [verified, NeoForge 21.1.252 sources]: an unsigned line whose text matches `chat.blocklist` (Java regex, `find`) is dropped and logged at INFO; signed player chat is never touched. Shipped patterns: `^ATTENTION \(Create Train Utilities\)` and `(?i)Starbuncle Plush\|makeship` |
+
+The mod-gated mixins are skipped by `FirmagesMixinPlugin` when their mod is absent (packages `trainutilities`, `corgilib`, `tfc` added); every mod-specific target is `@Pseudo` by name or compiled against the pack jar (TFC).
+
+### 18.2 Advancements, menus, mod names
+
+- **Toasts:** `ToastAddEvent` is cancelled for the classes in `ui.blockedToasts` (`ui.hideToasts`): vanilla `AdvancementToast`, `RecipeToast`, `TutorialToast` and Patchouli's `ClientAdvancements$LexiconToast`. FTB Quests toasts stay, so quest completion is the feedback channel. Advancements themselves stay server side (22 quest tasks need `tfc:story/*` and `tfc:world/*`); the chat line is the pack's `announceAdvancements` gamerule.
+- **Screen:** opening `AdvancementsScreen` (key or pause menu) is cancelled and the FTB Quests screen opens on the next client tick instead (`ui.redirectAdvancements`; `ClientQuestFile.openGui()` [verified, javap]). The book item stays disabled (pack).
+- **Buttons:** `ScreenEvent.Init.Post` hides the widgets labelled `fml.menu.mods` (title screen `ModsButton`, pause screen full-width button) and `gui.advancements` (pause screen) [verified, NeoForge 21.1.252 sources] (`ui.hideMenuButtons`). On the pause screen Statistics takes the advancements slot at full width and the rows below the mods button move up 24 px; the title screen is only hidden (its layout is FancyMenu's).
+- **Mod names in tooltips:** a jar scan of the 193 client mods found only Jade adding a mod-name line through `ItemTooltipEvent` (off in `jade.json`); EMI and JEI add theirs in their own panels (pack configs). As a safety net, `ItemTooltipEvent` (LOWEST) drops tooltip lines after the item name whose plain text is exactly a loaded mod's display name or "Minecraft" (`ui.hideModNameTooltips`).
+
+### 18.3 EMI and Jade by Age
+
+- The server decides: `firmages:age_status` (§11) carries `recipeViewer` = current Age >= `ui.emiFromAge` and `blockInfo` = current Age >= `ui.jadeFromAge` (`firmages-server.toml`, both default `age_0`, the Stone Age; see the decision log for the age_0/age_1 note). The current Age is the highest unlocked Age of the global Age state. Before the first status arrives the client counts the world as Dawn. Sent on login and from `AgeService`'s persist step after every Age change.
+- **EMI** (`client/immersion/EmiBridge`, reflection, no compile dependency): `dev.emi.emi.config.EmiConfig.enabled` (public static boolean; while false EMI draws nothing and takes no input except its toggle) [verified, javap, EMI 1.1.24]. Every client tick `immersion/ViewerGate.target` decides: while the Age is locked EMI is forced off (also after the player's own Ctrl+O); when the Age opens it EMI is switched on once; after that the player's toggle is left alone. Not written to `emi.css`.
+- **Jade:** `FirmagesJadePlugin` registers a ray-trace callback at priority 10000 (callbacks run by ascending priority, so it has the last word) that returns `null` while `blockInfo` is false; Jade then shows nothing, blocks and entities alike, its toggle key included [verified, javap, Jade 15.10.6].
+
+### 18.4 HUD Age indicator
+
+- GUI layer `firmages:age_indicator` (below `minecraft:boss_overlay`), top left: a dark panel with a gold base line, the goal item's icon and "<Age> · Goal: <item>" (`firmages.age.<id>.name`, `firmages.hud.goal`; the goal is the current Age's offering from `firmages_shrine/offerings.json`; Dawn and the Singularity Age name their goal by lang key: "the First Spark", "the Gathering").
+- `ui.hudMode` (client): `FADE` (default) shows it for `ui.hudFadeSeconds` (6) after joining and after every Age change, the last second sliding up and fading out; while the key **Show Age (hold)** (`key.firmages.show_age`, default **Left Alt**, category Firmament Ages) is held it is fully shown and fades over 1 s after release. `ALWAYS`; `NEVER` (the key included). Hidden while F1, F3 or any screen is open. `immersion/HudFade` is the pure timing function.
+
+### 18.5 First-join welcome
+
+- Server: on `PlayerLoggedInEvent` a player without the attachment `firmages:welcomed` (Boolean, saved with the player, kept through death) gets `firmages:welcome` and the flag is set (`ui.welcome`). Per player, not per team, so a friend who joins later is welcomed too. `/firmages welcome reset <players>` clears it, `/firmages welcome show <players>` shows it now.
+- Client: once no screen is open (the terrain screen has closed), 2 s later the title "Firmament Ages" with the subtitle "The sky remembers. Kindle the first spark." (10/70/20 ticks), 5 s after that `WelcomeScreen` (pauses singleplayer): three panels, "The Ages" (Dawn, the Shrine, the offering, the prayer), "Your Path" (the quest key, read from the bound `key.ftbquests.quests`, K by default, as the one place to look), "Caelum Watches"; buttons "Show my path (K)" (closes the screen, then opens FTB Quests, so Esc returns to the game) and "Into the world". Panels side by side on wide windows, stacked on narrow ones. All text is lang (`firmages.welcome.*`).
+
+### 18.6 TerraFirmaCraft: no thirst, nutrition only as a bonus
+
+TFC 4.2.11 [verified, javap]: thirst lives in `PlayerInfo.thirst` (start 100); `tick` lowers it through `addThirst` -> `setThirst` (exhaustion times `thirstModifier`, plus heat with `enableThirstOverheating`), and below 20 / 10 it adds slowness, mining fatigue and dehydration damage; the thirst bar is GUI layer `tfc:thirst` (client config `enableThirstBar`). Nutrition: `IPlayerInfo.getHealthModifier()` maps the average nutrition from `nutritionMinimumHealthModifier` (0 %, default 0.2) over `nutritionDefaultHealthModifier` (40 %, the starting nutrition, 0.85) to `nutritionMaximumHealthModifier` (95 %); `ForgeEventHandler.onLivingHurt` divides a player's damage by it and `IngameOverlays.renderHealthBar` multiplies the shown health by it. TFC's server config is per world, so the code does it rather than a shipped config:
+
+- `mixin/tfc/PlayerInfoMixin`: with `tfc.disableThirst` (server, default true) `setThirst` always stores the maximum and `tick` first refills a lower value loaded from an older save. No thirst effect can trigger; drinking still works but changes nothing.
+- `mixin/tfc/TfcDamageMixin` and (client) `TfcHealthBarMixin`: with `tfc.noNutritionMalus` (default true) the modifier is at least TFC's starting value (`compat/tfc/NutritionFloor`), so a one-sided diet never costs health and a varied one still raises it up to the maximum.
+- Client (`[tfc]` in `firmages-client.toml`): `hideThirstBar` cancels `RenderGuiLayerEvent.Pre` for `tfc:thirst`; `hideNutrition` hides TFC's nutrition inventory tab (the climate tab moves into its slot; `mixin/tfc/InventoryTabAccessor`, `compat/tfc/TfcClient`) and removes the nutrition lines of food tooltips (`tfc.tooltip.nutrition*`, `hold_shift_for_nutrition_info`, `tfc.enum.nutrient.*`); expiry and traits stay. Food decay, hunger and tool durability are untouched.
+
+### 18.7 Config, network, tests
+
+- `firmages-server.toml`: `[ui] emiFromAge = "age_0"`, `jadeFromAge = "age_0"`, `welcome = true`; `[tfc] disableThirst = true`, `noNutritionMalus = true`.
+- `firmages-client.toml`: `[ui] hudMode = FADE`, `hudFadeSeconds = 6`, `hideToasts`, `blockedToasts`, `redirectAdvancements`, `hideMenuButtons`, `hideModNameTooltips`, `blockedScreens`; `[chat] blocklist`; `[tfc] hideThirstBar`, `hideNutrition` (all true by default).
+- Network (§11, S2C, optional): `firmages:age_status` (age id, goal item id, recipeViewer, blockInfo), `firmages:welcome` (no fields).
+- U `ImmersionTest` (10): the status (Dawn hides everything, viewer and overlay open at their Age, highest Age with gaps, offerings per tier, no goal in age_9 or without an offering), config parsing, `ViewerGate` (forced off while locked, on once, then the player's choice), the nutrition tooltip keys, `HudFade` (6 s with the last second fading, key hold and release, ALWAYS, NEVER, short show times), the chat blocklist (the Train Utilities literal from the jar and the Makeship line blocked, player chat and Caelum not, invalid patterns skipped), `NutritionFloor`.
+- G `ImmersionGameTests` (3; the TFC test runs in the opt-in run `gradlew runGameTestServer -PgametestTfc`, which adds TerraFirmaCraft and Patchouli and in which 13 older shrine and gate tests fail because TFC changes the vanilla stand-in blocks and recipes they use; without TFC it passes empty): `welcomeOncePerPlayer` (headless player: the login status equals the server status and there is one welcome; a rejoin with the saved player data gets the status and no welcome; reset gives exactly one more), `statusFollowsAgesAndConfig` (status = highest Age and `ui.*FromAge`, config changes apply, a broadcast reaches a player once), `tfcThirstAndNutrition` (`setThirst(10)` and `addThirst(-60)` stay at 100; with the switch off TFC's value stays and the first tick after switching on refills it; at 0 nutrition TFC's modifier is 0.2, yet 2 damage costs 2 / 0.85; with the switch off 1 / 0.2).
+- **Client [M], for Felix:** no EC2 screen on join; no Train Utilities, Ars or Corgilib text; no advancement, recipe or tutorial toasts; L opens FTB Quests; pause menu without Mods and Advancements and without gaps; EMI and Jade hidden in Dawn (Ctrl+O and Jade's key do nothing) and back in the Stone Age without relog; the HUD indicator (look, fade, Left Alt); the welcome title and screen on a fresh player, the button opens the quest screen; TFC thirst bar gone, nutrition tab gone with the climate tab moved up, food tooltips without nutrition, the TFC health bar showing at least the starting health.
