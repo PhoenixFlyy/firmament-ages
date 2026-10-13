@@ -23,6 +23,8 @@ You start in **Dawn**, a cave-dweller prologue: no pickaxe, no fire, only stones
 
 Items, blocks and recipes of a locked Age are hidden in EMI and cannot be used. Machines follow the same rule: no machine produces anything from an Age you have not reached, and automated miners only dig the ores of your Ages. Ores of a later Age sit in the TerraFirmaCraft veins of your world from day one, disguised as rock until their Age. Everything you need in quantity has an automated way, so the pack stays hard without turning into a grind. The quest book is on **K**: every Age is a chapter with three or four main strands that friends can split up, side lines, and one goal quest.
 
+The world comes first. In Dawn you see no recipe viewer, no block overlay, no mod messages and no advancement popups; EMI and Jade open with the Stone Age. A small line in the corner names your Age and the offering it asks for, the quest book wears a night sky with the Shrine of your Age and lists only the Ages you have reached. TerraFirmaCraft keeps its food decay and tool wear, but there is no thirst, and a one-sided diet never costs you health (a varied one still adds some).
+
 ## The Shrine
 
 Each signature item is not crafted into the next tier. It is **offered at the Shrine**, an altar you build at the heart of your base and extend with one ring per Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. When the ring is complete, the offering lies on its plinth and the Age's rite is fulfilled, your team prays together at the Shrine Heart. Caelum, the god of the firmament, answers: a beam of light, a changed sky, a new Age.
@@ -54,13 +56,14 @@ This is a beta. The whole progression is playable from Dawn to the final boss, a
 - The final fight in The Origin has been run with its waves spawned by command; a full real-player run is still ahead. Gateways to Eternity runs the CurseForge build of 5.1.0, which is older than the Modrinth build of the same version.
 - The relics do not float into the injectors on their own: from the Singularity Age on, sneak and use a plinth with an empty hand to take its relic back, then feed them to the fusion crafter. The shrine has no animated idol and the ceremony uses vanilla sounds.
 - Osmium, the ore of the Information Age, comes from the pack's own TerraFirmaCraft vein since 0.6.2 and has seen little play testing.
+- The loading and title screens, the quest book's look, the Age indicator and the welcome screen are new in 0.7.0 and have been checked on the server and in code, not yet in a long client session.
 - The server pack is about 510 MB.
 
 Please report bugs on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 ## Built with
 
-Firmament Ages Core (firmages-core), the pack's own mod, runs the Ages: the shared Age state, the machine-recipe gate, the miner filter, the Shrine and its ceremony, the Draconic reactor refuelling and The Origin. TerraFirmaCraft carries the early game, Create the kinetics and logistics, Immersive Engineering, Mekanism and Draconic Evolution the tech ladder, Occultism and Ars Nouveau the magic, ProgressiveStages and KubeJS the gating, FTB Quests the quest book.
+Firmament Ages Core (firmages-core), the pack's own mod, runs the Ages: the shared Age state, the machine-recipe gate, the miner filter, the Shrine and its ceremony, the Draconic reactor refuelling, The Origin and what players see of it all (Age indicator, welcome, EMI and Jade by Age). TerraFirmaCraft carries the early game, Create the kinetics and logistics, Immersive Engineering, Mekanism and Draconic Evolution the tech ladder, Occultism and Ars Nouveau the magic, ProgressiveStages and KubeJS the gating, FTB Quests the quest book.
 
 ## Links
 
@@ -76,7 +79,7 @@ The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmamen
 
 <!-- credits:start -->
 
-Firmament Ages 0.6.3 contains 191 mods. Thank you to every author.
+Firmament Ages 0.7.0 contains 197 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
@@ -110,6 +113,7 @@ Firmament Ages 0.6.3 contains 191 mods. Thank you to every author.
 - **Bosses of Mass Destruction [Forge | NeoForge]** by Cerbon ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/bosses-of-mass-destruction-forge))
 - **Brandon's Core** by brandon3055 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/brandons-core))
 - **CERBON's API [Forge | Fabric | NeoForge]** by Cerbon ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/cerbons-api))
+- **Certain Questing Additions** by HollowHorizon ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/certain-questing-additions))
 - **Chunky (Forge/NeoForge)** by pop4959 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/chunky-pregenerator-forge))
 - **Cloth Config API (Fabric/Forge/NeoForge)** by shedaniel, LinkieIsBetterThanK9 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/cloth-config))
 - **Clumps** by Jaredlll08 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/clumps))
@@ -156,6 +160,8 @@ Firmament Ages 0.6.3 contains 191 mods. Thank you to every author.
 - **Draconic Evolution** by brandon3055 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/draconic-evolution))
 - **Draconic Evolution Render Patcher** by yrley ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/draconic-evolution-render-patcher))
 - **DragonLib** by MrJulsen ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/dragonlib))
+- **Drippy Early Loading Module** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/drippy-early-loading-module))
+- **Drippy Loading Screen** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/drippy-loading-screen))
 - **EMI** by EmilyPloszaj ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/emi))
 - **EMI Loot** by fzzyhmstrs ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/emi-loot))
 - **Engineered Schematics** by Muddykat ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/engineered-schematics))
@@ -163,6 +169,7 @@ Firmament Ages 0.6.3 contains 191 mods. Thank you to every author.
 - **Entity Culling Fabric/Forge** by tr7zw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/entityculling))
 - **Evolved Mekanism** by iglee42, WoXayZ ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/evolved-mekanism))
 - **ExtendedAE** by GlodBlock ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ex-pattern-provider))
+- **FancyMenu** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancymenu))
 - **FastSuite** by Shadows_of_Fire ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/fastsuite))
 - **FerriteCore ((Neo)Forge)** by malte0811 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ferritecore))
 - **FirmaLife** by EERussianguy ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/firmalife))
@@ -189,6 +196,7 @@ Firmament Ages 0.6.3 contains 191 mods. Thank you to every author.
 - **Just Enough Immersive Multiblocks** by aronson_1 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/just-enough-immersive-multiblocks))
 - **Just Enough Items (JEI)** by mezz ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/jei))
 - **Just Enough Mekanism Multiblocks** by gisellevonbingen ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/just-enough-mekanism-multiblocks))
+- **Konkrete** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/konkrete))
 - **Kotlin for Forge** by thedarkcolour ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/kotlin-for-forge))
 - **KubeJS** by Lat ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/kubejs))
 - **KubeJS Additions** by ILIKEPIEFOO2 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/kubejs-additions))
@@ -209,6 +217,7 @@ Firmament Ages 0.6.3 contains 191 mods. Thank you to every author.
 - **Mekanism: Neutron Activator** by michanide ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mekanism-neutron-activator))
 - **Mekanism: Ponders** by alyx20 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mekanism-ponders))
 - **Mekanism:More Machine** by lost_myself8 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mekanism-more-machine))
+- **Melody** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/melody))
 - **MezzConfig** by mezz ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mezzconfig))
 - **ModernFix** by embeddedt ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modernfix))
 - **Modonomicon** by kli_kli ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modonomicon))

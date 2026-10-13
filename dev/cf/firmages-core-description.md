@@ -13,6 +13,7 @@
 - **Consecration and maintenance mode.** An accepted ring is consecrated: its blocks become one unbreakable sky-marble family with the Age's colour accent, from the heart outward. Sneak and punch the heart with an empty hand for 60 seconds of maintenance mode; then the blocks break and drop their original material, and the ring can be rebuilt.
 - **Reactor Controller.** A block that refuels a Draconic Evolution reactor through pipes or from an adjacent chest and signals READY by redstone. It never restarts the reactor on its own.
 - **The Origin.** The finale dimension of the pack: a fixed Stargate Journey address, an arena, its own spawn list and travel lock, and the end-boss trigger. The fight itself is a KubeJS script of the pack.
+- **Immersion.** Nothing of the pack's machinery shows before its time: join messages and popups of other mods, advancement toasts and the advancement screen (the quest book opens instead) are silenced, the Mods and Advancements buttons are hidden, and EMI and Jade stay off until the server's configured Age (`ui.emiFromAge`, `ui.jadeFromAge`). A small HUD line names the current Age and its offering (fades out, hold H to show), and every new player gets a one-time welcome. With TerraFirmaCraft, thirst is off and nutrition can only raise health above the starting value, never lower it.
 - **Tools for pack makers.** `/firmages ages`, `/firmages recipes audit|why|locked`, `/firmages dump registry`, `/firmages shrine status`, `/firmages selftest`, `/firmages ceremony preview`, headless debug players for server-side tests, a KubeJS binding `FirmAges`, Jade tooltips for the shrine. Shrine rings, tiers, offerings, rites and blessings are data files (`data/firmages/firmages_shrine/`, `data/firmages/modonomicon/multiblocks/`) and can be replaced by a datapack.
 
 ## Dependencies
@@ -33,7 +34,7 @@ Optional (the mod hooks into them when they are present):
 
 ## Configuration
 
-`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, debug commands) and `config/firmages-client.toml` (ceremony visuals and music).
+`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst and nutrition, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons and TerraFirmaCraft displays).
 
 ## Source and license
 
@@ -41,7 +42,14 @@ MIT License. Source: the `mod/firmages-core` folder of the pack repository, [git
 
 ## Changelog
 
-**0.6.2** (first CurseForge release)
+**0.7.0**
+
+- Immersion: silent joins (Enhanced Celestials screen, Ars Nouveau, Train Utilities and Corgilib notices, a client chat blocklist as safety net), no advancement, recipe or tutorial toasts, the advancement screen redirected to FTB Quests, Mods and Advancements buttons hidden, mod-name tooltip lines removed.
+- EMI and Jade follow the world's Age: the server sends `firmages:age_status` on login and after every Age change; config `ui.emiFromAge`, `ui.jadeFromAge` (default Stone Age).
+- HUD Age indicator (top left, fades after 6 s, hold H to show; `ui.hudMode`, `ui.hudFadeSeconds`) and a one-time welcome title and screen per player (`ui.welcome`, `/firmages welcome reset|show`).
+- TerraFirmaCraft: thirst disabled (`tfc.disableThirst`), nutrition never lowers health below TFC's starting modifier (`tfc.noNutritionMalus`); thirst bar, nutrition tab and nutrition tooltip lines hidden on the client.
+
+**0.6.2**
 
 - Granting an Age no longer stalls the server once per stage change and player. ProgressiveStages resynced every team member with a full lock sync for each stage the grant script added or removed; the mod now collects those syncs and sends one lock sync and one stage sync per player at the end of the tick (`sync.coalesce`, on by default).
 - The headless debug players log the ProgressiveStages lock and stage syncs they receive, and GameTests can read the order of their packets.

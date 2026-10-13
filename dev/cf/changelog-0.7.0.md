@@ -1,6 +1,19 @@
-# Firmament Ages 0.6.3
+# Firmament Ages 0.7.0
 
-First public release on CurseForge, as a beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. This changelog covers everything since 0.5.0 (the first release candidate that was never published).
+Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. This changelog covers everything since 0.5.0 (the first release candidate that was never published).
+
+## 0.7.0: Immersion
+
+- **The world first, the machinery later.** In Dawn nothing of the pack's inner workings shows: no mod messages or popups on joining, no advancement toasts or chat lines, no advancement screen (the quest book opens in its place), no mod lists or mod names in menus, tooltips or overlays. The recipe viewer (EMI) and the block info overlay (Jade) appear with the Stone Age; the server decides this per world (Firmament Ages Core config `ui.emiFromAge`, `ui.jadeFromAge`).
+- **Pack-styled loading and title screens.** A Firmament loading screen from the first second (Drippy Loading Screen), a title screen with a slideshow of the Shrine through the Ages, a restyled pause menu, no Mods or Realms buttons and no mod count (FancyMenu).
+- **Default options for new installs:** sprint on Left Shift, sneak on Left Control, every key conflict of the pack resolved (Create, Mekanism, Immersive Engineering, Ars Nouveau and others), GUI scale 3, no tutorial or onboarding popups, dark loading background. Existing installs keep their own options.
+- **The Age indicator.** A small line top left names your Age and the offering it asks for; it fades out a few seconds after you join or an Age opens, and shows while you hold **H**.
+- **A welcome for every new player:** a title, then a one-time screen that points to the quest book (**K**) and the Shrine.
+- **The Firmament Chronicle.** The quest book has its own look: night-sky backgrounds with the Shrine of each Age, Age banners, gilded and rune quest shapes, and a moving starfield behind every chapter (Certain Questing Additions). Only the chapters of Ages you have reached are listed; later Ages stay hidden, not greyed out. The Welcome chapter is rewritten in the voice of the world.
+- **TerraFirmaCraft survival without thirst and without a nutrition penalty.** Thirst never drops and its bar is gone; a one-sided diet never lowers your health below the starting value, while a varied diet still raises it. The nutrition tab and the nutrition lines in food tooltips are gone. Food decay and tool durability are unchanged.
+- **Items arrive when they can first be made or found.** Every vanilla and mod item now belongs to the first Age in which a recipe or a world source can actually produce it: about 1,800 items moved to a later Age (for example the crafting table, furnace, torch and bucket), and about 3,900 items that can never be obtained in this pack are disabled and hidden from EMI.
+- **Firmament Ages Core 0.7.0** with all of the above.
+- New mods: FancyMenu, Konkrete, Melody, Drippy Loading Screen, Drippy Early Loading Module and Certain Questing Additions (all client side).
 
 ## 0.6.3
 
