@@ -92,20 +92,26 @@ Rules:
 
 | Mod | Pack version | Kind | Needed for |
 |---|---|---|---|
-| ProgressiveStages | 3.0.5 | required, compileOnly (libs/) | stage events and grant API |
+| ProgressiveStages | 3.0.6 | required, compileOnly (libs/) | stage events and grant API |
 | KubeJS | 2101.7.2-build.377 | optional, compileOnly (**add**) | binding `FirmAges` |
 | Modonomicon | 1.120.7 | required, compileOnly (**add**) | ring multiblocks, ghost preview |
 | Immersive Engineering | 12.4.2-194 | optional | `MineralMix` mixin |
 | Draconic Evolution / Brandon's Core / CCL | 3.1.4.633 / 3.2.1.309 / 4.6.1.529 | optional (also in the GameTest run since 0.4.0) | reactor controller and fuel port, Gathering |
-| Stargate Journey | 0.6.49 | optional, compileOnly (libs/, fetched from `mods/sgjourney.pw.toml`; also in the GameTest run) | The Origin's return gate (`compat/sgjourney`); the space location is plain data |
-| Occultism | 1.224.4 | optional | mineshaft flush, extractor |
-| Ars Nouveau | 5.13.2 | optional, compileOnly (**add**) | apparatus flush, extractor |
+| Stargate Journey | 0.6.51 | optional, compileOnly (libs/, fetched from `mods/sgjourney.pw.toml`; also in the GameTest run) | The Origin's return gate (`compat/sgjourney`); the space location is plain data |
+| Occultism | 1.224.5 | optional | mineshaft flush, extractor |
+| Ars Nouveau | 5.13.3 | optional, compileOnly (**add**) | apparatus flush, extractor |
 | Create, Mekanism, AE2, TFC | pinned in `gradle.properties` | optional | extractors, OreGuard drop override |
 | Jade | 15.10.6 | optional, compileOnly (libs/, fetched from `mods/jade.pw.toml`; also in the GameTest run, M6) | shrine tooltip (`compat/jade`) |
 | GeckoLib | 4.9.3 | optional, compileOnly (**add**, M9) | animated idol |
 | FTB Quests/Teams | pinned | none at runtime | quest data only; FTB Teams is read for the one-team guard (optional) |
 
 All entries use `ordering = "AFTER"`; everything except ProgressiveStages and Modonomicon is `type = "optional"`.
+
+Mod updates of 2026-10-13 (ProgressiveStages 3.0.5 to 3.0.6, Stargate Journey 0.6.49 to 0.6.51, Occultism 1.224.4 to
+1.224.5, Ars Nouveau 5.13.2 to 5.13.3) [verified, javap]: the mixin targets (`syncPlayer`, `sendStageSync`,
+`onPlayerJoin`, the mineshaft `tick`/`possibleResults`, the apparatus `memo`/`getRecipe`) have the same bytecode, the
+PS API, the SGJ classes of `compat/sgjourney` and the Occultism recipe results only gained members, SGJ data only
+gained the Andromeda gate files. The 0.6.1 jar builds byte-identical against them, so its version stays.
 
 ## 2. Data model
 
@@ -686,7 +692,7 @@ Design source: Doc 08 §10 (finale: Ultimate Singularity, Stargate, The Origin, 
 - **Arena (`origin/OriginArena`, built once at server start, `OriginSavedData` `firmages_origin` keeps `arena_version` and `gate_built`):** a floating disc of radius 20 at y 64 around (0, 0) (polished deepslate with gilded-blackstone rings and sea lanterns, a blackstone-brick rim with eight lantern posts and a gap to the south, an inverted cone of mixed rock below), the `firmages:origin_altar` at (0, 65, 0) on a crying-obsidian dais, nine small floating islands, one per shrine Age (mossy cobble, cut copper, smooth stone, amethyst, bricks, oxidized copper, quartz bricks, end stone bricks, crying obsidian on top, an end rod each), 45 to 75 blocks out, and a bridge south to the gate pedestal. Vanilla blocks only. `/firmages origin rebuild` builds it again; bump `OriginArena.VERSION` to rebuild existing worlds.
 - **Arrival point:** (0, 65, 14) on the arena, between gate and altar, outside the Gathering radius. Players dialling in step out of the gate at z about 30 and walk north past the DHD.
 - **Altar `firmages:origin_altar`:** unbreakable in survival (hardness -1), no loot table, light 12; Age map `age_9`; never crafted; listed (optional entries) in every Cataclysm `*_immune` block tag and in `minecraft:wither_immune`/`dragon_immune`, because Cataclysm bosses break blocks outside those tags whatever their hardness (integration 0.4.0: after the gate waves and the boss the altar was gone, so no later Gathering could start; with the tags it survives).
-- **Stargate Journey 0.6.49 [verified, javap and jar data]:** `data/firmages/sgjourney/space_location/origin.json` (point of origin `sgjourney:floating_islands`, symbols `sgjourney:galaxy_milky_way`, address region `firmages:origin`, `preload_stargate`; `in_stargate_network` defaults to true, `generate_in_address_tables` to false, so the address never appears on cartouches) and `data/firmages/sgjourney/address_region/origin.json` (name `solar_system.firmages.origin` = "The Origin"; Milky Way address **9-16-21-33-2-37** plus the point of origin, extragalactic 1-30-9-16-21-33-2; both `randomizable: false`). The address does not collide with the regions SGJ ships. The quests give the address (hand-off).
+- **Stargate Journey 0.6.49, again 0.6.51 [verified, javap and jar data]:** `data/firmages/sgjourney/space_location/origin.json` (point of origin `sgjourney:floating_islands`, symbols `sgjourney:galaxy_milky_way`, address region `firmages:origin`, `preload_stargate`; `in_stargate_network` defaults to true, `generate_in_address_tables` to false, so the address never appears on cartouches) and `data/firmages/sgjourney/address_region/origin.json` (name `solar_system.firmages.origin` = "The Origin"; Milky Way address **9-16-21-33-2-37** plus the point of origin, extragalactic 1-30-9-16-21-33-2; both `randomizable: false`). The address does not collide with the regions SGJ ships. The quests give the address (hand-off).
 - **Return gate:** with Stargate Journey loaded, `OriginArena.buildGate` places SGJ's own template `sgjourney:stargate/milky_way/pedestal/stargate_pedestal_1` (Milky Way gate with its DHD) south of the arena (gate base (0, 66, 31) facing north, DHD (0, 65, 25)) and `compat/sgjourney/SgjGates.finishPlacement` does what SGJ's worldgen does for its structures: `generateInStructure` (SETUP to READY) and `generate()` (the gate joins the network, the DHD gets its energy core). Without that step a code-placed gate never joins the network, because its chunk does not tick. G `originDimensionArenaAndGate`: dimension type and biome, arena, altar, gate and DHD block entities, the space location with the region and the exact address, the gate in `StargateNetwork`. G `overworldGateCanDialTheOrigin`: a pedestal gate placed in the overworld test area dials 9-16-21-33-2-37 with SGJ's `Dialing.Action.SIMULATE_ENOUGH_ENERGY` and gets `CONNECTION_ESTABLISHED_INTERSTELLAR`; an unknown address gets `INVALID_ADDRESS`.
 - **Commands:** `/firmages origin tp [players]` (normal teleport, so the age_9 lock applies), `origin status`, `origin reset`, `origin rebuild` (§10).
 

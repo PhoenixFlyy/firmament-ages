@@ -97,16 +97,16 @@ Versions live in `gradle.properties` and must be bumped together with the pack's
 | Draconic Evolution | `com.brandon3055.draconicevolution:Draconic-Evolution` | 1.21.1-3.1.4.633 | maven.covers1624.net |
 | Brandon's Core | `com.brandon3055.brandonscore:BrandonsCore` | 1.21.1-3.2.1.309 | maven.covers1624.net |
 | CodeChicken Lib | `io.codechicken:CodeChickenLib` | 1.21.1-4.6.1.529 | maven.covers1624.net |
-| Occultism | `com.klikli_dev:occultism-1.21.1-neoforge` | 1.224.4 | dl.cloudsmith.io/public/klikli-dev/mods |
+| Occultism | `com.klikli_dev:occultism-1.21.1-neoforge` | 1.224.5 | dl.cloudsmith.io/public/klikli-dev/mods |
 | Applied Energistics 2 | `org.appliedenergistics:appliedenergistics2` | 19.2.18 | maven.neoforged.net/releases |
 | FTB Library | `dev.ftb.mods:ftb-library-neoforge` | 2101.1.37 | maven.ftb.dev/releases |
 | FTB Teams | `dev.ftb.mods:ftb-teams-neoforge` | 2101.1.11 | maven.ftb.dev/releases |
 | FTB Quests | `dev.ftb.mods:ftb-quests-neoforge` | 2101.1.36 | maven.ftb.dev/releases |
-| ProgressiveStages | `libs/progressivestages-3.0.5.jar` | 3.0.5 | no maven; Modrinth jar pinned in `mods/progressivestages.pw.toml` |
+| ProgressiveStages | `libs/progressivestages-3.0.6.jar` | 3.0.6 | no maven; Modrinth jar pinned in `mods/progressivestages.pw.toml` |
 | TerraFirmaCraft | `libs/TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar` | 4.2.11 | no maven; Modrinth jar pinned in `mods/terrafirmacraft.pw.toml` |
 | KubeJS + Rhino | `libs/kubejs-neoforge-2101.7.2-build.377.jar`, `libs/rhino-2101.2.8-build.91.jar` | as named | Modrinth jars pinned in `mods/kubejs.pw.toml`, `mods/rhino.pw.toml` (compileOnly and dev runtime) |
 | Modonomicon | `libs/modonomicon-1.21.1-neoforge-1.120.7.jar` | 1.120.7 | Modrinth jar pinned in `mods/modonomicon.pw.toml` (dev runtime only, until M4) |
-| Stargate Journey | `libs/Stargate.Journey-1.21.1-0.6.49.jar` | 0.6.49 | Modrinth jar pinned in `mods/sgjourney.pw.toml` (compileOnly for `compat/sgjourney`, GameTest runtime) |
+| Stargate Journey | `libs/Stargate.Journey-1.21.1-0.6.51.jar` | 0.6.51 | Modrinth jar pinned in `mods/sgjourney.pw.toml` (compileOnly for `compat/sgjourney`, GameTest runtime) |
 
 Notes:
 
