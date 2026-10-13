@@ -22,6 +22,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue HIDE_MENU_BUTTONS;
     public static final ModConfigSpec.BooleanValue HIDE_MOD_NAME_TOOLTIPS;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLOCKED_SCREENS;
+    public static final ModConfigSpec.IntValue QUEST_PARAGRAPH_GAP;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> CHAT_BLOCKLIST;
     public static final ModConfigSpec.BooleanValue HIDE_THIRST_BAR;
     public static final ModConfigSpec.BooleanValue HIDE_NUTRITION;
@@ -63,6 +64,9 @@ public final class ClientConfig {
             .define("hideModNameTooltips", true);
         BLOCKED_SCREENS = b.comment("Fully qualified screen class names that are never opened (mod announcement screens).")
             .defineListAllowEmpty("blockedScreens", DEFAULT_BLOCKED_SCREENS, () -> "", ClientConfig::isString);
+        QUEST_PARAGRAPH_GAP = b.comment("Pixels (GUI scale 1) between the paragraphs of a quest description and after its subtitle.",
+                "FTB Quests itself uses a full blank line (9) between paragraphs and 7 after the subtitle; a text line is 9.")
+            .defineInRange("questParagraphGap", 4, 0, 9);
         b.pop();
 
         b.comment("Chat safety net (SPEC 18.1)").push("chat");

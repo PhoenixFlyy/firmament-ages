@@ -27,7 +27,9 @@
     "client.ChatComponentMixin",
     "corgilib.AnnouncementTickerMixin",
     "tfc.TfcHealthBarMixin",
-    "tfc.InventoryTabAccessor"
+    "tfc.InventoryTabAccessor",
+    "ftbquests.ViewQuestPanelMixin",
+    "ftbquests.TextFieldAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
