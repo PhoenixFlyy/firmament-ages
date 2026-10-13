@@ -2022,3 +2022,46 @@ counting down 204 ticks in 10 s), read TFC `IPlayerInfo` and evaluated chapter v
   Age in this pack (decision row of the core branch).
 - The test world was switched to peaceful during the run (zombies killed the ticking debug players); the next run
   wipes it.
+
+## Immersion follow-up
+
+Date: 2026-10-13, branch `dev` at 0a1df0e (pack 0.7.0, firmages-core 0.7.0). Two review findings of the Immersion
+run, both listed for Felix in `dev/client-test-brief.md`; decisions in `dev/decisions-while-away.md`.
+
+### Changes
+
+- Industrial Age quest "Advanced TFC Tech" (Logistics strand): its task asked for any of five Advanced TFC Tech
+  machine items. Thresher, grist mill, beamhouse and power loom are formed multiblocks without an item form, the
+  fleshing machine needs `immersiveengineering:component_electronic` (first reached at age_5), so the quest could not
+  be done in its Age and blocked the "Backfill Line" keystone and the chapter goal. No Age fix applies (there is no
+  item to move), so the task is now an observation of the formed thresher (`advancedtfctech:thresher`), as the IE
+  multiblock quests do. The thresher template (`structure/multiblocks/thresher.nbt` in the ATFC 3.3 jar) is steel
+  sheet metal, light engineering blocks, one redstone engineering block and a hopper; grist mill and power loom also
+  need `immersiveengineering:storage_steel`, which is disabled. The five ATFC rows left `KNOWN_GAPS` in
+  `dev/derive_ages.py`: the four multiblock items are now never reachable and hidden like IE's, the fleshing machine
+  is age_5. `poc_analyze.py` has the thresher parts and `advancedtfctech:pirn` (the new quest icon) in the R-age_4
+  chain.
+- `ftbquests:loot_crate_opener` and `ftbquests:task_screen_configurator` are in `[hidden]` of `dev/age_map.toml`.
+  The task screens stay (Doc 08 section 9.1); every other FTB Library and FTB Quests utility item was already hidden
+  or disabled.
+
+### Checks
+
+| Check | Observed | Result |
+|---|---|---|
+| `derive_ages.py`, `gen_stage_locks.py` | final per Age: age_4 1,370 (was 1,375), age_5 400 (399), age_1 2,732 (2,734), disabled 4,544 (4,538); `--check` of both exit 0 against the new dump | pass |
+| Boot (fresh world, `run_server.py --wipe-world`) | `Done (13.310s)`, 201 mods; KubeJS startup and server 0 error lines; FTB Quests "13 chapters, 346 quests, 21 reward tables"; ERROR lines only the known noise (DISTXFORM, azimuth and bits_n_bobs client mixins, loot table parse errors, recipe parse errors of woodencog and tfcrf, Sable catwalk, TF `dev_new_world`) | pass |
+| Age ladder for the dump | debug player Alpha, `stage grant` age_0 … age_9 one by one (second fresh world; `debug.allowSimulate` on for the run, off again) | pass |
+| `poc_analyze.py` (`fa_dump`, `fa_dump_full` at age_9, 32,261 recipes; the two hidden items' recipes are gone) | **82 checks, all PASS**; `R-age_4 firmages:pressure_core`: goal, ingredients and the 33-item chain (thresher parts included) reachable at age_4, 14,150 items reached | pass |
+| `validate_quests.py` | 1290 object ids, 0 errors, 0 warnings | pass |
+| Release `release.ps1 -Version 0.7.0` | `FirmamentAges-0.7.0.mrpack` 524,199,590 B, `-curseforge.zip` 47,104,836 B, `-server.zip` 537,039,781 B (server sync 611/611 "Finished successfully"), sha256 list written | pass |
+| `dev/cf/export_cf.py` | `FirmamentAges-0.7.0-curseforge-upload.zip` 7,013,808 B, 196 manifest files, 6 swaps, overrides jar only `mods/firmages-core-0.7.0.jar` | pass |
+| Export content | upload zip and server zip carry the thresher observation and `loot_crate_opener` in `age_items/disabled` | pass |
+
+### Open points
+
+- Needs a client: the quest completes when a player looks at a formed thresher; the two hidden items are absent from
+  EMI.
+- Grist mill and power loom: whether IE's multiblock matcher accepts a TFC steel block (via `c:storage_blocks/steel`)
+  in place of the disabled `immersiveengineering:storage_steel` is unchecked. If not, both are unbuildable; the quest
+  no longer depends on them, but the machines are design content (needs a world test or a template change).
