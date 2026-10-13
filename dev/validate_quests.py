@@ -8,7 +8,8 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
   stages     every stage id (gamestage tasks/rewards, progressivestages_required_stage) has a stage file in
              config/progressivestages/stages/
   ages       no reward item and no task item belongs to a later Age than its chapter (age_items tags in
-             kubejs/data/firmages/tags/item/age_items/); disabled items are never allowed
+             kubejs/data/firmages/tags/item/age_items/); disabled items are never allowed, except as an icon when
+             dev/derive_ages.py found them never reachable ([derived_hidden]: hidden in EMI, not stage-locked)
   structure  every Age chapter: required stage set, one entry quest (gamestage task = chapter stage), one goal
              quest that depends on every keystone, 3-4 keystones, 2-4 optional side quests, explanations
              optional. Goal of a shrine Age (an entry in the shrine offerings, see below): one gamestage
@@ -37,6 +38,7 @@ import json
 import os
 import re
 import sys
+import tomllib
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -291,6 +293,8 @@ def main():
     items = set(registry['items'])
     blocks = set(registry.get('blocks', [])) | items  # block items cover placeable blocks
     item_age = load_age_tags()
+    derived_hidden = set(tomllib.load(open(os.path.join(ROOT, 'dev', 'age_map.toml'), 'rb'))
+                         .get('derived_hidden', {}).get('items', []))
     stage_ids = load_stage_ids()
     portal_tags = load_portal_tags()
 
@@ -372,7 +376,9 @@ def main():
         if a is None:
             W('%s: %s item %s has no Age tag' % (where, what, iid))
             return
-        if a == 'disabled':
+        if a == 'disabled' and what in ('icon', 'chapter icon') and iid in derived_hidden:
+            pass  # never reachable (dev/derive_ages.py): hidden from EMI but not ProgressiveStages-locked, so it renders
+        elif a == 'disabled':
             E('%s: %s item %s is disabled in this pack' % (where, what, iid))
         elif max_age is not None and age_index(a) is not None and age_index(a) > age_index(max_age):
             E('%s: %s item %s belongs to %s, later than %s' % (where, what, iid, a, max_age))
