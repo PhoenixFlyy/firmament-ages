@@ -1838,7 +1838,7 @@ hash = "376e515c7ecd2375b013bc49813d21f2dc5c77182dd5028458e7748207b15d32"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
-hash = "d345bc094fc079a58682727e9e1ffcfde7cac2ea7f8a181673ed27a244edbe54"
+hash = "35e5e26af4f2b72df97769803950e3f66ca09505bb2ccd95a7aa367de26f19bf"
 
 [[files]]
 file = "kubejs/server_scripts/stages/mobs.js"

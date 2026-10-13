@@ -62,8 +62,9 @@
 
     // Coordinates in F3 (H5): hidden until FA.COORDS_FROM_AGE. One team = one Age, so the world gamerule follows it
     // (gamerules.js sets it true on every start). Only for real players: /fa_selftest reconciles a FakePlayer that
-    // must not flip the world rule.
-    if (player.server.getPlayerList().getPlayer(player.getUUID())) {
+    // must not flip the world rule. isFake() is KubeJS's PlayerKJS (instanceof NeoForge FakePlayer); Entity.getUUID()
+    // is hidden from scripts (TypeError on every grant and login in the round-B boot).
+    if (!player.isFake()) {
       player.server.runCommandSilent(`gamerule reducedDebugInfo ${idx < ageIndex(FA.COORDS_FROM_AGE)}`)
     }
   }
