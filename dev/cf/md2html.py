@@ -113,7 +113,7 @@ def main(argv):
     files = [Path(a) for a in argv] or DEFAULT
     for src in files:
         dst = src.with_suffix(".html")
-        dst.write_text(convert(src.read_text(encoding="utf-8")), encoding="utf-8")
+        dst.write_text(convert(src.read_text(encoding="utf-8")), encoding="utf-8", newline="\n")
         print(f"{src.name} -> {dst.name} ({dst.stat().st_size} bytes)")
 
 
