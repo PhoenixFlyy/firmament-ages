@@ -153,6 +153,10 @@ file = "config/ftbchunks-world.snbt"
 hash = "e9531f4ced831d6e0d5263f0c14bb77dfbd28ee524ef514875a6c7dccc40ba4e"
 
 [[files]]
+file = "config/ftblibrary-client.snbt"
+hash = "46a6c9b6ccf7f42c9f57365d20d39875573acfdeaef5f7f18609715205a79bcf"
+
+[[files]]
 file = "config/ftbquests/quests/chapter_groups.snbt"
 hash = "b1339ce49c5c08220086661d0e028c5277f811e6437e691a61a5ad2448097081"
 

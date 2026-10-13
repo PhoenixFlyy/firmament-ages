@@ -1,0 +1,38 @@
+# Client-specific configuration for FTB Library
+# Firmament Ages: the inventory sidebar (FTB Teams, Quests, Chunks and the op toggles) is off, so Dawn shows no mod
+# buttons and K stays the only way into the quest book (Felix 2026-10-13, research ux-quest-ui.md 1.3).
+
+{
+	colorselector: {
+		# Colors recently selected in the color selector
+		# Default: []
+		recents: [I; ]
+	}
+	sidebar: {
+		# Enable the sidebar
+		# Default: true
+		enabled: false
+
+		# Position of the sidebar
+		# Default: "top_left"
+		# Valid values: "top_left", "top_right", "bottom_left", "bottom_right"
+		position: "top_left"
+	}
+	tooltips: {
+		# Add the name of the mod that entities belong to in the entity face selection GUI.
+		# Default: true
+		entity_modname: false
+
+		# Add the name of the mod that fluids belong to in the fluid selection GUI.
+		# Default: true
+		fluid_modname: false
+
+		# Add the name of the mod that images belong to in the image selection GUI.
+		# Default: true
+		image_modname: false
+
+		# Add the name of the mod that items belong to in the item selection GUI.
+		# Default: false
+		item_modname: false
+	}
+}
