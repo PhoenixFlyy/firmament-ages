@@ -9,7 +9,21 @@
 		id: "firmages:arcane_keystone"
 	}
 	id: "40D4D715E3F4DB36"
-	images: [ ]
+	images: [
+		{
+			alpha: 255
+			color: 16777215
+			height: 2.0d
+			id: "23972D289358B993"
+			image: "firmages:textures/gui/quests/banner_age_3.png"
+			order: 0
+			position_locked: true
+			rotation: 0.0d
+			width: 8.0d
+			x: 10.0d
+			y: -7.75d
+		}
+	]
 	order_index: 4
 	progression_mode: "flexible"
 	progressivestages_required_stage: "age_3"
@@ -27,7 +41,7 @@
 					xp: 65
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 2.0d
 			tags: ["entry"]
 			tasks: [
@@ -221,7 +235,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -499,7 +513,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -693,7 +707,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -722,7 +736,7 @@
 					xp: 650
 				}
 			]
-			shape: "gear"
+			shape: "gilded"
 			size: 3.0d
 			tags: ["goal"]
 			tasks: [
@@ -755,7 +769,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -779,7 +794,8 @@
 					xp: 65
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -811,7 +827,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -843,7 +860,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -927,4 +945,5 @@
 			y: 5.0d
 		}
 	]
+	tags: ["age_3"]
 }

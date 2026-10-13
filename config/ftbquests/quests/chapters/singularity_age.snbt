@@ -9,7 +9,21 @@
 		id: "sgjourney:classic_stargate"
 	}
 	id: "4472107CE8ED9B80"
-	images: [ ]
+	images: [
+		{
+			alpha: 255
+			color: 16777215
+			height: 2.0d
+			id: "48ED980994428AB2"
+			image: "firmages:textures/gui/quests/banner_age_9.png"
+			order: 0
+			position_locked: true
+			rotation: 0.0d
+			width: 8.0d
+			x: 7.375d
+			y: -7.75d
+		}
+	]
 	order_index: 10
 	progression_mode: "flexible"
 	progressivestages_required_stage: "age_9"
@@ -27,7 +41,7 @@
 					xp: 200
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 2.0d
 			tags: ["entry"]
 			tasks: [
@@ -201,7 +215,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -306,7 +320,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -456,7 +470,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -484,7 +498,7 @@
 					xp: 2000
 				}
 			]
-			shape: "gear"
+			shape: "gilded"
 			size: 3.0d
 			tags: ["goal"]
 			tasks: [
@@ -517,7 +531,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -547,7 +562,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -579,7 +595,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -614,7 +631,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -665,4 +683,5 @@
 			y: 5.0d
 		}
 	]
+	tags: ["age_9"]
 }

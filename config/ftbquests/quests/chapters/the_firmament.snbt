@@ -10,7 +10,21 @@
 		id: "firmages:sky_disc"
 	}
 	id: "7D0742BC787AAFAC"
-	images: [ ]
+	images: [
+		{
+			alpha: 255
+			color: 16777215
+			height: 2.0d
+			id: "5E6E10C9724F9823"
+			image: "firmages:textures/gui/quests/banner_firmament.png"
+			order: 0
+			position_locked: true
+			rotation: 0.0d
+			width: 8.0d
+			x: 10.0d
+			y: -3.0d
+		}
+	]
 	order_index: 1
 	progression_mode: "linear"
 	quest_links: [ ]
@@ -20,7 +34,7 @@
 				id: "tfc:firestarter"
 			}
 			id: "4581C5CB23AD4CD5"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -39,7 +53,7 @@
 				id: "firmages:hearthstone"
 			}
 			id: "3240A673372AF11A"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -58,7 +72,7 @@
 				id: "firmages:sky_disc"
 			}
 			id: "04DAC1D51AABFF20"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -77,7 +91,7 @@
 				id: "firmages:steel_heart"
 			}
 			id: "652657C4C5B8CAC5"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -96,7 +110,7 @@
 				id: "firmages:arcane_keystone"
 			}
 			id: "077BFA2D599B1A4B"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -115,7 +129,7 @@
 				id: "firmages:pressure_core"
 			}
 			id: "663A4EAE1B3FAF8C"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -134,7 +148,7 @@
 				id: "firmages:humming_core"
 			}
 			id: "32D33BE8EB20FCA6"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -153,7 +167,7 @@
 				id: "firmages:data_matrix"
 			}
 			id: "40280EBC4CC9F8F6"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -172,7 +186,7 @@
 				id: "firmages:star_chart"
 			}
 			id: "33818E6B3089AF9E"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -191,7 +205,7 @@
 				id: "firmages:quantum_core"
 			}
 			id: "3C8510408C6A23D6"
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -210,7 +224,7 @@
 				id: "sgjourney:classic_stargate"
 			}
 			id: "5C8E39BBE00603BA"
-			shape: "gear"
+			shape: "gilded"
 			size: 3.0d
 			tags: ["goal"]
 			tasks: [
@@ -224,4 +238,5 @@
 			y: 0.0d
 		}
 	]
+	tags: ["firmament"]
 }

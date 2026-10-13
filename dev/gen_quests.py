@@ -1591,39 +1591,52 @@ AGE_CHAPTERS = [DAWN, STONE, BRONZE, IRON, ARCANE, INDUSTRIAL, ELECTRIC, INFORMA
 GOAL_GRANTS = {'dawn': 'age_0'}
 
 # ---------------------------------------------------------------- Welcome
+# Written in-world (Felix, 2026-10-13: full immersion). No mod names, no recipe viewer, no talk of locks or stages;
+# the Ages, the shrine and Caelum, the Chronicle on K, the sign in the corner.
 WELCOME = [
     Q('welcome/start', 'Welcome to Firmament Ages', t_check(), kind='info', icon='tfc:firestarter',
       sub='Read me first',
-      desc=['Firmament Ages is a TerraFirmaCraft pack in Ages: Dawn, then Age 0 to Age 9.',
-            'The whole server is one team with one shared progress.',
+      desc=['You wake beneath a sky that watches. Nothing in your hands, nothing in your pockets.',
             '',
-            'Press K to open this quest screen at any time. There is no quest book item.']),
+            'This is the Chronicle: the one record of what your fellowship has done and what comes next.',
+            'Press K to open it at any time. There is no book to carry, and no other list to keep.',
+            '',
+            'The world is lived in Ages: Dawn first, then Age 0 to Age 9. Each Age has its own chapter here.']),
     Q('welcome/ages', 'The Ages', t_check(), deps=['welcome/start'], kind='info', icon='firmages:hearthstone',
-      desc=['Each Age has its own chapter. A chapter appears when your team reaches its Age.',
-            'Recipes of a later Age do not exist yet, anywhere: not in the crafting grid, not in machines.',
-            'EMI shows them once their Age is unlocked.',
+      desc=['An Age is one layer of the sky. The world holds only what the current Age allows:',
+            'the tools, the metals and the crafts of a later Age are not in the world yet, anywhere.',
+            'Veins of a later Age sleep as plain stone until their Age.',
             '',
-            'Ores of later Ages look like plain stone until their Age.']),
+            'When the next layer opens, its chapter appears in this Chronicle and the world grows with it.',
+            'Chapters of Ages you have not reached are not shown.']),
     Q('welcome/book', 'Reading a Chapter', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:compass',
-      desc=['Every Age chapter has one entry quest, three or four required strands and one goal.',
-            'Each strand ends in a keystone (the larger quests). The goal needs every keystone.',
+      desc=['Every Age chapter has one entry, three or four strands and one goal.',
+            'A strand ends in a keystone, the large engraved hexagon. The goal, the gilded star, needs every keystone.',
             'Round quests are side missions: optional, with a comfort reward.',
-            'Diamonds mark the optional ring quest: look at the shrine heart once the Age\'s ring stands.',
-            'Gears are explanations: tick them once you have read them.']),
-    Q('welcome/team', 'One Team', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:player_head',
-      desc=['Everybody on the server is in the same FTB team. Quest progress, Ages and rewards are shared.',
-            'Split the strands between you: one friend smiths, one prospects, one builds.']),
+            'Diamonds mark the ring quest: look at the shrine heart once the Age\'s ring stands.',
+            'Gears are notes: tick them once you have read them.']),
+    Q('welcome/team', 'One Fellowship', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:player_head',
+      desc=['Everybody on this server is one fellowship. Progress, Ages and rewards are shared by all of you.',
+            'Split the strands between you: one friend smiths, one prospects, one builds.',
+            'Whoever claims a reward first holds it for the rest; experience is paid to each of you.']),
     Q('welcome/shrine', 'The Shrine and Caelum', t_check(), deps=['welcome/ages'], kind='info',
       icon='firmages:hearthstone',
-      desc=['In the Stone Age your team raises one shrine: a heart of fired clay in a circle of stone,',
+      desc=['In the Stone Age your fellowship raises one shrine: a heart of fired clay in a circle of stone,',
             'logs and thatch. It is the hearth of the whole server and the altar of Caelum, the Firmament:',
             'the sky that watches every fire lit beneath it, and opens one layer for every gift.',
             '',
             'Every Age from the Stone Age on ends at the shrine. Add the Age\'s ring, lay its signature item',
             'on the new plinth and pray. Caelum answers with light and a word, keeps the gift as a relic',
             'and opens the next Age for everyone.']),
+    Q('welcome/sign', 'The Sign in the Corner', t_check(), deps=['welcome/book'], kind='info',
+      icon='firmages:sky_disc',
+      desc=['Top left of your view, a small sign names the Age you live in. It fades a few breaths after',
+            'you arrive and after a new Age opens; hold the Age key (Controls, Firmament Ages) to see it again.',
+            '',
+            'It is the only mark the Firmament leaves on your sight. Everything else is in this Chronicle.']),
     Q('welcome/tfc', 'Survival Notes', t_check(), deps=['welcome/team'], kind='info', icon='tfc:ceramic/large_vessel',
-      desc=['Food decays and tools wear out as in plain TerraFirmaCraft. Nothing is softened.',
+      desc=['Food spoils and tools wear out, as they always have in this land. Nothing is softened.',
+            'You will not thirst, and a plain table does you no harm; a varied one only does you good.',
             'Everything you need in quantity can be automated later. Hand work comes first.']),
 ]
 
@@ -1679,8 +1692,22 @@ def build_rewards(quest, rewards):
     return out
 
 
-SHAPES = {'entry': ('hexagon', 2.0), 'step': ('', 0.0), 'keystone': ('hexagon', 1.5), 'goal': ('gear', 3.0),
-          'side': ('circle', 0.0), 'explain': ('gear', 0.0), 'info': ('', 0.0), 'ring': ('diamond', 1.25)}
+# Shapes gilded, rune and ember are the pack's own (dev/gen_quest_art.py writes them to
+# kubejs/assets/ftbquests/textures/shapes/<name>/; FTB Quests only looks in its own namespace, javap QuestShape).
+# Steps keep the chapter default (hexagon); explanations stay gears, ring quests diamonds.
+SHAPES = {'entry': ('rune', 2.0), 'step': ('', 0.0), 'keystone': ('rune', 1.5), 'goal': ('gilded', 3.0),
+          'side': ('ember', 0.85), 'explain': ('gear', 0.0), 'info': ('', 0.0), 'ring': ('diamond', 1.25)}
+
+# Chapter art keys (dev/gen_quest_art.py): banner_<key>.png, bg_<key>.png, shader firmages:sky_<key>
+BANNER_W, BANNER_H = 8.0, 2.0
+
+
+def banner_image(chapter_key, art_key, x, y):
+    """Chapter image (ChapterImage NBT, javap 2101.1.36: x, y, width, height in quest grid units, rotation, image,
+    color, alpha, order, position_locked) with the Age banner centred above the quests."""
+    return {'id': qid('image/%s/banner' % chapter_key), 'x': D(x), 'y': D(y), 'width': D(BANNER_W),
+            'height': D(BANNER_H), 'rotation': D(0), 'image': 'firmages:textures/gui/quests/banner_%s.png' % art_key,
+            'color': 16777215, 'alpha': 255, 'order': 0, 'position_locked': True}
 
 
 def quest_nbt(quest, x, y, rewards, extra=None):
@@ -1711,12 +1738,20 @@ def quest_nbt(quest, x, y, rewards, extra=None):
     return d
 
 
-def chapter_nbt(key, filename, title, subtitle, icon, group, order, quests, required_stage=None, extra=None):
+def chapter_nbt(key, filename, title, subtitle, icon, group, order, quests, required_stage=None, extra=None,
+                tags=(), images=()):
+    """tags: theme selectors ([#age_3] in ftb_quests_theme.txt picks background and colours per chapter; QuestScreen
+    resolves theme properties against the selected chapter). images: ChapterImage list (banner_image)."""
     cid = qid('chapter/' + key)
     d = {'id': cid, 'filename': filename, 'group': qid('group/' + group) if group else '', 'order_index': order,
          'icon': {'id': icon}, 'default_quest_shape': 'hexagon', 'default_hide_dependency_lines': False,
-         'progression_mode': 'flexible', 'quests': quests, 'quest_links': [], 'images': []}
+         'progression_mode': 'flexible', 'quests': quests, 'quest_links': [], 'images': list(images)}
+    if tags:
+        d['tags'] = list(tags)
     if required_stage:
+        # ProgressiveStages 3.0.6 ChapterMixin injects Chapter.isVisible(TeamData) at HEAD (cancellable) and returns
+        # false until the team owns the stage; ChapterPanel lists DefaultChapterGroup.getVisibleChapters(TeamData),
+        # so the chapter is absent from the sidebar, not merely locked (javap, 2026-10-13).
         d['progressivestages_required_stage'] = required_stage
     if extra:
         d.update(extra)
@@ -1780,19 +1815,22 @@ def build_age_chapter(ch):
         r = ch['ring']
         r['deps'] = r['deps'] or [entry['key']]
         quests.append(quest_nbt(r, key_x + 3.25, bottom + 2.5, [r_xp(xp * 2)], extra={'hide_dependency_lines': True}))
+    # Age banner above everything (side missions sit at top - 2.5), centred on the chapter's width
+    banner = banner_image(ch['key'], age, (key_x + 3.25) / 2.0, top - 2.5 - BANNER_H - 0.75)
     return chapter_nbt(ch['key'], ch['filename'], ch['title'], ch['subtitle'], ch['icon'], ch['group'], ch['order'],
-                       quests, required_stage=age)
+                       quests, required_stage=age, tags=[age], images=[banner])
 
 
 def build_welcome():
     quests = []
     layout = {'welcome/start': (0, 0), 'welcome/ages': (2, -1.5), 'welcome/book': (2, 0), 'welcome/team': (2, 1.5),
-              'welcome/shrine': (4, -1.5), 'welcome/tfc': (4, 1.5)}
+              'welcome/shrine': (4, -1.5), 'welcome/sign': (4, 0), 'welcome/tfc': (4, 1.5)}
     for w in WELCOME:
         x, y = layout[w['key']]
         quests.append(quest_nbt(w, x, y, [r_xp(5)]))
-    return chapter_nbt('welcome', 'welcome', 'Welcome', ['How Firmament Ages works. Press K to open this screen.'],
-                       'tfc:firestarter', None, 0, quests)
+    return chapter_nbt('welcome', 'welcome', 'Welcome', ['The Chronicle of your fellowship. Press K to open it.'],
+                       'tfc:firestarter', None, 0, quests, tags=['welcome'],
+                       images=[banner_image('welcome', 'welcome', 2.0, -1.5 - BANNER_H - 0.75)])
 
 
 def build_firmament():
@@ -1812,7 +1850,9 @@ def build_firmament():
                        ['Every Age ends with one signature item. This is the whole road, from the first spark',
                         'to the final gate.'],
                        'firmages:sky_disc', None, 1, quests,
-                       extra={'progression_mode': 'linear', 'hide_quest_details_until_startable': True})
+                       extra={'progression_mode': 'linear', 'hide_quest_details_until_startable': True},
+                       tags=['firmament'],
+                       images=[banner_image('firmament', 'firmament', (len(FIRMAMENT) - 1), -BANNER_H - 1.0)])
 
 
 def build_tables():
@@ -1837,7 +1877,9 @@ def data_nbt():
         'default_consume_items': False,
         'default_autoclaim_rewards': 'disabled',
         'default_quest_shape': 'circle',
-        'default_quest_disable_jei': False,
+        # true: no "Quests" category in the recipe viewer (FTB XMod Compat JEI plugin, also reaches EMI); the
+        # Chronicle on K is the only quest surface (Felix 2026-10-13, immersion)
+        'default_quest_disable_jei': True,
         'emergency_items_cooldown': 300,
         'drop_loot_crates': False,
         'loot_crate_no_drop': {'passive': 4000, 'monster': 600, 'boss': 0},
@@ -1889,7 +1931,24 @@ def main():
     for key, t in tables.items():
         write(os.path.join(OUT, 'reward_tables', key + '.snbt'), t)
     write(os.path.join(OUT, 'lang', 'en_us.snbt'), LANG)
+    write_chapter_shaders(chapters)
     print('wrote %d chapters, %d reward tables, %d lang keys to %s' % (len(chapters), len(tables), len(LANG), OUT))
+
+
+def write_chapter_shaders(chapters):
+    """Certain Questing Additions 1.2.0.4: assets/certain_questing_additions/chapter_shaders.json maps
+    Chapter.getCodeString() (16 hex digits, matched lower-case) to a core shader id; "default" covers the rest.
+    The shaders are written by dev/gen_quest_art.py (kubejs/assets/firmages/shaders/core/sky_<key>.*)."""
+    art_key = {'welcome': 'welcome', 'the_firmament': 'firmament'}
+    art_key.update({c['filename']: c['stage'] for c in AGE_CHAPTERS})
+    mapping = {}
+    for name, ch in chapters:
+        mapping[ch['id'].lower()] = 'firmages:sky_%s' % art_key[name]
+    path = os.path.join(ROOT, 'kubejs', 'assets', 'certain_questing_additions', 'chapter_shaders.json')
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump({'default': 'firmages:sky_firmament', 'chapters': mapping}, f, indent=2)
+        f.write('\n')
 
 
 if __name__ == '__main__':

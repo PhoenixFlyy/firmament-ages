@@ -9,7 +9,21 @@
 		id: "tfc:firestarter"
 	}
 	id: "544197C921D77FCB"
-	images: [ ]
+	images: [
+		{
+			alpha: 255
+			color: 16777215
+			height: 2.0d
+			id: "551F3E0030241392"
+			image: "firmages:textures/gui/quests/banner_dawn.png"
+			order: 0
+			position_locked: true
+			rotation: 0.0d
+			width: 8.0d
+			x: 5.625d
+			y: -7.75d
+		}
+	]
 	order_index: 0
 	progression_mode: "flexible"
 	progressivestages_required_stage: "dawn"
@@ -27,7 +41,7 @@
 					xp: 10
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 2.0d
 			tags: ["entry"]
 			tasks: [
@@ -131,7 +145,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -212,7 +226,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -322,7 +336,7 @@
 					type: "random"
 				}
 			]
-			shape: "hexagon"
+			shape: "rune"
 			size: 1.5d
 			tags: ["keystone"]
 			tasks: [
@@ -376,7 +390,7 @@
 					type: "gamestage"
 				}
 			]
-			shape: "gear"
+			shape: "gilded"
 			size: 3.0d
 			tags: ["goal"]
 			tasks: [
@@ -418,7 +432,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -451,7 +466,8 @@
 					type: "choice"
 				}
 			]
-			shape: "circle"
+			shape: "ember"
+			size: 0.85d
 			tags: ["side"]
 			tasks: [
 				{
@@ -577,4 +593,5 @@
 			y: 5.0d
 		}
 	]
+	tags: ["dawn"]
 }
