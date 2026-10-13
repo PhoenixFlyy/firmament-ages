@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "c:ingots/osmium"
+  },
+  "heat_capacity": 2.857143,
+  "forging_temperature": 738.0,
+  "welding_temperature": 984.0
+}

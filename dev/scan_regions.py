@@ -22,7 +22,7 @@ import zlib
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_MATCH = ["tfc:ore/", "create:zinc_ore", "create:deepslate_zinc_ore", "create:crimsite", "create:asurine",
                  "create:veridium", "create:ochrum", "immersiveengineering:", "mekanism:", "occultism:silver_ore",
-                 "mekatfc:", "evolvedmekanism:", "tfc_ie_addon:ore/"]
+                 "firmages:ore/", "evolvedmekanism:", "tfc_ie_addon:ore/"]
 
 
 class Reader:

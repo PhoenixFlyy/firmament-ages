@@ -98,4 +98,12 @@ StartupEvents.registry('item', event => {
   // Crushing Wheels (Iron Age) turn TFC ore pieces into dust; dusts melt back in TFC vessels.
   event.create('firmages:dust/zinc').displayName('Zinc Dust')
   event.create('firmages:dust/bismuth').displayName('Bismuth Dust')
+
+  // ---- Osmium (the pack's osmium vein, startup_scripts/osmium.js) ----------------------------------------------
+  // Ore pieces of the three grades (the small piece is the indicator block's item), and the double ingot that
+  // TFC welds from two Mekanism osmium ingots (welded with a wrought iron sheet into a Mekanism Steel Casing).
+  event.create('firmages:ore/poor_native_osmium').displayName('Poor Native Osmium')
+  event.create('firmages:ore/normal_native_osmium').displayName('Normal Native Osmium')
+  event.create('firmages:ore/rich_native_osmium').displayName('Rich Native Osmium')
+  event.create('firmages:metal/double_ingot/osmium').displayName('Osmium Double Ingot')
 })

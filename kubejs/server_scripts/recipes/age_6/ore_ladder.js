@@ -1,6 +1,6 @@
 // Firmament Ages - the Mekanism ore ladder on TFC ore pieces (Doc 10 v3 sections 3.3, 6.1, 7.3, 8.1).
 // Matrix 6.1, "Erz -> Staub": Purification 3x (age_6), Injection 4x (age_7), Dissolution 5x (age_8). Every TFC ore
-// piece (and the MekaTFC osmium and TFC + IE galena, bauxite and uraninite pieces) gets one recipe per grade and step.
+// piece (and the pack's osmium and TFC + IE galena, bauxite and uraninite pieces) gets one recipe per grade and step.
 // Yield per piece = piece mB x factor / 100 ingots (TFC pieces: small 10, poor 15, normal 25, rich 35 mB; a Mekanism
 // ore block counts as one ingot). Clumps and shards are whole items, so a grade takes n pieces for m items with m/n
 // within 5 % of the target; slurry is a chemical and takes the exact amount (200 mB = 1 crystal).
@@ -16,14 +16,6 @@
 // Also removed (matrix 6.1, losers): crushing ingots to dust in any Mekanism-family crusher, stone and gravel
 // crushing, ore blocks from the combiner, and the duplicate silver chain of Mekanism: More Machine.
 
-ServerEvents.tags('item', (event) => {
-  // MekaTFC puts its ore pieces into c:raw_materials/osmium and its ore blocks into c:ores/osmium. The pieces keep
-  // only the grade recipes below; the blocks drop pieces when mined.
-  const GRADES = ['small', 'poor', 'normal', 'rich']
-  event.remove('c:raw_materials/osmium', GRADES.map((g) => `mekatfc:ore/${g}_native_osmium`))
-  event.remove('c:ores/osmium', /^mekatfc:ore\//)
-})
-
 ServerEvents.recipes((event) => {
   const GRADE_MB = { small: 10, poor: 15, normal: 25, rich: 35 }
   const age7 = FirmAges.isUnlocked('age_7')
@@ -35,19 +27,6 @@ ServerEvents.recipes((event) => {
   // ingot, stone, gravel or sand in a Mekanism crusher, makes an ore block in the combiner, or belongs to More
   // Machine's silver chain. The planet and End metals (desh, ostrum, calorite, draconium) keep theirs.
   event.remove(ORE_LADDER_REMOVALS.map((id) => ({ id: id })))
-  // MekaTFC's furnace, 2x enrichment and crusher recipes of ore pieces (Doc 10 v3 7.3). The 10 unparseable originals are
-  // switched off by same-path overrides with a neoforge:false condition (kubejs/data/mekatfc/recipe/...).
-  // Fixed ids, the 15 MekaTFC ships (a regex filter is one scan of all recipes; poc_analyze.py C-M reports a leftover).
-  event.remove([
-    'mekatfc:blasting/ore/normal_native_osmium', 'mekatfc:blasting/ore/poor_native_osmium',
-    'mekatfc:blasting/ore/rich_native_osmium', 'mekatfc:blasting/ore/small_native_osmium',
-    'mekatfc:crushing/ore/normal_native_osmium', 'mekatfc:crushing/ore/poor_native_osmium',
-    'mekatfc:crushing/ore/rich_native_osmium', 'mekatfc:enriching/ore/normal_native_osmium',
-    'mekatfc:enriching/ore/poor_native_osmium', 'mekatfc:enriching/ore/rich_native_osmium',
-    'mekatfc:enriching/ore/small_native_osmium', 'mekatfc:smelting/ore/normal_native_osmium',
-    'mekatfc:smelting/ore/poor_native_osmium', 'mekatfc:smelting/ore/rich_native_osmium',
-    'mekatfc:smelting/ore/small_native_osmium'
-  ].map((id) => ({ id: id })))
   // Mekanism's steel and bronze routes (losers of the "Stahl" and "Legieren" rows): enriched iron -> steel dust, and
   // copper + tin infusion. Enriched iron itself stays (fusion reactor glass).
   ;['mekanism:processing/steel/enriched_iron_to_dust', 'mekanism:processing/bronze/dust/from_infusing',
@@ -111,7 +90,7 @@ ServerEvents.recipes((event) => {
     ['tfc:ore/{g}_cassiterite', 'tin', MEK], ['tfc:ore/{g}_native_gold', 'gold', MEK],
     ['tfc:ore/{g}_hematite', 'iron', MEK], ['tfc:ore/{g}_limonite', 'iron', MEK], ['tfc:ore/{g}_magnetite', 'iron', MEK],
     ['tfc_ie_addon:ore/{g}_galena', 'lead', MEK], ['tfc_ie_addon:ore/{g}_uraninite', 'uranium', MEK],
-    ['mekatfc:ore/{g}_native_osmium', 'osmium', MEK],
+    ['firmages:ore/{g}_native_osmium', 'osmium', MEK],
     ['tfc:ore/{g}_sphalerite', 'zinc', MMP], ['tfc:ore/{g}_bismuthinite', 'bismuth', MMP], ['tfc:ore/{g}_native_silver', 'silver', MMP],
     ['tfc:ore/{g}_garnierite', 'nickel', MMP], ['tfc_ie_addon:ore/{g}_bauxite', 'aluminum', MMP]
   ].forEach((row) => oreLadder(row[0], row[1], row[2], row[0].split('{g}_')[1]))

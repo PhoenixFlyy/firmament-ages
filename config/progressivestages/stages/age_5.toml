@@ -37,7 +37,7 @@ locked_ids = [
 ]
 
 # >>> generated:ore_overrides >>>
-# 128 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+# 95 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
 
 [[ores.overrides]]
 target = "id:tfc_ie_addon:ore/poor_bauxite/andesite"
@@ -360,322 +360,157 @@ display_as = "id:tfc:rock/loose/granite"
 drop_as = "id:tfc:rock/loose/granite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/andesite"
+target = "id:firmages:ore/poor_native_osmium/andesite"
 display_as = "id:tfc:rock/raw/andesite"
 drop_as = "id:tfc:rock/loose/andesite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/basalt"
+target = "id:firmages:ore/poor_native_osmium/basalt"
 display_as = "id:tfc:rock/raw/basalt"
 drop_as = "id:tfc:rock/loose/basalt"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/chalk"
-display_as = "id:tfc:rock/raw/chalk"
-drop_as = "id:tfc:rock/loose/chalk"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/chert"
-display_as = "id:tfc:rock/raw/chert"
-drop_as = "id:tfc:rock/loose/chert"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/claystone"
-display_as = "id:tfc:rock/raw/claystone"
-drop_as = "id:tfc:rock/loose/claystone"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/conglomerate"
-display_as = "id:tfc:rock/raw/conglomerate"
-drop_as = "id:tfc:rock/loose/conglomerate"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/dacite"
+target = "id:firmages:ore/poor_native_osmium/dacite"
 display_as = "id:tfc:rock/raw/dacite"
 drop_as = "id:tfc:rock/loose/dacite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/diorite"
+target = "id:firmages:ore/poor_native_osmium/diorite"
 display_as = "id:tfc:rock/raw/diorite"
 drop_as = "id:tfc:rock/loose/diorite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/dolomite"
-display_as = "id:tfc:rock/raw/dolomite"
-drop_as = "id:tfc:rock/loose/dolomite"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/gabbro"
+target = "id:firmages:ore/poor_native_osmium/gabbro"
 display_as = "id:tfc:rock/raw/gabbro"
 drop_as = "id:tfc:rock/loose/gabbro"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/gneiss"
+target = "id:firmages:ore/poor_native_osmium/gneiss"
 display_as = "id:tfc:rock/raw/gneiss"
 drop_as = "id:tfc:rock/loose/gneiss"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/granite"
+target = "id:firmages:ore/poor_native_osmium/granite"
 display_as = "id:tfc:rock/raw/granite"
 drop_as = "id:tfc:rock/loose/granite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/limestone"
-display_as = "id:tfc:rock/raw/limestone"
-drop_as = "id:tfc:rock/loose/limestone"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/marble"
-display_as = "id:tfc:rock/raw/marble"
-drop_as = "id:tfc:rock/loose/marble"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/phyllite"
-display_as = "id:tfc:rock/raw/phyllite"
-drop_as = "id:tfc:rock/loose/phyllite"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/quartzite"
+target = "id:firmages:ore/poor_native_osmium/quartzite"
 display_as = "id:tfc:rock/raw/quartzite"
 drop_as = "id:tfc:rock/loose/quartzite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/rhyolite"
+target = "id:firmages:ore/poor_native_osmium/rhyolite"
 display_as = "id:tfc:rock/raw/rhyolite"
 drop_as = "id:tfc:rock/loose/rhyolite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/schist"
+target = "id:firmages:ore/poor_native_osmium/schist"
 display_as = "id:tfc:rock/raw/schist"
 drop_as = "id:tfc:rock/loose/schist"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/shale"
-display_as = "id:tfc:rock/raw/shale"
-drop_as = "id:tfc:rock/loose/shale"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/slate"
-display_as = "id:tfc:rock/raw/slate"
-drop_as = "id:tfc:rock/loose/slate"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/poor_native_osmium/tuff"
-display_as = "id:tfc:rock/raw/tuff"
-drop_as = "id:tfc:rock/loose/tuff"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/andesite"
+target = "id:firmages:ore/normal_native_osmium/andesite"
 display_as = "id:tfc:rock/raw/andesite"
 drop_as = "id:tfc:rock/loose/andesite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/basalt"
+target = "id:firmages:ore/normal_native_osmium/basalt"
 display_as = "id:tfc:rock/raw/basalt"
 drop_as = "id:tfc:rock/loose/basalt"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/chalk"
-display_as = "id:tfc:rock/raw/chalk"
-drop_as = "id:tfc:rock/loose/chalk"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/chert"
-display_as = "id:tfc:rock/raw/chert"
-drop_as = "id:tfc:rock/loose/chert"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/claystone"
-display_as = "id:tfc:rock/raw/claystone"
-drop_as = "id:tfc:rock/loose/claystone"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/conglomerate"
-display_as = "id:tfc:rock/raw/conglomerate"
-drop_as = "id:tfc:rock/loose/conglomerate"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/dacite"
+target = "id:firmages:ore/normal_native_osmium/dacite"
 display_as = "id:tfc:rock/raw/dacite"
 drop_as = "id:tfc:rock/loose/dacite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/diorite"
+target = "id:firmages:ore/normal_native_osmium/diorite"
 display_as = "id:tfc:rock/raw/diorite"
 drop_as = "id:tfc:rock/loose/diorite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/dolomite"
-display_as = "id:tfc:rock/raw/dolomite"
-drop_as = "id:tfc:rock/loose/dolomite"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/gabbro"
+target = "id:firmages:ore/normal_native_osmium/gabbro"
 display_as = "id:tfc:rock/raw/gabbro"
 drop_as = "id:tfc:rock/loose/gabbro"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/gneiss"
+target = "id:firmages:ore/normal_native_osmium/gneiss"
 display_as = "id:tfc:rock/raw/gneiss"
 drop_as = "id:tfc:rock/loose/gneiss"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/granite"
+target = "id:firmages:ore/normal_native_osmium/granite"
 display_as = "id:tfc:rock/raw/granite"
 drop_as = "id:tfc:rock/loose/granite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/limestone"
-display_as = "id:tfc:rock/raw/limestone"
-drop_as = "id:tfc:rock/loose/limestone"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/marble"
-display_as = "id:tfc:rock/raw/marble"
-drop_as = "id:tfc:rock/loose/marble"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/phyllite"
-display_as = "id:tfc:rock/raw/phyllite"
-drop_as = "id:tfc:rock/loose/phyllite"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/quartzite"
+target = "id:firmages:ore/normal_native_osmium/quartzite"
 display_as = "id:tfc:rock/raw/quartzite"
 drop_as = "id:tfc:rock/loose/quartzite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/rhyolite"
+target = "id:firmages:ore/normal_native_osmium/rhyolite"
 display_as = "id:tfc:rock/raw/rhyolite"
 drop_as = "id:tfc:rock/loose/rhyolite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/schist"
+target = "id:firmages:ore/normal_native_osmium/schist"
 display_as = "id:tfc:rock/raw/schist"
 drop_as = "id:tfc:rock/loose/schist"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/shale"
-display_as = "id:tfc:rock/raw/shale"
-drop_as = "id:tfc:rock/loose/shale"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/slate"
-display_as = "id:tfc:rock/raw/slate"
-drop_as = "id:tfc:rock/loose/slate"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/normal_native_osmium/tuff"
-display_as = "id:tfc:rock/raw/tuff"
-drop_as = "id:tfc:rock/loose/tuff"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/andesite"
+target = "id:firmages:ore/rich_native_osmium/andesite"
 display_as = "id:tfc:rock/raw/andesite"
 drop_as = "id:tfc:rock/loose/andesite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/basalt"
+target = "id:firmages:ore/rich_native_osmium/basalt"
 display_as = "id:tfc:rock/raw/basalt"
 drop_as = "id:tfc:rock/loose/basalt"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/chalk"
-display_as = "id:tfc:rock/raw/chalk"
-drop_as = "id:tfc:rock/loose/chalk"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/chert"
-display_as = "id:tfc:rock/raw/chert"
-drop_as = "id:tfc:rock/loose/chert"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/claystone"
-display_as = "id:tfc:rock/raw/claystone"
-drop_as = "id:tfc:rock/loose/claystone"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/conglomerate"
-display_as = "id:tfc:rock/raw/conglomerate"
-drop_as = "id:tfc:rock/loose/conglomerate"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/dacite"
+target = "id:firmages:ore/rich_native_osmium/dacite"
 display_as = "id:tfc:rock/raw/dacite"
 drop_as = "id:tfc:rock/loose/dacite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/diorite"
+target = "id:firmages:ore/rich_native_osmium/diorite"
 display_as = "id:tfc:rock/raw/diorite"
 drop_as = "id:tfc:rock/loose/diorite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/dolomite"
-display_as = "id:tfc:rock/raw/dolomite"
-drop_as = "id:tfc:rock/loose/dolomite"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/gabbro"
+target = "id:firmages:ore/rich_native_osmium/gabbro"
 display_as = "id:tfc:rock/raw/gabbro"
 drop_as = "id:tfc:rock/loose/gabbro"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/gneiss"
+target = "id:firmages:ore/rich_native_osmium/gneiss"
 display_as = "id:tfc:rock/raw/gneiss"
 drop_as = "id:tfc:rock/loose/gneiss"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/granite"
+target = "id:firmages:ore/rich_native_osmium/granite"
 display_as = "id:tfc:rock/raw/granite"
 drop_as = "id:tfc:rock/loose/granite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/limestone"
-display_as = "id:tfc:rock/raw/limestone"
-drop_as = "id:tfc:rock/loose/limestone"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/marble"
-display_as = "id:tfc:rock/raw/marble"
-drop_as = "id:tfc:rock/loose/marble"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/phyllite"
-display_as = "id:tfc:rock/raw/phyllite"
-drop_as = "id:tfc:rock/loose/phyllite"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/quartzite"
+target = "id:firmages:ore/rich_native_osmium/quartzite"
 display_as = "id:tfc:rock/raw/quartzite"
 drop_as = "id:tfc:rock/loose/quartzite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/rhyolite"
+target = "id:firmages:ore/rich_native_osmium/rhyolite"
 display_as = "id:tfc:rock/raw/rhyolite"
 drop_as = "id:tfc:rock/loose/rhyolite"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/schist"
+target = "id:firmages:ore/rich_native_osmium/schist"
 display_as = "id:tfc:rock/raw/schist"
 drop_as = "id:tfc:rock/loose/schist"
 
 [[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/shale"
-display_as = "id:tfc:rock/raw/shale"
-drop_as = "id:tfc:rock/loose/shale"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/slate"
-display_as = "id:tfc:rock/raw/slate"
-drop_as = "id:tfc:rock/loose/slate"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/rich_native_osmium/tuff"
-display_as = "id:tfc:rock/raw/tuff"
-drop_as = "id:tfc:rock/loose/tuff"
-
-[[ores.overrides]]
-target = "id:mekatfc:ore/small_native_osmium"
+target = "id:firmages:ore/small_native_osmium"
 display_as = "id:tfc:rock/loose/granite"
 drop_as = "id:tfc:rock/loose/granite"
 # <<< generated:ore_overrides <<<

@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "c:nuggets/osmium"
+  },
+  "heat_capacity": 1.1428572,
+  "forging_temperature": 738.0,
+  "welding_temperature": 984.0
+}

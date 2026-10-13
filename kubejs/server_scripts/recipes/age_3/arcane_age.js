@@ -97,7 +97,7 @@ ServerEvents.recipes((event) => {
     'tfc:ore/rich_native_silver': 'silver', 'tfc:ore/rich_hematite': 'iron', 'tfc:ore/rich_limonite': 'iron',
     'tfc:ore/rich_magnetite': 'iron', 'tfc:ore/rich_garnierite': 'nickel', 'tfc_ie_addon:ore/rich_galena': 'lead',
     'tfc_ie_addon:ore/rich_bauxite': 'aluminum', 'tfc_ie_addon:ore/rich_uraninite': 'uranium',
-    'mekatfc:ore/rich_native_osmium': 'osmium'
+    'firmages:ore/rich_native_osmium': 'osmium'
   }
   Object.keys(SPAGYRIC).forEach((piece) => {
     event.custom({

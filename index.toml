@@ -206,7 +206,7 @@ hash = "a11f5741dc2b71663ad9d8250833ad8f583f30521041583e8dfd274518259441"
 
 [[files]]
 file = "config/progressivestages/stages/age_5.toml"
-hash = "e096f4f70180505d492d582abab6d4eaeb2be48808d153d2ce957a1bb9ab8395"
+hash = "a0c26f937238bea281f356569c83dfce4f1e353381232378e2f90ba98cf68b57"
 
 [[files]]
 file = "config/progressivestages/stages/age_6.toml"
@@ -309,6 +309,18 @@ file = "defaultconfigs/tfc-server.toml"
 hash = "5f60406d187551a535aa98b8d78b8c6ed604f42278b49687ed90156626a68eb1"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/block/ore/normal_native_osmium.png"
+hash = "6313aa3967dee632a309e342c1a8473d23abc11a86ff53b54b4c5fc5a7c600a1"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/ore/poor_native_osmium.png"
+hash = "dd1d11ffc6252f7e8f3c4e5ee1841975004c33ff4e9c35b359b2140233db7e84"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/ore/rich_native_osmium.png"
+hash = "e1591f8680fe3e1f5fd547780b465b33723e73d31e0e75a43c80203d2a787901"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/item/abyss_sigil.png"
 hash = "66e2f36efac20b510c1c13f5062b91ea171a315116eeb4425b4be4c2c06e2307"
 
@@ -383,6 +395,26 @@ hash = "46441448fd8f75290600139fd1bbc23cc369875f5ed6dee0f2ba8df181a3dbf3"
 [[files]]
 file = "kubejs/assets/firmages/textures/item/humming_core.png.mcmeta"
 hash = "61d9ed0268db7dffd14d04ad022ec2da66c2d5f52c3b3f689331ae53880f9e40"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/metal/double_ingot/osmium.png"
+hash = "2e0221c2294b2831e25e12578186f07a7283a1134fb72480149f046ea089a163"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/ore/normal_native_osmium.png"
+hash = "e4e55eb981618df14780e90f26bd39de09574c4fa88fcb77a7a3be82a7261435"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/ore/poor_native_osmium.png"
+hash = "36da64ad399700cbeb35ab479684611972f816cfe3ca953d7accc91e6f3e8374"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/ore/rich_native_osmium.png"
+hash = "672c5f1c5296e88f6e22a8b1f789ff7f0e4c4da357f6dd3e55c7203cba6d6311"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/ore/small_native_osmium.png"
+hash = "873338570c4849328d06028b81ea0fecb366f6561e66de940f0cf24f2a6211fc"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/origin_coordinates.png"
@@ -549,6 +581,14 @@ file = "kubejs/data/ad_astra/recipe/steel_plating.json"
 hash = "530c0f9b2f02bb4c7c6aaa07909cdb7533b3dc8673d43a6c0f051c0c135f1ec9"
 
 [[files]]
+file = "kubejs/data/c/tags/item/double_ingots.json"
+hash = "4b567828874dc0156fefcfc477fad9aafe005340462fb33eb6537718d715f376"
+
+[[files]]
+file = "kubejs/data/c/tags/item/double_ingots/osmium.json"
+hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
+
+[[files]]
 file = "kubejs/data/create/neoforge/biome_modifier/striated_ores_nether.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
@@ -613,6 +653,126 @@ file = "kubejs/data/firmages/loot_modifiers/datura_seed_from_tfc_grass.json"
 hash = "4456bd6e6adf69b904906202f4eb2a11eb1aa769dfbef2a9f8ad199b9605d71f"
 
 [[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/andesite.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/basalt.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/dacite.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/diorite.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/gabbro.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/gneiss.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/granite.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/quartzite.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/rhyolite.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/schist.json"
+hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/andesite.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/basalt.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/dacite.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/diorite.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/gabbro.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/gneiss.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/granite.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/quartzite.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/rhyolite.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/schist.json"
+hash = "cf6d3885fd138b399da84c147cf3b50a822de32c3c387f1a9b23bece124b0d14"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/andesite.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/basalt.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/dacite.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/diorite.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/gabbro.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/gneiss.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/granite.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/quartzite.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/rhyolite.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/schist.json"
+hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/ars_drygmy_spawn_tfc.json"
 hash = "b5377621525d3b89446353246f2da1aa114d9e5a88f88f92ee5e8c32566a4acc"
 
@@ -650,7 +810,7 @@ hash = "84a38970be38cb56d520ea8b43de6b490bb9b8b924178850f1429aa7f58087cc"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_5.json"
-hash = "fa7467da808393da20d30af2ccac5f2c103364bedab6fc208b17a9feaec16253"
+hash = "11e6db371b8f682d70f14d753ef8d2daaafe7c6734f3d3cc3f24cac5de29d93b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_6.json"
@@ -694,11 +854,11 @@ hash = "191ba7fdf3e3eaba601e047895427cf23e4008a9e6e8bf8800e9b9c313e99ea6"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "553c345574febfa84cfc49749d62cd9bdd12fa88d719b5fddde3cd1d0d2999b7"
+hash = "96703136464e83ff30fa2549213086ae784940abe9240a8b34d61af152419037"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "2fcba91f9d8afda62bd755b4615feba95b659637bab1bc655fe3a253f4bb8acc"
+hash = "ca9fc7943f13456b64c4783d0f2b2f1e4169ed7bfdf6dd2decb82eb713c0d797"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
@@ -723,6 +883,10 @@ hash = "3b9973c748798edd832b8e90055ef1bb90b8ef7f834d285dc7e63b56718ad44e"
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
 hash = "7655ff6addc912102765472bd7e3fe703b190fa03125f3ed14e4ba7251182c6b"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fluid_heat/osmium.json"
+hash = "20fabca64572b53ecdd89ce5bf4a2f19ff2fbfb204918068226eef2d7c00882f"
 
 [[files]]
 file = "kubejs/data/firmages/tfc/item_heat/create_brass_nugget.json"
@@ -761,6 +925,22 @@ file = "kubejs/data/firmages/tfc/item_heat/dust_zinc.json"
 hash = "b3afbd582fb0473161561574c1d2ace146d4533c50c4fa05fd86dd0b21284f33"
 
 [[files]]
+file = "kubejs/data/firmages/tfc/item_heat/native_osmium.json"
+hash = "8fb7fd6754e29acde770062421e33bcab99130b45c66e714ccf1f1c46ba99e53"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/osmium/double_ingot.json"
+hash = "e4d7b4485cae1fd1a3936c5b7bfecaf331ec47d18a3daf88b672123139976e2c"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/osmium/ingot.json"
+hash = "ac96fc945347ff093ff9a742e7661c156358286817438f986236b14a2f6c3429"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/osmium/nugget.json"
+hash = "0c6361751b27c96da904f086c40c6736b75d79bd2e9659caed82b9aeefc960f1"
+
+[[files]]
 file = "kubejs/data/firmages/tfc/item_heat/unfired_hearth_idol.json"
 hash = "04846cd8b228f86134e7614d12858119279bfaa1fc2972b08f1ee8173ff6ef32"
 
@@ -769,48 +949,16 @@ file = "kubejs/data/firmages/worldgen/configured_feature/ore_naquadah_mercury.js
 hash = "26a046016f9a4781004e962949d1b91e17ae7cf75ed6da60305d3b68f3f38f8a"
 
 [[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vein/osmium.json"
+hash = "e8418256445e64301a01939f2d5e7a16eca765038b7e481c71ac05fd19fdc640"
+
+[[files]]
 file = "kubejs/data/firmages/worldgen/placed_feature/ore_naquadah_mercury.json"
 hash = "fc00945295762a682434b84afad33cab4d8911b9eed43aebc47dfba2b5a2eeee"
 
 [[files]]
-file = "kubejs/data/mekatfc/recipe/dissolution/ore/normal_native_osmium.json"
-hash = "6ca0a726e2ad70fcaaaaa06ad03865424a0e456d06bcc31b76aa54b3b8553281"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/dissolution/ore/poor_native_osmium.json"
-hash = "6ca0a726e2ad70fcaaaaa06ad03865424a0e456d06bcc31b76aa54b3b8553281"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/dissolution/ore/rich_native_osmium.json"
-hash = "6ca0a726e2ad70fcaaaaa06ad03865424a0e456d06bcc31b76aa54b3b8553281"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/dissolution/ore/small_native_osmium.json"
-hash = "6ca0a726e2ad70fcaaaaa06ad03865424a0e456d06bcc31b76aa54b3b8553281"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/injecting/ore/normal_native_osmium.json"
-hash = "59a7ef27c78138a1542a5b41869a737bd72e86266b2afb748aac8173d55fc23a"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/injecting/ore/poor_native_osmium.json"
-hash = "59a7ef27c78138a1542a5b41869a737bd72e86266b2afb748aac8173d55fc23a"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/injecting/ore/rich_native_osmium.json"
-hash = "59a7ef27c78138a1542a5b41869a737bd72e86266b2afb748aac8173d55fc23a"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/purifying/ore/normal_native_osmium.json"
-hash = "976a445ff407c7e7377055c6c60f716ed8dba599645efd6b616c4fc7fcdae6f5"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/purifying/ore/poor_native_osmium.json"
-hash = "976a445ff407c7e7377055c6c60f716ed8dba599645efd6b616c4fc7fcdae6f5"
-
-[[files]]
-file = "kubejs/data/mekatfc/recipe/purifying/ore/rich_native_osmium.json"
-hash = "976a445ff407c7e7377055c6c60f716ed8dba599645efd6b616c4fc7fcdae6f5"
+file = "kubejs/data/firmages/worldgen/placed_feature/vein/osmium.json"
+hash = "e0790d4bedfe997a32a78832cc564682d14759e8cf6574db8e7fad14fd4e6c90"
 
 [[files]]
 file = "kubejs/data/mysticalagradditions/neoforge/biome_modifier/end_inferium_ore.json"
@@ -839,6 +987,22 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 [[files]]
 file = "kubejs/data/occultism/neoforge/biome_modifier/add_ore_silver_deepslate.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/tfc/tags/fluid/molten_metals.json"
+hash = "73cc82e39df4f2450649f894aa7e0e102573ce14938ec94c14cc18ab8db620b4"
+
+[[files]]
+file = "kubejs/data/tfc/tags/item/ore_pieces.json"
+hash = "d52cac761c0e49d37cc6085e5952dcf7974e14de17642c438a8d76ab09476252"
+
+[[files]]
+file = "kubejs/data/tfc/tags/item/small_ore_pieces.json"
+hash = "382d6532623604358d02758c0ed4512c448cb13f9eaab337d1c0c9bdc501f70a"
+
+[[files]]
+file = "kubejs/data/tfc/tags/worldgen/placed_feature/in_biome/veins.json"
+hash = "d09446b3faa973bb34222c4ba9cf0666e961b40d4e5923c66b4a23bb2e91b345"
 
 [[files]]
 file = "kubejs/data/twilightforest/recipe/giant_cobblestone_to_cobblestone.json"
@@ -894,7 +1058,7 @@ hash = "5f75100fb59a014496b934f14c61aa1d5c39c2b2fae8ae5b3d3ea677fe708552"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
-hash = "ae4d565beb894e798b5956c78640102a735246dd7068999c67a8cb2fcb166ee3"
+hash = "d9f8830a9ade353d471a6d45681efc77e8d9d1339a0d459dc78e948543992da7"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
@@ -914,7 +1078,11 @@ hash = "bd4d694ff400059ee260dfd14c47fe03a523aace933831149c04ba7698b4642b"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
-hash = "ee20ba492c98da435a8083c98f1a8a33d751b1f8a50cda1badcb09925b900b39"
+hash = "09f7bdc1cc25575e78e94735e63352f8b34b65fdd41a3c9f3daa8f790cd7446e"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_6/osmium.js"
+hash = "4da63744e94967e3aa002cf8409fe4cc0501627aec2d6bf702632f4ae5569289"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_7/space_age.js"
@@ -978,7 +1146,7 @@ hash = "f419ed8678bf1bcc7464dc59287ffb80335ba6557c85d405e968283dbd414bde"
 
 [[files]]
 file = "kubejs/server_scripts/tags/broken_mod_tags.js"
-hash = "05122d8261ba9eb856aa4db6715176a558231c7fa459df68a267ef916edf21a2"
+hash = "4569919a3980ac1ac6ad0868805a1f7a2087fd256851e5ce694356038541f0a5"
 
 [[files]]
 file = "kubejs/server_scripts/tags/hidden_from_viewers.js"
@@ -987,6 +1155,10 @@ hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
 [[files]]
 file = "kubejs/server_scripts/tags/late_ages.js"
 hash = "97d59ab77d3a8043af081d508debd6d16084efe19846b9a4ce7562b47e47e1f6"
+
+[[files]]
+file = "kubejs/server_scripts/tags/tfc_common_tags.js"
+hash = "1b77037663297161e2a573da8689e3b5def5e45fb8e49babccbcf6be116d0869"
 
 [[files]]
 file = "kubejs/server_scripts/tags/tfc_stations.js"
@@ -1002,7 +1174,11 @@ hash = "531218ab6c108dd803b3aef472f9531154e0c186df7ab32184cdd3ed3783b6ca"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
-hash = "6dc9d0f19b0f179cb307fdca796d4fb623cd828d1b039af9f2f78b12c514cf18"
+hash = "8752a58a267c0ce79d3c711fc5bfe085f0a989cf05d1b9907d59a640720e094c"
+
+[[files]]
+file = "kubejs/startup_scripts/osmium.js"
+hash = "17df96428810845e8b6c6c4894385c9c0d483fef6d766d17e55e76bf939d5501"
 
 [[files]]
 file = "mods/ad-astra.pw.toml"
@@ -1654,11 +1830,6 @@ hash = "290b13afab94146d1159d821b73c8c98f5299b4df75fd28e826f9fd409e9bb40"
 metafile = true
 
 [[files]]
-file = "mods/mekatfc.pw.toml"
-hash = "d192b0f200071c579af56a63f772a6f49e1223e5e08d39270372b850df72f7b9"
-metafile = true
-
-[[files]]
 file = "mods/mezzconfig.pw.toml"
 hash = "7cc4b699a816b1dcee290ceb5951f404079edfefd0dd844955056fbf93b82629"
 metafile = true
@@ -1881,11 +2052,6 @@ metafile = true
 [[files]]
 file = "mods/tfc-ie-crossover.pw.toml"
 hash = "ebdbb7de853078d5c5ce879930222f00edf9ce7a9ff7441be4544a3b4587dfa6"
-metafile = true
-
-[[files]]
-file = "mods/tfc-ore-tooltips.pw.toml"
-hash = "56d00a78040251052e91a6f98a082a9a8b8ebec0dc8199e413aa48c5cf3810af"
 metafile = true
 
 [[files]]

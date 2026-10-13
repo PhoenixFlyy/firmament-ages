@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "c:double_ingots/osmium"
+  },
+  "heat_capacity": 5.714286,
+  "forging_temperature": 738.0,
+  "welding_temperature": 984.0
+}

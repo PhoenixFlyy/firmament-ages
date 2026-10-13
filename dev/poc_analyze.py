@@ -196,8 +196,9 @@ def main():
     check(f"A9 c:hidden_from_recipe_viewers holds the {len(hidden_want)} HIDDEN_ITEMS", not miss, miss)
 
     # ---- Unification: TFC metals stay TFC ------------------------------------------------------------------
-    # Canonical non-TFC results by design (Doc 10 v3 8.1): Mekanism osmium, dusts (sulfur), Mekanism/MekaTFC parts.
-    by_design = re.compile(r"^(mekanism:(ingot_osmium|dust_sulfur|steel_casing)|mekatfc:)")
+    # Canonical non-TFC results by design (Doc 10 v3 8.1): Mekanism osmium, dusts (sulfur), Mekanism steel casing and
+    # the pack's osmium double ingot (recipes/age_6/osmium.js).
+    by_design = re.compile(r"^(mekanism:(ingot_osmium|dust_sulfur|steel_casing)|firmages:metal/double_ingot/osmium)$")
     tfc_foreign = [(r["id"], r["result"]) for r in rows if r["id"].startswith("tfc:")
                    and r["type"] in ("tfc:casting", "tfc:anvil", "tfc:welding", "tfc:quern")
                    and r["result"] and not r["result"].startswith(("tfc:", "minecraft:"))
@@ -826,7 +827,8 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           not bad_out, sorted(bad_out))
 
     # One station per function (Doc 10 v3 matrix 6.1), Ages 3-4.
-    pieces = {i for i in items if re.match(r"^(tfc|tfc_ie_addon|mekatfc):ore/(small|poor|normal|rich)_", i)}
+    pieces = {i for i in items if re.match(r"^(tfc|tfc_ie_addon):ore/(small|poor|normal|rich)_", i)
+              or re.match(r"^firmages:ore/(small|poor|normal|rich)_native_osmium$", i)}
     # Allowed consumers: TFC hand stations, WoodenCog heated melting (Schmelzen, 1-2), Create crushing/milling (2),
     # Theurgy (3), the IE Crusher (4), grid recipes that use a piece as a part. Stations of later Ages are not checked.
     allowed = re.compile(r"^(tfc:|woodencog:heated_mixing$|create:(crushing|milling)$|theurgy:|immersiveengineering:crusher$"
@@ -936,7 +938,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
 
     def makers(item):
         return sorted(r for r, sl, os_ in recs if item in os_)
-    late_ns = ("mekanism", "moremekanismprocessing", "mekmm", "evolvedmekanism", "mekatfc")
+    late_ns = ("mekanism", "moremekanismprocessing", "mekmm", "evolvedmekanism")
     # C-5a: the arc furnace steels and the IE/IP/CDG disable list
     arc = {r for r in full if full[r].get("type") == "immersiveengineering:arc_furnace"}
     want_arc = ["firmages:arc_furnace/weak_steel", "firmages:arc_furnace/black_steel", "firmages:arc_furnace/weak_red_steel"]
@@ -981,7 +983,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           ["types %s" % present, "ingot crushing %s" % ingot_crush[:8], "steel/bronze %s" % steel_dust])
     # C-6e: the rest of the fixed ORE_LADDER_REMOVALS list (recipes/age_6/ore_ladder.js): no Mekanism-family combiner
     # recipe makes an ore block, no Mekanism crusher crushes stone, gravel or sand, no More Machine silver chain
-    mek_ns = ("mekanism:", "moremekanismprocessing:", "mekmm:", "evolvedmekanism:", "mekatfc:", "extendedae:", "advanced_ae:")
+    mek_ns = ("mekanism:", "moremekanismprocessing:", "mekmm:", "evolvedmekanism:", "extendedae:", "advanced_ae:")
     comb_ore = sorted(r for r, j in full.items() if r.startswith(mek_ns) and j.get("type") == "mekanism:combining"
                       and re.search(r"(_ore|ancient_debris)$", str(j.get("output", {}).get("id", ""))))
     stone_crush = sorted(r for r, j in full.items() if r.startswith(mek_ns)
@@ -1089,19 +1091,40 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         check("C-G %s gear rule: no tool or armour of %s is made from another tool or armour (exceptions: MekaSuit, "
               "Meka-Tool, modules, backpack upgrades)" % (st, st), not ch, ch)
 
-    # ---- C-M: MekaTFC --------------------------------------------------------------------------------------------
-    log = os.path.join(server_dir, "logs", "latest.log")
-    parse_err = []
-    if os.path.isfile(log):
-        with open(log, encoding="utf-8", errors="replace") as f:
-            parse_err = [l.strip()[:200] for l in f if "mekatfc" in l and re.search(r"Parsing error|Couldn't parse|Failed to parse", l)]
+    # ---- C-M: the pack's osmium vein (replaces MekaTFC, 2026-10-13; startup_scripts/osmium.js, recipes/age_6/osmium.js) --
+    osm_pieces = [f"firmages:ore/{g}_native_osmium" for g in ("small", "poor", "normal", "rich")]
+    osm_blocks = [i for i in items if re.match(r"^firmages:ore/(poor|normal|rich)_native_osmium/[a-z]+$", i)]
+    gone_ns = sorted({i for i in items if i.startswith(("mekatfc:", "tfcoretooltips:", "tfc_ore_tooltips:"))})
     ladder = sorted(r for r in full if re.match(r"^firmages:(purifying|injecting|dissolution)/native_osmium_", r))
-    leftover = sorted(r for r in full if re.match(r"^mekatfc:(smelting|blasting|enriching|crushing)/ore/", r))
-    raw_tag = [i for i in tags.get("c:raw_materials/osmium", []) if i.startswith("mekatfc:")]
-    check("C-M MekaTFC: 0 parse errors, 12 grade recipes (3x/4x/5x), no furnace/enriching/crushing of ore pieces, "
-          "pieces out of c:raw_materials/osmium",
-          os.path.isfile(log) and not parse_err and len(ladder) == 12 and not leftover and not raw_tag,
-          parse_err[:5] + [f"ladder recipes {len(ladder)}", f"leftover {leftover}", f"raw tag {raw_tag}"])
+    ladder_in = sorted({json.dumps(full[r].get("item_input", {}).get("item")) for r in ladder})
+    # every recipe that eats an osmium piece: the 12 ladder recipes, TFC heating, the rich-piece spagyric, WoodenCog
+    # heated melting (generated from TFC heating) and nothing else (no furnace, enrichment or crusher 2x)
+    eaters = collections.defaultdict(set)
+    for r, sl, os_ in recs:
+        if any(members(x) & set(osm_pieces) for x in sl):
+            eaters[full[r].get("type", "")].add(r)
+    ok_types = {"mekanism:purifying", "mekanism:injecting", "mekanism:dissolution", "tfc:heating",
+                "theurgy:liquefaction", "woodencog:heated_mixing"}
+    bad_eaters = sorted(f"{t}: {sorted(rs)[:3]}" for t, rs in eaters.items() if t not in ok_types)
+    heat = sorted(r for r in full if full[r].get("type") == "tfc:heating"
+                  and full[r].get("result_fluid", {}).get("id") == "evolvedmekanism:molten_osmium")
+    cast = sorted(r for r in full if full[r].get("type") == "tfc:casting"
+                  and full[r].get("result", {}).get("id") == "mekanism:ingot_osmium")
+    weld = sorted(r for r in ("firmages:welding/osmium_double_ingot", "firmages:welding/steel_casing") if r in full)
+    raw_tag = [i for i in tags.get("c:raw_materials/osmium", []) + tags.get("c:ores/osmium", []) if i.startswith("firmages:")]
+    ages = {i: item_age.get(i) for i in osm_pieces + osm_blocks + ["firmages:metal/double_ingot/osmium"]}
+    bad_age = [f"{i}: {a_}" for i, a_ in ages.items()
+               if a_ != ("age_6" if i == "firmages:metal/double_ingot/osmium" else "age_5")]
+    check("C-M osmium vein: no MekaTFC or TFC Ore Tooltips id left; 30 ore blocks; 12 ladder recipes on the pack "
+          "pieces; pieces eaten only by the ladder, TFC heating and the spagyric; 7 heating recipes to molten osmium, "
+          "2 casting recipes to the Mekanism ingot, double ingot and steel casing welding; pieces and blocks out of "
+          "c:raw_materials/osmium and c:ores/osmium; pieces and blocks age_5, double ingot age_6",
+          not gone_ns and len(osm_blocks) == 30 and len(ladder) == 12 and len(ladder_in) == 4
+          and all("firmages:ore/" in x for x in ladder_in) and not bad_eaters and len(heat) == 7 and len(cast) == 2
+          and len(weld) == 2 and not raw_tag and not bad_age,
+          [f"leftover ids {gone_ns[:5]}", f"ore blocks {len(osm_blocks)}", f"ladder {len(ladder)} on {ladder_in}",
+           f"other consumers {bad_eaters}", f"heating {len(heat)}", f"casting {cast}", f"welding {weld}",
+           f"raw/ore tag {raw_tag}", f"wrong Age {bad_age[:5]}"])
 
     # ---- C-W: Mowzie's Mobs boss drops -------------------------------------------------------------------------
     mow = {"mowziesmobs:ice_crystal": "age_4", "mowziesmobs:music_disc_petiole": "age_4", "mowziesmobs:sculptor_staff": "age_5",

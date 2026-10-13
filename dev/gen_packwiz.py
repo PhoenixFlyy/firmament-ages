@@ -26,7 +26,6 @@ CORE_SLUGS_FILE = os.path.join(PLAN_TMP, "v3core_slugs.txt")
 S2B_ADDITIONS = {  # slug -> version named in research-raw/r3-mek-ie.md
     "mekanism-lasers": "1.1.10.3-c",
     "mekanism-neutron-activator": "1.21.1-1.0.0",
-    "mekatfc": "0.1.0",
     "mekanismmoremachine": "1.21.1-1.4.1",
 }
 # Doc section 9.2 libraries (40), slugs as resolved in v3core_out.json deps.

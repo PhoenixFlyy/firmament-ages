@@ -109,7 +109,6 @@ mekanismadditions = "age_6"
 mekanism_lasers = "age_6"
 mekmm = "age_6"                  # Mekanism: More Machine
 moremekanismprocessing = "age_6"
-mekatfc = "age_6"                # osmium ore pieces and blocks visible from age_5 ([ore_families])
 appmek = "age_6"
 ae2 = "age_6"
 extendedae = "age_6"
@@ -247,7 +246,7 @@ tier_4 = "age_8"
 "tfc_ie_addon:galena" = "age_4"          # lead, Industrial Age
 "tfc_ie_addon:bauxite" = "age_5"         # aluminium, Electric Age
 "tfc_ie_addon:uraninite" = "age_7"       # uranium, disguised until the Space Age
-"mekatfc:native_osmium" = "age_5"        # visible from age_5, Mekanism (and the ingot) in age_6
+"firmages:native_osmium" = "age_5"       # the pack vein (startup_scripts/osmium.js), visible from age_5; the ingot is age_6
 "firmalife:chromite" = "age_4"           # chromium is only used for stainless steel, which needs nickel (age_4)
 # A key with {rock} is a single-grade ore block per rock (no poor/normal/rich).
 "tfcreate:quartz_{rock}" = "age_2"       # nether quartz from the TFCreate quartz vein, Iron Age (section 8.1)

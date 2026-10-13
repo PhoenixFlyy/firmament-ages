@@ -1,0 +1,19 @@
+{
+  "ingredient": [
+    {
+      "item": "firmages:ore/small_native_osmium"
+    },
+    {
+      "item": "firmages:ore/poor_native_osmium"
+    },
+    {
+      "item": "firmages:ore/normal_native_osmium"
+    },
+    {
+      "item": "firmages:ore/rich_native_osmium"
+    }
+  ],
+  "heat_capacity": 1.1428572,
+  "forging_temperature": 738.0,
+  "welding_temperature": 984.0
+}

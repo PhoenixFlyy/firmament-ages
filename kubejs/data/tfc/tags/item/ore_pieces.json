@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "firmages:ore/poor_native_osmium",
+    "firmages:ore/normal_native_osmium",
+    "firmages:ore/rich_native_osmium"
+  ]
+}

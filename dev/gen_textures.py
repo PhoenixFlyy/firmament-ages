@@ -91,6 +91,8 @@ PAL = {
     "zinc": ["#3a4248", "#6a7680", "#9aa6b0", "#c0cad2", "#dde4ea"],
     "bismuth": ["#2e2432", "#5e5066", "#8e8096", "#b4a8bc", "#d4ccd8"],
     "bismuth_iris": ["#d47fa8", "#7fc4c0", "#e0b870", "#90a0e0", "#ffffff"],
+    # osmium (the pack vein): Mekanism's blue-grey metal; gangue in the ore pieces uses "stone"
+    "osmium": ["#1c2633", "#435a70", "#6f8aa3", "#9fbad1", "#d8e8f6"],
     # consecrated family: pale sky-marble, faint gold veins, lamp glass
     "marble": ["#8e8ba0", "#bdb9cc", "#dcd9e6", "#edebf4", "#fbfafe"],
     "vein": ["#c3a86c", "#d9c48c", "#eadcb2", "#f3e8c8", "#faf3dc"],
@@ -771,6 +773,154 @@ DUST = [
 ]
 item("dust/zinc", "dust", DUST, {**shade("zinc"), **legend(i=("zinc", 4))})
 item("dust/bismuth", "dust", DUST, {**shade("bismuth"), **legend(i=("bismuth_iris", 0), h=("bismuth_iris", 1))})
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Osmium (the pack vein, kubejs/startup_scripts/osmium.js): TFC-style ore pieces per grade, the small surface piece, the
+# double ingot, and one ore overlay per grade (KubeJS blocks, model tfc:block/ore = raw rock + overlay). Poor pieces
+# carry more grey gangue (s, g), rich pieces are bigger and brighter.
+# ---------------------------------------------------------------------------------------------------------------------
+OSMIUM_LEG = {**shade("osmium"), **legend(s=("stone", 1), g=("stone", 2))}
+item("ore/small_native_osmium", "osmium", [
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    ".......oo.......",
+    "......ohlo......",
+    ".....ohmgdo.....",
+    ".....olmmdo.....",
+    "......oddo......",
+    ".......oo.......",
+    "................",
+    "................",
+    "................",
+    "................",
+], OSMIUM_LEG)
+item("ore/poor_native_osmium", "osmium", [
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "......ooo.......",
+    "....oogslo......",
+    "...osgmlhlo.....",
+    "...ogsmmlgso....",
+    "..osmmgsmmdo....",
+    "..ogsddmgsdo....",
+    "...oodsgddo.....",
+    ".....ooooo......",
+    "................",
+    "................",
+    "................",
+], OSMIUM_LEG)
+item("ore/normal_native_osmium", "osmium", [
+    "................",
+    "................",
+    "................",
+    ".....oooo.......",
+    "...oohlmgoo.....",
+    "..ohlmmsgmdo....",
+    "..olmgsmmmmdo...",
+    ".ohlmmmlhmgdo...",
+    ".olsgmmmmmmddo..",
+    ".olmmmdgsmmddo..",
+    "..odmmmmmmdddo..",
+    "..oddgsmmddoo...",
+    "...oodddddo.....",
+    ".....ooooo......",
+    "................",
+    "................",
+], OSMIUM_LEG)
+item("ore/rich_native_osmium", "osmium", [
+    "................",
+    "................",
+    "....ooooo.......",
+    "..oohhllmoo.....",
+    ".ohllmmmmmdoo...",
+    ".ohlmmhlmmmmdo..",
+    "ohlmmlhmmmmmddo.",
+    "olmmmmmmlhmmddo.",
+    "olmmgsmmmlmmddo.",
+    "olmmmmmmmmmdddo.",
+    ".odmmmmmmmddddo.",
+    ".oddmmmmddddoo..",
+    "..ooddddddoo....",
+    "....oooooo......",
+    "................",
+    "................",
+], OSMIUM_LEG)
+
+INGOT = [  # 7 rows, light from the top-left
+    "....oooooooooo..",
+    "..oohhhhhhhhhlo.",
+    "oohllllllllllldo",
+    "olmmmmmmmmmmmddo",
+    "odmmmmmmmmmdddo.",
+    "oddddddddddddo..",
+    ".ooooooooooooo..",
+]
+
+
+def paint(img, rows, leg, ox, oy):
+    px = img.load()
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch != "." and 0 <= x + ox < 16 and 0 <= y + oy < img.height:
+                px[x + ox, y + oy] = leg[ch]
+
+
+def _double_ingot():
+    img = new_tex()
+    leg = shade("osmium")
+    paint(img, INGOT, leg, 0, 3)   # back ingot
+    paint(img, INGOT, leg, 0, 8)   # front ingot, drawn over the back one
+    return img
+
+
+ITEMS["metal/double_ingot/osmium"] = ("osmium", _double_ingot, None)
+
+KJS_BLOCKS = {}  # texture path under kubejs/assets/firmages/textures/block -> (label, builder)
+OSMIUM_SPECKS = {"poor": 5, "normal": 8, "rich": 12}  # ore clusters per overlay
+
+
+def ore_overlay(grade):
+    """Transparent 16x16: osmium clusters (light top pixel, mid body) with a dark rim that sits on the rock texture."""
+    rng = random.Random("osmium_overlay_" + grade)
+    t = tones("osmium")
+    img = new_tex()
+    px = img.load()
+    taken = set()
+    for _ in range(OSMIUM_SPECKS[grade]):
+        for _try in range(40):
+            x, y = rng.randrange(1, 15), rng.randrange(1, 15)
+            if all(abs(x - a) > 2 or abs(y - b) > 2 for a, b in taken):
+                break
+        cluster = [(x, y)]
+        for _step in range(rng.randint(2, 4 if grade == "poor" else 5)):
+            cx, cy = rng.choice(cluster)
+            nx, ny = cx + rng.choice((-1, 0, 1)), cy + rng.choice((-1, 0, 1))
+            if 0 <= nx < 16 and 0 <= ny < 16 and (nx, ny) not in cluster:
+                cluster.append((nx, ny))
+        taken |= set(cluster)
+        top = min(cluster, key=lambda p: (p[1], p[0]))
+        for c in cluster:
+            px[c] = t[2]
+        px[top] = t[4] if grade == "rich" else t[3]
+        if len(cluster) > 3:
+            px[cluster[1]] = t[3]
+        for cx, cy in cluster:  # dark rim below and right of the cluster
+            for nx, ny in ((cx + 1, cy), (cx, cy + 1)):
+                if 0 <= nx < 16 and 0 <= ny < 16 and (nx, ny) not in cluster and px[nx, ny][3] == 0:
+                    px[nx, ny] = t[0] if rng.random() < 0.6 else t[1]
+    return img
+
+
+for _g in ("poor", "normal", "rich"):
+    KJS_BLOCKS[f"ore/{_g}_native_osmium"] = (f"{_g} overlay", (lambda g=_g: ore_overlay(g)))
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Block tiles. Each entry: name -> builder() returning a 16x16 (or 16 x 16*frames) RGBA image, plus optional mcmeta.
@@ -1488,6 +1638,10 @@ def generate():
         out = KJS_TEX / "item" / (path + ".png")
         write_with_meta(builder(), out, mcmeta)
         written.append(out)
+    for name, (label, builder) in KJS_BLOCKS.items():
+        out = KJS_TEX / "block" / (name + ".png")
+        write_png(builder(), out)
+        written.append(out)
     for table in (BLOCKS, CONSECRATED):
         for name, (label, builder, mcmeta) in table.items():
             out = MOD_TEX / "block" / (name + ".png")
@@ -1522,6 +1676,8 @@ def sheet(scale=8, cols=5):
         entries.append((path, age, KJS_TEX / "item" / (path + ".png"), mcmeta))
     for name, (label, builder, mcmeta) in BLOCKS.items():
         entries.append((name, label, MOD_TEX / "block" / (name + ".png"), mcmeta))
+    for name, (label, builder) in KJS_BLOCKS.items():
+        entries.append((name, label, KJS_TEX / "block" / (name + ".png"), None))
     font = ImageFont.load_default(size=11)
     title_font = ImageFont.load_default(size=14)
     cell = 16 * scale
@@ -1654,8 +1810,10 @@ def check():
         im = MOD_ASSETS / "models" / "item" / p.name
         if not im.exists():
             errors.append(f"block {p.stem}: no item model models/item/{p.name}")
-    # 4. KubeJS items: every registered id needs textures/item/<path>.png (KubeJS generates the model)
-    ids = re.findall(r"event\.create\('firmages:([^']+)'", ITEMS_JS.read_text(encoding="utf-8"))
+    # 4. KubeJS items: every id registered with a literal create('firmages:...') in a startup script (items.js, and
+    # the small osmium piece in osmium.js) needs textures/item/<path>.png (KubeJS generates the model)
+    ids = [i for js in sorted(ITEMS_JS.parent.glob("*.js"))
+           for i in re.findall(r"event\.create\('firmages:([^']+)'", js.read_text(encoding="utf-8"))]
     for path in ids:
         model = KJS_ASSETS / "models" / "item" / (path + ".json")
         f = KJS_TEX / "item" / (path + ".png")
@@ -1663,10 +1821,29 @@ def check():
             continue  # its textures were checked in step 1
         referenced.add(f.resolve())
         if not f.exists():
-            errors.append(f"items.js: firmages:{path} has no texture {f.relative_to(ROOT)}")
+            errors.append(f"startup_scripts: firmages:{path} has no texture {f.relative_to(ROOT)}")
+    # 4b. texture ids named in the startup scripts (KubeJS block builders); "${...}" in a template matches any part
+    patterns = []
+    for p in sorted((ROOT / "kubejs" / "startup_scripts").glob("*.js")):
+        for m in re.finditer(r"[`'](firmages:(?:block|item)/[^`'\s]+)[`']", p.read_text(encoding="utf-8")):
+            ref = m.group(1)
+            if "${" in ref:
+                parts = re.split(r"\$\{[^}]*\}", ref)
+                patterns.append(re.compile("^" + "[a-z0-9_]+".join(re.escape(x) for x in parts) + "$"))
+                continue
+            f = tex_file(ref)
+            referenced.add(f.resolve())
+            if not f.exists():
+                errors.append(f"{p.relative_to(ROOT)}: texture {ref} missing ({f.relative_to(ROOT)})")
+    for name in KJS_BLOCKS:
+        f = KJS_TEX / "block" / (name + ".png")
+        if any(pt.match("firmages:block/" + name) for pt in patterns):
+            referenced.add(f.resolve())
+        if not f.exists():
+            errors.append(f"{f.relative_to(ROOT)}: drawn by gen_textures.py but not written (run without --check)")
     for path in ITEMS:
         if path not in ids:
-            warnings.append(f"gen_textures.py draws firmages:{path} but items.js does not register it")
+            warnings.append(f"gen_textures.py draws firmages:{path} but no startup script registers it")
     # 5. every PNG: 16 wide, height 16 or n*16 with .mcmeta; orphans; mcmeta shape and LF
     for root in (MOD_TEX, KJS_TEX):
         if not root.exists():
