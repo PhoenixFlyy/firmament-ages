@@ -749,6 +749,10 @@ file = "kubejs/data/c/tags/item/double_ingots/osmium.json"
 hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
+file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
+hash = "21f14dc83b702b08ae59588e7f304bef698cd72de86e5417f045cd5560a59ac7"
+
+[[files]]
 file = "kubejs/data/create/neoforge/biome_modifier/striated_ores_nether.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
@@ -994,51 +998,51 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "c353a7170ffe9964460984db774ce24caf1bc45a21a576c0b851ac3c46e55e17"
+hash = "f4035af4a2d7bee6f7e5bcca34e63dea740620da4b7609394dc267486b9e81d4"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "beee1fa1dbd11e7851048bf1e9a006041bb52e2f0bbbf94d00bae347d9174f2b"
+hash = "1f0b2314b3dcad207f9931c95c86d690de28f46105af1e12027dca7eccc4519a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "df250ad12254c1b413f6c9bb09f3d0dcf5f6da3b55c17f718adfce2942759431"
+hash = "65e5acbd4e34f191e5b9b220268cc351d304ce6b4cc5797c5fc978b4ecf89b04"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "ff2a0e236579c9504bff2089fd1c1b4275bd1f43f8879f21499e878f9756d259"
+hash = "a37d86b0887bd3e8c8bcb65645d9aa18a3a57455b40e696d43f7309dcac68026"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "191ba7fdf3e3eaba601e047895427cf23e4008a9e6e8bf8800e9b9c313e99ea6"
+hash = "0932c4362dcd9ab3eb1cd21d63fae386d2b347dec3b98e6f02d35fdd65f4c61d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "96703136464e83ff30fa2549213086ae784940abe9240a8b34d61af152419037"
+hash = "29e154ef13742fb56bd30c919d988597af1558ed283d732fd833e2bcb61669f7"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "ca9fc7943f13456b64c4783d0f2b2f1e4169ed7bfdf6dd2decb82eb713c0d797"
+hash = "d279c575e1c057adeb5df559e41af27316545eef86674503e63dd86437abea61"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "2bad69c5c5f98711ddfe08220acf8fcc28705dbc0af4376b43517ce83322677d"
+hash = "5e5bf6235efdf3f19cc3c769d96e2dfdd3de3bf413f66612003e098f3986f004"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "adc595b62652beea7a3e89d65e9c75be8c93c2c92f37e46f10fc4fd7c214cd90"
+hash = "6bd8b437e5405e0d3b8a602a405940549d376ddc5a448d89420b84d35a1d4913"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "466567ac64de39088b12acdedd0291521cdae9451ab12dbae74efcb8bb014445"
+hash = "413e67d06a2db263b1be4a0efe52960c5c3a4fdb37d8ad67cc009cf797b5d98d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "9796069e86d71f9eb187285987658460d6b9aefeadb5f0752e038281df9e3fdd"
+hash = "2c8cc8dc9880d1e8ba685d865abf5fd755f4fa1ff6aa9108f9ff0557dca11325"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "3b9973c748798edd832b8e90055ef1bb90b8ef7f834d285dc7e63b56718ad44e"
+hash = "68a99f7d1b18444973fff0acf8501bbc82e38d8c2489faf05eea91356cb2702b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
