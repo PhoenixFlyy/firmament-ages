@@ -17,6 +17,7 @@
     {"id": "advanced_ae:quantum_chestplate", "required": false},
     {"id": "advanced_ae:quantum_helmet", "required": false},
     {"id": "advanced_ae:quantum_leggings", "required": false},
+    {"id": "advanced_ae:strength_card", "required": false},
     {"id": "ae2:vibration_chamber", "required": false},
     {"id": "ars_additions:stabilized_warp_index", "required": false},
     {"id": "ars_additions:warp_index", "required": false},

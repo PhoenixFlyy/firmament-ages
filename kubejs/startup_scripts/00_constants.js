@@ -241,9 +241,9 @@ global.FA = {
     'evolvedmekanism:ultimate_solar_generator',
     // AE2: Vibration Chamber
     'ae2:vibration_chamber',
-    // AdvancedAE: Quantum Armor
+    // AdvancedAE: Quantum Armor and the strength card (it only upgrades the Quantum Armor)
     'advanced_ae:quantum_boots', 'advanced_ae:quantum_chestplate', 'advanced_ae:quantum_helmet',
-    'advanced_ae:quantum_leggings',
+    'advanced_ae:quantum_leggings', 'advanced_ae:strength_card',
     // Draconic Evolution: Energy Core and its stabilizer and pylon, the crystal network, generator, mob grinder, stabilized spawner, draconium chest, disenchanter, the dislocator portal blocks, the energy-link modules of the crystal network (the flux gate and the reactor stay)
     'draconicevolution:basic_io_crystal', 'draconicevolution:basic_relay_crystal',
     'draconicevolution:basic_wireless_crystal', 'draconicevolution:crystal_binder', 'draconicevolution:disenchanter',

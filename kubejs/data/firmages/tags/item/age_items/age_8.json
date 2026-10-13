@@ -157,7 +157,6 @@
     {"id": "advanced_ae:sprint_speed_card", "required": false},
     {"id": "advanced_ae:step_assist_card", "required": false},
     {"id": "advanced_ae:stock_export_bus_part", "required": false},
-    {"id": "advanced_ae:strength_card", "required": false},
     {"id": "advanced_ae:swim_speed_card", "required": false},
     {"id": "advanced_ae:throughput_monitor", "required": false},
     {"id": "advanced_ae:throughput_monitor_configurator", "required": false},

@@ -115,10 +115,8 @@ ServerEvents.recipes((event) => {
   // of the certus wrench.
   ;['axe', 'hoe', 'pickaxe', 'shovel', 'sword'].forEach((s) => swap(`ae2:tools/fluix_${s}`, `#ae2:quartz_${s}`, '#c:gems/certus_quartz'))
   swap('ae2:tools/network_tool', '#ae2:quartz_wrench', '#c:gems/certus_quartz')
-  // The strength card eats four swords; the two vanilla ones become the TFC blade of the MAP rule (diamond -> steel,
-  // netherite -> black steel), the two AE2 swords stay (craftable, same Age).
-  swap('advanced_ae:strength_card', 'minecraft:diamond_sword', part('steel', 'sword'))
-  swap('advanced_ae:strength_card', 'minecraft:netherite_sword', part('black_steel', 'sword'))
+  // The AdvancedAE strength card is disabled with the Quantum Armor it upgrades (age_map [hidden]); the gate removes
+  // its recipe.
 
   // ======================================================================================== Ad Astra
   // Doc 08 section 8: the Netherite Space Suit and the Jet Suit are direct, from the plates of their tier and

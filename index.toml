@@ -706,7 +706,7 @@ hash = "2bad69c5c5f98711ddfe08220acf8fcc28705dbc0af4376b43517ce83322677d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "1cc5e995c0f73c5a270f2ac3ec56e3ede3329c145d86b26448e604ac8807c7c7"
+hash = "adc595b62652beea7a3e89d65e9c75be8c93c2c92f37e46f10fc4fd7c214cd90"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -718,7 +718,7 @@ hash = "d4b2396280745bbe4efb9985021b1ad82f5cb492b90e2dd7213652facb04b30c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "a6617baaa95fb9ed15cbae792915b6392920eba02fd829790129bb2fd9f86c98"
+hash = "3b9973c748798edd832b8e90055ef1bb90b8ef7f834d285dc7e63b56718ad44e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -946,7 +946,7 @@ hash = "89b87005fb6e2ef07eeb789b837ab91708089593e4583dd3a08f7d9799e3b8b1"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/gear_rule.js"
-hash = "afbab765c680097a31ed76affb886b44f63aa1c666358c75e68716e7b13ae71d"
+hash = "b87703b0698f72e966e9e339ca0fb998ddcce52d0dd0f249cc4a3281a28f2f5f"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
@@ -998,7 +998,7 @@ hash = "4935515dc98c0d9920d6731c771b1d0cce0838e9e0f01a68a562eabd4e81bd0c"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "f966b162d4911935ec43ff1e175b577ea17f00ec11241acaf0b20ab4cc09f221"
+hash = "531218ab6c108dd803b3aef472f9531154e0c186df7ab32184cdd3ed3783b6ca"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
