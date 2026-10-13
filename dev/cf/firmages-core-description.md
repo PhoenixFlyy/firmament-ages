@@ -33,7 +33,7 @@ Optional (the mod hooks into them when they are present):
 
 ## Configuration
 
-`config/firmages-server.toml` (gate, warm-up reload, miner filter, prospecting, shrine, blessings, ceremony timing, debug commands) and `config/firmages-client.toml` (ceremony visuals and music).
+`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, debug commands) and `config/firmages-client.toml` (ceremony visuals and music).
 
 ## Source and license
 
@@ -41,7 +41,12 @@ MIT License. Source: the `mod/firmages-core` folder of the pack repository, [git
 
 ## Changelog
 
-**0.6.1** (first CurseForge release)
+**0.6.2** (first CurseForge release)
+
+- Granting an Age no longer stalls the server once per stage change and player. ProgressiveStages resynced every team member with a full lock sync for each stage the grant script added or removed; the mod now collects those syncs and sends one lock sync and one stage sync per player at the end of the tick (`sync.coalesce`, on by default).
+- The headless debug players log the ProgressiveStages lock and stage syncs they receive, and GameTests can read the order of their packets.
+
+**0.6.1**
 
 - Warm-up reload: a dedicated server runs one Age reload right after it starts, while nobody is online, so the first reload players wait for is not the slow cold one (`gate.warmupReload`, `gate.warmupDelayTicks`).
 - Joining a world, changing dimension or respawning sends the ProgressiveStages lock sync once instead of twice.

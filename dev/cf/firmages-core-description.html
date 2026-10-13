@@ -9,11 +9,13 @@
 <p>Optional (the mod hooks into them when they are present):</p>
 <ul><li>KubeJS (binding <code>FirmAges</code>), FTB Teams (one-team guard)</li><li>Create, Immersive Engineering, Mekanism, Occultism, Ars Nouveau, TerraFirmaCraft, Applied Energistics 2 (recipe readers and miner hooks)</li><li>Draconic Evolution with Brandon's Core and CodeChicken Lib (reactor controller)</li><li>Stargate Journey (The Origin's gate)</li><li>Jade (shrine tooltips)</li></ul>
 <h2>Configuration</h2>
-<p><code>config/firmages-server.toml</code> (gate, warm-up reload, miner filter, prospecting, shrine, blessings, ceremony timing, debug commands) and <code>config/firmages-client.toml</code> (ceremony visuals and music).</p>
+<p><code>config/firmages-server.toml</code> (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, debug commands) and <code>config/firmages-client.toml</code> (ceremony visuals and music).</p>
 <h2>Source and license</h2>
 <p>MIT License. Source: the <code>mod/firmages-core</code> folder of the pack repository, <a href="https://github.com/PhoenixFlyy/firmament-ages/tree/main/mod/firmages-core">github.com/PhoenixFlyy/firmament-ages</a>. Issues go to the <a href="https://github.com/PhoenixFlyy/firmament-ages/issues">pack's issue tracker</a>. The textures are generated pixel art made for this mod.</p>
 <h2>Changelog</h2>
-<p><strong>0.6.1</strong> (first CurseForge release)</p>
+<p><strong>0.6.2</strong> (first CurseForge release)</p>
+<ul><li>Granting an Age no longer stalls the server once per stage change and player. ProgressiveStages resynced every team member with a full lock sync for each stage the grant script added or removed; the mod now collects those syncs and sends one lock sync and one stage sync per player at the end of the tick (<code>sync.coalesce</code>, on by default).</li><li>The headless debug players log the ProgressiveStages lock and stage syncs they receive, and GameTests can read the order of their packets.</li></ul>
+<p><strong>0.6.1</strong></p>
 <ul><li>Warm-up reload: a dedicated server runs one Age reload right after it starts, while nobody is online, so the first reload players wait for is not the slow cold one (<code>gate.warmupReload</code>, <code>gate.warmupDelayTicks</code>).</li><li>Joining a world, changing dimension or respawning sends the ProgressiveStages lock sync once instead of twice.</li><li>Builds against ProgressiveStages 3.0.6, Stargate Journey 0.6.51 and Occultism 1.224.5; the 3.0.5 lower bound for ProgressiveStages stays.</li></ul>
 <p><strong>0.6.0</strong></p>
 <ul><li>Consecration: when Caelum accepts a ring, its blocks turn into one consecrated family (sky marble with one colour accent per Age), from the heart outward. Consecrated blocks are unbreakable; sneak and punch the heart with an empty hand for 60 s of maintenance, then they break and drop their original material. Rings built before the update are consecrated when the shrine next checks them.</li><li>Textures v2: redrawn items, animated signature items and altar top, the consecrated block family.</li><li>MIT License.</li></ul>

@@ -33,14 +33,14 @@ Optional. `dev/cf/gallery/03-shrine-quantum-age.png` (the shrine) and `dev/cf/ga
 
 | Field | Value |
 |---|---|
-| File | `mods/firmages-core-0.6.1.jar` (byte-identical to `mod/firmages-core/build/libs/firmages-core-0.6.1.jar` from `gradlew build`) |
-| Display name | `firmages-core 0.6.1` |
+| File | `mods/firmages-core-0.6.2.jar` (byte-identical to `mod/firmages-core/build/libs/firmages-core-0.6.2.jar` from `gradlew build`) |
+| Display name | `firmages-core 0.6.2` |
 | Release type | Beta |
 | Game version | 1.21.1 |
 | Mod loader | NeoForge |
 | Java version | Java 21 |
 | Environment | Client and server (both) |
-| Changelog | the entries **0.6.1** and **0.6.0** from the changelog in `dev/cf/firmages-core-description.md` (Markdown) |
+| Changelog | the entries **0.6.2** and **0.6.1** from the changelog in `dev/cf/firmages-core-description.md` (Markdown) |
 
 ## Relations (on the file)
 
@@ -56,7 +56,7 @@ Optional. `dev/cf/gallery/03-shrine-quantum-age.png` (the shrine) and `dev/cf/ga
 2. In the repo root:
    ```
    tools\packwiz.exe curseforge add --addon-id <project id> --file-id <file id>
-   del mods\firmages-core-0.6.1.jar
+   del mods\firmages-core-0.6.2.jar
    tools\packwiz.exe refresh
    ```
    Answer the dependency prompts with `n` (every dependency is already in the pack). Commit `mods/firmages-core.pw.toml`, `index.toml`, `pack.toml`.

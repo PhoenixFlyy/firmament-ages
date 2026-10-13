@@ -48,7 +48,7 @@ All gallery images are 1920 x 1080 and generated from the pack's shrine data and
 
 ## Upload File (the modpack zip)
 
-Build the zip first: `tools\packwiz.exe refresh` then `python dev\cf\export_cf.py` writes `dev\exports\FirmamentAges-0.6.2-curseforge-upload.zip`. The script lists every jar in `overrides/`; expected: only `firmages-core-0.6.1.jar` until the mod project is approved, then none.
+Build the zip first: `tools\packwiz.exe refresh` then `python dev\cf\export_cf.py` writes `dev\exports\FirmamentAges-0.6.2-curseforge-upload.zip`. The script lists every jar in `overrides/`; expected: only `firmages-core-0.6.2.jar` until the mod project is approved, then none.
 
 | Field | Value |
 |---|---|
