@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Firmament Ages - offline check of the FancyMenu title, pause and loading screens.
+"""Firmament Ages - offline check of the FancyMenu title, pause and loading screens and of the shader defaults.
 
 Static proof for config/fancymenu/ (FancyMenu 3.9.14, Drippy 3.1.5, MC 1.21.1, NeoForge 21.1.252):
   menus      customizablemenus.txt enables TitleScreen, PauseScreen and Drippy's DrippyOverlayScreen
@@ -18,8 +18,12 @@ Static proof for config/fancymenu/ (FancyMenu 3.9.14, Drippy 3.1.5, MC 1.21.1, N
              the text (scroll border + text_border + glyph + shadow), and at 1920x1080 and 2560x1440 with GUI
              scale 2, 3 and auto it stays on screen and clear of the buttons, the wordmark and the copyright line;
              the pause buttons stay on screen and below the "Game Menu" title
+  shaders    config/defaultoptions/extra/config/iris.properties turns shaders on with a shaderPack that has a metafile
+             in shaderpacks/ (same filename); config/irisblockcompat-common.toml disables shaders in firmages:origin
+             and in every Ad Astra dimension (data/ad_astra/dimension/*.json of the Ad Astra jar in the CurseForge
+             instance, or --adastra-jar) and keeps its waving list empty (Complementary maps that id to light sources)
 
-Usage: python dev/check_menus.py [--jar PATH_TO_FANCYMENU_JAR]
+Usage: python dev/check_menus.py [--jar PATH_TO_FANCYMENU_JAR] [--adastra-jar PATH_TO_AD_ASTRA_JAR]
 With --jar (or the jar found in the CurseForge instance), every KNOWN id is also searched in the jar's classes.
 Exit code 0 = all checks pass.
 """
@@ -27,6 +31,7 @@ import argparse
 import math
 import re
 import sys
+import tomllib
 import zipfile
 from pathlib import Path
 
@@ -35,6 +40,10 @@ FM = ROOT / "config" / "fancymenu"
 LAYOUTS = FM / "customization"
 MENU_BUTTONS = ROOT / "mod" / "firmages-core" / "src" / "main" / "java" / "dev" / "firmages" / "core" / "client" / "immersion" / "MenuButtons.java"
 DEFAULT_JAR = Path("C:/Users/Felix/curseforge/minecraft/Instances/Firmament Ages/mods/fancymenu_neoforge_3.9.14_MC_1.21.1.jar")
+INSTANCE_MODS = DEFAULT_JAR.parent
+IRIS_PROPERTIES = ROOT / "config" / "defaultoptions" / "extra" / "config" / "iris.properties"
+BLOCK_COMPAT = ROOT / "config" / "irisblockcompat-common.toml"
+ORIGIN_DIM = "firmages:origin"
 
 # Ids FancyMenu 3.9.14 assigns on MC 1.21.1 [javap]. Title: TitleScreenWidgetIdentificationContext (translation key of
 # the widget label) and MixinTitleScreen (RendererWidget ids, copyright PlainTextButton). Pause: MixinPauseScreen sets
@@ -133,11 +142,53 @@ def overlap(a, b):
     return a[0] < b[0] + b[2] and b[0] < a[0] + a[2] and a[1] < b[1] + b[3] and b[1] < a[1] + a[3]
 
 
+def check_shaders(adastra_jar, errors, notes):
+    """Shaders on by default (Iris), off in the Origin and in every Ad Astra dimension (Iris Block Compat)."""
+    if not IRIS_PROPERTIES.exists():
+        errors.append(f"{IRIS_PROPERTIES.relative_to(ROOT).as_posix()} missing (Default Options copies it once)")
+    else:
+        props = dict(line.split("=", 1) for line in IRIS_PROPERTIES.read_text(encoding="utf-8").splitlines()
+                     if "=" in line and not line.startswith("#"))
+        if props.get("enableShaders") != "true":
+            errors.append("iris.properties: enableShaders is not true")
+        pack = props.get("shaderPack", "")
+        metas = {tomllib.loads(f.read_text(encoding="utf-8"))["filename"]: f
+                 for f in (ROOT / "shaderpacks").glob("*.pw.toml")}
+        if pack not in metas:
+            errors.append(f"iris.properties: shaderPack '{pack}' has no metafile in shaderpacks/ ({sorted(metas)})")
+        else:
+            notes.append(f"default shader pack {pack} -> shaderpacks/{metas[pack].name}")
+    if not BLOCK_COMPAT.exists():
+        errors.append(f"{BLOCK_COMPAT.relative_to(ROOT).as_posix()} missing")
+        return
+    cfg = tomllib.loads(BLOCK_COMPAT.read_text(encoding="utf-8"))
+    disabled = set(cfg.get("disabledDimensions", []))
+    if cfg.get("wavingBlocks") != []:
+        errors.append("irisblockcompat-common.toml: wavingBlocks must stay [] (id 10031 glows under Complementary)")
+    if ORIGIN_DIM not in disabled:
+        errors.append(f"irisblockcompat-common.toml: {ORIGIN_DIM} not in disabledDimensions")
+    jar = adastra_jar or next(iter(sorted(INSTANCE_MODS.glob("adastra-*-neoforge.jar"))), None)
+    if not jar or not jar.exists():
+        errors.append("Ad Astra jar not found: dimensions not checked (pass --adastra-jar)")
+        return
+    with zipfile.ZipFile(jar) as z:
+        dims = sorted("ad_astra:" + n[len("data/ad_astra/dimension/"):-len(".json")] for n in z.namelist()
+                      if re.fullmatch(r"data/ad_astra/dimension/[a-z0-9_]+\.json", n))
+    if not dims:
+        errors.append(f"{jar.name}: no data/ad_astra/dimension/*.json found")
+    for d in dims:
+        if d not in disabled:
+            errors.append(f"irisblockcompat-common.toml: Ad Astra dimension {d} not in disabledDimensions")
+    notes.append(f"shaders off in {ORIGIN_DIM} and the {len(dims)} Ad Astra dimensions of {jar.name}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--jar", type=Path, default=None, help="FancyMenu 3.9.14 jar to cross-check the KNOWN ids")
+    ap.add_argument("--adastra-jar", type=Path, default=None, help="Ad Astra jar whose dimensions need shaders off")
     args = ap.parse_args()
     errors, notes = [], []
+    check_shaders(args.adastra_jar, errors, notes)
 
     # menus
     cm = (FM / "customizablemenus.txt").read_text(encoding="utf-8")

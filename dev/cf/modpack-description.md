@@ -75,6 +75,10 @@ Firmament Ages Core (firmages-core), the pack's own mod, runs the Ages: the shar
 
 The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmament Ages Core, are released under the MIT License (the `LICENSE` file of the source repository). Every other mod belongs to its authors and keeps its own license; the credits below name each one.
 
+## Shaders
+
+Firmament Ages starts with shaders turned on: it uses Complementary Shaders – Reimagined (r5.9.3) by EminGT and Complementary Development, unmodified and installed through CurseForge's own system ([complementary.dev](https://www.complementary.dev/), [CurseForge](https://www.curseforge.com/minecraft/shaders/complementary-reimagined)). Any problem caused by using it in this modpack is the modpack's responsibility, so please report it to us and not to Complementary. For weaker PCs the pack also includes MakeUp – Ultra Fast by XavierFST (LGPL-3.0); press O in game to switch shader packs or to turn shaders off. Shaders switch off by themselves on Ad Astra planets and in the Origin.
+
 ## Credits
 
 <!-- credits:start -->

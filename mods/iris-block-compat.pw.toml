@@ -1,0 +1,13 @@
+name = "Iris Block Compat"
+filename = "irisblockcompat-1.21.1-1.1.0.jar"
+side = "client"
+
+[download]
+hash-format = "sha1"
+hash = "ad6d2deb0ca4a1cfb6b8013f038707cfd8dabe0e"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 6340508
+project-id = 1223301

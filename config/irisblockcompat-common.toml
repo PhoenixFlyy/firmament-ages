@@ -1,0 +1,12 @@
+#List of blocks and/or block tags that will be included as waving grass-like.
+wavingBlocks = []
+#List of blocks and/or block tags that will be included as leaves.
+leavesBlocks = ["#minecraft:leaves"]
+#List of blocks and/or block tags that will be included as crops.
+cropsBlocks = []
+#List of blocks and/or block tags that will be excluded from the other lists.
+excludeBlocks = ["#minecraft:saplings", "minecraft:melon", "minecraft:pumpkin", "minecraft:carved_pumpkin", "minecraft:jack_o_lantern", "minecraft:chorus_plant", "minecraft:chorus_flower"]
+#List of dimensions where shaders should not be used.
+disabledDimensions = ["ad_astra:earth_orbit", "ad_astra:moon", "ad_astra:moon_orbit", "ad_astra:mars", "ad_astra:mars_orbit", "ad_astra:venus", "ad_astra:venus_orbit", "ad_astra:mercury", "ad_astra:mercury_orbit", "ad_astra:glacio", "ad_astra:glacio_orbit", "firmages:origin"]
+#Enable optionally specifying different shader settings per dimension.
+enablePerDimensionShaders = true

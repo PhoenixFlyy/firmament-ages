@@ -33,6 +33,7 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 | . (period) | Tom's Storage terminal | `key.toms_storage.open_terminal` |
 | , (comma) | Physics Staff rotate mode (Create Simulated; its default Tab clashed with the player list) | `simulated.keyinfo.rotate_mode` |
 | H (hold) | Show the Age indicator (firmages-core HUD) | `key.firmages.show_age` |
+| O | Shader pack menu (Iris: switch pack, settings, shaders on/off) | `iris.keybind.shaderPackSelection` |
 | Tab | Player list (vanilla, kept) | `key.playerlist` |
 
 ## Alt combos (late-Age tools and secondary functions)
@@ -58,7 +59,9 @@ Create Big Cannons pitch, Draconic tool config and place item, Sophisticated Bac
 Forest map cycle, hotbar swap and zoom, Astikor slow, Ad Astra radio and suit flight, Occultism ender bag and storage
 remote, Mekanism Additions voice, ExtendedAE view pattern, Jade overlay toggle, config, show recipes and show uses
 (keypad keys; they could open the recipe viewer during Dawn), IE railgun zoom (middle mouse clashed with pick block),
-Create Mobile Packages player networks.
+Create Mobile Packages player networks, Iris reload shaders (R, clashed with the Astikor cart action), Iris
+shaders on/off (K, clashed with the quest book; the O menu has the same toggle) and Iris wireframe (unbound in
+Iris too).
 
 Hold-modifier bindings that share Left Shift / Left Control (Jade details, Apotheosis compare, Hypertube escape,
 Mekanism details, AE2 wheel modifier, Create modifiers) are left alone: they only act while held inside a GUI.

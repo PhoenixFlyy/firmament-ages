@@ -1,12 +1,14 @@
 """Build the CurseForge upload zip: dev/exports/FirmamentAges-<version>-curseforge-upload.zip
 
-Why not plain `packwiz curseforge export` in the repo: six mods stay Modrinth metafiles in mods/ because their
+Why not plain `packwiz curseforge export` in the repo: seven mods stay Modrinth metafiles in mods/ because their
 CurseForge files are excluded from third-party downloads (packwiz-installer could not fetch them for the friends'
-Prism instances and the server). Their CurseForge metafiles live in dev/cf/swap/. This script copies the served pack
-into dev/exports/cf-work/upload-pack/, replaces each Modrinth metafile whose jar filename matches a swap file by
-that CurseForge metafile, refreshes the copy and exports it with `-s both` (server-only mods such as LootJS and
-TFC Ruins must be in a CurseForge install, which also runs single player). The manifest is packwiz's own output,
-nothing is edited by hand.
+Prism instances and the server). The Complementary Reimagined shader pack stays a Modrinth metafile in shaderpacks/,
+because its license forbids a direct file upload and the .mrpack would carry a CurseForge file in overrides/.
+Their CurseForge metafiles live in dev/cf/swap/. This script copies the served pack into
+dev/exports/cf-work/upload-pack/, replaces each Modrinth metafile in mods/ or shaderpacks/ whose filename matches a
+swap file by that CurseForge metafile (same folder), refreshes the copy and exports it with `-s both` (server-only
+mods such as LootJS and TFC Ruins must be in a CurseForge install, which also runs single player). The manifest is
+packwiz's own output, nothing is edited by hand.
 
 Usage: python dev/cf/export_cf.py
 Prints the manifest count and every jar that ends up in overrides/ (must be only approved or own jars).
@@ -41,12 +43,12 @@ def main():
     swapped = []
     for cf in sorted(SWAP.glob("*.pw.toml")):
         cf_data = tomllib.loads(cf.read_text(encoding="utf-8"))
-        for mr in (WORK / "mods").glob("*.pw.toml"):
+        for mr in sorted((WORK / "mods").glob("*.pw.toml")) + sorted((WORK / "shaderpacks").glob("*.pw.toml")):
             d = tomllib.loads(mr.read_text(encoding="utf-8"))
             if "modrinth" in d.get("update", {}) and d["filename"] == cf_data["filename"]:
                 mr.unlink()
-                shutil.copy2(cf, WORK / "mods" / cf.name)
-                swapped.append(f"{mr.name} -> {cf.name}")
+                shutil.copy2(cf, mr.parent / cf.name)
+                swapped.append(f"{mr.relative_to(WORK).as_posix()} -> {cf.name}")
                 break
         else:
             raise SystemExit(f"no Modrinth metafile with filename {cf_data['filename']} for {cf.name}")
