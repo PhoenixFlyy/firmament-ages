@@ -696,7 +696,7 @@ IRON = age_chapter(
              desc=['The Lich drops its trophy. The Steel Heart needs it.',
                    '',
                    'Fallback: if the Twilight Forest has no Lich tower for you, craft a Frontier Sigil (steel sheets,',
-                   'polished quartz, a precision mechanism) and use it on open ground. Its Gateway sends three waves;',
+                   'nether quartz, a precision mechanism) and use it on open ground. Its Gateway sends three waves;',
                    'clear them and it gives a Naga trophy and a Lich trophy.'])),
     ],
     goal=Q('iron/goal', 'Offer the Steel Heart at the Shrine',

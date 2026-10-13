@@ -8,7 +8,7 @@ Beta: the whole progression is playable from Dawn to the final boss, balance and
 - **Enhanced Celestials 2** replaces Enhanced Celestials: the same blood, blue and harvest moons, with a shader bridge so a blood moon also tints the sky under Complementary. Joining stays silent.
 - **Performance:** Dynamic FPS (lower frame rate in the background), AllTheLeaks (memory leak fixes) and BadOptimizations (small client-side render optimizations).
 - **Beds from the Iron Age.** Vanilla beds open with the Iron Age; the TerraFirmaCraft thatch bed still sets your spawn but never skips the night. Half of the players online in bed are enough to skip the night.
-- **Torches burn for 36 minutes** instead of 72 (TerraFirmaCraft `torchTicks`).
+- **Torches burn for 36 minutes** instead of 72, set by TerraFirmaCraft's `torchTicks` (new installs; an existing server sets `torchTicks` in `config/tfc-server.toml`).
 - **Real darkness.** Nights and caves are dark (More Darkness, darker moon phases); a torch in your hand lights your way (LambDynamicLights). With shaders, the shader settings shipped with the pack keep nights and caves dark as well.
 - **No coordinates until the Bronze Age.** The debug screen (F3) hides your position until the Bronze Age; the gravestone no longer comes with an obituary that names its coordinates.
 - **Blood moons from the Iron Age.** No blood moon rises while nobody has reached the Iron Age mobs; after that they come back right away.
@@ -17,7 +17,9 @@ Beta: the whole progression is playable from Dawn to the final boss, balance and
 - **The quest book is a window.** It opens as a centred window of 75 percent of the game window (client setting `ui.questWindowPercent`, 0 for fullscreen) and no longer cuts off the quest view; the gaps between the parts of a quest are tighter.
 - **Constellation title screen:** the night sky with the Shrine of every Age drawn as a star chart.
 - **Removed:** Ping Wheel, Crash Assistant and TFCGenViewer.
-- **One item per material.** The pack's checks now flag every material (ingots, dusts, plates and the like) that shows more than one item in the recipe viewer.
+- **One item per material.** Amethyst, quartz, saltpeter, cast iron, sterling silver, wood dust, amethyst dust and andesite sheets now show one item each in the recipe viewer, and recipes that made a second version give that one item (Almost Unified). Nether quartz opens the Twilight Forest portal and goes into the Frontier Sigil.
+- **Mystical Agriculture quest:** the soulstone task asks you to find a body of soulstone instead of collecting eight; mined without Silk Touch, soulstone drops as cobble.
+- **Quest texts wrap by paragraph.** Each paragraph of a quest description is one block that fills the width of the quest window, without line breaks in the middle of a sentence.
 - **Firmament Ages Core 0.8.0** with the Jade default, the Cave Dweller gate and the quest window.
 
 ## 0.7.2

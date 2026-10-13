@@ -68,8 +68,8 @@ Felder: `dev/cf/modpack-fields.md`. Beschreibung: `dev/cf/modpack-description.ht
    tools\packwiz.exe refresh
    python dev\cf\export_cf.py
    ```
-   Das Skript schreibt `dev\exports\FirmamentAges-0.8.0-curseforge-upload.zip` und listet die Manifest-Zahl und jedes Jar in `overrides/`. **Dort darf nur noch `firmages-core-0.8.0.jar` stehen** (nach Schritt 3.5: keins). MekaTFC und TFC Ore Tooltips sind nicht mehr im Pack.
-   Nicht `dev\release.ps1` dafür nehmen: dessen CurseForge-Zip ist der private Prüfstand (Client-Seite, ohne Tausch der acht gesperrten Mods).
+   Das Skript schreibt `dev\exports\FirmamentAges-0.8.0-curseforge-upload.zip` und listet die Manifest-Zahl (für 0.8.0: 208 Einträge, 206 Mods und 2 Shaderpacks; „swapped 9“) und jedes Jar in `overrides/`. **Dort darf nur noch `firmages-core-0.8.0.jar` stehen** (nach Schritt 3.5: keins). MekaTFC und TFC Ore Tooltips sind nicht mehr im Pack.
+   Nicht `dev\release.ps1` dafür nehmen: dessen CurseForge-Zip ist der private Prüfstand (Client-Seite, ohne Tausch der acht gesperrten Mods und von Complementary).
 3. Projekt → **Upload File**: das Zip, Display Name „Firmament Ages 0.8.0“, Release-Typ **Beta**, Spielversion **1.21.1** (wird aus dem Manifest gelesen), Loader **NeoForge**, Changelog = Inhalt von `dev/cf/changelog-0.8.0.md`, Relation *Required Dependency* Firmament Ages Core (sobald das Mod-Projekt existiert).
 4. Server-Pack als **Additional File** an genau dieser Datei (nicht als eigene Hauptdatei):
    ```
@@ -82,11 +82,11 @@ Felder: `dev/cf/modpack-fields.md`. Beschreibung: `dev/cf/modpack-description.ht
 ## 6. Was die Moderation prüft
 
 - **Erste Datei eines neuen Projekts:** Handprüfung, meist ein bis drei Tage. Spätere Dateien gehen oft schneller durch.
-- **Fremde Jars in `overrides/`:** nur Mods der Approved-Liste und eigene Mods ohne CurseForge-Projekt. Ein Mod mit CurseForge-Projekt als Jar ist ein sicherer Ablehnungsgrund; deshalb tauscht `export_cf.py` die acht gesperrten Mods gegen ihre CurseForge-Einträge, und deshalb kommt firmages-core zuerst als eigenes Projekt.
+- **Fremde Jars in `overrides/`:** nur Mods der Approved-Liste und eigene Mods ohne CurseForge-Projekt. Ein Mod mit CurseForge-Projekt als Jar ist ein sicherer Ablehnungsgrund; deshalb tauscht `export_cf.py` die acht gesperrten Mods und das Shaderpack Complementary gegen ihre CurseForge-Einträge, und deshalb kommt firmages-core zuerst als eigenes Projekt.
 - **Manifest:** CurseForge verlangt das Format der CurseForge App und verbietet Handänderungen am Manifest. packwiz schreibt genau dieses Format (`manifest.json`, `modlist.html`, `overrides/`), von Hand geändert wird nichts. Lehnt ein Moderator das Zip trotzdem ab („must be created with the CurseForge App“): das Zip in der CurseForge App importieren (*Create Custom Profile → Import*), Profil starten, einmal schließen, dann *Export Profile* mit den Ordnern `config`, `defaultconfigs`, `kubejs` und das exportierte Zip hochladen (`LOKAL-TESTEN.md`).
 - **Beschreibung und Bilder:** Avatar nicht einfarbig, 400 × 400. Credits sind Pflicht für fremde Inhalte; der Credits-Abschnitt nennt jede der 207 Mods mit Autor und Link.
 - **Lizenz:** Projektlizenz MIT; das Jar von firmages-core meldet `license="MIT"` in seiner `neoforge.mods.toml`, Moderatoren vergleichen beides. Der Lizenztext liegt im Repo als `LICENSE` (eigene Teile des Packs) und `mod/firmages-core/LICENSE` (die Mod).
-- **Loader:** alle Mods müssen NeoForge-Dateien für 1.21.1 sein. Das ist für alle 192 Manifest-Einträge so ausgewählt.
+- **Loader:** alle Mods müssen NeoForge-Dateien für 1.21.1 sein. Das ist für alle 206 Mods im Manifest so ausgewählt; die zwei Shaderpacks (Complementary Reimagined, MakeUp Ultra Fast) sind keine Mods und haben keinen Loader.
 - **Gelöschte oder archivierte Dateien:** Zieht ein Mod-Autor eine Datei zurück, lehnt CurseForge spätere Uploads mit dieser Datei ab. Dann die Mod im Pack aktualisieren (`tools\packwiz.exe update <name>`) und neu exportieren.
 
 ## 7. Später: neue Version

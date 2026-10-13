@@ -1200,7 +1200,7 @@
 	quest.6E4438CCF1A5BF3D.quest_desc: [
 		"The Lich drops its trophy. The Steel Heart needs it."
 		""
-		"Fallback: if the Twilight Forest has no Lich tower for you, craft a Frontier Sigil (steel sheets, polished quartz, a precision mechanism) and use it on open ground. Its Gateway sends three waves; clear them and it gives a Naga trophy and a Lich trophy."
+		"Fallback: if the Twilight Forest has no Lich tower for you, craft a Frontier Sigil (steel sheets, nether quartz, a precision mechanism) and use it on open ground. Its Gateway sends three waves; clear them and it gives a Naga trophy and a Lich trophy."
 	]
 	quest.6E4438CCF1A5BF3D.title: "Lich Trophy"
 	quest.6F0E9B4D0BD4227A.quest_desc: [

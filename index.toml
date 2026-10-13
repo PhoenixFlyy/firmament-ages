@@ -250,7 +250,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "61ad6e167574a44504015e6d016b0944d92d95b6e265d0895d736d7dc9371af3"
+hash = "78bb33262a84e5c2762c51df5f108ea7570f652f75b2a4302c3350152a923b2f"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -498,7 +498,7 @@ hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
-hash = "95736432adc55d2abefec85b0ef3e4d7b56efafbaccbebadf30f2cb38cc127b2"
+hash = "884756cf343326cd8903890d20b3446e40de37e600f0e55410ee624a13683584"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
