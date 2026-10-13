@@ -4,7 +4,7 @@
   "c:ingots/lead": "immersiveengineering:ingot_lead",
   "c:gems/ruby": "tfc:gem/ruby",
   "c:gems/sapphire": "tfc:gem/sapphire",
-  "c:dusts/saltpeter": "immersiveengineering:dust_saltpeter",
+  "c:dusts/saltpeter": "tfc:powder/saltpeter",
   "c:dusts/sulfur": "mekanism:dust_sulfur",
   "c:dusts/niter": "null",
   "c:gems/apatite": "null",

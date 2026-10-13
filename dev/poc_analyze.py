@@ -88,7 +88,7 @@ def main():
             byproduct_checks(rows, {k: json.loads(v) for k, v in json.load(open(fullp, encoding="utf-8")).items()},
                              tags, item_age, set(unlocked), a.baseline, check)
         undetected_check(a.server_dir, check)
-    unify_check(a.server_dir, tags, item_age, check)
+    unify_check(tags, item_age, check)
     if unlocked is not None and not set(AGES) <= set(unlocked):
         print(f"[SKIP] A- and C- checks: they need the whole recipe set, this dump was filtered at {sorted(unlocked, key=AGES.index)}")
         print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -223,10 +223,10 @@ def main():
 # Every tag of a unify family (materials.json "tags", e.g. c:ingots/{material}) must show exactly one item in EMI.
 # Visible = not in age_items/disabled, not in c:hidden_from_recipe_viewers, not hidden by Almost Unified. AU
 # (recipe_viewer_hiding) hides every member but its target in each tag whose material is in AU's placeholders.json
-# and that is not in ignored_tags; ignored_items take no part. The pack ships no placeholders.json, so AU writes its
-# default list; the server's copy is read when present. Tags with no visible member are fine when nothing was hidden
-# by AU (the material is disabled as a whole); a tag whose AU target is disabled or hidden while AU hides the usable
-# members is a violation. UNIFY_ALLOWLIST holds tags where two or more visible members are intended.
+# and that is not in ignored_tags; ignored_items take no part. The pack ships config/almostunified/placeholders.json
+# (AU's default list plus the pack's materials); without it AU uses its default list (AU_DEFAULT_MATERIALS). Tags
+# with no visible member are fine when nothing was hidden by AU (the material is disabled as a whole); a tag whose AU
+# target is disabled or hidden while AU hides the usable members is a violation. UNIFY_ALLOWLIST holds tags where two or more visible members are intended.
 UNIFY_ALLOWLIST = {}  # tag -> reason
 AU_DEFAULT_MATERIALS = [
     "aeternium", "aluminum", "amber", "apatite", "bitumen", "brass", "bronze", "chrome", "cinnabar", "cobalt",
@@ -236,10 +236,10 @@ AU_DEFAULT_MATERIALS = [
     "tungsten", "uranium", "zinc"]
 
 
-def unify_check(server_dir, tags, item_age, check):
+def unify_check(tags, item_age, check):
     au = load_au()
     try:
-        ph = json.load(open(os.path.join(server_dir, "config", "almostunified", "placeholders.json"), encoding="utf-8"))
+        ph = json.load(open(AU_PLACEHOLDERS, encoding="utf-8"))
         materials = set(ph["material"])
     except (OSError, ValueError, KeyError):
         materials = set(AU_DEFAULT_MATERIALS)
@@ -723,6 +723,7 @@ def _outs(o, out, inres=False):
 
 
 AU_MATERIALS = os.path.join(REPO, "config", "almostunified", "unification", "materials.json")
+AU_PLACEHOLDERS = os.path.join(REPO, "config", "almostunified", "placeholders.json")
 
 
 def load_au():
@@ -1353,7 +1354,7 @@ HEAT_STATION = {"heated": ("tfcreate:primitive_heater", "create:blaze_burner"), 
 REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
     ("age_2", "firmages:crafting/steel_heart", ["create:precision_mechanism", "create:mechanical_crafter", "create:deployer",
                                                  "create:mechanical_press", "tfcreate:primitive_heater", "tfc:metal/ingot/steel",
-                                                 "tfcreate:polished_quartz"]),  # Twilight portal activator (Frontier)
+                                                 "minecraft:quartz"]),  # Twilight portal activator (Frontier)
     ("age_3", "firmages:ritual/arcane_keystone", ARCANE_CHAIN),
     ("age_4", "firmages:crafting/pressure_core", INDUSTRIAL_CHAIN),
     ("age_5", "firmages:arc_furnace/humming_core", ELECTRIC_CHAIN),

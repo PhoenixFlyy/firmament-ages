@@ -41,7 +41,7 @@
 	]
 	quest.00276F8FDCF146F5.title: "Tom's Storage"
 	quest.002A92F3E9C8D81F.quest_desc: [
-		"Three new veins show up from this Age. Find them with a prospector's pick: inferium ore lies in every kind of rock, from deep underground up into the hills; prosperity ore lies deep, in igneous and metamorphic rock; soulstone forms large bodies in basalt, with a little soulium ore inside."
+		"Three new veins show up from this Age. Find them with a prospector's pick: inferium ore lies in every kind of rock, from deep underground up into the hills; prosperity ore lies deep, in igneous and metamorphic rock; soulstone forms large bodies in basalt, with a little soulium ore inside. Without Silk Touch soulstone breaks into soulstone cobble, so the quest only asks you to find it."
 		""
 		"Then grow inferium and the resource seeds of unlocked materials."
 	]
@@ -1160,7 +1160,7 @@
 	quest.6A1C715211FCA0FB.quest_desc: ["Two black steel double sheets for the Pressure Core."]
 	quest.6A1C715211FCA0FB.title: "Black Steel Double Sheets"
 	quest.6A80066F26918539.quest_desc: [
-		"Dig a 2x2 pool of water ringed by grass or dirt, put flowers around it and throw polished quartz into the water. Polished quartz comes from the quartz veins of the Iron Age, polished with sandpaper. Step through."
+		"Dig a 2x2 pool of water ringed by grass or dirt, put flowers around it and throw nether quartz into the water. Unpolished quartz from the quartz veins of the Iron Age turns into nether quartz with sandpaper. Step through."
 	]
 	quest.6A80066F26918539.title: "Into the Twilight"
 	quest.6ABCB02049FE872B.quest_desc: ["Knap and fire a crucible. It mixes metals into alloys."]
@@ -1422,7 +1422,7 @@
 	task.5DE22F71BE32AF59.title: "Unlock Age 9: Singularity Age"
 	task.5EBCDBD25D48AA10.title: "Light a firepit"
 	task.5EE1D4B01D9C11FE.title: "Offer the Pressure Core at the shrine"
-	task.632D11C7696BF019.title: "Soulstone"
+	task.632D11C7696BF019.title: "Find a body of soulstone"
 	task.638DC09ED1F3ECF4.title: "Turbine rotors"
 	task.64198A294CAF4FB8.title: "Cogwheels"
 	task.6494AD8893357940.title: "Offer the Hearthstone at the shrine"

@@ -849,13 +849,11 @@
 					type: "item"
 				}
 				{
-					count: 8L
 					id: "632D11C7696BF019"
-					item: {
-						count: 1
-						id: "mysticalagriculture:soulstone"
-					}
-					type: "item"
+					observation_type: "block"
+					timer: 0L
+					to_observe: "mysticalagriculture:soulstone"
+					type: "observation"
 				}
 			]
 			x: 2.5d

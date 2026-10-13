@@ -40,7 +40,11 @@
     "c:nuggets/zinc": "create",
     "c:nuggets/brass": "create",
     "c:nuggets/iron": "minecraft",
-    "c:nuggets/gold": "minecraft"
+    "c:nuggets/gold": "minecraft",
+    "c:dusts/amethyst": "occultism",
+    "c:dusts/wood": "immersiveengineering",
+    "c:gems/quartz": "minecraft",
+    "c:plates/andesite_alloy": "createdeco"
   },
   "stone_variants": [
     "stone",

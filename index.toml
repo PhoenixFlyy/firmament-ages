@@ -1,8 +1,12 @@
 hash-format = "sha256"
 
 [[files]]
+file = "config/almostunified/placeholders.json"
+hash = "f14301508edae021ddac7eed0b5186e21fe7332d20624676c5ae05cd44c9bb44"
+
+[[files]]
 file = "config/almostunified/unification/materials.json"
-hash = "e62438097c456ac83919cc7ca3bafd799fa68d49866d7bfe6ed1127e7d54d279"
+hash = "5735bc49268d36ea6ea76ff1acb41c42dc2b5d5edadf2bb2f77d61c78e18903f"
 
 [[files]]
 file = "config/ars_nouveau-client.toml"
@@ -38,7 +42,7 @@ hash = "0b129185c5252400c94d0eb3314b63033ba3c982e0058bcce6e1ce3ae1606cec"
 
 [[files]]
 file = "config/cucumber-tags.json"
-hash = "c91865b741fcf1048010d701bcc2d7500d80f546e4da8d237dee1a0f90b488d3"
+hash = "f94d87315517eec466c72edd28a197d1f6e55ccb1d65d4813a9fa2357487a57a"
 
 [[files]]
 file = "config/defaultoptions/extra/config/emi.css"
@@ -210,7 +214,7 @@ hash = "f89459d0af5b15a1be29e55915bc61796c4bb8a16ecbc4f65f08862efe5ba531"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "6c5353804bdbc93f8bb9965791e01923850467975d0fb5c9b6a57c28586d8670"
+hash = "276b72e9fcadcfba9f403c69d3faf3d19858467b860c5717bf5faa4a5104b49c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
@@ -246,7 +250,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "44082ea545d1ad205dae41acbf620cd01adcf461ddae66e0f1d7ce2a89b5a20a"
+hash = "61ad6e167574a44504015e6d016b0944d92d95b6e265d0895d736d7dc9371af3"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -1810,7 +1814,7 @@ hash = "b9c28d40987580a0dfb95f91ed7e43f334f33e582955d874b473944f8636c567"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/boss_sigils.js"
-hash = "4a30a3736a6720300eff104316673214d09843d61fe40f21a86a4a59b3608454"
+hash = "d760492a27163680276967360152b29595c5d58f2bd23034eb17fc4d39b59eff"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/byproducts.js"
@@ -1874,7 +1878,7 @@ hash = "f3ac29f73c344d50175341cac291e4c2d423f0344e3417f65235d0ad72bd0383"
 
 [[files]]
 file = "kubejs/server_scripts/tags/unification.js"
-hash = "4935515dc98c0d9920d6731c771b1d0cce0838e9e0f01a68a562eabd4e81bd0c"
+hash = "ce0e8ba1f17510411fdc0b1791756362bdde26392c8c8c493943cb4df7496f02"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"

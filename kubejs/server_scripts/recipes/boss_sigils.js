@@ -6,8 +6,8 @@ ServerEvents.recipes((event) => {
   const sigil = (id, pattern, key) => event.shaped(`firmages:${id}`, pattern, key).id(`firmages:crafting/${id}`)
   const CROSS = [' A ', 'BCB', ' A ']
 
-  // Iron Age: steel, polished quartz (the Twilight portal gem) and a precision mechanism.
-  sigil('frontier_sigil', CROSS, { A: '#c:sheets/steel', B: 'tfcreate:polished_quartz', C: 'create:precision_mechanism' })
+  // Iron Age: steel, nether quartz (the Twilight portal gem) and a precision mechanism.
+  sigil('frontier_sigil', CROSS, { A: '#c:sheets/steel', B: 'minecraft:quartz', C: 'create:precision_mechanism' })
   // Arcane Age: the three magic mods (Theurgy mercury, Occultism essence, an Ars source gem block). No Wilden drop:
   // the gate stands in for the Wilden themselves.
   sigil('wild_sigil', CROSS, { A: 'theurgy:mercury_shard', B: 'occultism:otherworld_essence', C: 'ars_nouveau:source_gem_block' })
