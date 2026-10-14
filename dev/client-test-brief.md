@@ -1,5 +1,46 @@
 # Client-Test
 
+## 0.9.0 Nachtrag: Schrein, Gathering, The Origin (Arbeitspaket n3/shrine, firmages-core 0.9.0)
+
+Server und Client brauchen beide firmages-core 0.9.0 (Netzwerkprotokoll 4). Server-seitig geprüft mit 118
+Unit-Tests und 40 GameTests (`gradlew build`, `runGameTestServer`), im Spiel noch offen. **Bestehende Welt:** Der
+Leuchtstrahl ist für neue Welten an; in Deiner Testwelt steht noch `permanentBeam = false` in
+`world/serverconfig/firmages-server.toml` (Abschnitt `[shrine]`), dort auf `true` setzen. Die Arena der Origin baut
+sich beim ersten Start mit 0.9.0 einmal neu (Version 2).
+
+1. **Lebendiger Schrein.** Am entzündeten, heilen Schrein steigt Tag und Nacht ein dünner Strahl in der Farbe der
+   zuletzt erweckten Age auf. Prüfen: aus etwa 200 Blöcken sichtbar, mit und ohne Complementary; einen Ringblock in der
+   Wartung abbauen, der Strahl erlischt innerhalb einer Sekunde, nach der Reparatur ist er wieder da. Nach dem Endboss
+   ist er golden und etwas breiter. Innerhalb von 16 Blöcken summt das Herz leise (alle 4 s, mit jeder Age etwas
+   höher), weiter weg nicht. Jede Reliquie auf ihrem Sockel gibt ab und zu Staub in ihrer Age-Farbe ab. FPS mit Strahl
+   gegen ohne vergleichen. Abschalten pro Spieler: `firmages-client.toml` `[effects] idleBeam = false` bzw.
+   `ambientDrone = false`.
+2. **Echo der Zeremonie.** Mit zwei Spielern: Spieler B loggt aus, A öffnet eine Age (Gebet oder
+   `/stage grant A age_N`). B loggt wieder ein: etwa 5 s nach dem Laden kommt einmal die kurze Zeremonie der neuen Age
+   (Titel, Caelums Satz) und eine Chatzeile „While you were away: Bronze Age.“ (bei mehreren verpassten Ages alle
+   Namen). Prüfen: Der Titel steht nach dem Ladebildschirm, nicht darunter; ein zweites Einloggen spielt nichts mehr; das
+   Finale wird nie wiederholt.
+3. **Das Gathering (age_9).** In der Singularitätszeit mit allen neun Reliquien auf ihren Sockeln am heilen Schrein
+   beten (schleichen, Rechtsklick halten; zu zweit, sobald zwei online sind). Rechtsklick auf das Herz vorher sagt
+   „Pray together: Caelum gives the nine relics back for the last forging.“ Danach: Titel „The Gathering“, Caelum
+   „Nine gifts. One light. Open the gate.“, Zeile „Crowned“, die neun Reliquien fallen als Items über dem Herz heraus
+   (verschwinden nie, brennen nicht), die Sockel leuchten weiter und warten. Die HUD-Zeile oben links zeigt dann
+   „Goal: Beyond the Firmament“. Prüfen: Fehlt eine Reliquie, nennt der Schrein ihre Age; eine zurückgelegte Reliquie
+   lässt sich mit Schleichen und leerer Hand wieder nehmen. Die Ultimate Singularity mit den neun Items in der
+   DE-Fusion herstellen (GUI).
+4. **The Origin: Inseln.** Die neun schwebenden Inseln sind jetzt aus geweihtem Schrein-Marmor mit Rand in ihrer
+   Age-Farbe, und über jeder dreht sich langsam das Zeichen-Item ihrer Age (Hearthstone, Sky Disc, ... Quantum Core),
+   voll hell. Prüfen: Alle neun sichtbar von der Arena aus, kein Item doppelt, die Drehung ruckelt nicht.
+5. **Befehle für Deinen Test (nur Operatoren, Stufe 2).**
+   - `/firmages origin tp <Spieler> force`: in die Origin ohne age_9 und ohne Kreativmodus; beide Sperren lassen Dich
+     bleiben, bis Du die Origin verlässt, dort stirbst oder der Server neu startet.
+   - `/firmages origin gathering`: startet den Altar-Auslöser sofort, egal wo ihr steht und ohne Wartezeit (die
+     Gateway-Wellen kommen dann wie im echten Kampf).
+   - `/firmages origin fight`: ruft The Primordial sofort, ohne Wellen. Verweigert, solange das Finale-Gate oder der Boss
+     lebt, und nach dem Sieg (dann vorher `/firmages origin reset`).
+   Prüfen: ohne Operator-Rechte gibt es keinen der drei Befehle; nach `fight` laufen Phasen, Ansagen und das Finale wie
+   im echten Kampf.
+
 ## 0.8.1 Nachtrag (Nachtlauf 2026-10-14, Pack 0.8.1, firmages-core 0.8.1)
 
 Dein Feedback vom 14.10. (Hand-Abbau Option A, Titelbild Option A, Tooltip „Light / Small“, Knapping-Erklärung) plus
