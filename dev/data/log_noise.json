@@ -1,17 +1,26 @@
 {
   "_doc": "Read by dev/check_log.py. Each regex is searched in a log line without its timestamp, e.g. '[Server thread/ERROR] [logger/]: message'. \"warn\": true marks a WARN-only entry (checked with --warn). 'noise': harmless, dropped (reason says why). 'open' entries are checked first. 'open': a known problem whose fix lives elsewhere; folded into one group and still counted as remaining. Source: Modpack-Planung/research-raw/fb3-server-log-triage.md (01:25 and 01:59 boots of 2026-10-14). Fixed in the pack data by n1/logfix and therefore NOT listed: wrought iron MetalItem warning, Wooden Cog welding/milling/mixing/cutting, createdeco placard, Bells and Whistles metro window, TFC Regrowing Forests dttfc/fig/cacao regrowth, trainutilities advancements, Sable copycat_catwalk, Twilight Forest dev_new_world, Lithium overwrite conflicts, compat loot tables (dev/gen_loot_silence.py).",
-  "open": [
-    {
-      "id": "tfcregistryapi-class-scan",
-      "regex": "^\\[modloading-worker-\\d+/((ERROR|FATAL)\\] \\[(net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM|mixin/|Polymorph/)\\]|INFO\\] \\[STDERR/\\]|WARN\\] \\[mixin/\\]: (Error loading class: |Mixin apply for mod polymorph failed ))",
-      "reason": "TFCRegistryAPI 1.2 loads every class of every mod 7 times during mod construction (client classes on a dedicated server, client-only mixin targets of azimuth, bits_n_bobs, simulated, woodencog, Polymorph's EMI module); about 17k lines and 37 s per boot. Fix: firmages-core mixin narrowing the scan (branch n1/core-registryapi, triage finding A). Delete this entry once that fix is merged, so a leftover line shows as remaining."
-    }
-  ],
+  "open": [],
   "noise": [
     {
       "id": "distxform-boot-client-mixins",
       "regex": "^\\[(main|modloading-sync-worker)/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/multiplayer/(ClientLevel|ClientPacketListener)|net/minecraft/client/gui/screens/inventory/HangingSignEditScreen|com/mojang/blaze3d/systems/RenderSystem|net/minecraft/client/gui/components/Button) for invalid dist DEDICATED_SERVER",
       "reason": "7 per boot: client mixins declared in common mixin configs (astikorcartsredux ClientLevel/ClientPacketListener, afc HangingSignEditScreen, struts RenderSystem), one Button reference during IMC, and TFC's own two ClientLevel probes that TFC follows with '^ This is fine'. The mixin is skipped on the server; nothing is missing."
+    },
+    {
+      "id": "tfcregistryapi-scan-residual",
+      "regex": "^\\[modloading-worker-\\d+/((ERROR|FATAL)\\] \\[(net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM|mixin/|Polymorph/)\\]|INFO\\] \\[STDERR/\\]|WARN\\] \\[mixin/\\]: (Error loading class: |Mixin apply for mod polymorph failed ))",
+      "reason": "About 90 lines per boot, all within the TFCRegistryAPI enum scan during mod construction. firmages-core (SPEC 20) limits the scan to the mod files that are or depend on tfc or tfcregistryapi (17 of 178 on the pack server), but inside those files the API still Class.forName()s every class whose path lacks 'client' or 'mixin': client classes of the TFC addons (woodencog's JEI compat and block entity renderers, tooltip components, player models) fail with DISTXFORM, and the azimuth mixin into Create's client-only SafeBlockEntityRenderer fails when one of them is loaded. The API catches each failure, the classes are client-only and never used on a dedicated server, nothing is missing (check_registry_parity.py). Before 0.8.1 the same scan over all mods wrote about 17k such lines (the former open entry tfcregistryapi-class-scan)."
+    },
+    {
+      "id": "rhino-dump-declared-methods",
+      "regex": "^\\[Server thread/INFO\\] \\[STDERR/\\]: \\[dev\\.latvian\\.mods\\.rhino\\.CachedClassInfo:getDeclaredMethods:\\d+\\]: \\[Rhino\\] Failed to get declared methods for \\S+",
+      "reason": "18 STDERR traces, only when a developer runs /fa_dump (kubejs/server_scripts/debug/dump.js, not used in play): passing a recipe result's Item to Java makes Rhino read the item class, and items whose methods name client-only types (Create potato cannon, Ad Astra jet suit, Mystical Agriculture soul jar, Brandon's Core equipped-model items, CRN navigator, Draconic ender collection module without Ender Storage) cannot be reflected on a dedicated server. Rhino falls back and the dump is complete (0 recipes without a readable result); the same 18 lines are in every fa_dump boot since 0.7.x."
+    },
+    {
+      "id": "rhino-dump-distxform",
+      "regex": "^\\[Server thread/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/player/AbstractClientPlayer|net/minecraft/client/model/HumanoidModel|com/mojang/blaze3d/vertex/PoseStack|net/minecraft/client/multiplayer/ClientLevel) for invalid dist DEDICATED_SERVER$",
+      "reason": "15 lines, the DISTXFORM half of rhino-dump-declared-methods: each Rhino reflection failure during /fa_dump first logs the client class it tried to load (player model and pose types in the signatures of the same item classes). Only with /fa_dump; nothing is loaded or missing."
     },
     {
       "id": "far-chunk-setblock",
@@ -131,6 +140,12 @@
       "warn": true,
       "regex": "^\\[Server thread/WARN\\] \\[Modonomicon/\\]: Recipe \\S+ \\(of type \\S+\\) not found\\.$",
       "reason": "Occultism and Theurgy book pages point to recipes the Age gate (or age_items/disabled) removed; the count falls as Ages unlock."
+    },
+    {
+      "id": "tfc-wrought-iron-first-load",
+      "warn": true,
+      "regex": "^\\[main/WARN\\] \\[net\\.dries007\\.tfc\\.util\\.MetalItem/\\]: Item (tfc:metal/ingot/wrought_iron|twilightforest:wrought_iron_bar) was inferred to match multiple metals (wrought_iron and iron|iron and wrought_iron), using former$",
+      "reason": "2 lines, once per server start (main thread). A dedicated server reads its datapacks before it loads the server configs, so TFC's first metal inference runs without inferredMetals = [\"ingots/iron\", \"double_ingots/iron\"] (config/tfc-server.toml) and picks iron or wrought_iron at random. Every later datapack load infers again with the config: in 0.8.0 logs the warning came at each Age reload, in the 0.8.1 night run only at the first load and never at the firmages-core warm-up reload right after the start, so the ingot piles in play use wrought_iron. Clients get the server config before the tags."
     }
   ]
 }

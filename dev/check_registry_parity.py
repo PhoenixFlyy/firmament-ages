@@ -334,9 +334,12 @@ def cmd_dump(args):
         print(f"  {'ok' if ok else 'FAIL':<4} {part}: {len(ca.get(part, set()))} -> {len(cb.get(part, set()))} woods"
               + (f"; lost {sorted(lost)}" if lost else "") + (f"; woods without it {sorted(missing)}" if missing else ""))
 
-    tfcrf = lambda d: {f"{k} {v}" for k, vs in d.items() if isinstance(vs, list) for v in vs if str(v).startswith("tfcrf:")}
+    # only registries both dumps have (a dump.js before pack 0.8.1 wrote item, block and fluid only)
+    tfcrf = lambda d: {f"{k} {v}" for k, vs in d.items() if k in a and k in b and isinstance(vs, list)
+                       for v in vs if str(v).startswith("tfcrf:")}
     ra, rb = tfcrf(a), tfcrf(b)
-    print(f"TFCRegrowingForests registry ids: {len(ra)} -> {len(rb)}" + ("" if ra == rb else "  DIFF"))
+    print(f"TFCRegrowingForests registry ids: {len(ra)} -> {len(rb)}" + ("" if ra == rb else
+          f"  DIFF; removed {sorted(ra - rb)}; added {sorted(rb - ra)}"))
     diffs += ra != rb
     if a_rec is not None and b_rec is not None:
         ga = {i for i, t in a_rec.items() if t.startswith("tfcrf:")}

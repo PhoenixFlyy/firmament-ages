@@ -3144,7 +3144,7 @@
   "minecraft:purpur_pillar": ["dawn","age_3","age_3","minecraft:purpur_pillar_from_purpur_block_stonecutting"],
   "minecraft:purpur_slab": ["dawn","age_3","age_3","minecraft:purpur_slab_from_purpur_block_stonecutting"],
   "minecraft:purpur_stairs": ["dawn","age_3","age_3","minecraft:purpur_stairs"],
-  "minecraft:quartz": ["dawn","age_1","age_1","woodencog:crushing/rock/raw/diorite"],
+  "minecraft:quartz": ["dawn","age_1","age_1","woodencog:milling/quartz"],
   "minecraft:quartz_block": ["dawn","age_1","age_1","minecraft:quartz_block"],
   "minecraft:quartz_bricks": ["dawn","age_1","age_1","minecraft:quartz_bricks"],
   "minecraft:quartz_pillar": ["dawn","age_1","age_1","minecraft:quartz_pillar"],

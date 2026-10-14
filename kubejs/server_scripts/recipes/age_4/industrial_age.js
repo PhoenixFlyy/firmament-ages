@@ -232,6 +232,11 @@ ServerEvents.recipes((event) => {
   event.replaceInput({ id: 'create:crafting/appliances/netherite_backtank' }, 'create:copper_backtank', 'create:fluid_tank')
   event.replaceInput({ id: 'create:crafting/appliances/netherite_diving_helmet' }, 'create:copper_diving_helmet', PART.helmet)
   event.replaceInput({ id: 'create:crafting/appliances/netherite_diving_boots' }, 'create:copper_diving_boots', PART.boots)
+  // Wooden Cog welds the same three from red steel armour onto the copper piece (gear from gear, check C-4j). The
+  // pack's overrides in kubejs/data/woodencog/recipe/welding/ only make the broken jar files parse (no log error);
+  // the recipes themselves stay out.
+  ;['red_steel_diving_helmet', 'red_steel_diving_boots', 'redsteel_backtank']
+    .forEach((p) => event.remove({ id: `woodencog:welding/${p}` }))
   // Create Jetpack (Doc 08 section 8: "Create Jetpack 5.2.1 (direkt)"): no backtank, and a propeller for the
   // elytra (no End cities in this pack). The netherite jetpack is its own recipe, not an upgrade of the jetpack.
   ;['jetpack', 'netherite_jetpack', 'netherite_jetpack_upgrade', 'netherite_jetpack_upgrade_from_netherite']

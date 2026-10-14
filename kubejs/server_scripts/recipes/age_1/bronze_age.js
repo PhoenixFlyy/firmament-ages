@@ -57,10 +57,12 @@ ServerEvents.recipes((event) => {
     'create:crafting/curiosities/minecart_coupling', 'create:crafting/kinetics/filter',
     'create:crafting/kinetics/encased_chain_drive', 'create:crafting/logistics/item_hatch',
     'create:crafting/kinetics/sticker', 'create:crafting/kinetics/sticky_mechanical_piston',
-    'create:crafting/kinetics/speedometer',
-    'create_connected:crafting/kinetics/freewheel_clutch', 'create_connected:crafting/kinetics/centrifugal_clutch',
-    'create_connected:crafting/kinetics/item_silo'
+    'create:crafting/kinetics/speedometer'
   ].map((id) => ({ id: id }))
+  // Create Connected's freewheel and centrifugal clutch and item silo carry a create_connected:feature_enabled
+  // condition, and replaceInput left them unchanged (0.8.1 dump: still create:iron_sheet, unified to #c:plates/iron).
+  // Their bronze versions are datapack overrides under the same ids, condition kept:
+  // kubejs/data/create_connected/recipe/crafting/kinetics/{freewheel_clutch,centrifugal_clutch,item_silo}.json
   event.replaceInput(andesiteTier, '#c:plates/iron', '#firmages:plates/any_bronze')
   event.replaceInput(andesiteTier, '#c:ingots/iron', '#firmages:ingots/any_bronze')
   event.replaceInput(andesiteTier, '#c:storage_blocks/iron', '#firmages:storage_blocks/any_bronze')

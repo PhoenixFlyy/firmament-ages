@@ -1157,6 +1157,18 @@ file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_verdant_fan_dye
 hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
 
 [[files]]
+file = "kubejs/data/create_connected/recipe/crafting/kinetics/centrifugal_clutch.json"
+hash = "9024a238ee1f0ac93b7606ebb1f422d6f5b6e5a0cb309b427bef7a5a93c8d19a"
+
+[[files]]
+file = "kubejs/data/create_connected/recipe/crafting/kinetics/freewheel_clutch.json"
+hash = "a74fab574946cbef0f3e381b7f4e113bb4737cc706421bba15ac522f79c9551b"
+
+[[files]]
+file = "kubejs/data/create_connected/recipe/crafting/kinetics/item_silo.json"
+hash = "ec2285921a5c2c48b3a1aef7471b1b62d786251bee0ba597f8b6dfeb17c07a87"
+
+[[files]]
 file = "kubejs/data/createcasing/loot_table/blocks/brass_slicer.json"
 hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
 
@@ -3698,7 +3710,7 @@ hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "8ef702edb2ccd5f4f7230b36764bce7265928b0df408764e336da7935c8649c1"
+hash = "a0ab2443f9005356918a26a3c972a94eabbaa6620656c2cd3b98cb98f9d6eba2"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
@@ -3714,7 +3726,7 @@ hash = "e8b693c4f86a504cfd32dc5a68acfd46c0c6773660c42b49717a6bb76c1c2bf5"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
-hash = "9502f87451b553c4e6e6dacf695303fe9226253eef7790a9adf52a6dee696adc"
+hash = "42f1d6c269cf6ca81acbc532f80bda7bf71cb65dc0c33c95e345aa0eedc9142d"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
