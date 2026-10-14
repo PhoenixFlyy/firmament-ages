@@ -134,7 +134,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "bb4ab2a530037b984cc05273a2b9c7b0a6fe47957bbbe11769fa16d44c0f7fd2"
+hash = "cf912040619205a1673506c6970f950e180a07e4826ba14caa05bf51cac0faeb"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -166,11 +166,11 @@ hash = "af3eca8f10a7d7aaa1012709abf72f1da1bfa68d53cd2f6c6a32c26921932cdc"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "bd8f5032fac93bde34000e76a681ddc43da39a57c731bb73c74bfa7e233250f9"
+hash = "5b753a7f7810ea5d6100497cb358aa42b5a000af918b52175d396defe26203f9"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
-hash = "7b395a8fc2403b98ce32abfa4d54a1878b5b88d01ef8f133e54e93697600059c"
+hash = "ff512d331ed3c61f05e6e1803aab91991e97870020a398ba6a4c870b1d85dce0"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
@@ -186,15 +186,15 @@ hash = "fcabc38f240cd6635a8bff6171fb6d4f20abca7af6f0d668a384a079a7166b07"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "5195d35ce494a755d995959280e2e345528e3ff9fac04ba52fec5c862a184e84"
+hash = "8fc051f44ef56899c4e160954260240a7c3408b3ae268a004ebcbb9db190aeaa"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "96bb03018b549428bf30dc5983b6e614cf7ea2b872f8ed8395645a6fdf5eca59"
+hash = "23f618e34a891e1f90edb75946edfa363ba3e953b1e1975243966704af0fb6cd"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "eb4ed6b6e946c6dd99eb748eb5ebb405b523b6aa66ac48856ace5a2b1ba60228"
+hash = "3770133c605f9c2ef5ecb87870e09ce9898d0660a7e21796b6c3096d17ff6a5a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
@@ -206,11 +206,11 @@ hash = "f0af954d7666784fa93a979fcc4443b64aceeec1a92d636963c5038908e5e68f"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
-hash = "6820708225eb8e1f78313f445da7b7d3f29bc8e84e4288c24f438fe06e5c8b09"
+hash = "977d1446432cc2cb25e57b6bc6fa74557e320b33bfae66ddfc90a5c8f525f1e5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/welcome.snbt"
-hash = "d0de0f1c2c505ae03ca6026365c28928c358a9bcfe5fc122f322a53e77392f71"
+hash = "607a7b3fe40ae1820d096c04ba81ff4afd143dbcdf5dac4672c87b43b2a8878c"
 
 [[files]]
 file = "config/ftbquests/quests/data.snbt"
@@ -218,7 +218,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "4e6d98ad84b78ee710cfc5865986c70c74fb0660e1bf3a02fe1f550c38bfb6ba"
+hash = "4a7f972595945198f5c426c1738c95b44f538ae74bd87a00520b3ba8c6280c45"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -342,47 +342,47 @@ hash = "06364c8fe7cc156a892d52aa7398d045946ea540e788cd893cbea426660d0c04"
 
 [[files]]
 file = "config/progressivestages/progressivestages.toml"
-hash = "aad45e1ea38f628388d167ab3cdd3fc1b96ab60db89637e54a16bbba87b2a9f8"
+hash = "4b482316317de13271b0340cd9030b9e0bb54329ec9fdd44cda50ef010ddb2aa"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "52751fc9c4a6c79d1693f5f1641d6fac4d167511e228491e4dd9809c539c6e20"
+hash = "ad4a0de0c55c0fdf846e6f101eee9681694515f0e093f20e7ad074aeb121a37d"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
-hash = "4fbe547ae5559e1338a87684bf1a96161b7f7bfce675247985ce07b8cb4a1275"
+hash = "833c54695b38398cf95372c2db294be9d13e602a46bcdf34b9a94f7d5cec9667"
 
 [[files]]
 file = "config/progressivestages/stages/age_2.toml"
-hash = "4c0f05fb002774462512c9b798dc7ce570c5dfe78bb9e7c9ec05410c66f1e585"
+hash = "3842b6d984d4ad4d5aa67255a13b2d96d4525c1ede4de787f624c1e128ff8717"
 
 [[files]]
 file = "config/progressivestages/stages/age_3.toml"
-hash = "007cc19a9a2b0da3873f7a3623e92a9c0dff1d944f780d1e4ed1008d17dc88d6"
+hash = "7b8aec9c96257309a0ca5eb38596d1311e8185cfacca8070cb03412fd5162137"
 
 [[files]]
 file = "config/progressivestages/stages/age_4.toml"
-hash = "f723aabd4fddb90a2edb949da2569a325db854dbedd0fe4373279a87b512bc8f"
+hash = "5f07777a1463717291b99362826dd01e1777e8de9e6689dc8c0be39c71d2df6f"
 
 [[files]]
 file = "config/progressivestages/stages/age_5.toml"
-hash = "bc5f22e9d0f01ffe12a7e40cc4e95f804e6516bd56daaaaa85e4e479b207aaff"
+hash = "a553e79e99e051db621a0fdb896bc942446f47d3c2128a4b3b61d4b68e274465"
 
 [[files]]
 file = "config/progressivestages/stages/age_6.toml"
-hash = "268e2d29e5121c22789e1ea9b274df8ed3c174cd5dda3edf7e6d06dc7ac5b403"
+hash = "3c11ee5b91c1b2ca30e82745321795c9d4def593564a930c4fc9cc5d2606831a"
 
 [[files]]
 file = "config/progressivestages/stages/age_7.toml"
-hash = "8861883d6b2c41582b27e1b0acdf45b609830fb36612a2b951c1cb3a2349357f"
+hash = "f354fd8be14db020ac0b264300ac4d50e8360ecb2f22fc1bf4f047080fe03521"
 
 [[files]]
 file = "config/progressivestages/stages/age_8.toml"
-hash = "788149dd91e5265df92ead8cfb1515eb7409fa543dc5145be0f746eae5953bd0"
+hash = "c686c3609a03e545d0825130eaf1978920a6efd9268336a9a4c7626681c59429"
 
 [[files]]
 file = "config/progressivestages/stages/age_9.toml"
-hash = "12a1e39706a60eeca5ff25611970761d4d483bde6f3b07336a092dc29cf85318"
+hash = "57a4432ce1d273bd40e6346d2e62706d57cdff8a68261f56b8560c743f58e2f2"
 
 [[files]]
 file = "config/progressivestages/stages/dawn.toml"
@@ -390,7 +390,7 @@ hash = "7d7223d284710ed2acf21f30902c247f5635c0ea0f236c51ced85fc248753d40"
 
 [[files]]
 file = "config/progressivestages/stages/disabled.toml"
-hash = "c1f8fb82f75a4e758e93ba9dbb09a4a447709a53638eeb51d47ac4e20cc2b8fc"
+hash = "4f4450011e02903fa3b4ec3b47c4f960a95071284aa1aebcbc5467f3109fd9ff"
 
 [[files]]
 file = "config/progressivestages/stages/finale_won.toml"
@@ -398,63 +398,63 @@ hash = "d17f0c52b3bec9628bf7d575b5c8f696876085236d16665560fa9f52bd4e8313"
 
 [[files]]
 file = "config/progressivestages/stages/ftbchunks_mapping.toml"
-hash = "499359c271f785002e3b5aeddef2db682e3cef70da720231bbc42fb720eb8e9e"
+hash = "09c841b07bf45290443e459c403ef328e95bf0fe9a38ed3c96dda7ae961604e0"
 
 [[files]]
 file = "config/progressivestages/stages/mob_0.toml"
-hash = "a769a5c25bb96d5e8d191f8ee1c85c1eacdc036f4a982040a8a1c0faab371538"
+hash = "4df811694e1f37aba19e02d4ebfb47c744475fa3766de39d51b18c429bf619d0"
 
 [[files]]
 file = "config/progressivestages/stages/mob_1.toml"
-hash = "9666ee4dc57295dbfcc727c26b78cf07ef4a7c908637ecb5877e7d9a57bdc581"
+hash = "6ec104c9f4e49a9f89804f13d4b2cf290368adbb44987b4c98c4bbfa0b11ec25"
 
 [[files]]
 file = "config/progressivestages/stages/mob_2.toml"
-hash = "60b6b96a60036100bc9d6af8307eb8906ce353519ba69126957c5b1dfe6d2602"
+hash = "65a9ff8afd1c9d5804e91a963f8d7d6d1fe90dd573f8863c264c64cb55c6dfcc"
 
 [[files]]
 file = "config/progressivestages/stages/mob_3.toml"
-hash = "93f87a9dd02b8c6da76a37417492f74975046ccd481f55f40c3dd346d02e8143"
+hash = "a34c74728ebc98fdf1087eae731b48b554db1f31da36f0c634ab02eb56397e31"
 
 [[files]]
 file = "config/progressivestages/stages/mob_4.toml"
-hash = "e8e4bf03e2d0f4cdb783cb006560f6361a6a244fb2a8aa8dbfc57ba01798440d"
+hash = "21c198209fedd6083d2478ca94dc89b13ec3905f7216d68b1f5190decd78cf0f"
 
 [[files]]
 file = "config/progressivestages/stages/mob_5.toml"
-hash = "ab7c52075a3b5d5d6bff6c1a328147f6795a4f06b182a53e2424f640442c7b8a"
+hash = "502f20cf96497ba7f7ddae19a3d95b28c582a5abc99a50b863383bb7f91aef27"
 
 [[files]]
 file = "config/progressivestages/stages/mob_6.toml"
-hash = "c7e1d86eab74a7ed51763ca8c8bbd0544ce756ddc14ba899e87c97afbb46b51b"
+hash = "8e3e488eef5f13a7422aed1bee3d9f07d7bd589676da610bfb5f3b53f4b75ebb"
 
 [[files]]
 file = "config/progressivestages/stages/mob_7.toml"
-hash = "0dfb386a9b9149ddd5bedad310febacd721d58afccb9b72b2787a9f9d9edfca9"
+hash = "1a6d182c6a19cadf60c2fd1e59094d91a45957fa655e57d48a059483298d8b3a"
 
 [[files]]
 file = "config/progressivestages/stages/mob_8.toml"
-hash = "9676f42973439528ad2880b7d0c550b8cf57c5ec2fd7de0bf5ee45bad530dd50"
+hash = "1d76b0abbdd9a83e79262f9aa72482c3bd4dfd4dc817156ea60d428a714c20ee"
 
 [[files]]
 file = "config/progressivestages/stages/mob_9.toml"
-hash = "4715ebdc8049a32b7a8352901e586e20b45bbc64ef2768b8cc0811329ac92913"
+hash = "ac8b4e67f48468fc9a5690229c8a104f7fe83aa55f19ff19f076d3d965d3adbe"
 
 [[files]]
 file = "config/progressivestages/stages/tool_ie_alloy_kiln.toml"
-hash = "2ffb9483edc2c6d7498865cdf1cc254169e970ca7f9ea6de944e578d96be3b5e"
+hash = "ab3447dcd63ccb64c3a205dcbd159b3056c322751b0e011894a9572c966372a6"
 
 [[files]]
 file = "config/progressivestages/stages/tool_ie_capacitor.toml"
-hash = "16eab21508363822e9d311fb1e91d38c72de86907985618f86b9ad7fc02506a3"
+hash = "bb3a34c17def292998006c3ffd652b77e7a52808d1270705bdcdab8b3287d714"
 
 [[files]]
 file = "config/progressivestages/stages/tool_mech_spawner.toml"
-hash = "209012254553355ca0978d671457d1ef25609c428067eb9561257ecb7192e177"
+hash = "acfefc5febad6c0f9346863ef65aeae93aaf8fdb060d00313672a25e1d26bff0"
 
 [[files]]
 file = "config/progressivestages/stages/tool_toms_storage.toml"
-hash = "6778b0af66a2e9e7a0b9575a7eac0a547194c2b454b952e79d1d58bdd326d789"
+hash = "8dbff89da6d48daee566cefff9d1fe9f8093160f54976f6ae3349af82723d664"
 
 [[files]]
 file = "config/simplebackups-common.toml"
@@ -6610,7 +6610,7 @@ hash = "98fcbe8e1fa04083c390331deff60d24f416d416b317f4f6866eef7eec74573a"
 
 [[files]]
 file = "kubejs/server_scripts/finale/the_primordial.js"
-hash = "30148e504812b652e2dc9bf7cb87aaef0d4c384828def6444e7aa07728bdbeb1"
+hash = "1c56e44b25005b415b40352d0f2b183ec92a3365683f5e7c574876089b4c6be3"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/blood_moon.js"

@@ -2,12 +2,21 @@
 
 Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
-## 0.9.2
+## 0.9.3
 
 First public Beta. The whole road from Dawn to the final boss is playable; balance and texts will still change. Please report what breaks on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 - **The Chronicle, corrected.** Copper melts in the small vessel inside a pit kiln, never on a firepit, and the quests say how to pour it into a mold. Pit kiln, charcoal pit and charcoal forge are described step by step, and a new note, "Anvil Work", explains the plan, the strikes and the rules. "Welcome to the Wild" says that sneak is Left Ctrl and Left Shift sprints. The Bronze and Iron Ages have their ring quests ("Raise the Bronze Sanctum", "Raise the Iron Sanctum"), and ring quests no longer call the ring optional. The Firmament chapter shows each offering when its Age dawns. "Antimatter Pellets" asks for the two the Quantum Core needs. "Into The Origin" sits on the main route of the Singularity Age. Fewer forward names, clearer titles ("A Pot of Soup", "Stone Anvil", "First Weld"), and "A Weird Rock" is gone.
 - **Walkthrough:** the Stone Age copper route and the devices are corrected like the quests; the operator commands moved to the server pack's README.
+- **Clearer Age messages.** Items that fall from your pack because they belong to a later Age now say so without a count (no more "1 things fall"), and the Gathering in The Origin is announced once instead of twice. The Ages, the nightly mob ladder and the helper unlocks have plain names ("Stone Age", "Nights of the Bronze Age", "Storage Terminal").
+- **Server pack README:** how to restore a backup, why clients and server need the same pack version, `/firmages ages sync` as the one repair command, and a short table of operator commands.
+
+### Technical
+
+- **Firmament Ages Core** stays at 0.9.2; this version changes quests, configs, scripts and documents only.
+
+## 0.9.2
+
 - **Loading screen.** The late loading screen shows how much memory the game uses ("Memory 3120 MB of 8192 MB"), and its bar keeps up with the real progress instead of lagging behind and closing half full.
 - **No gear button** from Supplementaries on the title and pause screens; it opened a list of every mod's config.
 - **Immersive Engineering shaders are gone.** Shader grab bags no longer drop from bosses, the Bulwark or advancements, and the shaders and bags are hidden from the recipe viewer.

@@ -2,7 +2,7 @@
 
 Eine Anleitung für jede Version.
 Alle Befehle im Repo-Hauptordner `D:\Minecraft\MinecraftModServer\FirmamentAges`, Windows PowerShell 5.1 reicht.
-`<v>` steht für die Pack-Version (z. B. `0.9.2`).
+`<v>` steht für die Pack-Version (z. B. `0.9.3`).
 
 Reihenfolge einer Version: **1** bauen, **2** lokal testen, **3** firmages-core hochladen (wenn sich die Mod geändert
 hat), **4** Modpack hochladen, **5** Freunde und Server.
