@@ -111,6 +111,11 @@
       "id": "moonlight-quark-color-sets",
       "regex": "^\\[main/INFO\\] \\[Moonlight/\\]: Failed to load custom color set definition \\{\"id\":\"quark:(rune|shard)\",",
       "reason": "Moonlight ships color sets for Quark (absent) and reads every pack's copy of the file, so an override cannot replace them."
+    },
+    {
+      "id": "moonlight-dynamic-pack-pool-at-stop",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[AllTheLeaks/\\]: (If you did \\*NOT CRASH\\*, consider activating \"debugThreadsStuck\"|Seems like server is stuck while trying to close\\.)",
+      "reason": "Moonlight 3.7.2 runs Every Compat's dynamic datapack generation (DynamicResourcesProvider.runGenerationPipeline, CompletableFuture.supplyAsync) on a fixed pool of non-daemon threads ('pool-N-thread-1..15') that is never shut down; at 'stop' AllTheLeaks' watcher sees those idle threads when the shutdown passes its window and logs these two lines. The JVM still exits with code 0 (N5 copy, round 3: exit 0 ten seconds after 'All dimensions are saved'; stack trace from debugThreadsStuck in round 4). Not every stop shows it (round 2 did not). A fix belongs in Moonlight (a daemon thread factory or shutting the pool down)."
     }
   ]
 }
