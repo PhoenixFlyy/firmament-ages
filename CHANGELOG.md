@@ -2,6 +2,22 @@
 
 Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## 0.9.2
+
+- **Loading screen.** The late loading screen shows how much memory the game uses ("Memory 3120 MB of 8192 MB"), and its bar keeps up with the real progress instead of lagging behind and closing half full.
+- **No gear button** from Supplementaries on the title and pause screens; it opened a list of every mod's config.
+- **Immersive Engineering shaders are gone.** Shader grab bags no longer drop from bosses, the Bulwark or advancements, and the shaders and bags are hidden from the recipe viewer.
+- **The Origin: one Gathering per fight.** Walking back to the altar while the waves or the final boss are alive no longer starts the Gathering again; the altar speaks once per fight.
+- **Way signs** have their own icons in every TerraFirmaCraft and ArborFirmaCraft wood (ten of them showed the missing texture).
+- **Evolved Mekanism's Chemixer and APT recipes** (plaslitherite, better gold) appear in the recipe viewer.
+- **Design n Decor's text plate** breaks with its own particles instead of the missing texture.
+
+### Technical
+
+- **Mod updates:** ImmediatelyFast 1.6.15 and Sophisticated Core 1.5.12. Supplementaries stays at 3.9.9 and Create: Applied Kinetics at 1.5.4 on purpose.
+- **Configs:** nine mod configs ship complete, so the game no longer "corrects" them on the first start; Dynamic FPS starts without its missing-config warning.
+- **Firmament Ages Core 0.9.2:** `/firmages origin kill` and `kill boss` for testing the finale, `ui.hiddenMenuWidgets` for other mods' menu buttons, EMI categories for Evolved Mekanism's chemical recipes, and an EMI audit that logs a warning only for a real leak. Network protocol 4 is unchanged.
+
 ## 0.9.1
 
 - **Ages carry over into the party.** When a player founds or joins the server's party, the party gets every Age the world already holds (and the finale, once won), without a ceremony. A world played alone before 0.9.1 becomes a shared one: the player with the most Ages founds "Firmament" and keeps the quest book, the next player joins it with all Ages. While that player is offline, a newcomer reads who holds the world's Ages.

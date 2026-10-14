@@ -45,6 +45,15 @@ MIT License. Source: the `mod/firmages-core` folder of the pack repository, [git
 
 ## Changelog
 
+**0.9.2**
+
+- The Origin: one Gathering per fight. While the gate's waves or the final boss are alive in The Origin, players who walk back to the altar start nothing and see no waiting line; the altar's message comes once per fight. `/firmages origin status` says whether the fight runs.
+- Operators' test commands: `/firmages origin kill` ends the current wave (its enemies and the boss's helpers count as killed), `/firmages origin kill boss` kills the final boss and wins the finale the normal way.
+- `ui.hiddenMenuWidgets` (client): widgets other mods add to the title and pause screens, hidden by class name or label key; the default hides Supplementaries' config gear.
+- EMI: Evolved Mekanism's Chemixer and APT recipes, which only had JEI categories that fail beside EMI, get their own EMI categories with Mekanism's chemical stacks.
+- EMI audit: it judges the index EMI shows (disabled stacks excluded) and logs INFO without offenders; until now every reload logged WARN.
+- Network protocol version 4, unchanged.
+
 **0.9.1**
 
 - Team carry-over: when a player enters an FTB Teams party (founding, joining, an accepted invite), one tick later the party gets every Age of the world's Age record it lacks, plus `finale_won` after the final boss, through ProgressiveStages' grant path; no ceremony, swap or Firmament Night. A party member's login repeats it. `team.autoJoin` founds "Firmament" also on a world where one player already holds Ages: that player founds it (FTB Quests moves the founder's quest book into the party); while that player is offline a newcomer is told who holds the Ages (`firmages.team.waiting`). Dormant player teams and disbanded parties no longer count for the one-team guard or the boot union.

@@ -60,7 +60,7 @@ Firmament Ages starts with shaders turned on: it uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 0.9.1 contains 216 mods. Thank you to every author.
+Firmament Ages 0.9.2 contains 216 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))

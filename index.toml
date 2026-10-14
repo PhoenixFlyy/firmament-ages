@@ -10,11 +10,11 @@ hash = "5735bc49268d36ea6ea76ff1acb41c42dc2b5d5edadf2bb2f77d61c78e18903f"
 
 [[files]]
 file = "config/ars_nouveau-client.toml"
-hash = "6f8bc253ab41ef23013c4716fb62d6eb0cdffc7df83e4379e47d253052442650"
+hash = "9da2cca15e710600377534983711e8798409069bcc695098828e26cfb3710e85"
 
 [[files]]
 file = "config/ars_nouveau-common.toml"
-hash = "525f46f7bdb425f331c51ee591b41521cc914f34d57e9ce69a3765ecfde6c2a6"
+hash = "67227c40e92a19c75c84c4e7a3af8810cad630e12375febf66eb8f7bf17325fc"
 
 [[files]]
 file = "config/brandon3055/DraconicEvolution.cfg"
@@ -22,7 +22,7 @@ hash = "16b87d346751be22275155555bbe466c73bee7297b3425bc1282d9e224942957"
 
 [[files]]
 file = "config/cataclysm-client.toml"
-hash = "4fa2149a895f6578d424174d6b6a3304949153b1f38554442623e13760d221f0"
+hash = "3c165348cb8f1cbb4d1e468a4bea88665d4839e7957fdb394e9a57efad4afbba"
 
 [[files]]
 file = "config/cave_dweller/server_config.toml"
@@ -34,7 +34,7 @@ hash = "956dfd6f528457e82b72142da3e8731bdd6a6130202b9917e0ce6d22494473cf"
 
 [[files]]
 file = "config/create-client.toml"
-hash = "95752e09d01178db3c5bdc0dce1634e3a4882ace629df1be5f4707e1a36f6519"
+hash = "c604cfee46d5084deb558a030e2cae73ee73d5a1ecbe5fc0b46838cd0e4d139a"
 
 [[files]]
 file = "config/createdieselgenerators-server.toml"
@@ -43,6 +43,10 @@ hash = "0b129185c5252400c94d0eb3314b63033ba3c982e0058bcce6e1ce3ae1606cec"
 [[files]]
 file = "config/cucumber-tags.json"
 hash = "f94d87315517eec466c72edd28a197d1f6e55ccb1d65d4813a9fa2357487a57a"
+
+[[files]]
+file = "config/defaultoptions/extra/config/dynamic_fps.json"
+hash = "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
 
 [[files]]
 file = "config/defaultoptions/extra/config/emi.css"
@@ -82,7 +86,7 @@ hash = "ca187fe5c82c892b512d33479b28c0ade281734322ad2261732654cb3fb52d88"
 
 [[files]]
 file = "config/everycomp-hazardous.toml"
-hash = "ec18a00e19469ad7550c411eccaee00e041213de462c75296f0ee0b5ed631ea6"
+hash = "5dcb48b3b5bc6a7bfcc8f9bb93aef42d942ea368dafe6ae75198633368dfed64"
 
 [[files]]
 file = "config/fancymenu/assets/firmament/bar_bg.png"
@@ -122,7 +126,7 @@ hash = "ce0d84b2b57cf5f1f8223fe000ffe065ed91791a27b82411a9028bf2b85d8647"
 
 [[files]]
 file = "config/fancymenu/customization/drippy_loading_overlay_layout.txt"
-hash = "73465c2f699837e6251bfa42dcee3af318bc84813de28e1ca39d284556d212ec"
+hash = "dc61a5641d764d681cd1f7233aeff9c88424b5641227e8353d3bdd22cd200ede"
 
 [[files]]
 file = "config/fancymenu/customization/pause_screen_layout.txt"
@@ -130,7 +134,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "1baa4f506076871158f4124194c2852745857c1bf2b8202c9e52d2a86625c31c"
+hash = "bb4ab2a530037b984cc05273a2b9c7b0a6fe47957bbbe11769fa16d44c0f7fd2"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -326,7 +330,7 @@ hash = "881594160b4e0e88136ed5a7a2607fdd748ffe760c8e67b6dcca8f4776a2162b"
 
 [[files]]
 file = "config/mysticalagriculture-common.toml"
-hash = "5dff4c007152c73d7fe1e56239b4dc729438fb96586c0e2aa6993ed3a9e2ca4d"
+hash = "221742a76b331b8dffb6acd852e9db9328f62e234b936751374e26708d146148"
 
 [[files]]
 file = "config/mysticalcustomization/configure-crops.json"
@@ -338,7 +342,7 @@ hash = "06364c8fe7cc156a892d52aa7398d045946ea540e788cd893cbea426660d0c04"
 
 [[files]]
 file = "config/progressivestages/progressivestages.toml"
-hash = "fbfc6173af7d26c71d7aa4800b02ac4756b7dbd211ec7cebfccec69666c71191"
+hash = "0a784c69b51fd4cbc18a49aadfba7277a0dd5fbb981551c9811485e64279d6da"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
@@ -457,12 +461,16 @@ file = "config/simplebackups-common.toml"
 hash = "2c95584536898171c4045cdb7dc9d68cdfddb44f2db04a011c058700d50569c4"
 
 [[files]]
+file = "config/supplementaries-client.toml"
+hash = "a6820df69f045cde0a846ba038a934c23b5eeccb101a4ded5d0d153e6d2571e8"
+
+[[files]]
 file = "config/supplementaries-common.toml"
-hash = "6a522d9d82d6033901d4e24c48f4766163612e426b7d70681e26680f934e106d"
+hash = "f1232ca10943544e34ddcfe61aca015b9b25606365da40445fc80e03269b3ce1"
 
 [[files]]
 file = "config/tfc-client.toml"
-hash = "d859ef36113f7df564ecd8622f72324ae202345f8e16c0c62463650846042935"
+hash = "b075bcbeeb5a9e65685dd2da898625ce992abc23ab4886f35e99d133903cf56b"
 
 [[files]]
 file = "defaultconfigs/Mekanism/world.toml"
@@ -483,6 +491,10 @@ hash = "6540beac8c94d47b81495602ed398dfc5c38a19a87119d926e3f0836db9cf76c"
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
 hash = "6cd830fc39d3278d417e7ba0f06b7f0ce68d60a69190e6ec2162e9c046dcb1cd"
+
+[[files]]
+file = "kubejs/assets/dndecor/blockstates/text_plate.json"
+hash = "b7dede6c58d02569e9666b63c04d3d98b425f88f5775914b3f4e0a4f3970978b"
 
 [[files]]
 file = "kubejs/assets/firmages/age_namespaces.json"
@@ -1137,6 +1149,142 @@ file = "kubejs/assets/neoforge/lang/en_us.json"
 hash = "fdcf3def4f21c68a435cfd74f24d7ffcdd2e844eeab8086fd7a8447c8e5c88a6"
 
 [[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_araucaria.png"
+hash = "c8c449bf3a760c8431dc63376b3878a4b5b1526f6970b9c0a566ce53800782ba"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_baobab.png"
+hash = "9e9732236b59a13cda6b018515899fcc1ce2c35b6c092f93f9b0fefe1ac2e2fc"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_beech.png"
+hash = "8e8a6b8011879457d7afa1333c42cd0ddab1aead27c9b265c5fc68e74e47168a"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_cypress.png"
+hash = "cf5951528a3f07c505397d81a7b2e1ba780137e44283b6f5a69afd7724e2da09"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_eucalyptus.png"
+hash = "f1ae9a179fcd19ebb779530834a60c7dbe1dc74513ab7b0bc46e3b20bb20fcb0"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_fig.png"
+hash = "4e66be57d0b544a5c94c347c4ce772852e46a12db18a3d060fa384077bdeac4f"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_ginkgo.png"
+hash = "8b5db848072ad3d704dfd07b12350a854fc5badc673dff57e3d19fb2467874b5"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_hevea.png"
+hash = "dee9817318641e034ed5261fcd2beb70d30142f9059d5c96c1101cba30b8e1cd"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_ipe.png"
+hash = "810779ca93601a2cc81f130b5a94f66724de5936c4ddbb0c32f10b800e9cc1d9"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_ironwood.png"
+hash = "a44006f96761ae5337efd3d52b7a4b91ac04790d42ed93e4411616ae9ffa6cdf"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_mahoe.png"
+hash = "dd18d33777e7c081f38e0c7b25915733a66a081ce55135bcb762b238019c37b6"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_mahogany.png"
+hash = "806aaec8ce9e2b88dccea39bd6b295dfe1503b585edadd85ec895cf92a92c2c8"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_teak.png"
+hash = "fde72989ed001590d3c2b448bb2a06b9fd9aa53a3238300aa7598680f479a6a9"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/afc/way_sign_tualang.png"
+hash = "009af6c1ec41751eb438b68acc7dc9b3976ee98714a45173c479ac6ac483e30c"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_acacia.png"
+hash = "9ac5a8e0329eb21719d06909f729c1c9981941cdee89b8b8d320e513935d5954"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_ash.png"
+hash = "3b36d24c24d82f82be60a4ace70e45d00bec3202b0f73e7bcb24e922e7802cc0"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_aspen.png"
+hash = "a0e7601d9196d944d0f80cbd0cc2ac0d4d3028091731898949dfdee86cfba484"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_birch.png"
+hash = "12c57603b0a5ec031c7cfb9f404b5402756375bbdfa925447155a1937522cc90"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_blackwood.png"
+hash = "4eef3699c83d6541e1a4743c50679f676b0d74ccb61b36ad7428dd59c0307f6e"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_chestnut.png"
+hash = "b727019bb7ab6e5f3fdd7eed3998cad18c9e28aa2481a662981099753e700573"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_douglas_fir.png"
+hash = "30461ba05f20178ad2e6f50b5d67c014438306afe738eac5b72bfed276b9592c"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_hickory.png"
+hash = "d5a325e2df1cc935f04ccc84e3d1d1a4f62bea8dd115d3bfd57d1eec68a01756"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_kapok.png"
+hash = "e05e3a8842f6e86054013b65b00df73cbfcd39586ff217420d7157d9d274d809"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_mangrove.png"
+hash = "8100ef585fac7c9547072a57c8c894136f3c1742d21dfbb4210bc3ac47e5b517"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_maple.png"
+hash = "66c283e6d9c3750e24e3e74a5e284a667a8937226e0842872a868bca224043d0"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_oak.png"
+hash = "61ef2b9863944eb1ad6bdd2851b5a29ac0c4b626f7bfa5a30ed977322b4d82c3"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_palm.png"
+hash = "00db55f7875f583dc4d0649daae57cd9dcce180abc83c8bd586355e733ec6d8a"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_pine.png"
+hash = "08a2bfce71954d08eb8c41c3b6d474f4bbf1712c24a951cb50f84300cc495f36"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_rosewood.png"
+hash = "976e74cad572deb5cd6395eb5dc620667ff9e6ece20015b79e83e5510cdfc3c1"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_sequoia.png"
+hash = "ed0795db9f99096ad7d1d32347a0ff13dbf6653bd7689b36ad2585d7eadf3e43"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_spruce.png"
+hash = "c7543ffbdd9f9f13f29364e60f7b7c1c064e40bb696f548ff70af3e8cae60ec0"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_sycamore.png"
+hash = "22548d9f9f78ca6da045f2279f88a49100cbde4039b1779fa83fde91f6f7776f"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_white_cedar.png"
+hash = "0e4c617a663045bd8455773b143f9c5f7c2be35f9d185401c7c8af1cd103fab7"
+
+[[files]]
+file = "kubejs/assets/supplementaries/textures/item/way_signs/tfc/way_sign_willow.png"
+hash = "7de225c313cb25e8166a70434f52e83ed81dc48fe4138ea9a1281cec982914ba"
+
+[[files]]
 file = "kubejs/client_scripts/item_tooltips.js"
 hash = "3fabc174f4d63efffa1f31160255dbfbe7c08907c5fa4ba8d187c80bece20cda"
 
@@ -1558,7 +1706,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "89d63dc0252f78939c413c9ef787e520781984390e437bc1c498a8ec2d540371"
+hash = "0d3599e161dd811379e2d4eea89fa57579cfc30177f4e67cd520e719ae67817e"
 
 [[files]]
 file = "kubejs/data/cataclysm/tags/block/needs_black_steel_tool.json"
@@ -3682,7 +3830,7 @@ hash = "17cf0dc9d0fc6d5a4c7ca09ddb35af9c4d2c61a76328bda2e519c268f447477a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "3e80be27a379b8adcf0d1cdfa6e83039dfcb18a2a35378a36474730b883b8b89"
+hash = "6f349f0619edaeedef72a91d2609a00bece09a31d4713470cee257456fe6fdf1"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
@@ -3710,7 +3858,7 @@ hash = "90275abb9d36c91177dbe111e3395113d461d2850f258dbefc0b5491e3960715"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "fa841237762cb6596af049aa5c7bc90ac27b8739038dd39efbd6f31fdb59db2c"
+hash = "74d47b4b49d436d221c856eda6464fbcde0d145bc9c71d43ea65cd334d12a525"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -3853,6 +4001,34 @@ file = "kubejs/data/firmasupps/recipe/sewing/dragon_banner_pattern.json"
 hash = "032af0adea2d55573eced9eaa1f6b9005a912731c64a8a25cf5a1053bfd04a0a"
 
 [[files]]
+file = "kubejs/data/immersiveengineering/advancement/main/buy_shaderbag.json"
+hash = "e2fb3f79fff1c49a6d6e52dffcf45b1c4ba9fbfbfeeebe6e6dd0bcbd7eded840"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/advancement/main/secret_luckofthedraw.json"
+hash = "e2fb3f79fff1c49a6d6e52dffcf45b1c4ba9fbfbfeeebe6e6dd0bcbd7eded840"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/loot_table/advancements/shader_epic.json"
+hash = "4ee67ce3c4778b20c41855fd87a19e6cb9af97622b0c22944abfcc624114d27c"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/loot_table/advancements/shader_masterwork.json"
+hash = "4ee67ce3c4778b20c41855fd87a19e6cb9af97622b0c22944abfcc624114d27c"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/loot_table/advancements/shader_rare.json"
+hash = "4ee67ce3c4778b20c41855fd87a19e6cb9af97622b0c22944abfcc624114d27c"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/loot_table/entities/bulwark.json"
+hash = "61281a0aba2f5b478138ddb2e10817bb32c4b8af2bc383b34d36fcb10ccc2913"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/loot_table/gameplay/hero_of_the_village/outfitter.json"
+hash = "bb673a19f43e281319458ed7f67c1f021d5b2f90846a4cef86b8e600a325ff3e"
+
+[[files]]
 file = "kubejs/data/immersiveengineering/structure/multiblocks/arcfurnace.nbt"
 hash = "014ff281003ddac097af557ea211c87386031635523a684682094ece476db993"
 
@@ -3863,6 +4039,10 @@ hash = "b41150c1a843abafaed6e3ac7bf9e28fc53a60a6f7ed033a7f761b65ee656eac"
 [[files]]
 file = "kubejs/data/immersiveengineering/structure/multiblocks/excavator_full.nbt"
 hash = "b19334c424eb5ef0ae0bf07f6b31ad6e317ebbffda8f6efa925a60b9eece47d8"
+
+[[files]]
+file = "kubejs/data/immersiveengineering/tags/entity_type/shaderbag/blacklist.json"
+hash = "2d780c7e22bf8c8a97d4315943a7a34c0dac7a87ce2a73aa1682468a815e3d8b"
 
 [[files]]
 file = "kubejs/data/immersivepetroleum/structure/multiblocks/cokerunit.nbt"
@@ -6522,7 +6702,7 @@ hash = "dd0902086c52f3e48b7445e9ec4c8f793d62b010a48ecd999f61fd395d6ad8f4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "1af5020d9a140b98fc65e281c67d83874250c2bcc29db59cedaeb237adb699e8"
+hash = "c0c89ba767c8cd2137a41f21e681685c302d1daabae90ac58d940b567b07bf6a"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/signature_blocks.js"
@@ -6578,7 +6758,7 @@ hash = "ef817e26ccf509cd1509dd62f76f52576a7e269e6b703102c128b15410e617b7"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "2df776ce128718e1e0149175429894a1b0ad1cc506a8561f5426c831454ff6c7"
+hash = "f4e2c550eb9ee016eee92d1e41b2e4005729c73df09e1c4c74c0715b2c64ee18"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
@@ -7087,8 +7267,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.9.1.jar"
-hash = "739fa296be8709141a9e30071dbcfc4fcb32ecf44793a4d1a4b52082c950841e"
+file = "mods/firmages-core-0.9.2.jar"
+hash = "b1d7516188384f5c9bacb2fd6f8d9928bb521dbd839e694b55d657d4cff2239d"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
