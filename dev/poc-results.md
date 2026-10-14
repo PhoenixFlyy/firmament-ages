@@ -2649,3 +2649,24 @@ rewrite, Age reload lag, FTB Library stage provider, TFC first-load metal infere
 - The residual scan noise could shrink further if firmages-core skipped classes whose bytecode is not an enum before
   TFCRegistryAPI's `Class.forName` (ASM read of the access flags). Not done; the lines are harmless.
 - `show_compile_errors = true` stays in the title layout until Felix has seen the shader in game.
+
+## 0.9.0 Age swap (branch n3/ageswap, 2026-10-14)
+
+`Modpack-Planung/research-raw/n2-perf.md` item 1 and `n2-emi-leaks.md` item 4: an Age change re-filters the recipes kept
+from the last datapack load instead of reloading every datapack (`age/AgeSwap`, SPEC §3.3), the three Age ore tags are
+bound in Java (`age/AgeOreTags`; the KubeJS scripts `firmages/miner_blacklist.js` and `prospecting.js` are deleted),
+the recipe scripts only declare Ages (`FirmAges.stationAge`, `requireAge`, `untilAge`), and the Create heat levels are a
+station lock in the gate. No pack server was started on this branch (worktree rule); all numbers are from the dev
+GameTest server (vanilla, IE 12.4.2, Mekanism 10.7.19, DE, KubeJS, ProgressiveStages; 4,746 recipes).
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` | 129 unit tests, 0 failed; new: `GateSuite` swap_* (8 cases, `keep` equals `verdict` for all 1,024 Age sets, heat levels, byproduct copies), `RecipeMarkersTest` (4), `CoreSuite.scheduler_swap_unless_full_requested` | pass |
+| `gradlew runGameTestServer` | "All 39 required tests passed"; new `AgeSwapGameTests` (3) and the reworked `unlockTwoAgesThroughSwap`, `unlockAndRevokeSwap`, `ageOreTagsAtBoot` | pass |
+| Swap vs full reload (`swapMatchesFullReload`, log line `GameTest Age swap vs full reload`) | swap 11 to 15 ms, full datapack reload with the same Ages 1,817 to 2,559 ms over four runs; 4,743 live recipe ids and 44 ore tag entries identical | pass |
+| All swaps of one run | 26 swaps, 5 to 21 ms, median 9 ms; the `gate.ageSwap = false` test reloads in full (1.6 to 1.7 s) | pass |
+| Machines after a swap (`unlockTwoAgesThroughSwap`) | vanilla furnace lookup, IE crusher cache and Mekanism enrichment cache find the iron recipe right after the age_2 swap and lose it after the revoke, without a datapack load | pass |
+| `/reload` after a swap (`vanillaReloadKeepsGateAndSwap`) | full load with the live Ages, new master, ore tags filtered, KubeJS probe ran; the next grant swaps on the new master | pass |
+| `gradlew runGameTestServer -PgametestTfc` | the swap flushes `[mekanism, tfc, immersiveengineering]` with no error (TFC `Helpers.updateReloadableData`); 15 failures: the 13 known ones of this mode plus `swapMatchesFullReload` and `ageSwapOffReloadsInFull`, which find the Ages left unlocked by the failed shrine tests | pass (expected failures) |
+| `grep -rn isUnlocked kubejs/server_scripts/recipes` | no hits | pass |
+| Pack server: swap time per Age with players, `poc_analyze.py` G-1 to G-4 on per-Age dumps, client EMI reload count | not run (no server start allowed on this branch) | open |

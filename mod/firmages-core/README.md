@@ -19,8 +19,13 @@ the coalescing `ReloadScheduler`, the commands `/firmages ages [sync|simulate]`,
 Milestones M2 and M3 (0.2.0): the machine-recipe Age gate (`RecipeManager#apply` TAIL filter with typed extractors for
 Create, IE, Mekanism and Occultism plus a JSON output walk, `/firmages recipes audit|why|locked`, the cache flush for the
 Occultism mineshaft and the Ars apparatus), the IE excavator filter (MineralMix mixin), the fake-player OreGuard, and
-the pack's KubeJS hand-off scripts `kubejs/server_scripts/firmages/` (Digital Miner blacklist, m1 prospecting tags).
-Implementation notes: `SPEC.md` §4.7 and §5.1.
+the Digital Miner blacklist and the m1 prospecting tags (KubeJS hand-off scripts until 0.8.x, `age/AgeOreTags` in Java
+since 0.9.0). Implementation notes: `SPEC.md` §4.7 and §5.1.
+
+0.9.0: the Age swap. An Age change re-filters the recipes kept from the last datapack load (`gate/RecipeMaster`), rebinds
+the three Age ore tags, flushes the machine recipe caches and sends the recipes to the players instead of reloading every
+datapack (`age/AgeSwap`, `gate.ageSwap`); the pack's recipe scripts declare Ages with `FirmAges.stationAge`,
+`requireAge` and `untilAge`. Implementation notes: `SPEC.md` §3.3, §3.4 and §4.8.
 
 ## Tests
 
@@ -31,11 +36,12 @@ Implementation notes: `SPEC.md` §4.7 and §5.1.
   pinned Create, IE, Mekanism, Occultism, Ars, TFC and DE jars, in `src/test/resources/fixtures`).
 - `gradlew runGameTestServer` runs the GameTests (`src/gametest`, level G) on a fresh world with ProgressiveStages,
   Modonomicon, KubeJS, Rhino and Stargate Journey from `libs/`, and IE, Mekanism, Draconic Evolution, Brandon's Core
-  and CCL from maven (so the typed extractors, the MineralMix mixin, the reactor controller and The Origin's gate run
-  against the real classes). The pack scripts `kubejs/server_scripts/firmages/` are copied into the run, and the
+  and CCL from maven (so the typed extractors, the MineralMix mixin, the reactor controller, The Origin's gate and the
+  swap's IE and Mekanism cache flushes run against the real classes). The pack scripts `kubejs/server_scripts/firmages/` are copied into the run, and the
   ProgressiveStages stand-in stages of `src/gametest/config` into `run/gametest/config`.
   M2/M3: synthetic recipes `firmages:test/*` and the m1/m3 test tags; M1: the self-test suites, the commands, the AgeIndex built from the test
-  tags, and unlock → reload → revoke → reload with the KubeJS probe script `src/gametest/kubejs`. No EULA file is needed.
+  tags, unlock → Age swap → revoke → Age swap, and `/reload` with the KubeJS probe script `src/gametest/kubejs`
+  (`AgeSwapGameTests` also compares a swap with a full reload and logs both durations). No EULA file is needed.
 - In the pack: `/firmages selftest all` writes `logs/firmages-selftest.json` (suites `core` and `server`).
 
 ## Notes for the other milestones
