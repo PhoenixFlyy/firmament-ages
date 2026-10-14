@@ -5,7 +5,7 @@
 
 [stage]
 id = "age_0"
-display_name = "Age 0: Stone Age"
+display_name = "Stone Age"
 description = "Clay, pit kilns and the first cast copper."
 icon = "firmages:hearthstone"
 dependency = "dawn"

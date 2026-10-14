@@ -7,8 +7,8 @@
 
 [stage]
 id = "mob_9"
-display_name = "Mob Tier 9"
-description = "Spawns of the Singularity Age."
+display_name = "Nights of the Singularity Age"
+description = "What walks in the dark of the Singularity Age."
 icon = "minecraft:zombie_head"
 category = "Mob Ladder"
 tags = ["mob"]

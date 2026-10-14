@@ -4,6 +4,9 @@ This zip is a ready-to-run dedicated server for Firmament Ages (Minecraft 1.21.1
 server-side mods, configs, KubeJS scripts and quests of the pack version in its file name. Client-only mods are left
 out.
 
+Every player needs the client pack of the same version as this server pack. A client of another version may fail to
+join, or it shows recipes and locks that do not match the server.
+
 ## Start
 
 1. Unzip into an empty folder.
@@ -65,33 +68,36 @@ the Industrial Age; then the party gets 25 claims and 25 force-loaded chunks, wh
 
 ## Operation
 
-- **Backups:** Simple Backups writes a full backup every 120 minutes to `simplebackups/`, keeps 10 and at most 25 GB
-  (`config/simplebackups-common.toml`). Copy that folder to a second disk now and then.
-- **Repair Ages:** `/stage grant <player> age_N` grants an Age (grant in order). Then run `/fa_reconcile` as that
-  player so the helper stages (map, mob ladder, station windows) follow.
+- **Backups:** Simple Backups writes a full backup every 120 minutes to `simplebackups/world/`, keeps 10 and at most
+  25 GB (`config/simplebackups-common.toml`). Each backup is one zip named after the world and the time, for example
+  `world_2026-10-14_01-06-35.zip`, with the folder `world/` inside. It holds everything of the world: terrain,
+  players, Ages, teams, quest progress and `world/serverconfig`. Copy `simplebackups/` to a second disk now and then.
+- **Restore a backup:**
+  1. Stop the server: create `STOP` next to the scripts, then type `stop` in the console.
+  2. Rename the folder `world` to `world_broken` (delete it later, once the restored world runs).
+  3. Unzip the chosen backup into the server folder, so that `world/level.dat` exists again.
+  4. Delete `STOP` and start the server. Everything after the time in the zip name is lost.
+- **Repair Ages:** `/stage grant <player> age_N` grants an Age to the whole party (grant in order). The map, the
+  mob ladder and the station windows follow on their own, at once or at the next login.
+  If recipes or ores still behave like the old Age, run `/firmages ages sync` (works from the console): it takes
+  every Age the stage mod knows into the world and reloads the recipes.
 - **Windows Defender:** it scans every file the server writes, which slows the first start and every world save.
   Add the server folder as an exclusion: Windows Security, Virus & threat protection, Manage settings, Exclusions,
   Add an exclusion, Folder. Exclude only this folder, and only if you trust the files in it.
 - **RCON:** it listens on every interface when `server-ip` is empty. Keep `enable-rcon=false` on a public server, or
   never forward port 25575.
 
-## Operator commands for testing
+## Operator commands
 
-Permission level 2. `/firmages` commands come from firmages-core, `/stage` from the stage mod, `/fa_*` from pack
-scripts.
+Permission level 2 (`op <name>`), or the server console.
 
 | Command | What it does |
 |---|---|
-| `/stage grant @s age_N` | Grants an Age (the team gets it). Each `age_N` depends on `age_(N-1)`: grant in order. A quest or command grant plays the short ceremony and leaves no relic. A ring standing for an Age you already hold is consecrated at the next check; its plinth takes the late offering at once, without a grant. |
-| `/firmages ages` | Unlocked and locked Ages, mirror status, last reload time. `ages sync` reconciles with the stage mod. |
-| `/firmages shrine status` | Heart, missing blocks per ring, tier, offering, rites, phase, prayer, blessings; in age_9 whether the Gathering is done. Also `shrine locate`, `relics`, `extract <plinth>`, `maintenance on/off/status`, `consecrate <ring>`. |
-| `/firmages ceremony preview <stage> [full\|short]` | Plays a ceremony to you, no grant. |
-| `/firmages origin tp <player> force` | Into The Origin without age_9 and outside creative; both locks let the player stay until he leaves, respawns elsewhere or the server stops. Without `force` the age_9 lock applies. |
-| `/firmages origin gathering` | Starts the altar Gathering now for everyone online, wherever they stand, without cooldown. The trial waves follow as in the real fight. |
-| `/firmages origin fight` | Summons The Primordial at once, no waves. Refused while the finale trial or the boss lives, and after the win. |
-| `/firmages origin status` / `reset` | Arena version, return gate, altar, Gathering count, boss state, island echoes / lets the Gathering and the boss happen again (`finale_won` stays). `origin rebuild` builds the arena again. |
-| Simulate facility | Set `debug.allowSimulate = true` in `serverconfig/firmages-server.toml`. Then `/firmages ages simulate grant\|revoke <stage>` changes the Age state without the stage mod (self-tests only); `/firmages shrine simulate_pray` completes the current prayer with ring and offering in place, skipping rites and praying players (in age_9 the Gathering); the headless test players work (`/firmages debug player join\|leave <name>`, `debug use`, `debug pray`, `debug punch`, `debug run`). |
-| `/fa_dump` | Writes `local/firmages/recipes.json` (every loaded recipe with its locks), `item_tags.json` and `registries.json`. Also `/fa_dump_full [regex]`, `/fa_recipe <regex>`, `/fa_dims`, `/fa_m3`. Runs from the console and RCON too. |
+| `/stage grant <player> age_N` | Grants an Age to the party. Each `age_N` needs `age_(N-1)`: grant in order. The ceremony is short and leaves no relic. |
+| `/firmages ages` | Unlocked and locked Ages and the last reload. `/firmages ages sync` is the repair (see Operation). |
+| `/firmages shrine status` | The shrine: missing blocks per ring, offering, rites, prayer. `shrine locate` finds the heart; `shrine maintenance on\|off` opens the consecrated shrine for repair. |
+| `/firmages origin tp <player> force` | Sends a player into The Origin without the Singularity Age, for example to fetch a lost item. |
+| `/firmages origin status` / `reset` | State of the finale arena / lets the Gathering and the boss happen again (the won finale stays won). `origin rebuild` builds the arena again. |
 
 ## Update
 

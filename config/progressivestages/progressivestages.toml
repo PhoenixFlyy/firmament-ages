@@ -222,10 +222,10 @@
 	type_locked_generic = "&7Not yet. Its Age has not come."
 	#Chat message when locked items are dropped from inventory.
 	#{count} = number of items dropped. Supports & color codes.
-	items_dropped = "&7{count} things fall from your pack. Their Age has not come."
+	items_dropped = "&7What is not of this Age falls from your pack."
 	#Chat message when locked items are moved out of the hotbar.
 	#{count} = number of items moved. Supports & color codes.
-	items_moved_hotbar = "&7{count} things slip from your hands into your pack. Their Age has not come."
+	items_moved_hotbar = "&7What is not of this Age slips from your hands into your pack."
 	#Tooltip line showing current stage.
 	#{stage} = current stage name, {progress} = progress string (e.g. 2/5).
 	#Supports & color codes.

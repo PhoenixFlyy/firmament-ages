@@ -5,7 +5,7 @@
 
 [stage]
 id = "age_6"
-display_name = "Age 6: Information Age"
+display_name = "Information Age"
 description = "Ore tripled, one network, the End."
 icon = "minecraft:comparator"
 dependency = "age_5"

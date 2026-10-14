@@ -5,7 +5,7 @@
 
 [stage]
 id = "age_8"
-display_name = "Age 8: Quantum Age"
+display_name = "Quantum Age"
 description = "Fusion, antimatter and the inner planets."
 icon = "minecraft:end_crystal"
 dependency = "age_7"

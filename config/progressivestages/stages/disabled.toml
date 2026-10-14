@@ -8,8 +8,8 @@
 
 [stage]
 id = "disabled"
-display_name = "Disabled"
-description = "Removed from Firmament Ages."
+display_name = "Not of this world"
+description = "Gone from this world."
 icon = "minecraft:barrier"
 category = "Helpers"
 hidden = true

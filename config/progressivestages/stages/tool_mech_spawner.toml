@@ -7,8 +7,8 @@
 
 [stage]
 id = "tool_mech_spawner"
-display_name = "Create Mechanical Spawner"
-description = "Build window for the Create Mechanical Spawner."
+display_name = "Mechanical Spawner"
+description = "Made in the Industrial and Electric Ages. Simulation chambers replace it."
 icon = "minecraft:crafting_table"
 category = "Helpers"
 tags = ["helper", "tool"]

@@ -117,7 +117,6 @@ NativeEvents.onEvent(Java.loadClass('dev.firmages.core.origin.OriginEvent$Gather
   if (!faInOrigin(level) || FirmAges.isFinaleWon() || faFightRunning(level)) return
   const a = event.getAltar()
   faRun(server, `open_gateway ${a.getX() + 0.5} ${a.getY() + 3} ${a.getZ() + 0.5} ${faFinaleGate()}`)
-  faTell(server, 'The Firmament answers. Something stirs beyond the gate.', 'dark_purple')
   console.info(`[finale] Gathering ${event.getCount()}: gate ${faFinaleGate()} opened at the altar`)
 }))
 

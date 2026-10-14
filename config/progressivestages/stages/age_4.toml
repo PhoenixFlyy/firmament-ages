@@ -5,8 +5,8 @@
 
 [stage]
 id = "age_4"
-display_name = "Age 4: Industrial Age"
-description = "Coke, heavy steel, the first FE and Create packages."
+display_name = "Industrial Age"
+description = "Coke, heavy steel, the first power lines and packages."
 icon = "minecraft:blast_furnace"
 dependency = "age_3"
 category = "Ages"

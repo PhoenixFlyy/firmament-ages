@@ -7,8 +7,8 @@
 
 [stage]
 id = "mob_2"
-display_name = "Mob Tier 2"
-description = "Spawns of the Iron Age."
+display_name = "Nights of the Iron Age"
+description = "What walks in the dark of the Iron Age."
 icon = "minecraft:zombie_head"
 category = "Mob Ladder"
 tags = ["mob"]
