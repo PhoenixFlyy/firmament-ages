@@ -465,11 +465,17 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
     by_station = collections.Counter()
 
     def station_lock(r, j):
-        """Age that keeps a recipe out by its station (recipes/station_ages.js, the 4x/5x ore ladder and the blue
-        steel infuser of the pack scripts), or None."""
+        """Age that keeps a recipe out by its station (recipes/station_ages.js, the Create heat levels of the
+        firmages-core gate, the 4x/5x ore ladder and the blue steel infuser of the pack scripts), or None."""
         for t in (r["type"], (j or {}).get("type", "")):
             if station_age.get(t) and station_age[t] not in unlocked:
                 return station_age[t]
+        if r["type"] in HEAT_TYPES or (j or {}).get("type", "") in HEAT_TYPES:
+            # GateRules: the heat level is met by any of its sources; a source without an Age is always there.
+            srcs = [i for i in HEAT_STATION.get((j or {}).get("heat_requirement"), ()) if item_age.get(i) != "disabled"]
+            ages = [item_age.get(i) for i in srcs]
+            if srcs and all(a in AGES for a in ages) and not any(a in unlocked for a in ages):
+                return min(ages, key=AGES.index)
         for rx, st in LATE_LOADED:
             if re.match(rx, r["id"]) and st not in unlocked:
                 return st
@@ -633,8 +639,10 @@ def byproduct_checks(rows, full, tags, item_age, unlocked, baseline, check):
         mains, _ = split_outputs(j, tags, age_of)
         st = mod_age.get(j.get("type", "x:").split(":")[0], "dawn")
         need = max(max(mains.values(), default=0), AGES.index(st) if st in AGES else 0)
-        if need <= top and rid not in have:
-            absent.append(f"{rid}: main output and station are open at {AGES[top]} but the recipe is absent")
+        # before the byproduct Ages the copy firmages:byproducts/<ns>/<path>/before_<age> stands in for the original
+        copy = "firmages:byproducts/" + rid.replace(":", "/", 1) + "/before_"
+        if need <= top and rid not in have and not any(h.startswith(copy) for h in have):
+            absent.append(f"{rid}: main output and station are open at {AGES[top]} but neither the recipe nor a copy is loaded")
     check(f"G-3 recipes of byproducts.js are loaded once their main output and station are open ({len(table)} entries)",
           not absent, absent)
 
@@ -1456,8 +1464,10 @@ STATION_VANILLA = {"minecraft:bucket", "minecraft:crafting_table", "minecraft:fu
                    "minecraft:enchanting_table", "minecraft:barrel", "minecraft:trapped_chest", "minecraft:lectern",
                    "minecraft:fletching_table", "minecraft:soul_campfire", "minecraft:milk_bucket"}
 STATION_TRANSFORMS = {"mekanism:sawing/crafting_table", "create:haunting/soul_campfire"}
-# Create heat levels: a heated recipe needs a heater, a superheated one a Blaze Burner (with a blaze cake).
+# Create heat levels: a heated recipe needs a heater, a superheated one a Blaze Burner (with a blaze cake). The
+# firmages-core gate locks them the same way (GateRules.HEAT_TYPES, HEAT_SOURCES).
 HEAT_STATION = {"heated": ("tfcreate:primitive_heater", "create:blaze_burner"), "superheated": ("create:blaze_burner",)}
+HEAT_TYPES = {"create:mixing", "create:compacting"}
 REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
     ("age_2", "firmages:crafting/steel_heart", ["create:precision_mechanism", "create:mechanical_crafter", "create:deployer",
                                                  "create:mechanical_press", "tfcreate:primitive_heater", "tfc:metal/ingot/steel",

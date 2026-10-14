@@ -44,8 +44,8 @@ import java.util.Random;
 /**
  * Level G tests of m2 and m3 (SPEC §12) in the dev GameTest server. Test data in {@code src/gametest/resources/data}:
  * Age tags (copper age_0, iron + iron tools age_2, gold ore age_5, lava age_4, dragon egg disabled), the synthetic
- * recipes {@code firmages:test/*}, and {@code tfc:prospectable} / {@code precisionprospecting:prospectable_mineral}
- * for the pack's KubeJS hand-off scripts ({@code kubejs/server_scripts/firmages}, copied by prepareGametestRun).
+ * recipes {@code firmages:test/*}, and {@code tfc:prospectable} / {@code precisionprospecting:prospectable_mineral},
+ * which {@link dev.firmages.core.age.AgeOreTags} filters by Age.
  * Batches run one after another in no fixed order; every batch that changes Ages restores {@code [dawn]}.
  */
 @GameTestHolder(FirmagesCore.MOD_ID)
@@ -80,6 +80,16 @@ public final class GateGameTests {
     private static void expectRecipes(GameTestHelper helper, MinecraftServer server, String state, List<String> present, List<String> absent) {
         for (String id : present) helper.assertTrue(has(server, id), state + ": recipe " + id + " must be present");
         for (String id : absent) helper.assertTrue(!has(server, id), state + ": recipe " + id + " must be filtered");
+    }
+
+    /** Runs a test step and logs its assertion failure: a later step of the same sequence may fail too and replace it. */
+    private static void logged(Runnable step) {
+        try {
+            step.run();
+        } catch (net.minecraft.gametest.framework.GameTestAssertException e) {
+            FirmagesCore.LOGGER.error("GameTest step failed: {}", e.getMessage());
+            throw e;
+        }
     }
 
     private static boolean idle(MinecraftServer server) {
@@ -193,15 +203,11 @@ public final class GateGameTests {
             .thenSucceed();
     }
 
-    // ---------------------------------------------------------------- m1 / m3 KubeJS hand-off tags ([dawn])
+    // ---------------------------------------------------------------- m1 / m3 Age ore tags ([dawn])
 
-    /** The pack scripts: locked ores leave both prospecting tags and join the Digital Miner blacklist. */
+    /** AgeOreTags: locked ores leave both prospecting tags (nested #c:ores too) and join the Digital Miner blacklist. */
     @GameTest(template = "empty", batch = "firmages_1_selftest", timeoutTicks = 1200)
-    public static void kubejsOreTagsAtBoot(GameTestHelper helper) {
-        if (!ModList.get().isLoaded("kubejs")) {
-            helper.succeed();
-            return;
-        }
+    public static void ageOreTagsAtBoot(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         helper.startSequence()
             .thenWaitUntil(() -> helper.assertTrue(idle(server), "reload pending"))
@@ -216,8 +222,10 @@ public final class GateGameTests {
                 helper.assertTrue(Blocks.IRON_ORE.defaultBlockState().is(MINER_BLACKLIST), "iron ore on the miner blacklist");
                 helper.assertTrue(Blocks.GOLD_ORE.defaultBlockState().is(MINER_BLACKLIST), "gold ore on the miner blacklist");
                 helper.assertTrue(!Blocks.COAL_ORE.defaultBlockState().is(MINER_BLACKLIST), "coal ore not blacklisted");
-                AgeService.Status st = AgeService.status(server);
-                helper.assertTrue(!st.bootAnswersStale(), "the in-loader KubeJS run answered right on the initial load (no stale boot answers)");
+                if (ModList.get().isLoaded("kubejs")) {
+                    AgeService.Status st = AgeService.status(server);
+                    helper.assertTrue(!st.bootAnswersStale(), "the in-loader KubeJS probe answered right on the initial load (no stale boot answers)");
+                }
             })
             .thenSucceed();
     }
@@ -294,33 +302,65 @@ public final class GateGameTests {
         return counts;
     }
 
-    // ---------------------------------------------------------------- unlock reloads (two Ages)
+    // ---------------------------------------------------------------- unlocks through the Age swap (two Ages)
 
     /**
-     * age_0 then age_2 unlocked through the reload path: recipes, KubeJS ore tags, excavator and OreGuard follow;
-     * disabled and the age_4 byproduct stay locked. Revoking both restores [dawn].
+     * The machine lookups of every gated family in the dev run, for iron (age_2): {furnace, IE crusher, Mekanism enrichment}.
+     * Gravel also smelts to stone ({@link LateRecipeInjector#LATE_STONE}, no Age), so the furnace counts only a match
+     * that makes iron.
+     */
+    static boolean[] ironMachines(MinecraftServer server) {
+        net.minecraft.world.level.Level level = server.overworld();
+        boolean furnace = server.getRecipeManager().getRecipesFor(net.minecraft.world.item.crafting.RecipeType.SMELTING,
+                new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.GRAVEL)), level).stream()
+            .anyMatch(h -> h.value().getResultItem(server.registryAccess()).is(Items.IRON_INGOT));
+        boolean ie = ModList.get().isLoaded("immersiveengineering") && ModTestSupport.crusherFinds(level, new ItemStack(Items.IRON_ORE));
+        boolean mek = ModList.get().isLoaded("mekanism") && MekanismProbe.enrichingFinds(level, new ItemStack(Items.IRON_ORE));
+        return new boolean[] {furnace, ie, mek};
+    }
+
+    /**
+     * age_0 then age_2 unlocked through the Age swap (no datapack load): recipes, the machine caches (vanilla furnace
+     * lookup, IE crusher cache, Mekanism enrichment cache, each asked before the swap so a stale cache would show), the
+     * ore tags, excavator and OreGuard follow; disabled and the age_4 byproduct stay locked. Revoking both restores [dawn].
      */
     @GameTest(template = "empty", batch = "firmages_3_gate", timeoutTicks = 2400)
-    public static void unlockTwoAgesThroughReload(GameTestHelper helper) {
+    public static void unlockTwoAgesThroughSwap(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
-        boolean kubejs = ModList.get().isLoaded("kubejs");
+        boolean ieLoaded = ModList.get().isLoaded("immersiveengineering");
+        boolean mekLoaded = ModList.get().isLoaded("mekanism");
         int[] gen = new int[1];
+        int[] loads = new int[1];
         helper.startSequence()
             .thenWaitUntil(() -> helper.assertTrue(idle(server), "reload pending"))
             .thenExecute(() -> {
                 expectRecipes(helper, server, "dawn", List.of(STONE), List.of(IRON, COPPER, TAG_ALL_LOCKED));
+                boolean[] m = ironMachines(server);
+                helper.assertTrue(!m[0] && !m[1] && !m[2], "dawn: no machine finds an iron recipe (furnace, IE, Mekanism): " + java.util.Arrays.toString(m));
                 gen[0] = CacheGeneration.get();
+                loads[0] = dev.firmages.core.age.AgeIndex.loadsBegun();
                 helper.assertTrue(AgeService.simulate(server, AgeId.AGE_0, true), "grant age_0");
             })
-            .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > gen[0] && idle(server), "age_0 reload not finished"))
+            .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > gen[0] && idle(server), "age_0 swap not finished"))
             .thenExecute(() -> {
                 expectRecipes(helper, server, "age_0", List.of(STONE, COPPER), List.of(IRON, TAG_ALL_LOCKED, DISABLED, FLUID));
                 helper.assertTrue(RecipeGate.lastReport().unlocked().equals(List.of("dawn", "age_0")), "report Ages");
+                helper.assertTrue("swap".equals(AgeService.lastMode()), "age_0 ran as an Age swap: " + AgeService.lastMode());
                 gen[0] = CacheGeneration.get();
                 helper.assertTrue(AgeService.simulate(server, AgeId.AGE_2, true), "grant age_2");
             })
-            .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > gen[0] && idle(server), "age_2 reload not finished"))
-            .thenExecute(() -> {
+            .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > gen[0] && idle(server), "age_2 swap not finished"))
+            .thenExecute(() -> logged(() -> {
+                helper.assertTrue("swap".equals(AgeService.lastMode()), "age_2 ran as an Age swap: " + AgeService.lastMode());
+                helper.assertTrue(dev.firmages.core.age.AgeIndex.loadsBegun() == loads[0], "no datapack load during the two swaps");
+                boolean[] m = ironMachines(server);
+                FirmagesCore.LOGGER.info("GameTest machines after the age_2 swap: furnace {}, IE crusher {}, Mekanism enrichment {}; gravel smelting {}",
+                    m[0], m[1], m[2], server.getRecipeManager().getRecipesFor(net.minecraft.world.item.crafting.RecipeType.SMELTING,
+                        new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.GRAVEL)), server.overworld()).stream()
+                        .map(h -> h.id() + "->" + h.value().getResultItem(server.registryAccess())).toList());
+                helper.assertTrue(m[0], "furnace finds the iron recipe right after the swap");
+                helper.assertTrue(!ieLoaded || m[1], "IE crusher cache finds the iron ore recipe right after the swap");
+                helper.assertTrue(!mekLoaded || m[2], "Mekanism enrichment cache finds the iron ore recipe right after the swap");
                 expectRecipes(helper, server, "age_2", List.of(STONE, COPPER, IRON, TAG_ALL_LOCKED, TAG_MIXED, "minecraft:iron_pickaxe",
                         LateRecipeInjector.LATE_IRON, LateRecipeInjector.LATE_STONE),
                     List.of(DISABLED, FLUID));
@@ -339,21 +379,25 @@ public final class GateGameTests {
                     helper.assertTrue(rep.entries().values().stream().filter(x -> x.outputs().contains(MEK_IRON_DUST)).allMatch(x -> x.verdict().keep()),
                         "Mekanism iron dust recipes kept");
                 }
-                if (kubejs) {
-                    helper.assertTrue(Blocks.IRON_ORE.defaultBlockState().is(TFC_PROSPECTABLE), "iron ore prospectable again");
-                    helper.assertTrue(!Blocks.IRON_ORE.defaultBlockState().is(MINER_BLACKLIST), "iron ore off the miner blacklist");
-                    helper.assertTrue(!Blocks.GOLD_ORE.defaultBlockState().is(TFC_PROSPECTABLE), "gold ore (age_5) still hidden");
-                    helper.assertTrue(Blocks.GOLD_ORE.defaultBlockState().is(MINER_BLACKLIST), "gold ore still blacklisted");
-                }
+                helper.assertTrue(Blocks.IRON_ORE.defaultBlockState().is(TFC_PROSPECTABLE), "iron ore prospectable again");
+                // The test PP tag holds gold ore (age_5) and coal ore (no Age).
+                helper.assertTrue(Blocks.COAL_ORE.defaultBlockState().is(PP_PROSPECTABLE) && !Blocks.GOLD_ORE.defaultBlockState().is(PP_PROSPECTABLE),
+                    "PP tag after the swap: coal ore in, gold ore (age_5) out");
+                helper.assertTrue(!Blocks.IRON_ORE.defaultBlockState().is(MINER_BLACKLIST), "iron ore off the miner blacklist");
+                helper.assertTrue(!Blocks.GOLD_ORE.defaultBlockState().is(TFC_PROSPECTABLE), "gold ore (age_5) still hidden");
+                helper.assertTrue(Blocks.GOLD_ORE.defaultBlockState().is(MINER_BLACKLIST), "gold ore still blacklisted");
                 gen[0] = CacheGeneration.get();
                 helper.assertTrue(AgeService.simulate(server, AgeId.AGE_2, false), "revoke age_2");
                 helper.assertTrue(AgeService.simulate(server, AgeId.AGE_0, false), "revoke age_0");
-            })
-            .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > gen[0] && idle(server), "revoke reload not finished"))
+            }))
+            .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > gen[0] && idle(server), "revoke swap not finished"))
             .thenExecute(() -> {
                 expectRecipes(helper, server, "dawn again", List.of(STONE, TAG_MIXED, LateRecipeInjector.LATE_STONE),
                     List.of(IRON, COPPER, TAG_ALL_LOCKED, LateRecipeInjector.LATE_IRON));
-                if (kubejs) helper.assertTrue(!Blocks.IRON_ORE.defaultBlockState().is(TFC_PROSPECTABLE), "iron ore hidden again");
+                boolean[] m = ironMachines(server);
+                helper.assertTrue(!m[0] && !m[1] && !m[2], "dawn again: the machines lost the iron recipes: " + java.util.Arrays.toString(m));
+                helper.assertTrue(!Blocks.IRON_ORE.defaultBlockState().is(TFC_PROSPECTABLE), "iron ore hidden again");
+                helper.assertTrue(Blocks.IRON_ORE.defaultBlockState().is(MINER_BLACKLIST), "iron ore blacklisted again");
             })
             .thenSucceed();
     }

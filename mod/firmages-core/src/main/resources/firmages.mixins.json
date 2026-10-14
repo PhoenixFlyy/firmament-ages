@@ -36,8 +36,8 @@
     "ftbq.ChapterPanelWindowMixin",
     "ftbq.QuestViewSpacingMixin",
     "ftbq.QuestPanelCentreMixin",
-    "ps.EmiReloadDeferMixin",
-    "ponder.PonderTagScreenMixin"
+    "ponder.PonderTagScreenMixin",
+    "psemi.EmiReloadHoldMixin"
   ],
   "injectors": {
     "defaultRequire": 1

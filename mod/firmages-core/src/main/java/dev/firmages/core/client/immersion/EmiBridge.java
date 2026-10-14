@@ -47,6 +47,31 @@ final class EmiBridge {
         }
     }
 
+    /**
+     * {@code dev.emi.emi.runtime.EmiReloadManager.reloadTags()} (public static, EMI 1.1.24 [verified, javap]): marks the
+     * tags as synchronized and reloads EMI if the recipes already are, which is the state after a recipe sync without
+     * tags (an Age swap). False if EMI is absent or the call failed.
+     */
+    static boolean reloadTags() {
+        return callReloadManager("reloadTags");
+    }
+
+    /** {@code EmiReloadManager.reload()}: a full EMI reload with the client's current recipes and tags. */
+    static boolean reload() {
+        return callReloadManager("reload");
+    }
+
+    private static boolean callReloadManager(String method) {
+        if (!ModList.get().isLoaded("emi")) return false;
+        try {
+            Class.forName("dev.emi.emi.runtime.EmiReloadManager").getMethod(method).invoke(null);
+            return true;
+        } catch (ReflectiveOperationException | LinkageError e) {
+            FirmagesCore.LOGGER.warn("EMI: cannot call EmiReloadManager.{} ({})", method, e.toString());
+            return false;
+        }
+    }
+
     static void setEnabled(boolean value) {
         try {
             Field f = field();

@@ -46,7 +46,6 @@ public final class FirmagesEmiPlugin implements EmiPlugin {
     private static final ResourceLocation MODONOMICON_BOOK = ResourceLocation.fromNamespaceAndPath("modonomicon", "book_id");
 
     private static volatile EmiAgeView view = EmiAgeView.OPEN;
-    private static volatile int reloads;
     private static DataComponentType<?> patchouliBook;
     private static DataComponentType<?> modonomiconBook;
 
@@ -55,16 +54,10 @@ public final class FirmagesEmiPlugin implements EmiPlugin {
         return view;
     }
 
-    /** EMI reloads that ran this plugin since the start (the client's deferred-reload check, SPEC §21.5). */
-    public static int reloads() {
-        return reloads;
-    }
-
     @Override
     public void initialize(EmiInitRegistry registry) {
         EmiAgeView v = ClientAgeView.current();
         view = v;
-        reloads++;
         patchouliBook = BuiltInRegistries.DATA_COMPONENT_TYPE.get(PATCHOULI_BOOK);
         modonomiconBook = BuiltInRegistries.DATA_COMPONENT_TYPE.get(MODONOMICON_BOOK);
         registry.disableStacks(s -> locked(v, s)); // this reload's view, also if another reload starts meanwhile

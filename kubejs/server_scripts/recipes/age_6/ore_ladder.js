@@ -5,9 +5,9 @@
 // ore block counts as one ingot). Clumps and shards are whole items, so a grade takes n pieces for m items with m/n
 // within 5 % of the target; slurry is a chemical and takes the exact amount (200 mB = 1 crystal).
 // The steps after the first one (clump -> dirty dust -> dust, shard -> clump, crystal -> shard, slurry washing) are
-// Mekanism's and More Mekanism Processing's own recipes and stay. The 4x and 5x entry recipes load only once their
-// Age is unlocked (FirmAges.isUnlocked): their outputs (shards, slurry) are Information Age items, so the
-// firmages-core gate alone would show them in the Information Age.
+// Mekanism's and More Mekanism Processing's own recipes and stay. The 4x and 5x entry recipes need their Age
+// (FirmAges.requireAge): their outputs (shards, slurry) are Information Age items, so the firmages-core gate alone
+// would show them in the Information Age.
 //
 // Removed: every Mekanism-family recipe that eats an ore block, a raw ore or a raw-ore block of a TFC metal or gem.
 // TFC puts its ore pieces into c:raw_materials/<metal> and its ore blocks into c:ores/<metal>, so these recipes
@@ -18,8 +18,6 @@
 
 ServerEvents.recipes((event) => {
   const GRADE_MB = { small: 10, poor: 15, normal: 25, rich: 35 }
-  const age7 = FirmAges.isUnlocked('age_7')
-  const age8 = FirmAges.isUnlocked('age_8')
 
   // ======================================================================================== removals
   // ORE_LADDER_REMOVALS below: every Mekanism-family recipe (Mekanism, More Mekanism Processing, Mekanism: More
@@ -61,25 +59,23 @@ ServerEvents.recipes((event) => {
         output: { count: p[1], id: `${ns}:clump_${metal}` },
         per_tick_usage: true
       }).id(`firmages:purifying/${idBase}_${g}`)
-      if (age7) {
-        const i = ratio((mb * 4) / 100)
-        event.custom({
-          type: 'mekanism:injecting',
-          chemical_input: { amount: 1, chemical: 'mekanism:hydrogen_chloride' },
-          item_input: { count: i[0], item: piece },
-          output: { count: i[1], id: `${ns}:shard_${metal}` },
-          per_tick_usage: true
-        }).id(`firmages:injecting/${idBase}_${g}`)
-      }
-      if (age8) {
-        event.custom({
-          type: 'mekanism:dissolution',
-          chemical_input: { amount: 1, chemical: 'mekanism:sulfuric_acid' },
-          item_input: { count: 1, item: piece },
-          output: { amount: mb * 10, id: `${ns}:dirty_${metal}` },
-          per_tick_usage: true
-        }).id(`firmages:dissolution/${idBase}_${g}`)
-      }
+      const i = ratio((mb * 4) / 100)
+      event.custom({
+        type: 'mekanism:injecting',
+        chemical_input: { amount: 1, chemical: 'mekanism:hydrogen_chloride' },
+        item_input: { count: i[0], item: piece },
+        output: { count: i[1], id: `${ns}:shard_${metal}` },
+        per_tick_usage: true
+      }).id(`firmages:injecting/${idBase}_${g}`)
+      FirmAges.requireAge(`firmages:injecting/${idBase}_${g}`, 'age_7')
+      event.custom({
+        type: 'mekanism:dissolution',
+        chemical_input: { amount: 1, chemical: 'mekanism:sulfuric_acid' },
+        item_input: { count: 1, item: piece },
+        output: { amount: mb * 10, id: `${ns}:dirty_${metal}` },
+        per_tick_usage: true
+      }).id(`firmages:dissolution/${idBase}_${g}`)
+      FirmAges.requireAge(`firmages:dissolution/${idBase}_${g}`, 'age_8')
     })
   }
   const MEK = 'mekanism'

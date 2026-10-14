@@ -14,10 +14,9 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 /**
  * S2C {@code firmages:age_status} (SPEC §11, §18, §19): the world's current Age, its goal item, whether EMI and Jade
  * may show, which TerraFirmaCraft inventory tabs are open ({@link InventoryTab} bit mask) and whether the Cave Dweller
- * still hunts and whether the hand-breaking rule holds, and whether an Age reload is pending. Sent on login, after
- * every change of the global Age state and when an Age reload is scheduled or finished. Drives the HUD Age indicator,
- * the EMI/Jade gating, the TFC tabs, the Cave Dweller sound mute, the client's break-speed prediction and the skipped
- * ProgressiveStages EMI reload (SPEC §21.5).
+ * still hunts and whether the hand-breaking rule holds, and whether an Age swap is pending. Sent on login, after every change of the
+ * global Age state and after every Age swap or reload. Drives the HUD Age indicator, the EMI/Jade gating, the TFC tabs, the Cave Dweller
+ * sound mute, the client's break-speed prediction and the single EMI reload per Age change.
  */
 public record AgeStatusPayload(String age, String goalItem, boolean recipeViewer, boolean blockInfo, byte tabs, boolean caveDweller,
                                boolean toolRule, boolean reloadPending)

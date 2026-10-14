@@ -78,7 +78,6 @@ public final class ImmersionClient {
     private static Set<String> modNames;
     private static Boolean lockedTooltips;
     private static Boolean emiLoaded;
-    private static Boolean emiDefer;
 
     private ImmersionClient() {}
 
@@ -92,9 +91,8 @@ public final class ImmersionClient {
 
     /** {@code firmages:age_status} arrived. */
     public static void onStatus(AgeStatus status) {
-        boolean wasPending = ClientAgeStatus.known() && ClientAgeStatus.get().reloadPending();
+        EmiReloadGate.onStatus(status);
         ClientAgeStatus.receive(status);
-        if (wasPending && !status.reloadPending() && emiDefer()) EmiDeferHooks.pendingCleared();
     }
 
     /** {@code firmages:welcome} arrived: title first, then the screen. */
@@ -219,7 +217,6 @@ public final class ImmersionClient {
         @SubscribeEvent
         public static void loggedOut(ClientPlayerNetworkEvent.LoggingOut event) {
             ClientAgeStatus.reset();
-            if (emiDefer()) EmiDeferHooks.reset();
             viewerWasAllowed = null;
             openQuestsNextTick = false;
             welcomePhase = 0;
@@ -279,25 +276,10 @@ public final class ImmersionClient {
         return emiLoaded;
     }
 
-    private static boolean emiDefer() {
-        if (emiDefer == null) emiDefer = emiLoaded() && ModList.get().isLoaded("progressivestages");
-        return emiDefer;
-    }
-
     /** EMI classes stay behind these holders, so this class loads without EMI, ProgressiveStages or Ponder. */
     private static final class EmiAuditHooks {
         static void tick() {
             dev.firmages.core.compat.emi.EmiAudit.tick();
-        }
-    }
-
-    private static final class EmiDeferHooks {
-        static void pendingCleared() {
-            dev.firmages.core.compat.emi.EmiReloadDefer.pendingCleared();
-        }
-
-        static void reset() {
-            dev.firmages.core.compat.emi.EmiReloadDefer.reset();
         }
     }
 

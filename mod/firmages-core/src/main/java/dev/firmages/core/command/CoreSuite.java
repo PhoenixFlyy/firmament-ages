@@ -49,6 +49,7 @@ public final class CoreSuite implements SelfTest.Suite {
         r.test("scheduler_coalesce_cap", CoreSuite::schedulerCoalesceCap);
         r.test("scheduler_one_follow_up", CoreSuite::schedulerFollowUp);
         r.test("scheduler_failure_recovers", CoreSuite::schedulerFailure);
+        r.test("scheduler_swap_unless_full_requested", CoreSuite::schedulerFullFlag);
         r.test("stage_change_dedup_same_tick", CoreSuite::dedupSameTick);
         r.test("stage_change_ignores_non_age", CoreSuite::ignoresNonAge);
         r.test("revoke_reloads_and_warns", CoreSuite::revoke);
@@ -162,17 +163,19 @@ public final class CoreSuite implements SelfTest.Suite {
         long tick;
         final List<CompletableFuture<Void>> started = new ArrayList<>();
         final List<String> reasons = new ArrayList<>();
+        final List<Boolean> full = new ArrayList<>();
         final List<Throwable> finished = new ArrayList<>();
         final ReloadScheduler scheduler;
 
         FakeServer(int delay, int coalesce, boolean completeImmediately) {
-            scheduler = new ReloadScheduler(() -> tick, () -> delay, () -> coalesce, () -> tick * 50_000_000L, reason -> {
+            scheduler = new ReloadScheduler(() -> tick, () -> delay, () -> coalesce, () -> tick * 50_000_000L, (reason, isFull) -> {
                 CompletableFuture<Void> f = new CompletableFuture<>();
                 started.add(f);
                 reasons.add(reason);
+                full.add(isFull);
                 if (completeImmediately) f.complete(null);
                 return f;
-            }, (reason, ms, err) -> finished.add(err));
+            }, (reason, isFull, ms, err) -> finished.add(err));
         }
 
         void runUntil(long endTick) {
@@ -252,6 +255,31 @@ public final class CoreSuite implements SelfTest.Suite {
         s.runUntil(3);
         checkEquals(2, s.started.size(), "next request still runs");
         return "recovered";
+    }
+
+    /** Age changes swap; a full request (operator, boot reconcile) makes the merged run and a merged follow-up full. */
+    private static String schedulerFullFlag() {
+        FakeServer s = new FakeServer(60, 100, false);
+        s.scheduler.request("granted age_1");
+        s.runUntil(60);
+        checkEquals(List.of(false), s.full, "an Age change alone swaps");
+        check(s.scheduler.busy(), "busy while running");
+        s.started.get(0).complete(null);
+        check(!s.scheduler.busy(), "idle after it");
+        s.scheduler.request("granted age_2");
+        s.scheduler.requestNow("operator");
+        s.runUntil(200);
+        checkEquals(List.of(false, true), s.full, "merged with a full request: full");
+        s.scheduler.request("granted age_3", true);
+        check(s.scheduler.busy() && s.scheduler.followUpQueued(), "follow-up queued while running");
+        s.started.get(1).complete(null);
+        s.runUntil(400);
+        checkEquals(List.of(false, true, true), s.full, "a full follow-up stays full");
+        s.started.get(2).complete(null);
+        s.scheduler.request("granted age_4");
+        s.runUntil(600);
+        checkEquals(List.of(false, true, true, false), s.full, "the flag does not stick");
+        return "modes " + s.full;
     }
 
     // ---------------------------------------------------------------- stage changes

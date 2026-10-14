@@ -57,11 +57,10 @@ ServerEvents.recipes((event) => {
     'tfc_ie_addon:ore/{g}_bauxite': ['tfc_ie_addon:powder/bauxite', 'immersiveengineering:dust_aluminum', null],
     'tfc_ie_addon:ore/{g}_uraninite': ['tfc_ie_addon:powder/uraninite', 'mekanism:dust_uranium', 'mekanism:dust_lead']
   }
-  // Pack recipes in a machine of this Age load only with it (recipes/station_ages.js cannot remove recipes added in the
-  // same event), so a later station never shows an earlier output before the station exists.
-  const age4 = FirmAges.isUnlocked('age_4')
+  // The IE crusher and the alloy kiln below are Industrial Age stations (recipes/station_ages.js): the gate keeps these
+  // recipes out until age_4, so a later station never shows an earlier output before the station exists.
   const round3 = (x) => Math.round(x * 1000) / 1000
-  if (age4) Object.keys(ORES).forEach((pattern) => {
+  Object.keys(ORES).forEach((pattern) => {
     const row = ORES[pattern]
     Object.keys(GRADE_MB).forEach((g) => {
       const piece = pattern.replace('{g}', g)
@@ -100,7 +99,7 @@ ServerEvents.recipes((event) => {
     ['electrum', 'c:ingots/gold', 1, 'c:ingots/silver', 1, 'immersiveengineering:ingot_electrum', 2]
   ]
   const sized = (tagId, n) => (n > 1 ? { basePredicate: { tag: tagId }, count: n } : { tag: tagId })
-  if (age4) ALLOYS.forEach((a) => {
+  ALLOYS.forEach((a) => {
     event.custom({
       type: 'immersiveengineering:alloy',
       input0: sized(a[1], a[2]),
@@ -286,7 +285,7 @@ ServerEvents.recipes((event) => {
   // Boss fallback stage 1 (Doc 08 section 5.1): the Summoning Rituals altar calls the Netherite Monstrosity.
   // JSON keys as the Summoning Rituals 3.14.2 KubeJS schema writes them (item_inputs, entity_outputs.entity.id).
   // Its spawn lock (age_4.toml) keeps it out of the world before the Industrial Age.
-  if (FirmAges.isUnlocked('age_3')) event.custom({ // the altar is an Arcane Age station (recipes/station_ages.js)
+  event.custom({ // the altar is an Arcane Age station (recipes/station_ages.js)
     type: 'summoningrituals:altar',
     initiator: { tag: 'c:ingots/netherite' },
     item_inputs: [

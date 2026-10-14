@@ -1,18 +1,21 @@
 // priority: -100
 // Firmament Ages - machine recipes wait for the Age of their station (Felix's rule: a recipe of a locked Age works
 // nowhere, and EMI shows it only once its Age is unlocked).
-// The firmages-core gate judges a recipe by its OUTPUTS only (SPEC section 4.3). A machine of a later Age that makes
-// an earlier item (an IE Arc Furnace turning dust into a TFC ingot, a Mekanism enrichment chamber making a dust)
-// would therefore load, and show in EMI, long before the machine can be built. This script removes every recipe of a
-// machine type while the Age of that machine is locked; the unlock reload brings them back. Grid recipes, TFC and
-// vanilla types are never touched (their stations are TFC blocks or vanilla blocks). Create's stations follow their
-// tier: press, mixer, millstone, fan and saw come with Create in the Bronze Age (age_1), so their types stay; the
-// deployer, spout, item drain and crushing wheel are Iron Age (age_2), so crushing, deploying, filling and emptying wait
-// for age_2. The heat levels of mixing and compacting (heated, superheated) are judged by the firmages-core gate.
-// World data types (IE mineral mixes = excavator veins, IP reservoirs, fuels, fertilisers) are never removed.
+// The firmages-core gate judges a recipe by its outputs (SPEC section 4.3). A machine of a later Age that makes an
+// earlier item (an IE Arc Furnace turning dust into a TFC ingot, a Mekanism enrichment chamber making a dust) would
+// therefore load, and show in EMI, long before the machine can be built. This script declares the Age of each machine
+// type (FirmAges.stationAge); the gate keeps every recipe whose type or serializer is that type out while the Age is
+// locked, the pack's own recipes added in any event included. The script itself is Age-independent: an Age change
+// re-filters the recipes of the last load without running it again (the Age swap, firmages-core SPEC section 3.3).
+// Grid recipes, TFC and vanilla types are not listed. Create's stations follow their tier: press, mixer, millstone, fan
+// and saw come with Create in the Bronze Age (age_1), so their types stay unlisted; the deployer, spout, item drain and
+// crushing wheel are Iron Age (age_2), so crushing, deploying, filling and emptying wait for age_2. The basin heat
+// levels (heated: a heater, superheated: a Blaze Burner) are station locks inside the gate, read from the Age tags of
+// tfcreate:primitive_heater and create:blaze_burner. World data types (IE mineral mixes = excavator veins, IP reservoirs, fuels, fertilisers) are
+// never listed (gate.exemptRecipeTypes).
 // Ages: dev/age_map.toml [mods] for the mod default, overridden per type from Doc 10 v3 matrix 6.1 (IE MV/HV
 // machines age_5, Mekanism fission age_7, the antiprotonic nucleosynthesizer and Evolved Mekanism age_8, Theurgy
-// reformation age_6). Cost: one OR-filter pass over all recipes per reload.
+// reformation age_6). dev/poc_analyze.py reads the put('age_N', [...]) calls below.
 
 ServerEvents.recipes((event) => {
   // recipe type -> Age of its station
@@ -79,12 +82,6 @@ ServerEvents.recipes((event) => {
   put('age_9', ['sgjourney:crystallizing', 'sgjourney:advanced_crystallizing', 'sgjourney:naquadah_liquidizing',
     'sgjourney:naquadah_heavy_liquidizing'])
 
-  // One removal pass with an OR filter over every locked type: a pass per type cost one scan of all recipes each
-  // (117 types at Dawn). The pack's own recipes in these machines are not seen by a type filter in this same event,
-  // so they check FirmAges.isUnlocked themselves (arc furnace steels, IE crusher and alloy kiln recipes, ...).
-  const locked = Object.keys(STATION_AGE).filter((type) => !FirmAges.isUnlocked(STATION_AGE[type]))
-  if (locked.length) {
-    event.remove(locked.map((type) => ({ type: type })))
-    console.info(`[firmages] station Ages: removed the recipes of ${locked.length} machine types of locked Ages`)
-  }
+  Object.keys(STATION_AGE).forEach((type) => FirmAges.stationAge(type, STATION_AGE[type]))
+  console.info(`[firmages] station Ages: ${Object.keys(STATION_AGE).length} machine types declared to the recipe gate`)
 })
