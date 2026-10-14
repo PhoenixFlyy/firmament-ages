@@ -26,7 +26,7 @@ hash = "4fa2149a895f6578d424174d6b6a3304949153b1f38554442623e13760d221f0"
 
 [[files]]
 file = "config/cave_dweller/server_config.toml"
-hash = "774a7e54146dbc902e82c2b815767a853bfb3066b08fc98cb971f0c0745b9a35"
+hash = "ecb12bd4d8bbec827bebac31d59177d83bd85a6b196815f19b094a259e26f1a1"
 
 [[files]]
 file = "config/colorwheel-client.toml"
@@ -158,11 +158,11 @@ hash = "4d3666ca9885da97a472ed343e060ddbb181de73d3cf589f9a84b649f733f231"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "c505f6ad0e87e9bbf5553e03e5ce8cad5e9a0da3e5d521482906e9d5e0fb5044"
+hash = "b410d1a024d2de922bb6af43709e8313e863c810639de1e22d59e136fd206b52"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
-hash = "031668711b464a5747f2c473df5c21e8e0625532e94f781b6cd2086edd13bc79"
+hash = "bdfdd0f0f5f1af5828a4c3c75c8ac0e68b8c94dd5e729991a63fc6f6c3f6f3b5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
@@ -178,7 +178,7 @@ hash = "276b72e9fcadcfba9f403c69d3faf3d19858467b860c5717bf5faa4a5104b49c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "4a0fb3a5c3ebba143cab62d3a85176f46e29fcdb1355558fd6b33bce6c8583a2"
+hash = "148c037d285571f991f9a82f2740594664223db05e844e4e4d757e727b3bf122"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
@@ -194,7 +194,7 @@ hash = "3c55445bf0c64be019ffa758a190a284e62435b9fdeda5d58c2e5c0a43364b2e"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "6da2e974b81aae6b785c6bca27e09daf75ee43a68e383aaf082e60ac0801d33e"
+hash = "dda3346d0356f9bee4b4f86a184178601d8e6c40ff02bee21340098377ce69cf"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
@@ -210,7 +210,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "b7f30193f1f8a58a7c5f63e6f8d4210aa981bf77223d04468b29278f5fb11ea8"
+hash = "38c647bd951f034776da7657493561cf4eb222eb5a0c26d34004d895f0abb06e"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -4852,7 +4852,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-0.9.0.jar"
-hash = "34bb6f2de68c5376d88c8baafd0a4e8c32386a8a6afdaaf63192e024d8f467be"
+hash = "54bd423a98c1be19d058fc0a3b6b6ed0e9228da0f35ec1af4b11d6ecbec6c2fb"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

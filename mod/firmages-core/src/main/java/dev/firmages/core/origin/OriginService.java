@@ -7,6 +7,7 @@ import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.ceremony.CeremonyService;
 import dev.firmages.core.config.ServerConfig;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.functions.CommandFunction;
 import net.minecraft.core.BlockPos;
@@ -103,16 +104,41 @@ public final class OriginService {
         if (level != null && !level.players().isEmpty()) OriginEchoes.tick(level);
     }
 
-    /** Players the Gathering waits for: everyone online who is not a spectator. */
+    /**
+     * Players the Gathering waits for: everyone online who is not a spectator and has acted within
+     * {@code origin.gatherIdleMinutes}, so one idle player cannot hold back the end of the pack.
+     */
     public static List<ServerPlayer> team(MinecraftServer server) {
+        long idleMillis = ServerConfig.gatherIdleMinutes() * 60_000L;
+        long now = Util.getMillis();
         List<ServerPlayer> out = new ArrayList<>();
         for (ServerPlayer p : server.getPlayerList().getPlayers()) {
-            if (!p.isSpectator()) out.add(p);
+            if (p.isSpectator()) continue;
+            if (idleMillis > 0 && now - p.getLastActionTime() >= idleMillis) continue;
+            out.add(p);
         }
         return out;
     }
 
-    /** True when every online non-spectator is alive in The Origin within {@code origin.gatherRadius} of the altar. */
+    /** While some of the team stand at the altar and others do not, the ones at the altar see who is missing. */
+    private static void showWaiting(MinecraftServer server) {
+        ServerLevel level = level(server);
+        if (level == null || !level.isLoaded(OriginArena.ALTAR) || !level.getBlockState(OriginArena.ALTAR).is(OriginRegistry.ORIGIN_ALTAR.get())) return;
+        double r = gatherRadius();
+        Vec3 c = Vec3.atBottomCenterOf(OriginArena.ALTAR);
+        List<ServerPlayer> at = new ArrayList<>();
+        List<String> missing = new ArrayList<>();
+        for (ServerPlayer p : team(server)) {
+            if (p.level() == level && p.isAlive() && p.position().distanceToSqr(c) <= r * r) at.add(p);
+            else missing.add(p.getGameProfile().getName());
+        }
+        if (at.isEmpty() || missing.isEmpty()) return;
+        String names = String.join(", ", missing.subList(0, Math.min(5, missing.size()))) + (missing.size() > 5 ? ", ..." : "");
+        Component msg = Component.translatable("firmages.origin.waiting", missing.size(), names).withStyle(ChatFormatting.LIGHT_PURPLE);
+        for (ServerPlayer p : at) p.displayClientMessage(msg, true);
+    }
+
+    /** True when every player of {@link #team} is alive in The Origin within {@code origin.gatherRadius} of the altar. */
     public static boolean gathered(MinecraftServer server) {
         ServerLevel level = level(server);
         if (level == null || !level.isLoaded(OriginArena.ALTAR) || !level.getBlockState(OriginArena.ALTAR).is(OriginRegistry.ORIGIN_ALTAR.get())) return false;
@@ -134,6 +160,7 @@ public final class OriginService {
             return false;
         }
         boolean now = gathered(server);
+        if (!now) showWaiting(server);
         boolean fire = now && !wasGathered && (lastStartTick < 0 || server.getTickCount() - lastStartTick >= cooldownTicks());
         if (now && !wasGathered && !fire) {
             FirmagesCore.LOGGER.debug("The Origin: Gathering within the cooldown, not started again");

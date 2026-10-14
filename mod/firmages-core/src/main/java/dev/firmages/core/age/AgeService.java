@@ -19,6 +19,7 @@ import dev.firmages.core.net.ReloadStatePayload;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelResource;
 import net.neoforged.fml.ModList;
@@ -368,6 +369,17 @@ public final class AgeService {
         cancelWarmup(player.getGameProfile().getName() + " joined");
         state(s);
         processor.onStagesPresent(paths(ProgressiveStagesAPI.getStages(player)), "login of " + player.getGameProfile().getName());
+        if (ServerConfig.teamAutoJoin() && ModList.get().isLoaded(FtbTeamsCompat.MOD_ID)) {
+            // Next tick: FTB Teams sets up the player's own team in its own login listener.
+            s.tell(new TickTask(s.getTickCount() + 1, () -> {
+                if (player.hasDisconnected()) return;
+                try {
+                    FtbTeamsCompat.ensureFellowship(player, AgeService::ageCount);
+                } catch (RuntimeException | LinkageError e) {
+                    FirmagesCore.LOGGER.warn("One fellowship: check for {} failed: {}", player.getGameProfile().getName(), e.toString());
+                }
+            }));
+        }
         if (s.getPlayerList().isOp(player.getGameProfile())) {
             if (AgeIndex.current().misconfigured()) {
                 player.sendSystemMessage(warn("firmages.warn.misconfigured",
@@ -408,6 +420,11 @@ public final class AgeService {
         } catch (RuntimeException e) {
             return Set.of();
         }
+    }
+
+    /** Number of Age stages beyond Dawn a ProgressiveStages team holds. */
+    public static int ageCount(UUID team) {
+        return (int) stagesOfTeam(team).stream().filter(id -> AgeId.byId(id).filter(a -> a != AgeId.DAWN).isPresent()).count();
     }
 
     private static void noteTeam(MinecraftServer s, UUID team, Collection<String> stages) {

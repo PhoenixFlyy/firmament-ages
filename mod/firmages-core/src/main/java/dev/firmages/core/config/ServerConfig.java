@@ -56,9 +56,12 @@ public final class ServerConfig {
     // origin
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
+    public static final ModConfigSpec.IntValue ORIGIN_GATHER_IDLE_MINUTES;
     public static final ModConfigSpec.ConfigValue<String> ORIGIN_FINALE_GATEWAY;
     // sync
     public static final ModConfigSpec.BooleanValue SYNC_COALESCE;
+    // team (SPEC §2.3)
+    public static final ModConfigSpec.BooleanValue TEAM_AUTO_JOIN;
     // ui (immersion, SPEC §18)
     public static final ModConfigSpec.ConfigValue<String> UI_EMI_FROM_AGE;
     public static final ModConfigSpec.ConfigValue<String> UI_JADE_FROM_AGE;
@@ -160,8 +163,10 @@ public final class ServerConfig {
         b.pop();
 
         b.comment("The Origin and the Gathering at its altar (the end-boss trigger)").push("origin");
-        ORIGIN_GATHER_RADIUS = b.comment("Every online player (spectators excepted) must stand this close to the altar to start the fight.")
+        ORIGIN_GATHER_RADIUS = b.comment("Every online player (spectators and idle players excepted) must stand this close to the altar to start the fight.")
             .defineInRange("gatherRadius", 6, 1, 32);
+        ORIGIN_GATHER_IDLE_MINUTES = b.comment("A player who has not moved or acted for this many minutes is not waited for at the altar; 0 = wait for everybody.")
+            .defineInRange("gatherIdleMinutes", 5, 0, 1440);
         ORIGIN_GATHER_COOLDOWN = b.comment("Seconds before a broken-up Gathering can start the fight again.")
             .defineInRange("gatherCooldownSeconds", 30, 0, 3600);
         ORIGIN_FINALE_GATEWAY = b.comment("Gateways to Eternity gate the end-boss script opens at the Gathering; only its completion in The Origin",
@@ -173,6 +178,13 @@ public final class ServerConfig {
         SYNC_COALESCE = b.comment("Send the ProgressiveStages lock and stage sync once per player at the end of the tick instead of once per",
                 "stage change (an Age grant changes several stages; each full sync costs about 0.3 s per player). Order unchanged.")
             .define("coalesce", true);
+        b.pop();
+
+        b.comment("One fellowship per server (SPEC 2.3)").push("team");
+        TEAM_AUTO_JOIN = b.comment("At login a player outside an FTB Teams party joins the party that holds the Ages. A server without a party",
+                "gets one: the player team with the most Ages founds it (on a new server the first player) and everybody online joins.",
+                "false = players form parties themselves (/ftbteams party create, invite, join).")
+            .define("autoJoin", true);
         b.pop();
 
         b.comment("Immersion: what players see of the pack's machinery (SPEC 18)").push("ui");
@@ -313,6 +325,16 @@ public final class ServerConfig {
     /** {@code hardship.toolRuleUntilAge}: the first Age without the hand-breaking rule, empty when it is off. */
     public static Optional<AgeId> toolRuleUntil() {
         return ToolRule.until(loaded() ? HARDSHIP_TOOL_RULE_UNTIL.get() : ToolRule.DEFAULT_UNTIL.id());
+    }
+
+    /** {@code team.autoJoin}. */
+    public static boolean teamAutoJoin() {
+        return !loaded() || TEAM_AUTO_JOIN.get();
+    }
+
+    /** {@code origin.gatherIdleMinutes}: 0 = nobody is left out. */
+    public static int gatherIdleMinutes() {
+        return loaded() ? ORIGIN_GATHER_IDLE_MINUTES.get() : 5;
     }
 
     public static boolean allowSimulate() {

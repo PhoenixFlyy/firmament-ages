@@ -21,9 +21,10 @@ import java.util.Locale;
  *   <li>the recipe gate's master list of the last load is filtered for the new Ages and replaces the live recipes
  *       ({@link RecipeGate#apply});</li>
  *   <li>the prospecting and miner tags are rebound ({@link AgeOreTags});</li>
- *   <li>the machine recipe caches are flushed ({@link RecipeCaches}: Mekanism, Create, TerraFirmaCraft, Immersive
- *       Engineering, Mystical Agriculture). No {@code TagsUpdatedEvent} is posted: its listeners take it for the end of
- *       a datapack load;</li>
+ *   <li>the recipe caches are flushed ({@link RecipeCaches}: FastSuite's crafting lists, Mekanism, Create,
+ *       TerraFirmaCraft, Immersive Engineering, Mystical Agriculture, Ars Nouveau, Immersive Petroleum, AE2 in-world
+ *       transforms, the FramedBlocks framing saw). No {@code TagsUpdatedEvent} is posted: its listeners take it for the
+ *       end of a datapack load;</li>
  *   <li>the clients get what a reload sends them except the tags: {@code OnDatapackSyncEvent} (mods that sync
  *       recipe-derived data, posted on every join too), the recipe packet and the recipe book.</li>
  * </ol>
@@ -49,7 +50,7 @@ public final class AgeSwap {
             long t1 = System.nanoTime();
             AgeOreTags.Result tags = AgeOreTags.apply(s.registryAccess(), snap);
             long t2 = System.nanoTime();
-            List<String> flushed = RecipeCaches.flush(s.registryAccess(), rm, s.getResourceManager());
+            List<String> flushed = RecipeCaches.flush(s, rm);
             long t3 = System.nanoTime();
             PlayerList players = s.getPlayerList();
             NeoForge.EVENT_BUS.post(new OnDatapackSyncEvent(players, null));
@@ -58,7 +59,7 @@ public final class AgeSwap {
                 FirmagesCore.LOGGER.warn("Age swap: an OnDatapackSyncEvent listener changed the recipe list ({} recipes, expected {}); "
                     + "restoring the Age-filtered list", rm.getRecipes().size(), a.live().size());
                 rm.replaceRecipes(a.live());
-                RecipeCaches.flush(s.registryAccess(), rm, s.getResourceManager());
+                RecipeCaches.flush(s, rm);
                 restored = true;
             }
             ClientboundUpdateRecipesPacket packet = new ClientboundUpdateRecipesPacket(rm.getOrderedRecipes());

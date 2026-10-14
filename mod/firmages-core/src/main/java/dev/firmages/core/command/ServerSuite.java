@@ -9,6 +9,7 @@ import dev.firmages.core.age.AgeMirror;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.age.AgeSnapshot;
 import dev.firmages.core.compat.kubejs.FirmAgesJS;
+import dev.firmages.core.compat.recipes.RecipeCaches;
 import dev.firmages.core.gate.GateReport;
 import dev.firmages.core.gate.RecipeGate;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -119,6 +120,11 @@ public final class ServerSuite implements SelfTest.Suite {
             }
             checkEquals(List.of(), hit, "exempt types with dropped recipes");
             return "exempt types untouched";
+        });
+        r.test("recipe_caches_fresh", () -> {
+            List<String> stale = RecipeCaches.stale(server);
+            checkEquals(List.of(), stale, "recipe caches that disagree with the live recipes");
+            return "caches of " + RecipeCaches.checkable() + " match the live recipes";
         });
         r.test("binding_consistent", () -> {
             AgeSnapshot snap = AgeService.snapshotForReload();

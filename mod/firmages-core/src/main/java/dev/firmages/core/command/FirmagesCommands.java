@@ -13,6 +13,7 @@ import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.gate.GateReport;
 import dev.firmages.core.gate.GateRules;
 import dev.firmages.core.gate.RecipeGate;
+import dev.firmages.core.gate.RecipeMaster;
 import dev.firmages.core.immersion.ImmersionService;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
@@ -22,7 +23,17 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
@@ -30,10 +41,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * {@code /firmages} (SPEC §10), permission level 2. M1: ages, ages sync, ages simulate, dump registry, reload,
- * selftest. M2: recipes audit, recipes why, recipes locked. M4: shrine, ceremony ({@link ShrineCommands}),
+ * selftest. M2: recipes audit, recipes why, recipes locked, recipes craft (crafting-table probe). M4: shrine, ceremony ({@link ShrineCommands}),
  * debug players for the headless shrine test ({@link DebugPlayerCommands}).
  */
 public final class FirmagesCommands {
@@ -64,7 +76,9 @@ public final class FirmagesCommands {
                     .executes(FirmagesCommands::recipesWhy)))
                 .then(Commands.literal("locked").then(Commands.argument("stage", StringArgumentType.word())
                     .suggests((c, b) -> SharedSuggestionProvider.suggest(bucketNames(), b))
-                    .executes(FirmagesCommands::recipesLocked))))
+                    .executes(FirmagesCommands::recipesLocked)))
+                .then(Commands.literal("craft").then(Commands.argument("recipe", ResourceLocationArgument.id())
+                    .executes(FirmagesCommands::recipesCraft))))
             .then(Commands.literal("dump").then(Commands.literal("registry").executes(FirmagesCommands::dumpRegistry)))
             .then(Commands.literal("reload").executes(FirmagesCommands::reload))
             .then(ShrineCommands.shrine())
@@ -211,6 +225,68 @@ public final class FirmagesCommands {
         line(c.getSource(), ids.size() + " recipes dropped until " + stage + (ids.size() > 50 ? " (first 50; all in the audit file)" : ""));
         ids.stream().limit(50).forEach(id -> line(c.getSource(), "  " + id));
         return ids.size();
+    }
+
+    /**
+     * Probe of the crafting-table lookup after an Age swap: lays the ingredients of a shaped or shapeless recipe (live,
+     * or kept in the gate's master list while its Age is locked) into a crafting input and asks the live recipe manager
+     * the way the crafting table does ({@code getRecipeFor} with four arguments, the overload FastSuite caches).
+     */
+    private static int recipesCraft(CommandContext<CommandSourceStack> c) {
+        ResourceLocation id = ResourceLocationArgument.getId(c, "recipe");
+        MinecraftServer server = c.getSource().getServer();
+        RecipeManager rm = server.getRecipeManager();
+        RecipeHolder<?> holder = rm.byKey(id).orElse(null);
+        boolean live = holder != null;
+        RecipeMaster master = RecipeGate.master(rm);
+        if (holder == null && master != null) {
+            holder = master.entries().stream().map(RecipeMaster.Entry::holder).filter(h -> h.id().equals(id)).findFirst().orElse(null);
+        }
+        if (holder == null) {
+            c.getSource().sendFailure(Component.literal(id + " is neither live nor in the gate's master list"));
+            return 0;
+        }
+        CraftingInput input = holder.value() instanceof CraftingRecipe cr ? craftingInput(cr) : null;
+        if (input == null) {
+            c.getSource().sendFailure(Component.literal(id + " is not a shaped or shapeless crafting recipe with item ingredients"));
+            return 0;
+        }
+        Optional<RecipeHolder<CraftingRecipe>> found = rm.getRecipeFor(RecipeType.CRAFTING, input, server.overworld(), (RecipeHolder<CraftingRecipe>) null);
+        String result = found.map(h -> "crafts " + BuiltInRegistries.ITEM.getKey(h.value().assemble(input, server.registryAccess()).getItem())
+            + " by " + h.id()).orElse("no recipe matches");
+        String msg = "recipes craft " + id + " (" + (live ? "live" : "locked by its Age") + "): " + result;
+        FirmagesCore.LOGGER.info(msg);
+        line(c.getSource(), msg);
+        return found.isPresent() && found.get().id().equals(id) ? 1 : 0;
+    }
+
+    /** The crafting grid for a shaped or shapeless recipe: the first item of each ingredient; null for other recipes. */
+    private static CraftingInput craftingInput(CraftingRecipe recipe) {
+        int width;
+        int height;
+        if (recipe instanceof ShapedRecipe shaped) {
+            width = shaped.getWidth();
+            height = shaped.getHeight();
+        } else if (recipe instanceof ShapelessRecipe) {
+            int n = recipe.getIngredients().size();
+            if (n == 0 || n > 9) return null;
+            width = Math.min(n, 3);
+            height = (n + 2) / 3;
+        } else {
+            return null;
+        }
+        List<ItemStack> items = new java.util.ArrayList<>();
+        for (Ingredient i : recipe.getIngredients()) {
+            if (i.isEmpty()) {
+                items.add(ItemStack.EMPTY);
+                continue;
+            }
+            ItemStack[] options = i.getItems();
+            if (options.length == 0) return null;
+            items.add(options[0].copyWithCount(1));
+        }
+        while (items.size() < width * height) items.add(ItemStack.EMPTY);
+        return CraftingInput.of(width, height, items);
     }
 
     private static int dumpRegistry(CommandContext<CommandSourceStack> c) {
