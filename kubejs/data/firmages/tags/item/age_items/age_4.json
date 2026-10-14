@@ -723,8 +723,6 @@
     {"id": "immersiveengineering:sawdust", "required": false},
     {"id": "immersiveengineering:screwdriver", "required": false},
     {"id": "immersiveengineering:seed", "required": false},
-    {"id": "immersiveengineering:shader_bag_common", "required": false},
-    {"id": "immersiveengineering:shader_bag_immersiveengineering_masterwork", "required": false},
     {"id": "immersiveengineering:sheetmetal_colored_black", "required": false},
     {"id": "immersiveengineering:sheetmetal_colored_blue", "required": false},
     {"id": "immersiveengineering:sheetmetal_colored_brown", "required": false},

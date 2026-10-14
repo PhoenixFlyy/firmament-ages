@@ -346,7 +346,37 @@ global.FA = {
     'tfc:metal/block/steel_slab', 'tfc:metal/exposed_block/steel_slab', 'tfc:metal/weathered_block/steel_slab',
     'tfc:metal/oxidized_block/steel_slab',
     // Immersive Engineering Resonanz Observer (chunk loader multiblock): chunk loading is FTB Chunks
-    'immersiveengineering:chunk_loader'
+    'immersiveengineering:chunk_loader',
+    // Immersive Engineering shaders and shader grab bags (Felix 2026-10-14: removed completely; sources closed in
+    // kubejs/data/immersiveengineering/, see dev/age_map.toml [hidden])
+    'immersiveengineering:shader_bag_common', 'immersiveengineering:shader_bag_epic',
+    'immersiveengineering:shader_bag_immersiveengineering_masterwork', 'immersiveengineering:shader_bag_rare',
+    'immersiveengineering:shader_bag_uncommon', 'immersiveengineering:shader_acepride',
+    'immersiveengineering:shader_ancient', 'immersiveengineering:shader_angelsthesis',
+    'immersiveengineering:shader_argo', 'immersiveengineering:shader_astartes',
+    'immersiveengineering:shader_bipride', 'immersiveengineering:shader_chloris',
+    'immersiveengineering:shader_crescentrose', 'immersiveengineering:shader_crimsonlotus',
+    'immersiveengineering:shader_darkfire', 'immersiveengineering:shader_dominator',
+    'immersiveengineering:shader_dragonsbreath', 'immersiveengineering:shader_enbypride',
+    'immersiveengineering:shader_erruption', 'immersiveengineering:shader_exia', 'immersiveengineering:shader_eyas',
+    'immersiveengineering:shader_felix', 'immersiveengineering:shader_fox', 'immersiveengineering:shader_gaypride',
+    'immersiveengineering:shader_glacis', 'immersiveengineering:shader_harrowed', 'immersiveengineering:shader_hawk',
+    'immersiveengineering:shader_hollow', 'immersiveengineering:shader_ikelos',
+    'immersiveengineering:shader_kindled', 'immersiveengineering:shader_lesbianpride',
+    'immersiveengineering:shader_locus', 'immersiveengineering:shader_lususnaturae',
+    'immersiveengineering:shader_magnum', 'immersiveengineering:shader_massfusion',
+    'immersiveengineering:shader_matrix', 'immersiveengineering:shader_microshark',
+    'immersiveengineering:shader_milo', 'immersiveengineering:shader_netherforged',
+    'immersiveengineering:shader_normandy', 'immersiveengineering:shader_omnitool',
+    'immersiveengineering:shader_phoenix', 'immersiveengineering:shader_qrow', 'immersiveengineering:shader_radiant',
+    'immersiveengineering:shader_regal', 'immersiveengineering:shader_rosequartz',
+    'immersiveengineering:shader_sharkface', 'immersiveengineering:shader_sponsor',
+    'immersiveengineering:shader_stormflower', 'immersiveengineering:shader_sunstrike',
+    'immersiveengineering:shader_sutherland', 'immersiveengineering:shader_taken',
+    'immersiveengineering:shader_transpride', 'immersiveengineering:shader_trident',
+    'immersiveengineering:shader_twili', 'immersiveengineering:shader_usurper',
+    'immersiveengineering:shader_vanguard', 'immersiveengineering:shader_vaulttec',
+    'immersiveengineering:shader_waaagh', 'immersiveengineering:shader_warbird'
   ]
 }
 // Only plain data goes into `global`: functions created in the startup context are not reliably callable
