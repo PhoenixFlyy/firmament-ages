@@ -1,26 +1,60 @@
 # Client-Test
 
-## 0.9.0 Nachtrag: Schrein, Gathering, The Origin (Arbeitspaket n3/shrine, firmages-core 0.9.0)
+## 0.9.0 Nachtrag (Nachtlauf N3 2026-10-14, Pack 0.9.0, firmages-core 0.9.0)
 
-Server und Client brauchen beide firmages-core 0.9.0 (Netzwerkprotokoll 4). Server-seitig geprüft mit 118
-Unit-Tests und 40 GameTests (`gradlew build`, `runGameTestServer`), im Spiel noch offen. **Bestehende Welt:** Der
-Leuchtstrahl ist für neue Welten an; in Deiner Testwelt steht noch `permanentBeam = false` in
-`world/serverconfig/firmages-server.toml` (Abschnitt `[shrine]`), dort auf `true` setzen. Die Arena der Origin baut
-sich beim ersten Start mit 0.9.0 einmal neu (Version 2).
+Sechs Arbeitspakete in einer Version: Age-Wechsel ohne Datapack-Reload, EMI/Ponder/GuideME nach Age, Deko-Mods,
+Schrein und Origin, Firmament Night, neue Texte. Server-Teil geprüft (`dev/poc-results.md`, Abschnitt „0.9.0 night run
+N3“: Boots auf Deiner age_9-Welt, Log ohne offene Fehler, Registry-Vergleich ohne entfernte Id), im Spiel noch offen.
+**Neues Profil importieren** (Zip aus `dev/release.md`, Abschnitt 1): Client und Server brauchen beide firmages-core
+0.9.0 (Netzwerkprotokoll 4), 216 Mods. Der Test-Server ist auf 0.9.0 synchronisiert, `permanentBeam = true` steht schon
+in `test-server/config/firmages-server.toml`. Das Titelbild zeigt Shader-Fehler weiter im Menü
+(`show_compile_errors = true`), bis Du das Sternbild bestätigt hast; danach kommt der Schalter auf `false`.
 
-1. **Lebendiger Schrein.** Am entzündeten, heilen Schrein steigt Tag und Nacht ein dünner Strahl in der Farbe der
+**Deine Welt:** Vom Schrein steht laut `/firmages shrine status` in jedem Ring nur noch ein Block (der Hearth Circle hat
+1 von 22 Blöcken), keine Reliquie liegt auf einem Sockel. Strahl, Summen, Staub und das Gathering (Punkte 4 und 6)
+lassen sich erst nach dem Wiederaufbau prüfen; das Gebet antwortet jetzt mit „Caelum does not dwell in ruins“ und
+Funken an den Lücken.
+
+1. **Erster Start, EMI nach Age.** In Dawn und Steinzeit bleibt EMI aus; auch über Klickflächen anderer Fenster öffnet
+   sich kein EMI-Rezeptfenster. Ab der Bronzezeit zeigt EMI nichts aus späteren Ages: keine Flüssigkeiten späterer Mods
+   (Raketentreibstoff, Mekanism- und IE-Flüssigkeiten), keine Mekanism-Chemikalien, keine Bücher, Verzauberungen oder
+   Tränke späterer Mods, keine Rezepte mit gesperrter Zutat, keine Kategorien wie „Blast Furnace Fuel“, Boiler oder SPS,
+   keine EMI-Loot-Seiten späterer Mods. Prüfen: Nach jedem `/stage grant` steht im Client-Log
+   `EMI audit <age>: ... locked stacks visible 0, recipes with a locked stack 0, locked workstations 0, locked categories 0`
+   und genau ein `[EMI] Starting Reload` (nicht zwei). `/firmages_client emi_audit` schreibt die Details nach
+   `logs/firmages-emi-audit-<age>.json`. `/ponder` antwortet Nicht-OPs nur grau „Hold [W] on an item to ponder it.“,
+   W auf einem Item öffnet die Szenen weiter, der Ponder-Index (Create-Konfigmenü) zeigt nur freigeschaltete Items,
+   `/guidemec` ist ein unbekannter Befehl. Erwartet: Die Zahl sichtbarer Rezepte pro Age ist deutlich kleiner als in 0.8.1.
+2. **Deko-Mods (Stone und Bronze Age).** Steinzeit: Palisaden, Balken, Stützen, Sitzbänke (Decorative Blocks), Seil-,
+   Balken- und Geländerbrücken mit Pfeilern (Macaw's Bridges) in allen TFC- und AFC-Hölzern, Fachwerk, Lehmputz,
+   Jute-Seil, Wandleuchter (brennen aus wie TFC-Fackeln), die Stone Age Lantern (Kupferlampe plus Holzkohle) und
+   gravierte Steinziegel (TFC-Meißel, Modus glätten, auf gemeißeltem Gestein; 21 Gesteine). Bronzezeit: Möbel
+   (Handcrafted), Fenster, Läden, Jalousien, Vorhangstangen (Macaw's Windows), Türen in acht Stilen (Macaw's Doors),
+   Schilderpfähle, Notizbretter, Gläser, Säcke, Flaggen, Sockel (Supplementaries). Prunkbetten ab der Eisenzeit, jede
+   Age hat eine eigene Laterne. Prüfen: alle Stile in einem TFC- und einem AFC-Holz platzierbar; der Wandleuchter brennt
+   aus; ein Sack macht schwer; Prunkbett vor der Eisenzeit nicht herstellbar; EMI zeigt weder Bomben, Kanonen noch
+   Tresore. Abweichungen aus dem Lauf: Die „classic“-Türen und die Handcrafted-Theken kommen erst ab Eisen- bzw.
+   Arkanzeit (sie verlangen einen Vanilla-Holzdruck bzw. Calcit), siehe `dev/offene-punkte.md`. **Boot- und
+   Heap-Budget** (höchstens +20 s bis zum Titel, +300 MB Heap) nach `dev/dev-client.md`, Abschnitt „Boot- und
+   Heap-Budget der Deko-Mods messen“; Ergebnis in `dev/poc-results.md` eintragen.
+3. **Age-Wechsel ohne Ruckler.** Ein neues Age lädt keine Datapacks mehr. Auf Deiner Welt dauerte der Swap 0,3 bis 0,7 s
+   (vorher 9 bis 15 s Freeze). Prüfen: beim Freischalten kein Einfrieren; Server-Log „Age swap (granted age_x) finished
+   in N ms“; Maschinen übernehmen neue Rezepte sofort ohne Relog (Create-Mischer, beheizt erst mit Heizer, IE-Brecher,
+   Mekanism-Anreicherungskammer, TFC-Fass, ein Occultism-Ritual); JEI startet kurz neu; der Prospektorpick findet ein
+   Erz erst ab seinem Age; `/reload` wie bisher. Notbremse: `gate.ageSwap = false` in `config/firmages-server.toml`.
+4. **Lebendiger Schrein.** Am entzündeten, heilen Schrein steigt Tag und Nacht ein dünner Strahl in der Farbe der
    zuletzt erweckten Age auf. Prüfen: aus etwa 200 Blöcken sichtbar, mit und ohne Complementary; einen Ringblock in der
    Wartung abbauen, der Strahl erlischt innerhalb einer Sekunde, nach der Reparatur ist er wieder da. Nach dem Endboss
    ist er golden und etwas breiter. Innerhalb von 16 Blöcken summt das Herz leise (alle 4 s, mit jeder Age etwas
    höher), weiter weg nicht. Jede Reliquie auf ihrem Sockel gibt ab und zu Staub in ihrer Age-Farbe ab. FPS mit Strahl
    gegen ohne vergleichen. Abschalten pro Spieler: `firmages-client.toml` `[effects] idleBeam = false` bzw.
    `ambientDrone = false`.
-2. **Echo der Zeremonie.** Mit zwei Spielern: Spieler B loggt aus, A öffnet eine Age (Gebet oder
+5. **Echo der Zeremonie.** Mit zwei Spielern: Spieler B loggt aus, A öffnet eine Age (Gebet oder
    `/stage grant A age_N`). B loggt wieder ein: etwa 5 s nach dem Laden kommt einmal die kurze Zeremonie der neuen Age
    (Titel, Caelums Satz) und eine Chatzeile „While you were away: Bronze Age.“ (bei mehreren verpassten Ages alle
    Namen). Prüfen: Der Titel steht nach dem Ladebildschirm, nicht darunter; ein zweites Einloggen spielt nichts mehr; das
    Finale wird nie wiederholt.
-3. **Das Gathering (age_9).** In der Singularitätszeit mit allen neun Reliquien auf ihren Sockeln am heilen Schrein
+6. **Das Gathering (age_9).** In der Singularitätszeit mit allen neun Reliquien auf ihren Sockeln am heilen Schrein
    beten (schleichen, Rechtsklick halten; zu zweit, sobald zwei online sind). Rechtsklick auf das Herz vorher sagt
    „Pray together: Caelum gives the nine relics back for the last forging.“ Danach: Titel „The Gathering“, Caelum
    „Nine gifts. One light. Open the gate.“, Zeile „Crowned“, die neun Reliquien fallen als Items über dem Herz heraus
@@ -28,10 +62,10 @@ sich beim ersten Start mit 0.9.0 einmal neu (Version 2).
    „Goal: Beyond the Firmament“. Prüfen: Fehlt eine Reliquie, nennt der Schrein ihre Age; eine zurückgelegte Reliquie
    lässt sich mit Schleichen und leerer Hand wieder nehmen. Die Ultimate Singularity mit den neun Items in der
    DE-Fusion herstellen (GUI).
-4. **The Origin: Inseln.** Die neun schwebenden Inseln sind jetzt aus geweihtem Schrein-Marmor mit Rand in ihrer
+7. **The Origin: Inseln.** Die neun schwebenden Inseln sind jetzt aus geweihtem Schrein-Marmor mit Rand in ihrer
    Age-Farbe, und über jeder dreht sich langsam das Zeichen-Item ihrer Age (Hearthstone, Sky Disc, ... Quantum Core),
    voll hell. Prüfen: Alle neun sichtbar von der Arena aus, kein Item doppelt, die Drehung ruckelt nicht.
-5. **Befehle für Deinen Test (nur Operatoren, Stufe 2).**
+8. **Befehle für Deinen Test (nur Operatoren, Stufe 2).**
    - `/firmages origin tp <Spieler> force`: in die Origin ohne age_9 und ohne Kreativmodus; beide Sperren lassen Dich
      bleiben, bis Du die Origin verlässt, dort stirbst oder der Server neu startet.
    - `/firmages origin gathering`: startet den Altar-Auslöser sofort, egal wo ihr steht und ohne Wartezeit (die
@@ -40,6 +74,22 @@ sich beim ersten Start mit 0.9.0 einmal neu (Version 2).
      lebt, und nach dem Sieg (dann vorher `/firmages origin reset`).
    Prüfen: ohne Operator-Rechte gibt es keinen der drei Befehle; nach `fight` laufen Phasen, Ansagen und das Finale wie
    im echten Kampf.
+9. **Firmament Night.** In der ersten Nacht nach jedem neuen Age leuchten Himmel und Mond in der Farbe dieses Ages, der
+   Mond ist größer, zur Dämmerung steht eine Zeile über der Hotbar („Tonight the sky turns to bronze.“), halb so viele
+   Monster, 1,5-fache Erfahrung. Kommt das Age nach Mitternacht, gehört die nächste Nacht dem Himmel; Regen wird bis
+   zum Morgen weggeschoben. Jede Nacht einmal pro Welt, nie zufällig; Deine Welt ist schon bei age_9 und bekommt keine
+   Nachhol-Nacht. Prüfen auf einer frischen Welt: `/stage grant <Spieler> age_0` am Tag, nach der Dämmerung
+   `/ec lunarForecast`, Färbung mit und ohne Shader, die Hotbar-Zeile nur einmal, keine Chatmeldung. Die vier Relikte
+   Hearthstone, Sky Disc, Steel Heart und Pressure Core bewegen sich jetzt. Beim Import des CurseForge-Zips notieren, ob
+   die App 8 GB RAM vorschlägt.
+10. **Questbuch und Texte.** Jede Quest sagt zuerst, was zu tun ist; keine Ausrufezeichen und Modnamen in Titeln
+    („Stone Tools“, „Blast Furnace“, „Barrel“, „A Jug of Water“ jetzt vor dem Topf); Eingänge „The X Age Dawns“; in
+    den Zielen die Riten (Tesla-Crown-Kondensatoren mit 1.000.000 FE, Awakened Keystone zurück auf den Sockel); eine
+    Notiz „When a Boss Will Not Come“ in der Eisenzeit; die Singularitäts-Quest heißt „The Gathering“ (erfüllt erst bei
+    `awakened=10`). Prüfen: gesperrte Gegenstände zeigen grau „Something Unknown“ und „Not of this Age“ ohne rotes
+    Schloss; beim Age-Wechsel keine „Age N: …“-Zeile im Chat; der Willkommensbildschirm sagt „Open the Chronicle (K)“;
+    Stein mit der Hand in Dawn: „Stone needs a pickaxe. The first one is cast in the Stone Age.“; das Arkan-Ziel passt
+    bei GUI-Skala 3 ohne Scrollen ins Questfenster.
 
 ## 0.8.1 Nachtrag (Nachtlauf 2026-10-14, Pack 0.8.1, firmages-core 0.8.1)
 

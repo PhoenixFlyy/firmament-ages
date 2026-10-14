@@ -14,6 +14,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Chunk-Laden ohne Spieler: `"never"` (nur solange jemand aus dem Team online ist, so geschrieben) oder `"always"` (Fabriken laufen offline, der TFC-Kalender steht dann)? | `config/ftbchunks-world.snbt` `force_loading.force_load_mode` | Felix |
 | Mob-Leiter kumulativ (`mob_0` bleibt, neue Mobs kommen dazu) statt Tausch wie in Dok. 08; so seit 2026-09-30, Begründung im Kopf von `mob_1.toml`. Bestätigen oder ändern? | `config/progressivestages/stages/mob_*.toml`, `kubejs/server_scripts/stages/grants.js` | Felix |
 | AdvancedAE Strength Card wertet nur die gesperrte Quantum-Rüstung auf: sperren oder lassen? | `dev/age_map.toml` | Felix |
+| Deko in TFC/AFC-Hölzern später als geplant (Nachtlauf N3): Macaw's „classic“-Türen ab Eisenzeit (Every Compat behält den Vanilla-Holzdruck `mcwdoors:print_<holz>` als Zutat), Handcrafted-Theken ab Arkanzeit (Calcit). Rezept anpassen oder so lassen? Und: Vanilla-Holz-Varianten der Basis-Mods (etwa 750 EMI-Einträge ab Eisenzeit) verstecken? | `dev/data/derived_ages.json`, `kubejs/server_scripts/recipes` | Felix |
 | Bekannte Lücken mit Regel-Age: Apothic-Enchanting-Tisch braucht Diamant (Industriezeit), die Arkane-Nebenquest „Enchantment Industry“ hängt daran; das Create-Dragons-Plus-Blaze-Template hat keine sichtbare Quelle. Quest oder Rezept ändern? | `dev/decisions-while-away.md` (Zeile „Bekannte Lücken bleiben sichtbar“) | Felix |
 
 ## Im Client prüfen (Felix)

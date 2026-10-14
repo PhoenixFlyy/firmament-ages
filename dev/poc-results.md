@@ -2673,3 +2673,83 @@ GameTest server (vanilla, IE 12.4.2, Mekanism 10.7.19, DE, KubeJS, ProgressiveSt
 | `gradlew runGameTestServer -PgametestTfc` | the swap flushes `[mekanism, tfc, immersiveengineering]` with no error (TFC `Helpers.updateReloadableData`); 15 failures: the 13 known ones of this mode plus `swapMatchesFullReload` and `ageSwapOffReloadsInFull`, which find the Ages left unlocked by the failed shrine tests | pass (expected failures) |
 | `grep -rn isUnlocked kubejs/server_scripts/recipes` | no hits | pass |
 | Pack server: swap time per Age with players, `poc_analyze.py` G-1 to G-4 on per-Age dumps, client EMI reload count | not run (no server start allowed on this branch) | open |
+
+## 0.9.0 night run N3 (2026-10-14)
+
+`dev` 41fd6fc (0.8.1) plus six branches merged with `--no-ff` in this order: n3/text, n3/night-anim-ram, n3/deco,
+n3/emi, n3/ageswap, n3/shrine. Conflicts: docs and the decision log kept on both sides; `LOKAL-TESTEN.md` and
+`UPLOAD-ANLEITUNG.md` stay one-line pointers (n3/text), the RAM text of n3/night-anim-ram went into `dev/release.md`
+and `README.md`, the Every Compat budget routine of n3/deco back into `dev/dev-client.md`. n3/emi and n3/ageswap both
+built `reloadPending` and an EMI hold mixin: one field, one protocol bump to "4", only the swap-aware
+`psemi.EmiReloadHoldMixin` with `EmiReloadGate` kept; `firmages:age_status` then also got `gathered` (n3/shrine).
+Then firmages-core 0.9.0. Felix's test server (world at age_9) was stopped with `rcon.py stop`, synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve` (quest folder deleted first; 1307 of 1307 entries,
+"Finished successfully") and booted seven times with `run_server.py --hold ... --timeout 900` (no `--wipe-world`).
+Rounds that changed world state (debug player, Age revoke and grant, Origin gathering and boss, a second team) ran on a
+copy: the world was restored from the snapshot taken before them, so the kept world is Felix's age_9 world after the
+clean 0.9.0 boots. `debug.allowSimulate` was on for the test rounds and is `false` again; `permanentBeam = true` was set
+for the living shrine. `ops.json`, `whitelist.json` and `server.properties` are byte-identical to before (the server
+rewrites the timestamp comment of `server.properties` at every start; the original line was put back and the sha256
+matches).
+
+### Build
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` | 140 unit tests, 0 failed | pass |
+| `gradlew runGameTestServer` (stale `run/gametest/config` and `run/gametest/kubejs` moved away) | first run 2 failed (`swapMatchesFullReload`, `unlockTwoAgesThroughSwap`): `miner_blacklist.js` and `prospecting.js`, deleted in n3/ageswap, were still in the run folder (the copy task adds, never removes) and filtered the ore tags before the swap captured them. With a fresh copy "All 43 required tests passed"; "GameTest Age swap vs full reload: swap 11 ms, full datapack reload 1876 ms, 4743 live recipes identical, 44 ore tag entries identical" | pass |
+| `gradlew runGameTestServer -PgametestTfc` | 43 tests, 26 passed, 17 failed: the 13 known ones of this mode, `swapMatchesFullReload` and `vanillaReloadKeepsGateAndSwap` (Ages left by the failed shrine tests, as in n3/ageswap), and the new `gatheringReleasesRelics` and `livingShrineSync` (same shrine-ring cause as `consecrationCycle`). Swaps flush `[mekanism, tfc, immersiveengineering]` without error | pass (expected failures) |
+| `mods/firmages-core-0.9.0.jar` | from `build/libs`, 0.8.1 jar removed; `packwiz refresh`: 1308 entries (`kubejs` 972, `mods` 216, `config` 114, `defaultconfigs` 4, `shaderpacks` 2); `CHANGELOG.md` added to `.packwizignore` | pass |
+
+### Boot loop
+
+| Round | Setup | Server load (ModernFix) | Log lines | ERROR / FATAL / STDERR | `check_log.py` |
+|---|---|---|---|---|---|
+| before | Felix's 0.8.1 boot at 10:57 (`latest.log` copied before the stop), followed by an 8.2 s warm-up Age reload | 77.6 s | 3,523 | 63 / 14 / 0 | 0 remaining |
+| 1 | 0.9.0, `fa_dump`, `fa_dump_full`, status commands | 61.1 s | 3,379 | 158 / 14 / 30 | 72 in 50 signatures: `byproducts.js` "redeclaration of var copyId" (whole handler aborted, no byproduct copies) and two FirmaSupplementaries recipe parse errors |
+| 2 | fixes of round 1, dumps | 71.3 s | 3,250 | 86 / 14 / 30 | 0 remaining; `--warn`: 4 new signatures (Every Compat banner, Supplementaries white dye, two FirmaSupplementaries soap recipes, sack loot table), documented |
+| 3 (copy) | swap, prayer and Origin tests (below) | 71.6 s | 3,583 | 92 / 14 / 0 | 29 in 2: `firmament_night.js` "Cannot find function getGameTime" |
+| 4 | fixes of round 3, Age tags regenerated from the round 2 dump, dumps | 69.5 s | 3,260 | 88 / 14 / 30 | 0; `poc_analyze.py` 87 PASS, R-0 FAIL (`handcrafted:oven` needs `minecraft:smoker`) |
+| 5 (copy) | Origin fight, Firmament Night | not measured | – | – | `firmament_night.js` "getHolder ... is ambiguous" |
+| 6 (copy) | fixes of rounds 4 and 5, dumps, Firmament Night | not measured | – | 88 / 14 / 30 | 0 |
+| 7 (final, kept world) | Age tags regenerated from the round 6 dump, `allowSimulate = false`, dumps | 60.1 s (Done 58.0 s wall clock) | 3,260 | 88 / 14 / 30 | **0 remaining, exit 0; with `--warn` also 0** (after documenting TFC's start-up probe of `client/gui/screens/Screen`, which in this boot replaced its usual `ClientLevel` probe) |
+
+| Measurement | Observed | Result |
+|---|---|---|
+| Age swap on the pack server (round 3, one debug player online) | revoke age_9 677 ms (first swap of the session), grant age_9 299 ms, revoke age_5 322 ms, grant age_5 407 ms; filter 58 to 102 ms, ore tags 0 to 58 ms (age_5: 95 ore blocks rebound), caches 37 to 65 ms flushed for `[mekanism, create, tfc, immersiveengineering, mysticalagriculture]`; recipes 35,540 to 35,070 or 34,591 and back. Before: 9 to 15 s freeze per Age (0.8.x); the 0.8.1 warm-up reload alone took 8.2 s, 0.9.0 runs none | pass (< 2 s) |
+| `age_status` to a debug player | `reloadPending=true` from the stage change to the end of the swap, then `false`; `gathered=false` | pass |
+| Gathering prayer path (`firmages debug pray Gamma <heart> 5`) | answers "Caelum does not dwell in ruins: the Hearth Circle is broken (1 of 22 blocks)" with sparks at the gaps; `firmages shrine status`: "the Gathering waits: ...". Felix's shrine has one block per ring left and no relic on a plinth, so the release itself is only proven by the GameTest `gatheringReleasesRelics` | pass (path) |
+| `/firmages origin tp Gamma force`, `origin status` | forced visit accepted; the nine island echoes placed and loaded (9 of 9), arena v2, altar present | pass |
+| `/firmages origin gathering` | Gathering #1 started, `[finale] Gathering 1: gate firmages:the_origin opened at the altar` | pass |
+| `/firmages origin fight` (KubeJS path) | with the gate open: refused by `the_primordial.js` ("the finale gate or the boss is already alive"); on a fresh copy: `[finale] The Primordial (cataclysm:ender_guardian) summoned by an operator (waves skipped)`, title shown to the debug player | pass |
+| Firmament Night | `stage grant Gamma age_0` (new team): "age_0 reached, night pending", 20 s later "firmages:firmament_age_0 scheduled tonight"; `/ec lunarForecast` lists `lunar.event.firmages.firmament_age_0(in 0d)` | pass |
+| `check_registry_parity.py dump` 0.8.1 to 0.9.0 | 0 ids removed in any registry. Added: item 3,122 (everycomp 1,671, supplementaries 338, mcwwindows 315, handcrafted 285, mcwdoors 257, mcwbridges 146, decorative_blocks 52, firmages 31 = 10 Age Lanterns and 21 engraved bricks, firmasupps 25, moonlight 2), block 2,995, fluid 3, entity_type 18, plus registry types of the new mods. TFCAstikorCarts 81 woods per part and TFC Regrowing Forests unchanged | pass (additions only) |
+| Deco checks | no `everycomp:*twilightforest*` id, 1,670 Every Compat blocks, Every Compat's conditional-registration banner (hazardous config read); Supplementaries' disabled bomb, cannon, safe, flax, netherite doors and plunderer are still registered (3.9.9 always registers) and now sit in `[derived_hidden]`; `signature_blocks.js` loads without error; no FirmaSupplementaries mixin error | pass |
+| `fa_dump`, `fa_dump_full` (round 7) | 35,522 recipes, 0 without a readable result; 3,713 item tags; 35,522 encoded | pass |
+
+Fixes found by the loop: `byproducts.js` `let copyId`; FirmaSupplementaries overrides for `sconce_haunting` (Create 6
+result format) and `dragon_banner_pattern` (TFC cloth squares); `firmament_night.js` day time instead of `getGameTime`
+and `getHolderOrThrow` instead of the ambiguous `getHolder`; `handcrafted:oven` takes the TFC firepit;
+`poc_analyze.py` (used by `derive_ages.py`) resolves Every Compat's `moonlight:block_type_swap` ingredients (without it
+all 1,635 Every Compat items moved to the Iron Age); `log_noise.json` (narrowed `tfcregistryapi-scan-residual`, four
+WARN entries, the TFC `Screen` probe).
+
+### Checks on the final dump (round 7)
+
+| Check | Observed | Result |
+|---|---|---|
+| `poc_analyze.py` | 88 PASS, 0 FAIL, exit 0; G-1 "35522 recipes, 761 fluids with an Age", U-1 500 tags, C-1a and R-0 pass | pass |
+| `derive_ages.py --check` | generated section up to date (from the round 6 dump: 26,693 items, 4,667 disabled; Every Compat palisades and bridges age_0, furniture, windows and doors age_1; classic doors age_2 and counters age_3, see `dev/offene-punkte.md`) | pass |
+| `gen_stage_locks.py --registry` on the round 7 dump | rewrote 0 files | pass |
+| `validate_quests.py --style` (jar lookups on the synced mods) | 1296 object ids, 0 errors, 0 warnings | pass |
+| `check_menus.py`, `gen_textures.py --check`, `gen_multiblock_templates.py --check`, `gen_firmament_night.py --check` | all checks pass; 99 textures, 0 errors; 35 templates up to date; 44 files up to date | pass |
+
+### Open points
+
+- Client [M] (Felix, `dev/client-test-brief.md`, 0.9.0 Nachtrag): EMI audit lines and one EMI reload per grant,
+  Ponder and `/guidemec`, deco styles and the boot and heap budget, swap without freeze and machines, idle beam, hum
+  and dust, ceremony echo, the Gathering (needs the shrine rebuilt in Felix's world), Firmament Night colours, quest
+  texts and lock tooltips, the CurseForge RAM suggestion.
+- `show_compile_errors = true` stays in the title layout until Felix has seen the shader in game.
+- EMI's recipe screen block also applies to ops and creative players in Dawn and the Stone Age (n3/emi).
+- JEI still restarts on the recipe packet of a swap (about 1.5 to 2 s on the client).
