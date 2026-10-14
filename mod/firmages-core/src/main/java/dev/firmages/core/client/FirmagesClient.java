@@ -1,16 +1,19 @@
 package dev.firmages.core.client;
 
 import dev.firmages.core.FirmagesCore;
+import dev.firmages.core.compat.fancymenu.FancyMenuPlaceholders;
 import dev.firmages.core.net.ReloadStatePayload;
 import dev.firmages.core.shrine.ShrineRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.event.SelectMusicEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
@@ -27,6 +30,16 @@ public final class FirmagesClient {
         public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ShrineRegistry.SHRINE_HEART_BE.get(), ShrineHeartRenderer::new);
             event.registerBlockEntityRenderer(ShrineRegistry.OFFERING_PLINTH_BE.get(), OfferingPlinthRenderer::new);
+        }
+
+        /**
+         * FancyMenu placeholders (SPEC §18.7). This event is posted on the main thread after mod construction and before
+         * the first loading screen ({@code ClientHooks#initClientHooks}, NeoForge 21.1.252 sources), so the loading
+         * screen has them from its first frame and nothing writes FancyMenu's registry map in parallel.
+         */
+        @SubscribeEvent
+        public static void reloadListeners(RegisterClientReloadListenersEvent event) {
+            if (ModList.get().isLoaded("fancymenu")) FancyMenuPlaceholders.register();
         }
     }
 
