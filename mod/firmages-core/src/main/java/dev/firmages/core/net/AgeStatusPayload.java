@@ -14,11 +14,12 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 /**
  * S2C {@code firmages:age_status} (SPEC §11, §18, §19): the world's current Age, its goal item, whether EMI and Jade
  * may show, which TerraFirmaCraft inventory tabs are open ({@link InventoryTab} bit mask) and whether the Cave Dweller
- * still hunts and whether the hand-breaking rule holds. Sent on login and after every change of the global Age state. Drives the HUD Age indicator, the
- * EMI/Jade gating, the TFC tabs, the Cave Dweller sound mute and the client's break-speed prediction.
+ * still hunts and whether the hand-breaking rule holds, and whether an Age swap is pending. Sent on login, after every change of the
+ * global Age state and after every Age swap or reload. Drives the HUD Age indicator, the EMI/Jade gating, the TFC tabs, the Cave Dweller
+ * sound mute, the client's break-speed prediction and the single EMI reload per Age change.
  */
 public record AgeStatusPayload(String age, String goalItem, boolean recipeViewer, boolean blockInfo, byte tabs, boolean caveDweller,
-                               boolean toolRule)
+                               boolean toolRule, boolean reloadPending)
     implements CustomPacketPayload {
     public static final Type<AgeStatusPayload> TYPE =
         new Type<>(ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "age_status"));
@@ -31,17 +32,19 @@ public record AgeStatusPayload(String age, String goalItem, boolean recipeViewer
             buf.writeByte(p.tabs);
             buf.writeBoolean(p.caveDweller);
             buf.writeBoolean(p.toolRule);
+            buf.writeBoolean(p.reloadPending);
         },
         buf -> new AgeStatusPayload(buf.readUtf(), buf.readUtf(), buf.readBoolean(), buf.readBoolean(), buf.readByte(), buf.readBoolean(),
-            buf.readBoolean()));
+            buf.readBoolean(), buf.readBoolean()));
 
     public static AgeStatusPayload of(AgeStatus s) {
         return new AgeStatusPayload(s.age().id(), s.goalItem(), s.recipeViewer(), s.blockInfo(), (byte) InventoryTab.mask(s.tabs()), s.caveDweller(),
-            s.toolRule());
+            s.toolRule(), s.reloadPending());
     }
 
     public AgeStatus status() {
-        return new AgeStatus(AgeId.byId(age).orElse(AgeId.DAWN), goalItem, recipeViewer, blockInfo, InventoryTab.fromMask(tabs), caveDweller, toolRule);
+        return new AgeStatus(AgeId.byId(age).orElse(AgeId.DAWN), goalItem, recipeViewer, blockInfo, InventoryTab.fromMask(tabs), caveDweller, toolRule,
+            reloadPending);
     }
 
     @Override

@@ -3,6 +3,7 @@ package dev.firmages.core.compat.kubejs;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.config.ServerConfig;
+import dev.firmages.core.gate.RecipeMarkers;
 import dev.firmages.core.origin.OriginArena;
 import dev.firmages.core.origin.OriginRegistry;
 import dev.firmages.core.origin.OriginSavedData;
@@ -15,13 +16,36 @@ import java.util.Optional;
 
 /**
  * The KubeJS binding {@code FirmAges} (SPEC §3.4). Static methods only; no KubeJS types, so the class also loads
- * without KubeJS. All answers use the snapshot of the datapack load in progress (§3.2), so tag scripts see the
- * Ages the reload is being built for.
+ * without KubeJS. All answers use the snapshot of the datapack load in progress (§3.2).
+ * <p>Recipe scripts are Age-independent: an Age change re-filters the recipes of the last load without running the
+ * scripts again (the Age swap, SPEC §3.3). They add every recipe at every Age and declare what a recipe needs with
+ * {@link #stationAge}, {@link #requireAge} and {@link #untilAge}; they must not branch on {@link #isUnlocked}.
  */
 public final class FirmAgesJS {
     private FirmAgesJS() {}
 
-    /** True if the Age is unlocked. Unknown ids and non-Age stages return false. */
+    /**
+     * Every recipe whose type or serializer is {@code type} needs {@code age}, the Age of its machine (also the recipes
+     * a script adds in the same event). Call it inside {@code ServerEvents.recipes}.
+     */
+    public static void stationAge(String type, String age) {
+        RecipeMarkers.stationAge(type, age);
+    }
+
+    /** The recipe {@code recipeId} needs {@code age} on top of its outputs' Ages. Call it inside {@code ServerEvents.recipes}. */
+    public static void requireAge(String recipeId, String age) {
+        RecipeMarkers.requireAge(recipeId, age);
+    }
+
+    /**
+     * The recipe {@code recipeId} exists only while {@code age} is locked: a stand-in that a later variant replaces
+     * (a byproduct-stripped copy, for example). Call it inside {@code ServerEvents.recipes}.
+     */
+    public static void untilAge(String recipeId, String age) {
+        RecipeMarkers.untilAge(recipeId, age);
+    }
+
+    /** True if the Age is unlocked. Unknown ids and non-Age stages return false. Not for recipe scripts (see the class comment). */
     public static boolean isUnlocked(String stageId) {
         Optional<AgeId> age = AgeId.byId(stageId);
         return age.isPresent() && AgeService.snapshotForReload().isUnlocked(age.get());

@@ -16,6 +16,11 @@ import java.util.Random;
 final class ModTestSupport {
     private ModTestSupport() {}
 
+    /** IE's crusher lookup (its CachedRecipeList, as the multiblock asks it) finds a recipe for this input. */
+    static boolean crusherFinds(net.minecraft.world.level.Level level, ItemStack input) {
+        return blusunrize.immersiveengineering.api.crafting.CrusherRecipe.findRecipe(level, input) != null;
+    }
+
     static List<MineralMix> mineralMixes(MinecraftServer server) {
         return server.getRecipeManager().getRecipes().stream().map(RecipeHolder::value)
             .filter(r -> r instanceof MineralMix).map(r -> (MineralMix) r).toList();

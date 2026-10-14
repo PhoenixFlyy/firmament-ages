@@ -67,11 +67,10 @@ ServerEvents.recipes((event) => {
     output: { count: 1, id: to },
     per_tick_usage: false
   }).id(id)
-  // Both load only with the Age of their station (recipes/station_ages.js cannot remove recipes added in this event).
-  if (FirmAges.isUnlocked('age_6')) infuse('tfc:metal/ingot/weak_red_steel', 'tfc:metal/ingot/red_steel', 'firmages:metallurgic_infusing/red_steel')
-  if (FirmAges.isUnlocked('age_7')) {
-    infuse('tfc:metal/ingot/weak_blue_steel', 'tfc:metal/ingot/blue_steel', 'firmages:metallurgic_infusing/blue_steel')
-  }
+  // The infuser is an Information Age station (recipes/station_ages.js); blue steel waits for the Space Age as well.
+  infuse('tfc:metal/ingot/weak_red_steel', 'tfc:metal/ingot/red_steel', 'firmages:metallurgic_infusing/red_steel')
+  infuse('tfc:metal/ingot/weak_blue_steel', 'tfc:metal/ingot/blue_steel', 'firmages:metallurgic_infusing/blue_steel')
+  FirmAges.requireAge('firmages:metallurgic_infusing/blue_steel', 'age_7')
 
   // ======================================================================================== the End (Doc 08 section 6)
   // TFC has no strongholds, so the portal frame is crafted (12 frames + 12 eyes of ender light the portal as in vanilla).

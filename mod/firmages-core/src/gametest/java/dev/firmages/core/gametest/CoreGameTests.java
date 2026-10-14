@@ -117,11 +117,12 @@ public final class CoreGameTests {
     }
 
     /**
-     * Unlock → coalesced reload → index, binding and the KubeJS tag follow; revoke → locked again after the reload.
-     * Uses AgeService.simulate (the same path as a ProgressiveStages StageChangeEvent, minus PS).
+     * Unlock → one coalesced Age swap (no datapack load) → the binding follows, the KubeJS tag of the last load stays;
+     * revoke → locked again after the swap. Uses AgeService.simulate (the same path as a ProgressiveStages
+     * StageChangeEvent, minus PS).
      */
     @GameTest(template = "empty", batch = "firmages_2_reload", timeoutTicks = 1200)
-    public static void unlockAndRevokeReload(GameTestHelper helper) {
+    public static void unlockAndRevokeSwap(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         String iron = "minecraft:iron_ore";
         int[] before = new int[3];
@@ -154,26 +155,24 @@ public final class CoreGameTests {
             })
             .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > before[0], "reload after grant not finished yet"))
             .thenExecute(() -> {
-                helper.assertTrue(CacheGeneration.get() == before[0] + 1, "exactly one reload for the grant, got " + (CacheGeneration.get() - before[0]));
-                helper.assertTrue(AgeIndex.current().generation() > before[1], "AgeIndex rebuilt");
-                helper.assertTrue(AgeIndex.loadsBegun() > before[2], "mixin captured the reload");
+                helper.assertTrue(CacheGeneration.get() == before[0] + 1, "exactly one swap for the grant, got " + (CacheGeneration.get() - before[0]));
+                helper.assertTrue("swap".equals(AgeService.lastMode()), "the grant ran as an Age swap: " + AgeService.lastMode());
+                helper.assertTrue(AgeIndex.current().generation() == before[1], "AgeIndex not rebuilt (no datapack load)");
+                helper.assertTrue(AgeIndex.loadsBegun() == before[2], "no datapack load began");
                 helper.assertTrue(FirmAgesJS.isUnlocked("age_2"), "age_2 unlocked");
                 helper.assertTrue(!FirmAgesJS.lockedOreBlocks().contains(iron), "iron_ore no longer locked");
                 helper.assertTrue(FirmAgesJS.lockedOreBlocks().contains("minecraft:gold_ore"), "gold_ore (age_5) still locked");
                 if (kubejs()) {
-                    helper.assertTrue(!Blocks.IRON_ORE.defaultBlockState().is(PROBE_LOCKED), "KubeJS tag dropped iron_ore after the unlock reload");
-                    helper.assertTrue(Blocks.GOLD_ORE.defaultBlockState().is(PROBE_LOCKED), "KubeJS tag keeps gold_ore");
+                    // A KubeJS tag script runs on datapack loads only; Age-dependent tags are AgeOreTags' job now.
+                    helper.assertTrue(Blocks.IRON_ORE.defaultBlockState().is(PROBE_LOCKED), "the KubeJS probe tag keeps its load content");
                 }
                 afterGrant[0] = CacheGeneration.get();
                 helper.assertTrue(AgeService.simulate(server, AgeId.AGE_2, false), "revoke changed AgeState");
             })
-            .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > afterGrant[0], "reload after revoke not finished yet"))
+            .thenWaitUntil(() -> helper.assertTrue(CacheGeneration.get() > afterGrant[0], "swap after revoke not finished yet"))
             .thenExecute(() -> {
                 helper.assertTrue(!FirmAgesJS.isUnlocked("age_2"), "age_2 locked again");
                 helper.assertTrue(FirmAgesJS.lockedOreBlocks().contains(iron), "iron_ore locked again");
-                if (kubejs()) {
-                    helper.assertTrue(Blocks.IRON_ORE.defaultBlockState().is(PROBE_LOCKED), "KubeJS tag has iron_ore again");
-                }
                 AgeMirror.ReadResult m2 = AgeMirror.read(AgeService.mirrorPath(server));
                 helper.assertTrue(m2.snapshot().map(s -> !s.isUnlocked(AgeId.AGE_2)).orElse(false), "mirror without age_2");
             })

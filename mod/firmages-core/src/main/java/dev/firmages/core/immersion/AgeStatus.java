@@ -24,13 +24,15 @@ import java.util.function.IntFunction;
  * @param tabs         the TFC inventory tabs that may be shown and opened (§18.6)
  * @param caveDweller  the Cave Dweller still hunts, so its sounds play (§19)
  * @param toolRule     the hand-breaking rule holds, so the client predicts break speed 0 for its blocks (§19.2)
+ * @param reloadPending an Age swap (or reload) is pending or running: the client lets the recipe viewer reload once,
+ *                      after the new recipes arrive, instead of on each stage change (§3.3)
  */
 public record AgeStatus(AgeId age, String goalItem, boolean recipeViewer, boolean blockInfo, Set<InventoryTab> tabs, boolean caveDweller,
-                        boolean toolRule) {
+                        boolean toolRule, boolean reloadPending) {
 
     /** Before the first status arrives the client treats the world as Dawn: nothing of the machinery shows. The
      *  hand-breaking rule is left to the server until then (the client predicts no block). */
-    public static final AgeStatus UNKNOWN = new AgeStatus(AgeId.DAWN, "", false, false, Set.of(), true, false);
+    public static final AgeStatus UNKNOWN = new AgeStatus(AgeId.DAWN, "", false, false, Set.of(), true, false, false);
 
     /**
      * @param offeringFor      tier N (worked in age_N, grants age_(N+1)) to its offering item id
@@ -46,7 +48,11 @@ public record AgeStatus(AgeId age, String goalItem, boolean recipeViewer, boolea
         int ix = current.ordinal() - AgeId.AGE_0.ordinal();
         if (ix >= 0 && current != AgeId.AGE_9) goal = offeringFor.apply(ix).orElse("");
         return new AgeStatus(current, goal, reached(current, viewerFrom), reached(current, overlayFrom), InventoryTab.open(current, tabFrom),
-            CaveDwellerGate.hunts(current, caveDwellerUntil), ToolRule.active(current, toolRuleUntil));
+            CaveDwellerGate.hunts(current, caveDwellerUntil), ToolRule.active(current, toolRuleUntil), false);
+    }
+
+    public AgeStatus withReloadPending(boolean pending) {
+        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, pending);
     }
 
     /** The highest unlocked Age. Ages are monotonic in play, so this is the Age the world is in. */

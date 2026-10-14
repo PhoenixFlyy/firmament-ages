@@ -46,7 +46,9 @@ import java.util.stream.Collectors;
 
 /**
  * Owns the server-global Age set (SPEC §3): mirrors ProgressiveStages into {@link AgeState}, writes the mirror
- * file, answers the snapshot rules of §3.2 and drives the {@link ReloadScheduler}.
+ * file, answers the snapshot rules of §3.2 and drives the {@link ReloadScheduler}. An Age change runs an
+ * {@link AgeSwap} ({@code gate.ageSwap}, default true); a full datapack reload runs only for {@code /firmages reload},
+ * {@code /firmages ages sync}, the boot reconcile, with {@code gate.ageSwap = false}, or when a swap cannot run.
  * Everything except {@link #snapshotForReload()} runs on the server thread.
  */
 public final class AgeService {
@@ -69,6 +71,9 @@ public final class AgeService {
     private static boolean multiTeamDetected;
     private static String lastMirrorWrite = "not written yet";
     private static String lastReloadResult = "none since start";
+    /** How the last reload ran: "swap", "reload", or "reload" with the reason the swap did not run. */
+    private static String lastMode = "none";
+    private static String lastSwapDetail = "";
     /** Server tick at which the warm-up reload is due, -1 when none is pending. */
     private static long warmupDueTick = -1;
 
@@ -240,6 +245,8 @@ public final class AgeService {
         multiTeamDetected = false;
         lastMirrorWrite = "not written yet";
         lastReloadResult = "none since start";
+        lastMode = "none";
+        lastSwapDetail = "";
         warmupDueTick = -1;
     }
 
@@ -257,7 +264,8 @@ public final class AgeService {
      * dedicated server one reload with the same Ages right after start, while nobody is online, takes that cost.
      */
     private static void scheduleWarmup(MinecraftServer s) {
-        if (!ServerConfig.warmupReload() || !s.isDedicatedServer() || bootReconcileRequested) return;
+        // With the Age swap no datapack reload follows an Age change, so there is no reload path to warm up.
+        if (!ServerConfig.warmupReload() || ServerConfig.ageSwap() || !s.isDedicatedServer() || bootReconcileRequested) return;
         warmupDueTick = s.getTickCount() + Math.max(0, ServerConfig.warmupDelayTicks());
         FirmagesCore.LOGGER.info("Warm-up reload due in {} ticks unless a player joins first (gate.warmupReload)", ServerConfig.warmupDelayTicks());
     }
@@ -442,39 +450,71 @@ public final class AgeService {
         return processor.onStageChange(age.id(), grant, s.getTickCount());
     }
 
-    /** {@code /firmages reload}: filtered reload on the next tick. */
+    /** {@code /firmages reload}: full datapack reload on the next tick. */
     public static void forceReload(String reason) {
         if (scheduler != null) scheduler.requestNow(reason);
     }
 
+    /** True while an Age swap or reload is pending, running or queued (sent to the clients in {@code firmages:age_status}). */
+    public static boolean reloadPending() {
+        ReloadScheduler sch = scheduler;
+        return sch != null && sch.busy();
+    }
+
     // ---------------------------------------------------------------- reload (§3.3)
 
-    private static java.util.concurrent.CompletableFuture<?> startReload(String reason) {
+    private static java.util.concurrent.CompletableFuture<?> startReload(String reason, boolean full) {
         MinecraftServer s = server;
-        FirmagesCore.LOGGER.info("Age reload starting ({}), Ages {}", reason, snapshotForReload().unlockedIds());
+        AgeSnapshot snap = snapshotForReload();
         PacketDistributor.sendToAllPlayers(new ReloadStatePayload(true));
+        if (!full && ServerConfig.ageSwap()) {
+            AgeSwap.Result r = AgeSwap.run(s, snap, reason);
+            if (r.done()) {
+                lastMode = "swap";
+                lastSwapDetail = r.detail();
+                return java.util.concurrent.CompletableFuture.completedFuture(null);
+            }
+            lastMode = "reload (the swap did not run: " + r.detail() + ")";
+            FirmagesCore.LOGGER.warn("Age swap ({}) did not run: {}; reloading the datapacks instead", reason, r.detail());
+        } else {
+            lastMode = full ? "reload" : "reload (gate.ageSwap = false)";
+        }
+        FirmagesCore.LOGGER.info("Age reload starting ({}), Ages {}", reason, snap.unlockedIds());
         return s.reloadResources(s.getPackRepository().getSelectedIds());
     }
 
-    private static void onReloadFinished(String reason, long millis, Throwable error) {
+    private static void onReloadFinished(String reason, boolean full, long millis, Throwable error) {
         MinecraftServer s = server;
         if (s == null) return;
         int gen = CacheGeneration.bump();
         PacketDistributor.sendToAllPlayers(new ReloadStatePayload(false));
+        boolean swap = "swap".equals(lastMode);
+        String what = swap ? "Age swap" : "Age reload";
+        ImmersionService.broadcast(s); // reloadPending is false now (true while a follow-up is queued)
         if (error != null) {
             lastReloadResult = "FAILED after " + millis + " ms: " + error;
-            FirmagesCore.LOGGER.error("Age reload ({}) failed after {} ms", reason, millis, error);
+            FirmagesCore.LOGGER.error("{} ({}) failed after {} ms", what, reason, millis, error);
             messageOps(s, warn("firmages.reload.failed", "[Firmament Ages] Age reload failed, see the server log."));
             return;
         }
-        lastReloadResult = "ok in " + millis + " ms (" + reason + ")";
-        FirmagesCore.LOGGER.info("Age reload ({}) finished in {} ms; reload {} since start; cache generation {}; duplicate PS lock syncs "
-            + "skipped so far: {} (and {} on join)", reason, millis, scheduler == null ? -1 : scheduler.reloadsStarted(), gen,
-            LockSyncDedupe.skipped(), LockSyncDedupe.skippedOnJoin());
+        lastReloadResult = "ok in " + millis + " ms (" + lastMode + ": " + reason + ")";
+        if (swap) {
+            FirmagesCore.LOGGER.info("Age swap ({}) finished in {} ms, Ages {}: {}; cache generation {}", reason, millis,
+                snapshotForReload().unlockedIds(), lastSwapDetail, gen);
+        } else {
+            FirmagesCore.LOGGER.info("Age reload ({}, {}) finished in {} ms; reload {} since start; cache generation {}; duplicate PS lock syncs "
+                + "skipped so far: {} (and {} on join)", reason, lastMode, millis, scheduler == null ? -1 : scheduler.reloadsStarted(), gen,
+                LockSyncDedupe.skipped(), LockSyncDedupe.skippedOnJoin());
+        }
         AgeState st = state(s);
         st.ledger().setLastReloadGameTime(s.overworld().getGameTime());
         st.setDirty();
         writeMirror(s, st.snapshot());
+    }
+
+    /** How the last Age reload ran: "swap", "reload" or why it was a reload. */
+    public static String lastMode() {
+        return lastMode;
     }
 
     // ---------------------------------------------------------------- persistence
@@ -500,17 +540,18 @@ public final class AgeService {
             st.setDirty();
             writeMirror(s, st.snapshot());
             FirmagesCore.LOGGER.info("AgeState now {} (version {})", st.snapshot().unlockedIds(), st.snapshot().version());
-            ImmersionService.broadcast(s);
             CaveDwellerService.despawnIfOver(s);
         }
 
+        /** Always follows {@link #persist}; the status goes out after the request, so it says whether a swap is pending. */
         @Override
         public void requestReload(String reason, boolean revoke) {
             if (revoke && !ServerConfig.reloadOnRevoke()) {
                 FirmagesCore.LOGGER.info("Not reloading after '{}' (gate.reloadOnRevoke = false)", reason);
-                return;
+            } else if (scheduler != null) {
+                scheduler.request(reason);
             }
-            if (scheduler != null) scheduler.request(reason);
+            ImmersionService.broadcast(s);
         }
 
         @Override

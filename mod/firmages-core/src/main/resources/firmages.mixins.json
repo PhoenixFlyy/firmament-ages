@@ -35,7 +35,8 @@
     "ftbq.BaseScreenModalMixin",
     "ftbq.ChapterPanelWindowMixin",
     "ftbq.QuestViewSpacingMixin",
-    "ftbq.QuestPanelCentreMixin"
+    "ftbq.QuestPanelCentreMixin",
+    "psemi.EmiReloadHoldMixin"
   ],
   "injectors": {
     "defaultRequire": 1

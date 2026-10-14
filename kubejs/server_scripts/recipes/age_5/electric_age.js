@@ -7,9 +7,9 @@
 // Goal: the Humming Core (Attuned Circuit, IE HV capacitor, aluminium plates, red steel sheets, Wither drop).
 
 ServerEvents.recipes((event) => {
-  // Pack recipes in the Arc Furnace load only with its Age (recipes/station_ages.js cannot remove recipes added in the
-  // same event), so the arc furnace steels never show before the Electric Age.
-  const arc = (json, id) => { if (FirmAges.isUnlocked('age_5')) event.custom(json).id(id) }
+  // The Arc Furnace is an Electric Age station (recipes/station_ages.js): the gate keeps these recipes out until age_5,
+  // so the arc furnace steels never show before the Electric Age.
+  const arc = (json, id) => event.custom(json).id(id)
   const sized = (tagId, n) => (n > 1 ? { basePredicate: { tag: tagId }, count: n } : { tag: tagId })
 
   // ======================================================================================== arc furnace: TFC steels

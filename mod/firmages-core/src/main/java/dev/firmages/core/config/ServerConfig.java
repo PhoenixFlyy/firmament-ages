@@ -29,6 +29,7 @@ public final class ServerConfig {
     public static final ModConfigSpec.ConfigValue<List<? extends String>> DENY_RECIPES;
     public static final ModConfigSpec.BooleanValue RELOAD_ON_REVOKE;
     public static final ModConfigSpec.BooleanValue WARMUP_RELOAD;
+    public static final ModConfigSpec.BooleanValue AGE_SWAP;
     public static final ModConfigSpec.IntValue WARMUP_DELAY_TICKS;
     // miner
     public static final ModConfigSpec.BooleanValue MINER_IE_EXCAVATOR;
@@ -92,16 +93,21 @@ public final class ServerConfig {
         BOOT_FALLBACK_STAGES = b.comment("Fail-strict Age snapshot for the initial datapack load when there is no valid mirror file.",
                 "Keep it equal to the ProgressiveStages starting stages. 'dawn' is always included.")
             .defineListAllowEmpty("bootFallbackStages", DEFAULT_BOOT_FALLBACK, () -> "dawn", ServerConfig::isAgeId);
-        RELOAD_DELAY_TICKS = b.comment("Ticks between an Age change and the datapack reload.").defineInRange("reloadDelayTicks", 60, 0, 1200);
+        RELOAD_DELAY_TICKS = b.comment("Ticks between an Age change and the Age swap (or datapack reload).").defineInRange("reloadDelayTicks", 60, 0, 1200);
         COALESCE_TICKS = b.comment("Further Age changes extend the pending reload up to this many ticks after the first request.")
             .defineInRange("coalesceTicks", 100, 0, 2400);
         EXEMPT_RECIPE_TYPES = b.comment("Recipe types that are never filtered (world data).")
             .defineListAllowEmpty("exemptRecipeTypes", DEFAULT_EXEMPT_TYPES, () -> "", ServerConfig::isString);
         ALLOW_RECIPES = b.comment("Recipe ids that are always kept.").defineListAllowEmpty("allowRecipes", List.of(), () -> "", ServerConfig::isString);
         DENY_RECIPES = b.comment("Recipe ids that are always dropped.").defineListAllowEmpty("denyRecipes", List.of(), () -> "", ServerConfig::isString);
-        RELOAD_ON_REVOKE = b.comment("Reload datapacks when an Age is revoked.").define("reloadOnRevoke", true);
-        WARMUP_RELOAD = b.comment("Dedicated server: one datapack reload with the same Ages shortly after start, while no player is online,",
-                "so the first Age reload players wait for runs warm (the first reload after a boot is about 1 s slower).",
+        RELOAD_ON_REVOKE = b.comment("Swap (or reload) when an Age is revoked.").define("reloadOnRevoke", true);
+        AGE_SWAP = b.comment("An Age change re-filters the recipes kept from the last datapack load, rebinds the prospecting and miner tags,",
+                "flushes the machine caches and sends the recipes to the players (about a second), instead of reloading every datapack",
+                "(9 to 15 s with the whole server frozen). false = the old full reload on every Age change. /reload, /firmages reload and",
+                "the boot reconcile always reload in full.")
+            .define("ageSwap", true);
+        WARMUP_RELOAD = b.comment("Dedicated server, only with ageSwap = false: one datapack reload with the same Ages shortly after start, while no",
+                "player is online, so the first Age reload players wait for runs warm (the first reload after a boot is about 1 s slower).",
                 "Skipped when a boot reconcile reload runs anyway, when a player is online or any reload already ran.")
             .define("warmupReload", true);
         WARMUP_DELAY_TICKS = b.comment("Ticks after server start before the warm-up reload.").defineInRange("warmupDelayTicks", 20, 0, 6000);
@@ -112,7 +118,7 @@ public final class ServerConfig {
         MINER_ORE_GUARD = b.define("oreGuard", true);
         b.pop();
 
-        b.comment("Stage-aware prospecting (m1), read by the KubeJS tag script through FirmAges.prospectingEnabled()").push("prospecting");
+        b.comment("Stage-aware prospecting (m1): ore blocks of locked Ages leave tfc:prospectable and precisionprospecting:prospectable_mineral").push("prospecting");
         PROSPECTING_ENABLED = b.define("enabled", true);
         b.pop();
 
@@ -253,6 +259,11 @@ public final class ServerConfig {
 
     public static boolean reloadOnRevoke() {
         return !loaded() || RELOAD_ON_REVOKE.get();
+    }
+
+    /** {@code gate.ageSwap}: Age changes swap instead of reloading (true while the config is not loaded). */
+    public static boolean ageSwap() {
+        return !loaded() || AGE_SWAP.get();
     }
 
     public static boolean warmupReload() {

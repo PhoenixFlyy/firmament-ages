@@ -85,6 +85,7 @@ public final class ImmersionClient {
 
     /** {@code firmages:age_status} arrived. */
     public static void onStatus(AgeStatus status) {
+        EmiReloadGate.onStatus(status);
         ClientAgeStatus.receive(status);
     }
 
