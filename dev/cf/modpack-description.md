@@ -1,10 +1,10 @@
 # Firmament Ages
 
-**Ten Ages of one sky. From knapped flint in a TerraFirmaCraft world to a draconic reactor and a Stargate, earned together at one shrine.**
+**Ten Ages of one sky. From knapped flint to a reactor of chaos and a gate beyond the stars, earned together at one shrine.**
 
-An Ages pack in the line of SevTech: Ages, built new for Minecraft 1.21.1. You wake in Dawn with no pickaxe and no fire. What a later Age holds does not exist yet, in any mod: its items, ores, machines, mobs and dimensions stay hidden until your fellowship earns that Age.
+An Ages pack in the line of SevTech: Ages, built new for Minecraft 1.21.1. You wake in Dawn with no pickaxe and no fire. What a later Age holds does not exist yet: its items, ores, machines, mobs and dimensions stay hidden until your fellowship earns that Age.
 
-- **Why play it:** no tier can be skipped. TerraFirmaCraft carries the world and the metal up to steel; Create, three schools of magic, Immersive Engineering, Mekanism, Applied Energistics, rockets, Draconic Evolution and a Stargate follow, each in its own Age.
+- **Why play it:** no tier can be skipped. A hard survival world carries you from stone to steel; machines, three schools of magic, heavy industry, digital storage, rockets and the power of dragons follow, each in its own Age (the table below names them).
 - **How long:** built for 120 hours and more, from the first knapped axe to the final boss.
 - **Co-op:** one fellowship per server. Everyone lives in the same Age, and each Age ends with an offering at one shared shrine.
 
@@ -12,7 +12,7 @@ An Ages pack in the line of SevTech: Ages, built new for Minecraft 1.21.1. You w
 
 | Age | What opens | Offering |
 |---|---|---|
-| Dawn | Knapping, stone tools, thatch, the first fire | none: the first fire opens the Stone Age |
+| Dawn | A TerraFirmaCraft world: knapping, stone tools, thatch, the first fire | none: the first fire opens the Stone Age |
 | Stone Age | Pottery, pit kilns, copper casting, ArborFirmaCraft | Hearthstone |
 | Bronze Age | TFC anvils, three bronzes, Create (Andesite tier), Sophisticated Backpacks | Sky Disc |
 | Iron Age | Bloomery, blast furnace, steel, Create Brass tier, the world map, the Twilight Forest | Steel Heart |

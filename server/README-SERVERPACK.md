@@ -75,6 +75,24 @@ the Industrial Age; then the party gets 25 claims and 25 force-loaded chunks, wh
 - **RCON:** it listens on every interface when `server-ip` is empty. Keep `enable-rcon=false` on a public server, or
   never forward port 25575.
 
+## Operator commands for testing
+
+Permission level 2. `/firmages` commands come from firmages-core, `/stage` from the stage mod, `/fa_*` from pack
+scripts.
+
+| Command | What it does |
+|---|---|
+| `/stage grant @s age_N` | Grants an Age (the team gets it). Each `age_N` depends on `age_(N-1)`: grant in order. A quest or command grant plays the short ceremony and leaves no relic. A ring standing for an Age you already hold is consecrated at the next check; its plinth takes the late offering at once, without a grant. |
+| `/firmages ages` | Unlocked and locked Ages, mirror status, last reload time. `ages sync` reconciles with the stage mod. |
+| `/firmages shrine status` | Heart, missing blocks per ring, tier, offering, rites, phase, prayer, blessings; in age_9 whether the Gathering is done. Also `shrine locate`, `relics`, `extract <plinth>`, `maintenance on/off/status`, `consecrate <ring>`. |
+| `/firmages ceremony preview <stage> [full\|short]` | Plays a ceremony to you, no grant. |
+| `/firmages origin tp <player> force` | Into The Origin without age_9 and outside creative; both locks let the player stay until he leaves, respawns elsewhere or the server stops. Without `force` the age_9 lock applies. |
+| `/firmages origin gathering` | Starts the altar Gathering now for everyone online, wherever they stand, without cooldown. The trial waves follow as in the real fight. |
+| `/firmages origin fight` | Summons The Primordial at once, no waves. Refused while the finale trial or the boss lives, and after the win. |
+| `/firmages origin status` / `reset` | Arena version, return gate, altar, Gathering count, boss state, island echoes / lets the Gathering and the boss happen again (`finale_won` stays). `origin rebuild` builds the arena again. |
+| Simulate facility | Set `debug.allowSimulate = true` in `serverconfig/firmages-server.toml`. Then `/firmages ages simulate grant\|revoke <stage>` changes the Age state without the stage mod (self-tests only); `/firmages shrine simulate_pray` completes the current prayer with ring and offering in place, skipping rites and praying players (in age_9 the Gathering); the headless test players work (`/firmages debug player join\|leave <name>`, `debug use`, `debug pray`, `debug punch`, `debug run`). |
+| `/fa_dump` | Writes `local/firmages/recipes.json` (every loaded recipe with its locks), `item_tags.json` and `registries.json`. Also `/fa_dump_full [regex]`, `/fa_recipe <regex>`, `/fa_dims`, `/fa_m3`. Runs from the console and RCON too. |
+
 ## Update
 
 Replace `mods`, `config`, `defaultconfigs` and `kubejs` with the folders of the new server pack, then re-apply your
