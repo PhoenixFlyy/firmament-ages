@@ -5,7 +5,7 @@
 
 [stage]
 id = "age_5"
-display_name = "Age 5: Electric Age"
+display_name = "Electric Age"
 description = "MV/HV power, oil, aluminium and the excavator."
 icon = "minecraft:lightning_rod"
 dependency = "age_4"

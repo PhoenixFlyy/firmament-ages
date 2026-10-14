@@ -5,7 +5,7 @@
 
 [stage]
 id = "age_3"
-display_name = "Age 3: Arcane Age"
+display_name = "Arcane Age"
 description = "Spirits, source and alchemy. The Nether opens."
 icon = "minecraft:amethyst_shard"
 dependency = "age_2"

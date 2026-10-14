@@ -5,7 +5,7 @@
 
 [stage]
 id = "age_2"
-display_name = "Age 2: Iron Age"
+display_name = "Iron Age"
 description = "Bloomery, wrought iron, steel, brass machinery and the first trains."
 icon = "firmages:steel_heart"
 dependency = "age_1"

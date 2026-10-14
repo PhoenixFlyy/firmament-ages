@@ -7,7 +7,7 @@
 [stage]
 id = "ftbchunks_mapping"
 display_name = "Cartography"
-description = "The map and minimap of FTB Chunks."
+description = "The map and the minimap."
 icon = "minecraft:filled_map"
 dependency = "age_2"
 category = "Helpers"

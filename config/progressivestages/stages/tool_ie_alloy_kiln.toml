@@ -7,8 +7,8 @@
 
 [stage]
 id = "tool_ie_alloy_kiln"
-display_name = "IE Alloy Kiln"
-description = "Build window for the IE Alloy Kiln."
+display_name = "Alloy Kiln"
+description = "Made in the Industrial Age only. The arc furnace replaces it."
 icon = "minecraft:crafting_table"
 category = "Helpers"
 tags = ["helper", "tool"]

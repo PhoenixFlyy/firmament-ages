@@ -5,7 +5,7 @@
 
 [stage]
 id = "age_1"
-display_name = "Age 1: Bronze Age"
+display_name = "Bronze Age"
 description = "Anvils, crucibles, three bronzes and the first water wheel."
 icon = "firmages:sky_disc"
 dependency = "age_0"

@@ -7,8 +7,8 @@
 
 [stage]
 id = "mob_3"
-display_name = "Mob Tier 3"
-description = "Spawns of the Arcane Age."
+display_name = "Nights of the Arcane Age"
+description = "What walks in the dark of the Arcane Age."
 icon = "minecraft:zombie_head"
 category = "Mob Ladder"
 tags = ["mob"]

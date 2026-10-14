@@ -7,8 +7,8 @@
 
 [stage]
 id = "tool_ie_capacitor"
-display_name = "IE LV/MV Capacitors"
-description = "Build window for the IE LV/MV Capacitors."
+display_name = "LV and MV Capacitors"
+description = "Made in the Industrial and Electric Ages. Energy cubes replace them."
 icon = "minecraft:crafting_table"
 category = "Helpers"
 tags = ["helper", "tool"]

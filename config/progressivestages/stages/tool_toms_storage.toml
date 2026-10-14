@@ -7,8 +7,8 @@
 
 [stage]
 id = "tool_toms_storage"
-display_name = "Tom's Simple Storage"
-description = "Build window for the Tom's Simple Storage."
+display_name = "Storage Terminal"
+description = "Made from the Iron Age to the Electric Age. One network replaces it."
 icon = "minecraft:crafting_table"
 category = "Helpers"
 tags = ["helper", "tool"]

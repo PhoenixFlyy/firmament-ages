@@ -5,7 +5,7 @@
 
 [stage]
 id = "age_7"
-display_name = "Age 7: Space Age"
+display_name = "Space Age"
 description = "Fission, rockets, Moon and Mars, the first Draconium."
 icon = "minecraft:firework_rocket"
 dependency = "age_6"
