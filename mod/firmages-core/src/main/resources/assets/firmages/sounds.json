@@ -88,5 +88,14 @@
       }
     ],
     "subtitle": "subtitles.firmages.shrine.maintenance"
+  },
+  "shrine.ambient": {
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.shrine.ambient"
   }
 }

@@ -70,6 +70,10 @@ class ImmersionTest {
         assertEquals(AgeId.AGE_3, AgeStatus.current(ages(AgeId.AGE_0, AgeId.AGE_3)));
         assertEquals("firmages:quantum_core", AgeStatus.of(ages(AgeId.AGE_8), OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS, DWELLER_UNTIL, TOOL_UNTIL).goalItem());
         assertEquals("", AgeStatus.of(ages(AgeId.AGE_9), OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS, DWELLER_UNTIL, TOOL_UNTIL).goalItem());
+        AgeStatus sing = AgeStatus.of(ages(AgeId.AGE_9), OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS, DWELLER_UNTIL, TOOL_UNTIL);
+        assertEquals("firmages.hud.goal.age_9", sing.goalKey(), "before the Gathering: Goal: the Gathering");
+        assertEquals("firmages.hud.goal.age_9_gathered", sing.withGathered(true).goalKey(), "after it: Goal: Beyond the Firmament");
+        assertEquals("firmages.hud.goal.dawn", AgeStatus.of(AgeSnapshot.DAWN_ONLY, OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS, DWELLER_UNTIL, TOOL_UNTIL).goalKey());
         assertEquals("", AgeStatus.of(ages(AgeId.AGE_2), OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS, DWELLER_UNTIL, TOOL_UNTIL).goalItem(), "missing offering -> no item");
     }
 

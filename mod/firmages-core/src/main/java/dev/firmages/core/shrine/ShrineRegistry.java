@@ -106,6 +106,8 @@ public final class ShrineRegistry {
     public static final DeferredHolder<SoundEvent, SoundEvent> KINDLED = sound("shrine.kindled");
     public static final DeferredHolder<SoundEvent, SoundEvent> CONSECRATE = sound("shrine.consecrate");
     public static final DeferredHolder<SoundEvent, SoundEvent> MAINTENANCE = sound("shrine.maintenance");
+    /** The living shrine's hum near the heart (SPEC §7.10). */
+    public static final DeferredHolder<SoundEvent, SoundEvent> AMBIENT = sound("shrine.ambient");
 
     private static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, name)));

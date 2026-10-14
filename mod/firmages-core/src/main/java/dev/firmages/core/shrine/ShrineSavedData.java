@@ -23,8 +23,8 @@ import java.util.TreeMap;
 
 /**
  * SavedData {@code firmages_shrine} in the overworld storage (SPEC §2.5): the one shrine of the server, its last
- * validation, the enshrined relics (plinth positions in the heart's dimension) and the Ages the shrine granted
- * (catch-up for players who were offline when ProgressiveStages runs per player).
+ * validation, the enshrined relics (plinth positions in the heart's dimension), the Ages the shrine granted
+ * (catch-up for players who were offline when ProgressiveStages runs per player) and whether the Gathering is done.
  */
 public final class ShrineSavedData extends SavedData {
     public static final String DATA_NAME = "firmages_shrine";
@@ -58,6 +58,8 @@ public final class ShrineSavedData extends SavedData {
     private long lastValidated;
     private final Map<Long, Relic> relics = new TreeMap<>();
     private final Set<String> grantedStages = new LinkedHashSet<>();
+    /** The Gathering (SPEC §7.5) is done: Caelum gave the nine relics back at age_9. */
+    private boolean gathered;
 
     public static ShrineSavedData get(MinecraftServer server) {
         return server.overworld().getDataStorage().computeIfAbsent(
@@ -166,6 +168,15 @@ public final class ShrineSavedData extends SavedData {
         if (grantedStages.remove(stage)) setDirty();
     }
 
+    public boolean gathered() {
+        return gathered;
+    }
+
+    public void setGathered(boolean gathered) {
+        if (this.gathered != gathered) setDirty();
+        this.gathered = gathered;
+    }
+
     static ShrineSavedData load(CompoundTag tag, HolderLookup.Provider registries) {
         ShrineSavedData d = new ShrineSavedData();
         if (tag.contains("heartDim") && tag.contains("heartPos")) {
@@ -190,6 +201,7 @@ public final class ShrineSavedData extends SavedData {
             d.originals.put(p.asLong(), new Original(p, o.getInt("ring"), o.getString("state")));
         }
         d.maintenanceUntil = tag.getLong("maintenanceUntil");
+        d.gathered = tag.getBoolean("gathered");
         return d;
     }
 
@@ -225,6 +237,7 @@ public final class ShrineSavedData extends SavedData {
         }
         tag.put("originals", ol);
         if (maintenanceUntil > 0) tag.putLong("maintenanceUntil", maintenanceUntil);
+        if (gathered) tag.putBoolean("gathered", true);
         return tag;
     }
 

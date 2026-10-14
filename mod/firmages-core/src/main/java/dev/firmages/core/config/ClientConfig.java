@@ -14,6 +14,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue STOP_MUSIC;
     public static final ModConfigSpec.DoubleValue PARTICLE_SCALE;
     public static final ModConfigSpec.BooleanValue AMBIENT_DRONE;
+    public static final ModConfigSpec.BooleanValue IDLE_BEAM;
 
     public static final ModConfigSpec.EnumValue<HudFade.Mode> HUD_MODE;
     public static final ModConfigSpec.IntValue HUD_FADE_SECONDS;
@@ -51,7 +52,10 @@ public final class ClientConfig {
         SKY_TINT = b.define("skyTint", true);
         STOP_MUSIC = b.define("stopMusic", true);
         PARTICLE_SCALE = b.defineInRange("particleScale", 1.0, 0.0, 4.0);
-        AMBIENT_DRONE = b.define("ambientDrone", true);
+        AMBIENT_DRONE = b.comment("A low hum near the lit, intact shrine heart (within 16 blocks), deeper with every Age.")
+            .define("ambientDrone", true);
+        IDLE_BEAM = b.comment("Show the shrine's thin idle beam (the server turns it on with shrine.permanentBeam).")
+            .define("idleBeam", true);
         b.pop();
 
         b.comment("Immersion (SPEC 18): what the client shows of the pack's machinery").push("ui");

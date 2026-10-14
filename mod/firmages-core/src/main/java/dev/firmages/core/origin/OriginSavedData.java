@@ -47,7 +47,7 @@ public final class OriginSavedData extends SavedData {
 
     void setArenaVersion(int v) { arenaVersion = v; setDirty(); }
     void setGateBuilt(boolean b) { gateBuilt = b; setDirty(); }
-    void setWon(boolean b) { won = b; setDirty(); }
+    public void setWon(boolean b) { won = b; setDirty(); }
 
     void gathered() {
         gatherings++;

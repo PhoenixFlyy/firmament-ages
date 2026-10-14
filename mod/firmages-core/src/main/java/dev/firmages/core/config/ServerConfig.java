@@ -48,7 +48,6 @@ public final class ServerConfig {
     public static final ModConfigSpec.IntValue SHRINE_PRAY_RADIUS;
     public static final ModConfigSpec.IntValue SHRINE_SANCTUARY_BASE_RADIUS;
     public static final ModConfigSpec.IntValue SHRINE_SANCTUARY_PER_TIER;
-    public static final ModConfigSpec.LongValue SHRINE_ENERGY_CAPACITY;
     public static final ModConfigSpec.BooleanValue SHRINE_PERMANENT_BEAM;
     public static final ModConfigSpec.BooleanValue SHRINE_CLEAR_WEATHER;
     public static final ModConfigSpec.BooleanValue SHRINE_BLESSINGS_EVERYWHERE;
@@ -146,8 +145,9 @@ public final class ServerConfig {
         SHRINE_SANCTUARY_BASE_RADIUS = b.defineInRange("baseRadius", 12, 0, 256);
         SHRINE_SANCTUARY_PER_TIER = b.defineInRange("perTier", 4, 0, 64);
         b.pop();
-        SHRINE_ENERGY_CAPACITY = b.defineInRange("energyCapacity", 100_000_000L, 0L, Long.MAX_VALUE);
-        SHRINE_PERMANENT_BEAM = b.define("permanentBeam", false);
+        SHRINE_PERMANENT_BEAM = b.comment("Thin idle beam in the colour of the latest awakened Age while the heart is lit and the shrine intact;",
+                "gold after the finale. Players can hide it on their side (firmages-client.toml effects.idleBeam).")
+            .define("permanentBeam", true);
         SHRINE_CLEAR_WEATHER = b.define("clearWeather", true);
         SHRINE_MAINTENANCE_SECONDS = b.comment("Maintenance mode (sneak and punch the heart with an empty hand): seconds until it ends by itself. Only while it is on, consecrated shrine blocks can be broken.")
             .defineInRange("maintenanceSeconds", 60, 5, 3600);

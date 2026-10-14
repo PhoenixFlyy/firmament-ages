@@ -44,7 +44,7 @@ public final class AgeIndicatorLayer {
         Font font = mc.font;
         ItemStack goal = goalStack(st.goalItem());
         Component goalName = goal.isEmpty()
-            ? Component.translatableWithFallback("firmages.hud.goal." + st.age().id(), "")
+            ? Component.translatableWithFallback(st.goalKey(), "")
             : goal.getHoverName();
         Component line = Component.translatable("firmages.age." + st.age().id() + ".name").withStyle(ChatFormatting.GOLD);
         if (!goalName.getString().isEmpty()) {

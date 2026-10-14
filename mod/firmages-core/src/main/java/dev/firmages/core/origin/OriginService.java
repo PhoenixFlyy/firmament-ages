@@ -99,6 +99,8 @@ public final class OriginService {
         MinecraftServer server = event.getServer();
         if (server.getTickCount() % CHECK_PERIOD != 0) return;
         checkGathering(server);
+        ServerLevel level = level(server);
+        if (level != null && !level.players().isEmpty()) OriginEchoes.tick(level);
     }
 
     /** Players the Gathering waits for: everyone online who is not a spectator. */
@@ -155,6 +157,33 @@ public final class OriginService {
         runFunctions(server, level, OriginArena.ALTAR, START_FUNCTIONS);
     }
 
+    /**
+     * {@code /firmages origin gathering} (operators): the Gathering starts now for everyone online, wherever they
+     * stand, regardless of {@code origin.gatherRadius} and the cooldown. @return false once the finale is won or
+     * without The Origin
+     */
+    public static boolean forceGathering(MinecraftServer server) {
+        OriginSavedData sd = OriginSavedData.get(server);
+        if (sd.won() || level(server) == null) return false;
+        FirmagesCore.LOGGER.info("The Origin: Gathering forced by an operator");
+        startGathering(server, sd);
+        return true;
+    }
+
+    /**
+     * {@code /firmages origin fight} (operators): asks the boss script to summon its final boss now, without the
+     * gateway waves ({@link OriginEvent.SummonBoss}). @return the answered event, or null without The Origin
+     */
+    @Nullable
+    public static OriginEvent.SummonBoss summonBoss(MinecraftServer server) {
+        ServerLevel level = level(server);
+        if (level == null) return null;
+        OriginEvent.SummonBoss e = NeoForge.EVENT_BUS.post(new OriginEvent.SummonBoss(level, OriginArena.ALTAR));
+        FirmagesCore.LOGGER.info("The Origin: boss summon forced by an operator: {}", e.isSummoned() ? "summoned"
+            : e.getRefusal().isEmpty() ? "no script answered" : "refused (" + e.getRefusal() + ")");
+        return e;
+    }
+
     // ---- the final boss --------------------------------------------------------------------------------------
 
     /**
@@ -182,6 +211,7 @@ public final class OriginService {
         sd.setWon(true);
         FirmagesCore.LOGGER.info("The Origin: final boss {} defeated, granting {}", boss.getType().getDescriptionId(), FINALE_STAGE);
         grantFinale(server);
+        dev.firmages.core.shrine.ShrineConsecration.livingChanged(server); // the shrine's idle beam turns gold
         ServerLevel origin = level(server);
         ServerLevel where = origin != null ? origin : (ServerLevel) boss.level();
         BlockPos at = origin != null ? OriginArena.ALTAR : boss.blockPosition();

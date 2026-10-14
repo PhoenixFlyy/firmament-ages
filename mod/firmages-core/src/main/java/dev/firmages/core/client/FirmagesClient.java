@@ -39,6 +39,7 @@ public final class FirmagesClient {
         @SubscribeEvent
         public static void tick(ClientTickEvent.Post event) {
             CeremonyPlayer.tick();
+            ShrineAmbience.tick(Minecraft.getInstance());
             Minecraft mc = Minecraft.getInstance();
             // The reload hint stays on the actionbar for the whole freeze (the server cannot send anything then).
             if (ReloadStatePayload.clientRunning() && mc.player != null) {

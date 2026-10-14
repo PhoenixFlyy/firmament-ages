@@ -80,6 +80,23 @@ public final class OfferingPlinthBlock extends BaseEntityBlock {
         return InteractionResult.CONSUME;
     }
 
+    /**
+     * The living shrine (SPEC §7.10): an enshrined relic breathes dust in the colour of its tier's ceremony beam
+     * (client side, colours from {@code firmages:shrine_sync}; the tier comes with the plinth's block entity).
+     */
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (!state.getValue(AWAKENED) || !(level.getBlockEntity(pos) instanceof OfferingPlinthBlockEntity pb) || !pb.isRelic()) return;
+        java.util.Optional<Integer> c = dev.firmages.core.net.ShrineSyncPayload.clientTierColor(pb.tier());
+        if (c.isEmpty()) return;
+        int rgb = c.get();
+        org.joml.Vector3f color = new org.joml.Vector3f(((rgb >> 16) & 0xFF) / 255F, ((rgb >> 8) & 0xFF) / 255F, (rgb & 0xFF) / 255F);
+        for (int i = 0; i < 2; i++) {
+            level.addParticle(new net.minecraft.core.particles.DustParticleOptions(color, 0.8F), pos.getX() + 0.5 + (random.nextDouble() - 0.5) * 0.5,
+                pos.getY() + 1.0 + random.nextDouble() * 0.4, pos.getZ() + 0.5 + (random.nextDouble() - 0.5) * 0.5, 0, 0.02, 0);
+        }
+    }
+
     /** A plinth holding an item, or waiting for its lent relic, cannot be broken in survival; the relic stays forever. */
     @Override
     protected float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {

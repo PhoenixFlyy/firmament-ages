@@ -2,6 +2,8 @@ package dev.firmages.core.origin;
 
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.compat.sgjourney.SgjGates;
+import dev.firmages.core.shrine.Consecration;
+import dev.firmages.core.shrine.ShrineRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -15,15 +17,19 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import java.util.Optional;
 
 /**
- * Builds The Origin's MVP layout once into the void dimension (SPEC §16): a floating arena disc of radius 20 at
+ * Builds The Origin's layout once into the void dimension (SPEC §16): a floating arena disc of radius 20 at
  * y 64 around (0, 0) with the {@code origin_altar} on a crying-obsidian dais in its centre, nine small floating
  * islands, one per shrine Age, in a loose ring 45 to 75 blocks out, and (with Stargate Journey) a Milky Way
- * stargate with its DHD on a pedestal south of the arena, connected by a bridge. Only vanilla blocks, so the
- * layout does not depend on any beta mod; the gate is Stargate Journey's own pedestal template.
+ * stargate with its DHD on a pedestal south of the arena, connected by a bridge. Version 2 (Origin echoes): the
+ * islands are the shrine's last ring, built from its consecrated family (stone with a trim rim, accent = the Age),
+ * and above each one the Age's signature item turns in the air ({@link OriginEchoes}). The rest is vanilla blocks,
+ * so the layout depends on no beta mod; the gate is Stargate Journey's own pedestal template.
  */
 public final class OriginArena {
     /** Bump to rebuild the arena on existing worlds (blocks only, the gate is tracked separately). */
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
+    /** The islands, one per shrine Age 0..8. */
+    public static final int ISLANDS = 9;
     public static final int RADIUS = 20;
     public static final int FLOOR_Y = 64;
     public static final BlockPos ALTAR = new BlockPos(0, FLOOR_Y + 1, 0);
@@ -36,10 +42,6 @@ public final class OriginArena {
     public static final BlockPos GATE_BASE = GATE_ORIGIN.offset(3, 2, 9);
     public static final BlockPos DHD = GATE_ORIGIN.offset(3, 1, 3);
 
-    private static final BlockState[] ISLAND_TOPS = {
-        Blocks.MOSSY_COBBLESTONE.defaultBlockState(), Blocks.CUT_COPPER.defaultBlockState(), Blocks.SMOOTH_STONE.defaultBlockState(),
-        Blocks.AMETHYST_BLOCK.defaultBlockState(), Blocks.BRICKS.defaultBlockState(), Blocks.WAXED_OXIDIZED_CUT_COPPER.defaultBlockState(),
-        Blocks.QUARTZ_BRICKS.defaultBlockState(), Blocks.END_STONE_BRICKS.defaultBlockState(), Blocks.CRYING_OBSIDIAN.defaultBlockState()};
     private static final BlockState[] ROCK = {
         Blocks.DEEPSLATE.defaultBlockState(), Blocks.TUFF.defaultBlockState(), Blocks.BLACKSTONE.defaultBlockState(),
         Blocks.STONE.defaultBlockState(), Blocks.CALCITE.defaultBlockState()};
@@ -80,7 +82,7 @@ public final class OriginArena {
                 set(level, x, FLOOR_Y - 1, z, rock(x, FLOOR_Y - 1, z));
             }
         }
-        for (int i = 0; i < ISLAND_TOPS.length; i++) island(level, i);
+        for (int i = 0; i < ISLANDS; i++) island(level, i);
         FirmagesCore.LOGGER.info("The Origin: arena v{} built in {} ms", VERSION, (System.nanoTime() - t0) / 1_000_000);
     }
 
@@ -119,24 +121,40 @@ public final class OriginArena {
         return ROCK[h < 50 ? 0 : h < 70 ? 1 : h < 85 ? 2 : h < 93 ? 3 : 4];
     }
 
-    /** Island {@code i} (0..8, the shrine Age it stands for) at a fixed spot of the ring. */
-    private static void island(ServerLevel level, int i) {
+    /** The top centre of island {@code i} (0..8, the shrine Age it stands for), a fixed spot of the ring. */
+    public static BlockPos islandTop(int i) {
         double angle = Math.toRadians(i * 40 + 12);
         int dist = 45 + (i % 3) * 15;
-        int cx = (int) Math.round(Math.cos(angle) * dist);
-        int cz = (int) Math.round(Math.sin(angle) * dist);
-        int cy = FLOOR_Y - 6 + (i * 7) % 17;
-        int r = 4 + i % 3;
+        return new BlockPos((int) Math.round(Math.cos(angle) * dist), FLOOR_Y - 6 + (i * 7) % 17, (int) Math.round(Math.sin(angle) * dist));
+    }
+
+    /** Radius of island {@code i}. */
+    public static int islandRadius(int i) {
+        return 4 + i % 3;
+    }
+
+    /** True for an island top position {@code (x, z)} off the centre that belongs to the trim rim. */
+    static boolean islandRim(int x, int z, int r) {
+        return Math.sqrt(x * x + z * z) > r - 0.7;
+    }
+
+    /** Island {@code i}: consecrated stone with a trim rim in Age {@code i}'s accent, mixed rock below. */
+    private static void island(ServerLevel level, int i) {
+        BlockPos c = islandTop(i);
+        int r = islandRadius(i);
+        BlockState stone = ShrineRegistry.consecrated(Consecration.Role.STONE, i);
+        BlockState trim = ShrineRegistry.consecrated(Consecration.Role.TRIM, i);
         for (int x = -r; x <= r; x++) {
             for (int z = -r; z <= r; z++) {
                 double d = Math.sqrt(x * x + z * z);
                 if (d > r + 0.3) continue;
-                set(level, cx + x, cy, cz + z, ISLAND_TOPS[i]);
+                set(level, c.getX() + x, c.getY(), c.getZ() + z, islandRim(x, z, r) ? trim : stone);
                 int depth = (int) Math.round((r + 2) * (1 - d / (r + 1))) + 1;
-                for (int dy = 1; dy <= depth; dy++) set(level, cx + x, cy - dy, cz + z, rock(cx + x, cy - dy, cz + z));
+                for (int dy = 1; dy <= depth; dy++) set(level, c.getX() + x, c.getY() - dy, c.getZ() + z, rock(c.getX() + x, c.getY() - dy, c.getZ() + z));
             }
         }
-        set(level, cx, cy + 1, cz, Blocks.END_ROD.defaultBlockState());
+        // Version 1 had an end rod in the centre; the Age's signature item floats there now (OriginEchoes).
+        set(level, c.getX(), c.getY() + 1, c.getZ(), Blocks.AIR.defaultBlockState());
     }
 
     private static void set(ServerLevel level, int x, int y, int z, BlockState state) {
