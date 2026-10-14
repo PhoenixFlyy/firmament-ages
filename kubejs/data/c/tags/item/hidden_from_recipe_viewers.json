@@ -2697,7 +2697,6 @@
     {"id": "supplementaries:afc/cannon_boat_teak", "required": false},
     {"id": "supplementaries:afc/cannon_boat_tualang", "required": false},
     {"id": "supplementaries:ars_nouveau/cannon_boat_archwood", "required": false},
-    {"id": "supplementaries:ash", "required": false},
     {"id": "supplementaries:bamboo_spikes_tipped", "required": false},
     {"id": "supplementaries:barnacles", "required": false},
     {"id": "supplementaries:blackstone_lamp", "required": false},

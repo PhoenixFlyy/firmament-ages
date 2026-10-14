@@ -3332,6 +3332,7 @@
     {"id": "supplementaries:afc/way_sign_tualang", "required": false},
     {"id": "supplementaries:altimeter", "required": false},
     {"id": "supplementaries:antique_ink", "required": false},
+    {"id": "supplementaries:ash", "required": false},
     {"id": "supplementaries:ash_brick", "required": false},
     {"id": "supplementaries:ash_bricks", "required": false},
     {"id": "supplementaries:ash_bricks_slab", "required": false},
