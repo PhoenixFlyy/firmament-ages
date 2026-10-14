@@ -37,23 +37,80 @@ ServerEvents.recipes((event) => {
   // ---- Andesite tier: iron parts become bronze parts ---------------------------------------------------
   // Everything Create crafts except the Iron Age items keeps its recipe but takes any bronze instead of iron.
   // POC: walk the Create andesite tier in EMI (press, mixer, fan, saw, drill, harvester, belts, water wheel).
-  // Fixed ids: the Create recipes outside the Iron Age outputs (precision mechanism, electron tube, deployer, arm,
-  // crafter, crushing wheel, steam engine and whistle, fluid parts, smart chute, speed controller, sequenced
-  // gearshift, elevator pulley, trains, schematics, brass) that ask for iron plates, ingots or blocks, read from the
-  // original recipes on 2026-10-01 (create:pressing/iron_ingot is removed in global_removals.js). Plain ids are a map
-  // lookup; resolving the tier from all 1,738 Create recipes cost about 120 ms of every reload. dev/poc_analyze.py
-  // check C-1a reports a Create recipe of the andesite tier that still asks for iron.
+  // Fixed ids: the Create and Create Connected recipes outside the Iron Age outputs (precision mechanism, electron
+  // tube, deployer, arm, crafter, crushing wheel, steam engine and whistle, fluid parts, smart chute, speed controller,
+  // sequenced gearshift, elevator pulley, trains, schematics, brass) that ask for iron in any form: plates, ingots,
+  // blocks, nuggets, the iron trapdoor, the compass (wrought iron), slimeballs (no slime in a TFC world before the Iron
+  // Age; TFC glue, as TFCreate does) and the vanilla barrel tag (only minecraft:barrel). Read from the original recipes
+  // on 2026-10-01 and in the sweep of 2026-10-14 (Modpack-Planung/research-raw/fb3-create-tier-sweep.md);
+  // create:pressing/iron_ingot is removed in global_removals.js. Plain ids are a map lookup; resolving the tier from
+  // all 1,738 Create recipes cost about 120 ms of every reload. dev/poc_analyze.py check C-1a reports a Create,
+  // Create Connected or TFCreate recipe of an early-Age item that still asks for iron.
   const andesiteTier = [
     'create:crafting/kinetics/empty_blaze_burner', 'create:crafting/kinetics/item_vault',
     'create:crafting/kinetics/mechanical_drill', 'create:crafting/kinetics/mechanical_press',
     'create:crafting/kinetics/mechanical_saw', 'create:crafting/kinetics/metal_bracket',
     'create:crafting/kinetics/metal_girder', 'create:crafting/kinetics/propeller', 'create:crafting/kinetics/super_glue',
     'create:crafting/kinetics/whisk', 'create:crafting/logistics/packager', 'create:crafting/logistics/redstone_contact',
-    'create:industrial_iron_block_from_ingots_iron_stonecutting', 'create:weathered_iron_block_from_ingots_iron_stonecutting'
+    'create:industrial_iron_block_from_ingots_iron_stonecutting', 'create:weathered_iron_block_from_ingots_iron_stonecutting',
+    'create:crafting/kinetics/mechanical_harvester', 'create:crafting/kinetics/mechanical_plough',
+    'create:crafting/curiosities/minecart_coupling', 'create:crafting/kinetics/filter',
+    'create:crafting/kinetics/encased_chain_drive', 'create:crafting/logistics/item_hatch',
+    'create:crafting/kinetics/sticker', 'create:crafting/kinetics/sticky_mechanical_piston',
+    'create:crafting/kinetics/speedometer',
+    'create_connected:crafting/kinetics/freewheel_clutch', 'create_connected:crafting/kinetics/centrifugal_clutch',
+    'create_connected:crafting/kinetics/item_silo'
   ].map((id) => ({ id: id }))
   event.replaceInput(andesiteTier, '#c:plates/iron', '#firmages:plates/any_bronze')
   event.replaceInput(andesiteTier, '#c:ingots/iron', '#firmages:ingots/any_bronze')
   event.replaceInput(andesiteTier, '#c:storage_blocks/iron', '#firmages:storage_blocks/any_bronze')
+  event.replaceInput(andesiteTier, '#c:nuggets/iron', '#firmages:rods/any_bronze')
+  event.replaceInput(andesiteTier, 'minecraft:iron_trapdoor', '#firmages:trapdoors/any_bronze')
+  event.replaceInput(andesiteTier, 'minecraft:compass', '#firmages:plates/any_bronze')
+  event.replaceInput(andesiteTier, '#c:slimeballs', 'tfc:glue')
+  event.replaceInput(andesiteTier, '#c:barrels/wooden', '#tfc:barrels')
+
+  // TFCreate replaces seven Create recipes with tfcreate: ids, and mod:tfcreate is grid-locked until age_2
+  // (age_2.toml), so their items had no Bronze Age recipe. The same recipes under firmages: ids (the firmages
+  // namespace opens at age_0, the item lock keeps the outputs at age_1), iron parts as bronze; tags only, so Almost
+  // Unified leaves them alone. Then the iron twins of items the andesite tier makes from bronze, which EMI would show
+  // as a second, locked iron recipe; tfcreate:drill_head and saw_blade lose their only use ([derived_hidden]).
+  ;['chute', 'rope_pulley', 'goggles', 'copper_valve_handle', 'brown_toolbox', 'desk_bell', 'weighted_ejector',
+    'item_vault', 'metal_bracket', 'super_glue', 'filter', 'item_hatch', 'sticker', 'sticky_mechanical_piston',
+    'mechanical_press', 'mechanical_drill', 'mechanical_saw', 'encased_chain_drive', 'encased_chain_drive_from_steel',
+    'redstone_contact', 'anvil/propeller', 'anvil/whisk', 'anvil/drill_head', 'anvil/saw_blade'
+  ].forEach((x) => event.remove({ id: `tfcreate:${x}` }))
+  event.shaped('4x create:chute', ['A', 'I', 'A'], { A: '#firmages:plates/any_bronze', I: '#firmages:ingots/any_bronze' })
+    .id('firmages:crafting/create/chute')
+  event.shaped('create:rope_pulley', ['B', 'C', 'I'], {
+    B: 'create:andesite_casing', C: '#minecraft:wool', I: '#firmages:plates/any_bronze'
+  }).id('firmages:crafting/create/rope_pulley')
+  event.shaped('create:goggles', [' S ', 'GPG'], { G: '#c:glass_blocks', P: '#c:plates/gold', S: '#c:strings' })
+    .id('firmages:crafting/create/goggles')
+  event.shaped('create:copper_valve_handle', ['CCC', ' S '], { C: '#c:plates/copper', S: '#c:ingots/andesite_alloy' })
+    .id('firmages:crafting/create/copper_valve_handle')
+  event.shaped('create:brown_toolbox', [' C ', 'SWS', ' L '], {
+    C: 'create:cogwheel', L: '#c:leathers', S: '#c:plates/gold', W: '#c:chests/wooden'
+  }).id('firmages:crafting/create/brown_toolbox')
+  event.shapeless('create:desk_bell', ['create:andesite_casing', '#c:plates/gold']).id('firmages:crafting/create/desk_bell')
+  event.shaped('create:weighted_ejector', ['A', 'D', 'I'], { A: '#c:plates/gold', D: 'create:depot', I: 'create:cogwheel' })
+    .id('firmages:crafting/create/weighted_ejector')
+
+  // ---- Other early mods: iron or an Iron Age vanilla part in a tool of an earlier Age ----------------------
+  // Totem carving is Bronze Age flair (Doc 08); the totem torch, the liquid trash can and the framing saw are Stone
+  // Age; the Sophisticated upgrade base (11 upgrades: pickup, filters, stack starter and downgrades, tank, pump,
+  // battery) and the Astikor seed drill (next to the plow and the carts) are Bronze Age.
+  event.replaceInput({ id: 'totemic:totem_whittling_knife' }, '#c:ingots/iron', '#firmages:ingots/any_bronze')
+  event.replaceInput({ id: 'totemic:totem_torch' }, 'minecraft:torch', 'tfc:torch')
+  event.replaceInput({ id: 'trashcans:liquid_trash_can' }, '#c:buckets/empty', 'tfc:wooden_bucket')
+  event.replaceInput({ id: 'framedblocks:framing_saw' }, '#c:ingots/iron', '#c:ingots/copper')
+  event.replaceInput({ id: 'sophisticatedbackpacks:upgrade_base' }, '#c:ingots/iron', '#firmages:ingots/any_bronze')
+  const SEED_DRILL_WOODS = ['acacia', 'araucaria', 'ash', 'aspen', 'baobab', 'beech', 'birch', 'blackwood', 'chestnut',
+    'cypress', 'douglas_fir', 'eucalyptus', 'fig', 'ginkgo', 'hevea', 'hickory', 'ipe', 'ironwood', 'kapok', 'mahoe',
+    'mahogany', 'mangrove', 'maple', 'oak', 'palm', 'pine', 'rosewood', 'sequoia', 'spruce', 'sycamore', 'teak',
+    'tualang', 'white_cedar', 'willow']
+  event.replaceInput(SEED_DRILL_WOODS.map((w) => ({ id: `tfcastikorcarts:crafting/seed_drill/${w}` })),
+    'minecraft:hopper', '#firmages:plates/any_bronze')
 
   // ---- Create press: TFC double ingot -> TFC sheet (never 1 ingot -> 1 sheet, Doc 10 v3 section 7.3) ---
   // Metals gate themselves: a steel sheet needs steel, which only exists from the Iron Age.

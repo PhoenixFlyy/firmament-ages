@@ -25,6 +25,9 @@ ServerEvents.tags('item', (event) => {
   event.add('firmages:plates/any_bronze', ['tfc:metal/sheet/bronze', 'tfc:metal/sheet/bismuth_bronze', 'tfc:metal/sheet/black_bronze'])
   event.add('firmages:ingots/any_bronze', ['tfc:metal/ingot/bronze', 'tfc:metal/ingot/bismuth_bronze', 'tfc:metal/ingot/black_bronze'])
   event.add('firmages:storage_blocks/any_bronze', ['tfc:metal/block/bronze', 'tfc:metal/block/bismuth_bronze', 'tfc:metal/block/black_bronze'])
+  // The iron nuggets and the iron trapdoor of the andesite tier, as bronze (TFC has no bronze nugget; a rod is half an ingot).
+  event.add('firmages:rods/any_bronze', ['tfc:metal/rod/bronze', 'tfc:metal/rod/bismuth_bronze', 'tfc:metal/rod/black_bronze'])
+  event.add('firmages:trapdoors/any_bronze', ['tfc:metal/trapdoor/bronze', 'tfc:metal/trapdoor/bismuth_bronze', 'tfc:metal/trapdoor/black_bronze'])
 
   // Almost Unified (config/almostunified/unification/materials.json) turns every member of a unify tag into
   // the tag's target item, in recipe inputs AND outputs. TFC puts its alloys and ore powders into the base-metal

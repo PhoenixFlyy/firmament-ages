@@ -22,7 +22,9 @@ Walk (dev/poc_analyze.py make_walk, the walk of the R- checks), once per Age daw
     recipes.json: mod:minecraft, the Dawn crafting whitelist, ...). Outputs are the JSON outputs plus the result
     the server reports (recipes.json), so recipe types with unusual output keys count too.
   - start set: the start set of the R- checks plus WORLD_SOURCES below, and the block loot of every ore and deposit
-    block of the Age map (TFC tables, [ore_families], [ore_blocks]) from the Age it becomes visible.
+    block of the Age map (TFC tables, [ore_families], [ore_blocks]) from the Age it becomes visible. An item of the
+    TFC-world namespaces (poc_analyze.WORLD_NS) is not in it when every recipe that makes it needs an Iron Age or later
+    ingredient (blast furnace, bladed axle, barrel press; see derive()).
   - transforms: the block loot of every reached block item, crop and wall blocks, INTERACTIONS (bottles, buckets,
     brewing, special crafting), fishing and piglin bartering.
   An item's first Age is the first walk that reaches it. Each loot or world output is reached on its own once its
@@ -964,16 +966,68 @@ def derive(dump_dir, show):
 
     extra = {"start": extra_start, "transforms": transforms, "recipe_open": lambda rid, n: lock.get(rid, 0) <= n,
              "stations": COOKING_STATIONS}
-    _, _, walk = pa.make_walk(full, recs, set(items), tags, base, amap, extra)
-    first, via = {}, {}
-    for n, st in enumerate(AGES):
-        v = {}
-        have = walk(n, via=v)[0]
-        for i in have:
-            if i not in first:
-                first[i] = st
-                via[i] = v.get(i, "?")
-        print(f"  {st}: {len(have)} items reached")
+
+    def run_walk():
+        _, _, walk_ = pa.make_walk(full, recs, set(items), tags, base, amap, extra)
+        first_, via_, counts_ = {}, {}, []
+        for n, st in enumerate(AGES):
+            v = {}
+            have = walk_(n, via=v)[0]
+            for i in have:
+                if i not in first_:
+                    first_[i] = st
+                    via_[i] = v.get(i, "?")
+            counts_.append(f"  {st}: {len(have)} items reached")
+        return walk_, first_, via_, counts_
+
+    # The walk takes every item of the TFC-world namespaces (pa.WORLD_NS) as given by the world from its age_map Age, so
+    # a TFC, AFC or Firmalife machine made only from Iron Age inputs (blast furnace, bladed axle, barrel press, tree tap)
+    # kept an early Age (fb3-create-tier-sweep 3.3). Such an item loses the shortcut when a recipe makes it, every recipe
+    # that makes it has an ingredient first reachable in the Iron Age or later, and that is after its age_map Age.
+    # The world and the TFC mechanics the walk does not model (composter, groundcover, pit kiln, knapping, casting,
+    # mossy rocks) give Dawn to Bronze Age items only, so an item whose recipes fire earlier keeps the shortcut, and so
+    # does an item whose recipes never fire. A recipe that needs the item itself, directly or packed (Firmalife jars:
+    # compost -> jar -> compost), is no way to make it. Repeated until no item is added (a late item makes others late).
+    makes = collections.defaultdict(list)
+    for rid, sl, os_ in recs:
+        for o in os_:
+            makes[o].append(sl)
+    iron_ix = AGES.index("age_2")
+    late = set()
+
+    def slot_items(slot):
+        return {m for k, x in slot for m in ([x] if k != "tag" else tags.get(x, []))}
+
+    def needs_itself(i, sl):
+        for x in sl:
+            alts = slot_items(x)
+            if i in alts or (alts and all(makes.get(m) and all(any(i in slot_items(y) for y in s2) for s2 in makes[m])
+                                          for m in alts)):
+                return True
+        return False
+    while True:
+        walk, first, via, counts = run_walk()
+
+        def slot_ix(slot):
+            got = [AGES.index(first[m]) for m in slot_items(slot) if m in first]
+            return min(got) if got else None
+        add = set()
+        for i in items:
+            if i.split(":")[0] not in pa.WORLD_NS or i in late or base[i] not in AGES or i not in makes:
+                continue
+            ages = []
+            for sl in makes[i]:
+                ix = [slot_ix(x) for x in sl]
+                if None not in ix and not needs_itself(i, sl):
+                    ages.append(max(ix, default=0))
+            if ages and min(ages) >= max(iron_ix, AGES.index(base[i]) + 1):
+                add.add(i)
+        if not add:
+            break
+        late |= add
+        extra["world_ns_late"] = late
+    print("\n".join(counts))
+    print(f"  world-namespace items made only from Iron Age or later inputs: {len(late)}")
     derived, hidden = {}, []
     for i in items:
         if base[i] == "disabled":
@@ -984,7 +1038,7 @@ def derive(dump_dir, show):
             derived[i] = first[i]
     return dict(raw=raw, items=items, base=base, base_why=base_why, first=first, via=via, derived=derived,
                 hidden=sorted(hidden), entity_age=entity_age, walk=walk, recs=recs, tags=tags, lock=lock,
-                transforms=transforms)
+                transforms=transforms, world_ns_late=sorted(late))
 
 
 # ------------------------------------------------------------------------------------------------ output
