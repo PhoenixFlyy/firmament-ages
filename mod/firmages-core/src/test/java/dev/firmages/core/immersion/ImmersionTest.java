@@ -155,6 +155,14 @@ class ImmersionTest {
     }
 
     @Test
+    void viewerOpensForOperatorsAndCreativeInEveryAge() {
+        assertFalse(ViewerGate.open(false, false, false)); // survival player in Dawn or the Stone Age
+        assertTrue(ViewerGate.open(false, true, false));   // operator in survival
+        assertTrue(ViewerGate.open(false, false, true));   // creative
+        assertTrue(ViewerGate.open(true, false, false));   // the Age opened it
+    }
+
+    @Test
     void nutritionKeys() {
         assertTrue(ViewerGate.isNutritionKey("tfc.tooltip.nutrition"));
         assertTrue(ViewerGate.isNutritionKey("tfc.tooltip.nutrition_water"));

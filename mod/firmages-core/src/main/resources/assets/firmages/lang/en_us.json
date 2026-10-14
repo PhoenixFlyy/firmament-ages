@@ -208,7 +208,7 @@
   "firmages.hud.goal.age_9": "the Gathering",
   "firmages.hud.goal.age_9_gathered": "Beyond the Firmament",
   "firmages.team.joined": "You join %s. Its Ages are yours.",
-  "firmages.team.solo": "%s holds this world's Ages outside a party, so they cannot be shared yet. Ask an operator.",
+  "firmages.team.waiting": "%s holds this world's Ages. The fellowship gathers when they return.",
   "firmages.welcome.title": "Firmament Ages",
   "firmages.welcome.subtitle": "The sky remembers. Kindle the first spark.",
   "firmages.welcome.ages.heading": "The Ages",

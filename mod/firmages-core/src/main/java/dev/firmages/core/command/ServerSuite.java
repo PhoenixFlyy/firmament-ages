@@ -9,6 +9,7 @@ import dev.firmages.core.age.AgeMirror;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.age.AgeSnapshot;
 import dev.firmages.core.compat.kubejs.FirmAgesJS;
+import dev.firmages.core.compat.recipes.CraftProbe;
 import dev.firmages.core.compat.recipes.RecipeCaches;
 import dev.firmages.core.gate.GateReport;
 import dev.firmages.core.gate.RecipeGate;
@@ -16,6 +17,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,8 @@ import static dev.firmages.core.command.SelfTest.checkEquals;
 
 /** Suite {@code server}: checks against the running server (SPEC §12 P tests of the core). */
 public final class ServerSuite implements SelfTest.Suite {
+    /** Recipes per side (live, Age-locked) the crafting-table case probes. */
+    private static final int PROBES = 150;
     private final MinecraftServer server;
 
     public ServerSuite(MinecraftServer server) {
@@ -125,6 +129,27 @@ public final class ServerSuite implements SelfTest.Suite {
             List<String> stale = RecipeCaches.stale(server);
             checkEquals(List.of(), stale, "recipe caches that disagree with the live recipes");
             return "caches of " + RecipeCaches.checkable() + " match the live recipes";
+        });
+        r.test("crafting_table_follows_ages", () -> {
+            // /firmages recipes craft for a spread of recipes: a live one is found and is live, an Age-locked one is not found.
+            RecipeManager rm = server.getRecipeManager();
+            List<ResourceLocation> live = CraftProbe.sample(server, true, PROBES);
+            List<ResourceLocation> locked = CraftProbe.sample(server, false, PROBES);
+            check(!live.isEmpty(), "no live shaped or shapeless crafting recipe to probe");
+            List<String> bad = new ArrayList<>();
+            for (ResourceLocation id : live) {
+                CraftProbe.probe(server, id).ifPresent(p -> {
+                    if (p.found().isEmpty()) bad.add(id + ": no recipe matches");
+                    else if (rm.byKey(p.found().get().id()).isEmpty()) bad.add(id + ": crafts " + p.found().get().id() + ", which is not live");
+                });
+            }
+            for (ResourceLocation id : locked) {
+                CraftProbe.probe(server, id).flatMap(CraftProbe.Result::found).ifPresent(h -> {
+                    if (h.id().equals(id) || rm.byKey(h.id()).isEmpty()) bad.add(id + ": locked by its Age, crafts " + h.id());
+                });
+            }
+            checkEquals(List.of(), bad.stream().limit(10).toList(), bad.size() + " crafting lookups that do not follow the Ages");
+            return live.size() + " live recipes craft, " + locked.size() + " Age-locked recipes do not";
         });
         r.test("binding_consistent", () -> {
             AgeSnapshot snap = AgeService.snapshotForReload();

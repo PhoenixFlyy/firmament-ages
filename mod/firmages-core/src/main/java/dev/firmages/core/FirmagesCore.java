@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.command.FirmagesCommands;
+import dev.firmages.core.compat.ftbteams.FtbTeamsCompat;
 import dev.firmages.core.compat.progressivestages.StageSyncCoalescer;
 import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.config.ServerConfig;
@@ -22,6 +23,7 @@ import dev.firmages.core.shrine.ShrineEvents;
 import dev.firmages.core.shrine.ShrineRegistry;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
@@ -49,6 +51,7 @@ public final class FirmagesCore {
         bus.addListener(AgeService::onStageChange);
         bus.addListener(AgeService::onStagesBulkChanged);
         bus.addListener(AgeService::onPlayerLoggedIn);
+        if (ModList.get().isLoaded(FtbTeamsCompat.MOD_ID)) FtbTeamsCompat.register(); // team carry-over (SPEC §2.3)
         ImmersionService.register(modEventBus, bus); // after AgeService: the login status sees the login's Ages
         dev.firmages.core.ceremony.CeremonyEcho.register(modEventBus, bus); // seen_age attachment, echo of missed ceremonies
         CaveDwellerService.register(bus);

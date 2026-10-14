@@ -5,8 +5,6 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -89,8 +87,11 @@ public final class RecipeCaches {
     }
 
     /**
-     * The caches that disagree with the live recipes, one line each (empty: all fresh). For the selftest: it reads
-     * the caches the way the mods do, so it builds a cache that was not built yet.
+     * The caches that disagree with the live recipes, one line each (empty: all fresh). For the selftest. Each cache is
+     * compared with what the mod's own rebuild makes from the live recipes, so the probe needs no copy of a mod's rules
+     * (which recipes a registry keeps where, which ingredients count): FramedBlocks builds a second cache, Ars Nouveau,
+     * Immersive Petroleum and AE2 are read, rebuilt by their own code and read again (a stale cache is then fresh),
+     * FastSuite's lists hold every recipe of their type. A cache that was not built yet is built by the reading.
      */
     public static List<String> stale(MinecraftServer server) {
         List<String> out = new ArrayList<>();
@@ -99,7 +100,7 @@ public final class RecipeCaches {
         check(out, mods, "fastsuite", () -> FastSuite.stale(rm));
         check(out, mods, "ars_nouveau", () -> ArsNouveau.stale(rm));
         check(out, mods, "immersivepetroleum", () -> ImmersivePetroleum.stale(rm));
-        check(out, mods, "ae2", () -> Ae2.stale(server.overworld(), rm));
+        check(out, mods, "ae2", () -> Ae2.stale(server.overworld()));
         check(out, mods, "framedblocks", () -> FramedBlocks.stale(rm));
         return out;
     }
@@ -256,21 +257,29 @@ public final class RecipeCaches {
             Class.forName(PKG + "ScryRitualRegistry").getMethod("reloadScryRitualRecipes", RecipeManager.class).invoke(null, rm);
         }
 
-        @SuppressWarnings({"unchecked", "rawtypes"})
+        /**
+         * Each registry before and after its own {@code reload}. A registry may keep recipes outside {@code RECIPES}
+         * (Ars Additions' {@code SourceSpawnerRegistry} keeps the ones without an entity in {@code DEFAULTS}), so every
+         * public list of recipe holders of the registry is read.
+         */
         static List<String> stale(RecipeManager rm) throws ReflectiveOperationException {
             Class<?> cls = Class.forName(PKG + "GenericRecipeRegistry");
             List<String> out = new ArrayList<>();
             for (Object reg : (List<?>) cls.getField("REGISTRIES").get(null)) {
-                RecipeType type = (RecipeType) cls.getMethod("getType").invoke(reg);
-                Set<ResourceLocation> cached = ids((Collection<?>) cls.getMethod("getRecipes").invoke(reg));
-                // Ars Additions' SourceSpawnerRegistry keeps the recipes without an entity in DEFAULTS, not in RECIPES.
-                try {
-                    cached.addAll(ids((Collection<?>) reg.getClass().getField("DEFAULTS").get(reg)));
-                } catch (NoSuchFieldException ignored) {
-                    // a plain registry
-                }
-                String d = diff(String.valueOf(type), cached, ids(rm.getAllRecipesFor(type)));
+                Object type = cls.getMethod("getType").invoke(reg);
+                Set<ResourceLocation> before = held(reg);
+                cls.getMethod("reload", RecipeManager.class).invoke(reg, rm);
+                String d = diff(String.valueOf(type), before, held(reg));
                 if (d != null) out.add(d);
+            }
+            return out;
+        }
+
+        private static Set<ResourceLocation> held(Object reg) throws IllegalAccessException {
+            Set<ResourceLocation> out = new HashSet<>();
+            for (Field f : reg.getClass().getFields()) {
+                if (java.lang.reflect.Modifier.isStatic(f.getModifiers()) || !Collection.class.isAssignableFrom(f.getType())) continue;
+                for (Object o : (Collection<?>) f.get(reg)) if (o instanceof RecipeHolder<?> h) out.add(h.id());
             }
             return out;
         }
@@ -290,17 +299,25 @@ public final class RecipeCaches {
             method(Class.forName(PKG + "common.crafting.RecipeReloadListener"), "lists", RecipeManager.class).invoke(null, rm);
         }
 
+        /** The keys of each map before and after {@code RecipeReloadListener.lists}, the mod's own rebuild. */
         static List<String> stale(RecipeManager rm) throws ReflectiveOperationException {
+            List<Set<ResourceLocation>> before = keys();
+            flush(rm);
+            List<Set<ResourceLocation>> after = keys();
             List<String> out = new ArrayList<>();
-            for (String[] m : MAPS) {
-                Class<?> cls = Class.forName(PKG + m[0]);
-                Map<?, ?> cached = (Map<?, ?>) field(cls, m[1]).get(null);
-                Set<ResourceLocation> live = new HashSet<>();
-                for (RecipeHolder<?> h : rm.getRecipes()) if (cls.isInstance(h.value())) live.add(h.id());
-                Set<ResourceLocation> have = new HashSet<>();
-                for (Object k : cached.keySet()) have.add((ResourceLocation) k);
-                String d = diff(cls.getSimpleName(), have, live);
+            for (int i = 0; i < MAPS.length; i++) {
+                String d = diff(MAPS[i][0].substring(MAPS[i][0].lastIndexOf('.') + 1), before.get(i), after.get(i));
                 if (d != null) out.add(d);
+            }
+            return out;
+        }
+
+        private static List<Set<ResourceLocation>> keys() throws ReflectiveOperationException {
+            List<Set<ResourceLocation>> out = new ArrayList<>();
+            for (String[] m : MAPS) {
+                Set<ResourceLocation> have = new HashSet<>();
+                for (Object k : ((Map<?, ?>) field(Class.forName(PKG + m[0]), m[1]).get(null)).keySet()) have.add((ResourceLocation) k);
+                out.add(have);
             }
             return out;
         }
@@ -313,24 +330,26 @@ public final class RecipeCaches {
             method(Class.forName(LOGIC), "clearCache").invoke(null);
         }
 
-        /**
-         * The items AE2 lets transform in water against the same rule applied to the live recipes: {@code TYPE} is what
-         * TransformLogic reads, and it takes the items of each recipe's first ingredient only (a {@code break} after the
-         * first, javap 19.2.18).
-         */
-        @SuppressWarnings({"unchecked", "removal"})
-        static List<String> stale(ServerLevel level, RecipeManager rm) throws ReflectiveOperationException {
-            Method m = method(Class.forName(LOGIC), "getTransformableItems", net.minecraft.world.level.Level.class,
-                net.minecraft.world.level.material.Fluid.class);
-            Set<Item> cached = (Set<Item>) m.invoke(null, level, Fluids.WATER);
-            Set<Item> live = new HashSet<>();
-            for (RecipeHolder<appeng.recipes.transform.TransformRecipe> h : rm.getAllRecipesFor(appeng.recipes.transform.TransformRecipe.TYPE)) {
-                if (!h.value().circumstance.isFluid(Fluids.WATER)) continue;
-                if (h.value().ingredients.isEmpty()) continue;
-                for (ItemStack s : h.value().ingredients.get(0).getItems()) live.add(s.getItem());
+        /** The three item sets AE2 transforms (in water, in any fluid, in explosions) before and after {@code clearCache}. */
+        static List<String> stale(ServerLevel level) throws ReflectiveOperationException {
+            List<Set<?>> before = sets(level);
+            flush();
+            List<Set<?>> after = sets(level);
+            String[] what = {"items that transform in water", "items that transform in any fluid", "items that transform in explosions"};
+            List<String> out = new ArrayList<>();
+            for (int i = 0; i < what.length; i++) {
+                if (!before.get(i).equals(after.get(i))) out.add(what[i] + ": cached " + before.get(i).size() + ", rebuilt " + after.get(i).size());
             }
-            if (cached.equals(live)) return List.of();
-            return List.of("items that transform in water: cached " + cached.size() + ", live " + live.size());
+            return out;
+        }
+
+        private static List<Set<?>> sets(ServerLevel level) throws ReflectiveOperationException {
+            Class<?> logic = Class.forName(LOGIC);
+            Class<?> lvl = net.minecraft.world.level.Level.class;
+            return List.of(
+                Set.copyOf((Set<?>) method(logic, "getTransformableItems", lvl, net.minecraft.world.level.material.Fluid.class).invoke(null, level, Fluids.WATER)),
+                Set.copyOf((Set<?>) method(logic, "getTransformableItemsAnyFluid", lvl).invoke(null, level)),
+                Set.copyOf((Set<?>) method(logic, "getTransformableItemsExplosion", lvl).invoke(null, level)));
         }
     }
 
