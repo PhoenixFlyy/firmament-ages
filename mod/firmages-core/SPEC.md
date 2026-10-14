@@ -80,8 +80,9 @@ dev.firmages.core
            sgjourney (SgjGates), ie, occultism, ars
   client/  ShrineHeartRenderer, CeremonyPlayer, SkyEffects, MusicControl, PreviewBridge
   mixin/   RecipeManagerMixin; GameTestServerMixin (GameTests only); ie.MineralMixMixin; occultism.MineshaftMixin;
-           ars.ApparatusMixin; ps.*; ftbquests.* (client, §18.8); ftbq.* (client, §18.9)
-  config/  ServerConfig, ClientConfig
+           ars.ApparatusMixin; ps.*; ftbquests.* (client, §18.8); ftbq.* (client, §18.9); tfcregistryapi.HelpersMixin (§20)
+  perf/    RegistryScanScope (pure), TfcRegistryScan (§20)
+  config/  ServerConfig, ClientConfig, EarlyServerConfig
 ```
 
 Rules:
@@ -105,6 +106,7 @@ Rules:
 | Jade | 15.10.6 | optional, compileOnly (libs/, fetched from `mods/jade.pw.toml`; also in the GameTest run, M6) | shrine tooltip (`compat/jade`) |
 | GeckoLib | 4.9.3 | optional, compileOnly (**add**, M9) | animated idol |
 | FTB Quests/Teams | pinned | optional, compileOnly | quest data; the client opens the FTB Quests screen (`compat/ftbquests`, §18); FTB Teams is read for the one-team guard (optional) |
+| TFCRegistryAPI | 1.2 | none (mixin only), compileOnly (libs/, fetched from `mods/tfc-registry-api.pw.toml`; in the GameTest run only with `-PgametestTfc`) | scan scope (§20) |
 | EMI, Create Train Utilities, Corgilib, Patchouli, Cave Dweller ReEvolved | pack versions | none (by name: reflection, `@Pseudo` mixins, registry ids) | §18 immersion, §19 hardship; TFC and Patchouli join the GameTest run only with `-PgametestTfc`; Cave Dweller is never in it |
 
 All entries use `ordering = "AFTER"`; everything except ProgressiveStages and Modonomicon is `type = "optional"`.
@@ -532,6 +534,7 @@ A crash after step 3 loses only the show. There are no C2S packets: all interact
 | `shrine.consecrationTicks` | 120 | §17: a ring's consecration from the heart outward takes this long (0..1200), after the Age reload |
 | `sync.coalesce` | true | §3.5: ProgressiveStages lock and stage sync once per player at the end of the tick instead of once per stage change (Age grant stall) |
 | `hardship.caveDwellerUntilAge` | `age_2` | §19: first Age without Cave Dweller ReEvolved (an Age id or `never`) |
+| `perf.limitTfcRegistryApiScan` | true | §20: TFCRegistryAPI scans only mod files that are or depend on TFC or TFCRegistryAPI; false = its original scan of every mod. Read once at game start (dedicated server: `<world>/serverconfig/`, then `config/`, then `defaultconfigs/`; client: `config/`, then `defaultconfigs/`) |
 | `debug.allowSimulate` | false | Enables `/firmages ages simulate` (self-tests only) |
 
 `firmages-client.toml`:
@@ -854,3 +857,14 @@ Cave Dweller ReEvolved 1.4-rc2 [verified, javap]: entity `cave_dweller:cave_dwel
 - The mod's own config (`config/cave_dweller/server_config.toml`, Fzzy Config) is pack data, not part of this mod.
 - Tests: U `CaveDwellerGateTest` (4: default `age_2`, config values with `never`, namespaces and unknown values, `hunts` for every Age with the default and with `never`, the status flag including an Age gap and `UNKNOWN`). G `HardshipGameTests.caveDwellerGoneFromItsAge` (the key `hardship.caveDwellerUntilAge` and its default; `age_2` decides by the live global Age; `never` keeps it and `dawn` removes it in every Age, both in the server decision and in the status after encoding and decoding `firmages:age_status`; a pig is never refused; with Cave Dweller loaded a dweller cannot join and the Age-change hook removes one that joined while allowed, without it `despawnIfOver` finds nothing).
 - **[PoC]** (Cave Dweller is not in the GameTest run): before `age_2`, below Y 40 in the dark, `/cave_dweller fast_forward minecraft:overworld 12000 12000` gives noises and a dweller; after `/stage grant @s age_2` an existing dweller is gone at once, `/summon cave_dweller:cave_dweller` fails, the same fast-forward gives neither a dweller nor a sound.
+
+## 20. Start-up performance: TFCRegistryAPI scan scope (2026-10-14)
+
+TFCRegistryAPI 1.2 (required by TFCAstikorCarts and TFCRegrowingForests) [verified, javap]: `TFCRegistryAPI.<init>` calls the seven `*RegistryHelper.discoverRegistryEnums()` (metal, ore, rock, sand, soil, soil variant, wood). Each calls `Helpers.discoverRegistryEnums(Class)`, which iterates `ModList.get().getMods()`, opens every mod file with `FileSystems.newFileSystem(path, null)`, walks every `.class` whose path does not contain "mixin" or "client", `Class.forName`s it without initialising and keeps the enums that implement the interface (`RegistryEntry(values, modId)`, keyed by class). Seven full scans of ~200 jars held mod construction for 36.8 s of the 112.8 s server boot and 21.7 s of the client start, and loading client classes on the server wrote ~16,800 FATAL, DISTXFORM, STDERR and Polymorph lines per boot (`Modpack-Planung/research-raw/fb3-server-log-triage.md`, finding A).
+
+- Rule (`perf/RegistryScanScope`, pure): the seven interfaces are TFC's (`RegistryMetal`, `RegistryRock`, `RegistrySoilVariant`, `RegistryWood`) and the API's own (`RegistryOre`, `RegistrySand`, `RegistrySoil`), so an enum that implements one is compiled against TFC or TFCRegistryAPI. The scan keeps every mod file that holds a mod `tfc` or `tfcregistryapi` or a mod that declares any `[[dependencies.<mod>]]` entry on one of them; a kept file keeps all its mod entries in list order, so each kept file is scanned exactly as before (same order, same mod id per entry). In the CurseForge client install of 0.8.0: 20 of 246 mod jars (jar-in-jar mods counted).
+- Hook (`mixin/tfcregistryapi/HelpersMixin`, applied only when TFCRegistryAPI is loaded): `@WrapOperation` on `ModList.getMods()` inside `Helpers.discoverRegistryEnums`; the loop body is untouched. `perf/TfcRegistryScan` reads `ModList` entries (`IModInfo.getOwningFile().getFile().getFilePath()`, `getDependencies()`), logs the scope once at INFO ("TFCRegistryAPI enum scan limited to N of M mod files ...") and also drops mod files that are directories: the API cannot open them (`ProviderNotFoundException` aborts loading), and only dev runs have them (firmages-core's own classes).
+- Switch: `firmages-server.toml [perf] limitTfcRegistryApiScan` (default true, §9), read once through `EarlyServerConfig` because the API is constructed before any NeoForge config loads; false gives the original scan (for an A/B dump).
+- Parity: `dev/check_registry_parity.py jars <mods dir> [--dump <fa_dump dir>]` reads every jar of an install (with jar-in-jar files), applies the same rule and lists every class that implements one of the interfaces (through other interfaces too), plus the TFC enums the API's own mixins add `RegistryOre`/`RegistrySand`/`RegistrySoil` to; it fails when one lies outside the scope, and with `--dump` compares the TFCAstikorCarts items per part and wood with the wood enum constants. `dev/check_registry_parity.py dump <before> <after>` diffs two `/fa_dump` outputs; `kubejs/server_scripts/debug/dump.js` now writes every built-in registry into `registries.json` and the API's registered enums as `tfcregistryapi_enums`.
+- Tests: U `RegistryScanScopeTest` (7: roots, dependents kept in order, any dependency counts including only the API, a file kept whole, order and duplicates, nothing to scan, other roots). G `PerfGameTests.tfcRegistryApiScanScope` (opt-in run `-PgametestTfc`, which now also adds TFCRegistryAPI; passes empty without it): the switch is on by default, the scope keeps `tfc` and `tfcregistryapi` and leaves out `minecraft`, `neoforge`, IE, Mekanism and ProgressiveStages, and the API registered every TFC enum value of all seven interfaces (`Metal`, `Ore`, `Rock`, `SandBlockType`, `SoilBlockType`, `SoilBlockType.Variant`, `Wood`), TFC's woods under mod `tfc`.
+- **[PoC]** on the pack server and a client: boot time, the scope log line, no TFCRegistryAPI frames in FATAL/DISTXFORM/STDERR, and `check_registry_parity.py dump` between a boot with the switch off and one with it on (both at age_9, `/fa_dump`).

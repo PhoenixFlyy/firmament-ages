@@ -16,16 +16,17 @@ import java.util.Set;
  */
 public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
     private static final String BASE = "dev.firmages.core.mixin.";
-    private static final Map<String, String> MOD_OF_PACKAGE = Map.of(
-        "ie", "immersiveengineering",
-        "occultism", "occultism",
-        "ars", "ars_nouveau",
-        "ps", "progressivestages",
-        "tfc", "tfc",
-        "trainutilities", "trainutilities",
-        "corgilib", "corgilib",
-        "ftbquests", "ftbquests",
-        "ftbq", "ftbquests");
+    private static final Map<String, String> MOD_OF_PACKAGE = Map.ofEntries(
+        Map.entry("ie", "immersiveengineering"),
+        Map.entry("occultism", "occultism"),
+        Map.entry("ars", "ars_nouveau"),
+        Map.entry("ps", "progressivestages"),
+        Map.entry("tfc", "tfc"),
+        Map.entry("trainutilities", "trainutilities"),
+        Map.entry("corgilib", "corgilib"),
+        Map.entry("ftbquests", "ftbquests"),
+        Map.entry("ftbq", "ftbquests"),
+        Map.entry("tfcregistryapi", "tfcregistryapi"));
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {

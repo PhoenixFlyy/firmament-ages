@@ -2,7 +2,9 @@
 //   /fa_dump       write local/firmages/recipes.json (every loaded recipe: id, type, result, count, the
 //                  ProgressiveStages stages that lock the recipe id, its result by recipe lock, its result item;
 //                  several stages are joined with "|"; plus the Ages firmages-core had unlocked), local/firmages/item_tags.json (every item tag with its
-//                  items) and local/firmages/registries.json (every item, block and fluid id).
+//                  items) and local/firmages/registries.json (the ids of every built-in registry: "item", "block",
+//                  "fluid", "entity_type", ..., mod registries by full id; plus "tfcregistryapi_enums", the enums
+//                  TFCRegistryAPI registered, for dev/check_registry_parity.py).
 //                  dev/poc_analyze.py reads the first two, dev/gen_stage_locks.py --registry reads all three.
 //   /fa_dump_full [regex]  write local/firmages/recipes_full.json: every loaded recipe (or those whose id matches) as
 //                  the JSON its serializer writes, after Almost Unified and KubeJS (dev/poc_analyze.py content checks)
@@ -32,6 +34,33 @@
     return out.sort()
   }
   const itemId = (item) => String(BuiltInRegistries.ITEM.getKey(item))
+  // Every built-in registry: the path for minecraft registries ("item", "entity_type"), else the full id ("tfc:...").
+  const allRegistries = () => {
+    const out = {}
+    BuiltInRegistries.REGISTRY.entrySet().forEach((e) => {
+      const rl = e.getKey().location()
+      out[String(rl.getNamespace()) === 'minecraft' ? String(rl.getPath()) : String(rl)] = keysOf(e.getValue())
+    })
+    return out
+  }
+  // The enums TFCRegistryAPI registered, "<mod> <enum class>.<VALUE>" per category (firmages-core SPEC 20,
+  // dev/check_registry_parity.py). Rhino shows a java.lang.Class as "[JavaClass x]".
+  const API_HELPERS = [['metal', 'Metal'], ['ore', 'Ore'], ['rock', 'Rock'], ['sand', 'Sand'], ['soil', 'Soil'],
+    ['soil_variant', 'SoilVariant'], ['wood', 'Wood']]
+  const className = (c) => String(c).replace(/^\[JavaClass (.+)\]$/, '$1').replace(/^(class|interface) /, '')
+  const registryApiEnums = () => {
+    const out = {}
+    API_HELPERS.forEach((h) => {
+      const values = []
+      Java.loadClass(`tfcregistryapi.util.${h[1]}RegistryHelper`)[`get${h[1]}EnumMap`]().entrySet().forEach((e) => {
+        const entry = e.getValue()
+        const cls = className(e.getKey())
+        entry.getValues().forEach((v) => values.push(`${entry.getModId()} ${cls}.${v.name()}`))
+      })
+      out[h[0]] = values.sort()
+    })
+    return out
+  }
 
   // Rhino rejects const/let declared directly inside a try block, so the result lookup lives here.
   const resultOf = (recipe, access, locks) => {
@@ -75,8 +104,15 @@
     JsonIO.write(`${OUT}/recipes.json`, { columns: ['id', 'type', 'result', 'count', 'recipe_lock', 'output_lock', 'item_lock'],
       unlocked: unlocked, recipes: recipes })
     JsonIO.write(`${OUT}/item_tags.json`, tags)
-    JsonIO.write(`${OUT}/registries.json`, { item: keysOf(BuiltInRegistries.ITEM), block: keysOf(BuiltInRegistries.BLOCK),
-      fluid: keysOf(BuiltInRegistries.FLUID) })
+    const registries = allRegistries()
+    if (Platform.isLoaded('tfcregistryapi')) {
+      try {
+        registries.tfcregistryapi_enums = registryApiEnums()
+      } catch (e) {
+        event.respond(Text.gray(`  TFCRegistryAPI enums not written: ${e}`))
+      }
+    }
+    JsonIO.write(`${OUT}/registries.json`, registries)
     event.respond(Text.gold(`[fa_dump] ${recipes.length} recipes (${failed} without a readable result), ` +
       `${Object.keys(tags).length} item tags -> ${OUT}/`))
     if (firstError) event.respond(Text.gray(`  first unreadable result: ${firstError}`))
