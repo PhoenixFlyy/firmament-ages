@@ -71,7 +71,7 @@ On the uploaded file's page: **Upload Additional File**.
 | Display name | `Firmament Ages 0.9.1 Server Pack` |
 | Release type | Beta (same as the main file) |
 | Game version / loader | 1.21.1, NeoForge |
-| Changelog | `Server pack for Firmament Ages 0.9.1: ready-to-run server folder (NeoForge 21.1.252 installer, all server-side mods, configs, scripts, start.bat/start.ps1). See README-SERVERPACK.md inside.` |
+| Changelog | `Server pack for Firmament Ages 0.9.1: ready-to-run server folder (NeoForge 21.1.252 installer, all server-side mods, configs, scripts, start.bat/start.sh). See README-SERVERPACK.md inside.` |
 
 ## After approval
 

@@ -20,6 +20,7 @@ Dawn ends with a quest (The First Spark grants the Stone Age). From the Stone Ag
 | `mod/firmages-core/SPEC.md` | the pack's own mod |
 | `CHANGELOG.md` | public changelog, newest version on top |
 | `docs/WALKTHROUGH.md` | the player walkthrough (English, linked from `README.md` and the CurseForge page); update it with every quest or shrine change |
+| `server/README-SERVERPACK.md` | the host's guide, shipped in the server pack |
 | `dev/archive/` | notes no longer kept up to date: dev client walk-through, keybind map, quest book notes, texture notes |
 
 All player-facing text in the pack is English.
@@ -36,7 +37,7 @@ All player-facing text in the pack is English.
 | `kubejs/` | `startup_scripts/` (items, shared constants), `server_scripts/` (recipes, tags, stage logic), `client_scripts/` (tooltips, recipe viewer), `data/` (datapack: biome modifiers, TFC item heat), `assets/` (textures, quest art) | yes | yes |
 | `dev/` | tooling (generators, `run_server.py`, `poc_analyze.py`, `release.ps1`, `make_friends_zip.ps1`, `verify_install.py`) and notes; `dev/exports/` holds the release builds (git-ignored) | yes | no |
 | `docs/` | `WALKTHROUGH.md`, the player walkthrough | yes | no |
-| `server/` | dedicated server template (`start.bat`, `start.ps1`, `user_jvm_args.txt`, `server.properties.template`, `README-SERVERPACK.md`) | yes | no |
+| `server/` | dedicated server template (`start.bat`, `start.ps1` with the pack sync, `user_jvm_args.txt`, `server.properties.template`), the server pack's own start scripts (`pack/start.bat`, `pack/start.sh`) and `README-SERVERPACK.md` | yes | no |
 | `mod/firmages-core/` | the pack's own NeoForge mod (source, `SPEC.md`) | yes | no |
 | `tools/` | local binaries: JDK 21, packwiz, packwiz-installer-bootstrap, the NeoForge installer, portable Prism | no | no |
 | `test-server/` | local PoC server | no | no |
@@ -94,11 +95,11 @@ python dev\cf\export_cf.py
 
 ## How the server is set up
 
-The server folder is built from `server/` (see `server/README.md`): copy the scripts, `server.properties.template` as `server.properties`, the NeoForge installer and `packwiz-installer-bootstrap.jar`, set `FA_JAVA_HOME` to a Java 21 and accept the EULA yourself. `start.bat` and `start.ps1` run a loop:
+The live server folder is built from `server/`: copy the scripts, `server.properties.template` as `server.properties`, the NeoForge installer and `packwiz-installer-bootstrap.jar`, set `FA_JAVA_HOME` to a Java 21 and accept the EULA yourself. `start.bat` and `start.ps1` run a loop:
 
 1. `packwiz-installer-bootstrap -g -s server <pack.toml>` syncs the server-side files.
 2. The NeoForge installer runs once per NeoForge version (`--installServer`).
 3. NeoForge starts with `@user_jvm_args.txt @libraries/.../win_args.txt nogui`.
 4. The loop restarts after a crash or `stop`.
 
-To update, push to `main`, then type `stop` in the server console. To shut down for good, create a `STOP` file first.
+Set the pack URL at the top of both scripts to `https://raw.githubusercontent.com/PhoenixFlyy/firmament-ages/main/pack.toml` (the default is a local `packwiz serve`). To update, push to `main`, then type `stop` in the server console. To shut down for good, create a `STOP` file first. For a NeoForge version change, set `$NeoForge` in `start.ps1` and `NEOFORGE` in `start.bat` and put the new installer next to them; the next pass installs it. Whitelist, backups and repair commands are in `server/README-SERVERPACK.md`.

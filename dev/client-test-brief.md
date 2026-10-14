@@ -33,8 +33,8 @@ die EMI-Änderungen stecken im neuen firmages-core-Jar. Netzwerkprotokoll 4 ist 
    Space-, Quantum- und Singularity-Stränge haben je zwei kurze Sätze, Data Matrix nennt drei Advanced Control
    Circuits. Mit zwei Spielern eine Nebenquest-Belohnung abholen: Jeder wählt seine eigene; die Keystone-Belohnung holt
    weiter nur einer fürs Team.
-5. **Deko in TFC-Hölzern ab der Bronzezeit.** In EMI: „Classic Door Print“ aus Papier und einer beliebigen Holztür,
-   „Cottage Door Print“ aus Papier und einer beliebigen Holzfalltür. Eine classic- und eine cottage-Tür aus TFC-Holz
+5. **Deko in TFC-Hölzern ab der Bronzezeit.** In EMI: „Classic Door Print“ aus Papier und einer TFC- oder AFC-Holztür,
+   „Cottage Door Print“ aus Papier und einer TFC- oder AFC-Holzfalltür. Eine classic- und eine cottage-Tür aus TFC-Holz
    bauen (z. B. Eiche). Eine Handcrafted-Theke aus TFC-Holz mit glattem Gestein statt Calcit herstellen (z. B. glatter
    Granit, Meißel).
 6. **Ruhigeres Server-Log.** Nach dem Sync und Neustart: `python dev/check_log.py test-server/logs/latest.log` endet

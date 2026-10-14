@@ -17,8 +17,9 @@
        export -s server` would only write a manifest zip, which CurseForge does not install for servers.
        The script serves the repo with `packwiz serve` on -ServePort, lets packwiz-installer-bootstrap
        (-g -s server) fill dev/exports/server-work/ with every server-side file (the same sync as a live
-       server), adds server/start.bat, start.ps1, user_jvm_args.txt, server.properties (from the template),
-       README-SERVERPACK.md and tools/neoforge-<version>-installer.jar, and zips it. -SkipServerPack skips it.
+       server), adds the server pack's start.bat and start.sh (server/pack/, without the pack sync),
+       server/user_jvm_args.txt with an 8 GB heap, server.properties (from the template), README-SERVERPACK.md
+       and tools/neoforge-<version>-installer.jar, and zips it. -SkipServerPack skips it.
     6. SHA-256 list               -> dev/exports/FirmamentAges-<version>.sha256.txt
   Never commits, tags or pushes. All exports embed jars that may not be redistributed
   (CurseForge-only mods in the .mrpack, Modrinth mods in the CurseForge zip, every server jar in the server
@@ -112,7 +113,8 @@ $Exports = @($Mrpack, $CfZip)
 if (-not $SkipServerPack) {
     $m = [regex]::Match([IO.File]::ReadAllText($PackToml), '(?m)^neoforge = "([^"]*)"')
     if (-not $m.Success) { throw 'No neoforge line in pack.toml' }
-    $NeoInstaller = Join-Path $Repo "tools\neoforge-$($m.Groups[1].Value)-installer.jar"
+    $NeoForgeVersion = $m.Groups[1].Value
+    $NeoInstaller = Join-Path $Repo "tools\neoforge-$NeoForgeVersion-installer.jar"
     foreach ($f in @($Java, $Bootstrap, $NeoInstaller)) { if (-not (Test-Path -LiteralPath $f)) { throw "Missing $f" } }
 
     $Work = Join-Path $OutDir 'server-work'
@@ -143,9 +145,19 @@ if (-not $SkipServerPack) {
         if (Test-Path -LiteralPath $p) { Remove-Item -LiteralPath $p -Force }
     }
     $Server = Join-Path $Repo 'server'
-    foreach ($f in @('start.bat', 'start.ps1', 'user_jvm_args.txt', 'README-SERVERPACK.md')) {
-        Copy-Item -LiteralPath (Join-Path $Server $f) -Destination $Work
+    $Utf8 = New-Object Text.UTF8Encoding($false)
+    # The server pack's own start scripts (server/pack/): no pack sync, Java 21 from FA_JAVA_HOME, JAVA_HOME or PATH,
+    # the NeoForge version of pack.toml. CRLF for cmd.exe, LF for sh.
+    foreach ($f in @(@('start.bat', "`r`n"), @('start.sh', "`n"))) {
+        $text = [IO.File]::ReadAllText((Join-Path $Server "pack\$($f[0])")) -replace "`r`n", "`n"
+        $text = $text.Replace('{{NEOFORGE}}', $NeoForgeVersion).Replace("`n", $f[1])
+        [IO.File]::WriteAllText((Join-Path $Work $f[0]), $text, $Utf8)
     }
+    # Shipped heap 8 GB (up to about four players, fits an 8 GB host); README-SERVERPACK.md has the 10 GB row.
+    $jvm = [IO.File]::ReadAllText((Join-Path $Server 'user_jvm_args.txt')) -replace '-Xms\d+G -Xmx\d+G', '-Xms8G -Xmx8G'
+    if ($jvm -notmatch '-Xms8G -Xmx8G') { throw 'No -Xms/-Xmx line in server/user_jvm_args.txt' }
+    [IO.File]::WriteAllText((Join-Path $Work 'user_jvm_args.txt'), $jvm, $Utf8)
+    Copy-Item -LiteralPath (Join-Path $Server 'README-SERVERPACK.md') -Destination $Work
     Copy-Item -LiteralPath (Join-Path $Server 'server.properties.template') -Destination (Join-Path $Work 'server.properties')
     Copy-Item -LiteralPath $NeoInstaller -Destination $Work
 

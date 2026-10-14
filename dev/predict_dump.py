@@ -33,9 +33,10 @@ I = lambda i: {"item": i}  # noqa: E731
 
 # ---- bronze_age.js "Deco in TFC woods" ---------------------------------------------------------------------------
 REPLACE = {
-    "mcwdoors:print_oak": {("item", "minecraft:oak_door"): T("minecraft:wooden_doors")},
-    "mcwdoors:print_spruce": {("item", "minecraft:spruce_door"): T("minecraft:wooden_trapdoors")},
+    "mcwdoors:print_oak": {("item", "minecraft:oak_door"): T("firmages:wooden_doors/tfc")},
+    "mcwdoors:print_spruce": {("item", "minecraft:spruce_door"): T("firmages:wooden_trapdoors/tfc")},
 }
+DOOR_ID = {k: re.compile(rf"^(tfc|afc):wood/{k}/") for k in ("door", "trapdoor")}
 COUNTER_ID = re.compile(r"^(handcrafted:[a-z_]+_counter|everycomp:hc/.+_counter)$")
 SMOOTH_ROCK = T("c:stones/smooth")
 OUT_KEYS = ("result", "results")
@@ -70,6 +71,10 @@ def predict(src, out):
     rows = {r[0]: dict(zip(cols, r)) for r in rj["recipes"]}
     tags = load(src, "item_tags.json")
     log = []
+    # tags/unification.js: the TFC and AFC wooden doors and trapdoors the prints are made from
+    for tag, kind in (("firmages:wooden_doors/tfc", "door"), ("firmages:wooden_trapdoors/tfc", "trapdoor")):
+        tags[tag] = sorted(i for i in tags.get(f"minecraft:wooden_{kind}s", []) if DOOR_ID[kind].match(i))
+        log.append(f"{tag}: {len(tags[tag])} items")
     for rid, m in REPLACE.items():
         if rid not in full:
             log.append(f"missing recipe {rid}")

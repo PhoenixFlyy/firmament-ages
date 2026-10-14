@@ -76,10 +76,10 @@ The First Spark: craft a firestarter and light a firepit. The quest itself opens
 - **Hands are not tools.** In Dawn logs, raw and hardened rock, ores and sandstone do not break without the right
   tool: no crack, nothing happens, one hint per minute. The stone axe and the stone hammer fell trees. With no stone
   pickaxe, rock and ore stay whole until the Stone Age. From then on the hand works again, slowly and without drops.
-- Dawn withholds clay, pit kilns and metal. The grid makes only stone tools, the firestarter, straw, thatch, sticks,
-  rope and obsidian tools.
-- **Darkness.** Caves are pitch black. Nights follow the moon; a new moon is nearly black. A torch in your hand
-  lights your way. A placed torch burns about 36 minutes of real time.
+- Dawn withholds clay, pit kilns and metal. The crafting grid only makes stone and obsidian tools, the firestarter,
+  straw, thatch, sticks and rope.
+- **Darkness.** Caves are pitch black. Nights follow the moon; a new moon is nearly black. A torch lights your way in
+  hand; a placed torch burns about 36 minutes.
 - Something hunts in deep, dark caves until the Iron Age.
 - The thatch bed sets your spawn but never skips the night. Beds that do come with the Iron Age.
 - No recipe viewer, no block tooltip and no coordinates on F3 until the Bronze Age. The Chronicle (K) is the only
@@ -116,23 +116,38 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
    - X X X -
    X X - X X
    ```
-9. Craft:
-   - Shrine Heart: Hearth Idol in the middle, cobblestone left, right and below, charcoal on top.
-   - Offering Plinth: four cobblestone, one on top of three.
-   - Hearthstone: Hearth Idol in the middle, a copper ingot above and below, charcoal left and right.
-10. Place the heart where 21 by 21 blocks are free. Build the Hearth Circle (5x5, 3 high): eight cobblestone around
+9. Build a workbench: the shrine recipes need its 3x3 grid (the inventory grid is 2x2).
+   - Knap a saw blade mold from five clay, fire it, pour copper into it. The blade above a stick is a saw.
+     ```
+     - - X X X
+     - - - X X
+     X - - - X
+     X - - - -
+     X X X - -
+     ```
+   - A saw and a log make eight lumber; four lumber make planks; four planks make a workbench.
+   - Four loose rocks in the 2x2 grid make a cobblestone.
+10. Craft in the workbench (H Hearth Idol, S cobblestone, C charcoal, K copper ingot, - empty):
+    ```
+    Shrine Heart    Offering Plinth    Hearthstone
+    - C -           - S -              - K -
+    S H S           S S S              C H C
+    - S -                              - K -
+    ```
+11. Place the heart where 21 by 21 blocks are free. Build the Hearth Circle (5x5, 3 high): eight cobblestone around
     the heart; on each corner a log post two high with thatch (or hay) on top; the plinth in the middle of one side,
     two blocks from the heart. The heart glows when the circle is whole. Keystone "Raise the Shrine".
-11. Lay the Hearthstone on the plinth. Kindle the heart with a firestarter (flint and steel, a fire charge or a
+12. Lay the Hearthstone on the plinth. Kindle the heart with a firestarter (flint and steel, a fire charge or a
     torch work too). Pray.
-12. The Bronze Age dawns. Caelum keeps the Hearthstone. Blessing **Hearthward**: no monster spawns naturally near the
+13. The Bronze Age dawns. Caelum keeps the Hearthstone. Blessing **Hearthward**: no monster spawns naturally near the
     heart. The circle turns to consecrated stone, and from now on a thin beam over the heart shows the way home.
 
 After the ceremony the recipe viewer, the block tooltip and F3 coordinates appear, and tin, zinc, bismuth, silver,
 gold, graphite, borax and the salts wake.
 
 ### Pitfalls
-- The recipe viewer is still closed: every recipe of this Age is in the Chronicle and here.
+- The recipe viewer is still closed. The steps above and the Chronicle's notes ("Clay Patterns", "A Home") show the
+  recipes on the way to the Hearthstone and every home block of this Age.
 - The calendar tab opens in the inventory.
 - Mining raw stone can collapse the ceiling. Support beams come with the Bronze Age.
 - **Consecration.** After its prayer a ring is consecrated: unbreakable by players, machines, explosions, pistons,
@@ -163,7 +178,9 @@ Offer the Sky Disc at the shrine, in the Bronze Sanctum (ring 1).
    "Bronze Anvil". Only a bronze anvil forges the bronze double sheet.
 4. Kinetics:
    - One zinc ingot crafts into nine zinc nuggets. There is no way back.
-   - Andesite alloy from andesite cobble and zinc nuggets. Make four.
+   - Andesite alloy from andesite cobble and zinc nuggets. Make four. Andesite is a grey volcanic rock (igneous
+     extrusive, with basalt, rhyolite and dacite). If your land has none, travel: rock regions change every few
+     hundred blocks.
    - A water wheel in flowing water, 8 shafts and 4 cogwheels, a mechanical saw.
    - A millstone on a water wheel. Keystone "First Mill". It grinds what the quern grinds.
    - The press turns a double ingot into a sheet. A fan washing ore deposits pans them by machine.

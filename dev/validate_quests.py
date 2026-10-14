@@ -31,7 +31,7 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
              from kubejs/server_scripts/tags/*.js) is overridden and holds only items of the chapter's Age or earlier
 With --mods <dir> (default test-server/mods if it exists) it also looks inside the mod jars for advancement,
 entity type, entity/block tag and dimension ids used by tasks. With --style it also lints the player text against
-dev/style-guide.md (warnings only): words per description by quest kind (knapping grid lines excluded), more than
+dev/style-guide.md (warnings only): words per description by quest kind (knapping and crafting grid lines excluded), more than
 three paragraphs, banned and meta words, mod names, "Age <n>" anywhere (chapter and quest titles included), "!" anywhere, dashes and ellipses.
 Exit code 1 on any error.
 """
@@ -284,7 +284,7 @@ def finale_script_grant():
 STYLE_LIMITS = {'step': 25, 'side': 25, 'keystone': 40, 'explain': 40, 'ring': 40, 'entry': 70, 'goal': 70,
                 'info': 70}
 # Teaching quests: the one place a mechanic, or a build no recipe viewer shows, is explained (style guide rules 3
-# and 4). They may run to STYLE_TEACH words (knapping grid lines are never counted).
+# and 4). They may run to STYLE_TEACH words (knapping and crafting grid lines are never counted).
 STYLE_TEACH = 110
 STYLE_TEACHING = {
     '6522D484BFB67425',  # dawn/stone/tool: knapping, step by step (Dawn has no recipe viewer)
@@ -295,9 +295,11 @@ STYLE_TEACHING = {
     '001477EB265CFAF8',  # dawn/side/torch: firepit and torches before the first night (Dawn has no recipe viewer)
     '6A272A1F4193488A',  # stone/info/clay: the clay knapping patterns (no viewer in the Stone Age)
     '484BD83C5FBABCE1',  # stone/info/home: the Stone Age home blocks (no viewer in the Stone Age)
+    '5032B9C3899A4044',  # stone/hearth/bench: saw, lumber, planks and workbench for the 3x3 shrine recipes (no viewer)
     '33BEA94E7673D21D',  # arcane/spirit/nether: the Nether sacrifice (no recipe, no viewer, Field Guide hidden)
 }
-GRID_LINE = re.compile(r'[X-]( [X-]){4}')
+# knapping grid rows (5 squares of X and -) and crafting grid rows (3 squares, a letter per item: gen_quests.craft_grid)
+GRID_LINE = re.compile(r'[X-]( [X-]){4}|[A-Z-]( [A-Z-]){2}')
 # (pattern, label); case-insensitive unless the label says "mod name" (those are matched as written).
 STYLE_BANNED = [r'unlock the power', r'tapestry', r'testament', r'journey', r'embark', r'dive into',
                 r"it'?s important to", r'unleash', r'incredible', r'amazing', r'\bepic\b', r'seamless', r'streamline',

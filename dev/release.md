@@ -202,6 +202,6 @@ automatisch, 4 bis 8 GB), `mmc-pack.json`, `minecraft/packwiz-installer-bootstra
 holt danach den Stand von `main`. Ersatzweg ohne Prism: das `.mrpack` (Updates nur per neuem Import). Alle anderen
 spielen über die CurseForge-App.
 
-**Server:** `server/README.md` (Vorlage kopieren, NeoForge-Installer daneben, `start.bat`; die Schleife synchronisiert
+**Server:** `dev/README.md`, Abschnitt „How the server is set up“ (Vorlage aus `server/` kopieren, NeoForge-Installer daneben, `start.bat`; die Schleife synchronisiert
 bei jedem Start von `main`). Updaten: nach `main` pushen, dann `stop` in der Server-Konsole. Vor jeder Änderung, die
 Welten bricht, ein Backup.

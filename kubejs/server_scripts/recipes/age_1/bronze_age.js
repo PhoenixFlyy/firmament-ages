@@ -186,11 +186,12 @@ ServerEvents.recipes((event) => {
   // ---- Deco in TFC woods: Bronze Age, like the rest of the furniture -----------------------------------
   // Every Compat builds Macaw's classic and cottage doors in TFC and AFC woods from the Classic and Cottage Door
   // Print, which Macaw's draws from a vanilla oak or spruce door; Handcrafted's counters (and Every Compat's) take
-  // calcite (Arcane Age). Any wooden door or trapdoor now makes the print, any smooth TFC rock the counter top.
+  // calcite (Arcane Age). A TFC or AFC wooden door or trapdoor now makes the print (tags in tags/unification.js), any
+  // smooth TFC rock the counter top.
   // Ids and JSON from the all-Ages fa_dump_full of 2026-10-14; dev/predict_dump.py mirrors this section.
   // POC: Every Compat's recipes come from Moonlight's runtime pack; check one TFC classic door and counter in EMI.
-  event.replaceInput({ id: 'mcwdoors:print_oak' }, 'minecraft:oak_door', '#minecraft:wooden_doors')
-  event.replaceInput({ id: 'mcwdoors:print_spruce' }, 'minecraft:spruce_door', '#minecraft:wooden_trapdoors')
+  event.replaceInput({ id: 'mcwdoors:print_oak' }, 'minecraft:oak_door', '#firmages:wooden_doors/tfc')
+  event.replaceInput({ id: 'mcwdoors:print_spruce' }, 'minecraft:spruce_door', '#firmages:wooden_trapdoors/tfc')
   const counters = []
   event.forEachRecipe({ id: /^(handcrafted:[a-z_]+_counter|everycomp:hc\/.+_counter)$/ }, (r) => {
     let j = JSON.parse(String(r.json))

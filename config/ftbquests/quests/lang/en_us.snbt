@@ -34,7 +34,7 @@
 	quest.001477EB265CFAF8.quest_desc: [
 		"Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter (two sticks) until the firepit lights."
 		""
-		"Heat a stick in the firepit's right slot: it becomes two torches. A torch lights your way in hand and burns about half an hour once placed."
+		"Heat a stick in the firepit's right slot: it becomes two torches. A torch lights your way in hand; a placed torch burns about 36 minutes."
 	]
 	quest.001477EB265CFAF8.title: "Before Dark"
 	quest.0025DE3687DD8D07.quest_desc: [
@@ -354,7 +354,7 @@
 	]
 	quest.166C4569CC75A30A.title: "Kitchen"
 	quest.16708A1C39158F9C.quest_desc: [
-		"In Dawn you cannot dig clay, build pit kilns or use metal. The crafting grid only makes stone tool shafts, the firestarter, straw, thatch, sticks and rope. Everything else opens with the Stone Age."
+		"In Dawn you cannot dig clay, build pit kilns or use metal. The crafting grid only makes stone and obsidian tools, the firestarter, straw, thatch, sticks and rope. Everything else opens with the Stone Age."
 	]
 	quest.16708A1C39158F9C.title: "What Dawn Withholds"
 	quest.17A29F90313EDA66.quest_desc: [
@@ -543,7 +543,7 @@
 	]
 	quest.280FF1CBD99D0A4A.title: "Ore Times Five"
 	quest.289281EB5946B550.quest_desc: [
-		"Make four andesite alloy from andesite cobble and zinc nuggets. Every kinetic machine of this Age starts with it."
+		"Make four andesite alloy from andesite cobble and zinc nuggets. Andesite is grey volcanic rock. None nearby? Travel: the rock changes every few hundred blocks."
 	]
 	quest.289281EB5946B550.title: "Andesite Alloy"
 	quest.28A963AA218A4EE4.quest_desc: [
@@ -605,7 +605,9 @@
 	quest.30A13F8701E9EF80.quest_desc: [
 		"Build the Hearth Circle around the heart. Right-click the heart with an empty hand: it shows every missing block as a ghost."
 		""
-		"You need eight cobblestone, four log posts two high with thatch on top, and the Offering Plinth: four cobblestone, two blocks from the heart."
+		"You need eight cobblestone, four log posts two high with thatch on top, and the Offering Plinth two blocks from the heart. Craft the plinth from four cobblestone (S):"
+		"- S -"
+		"S S S"
 		""
 		"When the circle is whole, the heart glows. Right-click it again to hear what Caelum asks for."
 	]
@@ -808,6 +810,8 @@
 	quest.426D09E37975EC57.title: "Chaotic Staff"
 	quest.4304B6AA00C231E8.quest_desc: [
 		"Only andesite machines exist now: water wheels, saws, presses, fans and mills. Crushing wheels, deployers and brass come with the Iron Age."
+		""
+		"Hover over a machine in your inventory and hold W to watch it work."
 	]
 	quest.4304B6AA00C231E8.title: "Kinetics in the Bronze Age"
 	quest.43FC2CC39EF5EFE5.quest_desc: [
@@ -855,13 +859,12 @@
 	]
 	quest.470272BFC8013E57.title: "Wilden Tribute"
 	quest.484BD83C5FBABCE1.quest_desc: [
-		"Logs, sticks and clay make a camp a home. Any wood works:"
-		"- Palisade: two logs side by side, six palisades."
-		"- Beam: two stripped logs stacked, two beams."
-		"- Timber frame: four sticks in a diamond. Fill it with daub."
-		"- Daub: two clay and two straw, crossed."
-		""
-		"Seats, rope bridges and sconces open with this Age too."
+		"Any wood works:"
+		"- Palisade: two logs side by side. Beam: two stripped logs stacked."
+		"- Support: three planks in an L. Seat: a slab above a fence."
+		"- Timber frame: four sticks in a diamond. Cross brace: a stick in each corner. Brace: sticks in two opposite corners and both sides. Daub in the middle: the daub version."
+		"- Daub: two clay and two straw, crossed. Rope: three jute fiber stacked."
+		"- Rope bridge: string in the top corners, three slabs below. Log bridge: the same with fences. Rail bridge: fences in the corners over fence, slab, fence. Pier: log, fence, log. Six bridges as a staircase: bridge stairs."
 	]
 	quest.484BD83C5FBABCE1.title: "A Home"
 	quest.485FE6EFB6565F6E.quest_desc: [
@@ -990,6 +993,16 @@
 	quest.4FD3780AF1ECC795.title: "Nether Stars"
 	quest.50299FDC54036A8A.quest_desc: ["Craft a quern and a handstone."]
 	quest.50299FDC54036A8A.title: "The Grind"
+	quest.5032B9C3899A4044.quest_desc: [
+		"Build a workbench. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2."
+		""
+		"- Knap a saw blade mold (see \"Clay Patterns\"), fire it and pour copper into it."
+		"- Put the blade above a stick: a saw."
+		"- A saw and a log make eight lumber, four lumber make planks, four planks a workbench."
+		""
+		"Four loose rocks in the 2x2 grid make a cobblestone. The shrine takes many."
+	]
+	quest.5032B9C3899A4044.title: "Workbench"
 	quest.50B1CD95742F5B7B.quest_desc: ["Build a pumpjack over an oil reservoir."]
 	quest.50B1CD95742F5B7B.title: "Pumpjack"
 	quest.5209B9E49235822B.quest_desc: [
@@ -1000,7 +1013,10 @@
 	quest.5209B9E49235822B.quest_subtitle: "The tenth and last Age"
 	quest.5209B9E49235822B.title: "The Singularity Age Dawns"
 	quest.5298B856BFEE50A2.quest_desc: [
-		"Craft the Hearthstone from the fired Hearth Idol, copper ingots and charcoal."
+		"Craft the Hearthstone from the fired Hearth Idol (H), copper ingots (K) and charcoal (C):"
+		"- K -"
+		"C H C"
+		"- K -"
 		""
 		"Lay it on the plinth and kindle the heart with a firestarter. Then sneak and hold right-click on the heart with an empty hand. Friends who pray with you make it faster."
 		""
@@ -1269,6 +1285,13 @@
 		"X X X X X"
 		"X X X X X"
 		""
+		"Saw blade mold, for the workbench:"
+		"- - X X X"
+		"- - - X X"
+		"X - - - X"
+		"X - - - -"
+		"X X X - -"
+		""
 		"Jug, carries water:"
 		"- X - - -"
 		"X X X X -"
@@ -1454,7 +1477,10 @@
 	]
 	quest.774C554B16ACE98C.title: "Stargate Blocks"
 	quest.7755ECDE0FFE3821.quest_desc: [
-		"Set a second Hearth Idol in three cobblestone under charcoal: the Shrine Heart."
+		"Craft it from a Hearth Idol (H), cobblestone (S) and charcoal (C):"
+		"- C -"
+		"S H S"
+		"- S -"
 		""
 		"Leave 21 by 21 blocks free: each Age adds a ring."
 	]
@@ -1555,6 +1581,7 @@
 	task.0149A8AC82C0DC26.title: "Look at a finished thatch bed"
 	task.020A5C88D011752D.title: "Shafts"
 	task.020A6CD2CB1CD7D0.title: "Look at a formed crusher"
+	task.0218609437AB5F8E.title: "Look at your placed workbench"
 	task.029EBC8BCD4FA62E.title: "HV transformer"
 	task.02D20E07A2CDEA9E.title: "Look at a formed arc furnace"
 	task.08F238DF8DB1B94E.title: "Calculation processor"

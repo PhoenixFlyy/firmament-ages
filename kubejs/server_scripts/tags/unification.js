@@ -28,6 +28,10 @@ ServerEvents.tags('item', (event) => {
   // The iron nuggets and the iron trapdoor of the andesite tier, as bronze (TFC has no bronze nugget; a rod is half an ingot).
   event.add('firmages:rods/any_bronze', ['tfc:metal/rod/bronze', 'tfc:metal/rod/bismuth_bronze', 'tfc:metal/rod/black_bronze'])
   event.add('firmages:trapdoors/any_bronze', ['tfc:metal/trapdoor/bronze', 'tfc:metal/trapdoor/bismuth_bronze', 'tfc:metal/trapdoor/black_bronze'])
+  // Wooden doors and trapdoors of the TFC and AFC woods: Macaw's Classic and Cottage Door Prints are made from them
+  // (recipes/age_1/bronze_age.js "Deco in TFC woods"). #minecraft:wooden_doors would also take Macaw's own doors.
+  event.add('firmages:wooden_doors/tfc', [/^tfc:wood\/door\//, /^afc:wood\/door\//])
+  event.add('firmages:wooden_trapdoors/tfc', [/^tfc:wood\/trapdoor\//, /^afc:wood\/trapdoor\//])
 
   // Almost Unified (config/almostunified/unification/materials.json) turns every member of a unify tag into
   // the tag's target item, in recipe inputs AND outputs. TFC puts its alloys and ore powders into the base-metal

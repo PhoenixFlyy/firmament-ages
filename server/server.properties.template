@@ -12,7 +12,7 @@ op-permission-level=4
 function-permission-level=2
 spawn-protection=0
 
-# --- gameplay (decision r8 A: PvP on, no claims/protection) ---
+# --- gameplay (PvP on, no claims or protection before the Industrial Age) ---
 pvp=true
 difficulty=hard
 hardcore=false

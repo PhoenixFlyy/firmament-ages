@@ -183,4 +183,91 @@ public final class TeamGameTests {
             .thenWaitUntil(() -> h.assertTrue(!AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9) && reloadIdle(server), "age_9 revoke and its swap"))
             .thenSucceed();
     }
+
+    /**
+     * The login repair path: a party founded before the world reached age_9 lacks it (no carry-over runs when AgeState
+     * grows through another team, only when a player enters a party or logs in). The next login of a party member
+     * ({@link FtbTeamsCompat#onLogin}) runs the carry-over again and the party gets age_9 from AgeState.
+     */
+    @GameTest(template = "empty", batch = "firmages_9_team_repair", timeoutTicks = 600)
+    public static void loginRepairsTheParty(GameTestHelper h) {
+        if (!teams()) {
+            h.succeed();
+            return;
+        }
+        MinecraftServer server = h.getLevel().getServer();
+        ServerPlayer[] p = new ServerPlayer[2]; // party member, holder outside the party
+        UUID[] party = new UUID[1];
+        h.startSequence()
+            .thenExecute(() -> {
+                p[0] = spawn(h, "gt_member");
+                h.assertTrue(FTBTeamsAPI.api().getManager().getTeams().stream().noneMatch(Team::isPartyTeam), "a party is left from another test");
+                FtbTeamsCompat.ensureFellowship(p[0], AgeService::ageCount);
+                Team t = teamOf(p[0]);
+                h.assertTrue(t.isPartyTeam(), "the member founded a party");
+                party[0] = t.getId();
+                p[1] = spawn(h, "gt_holder");
+            })
+            // the real login hook of both spawns runs one tick later (AgeState has no age_9 yet, so it grants nothing)
+            .thenIdle(3)
+            .thenExecute(() -> {
+                h.assertTrue(teamOf(p[1]).isPlayerTeam(), "the holder stays outside the party");
+                grantAge9(p[1]);
+            })
+            .thenWaitUntil(() -> h.assertTrue(AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9) && reloadIdle(server), "age_9 grant and its swap"))
+            .thenExecute(() -> {
+                h.assertTrue(!partyHolds(party[0], AGE_9), "the party lacks age_9 before the login repair");
+                FtbTeamsCompat.onLogin(p[0], false, AgeService::ageCount);
+            })
+            .thenWaitUntil(() -> h.assertTrue(partyHolds(party[0], AGE_9) && ProgressiveStagesAPI.hasStage(p[0], AGE_9), "the login repair gave the party age_9"))
+            .thenExecute(() -> cleanUp(server, p[0], p[1]))
+            .thenWaitUntil(() -> h.assertTrue(!AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9) && reloadIdle(server), "age_9 revoke and its swap"))
+            .thenSucceed();
+    }
+
+    /**
+     * Only the global mirror counts: the carry-over grants what AgeState holds, never what a dormant player team still
+     * stores. A founder's party loses age_9 (admin revoke, AgeState drops it); the founder's old player team keeps
+     * age_9 ({@code persist_stages_on_leave}), and a login repair does not bring it back.
+     */
+    @GameTest(template = "empty", batch = "firmages_9_team_mirror", timeoutTicks = 600)
+    public static void carryOverTakesOnlyTheMirror(GameTestHelper h) {
+        if (!teams()) {
+            h.succeed();
+            return;
+        }
+        MinecraftServer server = h.getLevel().getServer();
+        ServerPlayer[] p = new ServerPlayer[1];
+        UUID[] ids = new UUID[2]; // own player team, party
+        h.startSequence()
+            .thenExecute(() -> {
+                p[0] = spawn(h, "gt_revoked");
+                h.assertTrue(FTBTeamsAPI.api().getManager().getTeams().stream().noneMatch(Team::isPartyTeam), "a party is left from another test");
+                grantAge9(p[0]);
+            })
+            .thenWaitUntil(() -> h.assertTrue(AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9) && reloadIdle(server), "age_9 grant and its swap"))
+            .thenExecute(() -> {
+                ids[0] = teamOf(p[0]).getId();
+                FtbTeamsCompat.ensureFellowship(p[0], AgeService::ageCount);
+                ids[1] = teamOf(p[0]).getId();
+                h.assertTrue(!ids[1].equals(ids[0]), "the founder is in a party");
+            })
+            .thenWaitUntil(() -> h.assertTrue(partyHolds(ids[1], AGE_9), "the party holds age_9 (carry-over)"))
+            .thenExecute(() -> ProgressiveStagesAPI.revokeStage(p[0], AGE_9, StageCause.API))
+            .thenWaitUntil(() -> h.assertTrue(!AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9) && reloadIdle(server), "age_9 revoke and its swap"))
+            .thenExecute(() -> {
+                h.assertTrue(partyHolds(ids[0], AGE_9) && FtbTeamsCompat.dormant(ids[0]), "the dormant player team still stores age_9");
+                FtbTeamsCompat.onLogin(p[0], false, AgeService::ageCount);
+            })
+            .thenIdle(20)
+            .thenExecute(() -> {
+                h.assertTrue(!partyHolds(ids[1], AGE_9), "the login repair did not take age_9 from the dormant team");
+                h.assertTrue(!AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9), "AgeState stays without age_9");
+                StageManager.getInstance().revokeStageFromTeam(ids[0], AGE_9);
+                cleanUp(server, p[0]);
+            })
+            .thenWaitUntil(() -> h.assertTrue(!partyHolds(ids[0], AGE_9) && !AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9)
+                && reloadIdle(server), "the old player team released age_9"))
+            .thenSucceed();
+    }
 }

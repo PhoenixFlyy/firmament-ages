@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    {"id": "decorative_blocks:flowing_thatch", "required": false},
-    {"id": "decorative_blocks:thatch", "required": false},
     {"id": "tfc:metal/copper", "required": false},
     {"id": "tfc:metal/flowing_copper", "required": false}
   ]

@@ -513,6 +513,31 @@
 		{
 			dependencies: ["3B588CB49C0F4193"]
 			icon: {
+				id: "tfc:wood/workbench/oak"
+			}
+			id: "5032B9C3899A4044"
+			rewards: [
+				{
+					id: "5C3502BB9E597A9E"
+					type: "xp"
+					xp: 20
+				}
+			]
+			tasks: [
+				{
+					id: "0218609437AB5F8E"
+					observation_type: "block_tag"
+					timer: 0L
+					to_observe: "tfc:workbenches"
+					type: "observation"
+				}
+			]
+			x: 6.0d
+			y: 3.75d
+		}
+		{
+			dependencies: ["5032B9C3899A4044"]
+			icon: {
 				id: "firmages:shrine_heart"
 			}
 			id: "7755ECDE0FFE3821"
@@ -532,7 +557,7 @@
 					type: "observation"
 				}
 			]
-			x: 6.0d
+			x: 7.75d
 			y: 3.75d
 		}
 		{
@@ -566,7 +591,7 @@
 					type: "observation"
 				}
 			]
-			x: 8.0d
+			x: 9.75d
 			y: 3.75d
 		}
 		{

@@ -22,7 +22,7 @@ param(
 Set-Location -LiteralPath $PSScriptRoot
 
 # ---------------------------------------------------------------- settings
-# Java 21 (Temurin). Never rely on PATH: on this host PATH points to Corretto 25.
+# Java 21 (Temurin). Never rely on PATH: it may hold another Java version.
 # Order: -JavaHome, then the environment variable FA_JAVA_HOME, then this default.
 # Default: <repo>\tools\jdk-21 when the server folder is <repo>\test-server. For a live server use an absolute path.
 $DefaultJavaHome = Join-Path $PSScriptRoot '..\tools\jdk-21'

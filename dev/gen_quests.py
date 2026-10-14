@@ -125,6 +125,12 @@ def knap_grid(*rows, outside=' '):
     return out
 
 
+def craft_grid(*rows):
+    """Crafting pattern rows (a letter = that item, ' ' = empty) -> Verbatim lines, '-' for an empty square. Use
+    letters with the 6 px advance of 'X' and '-' (not 'I'), so the columns line up like the knapping grids."""
+    return [Verbatim(' '.join('-' if c == ' ' else c for c in row)) for row in rows]
+
+
 def paragraphs(lines):
     """Description lines -> one entry per paragraph. FTB Quests draws every entry of a description list as a line of
     its own and wraps it to the width of the quest window, so a source line broken by hand ends early and the window
@@ -419,8 +425,8 @@ DAWN = age_chapter(
               desc=['Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter',
                     '(two sticks) until the firepit lights.',
                     '',
-                    'Heat a stick in the firepit\'s right slot: it becomes two torches. A torch lights your way in hand',
-                    'and burns about half an hour once placed.']),
+                    'Heat a stick in the firepit\'s right slot: it becomes two torches. A torch lights your way in hand;',
+                    'a placed torch burns about 36 minutes.']),
         ]),
         ('dawn/stone/rock', [
             Q('dawn/side/nugget', 'A Weird Rock', t_adv('tfc:world/nugget'), kind='side',
@@ -440,7 +446,7 @@ DAWN = age_chapter(
     explains=[
         Q('dawn/info/rules', 'What Dawn Withholds', t_check(), kind='explain', icon='minecraft:barrier',
           desc=['In Dawn you cannot dig clay, build pit kilns or use metal.',
-                'The crafting grid only makes stone tool shafts, the firestarter, straw, thatch, sticks and rope.',
+                'The crafting grid only makes stone and obsidian tools, the firestarter, straw, thatch, sticks and rope.',
                 'Everything else opens with the Stone Age.']),
         # Patterns: tfc:knapping/stone/knife_head/<group>_1 (two blades from one rock), hammer_head/<group>,
         # shovel_head/<group>, hoe_head/<group>_1 (two heads), javelin_head/<group> (TFC 4.2.11, all four rock
@@ -535,9 +541,23 @@ STONE = age_chapter(
             Q('stone/hearth/idol', 'Hearth Idol', t_item('firmages:hearth_idol', 2),
               desc=['Fire both in a pit kiln, like any other pottery. One becomes the heart of the shrine,',
                     'the other the Hearthstone.']),
+            # TFC 4.2.11: saw = blade over a stick (tfc:crafting/metal/saw/copper), saw + log = 8 lumber
+            # (wood/lumber/<wood>_from_logs), 4 lumber = planks, 4 planks = workbench, 4 loose rocks = cobblestone
+            # (rock/cobble/<rock>). The shrine recipes below are 3x3 (kubejs/server_scripts/recipes/age_0/stone_age.js).
+            Q('stone/hearth/bench', 'Workbench',
+              t_observe('tfc:workbenches', kind='block_tag', title='Look at your placed workbench'),
+              icon='tfc:wood/workbench/oak',
+              desc=['Build a workbench. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2.',
+                    '',
+                    '- Knap a saw blade mold (see "Clay Patterns"), fire it and pour copper into it.',
+                    '- Put the blade above a stick: a saw.',
+                    '- A saw and a log make eight lumber, four lumber make planks, four planks a workbench.',
+                    '',
+                    'Four loose rocks in the 2x2 grid make a cobblestone. The shrine takes many.']),
             Q('stone/shrine/heart', 'The Shrine Heart',
               t_observe('firmages:shrine_heart', title='Look at your placed Shrine Heart'), icon='firmages:shrine_heart',
-              desc=['Set a second Hearth Idol in three cobblestone under charcoal: the Shrine Heart.',
+              desc=['Craft it from a Hearth Idol (H), cobblestone (S) and charcoal (C):',
+                    *craft_grid(' C ', 'SHS', ' S '),
                     '',
                     'Leave 21 by 21 blocks free: each Age adds a ring.']),
         ], Q('stone/shrine/key', 'Raise the Shrine',
@@ -547,15 +567,17 @@ STONE = age_chapter(
              desc=['Build the Hearth Circle around the heart. Right-click the heart with an empty hand: it shows every',
                    'missing block as a ghost.',
                    '',
-                   'You need eight cobblestone, four log posts two high with thatch on top, and the Offering Plinth:',
-                   'four cobblestone, two blocks from the heart.',
+                   'You need eight cobblestone, four log posts two high with thatch on top, and the Offering Plinth',
+                   'two blocks from the heart. Craft the plinth from four cobblestone (S):',
+                   *craft_grid(' S ', 'SSS'),
                    '',
                    'When the circle is whole, the heart glows. Right-click it again to hear what Caelum asks for.'])),
     ],
     goal=Q('stone/goal', 'Offer the Hearthstone at the Shrine',
            t_stage('age_1', 'Offer the Hearthstone at the shrine'), kind='goal', icon='firmages:hearthstone',
            sub='Goal of the Stone Age: Caelum opens the Bronze Age',
-           desc=['Craft the Hearthstone from the fired Hearth Idol, copper ingots and charcoal.',
+           desc=['Craft the Hearthstone from the fired Hearth Idol (H), copper ingots (K) and charcoal (C):',
+                 *craft_grid(' K ', 'CHC', ' K '),
                  '',
                  'Lay it on the plinth and kindle the heart with a firestarter. Then sneak and hold right-click on the heart',
                  'with an empty hand. Friends who pray with you make it faster.',
@@ -589,7 +611,7 @@ STONE = age_chapter(
           desc=['Mining raw stone can collapse the ceiling. Support beams come with the Bronze Age.']),
         # Patterns: TFC 4.2.11 data/tfc/recipe/knapping/ceramic/unfired_<name>.json (knapping type tfc:clay, five clay,
         # used up when the shape is taken). Ingot and pickaxe head molds are "default_on": true: the squares outside
-        # their 4x5 and 5x4 shapes stay standing.
+        # their 4x5 and 5x4 shapes stay standing. The saw blade mold is a full 5x5 shape.
         Q('stone/info/clay', 'Clay Patterns', t_check(), kind='explain', icon='tfc:ceramic/unfired_vessel',
           desc=['Hold five clay and right-click into the air. Knock squares away as with stone.',
                 'X = leave standing, - = knock away. Mirrored shapes work too.',
@@ -603,6 +625,9 @@ STONE = age_chapter(
                 'Pickaxe head mold:',
                 *knap_grid('#####', '#   #', ' ### ', '#####', outside='#'),
                 '',
+                'Saw blade mold, for the workbench:',
+                *knap_grid('  ###', '   ##', '#   #', '#    ', '###  '),
+                '',
                 'Jug, carries water:',
                 *knap_grid(' #   ', '#### ', '### #', '#### ', '###  '),
                 '',
@@ -614,15 +639,19 @@ STONE = age_chapter(
                 '',
                 'Large vessel, keeps food when sealed:',
                 *knap_grid('#   #', '#   #', '#   #', '#   #', '#####')]),
-        # Recipes from the 0.9.0 dump (Every Compat db/ in TFC woods, Supplementaries, FirmaSupplementaries daub).
+        # Every home block of the Stone Age (age_items/age_0: Every Compat db/ and mcb/ in TFC woods, Supplementaries timber
+        # frames, daub and rope). Recipes from the 0.9.1 dump at age_1 (/fa_dump_full): db/ palisade, beam, support, seat;
+        # mcb/ rope, log and rail bridge, pier, stairs; FirmaSupplementaries daub and jute rope. Sconces are Iron Age.
         Q('stone/info/home', 'A Home', t_check(), kind='explain', icon='supplementaries:timber_frame',
-          desc=['Logs, sticks and clay make a camp a home. Any wood works:',
-                '- Palisade: two logs side by side, six palisades.',
-                '- Beam: two stripped logs stacked, two beams.',
-                '- Timber frame: four sticks in a diamond. Fill it with daub.',
-                '- Daub: two clay and two straw, crossed.',
-                '',
-                'Seats, rope bridges and sconces open with this Age too.']),
+          desc=['Any wood works:',
+                '- Palisade: two logs side by side. Beam: two stripped logs stacked.',
+                '- Support: three planks in an L. Seat: a slab above a fence.',
+                '- Timber frame: four sticks in a diamond. Cross brace: a stick in each corner. Brace: sticks in two',
+                'opposite corners and both sides. Daub in the middle: the daub version.',
+                '- Daub: two clay and two straw, crossed. Rope: three jute fiber stacked.',
+                '- Rope bridge: string in the top corners, three slabs below. Log bridge: the same with fences.',
+                'Rail bridge: fences in the corners over fence, slab, fence. Pier: log, fence, log.',
+                'Six bridges as a staircase: bridge stairs.']),
     ],
     supplies='stone_supplies', comfort='stone_comfort')
 
@@ -694,8 +723,8 @@ BRONZE = age_chapter(
             Q('bronze/kin/nugget', 'Zinc Nuggets', t_item('create:zinc_nugget', 9),
               desc=['Split a zinc ingot into nine nuggets in the crafting grid.']),
             Q('bronze/kin/alloy', 'Andesite Alloy', t_item('create:andesite_alloy', 4),
-              desc=['Make four andesite alloy from andesite cobble and zinc nuggets. Every kinetic machine of this Age',
-                    'starts with it.']),
+              desc=['Make four andesite alloy from andesite cobble and zinc nuggets. Andesite is grey volcanic rock.',
+                    'None nearby? Travel: the rock changes every few hundred blocks.']),
             Q('bronze/kin/wheel', 'Water Wheel', t_item('create:water_wheel'),
               desc=['A water wheel in flowing water gives rotational force.']),
             Q('bronze/kin/shafts', 'Shafts and Cogs',
@@ -741,7 +770,9 @@ BRONZE = age_chapter(
           desc=['Metal can be worked or welded only while it is hot enough. Hover over it to read its heat.']),
         Q('bronze/info/create', 'Kinetics in the Bronze Age', t_check(), kind='explain', icon='create:andesite_alloy',
           desc=['Only andesite machines exist now: water wheels, saws, presses, fans and mills.',
-                'Crushing wheels, deployers and brass come with the Iron Age.']),
+                'Crushing wheels, deployers and brass come with the Iron Age.',
+                '',
+                'Hover over a machine in your inventory and hold W to watch it work.']),
         Q('bronze/info/home', 'A Home', t_check(), kind='explain', icon='everycomp:hc/tfc/oak_chair',
           desc=['Furniture opens: chairs, tables, shelves, doors and windows in every wood.',
                 'The recipe viewer shows how each is made.']),

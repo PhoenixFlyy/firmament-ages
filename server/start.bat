@@ -8,7 +8,7 @@ setlocal
 cd /d "%~dp0"
 
 rem ---------------------------------------------------------------- settings
-rem Java 21 (Temurin). Never rely on PATH: on this host PATH points to Corretto 25.
+rem Java 21 (Temurin). Never rely on PATH: it may hold another Java version.
 rem The environment variable FA_JAVA_HOME wins. Default: <repo>\tools\jdk-21 when the server folder is <repo>\test-server.
 rem Live server: set FA_JAVA_HOME or put an absolute path here.
 if defined FA_JAVA_HOME (set "JAVA_HOME=%FA_JAVA_HOME%") else (set "JAVA_HOME=%~dp0..\tools\jdk-21")

@@ -198,7 +198,7 @@ hash = "a46636f7020bb8a0fcff1ce7e097c5f2a76c6f74fa76db242f03ef54dc8daf0d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "ace852d1fd5fab132a45a95158dd5439260b80d533bf031aeedd5dabff5b4992"
+hash = "f0af954d7666784fa93a979fcc4443b64aceeec1a92d636963c5038908e5e68f"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
@@ -214,7 +214,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "003c5f5db791e2cae1f2d7366ca2e7dd9e31e4350a1492fd057551e97c03fd17"
+hash = "4e6d98ad84b78ee710cfc5865986c70c74fb0660e1bf3a02fe1f550c38bfb6ba"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -342,11 +342,11 @@ hash = "fbfc6173af7d26c71d7aa4800b02ac4756b7dbd211ec7cebfccec69666c71191"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "d2bb0032424a32d9fa4aa5003ac5b03339bf113495995d5ddae2680168a6b5b5"
+hash = "52751fc9c4a6c79d1693f5f1641d6fac4d167511e228491e4dd9809c539c6e20"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
-hash = "ee08cb7ad32d6b133543fd4aef348e3b0cc25e166ae5848287ca2aa32213b834"
+hash = "4fbe547ae5559e1338a87684bf1a96161b7f7bfce675247985ce07b8cb4a1275"
 
 [[files]]
 file = "config/progressivestages/stages/age_2.toml"
@@ -486,7 +486,7 @@ hash = "6cd830fc39d3278d417e7ba0f06b7f0ce68d60a69190e6ec2162e9c046dcb1cd"
 
 [[files]]
 file = "kubejs/assets/firmages/age_namespaces.json"
-hash = "46b630b21ff6419d446e615a2dd6f8311e5843967cde30b754ad52cca625a97c"
+hash = "4d1a3b5dd6de6750cb4c01f9ba633338153fb298598a90c361b49b13f37fd7a8"
 
 [[files]]
 file = "kubejs/assets/firmages/lang/en_us.json"
@@ -3618,11 +3618,11 @@ hash = "03ea2cdb818c28cd35c4603078fe407f3b9c42ab6d23a688b025370f251c92c9"
 
 [[files]]
 file = "kubejs/data/firmages/tags/fluid/age_fluids/age_0.json"
-hash = "4a2887802fc2ee3f92e5b98369d8bad5076b4b1ff39f5496abecea2cb8830027"
+hash = "4b20aae831e23207a8aa67291c323b507456bc21f968ca921495bbb750f900ed"
 
 [[files]]
 file = "kubejs/data/firmages/tags/fluid/age_fluids/age_1.json"
-hash = "fb20f04671f097e41cce5caec71439833653aef6d68c8460462421c09f27c005"
+hash = "4956302ac533b4bae842027a2fbdcb6ac5150012d7e5bfa344b8cd69a6394021"
 
 [[files]]
 file = "kubejs/data/firmages/tags/fluid/age_fluids/age_2.json"
@@ -3666,11 +3666,11 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "a7d2232379c6bca2b75b6eaade61768bd853d8d5cef59e2a02205682a801de92"
+hash = "4c108fd73c5ffa649d79be3e8ca5341b7498422b7d1763a53fbb009acb67db4e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "2f04740415ca0b8a4df22c2598593ec8e73323601241601ed5046776d62df32d"
+hash = "8ad4f309c76dceac79e2ce584a132e7a0e2abcc2b6a2cad64de38055d8ce6ce1"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
@@ -6454,7 +6454,7 @@ hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "940842f24b75aff4e7e22426794125fff48ae9c8e7b1dd7997c50c3c242f5a60"
+hash = "66384f925752e40904adc593a57cb7958f2d71c84b3c76cf71dce8ca11c0d5b4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
@@ -6574,7 +6574,7 @@ hash = "f3ac29f73c344d50175341cac291e4c2d423f0344e3417f65235d0ad72bd0383"
 
 [[files]]
 file = "kubejs/server_scripts/tags/unification.js"
-hash = "df67760aa20384e3b57c06b853fa157b50cadcd7a3a277cd95b2cccd5ae2837c"
+hash = "ef817e26ccf509cd1509dd62f76f52576a7e269e6b703102c128b15410e617b7"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"

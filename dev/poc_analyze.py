@@ -1002,7 +1002,8 @@ def emi_checks(base, rows, tags, item_age, check):
       inputs  a shown recipe with an input that lists locked items next to unlocked ones as an item list (EMI drops
               disabled members from tags, but an item list keeps them and shows the locked stack). Since firmages-core
               0.9.1 `mixin/emi/ListEmiIngredientMixin` shows only the unlocked members of an item list (SPEC 21.11); while
-              firmages.mixins.json lists it, these lists are filtered the same way here and are no offenders."""
+              firmages.mixins.json lists it, each list is cut here by the rule of `compat/emi/ShownMembers`: the
+              unlocked members, or the whole list when none is unlocked (an offender if the recipe is still shown)."""
     path = os.path.join(base, "recipes_full.json")
     if not os.path.isfile(path):
         check("E-0 recipes_full.json present (run fa_dump_full)", False, [path])
@@ -1085,13 +1086,15 @@ def emi_checks(base, rows, tags, item_age, check):
                 continue  # chemicals, empty or unknown tags: not judged
             first = max(first, min(min(m) for _, m in alts))  # fully locked until its earliest member
             if len(alts) > 1 and len(alts) == len(slot):
-                lists.append([(x, m) for (k, _), (x, mm) in zip(slot, alts) if k == "item" for m in mm])
+                # every member EMI lists in the slot (tags flattened), each with its Age and whether it is a plain item
+                lists.append([(y, m, k == "item") for (k, _), (x, mm) in zip(slot, alts)
+                              for y, m in zip(tags[x] if k == "tag" else [x], mm)])
         for f in _fluid_ins(j, set()):
             first = max(first, fluid_ix(f))
         recs.append((rid, r["type"], first, last, station_ix(jt if jt in EMI_STATIONS or jt in STATION_ITEMS
                                                               or jt in station_age else r["type"], j), lists))
     lists_filtered = "emi.ListEmiIngredientMixin" in open(CORE_MIXINS, encoding="utf-8").read()
-    early, mixed, shown = {}, {}, collections.Counter()
+    early, mixed, shown, trimmed = {}, {}, collections.Counter(), set()
     for n in range(ix(EMI_FROM_AGE), len(AGES)):
         for rid, t, first, last, st, lists in recs:
             if not first <= n <= last:
@@ -1099,8 +1102,18 @@ def emi_checks(base, rows, tags, item_age, check):
             shown[AGES[n]] += 1
             if st > n:
                 early.setdefault((t, AGES[st] if st < never else "never"), {}).setdefault(AGES[n], []).append(rid)
-            bad = [] if lists_filtered else sorted({(x, AGES[m] if m < never else "disabled")
-                                                     for lst in lists for x, m in lst if m > n})
+            bad = set()
+            for lst in lists:
+                if lists_filtered:
+                    # ShownMembers.of: the unlocked members, or the whole list when none (or all) are unlocked
+                    kept = [(x, m) for x, m, _ in lst if m <= n]
+                    if kept and len(kept) < len(lst):
+                        trimmed.add(rid)
+                    bad |= {(x, m) for x, m in (kept or [(x, m) for x, m, _ in lst]) if m > n}
+                else:
+                    # without the mixin EMI keeps every stack of an item list (it drops disabled tag members only)
+                    bad |= {(x, m) for x, m, is_item in lst if is_item and m > n}
+            bad = sorted((x, AGES[m] if m < never else "disabled") for x, m in bad)
             if bad:
                 mixed.setdefault(rid, [t, AGES[n], AGES[n], bad])[2] = AGES[n]
     print("    E-1 shown recipes per Age: " + ", ".join(f"{k}={shown[k]}" for k in AGES if shown[k]))
@@ -1109,7 +1122,8 @@ def emi_checks(base, rows, tags, item_age, check):
     ev += [f"{rid} [{t}] {a_}..{b_}: lists " + ", ".join(f"{x} ({st})" for x, st in bad[:3])
            for rid, (t, a_, b_, bad) in sorted(mixed.items(), key=lambda kv: (AGES.index(kv[1][1]), kv[0]))]
     print(f"    E-1 offenders: {len(early)} recipe types shown before their station, {len(mixed)} recipes with a locked "
-          f"item in an input list" + (" (item lists filtered by firmages-core ListEmiIngredientMixin)" if lists_filtered else ""))
+          f"item in an input list" + (f" ({len(trimmed)} recipes with an item list trimmed to the player's Ages by "
+                                       f"firmages-core ShownMembers)" if lists_filtered else ""))
     check(f"E-1 recipe viewer leaks per Age ({EMI_FROM_AGE} to age_9): no recipe type shown before its station's Age, "
           f"no shown input that lists a locked item", not ev, ev)
 
