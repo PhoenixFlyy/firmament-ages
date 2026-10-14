@@ -44,7 +44,11 @@ Implementation notes: `SPEC.md` §4.7 and §5.1.
   start of `ReloadableServerResources#loadResources` (after this mod's capture, so `FirmAges.lockedOreBlocks()` reads
   that load's tag JSON), but on the initial load before the resource manager exists. The initial-load answer is
   therefore empty; `AgeService` detects the wrong answer and reloads once right after server start.
-- `/firmages dump registry` writes `logs/firmages-registry.json`: `{ "items": { "<mod>": [ids] }, "blocks": {...}, "fluids": {...} }`.
+- `/firmages dump registry` writes `logs/firmages-registry.json`: `{ "items": { "<mod>": [ids] }, "blocks": {...}, "fluids": {...},
+  "fluid_buckets": { "<fluid>": "<bucket item>" } }`.
+- Recipe viewer, Ponder and GuideME by Age (SPEC §21): `compat/emi` (EMI plugin, audit, deferred reload), `compat/ponder`,
+  `immersion/EmiAgeView`; EMI's jar is in `libs/` (pack metafile `mods/emi.pw.toml`), Ponder from Create's maven.
+  `/firmages_client emi_audit` writes `logs/firmages-emi-audit-<age>.json` on a client.
 - The age-coverage check against ProgressiveStages writes `logs/firmages-coverage.txt` at every server start.
 
 ## Build

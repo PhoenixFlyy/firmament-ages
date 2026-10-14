@@ -53,6 +53,7 @@ public final class FirmagesCore {
         CaveDwellerService.register(bus);
         ToolRuleService.register(bus);
         bus.addListener(FirmagesCommands::register);
+        bus.addListener(dev.firmages.core.immersion.PonderCommandGate::onCommand); // /ponder for operators only (SPEC §21.6)
         bus.addListener(DebugPlayerCommands::onServerTick);
         bus.addListener(StageSyncCoalescer::onServerTick);
         bus.addListener(StageSyncCoalescer::onServerStopped);

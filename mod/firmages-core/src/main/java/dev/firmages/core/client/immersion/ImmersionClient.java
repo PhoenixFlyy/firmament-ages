@@ -25,6 +25,7 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -48,7 +49,8 @@ import java.util.Set;
  * Client half of the immersion features (SPEC §18): silent joins (blocked screens and toasts), no advancements screen
  * or mod list, EMI, Jade and the TFC inventory tabs gated by Age, the HUD Age indicator, the first-join welcome and the
  * TFC display tweaks, the Ars Nouveau HUD by Age and the locked-item tooltip trim; and the Cave Dweller sound mute
- * (SPEC §19).
+ * (SPEC §19); EMI's recipe screens stay shut while the viewer is locked, the EMI audit after each EMI reload and the
+ * skipped ProgressiveStages EMI reload while an Age reload is pending (SPEC §21), the Ponder plugin (§21.6).
  * Physical client only.
  */
 public final class ImmersionClient {
@@ -63,6 +65,9 @@ public final class ImmersionClient {
     /** Ticks after the first status before the welcome title, and from the title to the welcome screen. */
     private static final int WELCOME_TITLE_DELAY = 40;
     private static final int WELCOME_SCREEN_DELAY = 100;
+    /** EMI's recipe and recipe-tree screens. {@code EmiApi.displayRecipes} and the JEI API through JEMI open them without
+     *  checking {@code EmiConfig.enabled} [verified, javap, EMI 1.1.24], e.g. from a recipe click area of another GUI. */
+    static final Set<String> EMI_SCREENS = Set.of("dev.emi.emi.screen.RecipeScreen", "dev.emi.emi.screen.BoMScreen");
 
     private static boolean keyHeld;
     private static long keyReleasedAt = Long.MIN_VALUE;
@@ -72,6 +77,8 @@ public final class ImmersionClient {
     private static int welcomeTicks;
     private static Set<String> modNames;
     private static Boolean lockedTooltips;
+    private static Boolean emiLoaded;
+    private static Boolean emiDefer;
 
     private ImmersionClient() {}
 
@@ -85,7 +92,9 @@ public final class ImmersionClient {
 
     /** {@code firmages:age_status} arrived. */
     public static void onStatus(AgeStatus status) {
+        boolean wasPending = ClientAgeStatus.known() && ClientAgeStatus.get().reloadPending();
         ClientAgeStatus.receive(status);
+        if (wasPending && !status.reloadPending() && emiDefer()) EmiDeferHooks.pendingCleared();
     }
 
     /** {@code firmages:welcome} arrived: title first, then the screen. */
@@ -112,6 +121,11 @@ public final class ImmersionClient {
         public static void layers(RegisterGuiLayersEvent event) {
             event.registerBelow(VanillaGuiLayers.BOSS_OVERLAY, AgeIndicatorLayer.ID, AgeIndicatorLayer::render);
         }
+
+        @SubscribeEvent
+        public static void setup(FMLClientSetupEvent event) {
+            if (ModList.get().isLoaded("ponder")) event.enqueueWork(PonderHooks::register);
+        }
     }
 
     @EventBusSubscriber(modid = FirmagesCore.MOD_ID, value = Dist.CLIENT)
@@ -133,6 +147,8 @@ public final class ImmersionClient {
             if (ClientConfig.get(ClientConfig.BLOCKED_SCREENS, ClientConfig.DEFAULT_BLOCKED_SCREENS).contains(name)) {
                 FirmagesCore.LOGGER.info("Screen {} blocked (ui.blockedScreens)", name);
                 event.setCanceled(true);
+            } else if (EMI_SCREENS.contains(name) && !(ClientAgeStatus.known() && ClientAgeStatus.get().recipeViewer())) {
+                event.setCanceled(true); // the recipe viewer is not open in this Age (§21.3)
             } else if (event.getNewScreen() instanceof AdvancementsScreen && ClientConfig.get(ClientConfig.REDIRECT_ADVANCEMENTS, true)) {
                 event.setCanceled(true);
                 openQuestsNextTick = FtbQuestsScreens.available(); // not inside setScreen
@@ -153,6 +169,7 @@ public final class ImmersionClient {
             keyHeld = down;
             if (mc.player == null) return;
             gateViewer();
+            if (emiLoaded()) EmiAuditHooks.tick();
             if (openQuestsNextTick) {
                 openQuestsNextTick = false;
                 FtbQuestsScreens.open();
@@ -202,6 +219,7 @@ public final class ImmersionClient {
         @SubscribeEvent
         public static void loggedOut(ClientPlayerNetworkEvent.LoggingOut event) {
             ClientAgeStatus.reset();
+            if (emiDefer()) EmiDeferHooks.reset();
             viewerWasAllowed = null;
             openQuestsNextTick = false;
             welcomePhase = 0;
@@ -254,6 +272,39 @@ public final class ImmersionClient {
         }
         for (Component sibling : c.getSiblings()) translationKeys(sibling, out);
         return out;
+    }
+
+    private static boolean emiLoaded() {
+        if (emiLoaded == null) emiLoaded = ModList.get().isLoaded("emi");
+        return emiLoaded;
+    }
+
+    private static boolean emiDefer() {
+        if (emiDefer == null) emiDefer = emiLoaded() && ModList.get().isLoaded("progressivestages");
+        return emiDefer;
+    }
+
+    /** EMI classes stay behind these holders, so this class loads without EMI, ProgressiveStages or Ponder. */
+    private static final class EmiAuditHooks {
+        static void tick() {
+            dev.firmages.core.compat.emi.EmiAudit.tick();
+        }
+    }
+
+    private static final class EmiDeferHooks {
+        static void pendingCleared() {
+            dev.firmages.core.compat.emi.EmiReloadDefer.pendingCleared();
+        }
+
+        static void reset() {
+            dev.firmages.core.compat.emi.EmiReloadDefer.reset();
+        }
+    }
+
+    private static final class PonderHooks {
+        static void register() {
+            dev.firmages.core.compat.ponder.FirmagesPonderPlugin.register();
+        }
     }
 
     private static boolean lockedTooltips() {

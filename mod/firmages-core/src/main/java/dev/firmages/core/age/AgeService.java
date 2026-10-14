@@ -442,6 +442,17 @@ public final class AgeService {
         return processor.onStageChange(age.id(), grant, s.getTickCount());
     }
 
+    /**
+     * An Age reload is scheduled, running or queued as a follow-up (SPEC §21.5): {@code firmages:age_status}
+     * {@code reloadPending}. The client then skips ProgressiveStages' EMI reload at the stage change, because the recipe
+     * and tag sync after the reload reloads EMI anyway. An Age swap (no datapack reload) must keep this true from the
+     * grant until its recipe packet is sent.
+     */
+    public static boolean reloadPending() {
+        ReloadScheduler sch = scheduler;
+        return sch != null && (sch.phase() != ReloadScheduler.Phase.IDLE || sch.followUpQueued());
+    }
+
     /** {@code /firmages reload}: filtered reload on the next tick. */
     public static void forceReload(String reason) {
         if (scheduler != null) scheduler.requestNow(reason);
@@ -461,6 +472,7 @@ public final class AgeService {
         if (s == null) return;
         int gen = CacheGeneration.bump();
         PacketDistributor.sendToAllPlayers(new ReloadStatePayload(false));
+        ImmersionService.broadcast(s); // reloadPending false again (true when a follow-up is queued)
         if (error != null) {
             lastReloadResult = "FAILED after " + millis + " ms: " + error;
             FirmagesCore.LOGGER.error("Age reload ({}) failed after {} ms", reason, millis, error);
@@ -510,7 +522,10 @@ public final class AgeService {
                 FirmagesCore.LOGGER.info("Not reloading after '{}' (gate.reloadOnRevoke = false)", reason);
                 return;
             }
-            if (scheduler != null) scheduler.request(reason);
+            if (scheduler != null) {
+                scheduler.request(reason);
+                ImmersionService.broadcast(s); // reloadPending: persist() sent the status before the request
+            }
         }
 
         @Override
