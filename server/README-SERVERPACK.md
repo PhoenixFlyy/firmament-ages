@@ -16,8 +16,34 @@ out.
    Linux or a hosting panel: run `java -jar neoforge-21.1.252-installer.jar --installServer` once, then start with
    `./run.sh` (the installer writes it; heap settings go into `user_jvm_args.txt`).
 
-`user_jvm_args.txt` asks for 10 GB of heap; lower `-Xms`/`-Xmx` if the machine has less memory (8 GB works for a
-small group). `server.properties` starts with the TFC world preset, a whitelist and `difficulty=hard`.
+`server.properties` starts with the TFC world preset, a whitelist and `difficulty=hard`.
+
+## Memory
+
+`user_jvm_args.txt` holds the heap size and Aikar's G1 flags. It ships with 10 GB (`-Xms10G -Xmx10G`):
+
+| Players online | Heap |
+|---|---|
+| up to about 4 | 8 GB: `-Xms8G -Xmx8G` |
+| 5 to 10 | 10 GB (as shipped) |
+
+Keep `-Xms` equal to `-Xmx` and leave the other flags as they are. On a hosting panel with a memory limit for the
+container, set the heap to about 85 % of that limit (10 GB heap needs a 12 GB plan); the JVM needs the rest for
+itself, and a heap at the limit gets the server killed.
+
+## Pregenerate the world
+
+TerraFirmaCraft world generation is heavy, and players exploring new land is what lags a server most. Chunky is in
+the server pack: generate the land around spawn once before players join, in the server console:
+
+```
+chunky spawn
+chunky radius 2000
+chunky start
+```
+
+That is about 62,500 chunks; a Ryzen 7 3700X does about 66 chunks per second, so roughly 16 minutes. `chunky
+progress` shows how far it is, and an interrupted run continues with `chunky continue` after a restart.
 
 ## Play together
 

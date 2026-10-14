@@ -11,8 +11,9 @@ import hashlib, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PACK = os.path.join(ROOT, "pack.toml")
 INDEX_NAME = "index.toml"
-# packwiz core/index.go defaults, plus the pack/index files and the ignore file itself
-DEFAULT_IGNORE = [".git/**", ".gitattributes", ".gitignore", ".DS_Store", "/*.zip",
+# packwiz core/index.go defaults, plus the pack/index files and the ignore file itself; ".git" is the file that
+# stands in for the .git folder in a git worktree
+DEFAULT_IGNORE = [".git/**", ".git", ".gitattributes", ".gitignore", ".DS_Store", "/*.zip",
                   "*.mrpack", "packwiz.exe", "packwiz"]
 ALWAYS_SKIP = {"pack.toml", INDEX_NAME, ".packwizignore"}
 

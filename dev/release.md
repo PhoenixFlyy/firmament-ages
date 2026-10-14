@@ -68,7 +68,9 @@ beim ersten Start eines frischen Profils, und Client und Server brauchen dieselb
 2. Das Upload-Zip aus Abschnitt 1 wählen. Die App legt das Profil „Firmament Ages“ an und lädt alle 216 Mods und die
    zwei Shaderpacks (etwa 500 MB, einige Minuten). Java 21 richtet sie selbst ein; fragt sie nach einem Launcher, den
    normalen Minecraft Launcher nehmen.
-3. Im Profil **Settings**: RAM auf 10 GB (Standard 4 GB ist zu wenig).
+3. Im Profil **Settings** den RAM prüfen: 8 GB. Das Upload-Zip trägt 8 GB als Empfehlung im Manifest (`recommendedRam`);
+   steht dort noch der Standard von 4 GB, von Hand auf 8 GB setzen. Prüfpunkt: notieren, welchen Wert die App nach
+   dem Import zeigt.
 4. **Play**. Der erste Start braucht wegen der Shader-Vorbereitung drei bis fünf Minuten.
 
 Bricht der Import mit einer Meldung zu einer Mod-Datei ab: Mod-Name und Meldung notieren, dann ist eine

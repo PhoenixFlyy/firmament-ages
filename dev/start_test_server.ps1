@@ -8,10 +8,14 @@ $server = Join-Path $repo 'test-server'
 $java = Join-Path $repo 'tools\jdk-21\bin\java.exe'
 $argsFile = 'libraries\net\neoforged\neoforge\21.1.252\win_args.txt'
 if (-not (Test-Path $java)) { throw "Java 21 not found: $java" }
+# JVM flags: server\user_jvm_args.txt (what the server pack ships, Aikar's G1 set) with an 8 GB heap, like dev/run_server.py.
+$heap = '8G'
+$jvmFlags = @("-Xms$heap", "-Xmx$heap") + @(Get-Content (Join-Path $repo 'server\user_jvm_args.txt') |
+    Where-Object { $_ -notmatch '^\s*#' } | ForEach-Object { -split $_ } | Where-Object { $_ -notmatch '^-Xm[sx]' })
 if (-not (Test-Path (Join-Path $server $argsFile))) { throw "NeoForge args file not found: $(Join-Path $server $argsFile) (run the NeoForge installer in test-server first)" }
 Push-Location $server
 try {
-    & $java -Xms6G -Xmx8G -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=100 "@$argsFile" nogui
+    & $java @jvmFlags "@$argsFile" nogui
 } finally {
     Pop-Location
 }

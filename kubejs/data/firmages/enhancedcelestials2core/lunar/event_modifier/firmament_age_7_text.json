@@ -1,0 +1,16 @@
+{
+  "type": "enhancedcelestials2core:text_components",
+  "settings": {
+    "components": {
+      "start_notification": {
+        "type": "HOT_BAR",
+        "component": {
+          "key": "firmages.night.age_7",
+          "style": {
+            "color": "#e0e8ff"
+          }
+        }
+      }
+    }
+  }
+}

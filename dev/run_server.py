@@ -31,6 +31,7 @@ import time
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_SERVER = os.path.join(REPO, "test-server")
 JAVA = os.path.join(REPO, "tools", "jdk-21", "bin", "java.exe")
+JVM_ARGS = os.path.join(REPO, "server", "user_jvm_args.txt")  # the flags the server pack ships (Aikar's G1 set)
 NEOFORGE = "21.1.252"
 
 CRASH_MARKERS = (
@@ -65,6 +66,16 @@ def send(proc, cmd):
         return False
 
 
+def jvm_flags(xms, xmx):
+    """server/user_jvm_args.txt with this run's heap size, so test boots use the flags the server pack ships."""
+    flags = []
+    with open(JVM_ARGS, encoding="utf-8") as f:
+        for line in f:
+            if not line.lstrip().startswith("#"):
+                flags += [t for t in line.split() if not t.startswith(("-Xms", "-Xmx"))]
+    return [f"-Xms{xms}", f"-Xmx{xmx}"] + flags
+
+
 def tail_errors(path, pattern, limit):
     out = []
     if not os.path.isfile(path):
@@ -79,7 +90,7 @@ def tail_errors(path, pattern, limit):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--server-dir", default=DEFAULT_SERVER)
-    ap.add_argument("--xms", default="6G")
+    ap.add_argument("--xms", default="8G", help="heap; every other JVM flag comes from server/user_jvm_args.txt")
     ap.add_argument("--xmx", default="8G")
     ap.add_argument("--timeout", type=int, default=560, help="hard timeout in seconds for the whole run")
     ap.add_argument("--cmd", action="append", default=[], help="console command to send after Done (repeatable)")
@@ -108,7 +119,7 @@ def main():
     crash_before = set(glob.glob(os.path.join(sd, "crash-reports", "*.txt")))
     console_path = os.path.join(logs, "run_server-console.log")
 
-    cmd = [JAVA, f"-Xms{a.xms}", f"-Xmx{a.xmx}", "-XX:+UseG1GC", f"@{args_file}", "nogui"]
+    cmd = [JAVA] + jvm_flags(a.xms, a.xmx) + [f"@{args_file}", "nogui"]
     t0 = time.time()
     logf = open(console_path, "w", encoding="utf-8")
     proc = subprocess.Popen(cmd, cwd=sd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,

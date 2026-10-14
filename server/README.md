@@ -6,7 +6,7 @@ The files in this folder are the template for a dedicated Firmament Ages server 
 |---|---|
 | `start.bat` | Start script for cmd. It runs the packwiz sync, installs NeoForge when needed and starts the server in a restart loop. |
 | `start.ps1` | The same loop in PowerShell. `-NoUpdate` skips the pack sync; `-PackUrl` and `-JavaHome` override the settings at the top. |
-| `user_jvm_args.txt` | JVM arguments: 10 GB heap and the G1 flags from earlier servers on this host. The NeoForge installer leaves an existing file alone. |
+| `user_jvm_args.txt` | JVM arguments: 10 GB heap and Aikar's G1 flags (8 GB is enough up to about 4 players, see `README-SERVERPACK.md`). `dev/run_server.py` and `dev/start_test_server.ps1` read the same flags with an 8 GB heap. The NeoForge installer leaves an existing file alone. |
 | `server.properties.template` | Vanilla settings: whitelist, online mode, PvP, the TFC world preset and view distances. |
 
 ## Set up a server folder
