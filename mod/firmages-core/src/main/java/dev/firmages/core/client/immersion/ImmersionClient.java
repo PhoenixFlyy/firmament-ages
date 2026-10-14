@@ -160,6 +160,11 @@ public final class ImmersionClient {
             if (TfcClient.available()) TfcClient.applyTabs(event, ClientAgeStatus.get().tabs()); // before the first status: Dawn
         }
 
+        @SubscribeEvent(priority = EventPriority.LOWEST) // after every mod added its widgets (Supplementaries: NORMAL)
+        public static void screenInitLast(ScreenEvent.Init.Post event) {
+            MenuButtons.hideListed(event);
+        }
+
         @SubscribeEvent
         public static void tick(ClientTickEvent.Post event) {
             Minecraft mc = Minecraft.getInstance();

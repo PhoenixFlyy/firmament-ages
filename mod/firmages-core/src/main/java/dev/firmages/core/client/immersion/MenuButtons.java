@@ -1,8 +1,11 @@
 package dev.firmages.core.client.immersion;
 
+import dev.firmages.core.config.ClientConfig;
+import dev.firmages.core.immersion.MenuWidgetFilter;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.neoforged.neoforge.client.event.ScreenEvent;
@@ -20,6 +23,9 @@ import java.util.List;
  * {@code options.language} / {@code options.accessibility} ({@code CommonButtons}, icon-only), while FancyMenu 3.9.14's
  * {@code TitleScreenWidgetIdentificationContext} still maps the pre-1.20.5 keys {@code narrator.button.*}, so its
  * {@code mc_titlescreen_language_button} / {@code _accessibility_button} ids never resolve [verified, javap].
+ * <p>
+ * Widgets of other mods listed in {@code ui.hiddenMenuWidgets} ({@link MenuWidgetFilter}) are hidden on both screens
+ * by {@link #hideListed}, which runs last so every mod has added its widgets.
  */
 final class MenuButtons {
     static final String MODS = "fml.menu.mods";
@@ -57,6 +63,19 @@ final class MenuButtons {
             for (GuiEventListener l : widgets) {
                 if (l instanceof AbstractWidget w && w != mods && w.getY() > mods.getY()) w.setY(w.getY() - PAUSE_ROW);
             }
+        }
+    }
+
+    /** {@code ui.hiddenMenuWidgets} on the title and pause screens. */
+    static void hideListed(ScreenEvent.Init.Post event) {
+        Screen screen = event.getScreen();
+        if (!(screen instanceof PauseScreen) && !(screen instanceof TitleScreen)) return;
+        List<? extends String> entries = ClientConfig.get(ClientConfig.HIDDEN_MENU_WIDGETS, MenuWidgetFilter.DEFAULT_HIDDEN);
+        if (entries.isEmpty()) return;
+        for (GuiEventListener l : event.getListenersList()) {
+            if (!(l instanceof AbstractWidget w)) continue;
+            String key = w.getMessage().getContents() instanceof TranslatableContents tc ? tc.getKey() : null;
+            if (MenuWidgetFilter.hidden(entries, w.getClass().getName(), key)) hide(w);
         }
     }
 

@@ -3,6 +3,7 @@ package dev.firmages.core.config;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.immersion.ChatBlocklist;
 import dev.firmages.core.immersion.HudFade;
+import dev.firmages.core.immersion.MenuWidgetFilter;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLOCKED_TOASTS;
     public static final ModConfigSpec.BooleanValue REDIRECT_ADVANCEMENTS;
     public static final ModConfigSpec.BooleanValue HIDE_MENU_BUTTONS;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> HIDDEN_MENU_WIDGETS;
     public static final ModConfigSpec.BooleanValue HIDE_MOD_NAME_TOOLTIPS;
     public static final ModConfigSpec.BooleanValue TRIM_LOCKED_TOOLTIPS;
     public static final ModConfigSpec.ConfigValue<String> MANA_HUD_FROM_AGE;
@@ -72,6 +74,9 @@ public final class ClientConfig {
             .define("redirectAdvancements", true);
         HIDE_MENU_BUTTONS = b.comment("Hide the Mods and Advancements buttons on the title and pause screens, and the Language and Accessibility buttons on the title screen.")
             .define("hideMenuButtons", true);
+        HIDDEN_MENU_WIDGETS = b.comment("Further widgets other mods add to the title and pause screens, hidden there: fully qualified class names",
+                "(inner classes with $) or translation keys of the label. Default: Supplementaries' config gear (it opens every mod's config).")
+            .defineListAllowEmpty("hiddenMenuWidgets", MenuWidgetFilter.DEFAULT_HIDDEN, () -> "", ClientConfig::isString);
         HIDE_MOD_NAME_TOOLTIPS = b.comment("Drop item tooltip lines that are only a mod's name.")
             .define("hideModNameTooltips", true);
         TRIM_LOCKED_TOOLTIPS = b.comment("Items that ProgressiveStages reports locked show only their (masked) name and ProgressiveStages' lines;",
