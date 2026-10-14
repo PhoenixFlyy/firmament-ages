@@ -248,7 +248,7 @@
 					id: "2B21C54106B6FCC7"
 					observation_type: "block_state"
 					timer: 0L
-					to_observe: "firmages:shrine_heart[awakened=9]"
+					to_observe: "firmages:shrine_heart[awakened=10]"
 					type: "observation"
 				}
 			]

@@ -30,7 +30,10 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
   portals    a dimension task needs its entry item: the KubeJS item tag that opens the portal (PORTAL_TAGS, read
              from kubejs/server_scripts/tags/*.js) is overridden and holds only items of the chapter's Age or earlier
 With --mods <dir> (default test-server/mods if it exists) it also looks inside the mod jars for advancement,
-entity type, entity/block tag and dimension ids used by tasks. Exit code 1 on any error.
+entity type, entity/block tag and dimension ids used by tasks. With --style it also lints the player text against
+dev/style-guide.md (warnings only): words per description by quest kind (knapping grid lines excluded), more than
+three paragraphs, banned and meta words, mod names, "Age <n>" in a description, "!" anywhere, dashes and ellipses.
+Exit code 1 on any error.
 """
 import argparse
 import glob
@@ -276,12 +279,90 @@ def finale_script_grant():
     return False
 
 
+# ------------------------------------------------------------------------------------------------ style lint
+# dev/style-guide.md. Word limits per quest kind (the quest's tag; untagged = step, Welcome chapter = info).
+STYLE_LIMITS = {'step': 25, 'side': 25, 'keystone': 40, 'explain': 40, 'ring': 40, 'entry': 70, 'goal': 70,
+                'info': 70}
+# Teaching quests: the one place a mechanic, or a build no recipe viewer shows, is explained (style guide rules 3
+# and 4). They may run to STYLE_TEACH words (knapping grid lines are never counted).
+STYLE_TEACH = 110
+STYLE_TEACHING = {
+    '6522D484BFB67425',  # dawn/stone/tool: knapping, step by step (Dawn has no recipe viewer)
+    '7E2D0099177BFBE8',  # dawn/info/knapping: the other knapping patterns
+    '30A13F8701E9EF80',  # stone/shrine/key: the Hearth Circle and the ghost preview
+    '485FE6EFB6565F6E',  # quantum/marid/key: lending the Arcane Keystone and laying it back
+    '124DDC9853158E78',  # industrial/logi/atfc: the thresher's blocks (no manual page, no viewer)
+}
+GRID_LINE = re.compile(r'[X-]( [X-]){4}')
+# (pattern, label); case-insensitive unless the label says "mod name" (those are matched as written).
+STYLE_BANNED = [r'unlock the power', r'tapestry', r'testament', r'journey', r'embark', r'dive into',
+                r"it'?s important to", r'unleash', r'incredible', r'amazing', r'\bepic\b', r'seamless', r'streamline',
+                r'elevate', r'next level', r'powerful', r'mighty', r'\bvast\b', r'\bawaits?\b', r'\brealms?\b',
+                r'harness', r'a variety of', r'allows? you', r'keep in mind', r'note that', r'basically',
+                r'essentially', r'crucial', r'essential', r'\bvital\b', r'whole new', r'mysterious', r'make sure',
+                r"don'?t forget", r'\bteams?\b', r'fallback:', r'signature item']
+STYLE_META = [r'\bquests?\b', r'\bstages?\b', r'\bunlock\w*', r'\block(s|ed)?\b', r'\bEMI\b', r'\bJEI\b',
+              r'\btooltips?\b', r'in this pack', r'\bmods?\b']
+STYLE_MODS = ['TFC', r"Create(?! (a|an|the) )", 'Mekanism', 'AE2', 'IE', 'Draconic Evolution', 'Occultism', 'Ars', 'FTB',
+              'Beneath', 'Firmalife', 'Mystical Agriculture', "Tom's", 'Summoning Rituals', 'Theurgy',
+              'Immersive', 'Precision Prospecting', 'TFCreate', 'Aeronautics', "Steam 'n' Rails", 'Totemic',
+              'Hostile Networks', 'Ad Astra', 'Applied Kinetics', 'Gateways?', 'Cataclysm', "Mowzie"]
+
+
+def style_lint(lang, chapters, W):
+    """Warnings for player text that breaks dev/style-guide.md."""
+    kinds = {}
+    for cname, ch in chapters.items():
+        for qd in ch.get('quests', []):
+            tags = [t for t in qd.get('tags', []) if t in STYLE_LIMITS]
+            kinds[str(qd.get('id')).upper()] = tags[0] if tags else ('info' if cname == 'welcome' else 'step')
+    banned = [(re.compile(p, re.I), 'banned word') for p in STYLE_BANNED]
+    banned += [(re.compile(p, 0 if p in (r'\bEMI\b', r'\bJEI\b') else re.I), 'meta word') for p in STYLE_META]
+    banned += [(re.compile(r'\b%s\b' % p), 'mod name') for p in STYLE_MODS]
+    for key, val in lang.items():
+        m = re.fullmatch(r'(\w+)\.([0-9A-Fa-f]{16})\.(\w+)', key)
+        if not m:
+            continue
+        typ, oid, field = m.group(1), m.group(2).upper(), m.group(3)
+        texts = val if isinstance(val, list) else [val]
+        texts = [t for t in texts if isinstance(t, str)]
+        where = 'style: %s' % key
+        for tx in texts:
+            for rx, label in banned:
+                hit = rx.search(tx)
+                if hit:
+                    W('%s: %s "%s" in %r' % (where, label, hit.group(0), tx[:70]))
+            for bad in ('!', '—', '–', '...', '…'):
+                if bad in tx:
+                    W('%s: %r in %r' % (where, bad, tx[:70]))
+            if field == 'quest_desc' and re.search(r'\bAge \d', tx):
+                W('%s: "Age <n>" in a description, write the Age name: %r' % (where, tx[:70]))
+        if typ == 'quest' and field == 'quest_desc':
+            words = sum(len(t.split()) for t in texts if not GRID_LINE.fullmatch(t))
+            kind = kinds.get(oid, 'step')
+            limit = STYLE_TEACH if oid in STYLE_TEACHING else STYLE_LIMITS[kind]
+            if words > limit:
+                W('%s: %d words, the limit for a %s is %d' % (where, words, kind, limit))
+            blocks, cur = [], []
+            for t in texts + ['']:
+                if t:
+                    cur.append(t)
+                elif cur:
+                    blocks.append(cur)
+                    cur = []
+            # a block with a knapping grid is the grid and its caption, not a paragraph
+            paras = [b for b in blocks if not any(GRID_LINE.fullmatch(t) for t in b)]
+            if len(paras) > 3:
+                W('%s: %d paragraphs, at most 3' % (where, len(paras)))
+
+
 # ------------------------------------------------------------------------------------------------ checks
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('--mods', help='mods folder with the pack jars (default: test-server/mods if present)')
     ap.add_argument('--no-jars', action='store_true', help='skip the jar lookups')
     ap.add_argument('--dir', default=QDIR, help='quest folder to check (default: config/ftbquests/quests)')
+    ap.add_argument('--style', action='store_true', help='also lint the player text against dev/style-guide.md')
     args = ap.parse_args()
     qdir = args.dir
 
@@ -704,6 +785,8 @@ def main():
         if typ in ('chapter', 'quest', 'chapter_group', 'reward_table') and \
                 '%s.%s.title' % (typ, oid) not in lang:
             E('lang: %s %s (%s) has no title' % (typ, oid, where))
+    if args.style:
+        style_lint(lang, chapters, W)
 
     # ---- data.snbt
     if data.get('drop_book_on_death') is not False:

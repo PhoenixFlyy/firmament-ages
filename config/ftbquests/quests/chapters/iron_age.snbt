@@ -833,6 +833,25 @@
 			x: 1.5d
 			y: 6.25d
 		}
+		{
+			dependencies: ["05C4B3AE61613A9B"]
+			hide_dependency_lines: true
+			icon: {
+				id: "firmages:frontier_sigil"
+			}
+			id: "6ECC3504EF73D5B0"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "04FA4A55E736E68B"
+					type: "checkmark"
+				}
+			]
+			x: 3.0d
+			y: 6.25d
+		}
 	]
 	tags: ["age_2"]
 }
