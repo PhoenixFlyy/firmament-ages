@@ -195,7 +195,11 @@
 	quest.0A81ED2F8A5BB2AE.quest_subtitle: "Age 1"
 	quest.0A81ED2F8A5BB2AE.title: "Welcome to the Bronze Age"
 	quest.0ABF4F27145CD228.quest_desc: [
-		"Sticks lie on the forest floor and drop from leaves. You need them for every tool shaft."
+		"Twigs lie on the forest floor under the trees. Right-click one with an empty hand to pick it up, then put it in the crafting grid: one twig makes one stick."
+		""
+		"Leaves drop sticks too: breaking leaves by hand gives one now and then (5 percent), with a stone knife far more often (20 percent, one or two at a time)."
+		""
+		"A stick, a twig or a bone serves as the shaft of every stone tool."
 	]
 	quest.0ABF4F27145CD228.title: "A Bundle of Sticks"
 	quest.0AD1277F0C750FBC.quest_desc: [
@@ -430,7 +434,9 @@
 	quest.203071592A4D660A.title: "Thatch"
 	quest.2036F321608B520E.quest_desc: ["Patterns and assemblers craft on request."]
 	quest.2036F321608B520E.title: "Molecular Assembler"
-	quest.206BCC87705BB466.quest_desc: ["Knap a javelin head and shaft it. Throw it or stab with it."]
+	quest.206BCC87705BB466.quest_desc: [
+		"Knap a javelin head (the shape is in \"Knapping Patterns\" at the bottom of this chapter) and put it above a stick in the crafting grid. Throw it or stab with it."
+	]
 	quest.206BCC87705BB466.title: "A Stone Javelin"
 	quest.2070B77706F2CB8E.quest_desc: [
 		"Craft the Sky Disc: a bronze double sheet from the bronze anvil and gold sheets."
@@ -599,7 +605,9 @@
 	]
 	quest.32561F3017350CAF.title: "The Sign in the Corner"
 	quest.32C8626D60896E8F.quest_desc: [
-		"Pick up a loose rock from the ground. Rocks are knapped by using them in hand."
+		"Small loose rocks lie on the ground everywhere. Right-click one with an empty hand to pick it up. Any kind of rock works: granite, basalt, limestone, chert and the rest."
+		""
+		"Collect about ten. Every stone tool head is knapped from rocks (see \"Paleolithic!\")."
 	]
 	quest.32C8626D60896E8F.title: "Just a Rock"
 	quest.32D33BE8EB20FCA6.quest_desc: [
@@ -1084,7 +1092,30 @@
 	]
 	quest.64E0D1AE8C5265E7.title: "The End"
 	quest.6522D484BFB67425.quest_desc: [
-		"Knap a tool head from two rocks and put it on a stick in the crafting grid. An axe comes first. A knife, a hammer and a shovel follow the same way."
+		"Knapping means chipping a rock into a tool head. Step by step:"
+		"- Hold at least two loose rocks of one kind in your hand."
+		"- Right-click into the air. A 5x5 grid of stone opens."
+		"- Click a square to knock it away. Removed squares do not come back."
+		"- The first click uses up one rock. Closing the grid early wastes it."
+		"- When only the shape of the tool head is left, take the head out of the slot on the right."
+		""
+		"The axe head (X = leave standing, - = knock away):"
+		"- X - - -"
+		"X X X X -"
+		"X X X X X"
+		"X X X X -"
+		"- X - - -"
+		""
+		"Then open the inventory. In the 2x2 crafting grid put the axe head in a top square and a stick directly below it (a twig or a bone works as well). That is your stone axe."
+		""
+		"The knife comes next, the same way. This shape gives two knife blades from one rock:"
+		"X - - X -"
+		"X X - X X"
+		"X X - X X"
+		"X X - X X"
+		"X X - X X"
+		""
+		"Put each blade above a stick. Mirrored shapes work too. Hammer, shovel, hoe and javelin: see \"Knapping Patterns\" at the bottom of this chapter."
 	]
 	quest.6522D484BFB67425.title: "Paleolithic!"
 	quest.652657C4C5B8CAC5.quest_desc: [
@@ -1324,6 +1355,40 @@
 		"Food rots. Sealed large vessels, salting, drying and cooking slow it down. Eat from every food group: grain, fruit, vegetables, protein and dairy."
 	]
 	quest.7CDF23C64D3D4961.title: "Food Decay and Nutrition"
+	quest.7E2D0099177BFBE8.quest_desc: [
+		"Hold two or more loose rocks, right-click into the air and knock squares away until the shape is left (X = leave standing, - = knock away). Put every head above a stick in the crafting grid. Axe and knife: see \"Paleolithic!\"."
+		""
+		"Hammer head (a stone hammer breaks logs into sticks):"
+		"X X X X X"
+		"X X X X X"
+		"- - X - -"
+		"- - - - -"
+		"- - - - -"
+		""
+		"Shovel head (digs faster):"
+		"X X X - -"
+		"X X X - -"
+		"X X X - -"
+		"X X X - -"
+		"- X - - -"
+		""
+		"Hoe heads (two from one rock, for farming later):"
+		"X X X X X"
+		"X X - - -"
+		"- - - - -"
+		"X X X X X"
+		"X X - - -"
+		""
+		"Javelin head (for the hunt):"
+		"X X X - -"
+		"X X X X -"
+		"X X X X X"
+		"- X X X -"
+		"- - X - -"
+		""
+		"There is no stone pickaxe. The first pickaxe is cast from copper in the Stone Age."
+	]
+	quest.7E2D0099177BFBE8.title: "Knapping Patterns"
 	quest.7E4228F48F8BE9EF.quest_desc: ["Knap five clay into a vessel, a jug, a bowl or a mold."]
 	quest.7E4228F48F8BE9EF.title: "Clay Forming"
 	quest.7ECFFB6EEDF1B9FB.quest_desc: ["Steel wire carries high voltage over long distances."]

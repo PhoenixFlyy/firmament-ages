@@ -592,6 +592,25 @@
 			x: 0.0d
 			y: 5.0d
 		}
+		{
+			dependencies: ["49153BBE2AD958B7"]
+			hide_dependency_lines: true
+			icon: {
+				id: "tfc:stone/knife_head/sedimentary"
+			}
+			id: "7E2D0099177BFBE8"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "7EADCD0017EACFBD"
+					type: "checkmark"
+				}
+			]
+			x: 1.5d
+			y: 5.0d
+		}
 	]
 	tags: ["dawn"]
 }

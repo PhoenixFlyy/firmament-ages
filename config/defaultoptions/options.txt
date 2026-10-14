@@ -13,6 +13,7 @@ particles:1
 renderClouds:"fast"
 biomeBlendRadius:2
 entityShadows:true
+fov:0.5
 fovEffectScale:0.75
 darkMojangStudiosBackground:true
 hideSplashTexts:true

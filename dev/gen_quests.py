@@ -107,14 +107,38 @@ def lang(obj_type, oid, field, text):
 BULLETS = ('- ', '* ', '• ')
 
 
+class Verbatim(str):
+    """A description line that stays an entry of its own, exactly as written (knapping grids)."""
+
+
+def knap_grid(*rows):
+    """TFC knapping pattern rows ('#' = stays, ' ' = knocked away) -> five Verbatim lines of the 5x5 grid,
+    'X' = leave standing, '-' = knock away. A pattern smaller than 5x5 is drawn in the top-left corner: TFC 4.2.11
+    KnappingPattern.matches tries every offset and the mirror image, and those recipes set "default_on": false, so
+    everything outside the shape must be knocked away. 'X' and '-' have the same advance (6 px) in the Minecraft
+    font ('.' only 2 px), so the columns line up in the quest window."""
+    out = []
+    for r in range(5):
+        row = rows[r] if r < len(rows) else ''
+        out.append(Verbatim(' '.join('X' if c == '#' else '-' for c in row.ljust(5))))
+    return out
+
+
 def paragraphs(lines):
     """Description lines -> one entry per paragraph. FTB Quests draws every entry of a description list as a line of
     its own and wraps it to the width of the quest window, so a source line broken by hand ends early and the window
     wraps it again: ragged text at GUI scale 3 and auto in the 75 % quest window. Consecutive source lines join with
     one space; an empty line stays as the paragraph break; a bullet line ('- ', '* ', '• ') starts an entry of
-    its own and takes the lines that follow it up to the next empty or bullet line."""
+    its own and takes the lines that follow it up to the next empty or bullet line. A Verbatim line is always an
+    entry of its own."""
     out, cur = [], []
     for line in lines:
+        if isinstance(line, Verbatim):
+            if cur:
+                out.append(' '.join(cur))
+                cur = []
+            out.append(str(line))
+            continue
         s = line.strip()
         if s and not s.startswith(BULLETS) and cur:
             cur.append(s)
@@ -325,13 +349,44 @@ DAWN = age_chapter(
     strands=[
         ('Stone', [
             Q('dawn/stone/rock', 'Just a Rock', t_adv('tfc:story/find_rock'),
-              desc=['Pick up a loose rock from the ground. Rocks are knapped by using them in hand.'],
+              desc=['Small loose rocks lie on the ground everywhere. Right-click one with an empty hand to pick it up.',
+                    'Any kind of rock works: granite, basalt, limestone, chert and the rest.',
+                    '',
+                    'Collect about ten. Every stone tool head is knapped from rocks (see "Paleolithic!").'],
               icon='tfc:rock/loose/granite'),
             Q('dawn/stone/sticks', 'A Bundle of Sticks', t_item('minecraft:stick', 8),
-              desc=['Sticks lie on the forest floor and drop from leaves. You need them for every tool shaft.']),
+              desc=['Twigs lie on the forest floor under the trees. Right-click one with an empty hand to pick it up,',
+                    'then put it in the crafting grid: one twig makes one stick.',
+                    '',
+                    'Leaves drop sticks too: breaking leaves by hand gives one now and then (5 percent),',
+                    'with a stone knife far more often (20 percent, one or two at a time).',
+                    '',
+                    'A stick, a twig or a bone serves as the shaft of every stone tool.']),
+            # Patterns: TFC 4.2.11 data/tfc/recipe/knapping/stone/<tool>_head/<rock group>[_n].json, identical for all
+            # four rock groups (igneous_extrusive, igneous_intrusive, metamorphic, sedimentary); checked against the
+            # jar on 2026-10-14. Axe: tfc:knapping/stone/axe_head/<group>; knife: tfc:knapping/stone/knife_head/
+            # <group>_1 (two blades from one rock). Knapping type tfc:rock: input 2 of #tfc:rock_knapping,
+            # amount_to_consume 1, consume_after_complete false (the first click uses the rock).
+            # Shaft: tfc:crafting/stone/axe/<group>, head above #c:rods/wooden (sticks and twigs) or a bone.
             Q('dawn/stone/tool', 'Paleolithic!', t_adv('tfc:story/stone_age'),
-              desc=['Knap a tool head from two rocks and put it on a stick in the crafting grid.',
-                    'An axe comes first. A knife, a hammer and a shovel follow the same way.'],
+              desc=['Knapping means chipping a rock into a tool head. Step by step:',
+                    '- Hold at least two loose rocks of one kind in your hand.',
+                    '- Right-click into the air. A 5x5 grid of stone opens.',
+                    '- Click a square to knock it away. Removed squares do not come back.',
+                    '- The first click uses up one rock. Closing the grid early wastes it.',
+                    '- When only the shape of the tool head is left, take the head out of the slot on the right.',
+                    '',
+                    'The axe head (X = leave standing, - = knock away):',
+                    *knap_grid(' #   ', '#### ', '#####', '#### ', ' #   '),
+                    '',
+                    'Then open the inventory. In the 2x2 crafting grid put the axe head in a top square and',
+                    'a stick directly below it (a twig or a bone works as well). That is your stone axe.',
+                    '',
+                    'The knife comes next, the same way. This shape gives two knife blades from one rock:',
+                    *knap_grid('#  # ', '## ##', '## ##', '## ##', '## ##'),
+                    '',
+                    'Put each blade above a stick. Mirrored shapes work too.',
+                    'Hammer, shovel, hoe and javelin: see "Knapping Patterns" at the bottom of this chapter.'],
               icon='tfc:stone/axe/sedimentary'),
         ], Q('dawn/stone/key', 'Stone Kit', t_adv('tfc:story/logging', 'Fell a tree with a stone axe'),
              kind='keystone', icon='tfc:stone/axe_head/igneous_extrusive',
@@ -351,7 +406,8 @@ DAWN = age_chapter(
             Q('dawn/hunt/javelin', 'A Stone Javelin',
               t_any_item(['tfc:stone/javelin/igneous_extrusive', 'tfc:stone/javelin/igneous_intrusive',
                           'tfc:stone/javelin/metamorphic', 'tfc:stone/javelin/sedimentary'], 'Any stone javelin'),
-              desc=['Knap a javelin head and shaft it. Throw it or stab with it.'],
+              desc=['Knap a javelin head (the shape is in "Knapping Patterns" at the bottom of this chapter)',
+                    'and put it above a stick in the crafting grid. Throw it or stab with it.'],
               icon='tfc:stone/javelin/sedimentary'),
             Q('dawn/hunt/kill', 'Hunter', t_kill(tag='tfc:animals', value=1, title='Kill any TFC animal'),
               desc=['Hunt an animal. Large prey drops large hides; carry a knife to butcher it.']),
@@ -388,6 +444,28 @@ DAWN = age_chapter(
           desc=['In Dawn you cannot dig clay, build pit kilns or use metal.',
                 'The crafting grid only makes stone tool shafts, the firestarter, straw, thatch, sticks and rope.',
                 'Everything else opens with the Stone Age.']),
+        # Patterns: tfc:knapping/stone/hammer_head/<group>, shovel_head/<group>, hoe_head/<group>_1 (two heads),
+        # javelin_head/<group> (TFC 4.2.11, all four rock groups alike). Hammer, shovel and the single hoe are
+        # "default_on": false: the rest of the grid must be knocked away; any offset and the mirror image match.
+        Q('dawn/info/knapping', 'Knapping Patterns', t_check(), kind='explain',
+          icon='tfc:stone/knife_head/sedimentary',
+          desc=['Hold two or more loose rocks, right-click into the air and knock squares away until the shape',
+                'is left (X = leave standing, - = knock away). Put every head above a stick in the crafting grid.',
+                'Axe and knife: see "Paleolithic!".',
+                '',
+                'Hammer head (a stone hammer breaks logs into sticks):',
+                *knap_grid('#####', '#####', '  #  '),
+                '',
+                'Shovel head (digs faster):',
+                *knap_grid('###', '###', '###', '###', ' # '),
+                '',
+                'Hoe heads (two from one rock, for farming later):',
+                *knap_grid('#####', '##   ', '     ', '#####', '##   '),
+                '',
+                'Javelin head (for the hunt):',
+                *knap_grid('###  ', '#### ', '#####', ' ### ', '  #  '),
+                '',
+                'There is no stone pickaxe. The first pickaxe is cast from copper in the Stone Age.']),
     ],
     supplies='dawn_supplies', comfort='dawn_supplies')
 
