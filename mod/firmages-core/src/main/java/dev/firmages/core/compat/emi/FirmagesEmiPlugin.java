@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.material.Fluid;
+import net.neoforged.fml.ModList;
 
 import java.util.Optional;
 
@@ -69,6 +70,9 @@ public final class FirmagesEmiPlugin implements EmiPlugin {
     public void register(EmiRegistry registry) {
         EmiAgeView v = view;
         registry.removeRecipes(r -> recipeLocked(v, r));
+        if (ModList.get().isLoaded(EvolvedMekanismEmi.MOD_ID) && ModList.get().isLoaded("mekanism")) {
+            EvolvedMekanismEmi.register(registry); // its JEI-only chemical categories (SPEC 21.12)
+        }
     }
 
     static boolean recipeLocked(EmiAgeView v, EmiRecipe r) {

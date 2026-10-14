@@ -9,6 +9,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.EmiRecipeManager;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.registry.EmiStackList;
 import dev.emi.emi.runtime.EmiReloadManager;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.immersion.EmiAgeView;
@@ -31,8 +32,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Proof that EMI shows nothing of a locked Age (SPEC §21.4). A GameTest cannot open EMI, so the client checks itself:
  * after every EMI reload that ran {@link FirmagesEmiPlugin} it walks every category, recipe (inputs, outputs,
- * catalysts, tag members), workstation and index stack against the view of that reload and logs one line
- * {@code EMI audit <age>: ...}; any offender logs at WARN with the first 20. {@code /firmages_client emi_audit} writes the
+ * catalysts, tag members), workstation and shown index stack against the view of that reload and logs one line
+ * {@code EMI audit <age>: ...} at INFO; only with an offender it logs at WARN, with the first 20 of each kind. {@code /firmages_client emi_audit} writes the
  * full result to {@code logs/firmages-emi-audit-<age>.json}. Runs off the render thread (the baked lists do not
  * change; a new reload replaces them).
  */
@@ -159,7 +160,10 @@ public final class EmiAudit {
                 if (bad != null) lockedRecipes.add(id(r) + " [" + catId + "] " + bad);
             }
         }
-        List<EmiStack> index = EmiApi.getIndexStacks();
+        // What the index shows: EmiStackList.filteredStacks leaves out disabled and hidden stacks (bakeFiltered);
+        // EmiApi.getIndexStacks() returns the unfiltered EmiStackList.stacks, in which every stack this view
+        // disables is still listed [verified, javap, EMI 1.1.24].
+        List<EmiStack> index = EmiStackList.filteredStacks;
         List<String> lockedIndex = new ArrayList<>();
         Map<String, Integer> byNs = new TreeMap<>();
         Map<String, Integer> byType = new TreeMap<>();

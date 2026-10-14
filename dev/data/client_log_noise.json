@@ -1,17 +1,6 @@
 {
   "_doc": "Read by dev/check_log.py --client (client logs of the CurseForge instance: logs/latest.log or debug.log). Same rules as dev/data/log_noise.json: each regex is searched in a log line without its timestamp, e.g. '[Render thread/WARN] [logger/]: message' or, in the client's early lines, '[main/WARN]: message' (no logger). Client STDERR lines are matched as '[thread/INFO] [net.minecraft.server.LoggedPrintStream/]: [STDERR]: ...'. 'open': known, fix pending outside the pack data (counted). 'fixed': fixed in the pack data after the 0.9.0 client that wrote the reference log (counted, so a newer log that still shows one means the fix did not work). 'noise': the pack cannot or need not fix it, dropped; the reason says why. Reference log: Felix' 0.9.0 client session of 2026-10-14 (boot, title screen, join, Origin fight in the End), see the n5/clientlog decision rows.",
-  "open": [
-    {
-      "id": "evolvedmekanism-chemical-recipes-in-jei",
-      "regex": "^\\[[^\\]]+/ERROR\\] \\[mezz\\.jei\\.library\\.util\\.IngredientSupplierHelper/\\]: Found a broken recipe, failed to setRecipe with RecipeLayoutBuilder:$",
-      "reason": "6 recipes (evolvedmekanism:chemixing/*_plaslitherite, apt/*_better_gold): Mekanism 10.7 registers its chemical ingredient type with JEI only when EMI is absent (MekanismJEI checks MekanismHooks.emi), so Evolved Mekanism's JEI-only Chemixer and APT categories throw 'Unknown ingredient type: ChemicalStack' and the recipes are missing from EMI (JEMI copies JEI). Age 8 items with no other recipe page. Fix needs Java (firmages-core EMI plugin adds these two recipe types itself); see n5/clientlog notes."
-    },
-    {
-      "id": "firmages-emi-audit",
-      "regex": "^\\[[^\\]]+/WARN\\] \\[dev\\.firmages\\.core\\.FirmagesCore/\\]: EMI audit ",
-      "reason": "firmages-core's EMI audit (diagnostic, WARN on every EMI reload): per Age categories, visible locked stacks and recipes with a locked stack. 0.9.0 log: dawn 26 categories, 19298 locked stacks visible (operator view), 791 recipes; age_9 208 categories, 3 locked index stacks (tfcreate:crushed_raw_bismuth, ftbquests:loot_crate_opener, ftbquests:task_screen_configurator), 1151 recipes. Whether it stays WARN is a firmages-core call."
-    }
-  ],
+  "open": [],
   "fixed": [
     {
       "id": "config-correcting",
@@ -42,6 +31,11 @@
       "id": "cave-dweller-config",
       "regex": "^\\[[^\\]]+/WARN\\] \\[fzzy_config/\\]: (\\s*Deserialization Error: TomlElement \\[\\w+\\] was missing or null\\.|\\s*Error\\(s\\) encountered deserializing config section|Error\\(s\\) found while deserializing config \\[server_config\\]!|>+)$",
       "reason": "n4/warnings: complete config/cave_dweller/server_config.toml (Fzzy Config reads it on the client too)."
+    },
+    {
+      "id": "firmages-emi-audit",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[dev\\.firmages\\.core\\.FirmagesCore/\\]: EMI audit ",
+      "reason": "firmages-core's EMI audit counted the unfiltered index (EmiApi.getIndexStacks returns every stack, disabled ones included), so every reload logged WARN (0.9.0 log: dawn 19298 'visible' locked stacks and 791 recipes, age_9 3 stacks and 1151 recipes, all disabled or trimmed list members). Fixed in firmages-core 0.9.2: the audit reads the shown index (EmiStackList.filteredStacks) and logs INFO without offenders; a WARN now names a real leak."
     }
   ],
   "noise": [
@@ -244,6 +238,11 @@
       "id": "player-typo-command",
       "regex": "^\\[[^\\]]+/INFO\\] \\[net\\.minecraft\\.client\\.gui\\.components\\.ChatComponent/\\]: \\[System\\] \\[CHAT\\] Unknown or incomplete command, see below for error$",
       "reason": "A command typed by the player."
+    },
+    {
+      "id": "evolvedmekanism-chemical-recipes-in-jei",
+      "regex": "^\\[[^\\]]+/ERROR\\] \\[mezz\\.jei\\.library\\.util\\.IngredientSupplierHelper/\\]: Found a broken recipe, failed to setRecipe with RecipeLayoutBuilder:$",
+      "reason": "JEI's own attempt at Evolved Mekanism's Chemixer and APT categories (6 recipes): Mekanism 10.7 registers its chemical ingredient type with JEI only without EMI, so JEI logs 'Unknown ingredient type: ChemicalStack' once per recipe. Since firmages-core 0.9.2 EMI shows the six recipes through firmages-core's own categories (compat/emi/EvolvedMekanismEmi, SPEC 21.12); JEI's line stays and is harmless. The line names no recipe: with more than 6 such lines, read the JEI lines after them."
     }
   ]
 }
