@@ -34,6 +34,19 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AGES = ["dawn"] + [f"age_{i}" for i in range(10)]
 PS = "progressivestages:"
 AGE_TAGS = os.path.join(REPO, "kubejs", "data", "firmages", "tags", "item", "age_items")
+FLUID_AGE_TAGS = os.path.join(REPO, "kubejs", "data", "firmages", "tags", "fluid", "age_fluids")
+
+
+def load_fluid_ages():
+    """fluid id -> Age (or "disabled") from the generated age_fluids tags; empty when they are not generated."""
+    out = {}
+    for st in AGES + ["disabled"]:
+        path = os.path.join(FLUID_AGE_TAGS, f"{st}.json")
+        if os.path.isfile(path):
+            with open(path, encoding="utf-8") as f:
+                for v in json.load(f)["values"]:
+                    out[v["id"] if isinstance(v, dict) else v] = st
+    return out
 HIDDEN_ITEMS_RE = re.compile(r"HIDDEN_ITEMS:\s*\[(.*?)\]", re.S)
 
 
@@ -344,9 +357,11 @@ def unify_check(tags, item_age, check):
 # ================================================================================================ gate checks (M2)
 # Mirrors the rules of firmages-core gate/GateRules independently: deny/allow lists are empty in the pack, exempt types
 # are world data; an output item locks when its Age tag is locked or it is in age_items/disabled; a tag output locks
-# only when it has members and all are locked. Fluids have no Age tags yet (age_fluids is not generated).
+# only when it has members and all are locked. Fluid outputs ("fluid" values and *_fluid keys) lock by the age_fluids
+# tags; an "id" of unknown kind is checked as item and as fluid, the later lock wins (GateRules anyIds). Fluid tag
+# outputs are not mirrored (the dump has no fluid tags).
 GATE_EXEMPT = {"immersiveengineering:mineral_mix", "tfc:collapse", "tfc:landslide"}
-_GATE_OUT_KEY = re.compile(r"^(results?|outputs?|.*_outputs?|.*_results?|outputs?_.*|results?_.*)$")
+_GATE_OUT_KEY = re.compile(r"^(results?|outputs?|.*_outputs?|.*_results?|outputs?_.*|results?_.*|.*_fluid)$")
 # IE keys that the walker regex misses but the gate's IE extractor reads by its field scan (sawmill, arc furnace).
 _GATE_IE_KEYS = ("secondaryOutputs", "strippingSecondaries", "slag")
 # Mekanism-family serializers resolve a tag output to one stack the JSON does not name (the gate reads it through
@@ -354,8 +369,9 @@ _GATE_IE_KEYS = ("secondaryOutputs", "strippingSecondaries", "slag")
 _GATE_MEK_TYPES = re.compile(r"^(mekanism|mekanismgenerators|evolvedmekanism|mekmm|moremekanismprocessing):")
 
 
-def _gate_outs(o, items, tags_, inres=False):
-    """Item ids and item tags in the output subtrees of a recipe JSON."""
+def _gate_outs(o, items, tags_, inres=False, fluids=None):
+    """Item ids (and ids of unknown kind), item tags and, with a `fluids` set, fluid ids in the output subtrees of a
+    recipe JSON. Without `fluids`, "fluid" values count as items (the old mirror, used by the byproduct checks)."""
     if isinstance(o, dict):
         for k, v in o.items():
             kl = k.lower()
@@ -364,13 +380,17 @@ def _gate_outs(o, items, tags_, inres=False):
             r = inres or bool(_GATE_OUT_KEY.match(kl))
             if r and kl in ("id", "item") and isinstance(v, str):
                 items.add(v)
+            elif r and kl == "fluid" and isinstance(v, str) and fluids is not None:
+                fluids.add(v)
             elif r and kl == "tag" and isinstance(v, str):
                 tags_.add(v)
+            elif r and kl.endswith("_fluid") and isinstance(v, str) and fluids is not None:
+                fluids.add(v)
             else:
-                _gate_outs(v, items, tags_, r)
+                _gate_outs(v, items, tags_, r, fluids)
     elif isinstance(o, list):
         for v in o:
-            _gate_outs(v, items, tags_, inres)
+            _gate_outs(v, items, tags_, inres, fluids)
     elif isinstance(o, str) and inres and ":" in o:
         (tags_.add(o[1:]) if o.startswith("#") else items.add(o))
 
@@ -388,28 +408,36 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
         return
     full = {k: json.loads(v) for k, v in json.load(open(path, encoding="utf-8")).items()}
     order = AGES + ["disabled"]
+    fluid_age = load_fluid_ages()
+
+    def locked(st):
+        return st if st == "disabled" or (st in AGES and st not in unlocked) else None
 
     def lock_of(item):
-        st = item_age.get(item)
-        return st if st == "disabled" or (st in AGES and st not in unlocked) else None
+        return locked(item_age.get(item))
+
+    def any_lock(i):  # an id of unknown kind: item and fluid, the later lock (GateRules anyIds)
+        ls = [x for x in (lock_of(i), locked(fluid_age.get(i))) if x]
+        return max(ls, key=order.index) if ls else None
 
     def locks(rid, result, j, tagmap, special=None):
         """(output, stage) for every output that keeps the recipe out at the unlocked set.
         A special recipe (its JSON names no output, e.g. IE powerpack attach) is only judged by getResultItem;
         with a `special` list it goes there instead, because its real output depends on its inputs."""
-        items, tg = set(), set()
+        items, tg, fl = set(), set(), set()
         if j is not None:
-            _gate_outs(j, items, tg)
+            _gate_outs(j, items, tg, fluids=fl)
             for k in _GATE_IE_KEYS:
                 if j.get(k) is not None:
-                    _gate_outs({"results": j[k]}, items, tg)
-        if special is not None and not items and not tg:
+                    _gate_outs({"results": j[k]}, items, tg, fluids=fl)
+        if special is not None and not items and not tg and not fl:
             if result and lock_of(result):
                 special.append(f"{rid} -> {result} ({lock_of(result)})")
             return []
         if result:
             items.add(result)
-        out = [(i, lock_of(i)) for i in sorted(items) if lock_of(i)]
+        out = [(i, any_lock(i)) for i in sorted(items) if any_lock(i)]
+        out += [(f"fluid {f}", locked(fluid_age.get(f))) for f in sorted(fl) if locked(fluid_age.get(f))]
         for t in sorted(tg):
             mem = tagmap.get(t, [])
             ls = [lock_of(m) for m in mem]
@@ -424,7 +452,8 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
         ls = locks(r["id"], r["result"], full.get(r["id"]), tags, special)
         if ls:
             bad.append(f"{r['id']} [{r['type']}] makes " + ", ".join(f"{o} ({st})" for o, st in ls))
-    check(f"G-1 no loaded recipe makes an item of a locked Age or of age_items/disabled ({len(rows)} recipes)", not bad, bad)
+    check(f"G-1 no loaded recipe makes an item or fluid of a locked Age or of age_items/disabled ({len(rows)} recipes, "
+          f"{len(fluid_age)} fluids with an Age)", not bad, bad)
     print(f"    special recipes (no output in their JSON) whose getResultItem is locked: {len(special)} {special[:10]}")
     if not baseline:
         return

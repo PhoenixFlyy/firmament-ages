@@ -6,6 +6,9 @@ import com.google.gson.JsonObject;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
@@ -19,8 +22,11 @@ import java.util.TreeSet;
 
 /**
  * {@code /firmages dump registry} (SPEC §10): item, block and fluid ids grouped by mod, for
- * {@code dev/gen_stage_locks.py} to expand {@code mod:} entries. Output {@code logs/firmages-registry.json}:
- * <pre>{ "generated": "...", "items": { "create": ["create:andesite_alloy", ...] }, "blocks": {...}, "fluids": {...} }</pre>
+ * {@code dev/gen_stage_locks.py} to expand {@code mod:} entries, and each fluid's bucket item ({@code Fluid#getBucket},
+ * fluids without a bucket left out), from which the generator takes a fluid's Age. Output
+ * {@code logs/firmages-registry.json}:
+ * <pre>{ "generated": "...", "items": { "create": ["create:andesite_alloy", ...] }, "blocks": {...}, "fluids": {...},
+ *   "fluid_buckets": { "create:honey": "create:honey_bucket", ... } }</pre>
  */
 public final class RegistryDump {
     public static final String FILE = "firmages-registry.json";
@@ -38,6 +44,7 @@ public final class RegistryDump {
         root.add("items", toJson(items));
         root.add("blocks", toJson(blocks));
         root.add("fluids", toJson(fluids));
+        root.add("fluid_buckets", fluidBuckets());
         Path file = FMLPaths.GAMEDIR.get().resolve("logs").resolve(FILE);
         Files.createDirectories(file.getParent());
         Files.writeString(file, new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create().toJson(root), StandardCharsets.UTF_8);
@@ -45,6 +52,19 @@ public final class RegistryDump {
         mods.addAll(blocks.keySet());
         mods.addAll(fluids.keySet());
         return new Result(file, count(items), count(blocks), count(fluids), mods.size());
+    }
+
+    /** Fluid id to the id of its bucket item; fluids whose bucket is air are left out. */
+    static JsonObject fluidBuckets() {
+        Map<String, String> sorted = new TreeMap<>();
+        for (Fluid fluid : BuiltInRegistries.FLUID) {
+            Item bucket = fluid.getBucket();
+            if (bucket == null || bucket == Items.AIR) continue;
+            sorted.put(BuiltInRegistries.FLUID.getKey(fluid).toString(), BuiltInRegistries.ITEM.getKey(bucket).toString());
+        }
+        JsonObject o = new JsonObject();
+        sorted.forEach(o::addProperty);
+        return o;
     }
 
     private static Map<String, TreeSet<String>> byMod(Registry<?> registry) {
