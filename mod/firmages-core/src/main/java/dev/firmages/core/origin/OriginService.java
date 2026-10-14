@@ -12,12 +12,16 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.functions.CommandFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -32,7 +36,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * The Origin at runtime (SPEC §16): builds the arena once, watches the Gathering at the altar and turns the death
@@ -49,6 +56,8 @@ public final class OriginService {
     public static final ResourceLocation START_FUNCTIONS = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "origin/start");
     public static final ResourceLocation WON_FUNCTIONS = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "origin/won");
     private static final int CHECK_PERIOD = 20;
+    /** Namespace of Gateways to Eternity's gate entities; the mod is not a compile dependency, its save data is read instead. */
+    private static final String GATEWAYS = "gateways";
 
     private static boolean wasGathered;
     /** Server tick of the last start, -1 for none since boot (the cooldown is not persisted). */
@@ -132,7 +141,7 @@ public final class OriginService {
             if (p.level() == level && p.isAlive() && p.position().distanceToSqr(c) <= r * r) at.add(p);
             else missing.add(p.getGameProfile().getName());
         }
-        if (at.isEmpty() || missing.isEmpty()) return;
+        if (at.isEmpty() || missing.isEmpty() || fightActive(level)) return;
         String names = String.join(", ", missing.subList(0, Math.min(5, missing.size()))) + (missing.size() > 5 ? ", ..." : "");
         Component msg = Component.translatable("firmages.origin.waiting", missing.size(), names).withStyle(ChatFormatting.LIGHT_PURPLE);
         for (ServerPlayer p : at) p.displayClientMessage(msg, true);
@@ -152,7 +161,14 @@ public final class OriginService {
         return true;
     }
 
-    /** One Gathering check (every second; GameTests call it directly). @return true if the start fired now */
+    /**
+     * One Gathering check (every second; GameTests call it directly). The Gathering starts when the whole team
+     * arrives at the altar (the rising edge), at most once per {@code origin.gatherCooldownSeconds}, and never while
+     * its fight runs ({@link #fightActive}): players walk away from the altar and back during the waves and the
+     * boss, and each return used to start (and announce) the Gathering again once the cooldown had passed. After a
+     * wipe the gate and the boss are gone, so the next arrival after the cooldown starts it again.
+     * @return true if the start fired now
+     */
     public static boolean checkGathering(MinecraftServer server) {
         OriginSavedData sd = OriginSavedData.get(server);
         if (sd.won()) {
@@ -161,13 +177,96 @@ public final class OriginService {
         }
         boolean now = gathered(server);
         if (!now) showWaiting(server);
-        boolean fire = now && !wasGathered && (lastStartTick < 0 || server.getTickCount() - lastStartTick >= cooldownTicks());
-        if (now && !wasGathered && !fire) {
-            FirmagesCore.LOGGER.debug("The Origin: Gathering within the cooldown, not started again");
-        }
+        boolean arrived = now && !wasGathered;
         wasGathered = now;
-        if (fire) startGathering(server, sd);
-        return fire;
+        if (!arrived) return false;
+        ServerLevel level = level(server);
+        if (level != null && fightActive(level)) {
+            FirmagesCore.LOGGER.debug("The Origin: team at the altar while the fight runs, no new Gathering");
+            return false;
+        }
+        if (lastStartTick >= 0 && server.getTickCount() - lastStartTick < cooldownTicks()) {
+            FirmagesCore.LOGGER.debug("The Origin: Gathering within the cooldown, not started again");
+            return false;
+        }
+        startGathering(server, sd);
+        return true;
+    }
+
+    /**
+     * The fight of a Gathering runs: the finale gate ({@code origin.finaleGateway}) or an entity with
+     * {@link #FINAL_BOSS_TAG} is alive in The Origin (loaded entities; players stand next to both while it matters).
+     */
+    public static boolean fightActive(ServerLevel level) {
+        String gate = ServerConfig.finaleGateway();
+        for (Entity e : level.getAllEntities()) {
+            if (e.isAlive() && (e.getTags().contains(FINAL_BOSS_TAG) || gate.equals(gatewayId(e)))) return true;
+        }
+        return false;
+    }
+
+    /**
+     * The gateway id of a Gateways to Eternity gate entity, from its save data ({@code gate}, verified with javap in
+     * GatewaysToEternity 5.1.0 {@code GatewayEntity#addAdditionalSaveData}); null for every other entity.
+     */
+    @Nullable
+    static String gatewayId(Entity e) {
+        if (!isGate(e)) return null;
+        return e.saveWithoutId(new CompoundTag()).getString("gate");
+    }
+
+    private static boolean isGate(Entity e) {
+        return GATEWAYS.equals(BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getNamespace());
+    }
+
+    /**
+     * {@code /firmages origin kill} (operators): kills every hostile in The Origin, i.e. the enemies of the current gate
+     * wave (also those a gate tracks that are not monsters, from its {@code wave_entities}) and the boss's helpers,
+     * but never the final boss. A kill (not a discard) counts for the gate, so the wave ends as if fought.
+     * @return the number of entities killed
+     */
+    public static int killHostiles(ServerLevel level) {
+        Set<UUID> waves = new HashSet<>();
+        List<Entity> all = new ArrayList<>();
+        for (Entity e : level.getAllEntities()) {
+            all.add(e);
+            if (isGate(e)) {
+                long[] ids = e.saveWithoutId(new CompoundTag()).getLongArray("wave_entities");
+                for (int i = 0; i + 1 < ids.length; i += 2) waves.add(new UUID(ids[i], ids[i + 1]));
+            }
+        }
+        int killed = 0;
+        for (Entity e : all) {
+            if (!(e instanceof LivingEntity le) || !le.isAlive() || le instanceof ServerPlayer || le.getTags().contains(FINAL_BOSS_TAG)) continue;
+            if (!(le instanceof Enemy) && !waves.contains(le.getUUID())) continue;
+            if (kill(le)) killed++;
+        }
+        FirmagesCore.LOGGER.info("The Origin: {} hostile(s) killed by an operator", killed);
+        return killed;
+    }
+
+    /**
+     * {@code /firmages origin kill boss} (operators): kills every entity with {@link #FINAL_BOSS_TAG} in The Origin;
+     * its death grants {@code finale_won} the normal way ({@link #onLivingDeath}). @return the number killed
+     */
+    public static int killBoss(ServerLevel level) {
+        List<LivingEntity> bosses = new ArrayList<>();
+        for (Entity e : level.getAllEntities()) {
+            if (e instanceof LivingEntity le && le.isAlive() && le.getTags().contains(FINAL_BOSS_TAG)) bosses.add(le);
+        }
+        int killed = 0;
+        for (LivingEntity boss : bosses) if (kill(boss)) killed++;
+        FirmagesCore.LOGGER.info("The Origin: {} final boss(es) killed by an operator", killed);
+        return killed;
+    }
+
+    /**
+     * {@code /kill}'s damage (generic_kill bypasses invulnerability, so Cataclysm's per-hit damage cap and its
+     * invulnerable attack animations do not apply); a death cancelled by a listener stays cancelled.
+     */
+    private static boolean kill(LivingEntity e) {
+        e.kill();
+        return e.isDeadOrDying() || e.isRemoved();
     }
 
     private static void startGathering(MinecraftServer server, OriginSavedData sd) {
