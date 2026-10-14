@@ -369,12 +369,13 @@ public final class AgeService {
         cancelWarmup(player.getGameProfile().getName() + " joined");
         state(s);
         processor.onStagesPresent(paths(ProgressiveStagesAPI.getStages(player)), "login of " + player.getGameProfile().getName());
-        if (ServerConfig.teamAutoJoin() && ModList.get().isLoaded(FtbTeamsCompat.MOD_ID)) {
+        if (ModList.get().isLoaded(FtbTeamsCompat.MOD_ID)) {
             // Next tick: FTB Teams sets up the player's own team in its own login listener.
+            boolean autoJoin = ServerConfig.teamAutoJoin();
             s.tell(new TickTask(s.getTickCount() + 1, () -> {
                 if (player.hasDisconnected()) return;
                 try {
-                    FtbTeamsCompat.ensureFellowship(player, AgeService::ageCount);
+                    FtbTeamsCompat.onLogin(player, autoJoin, AgeService::ageCount);
                 } catch (RuntimeException | LinkageError e) {
                     FirmagesCore.LOGGER.warn("One fellowship: check for {} failed: {}", player.getGameProfile().getName(), e.toString());
                 }
@@ -402,6 +403,7 @@ public final class AgeService {
 
     // ---------------------------------------------------------------- one-team guard (§2.3)
 
+    /** Every team that may hold Ages: the ones seen with an Age and all FTB teams, without dormant player teams. */
     private static List<UUID> knownTeams() {
         Set<UUID> ids = new LinkedHashSet<>(teamsWithAges);
         if (ModList.get().isLoaded(FtbTeamsCompat.MOD_ID)) {
@@ -411,7 +413,21 @@ public final class AgeService {
                 FirmagesCore.LOGGER.warn("Cannot list FTB teams: {}", e.toString());
             }
         }
+        ids.removeIf(AgeService::dormant);
         return new ArrayList<>(ids);
+    }
+
+    /**
+     * A player team whose player joined a party (its stages stay stored, but the party holds the Ages, team carry-over
+     * §2.3) or a disbanded party: it neither counts for the one-team guard nor adds Ages at boot.
+     */
+    private static boolean dormant(UUID team) {
+        if (!ModList.get().isLoaded(FtbTeamsCompat.MOD_ID)) return false;
+        try {
+            return FtbTeamsCompat.dormant(team) || FtbTeamsCompat.gone(team);
+        } catch (RuntimeException | LinkageError e) {
+            return false;
+        }
     }
 
     private static Set<String> stagesOfTeam(UUID team) {
@@ -430,7 +446,9 @@ public final class AgeService {
     private static void noteTeam(MinecraftServer s, UUID team, Collection<String> stages) {
         if (team == null) return;
         boolean hasAge = stages.stream().anyMatch(id -> AgeId.byId(id).filter(a -> a != AgeId.DAWN).isPresent());
-        if (!hasAge || !teamsWithAges.add(team) || teamsWithAges.size() < 2) return;
+        if (!hasAge || !teamsWithAges.add(team)) return;
+        teamsWithAges.removeIf(AgeService::dormant);
+        if (teamsWithAges.size() < 2) return;
         if (!multiTeamDetected) {
             multiTeamDetected = true;
             FirmagesCore.LOGGER.warn("One-team guard: {} teams hold Age stages ({}). The pack expects one shared team; "

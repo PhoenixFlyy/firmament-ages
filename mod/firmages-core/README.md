@@ -37,7 +37,9 @@ datapack (`age/AgeSwap`, `gate.ageSwap`); the pack's recipe scripts declare Ages
 - `gradlew runGameTestServer` runs the GameTests (`src/gametest`, level G) on a fresh world with ProgressiveStages,
   Modonomicon, KubeJS, Rhino and Stargate Journey from `libs/`, and IE, Mekanism, Draconic Evolution, Brandon's Core
   and CCL from maven (so the typed extractors, the MineralMix mixin, the reactor controller, The Origin's gate and the
-  swap's IE and Mekanism cache flushes run against the real classes). The pack scripts `kubejs/server_scripts/firmages/` are copied into the run, and the
+  swap's IE and Mekanism cache flushes run against the real classes), and FTB Teams with FTB Library and Architectury
+  (ProgressiveStages in `team_mode = ftb_teams` as in the pack; `TeamGameTests` found and join a real party, the other
+  batches run with `team.autoJoin` off). The pack scripts `kubejs/server_scripts/firmages/` are copied into the run, and the
   ProgressiveStages stand-in stages of `src/gametest/config` into `run/gametest/config`.
   M2/M3: synthetic recipes `firmages:test/*` and the m1/m3 test tags; M1: the self-test suites, the commands, the AgeIndex built from the test
   tags, unlock → Age swap → revoke → Age swap, and `/reload` with the KubeJS probe script `src/gametest/kubejs`
@@ -124,6 +126,7 @@ Versions live in `gradle.properties` and must be bumped together with the pack's
 | KubeJS + Rhino | `libs/kubejs-neoforge-2101.7.2-build.377.jar`, `libs/rhino-2101.2.8-build.91.jar` | as named | Modrinth jars pinned in `mods/kubejs.pw.toml`, `mods/rhino.pw.toml` (compileOnly and dev runtime) |
 | Modonomicon | `libs/modonomicon-1.21.1-neoforge-1.120.7.jar` | 1.120.7 | Modrinth jar pinned in `mods/modonomicon.pw.toml` (dev runtime only, until M4) |
 | Stargate Journey | `libs/Stargate.Journey-1.21.1-0.6.51.jar` | 0.6.51 | Modrinth jar pinned in `mods/sgjourney.pw.toml` (compileOnly for `compat/sgjourney`, GameTest runtime) |
+| Architectury | `libs/architectury-13.0.11-neoforge.jar` | 13.0.11 | CurseForge jar pinned in `mods/architectury-api.pw.toml` (compileOnly for FTB Teams' events in `compat/ftbteams`, GameTest runtime) |
 
 Notes:
 
