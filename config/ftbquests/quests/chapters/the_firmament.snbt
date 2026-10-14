@@ -7,7 +7,7 @@
 	group: ""
 	hide_quest_details_until_startable: true
 	icon: {
-		id: "firmages:sky_disc"
+		id: "tfc:firestarter"
 	}
 	id: "7D0742BC787AAFAC"
 	images: [
@@ -49,6 +49,7 @@
 		}
 		{
 			dependencies: ["4581C5CB23AD4CD5"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:hearthstone"
 			}
@@ -68,6 +69,7 @@
 		}
 		{
 			dependencies: ["3240A673372AF11A"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:sky_disc"
 			}
@@ -87,6 +89,7 @@
 		}
 		{
 			dependencies: ["04DAC1D51AABFF20"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:steel_heart"
 			}
@@ -106,6 +109,7 @@
 		}
 		{
 			dependencies: ["652657C4C5B8CAC5"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:arcane_keystone"
 			}
@@ -125,6 +129,7 @@
 		}
 		{
 			dependencies: ["077BFA2D599B1A4B"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:pressure_core"
 			}
@@ -144,6 +149,7 @@
 		}
 		{
 			dependencies: ["663A4EAE1B3FAF8C"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:humming_core"
 			}
@@ -163,6 +169,7 @@
 		}
 		{
 			dependencies: ["32D33BE8EB20FCA6"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:data_matrix"
 			}
@@ -182,6 +189,7 @@
 		}
 		{
 			dependencies: ["40280EBC4CC9F8F6"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:star_chart"
 			}
@@ -201,6 +209,7 @@
 		}
 		{
 			dependencies: ["33818E6B3089AF9E"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "firmages:quantum_core"
 			}

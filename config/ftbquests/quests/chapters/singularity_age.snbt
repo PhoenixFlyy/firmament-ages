@@ -486,7 +486,35 @@
 			y: 2.5d
 		}
 		{
-			dependencies: ["38BA8AD136589CDA", "4F513B23D9320098", "5C0C8D3E5C081AA2"]
+			dependencies: ["5C0C8D3E5C081AA2"]
+			icon: {
+				id: "firmages:origin_coordinates"
+			}
+			id: "2E30926B1075171A"
+			rewards: [
+				{
+					id: "45144F8E8F68DCA9"
+					type: "xp"
+					xp: 200
+				}
+			]
+			tasks: [
+				{
+					dimension: "firmages:origin"
+					id: "5018E7505F72F589"
+					type: "dimension"
+				}
+			]
+			x: 12.25d
+			y: 1.25d
+		}
+		{
+			dependencies: [
+				"38BA8AD136589CDA"
+				"4F513B23D9320098"
+				"5C0C8D3E5C081AA2"
+				"2E30926B1075171A"
+			]
 			icon: {
 				id: "sgjourney:classic_stargate"
 			}
@@ -609,39 +637,6 @@
 				}
 			]
 			x: 6.5d
-			y: -5.0d
-		}
-		{
-			dependencies: ["5C0C8D3E5C081AA2"]
-			icon: {
-				id: "firmages:origin_coordinates"
-			}
-			id: "2E30926B1075171A"
-			optional: true
-			rewards: [
-				{
-					id: "45144F8E8F68DCA9"
-					type: "xp"
-					xp: 200
-				}
-				{
-					id: "77068CD7420E7D75"
-					table_id: 4026478518536199106L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					dimension: "firmages:origin"
-					id: "5018E7505F72F589"
-					type: "dimension"
-				}
-			]
-			x: 9.75d
 			y: -5.0d
 		}
 		{

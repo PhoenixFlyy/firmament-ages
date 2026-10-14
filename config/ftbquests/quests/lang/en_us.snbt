@@ -34,7 +34,7 @@
 	quest.001477EB265CFAF8.quest_desc: [
 		"Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter (two sticks) until the firepit lights."
 		""
-		"Heat a stick in the firepit's right slot: it becomes two torches. A torch lights your way in hand; a placed torch burns about 36 minutes."
+		"Heat a stick in the firepit's right slot: it becomes two torches. A torch lights your way in hand; a placed torch burns about 36 minutes. Zombies and spiders walk at night."
 	]
 	quest.001477EB265CFAF8.title: "Before Dark"
 	quest.0025DE3687DD8D07.quest_desc: [
@@ -74,7 +74,7 @@
 	quest.022B6F2B50E24B10.quest_desc: [
 		"Raise the Data Nave around the Tesla Crown: certus quartz blocks, steel casing bases, quartz glass and fluix block caps. The heart shows every missing block."
 	]
-	quest.022B6F2B50E24B10.quest_subtitle: "Optional: the shrine ring of this Age"
+	quest.022B6F2B50E24B10.quest_subtitle: "The shrine ring of this Age"
 	quest.022B6F2B50E24B10.title: "Raise the Data Nave"
 	quest.02BAEBC0675BF246.quest_desc: [
 		"Bind the Arcane Keystone in the Djinni's crafting pentacle from the proof of every strand: the spirit attuned crystal, an iesnium ingot, the Wilden Tribute and the mercury catalyst, with a steel ingot and a source gem block."
@@ -86,7 +86,7 @@
 	quest.02BAEBC0675BF246.quest_subtitle: "Goal of the Arcane Age: Caelum opens the Industrial Age"
 	quest.02BAEBC0675BF246.title: "Offer the Arcane Keystone at the Shrine"
 	quest.03032ECD8B1864DC.quest_desc: [
-		"The digital miner clears a whole area by filter. It is the only way to the naquadah of the Singularity Age."
+		"The digital miner clears a whole area by filter. Keep it: a later Age needs it."
 	]
 	quest.03032ECD8B1864DC.title: "Digital Miner"
 	quest.03A410CC86110162.quest_desc: [
@@ -194,9 +194,11 @@
 	quest.0A55EE1E0335D077.quest_desc: [
 		"Right-click raw igneous rock with a stone hammer to make a stone anvil."
 	]
-	quest.0A55EE1E0335D077.title: "Hammer Time"
+	quest.0A55EE1E0335D077.title: "Stone Anvil"
 	quest.0A81ED2F8A5BB2AE.quest_desc: [
 		"Tin and zinc veins wake. Anvils, alloys and the first kinetic machines follow."
+		""
+		"The recipe viewer opens: hover over an item and press R to see how it is made, U to see what it is used for. F3 now shows coordinates."
 		""
 		"Four strands lead to the Sky Disc: Smithing, Prospecting, Alloys and Kinetics."
 	]
@@ -217,7 +219,7 @@
 	quest.0B2B6BE451DD1912.quest_desc: ["Sixteen buckets of diesel from your own refinery."]
 	quest.0B2B6BE451DD1912.title: "Refined Diesel"
 	quest.0B2CE763E15475FA.quest_desc: [
-		"Clay grows under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and water canna grow above it."
+		"Clay lies under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and water canna grow above it."
 	]
 	quest.0B2CE763E15475FA.title: "Locating Clay"
 	quest.0BA4D1B6A66D0C59.quest_desc: [
@@ -285,6 +287,11 @@
 	quest.1129C4816E846CCC.title: "Copper Wire"
 	quest.11D75C261FA24AE3.quest_desc: ["A wrought iron anvil can work steel."]
 	quest.11D75C261FA24AE3.title: "Iron Anvil"
+	quest.11F575AA30F154A5.quest_desc: [
+		"Raise the Iron Sanctum around the Bronze Sanctum: smooth rock pillars with wrought iron bars and four wrought iron lamps. The heart shows every missing block."
+	]
+	quest.11F575AA30F154A5.quest_subtitle: "The shrine ring of this Age"
+	quest.11F575AA30F154A5.title: "Raise the Iron Sanctum"
 	quest.124DDC9853158E78.quest_desc: [
 		"Build a thresher from steel sheet metal, light engineering blocks, a redstone engineering block and a hopper, and form it with the Engineer's Hammer like the crusher. It ends threshing by hand."
 		""
@@ -316,7 +323,7 @@
 	quest.155AA2A2258BDD49.quest_desc: ["Test yourself against Ignis before the final battle."]
 	quest.155AA2A2258BDD49.title: "Ignis"
 	quest.15673B5A9807871D.quest_desc: [
-		"The excavator digs the mineral mixes of a chunk forever: an endless ore source."
+		"The excavator digs the mineral mix under a chunk. A core sample shows which one lies there."
 	]
 	quest.15673B5A9807871D.title: "Excavator"
 	quest.156E48BCD0889C5E.quest_desc: [
@@ -354,7 +361,11 @@
 	]
 	quest.166C4569CC75A30A.title: "Kitchen"
 	quest.16708A1C39158F9C.quest_desc: [
-		"In Dawn you cannot dig clay, build pit kilns or use metal. The crafting grid only makes stone and obsidian tools, the firestarter, straw, thatch, sticks and rope. Everything else opens with the Stone Age."
+		"In Dawn you cannot dig clay, build pit kilns or use metal. The crafting grid only makes stone and obsidian tools, the firestarter, straw, thatch, sticks and rope."
+		""
+		"Logs and stone do not break by hand: the stone axe fells trees, stone waits for the copper pickaxe."
+		""
+		"No recipe viewer until the Bronze Age; this book draws every pattern."
 	]
 	quest.16708A1C39158F9C.title: "What Dawn Withholds"
 	quest.17A29F90313EDA66.quest_desc: [
@@ -368,6 +379,10 @@
 	]
 	quest.188B8BAD88328299.quest_subtitle: "The fourth Age"
 	quest.188B8BAD88328299.title: "The Arcane Age Dawns"
+	quest.1A7B308A025FA2CD.quest_desc: [
+		"Put hot metal in the anvil and hold a hammer. Pick the plan from the scroll. Strike until the green marker meets the red one; your last three strikes must match the rules shown on top."
+	]
+	quest.1A7B308A025FA2CD.title: "Anvil Work"
 	quest.1AFE479E5402BCCB.quest_desc: ["Grottols hide in caves and flee. Catch one if you can."]
 	quest.1AFE479E5402BCCB.title: "Grottol Hunt"
 	quest.1B12D746242380A4.quest_desc: ["Aluminium comes only from the arc furnace."]
@@ -399,7 +414,12 @@
 	]
 	quest.1C7F62ECF8FA8027.title: "A Home"
 	quest.1CC29E163A94FCE6.quest_desc: [
-		"Place unfired pottery, cover it with straw and logs and set it on fire: a pit kiln."
+		"Fire clay in a pit kiln:"
+		"- Dig a hole one block deep. Hold an unfired piece, look at the floor of the hole and press V. Up to four pieces fit."
+		"- Right-click the pile with eight straw, then with eight logs."
+		"- Light the top with a firestarter."
+		""
+		"After about six minutes the fire is out and the pottery is fired."
 	]
 	quest.1CC29E163A94FCE6.title: "Potter"
 	quest.1CEE5246AF1BDCB2.quest_desc: [
@@ -434,8 +454,8 @@
 	quest.1E1F3E3E6C4E81FD.title: "Core Sample"
 	quest.1E2B67282F83843D.quest_desc: [
 		"Three ways now give more metal per ore:"
-		"- Crushing wheels: about 1.5 to 1.9 times."
-		"- Spagyrics: about 2.5 times, rich pieces only."
+		"- Crushing wheels: about 1.7 times."
+		"- Spagyrics: about 2.5 to 3 times, rich pieces only."
 		"- The Dimensional Mineshaft: rich pieces without end."
 		""
 		"The spirit crusher grinds no ore."
@@ -481,7 +501,7 @@
 	quest.2184B4EB21075F37.quest_desc: [
 		"Raise the Tesla Crown around the Foundry Nave: aluminium, red steel bases with HV capacitors, aluminium scaffolding and four floodlights. The heart shows every missing block."
 	]
-	quest.2184B4EB21075F37.quest_subtitle: "Optional: the shrine ring of this Age"
+	quest.2184B4EB21075F37.quest_subtitle: "The shrine ring of this Age"
 	quest.2184B4EB21075F37.title: "Raise the Tesla Crown"
 	quest.21B580750CD1579A.quest_desc: [
 		"Afrits need an HV coil block for their book. They run the Dimensional Battlefield."
@@ -537,7 +557,7 @@
 	]
 	quest.26D594F0567CC39A.title: "Bronze Anvil"
 	quest.271B9FEFDBDBD98F.quest_desc: ["Weld two hot ingots into a double ingot on the stone anvil."]
-	quest.271B9FEFDBDBD98F.title: "Double Trouble"
+	quest.271B9FEFDBDBD98F.title: "First Weld"
 	quest.280FF1CBD99D0A4A.quest_desc: [
 		"Dissolution, washing and crystallizing give five times the metal."
 	]
@@ -599,7 +619,7 @@
 	quest.2F40BC4F2411937D.quest_desc: ["Cassiterite pieces on the ground point to a tin vein below."]
 	quest.2F40BC4F2411937D.title: "Tin on the Surface"
 	quest.2F5F52EBC70FEF35.quest_desc: [
-		"The fired small vessel melts ore when it sits in a fire or a pit kiln."
+		"Fill it with ore and fire it in a pit kiln: the copper melts. A firepit never gets hot enough."
 	]
 	quest.2F5F52EBC70FEF35.title: "Small Vessel"
 	quest.30A13F8701E9EF80.quest_desc: [
@@ -636,7 +656,7 @@
 	]
 	quest.32561F3017350CAF.title: "The Sign in the Corner"
 	quest.32C8626D60896E8F.quest_desc: [
-		"Pick up loose rocks with an empty hand. Any kind works."
+		"Right-click loose rocks with an empty hand; any kind works."
 		""
 		"Gather about ten. Every stone tool head is knapped from them (see \"Stone Tools\")."
 	]
@@ -749,7 +769,7 @@
 	quest.3D1D49324454F634.quest_desc: ["Make a full space suit. Off-world it carries your air."]
 	quest.3D1D49324454F634.title: "Space Suit"
 	quest.3E8ADD553D7E26A2.quest_desc: [
-		"Visit Mercury. Its naquadah sleeps until the Singularity Age."
+		"Land on Mercury. It holds nothing for this Age; remember the way."
 	]
 	quest.3E8ADD553D7E26A2.title: "Mercury"
 	quest.3EAA8BE972DC58F9.quest_desc: [
@@ -763,7 +783,7 @@
 	quest.3F916E93EBA922A5.quest_desc: [
 		"Raise the Foundry Nave around the Spirit Circle: coke bricks, heavy engineering block bases, steel scaffolding and four electric lanterns. The heart shows every missing block."
 	]
-	quest.3F916E93EBA922A5.quest_subtitle: "Optional: the shrine ring of this Age"
+	quest.3F916E93EBA922A5.quest_subtitle: "The shrine ring of this Age"
 	quest.3F916E93EBA922A5.title: "Raise the Foundry Nave"
 	quest.40280EBC4CC9F8F6.quest_desc: [
 		"The offering of the Information Age. Its details appear when the Age before it is done."
@@ -777,7 +797,7 @@
 	quest.40BDDBC61D9D82C3.quest_desc: [
 		"Raise the Quantum Ring around the Star Spire: calorite blocks, SPS casings or fusion reactor frames, and awakened draconium pylons. The heart shows every missing block."
 	]
-	quest.40BDDBC61D9D82C3.quest_subtitle: "Optional: the shrine ring of this Age"
+	quest.40BDDBC61D9D82C3.quest_subtitle: "The shrine ring of this Age"
 	quest.40BDDBC61D9D82C3.title: "Raise the Quantum Ring"
 	quest.40FA4C9F6A00F51F.quest_desc: [
 		"Bring 64 steel sheets from your press line through the package network."
@@ -802,7 +822,9 @@
 	]
 	quest.4207F8051EF451B3.quest_subtitle: "The first Age"
 	quest.4207F8051EF451B3.title: "The Stone Age Dawns"
-	quest.420FA4D7877D2196.quest_desc: ["Pour copper into the pickaxe head mold."]
+	quest.420FA4D7877D2196.quest_desc: [
+		"Right-click the glowing vessel and put the fired pickaxe head mold in the slot."
+	]
 	quest.420FA4D7877D2196.title: "Pickaxe Head"
 	quest.426D09E37975EC57.quest_desc: [
 		"A tool for everything, built directly from the chaotic core."
@@ -890,9 +912,9 @@
 	]
 	quest.4914DB06E3F96086.title: "Bind a Djinni"
 	quest.49153BBE2AD958B7.quest_desc: [
-		"You wake with nothing: no pick, no clay, no fire."
+		"Dawn gives you nothing: no pick, no clay, no fire."
 		""
-		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out."
+		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out. Sneak is Left Ctrl here; Left Shift sprints."
 		""
 		"Nights are dark. Light a fire and make torches before the first one (see \"Before Dark\"). When all three strands are done, the first fire opens the Stone Age for all of you."
 	]
@@ -903,7 +925,7 @@
 	]
 	quest.492F1E68565B651C.title: "Mineral Prospector"
 	quest.4954E2BC98921D04.quest_desc: [
-		"Make eight antimatter pellets in the SPS. Two go into the Quantum Core."
+		"Make two antimatter pellets in the SPS. Both go into the Quantum Core."
 	]
 	quest.4954E2BC98921D04.title: "Antimatter Pellets"
 	quest.498E3CB76B5E962C.quest_desc: [
@@ -925,7 +947,7 @@
 	quest.4BFBAC45968A80F5.quest_desc: [
 		"Raise the Star Spire around the Data Nave: steel plating, desh block pillars and ostrum block caps. The heart shows every missing block."
 	]
-	quest.4BFBAC45968A80F5.quest_subtitle: "Optional: the shrine ring of this Age"
+	quest.4BFBAC45968A80F5.quest_subtitle: "The shrine ring of this Age"
 	quest.4BFBAC45968A80F5.title: "Raise the Star Spire"
 	quest.4C78408E6835BC56.quest_desc: [
 		"Hunt an animal. Large prey drops large hides; carry a knife to butcher it."
@@ -950,7 +972,7 @@
 	]
 	quest.4D29DE0763D2A602.title: "A Jug of Water"
 	quest.4D42F86F954FD88C.quest_desc: [
-		"Fusion powers this Age. The Stargate of the next Age needs the draconic reactor."
+		"Fusion powers this Age. The next Age asks for more than fusion can give."
 	]
 	quest.4D42F86F954FD88C.title: "Power for the End"
 	quest.4D478E63C575E42A.quest_desc: [
@@ -976,7 +998,7 @@
 	]
 	quest.4F513B23D9320098.title: "The Ultimate Singularity"
 	quest.4F85BB08A2142E6A.quest_desc: [
-		"Carve a flute. Ceremonies and totem poles give the camp some flair."
+		"Carve a flute. Its music starts the ceremonies at a totem pole."
 	]
 	quest.4F85BB08A2142E6A.title: "A Flute"
 	quest.4F89B63F08027F21.quest_desc: [
@@ -996,7 +1018,7 @@
 	quest.5032B9C3899A4044.quest_desc: [
 		"Build a workbench. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2."
 		""
-		"- Knap a saw blade mold (see \"Clay Patterns\"), fire it and pour copper into it."
+		"- Knap a saw blade mold (see \"Clay Patterns\") and fire it. Right-click the glowing vessel and put the mold in the slot."
 		"- Put the blade above a stick: a saw."
 		"- A saw and a log make eight lumber, four lumber make planks, four planks a workbench."
 		""
@@ -1005,6 +1027,11 @@
 	quest.5032B9C3899A4044.title: "Workbench"
 	quest.50B1CD95742F5B7B.quest_desc: ["Build a pumpjack over an oil reservoir."]
 	quest.50B1CD95742F5B7B.title: "Pumpjack"
+	quest.51D1F56529776258.quest_desc: [
+		"Raise the Bronze Sanctum around the Hearth Circle: rock bricks, a bronze block on each corner and a bronze or brass bell opposite the plinth. The heart shows every missing block."
+	]
+	quest.51D1F56529776258.quest_subtitle: "The shrine ring of this Age"
+	quest.51D1F56529776258.title: "Raise the Bronze Sanctum"
 	quest.5209B9E49235822B.quest_desc: [
 		"The last Age. Chaos, the Ultimate Singularity and a Stargate to The Origin."
 		""
@@ -1055,7 +1082,7 @@
 	quest.573FF798650E3338.quest_desc: [
 		"You wake beneath a sky that watches. Your hands are empty."
 		""
-		"This is the Chronicle, the one record of your fellowship. Press K to open it."
+		"This is the Chronicle, the one record of your fellowship."
 		""
 		"The world is lived in Ages, from Dawn to the Singularity Age. What a later Age holds does not exist yet. Each Age ends with an offering at the shrine of Caelum, the sky itself, and its chapter appears here when it dawns."
 	]
@@ -1075,7 +1102,9 @@
 		"Make a steel casing. Every machine of the Factory strand is built on one."
 	]
 	quest.5ACC660E88F7FC61.title: "Steel Casing"
-	quest.5AFB81560199F553.quest_desc: ["The induction matrix stores huge amounts of FE."]
+	quest.5AFB81560199F553.quest_desc: [
+		"The induction matrix stores FE in its cells and gives it out through its ports."
+	]
 	quest.5AFB81560199F553.title: "Induction Matrix"
 	quest.5B849EF8FE147622.quest_desc: ["Reinforced blast bricks and preheaters make steel faster."]
 	quest.5B849EF8FE147622.title: "Improved Blast Furnace"
@@ -1144,7 +1173,7 @@
 	quest.6281CB502F09533D.quest_desc: [
 		"Raise the Spirit Circle around the Iron Sanctum: sourcestone, otherstone pillars capped with source gem blocks, and eight candles. The heart shows every missing block. When the ring stands, the heart waits for the Keystone."
 	]
-	quest.6281CB502F09533D.quest_subtitle: "Optional: the shrine ring of this Age"
+	quest.6281CB502F09533D.quest_subtitle: "The shrine ring of this Age"
 	quest.6281CB502F09533D.title: "Raise the Spirit Circle"
 	quest.6362412D5C02D234.quest_desc: [
 		"From now on the ME network is the one store and crafter. The storage terminal retires, and energy cubes take over from the LV and MV capacitors."
@@ -1408,7 +1437,12 @@
 	quest.71AC4F9CCF7E6538.quest_desc: ["Certus quartz comes from its own vein."]
 	quest.71AC4F9CCF7E6538.title: "Certus Quartz"
 	quest.71B6B8FAE5353DAB.quest_desc: [
-		"Build a charcoal forge: charcoal on the ground, surrounded by stone."
+		"Build a charcoal forge:"
+		"- Make a hole one block deep, lined with stone on its four sides and below."
+		"- Right-click into it with charcoal until the pile is seven or eight layers high."
+		"- Keep the sky open above it and light it with a firestarter."
+		""
+		"Right-click the forge: fuel goes below, the metal to heat above."
 	]
 	quest.71B6B8FAE5353DAB.title: "Forging"
 	quest.724BED62EE9DF8FB.quest_desc: [
@@ -1428,10 +1462,6 @@
 	quest.72DBAB3B1C9E0AD4.title: "MV Wire"
 	quest.72E155A942A5A2F6.quest_desc: ["Vacuum tubes are the first electronics."]
 	quest.72E155A942A5A2F6.title: "Vacuum Tubes"
-	quest.72FDA51E1B8B0984.quest_desc: [
-		"Some rocks on the surface are ore. Remember where you found them."
-	]
-	quest.72FDA51E1B8B0984.title: "A Weird Rock"
 	quest.7317EE63A824831B.quest_desc: ["Craft a jetpack. It flies on compressed air from its tank."]
 	quest.7317EE63A824831B.title: "Air Jetpack"
 	quest.73CDE4A02F764C5D.quest_desc: [
@@ -1459,7 +1489,9 @@
 	]
 	quest.7594B03DF7F3FE55.title: "Ironworks"
 	quest.759550A45990B3C8.quest_desc: [
-		"Melt copper ore in the small vessel in a fire and pour it into the ingot mold. Ten small pieces make one ingot."
+		"Take the vessel out while it glows and right-click it. Put a fired mold in the slot; the copper pours in. Ten small pieces make one ingot."
+		""
+		"When the mold has cooled, right-click it to take the ingot out."
 	]
 	quest.759550A45990B3C8.title: "Copper Ingot"
 	quest.7633534E257B8AD8.quest_desc: [
@@ -1486,13 +1518,18 @@
 	]
 	quest.7755ECDE0FFE3821.title: "The Shrine Heart"
 	quest.7794323527566501.quest_desc: ["Put a fired ceramic pot on the firepit and cook a soup."]
-	quest.7794323527566501.title: "Pot Head"
+	quest.7794323527566501.title: "A Pot of Soup"
 	quest.7883DC5AF7968152.quest_desc: [
 		"Pray at the complete shrine with your fellowship. Caelum gives back the nine relics for the chaotic fusion."
 	]
 	quest.7883DC5AF7968152.title: "The Gathering"
 	quest.7997DC1DFF73EA36.quest_desc: [
-		"Stack logs in a log pile, cover it with earth and light it: a charcoal pit. Charcoal burns hot enough for copper."
+		"Make charcoal in a charcoal pit:"
+		"- Sneak and right-click the ground with logs: a log pile. Right-click it with more logs."
+		"- Cover every side with dirt, leave the top open and light it with a firestarter."
+		"- Close the gap with dirt."
+		""
+		"When the smoke stops, dig the charcoal out with a shovel. The Shrine Heart and the Hearthstone need it."
 	]
 	quest.7997DC1DFF73EA36.title: "A Better Fuel"
 	quest.79BD86B5CD663079.quest_desc: ["The alloy kiln alloys two metals in the right ratios."]
@@ -1619,6 +1656,7 @@
 	task.2E191734D8AA6C6F.title: "Kill any wild animal"
 	task.2F02F7582D1B7CDF.title: "Look at a formed excavator"
 	task.328A1BD6CFC1554B.title: "Look at a formed alloy kiln"
+	task.3468980A6E8C7F7C.title: "Look at the heart with the Iron Sanctum complete"
 	task.3522DB90824FEBF5.title: "Offer the Arcane Keystone at the shrine"
 	task.363EF3BA28ADA833.title: "Look at a formed metal press"
 	task.375DD780913A8CE0.title: "Reach the Space Age"
@@ -1628,6 +1666,7 @@
 	task.3A2A187B984181EF.title: "SPS casings"
 	task.3C99CD274D861CA0.title: "Wyvern injectors"
 	task.40897BEF6100181B.title: "Look at a formed improved blast furnace"
+	task.4197F6859B0FBD4A.title: "Look at the heart with the Bronze Sanctum complete"
 	task.4310383F8BF8DFA7.title: "Chevron blocks"
 	task.44371205C7AA8957.title: "Look at your assembled Stargate"
 	task.465D3A2469B147A9.title: "Look at a formed coke oven"

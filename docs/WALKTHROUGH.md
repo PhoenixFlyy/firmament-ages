@@ -21,6 +21,8 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 
 ### The shrine in brief (Stone Age to Quantum Age)
 
+Sneak is Left Ctrl here; Left Shift sprints.
+
 1. One shrine per server. Leave 21 by 21 blocks free around the heart: every Age adds one ring outside the last.
    Ring N is (2N+5) blocks square; its plinth sits in the middle of one side, N+2 blocks from the heart.
 2. Every ring needs a new Offering Plinth: four cobblestone, one on top of three.
@@ -95,16 +97,22 @@ The First Spark: craft a firestarter and light a firepit. The quest itself opens
 Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in the Hearth Circle (ring 0).
 
 ### The way
-1. Clay grows under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and water canna
+1. Clay lies under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and water canna
    grow above it. Knap five clay into a vessel, jug, bowl or mold.
-2. Pit kiln: place the unfired pottery, cover it with straw and logs, set it on fire.
+2. Pit kiln: dig a hole one block deep. Hold an unfired piece, look at the floor of the hole and press V (the
+   place key); up to four pieces fit. Right-click the pile with eight straw (or two thatch), then with eight logs,
+   and light the top with a firestarter. After about six minutes the pottery is fired. The kiln reaches 1400 °C.
 3. Fire an ingot mold and a pickaxe head mold. Keystone "Mold Set".
 4. Copper ore pieces (native copper, malachite, tetrahedrite) lie on the surface above copper veins.
-5. Charcoal: stack logs in a log pile, cover it with earth, light it.
-6. Fill the small vessel with copper ore, heat it in a fire or pit kiln until the copper melts, pour it into the
-   ingot mold: two ingots. Each small piece holds 10 units of metal, an ingot 100: ten small pieces make one
-   ingot. Pour more into the pickaxe head mold and set the head on a stick: a copper pickaxe.
-   Keystone "Copper Pickaxe".
+5. Charcoal pit: sneak and right-click the ground with logs for a log pile and right-click it with more logs.
+   Cover every side with dirt, leave the top open, light it, then close the gap with dirt. When the smoke stops,
+   dig the charcoal out with a shovel. The Shrine Heart and the Hearthstone need charcoal.
+6. Fill the small vessel with copper ore and fire it in a pit kiln: the copper melts at 1080 °C. A firepit never
+   gets hot enough: its fuels burn at 1000 °C at most, logs at about 600 to 760 °C. Take the vessel out while it
+   glows and right-click it; put a fired mold in the slot and the copper pours in. Each small piece holds
+   10 units of metal, an ingot 100: ten small pieces make one ingot. When the mold has cooled, right-click it to
+   take the ingot out. Two ingots, then the pickaxe head mold the same way; set the head on a stick: a copper
+   pickaxe. Keystone "Copper Pickaxe".
 7. Camp: break wild crops for seeds, till and plant; fire a jug and fill it at a river; cook a soup in a ceramic pot
    on the firepit; fill a large vessel with food and seal it. Keystone "Stocked Camp".
 8. Knap clay into the Unfired Hearth Idol and fire it in a pit kiln. Fire **two**: one for the heart, one for the
@@ -117,7 +125,8 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
    X X - X X
    ```
 9. Build a workbench: the shrine recipes need its 3x3 grid (the inventory grid is 2x2).
-   - Knap a saw blade mold from five clay, fire it, pour copper into it. The blade above a stick is a saw.
+   - Knap a saw blade mold from five clay, fire it, cast copper into it from the glowing vessel. The blade above
+     a stick is a saw.
      ```
      - - X X X
      - - - X X
@@ -167,9 +176,13 @@ gold, graphite, borax and the salts wake.
 Offer the Sky Disc at the shrine, in the Bronze Sanctum (ring 1).
 
 ### The way
-1. Smithing: build a charcoal forge (charcoal on the ground, ringed with stone). Make a stone anvil with a stone
-   hammer on raw igneous rock. Craft a quern and a handstone; grind borax, lime or other flux stones into flux (4).
-   Weld two hot ingots into a double ingot. Weld copper double ingots into a copper anvil. Keystone "Copper Anvil".
+1. Smithing: build a charcoal forge: a hole one block deep lined with stone on four sides and below, charcoal
+   right-clicked into it seven or eight layers high, open sky above, lit with a firestarter. Fuel goes in the
+   forge's lower slots, the metal to heat in the upper ones. Make a stone anvil with a stone hammer on raw igneous
+   rock. On an anvil, pick the plan from the scroll, strike until the green marker meets the red one, and end
+   with the strikes the rules on top ask for (note "Anvil Work"). Craft a quern and a handstone; grind borax, lime
+   or other flux stones into flux (4). Weld two hot ingots into a double ingot. Weld copper double ingots into a
+   copper anvil. Keystone "Copper Anvil".
 2. Prospecting: cassiterite pieces point to tin, sphalerite pieces to zinc. Smith a prospector's pick; build a
    mineral prospector (it shows direction and size of a vein). Saw support beams and set them in your mine. Cast
    4 tin and 2 zinc ingots. Keystone "First Mine".
@@ -183,7 +196,8 @@ Offer the Sky Disc at the shrine, in the Bronze Sanctum (ring 1).
      hundred blocks.
    - A water wheel in flowing water, 8 shafts and 4 cogwheels, a mechanical saw.
    - A millstone on a water wheel. Keystone "First Mill". It grinds what the quern grinds.
-   - The press turns a double ingot into a sheet. A fan washing ore deposits pans them by machine.
+   - The press turns a double ingot into a sheet. A fan blowing through water washes ore deposits: the pan's
+     work, by machine.
 5. Craft the Sky Disc: a bronze double sheet in the middle, a gold sheet on each side.
 6. Craft a new plinth. Raise the Bronze Sanctum (7x7) around the circle, at the heart's level: rock bricks (19), a
    bronze block on each corner, the plinth in the middle of one side three blocks from the heart, and a bronze or
@@ -192,12 +206,13 @@ Offer the Sky Disc at the shrine, in the Bronze Sanctum (ring 1).
 8. The Iron Age dawns. Blessing **Skyreading**: 5 % faster near the shrine.
 
 ### Pitfalls
-- The recipe viewer and the block tooltip open now, without relogging. F3 shows coordinates.
+- The recipe viewer and the block tooltip open now, without relogging: hover over an item, R shows its recipes,
+  U its uses. F3 shows coordinates.
 - **Hidden ores.** Ores of a later Age look like the rock they sit in and drop loose rock. The prospector's pick and
   the mineral prospector do not report them. Iron wakes with the Iron Age.
 - Only andesite machines exist: water wheels, saws, presses, fans and mills. Their parts take bronze where they took
   iron. Crushing wheels, deployers, brass, trains and steam come with the Iron Age.
-- The bell must be rung after the last awakening.
+- Ring the bell after the Bronze Age has dawned. A ring from before the Hearthstone's ceremony does not count.
 - Skeletons and creepers join the nights.
 
 ---
@@ -445,7 +460,7 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 
 ### The way
 1. Fusion: 32 reactor frames, the controller, a filled hohlraum and a laser, deuterium and tritium fuel. The SPS
-   (16 casings, 2 supercharged coils) turns polonium into antimatter. Keystone: 8 antimatter pellets.
+   (16 casings, 2 supercharged coils) turns polonium into antimatter. Keystone: 2 antimatter pellets.
 2. Inner Planets: tier 3 rocket (ostrum); Venus, 16 calorite; visit Mercury; tier 4 rocket (calorite); Glacio,
    8 ice shards. Keystone: 32 calorite plates.
 3. Awakened: 4 Nether Stars; 16 awakened draconium (draconium blocks, a dragon heart, Nether Stars); 4 awakened
@@ -537,6 +552,7 @@ Defeat The Primordial in The Origin. Its fall grants `finale_won` to all of you.
 
 ### Pitfalls
 - Every online player who is not a spectator must stand at the altar. One friend elsewhere and nothing starts.
+  A player who has not moved or acted for five minutes is not counted.
 - After a wipe the trial fails. Gather again after 30 s.
 - The altar cannot be broken, not even by the bosses.
 - Monsters spawn in The Origin only in darkness; the arena is lit. Beds and respawn anchors do not work there.
@@ -544,20 +560,4 @@ Defeat The Primordial in The Origin. Its fall grants `finale_won` to all of you.
 
 ---
 
-## Operator commands for testing
-
-Permission level 2. `/firmages` commands come from firmages-core, `/stage` from the stage mod, `/fa_*` from pack
-scripts.
-
-| Command | What it does |
-|---|---|
-| `/stage grant @s age_N` | Grants an Age (the team gets it). Each `age_N` depends on `age_(N-1)`: grant in order. A quest or command grant plays the short ceremony and leaves no relic. A ring standing for an Age you already hold is consecrated at the next check; its plinth takes the late offering at once, without a grant. |
-| `/firmages ages` | Unlocked and locked Ages, mirror status, last reload time. `ages sync` reconciles with the stage mod. |
-| `/firmages shrine status` | Heart, missing blocks per ring, tier, offering, rites, phase, prayer, blessings; in age_9 whether the Gathering is done. Also `shrine locate`, `relics`, `extract <plinth>`, `maintenance on/off/status`, `consecrate <ring>`. |
-| `/firmages ceremony preview <stage> [full\|short]` | Plays a ceremony to you, no grant. |
-| `/firmages origin tp <player> force` | Into The Origin without age_9 and outside creative; both locks let the player stay until he leaves, respawns elsewhere or the server stops. Without `force` the age_9 lock applies. |
-| `/firmages origin gathering` | Starts the altar Gathering now for everyone online, wherever they stand, without cooldown. The trial waves follow as in the real fight. |
-| `/firmages origin fight` | Summons The Primordial at once, no waves. Refused while the finale trial or the boss lives, and after the win. |
-| `/firmages origin status` / `reset` | Arena version, return gate, altar, Gathering count, boss state, island echoes / lets the Gathering and the boss happen again (`finale_won` stays). `origin rebuild` builds the arena again. |
-| Simulate facility | Set `debug.allowSimulate = true` in `serverconfig/firmages-server.toml`. Then `/firmages ages simulate grant\|revoke <stage>` changes the Age state without the stage mod (self-tests only); `/firmages shrine simulate_pray` completes the current prayer with ring and offering in place, skipping rites and praying players (in age_9 the Gathering); the headless test players work (`/firmages debug player join\|leave <name>`, `debug use`, `debug pray`, `debug punch`, `debug run`). |
-| `/fa_dump` | Writes `local/firmages/recipes.json` (every loaded recipe with its locks), `item_tags.json` and `registries.json`. Also `/fa_dump_full [regex]`, `/fa_recipe <regex>`, `/fa_dims`, `/fa_m3`. Runs from the console and RCON too. |
+Operator commands for testing (Ages, shrine, The Origin) are in the server pack's `README-SERVERPACK.md`.
