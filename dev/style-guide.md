@@ -8,7 +8,7 @@ sind Deutsch. Prüfung: `python dev/validate_quests.py --no-jars --style` (muss 
 
 Knapp, alt, klar. Bilder aus Himmel, Feuer, Stein und Erde. Der Satz des Packs: "The sky remembers."
 Caelum ist der Himmel selbst ("Caelum, the Firmament: the sky itself"), kein Gott über dem Himmel. Caelum spricht nur
-am Schrein. Die Spieler sind "the fellowship" oder "all of you", nie "the team" im Text (FTB-Menüs bleiben, wie sie
+in Zeremonien (die erste beim First Spark, noch ohne Schrein) und am Schrein. Die Spieler sind "the fellowship" oder "all of you", nie "the team" im Text (FTB-Menüs bleiben, wie sie
 sind; auf der CurseForge-Seite heißt es "one team per server", weil FTB Teams so heißt).
 
 Gut:   "Fire is tamed. Clay is yours now."
@@ -37,15 +37,17 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
 
 ## Namen und Schreibweisen
 
-- Kapiteltitel: "Age 1: Bronze Age" (Entscheidung r3). Im Fließtext: "the Bronze Age", nie "Age 1".
+- Kapiteltitel: der Name der Age ("Bronze Age"), ohne Nummer: das Pack sagt "Ten Ages" (2026-10-14, ersetzt
+  r3). Im Fließtext: "the Bronze Age". "Age" mit Ziffer nirgends, auch nicht in Titeln (Lint).
 - Prolog: "Dawn" ohne Artikel.
 - Gegenstände und Maschinen heißen wie im Spiel ("Aluminium Plate", "Engineer's Hammer"), kleingeschrieben im
   Satz, wenn das Spiel sie nicht als Eigennamen führt ("a steel casing"). Eigene Namen groß: Shrine Heart,
   Offering Plinth, Hearth Circle, Hearth Idol, Arcane Keystone, Frontier Sigil, The Origin, The Gathering.
-- Glossar (immer dieselben Wörter): Chronicle (Questbuch), shrine, heart, plinth, ring, rite, offering, relic,
+- Glossar (immer dieselben Wörter): the Chronicle (Questbuch, überall so: Willkommen, Quests, Doku, CurseForge), shrine, heart, plinth, ring, rite, offering, relic,
   strand, keystone, goal, sigil, trial, fellowship. Nicht: signature item, Gateway, stand-in, quest.
-- Bedienung: "use" (rechte Taste), "sneak and use", "hold use", "punch" (linke Taste). Ausnahme Dawn-Tutorial:
-  dort "right-click", weil neue Spieler TFC nicht kennen. Tasten mit Standard nennen: "Press K", "Hold H".
+- Bedienung: "right-click", "sneak and right-click", "hold right-click", "punch" (linke Taste); nie "use" für
+  die Maustaste (2026-10-14: Spieler kennen "right-click", "hold use" ist Fachjargon). Tasten mit Standard
+  nennen: "Press K", "Hold H".
 - Rechtschreibung: amerikanisch wie Minecraft (armor, color), außer ein Spielname schreibt anders (Aluminium).
 - Zahlen: Mengen bis zwölf als Wort ("four sheets"), ab 13 als Ziffer ("32 plates"), Maße als Ziffer ("21 by 21").
 
@@ -66,7 +68,7 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
 ## Prüfen
 
 - `python dev/validate_quests.py --no-jars --style`: Wortgrenzen pro Questart, mehr als drei Absätze, verbotene
-  Wörter, Meta-Wörter, Modnamen, "Age <Zahl>" in einer Beschreibung, "!" überall, Gedankenstriche, Auslassungspunkte.
+  Wörter, Meta-Wörter, Modnamen, "Age <Zahl>" in Titel oder Text, "!" überall, Gedankenstriche, Auslassungspunkte.
   Die Muster stehen in `STYLE_BANNED`, `STYLE_META` und `STYLE_MODS`; Treffer in Titeln, Untertiteln, Aufgabentiteln
   und Beschreibungen.
 - Nach jeder Textänderung: `python dev/gen_quests.py`, dann `git diff config/ftbquests/quests/lang/en_us.snbt`

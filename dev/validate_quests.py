@@ -32,7 +32,7 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
 With --mods <dir> (default test-server/mods if it exists) it also looks inside the mod jars for advancement,
 entity type, entity/block tag and dimension ids used by tasks. With --style it also lints the player text against
 dev/style-guide.md (warnings only): words per description by quest kind (knapping grid lines excluded), more than
-three paragraphs, banned and meta words, mod names, "Age <n>" in a description, "!" anywhere, dashes and ellipses.
+three paragraphs, banned and meta words, mod names, "Age <n>" anywhere (chapter and quest titles included), "!" anywhere, dashes and ellipses.
 Exit code 1 on any error.
 """
 import argparse
@@ -310,7 +310,9 @@ STYLE_META = [r'\bquests?\b', r'\bstages?\b', r'\bunlock\w*', r'\block(s|ed)?\b'
 STYLE_MODS = ['TFC', r"Create(?! (a|an|the) )", 'Mekanism', 'AE2', 'IE', 'Draconic Evolution', 'Occultism', 'Ars', 'FTB',
               'Beneath', 'Firmalife', 'Mystical Agriculture', "Tom's", 'Summoning Rituals', 'Theurgy',
               'Immersive', 'Precision Prospecting', 'TFCreate', 'Aeronautics', "Steam 'n' Rails", 'Totemic',
-              'Hostile Networks', 'Ad Astra', 'Applied Kinetics', 'Gateways?', 'Cataclysm', "Mowzie"]
+              'Hostile Networks', 'Ad Astra', 'Applied Kinetics', 'Gateways?', 'Cataclysm', "Mowzie",
+              'Apotheosis', 'Stargate Journey', 'Sophisticated', 'Supplementaries', 'Every Compat', 'Handcrafted',
+              "Macaw's", 'Evolved Mekanism', 'ProgressiveStages', 'KubeJS', 'Jade']
 
 
 def style_lint(lang, chapters, W):
@@ -339,8 +341,8 @@ def style_lint(lang, chapters, W):
             for bad in ('!', '—', '–', '...', '…'):
                 if bad in tx:
                     W('%s: %r in %r' % (where, bad, tx[:70]))
-            if field == 'quest_desc' and re.search(r'\bAge \d', tx):
-                W('%s: "Age <n>" in a description, write the Age name: %r' % (where, tx[:70]))
+            if re.search(r'\bAge \d', tx):
+                W('%s: "Age <n>", write the Age name: %r' % (where, tx[:70]))
         if typ == 'quest' and field == 'quest_desc':
             words = sum(len(t.split()) for t in texts if not GRID_LINE.fullmatch(t))
             kind = kinds.get(oid, 'step')

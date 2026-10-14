@@ -707,7 +707,7 @@
 				{
 					id: "712CCDFB75B9247D"
 					table_id: 147794354376245541L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -741,7 +741,7 @@
 				{
 					id: "209E0FE8A35E7E31"
 					table_id: 147794354376245541L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -777,7 +777,7 @@
 				{
 					id: "1F82325BA11EB5DE"
 					table_id: 147794354376245541L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -799,25 +799,6 @@
 			dependencies: ["05C4B3AE61613A9B"]
 			hide_dependency_lines: true
 			icon: {
-				id: "tfc:metal/ingot/wrought_iron"
-			}
-			id: "640D444A5C7F6051"
-			optional: true
-			shape: "gear"
-			tags: ["explain"]
-			tasks: [
-				{
-					id: "3D30DDE51DD2A743"
-					type: "checkmark"
-				}
-			]
-			x: 0.0d
-			y: 6.25d
-		}
-		{
-			dependencies: ["05C4B3AE61613A9B"]
-			hide_dependency_lines: true
-			icon: {
 				id: "tfc:ceramic/large_vessel"
 			}
 			id: "2CEDC0346E550CE6"
@@ -830,7 +811,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 1.5d
+			x: 0.0d
 			y: 6.25d
 		}
 		{
@@ -849,7 +830,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 3.0d
+			x: 1.5d
 			y: 6.25d
 		}
 		{
@@ -868,7 +849,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 4.5d
+			x: 3.0d
 			y: 6.25d
 		}
 	]

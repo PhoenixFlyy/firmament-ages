@@ -110,7 +110,7 @@ COLOR_HINTS = [
 FALLBACK_PALETTE = ["#8e6bbf", "#4f9d8c", "#c76b6b", "#5b8fd6", "#b58d3c", "#6fa84f", "#c35fa0", "#5fb3c3"]
 GROUND_COLORS = ("#6f8a4c", "#66814a")
 
-# Consecrated look (SPEC §17, dev/textures-notes.md): when Caelum accepts a ring every ring block becomes
+# Consecrated look (SPEC §17, dev/archive/textures-notes.md): when Caelum accepts a ring every ring block becomes
 # firmages:consecrated_<role>, one pale sky-marble family (gen_textures PAL["marble"], gold veins PAL["vein"]) with
 # the ring's beam colour as a thin accent overlay. Heart and plinths keep their own look. Roles come from
 # firmages_shrine/consecration.json; the per-role value differences below mirror the textures (brick darker mortar,

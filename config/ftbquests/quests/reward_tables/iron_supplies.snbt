@@ -52,6 +52,13 @@
 				id: "create:fluid_pipe"
 			}
 		}
+		{
+			id: "1B4D64BC5B3DBF9F"
+			item: {
+				count: 1
+				id: "toms_storage:storage_terminal"
+			}
+		}
 	]
 	tags: ["age:age_2"]
 }

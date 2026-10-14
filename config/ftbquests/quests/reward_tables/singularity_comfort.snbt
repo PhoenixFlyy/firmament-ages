@@ -19,13 +19,6 @@
 				id: "sgjourney:gdo"
 			}
 		}
-		{
-			id: "316F2348A3612798"
-			item: {
-				count: 1
-				id: "sgjourney:naquadah_iris"
-			}
-		}
 	]
 	tags: ["age:age_9"]
 }

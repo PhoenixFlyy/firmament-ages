@@ -61,16 +61,16 @@ AGES = [
     ("welcome", "Welcome", "Under the Firmament", None, "#FFB347", "#070A1C", "#2A1B4E", "dawn"),
     ("firmament", "The Firmament", "The Whole Road, Spark to Gate", 8, "#E8C56A", "#070A1C", "#1A1540", "night"),
     ("dawn", "Dawn", "Stone, Straw and the First Spark", None, "#FFB347", "#0A0C24", "#3A2244", "dawn"),
-    ("age_0", "Age 0: Stone Age", "Clay, Fire and the Hearth Circle", 0, "#FFB347", "#070A1C", "#2A1B4E", "night"),
-    ("age_1", "Age 1: Bronze Age", "The First Alloys", 1, "#FFD54A", "#070A1C", "#261B48", "night"),
-    ("age_2", "Age 2: Iron Age", "Steel and the Open Map", 2, "#E06030", "#070A1C", "#2C1A3E", "night"),
-    ("age_3", "Age 3: Arcane Age", "Spirits, Source and Alchemy", 3, "#9B59FF", "#08071E", "#301A58", "night"),
-    ("age_4", "Age 4: Industrial Age", "Coke, Black Steel and Steam", 4, "#F0F0F0", "#06091A", "#22243E", "night"),
-    ("age_5", "Age 5: Electric Age", "High Voltage and Oil", 5, "#40E0FF", "#060A20", "#182A4E", "night"),
-    ("age_6", "Age 6: Information Age", "Circuits, Data and the End", 6, "#40FF80", "#05091C", "#162C3C", "night"),
-    ("age_7", "Age 7: Space Age", "Rockets, Moons and Draconium", 7, "#E0E8FF", "#03040F", "#121A3A", "space"),
-    ("age_8", "Age 8: Quantum Age", "Fusion and the Inner Planets", 8, "#E0B0FF", "#06041A", "#2C1850", "space"),
-    ("age_9", "Age 9: Singularity Age", "Chaos, Singularity and the Gate", 8, "#F4F0FF", "#000000", "#1A0A2A", "void"),
+    ("age_0", "Stone Age", "Clay, Fire and the Hearth Circle", 0, "#FFB347", "#070A1C", "#2A1B4E", "night"),
+    ("age_1", "Bronze Age", "The First Alloys", 1, "#FFD54A", "#070A1C", "#261B48", "night"),
+    ("age_2", "Iron Age", "Steel and the Open Map", 2, "#E06030", "#070A1C", "#2C1A3E", "night"),
+    ("age_3", "Arcane Age", "Spirits, Source and Alchemy", 3, "#9B59FF", "#08071E", "#301A58", "night"),
+    ("age_4", "Industrial Age", "Coke, Black Steel and Steam", 4, "#F0F0F0", "#06091A", "#22243E", "night"),
+    ("age_5", "Electric Age", "High Voltage and Oil", 5, "#40E0FF", "#060A20", "#182A4E", "night"),
+    ("age_6", "Information Age", "Circuits, Data and the End", 6, "#40FF80", "#05091C", "#162C3C", "night"),
+    ("age_7", "Space Age", "Rockets, Moons and Draconium", 7, "#E0E8FF", "#03040F", "#121A3A", "space"),
+    ("age_8", "Quantum Age", "Fusion and the Inner Planets", 8, "#E0B0FF", "#06041A", "#2C1850", "space"),
+    ("age_9", "Singularity Age", "Chaos, Singularity and the Gate", 8, "#F4F0FF", "#000000", "#1A0A2A", "void"),
 ]
 
 
@@ -592,8 +592,8 @@ def preview(bg_path: Path, banner_path: Path, shapes: dict[str, dict[str, Image.
     d.text((52, 14), "Firmament Ages", font=fb, fill=rgb(GOLD))
     y = 64
     for name, state in [("Welcome", "done"), ("The Firmament", "open"), ("Ages", "group"), ("Dawn", "done"),
-                        ("Age 0: Stone Age", "done"), ("Age 1: Bronze Age", "done"), ("Age 2: Iron Age", "done"),
-                        ("Age 3: Arcane Age", "selected")]:
+                        ("Stone Age", "done"), ("Bronze Age", "done"), ("Iron Age", "done"),
+                        ("Arcane Age", "selected")]:
         if state == "selected":
             hl = Image.new("RGBA", (pw - 12, 30), (*rgb(GOLD), 45))
             ImageDraw.Draw(hl).rectangle((0, 0, pw - 13, 29), outline=(*rgb(GOLD), 160))

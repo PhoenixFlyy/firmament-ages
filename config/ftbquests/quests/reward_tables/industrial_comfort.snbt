@@ -26,14 +26,6 @@
 				id: "create_jetpack:jetpack"
 			}
 		}
-		{
-			count: 4
-			id: "5D1A56E880A686E4"
-			item: {
-				count: 1
-				id: "immersiveengineering:electric_lantern"
-			}
-		}
 	]
 	tags: ["age:age_4"]
 }

@@ -2,16 +2,17 @@
 
 **Ten Ages of one sky. From knapped flint in a TerraFirmaCraft world to a draconic reactor and a Stargate, earned together at one shrine.**
 
-- **One fellowship.** Everyone on the server lives in the same Age; progress, offerings and rewards are shared.
-- **Nothing before its time.** Items, ores, machines and dimensions of a later Age do not exist yet, in any mod.
-- **One shrine.** Each Age ends with an offering on the shrine of Caelum. The sky answers and opens the next.
+An Ages pack in the line of SevTech: Ages, built new for Minecraft 1.21.1. You wake in Dawn with no pickaxe and no fire. What a later Age holds does not exist yet, in any mod: its items, ores, machines, mobs and dimensions stay hidden until your fellowship earns that Age.
+
+- **Why play it:** no tier can be skipped. TerraFirmaCraft carries the world and the metal up to steel; Create, three schools of magic, Immersive Engineering, Mekanism, Applied Energistics, rockets, Draconic Evolution and a Stargate follow, each in its own Age.
+- **How long:** built for 120 hours and more, from the first knapped axe to the final boss.
+- **Co-op:** one fellowship per server. Everyone lives in the same Age, and each Age ends with an offering at one shared shrine.
 
 ## The Ages
 
-You start in **Dawn**: no pickaxe, no fire, only stones, sticks and knapping. Ten Ages follow, each opening new mods, machines, ores and dimensions:
-
 | Age | What opens | Offering |
 |---|---|---|
+| Dawn | Knapping, stone tools, thatch, the first fire | none: the first fire opens the Stone Age |
 | Stone Age | Pottery, pit kilns, copper casting, ArborFirmaCraft | Hearthstone |
 | Bronze Age | TFC anvils, three bronzes, Create (Andesite tier), Sophisticated Backpacks | Sky Disc |
 | Iron Age | Bloomery, blast furnace, steel, Create Brass tier, the world map, the Twilight Forest | Steel Heart |
@@ -23,33 +24,28 @@ You start in **Dawn**: no pickaxe, no fire, only stones, sticks and knapping. Te
 | Quantum Age | Fusion, antimatter, Evolved Mekanism, Venus, Mercury and Glacio | Quantum Core |
 | Singularity Age | Chaotic Draconic gear, the Draconic Reactor, a Stargate | none: the final battle |
 
-Everything you need in quantity can be automated.
+## Features
 
-## The Shrine
+- **Nothing before its time.** Locked items show as "Something Unknown", veins of a later Age look like plain stone, and its mobs and dimensions stay shut.
+- **One shrine.** Add a ring for every Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. Lay the offering on its plinth, fulfil the rite and pray together. Caelum, the sky itself, answers with light and a new Age; the ring turns to consecrated stone, adds a blessing around the shrine and keeps the offering as a relic.
+- **The finale.** In the Singularity Age the nine relics are fused into the Ultimate Singularity, the heart of a Stargate. Dial The Origin, a dimension of floating islands made of the stone of every Age, and face the last battle.
+- **The Chronicle.** The quest book (K) carries every Age: what to do, then what for. A small sign in the corner names your Age and its offering.
+- **Automation later, never forced early.** Everything you need in quantity can be automated once its Age comes.
 
-You build one shrine at the heart of your base and add a ring for every Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. Lay the Age's offering on its plinth, fulfil the rite and pray together. Caelum, the sky itself, answers with light and a new Age. The finished ring is consecrated into sky-marble, each ring adds a blessing around the shrine, and the offerings stay as relics.
+## Walkthrough
 
-## The Finale
+Stuck? The [walkthrough](https://github.com/PhoenixFlyy/firmament-ages/blob/main/docs/WALKTHROUGH.md) goes through every Age: the way, the shrine ring, the pitfalls.
 
-In the Singularity Age the nine relics come off their plinths and are fused into the **Ultimate Singularity**, the heart of a Stargate. Dial **The Origin**, a dimension of floating islands made of the stone of every Age, and face the waves, Maledictus and Ignis, and finally The Primordial.
+## Install
 
-## Requirements
-
-- **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you.
-- **RAM:** 8 GB for the game is recommended (6 GB minimum); check it in the CurseForge App under *Settings → Minecraft → Java Settings* (the default of 4 GB is not enough). A PC with 16 GB of RAM is the practical minimum.
-- **216 mods.** The first start takes a few minutes.
-- **Dedicated server:** 8 GB heap for up to about 4 players, 10 GB for 5 to 10. A ready-to-run server pack is attached to every release as an additional file; its README covers memory and world pregeneration.
-
-## Multiplayer
-
-Firmament Ages is written for **one fellowship per server**: the Ages, the shrine and every reward are shared. Every player joins the server's one FTB Teams party at the first login, without an invite, and is in the same Age as everybody else; on a new server the first player founds it. A host who wants separate parties turns this off with `team.autoJoin = false` in `firmages-server.toml`. PvP is on, as in the design; set `pvp=false` in `server.properties` for a public server. Single player works like a fellowship of one.
+- **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you. The first start takes a few minutes.
+- **RAM:** 8 GB for the game (6 GB minimum), set in the CurseForge App under *Settings → Minecraft → Java Settings*; the default of 4 GB is not enough. A PC with 16 GB of RAM is the practical minimum.
+- **Server:** a ready-to-run server pack is attached to every release as an additional file; its README covers memory and pregeneration. 8 GB of heap for up to four players, 10 GB for five to ten.
+- **Multiplayer:** every player joins the server's one party at the first login, without an invite. A host who wants separate parties sets `team.autoJoin = false` in `firmages-server.toml`. PvP is on; set `pvp=false` in `server.properties` for a public server. Single player works like a fellowship of one.
 
 ## Beta
 
-The whole road from Dawn to the final boss is playable. Balance and texts will still change.
-
-- Draconic Evolution and Stargate Journey are beta mods on 1.21.1. Back up your world before the Space Age.
-- Please report bugs on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
+The whole road from Dawn to the final boss is playable. Balance and texts will still change. Draconic Evolution and Stargate Journey are beta mods on 1.21.1: back up your world before the Space Age. Please report bugs on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 ## Shaders
 
@@ -58,7 +54,6 @@ Firmament Ages starts with shaders turned on: it uses Complementary Shaders – 
 ## Source and license
 
 - Source of the quests, scripts, configs and the pack's own mod, Firmament Ages Core: [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages)
-- Issues: [github.com/PhoenixFlyy/firmament-ages/issues](https://github.com/PhoenixFlyy/firmament-ages/issues)
 - The pack's own parts are released under the MIT License (the `LICENSE` file of the source repository). Every other mod belongs to its authors and keeps its own license; the credits below name each one.
 
 ## Credits

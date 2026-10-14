@@ -36,6 +36,13 @@
 				id: "draconicevolution:chaos_shard"
 			}
 		}
+		{
+			id: "65DD7EA338F4F00C"
+			item: {
+				count: 1
+				id: "sgjourney:naquadah_iris"
+			}
+		}
 	]
 	tags: ["age:age_9"]
 }

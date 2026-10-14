@@ -60,6 +60,14 @@
 				id: "tfc:metal/ingot/black_steel"
 			}
 		}
+		{
+			count: 4
+			id: "18B903795C051738"
+			item: {
+				count: 1
+				id: "immersiveengineering:electric_lantern"
+			}
+		}
 	]
 	tags: ["age:age_4"]
 }

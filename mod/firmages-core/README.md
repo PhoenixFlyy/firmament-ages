@@ -11,21 +11,7 @@ Custom mod for the Firmament Ages pack (Minecraft 1.21.1, NeoForge 21.1.252, Jav
 - Maven group: `dev.firmages`, base package `dev.firmages.core`
 - Build system: official NeoForged MDK for 1.21.1 (ModDevGradle 2.0.147, Gradle 9.2.1 wrapper, Parchment 2024.11.17)
 
-Current state: milestone M1 of `SPEC.md` (the core): `AgeState` SavedData, the `<world>/firmages/ages.json` mirror,
-ProgressiveStages event subscription, `AgeIndex` from the `firmages:age_items|age_blocks|age_fluids/<age>` tags,
-the coalescing `ReloadScheduler`, the commands `/firmages ages [sync|simulate]`, `dump registry`, `reload`,
-`selftest <all|core|gate|server>`, the KubeJS binding `FirmAges`, and `firmages-server.toml` / `firmages-client.toml`.
-
-Milestones M2 and M3 (0.2.0): the machine-recipe Age gate (`RecipeManager#apply` TAIL filter with typed extractors for
-Create, IE, Mekanism and Occultism plus a JSON output walk, `/firmages recipes audit|why|locked`, the cache flush for the
-Occultism mineshaft and the Ars apparatus), the IE excavator filter (MineralMix mixin), the fake-player OreGuard, and
-the Digital Miner blacklist and the m1 prospecting tags (KubeJS hand-off scripts until 0.8.x, `age/AgeOreTags` in Java
-since 0.9.0). Implementation notes: `SPEC.md` §4.7 and §5.1.
-
-0.9.0: the Age swap. An Age change re-filters the recipes kept from the last datapack load (`gate/RecipeMaster`), rebinds
-the three Age ore tags, flushes the machine recipe caches and sends the recipes to the players instead of reloading every
-datapack (`age/AgeSwap`, `gate.ageSwap`); the pack's recipe scripts declare Ages with `FirmAges.stationAge`,
-`requireAge` and `untilAge`. Implementation notes: `SPEC.md` §3.3, §3.4 and §4.8.
+What the mod does, feature by feature and with the version that added each: `SPEC.md`.
 
 ## Tests
 

@@ -740,7 +740,7 @@
 				{
 					id: "480B86F950EAD472"
 					table_id: 5096654483866401500L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -773,7 +773,7 @@
 				{
 					id: "179EA618F81031E3"
 					table_id: 5096654483866401500L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -806,7 +806,7 @@
 				{
 					id: "5A348746CD15859B"
 					table_id: 5096654483866401500L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -843,7 +843,7 @@
 				{
 					id: "2FE51E308D9EB9A8"
 					table_id: 5096654483866401500L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]

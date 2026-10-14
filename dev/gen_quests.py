@@ -8,7 +8,7 @@ descriptions in per-locale translation tables keyed "<type>.<16-hex id>.<field>"
 IDs are derived from stable keys (sha1), so re-running the generator keeps every quest id and therefore every
 team's saved progress. The generator is the source of the book until someone edits it in game; after an
 in-game edit, the SNBT files are the source and this script must not be re-run over them (see
-dev/quests-notes.md). Check the output with dev/validate_quests.py.
+dev/archive/quests-notes.md). Check the output with dev/validate_quests.py.
 
 Format facts used here (read from the FTB Quests source at tag v2101.1.36 and the 2101.1.37 FTB Library jar):
   - ids: 16 hex digits, parsed with Long.parseLong(hex, 16): must be positive and not 0 or 1
@@ -216,12 +216,16 @@ def r_xp(n):
     return {'type': 'xp', 'xp': n}
 
 
+# Who receives a table reward (decision log 2026-10-14, "Belohnungen: Material fürs Team, Ausrüstung pro Spieler"):
+# a keystone's supplies are materials for the shared base, claimed once for the fellowship (team_reward); a side
+# path's comfort is personal gear or a consumable, and each player claims and chooses their own. Shared
+# infrastructure (storage, capacitors, teleporters, tubes, the iris) therefore sits in the supplies tables.
 def r_random(table_key):
     return {'type': 'random', 'table': table_key, 'team_reward': True}
 
 
 def r_choice(table_key):
-    return {'type': 'choice', 'table': table_key, 'team_reward': True}
+    return {'type': 'choice', 'table': table_key, 'team_reward': False}
 
 
 def r_stage(stage):
@@ -249,10 +253,11 @@ REWARD_TABLES = {
         ('tfc:metal/propick/bronze', 1)]),
     'iron_supplies': ('Iron Age Supplies', 'age_2', [
         ('tfc:metal/ingot/wrought_iron', 2), ('tfc:metal/ingot/steel', 1), ('tfc:metal/ingot/brass', 2),
-        ('tfc:metal/sheet/wrought_iron', 2), ('create:electron_tube', 2), ('create:fluid_pipe', 8)]),
+        ('tfc:metal/sheet/wrought_iron', 2), ('create:electron_tube', 2), ('create:fluid_pipe', 8),
+        ('toms_storage:storage_terminal', 1)]),
     'iron_comfort': ('Iron Age Comforts', 'age_2', [
         ('twilightforest:charm_of_life_1', 1), ('tfc:metal/shield/wrought_iron', 1),
-        ('toms_storage:storage_terminal', 1), ('twilightforest:magic_map_focus', 1)]),
+        ('twilightforest:magic_map_focus', 1)]),
     'arcane_supplies': ('Arcane Age Supplies', 'age_3', [
         ('ars_nouveau:source_gem', 8), ('occultism:iesnium_ingot', 2), ('theurgy:mercury_shard', 4),
         ('tfc:gem/amethyst', 2), ('tfc:gem/lapis_lazuli', 4), ('occultism:otherworld_essence', 4),
@@ -264,17 +269,16 @@ REWARD_TABLES = {
         ('immersiveengineering:coal_coke', 16), ('immersiveengineering:treated_wood_horizontal', 16),
         ('immersiveengineering:ingot_lead', 4), ('immersiveengineering:wirecoil_copper', 4),
         ('immersiveengineering:component_iron', 2), ('immersiveengineering:ingot_constantan', 4),
-        ('tfc:metal/ingot/black_steel', 1)]),
+        ('tfc:metal/ingot/black_steel', 1), ('immersiveengineering:electric_lantern', 4)]),
     'industrial_comfort': ('Industrial Age Comforts', 'age_4', [
-        ('immersiveengineering:hammer', 1), ('immersiveengineering:wirecutter', 1), ('create_jetpack:jetpack', 1),
-        ('immersiveengineering:electric_lantern', 4)]),
+        ('immersiveengineering:hammer', 1), ('immersiveengineering:wirecutter', 1), ('create_jetpack:jetpack', 1)]),
     'electric_supplies': ('Electric Age Supplies', 'age_5', [
         ('immersiveengineering:ingot_aluminum', 4), ('immersiveengineering:plate_aluminum', 4),
         ('immersiveengineering:wirecoil_electrum', 4), ('immersiveengineering:wirecoil_steel', 4),
-        ('tfc:metal/ingot/red_steel', 1), ('immersivepetroleum:lubricant_bucket', 1)]),
+        ('tfc:metal/ingot/red_steel', 1), ('immersivepetroleum:lubricant_bucket', 1),
+        ('create_hypertube:hypertube', 16), ('immersiveengineering:capacitor_mv', 1)]),
     'electric_comfort': ('Electric Age Comforts', 'age_5', [
-        ('immersivepetroleum:speedboat', 1), ('immersivepetroleum:oil_can', 1), ('create_hypertube:hypertube', 16),
-        ('immersiveengineering:capacitor_mv', 1)]),
+        ('immersivepetroleum:speedboat', 1), ('immersivepetroleum:oil_can', 1)]),
     'information_supplies': ('Information Age Supplies', 'age_6', [
         ('mekanism:ingot_osmium', 8), ('mekanism:basic_control_circuit', 4), ('ae2:certus_quartz_crystal', 8),
         ('ae2:fluix_crystal', 4), ('ae2:silicon', 4), ('mekanism:hdpe_sheet', 4), ('tfc:metal/ingot/blue_steel', 1)]),
@@ -283,21 +287,21 @@ REWARD_TABLES = {
         ('mekanism:configurator', 1)]),
     'space_supplies': ('Space Age Supplies', 'age_7', [
         ('ad_astra:desh_ingot', 4), ('ad_astra:ostrum_ingot', 2), ('ad_astra:desh_plate', 8),
-        ('draconicevolution:draconium_ingot', 4), ('ad_astra:ostrum_plate', 4), ('ad_astra:fuel_bucket', 1)]),
+        ('draconicevolution:draconium_ingot', 4), ('ad_astra:ostrum_plate', 4), ('ad_astra:fuel_bucket', 1),
+        ('mekanism:teleporter', 1)]),
     'space_comfort': ('Space Age Comforts', 'age_7', [
-        ('ad_astra:tier_1_rover', 1), ('ad_astra:zip_gun', 1), ('mekanism:teleporter', 1),
-        ('draconicevolution:wyvern_capacitor', 1)]),
+        ('ad_astra:tier_1_rover', 1), ('ad_astra:zip_gun', 1), ('draconicevolution:wyvern_capacitor', 1)]),
     'quantum_supplies': ('Quantum Age Supplies', 'age_8', [
         ('ad_astra:calorite_ingot', 4), ('draconicevolution:awakened_draconium_ingot', 2), ('ad_astra:ice_shard', 2),
-        ('evolvedmekanism:alloy_hypercharged', 2), ('mekanism:sps_casing', 4)]),
+        ('evolvedmekanism:alloy_hypercharged', 2), ('mekanism:sps_casing', 4),
+        ('evolvedmekanism:overclocked_energy_cube', 1), ('evolvedmekanism:overclocked_control_circuit', 4)]),
     'quantum_comfort': ('Quantum Age Comforts', 'age_8', [
-        ('draconicevolution:draconic_capacitor', 1), ('evolvedmekanism:overclocked_energy_cube', 1),
-        ('evolvedmekanism:overclocked_control_circuit', 4), ('draconicevolution:draconic_pickaxe', 1)]),
+        ('draconicevolution:draconic_capacitor', 1), ('draconicevolution:draconic_pickaxe', 1)]),
     'singularity_supplies': ('Singularity Age Supplies', 'age_9', [
         ('draconicevolution:small_chaos_frag', 4), ('sgjourney:raw_naquadah', 8), ('sgjourney:naquadah', 4),
-        ('draconicevolution:chaos_shard', 1)]),
+        ('draconicevolution:chaos_shard', 1), ('sgjourney:naquadah_iris', 1)]),
     'singularity_comfort': ('Singularity Age Comforts', 'age_9', [
-        ('draconicevolution:chaotic_capacitor', 1), ('sgjourney:gdo', 1), ('sgjourney:naquadah_iris', 1)]),
+        ('draconicevolution:chaotic_capacitor', 1), ('sgjourney:gdo', 1)]),
 }
 
 
@@ -385,7 +389,7 @@ DAWN = age_chapter(
               desc=['Four straw make one block of thatch. It is the only building block of Dawn.']),
         ], Q('dawn/shelter/key', 'Shelter', t_observe('tfc:thatch_bed', title='Look at a finished thatch bed'),
              kind='keystone', icon='tfc:thatch_bed',
-             desc=['Use a large raw hide on two thatch blocks side by side: a thatch bed.',
+             desc=['Right-click two thatch blocks side by side with a large raw hide: a thatch bed.',
                    'It sets your spawn but does not skip the night. Beds that do come with the Iron Age.'])),
         ('Hunt', [
             Q('dawn/hunt/javelin', 'A Stone Javelin',
@@ -404,7 +408,7 @@ DAWN = age_chapter(
            [t_item('tfc:firestarter', title='A firestarter'), t_adv('tfc:story/firepit', 'Light a firepit')],
            kind='goal', icon='tfc:firestarter', sub='Goal of Dawn: grants the Stone Age',
            desc=['Craft a firestarter from two sticks. Throw a log, three sticks and some straw on one block',
-                 'and hold use on it with the firestarter until the firepit lights.',
+                 'and hold right-click on it with the firestarter until the firepit lights.',
                  '',
                  'Fire opens the Stone Age for all of you: clay, pit kilns and the first copper.']),
     sides=[
@@ -412,7 +416,7 @@ DAWN = age_chapter(
         # still waits for the three keystones, so lighting it early changes nothing about the Age grant.
         ('dawn/stone/key', [
             Q('dawn/side/torch', 'Before Dark', t_item('tfc:torch', title='A torch'), kind='side', icon='tfc:torch',
-              desc=['Drop one log, three sticks and some straw on one block. Hold use on it with a firestarter',
+              desc=['Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter',
                     '(two sticks) until the firepit lights.',
                     '',
                     'Heat a stick in the firepit\'s right slot: it becomes two torches. A torch lights your way in hand',
@@ -430,7 +434,7 @@ DAWN = age_chapter(
                           'tfc:food/cloudberry', 'tfc:food/snowberry', 'tfc:food/bunchberry',
                           'tfc:food/cranberry', 'tfc:food/wintergreen_berry'], 'Any wild berry'),
               kind='side', icon='tfc:food/blueberry',
-              desc=['Gather wild berries. Fruit is a nutrition group of its own.']),
+              desc=['Gather wild berries. You never thirst here, and a varied diet makes you hardier.']),
         ]),
     ],
     explains=[
@@ -468,10 +472,10 @@ DAWN = age_chapter(
 
 # ---------------------------------------------------------------- Stone Age
 STONE = age_chapter(
-    'stone', 'stone_age', 'Age 0: Stone Age', ['Clay, pit kilns and the first cast copper.'], 'firmages:hearthstone',
+    'stone', 'stone_age', 'Stone Age', ['Clay, pit kilns and the first cast copper.'], 'firmages:hearthstone',
     'age_0', 1,
     entry=Q('stone/entry', 'The Stone Age Dawns', t_stage('age_0'), kind='entry', icon='tfc:ceramic/vessel',
-            sub='Age 0',
+            sub='The first Age',
             desc=['Fire is tamed. Clay is yours now, and with it pottery, molds and copper.',
                   '',
                   'Four strands lead to the Hearthstone: Fire & Clay, First Metal, Camp, and Hearth & Shrine.',
@@ -479,7 +483,8 @@ STONE = age_chapter(
     strands=[
         ('Fire & Clay', [
             Q('stone/clay/find', 'Locating Clay', t_adv('tfc:story/find_clay'),
-              desc=['Clay grows under grass near water. Look for the clay indicator plants.'],
+              desc=['Clay grows under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and',
+                    'water canna grow above it.'],
               icon='minecraft:clay_ball'),
             Q('stone/clay/knap', 'Clay Forming', t_adv('tfc:story/knap_clay'),
               desc=['Knap five clay into a vessel, a jug, a bowl or a mold (see "Clay Patterns").']),
@@ -501,8 +506,8 @@ STONE = age_chapter(
               desc=['Stack logs in a log pile, cover it with earth and light it: a charcoal pit.',
                     'Charcoal burns hot enough for copper.'], icon='minecraft:charcoal'),
             Q('stone/metal/ingot', 'Copper Ingot', t_item('tfc:metal/ingot/copper', 2),
-              desc=['Fill the small vessel with copper ore, heat it until the copper melts,',
-                    'then pour it into the ingot mold.']),
+              desc=['Melt copper ore in the small vessel in a fire and pour it into the ingot mold.',
+                    'Ten small pieces make one ingot.']),
             Q('stone/metal/head', 'Pickaxe Head', t_item('tfc:metal/pickaxe_head/copper'),
               desc=['Pour copper into the pickaxe head mold.']),
         ], Q('stone/metal/key', 'Copper Pickaxe', t_item('tfc:metal/pickaxe/copper'), kind='keystone',
@@ -539,23 +544,24 @@ STONE = age_chapter(
              t_observe('firmages:shrine_heart[ready=true]', kind='block_state',
                        title='Look at the heart of the finished Hearth Circle'),
              kind='keystone', icon='firmages:offering_plinth',
-             desc=['Build the Hearth Circle around the heart. Use the heart with an empty hand: it shows every',
+             desc=['Build the Hearth Circle around the heart. Right-click the heart with an empty hand: it shows every',
                    'missing block as a ghost.',
                    '',
                    'You need eight cobblestone, four log posts two high with thatch on top, and the Offering Plinth:',
                    'four cobblestone, two blocks from the heart.',
                    '',
-                   'When the circle is whole, the heart glows. Use it again to hear what Caelum asks for.'])),
+                   'When the circle is whole, the heart glows. Right-click it again to hear what Caelum asks for.'])),
     ],
     goal=Q('stone/goal', 'Offer the Hearthstone at the Shrine',
            t_stage('age_1', 'Offer the Hearthstone at the shrine'), kind='goal', icon='firmages:hearthstone',
            sub='Goal of the Stone Age: Caelum opens the Bronze Age',
            desc=['Craft the Hearthstone from the fired Hearth Idol, copper ingots and charcoal.',
                  '',
-                 'Lay it on the plinth and kindle the heart with a firestarter. Then sneak and hold use on the heart',
+                 'Lay it on the plinth and kindle the heart with a firestarter. Then sneak and hold right-click on the heart',
                  'with an empty hand. Friends who pray with you make it faster.',
                  '',
-                 'Caelum keeps the Hearthstone and opens the Bronze Age.']),
+                 'Caelum keeps the Hearthstone and opens the Bronze Age. From then on a thin beam over the heart',
+                 'shows the way home.']),
     sides=[
         ('stone/clay/kiln', [
             Q('stone/side/candle', 'Tallow and Candles', t_item('tfc:candle', 4), kind='side',
@@ -622,10 +628,10 @@ STONE = age_chapter(
 
 # ---------------------------------------------------------------- Bronze Age
 BRONZE = age_chapter(
-    'bronze', 'bronze_age', 'Age 1: Bronze Age', ['The first alloys. New veins can be found.'], 'firmages:sky_disc',
+    'bronze', 'bronze_age', 'Bronze Age', ['The first alloys. New veins can be found.'], 'firmages:sky_disc',
     'age_1', 2,
     entry=Q('bronze/entry', 'The Bronze Age Dawns', t_stage('age_1'), kind='entry',
-            icon='tfc:metal/ingot/bronze', sub='Age 1',
+            icon='tfc:metal/ingot/bronze', sub='The second Age',
             desc=['Tin and zinc veins wake. Anvils, alloys and the first kinetic machines follow.',
                   '',
                   'Four strands lead to the Sky Disc: Smithing, Prospecting, Alloys and Kinetics.']),
@@ -634,7 +640,7 @@ BRONZE = age_chapter(
             Q('bronze/smith/forge', 'Forging', t_adv('tfc:story/forge'),
               desc=['Build a charcoal forge: charcoal on the ground, surrounded by stone.'], icon='minecraft:charcoal'),
             Q('bronze/smith/stone_anvil', 'Hammer Time', t_adv('tfc:story/stone_anvil'),
-              desc=['Use a stone hammer on raw igneous rock to make a stone anvil.']),
+              desc=['Right-click raw igneous rock with a stone hammer to make a stone anvil.']),
             Q('bronze/smith/quern', 'The Grind', t_adv('tfc:story/quern'),
               desc=['Craft a quern and a handstone.'], icon='tfc:quern'),
             Q('bronze/smith/flux', 'In Flux', t_item('tfc:powder/flux', 4),
@@ -744,10 +750,10 @@ BRONZE = age_chapter(
 
 # ---------------------------------------------------------------- Iron Age
 IRON = age_chapter(
-    'iron', 'iron_age', 'Age 2: Iron Age', ['The map opens. Iron veins become visible.'], 'firmages:steel_heart',
+    'iron', 'iron_age', 'Iron Age', ['The map opens. Iron veins become visible.'], 'firmages:steel_heart',
     'age_2', 3,
     entry=Q('iron/entry', 'The Iron Age Dawns', t_stage('age_2'), kind='entry',
-            icon='tfc:metal/ingot/wrought_iron', sub='Age 2',
+            icon='tfc:metal/ingot/wrought_iron', sub='The third Age',
             desc=['Iron veins are visible now, the map opens and the Twilight Forest can be reached.',
                   '',
                   'Four strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival and Frontier.']),
@@ -810,10 +816,7 @@ IRON = age_chapter(
               icon='twilightforest:lich_trophy',
               desc=['Climb the Lich tower and defeat the Lich, or bring its trophy from the Frontier Trial.']),
         ], Q('iron/front/key', 'Lich Trophy', t_item('twilightforest:lich_trophy', consume=False), kind='keystone',
-             desc=['Bring home the Lich\'s trophy. The Steel Heart needs it.',
-                   '',
-                   'No Lich tower in your Twilight Forest? The Frontier Sigil opens the Frontier Trial, which pays',
-                   'the trophies of the Naga and the Lich.'])),
+             desc=['Bring home the Lich\'s trophy. The Steel Heart needs it.'])),
     ],
     goal=Q('iron/goal', 'Offer the Steel Heart at the Shrine',
            t_stage('age_3', 'Offer the Steel Heart at the shrine'), kind='goal', icon='firmages:steel_heart',
@@ -841,9 +844,6 @@ IRON = age_chapter(
         ]),
     ],
     explains=[
-        Q('iron/info/map', 'The Map Opens', t_check(), kind='explain', icon='tfc:metal/ingot/wrought_iron',
-          desc=['The map and minimap open with this Age. Claiming land and keeping chunks loaded come with the',
-                'Industrial Age.']),
         Q('iron/info/winter', 'The First Winter', t_check(), kind='explain', icon='tfc:ceramic/large_vessel',
           desc=['The year has seasons. Crops stop growing in winter and it gets cold. Plan ahead.']),
         Q('iron/info/home', 'A Home', t_check(), kind='explain', icon='minecraft:white_bed',
@@ -859,10 +859,10 @@ IRON = age_chapter(
 
 # ---------------------------------------------------------------- Arcane Age
 ARCANE = age_chapter(
-    'arcane', 'arcane_age', 'Age 3: Arcane Age', ['Spirits, source and alchemy. The Nether opens.'],
+    'arcane', 'arcane_age', 'Arcane Age', ['Spirits, source and alchemy. The Nether opens.'],
     'firmages:arcane_keystone', 'age_3', 4,
     entry=Q('arcane/entry', 'The Arcane Age Dawns', t_stage('age_3'), kind='entry', icon='ars_nouveau:source_gem',
-            sub='Age 3',
+            sub='The fourth Age',
             desc=['Magic wakes: spirits, source and alchemy. Until the Information Age it gives the best ore yield,',
                   'the first endless ore and the first item transport.',
                   '',
@@ -924,9 +924,7 @@ ARCANE = age_chapter(
               desc=['Summon the Wilden Chimera with its ritual and defeat it, or clear the Wild Trial.']),
         ], Q('arcane/source/key', 'Wilden Tribute', t_item('ars_nouveau:wilden_tribute', consume=False),
              kind='keystone',
-             desc=['The Wilden Chimera drops the Wilden Tribute. The Arcane Keystone needs it.',
-                   '',
-                   'If the ritual fails you, the Wild Sigil opens the Wild Trial.'])),
+             desc=['The Wilden Chimera drops the Wilden Tribute. The Arcane Keystone needs it.'])),
         ('Alchemy', [
             Q('arcane/alch/brazier', 'Pyromantic Brazier', t_item('theurgy:pyromantic_brazier'),
               desc=['Build a pyromantic brazier. It heats every alchemical apparatus; read the Hermetica as you go.']),
@@ -944,9 +942,7 @@ ARCANE = age_chapter(
             Q('arcane/alch/rod', 'Divination Rod', t_item('theurgy:divination_rod_t1'),
               desc=['A divination rod points to the ore veins your Age has woken.']),
         ], Q('arcane/alch/key', 'Mercury Catalyst', t_item('theurgy:mercury_catalyst'), kind='keystone',
-             desc=['The mercury catalyst is the proof of the Alchemy strand.',
-                   'Spagyrics give about 2.5 times the metal of a hand-smelted rich piece, the best yield until',
-                   'the Information Age.'])),
+             desc=['Make the mercury catalyst, the proof of the Alchemy strand. The Arcane Keystone needs it.'])),
     ],
     goal=Q('arcane/goal', 'Offer the Arcane Keystone at the Shrine',
            t_stage('age_4', 'Offer the Arcane Keystone at the shrine'), kind='goal', icon='firmages:arcane_keystone',
@@ -996,12 +992,11 @@ ARCANE = age_chapter(
 
 # ---------------------------------------------------------------- Industrial Age
 INDUSTRIAL = age_chapter(
-    'industrial', 'industrial_age', 'Age 4: Industrial Age', ['Coke, black steel and the first FE.'],
+    'industrial', 'industrial_age', 'Industrial Age', ['Coke, black steel and the first FE.'],
     'firmages:pressure_core', 'age_4', 5,
     entry=Q('industrial/entry', 'The Industrial Age Dawns', t_stage('age_4'), kind='entry',
-            icon='immersiveengineering:hammer', sub='Age 4',
-            desc=['Coke ovens, blast furnaces, crushers, presses and the first FE. Your fellowship can now claim land',
-                  'and keep chunks loaded.',
+            icon='immersiveengineering:hammer', sub='The fifth Age',
+            desc=['Coke ovens, blast furnaces, crushers, presses and the first FE.',
                   '',
                   'Four strands lead to the Pressure Core: Coke & Steel, Power, Ore Line and Logistics & Backfill.']),
     strands=[
@@ -1067,7 +1062,7 @@ INDUSTRIAL = age_chapter(
             Q('industrial/ore/kiln', 'Alloy Kiln', t_observe('immersiveengineering:alloy_smelter',
                                                              title='Look at a formed alloy kiln'),
               icon='immersiveengineering:alloybrick',
-              desc=['The alloy kiln alloys two metals in the right ratios. It retires with the Electric Age.']),
+              desc=['The alloy kiln alloys two metals in the right ratios.']),
             Q('industrial/ore/constantan', 'Constantan', t_item('immersiveengineering:ingot_constantan', 8),
               desc=['Copper and nickel in the alloy kiln.']),
         ], Q('industrial/ore/key', 'Automated Ore Line', t_item('mekanism:dust_iron', 64), kind='keystone',
@@ -1140,11 +1135,11 @@ INDUSTRIAL = age_chapter(
 
 # ---------------------------------------------------------------- Electric Age
 ELECTRIC = age_chapter(
-    'electric', 'electric_age', 'Age 5: Electric Age', ['High voltage, oil and aluminium.'],
+    'electric', 'electric_age', 'Electric Age', ['High voltage, oil and aluminium.'],
     'firmages:humming_core', 'age_5', 6,
     entry=Q('electric/entry', 'The Electric Age Dawns', t_stage('age_5'), kind='entry',
-            icon='immersiveengineering:capacitor_hv', sub='Age 5',
-            desc=['MV and HV power, oil, the arc furnace and the excavator. Bauxite veins are visible now.',
+            icon='immersiveengineering:capacitor_hv', sub='The sixth Age',
+            desc=['MV and HV power, oil, the arc furnace and the excavator. Bauxite and osmium veins wake: the Information Age needs osmium at once.',
                   '',
                   'Four strands lead to the Humming Core: Power Grid, Oil, Aluminium & Excavator and Circuits.']),
     strands=[
@@ -1185,12 +1180,11 @@ ELECTRIC = age_chapter(
             Q('electric/alu/bauxite', 'Bauxite',
               t_any_item(['tfc_ie_addon:ore/small_bauxite', 'tfc_ie_addon:ore/poor_bauxite',
                           'tfc_ie_addon:ore/normal_bauxite', 'tfc_ie_addon:ore/rich_bauxite'], 'Any bauxite ore piece'),
-              icon='tfc_ie_addon:ore/normal_bauxite', desc=['Bauxite veins are visible from this Age.']),
+              icon='tfc_ie_addon:ore/normal_bauxite', desc=['Mine bauxite. Its ore is the only source of aluminium.']),
             Q('electric/alu/arc', 'Arc Furnace', t_observe('immersiveengineering:arc_furnace',
                                                            title='Look at a formed arc furnace'),
               icon='immersiveengineering:graphite_electrode',
-              desc=['The arc furnace melts, alloys and makes steel with graphite electrodes.',
-                    'It takes over from the alloy kiln.']),
+              desc=['The arc furnace melts, alloys and makes steel with graphite electrodes.']),
             Q('electric/alu/ingot', 'Aluminium', t_item('immersiveengineering:ingot_aluminum', 16),
               desc=['Aluminium comes only from the arc furnace.']),
             Q('electric/alu/red', 'Red Steel', t_item('tfc:metal/sheet/red_steel', 2),
@@ -1200,7 +1194,7 @@ ELECTRIC = age_chapter(
               icon='immersiveengineering:bucket_wheel',
               desc=['The excavator digs the mineral mixes of a chunk forever: an endless ore source.']),
         ], Q('electric/alu/key', 'Aluminium Plates', t_item('immersiveengineering:plate_aluminum', 32),
-             kind='keystone', desc=['Thirty-two aluminium plates from the metal press.'])),
+             kind='keystone', desc=['Press 32 aluminium plates. Four go into the Humming Core, the rest into the machines of this Age.'])),
         ('Circuits', [
             Q('electric/circ/tube', 'Vacuum Tubes', t_item('immersiveengineering:electron_tube', 8),
               desc=['Vacuum tubes are the first electronics.']),
@@ -1264,10 +1258,10 @@ ELECTRIC = age_chapter(
 
 # ---------------------------------------------------------------- Information Age
 INFORMATION = age_chapter(
-    'information', 'information_age', 'Age 6: Information Age', ['Ore tripled, one network, the End.'],
+    'information', 'information_age', 'Information Age', ['Ore tripled, one network, the End.'],
     'firmages:data_matrix', 'age_6', 7,
     entry=Q('information/entry', 'The Information Age Dawns', t_stage('age_6'), kind='entry',
-            icon='mekanism:advanced_control_circuit', sub='Age 6',
+            icon='mekanism:advanced_control_circuit', sub='The seventh Age',
             desc=['Ore triples, the ME network stores and crafts, and the End can be reached. Veins of certus quartz,',
                   'inferium, prosperity and soulstone wake.',
                   '',
@@ -1283,7 +1277,7 @@ INFORMATION = age_chapter(
                t_item('ae2:calculation_processor', title='Calculation processor'),
                t_item('ae2:engineering_processor', title='Engineering processor')],
               icon='ae2:logic_processor',
-              desc=['Make the three processors on a sequenced assembly line. The inscriber cannot make them here.']),
+              desc=['Print the three processors in an inscriber. Each press is crafted from four blue steel sheets around what it prints.']),
             Q('information/digital/controller', 'ME Controller', t_item('ae2:controller'),
               desc=['The controller powers an ME network.']),
             Q('information/digital/drive', 'ME Drive', [t_item('ae2:drive', title='ME drive'),
@@ -1301,8 +1295,7 @@ INFORMATION = age_chapter(
              desc=['Build a crafting CPU and let the network craft a 64k storage component.'])),
         ('Factory', [
             Q('information/mek/osmium', 'Osmium', t_item('mekanism:ingot_osmium', 8),
-              desc=['Osmium lies in its own veins from this Age. Mine and smelt eight ingots: the steel casing',
-                    'needs them.']),
+              desc=['Smelt eight osmium ingots from the vein that woke in the Electric Age. The steel casing needs them.']),
             Q('information/mek/casing', 'Steel Casing', t_item('mekanism:steel_casing'),
               desc=['Make a steel casing. Every machine of the Factory strand is built on one.']),
             Q('information/mek/infuser', 'Metallurgic Infuser', t_item('mekanism:metallurgic_infuser'),
@@ -1316,7 +1309,7 @@ INFORMATION = age_chapter(
             Q('information/mek/gas', 'Gas-Burning Generator', t_item('mekanismgenerators:gas_burning_generator'),
               desc=['The FE generator of this Age.']),
             Q('information/mek/blue', 'Blue Steel', t_item('tfc:metal/sheet/blue_steel', 4),
-              desc=['Make blue steel, the metal of the Information Age. The Data Matrix needs four sheets.']),
+              desc=['Make blue steel, the metal of the Information Age. Four sheets go into the Data Matrix, more into the inscriber presses.']),
         ], Q('information/mek/key', 'Advanced Factory', t_item('mekanism:advanced_smelting_factory'),
              kind='keystone', desc=['An advanced smelting factory smelts five stacks at once.'])),
         ('Mob Data', [
@@ -1347,18 +1340,14 @@ INFORMATION = age_chapter(
             Q('information/end/dragon', 'The Ender Dragon', t_boss('minecraft:ender_dragon', 'minecraft:dragon_breath'),
               icon='minecraft:dragon_head', desc=['Destroy the crystals, then the dragon, or clear the End Trial.']),
         ], Q('information/end/key', 'Dragon\'s Breath', t_item('minecraft:dragon_breath', 4), kind='keystone',
-             desc=['Bottle four breaths of the dragon. The Data Matrix needs one.',
-                   '',
-                   'No dragon to fight? The End Sigil opens the End Trial, which pays four bottles.'])),
+             desc=['Bottle four breaths of the dragon. The Data Matrix needs one.'])),
     ],
     goal=Q('information/goal', 'Offer the Data Matrix at the Shrine',
            t_stage('age_7', 'Offer the Data Matrix at the shrine'), kind='goal', icon='firmages:data_matrix',
            sub='Goal of the Information Age: Caelum opens the Space Age',
-           desc=['Craft the Data Matrix from four blue steel sheets, four advanced control circuits, a 64k storage',
-                 'component and a bottle of dragon\'s breath.',
+           desc=['Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a bottle of dragon\'s breath.',
                  '',
-                 'Raise the Data Nave; the heart shows what is missing. Lay the Matrix on the new plinth and pray:',
-                 'together, if two of you are online.',
+                 'Raise the Data Nave; the heart shows what is missing. Lay the Matrix on the new plinth and pray: together, if two of you are online.',
                  '',
                  'Caelum keeps the Matrix and opens the Space Age.']),
     sides=[
@@ -1388,9 +1377,6 @@ INFORMATION = age_chapter(
         Q('information/info/one', 'One Network', t_check(), kind='explain', icon='ae2:controller',
           desc=['From now on the ME network is the one store and crafter. The storage terminal retires, and energy',
                 'cubes take over from the LV and MV capacitors.']),
-        Q('information/info/ore', 'Ore Tripling', t_check(), kind='explain', icon='mekanism:purification_chamber',
-          desc=['Purify ore for three times the metal. The crusher and spagyrics still work, but purification is',
-                'the way from now on.']),
     ],
     supplies='information_supplies', comfort='information_comfort',
     ring=ring_quest('information', 6, 'the Data Nave', 'ae2:quartz_glass',
@@ -1399,75 +1385,75 @@ INFORMATION = age_chapter(
 
 # ---------------------------------------------------------------- Space Age
 SPACE = age_chapter(
-    'space', 'space_age', 'Age 7: Space Age', ['Fission, rockets and draconium.'], 'firmages:star_chart', 'age_7', 8,
+    'space', 'space_age', 'Space Age', ['Fission, rockets and draconium.'], 'firmages:star_chart', 'age_7', 8,
     entry=Q('space/entry', 'The Space Age Dawns', t_stage('age_7'), kind='entry', icon='ad_astra:tier_1_rocket',
-            sub='Age 7',
-            desc=['Uranium, fission, the first rockets to the Moon and Mars, and draconium.',
+            sub='The eighth Age',
+            desc=['The sky opens upward. Uranium and fission, rockets to the Moon and Mars, and draconium from the End.',
                   '',
                   'Four strands lead to the Star Chart: Atomic, Rocketry & Moon, Mars and Draconium.']),
     strands=[
         ('Atomic', [
             Q('space/atom/circuit', 'Elite Circuits', t_item('mekanism:elite_control_circuit', 4),
-              desc=['Elite control circuits run the reactor parts.']),
+              desc=['Make four elite control circuits. The reactor parts run on them.']),
             Q('space/atom/uranium', 'Yellow Cake', t_item('mekanism:yellow_cake_uranium', 8),
-              desc=['Uraninite veins are visible now. Process the ore into yellow cake.']),
+              desc=['Uraninite veins wake now. Process the ore into yellow cake, the start of fission fuel.']),
             Q('space/atom/fuel', 'Fuel Assemblies', t_item('mekanismgenerators:fission_fuel_assembly', 4),
-              desc=['Fuel assemblies hold the fissile fuel in the fission reactor.']),
+              desc=['Build four fuel assemblies. They hold the fissile fuel inside the reactor.']),
             Q('space/atom/reactor', 'Fission Reactor', t_item('mekanismgenerators:fission_reactor_casing', 32),
-              desc=['Build the fission reactor. Cool it well: a hot reactor melts down.']),
+              desc=['Build the fission reactor from 32 casings. Cool it well: a hot reactor melts down.']),
             Q('space/atom/turbine', 'Industrial Turbine',
               [t_item('mekanismgenerators:turbine_rotor', 4, title='Turbine rotors'),
                t_item('mekanismgenerators:turbine_blade', 8, title='Turbine blades')],
               icon='mekanismgenerators:turbine_rotor',
-              desc=['The thermoelectric boiler and the industrial turbine turn reactor heat into FE.']),
+              desc=['Build a thermoelectric boiler and an industrial turbine. Together they turn reactor heat into FE.']),
         ], Q('space/atom/key', 'Reactor Online', t_item('mekanism:pellet_polonium', 2), kind='keystone',
-             desc=['Polonium from your reactor waste: two pellets. One is the catalyst of the Star Chart.'])),
+             desc=['Draw two polonium pellets from your reactor waste. One is the catalyst of the Star Chart.'])),
         ('Rocketry & Moon', [
             Q('space/moon/workbench', 'NASA Workbench', t_item('ad_astra:nasa_workbench'),
-              desc=['Rockets are built at the NASA workbench.']),
+              desc=['Build a NASA workbench. Every rocket is assembled on it.']),
             Q('space/moon/suit', 'Space Suit',
               [t_item('ad_astra:space_helmet', title='Space helmet'), t_item('ad_astra:space_suit', title='Space suit'),
                t_item('ad_astra:space_pants', title='Space pants'), t_item('ad_astra:space_boots', title='Space boots')],
-              icon='ad_astra:space_helmet', desc=['A full space suit with oxygen keeps you alive off-world.']),
+              icon='ad_astra:space_helmet', desc=['Make a full space suit. Off-world it carries your air.']),
             Q('space/moon/fuel', 'Rocket Fuel', t_item('ad_astra:fuel_bucket'),
               desc=['Refine rocket fuel from your oil. One bucket proves the line runs.']),
             Q('space/moon/pad', 'Launch Pad', t_item('ad_astra:launch_pad'),
-              desc=['Rockets start from a launch pad.']),
+              desc=['Craft a launch pad. Rockets start only from one.']),
             Q('space/moon/rocket', 'Tier 1 Rocket', t_item('ad_astra:tier_1_rocket'),
-              desc=['The tier 1 rocket reaches the Moon.']),
+              desc=['Build the tier 1 rocket. It reaches the Moon and no further.']),
             Q('space/moon/land', 'The Moon', t_dim('ad_astra:moon'), icon='ad_astra:moon_sand',
-              desc=['Land on the Moon.']),
-            Q('space/moon/desh', 'Desh', t_item('ad_astra:raw_desh', 16), desc=['Mine desh on the Moon.']),
+              desc=['Land on the Moon. Desh lies in its rock.']),
+            Q('space/moon/desh', 'Desh', t_item('ad_astra:raw_desh', 16), desc=['Mine 16 raw desh on the Moon. It is the metal of the next rocket.']),
         ], Q('space/moon/key', 'Desh Plates', t_item('ad_astra:desh_plate', 32), kind='keystone',
-             desc=['Thirty-two desh plates from the metal press.'])),
+             desc=['Press 32 desh plates. The engine and the tanks of the rocket to Mars are made from them.'])),
         ('Mars', [
             Q('space/mars/rocket', 'Tier 2 Rocket', t_item('ad_astra:tier_2_rocket'),
-              desc=['Desh builds the tier 2 rocket.']),
-            Q('space/mars/land', 'Mars', t_dim('ad_astra:mars'), icon='ad_astra:raw_ostrum', desc=['Land on Mars.']),
-            Q('space/mars/ostrum', 'Ostrum', t_item('ad_astra:raw_ostrum', 16), desc=['Mine ostrum on Mars.']),
+              desc=['Build the tier 2 rocket from desh. It reaches Mars.']),
+            Q('space/mars/land', 'Mars', t_dim('ad_astra:mars'), icon='ad_astra:raw_ostrum', desc=['Land on Mars. Ostrum lies in its red rock.']),
+            Q('space/mars/ostrum', 'Ostrum', t_item('ad_astra:raw_ostrum', 16), desc=['Mine 16 raw ostrum on Mars. It builds the rocket to Venus.']),
             Q('space/mars/harbinger', 'The Harbinger', t_boss('cataclysm:the_harbinger', 'cataclysm:witherite_block'),
               icon='cataclysm:witherite_block',
               desc=['Defeat the Harbinger. Its witherite block goes into the Star Chart.',
                     '',
                     'The Space Sigil\'s trial ends with a Wither: open it far from home.']),
         ], Q('space/mars/key', 'Ostrum Plates', t_item('ad_astra:ostrum_plate', 32), kind='keystone',
-             desc=['Thirty-two ostrum plates.'])),
+             desc=['Lay up 32 ostrum plates. Two go into the Star Chart; the rest become the engine and tanks of the rocket to Venus.'])),
         ('Draconium', [
             Q('space/drac/ingot', 'Draconium', t_item('draconicevolution:draconium_ingot', 16),
-              desc=['Draconium ore lies in the End.']),
+              desc=['Smelt 16 draconium ingots from End ore. Every fusion part is made of it.']),
             Q('space/drac/heart', 'Dragon Heart', t_item('draconicevolution:dragon_heart', consume=False),
               desc=['The Ender Dragon now drops its heart.',
                     '',
                     'The End Sigil opens the End Trial instead; in this Age it pays a Dragon Heart too.']),
             Q('space/drac/core', 'Fusion Crafting Core', t_item('draconicevolution:crafting_core'),
-              desc=['Fusion crafting is the one pedestal crafting of the tech Ages.']),
+              desc=['Build a fusion crafting core. It is the one pedestal crafting of the tech Ages.']),
             Q('space/drac/injectors', 'Injectors',
               [t_item('draconicevolution:basic_crafting_injector', 4, title='Basic injectors'),
                t_item('draconicevolution:wyvern_crafting_injector', 4, title='Wyvern injectors')],
               icon='draconicevolution:wyvern_crafting_injector',
-              desc=['Injectors around the core hold the ingredients.']),
+              desc=['Set four basic and four wyvern injectors around the core. They hold the ingredients.']),
         ], Q('space/drac/key', 'Wyvern Core', t_item('draconicevolution:wyvern_core'), kind='keystone',
-             desc=['The wyvern core is the heart of wyvern gear and of the Star Chart.'])),
+             desc=['Fuse a wyvern core. It is the heart of wyvern gear and of the Star Chart.'])),
     ],
     goal=Q('space/goal', 'Offer the Star Chart at the Shrine',
            t_stage('age_8', 'Offer the Star Chart at the shrine'), kind='goal', icon='firmages:star_chart',
@@ -1512,10 +1498,10 @@ SPACE = age_chapter(
 
 # ---------------------------------------------------------------- Quantum Age
 QUANTUM = age_chapter(
-    'quantum', 'quantum_age', 'Age 8: Quantum Age', ['Fusion, antimatter and the inner planets.'],
+    'quantum', 'quantum_age', 'Quantum Age', ['Fusion, antimatter and the inner planets.'],
     'firmages:quantum_core', 'age_8', 9,
     entry=Q('quantum/entry', 'The Quantum Age Dawns', t_stage('age_8'), kind='entry',
-            icon='mekanism:pellet_antimatter', sub='Age 8',
+            icon='mekanism:pellet_antimatter', sub='The ninth Age',
             desc=['Fusion power, the SPS, rockets to Venus, Mercury and Glacio, awakened draconium and the Marid.',
                   '',
                   'Four strands lead to the Quantum Core: Fusion, Inner Planets, Awakened and Marid.',
@@ -1523,62 +1509,62 @@ QUANTUM = age_chapter(
     strands=[
         ('Fusion', [
             Q('quantum/fusion/frame', 'Fusion Reactor', t_item('mekanismgenerators:fusion_reactor_frame', 32),
-              desc=['The fusion reactor is the FE source of this Age.']),
+              desc=['Build the fusion reactor from 32 frames. It powers this Age.']),
             Q('quantum/fusion/controller', 'Reactor Controller', t_item('mekanismgenerators:fusion_reactor_controller'),
-              desc=['The controller sits in the top of the reactor.']),
+              desc=['Craft the reactor controller. It sits in the top of the reactor.']),
             Q('quantum/fusion/hohlraum', 'Hohlraum', t_item('mekanismgenerators:hohlraum'),
-              desc=['A filled hohlraum and a laser ignite the reactor.']),
+              desc=['Fill a hohlraum with fuel. A laser fires it to ignite the reactor.']),
             Q('quantum/fusion/fuel', 'Fusion Fuel', t_item('mekanismgenerators:fusion_fuel_bucket'),
-              desc=['Deuterium and tritium make the fuel.']),
+              desc=['Mix deuterium and tritium into fusion fuel. It keeps the reactor burning.']),
             Q('quantum/fusion/sps', 'SPS', [t_item('mekanism:sps_casing', 16, title='SPS casings'),
                                             t_item('mekanism:supercharged_coil', 2, title='Supercharged coils')],
-              icon='mekanism:sps_casing', desc=['The supercritical phase shifter turns polonium into antimatter.']),
+              icon='mekanism:sps_casing', desc=['Build the SPS from 16 casings and two supercharged coils. It turns polonium into antimatter.']),
         ], Q('quantum/fusion/key', 'Antimatter Pellets', t_item('mekanism:pellet_antimatter', 8), kind='keystone',
-             desc=['Eight antimatter pellets. Two go into the Quantum Core.'])),
+             desc=['Make eight antimatter pellets in the SPS. Two go into the Quantum Core.'])),
         ('Inner Planets', [
             Q('quantum/planets/t3', 'Tier 3 Rocket', t_item('ad_astra:tier_3_rocket'),
-              desc=['Ostrum builds the tier 3 rocket for Venus and Mercury.']),
+              desc=['Build the tier 3 rocket from ostrum. It reaches Venus and Mercury.']),
             Q('quantum/planets/venus', 'Venus', t_dim('ad_astra:venus'), icon='ad_astra:raw_calorite',
-              desc=['Land on Venus.']),
+              desc=['Land on Venus. Calorite lies under its clouds.']),
             Q('quantum/planets/calorite', 'Calorite', t_item('ad_astra:raw_calorite', 16),
-              desc=['Mine calorite on Venus.']),
+              desc=['Mine 16 raw calorite on Venus. It builds the rocket to Glacio.']),
             Q('quantum/planets/mercury', 'Mercury', t_dim('ad_astra:mercury'), icon='ad_astra:tier_3_rocket',
               desc=['Visit Mercury. Its naquadah sleeps until the Singularity Age.']),
             Q('quantum/planets/t4', 'Tier 4 Rocket', t_item('ad_astra:tier_4_rocket'),
-              desc=['Calorite builds the tier 4 rocket for Glacio.']),
+              desc=['Build the tier 4 rocket from calorite. It reaches Glacio.']),
             Q('quantum/planets/glacio', 'Glacio', t_dim('ad_astra:glacio'), icon='ad_astra:ice_shard',
-              desc=['Land on Glacio.']),
+              desc=['Land on Glacio, the frozen world. Ice shards are mined there.']),
             Q('quantum/planets/ice', 'Ice Shards', t_item('ad_astra:ice_shard', 8),
-              desc=['Ice shards from Glacio go into the Quantum Core.']),
+              desc=['Mine eight ice shards on Glacio. Two go into the Quantum Core.']),
         ], Q('quantum/planets/key', 'Calorite Plates', t_item('ad_astra:calorite_plate', 32), kind='keystone',
-             desc=['Thirty-two calorite plates.'])),
+             desc=['Keep a store of 32 calorite plates. Two go into the Quantum Core; engines, tanks and the Abyss Sigil take the rest.'])),
         ('Awakened', [
             Q('quantum/awake/stars', 'Nether Stars', t_item('minecraft:nether_star', 4),
-              desc=['Awakened draconium needs a dragon heart and Nether Stars.']),
+              desc=['Gather four Nether Stars. Awakened draconium needs them with a dragon heart.']),
             Q('quantum/awake/ingot', 'Awakened Draconium', t_item('draconicevolution:awakened_draconium_ingot', 16),
-              desc=['Fuse draconium blocks with a dragon heart and Nether Stars.']),
+              desc=['Fuse 16 awakened draconium from draconium blocks, a dragon heart and Nether Stars. Draconic gear and the reactor are made of it.']),
             Q('quantum/awake/injectors', 'Awakened Injectors',
               t_item('draconicevolution:awakened_crafting_injector', 4),
-              desc=['Fusion at draconic level needs awakened injectors.']),
+              desc=['Craft four awakened injectors. Fusion at draconic level needs them.']),
             Q('quantum/awake/evolved', 'Hypercharged Alloy', t_item('evolvedmekanism:alloy_hypercharged', 4),
-              desc=['Make four hypercharged alloys. Machines and cables above the ultimate tier are built from them.']),
+              desc=['Make four hypercharged alloys. Machines above the ultimate tier are built from them.']),
             Q('quantum/awake/leviathan', 'The Leviathan', t_boss('cataclysm:the_leviathan', 'cataclysm:abyssal_egg'),
               icon='cataclysm:abyssal_egg',
               desc=['Defeat the Leviathan in the deep. Its abyssal egg goes into the Quantum Core.',
                     '',
                     'The Abyss Sigil opens the Abyss Trial instead.']),
         ], Q('quantum/awake/key', 'Awakened Core', t_item('draconicevolution:awakened_core'), kind='keystone',
-             desc=['The awakened core is the catalyst of the Quantum Core.'])),
+             desc=['Fuse the awakened core. It is the catalyst of the Quantum Core.'])),
         ('Marid', [
             Q('quantum/marid/alloy', 'Atomic Alloy', t_item('mekanism:alloy_atomic', 4),
-              desc=['The Marid book needs atomic alloy and a wyvern core.']),
+              desc=['Make four atomic alloys. The Marid book and its ritual need them.']),
             Q('quantum/marid/book', 'Book of Binding: Marid', t_item('occultism:book_of_binding_marid'),
-              desc=['Write the Marid\'s name into a book of binding.']),
+              desc=['Write the Marid\'s name into a book of binding. Without it the Marid will not come.']),
             Q('quantum/marid/bind', 'Bind a Marid', t_item('occultism:book_of_binding_bound_marid'),
-              desc=['Bind the Marid, the strongest of the spirits.']),
+              desc=['Bind the Marid, the strongest of the spirits. Only it can awaken the Keystone.']),
         ], Q('quantum/marid/key', 'Awakened Keystone', t_item('firmages:awakened_keystone', consume=False),
              kind='keystone',
-             desc=['Take the Arcane Keystone from its plinth (sneak and use the plinth with an empty hand), or bind',
+             desc=['Take the Arcane Keystone from its plinth (sneak and right-click the plinth with an empty hand), or bind',
                    'a second one with the Djinni. Awaken it in the Marid ritual with two atomic alloys, a wyvern core',
                    "and the Leviathan's abyssal egg.",
                    '',
@@ -1625,10 +1611,10 @@ QUANTUM = age_chapter(
 # No shrine tier: the goal waits for finale_won, which firmages-core grants when the tagged final boss dies
 # (OriginService, SPEC section 16; Doc 08 section 10.4).
 SINGULARITY = age_chapter(
-    'singularity', 'singularity_age', 'Age 9: Singularity Age', ['Chaos, the Singularity and the gate.'],
+    'singularity', 'singularity_age', 'Singularity Age', ['Chaos, the Singularity and the gate.'],
     'sgjourney:classic_stargate', 'age_9', 10,
     entry=Q('singularity/entry', 'The Singularity Age Dawns', t_stage('age_9'), kind='entry',
-            icon='draconicevolution:chaos_shard', sub='Age 9',
+            icon='draconicevolution:chaos_shard', sub='The tenth and last Age',
             desc=['The last Age. Chaos, the Ultimate Singularity and a Stargate to The Origin.',
                   '',
                   'Three strands lead to the final battle: Chaos, Singularity and Stargate.']),
@@ -1641,21 +1627,21 @@ SINGULARITY = age_chapter(
                     '',
                     'The Chaos Sigil opens the Chaos Trial instead.']),
             Q('singularity/chaos/shards', 'Chaos Shards', t_item('draconicevolution:chaos_shard', 8),
-              desc=['Chaos shards drop from the guardian\'s crystals.']),
+              desc=['Keep eight chaos shards from the guardian\'s crystals. Two go into the Ultimate Singularity, one into the Coordinates of The Origin.']),
             Q('singularity/chaos/injectors', 'Chaotic Injectors',
               t_item('draconicevolution:chaotic_crafting_injector', 4),
-              desc=['Chaotic injectors fuse at the highest tier.']),
+              desc=['Craft four chaotic injectors. Chaotic fusion, the highest tier, needs them.']),
             Q('singularity/chaos/parts', 'Reactor Parts',
               [t_item('draconicevolution:reactor_stabilizer', 4, title='Reactor stabilizers'),
                t_item('draconicevolution:reactor_injector', title='Reactor injector')],
               icon='draconicevolution:reactor_stabilizer',
-              desc=['Four stabilizers and an injector hold the reactor core in its field.']),
+              desc=['Build four stabilizers and an injector. They hold the reactor core in its field.']),
             Q('singularity/chaos/fuel', 'Reactor Fuel', t_item('draconicevolution:awakened_draconium_block', 4),
-              desc=['Awakened draconium is the reactor\'s fuel.']),
+              desc=['Make four awakened draconium blocks. They are the reactor\'s first fuel.']),
         ], Q('singularity/chaos/key', 'Reactor Online',
              t_observe('draconicevolution:reactor_core', title='Look at your placed reactor core'),
              kind='keystone', icon='draconicevolution:reactor_core',
-             desc=['Build the draconic reactor and bring it online. It is the only power source for the Stargate.'])),
+             desc=['Build the draconic reactor and bring it online. Only it can power the Stargate.'])),
         ('Singularity', [
             # The Gathering (firmages-core 0.9): one prayer at the complete shrine in this Age gives the nine relics
             # back and sets the heart to awakened=10 (ShrineHeartBlock allows 0..10, ShrineService keeps it while
@@ -1667,7 +1653,7 @@ SINGULARITY = age_chapter(
               desc=['Pray at the complete shrine with your fellowship. Caelum gives back the nine relics for the',
                     'chaotic fusion.']),
             Q('singularity/sing/core', 'Chaotic Core', t_item('draconicevolution:chaotic_core'),
-              desc=['The chaotic core is the catalyst of the Ultimate Singularity.']),
+              desc=['Fuse the chaotic core. It is the catalyst of the Ultimate Singularity.']),
             Q('singularity/sing/alloy', 'Singular Alloy', t_item('evolvedmekanism:alloy_singular'),
               desc=['Make the singular alloy. It binds the nine relics into one.']),
         ], Q('singularity/sing/key', 'The Ultimate Singularity', t_item('firmages:ultimate_singularity'),
@@ -1676,9 +1662,9 @@ SINGULARITY = age_chapter(
                    'chaotic core in a chaotic fusion.'])),
         ('Stargate', [
             Q('singularity/gate/naquadah', 'Naquadah', t_item('sgjourney:raw_naquadah', 16),
-              desc=['Naquadah lies on Mercury. Mine it with a digital miner.']),
+              desc=['Mine 16 raw naquadah on Mercury with a digital miner. No other tool reaches it.']),
             Q('singularity/gate/refined', 'Refined Naquadah', t_item('sgjourney:refined_naquadah', 8),
-              desc=['Refine the naquadah in your arc furnace or ore lines.']),
+              desc=['Refine naquadah in the metallurgic infuser with refined obsidian. The base block of the gate needs it.']),
             Q('singularity/gate/blocks', 'Stargate Blocks',
               [t_item('sgjourney:classic_stargate_ring_block', 14, title='Ring blocks'),
                t_item('sgjourney:classic_stargate_chevron_block', 9, title='Chevron blocks'),
@@ -1687,7 +1673,7 @@ SINGULARITY = age_chapter(
               desc=['A classic Stargate takes one base block, nine chevron blocks and fourteen ring blocks.',
                     'The Ultimate Singularity goes into the base block.']),
             Q('singularity/gate/dhd', 'Dial Home Device', t_item('sgjourney:classic_dhd'),
-              desc=['The DHD dials the gate.']),
+              desc=['Build the Dial Home Device. It dials the gate.']),
         ], Q('singularity/gate/key', 'Gate Online',
              t_observe('sgjourney:classic_stargate', title='Look at your assembled Stargate'),
              kind='keystone', icon='sgjourney:classic_stargate',
@@ -1747,16 +1733,9 @@ WELCOME = [
       sub='Read me first',
       desc=['You wake beneath a sky that watches. Your hands are empty.',
             '',
-            'This is the Chronicle, the one record of your fellowship. Press K to open it. There is no book to carry',
-            'and no other list to keep.',
+            'This is the Chronicle, the one record of your fellowship. Press K to open it.',
             '',
-            'The world is lived in Ages: Dawn, then the Stone Age up to the Singularity Age. Each has its chapter',
-            'here.']),
-    Q('welcome/ages', 'The Ages', t_check(), deps=['welcome/start'], kind='info', icon='firmages:hearthstone',
-      desc=['An Age is one layer of the sky. The world holds only what your Age allows. The metals and crafts',
-            'of later Ages do not exist yet, and their veins sleep as plain stone.',
-            '',
-            'When a new layer opens, its chapter appears here and the world grows with it.']),
+            'The world is lived in Ages, from Dawn to the Singularity Age. What a later Age holds does not exist yet. Each Age ends with an offering at the shrine of Caelum, the sky itself, and its chapter appears here when it dawns.']),
     Q('welcome/book', 'Reading a Chapter', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:compass',
       desc=['Each chapter has one entry, three or four strands and one goal.',
             '- A strand ends in a keystone, the large engraved hexagon.',
@@ -1765,28 +1744,13 @@ WELCOME = [
             '- The diamond marks the Age\'s shrine ring.',
             '- Gears are notes. Tick them once read.']),
     Q('welcome/team', 'One Fellowship', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:player_head',
-      desc=['Everybody on this server is one fellowship. Progress, Ages and rewards are shared by all of you.',
+      desc=['Everybody on this server is one fellowship. The Ages are shared by all of you.',
             'Split the strands between you: one friend smiths, one prospects, one builds.',
-            'Whoever claims a reward first holds it for the rest; experience is paid to each of you.']),
-    Q('welcome/shrine', 'The Shrine and Caelum', t_check(), deps=['welcome/ages'], kind='info',
-      icon='firmages:hearthstone',
-      desc=['In the Stone Age your fellowship raises one shrine: a heart of fired clay in a ring of stone, logs',
-            'and thatch. It is the altar of Caelum, the sky itself.',
             '',
-            'Every Age ends there. Add the Age\'s ring, lay its offering on the new plinth and pray. Caelum answers,',
-            'keeps the gift as a relic and opens the next Age for all of you.']),
+            'A keystone\'s supplies go to whoever claims them first. The gift of a side path and all experience come to each of you.']),
     Q('welcome/sign', 'The Sign in the Corner', t_check(), deps=['welcome/book'], kind='info',
       icon='firmages:sky_disc',
-      desc=['Top left, a small sign names your Age and its offering. It fades after a few breaths. Hold H to see',
-            'it again.',
-            '',
-            'It is the only mark the sky leaves on your sight.']),
-    Q('welcome/tfc', 'Survival Notes', t_check(), deps=['welcome/team'], kind='info', icon='tfc:ceramic/large_vessel',
-      desc=['Food spoils and tools wear out. Nothing is softened.',
-            '',
-            'You will not thirst, and a plain diet does no harm; a varied one makes you hardier.',
-            '',
-            'Hand work comes first. Whatever you need in bulk can be automated later.']),
+      desc=['Top left, a small sign names your Age and its offering. It fades after a few breaths. Hold H to see it again.']),
 ]
 
 # ---------------------------------------------------------------- The Firmament
@@ -1802,11 +1766,13 @@ FIRMAMENT = [
     ('data_matrix', 'Data Matrix', 'age_6', 'age_7', 'firmages:data_matrix'),
     ('star_chart', 'Star Chart', 'age_7', 'age_8', 'firmages:star_chart'),
     ('quantum_core', 'Quantum Core', 'age_8', 'age_9', 'firmages:quantum_core'),
-    ('beyond', 'Beyond the Firmament', 'age_9', 'finale_won', 'sgjourney:classic_stargate'),
+    # A neutral icon: the gate and The Origin stay unnamed until the Singularity chapter (the Stargate model gave the
+    # finale away from minute one).
+    ('beyond', 'Beyond the Firmament', 'age_9', 'finale_won', 'minecraft:nether_star'),
 ]
 
 
-# Plain Age names for prose ("the Stone Age"); chapter titles keep the "Age 0: Stone Age" form (decision r3).
+# Plain Age names for prose ("the Stone Age") and chapter titles ("Ten Ages": no numbers in player text).
 AGE_NAME = {'dawn': 'Dawn', 'age_0': 'Stone Age', 'age_1': 'Bronze Age', 'age_2': 'Iron Age', 'age_3': 'Arcane Age',
             'age_4': 'Industrial Age', 'age_5': 'Electric Age', 'age_6': 'Information Age', 'age_7': 'Space Age',
             'age_8': 'Quantum Age', 'age_9': 'Singularity Age'}
@@ -1972,14 +1938,13 @@ def build_age_chapter(ch):
 
 def build_welcome():
     quests = []
-    layout = {'welcome/start': (0, 0), 'welcome/ages': (2, -1.5), 'welcome/book': (2, 0), 'welcome/team': (2, 1.5),
-              'welcome/shrine': (4, -1.5), 'welcome/sign': (4, 0), 'welcome/tfc': (4, 1.5)}
+    layout = {'welcome/start': (0, 0), 'welcome/book': (2, -1.0), 'welcome/team': (2, 1.0), 'welcome/sign': (4, -1.0)}
     for w in WELCOME:
         x, y = layout[w['key']]
         quests.append(quest_nbt(w, x, y, [r_xp(5)]))
     return chapter_nbt('welcome', 'welcome', 'Welcome', ['Read this first.'],
                        'tfc:firestarter', None, 0, quests, tags=['welcome'],
-                       images=[banner_image('welcome', 'welcome', 2.0, -1.5 - BANNER_H - 0.75)])
+                       images=[banner_image('welcome', 'welcome', 2.0, -1.0 - BANNER_H - 0.75)])
 
 
 def build_firmament():
@@ -1990,9 +1955,8 @@ def build_firmament():
         dawn = age == 'dawn'
         name = AGE_NAME[age] if dawn else 'the ' + AGE_NAME[age]
         if final:
-            task, sub = 'Defeat the final boss', 'Goal of the Singularity Age: defeat the final boss in The Origin'
-            desc = ['Nine offerings, one Singularity, one gate. Beyond it waits the final boss of The Origin.',
-                    'Its fall is the end of the road.']
+            task, sub = 'Defeat the final boss', 'Goal of the Singularity Age: the last battle'
+            desc = ['Nine offerings, one gate. Beyond it waits the last battle, and its end is the end of the road.']
         else:
             task, sub = 'Reach the ' + AGE_NAME[stage], 'Goal of ' + name
             desc = (['The first fire. It opens the Stone Age.'] if dawn else
@@ -2063,7 +2027,7 @@ def write(path, value):
 
 def main():
     LANG.clear()
-    lang('file', '0000000000000001', 'title', 'Firmament Ages')
+    lang('file', '0000000000000001', 'title', 'The Chronicle')  # the quest book's one name (welcome screen, HUD, docs)
     gid = qid('group/ages')
     lang('chapter_group', gid, 'title', 'Ages')
     tables = build_tables()

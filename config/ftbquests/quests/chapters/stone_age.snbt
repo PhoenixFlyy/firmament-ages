@@ -616,7 +616,7 @@
 				{
 					id: "1B75471245BEBDFF"
 					table_id: 1971555762099653251L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -651,7 +651,7 @@
 				{
 					id: "518848DD8F449981"
 					table_id: 1971555762099653251L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -682,7 +682,7 @@
 				{
 					id: "1EEE5FF24A675B0B"
 					table_id: 1971555762099653251L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]

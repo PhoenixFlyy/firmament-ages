@@ -16,21 +16,6 @@
 			id: "4198FE4F3D3A5696"
 			item: {
 				count: 1
-				id: "evolvedmekanism:overclocked_energy_cube"
-			}
-		}
-		{
-			count: 4
-			id: "73EFCC583C2E952F"
-			item: {
-				count: 1
-				id: "evolvedmekanism:overclocked_control_circuit"
-			}
-		}
-		{
-			id: "3F916727F4EB4FBA"
-			item: {
-				count: 1
 				id: "draconicevolution:draconic_pickaxe"
 			}
 		}

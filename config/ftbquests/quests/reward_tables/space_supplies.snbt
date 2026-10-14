@@ -52,6 +52,13 @@
 				id: "ad_astra:fuel_bucket"
 			}
 		}
+		{
+			id: "601ECFE73ED9051F"
+			item: {
+				count: 1
+				id: "mekanism:teleporter"
+			}
+		}
 	]
 	tags: ["age:age_7"]
 }
