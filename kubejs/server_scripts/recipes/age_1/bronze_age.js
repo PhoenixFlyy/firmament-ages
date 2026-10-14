@@ -182,4 +182,33 @@ ServerEvents.recipes((event) => {
     B: '#tfc:double_sheets/any_bronze',
     G: '#c:sheets/gold'
   }).id('firmages:crafting/sky_disc')
+
+  // ---- Deco in TFC woods: Bronze Age, like the rest of the furniture -----------------------------------
+  // Every Compat builds Macaw's classic and cottage doors in TFC and AFC woods from the Classic and Cottage Door
+  // Print, which Macaw's draws from a vanilla oak or spruce door; Handcrafted's counters (and Every Compat's) take
+  // calcite (Arcane Age). Any wooden door or trapdoor now makes the print, any smooth TFC rock the counter top.
+  // Ids and JSON from the all-Ages fa_dump_full of 2026-10-14; dev/predict_dump.py mirrors this section.
+  // POC: Every Compat's recipes come from Moonlight's runtime pack; check one TFC classic door and counter in EMI.
+  event.replaceInput({ id: 'mcwdoors:print_oak' }, 'minecraft:oak_door', '#minecraft:wooden_doors')
+  event.replaceInput({ id: 'mcwdoors:print_spruce' }, 'minecraft:spruce_door', '#minecraft:wooden_trapdoors')
+  const counters = []
+  event.forEachRecipe({ id: /^(handcrafted:[a-z_]+_counter|everycomp:hc\/.+_counter)$/ }, (r) => {
+    let j = JSON.parse(String(r.json))
+    let hit = false
+    Object.keys(j.key || {}).forEach((k) => {
+      let v = j.key[k]
+      // Every Compat wraps every key in Moonlight's wood swap; calcite has no wood, so the wrapper goes.
+      let inner = v.type === 'moonlight:block_type_swap' ? v.ingredient : v
+      if (inner && inner.item === 'minecraft:calcite') {
+        j.key[k] = { tag: 'c:stones/smooth' }
+        hit = true
+      }
+    })
+    if (hit) counters.push({ id: String(r.getId()), json: j })
+  })
+  counters.forEach((c) => {
+    event.remove({ id: c.id })
+    event.custom(c.json).id(c.id)
+  })
+  console.info(`[firmages] deco: ${counters.length} counters take smooth rock`)
 })
