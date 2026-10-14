@@ -1,0 +1,8 @@
+{
+  "type": "create:haunting",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ]
+}

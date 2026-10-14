@@ -2786,3 +2786,36 @@ after it (`diff -rq` clean); `debug.allowSimulate` is `false` again; `server.pro
 - A world where one player reached an Age alone, outside a party (Felix's world), keeps that state; see `dev/offene-punkte.md`.
 - In game (client brief 0.9.0, points 3 and 11): crafting table, framing saw, Imbuement Chamber, Immersive Petroleum
   machines and AE2 water transforms right after a swap; the new quests and notes.
+
+## 0.9.0 log warnings (branch n4/warnings, 2026-10-14, static)
+
+Input: `test-server/logs/latest.log` and `debug.log` of the 0.9.0 boot (13:19) and Felix's live session up to 13:50.
+`check_log.py` now counts every WARN and the INFO lines that report a problem. Before the fixes, with an empty
+noise list: 868 problem lines in 220 signatures at boot; with the cleaned list: 551 lines in 13 signatures outside it,
+112 in the open TFCRegistryAPI entry.
+
+| Group | Lines | Source (checked with) | Fix |
+|---|---|---|---|
+| "Skipping recipe X, not a json object" | 462 | KubeJS `RecipesKubeEvent.discoverRecipes` warns on a file without `type` (javap); TFC 195, FirmaSupplementaries 184, TFCAstikorCarts 67, Firmalife 10, Beneath 4, TFCreate 2, all `{"neoforge:conditions": [{"type": "neoforge:false"}]}` (jar scan) | typed removal overrides, `dev/gen_recipe_overrides.py` |
+| "Failed to parse recipe ... Falling back to vanilla" | 76 | Create Framed 47 (`{"item": {...}}` results), Diesel Generators 18 and Mechanical Spawner 1 (Create 0.5 fluid ingredients), Wooden Cog 8 (`tfc:mud_bricks/<old soil>`), FirmaSupplementaries 2 (`#tfc:candles`, `#tfc:colored_bricks_alabaster` do not exist) | Create 6.0.10 format, removal, or the right tag; same generator |
+| "Not all defined tags ... present" | 5 (+1 per reload) | tags made in mod code without data | empty tags in `kubejs/data` |
+| "Unreachable entry!" | 1 | `firmasupps:blocks/sack` alternatives | loot table override |
+| ModernFix timing | 2 | `feature.measure_time` (javap `ModernFix`) | `config/modernfix-mixins.properties` |
+| Modonomicon "Recipe ... not found" | 8 at the first login | eight permanently disabled Occultism rituals in six book entries | entries hidden, recipe pages removed |
+| "Could not save data ... brandonscore_world_entity.dat" | 4 ERROR | SimpleBackups `saveEverything(true, false, true)` then the zip at once (javap `BackupThread`); AccessDeniedException on the atomic move | `saveAll = false` |
+| Fzzy Config "Deserialization Error ... missing" | 15 (13:05 boot) | partial `config/cave_dweller/server_config.toml` | full file |
+| "firmages-server.toml is not correct" | 1 (13:05 boot) | new 0.9.0 keys in an older file | `config/firmages-server.toml` shipped |
+| "Can't keep up! ... 6095ms" | 1 | first login after the boot (13:41:03 to :09), before the backup | open point (spark) |
+
+| Check | Result | Status |
+|---|---|---|
+| `python dev/gen_recipe_overrides.py --check` (jars of the CurseForge instance and the 1.21.1 client jar) | 538 overrides, 0 problems | pass |
+| `python -m json.tool` on every added JSON | 559 files, 0 errors | pass |
+| `node --check` on `global_removals.js`, `electric_age.js` | ok | pass |
+| `python dev/validate_quests.py` | 1308 object ids, 0 errors, 0 warnings | pass |
+| `python dev/check_log.py test-server/logs/latest.log` (log from before the fixes) | 551 remaining in 13 signatures, all listed above; 112 open | expected until a reboot |
+
+### Open points
+
+- Nothing above has run on a server yet: the next boot proves it (`dev/offene-punkte.md`).
+- TFCRegistryAPI rest (112 lines per boot): firmages-core change, see `dev/offene-punkte.md`.

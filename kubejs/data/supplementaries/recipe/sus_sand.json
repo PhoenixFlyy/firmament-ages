@@ -1,0 +1,8 @@
+{
+  "type": "supplementaries:sus_crafting",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ]
+}

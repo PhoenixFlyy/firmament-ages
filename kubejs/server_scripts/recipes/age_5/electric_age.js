@@ -63,6 +63,8 @@ ServerEvents.recipes((event) => {
   // Every recipe of the Diesel Generators machine types (fermenting, casting, compression molding, distillation,
   // hammering, wire cutting) has a createdieselgenerators id (all 47 on 2026-10-01), so the pass above takes them too;
   // a type filter would be one more scan of all recipes. poc_analyze.py C-5a reports a Diesel Generators output left.
+  // The 18 Create mixing recipes of the mod (cement, asphalt, biodiesel) are in a format KubeJS cannot read; data
+  // overrides remove them before KubeJS reads them (dev/gen_recipe_overrides.py, reason pack-removes).
 
   // ======================================================================================== magic tail: Afrit
   // Doc 08 section 7.2: the Afrit binding book needs an IE HV coil block. One grid recipe each (the IE Assembler

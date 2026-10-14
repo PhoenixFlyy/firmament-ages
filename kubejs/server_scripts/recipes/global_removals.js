@@ -87,12 +87,8 @@ ServerEvents.recipes((event) => {
 
   // ---- Recipes for content this pack does not have (server log triage of 2026-10-14, finding E) -------------
   // Each failed to parse on every data load (RecipeManager ERROR). Removed by plain id before the vanilla parse.
-  // Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils (loam, sandy_loam, silt, silty_loam); TFC 4.2.11 has
-  // no tfc:mud_bricks/<old soil>.
-  ;['loam', 'sandy_loam', 'silt', 'silty_loam'].forEach((soil) => {
-    event.remove({ id: `woodencog:cutting/slab/${soil}_brick_slab` })
-    event.remove({ id: `woodencog:cutting/stair/${soil}_brick_stairs` })
-  })
+  // Wooden Cog 1.2.19's cutting of pre-4.2 TFC soil mud bricks is removed by data overrides instead, before KubeJS
+  // reads it (dev/gen_recipe_overrides.py, reason missing-item).
   // TFC Regrowing Forests 2.2: regrowth for Dynamic Trees TFC (not installed) and for the cacao and fig fruit trees
   // (TFC 4.2.11 has neither).
   ;['acacia', 'ash', 'aspen', 'birch', 'blackwood', 'chestnut', 'douglas_fir', 'hickory', 'kapok', 'mangrove', 'maple',

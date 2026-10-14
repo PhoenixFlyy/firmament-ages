@@ -1,0 +1,8 @@
+{
+  "type": "supplementaries:safe",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ]
+}

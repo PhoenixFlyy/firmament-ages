@@ -1,0 +1,8 @@
+{
+  "type": "tfc:barrel_sealed",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ]
+}
