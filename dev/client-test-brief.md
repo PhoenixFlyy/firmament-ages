@@ -14,8 +14,8 @@ Test-Servers mit neuer Welt (`dev/poc-results.md`, Abschnitt „0.9.3 round N6�
 3. **Welcome to the Wild** nennt Strg als Schleichtaste und Shift als Sprint.
 4. **Ring-Quests.** Bronze- und Eisenzeit haben je eine Raute „Raise the Bronze Sanctum“ / „Raise the Iron Sanctum“;
    kein Ring-Untertitel sagt mehr „optional“.
-5. **Firmament-Kapitel.** Am Anfang nur „The First Spark“ und „Beyond the Firmament“; jede Opfergabe erscheint, wenn
-   ihre Age anbricht (mit `/stage grant @s age_N` nacheinander prüfen). „A Weird Rock“ ist weg.
+5. **Firmament-Kapitel.** Am Anfang nur „The First Spark“; jede Opfergabe erscheint, wenn ihre Age anbricht (mit
+   `/stage grant @s age_N` nacheinander prüfen), „Beyond the Firmament“ zusammen mit „Quantum Core“ (`age_8`). „A Weird Rock“ ist weg.
 6. **Singularitätszeit.** „Into The Origin“ liegt als Pflichtschritt zwischen Tor-Keystone und Ziel: Sehen die
    Verbindungslinien sauber aus? „Antimatter Pellets“ fordert 2.
 7. **Meldungen.** Fällt ein Item einer späteren Age aus dem Inventar: „What is not of this Age falls from your pack.“
