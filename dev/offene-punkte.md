@@ -1,6 +1,6 @@
 # Offene Punkte
 
-Alle offenen Punkte an einer Stelle, Stand 2026-10-14 (0.9.1-Runde N4). Gesammelt aus `dev/config-todo.md` (archiviert),
+Alle offenen Punkte an einer Stelle, Stand 2026-10-14 (0.9.2-Runde N5). Gesammelt aus `dev/config-todo.md` (archiviert),
 den „Offen“-Listen in `dev/client-test-brief.md`, „Open points“ in `dev/archive/quests-notes.md` und den „Open points“-Abschnitten
 in `dev/poc-results.md`; jeder Punkt wurde gegen den aktuellen Stand geprüft, Erledigtes steht unten mit Beleg.
 Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile nach unten verschieben, mit Beleg.
@@ -53,7 +53,6 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Stage-Anzeigenamen `display_name = "Age N: …"` (nur Operatoren sehen sie) an die Age-Namen ohne Nummer angleichen | `config/progressivestages/stages/age_*.toml` | Claude |
 | `Modpack-Planung/docs/12-Walkthrough.md` doppelt `docs/WALKTHROUGH.md`: auf einen Verweis kürzen | `../Modpack-Planung/docs/` | Claude |
 | Java-Fallback-Texte der Mod stimmen nicht mehr mit der Lang-Datei überein („The world realigns...“, „No shrine heart is placed“) | `FirmagesClient.java`, `ReloadStatePayload.java`, `ShrineCommands.java` | Claude (mit der nächsten firmages-core-Version) |
-| Evolved Mekanism: Chemixer- und APT-Rezepte (Plaslitherit, Better Gold, Age 8) fehlen in EMI: Mekanism meldet seinen Chemikalien-Typ nur ohne EMI bei JEI an, die JEI-Kategorien von Evolved Mekanism werfen „Unknown ingredient type: ChemicalStack“. Beide Rezepttypen im firmages-core-EMI-Plugin selbst registrieren (Mekanisms EMI-Chemikalien-Stacks) | `compat/emi/FirmagesEmiPlugin` | Claude (Java) |
 
 ## Prüfen, ob noch offen
 
@@ -68,6 +67,9 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Reload-Zeiten auf einem leeren Rechner neu messen (`firmages reload` dreimal bei age_9) | Test-Server | Claude |
 | Mekanism-Strahlung, Fusions- und Reaktor-Balance (Dok. 10 v3 §7.4 nur für DE gesetzt) | Configs | Claude |
 | `/fa_dump` hält den Server-Thread 3,4 bis 4 s an („Can't keep up“ im Log, Boot N4); nur das Debug-Werkzeug, kein Spielweg. Darum lief die Log-Prüfung N4 auf einem Boot ohne Dump. Falls störend: Dump in Teilen pro Tick schreiben | `kubejs/server_scripts/debug/dump.js` | Claude |
+| `/firmages selftest all` hält den Server-Thread etwa 2,1 s an („Can't keep up! … 2149ms“, N5-Kopie, Runde 2); wie `/fa_dump` nur ein Debug-Befehl. Die Log-Prüfung N5 lief darum auf Boots ohne Selbsttest und Dump (Runden 3 und 4: 0 übrig) | `command/SelfTest*`, `dev/poc-results.md` („0.9.2 round N5“) | Claude, falls es stört |
+| JEI schreibt pro Start sechs ERROR-Zeilen „Found a broken recipe“ für die Chemixer- und APT-Rezepte (JEI baut seine Kategorien trotz EMI); EMI zeigt sie seit firmages-core 0.9.2 über eigene Kategorien. Im Client-Log Rauschen (`client_log_noise.json`) | Evolved Mekanism, JEI | Mod-Autor; Claude nur, wenn mehr als sechs Zeilen kommen |
+| Moonlight 3.7.2 hält beim Stop 15 Nicht-Daemon-Threads seines Dynamic-Pack-Pools offen; AllTheLeaks meldet „server is stuck while trying to close“, die JVM endet trotzdem mit Exit 0 (Runden 3 und 4). Rauschen in `log_noise.json` | Moonlight | Mod-Autor |
 | Erster Login nach dem Start: 6 s Ruckler („Can't keep up! … 6095ms“, Live-Sitzung 0.9.0, 13:41); mit spark messen, was beim Login läuft (Modonomicon-Bücher, IE-Trankrezepte, ProgressiveStages-Sync, firmages-core) | Test-Server | Claude |
 | Apotheosis-Tiefendungeons in Dimensionen mit Boden ab y = 0 („Empty height range“, Rauschliste): Biome-Modifier auf die Oberwelt begrenzen, sobald ein Log die Dimension nennt | `kubejs/data/apotheosis/neoforge/biome_modifier/` | Claude |
 
@@ -75,6 +77,10 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 
 | Was | Beleg |
 |---|---|
+| Evolved Mekanism: Chemixer- und APT-Rezepte fehlten in EMI | firmages-core 0.9.2 `compat/emi/EvolvedMekanismEmi` (SPEC §21.12), `gradlew build` grün; im Client noch anzusehen (Testbrief 0.9.2, Punkt 8) |
+| EMI-Audit schrieb bei jedem Reload WARN | firmages-core 0.9.2 zählt den angezeigten Index (`EmiStackList.filteredStacks`); INFO ohne Treffer (SPEC §21.4) |
+| Neun Configs wurden beim ersten Start „korrigiert“ | Dateien so, wie NeoForge sie schreibt, ohne Pack-Kommentare; N5-Kopie Runde 2: keine „is not correct“-Zeile mehr |
+| `dev/data/world_sources.json` aus 177 Jars | `derive_ages.py --scan` auf 186 Jars (N5), nur Zugänge; `supplementaries:ash` ist erreichbar (Bronzezeit) |
 | EMI zeigt gesperrte Items in Item-Listen-Zutaten (67 Rezepte) | firmages-core 0.9.1 `mixin/emi/ListEmiIngredientMixin` (SPEC §21.11); `poc_analyze.py` E-1 auf dem 0.9.1-Dump: 0 Typen, 0 Item-Listen, 88 PASS, 0 FAIL. Im Client noch nicht gesehen (Client-Test 0.9.1) |
 | TFCRegistryAPI-Rest (etwa 112 DISTXFORM/Mixin/FATAL-Zeilen pro Start) | firmages-core 0.9.1 lädt nur Enums (`perf/ClassFileAccess`); Boot N4: FATAL 0 (0.9.0: 14), 7 DISTXFORM (alle dokumentiert), Eintrag `tfcregistryapi-scan-residual` gelöscht; `check_registry_parity.py dump` gegen den N3-Dump: PASS (Enums, Astikor-Holz 81/81) |
 | Log nach dem nächsten Neustart ohne offene Zeilen | Boot N4 auf einer Kopie des Test-Servers (neue Welt, alle Ages, `selftest all`): `check_log.py` 0 übrig, 0 offen, Exit 0; 462 „Skipping recipe“ und 76 „Falling back“ weg |

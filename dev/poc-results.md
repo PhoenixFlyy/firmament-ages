@@ -2869,3 +2869,38 @@ successfully"; `debug.allowSimulate = true` only in the copy) with a new world, 
   pass); the no-founding rule for teams with Ages is replaced by the team carry-over (GameTests only so far).
 - `/fa_dump` stalls the server thread 3.4 to 4 s; the first login after a boot stalled 6 s in 0.9.0 (no player login in
   the loop). Both in `dev/offene-punkte.md`.
+
+## 0.9.2 round N5 (2026-10-14)
+
+First the open N4 review fixes on `dev` (commit 65f541f), then `--no-ff` merges of n5/clientlog, n5/mods-loading and
+n5/core (conflicts only in the append-only docs and `pack.toml`; the FancyMenu placeholders of n5/core left out), two
+firmages-core fixes (Evolved Mekanism in EMI, the EMI audit index), version 0.9.2. Felix's test server stayed untouched
+and running; every boot ran on a copy (`robocopy` without world, logs and local; ports 25566 and RCON 25576; synced
+with `packwiz-installer-bootstrap -g -s server` from `packwiz serve -p 8093`, quest folder deleted first, 1912 entries,
+"Finished successfully"; `debug.allowSimulate = true` only in the copy; all Ages through `firmages ages simulate
+grant`). The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| Review fixes: `gen_quests.py` | reproduces the fix agent's `stone_age.snbt` and `en_us.snbt` byte for byte, then the unified Dawn grid and torch texts | pass |
+| Review fixes: `derive_ages.py`, `gen_stage_locks.py` on the N4 dump (predicted, matched the real one in N4) | Framed Blocks, Decorative Blocks and Macaw's Bridges age_1 in `[mods]`: 202 items age_0 to age_1, 0 tag files changed by the regeneration, both `--check` up to date | pass |
+| Review fixes: `gradlew build`, `runGameTestServer` (fresh) | "All 47 required tests passed"; new `TeamGameTests.loginRepairsTheParty` (first try failed: the real login hook of the debug spawn ran the carry-over one tick before the test's own call, so the test waits three ticks before the grant) and `carryOverTakesOnlyTheMirror` | pass |
+| Review fixes: server pack `start.bat` (scratch folder) | with `FA_JAVA_HOME` = tools\jdk-21: Java 21 found, EULA warning, installer step; with only PATH (Corretto 25): "Java 21 not found" | pass |
+| firmages-core 0.9.2: `gradlew build`, `runGameTestServer` (fresh `run/gametest`) | 147 unit tests, 0 failed; "All 49 required tests passed" (the two Origin tests of n5/core included) | pass |
+| `release.ps1 -Version 0.9.2` | `pack.toml` and title line 0.9.2; mrpack 519 MB, CurseForge zip 43.5 MB, server zip 527.8 MB: `start.bat` CRLF and `start.sh` LF with `NEOFORGE=21.1.252`, `user_jvm_args.txt` `-Xms8G -Xmx8G`, `mods/firmages-core-0.9.2.jar`; `gen_credits.py` 216 mods | pass |
+| Round 1 (new world, grants, `fa_dump`, `fa_dump_full`, `selftest all`, `origin status`) | swaps 210 to 322 ms; `fa_dump_full` 35,521 recipes, 0 not encodable; `check_log`: 6 left: `/fa_dump`'s `Can't keep up` and five "is not correct. Correcting" lines (supplementaries-common, mysticalagriculture-common, everycomp-hazardous, ars_nouveau-common, progressivestages): NeoForge compares comments, the full files of n5/clientlog kept the pack's comments | fixed: files as NeoForge writes them |
+| `derive_ages.py --scan` on the copy's 186 jars | only additions and the pack's own overrides (see decision row); `supplementaries:ash` reachable, 3 tag files rewritten; `derive_ages --check` and `gen_stage_locks --check` up to date on the round 1 dump | pass |
+| `poc_analyze.py` on the round 1 dump | 88 PASS, 0 FAIL; E-1: 0 types before their station, 0 lists with a shown locked item, 137 recipes with an item list trimmed by `ShownMembers` (the rule is now modelled, not switched off) | pass |
+| Round 2 (new world, grants, `selftest all`, `origin status`, no dump) | no "Correcting" line; `selftest all` 55 of 55; `origin status`: arena v2, "fight running false"; `check_log` 1 left: `Can't keep up` (2.1 s) right after `selftest all` (debug command, open point) | pass (debug stall open) |
+| Round 3 (same world, boot from the mirror, `firmages ages`, `origin status`) | Done 65 s; 2 left: AllTheLeaks "server is stuck while trying to close" at the stop, JVM exit 0 | traced |
+| Round 4 (same, `debugThreadsStuck` on in the copy) | the 15 stuck threads are Moonlight 3.7.2's `DynamicResourcesProvider.runGenerationPipeline` pool (non-daemon, never shut down); noise entry with that reason; `check_log` **0 left, exit 0** | pass |
+| `validate_quests.py --style`, `check_menus.py` (with `check_loading`), `gen_textures.py --check`, `gen_way_sign_textures.py --check`, `gen_multiblock_templates.py --check`, `gen_recipe_overrides.py --check`, `gen_loot_silence.py --check` | 1298 object ids 0/0; menus pass, loading overlay memory line fits 168x16; 99 textures; 34 way sign icons; templates up to date; 538 and 480 overrides 0 problems | pass |
+| `index.toml` | only `config/`, `defaultconfigs/`, `kubejs/`, `mods/`, `shaderpacks/` paths | pass |
+
+### Open points
+
+- In the client (brief 0.9.2): loading screen memory line and bar, no gear button, way sign icons, the Evolved Mekanism
+  categories, the INFO audit line, no "Correcting" line in the client log, the Stone Age workbench path.
+- `/firmages selftest all` stalls the server thread about 2.1 s (round 2), like `/fa_dump`; both debug commands.
+- JEI still logs its six broken Evolved Mekanism recipes (EMI shows them through firmages-core); Moonlight's pool at
+  stop. Both upstream, both documented as noise.

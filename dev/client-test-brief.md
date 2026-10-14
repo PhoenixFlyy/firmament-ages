@@ -1,5 +1,41 @@
 # Client-Test
 
+## 0.9.2 Nachtrag (Runde N5 2026-10-14, Pack 0.9.2, firmages-core 0.9.2)
+
+Drei Arbeitspakete (Client-Log, Mods und Ladebildschirm, firmages-core) plus die Review-Korrekturen aus 0.9.1.
+Server-Teil geprüft auf einer Kopie des Test-Servers mit neuer Welt (`dev/poc-results.md`, Abschnitt „0.9.2 round N5“):
+Log ohne offene Zeile, `selftest all` 55 von 55, 49 GameTests, alle Dump-Prüfungen grün. **Neues Profil importieren**
+(Zip aus `dev/release.md`, Abschnitt 1) und den Test-Server auf 0.9.2 synchronisieren. Netzwerkprotokoll 4 bleibt, aber
+die neuen EMI-Kategorien und der Knopf-Filter stecken im Client-Jar.
+
+1. **Ladebildschirm.** Unten rechts im späten Ladebildschirm steht „Memory … MB of … MB“ (klein, in der Farbe der
+   Versionszeile), der Balken läuft mit dem echten Fortschritt und ist voll, wenn das Titelbild kommt. Das frühe
+   Fenster hat keine Speicherzeile.
+2. **Kein Zahnrad.** Neben dem Online-Knopf im Titelbild und im Pausemenü fehlt der kleine Zahnrad-Knopf von
+   Supplementaries („s“). Doppelt abgesichert: `configs_button = false` in `supplementaries-client.toml` und der Filter
+   `ui.hiddenMenuWidgets` in `firmages-client.toml`.
+3. **Keine Shader-Wundertüten.** Bosse, der Bulwark und Fortschritte geben keine Immersive-Engineering-Shader-Tüten
+   mehr; Tüten und Shader fehlen in EMI.
+4. **Mod-Updates.** ImmediatelyFast 1.6.15 und Sophisticated Core 1.5.12. In der CurseForge-App Supplementaries nicht
+   auf 4.x aktualisieren (gepinnt auf 3.9.9) und Create: Applied Kinetics auf 1.5.4 lassen, auch wenn die App
+   „incompatible“ meldet.
+5. **The Origin: ein Gathering pro Kampf.** Während Wellen oder der Endboss leben, startet ein Zurückkommen zum Altar
+   nichts mehr; „The altar answers …“ kommt einmal pro Kampf. Zum schnellen Durchspielen als OP:
+   `/firmages origin gathering`, dann `/firmages origin kill` je Welle (die Welle zählt als geschafft), dann
+   `/firmages origin kill boss` (Sieg wie im echten Kampf). `/firmages origin status` zeigt, ob der Kampf läuft.
+6. **Wegweiser.** Supplementaries-Wegweiser aus TFC- und AFC-Holz haben eigene Icons (Pfosten mit zwei Brettern);
+   keiner zeigt mehr die lila-schwarze Fehltextur. Die Design-n-Decor-Text-Plate zerbricht mit eigenen Partikeln.
+7. **Configs.** Beim ersten Start schreibt NeoForge keine „is not correct. Correcting“-Zeile und keine `.toml.bak` mehr
+   für die zehn ausgelieferten Configs. Prüfen: `python dev/check_log.py --client <Instanz>/logs/latest.log` endet mit
+   Exit 0; die Zeile `EMI audit …` steht als INFO da (WARN nur noch bei einem echten Leck).
+8. **EMI: Evolved Mekanism.** Ab der Quantenzeit zeigt EMI zwei neue Kategorien, „Chemixer“ und „Antimatter
+   Protomolecular Transmutator“, mit den sechs Rezepten für Plaslitherit und Better Gold (Chemikalien als Tanks).
+9. **Steinzeit (Review 0.9.1).** Die Quest „Workbench“ steht vor „The Shrine Heart“: Sägeblatt-Form (in „Clay
+   Patterns“), Säge, Bretter, Werkbank; Schrein-Herz, Opfersockel und Hearthstone zeigen ihr Rezeptgitter. „A Home“
+   nennt jedes Heimrezept der Steinzeit; Framed Blocks, Vanilla-Holz von Decorative Blocks und Macaws Steinbrücken sind
+   Bronzezeit, Wandleuchter Eisenzeit. Classic- und Cottage-Türdrucke nehmen nur noch TFC- und AFC-Türen
+   (Vanilla-Türen nicht mehr).
+
 ## 0.9.1 Nachtrag (Runde N4 2026-10-14, Pack 0.9.1, firmages-core 0.9.1)
 
 Vier Arbeitspakete: Team-Übernahme und EMI für Operatoren (firmages-core), Texte und Questbuch, Deko in TFC-Hölzern,
