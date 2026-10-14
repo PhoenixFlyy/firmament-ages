@@ -29,6 +29,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | IE-Handbuch-Vorschau von Mahlwerk, Webstuhl, Lichtbogenofen, Schaufelrad, Bagger, Koker und Pumpjack zeigt den TFC-Stahlblock | IE-Handbuch | Felix |
 | Endkampf: Länge des Kampfs gegen The Primordial (1024 Leben, Cataclysm-Schadensdeckel) mit Chaos-Ausrüstung | The Origin | Felix |
 | Neue Sperrtexte (0.9.0): gesperrtes Item zeigt „Something Unknown“ und eine graue Zeile „Not of this Age“, Hotbar-Zeile „… Their Age has not come.“, keine Fehler im Log | `config/progressivestages/progressivestages.toml` `[messages]` | Felix |
+| Startzeit-Test: `mixin.perf.dynamic_resources=true` in `config/modernfix-mixins.properties`, Client starten, Create-Kontraption, Framed-Blöcke und ein Sable-Schiff ansehen; Startphasen vorher/nachher mit `python dev/check_log.py --client` (0.9.0: 64 s erstes Resource-Reload, 128 s bis zum Titelbild) | `config/modernfix-mixins.properties` | Felix testet, Claude wertet aus |
 
 ## Inhalt und Config (Claude)
 
@@ -52,6 +53,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Stage-Anzeigenamen `display_name = "Age N: …"` (nur Operatoren sehen sie) an die Age-Namen ohne Nummer angleichen | `config/progressivestages/stages/age_*.toml` | Claude |
 | `Modpack-Planung/docs/12-Walkthrough.md` doppelt `docs/WALKTHROUGH.md`: auf einen Verweis kürzen | `../Modpack-Planung/docs/` | Claude |
 | Java-Fallback-Texte der Mod stimmen nicht mehr mit der Lang-Datei überein („The world realigns...“, „No shrine heart is placed“) | `FirmagesClient.java`, `ReloadStatePayload.java`, `ShrineCommands.java` | Claude (mit der nächsten firmages-core-Version) |
+| Evolved Mekanism: Chemixer- und APT-Rezepte (Plaslitherit, Better Gold, Age 8) fehlen in EMI: Mekanism meldet seinen Chemikalien-Typ nur ohne EMI bei JEI an, die JEI-Kategorien von Evolved Mekanism werfen „Unknown ingredient type: ChemicalStack“. Beide Rezepttypen im firmages-core-EMI-Plugin selbst registrieren (Mekanisms EMI-Chemikalien-Stacks) | `compat/emi/FirmagesEmiPlugin` | Claude (Java) |
 
 ## Prüfen, ob noch offen
 

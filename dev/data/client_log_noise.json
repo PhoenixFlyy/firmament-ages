@@ -1,0 +1,249 @@
+{
+  "_doc": "Read by dev/check_log.py --client (client logs of the CurseForge instance: logs/latest.log or debug.log). Same rules as dev/data/log_noise.json: each regex is searched in a log line without its timestamp, e.g. '[Render thread/WARN] [logger/]: message' or, in the client's early lines, '[main/WARN]: message' (no logger). Client STDERR lines are matched as '[thread/INFO] [net.minecraft.server.LoggedPrintStream/]: [STDERR]: ...'. 'open': known, fix pending outside the pack data (counted). 'fixed': fixed in the pack data after the 0.9.0 client that wrote the reference log (counted, so a newer log that still shows one means the fix did not work). 'noise': the pack cannot or need not fix it, dropped; the reason says why. Reference log: Felix' 0.9.0 client session of 2026-10-14 (boot, title screen, join, Origin fight in the End), see the n5/clientlog decision rows.",
+  "open": [
+    {
+      "id": "evolvedmekanism-chemical-recipes-in-jei",
+      "regex": "^\\[[^\\]]+/ERROR\\] \\[mezz\\.jei\\.library\\.util\\.IngredientSupplierHelper/\\]: Found a broken recipe, failed to setRecipe with RecipeLayoutBuilder:$",
+      "reason": "6 recipes (evolvedmekanism:chemixing/*_plaslitherite, apt/*_better_gold): Mekanism 10.7 registers its chemical ingredient type with JEI only when EMI is absent (MekanismJEI checks MekanismHooks.emi), so Evolved Mekanism's JEI-only Chemixer and APT categories throw 'Unknown ingredient type: ChemicalStack' and the recipes are missing from EMI (JEMI copies JEI). Age 8 items with no other recipe page. Fix needs Java (firmages-core EMI plugin adds these two recipe types itself); see n5/clientlog notes."
+    },
+    {
+      "id": "firmages-emi-audit",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[dev\\.firmages\\.core\\.FirmagesCore/\\]: EMI audit ",
+      "reason": "firmages-core's EMI audit (diagnostic, WARN on every EMI reload): per Age categories, visible locked stacks and recipes with a locked stack. 0.9.0 log: dawn 26 categories, 19298 locked stacks visible (operator view), 791 recipes; age_9 208 categories, 3 locked index stacks (tfcreate:crushed_raw_bismuth, ftbquests:loot_crate_opener, ftbquests:task_screen_configurator), 1151 recipes. Whether it stays WARN is a firmages-core call."
+    }
+  ],
+  "fixed": [
+    {
+      "id": "config-correcting",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.neoforged\\.fml\\.config\\.ConfigTracker/CONFIG\\]: Configuration file .+\\\\(ars_nouveau-client|ars_nouveau-common|cataclysm-client|create-client|everycomp-hazardous|mysticalagriculture-common|supplementaries-common|tfc-client)\\.toml is not correct\\. Correcting$|^\\[[^\\]]+/WARN\\] \\[net\\.neoforged\\.fml\\.config\\.ConfigTracker/CONFIG\\]: Configuration file .+\\\\progressivestages\\\\progressivestages\\.toml is not correct\\. Correcting$",
+      "reason": "n5/clientlog: the nine configs ship as full files (every key of the spec), so a fresh install has nothing to correct and leaves no *-1.toml.bak."
+    },
+    {
+      "id": "dynamic-fps-first-start",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[dynamic_fps/\\]: Dynamic FPS config missing or corrupted! Using defaults\\.$",
+      "reason": "n5/clientlog: config/defaultoptions/extra/config/dynamic_fps.json ({} = defaults) is copied on the first start, before Dynamic FPS reads it."
+    },
+    {
+      "id": "supplementaries-way-sign-icons",
+      "regex": "^\\[[^\\]]+/ERROR\\] \\[Moonlight/\\]: Failed to generate texture supplementaries:item/way_signs/(tfc|afc)/|^\\[[^\\]]+/ERROR\\] \\[Supplementaries/\\]: Failed to apply sign scribbles overlay for (tfc|afc):|^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.resources\\.model\\.ModelManager/\\]: Missing textures in model supplementaries:(tfc|afc)/way_sign_",
+      "reason": "n5/clientlog: kubejs/assets/supplementaries/textures/item/way_signs/{tfc,afc}/*.png for the 34 TFC and AFC woods (dev/gen_way_sign_textures.py); Moonlight skips generation when a texture exists. Before: ten TFC way signs (Bronze Age items) showed the missing texture, 16 more icons lost their scribbles."
+    },
+    {
+      "id": "dndecor-text-plate-blockstate",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.resources\\.model\\.BlockStateModelLoader/\\]: Exception loading blockstate definition: 'dndecor:blockstates/text_plate\\.json' ",
+      "reason": "n5/clientlog: kubejs/assets/dndecor/blockstates/text_plate.json. Design n Decor 2.2b ships no blockstate for the Text Plate (drawn by its block entity renderer), so its break particles were the missing texture."
+    },
+    {
+      "id": "modernfix-timing",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[ModernFix/\\]: (Game took [\\d.]+ seconds to start|Time from main menu to in-game was [\\d.]+ seconds|Total time to load game and open world was [\\d.]+ seconds)$",
+      "reason": "n4/warnings: config/modernfix-mixins.properties mixin.feature.measure_time=false (check_log --client prints the start phases instead)."
+    },
+    {
+      "id": "cave-dweller-config",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[fzzy_config/\\]: (\\s*Deserialization Error: TomlElement \\[\\w+\\] was missing or null\\.|\\s*Error\\(s\\) encountered deserializing config section|Error\\(s\\) found while deserializing config \\[server_config\\]!|>+)$",
+      "reason": "n4/warnings: complete config/cave_dweller/server_config.toml (Fzzy Config reads it on the client too)."
+    }
+  ],
+  "noise": [
+    {
+      "id": "mixin-refmap",
+      "regex": "^\\[main/WARN\\](?: \\[[^\\]]*\\])?: Reference map '[^']+' for \\S+ could not be read\\.",
+      "reason": "Mods built without a refmap (production jars use intermediary-free names on NeoForge); harmless."
+    },
+    {
+      "id": "mixin-optional-targets",
+      "regex": "^\\[main/WARN\\](?: \\[[^\\]]*\\])?: (Error loading class: \\S+ \\(java\\.lang\\.ClassNotFoundException: \\S+\\)|@Mixin target \\S+ was not found \\S+ from mod \\S+|Force-disabling mixin '[^']+' as rule '[^']+' \\(added by mods \\[[^\\]]+\\]\\) disables it and children)$",
+      "reason": "Compat mixins for mods that are not in the pack (Quark, Lithium 0.12 names, Embeddium, Dynamic Trees, Farmer's Delight, Functional Storage, ...) and Sodium's sky rules turned off by Iris and TFC; the mixins are skipped by design."
+    },
+    {
+      "id": "jarjar-duplicates",
+      "regex": "^\\[main/WARN\\](?: \\[[^\\]]*\\])?: Attempted to select a dependency jar for JarJar which was passed in as source: ",
+      "reason": "A library mod that is also shipped inside another jar; the standalone file wins."
+    },
+    {
+      "id": "pride-at",
+      "regex": "^\\[[^\\]]+/ERROR\\](?: \\[[^\\]]*\\])?: Access transformer file META-INF/accesstransformer\\.cfg provided by mod pride does not exist!$",
+      "reason": "Pride lib declares an access transformer it does not ship; nothing to transform."
+    },
+    {
+      "id": "sodium-nvidia-workaround",
+      "regex": "^\\[main/WARN\\](?: \\[[^\\]]*\\])?: (Sodium has applied one or more workarounds to prevent crashes or other issues on your system: \\[NVIDIA_THREADED_OPTIMIZATIONS_BROKEN\\]|This is not necessarily an issue, but it may result in certain features or optimizations being disabled\\.)",
+      "reason": "Sodium's standard NVIDIA driver workaround (threaded optimizations off for the game process)."
+    },
+    {
+      "id": "mixin-unique-duplicates",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: Discarding @Unique public method \\w+ in \\S+ from mod (copycats|evolvedmekanism) because it already exists in ",
+      "reason": "Copycats+ and Evolved Mekanism add methods the target already has; Mixin keeps the target's."
+    },
+    {
+      "id": "mixin-overwrite-and-binding",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: (Method overwrite conflict for containerTick in moonlight-common\\.mixins\\.json:CartographyTableScreenMixin|Static binding violation: PRIVATE @Overwrite method \\w+ in \\S+ from mod modernfix |@Inject\\(@At\\(\\\"INVOKE\\\"\\)\\) Shift\\.BY=\\d+ on \\S+SequencedGearshiftScreenMixin from mod create_connected)",
+      "reason": "Mixin notices of Moonlight/Supplementaries (same cartography fix twice), ModernFix (visibility upgraded) and Create Connected (shift limit); behaviour unchanged."
+    },
+    {
+      "id": "evolvedmekanism-config-rewrite",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.neoforged\\.(fml\\.config\\.ConfigTracker/CONFIG\\]: Configuration file \\S+EvolvedMekanism\\S+general\\.toml is not correct\\. Correcting|neoforge\\.common\\.ModConfigSpec/CORE\\]: (Incorrect key general\\.apt\\.(energyStorage|energyPerInput) was corrected|Configuration LoadedConfig\\[config=SynchronizedConfig\\{DataHolder:\\{general=SynchronizedConfig\\{DataHolder:\\{items=))",
+      "reason": "Evolved Mekanism 1.2.1 defines apt.energyStorage and energyPerInput as Long; TOML reads Integer, so the file is rewritten at every start (as on the server)."
+    },
+    {
+      "id": "kubejs-optional-plugins",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[KubeJS/\\]: Plugin \\S+ does not have required mod '\\w+' loaded, skipping$",
+      "reason": "KubeJS plugins for mods the pack does not use (FTB Filter System, WorldJS)."
+    },
+    {
+      "id": "mod-notices",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[(com\\.kipti\\.bnb\\.CreateBitsnBobs|com\\.cake\\.azimuth\\.Azimuth|dev\\.ryanhcode\\.sable\\.Sable)/\\]: ",
+      "reason": "Construction notices of Create Bits 'n' Bobs, Azimuth and Sable."
+    },
+    {
+      "id": "everycomp-hazardous-banner",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[Every Compat/\\]: \\s*$",
+      "reason": "Every Compat's 'conditional registration' banner (the pack ships the same everycomp-hazardous.toml to client and server)."
+    },
+    {
+      "id": "draconic-startup-joke",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[draconicevolution/\\]: (Reactor detonation initiated\\.|Calculating explosion ETA|\\*\\*Explosion Imminent!!!\\*\\*)$",
+      "reason": "Brandon's Core start-up joke, no reactor involved."
+    },
+    {
+      "id": "vanilla-pack-schema",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.server\\.packs\\.VanillaPackResourcesBuilder/\\]: Assets URL '\\S+' uses unexpected schema$",
+      "reason": "Vanilla notice for the jar-in-jar URL schema of the NeoForge launcher."
+    },
+    {
+      "id": "models-of-disabled-items",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.resources\\.model\\.ModelBakery/\\]: Unable to load model: '(tfcastikorcarts:item/(animal_cart|hand_cart|plow|reaper|seed_drill|supply_cart|wheel)/\\w+|woodencog:item/metal/\\w+/\\w+/unfinished|evolvedmekanism:item/\\w+_silver_ore|mekanism_lasers:item/laser_configurator|draconicevolution:block/structure_block|ars_nouveau:item/planarium_projector)' ",
+      "reason": "Items without a model in their own mod, all in age_items/disabled and c:hidden_from_recipe_viewers (329 TFC Astikor carts in non-TFC woods, 240 Wooden Cog unfinished metal parts, Evolved Mekanism silver ores, ...); never obtainable."
+    },
+    {
+      "id": "mod-internal-models",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.resources\\.model\\.ModelBakery/\\]: Unable to load model: '(occultism:item/ritual_dummy_misc|createcasing:block/shaft/andesite|bits_n_bobs:block/chain_pulley/chain_rope_half_magnet|create_factory_logistics:item/barrel/rigging_8x10|minecraft:block_block)' ",
+      "reason": "Partial or dummy models a mod references but does not ship (Occultism JEI dummy, Create Casing, Bits 'n' Bobs, Create Factory Logistics, Mekanism More Machines); no visible effect."
+    },
+    {
+      "id": "mod-blockstate-gaps",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.resources\\.model\\.BlockStateModelLoader/\\]: Exception loading blockstate definition: '(rnr:blockstates/fluid/concrete|ars_additions:blockstates/warp_nexus|ars_nouveau:blockstates/(particle_block|planarium_projector)|evolvedmekanism:blockstates/\\w+_silver_ore|occultism:blockstates/otherglass|struts:blockstates/girder_strut_structure)\\.json' missing model for variant: ",
+      "reason": "Blockstate gaps in the mods themselves: invisible or technical blocks (Roads and Roofs concrete fluid levels, Ars particle/warp blocks, Struts structure), or disabled blocks (Evolved Mekanism silver ores, planarium projector)."
+    },
+    {
+      "id": "disabled-item-textures",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.resources\\.model\\.ModelManager/\\]: Missing textures in model (create_connected:fan_\\w+_catalyst|supplementaries:tfc/cannon_boat_\\w+)#|^\\[[^\\]]+/ERROR\\] \\[Moonlight/\\]: Failed to generate texture supplementaries:item/cannon_boat/tfc/",
+      "reason": "Create Connected catalysts for absent mods and Supplementaries' TFC cannon boats: disabled items (cannon boats are also off in supplementaries-common.toml; Supplementaries generates their assets anyway)."
+    },
+    {
+      "id": "afc-mahoe-leaves-texture",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.resources\\.model\\.ModelManager/\\]: Missing textures in model afc:wood/leaves/mahoe#",
+      "reason": "ArborFirmaCraft 2.1.3 typo in the salt-water mahoe leaves model (dense_leaves/mahoet); one state, mod bug."
+    },
+    {
+      "id": "sprite-notices",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.renderer\\.texture\\.(SpriteContents/\\]: (Invalid frame index on sprite|Unused frames in sprite)|SpriteLoader/\\]: Texture \\S+ with size \\d+x\\d+ limits mip level)",
+      "reason": "Animated textures with frame lists that do not match the strip (CorgiLib, Ars Additions, Apotheosis) and small textures that cap mipmaps; mod assets."
+    },
+    {
+      "id": "mekanism-tier-colors",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[mekanism\\.common\\.Mekanism/\\]: Unable to retrieve color marker: '\\d+' for atlas: 'mekanism:textures/colormap/tiers\\.png'",
+      "reason": "Mekanism asks for tier colours its own colormap does not have (Evolved Mekanism's extra tiers)."
+    },
+    {
+      "id": "sound-gaps",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.sounds\\.(SoundManager/\\]: File \\S+ does not exist, cannot add it to event |SoundEngine/\\]: Missing sound for event: )",
+      "reason": "sounds.json entries without the .ogg (Design n Decor large chain, Cataclysm Lacerton, Immersive Petroleum, Supplementaries plunderer); the sound stays silent."
+    },
+    {
+      "id": "geckolib-animations",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[GeckoLib/\\]: Found animation file with improper file name format|^\\[[^\\]]+/ERROR\\] \\[GeckoLib/\\]: Unable to parse animation: |^\\[[^\\]]+/INFO\\] \\[net\\.minecraft\\.server\\.LoggedPrintStream/\\]: \\[STDERR\\]: Geckolib\\.CompoundException: Unable to parse animation: ",
+      "reason": "Animation files of Ars Nouveau (file names), Theurgy calcination oven, Cave Dweller and Cataclysm (Molang functions GeckoLib 4.9 does not know); those single animations do not play."
+    },
+    {
+      "id": "veil-ccl-shaders",
+      "regex": "^\\[[^\\]]+/ERROR\\] \\[Veil/\\]: Couldn't load vanilla shader from \\S+, skipping$",
+      "reason": "Veil scans the core shaders of every mod and skips those it cannot read itself (CodeChickenLib/Draconic Evolution with a doubled path, Mekanism's MekaSuit fragment); the owning mods load them."
+    },
+    {
+      "id": "shader-uniform-notices",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.renderer\\.ShaderInstance/\\]: Shader \\S+ could not find (uniform|sampler) named \\w+ in the specified shader program\\.$",
+      "reason": "Mod core shaders declare uniforms they do not use (Ars Nouveau, Draconic Evolution, ...); the GLSL compiler removed them."
+    },
+    {
+      "id": "gl-debug-texture-format",
+      "regex": "^\\[[^\\]]+/INFO\\] \\[com\\.mojang\\.blaze3d\\.platform\\.GlDebug/\\]: OpenGL debug message: id=1281, source=API, type=ERROR, severity=HIGH, message='GL_INVALID_VALUE error generated\\. Invalid texture format\\.'$",
+      "reason": "13 messages on the render thread during the first resource reload (a mod probes a texture format the driver rejects); no texture is missing afterwards."
+    },
+    {
+      "id": "openal-stop",
+      "regex": "^\\[[^\\]]+/ERROR\\] \\[com\\.mojang\\.blaze3d\\.audio\\.OpenAlUtil/\\]: Stop: Invalid name parameter\\.$",
+      "reason": "A sound source stopped twice (vanilla OpenAL notice)."
+    },
+    {
+      "id": "sodium-vertex-writers",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[Sodium-VertexConsumerTracker/\\]: Class \\S+ does not support optimized vertex writing code paths",
+      "reason": "Sodium notes vertex consumers of other mods (Cataclysm particles, EMI batching) that take the slower path."
+    },
+    {
+      "id": "supplementaries-white-dye-diffuse",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[Supplementaries/\\]: Dye color white produced diffuse color -?\\d+ \\(white\\), this should never happen$",
+      "reason": "Supplementaries notice for the white dye colour (as on the server)."
+    },
+    {
+      "id": "iris-complementary-uniforms",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[Iris/\\]: (Failed to resolve uniform \\w+, reason: Unknown variable: (endFlashIntensity|BIOME_PALE_GARDEN|BIOME_SULFUR_CAVES) |The following uniforms won't work, either because they are broken, or reference a broken uniform: )",
+      "reason": "Complementary r5.9.3 references End-flash and biome ids of newer Minecraft versions; Iris drops those uniforms on 1.21.1 (once per pipeline)."
+    },
+    {
+      "id": "iris-block-id-map",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[Iris/\\]: (Error while parsing the block ID map entry for \\\"block\\.\\d+\\\":|- The block minecraft:\\w+ has no property with the name variant, ignoring!)$",
+      "reason": "Complementary's block.properties still lists pre-1.13 'variant' states; Iris ignores those entries."
+    },
+    {
+      "id": "iris-veil-compat",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[(top\\.leonx\\.irisveil\\.IrisVeilCompat/\\]: IrisVeilCompat: Iris pipeline not available for '|net\\.irisshaders\\.iris\\.pipeline\\.transform\\.transformer\\.CompatibilityTransformer/\\]: The in declaration '_veil_\\w+' in the gbuffers_veil_)",
+      "reason": "Iris-Veil compatibility for Aeronautics' levitite shader: no Iris program for it in Complementary, Veil renders it with its own shader."
+    },
+    {
+      "id": "flywheel-end-fallback",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[flywheel/\\]: Flywheel backend fell back from 'colorwheel:indirect' to 'flywheel:indirect'$",
+      "reason": "Only when Iris builds the End pipeline (Origin fight): Colorwheel has no program for that dimension in Complementary, Flywheel keeps drawing Create visuals with its own backend."
+    },
+    {
+      "id": "jei-mod-quirks",
+      "regex": "^\\[[^\\]]+/ERROR\\] \\[mezz\\.jei\\.library\\.(plugins\\.vanilla\\.ingredients\\.ItemStackListFactory/\\]: Couldn't get unique name for itemStack |load\\.registration\\.SubtypeRegistration/\\]: An interpreter is already registered for this: )|^\\[[^\\]]+/WARN\\] \\[mezz\\.jei\\.library\\.(ingredients\\.IngredientManager/\\]: Attempted to add an invalid ingredient at runtime: |plugins\\.vanilla\\.ingredients\\.ItemStackListFactory/\\]: Item Group has no display items)",
+      "reason": "JEI notes on other mods' stacks (Stargate Journey component variants, Create potion interpreter twice, Occultism flowing spirit solution, an empty Mechanicals tab); EMI shows the same items."
+    },
+    {
+      "id": "emi-notices",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[EMI/\\]: \\[EMI\\] (The following EMI classes have mixins applied to them|\\S+ is tainted by$)|^\\[[^\\]]+/INFO\\] \\[EMI/\\]: \\[EMI\\] \\[JEMI\\] Skipping recipe category \\S+ because mod is already handled$",
+      "reason": "EMI lists mods that mix into it (firmages-core's Age gate among them) and skips JEI categories its own plugins cover."
+    },
+    {
+      "id": "age-gated-book-recipes",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[(patchouli/\\]: Recipe \\S+ \\(of type \\S+\\) not found$|Modonomicon/\\]: Recipe \\S+ \\(of type \\S+\\) not found\\.$)|^\\[[^\\]]+/ERROR\\] \\[net\\.dries007\\.tfc\\.compat\\.patchouli\\.component\\.CustomComponent/\\]: No recipe of type \\S+ named \\S+ $",
+      "reason": "Book pages (Patchouli, TFC field guide, Modonomicon) built at the first join show recipes the Age gate still holds back (the reference log joined at dawn: Mystical Agriculture, Apotheosis runes, Ad Astra, saltpeter and sulfur quern, ...)."
+    },
+    {
+      "id": "patchouli-notices",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[patchouli/\\]: (Could not locate JEI keybindings, lookups in books may not work|Queried for unknown config flag: \\S+)$",
+      "reason": "Patchouli looks for JEI's key mapping (EMI owns the keys) and Apotheosis config flags of absent features."
+    },
+    {
+      "id": "client-advancement-orphans",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.multiplayer\\.ClientAdvancements/\\]: Server informed client about progress for unknown advancement |^\\[[^\\]]+/ERROR\\] \\[net\\.minecraft\\.advancements\\.AdvancementTree/\\]: Couldn't load advancements: \\[",
+      "reason": "The server sends recipe and adventure advancements whose root (minecraft:recipes/root, minecraft:adventure/root) is not visible to the player; the client tree drops the orphans. The server loads all 13078 without error; nothing is shown to players for recipe advancements."
+    },
+    {
+      "id": "recipe-book-categories",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.client\\.ClientRecipeBook/\\]: Unknown recipe category: ",
+      "reason": "Modded recipe types (Ars Nouveau imbuement, Cataclysm infusion) without a vanilla recipe book category."
+    },
+    {
+      "id": "ars-doc-bookmarks-first-join",
+      "regex": "^\\[[^\\]]+/INFO\\] \\[net\\.minecraft\\.server\\.LoggedPrintStream/\\]: \\[STDERR\\]: java\\.nio\\.file\\.NoSuchFileException: \\.\\\\config\\\\ars_nouveau\\\\doc_data\\.json$",
+      "reason": "Ars Nouveau reads its bookmark file before it has written one (first join of a profile)."
+    },
+    {
+      "id": "player-typo-command",
+      "regex": "^\\[[^\\]]+/INFO\\] \\[net\\.minecraft\\.client\\.gui\\.components\\.ChatComponent/\\]: \\[System\\] \\[CHAT\\] Unknown or incomplete command, see below for error$",
+      "reason": "A command typed by the player."
+    }
+  ]
+}
