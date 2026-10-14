@@ -146,10 +146,10 @@ In einer Eingabeaufforderung (cmd), Fenster offen lassen:
 ```
 cd /d D:\Minecraft\MinecraftModServer\FirmamentAges\test-server
 ..\tools\jdk-21\bin\java.exe -jar ..\tools\packwiz-installer-bootstrap.jar -g -s server http://localhost:8080/pack.toml
-..\tools\jdk-21\bin\java.exe -Xms6G -Xmx8G @libraries/net/neoforged/neoforge/21.1.252/win_args.txt nogui
+powershell -NoProfile -ExecutionPolicy Bypass -File ..\dev\start_test_server.ps1
 ```
 
-Die erste Zeile holt Mods, Configs und Skripte vom laufenden `packwiz serve`. Die zweite startet den Server mit Temurin 21. Nimm nicht `run.bat`: die nutzt das `java` aus dem PATH (Corretto 25). Fertig ist er bei `Done (…)`. In der Konsole muss stehen: `[firmages] on_stage_added: Age titles by firmages-core ceremony`. Steht dort `by KubeJS`, ist noch die alte Mod geladen.
+Die erste Zeile holt Mods, Configs und Skripte vom laufenden `packwiz serve`. Die zweite startet den Server mit Temurin 21, 8 GB Heap und den Flags aus `server/user_jvm_args.txt`. Nimm nicht `run.bat`: die nutzt das `java` aus dem PATH (Corretto 25). Fertig ist er bei `Done (…)`. In der Konsole muss stehen: `[firmages] on_stage_added: Age titles by firmages-core ceremony`. Steht dort `by KubeJS`, ist noch die alte Mod geladen.
 
 Willst Du eine frische Welt: Server stoppen (`stop`), den Ordner `test-server\world` löschen und neu starten. Die TFC-Welt wird dann neu erzeugt (dauert einige Minuten).
 

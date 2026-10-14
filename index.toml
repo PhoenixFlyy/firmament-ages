@@ -469,6 +469,10 @@ file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
 hash = "6cd830fc39d3278d417e7ba0f06b7f0ce68d60a69190e6ec2162e9c046dcb1cd"
 
 [[files]]
+file = "kubejs/assets/firmages/lang/en_us.json"
+hash = "8156030ba651d9c3ed08b875efad9493e4af5d0edc15726bc2f06b92032c53cd"
+
+[[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_0.fsh"
 hash = "a1c3000cc69725af817460cc692df568400c741a0f818ce27af73c1705c3b3e8"
 
@@ -766,7 +770,11 @@ hash = "6605339fcc5f7e9a54f9f04c8a9074b96cb74090ba9f3634aac905675b3aa944"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/hearthstone.png"
-hash = "e79a26fd00e88b00437059ddc3376a9c90d1856c5064da1243c442766a9aa447"
+hash = "aee4cced7762ad7f4c64799d75ff6ee87a6a74d94f34269abe1072f06a90c3d6"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/hearthstone.png.mcmeta"
+hash = "4c9779dc1413316e79d0a4b2e32ce2959600e375b7add58d1af4263050651d04"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/humming_core.png"
@@ -802,7 +810,11 @@ hash = "a26310a55e48940fa266733625e271c7ffca9036fa0d9a1c79538cab8e7258bb"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/pressure_core.png"
-hash = "eb0ef3b0f338a3d06b22a330aaa43d42830b7674517e3a3b8ef52b6610a579d1"
+hash = "8315f9f08b0ef7adf347d294e091e9db2f6e6acc091561685da0742f6af8470e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/pressure_core.png.mcmeta"
+hash = "61d9ed0268db7dffd14d04ad022ec2da66c2d5f52c3b3f689331ae53880f9e40"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/quantum_core.png"
@@ -814,7 +826,11 @@ hash = "b2d0e797914ac4c8e56ebadbee6190e907cdc00094e22c560ad50e6845d52430"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/sky_disc.png"
-hash = "60e96b68e55b0a83c4c60dbe0398a8e906f35bec118dcefd6102e89c92155813"
+hash = "5ed8cc922cdf7022e2f57d42e0e334e905502c065e9fc4726dbf3c544511d256"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/sky_disc.png.mcmeta"
+hash = "77d80b3fdecb850e7c91c6459be15f8c172813928599e88a2535817a7ddcc82f"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/space_sigil.png"
@@ -830,7 +846,11 @@ hash = "77d80b3fdecb850e7c91c6459be15f8c172813928599e88a2535817a7ddcc82f"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/steel_heart.png"
-hash = "263a52e8f924ad76279c7fbce4822a40630a0181342c4b6e374ced5b87776cdd"
+hash = "2afba3e0dd3189e226b93b442c9f18daa40c3fbb2abb084c334dc9bd6fc442c6"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/steel_heart.png.mcmeta"
+hash = "14a092d09ed763af31cdc006ebc2a39d5c8115fccaa527691e1493e9e26a2abd"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/ultimate_singularity.png"
@@ -2239,6 +2259,178 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 [[files]]
 file = "kubejs/data/extendedae/loot_table/blocks/ex_emc_interface.json"
 hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_0.json"
+hash = "86cf11a0e6aa979f338ec1e5f8f8be778b3c0beb0b60a21589d0855cc95a42fd"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_1.json"
+hash = "7e7f089864edc2ed16f1214c32a0667af50afac8191d27882ae8e3969819118d"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_2.json"
+hash = "4b01ca7f86846f96b426339932efc3c3ad407bd0d290437610c232a3c3809db6"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_3.json"
+hash = "698207e820533f266569c67cb67b7f57bd1f60f19f6b243cb8eb506395d0de80"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_4.json"
+hash = "8d3015169f2fd8a1f51a9223a9f09334820939290ac04149d1723164c51f2708"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_5.json"
+hash = "bc2aaec1b3b2caa20000e2a45ce6eda560262945d4c2233b408cbdbcd05dded9"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_6.json"
+hash = "2a06cdff5b40ff24c02a4cb22e753c8f42ba4b45527aec2a599fa7b824662070"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_7.json"
+hash = "615c0451ed6adc9e3badf973a582c8ddf813414941c6359dd51cdf9f1e2102df"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_8.json"
+hash = "f017f3b34453d3cc7e22e190cf334d44cd3ad89e95d79e2ec581fe6869857a6e"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_9.json"
+hash = "021c7917a125d92e1ecb2a170a30ca8bb19add1113fe461d9a8224021f81afed"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_0_moon.json"
+hash = "e1fed27e21d3339731ccf8a4dc595c2c664526a596250223b0e11351dbea9a72"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_0_sky.json"
+hash = "744f5ac7e2453f39a9d189ce1ed323bc6cf1e07cf8fd7a5f4ea3a02641af9610"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_0_text.json"
+hash = "f5590daa8d75138edbbe405e384de1ff5d8bcb1dcecd8c83c69c0e47ce2395ab"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_1_moon.json"
+hash = "190a4de8cb4fb5a55c77eab3275fbdc6e6616bf2ad6b43958415f3e333cf9820"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_1_sky.json"
+hash = "986e87230c10e268f1e3fb1012cd49668f8bce483f512b7e21b166a2e3461937"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_1_text.json"
+hash = "a0be5066e3948ad19900bb8892278fb5531e046b3203218920896f190e81b720"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_2_moon.json"
+hash = "0852cc99d5a434676fb5f13b3e07da94420eb913b460f8bf2c3c5a40a7936e3c"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_2_sky.json"
+hash = "8165f57bc98461c3c2aedd0c5f8d76291b99a2e2cb18f1c3a26b4a3c472842b8"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_2_text.json"
+hash = "797794955f58dfa8253c7f659f5b3d753e7c403bd18b6fae8666997b12354e68"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_3_moon.json"
+hash = "d069d6170ed6318b8f27dbebfc96ae954f4a26567c60fd8d7e928e93c661169b"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_3_sky.json"
+hash = "a0f716d80b2989f84d957c6f47a1f95124c8b3dac5cb0658efbf487830f24dff"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_3_text.json"
+hash = "5cdd6150b75f79a496b3e311768fd4c3f458e9d1d8f6622bc39fcb1c5c42c1b7"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_4_moon.json"
+hash = "9edf7dc5e3e3f12de6930c0ad38e202c12e471ca8f861fd3c79636bc6019f758"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_4_sky.json"
+hash = "c62c8af1618701921e559dc6a5471d5917cbc1ce645977f6681f0639a0cfcf1b"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_4_text.json"
+hash = "efd3eb97a328fd49aab96efcb19da9a6fddffb4027c196dfdfac6a21c906637b"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_5_moon.json"
+hash = "289e6c0c57c84c55d8c7d8b5a09be95d2c6893d11ecb5d965d1f610e729da2c3"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_5_sky.json"
+hash = "7c6a49b3cf0ecce23a8d1de664d5f938249e423411349aba16db341cfd77f5d7"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_5_text.json"
+hash = "82712945db240496a4e53a9e715603c2f4c415e67dcf24df0f7b406460fa7576"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_6_moon.json"
+hash = "3f7eda769c01d9f3c66e62270e6871e12ed578c2bb8afcda3e61f8ab2f8b0045"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_6_sky.json"
+hash = "d43feea64b3ffd7cb7c74ede98010944f029c12c50ffb4524ad387b313bc2852"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_6_text.json"
+hash = "cd88dfc65857f88ba5a2c25a013b96e5b04bc7ae3fa78a3466c09f989d7a0678"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_7_moon.json"
+hash = "740211727ea73590573d5e3cfb2f8e7a76a50b16fbdfc732d6cadc3b4d122436"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_7_sky.json"
+hash = "102493fa93d5969dc4571322396ed1f0e40cb1ec3b8e3655ff4c66f5281c08ce"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_7_text.json"
+hash = "06a151c8d32137c1fab818633690c4d954811b10004c40f3c189a7e3d57d4321"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_8_moon.json"
+hash = "c1c3e9a47506cf419d16bcfe677456652be1d35af76a9eb323bb0501b399b8d7"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_8_sky.json"
+hash = "770953152837e49a1f24b3323b129dc380ead8e22bff1228e4a12410a4a56ec3"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_8_text.json"
+hash = "580d41d0fe5f3e79333b05f1d55faad82ad9676ba8c2c94ac7411dd5a8c02138"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_9_moon.json"
+hash = "6e9dad92b3b3240ca215e8edb40ac12323df22e60392ea3dc4add281b4256d9c"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_9_sky.json"
+hash = "6c6696a947d19dcd150e80cfe6ad403f47e9e17f12e7f19875967c3f26fa8177"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_9_text.json"
+hash = "c13b5d8625e3fd1a2bc2375236dedc698a8b3056e836af862f8b561441d63ea5"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_calm.json"
+hash = "29a4b614fc7bf26f4d1bfa5a8e4237b370cf899e1577994319a5b188e7eec52b"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_experience.json"
+hash = "55b6267fde48ac342830ee0469458de73c9fe19fbd07be846c4a3a83b41bea9b"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_moon_size.json"
+hash = "316e3158de81f4b05ef676ec310ccb64f696a1e9df04c478480ab67a9cfb183d"
 
 [[files]]
 file = "kubejs/data/firmages/gateways/abyss_trial.json"
@@ -3691,6 +3883,10 @@ hash = "45a52fafb4a50ff997288b9310eae6f13d3568aa847265a0af7533c26d0ab6b4"
 [[files]]
 file = "kubejs/server_scripts/firmages/boss_fallback.js"
 hash = "721bac569a3c554f1d1305be4e7752678b467a13142e9e17b0067d0195dff791"
+
+[[files]]
+file = "kubejs/server_scripts/firmages/firmament_night.js"
+hash = "003a1cfd98d6225e2bdfa197f6ac6000536b63b3f77376562a5c911d3c6c2b83"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/gamerules.js"

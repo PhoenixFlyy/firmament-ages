@@ -302,7 +302,7 @@ IDOL = [
 item("unfired_hearth_idol", "Age 0", IDOL, {**shade("clay"), **legend(e=("clay", 0), g=("clay", 1))})
 item("hearth_idol", "Age 0", IDOL, {**shade("terracotta"), **legend(e=("terracotta", 0), g=("ember", 3))})
 
-item("hearthstone", "Age 0", [
+HEARTHSTONE = [
     "................",
     ".....oooooo.....",
     "....ohhllmmo....",
@@ -319,9 +319,20 @@ item("hearthstone", "Age 0", [
     "....oddddddoo...",
     ".....oooooo.....",
     "................",
-], {**shade("stone"), **legend(A=("ember", 0), B=("ember", 1), C=("ember", 2), D=("ember", 4))})
+]
+HEARTHSTONE_EMBER = [(0, 1, 2, 4), (1, 2, 3, 4), (0, 1, 3, 4), (0, 0, 1, 3)]  # A, B, C, D tones per frame
 
-item("sky_disc", "Age 1", [
+
+@anim_item("hearthstone", "Age 0", anim(6, True))
+def _():
+    """The embers in the stone breathe: brighter, settle, dim, settle."""
+    frames = []
+    for a, b, c, d in HEARTHSTONE_EMBER:
+        leg = {**shade("stone"), **legend(A=("ember", a), B=("ember", b), C=("ember", c), D=("ember", d))}
+        frames.append(grid_tex(HEARTHSTONE, leg))
+    return frames
+
+SKY_DISC = [
     "................",
     ".....oooooo.....",
     "....ohhllmmdo...",
@@ -338,9 +349,27 @@ item("sky_disc", "Age 1", [
     ".....oooooo.....",
     "................",
     "................",
-], {**shade("patina"), **legend(B=("gold", 1), C=("gold", 3), D=("gold", 4))})
+]
+SKY_DISC_GLINT = [7, 12, 17, 22]  # x + y of the glint band per frame, top-left to bottom-right
 
-item("steel_heart", "Age 2", [
+
+@anim_item("sky_disc", "Age 1", anim(8, True))
+def _():
+    """A glint sweeps diagonally across the bronze disc and lights the gold sun and moon as it passes."""
+    frames = []
+    leg = {**shade("patina"), **legend(B=("gold", 1), C=("gold", 3), D=("gold", 4))}
+    lit = {"m": tones("patina")[3], "l": tones("patina")[4], "B": tones("gold")[3], "C": tones("gold")[4]}
+    for band in SKY_DISC_GLINT:
+        img = grid_tex(SKY_DISC, leg)
+        px = img.load()
+        for y, row in enumerate(SKY_DISC):
+            for x, ch in enumerate(row):
+                if ch in lit and band <= x + y <= band + 1:
+                    px[x, y] = lit[ch]
+        frames.append(img)
+    return frames
+
+STEEL_HEART = [
     "................",
     "...oooo..oooo...",
     "..ohhllooollmdo.",
@@ -357,7 +386,18 @@ item("steel_heart", "Age 2", [
     ".....olmmddo....",
     "......olddo.....",
     ".......ooo......",
-], {**shade("steel"), **legend(A=("heat", 0), B=("heat", 2), C=("heat", 3), D=("heat", 4))})
+]
+STEEL_HEART_HEAT = [(0, 2, 3, 4), (1, 3, 4, 4), (0, 2, 3, 4), (0, 1, 2, 3)]  # A, B, C, D tones per frame
+
+
+@anim_item("steel_heart", "Age 2", anim(5, True))
+def _():
+    """Forge heat pulses in the core like a slow heartbeat."""
+    frames = []
+    for a, b, c, d in STEEL_HEART_HEAT:
+        leg = {**shade("steel"), **legend(A=("heat", a), B=("heat", b), C=("heat", c), D=("heat", d))}
+        frames.append(grid_tex(STEEL_HEART, leg))
+    return frames
 
 # Arcane Keystone: a solid wedge (wide top, narrow foot) with one carved rune. Awakened: the wedge split by a white-hot
 # fissure with sparks around it, so the two read apart at a glance.
@@ -451,7 +491,7 @@ item("arcane_gearbox", "Age 4", [
     "................",
 ], {**shade("steel"), **legend(A=("arcane", 1), B=("arcane", 2), C=("arcane", 4))})
 
-item("pressure_core", "Age 4", [
+PRESSURE_CORE = [
     "................",
     "....oooooooo....",
     "...ohhllllmmdo..",
@@ -468,7 +508,22 @@ item("pressure_core", "Age 4", [
     "...oolmmmdddoo..",
     "....oooooooo....",
     "................",
-], {**shade("iron"), **legend(W=("steam", 3), w=("steam", 1), N="#d03020", R=("rust", 2))})
+]
+PRESSURE_NEEDLE_TIP = [8, 9, 8, 7]  # x of the needle tip in row 7 per frame; the pivot (8, 8) stays
+
+
+@anim_item("pressure_core", "Age 4", anim(3))
+def _():
+    """The gauge needle trembles around the red line."""
+    frames = []
+    leg = {**shade("iron"), **legend(W=("steam", 3), w=("steam", 1), N="#d03020", R=("rust", 2))}
+    for tip in PRESSURE_NEEDLE_TIP:
+        img = grid_tex(PRESSURE_CORE, leg)
+        px = img.load()
+        for x in (7, 8, 9):
+            px[x, 7] = leg["N"] if x == tip else leg["w"]
+        frames.append(img)
+    return frames
 
 item("attuned_circuit", "Age 5", [
     "................",

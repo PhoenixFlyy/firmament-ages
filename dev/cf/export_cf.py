@@ -8,7 +8,11 @@ Their CurseForge metafiles live in dev/cf/swap/. This script copies the served p
 dev/exports/cf-work/upload-pack/, replaces each Modrinth metafile in mods/ or shaderpacks/ whose filename matches a
 swap file by that CurseForge metafile (same folder), refreshes the copy and exports it with `-s both` (server-only
 mods such as LootJS and TFC Ruins must be in a CurseForge install, which also runs single player). The manifest is
-packwiz's own output, nothing is edited by hand.
+packwiz's own output plus one field packwiz cannot write: minecraft.recommendedRam = 8192 (MB). The CurseForge app
+reads it into the profile (MinecraftModpackManifestGameSettings.RecommendedRam in Curse.Agent.Host.exe; every
+profile's minecraftinstance.json keeps it as manifest.minecraft.recommendedRam) and uses it as the profile's memory
+when the profile or the app setting asks for the recommended amount. 8 GB: Modpack-Planung/research-raw/n2-perf.md
+(heap 2.96 GB at the menu, up to 4.13 GB in a world).
 
 Usage: python dev/cf/export_cf.py
 Prints the manifest count and every jar that ends up in overrides/ (must be only approved or own jars).
@@ -24,6 +28,22 @@ ROOT = Path(__file__).resolve().parents[2]
 PACKWIZ = ROOT / "tools" / "packwiz.exe"
 SWAP = ROOT / "dev" / "cf" / "swap"
 WORK = ROOT / "dev" / "exports" / "cf-work" / "upload-pack"
+RECOMMENDED_RAM_MB = 8192
+
+
+def set_recommended_ram(zip_path: Path, mb: int) -> dict:
+    """Rewrite the zip with manifest.minecraft.recommendedRam = mb; every other entry is copied unchanged."""
+    tmp = zip_path.with_name(zip_path.name + ".tmp")
+    with zipfile.ZipFile(zip_path) as src, zipfile.ZipFile(tmp, "w") as dst:
+        for info in src.infolist():
+            data = src.read(info)
+            if info.filename == "manifest.json":
+                manifest = json.loads(data)
+                manifest["minecraft"]["recommendedRam"] = mb
+                data = (json.dumps(manifest, indent=2) + "\n").encode("utf-8")
+            dst.writestr(info, data)
+    tmp.replace(zip_path)
+    return manifest
 
 
 def main():
@@ -59,12 +79,12 @@ def main():
                        capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         raise SystemExit(r.stdout + r.stderr)
-    z = zipfile.ZipFile(out)
-    manifest = json.loads(z.read("manifest.json"))
-    jars = sorted(n for n in z.namelist() if n.endswith(".jar"))
+    manifest = set_recommended_ram(out, RECOMMENDED_RAM_MB)
+    with zipfile.ZipFile(out) as z:
+        jars = sorted(n for n in z.namelist() if n.endswith(".jar"))
     print(f"swapped {len(swapped)}: " + ", ".join(swapped))
     print(f"{out.relative_to(ROOT)}: {out.stat().st_size / 1e6:.1f} MB, manifest files {len(manifest['files'])}, "
-          f"jars in overrides {len(jars)}")
+          f"recommendedRam {manifest['minecraft']['recommendedRam']} MB, jars in overrides {len(jars)}")
     for j in jars:
         print("  " + j)
 

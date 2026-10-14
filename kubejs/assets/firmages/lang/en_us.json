@@ -1,0 +1,22 @@
+{
+  "firmages.night.age_0": "Tonight the sky glows like embers.",
+  "firmages.night.age_1": "Tonight the sky turns to bronze.",
+  "firmages.night.age_2": "Tonight the sky burns like a forge.",
+  "firmages.night.age_3": "Tonight the sky shimmers violet.",
+  "firmages.night.age_4": "Tonight the sky is pale as steam.",
+  "firmages.night.age_5": "Tonight the sky crackles blue.",
+  "firmages.night.age_6": "Tonight the sky flickers green.",
+  "firmages.night.age_7": "Tonight the moon hangs close enough to reach.",
+  "firmages.night.age_8": "Tonight the stars shimmer, here and not here.",
+  "firmages.night.age_9": "Tonight the whole sky is light.",
+  "lunar.event.firmages.firmament_age_0": "Firmament Night (Stone Age)",
+  "lunar.event.firmages.firmament_age_1": "Firmament Night (Bronze Age)",
+  "lunar.event.firmages.firmament_age_2": "Firmament Night (Iron Age)",
+  "lunar.event.firmages.firmament_age_3": "Firmament Night (Arcane Age)",
+  "lunar.event.firmages.firmament_age_4": "Firmament Night (Industrial Age)",
+  "lunar.event.firmages.firmament_age_5": "Firmament Night (Electric Age)",
+  "lunar.event.firmages.firmament_age_6": "Firmament Night (Information Age)",
+  "lunar.event.firmages.firmament_age_7": "Firmament Night (Space Age)",
+  "lunar.event.firmages.firmament_age_8": "Firmament Night (Quantum Age)",
+  "lunar.event.firmages.firmament_age_9": "Firmament Night (Singularity Age)"
+}

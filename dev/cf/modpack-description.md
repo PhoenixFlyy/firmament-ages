@@ -38,9 +38,9 @@ In the Singularity Age the relics come off their plinths and are fused into the 
 ## Requirements
 
 - **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you.
-- **RAM:** 10 GB for the game is recommended; set it in the CurseForge App under *Settings → Minecraft → Java Settings* (the default of 4 GB is not enough). A PC with 16 GB of RAM is the practical minimum.
+- **RAM:** 8 GB for the game is recommended (6 GB minimum); check it in the CurseForge App under *Settings → Minecraft → Java Settings* (the default of 4 GB is not enough). A PC with 16 GB of RAM is the practical minimum.
 - **207 mods.** The first start takes a few minutes.
-- **Dedicated server:** 10 GB heap recommended. A ready-to-run server pack is attached to every release as an additional file.
+- **Dedicated server:** 8 GB heap for up to about 4 players, 10 GB for 5 to 10. A ready-to-run server pack is attached to every release as an additional file; its README covers memory and world pregeneration.
 
 ## Multiplayer
 
