@@ -28,6 +28,13 @@ Static proof for config/fancymenu/ (FancyMenu 3.9.14, Drippy 3.1.5, MC 1.21.1, N
              has the width x height the properties declare; slideshows no layout uses are listed as notes
   files      every [source:local] path in a layout and every texture path in config/drippyloadingscreen/options.txt
              exists in the pack
+  parser     no property line of a layout trips FancyMenu's PropertiesParser: it strips all whitespace from a line,
+             opens a section when the result ends with "{" and closes one when it starts with "}", so a property
+             whose value ends with "{" (or a value that continues on a line starting with "}") breaks the layout
+  shader     the title menu_background is background_type = glsl with use_input = false; its inline_shader_source,
+             decoded like PropertyContainer.deserializePropertyValue (%%!serialized_property_newline!%% -> line
+             break), equals dev/title-shader/constellation.glsl, defines void mainImage(...) (Shadertoy entry point)
+             and has no #version / precision line (FancyMenu's wrapper adds #version 150 and strips such lines)
 
 Usage: python dev/check_menus.py [--jar PATH_TO_FANCYMENU_JAR] [--adastra-jar PATH_TO_AD_ASTRA_JAR]
 With --jar (or the jar found in the CurseForge instance), every KNOWN id is also searched in the jar's classes.
@@ -47,6 +54,8 @@ FM = ROOT / "config" / "fancymenu"
 LAYOUTS = FM / "customization"
 SLIDESHOWS = FM / "slideshows"
 DRIPPY_OPTIONS = ROOT / "config" / "drippyloadingscreen" / "options.txt"
+TITLE_SHADER = ROOT / "dev" / "title-shader" / "constellation.glsl"
+FM_NEWLINE = "%%!serialized_property_newline!%%"  # PropertyContainer.serializePropertyValue
 MENU_BUTTONS = ROOT / "mod" / "firmages-core" / "src" / "main" / "java" / "dev" / "firmages" / "core" / "client" / "immersion" / "MenuButtons.java"
 DEFAULT_JAR = Path("C:/Users/Felix/curseforge/minecraft/Instances/Firmament Ages/mods/fancymenu_neoforge_3.9.14_MC_1.21.1.jar")
 INSTANCE_MODS = DEFAULT_JAR.parent
@@ -256,6 +265,57 @@ def check_files(layouts, errors):
                 errors.append(f"drippyloadingscreen/options.txt: {m[1]} -> {rel} missing")
 
 
+def check_parser(layouts, errors):
+    """Replays PropertiesParser.deserializeSetFromFancyString's line rules on every layout line."""
+    for screen, (f, secs) in layouts.items():
+        inside = False
+        for no, raw in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+            compact = re.sub(r"\s+", "", raw)
+            if compact.endswith("{"):
+                if inside or "=" in compact:
+                    errors.append(f"{f.name}:{no}: line ends with '{{' inside a section or after '=' "
+                                  f"(FancyMenu reads it as a new section)")
+                inside = True
+            elif compact.startswith("}"):
+                if compact != "}":
+                    errors.append(f"{f.name}:{no}: line starts with '}}' but is not a lone '}}' "
+                                  f"(FancyMenu closes the section there)")
+                inside = False
+
+
+def check_title_shader(layouts, errors, notes):
+    """The title background is the constellation shader, inlined unchanged, without mouse input."""
+    f, secs = layouts.get("title_screen", (None, []))
+    bg = next((d for n, d in secs if n == "menu_background"), None)
+    if not bg or bg.get("background_type") != "glsl":
+        errors.append("title layout: menu_background is not background_type = glsl")
+        return
+    for key, want in (("use_input", "false"), ("time_scale", "1.0"), ("freeze_time", "false")):
+        if bg.get(key) != want:
+            errors.append(f"title layout: menu_background {key} = {bg.get(key)}, expected {want}")
+    raw = next((line for line in f.read_text(encoding="utf-8").splitlines()
+                if re.match(r"\s*inline_shader_source\s*=", line)), None)
+    if raw is None:
+        errors.append("title layout: menu_background has no inline_shader_source")
+        return
+    value = raw.split("=", 1)[1]
+    value = value[1:] if value.startswith(" ") else value  # PropertiesParser drops one leading space
+    src = value.replace(FM_NEWLINE, "\n")
+    want = (TITLE_SHADER.read_text(encoding="utf-8").replace("\r\n", "\n").rstrip("\n")
+            if TITLE_SHADER.is_file() else None)
+    if want is None:
+        errors.append(f"{TITLE_SHADER.relative_to(ROOT).as_posix()} missing")
+    elif src != want:
+        errors.append(f"title layout: inline_shader_source differs from {TITLE_SHADER.relative_to(ROOT).as_posix()} "
+                      f"(run python dev/title-shader/build_shader.py --layout)")
+    if not re.search(r"\bvoid\s+mainImage\s*\(", src):
+        errors.append("title layout: shader has no void mainImage(...)")
+    if re.search(r"(?m)^\s*(#\s*version|precision)\b", src):
+        errors.append("title layout: shader has a #version or precision line (FancyMenu's wrapper sets #version 150)")
+    notes.append(f"title shader: {len(src.splitlines())} lines inlined, use_input = {bg.get('use_input')}, "
+                 f"show_compile_errors = {bg.get('show_compile_errors', 'false')}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--jar", type=Path, default=None, help="FancyMenu 3.9.14 jar to cross-check the KNOWN ids")
@@ -304,6 +364,8 @@ def main():
 
     check_slideshows(layouts, errors, notes)
     check_files(layouts, errors)
+    check_parser(layouts, errors)
+    check_title_shader(layouts, errors, notes)
 
     # firmages-core part of the hide list
     src = MENU_BUTTONS.read_text(encoding="utf-8")

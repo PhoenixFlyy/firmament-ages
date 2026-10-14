@@ -297,12 +297,4 @@ Ganz frisch: Server stoppen, `test-server\world` löschen (siehe Schritt 1).
 
 ## Titelbild neu erzeugen (Constellation)
 
-Der Titelbildschirm zeigt den Himmel `config/fancymenu/assets/firmament/sky_2304x1296.png` als Hintergrund und darüber die Diashow `config/fancymenu/slideshows/firmament_constellation/` (neun Sternkarten `constellation_age_0..8.png`). Beides erzeugt ein Skript aus den Shrine-Daten:
-
-```
-python dev/shrine-viewer/render_shrine.py --data-root mod/firmages-core/src/main/resources/data/firmages
-python dev/gen_constellation.py
-python dev/check_menus.py
-```
-
-Der erste Befehl schreibt `dev/shrine-viewer/shrine_data.json` (nicht in Git, etwa 30 s). Der zweite schreibt die neun Folien und den Himmel ins Pack, dazu Vorschauen mit Knöpfen und Wortmarke nach `dev/shrine-viewer/out/constellation_preview_age_N.png` und `constellation_sheet.png` (nicht in Git). Einzelne Teile: `python dev/gen_constellation.py slides`, `sky`, `sheet` oder eine Zahl 0 bis 8. Wortmarke, Knöpfe, Ladebildschirm und Fenster-Icons kommen weiter aus `python dev/gen_menu_art.py`. Anzeigedauer und Überblendung stehen in `config/fancymenu/slideshows/firmament_constellation/properties.txt` (`duration = 12`, `fadespeed = 0.3`).
+Der Titelbildschirm ist ein GLSL-Shader als FancyMenu-Hintergrund. Quelle, Generator und Anleitung stehen in `dev/title-shader/README.md`.
