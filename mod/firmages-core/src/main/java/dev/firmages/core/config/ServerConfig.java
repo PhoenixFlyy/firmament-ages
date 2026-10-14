@@ -2,6 +2,7 @@ package dev.firmages.core.config;
 
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.hardship.CaveDwellerGate;
+import dev.firmages.core.hardship.ToolRule;
 import dev.firmages.core.immersion.InventoryTab;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -69,6 +70,7 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue TFC_NO_NUTRITION_MALUS;
     // hardship (SPEC §19)
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_CAVE_DWELLER_UNTIL;
+    public static final ModConfigSpec.ConfigValue<String> HARDSHIP_TOOL_RULE_UNTIL;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -197,6 +199,10 @@ public final class ServerConfig {
         HARDSHIP_CAVE_DWELLER_UNTIL = b.comment("First Age without Cave Dweller ReEvolved, or \"never\". From this Age on it cannot spawn or be",
                 "summoned, dwellers in loaded chunks vanish, saved ones are refused when their chunk loads, and its cave noises are muted.")
             .define("caveDwellerUntilAge", CaveDwellerGate.DEFAULT_UNTIL.id(), CaveDwellerGate::isValid);
+        HARDSHIP_TOOL_RULE_UNTIL = b.comment("First Age without the hand-breaking rule, or \"never\" to turn it off. Below this Age blocks in",
+                "#firmages:needs_tool_early (logs, raw and hardened rock, ores, sandstone) cannot be broken without a correct tool:",
+                "logs need an axe (a stone axe or hammer counts), rock and ore a pickaxe. Default age_0: the rule holds in Dawn only.")
+            .define("toolRuleUntilAge", ToolRule.DEFAULT_UNTIL.id(), ToolRule::isValid);
         b.pop();
 
         b.push("debug");
@@ -282,6 +288,11 @@ public final class ServerConfig {
     /** {@code hardship.caveDwellerUntilAge}: the first Age without the Cave Dweller, empty for never. */
     public static Optional<AgeId> caveDwellerUntil() {
         return CaveDwellerGate.until(loaded() ? HARDSHIP_CAVE_DWELLER_UNTIL.get() : CaveDwellerGate.DEFAULT_UNTIL.id());
+    }
+
+    /** {@code hardship.toolRuleUntilAge}: the first Age without the hand-breaking rule, empty when it is off. */
+    public static Optional<AgeId> toolRuleUntil() {
+        return ToolRule.until(loaded() ? HARDSHIP_TOOL_RULE_UNTIL.get() : ToolRule.DEFAULT_UNTIL.id());
     }
 
     public static boolean allowSimulate() {
