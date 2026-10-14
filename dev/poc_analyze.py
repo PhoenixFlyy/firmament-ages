@@ -1488,11 +1488,11 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
                      that fits the Age is reached (block and entity loot, interactions); each output on its own
       "recipe_open": function (recipe id, n) -> False when a ProgressiveStages recipe lock keeps the recipe shut at n
       "stations":    {recipe type: [[items]]} like STATION_ITEMS for types the R- checks leave to the mod-Age model
-      "world_ns_unmade": True: an item of WORLD_NS counts as given by the world only when no recipe makes it; one that a
-                     recipe makes must come from that recipe or from "start"/"transforms" (loot, world generation)
+      "world_ns_late": items of WORLD_NS that are NOT taken as given by the world (dev/derive_ages.py: made only by
+                     recipes whose ingredients come later); they come from a recipe, "start" or "transforms"
     `via` (a dict) receives item -> recipe id or source of the step that first reached it."""
     extra = extra or {}
-    made = set().union(*(os_ for _, _, os_ in recs)) if extra.get("world_ns_unmade") else set()
+    world_late = extra.get("world_ns_late", set())
     mod_age = amap.get("mods", {})
     # ore pieces of the non-TFC ore veins ([ore_families]: "ns:name" = Age), mined in the world from their Age
     ore_pieces = collections.defaultdict(set)
@@ -1523,7 +1523,7 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
     def start(n, without=(), via=None):
         src = {}
         for i in items:
-            if i.split(":")[0] in WORLD_NS and i not in made:
+            if i.split(":")[0] in WORLD_NS and i not in world_late:
                 src[i] = "world namespace"
         for st, words in VANILLA_BY_AGE.items():
             if AGES.index(st) <= n:
