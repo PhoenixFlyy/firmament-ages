@@ -2834,3 +2834,38 @@ read-only; `dev/predict_dump.py` applied the new deco recipes to it (edit set "D
 | Dawn rock-pit escape | `firmages:needs_tool_early` (firmages-core) = `#minecraft:logs`, `#c:stones/raw`, `#c:stones/hardened`, `#c:ores`, `#c:sandstone/blocks`; block tag sources in the TFC, Create, TFCreate, Firmalife, TFC-IE and other jars and `tags/tfc_common_tags.js` name rock, sandstone and ore blocks only (claystone is a rock). TFC dirt, grass, rooted dirt, mud, clay, clay grass, sand and gravel are all Dawn items; no stage file has a `[blocks]` lock; gravel-coloured deposits of later Ages are `[[ores.overrides]]` that drop gravel | pass |
 | Stone tool heads in Dawn | 4 rock categories x knife, axe, hammer and shovel head: `tfc:knapping` recipes without any lock, heads and the `tfc:crafting/stone/*` tools are Dawn items | pass |
 | `validate_quests.py --style` (jars of the CurseForge instance), `check_menus.py` | 1308 object ids, 0 errors, 0 warnings; all checks pass | pass |
+
+## 0.9.1 polish round N4 (2026-10-14)
+
+Merged with `--no-ff` into `dev`: n4/warnings, n4/text, n4/data, n4/core (conflicts only in the append-only docs, both
+sides kept; `gen_quests.py` re-run after the merge, no change). Then firmages-core 0.9.1: the EMI item-list filter
+(SPEC §21.11) and enum-only TFCRegistryAPI loading (SPEC §20), the two open firmages-core items of n4/data and
+n4/warnings. Felix's test server stayed untouched and running (he is testing 0.9.0 live on it). The boot loop ran on a
+copy (`robocopy` without world, logs, local and backups; ports 25566 and RCON 25576; synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve`, quest folder deleted first, 1867 entries, "Finished
+successfully"; `debug.allowSimulate = true` only in the copy) with a new world, all Ages through
+`firmages ages simulate grant`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` | 144 unit tests, 0 failed (new `ClassFileAccessTest`) | pass |
+| `gradlew runGameTestServer` (fresh `run/gametest`) | "All 45 required tests passed"; team carry-over: `gt_founder entered Firmament ... granted [age_9]`; `crafting_table_follows_ages: 150 live recipes craft, 10 Age-locked recipes do not` | pass |
+| `gradlew runGameTestServer -PgametestTfc` (fresh) | first try: mod construction failed, `ClassNotFoundException: org.objectweb.asm.ClassReader` (ASM is not visible from the game layer), so the class header is read by hand (`perf/ClassFileAccess`). Then 45 tests, 17 failed: exactly the 17 known failures of this mode (0.9.0 review row); `tfcRegistryApiScanScope` passes (every TFC enum value of all seven interfaces registered) | pass (expected failures) |
+| Round 1 (grants, `fa_dump`, `fa_dump_full`, craft probe, `selftest all`) | swaps 237 to 378 ms; `recipes craft sgjourney:building/naquadah/naquadah_stairs`: crafts, after `simulate revoke age_9` "locked by its Age: no recipe matches", after `grant age_9` crafts; `selftest all` 55 of 55 (`recipe_caches_fresh`: caches of fastsuite, ars_nouveau, immersivepetroleum, ae2, framedblocks match; `crafting_table_follows_ages`: 150 live craft, 150 locked do not); `check_log` 8 lines in 7 signatures left | fixes below |
+| Round 1 leftovers | `simplebackups-common.toml is not correct. Correcting`: NeoForge compares comments too, the shipped file had a custom comment (removed, the reason stays in the decision log). ModernFix `Option 'mixin.feature.measure_time' overriden`: ModernFix warns for every override, also by JVM property (javap), noise entry with that reason. `Boot snapshot ... FALLBACK_NO_MIRROR (file missing)` on a new world: firmages-core now says "new world, no Ages saved yet" while `level.dat` does not exist, so a lost mirror on an old world still reads "file missing". A passed self-test case named "missing": `check_log.py` skips `selftest [PASS]` lines. `Age age_9 revoked` and one `Can't keep up` (4.0 s): the revoke test and `/fa_dump` (debug tools, see below) | fixed |
+| Round 2 (new world, grants, `selftest all`, no dump, no revoke) | `check_log.py`: FATAL 0 (0.9.0: 14), ERROR 7, WARN 208, documented noise 217, open 0, **remaining 0, exit 0**; boot 79 s to Done; 7 DISTXFORM lines (all documented), no "Skipping recipe", no "Falling back"; scan "limited to 18 of 187 mod files"; "deco: 46 counters take smooth rock"; `selftest all` 55 of 55 | pass |
+| Round 3 (same world, boot from the mirror, `fa_dump`, `fa_dump_full`) | 35,522 recipes, 0 not encodable; the only problem line is `/fa_dump`'s own `Can't keep up` (3.4 s), open point | pass |
+| `poc_analyze.py` on the round 3 dump | 88 PASS, 0 FAIL; E-1: 0 types before their station, 0 item lists with a locked item (filtered by `ListEmiIngredientMixin`) | pass |
+| `derive_ages.py --check`, `gen_stage_locks.py --check` on the real dump | up to date, 0 files changed (the predicted n4/data dump matched) | pass |
+| `check_registry_parity.py dump` (N3 dump of Felix's server, read only, vs round 3) | every compared key the same, TFCAstikorCarts 567 items and 81 woods per part, TFCRegrowingForests ids and recipes the same: "PASS no difference" | pass |
+| `validate_quests.py --style`, `check_menus.py`, `gen_textures.py --check`, `gen_multiblock_templates.py --check`, `gen_recipe_overrides.py --check`, `gen_loot_silence.py --check` | 1295 object ids 0/0; menus pass; 99 textures 0 errors; templates up to date; 538 overrides 0 problems; 480 overrides 0 problems | pass |
+| `release.ps1 -Version 0.9.1 -SkipServerPack` | `pack.toml` and title line 0.9.1, mrpack and CurseForge zip in `dev/exports/`; `gen_credits.py` 216 mods, `md2html.py` both pages | pass |
+
+### Open points
+
+- In game (client brief 0.9.1): the team carry-over on Felix's age_9 world, EMI for operators, the item-list filter,
+  the new quest texts and banners, the deco recipes.
+- Superseded or closed from the N3 open points: the corrected `recipe_caches_fresh` ran on the pack (rounds 1 and 2,
+  pass); the no-founding rule for teams with Ages is replaced by the team carry-over (GameTests only so far).
+- `/fa_dump` stalls the server thread 3.4 to 4 s; the first login after a boot stalled 6 s in 0.9.0 (no player login in
+  the loop). Both in `dev/offene-punkte.md`.

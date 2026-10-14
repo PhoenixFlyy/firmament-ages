@@ -1,5 +1,48 @@
 # Client-Test
 
+## 0.9.1 Nachtrag (Runde N4 2026-10-14, Pack 0.9.1, firmages-core 0.9.1)
+
+Vier Arbeitspakete: Team-Übernahme und EMI für Operatoren (firmages-core), Texte und Questbuch, Deko in TFC-Hölzern,
+Log-Warnungen. Server-Teil geprüft auf einer Kopie des Test-Servers mit neuer Welt (`dev/poc-results.md`, Abschnitt
+„0.9.1 polish round N4“): Log ohne offene Zeile, `selftest all` 55 von 55, alle Dump-Prüfungen grün. **Neues Profil
+importieren** (Zip aus `dev/release.md`, Abschnitt 1) und den Test-Server auf 0.9.1 synchronisieren: Die Lang-Texte und
+die EMI-Änderungen stecken im neuen firmages-core-Jar. Netzwerkprotokoll 4 ist unverändert.
+
+1. **Zweiter Spieler auf Deiner Welt.** Deine age_9-Welt nimmt jetzt einen zweiten Spieler auf. Beim nächsten Login
+   gründet HiighHopes die Party „Firmament“, und die Party bekommt sofort alle Ages der Welt: age_0 bis age_9 und, falls
+   schon errungen, finale_won. Dein Questbuch geht mit, es gibt keine Zeremonie und keine Firmament Night. Prüfen:
+   einloggen, `/stage list` zeigt weiter alle Ages, Rezepte und Items bleiben offen. Dann den zweiten Spieler
+   einloggen: Er landet ohne Einladung in der Party („You join Firmament. Its Ages are yours.“) und hat alle Ages.
+   Loggt er sich ein, während Du offline bist, liest er „HiighHopes holds this world's Ages. The fellowship gathers
+   when they return.“; sobald Du kommst, entsteht die Party und er ist mit drin. Nur Dein Questfortschritt geht in die
+   Party, nicht der eines zweiten Spielers (Regel von FTB Quests).
+2. **EMI für Operatoren.** Als Operator oder im Kreativmodus hast Du EMI mit Rezeptfenster auch in Dawn und
+   Steinzeit; Überlebens-Spieler ohne OP sehen es weiter erst ab der Bronzezeit. Prüfen: OP in Dawn, EMI öffnet; OP
+   entziehen und Überlebensmodus, EMI geht wieder zu. Der kurze Hänger (etwa 1,5 bis 2 s) bei jedem Age-Wechsel bleibt
+   bewusst: JEI lädt neu, weil EMI die Rezepte von 52 Mods nur über JEI bekommt.
+3. **EMI zeigt in Item-Listen nur freigeschaltete Items.** Ein Rezeptfeld, das mehrere Items durchwechselt, zeigt nur
+   noch Items Deiner Ages. Prüfen ab der Bronzezeit: `tfc:crafting/blue_dye` wechselt nicht mehr zum Lapis-Pulver,
+   der Eisennugget aus dem Schmelzen zeigt keine gesperrten Vanilla-Werkzeuge. Ein Rezept, dessen Liste nur gesperrte
+   Items hat, bleibt verborgen wie bisher.
+4. **Questbuch.** Die Kapitel heißen nur noch nach ihrer Age („Stone Age“ bis „Singularity Age“), auch auf den
+   Bannern. Das Buch heißt überall „the Chronicle“, Bedienung steht als „right-click“ da. Prüfen: Banner und
+   Kapitelliste sehen sauber aus; das Welcome-Kapitel hat vier Quests; der Willkommensbildschirm zeigt drei kurze
+   Sätze; Jade am Schrein-Herz zeigt „Ages: N of 9“. Im Firmament-Kapitel zeigt das letzte Ziel einen Netherstern
+   statt des Stargates und nennt The Origin nicht. In der Steinzeit nennt „Locating Clay“ die sechs Zeigerpflanzen,
+   „Copper Ingot“ sagt „Ten small pieces make one ingot“, das Steinzeit-Ziel erwähnt den Strahl als Weg nach Hause.
+   Space-, Quantum- und Singularity-Stränge haben je zwei kurze Sätze, Data Matrix nennt drei Advanced Control
+   Circuits. Mit zwei Spielern eine Nebenquest-Belohnung abholen: Jeder wählt seine eigene; die Keystone-Belohnung holt
+   weiter nur einer fürs Team.
+5. **Deko in TFC-Hölzern ab der Bronzezeit.** In EMI: „Classic Door Print“ aus Papier und einer beliebigen Holztür,
+   „Cottage Door Print“ aus Papier und einer beliebigen Holzfalltür. Eine classic- und eine cottage-Tür aus TFC-Holz
+   bauen (z. B. Eiche). Eine Handcrafted-Theke aus TFC-Holz mit glattem Gestein statt Calcit herstellen (z. B. glatter
+   Granit, Meißel).
+6. **Ruhigeres Server-Log.** Nach dem Sync und Neustart: `python dev/check_log.py test-server/logs/latest.log` endet
+   mit Exit 0 (auf der Kopie: 0 übrig). Seife plus gefärbte TFC-Kerze oder gefärbter Alabasterziegel ergibt wieder die
+   ungefärbte Variante. Im Occultism-Buch fehlen die Einträge zu Bienennest, Kelchen, Transport-Foliot, Wiederbelebung
+   und schwacher Breeze; „Possess Breeze“ steht unter der Übersicht. Beim ersten Login nach dem Start auf den Ruckler
+   von etwa 6 s achten („Can't keep up“ im Log); der ist noch offen.
+
 ## 0.9.0 Nachtrag (Nachtlauf N3 2026-10-14, Pack 0.9.0, firmages-core 0.9.0)
 
 Sechs Arbeitspakete in einer Version: Age-Wechsel ohne Datapack-Reload, EMI/Ponder/GuideME nach Age, Deko-Mods,
@@ -53,9 +96,8 @@ Funken an den Lücken.
     zeigt das Muster und verlangt zwei Idole, die Notizen „Clay Patterns“ und „A Home“ unten; bitte ein Idol nach dem
     Muster knappen und im Grubenofen brennen. Bronze- und Eisenzeit je eine Notiz „A Home“; „The Way Below“ beschreibt
     das Opfer. Team: Auf einer neuen Welt gründet der erste Spieler die Party „Firmament“, jeder weitere landet beim ersten Login
-    ohne Einladung darin (Chatzeile „You join Firmament. Its Ages are yours.“). Auf Deiner Welt (Du allein, ohne Party,
-    age_9) ändert sich nichts; ein zweiter Spieler liest „HiighHopes holds this world's Ages outside a party ...“,
-    siehe `dev/offene-punkte.md`. The Origin: Steht nur ein Teil am Altar, zeigt die Aktionsleiste „The altar waits for N more: ...“;
+    ohne Einladung darin (Chatzeile „You join Firmament. Its Ages are yours.“). Auf Deiner Welt seit 0.9.1: siehe „0.9.1 Nachtrag“, Punkt 1
+    (die Party übernimmt die Ages der Welt). The Origin: Steht nur ein Teil am Altar, zeigt die Aktionsleiste „The altar waits for N more: ...“;
     wer 5 Minuten nichts tut, zählt nicht.
 4. **Lebendiger Schrein.** Am entzündeten, heilen Schrein steigt Tag und Nacht ein dünner Strahl in der Farbe der
    zuletzt erweckten Age auf. Prüfen: aus etwa 200 Blöcken sichtbar, mit und ohne Complementary; einen Ringblock in der

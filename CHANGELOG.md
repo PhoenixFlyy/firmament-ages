@@ -2,6 +2,18 @@
 
 Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## 0.9.1
+
+- **Ages carry over into the party.** When a player founds or joins the server's party, the party gets every Age the world already holds (and the finale, once won), without a ceremony. A world played alone before 0.9.1 becomes a shared one: the player with the most Ages founds "Firmament" and keeps the quest book, the next player joins it with all Ages. While that player is offline, a newcomer reads who holds the world's Ages.
+- **Operators and creative players see EMI in every Age**, recipe screen included; survival players without operator rights keep the Age rule.
+- **The recipe viewer hides locked items inside recipes.** A recipe slot that lists several items (for example blue dye from lapis or other powders, iron nuggets from old tools) only cycles through items of the player's Ages.
+- **Deco in TerraFirmaCraft woods from the Bronze Age.** Classic and cottage door prints are made from paper and any wooden door or trapdoor, and the Handcrafted counters take any smooth TerraFirmaCraft rock instead of calcite, so classic and cottage doors and counters in every TerraFirmaCraft and ArborFirmaCraft wood come with the Bronze Age.
+- **Soap cleans TerraFirmaCraft candles and alabaster bricks** again (FirmaSupplementaries recipes that named missing tags).
+- **Quest book.** Chapters carry their Age's name without a number ("Stone Age" to "Singularity Age"), the book is "the Chronicle" everywhere and controls read "right-click". The Welcome chapter has four quests, the late-game strands (Space, Quantum, Singularity) are rewritten in two short sentences each, the Firmament chapter no longer gives the finale away, and early hints name the six clay indicator plants and how small ore pieces add up to an ingot. Keystone supplies stay one reward for the team; side-path comforts are claimed and chosen by each player.
+- **Walkthrough** for players in `docs/WALKTHROUGH.md` (linked from the README and the CurseForge page); the README is a short page.
+- **A quieter server log.** The pack removes recipes of other mods with proper data files instead of type-less files (462 "Skipping recipe" lines), rewrites 48 recipes in Create 6's format, adds empty tags that mods expect, fixes a sack loot table, completes the Cave Dweller config, ships `config/firmages-server.toml` with its defaults and stops SimpleBackups from forcing a save before each backup ("Could not save data"). Six Occultism book entries about rituals the pack disables are hidden. TFCRegistryAPI no longer loads every class of the TerraFirmaCraft mods at start, only their enums.
+- **Firmament Ages Core 0.9.1** with the team carry-over, EMI for operators, the item-list filter, the enum-only TFCRegistryAPI scan and a cache self-test that compares each mod's cache with the mod's own rebuild. Network protocol 4 is unchanged.
+
 ## 0.9.0
 
 - **Age-ups without a freeze.** A new Age no longer reloads every datapack. The server filters the recipes it loaded at the start again, updates the ore lists of the prospecting tools and the Digital Miner and the recipe caches of the machines, and sends only the recipes. On the test server this takes milliseconds instead of the former freeze of 9 to 15 seconds. `/reload` works as before; `gate.ageSwap = false` in `config/firmages-server.toml` brings back the full reload.

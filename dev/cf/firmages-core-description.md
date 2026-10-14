@@ -45,6 +45,15 @@ MIT License. Source: the `mod/firmages-core` folder of the pack repository, [git
 
 ## Changelog
 
+**0.9.1**
+
+- Team carry-over: when a player enters an FTB Teams party (founding, joining, an accepted invite), one tick later the party gets every Age of the world's Age record it lacks, plus `finale_won` after the final boss, through ProgressiveStages' grant path; no ceremony, swap or Firmament Night. A party member's login repeats it. `team.autoJoin` founds "Firmament" also on a world where one player already holds Ages: that player founds it (FTB Quests moves the founder's quest book into the party); while that player is offline a newcomer is told who holds the Ages (`firmages.team.waiting`). Dormant player teams and disbanded parties no longer count for the one-team guard or the boot union.
+- EMI for operators (permission level 2) and creative players in every Age, recipe screen included.
+- EMI item lists: a recipe input that lists several items shows only the members of the player's Ages (mixin on `ListEmiIngredient.getEmiStacks`; a fully locked list still drops the recipe).
+- TFCRegistryAPI scan: inside the scanned TerraFirmaCraft mods only enum classes are loaded (the class file's flags are read first), which removes about 112 DISTXFORM, mixin and FATAL lines per server boot.
+- Self-test: `recipe_caches_fresh` compares each mod's recipe cache with what the mod's own code rebuilds from the live recipes; new case `crafting_table_follows_ages`; `/firmages recipes craft <id>`.
+- Network protocol version 4, unchanged.
+
 **0.9.0**
 
 - Age swap: an Age change no longer reloads the datapacks. The gate classifies every recipe once per load; a swap filters that list again for the new Ages (`RecipeManager#replaceRecipes`), rebinds `tfc:prospectable`, `precisionprospecting:prospectable_mineral` and `mekanism:miner_blacklist`, flushes the recipe caches of Mekanism, Create, TerraFirmaCraft, Immersive Engineering and Mystical Agriculture, and sends only the recipe packet and recipe book. `/reload`, `/firmages reload` and the boot reconcile still load everything. `gate.ageSwap` (server, default on); a swap that cannot run falls back to the full reload. KubeJS gets `FirmAges.stationAge`, `requireAge` and `untilAge`; the Create basin heat levels are station locks of the gate.
