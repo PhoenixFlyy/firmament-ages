@@ -17,6 +17,7 @@ import java.util.List;
 import com.enviouse.progressivestages.server.enforcement.DimensionEnforcer;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.ceremony.CeremonyService;
+import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.compat.sgjourney.SgjGates;
 import dev.firmages.core.net.AgeTransitionPayload;
@@ -355,6 +356,128 @@ public final class OriginGameTests {
             OriginService.reset(server);
         }
         h.succeed();
+    }
+
+    /**
+     * Felix 2026-10-14: during the fight, walking away from the altar and back announced the Gathering again every
+     * time once the cooldown had passed. While the fight runs (here a tagged boss stands in for the finale gate and
+     * The Primordial) no arrival starts it again, even with the cooldown at 0; once the fight is gone (a wipe) the
+     * next arrival does.
+     */
+    @GameTest(template = "empty", batch = "firmages_5_origin_repeat", timeoutTicks = 400)
+    public static void noRepeatWhileFightRuns(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel o = origin(h);
+        OriginService.reset(server);
+        gatherings = 0;
+        int cooldown = ServerConfig.ORIGIN_GATHER_COOLDOWN.get();
+        BlockPos al = OriginArena.ALTAR;
+        BlockPos a = OriginArena.ARRIVAL;
+        List<BlockPos> area = List.of(al, al.south(8), a);
+        ServerPlayer[] p = new ServerPlayer[1];
+        Zombie[] boss = new Zombie[1];
+        Runnable cleanup = () -> {
+            ServerConfig.ORIGIN_GATHER_COOLDOWN.set(cooldown);
+            if (boss[0] != null && !boss[0].isRemoved()) boss[0].discard();
+            if (p[0] != null) DebugPlayerCommands.despawn(p[0]);
+            forceChunks(o, area, false);
+            OriginService.reset(server);
+        };
+        forceChunks(o, area, true);
+        h.startSequence()
+            .thenWaitUntil(() -> entitiesLoaded(h, o, area))
+            .thenExecute(() -> {
+                try {
+                    p[0] = DebugPlayerCommands.spawn(server, h.getLevel(), "gt_regather", Vec3.atCenterOf(h.absolutePos(new BlockPos(1, 1, 1))));
+                    p[0].setGameMode(GameType.CREATIVE);
+                    p[0].teleportTo(o, al.getX() + 2.5, al.getY(), al.getZ() + 1.5, 0, 0);
+                    ok(h, !OriginService.fightActive(o), "no fight before the Gathering");
+                    ok(h, OriginService.checkGathering(server) && gatherings == 1, "first arrival starts the Gathering");
+                    boss[0] = spawnZombie(o, al.south(8), true);
+                    boss[0].setNoAi(true);
+                    ok(h, OriginService.fightActive(o), "a living tagged boss in The Origin is a running fight");
+                    ServerConfig.ORIGIN_GATHER_COOLDOWN.set(0);
+                    for (int i = 0; i < 3; i++) {
+                        p[0].teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
+                        ok(h, !OriginService.checkGathering(server), "leaving the altar does nothing");
+                        p[0].teleportTo(o, al.getX() + 2.5, al.getY(), al.getZ() + 1.5, 0, 0);
+                        ok(h, !OriginService.checkGathering(server) && !OriginService.checkGathering(server),
+                            "returning during the fight does not start it again");
+                    }
+                    ok(h, gatherings == 1 && OriginSavedData.get(server).gatherings() == 1, "one Gathering (and one announcement), count " + gatherings);
+                    boss[0].discard(); // the wipe: the gate failed, no boss
+                    ok(h, !OriginService.fightActive(o), "no fight without gate and boss");
+                    p[0].teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
+                    OriginService.checkGathering(server);
+                    p[0].teleportTo(o, al.getX() + 2.5, al.getY(), al.getZ() + 1.5, 0, 0);
+                    ok(h, OriginService.checkGathering(server) && gatherings == 2, "after the wipe the next arrival starts the Gathering again");
+                } finally {
+                    cleanup.run();
+                }
+            })
+            .thenSucceed();
+    }
+
+    /**
+     * {@code /firmages origin kill [boss]} (operators): {@code kill} takes every hostile in The Origin but the final
+     * boss, {@code kill boss} the boss, whose death wins the finale the normal way; without permission 2 neither exists.
+     */
+    @GameTest(template = "empty", batch = "firmages_5_origin_kill", timeoutTicks = 400)
+    public static void operatorKill(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel o = origin(h);
+        OriginService.reset(server);
+        victories = 0;
+        BlockPos al = OriginArena.ALTAR;
+        List<BlockPos> area = List.of(al, al.east(4), al.west(4), al.north(4), al.south(8));
+        List<Entity> spawned = new java.util.ArrayList<>();
+        forceChunks(o, area, true);
+        h.startSequence()
+            .thenWaitUntil(() -> entitiesLoaded(h, o, area))
+            .thenExecute(() -> {
+                try {
+                    Zombie wave = spawnZombie(o, al.east(4), false);
+                    Zombie helper = spawnZombie(o, al.west(4), false);
+                    helper.addTag("firmages.primordial_add");
+                    Zombie boss = spawnZombie(o, al.south(8), true);
+                    net.minecraft.world.entity.animal.Cow cow = EntityType.COW.create(o);
+                    cow.moveTo(al.getX() + 0.5, al.getY(), al.getZ() - 3.5);
+                    o.addFreshEntity(cow);
+                    spawned.addAll(List.of(wave, helper, boss, cow));
+                    for (Zombie z : List.of(wave, helper, boss)) z.setNoAi(true);
+                    CommandSourceStack none = server.createCommandSourceStack().withPermission(0);
+                    ok(h, run(server, none, "firmages origin kill") == -1 && run(server, none, "firmages origin kill boss") == -1 && wave.isAlive(),
+                        "permission 0: no kill commands");
+                    CommandSourceStack op = server.createCommandSourceStack().withPermission(2).withSuppressedOutput();
+                    ok(h, OriginService.fightActive(o), "fight running");
+                    int first = run(server, op, "firmages origin kill");
+                    ok(h, first >= 2 && wave.isDeadOrDying() && helper.isDeadOrDying(), "kill takes the wave enemy and the helper (" + first + " killed)");
+                    ok(h, boss.isAlive() && cow.isAlive(), "the boss and a passive mob are spared");
+                    ok(h, !OriginSavedData.get(server).won() && victories == 0, "no win from the hostiles");
+                    ok(h, run(server, op, "firmages origin kill") == 0, "nothing left to kill: the command fails");
+                    ok(h, run(server, op, "firmages origin kill boss") == 1 && boss.isDeadOrDying(), "kill boss takes the boss");
+                    ok(h, OriginSavedData.get(server).won() && victories == 1, "its death wins the finale the normal way");
+                    ok(h, run(server, op, "firmages origin kill boss") == 0, "no boss left: the command fails");
+                } finally {
+                    for (Entity e : spawned) if (!e.isRemoved()) e.discard();
+                    forceChunks(o, area, false);
+                    OriginService.reset(server);
+                }
+            })
+            .thenSucceed();
+    }
+
+    private static void forceChunks(ServerLevel level, List<BlockPos> at, boolean force) {
+        for (BlockPos pos : at) {
+            ChunkPos cp = new ChunkPos(pos);
+            level.setChunkForced(cp.x, cp.z, force);
+        }
+    }
+
+    private static void entitiesLoaded(GameTestHelper h, ServerLevel level, List<BlockPos> at) {
+        for (BlockPos pos : at) {
+            if (!level.areEntitiesLoaded(ChunkPos.asLong(pos))) h.fail("entities at " + pos + " not loaded yet");
+        }
     }
 
     /**

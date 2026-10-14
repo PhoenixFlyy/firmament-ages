@@ -87,7 +87,13 @@ Funken an den Lücken.
      Gateway-Wellen kommen dann wie im echten Kampf).
    - `/firmages origin fight`: ruft The Primordial sofort, ohne Wellen. Verweigert, solange das Finale-Gate oder der Boss
      lebt, und nach dem Sieg (dann vorher `/firmages origin reset`).
-   Prüfen: ohne Operator-Rechte gibt es keinen der drei Befehle; nach `fight` laufen Phasen, Ansagen und das Finale wie
+   - `/firmages origin kill` (N5): tötet alle Feinde in der Origin außer dem Endboss, also die Gegner der laufenden
+     Gate-Welle (Maledictus, Ignis) und die Helfer der Boss-Phasen (Ender Golems, Endermapteras). Die Welle zählt als
+     geschafft, das Gate startet die nächste; nach der letzten erscheint The Primordial.
+   - `/firmages origin kill boss` (N5): tötet The Primordial. Der Sieg läuft wie im echten Kampf (finale_won, Finale-Zeremonie,
+     Ansage „The Primordial falls ...“).
+   Schnell durchspielen: `gathering`, dann `kill` je Welle (oder gleich `fight`), dann `kill boss`.
+   Prüfen: ohne Operator-Rechte gibt es keinen der fünf Befehle; nach `fight` laufen Phasen, Ansagen und das Finale wie
    im echten Kampf.
 9. **Firmament Night.** In der ersten Nacht nach jedem neuen Age leuchten Himmel und Mond in der Farbe dieses Ages, der
    Mond ist größer, zur Dämmerung steht eine Zeile über der Hotbar („Tonight the sky turns to bronze.“), halb so viele
