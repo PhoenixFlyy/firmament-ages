@@ -297,6 +297,11 @@ STYLE_TEACHING = {
     '484BD83C5FBABCE1',  # stone/info/home: the Stone Age home blocks (no viewer in the Stone Age)
     '5032B9C3899A4044',  # stone/hearth/bench: saw, lumber, planks and workbench for the 3x3 shrine recipes (no viewer)
     '33BEA94E7673D21D',  # arcane/spirit/nether: the Nether sacrifice (no recipe, no viewer, Field Guide hidden)
+    '16708A1C39158F9C',  # dawn/info/rules: what Dawn withholds, the hand-break rule, no viewer before the Bronze Age
+    '1CC29E163A94FCE6',  # stone/clay/kiln: building a pit kiln (a structure, no viewer in the Stone Age)
+    '7997DC1DFF73EA36',  # stone/metal/charcoal: building a charcoal pit (a structure, no viewer in the Stone Age)
+    '759550A45990B3C8',  # stone/metal/ingot: casting from the vessel into a mold (a screen, no viewer shows it)
+    '71B6B8FAE5353DAB',  # bronze/smith/forge: building a charcoal forge (a structure no viewer shows)
 }
 # knapping grid rows (5 squares of X and -) and crafting grid rows (3 squares, a letter per item: gen_quests.craft_grid)
 GRID_LINE = re.compile(r'[X-]( [X-]){4}|[A-Z-]( [A-Z-]){2}')

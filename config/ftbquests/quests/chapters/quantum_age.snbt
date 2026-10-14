@@ -204,7 +204,7 @@
 			tags: ["keystone"]
 			tasks: [
 				{
-					count: 8L
+					count: 2L
 					id: "593A170F0EE11D4B"
 					item: {
 						count: 1

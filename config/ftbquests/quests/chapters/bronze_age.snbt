@@ -925,6 +925,25 @@
 			dependencies: ["0A81ED2F8A5BB2AE"]
 			hide_dependency_lines: true
 			icon: {
+				id: "tfc:metal/anvil/copper"
+			}
+			id: "1A7B308A025FA2CD"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "5A3B24D671AD0B95"
+					type: "checkmark"
+				}
+			]
+			x: 1.5d
+			y: 6.25d
+		}
+		{
+			dependencies: ["0A81ED2F8A5BB2AE"]
+			hide_dependency_lines: true
+			icon: {
 				id: "create:andesite_alloy"
 			}
 			id: "4304B6AA00C231E8"
@@ -937,7 +956,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 1.5d
+			x: 3.0d
 			y: 6.25d
 		}
 		{
@@ -956,7 +975,37 @@
 					type: "checkmark"
 				}
 			]
-			x: 3.0d
+			x: 4.5d
+			y: 6.25d
+		}
+		{
+			dependencies: ["0A81ED2F8A5BB2AE"]
+			hide_dependency_lines: true
+			icon: {
+				id: "tfc:bronze_bell"
+			}
+			id: "51D1F56529776258"
+			optional: true
+			rewards: [
+				{
+					id: "22EB308533A07929"
+					type: "xp"
+					xp: 70
+				}
+			]
+			shape: "diamond"
+			size: 1.25d
+			tags: ["ring"]
+			tasks: [
+				{
+					id: "4197F6859B0FBD4A"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=1,ready=true]"
+					type: "observation"
+				}
+			]
+			x: 14.75d
 			y: 6.25d
 		}
 	]

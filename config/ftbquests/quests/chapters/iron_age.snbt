@@ -852,6 +852,36 @@
 			x: 3.0d
 			y: 6.25d
 		}
+		{
+			dependencies: ["05C4B3AE61613A9B"]
+			hide_dependency_lines: true
+			icon: {
+				id: "tfc:metal/lamp/wrought_iron"
+			}
+			id: "11F575AA30F154A5"
+			optional: true
+			rewards: [
+				{
+					id: "2D5172B263F0EBF7"
+					type: "xp"
+					xp: 100
+				}
+			]
+			shape: "diamond"
+			size: 1.25d
+			tags: ["ring"]
+			tasks: [
+				{
+					id: "3468980A6E8C7F7C"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=2,ready=true]"
+					type: "observation"
+				}
+			]
+			x: 16.5d
+			y: 6.25d
+		}
 	]
 	tags: ["age_2"]
 }

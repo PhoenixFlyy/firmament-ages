@@ -96,7 +96,7 @@
 		{
 			dependencies: ["04AB34FB1FD2E8B6"]
 			icon: {
-				id: "firmages:sky_disc"
+				id: "tfc:firestarter"
 			}
 			id: "32561F3017350CAF"
 			rewards: [

@@ -330,21 +330,25 @@ XP = {'dawn': 10, 'age_0': 20, 'age_1': 35, 'age_2': 50, 'age_3': 65, 'age_4': 8
 
 
 def age_chapter(key, filename, title, subtitle, icon, stage, order, entry, strands, goal, sides, explains,
-                supplies, comfort, ring=None):
+                supplies, comfort, ring=None, bridge=None):
     """strands: list of (name, [quests], keystone-quest). sides: list of (attach_key, [quests]).
-    ring: optional "Raise the ring" quest (kind 'ring') for the Age's shrine ring."""
+    ring: "Raise the ring" quest (kind 'ring') for the Age's shrine ring.
+    bridge: a required step between one keystone (its deps) and the goal, drawn on the main route; the goal depends
+    on it as well as on every keystone."""
     return dict(key=key, filename=filename, title=title, subtitle=subtitle, icon=icon, stage=stage, order=order,
                 group='ages', entry=entry, strands=strands, goal=goal, sides=sides, explains=explains,
-                supplies=supplies, comfort=comfort, ring=ring)
+                supplies=supplies, comfort=comfort, ring=ring, bridge=bridge)
 
 
 def ring_quest(chapter_key, age_index, ring_name, icon, desc):
-    """Optional observation of the finished ring: the heart reports ready=true while the current tier's rings stand,
-    and awakened=N while age_N is the highest Age (SPEC section 7.8), so the quest only ticks in its own Age."""
+    """Observation of the finished ring: the heart reports ready=true while the current tier's rings stand, and
+    awakened=N while age_N is the highest Age (SPEC section 7.8), so the quest only ticks in its own Age. The ring
+    itself is required (the shrine refuses the offering without it); the quest is optional in the book because the
+    goal already waits for the Age the shrine grants."""
     return Q('%s/ring' % chapter_key, 'Raise %s' % ring_name,
              t_observe('firmages:shrine_heart[awakened=%d,ready=true]' % age_index, kind='block_state',
                        title='Look at the heart with %s complete' % ring_name),
-             kind='ring', icon=icon, sub='Optional: the shrine ring of this Age', desc=desc)
+             kind='ring', icon=icon, sub='The shrine ring of this Age', desc=desc)
 
 
 # ---------------------------------------------------------------- Dawn
@@ -352,16 +356,17 @@ DAWN = age_chapter(
     'dawn', 'dawn', 'Dawn', ['Prologue: stone, straw and the first spark.'], 'tfc:firestarter', 'dawn', 0,
     entry=Q('dawn/entry', 'Welcome to the Wild', t_stage('dawn'), kind='entry', icon='tfc:rock/loose/granite',
             sub='The prologue before the first Age',
-            desc=['You wake with nothing: no pick, no clay, no fire.',
+            desc=['Dawn gives you nothing: no pick, no clay, no fire.',
                   '',
                   'Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out.',
+                  'Sneak is Left Ctrl here; Left Shift sprints.',
                   '',
                   'Nights are dark. Light a fire and make torches before the first one (see "Before Dark").',
                   'When all three strands are done, the first fire opens the Stone Age for all of you.']),
     strands=[
         ('Stone', [
             Q('dawn/stone/rock', 'Just a Rock', t_adv('tfc:story/find_rock'),
-              desc=['Pick up loose rocks with an empty hand. Any kind works.',
+              desc=['Right-click loose rocks with an empty hand; any kind works.',
                     '',
                     'Gather about ten. Every stone tool head is knapped from them (see "Stone Tools").'],
               icon='tfc:rock/loose/granite'),
@@ -426,12 +431,7 @@ DAWN = age_chapter(
                     '(two sticks) until the firepit lights.',
                     '',
                     'Heat a stick in the firepit\'s right slot: it becomes two torches. A torch lights your way in hand;',
-                    'a placed torch burns about 36 minutes.']),
-        ]),
-        ('dawn/stone/rock', [
-            Q('dawn/side/nugget', 'A Weird Rock', t_adv('tfc:world/nugget'), kind='side',
-              desc=['Some rocks on the surface are ore. Remember where you found them.'],
-              icon='tfc:ore/small_native_copper'),
+                    'a placed torch burns about 36 minutes. Zombies and spiders walk at night.']),
         ]),
         ('dawn/hunt/javelin', [
             Q('dawn/side/berries', 'Berries and Herbs',
@@ -445,9 +445,12 @@ DAWN = age_chapter(
     ],
     explains=[
         Q('dawn/info/rules', 'What Dawn Withholds', t_check(), kind='explain', icon='minecraft:barrier',
-          desc=['In Dawn you cannot dig clay, build pit kilns or use metal.',
-                'The crafting grid only makes stone and obsidian tools, the firestarter, straw, thatch, sticks and rope.',
-                'Everything else opens with the Stone Age.']),
+          desc=['In Dawn you cannot dig clay, build pit kilns or use metal. The crafting grid only makes stone and',
+                'obsidian tools, the firestarter, straw, thatch, sticks and rope.',
+                '',
+                'Logs and stone do not break by hand: the stone axe fells trees, stone waits for the copper pickaxe.',
+                '',
+                'No recipe viewer until the Bronze Age; this book draws every pattern.']),
         # Patterns: tfc:knapping/stone/knife_head/<group>_1 (two blades from one rock), hammer_head/<group>,
         # shovel_head/<group>, hoe_head/<group>_1 (two heads), javelin_head/<group> (TFC 4.2.11, all four rock
         # groups alike). Hammer, shovel and the single hoe are "default_on": false: the rest of the grid must be
@@ -489,15 +492,24 @@ STONE = age_chapter(
     strands=[
         ('Fire & Clay', [
             Q('stone/clay/find', 'Locating Clay', t_adv('tfc:story/find_clay'),
-              desc=['Clay grows under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and',
+              desc=['Clay lies under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and',
                     'water canna grow above it.'],
               icon='minecraft:clay_ball'),
             Q('stone/clay/knap', 'Clay Forming', t_adv('tfc:story/knap_clay'),
               desc=['Knap five clay into a vessel, a jug, a bowl or a mold (see "Clay Patterns").']),
+            # TFC 4.2.11 pit kiln (field guide getting_started/pit_kiln, ServerConfig pitKilnTicks 7200 = 6 min,
+            # pitKilnTemperature 1400): up to four items set down with the place-block key (tfc.key.place_block = V in
+            # config/defaultoptions/keybindings.txt), eight straw (tfc:pit_kiln_straw) or two thatch, eight logs.
             Q('stone/clay/kiln', 'Potter', t_adv('tfc:story/pit_kiln'),
-              desc=['Place unfired pottery, cover it with straw and logs and set it on fire: a pit kiln.']),
+              desc=['Fire clay in a pit kiln:',
+                    '- Dig a hole one block deep. Hold an unfired piece, look at the floor of the hole and press V.',
+                    'Up to four pieces fit.',
+                    '- Right-click the pile with eight straw, then with eight logs.',
+                    '- Light the top with a firestarter.',
+                    '',
+                    'After about six minutes the fire is out and the pottery is fired.']),
             Q('stone/clay/vessel', 'Small Vessel', t_item('tfc:ceramic/vessel'),
-              desc=['The fired small vessel melts ore when it sits in a fire or a pit kiln.']),
+              desc=['Fill it with ore and fire it in a pit kiln: the copper melts. A firepit never gets hot enough.']),
         ], Q('stone/clay/key', 'Mold Set',
              [t_item('tfc:ceramic/ingot_mold', title='Fired ingot mold'),
               t_item('tfc:ceramic/pickaxe_head_mold', title='Fired pickaxe head mold')],
@@ -508,14 +520,25 @@ STONE = age_chapter(
               t_any_item(['tfc:ore/small_native_copper', 'tfc:ore/small_malachite', 'tfc:ore/small_tetrahedrite'],
                          'Any small copper ore piece'),
               desc=['Copper ore pieces lie on the surface above copper veins.'], icon='tfc:ore/small_native_copper'),
+            # TFC 4.2.11 charcoal pit (field guide metalworking/charcoal_pit): sneak + right-click with a log places a
+            # log pile (InteractionManager checks isShiftKeyDown), light it, then close it with non-flammable blocks.
             Q('stone/metal/charcoal', 'A Better Fuel', t_adv('tfc:story/charcoal'),
-              desc=['Stack logs in a log pile, cover it with earth and light it: a charcoal pit.',
-                    'Charcoal burns hot enough for copper.'], icon='minecraft:charcoal'),
+              desc=['Make charcoal in a charcoal pit:',
+                    '- Sneak and right-click the ground with logs: a log pile. Right-click it with more logs.',
+                    '- Cover every side with dirt, leave the top open and light it with a firestarter.',
+                    '- Close the gap with dirt.',
+                    '',
+                    'When the smoke stops, dig the charcoal out with a shovel. The Shrine Heart and the Hearthstone need it.'],
+              icon='minecraft:charcoal'),
+            # Casting: field guide getting_started/finding_ores (casting interface, mold in the slot, right-click the
+            # cooled mold to take the item out); small ore 10 mB, ingot 100 mB.
             Q('stone/metal/ingot', 'Copper Ingot', t_item('tfc:metal/ingot/copper', 2),
-              desc=['Melt copper ore in the small vessel in a fire and pour it into the ingot mold.',
-                    'Ten small pieces make one ingot.']),
+              desc=['Take the vessel out while it glows and right-click it. Put a fired mold in the slot; the copper',
+                    'pours in. Ten small pieces make one ingot.',
+                    '',
+                    'When the mold has cooled, right-click it to take the ingot out.']),
             Q('stone/metal/head', 'Pickaxe Head', t_item('tfc:metal/pickaxe_head/copper'),
-              desc=['Pour copper into the pickaxe head mold.']),
+              desc=['Right-click the glowing vessel and put the fired pickaxe head mold in the slot.']),
         ], Q('stone/metal/key', 'Copper Pickaxe', t_item('tfc:metal/pickaxe/copper'), kind='keystone',
              desc=['Put the head on a stick. Your first pickaxe: now you can mine.'])),
         ('Camp', [
@@ -527,7 +550,7 @@ STONE = age_chapter(
               icon='tfc:seeds/wheat'),
             Q('stone/camp/jug', 'A Jug of Water', t_item('tfc:ceramic/jug'),
               desc=['Fire a jug and fill it at a river. A pot needs water before it cooks.']),
-            Q('stone/camp/pot', 'Pot Head', t_adv('tfc:story/pot'),
+            Q('stone/camp/pot', 'A Pot of Soup', t_adv('tfc:story/pot'),
               desc=['Put a fired ceramic pot on the firepit and cook a soup.'], icon='tfc:ceramic/pot'),
         ], Q('stone/camp/key', 'Stocked Camp', t_item('tfc:ceramic/large_vessel'), kind='keystone',
              desc=['Fill a large vessel with food and seal it. Sealed, food rots far slower.'])),
@@ -549,7 +572,8 @@ STONE = age_chapter(
               icon='tfc:wood/workbench/oak',
               desc=['Build a workbench. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2.',
                     '',
-                    '- Knap a saw blade mold (see "Clay Patterns"), fire it and pour copper into it.',
+                    '- Knap a saw blade mold (see "Clay Patterns") and fire it. Right-click the glowing vessel and',
+                    'put the mold in the slot.',
                     '- Put the blade above a stick: a saw.',
                     '- A saw and a log make eight lumber, four lumber make planks, four planks a workbench.',
                     '',
@@ -663,18 +687,29 @@ BRONZE = age_chapter(
             icon='tfc:metal/ingot/bronze', sub='The second Age',
             desc=['Tin and zinc veins wake. Anvils, alloys and the first kinetic machines follow.',
                   '',
+                  'The recipe viewer opens: hover over an item and press R to see how it is made, U to see what it',
+                  'is used for. F3 now shows coordinates.',
+                  '',
                   'Four strands lead to the Sky Disc: Smithing, Prospecting, Alloys and Kinetics.']),
     strands=[
         ('Smithing', [
+            # TFC 4.2.11 charcoal forge (field guide metalworking/charcoal_forge): a charcoal pile of 7 or 8 layers,
+            # five stone blocks around it (four sides and below), air above, sky in view; charcoal places a pile layer
+            # on right-click (no sneak).
             Q('bronze/smith/forge', 'Forging', t_adv('tfc:story/forge'),
-              desc=['Build a charcoal forge: charcoal on the ground, surrounded by stone.'], icon='minecraft:charcoal'),
-            Q('bronze/smith/stone_anvil', 'Hammer Time', t_adv('tfc:story/stone_anvil'),
+              desc=['Build a charcoal forge:',
+                    '- Make a hole one block deep, lined with stone on its four sides and below.',
+                    '- Right-click into it with charcoal until the pile is seven or eight layers high.',
+                    '- Keep the sky open above it and light it with a firestarter.',
+                    '',
+                    'Right-click the forge: fuel goes below, the metal to heat above.'], icon='minecraft:charcoal'),
+            Q('bronze/smith/stone_anvil', 'Stone Anvil', t_adv('tfc:story/stone_anvil'),
               desc=['Right-click raw igneous rock with a stone hammer to make a stone anvil.']),
             Q('bronze/smith/quern', 'The Grind', t_adv('tfc:story/quern'),
               desc=['Craft a quern and a handstone.'], icon='tfc:quern'),
             Q('bronze/smith/flux', 'In Flux', t_item('tfc:powder/flux', 4),
               desc=['Grind borax, lime or other flux stones in the quern. Welding needs flux.']),
-            Q('bronze/smith/weld', 'Double Trouble', t_adv('tfc:story/welding'),
+            Q('bronze/smith/weld', 'First Weld', t_adv('tfc:story/welding'),
               desc=['Weld two hot ingots into a double ingot on the stone anvil.'],
               icon='tfc:metal/double_ingot/copper'),
         ], Q('bronze/smith/key', 'Copper Anvil', t_item('tfc:metal/anvil/copper'), kind='keystone',
@@ -762,12 +797,18 @@ BRONZE = age_chapter(
         ]),
         ('bronze/prosp/tin', [
             Q('bronze/side/totem', 'A Flute', t_item('totemic:flute'), kind='side',
-              desc=['Carve a flute. Ceremonies and totem poles give the camp some flair.']),
+              desc=['Carve a flute. Its music starts the ceremonies at a totem pole.']),
         ]),
     ],
     explains=[
         Q('bronze/info/heat', 'Working Heat', t_check(), kind='explain', icon='tfc:metal/double_ingot/copper',
           desc=['Metal can be worked or welded only while it is hot enough. Hover over it to read its heat.']),
+        # TFC 4.2.11 field guide metalworking/anvils: plan from the scroll, green and red actions move the progress
+        # marker to the target, the rules (two or three icons) bind the last three actions.
+        Q('bronze/info/anvil', 'Anvil Work', t_check(), kind='explain', icon='tfc:metal/anvil/copper',
+          desc=['Put hot metal in the anvil and hold a hammer. Pick the plan from the scroll.',
+                'Strike until the green marker meets the red one; your last three strikes must match the rules',
+                'shown on top.']),
         Q('bronze/info/create', 'Kinetics in the Bronze Age', t_check(), kind='explain', icon='create:andesite_alloy',
           desc=['Only andesite machines exist now: water wheels, saws, presses, fans and mills.',
                 'Crushing wheels, deployers and brass come with the Iron Age.',
@@ -777,7 +818,10 @@ BRONZE = age_chapter(
           desc=['Furniture opens: chairs, tables, shelves, doors and windows in every wood.',
                 'The recipe viewer shows how each is made.']),
     ],
-    supplies='bronze_supplies', comfort='bronze_comfort')
+    supplies='bronze_supplies', comfort='bronze_comfort',
+    ring=ring_quest('bronze', 1, 'the Bronze Sanctum', 'tfc:bronze_bell',
+                    ['Raise the Bronze Sanctum around the Hearth Circle: rock bricks, a bronze block on each corner',
+                     'and a bronze or brass bell opposite the plinth. The heart shows every missing block.']))
 
 # ---------------------------------------------------------------- Iron Age
 IRON = age_chapter(
@@ -886,7 +930,10 @@ IRON = age_chapter(
                 '',
                 'Use one when the boss cannot be found or fought. Trials repeat.']),
     ],
-    supplies='iron_supplies', comfort='iron_comfort')
+    supplies='iron_supplies', comfort='iron_comfort',
+    ring=ring_quest('iron', 2, 'the Iron Sanctum', 'tfc:metal/lamp/wrought_iron',
+                    ['Raise the Iron Sanctum around the Bronze Sanctum: smooth rock pillars with wrought iron bars and',
+                     'four wrought iron lamps. The heart shows every missing block.']))
 
 # ---------------------------------------------------------------- Arcane Age
 ARCANE = age_chapter(
@@ -1006,8 +1053,8 @@ ARCANE = age_chapter(
     explains=[
         Q('arcane/info/ore', 'Ore in the Arcane Age', t_check(), kind='explain', icon='tfc:ore/rich_hematite',
           desc=['Three ways now give more metal per ore:',
-                '- Crushing wheels: about 1.5 to 1.9 times.',
-                '- Spagyrics: about 2.5 times, rich pieces only.',
+                '- Crushing wheels: about 1.7 times.',
+                '- Spagyrics: about 2.5 to 3 times, rich pieces only.',
                 '- The Dimensional Mineshaft: rich pieces without end.',
                 '',
                 'The spirit crusher grinds no ore.']),
@@ -1223,7 +1270,7 @@ ELECTRIC = age_chapter(
             Q('electric/alu/excavator', 'Excavator', t_observe('immersiveengineering:excavator',
                                                                title='Look at a formed excavator'),
               icon='immersiveengineering:bucket_wheel',
-              desc=['The excavator digs the mineral mixes of a chunk forever: an endless ore source.']),
+              desc=['The excavator digs the mineral mix under a chunk. A core sample shows which one lies there.']),
         ], Q('electric/alu/key', 'Aluminium Plates', t_item('immersiveengineering:plate_aluminum', 32),
              kind='keystone', desc=['Press 32 aluminium plates. Four go into the Humming Core, the rest into the machines of this Age.'])),
         ('Circuits', [
@@ -1499,12 +1546,11 @@ SPACE = age_chapter(
     sides=[
         ('space/atom/circuit', [
             Q('space/side/miner', 'Digital Miner', t_item('mekanism:digital_miner'), kind='side',
-              desc=['The digital miner clears a whole area by filter. It is the only way to the naquadah of the',
-                    'Singularity Age.']),
+              desc=['The digital miner clears a whole area by filter. Keep it: a later Age needs it.']),
         ]),
         ('space/atom/uranium', [
             Q('space/side/induction', 'Induction Matrix', t_item('mekanism:basic_induction_cell', 4), kind='side',
-              desc=['The induction matrix stores huge amounts of FE.']),
+              desc=['The induction matrix stores FE in its cells and gives it out through its ports.']),
         ]),
         ('space/moon/workbench', [
             Q('space/side/mega', 'MEGA Cells', t_item('megacells:cell_component_1m'), kind='side',
@@ -1550,8 +1596,8 @@ QUANTUM = age_chapter(
             Q('quantum/fusion/sps', 'SPS', [t_item('mekanism:sps_casing', 16, title='SPS casings'),
                                             t_item('mekanism:supercharged_coil', 2, title='Supercharged coils')],
               icon='mekanism:sps_casing', desc=['Build the SPS from 16 casings and two supercharged coils. It turns polonium into antimatter.']),
-        ], Q('quantum/fusion/key', 'Antimatter Pellets', t_item('mekanism:pellet_antimatter', 8), kind='keystone',
-             desc=['Make eight antimatter pellets in the SPS. Two go into the Quantum Core.'])),
+        ], Q('quantum/fusion/key', 'Antimatter Pellets', t_item('mekanism:pellet_antimatter', 2), kind='keystone',
+             desc=['Make two antimatter pellets in the SPS. Both go into the Quantum Core.'])),
         ('Inner Planets', [
             Q('quantum/planets/t3', 'Tier 3 Rocket', t_item('ad_astra:tier_3_rocket'),
               desc=['Build the tier 3 rocket from ostrum. It reaches Venus and Mercury.']),
@@ -1560,7 +1606,7 @@ QUANTUM = age_chapter(
             Q('quantum/planets/calorite', 'Calorite', t_item('ad_astra:raw_calorite', 16),
               desc=['Mine 16 raw calorite on Venus. It builds the rocket to Glacio.']),
             Q('quantum/planets/mercury', 'Mercury', t_dim('ad_astra:mercury'), icon='ad_astra:tier_3_rocket',
-              desc=['Visit Mercury. Its naquadah sleeps until the Singularity Age.']),
+              desc=['Land on Mercury. It holds nothing for this Age; remember the way.']),
             Q('quantum/planets/t4', 'Tier 4 Rocket', t_item('ad_astra:tier_4_rocket'),
               desc=['Build the tier 4 rocket from calorite. It reaches Glacio.']),
             Q('quantum/planets/glacio', 'Glacio', t_dim('ad_astra:glacio'), icon='ad_astra:ice_shard',
@@ -1631,7 +1677,7 @@ QUANTUM = age_chapter(
           desc=['The Quantum Core is the ninth relic. The Singularity Age has no offering: it ends in battle.']),
         Q('quantum/info/reactor', 'Power for the End', t_check(), kind='explain',
           icon='mekanismgenerators:fusion_reactor_controller',
-          desc=['Fusion powers this Age. The Stargate of the next Age needs the draconic reactor.']),
+          desc=['Fusion powers this Age. The next Age asks for more than fusion can give.']),
     ],
     supplies='quantum_supplies', comfort='quantum_comfort',
     ring=ring_quest('quantum', 8, 'the Quantum Ring', 'ad_astra:calorite_block',
@@ -1719,13 +1765,13 @@ SINGULARITY = age_chapter(
                  'them, then face the final boss.',
                  '',
                  'Its fall completes the Firmament. The MekaSuit and the Meka-Tool can then be made.']),
+    # Into The Origin: the step from the gate to the battle, on the main route (third player's-eye review).
+    bridge=Q('singularity/side/origin', 'Into The Origin',
+             t_dim('firmages:origin', 'Step through the gate into The Origin'), deps=['singularity/gate/key'],
+             icon='firmages:origin_coordinates',
+             desc=['Step through the gate. Gather, all of you, at the central altar to call the final battle.',
+                   'A gate on the arena dials home.']),
     sides=[
-        ('singularity/gate/key', [
-            Q('singularity/side/origin', 'Into The Origin', t_dim('firmages:origin', 'Step through the gate into The Origin'),
-              kind='side', icon='firmages:origin_coordinates',
-              desc=['Step through the gate. Gather, all of you, at the central altar to call the final battle.',
-                    'A gate on the arena dials home.']),
-        ]),
         ('singularity/chaos/shards', [
             Q('singularity/side/armor', 'Chaotic Armor', t_item('draconicevolution:chaotic_chestpiece'), kind='side',
               desc=['The chaotic chestpiece has a direct recipe. Wear it into the final battle.']),
@@ -1764,7 +1810,7 @@ WELCOME = [
       sub='Read me first',
       desc=['You wake beneath a sky that watches. Your hands are empty.',
             '',
-            'This is the Chronicle, the one record of your fellowship. Press K to open it.',
+            'This is the Chronicle, the one record of your fellowship.',
             '',
             'The world is lived in Ages, from Dawn to the Singularity Age. What a later Age holds does not exist yet. Each Age ends with an offering at the shrine of Caelum, the sky itself, and its chapter appears here when it dawns.']),
     Q('welcome/book', 'Reading a Chapter', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:compass',
@@ -1780,7 +1826,7 @@ WELCOME = [
             '',
             'A keystone\'s supplies go to whoever claims them first. The gift of a side path and all experience come to each of you.']),
     Q('welcome/sign', 'The Sign in the Corner', t_check(), deps=['welcome/book'], kind='info',
-      icon='firmages:sky_disc',
+      icon='tfc:firestarter',  # the sign shows the Age's offering; in Dawn the firestarter (oak sign is Iron Age)
       desc=['Top left, a small sign names your Age and its offering. It fades after a few breaths. Hold H to see it again.']),
 ]
 
@@ -1935,6 +1981,12 @@ def build_age_chapter(ch):
         key_x = max(key_x, x)
     goal = ch['goal']
     goal['deps'] = [k[2]['key'] for k in ch['strands']]
+    bridge = ch.get('bridge')
+    if bridge:
+        # between its keystone and the goal, halfway in x and y
+        bx, by = pos[bridge['deps'][0]]
+        quests.append(quest_nbt(bridge, (bx + key_x + 3.25) / 2.0, by / 2.0, [r_xp(xp)]))
+        goal['deps'].append(bridge['key'])
     goal_rewards = [r_xp(xp * 10)]
     if ch['key'] in GOAL_GRANTS:
         goal_rewards.append(r_stage(GOAL_GRANTS[ch['key']]))
@@ -1994,11 +2046,14 @@ def build_firmament():
                     ['The offering of %s. Its details appear when the Age before it is done.' % name])
         q_ = Q('firmament/' + key, title, t_stage(stage, task), deps=[prev] if prev else [],
                kind='goal' if final else 'keystone', icon=icon, sub=sub, desc=desc)
-        quests.append(quest_nbt(q_, i * 2.0, 0 if i % 2 == 0 else 1.0, []))
+        # Decision A (2026-10-14): each offering appears when its Age dawns (its predecessor's Age is reached). The
+        # first spark and the end of the road stay in view from the start.
+        extra = {'hide_until_deps_complete': True} if prev and not final else None
+        quests.append(quest_nbt(q_, i * 2.0, 0 if i % 2 == 0 else 1.0, [], extra=extra))
         prev = q_['key']
     return chapter_nbt('firmament', 'the_firmament', 'The Firmament',
                        ['Nine offerings and a gate. The whole road, from the first spark to the last.'],
-                       'firmages:sky_disc', None, 1, quests,
+                       'tfc:firestarter', None, 1, quests,
                        extra={'progression_mode': 'linear', 'hide_quest_details_until_startable': True},
                        tags=['firmament'],
                        images=[banner_image('firmament', 'firmament', (len(FIRMAMENT) - 1), -BANNER_H - 1.0)])
