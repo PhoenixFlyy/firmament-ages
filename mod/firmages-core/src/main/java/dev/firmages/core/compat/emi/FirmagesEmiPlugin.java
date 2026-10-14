@@ -77,7 +77,7 @@ public final class FirmagesEmiPlugin implements EmiPlugin {
         return v.recipeLocked(r.getCategory().getId().toString(), id == null ? null : id.toString());
     }
 
-    static boolean locked(EmiAgeView v, EmiStack s) {
+    public static boolean locked(EmiAgeView v, EmiStack s) {
         if (s == null || s.isEmpty()) return false;
         Object key = s.getKey();
         if (key instanceof Item item) return v.itemLocked(item) || componentsLocked(v, s.getComponentChanges());

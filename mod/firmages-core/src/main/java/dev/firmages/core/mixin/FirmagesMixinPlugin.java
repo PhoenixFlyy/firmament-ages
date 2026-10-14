@@ -22,6 +22,7 @@ public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
         Map.entry("ars", "ars_nouveau"),
         Map.entry("ps", "progressivestages"),
         Map.entry("psemi", "emi"),
+        Map.entry("emi", "emi"),
         Map.entry("tfc", "tfc"),
         Map.entry("trainutilities", "trainutilities"),
         Map.entry("corgilib", "corgilib"),

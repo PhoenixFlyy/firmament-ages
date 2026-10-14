@@ -26,7 +26,7 @@ hash = "4fa2149a895f6578d424174d6b6a3304949153b1f38554442623e13760d221f0"
 
 [[files]]
 file = "config/cave_dweller/server_config.toml"
-hash = "ecb12bd4d8bbec827bebac31d59177d83bd85a6b196815f19b094a259e26f1a1"
+hash = "512ced25a92db5ffaacfc8238f298a121c6c900dddcca0b2d355d252e8194712"
 
 [[files]]
 file = "config/colorwheel-client.toml"
@@ -137,6 +137,10 @@ file = "config/fancymenu/options.txt"
 hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
+file = "config/firmages-server.toml"
+hash = "e4a8bf353160a91100a347a9aa696d88ed6bffc19c00eeb2fda365dc0dbedd3b"
+
+[[files]]
 file = "config/fml.toml"
 hash = "8da9165b9aed77b251b7fcf28872f539b22deec30942c4c0461317375ef99550"
 
@@ -154,55 +158,55 @@ hash = "b1339ce49c5c08220086661d0e028c5277f811e6437e691a61a5ad2448097081"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/arcane_age.snbt"
-hash = "4d3666ca9885da97a472ed343e060ddbb181de73d3cf589f9a84b649f733f231"
+hash = "af3eca8f10a7d7aaa1012709abf72f1da1bfa68d53cd2f6c6a32c26921932cdc"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "b410d1a024d2de922bb6af43709e8313e863c810639de1e22d59e136fd206b52"
+hash = "bd8f5032fac93bde34000e76a681ddc43da39a57c731bb73c74bfa7e233250f9"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
-hash = "bdfdd0f0f5f1af5828a4c3c75c8ac0e68b8c94dd5e729991a63fc6f6c3f6f3b5"
+hash = "7b395a8fc2403b98ce32abfa4d54a1878b5b88d01ef8f133e54e93697600059c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
-hash = "3f671e167f3eaca595ef40e60d8fb9538fb6d15745c8d3cce078ce2da7b45ea3"
+hash = "8313464ec1e0ac63cbbf7999d17137c6e3bd17da854d460c5eb0716fec33f5a1"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/industrial_age.snbt"
-hash = "f89459d0af5b15a1be29e55915bc61796c4bb8a16ecbc4f65f08862efe5ba531"
+hash = "b8847d770fe09e64e2a56fe5fd10e3042e502e9eed4e083a28ade0d923ea3973"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "276b72e9fcadcfba9f403c69d3faf3d19858467b860c5717bf5faa4a5104b49c"
+hash = "fcabc38f240cd6635a8bff6171fb6d4f20abca7af6f0d668a384a079a7166b07"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "148c037d285571f991f9a82f2740594664223db05e844e4e4d757e727b3bf122"
+hash = "5195d35ce494a755d995959280e2e345528e3ff9fac04ba52fec5c862a184e84"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "335b15a61e14bd0ca7e5cecc8fe5568e8dc90040cbdc200fccca90ef03ef097c"
+hash = "96bb03018b549428bf30dc5983b6e614cf7ea2b872f8ed8395645a6fdf5eca59"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "7a18c322ead8f73e502085395bad607a2e10445396394c7f84446106ef33b2c2"
+hash = "eb4ed6b6e946c6dd99eb748eb5ebb405b523b6aa66ac48856ace5a2b1ba60228"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
-hash = "3c55445bf0c64be019ffa758a190a284e62435b9fdeda5d58c2e5c0a43364b2e"
+hash = "a46636f7020bb8a0fcff1ce7e097c5f2a76c6f74fa76db242f03ef54dc8daf0d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "dda3346d0356f9bee4b4f86a184178601d8e6c40ff02bee21340098377ce69cf"
+hash = "ace852d1fd5fab132a45a95158dd5439260b80d533bf031aeedd5dabff5b4992"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
-hash = "0ecb22200b66cf67d4dd1dcbd2a1193d9165bda2ff19faa8f3747a6f4cc35184"
+hash = "6820708225eb8e1f78313f445da7b7d3f29bc8e84e4288c24f438fe06e5c8b09"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/welcome.snbt"
-hash = "c244f741a4977cb6131c06a928d01abd5146c76624f7e62e64a5fb8cb694df66"
+hash = "d0de0f1c2c505ae03ca6026365c28928c358a9bcfe5fc122f322a53e77392f71"
 
 [[files]]
 file = "config/ftbquests/quests/data.snbt"
@@ -210,7 +214,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "38c647bd951f034776da7657493561cf4eb222eb5a0c26d34004d895f0abb06e"
+hash = "003c5f5db791e2cae1f2d7366ca2e7dd9e31e4350a1492fd057551e97c03fd17"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -234,19 +238,19 @@ hash = "fd2b5b933f5f7483bce2c2cab79f29e85bff10c184048b8e333c6caa45261253"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/electric_comfort.snbt"
-hash = "1e0dd5eb6f2b609a75e43c3d3a758662daf28bdee4c5738ed8932e3534227a92"
+hash = "332128fd158ec8cbe48bd1b99b20621e3ac477b38e45d78eedf4c9da360b9c82"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/electric_supplies.snbt"
-hash = "9612a5ee8ae4d9c9bcf8e66f6f4e4ec500a15d3401d9387fb831d821e25b99a5"
+hash = "f1fe297e11e37e5711d0d03cb366368ebff8bcfb7be2233197a972fbbc5ed0d9"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/industrial_comfort.snbt"
-hash = "187c215f54f8974e748e0f8cb9ba52c83295df8cfdaca4c80434b7e84974edce"
+hash = "3d7e006bc022330e6ee831c365b93e94bc124afb88351b653b0253fbeec73399"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/industrial_supplies.snbt"
-hash = "38570eee60963d760a6dbc17935dc311670f46cec1a2ccb7eca15dc4816e668d"
+hash = "8ff5c6714c766a4430278c990b49f8eea474c6cff66aba6fc97ebcea94ebedc0"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/information_comfort.snbt"
@@ -258,35 +262,35 @@ hash = "acf331c75abf4a0d397ee7932bbe77d26dff2114d7dd349f1dfde2f904e7ed40"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/iron_comfort.snbt"
-hash = "53f1a26b2bc6aadf4a42d6a3d40f63c3f64f2ac1e08c870edcbbcae6dd5f3d57"
+hash = "57d5810b6d95ec3be87d3c3d87a59397186c1f5fa5e945f6714385e5dbe4c456"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/iron_supplies.snbt"
-hash = "a448d277c21e52168d5f58c8bc75daa71d4a929639f74985d299f543544dd5a3"
+hash = "f83a14f60e815f0824779ef0a65926ec68a34957c5565905cbb70c84ed7648fb"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/quantum_comfort.snbt"
-hash = "7a995324e3bcf23a6d3911c34c2f44f43f1923d10a93dba315c5f4cfe7363e4c"
+hash = "ffdb8277238d5d5907729f94737a46cbb4b46ae228871f85b760d345a1064fa0"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/quantum_supplies.snbt"
-hash = "8476c8ad0919ba8c7bf6026118e4173d3fef4312fdd1dc6e481856687624eead"
+hash = "0f16c9c1b2645f8a232196ff3ce224307d2520aba436b1afb8f4802525511e2d"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/singularity_comfort.snbt"
-hash = "0a1152cd6be2d2b220212514b21a9e1a3bb668242c679d04e88c2e4f24f7e778"
+hash = "5d367c537e67ddf7ed7dd839800207bd294d5dd03704c53917cf5e8cde8fe835"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/singularity_supplies.snbt"
-hash = "19331ee0940c86040cf427c53acb5212214027e2dc06d109621fc15ae1e26529"
+hash = "1ff272783ffd377aa5a2720d4e0fce0cf4e4206804d60a9e82b23f171f208f39"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/space_comfort.snbt"
-hash = "bc4aabdd271702a887d8056efcce506a7249b7c6b17a876cc58b3e7df0a2417d"
+hash = "1e468067e1ca925ccc95d3ef0569eb32b89a0cc7ceb5a7bcd023eca3566e8a58"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/space_supplies.snbt"
-hash = "6b3bdf8081aec7b68ec430e10820698c11b0a346af8d0b81b4c7d9e424e218a1"
+hash = "06b557f634fad9abb64b03f24d87132c54e7ab29a514ef2ba606918e2c73e80e"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/stone_comfort.snbt"
@@ -315,6 +319,10 @@ hash = "cb630b2561ab3c192709d34f00e1535a483fc8873bd17f6309218722aa5a3a5f"
 [[files]]
 file = "config/lithium.properties"
 hash = "ecdb770ae033d4e217c2c6449e0d1bc28b271416cc6292a39891dd79e423852b"
+
+[[files]]
+file = "config/modernfix-mixins.properties"
+hash = "881594160b4e0e88136ed5a7a2607fdd748ffe760c8e67b6dcca8f4776a2162b"
 
 [[files]]
 file = "config/mysticalagriculture-common.toml"
@@ -446,7 +454,7 @@ hash = "6778b0af66a2e9e7a0b9575a7eac0a547194c2b454b952e79d1d58bdd326d789"
 
 [[files]]
 file = "config/simplebackups-common.toml"
-hash = "080c9eda509bc06c8fc32b590903d179bcfb202276c542a76dc091005fe1b8da"
+hash = "2145eace2a03bc7fb1ea2764d3e8a477796a0c597da97639cbcf763b8bb98017"
 
 [[files]]
 file = "config/supplementaries-common.toml"
@@ -486,7 +494,7 @@ hash = "8156030ba651d9c3ed08b875efad9493e4af5d0edc15726bc2f06b92032c53cd"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_0.fsh"
-hash = "a1c3000cc69725af817460cc692df568400c741a0f818ce27af73c1705c3b3e8"
+hash = "3650a34e9bc06681164125d8913d597314fbaa8c1ebd6e099ea573426d2a20b9"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_0.json"
@@ -494,7 +502,7 @@ hash = "5fedf27e83879c8619c54ad8c12d5fb523187b01a98bbea8c4a7b5ac169da1c3"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_1.fsh"
-hash = "331bfb8ea51b70a86ac5842703ae5c346ac98c1422d486facfd0d4083ec60ae3"
+hash = "b84621981b3ce556e5106628ffb0cfa74048c4553e3580b43a378def140164aa"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_1.json"
@@ -502,7 +510,7 @@ hash = "c2d0a6b0da0819de92e7a289b4fe2647230951ba53ee2ac479a4ae8e1415d760"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_2.fsh"
-hash = "13f4e2772b9a6fb2f1d7737a3cd5895fe43cc9204e5bb0fc2981fbcad52c4859"
+hash = "7d022924a85ab2cfa7cb759a2db4225bdafaa2b1b9c43d81b90ba3fb066882c0"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_2.json"
@@ -510,7 +518,7 @@ hash = "4923ef255b5f19b71d387c2aa2bc9b1687066f22e4dbb0f6fb45af6047210c87"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_3.fsh"
-hash = "8cad21656a01e31ec241cc3ab9c10d2d8516672c6e2adbb233ab4d9f2046e615"
+hash = "5a786cfb9ed1c72e83a6e1eef0a70b054bf0205494c1e020041f84c6a350a652"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_3.json"
@@ -518,7 +526,7 @@ hash = "140d1273110de15100292e446a4f43536404db5d007652e61fb4c5b852aa908b"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_4.fsh"
-hash = "7ceae0256a6c46f1b432b58ef4c53950689cde03aa024a04d928bf2539314bc7"
+hash = "92afabc8aaa675b4bf94927fc342055acbfa462a591bfd34a4c87e923db85ff4"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_4.json"
@@ -526,7 +534,7 @@ hash = "05ccdaf91f4dae9103cbcd2c50085017a0854ec2e6e8b33e037edc7102f26e2d"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_5.fsh"
-hash = "f3e6b288d231a10d3dda779a39195db875ef51f22cf8122e68474bcf64d7427e"
+hash = "6cd442dc0069650cf30f8ab3a7ad96fb1f702a76931edb71c0567e0e5d4063ba"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_5.json"
@@ -534,7 +542,7 @@ hash = "5caf04d7713a79dfd4ed6342416320319b0e466b4436557f60e73b3afd62332e"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_6.fsh"
-hash = "90719a9c1c204692e0519e88eb6479412e25e99310366a4d82a13bb9e1bbd337"
+hash = "a1ec08ee78a4441c667619459356c13579042d06b8342be16423a29ddfa3d657"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_6.json"
@@ -542,7 +550,7 @@ hash = "17388bfbaa39fbe2ec47f4db373359a9a2ebed1b81894412462d4bf0e1d50058"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_7.fsh"
-hash = "619435606526b3d4db2955c346a0b3f7ff8499919e9c395870781f460ad6e4dd"
+hash = "919baf3b9c940ed597abf9103077f7060bf17ed3dbc7bf53d394ea23acc5a4a9"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_7.json"
@@ -550,7 +558,7 @@ hash = "b5d2124e7bb065f6415024c6b406113946fd13309ce6272452481ad337ac650a"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_8.fsh"
-hash = "532c5e43ca438e92565cc15bae1250774d7ad73ea388f1f14523f91925fbefe4"
+hash = "c48a84d5be06f1542a8793ec1a20621871ed045ba39a0aaced178901987ad599"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_8.json"
@@ -558,7 +566,7 @@ hash = "d6bfa0816e01b4a226de00587095f3b469dddfcb94fcec7985889c8b2c5ce627"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_9.fsh"
-hash = "ef1aa8239789b897a68511fd2bf195bd5864d00803a2e7cf0638764b5d10db1d"
+hash = "6f8fc7dee897883ebc8bb0800b7d2623fe5464a0371dd1030dc9a2a473995424"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_9.json"
@@ -766,43 +774,43 @@ hash = "c5b671112cc034b91d686831712b1bfb37ad9913b334dbc390b3d1a5f1355109"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_0.png"
-hash = "538c2a5aca95a097d0158b0f2c4b2a3dbdead7cecf028d53b781cefb970da000"
+hash = "1dc0710288bf1dfd797491ad592497cfd106874f0c9f27e39d32056c30ffe394"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_1.png"
-hash = "33230ea7fdc6238b26f92d4a461e57688f7fe232ebe72ebc6f483120a65b7df1"
+hash = "50cf8ff63e47101c8ac48467b24929fe16a81b3f913952a7b908c18a3bcf6df1"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_2.png"
-hash = "210090317396efc55d37b8f136778b4bd779d680bd6bd1dfe79fe284bd9042b4"
+hash = "87258f564751f176012c635b5f9147a5160b704ca78399b4b417442e1f50ac12"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_3.png"
-hash = "096695c372638154a6ca46f2b83edab8bbe2d65fce6df99b918cdb2e3870423b"
+hash = "29b258f10f805033d3c2518defab74834522ae285cb2b65d7a4759d4d11da31d"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_4.png"
-hash = "b0fada5d68a1c95f927dcf0a4b4314ae3d2bd6de05ae24fd1aa9634cbd159b03"
+hash = "060ad2cf17175f570b084a90721471f930e71305577d0f1314e823e6ec108b41"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_5.png"
-hash = "92a8e1851bda025d50f38980886319c8bc52b27f437212dfef53ac212c2c4e20"
+hash = "e761f98ec4796911a05df021e61766a310c1d5ac6eb22f8fc0c5737f6cc74f14"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_6.png"
-hash = "cc672c9a6a7e68ce75a42296b442cc600ae6aad9f1db8f1cfce9cdb1f07a5976"
+hash = "bd952a19e9d19cf75f33c6619382ebcc82ab8e4407094573cf63ac375994a650"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_7.png"
-hash = "4cf283e16a42dc8073af3f86a2a22e648861a00c6cb1be17e280243a7ebc2a75"
+hash = "5b4e541834f7b8e8941675fcc6c518671785ef6a60f4e53b8225505094501227"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_8.png"
-hash = "d1a129ca31a90968605e2a824b91c68b22ce5330525261ed0631c21ea1282d99"
+hash = "27248b42a30c09c3bcbe7289a90b7a0a213b20dedd5bc56887c6b6225cd658a6"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_9.png"
-hash = "9c59815866e0c716abeb0e20240079c2d41e1104ec961929df71e13f4a434310"
+hash = "c73336496e8a1b8cd3979bb10d24545bb349b47b22d3132b1dc4543efb4fef5f"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_dawn.png"
@@ -1130,7 +1138,7 @@ hash = "fdcf3def4f21c68a435cfd74f24d7ffcdd2e844eeab8086fd7a8447c8e5c88a6"
 
 [[files]]
 file = "kubejs/client_scripts/item_tooltips.js"
-hash = "7e0b7652886afd89db13b8ad15e32f9dfa03aaa25773589a594aebc9751a0624"
+hash = "3fabc174f4d63efffa1f31160255dbfbe7c08907c5fa4ba8d187c80bece20cda"
 
 [[files]]
 file = "kubejs/client_scripts/viewer_static.js"
@@ -1257,6 +1265,286 @@ file = "kubejs/data/advancedtfctech/structure/multiblocks/power_loom.nbt"
 hash = "3a229b62d529c179c64a98cac0cc4fc90e9b12ebb33377245cba7cb6182a0097"
 
 [[files]]
+file = "kubejs/data/aether/tags/worldgen/biome/is_aether.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/almostunified/tags/item/emi_strict.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/almostunified/tags/item/hide.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/acacia_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/acacia_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/acacia_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/acacia_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/acacia_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/acacia_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/bamboo_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/bamboo_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/bamboo_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/bamboo_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/bamboo_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/bamboo_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/birch_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/birch_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/birch_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/birch_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/birch_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/birch_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/cherry_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/cherry_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/cherry_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/cherry_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/cherry_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/cherry_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/crimson_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/crimson_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/crimson_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/crimson_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/crimson_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/crimson_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/dark_oak_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/dark_oak_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/dark_oak_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/dark_oak_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/dark_oak_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/dark_oak_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/jungle_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/jungle_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/jungle_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/jungle_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/jungle_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/jungle_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/mangrove_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/mangrove_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/mangrove_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/mangrove_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/mangrove_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/mangrove_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/oak_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/oak_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/oak_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/oak_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/oak_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/oak_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/spruce_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/spruce_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/spruce_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/spruce_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/spruce_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/spruce_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/warped_animal_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/warped_hand_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/warped_plow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/warped_reaper.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/warped_seed_drill.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/warped_supply_cart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/astikorcartsredux/recipe/wheel.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
 file = "kubejs/data/bellsandwhistles/recipe/metro/metro_window.json"
 hash = "373ad11d23f06096d93fefccc8a785ebf159920fbd5658c98b598ac149d2330e"
 
@@ -1271,6 +1559,14 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
 hash = "89d63dc0252f78939c413c9ef787e520781984390e437bc1c498a8ec2d540371"
+
+[[files]]
+file = "kubejs/data/cataclysm/tags/block/needs_black_steel_tool.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/cataclysm/tags/block/needs_monstrosity_tool.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -1365,6 +1661,10 @@ file = "kubejs/data/create_connected/recipe/crafting/kinetics/item_silo.json"
 hash = "ec2285921a5c2c48b3a1aef7471b1b62d786251bee0ba597f8b6dfeb17c07a87"
 
 [[files]]
+file = "kubejs/data/create_mechanical_spawner/recipe/spawn_fluid_enchantment_industry_experience.json"
+hash = "f3e9aa199f6ffae8d51a1f1eaee32556026fbe1b72c89d5c19056a089ed0b8bd"
+
+[[files]]
 file = "kubejs/data/createcasing/loot_table/blocks/brass_slicer.json"
 hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
 
@@ -1399,6 +1699,266 @@ hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
 [[files]]
 file = "kubejs/data/createdeco/recipe/placard.json"
 hash = "ddc3d0dd56b604d914bedbf2f985a2f0b5f7374eac79aad668a8a2cfd7cc154c"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/asphalt_block.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/biodiesel.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/black_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/blue_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/brown_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/cyan_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/gray_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/green_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/light_blue_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/light_gray_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/lime_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/magenta_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/orange_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/pink_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/purple_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/red_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/white_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createdieselgenerators/recipe/mixing/yellow_concrete.json"
+hash = "1ac7bf3fc0942f9268a4c4ab83faf33ff177a0f360736d6ba66b2db7588cc60f"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/deploying/karpboard_block.json"
+hash = "b181c167f4250ebb7544a35d0df3ef80457aac1eae9bb755ddb59641de88a0ef"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/deploying/shiny_karpboard_block.json"
+hash = "d915abf6fbbc6efc12ba361c96117bab97839d3b35e282a346d68e6e9315a2e8"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/base_from_modded_string.json"
+hash = "fbeaa8ee4b14452d1887429f82b0705c139f7d79849c1717500af9596b9db1c1"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/black.json"
+hash = "409559c2f57231351bfbba00bdab7d2da6877322eb1818681e42607d273ac66f"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/blue.json"
+hash = "e94e9c2d6d08f76c2583b67f046b1b27a7ac5e8d7284a1f11dde2db85ddec915"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/brown.json"
+hash = "d2622018a285f6f32a87056901c9306b637620600921d0d45804be9abdebf1f6"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/cyan.json"
+hash = "2c660c44d75c5081390e03c306c99ae082abb711027650cf13ec1541ff10acc4"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/amber.json"
+hash = "e258526bebc3c643f30b0d214a1678c2d9cf2dd3c361aab1e3cefcfa26f5d656"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/aqua.json"
+hash = "5b77354db5511c6ebd3978eff329c06993e28511021b4f4fb2e408af51cada1e"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/beige.json"
+hash = "c0ae60421791ed05a22effc4bdbfd285bd8a44a33754ac55e11ee8c7e9d19e77"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/coral.json"
+hash = "4d4492805ab9b86ee351dea298ad8ec3f4c5033dd4e9feb1794c2dadb1ab42d0"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/forest.json"
+hash = "673631da8c2e7ca922cde4e2f89584316e0b71dd724acfafa589ceefe628d340"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/ginger.json"
+hash = "bad7ebdf46ebedf4980c0bfabaecbe3689f1b15deac15204f5521d884eecfec7"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/indigo.json"
+hash = "21de4a1921961d26cb1c9c2d5fd2c4096cdc7e627e1fec848e93b85db1dcb3a2"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/maroon.json"
+hash = "51c18f93a4ba2bae2c5399c48bd0b7e2be219fbad37e86616bc0f8f26d78adaf"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/mint.json"
+hash = "e707236ed3b0636747702b6dc63cd189fa19884253c09822a045f2d2a53d0e92"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/navy.json"
+hash = "b347f77f7dfc86f8f03338cc57baca595432c105a0e047a58910646c23cf8bc4"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/olive.json"
+hash = "4263c1c6162e917cbc7d905069376aa75bb676ca954e623ea688a52104601f6a"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/rose.json"
+hash = "89ee7fa53a6520efdb6bd7bc7870550073e91159a7af0aeca07c8b0bbfc2b160"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/slate.json"
+hash = "2713e264b4aa60098000f68ba9692b9007500c131fbaae3c680740a47e798c44"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/tan.json"
+hash = "a7adb652ccc3d29659233b50ba59f45288314593b522a222101fab1171f22af5"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/teal.json"
+hash = "7e122c066260cd01e15b8122a8466a6561a876503604253af6e77d6cf47893b2"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/dye_depot/verdant.json"
+hash = "e2ec485ddc8cdc5284e66e9ea560eeb424852cbab64847a80505a8086b52633c"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/gray.json"
+hash = "a1315592402a881eec819683db087868d44fbd1494e727e56331d201c10bf949"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/green.json"
+hash = "c543351bed3dd833148957c62e613bbd40f0e1a18d9d782a168a3f43c909ac8b"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/light_blue.json"
+hash = "b7dfe01da22f35c961f2bfdc6e6e86f86927eef4400fe49b380e857df496da0f"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/light_gray.json"
+hash = "68fe3888b6e8f92bdd54f457656805391a1ae310b9956af6f7bbea7f8051fc01"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/lime.json"
+hash = "7cd3d342cf880e5acda73f612d768ffeabe681c57fda6f687546a7c9643733b4"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/magenta.json"
+hash = "1b302b9d6973b1f2b6a650d4873b471bfa32deb31ef6ef7e99c5de2e61e4ce5a"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/orange.json"
+hash = "51e872cfa9c70ae36c2adc378df5248cb9e6299e713869686a2fa391cf0d99d7"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/pink.json"
+hash = "5fcfd1744943aa51b1f473d9a4b84b177710238b2112f6fc278032779f2706fa"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/purple.json"
+hash = "0d3d9f46ffb0bfc56d432d2174fe6fbed8e879bf8e9e4d96ec952a07eead8a72"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/red.json"
+hash = "1794c15920c51385fc42da908e40b17b398cc1a32dc962c4035b89b2b6174106"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/white.json"
+hash = "6dc100cc0624ad13fe05a70cf72d719a1ea53e7c0c18b0b8aa14d65cbbc563c3"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/item_application/bound_cardboard/yellow.json"
+hash = "ccf154cd69e6064fe74f93d486faa8385bd9623bc5c16d7fa7a392ea4ab856fe"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/bound_cardboard_block_from_dyed_bound_cardboard.json"
+hash = "a820fba8f79c4fa068b79feeca5b53a66313fe0b5061e9009aacb2b3d19ca473"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/cardboard_block_from_dyed_cardboard.json"
+hash = "b4e18b6cf283dbd37bd9e1d1435d6d1ccaf79ca4269dea36ff04ba58e2a3e59f"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/cardboard_window_from_dyed_cardboard_window.json"
+hash = "4322d9bd1b4dd6bd3329d02b6838a82289d39c4b03f7610857fa84c4368475f5"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/cardboard_window_pane_from_dyed_cardboard_window_pane.json"
+hash = "7ef43c98be35e8fccbd7e4c4d713c45bae5af91fdc10a5c33179d814fedb013f"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/framed_glass_door_from_dyed_framed_glass_door.json"
+hash = "48a2d720c4eac6e59e7075f7ce2f16b59cbe681bcf7ce92c69dc786925e33f7b"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/framed_glass_from_dyed_framed_glass.json"
+hash = "8973eed91fb9f07ce0978e2fbaf1858610cd0d32ba522c0ebd218501dd648a24"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/framed_glass_pane_from_dyed_framed_glass_pane.json"
+hash = "f61cec413e5cde178e024585ffb31bc0b6de8dbdbb20c3c27c9bdef558de877b"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/framed_glass_trapdoor_from_dyed_framed_glass_trapdoor.json"
+hash = "1a6bea5493b3def8f383e80cdfa534f624f3bf89d43b5b292b8463b925b5f697"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/horizontal_framed_glass_from_dyed_horizontal_framed_glass.json"
+hash = "58f0f37010b5713825f557706b25fd0f35ba80f49ac58e1dd45cd27cc73eb382"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/tiled_glass_from_dyed_tiled_glass.json"
+hash = "bca38337a5cf8774a60ba71e5ed80431ccbe2c63c09831a038eda4ac649c6272"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/tiled_glass_pane_from_dyed_tiled_glass_pane.json"
+hash = "77e0438fea95ffca8d794ae49f3ee43b679f849621f18008cb0642dbb662f45f"
+
+[[files]]
+file = "kubejs/data/createframed/recipe/washing/vertical_framed_glass_from_dyed_vertical_framed_glass.json"
+hash = "0927fd755da0cfe527873c21a5511c4be373ba626850dfb669a2b5950ab5d11e"
 
 [[files]]
 file = "kubejs/data/dndecor/loot_table/blocks/amber_cogwheel.json"
@@ -3110,15 +3670,15 @@ hash = "a7d2232379c6bca2b75b6eaade61768bd853d8d5cef59e2a02205682a801de92"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "356bf1d6f7fe9ad0c7000054957601fa180f8887306af53d8609ccbf1b14193b"
+hash = "2f04740415ca0b8a4df22c2598593ec8e73323601241601ed5046776d62df32d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "599b2508a915322b29ea03fbd56fa6bd4f2041908b5a4bfcfdf53eab39ad6780"
+hash = "391088ad66fda379f16831b8e3254c265806f6550c04aa3d1a9fea764200e534"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "5ee3042fe907aa52421bfbce2f076f93da768df792d14357970115304b64a8e9"
+hash = "17cf0dc9d0fc6d5a4c7ca09ddb35af9c4d2c61a76328bda2e519c268f447477a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
@@ -3257,8 +3817,36 @@ file = "kubejs/data/firmages/worldgen/placed_feature/vein/soulstone.json"
 hash = "6e607bbda910d5a80cea71f26bbb9b3f15b7482ae53d4be50a697de430b7ab4e"
 
 [[files]]
+file = "kubejs/data/firmalife/tags/item/cellar_insulation.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/firmalife/tags/item/cheese_wheels.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/firmalife/tags/item/food_shelves.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/firmalife/tags/item/greenhouse.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/firmasupps/loot_table/blocks/sack.json"
+hash = "e3d753aca194f091bdd9cd14ea489f4c457507467b68b32bb085caf1c8c89dbe"
+
+[[files]]
 file = "kubejs/data/firmasupps/recipe/crafting/functional/sconce_haunting.json"
 hash = "1dadd1ab4a99c322355262d586c220752269ebf1f7d80c20a80852b58ca4e6a7"
+
+[[files]]
+file = "kubejs/data/firmasupps/recipe/crafting/soap/clean_tfc_bricks_alabaster.json"
+hash = "17a4b4254a8627131ad3cbf6e1f1ca6ec24abb52a92983529747d597f969abe0"
+
+[[files]]
+file = "kubejs/data/firmasupps/recipe/crafting/soap/clean_tfc_candle.json"
+hash = "172835ae77fbdd7f65b6a3c503a6be59b87fbb17e2d0299d7b56aa87a12b4aeb"
 
 [[files]]
 file = "kubejs/data/firmasupps/recipe/sewing/dragon_banner_pattern.json"
@@ -3283,6 +3871,810 @@ hash = "89c5a6b08dafa441a5ceed9e0744257fcf560c209ff6105818f43286ec01fadd"
 [[files]]
 file = "kubejs/data/immersivepetroleum/structure/multiblocks/pumpjack.nbt"
 hash = "df14855a6d9d71f12372e3b3e4ea6bd40f9089f5f728ab276cf8ce3a2126957e"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/anvil.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bamboo_chest_raft.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bamboo_hanging_sign.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bamboo_planks.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bamboo_raft.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/barrel.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/beetroot_soup.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/black_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/black_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/black_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/black_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/blue_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/blue_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/blue_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/blue_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bolt_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bone_meal.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bookshelf.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/brick.json"
+hash = "6814cd8cd60fc9e30a95ac4a1bcf59628055177ec8c3aa9bf0cc832ea3661122"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bricks.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/brown_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/brown_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/brown_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/brown_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/bucket.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/campfire.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/charcoal.json"
+hash = "6814cd8cd60fc9e30a95ac4a1bcf59628055177ec8c3aa9bf0cc832ea3661122"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/chest.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/chest_minecart.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/chiseled_bookshelf.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/coast_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/composter.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/copper_door.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/cracked_polished_blackstone_bricks.json"
+hash = "6814cd8cd60fc9e30a95ac4a1bcf59628055177ec8c3aa9bf0cc832ea3661122"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/crafting_table.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/creeper_banner_pattern.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/cyan_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/cyan_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/cyan_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/cyan_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_axe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_boots.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_chestplate.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_helmet.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_hoe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_leggings.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_pickaxe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_shovel.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/diamond_sword.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dune_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_black_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_blue_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_brown_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_cyan_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_gray_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_green_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_light_blue_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_light_gray_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_lime_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_magenta_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_orange_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_pink_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_purple_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_red_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_white_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/dye_yellow_bed.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/enchanting_table.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/eye_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/fishing_rod.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/fletching_table.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/flow_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/flower_banner_pattern.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/flower_pot.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/furnace.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/glass_bottle.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_axe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_boots.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_chestplate.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_helmet.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_hoe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_leggings.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_pickaxe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_shovel.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/golden_sword.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/gray_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/gray_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/gray_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/gray_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/green_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/green_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/green_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/green_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/host_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_axe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_boots.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_chestplate.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_door.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_helmet.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_hoe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_leggings.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_pickaxe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_shovel.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_sword.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/iron_trapdoor.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/jack_o_lantern.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/lantern.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/leather_boots.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/leather_chestplate.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/leather_helmet.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/leather_horse_armor.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/leather_leggings.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/lectern.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/light_blue_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/light_blue_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/light_blue_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/light_blue_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/light_gray_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/light_gray_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/light_gray_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/light_gray_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/lime_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/lime_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/lime_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/lime_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/magenta_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/magenta_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/magenta_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/magenta_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/melon.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/melon_seeds.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/minecart.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/mojang_banner_pattern.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/mushroom_stew.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/orange_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/orange_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/orange_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/orange_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/pink_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/pink_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/pink_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/pink_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/polished_blackstone_bricks.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/polished_blackstone_button.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/polished_blackstone_pressure_plate.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/pumpkin_pie.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/purple_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/purple_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/purple_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/purple_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/rabbit_stew_from_brown_mushroom.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/rabbit_stew_from_red_mushroom.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/raiser_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/red_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/red_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/red_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/red_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/rib_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/scaffolding.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/sentry_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/shaper_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/silence_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/skull_banner_pattern.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/slime_ball.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/smoker.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/snout_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/snow_block.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/soul_campfire.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/soul_lantern.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/soul_torch.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/spire_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/stone_axe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/stone_hoe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/stone_pickaxe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/stone_shovel.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/stone_sword.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/suspicious_stew.json"
+hash = "d67fab8af85c700c407a4032cc2414db475218930e260dfa0f0988d63aee6ac5"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/tide_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/tinted_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/tnt.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/torch.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/trapped_chest.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/turtle_helmet.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/vex_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/ward_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wayfinder_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wheat.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/white_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/white_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/white_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wild_armor_trim_smithing_template.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wolf_armor.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wooden_axe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wooden_hoe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wooden_pickaxe.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wooden_shovel.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/wooden_sword.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/yellow_banner.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/yellow_stained_glass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/yellow_stained_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/minecraft/recipe/yellow_stained_glass_pane_from_glass_pane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
 
 [[files]]
 file = "kubejs/data/more_immersive_wires/loot_table/blocks/cc_connector.json"
@@ -3331,6 +4723,34 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 [[files]]
 file = "kubejs/data/neoforge/loot_modifiers/global_loot_modifiers.json"
 hash = "dd1b3cf7a6fb69f9668d30c73b4c4a2d30570b382d658aa03db37abd4c68a913"
+
+[[files]]
+file = "kubejs/data/occultism/modonomicon/books/dictionary_of_spirits/entries/crafting_rituals/bee_nest.json"
+hash = "2592a47b30a7193c9ef06de016605a38c5d1814266bdf46f2c15ae7cd60f618a"
+
+[[files]]
+file = "kubejs/data/occultism/modonomicon/books/dictionary_of_spirits/entries/crafting_rituals/craft_eldritch_chalice.json"
+hash = "76aa7a53644c340c998f79af0062c02eb26ae52f90deaa124dd7ff53812865f8"
+
+[[files]]
+file = "kubejs/data/occultism/modonomicon/books/dictionary_of_spirits/entries/familiar_rituals/great_resurrection.json"
+hash = "aa3b389f903e195ce0a476d1651b3693e7ef759cb82f38b2687ba07a307dd018"
+
+[[files]]
+file = "kubejs/data/occultism/modonomicon/books/dictionary_of_spirits/entries/familiar_rituals/resurrection.json"
+hash = "0cc7b73e5d402b72fa2894bad2771ccf33cec64a9bd7fa1381354dc0cb2e78f9"
+
+[[files]]
+file = "kubejs/data/occultism/modonomicon/books/dictionary_of_spirits/entries/possession_rituals/possess_breeze.json"
+hash = "1f21d2383e3cc929b7d99b3cb4a781955d96198eab6888d5223bd22a033f9607"
+
+[[files]]
+file = "kubejs/data/occultism/modonomicon/books/dictionary_of_spirits/entries/possession_rituals/possess_weak_breeze.json"
+hash = "325c0d65a06145734cc934b32867542da034118d456518b1b2bcd1a50e4d1aca"
+
+[[files]]
+file = "kubejs/data/occultism/modonomicon/books/dictionary_of_spirits/entries/summoning_rituals/summon_transport_items.json"
+hash = "664d5fa55ed056a36f678e6e1848f2fc2547f4ce72dbef56f6f912b4e7224fcc"
 
 [[files]]
 file = "kubejs/data/occultism/neoforge/biome_modifier/add_ore_silver.json"
@@ -4109,6 +5529,786 @@ file = "kubejs/data/railways/loot_table/blocks/track_quark_blossom_wide.json"
 hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
 
 [[files]]
+file = "kubejs/data/rnr/tags/block/mineable_with_mattock.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/altimeter.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/ash_bricks.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_black_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_blue_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_brown_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_cyan_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_gray_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_green_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_light_blue_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_light_gray_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_lime_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_magenta_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_orange_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_pink_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_purple_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_red_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_white_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/awnings/awning_yellow_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/blackboard.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/blackstone_lamp.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/blackstone_tile.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/bomb.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/bubble_blower.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_black.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_black_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_blue.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_blue_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_brown.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_brown_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_cyan.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_cyan_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_gray.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_gray_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_green.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_green_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_light_blue.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_light_blue_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_light_gray.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_light_gray_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_lime.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_lime_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_magenta.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_magenta_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_orange.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_orange_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_pink.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_pink_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_purple.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_purple_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_red.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_red_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_white.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_white_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_yellow.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/buntings/bunting_yellow_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/cage.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_black.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_black_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_blue.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_blue_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_brown.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_brown_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_cyan.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_cyan_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_gray.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_gray_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_green.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_green_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_light_blue.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_light_blue_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_light_gray.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_light_gray_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_lime.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_lime_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_magenta.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_magenta_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_orange.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_orange_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_pink.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_pink_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_purple.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_purple_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_red.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_red_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_white.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_white_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_yellow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candle_holders/candle_holder_yellow_dye.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/candy.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/cannon.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/cannon_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/cannonball.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/cannonball_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/checker.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/cog_block.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/crank.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/crystal_display.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/daub.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/deepslate_lamp.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/doormat_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/dragon_banne_pattern.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/end_stone_lamp.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/faucet.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/fine_wood.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/fire_pit.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/fire_pit_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_black.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_blue.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_brown.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_cyan.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_gray.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_green.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_light_blue.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_light_gray.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_lime.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_magenta.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_orange.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_pink.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_purple.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_red.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_white.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flags/flag_yellow.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flax_block.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flax_block_uncrafting.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/flower_box.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/fodder.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/goblet.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/gold_door.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/gold_trapdoor.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/gravel_bricks.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/hat_stand.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/hourglass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/integration/ash_bricks_fd.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/integration/lapis_bricks_fd.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/integration/pancake_fd.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/integration/planter_rich_fd.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/integration/sconce_haunting.json"
+hash = "d3f4c67683290314fbf09779d277ac4b8e0395cf6b27f68755647d5c3f074fa7"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/iron_gate.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/key.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/lapis_bricks.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/lock_block.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/lumisene_bottle.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/lumisene_bucket.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/netherite_door.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/netherite_trapdoor.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/pancake.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/pedestal.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/planter.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/pulley.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/redstone_illuminator.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/relayer.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/rope.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/rope_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sack.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sack_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sack_3.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/safe.json"
+hash = "3f13bbcd55581386363361e6918596893bdfda61f05c428a692c22fbea14dbc5"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/safe_crafting.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sconce.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sconce_ender.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sconce_green.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sconce_lever.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sconce_nether_brass.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sconce_soul.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/slidy_block.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/slingshot.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/soap.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/speaker_block.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/spiky_bomb.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/spiky_bomb_2.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/spring_launcher.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/statue.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/stone_lamp.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/stone_tile.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/strings.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sus_bricks.json"
+hash = "51f381e5749eec94fd6a5bd0cd719d060edfc8f4ca5cbe9e9ac5545f4a852abd"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sus_gravel.json"
+hash = "51f381e5749eec94fd6a5bd0cd719d060edfc8f4ca5cbe9e9ac5545f4a852abd"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/sus_sand.json"
+hash = "51f381e5749eec94fd6a5bd0cd719d060edfc8f4ca5cbe9e9ac5545f4a852abd"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/turn_table.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/wicker_fence.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/wind_vane.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/supplementaries/recipe/wrench.json"
+hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/barrel/curdled_milk.json"
+hash = "6f2384714053c4de75aab0287444d5bcb065e852b0cc039b8be9c1ead2473638"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/barrel/food/cheese.json"
+hash = "6f2384714053c4de75aab0287444d5bcb065e852b0cc039b8be9c1ead2473638"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/barrel/milk_vinegar.json"
+hash = "9fbc00a46bfc784f644022336d08949184a561fd6421f08a607e91313ade3149"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/crafting/pumpkin_pie.json"
+hash = "13d302742b530c93d53e0cc23826a9c0567cd38fed0dd41c39b1700575248028"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/heating/food/barley_bread.json"
+hash = "bb6bfd6281f4c353bedf32d958cb9b96073de30a07a504b059da6c404dba5656"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/heating/food/maize_bread.json"
+hash = "bb6bfd6281f4c353bedf32d958cb9b96073de30a07a504b059da6c404dba5656"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/heating/food/oat_bread.json"
+hash = "bb6bfd6281f4c353bedf32d958cb9b96073de30a07a504b059da6c404dba5656"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/heating/food/rice_bread.json"
+hash = "bb6bfd6281f4c353bedf32d958cb9b96073de30a07a504b059da6c404dba5656"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/heating/food/rye_bread.json"
+hash = "bb6bfd6281f4c353bedf32d958cb9b96073de30a07a504b059da6c404dba5656"
+
+[[files]]
+file = "kubejs/data/tfc/recipe/heating/food/wheat_bread.json"
+hash = "bb6bfd6281f4c353bedf32d958cb9b96073de30a07a504b059da6c404dba5656"
+
+[[files]]
 file = "kubejs/data/tfc/tags/block/prospectable.json"
 hash = "fc23170db8af12f32258103069969ed68b44093cf7e0c00b17fa72ee3bc4cce2"
 
@@ -4165,6 +6365,42 @@ file = "kubejs/data/twilightforest/recipe/giant_obsidian_to_obsidian.json"
 hash = "46a668ac908f0210bcbd08cee76c353d028baf2b5126a7e25865269fbd0758d3"
 
 [[files]]
+file = "kubejs/data/undergarden/tags/worldgen/biome/is_undergarden.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/cutting/slab/loam_brick_slab.json"
+hash = "3910c571e80a5f2df5ae417439860c9de6b2dd5995bd2ac524e392dcd68f492f"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/cutting/slab/sandy_loam_brick_slab.json"
+hash = "3910c571e80a5f2df5ae417439860c9de6b2dd5995bd2ac524e392dcd68f492f"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/cutting/slab/silt_brick_slab.json"
+hash = "3910c571e80a5f2df5ae417439860c9de6b2dd5995bd2ac524e392dcd68f492f"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/cutting/slab/silty_loam_brick_slab.json"
+hash = "3910c571e80a5f2df5ae417439860c9de6b2dd5995bd2ac524e392dcd68f492f"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/cutting/stair/loam_brick_stairs.json"
+hash = "3910c571e80a5f2df5ae417439860c9de6b2dd5995bd2ac524e392dcd68f492f"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/cutting/stair/sandy_loam_brick_stairs.json"
+hash = "3910c571e80a5f2df5ae417439860c9de6b2dd5995bd2ac524e392dcd68f492f"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/cutting/stair/silt_brick_stairs.json"
+hash = "3910c571e80a5f2df5ae417439860c9de6b2dd5995bd2ac524e392dcd68f492f"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/cutting/stair/silty_loam_brick_stairs.json"
+hash = "3910c571e80a5f2df5ae417439860c9de6b2dd5995bd2ac524e392dcd68f492f"
+
+[[files]]
 file = "kubejs/data/woodencog/recipe/milling/quartz.json"
 hash = "b862c000fc9b2bf6fdc54a6a926835ab21268894616ce2e56003f1b8d847fa8a"
 
@@ -4218,7 +6454,7 @@ hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "a0ab2443f9005356918a26a3c972a94eabbaa6620656c2cd3b98cb98f9d6eba2"
+hash = "940842f24b75aff4e7e22426794125fff48ae9c8e7b1dd7997c50c3c242f5a60"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
@@ -4238,7 +6474,7 @@ hash = "1afb1c357b014136dd2f8ca01bf2519ed58be64cf458d87f7b5d826892f5b632"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
-hash = "7164ec1e1d1e3dab0f19ce6f2765e9d9083a155938a376f660bc982232507385"
+hash = "c529e272e07b21c018c6225c0f6e76b6ece49965009b0e0ce7cb25b0ff766568"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
@@ -4286,7 +6522,7 @@ hash = "dd0902086c52f3e48b7445e9ec4c8f793d62b010a48ecd999f61fd395d6ad8f4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "2cdd4c59ca350d70865d74509150b46eb4f4159044b45240cc7a21d69e0d0463"
+hash = "1af5020d9a140b98fc65e281c67d83874250c2bcc29db59cedaeb237adb699e8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/signature_blocks.js"
@@ -4851,8 +7087,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.9.0.jar"
-hash = "54bd423a98c1be19d058fc0a3b6b6ed0e9228da0f35ec1af4b11d6ecbec6c2fb"
+file = "mods/firmages-core-0.9.1.jar"
+hash = "436bdec88aee69a4b39da7f378d73bd7c59a55563ed4f934919d47ec8d79bfee"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
