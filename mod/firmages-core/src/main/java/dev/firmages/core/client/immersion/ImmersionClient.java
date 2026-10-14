@@ -14,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.network.chat.Component;
@@ -145,7 +146,7 @@ public final class ImmersionClient {
             if (ClientConfig.get(ClientConfig.BLOCKED_SCREENS, ClientConfig.DEFAULT_BLOCKED_SCREENS).contains(name)) {
                 FirmagesCore.LOGGER.info("Screen {} blocked (ui.blockedScreens)", name);
                 event.setCanceled(true);
-            } else if (EMI_SCREENS.contains(name) && !(ClientAgeStatus.known() && ClientAgeStatus.get().recipeViewer())) {
+            } else if (EMI_SCREENS.contains(name) && !viewerOpen()) {
                 event.setCanceled(true); // the recipe viewer is not open in this Age (§21.3)
             } else if (event.getNewScreen() instanceof AdvancementsScreen && ClientConfig.get(ClientConfig.REDIRECT_ADVANCEMENTS, true)) {
                 event.setCanceled(true);
@@ -223,10 +224,17 @@ public final class ImmersionClient {
         }
     }
 
-    /** EMI follows the Age (ViewerGate); before the first status the world counts as Dawn. */
+    /** The recipe viewer is open: by the Age (before the first status the world counts as Dawn), for operators and in creative. */
+    private static boolean viewerOpen() {
+        LocalPlayer p = Minecraft.getInstance().player;
+        return ViewerGate.open(ClientAgeStatus.known() && ClientAgeStatus.get().recipeViewer(),
+            p != null && p.hasPermissions(2), p != null && p.isCreative());
+    }
+
+    /** EMI follows the Age (ViewerGate). */
     private static void gateViewer() {
         if (!EmiBridge.available()) return;
-        boolean allowed = ClientAgeStatus.known() && ClientAgeStatus.get().recipeViewer();
+        boolean allowed = viewerOpen();
         Boolean set = ViewerGate.target(allowed, viewerWasAllowed, EmiBridge.isEnabled());
         if (set != null) {
             EmiBridge.setEnabled(set);
