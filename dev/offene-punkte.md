@@ -14,7 +14,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Chunk-Laden ohne Spieler: `"never"` (nur solange jemand aus dem Team online ist, so geschrieben) oder `"always"` (Fabriken laufen offline, der TFC-Kalender steht dann)? | `config/ftbchunks-world.snbt` `force_loading.force_load_mode` | Felix |
 | Mob-Leiter kumulativ (`mob_0` bleibt, neue Mobs kommen dazu) statt Tausch wie in Dok. 08; so seit 2026-09-30, Begründung im Kopf von `mob_1.toml`. Bestätigen oder ändern? | `config/progressivestages/stages/mob_*.toml`, `kubejs/server_scripts/stages/grants.js` | Felix |
 | AdvancedAE Strength Card wertet nur die gesperrte Quantum-Rüstung auf: sperren oder lassen? | `dev/age_map.toml` | Felix |
-| Deko in TFC/AFC-Hölzern später als geplant (Nachtlauf N3): Macaw's „classic“-Türen ab Eisenzeit (Every Compat behält den Vanilla-Holzdruck `mcwdoors:print_<holz>` als Zutat), Handcrafted-Theken ab Arkanzeit (Calcit). Rezept anpassen oder so lassen? Und: Vanilla-Holz-Varianten der Basis-Mods (etwa 750 EMI-Einträge ab Eisenzeit) verstecken? | `dev/data/derived_ages.json`, `kubejs/server_scripts/recipes` | Felix |
+| Vanilla-Holz-Varianten der Basis-Mods (Macaw's, Handcrafted, etwa 750 EMI-Einträge) kommen erst ab der Eisenzeit (Vanilla-Bretter über das Create-Sägen): verstecken oder so lassen? Die TFC/AFC-Varianten sind seit N4 Bronzezeit. | `dev/data/derived_ages.json`, `kubejs/server_scripts/recipes` | Felix |
 | Bekannte Lücken mit Regel-Age: Apothic-Enchanting-Tisch braucht Diamant (Industriezeit), die Arkane-Nebenquest „Enchantment Industry“ hängt daran; das Create-Dragons-Plus-Blaze-Template hat keine sichtbare Quelle. Quest oder Rezept ändern? | `dev/decisions-while-away.md` (Zeile „Bekannte Lücken bleiben sichtbar“) | Felix |
 
 ## Im Client prüfen (Felix)
@@ -44,6 +44,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Stargate Journey: Strukturen aus | Config, Key nicht verifiziert | Claude |
 | IE-Bagger: Mineral-Mix mit Osmium (Dok. 08 §3.2) | `kubejs/server_scripts` | Claude |
 | Sieben IE/IP-Multiblöcke geben beim Abbau den gesperrten `immersiveengineering:storage_steel` zurück | `dev/gen_multiblock_templates.py` | Claude |
+| EMI zeigt gesperrte Items in Item-Listen-Zutaten (67 Rezepte, z. B. `tfc:crafting/blue_dye` mit Lapis-Pulver ab der Bronzezeit, Vanilla-Werkzeuge in `minecraft:iron_nugget_from_smelting`): `ListEmiIngredient` filtert deaktivierte Stacks nicht. Fix im Client, z. B. Mixin auf `ListEmiIngredient.getEmiStacks`, das deaktivierte Stacks weglässt; danach muss `poc_analyze.py` E-1 bestehen | firmages-core `compat/emi`, `dev/poc_analyze.py` E-1 | Claude (mit der nächsten firmages-core-Version) |
 | Questbuch: FE-Nachweise sind Blick-Aufgaben; nach einem Client-Test auf `forge_energy`- oder Task-Screen-Aufgaben umstellen | `dev/gen_quests.py` | Claude |
 | Questbuch: Automatisierungsnachweise per Task-Screen (`task_screen_only`) statt Mengen | `dev/gen_quests.py` | Claude |
 | „Data Model: Tier 3“ nimmt jedes Datenmodell (die Stufe ist eine Komponente, die eine Item-Aufgabe nicht liest) | `dev/gen_quests.py` | Claude |
@@ -73,6 +74,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 
 | Was | Beleg |
 |---|---|
+| Deko in TFC/AFC-Hölzern später als geplant (classic- und cottage-Türen Eisenzeit, Theken Arkanzeit) | N4: Drucke aus Tür bzw. Falltür, Theken aus glattem Gestein; 102 Items jetzt age_1 (`decisions-while-away.md`, „Deko in TFC- und AFC-Hölzern ab der Bronzezeit“) |
 | `drop_book_on_death = false` (config-todo 1) | `config/ftbquests/quests/data.snbt`, `validate_quests.py` prüft es |
 | Draconic-Evolution-Werte (config-todo 6) | `config/brandon3055/DraconicEvolution.cfg`: Brennstoff 0,5, Ausgabe 1,0, Chaos-Drops 5, Drachenstaub 16 |
 | AE2-Meteoriten (config-todo 7) | entstehen in der TFC-Welt nicht; die Pressen gibt es per Rezept (`recipes/age_6/information_age.js`) |

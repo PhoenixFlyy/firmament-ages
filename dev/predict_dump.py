@@ -7,8 +7,10 @@ that dev/derive_ages.py --dump-dir and dev/poc_analyze.py --dump-dir read like a
 KubeJS scripts it names; it is a stand-in until the next boot with fa_dump, after which `derive_ages.py --check` on
 the real dump must say "up to date".
 
-Current edit set: the Create andesite tier sweep of 2026-10-14 (kubejs/server_scripts/recipes/age_1/bronze_age.js,
-kubejs/server_scripts/tags/unification.js; Modpack-Planung/research-raw/fb3-create-tier-sweep.md).
+Current edit set: deco in TFC woods in the Bronze Age (kubejs/server_scripts/recipes/age_1/bronze_age.js, section
+"Deco in TFC woods"): any wooden door or trapdoor makes Macaw's Classic and Cottage Door Print, any smooth rock the
+counter top of Handcrafted's and Every Compat's counters. The edit set of a change already in the live dump (the
+Create andesite tier sweep, commit 166f2bc) is in the git history.
 
 Usage
   python dev/predict_dump.py SRC_DUMP OUT_DIR           write the predicted dump
@@ -19,6 +21,7 @@ Usage
 import copy
 import json
 import os
+import re
 import sys
 
 DEV = os.path.dirname(os.path.abspath(__file__))
@@ -28,58 +31,13 @@ PS = "progressivestages:"
 T = lambda t: {"tag": t}   # noqa: E731
 I = lambda i: {"item": i}  # noqa: E731
 
-# ---- tags/unification.js: tags added by the change ---------------------------------------------------------------
-NEW_TAGS = {
-    "firmages:rods/any_bronze": ["tfc:metal/rod/bronze", "tfc:metal/rod/bismuth_bronze", "tfc:metal/rod/black_bronze"],
-    "firmages:trapdoors/any_bronze": ["tfc:metal/trapdoor/bronze", "tfc:metal/trapdoor/bismuth_bronze",
-                                      "tfc:metal/trapdoor/black_bronze"],
+# ---- bronze_age.js "Deco in TFC woods" ---------------------------------------------------------------------------
+REPLACE = {
+    "mcwdoors:print_oak": {("item", "minecraft:oak_door"): T("minecraft:wooden_doors")},
+    "mcwdoors:print_spruce": {("item", "minecraft:spruce_door"): T("minecraft:wooden_trapdoors")},
 }
-# ---- bronze_age.js andesiteTier: replaceInput on fixed ids ----------------------------------------------------------
-TIER_REPL = {
-    ("tag", "c:plates/iron"): T("firmages:plates/any_bronze"),
-    ("tag", "c:ingots/iron"): T("firmages:ingots/any_bronze"),
-    ("tag", "c:storage_blocks/iron"): T("firmages:storage_blocks/any_bronze"),
-    ("tag", "c:nuggets/iron"): T("firmages:rods/any_bronze"),
-    ("item", "minecraft:iron_trapdoor"): T("firmages:trapdoors/any_bronze"),
-    ("item", "minecraft:compass"): T("firmages:plates/any_bronze"),
-    ("tag", "c:slimeballs"): I("tfc:glue"),
-    ("tag", "c:barrels/wooden"): T("tfc:barrels"),
-}
-TIER_IDS = [
-    "create:crafting/kinetics/empty_blaze_burner", "create:crafting/kinetics/item_vault",
-    "create:crafting/kinetics/mechanical_drill", "create:crafting/kinetics/mechanical_press",
-    "create:crafting/kinetics/mechanical_saw", "create:crafting/kinetics/metal_bracket",
-    "create:crafting/kinetics/metal_girder", "create:crafting/kinetics/propeller", "create:crafting/kinetics/super_glue",
-    "create:crafting/kinetics/whisk", "create:crafting/logistics/packager", "create:crafting/logistics/redstone_contact",
-    "create:industrial_iron_block_from_ingots_iron_stonecutting", "create:weathered_iron_block_from_ingots_iron_stonecutting",
-    "create:crafting/kinetics/mechanical_harvester", "create:crafting/kinetics/mechanical_plough",
-    "create:crafting/curiosities/minecart_coupling", "create:crafting/kinetics/filter",
-    "create:crafting/kinetics/encased_chain_drive", "create:crafting/logistics/item_hatch",
-    "create:crafting/kinetics/sticker", "create:crafting/kinetics/sticky_mechanical_piston",
-    "create:crafting/kinetics/speedometer",
-    "create_connected:crafting/kinetics/freewheel_clutch", "create_connected:crafting/kinetics/centrifugal_clutch",
-    "create_connected:crafting/kinetics/item_silo",
-]
-# ---- bronze_age.js: TFCreate-only recipes copied under firmages: ids (iron as bronze), then the tfcreate ids removed
-COPY_TFCREATE = ["chute", "rope_pulley", "goggles", "copper_valve_handle", "brown_toolbox", "desk_bell", "weighted_ejector"]
-REMOVE = [f"tfcreate:{x}" for x in COPY_TFCREATE + [
-    "item_vault", "metal_bracket", "super_glue", "filter", "item_hatch", "sticker", "sticky_mechanical_piston",
-    "mechanical_press", "mechanical_drill", "mechanical_saw", "encased_chain_drive", "encased_chain_drive_from_steel",
-    "redstone_contact", "anvil/propeller", "anvil/whisk", "anvil/drill_head", "anvil/saw_blade"]]
-FIRMAGES_RECIPE_LOCK = PS + "age_0"   # [recipes] default of the firmages namespace (fa_dump of firmages:crafting/*)
-# ---- bronze_age.js: other early mods -----------------------------------------------------------------------------
-SEED_DRILL_WOODS = ("acacia araucaria ash aspen baobab beech birch blackwood chestnut cypress douglas_fir eucalyptus fig "
-                    "ginkgo hevea hickory ipe ironwood kapok mahoe mahogany mangrove maple oak palm pine rosewood sequoia "
-                    "spruce sycamore teak tualang white_cedar willow").split()
-OTHER = {
-    "totemic:totem_whittling_knife": {("tag", "c:ingots/iron"): T("firmages:ingots/any_bronze")},
-    "totemic:totem_torch": {("item", "minecraft:torch"): I("tfc:torch")},
-    "trashcans:liquid_trash_can": {("tag", "c:buckets/empty"): I("tfc:wooden_bucket")},
-    "framedblocks:framing_saw": {("tag", "c:ingots/iron"): T("c:ingots/copper")},
-    "sophisticatedbackpacks:upgrade_base": {("tag", "c:ingots/iron"): T("firmages:ingots/any_bronze")},
-    **{f"tfcastikorcarts:crafting/seed_drill/{w}": {("item", "minecraft:hopper"): T("firmages:plates/any_bronze")}
-       for w in SEED_DRILL_WOODS},
-}
+COUNTER_ID = re.compile(r"^(handcrafted:[a-z_]+_counter|everycomp:hc/.+_counter)$")
+SMOOTH_ROCK = T("c:stones/smooth")
 OUT_KEYS = ("result", "results")
 
 
@@ -112,10 +70,7 @@ def predict(src, out):
     rows = {r[0]: dict(zip(cols, r)) for r in rj["recipes"]}
     tags = load(src, "item_tags.json")
     log = []
-    for t, mem in NEW_TAGS.items():
-        tags[t] = list(mem)
-    edits = [(rid, TIER_REPL) for rid in TIER_IDS] + list(OTHER.items())
-    for rid, m in edits:
+    for rid, m in REPLACE.items():
         if rid not in full:
             log.append(f"missing recipe {rid}")
             continue
@@ -124,17 +79,19 @@ def predict(src, out):
         if new != old:
             full[rid] = json.dumps(new, separators=(",", ":"))
             log.append(f"rewrote {rid}")
-    for x in COPY_TFCREATE:
-        src_id, new_id = f"tfcreate:{x}", f"firmages:crafting/create/{x}"
-        j = rewrite(json.loads(full[src_id]), TIER_REPL)
-        full[new_id] = json.dumps(j, separators=(",", ":"))
-        row = dict(rows[src_id], id=new_id, recipe_lock=FIRMAGES_RECIPE_LOCK)
-        rows[new_id] = row
-        log.append(f"added {new_id} (copy of {src_id})")
-    for rid in REMOVE:
-        if full.pop(rid, None) is None:
-            log.append(f"missing recipe {rid} (remove)")
-        rows.pop(rid, None)
+    n = 0
+    for rid in [r for r in full if COUNTER_ID.match(r)]:
+        j = json.loads(full[rid])
+        hit = False
+        for k, v in (j.get("key") or {}).items():
+            inner = v.get("ingredient") if v.get("type") == "moonlight:block_type_swap" else v
+            if isinstance(inner, dict) and inner.get("item") == "minecraft:calcite":
+                j["key"][k] = copy.deepcopy(SMOOTH_ROCK)
+                hit = True
+        if hit:
+            full[rid] = json.dumps(j, separators=(",", ":"))
+            n += 1
+    log.append(f"counters on smooth rock: {n}")
     rj["recipes"] = [[r[c] for c in cols] for r in rows.values()]
     dump_json(os.path.join(out, "recipes_full.json"), full)
     dump_json(os.path.join(out, "recipes.json"), rj)

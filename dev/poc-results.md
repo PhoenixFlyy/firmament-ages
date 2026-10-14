@@ -2819,3 +2819,18 @@ noise list: 868 problem lines in 220 signatures at boot; with the cleaned list: 
 
 - Nothing above has run on a server yet: the next boot proves it (`dev/offene-punkte.md`).
 - TFCRegistryAPI rest (112 lines per boot): firmages-core change, see `dev/offene-punkte.md`.
+
+## 0.9.0 data round N4 (2026-10-14, static)
+
+No server boot. Input: the round 7 dump of the N3 night run (`test-server/local/firmages`, 35,522 recipes), copied
+read-only; `dev/predict_dump.py` applied the new deco recipes to it (edit set "Deco in TFC woods").
+
+| Check | Observed | Result |
+|---|---|---|
+| `predict_dump.py`, `derive_ages.py --dump-dir <predicted>` | 2 prints rewritten, 46 counters on smooth rock; Every Compat items moved later 196 to 94; classic doors, cottage doors and counters in TFC/AFC woods: 34 each now age_1; the 11 vanilla-wood Handcrafted counters age_3 to age_2 (vanilla planks) | pass |
+| `gen_stage_locks.py`, `predict_dump.py --sync-locks`, `derive_ages.py --check`, `gen_stage_locks.py --check` | 3 tag files rewritten (107 items with a new Age); afterwards both checks up to date | pass |
+| `poc_analyze.py` (current and predicted dump, `--server-dir` the test server for the R-M jar reads) | 88 PASS, 1 FAIL: the new E-1. 0 recipe types shown before their station's Age; 67 shown recipes list a locked item in an item-list input (EMI keeps disabled stacks in a `ListEmiIngredient`), see `dev/offene-punkte.md` | E-1 fail (client fix open) |
+| E-1 detection | `create:pressing` pointed at the mechanical crafter (age_2) in a test run: "create:pressing (station age_2) shown at age_1: 14" | pass |
+| Dawn rock-pit escape | `firmages:needs_tool_early` (firmages-core) = `#minecraft:logs`, `#c:stones/raw`, `#c:stones/hardened`, `#c:ores`, `#c:sandstone/blocks`; block tag sources in the TFC, Create, TFCreate, Firmalife, TFC-IE and other jars and `tags/tfc_common_tags.js` name rock, sandstone and ore blocks only (claystone is a rock). TFC dirt, grass, rooted dirt, mud, clay, clay grass, sand and gravel are all Dawn items; no stage file has a `[blocks]` lock; gravel-coloured deposits of later Ages are `[[ores.overrides]]` that drop gravel | pass |
+| Stone tool heads in Dawn | 4 rock categories x knife, axe, hammer and shovel head: `tfc:knapping` recipes without any lock, heads and the `tfc:crafting/stone/*` tools are Dawn items | pass |
+| `validate_quests.py --style` (jars of the CurseForge instance), `check_menus.py` | 1308 object ids, 0 errors, 0 warnings; all checks pass | pass |
