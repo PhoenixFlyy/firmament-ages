@@ -79,6 +79,7 @@
     {"id": "evolvedmekanism:quantum_personal_barrel", "required": false},
     {"id": "evolvedmekanism:ultimate_personal_barrel", "required": false},
     {"id": "firmages:chaos_sigil", "required": false},
+    {"id": "firmages:lantern/singularity", "required": false},
     {"id": "firmages:origin_coordinates", "required": false},
     {"id": "firmages:reactor_controller", "required": false},
     {"id": "firmages:ultimate_singularity", "required": false},

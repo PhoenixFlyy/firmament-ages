@@ -937,7 +937,7 @@ def _double_ingot():
 
 ITEMS["metal/double_ingot/osmium"] = ("osmium", _double_ingot, None)
 
-KJS_BLOCKS = {}  # texture path under kubejs/assets/firmages/textures/block -> (label, builder)
+KJS_BLOCKS = {}  # texture path under kubejs/assets/firmages/textures/block -> (label, builder, mcmeta or None)
 OSMIUM_SPECKS = {"poor": 5, "normal": 8, "rich": 12}  # ore clusters per overlay
 
 
@@ -974,7 +974,128 @@ def ore_overlay(grade):
 
 
 for _g in ("poor", "normal", "rich"):
-    KJS_BLOCKS[f"ore/{_g}_native_osmium"] = (f"{_g} overlay", (lambda g=_g: ore_overlay(g)))
+    KJS_BLOCKS[f"ore/{_g}_native_osmium"] = (f"{_g} overlay", (lambda g=_g: ore_overlay(g)), None)
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Signature blocks (kubejs/startup_scripts/signature_blocks.js, research n2-deco-mods section 5).
+# Age Lanterns: one per Age, drawn on the UV layout of minecraft:block/template_lantern (the model the blocks use):
+# cap sides x1-4 rows 0-1, body sides x0-5 rows 2-8, body top/bottom x0-5 rows 9-14 (cap top = its inner 4x4),
+# handle planes x11-13 rows 1-2 and 10-11. Frame in the Age's material palette, glass in its accent; four frames of a
+# slow flicker. Engraved rock bricks: one overlay per TFC rock on model tfc:block/ore (the TFC brick texture plus this
+# overlay): a star diamond between two small stars, a sun and a crescent moon carved into the three bricks of the TFC brick tile, the groove in the rock's
+# own dark tone and its lit lower edge in the rock's light tone.
+# ---------------------------------------------------------------------------------------------------------------------
+LANTERN_PALETTES = {  # lantern key -> (frame palette, glass palette), Age order
+    "stone": ("terracotta", "ember"),
+    "bronze": ("bronze", "gold"),
+    "iron": ("steel", "heat"),
+    "arcane": ("arcane", "rune"),
+    "industrial": ("iron", "steam"),
+    "electric": ("alu", "cyan"),
+    "information": ("quartz", "data"),
+    "space": ("desh", "star"),
+    "quantum": ("calorite", "draconium"),
+    "singularity": ("void", "violet"),
+}
+LANTERN = [  # o d m l h = frame tones, 1 2 3 = glass tones (3 brightest), "." transparent
+    ".dmmd...........",
+    ".oddo......odd..",
+    "omllmo.....d.d..",
+    "d1221o..........",
+    "l2332d..........",
+    "m2332d..........",
+    "m2332d..........",
+    "d1221o..........",
+    "oddddo..........",
+    "oooooo..........",
+    "odmmdo.....odd..",
+    "dmhlmo.....d.d..",
+    "dmllmo..........",
+    "odmmdo..........",
+    "oooooo..........",
+    "................",
+]
+LANTERN_FLICKER = (1.0, 0.9, 1.0, 0.82)  # glass brightness per frame
+
+
+def lantern_frames(key):
+    frame, glass = LANTERN_PALETTES[key]
+    f, g = tones(frame), tones(glass)
+    out = []
+    for k in LANTERN_FLICKER:
+        leg = {"o": f[0], "d": f[1], "m": f[2], "l": f[3], "h": f[4],
+               "1": scale_rgb(g[2], k), "2": scale_rgb(g[3], k), "3": g[4] if k == 1.0 else scale_rgb(g[4], k)}
+        out.append(grid_tex(LANTERN, leg))
+    return out
+
+
+for _k in LANTERN_PALETTES:
+    KJS_BLOCKS[f"lantern/{_k}"] = (f"{_k} lantern", (lambda k=_k: strip(lantern_frames(k))), anim(8, True))
+
+ROCK_TONES = {  # TFC rock -> (dark, mid, light): darkest, middle and lightest eighth of the pixels of the TFC 4.2.11
+    # brick texture (assets/tfc/textures/block/rock/bricks/<rock>.png), sampled once; the PNG is not copied
+    "andesite": ("#4d5153", "#666b6b", "#818181"),
+    "basalt": ("#26292b", "#303537", "#4f5455"),
+    "chalk": ("#b0b5af", "#bfbeb7", "#d8d6d2"),
+    "chert": ("#6f443b", "#85544b", "#9f675d"),
+    "claystone": ("#735d4a", "#916d4e", "#b8855a"),
+    "conglomerate": ("#615b4a", "#847a64", "#9f9177"),
+    "dacite": ("#5e6060", "#808181", "#949595"),
+    "diorite": ("#6c6c6c", "#a0a0a2", "#bebebf"),
+    "dolomite": ("#2f2f35", "#494953", "#595963"),
+    "gabbro": ("#454543", "#686868", "#7d7d7c"),
+    "gneiss": ("#615c53", "#817a6f", "#9d948a"),
+    "granite": ("#65595c", "#9c8189", "#beacb2"),
+    "limestone": ("#93876f", "#b3a891", "#c6bba6"),
+    "marble": ("#a7a7a7", "#dadcde", "#f4f6f6"),
+    "phyllite": ("#52484b", "#635e5c", "#7b7678"),
+    "quartzite": ("#8d8581", "#b2a7a3", "#cfc7c2"),
+    "rhyolite": ("#716965", "#8e8480", "#a29a96"),
+    "schist": ("#45493a", "#626751", "#7c8070"),
+    "shale": ("#3a373c", "#504e52", "#6f6a6f"),
+    "slate": ("#67625b", "#8b8478", "#a9a398"),
+    "tuff": ("#3f453a", "#616967", "#87857b"),
+}
+# TFC brick tile: one long brick in rows 0-6 (mortar row 7, column 15), two short bricks in rows 8-14 (mortar column 7,
+# row 15). g = groove; its lit lower-right edge is added by engraved_overlay().
+ENGRAVED = [
+    "................",
+    ".......g........",
+    "......g.g.......",
+    "..g..g.g.g...g..",
+    "......g.g.......",
+    ".......g........",
+    "................",
+    "................",
+    "................",
+    "..ggg......gg...",
+    ".g...g....g.....",
+    ".g...g....g.....",
+    ".g...g....g.....",
+    "..ggg......gg...",
+    "................",
+    "................",
+]
+
+
+def engraved_overlay(rock):
+    dark, mid, light = (rgb(c) for c in ROCK_TONES[rock])
+    groove = scale_rgb(dark, 0.72)
+    img = new_tex()
+    px = img.load()
+    cut = {(x, y) for y, row in enumerate(ENGRAVED) for x, ch in enumerate(row) if ch == "g"}
+    for x, y in cut:
+        px[x, y] = groove
+    for x, y in cut:  # light falls from the top left: the lower and right walls of the cut catch it
+        for nx, ny in ((x + 1, y), (x, y + 1)):
+            if (nx, ny) not in cut and nx < 16 and ny < 16 and ENGRAVED[ny][nx] == "." and px[nx, ny][3] == 0:
+                px[nx, ny] = scale_rgb(light, 1.08)
+    return img
+
+
+for _r in ROCK_TONES:
+    KJS_BLOCKS[f"rock/engraved/{_r}"] = (f"engraved {_r}", (lambda r=_r: engraved_overlay(r)), None)
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -1693,9 +1814,9 @@ def generate():
         out = KJS_TEX / "item" / (path + ".png")
         write_with_meta(builder(), out, mcmeta)
         written.append(out)
-    for name, (label, builder) in KJS_BLOCKS.items():
+    for name, (label, builder, mcmeta) in KJS_BLOCKS.items():
         out = KJS_TEX / "block" / (name + ".png")
-        write_png(builder(), out)
+        write_with_meta(builder(), out, mcmeta)
         written.append(out)
     for table in (BLOCKS, CONSECRATED):
         for name, (label, builder, mcmeta) in table.items():
@@ -1731,8 +1852,8 @@ def sheet(scale=8, cols=5):
         entries.append((path, age, KJS_TEX / "item" / (path + ".png"), mcmeta))
     for name, (label, builder, mcmeta) in BLOCKS.items():
         entries.append((name, label, MOD_TEX / "block" / (name + ".png"), mcmeta))
-    for name, (label, builder) in KJS_BLOCKS.items():
-        entries.append((name, label, KJS_TEX / "block" / (name + ".png"), None))
+    for name, (label, builder, mcmeta) in KJS_BLOCKS.items():
+        entries.append((name, label, KJS_TEX / "block" / (name + ".png"), mcmeta))
     font = ImageFont.load_default(size=11)
     title_font = ImageFont.load_default(size=14)
     cell = 16 * scale

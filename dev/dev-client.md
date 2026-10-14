@@ -40,3 +40,19 @@ Jeder Befehl wurde aus Doku, Quellcode oder `server/README.md` abgeleitet. Im Sp
 ## Titelbild neu erzeugen (Constellation)
 
 Der Titelbildschirm ist ein GLSL-Shader als FancyMenu-Hintergrund. Quelle, Generator und Anleitung stehen in `dev/title-shader/README.md`.
+
+## Boot- und Heap-Budget der Deko-Mods messen (n2-deco-mods P5)
+
+Die Deko-Runde (Branch `n3/deco`: Moonlight, Supplementaries, FirmaSupplementaries, Every Compat, Handcrafted, Decorative Blocks Reborn, Macaw's Windows, Bridges und Doors, rund 2.900 neue Items) ist nur auf dem Client messbar. Every Compat baut Modelle und Texturen für 34 TFC/AFC-Hölzer beim Start (Moonlight Dynamic Pack). Budget gegenüber dem Stand ohne die Runde: **höchstens +20 s bis zum Titelbildschirm und höchstens +300 MB Heap nach dem Weltbeitritt.**
+
+1. **Zwei Stände ausliefern.** Basis = `dev` vor dem Merge von `n3/deco` (Commit `c7ae645`), Kandidat = `dev` nach dem Merge. Für jeden Stand `tools\packwiz.exe serve` im jeweiligen Checkout (nacheinander, beide auf Port 8080), dann die Instanz *Firmament Ages Dev* starten; der Pre-Launch-Sync holt genau diesen Stand.
+2. **Gleiche Bedingungen.** Derselbe Rechner, Prism mit 10 GB, keine anderen Spiele oder Builds nebenher. Nach jedem Standwechsel einen **Aufwärmstart** verwerfen (Every Compat und Moonlight bauen beim ersten Start Caches, Shader werden kompiliert).
+3. **Bootzeit, drei Läufe je Stand.** Instanz starten, bis zum Titelbildschirm warten, Spiel schließen. Die Zeit steht in `tools\PrismLauncher\instances\FirmamentAgesDev\minecraft\logs\latest.log` in der ModernFix-Zeile „Game took … seconds to start“. Mittelwert der drei Läufe notieren.
+4. **Heap, drei Läufe je Stand.** Mit dem Test-Server verbinden (oder dieselbe Einzelspielerwelt laden), an der Spawn-Stelle 60 s stillstehen, dann `/sparkc health --memory` im Chat. Den Wert „used“ des Heaps notieren (spark zeigt ihn im Chat, ohne Upload). Mittelwert der drei Läufe.
+5. **Every-Compat-Zählung.** Im Kandidaten unter *Mods → Every Compat → Config* zeigt das Overlay die Zahl der registrierten Blöcke. Erwartet: etwa 1.630 (Handcrafted 510, Decorative Blocks 136, Windows 442, Bridges 204, Doors 272, Create-Fenster 68), keine Twilight-Forest-, Ad-Astra-, Ars-, Cataclysm-, Occultism- oder Totemic-Hölzer.
+6. **Zwei optionale Hebel, je einmal messen** (nur behalten, wenn sie messbar helfen und im Log nichts fehlt): `config/everycomp-client.toml` mit `[general]` `dynamic_assets_generation_mode = "CACHED"` (schnellerer zweiter Start?) und `config/everycomp-common.toml` mit `[general]` `generate_blocktype_tags = false` (danach im Log nach fehlenden Rezeptzutaten von Every Compat oder Supplementaries suchen).
+7. **Bewerten.** Kandidat minus Basis. Liegt einer der beiden Werte über dem Budget, gilt diese Reihenfolge, nach jedem Schritt neu messen:
+   1. Macaw's Doors entfernen (`mods/macaws-doors.pw.toml` löschen, `tools\packwiz.exe refresh`, die `mcwdoors`-Zeilen in `config/everycomp-hazardous.toml` und `dev/age_map.toml` entfernen).
+   2. Macaw's Windows weiter ausdünnen: in `config/everycomp-hazardous.toml` `[entryset]` zusätzlich `mcwwindows:window2`, `mcwwindows:stripped_log_window2`, `mcwwindows:plank_window2`, `mcwwindows:log_parapet`, `mcwwindows:plank_parapet` sperren.
+   3. Handcrafted kürzen: `handcrafted:pillar_trim`, `handcrafted:corner_trim`, `handcrafted:counter` in denselben `[entryset]`-Block.
+8. **Ergebnis** als Tabelle (Stand, Lauf, Bootzeit, Heap) in `dev/poc-results.md` eintragen und die Entscheidung als Zeile in `dev/decisions-while-away.md`.

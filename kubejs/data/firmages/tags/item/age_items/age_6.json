@@ -444,6 +444,7 @@
     {"id": "extendedae:wireless_tool", "required": false},
     {"id": "firmages:data_matrix", "required": false},
     {"id": "firmages:end_sigil", "required": false},
+    {"id": "firmages:lantern/information", "required": false},
     {"id": "firmages:metal/double_ingot/osmium", "required": false},
     {"id": "firmages:ore/inferium/andesite", "required": false},
     {"id": "firmages:ore/inferium/basalt", "required": false},
