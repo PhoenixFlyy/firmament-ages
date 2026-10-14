@@ -206,6 +206,7 @@
     {"id": "framedblocks:framed_wall", "required": false},
     {"id": "framedblocks:framed_wall_board", "required": false},
     {"id": "framedblocks:framed_wrench", "required": false},
+    {"id": "framedblocks:framing_saw", "required": false},
     {"id": "minecraft:armor_stand", "required": false},
     {"id": "minecraft:arrow", "required": false},
     {"id": "minecraft:black_banner", "required": false},
@@ -648,7 +649,9 @@
     {"id": "totemic:flute", "required": false},
     {"id": "totemic:rattle", "required": false},
     {"id": "totemic:tipi", "required": false},
+    {"id": "totemic:totem_torch", "required": false},
     {"id": "totemic:totemic_staff", "required": false},
-    {"id": "trashcans:item_trash_can", "required": false}
+    {"id": "trashcans:item_trash_can", "required": false},
+    {"id": "trashcans:liquid_trash_can", "required": false}
   ]
 }

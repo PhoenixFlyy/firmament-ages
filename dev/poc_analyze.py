@@ -1177,20 +1177,34 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           ["tech %s" % us.get("techLevel"), "missing relics %s" % sorted(relics - us_items),
            "base has singularity %s" % ("firmages:ultimate_singularity" in base), "SGJ furnace %s" % sgj_furnace])
     # C-1a / C-3s: the fixed recipe-id lists that replaced reload-time scans (dev/poc-results.md, "Content fixes after
-    # the late Ages"). C-1a: no Create recipe of the andesite tier (recipes/age_1/bronze_age.js) asks for iron; C-3s: no
-    # recipe asks for Occultism silver (recipes/global_removals.js OCCULT_SILVER). A FAIL names a recipe id to add.
-    iron_age_out = re.compile(r"^create:(precision_mechanism|electron_tube|deployer|mechanical_arm|mechanical_crafter|"
-                              r"crushing_wheel|steam_engine|steam_whistle|spout|fluid_pipe|mechanical_pump|fluid_tank|"
-                              r"fluid_valve|smart_fluid_pipe|smart_chute|rotation_speed_controller|sequenced_gearshift|"
-                              r"elevator_pulley|track|track_station|track_signal|track_observer|controls|railway_casing|"
-                              r"schematicannon|schematic_table)$|^create:brass_")
+    # the late Ages"). C-1a: no Create, Create Connected or TFCreate recipe of an item designed for Dawn to the Bronze
+    # Age asks for iron in any form (recipes/age_1/bronze_age.js andesiteTier and the TFCreate copies); C-3s: no recipe
+    # asks for Occultism silver (recipes/global_removals.js OCCULT_SILVER). A FAIL names a recipe id to add.
+    # The intended Age is the age_map Age (column 0 of dev/data/derived_ages.json where present, else the tag): the
+    # derived Age follows the iron and would hide the problem (Modpack-Planung/research-raw/fb3-create-tier-sweep.md).
+    der_path = os.path.join(REPO, "dev", "data", "derived_ages.json")
+    der = json.load(open(der_path, encoding="utf-8"))["items"] if os.path.isfile(der_path) else {}
+
+    def map_age(i):
+        return der[i][0] if i in der else item_age.get(i)
+
+    def main_out(j):
+        r = j.get("result") or (j.get("results") or [None])[0]
+        return (r.get("id") or r.get("item")) if isinstance(r, dict) else r if isinstance(r, str) else None
     out_keys = ("result", "results", "output", "outputs", "secondaries")
 
     def inputs_text(j):
         return json.dumps({k: v for k, v in j.items() if k not in out_keys})
-    iron_tier = sorted(r for r, sl, os_ in recs if r.startswith("create:") and os_ and not any(iron_age_out.search(o) for o in os_)
-                       and re.search(r'"c:(plates|ingots|storage_blocks)/iron"', inputs_text(full[r])))
-    check("C-1a Create andesite tier: no Create recipe outside the Iron Age outputs asks for iron (bronze_age.js andesiteTier)",
+    iron_in = re.compile(r'"(c:(plates|ingots|storage_blocks|nuggets|rods)/iron|minecraft:iron_(bars|trapdoor|nugget|ingot|block)'
+                         r'|minecraft:compass|tfc:metal/[a-z_]+/(wrought_iron|cast_iron|steel)|c:[a-z_]+/(wrought_iron|cast_iron|steel))"')
+    # Iron by design although the mod is Bronze Age: the fluid stage, electron-tube parts, Industrial logistics (sweep 2.3)
+    accept_iron = {"create:item_drain", "create_connected:overstress_clutch", "create_connected:kinetic_battery",
+                   "create_connected:empty_fan_catalyst", "create:redstone_requester"}
+    iron_tier = sorted(f"{r} -> {main_out(j)}" for r, j in full.items()
+                       if r.startswith(("create:", "create_connected:", "tfcreate:")) and main_out(j)
+                       and map_age(main_out(j)) in ("dawn", "age_0", "age_1") and main_out(j) not in accept_iron
+                       and iron_in.search(inputs_text(j)))
+    check("C-1a Create andesite tier: no Create/Connected/TFCreate recipe of a Dawn to Bronze Age item asks for iron in any form",
           not iron_tier, iron_tier)
     occ_silver = sorted(r for r, j in full.items() if re.search(r'"occultism:silver_(ingot|nugget)"', inputs_text(j)))
     check("C-3s no recipe asks for Occultism silver ingots or nuggets (global_removals.js OCCULT_SILVER)", not occ_silver, occ_silver)
@@ -1474,8 +1488,11 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
                      that fits the Age is reached (block and entity loot, interactions); each output on its own
       "recipe_open": function (recipe id, n) -> False when a ProgressiveStages recipe lock keeps the recipe shut at n
       "stations":    {recipe type: [[items]]} like STATION_ITEMS for types the R- checks leave to the mod-Age model
+      "world_ns_unmade": True: an item of WORLD_NS counts as given by the world only when no recipe makes it; one that a
+                     recipe makes must come from that recipe or from "start"/"transforms" (loot, world generation)
     `via` (a dict) receives item -> recipe id or source of the step that first reached it."""
     extra = extra or {}
+    made = set().union(*(os_ for _, _, os_ in recs)) if extra.get("world_ns_unmade") else set()
     mod_age = amap.get("mods", {})
     # ore pieces of the non-TFC ore veins ([ore_families]: "ns:name" = Age), mined in the world from their Age
     ore_pieces = collections.defaultdict(set)
@@ -1506,7 +1523,7 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
     def start(n, without=(), via=None):
         src = {}
         for i in items:
-            if i.split(":")[0] in WORLD_NS:
+            if i.split(":")[0] in WORLD_NS and i not in made:
                 src[i] = "world namespace"
         for st, words in VANILLA_BY_AGE.items():
             if AGES.index(st) <= n:
