@@ -1,0 +1,13 @@
+{
+  "type": "tfc:welding",
+  "first_input": {
+    "item": "tfc:metal/helmet/red_steel"
+  },
+  "second_input": {
+    "item": "create:copper_diving_helmet"
+  },
+  "tier": 5,
+  "result": {
+    "id": "create:netherite_diving_helmet"
+  }
+}

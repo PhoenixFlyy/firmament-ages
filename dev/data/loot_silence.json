@@ -1,0 +1,2418 @@
+{
+ "_doc": "Empty loot tables written by dev/gen_loot_silence.py for blocks that exist only when an absent mod is installed. Remove a namespace's overrides with: python dev/gen_loot_silence.py --remove <namespace>.",
+ "source_logs": [
+  "2026-10-14-2.log.gz",
+  "latest.log"
+ ],
+ "count": 480,
+ "by_namespace": {
+  "create_connected": 16,
+  "createcasing": 8,
+  "dndecor": 256,
+  "extendedae": 1,
+  "more_immersive_wires": 7,
+  "railways": 192
+ },
+ "tables": [
+  {
+   "table": "create_connected:blocks/dye_depot_amber_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_amber_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_amber_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_aqua_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_aqua_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_aqua_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_beige_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_beige_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_beige_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_coral_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_coral_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_coral_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_forest_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_forest_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_forest_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_ginger_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_ginger_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_ginger_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_indigo_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_indigo_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_indigo_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_maroon_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_maroon_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_maroon_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_mint_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_mint_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_mint_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_navy_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_navy_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_navy_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_olive_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_olive_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_olive_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_rose_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_rose_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_rose_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_slate_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_slate_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_slate_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_tan_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_tan_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_tan_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_teal_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_teal_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_teal_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "create_connected:blocks/dye_depot_verdant_fan_dyeing_catalyst",
+   "missing": "item create_connected:dye_depot_verdant_fan_dyeing_catalyst",
+   "file": "kubejs/data/create_connected/loot_table/blocks/dye_depot_verdant_fan_dyeing_catalyst.json"
+  },
+  {
+   "table": "createcasing:blocks/brass_slicer",
+   "missing": "item createcasing:brass_slicer",
+   "file": "kubejs/data/createcasing/loot_table/blocks/brass_slicer.json"
+  },
+  {
+   "table": "createcasing:blocks/copper_slicer",
+   "missing": "item createcasing:copper_slicer",
+   "file": "kubejs/data/createcasing/loot_table/blocks/copper_slicer.json"
+  },
+  {
+   "table": "createcasing:blocks/creative_slicer",
+   "missing": "item createcasing:creative_slicer",
+   "file": "kubejs/data/createcasing/loot_table/blocks/creative_slicer.json"
+  },
+  {
+   "table": "createcasing:blocks/industrial_iron_slicer",
+   "missing": "item createcasing:industrial_iron_slicer",
+   "file": "kubejs/data/createcasing/loot_table/blocks/industrial_iron_slicer.json"
+  },
+  {
+   "table": "createcasing:blocks/railway_slicer",
+   "missing": "item createcasing:railway_slicer",
+   "file": "kubejs/data/createcasing/loot_table/blocks/railway_slicer.json"
+  },
+  {
+   "table": "createcasing:blocks/refined_radiance_slicer",
+   "missing": "item createcasing:refined_radiance_slicer",
+   "file": "kubejs/data/createcasing/loot_table/blocks/refined_radiance_slicer.json"
+  },
+  {
+   "table": "createcasing:blocks/shadow_steel_slicer",
+   "missing": "item createcasing:shadow_steel_slicer",
+   "file": "kubejs/data/createcasing/loot_table/blocks/shadow_steel_slicer.json"
+  },
+  {
+   "table": "createcasing:blocks/weathered_iron_slicer",
+   "missing": "item createcasing:weathered_iron_slicer",
+   "file": "kubejs/data/createcasing/loot_table/blocks/weathered_iron_slicer.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_cogwheel",
+   "missing": "item dndecor:amber_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_container",
+   "missing": "item dndecor:amber_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_container.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_dark_metal_block",
+   "missing": "item dndecor:amber_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_dark_metal_plating",
+   "missing": "item dndecor:amber_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_display_board",
+   "missing": "item dndecor:amber_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_flywheel",
+   "missing": "item dndecor:amber_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_industrial_cogwheel",
+   "missing": "item dndecor:amber_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_large_cogwheel",
+   "missing": "item dndecor:amber_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_large_fan",
+   "missing": "item dndecor:amber_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_large_industrial_cogwheel",
+   "missing": "item dndecor:amber_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_large_metal_girder",
+   "missing": "item dndecor:amber_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_sheet_metal",
+   "missing": "item dndecor:amber_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_small_deepslate_tiles",
+   "missing": "item dndecor:amber_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_stone_metal",
+   "missing": "item dndecor:amber_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/amber_velvet_block",
+   "missing": "item dndecor:amber_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/amber_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_cogwheel",
+   "missing": "item dndecor:aqua_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_container",
+   "missing": "item dndecor:aqua_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_container.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_dark_metal_block",
+   "missing": "item dndecor:aqua_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_dark_metal_plating",
+   "missing": "item dndecor:aqua_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_display_board",
+   "missing": "item dndecor:aqua_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_flywheel",
+   "missing": "item dndecor:aqua_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_industrial_cogwheel",
+   "missing": "item dndecor:aqua_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_large_cogwheel",
+   "missing": "item dndecor:aqua_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_large_fan",
+   "missing": "item dndecor:aqua_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_large_industrial_cogwheel",
+   "missing": "item dndecor:aqua_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_large_metal_girder",
+   "missing": "item dndecor:aqua_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_sheet_metal",
+   "missing": "item dndecor:aqua_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_small_deepslate_tiles",
+   "missing": "item dndecor:aqua_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_stone_metal",
+   "missing": "item dndecor:aqua_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/aqua_velvet_block",
+   "missing": "item dndecor:aqua_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/aqua_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_cogwheel",
+   "missing": "item dndecor:beige_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_container",
+   "missing": "item dndecor:beige_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_container.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_dark_metal_block",
+   "missing": "item dndecor:beige_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_dark_metal_plating",
+   "missing": "item dndecor:beige_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_display_board",
+   "missing": "item dndecor:beige_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_flywheel",
+   "missing": "item dndecor:beige_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_industrial_cogwheel",
+   "missing": "item dndecor:beige_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_large_cogwheel",
+   "missing": "item dndecor:beige_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_large_fan",
+   "missing": "item dndecor:beige_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_large_industrial_cogwheel",
+   "missing": "item dndecor:beige_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_large_metal_girder",
+   "missing": "item dndecor:beige_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_sheet_metal",
+   "missing": "item dndecor:beige_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_small_deepslate_tiles",
+   "missing": "item dndecor:beige_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_stone_metal",
+   "missing": "item dndecor:beige_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/beige_velvet_block",
+   "missing": "item dndecor:beige_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/beige_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_cogwheel",
+   "missing": "item dndecor:coral_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_container",
+   "missing": "item dndecor:coral_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_container.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_dark_metal_block",
+   "missing": "item dndecor:coral_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_dark_metal_plating",
+   "missing": "item dndecor:coral_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_display_board",
+   "missing": "item dndecor:coral_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_flywheel",
+   "missing": "item dndecor:coral_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_industrial_cogwheel",
+   "missing": "item dndecor:coral_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_large_cogwheel",
+   "missing": "item dndecor:coral_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_large_fan",
+   "missing": "item dndecor:coral_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_large_industrial_cogwheel",
+   "missing": "item dndecor:coral_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_large_metal_girder",
+   "missing": "item dndecor:coral_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_sheet_metal",
+   "missing": "item dndecor:coral_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_small_deepslate_tiles",
+   "missing": "item dndecor:coral_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_stone_metal",
+   "missing": "item dndecor:coral_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/coral_velvet_block",
+   "missing": "item dndecor:coral_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/coral_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_cogwheel",
+   "missing": "item dndecor:forest_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_container",
+   "missing": "item dndecor:forest_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_container.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_dark_metal_block",
+   "missing": "item dndecor:forest_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_dark_metal_plating",
+   "missing": "item dndecor:forest_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_display_board",
+   "missing": "item dndecor:forest_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_flywheel",
+   "missing": "item dndecor:forest_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_industrial_cogwheel",
+   "missing": "item dndecor:forest_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_large_cogwheel",
+   "missing": "item dndecor:forest_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_large_fan",
+   "missing": "item dndecor:forest_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_large_industrial_cogwheel",
+   "missing": "item dndecor:forest_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_large_metal_girder",
+   "missing": "item dndecor:forest_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_sheet_metal",
+   "missing": "item dndecor:forest_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_small_deepslate_tiles",
+   "missing": "item dndecor:forest_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_stone_metal",
+   "missing": "item dndecor:forest_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/forest_velvet_block",
+   "missing": "item dndecor:forest_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/forest_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_cogwheel",
+   "missing": "item dndecor:ginger_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_container",
+   "missing": "item dndecor:ginger_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_container.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_dark_metal_block",
+   "missing": "item dndecor:ginger_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_dark_metal_plating",
+   "missing": "item dndecor:ginger_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_display_board",
+   "missing": "item dndecor:ginger_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_flywheel",
+   "missing": "item dndecor:ginger_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_industrial_cogwheel",
+   "missing": "item dndecor:ginger_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_large_cogwheel",
+   "missing": "item dndecor:ginger_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_large_fan",
+   "missing": "item dndecor:ginger_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_large_industrial_cogwheel",
+   "missing": "item dndecor:ginger_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_large_metal_girder",
+   "missing": "item dndecor:ginger_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_sheet_metal",
+   "missing": "item dndecor:ginger_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_small_deepslate_tiles",
+   "missing": "item dndecor:ginger_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_stone_metal",
+   "missing": "item dndecor:ginger_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/ginger_velvet_block",
+   "missing": "item dndecor:ginger_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/ginger_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_cogwheel",
+   "missing": "item dndecor:indigo_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_container",
+   "missing": "item dndecor:indigo_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_container.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_dark_metal_block",
+   "missing": "item dndecor:indigo_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_dark_metal_plating",
+   "missing": "item dndecor:indigo_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_display_board",
+   "missing": "item dndecor:indigo_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_flywheel",
+   "missing": "item dndecor:indigo_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_industrial_cogwheel",
+   "missing": "item dndecor:indigo_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_large_cogwheel",
+   "missing": "item dndecor:indigo_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_large_fan",
+   "missing": "item dndecor:indigo_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_large_industrial_cogwheel",
+   "missing": "item dndecor:indigo_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_large_metal_girder",
+   "missing": "item dndecor:indigo_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_sheet_metal",
+   "missing": "item dndecor:indigo_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_small_deepslate_tiles",
+   "missing": "item dndecor:indigo_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_stone_metal",
+   "missing": "item dndecor:indigo_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/indigo_velvet_block",
+   "missing": "item dndecor:indigo_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/indigo_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_cogwheel",
+   "missing": "item dndecor:maroon_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_container",
+   "missing": "item dndecor:maroon_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_container.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_dark_metal_block",
+   "missing": "item dndecor:maroon_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_dark_metal_plating",
+   "missing": "item dndecor:maroon_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_display_board",
+   "missing": "item dndecor:maroon_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_flywheel",
+   "missing": "item dndecor:maroon_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_industrial_cogwheel",
+   "missing": "item dndecor:maroon_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_large_cogwheel",
+   "missing": "item dndecor:maroon_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_large_fan",
+   "missing": "item dndecor:maroon_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_large_industrial_cogwheel",
+   "missing": "item dndecor:maroon_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_large_metal_girder",
+   "missing": "item dndecor:maroon_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_sheet_metal",
+   "missing": "item dndecor:maroon_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_small_deepslate_tiles",
+   "missing": "item dndecor:maroon_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_stone_metal",
+   "missing": "item dndecor:maroon_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/maroon_velvet_block",
+   "missing": "item dndecor:maroon_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/maroon_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_cogwheel",
+   "missing": "item dndecor:mint_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_container",
+   "missing": "item dndecor:mint_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_container.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_dark_metal_block",
+   "missing": "item dndecor:mint_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_dark_metal_plating",
+   "missing": "item dndecor:mint_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_display_board",
+   "missing": "item dndecor:mint_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_flywheel",
+   "missing": "item dndecor:mint_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_industrial_cogwheel",
+   "missing": "item dndecor:mint_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_large_cogwheel",
+   "missing": "item dndecor:mint_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_large_fan",
+   "missing": "item dndecor:mint_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_large_industrial_cogwheel",
+   "missing": "item dndecor:mint_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_large_metal_girder",
+   "missing": "item dndecor:mint_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_sheet_metal",
+   "missing": "item dndecor:mint_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_small_deepslate_tiles",
+   "missing": "item dndecor:mint_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_stone_metal",
+   "missing": "item dndecor:mint_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/mint_velvet_block",
+   "missing": "item dndecor:mint_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/mint_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_cogwheel",
+   "missing": "item dndecor:navy_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_container",
+   "missing": "item dndecor:navy_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_container.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_dark_metal_block",
+   "missing": "item dndecor:navy_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_dark_metal_plating",
+   "missing": "item dndecor:navy_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_display_board",
+   "missing": "item dndecor:navy_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_flywheel",
+   "missing": "item dndecor:navy_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_industrial_cogwheel",
+   "missing": "item dndecor:navy_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_large_cogwheel",
+   "missing": "item dndecor:navy_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_large_fan",
+   "missing": "item dndecor:navy_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_large_industrial_cogwheel",
+   "missing": "item dndecor:navy_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_large_metal_girder",
+   "missing": "item dndecor:navy_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_sheet_metal",
+   "missing": "item dndecor:navy_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_small_deepslate_tiles",
+   "missing": "item dndecor:navy_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_stone_metal",
+   "missing": "item dndecor:navy_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/navy_velvet_block",
+   "missing": "item dndecor:navy_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/navy_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_cogwheel",
+   "missing": "item dndecor:olive_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_container",
+   "missing": "item dndecor:olive_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_container.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_dark_metal_block",
+   "missing": "item dndecor:olive_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_dark_metal_plating",
+   "missing": "item dndecor:olive_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_display_board",
+   "missing": "item dndecor:olive_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_flywheel",
+   "missing": "item dndecor:olive_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_industrial_cogwheel",
+   "missing": "item dndecor:olive_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_large_cogwheel",
+   "missing": "item dndecor:olive_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_large_fan",
+   "missing": "item dndecor:olive_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_large_industrial_cogwheel",
+   "missing": "item dndecor:olive_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_large_metal_girder",
+   "missing": "item dndecor:olive_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_sheet_metal",
+   "missing": "item dndecor:olive_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_small_deepslate_tiles",
+   "missing": "item dndecor:olive_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_stone_metal",
+   "missing": "item dndecor:olive_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/olive_velvet_block",
+   "missing": "item dndecor:olive_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/olive_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_cogwheel",
+   "missing": "item dndecor:rose_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_container",
+   "missing": "item dndecor:rose_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_container.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_dark_metal_block",
+   "missing": "item dndecor:rose_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_dark_metal_plating",
+   "missing": "item dndecor:rose_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_display_board",
+   "missing": "item dndecor:rose_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_flywheel",
+   "missing": "item dndecor:rose_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_industrial_cogwheel",
+   "missing": "item dndecor:rose_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_large_cogwheel",
+   "missing": "item dndecor:rose_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_large_fan",
+   "missing": "item dndecor:rose_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_large_industrial_cogwheel",
+   "missing": "item dndecor:rose_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_large_metal_girder",
+   "missing": "item dndecor:rose_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_sheet_metal",
+   "missing": "item dndecor:rose_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_small_deepslate_tiles",
+   "missing": "item dndecor:rose_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_stone_metal",
+   "missing": "item dndecor:rose_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/rose_velvet_block",
+   "missing": "item dndecor:rose_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/rose_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_cogwheel",
+   "missing": "item dndecor:slate_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_container",
+   "missing": "item dndecor:slate_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_container.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_dark_metal_block",
+   "missing": "item dndecor:slate_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_dark_metal_plating",
+   "missing": "item dndecor:slate_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_display_board",
+   "missing": "item dndecor:slate_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_flywheel",
+   "missing": "item dndecor:slate_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_industrial_cogwheel",
+   "missing": "item dndecor:slate_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_large_cogwheel",
+   "missing": "item dndecor:slate_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_large_fan",
+   "missing": "item dndecor:slate_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_large_industrial_cogwheel",
+   "missing": "item dndecor:slate_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_large_metal_girder",
+   "missing": "item dndecor:slate_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_sheet_metal",
+   "missing": "item dndecor:slate_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_small_deepslate_tiles",
+   "missing": "item dndecor:slate_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_stone_metal",
+   "missing": "item dndecor:slate_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/slate_velvet_block",
+   "missing": "item dndecor:slate_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/slate_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_amber_container",
+   "missing": "item dndecor:solid_amber_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_amber_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_aqua_container",
+   "missing": "item dndecor:solid_aqua_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_aqua_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_beige_container",
+   "missing": "item dndecor:solid_beige_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_beige_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_coral_container",
+   "missing": "item dndecor:solid_coral_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_coral_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_forest_container",
+   "missing": "item dndecor:solid_forest_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_forest_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_ginger_container",
+   "missing": "item dndecor:solid_ginger_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_ginger_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_indigo_container",
+   "missing": "item dndecor:solid_indigo_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_indigo_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_maroon_container",
+   "missing": "item dndecor:solid_maroon_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_maroon_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_mint_container",
+   "missing": "item dndecor:solid_mint_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_mint_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_navy_container",
+   "missing": "item dndecor:solid_navy_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_navy_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_olive_container",
+   "missing": "item dndecor:solid_olive_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_olive_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_rose_container",
+   "missing": "item dndecor:solid_rose_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_rose_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_slate_container",
+   "missing": "item dndecor:solid_slate_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_slate_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_tan_container",
+   "missing": "item dndecor:solid_tan_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_tan_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_teal_container",
+   "missing": "item dndecor:solid_teal_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_teal_container.json"
+  },
+  {
+   "table": "dndecor:blocks/solid_verdant_container",
+   "missing": "item dndecor:solid_verdant_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/solid_verdant_container.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_cogwheel",
+   "missing": "item dndecor:tan_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_container",
+   "missing": "item dndecor:tan_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_container.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_dark_metal_block",
+   "missing": "item dndecor:tan_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_dark_metal_plating",
+   "missing": "item dndecor:tan_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_display_board",
+   "missing": "item dndecor:tan_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_flywheel",
+   "missing": "item dndecor:tan_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_industrial_cogwheel",
+   "missing": "item dndecor:tan_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_large_cogwheel",
+   "missing": "item dndecor:tan_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_large_fan",
+   "missing": "item dndecor:tan_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_large_industrial_cogwheel",
+   "missing": "item dndecor:tan_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_large_metal_girder",
+   "missing": "item dndecor:tan_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_sheet_metal",
+   "missing": "item dndecor:tan_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_small_deepslate_tiles",
+   "missing": "item dndecor:tan_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_stone_metal",
+   "missing": "item dndecor:tan_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/tan_velvet_block",
+   "missing": "item dndecor:tan_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/tan_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_cogwheel",
+   "missing": "item dndecor:teal_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_container",
+   "missing": "item dndecor:teal_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_container.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_dark_metal_block",
+   "missing": "item dndecor:teal_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_dark_metal_plating",
+   "missing": "item dndecor:teal_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_display_board",
+   "missing": "item dndecor:teal_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_flywheel",
+   "missing": "item dndecor:teal_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_industrial_cogwheel",
+   "missing": "item dndecor:teal_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_large_cogwheel",
+   "missing": "item dndecor:teal_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_large_fan",
+   "missing": "item dndecor:teal_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_large_industrial_cogwheel",
+   "missing": "item dndecor:teal_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_large_metal_girder",
+   "missing": "item dndecor:teal_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_sheet_metal",
+   "missing": "item dndecor:teal_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_small_deepslate_tiles",
+   "missing": "item dndecor:teal_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_stone_metal",
+   "missing": "item dndecor:teal_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/teal_velvet_block",
+   "missing": "item dndecor:teal_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/teal_velvet_block.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_cogwheel",
+   "missing": "item dndecor:verdant_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_container",
+   "missing": "item dndecor:verdant_container",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_container.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_dark_metal_block",
+   "missing": "item dndecor:verdant_dark_metal_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_dark_metal_block.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_dark_metal_plating",
+   "missing": "item dndecor:verdant_dark_metal_plating",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_dark_metal_plating.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_display_board",
+   "missing": "item dndecor:verdant_display_board",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_display_board.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_flywheel",
+   "missing": "item dndecor:verdant_flywheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_flywheel.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_industrial_cogwheel",
+   "missing": "item dndecor:verdant_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_large_cogwheel",
+   "missing": "item dndecor:verdant_large_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_large_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_large_fan",
+   "missing": "item dndecor:verdant_large_fan",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_large_fan.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_large_industrial_cogwheel",
+   "missing": "item dndecor:verdant_large_industrial_cogwheel",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_large_industrial_cogwheel.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_large_metal_girder",
+   "missing": "item dndecor:verdant_large_metal_girder",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_large_metal_girder.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_sheet_metal",
+   "missing": "item dndecor:verdant_sheet_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_sheet_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_small_deepslate_tiles",
+   "missing": "item dndecor:verdant_small_deepslate_tiles",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_small_deepslate_tiles.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_stone_metal",
+   "missing": "item dndecor:verdant_stone_metal",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_stone_metal.json"
+  },
+  {
+   "table": "dndecor:blocks/verdant_velvet_block",
+   "missing": "item dndecor:verdant_velvet_block",
+   "file": "kubejs/data/dndecor/loot_table/blocks/verdant_velvet_block.json"
+  },
+  {
+   "table": "extendedae:blocks/ex_emc_interface",
+   "missing": "item extendedae:ex_emc_interface",
+   "file": "kubejs/data/extendedae/loot_table/blocks/ex_emc_interface.json"
+  },
+  {
+   "table": "more_immersive_wires:blocks/cc_connector",
+   "missing": "item more_immersive_wires:cc_connector",
+   "file": "kubejs/data/more_immersive_wires/loot_table/blocks/cc_connector.json"
+  },
+  {
+   "table": "more_immersive_wires:blocks/cc_modem",
+   "missing": "item more_immersive_wires:cc_modem",
+   "file": "kubejs/data/more_immersive_wires/loot_table/blocks/cc_modem.json"
+  },
+  {
+   "table": "more_immersive_wires:blocks/cc_relay",
+   "missing": "item more_immersive_wires:cc_relay",
+   "file": "kubejs/data/more_immersive_wires/loot_table/blocks/cc_relay.json"
+  },
+  {
+   "table": "more_immersive_wires:blocks/id_connector",
+   "missing": "item more_immersive_wires:id_connector",
+   "file": "kubejs/data/more_immersive_wires/loot_table/blocks/id_connector.json"
+  },
+  {
+   "table": "more_immersive_wires:blocks/id_relay",
+   "missing": "item more_immersive_wires:id_relay",
+   "file": "kubejs/data/more_immersive_wires/loot_table/blocks/id_relay.json"
+  },
+  {
+   "table": "more_immersive_wires:blocks/rs_connector",
+   "missing": "item more_immersive_wires:rs_connector",
+   "file": "kubejs/data/more_immersive_wires/loot_table/blocks/rs_connector.json"
+  },
+  {
+   "table": "more_immersive_wires:blocks/rs_relay",
+   "missing": "item more_immersive_wires:rs_relay",
+   "file": "kubejs/data/more_immersive_wires/loot_table/blocks/rs_relay.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_dead",
+   "missing": "item railways:track_biomesoplenty_dead",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_dead.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_dead_narrow",
+   "missing": "item railways:track_biomesoplenty_dead_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_dead_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_dead_wide",
+   "missing": "item railways:track_biomesoplenty_dead_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_dead_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_fir",
+   "missing": "item railways:track_biomesoplenty_fir",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_fir.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_fir_narrow",
+   "missing": "item railways:track_biomesoplenty_fir_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_fir_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_fir_wide",
+   "missing": "item railways:track_biomesoplenty_fir_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_fir_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_hellbark",
+   "missing": "item railways:track_biomesoplenty_hellbark",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_hellbark.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_hellbark_narrow",
+   "missing": "item railways:track_biomesoplenty_hellbark_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_hellbark_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_hellbark_wide",
+   "missing": "item railways:track_biomesoplenty_hellbark_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_hellbark_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_jacaranda",
+   "missing": "item railways:track_biomesoplenty_jacaranda",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_jacaranda.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_jacaranda_narrow",
+   "missing": "item railways:track_biomesoplenty_jacaranda_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_jacaranda_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_jacaranda_wide",
+   "missing": "item railways:track_biomesoplenty_jacaranda_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_jacaranda_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_magic",
+   "missing": "item railways:track_biomesoplenty_magic",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_magic.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_magic_narrow",
+   "missing": "item railways:track_biomesoplenty_magic_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_magic_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_magic_wide",
+   "missing": "item railways:track_biomesoplenty_magic_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_magic_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_mahogany",
+   "missing": "item railways:track_biomesoplenty_mahogany",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_mahogany.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_mahogany_narrow",
+   "missing": "item railways:track_biomesoplenty_mahogany_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_mahogany_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_mahogany_wide",
+   "missing": "item railways:track_biomesoplenty_mahogany_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_mahogany_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_palm",
+   "missing": "item railways:track_biomesoplenty_palm",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_palm.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_palm_narrow",
+   "missing": "item railways:track_biomesoplenty_palm_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_palm_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_palm_wide",
+   "missing": "item railways:track_biomesoplenty_palm_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_palm_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_redwood",
+   "missing": "item railways:track_biomesoplenty_redwood",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_redwood.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_redwood_narrow",
+   "missing": "item railways:track_biomesoplenty_redwood_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_redwood_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_redwood_wide",
+   "missing": "item railways:track_biomesoplenty_redwood_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_redwood_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_umbran",
+   "missing": "item railways:track_biomesoplenty_umbran",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_umbran.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_umbran_narrow",
+   "missing": "item railways:track_biomesoplenty_umbran_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_umbran_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_umbran_wide",
+   "missing": "item railways:track_biomesoplenty_umbran_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_umbran_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_willow",
+   "missing": "item railways:track_biomesoplenty_willow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_willow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_willow_narrow",
+   "missing": "item railways:track_biomesoplenty_willow_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_willow_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_biomesoplenty_willow_wide",
+   "missing": "item railways:track_biomesoplenty_willow_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_willow_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_bluebright",
+   "missing": "item railways:track_blue_skies_bluebright",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_bluebright.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_bluebright_narrow",
+   "missing": "item railways:track_blue_skies_bluebright_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_bluebright_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_bluebright_wide",
+   "missing": "item railways:track_blue_skies_bluebright_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_bluebright_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_dusk",
+   "missing": "item railways:track_blue_skies_dusk",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_dusk.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_dusk_narrow",
+   "missing": "item railways:track_blue_skies_dusk_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_dusk_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_dusk_wide",
+   "missing": "item railways:track_blue_skies_dusk_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_dusk_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_frostbright",
+   "missing": "item railways:track_blue_skies_frostbright",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_frostbright.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_frostbright_narrow",
+   "missing": "item railways:track_blue_skies_frostbright_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_frostbright_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_frostbright_wide",
+   "missing": "item railways:track_blue_skies_frostbright_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_frostbright_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_lunar",
+   "missing": "item railways:track_blue_skies_lunar",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_lunar.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_lunar_narrow",
+   "missing": "item railways:track_blue_skies_lunar_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_lunar_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_lunar_wide",
+   "missing": "item railways:track_blue_skies_lunar_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_lunar_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_maple",
+   "missing": "item railways:track_blue_skies_maple",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_maple.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_maple_narrow",
+   "missing": "item railways:track_blue_skies_maple_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_maple_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_maple_wide",
+   "missing": "item railways:track_blue_skies_maple_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_maple_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_starlit",
+   "missing": "item railways:track_blue_skies_starlit",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_starlit.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_starlit_narrow",
+   "missing": "item railways:track_blue_skies_starlit_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_starlit_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_blue_skies_starlit_wide",
+   "missing": "item railways:track_blue_skies_starlit_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_blue_skies_starlit_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_aspen",
+   "missing": "item railways:track_byg_aspen",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_aspen.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_aspen_narrow",
+   "missing": "item railways:track_byg_aspen_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_aspen_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_aspen_wide",
+   "missing": "item railways:track_byg_aspen_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_aspen_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_baobab",
+   "missing": "item railways:track_byg_baobab",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_baobab.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_baobab_narrow",
+   "missing": "item railways:track_byg_baobab_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_baobab_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_baobab_wide",
+   "missing": "item railways:track_byg_baobab_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_baobab_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_blue_enchanted",
+   "missing": "item railways:track_byg_blue_enchanted",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_blue_enchanted.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_blue_enchanted_narrow",
+   "missing": "item railways:track_byg_blue_enchanted_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_blue_enchanted_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_blue_enchanted_wide",
+   "missing": "item railways:track_byg_blue_enchanted_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_blue_enchanted_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_bulbis",
+   "missing": "item railways:track_byg_bulbis",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_bulbis.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_bulbis_narrow",
+   "missing": "item railways:track_byg_bulbis_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_bulbis_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_bulbis_wide",
+   "missing": "item railways:track_byg_bulbis_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_bulbis_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_cika",
+   "missing": "item railways:track_byg_cika",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_cika.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_cika_narrow",
+   "missing": "item railways:track_byg_cika_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_cika_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_cika_wide",
+   "missing": "item railways:track_byg_cika_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_cika_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_cypress",
+   "missing": "item railways:track_byg_cypress",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_cypress.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_cypress_narrow",
+   "missing": "item railways:track_byg_cypress_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_cypress_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_cypress_wide",
+   "missing": "item railways:track_byg_cypress_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_cypress_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_ebony",
+   "missing": "item railways:track_byg_ebony",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_ebony.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_ebony_narrow",
+   "missing": "item railways:track_byg_ebony_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_ebony_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_ebony_wide",
+   "missing": "item railways:track_byg_ebony_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_ebony_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_embur",
+   "missing": "item railways:track_byg_embur",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_embur.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_embur_narrow",
+   "missing": "item railways:track_byg_embur_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_embur_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_embur_wide",
+   "missing": "item railways:track_byg_embur_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_embur_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_ether",
+   "missing": "item railways:track_byg_ether",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_ether.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_ether_narrow",
+   "missing": "item railways:track_byg_ether_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_ether_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_ether_wide",
+   "missing": "item railways:track_byg_ether_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_ether_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_fir",
+   "missing": "item railways:track_byg_fir",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_fir.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_fir_narrow",
+   "missing": "item railways:track_byg_fir_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_fir_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_fir_wide",
+   "missing": "item railways:track_byg_fir_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_fir_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_green_enchanted",
+   "missing": "item railways:track_byg_green_enchanted",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_green_enchanted.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_green_enchanted_narrow",
+   "missing": "item railways:track_byg_green_enchanted_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_green_enchanted_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_green_enchanted_wide",
+   "missing": "item railways:track_byg_green_enchanted_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_green_enchanted_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_holly",
+   "missing": "item railways:track_byg_holly",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_holly.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_holly_narrow",
+   "missing": "item railways:track_byg_holly_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_holly_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_holly_wide",
+   "missing": "item railways:track_byg_holly_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_holly_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_imparius",
+   "missing": "item railways:track_byg_imparius",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_imparius.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_imparius_narrow",
+   "missing": "item railways:track_byg_imparius_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_imparius_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_imparius_wide",
+   "missing": "item railways:track_byg_imparius_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_imparius_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_jacaranda",
+   "missing": "item railways:track_byg_jacaranda",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_jacaranda.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_jacaranda_narrow",
+   "missing": "item railways:track_byg_jacaranda_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_jacaranda_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_jacaranda_wide",
+   "missing": "item railways:track_byg_jacaranda_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_jacaranda_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_lament",
+   "missing": "item railways:track_byg_lament",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_lament.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_lament_narrow",
+   "missing": "item railways:track_byg_lament_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_lament_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_lament_wide",
+   "missing": "item railways:track_byg_lament_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_lament_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_mahogany",
+   "missing": "item railways:track_byg_mahogany",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_mahogany.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_mahogany_narrow",
+   "missing": "item railways:track_byg_mahogany_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_mahogany_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_mahogany_wide",
+   "missing": "item railways:track_byg_mahogany_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_mahogany_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_maple",
+   "missing": "item railways:track_byg_maple",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_maple.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_maple_narrow",
+   "missing": "item railways:track_byg_maple_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_maple_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_maple_wide",
+   "missing": "item railways:track_byg_maple_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_maple_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_nightshade",
+   "missing": "item railways:track_byg_nightshade",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_nightshade.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_nightshade_narrow",
+   "missing": "item railways:track_byg_nightshade_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_nightshade_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_nightshade_wide",
+   "missing": "item railways:track_byg_nightshade_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_nightshade_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_palm",
+   "missing": "item railways:track_byg_palm",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_palm.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_palm_narrow",
+   "missing": "item railways:track_byg_palm_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_palm_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_palm_wide",
+   "missing": "item railways:track_byg_palm_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_palm_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_pine",
+   "missing": "item railways:track_byg_pine",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_pine.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_pine_narrow",
+   "missing": "item railways:track_byg_pine_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_pine_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_pine_wide",
+   "missing": "item railways:track_byg_pine_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_pine_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_rainbow_eucalyptus",
+   "missing": "item railways:track_byg_rainbow_eucalyptus",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_rainbow_eucalyptus.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_rainbow_eucalyptus_narrow",
+   "missing": "item railways:track_byg_rainbow_eucalyptus_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_rainbow_eucalyptus_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_rainbow_eucalyptus_wide",
+   "missing": "item railways:track_byg_rainbow_eucalyptus_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_rainbow_eucalyptus_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_redwood",
+   "missing": "item railways:track_byg_redwood",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_redwood.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_redwood_narrow",
+   "missing": "item railways:track_byg_redwood_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_redwood_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_redwood_wide",
+   "missing": "item railways:track_byg_redwood_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_redwood_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_skyris",
+   "missing": "item railways:track_byg_skyris",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_skyris.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_skyris_narrow",
+   "missing": "item railways:track_byg_skyris_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_skyris_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_skyris_wide",
+   "missing": "item railways:track_byg_skyris_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_skyris_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_sythian",
+   "missing": "item railways:track_byg_sythian",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_sythian.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_sythian_narrow",
+   "missing": "item railways:track_byg_sythian_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_sythian_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_sythian_wide",
+   "missing": "item railways:track_byg_sythian_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_sythian_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_white_mangrove",
+   "missing": "item railways:track_byg_white_mangrove",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_white_mangrove.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_white_mangrove_narrow",
+   "missing": "item railways:track_byg_white_mangrove_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_white_mangrove_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_white_mangrove_wide",
+   "missing": "item railways:track_byg_white_mangrove_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_white_mangrove_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_willow",
+   "missing": "item railways:track_byg_willow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_willow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_willow_narrow",
+   "missing": "item railways:track_byg_willow_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_willow_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_willow_wide",
+   "missing": "item railways:track_byg_willow_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_willow_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_witch_hazel",
+   "missing": "item railways:track_byg_witch_hazel",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_witch_hazel.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_witch_hazel_narrow",
+   "missing": "item railways:track_byg_witch_hazel_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_witch_hazel_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_witch_hazel_wide",
+   "missing": "item railways:track_byg_witch_hazel_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_witch_hazel_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_zelkova",
+   "missing": "item railways:track_byg_zelkova",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_zelkova.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_zelkova_narrow",
+   "missing": "item railways:track_byg_zelkova_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_zelkova_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_byg_zelkova_wide",
+   "missing": "item railways:track_byg_zelkova_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_byg_zelkova_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_rose",
+   "missing": "item railways:track_create_dd_rose",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_rose.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_rose_narrow",
+   "missing": "item railways:track_create_dd_rose_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_rose_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_rose_wide",
+   "missing": "item railways:track_create_dd_rose_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_rose_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_rubber",
+   "missing": "item railways:track_create_dd_rubber",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_rubber.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_rubber_narrow",
+   "missing": "item railways:track_create_dd_rubber_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_rubber_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_rubber_wide",
+   "missing": "item railways:track_create_dd_rubber_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_rubber_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_smoked",
+   "missing": "item railways:track_create_dd_smoked",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_smoked.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_smoked_narrow",
+   "missing": "item railways:track_create_dd_smoked_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_smoked_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_smoked_wide",
+   "missing": "item railways:track_create_dd_smoked_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_smoked_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_spirit",
+   "missing": "item railways:track_create_dd_spirit",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_spirit.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_spirit_narrow",
+   "missing": "item railways:track_create_dd_spirit_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_spirit_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_create_dd_spirit_wide",
+   "missing": "item railways:track_create_dd_spirit_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_create_dd_spirit_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_hexcasting_edified",
+   "missing": "item railways:track_hexcasting_edified",
+   "file": "kubejs/data/railways/loot_table/blocks/track_hexcasting_edified.json"
+  },
+  {
+   "table": "railways:blocks/track_hexcasting_edified_narrow",
+   "missing": "item railways:track_hexcasting_edified_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_hexcasting_edified_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_hexcasting_edified_wide",
+   "missing": "item railways:track_hexcasting_edified_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_hexcasting_edified_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_aspen",
+   "missing": "item railways:track_natures_spirit_aspen",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_aspen.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_aspen_narrow",
+   "missing": "item railways:track_natures_spirit_aspen_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_aspen_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_aspen_wide",
+   "missing": "item railways:track_natures_spirit_aspen_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_aspen_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_cypress",
+   "missing": "item railways:track_natures_spirit_cypress",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_cypress.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_cypress_narrow",
+   "missing": "item railways:track_natures_spirit_cypress_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_cypress_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_cypress_wide",
+   "missing": "item railways:track_natures_spirit_cypress_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_cypress_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_fir",
+   "missing": "item railways:track_natures_spirit_fir",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_fir.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_fir_narrow",
+   "missing": "item railways:track_natures_spirit_fir_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_fir_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_fir_wide",
+   "missing": "item railways:track_natures_spirit_fir_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_fir_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_ghaf",
+   "missing": "item railways:track_natures_spirit_ghaf",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_ghaf.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_ghaf_narrow",
+   "missing": "item railways:track_natures_spirit_ghaf_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_ghaf_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_ghaf_wide",
+   "missing": "item railways:track_natures_spirit_ghaf_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_ghaf_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_joshua",
+   "missing": "item railways:track_natures_spirit_joshua",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_joshua.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_joshua_narrow",
+   "missing": "item railways:track_natures_spirit_joshua_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_joshua_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_joshua_wide",
+   "missing": "item railways:track_natures_spirit_joshua_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_joshua_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_maple",
+   "missing": "item railways:track_natures_spirit_maple",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_maple.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_maple_narrow",
+   "missing": "item railways:track_natures_spirit_maple_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_maple_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_maple_wide",
+   "missing": "item railways:track_natures_spirit_maple_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_maple_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_olive",
+   "missing": "item railways:track_natures_spirit_olive",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_olive.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_olive_narrow",
+   "missing": "item railways:track_natures_spirit_olive_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_olive_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_olive_wide",
+   "missing": "item railways:track_natures_spirit_olive_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_olive_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_palo_verde",
+   "missing": "item railways:track_natures_spirit_palo_verde",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_palo_verde.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_palo_verde_narrow",
+   "missing": "item railways:track_natures_spirit_palo_verde_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_palo_verde_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_palo_verde_wide",
+   "missing": "item railways:track_natures_spirit_palo_verde_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_palo_verde_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_redwood",
+   "missing": "item railways:track_natures_spirit_redwood",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_redwood.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_redwood_narrow",
+   "missing": "item railways:track_natures_spirit_redwood_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_redwood_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_redwood_wide",
+   "missing": "item railways:track_natures_spirit_redwood_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_redwood_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_sugi",
+   "missing": "item railways:track_natures_spirit_sugi",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_sugi.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_sugi_narrow",
+   "missing": "item railways:track_natures_spirit_sugi_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_sugi_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_sugi_wide",
+   "missing": "item railways:track_natures_spirit_sugi_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_sugi_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_willow",
+   "missing": "item railways:track_natures_spirit_willow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_willow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_willow_narrow",
+   "missing": "item railways:track_natures_spirit_willow_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_willow_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_willow_wide",
+   "missing": "item railways:track_natures_spirit_willow_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_willow_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_wisteria",
+   "missing": "item railways:track_natures_spirit_wisteria",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_wisteria.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_wisteria_narrow",
+   "missing": "item railways:track_natures_spirit_wisteria_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_wisteria_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_natures_spirit_wisteria_wide",
+   "missing": "item railways:track_natures_spirit_wisteria_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_natures_spirit_wisteria_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_ancient",
+   "missing": "item railways:track_quark_ancient",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_ancient.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_ancient_narrow",
+   "missing": "item railways:track_quark_ancient_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_ancient_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_ancient_wide",
+   "missing": "item railways:track_quark_ancient_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_ancient_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_azalea",
+   "missing": "item railways:track_quark_azalea",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_azalea.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_azalea_narrow",
+   "missing": "item railways:track_quark_azalea_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_azalea_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_azalea_wide",
+   "missing": "item railways:track_quark_azalea_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_azalea_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_blossom",
+   "missing": "item railways:track_quark_blossom",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_blossom.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_blossom_narrow",
+   "missing": "item railways:track_quark_blossom_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_blossom_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_quark_blossom_wide",
+   "missing": "item railways:track_quark_blossom_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_quark_blossom_wide.json"
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "tfc:welding",
+  "first_input": {
+    "item": "tfc:metal/chestplate/red_steel"
+  },
+  "second_input": {
+    "item": "create:copper_backtank"
+  },
+  "tier": 5,
+  "result": {
+    "id": "create:netherite_backtank"
+  }
+}

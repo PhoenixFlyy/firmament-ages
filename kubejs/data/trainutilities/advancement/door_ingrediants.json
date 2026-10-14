@@ -1,0 +1,36 @@
+{
+  "parent": "create:conductor",
+  "criteria": {
+    "0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#trainutilities:door_ingrediants"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "frame": "task",
+    "show_toast": true,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.trainutilities.door_ingrediants.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "trainutilities:processing_unit"
+    },
+    "title": {
+      "translate": "advancement.trainutilities.door_ingrediants"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ]
+}
