@@ -33,6 +33,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -112,7 +113,9 @@ public final class AgeService {
         AgeSnapshot snap = AgeMirror.snapshotOrFallback(read, read.status() == AgeMirror.Status.OK ? null : fallbackSnapshot(worldDir));
         return switch (read.status()) {
             case OK -> new BootSnapshot(snap, BootSource.MIRROR, "mirror ok", mirror);
-            case MISSING -> new BootSnapshot(snap, BootSource.FALLBACK_NO_MIRROR, read.detail(), mirror);
+            // a world's first boot has no level.dat yet: no Ages were ever saved, nothing is lost
+            case MISSING -> new BootSnapshot(snap, BootSource.FALLBACK_NO_MIRROR,
+                Files.exists(worldDir.resolve("level.dat")) ? read.detail() : "new world, no Ages saved yet", mirror);
             case CORRUPT -> {
                 FirmagesCore.LOGGER.error("Age mirror {} is corrupt ({}); using the strict boot fallback", mirror, read.detail());
                 yield new BootSnapshot(snap, BootSource.FALLBACK_CORRUPT_MIRROR, read.detail(), mirror);

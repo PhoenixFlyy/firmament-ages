@@ -958,6 +958,7 @@ def recipe_records(full, tags, disabled):
 EMI_FROM_AGE = "age_1"  # firmages-core ServerConfig ui.emiFromAge default: EMI is off before it (ImmersionClient)
 AGE_NAMESPACES = os.path.join(REPO, "kubejs", "assets", "firmages", "age_namespaces.json")
 CONSTANTS_JS = os.path.join(REPO, "kubejs", "startup_scripts", "00_constants.js")
+CORE_MIXINS = os.path.join(REPO, "mod", "firmages-core", "src", "main", "resources", "firmages.mixins.json")
 # Workstations of recipe types that station_ages.js leaves to the Age of their mod: one item of each group has to
 # exist. A sequenced assembly needs the station of each of its steps.
 EMI_STATIONS = {
@@ -999,7 +1000,9 @@ def emi_checks(base, rows, tags, item_age, check):
       types   a shown recipe whose station (station_ages.js, EMI_STATIONS, STATION_ITEMS, the steps of a sequenced
               assembly) belongs to a later Age
       inputs  a shown recipe with an input that lists locked items next to unlocked ones as an item list (EMI drops
-              disabled members from tags, but an item list keeps them and shows the locked stack)"""
+              disabled members from tags, but an item list keeps them and shows the locked stack). Since firmages-core
+              0.9.1 `mixin/emi/ListEmiIngredientMixin` shows only the unlocked members of an item list (SPEC 21.11); while
+              firmages.mixins.json lists it, these lists are filtered the same way here and are no offenders."""
     path = os.path.join(base, "recipes_full.json")
     if not os.path.isfile(path):
         check("E-0 recipes_full.json present (run fa_dump_full)", False, [path])
@@ -1087,6 +1090,7 @@ def emi_checks(base, rows, tags, item_age, check):
             first = max(first, fluid_ix(f))
         recs.append((rid, r["type"], first, last, station_ix(jt if jt in EMI_STATIONS or jt in STATION_ITEMS
                                                               or jt in station_age else r["type"], j), lists))
+    lists_filtered = "emi.ListEmiIngredientMixin" in open(CORE_MIXINS, encoding="utf-8").read()
     early, mixed, shown = {}, {}, collections.Counter()
     for n in range(ix(EMI_FROM_AGE), len(AGES)):
         for rid, t, first, last, st, lists in recs:
@@ -1095,7 +1099,8 @@ def emi_checks(base, rows, tags, item_age, check):
             shown[AGES[n]] += 1
             if st > n:
                 early.setdefault((t, AGES[st] if st < never else "never"), {}).setdefault(AGES[n], []).append(rid)
-            bad = sorted({(x, AGES[m] if m < never else "disabled") for lst in lists for x, m in lst if m > n})
+            bad = [] if lists_filtered else sorted({(x, AGES[m] if m < never else "disabled")
+                                                     for lst in lists for x, m in lst if m > n})
             if bad:
                 mixed.setdefault(rid, [t, AGES[n], AGES[n], bad])[2] = AGES[n]
     print("    E-1 shown recipes per Age: " + ", ".join(f"{k}={shown[k]}" for k in AGES if shown[k]))
@@ -1104,7 +1109,7 @@ def emi_checks(base, rows, tags, item_age, check):
     ev += [f"{rid} [{t}] {a_}..{b_}: lists " + ", ".join(f"{x} ({st})" for x, st in bad[:3])
            for rid, (t, a_, b_, bad) in sorted(mixed.items(), key=lambda kv: (AGES.index(kv[1][1]), kv[0]))]
     print(f"    E-1 offenders: {len(early)} recipe types shown before their station, {len(mixed)} recipes with a locked "
-          f"item in an input list")
+          f"item in an input list" + (" (item lists filtered by firmages-core ListEmiIngredientMixin)" if lists_filtered else ""))
     check(f"E-1 recipe viewer leaks per Age ({EMI_FROM_AGE} to age_9): no recipe type shown before its station's Age, "
           f"no shown input that lists a locked item", not ev, ev)
 

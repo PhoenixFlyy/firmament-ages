@@ -41,6 +41,8 @@ LEVELS = {"WARN", "ERROR", "FATAL"}
 # do not match: none of them uses these words in this form.
 INFO_PROBLEM = re.compile(r"\b(Skipping recipe|Failed|Falling back|[Nn]ot found|Unable|[Mm]issing|Could ?n[o']t|"
                           r"Cannot|Can't|Ignoring|Invalid|Unknown)\b")
+# a passed self-test case names the problem it tested for ("mirror_missing_uses_fallback: missing -> fallback")
+SELFTEST_PASS = re.compile(r"^selftest \[PASS\] ")
 DONE = re.compile(r"\[net\.minecraft\.server\.dedicated\.DedicatedServer/\]: Done \(")
 NORMALISE = [
     (re.compile(r"\b[a-z0-9_.-]+:[a-z0-9_./-]+"), "<id>"),
@@ -76,7 +78,7 @@ def problem_lines(path, boot):
             if STDERR_CONT.match(msg):
                 continue  # frame of a trace whose head line is already counted
             yield "STDERR", m.group(2), logger, STDERR_PREFIX.sub("", msg)
-        elif level in LEVELS or (level == "INFO" and INFO_PROBLEM.search(msg)):
+        elif level in LEVELS or (level == "INFO" and INFO_PROBLEM.search(msg) and not SELFTEST_PASS.search(msg)):
             yield level, m.group(2), logger, msg
 
 

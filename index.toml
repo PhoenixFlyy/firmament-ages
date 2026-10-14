@@ -130,7 +130,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "81186cb54f107948857a5abac2cb8de4e38b607eb0053eb99704f88edf8b494b"
+hash = "1baa4f506076871158f4124194c2852745857c1bf2b8202c9e52d2a86625c31c"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -454,7 +454,7 @@ hash = "6778b0af66a2e9e7a0b9575a7eac0a547194c2b454b952e79d1d58bdd326d789"
 
 [[files]]
 file = "config/simplebackups-common.toml"
-hash = "2145eace2a03bc7fb1ea2764d3e8a477796a0c597da97639cbcf763b8bb98017"
+hash = "2c95584536898171c4045cdb7dc9d68cdfddb44f2db04a011c058700d50569c4"
 
 [[files]]
 file = "config/supplementaries-common.toml"
@@ -7088,7 +7088,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-0.9.1.jar"
-hash = "436bdec88aee69a4b39da7f378d73bd7c59a55563ed4f934919d47ec8d79bfee"
+hash = "739fa296be8709141a9e30071dbcfc4fcb32ecf44793a4d1a4b52082c950841e"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

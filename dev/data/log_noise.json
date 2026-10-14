@@ -1,12 +1,6 @@
 {
   "_doc": "Read by dev/check_log.py, which checks every WARN, ERROR and FATAL line, STDERR trace heads and INFO lines that report a problem. Each regex is searched in a log line without its timestamp, e.g. '[Server thread/WARN] [logger/]: message'. 'open' entries are checked first: a known problem whose fix lives outside the pack data (still counted as remaining). 'noise': a line the pack cannot fix, dropped; the reason says why. Fixed in the pack data and therefore NOT listed: n1/logfix (wrought iron MetalItem on reloads, Wooden Cog welding/milling/mixing/cutting, createdeco placard, Bells and Whistles metro window, TFC Regrowing Forests regrowth, trainutilities advancements, Sable copycat_catwalk, Twilight Forest dev_new_world, Lithium overwrite conflicts, compat loot tables via dev/gen_loot_silence.py); n4/warnings (KubeJS 'Skipping recipe ..., not a json object' and 'Failed to parse recipe ... Falling back' via dev/gen_recipe_overrides.py, 'Not all defined tags' via empty tag files in kubejs/data for aether, undergarden, cataclysm, rnr, firmalife and almostunified, FirmaSupplementaries sack loot 'Unreachable entry', ModernFix timing lines via config/modernfix-mixins.properties, Fzzy Config 'Deserialization Error' via the full config/cave_dweller/server_config.toml, 'firmages-server.toml is not correct' via the shipped config/firmages-server.toml, Modonomicon 'Recipe ... not found' for the eight permanently disabled Occultism rituals via hidden book entries in kubejs/data/occultism/modonomicon, SimpleBackups' forced save racing its zip ('Could not save data', AccessDeniedException) via saveAll = false).",
-  "open": [
-    {
-      "id": "tfcregistryapi-scan-residual",
-      "regex": "^\\[modloading-worker-\\d+/(ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/renderer/blockentity/BlockEntityRenderer|com/mojang/blaze3d/vertex/PoseStack|net/chauvedev/woodencog/compat/jei/WoodenCogJEI|net/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent) for invalid dist DEDICATED_SERVER$|WARN\\] \\[mixin/\\]: Error loading class: (net/minecraft/client/renderer/blockentity/BlockEntityRenderer|com/mojang/blaze3d/vertex/PoseStack) \\(java\\.lang\\.RuntimeException: Attempted to load class \\S+ for invalid dist DEDICATED_SERVER\\)$|FATAL\\] \\[mixin/\\]: Mixin apply for mod azimuth failed azimuth\\.mixins\\.json:super_behavior\\.SafeBlockEntityRendererMixin from mod azimuth -> com\\.simibubi\\.create\\.foundation\\.blockEntity\\.renderer\\.SafeBlockEntityRenderer: )",
-      "reason": "About 112 lines per boot: inside the 17 TFC mod files it still scans, TFCRegistryAPI Class.forName()s every class, client classes fail; fix pending in firmages-core SPEC 20 (check the class bytes for an enum before Class.forName)."
-    }
-  ],
+  "open": [],
   "noise": [
     {
       "id": "distxform-boot-client-mixins",
@@ -47,6 +41,11 @@
       "id": "modernfix-private-overwrite",
       "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: Static binding violation: PRIVATE @Overwrite method \\S+ in modernfix",
       "reason": "ModernFix's own overwrites; mixin widens them as intended."
+    },
+    {
+      "id": "modernfix-user-override",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[ModernFix/\\]: Option 'mixin\\.feature\\.measure_time' overriden \\(by user configuration\\) to 'false'$",
+      "reason": "ModernFix warns once for every option a user overrides, also through a JVM property (javap ModernFixMixinPlugin.lambda$new$0: isOverridden -> warn); the pack's one override (config/modernfix-mixins.properties) stops its two timing WARNs per start, and no override is silent."
     },
     {
       "id": "kubejs-optional-plugins",
