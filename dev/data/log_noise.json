@@ -1,175 +1,117 @@
 {
-  "_doc": "Read by dev/check_log.py. Each regex is searched in a log line without its timestamp, e.g. '[Server thread/ERROR] [logger/]: message'. \"warn\": true marks a WARN-only entry (checked with --warn). 'noise': harmless, dropped (reason says why). 'open' entries are checked first. 'open': a known problem whose fix lives elsewhere; folded into one group and still counted as remaining. Source: Modpack-Planung/research-raw/fb3-server-log-triage.md (01:25 and 01:59 boots of 2026-10-14). Fixed in the pack data by n1/logfix and therefore NOT listed: wrought iron MetalItem warning, Wooden Cog welding/milling/mixing/cutting, createdeco placard, Bells and Whistles metro window, TFC Regrowing Forests dttfc/fig/cacao regrowth, trainutilities advancements, Sable copycat_catwalk, Twilight Forest dev_new_world, Lithium overwrite conflicts, compat loot tables (dev/gen_loot_silence.py).",
-  "open": [],
+  "_doc": "Read by dev/check_log.py, which checks every WARN, ERROR and FATAL line, STDERR trace heads and INFO lines that report a problem. Each regex is searched in a log line without its timestamp, e.g. '[Server thread/WARN] [logger/]: message'. 'open' entries are checked first: a known problem whose fix lives outside the pack data (still counted as remaining). 'noise': a line the pack cannot fix, dropped; the reason says why. Fixed in the pack data and therefore NOT listed: n1/logfix (wrought iron MetalItem on reloads, Wooden Cog welding/milling/mixing/cutting, createdeco placard, Bells and Whistles metro window, TFC Regrowing Forests regrowth, trainutilities advancements, Sable copycat_catwalk, Twilight Forest dev_new_world, Lithium overwrite conflicts, compat loot tables via dev/gen_loot_silence.py); n4/warnings (KubeJS 'Skipping recipe ..., not a json object' and 'Failed to parse recipe ... Falling back' via dev/gen_recipe_overrides.py, 'Not all defined tags' via empty tag files in kubejs/data for aether, undergarden, cataclysm, rnr, firmalife and almostunified, FirmaSupplementaries sack loot 'Unreachable entry', ModernFix timing lines via config/modernfix-mixins.properties, Fzzy Config 'Deserialization Error' via the full config/cave_dweller/server_config.toml, 'firmages-server.toml is not correct' via the shipped config/firmages-server.toml, Modonomicon 'Recipe ... not found' for the eight permanently disabled Occultism rituals via hidden book entries in kubejs/data/occultism/modonomicon, SimpleBackups' forced save racing its zip ('Could not save data', AccessDeniedException) via saveAll = false).",
+  "open": [
+    {
+      "id": "tfcregistryapi-scan-residual",
+      "regex": "^\\[modloading-worker-\\d+/(ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/renderer/blockentity/BlockEntityRenderer|com/mojang/blaze3d/vertex/PoseStack|net/chauvedev/woodencog/compat/jei/WoodenCogJEI|net/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent) for invalid dist DEDICATED_SERVER$|WARN\\] \\[mixin/\\]: Error loading class: (net/minecraft/client/renderer/blockentity/BlockEntityRenderer|com/mojang/blaze3d/vertex/PoseStack) \\(java\\.lang\\.RuntimeException: Attempted to load class \\S+ for invalid dist DEDICATED_SERVER\\)$|FATAL\\] \\[mixin/\\]: Mixin apply for mod azimuth failed azimuth\\.mixins\\.json:super_behavior\\.SafeBlockEntityRendererMixin from mod azimuth -> com\\.simibubi\\.create\\.foundation\\.blockEntity\\.renderer\\.SafeBlockEntityRenderer: )",
+      "reason": "About 112 lines per boot: inside the 17 TFC mod files it still scans, TFCRegistryAPI Class.forName()s every class, client classes fail; fix pending in firmages-core SPEC 20 (check the class bytes for an enum before Class.forName)."
+    }
+  ],
   "noise": [
     {
       "id": "distxform-boot-client-mixins",
       "regex": "^\\[(main|modloading-sync-worker)/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/multiplayer/(ClientLevel|ClientPacketListener)|net/minecraft/client/gui/screens/inventory/HangingSignEditScreen|net/minecraft/client/gui/screens/Screen|com/mojang/blaze3d/systems/RenderSystem|net/minecraft/client/gui/components/Button) for invalid dist DEDICATED_SERVER",
-      "reason": "7 per boot: client mixins declared in common mixin configs (astikorcartsredux ClientLevel/ClientPacketListener, afc HangingSignEditScreen, struts RenderSystem), one Button reference during IMC, and TFC's own two ClientLevel probes that TFC follows with '^ This is fine'. The mixin is skipped on the server; nothing is missing. Which client class TFC's probe touches first depends on class-loading order: in the 0.9.0 night run one boot of seven showed net/minecraft/client/gui/screens/Screen (twice, each followed by TFC's '^ This is fine') instead of ClientLevel."
-    },
-    {
-      "id": "tfcregistryapi-scan-residual",
-      "regex": "^\\[modloading-worker-\\d+/(ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/renderer/blockentity/BlockEntityRenderer|com/mojang/blaze3d/vertex/PoseStack|net/chauvedev/woodencog/compat/jei/WoodenCogJEI|net/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent) for invalid dist DEDICATED_SERVER$|WARN\\] \\[mixin/\\]: Error loading class: (net/minecraft/client/renderer/blockentity/BlockEntityRenderer|com/mojang/blaze3d/vertex/PoseStack) \\(java\\.lang\\.RuntimeException: Attempted to load class \\S+ for invalid dist DEDICATED_SERVER\\)$|FATAL\\] \\[mixin/\\]: Mixin apply for mod azimuth failed azimuth\\.mixins\\.json:super_behavior\\.SafeBlockEntityRendererMixin from mod azimuth -> com\\.simibubi\\.create\\.foundation\\.blockEntity\\.renderer\\.SafeBlockEntityRenderer: )",
-      "reason": "About 112 lines per boot (0.9.0 night run: 56 DISTXFORM ERROR of four client classes, 42 mixin WARN of two of them, 14 azimuth FATAL), all within the TFCRegistryAPI enum scan during mod construction. firmages-core (SPEC 20) limits the scan to the mod files that are or depend on tfc or tfcregistryapi (17 of 178 on the pack server), but inside those files the API still Class.forName()s every class whose path lacks 'client' or 'mixin': client classes of the TFC addons (woodencog's JEI compat and block entity renderers, tooltip components, player models) fail with DISTXFORM, and the azimuth mixin into Create's client-only SafeBlockEntityRenderer fails when one of them is loaded. The API catches each failure, the classes are client-only and never used on a dedicated server, nothing is missing (check_registry_parity.py). Before 0.8.1 the same scan over all mods wrote about 17k such lines (the former open entry tfcregistryapi-class-scan). Narrowed in 0.9.0 to the exact signatures seen (thread, logger, message), so a new client-class failure or a mixin error of another mod during mod construction shows up again."
+      "reason": "7 per boot: client mixins in the common mixin configs of astikorcartsredux, afc and struts, a Button reference during IMC and TFC's own two client probes ('^ This is fine'); skipped on the server, nothing missing."
     },
     {
       "id": "rhino-dump-declared-methods",
       "regex": "^\\[Server thread/INFO\\] \\[STDERR/\\]: \\[dev\\.latvian\\.mods\\.rhino\\.CachedClassInfo:getDeclaredMethods:\\d+\\]: \\[Rhino\\] Failed to get declared methods for \\S+",
-      "reason": "18 STDERR traces, only when a developer runs /fa_dump (kubejs/server_scripts/debug/dump.js, not used in play): passing a recipe result's Item to Java makes Rhino read the item class, and items whose methods name client-only types (Create potato cannon, Ad Astra jet suit, Mystical Agriculture soul jar, Brandon's Core equipped-model items, CRN navigator, Draconic ender collection module without Ender Storage) cannot be reflected on a dedicated server. Rhino falls back and the dump is complete (0 recipes without a readable result); the same 18 lines are in every fa_dump boot since 0.7.x."
+      "reason": "Only with the developer command /fa_dump: Rhino cannot reflect item classes whose methods name client-only types; the dump is complete."
     },
     {
       "id": "rhino-dump-distxform",
       "regex": "^\\[Server thread/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/player/AbstractClientPlayer|net/minecraft/client/model/HumanoidModel|com/mojang/blaze3d/vertex/PoseStack|net/minecraft/client/multiplayer/ClientLevel) for invalid dist DEDICATED_SERVER$",
-      "reason": "15 lines, the DISTXFORM half of rhino-dump-declared-methods: each Rhino reflection failure during /fa_dump first logs the client class it tried to load (player model and pose types in the signatures of the same item classes). Only with /fa_dump; nothing is loaded or missing."
+      "reason": "Only with /fa_dump: the DISTXFORM half of rhino-dump-declared-methods."
     },
     {
       "id": "far-chunk-setblock",
       "regex": "^\\[[^\\]]+/ERROR\\] \\[net\\.minecraft\\.Util/\\]: Detected setBlock in a far chunk \\[",
-      "reason": "One worldgen feature writing outside its 3x3 region (01:59 boot, chunk [-114,-114], status minecraft:features); vanilla drops that block. Harmless once; if the count grows with exploration, find the feature (triage section 3)."
+      "reason": "A mod's worldgen feature writes outside its 3x3 region (seen once, 2026-10-14 01:59); vanilla drops that block; the feature is not named in the log."
     },
     {
       "id": "mixin-optional-targets",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: (@Mixin target \\S+ was not found|Error loading class: \\S+ \\(java\\.lang\\.(ClassNotFoundException|RuntimeException: Attempted to load class \\S+ for invalid dist DEDICATED_SERVER))",
-      "reason": "Optional mixin targets of absent mods (Dynamic Trees, Functional Storage, Quark, an old Lithium package, JetBrains annotations) and client targets on the server. The mixin is skipped."
+      "reason": "Mods' mixin configs name targets of absent mods (Dynamic Trees, Functional Storage, Quark, Farmer's Delight, old Lithium) or client classes; mixin skips them."
     },
     {
       "id": "mixin-refmap",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: Reference map '[^']+' for \\S+ could not be read",
-      "reason": "NeoForge 1.21 runs with Mojang names, refmaps are not needed."
+      "reason": "Mods ship refmap names in their mixin configs; NeoForge 1.21 runs with Mojang names and needs none."
     },
     {
       "id": "mixin-unique-duplicates",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: Discarding @Unique public method \\S+ in \\S+ from mod (copycats|evolvedmekanism) because it already exists",
-      "reason": "Copycats and Evolved Mekanism add methods the target class already has; mixin keeps the target's."
+      "reason": "Copycats and Evolved Mekanism add methods their target classes already have; mixin keeps the target's."
     },
     {
       "id": "modernfix-private-overwrite",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: Static binding violation: PRIVATE @Overwrite method \\S+ in modernfix",
-      "reason": "ModernFix's own overwrites; applied as intended."
-    },
-    {
-      "id": "recipe-condition-false",
-      "warn": true,
-      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.world\\.item\\.crafting\\.RecipeManager/\\]: Skipping recipe \\S+, not a json object$",
-      "reason": "Intentional removals by mods: files with neoforge:false conditions (TFC 262 vanilla recipes, TFCAstikorCarts 68, Firmalife a few TFC ones). One line per recipe and data load."
-    },
-    {
-      "id": "kubejs-schema-fallback",
-      "warn": true,
-      "regex": "^\\[[^\\]]+/WARN\\] \\[KubeJS Server/\\]: (KubeRecipe|RecipeComponentValue)\\.java#\\d+: Failed to parse recipe '(createframed|createdieselgenerators|create_mechanical_spawner|woodencog:cutting/(slab|stair)/(loam|sandy_loam|silt|silty_loam)_brick_)",
-      "reason": "KubeJS's recipe schema is stricter than the mods' codecs; the recipe still loads unchanged through the vanilla path (createframed 47, createdieselgenerators 18, create_mechanical_spawner 1). The 8 woodencog old-soil cutting recipes are read before global_removals.js removes them, so their KubeJS warning stays while the RecipeManager error is gone."
+      "reason": "ModernFix's own overwrites; mixin widens them as intended."
     },
     {
       "id": "kubejs-optional-plugins",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[KubeJS/\\]: Plugin \\S+ (does not load on server side|does not have required mod)",
-      "reason": "Optional KubeJS plugins (client plugin, ftbfiltersystem, worldjs)."
-    },
-    {
-      "id": "tags-not-present",
-      "warn": true,
-      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.core\\.MappedRegistry/\\]: Not all defined tags for registry ResourceKey\\[minecraft:root / minecraft:(item|block|worldgen/biome)\\] are present in data pack",
-      "reason": "Tag keys referenced in code without data (cataclysm tool tiers, rnr:mineable_with_mattock, firmalife item keys, aether/undergarden biome tags; almostunified emi_strict/hide only in the first tag pass of a reload)."
+      "reason": "KubeJS reports its optional plugins (client plugin, ftbfiltersystem, worldjs) that do not apply here."
     },
     {
       "id": "apotheosis-deep-dungeons",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.world\\.level\\.levelgen\\.heightproviders\\.UniformHeight/\\]: Empty height range",
-      "reason": "Apotheosis boss_dungeon_deep, boss_dungeon_2_deep and rogue_spawner_deep in a dimension whose floor is at 0 or above; the feature skips."
+      "reason": "Apotheosis adds its deep dungeons (y below 0) to every biome; in a dimension whose floor is at 0 or above the range is empty and the feature skips."
     },
     {
       "id": "jarjar-duplicates",
-      "warn": true,
       "regex": "^\\[main/WARN\\] \\[net\\.neoforged\\.jarjar\\.selection\\.JarSelector/\\]: Attempted to select a dependency jar",
-      "reason": "dragonlib, betteradvancedtooltips and architectury are present standalone and jar-in-jar; the standalone jar is used."
+      "reason": "dragonlib, betteradvancedtooltips and architectury are CurseForge dependencies and jar-in-jar of other mods; NeoForge uses the standalone jar."
     },
     {
       "id": "vanilla-pack-schema",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.server\\.packs\\.VanillaPackResourcesBuilder/\\]: Assets URL '[^']+' uses unexpected schema",
       "reason": "NeoForge dedicated-server classpath quirk."
     },
     {
       "id": "draconic-startup-joke",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[draconicevolution/\\]: ",
-      "reason": "Draconic Evolution's 'Reactor detonation initiated / Explosion Imminent!!!' log at class init."
+      "reason": "Draconic Evolution's 'Reactor detonation initiated / Explosion Imminent' lines at class init, unconditional."
     },
     {
       "id": "mod-notices",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[(com\\.kipti\\.bnb\\.CreateBitsnBobs|com\\.cake\\.azimuth\\.Azimuth)/\\]: ",
-      "reason": "Informational notices of Create Bits 'n' Bobs and Azimuth at construction."
+      "reason": "Notices of Create Bits 'n' Bobs (cogwheel assets, default suppression on) and Azimuth (tracks fork) at construction."
     },
     {
       "id": "evolvedmekanism-config-rewrite",
-      "warn": true,
       "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.neoforged\\.fml\\.config\\.ConfigTracker/CONFIG\\]: Configuration file \\S+EvolvedMekanism\\S+general\\.toml is not correct\\. Correcting",
-      "reason": "Evolved Mekanism config spec bug: rewritten on every boot with unchanged values."
-    },
-    {
-      "id": "modernfix-timing",
-      "warn": true,
-      "regex": "^\\[[^\\]]+/WARN\\] \\[ModernFix/\\]: (Initial datapack load took|Dedicated server took)",
-      "reason": "Timing information."
-    },
-    {
-      "id": "cant-keep-up-after-age-reload",
-      "warn": true,
-      "regex": "^\\[Server thread/WARN\\] \\[net\\.minecraft\\.server\\.MinecraftServer/\\]: Can't keep up! Is the server overloaded\\?",
-      "reason": "Follows the firmages-core Age reload (warm-up after boot and each Age grant, 7 to 15 s full datapack reload; triage finding B, owner firmages-core). Check by hand that each one directly follows an 'Age reload ... finished' line."
-    },
-    {
-      "id": "moved-too-quickly-after-age-reload",
-      "warn": true,
-      "regex": "^\\[Server thread/WARN\\] \\[net\\.minecraft\\.server\\.network\\.ServerGamePacketListenerImpl/\\]: \\S+ moved too quickly!",
-      "reason": "Rubber-banding of a player who moved during the Age reload freeze (triage finding B, owner firmages-core); check it as cant-keep-up-after-age-reload."
+      "reason": "Evolved Mekanism 1.2.1 defines apt.energyStorage and energyPerInput as Long; TOML reads both as Integer, so the file is rewritten at every start (javap EMGeneralConfig)."
     },
     {
       "id": "ftblibrary-stage-provider",
-      "warn": true,
       "regex": "^\\[Server thread/WARN\\] \\[FTB Library/\\]: Overriding existing game stages provider",
-      "reason": "ProgressiveStages takes over the stage provider from KubeJS Stages on purpose (reversed at shutdown)."
+      "reason": "ProgressiveStages takes the stage provider over from KubeJS Stages on purpose (and hands it back at shutdown)."
     },
     {
       "id": "modonomicon-gated-recipes",
-      "warn": true,
       "regex": "^\\[Server thread/WARN\\] \\[Modonomicon/\\]: Recipe \\S+ \\(of type \\S+\\) not found\\.$",
-      "reason": "Occultism and Theurgy book pages point to recipes the Age gate (or age_items/disabled) removed; the count falls as Ages unlock."
+      "reason": "Below the Arcane and later Ages, Occultism and Theurgy book pages show recipes the Age gate still holds back (books are built at the first join); none at age_9."
     },
     {
       "id": "tfc-wrought-iron-first-load",
-      "warn": true,
       "regex": "^\\[main/WARN\\] \\[net\\.dries007\\.tfc\\.util\\.MetalItem/\\]: Item (tfc:metal/ingot/wrought_iron|twilightforest:wrought_iron_bar) was inferred to match multiple metals (wrought_iron and iron|iron and wrought_iron), using former$",
-      "reason": "2 lines, once per server start (main thread). A dedicated server reads its datapacks before it loads the server configs, so TFC's first metal inference runs without inferredMetals = [\"ingots/iron\", \"double_ingots/iron\"] (config/tfc-server.toml) and picks iron or wrought_iron at random. Every later datapack load infers again with the config: in 0.8.0 logs the warning came at each Age reload, in the 0.8.1 night run only at the first load and never at the firmages-core warm-up reload right after the start, so the ingot piles in play use wrought_iron. Clients get the server config before the tags."
+      "reason": "2 lines per start: a dedicated server loads its datapacks before TFC's server config, so inferredMetals (defaultconfigs/tfc-server.toml) applies from the next data load on."
     },
     {
       "id": "everycomp-hazardous-banner",
-      "warn": true,
       "regex": "^\\[modloading-worker-\\d+/WARN\\] \\[Every Compat/\\]:\\s*$",
-      "reason": "Every Compat prints a multi-line ATTENTION banner (head line is blank) whenever config/everycomp-hazardous.toml limits its wood types (conditional registration). The pack ships that file on purpose (n3/deco P2: TFC and AFC woods only, twilightforest module off); the banner proves the file is read."
+      "reason": "Every Compat's ATTENTION banner whenever config/everycomp-hazardous.toml limits its wood types (n3/deco P2, kept on purpose)."
     },
     {
       "id": "supplementaries-white-dye-diffuse",
-      "warn": true,
       "regex": "^\\[modloading-worker-\\d+/WARN\\] \\[Supplementaries/\\]: Dye color white produced diffuse color -1 \\(white\\), this should never happen$",
-      "reason": "Supplementaries 3.9.9 checks its own dye colour table at start; white maps to -1 (0xFFFFFF) and trips its sanity log. Once per start, no effect on any block or item."
+      "reason": "Supplementaries 3.9.9 checks its own dye colour table at start and trips on white; no effect on any block or item."
     },
     {
-      "id": "firmasupps-soap-empty-ingredient",
-      "warn": true,
-      "regex": "^\\[[^/\\]]+/WARN\\] \\[KubeJS Server/\\]: RecipeComponentValue\\.java#\\d+: Failed to parse recipe 'firmasupps:crafting/soap/clean_tfc_(bricks_alabaster|candle)\\[minecraft:crafting_shapeless\\]' @ \\[ingredients\\]\\[0\\]! Falling back to vanilla: ",
-      "reason": "Two FirmaSupplementaries 2.1.1 soap-cleaning recipes start with a tag ingredient KubeJS reads as empty; KubeJS falls back to the vanilla parser and the recipes load unchanged (they are in the fa_dump)."
-    },
-    {
-      "id": "firmasupps-sack-loot-unreachable",
-      "warn": true,
-      "regex": "^\\[[^/\\]]+/WARN\\] \\[net\\.minecraft\\.server\\.ReloadableServerRegistries/\\]: Found loot table element validation problem in \\{minecraft:loot_table:firmasupps:blocks/sack\\}\\.pools\\[0\\]\\.entries\\[0\\]: Unreachable entry!$",
-      "reason": "FirmaSupplementaries' sack loot table has an alternatives entry after an unconditional one; vanilla's validator flags the dead branch at every datapack load. The sack still drops itself with its contents."
+      "id": "moonlight-quark-color-sets",
+      "regex": "^\\[main/INFO\\] \\[Moonlight/\\]: Failed to load custom color set definition \\{\"id\":\"quark:(rune|shard)\",",
+      "reason": "Moonlight ships color sets for Quark (absent) and reads every pack's copy of the file, so an override cannot replace them."
     }
   ]
 }

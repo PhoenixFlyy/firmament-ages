@@ -1,0 +1,183 @@
+#Machine-recipe Age gate and Age reloads
+[gate]
+	#Recipe filter on/off (off = log only).
+	enabled = true
+	#Fail-strict Age snapshot for the initial datapack load when there is no valid mirror file.
+	#Keep it equal to the ProgressiveStages starting stages. 'dawn' is always included.
+	bootFallbackStages = ["dawn"]
+	#Ticks between an Age change and the Age swap (or datapack reload).
+	# Default: 60
+	# Range: 0 ~ 1200
+	reloadDelayTicks = 60
+	#Further Age changes extend the pending reload up to this many ticks after the first request.
+	# Default: 100
+	# Range: 0 ~ 2400
+	coalesceTicks = 100
+	#Recipe types that are never filtered (world data).
+	exemptRecipeTypes = ["immersiveengineering:mineral_mix", "tfc:collapse", "tfc:landslide"]
+	#Recipe ids that are always kept.
+	allowRecipes = []
+	#Recipe ids that are always dropped.
+	denyRecipes = []
+	#Swap (or reload) when an Age is revoked.
+	reloadOnRevoke = true
+	#Dedicated server, only with ageSwap = false: one datapack reload with the same Ages shortly after start, while no
+	#player is online, so the first Age reload players wait for runs warm (the first reload after a boot is about 1 s slower).
+	#Skipped when a boot reconcile reload runs anyway, when a player is online or any reload already ran.
+	warmupReload = true
+	#Ticks after server start before the warm-up reload.
+	# Default: 20
+	# Range: 0 ~ 6000
+	warmupDelayTicks = 20
+	#An Age change re-filters the recipes kept from the last datapack load, rebinds the prospecting and miner tags,
+	#flushes the machine caches and sends the recipes to the players (about a second), instead of reloading every datapack
+	#(9 to 15 s with the whole server frozen). false = the old full reload on every Age change. /reload, /firmages reload and
+	#the boot reconcile always reload in full.
+	ageSwap = true
+
+#Miner filter (m3)
+[miner]
+	ieExcavator = true
+	oreGuard = true
+
+#Stage-aware prospecting (m1): ore blocks of locked Ages leave tfc:prospectable and precisionprospecting:prospectable_mineral
+[prospecting]
+	enabled = true
+
+#Draconic reactor refuelling (m4)
+[reactor]
+	#Stabilizers and injectors take awakened draconium and give chaos fragments to pipes while the reactor is COLD.
+	itemHandler = true
+
+	#firmages:reactor_controller: shuts the reactor down, swaps chaos for fuel when COLD and emits redstone when READY.
+	#It never starts the reactor (no charge, no activation): starting stays a player action.
+	[reactor.controller]
+		enabled = true
+		#Converted share (chaos / (fuel + chaos)) at which a running reactor is shut down; 0.80 = 20 % fuel left.
+		# Default: 0.8
+		# Range: 0.0 ~ 1.0
+		shutdownAtConversion = 0.8
+		#Fuel the swap tops up to before READY (10368 = 8 awakened draconium blocks, the maximum).
+		#Also met once not even a nugget fits any more.
+		# Default: 10368
+		# Range: 0 ~ 10383
+		minFuel = 10368
+		#Chaos that may stay in the reactor at READY. A rest below 16 always stays (no fragment holds it).
+		# Default: 0
+		# Range: 0 ~ 10383
+		maxChaos = 0
+
+#The Shrine
+[shrine]
+	# Default: 10
+	# Range: 1 ~ 600
+	prayerSeconds = 10
+	# Default: 4
+	# Range: 0 ~ 600
+	minPrayerSeconds = 4
+	# Default: 6
+	# Range: 1 ~ 32
+	prayRadius = 6
+	#Thin idle beam in the colour of the latest awakened Age while the heart is lit and the shrine intact;
+	#gold after the finale. Players can hide it on their side (firmages-client.toml effects.idleBeam).
+	permanentBeam = true
+	clearWeather = true
+	#Maintenance mode (sneak and punch the heart with an empty hand): seconds until it ends by itself. Only while it is on, consecrated shrine blocks can be broken.
+	# Default: 60
+	# Range: 5 ~ 3600
+	maintenanceSeconds = 60
+	#Ticks the consecration of a ring takes, from the heart outward (after the Age reload).
+	# Default: 120
+	# Range: 0 ~ 1200
+	consecrationTicks = 120
+
+	[shrine.sanctuary]
+		# Default: 12
+		# Range: 0 ~ 256
+		baseRadius = 12
+		# Default: 4
+		# Range: 0 ~ 64
+		perTier = 4
+
+	#Blessing effects (attributes, status effects, XP) act on players within the sanctuary radius of the heart while the shrine is intact.
+	[shrine.blessings]
+		#true: attribute and XP blessings act everywhere (team-wide, SPEC 7.6); status effects stay near the shrine.
+		everywhere = false
+
+[debug]
+	#Enables /firmages ages simulate (self-tests only).
+	allowSimulate = false
+
+#The Origin and the Gathering at its altar (the end-boss trigger)
+[origin]
+	#Every online player (spectators and idle players excepted) must stand this close to the altar to start the fight.
+	# Default: 6
+	# Range: 1 ~ 32
+	gatherRadius = 6
+	#Seconds before a broken-up Gathering can start the fight again.
+	# Default: 30
+	# Range: 0 ~ 3600
+	gatherCooldownSeconds = 30
+	#Gateways to Eternity gate the end-boss script opens at the Gathering; only its completion in The Origin
+	#summons the final boss (read by the script through FirmAges.finaleGateway()).
+	finaleGateway = "firmages:the_origin"
+	#A player who has not moved or acted for this many minutes is not waited for at the altar; 0 = wait for everybody.
+	# Default: 5
+	# Range: 0 ~ 1440
+	gatherIdleMinutes = 5
+
+#ProgressiveStages client syncs
+[sync]
+	#Send the ProgressiveStages lock and stage sync once per player at the end of the tick instead of once per
+	#stage change (an Age grant changes several stages; each full sync costs about 0.3 s per player). Order unchanged.
+	coalesce = true
+
+#Immersion: what players see of the pack's machinery (SPEC 18)
+[ui]
+	#First Age with the recipe viewer (EMI). Before it EMI is hidden, its toggle key included.
+	emiFromAge = "age_1"
+	#First Age with the block-info overlay (Jade).
+	jadeFromAge = "age_1"
+	#Each player's first join shows the title and the one-time welcome screen.
+	welcome = true
+	#First Age with TerraFirmaCraft's calendar tab in the inventory, or "never".
+	calendarTabFromAge = "age_0"
+	#First Age with TerraFirmaCraft's climate tab, or "never".
+	climateTabFromAge = "age_2"
+	#First Age with TerraFirmaCraft's nutrition tab, or "never" (nutrition only gives a bonus here, see [tfc]).
+	nutritionTabFromAge = "never"
+	#First Age with TerraFirmaCraft's Field Guide tab, or "never". A hidden tab cannot be opened at all,
+	#its server packet included; the Field Guide item is not affected.
+	fieldGuideTabFromAge = "never"
+
+#TerraFirmaCraft survival (SPEC 18.6); food decay and tool durability stay TFC's
+[tfc]
+	#Thirst never drops (it stays full), so dehydration effects never apply.
+	disableThirst = true
+	#Nutrition only gives a bonus: the health modifier never drops below TFC's starting value
+	#(nutritionDefaultHealthModifier); a varied diet still raises it up to the maximum.
+	noNutritionMalus = true
+
+#Hardship of the early Ages (SPEC 19)
+[hardship]
+	#First Age without Cave Dweller ReEvolved, or "never". From this Age on it cannot spawn or be
+	#summoned, dwellers in loaded chunks vanish, saved ones are refused when their chunk loads, and its cave noises are muted.
+	caveDwellerUntilAge = "age_2"
+	#First Age without the hand-breaking rule, or "never" to turn it off. Below this Age blocks in
+	##firmages:needs_tool_early (logs, raw and hardened rock, ores, sandstone) cannot be broken without a correct tool:
+	#logs need an axe (a stone axe or hammer counts), rock and ore a pickaxe. Default age_0: the rule holds in Dawn only.
+	toolRuleUntilAge = "age_0"
+
+#Start-up performance (SPEC 20). Read once at game start, before worlds load: a dedicated server reads
+#<world>/serverconfig/firmages-server.toml, then config/, then defaultconfigs/; a client reads config/, then defaultconfigs/.
+[perf]
+	#TFCRegistryAPI looks for registry enums only in mod files that are or depend on TFC or
+	#TFCRegistryAPI, instead of loading every class of every mod seven times (~37 s, ~17k error lines). false = original scan.
+	limitTfcRegistryApiScan = true
+
+#One fellowship per server (SPEC 2.3)
+[team]
+	#At login a player outside an FTB Teams party joins the party that holds the Ages. A server without a party
+	#gets one: the player team with the most Ages founds it (on a new server the first player) and everybody online joins.
+	#false = players form parties themselves (/ftbteams party create, invite, join).
+	autoJoin = true

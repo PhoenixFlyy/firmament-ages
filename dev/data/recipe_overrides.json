@@ -1,0 +1,3280 @@
+{
+ "_doc": "Recipe overrides written by dev/gen_recipe_overrides.py into kubejs/data/<ns>/recipe/. 'why' names the reason in 'reasons'; 'from' is the jar whose file the override replaces. Regenerate with python dev/gen_recipe_overrides.py, check with --check.",
+ "reasons": {
+  "typeless-removal": "The mod removes this recipe with a file that has no type; KubeJS warned 'not a json object' at every data load. Same removal with a type: KubeJS skips it at DEBUG.",
+  "pack-removes": "KubeJS could not read the mod's old format ('Falling back to vanilla'), and the pack removes the recipe anyway (see the entry's note); removed before KubeJS reads it.",
+  "missing-item": "The recipe names an item that does not exist in this pack (see the entry's note); it failed to load on every data load and is removed before KubeJS reads it.",
+  "old-format": "Create 0.5 format that Create 6 still loads but KubeJS cannot read ('Falling back to vanilla'); rewritten in Create 6.0.10's own format, same recipe.",
+  "wrong-tag": "The recipe names a tag that does not exist, so its ingredient was empty and the recipe could not be crafted; KubeJS warned 'not allowed to be empty'. Points to the tag the mod meant."
+ },
+ "count": 538,
+ "by_reason": {
+  "modernise old-format": 48,
+  "remove missing-item": 8,
+  "remove pack-removes": 18,
+  "remove typeless-removal": 462,
+  "retag wrong-tag": 2
+ },
+ "recipes": [
+  {
+   "id": "astikorcartsredux:acacia_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:acacia_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:acacia_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:acacia_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:acacia_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:acacia_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:bamboo_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:bamboo_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:bamboo_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:bamboo_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:bamboo_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:bamboo_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:birch_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:birch_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:birch_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:birch_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:birch_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:birch_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:cherry_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:cherry_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:cherry_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:cherry_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:cherry_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:cherry_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:crimson_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:crimson_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:crimson_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:crimson_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:crimson_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:crimson_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:dark_oak_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:dark_oak_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:dark_oak_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:dark_oak_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:dark_oak_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:dark_oak_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:jungle_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:jungle_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:jungle_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:jungle_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:jungle_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:jungle_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:mangrove_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:mangrove_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:mangrove_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:mangrove_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:mangrove_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:mangrove_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:oak_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:oak_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:oak_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:oak_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:oak_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:oak_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:spruce_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:spruce_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:spruce_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:spruce_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:spruce_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:spruce_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:warped_animal_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:warped_hand_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:warped_plow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:warped_reaper",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:warped_seed_drill",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:warped_supply_cart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "astikorcartsredux:wheel",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "create_mechanical_spawner:spawn_fluid_enchantment_industry_experience",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "create_mechanical_spawner-1.21.1-1.3.2-6.0.10.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/asphalt_block",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/biodiesel",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/black_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/blue_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/brown_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/cyan_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/gray_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/green_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/light_blue_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/light_gray_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/lime_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/magenta_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/orange_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/pink_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/purple_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/red_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/white_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createdieselgenerators:mixing/yellow_concrete",
+   "action": "remove",
+   "why": "pack-removes",
+   "note": "recipes/age_5/electric_age.js keeps only the Diesel Generators engines and their upgrades",
+   "from": "createdieselgenerators-1.21.1-1.3.15.jar"
+  },
+  {
+   "id": "createframed:deploying/karpboard_block",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:deploying/shiny_karpboard_block",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/base_from_modded_string",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/black",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/blue",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/brown",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/cyan",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/amber",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/aqua",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/beige",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/coral",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/forest",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/ginger",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/indigo",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/maroon",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/mint",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/navy",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/olive",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/rose",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/slate",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/tan",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/teal",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/dye_depot/verdant",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/gray",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/green",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/light_blue",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/light_gray",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/lime",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/magenta",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/orange",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/pink",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/purple",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/red",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/white",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:item_application/bound_cardboard/yellow",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/bound_cardboard_block_from_dyed_bound_cardboard",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/cardboard_block_from_dyed_cardboard",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/cardboard_window_from_dyed_cardboard_window",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/cardboard_window_pane_from_dyed_cardboard_window_pane",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/framed_glass_door_from_dyed_framed_glass_door",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/framed_glass_from_dyed_framed_glass",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/framed_glass_pane_from_dyed_framed_glass_pane",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/framed_glass_trapdoor_from_dyed_framed_glass_trapdoor",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/horizontal_framed_glass_from_dyed_horizontal_framed_glass",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/tiled_glass_from_dyed_tiled_glass",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/tiled_glass_pane_from_dyed_tiled_glass_pane",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "createframed:washing/vertical_framed_glass_from_dyed_vertical_framed_glass",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "createframed-1.21.1-1.8.2.jar"
+  },
+  {
+   "id": "firmasupps:crafting/soap/clean_tfc_bricks_alabaster",
+   "action": "retag",
+   "why": "wrong-tag",
+   "tags": {
+    "tfc:colored_bricks_alabaster": "tfc:colored_alabaster_bricks"
+   },
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "firmasupps:crafting/soap/clean_tfc_candle",
+   "action": "retag",
+   "why": "wrong-tag",
+   "tags": {
+    "tfc:candles": "tfc:colored_candles"
+   },
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "minecraft:anvil",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:bamboo_chest_raft",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:bamboo_hanging_sign",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:bamboo_planks",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:bamboo_raft",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:barrel",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:beetroot_soup",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:black_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:black_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:black_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:black_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:blue_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:blue_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:blue_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:blue_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:bolt_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:bone_meal",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:bookshelf",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:brick",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "tfcreate-1.0.1.jar"
+  },
+  {
+   "id": "minecraft:bricks",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:brown_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:brown_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:brown_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:brown_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:bucket",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:campfire",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:charcoal",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "tfcreate-1.0.1.jar"
+  },
+  {
+   "id": "minecraft:chest",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:chest_minecart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:chiseled_bookshelf",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:coast_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:composter",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:copper_door",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:cracked_polished_blackstone_bricks",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Beneath-NeoForge-1.21.1-2.0.4.jar"
+  },
+  {
+   "id": "minecraft:crafting_table",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:creeper_banner_pattern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:cyan_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:cyan_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:cyan_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:cyan_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_axe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_boots",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_chestplate",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_helmet",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_hoe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_leggings",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_pickaxe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_shovel",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:diamond_sword",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dune_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_black_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_blue_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_brown_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_cyan_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_gray_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_green_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_light_blue_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_light_gray_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_lime_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_magenta_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_orange_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_pink_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_purple_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_red_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_white_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:dye_yellow_bed",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:enchanting_table",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:eye_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:fishing_rod",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:fletching_table",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:flow_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:flower_banner_pattern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:flower_pot",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:furnace",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:glass_bottle",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_axe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_boots",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_chestplate",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_helmet",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_hoe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_leggings",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_pickaxe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_shovel",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:golden_sword",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:gray_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:gray_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:gray_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:gray_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:green_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:green_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:green_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:green_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:host_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_axe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_boots",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_chestplate",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_door",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_helmet",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_hoe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_leggings",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_pickaxe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_shovel",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_sword",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:iron_trapdoor",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:jack_o_lantern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:lantern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:leather_boots",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:leather_chestplate",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:leather_helmet",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:leather_horse_armor",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:leather_leggings",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:lectern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:light_blue_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:light_blue_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:light_blue_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:light_blue_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:light_gray_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:light_gray_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:light_gray_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:light_gray_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:lime_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:lime_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:lime_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:lime_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:magenta_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:magenta_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:magenta_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:magenta_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:melon",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:melon_seeds",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:minecart",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:mojang_banner_pattern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:mushroom_stew",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:orange_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:orange_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:orange_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:orange_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:pink_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:pink_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:pink_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:pink_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:polished_blackstone_bricks",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Beneath-NeoForge-1.21.1-2.0.4.jar"
+  },
+  {
+   "id": "minecraft:polished_blackstone_button",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Beneath-NeoForge-1.21.1-2.0.4.jar"
+  },
+  {
+   "id": "minecraft:polished_blackstone_pressure_plate",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Beneath-NeoForge-1.21.1-2.0.4.jar"
+  },
+  {
+   "id": "minecraft:pumpkin_pie",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:purple_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:purple_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:purple_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:purple_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:rabbit_stew_from_brown_mushroom",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:rabbit_stew_from_red_mushroom",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:raiser_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:red_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:red_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:red_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:red_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:rib_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:scaffolding",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:sentry_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:shaper_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:silence_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:skull_banner_pattern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:slime_ball",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:smoker",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:snout_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:snow_block",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:soul_campfire",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:soul_lantern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:soul_torch",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:spire_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:stone_axe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:stone_hoe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:stone_pickaxe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:stone_shovel",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:stone_sword",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:suspicious_stew",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:tide_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:tinted_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:tnt",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:torch",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:trapped_chest",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:turtle_helmet",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:vex_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:ward_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wayfinder_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wheat",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:white_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:white_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:white_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wild_armor_trim_smithing_template",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wolf_armor",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wooden_axe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wooden_hoe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wooden_pickaxe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wooden_shovel",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:wooden_sword",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:yellow_banner",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:yellow_stained_glass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:yellow_stained_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "minecraft:yellow_stained_glass_pane_from_glass_pane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "supplementaries:altimeter",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:ash_bricks",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_black_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_blue_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_brown_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_cyan_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_gray_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_green_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_light_blue_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_light_gray_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_lime_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_magenta_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_orange_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_pink_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_purple_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_red_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_white_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:awnings/awning_yellow_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:blackboard",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:blackstone_lamp",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:blackstone_tile",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:bomb",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:bubble_blower",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_black",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_black_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_blue",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_blue_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_brown",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_brown_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_cyan",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_cyan_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_gray",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_gray_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_green",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_green_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_light_blue",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_light_blue_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_light_gray",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_light_gray_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_lime",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_lime_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_magenta",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_magenta_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_orange",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_orange_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_pink",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_pink_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_purple",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_purple_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_red",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_red_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_white",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_white_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_yellow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:buntings/bunting_yellow_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:cage",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_black",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_black_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_blue",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_blue_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_brown",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_brown_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_cyan",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_cyan_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_gray",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_gray_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_green",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_green_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_light_blue",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_light_blue_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_light_gray",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_light_gray_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_lime",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_lime_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_magenta",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_magenta_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_orange",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_orange_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_pink",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_pink_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_purple",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_purple_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_red",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_red_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_white",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_white_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_yellow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candle_holders/candle_holder_yellow_dye",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:candy",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:cannon",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:cannon_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:cannonball",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:cannonball_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:checker",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:cog_block",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:crank",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:crystal_display",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:daub",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:deepslate_lamp",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:doormat_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:dragon_banne_pattern",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:end_stone_lamp",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:faucet",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:fine_wood",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:fire_pit",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:fire_pit_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_black",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_blue",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_brown",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_cyan",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_gray",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_green",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_light_blue",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_light_gray",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_lime",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_magenta",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_orange",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_pink",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_purple",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_red",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_white",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flags/flag_yellow",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flax_block",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flax_block_uncrafting",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:flower_box",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:fodder",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:goblet",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:gold_door",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:gold_trapdoor",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:gravel_bricks",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:hat_stand",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:hourglass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:integration/ash_bricks_fd",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:integration/lapis_bricks_fd",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:integration/pancake_fd",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:integration/planter_rich_fd",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:integration/sconce_haunting",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:iron_gate",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:key",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:lapis_bricks",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:lock_block",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:lumisene_bottle",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:lumisene_bucket",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:netherite_door",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:netherite_trapdoor",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:pancake",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:pedestal",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:planter",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:pulley",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:redstone_illuminator",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:relayer",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:rope",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:rope_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sack",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sack_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sack_3",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:safe",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:safe_crafting",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sconce",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sconce_ender",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sconce_green",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sconce_lever",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sconce_nether_brass",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sconce_soul",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:slidy_block",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:slingshot",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:soap",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:speaker_block",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:spiky_bomb",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:spiky_bomb_2",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:spring_launcher",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:statue",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:stone_lamp",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:stone_tile",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:strings",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sus_bricks",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sus_gravel",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:sus_sand",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:turn_table",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:wicker_fence",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:wind_vane",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "supplementaries:wrench",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "firmasupps-2.1.1.jar"
+  },
+  {
+   "id": "tfc:barrel/curdled_milk",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:barrel/food/cheese",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:barrel/milk_vinegar",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:crafting/pumpkin_pie",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:heating/food/barley_bread",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:heating/food/maize_bread",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:heating/food/oat_bread",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:heating/food/rice_bread",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:heating/food/rye_bread",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "tfc:heating/food/wheat_bread",
+   "action": "remove",
+   "why": "typeless-removal",
+   "from": "Firmalife-NeoForge-1.21.1-3.0.15.jar"
+  },
+  {
+   "id": "woodencog:cutting/slab/loam_brick_slab",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>",
+   "from": "woodencog-1.2.19-1.21.1.jar"
+  },
+  {
+   "id": "woodencog:cutting/slab/sandy_loam_brick_slab",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>",
+   "from": "woodencog-1.2.19-1.21.1.jar"
+  },
+  {
+   "id": "woodencog:cutting/slab/silt_brick_slab",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>",
+   "from": "woodencog-1.2.19-1.21.1.jar"
+  },
+  {
+   "id": "woodencog:cutting/slab/silty_loam_brick_slab",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>",
+   "from": "woodencog-1.2.19-1.21.1.jar"
+  },
+  {
+   "id": "woodencog:cutting/stair/loam_brick_stairs",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>",
+   "from": "woodencog-1.2.19-1.21.1.jar"
+  },
+  {
+   "id": "woodencog:cutting/stair/sandy_loam_brick_stairs",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>",
+   "from": "woodencog-1.2.19-1.21.1.jar"
+  },
+  {
+   "id": "woodencog:cutting/stair/silt_brick_stairs",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>",
+   "from": "woodencog-1.2.19-1.21.1.jar"
+  },
+  {
+   "id": "woodencog:cutting/stair/silty_loam_brick_stairs",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>",
+   "from": "woodencog-1.2.19-1.21.1.jar"
+  }
+ ]
+}

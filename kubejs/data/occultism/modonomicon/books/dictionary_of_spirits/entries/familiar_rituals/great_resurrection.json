@@ -1,0 +1,40 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "familiar_rituals",
+  "condition": {
+    "type": "modonomicon:false"
+  },
+  "description": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.description",
+  "hide_while_locked": true,
+  "icon": {
+    "item": "occultism:soul_shattered"
+  },
+  "name": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "occultism:soul_shattered"
+      },
+      "text": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.soul_shattered.text",
+      "title": "book.occultism.dictionary_of_spirits.familiar_rituals.great_resurrection.soul_shattered.title"
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "familiar_rituals/resurrection",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 4,
+  "x": -8,
+  "y": -4
+}

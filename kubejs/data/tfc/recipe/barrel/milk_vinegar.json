@@ -1,0 +1,8 @@
+{
+  "type": "tfc:barrel_instant_fluid",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ]
+}

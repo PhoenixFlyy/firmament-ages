@@ -1,13 +1,67 @@
 # Firmament Ages: Cave Dweller ReEvolved 1.4-rc2 (Felix 2026-10-13, H12). One dweller at a time (mod default 3),
 # Overworld only (also the mod default; the Twilight Forest and later dimensions stay free of it). It stops with the
 # Iron Age: firmages-core, firmages-server.toml [hardship] caveDwellerUntilAge. Keys from pt.gif.cave_dweller.config.ServerConfig
-# (Fzzy Config 0.7.7, id cave_dweller:server_config); Fzzy adds every other key with its default on the first start.
+# (Fzzy Config 0.7.7, id cave_dweller:server_config). Every key is listed: Fzzy logs a "Deserialization Error ... was
+# missing" block for each missing key at every start after the pack has written this file. Values other than the three
+# pack values below are the mod defaults.
 version = 0
 
-# Deep caves only (0.9.0 review): it hunts players at or below y = 0 (spawnHeight, mod default 40), so the copper and tin
-# mining near the surface stays free of it.
+[timers]
+surfaceTimeMultiplier = 1.0
 
+[timers.spawn]
+canSpawnMin = 300
+canSpawnMax = 600
+canSpawnCooldownChance = 0.4
+canSpawnCooldown = 1200
+
+[timers.noise]
+resetNoiseMin = 240
+resetNoiseMax = 360
+
+[timers.leave]
+timeUntilLeave = 300
+timeUntilLeaveChase = 30
+
+# Deep caves only (0.9.0 review): it hunts players at or below y = 0 (spawnHeight, mod default 40), so the copper and tin
+# mining near the surface stays free of it. maximumAmount: pack value (mod default 3).
 [spawnConditions]
-maximumAmount = 1
+spawnChancePerTick = 0.005
 spawnHeight = 0
-dimensionWhitelist = ["minecraft:overworld"]
+allowSurfaceSpawn = false
+skyLightLevel = 8
+blockLightLevel = 15
+maximumAmount = 1
+spawnDistance = 16
+checkPathToSpawn = true
+dimensionWhitelist = [
+    "minecraft:overworld"
+]
+
+[spawnConditions.biomes]
+overrideBiomeDatapackConfig = false
+surfaceBiomesIsWhitelist = true
+surfaceBiomes = [  ]
+
+[behaviour]
+spottingRange = 60
+shouldAvoidArmor = true
+canDisableShields = true
+canClimb = true
+canBreakDoor = true
+doorBreakTime = 3
+allowRiding = false
+targetInvisible = true
+
+[attributes]
+maxHealth = 450.0
+attackDamage = 4.0
+attackSpeed = 0.35
+movementSpeed = 0.5
+swimSpeed = 0.9
+stepHeight = 1.6
+waterMovementEfficiency = 0.8
+knockbackResistance = 0.8
+
+[misc]
+onlyPlayNoiseToTarget = false

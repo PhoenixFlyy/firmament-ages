@@ -8,7 +8,11 @@ enabled = true
 #Allowed Values: FULL_BACKUPS, MODIFIED_SINCE_LAST, MODIFIED_SINCE_FULL
 backupType = "FULL_BACKUPS"
 #Should a save-all be forced before backup?
-saveAll = true
+#Firmament Ages: false. SimpleBackups 4.0.30 saves without flushing (saveEverything(true, false, true), javap) and
+#starts the zip at once, so the zip reads saved-data files while the IO workers still replace them; on Windows that
+#failed with AccessDeniedException ("Could not save data ... brandonscore_world_entity.dat", 0.9.0 live session).
+#The backup holds the state of the last autosave (at most five minutes old).
+saveAll = false
 #Should log lines written to logs/latest.log during backup be stored inside the backup archive as latest.log?
 captureLatestLog = true
 #How often should a full backup be created if only modified files should be saved? This creates a full backup when x minutes are over and the next backup needs to be done. Once a year is default.

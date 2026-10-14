@@ -50,6 +50,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Planungsdokumente: `08-Ages-Design.md` bekommt „§0 Stand 0.8“ (Abweichungen seit v3), `10-Modliste.md` aus `mods/*.pw.toml` erzeugen (`dev/cf/gen_credits.py --modlist`) | `../Modpack-Planung/docs/` | Claude |
 | `mod/firmages-core/README.md` sagt noch „Current state: milestone M1“: eine Zeile mit Verweis auf `SPEC.md` | `mod/firmages-core/README.md` | Claude (mit der nächsten firmages-core-Version) |
 | Java-Fallback-Texte der Mod stimmen nicht mehr mit der Lang-Datei überein („The world realigns...“, „No shrine heart is placed“) | `FirmagesClient.java`, `ReloadStatePayload.java`, `ShrineCommands.java` | Claude (mit der nächsten firmages-core-Version) |
+| TFCRegistryAPI-Rest (etwa 112 DISTXFORM/Mixin/FATAL-Zeilen pro Start): in den 17 gescannten TFC-Mods vor `Class.forName` die Klassendatei lesen und nur Enums laden (Vorschlag in den Integrator-Notizen von n4/warnings) | `mixin/tfcregistryapi/HelpersMixin`, `perf/TfcRegistryScan` | Claude (mit der nächsten firmages-core-Version) |
 
 ## Prüfen, ob noch offen
 
@@ -63,6 +64,9 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Flüssigkeits-Tags `age_fluids/<stage>` (SPEC §2.1) werden nicht erzeugt | `dev/gen_stage_locks.py` | Claude |
 | Reload-Zeiten auf einem leeren Rechner neu messen (`firmages reload` dreimal bei age_9) | Test-Server | Claude |
 | Mekanism-Strahlung, Fusions- und Reaktor-Balance (Dok. 10 v3 §7.4 nur für DE gesetzt) | Configs | Claude |
+| Log nach dem nächsten Neustart: `python dev/check_log.py test-server/logs/latest.log` soll nur noch `tfcregistryapi-scan-residual` (open) und dokumentiertes Rauschen zeigen; 0.9.0 hatte 551 Problemzeilen in 13 Signaturen außerhalb der Liste | Test-Server | Claude |
+| Erster Login nach dem Start: 6 s Ruckler („Can't keep up! … 6095ms“, Live-Sitzung 0.9.0, 13:41); mit spark messen, was beim Login läuft (Modonomicon-Bücher, IE-Trankrezepte, ProgressiveStages-Sync, firmages-core) | Test-Server | Claude |
+| Apotheosis-Tiefendungeons in Dimensionen mit Boden ab y = 0 („Empty height range“, Rauschliste): Biome-Modifier auf die Oberwelt begrenzen, sobald ein Log die Dimension nennt | `kubejs/data/apotheosis/neoforge/biome_modifier/` | Claude |
 
 ## Erledigt (diese Runde geprüft)
 
