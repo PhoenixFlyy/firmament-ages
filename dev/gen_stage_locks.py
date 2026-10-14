@@ -14,6 +14,15 @@ Inputs
 Outputs
   kubejs/data/firmages/tags/item/age_items/<stage>.json    every item in exactly one tag (dawn, age_0..age_9, disabled)
   kubejs/data/firmages/tags/block/age_blocks/<stage>.json  ore and deposit blocks per Age (all grades and rocks)
+  kubejs/data/firmages/tags/fluid/age_fluids/<stage>.json  every fluid in exactly one tag (dawn, age_0..age_9; disabled
+                                                           stays empty). A fluid's Age: the rule Age of its bucket item
+                                                           (registry dump field fluid_buckets; derived Ages and disabled
+                                                           buckets do not count), else for "<ns>:metal/<metal>" the
+                                                           metal's [tfc_metals] or [materials] Age, else the later of its
+                                                           [mods] Age and its [materials] words (as items, rule 5).
+                                                           The recipe gate drops recipes with a locked fluid output.
+  kubejs/assets/firmages/age_namespaces.json               the [mods] table for the client: the firmages-core EMI plugin
+                                                           disables stacks, components and categories of locked mods
   kubejs/data/c/tags/item/hidden_from_recipe_viewers.json  the never reachable items of [derived_hidden] (EMI/JEI hide them)
   the text between marker comments in config/progressivestages/stages/<stage>.toml:
     # >>> generated:items >>>          "tag:firmages:age_items/<stage>"            (inside [items].locked)
@@ -32,7 +41,7 @@ Usage
   python dev/gen_stage_locks.py --registry test-server/local/firmages
                                                      refresh dev/data/registry.json from a /fa_dump taken with
                                                      every Age unlocked (age_9), then rewrite
-  python dev/gen_stage_locks.py --explain <item id>  print the rule that decides the Age of one item
+  python dev/gen_stage_locks.py --explain <item id>  print the rule that decides the Age of one item (or fluid)
 Exit code 2: a namespace in the registry has no [mods] entry, or a rule names an unknown stage.
 """
 import json
@@ -47,6 +56,7 @@ AGE_MAP = ROOT / "dev" / "age_map.toml"
 REGISTRY = ROOT / "dev" / "data" / "registry.json"
 TFC_IDS = ROOT / "dev" / "data" / "tfc-4.2.11-ids.json"
 TAG_DIR = ROOT / "kubejs" / "data" / "firmages" / "tags"
+NAMESPACES_ASSET = ROOT / "kubejs" / "assets" / "firmages" / "age_namespaces.json"
 HIDDEN_TAG = ROOT / "kubejs" / "data" / "c" / "tags" / "item" / "hidden_from_recipe_viewers.json"
 
 STAGES = ["dawn"] + [f"age_{i}" for i in range(10)]
@@ -101,10 +111,21 @@ def refresh_registry(dump_dir, amap):
     col = recipes["columns"].index("id"), recipes["columns"].index("type")
     grid_ns = sorted({r[col[0]].split(":", 1)[0] for r in recipes["recipes"] if r[col[1]] == "minecraft:crafting"})
     wanted = selector_tags(list(amap.get("items", {})) + disabled_selectors())
+    # fluid -> bucket item (Fluid#getBucket; dump.js and /firmages dump registry write it since firmages-core 0.9).
+    # An older dump has no such key; then the buckets of the current snapshot stay.
+    buckets = reg.get("fluid_buckets")
+    if buckets is None:
+        old = json.loads(REGISTRY.read_text(encoding="utf-8")) if REGISTRY.exists() else {}
+        buckets = old.get("fluid_buckets", {})
+        print(f"note: {dump_dir.as_posix()}/registries.json has no fluid_buckets; kept {len(buckets)} from the snapshot")
+    source = dump_dir.as_posix()
+    source = source[source.index("test-server/"):] if "test-server/" in source else source
     snap = {
-        "source": f"/fa_dump in {dump_dir.as_posix()} (kubejs/server_scripts/debug/dump.js)",
+        "source": f"/fa_dump in {source} (kubejs/server_scripts/debug/dump.js)",
         "items": sorted(i for i in reg["item"] if i != "minecraft:air"),
         "blocks": sorted(b for b in reg["block"] if BLOCK_KEEP.search(b) or b in amap.get("ore_blocks", {})),
+        "fluids": sorted(f for f in reg["fluid"] if f != "minecraft:empty"),
+        "fluid_buckets": {f: b for f, b in sorted(buckets.items()) if b != "minecraft:air"},
         "item_tags": {t: sorted(item_tags.get(t, [])) for t in wanted},
         "grid_recipe_namespaces": grid_ns,
     }
@@ -113,6 +134,7 @@ def refresh_registry(dump_dir, amap):
         die(f"item tags used by rules are not in the dump: {missing}")
     REGISTRY.write_text(json.dumps(snap, indent=0) + "\n", encoding="utf-8", newline="\n")
     print(f"registry snapshot: {len(snap['items'])} items, {len(snap['blocks'])} ore/rock blocks, "
+          f"{len(snap['fluids'])} fluids ({len(snap['fluid_buckets'])} with a bucket), "
           f"{len(grid_ns)} grid-recipe namespaces -> {REGISTRY.relative_to(ROOT).as_posix()}")
 
 
@@ -303,14 +325,41 @@ class AgeMap:
             return mat, f"[materials] {'+'.join(words)} (mod {ns} = {base})"
         return base, f"[mods] {ns}"
 
+    def fluid_age(self, fluid):
+        """(stage, reason) of one fluid: its bucket's rule Age, a TFC-style metal fluid's metal, else its namespace."""
+        bucket = self.reg.get("fluid_buckets", {}).get(fluid)
+        if bucket in self.items_set:
+            # The hand-written rules only: a bucket's derived Age says when a bucket can be filled, not when the fluid
+            # exists, and a never reachable bucket item does not make the fluid unreachable.
+            st, why = self.rule_age(bucket)
+            if st != "disabled":
+                return st, f"bucket {bucket}: {why}"
+        ns, path = fluid.split(":", 1)
+        parts = path.split("/")
+        if len(parts) == 2 and parts[0] == "metal":
+            metal = parts[1][len("flowing_"):] if parts[1].startswith("flowing_") else parts[1]
+            st = self.amap["tfc_metals"].get(metal) or self.materials.get(metal)
+            if st:
+                return st, f"metal {metal}"
+        # like rule 5 for items: the later of the namespace and the material words in the path (uranium, fusion)
+        base = self.mods[ns]
+        mat, words = self.material_age(ns, path)
+        if mat and RANK[mat] > RANK[base]:
+            return mat, f"[materials] {'+'.join(words)} (mod {ns} = {base})"
+        return base, f"[mods] {ns}"
+
     def build(self):
         unmapped = sorted({i.split(":", 1)[0] for i in self.reg["items"]} - set(self.mods))
         unmapped_r = sorted(set(self.reg["grid_recipe_namespaces"]) - set(self.mods) - set(self.amap.get("recipes", {})))
-        if unmapped or unmapped_r:
-            die(f"namespaces without a [mods] entry: {sorted(set(unmapped) | set(unmapped_r))}")
+        unmapped_f = sorted({f.split(":", 1)[0] for f in self.reg.get("fluids", [])} - set(self.mods))
+        if unmapped or unmapped_r or unmapped_f:
+            die(f"namespaces without a [mods] entry: {sorted(set(unmapped) | set(unmapped_r) | set(unmapped_f))}")
         tags = {s: [] for s in STAGES + ["disabled"]}
         for item in self.reg["items"]:
             tags[self.age_of(item)[0]].append(item)
+        fluid_tags = {s: [] for s in STAGES + ["disabled"]}
+        for fluid in self.reg.get("fluids", []):
+            fluid_tags[self.fluid_age(fluid)[0]].append(fluid)
         block_tags = {s: [] for s in STAGES}
         for b, st in self.blocks.items():
             if b not in self.blocks_set:
@@ -324,7 +373,7 @@ class AgeMap:
         wl = self.amap["dawn_whitelist"]
         dawn = [f"name:tfc:crafting/{g}/" for g in sorted(self.tfc["crafting_recipe_groups"]) if g not in wl["groups"]]
         dawn += [f"id:tfc:crafting/{s}" for s in self.tfc["crafting_recipe_singles"] if s not in wl["singles"]]
-        return tags, block_tags, recipe_locks, dawn
+        return tags, block_tags, fluid_tags, recipe_locks, dawn
 
 
 # ---------------------------------------------------------------- rendering
@@ -346,6 +395,13 @@ def render_tag(values):
     return '{\n  "replace": false,\n  "values": [\n' + body + ("\n" if body else "") + "  ]\n}\n"
 
 
+def render_namespaces(mods):
+    body = ",\n".join(f'    "{ns}": "{st}"' for ns, st in sorted(mods.items()))
+    return ('{\n  "_comment": "Generated by dev/gen_stage_locks.py from dev/age_map.toml [mods]. Read by the firmages-core '
+            'EMI plugin (SPEC 21): stacks, components and recipe categories of a namespace whose Age is locked are '
+            'hidden.",\n  "namespaces": {\n' + body + "\n  }\n}\n")
+
+
 def replace_block(text, name, body):
     pat = re.compile(r"(?P<head>[ \t]*# >>> generated:%s >>>\n)(?P<body>.*?)(?P<tail>[ \t]*# <<< generated:%s <<<)" % (name, name), re.S)
     m = pat.search(text)
@@ -365,9 +421,12 @@ def main():
     am = AgeMap(amap, reg, tfc)
     if "--explain" in args:
         item = args[args.index("--explain") + 1]
-        print(item, "->", *am.age_of(item))
+        if item in set(reg.get("fluids", [])) and item not in am.items_set:
+            print(item, "(fluid) ->", *am.fluid_age(item))
+        else:
+            print(item, "->", *am.age_of(item))
         return
-    tags, block_tags, recipe_locks, dawn = am.build()
+    tags, block_tags, fluid_tags, recipe_locks, dawn = am.build()
 
     files = {}  # path -> new text
     for st, values in tags.items():
@@ -377,6 +436,10 @@ def main():
     files[HIDDEN_TAG] = render_tag(sorted(i for i in am.derived_hidden if i in am.items_set))
     for st, values in block_tags.items():
         files[TAG_DIR / "block" / "age_blocks" / f"{st}.json"] = render_tag(values)
+    if reg.get("fluids"):
+        for st, values in fluid_tags.items():
+            files[TAG_DIR / "fluid" / "age_fluids" / f"{st}.json"] = render_tag(values)
+    files[NAMESPACES_ASSET] = render_namespaces(am.mods)
     missing_markers = []
     for path in sorted(STAGES_DIR.glob("*.toml")):
         stage = path.stem
@@ -405,6 +468,8 @@ def main():
 
     print("age_items per stage:", {s: len(v) for s, v in tags.items()})
     print("age_blocks per stage:", {s: len(v) for s, v in block_tags.items() if v})
+    print("age_fluids per stage:", {s: len(v) for s, v in fluid_tags.items() if v},
+          f"({len(reg.get('fluid_buckets', {}))} fluids with a known bucket)")
     print("ore overrides per stage:", {s: len(v) for s, v in sorted(am.overrides.items())},
           "total", sum(len(v) for v in am.overrides.values()))
     print("grid-recipe namespace locks per stage:", {s: len(v) for s, v in sorted(recipe_locks.items(), key=lambda x: RANK[x[0]])},

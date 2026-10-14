@@ -1,5 +1,6 @@
 {
   "firmages.reload.running": "The sky shifts. Hold still.",
+  "firmages.ponder.blocked": "Hold [%s] on an item to ponder it.",
   "firmages.reload.failed": "[Firmament Ages] Age reload failed, see the server log.",
   "firmages.age.revoked.warning": "[Firmament Ages] Age revoked: restart the server to clear in-progress items",
   "firmages.warn.misconfigured": "[Firmament Ages] All firmages:age_* tags are empty: the Age gate cannot lock anything.",

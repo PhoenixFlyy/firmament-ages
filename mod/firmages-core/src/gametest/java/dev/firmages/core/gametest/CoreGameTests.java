@@ -87,6 +87,7 @@ public final class CoreGameTests {
             java.nio.file.Path dump = net.neoforged.fml.loading.FMLPaths.GAMEDIR.get().resolve("logs").resolve(dev.firmages.core.command.RegistryDump.FILE);
             String json = java.nio.file.Files.readString(dump);
             helper.assertTrue(json.contains("\"minecraft:iron_ore\"") && json.contains("\"blocks\""), "dump content");
+            helper.assertTrue(json.contains("\"minecraft:water\": \"minecraft:water_bucket\""), "dump fluid_buckets (fluid Age tags)");
             try {
                 dispatcher.execute("firmages ages simulate grant age_3", source);
                 helper.fail("simulate must be refused while debug.allowSimulate = false");

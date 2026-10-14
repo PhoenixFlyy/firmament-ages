@@ -26,7 +26,8 @@ public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
         Map.entry("corgilib", "corgilib"),
         Map.entry("ftbquests", "ftbquests"),
         Map.entry("ftbq", "ftbquests"),
-        Map.entry("tfcregistryapi", "tfcregistryapi"));
+        Map.entry("tfcregistryapi", "tfcregistryapi"),
+        Map.entry("ponder", "ponder"));
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {

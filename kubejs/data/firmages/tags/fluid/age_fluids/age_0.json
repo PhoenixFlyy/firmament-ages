@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "tfc:metal/copper", "required": false},
+    {"id": "tfc:metal/flowing_copper", "required": false}
+  ]
+}

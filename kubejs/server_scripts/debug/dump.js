@@ -4,7 +4,8 @@
 //                  several stages are joined with "|"; plus the Ages firmages-core had unlocked), local/firmages/item_tags.json (every item tag with its
 //                  items) and local/firmages/registries.json (the ids of every built-in registry: "item", "block",
 //                  "fluid", "entity_type", ..., mod registries by full id; plus "tfcregistryapi_enums", the enums
-//                  TFCRegistryAPI registered, for dev/check_registry_parity.py).
+//                  TFCRegistryAPI registered, for dev/check_registry_parity.py, and "fluid_buckets", fluid id ->
+//                  bucket item id (Fluid#getBucket), from which dev/gen_stage_locks.py takes a fluid's Age).
 //                  dev/poc_analyze.py reads the first two, dev/gen_stage_locks.py --registry reads all three.
 //   /fa_dump_full [regex]  write local/firmages/recipes_full.json: every loaded recipe (or those whose id matches) as
 //                  the JSON its serializer writes, after Almost Unified and KubeJS (dev/poc_analyze.py content checks)
@@ -40,6 +41,19 @@
     BuiltInRegistries.REGISTRY.entrySet().forEach((e) => {
       const rl = e.getKey().location()
       out[String(rl.getNamespace()) === 'minecraft' ? String(rl.getPath()) : String(rl)] = keysOf(e.getValue())
+    })
+    return out
+  }
+  // fluid id -> its bucket item id, for the fluid Age tags (dev/gen_stage_locks.py); fluids without a bucket are left out.
+  const fluidBuckets = () => {
+    const out = {}
+    BuiltInRegistries.FLUID.keySet().forEach((k) => {
+      try {
+        const bucket = itemId(BuiltInRegistries.FLUID.get(k).getBucket())
+        if (bucket !== 'minecraft:air') out[String(k)] = bucket
+      } catch (e) {
+        // a fluid whose bucket cannot be read keeps the generator's fallback (metal or namespace Age)
+      }
     })
     return out
   }
@@ -105,6 +119,7 @@
       unlocked: unlocked, recipes: recipes })
     JsonIO.write(`${OUT}/item_tags.json`, tags)
     const registries = allRegistries()
+    registries.fluid_buckets = fluidBuckets()
     if (Platform.isLoaded('tfcregistryapi')) {
       try {
         registries.tfcregistryapi_enums = registryApiEnums()

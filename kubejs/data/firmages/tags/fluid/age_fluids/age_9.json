@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "sgjourney:flowing_heavy_liquid_naquadah", "required": false},
+    {"id": "sgjourney:flowing_liquid_naquadah", "required": false},
+    {"id": "sgjourney:heavy_liquid_naquadah", "required": false},
+    {"id": "sgjourney:liquid_naquadah", "required": false}
+  ]
+}

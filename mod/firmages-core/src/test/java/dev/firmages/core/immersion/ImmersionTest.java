@@ -32,6 +32,16 @@ class ImmersionTest {
     }
 
     @Test
+    void reloadPendingIsSetByTheServerOnly() {
+        AgeStatus s = AgeStatus.of(ages(AgeId.AGE_0, AgeId.AGE_1), OFFERING, AgeId.AGE_1, AgeId.AGE_1, NO_TABS, DWELLER_UNTIL, TOOL_UNTIL);
+        assertFalse(s.reloadPending(), "of() knows nothing of the scheduler");
+        AgeStatus pending = s.withReloadPending(true);
+        assertTrue(pending.reloadPending());
+        assertEquals(s, pending.withReloadPending(false), "every other field is kept");
+        assertFalse(AgeStatus.UNKNOWN.reloadPending(), "before the first status ProgressiveStages reloads EMI as usual");
+    }
+
+    @Test
     void statusAtDawnHidesEverything() {
         AgeStatus s = AgeStatus.of(AgeSnapshot.DAWN_ONLY, OFFERING, AgeId.AGE_0, AgeId.AGE_0, NO_TABS, DWELLER_UNTIL, TOOL_UNTIL);
         assertEquals(AgeId.DAWN, s.age());

@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "railways:flowing_paint", "required": false},
+    {"id": "railways:paint", "required": false},
+    {"id": "tfc:metal/cast_iron", "required": false},
+    {"id": "tfc:metal/flowing_cast_iron", "required": false},
+    {"id": "tfc:metal/flowing_high_carbon_steel", "required": false},
+    {"id": "tfc:metal/flowing_pig_iron", "required": false},
+    {"id": "tfc:metal/flowing_steel", "required": false},
+    {"id": "tfc:metal/flowing_weak_steel", "required": false},
+    {"id": "tfc:metal/flowing_wrought_iron", "required": false},
+    {"id": "tfc:metal/high_carbon_steel", "required": false},
+    {"id": "tfc:metal/pig_iron", "required": false},
+    {"id": "tfc:metal/steel", "required": false},
+    {"id": "tfc:metal/weak_steel", "required": false},
+    {"id": "tfc:metal/wrought_iron", "required": false}
+  ]
+}

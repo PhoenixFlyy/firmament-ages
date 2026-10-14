@@ -3,9 +3,10 @@ package dev.firmages.core.net;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-/** Payload registration (SPEC §11, protocol version "3"). All payloads are S2C and optional for the client. */
+/** Payload registration (SPEC §11, protocol version "4": {@code firmages:age_status} gained {@code reloadPending}). All payloads
+ *  are S2C and optional for the client. */
 public final class FirmagesNetwork {
-    public static final String VERSION = "3";
+    public static final String VERSION = "4";
 
     private FirmagesNetwork() {}
 

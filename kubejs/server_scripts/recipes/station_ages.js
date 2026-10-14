@@ -4,8 +4,11 @@
 // The firmages-core gate judges a recipe by its OUTPUTS only (SPEC section 4.3). A machine of a later Age that makes
 // an earlier item (an IE Arc Furnace turning dust into a TFC ingot, a Mekanism enrichment chamber making a dust)
 // would therefore load, and show in EMI, long before the machine can be built. This script removes every recipe of a
-// machine type while the Age of that machine is locked; the unlock reload brings them back. Grid recipes, TFC,
-// Create and vanilla types are never touched (their stations are TFC blocks or come with Create in the Bronze Age).
+// machine type while the Age of that machine is locked; the unlock reload brings them back. Grid recipes, TFC and
+// vanilla types are never touched (their stations are TFC blocks or vanilla blocks). Create's stations follow their
+// tier: press, mixer, millstone, fan and saw come with Create in the Bronze Age (age_1), so their types stay; the
+// deployer, spout, item drain and crushing wheel are Iron Age (age_2), so crushing, deploying, filling and emptying wait
+// for age_2. The heat levels of mixing and compacting (heated, superheated) are judged by the firmages-core gate.
 // World data types (IE mineral mixes = excavator veins, IP reservoirs, fuels, fertilisers) are never removed.
 // Ages: dev/age_map.toml [mods] for the mod default, overridden per type from Doc 10 v3 matrix 6.1 (IE MV/HV
 // machines age_5, Mekanism fission age_7, the antiprotonic nucleosynthesizer and Evolved Mekanism age_8, Theurgy
@@ -16,6 +19,10 @@ ServerEvents.recipes((event) => {
   const STATION_AGE = {}
   const put = (age, types) => types.forEach((t) => { STATION_AGE[t] = age })
 
+  // ---- Iron Age: Create deployer, spout, item drain, crushing wheel; Twilight Forest machines ----
+  put('age_2', ['create:crushing', 'create:deploying', 'create:filling', 'create:emptying', 'twilightforest:uncrafting',
+    'twilightforest:drying'])
+
   // ---- Arcane Age magic stations (Doc 08 section 7) ----
   put('age_3', ['occultism:crushing', 'occultism:crystallize', 'occultism:miner', 'occultism:ritual', 'occultism:spirit_fire',
     'occultism:spirit_trade', 'ars_nouveau:crush', 'ars_nouveau:enchanting_apparatus', 'ars_nouveau:imbuement',
@@ -25,7 +32,10 @@ ServerEvents.recipes((event) => {
     'theurgy:accumulation', 'theurgy:calcination', 'theurgy:catalysation', 'theurgy:digestion', 'theurgy:distillation',
     'theurgy:fermentation', 'theurgy:incubation', 'theurgy:liquefaction', 'summoningrituals:altar',
     'create_enchantment_industry:grinding', 'create_enchantment_industry:infusing', 'apotheosis:gem_cutting',
-    'apotheosis:reforging', 'apotheosis:salvaging', 'apothic_enchanting:infusion'])
+    'apotheosis:reforging', 'apotheosis:salvaging', 'apothic_enchanting:infusion',
+    // fan processing with the Enchantment Industry catalysts (powder snow, dragon head) and Ars Additions' rituals
+    'create_dragons_plus:freezing', 'create_dragons_plus:ending', 'ars_additions:locate_structure',
+    'ars_additions:source_spawner'])
   put('age_6', ['theurgy:reformation']) // Reformation Array, magic tail of the Information Age (Doc 08 section 7.2)
 
   // ---- Industrial Age: IE LV machines, Advanced TFC Tech, Create Big Cannons, Cataclysm ----
@@ -33,7 +43,11 @@ ServerEvents.recipes((event) => {
     'immersiveengineering:crusher', 'immersiveengineering:metal_press', 'immersiveengineering:blueprint',
     'immersiveengineering:fermenter', 'immersiveengineering:squeezer', 'advancedtfctech:beamhouse',
     'advancedtfctech:fleshing_machine', 'advancedtfctech:grist_mill', 'advancedtfctech:power_loom', 'advancedtfctech:thresher',
-    'createbigcannons:melting', 'cataclysm:weapon_fusion', 'cataclysm:amethyst_bless'])
+    'createbigcannons:melting', 'cataclysm:weapon_fusion', 'cataclysm:amethyst_bless',
+    // Create Big Cannons' deployer assembly of shells and cartridges
+    'createbigcannons:autocannon_ammo_container_filling_deployer', 'createbigcannons:big_cartridge_filling_deployer',
+    'createbigcannons:cartridge_assembly_deployer', 'createbigcannons:munition_fuzing_deployer',
+    'createbigcannons:tracer_application_deployer'])
 
   // ---- Electric Age: IE MV/HV machines and Immersive Petroleum (Doc 10 v3 matrix 6.1, column 5) ----
   put('age_5', ['immersiveengineering:arc_furnace', 'immersiveengineering:sawmill', 'immersiveengineering:mixer',
@@ -46,6 +60,7 @@ ServerEvents.recipes((event) => {
     'mekanism:evaporating', 'mekanism:injecting', 'mekanism:metallurgic_infusing', 'mekanism:oxidizing', 'mekanism:painting',
     'mekanism:pigment_extracting', 'mekanism:pigment_mixing', 'mekanism:purifying', 'mekanism:reaction', 'mekanism:rotary',
     'mekanism:separating', 'mekanism:washing', 'ae2:inscriber', 'ae2:charger', 'ae2:transform', 'ae2:entropy',
+    'ae2:matter_cannon', 'ae2:storage_cell_disassembly', 'ae2:crafting_unit_transform',
     'extendedae:circuit_cutter', 'extendedae:crystal_assembler', 'extendedae:crystal_fixer',
     'mysticalagriculture:infusion', 'mysticalagriculture:reprocessor', 'mysticalagriculture:soul_extraction',
     'mysticalagriculture:enchanter', 'mysticalagriculture:soulium_spawner', 'mysticalagriculture:awakening',

@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "ad_astra:cryo_fuel", "required": false},
+    {"id": "ad_astra:flowing_cryo_fuel", "required": false},
+    {"id": "ad_astra:flowing_fuel", "required": false},
+    {"id": "ad_astra:flowing_hydrogen", "required": false},
+    {"id": "ad_astra:flowing_oil", "required": false},
+    {"id": "ad_astra:flowing_oxygen", "required": false},
+    {"id": "ad_astra:fuel", "required": false},
+    {"id": "ad_astra:hydrogen", "required": false},
+    {"id": "ad_astra:oil", "required": false},
+    {"id": "ad_astra:oxygen", "required": false},
+    {"id": "mekanism:flowing_uranium_hexafluoride", "required": false},
+    {"id": "mekanism:flowing_uranium_oxide", "required": false},
+    {"id": "mekanism:uranium_hexafluoride", "required": false},
+    {"id": "mekanism:uranium_oxide", "required": false},
+    {"id": "tfc_ie_addon:metal/flowing_uranium", "required": false},
+    {"id": "tfc_ie_addon:metal/uranium", "required": false}
+  ]
+}

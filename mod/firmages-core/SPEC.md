@@ -576,7 +576,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `origin status` / `origin reset` / `origin rebuild` | Arena version, return gate, altar, Gathering count, boss state / let the Gathering and the boss happen again (finale_won stays) / rebuild the arena and place the gate again |
 | `selftest <suite|all>` | Server-side test suites (§12), report in `logs/firmages-selftest.json` |
 
-## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "3" since 0.8.1: `firmages:age_status` gained `toolRule`)
+## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "4": `firmages:age_status` gained `reloadPending` (§21.5); "3" in 0.8.1 added `toolRule`)
 
 | Payload | Fields | Client action |
 |---|---|---|
@@ -585,7 +585,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `firmages:shrine_preview` | multiblock id, anchor pos, rotation, clear flag | `PreviewBridge` → `MultiblockPreviewRenderer.setMultiblock` + `anchorTo` [verified] |
 | `firmages:shrine_fx` | pos, fx type (refused, returned, rekindled, dormant) | small local response |
 | `firmages:shrine_sync` | heart dimension, maintenance, seconds left, position -> original block id | M7 (§17): client copy for the destroy-progress prediction (consecrated blocks break only in maintenance) and the Jade tooltip; on login, on every maintenance change, at most once a second when the originals change |
-| `firmages:age_status` | current Age id, goal item id, recipe viewer allowed, block overlay allowed, open TFC tabs (byte, one bit per `InventoryTab`), Cave Dweller hunts, hand-breaking rule holds | §18.3/18.4/18.6/§19: EMI and Jade gating, HUD Age indicator, TFC inventory tabs, Cave Dweller sound mute, break-speed prediction; on login and after every Age state change |
+| `firmages:age_status` | current Age id, goal item id, recipe viewer allowed, block overlay allowed, open TFC tabs (byte, one bit per `InventoryTab`), Cave Dweller hunts, hand-breaking rule holds, Age reload pending | §18.3/18.4/18.6/§19/§21.5: EMI and Jade gating, HUD Age indicator, TFC inventory tabs, Cave Dweller sound mute, break-speed prediction, skipped ProgressiveStages EMI reload; on login, after every Age state change, after a reload is scheduled and after every reload |
 | `firmages:welcome` | none | §18.5: first join of a player: title, then the welcome screen |
 
 The BE state uses vanilla block-entity sync. There is no C2S payload of our own (TFC's `SwitchInventoryTabPacket` is guarded, §18.6).
@@ -794,6 +794,7 @@ The mod-gated mixins are skipped by `FirmagesMixinPlugin` when their mod is abse
 ### 18.3 EMI and Jade by Age
 
 - The server decides: `firmages:age_status` (§11) carries `recipeViewer` = current Age >= `ui.emiFromAge` and `blockInfo` = current Age >= `ui.jadeFromAge` (`firmages-server.toml`; defaults: `emiFromAge = age_1`, the Bronze Age, since 0.7.1, and `jadeFromAge = age_1`, the Bronze Age too, since 0.8.0, Felix 2026-10-13 H9; it was `age_0` in 0.7.1 and 0.7.2). The current Age is the highest unlocked Age of the global Age state. Before the first status arrives the client counts the world as Dawn. Sent on login and from `AgeService`'s persist step after every Age change.
+- What EMI shows once it is open follows the player's Ages too (§21).
 - **EMI** (`client/immersion/EmiBridge`, reflection, no compile dependency): `dev.emi.emi.config.EmiConfig.enabled` (public static boolean; while false EMI draws nothing and takes no input except its toggle) [verified, javap, EMI 1.1.24]. Every client tick `immersion/ViewerGate.target` decides: while the Age is locked EMI is forced off (also after the player's own Ctrl+O); when the Age opens it EMI is switched on once; after that the player's toggle is left alone. Not written to `emi.css`.
 - **Jade:** `FirmagesJadePlugin` registers a ray-trace callback at priority 10000 (callbacks run by ascending priority, so it has the last word) that returns `null` while `blockInfo` is false; Jade then shows nothing, blocks and entities alike, its toggle key included [verified, javap, Jade 15.10.6].
 
@@ -883,3 +884,58 @@ TFCRegistryAPI 1.2 (required by TFCAstikorCarts and TFCRegrowingForests) [verifi
 - Parity: `dev/check_registry_parity.py jars <mods dir> [--dump <fa_dump dir>]` reads every jar of an install (with jar-in-jar files), applies the same rule and lists every class that implements one of the interfaces (through other interfaces too), plus the TFC enums the API's own mixins add `RegistryOre`/`RegistrySand`/`RegistrySoil` to; it fails when one lies outside the scope, and with `--dump` compares the TFCAstikorCarts items per part and wood with the wood enum constants. `dev/check_registry_parity.py dump <before> <after>` diffs two `/fa_dump` outputs; `kubejs/server_scripts/debug/dump.js` now writes every built-in registry into `registries.json` and the API's registered enums as `tfcregistryapi_enums`.
 - Tests: U `RegistryScanScopeTest` (7: roots, dependents kept in order, any dependency counts including only the API, a file kept whole, order and duplicates, nothing to scan, other roots). G `PerfGameTests.tfcRegistryApiScanScope` (opt-in run `-PgametestTfc`, which now also adds TFCRegistryAPI; passes empty without it): the switch is on by default, the scope keeps `tfc` and `tfcregistryapi` and leaves out `minecraft`, `neoforge`, IE, Mekanism and ProgressiveStages, and the API registered every TFC enum value of all seven interfaces (`Metal`, `Ore`, `Rock`, `SandBlockType`, `SoilBlockType`, `SoilBlockType.Variant`, `Wood`), TFC's woods under mod `tfc`.
 - **[PoC]** on the pack server and a client: boot time, the scope log line, no TFCRegistryAPI frames in FATAL/DISTXFORM/STDERR, and `check_registry_parity.py dump` between a boot with the switch off and one with it on (both at age_9, `/fa_dump`).
+
+## 21. Recipe viewer, Ponder and guides by Age (2026-10-14)
+
+Research `Modpack-Planung/research-raw/n2-emi-leaks.md`. ProgressiveStages 3.0.6 and KubeJS only remove locked stacks from EMI's index; EMI 1.1.24 then still shows them inside recipes, as tag members and as workstations, and opens their recipes on a click. Fluids (445 source fluids, none Age-tagged), Mekanism chemicals, Patchouli books, enchanted books and potions of later mods, and whole categories built on the client (Mekanism Boiler, SPS, liquifier; IE world data) were visible from age_1 on. Ponder (`/ponder`, level 0) and GuideME (`/guidemec`) showed every later Age from Dawn on.
+
+### 21.1 The view (`immersion/EmiAgeView`, pure; `client/immersion/ClientAgeView`)
+
+- Unlocked Ages: the player's Age stages from ProgressiveStages `ClientStageCache.getStages()` (paths; without ProgressiveStages every Age up to the `firmages:age_status` Age). Dawn is always unlocked; an empty set counts as Dawn only.
+- Items and fluids: the synced tags `firmages:age_items/<age>` and `firmages:age_fluids/<age>` (dawn..age_9, `disabled`; `disabled` wins). An item or fluid in a locked Age or in `disabled` is locked; one in no Age tag takes its namespace's Age.
+- Namespaces: `assets/firmages/age_namespaces.json` (`{"namespaces": {"create": "age_1", ...}}`), generated by `dev/gen_stage_locks.py` from `dev/age_map.toml [mods]` into `kubejs/assets/firmages/` and read by a client reload listener. A namespace whose Age is not unlocked is locked; unknown namespaces (`c`, `emi`, `jei`) never are.
+- Cached until the stages, the tags (`TagsUpdatedEvent` from the server) or the namespace file change; thread-safe (EMI builds it on its reload thread, Ponder on the render thread).
+
+### 21.2 EMI plugin (`compat/emi/FirmagesEmiPlugin`, `@EmiEntrypoint`, compileOnly EMI from its pack metafile through `fetchLibs`)
+
+- `initialize` (every EMI reload): `EmiInitRegistry.disableStacks(predicate)`. A disabled stack drops every recipe with a fully disabled input, output or catalyst (`EmiRecipes.bake`), every fully disabled workstation, every disabled tag member (`EmiTags.reloadTags`) and leaves the index [verified, javap, EMI 1.1.24]. The predicate: an item that is locked, or whose component patch names a locked mod (`patchouli:book`, `modonomicon:book_id`, `minecraft:stored_enchantments`, `minecraft:enchantments`, `minecraft:potion_contents` potion and custom effects); a fluid that is locked; any other stack type (Mekanism chemicals) of a locked mod. Logs `EMI gate: {age=..., locked items=..., locked fluids=..., locked mods=...}`.
+- `register`: `removeRecipes` for every recipe of a category whose namespace is locked (IE world data, Mekanism's client-built categories, JEI-only categories through JEMI), and for EMI Loot recipes (`emi_loot:/<category>/<loot namespace>/<path>`, [verified, javap]) whose loot table belongs to a locked mod.
+- ProgressiveStages' own EMI hiding and `viewer_static.js` stay as a second layer.
+
+### 21.3 Recipe screens while the viewer is locked
+
+`EmiApi.displayRecipes/displayUses` and JEI's `IRecipesGui.show` through JEMI do not check `EmiConfig.enabled`. `ImmersionClient.screenOpening` cancels `dev.emi.emi.screen.RecipeScreen` and `BoMScreen` (by class name) while `recipeViewer` is false (Dawn and the Stone Age by default, §18.3).
+
+### 21.4 Audit (a GameTest cannot open EMI)
+
+- After every EMI reload that ran the plugin (`EmiReloadManager.isLoaded()` turns true), `compat/emi/EmiAudit` walks every category, recipe (inputs, outputs, catalysts, tag members), workstation and index stack off the render thread and logs `EMI audit <age>: <n> categories [...], index <k> stacks, locked stacks visible 0, recipes with a locked stack 0, locked workstations 0, locked categories 0`; any number above 0 logs at WARN with the first 20 offenders.
+- `/firmages_client emi_audit` (client command, with EMI) writes the full result to `logs/firmages-emi-audit-<age>.json`: categories with recipe count and workstation ids, index counts by namespace and stack type, all offenders.
+- **[PoC]** Dev client on the test server, `/stage grant @s age_1` .. `age_9` one by one, `grep "EMI audit" logs/latest.log` after each: 0 offenders at every Age and the category list growing Age by Age; at age_1 no Mekanism workstation under Crafting or Smelting, no `ad_astra:fuel`, no Astrodux, no "Blast Furnace Fuel".
+
+### 21.5 One EMI reload per Age grant
+
+ProgressiveStages reloads EMI at every stage change (`ClientStageCache` -> `ProgressiveStagesEMIPlugin.triggerEmiReload()`), three seconds before the Age reload replaces the recipes, which reloads EMI again (research `n2-perf.md` §2.2: 20 reloads for 10 grants).
+- `firmages:age_status` carries `reloadPending` (protocol "4"): `AgeService.reloadPending()` = the scheduler is PENDING or RUNNING or has a follow-up queued. The server broadcasts the status again right after it schedules a reload (the persist step sent it before the request) and after every reload.
+- Client mixin `mixin/ps/EmiReloadDeferMixin` (HEAD of `triggerEmiReload`, cancellable, `require = 0`) cancels while `reloadPending` is true (`compat/emi/EmiReloadDefer`, logs "ProgressiveStages EMI reload skipped"). The status reaches the client before ProgressiveStages' stage sync because `sync.coalesce` (default true, §3.5) sends that sync at the end of the tick; with coalescing off the order is not guaranteed and a grant may reload EMI twice as before. Stage changes without an Age reload (game mode, mob stages) keep their reload. Safety net: when the status clears and no EMI reload has started since the skipped one (a failed reload sends no recipes), the skipped reload runs then.
+- An Age swap without a datapack reload (research n2-perf item 1) must keep `reloadPending` true from the grant until its recipe packet is sent.
+- **[PoC]** client log of an age_0..age_9 run: one `[EMI] Starting Reload` per grant.
+
+### 21.6 Ponder
+
+- Client (`compat/ponder/FirmagesPonderPlugin`, added in client setup when Ponder is loaded): `indexExclusions` excludes every locked item; Ponder 1.0.82 collects the exclusions each time `PonderIndexScreen` is built, so the index follows the Age. `mixin/ponder/PonderTagScreenMixin` removes locked items from a tag screen before its layout (the tag screens ignore exclusions). Compiled against `net.createmod.ponder:ponder-neoforge` (the version Create 6.0.10 bundles).
+- Server (`immersion/PonderCommandGate`, `CommandEvent`): `/ponder ...` below permission level 2 is cancelled with "Hold [<Ponder key>] on an item to ponder it." (`firmages.ponder.blocked`, gray). Holding the key on an item tooltip still opens that item's scenes.
+
+### 21.7 GuideME
+
+`client/immersion/ClientCommands` removes the client command `guidemec` (GuideME 21.1.19 registers `/guidemec open <guide> [page]` without a permission check) from the root at `RegisterClientCommandsEvent` priority LOWEST, by reflection on Brigadier's `CommandNode.children` and `literals`. GuideME's G key on a held item keeps working; the server command `guideme` needs level 2.
+
+### 21.8 Server side of the same leaks
+
+- `dev/gen_stage_locks.py` writes `kubejs/data/firmages/tags/fluid/age_fluids/<stage>.json` (every fluid in one tag; `disabled` empty). A fluid's Age: the hand-written rule Age of its bucket item (`fluid_buckets`: fluid -> `Fluid#getBucket`, written by `/fa_dump` into `registries.json` and by `/firmages dump registry`; derived Ages and disabled buckets do not count), else for `<ns>:metal/<metal>` the metal's `[tfc_metals]` or `[materials]` Age, else the later of the `[mods]` Age and the `[materials]` words (as items). `AgeIndex` reads the tags, and `GateRules.fluidLock` drops recipes with a locked fluid output with no Java change. `dev/poc_analyze.py` G-1/G-2 mirror fluid outputs.
+- `kubejs/server_scripts/recipes/station_ages.js`: age_2 `create:crushing`, `deploying`, `filling`, `emptying`, `twilightforest:uncrafting`, `drying`; age_3 `create_dragons_plus:freezing`, `ending`, `ars_additions:locate_structure`, `source_spawner`; age_4 the five `createbigcannons:*_deployer` types; age_6 `ae2:matter_cannon`, `storage_cell_disassembly`, `crafting_unit_transform`.
+
+### 21.9 Tests
+
+- U `EmiAgeViewTest` (8): unlocked Ages fail closed and ignore other stages; items by Age tag (an Age tag earlier than the mod wins, `disabled` always locked, untagged by namespace); fluids by tag else namespace; namespaces, categories and EMI Loot tables; the loot namespace parser; the open view; the namespace file parser; the shipped `age_namespaces.json` equals `dev/age_map.toml [mods]`. U `ImmersionTest.reloadPendingIsSetByTheServerOnly`.
+- G `CoreGameTests` (`/firmages dump registry` writes `fluid_buckets`), the existing immersion GameTests with the extended `age_status`.
+- **[PoC]** §21.4 and §21.5 on a client; as a non-op: `/ponder index` gives the line and opens nothing, `/guidemec open ae2:guide` is an unknown command.
