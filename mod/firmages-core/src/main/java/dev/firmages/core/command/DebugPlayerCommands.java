@@ -84,6 +84,7 @@ public final class DebugPlayerCommands {
 
     /** name -> the mod payloads received since {@link #record} (GameTests read the packet order from it) */
     private static final Map<String, List<CustomPacketPayload>> RECORDED = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final Map<String, List<Component>> RECORDED_CHAT = new java.util.concurrent.ConcurrentHashMap<>();
 
     private DebugPlayerCommands() {}
 
@@ -155,6 +156,7 @@ public final class DebugPlayerCommands {
     /** Starts (or restarts) recording every mod payload the test player {@code name} receives. */
     public static void record(String name) {
         RECORDED.put(name, Collections.synchronizedList(new ArrayList<>()));
+        RECORDED_CHAT.put(name, Collections.synchronizedList(new ArrayList<>()));
     }
 
     /** The payloads recorded for {@code name} so far, oldest first (empty when not recording). */
@@ -166,11 +168,21 @@ public final class DebugPlayerCommands {
         }
     }
 
+    /** The chat lines (not the actionbar) recorded for {@code name} since {@link #record}, oldest first. */
+    public static List<Component> recordedChat(String name) {
+        List<Component> l = RECORDED_CHAT.get(name);
+        if (l == null) return List.of();
+        synchronized (l) {
+            return List.copyOf(l);
+        }
+    }
+
     /** Disconnects a player made by {@link #spawn}. */
     public static void despawn(ServerPlayer p) {
         PRAYING.remove(p.getGameProfile().getName());
         MINING.remove(p.getGameProfile().getName());
         RECORDED.remove(p.getGameProfile().getName());
+        RECORDED_CHAT.remove(p.getGameProfile().getName());
         p.connection.onDisconnect(new DisconnectionDetails(Component.literal("debug player left")));
     }
 
@@ -413,6 +425,8 @@ public final class DebugPlayerCommands {
                 FirmagesCore.LOGGER.info("[debug-player {}] subtitle: {}", name, t.text().getString());
             } else if (msg instanceof ClientboundSystemChatPacket chat) {
                 if (!chat.overlay()) {
+                    List<Component> rec = RECORDED_CHAT.get(name);
+                    if (rec != null) rec.add(chat.content());
                     FirmagesCore.LOGGER.info("[debug-player {}] chat: {}", name, chat.content().getString());
                 } else if (System.currentTimeMillis() - lastOverlay >= 1000) {
                     lastOverlay = System.currentTimeMillis();

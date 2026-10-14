@@ -4,7 +4,9 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import dev.firmages.core.origin.OriginAccess;
 import dev.firmages.core.origin.OriginArena;
+import dev.firmages.core.origin.OriginEvent;
 import dev.firmages.core.origin.OriginRegistry;
 import dev.firmages.core.origin.OriginSavedData;
 import dev.firmages.core.origin.OriginService;
@@ -23,9 +25,13 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * {@code /firmages origin tp [players] | status | reset | rebuild} and {@code /firmages reactor status [pos]}
- * (SPEC §10). {@code origin tp} uses the normal teleport path, so ProgressiveStages' dimension lock applies: a
- * player without {@code age_9} (and outside creative) stays where they are.
+ * {@code /firmages origin tp [players [force]] | gathering | fight | status | reset | rebuild} and
+ * {@code /firmages reactor status [pos]} (SPEC §10, operators only like every {@code /firmages} command).
+ * {@code origin tp} uses the normal teleport path, so the age_9 dimension locks apply: a player without
+ * {@code age_9} (and outside creative) stays where they are; {@code force} gives the players a forced visit that
+ * passes both locks until they leave The Origin ({@link OriginAccess}). {@code gathering} starts the Gathering at
+ * once, wherever the players stand and regardless of the cooldown; {@code fight} asks the boss script to summon The
+ * Primordial without the gateway waves.
  */
 final class OriginCommands {
     private static final SimpleCommandExceptionType NO_ORIGIN = new SimpleCommandExceptionType(
@@ -36,8 +42,11 @@ final class OriginCommands {
     static LiteralArgumentBuilder<CommandSourceStack> origin() {
         return Commands.literal("origin")
             .then(Commands.literal("tp")
-                .executes(c -> tp(c, List.of(c.getSource().getPlayerOrException())))
-                .then(Commands.argument("players", EntityArgument.players()).executes(c -> tp(c, EntityArgument.getPlayers(c, "players")))))
+                .executes(c -> tp(c, List.of(c.getSource().getPlayerOrException()), false))
+                .then(Commands.argument("players", EntityArgument.players()).executes(c -> tp(c, EntityArgument.getPlayers(c, "players"), false))
+                    .then(Commands.literal("force").executes(c -> tp(c, EntityArgument.getPlayers(c, "players"), true)))))
+            .then(Commands.literal("gathering").executes(OriginCommands::gathering))
+            .then(Commands.literal("fight").executes(OriginCommands::fight))
             .then(Commands.literal("status").executes(OriginCommands::status))
             .then(Commands.literal("reset").executes(OriginCommands::reset))
             .then(Commands.literal("rebuild").executes(OriginCommands::rebuild));
@@ -55,22 +64,56 @@ final class OriginCommands {
         return level;
     }
 
-    private static int tp(CommandContext<CommandSourceStack> c, Collection<ServerPlayer> players) throws CommandSyntaxException {
+    private static int tp(CommandContext<CommandSourceStack> c, Collection<ServerPlayer> players, boolean force) throws CommandSyntaxException {
         ServerLevel level = origin(c);
         OriginService.ensureBuilt(c.getSource().getServer());
         BlockPos a = OriginArena.ARRIVAL;
         int moved = 0;
         for (ServerPlayer p : players) {
+            if (force) OriginAccess.allowForcedVisit(p);
             p.teleportTo(level, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 180.0F, 0.0F);
             if (p.level() == level) {
                 moved++;
             } else {
-                c.getSource().sendFailure(Component.literal(p.getGameProfile().getName() + " was not let into The Origin (age_9 missing?)"));
+                if (force) OriginAccess.endForcedVisit(p);
+                c.getSource().sendFailure(Component.literal(p.getGameProfile().getName() + " was not let into The Origin"
+                    + (force ? "" : " (age_9 missing? add 'force' to pass the lock)")));
             }
         }
         int n = moved;
-        c.getSource().sendSuccess(() -> Component.literal("Teleported " + n + " player(s) to The Origin"), true);
+        c.getSource().sendSuccess(() -> Component.literal("Teleported " + n + " player(s) to The Origin"
+            + (force ? " (forced visit: the age_9 lock lets them stay until they leave)" : "")), true);
         return moved;
+    }
+
+    private static int gathering(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        origin(c);
+        if (!OriginService.forceGathering(c.getSource().getServer())) {
+            c.getSource().sendFailure(Component.literal("The finale is already won; /firmages origin reset lets the Gathering happen again"));
+            return 0;
+        }
+        int n = OriginSavedData.get(c.getSource().getServer()).gatherings();
+        c.getSource().sendSuccess(() -> Component.literal("The Origin: Gathering #" + n + " started now (radius and cooldown skipped)"), true);
+        return 1;
+    }
+
+    private static int fight(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        origin(c);
+        if (OriginSavedData.get(c.getSource().getServer()).won()) {
+            c.getSource().sendFailure(Component.literal("The finale is already won; /firmages origin reset lets the boss be fought again"));
+            return 0;
+        }
+        OriginEvent.SummonBoss e = OriginService.summonBoss(c.getSource().getServer());
+        if (e == null || !e.answered()) {
+            c.getSource().sendFailure(Component.literal("No boss script answered (kubejs/server_scripts/finale/the_primordial.js not loaded?)"));
+            return 0;
+        }
+        if (!e.isSummoned()) {
+            c.getSource().sendFailure(Component.literal("The boss script did not summon: " + e.getRefusal()));
+            return 0;
+        }
+        c.getSource().sendSuccess(() -> Component.literal("The Origin: final boss summoned at the altar (gateway waves skipped)"), true);
+        return 1;
     }
 
     private static int status(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
@@ -83,6 +126,8 @@ final class OriginCommands {
             alt.getX(), alt.getY(), alt.getZ(), altar ? "present" : (level.isLoaded(alt) ? "MISSING" : "(chunk not loaded)")));
         line(c, String.format(Locale.ROOT, "  Gathering: %d start(s), gathered now %s (radius %.0f); final boss %s",
             sd.gatherings(), OriginService.gathered(c.getSource().getServer()), OriginService.gatherRadius(), sd.won() ? "DEFEATED (finale_won)" : "alive"));
+        long echoes = java.util.stream.IntStream.range(0, OriginArena.ISLANDS).filter(i -> level.getEntity(dev.firmages.core.origin.OriginEchoes.uuid(i)) != null).count();
+        line(c, "  Island echoes loaded: " + echoes + " of " + OriginArena.ISLANDS + " (they appear while players are in The Origin)");
         line(c, "  Finale gateway " + dev.firmages.core.config.ServerConfig.finaleGateway() + "; spawn list "
             + java.util.Arrays.stream(net.minecraft.world.entity.MobCategory.values()).filter(m -> !dev.firmages.core.origin.OriginSpawns.spawns(m).isEmpty())
                 .map(m -> m.getSerializedName() + " " + dev.firmages.core.origin.OriginSpawns.spawns(m).stream()

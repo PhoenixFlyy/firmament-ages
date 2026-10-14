@@ -50,6 +50,7 @@ public final class FirmagesCore {
         bus.addListener(AgeService::onStagesBulkChanged);
         bus.addListener(AgeService::onPlayerLoggedIn);
         ImmersionService.register(modEventBus, bus); // after AgeService: the login status sees the login's Ages
+        dev.firmages.core.ceremony.CeremonyEcho.register(modEventBus, bus); // seen_age attachment, echo of missed ceremonies
         CaveDwellerService.register(bus);
         ToolRuleService.register(bus);
         bus.addListener(FirmagesCommands::register);

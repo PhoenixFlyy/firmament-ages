@@ -73,7 +73,7 @@ public final class CeremonyService {
         lastShort = age;
         lastShortTick = s.getTickCount();
         AgeTransitionPayload payload = payload(age, false, heartOf(s), tierGranting(age));
-        broadcast(payload);
+        broadcast(s, payload);
         FirmagesCore.LOGGER.info("Ceremony SHORT for {} (grant from outside the shrine)", age.id());
     }
 
@@ -96,7 +96,7 @@ public final class CeremonyService {
             ResourceLocation.withDefaultNamespace("ui.toast.challenge_complete"), "firmages.shrine.voice." + FINALE,
             List.of(ResourceLocation.withDefaultNamespace("end_rod"), ResourceLocation.withDefaultNamespace("totem_of_undying")),
             "firmages.finale.trophies.name", "firmages.finale.trophies.description");
-        broadcast(payload);
+        broadcast(s, payload);
         long now = s.getTickCount();
         for (int i = 0; i < 8; i++) {
             double a = Math.PI * 2 * i / 8;
@@ -106,10 +106,44 @@ public final class CeremonyService {
         FirmagesCore.LOGGER.info("Ceremony FINALE at {}", at);
     }
 
+    /** Stage id the GATHERING payload carries (title {@code firmages.age.gathering.title}, voice {@code firmages.shrine.voice.gathering}). */
+    public static final String GATHERING = "gathering";
+
+    /**
+     * The GATHERING variant (SPEC §7.5): the shrine gave the nine relics back in the Singularity Age. One FULL payload
+     * for stage {@code gathering} at the heart: title "The Gathering", Caelum's line "Nine gifts. One light. Open the
+     * gate.", a pale violet-white beam, a deep violet sky, end-rod and reverse-portal particles and the line "Crowned"
+     * in the blessing slot, plus four visual bolts around the heart. No reload (no Age).
+     */
+    public static void startGathering(MinecraftServer s, GlobalPos heart) {
+        AgeTransitionPayload payload = new AgeTransitionPayload(GATHERING, ShrineDataLoader.current().highestRing() + 1, true, Optional.of(heart),
+            0xFFF4F0FF, 0x1A0A2A, ResourceLocation.withDefaultNamespace("block.end_portal.spawn"), "firmages.shrine.voice." + GATHERING,
+            List.of(ResourceLocation.withDefaultNamespace("end_rod"), ResourceLocation.withDefaultNamespace("reverse_portal")),
+            "firmages.blessing.crowned", "firmages.blessing.crowned.description");
+        broadcast(s, payload);
+        long now = s.getTickCount();
+        for (int i = 0; i < 4; i++) {
+            int dx = (i % 2 == 0 ? 1 : -1) * 5;
+            int dz = (i < 2 ? 1 : -1) * 5;
+            bolts.add(new Bolt(GlobalPos.of(heart.dimension(), heart.pos().offset(dx, 0, dz)), now + 15 + i * 8L));
+        }
+        FirmagesCore.LOGGER.info("Ceremony GATHERING at {}", heart);
+    }
+
+    /**
+     * The SHORT ceremony of {@code age} for one player who missed it (SPEC §8.2, {@link CeremonyEcho}): the beam
+     * only when the player stands within 64 blocks of the heart.
+     */
+    static AgeTransitionPayload echoPayload(ServerPlayer player, AgeId age) {
+        Optional<GlobalPos> heart = heartOf(player.server)
+            .filter(g -> g.dimension() == player.level().dimension() && g.pos().distToCenterSqr(player.position()) <= 64 * 64);
+        return payload(age, false, heart, tierGranting(age));
+    }
+
     private static void startFull(MinecraftServer s, Pending p) {
         pending = new Pending(p.stage, p.heart, p.tier, p.tick, true);
         AgeTransitionPayload payload = payload(p.stage, true, Optional.of(p.heart), Optional.of(p.tier));
-        broadcast(payload);
+        broadcast(s, payload);
         ServerLevel level = s.getLevel(p.heart.dimension());
         if (level != null) {
             if (p.tier.response().lightning()) {
@@ -127,10 +161,12 @@ public final class CeremonyService {
         FirmagesCore.LOGGER.info("Ceremony FULL for {} at {} (tier {})", p.stage.id(), p.heart, p.tier.tier());
     }
 
-    private static void broadcast(AgeTransitionPayload payload) {
+    private static void broadcast(MinecraftServer s, AgeTransitionPayload payload) {
         last = payload;
         sent++;
         PacketDistributor.sendToAllPlayers(payload);
+        // Everyone online saw this Age's ceremony: no echo at their next login (the finale and the Gathering are no Age).
+        AgeId.byId(payload.stage()).ifPresent(age -> CeremonyEcho.markSeen(s, age));
     }
 
     private static AgeTransitionPayload payload(AgeId age, boolean full, Optional<GlobalPos> heart, Optional<ShrineTier> tier) {
@@ -153,8 +189,9 @@ public final class CeremonyService {
         return ShrineSavedData.get(s).heart();
     }
 
-    /** Server tick: visual-only lightning of a running FULL ceremony. */
+    /** Server tick: visual-only lightning of a running FULL ceremony, and the echoes of missed ceremonies. */
     public static void tick(MinecraftServer s) {
+        CeremonyEcho.tick(s);
         if (bolts.isEmpty()) return;
         long now = s.getTickCount();
         for (Iterator<Bolt> it = bolts.iterator(); it.hasNext(); ) {
@@ -179,6 +216,7 @@ public final class CeremonyService {
         lastShort = null;
         lastShortTick = Long.MIN_VALUE;
         bolts.clear();
+        CeremonyEcho.clear();
     }
 
     /** The last ceremony payload broadcast (status command, GameTests). */

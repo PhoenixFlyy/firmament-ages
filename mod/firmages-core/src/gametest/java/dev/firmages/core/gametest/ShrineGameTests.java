@@ -6,6 +6,7 @@ import dev.firmages.core.age.AgeService;
 import dev.firmages.core.age.ReloadScheduler;
 import dev.firmages.core.ceremony.CeremonyService;
 import dev.firmages.core.config.ServerConfig;
+import dev.firmages.core.immersion.ImmersionService;
 import dev.firmages.core.net.AgeTransitionPayload;
 import dev.firmages.core.shrine.Blessings;
 import dev.firmages.core.shrine.OfferingPlinthBlock;
@@ -452,5 +453,223 @@ public final class ShrineGameTests {
             .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))
             .thenExecute(() -> ServerConfig.DEBUG_ALLOW_SIMULATE.set(false))
             .thenSucceed();
+    }
+
+    // ---------------------------------------------------------------- the Gathering and the living shrine
+
+    /** Stand-in relics of tiers 0..8; tiers 0, 3 and 8 are the test datapack's offerings (late offering needs them). */
+    private static final net.minecraft.world.item.Item[] RELICS = {Items.HEART_OF_THE_SEA, Items.COPPER_INGOT, Items.IRON_INGOT, Items.AMETHYST_SHARD,
+        Items.GOLD_INGOT, Items.REDSTONE, Items.QUARTZ, Items.ENDER_PEARL, Items.NETHER_STAR};
+
+    /**
+     * All nine rings around {@code heart} in consecrated blocks (rotation NONE, accent = ring), a plinth per ring with
+     * its enshrined stand-in relic and record. @return the plinth of each tier
+     */
+    private static BlockPos[] buildConsecratedShrine(ServerLevel level, BlockPos heart) {
+        MinecraftServer server = level.getServer();
+        ShrineData d = ShrineDataLoader.current();
+        level.setBlock(heart, ShrineRegistry.SHRINE_HEART.get().defaultBlockState().setValue(ShrineHeartBlock.LIT, true), 3);
+        BlockPos[] plinths = new BlockPos[ShrineData.MAX_TIER + 1];
+        for (int k = 0; k <= ShrineData.MAX_TIER; k++) {
+            ShrineTier t = d.tier(k).orElseThrow();
+            ResourceLocation id = ResourceLocation.parse(t.multiblock().orElseThrow());
+            for (ShrineMultiblocks.Cell c : ShrineMultiblocks.cells(level, heart, id, Rotation.NONE)) {
+                if (c.key() == '0' || !c.counts()) continue;
+                if (c.key() == t.plinthKey()) {
+                    level.setBlock(c.pos(), ShrineRegistry.OFFERING_PLINTH.get().defaultBlockState(), 3);
+                    plinths[k] = c.pos();
+                } else if (c.role() != null) {
+                    level.setBlock(c.pos(), ShrineRegistry.consecrated(c.role(), k), 3);
+                }
+            }
+            OfferingPlinthBlockEntity pb = (OfferingPlinthBlockEntity) level.getBlockEntity(plinths[k]);
+            pb.offer(new ItemStack(RELICS[k]), k);
+            pb.enshrine(k);
+            ShrineSavedData.get(server).putRelic(new ShrineSavedData.Relic(plinths[k], k,
+                net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(RELICS[k]).toString()));
+        }
+        return plinths;
+    }
+
+    /** Removes the heart (its record goes), every ring position and the plinths around {@code heart}. */
+    private static void clearShrine(ServerLevel level, BlockPos heart) {
+        level.setBlock(heart, Blocks.AIR.defaultBlockState(), 3);
+        ShrineData d = ShrineDataLoader.current();
+        for (int k = ShrineData.MAX_TIER; k >= 0; k--) {
+            ResourceLocation id = ResourceLocation.parse(d.tier(k).orElseThrow().multiblock().orElseThrow());
+            for (ShrineMultiblocks.Cell c : ShrineMultiblocks.cells(level, heart, id, Rotation.NONE)) {
+                if (!level.getBlockState(c.pos()).isAir()) level.setBlock(c.pos(), Blocks.AIR.defaultBlockState(), 3);
+            }
+        }
+    }
+
+    private static List<net.minecraft.world.entity.item.ItemEntity> itemsAbove(ServerLevel level, BlockPos heart) {
+        return level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, new net.minecraft.world.phys.AABB(heart).inflate(3));
+    }
+
+    /**
+     * SPEC §7.5, the Gathering: nine consecrated rings with nine enshrined (stand-in) relics. In age_8 no prayer
+     * releases anything; in age_9 the shrine lends nothing before the Gathering; a lent relic and a missing relic
+     * refuse the prayer with their own lines, the missing one comes back as a late offering; then the prayer releases
+     * exactly nine item entities (never despawning, invulnerable) with the nine ids above the heart, every plinth waits
+     * (lent, still glowing), the heart shows awakened=10, one GATHERING payload goes out, the HUD status says gathered,
+     * the flag survives a SavedData round trip; a second prayer is refused; a relic laid back is enshrined again and
+     * can be taken again by sneak-use; the shrine stays intact (blessings unchanged).
+     */
+    @GameTest(template = "empty", batch = "firmages_3_shrine_gathering", timeoutTicks = 4000)
+    public static void gatheringReleasesRelics(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel level = h.getLevel();
+        BlockPos heart = h.absolutePos(new BlockPos(0, 1, 0)).above(24); // in open air: the rings reach 10 blocks out
+        BlockPos[][] plinths = new BlockPos[1][];
+        int[] sentBefore = new int[1];
+        h.startSequence()
+            .thenExecute(() -> {
+                ServerConfig.DEBUG_ALLOW_SIMULATE.set(true);
+                agesUpTo(server, AgeId.AGE_8);
+                plinths[0] = buildConsecratedShrine(level, heart);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the age_8 setup still running"))
+            .thenExecute(() -> {
+                ShrineHeartBlockEntity be = (ShrineHeartBlockEntity) level.getBlockEntity(heart);
+                ShrineService.validate(level, heart, be);
+                ok(h, be.validRing() == ShrineData.MAX_TIER && ShrineSavedData.get(server).intact(), "nine consecrated rings validate: ring " + be.validRing());
+                ok(h, ShrineService.simulatePray(server) != null && itemsAbove(level, heart).isEmpty() && !ShrineSavedData.get(server).gathered(),
+                    "age_8: no Gathering, nothing released");
+                AgeService.simulate(server, AgeId.AGE_9, true);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the age_9 grant still running"))
+            .thenExecute(() -> {
+                ShrineSavedData sd = ShrineSavedData.get(server);
+                ShrineHeartBlockEntity be = (ShrineHeartBlockEntity) level.getBlockEntity(heart);
+                ShrineService.validate(level, heart, be);
+                ok(h, level.getBlockState(heart).getValue(ShrineHeartBlock.AWAKENED) == 9 && sd.intact(), "age_9: awakened 9, intact");
+                ok(h, ShrineService.prayerRefusal(server).isEmpty(), "the Gathering listens: " + text(ShrineService.prayerRefusal(server)));
+                ok(h, ShrineService.lend(level, plinths[0][3], null) == null, "nothing is lent before the Gathering");
+                ok(h, !ImmersionService.status(server).gathered(), "HUD: Goal: the Gathering");
+
+                // a relic lent out (in age_8) and never returned
+                OfferingPlinthBlockEntity p3 = (OfferingPlinthBlockEntity) level.getBlockEntity(plinths[0][3]);
+                ItemStack keystone = p3.lend();
+                sd.putRelic(new ShrineSavedData.Relic(plinths[0][3], 3, "minecraft:amethyst_shard", true));
+                ok(h, isKey(ShrineService.prayerRefusal(server), "firmages.shrine.gathering.lent"), "lent relic: " + text(ShrineService.prayerRefusal(server)));
+                ok(h, ShrineService.offerAtPlinth(level, plinths[0][3], keystone, null) == ShrineService.OfferResult.RETURNED, "the lent relic comes back");
+
+                // a relic missing (operator extract), laid back as a late offering
+                ok(h, ShrineService.extract(level, plinths[0][0]).isPresent(), "extract the tier-0 relic");
+                ok(h, isKey(ShrineService.prayerRefusal(server), "firmages.shrine.gathering.missing"), "missing relic: " + text(ShrineService.prayerRefusal(server)));
+                ShrineService.OfferResult late = ShrineService.offerAtPlinth(level, plinths[0][0], new ItemStack(Items.HEART_OF_THE_SEA), null);
+                ok(h, late == ShrineService.OfferResult.ACCEPTED_LATE, "age_9: the missing relic is a late offering: " + late);
+                ok(h, ShrineService.prayerRefusal(server).isEmpty(), "complete again: " + text(ShrineService.prayerRefusal(server)));
+
+                // the prayer
+                sentBefore[0] = CeremonyService.sentCount();
+                Component no = ShrineService.simulatePray(server);
+                ok(h, no == null, "Gathering refused: " + (no == null ? "" : no.getString()));
+                List<net.minecraft.world.entity.item.ItemEntity> items = itemsAbove(level, heart);
+                List<String> ids = items.stream().map(e -> net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(e.getItem().getItem()).toString()).sorted().toList();
+                List<String> want = java.util.Arrays.stream(RELICS).map(i -> net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(i).toString()).sorted().toList();
+                ok(h, ids.equals(want) && items.stream().allMatch(e -> e.getItem().getCount() == 1), "exactly the nine relics above the heart: " + ids);
+                ok(h, items.stream().allMatch(e -> e.isInvulnerable() && e.getAge() < 0), "relic items never despawn and cannot be destroyed");
+                for (int k = 0; k <= ShrineData.MAX_TIER; k++) {
+                    OfferingPlinthBlockEntity pb = (OfferingPlinthBlockEntity) level.getBlockEntity(plinths[0][k]);
+                    ok(h, pb.isLent() && pb.isEmpty() && pb.tier() == k && level.getBlockState(plinths[0][k]).getValue(OfferingPlinthBlock.AWAKENED),
+                        "plinth " + k + " waits for its relic and keeps its glow");
+                }
+                ok(h, ShrineSavedData.get(server).gathered() && ShrineSavedData.get(server).lentRelics().size() == 9, "gathered, nine records kept as lent");
+                ok(h, ShrineSavedData.reload(ShrineSavedData.get(server), server.registryAccess()).gathered(), "gathered in the SavedData round trip");
+                AgeTransitionPayload p = CeremonyService.last().orElseThrow();
+                ok(h, CeremonyService.sentCount() == sentBefore[0] + 1 && p.stage().equals(CeremonyService.GATHERING) && p.full()
+                    && p.voiceKey().equals("firmages.shrine.voice.gathering") && p.blessingName().equals("firmages.blessing.crowned")
+                    && p.shrine().map(g -> g.pos().equals(heart)).orElse(false), "one GATHERING payload at the heart: " + p);
+                ok(h, ImmersionService.status(server).gathered(), "HUD: Goal: Beyond the Firmament");
+            })
+            .thenIdle(5)
+            .thenExecute(() -> {
+                ShrineHeartBlockEntity be = (ShrineHeartBlockEntity) level.getBlockEntity(heart);
+                ShrineService.validate(level, heart, be);
+                ok(h, level.getBlockState(heart).getValue(ShrineHeartBlock.AWAKENED) == 10, "the heart shows awakened=10");
+                ok(h, ShrineSavedData.get(server).intact() && Blessings.activeBlessings(server).size() == 9, "intact, nine blessings in force");
+                int before = itemsAbove(level, heart).size();
+                ok(h, isKey(ShrineService.prayerRefusal(server), "firmages.shrine.gathered") && ShrineService.simulatePray(server) != null
+                    && itemsAbove(level, heart).size() == before, "a second Gathering is refused");
+            })
+            .thenIdle(245) // relics are not handed out while Caelum answers
+            .thenExecute(() -> {
+                // a relic laid back, then taken again
+                ok(h, ShrineService.offerAtPlinth(level, plinths[0][8], new ItemStack(Items.NETHER_STAR), null) == ShrineService.OfferResult.RETURNED,
+                    "a relic laid back after the Gathering is enshrined again");
+                ItemStack again = ShrineService.lend(level, plinths[0][8], null);
+                ok(h, again != null && again.is(Items.NETHER_STAR) && ((OfferingPlinthBlockEntity) level.getBlockEntity(plinths[0][8])).isLent(),
+                    "and can be taken again by sneak-use");
+                // clean up
+                itemsAbove(level, heart).forEach(net.minecraft.world.entity.Entity::discard);
+                clearShrine(level, heart);
+                ShrineSavedData.get(server).setGathered(false);
+                for (ShrineSavedData.Relic r : ShrineSavedData.get(server).relics().values()) ShrineSavedData.get(server).removeRelic(r.plinth());
+                agesUpTo(server, AgeId.DAWN);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))
+            .thenExecute(() -> ServerConfig.DEBUG_ALLOW_SIMULATE.set(false))
+            .thenSucceed();
+    }
+
+    /**
+     * SPEC §7.10, the living shrine: {@code firmages:shrine_sync} carries the heart, the intact flag, the finale, the
+     * idle-beam switch ({@code shrine.permanentBeam}, on by default) and the nine tier colours; breaking a ring block
+     * sends intact=false to the players within a second, the repair intact=true; the codec round-trips.
+     */
+    @GameTest(template = "shrine_area", batch = "firmages_3_shrine_living", timeoutTicks = 3000)
+    public static void livingShrineSync(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel level = h.getLevel();
+        BlockPos heart = h.absolutePos(HEART);
+        String name = "gt_living";
+        net.minecraft.server.level.ServerPlayer[] p = new net.minecraft.server.level.ServerPlayer[1];
+        h.startSequence()
+            .thenExecute(() -> {
+                ServerConfig.DEBUG_ALLOW_SIMULATE.set(true);
+                ok(h, ServerConfig.SHRINE_PERMANENT_BEAM.getDefault(), "shrine.permanentBeam defaults to true");
+                agesUpTo(server, AgeId.AGE_1);
+                buildRing0(h);
+                p[0] = dev.firmages.core.command.DebugPlayerCommands.spawn(server, level, name, net.minecraft.world.phys.Vec3.atCenterOf(h.absolutePos(new BlockPos(1, 1, 1))));
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the age_1 setup still running"))
+            .thenExecute(() -> {
+                ShrineService.validate(level, heart, (ShrineHeartBlockEntity) level.getBlockEntity(heart));
+                ok(h, ShrineSavedData.get(server).intact(), "ring 0 stands at age_1");
+                dev.firmages.core.command.DebugPlayerCommands.record(name);
+                h.setBlock(STONE, Blocks.AIR);
+                ShrineService.validate(level, heart, (ShrineHeartBlockEntity) level.getBlockEntity(heart));
+            })
+            .thenIdle(25)
+            .thenExecute(() -> {
+                Optional<dev.firmages.core.net.ShrineSyncPayload> s = lastSync(name);
+                ok(h, s.isPresent() && !s.get().intact() && s.get().heartPos() == heart.asLong() && s.get().idleBeam() && !s.get().finale()
+                    && s.get().tierBeam().size() == 9 && s.get().tierBeam().get(0) == 0xFFFFB347, "broken: sync with intact=false, got " + s);
+                RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), server.registryAccess());
+                dev.firmages.core.net.ShrineSyncPayload.STREAM_CODEC.encode(buf, s.orElseThrow());
+                ok(h, dev.firmages.core.net.ShrineSyncPayload.STREAM_CODEC.decode(buf).equals(s.get()), "shrine_sync codec round trip");
+                dev.firmages.core.command.DebugPlayerCommands.record(name);
+                h.setBlock(STONE, Blocks.COBBLESTONE);
+                ShrineService.validate(level, heart, (ShrineHeartBlockEntity) level.getBlockEntity(heart));
+            })
+            .thenIdle(25)
+            .thenExecute(() -> {
+                Optional<dev.firmages.core.net.ShrineSyncPayload> s = lastSync(name);
+                ok(h, s.isPresent() && s.get().intact(), "repaired: sync with intact=true, got " + s);
+                dev.firmages.core.command.DebugPlayerCommands.despawn(p[0]);
+                h.setBlock(HEART, Blocks.AIR);
+                ShrineService.extract(level, h.absolutePos(PLINTH));
+                agesUpTo(server, AgeId.DAWN);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))
+            .thenExecute(() -> ServerConfig.DEBUG_ALLOW_SIMULATE.set(false))
+            .thenSucceed();
+    }
+
+    private static Optional<dev.firmages.core.net.ShrineSyncPayload> lastSync(String name) {
+        return dev.firmages.core.command.DebugPlayerCommands.recorded(name).stream().filter(dev.firmages.core.net.ShrineSyncPayload.class::isInstance)
+            .map(dev.firmages.core.net.ShrineSyncPayload.class::cast).reduce((a, b) -> b);
     }
 }

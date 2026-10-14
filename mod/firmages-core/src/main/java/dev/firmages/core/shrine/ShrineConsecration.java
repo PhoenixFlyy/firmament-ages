@@ -503,8 +503,38 @@ public final class ShrineConsecration {
         for (ShrineSavedData.Original o : sd.originals().values()) {
             originals.put(o.pos().asLong(), Consecration.decodeState(o.state()).map(Consecration.StateSpec::block).orElse(o.state()));
         }
+        Living l = living(s);
+        return new ShrineSyncPayload(l.dimension, maintenanceActive(s), maintenanceSecondsLeft(s), originals, l.heart, l.intact, l.finale, l.idleBeam,
+            tierBeamColors());
+    }
+
+    /** The living-shrine part of the sync (SPEC §7.10). */
+    private record Living(String dimension, long heart, boolean intact, boolean finale, boolean idleBeam) {}
+
+    @Nullable private static Living lastLiving;
+
+    private static Living living(MinecraftServer s) {
+        ShrineSavedData sd = ShrineSavedData.get(s);
         String dim = sd.heart().map(GlobalPos::dimension).map(k -> k.location().toString()).orElse("");
-        return new ShrineSyncPayload(dim, maintenanceActive(s), maintenanceSecondsLeft(s), originals);
+        return new Living(dim, sd.heart().map(g -> g.pos().asLong()).orElse(0L), sd.intact(),
+            dev.firmages.core.origin.OriginSavedData.get(s).won(), !ServerConfig.loaded() || ServerConfig.SHRINE_PERMANENT_BEAM.get());
+    }
+
+    /** Ceremony beam colour (ARGB) of tier 0..8, from the tier files. */
+    static List<Integer> tierBeamColors() {
+        List<Integer> out = new ArrayList<>();
+        for (int k = 0; k <= ShrineData.MAX_TIER; k++) {
+            out.add(ShrineDataLoader.current().tier(k).map(t -> t.response().beamColor()).orElse(ShrineTier.Response.DEFAULT.beamColor()));
+        }
+        return out;
+    }
+
+    /**
+     * The heart, its intact flag, the finale or {@code shrine.permanentBeam} may have changed (validation, the boss's
+     * death): clients get the new state within a second when it differs from the last sync.
+     */
+    public static void livingChanged(MinecraftServer s) {
+        if (!living(s).equals(lastLiving)) syncDirty = true;
     }
 
     public static void sync(ServerPlayer player) {
@@ -512,6 +542,7 @@ public final class ShrineConsecration {
     }
 
     static void syncAll(MinecraftServer s) {
+        lastLiving = living(s);
         if (s.getPlayerList().getPlayerCount() > 0) PacketDistributor.sendToAllPlayers(payload(s));
     }
 
@@ -569,6 +600,7 @@ public final class ShrineConsecration {
         PENDING.clear();
         LAST_TOGGLE.clear();
         syncDirty = false;
+        lastLiving = null;
         converted = 0;
     }
 }

@@ -169,17 +169,18 @@ public final class ShrineService {
         boolean intact = highest < 0 || valid >= Math.min(Math.max(awakened - 1, 0), highest);
         Optional<Integer> tier = ShrineRules.currentTier(unlocked);
         boolean ready = tier.isPresent() && ringsReady(be, tier.get());
+        ShrineSavedData sd = ShrineSavedData.get(level.getServer());
         BlockState state = level.getBlockState(pos);
         if (state.is(ShrineRegistry.SHRINE_HEART.get())) {
-            BlockState ns = state.setValue(ShrineHeartBlock.AWAKENED, Math.min(10, awakened)).setValue(ShrineHeartBlock.READY, ready)
+            BlockState ns = state.setValue(ShrineHeartBlock.AWAKENED, ShrineRules.heartAwakened(awakened, sd.gathered())).setValue(ShrineHeartBlock.READY, ready)
                 .setValue(ShrineHeartBlock.MAINTENANCE, ShrineConsecration.maintenanceActive(level.getServer()));
             if (ns != state) level.setBlock(pos, ns, 3);
         }
-        ShrineSavedData sd = ShrineSavedData.get(level.getServer());
         boolean wasIntact = sd.intact();
         boolean known = sd.lastValidated() > 0;
         sd.setValidation(intact, valid, level.getGameTime());
         ShrineState.set(level.dimension(), pos, intact, awakened);
+        ShrineConsecration.livingChanged(level.getServer()); // the idle beam (SPEC §7.10): clients learn the intact flag
         if (known && wasIntact != intact && awakened > 0) {
             Component m = msg(intact ? "firmages.shrine.rekindled" : "firmages.shrine.dormant").withStyle(intact ? ChatFormatting.GOLD : ChatFormatting.GRAY);
             for (ServerPlayer p : level.getServer().getPlayerList().getPlayers()) p.sendSystemMessage(m);
@@ -318,6 +319,8 @@ public final class ShrineService {
         validate(level, h.pos, h.be);
         Set<AgeId> unlocked = unlocked(level.getServer());
         Optional<Integer> current = ShrineRules.currentTier(unlocked);
+        // In the Singularity Age no tier is worked any more: every plinth is an earlier tier's (late offering).
+        boolean singularity = current.isEmpty() && ShrineRules.highest(unlocked) == AgeId.AGE_9;
         Optional<Integer> slot = tierOfPlinth(level, h.pos, h.be, plinthPos, current);
         if (slot.isEmpty()) {
             tell(player, msg("firmages.shrine.plinth.outside"));
@@ -330,11 +333,12 @@ public final class ShrineService {
             FirmagesCore.LOGGER.warn("Shrine tier {} has no known offering item ({}); check firmages_shrine/offerings.json", k, data().offeringFor(k));
             return OfferResult.UNKNOWN_OFFERING;
         }
-        if (current.isEmpty()) {
+        if (current.isEmpty() && !singularity) {
             tell(player, msg(ShrineRules.highest(unlocked) == AgeId.DAWN ? "firmages.shrine.sleeping" : "firmages.shrine.complete"));
             return OfferResult.NO_TIER;
         }
-        if (k > current.get()) {
+        int worked = current.orElse(ShrineData.MAX_TIER + 1);
+        if (k > worked) {
             tell(player, msg("firmages.shrine.plinth.later"));
             return OfferResult.LATER_TIER;
         }
@@ -351,7 +355,7 @@ public final class ShrineService {
             refuseRuins(level, h, player, k);
             return OfferResult.RUINS;
         }
-        if (k < current.get()) {
+        if (k < worked) {
             // An earlier Age that came without its offering (quest or admin grant): the relic completes the set.
             ItemStack one = stack.split(1);
             pb.offer(one, k);
@@ -466,13 +470,15 @@ public final class ShrineService {
     /**
      * Sneak-use with an empty hand on a relic plinth: the shrine lends the relic when the current tier has a
      * {@code relic_returned} rite for it (age_8: the Arcane Keystone for the Marid ritual). Ring, intact flag and
-     * blessings stay as they are; the record stays and is marked lent. @return the lent item, or null if refused
+     * blessings stay as they are; the record stays and is marked lent. After the Gathering (SPEC §7.5) every relic
+     * laid back can be taken again this way. @return the lent item, or null if refused
      */
     @Nullable
     public static ItemStack lend(ServerLevel level, BlockPos pos, @Nullable ServerPlayer player) {
         if (!(level.getBlockEntity(pos) instanceof OfferingPlinthBlockEntity pb) || !pb.isRelic()) return null;
+        boolean gathered = ShrineSavedData.get(level.getServer()).gathered();
         Optional<Integer> current = ShrineRules.currentTier(unlocked(level.getServer()));
-        if (current.isEmpty() || data().lendingRite(current.get(), pb.tier()).isEmpty()) return null;
+        if (!gathered && (current.isEmpty() || data().lendingRite(current.get(), pb.tier()).isEmpty())) return null;
         Optional<Heart> h = heartNear(level, pos, shrineRadius() + 1);
         if (h.isEmpty()) return null;
         if (h.get().be.awakening(level.getGameTime())) {
@@ -489,7 +495,8 @@ public final class ShrineService {
         level.sendParticles(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 25, 0.3, 0.4, 0.3, 0.02);
         Set<String> back = data().returnItems(pb.tier());
         Component also = back.isEmpty() ? out.getHoverName() : itemName(back.iterator().next());
-        tell(player, msg("firmages.shrine.relic_lent", out.getHoverName(), also).withStyle(ChatFormatting.GOLD));
+        tell(player, (gathered ? msg("firmages.shrine.relic_given", out.getHoverName()) : msg("firmages.shrine.relic_lent", out.getHoverName(), also))
+            .withStyle(ChatFormatting.GOLD));
         FirmagesCore.LOGGER.info("Shrine lent the relic {} of tier {} at {} to {}", id, pb.tier(), pos, player == null ? "test" : player.getGameProfile().getName());
         return out;
     }
@@ -654,6 +661,7 @@ public final class ShrineService {
     static Optional<Component> refusal(ServerLevel level, Heart h, Rites rites, boolean sendPreview, @Nullable ServerPlayer player) {
         Set<AgeId> unlocked = unlocked(level.getServer());
         Optional<Integer> tier = ShrineRules.currentTier(unlocked);
+        if (tier.isEmpty() && ShrineRules.highest(unlocked) == AgeId.AGE_9) return ShrineGathering.refusal(level, h, rites == Rites.ALL, sendPreview, player);
         if (tier.isEmpty()) return Optional.of(msg(ShrineRules.highest(unlocked) == AgeId.DAWN ? "firmages.shrine.sleeping" : "firmages.shrine.complete"));
         Optional<ShrineTier> t = data().tier(tier.get());
         if (t.isEmpty()) return Optional.of(msg("firmages.shrine.plinth.unknown_offering"));
@@ -704,6 +712,9 @@ public final class ShrineService {
                     level.playSound(null, pos, ShrineRegistry.REFUSED.get(), SoundSource.BLOCKS, 0.6F, 0.8F);
                     ShrineRules.currentTier(unlocked(level.getServer())).filter(t -> !ringsReady(be, t))
                         .ifPresent(t -> sendPreview(player, h, firstIncompleteRing(be).orElse(t)));
+                    if (ShrineGathering.pending(level.getServer()) && !ShrineSavedData.get(level.getServer()).intact()) {
+                        firstIncompleteRing(be).ifPresent(r -> sendPreview(player, h, r));
+                    }
                 }
                 return;
             }
@@ -745,12 +756,13 @@ public final class ShrineService {
         if (n == 0 && be.prayerProgress == 0) return;
         Optional<Integer> tier = ShrineRules.currentTier(unlocked(level.getServer()));
         Optional<ShrineTier> t = tier.flatMap(x -> data().tier(x));
-        if (t.isEmpty()) {
+        boolean gathering = tier.isEmpty() && ShrineGathering.pending(level.getServer());
+        if (t.isEmpty() && !gathering) {
             be.prayerProgress = 0;
             be.prayers.clear();
             return;
         }
-        int target = ShrineRules.prayerTarget(prayerTicks(t.get()), minPrayerTicks(), n);
+        int target = ShrineRules.prayerTarget(gathering ? defaultPrayerTicks() : prayerTicks(t.get()), minPrayerTicks(), n);
         be.prayerProgress = ShrineRules.stepProgress(be.prayerProgress, n);
         be.setChanged();
         if (n == 0) return;
@@ -772,12 +784,18 @@ public final class ShrineService {
                 for (ServerPlayer p : praying) p.displayClientMessage(no.get(), true);
                 return;
             }
-            complete(h, t.get(), praying.stream().map(p -> p.getGameProfile().getName()).toList());
+            List<String> by = praying.stream().map(p -> p.getGameProfile().getName()).toList();
+            if (gathering) ShrineGathering.complete(h, by);
+            else complete(h, t.get(), by);
         }
     }
 
     static int prayerTicks(ShrineTier t) {
-        return t.prayerTicks().orElse((ServerConfig.loaded() ? ServerConfig.SHRINE_PRAYER_SECONDS.get() : 10) * 20);
+        return t.prayerTicks().orElse(defaultPrayerTicks());
+    }
+
+    static int defaultPrayerTicks() {
+        return (ServerConfig.loaded() ? ServerConfig.SHRINE_PRAYER_SECONDS.get() : 10) * 20;
     }
 
     static int minPrayerTicks() {
@@ -868,8 +886,9 @@ public final class ShrineService {
     }
 
     /**
-     * {@code /firmages shrine simulate_pray} and the GameTests: completes the current prayer at once. The ring and
-     * the offering must be in place; rites and praying players are skipped. @return null on success, else why not
+     * {@code /firmages shrine simulate_pray} and the GameTests: completes the current prayer at once (in age_9 the
+     * Gathering). The ring and the offering must be in place; rites and praying players are skipped. @return null on
+     * success, else why not
      */
     @Nullable
     public static Component simulatePray(MinecraftServer s) {
@@ -879,6 +898,10 @@ public final class ShrineService {
         validate(h.level, h.pos, h.be);
         Optional<Component> no = refusal(h.level, h, Rites.SKIP, false, null);
         if (no.isPresent()) return no.get();
+        if (ShrineRules.currentTier(unlocked(s)).isEmpty() && ShrineGathering.pending(s)) {
+            ShrineGathering.complete(h, List.of("simulate_pray"));
+            return null;
+        }
         ShrineTier t = ShrineRules.currentTier(unlocked(s)).flatMap(x -> data().tier(x)).orElseThrow();
         complete(h, t, List.of("simulate_pray"));
         return null;
@@ -906,6 +929,8 @@ public final class ShrineService {
             player.sendSystemMessage(no.get());
         } else if (tier.isPresent()) {
             player.sendSystemMessage(msg("firmages.shrine.inspect.ready"));
+        } else if (ShrineGathering.pending(level.getServer())) {
+            player.sendSystemMessage(msg("firmages.shrine.complete"));
         }
         if (!ShrineSavedData.get(level.getServer()).intact() && ShrineRules.awakened(unlocked) > 0) {
             player.sendSystemMessage(msg("firmages.shrine.dormant").withStyle(ChatFormatting.GRAY));
@@ -920,7 +945,7 @@ public final class ShrineService {
         return Optional.empty();
     }
 
-    private static Component ruinsMessage(ServerLevel level, Heart h, int ring) {
+    static Component ruinsMessage(ServerLevel level, Heart h, int ring) {
         Optional<String> mb = data().tier(ring).flatMap(ShrineTier::multiblock);
         if (mb.isEmpty()) return msg("firmages.shrine.ruins.unknown");
         ResourceLocation id = ResourceLocation.parse(mb.get());
@@ -977,7 +1002,7 @@ public final class ShrineService {
         out.add(Component.literal("Heart " + gp.pos().toShortString() + " in " + gp.dimension().location() + "; intact " + sd.intact()
             + ", valid ring " + sd.lastValidRing() + ", awakened " + ShrineRules.awakened(unlocked) + ", relics " + sd.relics().size()
             + (sd.lentRelics().isEmpty() ? "" : ", lent " + sd.lentRelics().stream().map(r -> r.item() + " (tier " + r.tier() + ")").toList())
-            + ", shrine grants " + sd.grantedStages()));
+            + ", shrine grants " + sd.grantedStages() + (sd.gathered() ? ", gathered" : "")));
         if (heart.isEmpty()) {
             out.add(Component.literal("Heart chunk not loaded; last validation at game time " + sd.lastValidated()));
             return out;
@@ -992,7 +1017,9 @@ public final class ShrineService {
         }
         Optional<Integer> tier = ShrineRules.currentTier(unlocked);
         if (tier.isEmpty()) {
-            out.add(Component.literal("No current tier (highest Age " + ShrineRules.highest(unlocked).id() + ")"));
+            out.add(Component.literal("No current tier (highest Age " + ShrineRules.highest(unlocked).id() + ")"
+                + (ShrineRules.highest(unlocked) == AgeId.AGE_9 ? "; the Gathering " + (sd.gathered() ? "is done" : "waits: "
+                + refusal(h.level, h, Rites.SKIP_CHORUS, false, null).map(Component::getString).orElse("ready to pray")) : "")));
             return out;
         }
         ShrineTier t = d.tier(tier.get()).orElse(null);

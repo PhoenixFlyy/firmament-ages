@@ -52,6 +52,45 @@ class ShrineRulesTest {
     }
 
     @Test
+    void gatheringConditions() {
+        java.util.Set<Integer> all = new java.util.HashSet<>();
+        for (int k = 0; k <= ShrineData.MAX_TIER; k++) all.add(k);
+        java.util.Set<Integer> none = java.util.Set.of();
+        assertEquals(Optional.empty(), ShrineRules.gatheringBlock(upTo(AgeId.AGE_9), false, false, true, all, none), "age_9, intact, nine relics: heard");
+        assertEquals(Optional.of(ShrineRules.GatheringBlock.NOT_SINGULARITY), ShrineRules.gatheringBlock(upTo(AgeId.AGE_8), false, false, true, all, none));
+        assertEquals(Optional.of(ShrineRules.GatheringBlock.DONE), ShrineRules.gatheringBlock(upTo(AgeId.AGE_9), true, false, true, all, none), "only once");
+        assertEquals(Optional.of(ShrineRules.GatheringBlock.MAINTENANCE), ShrineRules.gatheringBlock(upTo(AgeId.AGE_9), false, true, true, all, none));
+        assertEquals(Optional.of(ShrineRules.GatheringBlock.BROKEN), ShrineRules.gatheringBlock(upTo(AgeId.AGE_9), false, false, false, all, none));
+        java.util.Set<Integer> eight = new java.util.HashSet<>(all);
+        eight.remove(3);
+        assertEquals(Optional.of(ShrineRules.GatheringBlock.RELIC_LENT), ShrineRules.gatheringBlock(upTo(AgeId.AGE_9), false, false, true, eight, java.util.Set.of(3)),
+            "a lent relic: bring it back first");
+        assertEquals(Optional.of(ShrineRules.GatheringBlock.RELIC_MISSING), ShrineRules.gatheringBlock(upTo(AgeId.AGE_9), false, false, true, eight, none));
+        assertEquals(Optional.of(3), ShrineRules.firstMissingRelic(eight));
+        assertEquals(Optional.empty(), ShrineRules.firstMissingRelic(all));
+        assertEquals(1, ShrineRules.gatheringChorus(1));
+        assertEquals(2, ShrineRules.gatheringChorus(2));
+        assertEquals(2, ShrineRules.gatheringChorus(7));
+        assertEquals(9, ShrineRules.heartAwakened(9, false));
+        assertEquals(10, ShrineRules.heartAwakened(9, true), "the heart shows awakened=10 after the Gathering");
+        assertEquals(3, ShrineRules.heartAwakened(3, true), "10 only in the Singularity Age");
+    }
+
+    @Test
+    void idleBeamColour() {
+        int[] colors = {0xFFFFB347, 0xFFCD7F32, 0xFFB0B8C0, 0xFF8A4FFF, 0xFF777777, 0xFF55AAFF, 0xFF00FFAA, 0xFF2244FF, 0xFFFFFFFF};
+        assertEquals(0, ShrineRules.idleBeamColor(0, true, true, false, colors), "no beam before the first awakening");
+        assertEquals(0x90CD7F32, ShrineRules.idleBeamColor(2, true, true, false, colors), "the latest awakened tier's colour, alpha 0x90");
+        assertEquals(0x90FFFFFF, ShrineRules.idleBeamColor(9, true, true, false, colors));
+        assertEquals(0x90FFFFFF, ShrineRules.idleBeamColor(10, true, true, false, colors), "awakened=10 (Gathering) keeps the last colour");
+        assertEquals(0, ShrineRules.idleBeamColor(3, false, true, false, colors), "dark while the shrine is broken");
+        assertEquals(0, ShrineRules.idleBeamColor(3, true, false, false, colors), "dark while the heart is cold");
+        assertEquals(ShrineRules.FINALE_BEAM, ShrineRules.idleBeamColor(9, true, true, true, colors), "gold after the finale");
+        assertEquals(0, ShrineRules.idleBeamColor(9, false, true, true, colors), "a broken shrine is dark after the finale too");
+        assertEquals(0, ShrineRules.idleBeamColor(3, true, true, false, new int[0]), "no colours synced: no beam");
+    }
+
+    @Test
     void prayerTakesTenSecondsPerPlayerCountWithAFourSecondMinimum() {
         int p = 200;
         int min = 80;

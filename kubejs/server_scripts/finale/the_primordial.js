@@ -9,6 +9,8 @@
 //   3. Phases by health, each announced to the arena: at two thirds it calls Ender Golems, darkens the arena and takes
 //      Resistance I, at one third it calls Endermapteras and lightning and takes Resistance II, both until it dies.
 //   4. Its death (the tag decides): the arena hears it, the summoned helpers vanish. firmages-core grants finale_won.
+//   Operators skip the waves with /firmages origin fight: firmages-core posts OriginEvent$SummonBoss and step 2 runs
+//   at once (refused while this gate or the boss is alive).
 // The script never grants finale_won. A new Gathering while this gate or the boss is alive is ignored (after a wipe the
 // gate fails and the team can gather again once the mod's cooldown, origin.gatherCooldownSeconds, has passed).
 //
@@ -129,7 +131,12 @@ NativeEvents.onEvent(Java.loadClass('dev.shadowsoffire.gateways.event.GateEvent$
     console.info(`[finale] gate ${gateId} completed in The Origin; not the finale gate ${faFinaleGate()}, no boss`)
     return
   }
-  const server = level.getServer()
+  faSummonPrimordial(level.getServer())
+  console.info(`[finale] gate ${faFinaleGate()} completed: ${FA_FINALE.name} (${FA_FINALE.boss}) summoned`)
+}))
+
+// The Primordial: the boss with its attributes and the final-boss tag, 8.5 blocks south of the altar.
+function faSummonPrimordial(server) {
   const a = faAltar()
   const nbt = `{Tags:["${FirmAges.finalBossTag()}"],PersistenceRequired:1b,CustomNameVisible:1b,` +
     `CustomName:'{"text":"${FA_FINALE.name}","color":"dark_purple","bold":true}',Health:${FA_FINALE.health}f,` +
@@ -137,7 +144,19 @@ NativeEvents.onEvent(Java.loadClass('dev.shadowsoffire.gateways.event.GateEvent$
     `{id:"minecraft:generic.armor_toughness",base:${FA_FINALE.toughness}d},{id:"minecraft:generic.knockback_resistance",base:1.0d}]}`
   faRun(server, `summon ${FA_FINALE.boss} ${a.x + 0.5} ${a.y + 2} ${a.z + 8.5} ${nbt}`)
   faTitle(server, FA_FINALE.name, 'The first of all things wakes')
-  console.info(`[finale] gate ${faFinaleGate()} completed: ${FA_FINALE.name} (${FA_FINALE.boss}) summoned`)
+}
+
+// /firmages origin fight (operators): the boss at once, no gateway waves. firmages-core refuses it after the win.
+NativeEvents.onEvent(Java.loadClass('dev.firmages.core.origin.OriginEvent$SummonBoss'), faGuard('summon boss', (event) => {
+  const level = event.getLevel()
+  if (!faInOrigin(level)) return
+  if (faFightRunning(level)) {
+    event.refuse('the finale gate or the boss is already alive')
+    return
+  }
+  faSummonPrimordial(level.getServer())
+  event.summoned()
+  console.info(`[finale] ${FA_FINALE.name} (${FA_FINALE.boss}) summoned by an operator (waves skipped)`)
 }))
 
 // KubeJS 2101.7 EntityEvents.afterHurt did not fire on the test server (not even for a zombie), so the phases listen to

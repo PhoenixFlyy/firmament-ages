@@ -40,7 +40,7 @@ public final class ImmersionService {
     public static AgeStatus status(MinecraftServer s) {
         return AgeStatus.of(AgeService.state(s).snapshot(), tier -> ShrineDataLoader.current().offeringFor(tier),
             ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge, ServerConfig.caveDwellerUntil(),
-            ServerConfig.toolRuleUntil());
+            ServerConfig.toolRuleUntil()).withGathered(dev.firmages.core.shrine.ShrineSavedData.get(s).gathered());
     }
 
     /** After every change of the global Age state (called by AgeService). */
