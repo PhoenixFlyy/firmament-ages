@@ -2566,3 +2566,86 @@ firmages-core limits TFCRegistryAPI 1.2's enum scan to mod files that are or dep
   build at age_9 with `limitTfcRegistryApiScan = false` and `true`, `/fa_dump` each, then
   `python dev/check_registry_parity.py dump <false dump> <true dump>`. The 0.8.0 dump has only `item`, `block`,
   `fluid`; against it the script compares those three plus the cart and regrowth checks.
+
+The A/B proof on the pack server is in "0.8.1 night run" below: same build, both dumps identical in all 166 keys.
+
+## 0.8.1 night run (2026-10-14)
+
+`dev` 70a14f5 (0.8.0) plus six branches merged with `--no-ff` (n1/logfix, n1/tiers, n1/configs-quests,
+n1/core-registryapi, n1/core-ux, n1/title-glsl; conflicts only in `dev/decisions-while-away.md`, `SPEC.md` and
+`ServerConfig.java`, all kept on both sides), then firmages-core 0.8.1. Felix's test server (world at age_9) was
+stopped with `rcon.py stop`, synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve` (quest folder
+deleted first; 1167 and then 1170 of 1170 entries, "Finished successfully"), and booted three times with
+`run_server.py` (no `--wipe-world`, the world kept). `server.properties`, `ops.json` and `whitelist.json` are
+byte-identical before and after; `config/tfc-server.toml` got `inferredMetals = ["ingots/iron", "double_ingots/iron"]`
+by hand (defaultconfigs only fill a new file).
+
+### Build
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` | 116 unit tests, 0 failed (`RegistryScanScopeTest` 7, `ToolRuleTest` 5, `TooltipTrimTest` 4 new) | pass |
+| `gradlew runGameTestServer` (stale `run/gametest/config` moved away first) | "All 36 required tests passed"; `toolRuleStopsHandBreaking` ran (debug.log: "Break of Block{minecraft:oak_log} by test-mock-player refused"), `tfcRegistryApiScanScope` skipped itself; `age_status` carries `toolRule=true` in Dawn and `false` from age_0 on | pass |
+| `gradlew runGameTestServer -PgametestTfc` | 36 tests, 23 passed, 13 failed: the known 13 of this mode (`consecrationCycle`, `shrineRitualEndToEnd`, `unlockTwoAgesThroughReload`, `keystoneLending`, `recipeGateAtBoot`, `excavatorFilterStubMix`, `recipeCommandsRun`, `modExtractorsAndExcavatorAtBoot`, `oreGuardDrops`, `oreGuardBreak`, `kubejsOreTagsAtBoot`, `gatheringAndFinalBoss`, `awakenedRingMigrates`). Passed with TFC loaded: both hardship tests (tool rule, Cave Dweller) and `tfcRegistryApiScanScope` ("scan keeps 2 of 18 mods: [tfc, tfcregistryapi]") | pass (expected failures) |
+| `mods/firmages-core-0.8.1.jar` | copied from `build/libs`, 0.8.0 jar removed; `packwiz refresh`: 1170 entries (`kubejs` 845, `mods` 207, `config` 112, `defaultconfigs` 4, `shaderpacks` 2); mod count unchanged | pass |
+
+### Boot loop
+
+| Round | Setup | Server load (ModernFix) | Log lines | ERROR / FATAL / STDERR | `check_log.py` |
+|---|---|---|---|---|---|
+| before | Felix's 0.8.0 boot at 02:00 with the age_9 grant (`latest.log` copied before the stop) | 117.6 s | 160,009 | 15,975 / 1,645 / 2 | 6,230 remaining in 9 signatures, 11,384 in the open scan entry |
+| 1 | 0.8.1, `limitTfcRegistryApiScan = true`, `fa_dump`, `fa_dump_full`, `firmages recipes audit` | 56.5 s (Done after 54.5 s wall clock) | 3,533 | 78 / 14 / 18 | 103 remaining in 26 signatures, then documented (below); `--warn`: 2 one-time lines after the upgrade (`firmages 0.8.0 -> 0.8.1`, `firmages-server.toml` corrected with the new keys) |
+| 2 (A) | `limitTfcRegistryApiScan = false`, dumps | 75.2 s (Done 73.4 s) | 145,959 | 9,759 / 1,645 / 20 | 2 remaining (`LocalPlayer` DISTXFORM on `main`, only with the full scan) |
+| 3 (B, final) | switch back to `true` (file restored byte-identical), dumps | 53.9 s (Done 52.2 s) | 3,523 | 76 / 14 / 18 | **0 remaining, exit 0; with `--warn` also 0** |
+
+- Scan window (first to last `modloading-worker` error line): A 33.4 s, B 8.0 s. On the server the scan keeps 17 of
+  178 mod files ("TFCRegistryAPI enum scan limited to 17 of 178 mod files ..."). Same build A/B: 21.4 s less load
+  time. Against Felix's 0.8.0 boot (117.6 s) the difference is 63.7 s; that boot also parsed the 480 missing loot
+  tables and the broken recipes at each reload, and its disk cache state is unknown.
+- `check_registry_parity.py dump A B`: PASS, all 166 keys the same (item 23,572, block 17,319, fluid 759,
+  entity_type 1,261, `tfcregistryapi_enums` 193: metal 30, ore 32, rock 21, sand 7, soil 14, soil_variant 8, wood 81);
+  TFCAstikorCarts 567 items, 81 woods per part. Against the 0.8.0 dump (only item, block, fluid): PASS, no id removed.
+  The script compared tfcrf ids also in keys only one dump has and failed on that; it now compares shared keys only.
+- `age_status` is not logged on the dedicated server (only for debug players, see the GameTests).
+
+Fixes found by the loop (commit 7c176ad):
+
+- C-1a on the real dump: Create Connected's freewheel clutch, centrifugal clutch and item silo still asked for
+  `#c:plates/iron`. The jar recipes use `create:iron_sheet` with a `create_connected:feature_enabled` condition, and
+  `replaceInput` left them unchanged (the tiers branch predicted the moves from a computed dump). They are now
+  datapack overrides under the same ids in `kubejs/data/create_connected/recipe/crafting/kinetics/` (condition kept,
+  bronze plates, `#tfc:barrels`); the round 2 dump shows them.
+- C-4j: the three repaired Wooden Cog welding recipes (red steel armour + copper diving piece -> netherite diving
+  gear) are gear from gear and contradict the pack rule in `industrial_age.js` ("never from the copper piece"). They
+  are removed by id there; the logfix overrides stay so that the jar files parse without an error.
+- `log_noise.json`: the open entry `tfcregistryapi-class-scan` is gone. New noise entries, each with its reason:
+  `tfcregistryapi-scan-residual` (about 90 lines: the API still loads every class of the 17 kept files, client
+  classes of the TFC addons fail, azimuth's mixin into Create's client renderer fails; the API catches each one),
+  `rhino-dump-declared-methods` and `rhino-dump-distxform` (33 lines, only when `/fa_dump` runs: Rhino cannot reflect
+  item classes with client types; the dump is complete, the same lines are in every fa_dump boot since 0.7.x), and
+  `tfc-wrought-iron-first-load` (WARN: the first datapack load runs before the server config; in 0.8.0 logs the
+  warning came at every Age reload, in 0.8.1 only at the first load and never at the warm-up reload).
+
+Documented noise in the final log (round 3), ERROR/FATAL/STDERR: `tfcregistryapi-scan-residual`,
+`rhino-dump-declared-methods`, `rhino-dump-distxform`, `distxform-boot-client-mixins` (108 lines). WARN: mixin
+optional targets, refmaps and unique duplicates, ModernFix overwrite and timing lines, recipe conditions, KubeJS
+schema fallbacks (including the 8 Wooden Cog old-soil cutting recipes removed afterwards), KubeJS optional plugins,
+missing tag entries, jar-in-jar duplicates, vanilla pack schema, Draconic and mod notices, EvolvedMekanism config
+rewrite, Age reload lag, FTB Library stage provider, TFC first-load metal inference.
+
+### Checks on the final dump (round 3)
+
+| Check | Observed | Result |
+|---|---|---|
+| `poc_analyze.py --server-dir test-server` | round 1: 86 PASS, 2 FAIL (C-1a, C-4j, both fixed above); round 3: 88 PASS, "all checks PASS", with C-1a and U-1 (495 tags, 3 umbrella, 0 allowlisted) | pass |
+| `derive_ages.py` on the real dump | `dev/age_map.toml` unchanged: final per Age dawn 4,119, age_0 652, age_1 2,781, age_2 4,737, age_3 1,917, age_4 1,372, age_5 400, age_6 1,502, age_7 557, age_8 673, age_9 364, disabled 4,497, exactly the prediction of `predict_dump.py`; `derived_ages.json` now names `woodencog:milling/quartz` as the quartz source; `gen_stage_locks.py` rewrote 0 files; both `--check` clean | pass |
+| `validate_quests.py`, `check_menus.py`, `gen_textures.py --check`, `gen_multiblock_templates.py --check`, `gen_loot_silence.py --check`, `gen_quests.py` | 1294 ids, 0 errors, 0 warnings; all checks pass; 68 textures, 0 errors; 35 templates up to date; 480 overrides, 0 problems; regenerated output identical | pass |
+| `fa_dump`, `fa_dump_full` | 32,326 recipes, 0 without a readable result; 3,498 item tags; 32,326 encoded | pass |
+
+### Open points
+
+- Client [M] (Felix, `dev/client-test-brief.md`, 0.8.1 Nachtrag): shader title, tool rule and hint, mana bar,
+  tooltips, knapping grids, client start time, wrought iron ingot pile texture.
+- The residual scan noise could shrink further if firmages-core skipped classes whose bytecode is not an enum before
+  TFCRegistryAPI's `Class.forName` (ASM read of the access flags). Not done; the lines are harmless.
+- `show_compile_errors = true` stays in the title layout until Felix has seen the shader in game.

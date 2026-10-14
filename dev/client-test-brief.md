@@ -1,5 +1,68 @@
 # Client-Test
 
+## 0.8.1 Nachtrag (Nachtlauf 2026-10-14, Pack 0.8.1, firmages-core 0.8.1)
+
+Dein Feedback vom 14.10. (Hand-Abbau Option A, Titelbild Option A, Tooltip „Light / Small“, Knapping-Erklärung) plus
+Log-Aufräumen, schnellerer Start und Create in der Bronzezeit. Server-Teil geprüft (`dev/poc-results.md`, Abschnitt
+„0.8.1 night run“: drei Boots auf Deiner age_9-Welt, Log ohne offene Fehler, Registry-Vergleich gleich), im Spiel noch
+offen. **Neues Profil importieren** (Zip aus `dev/cf/LOKAL-TESTEN.md`): Client und Server brauchen beide
+firmages-core 0.8.1 (Netzwerkprotokoll 3), Sichtfeld 90 und der abgeschaltete Field-Guide-Kasten kommen nur in ein
+frisches Profil. Der Test-Server ist schon auf 0.8.1 synchronisiert und hat `inferredMetals` in `config/tfc-server.toml`.
+
+1. **Titelbild (Shader).** Der Titelbildschirm zeigt den Schrein als 3D-Sternbild. Die Kamera kreist ohne Maus von
+   selbst (ein Umlauf in 90 s), alle 120 s leuchten die neun Ringe nacheinander in ihrer Age-Farbe auf, halten und
+   verblassen. Keine Diashow, kein Text im Bild; Wortmarke, die vier Knöpfe und die Versionszeile („Firmament Ages
+   0.8.1“) wie bisher. Beim ersten Start kurz zuschauen: Der Hintergrund dreht sich ruhig, die Maus bewegt ihn nicht.
+   Steht statt des Sternbilds ein Fehlertext im Menü (`show_compile_errors` ist für diesen Test an), den Text bitte
+   wörtlich oder als Screenshot schicken. Ruckelt das Menü, die FPS im Titelmenü melden.
+2. **Schnellerer Start.** Der Server lädt auf Deiner Welt in 54 s statt 75 s (gleicher Build mit dem Schalter aus),
+   Deine letzte 0.8.0-Zeile war 117,6 s. Bitte am Client messen: Startet er spürbar schneller (erwartet etwa 20 s)?
+   Fehlen die TFC-Wagen für eine Holzart in EMI (auch AFC-Hölzer wie Koa: Handkarren, Pflug, Sämaschine, Mäher,
+   Vorratswagen, Rad)? Auf dem Server sind alle 567 da. Falls etwas fehlt: `firmages-server.toml` `[perf]`
+   `limitTfcRegistryApiScan = false`, neu starten.
+3. **Hand-Abbau in Dawn (Option A).** Neue Welt oder Dawn-Test: Ein Holzstamm, roher oder gehärteter Stein, Erz oder
+   Sandstein bricht ohne passendes Werkzeug gar nicht: kein Riss, kein Fortschritt. In der Aktionsleiste steht einmal
+   „You need an axe for this.“ (bei Stein und Erz „You need a pickaxe for this.“), danach höchstens einmal pro Minute.
+   Mit der geknappten Steinaxt (oder dem Steinhammer) fällst Du den Baum normal. Erde, Kies, Sand, Laub, Zweige und
+   lose Steine gehen weiter mit der Hand. Nach `/stage grant @s age_0` gilt die Regel nicht mehr (Hand wieder
+   TFC-langsam, ohne Drop). Abschalten: `firmages-server.toml` `[hardship] toolRuleUntilAge = "never"`, Dawn und
+   Steinzeit (Option B): `"age_1"`. Bekanntes Risiko: Wer in eine Grube aus rohem Stein fällt, kommt bis zur Steinzeit
+   nur mit Erde oder Kies zum Hochbauen raus.
+4. **Knapping im Questbuch.** In Dawn das Questbuch öffnen: „Just a Rock“, „A Bundle of Sticks“ und „Paleolithic!“
+   erklären Schritt für Schritt: Steine aufheben, mindestens zwei in die Hand, Rechtsklick in die Luft, dann im
+   5x5-Raster Felder wegklicken (der erste Klick verbraucht einen Stein). Das Axt-Muster steht als Raster aus X
+   (stehen lassen) und - (wegschlagen), dann der Axtkopf über einem Stock im 2x2-Feld. Unten im Kapitel steht die neue
+   Erklärquest „Knapping Patterns“ mit Hammer, Schaufel, Hacke und Speer. Prüfen: Stehen die Raster als saubere Spalten
+   untereinander (GUI-Skala 3)? Ergibt das Axt-Raster, genau nachgeklickt, einen Axtkopf, und das Messer-Raster zwei
+   Klingen aus einem Stein?
+5. **Tooltips.** Die TFC-Zeile mit Waagen- und Pfeilsymbol („Light / Small“) steht auf keinem Item mehr. Ein gesperrtes
+   Item zeigt nur noch „Unknown Item“ und die ProgressiveStages-Zeilen (kein „Melts into ...“). Der Field-Guide-Kasten
+   („?“ und „Ctrl“) ist weg, Strg öffnet kein Buch mehr; im alten Profil dafür `config/tfc-client.toml`
+   `showGuideBookLinksAlways = false` von Hand setzen.
+6. **Mana-Leiste.** Die lila Mana-Leiste von Ars Nouveau unten links fehlt bis zur Arkanen Zeit und erscheint ab
+   `age_3` ohne Relog.
+7. **Create ohne Eisen in der Bronzezeit.** Mit einem Bronzezeit-Stand in EMI prüfen, dass diese Rezepte mit Bronze
+   erscheinen und herstellbar sind: Erntemaschine, Pflug, Lorenkupplung, Filter, Item-Luke, Item-Tresor, Metallhalter,
+   Superkleber, Sticker und klebriger Kolben (TFC-Leim statt Schleim), Tachometer und Stressometer (Bronzeblech statt
+   Kompass), Rinne, Seilrolle, Tischglocke, Wurfauswerfer, Kupfer-Ventilgriff und die eingefärbten Ventilgriffe, alle
+   16 Werkzeugkästen, Portable Storage/Fluid Interface, Create Connected Freilauf- und Fliehkraftkupplung und
+   Item-Silo (Tresor und Silo mit jedem TFC-Fass). Wo Create Eisennuggets wollte, steht ein Bronzestab, statt der
+   Eisenfalltür eine Bronzefalltür. EMI zeigt für diese Items kein zweites, gesperrtes Eisenrezept, TFCreate-Bohrkopf
+   und -Sägeblatt sind ausgeblendet. Außerdem in der Bronzezeit: Totemic-Schnitzmesser (Bronzebarren), der
+   Sophisticated-Upgrade-Rohling (Bronze), die Astikor-Sämaschine (Bronzeblech); in der Steinzeit: Totemfackel
+   (TFC-Fackel), Flüssigkeits-Mülleimer (TFC-Holzeimer), FramedBlocks-Framing-Säge (Kupfer).
+8. **Maschinen in ihrer echten Age.** TFC-Hochofen, Klingenachsen, Fasspressen, Fässchen, Lorenkisten, Fallenkisten,
+   AFC-Baumzapfer, Firmalife-Komposttrommel, Hydrokultur und Ofenteile stehen jetzt in der Eisenzeit, Vat,
+   Abfüllstation, Pflücker, Solartrockner und Kehrer in der Industriezeit, so wie man sie tatsächlich bauen kann.
+9. **Reparierte Rezepte und Log.** Der Mahlstein macht aus Quarzit mit 5 % Chance Quarz, gefärbte Alabasterziegel
+   lassen sich im Mixer mit Lauge bleichen, gefärbte Schilder werden mit weißem Farbstoff wieder weiß, das Metro-Fenster
+   (Bells & Whistles) nimmt jedes Glas. Die Wooden-Cog-Schweißrezepte für Netherit-Taucherausrüstung bleiben aus
+   (Ausrüstung aus Ausrüstung, Packregel). Schmiedeeisenbarren als Stapel hinlegen: Der Stapel sieht nach Schmiedeeisen
+   aus, nicht lila-schwarz. Train-Utilities-Erfolge kommen erst mit dem passenden Bauteil im Inventar. Im Server-Log
+   stehen pro Start gut 100 statt rund 17.600 Fehlerzeilen, alle dokumentiert (`dev/check_log.py`).
+10. **LAN.** Von einem zweiten PC: die IPv4-Adresse des Server-PCs eintragen (`server-ip=` bleibt leer, die Firewall
+    muss Java im privaten Netz erlauben).
+
 ## 0.8.0 Nachtrag (Runde B, Pack 0.8.0, firmages-core 0.8.0)
 
 Sechs Arbeitsstränge auf Deine Antworten zu „Firmament Ideen 2“ hin; die Listen für 0.7.2, 0.7.1 und 0.7.0 darunter
