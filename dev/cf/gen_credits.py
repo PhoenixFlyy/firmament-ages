@@ -24,7 +24,7 @@ UA = {"User-Agent": "PhoenixFlyy/FirmamentAges gen_credits (private modpack tool
 START, END = "<!-- credits:start -->", "<!-- credits:end -->"
 OWN_JARS = {"firmages-core": ("Firmament Ages Core (firmages-core)", "PhoenixFlyy", "part of this pack")}
 # Metafiles that are not in the CurseForge upload (decided 2026-10-13: MekaTFC replaced by the pack's own osmium vein,
-# TFC Ore Tooltips dropped). Listed by metafile stem so the credits are right even while the files are still in mods/.
+# TFC Ore Tooltips dropped; both are gone from mods/). Listed by metafile stem so the credits stay right if such a file comes back.
 EXCLUDE = {"mekatfc", "tfc-ore-tooltips"}
 
 

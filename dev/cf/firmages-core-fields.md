@@ -1,6 +1,6 @@
 # Author Console fields: mod "Firmament Ages Core"
 
-Every value to type or pick in the CurseForge Author Console for the mod project. Create this project **before** the modpack project, because the modpack lists it as a dependency and the upload zip must not carry its jar once the project is approved. Companion: `dev/cf/modpack-fields.md`, `dev/cf/UPLOAD-ANLEITUNG.md`.
+Every value to type or pick in the CurseForge Author Console for the mod project. Create this project **before** the modpack project, because the modpack lists it as a dependency and the upload zip must not carry its jar once the project is approved. Companion: `dev/cf/modpack-fields.md`, `dev/release.md`.
 
 ## Create Project
 

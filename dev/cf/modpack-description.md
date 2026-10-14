@@ -1,14 +1,16 @@
 # Firmament Ages
 
-**A co-op progression pack for Minecraft 1.21.1 (NeoForge): from knapping flint in a TerraFirmaCraft world to a Draconic reactor, a Stargate and a final boss beyond the sky. Ten Ages, one team, one shrine.**
+**Ten Ages of one sky. From knapped flint in a TerraFirmaCraft world to a draconic reactor and a Stargate, earned together at one shrine.**
 
-Firmament Ages is built for a small group of friends who play together in one team. Progress is shared: when the team reaches a new Age, everybody does. Every Age has one clear goal, a signature item, and you can see the final goal from the first minute.
+- **One fellowship.** Everyone on the server lives in the same Age; progress, offerings and rewards are shared.
+- **Nothing before its time.** Items, ores, machines and dimensions of a later Age do not exist yet, in any mod.
+- **One shrine.** Each Age ends with an offering on the shrine of Caelum. The sky answers and opens the next.
 
 ## The Ages
 
-You start in **Dawn**, a cave-dweller prologue: no pickaxe, no fire, only stones, sticks and knapping. Then ten Ages follow, each opening new mods, machines, ores and dimensions:
+You start in **Dawn**: no pickaxe, no fire, only stones, sticks and knapping. Ten Ages follow, each opening new mods, machines, ores and dimensions:
 
-| Age | What opens | Signature item |
+| Age | What opens | Offering |
 |---|---|---|
 | Stone Age | Pottery, pit kilns, copper casting, ArborFirmaCraft | Hearthstone |
 | Bronze Age | TFC anvils, three bronzes, Create (Andesite tier), Sophisticated Backpacks | Sky Disc |
@@ -18,66 +20,47 @@ You start in **Dawn**, a cave-dweller prologue: no pickaxe, no fire, only stones
 | Electric Age | IE HV, Arc Furnace, Excavator, oil and diesel | Humming Core |
 | Information Age | Mekanism, Applied Energistics 2, Mystical Agriculture, the End | Data Matrix |
 | Space Age | Fission, Ad Astra rockets, the Moon and Mars, Draconic Evolution | Star Chart |
-| Quantum Age | Fusion, antimatter, Evolved Mekanism, the outer planets | Quantum Core |
-| Singularity Age | Chaotic Draconic gear, the Draconic Reactor, a Stargate | the final boss |
+| Quantum Age | Fusion, antimatter, Evolved Mekanism, Venus, Mercury and Glacio | Quantum Core |
+| Singularity Age | Chaotic Draconic gear, the Draconic Reactor, a Stargate | none: the final battle |
 
-Items, blocks and recipes of a locked Age are hidden in EMI and cannot be used. Machines follow the same rule: no machine produces anything from an Age you have not reached, and automated miners only dig the ores of your Ages. Ores of a later Age sit in the TerraFirmaCraft veins of your world from day one, disguised as rock until their Age. Everything you need in quantity has an automated way, so the pack stays hard without turning into a grind. The quest book is on **K**: every Age is a chapter with three or four main strands that friends can split up, side lines, and one goal quest.
-
-The world comes first. In Dawn you see no recipe viewer, no block overlay, no mod messages and no advancement popups; EMI and Jade open with the Stone Age. A small line in the corner names your Age and the offering it asks for, the quest book wears a night sky with the Shrine of your Age and lists only the Ages you have reached. TerraFirmaCraft keeps its food decay and tool wear, but there is no thirst, and a one-sided diet never costs you health (a varied one still adds some).
+Everything you need in quantity can be automated.
 
 ## The Shrine
 
-Each signature item is not crafted into the next tier. It is **offered at the Shrine**, an altar you build at the heart of your base and extend with one ring per Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. When the ring is complete, the offering lies on its plinth and the Age's rite is fulfilled, your team prays together at the Shrine Heart. Caelum, the god of the firmament, answers: a beam of light, a changed sky, a new Age.
-
-The accepted ring is consecrated: its blocks turn, from the heart outward, into one sky-marble structure with the Age's colour accent. Consecrated blocks cannot be broken, blown up or moved; to rebuild, sneak and punch the Shrine Heart with an empty hand for 60 seconds of maintenance mode, and a broken block gives back its original material. Every awakened ring adds a blessing around the shrine, starting with a circle where no monsters spawn, later faster walking, more health, more XP, faster mining, longer reach, softer falls and luck. The offerings stay on the shrine as relics. You will need all nine again at the end.
+You build one shrine at the heart of your base and add a ring for every Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. Lay the Age's offering on its plinth, fulfil the rite and pray together. Caelum, the sky itself, answers with light and a new Age. The finished ring is consecrated into sky-marble, each ring adds a blessing around the shrine, and the offerings stay as relics.
 
 ## The Finale
 
-In the Singularity Age the relics come off their plinths and are fused into the **Ultimate Singularity**, powered by a Draconic Reactor that the pack's own Reactor Controller keeps fuelled. The Singularity is the heart of a Stargate. Dial the address of **The Origin**, a dimension of floating islands made of the stone of every Age, and face the waves of the gateway, Maledictus and Ignis, and finally The Primordial.
+In the Singularity Age the nine relics come off their plinths and are fused into the **Ultimate Singularity**, the heart of a Stargate. Dial **The Origin**, a dimension of floating islands made of the stone of every Age, and face the waves, Maledictus and Ignis, and finally The Primordial.
 
 ## Requirements
 
 - **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you.
 - **RAM:** 10 GB for the game is recommended; set it in the CurseForge App under *Settings → Minecraft → Java Settings* (the default of 4 GB is not enough). A PC with 16 GB of RAM is the practical minimum.
-- **207 mods.** The first start takes a few minutes.
+- **216 mods.** The first start takes a few minutes.
 - **Dedicated server:** 10 GB heap recommended. A ready-to-run server pack is attached to every release as an additional file.
 
 ## Multiplayer
 
-Firmament Ages is written for **one team per server** (FTB Teams). The Ages are server-wide: the shrine, the ceremony and every unlock belong to the whole team, and a player who joins later is in the same Age as everybody else. Two competing teams on one server are not supported. Single player works like a team of one.
+Firmament Ages is written for **one team per server**: the Ages, the shrine and every reward are shared, and a player who joins later is in the same Age as everybody else. Single player works like a team of one.
 
-## Beta: what to expect
+## Beta
 
-This is a beta. The whole progression is playable from Dawn to the final boss, and every Age, every ring of the shrine, the reactor controller and The Origin have been walked through on a dedicated server. Balance and texts will still change. Known limitations:
+The whole road from Dawn to the final boss is playable. Balance and texts will still change.
 
-- Unlocking an Age reloads the server's datapacks. Expect a freeze of about six to eight seconds during the ceremony, and a slightly longer one for the first unlock after a server start.
+- Each Age change freezes the game for about six to eight seconds while the server reloads.
 - Draconic Evolution and Stargate Journey are beta mods on 1.21.1. Back up your world before the Space Age.
-- The consecrated shrine, the animated textures and the ceremony visuals have been verified with renders and on the server, not yet in a long client session. Report what looks wrong.
-- The final fight in The Origin has been run with its waves spawned by command; a full real-player run is still ahead. Gateways to Eternity runs the CurseForge build of 5.1.0, which is older than the Modrinth build of the same version.
-- The relics do not float into the injectors on their own: from the Singularity Age on, sneak and use a plinth with an empty hand to take its relic back, then feed them to the fusion crafter. The shrine has no animated idol and the ceremony uses vanilla sounds.
-- Osmium, the ore of the Information Age, comes from the pack's own TerraFirmaCraft vein since 0.6.2 and has seen little play testing.
-- The loading and title screens, the quest book's look, the Age indicator and the welcome screen are new in 0.7.0 and have been checked on the server and in code, not yet in a long client session.
-- The server pack is about 510 MB.
-
-Please report bugs on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
-
-## Built with
-
-Firmament Ages Core (firmages-core), the pack's own mod, runs the Ages: the shared Age state, the machine-recipe gate, the miner filter, the Shrine and its ceremony, the Draconic reactor refuelling, The Origin and what players see of it all (Age indicator, welcome, EMI and Jade by Age). TerraFirmaCraft carries the early game, Create the kinetics and logistics, Immersive Engineering, Mekanism and Draconic Evolution the tech ladder, Occultism and Ars Nouveau the magic, ProgressiveStages and KubeJS the gating, FTB Quests the quest book.
-
-## Links
-
-- Source (quests, scripts, configs and the mod): [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages)
-- Issues: [github.com/PhoenixFlyy/firmament-ages/issues](https://github.com/PhoenixFlyy/firmament-ages/issues)
-- Firmament Ages Core on CurseForge: the pack's own mod, listed as a dependency of every release
-
-## License
-
-The pack's own parts, the quests, KubeJS scripts, configs, textures and Firmament Ages Core, are released under the MIT License (the `LICENSE` file of the source repository). Every other mod belongs to its authors and keeps its own license; the credits below name each one.
+- Please report bugs on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 ## Shaders
 
-Firmament Ages starts with shaders turned on: it uses Complementary Shaders – Reimagined (r5.9.3) by EminGT and Complementary Development, unmodified and installed through CurseForge's own system ([complementary.dev](https://www.complementary.dev/), [CurseForge](https://www.curseforge.com/minecraft/shaders/complementary-reimagined)). Any problem caused by using it in this modpack is the modpack's responsibility, so please report it to us and not to Complementary. For weaker PCs the pack also includes MakeUp – Ultra Fast by XavierFST (LGPL-3.0); press O in game to switch shader packs or to turn shaders off. Shaders switch off by themselves on Ad Astra planets and in the Origin.
+Firmament Ages starts with shaders turned on: it uses Complementary Shaders – Reimagined (r5.9.3) by EminGT and Complementary Development, unmodified and installed through CurseForge's own system ([complementary.dev](https://www.complementary.dev/), [CurseForge](https://www.curseforge.com/minecraft/shaders/complementary-reimagined)). Any problem caused by using it in this modpack is the modpack's responsibility, so please report it to us and not to Complementary. For weaker PCs the pack includes MakeUp – Ultra Fast by XavierFST (LGPL-3.0); press O in game to switch shader packs or turn shaders off. Shaders switch off by themselves on Ad Astra planets and in The Origin.
+
+## Source and license
+
+- Source of the quests, scripts, configs and the pack's own mod, Firmament Ages Core: [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages)
+- Issues: [github.com/PhoenixFlyy/firmament-ages/issues](https://github.com/PhoenixFlyy/firmament-ages/issues)
+- The pack's own parts are released under the MIT License (the `LICENSE` file of the source repository). Every other mod belongs to its authors and keeps its own license; the credits below name each one.
 
 ## Credits
 

@@ -1,7 +1,8 @@
 """Generate packwiz metafiles for Firmament Ages from the Modrinth API.
 
-SUPERSEDED (2026-10-01): mods/ now holds CurseForge metafiles (dev/cf_convert.py). Running this would write the
-Modrinth metafiles back next to them; add mods with `packwiz curseforge add` instead.
+RETIRED, DO NOT RUN (superseded 2026-10-01): mods/ now holds CurseForge metafiles (dev/cf_convert.py). Running this
+would write the Modrinth metafiles back next to them and recreate dev/manifest.csv and dev/cf-pending.md (archived
+2026-10-14 in Modpack-Planung/archive/dev/); add mods with `packwiz curseforge add` instead. Kept as a record.
 
 No jar is downloaded: hashes, URLs and sizes come from the Modrinth version JSON.
 Usage:  python dev/gen_packwiz.py [--refresh]

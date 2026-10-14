@@ -7,8 +7,9 @@ sections 2 and 9, Doc 11 section 3 (shrine).
 ## How to change the book
 
 - The generator is the source for now. Edit `dev/gen_quests.py`, run it, then run
-  `python dev/validate_quests.py --mods <path to test-server/mods>` (jar lookups for advancements, entities, tags and
-  dimensions; `--no-jars` skips them). The generator is deterministic: ids come from sha1 of stable keys, so
+  `python dev/validate_quests.py --style --mods <path to test-server/mods>` (jar lookups for advancements, entities, tags
+  and dimensions; `--no-jars` skips them; `--style` lints the text against `dev/style-guide.md` and must report 0
+  warnings). The generator is deterministic: ids come from sha1 of stable keys, so
   re-running it keeps every quest id and the teams' saved progress.
 - Once someone edits the book in game (FTB Quests editor), the SNBT files become the source. From then on, do not
   re-run the generator over them; keep running the validator.
@@ -23,19 +24,19 @@ sections 2 and 9, Doc 11 section 3 (shrine).
 |---|---|---|---|---|---|
 | `welcome.snbt` | default | Welcome | always | 7 | checkmarks written in-world (2026-10-13, no mod or recipe-viewer talk): the Chronicle on K, the Ages as layers of the sky, how a chapter reads (rune keystones, gilded goal, ember side missions), one fellowship, the shrine and Caelum, the Age sign top left (HUD indicator, firmages-core), survival notes (no thirst, no nutrition malus) |
 | `the_firmament.snbt` | default | The Firmament | always | 11 | one quest per Age goal: The First Spark, Hearthstone, Sky Disc, Steel Heart, Arcane Keystone, Pressure Core, Humming Core, Data Matrix, Star Chart, Quantum Core, Beyond the Firmament. Gamestage tasks (age_0 ... age_9, finale_won), `progression_mode: linear` + `hide_quest_details_until_startable`, so the whole road is visible from minute one and each quest opens only after the previous goal. Every signature item is the icon of its quest; the last, locked goal (the final boss in The Origin, stage `finale_won`) shows the classic Stargate |
-| `dawn.snbt` | Ages | Dawn | stage `dawn` (start) | 15 | entry, strands Stone / Shelter / Hunt, goal The First Spark, 2 side missions, 1 explanation |
+| `dawn.snbt` | Ages | Dawn | stage `dawn` (start) | 16 | entry, strands Stone / Shelter / Hunt, goal The First Spark, 2 side missions, 2 explanations (one of them the knapping patterns) |
 | `stone_age.snbt` | Ages | Age 0: Stone Age | stage `age_0` | 27 | entry, strands Fire & Clay / First Metal / Camp / Hearth & Shrine (ends in Raise the Shrine), goal Offer the Hearthstone at the Shrine, 3 side missions, 3 explanations |
 | `bronze_age.snbt` | Ages | Age 1: Bronze Age | stage `age_1` | 31 | entry, strands Smithing / Prospecting / Alloys / Kinetics, goal Offer the Sky Disc at the Shrine, 4 side missions, 2 explanations |
-| `iron_age.snbt` | Ages | Age 2: Iron Age | stage `age_2` | 29 | entry, strands Metallurgy / Power & Motion / Survival / Frontier, goal Offer the Steel Heart at the Shrine, 3 side missions, 2 explanations |
-| `arcane_age.snbt` | Ages | Age 3: Arcane Age | stage `age_3` | 34 | entry, strands Spirits (Nether via Beneath, Djinni) / Source (Wilden Chimera) / Alchemy, goal Offer the Arcane Keystone at the Shrine, 4 side missions (Blaze Burner, Enchantment Industry, Ars Creo, Umvuthi), 2 explanations, ring Raise the Spirit Circle |
+| `iron_age.snbt` | Ages | Age 2: Iron Age | stage `age_2` | 30 | entry, strands Metallurgy / Power & Motion / Survival / Frontier, goal Offer the Steel Heart at the Shrine, 3 side missions, 3 explanations (one of them "When a Boss Will Not Come", the one note on the boss sigils) |
+| `arcane_age.snbt` | Ages | Age 3: Arcane Age | stage `age_3` | 34 | entry, strands Spirits (Nether via Beneath, Djinni) / Source (Wilden Chimera) / Alchemy, goal Offer the Arcane Keystone at the Shrine, 4 side missions (Blaze Burner, Enchantment Industry, Starbuncle Wheel, Umvuthi), 2 explanations, ring Raise the Spirit Circle |
 | `industrial_age.snbt` | Ages | Age 4: Industrial Age | stage `age_4` | 37 | entry, strands Coke & Steel (Netherite Monstrosity) / Power / Ore Line / Logistics & Backfill, goal Offer the Pressure Core at the Shrine, 4 side missions (Airship, Jetpack, Mechanical Spawner, Frostmaw), 3 explanations, ring Raise the Foundry Nave |
 | `electric_age.snbt` | Ages | Age 5: Electric Age | stage `age_5` | 32 | entry, strands Power Grid / Oil / Aluminium & Excavator / Circuits (The Wither), goal Offer the Humming Core at the Shrine, 4 side missions (Afrit, Garden Cloche, Hypertubes, Sculptor), 2 explanations, ring Raise the Tesla Crown |
-| `information_age.snbt` | Ages | Age 6: Information Age | stage `age_6` | 35 | entry, strands Digital / Mekanism / Mob Data / The End (Ender Dragon), goal Offer the Data Matrix at the Shrine, 4 side missions (Mystical Agriculture, Archmage, Mekanism Jetpack, Ender Guardian), 2 explanations, ring Raise the Data Nave |
+| `information_age.snbt` | Ages | Age 6: Information Age | stage `age_6` | 35 | entry, strands Digital / Factory / Mob Data / The End (Ender Dragon), goal Offer the Data Matrix at the Shrine, 4 side missions (Mystical Agriculture, Archmage, Mekanism Jetpack, Ender Guardian), 2 explanations, ring Raise the Data Nave |
 | `space_age.snbt` | Ages | Age 7: Space Age | stage `age_7` | 33 | entry, strands Atomic / Rocketry & Moon / Mars (The Harbinger) / Draconium, goal Offer the Star Chart at the Shrine, 4 side missions (Digital Miner, Induction Matrix, MEGA Cells, Ancient Remnant), 2 explanations, ring Raise the Star Spire |
 | `quantum_age.snbt` | Ages | Age 8: Quantum Age | stage `age_8` | 32 | entry, strands Fusion / Inner Planets / Awakened (The Leviathan) / Marid, goal Offer the Quantum Core at the Shrine, 3 side missions (Draconic Tools, Ore Times Five, Scylla), 2 explanations, ring Raise the Quantum Ring |
 | `singularity_age.snbt` | Ages | Age 9: Singularity Age | stage `age_9` | 23 | entry, strands Chaos (Chaos Guardian, Reactor Online) / Singularity (keystone The Ultimate Singularity, item task) / Stargate (Gate Online), goal Beyond the Firmament (gamestage task `finale_won`), 3 side missions (Chaotic Armor, Chaotic Staff, Ignis), 2 explanations, no ring |
 
-Total 346 quests (226 of them in the Ages 3 to 9), 21 reward tables, 1294 object ids. Counts per chapter come from the
+Total 348 quests (226 of them in the Ages 3 to 9), 21 reward tables, 1296 object ids. Counts per chapter come from the
 validator output. Ring quests per chapter: 1 in Ages 3 to 8.
 
 ### Look: theme, chapter tags, banners, shapes (2026-10-13)
@@ -260,12 +261,15 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
     Leviathan and the Chaos Guardian (`draconicevolution:draconic_guardian`) count for the team.
 15. Dimension tasks: Nether through the Beneath ritual (age_3), End (age_6), Moon and Mars (age_7), Venus, Mercury and
     Glacio (age_8); each ticks on arrival and is impossible before its Age (PS dimension locks).
-16. Singularity: "Nine Relics" ticks on the heart once `age_9` is owned (`awakened=9`); the goal Beyond the Firmament
+16. Singularity: "The Gathering" ticks on the heart after the Gathering prayer (`awakened=10`, firmages-core 0.9); the goal Beyond the Firmament
     completes only when `finale_won` is granted (firmages-core grants it when the tagged final boss dies), and
     the Firmament's last quest completes with it.
 17. Reward tables of Ages 3 to 9: supplies and comfort screens offer only items of the chapter's Age.
 
 ## Open points
+
+Still open (FE proofs, automation proofs, the tier of the data model): `dev/offene-punkte.md`. The notes below record how earlier points were resolved and what the book
+deliberately leaves out.
 
 - **Twilight portal (resolved 2026-10-01, changed 2026-10-13, `dev/decisions-while-away.md`).**
   `twilightforest:portal/activator` was `#c:gems/diamond` (age_4), then `tfcreate:polished_quartz` (the Iron Age
@@ -294,11 +298,6 @@ FTBQuestsKeyMappings (name "quests", mod "ftbquests") and FTB Library's `key.%s.
   0.6.49 gives the block only `facing`, `orientation`, `part` and `waterlogged` (javap of AbstractStargateBlock), so
   there is no "dialling" or "powered" state to observe; the side mission "Into The Origin" (dimension task) proves the
   dial.
-- "Data Model: Tier 3" accepts any data model (the tier is a component an item task does not read).
-- FE proofs (Doc 08: sustained power as FE task) are observations of placed blocks; switch to `forge_energy` or task
-  screen tasks once those are tested in the client.
-- Automation proofs (Doc 08 section 9.1: task screens with pipe or belt input) are not used yet; the "Automated
-  Bloomery Line" keystone asks for 32 wrought iron ingots. Switch to `task_screen_only` once task screens are tested.
 - Torque Link is not in the registry snapshot; the Kinetics strand ends with millstone + water wheel instead of the
   quern link from Doc 08.
 - Gold panning (Doc 08 Stone Age side line) is left out: native gold is `age_1` in the age map.

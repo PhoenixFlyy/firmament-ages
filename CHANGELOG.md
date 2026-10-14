@@ -1,6 +1,6 @@
-# Firmament Ages 0.8.1
+# Firmament Ages changelog
 
-Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. This changelog covers everything since 0.5.0 (the first release candidate that was never published).
+Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
 ## 0.8.1
 

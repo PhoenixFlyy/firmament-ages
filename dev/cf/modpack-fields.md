@@ -1,6 +1,6 @@
 # Author Console fields: modpack "Firmament Ages"
 
-Every value to type or pick in the CurseForge Author Console (authors.curseforge.com), in the order the console asks. Files are relative to the repo root. Companion: `dev/cf/firmages-core-fields.md` (the mod project, created first), `dev/cf/UPLOAD-ANLEITUNG.md` (the German step list).
+Every value to type or pick in the CurseForge Author Console (authors.curseforge.com), in the order the console asks. Files are relative to the repo root. Companion: `dev/cf/firmages-core-fields.md` (the mod project, created first), `dev/release.md` (the German step list).
 
 ## Create Project
 
@@ -58,7 +58,7 @@ Build the zip first: `tools\packwiz.exe refresh` then `python dev\cf\export_cf.p
 | Game version | 1.21.1 (read from the manifest; tick it if the console asks) |
 | Mod loader | NeoForge |
 | Java version | Java 21 (if the console offers the field) |
-| Changelog | content of `dev/cf/changelog-0.8.1.md` (Markdown; switch the changelog editor to Markdown, or paste as plain text) |
+| Changelog | the newest section of `CHANGELOG.md` (Markdown; switch the changelog editor to Markdown, or paste as plain text) |
 | Relations | Required dependency: Firmament Ages Core (once its project exists). The other 206 mods (and the two shader packs) are in the manifest and need no relation. |
 
 ## Additional File (server pack)
@@ -77,4 +77,4 @@ On the uploaded file's page: **Upload Additional File**.
 
 1. Note the project id and the file id of the modpack file (file page).
 2. The friends' install does not change (GitHub, packwiz); nothing to do in the repo.
-3. Next release: `dev/cf/UPLOAD-ANLEITUNG.md` section 6.
+3. Next release: `dev/release.md` section 4.

@@ -7,7 +7,9 @@
        then fails with "Hash invalid!". The script stops; -FixLineEndings rewrites those files with LF
        (git content unchanged).
     1. packwiz refresh (index.toml, pack.toml hash)
-    2. optional: set version = "<Version>" in pack.toml, refresh again
+    2. optional: set version = "<Version>" in pack.toml and the title screen's version line
+       (config/fancymenu/customization/title_screen_layout.txt, "source = Firmament Ages <Version>"), refresh
+       again. Without -Version the script stops if the title line and pack.toml disagree.
     3. packwiz modrinth export   -> dev/exports/FirmamentAges-<version>.mrpack
     4. packwiz curseforge export -> dev/exports/FirmamentAges-<version>-curseforge.zip (client side)
     5. server pack                -> dev/exports/FirmamentAges-<version>-server.zip, the "Additional File"
@@ -40,6 +42,8 @@ $OutDir  = Join-Path $PSScriptRoot 'exports'
 $PackToml = Join-Path $Repo 'pack.toml'
 $Java     = Join-Path $Repo 'tools\jdk-21\bin\java.exe'
 $Bootstrap = Join-Path $Repo 'tools\packwiz-installer-bootstrap.jar'
+$TitleLayout = Join-Path $Repo 'config\fancymenu\customization\title_screen_layout.txt'
+$TitleVersionLine = New-Object Text.RegularExpressions.Regex('(?m)^([ \t]*source = Firmament Ages )(\S+)')
 
 if (-not (Test-Path -LiteralPath $Packwiz)) { throw "packwiz not found at $Packwiz" }
 Set-Location -LiteralPath $Repo
@@ -78,12 +82,22 @@ if ($Version -ne '') {
     $new  = [regex]::Replace($text, '(?m)^version = "[^"]*"', "version = `"$Version`"")
     # UTF-8 without BOM, packwiz writes the same.
     [IO.File]::WriteAllText($PackToml, $new, (New-Object Text.UTF8Encoding($false)))
+    # The title screen's version line is fixed text in the FancyMenu layout (element fa_title_version).
+    $title = [IO.File]::ReadAllText($TitleLayout)
+    if ($TitleVersionLine.Matches($title).Count -ne 1) { throw "Expected one 'source = Firmament Ages <v>' line in $TitleLayout" }
+    $title = $TitleVersionLine.Replace($title, "`${1}$Version")
+    [IO.File]::WriteAllText($TitleLayout, $title, (New-Object Text.UTF8Encoding($false)))
     Invoke-Packwiz refresh
 }
 
 $m = [regex]::Match([IO.File]::ReadAllText($PackToml), '(?m)^version = "([^"]*)"')
 if (-not $m.Success) { throw 'No version line in pack.toml' }
 $PackVersion = $m.Groups[1].Value
+# A release must never show an old number on the title screen.
+$tm = $TitleVersionLine.Match([IO.File]::ReadAllText($TitleLayout))
+if (-not $tm.Success -or $tm.Groups[2].Value -ne $PackVersion) {
+    throw "Title screen says '$($tm.Groups[2].Value)', pack.toml says '$PackVersion'. Run with -Version $PackVersion."
+}
 
 New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
 $Mrpack = Join-Path $OutDir "FirmamentAges-$PackVersion.mrpack"
