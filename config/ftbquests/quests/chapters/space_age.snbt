@@ -762,7 +762,7 @@
 				{
 					id: "7BF29DF23BA560AA"
 					table_id: 3220200442226352662L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -795,7 +795,7 @@
 				{
 					id: "433DD54AD781EF81"
 					table_id: 3220200442226352662L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -831,7 +831,7 @@
 				{
 					id: "5C9E06CCA2682BBF"
 					table_id: 3220200442226352662L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -862,7 +862,7 @@
 				{
 					id: "767E4568A28F3930"
 					table_id: 3220200442226352662L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]

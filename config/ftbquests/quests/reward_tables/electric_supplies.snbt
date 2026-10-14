@@ -51,6 +51,21 @@
 				id: "immersivepetroleum:lubricant_bucket"
 			}
 		}
+		{
+			count: 16
+			id: "08206974B298946C"
+			item: {
+				count: 1
+				id: "create_hypertube:hypertube"
+			}
+		}
+		{
+			id: "208B9C5387A6EC3B"
+			item: {
+				count: 1
+				id: "immersiveengineering:capacitor_mv"
+			}
+		}
 	]
 	tags: ["age:age_5"]
 }

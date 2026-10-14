@@ -45,6 +45,21 @@
 				id: "mekanism:sps_casing"
 			}
 		}
+		{
+			id: "069BED9608904EE0"
+			item: {
+				count: 1
+				id: "evolvedmekanism:overclocked_energy_cube"
+			}
+		}
+		{
+			count: 4
+			id: "366F33177725D469"
+			item: {
+				count: 1
+				id: "evolvedmekanism:overclocked_control_circuit"
+			}
+		}
 	]
 	tags: ["age:age_8"]
 }

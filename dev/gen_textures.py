@@ -16,7 +16,7 @@ Tuning: AGE palettes are 5 tones (outline, dark, mid, light, highlight) built fr
 bricks, bevels) with ASCII overlays for carvings. Change a palette or a grid and rerun.
 
 Animated textures (second pass, 2026-10-01) are vertical strips of 4..8 frames plus a .mcmeta next to the PNG; the
-builders draw frame by frame. The consecrated block family (firmages:consecrated_<role>, see dev/textures-notes.md)
+builders draw frame by frame. The consecrated block family (firmages:consecrated_<role>, see dev/archive/textures-notes.md)
 is one pale "sky-marble" material with faint gold veining; the nine accent overlays consecrated_accent_<N>.png carry a
 thin rune/edge pattern in ring N's beam_color and are transparent elsewhere, so they composite over any base.
 
@@ -1440,7 +1440,7 @@ def _():
 
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Consecrated family (firmages:consecrated_<role>, dev/textures-notes.md). One material: pale sky-marble with faint
+# Consecrated family (firmages:consecrated_<role>, dev/archive/textures-notes.md). One material: pale sky-marble with faint
 # gold veins. The mod registers the models; these textures have no model in this repo yet (the checker knows).
 # ---------------------------------------------------------------------------------------------------------------------
 CONSECRATED = {}  # texture name -> (label, builder, mcmeta or None); written like BLOCKS
@@ -1962,7 +1962,7 @@ def check():
                 mp = root / "models" / (parent.split(":", 1)[1] + ".json")
                 if not mp.exists():
                     errors.append(f"{p.relative_to(ROOT)}: parent model {parent} missing")
-    # 1b. the consecrated family (dev/textures-notes.md) must be used by the mod's models
+    # 1b. the consecrated family (dev/archive/textures-notes.md) must be used by the mod's models
     for name in CONSECRATED:
         f = MOD_TEX / "block" / (name + ".png")
         if f.resolve() not in referenced:

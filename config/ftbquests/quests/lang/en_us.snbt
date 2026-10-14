@@ -2,37 +2,37 @@
 // Player text is in lang/en_us.snbt. Comment lines are dropped when FTB Quests rewrites this file.
 {
 	chapter.079BA6A3BF85646D.chapter_subtitle: ["Ore tripled, one network, the End."]
-	chapter.079BA6A3BF85646D.title: "Age 6: Information Age"
+	chapter.079BA6A3BF85646D.title: "Information Age"
 	chapter.12AE834BF6E07368.chapter_subtitle: ["High voltage, oil and aluminium."]
-	chapter.12AE834BF6E07368.title: "Age 5: Electric Age"
+	chapter.12AE834BF6E07368.title: "Electric Age"
 	chapter.172FAEFD3F2102E6.chapter_subtitle: ["Fission, rockets and draconium."]
-	chapter.172FAEFD3F2102E6.title: "Age 7: Space Age"
+	chapter.172FAEFD3F2102E6.title: "Space Age"
 	chapter.1D01936AE318F34B.chapter_subtitle: ["The map opens. Iron veins become visible."]
-	chapter.1D01936AE318F34B.title: "Age 2: Iron Age"
+	chapter.1D01936AE318F34B.title: "Iron Age"
 	chapter.1ECA2119E26A0A06.chapter_subtitle: ["Clay, pit kilns and the first cast copper."]
-	chapter.1ECA2119E26A0A06.title: "Age 0: Stone Age"
+	chapter.1ECA2119E26A0A06.title: "Stone Age"
 	chapter.2F7890D901468DC7.chapter_subtitle: ["Read this first."]
 	chapter.2F7890D901468DC7.title: "Welcome"
 	chapter.40D4D715E3F4DB36.chapter_subtitle: ["Spirits, source and alchemy. The Nether opens."]
-	chapter.40D4D715E3F4DB36.title: "Age 3: Arcane Age"
+	chapter.40D4D715E3F4DB36.title: "Arcane Age"
 	chapter.4472107CE8ED9B80.chapter_subtitle: ["Chaos, the Singularity and the gate."]
-	chapter.4472107CE8ED9B80.title: "Age 9: Singularity Age"
+	chapter.4472107CE8ED9B80.title: "Singularity Age"
 	chapter.544197C921D77FCB.chapter_subtitle: ["Prologue: stone, straw and the first spark."]
 	chapter.544197C921D77FCB.title: "Dawn"
 	chapter.5546E96FD2574ABB.chapter_subtitle: ["The first alloys. New veins can be found."]
-	chapter.5546E96FD2574ABB.title: "Age 1: Bronze Age"
+	chapter.5546E96FD2574ABB.title: "Bronze Age"
 	chapter.66BF343917FA056F.chapter_subtitle: ["Coke, black steel and the first FE."]
-	chapter.66BF343917FA056F.title: "Age 4: Industrial Age"
+	chapter.66BF343917FA056F.title: "Industrial Age"
 	chapter.795C8B99823402E1.chapter_subtitle: ["Fusion, antimatter and the inner planets."]
-	chapter.795C8B99823402E1.title: "Age 8: Quantum Age"
+	chapter.795C8B99823402E1.title: "Quantum Age"
 	chapter.7D0742BC787AAFAC.chapter_subtitle: [
 		"Nine offerings and a gate. The whole road, from the first spark to the last."
 	]
 	chapter.7D0742BC787AAFAC.title: "The Firmament"
 	chapter_group.7E67E59034114849.title: "Ages"
-	file.0000000000000001.title: "Firmament Ages"
+	file.0000000000000001.title: "The Chronicle"
 	quest.001477EB265CFAF8.quest_desc: [
-		"Drop one log, three sticks and some straw on one block. Hold use on it with a firestarter (two sticks) until the firepit lights."
+		"Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter (two sticks) until the firepit lights."
 		""
 		"Heat a stick in the firepit's right slot: it becomes two torches. A torch lights your way in hand and burns about half an hour once placed."
 	]
@@ -130,7 +130,7 @@
 		""
 		"Four strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival and Frontier."
 	]
-	quest.05C4B3AE61613A9B.quest_subtitle: "Age 2"
+	quest.05C4B3AE61613A9B.quest_subtitle: "The third Age"
 	quest.05C4B3AE61613A9B.title: "The Iron Age Dawns"
 	quest.06055D169B0CC629.quest_desc: [
 		"Iesnium ore lies in the Nether. Smelt it into ingots; the Djinni rituals need it."
@@ -149,7 +149,7 @@
 	]
 	quest.0672AC049845AEE4.title: "Leather Armor"
 	quest.06EDA9E3C94958CB.quest_desc: [
-		"Make four hypercharged alloys. Machines and cables above the ultimate tier are built from them."
+		"Make four hypercharged alloys. Machines above the ultimate tier are built from them."
 	]
 	quest.06EDA9E3C94958CB.title: "Hypercharged Alloy"
 	quest.06FEAB3BC2EA4431.quest_desc: [
@@ -168,7 +168,7 @@
 	quest.077BFA2D599B1A4B.quest_subtitle: "Goal of the Arcane Age"
 	quest.077BFA2D599B1A4B.title: "Arcane Keystone"
 	quest.078E1C7A5241C1E9.quest_desc: [
-		"The wyvern core is the heart of wyvern gear and of the Star Chart."
+		"Fuse a wyvern core. It is the heart of wyvern gear and of the Star Chart."
 	]
 	quest.078E1C7A5241C1E9.title: "Wyvern Core"
 	quest.078F36B103C471CF.quest_desc: [
@@ -192,7 +192,7 @@
 	]
 	quest.092749BAB246E72D.title: "Automated Ore Line"
 	quest.0A55EE1E0335D077.quest_desc: [
-		"Use a stone hammer on raw igneous rock to make a stone anvil."
+		"Right-click raw igneous rock with a stone hammer to make a stone anvil."
 	]
 	quest.0A55EE1E0335D077.title: "Hammer Time"
 	quest.0A81ED2F8A5BB2AE.quest_desc: [
@@ -200,7 +200,7 @@
 		""
 		"Four strands lead to the Sky Disc: Smithing, Prospecting, Alloys and Kinetics."
 	]
-	quest.0A81ED2F8A5BB2AE.quest_subtitle: "Age 1"
+	quest.0A81ED2F8A5BB2AE.quest_subtitle: "The second Age"
 	quest.0A81ED2F8A5BB2AE.title: "The Bronze Age Dawns"
 	quest.0ABF4F27145CD228.quest_desc: [
 		"Pick up twigs under trees with an empty hand; each crafts into a stick. Leaves cut with a stone knife drop sticks too."
@@ -217,14 +217,14 @@
 	quest.0B2B6BE451DD1912.quest_desc: ["Sixteen buckets of diesel from your own refinery."]
 	quest.0B2B6BE451DD1912.title: "Refined Diesel"
 	quest.0B2CE763E15475FA.quest_desc: [
-		"Clay grows under grass near water. Look for the clay indicator plants."
+		"Clay grows under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and water canna grow above it."
 	]
 	quest.0B2CE763E15475FA.title: "Locating Clay"
 	quest.0BA4D1B6A66D0C59.quest_desc: [
 		"Imbue amethyst or lapis lazuli. Source gems are the base of all source magic."
 	]
 	quest.0BA4D1B6A66D0C59.title: "Source Gems"
-	quest.0C271F72FE0B4376.quest_desc: ["Bauxite veins are visible from this Age."]
+	quest.0C271F72FE0B4376.quest_desc: ["Mine bauxite. Its ore is the only source of aluminium."]
 	quest.0C271F72FE0B4376.title: "Bauxite"
 	quest.0C379E8319A22836.quest_desc: [
 		"Your fellowship can now claim land and keep chunks loaded. Keep the chunks your lines run in loaded, or they stop when you leave."
@@ -249,9 +249,11 @@
 		""
 		"Four strands lead to the Data Matrix: Digital, Factory, Mob Data and The End."
 	]
-	quest.0F1AE784BF392A25.quest_subtitle: "Age 6"
+	quest.0F1AE784BF392A25.quest_subtitle: "The seventh Age"
 	quest.0F1AE784BF392A25.title: "The Information Age Dawns"
-	quest.0F76089092EB0D28.quest_desc: ["Injectors around the core hold the ingredients."]
+	quest.0F76089092EB0D28.quest_desc: [
+		"Set four basic and four wyvern injectors around the core. They hold the ingredients."
+	]
 	quest.0F76089092EB0D28.title: "Injectors"
 	quest.0F97073C5BDEA813.quest_desc: ["Transformers step the voltage between wire tiers."]
 	quest.0F97073C5BDEA813.title: "Transformers"
@@ -267,13 +269,17 @@
 		"Craft a jetpack and fill it with hydrogen from the separator."
 	]
 	quest.102A4D2C50AB6948.title: "Hydrogen Jetpack"
-	quest.10708C5D853308E7.quest_desc: ["The controller sits in the top of the reactor."]
+	quest.10708C5D853308E7.quest_desc: [
+		"Craft the reactor controller. It sits in the top of the reactor."
+	]
 	quest.10708C5D853308E7.title: "Reactor Controller"
 	quest.10D18EB5418E22F1.quest_desc: ["Copper and nickel in the alloy kiln."]
 	quest.10D18EB5418E22F1.title: "Constantan"
-	quest.10E81DCA65CCD6C7.quest_desc: ["Thirty-two ostrum plates."]
+	quest.10E81DCA65CCD6C7.quest_desc: [
+		"Lay up 32 ostrum plates. Two go into the Star Chart; the rest become the engine and tanks of the rocket to Venus."
+	]
 	quest.10E81DCA65CCD6C7.title: "Ostrum Plates"
-	quest.10F7B6A8850E3BCE.quest_desc: ["Mine ostrum on Mars."]
+	quest.10F7B6A8850E3BCE.quest_desc: ["Mine 16 raw ostrum on Mars. It builds the rocket to Venus."]
 	quest.10F7B6A8850E3BCE.title: "Ostrum"
 	quest.1129C4816E846CCC.quest_desc: ["LV wire carries FE between connectors."]
 	quest.1129C4816E846CCC.title: "Copper Wire"
@@ -286,11 +292,11 @@
 	]
 	quest.124DDC9853158E78.title: "The Thresher"
 	quest.12AA975B971EC62B.quest_desc: [
-		"Osmium lies in its own veins from this Age. Mine and smelt eight ingots: the steel casing needs them."
+		"Smelt eight osmium ingots from the vein that woke in the Electric Age. The steel casing needs them."
 	]
 	quest.12AA975B971EC62B.title: "Osmium"
 	quest.12F2B758B0EC78AC.quest_desc: [
-		"The arc furnace melts, alloys and makes steel with graphite electrodes. It takes over from the alloy kiln."
+		"The arc furnace melts, alloys and makes steel with graphite electrodes."
 	]
 	quest.12F2B758B0EC78AC.title: "Arc Furnace"
 	quest.136A6DB3C34D16EB.quest_desc: [
@@ -300,11 +306,11 @@
 	quest.139C6E2EB6E5944E.quest_desc: ["A blank model learns one mob."]
 	quest.139C6E2EB6E5944E.title: "Data Model"
 	quest.15070FF77006AFB6.quest_desc: [
-		"Polonium from your reactor waste: two pellets. One is the catalyst of the Star Chart."
+		"Draw two polonium pellets from your reactor waste. One is the catalyst of the Star Chart."
 	]
 	quest.15070FF77006AFB6.title: "Reactor Online"
 	quest.153E204EC2BA3ACA.quest_desc: [
-		"Use a large raw hide on two thatch blocks side by side: a thatch bed. It sets your spawn but does not skip the night. Beds that do come with the Iron Age."
+		"Right-click two thatch blocks side by side with a large raw hide: a thatch bed. It sets your spawn but does not skip the night. Beds that do come with the Iron Age."
 	]
 	quest.153E204EC2BA3ACA.title: "Shelter"
 	quest.155AA2A2258BDD49.quest_desc: ["Test yourself against Ignis before the final battle."]
@@ -322,14 +328,16 @@
 	]
 	quest.157E197DE71E5ECA.title: "Copper Anvil"
 	quest.15AD3FABD5A6F24F.quest_desc: [
-		"Uraninite veins are visible now. Process the ore into yellow cake."
+		"Uraninite veins wake now. Process the ore into yellow cake, the start of fission fuel."
 	]
 	quest.15AD3FABD5A6F24F.title: "Yellow Cake"
 	quest.15E3FB7395A86F61.quest_desc: [
 		"Soak planks in creosote. Treated wood is the frame of every engineering machine."
 	]
 	quest.15E3FB7395A86F61.title: "Treated Wood"
-	quest.1628C003B7759E11.quest_desc: ["Land on Glacio."]
+	quest.1628C003B7759E11.quest_desc: [
+		"Land on Glacio, the frozen world. Ice shards are mined there."
+	]
 	quest.1628C003B7759E11.title: "Glacio"
 	quest.1661C5530B8C2FE2.quest_desc: [
 		"The Umvuthana chief rules a grove in hot biomes. Defeat Umvuthi for the Sol Visage."
@@ -358,7 +366,7 @@
 		""
 		"Three strands lead to the Arcane Keystone: Spirits, Source and Alchemy."
 	]
-	quest.188B8BAD88328299.quest_subtitle: "Age 3"
+	quest.188B8BAD88328299.quest_subtitle: "The fourth Age"
 	quest.188B8BAD88328299.title: "The Arcane Age Dawns"
 	quest.1AFE479E5402BCCB.quest_desc: ["Grottols hide in caves and flee. Catch one if you can."]
 	quest.1AFE479E5402BCCB.title: "Grottol Hunt"
@@ -410,11 +418,11 @@
 	quest.1D5C854562BD6F58.quest_subtitle: "Goal of the Singularity Age: the end of the road"
 	quest.1D5C854562BD6F58.title: "Beyond the Firmament"
 	quest.1D842B40E0C51F06.quest_desc: [
-		"Uranium, fission, the first rockets to the Moon and Mars, and draconium."
+		"The sky opens upward. Uranium and fission, rockets to the Moon and Mars, and draconium from the End."
 		""
 		"Four strands lead to the Star Chart: Atomic, Rocketry & Moon, Mars and Draconium."
 	]
-	quest.1D842B40E0C51F06.quest_subtitle: "Age 7"
+	quest.1D842B40E0C51F06.quest_subtitle: "The eighth Age"
 	quest.1D842B40E0C51F06.title: "The Space Age Dawns"
 	quest.1E05714D0F44B25C.quest_desc: [
 		"The diesel generator is the one FE generator of this Age. Feed it diesel from the Oil strand."
@@ -433,20 +441,16 @@
 		"The spirit crusher grinds no ore."
 	]
 	quest.1E2B67282F83843D.title: "Ore in the Arcane Age"
-	quest.1F3F85FE5B0041D8.quest_desc: ["Rockets are built at the NASA workbench."]
+	quest.1F3F85FE5B0041D8.quest_desc: ["Build a NASA workbench. Every rocket is assembled on it."]
 	quest.1F3F85FE5B0041D8.title: "NASA Workbench"
 	quest.1FC065AF7A77E6DD.quest_desc: [
 		"The accumulator gathers sal ammoniac, the solvent of every liquefaction."
 	]
 	quest.1FC065AF7A77E6DD.title: "Sal Ammoniac"
-	quest.1FD61E2A23294166.quest_desc: ["Chaos shards drop from the guardian's crystals."]
-	quest.1FD61E2A23294166.title: "Chaos Shards"
-	quest.2004E11B844D1C4B.quest_desc: [
-		"An Age is one layer of the sky. The world holds only what your Age allows. The metals and crafts of later Ages do not exist yet, and their veins sleep as plain stone."
-		""
-		"When a new layer opens, its chapter appears here and the world grows with it."
+	quest.1FD61E2A23294166.quest_desc: [
+		"Keep eight chaos shards from the guardian's crystals. Two go into the Ultimate Singularity, one into the Coordinates of The Origin."
 	]
-	quest.2004E11B844D1C4B.title: "The Ages"
+	quest.1FD61E2A23294166.title: "Chaos Shards"
 	quest.203071592A4D660A.quest_desc: [
 		"Four straw make one block of thatch. It is the only building block of Dawn."
 	]
@@ -522,9 +526,9 @@
 	quest.24B73E0B6F871DEE.title: "Mechanical Spawner"
 	quest.24E7968E14C34C9C.quest_desc: ["Cut tall grass with a stone knife to get straw."]
 	quest.24E7968E14C34C9C.title: "Grasping at Straws"
-	quest.2562E428698729A6.quest_desc: ["Land on Venus."]
+	quest.2562E428698729A6.quest_desc: ["Land on Venus. Calorite lies under its clouds."]
 	quest.2562E428698729A6.title: "Venus"
-	quest.2636919E4AB2F40C.quest_desc: ["Desh builds the tier 2 rocket."]
+	quest.2636919E4AB2F40C.quest_desc: ["Build the tier 2 rocket from desh. It reaches Mars."]
 	quest.2636919E4AB2F40C.title: "Tier 2 Rocket"
 	quest.2640D22EE4D7FCF3.quest_desc: ["An advanced smelting factory smelts five stacks at once."]
 	quest.2640D22EE4D7FCF3.title: "Advanced Factory"
@@ -560,7 +564,7 @@
 		""
 		"Four strands lead to the Quantum Core: Fusion, Inner Planets, Awakened and Marid. The Quantum Core is the last offering at the shrine."
 	]
-	quest.29BB85F4AE1E4A82.quest_subtitle: "Age 8"
+	quest.29BB85F4AE1E4A82.quest_subtitle: "The ninth Age"
 	quest.29BB85F4AE1E4A82.title: "The Quantum Age Dawns"
 	quest.29BF6EA4F2FCD8F4.quest_desc: [
 		"Mine the tin and zinc veins you found and cast their ingots."
@@ -599,17 +603,17 @@
 	]
 	quest.2F5F52EBC70FEF35.title: "Small Vessel"
 	quest.30A13F8701E9EF80.quest_desc: [
-		"Build the Hearth Circle around the heart. Use the heart with an empty hand: it shows every missing block as a ghost."
+		"Build the Hearth Circle around the heart. Right-click the heart with an empty hand: it shows every missing block as a ghost."
 		""
 		"You need eight cobblestone, four log posts two high with thatch on top, and the Offering Plinth: four cobblestone, two blocks from the heart."
 		""
-		"When the circle is whole, the heart glows. Use it again to hear what Caelum asks for."
+		"When the circle is whole, the heart glows. Right-click it again to hear what Caelum asks for."
 	]
 	quest.30A13F8701E9EF80.title: "Raise the Shrine"
 	quest.31A4263D40A1EF78.quest_desc: ["Matrices are the raw output of the simulation."]
 	quest.31A4263D40A1EF78.title: "Prediction Matrices"
 	quest.31AD386737065FFF.quest_desc: [
-		"Build the fission reactor. Cool it well: a hot reactor melts down."
+		"Build the fission reactor from 32 casings. Cool it well: a hot reactor melts down."
 	]
 	quest.31AD386737065FFF.title: "Fission Reactor"
 	quest.31D8D96B76A155E7.quest_desc: [
@@ -627,8 +631,6 @@
 	quest.3240A673372AF11A.title: "Hearthstone"
 	quest.32561F3017350CAF.quest_desc: [
 		"Top left, a small sign names your Age and its offering. It fades after a few breaths. Hold H to see it again."
-		""
-		"It is the only mark the sky leaves on your sight."
 	]
 	quest.32561F3017350CAF.title: "The Sign in the Corner"
 	quest.32C8626D60896E8F.quest_desc: [
@@ -642,7 +644,9 @@
 	]
 	quest.32D33BE8EB20FCA6.quest_subtitle: "Goal of the Electric Age"
 	quest.32D33BE8EB20FCA6.title: "Humming Core"
-	quest.333133C7E32AE19D.quest_desc: ["Thirty-two aluminium plates from the metal press."]
+	quest.333133C7E32AE19D.quest_desc: [
+		"Press 32 aluminium plates. Four go into the Humming Core, the rest into the machines of this Age."
+	]
 	quest.333133C7E32AE19D.title: "Aluminium Plates"
 	quest.33818E6B3089AF9E.quest_desc: [
 		"The offering of the Space Age. Its details appear when the Age before it is done."
@@ -677,7 +681,9 @@
 	quest.355268AD22D21602.title: "Ancient Remnant"
 	quest.35ADF495118E2323.quest_desc: ["Split a zinc ingot into nine nuggets in the crafting grid."]
 	quest.35ADF495118E2323.title: "Zinc Nuggets"
-	quest.35AFC9346F30C43A.quest_desc: ["Naquadah lies on Mercury. Mine it with a digital miner."]
+	quest.35AFC9346F30C43A.quest_desc: [
+		"Mine 16 raw naquadah on Mercury with a digital miner. No other tool reaches it."
+	]
 	quest.35AFC9346F30C43A.title: "Naquadah"
 	quest.3674604366D3C8BE.quest_desc: [
 		"The Dictionary of Spirits explains every pentacle and ritual. Keep it on hand."
@@ -692,18 +698,20 @@
 	]
 	quest.36C48EC86A43AA92.title: "Precision Mechanism"
 	quest.373193C62E3C9E35.quest_desc: [
-		"The mercury catalyst is the proof of the Alchemy strand. Spagyrics give about 2.5 times the metal of a hand-smelted rich piece, the best yield until the Information Age."
+		"Make the mercury catalyst, the proof of the Alchemy strand. The Arcane Keystone needs it."
 	]
 	quest.373193C62E3C9E35.title: "Mercury Catalyst"
 	quest.38BA8AD136589CDA.quest_desc: [
-		"Build the draconic reactor and bring it online. It is the only power source for the Stargate."
+		"Build the draconic reactor and bring it online. Only it can power the Stargate."
 	]
 	quest.38BA8AD136589CDA.title: "Reactor Online"
 	quest.3931946D843ABA96.quest_desc: [
 		"A divination rod points to the ore veins your Age has woken."
 	]
 	quest.3931946D843ABA96.title: "Divination Rod"
-	quest.39882F695B4F5776.quest_desc: ["The Marid book needs atomic alloy and a wyvern core."]
+	quest.39882F695B4F5776.quest_desc: [
+		"Make four atomic alloys. The Marid book and its ritual need them."
+	]
 	quest.39882F695B4F5776.title: "Atomic Alloy"
 	quest.398B809EEA8DDFB5.quest_desc: [
 		"Make a 1M cell component. MEGA cells hold far more than the first cells."
@@ -715,7 +723,9 @@
 	quest.3A5D0F3FAA56A074.title: "Native Copper"
 	quest.3AA65FA513DA3CEC.quest_desc: ["Coke burns hot and clean. The blast furnace needs it."]
 	quest.3AA65FA513DA3CEC.title: "Coal Coke"
-	quest.3AD1F9C2C23677C5.quest_desc: ["Gather wild berries. Fruit is a nutrition group of its own."]
+	quest.3AD1F9C2C23677C5.quest_desc: [
+		"Gather wild berries. You never thirst here, and a varied diet makes you hardier."
+	]
 	quest.3AD1F9C2C23677C5.title: "Berries and Herbs"
 	quest.3B588CB49C0F4193.quest_desc: [
 		"Fire both in a pit kiln, like any other pottery. One becomes the heart of the shrine, the other the Hearthstone."
@@ -729,24 +739,12 @@
 		"Grind borax, lime or other flux stones in the quern. Welding needs flux."
 	]
 	quest.3BAC7E39FA05241C.title: "In Flux"
-	quest.3C3FF2D0079C4F17.quest_desc: [
-		"Food spoils and tools wear out. Nothing is softened."
-		""
-		"You will not thirst, and a plain diet does no harm; a varied one makes you hardier."
-		""
-		"Hand work comes first. Whatever you need in bulk can be automated later."
-	]
-	quest.3C3FF2D0079C4F17.title: "Survival Notes"
 	quest.3C8510408C6A23D6.quest_desc: [
 		"The offering of the Quantum Age. Its details appear when the Age before it is done."
 	]
 	quest.3C8510408C6A23D6.quest_subtitle: "Goal of the Quantum Age"
 	quest.3C8510408C6A23D6.title: "Quantum Core"
-	quest.3CBED807D32DD158.quest_desc: [
-		"Purify ore for three times the metal. The crusher and spagyrics still work, but purification is the way from now on."
-	]
-	quest.3CBED807D32DD158.title: "Ore Tripling"
-	quest.3D1D49324454F634.quest_desc: ["A full space suit with oxygen keeps you alive off-world."]
+	quest.3D1D49324454F634.quest_desc: ["Make a full space suit. Off-world it carries your air."]
 	quest.3D1D49324454F634.title: "Space Suit"
 	quest.3E8ADD553D7E26A2.quest_desc: [
 		"Visit Mercury. Its naquadah sleeps until the Singularity Age."
@@ -785,8 +783,6 @@
 	quest.40FA4C9F6A00F51F.title: "Backfill Line"
 	quest.41B3251BB5EB3A3A.quest_desc: [
 		"Bottle four breaths of the dragon. The Data Matrix needs one."
-		""
-		"No dragon to fight? The End Sigil opens the End Trial, which pays four bottles."
 	]
 	quest.41B3251BB5EB3A3A.title: "Dragon's Breath"
 	quest.41B46B0D9C0E8AB4.quest_desc: [
@@ -802,7 +798,7 @@
 		""
 		"Four strands lead to the Hearthstone: Fire & Clay, First Metal, Camp, and Hearth & Shrine. The last one raises the shrine where the Hearthstone is offered to Caelum."
 	]
-	quest.4207F8051EF451B3.quest_subtitle: "Age 0"
+	quest.4207F8051EF451B3.quest_subtitle: "The first Age"
 	quest.4207F8051EF451B3.title: "The Stone Age Dawns"
 	quest.420FA4D7877D2196.quest_desc: ["Pour copper into the pickaxe head mold."]
 	quest.420FA4D7877D2196.title: "Pickaxe Head"
@@ -814,14 +810,16 @@
 		"Only andesite machines exist now: water wheels, saws, presses, fans and mills. Crushing wheels, deployers and brass come with the Iron Age."
 	]
 	quest.4304B6AA00C231E8.title: "Kinetics in the Bronze Age"
-	quest.43FC2CC39EF5EFE5.quest_desc: ["Elite control circuits run the reactor parts."]
+	quest.43FC2CC39EF5EFE5.quest_desc: [
+		"Make four elite control circuits. The reactor parts run on them."
+	]
 	quest.43FC2CC39EF5EFE5.title: "Elite Circuits"
 	quest.44B3F8C53C417220.quest_desc: [
-		"MV and HV power, oil, the arc furnace and the excavator. Bauxite veins are visible now."
+		"MV and HV power, oil, the arc furnace and the excavator. Bauxite and osmium veins wake: the Information Age needs osmium at once."
 		""
 		"Four strands lead to the Humming Core: Power Grid, Oil, Aluminium & Excavator and Circuits."
 	]
-	quest.44B3F8C53C417220.quest_subtitle: "Age 5"
+	quest.44B3F8C53C417220.quest_subtitle: "The sixth Age"
 	quest.44B3F8C53C417220.title: "The Electric Age Dawns"
 	quest.44FB988268E119B4.quest_desc: [
 		"Fuse the Star Chart at wyvern level: a polonium pellet in the middle, two desh plates, two ostrum plates, a wyvern core and the Harbinger's witherite block."
@@ -848,12 +846,12 @@
 	quest.4581C5CB23AD4CD5.quest_desc: ["The first fire. It opens the Stone Age."]
 	quest.4581C5CB23AD4CD5.quest_subtitle: "Goal of Dawn"
 	quest.4581C5CB23AD4CD5.title: "The First Spark"
-	quest.4637931365FDF60B.quest_desc: ["Refine the naquadah in your arc furnace or ore lines."]
+	quest.4637931365FDF60B.quest_desc: [
+		"Refine naquadah in the metallurgic infuser with refined obsidian. The base block of the gate needs it."
+	]
 	quest.4637931365FDF60B.title: "Refined Naquadah"
 	quest.470272BFC8013E57.quest_desc: [
 		"The Wilden Chimera drops the Wilden Tribute. The Arcane Keystone needs it."
-		""
-		"If the ritual fails you, the Wild Sigil opens the Wild Trial."
 	]
 	quest.470272BFC8013E57.title: "Wilden Tribute"
 	quest.484BD83C5FBABCE1.quest_desc: [
@@ -867,12 +865,14 @@
 	]
 	quest.484BD83C5FBABCE1.title: "A Home"
 	quest.485FE6EFB6565F6E.quest_desc: [
-		"Take the Arcane Keystone from its plinth (sneak and use the plinth with an empty hand), or bind a second one with the Djinni. Awaken it in the Marid ritual with two atomic alloys, a wyvern core and the Leviathan's abyssal egg."
+		"Take the Arcane Keystone from its plinth (sneak and right-click the plinth with an empty hand), or bind a second one with the Djinni. Awaken it in the Marid ritual with two atomic alloys, a wyvern core and the Leviathan's abyssal egg."
 		""
 		"Lay the Awakened Keystone back on its plinth. It stays the relic of the Arcane Age and goes into the Ultimate Singularity."
 	]
 	quest.485FE6EFB6565F6E.title: "Awakened Keystone"
-	quest.4868CA77D43496DE.quest_desc: ["The tier 1 rocket reaches the Moon."]
+	quest.4868CA77D43496DE.quest_desc: [
+		"Build the tier 1 rocket. It reaches the Moon and no further."
+	]
 	quest.4868CA77D43496DE.title: "Tier 1 Rocket"
 	quest.4881717821F8F9DA.quest_desc: [
 		"Catch a blaze in the Nether with an empty blaze burner. Superheated mixing follows."
@@ -899,14 +899,16 @@
 		"A mineral prospector shows the direction and size of a vein."
 	]
 	quest.492F1E68565B651C.title: "Mineral Prospector"
-	quest.4954E2BC98921D04.quest_desc: ["Eight antimatter pellets. Two go into the Quantum Core."]
+	quest.4954E2BC98921D04.quest_desc: [
+		"Make eight antimatter pellets in the SPS. Two go into the Quantum Core."
+	]
 	quest.4954E2BC98921D04.title: "Antimatter Pellets"
 	quest.498E3CB76B5E962C.quest_desc: [
-		"Make the three processors on a sequenced assembly line. The inscriber cannot make them here."
+		"Print the three processors in an inscriber. Each press is crafted from four blue steel sheets around what it prints."
 	]
 	quest.498E3CB76B5E962C.title: "Processors"
 	quest.49AD8E5EC6FB24F9.quest_desc: [
-		"Four stabilizers and an injector hold the reactor core in its field."
+		"Build four stabilizers and an injector. They hold the reactor core in its field."
 	]
 	quest.49AD8E5EC6FB24F9.title: "Reactor Parts"
 	quest.4A34D752E7A4B499.quest_desc: [
@@ -914,7 +916,7 @@
 	]
 	quest.4A34D752E7A4B499.title: "Stocked Camp"
 	quest.4B5686EB34477AC2.quest_desc: [
-		"The chaotic core is the catalyst of the Ultimate Singularity."
+		"Fuse the chaotic core. It is the catalyst of the Ultimate Singularity."
 	]
 	quest.4B5686EB34477AC2.title: "Chaotic Core"
 	quest.4BFBAC45968A80F5.quest_desc: [
@@ -928,12 +930,16 @@
 	quest.4C78408E6835BC56.title: "Hunter"
 	quest.4CA32185961FD920.quest_desc: ["Calcination turns minerals into alchemical salt."]
 	quest.4CA32185961FD920.title: "Calcination Oven"
-	quest.4CB0E2CEF90AD9CE.quest_desc: ["Ice shards from Glacio go into the Quantum Core."]
+	quest.4CB0E2CEF90AD9CE.quest_desc: [
+		"Mine eight ice shards on Glacio. Two go into the Quantum Core."
+	]
 	quest.4CB0E2CEF90AD9CE.title: "Ice Shards"
-	quest.4CB43131B416FB17.quest_desc: ["Thirty-two calorite plates."]
+	quest.4CB43131B416FB17.quest_desc: [
+		"Keep a store of 32 calorite plates. Two go into the Quantum Core; engines, tanks and the Abyss Sigil take the rest."
+	]
 	quest.4CB43131B416FB17.title: "Calorite Plates"
 	quest.4CBDFA0CE2A9C85C.quest_desc: [
-		"The thermoelectric boiler and the industrial turbine turn reactor heat into FE."
+		"Build a thermoelectric boiler and an industrial turbine. Together they turn reactor heat into FE."
 	]
 	quest.4CBDFA0CE2A9C85C.title: "Industrial Turbine"
 	quest.4D29DE0763D2A602.quest_desc: [
@@ -974,9 +980,13 @@
 		"The simulation chamber turns a trained model and FE into prediction matrices."
 	]
 	quest.4F89B63F08027F21.title: "Simulation Chamber"
-	quest.4FC3CDC1654522C0.quest_desc: ["Bind the Marid, the strongest of the spirits."]
+	quest.4FC3CDC1654522C0.quest_desc: [
+		"Bind the Marid, the strongest of the spirits. Only it can awaken the Keystone."
+	]
 	quest.4FC3CDC1654522C0.title: "Bind a Marid"
-	quest.4FD3780AF1ECC795.quest_desc: ["Awakened draconium needs a dragon heart and Nether Stars."]
+	quest.4FD3780AF1ECC795.quest_desc: [
+		"Gather four Nether Stars. Awakened draconium needs them with a dragon heart."
+	]
 	quest.4FD3780AF1ECC795.title: "Nether Stars"
 	quest.50299FDC54036A8A.quest_desc: ["Craft a quern and a handstone."]
 	quest.50299FDC54036A8A.title: "The Grind"
@@ -987,14 +997,14 @@
 		""
 		"Three strands lead to the final battle: Chaos, Singularity and Stargate."
 	]
-	quest.5209B9E49235822B.quest_subtitle: "Age 9"
+	quest.5209B9E49235822B.quest_subtitle: "The tenth and last Age"
 	quest.5209B9E49235822B.title: "The Singularity Age Dawns"
 	quest.5298B856BFEE50A2.quest_desc: [
 		"Craft the Hearthstone from the fired Hearth Idol, copper ingots and charcoal."
 		""
-		"Lay it on the plinth and kindle the heart with a firestarter. Then sneak and hold use on the heart with an empty hand. Friends who pray with you make it faster."
+		"Lay it on the plinth and kindle the heart with a firestarter. Then sneak and hold right-click on the heart with an empty hand. Friends who pray with you make it faster."
 		""
-		"Caelum keeps the Hearthstone and opens the Bronze Age."
+		"Caelum keeps the Hearthstone and opens the Bronze Age. From then on a thin beam over the heart shows the way home."
 	]
 	quest.5298B856BFEE50A2.quest_subtitle: "Goal of the Stone Age: Caelum opens the Bronze Age"
 	quest.5298B856BFEE50A2.title: "Offer the Hearthstone at the Shrine"
@@ -1003,7 +1013,9 @@
 	]
 	quest.532C13282586CA95.title: "The Ender Dragon"
 	quest.53348C90243DE4F0.quest_desc: [
-		"Everybody on this server is one fellowship. Progress, Ages and rewards are shared by all of you. Split the strands between you: one friend smiths, one prospects, one builds. Whoever claims a reward first holds it for the rest; experience is paid to each of you."
+		"Everybody on this server is one fellowship. The Ages are shared by all of you. Split the strands between you: one friend smiths, one prospects, one builds."
+		""
+		"A keystone's supplies go to whoever claims them first. The gift of a side path and all experience come to each of you."
 	]
 	quest.53348C90243DE4F0.title: "One Fellowship"
 	quest.533C7CC2EEA570E4.quest_desc: [
@@ -1027,9 +1039,9 @@
 	quest.573FF798650E3338.quest_desc: [
 		"You wake beneath a sky that watches. Your hands are empty."
 		""
-		"This is the Chronicle, the one record of your fellowship. Press K to open it. There is no book to carry and no other list to keep."
+		"This is the Chronicle, the one record of your fellowship. Press K to open it."
 		""
-		"The world is lived in Ages: Dawn, then the Stone Age up to the Singularity Age. Each has its chapter here."
+		"The world is lived in Ages, from Dawn to the Singularity Age. What a later Age holds does not exist yet. Each Age ends with an offering at the shrine of Caelum, the sky itself, and its chapter appears here when it dawns."
 	]
 	quest.573FF798650E3338.quest_subtitle: "Read me first"
 	quest.573FF798650E3338.title: "Welcome to Firmament Ages"
@@ -1041,12 +1053,6 @@
 		"The Chaos Sigil opens the Chaos Trial instead."
 	]
 	quest.57F5B8C4363E589D.title: "Chaos Guardian"
-	quest.586717CB0F9BF963.quest_desc: [
-		"In the Stone Age your fellowship raises one shrine: a heart of fired clay in a ring of stone, logs and thatch. It is the altar of Caelum, the sky itself."
-		""
-		"Every Age ends there. Add the Age's ring, lay its offering on the new plinth and pray. Caelum answers, keeps the gift as a relic and opens the next Age for all of you."
-	]
-	quest.586717CB0F9BF963.title: "The Shrine and Caelum"
 	quest.5A0D6C8DEDA78181.quest_desc: ["A guardian of the End waits in its ruins."]
 	quest.5A0D6C8DEDA78181.title: "Ender Guardian"
 	quest.5ACC660E88F7FC61.quest_desc: [
@@ -1063,12 +1069,12 @@
 		"Its address, on the Coordinates of The Origin: 9, 16, 21, 33, 2, 37, then the point of origin."
 	]
 	quest.5C0C8D3E5C081AA2.title: "Gate Online"
-	quest.5C1872FCA111DFAA.quest_desc: ["Rockets start from a launch pad."]
+	quest.5C1872FCA111DFAA.quest_desc: ["Craft a launch pad. Rockets start only from one."]
 	quest.5C1872FCA111DFAA.title: "Launch Pad"
 	quest.5C8E39BBE00603BA.quest_desc: [
-		"Nine offerings, one Singularity, one gate. Beyond it waits the final boss of The Origin. Its fall is the end of the road."
+		"Nine offerings, one gate. Beyond it waits the last battle, and its end is the end of the road."
 	]
-	quest.5C8E39BBE00603BA.quest_subtitle: "Goal of the Singularity Age: defeat the final boss in The Origin"
+	quest.5C8E39BBE00603BA.quest_subtitle: "Goal of the Singularity Age: the last battle"
 	quest.5C8E39BBE00603BA.title: "Beyond the Firmament"
 	quest.5CC2939838550FB5.quest_desc: [
 		"Feed a wild animal to familiarize it. Tame animals are the start of a farm."
@@ -1087,7 +1093,7 @@
 	]
 	quest.5EE630041C685EFA.title: "Assembler"
 	quest.5EE99FD47DD299FC.quest_desc: [
-		"The supercritical phase shifter turns polonium into antimatter."
+		"Build the SPS from 16 casings and two supercharged coils. It turns polonium into antimatter."
 	]
 	quest.5EE99FD47DD299FC.title: "SPS"
 	quest.5F3D1DE20EF6632E.quest_desc: [
@@ -1095,16 +1101,16 @@
 	]
 	quest.5F3D1DE20EF6632E.title: "Oxygen and Gravity"
 	quest.5F74A3FDB04E14F6.quest_desc: [
-		"Coke ovens, blast furnaces, crushers, presses and the first FE. Your fellowship can now claim land and keep chunks loaded."
+		"Coke ovens, blast furnaces, crushers, presses and the first FE."
 		""
 		"Four strands lead to the Pressure Core: Coke & Steel, Power, Ore Line and Logistics & Backfill."
 	]
-	quest.5F74A3FDB04E14F6.quest_subtitle: "Age 4"
+	quest.5F74A3FDB04E14F6.quest_subtitle: "The fifth Age"
 	quest.5F74A3FDB04E14F6.title: "The Industrial Age Dawns"
-	quest.612BEB27F9AD5018.quest_desc: ["Land on Mars."]
+	quest.612BEB27F9AD5018.quest_desc: ["Land on Mars. Ostrum lies in its red rock."]
 	quest.612BEB27F9AD5018.title: "Mars"
 	quest.617B394599496EE7.quest_desc: [
-		"Fuel assemblies hold the fissile fuel in the fission reactor."
+		"Build four fuel assemblies. They hold the fissile fuel inside the reactor."
 	]
 	quest.617B394599496EE7.title: "Fuel Assemblies"
 	quest.61CA7DDBEC00EDEF.quest_desc: [
@@ -1115,7 +1121,9 @@
 		"Feed the bloomery by machine and collect 32 wrought iron ingots from the line."
 	]
 	quest.61EE57DC75EED266.title: "Automated Bloomery Line"
-	quest.623C908B3CDF2E3E.quest_desc: ["Thirty-two desh plates from the metal press."]
+	quest.623C908B3CDF2E3E.quest_desc: [
+		"Press 32 desh plates. The engine and the tanks of the rocket to Mars are made from them."
+	]
 	quest.623C908B3CDF2E3E.title: "Desh Plates"
 	quest.6281CB502F09533D.quest_desc: [
 		"Raise the Spirit Circle around the Iron Sanctum: sourcestone, otherstone pillars capped with source gem blocks, and eight candles. The heart shows every missing block. When the ring stands, the heart waits for the Keystone."
@@ -1130,12 +1138,8 @@
 		"Fell a tree with your stone axe. With axe, knife, hammer and shovel you have a full stone kit."
 	]
 	quest.63A45BCAE3254E00.title: "Stone Kit"
-	quest.640D444A5C7F6051.quest_desc: [
-		"The map and minimap open with this Age. Claiming land and keeping chunks loaded come with the Industrial Age."
-	]
-	quest.640D444A5C7F6051.title: "The Map Opens"
 	quest.64CDFFD93C9CBDCE.quest_desc: [
-		"Craft the Data Matrix from four blue steel sheets, four advanced control circuits, a 64k storage component and a bottle of dragon's breath."
+		"Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a bottle of dragon's breath."
 		""
 		"Raise the Data Nave; the heart shows what is missing. Lay the Matrix on the new plinth and pray: together, if two of you are online."
 		""
@@ -1180,7 +1184,9 @@
 		"Sourcelinks turn fuel, growth or life around them into source. Store it in source jars."
 	]
 	quest.659EBC46D8F70B24.title: "Sourcelink"
-	quest.65E696893D25C27D.quest_desc: ["The fusion reactor is the FE source of this Age."]
+	quest.65E696893D25C27D.quest_desc: [
+		"Build the fusion reactor from 32 frames. It powers this Age."
+	]
 	quest.65E696893D25C27D.title: "Fusion Reactor"
 	quest.661054914CDF7CFA.quest_desc: [
 		"FE is the one unit of energy. Rotation (SU) has one bridge: the alternator turns SU into FE and the electric motor turns FE back into SU."
@@ -1199,7 +1205,9 @@
 		"Saw support beams and place them in your mine. They stop cave-ins nearby."
 	]
 	quest.66EDA08DBD082046.title: "Hold the Ceiling"
-	quest.6708655329216D20.quest_desc: ["A filled hohlraum and a laser ignite the reactor."]
+	quest.6708655329216D20.quest_desc: [
+		"Fill a hohlraum with fuel. A laser fires it to ignite the reactor."
+	]
 	quest.6708655329216D20.title: "Hohlraum"
 	quest.67314514BDCA1DB3.quest_desc: [
 		"Fuse the Quantum Core at draconic level around the awakened core: two antimatter pellets, two calorite plates, two ice shards and the Leviathan's abyssal egg."
@@ -1225,13 +1233,15 @@
 	quest.68A4B5AC4EBE2085.title: "Offer the Pressure Core at the Shrine"
 	quest.68D0F147E4B64250.quest_desc: ["Scylla rules a storm-wracked sea. A hard optional fight."]
 	quest.68D0F147E4B64250.title: "Scylla"
-	quest.692BE6A196CEF07F.quest_desc: ["Land on the Moon."]
+	quest.692BE6A196CEF07F.quest_desc: ["Land on the Moon. Desh lies in its rock."]
 	quest.692BE6A196CEF07F.title: "The Moon"
 	quest.69CB2309855D14E1.quest_desc: [
 		"The novice spellbook casts the first spells and opens the worn notebook."
 	]
 	quest.69CB2309855D14E1.title: "Novice Spellbook"
-	quest.69FBE953FD290F68.quest_desc: ["Mine calorite on Venus."]
+	quest.69FBE953FD290F68.quest_desc: [
+		"Mine 16 raw calorite on Venus. It builds the rocket to Glacio."
+	]
 	quest.69FBE953FD290F68.title: "Calorite"
 	quest.6A1C715211FCA0FB.quest_desc: ["Two black steel double sheets for the Pressure Core."]
 	quest.6A1C715211FCA0FB.title: "Black Steel Double Sheets"
@@ -1298,7 +1308,9 @@
 		"The apprentice spellbook holds the stronger glyphs you need against the Wilden Chimera."
 	]
 	quest.6B502DAD3EAE52D5.title: "Apprentice Spellbook"
-	quest.6B60917A5984A799.quest_desc: ["The awakened core is the catalyst of the Quantum Core."]
+	quest.6B60917A5984A799.quest_desc: [
+		"Fuse the awakened core. It is the catalyst of the Quantum Core."
+	]
 	quest.6B60917A5984A799.title: "Awakened Core"
 	quest.6C112D72835F57BD.quest_desc: [
 		"Crushing wheels turn ore pieces into dust for more metal per ore."
@@ -1310,10 +1322,12 @@
 		"Source gems in a steel gearbox. A Wixie can automate it. It goes into the reinforced blast bricks and into the Pressure Core."
 	]
 	quest.6C89D8CCD3EEFE88.title: "Arcane Gearbox"
-	quest.6CBAA83920DDC925.quest_desc: ["Ostrum builds the tier 3 rocket for Venus and Mercury."]
+	quest.6CBAA83920DDC925.quest_desc: [
+		"Build the tier 3 rocket from ostrum. It reaches Venus and Mercury."
+	]
 	quest.6CBAA83920DDC925.title: "Tier 3 Rocket"
 	quest.6DC5BE16C605C596.quest_desc: [
-		"Make blue steel, the metal of the Information Age. The Data Matrix needs four sheets."
+		"Make blue steel, the metal of the Information Age. Four sheets go into the Data Matrix, more into the inscriber presses."
 	]
 	quest.6DC5BE16C605C596.title: "Blue Steel"
 	quest.6DE0808A3F92C2E7.quest_desc: [
@@ -1324,11 +1338,7 @@
 		"Soak a hide in limewater, scrape it, then soak it in tannin."
 	]
 	quest.6DE17D691978916D.title: "Genuine Leather"
-	quest.6E4438CCF1A5BF3D.quest_desc: [
-		"Bring home the Lich's trophy. The Steel Heart needs it."
-		""
-		"No Lich tower in your Twilight Forest? The Frontier Sigil opens the Frontier Trial, which pays the trophies of the Naga and the Lich."
-	]
+	quest.6E4438CCF1A5BF3D.quest_desc: ["Bring home the Lich's trophy. The Steel Heart needs it."]
 	quest.6E4438CCF1A5BF3D.title: "Lich Trophy"
 	quest.6ECC3504EF73D5B0.quest_desc: [
 		"Every boss an Age needs has a sigil. On open ground it opens a trial of waves in the boss's place; the last wave pays the drop."
@@ -1340,7 +1350,9 @@
 		"Build a crusher and feed it ore pieces. It returns twice the metal as powder and dust, plus a by-product."
 	]
 	quest.6F0E9B4D0BD4227A.title: "Crusher"
-	quest.6F9493CFB1887C79.quest_desc: ["Mine desh on the Moon."]
+	quest.6F9493CFB1887C79.quest_desc: [
+		"Mine 16 raw desh on the Moon. It is the metal of the next rocket."
+	]
 	quest.6F9493CFB1887C79.title: "Desh"
 	quest.70B4778AD5C5B83E.quest_desc: [
 		"Defeat the Leviathan in the deep. Its abyssal egg goes into the Quantum Core."
@@ -1352,15 +1364,19 @@
 		"Climb the Lich tower and defeat the Lich, or bring its trophy from the Frontier Trial."
 	]
 	quest.70CBE25D834EEF9F.title: "The Lich"
-	quest.71013FE9F62EC68E.quest_desc: ["Chaotic injectors fuse at the highest tier."]
+	quest.71013FE9F62EC68E.quest_desc: [
+		"Craft four chaotic injectors. Chaotic fusion, the highest tier, needs them."
+	]
 	quest.71013FE9F62EC68E.title: "Chaotic Injectors"
-	quest.7124AA6401C814BF.quest_desc: ["The DHD dials the gate."]
+	quest.7124AA6401C814BF.quest_desc: ["Build the Dial Home Device. It dials the gate."]
 	quest.7124AA6401C814BF.title: "Dial Home Device"
 	quest.713ED981D14D9A4D.quest_desc: [
-		"Fusion crafting is the one pedestal crafting of the tech Ages."
+		"Build a fusion crafting core. It is the one pedestal crafting of the tech Ages."
 	]
 	quest.713ED981D14D9A4D.title: "Fusion Crafting Core"
-	quest.716420BDBE218479.quest_desc: ["Fuse draconium blocks with a dragon heart and Nether Stars."]
+	quest.716420BDBE218479.quest_desc: [
+		"Fuse 16 awakened draconium from draconium blocks, a dragon heart and Nether Stars. Draconic gear and the reactor are made of it."
+	]
 	quest.716420BDBE218479.title: "Awakened Draconium"
 	quest.71A054B30C7FB195.quest_desc: [
 		"Train a data model to tier 3 (Superior) and keep it running in a simulation chamber."
@@ -1373,7 +1389,7 @@
 	]
 	quest.71B6B8FAE5353DAB.title: "Forging"
 	quest.724BED62EE9DF8FB.quest_desc: [
-		"Craft a firestarter from two sticks. Throw a log, three sticks and some straw on one block and hold use on it with the firestarter until the firepit lights."
+		"Craft a firestarter from two sticks. Throw a log, three sticks and some straw on one block and hold right-click on it with the firestarter until the firepit lights."
 		""
 		"Fire opens the Stone Age for all of you: clay, pit kilns and the first copper."
 	]
@@ -1395,26 +1411,32 @@
 	quest.72FDA51E1B8B0984.title: "A Weird Rock"
 	quest.7317EE63A824831B.quest_desc: ["Craft a jetpack. It flies on compressed air from its tank."]
 	quest.7317EE63A824831B.title: "Air Jetpack"
-	quest.73CDE4A02F764C5D.quest_desc: ["Draconium ore lies in the End."]
+	quest.73CDE4A02F764C5D.quest_desc: [
+		"Smelt 16 draconium ingots from End ore. Every fusion part is made of it."
+	]
 	quest.73CDE4A02F764C5D.title: "Draconium"
-	quest.73D3949D8DE47C1A.quest_desc: ["Awakened draconium is the reactor's fuel."]
+	quest.73D3949D8DE47C1A.quest_desc: [
+		"Make four awakened draconium blocks. They are the reactor's first fuel."
+	]
 	quest.73D3949D8DE47C1A.title: "Reactor Fuel"
 	quest.7448E77754C5FDAD.quest_desc: [
 		"Till soil with a hoe and plant the seeds. Crops need water and time."
 	]
 	quest.7448E77754C5FDAD.title: "First Field"
-	quest.7479AAADAC50C431.quest_desc: ["Write the Marid's name into a book of binding."]
+	quest.7479AAADAC50C431.quest_desc: [
+		"Write the Marid's name into a book of binding. Without it the Marid will not come."
+	]
 	quest.7479AAADAC50C431.title: "Book of Binding: Marid"
 	quest.750293899E6D4B62.quest_desc: ["Silicon is printed into every processor."]
 	quest.750293899E6D4B62.title: "Silicon"
-	quest.7544B0CD7D29A814.quest_desc: ["Calorite builds the tier 4 rocket for Glacio."]
+	quest.7544B0CD7D29A814.quest_desc: ["Build the tier 4 rocket from calorite. It reaches Glacio."]
 	quest.7544B0CD7D29A814.title: "Tier 4 Rocket"
 	quest.7594B03DF7F3FE55.quest_desc: [
 		"Build a bloomery from bronze double sheets and stone bricks."
 	]
 	quest.7594B03DF7F3FE55.title: "Ironworks"
 	quest.759550A45990B3C8.quest_desc: [
-		"Fill the small vessel with copper ore, heat it until the copper melts, then pour it into the ingot mold."
+		"Melt copper ore in the small vessel in a fire and pour it into the ingot mold. Ten small pieces make one ingot."
 	]
 	quest.759550A45990B3C8.title: "Copper Ingot"
 	quest.7633534E257B8AD8.quest_desc: [
@@ -1447,13 +1469,15 @@
 		"Stack logs in a log pile, cover it with earth and light it: a charcoal pit. Charcoal burns hot enough for copper."
 	]
 	quest.7997DC1DFF73EA36.title: "A Better Fuel"
-	quest.79BD86B5CD663079.quest_desc: [
-		"The alloy kiln alloys two metals in the right ratios. It retires with the Electric Age."
-	]
+	quest.79BD86B5CD663079.quest_desc: ["The alloy kiln alloys two metals in the right ratios."]
 	quest.79BD86B5CD663079.title: "Alloy Kiln"
-	quest.79DA4E6D4518762C.quest_desc: ["Deuterium and tritium make the fuel."]
+	quest.79DA4E6D4518762C.quest_desc: [
+		"Mix deuterium and tritium into fusion fuel. It keeps the reactor burning."
+	]
 	quest.79DA4E6D4518762C.title: "Fusion Fuel"
-	quest.7B0276B3AACDABA7.quest_desc: ["Fusion at draconic level needs awakened injectors."]
+	quest.7B0276B3AACDABA7.quest_desc: [
+		"Craft four awakened injectors. Fusion at draconic level needs them."
+	]
 	quest.7B0276B3AACDABA7.title: "Awakened Injectors"
 	quest.7CDF23C64D3D4961.quest_desc: [
 		"Food rots. Sealed large vessels, salting, drying and cooking slow it down. Eat from every food group: grain, fruit, vegetables, protein and dairy."

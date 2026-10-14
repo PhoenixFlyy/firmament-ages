@@ -782,7 +782,7 @@
 				{
 					id: "2CBBA1C399B51573"
 					table_id: 6693109002396529847L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -815,7 +815,7 @@
 				{
 					id: "0CB4C9E423118936"
 					table_id: 6693109002396529847L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -851,7 +851,7 @@
 				{
 					id: "3A0409C771133959"
 					table_id: 6693109002396529847L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -882,7 +882,7 @@
 				{
 					id: "7681396A18ECE861"
 					table_id: 6693109002396529847L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]

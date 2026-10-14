@@ -16,10 +16,11 @@ Dawn ends with a quest (The First Spark grants the Stone Age). From the Stone Ag
 | `dev/release.md` | build, local test, CurseForge upload, friends, server (German) |
 | `dev/client-test-brief.md` | what Felix checks in the client, per version (German) |
 | `dev/style-guide.md` | rules for player text, checked by `dev/validate_quests.py --style` (German) |
-| `dev/quests-notes.md` | how the quest book is generated and changed |
 | `dev/poc-results.md` | evidence log of every server and static run |
 | `mod/firmages-core/SPEC.md` | the pack's own mod |
 | `CHANGELOG.md` | public changelog, newest version on top |
+| `docs/WALKTHROUGH.md` | the player walkthrough (English, linked from `README.md` and the CurseForge page); update it with every quest or shrine change |
+| `dev/archive/` | notes no longer kept up to date: dev client walk-through, keybind map, quest book notes, texture notes |
 
 All player-facing text in the pack is English.
 
@@ -34,6 +35,7 @@ All player-facing text in the pack is English.
 | `defaultconfigs/` | server configs that NeoForge copies into every new world (TFC, IE, Mekanism) | yes | yes |
 | `kubejs/` | `startup_scripts/` (items, shared constants), `server_scripts/` (recipes, tags, stage logic), `client_scripts/` (tooltips, recipe viewer), `data/` (datapack: biome modifiers, TFC item heat), `assets/` (textures, quest art) | yes | yes |
 | `dev/` | tooling (generators, `run_server.py`, `poc_analyze.py`, `release.ps1`, `make_friends_zip.ps1`, `verify_install.py`) and notes; `dev/exports/` holds the release builds (git-ignored) | yes | no |
+| `docs/` | `WALKTHROUGH.md`, the player walkthrough | yes | no |
 | `server/` | dedicated server template (`start.bat`, `start.ps1`, `user_jvm_args.txt`, `server.properties.template`, `README-SERVERPACK.md`) | yes | no |
 | `mod/firmages-core/` | the pack's own NeoForge mod (source, `SPEC.md`) | yes | no |
 | `tools/` | local binaries: JDK 21, packwiz, packwiz-installer-bootstrap, the NeoForge installer, portable Prism | no | no |
@@ -44,7 +46,7 @@ All player-facing text in the pack is English.
 - **Stages.** The Age stages are `dawn` and `age_0` … `age_9`. The mob ladder is `mob_0` … `mob_9`. Helper stages are `ftbchunks_mapping`, `tool_<station>` and `finale_won`, plus `disabled`, which is never granted. In ProgressiveStages an entry is locked while *any* stage that lists it is missing, so everything goes into the stage file that unlocks it. Stage files carry no `unlock_message`: the shrine ceremony is the only Age announcement.
 - **Generated lock lists.** TFC has 1113 ore blocks, and ProgressiveStages only accepts exact block ids in `[[ores.overrides]]`. `dev/gen_stage_locks.py` therefore writes the TFC metal, ore and override lists from `dev/age_map.toml`. It rewrites the regions between `# >>> generated:… >>>` and `# <<< generated:… <<<`. Edit the tables, never the generated lines. Run `python dev/gen_stage_locks.py`; `--check` exits 1 if a file is out of date.
 - **Age grants.** The First Spark grants `age_0`; the shrine grants `age_1` to `age_9`; firmages-core grants `finale_won` when the final boss dies. `kubejs/server_scripts/stages/grants.js` derives everything else from the Age stage: the mob ladder, the map, the station windows and the chunk quota.
-- **Player text.** Quest text lives in `dev/gen_quests.py`, never in the SNBT; the rules are in `dev/style-guide.md`.
+- **Player text.** Quest text lives in `dev/gen_quests.py`, never in the SNBT; the rules are in `dev/style-guide.md`. The quest book is "the Chronicle" everywhere.
 - **Needs in-game proof.** Every line marked `// POC:` or `# POC:` still has to be checked in the game. Open checks and open config values are in `dev/offene-punkte.md`.
 
 ## Current state
@@ -77,7 +79,7 @@ The version is `mod_version` in `mod/firmages-core/gradle.properties`. The build
 
 ## Dev client
 
-A portable Prism instance *Firmament Ages Dev* lives in `tools/PrismLauncher/instances/FirmamentAgesDev/` with Temurin 21 and the pre-launch command `"$INST_JAVA" -jar packwiz-installer-bootstrap.jar http://localhost:8080/pack.toml`. Start `dev\serve.bat`, then `tools\PrismLauncher\prismlauncher.exe`, log in with Microsoft yourself and launch the instance. `dev/dev-client.md` (German) has the walk-through.
+A portable Prism instance *Firmament Ages Dev* lives in `tools/PrismLauncher/instances/FirmamentAgesDev/` with Temurin 21 and the pre-launch command `"$INST_JAVA" -jar packwiz-installer-bootstrap.jar http://localhost:8080/pack.toml`. Start `dev\serve.bat`, then `tools\PrismLauncher\prismlauncher.exe`, log in with Microsoft yourself and launch the instance. `dev/archive/dev-client.md` (German) has the walk-through.
 
 Reload cycle: `/reload` for server scripts, F3+T for client scripts, a restart for startup scripts, `/progressivestages reload` for stage files and a new world for worldgen. The test server is driven by `dev/run_server.py` and `dev/rcon.py`.
 

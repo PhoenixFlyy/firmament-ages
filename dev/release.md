@@ -1,6 +1,6 @@
 # Release: bauen, lokal testen, hochladen, verteilen
 
-Eine Anleitung für jede Version (ersetzt die früheren `dev/cf/UPLOAD-ANLEITUNG.md` und `dev/cf/LOKAL-TESTEN.md`).
+Eine Anleitung für jede Version.
 Alle Befehle im Repo-Hauptordner `D:\Minecraft\MinecraftModServer\FirmamentAges`, Windows PowerShell 5.1 reicht.
 `<v>` steht für die Pack-Version (z. B. `0.9.0`).
 

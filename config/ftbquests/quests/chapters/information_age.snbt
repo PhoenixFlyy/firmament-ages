@@ -822,7 +822,7 @@
 				{
 					id: "056EDA983524575F"
 					table_id: 5532495464634191153L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -872,7 +872,7 @@
 				{
 					id: "29F3463DB8E9F6D3"
 					table_id: 5532495464634191153L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -908,7 +908,7 @@
 				{
 					id: "58EF5284197AB2DE"
 					table_id: 5532495464634191153L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -939,7 +939,7 @@
 				{
 					id: "39D9DC1488742A4D"
 					table_id: 5532495464634191153L
-					team_reward: true
+					team_reward: false
 					type: "choice"
 				}
 			]
@@ -976,25 +976,6 @@
 				}
 			]
 			x: 0.0d
-			y: 6.25d
-		}
-		{
-			dependencies: ["0F1AE784BF392A25"]
-			hide_dependency_lines: true
-			icon: {
-				id: "mekanism:purification_chamber"
-			}
-			id: "3CBED807D32DD158"
-			optional: true
-			shape: "gear"
-			tags: ["explain"]
-			tasks: [
-				{
-					id: "715497CC3C1A7B1B"
-					type: "checkmark"
-				}
-			]
-			x: 1.5d
 			y: 6.25d
 		}
 		{

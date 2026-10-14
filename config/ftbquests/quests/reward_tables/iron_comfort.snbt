@@ -23,13 +23,6 @@
 			id: "17BCE7FF8C4A3451"
 			item: {
 				count: 1
-				id: "toms_storage:storage_terminal"
-			}
-		}
-		{
-			id: "19244530A1F73ABB"
-			item: {
-				count: 1
 				id: "twilightforest:magic_map_focus"
 			}
 		}

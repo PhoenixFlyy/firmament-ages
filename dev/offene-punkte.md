@@ -1,7 +1,7 @@
 # Offene Punkte
 
 Alle offenen Punkte an einer Stelle, Stand 2026-10-14 (0.9.0-Runde). Gesammelt aus `dev/config-todo.md` (archiviert),
-den „Offen“-Listen in `dev/client-test-brief.md`, „Open points“ in `dev/quests-notes.md` und den „Open points“-Abschnitten
+den „Offen“-Listen in `dev/client-test-brief.md`, „Open points“ in `dev/archive/quests-notes.md` und den „Open points“-Abschnitten
 in `dev/poc-results.md`; jeder Punkt wurde gegen den aktuellen Stand geprüft, Erledigtes steht unten mit Beleg.
 Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile nach unten verschieben, mit Beleg.
 
@@ -48,7 +48,8 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Questbuch: Automatisierungsnachweise per Task-Screen (`task_screen_only`) statt Mengen | `dev/gen_quests.py` | Claude |
 | „Data Model: Tier 3“ nimmt jedes Datenmodell (die Stufe ist eine Komponente, die eine Item-Aufgabe nicht liest) | `dev/gen_quests.py` | Claude |
 | Planungsdokumente: `08-Ages-Design.md` bekommt „§0 Stand 0.8“ (Abweichungen seit v3), `10-Modliste.md` aus `mods/*.pw.toml` erzeugen (`dev/cf/gen_credits.py --modlist`) | `../Modpack-Planung/docs/` | Claude |
-| `mod/firmages-core/README.md` sagt noch „Current state: milestone M1“: eine Zeile mit Verweis auf `SPEC.md` | `mod/firmages-core/README.md` | Claude (mit der nächsten firmages-core-Version) |
+| Stage-Anzeigenamen `display_name = "Age N: …"` (nur Operatoren sehen sie) an die Age-Namen ohne Nummer angleichen | `config/progressivestages/stages/age_*.toml` | Claude |
+| `Modpack-Planung/docs/12-Walkthrough.md` doppelt `docs/WALKTHROUGH.md`: auf einen Verweis kürzen | `../Modpack-Planung/docs/` | Claude |
 | Java-Fallback-Texte der Mod stimmen nicht mehr mit der Lang-Datei überein („The world realigns...“, „No shrine heart is placed“) | `FirmagesClient.java`, `ReloadStatePayload.java`, `ShrineCommands.java` | Claude (mit der nächsten firmages-core-Version) |
 | TFCRegistryAPI-Rest (etwa 112 DISTXFORM/Mixin/FATAL-Zeilen pro Start): in den 17 gescannten TFC-Mods vor `Class.forName` die Klassendatei lesen und nur Enums laden (Vorschlag in den Integrator-Notizen von n4/warnings) | `mixin/tfcregistryapi/HelpersMixin`, `perf/TfcRegistryScan` | Claude (mit der nächsten firmages-core-Version) |
 
@@ -77,7 +78,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | AE2-Meteoriten (config-todo 7) | entstehen in der TFC-Welt nicht; die Pressen gibt es per Rezept (`recipes/age_6/information_age.js`) |
 | Create: Diesel Generators ohne Öl-Chunks (config-todo 9) | `config/createdieselgenerators-server.toml` |
 | `reveal_stage_names_only_to_operators` (config-todo 19) | Standard `true` bleibt; die Spielertexte der Sperre stehen jetzt in `[messages]` (0.9.0) |
-| Taste K frei (config-todo 21) | `dev/keybinds.md`: Shader-Schalter von K gelöst |
+| Taste K frei (config-todo 21) | `dev/archive/keybinds.md`: Shader-Schalter von K gelöst |
 | TFC-IE-Adern in den Stage-Locks (config-todo 22) | `dev/age_map.toml` (Bleiglanz age_4, Bauxit age_5, Uraninit age_7) |
 | Stage-Chatzeile „Age N: …“ beim Age-Wechsel | gelöscht (0.9.0, `unlock_message` in allen Stage-Dateien entfernt) |
 | Versionszeile im Titelbild bei jedem Release von Hand | `dev/release.ps1 -Version` schreibt sie, ohne `-Version` bricht es bei Abweichung ab |
@@ -88,3 +89,4 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Mystical Agriculture ohne Quelle | 0.7.2: eigene TFC-Adern ab der Informationszeit |
 | IE-Chunk-Loader | versteckt (`decisions-while-away.md`, „IE-Chunk-Loader aus“) |
 | Keystone-Leihe für die Marid-Quest | firmages-core 0.5.0 (SPEC §7.4) |
+| `mod/firmages-core/README.md` „milestone M1“ | 2026-10-14: ein Satz mit Verweis auf `SPEC.md` (Branch n4/text) |

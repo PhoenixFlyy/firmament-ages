@@ -9,7 +9,7 @@ ItemEvents.modifyTooltips((event) => {
   Object.keys(sigils).forEach((id) => {
     const s = sigils[id]
     event.add(id, [
-      Text.gray(`Use it on open ground to open the ${s.gateName}.`),
+      Text.gray(`Right-click open ground with it to open the ${s.gateName}.`),
       Text.gray(`Its waves stand for ${s.boss}. Clear them for ${s.reward}.`)
     ])
   })

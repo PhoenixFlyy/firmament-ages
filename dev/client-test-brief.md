@@ -35,7 +35,7 @@ Funken an den Lücken.
    aus; ein Sack macht schwer; Prunkbett vor der Eisenzeit nicht herstellbar; EMI zeigt weder Bomben, Kanonen noch
    Tresore. Abweichungen aus dem Lauf: Die „classic“-Türen und die Handcrafted-Theken kommen erst ab Eisen- bzw.
    Arkanzeit (sie verlangen einen Vanilla-Holzdruck bzw. Calcit), siehe `dev/offene-punkte.md`. **Boot- und
-   Heap-Budget** (höchstens +20 s bis zum Titel, +300 MB Heap) nach `dev/dev-client.md`, Abschnitt „Boot- und
+   Heap-Budget** (höchstens +20 s bis zum Titel, +300 MB Heap) nach `dev/archive/dev-client.md`, Abschnitt „Boot- und
    Heap-Budget der Deko-Mods messen“; Ergebnis in `dev/poc-results.md` eintragen.
 3. **Age-Wechsel ohne Ruckler.** Ein neues Age lädt keine Datapacks mehr. Auf Deiner Welt dauerte der Swap 0,3 bis 0,7 s
    (vorher 9 bis 15 s Freeze). Prüfen: beim Freischalten kein Einfrieren; Server-Log „Age swap (granted age_x) finished

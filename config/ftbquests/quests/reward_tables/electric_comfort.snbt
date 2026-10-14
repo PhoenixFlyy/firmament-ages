@@ -19,21 +19,6 @@
 				id: "immersivepetroleum:oil_can"
 			}
 		}
-		{
-			count: 16
-			id: "2C0BBFDD6E59F1C0"
-			item: {
-				count: 1
-				id: "create_hypertube:hypertube"
-			}
-		}
-		{
-			id: "1822B5A734E2FED2"
-			item: {
-				count: 1
-				id: "immersiveengineering:capacitor_mv"
-			}
-		}
 	]
 	tags: ["age:age_5"]
 }

@@ -23,13 +23,6 @@
 			id: "5512C732649A2022"
 			item: {
 				count: 1
-				id: "mekanism:teleporter"
-			}
-		}
-		{
-			id: "29220E64F08DA4A8"
-			item: {
-				count: 1
 				id: "draconicevolution:wyvern_capacitor"
 			}
 		}
