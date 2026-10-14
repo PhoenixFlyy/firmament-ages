@@ -21,7 +21,8 @@
     "trainutilities.JoinNoticeMixin",
     "tfc.PlayerInfoMixin",
     "tfc.TfcDamageMixin",
-    "tfc.SwitchInventoryTabMixin"
+    "tfc.SwitchInventoryTabMixin",
+    "tfcregistryapi.HelpersMixin"
   ],
   "client": [
     "client.ChatComponentMixin",

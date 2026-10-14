@@ -2543,3 +2543,26 @@ at age_2 through the iron plate), so the pack is consistent; whether they belong
 - `test-server/server.properties` still says `white-list=true`; the docs say the test server runs without whitelist and
   tell Felix to type `whitelist off` if it is still on.
 - Needs a client (Felix, `dev/client-test-brief.md`, 0.8.0 Nachtrag).
+
+## TFCRegistryAPI scan scope (2026-10-14, branch n1/core-registryapi)
+
+firmages-core limits TFCRegistryAPI 1.2's enum scan to mod files that are or depend on `tfc` or `tfcregistryapi`
+(SPEC §20, `[perf] limitTfcRegistryApiScan`, default true). No pack server was booted for this change.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` | 107 unit tests, 0 failed (`RegistryScanScopeTest` 7); `fetchLibs` downloaded `TFCRegistryAPI-1.21.x-1.2.jar` from the CurseForge CDN, sha1 `9cf37256…` as in `mods/tfc-registry-api.pw.toml` | pass |
+| `gradlew runGameTestServer` | "All 35 required tests passed"; `tfcRegistryApiScanScope` skips itself (no TFCRegistryAPI in the default run) | pass |
+| `gradlew runGameTestServer -PgametestTfc` (now with TFCRegistryAPI) | log "TFCRegistryAPI enum scan limited to 2 of 17 mod files (mods that are or depend on [tfcregistryapi, tfc]): tfcregistryapi, tfc"; `tfcRegistryApiScanScope` passed (every TFC value of `Metal`, `Ore`, `Rock`, `SandBlockType`, `SoilBlockType`, `SoilBlockType.Variant`, `Wood` registered, woods under mod `tfc`); 35 tests, 13 failed: the same 13 shrine and gate tests as in round B (TFC replaces their vanilla stand-ins) | pass (expected failures) |
+| First `-PgametestTfc` run, before directory mod files were dropped | TFCRegistryAPI crashed on `FileSystems.newFileSystem` of firmages-core's class folder (`ProviderNotFoundException`, after scanning `tfcregistryapi` and `tfc`); fixed in `TfcRegistryScan` (directories only exist in dev runs) | fixed |
+| `/fa_dump` with the new `dump.js` (one-off in the `-PgametestTfc` run, temporary trigger script, not committed) | `registries.json`: 108 keys (every built-in registry, `entity_type` 292 ids) and `tfcregistryapi_enums` metal 28, ore 32, rock 21, sand 7, soil 14, soil_variant 8, wood 20; `check_registry_parity.py dump` of it against itself: PASS | pass |
+| `check_registry_parity.py jars "<CurseForge instance>/mods" --dump test-server/local/firmages` (0.8.0 dump) | 290 jars (246 mod jars, 44 libraries), 83,680 classes; scope 20 mod jars (advancedtfctech, afc, beneath, c2tfc, firmages, firmalife, kubejs_tfc, precisionprospecting, rnr, tfc, tfc_ie_addon, tfc_support_indicator, tfcah, tfcastikorcarts, tfcbetterbf, tfcregistryapi, tfcrf, tfcvesseltooltip, tfcweldbutton, woodencog); every enum of the seven interfaces lies in the scope: TFC `Metal`, `Rock`, `SoilBlockType$Variant`, `Wood`, AFC `AFCWood`, `TreeSpecies`, Firmalife `FLMetal`, Beneath `Stem`, plus TFC `Ore`, `SandBlockType`, `SoilBlockType` (interfaces added by the API's own mixins); the 81 wood constants equal the woods of all 7 TFCAstikorCarts parts in the 0.8.0 dump (567 items) | pass |
+| Negative test of the static check (roots reduced to `tfcregistryapi`) | 11 enums reported OUTSIDE, exit 1 | pass |
+| `check_registry_parity.py dump` 0.8.0 vs a copy without the 7 `acacia_koa` cart items, one `tfcrf` recipe and with an extra key | DIFF item (7 removed, all `tfcastikorcarts`), each cart part "lost acacia_koa", tfcrf recipes 99 -> 98, `entity_type` "only after (not compared)", exit 1 | pass |
+
+### Open points
+
+- Pack server and client **[PoC]**: boot time and log size with the change, and the A/B dump: two boots of the same
+  build at age_9 with `limitTfcRegistryApiScan = false` and `true`, `/fa_dump` each, then
+  `python dev/check_registry_parity.py dump <false dump> <true dump>`. The 0.8.0 dump has only `item`, `block`,
+  `fluid`; against it the script compares those three plus the cart and regrowth checks.

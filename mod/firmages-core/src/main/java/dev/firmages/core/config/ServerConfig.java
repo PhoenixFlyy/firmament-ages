@@ -69,6 +69,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue TFC_NO_NUTRITION_MALUS;
     // hardship (SPEC §19)
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_CAVE_DWELLER_UNTIL;
+    // perf (SPEC §20); read at mod construction through EarlyServerConfig, the value here only documents the key
+    public static final ModConfigSpec.BooleanValue PERF_LIMIT_TFC_REGISTRY_API_SCAN;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -197,6 +199,13 @@ public final class ServerConfig {
         HARDSHIP_CAVE_DWELLER_UNTIL = b.comment("First Age without Cave Dweller ReEvolved, or \"never\". From this Age on it cannot spawn or be",
                 "summoned, dwellers in loaded chunks vanish, saved ones are refused when their chunk loads, and its cave noises are muted.")
             .define("caveDwellerUntilAge", CaveDwellerGate.DEFAULT_UNTIL.id(), CaveDwellerGate::isValid);
+        b.pop();
+
+        b.comment("Start-up performance (SPEC 20). Read once at game start, before worlds load: a dedicated server reads",
+                "<world>/serverconfig/firmages-server.toml, then config/, then defaultconfigs/; a client reads config/, then defaultconfigs/.").push("perf");
+        PERF_LIMIT_TFC_REGISTRY_API_SCAN = b.comment("TFCRegistryAPI looks for registry enums only in mod files that are or depend on TFC or",
+                "TFCRegistryAPI, instead of loading every class of every mod seven times (~37 s, ~17k error lines). false = original scan.")
+            .define("limitTfcRegistryApiScan", true);
         b.pop();
 
         b.push("debug");
