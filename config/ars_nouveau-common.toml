@@ -1,11 +1,5 @@
-# Firmament Ages: Ars Nouveau common config.
-# Full file: every key of the mod's spec (defaults where the pack has no opinion), so NeoForge has nothing to
-# correct on a fresh install (no "is not correct. Correcting" line, no *.toml.bak). Why the pack sets what it sets:
-# the lines above and the comments next to those keys.
-
 #General settings
 [general]
-	# No Worn Notebook in the inventory on first join (Ars is an Arcane Age mod; Dawn shows nothing of it).
 	#Spawn a book in the players inventory on login
 	spawnBook = false
 	#Dimensions where hostile mobs will not spawn. Ex: ["minecraft:overworld", "undergarden:undergarden"]. . Run /forge dimensions for a list.

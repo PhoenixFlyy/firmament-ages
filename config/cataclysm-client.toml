@@ -1,10 +1,4 @@
-# Firmament Ages: L_Ender's Cataclysm client config.
-# Full file: every key of the mod's spec (defaults where the pack has no opinion), so NeoForge has nothing to
-# correct on a fresh install (no "is not correct. Correcting" line, no *.toml.bak). Why the pack sets what it sets:
-# the lines above and the comments next to those keys.
-
 [client]
-	# Dead option in 3.33 (nothing reads it), pinned off for future versions.
 	#showLoginNotice(on/off)
 	"showLoginNotice(on/off)" = false
 	#Off the Custom Rendering

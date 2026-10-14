@@ -1,12 +1,6 @@
-# Firmament Ages: Create client config.
-# Full file: every key of the mod's spec (defaults where the pack has no opinion), so NeoForge has nothing to
-# correct on a fresh install (no "is not correct. Correcting" line, no *.toml.bak). Why the pack sets what it sets:
-# the lines above and the comments next to those keys.
-
 #.
 #Client-only settings - If you're looking for general settings, look inside your worlds serverconfig folder!
 [client]
-	# No Create config button (goggles) on the title and pause screens: 0 disables it (Create 6.0.10 OpenConfigButtonHandler).
 	#.
 	#Choose the menu row that the Create config button appears on in the main menu
 	#Set to 0 to disable the button altogether

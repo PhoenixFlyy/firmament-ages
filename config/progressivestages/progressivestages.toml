@@ -1,23 +1,13 @@
-# Firmament Ages - ProgressiveStages 3.0.5 main config.
-# Key names verified against StageConfig.java at tag v3.0.5 (github.com/MCEnvision/ProgressiveStages).
-# Stage definitions live in config/progressivestages/stages/*.toml.
-# Full file: every key of the mod's spec (defaults where the pack has no opinion), so NeoForge has nothing to
-# correct on a fresh install (no "is not correct. Correcting" line, no *.toml.bak). Why the pack sets what it sets:
-# the lines above and the comments next to those keys.
-
 [general]
-	# Dawn is the caveman prologue; mob_0 is the first rung of the mob ladder.
 	#Starting stages for new players
 	#List of stage IDs to auto-grant on first join
 	#Example: ["showcase:mage", "my_pack:tutorial_complete"]
 	#Set to empty list [] for no starting stages
 	starting_stages = ["dawn", "mob_0"]
-	# One FTB Teams party for the whole server = one shared progression.
 	#Team mode: "ftb_teams" (requires FTB Teams mod) or "solo" (each player is their own team)
 	#If "ftb_teams", stages are shared across team members
 	#If "solo", each player has independent progression
 	team_mode = "ftb_teams"
-	# Granting a stage with missing dependencies fails (admin /stage grant asks twice).
 	#Enable linear progression (auto-grant dependency stages)
 	#If true, granting a stage also auto-grants all missing dependencies recursively
 	#If false, stages require explicit dependency satisfaction (admin can bypass with double-confirm)
@@ -30,21 +20,17 @@
 	reapply_starting_stages_on_login = false
 
 [team]
-	# Keep stages on the player record if someone leaves the party by accident.
 	#Stages persist when leaving team
 	persist_stages_on_leave = true
 
 [enforcement]
-	# Locked items render as "Unknown Item".
 	#Rename locked items to hide their identity
 	#If true, locked items show as 'Unknown Item' instead of real name
 	#Players must unlock the stage to see the real name
 	#GLOBAL DEFAULT — a stage can override it with [display].display_as_unknown_item = true/false
 	mask_locked_item_names = true
-	# Immersion: no "This item is locked!" chat lines (the lock sound and the tooltips stay).
 	#Show chat message when player is blocked by a lock
 	show_lock_message = false
-	# No "creative bypasses locks" chat warning for ops.
 	#Send a chat warning to a player when they enter creative mode that creative
 	#bypasses most ProgressiveStages locks. Only the affected player sees it.
 	#Skipped automatically if allow_creative_bypass = false (no point warning
@@ -177,7 +163,6 @@
 	lock_sound_pitch = 1.0
 
 [client]
-	# No second "progression map" button next to the recipe book; FTB Quests (K) is the only progress screen.
 	#Show the progression map button beside the recipe book in the survival inventory.
 	#Set this to false to remove the inventory button.
 	#The stage commands and optional keybind remain available.
@@ -208,14 +193,9 @@
 	inventory_button_icon_size = 14
 
 [messages]
-	# No mod name in command output.
 	#Prefix used in some command output (e.g. validate header).
 	#Supports & color codes.
 	prefix = ""
-	# Lock texts in the voice of the pack (defaults: red bold "Item Locked" with a lock emoji, "Progress further to
-	# unlock."). The three tooltip_*_locked texts must stay different from each other: firmages-core's locked-tooltip
-	# trim (LockedTooltip) builds Set.of() from them, and Set.of throws on duplicates. tooltip_stage_required reaches
-	# operators only (enforcement.reveal_stage_names_only_to_operators stays at its default, true).
 	#Text shown in place of item name when mask_locked_item_names is true.
 	#Supports & color codes. Example: '&4&lUnknown Item'
 	tooltip_masked_name = "&7Something Unknown"
@@ -433,14 +413,12 @@
 	cmd_creative_popup_disabled = "&7Creative-bypass popup hidden."
 
 [jei]
-	# JEI runs only as EMI's plugin backend, but it must hide locked content too (PoC item "EMI + JEI").
 	#Enable JEI integration
 	enabled = true
 
 [emi]
 	#Enable EMI integration
 	enabled = true
-	# Locked items and recipes disappear from EMI completely until the Age is reached.
 	#Show locked recipes in installed recipe viewers
 	#If false, locked items and recipes will be hidden from recipe viewers entirely
 	#If true, locked items will show with lock overlays
@@ -468,14 +446,14 @@
 		#If true and FTB Teams is installed, stages are shared across team members
 		#If false or FTB Teams is not installed, falls back to solo mode automatically
 		#Disabling this prevents ProgressiveStages from loading FTB Teams classes entirely
-	enabled = true
+		enabled = true
 
 	[integration.ftbquests]
 		#Enable FTB Quests integration
 		#If true, ProgressiveStages registers as the stage provider for FTB Quests
 		#Stage tasks will update instantly when stages change
 		#Set to false if you experience compatibility issues
-	enabled = true
+		enabled = true
 		#Maximum FTB Quests stage rechecks per tick
 		#Limits processing to prevent lag spikes on bulk operations
 		#Remaining players are processed on subsequent ticks

@@ -1,12 +1,5 @@
-# Firmament Ages: Ars Nouveau client config.
-# Key names from the generated ars_nouveau-client.toml of Ars Nouveau 5.13.x.
-# Full file: every key of the mod's spec (defaults where the pack has no opinion), so NeoForge has nothing to
-# correct on a fresh install (no "is not correct. Correcting" line, no *.toml.bak). Why the pack sets what it sets:
-# the lines above and the comments next to those keys.
-
 #Lighting
 [lights]
-	# No "support the dynamic-lights author" line.
 	#Show the supporter message. This is set to false after the first time.
 	showSupporterMessage = false
 	#If dynamic lights are enabled
@@ -28,7 +21,6 @@
 
 #Overlay
 [overlays]
-	# No "Ars Nouveau adds built in dynamic lights. Enable with /ars-light on" chat line on first join.
 	#Inform the player of Dynamic lights once.
 	informLights = false
 	#X offset for the tooltip

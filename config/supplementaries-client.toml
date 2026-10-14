@@ -1,10 +1,3 @@
-# Firmament Ages: Supplementaries 3.9.9 client config.
-# Full file: every key of the mod's spec with its default, so NeoForge has nothing to correct on a fresh install.
-# The one pack value: configs_button = false. Supplementaries adds a small square button with its "s" gear icon to the
-# title and pause screens (ConfigButton, placed right of the Online/Mods/LAN button even when FancyMenu hides that
-# button, so it floated over the constellation); it opens Moonlight's "Configurable Mods" list. The pack has no mod list
-# (firmages-core MenuButtons hides the NeoForge one), so the button goes too.
-
 	[blocks.globe]
 		#Enable a random globe texture for each world
 		random_world = true

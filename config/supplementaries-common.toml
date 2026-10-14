@@ -1,13 +1,3 @@
-# Firmament Ages - Supplementaries 3.9.9 common config (the version is pinned in
-# mods/supplementaries.pw.toml until FirmaSupplementaries supports 4.x).
-# Off: what has no place in a TFC Age world or no TFC version in FirmaSupplementaries 2.1.1 (its README): cannons,
-# cannonballs, cannon boats and plunderers (pirate raids), bombs, safes, flax (TFC jute replaces it), netherite doors,
-# the vanilla stone lamps, cave urns (vanilla loot in TFC caves) and the suspicious sand/gravel recipes (archaeology
-# loot). Research n2-deco-mods P3. Key names from the 1.21.1-3.9.9 source (CommonConfigs).
-# Full file: every key of the mod's spec (defaults where the pack has no opinion), so NeoForge has nothing to
-# correct on a fresh install (no "is not correct. Correcting" line, no *.toml.bak). Why the pack sets what it sets:
-# the lines above and the comments next to those keys.
-
 [functional]
 	fodder = true
 	hourglass = true
