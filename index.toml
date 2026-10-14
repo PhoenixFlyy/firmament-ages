@@ -4946,7 +4946,7 @@ metafile = true
 
 [[files]]
 file = "mods/immediatelyfast.pw.toml"
-hash = "bc87e226630301bf745b36005cded9327d37ebca276d5a51413a8539abb7025f"
+hash = "87d5822fd5757378e66eb480206d9a5b20d6b26be6700afa8c2b08c5898ab80b"
 metafile = true
 
 [[files]]
@@ -5301,7 +5301,7 @@ metafile = true
 
 [[files]]
 file = "mods/sophisticated-core.pw.toml"
-hash = "45f0fb2e73626538dc58855d88a04c3c6f67a8d3ef04af33a6019a82fe91a508"
+hash = "d7c5f80d93574bb42131a4715f7b57d3d4a1882222ff76add9b72e60e48fb34a"
 metafile = true
 
 [[files]]
