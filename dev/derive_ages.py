@@ -22,7 +22,9 @@ Walk (dev/poc_analyze.py make_walk, the walk of the R- checks), once per Age daw
     recipes.json: mod:minecraft, the Dawn crafting whitelist, ...). Outputs are the JSON outputs plus the result
     the server reports (recipes.json), so recipe types with unusual output keys count too.
   - start set: the start set of the R- checks plus WORLD_SOURCES below, and the block loot of every ore and deposit
-    block of the Age map (TFC tables, [ore_families], [ore_blocks]) from the Age it becomes visible.
+    block of the Age map (TFC tables, [ore_families], [ore_blocks]) from the Age it becomes visible. An item of the
+    TFC-world namespaces (poc_analyze.WORLD_NS) is not in it when every recipe that makes it needs an Iron Age or later
+    ingredient (blast furnace, bladed axle, barrel press; see derive()).
   - transforms: the block loot of every reached block item, crop and wall blocks, INTERACTIONS (bottles, buckets,
     brewing, special crafting), fishing and piglin bartering.
   An item's first Age is the first walk that reaches it. Each loot or world output is reached on its own once its
