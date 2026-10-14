@@ -9,7 +9,7 @@ config/drippyloadingscreen/options.txt):
   config/fancymenu/assets/firmament/bar_bg.png, bar_fill.png        400x12 early-window progress bar
   config/fancymenu/assets/firmament/icon16.png, icon32.png         window icons from dev/cf/logo.png
 
-The title background (sky + nine constellation slides) comes from dev/gen_constellation.py.
+The title background is a GLSL shader: dev/title-shader/ (build_shader.py, README.md).
 
 Inputs: dev/cf/make_logo.py (sky, fonts, glow text), dev/cf/logo.png. Fonts: Windows Georgia Bold / Constantia.
 Usage: python dev/gen_menu_art.py
