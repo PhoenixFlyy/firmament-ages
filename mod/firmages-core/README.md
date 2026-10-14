@@ -83,7 +83,7 @@ Until the CurseForge project is approved, the mod goes into the pack as a plain 
 2. Run `packwiz refresh` in `FirmamentAges/`. packwiz tracks the jar directly in `index.toml`
    (hash of the file, no `.pw.toml` metafile), so clients get it via packwiz-installer.
 
-Once the CurseForge project exists, every version is uploaded there first (`dev/cf/UPLOAD-ANLEITUNG.md` section 3)
+Once the CurseForge project exists, every version is uploaded there first (`dev/release.md` section 3)
 and the pack references it with `packwiz curseforge add` / `packwiz update firmages-core`; the jar leaves `mods/`.
 
 `mod/` is listed in `FirmamentAges/.packwizignore`, so sources and build output never enter the pack index.

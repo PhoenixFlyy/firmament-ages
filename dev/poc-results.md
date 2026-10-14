@@ -1,5 +1,8 @@
 # PoC results: server side (section A of poc-checklist.md)
 
+Open points of all runs, checked on 2026-10-14, are collected in `dev/offene-punkte.md`; the sections below keep them as
+they were found.
+
 Date: 2026-09-30 (second pass the same day: Age map, open points, M0). Pack 0.1.0 on branch `dev`, Minecraft 1.21.1,
 NeoForge 21.1.252, Temurin 21.0.12.1, `-Xms6G -Xmx8G`.
 Server: `test-server/`, synced from `http://localhost:8080/pack.toml`, fresh world (`--wipe-world`, seed random,

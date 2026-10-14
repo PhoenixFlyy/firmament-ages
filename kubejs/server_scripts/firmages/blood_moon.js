@@ -1,4 +1,4 @@
-// Firmament Ages - no blood moon before the Iron Age mob tier mob_2 (Felix 2026-10-13, H8; dev/config-todo.md 17).
+// Firmament Ages - no blood moon before the Iron Age mob tier mob_2 (Felix 2026-10-13, H8).
 //
 // Enhanced Celestials 2 (Core 2.0.3.3, Default Lunar Events 2.0.1.3, javap): the spawn rules of a lunar event
 // (data/<ns>/enhancedcelestials2core/lunar/event_probability/*.json, "spawn_requirements.rules") know only

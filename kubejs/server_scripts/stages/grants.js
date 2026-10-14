@@ -95,7 +95,7 @@
       reconcile(player)
       if (s === FA.CHUNK_QUOTA.stage) grantChunkQuota(player)
       // POC: Apotheosis world tier per Age (Haven/Frontier/Ascent/Summit/Pinnacle, Doc 08 section 8).
-      // The command syntax is unverified, see dev/config-todo.md. Example shape only:
+      // The command syntax is unverified, see dev/offene-punkte.md. Example shape only:
       // player.server.runCommandSilent(`apotheosis world_tier set ${player.username} frontier`)
     }
   })
@@ -135,7 +135,7 @@
   // PoC self-test without a player (op only, runs from the console): a FakePlayer walks dawn -> age_6 and back,
   // reconcile() runs after every step and the stage list is printed. PS fires onGranted/onRevoked only for
   // players in the server's player list, so reconcile() is called directly here; the event wiring itself
-  // needs a client (dev/poc-checklist.md C21). All stages of the fake player are removed at the end.
+  // needs a client (PoC checklist C21, Modpack-Planung/archive/dev/poc-checklist.md). All stages of the fake player are removed at the end.
   // Each line carries the wall time of the ProgressiveStages call ("ps") and of reconcile() ("rc") in ms.
   ServerEvents.basicCommand('fa_selftest', (event) => {
     const FakePlayerFactory = Java.loadClass('net.neoforged.neoforge.common.util.FakePlayerFactory')

@@ -25,14 +25,14 @@ The files in this folder are the template for a dedicated Firmament Ages server 
 
 ### Tested 2026-10-01
 
-A copy of this template in `dev\exports\test-server-template\` (port 25566, 6 GB heap, pack from `packwiz serve -p 8089`) ran `start.ps1` once: sync in 10 s ("Finished successfully"), NeoForge install in 27 s, launch with `@libraries/.../win_args.txt`, exit at the EULA check, restart after 10 s, second sync, and a clean exit of the loop on the `STOP` file. `user_jvm_args.txt` was not overwritten. `Done` was not reached there because the EULA was not accepted for that folder; the identical launch line (`run.bat` of the installer) reaches `Done` in `test-server\` (`dev/boot-report.md`).
+A copy of this template in `dev\exports\test-server-template\` (port 25566, 6 GB heap, pack from `packwiz serve -p 8089`) ran `start.ps1` once: sync in 10 s ("Finished successfully"), NeoForge install in 27 s, launch with `@libraries/.../win_args.txt`, exit at the EULA check, restart after 10 s, second sync, and a clean exit of the loop on the `STOP` file. `user_jvm_args.txt` was not overwritten. `Done` was not reached there because the EULA was not accepted for that folder; the identical launch line (`run.bat` of the installer) reaches `Done` in `test-server\` (boot report of pack 0.1.0, `../Modpack-Planung/archive/dev/boot-report.md`).
 
 ## Daily operation
 
 - **Update:** type `stop` in the console. The loop syncs the pack from `pack.toml` and starts the server again. For a NeoForge version change, set `$NeoForge` in `start.ps1` and `NEOFORGE` in `start.bat` and put the new installer jar next to them; the next pass installs it.
 - **Shut down for good:** create an empty file named `STOP` in the server folder, then type `stop`.
 - **Whitelist and ops:** use `whitelist add <name>` and `op <name>` in the console. `server.properties`, `whitelist.json`, `ops.json` and `world/` are not in the pack index, so packwiz never touches them.
-- **One team:** every player joins the same FTB Teams party, because the Ages hang on that party. The planned admin command is `/ftbteams force-add <player> <party>`; its exact syntax is still to be checked in the PoC. See `dev/poc-checklist.md`.
+- **One team:** every player joins the same FTB Teams party, because the Ages hang on that party. The planned admin command is `/ftbteams force-add <player> <party>`; its exact syntax is still to be checked in the PoC. Open: `dev/offene-punkte.md`.
 - **Repair stages:** grant with `/stage grant <player> age_N`. Then run `/fa_reconcile` as that player so the helper stages (map, mob ladder, station windows) follow. `/progressivestages reload` reloads the stage files.
 - **Backups:** Simple Backups runs inside the server. A nightly `robocopy` of `simplebackups\` to a second disk is still to be set up.
 - **Pregeneration:** run Chunky before the first login. TFC worldgen is expensive.

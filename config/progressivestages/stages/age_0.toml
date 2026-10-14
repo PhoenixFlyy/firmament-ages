@@ -8,7 +8,6 @@ id = "age_0"
 display_name = "Age 0: Stone Age"
 description = "Clay, pit kilns and the first cast copper."
 icon = "firmages:hearthstone"
-unlock_message = "&6&lAge 0: Stone Age &r&7- fire tamed. Clay and copper await."
 dependency = "dawn"
 category = "Ages"
 tags = ["age"]

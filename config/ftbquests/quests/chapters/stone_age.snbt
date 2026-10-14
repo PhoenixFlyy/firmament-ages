@@ -385,6 +385,29 @@
 		}
 		{
 			dependencies: ["7448E77754C5FDAD"]
+			id: "4D29DE0763D2A602"
+			rewards: [
+				{
+					id: "4628CA59ACE442C1"
+					type: "xp"
+					xp: 20
+				}
+			]
+			tasks: [
+				{
+					id: "6DBA9A2068E23059"
+					item: {
+						count: 1
+						id: "tfc:ceramic/jug"
+					}
+					type: "item"
+				}
+			]
+			x: 6.0d
+			y: 1.25d
+		}
+		{
+			dependencies: ["4D29DE0763D2A602"]
 			icon: {
 				id: "tfc:ceramic/pot"
 			}
@@ -404,34 +427,11 @@
 					type: "advancement"
 				}
 			]
-			x: 6.0d
-			y: 1.25d
-		}
-		{
-			dependencies: ["7794323527566501"]
-			id: "4D29DE0763D2A602"
-			rewards: [
-				{
-					id: "4628CA59ACE442C1"
-					type: "xp"
-					xp: 20
-				}
-			]
-			tasks: [
-				{
-					id: "6DBA9A2068E23059"
-					item: {
-						count: 1
-						id: "tfc:ceramic/jug"
-					}
-					type: "item"
-				}
-			]
 			x: 7.75d
 			y: 1.25d
 		}
 		{
-			dependencies: ["4D29DE0763D2A602"]
+			dependencies: ["7794323527566501"]
 			id: "4A34D752E7A4B499"
 			rewards: [
 				{

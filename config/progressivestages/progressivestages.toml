@@ -30,6 +30,20 @@
 [messages]
 	# No mod name in command output.
 	prefix = ""
+	# Lock texts in the voice of the pack (defaults: red bold "Item Locked" with a lock emoji, "Progress further to
+	# unlock."). The three tooltip_*_locked texts must stay different from each other: firmages-core's locked-tooltip
+	# trim (LockedTooltip) builds Set.of() from them, and Set.of throws on duplicates. tooltip_stage_required reaches
+	# operators only (enforcement.reveal_stage_names_only_to_operators stays at its default, true).
+	tooltip_masked_name = "&7Something Unknown"
+	tooltip_item_and_recipe_locked = "&8Not of this Age, nor its making"
+	tooltip_item_locked = "&8Not of this Age"
+	tooltip_recipe_locked = "&8Its making belongs to a later Age"
+	tooltip_stage_required = "&7Opens with &f{stage}"
+	tooltip_stage_required_generic = "&8Its Age has not come."
+	item_locked_generic = "&7Not yet. Its Age has not come."
+	type_locked_generic = "&7Not yet. Its Age has not come."
+	items_dropped = "&7{count} things fall from your pack. Their Age has not come."
+	items_moved_hotbar = "&7{count} things slip from your hands into your pack. Their Age has not come."
 
 [jei]
 	# JEI runs only as EMI's plugin backend, but it must hide locked content too (PoC item "EMI + JEI").

@@ -2,7 +2,7 @@
 //   /fa_scan <radius> <id prefix>   count blocks whose id starts with the prefix around the caller
 //                                   (loaded chunks only, y = caller +-64). Example: /fa_scan 48 create:zinc_ore
 //   /fa_stages                      list the caller's ProgressiveStages stages
-// Used by dev/poc-checklist.md to prove that disabled worldgen really is gone. It is slow:
+// Used by the PoC checklist (Modpack-Planung/archive/dev/poc-checklist.md) to prove that disabled worldgen really is gone. It is slow:
 // a radius of 48 blocks means about 1.2 million block lookups, so keep the radius small.
 
 (() => {

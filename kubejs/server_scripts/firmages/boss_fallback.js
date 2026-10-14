@@ -29,7 +29,7 @@ function faOpenFallbackGate(level, player, pos, gateId) {
   entity.setPos(x, y, z)
   const spacing = Math.max(0, gate.rules().spacing())
   if (!level.getEntitiesOfClass(FA_GATE_ENTITY, entity.getBoundingBox().inflate(spacing)).isEmpty()) {
-    return 'another Gateway is too close'
+    return 'another trial is too close'
   }
   // noCollision is overloaded (Entity, AABB); Rhino needs the signature spelled out.
   const free = () => level['noCollision(net.minecraft.world.entity.Entity)'](entity)
@@ -37,7 +37,7 @@ function faOpenFallbackGate(level, player, pos, gateId) {
     y += 1
     entity.setPos(x, y, z)
   }
-  if (!free()) return 'not enough space to open this Gateway'
+  if (!free()) return 'not enough space to open this trial'
   level.addFreshEntity(entity)
   entity.onGateCreated()
   return null
