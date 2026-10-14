@@ -55,11 +55,11 @@ class CaveDwellerGateTest {
     void statusCarriesTheGate() {
         Optional<AgeId> iron = Optional.of(AgeId.AGE_2);
         AgeStatus bronze = AgeStatus.of(AgeSnapshot.of(List.of(AgeId.AGE_0, AgeId.AGE_1), 1, 0), t -> Optional.empty(),
-            AgeId.AGE_1, AgeId.AGE_1, t -> Optional.empty(), iron);
+            AgeId.AGE_1, AgeId.AGE_1, t -> Optional.empty(), iron, Optional.empty());
         assertTrue(bronze.caveDweller(), "Bronze Age: it still hunts");
         // a gap (age_3 granted without age_2) counts the highest Age
         AgeStatus gap = AgeStatus.of(AgeSnapshot.of(List.of(AgeId.AGE_0, AgeId.AGE_3), 1, 0), t -> Optional.empty(),
-            AgeId.AGE_1, AgeId.AGE_1, t -> Optional.empty(), iron);
+            AgeId.AGE_1, AgeId.AGE_1, t -> Optional.empty(), iron, Optional.empty());
         assertFalse(gap.caveDweller());
         assertTrue(AgeStatus.UNKNOWN.caveDweller(), "before the first status the client mutes nothing");
     }

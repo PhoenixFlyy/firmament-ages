@@ -19,6 +19,11 @@ public final class ClientAgeStatus {
         return known;
     }
 
+    /** The hand-breaking rule holds (SPEC §19.2); false before the first status, the server decides alone until then. */
+    public static boolean toolRule() {
+        return known && status.toolRule();
+    }
+
     /** Last login or Age change, for the indicator's fade. */
     public static long shownAt() {
         return shownAt;

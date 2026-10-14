@@ -3,10 +3,12 @@ package dev.firmages.core.client.immersion;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.compat.ftbquests.FtbQuestsScreens;
+import dev.firmages.core.compat.progressivestages.LockedTooltip;
 import dev.firmages.core.compat.tfc.TfcClient;
 import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.hardship.CaveDwellerGate;
 import dev.firmages.core.immersion.AgeStatus;
+import dev.firmages.core.immersion.TooltipTrim;
 import dev.firmages.core.immersion.ViewerGate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -37,6 +39,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforgespi.language.IModInfo;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +47,8 @@ import java.util.Set;
 /**
  * Client half of the immersion features (SPEC §18): silent joins (blocked screens and toasts), no advancements screen
  * or mod list, EMI, Jade and the TFC inventory tabs gated by Age, the HUD Age indicator, the first-join welcome and the
- * TFC display tweaks; and the Cave Dweller sound mute (SPEC §19).
+ * TFC display tweaks, the Ars Nouveau HUD by Age and the locked-item tooltip trim; and the Cave Dweller sound mute
+ * (SPEC §19).
  * Physical client only.
  */
 public final class ImmersionClient {
@@ -52,6 +56,10 @@ public final class ImmersionClient {
     public static final KeyMapping SHOW_AGE = new KeyMapping("key.firmages.show_age", KeyConflictContext.IN_GAME,
         InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, "key.categories.firmages");
     private static final ResourceLocation TFC_THIRST_LAYER = ResourceLocation.fromNamespaceAndPath("tfc", "thirst");
+    /** Ars Nouveau 5.13.3 {@code ClientHandler} [verified, javap]: the mana bar shows whenever mana is below the maximum
+     *  (from the first spawn on) and has no off switch; the spell HUD shows with a spell item in hand. */
+    private static final Set<ResourceLocation> ARS_HUD_LAYERS = Set.of(
+        ResourceLocation.fromNamespaceAndPath("ars_nouveau", "mana_hud"), ResourceLocation.fromNamespaceAndPath("ars_nouveau", "spell_hud"));
     /** Ticks after the first status before the welcome title, and from the title to the welcome screen. */
     private static final int WELCOME_TITLE_DELAY = 40;
     private static final int WELCOME_SCREEN_DELAY = 100;
@@ -63,6 +71,7 @@ public final class ImmersionClient {
     private static int welcomePhase; // 0 none, 1 waiting for the title, 2 waiting for the screen
     private static int welcomeTicks;
     private static Set<String> modNames;
+    private static Boolean lockedTooltips;
 
     private ImmersionClient() {}
 
@@ -165,19 +174,25 @@ public final class ImmersionClient {
         @SubscribeEvent
         public static void layer(RenderGuiLayerEvent.Pre event) {
             if (event.getName().equals(TFC_THIRST_LAYER) && ClientConfig.get(ClientConfig.HIDE_THIRST_BAR, true)) event.setCanceled(true);
+            else if (ARS_HUD_LAYERS.contains(event.getName()) && !AgeStatus.reached(ClientAgeStatus.get().age(), ClientConfig.manaHudFromAge())) {
+                event.setCanceled(true); // before the first status: Dawn
+            }
         }
 
         @SubscribeEvent(priority = EventPriority.LOWEST) // after every mod added its lines
         public static void tooltip(ItemTooltipEvent event) {
             List<Component> lines = event.getToolTip();
             if (lines.size() < 2) return;
+            if (ClientConfig.get(ClientConfig.TRIM_LOCKED_TOOLTIPS, true) && lockedTooltips() && LockedTooltip.trim(event.getItemStack(), lines)) return;
             boolean nutrition = ClientConfig.get(ClientConfig.HIDE_NUTRITION, true);
             boolean modName = ClientConfig.get(ClientConfig.HIDE_MOD_NAME_TOOLTIPS, true);
-            if (!nutrition && !modName) return;
+            boolean sizeWeight = ClientConfig.get(ClientConfig.HIDE_SIZE_WEIGHT, true);
+            if (!nutrition && !modName && !sizeWeight) return;
             Set<String> names = modName ? modNames() : Set.of();
             for (int i = lines.size() - 1; i >= 1; i--) { // line 0 is the item name
                 Component line = lines.get(i);
                 if ((nutrition && mentionsNutrition(line))
+                    || (sizeWeight && TooltipTrim.isSizeWeight(translationKeys(line, new ArrayList<>())))
                     || (modName && names.contains(ChatFormatting.stripFormatting(line.getString()).trim()))) {
                     lines.remove(i);
                 }
@@ -229,6 +244,21 @@ public final class ImmersionClient {
         }
         for (Component sibling : c.getSiblings()) if (mentionsNutrition(sibling)) return true;
         return false;
+    }
+
+    /** Every translation key in {@code c}, its arguments and siblings. */
+    private static List<String> translationKeys(Component c, List<String> out) {
+        if (c.getContents() instanceof TranslatableContents tc) {
+            out.add(tc.getKey());
+            for (Object arg : tc.getArgs()) if (arg instanceof Component a) translationKeys(a, out);
+        }
+        for (Component sibling : c.getSiblings()) translationKeys(sibling, out);
+        return out;
+    }
+
+    private static boolean lockedTooltips() {
+        if (lockedTooltips == null) lockedTooltips = ModList.get().isLoaded("progressivestages"); // LockedTooltip needs PS classes
+        return lockedTooltips;
     }
 
     /** Display names of every loaded mod plus "Minecraft", for lines that only name a mod. */

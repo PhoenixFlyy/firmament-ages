@@ -150,7 +150,8 @@ public final class ImmersionGameTests {
             for (AgeId age : AgeId.all()) {
                 unlocked.add(age);
                 AgeStatus status = AgeStatus.of(AgeSnapshot.of(List.copyOf(unlocked), 1, 0), tier -> Optional.empty(),
-                    ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge, ServerConfig.caveDwellerUntil());
+                    ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge, ServerConfig.caveDwellerUntil(),
+                    ServerConfig.toolRuleUntil());
                 AgeStatus synced = sync(server, status);
                 Set<InventoryTab> expected = EnumSet.noneOf(InventoryTab.class);
                 if (age.ordinal() >= AgeId.AGE_0.ordinal()) expected.add(InventoryTab.CALENDAR);

@@ -9,6 +9,7 @@ import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.immersion.ImmersionService;
 import dev.firmages.core.hardship.CaveDwellerService;
+import dev.firmages.core.hardship.ToolRuleService;
 import dev.firmages.core.miner.OreGuard;
 import net.neoforged.bus.api.EventPriority;
 import dev.firmages.core.net.FirmagesNetwork;
@@ -50,6 +51,7 @@ public final class FirmagesCore {
         bus.addListener(AgeService::onPlayerLoggedIn);
         ImmersionService.register(modEventBus, bus); // after AgeService: the login status sees the login's Ages
         CaveDwellerService.register(bus);
+        ToolRuleService.register(bus);
         bus.addListener(FirmagesCommands::register);
         bus.addListener(DebugPlayerCommands::onServerTick);
         bus.addListener(StageSyncCoalescer::onServerTick);

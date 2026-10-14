@@ -1,5 +1,6 @@
 package dev.firmages.core.config;
 
+import dev.firmages.core.age.AgeId;
 import dev.firmages.core.immersion.ChatBlocklist;
 import dev.firmages.core.immersion.HudFade;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -21,12 +22,18 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue REDIRECT_ADVANCEMENTS;
     public static final ModConfigSpec.BooleanValue HIDE_MENU_BUTTONS;
     public static final ModConfigSpec.BooleanValue HIDE_MOD_NAME_TOOLTIPS;
+    public static final ModConfigSpec.BooleanValue TRIM_LOCKED_TOOLTIPS;
+    public static final ModConfigSpec.ConfigValue<String> MANA_HUD_FROM_AGE;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLOCKED_SCREENS;
     public static final ModConfigSpec.IntValue QUEST_PARAGRAPH_GAP;
     public static final ModConfigSpec.IntValue QUEST_WINDOW_PERCENT;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> CHAT_BLOCKLIST;
     public static final ModConfigSpec.BooleanValue HIDE_THIRST_BAR;
     public static final ModConfigSpec.BooleanValue HIDE_NUTRITION;
+    public static final ModConfigSpec.BooleanValue HIDE_SIZE_WEIGHT;
+
+    /** Felix 2026-10-14: Ars Nouveau's mana bar appears with the Arcane Age, when its items unlock. */
+    public static final AgeId DEFAULT_MANA_HUD_FROM_AGE = AgeId.AGE_3;
 
     /** Toasts of the vanilla advancement, recipe and tutorial systems and Patchouli's book-entry toast. */
     public static final List<String> DEFAULT_BLOCKED_TOASTS = List.of(
@@ -63,6 +70,12 @@ public final class ClientConfig {
             .define("hideMenuButtons", true);
         HIDE_MOD_NAME_TOOLTIPS = b.comment("Drop item tooltip lines that are only a mod's name.")
             .define("hideModNameTooltips", true);
+        TRIM_LOCKED_TOOLTIPS = b.comment("Items that ProgressiveStages reports locked show only their (masked) name and ProgressiveStages' lines;",
+                "every other mod's lines (TFC metal, heat, size) are dropped.")
+            .define("trimLockedTooltips", true);
+        MANA_HUD_FROM_AGE = b.comment("First Age with Ars Nouveau's mana bar and spell HUD (GUI layers ars_nouveau:mana_hud, ars_nouveau:spell_hud).",
+                "Before it both are hidden; the world's Age comes from the server's status (Dawn until it arrives).")
+            .define("manaHudFromAge", DEFAULT_MANA_HUD_FROM_AGE.id(), ClientConfig::isAgeId);
         BLOCKED_SCREENS = b.comment("Fully qualified screen class names that are never opened (mod announcement screens).")
             .defineListAllowEmpty("blockedScreens", DEFAULT_BLOCKED_SCREENS, () -> "", ClientConfig::isString);
         QUEST_PARAGRAPH_GAP = b.comment("Pixels (GUI scale 1) between the paragraphs of a quest description and after its subtitle.",
@@ -86,6 +99,8 @@ public final class ClientConfig {
             .define("hideThirstBar", true);
         HIDE_NUTRITION = b.comment("Hide the nutrition lines of TFC's food tooltips. TFC's inventory tabs follow the server's [ui] *TabFromAge.")
             .define("hideNutrition", true);
+        HIDE_SIZE_WEIGHT = b.comment("Hide TFC's size and weight line (weight and size icons, e.g. 'Light Small') on every item tooltip.")
+            .define("hideSizeWeight", true);
         b.pop();
         SPEC = b.build();
     }
@@ -99,6 +114,15 @@ public final class ClientConfig {
     /** {@code value} if the client config is loaded, else {@code fallback}. */
     public static <T> T get(ModConfigSpec.ConfigValue<T> value, T fallback) {
         return loaded() ? value.get() : fallback;
+    }
+
+    /** {@code ui.manaHudFromAge}; an unknown value counts as the default. */
+    public static AgeId manaHudFromAge() {
+        return AgeId.byId(get(MANA_HUD_FROM_AGE, DEFAULT_MANA_HUD_FROM_AGE.id())).orElse(DEFAULT_MANA_HUD_FROM_AGE);
+    }
+
+    private static boolean isAgeId(Object o) {
+        return o instanceof String s && AgeId.byId(s).isPresent();
     }
 
     private static boolean isString(Object o) {
