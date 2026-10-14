@@ -26,6 +26,13 @@ Static proof for config/fancymenu/ (FancyMenu 3.9.14, Drippy 3.1.5, MC 1.21.1, N
              config/fancymenu/slideshows/ with properties.txt and images/ (SlideshowHandler's rule), the properties
              name equals the folder name, images/ holds at least one .png/.jpg, and every PNG in it is readable and
              has the width x height the properties declare; slideshows no layout uses are listed as notes
+  loading    early window: config/fml.toml earlyWindowProvider is drippy_early_window (otherwise NeoForge's own red
+             window shows) and config/drippyloadingscreen/options.txt keeps the bar. Late overlay: fa_loading_bar is a
+             progress_bar on Drippy's game_loading_progress placeholder (LoadingOverlay.currentProgress, already
+             smoothed by vanilla) in percentage mode WITHOUT FancyMenu's second smoothing; fa_loading_memory is a
+             text_v2 line with FancyMenu's usedram and maxram placeholders, anchored bottom-right, whose box holds the
+             widest text (5-digit values) and stays on screen and clear of the bar and the wordmark at every tested
+             size; with the jars, the three placeholder ids are looked up in FancyMenu's and Drippy's classes
   files      every [source:local] path in a layout and every texture path in config/drippyloadingscreen/options.txt
              exists in the pack
   parser     no property line of a layout trips FancyMenu's PropertiesParser: it strips all whitespace from a line,
@@ -316,6 +323,70 @@ def check_title_shader(layouts, errors, notes):
                  f"show_compile_errors = {bg.get('show_compile_errors', 'false')}")
 
 
+LOADING_PLACEHOLDERS = {"usedram": "fancymenu", "maxram": "fancymenu", "game_loading_progress": "drippyloadingscreen"}
+DRIPPY_JAR = INSTANCE_MODS / "drippyloadingscreen_neoforge_3.1.5_MC_1.21.1.jar"
+
+
+def check_loading(layouts, errors, notes, fancymenu_jar):
+    fml = ROOT / "config" / "fml.toml"
+    text = fml.read_text(encoding="utf-8") if fml.exists() else ""
+    if not re.search(r'^earlyWindowProvider\s*=\s*"drippy_early_window"\s*$', text, re.M):
+        errors.append("config/fml.toml: earlyWindowProvider is not drippy_early_window (NeoForge's red window shows)")
+    opts = DRIPPY_OPTIONS.read_text(encoding="utf-8")
+    if not re.search(r"^B:early_loading_hide_bar = 'false';$", opts, re.M):
+        errors.append("drippyloadingscreen/options.txt: early_loading_hide_bar must be 'false'")
+    f, secs = layouts.get("drippy_loading_overlay", (None, []))
+    el = {d.get("instance_identifier"): d for n, d in secs if n == "element"}
+    bar, mem, word = el.get("fa_loading_bar"), el.get("fa_loading_memory"), el.get("fa_loading_wordmark")
+    if not bar:
+        errors.append("loading layout: fa_loading_bar missing")
+    else:
+        want = {"element_type": "progress_bar", "progress_source": '{"placeholder":"game_loading_progress"}',
+                "value_mode": "percentage", "smooth_filling_animation": "false"}
+        for k, v in want.items():
+            if bar.get(k) != v:
+                errors.append(f"loading layout: fa_loading_bar {k} = {bar.get(k)!r}, expected {v!r}")
+    if not mem:
+        errors.append("loading layout: fa_loading_memory missing")
+        return
+    src = mem.get("source", "")
+    if mem.get("element_type") != "text_v2" or mem.get("source_mode") != "direct":
+        errors.append("loading layout: fa_loading_memory is not a direct text_v2 element")
+    for ph in ("usedram", "maxram"):
+        if '{"placeholder":"%s"}' % ph not in src:
+            errors.append(f"loading layout: fa_loading_memory does not show the {ph} placeholder")
+    if mem.get("anchor_point") != "bottom-right":
+        errors.append("loading layout: fa_loading_memory is not anchored bottom-right")
+    shown = re.sub(r'\{"placeholder":"[a-z_]+"\}', "99999", src)
+    border = int(mem.get("text_border", "2"))
+    need_w = 2 * 1 + 2 * border + GLYPH_MAX_W * len(shown)
+    need_h = 2 * 1 + 2 * border + FONT_LINE + 1
+    if int(mem["width"]) < need_w or int(mem["height"]) < need_h:
+        errors.append(f"loading layout: memory box {mem['width']}x{mem['height']}, '{shown}' needs {need_w}x{need_h}")
+    for fw, fh in SCREENS:
+        for gs in GUI_SCALES:
+            s = gs or auto_scale(fw, fh)
+            sw, sh = scaled(fw, fh, s)
+            mr = rect(mem, sw, sh)
+            if mr[0] < 2 or mr[1] < 0 or mr[0] + mr[2] > sw - 2 or mr[1] + mr[3] > sh - 2:
+                errors.append(f"{fw}x{fh} GUI {gs or 'auto'}: memory box {mr} not inside the screen with a 2 px inset")
+            for other in (bar, word):
+                if other and overlap(mr, rect(other, sw, sh)):
+                    errors.append(f"{fw}x{fh} GUI {gs or 'auto'}: memory box {mr} overlaps {other['instance_identifier']}")
+    jars = {"fancymenu": fancymenu_jar, "drippyloadingscreen": DRIPPY_JAR if DRIPPY_JAR.exists() else None}
+    for ph, owner in LOADING_PLACEHOLDERS.items():
+        jar = jars[owner]
+        if not jar:
+            notes.append(f"placeholder {ph}: {owner} jar not found, not cross-checked")
+            continue
+        with zipfile.ZipFile(jar) as z:
+            hit = any(n.endswith(".class") and "placeholder" in n.lower() and
+                      bytes([1]) + struct.pack(">H", len(ph)) + ph.encode() in z.read(n) for n in z.namelist())
+        if not hit:
+            errors.append(f"jar {jar.name}: placeholder id {ph} not found")
+    notes.append(f"loading overlay: bar on game_loading_progress, memory line '{shown}' in {mem['width']}x{mem['height']}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--jar", type=Path, default=None, help="FancyMenu 3.9.14 jar to cross-check the KNOWN ids")
@@ -438,6 +509,7 @@ def main():
 
     # optional jar cross-check
     jar = args.jar or (DEFAULT_JAR if DEFAULT_JAR.exists() else None)
+    check_loading(layouts, errors, notes, jar)
     if jar:
         blob = b""
         with zipfile.ZipFile(jar) as z:

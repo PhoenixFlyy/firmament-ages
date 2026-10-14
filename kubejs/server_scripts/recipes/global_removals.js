@@ -68,6 +68,9 @@ ServerEvents.recipes((event) => {
   // Doc 10 v3 section 7.3 (IE row): all crafting/plate_*_hammering, crafting/hammercrushing_* and
   // crafting/raw_hammercrushing_* go; plates come from the TFC anvil / Create press / IE Metal Press.
   removeIdPatterns.push(/^immersiveengineering:crafting\/(plate_.*_hammering|hammercrushing_.*|raw_hammercrushing_.*)$/)
+  // Shader grab bags are gone (Felix 2026-10-14). The downgrading recipe is a special recipe without a readable
+  // result, so the gate cannot see that it makes a disabled bag.
+  event.remove({ id: 'immersiveengineering:shaderbag_downgrading' })
 
   // ---- Occultism: TFC silver is canonical --------------------------------------------------------------
   // Item ids checked against Occultism release/v1.21.1-1.224.4 item models.
