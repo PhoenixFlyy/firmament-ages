@@ -36,10 +36,13 @@ ftblibrary = "dawn"
 gravestone = "dawn"              # graves must work from the first death; the craftable stone follows [recipes]
 azimuth = "dawn"                 # library (ponder helper item)
 dragonlib = "dawn"               # library
+moonlight = "dawn"               # library of Supplementaries and Every Compat
 firmages = "dawn"                # pack items: see [items]
 totemic = "age_0"                # 0-2
 mowziesmobs = "age_0"            # 0-5; boss drops per Age in [items]
 framedblocks = "age_0"           # wood decoration: planks need a TFC saw (Stone Age)
+decorative_blocks = "age_0"      # Decorative Blocks Reborn: beams, palisades, supports, seats, braziers (Stone Age camp)
+mcwbridges = "age_0"             # Macaw's Bridges: rope and log bridges over TFC rivers and ravines
 trashcans = "age_0"              # stone and a chest; the FE can in [items]
 create = "age_1"                 # 1 (andesite), 2 (brass), 3 (blaze), 4 (packages)
 woodencog = "age_1"
@@ -52,6 +55,12 @@ sophisticatedcore = "age_1"
 tfcastikorcarts = "age_1"
 astikorcartsredux = "age_1"      # library of TFC Astikor Carts
 rnr = "age_1"                    # Roads and Roofs TFC, 1-2
+supplementaries = "age_1"        # the Bronze Age home; timber frames, daub, rope and sconces age_0 in [items]
+firmasupps = "age_1"             # FirmaSupplementaries: TFC recipes and mechanics for Supplementaries (sacks)
+handcrafted = "age_1"            # furniture; fancy beds age_2 in [items] (bed rule)
+mcwwindows = "age_1"             # Macaw's Windows: glass needs the Bronze Age
+mcwdoors = "age_1"               # Macaw's Doors
+everycomp = "age_1"              # Every Compat: the mods above in TFC/AFC woods; db/ and mcb/ age_0 in [items]
 tfcreate = "age_2"               # 1-2; Fuel Heater for the heated basin (Iron Age). Its TFC welding recipes are no grid recipes
 railways = "age_2"
 toms_storage = "age_2"
@@ -138,6 +147,9 @@ sgjourney = "age_9"
 tfc = "generated"                # [dawn_whitelist] below: every other TFC grid recipe needs age_0
 minecraft = "age_0"
 afc = "age_0"                    # AFC planks, slabs, signs: like the TFC wood recipes
+everycomp = "age_0"              # the age_0 items of [items] (db/, mcb/) need their grid recipes in the Stone Age
+supplementaries = "age_0"        # timber frames, daub, sconces; the item locks hold the Bronze Age rest
+firmasupps = "age_0"             # FirmaSupplementaries' TFC recipes (rope from jute fiber)
 
 # ------------------------------------------------------------------------------------------------ dawn whitelist
 # Dawn crafting whitelist (Doc 08 section 9.2: "TFC workbench recipes except shafting and string").
@@ -504,6 +516,31 @@ block = "tfc:rock/loose/granite"
 "id:mekanism:mekasuit_pants" = "age_9"
 "id:mekanism:mekasuit_boots" = "age_9"
 "id:mekanism:meka_tool" = "age_9"
+# Decoration (research n2-deco-mods P4). Fancy beds are real beds: the bed rule above holds for them (Handcrafted
+# and its Every Compat copies in TFC/AFC woods). The Stone Age home: Decorative Blocks and Macaw's Bridges in TFC
+# woods (Every Compat db/ and mcb/), Supplementaries timber frames, daub, rope (TFC jute, FirmaSupplementaries) and
+# sconces (they burn out like TFC torches). Everything else of these mods follows [mods] (Bronze Age) and is moved
+# later by dev/derive_ages.py where its recipe needs later materials (vanilla woods, iron, glass).
+"name:fancy_bed" = "age_2"
+"name:everycomp:db/" = "age_0"
+"name:everycomp:mcb/" = "age_0"
+"name:supplementaries:timber_" = "age_0"
+"name:supplementaries:daub" = "age_0"
+"id:supplementaries:rope" = "age_0"
+"name:supplementaries:sconce" = "age_0"
+# Signature blocks (kubejs/startup_scripts/signature_blocks.js): one Age Lantern per Age, engraved bricks from the TFC
+# chisel (Stone Age tool).
+"id:firmages:lantern/stone" = "age_0"
+"id:firmages:lantern/bronze" = "age_1"
+"id:firmages:lantern/iron" = "age_2"
+"id:firmages:lantern/arcane" = "age_3"
+"id:firmages:lantern/industrial" = "age_4"
+"id:firmages:lantern/electric" = "age_5"
+"id:firmages:lantern/information" = "age_6"
+"id:firmages:lantern/space" = "age_7"
+"id:firmages:lantern/quantum" = "age_8"
+"id:firmages:lantern/singularity" = "age_9"
+"name:firmages:rock/engraved_bricks/" = "age_0"
 
 # ------------------------------------------------------------------------------------------------ hidden
 # Disabled items of the Electric to the Singularity Age (Doc 10 v3 section 7.2). They join the tag

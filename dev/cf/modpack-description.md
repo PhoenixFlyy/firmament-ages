@@ -39,7 +39,7 @@ In the Singularity Age the relics come off their plinths and are fused into the 
 
 - **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you.
 - **RAM:** 10 GB for the game is recommended; set it in the CurseForge App under *Settings → Minecraft → Java Settings* (the default of 4 GB is not enough). A PC with 16 GB of RAM is the practical minimum.
-- **207 mods.** The first start takes a few minutes.
+- **216 mods.** The first start takes a few minutes.
 - **Dedicated server:** 10 GB heap recommended. A ready-to-run server pack is attached to every release as an additional file.
 
 ## Multiplayer
@@ -83,7 +83,7 @@ Firmament Ages starts with shaders turned on: it uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 0.8.1 contains 207 mods. Thank you to every author.
+Firmament Ages 0.8.1 contains 216 mods. Thank you to every author.
 
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
@@ -164,6 +164,7 @@ Firmament Ages 0.8.1 contains 207 mods. Thank you to every author.
 - **Cucumber Library** by BlakeBr0 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/cucumber))
 - **Curios API** by TheIllusiveC4 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/curios))
 - **Data Anchor** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/data-anchor))
+- **Decorative Blocks Reborn** by big_energy ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/decorative-blocks-reborn))
 - **Default Options** by BlayTheNinth ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/default-options))
 - **Draconic Evolution** by brandon3055 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/draconic-evolution))
 - **Draconic Evolution Render Patcher** by yrley ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/draconic-evolution-render-patcher))
@@ -178,6 +179,7 @@ Firmament Ages 0.8.1 contains 207 mods. Thank you to every author.
 - **Enhanced Celestials 2: Default Lunar Events** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-default-lunar-events))
 - **Enhanced Celestials 2: Shader Support** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-shader-support))
 - **Entity Culling Fabric/Forge** by tr7zw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/entityculling))
+- **Every Compat (Wood Good)** by MehVahdJukaar, xelbayria ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/every-compat))
 - **Evolved Mekanism** by iglee42, WoXayZ ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/evolved-mekanism))
 - **ExtendedAE** by GlodBlock ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ex-pattern-provider))
 - **FancyMenu** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/fancymenu))
@@ -185,6 +187,7 @@ Firmament Ages 0.8.1 contains 207 mods. Thank you to every author.
 - **FerriteCore ((Neo)Forge)** by malte0811 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ferritecore))
 - **FirmaLife** by EERussianguy ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/firmalife))
 - **Firmament Ages Core (firmages-core)** by PhoenixFlyy (part of this pack)
+- **FirmaSupplementaries** by JotredDev ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/firmasupplementaries))
 - **FramedBlocks** by XFactHD ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/framedblocks))
 - **FTB Chunks (NeoForge)** by FTB, FTBTeam ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ftb-chunks-forge))
 - **FTB Library (NeoForge)** by FTB, FTBTeam ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ftb-library-forge))
@@ -197,6 +200,7 @@ Firmament Ages 0.8.1 contains 207 mods. Thank you to every author.
 - **Glodium** by GlodBlock ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/glodium))
 - **GraveStone Mod** by henkelmax ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/gravestone-mod))
 - **GuideME** by shartte ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/guideme))
+- **Handcrafted** by terrariumearth, AlexNijjar, kekie6 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/handcrafted))
 - **Hostile Neural Networks** by Shadows_of_Fire ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/hostile-neural-networks))
 - **Iglee's Library** by iglee42 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/iglee-library))
 - **ImmediatelyFast** by RaphiMC ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/immediatelyfast))
@@ -222,6 +226,9 @@ Firmament Ages 0.8.1 contains 207 mods. Thank you to every author.
 - **Lionfish API** by mcl_ender ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/lionfish-api))
 - **Lithium (Fabric/NeoForge)** by JellySquid ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/lithium))
 - **LootJS: KubeJS Addon** by Lytho ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/lootjs))
+- **Macaw's Bridges** by sketch_macaw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/macaws-bridges))
+- **Macaw's Doors** by sketch_macaw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/macaws-doors))
+- **Macaw's Windows** by sketch_macaw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/macaws-windows))
 - **Mechanicals Lib** by oierbravo ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mechanicals-lib))
 - **MEGA Cells** by ninety ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mega-cells))
 - **Mekanism** by bradyaidanc, thommy101, pupnewfster, Thiakil ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mekanism))
@@ -236,6 +243,7 @@ Firmament Ages 0.8.1 contains 207 mods. Thank you to every author.
 - **MezzConfig** by mezz ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mezzconfig))
 - **ModernFix** by embeddedt ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modernfix))
 - **Modonomicon** by kli_kli ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modonomicon))
+- **Moonlight Lib** by MehVahdJukaar, plantspookable ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/selene))
 - **More Darkness** by payangar_dev ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/more-darkness))
 - **More Immersive Wires** by tom54541 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/more-immersive-wires))
 - **More Mekanism Processing** by gisellevonbingen ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/more-mekanism-processing))
@@ -273,6 +281,7 @@ Firmament Ages 0.8.1 contains 207 mods. Thank you to every author.
 - **Summoning Rituals** by Relentless ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/summoningrituals))
 - **SuperMartijn642's Config Lib** by SuperMartijn642 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/supermartijn642s-config-lib))
 - **SuperMartijn642's Core Lib** by SuperMartijn642 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/supermartijn642s-core-lib))
+- **Supplementaries** by MehVahdJukaar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/supplementaries))
 - **TerraFirmaCraft** by Dries007, EERussianguy, Therighton ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/terrafirmacraft))
 - **TerraFirmaCraft AnvilHelper** by Fox2Code ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/terrafirmacraft-anvilhelper))
 - **TFC + IE Crossover** by Nmagpie ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ie-crossover))

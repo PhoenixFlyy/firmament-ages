@@ -41,6 +41,7 @@
     {"id": "createdieselgenerators:large_diesel_engine", "required": false},
     {"id": "firmages:attuned_circuit", "required": false},
     {"id": "firmages:humming_core", "required": false},
+    {"id": "firmages:lantern/electric", "required": false},
     {"id": "firmages:ore/normal_native_osmium", "required": false},
     {"id": "firmages:ore/normal_native_osmium/andesite", "required": false},
     {"id": "firmages:ore/normal_native_osmium/basalt", "required": false},

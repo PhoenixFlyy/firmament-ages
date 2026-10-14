@@ -1,0 +1,29 @@
+# Firmament Ages - Every Compat 2.11.53 conditional registration (only the keys the pack changes).
+# Every Compat builds furniture, windows, doors, bridges and beams for every wood type Moonlight finds. The pack wants
+# them only in TerraFirmaCraft and ArborFirmaCraft woods (34 woods: the Stone to Bronze Age home), so the other wood
+# mods of the pack are excluded here and Macaw's window and door styles are pruned (research n2-deco-mods P2).
+# This file is conditional REGISTRATION: client and server must carry the same file. packwiz and the CurseForge export
+# ship it to both; it is not a player setting. Key names from the 1.21 source (UnsafeDisablerConfigs); NeoForge adds
+# every missing key. Entry-set names: "<mod id>:<block id without the wood>" as in everycomp-entries.toml.
+
+[woodtype]
+	# Every wood namespace of the pack that is neither tfc nor afc (registry snapshot 0.8.1). Vanilla woods need no
+	# entry: the base mods register those themselves.
+	blacklist = ["twilightforest:.*", "ad_astra:.*", "ars_nouveau:.*", "cataclysm:.*", "occultism:.*", "totemic:.*"]
+
+[entryset]
+	# Macaw's Windows: the four-pane and plain pane windows go; 13 of 18 sets stay (window, window2, stripped log and
+	# plank windows, plank pane window, parapets, blinds, shutters, curtain rod).
+	# Macaw's Doors: 8 of 22 styles stay (barn, barn glass, classic, cottage, glass, stable, stable head, western).
+	blacklist = [
+		"mcwwindows:four_window", "mcwwindows:log_four_window", "mcwwindows:stripped_log_four_window",
+		"mcwwindows:plank_four_window", "mcwwindows:pane_window", "mcwwindows:stripped_pane_window",
+		"mcwdoors:waffle_door", "mcwdoors:bark_glass_door", "mcwdoors:beach_door", "mcwdoors:four_panel_door",
+		"mcwdoors:bamboo_door", "mcwdoors:modern_door", "mcwdoors:mystic_door", "mcwdoors:nether_door",
+		"mcwdoors:paper_door", "mcwdoors:japanese_door", "mcwdoors:japanese2_door", "mcwdoors:swamp_door",
+		"mcwdoors:tropical_door", "mcwdoors:whispering_door"
+	]
+
+[module]
+	# Twilight Forest's own module (banisters, drying racks, hollow logs per wood) is not wanted in TFC woods.
+	blacklist = ["twilightforest"]
