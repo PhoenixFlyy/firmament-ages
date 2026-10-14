@@ -531,6 +531,8 @@
     {"id": "firmalife:stainless_steel_jar_lid", "required": false},
     {"id": "firmalife:sweeper", "required": false},
     {"id": "firmalife:vat", "required": false},
+    {"id": "handcrafted:dripstone_corner_trim", "required": false},
+    {"id": "handcrafted:dripstone_pillar_trim", "required": false},
     {"id": "immersiveengineering:acetaldehyde_bucket", "required": false},
     {"id": "immersiveengineering:alloybrick", "required": false},
     {"id": "immersiveengineering:armor_faraday_boots", "required": false},

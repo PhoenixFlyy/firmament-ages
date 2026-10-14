@@ -77,7 +77,7 @@ ServerEvents.recipes((event) => {
         event.remove({ id: id })
         event.custom(JSON.parse(text)).id(id)
       } else {
-        const copyId = `firmages:byproducts/${id.replace(':', '/')}/before_${ages[k]}`
+        let copyId = `firmages:byproducts/${id.replace(':', '/')}/before_${ages[k]}`
         event.custom(JSON.parse(text)).id(copyId)
         FirmAges.untilAge(copyId, ages[k])
       }

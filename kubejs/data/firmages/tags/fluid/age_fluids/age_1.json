@@ -51,6 +51,7 @@
     {"id": "rnr:flowing_concrete", "required": false},
     {"id": "sophisticatedcore:xp_flowing", "required": false},
     {"id": "sophisticatedcore:xp_still", "required": false},
+    {"id": "supplementaries:lumisene", "required": false},
     {"id": "tfc:metal/bismuth", "required": false},
     {"id": "tfc:metal/bismuth_bronze", "required": false},
     {"id": "tfc:metal/black_bronze", "required": false},

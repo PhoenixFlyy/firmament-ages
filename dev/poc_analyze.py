@@ -753,6 +753,72 @@ ARCANE_CHAIN = (
     "theurgy:sal_ammoniac_accumulator summoningrituals:altar firmages:arcane_keystone").split()
 
 
+_REGISTRY_ITEMS = None
+
+
+def _registry_items():
+    """Item ids of dev/data/registry.json (the snapshot of the last /fa_dump), read once."""
+    global _REGISTRY_ITEMS
+    if _REGISTRY_ITEMS is None:
+        try:
+            _REGISTRY_ITEMS = set(json.load(open(os.path.join(REPO, "dev", "data", "registry.json"), encoding="utf-8"))["items"])
+        except (OSError, ValueError, KeyError):
+            _REGISTRY_ITEMS = set()
+    return _REGISTRY_ITEMS
+
+
+_EVERYCOMP = None
+
+
+def _everycomp_index():
+    """(target namespace, path) -> Every Compat item id, from ids like everycomp:mcb/tfc/oak_log_bridge_middle."""
+    global _EVERYCOMP
+    if _EVERYCOMP is None:
+        _EVERYCOMP = {}
+        for i in _registry_items():
+            parts = i.split(":", 1)[1].split("/")
+            if i.startswith("everycomp:") and len(parts) == 3:
+                _EVERYCOMP.setdefault((parts[1], parts[2]), i)
+    return _EVERYCOMP
+
+
+def _wood_swap(o):
+    """The item a Moonlight block_type_swap ingredient stands for. Every Compat writes its recipes with the ingredient
+    of the source wood ("minecraft:oak_log", "mcwbridges:oak_log_bridge_middle") and from/to wood types
+    ("minecraft:oak" -> "tfc:oak"); in game Moonlight swaps the item for the same part of the target wood. Vanilla
+    parts map to the first id of the item registry among the usual layouts (TFC/AFC "<ns>:wood/<part>/<wood>" and
+    "<ns>:wood/planks/<wood>_<part>", else "<ns>:<wood>_<part>"); a part of another mod maps to Every Compat's own
+    variant (everycomp:<module>/<ns>/<path with the target wood>). An ingredient without the source wood in its id
+    (a stick, calcite) or without a match stays as written."""
+    inner = o.get("ingredient")
+    item = inner.get("item") if isinstance(inner, dict) else None
+    src, dst = str(o.get("from", "")), str(o.get("to", ""))
+    if not (isinstance(item, str) and ":" in src and ":" in dst):
+        return item
+    sns, swood = src.split(":", 1)
+    dns, dwood = dst.split(":", 1)
+    ins, ipath = item.split(":", 1)
+    reg = _registry_items()
+    if ins == sns:
+        part = None
+        if ipath.startswith(swood + "_"):
+            part = ipath[len(swood) + 1:]
+        elif ipath.startswith("stripped_" + swood + "_"):
+            part = "stripped_" + ipath[len("stripped_" + swood) + 1:]
+        if part:
+            for cand in (f"{dns}:wood/{part}/{dwood}", f"{dns}:wood/planks/{dwood}_{part}", f"{dns}:{dwood}_{part}",
+                         f"{dns}:wood/{dwood}_{part}"):
+                if cand in reg:
+                    return cand
+    token = r"(^|_)" + re.escape(swood) + r"(_|$)"
+    if ins != "everycomp" and re.search(token, ipath):
+        swapped = re.sub(token, lambda m: m.group(1) + dwood + m.group(2), ipath)
+        hit = _everycomp_index().get((dns, swapped))
+        if hit:
+            return hit
+    return item
+
+
 def _slots(o, out, key=None):
     """Ingredient slots of a recipe JSON; each slot is a list of alternatives ('item'|'tag', id)."""
     if isinstance(o, dict):
@@ -765,6 +831,11 @@ def _slots(o, out, key=None):
             if "chemical" in o or (key and "chemical" in key.lower()):
                 out.append([("chem", o.get("chemical") or o.get("tag"))])
             return out
+        if o.get("type") == "moonlight:block_type_swap":
+            swapped = _wood_swap(o)
+            if swapped:
+                out.append([("item", swapped)])
+                return out
         if isinstance(o.get("item"), str):
             out.append([("item", o["item"])])
             return out

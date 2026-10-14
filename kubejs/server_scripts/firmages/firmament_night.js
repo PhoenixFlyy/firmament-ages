@@ -37,7 +37,7 @@
   const INIT = 'firmages_night_init' // SEEN was initialised for this world
   const PENDING_AGE = 'firmages_night_age' // the night to play: Age number,
   const PENDING_DAY = 'firmages_night_day' // overworld day (day time / 24000) of that night,
-  const PENDING_AFTER = 'firmages_night_after' // game time before which nothing is scheduled
+  const PENDING_AFTER = 'firmages_night_after' // overworld day time before which nothing is scheduled
 
   const short = (stage) => String(stage).replace(/^progressivestages:/, '')
   const eventId = (n) => `firmages:firmament_age_${n}`
@@ -54,7 +54,12 @@
   const holderFor = (server, n) => {
     const registry = server.registryAccess().registryOrThrow(ECRegistry.LUNAR_EVENT_KEY)
     const key = ResourceKey.create(ECRegistry.LUNAR_EVENT_KEY, ResourceLocation.fromNamespaceAndPath('firmages', `firmament_age_${n}`))
-    return registry.getHolder(key).orElse(null)
+    // getHolder has a ResourceKey and a ResourceLocation overload, which Rhino calls ambiguous; getHolderOrThrow has one
+    try {
+      return registry.getHolderOrThrow(key)
+    } catch (e) {
+      return null
+    }
   }
 
   // true when the forecast holds the event of Age n on the night that is `offset` days from today
@@ -72,8 +77,8 @@
     const n = data.getInt(PENDING_AGE)
     const target = Number(data.getLong(PENDING_DAY))
     const level = server.overworld()
-    if (Number(level.getGameTime()) < Number(data.getLong(PENDING_AFTER))) return
     const now = Number(level.getDayTime())
+    if (now < Number(data.getLong(PENDING_AFTER))) return
     const offset = target - Math.floor(now / DAY)
     if (offset < 0) {
       clearPending(data) // the night has passed
@@ -104,7 +109,7 @@
     const data = server.persistentData
     data.putInt(PENDING_AGE, n)
     data.putLong(PENDING_DAY, now % DAY >= MIDNIGHT ? today + 1 : today)
-    data.putLong(PENDING_AFTER, Number(level.getGameTime()) + DELAY_TICKS)
+    data.putLong(PENDING_AFTER, now + DELAY_TICKS) // day time: Rhino finds no getGameTime on ServerLevel (KubeJS 2101.7.2)
     console.info(`[firmages] firmament_night: age_${n} reached, night pending`)
   }
 

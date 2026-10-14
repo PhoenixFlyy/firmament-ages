@@ -4,13 +4,13 @@
   "noise": [
     {
       "id": "distxform-boot-client-mixins",
-      "regex": "^\\[(main|modloading-sync-worker)/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/multiplayer/(ClientLevel|ClientPacketListener)|net/minecraft/client/gui/screens/inventory/HangingSignEditScreen|com/mojang/blaze3d/systems/RenderSystem|net/minecraft/client/gui/components/Button) for invalid dist DEDICATED_SERVER",
-      "reason": "7 per boot: client mixins declared in common mixin configs (astikorcartsredux ClientLevel/ClientPacketListener, afc HangingSignEditScreen, struts RenderSystem), one Button reference during IMC, and TFC's own two ClientLevel probes that TFC follows with '^ This is fine'. The mixin is skipped on the server; nothing is missing."
+      "regex": "^\\[(main|modloading-sync-worker)/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/multiplayer/(ClientLevel|ClientPacketListener)|net/minecraft/client/gui/screens/inventory/HangingSignEditScreen|net/minecraft/client/gui/screens/Screen|com/mojang/blaze3d/systems/RenderSystem|net/minecraft/client/gui/components/Button) for invalid dist DEDICATED_SERVER",
+      "reason": "7 per boot: client mixins declared in common mixin configs (astikorcartsredux ClientLevel/ClientPacketListener, afc HangingSignEditScreen, struts RenderSystem), one Button reference during IMC, and TFC's own two ClientLevel probes that TFC follows with '^ This is fine'. The mixin is skipped on the server; nothing is missing. Which client class TFC's probe touches first depends on class-loading order: in the 0.9.0 night run one boot of seven showed net/minecraft/client/gui/screens/Screen (twice, each followed by TFC's '^ This is fine') instead of ClientLevel."
     },
     {
       "id": "tfcregistryapi-scan-residual",
-      "regex": "^\\[modloading-worker-\\d+/((ERROR|FATAL)\\] \\[(net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM|mixin/|Polymorph/)\\]|INFO\\] \\[STDERR/\\]|WARN\\] \\[mixin/\\]: (Error loading class: |Mixin apply for mod polymorph failed ))",
-      "reason": "About 90 lines per boot, all within the TFCRegistryAPI enum scan during mod construction. firmages-core (SPEC 20) limits the scan to the mod files that are or depend on tfc or tfcregistryapi (17 of 178 on the pack server), but inside those files the API still Class.forName()s every class whose path lacks 'client' or 'mixin': client classes of the TFC addons (woodencog's JEI compat and block entity renderers, tooltip components, player models) fail with DISTXFORM, and the azimuth mixin into Create's client-only SafeBlockEntityRenderer fails when one of them is loaded. The API catches each failure, the classes are client-only and never used on a dedicated server, nothing is missing (check_registry_parity.py). Before 0.8.1 the same scan over all mods wrote about 17k such lines (the former open entry tfcregistryapi-class-scan)."
+      "regex": "^\\[modloading-worker-\\d+/(ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/renderer/blockentity/BlockEntityRenderer|com/mojang/blaze3d/vertex/PoseStack|net/chauvedev/woodencog/compat/jei/WoodenCogJEI|net/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipComponent) for invalid dist DEDICATED_SERVER$|WARN\\] \\[mixin/\\]: Error loading class: (net/minecraft/client/renderer/blockentity/BlockEntityRenderer|com/mojang/blaze3d/vertex/PoseStack) \\(java\\.lang\\.RuntimeException: Attempted to load class \\S+ for invalid dist DEDICATED_SERVER\\)$|FATAL\\] \\[mixin/\\]: Mixin apply for mod azimuth failed azimuth\\.mixins\\.json:super_behavior\\.SafeBlockEntityRendererMixin from mod azimuth -> com\\.simibubi\\.create\\.foundation\\.blockEntity\\.renderer\\.SafeBlockEntityRenderer: )",
+      "reason": "About 112 lines per boot (0.9.0 night run: 56 DISTXFORM ERROR of four client classes, 42 mixin WARN of two of them, 14 azimuth FATAL), all within the TFCRegistryAPI enum scan during mod construction. firmages-core (SPEC 20) limits the scan to the mod files that are or depend on tfc or tfcregistryapi (17 of 178 on the pack server), but inside those files the API still Class.forName()s every class whose path lacks 'client' or 'mixin': client classes of the TFC addons (woodencog's JEI compat and block entity renderers, tooltip components, player models) fail with DISTXFORM, and the azimuth mixin into Create's client-only SafeBlockEntityRenderer fails when one of them is loaded. The API catches each failure, the classes are client-only and never used on a dedicated server, nothing is missing (check_registry_parity.py). Before 0.8.1 the same scan over all mods wrote about 17k such lines (the former open entry tfcregistryapi-class-scan). Narrowed in 0.9.0 to the exact signatures seen (thread, logger, message), so a new client-class failure or a mixin error of another mod during mod construction shows up again."
     },
     {
       "id": "rhino-dump-declared-methods",
@@ -146,6 +146,30 @@
       "warn": true,
       "regex": "^\\[main/WARN\\] \\[net\\.dries007\\.tfc\\.util\\.MetalItem/\\]: Item (tfc:metal/ingot/wrought_iron|twilightforest:wrought_iron_bar) was inferred to match multiple metals (wrought_iron and iron|iron and wrought_iron), using former$",
       "reason": "2 lines, once per server start (main thread). A dedicated server reads its datapacks before it loads the server configs, so TFC's first metal inference runs without inferredMetals = [\"ingots/iron\", \"double_ingots/iron\"] (config/tfc-server.toml) and picks iron or wrought_iron at random. Every later datapack load infers again with the config: in 0.8.0 logs the warning came at each Age reload, in the 0.8.1 night run only at the first load and never at the firmages-core warm-up reload right after the start, so the ingot piles in play use wrought_iron. Clients get the server config before the tags."
+    },
+    {
+      "id": "everycomp-hazardous-banner",
+      "warn": true,
+      "regex": "^\\[modloading-worker-\\d+/WARN\\] \\[Every Compat/\\]:\\s*$",
+      "reason": "Every Compat prints a multi-line ATTENTION banner (head line is blank) whenever config/everycomp-hazardous.toml limits its wood types (conditional registration). The pack ships that file on purpose (n3/deco P2: TFC and AFC woods only, twilightforest module off); the banner proves the file is read."
+    },
+    {
+      "id": "supplementaries-white-dye-diffuse",
+      "warn": true,
+      "regex": "^\\[modloading-worker-\\d+/WARN\\] \\[Supplementaries/\\]: Dye color white produced diffuse color -1 \\(white\\), this should never happen$",
+      "reason": "Supplementaries 3.9.9 checks its own dye colour table at start; white maps to -1 (0xFFFFFF) and trips its sanity log. Once per start, no effect on any block or item."
+    },
+    {
+      "id": "firmasupps-soap-empty-ingredient",
+      "warn": true,
+      "regex": "^\\[[^/\\]]+/WARN\\] \\[KubeJS Server/\\]: RecipeComponentValue\\.java#\\d+: Failed to parse recipe 'firmasupps:crafting/soap/clean_tfc_(bricks_alabaster|candle)\\[minecraft:crafting_shapeless\\]' @ \\[ingredients\\]\\[0\\]! Falling back to vanilla: ",
+      "reason": "Two FirmaSupplementaries 2.1.1 soap-cleaning recipes start with a tag ingredient KubeJS reads as empty; KubeJS falls back to the vanilla parser and the recipes load unchanged (they are in the fa_dump)."
+    },
+    {
+      "id": "firmasupps-sack-loot-unreachable",
+      "warn": true,
+      "regex": "^\\[[^/\\]]+/WARN\\] \\[net\\.minecraft\\.server\\.ReloadableServerRegistries/\\]: Found loot table element validation problem in \\{minecraft:loot_table:firmasupps:blocks/sack\\}\\.pools\\[0\\]\\.entries\\[0\\]: Unreachable entry!$",
+      "reason": "FirmaSupplementaries' sack loot table has an alternatives entry after an unconditional one; vanilla's validator flags the dead branch at every datapack load. The sack still drops itself with its contents."
     }
   ]
 }

@@ -51,7 +51,7 @@ ServerEvents.recipes((event) => {
     'minecraft:blast_furnace': [
       'ad_astra:etrionic_blast_furnace', 'simulated:red_portable_engine', 'sophisticatedbackpacks:blasting_upgrade'
     ],
-    'minecraft:smoker': ['sophisticatedbackpacks:smoking_upgrade'],
+    'minecraft:smoker': ['handcrafted:oven', 'sophisticatedbackpacks:smoking_upgrade'],
     'minecraft:campfire': [
       'apotheosis:burning_spawner_rune', 'railways:crafting/smokestack_caboosestyle',
       'railways:crafting/smokestack_coalburner', 'railways:crafting/smokestack_long',

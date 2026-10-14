@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    },
+    {
+      "type": "supplementaries:flag",
+      "flag": "sconce"
+    },
+    {
+      "type": "supplementaries:flag",
+      "flag": "sconce_soul"
+    }
+  ],
+  "type": "create:haunting",
+  "ingredients": [
+    {
+      "item": "firmasupps:sconce"
+    }
+  ],
+  "results": [
+    {
+      "id": "firmasupps:sconce_soul"
+    }
+  ]
+}
