@@ -3,6 +3,7 @@ server/
 tools/
 test-server/
 README.md
+CHANGELOG.md
 LICENSE
 .gitignore
 .gitattributes

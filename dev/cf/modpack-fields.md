@@ -48,12 +48,12 @@ All gallery images are 1920 x 1080 and generated from the pack's shrine data and
 
 ## Upload File (the modpack zip)
 
-Build the zip first: `tools\packwiz.exe refresh` then `python dev\cf\export_cf.py` writes `dev\exports\FirmamentAges-0.8.1-curseforge-upload.zip`. The script lists every jar in `overrides/`; expected: only `firmages-core-0.8.1.jar` until the mod project is approved, then none.
+Build the zip first: `tools\packwiz.exe refresh` then `python dev\cf\export_cf.py` writes `dev\exports\FirmamentAges-0.9.0-curseforge-upload.zip`. The script lists every jar in `overrides/`; expected: only `firmages-core-0.9.0.jar` until the mod project is approved, then none.
 
 | Field | Value |
 |---|---|
-| File | `dev/exports/FirmamentAges-0.8.1-curseforge-upload.zip` |
-| Display name | `Firmament Ages 0.8.1` |
+| File | `dev/exports/FirmamentAges-0.9.0-curseforge-upload.zip` |
+| Display name | `Firmament Ages 0.9.0` |
 | Release type | Beta |
 | Game version | 1.21.1 (read from the manifest; tick it if the console asks) |
 | Mod loader | NeoForge |
@@ -67,11 +67,11 @@ On the uploaded file's page: **Upload Additional File**.
 
 | Field | Value |
 |---|---|
-| File | `dev/exports/FirmamentAges-0.8.1-server.zip` (from `powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1`, step 5; about 510 MB) |
-| Display name | `Firmament Ages 0.8.1 Server Pack` |
+| File | `dev/exports/FirmamentAges-0.9.0-server.zip` (from `powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1`, step 5; about 510 MB) |
+| Display name | `Firmament Ages 0.9.0 Server Pack` |
 | Release type | Beta (same as the main file) |
 | Game version / loader | 1.21.1, NeoForge |
-| Changelog | `Server pack for Firmament Ages 0.8.1: ready-to-run server folder (NeoForge 21.1.252 installer, all server-side mods, configs, scripts, start.bat/start.ps1). See README-SERVERPACK.md inside.` |
+| Changelog | `Server pack for Firmament Ages 0.9.0: ready-to-run server folder (NeoForge 21.1.252 installer, all server-side mods, configs, scripts, start.bat/start.ps1). See README-SERVERPACK.md inside.` |
 
 ## After approval
 

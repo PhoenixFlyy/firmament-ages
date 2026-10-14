@@ -49,7 +49,7 @@ All player-facing text in the pack is English.
 
 ## Current state
 
-- **Pack 0.8.1** plus the 0.9.0 round: 215 mods on CurseForge plus the pack's own `firmages-core` jar (216 in the CurseForge credits), and two shader packs in `shaderpacks/` (Complementary Reimagined on by default, MakeUp Ultra Fast). Content for all Ages from Dawn to Singularity, the quest book (`dev/gen_quests.py`), the shrine of Caelum and the finale in The Origin are in.
+- **Pack 0.9.0:** 215 mods on CurseForge plus the pack's own `firmages-core` jar (216 in the CurseForge credits), and two shader packs in `shaderpacks/` (Complementary Reimagined on by default, MakeUp Ultra Fast). Content for all Ages from Dawn to Singularity, the quest book (`dev/gen_quests.py`), the shrine of Caelum and the finale in The Origin are in.
 - **firmages-core:** milestones M1 to M7 of `mod/firmages-core/SPEC.md` (Age state and reloads, machine-recipe gate, miner filter and prospecting, reactor refuelling, the shrine multiblock, Keystone lending, blessings, rites, consecration and maintenance mode, the immersion layer of SPEC §18), The Origin with its own travel lock and spawn list, and the boss scaffolding.
 - **Verified without a client:** the test server boots on Felix's age_9 world, `dev/poc_analyze.py` runs its checks on a recipe dump, and the debug players of the mod walk the shrine, team and quest paths (`dev/poc-results.md`). The client checklist is `dev/client-test-brief.md`.
 

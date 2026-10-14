@@ -54,3 +54,11 @@ before the first Age is reached.
 
 Replace `mods`, `config`, `defaultconfigs` and `kubejs` with the folders of the new server pack. Keep `world`,
 `server.properties`, `whitelist.json` and `ops.json`.
+
+New TerraFirmaCraft settings in `defaultconfigs/tfc-server.toml` only reach a server whose `config/tfc-server.toml`
+does not exist yet. A server that keeps its own file adds new lines by hand. Since 0.8.1 that is one line under
+`[general]`, so that wrought iron ingots stack as wrought iron (not iron) in ingot piles:
+
+```
+inferredMetals = ["ingots/iron", "double_ingots/iron"]
+```

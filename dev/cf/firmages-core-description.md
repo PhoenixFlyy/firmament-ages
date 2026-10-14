@@ -45,6 +45,15 @@ MIT License. Source: the `mod/firmages-core` folder of the pack repository, [git
 
 ## Changelog
 
+**0.9.0**
+
+- Age swap: an Age change no longer reloads the datapacks. The gate classifies every recipe once per load; a swap filters that list again for the new Ages (`RecipeManager#replaceRecipes`), rebinds `tfc:prospectable`, `precisionprospecting:prospectable_mineral` and `mekanism:miner_blacklist`, flushes the recipe caches of Mekanism, Create, TerraFirmaCraft, Immersive Engineering and Mystical Agriculture, and sends only the recipe packet and recipe book. `/reload`, `/firmages reload` and the boot reconcile still load everything. `gate.ageSwap` (server, default on); a swap that cannot run falls back to the full reload. KubeJS gets `FirmAges.stationAge`, `requireAge` and `untilAge`; the Create basin heat levels are station locks of the gate.
+- EMI by Age: an EMI plugin disables every stack of a locked Age (items and fluids by `firmages:age_items` and `age_fluids`, other stack types by mod, books, enchantments and potions that name a locked mod) and removes the categories and EMI Loot tables of locked mods. One EMI reload per Age change (`firmages:age_status` `reloadPending`). EMI's recipe and recipe tree screens stay closed while the recipe viewer is locked. The client command `/firmages_client emi_audit` writes the audit of the current Age to `logs/`.
+- Ponder hides locked items from its index and tag screens; `/ponder` below permission level 2 only answers how to ponder an item. GuideME's client command `/guidemec` is removed.
+- The Gathering (Singularity Age): one prayer at the intact shrine with all nine relics present releases them; they never despawn. The heart shows `awakened=10`, the HUD goal changes. Living shrine: an idle beam in the latest Age colour (`shrine.permanentBeam`, server, default on in new worlds; `effects.idleBeam` client), a hum near the heart (`effects.ambientDrone`) and relic dust. Ceremony echo: a player who missed an Age-up gets one short ceremony after login (player attachment `firmages:seen_age`). The Origin islands are rebuilt (arena version 2) with floating sign items.
+- Operator commands: `/firmages origin tp <players> force`, `/firmages origin gathering`, `/firmages origin fight`.
+- Network protocol version 4 (`firmages:age_status` gained `reloadPending` and `gathered`, `firmages:shrine_sync` the living-shrine fields): client and server need 0.9.0.
+
 **0.8.1**
 
 - Hand-breaking rule: `hardship.toolRuleUntilAge` (server, default `age_0`, so the rule holds in Dawn only; an Age id, `never` or `dawn` turn it off). Below that Age, blocks in `#firmages:needs_tool_early` (logs, raw and hardened rock, ores, sandstone) do not break without a correct tool for drops: break speed 0 on client and server, the break is cancelled on the server, and an action-bar hint shows at most once per minute. Creative, spectator and machine fake players are exempt. The client takes the rule from `firmages:age_status`.

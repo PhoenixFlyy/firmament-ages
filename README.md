@@ -7,12 +7,12 @@ A co-op progression modpack for Minecraft 1.21.1 (NeoForge). Everyone on a serve
 ## Play
 
 - Install through the **CurseForge App**: search for *Firmament Ages*. The app sets up NeoForge and Java 21.
-- Give the game **10 GB of RAM** (CurseForge App, *Settings → Minecraft → Java Settings*); a PC with 16 GB is the practical minimum.
+- Give the game **8 GB of RAM** (6 GB minimum; CurseForge App, *Settings → Minecraft → Java Settings*); a PC with 16 GB is the practical minimum.
 - The quest book, the Chronicle, opens with **K**.
 
 ## Server
 
-Every release on CurseForge carries a ready-to-run **server pack** as an additional file; its `README-SERVERPACK.md` (source: [`server/README-SERVERPACK.md`](server/README-SERVERPACK.md)) explains the start. Recommended heap: 10 GB. The pack is written for **one team per server**: the Ages, the shrine and every reward are shared, and single player works like a team of one.
+Every release on CurseForge carries a ready-to-run **server pack** as an additional file; its `README-SERVERPACK.md` (source: [`server/README-SERVERPACK.md`](server/README-SERVERPACK.md)) explains the start. Recommended heap: 8 GB for up to about 4 players, 10 GB for 5 to 10. The pack is written for **one team per server**: the Ages, the shrine and every reward are shared, and single player works like a team of one.
 
 ## Bugs and changes
 
