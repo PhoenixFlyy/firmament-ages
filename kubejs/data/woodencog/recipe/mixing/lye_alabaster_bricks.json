@@ -1,0 +1,19 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "tfc:colored_alabaster_bricks"
+    },
+    {
+      "type": "neoforge:single",
+      "amount": 25,
+      "fluid": "tfc:lye"
+    }
+  ],
+  "processing_time": 600,
+  "results": [
+    {
+      "id": "tfc:alabaster/bricks"
+    }
+  ]
+}

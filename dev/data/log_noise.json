@@ -1,0 +1,136 @@
+{
+  "_doc": "Read by dev/check_log.py. Each regex is searched in a log line without its timestamp, e.g. '[Server thread/ERROR] [logger/]: message'. \"warn\": true marks a WARN-only entry (checked with --warn). 'noise': harmless, dropped (reason says why). 'open' entries are checked first. 'open': a known problem whose fix lives elsewhere; folded into one group and still counted as remaining. Source: Modpack-Planung/research-raw/fb3-server-log-triage.md (01:25 and 01:59 boots of 2026-10-14). Fixed in the pack data by n1/logfix and therefore NOT listed: wrought iron MetalItem warning, Wooden Cog welding/milling/mixing/cutting, createdeco placard, Bells and Whistles metro window, TFC Regrowing Forests dttfc/fig/cacao regrowth, trainutilities advancements, Sable copycat_catwalk, Twilight Forest dev_new_world, Lithium overwrite conflicts, compat loot tables (dev/gen_loot_silence.py).",
+  "open": [
+    {
+      "id": "tfcregistryapi-class-scan",
+      "regex": "^\\[modloading-worker-\\d+/((ERROR|FATAL)\\] \\[(net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM|mixin/|Polymorph/)\\]|INFO\\] \\[STDERR/\\]|WARN\\] \\[mixin/\\]: (Error loading class: |Mixin apply for mod polymorph failed ))",
+      "reason": "TFCRegistryAPI 1.2 loads every class of every mod 7 times during mod construction (client classes on a dedicated server, client-only mixin targets of azimuth, bits_n_bobs, simulated, woodencog, Polymorph's EMI module); about 17k lines and 37 s per boot. Fix: firmages-core mixin narrowing the scan (branch n1/core-registryapi, triage finding A). Delete this entry once that fix is merged, so a leftover line shows as remaining."
+    }
+  ],
+  "noise": [
+    {
+      "id": "distxform-boot-client-mixins",
+      "regex": "^\\[(main|modloading-sync-worker)/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/multiplayer/(ClientLevel|ClientPacketListener)|net/minecraft/client/gui/screens/inventory/HangingSignEditScreen|com/mojang/blaze3d/systems/RenderSystem|net/minecraft/client/gui/components/Button) for invalid dist DEDICATED_SERVER",
+      "reason": "7 per boot: client mixins declared in common mixin configs (astikorcartsredux ClientLevel/ClientPacketListener, afc HangingSignEditScreen, struts RenderSystem), one Button reference during IMC, and TFC's own two ClientLevel probes that TFC follows with '^ This is fine'. The mixin is skipped on the server; nothing is missing."
+    },
+    {
+      "id": "far-chunk-setblock",
+      "regex": "^\\[[^\\]]+/ERROR\\] \\[net\\.minecraft\\.Util/\\]: Detected setBlock in a far chunk \\[",
+      "reason": "One worldgen feature writing outside its 3x3 region (01:59 boot, chunk [-114,-114], status minecraft:features); vanilla drops that block. Harmless once; if the count grows with exploration, find the feature (triage section 3)."
+    },
+    {
+      "id": "mixin-optional-targets",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: (@Mixin target \\S+ was not found|Error loading class: \\S+ \\(java\\.lang\\.(ClassNotFoundException|RuntimeException: Attempted to load class \\S+ for invalid dist DEDICATED_SERVER))",
+      "reason": "Optional mixin targets of absent mods (Dynamic Trees, Functional Storage, Quark, an old Lithium package, JetBrains annotations) and client targets on the server. The mixin is skipped."
+    },
+    {
+      "id": "mixin-refmap",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: Reference map '[^']+' for \\S+ could not be read",
+      "reason": "NeoForge 1.21 runs with Mojang names, refmaps are not needed."
+    },
+    {
+      "id": "mixin-unique-duplicates",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: Discarding @Unique public method \\S+ in \\S+ from mod (copycats|evolvedmekanism) because it already exists",
+      "reason": "Copycats and Evolved Mekanism add methods the target class already has; mixin keeps the target's."
+    },
+    {
+      "id": "modernfix-private-overwrite",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[mixin/\\]: Static binding violation: PRIVATE @Overwrite method \\S+ in modernfix",
+      "reason": "ModernFix's own overwrites; applied as intended."
+    },
+    {
+      "id": "recipe-condition-false",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.world\\.item\\.crafting\\.RecipeManager/\\]: Skipping recipe \\S+, not a json object$",
+      "reason": "Intentional removals by mods: files with neoforge:false conditions (TFC 262 vanilla recipes, TFCAstikorCarts 68, Firmalife a few TFC ones). One line per recipe and data load."
+    },
+    {
+      "id": "kubejs-schema-fallback",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[KubeJS Server/\\]: (KubeRecipe|RecipeComponentValue)\\.java#\\d+: Failed to parse recipe '(createframed|createdieselgenerators|create_mechanical_spawner|woodencog:cutting/(slab|stair)/(loam|sandy_loam|silt|silty_loam)_brick_)",
+      "reason": "KubeJS's recipe schema is stricter than the mods' codecs; the recipe still loads unchanged through the vanilla path (createframed 47, createdieselgenerators 18, create_mechanical_spawner 1). The 8 woodencog old-soil cutting recipes are read before global_removals.js removes them, so their KubeJS warning stays while the RecipeManager error is gone."
+    },
+    {
+      "id": "kubejs-optional-plugins",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[KubeJS/\\]: Plugin \\S+ (does not load on server side|does not have required mod)",
+      "reason": "Optional KubeJS plugins (client plugin, ftbfiltersystem, worldjs)."
+    },
+    {
+      "id": "tags-not-present",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.core\\.MappedRegistry/\\]: Not all defined tags for registry ResourceKey\\[minecraft:root / minecraft:(item|block|worldgen/biome)\\] are present in data pack",
+      "reason": "Tag keys referenced in code without data (cataclysm tool tiers, rnr:mineable_with_mattock, firmalife item keys, aether/undergarden biome tags; almostunified emi_strict/hide only in the first tag pass of a reload)."
+    },
+    {
+      "id": "apotheosis-deep-dungeons",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.world\\.level\\.levelgen\\.heightproviders\\.UniformHeight/\\]: Empty height range",
+      "reason": "Apotheosis boss_dungeon_deep, boss_dungeon_2_deep and rogue_spawner_deep in a dimension whose floor is at 0 or above; the feature skips."
+    },
+    {
+      "id": "jarjar-duplicates",
+      "warn": true,
+      "regex": "^\\[main/WARN\\] \\[net\\.neoforged\\.jarjar\\.selection\\.JarSelector/\\]: Attempted to select a dependency jar",
+      "reason": "dragonlib, betteradvancedtooltips and architectury are present standalone and jar-in-jar; the standalone jar is used."
+    },
+    {
+      "id": "vanilla-pack-schema",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.minecraft\\.server\\.packs\\.VanillaPackResourcesBuilder/\\]: Assets URL '[^']+' uses unexpected schema",
+      "reason": "NeoForge dedicated-server classpath quirk."
+    },
+    {
+      "id": "draconic-startup-joke",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[draconicevolution/\\]: ",
+      "reason": "Draconic Evolution's 'Reactor detonation initiated / Explosion Imminent!!!' log at class init."
+    },
+    {
+      "id": "mod-notices",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[(com\\.kipti\\.bnb\\.CreateBitsnBobs|com\\.cake\\.azimuth\\.Azimuth)/\\]: ",
+      "reason": "Informational notices of Create Bits 'n' Bobs and Azimuth at construction."
+    },
+    {
+      "id": "evolvedmekanism-config-rewrite",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.neoforged\\.fml\\.config\\.ConfigTracker/CONFIG\\]: Configuration file \\S+EvolvedMekanism\\S+general\\.toml is not correct\\. Correcting",
+      "reason": "Evolved Mekanism config spec bug: rewritten on every boot with unchanged values."
+    },
+    {
+      "id": "modernfix-timing",
+      "warn": true,
+      "regex": "^\\[[^\\]]+/WARN\\] \\[ModernFix/\\]: (Initial datapack load took|Dedicated server took)",
+      "reason": "Timing information."
+    },
+    {
+      "id": "cant-keep-up-after-age-reload",
+      "warn": true,
+      "regex": "^\\[Server thread/WARN\\] \\[net\\.minecraft\\.server\\.MinecraftServer/\\]: Can't keep up! Is the server overloaded\\?",
+      "reason": "Follows the firmages-core Age reload (warm-up after boot and each Age grant, 7 to 15 s full datapack reload; triage finding B, owner firmages-core). Check by hand that each one directly follows an 'Age reload ... finished' line."
+    },
+    {
+      "id": "moved-too-quickly-after-age-reload",
+      "warn": true,
+      "regex": "^\\[Server thread/WARN\\] \\[net\\.minecraft\\.server\\.network\\.ServerGamePacketListenerImpl/\\]: \\S+ moved too quickly!",
+      "reason": "Rubber-banding of a player who moved during the Age reload freeze (triage finding B, owner firmages-core); check it as cant-keep-up-after-age-reload."
+    },
+    {
+      "id": "ftblibrary-stage-provider",
+      "warn": true,
+      "regex": "^\\[Server thread/WARN\\] \\[FTB Library/\\]: Overriding existing game stages provider",
+      "reason": "ProgressiveStages takes over the stage provider from KubeJS Stages on purpose (reversed at shutdown)."
+    },
+    {
+      "id": "modonomicon-gated-recipes",
+      "warn": true,
+      "regex": "^\\[Server thread/WARN\\] \\[Modonomicon/\\]: Recipe \\S+ \\(of type \\S+\\) not found\\.$",
+      "reason": "Occultism and Theurgy book pages point to recipes the Age gate (or age_items/disabled) removed; the count falls as Ages unlock."
+    }
+  ]
+}

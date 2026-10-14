@@ -1,0 +1,13 @@
+{
+  "type": "tfc:welding",
+  "first_input": {
+    "item": "tfc:metal/boots/red_steel"
+  },
+  "second_input": {
+    "item": "create:copper_diving_boots"
+  },
+  "tier": 5,
+  "result": {
+    "id": "create:netherite_diving_boots"
+  }
+}
