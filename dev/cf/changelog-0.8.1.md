@@ -1,6 +1,21 @@
-# Firmament Ages 0.8.0
+# Firmament Ages 0.8.1
 
 Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. This changelog covers everything since 0.5.0 (the first release candidate that was never published).
+
+## 0.8.1
+
+- **Hands are not tools in Dawn.** Logs, raw and hardened rock, ores and sandstone cannot be broken by hand while the world is in Dawn: no crack, no progress, and a short hint in the action bar. A knapped stone axe (or stone hammer) fells trees as usual; dirt, gravel, sand, leaves, twigs and loose rocks still come by hand. From the Stone Age on TerraFirmaCraft's own rules apply again (slow, no drop by hand). A server can turn the rule off or extend it (`hardship.toolRuleUntilAge` in the Firmament Ages Core server config).
+- **Knapping explained.** The Dawn quests "Just a Rock", "A Bundle of Sticks" and "Paleolithic!" walk through knapping step by step (two rocks in hand, right-click into the air, click away the cells of the 5x5 grid) with the axe and knife patterns drawn as grids; the new quest "Knapping Patterns" shows the hammer, shovel, hoe and javelin.
+- **Create without iron in the Bronze Age.** The harvester, plough, minecart coupling, filter, item hatch, item vault, metal bracket, super glue, sticker, sticky piston (with TerraFirmaCraft glue), speedometer and stressometer (bronze sheet instead of a compass), chute, rope pulley, desk bell, weighted ejector, the valve handles, all toolboxes and the portable storage and fluid interfaces are made with bronze, as are Create Connected's freewheel and centrifugal clutches and item silo. Iron nuggets become bronze rods, the iron trapdoor a bronze trapdoor.
+- **Early tools of other mods without iron.** Totemic carving knife (bronze ingot) and Sophisticated upgrade base (bronze) in the Bronze Age, the Astikor seed drill with a bronze sheet; the totem torch (TerraFirmaCraft torch), the liquid trash can (wooden bucket) and the FramedBlocks framing saw (copper) in the Stone Age.
+- **TerraFirmaCraft machines in their real Age.** Blast furnace, bladed axles, barrel presses, kegs, chest and trapped-chest minecarts, the AFC tree tap and several Firmalife machines are listed in the Iron Age (vat, jarring station, picker, solar drier and sweeper in the Industrial Age), where they can actually be built.
+- **Recipes repaired:** netherite diving helmet, boots and backtank by welding red steel onto Create's copper diving gear; quartz from quartzite in the millstone; bleaching coloured alabaster bricks with lye; dyed placards back to white; the Bells & Whistles metro window with any glass.
+- **Mana bar from the Arcane Age.** Ars Nouveau's mana and spell bars stay hidden until the Arcane Age.
+- **Cleaner tooltips.** The TerraFirmaCraft weight and size line ("Light / Small") is gone from every item; a locked item shows only its name and the lock line; the Field Guide box ("?" and Ctrl) is off in new installs.
+- **Field of view 90** in new installs.
+- **Animated title screen:** the Shrine of every Age as a slowly turning 3D constellation, its rings lighting up in their Age colours. It replaces the slideshow.
+- **Faster start, cleaner log.** TerraFirmaCraft Registry API no longer loads every class of every mod seven times at start; it only searches the mods that build on TerraFirmaCraft. Thousands of harmless error lines per start are gone (loot tables and recipes of mods that are not installed).
+- **Firmament Ages Core 0.8.1** with the Dawn tool rule, the mana bar Age, the tooltip cleanup and the faster start. Client and server both need 0.8.1.
 
 ## 0.8.0
 

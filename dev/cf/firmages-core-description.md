@@ -33,16 +33,26 @@ Optional (the mod hooks into them when they are present):
 - Jade (shrine tooltips)
 - FTB Quests (quest window and text spacing)
 - Cave Dweller ReEvolved (Cave Dweller until an Age)
+- TerraFirmaCraft Registry API (faster start: narrower enum scan)
 
 ## Configuration
 
-`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, Cave Dweller Age, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays, quest window size and paragraph gap).
+`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, Cave Dweller Age, Dawn tool rule, start-up scan scope, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays and weight/size line, Ars Nouveau HUD Age, locked-item tooltips, quest window size and paragraph gap).
 
 ## Source and license
 
 MIT License. Source: the `mod/firmages-core` folder of the pack repository, [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages/tree/main/mod/firmages-core). Issues go to the [pack's issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues). The textures are generated pixel art made for this mod.
 
 ## Changelog
+
+**0.8.1**
+
+- Hand-breaking rule: `hardship.toolRuleUntilAge` (server, default `age_0`, so the rule holds in Dawn only; an Age id, `never` or `dawn` turn it off). Below that Age, blocks in `#firmages:needs_tool_early` (logs, raw and hardened rock, ores, sandstone) do not break without a correct tool for drops: break speed 0 on client and server, the break is cancelled on the server, and an action-bar hint shows at most once per minute. Creative, spectator and machine fake players are exempt. The client takes the rule from `firmages:age_status`.
+- Ars Nouveau's mana and spell HUD stay hidden below `ui.manaHudFromAge` (client, default `age_3`).
+- Locked items: the tooltip keeps only the name and ProgressiveStages' lock lines (`ui.trimLockedTooltips`, client, default on).
+- TerraFirmaCraft's weight and size tooltip line is removed (`tfc.hideSizeWeight`, client, default on); TFC 4.2.11 has no setting for it.
+- Faster start with TerraFirmaCraft Registry API: its seven enum scans only read mod files that are or depend on `tfc` or `tfcregistryapi` instead of every class of every mod (`perf.limitTfcRegistryApiScan`, server config, default on, read once at game start).
+- Network protocol version 3 (`firmages:age_status` grew): client and server need 0.8.1.
 
 **0.8.0**
 

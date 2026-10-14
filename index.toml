@@ -70,7 +70,7 @@ hash = "89f1e5e77d161fc2310193ca213ae35aad91d0964339a2f2556e066fdbf60de8"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
-hash = "e5f4f9b8d33ac5949b7bd20de04cd5af6af3c9457dfb08c9d350701d0d13e006"
+hash = "6da1af4a5ba9bf5d2eceb04d67fda86e6975f1bee768166011386bff1dc5469b"
 
 [[files]]
 file = "config/drippyloadingscreen/options.txt"
@@ -109,10 +109,6 @@ file = "config/fancymenu/assets/firmament/loading_bg.png"
 hash = "33a5cb691f38e1dd6a264c40da99352224fdeb234f3b3a88cc412ae57c3ae3c3"
 
 [[files]]
-file = "config/fancymenu/assets/firmament/sky_2304x1296.png"
-hash = "41c2e376da20a0ef7a9d2dd09056fdba625997e0092a88417a7bf8dbe52317b9"
-
-[[files]]
 file = "config/fancymenu/assets/firmament/wordmark.png"
 hash = "378b1b12826591e6a68421a9f78dfeed9783c223d2f976fe5b571454c31da07d"
 
@@ -130,51 +126,11 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "c6d9ebbab25c25a9c2b3469072bc2c982e1dc1eecf479da1c1d8e4e8e83065b9"
+hash = "376ff44e984759aaf87bea54ce1a38ca024a0f835d980187f27b4a8eb7edbc54"
 
 [[files]]
 file = "config/fancymenu/options.txt"
 hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_0.png"
-hash = "f1a0873006f154963db06446b55fa543b24e561971ad77a645c4553efd90b1d7"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_1.png"
-hash = "9f435f2631d011b2b6ead967c8499877e4b2d709c976802da1f281499c1e6b6a"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_2.png"
-hash = "348665838550cf3a4467d9c0bca903405ebd92a677d292a1133235cc318b9d7b"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_3.png"
-hash = "3867684ce461bf2e0a22be9ae1c7e14d70553ce18bb4e63254d973a8a9291c86"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_4.png"
-hash = "8a35f119eea06b6ab48460da619715bfad6bd1a7e3e006a21e3c7451375c2650"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_5.png"
-hash = "31679cdbce53f5b4e78a970cca183b6ffdf02255f46e0983632da89e661cbe1f"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_6.png"
-hash = "82c4085c27b19dd611b8d2cf476e6a81ef79313554148cb054dc4607746aca21"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_7.png"
-hash = "d78b397b28f9a2ebbc063ae44b556359602414481b437a2fb1a80499b7a0bd31"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/images/constellation_age_8.png"
-hash = "b932bcdf46b1da9ff0ceffb6b3adc605d840ad68225140686c9fedb51b930635"
-
-[[files]]
-file = "config/fancymenu/slideshows/firmament_constellation/properties.txt"
-hash = "78c2635b569ab3eb76250742804a9959ce3077a1dc5b1edfd843ae47299e21d3"
 
 [[files]]
 file = "config/fml.toml"
@@ -202,7 +158,7 @@ hash = "c505f6ad0e87e9bbf5553e03e5ce8cad5e9a0da3e5d521482906e9d5e0fb5044"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
-hash = "152d70206d0311ba4d99a10bb4e463f650d153967642b06ff9c98bc22c21a3f7"
+hash = "031668711b464a5747f2c473df5c21e8e0625532e94f781b6cd2086edd13bc79"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
@@ -250,7 +206,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "78bb33262a84e5c2762c51df5f108ea7570f652f75b2a4302c3350152a923b2f"
+hash = "c77c011630f7577700a070a912fec7906e2de14078fd2ba30031ec73a42977a5"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -351,6 +307,10 @@ hash = "c564d96490a38db106b0ed1f9489922f215c4d73ac5b0c256e4feaddd8264c5c"
 [[files]]
 file = "config/jei/client/default/jei-mod-id-format.ini"
 hash = "cb630b2561ab3c192709d34f00e1535a483fc8873bd17f6309218722aa5a3a5f"
+
+[[files]]
+file = "config/lithium.properties"
+hash = "ecdb770ae033d4e217c2c6449e0d1bc28b271416cc6292a39891dd79e423852b"
 
 [[files]]
 file = "config/mysticalagriculture-common.toml"
@@ -485,6 +445,10 @@ file = "config/simplebackups-common.toml"
 hash = "080c9eda509bc06c8fc32b590903d179bcfb202276c542a76dc091005fe1b8da"
 
 [[files]]
+file = "config/tfc-client.toml"
+hash = "d859ef36113f7df564ecd8622f72324ae202345f8e16c0c62463650846042935"
+
+[[files]]
 file = "defaultconfigs/Mekanism/world.toml"
 hash = "56013a8f29a698e52b927ae780a9468973bc4584d07f5c9e90a4f597f4e91f2c"
 
@@ -498,7 +462,7 @@ hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
-hash = "884756cf343326cd8903890d20b3446e40de37e600f0e55410ee624a13683584"
+hash = "6540beac8c94d47b81495602ed398dfc5c38a19a87119d926e3f0836db9cf76c"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
@@ -1097,6 +1061,10 @@ file = "kubejs/data/advancedtfctech/structure/multiblocks/power_loom.nbt"
 hash = "3a229b62d529c179c64a98cac0cc4fc90e9b12ebb33377245cba7cb6182a0097"
 
 [[files]]
+file = "kubejs/data/bellsandwhistles/recipe/metro/metro_window.json"
+hash = "373ad11d23f06096d93fefccc8a785ebf159920fbd5658c98b598ac149d2330e"
+
+[[files]]
 file = "kubejs/data/c/tags/item/double_ingots.json"
 hash = "4b567828874dc0156fefcfc477fad9aafe005340462fb33eb6537718d715f376"
 
@@ -1106,7 +1074,11 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "2cb8c513bea1fe5028b95ded81434125f2f079277482620395d13094bad66db0"
+hash = "0006f7b56f704f70a1a8bdc2517a503a784e7e1506529a0dd00e6a11ff0dc16f"
+
+[[files]]
+file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
+hash = "fe16203088b321e6e3b7cc68c73928ed7e2ecf84aa61f142600d9903c95b9694"
 
 [[files]]
 file = "kubejs/data/create/neoforge/biome_modifier/striated_ores_nether.json"
@@ -1121,12 +1093,1140 @@ file = "kubejs/data/create/neoforge/biome_modifier/zinc_ore.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_amber_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_aqua_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_beige_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_coral_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_forest_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_ginger_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_indigo_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_maroon_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_mint_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_navy_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_olive_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_rose_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_slate_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_tan_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_teal_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_verdant_fan_dyeing_catalyst.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createcasing/loot_table/blocks/brass_slicer.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createcasing/loot_table/blocks/copper_slicer.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createcasing/loot_table/blocks/creative_slicer.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createcasing/loot_table/blocks/industrial_iron_slicer.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createcasing/loot_table/blocks/railway_slicer.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createcasing/loot_table/blocks/refined_radiance_slicer.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createcasing/loot_table/blocks/shadow_steel_slicer.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createcasing/loot_table/blocks/weathered_iron_slicer.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/createdeco/recipe/placard.json"
+hash = "ddc3d0dd56b604d914bedbf2f985a2f0b5f7374eac79aad668a8a2cfd7cc154c"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/amber_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/aqua_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/beige_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/coral_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/forest_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/ginger_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/indigo_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/maroon_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/mint_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/navy_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/olive_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/rose_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/slate_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_amber_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_aqua_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_beige_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_coral_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_forest_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_ginger_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_indigo_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_maroon_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_mint_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_navy_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_olive_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_rose_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_slate_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_tan_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_teal_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/solid_verdant_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/tan_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/teal_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_container.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_dark_metal_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_dark_metal_plating.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_display_board.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_flywheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_large_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_large_fan.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_large_industrial_cogwheel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_large_metal_girder.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_sheet_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_small_deepslate_tiles.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_stone_metal.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/dndecor/loot_table/blocks/verdant_velvet_block.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
 file = "kubejs/data/draconicevolution/neoforge/biome_modifier/nether_draconium_ore.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
 file = "kubejs/data/draconicevolution/neoforge/biome_modifier/overworld_draconium_ore.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/extendedae/loot_table/blocks/ex_emc_interface.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
 
 [[files]]
 file = "kubejs/data/firmages/gateways/abyss_trial.json"
@@ -1490,23 +2590,23 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "7cc2e6fa9286184ac0e203654b42850ecfe769d70fdc6d42396b08993cef0b07"
+hash = "d0f764b55b23f75cb249d3919546df6939061130748e43ccc83f6333aabfca41"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "47454fa2d297469a42edd2eb597cd017be87ae8496a313e450765dbfd63025c0"
+hash = "34e7b4605d2a5409661ce1d9e549219cb887f47c13f683b206224f5fd2caae4d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "d09071f7326bc6a5af310405f422dadf0fbc510033bba09806db49187453ca77"
+hash = "6a287f00ab42bef987a8bc204c5a46dfa41c4f7a59afe87fadd5cd445d8d2f76"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "8a80cb144ca18efb7836d4e425cb85e89dbb24c405c5f2951e6b893bf87f998f"
+hash = "bc6f11833baa49a6219a26ea7d39a09ce1671b37c66e698cc6b83bc4fb1b16c9"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "ab2634e72af7c533d5db25f1e262cb13d18f2456caef6cd2a6c48f1833fcee30"
+hash = "914dc83a86a61842a77547940547394f0d43606b5590b4b4de40c04a0d50e2e3"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
@@ -1530,11 +2630,11 @@ hash = "413e67d06a2db263b1be4a0efe52960c5c3a4fdb37d8ad67cc009cf797b5d98d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "2c8cc8dc9880d1e8ba685d865abf5fd755f4fa1ff6aa9108f9ff0557dca11325"
+hash = "90275abb9d36c91177dbe111e3395113d461d2850f258dbefc0b5491e3960715"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "b090216eab12d3d5dc226a55becfacf71f199d83d6dc49257782262b4c564659"
+hash = "e10494c465b5daf09fdeda2eced528c84976d91f5743302bc03f00c104dec53a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -1661,6 +2761,34 @@ file = "kubejs/data/immersivepetroleum/structure/multiblocks/pumpjack.nbt"
 hash = "df14855a6d9d71f12372e3b3e4ea6bd40f9089f5f728ab276cf8ce3a2126957e"
 
 [[files]]
+file = "kubejs/data/more_immersive_wires/loot_table/blocks/cc_connector.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/more_immersive_wires/loot_table/blocks/cc_modem.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/more_immersive_wires/loot_table/blocks/cc_relay.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/more_immersive_wires/loot_table/blocks/id_connector.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/more_immersive_wires/loot_table/blocks/id_relay.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/more_immersive_wires/loot_table/blocks/rs_connector.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/more_immersive_wires/loot_table/blocks/rs_relay.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
 file = "kubejs/data/mysticalagradditions/neoforge/biome_modifier/end_inferium_ore.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
@@ -1689,6 +2817,774 @@ file = "kubejs/data/occultism/neoforge/biome_modifier/add_ore_silver_deepslate.j
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_dead.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_dead_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_dead_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_fir.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_fir_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_fir_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_hellbark.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_hellbark_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_hellbark_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_jacaranda.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_jacaranda_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_jacaranda_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_magic.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_magic_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_magic_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_mahogany.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_mahogany_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_mahogany_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_palm.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_palm_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_palm_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_redwood.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_redwood_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_redwood_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_umbran.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_umbran_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_umbran_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_willow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_willow_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_biomesoplenty_willow_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_bluebright.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_bluebright_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_bluebright_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_dusk.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_dusk_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_dusk_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_frostbright.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_frostbright_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_frostbright_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_lunar.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_lunar_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_lunar_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_maple.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_maple_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_maple_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_starlit.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_starlit_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_blue_skies_starlit_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_aspen.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_aspen_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_aspen_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_baobab.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_baobab_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_baobab_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_blue_enchanted.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_blue_enchanted_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_blue_enchanted_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_bulbis.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_bulbis_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_bulbis_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_cika.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_cika_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_cika_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_cypress.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_cypress_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_cypress_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_ebony.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_ebony_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_ebony_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_embur.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_embur_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_embur_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_ether.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_ether_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_ether_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_fir.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_fir_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_fir_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_green_enchanted.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_green_enchanted_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_green_enchanted_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_holly.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_holly_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_holly_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_imparius.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_imparius_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_imparius_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_jacaranda.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_jacaranda_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_jacaranda_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_lament.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_lament_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_lament_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_mahogany.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_mahogany_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_mahogany_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_maple.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_maple_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_maple_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_nightshade.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_nightshade_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_nightshade_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_palm.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_palm_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_palm_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_pine.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_pine_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_pine_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_rainbow_eucalyptus.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_rainbow_eucalyptus_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_rainbow_eucalyptus_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_redwood.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_redwood_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_redwood_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_skyris.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_skyris_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_skyris_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_sythian.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_sythian_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_sythian_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_white_mangrove.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_white_mangrove_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_white_mangrove_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_willow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_willow_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_willow_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_witch_hazel.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_witch_hazel_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_witch_hazel_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_zelkova.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_zelkova_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_byg_zelkova_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_rose.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_rose_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_rose_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_rubber.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_rubber_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_rubber_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_smoked.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_smoked_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_smoked_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_spirit.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_spirit_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_create_dd_spirit_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_hexcasting_edified.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_hexcasting_edified_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_hexcasting_edified_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_aspen.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_aspen_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_aspen_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_cypress.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_cypress_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_cypress_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_fir.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_fir_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_fir_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_ghaf.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_ghaf_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_ghaf_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_joshua.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_joshua_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_joshua_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_maple.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_maple_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_maple_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_olive.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_olive_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_olive_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_palo_verde.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_palo_verde_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_palo_verde_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_redwood.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_redwood_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_redwood_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_sugi.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_sugi_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_sugi_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_willow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_willow_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_willow_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_wisteria.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_wisteria_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_natures_spirit_wisteria_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_ancient.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_ancient_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_ancient_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_azalea.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_azalea_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_azalea_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_blossom.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_blossom_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_quark_blossom_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
 file = "kubejs/data/tfc/tags/block/prospectable.json"
 hash = "fc23170db8af12f32258103069969ed68b44093cf7e0c00b17fa72ee3bc4cce2"
 
@@ -1709,6 +3605,26 @@ file = "kubejs/data/tfc/tags/worldgen/placed_feature/in_biome/veins.json"
 hash = "ab3ba70bbc90d059ec25478e3c2346d5a5100c19ca09d691511fed848cb541d1"
 
 [[files]]
+file = "kubejs/data/trainutilities/advancement/door_ingrediants.json"
+hash = "35d44be1eb79cb0ea3e51a78a99f2dc377a279c3fe693489bb0de555712da3b1"
+
+[[files]]
+file = "kubejs/data/trainutilities/advancement/doors.json"
+hash = "361f81ebed8a8d9a7d64d1dad412dab03746549d275119746f3c3593b84af80e"
+
+[[files]]
+file = "kubejs/data/trainutilities/advancement/incomplete_prototype_door.json"
+hash = "dab39cfd4c820c47415a60d35cf1dd5c5b5223e3f6af7880b84f52e08e465c7e"
+
+[[files]]
+file = "kubejs/data/trainutilities/advancement/platform_block.json"
+hash = "e11638548d9f044456d122a96dba7f8e9308124b9bea7ba514c5a713ef56ccf7"
+
+[[files]]
+file = "kubejs/data/twilightforest/function/dev_new_world.mcfunction"
+hash = "0facd34157b340c11a8c3f29a7de58fedd10ee8a8c952e045f474744b14531ba"
+
+[[files]]
 file = "kubejs/data/twilightforest/recipe/giant_cobblestone_to_cobblestone.json"
 hash = "b33cd1f11da546f825e83752b2dbb0e4bc47d32cc4cb2d5cfa0213659d115514"
 
@@ -1725,8 +3641,28 @@ file = "kubejs/data/twilightforest/recipe/giant_obsidian_to_obsidian.json"
 hash = "46a668ac908f0210bcbd08cee76c353d028baf2b5126a7e25865269fbd0758d3"
 
 [[files]]
+file = "kubejs/data/woodencog/recipe/milling/quartz.json"
+hash = "b862c000fc9b2bf6fdc54a6a926835ab21268894616ce2e56003f1b8d847fa8a"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/mixing/lye_alabaster_bricks.json"
+hash = "d0694ad83f21f15ad0035db8635a6577a7ffc3ef3c740cf05f5b6ccff0dddc9b"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/welding/red_steel_diving_boots.json"
+hash = "19fdbf7d0303e5cb183aca27d9a9c075bc729272554061025da352a4bedc97a8"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/welding/red_steel_diving_helmet.json"
+hash = "a91b46f81676290881a7ef1e799d8d0e963410089deb5227b896ae83ce76aaae"
+
+[[files]]
+file = "kubejs/data/woodencog/recipe/welding/redsteel_backtank.json"
+hash = "d0f760fc355175ac99a802ff5aa500e61e4a8b3c7d3c01736439dc2e07a091cd"
+
+[[files]]
 file = "kubejs/server_scripts/debug/dump.js"
-hash = "b57c7b5f385645b97dd1b51278c367727a1e68db5c26dee220279780dadb4fbc"
+hash = "5d2f56e72e8da0f118604a1bac6b233fc85c171f4be5aa956856bf3a6eb223e2"
 
 [[files]]
 file = "kubejs/server_scripts/debug/scan.js"
@@ -1762,7 +3698,7 @@ hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "22103670f419077137cae70387c403dd3dafc1ce8ba026d0977ec9e1a27c6af7"
+hash = "8ef702edb2ccd5f4f7230b36764bce7265928b0df408764e336da7935c8649c1"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
@@ -1830,7 +3766,7 @@ hash = "dd0902086c52f3e48b7445e9ec4c8f793d62b010a48ecd999f61fd395d6ad8f4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "13d91a2ce56043844c8b38eb3598b3b377cde6d951c3f1cf4135561e59cc2345"
+hash = "2cdd4c59ca350d70865d74509150b46eb4f4159044b45240cc7a21d69e0d0463"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/station_ages.js"
@@ -1878,7 +3814,7 @@ hash = "f3ac29f73c344d50175341cac291e4c2d423f0344e3417f65235d0ad72bd0383"
 
 [[files]]
 file = "kubejs/server_scripts/tags/unification.js"
-hash = "ce0e8ba1f17510411fdc0b1791756362bdde26392c8c8c493943cb4df7496f02"
+hash = "df67760aa20384e3b57c06b853fa157b50cadcd7a3a277cd95b2cccd5ae2837c"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
@@ -2377,8 +4313,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.8.0.jar"
-hash = "4d08c889d68ae11e26c51aa5bb576338c7feb551cf510db5ded1e8e73a6f13a5"
+file = "mods/firmages-core-0.8.1.jar"
+hash = "1287c697731aa97d73436f17f510d6c7aa3981c8318c883c6702091de3a1c18a"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
