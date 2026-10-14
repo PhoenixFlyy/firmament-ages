@@ -42,4 +42,5 @@ A copy of this template in `dev\exports\test-server-template\` (port 25566, 6 GB
 - `difficulty=hard` follows the design rule "Normal+: hard, not needlessly complicated". Set it to `normal` if the nights are too punishing.
 - `view-distance=10`, `simulation-distance=8`. ProgressiveStages checks mob spawn locks against the players inside the simulation distance.
 - `allow-flight=true` stops contraptions and flight gear from getting players kicked.
+- `server-ip=` stays empty, so the server listens on every network interface and LAN players can join (`127.0.0.1` would admit only the host PC). RCON binds to the same address, so it listens on every interface too: keep `enable-rcon=false` on a public server, or let the firewall pass only 25565 and never forward 25575.
 - FTB Chunks gives no claims, no protection and PvP everywhere until the Industrial Age. At that point `kubejs/server_scripts/stages/grants.js` hands out 25 claims and 25 force-loads. Force-loaded chunks only tick while a player is online (`force_load_mode: "never"`, see `config/ftbchunks-world.snbt`).

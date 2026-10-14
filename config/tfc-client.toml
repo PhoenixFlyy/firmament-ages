@@ -1,0 +1,7 @@
+# Firmament Ages: TerraFirmaCraft client config, only the keys the pack pins (NeoForge fills the rest with defaults).
+# Key names from ClientConfig of TerraFirmaCraft 4.2.11 (javap) and the generated tfc-client.toml.
+
+[display]
+	# No Field Guide box ("?" and "Ctrl") on item tooltips, and holding Ctrl no longer opens the Field Guide
+	# (PatchouliClientEventHandler.renderBookTooltipWithoutBook). The quests are the guide in this pack.
+	showGuideBookLinksAlways = false

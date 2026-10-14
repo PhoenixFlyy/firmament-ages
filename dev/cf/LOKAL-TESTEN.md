@@ -47,6 +47,8 @@ op DEIN_MINECRAFT_NAME
 
 Vorher kein `op`, sonst stehen Op-Meldungen im Chat und verfälschen den stillen Join.
 
+Von einem anderen PC im LAN: dort die IPv4-Adresse des Server-PCs eintragen (`ipconfig` auf dem Server-PC, z. B. `192.168.178.20`). Dafür muss in `test-server\server.properties` `server-ip=` leer sein (mit `127.0.0.1` nimmt der Server nur Verbindungen vom eigenen PC an) und die Windows-Firewall Java im privaten Netz zulassen (Abfrage beim ersten Start). RCON lauscht dann ebenfalls im ganzen LAN auf Port 25575; im Heimnetz mit dem langen Zufallspasswort ist das in Ordnung, Port 25575 nie im Router freigeben.
+
 Alternativ geht auch **Singleplayer** im Profil. Dann fehlt nur der Mehrspieler-Teil der Zeremonie, alles andere läuft gleich.
 
 ## 4. Was du testest
