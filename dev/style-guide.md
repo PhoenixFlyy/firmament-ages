@@ -25,7 +25,8 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
    drumherum schon; ein Absatz mit Raster und Überschrift zählt nicht als Absatz.
    Ausnahme Lehrquest (bis 110 Wörter): die eine Stelle, an der eine Mechanik oder ein Bauplan erklärt wird, den kein
    Rezeptbetrachter zeigt. Die Liste steht in `STYLE_TEACHING` in `dev/validate_quests.py` (Knapping-Anleitung,
-   Knapping-Muster, Herdkreis, Keystone-Leihe, Dreschmaschine), jede mit Grund. Neue Einträge nur mit Grund.
+   Knapping-Muster, Herdkreis, Keystone-Leihe, Dreschmaschine, Feuer und Fackeln vor der ersten Nacht, Ton-Muster,
+   Steinzeit-Heim, Nether-Opfer), jede mit Grund. Neue Einträge nur mit Grund.
 3. Kein Rezept, das der Rezeptbetrachter zeigt. Ausnahmen: Dawn und Steinzeit (EMI erst ab der Bronzezeit,
    `ui.emiFromAge = age_1`) und die Opfergaben (ihre Zutaten sind die Checkliste der Stränge).
 4. Jede Mechanik wird an genau einer Stelle erklärt (Geistervorschau am Herz: "Raise the Shrine"; Siegel: "When a

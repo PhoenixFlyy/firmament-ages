@@ -42,13 +42,12 @@ In the Singularity Age the nine relics come off their plinths and are fused into
 
 ## Multiplayer
 
-Firmament Ages is written for **one team per server**: the Ages, the shrine and every reward are shared, and a player who joins later is in the same Age as everybody else. Single player works like a team of one.
+Firmament Ages is written for **one fellowship per server**: the Ages, the shrine and every reward are shared. Every player joins the server's one FTB Teams party at the first login, without an invite, and is in the same Age as everybody else; on a new server the first player founds it. A host who wants separate parties turns this off with `team.autoJoin = false` in `firmages-server.toml`. PvP is on, as in the design; set `pvp=false` in `server.properties` for a public server. Single player works like a fellowship of one.
 
 ## Beta
 
 The whole road from Dawn to the final boss is playable. Balance and texts will still change.
 
-- Each Age change freezes the game for about six to eight seconds while the server reloads.
 - Draconic Evolution and Stargate Journey are beta mods on 1.21.1. Back up your world before the Space Age.
 - Please report bugs on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 

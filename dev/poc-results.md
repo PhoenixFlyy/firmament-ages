@@ -2753,3 +2753,36 @@ WARN entries, the TFC `Screen` probe).
 - `show_compile_errors = true` stays in the title layout until Felix has seen the shader in game.
 - EMI's recipe screen block also applies to ops and creative players in Dawn and the Stone Age (n3/emi).
 - JEI still restarts on the recipe packet of a swap (about 1.5 to 2 s on the client).
+
+## 0.9.0 review fixes (2026-10-14)
+
+Code and player review of 0.9.0: recipe caches the Age swap missed, team join, Gathering, quests. One boot of Felix's
+test server (age_9): stopped state checked, synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve`
+(quest folder deleted first, 1308 entries, "Finished successfully"), `debug.allowSimulate` on for the run,
+`run_server.py --hold 240 --timeout 900` with 64 `--cmd` steps. The world was copied before the boot and restored
+after it (`diff -rq` clean); `debug.allowSimulate` is `false` again; `server.properties`, `whitelist.json` and
+`ops.json` match their sha256 from before. After the boot the probe fix below was built and the server re-synced
+(firmages-core jar identical to `mods/`).
+
+| Check | Observed | Result |
+|---|---|---|
+| Jar scan for recipe state (`RecipeManager` with a reload listener, `AddReloadListenerEvent`, `TagsUpdatedEvent`, `ServerStartedEvent`, `OnDatapackSyncEvent`, or a `RecipeManager` subclass; 216 mods, jar-in-jar) | new caches: FastSuite `AuxRecipeManager`, Ars Nouveau registries (Ars Additions through `reloadAll`), Immersive Petroleum `RecipeReloadListener.lists`, AE2 `TransformLogic`, FramedBlocks `FramingSawRecipeCache`; megacells, IE arc recycling and Sophisticated Core listen to the `OnDatapackSyncEvent` the swap posts | flushed in `RecipeCaches` |
+| `gradlew build`, `gradlew runGameTestServer` | build and unit tests pass; "All 43 required tests passed", swap 13 ms vs full reload 2366 ms, recipes identical | pass |
+| Swap flush list on the pack server | every swap: `caches ... [fastsuite, mekanism, create, tfc, immersiveengineering, mysticalagriculture, ars_nouveau, immersivepetroleum, ae2, framedblocks]`, 39 to 90 ms, no `cannot flush` line; swaps 201 to 349 ms | pass |
+| Crafting table after a swap (`firmages recipes craft sgjourney:building/naquadah/naquadah_stairs`, the 4-argument lookup FastSuite caches) | before: crafts the stairs; after `revoke age_9`: "locked by its Age: no recipe matches"; after `grant age_9`: crafts the stairs again | pass |
+| `selftest server`, `recipe_caches_fresh` with age_0, age_3, age_5 and age_6 revoked | "caches of [fastsuite, ars_nouveau, immersivepetroleum, ae2, framedblocks] match the live recipes" | pass |
+| `recipe_caches_fresh` with all Ages | failed on two probe rules, not on stale caches (same numbers at boot, before any swap): Ars Additions keeps entity-less source spawner recipes in `DEFAULTS`, and AE2 only takes the first ingredient of each transform recipe (a `break`, javap). Probe corrected; the corrected probe has not run on the pack server | probe fixed, unverified |
+| Team: debug player Gamma joins Felix's world (Felix solo, age_9, no party) | before the fix: chat line naming HiighHopes, no team change | pass |
+| Team: Gamma granted age_0..age_9 (22 stages), relog, Gamma founds "Firmament" | ProgressiveStages: 22/28 stages before, 0/28 right after founding (2/28 with the starting stages): stages do not move into a founded party. Fixed: no automatic party for a team that holds an Age | finding, fixed (fix not re-run) |
+| Team: Delta joins with the party present | "You join Firmament. Its Ages are yours.", FTB "Delta has joined your party" | pass |
+| Gathering line: Gamma at the altar (forced visit), Delta in the Overworld | action bar "The altar waits for 1 more: Delta"; no Gathering start | pass |
+| Hearth idol in a pit kiln: placed item with `firmages:unfired_hearth_idol`, 2 thatch and 8 oak logs by `debug use`, fire above, `tick sprint 7600` | block back to `tfc:placed_item` holding `firmages:hearth_idol` | pass |
+| `check_log.py test-server/logs/latest.log` | 63 ERROR, 14 FATAL, all documented noise; 0 remaining | pass |
+| `gen_quests.py`, `validate_quests.py --style` | 1308 object ids, 0 errors, 0 warnings (four new teaching quests listed in `STYLE_TEACHING`) | pass |
+
+### Open points
+
+- The corrected `recipe_caches_fresh` probe and the no-founding rule for teams with Ages have not run on the pack server.
+- A world where one player reached an Age alone, outside a party (Felix's world), keeps that state; see `dev/offene-punkte.md`.
+- In game (client brief 0.9.0, points 3 and 11): crafting table, framing saw, Imbuement Chamber, Immersive Petroleum
+  machines and AE2 water transforms right after a swap; the new quests and notes.

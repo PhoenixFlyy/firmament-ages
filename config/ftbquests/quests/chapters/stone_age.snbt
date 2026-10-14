@@ -474,6 +474,7 @@
 			]
 			tasks: [
 				{
+					count: 2L
 					id: "23D9A6A82A4225E4"
 					item: {
 						count: 1
@@ -497,6 +498,7 @@
 			]
 			tasks: [
 				{
+					count: 2L
 					id: "344AF86D2038D7B9"
 					item: {
 						count: 1
@@ -756,6 +758,44 @@
 				}
 			]
 			x: 3.0d
+			y: 6.25d
+		}
+		{
+			dependencies: ["4207F8051EF451B3"]
+			hide_dependency_lines: true
+			icon: {
+				id: "tfc:ceramic/unfired_vessel"
+			}
+			id: "6A272A1F4193488A"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "0FB0FCDCBD9825F5"
+					type: "checkmark"
+				}
+			]
+			x: 4.5d
+			y: 6.25d
+		}
+		{
+			dependencies: ["4207F8051EF451B3"]
+			hide_dependency_lines: true
+			icon: {
+				id: "supplementaries:timber_frame"
+			}
+			id: "484BD83C5FBABCE1"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "7AD278ED7C0EFDD5"
+					type: "checkmark"
+				}
+			]
+			x: 6.0d
 			y: 6.25d
 		}
 	]

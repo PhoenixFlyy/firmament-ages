@@ -837,6 +837,25 @@
 			dependencies: ["05C4B3AE61613A9B"]
 			hide_dependency_lines: true
 			icon: {
+				id: "minecraft:white_bed"
+			}
+			id: "28EB5F0CDDB30BAA"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "338C560F01122CC6"
+					type: "checkmark"
+				}
+			]
+			x: 3.0d
+			y: 6.25d
+		}
+		{
+			dependencies: ["05C4B3AE61613A9B"]
+			hide_dependency_lines: true
+			icon: {
 				id: "firmages:frontier_sigil"
 			}
 			id: "6ECC3504EF73D5B0"
@@ -849,7 +868,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 3.0d
+			x: 4.5d
 			y: 6.25d
 		}
 	]

@@ -31,6 +31,12 @@
 	chapter.7D0742BC787AAFAC.title: "The Firmament"
 	chapter_group.7E67E59034114849.title: "Ages"
 	file.0000000000000001.title: "Firmament Ages"
+	quest.001477EB265CFAF8.quest_desc: [
+		"Drop one log, three sticks and some straw on one block. Hold use on it with a firestarter (two sticks) until the firepit lights."
+		""
+		"Heat a stick in the firepit's right slot: it becomes two torches. A torch lights your way in hand and burns about half an hour once placed."
+	]
+	quest.001477EB265CFAF8.title: "Before Dark"
 	quest.0025DE3687DD8D07.quest_desc: [
 		"Build a barrel with a saw and lumber. Barrels brine, pickle and tan."
 	]
@@ -380,6 +386,10 @@
 		"Defeat the Naga in its courtyard, or bring its trophy from the Frontier Trial."
 	]
 	quest.1C3849490BE7F034.title: "The Naga"
+	quest.1C7F62ECF8FA8027.quest_desc: [
+		"Furniture opens: chairs, tables, shelves, doors and windows in every wood. The recipe viewer shows how each is made."
+	]
+	quest.1C7F62ECF8FA8027.title: "A Home"
 	quest.1CC29E163A94FCE6.quest_desc: [
 		"Place unfired pottery, cover it with straw and logs and set it on fire: a pit kiln."
 	]
@@ -541,6 +551,10 @@
 	]
 	quest.28A963AA218A4EE4.quest_subtitle: "Goal of the Iron Age: Caelum opens the Arcane Age"
 	quest.28A963AA218A4EE4.title: "Offer the Steel Heart at the Shrine"
+	quest.28EB5F0CDDB30BAA.quest_desc: [
+		"Real beds open: wool beds and fancy beds with cushions and sheets. Sleeping in one skips the night."
+	]
+	quest.28EB5F0CDDB30BAA.title: "A Home"
 	quest.29BB85F4AE1E4A82.quest_desc: [
 		"Fusion power, the SPS, rockets to Venus, Mercury and Glacio, awakened draconium and the Marid."
 		""
@@ -636,7 +650,11 @@
 	quest.33818E6B3089AF9E.quest_subtitle: "Goal of the Space Age"
 	quest.33818E6B3089AF9E.title: "Star Chart"
 	quest.33BEA94E7673D21D.quest_desc: [
-		"No portal leads to the Nether in this land. Perform the sacrifice ritual the field guide shows, step through, and look for iesnium."
+		"No portal leads to the Nether in this land. It opens to a sacrifice:"
+		"- Set at least seven offerings within five blocks of one spot: anvils, mob heads, gold or black steel blocks, or piles of gold, pig iron or black steel ingots."
+		"- Kill a goat, pig or sheep there with a scythe."
+		""
+		"The ground bursts and a portal opens where you stand. Step through and look for iesnium."
 	]
 	quest.33BEA94E7673D21D.title: "The Way Below"
 	quest.3439831B7895C627.quest_desc: [
@@ -700,7 +718,7 @@
 	quest.3AD1F9C2C23677C5.quest_desc: ["Gather wild berries. Fruit is a nutrition group of its own."]
 	quest.3AD1F9C2C23677C5.title: "Berries and Herbs"
 	quest.3B588CB49C0F4193.quest_desc: [
-		"Fire the idol in a pit kiln, like any other pottery. It becomes the Hearthstone."
+		"Fire both in a pit kiln, like any other pottery. One becomes the heart of the shrine, the other the Hearthstone."
 	]
 	quest.3B588CB49C0F4193.title: "Hearth Idol"
 	quest.3B636FCBEF145ABE.quest_desc: ["Smith any bronze tool."]
@@ -816,7 +834,16 @@
 	quest.44FB988268E119B4.title: "Offer the Star Chart at the Shrine"
 	quest.4525E18FA6D45990.quest_desc: ["Connectors hang the wire on machines and posts."]
 	quest.4525E18FA6D45990.title: "LV Connectors"
-	quest.4573A3F0CD529A5B.quest_desc: ["Knap clay into the shape of the hearth idol."]
+	quest.4573A3F0CD529A5B.quest_desc: [
+		"Knap two, five clay each: one for the Shrine Heart, one for the Hearthstone."
+		""
+		"X = leave standing, - = knock away:"
+		"- X X X -"
+		"X X X X X"
+		"- X X X -"
+		"- X X X -"
+		"X X - X X"
+	]
 	quest.4573A3F0CD529A5B.title: "Unfired Hearth Idol"
 	quest.4581C5CB23AD4CD5.quest_desc: ["The first fire. It opens the Stone Age."]
 	quest.4581C5CB23AD4CD5.quest_subtitle: "Goal of Dawn"
@@ -829,6 +856,16 @@
 		"If the ritual fails you, the Wild Sigil opens the Wild Trial."
 	]
 	quest.470272BFC8013E57.title: "Wilden Tribute"
+	quest.484BD83C5FBABCE1.quest_desc: [
+		"Logs, sticks and clay make a camp a home. Any wood works:"
+		"- Palisade: two logs side by side, six palisades."
+		"- Beam: two stripped logs stacked, two beams."
+		"- Timber frame: four sticks in a diamond. Fill it with daub."
+		"- Daub: two clay and two straw, crossed."
+		""
+		"Seats, rope bridges and sconces open with this Age too."
+	]
+	quest.484BD83C5FBABCE1.title: "A Home"
 	quest.485FE6EFB6565F6E.quest_desc: [
 		"Take the Arcane Keystone from its plinth (sneak and use the plinth with an empty hand), or bind a second one with the Djinni. Awaken it in the Marid ritual with two atomic alloys, a wyvern core and the Leviathan's abyssal egg."
 		""
@@ -852,7 +889,9 @@
 	quest.49153BBE2AD958B7.quest_desc: [
 		"You wake with nothing: no pick, no clay, no fire."
 		""
-		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out. When all three are done, light the first fire. It opens the Stone Age for all of you."
+		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out."
+		""
+		"Nights are dark. Light a fire and make torches before the first one (see \"Before Dark\"). When all three strands are done, the first fire opens the Stone Age for all of you."
 	]
 	quest.49153BBE2AD958B7.quest_subtitle: "The prologue before the first Age"
 	quest.49153BBE2AD958B7.title: "Welcome to the Wild"
@@ -1196,6 +1235,59 @@
 	quest.69FBE953FD290F68.title: "Calorite"
 	quest.6A1C715211FCA0FB.quest_desc: ["Two black steel double sheets for the Pressure Core."]
 	quest.6A1C715211FCA0FB.title: "Black Steel Double Sheets"
+	quest.6A272A1F4193488A.quest_desc: [
+		"Hold five clay and right-click into the air. Knock squares away as with stone. X = leave standing, - = knock away. Mirrored shapes work too."
+		""
+		"Small vessel, melts ore:"
+		"- X X X -"
+		"X X X X X"
+		"X X X X X"
+		"X X X X X"
+		"- X X X -"
+		""
+		"Ingot molds, two at once:"
+		"X X X X X"
+		"X - - X X"
+		"X - - X X"
+		"X - - X X"
+		"X X X X X"
+		""
+		"Pickaxe head mold:"
+		"X X X X X"
+		"X - - - X"
+		"- X X X -"
+		"X X X X X"
+		"X X X X X"
+		""
+		"Jug, carries water:"
+		"- X - - -"
+		"X X X X -"
+		"X X X - X"
+		"X X X X -"
+		"X X X - -"
+		""
+		"Pot, cooks soup on the firepit:"
+		"X - - - X"
+		"X - - - X"
+		"X - - - X"
+		"X X X X X"
+		"- X X X -"
+		""
+		"Bowls, four at once:"
+		"X - - - X"
+		"- X X X -"
+		"- - - - -"
+		"X - - - X"
+		"- X X X -"
+		""
+		"Large vessel, keeps food when sealed:"
+		"X - - - X"
+		"X - - - X"
+		"X - - - X"
+		"X - - - X"
+		"X X X X X"
+	]
+	quest.6A272A1F4193488A.title: "Clay Patterns"
 	quest.6A80066F26918539.quest_desc: [
 		"Ring a 2x2 pool of water with flowers on grass and throw in nether quartz. Sandpaper turns unpolished quartz into it."
 	]
@@ -1408,7 +1500,9 @@
 		"There is no stone pickaxe. The first pickaxe is cast in copper in the Stone Age."
 	]
 	quest.7E2D0099177BFBE8.title: "Knapping Patterns"
-	quest.7E4228F48F8BE9EF.quest_desc: ["Knap five clay into a vessel, a jug, a bowl or a mold."]
+	quest.7E4228F48F8BE9EF.quest_desc: [
+		"Knap five clay into a vessel, a jug, a bowl or a mold (see \"Clay Patterns\")."
+	]
 	quest.7E4228F48F8BE9EF.title: "Clay Forming"
 	quest.7ECFFB6EEDF1B9FB.quest_desc: ["Steel wire carries high voltage over long distances."]
 	quest.7ECFFB6EEDF1B9FB.title: "HV Wire"
@@ -1449,6 +1543,7 @@
 	task.17DC9CAF05E44B90.title: "Our cellar is stocked for the winter"
 	task.18B431469A1330AA.title: "Prosperity shards"
 	task.19AE69BBB724B329.title: "Basic injectors"
+	task.1C63BBD78A1CE3A0.title: "A torch"
 	task.1CFB0568626363E1.title: "Turbine blades"
 	task.1D485243176A7A7F.title: "A data model trained to tier 3"
 	task.200184AA01E5A90B.title: "Look at the heart with the Star Spire complete"

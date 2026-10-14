@@ -292,6 +292,10 @@ STYLE_TEACHING = {
     '30A13F8701E9EF80',  # stone/shrine/key: the Hearth Circle and the ghost preview
     '485FE6EFB6565F6E',  # quantum/marid/key: lending the Arcane Keystone and laying it back
     '124DDC9853158E78',  # industrial/logi/atfc: the thresher's blocks (no manual page, no viewer)
+    '001477EB265CFAF8',  # dawn/side/torch: firepit and torches before the first night (Dawn has no recipe viewer)
+    '6A272A1F4193488A',  # stone/info/clay: the clay knapping patterns (no viewer in the Stone Age)
+    '484BD83C5FBABCE1',  # stone/info/home: the Stone Age home blocks (no viewer in the Stone Age)
+    '33BEA94E7673D21D',  # arcane/spirit/nether: the Nether sacrifice (no recipe, no viewer, Field Guide hidden)
 }
 GRID_LINE = re.compile(r'[X-]( [X-]){4}')
 # (pattern, label); case-insensitive unless the label says "mod name" (those are matched as written).

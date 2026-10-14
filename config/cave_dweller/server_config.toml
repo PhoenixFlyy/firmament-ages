@@ -4,6 +4,10 @@
 # (Fzzy Config 0.7.7, id cave_dweller:server_config); Fzzy adds every other key with its default on the first start.
 version = 0
 
+# Deep caves only (0.9.0 review): it hunts players at or below y = 0 (spawnHeight, mod default 40), so the copper and tin
+# mining near the surface stays free of it.
+
 [spawnConditions]
 maximumAmount = 1
+spawnHeight = 0
 dimensionWhitelist = ["minecraft:overworld"]

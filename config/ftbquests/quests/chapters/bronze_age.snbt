@@ -940,6 +940,25 @@
 			x: 1.5d
 			y: 6.25d
 		}
+		{
+			dependencies: ["0A81ED2F8A5BB2AE"]
+			hide_dependency_lines: true
+			icon: {
+				id: "everycomp:hc/tfc/oak_chair"
+			}
+			id: "1C7F62ECF8FA8027"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "01447F172DC34207"
+					type: "checkmark"
+				}
+			]
+			x: 3.0d
+			y: 6.25d
+		}
 	]
 	tags: ["age_1"]
 }

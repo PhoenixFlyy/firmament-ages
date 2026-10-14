@@ -111,16 +111,17 @@ class Verbatim(str):
     """A description line that stays an entry of its own, exactly as written (knapping grids)."""
 
 
-def knap_grid(*rows):
+def knap_grid(*rows, outside=' '):
     """TFC knapping pattern rows ('#' = stays, ' ' = knocked away) -> five Verbatim lines of the 5x5 grid,
     'X' = leave standing, '-' = knock away. A pattern smaller than 5x5 is drawn in the top-left corner: TFC 4.2.11
-    KnappingPattern.matches tries every offset and the mirror image, and those recipes set "default_on": false, so
-    everything outside the shape must be knocked away. 'X' and '-' have the same advance (6 px) in the Minecraft
-    font ('.' only 2 px), so the columns line up in the quest window."""
+    KnappingPattern.matches tries every offset and the mirror image, and every square outside the shape must equal the
+    recipe's "default_on": knocked away for false (the stone heads, outside=' '), left standing for true (the clay
+    ingot and pickaxe head molds, outside='#'). 'X' and '-' have the same advance (6 px) in the Minecraft font ('.'
+    only 2 px), so the columns line up in the quest window."""
     out = []
     for r in range(5):
         row = rows[r] if r < len(rows) else ''
-        out.append(Verbatim(' '.join('X' if c == '#' else '-' for c in row.ljust(5))))
+        out.append(Verbatim(' '.join('X' if c == '#' else '-' for c in row.ljust(5, outside))))
     return out
 
 
@@ -344,7 +345,9 @@ DAWN = age_chapter(
             desc=['You wake with nothing: no pick, no clay, no fire.',
                   '',
                   'Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out.',
-                  'When all three are done, light the first fire. It opens the Stone Age for all of you.']),
+                  '',
+                  'Nights are dark. Light a fire and make torches before the first one (see "Before Dark").',
+                  'When all three strands are done, the first fire opens the Stone Age for all of you.']),
     strands=[
         ('Stone', [
             Q('dawn/stone/rock', 'Just a Rock', t_adv('tfc:story/find_rock'),
@@ -405,6 +408,16 @@ DAWN = age_chapter(
                  '',
                  'Fire opens the Stone Age for all of you: clay, pit kilns and the first copper.']),
     sides=[
+        # The first night (More Darkness, no skipping bed): the firepit advancement also counts for the goal, which
+        # still waits for the three keystones, so lighting it early changes nothing about the Age grant.
+        ('dawn/stone/key', [
+            Q('dawn/side/torch', 'Before Dark', t_item('tfc:torch', title='A torch'), kind='side', icon='tfc:torch',
+              desc=['Drop one log, three sticks and some straw on one block. Hold use on it with a firestarter',
+                    '(two sticks) until the firepit lights.',
+                    '',
+                    'Heat a stick in the firepit\'s right slot: it becomes two torches. A torch lights your way in hand',
+                    'and burns about half an hour once placed.']),
+        ]),
         ('dawn/stone/rock', [
             Q('dawn/side/nugget', 'A Weird Rock', t_adv('tfc:world/nugget'), kind='side',
               desc=['Some rocks on the surface are ore. Remember where you found them.'],
@@ -469,7 +482,7 @@ STONE = age_chapter(
               desc=['Clay grows under grass near water. Look for the clay indicator plants.'],
               icon='minecraft:clay_ball'),
             Q('stone/clay/knap', 'Clay Forming', t_adv('tfc:story/knap_clay'),
-              desc=['Knap five clay into a vessel, a jug, a bowl or a mold.']),
+              desc=['Knap five clay into a vessel, a jug, a bowl or a mold (see "Clay Patterns").']),
             Q('stone/clay/kiln', 'Potter', t_adv('tfc:story/pit_kiln'),
               desc=['Place unfired pottery, cover it with straw and logs and set it on fire: a pit kiln.']),
             Q('stone/clay/vessel', 'Small Vessel', t_item('tfc:ceramic/vessel'),
@@ -508,10 +521,15 @@ STONE = age_chapter(
         ], Q('stone/camp/key', 'Stocked Camp', t_item('tfc:ceramic/large_vessel'), kind='keystone',
              desc=['Fill a large vessel with food and seal it. Sealed, food rots far slower.'])),
         ('Hearth & Shrine', [
-            Q('stone/hearth/unfired', 'Unfired Hearth Idol', t_item('firmages:unfired_hearth_idol'),
-              desc=['Knap clay into the shape of the hearth idol.']),
-            Q('stone/hearth/idol', 'Hearth Idol', t_item('firmages:hearth_idol'),
-              desc=['Fire the idol in a pit kiln, like any other pottery. It becomes the Hearthstone.']),
+            # Pattern: kubejs/server_scripts/recipes/age_0/stone_age.js, firmages:knapping/unfired_hearth_idol.
+            Q('stone/hearth/unfired', 'Unfired Hearth Idol', t_item('firmages:unfired_hearth_idol', 2),
+              desc=['Knap two, five clay each: one for the Shrine Heart, one for the Hearthstone.',
+                    '',
+                    'X = leave standing, - = knock away:',
+                    *knap_grid(' ### ', '#####', ' ### ', ' ### ', '## ##')]),
+            Q('stone/hearth/idol', 'Hearth Idol', t_item('firmages:hearth_idol', 2),
+              desc=['Fire both in a pit kiln, like any other pottery. One becomes the heart of the shrine,',
+                    'the other the Hearthstone.']),
             Q('stone/shrine/heart', 'The Shrine Heart',
               t_observe('firmages:shrine_heart', title='Look at your placed Shrine Heart'), icon='firmages:shrine_heart',
               desc=['Set a second Hearth Idol in three cobblestone under charcoal: the Shrine Heart.',
@@ -563,6 +581,42 @@ STONE = age_chapter(
           desc=['Hot items glow. Hover over one to read its heat; each metal melts at its own.']),
         Q('stone/info/cavein', 'Cave-ins', t_check(), kind='explain', icon='tfc:rock/loose/granite',
           desc=['Mining raw stone can collapse the ceiling. Support beams come with the Bronze Age.']),
+        # Patterns: TFC 4.2.11 data/tfc/recipe/knapping/ceramic/unfired_<name>.json (knapping type tfc:clay, five clay,
+        # used up when the shape is taken). Ingot and pickaxe head molds are "default_on": true: the squares outside
+        # their 4x5 and 5x4 shapes stay standing.
+        Q('stone/info/clay', 'Clay Patterns', t_check(), kind='explain', icon='tfc:ceramic/unfired_vessel',
+          desc=['Hold five clay and right-click into the air. Knock squares away as with stone.',
+                'X = leave standing, - = knock away. Mirrored shapes work too.',
+                '',
+                'Small vessel, melts ore:',
+                *knap_grid(' ### ', '#####', '#####', '#####', ' ### '),
+                '',
+                'Ingot molds, two at once:',
+                *knap_grid('####', '#  #', '#  #', '#  #', '####', outside='#'),
+                '',
+                'Pickaxe head mold:',
+                *knap_grid('#####', '#   #', ' ### ', '#####', outside='#'),
+                '',
+                'Jug, carries water:',
+                *knap_grid(' #   ', '#### ', '### #', '#### ', '###  '),
+                '',
+                'Pot, cooks soup on the firepit:',
+                *knap_grid('#   #', '#   #', '#   #', '#####', ' ### '),
+                '',
+                'Bowls, four at once:',
+                *knap_grid('#   #', ' ### ', '     ', '#   #', ' ### '),
+                '',
+                'Large vessel, keeps food when sealed:',
+                *knap_grid('#   #', '#   #', '#   #', '#   #', '#####')]),
+        # Recipes from the 0.9.0 dump (Every Compat db/ in TFC woods, Supplementaries, FirmaSupplementaries daub).
+        Q('stone/info/home', 'A Home', t_check(), kind='explain', icon='supplementaries:timber_frame',
+          desc=['Logs, sticks and clay make a camp a home. Any wood works:',
+                '- Palisade: two logs side by side, six palisades.',
+                '- Beam: two stripped logs stacked, two beams.',
+                '- Timber frame: four sticks in a diamond. Fill it with daub.',
+                '- Daub: two clay and two straw, crossed.',
+                '',
+                'Seats, rope bridges and sconces open with this Age too.']),
     ],
     supplies='stone_supplies', comfort='stone_comfort')
 
@@ -682,6 +736,9 @@ BRONZE = age_chapter(
         Q('bronze/info/create', 'Kinetics in the Bronze Age', t_check(), kind='explain', icon='create:andesite_alloy',
           desc=['Only andesite machines exist now: water wheels, saws, presses, fans and mills.',
                 'Crushing wheels, deployers and brass come with the Iron Age.']),
+        Q('bronze/info/home', 'A Home', t_check(), kind='explain', icon='everycomp:hc/tfc/oak_chair',
+          desc=['Furniture opens: chairs, tables, shelves, doors and windows in every wood.',
+                'The recipe viewer shows how each is made.']),
     ],
     supplies='bronze_supplies', comfort='bronze_comfort')
 
@@ -789,6 +846,8 @@ IRON = age_chapter(
                 'Industrial Age.']),
         Q('iron/info/winter', 'The First Winter', t_check(), kind='explain', icon='tfc:ceramic/large_vessel',
           desc=['The year has seasons. Crops stop growing in winter and it gets cold. Plan ahead.']),
+        Q('iron/info/home', 'A Home', t_check(), kind='explain', icon='minecraft:white_bed',
+          desc=['Real beds open: wool beds and fancy beds with cushions and sheets. Sleeping in one skips the night.']),
         # One note on the boss sigils instead of a fallback paragraph in every boss quest (n2-presentation 5.4).
         Q('iron/info/sigils', 'When a Boss Will Not Come', t_check(), kind='explain', icon='firmages:frontier_sigil',
           desc=['Every boss an Age needs has a sigil. On open ground it opens a trial of waves in the',
@@ -820,8 +879,15 @@ ARCANE = age_chapter(
             Q('arcane/spirit/chalk', 'White Chalk', t_item('occultism:chalk_white'),
               desc=['Chalk draws pentacles. White chalk is enough for Foliot rituals.']),
             Q('arcane/spirit/nether', 'The Way Below', t_dim('minecraft:the_nether'), icon='beneath:ancient_altar',
-              desc=['No portal leads to the Nether in this land. Perform the sacrifice ritual the field guide shows,',
-                    'step through, and look for iesnium.']),
+              # Beneath 2.0.4 PortalUtil (javap): a goat, pig or sheep killed with a TFC scythe, at least 7 offerings
+              # within 5 blocks (y -2 to +3): skulls, anvils, gold or black steel blocks, ingot piles of gold, pig iron
+              # or black steel. Blindness and nausea, an explosion at the player, a lightning bolt, a portal.
+              desc=['No portal leads to the Nether in this land. It opens to a sacrifice:',
+                    '- Set at least seven offerings within five blocks of one spot: anvils, mob heads, gold or black',
+                    'steel blocks, or piles of gold, pig iron or black steel ingots.',
+                    '- Kill a goat, pig or sheep there with a scythe.',
+                    '',
+                    'The ground bursts and a portal opens where you stand. Step through and look for iesnium.']),
             Q('arcane/spirit/iesnium', 'Iesnium', t_item('occultism:iesnium_ingot', 4),
               desc=['Iesnium ore lies in the Nether. Smelt it into ingots; the Djinni rituals need it.']),
             Q('arcane/spirit/djinni', 'Bind a Djinni', t_item('occultism:book_of_binding_bound_djinni'),

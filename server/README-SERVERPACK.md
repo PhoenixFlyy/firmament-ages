@@ -47,8 +47,11 @@ progress` shows how far it is, and an interrupted run continues with `chunky con
 
 ## Play together
 
-All players share one FTB Teams party: the Ages are unlocked for that party, so invite everyone into the same party
-before the first Age is reached.
+All players share one FTB Teams party: the Ages are unlocked for that party. Every player joins it at the first login,
+without an invite; on a new server the first player founds it. To manage parties yourself, set `autoJoin = false`
+under `[team]` in `config/firmages-server.toml`.
+
+PvP is on (`pvp=true` in `server.properties`). For a public server set `pvp=false`.
 
 ## Update
 

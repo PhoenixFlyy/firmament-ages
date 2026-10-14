@@ -42,6 +42,21 @@ Funken an den Lücken.
    in N ms“; Maschinen übernehmen neue Rezepte sofort ohne Relog (Create-Mischer, beheizt erst mit Heizer, IE-Brecher,
    Mekanism-Anreicherungskammer, TFC-Fass, ein Occultism-Ritual); JEI startet kurz neu; der Prospektorpick findet ein
    Erz erst ab seinem Age; `/reload` wie bisher. Notbremse: `gate.ageSwap = false` in `config/firmages-server.toml`.
+   Nach dem Review zusätzlich, jeweils direkt nach dem Swap ohne Neustart: die **Werkbank** stellt ein Rezept der neuen
+   Age her (FastSuite-Cache) und ein entzogenes nicht mehr; nach Dawn zur Steinzeit die **Framing Saw** (FramedBlocks);
+   ab der Arkanen Zeit die **Imbuement Chamber** (Source Gem aus Amethyst); ab der Elektrozeit **Destillationsturm,
+   Coker und Hochdruck-Raffinerie** (Immersive Petroleum); ab der Informationszeit die **AE2-Umwandlung im Wasser**
+   (Fluix-Kristall aus Ladekristall, Redstone und Quarz). Server-Gegenprobe: `/firmages selftest server`, Fall
+   `recipe_caches_fresh`, und `/firmages recipes craft <Rezept-Id>`.
+11. **Review-Nachträge im Spiel.** Dawn: Nebenquest „Before Dark“ (Feuerstelle, Fackeln) über dem Stein-Strang, der
+    Willkommensbildschirm sagt „Nights are dark: light a fire before the sun sets.“. Steinzeit: „Unfired Hearth Idol“
+    zeigt das Muster und verlangt zwei Idole, die Notizen „Clay Patterns“ und „A Home“ unten; bitte ein Idol nach dem
+    Muster knappen und im Grubenofen brennen. Bronze- und Eisenzeit je eine Notiz „A Home“; „The Way Below“ beschreibt
+    das Opfer. Team: Auf einer neuen Welt gründet der erste Spieler die Party „Firmament“, jeder weitere landet beim ersten Login
+    ohne Einladung darin (Chatzeile „You join Firmament. Its Ages are yours.“). Auf Deiner Welt (Du allein, ohne Party,
+    age_9) ändert sich nichts; ein zweiter Spieler liest „HiighHopes holds this world's Ages outside a party ...“,
+    siehe `dev/offene-punkte.md`. The Origin: Steht nur ein Teil am Altar, zeigt die Aktionsleiste „The altar waits for N more: ...“;
+    wer 5 Minuten nichts tut, zählt nicht.
 4. **Lebendiger Schrein.** Am entzündeten, heilen Schrein steigt Tag und Nacht ein dünner Strahl in der Farbe der
    zuletzt erweckten Age auf. Prüfen: aus etwa 200 Blöcken sichtbar, mit und ohne Complementary; einen Ringblock in der
    Wartung abbauen, der Strahl erlischt innerhalb einer Sekunde, nach der Reparatur ist er wieder da. Nach dem Endboss
