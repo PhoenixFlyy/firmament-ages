@@ -1,6 +1,6 @@
 # Offene Punkte
 
-Alle offenen Punkte an einer Stelle, Stand 2026-10-14 (0.9.2-Runde N5). Gesammelt aus `dev/config-todo.md` (archiviert),
+Alle offenen Punkte an einer Stelle, Stand 2026-10-14 (0.9.3-Runde N6). Gesammelt aus `dev/config-todo.md` (archiviert),
 den „Offen“-Listen in `dev/client-test-brief.md`, „Open points“ in `dev/archive/quests-notes.md` und den „Open points“-Abschnitten
 in `dev/poc-results.md`; jeder Punkt wurde gegen den aktuellen Stand geprüft, Erledigtes steht unten mit Beleg.
 Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile nach unten verschieben, mit Beleg.
@@ -17,6 +17,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Vanilla-Holz-Varianten der Basis-Mods (Macaw's, Handcrafted, etwa 750 EMI-Einträge) kommen erst ab der Eisenzeit (Vanilla-Bretter über das Create-Sägen): verstecken oder so lassen? Die TFC/AFC-Varianten sind seit N4 Bronzezeit. | `dev/data/derived_ages.json`, `kubejs/server_scripts/recipes` | Felix |
 | Backups ohne erzwungenes Speichern (`saveAll = false` seit 0.9.1): ein Backup hält den Stand des letzten Autosaves, also bis fünf Minuten alt, und fällt ein Backup in einen Autosave, kann eine Region-Datei halb geschrieben im Zip landen (Simple Backups 4.0.30 schaltet das Speichern nicht ab). `saveAll = true` speichert vorher, bringt aber „Could not save data“ (AccessDeniedException beim Zippen, Live-Sitzung 2026-10-14) zurück. So lassen? | `config/simplebackups-common.toml`, `dev/decisions-while-away.md` („Backups ohne erzwungenes Speichern“) | Felix |
 | Bekannte Lücken mit Regel-Age: Apothic-Enchanting-Tisch braucht Diamant (Industriezeit), die Arkane-Nebenquest „Enchantment Industry“ hängt daran; das Create-Dragons-Plus-Blaze-Template hat keine sichtbare Quelle. Quest oder Rezept ändern? | `dev/decisions-while-away.md` (Zeile „Bekannte Lücken bleiben sichtbar“) | Felix |
+| Firmament-Kapitel (Entscheidung A): die neun Opfergaben erscheinen erst mit ihrer Age, „The First Spark“ und „Beyond the Firmament“ (neutrales Icon) sind von Anfang an sichtbar, als Anfang und Ende des Wegs. Soll auch „Beyond the Firmament“ verborgen bleiben, bis die Singularitätszeit anbricht? | `dev/gen_quests.py` `build_firmament` | Felix |
 
 ## Im Client prüfen (Felix)
 
@@ -27,6 +28,8 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Blutmond erst ab `mob_2`: `/ec lunarForecast` vor und nach der Eisenzeit | `kubejs/server_scripts/firmages/blood_moon.js` | Felix |
 | Industriezeit-Quest „The Thresher“ schließt beim Blick auf einen geformten Thresher ab; Loot-Crate-Opener und Task-Screen-Konfigurator fehlen in EMI | Questbuch, EMI | Felix |
 | IE-Handbuch-Vorschau von Mahlwerk, Webstuhl, Lichtbogenofen, Schaufelrad, Bagger, Koker und Pumpjack zeigt den TFC-Stahlblock | IE-Handbuch | Felix |
+| Chronicle 0.9.3: Firmament-Kapitel deckt pro Age auf, Linien um „Into The Origin“ in der Singularitätszeit, Ring-Quests Bronze/Eisen, Stage-Namen in „Opens with …“ (als OP). Eine Welt, die „A Weird Rock“ schon abgeschlossen hat, behält nur einen verwaisten Fortschrittseintrag | `dev/client-test-brief.md` (0.9.3) | Felix |
+| Backup zurückspielen nach `server/README-SERVERPACK.md` (vier Schritte) einmal echt durchspielen; bisher nur die Zip-Struktur geprüft | Test-Server | Felix oder Claude auf einer Kopie |
 | Endkampf: Länge des Kampfs gegen The Primordial (1024 Leben, Cataclysm-Schadensdeckel) mit Chaos-Ausrüstung | The Origin | Felix |
 | Neue Sperrtexte (0.9.0): gesperrtes Item zeigt „Something Unknown“ und eine graue Zeile „Not of this Age“, Hotbar-Zeile „… Their Age has not come.“, keine Fehler im Log | `config/progressivestages/progressivestages.toml` `[messages]` | Felix |
 | Startzeit-Test: `mixin.perf.dynamic_resources=true` in `config/modernfix-mixins.properties`, Client starten, Create-Kontraption, Framed-Blöcke und ein Sable-Schiff ansehen; Startphasen vorher/nachher mit `python dev/check_log.py --client` (0.9.0: 64 s erstes Resource-Reload, 128 s bis zum Titelbild) | `config/modernfix-mixins.properties` | Felix testet, Claude wertet aus |
@@ -50,7 +53,8 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Questbuch: Automatisierungsnachweise per Task-Screen (`task_screen_only`) statt Mengen | `dev/gen_quests.py` | Claude |
 | „Data Model: Tier 3“ nimmt jedes Datenmodell (die Stufe ist eine Komponente, die eine Item-Aufgabe nicht liest) | `dev/gen_quests.py` | Claude |
 | Planungsdokumente: `08-Ages-Design.md` bekommt „§0 Stand 0.8“ (Abweichungen seit v3), `10-Modliste.md` aus `mods/*.pw.toml` erzeugen (`dev/cf/gen_credits.py --modlist`) | `../Modpack-Planung/docs/` | Claude |
-| Stage-Anzeigenamen `display_name = "Age N: …"` (nur Operatoren sehen sie) an die Age-Namen ohne Nummer angleichen | `config/progressivestages/stages/age_*.toml` | Claude |
+| Helfer-Items (Tom's Storage-Terminal, Alloy Kiln, Kondensatoren, Mechanical Spawner) verlieren ihr Bau-Rezept ab einer späteren Age wieder; Nicht-Operatoren lesen dann „Its making belongs to a later Age“, obwohl das Item abgelöst ist, nicht noch kommt | `config/progressivestages/stages/tool_*.toml`, `progressivestages.toml` `[messages]` | Claude |
+| Walkthrough, Fallstrick der Weltraumzeit, nennt Naquadah der Singularitätszeit (Vorwärtsname; die Quests sind bereinigt, der Walkthrough deckt alle Ages ab) | `docs/WALKTHROUGH.md` | Claude |
 | `Modpack-Planung/docs/12-Walkthrough.md` doppelt `docs/WALKTHROUGH.md`: auf einen Verweis kürzen | `../Modpack-Planung/docs/` | Claude |
 | Java-Fallback-Texte der Mod stimmen nicht mehr mit der Lang-Datei überein („The world realigns...“, „No shrine heart is placed“) | `FirmagesClient.java`, `ReloadStatePayload.java`, `ShrineCommands.java` | Claude (mit der nächsten firmages-core-Version) |
 
@@ -66,8 +70,8 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Flüssigkeits-Tags `age_fluids/<stage>` (SPEC §2.1) werden nicht erzeugt | `dev/gen_stage_locks.py` | Claude |
 | Reload-Zeiten auf einem leeren Rechner neu messen (`firmages reload` dreimal bei age_9) | Test-Server | Claude |
 | Mekanism-Strahlung, Fusions- und Reaktor-Balance (Dok. 10 v3 §7.4 nur für DE gesetzt) | Configs | Claude |
-| `/fa_dump` hält den Server-Thread 3,4 bis 4 s an („Can't keep up“ im Log, Boot N4); nur das Debug-Werkzeug, kein Spielweg. Darum lief die Log-Prüfung N4 auf einem Boot ohne Dump. Falls störend: Dump in Teilen pro Tick schreiben | `kubejs/server_scripts/debug/dump.js` | Claude |
-| `/firmages selftest all` hält den Server-Thread etwa 2,1 s an („Can't keep up! … 2149ms“, N5-Kopie, Runde 2); wie `/fa_dump` nur ein Debug-Befehl. Die Log-Prüfung N5 lief darum auf Boots ohne Selbsttest und Dump (Runden 3 und 4: 0 übrig) | `command/SelfTest*`, `dev/poc-results.md` („0.9.2 round N5“) | Claude, falls es stört |
+| `/fa_dump` hält den Server-Thread 3,4 bis 4 s an („Can't keep up“ im Log, Boot N4; N6-Dump-Boot 3,3 s); nur das Debug-Werkzeug, kein Spielweg. Darum lief die Log-Prüfung N4 auf einem Boot ohne Dump. Falls störend: Dump in Teilen pro Tick schreiben | `kubejs/server_scripts/debug/dump.js` | Claude |
+| `/firmages selftest all` hält den Server-Thread etwa 2,1 s an („Can't keep up! … 2149ms“, N5-Kopie, Runde 2); wie `/fa_dump` nur ein Debug-Befehl. Die Log-Prüfung N5 lief darum auf Boots ohne Selbsttest und Dump (Runden 3 und 4: 0 übrig). N6-Boot 1 mit `selftest all`: kein „Can't keep up“, 0 übrig; der Ruckler kommt also nicht bei jedem Lauf | `command/SelfTest*`, `dev/poc-results.md` („0.9.2 round N5“) | Claude, falls es stört |
 | JEI schreibt pro Start sechs ERROR-Zeilen „Found a broken recipe“ für die Chemixer- und APT-Rezepte (JEI baut seine Kategorien trotz EMI); EMI zeigt sie seit firmages-core 0.9.2 über eigene Kategorien. Im Client-Log Rauschen (`client_log_noise.json`) | Evolved Mekanism, JEI | Mod-Autor; Claude nur, wenn mehr als sechs Zeilen kommen |
 | Moonlight 3.7.2 hält beim Stop 15 Nicht-Daemon-Threads seines Dynamic-Pack-Pools offen; AllTheLeaks meldet „server is stuck while trying to close“, die JVM endet trotzdem mit Exit 0 (Runden 3 und 4). Rauschen in `log_noise.json` | Moonlight | Mod-Autor |
 | Erster Login nach dem Start: 6 s Ruckler („Can't keep up! … 6095ms“, Live-Sitzung 0.9.0, 13:41); mit spark messen, was beim Login läuft (Modonomicon-Bücher, IE-Trankrezepte, ProgressiveStages-Sync, firmages-core) | Test-Server | Claude |
@@ -77,6 +81,10 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 
 | Was | Beleg |
 |---|---|
+| Kupferweg im Chronicle führte in eine Sackgasse (Erz im Feuerplatz) | 0.9.3 (n6/text): Erz im Gefäß im Grubenofen, Gießen erklärt; Werte im TFC-4.2.11-Jar geprüft (Kupfer 1080 °C, Feuerplatz höchstens 1000 °C, Grubenofen 1400 °C) |
+| Stage-Anzeigenamen mit „Age N:“ und Modnamen | 0.9.3 (n6/data): „Stone Age“ bis „Singularity Age“, „Nights of the X Age“, Helfer ohne Modnamen; Boot N6: Stage-Dateien laden, `check_log` 0 übrig |
+| „1 things fall“ (ProgressiveStages ohne Pluralform) | 0.9.3: `items_dropped` und `items_moved_hotbar` ohne `{count}` |
+| Doppelte Gathering-Zeile in The Origin | 0.9.3: `the_primordial.js` sendet keine eigene Zeile mehr, nur firmages-core |
 | Evolved Mekanism: Chemixer- und APT-Rezepte fehlten in EMI | firmages-core 0.9.2 `compat/emi/EvolvedMekanismEmi` (SPEC §21.12), `gradlew build` grün; im Client noch anzusehen (Testbrief 0.9.2, Punkt 8) |
 | EMI-Audit schrieb bei jedem Reload WARN | firmages-core 0.9.2 zählt den angezeigten Index (`EmiStackList.filteredStacks`); INFO ohne Treffer (SPEC §21.4) |
 | Neun Configs wurden beim ersten Start „korrigiert“ | Dateien so, wie NeoForge sie schreibt, ohne Pack-Kommentare; N5-Kopie Runde 2: keine „is not correct“-Zeile mehr |

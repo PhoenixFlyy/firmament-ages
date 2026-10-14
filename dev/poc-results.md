@@ -2904,3 +2904,33 @@ grant`). The copy is deleted.
 - `/firmages selftest all` stalls the server thread about 2.1 s (round 2), like `/fa_dump`; both debug commands.
 - JEI still logs its six broken Evolved Mekanism recipes (EMI shows them through firmages-core); Moonlight's pool at
   stop. Both upstream, both documented as noise.
+
+## 0.9.3 round N6 (2026-10-14)
+
+`--no-ff` merges of n6/text (Chronicle corrections from the third player's-eye review) and n6/data (stage names,
+drop messages, server README, one Gathering line). Conflicts only in `dev/decisions-while-away.md` (both row sets
+kept) and `server/README-SERVERPACK.md` (the trimmed host table "Operator commands" of n6/data kept; the walkthrough
+points there). No Java or lang change, so firmages-core stays 0.9.2 (no gradle build). Felix's test server stayed
+untouched and running; both boots ran on a copy (`robocopy` without world, logs and local; ports 25566 and RCON
+25576, whitelist off; synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve -p 8092`, quest
+folder deleted first, "Finished successfully"). The default 8 GB heap could not be committed next to the live server
+and client (Windows page file, errno 1455), so both boots ran with `-Xms3G -Xmx6G`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gen_quests.py` after the merges | reproduces the merged chapters and `en_us.snbt` byte for byte (13 chapters, 21 reward tables, 896 lang keys) | pass |
+| `validate_quests.py --style` | 1301 object ids, 0 errors, 0 warnings (jar lookups on) | pass |
+| `release.ps1 -Version 0.9.3 -SkipServerPack` | `pack.toml` and title line 0.9.3, index refreshed; mrpack 519.0 MB, CurseForge zip 43.5 MB; `gen_credits.py` 216 mods, `md2html.py` | pass |
+| Boot 1 (new world, `selftest all`, `firmages ages`, `origin status`, hold 180 s) | Done after 91.4 s from the first log line; FTB Quests "13 chapters, 351 quests, 21 reward tables"; `selftest all` 55 passed, 0 failed; no `Can't keep up` this time; `check_log.py` FATAL 0, 217 documented noise, **0 remaining, exit 0** | pass |
+| Boot 2 (new world, `firmages ages simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | the round N5 dump was gone with its copy and Felix's server held only a pre-N5 dump (`poc_analyze` on it: 1 FAIL, `derive_ages --check` out of date), so a fresh dump; 35,521 recipes, 0 not encodable; `check_log` 1 left: `/fa_dump`'s `Can't keep up` (3.3 s, known debug stall) | pass (debug stall open) |
+| `poc_analyze.py` on the boot 2 dump | 88 PASS, 0 FAIL; E-1 no recipe type shown before its station's Age, no shown input with a locked item | pass |
+| `derive_ages.py --check`, `gen_stage_locks.py --registry <dump> --check` on the boot 2 dump | both up to date; `registry.json` content unchanged (only its source path, reverted) | pass |
+| `check_menus.py`, `gen_textures.py --check`, `gen_way_sign_textures.py --check`, `gen_multiblock_templates.py --check`, `gen_recipe_overrides.py --check`, `gen_loot_silence.py --check` | menus pass (memory line fits 168x16); 99 textures; 34 way sign icons; templates up to date; 538 and 480 overrides 0 problems | pass |
+
+### Open points
+
+- In the client (brief 0.9.3): the Firmament chapter revealing each offering with its Age, the lines around "Into The
+  Origin", the Bronze and Iron ring quests, the new stage names in "Opens with" (operators), the drop message.
+- A backup restore after the server README's four steps has not been played through.
+- Retired helper items read "Its making belongs to a later Age" for non-operators; the walkthrough's Space Age
+  pitfall still names naquadah.

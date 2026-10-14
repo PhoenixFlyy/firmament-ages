@@ -1,5 +1,28 @@
 # Client-Test
 
+## 0.9.3 Nachtrag (Runde N6 2026-10-14, Pack 0.9.3, firmages-core 0.9.2)
+
+Nur Texte, Quests, Stage-Configs und ein Skript; firmages-core bleibt 0.9.2. Server-Teil geprüft auf einer Kopie des
+Test-Servers mit neuer Welt (`dev/poc-results.md`, Abschnitt „0.9.3 round N6“): Log ohne offene Zeile, `selftest all`
+55 von 55, 351 Quests geladen, alle Dump-Prüfungen grün. Test-Server und Client-Profil auf 0.9.3 bringen.
+
+1. **Kupferweg.** Steinzeit: „Small Vessel“ sagt, dass Erz im kleinen Gefäß im Grubenofen schmilzt (nie im
+   Feuerplatz); „Copper Ingot“ erklärt das Gießen (glühendes Gefäß rechtsklicken, Form in den Slot, abgekühlte Form
+   rechtsklicken). Einmal nach dem Text durchspielen: Kommst Du nur mit den Quests zum Kupferbarren?
+2. **Geräte.** „Potter“ (Grubenofen, V setzt die Teile), „A Better Fuel“ (Kohlenmeiler), „Forging“
+   (Holzkohleschmiede) und die neue Notiz „Anvil Work“ neben „Working Heat“: Stimmen die Schritte im Spiel?
+3. **Welcome to the Wild** nennt Strg als Schleichtaste und Shift als Sprint.
+4. **Ring-Quests.** Bronze- und Eisenzeit haben je eine Raute „Raise the Bronze Sanctum“ / „Raise the Iron Sanctum“;
+   kein Ring-Untertitel sagt mehr „optional“.
+5. **Firmament-Kapitel.** Am Anfang nur „The First Spark“ und „Beyond the Firmament“; jede Opfergabe erscheint, wenn
+   ihre Age anbricht (mit `/stage grant @s age_N` nacheinander prüfen). „A Weird Rock“ ist weg.
+6. **Singularitätszeit.** „Into The Origin“ liegt als Pflichtschritt zwischen Tor-Keystone und Ziel: Sehen die
+   Verbindungslinien sauber aus? „Antimatter Pellets“ fordert 2.
+7. **Meldungen.** Fällt ein Item einer späteren Age aus dem Inventar: „What is not of this Age falls from your pack.“
+   ohne Zahl. Beim Gathering in The Origin kommt nur eine Zeile („… Something wakes in the dark.“), nicht zwei.
+8. **Stage-Namen** (als OP): „Opens with …“-Tooltips, `/stage list` und `/stage info` zeigen „Stone Age“, „Nights of
+   the Bronze Age“, „Storage Terminal“ usw., ohne Nummern und Modnamen.
+
 ## 0.9.2 Nachtrag (Runde N5 2026-10-14, Pack 0.9.2, firmages-core 0.9.2)
 
 Drei Arbeitspakete (Client-Log, Mods und Ladebildschirm, firmages-core) plus die Review-Korrekturen aus 0.9.1.
