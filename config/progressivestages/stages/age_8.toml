@@ -8,7 +8,6 @@ id = "age_8"
 display_name = "Age 8: Quantum Age"
 description = "Fusion, antimatter and the inner planets."
 icon = "minecraft:end_crystal"
-unlock_message = "&6&lAge 8: Quantum Age &r&7- a new chapter opens."
 dependency = "age_7"
 category = "Ages"
 tags = ["age"]

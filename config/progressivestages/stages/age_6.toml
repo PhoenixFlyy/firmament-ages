@@ -6,9 +6,8 @@
 [stage]
 id = "age_6"
 display_name = "Age 6: Information Age"
-description = "Mekanism, AE2 and the End."
+description = "Ore tripled, one network, the End."
 icon = "minecraft:comparator"
-unlock_message = "&6&lAge 6: Information Age &r&7- a new chapter opens."
 dependency = "age_5"
 category = "Ages"
 tags = ["age"]

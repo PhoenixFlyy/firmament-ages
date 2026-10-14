@@ -1,5 +1,5 @@
 {
-  "firmages.reload.running": "The world realigns...",
+  "firmages.reload.running": "The sky shifts. Hold still.",
   "firmages.reload.failed": "[Firmament Ages] Age reload failed, see the server log.",
   "firmages.age.revoked.warning": "[Firmament Ages] Age revoked: restart the server to clear in-progress items",
   "firmages.warn.misconfigured": "[Firmament Ages] All firmages:age_* tags are empty: the Age gate cannot lock anything.",
@@ -123,7 +123,7 @@
   "firmages.shrine.rite.relic_returned": "A lent relic (%s) must rest on its plinth again.",
   "firmages.shrine.rite.capacitors": "Charge the four capacitors of the crown with %s FE together (now %s FE).",
   "firmages.shrine.rite.energy": "The ring needs %s FE in its storage blocks (now %s FE).",
-  "firmages.shrine.cmd.no_heart": "No shrine heart is placed, or its chunk is not loaded.",
+  "firmages.shrine.cmd.no_heart": "No Shrine Heart is placed, or its chunk is not loaded.",
 
   "subtitles.firmages.shrine.sting": "Caelum answers",
   "subtitles.firmages.shrine.choir": "The sky sings",
@@ -134,7 +134,7 @@
   "block.firmages.reactor_controller": "Reactor Controller",
   "block.firmages.origin_altar": "Altar of the Origin",
   "solar_system.firmages.origin": "The Origin",
-  "firmages.origin.gathering": "The altar answers: all of you stand before it. Something vast wakes in the dark.",
+  "firmages.origin.gathering": "The altar answers: all of you stand before it. Something wakes in the dark.",
   "firmages.origin.locked": "The Origin does not open for you yet: only the Singularity Age leads there.",
   "firmages.jade.heart.awakened": "Awakened tiers: %s of 9",
   "firmages.jade.heart.ready": "The next ring stands",
@@ -151,7 +151,7 @@
   "firmages.age.finale_won.title": "Beyond the Firmament",
   "firmages.shrine.voice.finale_won": "The first light is yours now. No sky stands above you any more.",
   "firmages.finale.trophies.name": "Trophies",
-  "firmages.finale.trophies.description": "MekaSuit and Meka-Tool are unlocked",
+  "firmages.finale.trophies.description": "The MekaSuit and the Meka-Tool can now be made.",
 
   "block.firmages.consecrated_stone": "Consecrated Stone",
   "block.firmages.consecrated_brick": "Consecrated Brick",
@@ -197,11 +197,11 @@
   "firmages.welcome.title": "Firmament Ages",
   "firmages.welcome.subtitle": "The sky remembers. Kindle the first spark.",
   "firmages.welcome.ages.heading": "The Ages",
-  "firmages.welcome.ages.text": "The world begins in Dawn, before fire and tools. Every Age after it is earned at the Shrine: raise it, lay your Age's offering upon it, and pray. When the sky answers, a new Age begins for all of you.",
-  "firmages.welcome.path.heading": "Your Path",
-  "firmages.welcome.path.text": "Press %s to see your path: what this Age asks of you, and what you have already done. Whenever you wonder what comes next, look there.",
+  "firmages.welcome.ages.text": "The world begins in Dawn, before fire and tools. Every Age after it is earned at the shrine: raise it, lay the Age's offering on it and pray. When the sky answers, a new Age begins for all of you.",
+  "firmages.welcome.path.heading": "The Chronicle",
+  "firmages.welcome.path.text": "Press %s to open the Chronicle: what this Age asks of you, and what you have done.",
   "firmages.welcome.caelum.heading": "Caelum Watches",
-  "firmages.welcome.caelum.text": "Above the firmament, Caelum watches and remembers. It speaks seldom, and only at the Shrine. Give it a reason to notice you.",
-  "firmages.welcome.open": "Show my path (%s)",
+  "firmages.welcome.caelum.text": "Caelum is the sky above you. It watches, remembers, and speaks only at the shrine.",
+  "firmages.welcome.open": "Open the Chronicle (%s)",
   "firmages.welcome.close": "Into the world"
 }

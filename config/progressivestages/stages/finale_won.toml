@@ -8,7 +8,6 @@ id = "finale_won"
 display_name = "Beyond the Firmament"
 description = "The Primordial has fallen. Trophies await."
 icon = "minecraft:dragon_egg"
-unlock_message = "&d&lThe Firmament is yours. &r&7Trophies unlocked."
 dependency = "age_9"
 category = "Ages"
 tags = ["finale"]

@@ -4,17 +4,17 @@
 // until they exist the game shows the missing-texture checkerboard.
 // POC: check that KubeJS 2101 accepts ids with a sub path (firmages:dust/zinc, Doc 10 v3 section 8.1 naming).
 
-// Tooltip line of every signature item: its Age and where it goes. client_scripts/item_tooltips.js shows them.
+// Tooltip line of every signature item: the Age it is offered for and where it goes. client_scripts/item_tooltips.js shows them.
 global.FA_SIGNATURE_TOOLTIPS = {
-  'firmages:hearthstone': 'Signature item of the Stone Age. Offer it at the shrine.',
-  'firmages:sky_disc': 'Signature item of the Bronze Age. Offer it at the shrine.',
-  'firmages:steel_heart': 'Signature item of the Iron Age. Offer it at the shrine.',
-  'firmages:arcane_keystone': 'Signature item of the Arcane Age. Offer it at the shrine.',
-  'firmages:pressure_core': 'Signature item of the Industrial Age. Offer it at the shrine.',
-  'firmages:humming_core': 'Signature item of the Electric Age. Offer it at the shrine.',
-  'firmages:data_matrix': 'Signature item of the Information Age. Offer it at the shrine.',
-  'firmages:star_chart': 'Signature item of the Space Age. Offer it at the shrine.',
-  'firmages:quantum_core': 'Signature item of the Quantum Age. Offer it at the shrine.',
+  'firmages:hearthstone': 'The offering of the Stone Age. Lay it on the shrine.',
+  'firmages:sky_disc': 'The offering of the Bronze Age. Lay it on the shrine.',
+  'firmages:steel_heart': 'The offering of the Iron Age. Lay it on the shrine.',
+  'firmages:arcane_keystone': 'The offering of the Arcane Age. Lay it on the shrine.',
+  'firmages:pressure_core': 'The offering of the Industrial Age. Lay it on the shrine.',
+  'firmages:humming_core': 'The offering of the Electric Age. Lay it on the shrine.',
+  'firmages:data_matrix': 'The offering of the Information Age. Lay it on the shrine.',
+  'firmages:star_chart': 'The offering of the Space Age. Lay it on the shrine.',
+  'firmages:quantum_core': 'The offering of the Quantum Age. Lay it on the shrine.',
   'firmages:awakened_keystone': 'The Arcane Keystone, awakened by a Marid. It belongs in the Ultimate Singularity.',
   'firmages:ultimate_singularity': 'All nine Ages in one. It goes into the base block of the Stargate.',
   // The dial address of The Origin. firmages-core registers its Space Location with this galactic address of the

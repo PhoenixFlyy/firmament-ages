@@ -9,8 +9,8 @@ ItemEvents.modifyTooltips((event) => {
   Object.keys(sigils).forEach((id) => {
     const s = sigils[id]
     event.add(id, [
-      Text.gray(`Use it on a block to open the ${s.gateName}, a Gateway of stand-ins for ${s.boss}.`),
-      Text.gray(`Clear every wave and the Gateway gives ${s.reward}.`)
+      Text.gray(`Use it on open ground to open the ${s.gateName}.`),
+      Text.gray(`Its waves stand for ${s.boss}. Clear them for ${s.reward}.`)
     ])
   })
 })
