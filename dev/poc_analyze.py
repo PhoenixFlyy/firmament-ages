@@ -19,6 +19,9 @@ kubejs/server_scripts/recipes/byproducts.js strips it; G-4 compares the recipe t
 <server>/logs/firmages-recipe-audit.txt with dev/data/accepted_undetected.json.
 The ProgressiveStages recipe locks stay in the pack as a second layer; the A- and C- checks read them and need the
 whole recipe set, so they run only on a dump where dawn to age_9 are unlocked (after "firmages ages simulate grant").
+E-1 (same dump) rebuilds what EMI shows at each Age from the Bronze Age on: the gate mirror of G-1 and G-2, the
+ProgressiveStages recipe locks and the firmages-core EMI predicate. It lists recipe types shown before their station's
+Age and shown recipes whose input lists a locked item.
 
 Usage:  python dev/poc_analyze.py [--server-dir test-server] [--dump-dir DIR] [--baseline DIR] [--show 40]
 Exit code: 0 = all checks pass, 1 = at least one FAIL.
@@ -226,6 +229,7 @@ def main():
                 "c:nuggets/copper"):
         print(f"    {tag}: {tags.get(tag)}")
 
+    emi_checks(base, rows, tags, item_age, check)
     content_checks(base, a.server_dir, rows, by_id, tags, item_age, check)
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -948,6 +952,161 @@ def recipe_records(full, tags, disabled):
         tid = trans.get("id") if isinstance(trans, dict) else None
         return [x for x in sl if not (tid and ("item", tid) in x)]  # Create sequenced assembly loops on its own item
     return [(rid, slots_of(j), outs_with_tags(j)) for rid, j in full.items()]
+
+
+# ================================================================================================ recipe viewer (E-1)
+EMI_FROM_AGE = "age_1"  # firmages-core ServerConfig ui.emiFromAge default: EMI is off before it (ImmersionClient)
+AGE_NAMESPACES = os.path.join(REPO, "kubejs", "assets", "firmages", "age_namespaces.json")
+CONSTANTS_JS = os.path.join(REPO, "kubejs", "startup_scripts", "00_constants.js")
+# Workstations of recipe types that station_ages.js leaves to the Age of their mod: one item of each group has to
+# exist. A sequenced assembly needs the station of each of its steps.
+EMI_STATIONS = {
+    "create:pressing": [["create:mechanical_press"]], "create:cutting": [["create:mechanical_saw"]],
+    "create:milling": [["create:millstone"]], "create:splashing": [["create:encased_fan"]],
+    "create:mixing": [["create:mechanical_mixer"], ["create:basin"]],
+    "create:compacting": [["create:mechanical_press"], ["create:basin"]],
+    "create:mechanical_crafting": [["create:mechanical_crafter"]],
+    "create:sandpaper_polishing": [["create:sand_paper", "create:red_sand_paper"]],
+    # a fan blowing through soul fire: soul sand or soul soil (the Beneath) under fire, or a soul campfire
+    "create:haunting": [["create:encased_fan"], ["minecraft:soul_sand", "minecraft:soul_soil", "minecraft:soul_campfire"]],
+}
+
+
+def _fluid_ins(o, out):
+    """Fluid ids a recipe JSON consumes ({"fluid": id, "amount": n} outside the output keys)."""
+    if isinstance(o, dict):
+        if isinstance(o.get("fluid"), str) and "amount" in o:
+            out.add(o["fluid"])
+            return out
+        for k, v in o.items():
+            if k in RESULT_KEYS or _GATE_OUT_KEY.match(k.lower()):
+                continue
+            _fluid_ins(v, out)
+    elif isinstance(o, list):
+        for v in o:
+            _fluid_ins(v, out)
+    return out
+
+
+def emi_checks(base, rows, tags, item_age, check):
+    """E-1: what EMI shows at each Age from EMI_FROM_AGE on, rebuilt from the all-Ages dump. A recipe is shown when
+    (1) the firmages-core gate keeps it: no output of a later Age (G-1), its type's station Age (station_ages.js),
+    Create heat and the late pack recipes unlocked (G-2); (2) ProgressiveStages does not hide it: every stage of its
+    recipe, output and item locks is owned (Age stages; tool_* helper stages inside their HELPER_WINDOWS; finale_won
+    never); (3) the firmages-core EMI predicate keeps it: the mod of its category is unlocked (age_namespaces.json) and
+    no input is fully locked (an item or fluid of a later Age or disabled, a tag whose members all are; EMI drops a
+    recipe with a fully disabled ingredient). Offenders:
+      types   a shown recipe whose station (station_ages.js, EMI_STATIONS, STATION_ITEMS, the steps of a sequenced
+              assembly) belongs to a later Age
+      inputs  a shown recipe with an input that lists locked items next to unlocked ones as an item list (EMI drops
+              disabled members from tags, but an item list keeps them and shows the locked stack)"""
+    path = os.path.join(base, "recipes_full.json")
+    if not os.path.isfile(path):
+        check("E-0 recipes_full.json present (run fa_dump_full)", False, [path])
+        return
+    full = {k: json.loads(v) for k, v in json.load(open(path, encoding="utf-8")).items()}
+    fluid_age = load_fluid_ages()
+    ns_age = json.load(open(AGE_NAMESPACES, encoding="utf-8"))["namespaces"]
+    station_age = load_station_ages()
+    windows = {h: (a_, b_) for h, a_, b_ in re.findall(r"(tool_\w+): \['(age_\d)', (?:'(age_\d)'|null)\]",
+                                                       open(CONSTANTS_JS, encoding="utf-8").read())}
+    never = len(AGES)
+
+    def ix(st):
+        return AGES.index(st) if st in AGES else never
+
+    def item_ix(i):
+        st = item_age.get(i)
+        return ix(st) if st else ix(ns_age.get(i.split(":")[0], "dawn"))
+
+    def fluid_ix(f):
+        st = fluid_age.get(f)
+        return ix(st) if st else ix(ns_age.get(f.split(":")[0], "dawn"))
+
+    def heat_ix(t, j):
+        if t in HEAT_TYPES and isinstance(j.get("heat_requirement"), str):
+            srcs = [i for i in HEAT_STATION.get(j["heat_requirement"], ()) if item_age.get(i) != "disabled"]
+            if srcs:
+                return min(item_ix(i) for i in srcs)
+        return 0
+
+    def station_ix(t, j):
+        n = ix(station_age[t]) if t in station_age else 0
+        groups = EMI_STATIONS.get(t) or STATION_ITEMS.get(t) or []
+        n = max([n, heat_ix(t, j)] + [min(item_ix(i) for i in g) for g in groups])
+        if t == "create:sequenced_assembly":
+            n = max([n] + [station_ix(s.get("type", ""), s) for s in j.get("sequence", []) if isinstance(s, dict)])
+        return n
+
+    def stage_span(s):  # (first, last) Age index in which a lock stage is owned
+        s = s[len(PS):] if s.startswith(PS) else s
+        if s in AGES:
+            return ix(s), never
+        if s in windows:
+            a_, b_ = windows[s]
+            return ix(a_), (ix(b_) - 1 if b_ else never)
+        return never, never
+
+    recs = []
+    for r in rows:
+        rid, j = r["id"], full.get(r["id"]) or {}
+        jt = j.get("type", r["type"])
+        if r["type"] in GATE_EXEMPT:
+            continue
+        # (1) the gate: outputs, station types, heat, the late pack recipes
+        items, tg, fl = set(), set(), set()
+        _gate_outs(j, items, tg, fluids=fl)
+        for k in _GATE_IE_KEYS:
+            if j.get(k) is not None:
+                _gate_outs({"results": j[k]}, items, tg, fluids=fl)
+        if r["result"]:
+            items.add(r["result"])
+        first = max([item_ix(i) if i in item_age else max(item_ix(i), fluid_ix(i)) for i in items]
+                    + [fluid_ix(f) for f in fl]
+                    + [min(item_ix(m) for m in tags[t]) for t in tg if tags.get(t)] + [0])
+        gate = [ix(station_age[t]) for t in {r["type"], jt} if t in station_age]
+        gate += [heat_ix(r["type"], j)] + [ix(st) for rx, st in LATE_LOADED if re.match(rx, rid)]
+        first = max([first] + gate)
+        # (2) ProgressiveStages
+        last = never
+        for s in r["locks"]:
+            a_, b_ = stage_span(s)
+            first, last = max(first, a_), min(last, b_)
+        # (3) the EMI predicate: the category's mod, fully locked inputs
+        first = max(first, ix(ns_age.get(r["type"].split(":")[0], "dawn")))
+        lists = []
+        for slot in _slots(j, []):
+            alts = [(x, [item_ix(m) for m in tags.get(x, [])]) if k == "tag" else (x, [item_ix(x)])
+                    for k, x in slot if k in ("item", "tag")]
+            if not alts or any(not m for _, m in alts):
+                continue  # chemicals, empty or unknown tags: not judged
+            first = max(first, min(min(m) for _, m in alts))  # fully locked until its earliest member
+            if len(alts) > 1 and len(alts) == len(slot):
+                lists.append([(x, m) for (k, _), (x, mm) in zip(slot, alts) if k == "item" for m in mm])
+        for f in _fluid_ins(j, set()):
+            first = max(first, fluid_ix(f))
+        recs.append((rid, r["type"], first, last, station_ix(jt if jt in EMI_STATIONS or jt in STATION_ITEMS
+                                                              or jt in station_age else r["type"], j), lists))
+    early, mixed, shown = {}, {}, collections.Counter()
+    for n in range(ix(EMI_FROM_AGE), len(AGES)):
+        for rid, t, first, last, st, lists in recs:
+            if not first <= n <= last:
+                continue
+            shown[AGES[n]] += 1
+            if st > n:
+                early.setdefault((t, AGES[st] if st < never else "never"), {}).setdefault(AGES[n], []).append(rid)
+            bad = sorted({(x, AGES[m] if m < never else "disabled") for lst in lists for x, m in lst if m > n})
+            if bad:
+                mixed.setdefault(rid, [t, AGES[n], AGES[n], bad])[2] = AGES[n]
+    print("    E-1 shown recipes per Age: " + ", ".join(f"{k}={shown[k]}" for k in AGES if shown[k]))
+    ev = [f"{t} (station {st}) shown at " + ", ".join(f"{a_}: {len(i_)} e.g. {i_[0]}" for a_, i_ in per.items())
+          for (t, st), per in sorted(early.items())]
+    ev += [f"{rid} [{t}] {a_}..{b_}: lists " + ", ".join(f"{x} ({st})" for x, st in bad[:3])
+           for rid, (t, a_, b_, bad) in sorted(mixed.items(), key=lambda kv: (AGES.index(kv[1][1]), kv[0]))]
+    print(f"    E-1 offenders: {len(early)} recipe types shown before their station, {len(mixed)} recipes with a locked "
+          f"item in an input list")
+    check(f"E-1 recipe viewer leaks per Age ({EMI_FROM_AGE} to age_9): no recipe type shown before its station's Age, "
+          f"no shown input that lists a locked item", not ev, ev)
 
 
 def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
