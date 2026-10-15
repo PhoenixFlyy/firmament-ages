@@ -691,7 +691,7 @@ VANILLA_WORLD = ("feather egg bone string spider_eye rotten_flesh gunpowder slim
                  "redstone clay sugar_cane sugar paper glass white_wool brown_mushroom red_mushroom cactus dead_bush vine "
                  "lily_pad kelp crying_obsidian").split()
 MOB_DROPS = ["ars_nouveau:wilden_horn", "ars_nouveau:wilden_spike", "ars_nouveau:wilden_wing", "ars_nouveau:starbuncle_shards",
-             "ars_nouveau:wilden_tribute", "cataclysm:monstrous_horn",
+             "ars_nouveau:wilden_tribute",   # the optional Wilden Chimera; the Enchanting Apparatus makes it too
              "occultism:datura_seeds",   # pack loot modifier on TFC grass (kubejs/data/firmages/loot_modifiers)
              "occultism:tallow"]         # butcher knife on TFC animals (entity tags in tags/arcane_industrial.js)
 # World processes the recipe graph does not see: saplings grow into trees, crops ripen, ore blocks drop.
@@ -754,7 +754,7 @@ ARCANE_CHAIN = (
     "ars_nouveau:warp_scroll ars_nouveau:apprentice_spell_book ars_nouveau:ritual_brazier ars_nouveau:ritual_wilden_summon "
     "ars_nouveau:starbuncle_charm ars_nouveau:ritual_flight theurgy:pyromantic_brazier theurgy:calcination_oven "
     "theurgy:liquefaction_cauldron theurgy:distiller theurgy:incubator theurgy:mercury_catalyst theurgy:divination_rod_t1 "
-    "theurgy:sal_ammoniac_accumulator summoningrituals:altar firmages:arcane_keystone").split()
+    "theurgy:sal_ammoniac_accumulator firmages:arcane_keystone").split()
 
 
 _REGISTRY_ITEMS = None
@@ -858,7 +858,8 @@ def _slots(o, out, key=None):
             _slots(v, out, k)
     elif isinstance(o, list):
         if o and all(isinstance(v, dict) and ("item" in v or "tag" in v) for v in o) and key in (
-                "ingredient", "input", "base", "template", "addition", "reagent", "key", "sulfur", "salt", "mercury", "solute"):
+                "ingredient", "input", "base", "template", "addition", "reagent", "key", "sulfur", "salt", "mercury", "solute",
+                "basePredicate"):  # IE: a list under basePredicate is one slot with alternatives (paper or bamboo)
             out.append([("item", v["item"]) if "item" in v else ("tag", v["tag"]) for v in o])
             return out
         if o and all(isinstance(v, str) and ":" in v for v in o) and key in ("ingredient", "ingredients", "input", "inputs", "key"):
@@ -1170,6 +1171,10 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
                 if new:
                     have |= new
                     grew = True
+            for made, needs in MACHINE_MADE.items():
+                if made not in have and fits(made) and all(x in have for x in needs):
+                    have.add(made)
+                    grew = True
         return have
     ok = closure()
     ok3 = closure("age_3")
@@ -1190,16 +1195,25 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     # ---- C-3: Arcane Age ---------------------------------------------------------------------------------------
     ks = full.get("firmages:ritual/arcane_keystone", {})
     ks_ings = sorted(x for s in _slots(ks, []) for _, x in s)
-    want_ings = sorted(["occultism:book_of_binding_bound_djinni", "occultism:spirit_attuned_crystal", "occultism:iesnium_ingot", "firmages:boss_token/age_3",
-                        "theurgy:mercury_catalyst", "tfc:metal/ingot/steel", "ars_nouveau:source_gem_block"])
+    want_ings = sorted(["occultism:book_of_binding_bound_djinni", "occultism:spirit_attuned_crystal", "occultism:iesnium_ingot",
+                        "ars_nouveau:wilden_tribute", "theurgy:mercury_catalyst", "tfc:metal/ingot/steel",
+                        "ars_nouveau:source_gem_block"])
     ks_row = by_id.get("firmages:ritual/arcane_keystone", {})
-    check("C-3a Arcane Keystone: Djinni pentacle ritual from the three proofs, TFC steel and a source gem block; item age_3",
+    ks_tech = full.get("firmages:sequenced_assembly/arcane_keystone", {})
+    tribute = full.get("firmages:apparatus/wilden_tribute", {})
+    check("C-3a Arcane Keystone: tech route on the Create line from the age_3 token (Hollow Keystone), magic route in the "
+          "Djinni pentacle from the three proofs (Wilden Tribute from the Enchanting Apparatus), TFC steel and a source gem "
+          "block; item age_3",
           ks.get("type") == "occultism:ritual" and ks.get("pentacle_id") == "occultism:craft_djinni" and ks_ings == want_ings
           and item_age.get("firmages:arcane_keystone") == "age_3" and ks_row.get("item_lock") == PS + "age_3"
-          and tags.get("firmages:boss_token/age_3") == ["ars_nouveau:wilden_tribute"],
+          and ks_tech.get("type") == "create:sequenced_assembly"
+          and (ks_tech.get("ingredient") or {}).get("tag") == "firmages:age_token/age_3"
+          and tags.get("firmages:age_token/age_3") == ["firmages:hollow_keystone"]
+          and tribute.get("type") == "ars_nouveau:enchanting_apparatus",
           [f"type {ks.get('type')}, pentacle {ks.get('pentacle_id')}, ingredients {ks_ings}",
            f"item age {item_age.get('firmages:arcane_keystone')}, PS item lock {ks_row.get('item_lock')}",
-           f"boss_token/age_3 {tags.get('firmages:boss_token/age_3')}"])
+           f"tech route {ks_tech.get('type')} from {ks_tech.get('ingredient')}",
+           f"age_token/age_3 {tags.get('firmages:age_token/age_3')}, apparatus tribute {tribute.get('type')}"])
     missing = [c for c in ARCANE_CHAIN if c not in ok]
     check("C-3b Arcane strands (Spirits, Source, Alchemy), their stations and the Keystone are obtainable from TFC-world inputs",
           not missing, [f"not obtainable: {m}" for m in missing]
@@ -1231,17 +1245,16 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     pc = full.get("firmages:crafting/pressure_core", {})
     pc_ings = sorted(x for s in _slots(pc, []) for _, x in s)
     pc_want = sorted(["immersiveengineering:heavy_engineering", "c:double_sheets/black_steel", "firmages:arcane_gearbox",
-                      "firmages:boss_token/age_4"])
+                      "firmages:age_token/age_4"])
     pc_row = by_id.get("firmages:crafting/pressure_core", {})
-    check("C-4a Pressure Core: black steel double sheet, Heavy Engineering Block, Arcane Gearbox, Monstrosity token; age_4",
+    check("C-4a Pressure Core: black steel double sheet, Heavy Engineering Block, Arcane Gearbox, built-up steel cannon "
+          "chamber (age_4 token); age_4",
           pc_ings == pc_want and item_age.get("firmages:pressure_core") == "age_4"
           and pc_row.get("item_lock") == PS + "age_4" and item_age.get("firmages:arcane_gearbox") == "age_4"
-          and tags.get("firmages:boss_token/age_4") == ["cataclysm:monstrous_horn"]
-          and "firmages:altar/netherite_monstrosity" in full
+          and tags.get("firmages:age_token/age_4") == ["createbigcannons:built_up_steel_cannon_chamber"]
           and "firmages:arcane_gearbox" in json.dumps(full.get("firmages:crafting/blastbrick_reinforced", {})),
           [f"ingredients {pc_ings}", f"item age {item_age.get('firmages:pressure_core')}, lock {pc_row.get('item_lock')}",
-           f"boss_token/age_4 {tags.get('firmages:boss_token/age_4')}",
-           f"altar ritual present: {'firmages:altar/netherite_monstrosity' in full}"])
+           f"age_token/age_4 {tags.get('firmages:age_token/age_4')}"])
     pc_missing = [i for i in INDUSTRIAL_CHAIN if i not in ok4]
     check("C-4b Industrial Age stations, power, package tier and the Pressure Core are reachable with items of age_4 or earlier",
           not pc_missing, [f"not reachable: {m}{' (only with later items)' if m in ok else ''}" for m in pc_missing])
@@ -1347,7 +1360,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         chains = []
         for rid, sl, os_ in recs:
             outs = [o for o in os_ if o in gear and item_age.get(o) == age]
-            if not outs or rid.startswith("cataclysm:weapon_infusion/"):
+            if not outs:
                 continue
             for s in sl:
                 alts = members(s)
@@ -1513,7 +1526,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     map_start = src3.index("const MAP = {")
     map_block = src3[map_start:src3.index(chr(10) + "  }" + chr(10), map_start)]
     map_keys = set(re.findall(r"^\s*'([a-z0-9_]+:[a-z0-9_/]+)':", map_block, re.M))
-    magic_ns = ("occultism:", "ars_nouveau:", "ars_additions:", "ars_creo:", "theurgy:", "occultengineering:", "summoningrituals:")
+    magic_ns = ("occultism:", "ars_nouveau:", "ars_additions:", "ars_creo:", "theurgy:", "occultengineering:")
     magic_left = sorted(f"{r}: {sorted(set(m) & map_keys)}" for r, m in
                         ((r, re.findall(r'"item": "([a-z0-9_]+:[a-z0-9_/]+)"', inputs_text(j))) for r, j in full.items()
                          if r.startswith(magic_ns)) if set(m) & map_keys)
@@ -1631,13 +1644,6 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           and len([b for b in placed if b.startswith("firmages:ore/prosperity/")]) == 13,
           ma_bad + [f"MA worldgen on: {ma_gen_on}"] * bool(ma_gen_on) + [f"placed blocks {len(placed)}"])
 
-    # ---- C-W: Mowzie's Mobs boss drops -------------------------------------------------------------------------
-    mow = {"mowziesmobs:ice_crystal": "age_4", "mowziesmobs:music_disc_petiole": "age_4", "mowziesmobs:sculptor_staff": "age_5",
-           "mowziesmobs:earthrend_gauntlet": "age_5", "mowziesmobs:bluff_rod": "age_5", "mowziesmobs:geomancer_beads": "age_5",
-           "mowziesmobs:geomancer_belt": "age_5", "mowziesmobs:geomancer_robe": "age_5", "mowziesmobs:geomancer_sandals": "age_5"}
-    wrong_age = [f"{i}: {item_age.get(i)} != {st}" for i, st in mow.items() if item_age.get(i) != st]
-    check("C-W Mowzie structure-boss drops follow the mob stage of their boss (Frostmaw age_4, Sculptor age_5)", not wrong_age, wrong_age)
-
     reach_checks(full, recs, items, tags, item_age, check, server_dir)
 
 
@@ -1659,15 +1665,15 @@ VANILLA_BY_AGE = {
     "age_5": "wither_skeleton_skull",                                    # mob_5
     "age_6": "end_stone chorus_fruit chorus_flower shulker_shell purpur_block elytra dragon_head",  # the End (age_6 boss)
 }
-BOSS_DROPS = {"age_2": ["twilightforest:naga_scale", "twilightforest:naga_trophy", "twilightforest:lich_trophy",
-                       "tfcreate:unpolished_quartz"],  # and the drop of the TFCreate quartz vein (ore family, age_2)
-              # boss tokens of kubejs/server_scripts/tags/late_ages.js (Doc 08 section 5.1)
-              "age_5": ["minecraft:nether_star"],                           # The Wither
-              "age_6": ["minecraft:dragon_breath", "minecraft:dragon_egg",  # Ender Dragon; DE adds its heart to the dragon loot
-                        "draconicevolution:dragon_heart"],
-              "age_7": ["cataclysm:witherite_block"],                       # The Harbinger
-              "age_8": ["cataclysm:abyssal_egg"],                           # The Leviathan
-              "age_9": ["draconicevolution:chaos_shard"]}                   # Chaos Guardian
+# What a team brings home without a recipe besides the world and the mob ladder: the drop of the TFCreate quartz vein
+# (ore family, age_2) and the expedition items of the Age tokens (dev/decisions-while-away.md, 2026-10-14): the Frontier
+# Shard of the Cold Forge chest (Dawn on, the Iron Age token is made from it), the Hollow Keystone of the Nether
+# fortress chests and the flight recorder of the Mars temple (loot modifiers). No boss drop: the Wither, the Ender
+# Dragon, the Wilden Chimera and the Chaos Guardian are optional, so every goal closes without them.
+EXPEDITION_DROPS = {"dawn": ["firmages:frontier_shard"],
+                    "age_2": ["tfcreate:unpolished_quartz"],
+                    "age_3": ["firmages:hollow_keystone"],
+                    "age_7": ["firmages:flight_recorder"]}
 # What the rockets of the Space and Quantum Age reach without a recipe (Ad Astra planets: stone, sand, ore drops,
 # Moon cheese) and the draconium ore of the End (DE, dust drop). Regexes over the registry, per Age.
 LATE_WORLD = {"age_7": [r"^ad_astra:(moon|mars)_(stone|cobblestone|sand|deepslate)$", r"^ad_astra:(raw_desh|raw_ostrum|cheese)$",
@@ -1699,9 +1705,23 @@ STATION_ITEMS.update({
     "sgjourney:naquadah_heavy_liquidizing": [["sgjourney:heavy_naquadah_liquidizer"]],
 })
 FUSION_INJECTOR = {"draconium": "basic", "wyvern": "wyvern", "draconic": "awakened", "chaotic": "chaotic"}
-# Chemicals a multiblock makes without a recipe: the fission reactor burns fissile fuel into nuclear waste, the SPS
-# turns polonium into antimatter. Each needs all listed items or chemicals.
-MACHINE_MADE = {"mekanism:nuclear_waste": ["mekanism:fissile_fuel", "mekanismgenerators:fission_reactor_casing",
+# What a machine or multiblock makes without a recipe JSON: the fission reactor burns fissile fuel into nuclear waste,
+# the SPS turns polonium into antimatter, the AE2 Matter Condenser compresses anything into matter balls and the
+# singularity (age_6 token), Create Big Cannons casts and bores the four steel layers and stacks and heats them into the
+# built-up steel chamber (block recipes; age_4 token), the Draconic reactor hands its converted fuel out as chaos fragments (DE ReactorMenu; age_9 token).
+# Each needs all listed items or chemicals.
+CBC_CHAMBER = ["tfc:metal/ingot/steel", "create:basin", "createbigcannons:very_small_cast_mould",
+               "createbigcannons:small_cast_mould", "createbigcannons:medium_cast_mould", "createbigcannons:large_cast_mould",
+               "createbigcannons:cannon_drill", "createbigcannons:cannon_builder", "create:encased_fan"]
+DE_REACTOR = ["draconicevolution:reactor_core", "draconicevolution:reactor_stabilizer", "draconicevolution:reactor_injector",
+              "firmages:reactor_controller", "draconicevolution:awakened_draconium_block"]
+MACHINE_MADE = {"ae2:matter_ball": ["ae2:condenser"], "ae2:singularity": ["ae2:condenser"],
+                **{f"createbigcannons:{b}{size}_steel_cannon_layer": CBC_CHAMBER
+                   for size in ("very_small", "small", "medium", "large") for b in ("unbored_", "")},
+                "createbigcannons:built_up_steel_cannon_chamber": CBC_CHAMBER,
+                "draconicevolution:large_chaos_frag": DE_REACTOR, "draconicevolution:medium_chaos_frag": DE_REACTOR,
+                "draconicevolution:small_chaos_frag": DE_REACTOR,
+                "mekanism:nuclear_waste": ["mekanism:fissile_fuel", "mekanismgenerators:fission_reactor_casing",
                                            "mekanismgenerators:fission_fuel_assembly", "mekanismgenerators:control_rod_assembly",
                                            "mekanismgenerators:fission_reactor_port"],
                 "mekanism:antimatter": ["mekanism:polonium", "mekanism:sps_casing", "mekanism:sps_port",
@@ -1720,8 +1740,10 @@ HEAT_TYPES = {"create:mixing", "create:compacting"}
 REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
     ("age_2", "firmages:crafting/steel_heart", ["create:precision_mechanism", "create:mechanical_crafter", "create:deployer",
                                                  "create:mechanical_press", "tfcreate:primitive_heater", "tfc:metal/ingot/steel",
-                                                 "minecraft:quartz"]),  # Twilight portal activator (Frontier)
-    ("age_3", "firmages:ritual/arcane_keystone", ARCANE_CHAIN),
+                                                 "firmages:frontier_compass", "firmages:frontier_relic"]),
+    ("age_3", "firmages:sequenced_assembly/arcane_keystone", ["create:spout", "create:deployer", "create:mechanical_press",
+                                                               "firmages:hollow_keystone", "minecraft:blaze_rod"]),  # tech
+    ("age_3", "firmages:ritual/arcane_keystone", ARCANE_CHAIN),                                                    # magic
     ("age_4", "firmages:crafting/pressure_core", INDUSTRIAL_CHAIN),
     ("age_5", "firmages:arc_furnace/humming_core", ELECTRIC_CHAIN),
     ("age_6", "firmages:crafting/data_matrix", INFORMATION_CHAIN),
@@ -1743,15 +1765,6 @@ MULTIBLOCK_AGE = {f"immersiveengineering:{m}": "age_5" for m in (
 # sensor (no deep dark in a TFC world); chunk loading is FTB Chunks' job (one station per function).
 MULTIBLOCK_UNBUILT = {"immersiveengineering:chunk_loader": "chunk loading is FTB Chunks (force-load quota from age_4)"}
 
-# Boss fallbacks (Doc 08 section 5.1): (Age, sigil, gateway) of kubejs/server_scripts/firmages/boss_fallback.js.
-FALLBACKS = [("age_2", "firmages:frontier_sigil", "firmages:frontier_trial"), ("age_3", "firmages:wild_sigil", "firmages:wild_trial"),
-             ("age_4", "firmages:forge_sigil", "firmages:forge_trial"), ("age_5", "firmages:wither_sigil", "firmages:wither_trial"),
-             ("age_6", "firmages:end_sigil", "firmages:end_trial"), ("age_7", "firmages:space_sigil", "firmages:space_trial"),
-             ("age_8", "firmages:abyss_sigil", "firmages:abyss_trial"), ("age_9", "firmages:chaos_sigil", "firmages:chaos_trial")]
-# Boss drops that the start set gets elsewhere (MOB_DROPS); the R-F walk leaves them out too. NOT_BOSS: entries of
-# BOSS_DROPS that are world drops, not boss drops (the TFCreate quartz vein).
-BOSS_TOKEN_REAL = {"age_3": ["ars_nouveau:wilden_tribute"], "age_4": ["cataclysm:monstrous_horn"]}
-NOT_BOSS = {"tfcreate:unpolished_quartz"}
 # Items whose only recipe needed a dead part (Create sheets, barrel, a disabled rod, the brass nugget, the bronze nugget). Not here because
 # the walk does not model their chain: the MA soul extractor (Mystical Agriculture ores) and the AdvancedAE strength
 # card (quantum alloy from AE2 singularities); their recipes are checked by C-Di and C-Gv.
@@ -1816,9 +1829,9 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
         for st, words in VANILLA_BY_AGE.items():
             if AGES.index(st) <= n:
                 src.update({"minecraft:" + w: f"vanilla world {st}" for w in words.split()})
-        for st, drops in BOSS_DROPS.items():
+        for st, drops in EXPEDITION_DROPS.items():
             if AGES.index(st) <= n:
-                src.update({d: f"boss drop {st}" for d in drops})
+                src.update({d: f"expedition or vein drop {st}" for d in drops})
         for st, pats in LATE_WORLD.items():
             if AGES.index(st) <= n:
                 src.update({i: f"planet/End world {st}" for i in items if any(re.search(p_, i) for p_ in pats)})
@@ -1955,27 +1968,19 @@ def reach_checks(full, recs, items, tags, item_age, check, server_dir=None):
               goal_ok and not chain_bad and all(x.startswith("ok") for x in lines),
               lines + [f"goal reached: {goal_ok}", f"chain items not reached: {chain_bad}"] + bad)
 
-    # R-F: the boss fallbacks of Doc 08 section 5.1 (firmages/boss_fallback.js). Each sigil is reachable at its Age
-    # WITHOUT any boss drop of that Age or later (it must not need the boss it stands in for), its gateway file exists,
-    # and the gate pays out every member of the Age's boss token tag, so each recipe slot accepts the payout.
-    gates_dir = os.path.join(REPO, "kubejs", "data", "firmages", "gateways")
-    for st, sigil, gate in FALLBACKS:
+    # R-T: the Age tokens (dev/decisions-while-away.md, 2026-10-14). Every signature recipe reads firmages:age_token/<Age>;
+    # each tag holds at least one member, and one of them is reachable at its Age from the start set, which holds no
+    # boss drop (the known bosses are optional shortcuts).
+    for st in AGES[AGES.index("age_2"):]:
         n = AGES.index(st)
-        drops = ({d for a, ds in BOSS_DROPS.items() if AGES.index(a) >= n for d in ds} - NOT_BOSS) | set(BOSS_TOKEN_REAL.get(st, []))
-        have, live, sat = walk(n, drops)
-        lines = [] if sigil in have else why(sigil, have, live, sat, n)
-        path = os.path.join(gates_dir, gate.split(":", 1)[1] + ".json")
-        paid = []
-        if os.path.isfile(path):
-            with open(path, encoding="utf-8") as f:
-                g = json.load(f)
-            paid = [r["stack"]["id"] for r in g.get("rewards", []) if r.get("type") == "gateways:stack"]
-        token = tags.get(f"firmages:boss_token/{st}", [])
-        unpaid = [t for t in token if t not in paid]
-        check(f"R-F {st} {sigil}: reachable at {st} without the boss drops ({len(drops)}); {gate} pays out the boss token",
-              sigil in have and os.path.isfile(path) and token and not unpaid,
-              lines + [f"gate file {os.path.relpath(path, REPO)} exists: {os.path.isfile(path)}", f"pays out {paid}",
-                       f"boss_token/{st} {token}, not paid out {unpaid}"])
+        token = tags.get(f"firmages:age_token/{st}", [])
+        have, live, sat = walk(n)
+        got = [t for t in token if t in have]
+        lines = [] if got or not token else why(token[0], have, live, sat, n)
+        check(f"R-T {st}: the Age token tag holds a member reachable at {st} without a boss",
+              bool(got), lines + [f"age_token/{st} {token}, reached {got}"])
+    gone = sorted(t for t in tags if t.startswith("firmages:boss_token/"))
+    check("R-T no firmages:boss_token tag is left", not gone, gone)
 
     # R-M: every block of every IE-style multiblock template the server loads (IE, Immersive Petroleum, Advanced TFC
     # Tech, TFC + IE Crossover's arc furnace over IE's) is obtainable at the multiblock's Age, and none is disabled or

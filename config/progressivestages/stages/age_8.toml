@@ -43,12 +43,6 @@ locked = [
     "id:ad_astra:glacio_orbit",
 ]
 
-[mobs]
-# POC: entity ids unverified.
-locked_spawns = [
-    "id:cataclysm:the_leviathan",
-]
-
 # >>> generated:ore_overrides >>>
 # (no ore becomes visible in this stage)
 # <<< generated:ore_overrides <<<

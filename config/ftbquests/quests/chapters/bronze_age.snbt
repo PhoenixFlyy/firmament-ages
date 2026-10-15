@@ -836,40 +836,6 @@
 			y: -6.25d
 		}
 		{
-			dependencies: ["289281EB5946B550"]
-			icon: {
-				id: "mowziesmobs:captured_grottol"
-			}
-			id: "1AFE479E5402BCCB"
-			optional: true
-			rewards: [
-				{
-					id: "3DD84CDCE1125CE9"
-					type: "xp"
-					xp: 35
-				}
-				{
-					id: "3A0409C771133959"
-					table_id: 6693109002396529847L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "mowziesmobs:grottol"
-					id: "2836A3C1E0869C38"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 6.5d
-			y: -6.25d
-		}
-		{
 			dependencies: ["271B9FEFDBDBD98F"]
 			id: "0C522194B14B71CC"
 			optional: true

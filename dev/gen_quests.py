@@ -201,8 +201,8 @@ def t_kill(entity=None, tag=None, value=1, title=None, optional=False):
 
 
 def t_boss(entity, drop, count=1):
-    """Boss checkpoint (Doc 08 section 5.1): the kill OR the drop, so the fallback gateway (its sigil pays out the
-    drop, kubejs/server_scripts/firmages/boss_fallback.js) completes the quest too. Every task optional -> either one."""
+    """A known boss as an optional shortcut (dev/decisions-while-away.md, 2026-10-14): the kill OR the item, so the
+    pack's own route to the item completes the quest too. Every task optional -> either one."""
     return [t_kill(entity, value=1, optional=True), t_item(drop, count, optional=True, consume=False)]
 
 
@@ -262,8 +262,8 @@ REWARD_TABLES = {
         ('tfc:metal/sheet/wrought_iron', 2), ('create:electron_tube', 2), ('create:fluid_pipe', 8),
         ('toms_storage:storage_terminal', 1)]),
     'iron_comfort': ('Iron Age Comforts', 'age_2', [
-        ('twilightforest:charm_of_life_1', 1), ('tfc:metal/shield/wrought_iron', 1),
-        ('twilightforest:magic_map_focus', 1)]),
+        ('firmages:frontier_compass', 1), ('tfc:metal/shield/wrought_iron', 1),
+        ('sophisticatedbackpacks:iron_backpack', 1)]),
     'arcane_supplies': ('Arcane Age Supplies', 'age_3', [
         ('ars_nouveau:source_gem', 8), ('occultism:iesnium_ingot', 2), ('theurgy:mercury_shard', 4),
         ('tfc:gem/amethyst', 2), ('tfc:gem/lapis_lazuli', 4), ('occultism:otherworld_essence', 4),
@@ -613,12 +613,6 @@ STONE = age_chapter(
             Q('stone/side/candle', 'Tallow and Candles', t_item('tfc:candle', 4), kind='side',
               desc=['Render fat into tallow and make candles. Light without fire hazards.']),
         ]),
-        ('stone/metal/ore', [
-            Q('stone/side/lantern', 'Lights in the Swamp',
-              t_observe('mowziesmobs:lantern', kind='entity_type', title='Look at a Lantern'), kind='side',
-              icon='mowziesmobs:glowing_jelly',
-              desc=['Lanterns float over swamps at night. Look, then decide whether to hunt them.']),
-        ]),
         ('stone/camp/seeds', [
             Q('stone/side/friend', 'A New Friend', t_adv('tfc:world/familiarity'), kind='side',
               icon='tfc:seeds/wheat',
@@ -790,11 +784,6 @@ BRONZE = age_chapter(
             Q('bronze/side/kitchen', 'Kitchen', t_item('firmalife:drying_mat'), kind='side',
               desc=['Build a drying mat, the first piece of a real kitchen. Ovens, cheese and dried food follow.']),
         ]),
-        ('bronze/kin/alloy', [
-            Q('bronze/side/grottol', 'Grottol Hunt', t_kill('mowziesmobs:grottol', value=1), kind='side',
-              icon='mowziesmobs:captured_grottol',
-              desc=['Grottols hide in caves and flee. Catch one if you can.']),
-        ]),
         ('bronze/prosp/tin', [
             Q('bronze/side/totem', 'A Flute', t_item('totemic:flute'), kind='side',
               desc=['Carve a flute. Its music starts the ceremonies at a totem pole.']),
@@ -829,7 +818,7 @@ IRON = age_chapter(
     'age_2', 3,
     entry=Q('iron/entry', 'The Iron Age Dawns', t_stage('age_2'), kind='entry',
             icon='tfc:metal/ingot/wrought_iron', sub='The third Age',
-            desc=['Iron veins are visible now, the map opens and the Twilight Forest can be reached.',
+            desc=['Iron veins are visible now and the map opens.',
                   '',
                   'Four strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival and Frontier.']),
     strands=[
@@ -880,23 +869,18 @@ IRON = age_chapter(
              desc=['Tick this when your cellar holds sealed vessels with enough food for all of you.',
                    'No food goes into any recipe or turn-in.'])),
         ('Frontier', [
-            Q('iron/front/portal', 'Into the Twilight', t_dim('twilightforest:twilight_forest'),
-              icon='twilightforest:twilight_portal_miniature_structure',
-              desc=['Ring a 2x2 pool of water with flowers on grass and throw in nether quartz. Sandpaper turns',
-                    'unpolished quartz into it.']),
-            Q('iron/front/naga', 'The Naga', t_boss('twilightforest:naga', 'twilightforest:naga_trophy'),
-              icon='twilightforest:naga_trophy',
-              desc=['Defeat the Naga in its courtyard, or bring its trophy from the Frontier Trial.']),
-            Q('iron/front/lich', 'The Lich', t_boss('twilightforest:lich', 'twilightforest:lich_trophy'),
-              icon='twilightforest:lich_trophy',
-              desc=['Climb the Lich tower and defeat the Lich, or bring its trophy from the Frontier Trial.']),
-        ], Q('iron/front/key', 'Lich Trophy', t_item('twilightforest:lich_trophy', consume=False), kind='keystone',
-             desc=['Bring home the Lich\'s trophy. The Steel Heart needs it.'])),
+            Q('iron/front/compass', 'Frontier Compass', t_item('firmages:frontier_compass'),
+              desc=['Set magnetite in wrought iron and right-click with the compass. It names the way to the nearest',
+                    'cold forge.']),
+            Q('iron/front/forge', 'The Cold Forge', t_item('firmages:frontier_shard', consume=False),
+              desc=['An older smith worked these hills. Find the cold forge and bring back what its chest kept.']),
+        ], Q('iron/front/key', 'Frontier Relic', t_item('firmages:frontier_relic', consume=False), kind='keystone',
+             desc=['Finish the shard on the deployer and the press. The Steel Heart needs the relic.'])),
     ],
     goal=Q('iron/goal', 'Offer the Steel Heart at the Shrine',
            t_stage('age_3', 'Offer the Steel Heart at the shrine'), kind='goal', icon='firmages:steel_heart',
            sub='Goal of the Iron Age: Caelum opens the Arcane Age',
-           desc=['Craft the Steel Heart from the Lich trophy, a precision mechanism, a steel sheet and wrought iron',
+           desc=['Craft the Steel Heart from the Frontier Relic, a precision mechanism, a steel sheet and wrought iron',
                  'double sheets.',
                  '',
                  'Raise the Iron Sanctum: four smooth rock pillars with wrought iron bars and four wrought iron lamps.',
@@ -908,11 +892,6 @@ IRON = age_chapter(
             Q('iron/side/rails', 'Trains', t_item('create:track', 16), kind='side',
               desc=['Lay sixteen tracks. Trains bring ore home from distant mines.']),
         ]),
-        ('iron/metal/wrought', [
-            Q('iron/side/wroughtnaut', 'Ferrous Wroughtnaut', t_kill('mowziesmobs:ferrous_wroughtnaut', value=1),
-              kind='side', icon='mowziesmobs:wrought_helmet',
-              desc=['A metal giant waits in a deep chamber. Strike its back.']),
-        ]),
         ('iron/surv/barrel', [
             Q('iron/side/storage', 'Storage Terminal', t_item('toms_storage:storage_terminal'), kind='side',
               desc=['Build a storage terminal and connect your chests. Every chest shows in one screen.']),
@@ -923,12 +902,6 @@ IRON = age_chapter(
           desc=['The year has seasons. Crops stop growing in winter and it gets cold. Plan ahead.']),
         Q('iron/info/home', 'A Home', t_check(), kind='explain', icon='minecraft:white_bed',
           desc=['Real beds open: wool beds and fancy beds with cushions and sheets. Sleeping in one skips the night.']),
-        # One note on the boss sigils instead of a fallback paragraph in every boss quest (n2-presentation 5.4).
-        Q('iron/info/sigils', 'When a Boss Will Not Come', t_check(), kind='explain', icon='firmages:frontier_sigil',
-          desc=['Every boss an Age needs has a sigil. On open ground it opens a trial of waves in the',
-                'boss\'s place; the last wave pays the drop.',
-                '',
-                'Use one when the boss cannot be found or fought. Trials repeat.']),
     ],
     supplies='iron_supplies', comfort='iron_comfort',
     ring=ring_quest('iron', 2, 'the Iron Sanctum', 'tfc:metal/lamp/wrought_iron',
@@ -999,10 +972,11 @@ ARCANE = age_chapter(
               desc=['The apprentice spellbook holds the stronger glyphs you need against the Wilden Chimera.']),
             Q('arcane/source/chimera', 'Wilden Chimera', t_boss('ars_nouveau:wilden_boss', 'ars_nouveau:wilden_tribute'),
               icon='ars_nouveau:ritual_wilden_summon',
-              desc=['Summon the Wilden Chimera with its ritual and defeat it, or clear the Wild Trial.']),
+              desc=['Bind horn, wing and spike of the Wilden with source in the enchanting apparatus. The Wilden',
+                    'Chimera drops a tribute too.']),
         ], Q('arcane/source/key', 'Wilden Tribute', t_item('ars_nouveau:wilden_tribute', consume=False),
              kind='keystone',
-             desc=['The Wilden Chimera drops the Wilden Tribute. The Arcane Keystone needs it.'])),
+             desc=['Keep a Wilden Tribute. The Djinni ritual of the Arcane Keystone needs it.'])),
         ('Alchemy', [
             Q('arcane/alch/brazier', 'Pyromantic Brazier', t_item('theurgy:pyromantic_brazier'),
               desc=['Build a pyromantic brazier. It heats every alchemical apparatus; read the Hermetica as you go.']),
@@ -1043,11 +1017,6 @@ ARCANE = age_chapter(
         ('arcane/source/starbuncle', [
             Q('arcane/side/creo', 'Starbuncle Wheel', t_item('ars_creo:starbuncle_wheel'), kind='side',
               desc=['Set a Starbuncle in a wheel. It turns shafts without water or wind.']),
-        ]),
-        ('arcane/alch/calcination', [
-            Q('arcane/side/umvuthi', 'Umvuthi', t_kill('mowziesmobs:umvuthi', value=1), kind='side',
-              icon='mowziesmobs:sol_visage',
-              desc=['The Umvuthana chief rules a grove in hot biomes. Defeat Umvuthi for the Sol Visage.']),
         ]),
     ],
     explains=[
@@ -1104,11 +1073,10 @@ INDUSTRIAL = age_chapter(
                     'Industrial Age.']),
             Q('industrial/steel/anvil', 'Black Steel Anvil', t_item('tfc:metal/anvil/black_steel'),
               desc=['A black steel anvil works black steel double sheets.']),
-            Q('industrial/steel/monstrosity', 'Netherite Monstrosity',
-              t_boss('cataclysm:netherite_monstrosity', 'cataclysm:monstrous_horn'), icon='cataclysm:monstrous_horn',
-              desc=['Call the Netherite Monstrosity at the summoning altar. Its horn goes into the Pressure Core.',
-                    '',
-                    'The Forge Sigil opens the Forge Trial instead.']),
+            Q('industrial/steel/chamber', 'Built-Up Chamber',
+              t_item('createbigcannons:built_up_steel_cannon_chamber', consume=False),
+              desc=['Cast steel layers, bore them, build them up and heat them into one chamber. It goes into the',
+                    'Pressure Core.']),
         ], Q('industrial/steel/key', 'Black Steel Double Sheets', t_item('tfc:metal/double_sheet/black_steel', 2),
              kind='keystone', desc=['Two black steel double sheets for the Pressure Core.'])),
         ('Power', [
@@ -1170,7 +1138,7 @@ INDUSTRIAL = age_chapter(
            t_stage('age_5', 'Offer the Pressure Core at the shrine'), kind='goal', icon='firmages:pressure_core',
            sub='Goal of the Industrial Age: Caelum opens the Electric Age',
            desc=['Craft the Pressure Core from two black steel double sheets, a heavy engineering block, the Arcane',
-                 'Gearbox and the Monstrosity\'s horn.',
+                 'Gearbox and a built-up steel chamber.',
                  '',
                  'Raise the Foundry Nave; the heart shows what is missing. Lay the Core on the new plinth, power the',
                  'four electric lanterns and pray.',
@@ -1188,11 +1156,6 @@ INDUSTRIAL = age_chapter(
         ('industrial/ore/crusher', [
             Q('industrial/side/spawner', 'Mechanical Spawner', t_item('create_mechanical_spawner:mechanical_spawner'),
               kind='side', desc=['Spawn fluid turns into mobs, only those your Age allows.']),
-        ]),
-        ('industrial/logi/packager', [
-            Q('industrial/side/frostmaw', 'Frostmaw', t_kill('mowziesmobs:frostmaw', value=1), kind='side',
-              icon='mowziesmobs:ice_crystal',
-              desc=['A giant sleeps in the cold lands. Wake it and take its ice crystal.']),
         ]),
     ],
     explains=[
@@ -1282,11 +1245,9 @@ ELECTRIC = age_chapter(
                                                                 title='Look at a formed assembler'),
               icon='immersiveengineering:assembler',
               desc=['The assembler autocrafts grid recipes: the autocrafting of this Age.']),
-            Q('electric/circ/wither', 'The Wither', t_boss('minecraft:wither', 'minecraft:nether_star'),
+            Q('electric/circ/wither', 'Nether Star', t_boss('minecraft:wither', 'minecraft:nether_star'),
               icon='minecraft:nether_star',
-              desc=['Summon the Wither and defeat it. The Humming Core needs its Nether Star.',
-                    '',
-                    'The Wither Sigil opens the Wither Trial instead.']),
+              desc=['Fuse a Nether Star in the arc furnace. The Humming Core needs it; the Wither drops one too.']),
         ], Q('electric/circ/key', 'Attuned Circuits', t_item('firmages:attuned_circuit', 16), kind='keystone',
              desc=['A circuit board with a spirit attuned crystal: the magic tail of the Electric Age.',
                    'Let the assembler make them.'])),
@@ -1314,11 +1275,6 @@ ELECTRIC = age_chapter(
         ('electric/alu/bauxite', [
             Q('electric/side/hypertube', 'Hypertubes', t_item('create_hypertube:hypertube', 16), kind='side',
               desc=['Hypertubes shoot players across the base.']),
-        ]),
-        ('electric/grid/mv', [
-            Q('electric/side/sculptor', 'The Sculptor', t_kill('mowziesmobs:sculptor', value=1), kind='side',
-              icon='mowziesmobs:sculptor_staff',
-              desc=['A sculptor waits on a mountain top. Pass the climb to earn the geomancer gear.']),
         ]),
     ],
     explains=[
@@ -1416,14 +1372,14 @@ INFORMATION = age_chapter(
               desc=['Set the twelve frames as a ring around a 3 by 3 hole, facing inwards, fill them with the eyes',
                     'and step through.']),
             Q('information/end/dragon', 'The Ender Dragon', t_boss('minecraft:ender_dragon', 'minecraft:dragon_breath'),
-              icon='minecraft:dragon_head', desc=['Destroy the crystals, then the dragon, or clear the End Trial.']),
+              icon='minecraft:dragon_head', desc=['Destroy the crystals, then the dragon.']),
         ], Q('information/end/key', 'Dragon\'s Breath', t_item('minecraft:dragon_breath', 4), kind='keystone',
-             desc=['Bottle four breaths of the dragon. The Data Matrix needs one.'])),
+             desc=['Bottle four breaths of the dragon. Brewers and enchanters want them.'])),
     ],
     goal=Q('information/goal', 'Offer the Data Matrix at the Shrine',
            t_stage('age_7', 'Offer the Data Matrix at the shrine'), kind='goal', icon='firmages:data_matrix',
            sub='Goal of the Information Age: Caelum opens the Space Age',
-           desc=['Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a bottle of dragon\'s breath.',
+           desc=['Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a singularity from the matter condenser.',
                  '',
                  'Raise the Data Nave; the heart shows what is missing. Lay the Matrix on the new plinth and pray: together, if two of you are online.',
                  '',
@@ -1445,10 +1401,6 @@ INFORMATION = age_chapter(
         ('information/mob/learner', [
             Q('information/side/jetpack', 'Hydrogen Jetpack', t_item('mekanism:jetpack'), kind='side',
               desc=['Craft a jetpack and fill it with hydrogen from the separator.']),
-        ]),
-        ('information/end/eyes', [
-            Q('information/side/guardian', 'Ender Guardian', t_kill('cataclysm:ender_guardian', value=1), kind='side',
-              icon='minecraft:end_stone', desc=['A guardian of the End waits in its ruins.']),
         ]),
     ],
     explains=[
@@ -1509,20 +1461,17 @@ SPACE = age_chapter(
               desc=['Build the tier 2 rocket from desh. It reaches Mars.']),
             Q('space/mars/land', 'Mars', t_dim('ad_astra:mars'), icon='ad_astra:raw_ostrum', desc=['Land on Mars. Ostrum lies in its red rock.']),
             Q('space/mars/ostrum', 'Ostrum', t_item('ad_astra:raw_ostrum', 16), desc=['Mine 16 raw ostrum on Mars. It builds the rocket to Venus.']),
-            Q('space/mars/harbinger', 'The Harbinger', t_boss('cataclysm:the_harbinger', 'cataclysm:witherite_block'),
-              icon='cataclysm:witherite_block',
-              desc=['Defeat the Harbinger. Its witherite block goes into the Star Chart.',
-                    '',
-                    'The Space Sigil\'s trial ends with a Wither: open it far from home.']),
+            Q('space/mars/temple', 'The Mars Temple', t_item('firmages:flight_recorder', consume=False),
+              desc=['Something landed on Mars before you. Its temple keeps the record. The Star Chart needs it.']),
         ], Q('space/mars/key', 'Ostrum Plates', t_item('ad_astra:ostrum_plate', 32), kind='keystone',
              desc=['Lay up 32 ostrum plates. Two go into the Star Chart; the rest become the engine and tanks of the rocket to Venus.'])),
         ('Draconium', [
             Q('space/drac/ingot', 'Draconium', t_item('draconicevolution:draconium_ingot', 16),
-              desc=['Smelt 16 draconium ingots from End ore. Every fusion part is made of it.']),
+              desc=['Make 16 draconium ingots. The ore lies deep in granite, diorite and gabbro. Every fusion part is',
+                    'made of it.']),
             Q('space/drac/heart', 'Dragon Heart', t_item('draconicevolution:dragon_heart', consume=False),
-              desc=['The Ender Dragon now drops its heart.',
-                    '',
-                    'The End Sigil opens the End Trial instead; in this Age it pays a Dragon Heart too.']),
+              desc=['Fuse a dragon heart at wyvern level from a draconium block and core, pellets and ostrum. The',
+                    'Ender Dragon drops one too.']),
             Q('space/drac/core', 'Fusion Crafting Core', t_item('draconicevolution:crafting_core'),
               desc=['Build a fusion crafting core. It is the one pedestal crafting of the tech Ages.']),
             Q('space/drac/injectors', 'Injectors',
@@ -1537,7 +1486,7 @@ SPACE = age_chapter(
            t_stage('age_8', 'Offer the Star Chart at the shrine'), kind='goal', icon='firmages:star_chart',
            sub='Goal of the Space Age: Caelum opens the Quantum Age',
            desc=['Fuse the Star Chart at wyvern level: a polonium pellet in the middle, two desh plates, two ostrum',
-                 'plates, a wyvern core and the Harbinger\'s witherite block.',
+                 'plates, a wyvern core and the flight recorder from Mars.',
                  '',
                  'Raise the Star Spire; the heart shows what is missing. Lay the Chart on the new plinth and pray at',
                  'night, under an open sky, without rain.',
@@ -1555,10 +1504,6 @@ SPACE = age_chapter(
         ('space/moon/workbench', [
             Q('space/side/mega', 'MEGA Cells', t_item('megacells:cell_component_1m'), kind='side',
               desc=['Make a 1M cell component. MEGA cells hold far more than the first cells.']),
-        ]),
-        ('space/drac/ingot', [
-            Q('space/side/remnant', 'Ancient Remnant', t_kill('cataclysm:ancient_remnant', value=1), kind='side',
-              icon='cataclysm:ancient_metal_ingot', desc=['A desert tomb hides the Ancient Remnant.']),
         ]),
     ],
     explains=[
@@ -1614,7 +1559,7 @@ QUANTUM = age_chapter(
             Q('quantum/planets/ice', 'Ice Shards', t_item('ad_astra:ice_shard', 8),
               desc=['Mine eight ice shards on Glacio. Two go into the Quantum Core.']),
         ], Q('quantum/planets/key', 'Calorite Plates', t_item('ad_astra:calorite_plate', 32), kind='keystone',
-             desc=['Keep a store of 32 calorite plates. Two go into the Quantum Core; engines, tanks and the Abyss Sigil take the rest.'])),
+             desc=['Keep a store of 32 calorite plates. Two go into the Quantum Core; engines and tanks take the rest.'])),
         ('Awakened', [
             Q('quantum/awake/stars', 'Nether Stars', t_item('minecraft:nether_star', 4),
               desc=['Gather four Nether Stars. Awakened draconium needs them with a dragon heart.']),
@@ -1625,11 +1570,9 @@ QUANTUM = age_chapter(
               desc=['Craft four awakened injectors. Fusion at draconic level needs them.']),
             Q('quantum/awake/evolved', 'Hypercharged Alloy', t_item('evolvedmekanism:alloy_hypercharged', 4),
               desc=['Make four hypercharged alloys. Machines above the ultimate tier are built from them.']),
-            Q('quantum/awake/leviathan', 'The Leviathan', t_boss('cataclysm:the_leviathan', 'cataclysm:abyssal_egg'),
-              icon='cataclysm:abyssal_egg',
-              desc=['Defeat the Leviathan in the deep. Its abyssal egg goes into the Quantum Core.',
-                    '',
-                    'The Abyss Sigil opens the Abyss Trial instead.']),
+            Q('quantum/awake/subatomic', 'Subatomic Alloy', t_item('evolvedmekanism:alloy_subatomic', 2, consume=False),
+              desc=['Fuse hypercharged alloy with antimatter into two subatomic alloys. The Quantum Core and the Marid',
+                    'ritual each want one.']),
         ], Q('quantum/awake/key', 'Awakened Core', t_item('draconicevolution:awakened_core'), kind='keystone',
              desc=['Fuse the awakened core. It is the catalyst of the Quantum Core.'])),
         ('Marid', [
@@ -1643,7 +1586,7 @@ QUANTUM = age_chapter(
              kind='keystone',
              desc=['Take the Arcane Keystone from its plinth (sneak and right-click the plinth with an empty hand), or bind',
                    'a second one with the Djinni. Awaken it in the Marid ritual with two atomic alloys, a wyvern core',
-                   "and the Leviathan's abyssal egg.",
+                   "and a subatomic alloy.",
                    '',
                    'Lay the Awakened Keystone back on its plinth. It stays the relic of the Arcane Age and goes into',
                    'the Ultimate Singularity.'])),
@@ -1652,7 +1595,7 @@ QUANTUM = age_chapter(
            t_stage('age_9', 'Offer the Quantum Core at the shrine'), kind='goal', icon='firmages:quantum_core',
            sub='Goal of the Quantum Age: Caelum opens the Singularity Age',
            desc=['Fuse the Quantum Core at draconic level around the awakened core: two antimatter pellets, two',
-                 'calorite plates, two ice shards and the Leviathan\'s abyssal egg.',
+                 'calorite plates, two ice shards and a subatomic alloy.',
                  '',
                  'Raise the Quantum Ring and lay the Awakened Keystone back on its plinth. Lay the Core on the new',
                  'plinth and pray at night under an open sky: together, if two of you are online.',
@@ -1666,10 +1609,6 @@ QUANTUM = age_chapter(
         ('quantum/planets/t3', [
             Q('quantum/side/crystallizer', 'Ore Times Five', t_item('mekanism:chemical_crystallizer'), kind='side',
               desc=['Dissolution, washing and crystallizing give five times the metal.']),
-        ]),
-        ('quantum/awake/stars', [
-            Q('quantum/side/scylla', 'Scylla', t_kill('cataclysm:scylla', value=1), kind='side',
-              icon='minecraft:trident', desc=['Scylla rules a storm-wracked sea. A hard optional fight.']),
         ]),
     ],
     explains=[
@@ -1700,11 +1639,10 @@ SINGULARITY = age_chapter(
             Q('singularity/chaos/guardian', 'Chaos Guardian',
               t_boss('draconicevolution:draconic_guardian', 'draconicevolution:chaos_shard'),
               icon='draconicevolution:chaos_shard',
-              desc=['The Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards.',
-                    '',
-                    'The Chaos Sigil opens the Chaos Trial instead.']),
-            Q('singularity/chaos/shards', 'Chaos Shards', t_item('draconicevolution:chaos_shard', 8),
-              desc=['Keep eight chaos shards from the guardian\'s crystals. Two go into the Ultimate Singularity, one into the Coordinates of The Origin.']),
+              desc=['The Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards. The',
+                    'reactor makes chaos without it.']),
+            Q('singularity/chaos/shards', 'Chaos Fragments', t_item('draconicevolution:large_chaos_frag', 8),
+              desc=['Keep eight large chaos fragments from the reactor. Two go into the Ultimate Singularity, one into the Coordinates of The Origin.']),
             Q('singularity/chaos/injectors', 'Chaotic Injectors',
               t_item('draconicevolution:chaotic_crafting_injector', 4),
               desc=['Craft four chaotic injectors. Chaotic fusion, the highest tier, needs them.']),
@@ -1735,7 +1673,7 @@ SINGULARITY = age_chapter(
               desc=['Make the singular alloy. It binds the nine relics into one.']),
         ], Q('singularity/sing/key', 'The Ultimate Singularity', t_item('firmages:ultimate_singularity'),
              kind='keystone', icon='firmages:ultimate_singularity',
-             desc=['Forge the Ultimate Singularity from the nine relics, chaos shards, the singular alloy and the',
+             desc=['Forge the Ultimate Singularity from the nine relics, chaos fragments, the singular alloy and the',
                    'chaotic core in a chaotic fusion.'])),
         ('Stargate', [
             Q('singularity/gate/naquadah', 'Naquadah', t_item('sgjourney:raw_naquadah', 16),
@@ -1779,10 +1717,6 @@ SINGULARITY = age_chapter(
         ('singularity/sing/core', [
             Q('singularity/side/staff', 'Chaotic Staff', t_item('draconicevolution:chaotic_staff'), kind='side',
               desc=['A tool for everything, built directly from the chaotic core.']),
-        ]),
-        ('singularity/gate/naquadah', [
-            Q('singularity/side/ignis', 'Ignis', t_kill('cataclysm:ignis', value=1), kind='side',
-              icon='minecraft:blaze_powder', desc=['Test yourself against Ignis before the final battle.']),
         ]),
     ],
     explains=[

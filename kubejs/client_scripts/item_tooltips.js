@@ -1,25 +1,10 @@
 // Firmament Ages - tooltip lines of the signature items (text in startup_scripts/items.js, global.FA_SIGNATURE_TOOLTIPS)
-// and of the boss fallback sigils (global.FA_SIGILS). KubeJS 2101: ItemEvents.modifyTooltips, add(ingredient, [components]).
-// Reload in game: F3+T.
+// and of the expedition items of the Age tokens (global.FA_ITEM_TOOLTIPS). KubeJS 2101: ItemEvents.modifyTooltips,
+// add(ingredient, [components]). Reload in game: F3+T.
 
 ItemEvents.modifyTooltips((event) => {
   const lines = global.FA_SIGNATURE_TOOLTIPS || {}
   Object.keys(lines).forEach((id) => event.add(id, [Text.gray(lines[id])]))
-  const sigils = global.FA_SIGILS || {}
-  Object.keys(sigils).forEach((id) => {
-    const s = sigils[id]
-    event.add(id, [
-      Text.gray(`Right-click open ground with it to open the ${s.gateName}.`),
-      Text.gray(`Its waves stand for ${s.boss}. Clear them for ${s.reward}.`)
-    ])
-  })
-})
-
-// Gateway names: Gateways to Eternity names a gate by the translation key "<namespace>.<path>" of its id
-// (GatewayEntity, id.toString() with ':' -> '.'), shown on the boss bar while the gate is open.
-ClientEvents.lang('en_us', (event) => {
-  const sigils = global.FA_SIGILS || {}
-  Object.keys(sigils).forEach((id) => event.add('firmages', String(sigils[id].gate).replace(':', '.'), sigils[id].gateName))
-  event.add('firmages', 'firmages.the_origin', 'The Origin')
-  event.add('firmages', 'firmages.the_origin_fallback', 'The Origin')
+  const items = global.FA_ITEM_TOOLTIPS || {}
+  Object.keys(items).forEach((id) => event.add(id, [Text.gray(items[id])]))
 })

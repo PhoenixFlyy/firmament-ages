@@ -45,14 +45,6 @@ locked_ids = [
     # <<< generated:recipes <<<
 ]
 
-[mobs]
-# Mowzie's Mobs hang on the cumulative age stages (Doc 08 section 5).
-# POC: entity ids from research-raw/r3-misc.md, not checked against the 1.8.2 registry.
-locked_spawns = [
-    "id:mowziesmobs:grottol",
-    "id:mowziesmobs:foliaath",
-]
-
 # >>> generated:ore_overrides >>>
 # 488 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
 

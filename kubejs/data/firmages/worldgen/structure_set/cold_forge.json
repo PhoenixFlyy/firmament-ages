@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:cold_forge",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 481219071,
+    "spacing": 32,
+    "separation": 10
+  }
+}

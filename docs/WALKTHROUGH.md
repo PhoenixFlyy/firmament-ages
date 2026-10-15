@@ -231,10 +231,13 @@ Offer the Steel Heart at the shrine, in the Iron Sanctum (ring 2).
    steam engine on a boiler. Keystone: 32 wrought iron ingots from a machine-fed bloomery line.
 3. Survival: a barrel; leather (limewater, scrape, tannin); one leather armour piece; four sealed large vessels in a
    cellar below ground. Keystone "Winter Stores": tick it when the cellar holds enough for all of you.
-4. Frontier: ring a 2x2 pool of water with flowers on grass and throw in nether quartz (sandpaper polishes
-   unpolished quartz): the Twilight Forest. Defeat the Naga and the Lich. Keystone: the Lich trophy.
+4. Frontier: the Frontier Compass (four wrought iron ingots around a magnetite ore piece). Right-click with it: it
+   names the direction and the distance of the nearest Cold Forge, a ruined smithy of granite in the hills and
+   highlands. Its chest keeps a Frontier Shard (a team that finds a forge earlier keeps the shard too). Three passes
+   on the deployer and the press (a steel sheet, then a wrought iron double sheet) finish it into the Frontier Relic.
+   Keystone: the Frontier Relic.
 5. Craft the Steel Heart: a steel sheet on top, a wrought iron double sheet left and right, the precision mechanism
-   in the middle, the Lich trophy below.
+   in the middle, the Frontier Relic below.
 6. Raise the Iron Sanctum (9x9, 4 high): a smooth rock border at the heart's level; on each corner a pillar three
    smooth rock high with a wrought iron (or better) lamp on top; two wrought iron (or better) bars beside each
    pillar, one block above the border. The plinth: middle of one side, four blocks from the heart.
@@ -246,9 +249,8 @@ Offer the Steel Heart at the shrine, in the Iron Sanctum (ring 2).
 - The map and the minimap open. The climate tab opens.
 - The cave hunter is gone for good. Blood moons may now rise.
 - The first winter comes about now: crops stop growing, it gets cold.
-- **Boss sigils.** Every boss an Age needs has a sigil. Used on open ground it opens a trial of waves in the boss's
-  place; the last wave pays the drop. Trials repeat. Frontier Sigil: two steel sheets, two nether quartz, a
-  precision mechanism. Its Frontier Trial pays the Naga and the Lich trophies.
+- No Age needs a boss. The Wither, the Ender Dragon, the Wilden Chimera and the Chaos Guardian stay optional
+  shortcuts; every Age has its own way to what they drop.
 - No food goes into any recipe or turn-in.
 - The storage terminal can be built until the Information Age.
 
@@ -275,13 +277,17 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
    - Enchanting apparatus, a Starbuncle (item transport), the apprentice spellbook.
    - Archwood saplings: any sapling ringed by four powders of one gem (lapis lazuli, ruby, emerald or amethyst). A
      sourceberry bush: a blueberry and two lapis lazuli powder.
-   - Summon the Wilden Chimera with its ritual and defeat it. Keystone: the Wilden Tribute.
-   - Wild Sigil: two mercury shards, two otherworld essence, a source gem block. The Wild Trial pays the Tribute.
+   - A Wilden Tribute in the enchanting apparatus: a source gem block in the middle; two horns, two wings, two
+     spikes of the Wilden, a spirit attuned crystal and a mercury shard on the pedestals (5,000 source). The Wilden
+     Chimera drops one too. Keystone: the Wilden Tribute.
 3. Alchemy: pyromantic brazier, calcination oven, sal ammoniac accumulator, liquefaction cauldron, distiller,
    incubator, divination rod. Keystone: the mercury catalyst. Only rich ore pieces dissolve; one rich piece gives a
    whole dust, about 2.5 to 3 times the metal.
-4. Bind the Arcane Keystone in the Djinni crafting pentacle (bound Djinni book): spirit attuned crystal, iesnium
-   ingot, Wilden Tribute, mercury catalyst, steel ingot, source gem block.
+4. The Arcane Keystone, two ways:
+   - On the Create line: a Hollow Keystone from a chest of a Nether fortress, three passes of a spout (250 mB of
+     liquid experience), a deployer (a blaze rod) and a press.
+   - In the Djinni crafting pentacle (bound Djinni book): spirit attuned crystal, iesnium ingot, Wilden Tribute,
+     mercury catalyst, steel ingot, source gem block.
 5. Raise the Spirit Circle (11x11, 4 high): a sourcestone border (35); on each corner an otherstone pillar three high
    capped with a source gem block; eight candles standing on the border. Plinth: five blocks from the heart.
 6. Lay the Keystone, light the eight candles, pray.
@@ -313,9 +319,9 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
      furnace with preheaters.
    - Black steel (8): alloy weak steel (steel, nickel, black bronze), weld it with pig iron, work it on the anvil.
      A black steel anvil.
-   - Netherite Monstrosity: at the summoning altar a netherite ingot starts the call, with four blaze rods, two black
-     steel double ingots and eight magma blocks. Its horn goes into the Core. Forge Sigil: two black steel sheets,
-     two blaze rods, a netherite ingot; the Forge Trial pays the horn.
+   - A built-up steel cannon chamber: melt steel in a heated basin, cast the four steel layers in their moulds, bore
+     them on the cannon drill, stack them with the cannon builder and heat them in a fan's blast over lava. It goes
+     into the Core.
    - Keystone: two black steel double sheets.
 2. Power: the alternator (rotation into FE, the only bridge); 8 copper wire; 4 LV connectors; 4 lead (galena wakes
    now); an LV capacitor. Keystone "Grid Online (LV)": alternator and capacitor placed and wired.
@@ -326,7 +332,7 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
    engineering blocks, a redstone engineering block, a hopper, formed with the hammer). Keystone: 64 steel sheets
    delivered through the package network.
 5. Craft the Pressure Core: a heavy engineering block on top, a black steel double sheet left and right, the Arcane
-   Gearbox in the middle, the Monstrosity's horn below.
+   Gearbox in the middle, the built-up steel chamber below.
 6. Raise the Foundry Nave (13x13, 5 high): a coke brick border (43); on each corner a heavy engineering block, steel
    scaffolding three high and an electric lantern on top. Plinth: six blocks from the heart.
 7. Lay the Core, power the four lanterns, pray.
@@ -358,9 +364,10 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
      steel on the anvil, two sheets.
    - The excavator digs a chunk's mineral mix forever.
    - Keystone: 32 aluminium plates.
-4. Circuits: 8 vacuum tubes, 4 circuit boards, the assembler (grid autocrafting). The Wither for its Nether Star, or
-   the Wither Sigil (two aluminium plates, two soul sand, a wither skeleton skull). Keystone: 16 Attuned Circuits (a
-   circuit board and a spirit attuned crystal; let the assembler make them).
+4. Circuits: 8 vacuum tubes, 4 circuit boards, the assembler (grid autocrafting). A Nether Star from the arc
+   furnace (a wither skeleton skull with eight soul sand, a gold block and two electrum plates), from the Afrit
+   crafting pentacle, or from the Wither. Keystone: 16 Attuned Circuits (a circuit board and a spirit attuned crystal;
+   let the assembler make them).
 5. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four aluminium plates, two red
    steel sheets and a Nether Star.
 6. Raise the Tesla Crown (15x15, 5 high): aluminium blocks on the border (51); on each corner a red steel block, an HV
@@ -403,11 +410,11 @@ Offer the Data Matrix in the Data Nave (ring 6).
 3. Mob Data: deep learner, blank data model, simulation chamber, 16 prediction matrices, loot fabricator. Keystone:
    a data model trained to tier 3, running in a chamber.
 4. The End: two portal frames from seven obsidian, an ender pearl and a reinforced alloy. Set twelve frames as a ring
-   around a 3x3 hole, facing inward, and fill them with twelve eyes of ender. Destroy the crystals, then the dragon,
-   or use the End Sigil (two ender pearls, two osmium ingots, a basic control circuit): the End Trial pays four
-   dragon's breath. Keystone: four bottles of dragon's breath.
+   around a 3x3 hole, facing inward, and fill them with twelve eyes of ender. Destroy the crystals, then the dragon.
+   Keystone: four bottles of dragon's breath. The End is optional: no Age needs it.
 5. Craft the Data Matrix: blue steel sheets in the corners, advanced control circuits on three edges, the 64k storage
-   component in the middle, dragon's breath bottom middle.
+   component in the middle, a singularity from the matter condenser bottom middle (it eats a quarter of a million
+   items: feed it a cobblestone line).
 6. Raise the Data Nave (17x17, 4 high): certus quartz blocks on the border (59); on each corner a steel casing, quartz
    glass two high and a fluix block on top. Plinth: eight blocks from the heart.
 7. Lay the Matrix and pray: two of you together, if two are online.
@@ -432,12 +439,14 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
    pellets from reactor waste.
 2. Rocketry & Moon: NASA workbench; a full space suit; one bucket of rocket fuel from your oil; a launch pad; the
    tier 1 rocket; land on the Moon; mine 16 desh. Keystone: 32 desh plates from the metal press.
-3. Mars: tier 2 rocket, Mars, 16 ostrum. Defeat the Harbinger for its witherite block, or use the Space Sigil (two
-   desh plates, two ostrum plates, a Nether Star). Keystone: 32 ostrum plates.
-4. Draconium: 16 draconium ingots (End ore); a dragon heart (the dragon drops it now; the End Trial pays one too);
-   a fusion crafting core; four basic and four wyvern injectors. Keystone: a wyvern core.
+3. Mars: tier 2 rocket, Mars, 16 ostrum. The temple on Mars keeps a flight recorder in its chest. Keystone: 32
+   ostrum plates.
+4. Draconium: 16 draconium ingots. Draconium veins wake now, deep in granite, diorite and gabbro; the ore ladder
+   turns the pieces into clumps, shards and slurry. A dragon heart: wyvern fusion of a draconium block with two
+   polonium and two plutonium pellets, two ostrum plates and a draconium core (the dragon drops one too). A fusion
+   crafting core; four basic and four wyvern injectors. Keystone: a wyvern core.
 5. Fuse the Star Chart at wyvern level: a polonium pellet on the core; two desh plates, two ostrum plates, a wyvern
-   core and the witherite block in the injectors; 16,000,000 FE.
+   core and the flight recorder in the injectors; 16,000,000 FE.
 6. Raise the Star Spire (19x19, 5 high): a steel plating border (67); on each corner a pillar of four desh blocks (or
    desh pillars) capped with an ostrum block. Plinth: nine blocks from the heart.
 7. Lay the Chart and pray at night, with open sky above the heart and no rain.
@@ -446,7 +455,6 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
 
 ### Pitfalls
 - Off-world you need the full suit and oxygen. An oxygen distributor fills a sealed base.
-- The Space Trial ends with a Wither. Open it far from home.
 - Every tool and armour piece has a direct recipe; no gear goes into better gear.
 - Build a digital miner now. It is the only way to the naquadah of the Singularity Age.
 - Ore by injection: four times the metal.
@@ -464,17 +472,17 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 2. Inner Planets: tier 3 rocket (ostrum); Venus, 16 calorite; visit Mercury; tier 4 rocket (calorite); Glacio,
    8 ice shards. Keystone: 32 calorite plates.
 3. Awakened: 4 Nether Stars; 16 awakened draconium (draconium blocks, a dragon heart, Nether Stars); 4 awakened
-   injectors; 4 hypercharged alloy. Defeat the Leviathan in the deep for its abyssal egg, or use the Abyss Sigil (two
-   calorite plates, two ice shards, a hypercharged alloy). Keystone: an awakened core.
+   injectors; 4 hypercharged alloy; 2 subatomic alloy (hypercharged alloy and antimatter in the antiprotonic
+   nucleosynthesizer). Keystone: an awakened core.
 4. Marid:
    - 4 atomic alloy. The Marid's book of binding: an empty book of binding with three green dye (or the taboo book,
      purified ink, an awakened feather and green dye), two atomic alloys and a wyvern core. Bind the Marid.
    - Take the Arcane Keystone from its plinth: sneak and right-click the Spirit Circle plinth with an empty hand. Or bind a
      second one with the Djinni.
-   - Awaken it in the Marid crafting pentacle: Arcane Keystone, two atomic alloys, a wyvern core, an abyssal egg.
+   - Awaken it in the Marid crafting pentacle: Arcane Keystone, two atomic alloys, a wyvern core, a subatomic alloy.
    - Lay the Awakened Keystone on the Spirit Circle plinth. Keystone "Awakened Keystone".
 5. Fuse the Quantum Core at draconic level: the awakened core on the fusion core; two antimatter pellets, two
-   calorite plates, two ice shards and an abyssal egg in the injectors; 64,000,000 FE.
+   calorite plates, two ice shards and a subatomic alloy in the injectors; 64,000,000 FE.
 6. Raise the Quantum Ring (21x21, 3 high): calorite blocks on the border (75); on each corner SPS casings or fusion
    reactor frames two high with an awakened draconium block on top. Plinth: ten blocks from the heart.
 7. Lay the Core. Pray at night under an open sky, two of you together if two are online.
@@ -484,7 +492,7 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 - **Keystone lending.** Only while the Quantum Age is your highest Age does the Spirit Circle plinth lend its relic.
   It keeps glowing and waits. While the relic is away the Quantum Core is refused and the prayer says what is
   missing. Lay back the Arcane Keystone or the Awakened Keystone; any Arcane Keystone works in the Marid ritual.
-- You need **two** abyssal eggs: one for the Awakened Keystone, one for the Quantum Core.
+- You need **two** subatomic alloys: one for the Awakened Keystone, one for the Quantum Core.
 - Draconic tools are crafted straight from the awakened core; no lesser tool goes into them.
 - Dissolution, washing and crystallizing: five times the metal per ore piece.
 
@@ -501,16 +509,19 @@ offering.
    heart, two of you together if two are online. Caelum: "Nine gifts. One light. Open the gate." The nine relics fall
    out above the heart; they never despawn and do not burn. The plinths keep glowing. The sign top left now reads
    "Goal: Beyond the Firmament".
-2. Chaos: the Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards. Or the Chaos Sigil
-   (two awakened draconium ingots, two naquadah ingots, a dragon heart): the Chaos Trial pays four shards. Collect 8,
-   make 4 chaotic injectors.
+2. Chaos comes from your own reactor: it hands its spent fuel out as chaos fragments (a full cycle about six large
+   fragments). The reactor parts are fused at draconic level without chaos: the core around an antimatter pellet
+   with two subatomic alloys, each stabilizer with an awakened core and an antimatter pellet. About four cycles make
+   the chaos the Age needs: twelve chaotic injectors (one large and three medium fragments and an antimatter pellet
+   each), the chaotic core, two fragments for the Singularity, one for the Coordinates. The Chaos Guardian in the
+   End drops chaos shards too; it is optional.
 3. The draconic reactor: 4 stabilizers, an injector, the reactor core, 4 awakened draconium blocks as fuel. The
    reactor controller (a stabilizer frame, two awakened draconium ingots, two elite control circuits) sits against a
    stabilizer or injector: it shuts the reactor down at 80 % conversion, swaps the fuel while it is cold and signals
    ready by redstone. Starting it is your job. Keystone "Reactor Online".
 4. A chaotic core and a singular alloy.
 5. The Ultimate Singularity, chaotic fusion: the chaotic core on the fusion core; Hearthstone, Sky Disc, Steel Heart,
-   Awakened Keystone, Pressure Core, Humming Core, Data Matrix, Star Chart, Quantum Core, two chaos shards and the
+   Awakened Keystone, Pressure Core, Humming Core, Data Matrix, Star Chart, Quantum Core, two large chaos fragments and the
    singular alloy in twelve injectors; 2,000,000,000 FE.
 6. Naquadah lies on Mercury; mine 16 with the digital miner. In the arc furnace raw naquadah becomes a naquadah
    ingot, and a naquadah ingot with a steel ingot becomes two naquadah-iron alloy. The metallurgic infuser makes

@@ -1,15 +1,16 @@
-// Firmament Ages - tags of the Electric Age (age_5) to the Singularity Age (age_9): boss tokens, the signature
-// items, rocket fuel. Ids checked against the /fa_dump registry (dev/data/registry.json) and the Cataclysm 3.33 loot
-// tables (2026-10-01).
+// Firmament Ages - tags of the Electric Age (age_5) to the Singularity Age (age_9): Age tokens, the signature
+// items, rocket fuel. Ids checked against the /fa_dump registry (dev/data/registry.json).
 
 ServerEvents.tags('item', (event) => {
-  // Boss tokens: the real drop (Doc 08 section 5.1). The fallback gateways pay out this same drop
-  // (firmages/boss_fallback.js, data/firmages/gateways/<age>_trial.json), so the tag needs no second token.
-  event.add('firmages:boss_token/age_5', 'minecraft:nether_star')       // The Wither
-  event.add('firmages:boss_token/age_6', 'minecraft:dragon_breath')     // Ender Dragon (Doc 08 10.2: dragon's breath in the Data Matrix)
-  event.add('firmages:boss_token/age_7', 'cataclysm:witherite_block')   // The Harbinger, guaranteed drop
-  event.add('firmages:boss_token/age_8', 'cataclysm:abyssal_egg')       // The Leviathan, guaranteed drop
-  event.add('firmages:boss_token/age_9', 'draconicevolution:chaos_shard') // Chaos Guardian (Doc 08 5.1: the "Chaos Trial" gateway pays out here)
+  // Age tokens (dev/decisions-while-away.md, 2026-10-14): the pack's own trial of each Age, no boss. The known bosses
+  // stay optional shortcuts: a Wither drops a Nether Star, the Chaos Guardian chaos shards.
+  event.add('firmages:age_token/age_5', 'minecraft:nether_star')          // IE Arc Furnace (recipes/age_5); Afrit ritual, Wither
+  event.add('firmages:age_token/age_6', 'ae2:singularity')                // AE2 Matter Condenser
+  event.add('firmages:age_token/age_7', 'firmages:flight_recorder')       // the Mars temple chest (loot modifier)
+  event.add('firmages:age_token/age_8', 'evolvedmekanism:alloy_subatomic') // antiprotonic nucleosynthesizer
+  // Chaos the team makes in its own Draconic reactor (recipes/age_9/chaos_bootstrap.js): a large fragment per slot. A
+  // chaos shard of the optional Chaos Guardian breaks into nine of them (DE's own recipe).
+  event.add('firmages:age_token/age_9', 'draconicevolution:large_chaos_frag')
 
   // Stargate Journey's crystal base takes a crafting crystal: vanilla diamond or a unity shard; TFC diamonds join.
   event.add('sgjourney:crafting_crystal', '#c:gems/diamond')

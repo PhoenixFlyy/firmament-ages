@@ -36,13 +36,6 @@ locked = [
     "id:firmages:origin",
 ]
 
-[mobs]
-# POC: entity ids unverified.
-locked_spawns = [
-    "id:cataclysm:maledictus",
-    "id:cataclysm:ignis",
-]
-
 # >>> generated:ore_overrides >>>
 # (no ore becomes visible in this stage)
 # <<< generated:ore_overrides <<<

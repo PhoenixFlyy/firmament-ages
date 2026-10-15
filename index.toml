@@ -6937,11 +6937,6 @@ hash = "811b76b8d4e9e65bde15493b0e3dd72e1d19a0686d92fa02c592e4ed4c6b7c76"
 metafile = true
 
 [[files]]
-file = "mods/bosses-of-mass-destruction-forge.pw.toml"
-hash = "fdcf6239ecfbc329a2c6aa9139450577cc99d38fa8ac527d646cf80f3366d76d"
-metafile = true
-
-[[files]]
 file = "mods/brandons-core.pw.toml"
 hash = "7904c140247e0d8a87231cf4d36718fc018e0f851dbec2517b673acdc25547df"
 metafile = true
@@ -6949,11 +6944,6 @@ metafile = true
 [[files]]
 file = "mods/cave-dweller-reevolved.pw.toml"
 hash = "0a8a4286c00017318d37ce7be4ac1d52f94933805bebb386dd9858d5c8d4db6b"
-metafile = true
-
-[[files]]
-file = "mods/cerbons-api.pw.toml"
-hash = "1cb3db95dbf424de74a4572994d7b32fc8560dc31e0495d10825f195b2103462"
 metafile = true
 
 [[files]]
@@ -7316,11 +7306,6 @@ hash = "c6aba607b0c335394c38e9e20fdff3d27c494d944099e6770629e907eaf7e47e"
 metafile = true
 
 [[files]]
-file = "mods/gateways-to-eternity.pw.toml"
-hash = "a918d214c27222c510f6526721a1c41b0111221ac348c7d20b2a28d4691dfdd4"
-metafile = true
-
-[[files]]
 file = "mods/geckolib.pw.toml"
 hash = "4cf7eb494f48576e28895ee5f362878f95c6bad65372666106140fdae82d0c4c"
 metafile = true
@@ -7456,16 +7441,6 @@ hash = "7211de0ddeab153fc2bf9588f5922de705006be507002ec03cb9f8e6b67ab4cf"
 metafile = true
 
 [[files]]
-file = "mods/lendercataclysm.pw.toml"
-hash = "0f04f325e69159d49ef7ad0593d9fa2caaca3825bc519b3d54c253bfcb0ae435"
-metafile = true
-
-[[files]]
-file = "mods/lionfish-api.pw.toml"
-hash = "c27c2b642deba3609c6e5741ee6360cb8d760e5bf5b2595fd4fa01c01dc5f074"
-metafile = true
-
-[[files]]
 file = "mods/lithium.pw.toml"
 hash = "fb6171c8f7ff0d83513b3f75ee5d7a98659559c427d79fb69eb0219639af8a37"
 metafile = true
@@ -7578,11 +7553,6 @@ metafile = true
 [[files]]
 file = "mods/mouse-tweaks.pw.toml"
 hash = "057044d2179d9e10b616ef8fa4cc870ad350842fc5c325ce0b3766160852cd13"
-metafile = true
-
-[[files]]
-file = "mods/mowzies-mobs.pw.toml"
-hash = "ef5e19ba6a664e7d2b3d54723e3d3f05c0d9e987d807ecb899c1c2ba1a509519"
 metafile = true
 
 [[files]]
@@ -7736,11 +7706,6 @@ hash = "be50160d9d37a186eaf955f39f22a4e1a3d76fb4e61c63aaca25fd5ab2124f9e"
 metafile = true
 
 [[files]]
-file = "mods/summoningrituals.pw.toml"
-hash = "59b49692f23195e2d53945afef3d8c29ecfd942305c5c3daa1d52275e939d7d6"
-metafile = true
-
-[[files]]
 file = "mods/supermartijn642s-config-lib.pw.toml"
 hash = "2e42245826ce70d4ad673addb0e5244da388841f1484f03ee5a9426ee33b2229"
 metafile = true
@@ -7808,11 +7773,6 @@ metafile = true
 [[files]]
 file = "mods/tfcreate-compat.pw.toml"
 hash = "43113c8d452f9bf23e325fd02328b64f787f3aa1ff465c887a23b1dd3e01d8e4"
-metafile = true
-
-[[files]]
-file = "mods/the-twilight-forest.pw.toml"
-hash = "9088f93a00bc3242f0239a7115bdcbc4480e19c6120f5396fb3af27d77abda3e"
 metafile = true
 
 [[files]]

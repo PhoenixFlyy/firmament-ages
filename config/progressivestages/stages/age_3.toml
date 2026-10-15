@@ -51,8 +51,6 @@ locked_spawns = [
     "id:ars_nouveau:wilden_hunter",
     "id:ars_nouveau:wilden_stalker",
     "id:ars_nouveau:wilden_guardian",
-    "id:mowziesmobs:umvuthana_raptor",
-    "id:mowziesmobs:elokosa_howler",
 ]
 
 # >>> generated:ore_overrides >>>

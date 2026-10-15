@@ -13,7 +13,6 @@ Inputs
   dev/data/world_sources.json   facts read from the pack's jars and kubejs/data by --scan: loot tables, global loot
         modifiers, blocks placed by world generation and by structure templates, mob spawns, structure chests
   config/ftbquests/quests   item rewards of quests and reward tables (at the Age of their chapter or table)
-  kubejs/data/firmages/gateways   rewards of the boss-fallback gates (at the Age of the gate)
 
 Walk (dev/poc_analyze.py make_walk, the walk of the R- checks), once per Age dawn..age_9:
   - a recipe fires when its station exists (mod Age of the recipe type, Create heat, late machines), every
@@ -85,11 +84,11 @@ PLACER = re.compile(r"(_seeds|_pod|berries|_beans|_spores)$")
 MARK_END = "# <<< generated:derived <<<"
 
 # ------------------------------------------------------------------------------------------------ world model
-# Dimensions and their Age (Doc 08: Twilight Forest age_2, the Beneath Nether age_3, the End age_6, Ad Astra Moon and
-# Mars age_7, Venus, Mercury and Glacio age_8, the Stargate planets age_9). The overworld is TerraFirmaCraft's: its
+# Dimensions and their Age (Doc 08: the Beneath Nether age_3, the End age_6, Ad Astra Moon and Mars age_7, Venus,
+# Mercury and Glacio age_8, the Stargate planets age_9). The overworld is TerraFirmaCraft's: its
 # biomes are tfc:*, so vanilla overworld biomes, their features and their structures (villages, temples, mineshafts,
 # ...) never generate. The Beneath keeps the vanilla Nether biomes and adds its own features to them.
-BIOME_NS_AGE = {"tfc": "dawn", "beneath": "age_3", "twilightforest": "age_2", "sgjourney": "age_9"}
+BIOME_NS_AGE = {"tfc": "dawn", "beneath": "age_3", "sgjourney": "age_9"}
 VANILLA_BIOME_AGE = {**{b: "age_3" for b in ("nether_wastes", "soul_sand_valley", "crimson_forest", "warped_forest",
                                              "basalt_deltas")},
                      **{b: "age_6" for b in ("the_end", "end_highlands", "end_midlands", "small_end_islands",
@@ -101,7 +100,7 @@ NOISE_AGE = {"minecraft:nether": "age_3", "minecraft:end": "age_6"}
 # Structure templates: a template that a structure reaches through its template pools takes the structure's Age (the
 # earliest Age of its biomes). Templates of code-placed structures, which no pool names, take the earliest Age of their
 # namespace's pool-less structures; vanilla ones by path. A template yields the blocks of its OWN namespace only: a
-# Twilight Forest castle yields castle bricks, but the crafting table or furnace a mod's structure is furnished with
+# mod's castle yields its castle bricks, but the crafting table or furnace a mod's structure is furnished with
 # is no source of that vanilla block (decision 2026-10-13, dev/decisions-while-away.md). Chests in templates name
 # their loot table, which then opens with the template. TFC and AFC templates are trees (world namespaces anyway).
 VANILLA_TEMPLATE_AGE = [("end_city/", "age_6"), ("nether_fossils/", "age_3"), ("ruined_portal/", "age_3"),
@@ -109,7 +108,7 @@ VANILLA_TEMPLATE_AGE = [("end_city/", "age_6"), ("nether_fossils/", "age_3"), ("
 TEMPLATE_SKIP_NS = ("tfc", "afc")
 # Dimensions built by code (terrain features and structures that no data file describes): every block of the namespace
 # counts as placed in the world from that Age; its block loot decides what mining it yields.
-WORLD_BLOCK_NS = {"twilightforest": "age_2"}
+WORLD_BLOCK_NS = {}
 # Vanilla chest tables of code-placed structures that generate in the pack's dimensions (the Beneath keeps the
 # fortress; End cities in the End). Every other vanilla chest table has no structure in the pack.
 VANILLA_CHEST_AGE = {"minecraft:chests/nether_bridge": "age_3", "minecraft:chests/end_city_treasure": "age_6"}
@@ -145,7 +144,6 @@ INTERACTIONS = [
      ["hostilenetworks:overworld_prediction", "hostilenetworks:nether_prediction", "hostilenetworks:end_prediction",
       "hostilenetworks:twilight_prediction", "hostilenetworks:prediction"]),
     ("dawn", ["occultengineering:empty_pentacle_schematic"], ["occultengineering:pentacle_schematic"]),
-    ("dawn", ["entity:mowziesmobs:grottol"], ["mowziesmobs:captured_grottol"]),            # caught with a minecart
     ("dawn", ["ars_nouveau:blank_parchment", "ars_nouveau:scribes_table"], ["ars_nouveau:spell_parchment"]),
     ("dawn", ["immersiveengineering:sample_drill"], ["immersiveengineering:coresample"]),
     ("dawn", ["create:brown_toolbox"], [f"create:{c}_toolbox" for c in (               # create:toolbox_dyeing (special)
@@ -712,20 +710,6 @@ def quest_rewards():
     return out
 
 
-def gate_rewards():
-    out = {}
-    age = {gate.split(":", 1)[1]: st for st, _, gate in pa.FALLBACKS}
-    for p in glob.glob(os.path.join(REPO, "kubejs", "data", "firmages", "gateways", "*.json")):
-        name = os.path.basename(p)[:-5]
-        st = age.get(name, "age_9" if name.startswith("the_origin") else None)
-        if not st:
-            continue
-        for r in json.load(open(p, encoding="utf-8")).get("rewards", []):
-            if r.get("type") == "gateways:stack":
-                out[r["stack"]["id"]] = (st, f"gateway reward {name}")
-    return out
-
-
 # ------------------------------------------------------------------------------------------------ derivation
 def base_age_map():
     raw = open(AGE_MAP, encoding="utf-8").read()
@@ -954,7 +938,7 @@ def derive(dump_dir, show):
             st, why = amap["mods"].get(g["id"].split(":")[0]), f"loot modifier {g['id']}"
         if st:
             give(st, its, why)
-    for i, (st, why) in {**quest_rewards(), **gate_rewards()}.items():
+    for i, (st, why) in quest_rewards().items():
         give(st, [i], why)
 
     def extra_start(n):

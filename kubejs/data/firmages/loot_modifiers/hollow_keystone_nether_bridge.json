@@ -1,0 +1,15 @@
+{
+  "type": "occultism:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/nether_bridge"
+    },
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.4
+    }
+  ],
+  "count": 1,
+  "item": "firmages:hollow_keystone"
+}

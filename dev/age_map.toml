@@ -39,7 +39,6 @@ dragonlib = "dawn"               # library
 moonlight = "dawn"               # library of Supplementaries and Every Compat
 firmages = "dawn"                # pack items: see [items]
 totemic = "age_0"                # 0-2
-mowziesmobs = "age_0"            # 0-5; boss drops per Age in [items]
 framedblocks = "age_1"           # wood decoration with its framing saw: needs the recipe viewer (Bronze Age)
 decorative_blocks = "age_1"      # Decorative Blocks Reborn; its Stone Age camp blocks are Every Compat db/ in TFC woods
 mcwbridges = "age_1"             # Macaw's Bridges: stone and brick bridges; the Stone Age wood bridges are Every Compat mcb/
@@ -64,8 +63,6 @@ everycomp = "age_1"              # Every Compat: the mods above in TFC/AFC woods
 tfcreate = "age_2"               # 1-2; Fuel Heater for the heated basin (Iron Age). Its TFC welding recipes are no grid recipes
 railways = "age_2"
 toms_storage = "age_2"
-twilightforest = "age_2"
-gateways = "age_2"
 createdeco = "age_2"
 dndecor = "age_2"
 createframed = "age_2"
@@ -83,7 +80,6 @@ ars_nouveau = "age_3"            # Archmage 6 via [materials]
 ars_additions = "age_3"
 ars_creo = "age_3"
 theurgy = "age_3"                # Reformation 6 via [materials]
-summoningrituals = "age_3"
 create_enchantment_industry = "age_3"
 create_dragons_plus = "age_3"    # library of Enchantment Industry (dye and dragon-breath fluids, fan catalysts)
 occultengineering = "age_3"
@@ -104,7 +100,6 @@ create_jetpack = "age_4"
 create_mechanical_spawner = "age_4"
 mechanicals = "age_4"            # library of Mechanical Spawner/Extruder (one rare package item)
 create_factory_logistics = "age_4"
-cataclysm = "age_4"              # 4-9 bosses
 immersivepetroleum = "age_5"
 alternatingflux = "age_5"
 more_immersive_wires = "age_5"
@@ -126,7 +121,6 @@ hostilenetworks = "age_6"
 createstockbridge = "age_6"
 createappliedkinetics = "age_6"
 mysticalagriculture = "age_6"    # Imperium 7, Supremium 8
-bosses_of_mass_destruction = "age_6"
 igleelib = "age_6"               # library metals made from End stone and netherite templates; no pack use
 ad_astra = "age_7"               # Moon/Mars 7, Venus/Mercury/Glacio 8
 draconicevolution = "age_7"      # Wyvern 7, Draconic 8, Chaotic 9
@@ -259,6 +253,7 @@ tier_4 = "age_8"
 "tfc_ie_addon:bauxite" = "age_5"         # aluminium, Electric Age
 "tfc_ie_addon:uraninite" = "age_7"       # uranium, disguised until the Space Age
 "firmages:native_osmium" = "age_5"       # the pack vein (startup_scripts/osmium.js), visible from age_5; the ingot is age_6
+"firmages:draconium" = "age_7"           # the pack vein (startup_scripts/draconium.js), deep in igneous intrusive rock
 "firmalife:chromite" = "age_4"           # chromium is only used for stainless steel, which needs nickel (age_4)
 # A key with {rock} is a single-grade ore block per rock (no poor/normal/rich).
 "tfcreate:quartz_{rock}" = "age_2"       # nether quartz from the TFCreate quartz vein, Iron Age (section 8.1)
@@ -359,6 +354,7 @@ block = "tfc:rock/loose/granite"
 "tag:tfc:leather_knapping" = "age_1"
 # Vanilla words that are not the metal.
 "id:minecraft:lead" = "dawn"                             # the leash
+"id:minecraft:bucket" = "age_5"                          # the steel bucket of the Oil strand (recipes/age_5)
 # Pack items: each goal item is made in the Age before the one it unlocks.
 "id:firmages:unfired_hearth_idol" = "age_0"              # clay knapping, fired in a pit kiln (stone_age.js)
 "id:firmages:hearth_idol" = "age_0"
@@ -400,15 +396,15 @@ block = "tfc:rock/loose/granite"
 "id:minecraft:black_bed" = "age_2"
 "id:firmages:reactor_controller" = "age_9"               # firmages-core 0.4: Draconic reactor controller (recipes/age_9)
 "id:firmages:origin_altar" = "age_9"                     # Gathering altar of The Origin; arena block, never crafted
-# Boss fallback sigils (Doc 08 section 5.1, recipes/boss_sigils.js): each opens its Age's stand-in gateway.
-"id:firmages:frontier_sigil" = "age_2"
-"id:firmages:wild_sigil" = "age_3"
-"id:firmages:forge_sigil" = "age_4"
-"id:firmages:wither_sigil" = "age_5"
-"id:firmages:end_sigil" = "age_6"
-"id:firmages:space_sigil" = "age_7"
-"id:firmages:abyss_sigil" = "age_8"
-"id:firmages:chaos_sigil" = "age_9"
+# Expedition items of the Age tokens (dev/decisions-while-away.md, 2026-10-14). The shard is visible from Dawn: a team
+# that finds a Cold Forge before the Iron Age keeps what the chest holds (ProgressiveStages drops a locked item from loot).
+"id:firmages:frontier_compass" = "age_2"                 # points to the nearest Cold Forge (server_scripts/firmages)
+"id:firmages:frontier_shard" = "dawn"                    # the Cold Forge chest (loot_table/chests/cold_forge.json)
+"id:firmages:incomplete_frontier_relic" = "age_2"        # Create sequenced assembly (recipes/age_2/iron_age.js)
+"id:firmages:frontier_relic" = "age_2"                   # the age_2 token: Steel Heart
+"id:firmages:hollow_keystone" = "age_3"                  # Nether fortress chests (loot modifier), the age_3 token
+"id:firmages:incomplete_arcane_keystone" = "age_3"       # Create sequenced assembly (recipes/age_3/arcane_age.js)
+"id:firmages:flight_recorder" = "age_7"                  # Mars temple chest (loot modifier), the age_7 token
 "id:firmages:dust/zinc" = "age_2"                        # canonical dusts come with the Iron Age crushing wheels
 "id:firmages:dust/bismuth" = "age_2"
 # Canonical metal dusts of the Iron Age crushing wheels (kubejs recipes/age_2, Doc 10 v3 section 8.1).
@@ -483,27 +479,6 @@ block = "tfc:rock/loose/granite"
 # Trash cans: the FE can needs power (Industrial Age).
 "id:trashcans:energy_trash_can" = "age_4"
 "id:trashcans:ultimate_trash_can" = "age_4"
-# Mowzie's Mobs drops follow the spawn locks of their mobs (Doc 08 section 5; stage files [mobs]).
-"id:mowziesmobs:captured_grottol" = "age_1"
-"id:mowziesmobs:foliaath_seed" = "age_1"
-"id:mowziesmobs:naga_fang" = "age_2"
-"id:mowziesmobs:naga_fang_dagger" = "age_2"
-"id:mowziesmobs:wrought_axe" = "age_2"
-"id:mowziesmobs:wrought_helmet" = "age_2"
-"name:mowziesmobs:elokosa_paw" = "age_3"
-"name:mowziesmobs:umvuthana_mask" = "age_3"
-"id:mowziesmobs:sol_visage" = "age_3"
-"id:mowziesmobs:grant_suns_blessing" = "age_3"
-# Structure bosses are not spawn-locked (Doc 08 section 5.2); their drops follow the mob stage of the boss:
-# Frostmaw mob_4 (loot table entities/frostmaw), Sculptor and his Bluffs mob_5 (entities/sculptor, sculptor_test,
-# bluff; the monastery chest holds the Geomancer set, the staff and the sand rake).
-"id:mowziesmobs:ice_crystal" = "age_4"
-"id:mowziesmobs:music_disc_petiole" = "age_4"
-"id:mowziesmobs:sculptor_staff" = "age_5"
-"id:mowziesmobs:earthrend_gauntlet" = "age_5"
-"id:mowziesmobs:bluff_rod" = "age_5"
-"id:mowziesmobs:sand_rake" = "age_5"
-"name:mowziesmobs:geomancer_" = "age_5"
 # Station matrix (Doc 10 v3 sections 5 and 6.1): the Draconic Reactor and its Flux Gate are the power of the
 # Singularity Age, the Quantum Entangloporter is wireless power of the Space Age.
 "name:draconicevolution:reactor_" = "age_9"
@@ -1205,6 +1180,7 @@ items = [
 "ad_astra:strophar_cap" = "age_8"
 "ad_astra:strophar_mushroom" = "age_8"
 "advancedtfctech:fleshing_machine" = "age_5"
+"aeronautics:levitite_blend_bucket" = "age_5"
 "afc:rubber_bar" = "age_2"
 "afc:tree_tap" = "age_2"
 "afc:wood/barrel_press/araucaria" = "age_2"
@@ -1281,15 +1257,29 @@ items = [
 "apothic_enchanting:melonshelf" = "age_4"
 "apothic_enchanting:sightshelf_t2" = "age_4"
 "apothic_enchanting:treasure_shelf" = "age_4"
+"ars_additions:archwood_lantern" = "age_4"
 "ars_additions:codex_entry" = "age_6"
-"ars_additions:glyph_retaliate" = "age_4"
+"ars_additions:golden_lantern" = "age_4"
+"ars_additions:night_vision_charm" = "age_4"
+"ars_additions:polished_sourcestone_lantern" = "age_4"
+"ars_additions:sourcestone_lantern" = "age_4"
 "ars_additions:warp_nexus" = "age_6"
 "ars_nouveau:bastion_pod" = "age_6"
 "ars_nouveau:bombegranate_pod" = "age_6"
+"ars_nouveau:fire_essence" = "age_4"
 "ars_nouveau:frostaya_pod" = "age_6"
+"ars_nouveau:glyph_explosion" = "age_4"
+"ars_nouveau:glyph_firework" = "age_4"
+"ars_nouveau:glyph_flare" = "age_4"
+"ars_nouveau:glyph_light" = "age_4"
+"ars_nouveau:glyph_smelt" = "age_4"
 "ars_nouveau:mendosteen_pod" = "age_6"
 "ars_nouveau:ritual_forestation" = "age_6"
+"ars_nouveau:thread_immolation" = "age_4"
+"ars_nouveau:thread_kindling" = "age_4"
 "ars_nouveau:thread_life_drain" = "age_6"
+"ars_nouveau:thread_spellpower" = "age_4"
+"bellsandwhistles:headlight" = "age_4"
 "bellsandwhistles:polished_calcite_pilot" = "age_3"
 "bellsandwhistles:polished_dripstone_pilot" = "age_4"
 "bellsandwhistles:polished_tuff_pilot" = "age_3"
@@ -1305,52 +1295,16 @@ items = [
 "bits_n_bobs:tuff_tile_stairs" = "age_3"
 "bits_n_bobs:tuff_tile_wall" = "age_3"
 "bits_n_bobs:tuff_tiles" = "age_3"
-"cataclysm:blazing_grips" = "age_9"
-"cataclysm:bulwark_of_the_flame" = "age_9"
-"cataclysm:cursed_bow" = "age_9"
-"cataclysm:cursium_block" = "age_9"
-"cataclysm:cursium_boots" = "age_9"
-"cataclysm:cursium_chestplate" = "age_9"
-"cataclysm:cursium_helmet" = "age_9"
-"cataclysm:cursium_ingot" = "age_9"
-"cataclysm:cursium_leggings" = "age_9"
-"cataclysm:gauntlet_of_bulwark" = "age_9"
-"cataclysm:ignitium_block" = "age_9"
-"cataclysm:ignitium_boots" = "age_9"
-"cataclysm:ignitium_chestplate" = "age_9"
-"cataclysm:ignitium_elytra_chestplate" = "age_9"
-"cataclysm:ignitium_helmet" = "age_9"
-"cataclysm:ignitium_ingot" = "age_9"
-"cataclysm:ignitium_leggings" = "age_9"
-"cataclysm:laser_gatling" = "age_7"
-"cataclysm:meat_shredder" = "age_7"
-"cataclysm:mechanical_fusion_anvil" = "age_7"
-"cataclysm:music_disc_ignis" = "age_9"
-"cataclysm:music_disc_maledictus" = "age_9"
-"cataclysm:music_disc_the_harbinger" = "age_7"
-"cataclysm:music_disc_the_leviathan" = "age_8"
-"cataclysm:soul_render" = "age_9"
-"cataclysm:the_annihilator" = "age_9"
-"cataclysm:the_immolator" = "age_9"
-"cataclysm:the_incinerator" = "age_9"
-"cataclysm:tidal_claws" = "age_8"
-"cataclysm:void_assault_shoulder_weapon" = "age_7"
-"cataclysm:wither_assault_shoulder_weapon" = "age_7"
-"cataclysm:witherite_block" = "age_7"
-"cataclysm:witherite_ingot" = "age_7"
-"cataclysm:wrath_of_the_desert" = "age_9"
 "create:acacia_window" = "age_3"
 "create:acacia_window_pane" = "age_3"
 "create:adjustable_chain_gearshift" = "age_2"
 "create:asurine" = "age_2"
 "create:asurine_pillar" = "age_2"
-"create:bamboo_window" = "age_3"
-"create:bamboo_window_pane" = "age_3"
-"create:birch_window" = "age_2"
-"create:birch_window_pane" = "age_2"
+"create:birch_window" = "age_3"
+"create:birch_window_pane" = "age_3"
 "create:brass_funnel" = "age_2"
 "create:brass_tunnel" = "age_2"
-"create:builders_tea" = "age_2"
+"create:builders_tea" = "age_3"
 "create:calcite_pillar" = "age_3"
 "create:cardboard_package_10x12" = "age_4"
 "create:cardboard_package_10x8" = "age_4"
@@ -1358,15 +1312,14 @@ items = [
 "create:cardboard_package_12x12" = "age_4"
 "create:cherry_window" = "age_3"
 "create:cherry_window_pane" = "age_3"
-"create:chocolate_bucket" = "age_2"
-"create:chocolate_glazed_berries" = "age_2"
+"create:chocolate_bucket" = "age_5"
+"create:chocolate_glazed_berries" = "age_3"
 "create:cinder_flour" = "age_2"
 "create:clockwork_bearing" = "age_2"
 "create:content_observer" = "age_2"
 "create:contraption_controls" = "age_2"
 "create:controller_rail" = "age_2"
 "create:controls" = "age_3"
-"create:copper_nugget" = "age_2"
 "create:crimsite" = "age_2"
 "create:crimsite_pillar" = "age_2"
 "create:crimson_window" = "age_3"
@@ -1447,12 +1400,12 @@ items = [
 "create:dark_oak_window_pane" = "age_3"
 "create:deepslate_pillar" = "age_2"
 "create:display_board" = "age_2"
-"create:dough" = "age_2"
+"create:dough" = "age_3"
 "create:dripstone_pillar" = "age_4"
 "create:extendo_grip" = "age_2"
 "create:haunted_bell" = "age_2"
-"create:honey_bucket" = "age_2"
-"create:honeyed_apple" = "age_2"
+"create:honey_bucket" = "age_5"
+"create:honeyed_apple" = "age_3"
 "create:incomplete_track" = "age_2"
 "create:item_drain" = "age_2"
 "create:jungle_window" = "age_3"
@@ -1472,8 +1425,8 @@ items = [
 "create:mangrove_window_pane" = "age_3"
 "create:mechanical_roller" = "age_2"
 "create:nixie_tube" = "age_2"
-"create:oak_window" = "age_2"
-"create:oak_window_pane" = "age_2"
+"create:oak_window" = "age_3"
+"create:oak_window_pane" = "age_3"
 "create:ochrum" = "age_2"
 "create:ochrum_pillar" = "age_2"
 "create:peculiar_bell" = "age_2"
@@ -1559,8 +1512,8 @@ items = [
 "create:small_veridium_brick_stairs" = "age_2"
 "create:small_veridium_brick_wall" = "age_2"
 "create:small_veridium_bricks" = "age_2"
-"create:spruce_window" = "age_2"
-"create:spruce_window_pane" = "age_2"
+"create:spruce_window" = "age_3"
+"create:spruce_window_pane" = "age_3"
 "create:stockpile_switch" = "age_2"
 "create:sturdy_sheet" = "age_3"
 "create:track_observer" = "age_3"
@@ -1573,10 +1526,10 @@ items = [
 "create:unprocessed_obsidian_sheet" = "age_3"
 "create:veridium" = "age_2"
 "create:veridium_pillar" = "age_2"
-"create:wand_of_symmetry" = "age_2"
+"create:wand_of_symmetry" = "age_3"
 "create:warped_window" = "age_3"
 "create:warped_window_pane" = "age_3"
-"create:wheat_flour" = "age_2"
+"create:wheat_flour" = "age_3"
 "create_connected:black_fan_dyeing_catalyst" = "age_2"
 "create_connected:blue_fan_dyeing_catalyst" = "age_2"
 "create_connected:brass_gearbox" = "age_2"
@@ -1588,7 +1541,7 @@ items = [
 "create_connected:fan_blasting_catalyst" = "age_2"
 "create_connected:fan_ending_catalyst_dragon_head" = "age_3"
 "create_connected:fan_ending_catalyst_dragons_breath" = "age_2"
-"create_connected:fan_freezing_catalyst" = "age_2"
+"create_connected:fan_freezing_catalyst" = "age_3"
 "create_connected:fan_haunting_catalyst" = "age_2"
 "create_connected:fan_sanding_catalyst" = "age_2"
 "create_connected:fan_smoking_catalyst" = "age_2"
@@ -1613,13 +1566,66 @@ items = [
 "create_connected:vertical_brass_gearbox" = "age_2"
 "create_connected:white_fan_dyeing_catalyst" = "age_2"
 "create_connected:yellow_fan_dyeing_catalyst" = "age_2"
-"create_dragons_plus:levitite_fragile_fluid_tank" = "age_4"
+"create_dragons_plus:black_dye_bucket" = "age_5"
+"create_dragons_plus:blue_dye_bucket" = "age_5"
+"create_dragons_plus:brown_dye_bucket" = "age_5"
+"create_dragons_plus:cyan_dye_bucket" = "age_5"
+"create_dragons_plus:dragon_breath_bucket" = "age_5"
+"create_dragons_plus:gray_dye_bucket" = "age_5"
+"create_dragons_plus:green_dye_bucket" = "age_5"
+"create_dragons_plus:levitite_fragile_fluid_tank" = "age_5"
+"create_dragons_plus:light_blue_dye_bucket" = "age_5"
+"create_dragons_plus:light_gray_dye_bucket" = "age_5"
+"create_dragons_plus:lime_dye_bucket" = "age_5"
+"create_dragons_plus:magenta_dye_bucket" = "age_5"
+"create_dragons_plus:orange_dye_bucket" = "age_5"
+"create_dragons_plus:pink_dye_bucket" = "age_5"
+"create_dragons_plus:purple_dye_bucket" = "age_5"
+"create_dragons_plus:red_dye_bucket" = "age_5"
+"create_dragons_plus:white_dye_bucket" = "age_5"
+"create_dragons_plus:yellow_dye_bucket" = "age_5"
+"create_enchantment_industry:apotheotic_essence_bucket" = "age_5"
+"create_enchantment_industry:crystal_essence_bucket" = "age_5"
 "create_enchantment_industry:ender_woven_bag" = "age_4"
+"create_enchantment_industry:experience_bucket" = "age_5"
+"create_enchantment_industry:infused_dragon_breath_bucket" = "age_5"
 "create_factory_logistics:factory_chemical_gauge" = "age_6"
 "create_mechanical_spawner:loot_collector" = "age_9"
+"create_mechanical_spawner:spawn_fluid_bat_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_bee_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_blaze_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_chicken_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_cow_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_creeper_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_drowned_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_enderman_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_evoker_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_fox_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_ghast_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_horse_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_magma_cube_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_panda_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_parrot_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_pig_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_piglin_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_rabbit_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_random_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_skeleton_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_slime_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_spider_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_villager_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_witch_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_wither_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_wither_skeleton_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_wolf_bucket" = "age_5"
+"create_mechanical_spawner:spawn_fluid_zombie_bucket" = "age_5"
+"createbigcannons:molten_bronze_bucket" = "age_5"
+"createbigcannons:molten_cast_iron_bucket" = "age_5"
+"createbigcannons:molten_nethersteel_bucket" = "age_5"
+"createbigcannons:molten_steel_bucket" = "age_5"
 "createcasing:acacia_shaft" = "age_3"
 "createcasing:andesite_fluid_tank" = "age_9"
-"createcasing:bamboo_shaft" = "age_3"
+"createcasing:birch_shaft" = "age_3"
 "createcasing:brass_fluid_tank" = "age_9"
 "createcasing:cherry_shaft" = "age_3"
 "createcasing:chorium_ingot" = "age_3"
@@ -1647,6 +1653,7 @@ items = [
 "createcasing:dark_oak_shaft" = "age_3"
 "createcasing:jungle_shaft" = "age_3"
 "createcasing:mangrove_shaft" = "age_3"
+"createcasing:oak_shaft" = "age_3"
 "createcasing:processing_chorium" = "age_3"
 "createcasing:railway_adjustable_chain_gearshift" = "age_3"
 "createcasing:railway_automatic_clutch" = "age_3"
@@ -1667,10 +1674,34 @@ items = [
 "createcasing:railway_mixer" = "age_3"
 "createcasing:railway_portable_storage_interface" = "age_3"
 "createcasing:railway_press" = "age_3"
+"createcasing:spruce_shaft" = "age_3"
 "createcasing:vertical_creative_gearbox" = "age_3"
 "createcasing:vertical_railway_gearbox" = "age_3"
 "createcasing:warped_shaft" = "age_3"
+"createcasing:zinc_casing" = "age_3"
 "createcasing:zinc_fluid_tank" = "age_9"
+"createcasing:zinc_hose_pulley" = "age_3"
+"createcasing:zinc_item_drain" = "age_3"
+"createcasing:zinc_portable_fluid_interface" = "age_3"
+"createcasing:zinc_spout" = "age_3"
+"createdeco:blue_andesite_lamp" = "age_4"
+"createdeco:blue_brass_lamp" = "age_4"
+"createdeco:blue_copper_lamp" = "age_4"
+"createdeco:blue_industrial_iron_lamp" = "age_4"
+"createdeco:blue_iron_lamp" = "age_4"
+"createdeco:blue_zinc_lamp" = "age_4"
+"createdeco:green_andesite_lamp" = "age_3"
+"createdeco:green_brass_lamp" = "age_3"
+"createdeco:green_copper_lamp" = "age_3"
+"createdeco:green_industrial_iron_lamp" = "age_3"
+"createdeco:green_iron_lamp" = "age_3"
+"createdeco:green_zinc_lamp" = "age_3"
+"createdeco:yellow_andesite_lamp" = "age_4"
+"createdeco:yellow_brass_lamp" = "age_4"
+"createdeco:yellow_copper_lamp" = "age_4"
+"createdeco:yellow_industrial_iron_lamp" = "age_4"
+"createdeco:yellow_iron_lamp" = "age_4"
+"createdeco:yellow_zinc_lamp" = "age_4"
 "createrailwaysnavigator:advanced_display" = "age_3"
 "createrailwaysnavigator:advanced_display_block" = "age_3"
 "createrailwaysnavigator:advanced_display_half_panel" = "age_3"
@@ -1683,17 +1714,14 @@ items = [
 "decorative_blocks:acacia_palisade" = "age_3"
 "decorative_blocks:acacia_seat" = "age_3"
 "decorative_blocks:acacia_support" = "age_3"
-"decorative_blocks:bamboo_palisade" = "age_3"
-"decorative_blocks:bamboo_seat" = "age_3"
-"decorative_blocks:bamboo_support" = "age_3"
 "decorative_blocks:bar_panel" = "age_2"
-"decorative_blocks:birch_beam" = "age_2"
-"decorative_blocks:birch_palisade" = "age_2"
-"decorative_blocks:birch_seat" = "age_2"
-"decorative_blocks:birch_support" = "age_2"
+"decorative_blocks:birch_beam" = "age_3"
+"decorative_blocks:birch_palisade" = "age_3"
+"decorative_blocks:birch_seat" = "age_3"
+"decorative_blocks:birch_support" = "age_3"
 "decorative_blocks:brazier" = "age_2"
 "decorative_blocks:chain" = "age_2"
-"decorative_blocks:chandelier" = "age_2"
+"decorative_blocks:chandelier" = "age_4"
 "decorative_blocks:cherry_beam" = "age_3"
 "decorative_blocks:cherry_palisade" = "age_3"
 "decorative_blocks:cherry_seat" = "age_3"
@@ -1714,122 +1742,245 @@ items = [
 "decorative_blocks:mangrove_palisade" = "age_3"
 "decorative_blocks:mangrove_seat" = "age_3"
 "decorative_blocks:mangrove_support" = "age_3"
-"decorative_blocks:oak_beam" = "age_2"
-"decorative_blocks:oak_palisade" = "age_2"
-"decorative_blocks:oak_seat" = "age_2"
-"decorative_blocks:oak_support" = "age_2"
-"decorative_blocks:rocky_dirt" = "age_2"
+"decorative_blocks:oak_beam" = "age_3"
+"decorative_blocks:oak_palisade" = "age_3"
+"decorative_blocks:oak_seat" = "age_3"
+"decorative_blocks:oak_support" = "age_3"
+"decorative_blocks:rocky_dirt" = "age_3"
 "decorative_blocks:soul_brazier" = "age_2"
-"decorative_blocks:soul_chandelier" = "age_2"
-"decorative_blocks:spruce_beam" = "age_2"
-"decorative_blocks:spruce_palisade" = "age_2"
-"decorative_blocks:spruce_seat" = "age_2"
-"decorative_blocks:spruce_support" = "age_2"
+"decorative_blocks:soul_chandelier" = "age_4"
+"decorative_blocks:spruce_beam" = "age_3"
+"decorative_blocks:spruce_palisade" = "age_3"
+"decorative_blocks:spruce_seat" = "age_3"
+"decorative_blocks:spruce_support" = "age_3"
 "decorative_blocks:warped_beam" = "age_3"
 "decorative_blocks:warped_palisade" = "age_3"
 "decorative_blocks:warped_seat" = "age_3"
 "decorative_blocks:warped_support" = "age_3"
 "dndecor:calcite_crushing_wheel" = "age_3"
 "dndecor:calcite_millstone" = "age_3"
+"dndecor:cut_packed_mud" = "age_3"
+"dndecor:cut_packed_mud_brick_slab" = "age_3"
+"dndecor:cut_packed_mud_brick_stairs" = "age_3"
+"dndecor:cut_packed_mud_brick_wall" = "age_3"
+"dndecor:cut_packed_mud_bricks" = "age_3"
+"dndecor:cut_packed_mud_slab" = "age_3"
+"dndecor:cut_packed_mud_stairs" = "age_3"
+"dndecor:cut_packed_mud_wall" = "age_3"
 "dndecor:dripstone_crushing_wheel" = "age_4"
 "dndecor:dripstone_millstone" = "age_4"
+"dndecor:layered_packed_mud" = "age_3"
+"dndecor:packed_mud_crushing_wheel" = "age_3"
+"dndecor:packed_mud_millstone" = "age_3"
+"dndecor:packed_mud_pillar" = "age_3"
+"dndecor:polished_cut_packed_mud" = "age_3"
+"dndecor:polished_cut_packed_mud_slab" = "age_3"
+"dndecor:polished_cut_packed_mud_stairs" = "age_3"
+"dndecor:polished_cut_packed_mud_wall" = "age_3"
+"dndecor:small_packed_mud_brick_slab" = "age_3"
+"dndecor:small_packed_mud_brick_stairs" = "age_3"
+"dndecor:small_packed_mud_brick_wall" = "age_3"
+"dndecor:small_packed_mud_bricks" = "age_3"
 "dndecor:tuff_crushing_wheel" = "age_3"
 "dndecor:tuff_millstone" = "age_3"
 "draconicevolution:advanced_magnet" = "age_8"
-"everycomp:c/createdieselgenerators/chip_wood_window" = "age_2"
-"everycomp:c/createdieselgenerators/chip_wood_window_pane" = "age_2"
-"everycomp:db/createdieselgenerators/chip_wood_palisade" = "age_2"
-"everycomp:db/createdieselgenerators/chip_wood_support" = "age_2"
-"everycomp:hc/createdieselgenerators/chip_wood_corner_trim" = "age_2"
-"everycomp:hc/createdieselgenerators/chip_wood_couch" = "age_2"
+"everycomp:c/createdieselgenerators/chip_wood_window" = "age_3"
+"everycomp:c/createdieselgenerators/chip_wood_window_pane" = "age_3"
+"everycomp:db/createdieselgenerators/chip_wood_palisade" = "age_3"
+"everycomp:db/createdieselgenerators/chip_wood_support" = "age_3"
+"everycomp:hc/afc/araucaria_counter" = "age_3"
+"everycomp:hc/afc/baobab_counter" = "age_3"
+"everycomp:hc/afc/beech_counter" = "age_3"
+"everycomp:hc/afc/cypress_counter" = "age_3"
+"everycomp:hc/afc/eucalyptus_counter" = "age_3"
+"everycomp:hc/afc/fig_counter" = "age_3"
+"everycomp:hc/afc/ginkgo_counter" = "age_3"
+"everycomp:hc/afc/hevea_counter" = "age_3"
+"everycomp:hc/afc/ipe_counter" = "age_3"
+"everycomp:hc/afc/ironwood_counter" = "age_3"
+"everycomp:hc/afc/mahoe_counter" = "age_3"
+"everycomp:hc/afc/mahogany_counter" = "age_3"
+"everycomp:hc/afc/teak_counter" = "age_3"
+"everycomp:hc/afc/tualang_counter" = "age_3"
+"everycomp:hc/createdieselgenerators/chip_wood_corner_trim" = "age_3"
+"everycomp:hc/createdieselgenerators/chip_wood_couch" = "age_3"
 "everycomp:hc/createdieselgenerators/chip_wood_counter" = "age_3"
-"everycomp:hc/createdieselgenerators/chip_wood_cupboard" = "age_2"
-"everycomp:hc/createdieselgenerators/chip_wood_nightstand" = "age_2"
-"everycomp:hc/createdieselgenerators/chip_wood_pillar_trim" = "age_2"
-"everycomp:hc/createdieselgenerators/chip_wood_table" = "age_2"
+"everycomp:hc/createdieselgenerators/chip_wood_cupboard" = "age_3"
+"everycomp:hc/createdieselgenerators/chip_wood_fancy_bed" = "age_3"
+"everycomp:hc/createdieselgenerators/chip_wood_nightstand" = "age_3"
+"everycomp:hc/createdieselgenerators/chip_wood_pillar_trim" = "age_3"
+"everycomp:hc/createdieselgenerators/chip_wood_table" = "age_3"
+"everycomp:hc/tfc/acacia_counter" = "age_3"
+"everycomp:hc/tfc/ash_counter" = "age_3"
+"everycomp:hc/tfc/aspen_counter" = "age_3"
+"everycomp:hc/tfc/birch_counter" = "age_3"
+"everycomp:hc/tfc/blackwood_counter" = "age_3"
+"everycomp:hc/tfc/chestnut_counter" = "age_3"
+"everycomp:hc/tfc/douglas_fir_counter" = "age_3"
+"everycomp:hc/tfc/hickory_counter" = "age_3"
+"everycomp:hc/tfc/kapok_counter" = "age_3"
+"everycomp:hc/tfc/mangrove_counter" = "age_3"
+"everycomp:hc/tfc/maple_counter" = "age_3"
+"everycomp:hc/tfc/oak_counter" = "age_3"
+"everycomp:hc/tfc/palm_counter" = "age_3"
+"everycomp:hc/tfc/pine_counter" = "age_3"
+"everycomp:hc/tfc/rosewood_counter" = "age_3"
+"everycomp:hc/tfc/sequoia_counter" = "age_3"
+"everycomp:hc/tfc/spruce_counter" = "age_3"
+"everycomp:hc/tfc/sycamore_counter" = "age_3"
+"everycomp:hc/tfc/white_cedar_counter" = "age_3"
+"everycomp:hc/tfc/willow_counter" = "age_3"
+"everycomp:mcd/afc/araucaria_classic_door" = "age_3"
+"everycomp:mcd/afc/araucaria_cottage_door" = "age_3"
 "everycomp:mcd/afc/araucaria_stable_door" = "age_2"
 "everycomp:mcd/afc/araucaria_stable_head_door" = "age_2"
+"everycomp:mcd/afc/baobab_classic_door" = "age_3"
+"everycomp:mcd/afc/baobab_cottage_door" = "age_3"
 "everycomp:mcd/afc/baobab_stable_door" = "age_2"
 "everycomp:mcd/afc/baobab_stable_head_door" = "age_2"
+"everycomp:mcd/afc/beech_classic_door" = "age_3"
+"everycomp:mcd/afc/beech_cottage_door" = "age_3"
 "everycomp:mcd/afc/beech_stable_door" = "age_2"
 "everycomp:mcd/afc/beech_stable_head_door" = "age_2"
+"everycomp:mcd/afc/cypress_classic_door" = "age_3"
+"everycomp:mcd/afc/cypress_cottage_door" = "age_3"
 "everycomp:mcd/afc/cypress_stable_door" = "age_2"
 "everycomp:mcd/afc/cypress_stable_head_door" = "age_2"
+"everycomp:mcd/afc/eucalyptus_classic_door" = "age_3"
+"everycomp:mcd/afc/eucalyptus_cottage_door" = "age_3"
 "everycomp:mcd/afc/eucalyptus_stable_door" = "age_2"
 "everycomp:mcd/afc/eucalyptus_stable_head_door" = "age_2"
+"everycomp:mcd/afc/fig_classic_door" = "age_3"
+"everycomp:mcd/afc/fig_cottage_door" = "age_3"
 "everycomp:mcd/afc/fig_stable_door" = "age_2"
 "everycomp:mcd/afc/fig_stable_head_door" = "age_2"
+"everycomp:mcd/afc/ginkgo_classic_door" = "age_3"
+"everycomp:mcd/afc/ginkgo_cottage_door" = "age_3"
 "everycomp:mcd/afc/ginkgo_stable_door" = "age_2"
 "everycomp:mcd/afc/ginkgo_stable_head_door" = "age_2"
+"everycomp:mcd/afc/hevea_classic_door" = "age_3"
+"everycomp:mcd/afc/hevea_cottage_door" = "age_3"
 "everycomp:mcd/afc/hevea_stable_door" = "age_2"
 "everycomp:mcd/afc/hevea_stable_head_door" = "age_2"
+"everycomp:mcd/afc/ipe_classic_door" = "age_3"
+"everycomp:mcd/afc/ipe_cottage_door" = "age_3"
 "everycomp:mcd/afc/ipe_stable_door" = "age_2"
 "everycomp:mcd/afc/ipe_stable_head_door" = "age_2"
+"everycomp:mcd/afc/ironwood_classic_door" = "age_3"
+"everycomp:mcd/afc/ironwood_cottage_door" = "age_3"
 "everycomp:mcd/afc/ironwood_stable_door" = "age_2"
 "everycomp:mcd/afc/ironwood_stable_head_door" = "age_2"
+"everycomp:mcd/afc/mahoe_classic_door" = "age_3"
+"everycomp:mcd/afc/mahoe_cottage_door" = "age_3"
 "everycomp:mcd/afc/mahoe_stable_door" = "age_2"
 "everycomp:mcd/afc/mahoe_stable_head_door" = "age_2"
+"everycomp:mcd/afc/mahogany_classic_door" = "age_3"
+"everycomp:mcd/afc/mahogany_cottage_door" = "age_3"
 "everycomp:mcd/afc/mahogany_stable_door" = "age_2"
 "everycomp:mcd/afc/mahogany_stable_head_door" = "age_2"
+"everycomp:mcd/afc/teak_classic_door" = "age_3"
+"everycomp:mcd/afc/teak_cottage_door" = "age_3"
 "everycomp:mcd/afc/teak_stable_door" = "age_2"
 "everycomp:mcd/afc/teak_stable_head_door" = "age_2"
+"everycomp:mcd/afc/tualang_classic_door" = "age_3"
+"everycomp:mcd/afc/tualang_cottage_door" = "age_3"
 "everycomp:mcd/afc/tualang_stable_door" = "age_2"
 "everycomp:mcd/afc/tualang_stable_head_door" = "age_2"
-"everycomp:mcd/createdieselgenerators/chip_wood_barn_door" = "age_2"
-"everycomp:mcd/createdieselgenerators/chip_wood_barn_glass_door" = "age_2"
-"everycomp:mcd/createdieselgenerators/chip_wood_classic_door" = "age_2"
-"everycomp:mcd/createdieselgenerators/chip_wood_cottage_door" = "age_2"
-"everycomp:mcd/createdieselgenerators/chip_wood_glass_door" = "age_2"
-"everycomp:mcd/createdieselgenerators/chip_wood_stable_door" = "age_2"
-"everycomp:mcd/createdieselgenerators/chip_wood_stable_head_door" = "age_2"
+"everycomp:mcd/createdieselgenerators/chip_wood_barn_door" = "age_3"
+"everycomp:mcd/createdieselgenerators/chip_wood_barn_glass_door" = "age_3"
+"everycomp:mcd/createdieselgenerators/chip_wood_classic_door" = "age_3"
+"everycomp:mcd/createdieselgenerators/chip_wood_cottage_door" = "age_3"
+"everycomp:mcd/createdieselgenerators/chip_wood_glass_door" = "age_3"
+"everycomp:mcd/createdieselgenerators/chip_wood_stable_door" = "age_3"
+"everycomp:mcd/createdieselgenerators/chip_wood_stable_head_door" = "age_3"
+"everycomp:mcd/tfc/acacia_classic_door" = "age_3"
+"everycomp:mcd/tfc/acacia_cottage_door" = "age_3"
 "everycomp:mcd/tfc/acacia_stable_door" = "age_2"
 "everycomp:mcd/tfc/acacia_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/ash_classic_door" = "age_3"
+"everycomp:mcd/tfc/ash_cottage_door" = "age_3"
 "everycomp:mcd/tfc/ash_stable_door" = "age_2"
 "everycomp:mcd/tfc/ash_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/aspen_classic_door" = "age_3"
+"everycomp:mcd/tfc/aspen_cottage_door" = "age_3"
 "everycomp:mcd/tfc/aspen_stable_door" = "age_2"
 "everycomp:mcd/tfc/aspen_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/birch_classic_door" = "age_3"
+"everycomp:mcd/tfc/birch_cottage_door" = "age_3"
 "everycomp:mcd/tfc/birch_stable_door" = "age_2"
 "everycomp:mcd/tfc/birch_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/blackwood_classic_door" = "age_3"
+"everycomp:mcd/tfc/blackwood_cottage_door" = "age_3"
 "everycomp:mcd/tfc/blackwood_stable_door" = "age_2"
 "everycomp:mcd/tfc/blackwood_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/chestnut_classic_door" = "age_3"
+"everycomp:mcd/tfc/chestnut_cottage_door" = "age_3"
 "everycomp:mcd/tfc/chestnut_stable_door" = "age_2"
 "everycomp:mcd/tfc/chestnut_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/douglas_fir_classic_door" = "age_3"
+"everycomp:mcd/tfc/douglas_fir_cottage_door" = "age_3"
 "everycomp:mcd/tfc/douglas_fir_stable_door" = "age_2"
 "everycomp:mcd/tfc/douglas_fir_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/hickory_classic_door" = "age_3"
+"everycomp:mcd/tfc/hickory_cottage_door" = "age_3"
 "everycomp:mcd/tfc/hickory_stable_door" = "age_2"
 "everycomp:mcd/tfc/hickory_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/kapok_classic_door" = "age_3"
+"everycomp:mcd/tfc/kapok_cottage_door" = "age_3"
 "everycomp:mcd/tfc/kapok_stable_door" = "age_2"
 "everycomp:mcd/tfc/kapok_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/mangrove_classic_door" = "age_3"
+"everycomp:mcd/tfc/mangrove_cottage_door" = "age_3"
 "everycomp:mcd/tfc/mangrove_stable_door" = "age_2"
 "everycomp:mcd/tfc/mangrove_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/maple_classic_door" = "age_3"
+"everycomp:mcd/tfc/maple_cottage_door" = "age_3"
 "everycomp:mcd/tfc/maple_stable_door" = "age_2"
 "everycomp:mcd/tfc/maple_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/oak_classic_door" = "age_3"
+"everycomp:mcd/tfc/oak_cottage_door" = "age_3"
 "everycomp:mcd/tfc/oak_stable_door" = "age_2"
 "everycomp:mcd/tfc/oak_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/palm_classic_door" = "age_3"
+"everycomp:mcd/tfc/palm_cottage_door" = "age_3"
 "everycomp:mcd/tfc/palm_stable_door" = "age_2"
 "everycomp:mcd/tfc/palm_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/pine_classic_door" = "age_3"
+"everycomp:mcd/tfc/pine_cottage_door" = "age_3"
 "everycomp:mcd/tfc/pine_stable_door" = "age_2"
 "everycomp:mcd/tfc/pine_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/rosewood_classic_door" = "age_3"
+"everycomp:mcd/tfc/rosewood_cottage_door" = "age_3"
 "everycomp:mcd/tfc/rosewood_stable_door" = "age_2"
 "everycomp:mcd/tfc/rosewood_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/sequoia_classic_door" = "age_3"
+"everycomp:mcd/tfc/sequoia_cottage_door" = "age_3"
 "everycomp:mcd/tfc/sequoia_stable_door" = "age_2"
 "everycomp:mcd/tfc/sequoia_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/spruce_classic_door" = "age_3"
+"everycomp:mcd/tfc/spruce_cottage_door" = "age_3"
 "everycomp:mcd/tfc/spruce_stable_door" = "age_2"
 "everycomp:mcd/tfc/spruce_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/sycamore_classic_door" = "age_3"
+"everycomp:mcd/tfc/sycamore_cottage_door" = "age_3"
 "everycomp:mcd/tfc/sycamore_stable_door" = "age_2"
 "everycomp:mcd/tfc/sycamore_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/white_cedar_classic_door" = "age_3"
+"everycomp:mcd/tfc/white_cedar_cottage_door" = "age_3"
 "everycomp:mcd/tfc/white_cedar_stable_door" = "age_2"
 "everycomp:mcd/tfc/white_cedar_stable_head_door" = "age_2"
+"everycomp:mcd/tfc/willow_classic_door" = "age_3"
+"everycomp:mcd/tfc/willow_cottage_door" = "age_3"
 "everycomp:mcd/tfc/willow_stable_door" = "age_2"
 "everycomp:mcd/tfc/willow_stable_head_door" = "age_2"
-"everycomp:mcw/createdieselgenerators/chip_wood_log_parapet" = "age_2"
-"everycomp:mcw/createdieselgenerators/chip_wood_plank_pane_window" = "age_2"
-"everycomp:mcw/createdieselgenerators/chip_wood_plank_parapet" = "age_2"
-"everycomp:mcw/createdieselgenerators/chip_wood_plank_window" = "age_2"
-"everycomp:mcw/createdieselgenerators/chip_wood_plank_window2" = "age_2"
-"everycomp:mcw/createdieselgenerators/chip_wood_shutter" = "age_2"
-"everycomp:mcw/createdieselgenerators/chip_wood_window" = "age_2"
-"everycomp:mcw/createdieselgenerators/chip_wood_window2" = "age_2"
+"everycomp:mcw/createdieselgenerators/chip_wood_log_parapet" = "age_3"
+"everycomp:mcw/createdieselgenerators/chip_wood_plank_pane_window" = "age_3"
+"everycomp:mcw/createdieselgenerators/chip_wood_plank_parapet" = "age_3"
+"everycomp:mcw/createdieselgenerators/chip_wood_plank_window" = "age_3"
+"everycomp:mcw/createdieselgenerators/chip_wood_plank_window2" = "age_3"
+"everycomp:mcw/createdieselgenerators/chip_wood_shutter" = "age_3"
+"everycomp:mcw/createdieselgenerators/chip_wood_window" = "age_3"
+"everycomp:mcw/createdieselgenerators/chip_wood_window2" = "age_3"
 "evolvedmekanism:advanced_personal_barrel" = "age_9"
 "evolvedmekanism:dense_personal_barrel" = "age_9"
 "evolvedmekanism:elite_personal_barrel" = "age_9"
@@ -1913,6 +2064,7 @@ items = [
 "firmasupps:sconce_soul" = "age_2"
 "framedblocks:framed_activator_rail_slope" = "age_2"
 "framedblocks:framed_axe" = "age_2"
+"framedblocks:framed_bouncy_cube" = "age_2"
 "framedblocks:framed_detector_rail_slope" = "age_2"
 "framedblocks:framed_fancy_activator_rail" = "age_2"
 "framedblocks:framed_fancy_activator_rail_slope" = "age_2"
@@ -1922,16 +2074,16 @@ items = [
 "framedblocks:framed_fancy_rail_slope" = "age_2"
 "framedblocks:framed_glowing_cube" = "age_2"
 "framedblocks:framed_key" = "age_2"
-"framedblocks:framed_lantern" = "age_2"
+"framedblocks:framed_lantern" = "age_4"
 "framedblocks:framed_rail_slope" = "age_2"
-"framedblocks:framed_soul_lantern" = "age_2"
+"framedblocks:framed_soul_lantern" = "age_4"
 "framedblocks:phantom_paste" = "age_2"
 "framedblocks:powered_framing_saw" = "age_2"
 "ftbquests:screen_1" = "age_1"
 "ftbquests:screen_3" = "age_1"
 "ftbquests:screen_5" = "age_1"
 "ftbquests:screen_7" = "age_1"
-"gravestone:gravestone" = "age_2"
+"gravestone:gravestone" = "age_3"
 "handcrafted:acacia_bench" = "age_3"
 "handcrafted:acacia_chair" = "age_3"
 "handcrafted:acacia_corner_trim" = "age_3"
@@ -1947,39 +2099,25 @@ items = [
 "handcrafted:acacia_shelf" = "age_3"
 "handcrafted:acacia_side_table" = "age_3"
 "handcrafted:acacia_table" = "age_3"
-"handcrafted:bamboo_bench" = "age_3"
-"handcrafted:bamboo_chair" = "age_3"
-"handcrafted:bamboo_corner_trim" = "age_3"
-"handcrafted:bamboo_couch" = "age_3"
-"handcrafted:bamboo_counter" = "age_3"
-"handcrafted:bamboo_cupboard" = "age_3"
-"handcrafted:bamboo_desk" = "age_3"
-"handcrafted:bamboo_dining_bench" = "age_3"
-"handcrafted:bamboo_drawer" = "age_3"
-"handcrafted:bamboo_fancy_bed" = "age_3"
-"handcrafted:bamboo_nightstand" = "age_3"
-"handcrafted:bamboo_pillar_trim" = "age_3"
-"handcrafted:bamboo_shelf" = "age_3"
-"handcrafted:bamboo_side_table" = "age_3"
-"handcrafted:bamboo_table" = "age_3"
-"handcrafted:bear_trophy" = "age_2"
+"handcrafted:bear_trophy" = "age_3"
 "handcrafted:bench" = "age_2"
-"handcrafted:berry_jam_jar" = "age_2"
-"handcrafted:birch_bench" = "age_2"
-"handcrafted:birch_chair" = "age_2"
-"handcrafted:birch_corner_trim" = "age_2"
-"handcrafted:birch_couch" = "age_2"
-"handcrafted:birch_counter" = "age_2"
-"handcrafted:birch_cupboard" = "age_2"
-"handcrafted:birch_desk" = "age_2"
-"handcrafted:birch_dining_bench" = "age_2"
-"handcrafted:birch_drawer" = "age_2"
-"handcrafted:birch_nightstand" = "age_2"
-"handcrafted:birch_pillar_trim" = "age_2"
-"handcrafted:birch_shelf" = "age_2"
-"handcrafted:birch_side_table" = "age_2"
-"handcrafted:birch_table" = "age_2"
-"handcrafted:blaze_trophy" = "age_2"
+"handcrafted:berry_jam_jar" = "age_3"
+"handcrafted:birch_bench" = "age_3"
+"handcrafted:birch_chair" = "age_3"
+"handcrafted:birch_corner_trim" = "age_3"
+"handcrafted:birch_couch" = "age_3"
+"handcrafted:birch_counter" = "age_3"
+"handcrafted:birch_cupboard" = "age_3"
+"handcrafted:birch_desk" = "age_3"
+"handcrafted:birch_dining_bench" = "age_3"
+"handcrafted:birch_drawer" = "age_3"
+"handcrafted:birch_fancy_bed" = "age_3"
+"handcrafted:birch_nightstand" = "age_3"
+"handcrafted:birch_pillar_trim" = "age_3"
+"handcrafted:birch_shelf" = "age_3"
+"handcrafted:birch_side_table" = "age_3"
+"handcrafted:birch_table" = "age_3"
+"handcrafted:blaze_trophy" = "age_3"
 "handcrafted:calcite_corner_trim" = "age_3"
 "handcrafted:calcite_pillar_trim" = "age_3"
 "handcrafted:cherry_bench" = "age_3"
@@ -1997,7 +2135,7 @@ items = [
 "handcrafted:cherry_shelf" = "age_3"
 "handcrafted:cherry_side_table" = "age_3"
 "handcrafted:cherry_table" = "age_3"
-"handcrafted:creeper_trophy" = "age_2"
+"handcrafted:creeper_trophy" = "age_3"
 "handcrafted:crimson_bench" = "age_3"
 "handcrafted:crimson_chair" = "age_3"
 "handcrafted:crimson_corner_trim" = "age_3"
@@ -2033,7 +2171,7 @@ items = [
 "handcrafted:dripstone_corner_trim" = "age_4"
 "handcrafted:dripstone_pillar_trim" = "age_4"
 "handcrafted:evoker_trophy" = "age_3"
-"handcrafted:fox_trophy" = "age_2"
+"handcrafted:fox_trophy" = "age_3"
 "handcrafted:frozen_bench" = "age_2"
 "handcrafted:hammer" = "age_2"
 "handcrafted:jungle_bench" = "age_3"
@@ -2068,38 +2206,40 @@ items = [
 "handcrafted:mangrove_shelf" = "age_3"
 "handcrafted:mangrove_side_table" = "age_3"
 "handcrafted:mangrove_table" = "age_3"
-"handcrafted:oak_bench" = "age_2"
-"handcrafted:oak_chair" = "age_2"
-"handcrafted:oak_corner_trim" = "age_2"
-"handcrafted:oak_couch" = "age_2"
-"handcrafted:oak_counter" = "age_2"
-"handcrafted:oak_cupboard" = "age_2"
-"handcrafted:oak_desk" = "age_2"
-"handcrafted:oak_dining_bench" = "age_2"
-"handcrafted:oak_drawer" = "age_2"
-"handcrafted:oak_nightstand" = "age_2"
-"handcrafted:oak_pillar_trim" = "age_2"
-"handcrafted:oak_shelf" = "age_2"
-"handcrafted:oak_side_table" = "age_2"
-"handcrafted:oak_table" = "age_2"
+"handcrafted:oak_bench" = "age_3"
+"handcrafted:oak_chair" = "age_3"
+"handcrafted:oak_corner_trim" = "age_3"
+"handcrafted:oak_couch" = "age_3"
+"handcrafted:oak_counter" = "age_3"
+"handcrafted:oak_cupboard" = "age_3"
+"handcrafted:oak_desk" = "age_3"
+"handcrafted:oak_dining_bench" = "age_3"
+"handcrafted:oak_drawer" = "age_3"
+"handcrafted:oak_fancy_bed" = "age_3"
+"handcrafted:oak_nightstand" = "age_3"
+"handcrafted:oak_pillar_trim" = "age_3"
+"handcrafted:oak_shelf" = "age_3"
+"handcrafted:oak_side_table" = "age_3"
+"handcrafted:oak_table" = "age_3"
 "handcrafted:oven" = "age_2"
 "handcrafted:phantom_trophy" = "age_2"
 "handcrafted:pillager_trophy" = "age_2"
 "handcrafted:salmon_trophy" = "age_3"
-"handcrafted:spruce_bench" = "age_2"
-"handcrafted:spruce_chair" = "age_2"
-"handcrafted:spruce_corner_trim" = "age_2"
-"handcrafted:spruce_couch" = "age_2"
-"handcrafted:spruce_counter" = "age_2"
-"handcrafted:spruce_cupboard" = "age_2"
-"handcrafted:spruce_desk" = "age_2"
-"handcrafted:spruce_dining_bench" = "age_2"
-"handcrafted:spruce_drawer" = "age_2"
-"handcrafted:spruce_nightstand" = "age_2"
-"handcrafted:spruce_pillar_trim" = "age_2"
-"handcrafted:spruce_shelf" = "age_2"
-"handcrafted:spruce_side_table" = "age_2"
-"handcrafted:spruce_table" = "age_2"
+"handcrafted:spruce_bench" = "age_3"
+"handcrafted:spruce_chair" = "age_3"
+"handcrafted:spruce_corner_trim" = "age_3"
+"handcrafted:spruce_couch" = "age_3"
+"handcrafted:spruce_counter" = "age_3"
+"handcrafted:spruce_cupboard" = "age_3"
+"handcrafted:spruce_desk" = "age_3"
+"handcrafted:spruce_dining_bench" = "age_3"
+"handcrafted:spruce_drawer" = "age_3"
+"handcrafted:spruce_fancy_bed" = "age_3"
+"handcrafted:spruce_nightstand" = "age_3"
+"handcrafted:spruce_pillar_trim" = "age_3"
+"handcrafted:spruce_shelf" = "age_3"
+"handcrafted:spruce_side_table" = "age_3"
+"handcrafted:spruce_table" = "age_3"
 "handcrafted:tropical_fish_trophy" = "age_3"
 "handcrafted:warped_bench" = "age_3"
 "handcrafted:warped_chair" = "age_3"
@@ -2116,7 +2256,8 @@ items = [
 "handcrafted:warped_shelf" = "age_3"
 "handcrafted:warped_side_table" = "age_3"
 "handcrafted:warped_table" = "age_3"
-"handcrafted:witch_trophy" = "age_2"
+"handcrafted:witch_trophy" = "age_3"
+"immersiveengineering:acetaldehyde_bucket" = "age_5"
 "immersiveengineering:alu_catwalk" = "age_5"
 "immersiveengineering:alu_catwalk_stairs" = "age_5"
 "immersiveengineering:alu_fence" = "age_5"
@@ -2128,24 +2269,33 @@ items = [
 "immersiveengineering:alu_slope" = "age_5"
 "immersiveengineering:alu_wallmount" = "age_5"
 "immersiveengineering:alu_window" = "age_5"
+"immersiveengineering:biodiesel_bucket" = "age_5"
 "immersiveengineering:bullet_buckshot" = "age_6"
 "immersiveengineering:bullet_dragons_breath" = "age_5"
 "immersiveengineering:bullet_flare" = "age_5"
 "immersiveengineering:component_electronic" = "age_5"
 "immersiveengineering:component_electronic_adv" = "age_5"
+"immersiveengineering:concrete_bucket" = "age_5"
 "immersiveengineering:connector_bundled" = "age_5"
 "immersiveengineering:connector_probe" = "age_5"
+"immersiveengineering:creosote_bucket" = "age_5"
 "immersiveengineering:current_transformer" = "age_5"
 "immersiveengineering:dust_sulfur" = "age_5"
 "immersiveengineering:electromagnet" = "age_5"
 "immersiveengineering:ersatz_leather" = "age_4"
+"immersiveengineering:ethanol_bucket" = "age_5"
 "immersiveengineering:generator" = "age_5"
 "immersiveengineering:glider" = "age_5"
+"immersiveengineering:herbicide_bucket" = "age_5"
+"immersiveengineering:high_power_biodiesel_bucket" = "age_5"
 "immersiveengineering:ingot_hop_graphite" = "age_6"
 "immersiveengineering:item_batcher" = "age_5"
 "immersiveengineering:machine_interface" = "age_5"
 "immersiveengineering:metal_ladder_alu" = "age_5"
 "immersiveengineering:nugget_nickel" = "age_6"
+"immersiveengineering:phenolic_resin_bucket" = "age_5"
+"immersiveengineering:plantoil_bucket" = "age_5"
+"immersiveengineering:potion_bucket" = "age_5"
 "immersiveengineering:railgun" = "age_5"
 "immersiveengineering:razor_wire" = "age_5"
 "immersiveengineering:redstone_breaker" = "age_5"
@@ -2178,17 +2328,14 @@ items = [
 "mcwbridges:balustrade_deepslate_bricks_bridge" = "age_2"
 "mcwbridges:balustrade_deepslate_tiles_bridge" = "age_2"
 "mcwbridges:balustrade_end_stone_bricks_bridge" = "age_2"
-"mcwbridges:balustrade_mud_bricks_bridge" = "age_2"
+"mcwbridges:balustrade_mud_bricks_bridge" = "age_3"
 "mcwbridges:balustrade_prismarine_bricks_bridge" = "age_3"
-"mcwbridges:bamboo_bridge" = "age_3"
-"mcwbridges:bamboo_bridge_pier" = "age_3"
-"mcwbridges:bamboo_bridge_stair" = "age_3"
-"mcwbridges:birch_bridge_pier" = "age_2"
-"mcwbridges:birch_log_bridge_middle" = "age_2"
-"mcwbridges:birch_log_bridge_stair" = "age_2"
-"mcwbridges:birch_rail_bridge" = "age_2"
-"mcwbridges:birch_rope_bridge_stair" = "age_2"
-"mcwbridges:bridge_torch" = "age_2"
+"mcwbridges:birch_bridge_pier" = "age_3"
+"mcwbridges:birch_log_bridge_middle" = "age_3"
+"mcwbridges:birch_log_bridge_stair" = "age_3"
+"mcwbridges:birch_rail_bridge" = "age_3"
+"mcwbridges:birch_rope_bridge_stair" = "age_3"
+"mcwbridges:bridge_torch" = "age_4"
 "mcwbridges:cherry_bridge_pier" = "age_3"
 "mcwbridges:cherry_log_bridge_middle" = "age_3"
 "mcwbridges:cherry_log_bridge_stair" = "age_3"
@@ -2210,9 +2357,6 @@ items = [
 "mcwbridges:deepslate_tile_bridge" = "age_2"
 "mcwbridges:deepslate_tile_bridge_pier" = "age_2"
 "mcwbridges:deepslate_tile_bridge_stair" = "age_2"
-"mcwbridges:dry_bamboo_bridge" = "age_3"
-"mcwbridges:dry_bamboo_bridge_pier" = "age_3"
-"mcwbridges:dry_bamboo_bridge_stair" = "age_3"
 "mcwbridges:end_stone_bricks_bridge" = "age_2"
 "mcwbridges:end_stone_bricks_bridge_pier" = "age_2"
 "mcwbridges:end_stone_bricks_bridge_stair" = "age_2"
@@ -2226,39 +2370,38 @@ items = [
 "mcwbridges:mangrove_log_bridge_stair" = "age_3"
 "mcwbridges:mangrove_rail_bridge" = "age_3"
 "mcwbridges:mangrove_rope_bridge_stair" = "age_3"
-"mcwbridges:mud_brick_bridge" = "age_2"
-"mcwbridges:mud_brick_bridge_pier" = "age_2"
-"mcwbridges:mud_brick_bridge_stair" = "age_2"
-"mcwbridges:oak_bridge_pier" = "age_2"
-"mcwbridges:oak_log_bridge_middle" = "age_2"
-"mcwbridges:oak_log_bridge_stair" = "age_2"
-"mcwbridges:oak_rail_bridge" = "age_2"
-"mcwbridges:oak_rope_bridge_stair" = "age_2"
+"mcwbridges:mud_brick_bridge" = "age_3"
+"mcwbridges:mud_brick_bridge_pier" = "age_3"
+"mcwbridges:mud_brick_bridge_stair" = "age_3"
+"mcwbridges:oak_bridge_pier" = "age_3"
+"mcwbridges:oak_log_bridge_middle" = "age_3"
+"mcwbridges:oak_log_bridge_stair" = "age_3"
+"mcwbridges:oak_rail_bridge" = "age_3"
+"mcwbridges:oak_rope_bridge_stair" = "age_3"
 "mcwbridges:pliers" = "age_2"
 "mcwbridges:prismarine_bricks_bridge" = "age_3"
 "mcwbridges:prismarine_bricks_bridge_pier" = "age_3"
 "mcwbridges:prismarine_bricks_bridge_stair" = "age_3"
 "mcwbridges:rope_acacia_bridge" = "age_3"
-"mcwbridges:rope_birch_bridge" = "age_2"
+"mcwbridges:rope_birch_bridge" = "age_3"
 "mcwbridges:rope_cherry_bridge" = "age_3"
 "mcwbridges:rope_crimson_bridge" = "age_3"
 "mcwbridges:rope_dark_oak_bridge" = "age_3"
 "mcwbridges:rope_jungle_bridge" = "age_3"
 "mcwbridges:rope_mangrove_bridge" = "age_3"
-"mcwbridges:rope_oak_bridge" = "age_2"
-"mcwbridges:rope_spruce_bridge" = "age_2"
+"mcwbridges:rope_oak_bridge" = "age_3"
+"mcwbridges:rope_spruce_bridge" = "age_3"
 "mcwbridges:rope_warped_bridge" = "age_3"
-"mcwbridges:spruce_bridge_pier" = "age_2"
-"mcwbridges:spruce_log_bridge_middle" = "age_2"
-"mcwbridges:spruce_log_bridge_stair" = "age_2"
-"mcwbridges:spruce_rail_bridge" = "age_2"
-"mcwbridges:spruce_rope_bridge_stair" = "age_2"
+"mcwbridges:spruce_bridge_pier" = "age_3"
+"mcwbridges:spruce_log_bridge_middle" = "age_3"
+"mcwbridges:spruce_log_bridge_stair" = "age_3"
+"mcwbridges:spruce_rail_bridge" = "age_3"
+"mcwbridges:spruce_rope_bridge_stair" = "age_3"
 "mcwbridges:warped_bridge_pier" = "age_3"
 "mcwbridges:warped_log_bridge_middle" = "age_3"
 "mcwbridges:warped_log_bridge_stair" = "age_3"
 "mcwbridges:warped_rail_bridge" = "age_3"
 "mcwbridges:warped_rope_bridge_stair" = "age_3"
-"mcwdoors:acacia_bamboo_door" = "age_3"
 "mcwdoors:acacia_bark_glass_door" = "age_3"
 "mcwdoors:acacia_barn_door" = "age_3"
 "mcwdoors:acacia_barn_glass_door" = "age_3"
@@ -2279,49 +2422,26 @@ items = [
 "mcwdoors:acacia_waffle_door" = "age_3"
 "mcwdoors:acacia_western_door" = "age_3"
 "mcwdoors:acacia_whispering_door" = "age_3"
-"mcwdoors:bamboo_bark_glass_door" = "age_3"
-"mcwdoors:bamboo_barn_door" = "age_3"
-"mcwdoors:bamboo_barn_glass_door" = "age_3"
-"mcwdoors:bamboo_beach_door" = "age_3"
-"mcwdoors:bamboo_classic_door" = "age_3"
-"mcwdoors:bamboo_cottage_door" = "age_3"
-"mcwdoors:bamboo_four_panel_door" = "age_3"
-"mcwdoors:bamboo_glass_door" = "age_3"
-"mcwdoors:bamboo_japanese2_door" = "age_3"
-"mcwdoors:bamboo_japanese_door" = "age_3"
-"mcwdoors:bamboo_modern_door" = "age_3"
-"mcwdoors:bamboo_mystic_door" = "age_3"
-"mcwdoors:bamboo_nether_door" = "age_3"
-"mcwdoors:bamboo_paper_door" = "age_3"
-"mcwdoors:bamboo_stable_door" = "age_3"
-"mcwdoors:bamboo_stable_head_door" = "age_3"
-"mcwdoors:bamboo_swamp_door" = "age_3"
-"mcwdoors:bamboo_tropical_door" = "age_3"
-"mcwdoors:bamboo_waffle_door" = "age_3"
-"mcwdoors:bamboo_western_door" = "age_3"
-"mcwdoors:bamboo_whispering_door" = "age_3"
-"mcwdoors:birch_bamboo_door" = "age_3"
-"mcwdoors:birch_bark_glass_door" = "age_2"
-"mcwdoors:birch_barn_door" = "age_2"
-"mcwdoors:birch_barn_glass_door" = "age_2"
+"mcwdoors:birch_bark_glass_door" = "age_3"
+"mcwdoors:birch_barn_door" = "age_3"
+"mcwdoors:birch_barn_glass_door" = "age_3"
 "mcwdoors:birch_beach_door" = "age_3"
-"mcwdoors:birch_classic_door" = "age_2"
-"mcwdoors:birch_cottage_door" = "age_2"
+"mcwdoors:birch_classic_door" = "age_3"
+"mcwdoors:birch_cottage_door" = "age_3"
 "mcwdoors:birch_four_panel_door" = "age_3"
-"mcwdoors:birch_glass_door" = "age_2"
-"mcwdoors:birch_japanese2_door" = "age_2"
-"mcwdoors:birch_japanese_door" = "age_2"
-"mcwdoors:birch_modern_door" = "age_2"
+"mcwdoors:birch_glass_door" = "age_3"
+"mcwdoors:birch_japanese2_door" = "age_3"
+"mcwdoors:birch_japanese_door" = "age_3"
+"mcwdoors:birch_modern_door" = "age_3"
 "mcwdoors:birch_mystic_door" = "age_3"
 "mcwdoors:birch_nether_door" = "age_3"
-"mcwdoors:birch_stable_door" = "age_2"
-"mcwdoors:birch_stable_head_door" = "age_2"
+"mcwdoors:birch_stable_door" = "age_3"
+"mcwdoors:birch_stable_head_door" = "age_3"
 "mcwdoors:birch_swamp_door" = "age_3"
 "mcwdoors:birch_tropical_door" = "age_3"
 "mcwdoors:birch_waffle_door" = "age_3"
-"mcwdoors:birch_western_door" = "age_2"
-"mcwdoors:birch_whispering_door" = "age_2"
-"mcwdoors:cherry_bamboo_door" = "age_3"
+"mcwdoors:birch_western_door" = "age_3"
+"mcwdoors:birch_whispering_door" = "age_3"
 "mcwdoors:cherry_bark_glass_door" = "age_3"
 "mcwdoors:cherry_barn_door" = "age_3"
 "mcwdoors:cherry_barn_glass_door" = "age_3"
@@ -2342,7 +2462,6 @@ items = [
 "mcwdoors:cherry_tropical_door" = "age_3"
 "mcwdoors:cherry_western_door" = "age_3"
 "mcwdoors:cherry_whispering_door" = "age_3"
-"mcwdoors:crimson_bamboo_door" = "age_3"
 "mcwdoors:crimson_barn_door" = "age_3"
 "mcwdoors:crimson_barn_glass_door" = "age_3"
 "mcwdoors:crimson_beach_door" = "age_3"
@@ -2363,7 +2482,6 @@ items = [
 "mcwdoors:crimson_waffle_door" = "age_3"
 "mcwdoors:crimson_western_door" = "age_3"
 "mcwdoors:crimson_whispering_door" = "age_3"
-"mcwdoors:dark_oak_bamboo_door" = "age_3"
 "mcwdoors:dark_oak_bark_glass_door" = "age_3"
 "mcwdoors:dark_oak_barn_door" = "age_3"
 "mcwdoors:dark_oak_barn_glass_door" = "age_3"
@@ -2389,7 +2507,6 @@ items = [
 "mcwdoors:garage_silver_door" = "age_2"
 "mcwdoors:garage_white_door" = "age_2"
 "mcwdoors:jail_door" = "age_2"
-"mcwdoors:jungle_bamboo_door" = "age_3"
 "mcwdoors:jungle_bark_glass_door" = "age_3"
 "mcwdoors:jungle_barn_door" = "age_3"
 "mcwdoors:jungle_barn_glass_door" = "age_3"
@@ -2410,7 +2527,6 @@ items = [
 "mcwdoors:jungle_waffle_door" = "age_3"
 "mcwdoors:jungle_western_door" = "age_3"
 "mcwdoors:jungle_whispering_door" = "age_3"
-"mcwdoors:mangrove_bamboo_door" = "age_3"
 "mcwdoors:mangrove_bark_glass_door" = "age_3"
 "mcwdoors:mangrove_barn_door" = "age_3"
 "mcwdoors:mangrove_barn_glass_door" = "age_3"
@@ -2436,60 +2552,58 @@ items = [
 "mcwdoors:metal_reinforced_door" = "age_2"
 "mcwdoors:metal_warning_door" = "age_2"
 "mcwdoors:metal_windowed_door" = "age_2"
-"mcwdoors:oak_bamboo_door" = "age_3"
-"mcwdoors:oak_bark_glass_door" = "age_2"
-"mcwdoors:oak_barn_door" = "age_2"
-"mcwdoors:oak_barn_glass_door" = "age_2"
+"mcwdoors:oak_bark_glass_door" = "age_3"
+"mcwdoors:oak_barn_door" = "age_3"
+"mcwdoors:oak_barn_glass_door" = "age_3"
 "mcwdoors:oak_beach_door" = "age_3"
-"mcwdoors:oak_cottage_door" = "age_2"
+"mcwdoors:oak_cottage_door" = "age_3"
 "mcwdoors:oak_four_panel_door" = "age_3"
-"mcwdoors:oak_glass_door" = "age_2"
-"mcwdoors:oak_japanese2_door" = "age_2"
-"mcwdoors:oak_japanese_door" = "age_2"
-"mcwdoors:oak_modern_door" = "age_2"
+"mcwdoors:oak_glass_door" = "age_3"
+"mcwdoors:oak_japanese2_door" = "age_3"
+"mcwdoors:oak_japanese_door" = "age_3"
+"mcwdoors:oak_modern_door" = "age_3"
 "mcwdoors:oak_mystic_door" = "age_3"
 "mcwdoors:oak_nether_door" = "age_3"
-"mcwdoors:oak_paper_door" = "age_2"
-"mcwdoors:oak_stable_door" = "age_2"
-"mcwdoors:oak_stable_head_door" = "age_2"
+"mcwdoors:oak_paper_door" = "age_3"
+"mcwdoors:oak_stable_door" = "age_3"
+"mcwdoors:oak_stable_head_door" = "age_3"
 "mcwdoors:oak_swamp_door" = "age_3"
 "mcwdoors:oak_tropical_door" = "age_3"
 "mcwdoors:oak_waffle_door" = "age_3"
-"mcwdoors:oak_western_door" = "age_2"
-"mcwdoors:oak_whispering_door" = "age_2"
+"mcwdoors:oak_western_door" = "age_3"
+"mcwdoors:oak_whispering_door" = "age_3"
 "mcwdoors:print_acacia" = "age_3"
-"mcwdoors:print_bamboo" = "age_3"
-"mcwdoors:print_birch" = "age_2"
+"mcwdoors:print_birch" = "age_3"
 "mcwdoors:print_dark_oak" = "age_3"
 "mcwdoors:print_jungle" = "age_3"
 "mcwdoors:print_mystic" = "age_3"
 "mcwdoors:print_nether" = "age_3"
+"mcwdoors:print_oak" = "age_3"
+"mcwdoors:print_spruce" = "age_3"
 "mcwdoors:print_swamp" = "age_3"
 "mcwdoors:print_waffle" = "age_3"
 "mcwdoors:sliding_glass_door" = "age_2"
-"mcwdoors:spruce_bamboo_door" = "age_3"
-"mcwdoors:spruce_bark_glass_door" = "age_2"
-"mcwdoors:spruce_barn_door" = "age_2"
-"mcwdoors:spruce_barn_glass_door" = "age_2"
+"mcwdoors:spruce_bark_glass_door" = "age_3"
+"mcwdoors:spruce_barn_door" = "age_3"
+"mcwdoors:spruce_barn_glass_door" = "age_3"
 "mcwdoors:spruce_beach_door" = "age_3"
-"mcwdoors:spruce_classic_door" = "age_2"
+"mcwdoors:spruce_classic_door" = "age_3"
 "mcwdoors:spruce_four_panel_door" = "age_3"
-"mcwdoors:spruce_glass_door" = "age_2"
-"mcwdoors:spruce_japanese2_door" = "age_2"
-"mcwdoors:spruce_japanese_door" = "age_2"
-"mcwdoors:spruce_modern_door" = "age_2"
+"mcwdoors:spruce_glass_door" = "age_3"
+"mcwdoors:spruce_japanese2_door" = "age_3"
+"mcwdoors:spruce_japanese_door" = "age_3"
+"mcwdoors:spruce_modern_door" = "age_3"
 "mcwdoors:spruce_mystic_door" = "age_3"
 "mcwdoors:spruce_nether_door" = "age_3"
-"mcwdoors:spruce_paper_door" = "age_2"
-"mcwdoors:spruce_stable_door" = "age_2"
-"mcwdoors:spruce_stable_head_door" = "age_2"
+"mcwdoors:spruce_paper_door" = "age_3"
+"mcwdoors:spruce_stable_door" = "age_3"
+"mcwdoors:spruce_stable_head_door" = "age_3"
 "mcwdoors:spruce_swamp_door" = "age_3"
 "mcwdoors:spruce_tropical_door" = "age_3"
 "mcwdoors:spruce_waffle_door" = "age_3"
-"mcwdoors:spruce_western_door" = "age_2"
-"mcwdoors:spruce_whispering_door" = "age_2"
+"mcwdoors:spruce_western_door" = "age_3"
+"mcwdoors:spruce_whispering_door" = "age_3"
 "mcwdoors:store_door" = "age_2"
-"mcwdoors:warped_bamboo_door" = "age_3"
 "mcwdoors:warped_barn_door" = "age_3"
 "mcwdoors:warped_barn_glass_door" = "age_3"
 "mcwdoors:warped_beach_door" = "age_3"
@@ -2525,21 +2639,20 @@ items = [
 "mcwwindows:acacia_shutter" = "age_3"
 "mcwwindows:acacia_window" = "age_3"
 "mcwwindows:acacia_window2" = "age_3"
-"mcwwindows:bamboo_shutter" = "age_3"
-"mcwwindows:birch_blinds" = "age_2"
-"mcwwindows:birch_curtain_rod" = "age_2"
-"mcwwindows:birch_four_window" = "age_2"
-"mcwwindows:birch_log_parapet" = "age_2"
-"mcwwindows:birch_louvered_shutter" = "age_2"
-"mcwwindows:birch_pane_window" = "age_2"
-"mcwwindows:birch_plank_four_window" = "age_2"
-"mcwwindows:birch_plank_pane_window" = "age_2"
-"mcwwindows:birch_plank_parapet" = "age_2"
-"mcwwindows:birch_plank_window" = "age_2"
-"mcwwindows:birch_plank_window2" = "age_2"
-"mcwwindows:birch_shutter" = "age_2"
-"mcwwindows:birch_window" = "age_2"
-"mcwwindows:birch_window2" = "age_2"
+"mcwwindows:birch_blinds" = "age_3"
+"mcwwindows:birch_curtain_rod" = "age_3"
+"mcwwindows:birch_four_window" = "age_3"
+"mcwwindows:birch_log_parapet" = "age_3"
+"mcwwindows:birch_louvered_shutter" = "age_3"
+"mcwwindows:birch_pane_window" = "age_3"
+"mcwwindows:birch_plank_four_window" = "age_3"
+"mcwwindows:birch_plank_pane_window" = "age_3"
+"mcwwindows:birch_plank_parapet" = "age_3"
+"mcwwindows:birch_plank_window" = "age_3"
+"mcwwindows:birch_plank_window2" = "age_3"
+"mcwwindows:birch_shutter" = "age_3"
+"mcwwindows:birch_window" = "age_3"
+"mcwwindows:birch_window2" = "age_3"
 "mcwwindows:cherry_blinds" = "age_3"
 "mcwwindows:cherry_curtain_rod" = "age_3"
 "mcwwindows:cherry_four_window" = "age_3"
@@ -2630,22 +2743,22 @@ items = [
 "mcwwindows:metal_pane_window" = "age_2"
 "mcwwindows:metal_window" = "age_2"
 "mcwwindows:metal_window2" = "age_2"
-"mcwwindows:mud_brick_arrow_slit" = "age_2"
-"mcwwindows:mud_brick_gothic" = "age_2"
-"mcwwindows:oak_blinds" = "age_2"
-"mcwwindows:oak_curtain_rod" = "age_2"
-"mcwwindows:oak_four_window" = "age_2"
-"mcwwindows:oak_log_parapet" = "age_2"
-"mcwwindows:oak_louvered_shutter" = "age_2"
-"mcwwindows:oak_pane_window" = "age_2"
-"mcwwindows:oak_plank_four_window" = "age_2"
-"mcwwindows:oak_plank_pane_window" = "age_2"
-"mcwwindows:oak_plank_parapet" = "age_2"
-"mcwwindows:oak_plank_window" = "age_2"
-"mcwwindows:oak_plank_window2" = "age_2"
-"mcwwindows:oak_shutter" = "age_2"
-"mcwwindows:oak_window" = "age_2"
-"mcwwindows:oak_window2" = "age_2"
+"mcwwindows:mud_brick_arrow_slit" = "age_3"
+"mcwwindows:mud_brick_gothic" = "age_3"
+"mcwwindows:oak_blinds" = "age_3"
+"mcwwindows:oak_curtain_rod" = "age_3"
+"mcwwindows:oak_four_window" = "age_3"
+"mcwwindows:oak_log_parapet" = "age_3"
+"mcwwindows:oak_louvered_shutter" = "age_3"
+"mcwwindows:oak_pane_window" = "age_3"
+"mcwwindows:oak_plank_four_window" = "age_3"
+"mcwwindows:oak_plank_pane_window" = "age_3"
+"mcwwindows:oak_plank_parapet" = "age_3"
+"mcwwindows:oak_plank_window" = "age_3"
+"mcwwindows:oak_plank_window2" = "age_3"
+"mcwwindows:oak_shutter" = "age_3"
+"mcwwindows:oak_window" = "age_3"
+"mcwwindows:oak_window2" = "age_3"
 "mcwwindows:prismarine_brick_arrow_slit" = "age_3"
 "mcwwindows:prismarine_brick_gothic" = "age_3"
 "mcwwindows:prismarine_four_window" = "age_3"
@@ -2653,28 +2766,28 @@ items = [
 "mcwwindows:prismarine_parapet" = "age_3"
 "mcwwindows:prismarine_window" = "age_3"
 "mcwwindows:prismarine_window2" = "age_3"
-"mcwwindows:spruce_blinds" = "age_2"
-"mcwwindows:spruce_curtain_rod" = "age_2"
-"mcwwindows:spruce_four_window" = "age_2"
-"mcwwindows:spruce_log_parapet" = "age_2"
-"mcwwindows:spruce_louvered_shutter" = "age_2"
-"mcwwindows:spruce_pane_window" = "age_2"
-"mcwwindows:spruce_plank_four_window" = "age_2"
-"mcwwindows:spruce_plank_pane_window" = "age_2"
-"mcwwindows:spruce_plank_parapet" = "age_2"
-"mcwwindows:spruce_plank_window" = "age_2"
-"mcwwindows:spruce_plank_window2" = "age_2"
-"mcwwindows:spruce_shutter" = "age_2"
-"mcwwindows:spruce_window" = "age_2"
-"mcwwindows:spruce_window2" = "age_2"
+"mcwwindows:spruce_blinds" = "age_3"
+"mcwwindows:spruce_curtain_rod" = "age_3"
+"mcwwindows:spruce_four_window" = "age_3"
+"mcwwindows:spruce_log_parapet" = "age_3"
+"mcwwindows:spruce_louvered_shutter" = "age_3"
+"mcwwindows:spruce_pane_window" = "age_3"
+"mcwwindows:spruce_plank_four_window" = "age_3"
+"mcwwindows:spruce_plank_pane_window" = "age_3"
+"mcwwindows:spruce_plank_parapet" = "age_3"
+"mcwwindows:spruce_plank_window" = "age_3"
+"mcwwindows:spruce_plank_window2" = "age_3"
+"mcwwindows:spruce_shutter" = "age_3"
+"mcwwindows:spruce_window" = "age_3"
+"mcwwindows:spruce_window2" = "age_3"
 "mcwwindows:stripped_acacia_log_four_window" = "age_3"
 "mcwwindows:stripped_acacia_log_window" = "age_3"
 "mcwwindows:stripped_acacia_log_window2" = "age_3"
 "mcwwindows:stripped_acacia_pane_window" = "age_3"
-"mcwwindows:stripped_birch_log_four_window" = "age_2"
-"mcwwindows:stripped_birch_log_window" = "age_2"
-"mcwwindows:stripped_birch_log_window2" = "age_2"
-"mcwwindows:stripped_birch_pane_window" = "age_2"
+"mcwwindows:stripped_birch_log_four_window" = "age_3"
+"mcwwindows:stripped_birch_log_window" = "age_3"
+"mcwwindows:stripped_birch_log_window2" = "age_3"
+"mcwwindows:stripped_birch_pane_window" = "age_3"
 "mcwwindows:stripped_cherry_log_four_window" = "age_3"
 "mcwwindows:stripped_cherry_log_window" = "age_3"
 "mcwwindows:stripped_cherry_log_window2" = "age_3"
@@ -2695,14 +2808,14 @@ items = [
 "mcwwindows:stripped_mangrove_log_window" = "age_3"
 "mcwwindows:stripped_mangrove_log_window2" = "age_3"
 "mcwwindows:stripped_mangrove_pane_window" = "age_3"
-"mcwwindows:stripped_oak_log_four_window" = "age_2"
-"mcwwindows:stripped_oak_log_window" = "age_2"
-"mcwwindows:stripped_oak_log_window2" = "age_2"
-"mcwwindows:stripped_oak_pane_window" = "age_2"
-"mcwwindows:stripped_spruce_log_four_window" = "age_2"
-"mcwwindows:stripped_spruce_log_window" = "age_2"
-"mcwwindows:stripped_spruce_log_window2" = "age_2"
-"mcwwindows:stripped_spruce_pane_window" = "age_2"
+"mcwwindows:stripped_oak_log_four_window" = "age_3"
+"mcwwindows:stripped_oak_log_window" = "age_3"
+"mcwwindows:stripped_oak_log_window2" = "age_3"
+"mcwwindows:stripped_oak_pane_window" = "age_3"
+"mcwwindows:stripped_spruce_log_four_window" = "age_3"
+"mcwwindows:stripped_spruce_log_window" = "age_3"
+"mcwwindows:stripped_spruce_log_window2" = "age_3"
+"mcwwindows:stripped_spruce_pane_window" = "age_3"
 "mcwwindows:stripped_warped_pane_window" = "age_3"
 "mcwwindows:stripped_warped_stem_four_window" = "age_3"
 "mcwwindows:stripped_warped_stem_window" = "age_3"
@@ -2723,7 +2836,6 @@ items = [
 "mcwwindows:warped_stem_window2" = "age_3"
 "mekanism:antiprotonic_nucleosynthesizer" = "age_8"
 "mekanism:modification_station" = "age_7"
-"mekanism:module_blasting_unit" = "age_7"
 "mekanism:module_charge_distribution_unit" = "age_7"
 "mekanism:module_elytra_unit" = "age_8"
 "mekanism:module_energy_unit" = "age_7"
@@ -2803,37 +2915,23 @@ items = [
 "minecraft:acacia_wood" = "age_3"
 "minecraft:activator_rail" = "age_2"
 "minecraft:allay_spawn_egg" = "age_3"
-"minecraft:allium" = "age_2"
+"minecraft:allium" = "age_3"
 "minecraft:amethyst_cluster" = "age_8"
+"minecraft:amethyst_shard" = "age_8"
 "minecraft:ancient_debris" = "age_3"
 "minecraft:andesite" = "age_1"
 "minecraft:andesite_slab" = "age_1"
 "minecraft:andesite_stairs" = "age_1"
 "minecraft:andesite_wall" = "age_1"
 "minecraft:angler_pottery_sherd" = "age_3"
-"minecraft:apple" = "age_2"
+"minecraft:apple" = "age_3"
 "minecraft:archer_pottery_sherd" = "age_3"
 "minecraft:armor_stand" = "age_0"
 "minecraft:arms_up_pottery_sherd" = "age_3"
 "minecraft:arrow" = "age_0"
 "minecraft:azalea" = "age_3"
-"minecraft:azure_bluet" = "age_2"
-"minecraft:baked_potato" = "age_2"
-"minecraft:bamboo" = "age_3"
-"minecraft:bamboo_block" = "age_3"
-"minecraft:bamboo_button" = "age_3"
-"minecraft:bamboo_door" = "age_3"
-"minecraft:bamboo_fence" = "age_3"
-"minecraft:bamboo_fence_gate" = "age_3"
-"minecraft:bamboo_mosaic" = "age_3"
-"minecraft:bamboo_mosaic_slab" = "age_3"
-"minecraft:bamboo_mosaic_stairs" = "age_3"
-"minecraft:bamboo_planks" = "age_3"
-"minecraft:bamboo_pressure_plate" = "age_3"
-"minecraft:bamboo_sign" = "age_3"
-"minecraft:bamboo_slab" = "age_3"
-"minecraft:bamboo_stairs" = "age_3"
-"minecraft:bamboo_trapdoor" = "age_3"
+"minecraft:azure_bluet" = "age_3"
+"minecraft:baked_potato" = "age_3"
 "minecraft:barrel" = "age_9"
 "minecraft:basalt" = "age_2"
 "minecraft:beacon" = "age_3"
@@ -2841,25 +2939,25 @@ items = [
 "minecraft:beetroot" = "age_3"
 "minecraft:beetroot_seeds" = "age_3"
 "minecraft:big_dripleaf" = "age_3"
-"minecraft:birch_boat" = "age_2"
-"minecraft:birch_button" = "age_2"
-"minecraft:birch_chest_boat" = "age_2"
-"minecraft:birch_door" = "age_2"
-"minecraft:birch_fence" = "age_2"
-"minecraft:birch_fence_gate" = "age_2"
-"minecraft:birch_hanging_sign" = "age_2"
-"minecraft:birch_leaves" = "age_2"
-"minecraft:birch_log" = "age_2"
-"minecraft:birch_planks" = "age_2"
-"minecraft:birch_pressure_plate" = "age_2"
-"minecraft:birch_sapling" = "age_2"
-"minecraft:birch_sign" = "age_2"
-"minecraft:birch_slab" = "age_2"
-"minecraft:birch_stairs" = "age_2"
-"minecraft:birch_trapdoor" = "age_2"
-"minecraft:birch_wood" = "age_2"
+"minecraft:birch_boat" = "age_3"
+"minecraft:birch_button" = "age_3"
+"minecraft:birch_chest_boat" = "age_3"
+"minecraft:birch_door" = "age_3"
+"minecraft:birch_fence" = "age_3"
+"minecraft:birch_fence_gate" = "age_3"
+"minecraft:birch_hanging_sign" = "age_3"
+"minecraft:birch_leaves" = "age_9"
+"minecraft:birch_log" = "age_3"
+"minecraft:birch_planks" = "age_3"
+"minecraft:birch_pressure_plate" = "age_3"
+"minecraft:birch_sapling" = "age_3"
+"minecraft:birch_sign" = "age_3"
+"minecraft:birch_slab" = "age_3"
+"minecraft:birch_stairs" = "age_3"
+"minecraft:birch_trapdoor" = "age_3"
+"minecraft:birch_wood" = "age_3"
 "minecraft:black_banner" = "age_0"
-"minecraft:black_candle" = "age_2"
+"minecraft:black_candle" = "age_5"
 "minecraft:black_carpet" = "age_0"
 "minecraft:black_concrete" = "age_1"
 "minecraft:black_dye" = "age_0"
@@ -2870,55 +2968,48 @@ items = [
 "minecraft:blackstone_wall" = "age_1"
 "minecraft:blade_pottery_sherd" = "age_3"
 "minecraft:blast_furnace" = "age_9"
-"minecraft:blaze_powder" = "age_2"
-"minecraft:blaze_rod" = "age_2"
+"minecraft:blaze_powder" = "age_3"
+"minecraft:blaze_rod" = "age_3"
 "minecraft:blue_banner" = "age_0"
-"minecraft:blue_candle" = "age_2"
+"minecraft:blue_candle" = "age_5"
 "minecraft:blue_carpet" = "age_0"
 "minecraft:blue_concrete" = "age_1"
 "minecraft:blue_ice" = "age_0"
-"minecraft:blue_orchid" = "age_2"
+"minecraft:blue_orchid" = "age_3"
 "minecraft:blue_shulker_box" = "age_3"
 "minecraft:bone_block" = "age_0"
 "minecraft:book" = "age_1"
-"minecraft:bookshelf" = "age_2"
+"minecraft:bookshelf" = "age_9"
 "minecraft:bow" = "age_0"
 "minecraft:brain_coral" = "age_3"
 "minecraft:brain_coral_block" = "age_3"
 "minecraft:brain_coral_fan" = "age_3"
-"minecraft:bread" = "age_2"
+"minecraft:bread" = "age_3"
 "minecraft:breeze_rod" = "age_3"
 "minecraft:brewer_pottery_sherd" = "age_3"
-"minecraft:brewing_stand" = "age_2"
+"minecraft:brewing_stand" = "age_3"
 "minecraft:brick_slab" = "age_0"
 "minecraft:brick_stairs" = "age_0"
 "minecraft:brick_wall" = "age_0"
 "minecraft:bricks" = "age_0"
 "minecraft:brown_banner" = "age_0"
-"minecraft:brown_candle" = "age_2"
+"minecraft:brown_candle" = "age_5"
 "minecraft:brown_carpet" = "age_0"
 "minecraft:brown_concrete" = "age_1"
-"minecraft:brown_mushroom_block" = "age_2"
 "minecraft:brown_shulker_box" = "age_3"
 "minecraft:brush" = "age_0"
 "minecraft:bubble_coral" = "age_3"
 "minecraft:bubble_coral_block" = "age_3"
 "minecraft:bubble_coral_fan" = "age_3"
-"minecraft:bucket" = "age_2"
-"minecraft:bundle" = "age_2"
 "minecraft:burn_pottery_sherd" = "age_3"
 "minecraft:cake" = "age_1"
 "minecraft:calcite" = "age_3"
 "minecraft:calibrated_sculk_sensor" = "age_3"
-"minecraft:candle" = "age_2"
-"minecraft:carrot" = "age_2"
+"minecraft:candle" = "age_5"
+"minecraft:carrot" = "age_3"
 "minecraft:cartography_table" = "age_0"
 "minecraft:cauldron" = "age_2"
 "minecraft:chain" = "age_1"
-"minecraft:chainmail_boots" = "age_2"
-"minecraft:chainmail_chestplate" = "age_2"
-"minecraft:chainmail_helmet" = "age_2"
-"minecraft:chainmail_leggings" = "age_2"
 "minecraft:cherry_boat" = "age_3"
 "minecraft:cherry_button" = "age_3"
 "minecraft:cherry_chest_boat" = "age_3"
@@ -2936,7 +3027,7 @@ items = [
 "minecraft:cherry_trapdoor" = "age_3"
 "minecraft:cherry_wood" = "age_3"
 "minecraft:chest" = "age_3"
-"minecraft:chicken" = "age_2"
+"minecraft:chicken" = "age_3"
 "minecraft:chiseled_deepslate" = "age_2"
 "minecraft:chiseled_nether_bricks" = "age_1"
 "minecraft:chiseled_polished_blackstone" = "age_1"
@@ -2949,10 +3040,10 @@ items = [
 "minecraft:chorus_flower" = "age_3"
 "minecraft:chorus_fruit" = "age_3"
 "minecraft:clock" = "age_1"
-"minecraft:coal" = "age_2"
-"minecraft:coal_block" = "age_2"
-"minecraft:coal_ore" = "age_2"
-"minecraft:coarse_dirt" = "age_2"
+"minecraft:coal" = "age_3"
+"minecraft:coal_block" = "age_3"
+"minecraft:coal_ore" = "age_9"
+"minecraft:coarse_dirt" = "age_3"
 "minecraft:cobbled_deepslate" = "age_2"
 "minecraft:cobbled_deepslate_slab" = "age_2"
 "minecraft:cobbled_deepslate_stairs" = "age_2"
@@ -2962,24 +3053,24 @@ items = [
 "minecraft:cobblestone_stairs" = "age_1"
 "minecraft:cobblestone_wall" = "age_1"
 "minecraft:cocoa_beans" = "age_3"
-"minecraft:cod" = "age_2"
+"minecraft:cod" = "age_3"
 "minecraft:comparator" = "age_0"
 "minecraft:compass" = "age_2"
 "minecraft:composter" = "age_9"
 "minecraft:conduit" = "age_3"
-"minecraft:cooked_beef" = "age_2"
-"minecraft:cooked_chicken" = "age_2"
-"minecraft:cooked_cod" = "age_2"
-"minecraft:cooked_mutton" = "age_2"
-"minecraft:cooked_porkchop" = "age_2"
-"minecraft:cooked_rabbit" = "age_2"
+"minecraft:cooked_beef" = "age_3"
+"minecraft:cooked_chicken" = "age_3"
+"minecraft:cooked_cod" = "age_3"
+"minecraft:cooked_mutton" = "age_3"
+"minecraft:cooked_porkchop" = "age_3"
+"minecraft:cooked_rabbit" = "age_3"
 "minecraft:cooked_salmon" = "age_3"
 "minecraft:cookie" = "age_3"
-"minecraft:copper_block" = "age_2"
-"minecraft:copper_bulb" = "age_2"
-"minecraft:copper_ingot" = "age_2"
-"minecraft:copper_ore" = "age_2"
-"minecraft:cornflower" = "age_2"
+"minecraft:copper_block" = "age_4"
+"minecraft:copper_bulb" = "age_3"
+"minecraft:copper_ingot" = "age_3"
+"minecraft:copper_ore" = "age_9"
+"minecraft:cornflower" = "age_3"
 "minecraft:cracked_deepslate_bricks" = "age_2"
 "minecraft:cracked_deepslate_tiles" = "age_2"
 "minecraft:cracked_nether_bricks" = "age_1"
@@ -2987,7 +3078,7 @@ items = [
 "minecraft:cracked_stone_bricks" = "age_1"
 "minecraft:crafter" = "age_9"
 "minecraft:crafting_table" = "age_9"
-"minecraft:creeper_head" = "age_2"
+"minecraft:creeper_head" = "age_3"
 "minecraft:crimson_button" = "age_3"
 "minecraft:crimson_door" = "age_3"
 "minecraft:crimson_fence" = "age_3"
@@ -3011,12 +3102,12 @@ items = [
 "minecraft:cut_sandstone" = "age_1"
 "minecraft:cut_sandstone_slab" = "age_1"
 "minecraft:cyan_banner" = "age_0"
-"minecraft:cyan_candle" = "age_2"
+"minecraft:cyan_candle" = "age_5"
 "minecraft:cyan_carpet" = "age_0"
 "minecraft:cyan_concrete" = "age_1"
 "minecraft:cyan_dye" = "age_0"
 "minecraft:cyan_shulker_box" = "age_3"
-"minecraft:dandelion" = "age_2"
+"minecraft:dandelion" = "age_3"
 "minecraft:danger_pottery_sherd" = "age_3"
 "minecraft:dark_oak_boat" = "age_3"
 "minecraft:dark_oak_button" = "age_3"
@@ -3038,21 +3129,11 @@ items = [
 "minecraft:dark_prismarine_slab" = "age_3"
 "minecraft:dark_prismarine_stairs" = "age_3"
 "minecraft:daylight_detector" = "age_0"
-"minecraft:dead_brain_coral" = "age_3"
 "minecraft:dead_brain_coral_block" = "age_3"
-"minecraft:dead_brain_coral_fan" = "age_3"
-"minecraft:dead_bubble_coral" = "age_3"
 "minecraft:dead_bubble_coral_block" = "age_3"
-"minecraft:dead_bubble_coral_fan" = "age_3"
-"minecraft:dead_fire_coral" = "age_3"
 "minecraft:dead_fire_coral_block" = "age_3"
-"minecraft:dead_fire_coral_fan" = "age_3"
-"minecraft:dead_horn_coral" = "age_3"
 "minecraft:dead_horn_coral_block" = "age_3"
-"minecraft:dead_horn_coral_fan" = "age_3"
-"minecraft:dead_tube_coral" = "age_3"
 "minecraft:dead_tube_coral_block" = "age_3"
-"minecraft:dead_tube_coral_fan" = "age_3"
 "minecraft:decorated_pot" = "age_0"
 "minecraft:deepslate" = "age_2"
 "minecraft:deepslate_brick_slab" = "age_2"
@@ -3071,15 +3152,23 @@ items = [
 "minecraft:deepslate_tile_wall" = "age_2"
 "minecraft:deepslate_tiles" = "age_2"
 "minecraft:detector_rail" = "age_2"
+"minecraft:diamond_boots" = "age_6"
+"minecraft:diamond_chestplate" = "age_6"
+"minecraft:diamond_helmet" = "age_6"
+"minecraft:diamond_leggings" = "age_6"
+"minecraft:diamond_ore" = "age_9"
+"minecraft:diamond_pickaxe" = "age_6"
+"minecraft:diamond_shovel" = "age_6"
+"minecraft:diamond_sword" = "age_6"
 "minecraft:diorite" = "age_1"
 "minecraft:diorite_slab" = "age_1"
 "minecraft:diorite_stairs" = "age_1"
 "minecraft:diorite_wall" = "age_1"
-"minecraft:dirt" = "age_2"
-"minecraft:dirt_path" = "age_2"
+"minecraft:dirt" = "age_3"
+"minecraft:dirt_path" = "age_3"
 "minecraft:disc_fragment_5" = "age_0"
 "minecraft:dispenser" = "age_0"
-"minecraft:dragon_breath" = "age_2"
+"minecraft:dragon_breath" = "age_3"
 "minecraft:dragon_egg" = "age_3"
 "minecraft:dragon_head" = "age_3"
 "minecraft:dried_kelp" = "age_1"
@@ -3088,25 +3177,25 @@ items = [
 "minecraft:dropper" = "age_0"
 "minecraft:echo_shard" = "age_3"
 "minecraft:elytra" = "age_3"
-"minecraft:enchanted_book" = "age_2"
-"minecraft:enchanted_golden_apple" = "age_2"
-"minecraft:end_crystal" = "age_2"
+"minecraft:emerald" = "age_4"
+"minecraft:enchanted_golden_apple" = "age_7"
+"minecraft:end_crystal" = "age_3"
 "minecraft:end_rod" = "age_3"
 "minecraft:end_stone" = "age_2"
 "minecraft:end_stone_brick_slab" = "age_2"
 "minecraft:end_stone_brick_stairs" = "age_2"
 "minecraft:end_stone_brick_wall" = "age_2"
 "minecraft:end_stone_bricks" = "age_2"
-"minecraft:ender_chest" = "age_2"
-"minecraft:ender_eye" = "age_2"
-"minecraft:ender_pearl" = "age_2"
-"minecraft:experience_bottle" = "age_2"
+"minecraft:ender_chest" = "age_3"
+"minecraft:ender_eye" = "age_3"
+"minecraft:ender_pearl" = "age_3"
+"minecraft:experience_bottle" = "age_3"
 "minecraft:explorer_pottery_sherd" = "age_3"
-"minecraft:exposed_copper" = "age_2"
-"minecraft:exposed_copper_bulb" = "age_2"
+"minecraft:exposed_copper" = "age_4"
+"minecraft:exposed_copper_bulb" = "age_3"
 "minecraft:farmland" = "age_3"
 "minecraft:fermented_spider_eye" = "age_0"
-"minecraft:fern" = "age_2"
+"minecraft:fern" = "age_9"
 "minecraft:filled_map" = "age_0"
 "minecraft:fire_charge" = "age_1"
 "minecraft:fire_coral" = "age_3"
@@ -3121,42 +3210,34 @@ items = [
 "minecraft:friend_pottery_sherd" = "age_3"
 "minecraft:furnace" = "age_9"
 "minecraft:furnace_minecart" = "age_9"
-"minecraft:ghast_tear" = "age_2"
+"minecraft:ghast_tear" = "age_3"
 "minecraft:gilded_blackstone" = "age_3"
-"minecraft:glass_bottle" = "age_2"
+"minecraft:glass_bottle" = "age_3"
 "minecraft:glistering_melon_slice" = "age_1"
-"minecraft:glow_berries" = "age_2"
+"minecraft:glow_berries" = "age_3"
 "minecraft:glow_item_frame" = "age_0"
 "minecraft:glow_lichen" = "age_8"
 "minecraft:glowstone" = "age_2"
 "minecraft:glowstone_dust" = "age_2"
-"minecraft:gold_block" = "age_2"
-"minecraft:gold_ingot" = "age_2"
-"minecraft:gold_ore" = "age_2"
+"minecraft:gold_ingot" = "age_3"
+"minecraft:gold_ore" = "age_9"
 "minecraft:golden_apple" = "age_1"
-"minecraft:golden_axe" = "age_2"
-"minecraft:golden_boots" = "age_2"
 "minecraft:golden_carrot" = "age_1"
-"minecraft:golden_chestplate" = "age_2"
-"minecraft:golden_helmet" = "age_2"
 "minecraft:golden_horse_armor" = "age_3"
-"minecraft:golden_leggings" = "age_2"
-"minecraft:golden_shovel" = "age_3"
-"minecraft:golden_sword" = "age_2"
 "minecraft:granite" = "age_1"
 "minecraft:granite_slab" = "age_1"
 "minecraft:granite_stairs" = "age_1"
 "minecraft:granite_wall" = "age_1"
-"minecraft:grass_block" = "age_2"
+"minecraft:grass_block" = "age_3"
 "minecraft:gravel" = "age_1"
 "minecraft:gray_banner" = "age_0"
-"minecraft:gray_candle" = "age_2"
+"minecraft:gray_candle" = "age_5"
 "minecraft:gray_carpet" = "age_0"
 "minecraft:gray_concrete" = "age_1"
 "minecraft:gray_dye" = "age_0"
 "minecraft:gray_shulker_box" = "age_3"
 "minecraft:green_banner" = "age_0"
-"minecraft:green_candle" = "age_2"
+"minecraft:green_candle" = "age_5"
 "minecraft:green_carpet" = "age_0"
 "minecraft:green_concrete" = "age_1"
 "minecraft:green_shulker_box" = "age_3"
@@ -3170,7 +3251,7 @@ items = [
 "minecraft:heavy_core" = "age_3"
 "minecraft:heavy_weighted_pressure_plate" = "age_2"
 "minecraft:honey_block" = "age_1"
-"minecraft:honey_bottle" = "age_2"
+"minecraft:honey_bottle" = "age_3"
 "minecraft:hopper" = "age_2"
 "minecraft:hopper_minecart" = "age_2"
 "minecraft:horn_coral" = "age_3"
@@ -3184,12 +3265,15 @@ items = [
 "minecraft:infested_mossy_stone_bricks" = "age_1"
 "minecraft:infested_stone" = "age_1"
 "minecraft:infested_stone_bricks" = "age_1"
-"minecraft:iron_boots" = "age_3"
-"minecraft:iron_helmet" = "age_3"
+"minecraft:iron_boots" = "age_6"
+"minecraft:iron_helmet" = "age_4"
 "minecraft:iron_horse_armor" = "age_3"
-"minecraft:iron_shovel" = "age_3"
+"minecraft:iron_leggings" = "age_6"
+"minecraft:iron_ore" = "age_9"
+"minecraft:iron_pickaxe" = "age_6"
+"minecraft:iron_shovel" = "age_6"
+"minecraft:iron_sword" = "age_6"
 "minecraft:item_frame" = "age_0"
-"minecraft:jack_o_lantern" = "age_2"
 "minecraft:jukebox" = "age_4"
 "minecraft:jungle_boat" = "age_3"
 "minecraft:jungle_button" = "age_3"
@@ -3209,41 +3293,43 @@ items = [
 "minecraft:jungle_trapdoor" = "age_3"
 "minecraft:jungle_wood" = "age_3"
 "minecraft:ladder" = "age_0"
+"minecraft:lapis_lazuli" = "age_7"
+"minecraft:lapis_ore" = "age_9"
 "minecraft:large_amethyst_bud" = "age_8"
-"minecraft:lava_bucket" = "age_2"
+"minecraft:lava_bucket" = "age_3"
 "minecraft:lead" = "age_0"
 "minecraft:lectern" = "age_9"
 "minecraft:lever" = "age_0"
 "minecraft:light_blue_banner" = "age_0"
-"minecraft:light_blue_candle" = "age_2"
+"minecraft:light_blue_candle" = "age_5"
 "minecraft:light_blue_carpet" = "age_0"
 "minecraft:light_blue_concrete" = "age_1"
 "minecraft:light_blue_shulker_box" = "age_3"
 "minecraft:light_gray_banner" = "age_0"
-"minecraft:light_gray_candle" = "age_2"
+"minecraft:light_gray_candle" = "age_5"
 "minecraft:light_gray_carpet" = "age_0"
 "minecraft:light_gray_concrete" = "age_1"
 "minecraft:light_gray_shulker_box" = "age_3"
 "minecraft:light_weighted_pressure_plate" = "age_1"
 "minecraft:lightning_rod" = "age_0"
-"minecraft:lilac" = "age_2"
-"minecraft:lily_of_the_valley" = "age_2"
+"minecraft:lilac" = "age_9"
+"minecraft:lily_of_the_valley" = "age_3"
 "minecraft:lime_banner" = "age_0"
-"minecraft:lime_candle" = "age_2"
+"minecraft:lime_candle" = "age_5"
 "minecraft:lime_carpet" = "age_0"
 "minecraft:lime_concrete" = "age_1"
 "minecraft:lime_shulker_box" = "age_3"
-"minecraft:lingering_potion" = "age_2"
+"minecraft:lingering_potion" = "age_3"
 "minecraft:lodestone" = "age_4"
 "minecraft:loom" = "age_0"
 "minecraft:mace" = "age_3"
 "minecraft:magenta_banner" = "age_0"
-"minecraft:magenta_candle" = "age_2"
+"minecraft:magenta_candle" = "age_5"
 "minecraft:magenta_carpet" = "age_0"
 "minecraft:magenta_concrete" = "age_1"
 "minecraft:magenta_shulker_box" = "age_3"
-"minecraft:magma_block" = "age_2"
-"minecraft:magma_cream" = "age_2"
+"minecraft:magma_block" = "age_3"
+"minecraft:magma_cream" = "age_3"
 "minecraft:mangrove_boat" = "age_3"
 "minecraft:mangrove_button" = "age_3"
 "minecraft:mangrove_chest_boat" = "age_3"
@@ -3263,9 +3349,9 @@ items = [
 "minecraft:map" = "age_0"
 "minecraft:medium_amethyst_bud" = "age_8"
 "minecraft:melon" = "age_4"
-"minecraft:melon_seeds" = "age_2"
-"minecraft:melon_slice" = "age_2"
-"minecraft:milk_bucket" = "age_2"
+"minecraft:melon_seeds" = "age_3"
+"minecraft:melon_slice" = "age_4"
+"minecraft:milk_bucket" = "age_5"
 "minecraft:minecart" = "age_2"
 "minecraft:miner_pottery_sherd" = "age_3"
 "minecraft:moss_block" = "age_3"
@@ -3280,13 +3366,11 @@ items = [
 "minecraft:mossy_stone_bricks" = "age_1"
 "minecraft:mourner_pottery_sherd" = "age_3"
 "minecraft:mud" = "age_1"
-"minecraft:mud_brick_slab" = "age_2"
-"minecraft:mud_brick_stairs" = "age_2"
-"minecraft:mud_brick_wall" = "age_2"
-"minecraft:mud_bricks" = "age_2"
+"minecraft:mud_brick_slab" = "age_3"
+"minecraft:mud_brick_stairs" = "age_3"
+"minecraft:mud_brick_wall" = "age_3"
+"minecraft:mud_bricks" = "age_3"
 "minecraft:muddy_mangrove_roots" = "age_3"
-"minecraft:mushroom_stem" = "age_2"
-"minecraft:mushroom_stew" = "age_2"
 "minecraft:music_disc_11" = "age_0"
 "minecraft:music_disc_5" = "age_0"
 "minecraft:music_disc_creator" = "age_0"
@@ -3294,8 +3378,8 @@ items = [
 "minecraft:music_disc_pigstep" = "age_1"
 "minecraft:music_disc_precipice" = "age_3"
 "minecraft:music_disc_relic" = "age_3"
-"minecraft:mutton" = "age_2"
-"minecraft:mycelium" = "age_2"
+"minecraft:mutton" = "age_3"
+"minecraft:mycelium" = "age_3"
 "minecraft:name_tag" = "age_0"
 "minecraft:nautilus_shell" = "age_3"
 "minecraft:nether_brick" = "age_1"
@@ -3308,63 +3392,62 @@ items = [
 "minecraft:nether_quartz_ore" = "age_3"
 "minecraft:nether_sprouts" = "age_3"
 "minecraft:nether_star" = "age_3"
-"minecraft:nether_wart" = "age_2"
-"minecraft:nether_wart_block" = "age_2"
+"minecraft:nether_wart" = "age_3"
+"minecraft:nether_wart_block" = "age_3"
 "minecraft:netherrack" = "age_2"
 "minecraft:note_block" = "age_0"
-"minecraft:oak_boat" = "age_2"
-"minecraft:oak_button" = "age_2"
-"minecraft:oak_chest_boat" = "age_2"
-"minecraft:oak_door" = "age_2"
-"minecraft:oak_fence" = "age_2"
-"minecraft:oak_fence_gate" = "age_2"
-"minecraft:oak_hanging_sign" = "age_2"
-"minecraft:oak_leaves" = "age_2"
-"minecraft:oak_log" = "age_2"
-"minecraft:oak_planks" = "age_2"
-"minecraft:oak_pressure_plate" = "age_2"
-"minecraft:oak_sapling" = "age_2"
-"minecraft:oak_sign" = "age_2"
-"minecraft:oak_slab" = "age_2"
-"minecraft:oak_stairs" = "age_2"
-"minecraft:oak_trapdoor" = "age_2"
-"minecraft:oak_wood" = "age_2"
+"minecraft:oak_boat" = "age_3"
+"minecraft:oak_button" = "age_3"
+"minecraft:oak_chest_boat" = "age_3"
+"minecraft:oak_door" = "age_3"
+"minecraft:oak_fence" = "age_3"
+"minecraft:oak_fence_gate" = "age_3"
+"minecraft:oak_hanging_sign" = "age_3"
+"minecraft:oak_leaves" = "age_9"
+"minecraft:oak_log" = "age_3"
+"minecraft:oak_planks" = "age_3"
+"minecraft:oak_pressure_plate" = "age_3"
+"minecraft:oak_sapling" = "age_3"
+"minecraft:oak_sign" = "age_3"
+"minecraft:oak_slab" = "age_3"
+"minecraft:oak_stairs" = "age_3"
+"minecraft:oak_trapdoor" = "age_3"
+"minecraft:oak_wood" = "age_3"
 "minecraft:observer" = "age_1"
 "minecraft:ochre_froglight" = "age_3"
 "minecraft:ominous_bottle" = "age_3"
 "minecraft:ominous_trial_key" = "age_3"
 "minecraft:orange_banner" = "age_0"
-"minecraft:orange_candle" = "age_2"
+"minecraft:orange_candle" = "age_5"
 "minecraft:orange_carpet" = "age_0"
 "minecraft:orange_concrete" = "age_1"
 "minecraft:orange_shulker_box" = "age_3"
-"minecraft:orange_tulip" = "age_2"
-"minecraft:oxeye_daisy" = "age_2"
-"minecraft:oxidized_copper" = "age_2"
-"minecraft:oxidized_copper_bulb" = "age_2"
+"minecraft:orange_tulip" = "age_3"
+"minecraft:oxeye_daisy" = "age_3"
+"minecraft:oxidized_copper" = "age_4"
+"minecraft:oxidized_copper_bulb" = "age_3"
 "minecraft:packed_ice" = "age_0"
-"minecraft:packed_mud" = "age_2"
+"minecraft:packed_mud" = "age_3"
 "minecraft:painting" = "age_0"
 "minecraft:parrot_spawn_egg" = "age_3"
 "minecraft:pearlescent_froglight" = "age_3"
-"minecraft:peony" = "age_2"
+"minecraft:peony" = "age_9"
 "minecraft:phantom_membrane" = "age_2"
-"minecraft:piglin_head" = "age_2"
+"minecraft:piglin_head" = "age_3"
 "minecraft:pink_banner" = "age_0"
-"minecraft:pink_candle" = "age_2"
+"minecraft:pink_candle" = "age_5"
 "minecraft:pink_carpet" = "age_0"
 "minecraft:pink_concrete" = "age_1"
 "minecraft:pink_petals" = "age_3"
 "minecraft:pink_shulker_box" = "age_3"
-"minecraft:pink_tulip" = "age_2"
+"minecraft:pink_tulip" = "age_3"
 "minecraft:piston" = "age_1"
 "minecraft:pitcher_plant" = "age_3"
 "minecraft:pitcher_pod" = "age_3"
-"minecraft:player_head" = "age_2"
 "minecraft:plenty_pottery_sherd" = "age_3"
-"minecraft:podzol" = "age_2"
+"minecraft:podzol" = "age_3"
 "minecraft:pointed_dripstone" = "age_7"
-"minecraft:poisonous_potato" = "age_2"
+"minecraft:poisonous_potato" = "age_3"
 "minecraft:polished_andesite" = "age_1"
 "minecraft:polished_andesite_slab" = "age_1"
 "minecraft:polished_andesite_stairs" = "age_1"
@@ -3394,11 +3477,11 @@ items = [
 "minecraft:polished_tuff_stairs" = "age_3"
 "minecraft:polished_tuff_wall" = "age_3"
 "minecraft:popped_chorus_fruit" = "age_3"
-"minecraft:poppy" = "age_2"
-"minecraft:porkchop" = "age_2"
-"minecraft:potato" = "age_2"
-"minecraft:potion" = "age_2"
-"minecraft:powder_snow_bucket" = "age_2"
+"minecraft:poppy" = "age_3"
+"minecraft:porkchop" = "age_3"
+"minecraft:potato" = "age_3"
+"minecraft:potion" = "age_3"
+"minecraft:powder_snow_bucket" = "age_3"
 "minecraft:powered_rail" = "age_1"
 "minecraft:prismarine" = "age_3"
 "minecraft:prismarine_brick_slab" = "age_3"
@@ -3410,11 +3493,11 @@ items = [
 "minecraft:prismarine_stairs" = "age_3"
 "minecraft:prismarine_wall" = "age_3"
 "minecraft:prize_pottery_sherd" = "age_3"
-"minecraft:pumpkin" = "age_2"
+"minecraft:pumpkin" = "age_4"
 "minecraft:pumpkin_pie" = "age_1"
-"minecraft:pumpkin_seeds" = "age_2"
+"minecraft:pumpkin_seeds" = "age_3"
 "minecraft:purple_banner" = "age_0"
-"minecraft:purple_candle" = "age_2"
+"minecraft:purple_candle" = "age_5"
 "minecraft:purple_carpet" = "age_0"
 "minecraft:purple_concrete" = "age_1"
 "minecraft:purple_shulker_box" = "age_3"
@@ -3428,38 +3511,39 @@ items = [
 "minecraft:quartz_pillar" = "age_1"
 "minecraft:quartz_slab" = "age_1"
 "minecraft:quartz_stairs" = "age_1"
-"minecraft:rabbit" = "age_2"
+"minecraft:rabbit" = "age_3"
 "minecraft:rail" = "age_2"
-"minecraft:raw_copper" = "age_2"
-"minecraft:raw_copper_block" = "age_2"
-"minecraft:raw_gold" = "age_2"
-"minecraft:raw_gold_block" = "age_2"
+"minecraft:raw_copper" = "age_8"
+"minecraft:raw_copper_block" = "age_8"
+"minecraft:raw_gold" = "age_8"
+"minecraft:raw_gold_block" = "age_8"
+"minecraft:raw_iron" = "age_7"
+"minecraft:raw_iron_block" = "age_7"
 "minecraft:recovery_compass" = "age_3"
 "minecraft:red_banner" = "age_0"
-"minecraft:red_candle" = "age_2"
+"minecraft:red_candle" = "age_5"
 "minecraft:red_carpet" = "age_0"
 "minecraft:red_concrete" = "age_1"
-"minecraft:red_mushroom_block" = "age_2"
-"minecraft:red_nether_brick_slab" = "age_2"
-"minecraft:red_nether_brick_stairs" = "age_2"
-"minecraft:red_nether_brick_wall" = "age_2"
-"minecraft:red_nether_bricks" = "age_2"
+"minecraft:red_nether_brick_slab" = "age_3"
+"minecraft:red_nether_brick_stairs" = "age_3"
+"minecraft:red_nether_brick_wall" = "age_3"
+"minecraft:red_nether_bricks" = "age_3"
 "minecraft:red_sand" = "age_1"
 "minecraft:red_sandstone" = "age_1"
 "minecraft:red_sandstone_slab" = "age_1"
 "minecraft:red_sandstone_stairs" = "age_1"
 "minecraft:red_sandstone_wall" = "age_1"
 "minecraft:red_shulker_box" = "age_3"
-"minecraft:red_tulip" = "age_2"
+"minecraft:red_tulip" = "age_3"
 "minecraft:redstone_block" = "age_0"
 "minecraft:redstone_lamp" = "age_2"
-"minecraft:redstone_ore" = "age_2"
+"minecraft:redstone_ore" = "age_9"
 "minecraft:redstone_torch" = "age_0"
 "minecraft:reinforced_deepslate" = "age_3"
 "minecraft:repeater" = "age_0"
 "minecraft:respawn_anchor" = "age_3"
 "minecraft:rooted_dirt" = "age_3"
-"minecraft:rose_bush" = "age_2"
+"minecraft:rose_bush" = "age_9"
 "minecraft:salmon" = "age_3"
 "minecraft:sand" = "age_1"
 "minecraft:sandstone" = "age_1"
@@ -3475,12 +3559,12 @@ items = [
 "minecraft:sculk_vein" = "age_3"
 "minecraft:sea_lantern" = "age_3"
 "minecraft:sea_pickle" = "age_3"
-"minecraft:seagrass" = "age_2"
+"minecraft:seagrass" = "age_9"
 "minecraft:sheaf_pottery_sherd" = "age_3"
 "minecraft:shears" = "age_2"
 "minecraft:shelter_pottery_sherd" = "age_3"
 "minecraft:shield" = "age_0"
-"minecraft:short_grass" = "age_2"
+"minecraft:short_grass" = "age_6"
 "minecraft:shroomlight" = "age_3"
 "minecraft:shulker_box" = "age_3"
 "minecraft:shulker_shell" = "age_3"
@@ -3508,28 +3592,28 @@ items = [
 "minecraft:snort_pottery_sherd" = "age_3"
 "minecraft:soul_sand" = "age_1"
 "minecraft:soul_soil" = "age_1"
-"minecraft:soul_torch" = "age_2"
+"minecraft:soul_torch" = "age_4"
 "minecraft:spectral_arrow" = "age_2"
-"minecraft:splash_potion" = "age_2"
+"minecraft:splash_potion" = "age_3"
 "minecraft:sponge" = "age_3"
 "minecraft:spore_blossom" = "age_3"
-"minecraft:spruce_boat" = "age_2"
-"minecraft:spruce_button" = "age_2"
-"minecraft:spruce_chest_boat" = "age_2"
-"minecraft:spruce_door" = "age_2"
-"minecraft:spruce_fence" = "age_2"
-"minecraft:spruce_fence_gate" = "age_2"
-"minecraft:spruce_hanging_sign" = "age_2"
-"minecraft:spruce_leaves" = "age_2"
-"minecraft:spruce_log" = "age_2"
-"minecraft:spruce_planks" = "age_2"
-"minecraft:spruce_pressure_plate" = "age_2"
-"minecraft:spruce_sapling" = "age_2"
-"minecraft:spruce_sign" = "age_2"
-"minecraft:spruce_slab" = "age_2"
-"minecraft:spruce_stairs" = "age_2"
-"minecraft:spruce_trapdoor" = "age_2"
-"minecraft:spruce_wood" = "age_2"
+"minecraft:spruce_boat" = "age_3"
+"minecraft:spruce_button" = "age_3"
+"minecraft:spruce_chest_boat" = "age_3"
+"minecraft:spruce_door" = "age_3"
+"minecraft:spruce_fence" = "age_3"
+"minecraft:spruce_fence_gate" = "age_3"
+"minecraft:spruce_hanging_sign" = "age_3"
+"minecraft:spruce_leaves" = "age_9"
+"minecraft:spruce_log" = "age_3"
+"minecraft:spruce_planks" = "age_3"
+"minecraft:spruce_pressure_plate" = "age_3"
+"minecraft:spruce_sapling" = "age_3"
+"minecraft:spruce_sign" = "age_3"
+"minecraft:spruce_slab" = "age_3"
+"minecraft:spruce_stairs" = "age_3"
+"minecraft:spruce_trapdoor" = "age_3"
+"minecraft:spruce_wood" = "age_3"
 "minecraft:spyglass" = "age_1"
 "minecraft:sticky_piston" = "age_1"
 "minecraft:stone" = "age_1"
@@ -3544,9 +3628,8 @@ items = [
 "minecraft:stonecutter" = "age_2"
 "minecraft:stripped_acacia_log" = "age_3"
 "minecraft:stripped_acacia_wood" = "age_3"
-"minecraft:stripped_bamboo_block" = "age_3"
-"minecraft:stripped_birch_log" = "age_2"
-"minecraft:stripped_birch_wood" = "age_2"
+"minecraft:stripped_birch_log" = "age_3"
+"minecraft:stripped_birch_wood" = "age_3"
 "minecraft:stripped_cherry_log" = "age_3"
 "minecraft:stripped_cherry_wood" = "age_3"
 "minecraft:stripped_crimson_hyphae" = "age_3"
@@ -3557,19 +3640,17 @@ items = [
 "minecraft:stripped_jungle_wood" = "age_3"
 "minecraft:stripped_mangrove_log" = "age_3"
 "minecraft:stripped_mangrove_wood" = "age_3"
-"minecraft:stripped_oak_log" = "age_2"
-"minecraft:stripped_oak_wood" = "age_2"
-"minecraft:stripped_spruce_log" = "age_2"
-"minecraft:stripped_spruce_wood" = "age_2"
+"minecraft:stripped_oak_log" = "age_3"
+"minecraft:stripped_oak_wood" = "age_3"
+"minecraft:stripped_spruce_log" = "age_3"
+"minecraft:stripped_spruce_wood" = "age_3"
 "minecraft:stripped_warped_hyphae" = "age_3"
 "minecraft:stripped_warped_stem" = "age_3"
 "minecraft:suspicious_stew" = "age_0"
-"minecraft:sweet_berries" = "age_2"
+"minecraft:sweet_berries" = "age_3"
 "minecraft:target" = "age_0"
-"minecraft:tipped_arrow" = "age_2"
-"minecraft:tnt" = "age_2"
-"minecraft:tnt_minecart" = "age_2"
-"minecraft:torch" = "age_2"
+"minecraft:tipped_arrow" = "age_3"
+"minecraft:torch" = "age_4"
 "minecraft:torchflower" = "age_3"
 "minecraft:torchflower_seeds" = "age_3"
 "minecraft:totem_of_undying" = "age_3"
@@ -3608,7 +3689,7 @@ items = [
 "minecraft:warped_stem" = "age_3"
 "minecraft:warped_trapdoor" = "age_3"
 "minecraft:warped_wart_block" = "age_3"
-"minecraft:water_bucket" = "age_2"
+"minecraft:water_bucket" = "age_3"
 "minecraft:waxed_chiseled_copper" = "age_5"
 "minecraft:waxed_copper_block" = "age_5"
 "minecraft:waxed_copper_bulb" = "age_5"
@@ -3637,29 +3718,29 @@ items = [
 "minecraft:waxed_weathered_cut_copper" = "age_5"
 "minecraft:waxed_weathered_cut_copper_slab" = "age_5"
 "minecraft:waxed_weathered_cut_copper_stairs" = "age_5"
-"minecraft:weathered_copper" = "age_2"
-"minecraft:weathered_copper_bulb" = "age_2"
+"minecraft:weathered_copper" = "age_4"
+"minecraft:weathered_copper_bulb" = "age_3"
 "minecraft:weeping_vines" = "age_3"
 "minecraft:wet_sponge" = "age_3"
-"minecraft:wheat" = "age_2"
-"minecraft:wheat_seeds" = "age_2"
+"minecraft:wheat" = "age_3"
+"minecraft:wheat_seeds" = "age_3"
 "minecraft:white_banner" = "age_0"
-"minecraft:white_candle" = "age_2"
+"minecraft:white_candle" = "age_5"
 "minecraft:white_carpet" = "age_0"
 "minecraft:white_concrete" = "age_1"
 "minecraft:white_shulker_box" = "age_3"
-"minecraft:white_tulip" = "age_2"
+"minecraft:white_tulip" = "age_3"
 "minecraft:wind_charge" = "age_3"
 "minecraft:wither_rose" = "age_3"
 "minecraft:wither_skeleton_skull" = "age_0"
 "minecraft:writable_book" = "age_1"
 "minecraft:written_book" = "age_1"
 "minecraft:yellow_banner" = "age_0"
-"minecraft:yellow_candle" = "age_2"
+"minecraft:yellow_candle" = "age_5"
 "minecraft:yellow_carpet" = "age_0"
 "minecraft:yellow_concrete" = "age_1"
 "minecraft:yellow_shulker_box" = "age_3"
-"minecraft:zombie_head" = "age_2"
+"minecraft:zombie_head" = "age_3"
 "modonomicon:modonomicon" = "age_3"
 "more_immersive_wires:ae_coil" = "age_6"
 "more_immersive_wires:ae_connector" = "age_6"
@@ -3686,17 +3767,13 @@ items = [
 "moremekanismprocessing:shard_desh" = "age_7"
 "moremekanismprocessing:shard_draconium" = "age_7"
 "moremekanismprocessing:shard_ostrum" = "age_7"
-"mowziesmobs:blowgun" = "age_3"
-"mowziesmobs:dart" = "age_2"
-"mowziesmobs:painted_acacia" = "age_3"
-"mowziesmobs:painted_acacia_slab" = "age_3"
-"mowziesmobs:thatch_block" = "age_2"
 "mysticalagriculture:master_infusion_crystal" = "age_8"
 "occultengineering:brass_dust" = "age_4"
 "occultengineering:chalk_brass" = "age_4"
 "occultengineering:chalk_brass_impure" = "age_4"
 "occultengineering:mechanical_upgrade_afrit" = "age_6"
 "occultengineering:mechanical_upgrade_marid" = "age_8"
+"occultengineering:spirit_solution_bucket" = "age_5"
 "occultism:chalk_black" = "age_6"
 "occultism:chalk_black_impure" = "age_6"
 "occultism:chalk_blue" = "age_8"
@@ -3721,11 +3798,14 @@ items = [
 "occultism:research_fragment_dust" = "age_6"
 "occultism:ritual_satchel_t2" = "age_5"
 "occultism:spawn_egg/demonic_wife" = "age_4"
+"occultism:spawn_egg/familiar_bat" = "age_4"
+"occultism:spawn_egg/familiar_fairy" = "age_5"
 "occultism:spawn_egg/familiar_guardian" = "age_5"
 "occultism:spawn_egg/iesnium_golem" = "age_8"
+"occultism:spawn_egg/possessed_blaze" = "age_4"
 "occultism:spawn_egg/possessed_elder_guardian" = "age_5"
 "occultism:spawn_egg/possessed_ghast" = "age_4"
-"occultism:spawn_egg/possessed_guardian" = "age_5"
+"occultism:spawn_egg/possessed_guardian" = "age_9"
 "occultism:spawn_egg/possessed_hoglin" = "age_5"
 "occultism:spawn_egg/possessed_shulker" = "age_5"
 "occultism:spawn_egg/possessed_warden" = "age_5"
@@ -3745,15 +3825,124 @@ items = [
 "occultism:witherite_dust" = "age_6"
 "patchouli:guide_book" = "age_0"
 "railways:benchcart" = "age_9"
+"railways:black_brass_wrapped_locometal_boiler" = "age_3"
+"railways:black_copper_wrapped_locometal_boiler" = "age_3"
+"railways:black_iron_wrapped_locometal_boiler" = "age_3"
+"railways:black_locometal_boiler" = "age_3"
+"railways:blue_brass_wrapped_locometal_boiler" = "age_3"
+"railways:blue_copper_wrapped_locometal_boiler" = "age_3"
+"railways:blue_iron_wrapped_locometal_boiler" = "age_3"
+"railways:blue_locometal_boiler" = "age_3"
+"railways:brass_wrapped_locometal_boiler" = "age_3"
+"railways:brown_brass_wrapped_locometal_boiler" = "age_3"
+"railways:brown_copper_wrapped_locometal_boiler" = "age_3"
+"railways:brown_iron_wrapped_locometal_boiler" = "age_3"
+"railways:brown_locometal_boiler" = "age_3"
+"railways:chartreuse_brass_wrapped_locometal_boiler" = "age_3"
+"railways:chartreuse_copper_wrapped_locometal_boiler" = "age_3"
+"railways:chartreuse_iron_wrapped_locometal_boiler" = "age_3"
+"railways:chartreuse_locometal_boiler" = "age_3"
+"railways:copper_wrapped_locometal_boiler" = "age_3"
+"railways:cyan_brass_wrapped_locometal_boiler" = "age_3"
+"railways:cyan_copper_wrapped_locometal_boiler" = "age_3"
+"railways:cyan_iron_wrapped_locometal_boiler" = "age_3"
+"railways:cyan_locometal_boiler" = "age_3"
+"railways:diorite_brass_wrapped_locometal_boiler" = "age_3"
+"railways:diorite_copper_wrapped_locometal_boiler" = "age_3"
+"railways:diorite_iron_wrapped_locometal_boiler" = "age_3"
+"railways:diorite_locometal_boiler" = "age_3"
+"railways:dripstone_brass_wrapped_locometal_boiler" = "age_3"
+"railways:dripstone_copper_wrapped_locometal_boiler" = "age_3"
+"railways:dripstone_iron_wrapped_locometal_boiler" = "age_3"
+"railways:dripstone_locometal_boiler" = "age_3"
 "railways:fuel_tank" = "age_3"
+"railways:granite_brass_wrapped_locometal_boiler" = "age_3"
+"railways:granite_copper_wrapped_locometal_boiler" = "age_3"
+"railways:granite_iron_wrapped_locometal_boiler" = "age_3"
+"railways:granite_locometal_boiler" = "age_3"
+"railways:gray_brass_wrapped_locometal_boiler" = "age_3"
+"railways:gray_copper_wrapped_locometal_boiler" = "age_3"
+"railways:gray_iron_wrapped_locometal_boiler" = "age_3"
+"railways:gray_locometal_boiler" = "age_3"
+"railways:green_brass_wrapped_locometal_boiler" = "age_3"
+"railways:green_copper_wrapped_locometal_boiler" = "age_3"
+"railways:green_iron_wrapped_locometal_boiler" = "age_3"
+"railways:green_locometal_boiler" = "age_3"
+"railways:iron_wrapped_locometal_boiler" = "age_3"
 "railways:jukeboxcart" = "age_4"
+"railways:light_blue_brass_wrapped_locometal_boiler" = "age_3"
+"railways:light_blue_copper_wrapped_locometal_boiler" = "age_3"
+"railways:light_blue_iron_wrapped_locometal_boiler" = "age_3"
+"railways:light_blue_locometal_boiler" = "age_3"
+"railways:light_gray_brass_wrapped_locometal_boiler" = "age_3"
+"railways:light_gray_copper_wrapped_locometal_boiler" = "age_3"
+"railways:light_gray_iron_wrapped_locometal_boiler" = "age_3"
+"railways:light_gray_locometal_boiler" = "age_3"
+"railways:lime_brass_wrapped_locometal_boiler" = "age_3"
+"railways:lime_copper_wrapped_locometal_boiler" = "age_3"
+"railways:lime_iron_wrapped_locometal_boiler" = "age_3"
+"railways:lime_locometal_boiler" = "age_3"
+"railways:limestone_brass_wrapped_locometal_boiler" = "age_3"
+"railways:limestone_copper_wrapped_locometal_boiler" = "age_3"
+"railways:limestone_iron_wrapped_locometal_boiler" = "age_3"
+"railways:limestone_locometal_boiler" = "age_3"
+"railways:locometal_boiler" = "age_3"
+"railways:magenta_brass_wrapped_locometal_boiler" = "age_3"
+"railways:magenta_copper_wrapped_locometal_boiler" = "age_3"
+"railways:magenta_iron_wrapped_locometal_boiler" = "age_3"
+"railways:magenta_locometal_boiler" = "age_3"
+"railways:maroon_brass_wrapped_locometal_boiler" = "age_3"
+"railways:maroon_copper_wrapped_locometal_boiler" = "age_3"
+"railways:maroon_iron_wrapped_locometal_boiler" = "age_3"
+"railways:maroon_locometal_boiler" = "age_3"
+"railways:ochrum_brass_wrapped_locometal_boiler" = "age_3"
+"railways:ochrum_copper_wrapped_locometal_boiler" = "age_3"
+"railways:ochrum_iron_wrapped_locometal_boiler" = "age_3"
+"railways:ochrum_locometal_boiler" = "age_3"
+"railways:olive_green_brass_wrapped_locometal_boiler" = "age_3"
+"railways:olive_green_copper_wrapped_locometal_boiler" = "age_3"
+"railways:olive_green_iron_wrapped_locometal_boiler" = "age_3"
+"railways:olive_green_locometal_boiler" = "age_3"
+"railways:orange_brass_wrapped_locometal_boiler" = "age_3"
+"railways:orange_copper_wrapped_locometal_boiler" = "age_3"
+"railways:orange_iron_wrapped_locometal_boiler" = "age_3"
+"railways:orange_locometal_boiler" = "age_3"
+"railways:pine_green_brass_wrapped_locometal_boiler" = "age_3"
+"railways:pine_green_copper_wrapped_locometal_boiler" = "age_3"
+"railways:pine_green_iron_wrapped_locometal_boiler" = "age_3"
+"railways:pine_green_locometal_boiler" = "age_3"
+"railways:pink_brass_wrapped_locometal_boiler" = "age_3"
+"railways:pink_copper_wrapped_locometal_boiler" = "age_3"
+"railways:pink_iron_wrapped_locometal_boiler" = "age_3"
+"railways:pink_locometal_boiler" = "age_3"
 "railways:portable_fuel_interface" = "age_3"
+"railways:purple_brass_wrapped_locometal_boiler" = "age_3"
+"railways:purple_copper_wrapped_locometal_boiler" = "age_3"
+"railways:purple_iron_wrapped_locometal_boiler" = "age_3"
+"railways:purple_locometal_boiler" = "age_3"
+"railways:red_brass_wrapped_locometal_boiler" = "age_3"
+"railways:red_copper_wrapped_locometal_boiler" = "age_3"
+"railways:red_iron_wrapped_locometal_boiler" = "age_3"
+"railways:red_locometal_boiler" = "age_3"
+"railways:remote_lens" = "age_3"
+"railways:royal_blue_brass_wrapped_locometal_boiler" = "age_3"
+"railways:royal_blue_copper_wrapped_locometal_boiler" = "age_3"
+"railways:royal_blue_iron_wrapped_locometal_boiler" = "age_3"
+"railways:royal_blue_locometal_boiler" = "age_3"
+"railways:scorchia_brass_wrapped_locometal_boiler" = "age_3"
+"railways:scorchia_copper_wrapped_locometal_boiler" = "age_3"
+"railways:scorchia_iron_wrapped_locometal_boiler" = "age_3"
+"railways:scorchia_locometal_boiler" = "age_3"
+"railways:sea_green_brass_wrapped_locometal_boiler" = "age_3"
+"railways:sea_green_copper_wrapped_locometal_boiler" = "age_3"
+"railways:sea_green_iron_wrapped_locometal_boiler" = "age_3"
+"railways:sea_green_locometal_boiler" = "age_3"
 "railways:track_acacia" = "age_3"
 "railways:track_acacia_narrow" = "age_3"
 "railways:track_acacia_wide" = "age_3"
-"railways:track_bamboo" = "age_3"
-"railways:track_bamboo_narrow" = "age_3"
-"railways:track_bamboo_wide" = "age_3"
+"railways:track_birch" = "age_3"
+"railways:track_birch_narrow" = "age_3"
+"railways:track_birch_wide" = "age_3"
 "railways:track_cherry" = "age_3"
 "railways:track_cherry_narrow" = "age_3"
 "railways:track_cherry_wide" = "age_3"
@@ -3767,9 +3956,9 @@ items = [
 "railways:track_incomplete_acacia" = "age_3"
 "railways:track_incomplete_acacia_narrow" = "age_3"
 "railways:track_incomplete_acacia_wide" = "age_3"
-"railways:track_incomplete_bamboo" = "age_3"
-"railways:track_incomplete_bamboo_narrow" = "age_3"
-"railways:track_incomplete_bamboo_wide" = "age_3"
+"railways:track_incomplete_birch" = "age_3"
+"railways:track_incomplete_birch_narrow" = "age_3"
+"railways:track_incomplete_birch_wide" = "age_3"
 "railways:track_incomplete_cherry" = "age_3"
 "railways:track_incomplete_cherry_narrow" = "age_3"
 "railways:track_incomplete_cherry_wide" = "age_3"
@@ -3785,9 +3974,12 @@ items = [
 "railways:track_incomplete_mangrove" = "age_3"
 "railways:track_incomplete_mangrove_narrow" = "age_3"
 "railways:track_incomplete_mangrove_wide" = "age_3"
-"railways:track_incomplete_stripped_bamboo" = "age_3"
-"railways:track_incomplete_stripped_bamboo_narrow" = "age_3"
-"railways:track_incomplete_stripped_bamboo_wide" = "age_3"
+"railways:track_incomplete_oak" = "age_3"
+"railways:track_incomplete_oak_narrow" = "age_3"
+"railways:track_incomplete_oak_wide" = "age_3"
+"railways:track_incomplete_spruce" = "age_3"
+"railways:track_incomplete_spruce_narrow" = "age_3"
+"railways:track_incomplete_spruce_wide" = "age_3"
 "railways:track_incomplete_warped" = "age_3"
 "railways:track_incomplete_warped_narrow" = "age_3"
 "railways:track_incomplete_warped_wide" = "age_3"
@@ -3797,12 +3989,35 @@ items = [
 "railways:track_mangrove" = "age_3"
 "railways:track_mangrove_narrow" = "age_3"
 "railways:track_mangrove_wide" = "age_3"
-"railways:track_stripped_bamboo" = "age_3"
-"railways:track_stripped_bamboo_narrow" = "age_3"
-"railways:track_stripped_bamboo_wide" = "age_3"
+"railways:track_oak" = "age_3"
+"railways:track_oak_narrow" = "age_3"
+"railways:track_oak_wide" = "age_3"
+"railways:track_spruce" = "age_3"
+"railways:track_spruce_narrow" = "age_3"
+"railways:track_spruce_wide" = "age_3"
 "railways:track_warped" = "age_3"
 "railways:track_warped_narrow" = "age_3"
 "railways:track_warped_wide" = "age_3"
+"railways:tuff_brass_wrapped_locometal_boiler" = "age_3"
+"railways:tuff_copper_wrapped_locometal_boiler" = "age_3"
+"railways:tuff_iron_wrapped_locometal_boiler" = "age_3"
+"railways:tuff_locometal_boiler" = "age_3"
+"railways:turquoise_brass_wrapped_locometal_boiler" = "age_3"
+"railways:turquoise_copper_wrapped_locometal_boiler" = "age_3"
+"railways:turquoise_iron_wrapped_locometal_boiler" = "age_3"
+"railways:turquoise_locometal_boiler" = "age_3"
+"railways:vermilion_brass_wrapped_locometal_boiler" = "age_3"
+"railways:vermilion_copper_wrapped_locometal_boiler" = "age_3"
+"railways:vermilion_iron_wrapped_locometal_boiler" = "age_3"
+"railways:vermilion_locometal_boiler" = "age_3"
+"railways:white_brass_wrapped_locometal_boiler" = "age_3"
+"railways:white_copper_wrapped_locometal_boiler" = "age_3"
+"railways:white_iron_wrapped_locometal_boiler" = "age_3"
+"railways:white_locometal_boiler" = "age_3"
+"railways:yellow_brass_wrapped_locometal_boiler" = "age_3"
+"railways:yellow_copper_wrapped_locometal_boiler" = "age_3"
+"railways:yellow_iron_wrapped_locometal_boiler" = "age_3"
+"railways:yellow_locometal_boiler" = "age_3"
 "rnr:terracotta_roof" = "age_2"
 "rnr:terracotta_roof_slab" = "age_2"
 "rnr:terracotta_roof_stairs" = "age_2"
@@ -3821,7 +4036,7 @@ items = [
 "sophisticatedbackpacks:advanced_restock_upgrade" = "age_4"
 "sophisticatedbackpacks:advanced_tool_swapper_upgrade" = "age_4"
 "sophisticatedbackpacks:advanced_void_upgrade" = "age_4"
-"sophisticatedbackpacks:alchemy_upgrade" = "age_2"
+"sophisticatedbackpacks:alchemy_upgrade" = "age_3"
 "sophisticatedbackpacks:anvil_upgrade" = "age_4"
 "sophisticatedbackpacks:auto_blasting_upgrade" = "age_4"
 "sophisticatedbackpacks:auto_smelting_upgrade" = "age_4"
@@ -3831,13 +4046,13 @@ items = [
 "sophisticatedbackpacks:crafting_upgrade" = "age_2"
 "sophisticatedbackpacks:deposit_upgrade" = "age_2"
 "sophisticatedbackpacks:everlasting_upgrade" = "age_3"
-"sophisticatedbackpacks:feeding_upgrade" = "age_2"
+"sophisticatedbackpacks:feeding_upgrade" = "age_3"
 "sophisticatedbackpacks:gold_backpack" = "age_2"
 "sophisticatedbackpacks:inception_upgrade" = "age_4"
 "sophisticatedbackpacks:jukebox_upgrade" = "age_4"
 "sophisticatedbackpacks:magnet_upgrade" = "age_3"
-"sophisticatedbackpacks:mob_catcher_upgrade" = "age_2"
-"sophisticatedbackpacks:refill_upgrade" = "age_2"
+"sophisticatedbackpacks:mob_catcher_upgrade" = "age_3"
+"sophisticatedbackpacks:refill_upgrade" = "age_3"
 "sophisticatedbackpacks:restock_upgrade" = "age_2"
 "sophisticatedbackpacks:smelting_upgrade" = "age_2"
 "sophisticatedbackpacks:smithing_upgrade" = "age_2"
@@ -3858,39 +4073,27 @@ items = [
 "sophisticatedbackpacks:stack_upgrade_tier_4" = "age_4"
 "sophisticatedbackpacks:stonecutter_upgrade" = "age_2"
 "sophisticatedbackpacks:tool_swapper_upgrade" = "age_2"
-"sophisticatedbackpacks:void_upgrade" = "age_2"
+"sophisticatedbackpacks:void_upgrade" = "age_3"
 "sophisticatedbackpacks:xp_pump_upgrade" = "age_4"
-"sophisticatedcore:ender_linker" = "age_2"
+"sophisticatedcore:ender_linker" = "age_3"
 "supplementaries:ars_nouveau/way_sign_archwood" = "age_3"
-"supplementaries:bamboo_spikes" = "age_3"
 "supplementaries:bubble_blower" = "age_2"
 "supplementaries:cage" = "age_2"
 "supplementaries:crystal_display" = "age_3"
 "supplementaries:dispenser_minecart" = "age_2"
 "supplementaries:faucet" = "age_2"
-"supplementaries:flute" = "age_3"
 "supplementaries:lock_block" = "age_2"
-"supplementaries:lumisene_bucket" = "age_2"
-"supplementaries:lunch_basket" = "age_3"
+"supplementaries:lumisene_bucket" = "age_5"
 "supplementaries:relayer" = "age_2"
 "supplementaries:slidy_block" = "age_2"
 "supplementaries:speaker_block" = "age_3"
 "supplementaries:spring_launcher" = "age_2"
 "supplementaries:trapped_present" = "age_2"
-"supplementaries:twilightforest/way_sign_canopy" = "age_2"
-"supplementaries:twilightforest/way_sign_dark" = "age_2"
-"supplementaries:twilightforest/way_sign_mangrove" = "age_2"
-"supplementaries:twilightforest/way_sign_mining" = "age_2"
-"supplementaries:twilightforest/way_sign_sorting" = "age_2"
-"supplementaries:twilightforest/way_sign_time" = "age_2"
-"supplementaries:twilightforest/way_sign_transformation" = "age_2"
-"supplementaries:twilightforest/way_sign_twilight_oak" = "age_2"
-"supplementaries:way_sign_bamboo" = "age_3"
 "supplementaries:way_sign_cherry" = "age_3"
 "supplementaries:way_sign_crimson" = "age_3"
 "supplementaries:way_sign_dark_oak" = "age_3"
 "supplementaries:way_sign_jungle" = "age_3"
-"supplementaries:way_sign_oak" = "age_2"
+"supplementaries:way_sign_oak" = "age_3"
 "supplementaries:way_sign_warped" = "age_3"
 "supplementaries:wind_vane" = "age_2"
 "tfc:blast_furnace" = "age_2"
@@ -3966,19 +4169,65 @@ items = [
 "tfc:wood/trapped_chest/white_cedar" = "age_2"
 "tfc:wood/trapped_chest/willow" = "age_2"
 "theurgy:fermentation_vat" = "age_9"
+"theurgy:sal_ammoniac_bucket" = "age_5"
 "theurgy:sulfuric_flux_emitter" = "age_6"
 "toms_storage:adv_wireless_terminal" = "age_4"
 "toms_storage:crafting_terminal" = "age_4"
 "toms_storage:inventory_cable_connector" = "age_4"
 "toms_storage:inventory_cable_connector_framed" = "age_4"
 "toms_storage:inventory_connector" = "age_4"
+"toms_storage:inventory_interface" = "age_3"
+"toms_storage:paint_kit" = "age_3"
 "toms_storage:polymorphic_item_filter" = "age_4"
+"toms_storage:wireless_terminal" = "age_3"
 "totemic:cooked_buffalo_meat" = "age_1"
 "totemic:totem_whittling_knife" = "age_1"
-"twilightforest:filled_ore_map" = "age_4"
-"twilightforest:ore_map" = "age_4"
-"twilightforest:salmon_jerky" = "age_3"
-"twilightforest:tropical_fish_jerky" = "age_3"
+"trainutilities:door_1996_stock" = "age_3"
+"trainutilities:door_andesite_alloy" = "age_3"
+"trainutilities:door_andesite_alloy_window" = "age_3"
+"trainutilities:door_caf_urbos_3" = "age_3"
+"trainutilities:door_cis_amendorf_1" = "age_3"
+"trainutilities:door_cis_amendorf_2" = "age_3"
+"trainutilities:door_class_350" = "age_3"
+"trainutilities:door_class_390" = "age_3"
+"trainutilities:door_class_450" = "age_3"
+"trainutilities:door_elev_glass" = "age_3"
+"trainutilities:door_elev_metal" = "age_3"
+"trainutilities:door_flirt" = "age_3"
+"trainutilities:door_flirt_vias" = "age_3"
+"trainutilities:door_goahead_desiro" = "age_3"
+"trainutilities:door_ic" = "age_3"
+"trainutilities:door_ic2" = "age_3"
+"trainutilities:door_ice" = "age_3"
+"trainutilities:door_ice_modern" = "age_3"
+"trainutilities:door_ice_modern_top" = "age_3"
+"trainutilities:door_ice_top" = "age_3"
+"trainutilities:door_industrial_iron" = "age_3"
+"trainutilities:door_industrial_iron_window" = "age_3"
+"trainutilities:door_iron_clean" = "age_3"
+"trainutilities:door_iron_rusty" = "age_3"
+"trainutilities:door_london_1973_stock" = "age_3"
+"trainutilities:door_london_el" = "age_3"
+"trainutilities:door_london_overground" = "age_3"
+"trainutilities:door_london_s7_stock" = "age_3"
+"trainutilities:door_pkp_ic_blue" = "age_3"
+"trainutilities:door_pkp_ic_white" = "age_3"
+"trainutilities:door_railjet" = "age_3"
+"trainutilities:door_rrx" = "age_3"
+"trainutilities:door_sbahn_cologne" = "age_3"
+"trainutilities:door_sbahn_vrr" = "age_3"
+"trainutilities:door_stripped_spruce" = "age_3"
+"trainutilities:door_sw_nyc" = "age_3"
+"trainutilities:door_talent1" = "age_3"
+"trainutilities:door_talent2" = "age_3"
+"trainutilities:door_talent3" = "age_3"
+"trainutilities:door_ungarian_flirt" = "age_3"
+"trainutilities:door_warsaw_tram" = "age_3"
+"trainutilities:incomplete_prototype_door_db" = "age_3"
+"trainutilities:incomplete_prototype_door_sf" = "age_3"
+"trainutilities:prototype_door_db" = "age_3"
+"trainutilities:prototype_door_sf" = "age_3"
+"trainutilities:rubber_seal" = "age_3"
 
 [derived_hidden]
 items = [
@@ -4017,7 +4266,9 @@ items = [
     "ad_astra:zombified_mogler_spawn_egg",
     "ad_astra:zombified_pygro_spawn_egg",
     "advanced_ae:adv_processing_pattern",
+    "advanced_ae:flight_card",
     "advanced_ae:quantum_infusion_bucket",
+    "advanced_ae:regeneration_card",
     "advancedtfctech:beamhouse",
     "advancedtfctech:grist_mill",
     "advancedtfctech:pineapple_winded_pirn",
@@ -4107,6 +4358,7 @@ items = [
     "ars_additions:enchanting_wixie_cauldron",
     "ars_additions:exploration_warp_scroll",
     "ars_additions:glyph_recall",
+    "ars_additions:glyph_retaliate",
     "ars_additions:imbued_spell_parchment",
     "ars_additions:lost_codex_entry",
     "ars_additions:memory_crystal",
@@ -4252,105 +4504,11 @@ items = [
     "bits_n_bobs:weathered_iron_encased_large_flanged_cogwheel",
     "bits_n_bobs:weathered_iron_encased_piston_extension_pole",
     "bits_n_bobs:weathered_iron_encased_shaft",
-    "bosses_of_mass_destruction:blazing_eye",
-    "bosses_of_mass_destruction:chiseled_stone_altar",
-    "bosses_of_mass_destruction:earthdive_spear",
-    "bosses_of_mass_destruction:gauntlet_blackstone",
-    "bosses_of_mass_destruction:levitation_block",
-    "bosses_of_mass_destruction:mob_ward",
-    "bosses_of_mass_destruction:monolith_block",
-    "bosses_of_mass_destruction:obsidian_heart",
-    "bosses_of_mass_destruction:obsidilith_end_frame",
-    "bosses_of_mass_destruction:obsidilith_rune",
-    "bosses_of_mass_destruction:sealed_blackstone",
-    "bosses_of_mass_destruction:soul_star",
-    "bosses_of_mass_destruction:vine_wall",
-    "bosses_of_mass_destruction:void_blossom",
-    "bosses_of_mass_destruction:void_blossom_block",
-    "cataclysm:altar_of_abyss",
-    "cataclysm:altar_of_amethyst",
-    "cataclysm:altar_of_fire",
-    "cataclysm:altar_of_void",
-    "cataclysm:amethyst_crab_spawn_egg",
-    "cataclysm:ancient_remnant_spawn_egg",
-    "cataclysm:aptrgangr_head",
-    "cataclysm:aptrgangr_spawn_egg",
-    "cataclysm:azure_seastone_mural_cindaria",
-    "cataclysm:azure_seastone_mural_clawdian",
-    "cataclysm:azure_seastone_mural_harvest",
-    "cataclysm:azure_seastone_mural_hippocamtus",
-    "cataclysm:azure_seastone_mural_sea",
-    "cataclysm:azure_seastone_mural_smithing",
-    "cataclysm:azure_seastone_mural_thunder",
-    "cataclysm:azure_seastone_mural_underworld",
-    "cataclysm:azure_seastone_mural_urchinkin",
-    "cataclysm:azure_seastone_mural_wisdom",
-    "cataclysm:belt_of_monstrosity",
-    "cataclysm:blazing_bone",
-    "cataclysm:blood_clot",
-    "cataclysm:boss_respawner",
-    "cataclysm:chain_of_soul_binding",
-    "cataclysm:cindaria_spawn_egg",
-    "cataclysm:clawdian_spawn_egg",
-    "cataclysm:coral_bardiche",
-    "cataclysm:coral_golem_spawn_egg",
-    "cataclysm:coral_spear",
-    "cataclysm:coralssus_spawn_egg",
-    "cataclysm:cursed_tombstone",
-    "cataclysm:deepling_angler_spawn_egg",
-    "cataclysm:deepling_brute_spawn_egg",
-    "cataclysm:deepling_priest_spawn_egg",
-    "cataclysm:deepling_spawn_egg",
-    "cataclysm:deepling_warlock_spawn_egg",
-    "cataclysm:door_of_seal",
-    "cataclysm:draugr_head",
-    "cataclysm:draugr_spawn_egg",
-    "cataclysm:dungeon_block",
-    "cataclysm:elite_draugr_spawn_egg",
-    "cataclysm:emp",
-    "cataclysm:ender_golem_spawn_egg",
-    "cataclysm:ender_guardian_spawn_egg",
-    "cataclysm:enderite_block",
-    "cataclysm:enderite_ingot",
-    "cataclysm:endermaptera_spawn_egg",
-    "cataclysm:goddess_statue",
-    "cataclysm:hippocamtus_spawn_egg",
-    "cataclysm:ignis_spawn_egg",
-    "cataclysm:ignited_berserker_spawn_egg",
-    "cataclysm:ignited_revenant_spawn_egg",
-    "cataclysm:khopesh",
-    "cataclysm:kobolediator_spawn_egg",
-    "cataclysm:koboleton_spawn_egg",
-    "cataclysm:lionfish_spawn_egg",
-    "cataclysm:lionfish_spike",
-    "cataclysm:maledictus_spawn_egg",
-    "cataclysm:modern_remnant_bucket",
-    "cataclysm:modern_remnant_spawn_egg",
-    "cataclysm:music_disc_the_cataclysmfarer",
-    "cataclysm:netherite_ministrosity_bucket",
-    "cataclysm:netherite_ministrosity_spawn_egg",
-    "cataclysm:netherite_monstrosity_spawn_egg",
-    "cataclysm:obsidian_fence",
-    "cataclysm:octohost_spawn_egg",
-    "cataclysm:pointed_icicle",
-    "cataclysm:polished_sandstone",
-    "cataclysm:royal_draugr_spawn_egg",
-    "cataclysm:scylla_spawn_egg",
-    "cataclysm:symbiocto_spawn_egg",
-    "cataclysm:the_baby_leviathan_bucket",
-    "cataclysm:the_baby_leviathan_spawn_egg",
-    "cataclysm:the_harbinger_spawn_egg",
-    "cataclysm:the_leviathan_spawn_egg",
-    "cataclysm:the_prowler_spawn_egg",
-    "cataclysm:the_watcher_spawn_egg",
-    "cataclysm:urchin_spike",
-    "cataclysm:urchinkin_spawn_egg",
-    "cataclysm:void_crystal",
-    "cataclysm:void_shard",
-    "cataclysm:wadjet_spawn_egg",
     "create:andesite_encased_cogwheel",
     "create:andesite_encased_large_cogwheel",
     "create:andesite_encased_shaft",
+    "create:bamboo_window",
+    "create:bamboo_window_pane",
     "create:brass_block",
     "create:brass_encased_cogwheel",
     "create:brass_encased_large_cogwheel",
@@ -4474,7 +4632,6 @@ items = [
     "createbigcannons:built_up_nethersteel_cannon_barrel",
     "createbigcannons:built_up_nethersteel_cannon_chamber",
     "createbigcannons:built_up_steel_cannon_barrel",
-    "createbigcannons:built_up_steel_cannon_chamber",
     "createbigcannons:cannon_crafting_wand",
     "createbigcannons:cast_iron_autocannon_barrel",
     "createbigcannons:cast_iron_autocannon_breech",
@@ -4499,15 +4656,12 @@ items = [
     "createbigcannons:incomplete_steel_screw_breech",
     "createbigcannons:incomplete_steel_sliding_breech",
     "createbigcannons:large_nethersteel_cannon_layer",
-    "createbigcannons:large_steel_cannon_layer",
     "createbigcannons:medium_nethersteel_cannon_layer",
-    "createbigcannons:medium_steel_cannon_layer",
     "createbigcannons:mortar_stone_projectile",
     "createbigcannons:nethersteel_cannon_barrel",
     "createbigcannons:nethersteel_cannon_chamber",
     "createbigcannons:nethersteel_screw_breech",
     "createbigcannons:small_nethersteel_cannon_layer",
-    "createbigcannons:small_steel_cannon_layer",
     "createbigcannons:steel_autocannon_barrel",
     "createbigcannons:steel_autocannon_breech",
     "createbigcannons:steel_autocannon_recoil_spring",
@@ -4516,7 +4670,6 @@ items = [
     "createbigcannons:steel_cannon_chamber",
     "createbigcannons:steel_ingot",
     "createbigcannons:steel_quickfiring_breech",
-    "createbigcannons:steel_scrap",
     "createbigcannons:steel_screw_breech",
     "createbigcannons:steel_sliding_breech",
     "createbigcannons:thick_nethersteel_cannon_chamber",
@@ -4535,12 +4688,9 @@ items = [
     "createbigcannons:unbored_cast_iron_cannon_chamber",
     "createbigcannons:unbored_cast_iron_sliding_breech",
     "createbigcannons:unbored_large_nethersteel_cannon_layer",
-    "createbigcannons:unbored_large_steel_cannon_layer",
     "createbigcannons:unbored_medium_nethersteel_cannon_layer",
-    "createbigcannons:unbored_medium_steel_cannon_layer",
     "createbigcannons:unbored_nethersteel_screw_breech",
     "createbigcannons:unbored_small_nethersteel_cannon_layer",
-    "createbigcannons:unbored_small_steel_cannon_layer",
     "createbigcannons:unbored_steel_autocannon_barrel",
     "createbigcannons:unbored_steel_autocannon_breech",
     "createbigcannons:unbored_steel_autocannon_recoil_spring",
@@ -4549,11 +4699,9 @@ items = [
     "createbigcannons:unbored_very_large_nethersteel_cannon_layer",
     "createbigcannons:unbored_very_large_steel_cannon_layer",
     "createbigcannons:unbored_very_small_nethersteel_cannon_layer",
-    "createbigcannons:unbored_very_small_steel_cannon_layer",
     "createbigcannons:very_large_nethersteel_cannon_layer",
     "createbigcannons:very_large_steel_cannon_layer",
     "createbigcannons:very_small_nethersteel_cannon_layer",
-    "createbigcannons:very_small_steel_cannon_layer",
     "createbigcannons:yaw_controller",
     "createcasing:acacia_cogwheel",
     "createcasing:acacia_large_cogwheel",
@@ -4604,6 +4752,7 @@ items = [
     "createcasing:andesite_sheet",
     "createcasing:bamboo_cogwheel",
     "createcasing:bamboo_large_cogwheel",
+    "createcasing:bamboo_shaft",
     "createcasing:birch_cogwheel",
     "createcasing:birch_large_cogwheel",
     "createcasing:brass_encased_acacia_cogwheel",
@@ -5345,6 +5494,9 @@ items = [
     "createframed:white_package",
     "createframed:yellow_package",
     "createstockbridge:request_pattern",
+    "decorative_blocks:bamboo_palisade",
+    "decorative_blocks:bamboo_seat",
+    "decorative_blocks:bamboo_support",
     "dndecor:black_industrial_cogwheel",
     "dndecor:blue_industrial_cogwheel",
     "dndecor:brown_industrial_cogwheel",
@@ -5437,6 +5589,21 @@ items = [
     "ftbquests:stage_barrier",
     "gravestone:obituary",
     "guideme:guide",
+    "handcrafted:bamboo_bench",
+    "handcrafted:bamboo_chair",
+    "handcrafted:bamboo_corner_trim",
+    "handcrafted:bamboo_couch",
+    "handcrafted:bamboo_counter",
+    "handcrafted:bamboo_cupboard",
+    "handcrafted:bamboo_desk",
+    "handcrafted:bamboo_dining_bench",
+    "handcrafted:bamboo_drawer",
+    "handcrafted:bamboo_fancy_bed",
+    "handcrafted:bamboo_nightstand",
+    "handcrafted:bamboo_pillar_trim",
+    "handcrafted:bamboo_shelf",
+    "handcrafted:bamboo_side_table",
+    "handcrafted:bamboo_table",
     "handcrafted:vindicator_trophy",
     "igleelib:blaze_shard",
     "igleelib:lavium_block",
@@ -5450,6 +5617,7 @@ items = [
     "immersiveengineering:blast_furnace",
     "immersiveengineering:bottling_machine",
     "immersiveengineering:bucket_wheel",
+    "immersiveengineering:bullet_he",
     "immersiveengineering:bulwark_spawn_egg",
     "immersiveengineering:capacitor_creative",
     "immersiveengineering:coke_oven",
@@ -5522,7 +5690,46 @@ items = [
     "immersiveposts:stick_gold",
     "immersiveposts:stick_nickel",
     "immersiveposts:stick_silver",
+    "mcwbridges:bamboo_bridge",
+    "mcwbridges:bamboo_bridge_pier",
+    "mcwbridges:bamboo_bridge_stair",
     "mcwbridges:bridge_lantern",
+    "mcwbridges:dry_bamboo_bridge",
+    "mcwbridges:dry_bamboo_bridge_pier",
+    "mcwbridges:dry_bamboo_bridge_stair",
+    "mcwdoors:acacia_bamboo_door",
+    "mcwdoors:bamboo_bark_glass_door",
+    "mcwdoors:bamboo_barn_door",
+    "mcwdoors:bamboo_barn_glass_door",
+    "mcwdoors:bamboo_beach_door",
+    "mcwdoors:bamboo_classic_door",
+    "mcwdoors:bamboo_cottage_door",
+    "mcwdoors:bamboo_four_panel_door",
+    "mcwdoors:bamboo_glass_door",
+    "mcwdoors:bamboo_japanese2_door",
+    "mcwdoors:bamboo_japanese_door",
+    "mcwdoors:bamboo_modern_door",
+    "mcwdoors:bamboo_mystic_door",
+    "mcwdoors:bamboo_nether_door",
+    "mcwdoors:bamboo_paper_door",
+    "mcwdoors:bamboo_stable_door",
+    "mcwdoors:bamboo_stable_head_door",
+    "mcwdoors:bamboo_swamp_door",
+    "mcwdoors:bamboo_tropical_door",
+    "mcwdoors:bamboo_waffle_door",
+    "mcwdoors:bamboo_western_door",
+    "mcwdoors:bamboo_whispering_door",
+    "mcwdoors:birch_bamboo_door",
+    "mcwdoors:cherry_bamboo_door",
+    "mcwdoors:crimson_bamboo_door",
+    "mcwdoors:dark_oak_bamboo_door",
+    "mcwdoors:jungle_bamboo_door",
+    "mcwdoors:mangrove_bamboo_door",
+    "mcwdoors:oak_bamboo_door",
+    "mcwdoors:print_bamboo",
+    "mcwdoors:spruce_bamboo_door",
+    "mcwdoors:warped_bamboo_door",
+    "mcwwindows:bamboo_shutter",
     "mcwwindows:iron_shutter",
     "mechanicals:rare_oierbravo_package",
     "megacells:cable_mega_emc_interface",
@@ -5577,6 +5784,7 @@ items = [
     "mekanism:creative_energy_cube",
     "mekanism:creative_fluid_tank",
     "mekanism:dirty_netherite_scrap",
+    "mekanism:module_blasting_unit",
     "mekanism:sawdust",
     "mekanism_lasers:creative_laser",
     "mekanism_lasers:creative_toggleable_laser",
@@ -5632,9 +5840,24 @@ items = [
     "minecraft:axolotl_bucket",
     "minecraft:axolotl_spawn_egg",
     "minecraft:azalea_leaves",
+    "minecraft:bamboo",
+    "minecraft:bamboo_block",
+    "minecraft:bamboo_button",
     "minecraft:bamboo_chest_raft",
+    "minecraft:bamboo_door",
+    "minecraft:bamboo_fence",
+    "minecraft:bamboo_fence_gate",
     "minecraft:bamboo_hanging_sign",
+    "minecraft:bamboo_mosaic",
+    "minecraft:bamboo_mosaic_slab",
+    "minecraft:bamboo_mosaic_stairs",
+    "minecraft:bamboo_planks",
+    "minecraft:bamboo_pressure_plate",
     "minecraft:bamboo_raft",
+    "minecraft:bamboo_sign",
+    "minecraft:bamboo_slab",
+    "minecraft:bamboo_stairs",
+    "minecraft:bamboo_trapdoor",
     "minecraft:barrier",
     "minecraft:bat_spawn_egg",
     "minecraft:bedrock",
@@ -5645,12 +5868,18 @@ items = [
     "minecraft:blaze_spawn_egg",
     "minecraft:bogged_spawn_egg",
     "minecraft:breeze_spawn_egg",
+    "minecraft:brown_mushroom_block",
+    "minecraft:bundle",
     "minecraft:camel_spawn_egg",
     "minecraft:campfire",
     "minecraft:carrot_on_a_stick",
     "minecraft:cat_spawn_egg",
     "minecraft:cave_spider_spawn_egg",
     "minecraft:chain_command_block",
+    "minecraft:chainmail_boots",
+    "minecraft:chainmail_chestplate",
+    "minecraft:chainmail_helmet",
+    "minecraft:chainmail_leggings",
     "minecraft:cherry_leaves",
     "minecraft:chest_minecart",
     "minecraft:chicken_spawn_egg",
@@ -5665,14 +5894,26 @@ items = [
     "minecraft:creeper_spawn_egg",
     "minecraft:damaged_anvil",
     "minecraft:dark_oak_leaves",
+    "minecraft:dead_brain_coral",
+    "minecraft:dead_brain_coral_fan",
+    "minecraft:dead_bubble_coral",
+    "minecraft:dead_bubble_coral_fan",
+    "minecraft:dead_fire_coral",
+    "minecraft:dead_fire_coral_fan",
+    "minecraft:dead_horn_coral",
+    "minecraft:dead_horn_coral_fan",
+    "minecraft:dead_tube_coral",
+    "minecraft:dead_tube_coral_fan",
     "minecraft:debug_stick",
     "minecraft:deepslate_emerald_ore",
     "minecraft:diamond_axe",
+    "minecraft:diamond_hoe",
     "minecraft:dolphin_spawn_egg",
     "minecraft:donkey_spawn_egg",
     "minecraft:drowned_spawn_egg",
     "minecraft:elder_guardian_spawn_egg",
     "minecraft:emerald_ore",
+    "minecraft:enchanted_book",
     "minecraft:enchanting_table",
     "minecraft:ender_dragon_spawn_egg",
     "minecraft:enderman_spawn_egg",
@@ -5686,8 +5927,16 @@ items = [
     "minecraft:ghast_spawn_egg",
     "minecraft:glow_squid_spawn_egg",
     "minecraft:goat_spawn_egg",
+    "minecraft:gold_block",
+    "minecraft:golden_axe",
+    "minecraft:golden_boots",
+    "minecraft:golden_chestplate",
+    "minecraft:golden_helmet",
     "minecraft:golden_hoe",
+    "minecraft:golden_leggings",
     "minecraft:golden_pickaxe",
+    "minecraft:golden_shovel",
+    "minecraft:golden_sword",
     "minecraft:guardian_spawn_egg",
     "minecraft:hanging_roots",
     "minecraft:hoglin_spawn_egg",
@@ -5696,9 +5945,11 @@ items = [
     "minecraft:horse_spawn_egg",
     "minecraft:husk_spawn_egg",
     "minecraft:iron_axe",
+    "minecraft:iron_block",
     "minecraft:iron_golem_spawn_egg",
     "minecraft:iron_hoe",
     "minecraft:iron_trapdoor",
+    "minecraft:jack_o_lantern",
     "minecraft:jigsaw",
     "minecraft:knowledge_book",
     "minecraft:lantern",
@@ -5710,6 +5961,8 @@ items = [
     "minecraft:mangrove_roots",
     "minecraft:mooshroom_spawn_egg",
     "minecraft:mule_spawn_egg",
+    "minecraft:mushroom_stem",
+    "minecraft:mushroom_stew",
     "minecraft:ocelot_spawn_egg",
     "minecraft:panda_spawn_egg",
     "minecraft:petrified_oak_slab",
@@ -5718,12 +5971,14 @@ items = [
     "minecraft:piglin_brute_spawn_egg",
     "minecraft:piglin_spawn_egg",
     "minecraft:pillager_spawn_egg",
+    "minecraft:player_head",
     "minecraft:polar_bear_spawn_egg",
     "minecraft:pufferfish_bucket",
     "minecraft:pufferfish_spawn_egg",
     "minecraft:rabbit_spawn_egg",
     "minecraft:rabbit_stew",
     "minecraft:ravager_spawn_egg",
+    "minecraft:red_mushroom_block",
     "minecraft:repeating_command_block",
     "minecraft:salmon_bucket",
     "minecraft:salmon_spawn_egg",
@@ -5747,6 +6002,7 @@ items = [
     "minecraft:stone_sword",
     "minecraft:stray_spawn_egg",
     "minecraft:strider_spawn_egg",
+    "minecraft:stripped_bamboo_block",
     "minecraft:structure_block",
     "minecraft:structure_void",
     "minecraft:sunflower",
@@ -5755,6 +6011,8 @@ items = [
     "minecraft:tadpole_bucket",
     "minecraft:tadpole_spawn_egg",
     "minecraft:tall_grass",
+    "minecraft:tnt",
+    "minecraft:tnt_minecart",
     "minecraft:trader_llama_spawn_egg",
     "minecraft:trapped_chest",
     "minecraft:trial_spawner",
@@ -5976,28 +6234,6 @@ items = [
     "moremekanismprocessing:thorium_ingot",
     "moremekanismprocessing:thorium_nugget",
     "moremekanismprocessing:zinc_ingot",
-    "mowziesmobs:bluff_spawn_egg",
-    "mowziesmobs:clawed_log",
-    "mowziesmobs:elokosa_howler_spawn_egg",
-    "mowziesmobs:elokosa_spawn_egg",
-    "mowziesmobs:foliaath_spawn_egg",
-    "mowziesmobs:frostmaw_spawn_egg",
-    "mowziesmobs:gong",
-    "mowziesmobs:grant_suns_blessing",
-    "mowziesmobs:grottol_spawn_egg",
-    "mowziesmobs:lantern_spawn_egg",
-    "mowziesmobs:logo",
-    "mowziesmobs:mob_remover",
-    "mowziesmobs:naga_spawn_egg",
-    "mowziesmobs:raked_sand",
-    "mowziesmobs:red_raked_sand",
-    "mowziesmobs:sand_rake",
-    "mowziesmobs:sculptor_spawn_egg",
-    "mowziesmobs:umvuthana_crane_spawn_egg",
-    "mowziesmobs:umvuthana_raptor_spawn_egg",
-    "mowziesmobs:umvuthana_spawn_egg",
-    "mowziesmobs:umvuthi_spawn_egg",
-    "mowziesmobs:wroughtnaut_spawn_egg",
     "mysticalagradditions:awakened_draconium_crux",
     "mysticalagradditions:creative_essence",
     "mysticalagradditions:dragon_egg_crux",
@@ -6516,6 +6752,18 @@ items = [
     "railways:smokestack_woodburner_iron_cap_copper",
     "railways:smokestack_woodburner_iron_cap_steel",
     "railways:split_knuckle_coupler",
+    "railways:track_bamboo",
+    "railways:track_bamboo_narrow",
+    "railways:track_bamboo_wide",
+    "railways:track_incomplete_bamboo",
+    "railways:track_incomplete_bamboo_narrow",
+    "railways:track_incomplete_bamboo_wide",
+    "railways:track_incomplete_stripped_bamboo",
+    "railways:track_incomplete_stripped_bamboo_narrow",
+    "railways:track_incomplete_stripped_bamboo_wide",
+    "railways:track_stripped_bamboo",
+    "railways:track_stripped_bamboo_narrow",
+    "railways:track_stripped_bamboo_wide",
     "railways:tuff_paint_pitcher",
     "railways:turquoise_paint_pitcher",
     "railways:vermilion_paint_pitcher",
@@ -6658,8 +6906,6 @@ items = [
     "sophisticatedbackpacks:infinity_upgrade",
     "sophisticatedbackpacks:survival_infinity_upgrade",
     "sophisticatedcore:xp_bucket",
-    "summoningrituals:indestructible_altar",
-    "summoningrituals:pattern_generator",
     "supplementaries:ad_astra/way_sign_aeronos",
     "supplementaries:ad_astra/way_sign_glacian",
     "supplementaries:ad_astra/way_sign_strophar",
@@ -6678,6 +6924,7 @@ items = [
     "supplementaries:afc/cannon_boat_teak",
     "supplementaries:afc/cannon_boat_tualang",
     "supplementaries:ars_nouveau/cannon_boat_archwood",
+    "supplementaries:bamboo_spikes",
     "supplementaries:bamboo_spikes_tipped",
     "supplementaries:barnacles",
     "supplementaries:blackstone_lamp",
@@ -6713,7 +6960,6 @@ items = [
     "supplementaries:cannon_boat_spruce",
     "supplementaries:cannon_raft_bamboo",
     "supplementaries:cannonball",
-    "supplementaries:cataclysm/way_sign_chorus",
     "supplementaries:createdieselgenerators/way_sign_chip_wood",
     "supplementaries:deepslate_lamp",
     "supplementaries:end_stone_lamp",
@@ -6722,10 +6968,12 @@ items = [
     "supplementaries:flax",
     "supplementaries:flax_block",
     "supplementaries:flax_seeds",
+    "supplementaries:flute",
     "supplementaries:fodder",
     "supplementaries:goblet",
     "supplementaries:key",
     "supplementaries:lumisene_bottle",
+    "supplementaries:lunch_basket",
     "supplementaries:music_disc_heave_ho",
     "supplementaries:netherite_door",
     "supplementaries:netherite_trapdoor",
@@ -6798,16 +7046,9 @@ items = [
     "supplementaries:trapped_present_red",
     "supplementaries:trapped_present_white",
     "supplementaries:trapped_present_yellow",
-    "supplementaries:twilightforest/cannon_boat_canopy",
-    "supplementaries:twilightforest/cannon_boat_dark",
-    "supplementaries:twilightforest/cannon_boat_mangrove",
-    "supplementaries:twilightforest/cannon_boat_mining",
-    "supplementaries:twilightforest/cannon_boat_sorting",
-    "supplementaries:twilightforest/cannon_boat_time",
-    "supplementaries:twilightforest/cannon_boat_transformation",
-    "supplementaries:twilightforest/cannon_boat_twilight_oak",
     "supplementaries:urn",
     "supplementaries:way_sign_acacia",
+    "supplementaries:way_sign_bamboo",
     "supplementaries:way_sign_birch",
     "supplementaries:way_sign_mangrove",
     "supplementaries:way_sign_spruce",
@@ -7377,99 +7618,6 @@ items = [
     "totemic:totem_base",
     "totemic:totem_pole",
     "totemic:wind_chime",
-    "twilightforest:alpha_yeti_boss_spawner",
-    "twilightforest:alpha_yeti_spawn_egg",
-    "twilightforest:antibuilder",
-    "twilightforest:armored_giant_spawn_egg",
-    "twilightforest:bighorn_sheep_spawn_egg",
-    "twilightforest:blockchain_goblin_spawn_egg",
-    "twilightforest:blue_force_field",
-    "twilightforest:boar_spawn_egg",
-    "twilightforest:brown_thorns",
-    "twilightforest:burnt_thorns",
-    "twilightforest:carminite_broodling_spawn_egg",
-    "twilightforest:carminite_ghastguard_spawn_egg",
-    "twilightforest:carminite_ghastling_spawn_egg",
-    "twilightforest:carminite_golem_spawn_egg",
-    "twilightforest:copper_nugget",
-    "twilightforest:creeper_skull_candle",
-    "twilightforest:cube_of_annihilation",
-    "twilightforest:cube_talisman",
-    "twilightforest:death_tome_spawn_egg",
-    "twilightforest:deer_spawn_egg",
-    "twilightforest:dwarf_rabbit_spawn_egg",
-    "twilightforest:final_boss_boss_spawner",
-    "twilightforest:fire_beetle_spawn_egg",
-    "twilightforest:four_leaf_clover",
-    "twilightforest:giant_miner_spawn_egg",
-    "twilightforest:gold_minotaur_axe",
-    "twilightforest:green_force_field",
-    "twilightforest:green_thorns",
-    "twilightforest:hedge_spider_spawn_egg",
-    "twilightforest:helmet_crab_spawn_egg",
-    "twilightforest:hostile_wolf_spawn_egg",
-    "twilightforest:hydra_boss_spawner",
-    "twilightforest:hydra_spawn_egg",
-    "twilightforest:ice_crystal_spawn_egg",
-    "twilightforest:infested_towerwood",
-    "twilightforest:keepsake_casket",
-    "twilightforest:king_spider_spawn_egg",
-    "twilightforest:knight_phantom_boss_spawner",
-    "twilightforest:knight_phantom_spawn_egg",
-    "twilightforest:kobold_spawn_egg",
-    "twilightforest:lich_boss_spawner",
-    "twilightforest:lich_spawn_egg",
-    "twilightforest:lower_goblin_knight_spawn_egg",
-    "twilightforest:magic_painting",
-    "twilightforest:maze_slime_spawn_egg",
-    "twilightforest:mining_log_core",
-    "twilightforest:minoshroom_boss_spawner",
-    "twilightforest:minoshroom_spawn_egg",
-    "twilightforest:minotaur_spawn_egg",
-    "twilightforest:mist_wolf_spawn_egg",
-    "twilightforest:mosquito_swarm_spawn_egg",
-    "twilightforest:naga_boss_spawner",
-    "twilightforest:naga_spawn_egg",
-    "twilightforest:orange_force_field",
-    "twilightforest:penguin_spawn_egg",
-    "twilightforest:piglin_skull_candle",
-    "twilightforest:pinch_beetle_spawn_egg",
-    "twilightforest:pink_force_field",
-    "twilightforest:player_skull_candle",
-    "twilightforest:quest_ram_banner_pattern",
-    "twilightforest:quest_ram_spawn_egg",
-    "twilightforest:raven_spawn_egg",
-    "twilightforest:redcap_sapper_spawn_egg",
-    "twilightforest:redcap_spawn_egg",
-    "twilightforest:sinister_spawner",
-    "twilightforest:skeleton_druid_spawn_egg",
-    "twilightforest:skeleton_skull_candle",
-    "twilightforest:skull_chest",
-    "twilightforest:slider",
-    "twilightforest:slime_beetle_spawn_egg",
-    "twilightforest:snow_guardian_spawn_egg",
-    "twilightforest:snow_queen_boss_spawner",
-    "twilightforest:snow_queen_spawn_egg",
-    "twilightforest:sorting_log_core",
-    "twilightforest:squirrel_spawn_egg",
-    "twilightforest:stable_ice_core_spawn_egg",
-    "twilightforest:stronghold_shield",
-    "twilightforest:swarm_spider_spawn_egg",
-    "twilightforest:time_log_core",
-    "twilightforest:tiny_bird_spawn_egg",
-    "twilightforest:towerwood_borer_spawn_egg",
-    "twilightforest:transformation_log_core",
-    "twilightforest:troll_spawn_egg",
-    "twilightforest:unstable_ice_core_spawn_egg",
-    "twilightforest:ur_ghast_boss_spawner",
-    "twilightforest:ur_ghast_spawn_egg",
-    "twilightforest:violet_force_field",
-    "twilightforest:winter_wolf_spawn_egg",
-    "twilightforest:wither_skeleton_skull_candle",
-    "twilightforest:wraith_spawn_egg",
-    "twilightforest:wrought_iron_bar",
-    "twilightforest:yeti_spawn_egg",
-    "twilightforest:zombie_skull_candle",
     "woodencog:metal/axe/bismuth_bronze/unfinished",
     "woodencog:metal/axe/black_bronze/unfinished",
     "woodencog:metal/axe/black_steel/unfinished",

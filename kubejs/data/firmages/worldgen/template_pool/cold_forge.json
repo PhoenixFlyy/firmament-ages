@@ -1,0 +1,14 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "firmages:cold_forge",
+        "processors": "firmages:cold_forge",
+        "projection": "rigid"
+      }
+    }
+  ]
+}

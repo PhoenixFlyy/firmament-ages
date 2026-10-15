@@ -626,41 +626,6 @@
 			y: 0.0d
 		}
 		{
-			dependencies: ["3A5D0F3FAA56A074"]
-			icon: {
-				id: "mowziesmobs:glowing_jelly"
-			}
-			id: "4901966F799B2493"
-			optional: true
-			rewards: [
-				{
-					id: "01F1F8D13749755D"
-					type: "xp"
-					xp: 20
-				}
-				{
-					id: "1B75471245BEBDFF"
-					table_id: 1971555762099653251L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "5CAA3ACF5298FED3"
-					observation_type: "entity_type"
-					timer: 0L
-					to_observe: "mowziesmobs:lantern"
-					type: "observation"
-				}
-			]
-			x: 2.5d
-			y: -6.25d
-		}
-		{
 			dependencies: ["0D0AB1CA40800F5A"]
 			icon: {
 				id: "tfc:seeds/wheat"
@@ -691,7 +656,7 @@
 					type: "advancement"
 				}
 			]
-			x: 4.5d
+			x: 2.5d
 			y: -6.25d
 		}
 		{
@@ -725,7 +690,7 @@
 					type: "item"
 				}
 			]
-			x: 6.5d
+			x: 6.0d
 			y: -6.25d
 		}
 		{

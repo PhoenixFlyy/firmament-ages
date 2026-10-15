@@ -781,32 +781,122 @@ item("origin_coordinates", "Age 9", [
 ], {**shade("paper"), **legend(I=("arcane", 2), A=("draconium", 1), B=("draconium", 3), C=("violet", 3),
                                D=("violet", 4))})
 
-# Boss fallback sigils (Doc 08 section 5.1): one round seal for all eight, the disc in the Age's metal and the carved
-# gate rune in its beam colour, so a sigil reads as "the boss key of Age N" next to the Age's signature item.
-SIGIL = [
+# Expedition items of the Age tokens (dev/decisions-while-away.md, 2026-10-14): the Frontier Compass, the shard of the
+# Cold Forge and the relic the Create line finishes from it (Iron Age), the Hollow Keystone of the Nether fortresses and
+# its Create-line stage (Arcane Age), the flight recorder of the Mars temple (Space Age).
+item("frontier_compass", "Age 2", [
     "................",
     ".....oooooo.....",
-    "...oohhllmmoo...",
-    "..ohhlllmmmmdo..",
-    "..ohlmRRRRRmdo..",
-    ".ohlmRmmmmmRmdo.",
-    ".ohlRmmRRRmmRdo.",
-    ".olmRmRmmmRmRdo.",
-    ".olmRmRmGmRmRdo.",
-    ".olmRmmRRRmmRdo.",
-    ".oldmRmmmmmRddo.",
-    "..oldmRRRRRmddo.",
-    "..oldmmmmmmddo..",
-    "...ooddddddoo...",
+    "...oohhlllmoo...",
+    "..ohlppppppqmo..",
+    "..olppppppNqdo..",
+    ".ohpppppppNnqdo.",
+    ".olppppppNnqqdo.",
+    ".olpppppcnqqqdo.",
+    ".olppppscqqqqdo.",
+    ".olpppssqqqqqdo.",
+    ".ompppsqqqqqqdo.",
+    "..omqqqqqqqqdo..",
+    "..odmqqqqqqddo..",
+    "...ooddmmddoo...",
     ".....oooooo.....",
+    "................",
+], {**shade("steel"), **legend(p=("paper", 3), q=("paper", 2), N=("heat", 3), n=("heat", 1), s=("steel", 1),
+                               c=("steel", 4))})
+FRONTIER_SHARD = [
+    "................",
+    "................",
+    ".........oo.....",
+    "........ohlo....",
+    ".......ohlmdo...",
+    "......ohlmmdo...",
+    ".....ohlmrmddo..",
+    "....ohlmmmmdo...",
+    "...ohlmgmmddo...",
+    "..ohlmmmmrddo...",
+    "..olmmrmmddo....",
+    "...odmmmddo.....",
+    "....oddddo......",
+    ".....oooo.......",
+    "................",
     "................",
 ]
-for _path, _age, _disc, _rune in [
-        ("frontier_sigil", "Age 2", "steel", "heat"), ("wild_sigil", "Age 3", "patina", "arcane"),
-        ("forge_sigil", "Age 4", "iron", "rust"), ("wither_sigil", "Age 5", "coal", "steam"),
-        ("end_sigil", "Age 6", "quartz", "data"), ("space_sigil", "Age 7", "navy", "star"),
-        ("abyss_sigil", "Age 8", "calorite", "cyan"), ("chaos_sigil", "Age 9", "void", "violet")]:
-    item(_path, _age, SIGIL, {**shade(_disc), **legend(R=(_rune, 3), G=(_rune, 4))})
+item("frontier_shard", "Age 2", FRONTIER_SHARD, {**shade("iron"), **legend(r=("rust", 2), g=("steel", 4))})
+item("incomplete_frontier_relic", "Age 2", [
+    "................",
+    "................",
+    ".........oo.....",
+    "........ohlo....",
+    ".......ohlmdo...",
+    "......ohlmmdo...",
+    ".....oSSSSSSo...",
+    "....oShhllmSo...",
+    "...ohSlmmmdSo...",
+    "..ohlSSSSSSSo...",
+    "..olmmrmmddo....",
+    "...odmmmddo.....",
+    "....oddddo......",
+    ".....oooo.......",
+    "................",
+    "................",
+], {**shade("iron"), **legend(r=("rust", 2), S=("steel", 2))})
+item("frontier_relic", "Age 2", [
+    "................",
+    "...oooooooooo...",
+    "..ohhhhllllmdo..",
+    "..ohllllmmmmdo..",
+    "..ohlNNNNNNmdo..",
+    "..ohlNmmmmNmdo..",
+    "..ohlNmhhmNmdo..",
+    "..olmNmhhmNmdo..",
+    "..olmNmmmmNddo..",
+    "..olmNNNNNNddo..",
+    "...olmmmmmddo...",
+    "....olmmmddo....",
+    ".....olmddo.....",
+    "......oddo......",
+    ".......oo.......",
+    "................",
+], {**shade("steel"), **legend(N=("heat", 3))})
+KEYSTONE_SHELL = [
+    "................",
+    "................",
+    "..oooooooooooo..",
+    "..ohhllllllmdo..",
+    "..ohlmooooomdo..",
+    "..ohlmovvvomdo..",
+    "...olmovvvomo...",
+    "...olmovavomo...",
+    "...olmovvvomo...",
+    "...odmooooomo...",
+    "....odmmmmdo....",
+    "....oddddddo....",
+    "....oooooooo....",
+    "................",
+    "................",
+    "................",
+]
+item("hollow_keystone", "Age 3", KEYSTONE_SHELL, {**shade("stone"), **legend(v=("void", 1), a=("arcane", 3))})
+item("incomplete_arcane_keystone", "Age 3", [r.replace("vvv", "AvA").replace("vav", "ArA") for r in KEYSTONE_SHELL],
+     {**shade("stone"), **legend(v=("void", 1), A=("arcane", 2), r=("rune", 2))})
+item("flight_recorder", "Age 7", [
+    "................",
+    "................",
+    "..oooooooooooo..",
+    "..ohhhhhhhhhmo..",
+    "..ohlllllllmdo..",
+    "..ohlNNNNNNmdo..",
+    "..ohlNSnnnNmdo..",
+    "..ohlNnnSnNmdo..",
+    "..ohlNNNNNNmdo..",
+    "..olmmmmmmmmdo..",
+    "..olmRmmmmGmdo..",
+    "..odmmmmmmmddo..",
+    "..oddddddddddo..",
+    "..oooooooooooo..",
+    "................",
+    "................",
+], {**shade("desh"), **legend(N=("navy", 2), n=("navy", 1), S=("star", 4), R=("heat", 3), G=("data", 3))})
 
 DUST = [
     "................",
@@ -835,7 +925,8 @@ item("dust/bismuth", "dust", DUST, {**shade("bismuth"), **legend(i=("bismuth_iri
 # carry more grey gangue (s, g), rich pieces are bigger and brighter.
 # ---------------------------------------------------------------------------------------------------------------------
 OSMIUM_LEG = {**shade("osmium"), **legend(s=("stone", 1), g=("stone", 2))}
-item("ore/small_native_osmium", "osmium", [
+ORE_PIECE = {}  # grade -> grid, shared by the osmium and draconium pieces
+ORE_PIECE["small"] = [
     "................",
     "................",
     "................",
@@ -852,8 +943,8 @@ item("ore/small_native_osmium", "osmium", [
     "................",
     "................",
     "................",
-], OSMIUM_LEG)
-item("ore/poor_native_osmium", "osmium", [
+]
+ORE_PIECE["poor"] = [
     "................",
     "................",
     "................",
@@ -870,8 +961,8 @@ item("ore/poor_native_osmium", "osmium", [
     "................",
     "................",
     "................",
-], OSMIUM_LEG)
-item("ore/normal_native_osmium", "osmium", [
+]
+ORE_PIECE["normal"] = [
     "................",
     "................",
     "................",
@@ -888,8 +979,8 @@ item("ore/normal_native_osmium", "osmium", [
     ".....ooooo......",
     "................",
     "................",
-], OSMIUM_LEG)
-item("ore/rich_native_osmium", "osmium", [
+]
+ORE_PIECE["rich"] = [
     "................",
     "................",
     "....ooooo.......",
@@ -906,7 +997,14 @@ item("ore/rich_native_osmium", "osmium", [
     "....oooooo......",
     "................",
     "................",
-], OSMIUM_LEG)
+]
+
+for _g in ("small", "poor", "normal", "rich"):
+    item(f"ore/{_g}_native_osmium", "osmium", ORE_PIECE[_g], OSMIUM_LEG)
+# Draconium (the pack vein, kubejs/startup_scripts/draconium.js, 2026-10-14): the same piece shapes in draconium violet.
+DRACONIUM_LEG = {**shade("draconium"), **legend(s=("stone", 1), g=("stone", 2))}
+for _g in ("small", "poor", "normal", "rich"):
+    item(f"ore/{_g}_draconium", "draconium", ORE_PIECE[_g], DRACONIUM_LEG)
 
 INGOT = [  # 7 rows, light from the top-left
     "....oooooooooo..",
@@ -941,10 +1039,10 @@ KJS_BLOCKS = {}  # texture path under kubejs/assets/firmages/textures/block -> (
 OSMIUM_SPECKS = {"poor": 5, "normal": 8, "rich": 12}  # ore clusters per overlay
 
 
-def ore_overlay(grade):
-    """Transparent 16x16: osmium clusters (light top pixel, mid body) with a dark rim that sits on the rock texture."""
-    rng = random.Random("osmium_overlay_" + grade)
-    t = tones("osmium")
+def ore_overlay(grade, metal="osmium"):
+    """Transparent 16x16: metal clusters (light top pixel, mid body) with a dark rim that sits on the rock texture."""
+    rng = random.Random(f"{metal}_overlay_" + grade)
+    t = tones(metal)
     img = new_tex()
     px = img.load()
     taken = set()
@@ -975,6 +1073,7 @@ def ore_overlay(grade):
 
 for _g in ("poor", "normal", "rich"):
     KJS_BLOCKS[f"ore/{_g}_native_osmium"] = (f"{_g} overlay", (lambda g=_g: ore_overlay(g)), None)
+    KJS_BLOCKS[f"ore/{_g}_draconium"] = (f"{_g} draconium overlay", (lambda g=_g: ore_overlay(g, "draconium")), None)
 
 
 # ---------------------------------------------------------------------------------------------------------------------

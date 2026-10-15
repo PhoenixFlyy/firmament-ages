@@ -893,40 +893,6 @@
 			y: -6.25d
 		}
 		{
-			dependencies: ["07205F9A9FA4E721"]
-			icon: {
-				id: "minecraft:end_stone"
-			}
-			id: "5A0D6C8DEDA78181"
-			optional: true
-			rewards: [
-				{
-					id: "05DFE1C372977100"
-					type: "xp"
-					xp: 120
-				}
-				{
-					id: "58EF5284197AB2DE"
-					table_id: 5532495464634191153L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "cataclysm:ender_guardian"
-					id: "2DAD37D69994EDC0"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 6.5d
-			y: -6.25d
-		}
-		{
 			dependencies: ["750293899E6D4B62"]
 			id: "57663DC8E013A906"
 			optional: true
@@ -956,7 +922,7 @@
 					type: "item"
 				}
 			]
-			x: 8.5d
+			x: 6.5d
 			y: -6.25d
 		}
 		{

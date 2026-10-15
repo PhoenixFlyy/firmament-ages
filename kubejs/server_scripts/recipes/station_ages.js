@@ -22,9 +22,8 @@ ServerEvents.recipes((event) => {
   const STATION_AGE = {}
   const put = (age, types) => types.forEach((t) => { STATION_AGE[t] = age })
 
-  // ---- Iron Age: Create deployer, spout, item drain, crushing wheel; Twilight Forest machines ----
-  put('age_2', ['create:crushing', 'create:deploying', 'create:filling', 'create:emptying', 'twilightforest:uncrafting',
-    'twilightforest:drying'])
+  // ---- Iron Age: Create deployer, spout, item drain, crushing wheel ----
+  put('age_2', ['create:crushing', 'create:deploying', 'create:filling', 'create:emptying'])
 
   // ---- Arcane Age magic stations (Doc 08 section 7) ----
   put('age_3', ['occultism:crushing', 'occultism:crystallize', 'occultism:miner', 'occultism:ritual', 'occultism:spirit_fire',
@@ -33,7 +32,7 @@ ServerEvents.recipes((event) => {
     'ars_nouveau:summon_ritual', 'ars_nouveau:enchantment', 'ars_nouveau:armor_upgrade', 'ars_nouveau:reactive_enchantment',
     'ars_nouveau:spell_write', 'ars_nouveau:dispel_entity', 'ars_nouveau:prestidigitation', 'ars_additions:bulk_scribing', 'ars_additions:charm_charging', 'ars_additions:imbue_scroll',
     'theurgy:accumulation', 'theurgy:calcination', 'theurgy:catalysation', 'theurgy:digestion', 'theurgy:distillation',
-    'theurgy:fermentation', 'theurgy:incubation', 'theurgy:liquefaction', 'summoningrituals:altar',
+    'theurgy:fermentation', 'theurgy:incubation', 'theurgy:liquefaction',
     'create_enchantment_industry:grinding', 'create_enchantment_industry:infusing', 'apotheosis:gem_cutting',
     'apotheosis:reforging', 'apotheosis:salvaging', 'apothic_enchanting:infusion',
     // fan processing with the Enchantment Industry catalysts (powder snow, dragon head) and Ars Additions' rituals
@@ -41,12 +40,12 @@ ServerEvents.recipes((event) => {
     'ars_additions:source_spawner'])
   put('age_6', ['theurgy:reformation']) // Reformation Array, magic tail of the Information Age (Doc 08 section 7.2)
 
-  // ---- Industrial Age: IE LV machines, Advanced TFC Tech, Create Big Cannons, Cataclysm ----
+  // ---- Industrial Age: IE LV machines, Advanced TFC Tech, Create Big Cannons ----
   put('age_4', ['immersiveengineering:alloy', 'immersiveengineering:blast_furnace', 'immersiveengineering:coke_oven',
     'immersiveengineering:crusher', 'immersiveengineering:metal_press', 'immersiveengineering:blueprint',
     'immersiveengineering:fermenter', 'immersiveengineering:squeezer', 'advancedtfctech:beamhouse',
     'advancedtfctech:fleshing_machine', 'advancedtfctech:grist_mill', 'advancedtfctech:power_loom', 'advancedtfctech:thresher',
-    'createbigcannons:melting', 'cataclysm:weapon_fusion', 'cataclysm:amethyst_bless',
+    'createbigcannons:melting',
     // Create Big Cannons' deployer assembly of shells and cartridges
     'createbigcannons:autocannon_ammo_container_filling_deployer', 'createbigcannons:big_cartridge_filling_deployer',
     'createbigcannons:cartridge_assembly_deployer', 'createbigcannons:munition_fuzing_deployer',

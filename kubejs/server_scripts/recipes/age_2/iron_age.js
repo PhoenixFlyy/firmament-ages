@@ -58,8 +58,38 @@ ServerEvents.recipes((event) => {
   // Vanilla ore smelting is off in TFC; check in EMI that no furnace recipe turns these dusts into
   // non-TFC ingots, otherwise: event.remove({ type: 'minecraft:smelting', input: '#c:dusts' })
 
+  // ---- The Frontier Relic: the Iron Age token (dev/decisions-while-away.md, 2026-10-14) ----------------
+  // The Frontier Compass points to the nearest Cold Forge (server_scripts/firmages/frontier_compass.js), a ruin of an
+  // older smithy in the TFC hills (kubejs/data/firmages/worldgen/structure/cold_forge.json, template from
+  // dev/gen_cold_forge.py). Its chest keeps a Frontier Shard; three passes on the deployer and the press (both Iron
+  // Age stations, recipes/station_ages.js) finish it into the Frontier Relic, the age_2 token of the Steel Heart.
+  event.custom({
+    type: 'minecraft:crafting_shaped',
+    category: 'misc',
+    pattern: [' W ', 'WMW', ' W '],
+    key: {
+      W: { tag: 'c:ingots/wrought_iron' },
+      M: [{ item: 'tfc:ore/poor_magnetite' }, { item: 'tfc:ore/normal_magnetite' }, { item: 'tfc:ore/rich_magnetite' }]
+    },
+    result: { id: 'firmages:frontier_compass', count: 1 }
+  }).id('firmages:crafting/frontier_compass')
+  const RELIC = 'firmages:incomplete_frontier_relic'
+  event.custom({
+    type: 'create:sequenced_assembly',
+    ingredient: { item: 'firmages:frontier_shard' },
+    transitional_item: { id: RELIC },
+    sequence: [
+      { type: 'create:deploying', ingredients: [{ item: RELIC }, { tag: 'c:sheets/steel' }], results: [{ id: RELIC }] },
+      { type: 'create:pressing', ingredients: [{ item: RELIC }], results: [{ id: RELIC }] },
+      { type: 'create:deploying', ingredients: [{ item: RELIC }, { tag: 'c:double_sheets/wrought_iron' }], results: [{ id: RELIC }] },
+      { type: 'create:pressing', ingredients: [{ item: RELIC }], results: [{ id: RELIC }] }
+    ],
+    results: [{ id: 'firmages:frontier_relic' }],
+    loops: 3
+  }).id('firmages:sequenced_assembly/frontier_relic')
+
   // ---- Signature item: Steel Heart (Doc 08 section 10.2) ---------------------------------------------
-  // Steel sheet, Create Precision Mechanism, wrought iron double sheet, Lich trophy via boss-token tag.
+  // Steel sheet, Create Precision Mechanism, wrought iron double sheet, the Frontier Relic via the age_2 token tag.
   // Food is in no recipe on purpose (Survival keystone is a quest requirement instead).
   event.shaped('firmages:steel_heart', [
     ' S ',
@@ -69,7 +99,7 @@ ServerEvents.recipes((event) => {
     S: '#c:sheets/steel',
     W: '#c:double_sheets/wrought_iron',
     P: 'create:precision_mechanism',
-    T: '#firmages:boss_token/age_2'
+    T: '#firmages:age_token/age_2'
   }).id('firmages:crafting/steel_heart')
 
   // The only precision mechanism recipe (TFCreate's sequenced assembly on a gold sheet) lists create:crushed_raw_gold

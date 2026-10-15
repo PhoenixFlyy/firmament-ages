@@ -69,24 +69,14 @@ ServerEvents.tags('item', (event) => {
   event.add('c:dusts/bismuth', 'firmages:dust/bismuth')
 
   // Not the material of the tag (Felix: one visible item per material). AE2 tags its charged crystal as certus
-  // quartz and Twilight Forest its maze slime block as slime; with certus_quartz in config/almostunified/
-  // placeholders.json AU would hide the charged crystal and turn the charger's output back into a plain crystal.
+  // quartz; with certus_quartz in config/almostunified/placeholders.json AU would hide the charged crystal and turn
+  // the charger's output back into a plain crystal.
   event.remove('c:gems/certus_quartz', 'ae2:charged_certus_quartz_crystal')
-  event.remove('c:storage_blocks/slime', 'twilightforest:maze_slime_block')
 
   // Signature items, used by the Ultimate Singularity quest/recipe later.
   event.add('firmages:signature_items', ['firmages:hearthstone', 'firmages:sky_disc', 'firmages:steel_heart'])
 
-  // Boss tokens: recipe slots take the tag (Doc 08 section 5.1). The Frontier Trial gateway (Frontier Sigil,
-  // firmages/boss_fallback.js) pays out the Lich trophy itself, so the tag holds only the real drop.
-  event.add('firmages:boss_token/age_2', 'twilightforest:lich_trophy')
-
-  // Twilight Forest portal (Iron Age dimension, Doc 08 section 6). Its default activator #c:gems/diamond is age_4 in
-  // dev/age_map.toml, so the portal could not open in the Iron Age. Nether quartz opens it instead: the one quartz
-  // item Almost Unified keeps (c:gems/quartz -> minecraft, materials.json), also what the TFCreate quartz vein
-  // (tfcreate:quartz_{rock}, age_2) gives after sandpaper. The dimension itself stays locked until age_2
-  // (ProgressiveStages). dev/validate_quests.py checks this line against the Age of the chapter whose quest asks for
-  // the dimension (dev/decisions-while-away.md).
-  event.removeAll('twilightforest:portal/activator')
-  event.add('twilightforest:portal/activator', 'minecraft:quartz')
+  // Age token of the Iron Age (dev/decisions-while-away.md, 2026-10-14): the Frontier Relic, finished on the press from
+  // the shard of the Cold Forge (recipes/age_2/iron_age.js, kubejs/data/firmages/worldgen/structure/cold_forge.json).
+  event.add('firmages:age_token/age_2', 'firmages:frontier_relic')
 })

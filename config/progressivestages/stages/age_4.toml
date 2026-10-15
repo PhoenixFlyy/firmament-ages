@@ -28,7 +28,6 @@ locked_ids = [
     # >>> generated:recipes >>>
     "mod:advancedtfctech",
     "mod:aeronautics",
-    "mod:cataclysm",
     "mod:create_factory_logistics",
     "mod:create_mechanical_spawner",
     "mod:createbigcannons",
@@ -39,12 +38,6 @@ locked_ids = [
     "mod:simulated",
     "mod:tfc_ie_addon",
     # <<< generated:recipes <<<
-]
-
-[mobs]
-# POC: entity ids unverified.
-locked_spawns = [
-    "id:cataclysm:netherite_monstrosity",
 ]
 
 # >>> generated:ore_overrides >>>

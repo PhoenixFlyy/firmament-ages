@@ -105,7 +105,7 @@
 					id: "17FCA6141918BD95"
 					item: {
 						count: 1
-						id: "draconicevolution:chaos_shard"
+						id: "draconicevolution:large_chaos_frag"
 					}
 					type: "item"
 				}
@@ -540,40 +540,6 @@
 			y: 0.0d
 		}
 		{
-			dependencies: ["35AFC9346F30C43A"]
-			icon: {
-				id: "minecraft:blaze_powder"
-			}
-			id: "155AA2A2258BDD49"
-			optional: true
-			rewards: [
-				{
-					id: "34167C79C063ABFF"
-					type: "xp"
-					xp: 200
-				}
-				{
-					id: "0E2B5313D2A34187"
-					table_id: 4026478518536199106L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "cataclysm:ignis"
-					id: "60BEC71335F2B1EB"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 2.5d
-			y: -5.0d
-		}
-		{
 			dependencies: ["1FD61E2A23294166"]
 			id: "0D99128B070FE166"
 			optional: true
@@ -603,7 +569,7 @@
 					type: "item"
 				}
 			]
-			x: 4.5d
+			x: 4.25d
 			y: -5.0d
 		}
 		{
@@ -636,7 +602,7 @@
 					type: "item"
 				}
 			]
-			x: 6.5d
+			x: 6.25d
 			y: -5.0d
 		}
 		{

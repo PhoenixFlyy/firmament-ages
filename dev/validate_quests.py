@@ -50,8 +50,9 @@ AGES = ['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6', '
 AGE_CHAPTER_STAGES = set(AGES)  # every Age has its chapter (rule set applies to all of them)
 NEXT_STAGE = dict(zip(AGES, AGES[1:] + ['finale_won']))
 # Dimension -> (item tag that activates its portal, the jar default). The default stays in force unless a KubeJS tag
-# script calls removeAll on the tag.
-PORTAL_TAGS = {'twilightforest:twilight_forest': ('twilightforest:portal/activator', '#c:gems/diamond (age_4)')}
+# script calls removeAll on the tag. Empty since the Twilight Forest left the pack (2026-10-14); the Beneath opens by a
+# sacrifice, the End and the planets by crafted blocks and rockets, none of them through an item tag.
+PORTAL_TAGS = {}
 MOD_DATA = os.path.join(ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources', 'data', 'firmages', 'firmages_shrine')
 OFFERINGS_MOD = os.path.join(MOD_DATA, 'offerings.json')
 OFFERINGS_PACK = os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'firmages_shrine', 'offerings.json')
