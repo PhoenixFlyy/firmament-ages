@@ -1,6 +1,7 @@
 // Firmament Ages - the Mekanism ore ladder on TFC ore pieces (Doc 10 v3 sections 3.3, 6.1, 7.3, 8.1).
 // Matrix 6.1, "Erz -> Staub": Purification 3x (age_6), Injection 4x (age_7), Dissolution 5x (age_8). Every TFC ore
-// piece (and the pack's osmium and TFC + IE galena, bauxite and uraninite pieces) gets one recipe per grade and step.
+// piece (and the pack's osmium and draconium and TFC + IE galena, bauxite and uraninite pieces) gets one recipe per
+// grade and step.
 // Yield per piece = piece mB x factor / 100 ingots (TFC pieces: small 10, poor 15, normal 25, rich 35 mB; a Mekanism
 // ore block counts as one ingot). Clumps and shards are whole items, so a grade takes n pieces for m items with m/n
 // within 5 % of the target; slurry is a chemical and takes the exact amount (200 mB = 1 crystal).
@@ -88,7 +89,8 @@ ServerEvents.recipes((event) => {
     ['tfc_ie_addon:ore/{g}_galena', 'lead', MEK], ['tfc_ie_addon:ore/{g}_uraninite', 'uranium', MEK],
     ['firmages:ore/{g}_native_osmium', 'osmium', MEK],
     ['tfc:ore/{g}_sphalerite', 'zinc', MMP], ['tfc:ore/{g}_bismuthinite', 'bismuth', MMP], ['tfc:ore/{g}_native_silver', 'silver', MMP],
-    ['tfc:ore/{g}_garnierite', 'nickel', MMP], ['tfc_ie_addon:ore/{g}_bauxite', 'aluminum', MMP]
+    ['tfc:ore/{g}_garnierite', 'nickel', MMP], ['tfc_ie_addon:ore/{g}_bauxite', 'aluminum', MMP],
+    ['firmages:ore/{g}_draconium', 'draconium', MMP]   // the pack's draconium vein (startup_scripts/draconium.js)
   ].forEach((row) => oreLadder(row[0], row[1], row[2], row[0].split('{g}_')[1]))
 
   // ======================================================================================== fluorite

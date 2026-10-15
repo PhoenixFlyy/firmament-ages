@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "firmages:ore/small_native_osmium"
+    "firmages:ore/small_native_osmium",
+    "firmages:ore/small_draconium"
   ]
 }

@@ -3,6 +3,9 @@
   "values": [
     "firmages:ore/poor_native_osmium",
     "firmages:ore/normal_native_osmium",
-    "firmages:ore/rich_native_osmium"
+    "firmages:ore/rich_native_osmium",
+    "firmages:ore/poor_draconium",
+    "firmages:ore/normal_draconium",
+    "firmages:ore/rich_draconium"
   ]
 }
