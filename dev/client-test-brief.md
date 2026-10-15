@@ -1,5 +1,34 @@
 # Client-Test
 
+## Technik- und Welt-Mods (Runde C 2026-10-15, Zweig c1/mods-tech, für den Integrator)
+
+14 neue Mods (Zeilen „Runde C“ in `dev/decisions-while-away.md`). Server-Teil auf einer Kopie geprüft
+(`dev/poc-results.md`, Abschnitt „1.0 round C, mods-tech“). Im Client prüfst Du nur, was ein Server nicht zeigt:
+Texturen, Bildschirme, Tooltips, Spawns in echter Welt. Neue Testwelt; die Ages vergibst Du wie bei den früheren
+Tests.
+
+1. **EMI pro Age.** In Dawn sind Goblin Traders und die 22 Alex's-Mobs-Arten sichtbar (Fleisch, Eier), kein Artifacts,
+   kein Psi, kein Gadget. Nach `age_6` sind Psi, Ars Énergistique und die Source-Zellen da; die ME-Source-Akzeptoren,
+   Copy-Paste-, Cut-Paste-Gadget und Template Manager, AeroEngine-Raketen, Chaos-Teile von Draconic Additions und die
+   Alex's-Mobs-Items der gestrichenen Arten (Bärenfell, Bananenschnecke, Kakerlake …) erscheinen nie.
+2. **Alex's Mobs in TFC-Klima.** Eine warme, trockene Gegend (Savanne, über 18 °C) suchen: Elefanten, Nashörner,
+   Kängurus, Emus. Ein kalter Wald: Waschbären und Blauhäher, keine Tukane. Melden, wenn eine Art im falschen Klima
+   steht oder gar keine der 22 Arten zu sehen ist.
+3. **Goblin-Händler.** In einer Höhle unter Y 40 einen Goblin finden (oder `/summon goblintraders:goblin_trader`):
+   seine Angebote sind TFC-Waren der aktuellen Age, keine Schatzkarte.
+4. **Artifacts.** Eine Ruinenkiste nach `age_1` öffnen; ab und zu liegt ein Trinket darin (Hüte, Schal, Schnorchel).
+   Tooltips und Curios-Slots anschauen.
+5. **Psi.** Nach `age_6`: Encyclopaedia Psionica aus Buch und Psistaub (Rezept in EMI), CAD-Assembler mit zwei
+   Grundschaltkreisen, ein CAD bauen, im Programmer einen einfachen Zauber setzen. Prüfen, dass das Buch aufgeht
+   und der Programmer-Bildschirm vollständig ist.
+6. **Building Gadgets 2.** Nach `age_5`: Baugadget laden (FE), eine Reihe Bretter setzen; das Tauschgadget an einem
+   TFC-Erz und an Rohgestein versuchen (es muss sich weigern).
+7. **AeroEngine.** Ponder des Triebwerks ansehen; Flugkerosin aus IP-Kerosin im beheizten Mixer (EMI).
+8. **Ars Elemental.** Gelber Archwood-Setzling aus den vier Ars-Setzlingen; Element-Foki in EMI.
+
+Melden: alles, was im Server-Lauf nicht zu sehen ist (fehlende Texturen, leere Tooltips, Bildschirme mit Lücken,
+Chat-Zeilen beim Beitreten).
+
 ## 0.10.0 Nachtrag (1.0 Runde A 2026-10-15, Pack 0.10.0, firmages-core 0.10.0)
 
 **Voller Reset:** neue Welt und neu importiertes Profil (Client und Server brauchen firmages-core 0.10.0). Alte Welten

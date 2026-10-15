@@ -3012,3 +3012,49 @@ Primordial's Cataclysm helpers; both say now that the guardian of The Origin is 
 - R-X on a real age_9 dump: the next copy boot needs `debug.allowSimulate = true` in the copy's
   `config/firmages-server.toml` before the grants.
 - Arcane Age quest book: the goal depends on the three magic keystones (`dev/offene-punkte.md`).
+
+## 1.0 round C, mods-tech (2026-10-15, branch c1/mods-tech)
+
+Fourteen mods of the locked list (Goblin Traders, Artifacts, MmmMmmMmmMmm, Ars Elemental, Ars Ocultas, Create: Extra
+Gauges, Ars Elemancy, AeroEngine, Building Gadgets 2, Ars Énergistique, Psi, Draconic Additions, Alex's Mobs Continued
+with Codxlib) on dev 673e118. Felix's test server stayed off and untouched; every boot ran on a copy
+(`.wt/test-server-c1-mods-tech`, ports 25576 and RCON 25586, whitelist off, `debug.allowSimulate = true`), synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8097` of the worktree, `-Xms3G -Xmx6G`. Six copy
+boots: d0 and boot 1 gate off with dumps (derivation), boot 2 gate on with a new world (checks), boot 3 gate off
+(derivation after the fixes), boot 4 gate on with a new world (`fa_dump`, `fa_dump_full`, `firmages recipes audit`,
+`selftest all`), boot 5 gate on with a new world, grants and a 120 s hold, no debug command (log check).
+
+| Check | Observed | Result |
+|---|---|---|
+| Ars Énergistique 2.1.1-beta against the pack's Ars Nouveau | loads, its 25 recipes and 16 items in the dump; the two source acceptors hidden | pass |
+| Copy boot 3 (gate off, `simulate grant` age_0 to age_9, dumps) | 42,777 recipes (round A: 42,136); `derive_ages.py`, `gen_stage_locks.py --registry` and `gen_stage_locks.py`; second pass `derive_ages.py --check` and `gen_stage_locks.py --check` up to date | pass |
+| `derive_ages.py` on that dump | 35,767 items; final dawn 4,169, age_0 962, age_1 6,812, age_2 4,552, age_3 2,284, age_4 1,235, age_5 1,340, age_6 1,596, age_7 584, age_8 680, age_9 786, disabled 10,767. Ars Elemental moves 87 items to age_4 to age_7 (fire and water essence, mark of mastery) | done |
+| Registry delta (dump against `dev/data/registry.json` of 0.10.0) | items 34,969 to 35,768 (+799: alexsmobs 280, ars_elemental 167, ars_elemancy 105, psi 82, artifacts 49, aeroengineering 46, draconicadditions 26, arseng 16, buildinggadgets2 8, extra_gauges 8, sauce 6, goblintraders 2, ars_ocultas 1, dummmmmmy 1, plus one Every Compat hedge and one vanilla id); of the 797 new-mod items 466 visible, 331 hidden (alexsmobs 265, draconicadditions 23, ars_elemental 18, artifacts 9, buildinggadgets2 5); fluids +5; new namespaces bring 161 entity types, 60 block entity types, 20 menus, 14 recipe types | done |
+| Copy boot 4 (gate on, new world, grants, dumps, audit, `selftest all`) | gate at age_9: 38,867 of 42,777 recipes, 3,910 dropped (disabled 3,903, superseded 7); `selftest all` 55 passed, 0 failed | pass |
+| `poc_analyze.py --baseline <boot 3 dump>` on boot 4 (`--server-dir` of the copy) | first 98 PASS, 1 FAIL (G-4: `ars_elemental:netherite_upgrade` not accepted); after the acceptance 99 PASS, 0 FAIL | pass after fix |
+| `check_log.py` on boot 5 | Done after 97.5 s from the first log line (server reported 20.9 s; round A 84.6 s on an idle machine, here with sibling worker servers on the same machine); FATAL 0, ERROR 8, STDERR 0, WARN 217, all documented; remaining 0 | pass |
+| `validate_quests.py --style`, `gen_quests.py` | 1252 object ids, 0 errors, 0 warnings; the book is reproduced byte for byte | pass |
+| `check_menus.py`, `gen_recipe_overrides.py --check --mods <copy>`, `gen_loot_silence.py --check --registries <dump>`, `gen_textures.py --check`, `gen_blood_moon.py --check`, `gen_firmament_night.py --check`, `gen_cold_forge.py --check`, `gen_way_sign_textures.py --check` | all pass (543 overrides, 504 loot silences, 0 problems) | pass |
+| `gen_credits.py` | 248 mods (234 + 14) | done |
+
+Fixes of the boot loop:
+- Boot 1: `alexsmobs:gameplay/seal_reward` warned at every data load (vanilla fishing junk without origin). Seals do
+  not spawn; the pack's copy of the table is empty.
+- Boot 1: `derive_ages.py --scan` from a worktree read no vanilla jar (all vanilla loot, structures and biomes
+  missing) and counted every Alex's Mobs species as spawning from Dawn (Rocky Roller tuff, Soul Vulture coal). Both
+  fixed in the tool (vanilla jar next to `--mods`, `OWN_SPAWNS_OFF`).
+- Boot 2: `poc_analyze.py` C-G found 264 armour upgrades of Ars Elemental and Elemancy that eat armour, and the
+  roadrunner boots that eat leather boots: `recipes/age_5/ars_gear.js`, `recipes/age_1/alexs_mobs.js`. One Elemancy
+  recipe still names the old type `ars_elemancy:armor_upgrade` and slipped past the first version.
+- Boot 1: Psi's own CAD Assembler recipe came back through the osmium rewrite; the rewrite skips it now.
+- d0: the Ars Ocultas altar needed a Drygmy shard (conjuration essence now); boot 2: two Ars Elemental bee recipes
+  needed honeycomb (TFC beeswax now). Both outputs were hidden by the derivation before.
+- Boot 1 and 2: the only remaining log line was "Can't keep up" right after `fa_dump` (a debug command stalls the
+  server thread, as in round A); boot 5 without debug commands has none.
+
+### Open points
+
+- Client (brief "Technik- und Welt-Mods"): textures, Psi programmer and book, Alex's Mobs climate spawns in a real
+  world, goblin offers, Artifacts in ruin chests, gadget deny list.
+- Ars Elemental lightning parts and the Flashjack/Siren familiars stay hidden (flashing biome only).
+- Quest strands for every new non-deco mod: next round.
