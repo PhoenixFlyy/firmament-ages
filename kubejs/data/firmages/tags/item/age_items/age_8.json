@@ -677,8 +677,6 @@
     {"id": "occultism:storage_stabilizer_tier5_dark", "required": false},
     {"id": "occultism:trinity_gem", "required": false},
     {"id": "occultism:true_sight_staff", "required": false},
-    {"id": "refurbished_furniture:computer", "required": false},
-    {"id": "refurbished_furniture:television", "required": false},
     {"id": "theurgy:alchemical_sulfur_calorite", "required": false},
     {"id": "theurgy:alchemical_sulfur_dragon_egg", "required": false}
   ]

@@ -82,6 +82,15 @@ laserbridges = "age_7"           # Laser Bridges & Doors: light bridges and lase
 deimos = "dawn"                  # library of Laser Bridges
 everycomp = "age_1"              # Every Compat: the mods above in TFC/AFC woods; db/ and mcb/ age_0 in [items]
 exposure = "age_1"               # film camera from brass, silver, leather and a lens (recipes/exposure.js); film tiers in [items]
+# Deco round C1 (content lock 2026-10-15, vorauswahl.md "Nehmen"). Mods without items (Armor Statues, Banner Flags,
+# KleeSlabs, the client mods, their libraries) need no row. Their Age is the Age the lock gives them; [items] and
+# [hidden] below hold the parts that differ.
+ahandfulofacorns = "dawn"        # A handful of acorns: nuts of TFC trees; the long secateurs follow their brass mechanism
+adchimneys = "age_1"             # Advanced Chimneys: chimneys of rock, brick and glass; the metal ones follow their iron
+adpoles = "age_1"                # To the Bat Poles!: wooden and glass poles; the redstone (lift) pole age_2 in [items]
+connectedglass = "age_1"         # Connected Glass: glass without frame lines, like TFC glass in the Bronze Age
+bibliocraft = "age_2"            # Bibliocraft Legacy: display case, label, clipboard, catalogue; the locked parts in [hidden]
+akashictome = "age_3"            # Akashic Tome: every guide book in one slot (config/akashictome-common.toml)
 tfcreate = "age_2"               # 1-2; Fuel Heater for the heated basin (Iron Age). Its TFC welding recipes are no grid recipes
 railways = "age_2"
 toms_storage = "age_2"
@@ -562,6 +571,7 @@ block = "tfc:rock/loose/granite"
 "name:everycomp:mcfur/" = "age_1"                        # Macaw's Furniture
 "name:everycomp:sd/" = "age_1"                           # Storage Drawers
 "name:everycomp:af/" = "age_1"                           # Another Furniture
+"name:everycomp:bcl/" = "age_2"                          # Bibliocraft Legacy: bookcase, label, fancy crafter and sign
 # Storage Drawers: one storage upgrade per Age, each with that Age's material (kubejs/server_scripts/recipes/
 # deco_inputs.js); the other upgrades, keys and the controller are iron parts of the Iron Age.
 "id:storagedrawers:copper_storage_upgrade" = "age_1"
@@ -576,6 +586,9 @@ block = "tfc:rock/loose/granite"
 # Lights without fuel come with the Iron Age, like the Create Deco cage lamps (no new light may beat TFC burn-out earlier).
 "re:another_furniture:.+_lamp" = "age_2"
 "re:dustydecorations:(.*paper_lantern|.+_seaglass_lamp|(waxed_)?(shoddy_)?copper_light|fairy_lights|beet_o_lantern|big_nautilus_lantern)" = "age_2"
+# Deco round C1: the lift pole of To the Bat Poles! (it raises and lowers what sits on its top) comes with the Iron Age
+# (vorauswahl.md: "Hebestange aus oder age_2").
+"id:adpoles:redstone_pole" = "age_2"
 
 # ------------------------------------------------------------------------------------------------ hidden
 # Disabled items of the Electric to the Singularity Age (Doc 10 v3 section 7.2). They join the tag
@@ -1212,6 +1225,21 @@ patterns = [
     "rechiseled:(?!chisel$).+",
     # Macaw's Trapdoors prints of the styles Every Compat does not build (config/everycomp-hazardous.toml).
     "mcwtrpdoors:print_(bamboo|beach|blossom|classic|mystic|paper|swamp|tropical|whispering)",
+    # Deco round C1, Bibliocraft Legacy (vorauswahl.md, Auflage): seats, tables, shelves, lamps and lanterns, clocks,
+    # fancy armor stands, the tool rack and the sword pedestal are locked (the pack has them already); kept are the
+    # display case, label, clipboard, stockroom catalog, bookcase, typewriter, printing table and the small parts.
+    "bibliocraft:.*_seat(_back)?",
+    "bibliocraft:(?!(iron_)?printing_table$).*_table",
+    "bibliocraft:.*_shelf",
+    "bibliocraft:.*(_lamp|_lantern)",
+    "bibliocraft:.*_clock",
+    "bibliocraft:.*fancy_armor_stand",
+    "bibliocraft:.*_tool_rack",
+    "bibliocraft:sword_pedestal",
+    # Its vanilla-wood originals go like the other deco mods'; Every Compat builds bookcase, label, fancy crafter and
+    # fancy sign in TFC and AFC woods (bcl/). The display case has no Every Compat module (16 colours per wood): the
+    # oak display cases stay and take any wooden slab (recipes/deco_c1.js).
+    "bibliocraft:(?!(white|orange|magenta|light_blue|yellow|lime|pink|gray|light_gray|cyan|purple|blue|brown|green|red|black)_oak_display_case$)(.*_)?(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|bamboo|crimson|warped)_.*",
 ]
 
 # ------------------------------------------------------------------------------------------------ derived
@@ -1254,6 +1282,10 @@ patterns = [
 "ad_astra:stripped_glacian_log" = "age_8"
 "ad_astra:strophar_cap" = "age_8"
 "ad_astra:strophar_mushroom" = "age_8"
+"adchimneys:duct" = "age_2"
+"adchimneys:metal_pump" = "age_2"
+"adchimneys:pipe" = "age_2"
+"adchimneys:stone_pump" = "age_2"
 "advanced_ae:swim_speed_card" = "age_9"
 "advancedtfctech:fleshing_machine" = "age_5"
 "aeronautics:levitite_blend_bucket" = "age_5"
@@ -1329,6 +1361,19 @@ patterns = [
 "afc:wood/trapped_chest/mahogany" = "age_2"
 "afc:wood/trapped_chest/teak" = "age_2"
 "afc:wood/trapped_chest/tualang" = "age_2"
+"ahandfulofacorns:acorn" = "age_1"
+"ahandfulofacorns:chestnut" = "age_1"
+"ahandfulofacorns:coconut" = "age_1"
+"ahandfulofacorns:coconut_juice_bucket" = "age_5"
+"ahandfulofacorns:coconut_meat" = "age_1"
+"ahandfulofacorns:hickory_nut" = "age_1"
+"ahandfulofacorns:long_secateurs" = "age_1"
+"ahandfulofacorns:opened_coconut" = "age_1"
+"ahandfulofacorns:pine_nut" = "age_0"
+"ahandfulofacorns:roast_acorn" = "age_1"
+"ahandfulofacorns:roast_chestnut" = "age_1"
+"ahandfulofacorns:roast_coconut_meat" = "age_1"
+"ahandfulofacorns:roast_hickory_nut" = "age_1"
 "another_furniture:service_bell" = "age_2"
 "apotheosis:augmenting_table" = "age_4"
 "apotheosis:reforging_table" = "age_4"
@@ -1376,6 +1421,7 @@ patterns = [
 "bellsandwhistles:polished_calcite_pilot" = "age_3"
 "bellsandwhistles:polished_dripstone_pilot" = "age_4"
 "bellsandwhistles:polished_tuff_pilot" = "age_3"
+"bibliocraft:cookie_jar" = "age_3"
 "bits_n_bobs:calcite_tile_slab" = "age_3"
 "bits_n_bobs:calcite_tile_stairs" = "age_3"
 "bits_n_bobs:calcite_tile_wall" = "age_3"
@@ -1944,6 +1990,7 @@ patterns = [
 "everycomp:af/createdieselgenerators/chip_wood_chair" = "age_9"
 "everycomp:af/createdieselgenerators/chip_wood_shelf" = "age_9"
 "everycomp:af/createdieselgenerators/chip_wood_table" = "age_9"
+"everycomp:bcl/createdieselgenerators/chip_wood_fancy_sign" = "age_9"
 "everycomp:c/createdieselgenerators/chip_wood_window" = "age_9"
 "everycomp:c/createdieselgenerators/chip_wood_window_pane" = "age_9"
 "everycomp:db/createdieselgenerators/chip_wood_palisade" = "age_9"
@@ -2400,18 +2447,6 @@ patterns = [
 "everycomp:mcw/createdieselgenerators/chip_wood_shutter" = "age_9"
 "everycomp:mcw/createdieselgenerators/chip_wood_window" = "age_9"
 "everycomp:mcw/createdieselgenerators/chip_wood_window2" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_chair" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_crate" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_cutting_board" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_desk" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_kitchen_cabinetry" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_kitchen_drawer" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_kitchen_sink" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_kitchen_storage_cabinet" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_light_ceiling_fan" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_mail_box" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_storage_cabinet" = "age_9"
-"everycomp:rfm/createdieselgenerators/chip_wood_table" = "age_9"
 "everycomp:sd/createdieselgenerators/chip_wood_full_drawers_1" = "age_9"
 "everycomp:sd/createdieselgenerators/chip_wood_full_drawers_2" = "age_9"
 "everycomp:sd/createdieselgenerators/chip_wood_full_drawers_4" = "age_9"
@@ -4266,8 +4301,6 @@ patterns = [
 "railways:yellow_copper_wrapped_locometal_boiler" = "age_3"
 "railways:yellow_iron_wrapped_locometal_boiler" = "age_3"
 "railways:yellow_locometal_boiler" = "age_3"
-"refurbished_furniture:computer" = "age_8"
-"refurbished_furniture:television" = "age_8"
 "rnr:terracotta_roof" = "age_2"
 "rnr:terracotta_roof_slab" = "age_2"
 "rnr:terracotta_roof_stairs" = "age_2"
@@ -6025,6 +6058,8 @@ items = [
     "everycomp:af/createdieselgenerators/chip_wood_flower_box",
     "everycomp:af/createdieselgenerators/chip_wood_shutter",
     "everycomp:all_woods",
+    "everycomp:bcl/createdieselgenerators/chip_wood_bookcase",
+    "everycomp:bcl/createdieselgenerators/chip_wood_label",
     "everycomp:hc/createdieselgenerators/chip_wood_bench",
     "everycomp:hc/createdieselgenerators/chip_wood_chair",
     "everycomp:hc/createdieselgenerators/chip_wood_counter",
@@ -7669,65 +7704,6 @@ items = [
     "railways:wooden_headstock_screwlink_coupler",
     "railways:wooden_headstock_split_knuckle_coupler",
     "railways:yellow_paint_pitcher",
-    "refurbished_furniture:azalea_hedge",
-    "refurbished_furniture:black_basin",
-    "refurbished_furniture:black_bath",
-    "refurbished_furniture:black_toilet",
-    "refurbished_furniture:blue_basin",
-    "refurbished_furniture:blue_bath",
-    "refurbished_furniture:blue_toilet",
-    "refurbished_furniture:brown_basin",
-    "refurbished_furniture:brown_bath",
-    "refurbished_furniture:brown_toilet",
-    "refurbished_furniture:cheese",
-    "refurbished_furniture:cheese_sandwich",
-    "refurbished_furniture:cheese_toastie",
-    "refurbished_furniture:cooked_meatlovers_pizza",
-    "refurbished_furniture:cooked_vegetable_pizza",
-    "refurbished_furniture:cyan_basin",
-    "refurbished_furniture:cyan_bath",
-    "refurbished_furniture:cyan_toilet",
-    "refurbished_furniture:gray_basin",
-    "refurbished_furniture:gray_bath",
-    "refurbished_furniture:gray_toilet",
-    "refurbished_furniture:green_basin",
-    "refurbished_furniture:green_bath",
-    "refurbished_furniture:green_toilet",
-    "refurbished_furniture:light_blue_basin",
-    "refurbished_furniture:light_blue_bath",
-    "refurbished_furniture:light_blue_toilet",
-    "refurbished_furniture:light_gray_basin",
-    "refurbished_furniture:light_gray_bath",
-    "refurbished_furniture:light_gray_toilet",
-    "refurbished_furniture:lime_basin",
-    "refurbished_furniture:lime_bath",
-    "refurbished_furniture:lime_toilet",
-    "refurbished_furniture:magenta_basin",
-    "refurbished_furniture:magenta_bath",
-    "refurbished_furniture:magenta_toilet",
-    "refurbished_furniture:meatlovers_pizza_slice",
-    "refurbished_furniture:orange_basin",
-    "refurbished_furniture:orange_bath",
-    "refurbished_furniture:orange_toilet",
-    "refurbished_furniture:package",
-    "refurbished_furniture:pink_basin",
-    "refurbished_furniture:pink_bath",
-    "refurbished_furniture:pink_toilet",
-    "refurbished_furniture:purple_basin",
-    "refurbished_furniture:purple_bath",
-    "refurbished_furniture:purple_toilet",
-    "refurbished_furniture:raw_meatlovers_pizza",
-    "refurbished_furniture:raw_vegetable_pizza",
-    "refurbished_furniture:red_basin",
-    "refurbished_furniture:red_bath",
-    "refurbished_furniture:red_toilet",
-    "refurbished_furniture:vegetable_pizza_slice",
-    "refurbished_furniture:white_basin",
-    "refurbished_furniture:white_bath",
-    "refurbished_furniture:white_toilet",
-    "refurbished_furniture:yellow_basin",
-    "refurbished_furniture:yellow_bath",
-    "refurbished_furniture:yellow_toilet",
     "rnr:bucket/concrete",
     "rnr:concrete_road",
     "rnr:concrete_road_control_joint",
