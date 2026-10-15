@@ -2,6 +2,18 @@
 
 Beta: the whole progression is playable from Dawn to The Origin (its final boss is being rebuilt for 1.0), balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## Unreleased (1.0 round C1)
+
+- **More for the home:** Armor Statues and Banner Flags (Stone Age; sneak and right-click a fence or wall with a banner), Connected Glass, Advanced Chimneys and To the Bat Poles! (Bronze Age; the redstone lift pole in the Iron Age), Bibliocraft Legacy (Iron Age: display cases in the oak look from any wooden slab, labels, clipboard, stockroom catalog, bookcases and fancy signs in every TerraFirmaCraft and ArborFirmaCraft wood, typewriters and the printing table; its seats, tables, shelves, lamps, clocks, fancy armor stands, tool rack and sword pedestal are not in the pack, and the printing table no longer copies enchanted books), KleeSlabs (break one half of a double slab), Akashic Tome (Arcane Age: every guide book in one tome) and Enchantment Descriptions.
+- **A handful of acorns:** long secateurs (Bronze Age, brass mechanism) cut acorns, chestnuts, hickory nuts and coconuts from TerraFirmaCraft trees in autumn; roast them in a firepit.
+- **Chimneys for TerraFirmaCraft:** the smoke of a lit firepit, grill, pot, bloomery, blast furnace or charcoal forge rises through a chimney built above it. Smoke never poisons anyone.
+- **On the client:** 3D Skin Layers, Auroras (northern lights towards the cold north; the Complementary shader's own aurora is off in new installs), Cool Rain, BetterF3 (it hides the coordinates in the Stone Age like the plain debug screen), Chat Heads and Big Sign Writer.
+- **Removed:** Carry On and MrCrayfish's Furniture: Refurbished.
+
+### Technical
+
+- 250 metafiles plus `firmages-core` (19 added with the libraries ForgeEndertech, Bookshelf and Prickle, 2 removed). Banner Flags is a Modrinth file without a CurseForge project and is left out of the CurseForge upload; the server pack and the `.mrpack` carry it.
+
 ## 0.10.0
 
 First round towards 1.0. No famous boss is required any more: every Age has its own technical route, the big adventure mods are gone, and the world and the home get a lot richer. **Start a new world:** removed mods take their blocks, items and structures with them, and the new world features only generate in new chunks.
