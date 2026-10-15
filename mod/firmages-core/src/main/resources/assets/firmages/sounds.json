@@ -238,5 +238,133 @@
         "volume": 0.7
       }
     ]
+  },
+  "primordial.idle": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.warden.heartbeat",
+        "type": "event",
+        "pitch": 0.6
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.idle"
+  },
+  "primordial.veil_open": {
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.activate",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.veil_open"
+  },
+  "primordial.veil_close": {
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.deactivate",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.veil_close"
+  },
+  "primordial.slam_telegraph": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.ender_dragon.flap",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.slam_telegraph"
+  },
+  "primordial.slam": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.generic.explode",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.slam"
+  },
+  "primordial.charge": {
+    "sounds": [
+      {
+        "name": "minecraft:block.amethyst_block.resonate",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.charge"
+  },
+  "primordial.lanterns_out": {
+    "sounds": [
+      {
+        "name": "minecraft:block.respawn_anchor.deplete",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.lanterns_out"
+  },
+  "primordial.beam": {
+    "sounds": [
+      {
+        "name": "minecraft:block.conduit.activate",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.beam"
+  },
+  "primordial.pull": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.warden.sonic_charge",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.pull"
+  },
+  "primordial.star_fall": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.lightning_bolt.impact",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.star_fall"
+  },
+  "primordial.shatter": {
+    "sounds": [
+      {
+        "name": "minecraft:block.glass.break",
+        "type": "event",
+        "pitch": 0.5
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.shatter"
+  },
+  "primordial.shard": {
+    "sounds": [
+      {
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.shard"
+  },
+  "primordial.death": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.wither.death",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.death"
+  },
+  "primordial.death_star": {
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.power_select",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.primordial.death_star"
   }
 }
