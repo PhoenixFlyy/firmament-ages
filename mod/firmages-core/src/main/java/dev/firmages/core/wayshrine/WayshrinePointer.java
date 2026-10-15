@@ -1,23 +1,35 @@
 package dev.firmages.core.wayshrine;
 
-import com.mojang.datafixers.util.Pair;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.text.Numbers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.ChunkGeneratorStructureState;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureCheckResult;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
+import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -101,29 +113,86 @@ public final class WayshrinePointer {
     }
 
     /**
-     * Structure search over {@code #firmages:wayshrine} (or one type) with {@code ChunkGenerator.findNearestMapStructure},
-     * radius {@code wayshrine.pointerRadiusChunks}. Empty when the tag is empty (no TFC) or nothing is in reach.
+     * Structure search over {@code #firmages:wayshrine} (or one type) within {@code wayshrine.pointerRadiusChunks}. Empty
+     * when the tag is empty (no TFC) or nothing is in reach.
+     *
+     * <p>Not {@code ChunkGenerator.findNearestMapStructure}: its radius counts placement cells, so with a spacing of 128
+     * chunks the pointer radius of 100 would search 100 rings of cells and generate structure starts up to 200,000 blocks
+     * away (a two-minute tick on the 0.10.0 copy boot). This search lists the one candidate chunk of every cell whose
+     * candidate lies within the radius in blocks, sorts them by distance, drops those the placement itself refuses
+     * ({@code isStructureChunk}: TFC's climate check, frequency, exclusion zones) and only then asks the structure
+     * manager, loading a chunk to {@code STRUCTURE_STARTS} where the start is not known yet. The first valid start wins.
      */
     public static Optional<Target> search(ServerLevel overworld, BlockPos from, @Nullable String type, boolean skipKnown) {
         var registry = overworld.registryAccess().registryOrThrow(Registries.STRUCTURE);
-        HolderSet<Structure> set;
+        List<Holder<Structure>> holders = new ArrayList<>();
         if (type == null) {
             Optional<HolderSet.Named<Structure>> tag = registry.getTag(WayshrineService.STRUCTURES);
             if (tag.isEmpty() || tag.get().size() == 0) return Optional.empty();
-            set = tag.get();
+            tag.get().forEach(holders::add);
         } else {
             Optional<Holder.Reference<Structure>> h = registry.getHolder(ResourceKey.create(Registries.STRUCTURE,
                 net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "wayshrine/" + type)));
             if (h.isEmpty()) return Optional.empty();
-            set = HolderSet.direct(h.get());
+            holders.add(h.get());
         }
         long t0 = System.nanoTime();
-        Pair<BlockPos, Holder<Structure>> found = overworld.getChunkSource().getGenerator()
-            .findNearestMapStructure(overworld, set, from, ServerConfig.wayshrinePointerRadiusChunks(), skipKnown);
-        FirmagesCore.LOGGER.debug("Wayshrine search from {} took {} ms: {}", from, (System.nanoTime() - t0) / 1_000_000, found == null ? "none" : found.getFirst());
-        if (found == null) return Optional.empty();
-        String tid = found.getSecond().unwrapKey().map(k -> k.location().getPath()).orElse("wayshrine/unknown");
-        return Optional.of(new Target(found.getFirst(), tid.startsWith("wayshrine/") ? tid.substring("wayshrine/".length()) : tid));
+        ChunkGeneratorStructureState state = overworld.getChunkSource().getGeneratorState();
+        long seed = state.getLevelSeed();
+        int radius = ServerConfig.wayshrinePointerRadiusChunks() * 16;
+        int fromCx = SectionPos.blockToSectionCoord(from.getX());
+        int fromCz = SectionPos.blockToSectionCoord(from.getZ());
+        List<Candidate> candidates = new ArrayList<>();
+        for (Holder<Structure> holder : holders) {
+            for (StructurePlacement placement : state.getPlacementsForStructure(holder)) {
+                if (!(placement instanceof RandomSpreadStructurePlacement spread)) continue;
+                int spacing = spread.spacing();
+                int cells = Math.ceilDiv(ServerConfig.wayshrinePointerRadiusChunks(), spacing) + 1;
+                int cellX = Math.floorDiv(fromCx, spacing);
+                int cellZ = Math.floorDiv(fromCz, spacing);
+                for (int dx = -cells; dx <= cells; dx++) {
+                    for (int dz = -cells; dz <= cells; dz++) {
+                        ChunkPos c = spread.getPotentialStructureChunk(seed, (cellX + dx) * spacing, (cellZ + dz) * spacing);
+                        BlockPos at = placement.getLocatePos(c);
+                        double d = horizontal(from, at);
+                        if (d <= radius) candidates.add(new Candidate(holder, placement, c, d));
+                    }
+                }
+            }
+        }
+        candidates.sort(Comparator.comparingDouble(Candidate::distance));
+        StructureManager structures = overworld.structureManager();
+        Target found = null;
+        int checked = 0;
+        for (Candidate cand : candidates) {
+            if (!cand.placement().isStructureChunk(state, cand.chunk().x, cand.chunk().z)) continue;
+            checked++;
+            StructureCheckResult r = structures.checkStructurePresence(cand.chunk(), cand.holder().value(), cand.placement(), skipKnown);
+            if (r == StructureCheckResult.START_NOT_PRESENT) continue;
+            if (!skipKnown && r == StructureCheckResult.START_PRESENT) {
+                found = target(cand.holder(), cand.placement().getLocatePos(cand.chunk()));
+                break;
+            }
+            ChunkAccess chunk = overworld.getChunk(cand.chunk().x, cand.chunk().z, ChunkStatus.STRUCTURE_STARTS);
+            StructureStart start = structures.getStartForStructure(SectionPos.bottomOf(chunk), cand.holder().value(), chunk);
+            if (start == null || !start.isValid()) continue;
+            if (skipKnown) {
+                if (!start.canBeReferenced()) continue;
+                structures.addReference(start);
+            }
+            found = target(cand.holder(), cand.placement().getLocatePos(start.getChunkPos()));
+            break;
+        }
+        FirmagesCore.LOGGER.debug("Wayshrine search from {} took {} ms ({} candidates, {} checked): {}", from,
+            (System.nanoTime() - t0) / 1_000_000, candidates.size(), checked, found == null ? "none" : found.pos());
+        return Optional.ofNullable(found);
+    }
+
+    private record Candidate(Holder<Structure> holder, StructurePlacement placement, ChunkPos chunk, double distance) {}
+
+    private static Target target(Holder<Structure> holder, BlockPos pos) {
+        String tid = holder.unwrapKey().map(k -> k.location().getPath()).orElse("wayshrine/unknown");
+        return new Target(pos, tid.startsWith("wayshrine/") ? tid.substring("wayshrine/".length()) : tid);
     }
 
     private static boolean lit(WayshrineSavedData sd, BlockPos structurePos) {
