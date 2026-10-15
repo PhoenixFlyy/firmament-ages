@@ -79,8 +79,12 @@ ServerEvents.recipes((event) => {
   event.remove({ id: 'ars_additions:apparatus/stabilized_warp_index' })
   // Ore leak (Doc 08 section 3.4): the Ritual of Scrying must not find diamonds (kimberlite opens with age_4).
   event.remove({ id: 'ars_nouveau:scry_ritual/diamond_ores' })
+  // No metal without ore (harmony plan, 2026-10-15; dev/poc_analyze.py L-5): the Gambler spirit trades gems for gems
+  // and spirit items, not for iron, gold or silver nuggets.
+  ;['occultism:spirit_trade/gambler_iron', 'occultism:spirit_trade/gambler_gold', 'occultism:spirit_trade/gambler_silver']
+    .forEach((id) => event.remove({ id: id }))
 
-  // ---- Theurgy spagyrics on TFC ore pieces (Doc 08 section 4.2: Arcane Age ore line, 2.5x) --------------------
+  // ---- Theurgy spagyrics on TFC ore pieces (Doc 08 section 4.2: Arcane Age ore line, 2.0x since 2026-10-15) -------
   // TFC ore pieces sit in c:raw_materials/<metal> and TFC ore blocks in c:ores/<metal>, so Theurgy's standard
   // recipes (raw -> 3 sulfur, ore block -> 5 sulfur) would turn a 10 mB small piece into 300 mB. They go.
   const standardOre = []
@@ -89,25 +93,35 @@ ServerEvents.recipes((event) => {
     if (/"tag":"c:(ores|raw_materials)\//.test(t) || /"tag":"c:storage_blocks\/raw_/.test(t)) standardOre.push(String(r.getId()))
   })
   standardOre.forEach((id) => event.remove({ id: id }))
-  // Liquefaction takes one item without a count, so only RICH pieces (35 mB) are dissolved: one sulfur = one
-  // canonical dust (100 mB), about 2.9x. Poor, normal and small pieces go to the IE Crusher or Create.
-  // The Mineshaft gives only rich pieces, so the Arcane ore line is Mineshaft -> Liquefaction -> Incubator.
+  // Ore yield 2.0x on every grade (Felix 2026-10-15, harmony H3A; plan fix 6): better than Create crushing, never
+  // above the IE Crusher of the next Age (dev/poc_analyze.py check L-2). Liquefaction takes one item without a count,
+  // so the ore pieces dissolve in the Digestion Vat, whose ingredients have counts: n pieces + sal ammoniac -> m sulfur,
+  // one sulfur = one canonical dust (100 mB, incubation below). small 5 -> 1, poor 10 -> 3, normal 2 -> 1, rich 10 -> 7
+  // (50 -> 100, 150 -> 300, 50 -> 100, 350 -> 700 mB: exactly 2.0x). 10 mB sal ammoniac per sulfur, as the old
+  // liquefaction took. The numbers live in dev/data/metals.json (station theurgy_digestion).
+  // The Mineshaft gives rich pieces (Arcane ore line: Mineshaft -> Digestion Vat -> Incubator); vein pieces of every
+  // grade fit too.
   const SPAGYRIC = {
-    'tfc:ore/rich_native_copper': 'copper', 'tfc:ore/rich_malachite': 'copper', 'tfc:ore/rich_tetrahedrite': 'copper',
-    'tfc:ore/rich_cassiterite': 'tin', 'tfc:ore/rich_sphalerite': 'zinc', 'tfc:ore/rich_native_gold': 'gold',
-    'tfc:ore/rich_native_silver': 'silver', 'tfc:ore/rich_hematite': 'iron', 'tfc:ore/rich_limonite': 'iron',
-    'tfc:ore/rich_magnetite': 'iron', 'tfc:ore/rich_garnierite': 'nickel', 'tfc_ie_addon:ore/rich_galena': 'lead',
-    'tfc_ie_addon:ore/rich_bauxite': 'aluminum', 'tfc_ie_addon:ore/rich_uraninite': 'uranium',
-    'firmages:ore/rich_native_osmium': 'osmium'
+    'tfc:ore/{g}_native_copper': 'copper', 'tfc:ore/{g}_malachite': 'copper', 'tfc:ore/{g}_tetrahedrite': 'copper',
+    'tfc:ore/{g}_cassiterite': 'tin', 'tfc:ore/{g}_sphalerite': 'zinc', 'tfc:ore/{g}_native_gold': 'gold',
+    'tfc:ore/{g}_native_silver': 'silver', 'tfc:ore/{g}_hematite': 'iron', 'tfc:ore/{g}_limonite': 'iron',
+    'tfc:ore/{g}_magnetite': 'iron', 'tfc:ore/{g}_garnierite': 'nickel', 'tfc_ie_addon:ore/{g}_galena': 'lead',
+    'tfc_ie_addon:ore/{g}_bauxite': 'aluminum', 'tfc_ie_addon:ore/{g}_uraninite': 'uranium',
+    'firmages:ore/{g}_native_osmium': 'osmium'
   }
-  Object.keys(SPAGYRIC).forEach((piece) => {
-    event.custom({
-      type: 'theurgy:liquefaction',
-      ingredient: { item: piece },
-      solvent: { ingredient: { fluid: 'theurgy:sal_ammoniac' }, amount: 10 },
-      result: { type: 'theurgy:item', id: `theurgy:alchemical_sulfur_${SPAGYRIC[piece]}`, count: 1 },
-      time: 100
-    }).id(`firmages:liquefaction/${piece.replace(/^[a-z_]+:ore\//, '')}`)
+  const DIGEST = { small: [5, 1], poor: [10, 3], normal: [2, 1], rich: [10, 7] }  // grade -> [pieces in, sulfur out]
+  Object.keys(SPAGYRIC).forEach((prefix) => {
+    Object.keys(DIGEST).forEach((g) => {
+      const piece = prefix.replace('{g}', g)
+      const n = DIGEST[g]
+      event.custom({
+        type: 'theurgy:digestion',
+        fluid: { ingredient: { fluid: 'theurgy:sal_ammoniac' }, amount: 10 * n[1] },
+        ingredients: [{ ingredient: { item: piece }, count: n[0] }],
+        result: { type: 'theurgy:item', id: `theurgy:alchemical_sulfur_${SPAGYRIC[prefix]}`, count: n[1] },
+        time: 100 * n[1]
+      }).id(`firmages:digestion/${piece.replace(/^[a-z_]+:ore\//, '')}`)
+    })
   })
   // Incubation gives the canonical DUST (Doc 10 v3 section 8.1), not an ingot: iron ores melt to cast iron in
   // TFC, and the wrought iron ingot must keep coming from the bloomery.

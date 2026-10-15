@@ -1,0 +1,83 @@
+{
+  "type": "immersiveengineering:mineral_mix",
+  "biome_predicates": [
+    [
+      "minecraft:is_overworld"
+    ],
+    [
+      "minecraft:is_badlands"
+    ]
+  ],
+  "fail_chance": 0.1,
+  "ores": [
+    {
+      "chance": 0.06,
+      "output": {
+        "id": "tfc:ore/small_native_gold"
+      }
+    },
+    {
+      "chance": 0.12,
+      "output": {
+        "id": "tfc:ore/poor_native_gold"
+      }
+    },
+    {
+      "chance": 0.21,
+      "output": {
+        "id": "tfc:ore/normal_native_gold"
+      }
+    },
+    {
+      "chance": 0.21,
+      "output": {
+        "id": "tfc:ore/rich_native_gold"
+      }
+    },
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/small_native_copper"
+      }
+    },
+    {
+      "chance": 0.08,
+      "output": {
+        "id": "tfc:ore/poor_native_copper"
+      }
+    },
+    {
+      "chance": 0.14,
+      "output": {
+        "id": "tfc:ore/normal_native_copper"
+      }
+    },
+    {
+      "chance": 0.14,
+      "output": {
+        "id": "tfc:ore/rich_native_copper"
+      }
+    }
+  ],
+  "spoils": [
+    {
+      "chance": 0.2,
+      "output": {
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 0.5,
+      "output": {
+        "id": "minecraft:cobblestone"
+      }
+    },
+    {
+      "chance": 0.3,
+      "output": {
+        "id": "minecraft:cobbled_deepslate"
+      }
+    }
+  ],
+  "weight": 20
+}

@@ -489,7 +489,8 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
         ls = [] if r["type"] in GATE_EXEMPT else locks(r["id"], r["result"], bfull.get(r["id"]), btags)
         sl = None if ls else station_lock(r, bfull.get(r["id"]))
         until = re.match(r"^firmages:byproducts/.+/before_(age_\d)$", r["id"])
-        if until and until.group(1) in unlocked and r["id"] not in have:
+        until_age = until.group(1) if until else next((st for rx, st in UNTIL_LOADED if re.match(rx, r["id"])), None)
+        if until_age and until_age in unlocked and r["id"] not in have:
             # recipes/byproducts.js: a copy without locked byproducts lives only until its Age (FirmAges.untilAge);
             # a baseline taken with gate.enabled = false still holds it, the gate drops it as superseded
             superseded += 1
@@ -508,7 +509,7 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
           + ", ".join(f"{k}={per_age[k]}" for k in order if per_age[k]))
     print("    kept out by the Age of their station (station_ages.js and the late pack recipes): "
           + ", ".join(f"{k}={by_station[k]}" for k in order if by_station[k]))
-    print(f"    byproduct copies superseded by their unlocked Age (FirmAges.untilAge): {superseded}")
+    print(f"    byproduct copies and stand-ins superseded by their unlocked Age (FirmAges.untilAge): {superseded}")
     check("G-2 every baseline recipe whose outputs are all unlocked is loaded (the gate drops nothing more)",
           not missing, missing)
     print(f"    Mekanism-family tag outputs the mirror cannot resolve (dropped by the gate's resolved stack): "
@@ -520,7 +521,11 @@ STATION_AGES_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "sta
 # Pack recipes that the gate holds until a later Age than their outputs (FirmAges.requireAge in the recipe scripts).
 LATE_LOADED = [(r"^firmages:injecting/", "age_7"), (r"^firmages:dissolution/", "age_8"),
                (r"^firmages:metallurgic_infusing/blue_steel$", "age_7"),
-               (r"^create:sequenced_assembly/black_and_white_film_developing$", "age_2")]  # recipes/exposure.js
+               (r"^create:sequenced_assembly/black_and_white_film_developing$", "age_2"),  # recipes/exposure.js
+               (r"^ae2:network/(upgrade_)?wireless_crafting_terminal$", "age_6")]  # recipes/age_4/wireless_terminal.js
+# Pack recipes that exist only while an Age is locked (FirmAges.untilAge; the byproduct copies of byproducts.js are
+# matched by their id pattern): from that Age on a later recipe replaces them.
+UNTIL_LOADED = [(r"^firmages:mechanical_crafting/wireless_crafting_terminal$", "age_6")]  # recipes/age_4/wireless_terminal.js
 
 
 def load_station_ages():
@@ -763,7 +768,7 @@ ARCANE_CHAIN = (
     "ars_nouveau:source_jar ars_nouveau:enchanting_apparatus ars_nouveau:arcane_core ars_nouveau:scribes_table "
     "ars_nouveau:warp_scroll ars_nouveau:apprentice_spell_book ars_nouveau:ritual_brazier ars_nouveau:ritual_wilden_summon "
     "ars_nouveau:starbuncle_charm ars_nouveau:ritual_flight theurgy:pyromantic_brazier theurgy:calcination_oven "
-    "theurgy:liquefaction_cauldron theurgy:distiller theurgy:incubator theurgy:mercury_catalyst theurgy:divination_rod_t1 "
+    "theurgy:liquefaction_cauldron theurgy:digestion_vat theurgy:distiller theurgy:incubator theurgy:mercury_catalyst theurgy:divination_rod_t1 "
     "theurgy:sal_ammoniac_accumulator firmages:arcane_keystone").split()
 
 
@@ -856,7 +861,9 @@ def _slots(o, out, key=None):
         if isinstance(o.get("tag"), str) and len(o) <= 3:
             out.append([("tag", o["tag"])])
             return out
-        if o.get("type") == "neoforge:single" or "fluid" in o or "fluid_stack" in str(o.get("type", "")):
+        # a fluid ingredient is a dict whose "fluid" is the fluid id; a recipe with a "fluid" block (Theurgy digestion
+        # and fermentation, IE bottling) still has item ingredients next to it
+        if o.get("type") == "neoforge:single" or isinstance(o.get("fluid"), str) or "fluid_stack" in str(o.get("type", "")):
             return out
         if o.get("type") == "theurgy:reformation" and isinstance(o.get("target"), dict):
             # the target sulfur sits on the reformation's target pedestal: not consumed, but needed (a catalyst)
@@ -1085,8 +1092,8 @@ def emi_checks(base, rows, tags, item_age, check):
         gate = [ix(station_age[t]) for t in {r["type"], jt} if t in station_age]
         gate += [heat_ix(r["type"], j)] + [ix(st) for rx, st in LATE_LOADED if re.match(rx, rid)]
         first = max([first] + gate)
-        # (2) ProgressiveStages
-        last = never
+        # (2) ProgressiveStages; a FirmAges.untilAge stand-in ends before its Age
+        last = min([never] + [ix(st) - 1 for rx, st in UNTIL_LOADED if re.match(rx, rid)])
         for s in r["locks"]:
             a_, b_ = stage_span(s)
             first, last = max(first, a_), min(last, b_)
@@ -1240,14 +1247,16 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     ore_crush = [rid for rid, j in full.items() if j.get("type") == "occultism:crushing" and ore_tag.search(json.dumps(j.get("ingredient")))
                  and "iesnium" not in json.dumps(j.get("ingredient"))]  # Occultism's own Nether metal stays
     theurgy_std = [rid for rid, j in full.items() if j.get("type") == "theurgy:liquefaction" and ore_tag.search(json.dumps(j.get("ingredient")))]
-    spag = sorted(r for r in full if r.startswith("firmages:liquefaction/"))
+    spag = sorted(r for r in full if r.startswith("firmages:digestion/"))
+    old_spag = sorted(r for r in full if r.startswith("firmages:liquefaction/"))
     gone = [i for i in ("occultism:ritual/summon_foliot_transport_items", "ars_additions:apparatus/warp_index",
                         "ars_nouveau:scry_ritual/diamond_ores") if i in full]
-    check("C-3e one magic carrier per function: no Occultism crusher ore recipes, Theurgy spagyrics only on rich TFC pieces, "
-          "no Foliot transporter, no Warp Index, no diamond scrying",
-          not ore_crush and not theurgy_std and len(spag) == 15 and not gone,
+    check("C-3e one magic carrier per function: no Occultism crusher ore recipes, Theurgy spagyrics in the Digestion Vat "
+          "on every grade of 15 TFC ores (60 recipes, 2.0x, harmony H3A), no ore liquefaction, no Foliot transporter, no "
+          "Warp Index, no diamond scrying",
+          not ore_crush and not theurgy_std and len(spag) == 60 and not old_spag and not gone,
           [f"occultism ore crushing: {ore_crush[:5]}", f"theurgy standard ore liquefaction: {theurgy_std[:5]}",
-           f"firmages spagyric recipes: {len(spag)}", f"still present: {gone}"])
+           f"firmages digestion recipes: {len(spag)}", f"old liquefaction recipes: {old_spag[:3]}", f"still present: {gone}"])
     miner_bad = [f"{rid} -> {o}" for rid, j in full.items() if j.get("type") == "occultism:miner"
                  for o in _outs(j, []) if age_ix(o) > AGES.index("age_3")
                  and not rid.startswith(("occultism:miner/deeps", "occultism:miner/master", "occultism:miner/eldritch"))]
@@ -1415,7 +1424,8 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
             "native_osmium sphalerite bismuthinite native_silver garnierite bauxite").split()
     ladder_missing = ["firmages:%s/%s_%s" % (st, f, g) for st in ("purifying", "injecting", "dissolution") for f in fams
                       for g in ("small", "poor", "normal", "rich") if "firmages:%s/%s_%s" % (st, f, g) not in full]
-    planet = re.compile(r'"c:(ores|raw_materials)/(desh|ostrum|calorite|draconium)"|"c:storage_blocks/raw_(desh|ostrum|calorite|draconium)"')
+    # draconium is no planet metal any more (plan fix 9): its End ore drops pack pieces, MMP's ore recipes are removed
+    planet = re.compile(r'"c:(ores|raw_materials)/(desh|ostrum|calorite)"|"c:storage_blocks/raw_(desh|ostrum|calorite)"')
     ore_in = re.compile(r'"tag": "c:(ores|raw_materials)/|"tag": "c:storage_blocks/raw_')
     leftover = sorted(r for r, j in full.items() if r.split(":")[0] in late_ns and not j.get("type", "").startswith("minecraft:crafting")
                       and ore_in.search(json.dumps({k: v for k, v in j.items() if k not in RESULT_KEYS}))
@@ -1569,14 +1579,14 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     gone_ns = sorted({i for i in items if i.startswith(("mekatfc:", "tfcoretooltips:", "tfc_ore_tooltips:"))})
     ladder = sorted(r for r in full if re.match(r"^firmages:(purifying|injecting|dissolution)/native_osmium_", r))
     ladder_in = sorted({json.dumps(full[r].get("item_input", {}).get("item")) for r in ladder})
-    # every recipe that eats an osmium piece: the 12 ladder recipes, TFC heating, the rich-piece spagyric, WoodenCog
+    # every recipe that eats an osmium piece: the 12 ladder recipes, TFC heating, the Theurgy digestion, WoodenCog
     # heated melting (generated from TFC heating) and nothing else (no furnace, enrichment or crusher 2x)
     eaters = collections.defaultdict(set)
     for r, sl, os_ in recs:
         if any(members(x) & set(osm_pieces) for x in sl):
             eaters[full[r].get("type", "")].add(r)
     ok_types = {"mekanism:purifying", "mekanism:injecting", "mekanism:dissolution", "tfc:heating",
-                "theurgy:liquefaction", "woodencog:heated_mixing"}
+                "theurgy:digestion", "woodencog:heated_mixing"}
     bad_eaters = sorted(f"{t}: {sorted(rs)[:3]}" for t, rs in eaters.items() if t not in ok_types)
     heat = sorted(r for r in full if full[r].get("type") == "tfc:heating"
                   and full[r].get("result_fluid", {}).get("id") == "evolvedmekanism:molten_osmium")
@@ -1656,7 +1666,291 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           and len([b for b in placed if b.startswith("firmages:ore/prosperity/")]) == 13,
           ma_bad + [f"MA worldgen on: {ma_gen_on}"] * bool(ma_gen_on) + [f"placed blocks {len(placed)}"])
 
+    ladder_checks(full, recs, items, tags, check)
     reach_checks(full, recs, items, tags, item_age, check, server_dir)
+
+
+# ================================================================================================ ore ladder (L-)
+# L- checks (harmony plan 2026-10-15, package A3): dev/data/metals.json is the one metal table (ore pieces per metal,
+# the Age a metal is first processed, the target factor of every ore station). The checks measure every station on
+# every ore piece of the recipe dump and compare: L-1 the table (coverage, factor within the tolerance, station Age
+# as in station_ages.js), L-2 the tech ladder never steps back, L-3 magic never beats the next tech step, L-4 no
+# unlisted recipe type multiplies ore, L-5 no metal is reachable from the world without ore.
+METALS_JSON = os.path.join(REPO, "dev", "data", "metals.json")
+_LADDER_TRACE = {}   # the last L-5 closure (made_by, tainted, have), for debugging an entrance
+_METAL_FORMS = ("ingot|nugget|dust|dirty_dust|clump|shard|crystal|sheet|double_ingot|double_sheet|rod|plate|block|"
+                "storage_block|raw|alchemical_sulfur")
+_YIELD_KEYS = {"result", "results", "output", "outputs", "secondaries", "result_fluid", "output_fluid", "output_item",
+               "result_item", "chemical_output"}
+# world data, not processing: their ore outputs are ore, never "made from nothing"
+_WORLD_TYPES = {"immersiveengineering:mineral_mix", "occultism:miner", "tfc:collapse", "tfc:landslide"}
+
+
+def load_metals():
+    return json.load(open(METALS_JSON, encoding="utf-8"))
+
+
+def _metal_res(metals):
+    """metal -> (item-form regex, fluid/chemical regex); ingots, nuggets, dusts, clumps, shards, crystals, sheets, rods,
+    blocks, raw ore items and Theurgy sulfurs of the metal or one of its aliases (cast_iron, wrought_iron, ...)."""
+    out = {}
+    for m, d in metals.items():
+        al = "|".join(sorted(d.get("aliases", [m]), key=len, reverse=True))
+        item = re.compile(rf"^[a-z0-9_]+:(?:.*/)?(?:{_METAL_FORMS})[/_](?:{al})$"
+                          rf"|^[a-z0-9_]+:(?:.*/)?(?:raw_)?(?:{al})_(?:ingot|nugget|dust|block|sheet|plate|rod)$")
+        fluid = re.compile(rf"^[a-z0-9_]+:(?:metal/(?:{al})|molten_(?:{al})|(?:dirty|clean)_(?:{al}))$")
+        out[m] = (item, fluid)
+    return out
+
+
+def _yields(o, out, inres=False, mult=1.0):
+    """(id, expected amount) of every output of a recipe JSON: count x chance for items, mB for fluids and chemicals;
+    IE's {basePredicate, count} and {output, chance} wrappers multiply into their item."""
+    num = (int, float)
+    if isinstance(o, dict):
+        idv = o.get("id") if isinstance(o.get("id"), str) else o.get("item") if isinstance(o.get("item"), str) else None
+        if inres and idv:
+            n = o.get("count", o.get("amount", 1))
+            ch = o.get("chance", 1.0)
+            out.append((idv, (n if isinstance(n, num) else 1) * (ch if isinstance(ch, num) else 1.0) * mult))
+            return out
+        if inres:
+            if isinstance(o.get("chance"), num):
+                mult *= o["chance"]
+            if isinstance(o.get("count"), num) and any(isinstance(o.get(k), dict) for k in ("basePredicate", "output", "stack")):
+                mult *= o["count"]
+        for k, v in o.items():
+            _yields(v, out, inres or k in _YIELD_KEYS, mult)
+    elif isinstance(o, list):
+        for v in o:
+            _yields(v, out, inres, mult)
+    return out
+
+
+def _input_count(o, item, parent=None):
+    """How many of `item` a recipe JSON consumes (Mekanism item_input count, Theurgy and IE sized ingredients), or None."""
+    if isinstance(o, dict):
+        if o.get("item") == item:
+            c = o.get("count", parent)
+            return c if isinstance(c, int) and c > 0 else 1
+        own = o.get("count") if isinstance(o.get("count"), int) else None
+        for k, v in o.items():
+            if k in _YIELD_KEYS or k in RESULT_KEYS:
+                continue
+            r = _input_count(v, item, own if isinstance(v, dict) and k in ("ingredient", "basePredicate") else None)
+            if r:
+                return r
+    elif isinstance(o, list):
+        for v in o:
+            r = _input_count(v, item, parent)
+            if r:
+                return r
+    return None
+
+
+def ladder_checks(full, recs, items, tags, check):
+    """L-1 .. L-5 on the all-Ages recipe dump (see the comment above METALS_JSON)."""
+    if not os.path.isfile(METALS_JSON):
+        check("L-0 dev/data/metals.json present", False, [METALS_JSON])
+        return
+    mt = load_metals()
+    grades, tol, metals, stations = mt["grade_mb"], mt["tolerance"], mt["metals"], mt["stations"]
+    item_mb, nug_mb, slurry = mt["units"]["item_mb"], mt["units"]["nugget_mb"], mt["units"]["slurry_mb_per_ingot"]
+    neutral = set(mt["neutral_types"]["types"])
+    res = _metal_res(metals)
+    by_type = {s["type"]: k for k, s in stations.items()}
+    st_js = load_station_ages()
+    aix = AGES.index
+
+    def metal_mb(metal, oid, amount):
+        item_re, fluid_re = res[metal]
+        if fluid_re.match(oid):
+            return amount * item_mb / slurry if re.search(r":(dirty|clean)_", oid) else amount
+        if item_re.match(oid):
+            if "nugget" in oid:
+                return amount * nug_mb
+            return amount * item_mb * (9 if re.search(r"(^|[:/_])(storage_)?block([/_]|$)", oid) else 1)
+        return 0.0
+    # powder: mB per powder item from its arc furnace recipe (20 powder -> 1 ingot)
+    powder_mb, powder_age = {}, {}
+    pst = mt["powder"]["station_type"]
+    for rid, j in full.items():
+        if j.get("type") != pst:
+            continue
+        ins = re.findall(r'"item": "([a-z0-9_]+:powder/[a-z_]+)"', json.dumps({k: v for k, v in j.items() if k not in _YIELD_KEYS}))
+        if len(ins) != 1:
+            continue
+        n = _input_count(j, ins[0]) or 1
+        val = sum(metal_mb(m, oid, a) for oid, a in _yields(j, []) for m in metals)
+        if val > 0:
+            powder_mb[ins[0]] = max(powder_mb.get(ins[0], 0), val / n)
+            powder_age[ins[0]] = st_js.get(pst, "age_5")
+    # every piece -> metal; every recipe that consumes a piece
+    piece_metal = {}
+    for m, d in metals.items():
+        for pre in d["ores"]:
+            for g in grades:
+                piece_metal[pre.format(g=g)] = (m, g, pre)
+    piece_rx = re.compile(r'"item": "([a-z0-9_]+:ore/(?:small|poor|normal|rich)_[a-z_]+)"')
+    measured = collections.defaultdict(list)   # (piece, type) -> [(rid, direct factor, powder factor, powder Age)]
+    for rid, j in full.items():
+        t = j.get("type", "")
+        if t in _WORLD_TYPES:
+            continue
+        ins = set(piece_rx.findall(json.dumps({k: v for k, v in j.items() if k not in _YIELD_KEYS and k not in RESULT_KEYS})))
+        for p in ins & set(piece_metal):
+            m, g, _ = piece_metal[p]
+            n = _input_count(j, p) or 1
+            outs = _yields(j, [])
+            direct = sum(metal_mb(m, oid, a) for oid, a in outs)
+            pw = sum(a * powder_mb.get(oid, 0) for oid, a in outs)
+            pa = max((powder_age.get(oid, "age_0") for oid, a in outs if oid in powder_mb), key=aix, default=None)
+            measured[(p, t)].append((rid, direct / (n * grades[g]), pw / (n * grades[g]), pa))
+
+    # ---- L-1: the table --------------------------------------------------------------------------------------------
+    bad1 = []
+    for k, s in stations.items():
+        # the station may come earlier than its ladder step (FirmAges.requireAge holds Injection and Dissolution back)
+        if s["type"] in st_js and aix(st_js[s["type"]]) > aix(s["age"]):
+            bad1.append(f"station {k}: {s['type']} is {st_js[s['type']]} in station_ages.js, after {s['age']} in metals.json")
+    entries = collections.defaultdict(list)   # piece -> [(effective Age, kind, station, factor at that Age)]
+    for p, (m, g, pre) in sorted(piece_metal.items()):
+        if p not in items:
+            bad1.append(f"{p}: no such item")
+            continue
+        first = metals[m]["first_age"]
+        for k in metals[m]["stations"]:
+            s = stations[k]
+            got = measured.get((p, s["type"]))
+            if not got:
+                bad1.append(f"{p}: no {k} recipe ({s['type']})")
+                continue
+            rid, f, pw, pa = max(got, key=lambda x: x[1])
+            if abs(f - s["factor"]) > tol * s["factor"]:
+                bad1.append(f"{p}: {k} {f:.3f} ({rid}), table {s['factor']}")
+            eff = max(s["age"], first, key=aix)
+            entries[p].append((eff, s["kind"], k, f))
+            if pw > 0 and s["kind"] == "tech":
+                entries[p].append((max(eff, pa, key=aix), "tech", f"{k}+powder", f + pw))
+    check(f"L-1 metal table (dev/data/metals.json): {len(metals)} metals, {len(piece_metal)} ore pieces; every listed station "
+          f"has its recipe and yields its factor within {tol:.0%}; station Ages match station_ages.js", not bad1, bad1)
+
+    # ---- L-2 / L-3: monotonic tech ladder, magic below the next tech step --------------------------------------------
+    bad2, bad3 = [], []
+    best_by_age = collections.defaultdict(list)   # Age -> [best tech factor of each piece at that Age]
+    for p, es in sorted(entries.items()):
+        tech = sorted((e for e in es if e[1] == "tech"), key=lambda e: aix(e[0]))
+        for e in tech:
+            before = [x[3] for x in tech if aix(x[0]) < aix(e[0])]
+            if before and e[3] < max(before) * (1 - tol):
+                bad2.append(f"{p}: {e[2]} at {e[0]} gives {e[3]:.3f}, an earlier Age already {max(before):.3f}")
+        for e in es:
+            if e[1] != "magic":
+                continue
+            nxt = [x for x in tech if aix(x[0]) > aix(e[0])]
+            if nxt:
+                step = min(nxt, key=lambda x: aix(x[0]))
+                top = max(x[3] for x in nxt if x[0] == step[0])
+                if e[3] > top * (1 + tol):
+                    bad3.append(f"{p}: {e[2]} at {e[0]} gives {e[3]:.3f}, the next tech step ({step[0]}) only {top:.3f}")
+        for a in AGES[1:]:
+            have_ = [x[3] for x in tech if aix(x[0]) <= aix(a)]
+            if have_:
+                best_by_age[a].append(max(have_))
+    summary = [f"{a}: best tech factor {min(v):.2f} .. {max(v):.2f} over {len(v)} pieces"
+               for a, v in sorted(best_by_age.items(), key=lambda x: aix(x[0]))]
+    check("L-2 ore ladder is monotonic: no tech station of a later Age yields less than the best one before it",
+          not bad2, bad2 + summary)
+    check("L-3 magic never yields more than the next tech step", not bad3, bad3)
+
+    # ---- L-4: no unlisted multiplier ----------------------------------------------------------------------------------
+    bad4 = []
+    for (p, t), got in sorted(measured.items()):
+        if t in by_type:
+            continue
+        for rid, f, pw, pa in got:
+            if f + pw > 1 + tol:
+                bad4.append(f"{rid} ({t}{', neutral type' if t in neutral else ''}): {p} gives {f + pw:.3f}x")
+    check("L-4 no recipe type outside the metal table multiplies ore (quern, millstone, heated mixing and grid recipes "
+          "stay at or below 1.0x)", not bad4, bad4)
+
+    # ---- L-5: no metal without ore ------------------------------------------------------------------------------------
+    ore_names = sorted({pre.split("{g}_", 1)[1] for d in metals.values() for pre in d["ores"]}, key=len, reverse=True)
+    ore_rx = re.compile(r"(^|[:/_])(" + "|".join(ore_names) + r")([/_]|$)|(^|[:/_])ores?([/_]|$)|:deposit/|_ore$")
+    ore_tagged = {i for t, mem in tags.items() if t.startswith(("c:ores/", "c:raw_materials/", "c:ores_in_ground/")) for i in mem}
+
+    extra_ores = set(mt.get("extra_ores", {}).get("items", []))
+
+    def is_ore(i):
+        return i in ore_tagged or i in extra_ores or bool(ore_rx.search(i))
+
+    metal_items = {i for lst in mt.get("metal_items", {}).values() if isinstance(lst, list) for i in lst}
+    any_metal_rx = re.compile(r"^tfc:metal/|^[a-z0-9_]+:(?:.*/)?(?:ingot|nugget|plate|sheet|double_ingot|double_sheet)[/_]"
+                              r"|_(?:ingot|nugget)$")
+
+    def is_metal(i):   # a metal form of the table (what L-5 reports)
+        return i in metal_items or any(res[m][0].match(i) for m in metals)
+
+    def any_metal(i):  # any metal or alloy form (bronze, steel, electrum ...): it taints what is made from it
+        return is_metal(i) or bool(any_metal_rx.search(i))
+
+    def metal_fluid(f):  # any molten metal, alloys included (TFC tfc:metal/<m>, molten_<m>, fluid tags c:molten_<m>)
+        return bool(re.search(r":(?:metal/|molten_)", f)) or any(res[m][1].match(f) for m in metals)
+    start = {i for i in items if i.split(":")[0] in WORLD_NS} | {"minecraft:" + x for x in VANILLA_WORLD} | set(MOB_DROPS)
+    have = {i for i in start if not is_ore(i) and not any_metal(i)}
+    def fluid_ins(o, out):   # fluid ids and fluid tags (neoforge:tag with an amount) outside the outputs
+        if isinstance(o, dict):
+            if "amount" in o and isinstance(o.get("fluid") or o.get("tag"), str):
+                out.add(o.get("fluid") or o.get("tag"))
+            for k, v in o.items():
+                if k not in _YIELD_KEYS and k not in RESULT_KEYS:
+                    fluid_ins(v, out)
+        elif isinstance(o, list):
+            for v in o:
+                fluid_ins(v, out)
+        return out
+    usable = [(rid, sl, os_) for rid, sl, os_ in recs if full[rid].get("type") not in _WORLD_TYPES
+              and not any(metal_fluid(f) for f in fluid_ins(full[rid], set()))]
+    made_by, tainted = {}, set()   # tainted: made from a metal form (directly or through other tainted items)
+
+    def sat(slot):
+        return any((k in ("item", "chem") and x in have) or (k == "tag" and any(i in have for i in tags.get(x, [])))
+                   for k, x in slot)
+
+    def used(sl):
+        return {x for slot in sl for k, x in slot if k in ("item", "chem") and x in have} | {
+            m for slot in sl for k, x in slot if k == "tag" for m in tags.get(x, []) if m in have}
+    grew = True
+    while grew:
+        grew = False
+        for rid, sl, os_ in usable:
+            new = {o for o in os_ if o not in have and not is_ore(o)}
+            if new and all(sat(x) for x in sl):
+                dirty = any(any_metal(u) or u in tainted for u in used(sl))
+                for o in new:
+                    made_by[o] = rid
+                    if dirty:
+                        tainted.add(o)
+                have |= new
+                grew = True
+        for seed, got in GROWN.items():
+            new = {g for g in got if seed in have and GROWN_NEEDS.get(seed, seed) in have and g not in have}
+            if new:
+                have |= new
+                grew = True
+        for made, needs in MACHINE_MADE.items():
+            if made not in have and all(x in have for x in needs):
+                have.add(made)
+                grew = True
+    free_metal = sorted(i for i in have if is_metal(i))
+
+    _LADDER_TRACE.update(made_by=made_by, tainted=tainted, have=have)
+    # an entrance: a metal form made from inputs that hold no metal (nothing tainted went in)
+    roots = [i for i in free_metal if i not in tainted]
+    free_metal = roots + [i for i in free_metal if i not in roots]
+    check("L-5 no metal without ore: no ingot, nugget, dust, clump, shard, sulfur or other metal form of the table is "
+          "reachable from the world when every ore piece, ore block, deposit and raw ore is left out",
+          not free_metal, [f"{'ENTRANCE ' if i in roots else ''}{i} <- {made_by.get(i, 'start set')}" for i in free_metal])
 
 
 # ================================================================================================ reachability per Age
@@ -1687,9 +1981,9 @@ EXPEDITION_DROPS = {"dawn": ["firmages:frontier_shard"],
                     "age_3": ["firmages:hollow_keystone"],
                     "age_7": ["firmages:flight_recorder"]}
 # What the rockets of the Space and Quantum Age reach without a recipe (Ad Astra planets: stone, sand, ore drops,
-# Moon cheese) and the draconium ore of the End (DE, dust drop). Regexes over the registry, per Age.
+# Moon cheese) and the draconium ore of the End (pack pieces since 2026-10-15). Regexes over the registry, per Age.
 LATE_WORLD = {"age_7": [r"^ad_astra:(moon|mars)_(stone|cobblestone|sand|deepslate)$", r"^ad_astra:(raw_desh|raw_ostrum|cheese)$",
-                        r"^draconicevolution:draconium_dust$"],
+                        r"^firmages:ore/rich_draconium$"],  # End draconium ore (kubejs/data/draconicevolution/loot_table)
               "age_8": [r"^ad_astra:(venus|mercury|glacio)_(stone|cobblestone|sand|deepslate)$",
                         r"^ad_astra:(raw_calorite|ice_shard)$"],
               "age_9": [r"^sgjourney:raw_naquadah$"]}  # the pack vein on Mercury (kubejs/data/firmages/worldgen)

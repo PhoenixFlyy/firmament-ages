@@ -1,0 +1,68 @@
+{
+  "type": "immersiveengineering:mineral_mix",
+  "biome_predicates": [
+    [
+      "minecraft:is_overworld"
+    ]
+  ],
+  "fail_chance": 0.1,
+  "ores": [
+    {
+      "chance": 0.75,
+      "output": {
+        "id": "tfc:ore/lapis_lazuli"
+      }
+    },
+    {
+      "chance": 0.0525,
+      "output": {
+        "id": "tfc:ore/small_native_gold"
+      }
+    },
+    {
+      "chance": 0.045,
+      "output": {
+        "id": "tfc:ore/poor_native_gold"
+      }
+    },
+    {
+      "chance": 0.03,
+      "output": {
+        "id": "tfc:ore/normal_native_gold"
+      }
+    },
+    {
+      "chance": 0.0225,
+      "output": {
+        "id": "tfc:ore/rich_native_gold"
+      }
+    },
+    {
+      "chance": 0.1,
+      "output": {
+        "id": "tfc:ore/sulfur"
+      }
+    }
+  ],
+  "spoils": [
+    {
+      "chance": 0.2,
+      "output": {
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 0.5,
+      "output": {
+        "id": "minecraft:cobblestone"
+      }
+    },
+    {
+      "chance": 0.3,
+      "output": {
+        "id": "minecraft:cobbled_deepslate"
+      }
+    }
+  ],
+  "weight": 15
+}

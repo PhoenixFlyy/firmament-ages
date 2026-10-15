@@ -96,6 +96,17 @@ ServerEvents.recipes((event) => {
   event.shaped('theurgy:sulfuric_flux_emitter', [' a ', 'gSg', 'sRs'], {
     a: '#c:gems/sal_ammoniac', g: '#c:ingots/gold', S: '#theurgy:alchemical_sulfurs', s: '#c:stones', R: 'mekanism:alloy_reinforced'
   }).id('theurgy:crafting/shaped/sulfuric_flux_emitter') // same id: the Theurgy guide book shows it
+  // No metal without ore (plan fix 8, 2026-10-15): reformation no longer makes osmium or uranium sulfur (the osmium vein
+  // and the uraninite of the Space Age stay the only sources), and no metal niter comes from earth, gem or mineral
+  // niter (stone -> metal). Transmuting one metal sulfur or metal niter into another stays: it starts from ore.
+  const reformIds = []
+  event.forEachRecipe({ type: 'theurgy:reformation' }, (r) => {
+    const id = String(r.getId())
+    if (/^theurgy:reformation\/alchemical_sulfur_(osmium|uranium)_from_/.test(id)
+      || /^theurgy:reformation\/alchemical_niter_metals_[a-z]+_from_alchemical_niter_(earthen_matters|gems|other_minerals)_/.test(id)) reformIds.push(id)
+  })
+  reformIds.forEach((id) => event.remove({ id: id }))
+  console.info(`[firmages] reformation: ${reformIds.length} recipes into osmium, uranium or metal niter from non-metals removed`)
 
   // ======================================================================================== Mystical Agriculture
   // Doc 08 section 4.4: hard-coded vanilla outputs to the canonical items (the tag outputs are pinned in
@@ -103,7 +114,6 @@ ServerEvents.recipes((event) => {
   // (it eats a hoe). The crops of locked or foreign materials are off in config/mysticalcustomization/configure-crops.json;
   // tools, armour, paxels and augments are disabled (stages/disabled.toml).
   // One recipe each (the original recipes of 2026-10-01); a mod filter would scan all recipes three times.
-  event.replaceOutput({ id: 'mysticalagriculture:essence/minecraft/iron_ingot' }, 'minecraft:iron_ingot', 'tfc:metal/ingot/wrought_iron')
   event.replaceOutput({ id: 'mysticalagriculture:essence/minecraft/coal' }, 'minecraft:coal', 'tfc:ore/bituminous_coal')
   event.replaceOutput({ id: 'mysticalagriculture:essence/minecraft/amethyst' }, 'minecraft:amethyst_shard', 'tfc:gem/amethyst')
   ;['inferium', 'prudentium', 'tertium', 'imperium', 'supremium'].forEach((t) => {
@@ -117,6 +127,45 @@ ServerEvents.recipes((event) => {
   // hold the fluids).
   event.remove({ id: 'mysticalagriculture:essence/minecraft/water_bucket' })
   event.remove({ id: 'mysticalagriculture:essence/minecraft/lava_bucket' })
+  // Metal essence gives TFC ore pieces, not ingots (Felix 2026-10-15, harmony H4A; plan fix 2): eight essence in a
+  // ring make two normal pieces (50 mB of metal) instead of 2 to 8 ingots, so Mystical Agriculture feeds the ore ladder
+  // (Purification 3x, Injection 4x, Dissolution 5x) instead of skipping it. One piece per metal of the pack's metal
+  // table (dev/data/metals.json, the first TFC or TFC-IE ore of the metal); netherite essence gives ancient debris.
+  // Same recipe ids as Mystical Agriculture's, so its guide and EMI pages keep working.
+  const MA_METAL_PIECES = {
+    'minecraft/iron_ingot': ['iron', 'tfc:ore/normal_hematite'],
+    'minecraft/copper_ingot': ['copper', 'tfc:ore/normal_native_copper'],
+    'minecraft/gold_ingot': ['gold', 'tfc:ore/normal_native_gold'],
+    'common/tin_ingot': ['tin', 'tfc:ore/normal_cassiterite'],
+    'common/silver_ingot': ['silver', 'tfc:ore/normal_native_silver'],
+    'common/zinc_ingot': ['zinc', 'tfc:ore/normal_sphalerite'],
+    'common/nickel_ingot': ['nickel', 'tfc:ore/normal_garnierite'],
+    'common/lead_ingot': ['lead', 'tfc_ie_addon:ore/normal_galena'],
+    'common/aluminum_ingot': ['aluminum', 'tfc_ie_addon:ore/normal_bauxite'],
+    'common/uranium_ingot': ['uranium', 'tfc_ie_addon:ore/normal_uraninite'],
+    'mekanism/osmium_ingot': ['osmium', 'firmages:ore/normal_native_osmium']
+  }
+  Object.keys(MA_METAL_PIECES).forEach((path) => {
+    const id = `mysticalagriculture:essence/${path}`
+    const essence = `mysticalagriculture:${MA_METAL_PIECES[path][0]}_essence`
+    event.remove({ id: id })
+    event.shaped(`2x ${MA_METAL_PIECES[path][1]}`, ['EEE', 'E E', 'EEE'], { E: essence }).id(id)
+  })
+  event.remove({ id: 'mysticalagriculture:essence/minecraft/netherite_ingot' })
+  event.shaped('minecraft:ancient_debris', ['EEE', 'E E', 'EEE'], { E: 'mysticalagriculture:netherite_essence' })
+    .id('mysticalagriculture:essence/minecraft/netherite_ingot')
+
+  // ======================================================================================== Hostile Neural Networks
+  // Plan fix 7: no metal without ore. The two living-matter recipes that made ingots give TFC ore pieces at a quarter of
+  // the ingot count (8 vanilla iron -> 2 normal hematite, 6 gold -> 2 normal native gold, like the essence above);
+  // the Loot Fabricator's metal drops are rewritten in kubejs/data/hostilenetworks/data_models/.
+  // Same ingredients and ids as HNN's own recipes.
+  event.remove({ id: 'hostilenetworks:living_matter/overworldian/iron_ingot' })
+  event.shapeless('2x tfc:ore/normal_hematite', ['4x hostilenetworks:overworld_prediction', 'minecraft:rotten_flesh'])
+    .id('hostilenetworks:living_matter/overworldian/iron_ingot')
+  event.remove({ id: 'hostilenetworks:living_matter/hellish/gold_ingot' })
+  event.shapeless('2x tfc:ore/normal_native_gold', ['minecraft:glowstone_dust', 'minecraft:iron_ingot', 'hostilenetworks:nether_prediction'])
+    .id('hostilenetworks:living_matter/hellish/gold_ingot')
 
   // ======================================================================================== goal: Data Matrix
   // A grid recipe like the Steel Heart and the Pressure Core: the Mekanism and AE2 parts carry the Age's chains,
