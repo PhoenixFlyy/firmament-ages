@@ -17,7 +17,7 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 | Space Age | Star Chart | fission reactor, industrial turbine, NASA workbench, rockets tier 1 and 2, fusion crafting (wyvern) | Ring 7, Star Spire. Rite: pray at night under an open sky. Opens the Quantum Age. |
 | Quantum Age | Quantum Core, the last offering | fusion reactor, SPS, rockets tier 3 and 4, fusion crafting (draconic), Marid pentacle (optional) | Ring 8, Quantum Ring. Rites: two pray together, night sky, the Awakened Keystone back on its plinth. Opens the Singularity Age. |
 | Singularity Age | Ultimate Singularity, then the Stargate (no offering) | draconic reactor, chaotic fusion, naquadah line, Stargate and DHD | The Gathering: one prayer at the complete shrine gives the nine relics back for the last forging. |
-| Finale | Defeat the final boss in The Origin (being rebuilt for 1.0) | the altar and arena of The Origin | No shrine. The boss's death grants `finale_won` to all of you. |
+| Finale | Defeat The Primordial, the final boss in The Origin | the altar and arena of The Origin | No shrine. The boss's death grants `finale_won` to all of you. |
 
 ### The shrine in brief (Stone Age to Quantum Age)
 
@@ -554,23 +554,29 @@ offering.
 ## Finale
 
 ### What you must reach
-Defeat the final boss in The Origin. Its fall grants `finale_won` to all of you. The boss is being rebuilt
-for version 1.0; until then the finale cannot be won.
+Defeat The Primordial, the final boss in The Origin. Its fall grants `finale_won` to all of you.
 
 ### The way
 1. You step out of the gate south of a floating arena and walk north past the DHD. Nine islands float around it, one
    per Age, each with its relic turning above it.
 2. Everyone online stands within 6 blocks of the altar in the middle. The altar answers.
-3. The guardian of The Origin is being rebuilt for version 1.0. Until then no boss comes and the finale cannot be
-   won yet.
-4. When the boss falls: "Beyond the Firmament". The MekaSuit and the Meka-Tool can now be made. The shrine's beam
-   turns gold.
-5. The gate at the arena dials home.
+3. The Primordial wakes above the altar: dark glass, a keel below, a halo of nine lights. Its veil takes most of your
+   damage; it opens only when you answer an attack.
+   - The Dark Before: strike the keel while it rests on the floor after a slam, or shoot the node that glows white.
+   - Nine Lights (from two thirds): the lanterns go out. Shoot the node whose beam sweeps the floor, or strike the
+     core from below while it pulls you in.
+   - Firmament Shatter (from one third): stars fall. Pick up the shards it sheds: use one to let the stars pass you,
+     hold one in the off hand and strike, or throw one at it (sneak and use) to open the veil.
+4. Expect six to ten minutes. After ten minutes the veil opens for less time, after twelve the stars fall everywhere.
+5. It falls: "Beyond the Firmament". The MekaSuit and the Meka-Tool can now be made. The shrine's beam turns gold.
+6. The gate at the arena dials home.
 
 ### Pitfalls
 - Every online player who is not a spectator must stand at the altar. One friend elsewhere and nothing starts.
   A player who has not moved or acted for five minutes is not counted.
-- The altar cannot be broken.
+- After a wipe it withdraws once nobody is near it for 30 s, and the lanterns return. Gather again after 30 s.
+- The altar cannot be broken, not even by the boss.
+- Nothing else spawns in the arena while The Primordial lives.
 - Monsters spawn in The Origin only in darkness; the arena is lit. Beds and respawn anchors do not work there.
 - The victory counts once. A friend who logs in later receives it silently.
 

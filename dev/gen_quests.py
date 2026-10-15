@@ -1702,8 +1702,8 @@ SINGULARITY = age_chapter(
     ],
     goal=Q('singularity/goal', 'Beyond the Firmament', t_stage('finale_won', 'Defeat the final boss in The Origin'),
            kind='goal', icon='sgjourney:classic_stargate', sub='Goal of the Singularity Age: the end of the road',
-           desc=['Dial The Origin and step through the gate. Its guardian is being rebuilt for version 1.0: until',
-                 'then the Gathering at the altar calls no boss, and this goal stays open.',
+           desc=['Dial The Origin and step through the gate. Gather at the altar, all of you, and The Primordial',
+                 'wakes. Its veil opens only when you answer its attacks.',
                  '',
                  'Its fall completes the Firmament. The MekaSuit and the Meka-Tool can then be made.']),
     # Into The Origin: the step from the gate to the battle, on the main route (third player's-eye review).
