@@ -1,5 +1,6 @@
 package dev.firmages.core.origin;
 
+import dev.firmages.core.boss.ArenaLights;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import dev.firmages.core.FirmagesCore;
@@ -82,10 +83,13 @@ public final class OriginSpawns extends SimpleJsonResourceReloadListener {
         FirmagesCore.LOGGER.info("The Origin spawn list: {}", used.isEmpty() ? "nothing" : used);
     }
 
-    /** Replaces the spawn candidates in The Origin by the list (LOWEST: after every other mod's additions). */
+    /**
+     * Replaces the spawn candidates in The Origin by the list (LOWEST: after every other mod's additions). While The
+     * Primordial fights, nothing spawns in its arena: its lanterns go out, and the fight has no adds.
+     */
     static void onPotentialSpawns(LevelEvent.PotentialSpawns event) {
         if (!(event.getLevel() instanceof ServerLevel level) || level.dimension() != OriginRegistry.ORIGIN) return;
-        List<MobSpawnSettings.SpawnerData> want = spawns(event.getMobCategory());
+        List<MobSpawnSettings.SpawnerData> want = ArenaLights.bossNear(level, event.getPos()) ? List.of() : spawns(event.getMobCategory());
         if (event.getSpawnerDataList().equals(want)) return;
         for (MobSpawnSettings.SpawnerData d : List.copyOf(event.getSpawnerDataList())) event.removeSpawnerData(d);
         want.forEach(event::addSpawnerData);

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " G ",
+    "GSG",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "tag": "c:glass_blocks/colorless"
+    },
+    "S": {
+      "item": "firmages:consecrated_shard"
+    }
+  },
+  "result": {
+    "id": "firmages:firmament_glass",
+    "count": 4
+  }
+}

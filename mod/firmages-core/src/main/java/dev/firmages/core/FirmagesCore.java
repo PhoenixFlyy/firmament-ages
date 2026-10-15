@@ -2,6 +2,8 @@ package dev.firmages.core;
 
 import com.mojang.logging.LogUtils;
 import dev.firmages.core.age.AgeService;
+import dev.firmages.core.boss.BossEvents;
+import dev.firmages.core.boss.BossRegistry;
 import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.command.FirmagesCommands;
 import dev.firmages.core.compat.ftbteams.FtbTeamsCompat;
@@ -42,6 +44,7 @@ public final class FirmagesCore {
         ReactorRegistry.register(modEventBus);
         OriginRegistry.register(modEventBus);
         dev.firmages.core.proof.ProofRegistry.register(modEventBus); // Tally Chute, firmages:tally, firmages:silo_launch (SPEC §22)
+        BossRegistry.register(modEventBus); // The Primordial, the end boss (docs/primordial.md)
 
         IEventBus bus = NeoForge.EVENT_BUS;
         bus.addListener(AgeService::onAddReloadListeners);
@@ -70,6 +73,7 @@ public final class FirmagesCore {
         OriginSpawns.register(bus);
         dev.firmages.core.proof.TallyService.register(bus);
         dev.firmages.core.proof.SiloLaunch.register(bus);
+        BossEvents.register(bus);
         LOGGER.info("firmages-core loaded");
     }
 }
