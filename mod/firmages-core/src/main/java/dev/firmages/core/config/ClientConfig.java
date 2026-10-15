@@ -16,6 +16,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.DoubleValue PARTICLE_SCALE;
     public static final ModConfigSpec.BooleanValue AMBIENT_DRONE;
     public static final ModConfigSpec.BooleanValue IDLE_BEAM;
+    public static final ModConfigSpec.BooleanValue AGE_MUSIC;
 
     public static final ModConfigSpec.EnumValue<HudFade.Mode> HUD_MODE;
     public static final ModConfigSpec.IntValue HUD_FADE_SECONDS;
@@ -58,6 +59,12 @@ public final class ClientConfig {
             .define("ambientDrone", true);
         IDLE_BEAM = b.comment("Show the shrine's thin idle beam (the server turns it on with shrine.permanentBeam).")
             .define("idleBeam", true);
+        b.pop();
+
+        b.comment("Music (SPEC 23)").push("music");
+        AGE_MUSIC = b.comment("The background music follows the world's Age (sounds firmages:music.age_0 .. age_9) wherever the game would play",
+                "its generic game, creative, underwater or overworld biome music. Nether, End, menus and other mods' music stay.")
+            .define("ageMusic", true);
         b.pop();
 
         b.comment("Immersion (SPEC 18): what the client shows of the pack's machinery").push("ui");

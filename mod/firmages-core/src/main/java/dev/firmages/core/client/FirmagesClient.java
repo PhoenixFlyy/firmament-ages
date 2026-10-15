@@ -14,6 +14,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.event.SelectMusicEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
+import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 
 /** Client-only wiring (renderers, ceremony ticks, sky tint, reload hint). Loaded only on the physical client. */
 public final class FirmagesClient {
@@ -63,7 +64,12 @@ public final class FirmagesClient {
 
         @SubscribeEvent
         public static void music(SelectMusicEvent event) {
-            if (CeremonyPlayer.running() && dev.firmages.core.config.ClientConfig.STOP_MUSIC.get()) event.setCanceled(true);
+            AgeMusic.onSelect(event); // ceremony silence, Firmament night silence, per-Age music (SPEC §23)
+        }
+
+        @SubscribeEvent
+        public static void sound(PlaySoundEvent event) {
+            AgeMusic.onPlaySound(event);
         }
 
         @SubscribeEvent
@@ -71,6 +77,7 @@ public final class FirmagesClient {
             CeremonyPlayer.reset();
             PreviewBridge.clear();
             dev.firmages.core.net.ShrineSyncPayload.clientReset();
+            AgeMusic.reset();
         }
     }
 }
