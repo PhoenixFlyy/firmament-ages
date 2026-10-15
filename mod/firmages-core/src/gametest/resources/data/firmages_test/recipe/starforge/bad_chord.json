@@ -1,0 +1,13 @@
+{
+  "type": "firmages:starforge",
+  "chord": "firmages:no_such_chord",
+  "ingredients": [
+    {
+      "item": "minecraft:stick"
+    }
+  ],
+  "time": 100,
+  "result": {
+    "id": "minecraft:torch"
+  }
+}

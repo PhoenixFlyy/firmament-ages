@@ -1,0 +1,16 @@
+{
+  "type": "firmages:starforge",
+  "chord": "firmages:forge_triad",
+  "ingredients": [
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:string"
+    }
+  ],
+  "time": 100,
+  "result": {
+    "id": "minecraft:echo_shard"
+  }
+}

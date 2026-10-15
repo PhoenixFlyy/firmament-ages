@@ -258,12 +258,19 @@ public final class CrownService {
         if (!c.valid()) {
             int missing = c.known() ? Math.max(0, c.total() - c.matched()) : -1;
             player.displayClientMessage(CrownText.lacks(missing), true);
-            if (c.known()) PacketDistributor.sendToPlayer(player, new ShrinePreviewPayload(CROWN_ID, pos, c.bestRotation().ordinal(), false));
+            preview(level, pos).ifPresent(p -> PacketDistributor.sendToPlayer(player, p));
             return;
         }
         MutableComponent chord = ChordLibrary.current().byMask(be.lensesIn()).map(ch -> CrownText.chordLine(ch.id()))
             .orElseGet(() -> Component.translatable(be.lensesIn() == 0 ? "firmages.crown.chord_none" : "firmages.crown.chord_unnamed"));
         player.displayClientMessage(Component.translatable("firmages.crown.status", chord, CrownText.state(be)).withStyle(ChatFormatting.GOLD), true);
+    }
+
+    /** The ghost of an unformed crown ({@code firmages:shrine_preview}, anchored at the anvil), empty when it stands. */
+    public static Optional<ShrinePreviewPayload> preview(Level level, BlockPos pos) {
+        ShrineMultiblocks.RingCheck c = check(level, pos);
+        if (!c.known() || c.valid()) return Optional.empty();
+        return Optional.of(new ShrinePreviewPayload(CROWN_ID, pos, c.bestRotation().ordinal(), false));
     }
 
     // ---------------------------------------------------------------- status (command)

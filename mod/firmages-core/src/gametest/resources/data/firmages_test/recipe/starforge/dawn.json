@@ -1,0 +1,22 @@
+{
+  "type": "firmages:starforge",
+  "chord": "firmages:dawn_triad",
+  "ingredients": [
+    {
+      "item": "minecraft:clay_ball",
+      "count": 2
+    },
+    {
+      "item": "minecraft:flint"
+    }
+  ],
+  "fluid": {
+    "fluid": "minecraft:water",
+    "amount": 100
+  },
+  "time": 100,
+  "result": {
+    "id": "minecraft:brick",
+    "count": 2
+  }
+}
