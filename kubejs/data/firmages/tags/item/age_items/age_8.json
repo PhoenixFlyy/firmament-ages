@@ -181,7 +181,6 @@
     {"id": "advanced_ae:sprint_speed_card", "required": false},
     {"id": "advanced_ae:step_assist_card", "required": false},
     {"id": "advanced_ae:stock_export_bus_part", "required": false},
-    {"id": "advanced_ae:swim_speed_card", "required": false},
     {"id": "advanced_ae:throughput_monitor", "required": false},
     {"id": "advanced_ae:throughput_monitor_configurator", "required": false},
     {"id": "advanced_ae:walk_speed_card", "required": false},
@@ -193,6 +192,7 @@
     {"id": "draconicevolution:awakened_draconium_block", "required": false},
     {"id": "draconicevolution:awakened_draconium_ingot", "required": false},
     {"id": "draconicevolution:awakened_draconium_nugget", "required": false},
+    {"id": "draconicevolution:celestial_manipulator", "required": false},
     {"id": "draconicevolution:draconic_axe", "required": false},
     {"id": "draconicevolution:draconic_bow", "required": false},
     {"id": "draconicevolution:draconic_capacitor", "required": false},
@@ -594,6 +594,7 @@
     {"id": "minecraft:deepslate_copper_ore", "required": false},
     {"id": "minecraft:deepslate_iron_ore", "required": false},
     {"id": "minecraft:deepslate_lapis_ore", "required": false},
+    {"id": "minecraft:dragon_egg", "required": false},
     {"id": "minecraft:glow_lichen", "required": false},
     {"id": "minecraft:large_amethyst_bud", "required": false},
     {"id": "minecraft:medium_amethyst_bud", "required": false},
@@ -677,6 +678,8 @@
     {"id": "occultism:trinity_gem", "required": false},
     {"id": "occultism:true_sight_staff", "required": false},
     {"id": "refurbished_furniture:computer", "required": false},
-    {"id": "refurbished_furniture:television", "required": false}
+    {"id": "refurbished_furniture:television", "required": false},
+    {"id": "theurgy:alchemical_sulfur_calorite", "required": false},
+    {"id": "theurgy:alchemical_sulfur_dragon_egg", "required": false}
   ]
 }

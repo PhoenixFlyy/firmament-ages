@@ -1,5 +1,5 @@
 {
-"source": "/fa_dump in D:/Minecraft/MinecraftModServer/.wt/test-server-a1/local/firmages (kubejs/server_scripts/debug/dump.js)",
+"source": "/fa_dump in D:/Minecraft/MinecraftModServer/.wt/test-server-a1/local/firmages (0.10.0 copy boot, gate off, every Age granted; kubejs/server_scripts/debug/dump.js)",
 "items": [
 "ad_astra:aeronos_cap",
 "ad_astra:aeronos_door",
@@ -37516,6 +37516,7 @@
 "mcwfences",
 "mcwfurnitures",
 "mcwroofs",
+"mcwstairs",
 "mcwtrpdoors",
 "mcwwindows",
 "megacells",

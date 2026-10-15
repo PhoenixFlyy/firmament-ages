@@ -41,6 +41,7 @@ locked_ids = [
     "mod:mcwfences",
     "mod:mcwfurnitures",
     "mod:mcwroofs",
+    "mod:mcwstairs",
     "mod:mcwtrpdoors",
     "mod:mcwwindows",
     "mod:precisionprospecting",

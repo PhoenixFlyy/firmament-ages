@@ -250,7 +250,6 @@
     {"id": "ae2_draconic_fusion_autocrafter:me_draconic_pattern_provider_panel", "required": false},
     {"id": "draconicevolution:advanced_dislocator", "required": false},
     {"id": "draconicevolution:basic_crafting_injector", "required": false},
-    {"id": "draconicevolution:celestial_manipulator", "required": false},
     {"id": "draconicevolution:crafting_core", "required": false},
     {"id": "draconicevolution:dislocation_inhibitor", "required": false},
     {"id": "draconicevolution:dislocator", "required": false},
@@ -571,6 +570,8 @@
     {"id": "tfc_ie_addon:powder/uraninite", "required": false},
     {"id": "tfcvolcanoes:mineral/pitchblende", "required": false},
     {"id": "tfcvolcanoes:mineral/powder/pitchblende", "required": false},
+    {"id": "theurgy:alchemical_sulfur_desh", "required": false},
+    {"id": "theurgy:alchemical_sulfur_ostrum", "required": false},
     {"id": "theurgy:alchemical_sulfur_uranium", "required": false}
   ]
 }
