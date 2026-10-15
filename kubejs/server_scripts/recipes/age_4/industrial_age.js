@@ -3,7 +3,7 @@
 // (window [age_4, age_5), stage tool_ie_alloy_kiln), LV power. Every IE output is the canonical item of Doc 10 v3
 // section 8.1 (TFC ingots, sheets and rods for TFC metals; Mekanism / IE / pack dusts). Recipe ids and formats were
 // read from the /fa_dump_full export of the loaded recipes (2026-09-30), after Almost Unified.
-// Goal: the Pressure Core (black steel double sheet, IE Heavy Engineering Block, Arcane Gearbox, Monstrosity drop).
+// Goal: the Pressure Core (black steel double sheet, IE Heavy Engineering Block, Arcane Gearbox, built-up cannon chamber).
 
 ServerEvents.recipes((event) => {
   // Reload cost: a plain id removal is a map lookup, but every regex, output or type filter scans all ~35,000
@@ -215,12 +215,6 @@ ServerEvents.recipes((event) => {
   Object.keys(PART).forEach((slot) => {
     event.replaceInput({ id: `minecraft:netherite_${slot}_smithing` }, `minecraft:diamond_${slot}`, PART[slot])
   })
-  ;['helmet', 'chestplate', 'leggings', 'boots'].forEach((slot) => {
-    ;['cursium', 'ignitium'].forEach((set) =>
-      event.replaceInput({ id: `cataclysm:smithing/${set}_${slot}` }, `minecraft:netherite_${slot}`, PART[slot]))
-  })
-  event.replaceInput({ id: 'cataclysm:smithing/monstrous_helm' }, 'minecraft:netherite_helmet', PART.helmet)
-  event.replaceInput({ id: 'cataclysm:the_incinerator' }, 'minecraft:netherite_sword', PART.sword)
   // Apotheosis tier upgrades golden -> diamond are a gear chain; diamond gear keeps its plain grid recipes.
   removeIdPatterns.push(/^apotheosis:smithing\/upgrade_golden_.+_to_diamond_.+$/)
   // IE shield: from a vanilla shield (itself gear, and without a TFC recipe) -> a steel double sheet.
@@ -274,28 +268,15 @@ ServerEvents.recipes((event) => {
   }).id('firmages:crafting/blastbrick_reinforced')
 
   // ======================================================================================== goal: Pressure Core
-  // Doc 08 sections 9.3 and 10.2. The boss slot is the age_4 boss token (Netherite Monstrosity horn).
+  // Doc 08 sections 9.3 and 10.2. The token slot takes the age_4 token: a built-up steel cannon chamber of Create Big
+  // Cannons (molten steel cast in the four layer moulds, bored on the cannon drill, stacked by the cannon builder and
+  // heated into one block; tags/arcane_industrial.js).
   event.shaped('firmages:pressure_core', [' H ', 'DGD', ' T '], {
     H: 'immersiveengineering:heavy_engineering',
     D: '#c:double_sheets/black_steel',
     G: 'firmages:arcane_gearbox',
-    T: '#firmages:boss_token/age_4'
+    T: '#firmages:age_token/age_4'
   }).id('firmages:crafting/pressure_core')
-
-  // Boss fallback stage 1 (Doc 08 section 5.1): the Summoning Rituals altar calls the Netherite Monstrosity.
-  // JSON keys as the Summoning Rituals 3.14.2 KubeJS schema writes them (item_inputs, entity_outputs.entity.id).
-  // Its spawn lock (age_4.toml) keeps it out of the world before the Industrial Age.
-  event.custom({ // the altar is an Arcane Age station (recipes/station_ages.js)
-    type: 'summoningrituals:altar',
-    initiator: { tag: 'c:ingots/netherite' },
-    item_inputs: [
-      { count: 4, tag: 'c:rods/blaze' },
-      { count: 2, item: 'tfc:metal/double_ingot/black_steel' },
-      { count: 8, item: 'minecraft:magma_block' }
-    ],
-    entity_outputs: [{ entity: { id: 'cataclysm:netherite_monstrosity' } }],
-    ticks: 200
-  }).id('firmages:altar/netherite_monstrosity')
 
   // The collected patterns, one pass (see the top of this handler).
   event.remove({ id: anyOf(removeIdPatterns) })

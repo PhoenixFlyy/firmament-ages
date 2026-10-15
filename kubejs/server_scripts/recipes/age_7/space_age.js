@@ -6,7 +6,7 @@
 // and calorite recipes) and the IE Metal Press. Ad Astra's own processing and machines are hidden: Compressor,
 // Etrionic Blast Furnace, Fuel Refinery, Energizer, Coal Generator, Solar Panel, its iron and steel (stages/disabled.toml).
 // Rocket fuel: Immersive Petroleum diesel (Ad Astra reads #c:diesel) and kerosene (tags/late_ages.js).
-// Goal: the Star Chart (desh and ostrum plates, Mekanism polonium pellet, Wyvern Core, Harbinger drop).
+// Goal: the Star Chart (desh and ostrum plates, Mekanism polonium pellet, Wyvern Core, the Martian flight recorder).
 
 ServerEvents.recipes((event) => {
   // ======================================================================================== Ad Astra machines
@@ -33,9 +33,34 @@ ServerEvents.recipes((event) => {
   event.replaceInput({ id: 'draconicevolution:machines/energy_transfuser' }, 'draconicevolution:energy_core_stabilizer', 'draconicevolution:draconium_core')
   event.replaceInput({ id: 'mekmm:large_solar_neutron_activator' }, 'mekanismgenerators:advanced_solar_generator', 'mekanism:solar_neutron_activator')
 
-  // ======================================================================================== goal: Star Chart
-  // Polonium pellet as the catalyst on the fusion core; six injectors at wyvern level.
   const consume = (ing) => ({ ingredient: ing, consume: true })
+
+  // ======================================================================================== Dragon Heart without the dragon
+  // The End stays an optional trip (dev/decisions-while-away.md, 2026-10-14). Awakened draconium needs a Dragon Heart
+  // (DE's awakened_draconium_block): wyvern fusion makes one from a draconium block, Mekanism pellets, Mars ostrum and
+  // a draconium core.
+  // A dragon kill still drops one (DE's loot modifier on the dragon); that is the shortcut.
+  event.custom({
+    type: 'draconicevolution:fusion_crafting',
+    result: { id: 'draconicevolution:dragon_heart', count: 1 },
+    catalyst: { item: 'draconicevolution:draconium_block' },
+    totalEnergy: 16000000,
+    techLevel: 'wyvern',
+    ingredients: [
+      consume({ item: 'mekanism:pellet_polonium' }),
+      consume({ item: 'mekanism:pellet_polonium' }),
+      consume({ item: 'mekanism:pellet_plutonium' }),
+      consume({ item: 'mekanism:pellet_plutonium' }),
+      consume({ tag: 'c:plates/ostrum' }),
+      consume({ tag: 'c:plates/ostrum' }),
+      consume({ item: 'draconicevolution:draconium_core' })
+    ]
+  }).id('firmages:fusion/dragon_heart')
+
+  // ======================================================================================== goal: Star Chart
+  // Polonium pellet as the catalyst on the fusion core; six injectors at wyvern level. The token slot takes the age_7
+  // token: the flight recorder from the chest of Ad Astra's Mars temple (loot modifier
+  // kubejs/data/firmages/loot_modifiers/flight_recorder_mars_temple.json).
   event.custom({
     type: 'draconicevolution:fusion_crafting',
     result: { id: 'firmages:star_chart', count: 1 },
@@ -48,7 +73,7 @@ ServerEvents.recipes((event) => {
       consume({ tag: 'c:plates/ostrum' }),
       consume({ tag: 'c:plates/ostrum' }),
       consume({ item: 'draconicevolution:wyvern_core' }),
-      consume({ tag: 'firmages:boss_token/age_7' })
+      consume({ tag: 'firmages:age_token/age_7' })
     ]
   }).id('firmages:fusion/star_chart')
 })

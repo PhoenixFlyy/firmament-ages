@@ -15,10 +15,13 @@ ServerEvents.tags('item', (event) => {
   // Tallow: Occultism candles take c:tallow; the butcher knife gives occultism:tallow from the TFC animals
   // once they are in the entity tags below.
 
-  // Boss tokens: the real drop (Doc 08 section 5.1). The fallback gateways pay out this same drop
-  // (firmages/boss_fallback.js, data/firmages/gateways/<age>_trial.json), so the tag needs no second token.
-  event.add('firmages:boss_token/age_3', 'ars_nouveau:wilden_tribute')     // Wilden Chimera
-  event.add('firmages:boss_token/age_4', 'cataclysm:monstrous_horn')       // Netherite Monstrosity, guaranteed drop
+  // Age tokens (dev/decisions-while-away.md, 2026-10-14): the pack's own trial of each Age, no boss. Every recipe slot
+  // reads the tag, so changing its content rewires the recipe, the quest task and every second use at once.
+  // Arcane: the Hollow Keystone from the chests of the Nether fortresses, filled on the Create line into the Arcane
+  // Keystone (recipes/age_3/arcane_age.js; the Djinni ritual with the Wilden Tribute stays the magic alternative).
+  // Industrial: the built-up steel cannon chamber of Create Big Cannons (cast, bored, built up, heated).
+  event.add('firmages:age_token/age_3', 'firmages:hollow_keystone')
+  event.add('firmages:age_token/age_4', 'createbigcannons:built_up_steel_cannon_chamber')
 
   event.add('firmages:signature_items', ['firmages:arcane_keystone', 'firmages:pressure_core'])
 })

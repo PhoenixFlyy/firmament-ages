@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:highlands",
+      "required": false
+    },
+    {
+      "id": "tfc:plateau",
+      "required": false
+    },
+    {
+      "id": "tfc:old_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:rolling_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:hills",
+      "required": false
+    }
+  ]
+}

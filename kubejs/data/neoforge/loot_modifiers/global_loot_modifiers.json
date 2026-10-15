@@ -1,6 +1,8 @@
 {
   "replace": false,
   "entries": [
-    "firmages:datura_seed_from_tfc_grass"
+    "firmages:datura_seed_from_tfc_grass",
+    "firmages:hollow_keystone_nether_bridge",
+    "firmages:flight_recorder_mars_temple"
   ]
 }

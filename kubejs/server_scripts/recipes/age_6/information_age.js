@@ -120,12 +120,13 @@ ServerEvents.recipes((event) => {
 
   // ======================================================================================== goal: Data Matrix
   // A grid recipe like the Steel Heart and the Pressure Core: the Mekanism and AE2 parts carry the Age's chains,
-  // and an AE2 Molecular Assembler can craft it. The boss slot is the age_6 token (dragon's breath, Ender Dragon).
+  // and an AE2 Molecular Assembler can craft it. The token slot takes the age_6 token: an AE2 singularity from the
+  // Matter Condenser (256,000 condenser power, a real automation line).
   event.shaped('firmages:data_matrix', ['BCB', 'CSC', 'BTB'], {
     B: '#c:sheets/blue_steel',
     C: 'mekanism:advanced_control_circuit',
     S: 'ae2:cell_component_64k',
-    T: '#firmages:boss_token/age_6'
+    T: '#firmages:age_token/age_6'
   }).id('firmages:crafting/data_matrix')
 
   event.remove(removeTypes)

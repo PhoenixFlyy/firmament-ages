@@ -1,8 +1,10 @@
 // Firmament Ages - Age 3: Arcane Age recipes (Doc 08 sections 2.2 and 7, Doc 10 v3 sections 1.6, 6 and 7).
-// Three required strands with one proof item each: Spirits (Occultism: Spirit Attuned Crystal + iesnium ingot),
-// Source (Ars Nouveau: Wilden Tribute from the Wilden Chimera) and Alchemy (Theurgy: Mercury Catalyst). The goal,
-// the Arcane Keystone, is made from the three proofs, a TFC steel ingot and a source gem block in the Djinni
-// pentacle ritual (Doc 08 section 7.1). TFC input adaptations of the magic mods live in arcane_tfc_inputs.js.
+// The goal, the Arcane Keystone, has two routes (dev/decisions-while-away.md, 2026-10-14: tech is the main route,
+// magic the alternative). Tech: the Hollow Keystone from a Nether fortress chest (the age_3 token), filled with
+// liquid experience and blaze rods on the Create line. Magic: the Djinni pentacle ritual from the three proofs,
+// Spirits (Occultism: Spirit Attuned Crystal + iesnium ingot), Source (Ars Nouveau: Wilden Tribute from the
+// Enchanting Apparatus) and Alchemy (Theurgy: Mercury Catalyst), with a TFC steel ingot and a source gem block
+// (Doc 08 section 7.1). TFC input adaptations of the magic mods live in arcane_tfc_inputs.js.
 //
 // Occultism Dimensional Mineshaft: the first endless ore source gives only RICH TFC ore pieces of the metals
 // the Arcane Age has unlocked (Doc 08 section 3 rule 6 and section 7: "nur Rich-Erze freigeschalteter Metalle").
@@ -146,16 +148,46 @@ ServerEvents.recipes((event) => {
     D: '#tfc:dirt',
     A: '#c:gems/amethyst'
   }).id('firmages:crafting/arcane_soil')
-  // Summoning Rituals ships no altar recipe; the altar is only for boss summons (Doc 10 v3 section 1.6).
-  event.shaped('summoningrituals:altar', [' A ', 'GSG', 'RRR'], {
-    A: 'occultism:spirit_attuned_gem',
-    G: '#c:ingots/gold',
-    S: '#c:storage_blocks/source',
-    R: '#c:stones'
-  }).id('firmages:crafting/summoning_altar')
+  // ---- Goal: Arcane Keystone, tech route ----------------------------------------------------------------------
+  // The Hollow Keystone (age_3 token) lies in the chests of the Nether fortresses (loot modifier
+  // kubejs/data/firmages/loot_modifiers/hollow_keystone_nether_bridge.json). Three passes on the Create line: a spout
+  // fills it with 250 mB of liquid experience (Create Enchantment Industry), a deployer sets a blaze rod, the press
+  // closes it. The spout and the deployer are Iron Age stations, the experience and the blaze rods Arcane Age goods.
+  const KEY = 'firmages:incomplete_arcane_keystone'
+  event.custom({
+    type: 'create:sequenced_assembly',
+    ingredient: { tag: 'firmages:age_token/age_3' },
+    transitional_item: { id: KEY },
+    sequence: [
+      { type: 'create:filling', ingredients: [{ item: KEY }, { type: 'neoforge:single', fluid: 'create_enchantment_industry:experience', amount: 250 }],
+        results: [{ id: KEY }] },
+      { type: 'create:deploying', ingredients: [{ item: KEY }, { tag: 'c:rods/blaze' }], results: [{ id: KEY }] },
+      { type: 'create:pressing', ingredients: [{ item: KEY }], results: [{ id: KEY }] }
+    ],
+    results: [{ id: 'firmages:arcane_keystone' }],
+    loops: 3
+  }).id('firmages:sequenced_assembly/arcane_keystone')
 
-  // ---- Goal: Arcane Keystone (Doc 08 sections 7.1 and 10.2) --------------------------------------------------
-  // Djinni crafting pentacle, bound Djinni book. The Wilden Tribute slot is the age_3 boss token (Doc 08 section 5.1).
+  // ---- Magic route: the Wilden Tribute from the Enchanting Apparatus --------------------------------------------
+  // No boss: horn, wing and spike of the ordinary Wilden (spawn-locked until age_3, stages/age_3.toml) bound with
+  // source, an Occultism crystal and a Theurgy shard. The Wilden Chimera stays an optional fight that drops the
+  // tribute too. JSON keys as Ars Nouveau 5.13.3's own apparatus recipes.
+  event.custom({
+    type: 'ars_nouveau:enchanting_apparatus',
+    reagent: { item: 'ars_nouveau:source_gem_block' },
+    pedestalItems: [
+      { item: 'ars_nouveau:wilden_horn' }, { item: 'ars_nouveau:wilden_horn' },
+      { item: 'ars_nouveau:wilden_wing' }, { item: 'ars_nouveau:wilden_wing' },
+      { item: 'ars_nouveau:wilden_spike' }, { item: 'ars_nouveau:wilden_spike' },
+      { item: 'occultism:spirit_attuned_crystal' }, { item: 'theurgy:mercury_shard' }
+    ],
+    result: { id: 'ars_nouveau:wilden_tribute', count: 1 },
+    sourceCost: 5000,
+    keepNbtOfReagent: false
+  }).id('firmages:apparatus/wilden_tribute')
+
+  // ---- Goal: Arcane Keystone, magic route (Doc 08 sections 7.1 and 10.2) ----------------------------------------
+  // Djinni crafting pentacle, bound Djinni book, the three proofs of the magic strands.
   event.custom({
     type: 'occultism:ritual',
     ritual_type: 'occultism:craft',
@@ -166,7 +198,7 @@ ServerEvents.recipes((event) => {
     ingredients: [
       { item: 'occultism:spirit_attuned_crystal' },
       { item: 'occultism:iesnium_ingot' },
-      { tag: 'firmages:boss_token/age_3' },
+      { item: 'ars_nouveau:wilden_tribute' },
       { item: 'theurgy:mercury_catalyst' },
       { item: 'tfc:metal/ingot/steel' },
       { item: 'ars_nouveau:source_gem_block' }

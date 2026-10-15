@@ -5,7 +5,8 @@
 // Magic tail: the Marid binding book needs Mekanism atomic alloy and a DE Wyvern Core; the Marid ritual awakens an
 // Arcane Keystone into the Awakened Keystone (the Marid strand's keystone, an ingredient of the Ultimate Singularity).
 // Goal: the Quantum Core, the last offering at the shrine (age_8 -> age_9): Mekanism antimatter pellets, DE
-// Awakened Core, calorite plates, Glacio ice shards, Leviathan drop.
+// Awakened Core, calorite plates, Glacio ice shards and the age_8 token, Evolved Mekanism subatomic alloy (hypercharged
+// alloy and antimatter in the antiprotonic nucleosynthesizer; tags/late_ages.js).
 
 ServerEvents.recipes((event) => {
   // ======================================================================================== magic tail: Marid
@@ -38,7 +39,7 @@ ServerEvents.recipes((event) => {
       { item: 'mekanism:alloy_atomic' },
       { item: 'mekanism:alloy_atomic' },
       { item: 'draconicevolution:wyvern_core' },
-      { tag: 'firmages:boss_token/age_8' }
+      { tag: 'firmages:age_token/age_8' }
     ],
     result: { id: 'firmages:awakened_keystone', count: 1 }
   }).id('firmages:ritual/awakened_keystone')
@@ -62,7 +63,7 @@ ServerEvents.recipes((event) => {
       consume({ tag: 'c:plates/calorite' }),
       consume({ item: 'ad_astra:ice_shard' }),
       consume({ item: 'ad_astra:ice_shard' }),
-      consume({ tag: 'firmages:boss_token/age_8' })
+      consume({ tag: 'firmages:age_token/age_8' })
     ]
   }).id('firmages:fusion/quantum_core')
 })

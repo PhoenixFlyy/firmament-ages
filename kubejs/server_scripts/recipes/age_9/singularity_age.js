@@ -1,7 +1,7 @@
 // Firmament Ages - Age 9: Singularity Age, the finale (Doc 08 sections 2.2, 5.1, 6 and 10; Doc 10 v3 section 5;
 // mod/firmages-core/SPEC.md sections 6, 7.5 and 14).
-// Strands: Chaos (Chaos Guardian, chaos shards, chaotic injectors, the Draconic Reactor with the firmages-core
-// Reactor Controller), Singularity (the Ultimate Singularity by DE Fusion Crafting from the nine relics), Stargate
+// Strands: Chaos (the Draconic Reactor with the firmages-core Reactor Controller makes the chaos fragments, built
+// without chaos in chaos_bootstrap.js; chaotic injectors; the Chaos Guardian is an optional shortcut), Singularity (the Ultimate Singularity by DE Fusion Crafting from the nine relics), Stargate
 // (naquadah from Mercury, the Classic Stargate, The Origin).
 // Stations: DE Fusion Crafting at chaotic level, the IE Arc Furnace and the Mekanism Metallurgic Infuser and
 // Antiprotonic Nucleosynthesizer for naquadah (Stargate Journey's furnace processing is removed), Stargate Journey's
@@ -12,7 +12,8 @@ ServerEvents.recipes((event) => {
 
   // ======================================================================================== the Ultimate Singularity
   // Doc 08 10.1 step 3: DE Fusion Crafting, techLevel chaotic, Chaotic Core catalyst, the nine signature items
-  // (with the Awakened Keystone in the Arcane slot), two chaos shards and an Evolved Mekanism alloy, about 2 billion
+  // (with the Awakened Keystone in the Arcane slot), two age_9 tokens (large chaos fragments from the team's reactor,
+  // tags/late_ages.js) and an Evolved Mekanism alloy, about 2 billion
   // FE. The ingredients are the item ids themselves: the shrine's relics (released from their plinths from age_9 on,
   // or moved into the injectors by the Gathering, SPEC 7.5 / M8) or copies crafted again. Twelve injectors.
   event.custom({
@@ -31,8 +32,8 @@ ServerEvents.recipes((event) => {
       consume({ item: 'firmages:data_matrix' }),
       consume({ item: 'firmages:star_chart' }),
       consume({ item: 'firmages:quantum_core' }),
-      consume({ tag: 'firmages:boss_token/age_9' }),
-      consume({ tag: 'firmages:boss_token/age_9' }),
+      consume({ tag: 'firmages:age_token/age_9' }),
+      consume({ tag: 'firmages:age_token/age_9' }),
       consume({ item: 'evolvedmekanism:alloy_singular' })
     ]
   }).id('firmages:fusion/ultimate_singularity')
@@ -115,7 +116,7 @@ ServerEvents.recipes((event) => {
   // The Draconic Reactor Controller recipe lives in recipes/age_9/reactor_controller.js (firmages-core 0.4.0).
 
   // The address of The Origin (firmages-core registers the Space Location, SPEC section 14): a paper with the
-  // coordinates, written with a chaos shard of the Guardian.
-  event.shapeless('firmages:origin_coordinates', ['minecraft:paper', 'minecraft:ink_sac', '#firmages:boss_token/age_9'])
+  // coordinates, written with a large chaos fragment (the age_9 token).
+  event.shapeless('firmages:origin_coordinates', ['minecraft:paper', 'minecraft:ink_sac', '#firmages:age_token/age_9'])
     .id('firmages:crafting/origin_coordinates')
 })

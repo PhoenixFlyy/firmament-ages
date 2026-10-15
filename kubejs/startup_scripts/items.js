@@ -22,26 +22,12 @@ global.FA_SIGNATURE_TOOLTIPS = {
   'firmages:origin_coordinates': 'Dial The Origin: 9, 16, 21, 33, 2, 37, then the point of origin (Milky Way, 7 chevrons).'
 }
 
-// Boss fallback sigils (Doc 08 section 5.1): item id -> name, Age, the gate it opens, the boss it stands in for and
-// what the gate pays out. Read by the item registry below, client_scripts (tooltips, gate names) and
-// server_scripts/firmages/boss_fallback.js (opening). The rewards themselves are in the gateway JSON.
-global.FA_SIGILS = {
-  'firmages:frontier_sigil': { name: 'Frontier Sigil', age: 'age_2', gate: 'firmages:frontier_trial', gateName: 'Frontier Trial',
-    boss: 'the Naga and the Lich', reward: 'a Naga trophy and a Lich trophy' },
-  'firmages:wild_sigil': { name: 'Wild Sigil', age: 'age_3', gate: 'firmages:wild_trial', gateName: 'Wild Trial',
-    boss: 'the Wilden Chimera', reward: 'a Wilden Tribute' },
-  'firmages:forge_sigil': { name: 'Forge Sigil', age: 'age_4', gate: 'firmages:forge_trial', gateName: 'Forge Trial',
-    boss: 'the Netherite Monstrosity', reward: 'a Monstrous Horn' },
-  'firmages:wither_sigil': { name: 'Wither Sigil', age: 'age_5', gate: 'firmages:wither_trial', gateName: 'Wither Trial',
-    boss: 'the Wither', reward: 'a Nether Star' },
-  'firmages:end_sigil': { name: 'End Sigil', age: 'age_6', gate: 'firmages:end_trial', gateName: 'End Trial',
-    boss: 'the Ender Dragon', reward: 'four bottles of dragon\'s breath (from the Space Age on also a Dragon Heart)' },
-  'firmages:space_sigil': { name: 'Space Sigil', age: 'age_7', gate: 'firmages:space_trial', gateName: 'Space Trial',
-    boss: 'the Harbinger', reward: 'a Witherite Block' },
-  'firmages:abyss_sigil': { name: 'Abyss Sigil', age: 'age_8', gate: 'firmages:abyss_trial', gateName: 'Abyss Trial',
-    boss: 'the Leviathan', reward: 'an Abyssal Egg' },
-  'firmages:chaos_sigil': { name: 'Chaos Sigil', age: 'age_9', gate: 'firmages:chaos_trial', gateName: 'Chaos Trial',
-    boss: 'the Chaos Guardian', reward: 'four Chaos Shards' }
+// Tooltip line of the expedition items of the Age tokens (dev/decisions-while-away.md, 2026-10-14).
+global.FA_ITEM_TOOLTIPS = {
+  'firmages:frontier_compass': 'Right-click it to learn where the nearest Cold Forge lies.',
+  'firmages:frontier_shard': 'Kept in the Cold Forge. Finish it on the deployer and the press.',
+  'firmages:hollow_keystone': 'Found in Nether fortresses. A spout, a deployer and a press fill it.',
+  'firmages:flight_recorder': 'Kept in the temple on Mars. It goes into the Star Chart.'
 }
 
 StartupEvents.registry('item', event => {
@@ -57,7 +43,8 @@ StartupEvents.registry('item', event => {
   event.create('firmages:steel_heart').displayName('Steel Heart').maxStackSize(1)
 
   // ---- Age 3: Arcane Age goal (Doc 08 sections 7.1 and 10.2) -------------------------------
-  // Made in the Djinni pentacle ritual (recipes/age_3/arcane_age.js); later awakened by the Marid (age_8).
+  // Filled from a Hollow Keystone on the Create line or made in the Djinni pentacle ritual (recipes/age_3/arcane_age.js);
+  // later awakened by the Marid (age_8).
   event.create('firmages:arcane_keystone').displayName('Arcane Keystone').maxStackSize(1).rarity('rare')
 
   // ---- Age 4: Industrial Age goal and its magic part (Doc 08 sections 7.2, 9.3, 10.2) --------
@@ -77,22 +64,20 @@ StartupEvents.registry('item', event => {
 
   // ---- Age 9: the finale (Doc 08 section 10) ------------------------------------------------------------------
   event.create('firmages:ultimate_singularity').displayName('Ultimate Singularity').maxStackSize(1).rarity('epic') // DE fusion, chaotic (recipes/age_9)
-  event.create('firmages:origin_coordinates').displayName('Coordinates of The Origin').maxStackSize(1).rarity('rare') // paper + chaos shard (recipes/age_9)
+  event.create('firmages:origin_coordinates').displayName('Coordinates of The Origin').maxStackSize(1).rarity('rare') // paper + large chaos fragment (recipes/age_9)
 
-  // ---- Boss fallback sigils (Doc 08 section 5.1) ---------------------------------------------------------------
-  // One per boss checkpoint whose drop goes into a signature item. Used on a block, a sigil opens its Gateways to
-  // Eternity gate (kubejs/data/firmages/gateways/<age>_trial.json, server_scripts/firmages/boss_fallback.js) with
-  // stand-in waves; the gate pays out the boss drop that the firmages:boss_token/<age> tag already holds.
-  // One explicit create() per id: dev/gen_textures.py --check reads the ids from these lines.
-  const sigil = (b, id) => b.displayName(global.FA_SIGILS[id].name).maxStackSize(16).rarity('uncommon')
-  sigil(event.create('firmages:frontier_sigil'), 'firmages:frontier_sigil')
-  sigil(event.create('firmages:wild_sigil'), 'firmages:wild_sigil')
-  sigil(event.create('firmages:forge_sigil'), 'firmages:forge_sigil')
-  sigil(event.create('firmages:wither_sigil'), 'firmages:wither_sigil')
-  sigil(event.create('firmages:end_sigil'), 'firmages:end_sigil')
-  sigil(event.create('firmages:space_sigil'), 'firmages:space_sigil')
-  sigil(event.create('firmages:abyss_sigil'), 'firmages:abyss_sigil')
-  sigil(event.create('firmages:chaos_sigil'), 'firmages:chaos_sigil')
+  // ---- Expedition items of the Age tokens (dev/decisions-while-away.md, 2026-10-14) ---------------------------------
+  // Iron Age: the compass points to the Cold Forge (server_scripts/firmages/frontier_compass.js), its chest keeps the
+  // shard, the Create line finishes it into the relic (recipes/age_2/iron_age.js). Arcane Age: the Hollow Keystone from
+  // the Nether fortresses, filled on the Create line (recipes/age_3/arcane_age.js). Space Age: the flight recorder from
+  // the Mars temple (kubejs/data/firmages/loot_modifiers/). The incomplete items are Create sequenced assembly items.
+  event.create('firmages:frontier_compass').displayName('Frontier Compass').maxStackSize(1)
+  event.create('firmages:frontier_shard').displayName('Frontier Shard').maxStackSize(16)
+  event.create('firmages:incomplete_frontier_relic', 'create:sequenced_assembly').displayName('Incomplete Frontier Relic')
+  event.create('firmages:frontier_relic').displayName('Frontier Relic').maxStackSize(16).rarity('uncommon')
+  event.create('firmages:hollow_keystone').displayName('Hollow Keystone').maxStackSize(16)
+  event.create('firmages:incomplete_arcane_keystone', 'create:sequenced_assembly').displayName('Incomplete Arcane Keystone')
+  event.create('firmages:flight_recorder').displayName('Flight Recorder').maxStackSize(16).rarity('uncommon')
 
   // ---- Canonical dusts for TFC-only metals (Doc 08 section 4.1) ---------------------------
   // Crushing Wheels (Iron Age) turn TFC ore pieces into dust; dusts melt back in TFC vessels.
@@ -106,4 +91,11 @@ StartupEvents.registry('item', event => {
   event.create('firmages:ore/normal_native_osmium').displayName('Normal Native Osmium')
   event.create('firmages:ore/rich_native_osmium').displayName('Rich Native Osmium')
   event.create('firmages:metal/double_ingot/osmium').displayName('Osmium Double Ingot')
+
+  // ---- Draconium (the pack's draconium vein, startup_scripts/draconium.js) --------------------------------------
+  // Ore pieces of the three grades (the small piece is the indicator block's item); the Mekanism ore ladder makes
+  // them into More Mekanism Processing's draconium clumps, shards and slurry (recipes/age_6/ore_ladder.js).
+  event.create('firmages:ore/poor_draconium').displayName('Poor Draconium')
+  event.create('firmages:ore/normal_draconium').displayName('Normal Draconium')
+  event.create('firmages:ore/rich_draconium').displayName('Rich Draconium')
 })
