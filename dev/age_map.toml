@@ -509,6 +509,22 @@ block = "tfc:rock/loose/granite"
 "id:draconicevolution:flux_gate" = "age_9"
 "id:mekanism:quantum_entangloporter" = "age_7"
 "id:mekmm:wireless_transmission_station" = "age_7"      # takes the Entangloporter
+# Harmony plan fix 15 (2026-10-15): boiler, turbine and the heaters belong to fission (Space Age); without a reactor
+# they only turned fuelwood or FE into a little steam power.
+"id:mekanism:boiler_casing" = "age_7"
+"id:mekanism:boiler_valve" = "age_7"
+"id:mekanism:pressure_disperser" = "age_7"
+"id:mekanism:superheating_element" = "age_7"
+"id:mekanism:fuelwood_heater" = "age_7"
+"id:mekanism:resistive_heater" = "age_7"
+"id:mekanismgenerators:turbine_casing" = "age_7"
+"id:mekanismgenerators:turbine_valve" = "age_7"
+"id:mekanismgenerators:turbine_vent" = "age_7"
+"id:mekanismgenerators:turbine_rotor" = "age_7"
+"id:mekanismgenerators:turbine_blade" = "age_7"
+"id:mekanismgenerators:rotational_complex" = "age_7"
+"id:mekanismgenerators:electromagnetic_coil" = "age_7"
+"id:mekanismgenerators:saturating_condenser" = "age_7"
 # Trophies after the final boss (stage finale_won locks them on top).
 "id:mekanism:mekasuit_helmet" = "age_9"
 "id:mekanism:mekasuit_bodyarmor" = "age_9"
@@ -912,8 +928,14 @@ items = [
     "evolvedmekanism:refined_redstone_paxel",
     "evolvedmekanism:solidification_chamber",
     "evolvedmekanism:ultimate_solar_generator",
-    # AE2: Vibration Chamber.
+    # Evolved Mekanism: the solar upgrade (it only boosts the disabled solar generators; harmony plan fix 19).
+    "evolvedmekanism:upgrade_solar",
+    # AE2: Vibration Chamber, and the Crystal Resonance Generator (free passive AE power; harmony plan fix 5, its rate
+    # is 0 in config/ae2-common.toml as well).
     "ae2:vibration_chamber",
+    "ae2:crystal_resonance_generator",
+    # Create: Applied Kinetics: the energy provider (1 SU = 1 FE worth of AE, 45 times the alternator; harmony plan fix 4).
+    "createappliedkinetics:energy_provider",
     # AdvancedAE: Quantum Armor and the strength card (it only upgrades the Quantum Armor).
     "advanced_ae:quantum_boots",
     "advanced_ae:quantum_chestplate",

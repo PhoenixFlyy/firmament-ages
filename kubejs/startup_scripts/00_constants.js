@@ -244,6 +244,8 @@ global.FA = {
     'evolvedmekanism:ultimate_solar_generator',
     // AE2: Vibration Chamber
     'ae2:vibration_chamber',
+    // Harmony plan fixes 4, 5 and 19 (2026-10-15): passive or free power and a dead upgrade.
+    'ae2:crystal_resonance_generator', 'createappliedkinetics:energy_provider', 'evolvedmekanism:upgrade_solar',
     // AdvancedAE: Quantum Armor and the strength card (it only upgrades the Quantum Armor)
     'advanced_ae:quantum_boots', 'advanced_ae:quantum_chestplate', 'advanced_ae:quantum_helmet',
     'advanced_ae:quantum_leggings', 'advanced_ae:strength_card',
