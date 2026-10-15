@@ -1,0 +1,60 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:wayshrine_core"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/lights"
+    },
+    "F": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/reef_altar/floor"
+    },
+    "G": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/reef_altar/glass"
+    },
+    "K": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/reef_altar/coral"
+    }
+  },
+  "pattern": [
+    [
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "___L_____",
+      "_________",
+      "_________",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "____K____",
+      "__K___K__",
+      "___G_G___",
+      "_K_F___K_",
+      "___G_G___",
+      "__K___K__",
+      "____K____",
+      "_________"
+    ],
+    [
+      "_________",
+      "____K____",
+      "__K_F_K__",
+      "___FFF___",
+      "_KFF0FFK_",
+      "___FFF___",
+      "__K_F_K__",
+      "____K____",
+      "_________"
+    ]
+  ]
+}

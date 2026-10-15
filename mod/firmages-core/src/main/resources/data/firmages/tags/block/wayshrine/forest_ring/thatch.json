@@ -1,0 +1,9 @@
+{
+  "values": [
+    {
+      "id": "tfc:thatch",
+      "required": false
+    },
+    "minecraft:hay_block"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/steppe_stones",
+  "multiblock": "firmages:wayshrine_steppe_stones",
+  "min_age": "age_1",
+  "light_key": "L",
+  "ruin_beam": "#E8D7A0"
+}

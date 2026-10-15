@@ -1,0 +1,64 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:wayshrine_core"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/lights"
+    },
+    "B": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/volcanic_ring/bricks"
+    },
+    "M": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/volcanic_ring/magma"
+    },
+    "S": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/volcanic_ring/smooth"
+    },
+    "Z": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/volcanic_ring/steel"
+    }
+  },
+  "pattern": [
+    [
+      "_________",
+      "_B_____B_",
+      "_________",
+      "_________",
+      "___L_____",
+      "_________",
+      "_________",
+      "_B_____B_",
+      "_________"
+    ],
+    [
+      "_________",
+      "_B_____B_",
+      "_________",
+      "_________",
+      "___Z_____",
+      "_________",
+      "_________",
+      "_B_____B_",
+      "_________"
+    ],
+    [
+      "_________",
+      "_BBBBBBB_",
+      "_B__M__B_",
+      "_B_SSS_B_",
+      "_BMS0SMB_",
+      "_B_SSS_B_",
+      "_B__M__B_",
+      "_BBBBBBB_",
+      "_________"
+    ]
+  ]
+}

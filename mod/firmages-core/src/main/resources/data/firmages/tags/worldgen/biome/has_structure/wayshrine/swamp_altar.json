@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:lowlands",
+      "required": false
+    },
+    {
+      "id": "tfc:salt_marsh",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_flats",
+      "required": false
+    }
+  ]
+}

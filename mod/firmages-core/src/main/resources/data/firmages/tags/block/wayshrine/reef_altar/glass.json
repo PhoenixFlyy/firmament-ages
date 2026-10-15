@@ -1,0 +1,76 @@
+{
+  "values": [
+    {
+      "id": "#c:glass_blocks",
+      "required": false
+    },
+    {
+      "id": "tfc:poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:white_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:orange_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:magenta_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:light_blue_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:yellow_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:lime_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:pink_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:gray_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:light_gray_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:cyan_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:purple_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:blue_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:brown_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:green_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:red_poured_glass",
+      "required": false
+    },
+    {
+      "id": "tfc:black_poured_glass",
+      "required": false
+    }
+  ]
+}

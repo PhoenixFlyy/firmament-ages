@@ -1,0 +1,6 @@
+{
+  "rites": [
+    { "type": "blockstate", "key": "L", "property": "active", "value": "true", "hint": "firmages.wayshrine.rite.power" },
+    { "type": "players_praying", "min": 2, "hint": "firmages.wayshrine.rite.chorus" }
+  ]
+}

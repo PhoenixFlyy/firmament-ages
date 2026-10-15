@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:ocean_reef",
+      "required": false
+    },
+    {
+      "id": "tfc:ocean_atolls",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:wayshrine/steppe_stones",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "tfc:climate",
+    "salt": 2049462253,
+    "spacing": 128,
+    "separation": 48,
+    "climate": {
+      "max_groundwater": 150.0,
+      "max_forest": 1
+    }
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "tfc"
+    }
+  ]
+}

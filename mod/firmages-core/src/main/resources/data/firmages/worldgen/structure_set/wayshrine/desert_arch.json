@@ -1,0 +1,24 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:wayshrine/desert_arch",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "tfc:climate",
+    "salt": 1431458777,
+    "spacing": 128,
+    "separation": 48,
+    "climate": {
+      "max_groundwater": 100.0,
+      "min_temperature": 18.0
+    }
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "tfc"
+    }
+  ]
+}

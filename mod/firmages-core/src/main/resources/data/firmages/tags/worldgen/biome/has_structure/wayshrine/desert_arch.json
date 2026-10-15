@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:dune_sea",
+      "required": false
+    },
+    {
+      "id": "tfc:grassy_dunes",
+      "required": false
+    },
+    {
+      "id": "tfc:badlands",
+      "required": false
+    },
+    {
+      "id": "tfc:mesas",
+      "required": false
+    },
+    {
+      "id": "tfc:buttes",
+      "required": false
+    }
+  ]
+}

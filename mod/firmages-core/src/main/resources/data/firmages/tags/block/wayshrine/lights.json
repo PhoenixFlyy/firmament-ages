@@ -1,0 +1,113 @@
+{
+  "values": [
+    "#minecraft:candles",
+    {
+      "id": "tfc:candle",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/white",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/orange",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/magenta",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/light_blue",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/yellow",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/lime",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/pink",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/gray",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/light_gray",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/cyan",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/purple",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/blue",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/brown",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/green",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/red",
+      "required": false
+    },
+    {
+      "id": "tfc:candle/black",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/copper",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/bronze",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/bismuth_bronze",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/black_bronze",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/wrought_iron",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/black_steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/red_steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/lamp/blue_steel",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:electric_lantern",
+      "required": false
+    }
+  ]
+}

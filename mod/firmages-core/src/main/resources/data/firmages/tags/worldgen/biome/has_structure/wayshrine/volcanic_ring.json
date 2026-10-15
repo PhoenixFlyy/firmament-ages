@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:volcanic_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:volcanic_island",
+      "required": false
+    },
+    {
+      "id": "tfc:volcanic_oceanic_mountains",
+      "required": false
+    }
+  ]
+}

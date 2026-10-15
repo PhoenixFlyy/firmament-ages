@@ -1,0 +1,75 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:wayshrine_core"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/lights"
+    },
+    "A": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/forest_ring/altar"
+    },
+    "F": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/forest_ring/floor"
+    },
+    "T": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/forest_ring/thatch"
+    },
+    "W": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/forest_ring/post"
+    }
+  },
+  "pattern": [
+    [
+      "_________",
+      "____T____",
+      "__T___T__",
+      "_________",
+      "_T_____T_",
+      "_________",
+      "__T___T__",
+      "____T____",
+      "_________"
+    ],
+    [
+      "_________",
+      "____W____",
+      "__W___W__",
+      "_________",
+      "_W_L___W_",
+      "_________",
+      "__W___W__",
+      "____W____",
+      "_________"
+    ],
+    [
+      "_________",
+      "____W____",
+      "__W___W__",
+      "_________",
+      "_W_A___W_",
+      "_________",
+      "__W___W__",
+      "____W____",
+      "_________"
+    ],
+    [
+      "_________",
+      "____W____",
+      "__WFFFW__",
+      "__FFFFF__",
+      "_WFF0FFW_",
+      "__FFFFF__",
+      "__WFFFW__",
+      "____W____",
+      "_________"
+    ]
+  ]
+}

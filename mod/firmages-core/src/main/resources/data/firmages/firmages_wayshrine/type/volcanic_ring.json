@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/volcanic_ring",
+  "multiblock": "firmages:wayshrine_volcanic_ring",
+  "min_age": "age_5",
+  "light_key": "L",
+  "ruin_beam": "#FF7A3D"
+}

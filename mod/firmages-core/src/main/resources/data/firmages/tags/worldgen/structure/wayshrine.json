@@ -1,0 +1,32 @@
+{
+  "values": [
+    {
+      "id": "firmages:wayshrine/forest_ring",
+      "required": false
+    },
+    {
+      "id": "firmages:wayshrine/steppe_stones",
+      "required": false
+    },
+    {
+      "id": "firmages:wayshrine/swamp_altar",
+      "required": false
+    },
+    {
+      "id": "firmages:wayshrine/desert_arch",
+      "required": false
+    },
+    {
+      "id": "firmages:wayshrine/mountain_spire",
+      "required": false
+    },
+    {
+      "id": "firmages:wayshrine/reef_altar",
+      "required": false
+    },
+    {
+      "id": "firmages:wayshrine/volcanic_ring",
+      "required": false
+    }
+  ]
+}

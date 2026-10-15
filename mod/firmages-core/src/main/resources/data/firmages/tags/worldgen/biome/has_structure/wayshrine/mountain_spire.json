@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:old_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:highlands",
+      "required": false
+    }
+  ]
+}

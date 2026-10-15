@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/reef_altar",
+  "multiblock": "firmages:wayshrine_reef_altar",
+  "min_age": "age_4",
+  "light_key": "L",
+  "ruin_beam": "#6FD6D0"
+}

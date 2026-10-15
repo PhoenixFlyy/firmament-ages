@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/swamp_altar",
+  "multiblock": "firmages:wayshrine_swamp_altar",
+  "min_age": "age_2",
+  "light_key": "L",
+  "ruin_beam": "#7FA88A"
+}

@@ -1,0 +1,44 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:wayshrine_core"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/lights"
+    },
+    "F": {
+      "type": "modonomicon:block",
+      "block": "minecraft:stone_bricks"
+    },
+    "W": {
+      "type": "modonomicon:block",
+      "block": "minecraft:oak_log"
+    }
+  },
+  "pattern": [
+    [
+      "_____",
+      "_____",
+      "_L___",
+      "_____",
+      "_____"
+    ],
+    [
+      "W___W",
+      "_____",
+      "_F___",
+      "_____",
+      "W___W"
+    ],
+    [
+      "_____",
+      "_FFF_",
+      "_F0F_",
+      "_FFF_",
+      "_____"
+    ]
+  ]
+}

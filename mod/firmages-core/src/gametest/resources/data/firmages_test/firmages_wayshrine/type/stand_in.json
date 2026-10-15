@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/stand_in",
+  "multiblock": "firmages:wayshrine_stand_in",
+  "min_age": "age_1",
+  "light_key": "L",
+  "ruin_beam": "#D8E6F0"
+}

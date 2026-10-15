@@ -1,0 +1,25 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:wayshrine/forest_ring",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "tfc:climate",
+    "salt": 1558098458,
+    "spacing": 128,
+    "separation": 48,
+    "climate": {
+      "min_temperature": 4.0,
+      "max_temperature": 22.0,
+      "min_forest": 3
+    }
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "tfc"
+    }
+  ]
+}

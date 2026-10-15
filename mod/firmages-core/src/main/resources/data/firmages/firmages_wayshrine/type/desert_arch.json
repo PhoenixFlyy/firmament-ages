@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/desert_arch",
+  "multiblock": "firmages:wayshrine_desert_arch",
+  "min_age": "age_2",
+  "light_key": "L",
+  "ruin_beam": "#F2C46D"
+}
