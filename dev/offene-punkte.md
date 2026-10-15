@@ -33,6 +33,10 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Endkampf: Länge des Kampfs gegen The Primordial (1024 Leben, Cataclysm-Schadensdeckel) mit Chaos-Ausrüstung | The Origin | Felix |
 | Neue Sperrtexte (0.9.0): gesperrtes Item zeigt „Something Unknown“ und eine graue Zeile „Not of this Age“, Hotbar-Zeile „… Their Age has not come.“, keine Fehler im Log | `config/progressivestages/progressivestages.toml` `[messages]` | Felix |
 | Startzeit-Test: `mixin.perf.dynamic_resources=true` in `config/modernfix-mixins.properties`, Client starten, Create-Kontraption, Framed-Blöcke und ein Sable-Schiff ansehen; Startphasen vorher/nachher mit `python dev/check_log.py --client` (0.9.0: 64 s erstes Resource-Reload, 128 s bis zum Titelbild) | `config/modernfix-mixins.properties` | Felix testet, Claude wertet aus |
+| N7 Welt im Client: Cacophony (Vögel nach Klima und Jahreszeit, Wind), Particle Rain in einer TFC-Wüste und einem Regenwald (folgt der Regen TFCs lokalem Niederschlag?), Cosy-Critters-Vögel über TFC-Wald, Subtle Effects ohne Herzschlag; Startzeit bis Titel und bis EMI bereit, RAM nach 10 Minuten im Wald, FPS in der Basis | `config/`, `n7-world.md` §6 Punkt 9 | Felix |
+| Exposure: Kamera bauen, S/W-Film belichten, mit Soda und Salz entwickeln, in der Lichtkammer drucken (Licht 13 nötig); Farbfilm erst in der Industriezeit | `kubejs/server_scripts/recipes/exposure.js` | Felix |
+| Blutmond pro Age: `/ec lunarForecast` nach der Eisenzeit zeigt `firmages:blood_moon_age_<N>`; Zombies mit Rüstung und Waffe der Vor-Age, ab der Elektrischen Age schneller | `kubejs/server_scripts/firmages/blood_moon.js`, `dev/gen_blood_moon.py` | Felix |
+| Vulkan: Ausbruch und Beben ohne Schaden an Blöcken, Mineralkrusten an heißen Quellen | `config/tfcvolcanoes-startup.toml` | Felix |
 
 ## Inhalt und Config (Claude)
 
@@ -57,6 +61,9 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Walkthrough, Fallstrick der Weltraumzeit, nennt Naquadah der Singularitätszeit (Vorwärtsname; die Quests sind bereinigt, der Walkthrough deckt alle Ages ab) | `docs/WALKTHROUGH.md` | Claude |
 | `Modpack-Planung/docs/12-Walkthrough.md` doppelt `docs/WALKTHROUGH.md`: auf einen Verweis kürzen | `../Modpack-Planung/docs/` | Claude |
 | Java-Fallback-Texte der Mod stimmen nicht mehr mit der Lang-Datei überein („The world realigns...“, „No shrine heart is placed“) | `FirmagesClient.java`, `ReloadStatePayload.java`, `ShrineCommands.java` | Claude (mit der nächsten firmages-core-Version) |
+| Neue Namespaces `exposure` und `tfcvolcanoes` stehen in keinem Age-Tag, bis ein Dump mit den neuen Jars da ist: Boot mit `fa_dump`, dann `gen_stage_locks.py --registry <dump>`, `derive_ages.py --dump-dir <dump>`, `gen_stage_locks.py` | `dev/age_map.toml`, `kubejs/data/firmages/tags/item/age_items/` | Claude (Integration) |
+| Ruinen-Truhen: prüfen, dass ProgressiveStages' `stage_filter` beim Öffnen gesperrte Pools entfernt (Truhe in Dawn öffnen: nur Dawn-Kleinkram) und dass Trichter unter der Truhe nichts Gesperrtes ziehen | `kubejs/data/firmages/loot_table/chests/ruin_*.json` | Claude, mit Server-Test |
+| EC2-Daten der Age-Blutmonde (Ausrüstungssets per Registry-Verweis, `corgilib:is_type_tag`) beim Boot ohne Fehler laden | `kubejs/data/firmages/enhancedcelestials2core/lunar/` | Claude, mit Server-Test |
 
 ## Prüfen, ob noch offen
 
