@@ -123,6 +123,35 @@
 	# Range: 0 ~ 1440
 	gatherIdleMinutes = 5
 
+#The Primordial, the end boss (docs/primordial.md). Its health stays at the attribute cap of 1024; the damage it takes is
+#scaled so the fight lasts as if it had effectiveHealth * ((1 - perPlayerFactor) + perPlayerFactor * players) health.
+[boss]
+	#Effective health for one player.
+	# Default: 2400.0
+	# Range: 100.0 ~ 100000.0
+	effectiveHealth = 2400.0
+	#Share of the effective health each further player of the Gathering adds (0.45: 2 players 1.45x, 4 players 2.35x).
+	# Default: 0.45
+	# Range: 0.0 ~ 1.0
+	perPlayerFactor = 0.45
+	#Damage factor while the veil is closed (1 = the veil does not matter).
+	# Default: 0.25
+	# Range: 0.0 ~ 1.0
+	veilFactor = 0.25
+	#After this many minutes of fighting the veil stays open only half as long.
+	# Default: 10
+	# Range: 1 ~ 120
+	enrageMinutes = 10
+	#After this many minutes star-fall rains in every phase, twice as often.
+	# Default: 12
+	# Range: 1 ~ 120
+	starfallEnrageMinutes = 12
+	#With no living player within 48 blocks of the altar for this many seconds, the boss withdraws and the
+	#lanterns come back (a wipe); the next Gathering summons it anew.
+	# Default: 30
+	# Range: 5 ~ 3600
+	wipeSeconds = 30
+
 #ProgressiveStages client syncs
 [sync]
 	#Send the ProgressiveStages lock and stage sync once per player at the end of the tick instead of once per

@@ -57,6 +57,13 @@ public final class ServerConfig {
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_IDLE_MINUTES;
+    // boss (The Primordial, docs/primordial.md)
+    public static final ModConfigSpec.DoubleValue BOSS_EFFECTIVE_HEALTH;
+    public static final ModConfigSpec.DoubleValue BOSS_PER_PLAYER;
+    public static final ModConfigSpec.DoubleValue BOSS_VEIL_FACTOR;
+    public static final ModConfigSpec.IntValue BOSS_ENRAGE_MINUTES;
+    public static final ModConfigSpec.IntValue BOSS_STARFALL_ENRAGE_MINUTES;
+    public static final ModConfigSpec.IntValue BOSS_WIPE_SECONDS;
     // sync
     public static final ModConfigSpec.BooleanValue SYNC_COALESCE;
     // team (SPEC §2.3)
@@ -167,6 +174,23 @@ public final class ServerConfig {
             .defineInRange("gatherIdleMinutes", 5, 0, 1440);
         ORIGIN_GATHER_COOLDOWN = b.comment("Seconds before a broken-up Gathering can start the fight again.")
             .defineInRange("gatherCooldownSeconds", 30, 0, 3600);
+        b.pop();
+
+        b.comment("The Primordial, the end boss (docs/primordial.md). Its health stays at the attribute cap of 1024; the damage it takes is",
+                "scaled so the fight lasts as if it had effectiveHealth * ((1 - perPlayerFactor) + perPlayerFactor * players) health.").push("boss");
+        BOSS_EFFECTIVE_HEALTH = b.comment("Effective health for one player.")
+            .defineInRange("effectiveHealth", 2400.0, 100.0, 100000.0);
+        BOSS_PER_PLAYER = b.comment("Share of the effective health each further player of the Gathering adds (0.45: 2 players 1.45x, 4 players 2.35x).")
+            .defineInRange("perPlayerFactor", 0.45, 0.0, 1.0);
+        BOSS_VEIL_FACTOR = b.comment("Damage factor while the veil is closed (1 = the veil does not matter).")
+            .defineInRange("veilFactor", 0.25, 0.0, 1.0);
+        BOSS_ENRAGE_MINUTES = b.comment("After this many minutes of fighting the veil stays open only half as long.")
+            .defineInRange("enrageMinutes", 10, 1, 120);
+        BOSS_STARFALL_ENRAGE_MINUTES = b.comment("After this many minutes star-fall rains in every phase, twice as often.")
+            .defineInRange("starfallEnrageMinutes", 12, 1, 120);
+        BOSS_WIPE_SECONDS = b.comment("With no living player within 48 blocks of the altar for this many seconds, the boss withdraws and the",
+                "lanterns come back (a wipe); the next Gathering summons it anew.")
+            .defineInRange("wipeSeconds", 30, 5, 3600);
         b.pop();
 
         b.comment("ProgressiveStages client syncs").push("sync");
@@ -321,6 +345,31 @@ public final class ServerConfig {
     /** {@code team.autoJoin}. */
     public static boolean teamAutoJoin() {
         return !loaded() || TEAM_AUTO_JOIN.get();
+    }
+
+    /** {@code boss.effectiveHealth}: the effective health The Primordial is scaled to for one player. */
+    public static double bossEffectiveHealth() {
+        return loaded() ? BOSS_EFFECTIVE_HEALTH.get() : 2400.0;
+    }
+
+    public static double bossPerPlayer() {
+        return loaded() ? BOSS_PER_PLAYER.get() : 0.45;
+    }
+
+    public static double bossVeilFactor() {
+        return loaded() ? BOSS_VEIL_FACTOR.get() : 0.25;
+    }
+
+    public static int bossEnrageMinutes() {
+        return loaded() ? BOSS_ENRAGE_MINUTES.get() : 10;
+    }
+
+    public static int bossStarfallEnrageMinutes() {
+        return loaded() ? BOSS_STARFALL_ENRAGE_MINUTES.get() : 12;
+    }
+
+    public static int bossWipeSeconds() {
+        return loaded() ? BOSS_WIPE_SECONDS.get() : 30;
     }
 
     /** {@code origin.gatherIdleMinutes}: 0 = nobody is left out. */

@@ -207,9 +207,9 @@ config="${mod_id}.mixins.json"
 
 [[dependencies.${mod_id}]]
     modId="geckolib"
-    type="optional"
-    reason="Animated shrine idol"
-    versionRange="*"
+    type="required"
+    reason="The Primordial, the end boss: model, animations and glow layer"
+    versionRange="[4.9,5)"
     ordering="AFTER"
     side="BOTH"
 
