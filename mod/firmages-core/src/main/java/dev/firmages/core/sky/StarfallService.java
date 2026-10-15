@@ -319,8 +319,11 @@ public final class StarfallService {
 
     // ---- carving
 
-    /** {@link DeferredSites} handler: every chunk of the box is loaded at FULL. */
-    private static void ready(ServerLevel level, long id) {
+    /**
+     * {@link DeferredSites} handler: every chunk of the box is loaded at FULL. Runs the base check (moving or burning
+     * the site) or starts the carve; public for the GameTests.
+     */
+    public static void ready(ServerLevel level, long id) {
         SkySavedData d = SkySavedData.get(level.getServer());
         Optional<StarfallSite> o = d.site(id);
         if (o.isEmpty() || !o.get().open()) {
@@ -367,7 +370,6 @@ public final class StarfallService {
         s.centreY = CraterCarver.groundY(level, s.x, s.z);
         CraterPlan.Op core = plan.ops().get(plan.ops().size() - 1);
         s.core = new BlockPos(s.x + core.dx(), s.centreY + core.dy(), s.z + core.dz());
-        if (StarfallRules.cold(level.getGameTime(), s.coolsAt)) s.coolsAt = Math.min(s.coolsAt, level.getGameTime());
         s.state = StarfallSite.State.CARVING;
         s.cursor = 0;
         d.indexCore(s);
@@ -383,7 +385,7 @@ public final class StarfallService {
         CraterCarver.forget(s.id);
         if (s.core != null && level.getBlockEntity(s.core) instanceof StarfallCoreBlockEntity be) be.setCooling(s.id, s.coolsAt);
         FirmagesCore.LOGGER.info("Starfall: crater {} carved, core at {}", s, s.core == null ? "-" : s.core.toShortString());
-        veinFor(level.getServer(), s, false);
+        veinFor(level.getServer(), s);
     }
 
     /**
@@ -493,12 +495,12 @@ public final class StarfallService {
         int added = 0;
         for (StarfallSite s : SkySavedData.get(server).sites()) {
             if (s.state != StarfallSite.State.CARVED) continue;
-            if (!s.veinAdded || full) added += veinFor(server, s, true) ? 1 : 0;
+            if (!s.veinAdded || full) added += veinFor(server, s) ? 1 : 0;
         }
         return added;
     }
 
-    private static boolean veinFor(MinecraftServer server, StarfallSite s, boolean known) {
+    private static boolean veinFor(MinecraftServer server, StarfallSite s) {
         if (!ModList.get().isLoaded(StarfallVeins.MOD_ID) || !automationOpen(server)) return false;
         StarfallData data = StarfallDataLoader.current();
         String mix = data.metal(s.metal).map(StarfallData.Metal::mix)

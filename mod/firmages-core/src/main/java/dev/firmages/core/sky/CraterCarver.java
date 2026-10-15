@@ -90,8 +90,8 @@ public final class CraterCarver {
     }
 
     /**
-     * The ground of a column: the highest block that is not air, fluid, leaves, a log or a replaceable plant (so a
-     * crater's rim never sits on a tree trunk). Reads loaded chunks only.
+     * The ground of a column: the highest block that is not air, fluid, leaves, a log, a replaceable plant or a barrier
+     * (so a crater's rim never sits on a tree trunk, and a GameTest's barrier case is no ground). Reads loaded chunks only.
      */
     public static int groundY(ServerLevel level, int x, int z) {
         int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z) - 1;
@@ -99,7 +99,8 @@ public final class CraterCarver {
         for (int i = 0; i < 48 && y > level.getMinBuildHeight(); i++) {
             p.setY(y);
             BlockState s = level.getBlockState(p);
-            if (!(s.isAir() || !s.getFluidState().isEmpty() || s.is(BlockTags.LEAVES) || s.is(BlockTags.LOGS) || s.canBeReplaced())) break;
+            if (!(s.isAir() || !s.getFluidState().isEmpty() || s.is(BlockTags.LEAVES) || s.is(BlockTags.LOGS) || s.canBeReplaced()
+                || s.is(Blocks.BARRIER))) break;
             y--;
         }
         return y;
@@ -158,8 +159,8 @@ public final class CraterCarver {
         ACTIVE.remove(id);
     }
 
-    /** Called when a site is done or gone. */
-    static synchronized void forget(long id) {
+    /** Called when a site is done, moved or gone (the plan is dropped with it). */
+    public static synchronized void forget(long id) {
         ACTIVE.remove(id);
         PLANS.remove(id);
     }
