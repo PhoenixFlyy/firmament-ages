@@ -12,6 +12,74 @@
     {
       "id": "tfc:plateau",
       "required": false
+    },
+    {
+      "id": "tfc:plateau_wide",
+      "required": false
+    },
+    {
+      "id": "tfc:rocky_plateau",
+      "required": false
+    },
+    {
+      "id": "tfc:doline_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:doline_rolling_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:doline_plateau",
+      "required": false
+    },
+    {
+      "id": "tfc:cenote_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:cenote_rolling_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:cenote_plateau",
+      "required": false
+    },
+    {
+      "id": "tfc:burren_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:burren_plateau",
+      "required": false
+    },
+    {
+      "id": "tfc:shilin_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:shilin_plateau",
+      "required": false
+    },
+    {
+      "id": "tfc:patterned_ground",
+      "required": false
+    },
+    {
+      "id": "tfc:inverted_patterned_ground",
+      "required": false
+    },
+    {
+      "id": "tfc:stone_circles",
+      "required": false
+    },
+    {
+      "id": "tfc:terrace_lower",
+      "required": false
+    },
+    {
+      "id": "tfc:terrace_upper",
+      "required": false
     }
   ]
 }

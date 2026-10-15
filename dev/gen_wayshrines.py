@@ -83,6 +83,37 @@ LOGS = ["#minecraft:logs"]
 ROCK_BRICKS = ["#firmages:wayshrine/any_rock_bricks"]
 
 
+# Biomes per type: the SPEC-himmel 28.4 base biomes first, then their TFC 4.2.11 variants (the dolines, cenotes, burren,
+# shilin and tower karst families, glacial and volcanic variants). With the base biomes alone the 0.10.0 copy boot found
+# no Wayshrine within 4,096 blocks of spawn: TFC 4.2 splits most landscapes into variants, and the variants cover most
+# of the land. The tfc:climate placement stays the real filter. No type uses min_elevation: ClimateStructurePlacement tests
+# the climate at y 0 of the chunk (javap TFC 4.2.11), so an elevation bound never passes; the mountain biomes carry the
+# height of the Mountain Spire instead. All ids are in data/tfc/worldgen/biome of TFC 4.2.11.
+FOREST_RING_BIOMES = ["plains", "hills", "rolling_hills", "lowlands",
+                      "doline_plains", "doline_hills", "doline_rolling_hills", "cenote_plains", "cenote_hills",
+                      "cenote_rolling_hills", "burren_plains", "shilin_plains", "shilin_hills", "tower_karst_plains",
+                      "tower_karst_hills", "drumlins", "knob_and_kettle"]
+STEPPE_STONES_BIOMES = ["plains", "rolling_hills", "plateau",
+                        "plateau_wide", "rocky_plateau", "doline_plains", "doline_rolling_hills", "doline_plateau",
+                        "cenote_plains", "cenote_rolling_hills", "cenote_plateau", "burren_plains", "burren_plateau",
+                        "shilin_plains", "shilin_plateau", "patterned_ground", "inverted_patterned_ground",
+                        "stone_circles", "terrace_lower", "terrace_upper"]
+SWAMP_ALTAR_BIOMES = ["lowlands", "salt_marsh", "mud_flats", "tidal_flats", "knob_and_kettle"]
+DESERT_ARCH_BIOMES = ["dune_sea", "grassy_dunes", "badlands", "mesas", "buttes",
+                      "coastal_dunes", "burren_badlands", "burren_badlands_tall", "hoodoos", "salt_flats",
+                      "stair_step_canyons", "whorled_canyons"]
+MOUNTAIN_SPIRE_BIOMES = ["mountains", "old_mountains", "highlands",
+                         "collisional_mountains", "oceanic_mountains", "extreme_doline_mountains", "doline_highlands",
+                         "cenote_highlands", "shilin_highlands", "tower_karst_highlands", "glacially_carved_mountains",
+                         "glaciated_mountains"]
+REEF_ALTAR_BIOMES = ["ocean_reef", "ocean_atolls", "deep_ocean_atolls"]
+VOLCANIC_RING_BIOMES = ["volcanic_mountains", "volcanic_island", "volcanic_oceanic_mountains",
+                        "volcanic_mountain_islands", "oceanic_volcanic_arc", "tuyas", "active_shield_volcano",
+                        "dormant_shield_volcano", "extinct_shield_volcano", "ancient_shield_volcano",
+                        "glacially_carved_volcanic_mountains", "glaciated_volcanic_mountains",
+                        "glacially_carved_volcanic_oceanic_mountains", "glaciated_volcanic_oceanic_mountains"]
+
+
 class Role:
     """One pattern key: its tag (role name inside the type) and the block the templates use."""
 
@@ -143,7 +174,7 @@ def forest_ring():
              "W": Role("post", LOGS, "tfc:wood/log/oak", {"axis": "y"}),
              "T": Role("thatch", ["tfc:thatch", "minecraft:hay_block"], "tfc:thatch")}
     return Kind("forest_ring", "Forest Ring", "age_1", "#9FD38A", size, "granite", roles, cells, missing, rubble,
-                biomes=["plains", "hills", "rolling_hills", "lowlands"],
+                biomes=FOREST_RING_BIOMES,
                 climate={"min_temperature": 4.0, "max_temperature": 22.0, "min_forest": 3})
 
 
@@ -165,7 +196,7 @@ def steppe_stones():
              "Z": Role("bronze", ["#c:storage_blocks/bronze", "tfc:metal/block/bronze", "tfc:metal/block/bismuth_bronze",
                                   "tfc:metal/block/black_bronze"], "tfc:metal/block/bronze")}
     return Kind("steppe_stones", "Steppe Stones", "age_1", "#E8D7A0", size, "andesite", roles, cells, missing, rubble,
-                biomes=["plains", "rolling_hills", "plateau"], climate={"max_groundwater": 150.0, "max_forest": 1})
+                biomes=STEPPE_STONES_BIOMES, climate={"max_groundwater": 150.0, "max_forest": 1})
 
 
 def swamp_altar():
@@ -190,7 +221,7 @@ def swamp_altar():
                                 "tfc:metal/bars/red_steel", "tfc:metal/bars/blue_steel", "minecraft:iron_bars"],
                        "tfc:metal/bars/wrought_iron", bars=True)}
     return Kind("swamp_altar", "Swamp Altar", "age_2", "#7FA88A", size, "shale", roles, cells, missing, rubble,
-                biomes=["lowlands", "salt_marsh", "mud_flats"], climate={"min_groundwater": 350.0}, terrain="beard_box")
+                biomes=SWAMP_ALTAR_BIOMES, climate={"min_groundwater": 350.0}, terrain="beard_box")
 
 
 def desert_arch():
@@ -214,7 +245,7 @@ def desert_arch():
                        "tfc:smooth_sandstone/yellow"),
              "C": Role("copper", ["#c:storage_blocks/copper", "tfc:metal/block/copper"], "tfc:metal/block/copper")}
     return Kind("desert_arch", "Desert Arch", "age_2", "#F2C46D", size, "sandstone", roles, cells, missing, rubble,
-                biomes=["dune_sea", "grassy_dunes", "badlands", "mesas", "buttes"],
+                biomes=DESERT_ARCH_BIOMES,
                 climate={"max_groundwater": 100.0, "min_temperature": 18.0})
 
 
@@ -240,7 +271,7 @@ def mountain_spire():
                                 "tfc:metal/bars/red_steel", "tfc:metal/bars/blue_steel", "minecraft:iron_bars"],
                        "tfc:metal/bars/wrought_iron", bars=True)}
     return Kind("mountain_spire", "Mountain Spire", "age_3", "#C8D6E8", size, "slate", roles, cells, missing, rubble,
-                biomes=["mountains", "old_mountains", "highlands"], climate={"min_elevation": 110}, terrain="beard_box")
+                biomes=MOUNTAIN_SPIRE_BIOMES, terrain="beard_box")
 
 
 def wind_shrine():
@@ -287,7 +318,7 @@ def reef_altar():
              "K": Role("coral", ["#minecraft:coral_blocks"], "minecraft:brain_coral_block"),
              "G": Role("glass", GLASS, "tfc:poured_glass")}
     return Kind("reef_altar", "Reef Altar", "age_4", "#6FD6D0", size, "limestone", roles, cells, missing, rubble,
-                biomes=["ocean_reef", "ocean_atolls"], climate={"min_temperature": 20.0}, heightmap="OCEAN_FLOOR_WG", water=True)
+                biomes=REEF_ALTAR_BIOMES, climate={"min_temperature": 20.0}, heightmap="OCEAN_FLOOR_WG", water=True)
 
 
 def volcanic_ring():
@@ -314,7 +345,7 @@ def volcanic_ring():
                        + ["minecraft:magma_block"], "tfc:rock/magma/basalt"),
              "Z": Role("steel", ["#c:storage_blocks/steel", "tfc:metal/block/steel"], "tfc:metal/block/steel")}
     return Kind("volcanic_ring", "Volcanic Ring", "age_5", "#FF7A3D", size, "basalt", roles, cells, missing, rubble,
-                biomes=["volcanic_mountains", "volcanic_island", "volcanic_oceanic_mountains"], terrain="beard_box")
+                biomes=VOLCANIC_RING_BIOMES, terrain="beard_box")
 
 
 def stand_in():

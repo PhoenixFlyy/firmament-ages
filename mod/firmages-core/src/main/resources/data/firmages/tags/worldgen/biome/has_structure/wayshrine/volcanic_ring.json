@@ -12,6 +12,50 @@
     {
       "id": "tfc:volcanic_oceanic_mountains",
       "required": false
+    },
+    {
+      "id": "tfc:volcanic_mountain_islands",
+      "required": false
+    },
+    {
+      "id": "tfc:oceanic_volcanic_arc",
+      "required": false
+    },
+    {
+      "id": "tfc:tuyas",
+      "required": false
+    },
+    {
+      "id": "tfc:active_shield_volcano",
+      "required": false
+    },
+    {
+      "id": "tfc:dormant_shield_volcano",
+      "required": false
+    },
+    {
+      "id": "tfc:extinct_shield_volcano",
+      "required": false
+    },
+    {
+      "id": "tfc:ancient_shield_volcano",
+      "required": false
+    },
+    {
+      "id": "tfc:glacially_carved_volcanic_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:glaciated_volcanic_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:glacially_carved_volcanic_oceanic_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:glaciated_volcanic_oceanic_mountains",
+      "required": false
     }
   ]
 }

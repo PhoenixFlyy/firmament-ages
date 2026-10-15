@@ -166,7 +166,7 @@ public final class ServerConfig {
         WAYSHRINE_PRAYER_SECONDS = b.comment("Seconds of prayer that light a Wayshrine, divided by the number of praying players (at least 2 s).")
             .defineInRange("prayerSeconds", 5, 2, 600);
         WAYSHRINE_POINTER_RADIUS_CHUNKS = b.comment("Chunks the pointer (right-click on the heart or a lit Wayshrine) searches for a sleeping Wayshrine.")
-            .defineInRange("pointerRadiusChunks", 100, 8, 256);
+            .defineInRange("pointerRadiusChunks", 256, 8, 512);
         WAYSHRINE_TUTORIAL = b.comment("Place one Forest Ring 300 to 800 blocks from the world spawn at the first start (also on an existing world).")
             .define("tutorial", true);
         b.pop();
@@ -355,7 +355,7 @@ public final class ServerConfig {
 
     /** {@code wayshrine.pointerRadiusChunks}. */
     public static int wayshrinePointerRadiusChunks() {
-        return loaded() ? WAYSHRINE_POINTER_RADIUS_CHUNKS.get() : 100;
+        return loaded() ? WAYSHRINE_POINTER_RADIUS_CHUNKS.get() : 256;
     }
 
     /** {@code wayshrine.tutorial}. */

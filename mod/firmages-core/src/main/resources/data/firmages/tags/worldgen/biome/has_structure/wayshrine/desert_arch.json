@@ -20,6 +20,34 @@
     {
       "id": "tfc:buttes",
       "required": false
+    },
+    {
+      "id": "tfc:coastal_dunes",
+      "required": false
+    },
+    {
+      "id": "tfc:burren_badlands",
+      "required": false
+    },
+    {
+      "id": "tfc:burren_badlands_tall",
+      "required": false
+    },
+    {
+      "id": "tfc:hoodoos",
+      "required": false
+    },
+    {
+      "id": "tfc:salt_flats",
+      "required": false
+    },
+    {
+      "id": "tfc:stair_step_canyons",
+      "required": false
+    },
+    {
+      "id": "tfc:whorled_canyons",
+      "required": false
     }
   ]
 }

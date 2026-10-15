@@ -111,9 +111,9 @@
 	# Range: 2 ~ 600
 	prayerSeconds = 5
 	#Chunks the pointer (right-click on the heart or a lit Wayshrine) searches for a sleeping Wayshrine.
-	# Default: 100
-	# Range: 8 ~ 256
-	pointerRadiusChunks = 100
+	# Default: 256
+	# Range: 8 ~ 512
+	pointerRadiusChunks = 256
 	#Place one Forest Ring 300 to 800 blocks from the world spawn at the first start (also on an existing world).
 	tutorial = true
 

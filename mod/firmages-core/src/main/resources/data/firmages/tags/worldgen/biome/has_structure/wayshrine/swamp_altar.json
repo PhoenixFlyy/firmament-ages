@@ -12,6 +12,14 @@
     {
       "id": "tfc:mud_flats",
       "required": false
+    },
+    {
+      "id": "tfc:tidal_flats",
+      "required": false
+    },
+    {
+      "id": "tfc:knob_and_kettle",
+      "required": false
     }
   ]
 }

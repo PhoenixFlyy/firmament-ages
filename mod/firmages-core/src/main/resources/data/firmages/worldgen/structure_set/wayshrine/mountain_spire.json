@@ -10,9 +10,7 @@
     "salt": 1190432521,
     "spacing": 128,
     "separation": 48,
-    "climate": {
-      "min_elevation": 110
-    }
+    "climate": {}
   },
   "neoforge:conditions": [
     {

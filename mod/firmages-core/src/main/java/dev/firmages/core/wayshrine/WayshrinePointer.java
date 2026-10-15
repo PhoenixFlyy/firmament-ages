@@ -117,7 +117,7 @@ public final class WayshrinePointer {
      * when the tag is empty (no TFC) or nothing is in reach.
      *
      * <p>Not {@code ChunkGenerator.findNearestMapStructure}: its radius counts placement cells, so with a spacing of 128
-     * chunks the pointer radius of 100 would search 100 rings of cells and generate structure starts up to 200,000 blocks
+     * chunks a radius of 100 would search 100 rings of cells and generate structure starts up to 200,000 blocks
      * away (a two-minute tick on the 0.10.0 copy boot). This search lists the one candidate chunk of every cell whose
      * candidate lies within the radius in blocks, sorts them by distance, drops those the placement itself refuses
      * ({@code isStructureChunk}: TFC's climate check, frequency, exclusion zones) and only then asks the structure

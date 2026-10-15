@@ -8,6 +8,10 @@
     {
       "id": "tfc:ocean_atolls",
       "required": false
+    },
+    {
+      "id": "tfc:deep_ocean_atolls",
+      "required": false
     }
   ]
 }
