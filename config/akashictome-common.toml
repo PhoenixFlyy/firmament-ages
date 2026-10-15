@@ -1,0 +1,7 @@
+"Allow all items to be added" = false
+"Whitelisted Items" = ["patchouli:guide_book", "modonomicon:modonomicon", "modonomicon:modonomicon_blue", "modonomicon:modonomicon_green", "modonomicon:modonomicon_purple", "modonomicon:modonomicon_red", "occultism:dictionary_of_spirits", "occultengineering:encyclopedia_of_souls", "ars_nouveau:worn_notebook", "immersiveengineering:manual", "ae2:guide", "guideme:guide", "draconicevolution:info_tablet"]
+"Whitelisted Names" = []
+"Blacklisted Mods" = []
+"Blacklisted Items" = ["primalmagick:lore_tablet_dirty", "primalmagick:lore_tablet_fragment"]
+"Mod Aliases" = ["nautralpledge=botania", "thermalexpansion=thermalfoundation", "thermaldynamics=thermalfoundation", "thermalcultivation=thermalfoundation", "redstonearsenal=thermalfoundation", "rftoolsdim=rftools", "rftoolspower=rftools", "rftoolscontrol=rftools", "ae2stuff=appliedenergistics2", "animus=bloodmagic", "integrateddynamics=integratedtunnels", "mekanismgenerators=mekanism", "mekanismtools=mekanism", "deepresonance=rftools", "xnet=rftools", "buildcrafttransport=buildcraft", "buildcraftfactory=buildcraft", "buildcraftsilicon=buildcraft"]
+"Hide Book Render" = false

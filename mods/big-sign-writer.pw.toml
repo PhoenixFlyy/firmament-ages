@@ -1,0 +1,13 @@
+name = "Big Sign Writer"
+filename = "bigsignwriter-2.2.1+1.21.1-neoforge.jar"
+side = "client"
+
+[download]
+hash-format = "sha1"
+hash = "3450f4694d2b6962db5ca3e069e37fd1285bb77a"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8786823
+project-id = 1153979
