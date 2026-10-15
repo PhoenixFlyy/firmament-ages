@@ -61,12 +61,13 @@ def convert(md: str) -> str:
         if m:
             flush_para()
             title = m.group(1) or "Spoiler"
-            out.append(f"<details><summary>{inline(title + ' (click to show)')}</summary>")
+            # CurseForge strips <details>; its editor's own spoiler markup is a div.spoiler (collapsible on the site)
+            out.append('<div class="spoiler">')
             i += 1
             continue
         if stripped == ":::":
             flush_para()
-            out.append("</details>")
+            out.append("</div>")
             i += 1
             continue
         if re.match(r"^(-{3,}|\*{3,})$", stripped):
