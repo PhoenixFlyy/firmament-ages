@@ -41,6 +41,7 @@ public final class FirmagesCore {
         ShrineRegistry.register(modEventBus);
         ReactorRegistry.register(modEventBus);
         OriginRegistry.register(modEventBus);
+        dev.firmages.core.proof.ProofRegistry.register(modEventBus); // Tally Chute, firmages:tally, firmages:silo_launch (SPEC §22)
 
         IEventBus bus = NeoForge.EVENT_BUS;
         bus.addListener(AgeService::onAddReloadListeners);
@@ -67,6 +68,8 @@ public final class FirmagesCore {
         OriginService.register(bus);
         OriginAccess.register(bus);
         OriginSpawns.register(bus);
+        dev.firmages.core.proof.TallyService.register(bus);
+        dev.firmages.core.proof.SiloLaunch.register(bus);
         LOGGER.info("firmages-core loaded");
     }
 }

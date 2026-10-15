@@ -37,6 +37,13 @@ public final class FtbTeamsCompat {
         return FTBTeamsAPI.api().getManager().getTeams().stream().map(Team::getId).toList();
     }
 
+    /** The id of the team {@code playerId} belongs to (online or not); null while the manager is not loaded or the player is unknown. */
+    @org.jetbrains.annotations.Nullable
+    public static UUID teamOf(UUID playerId) {
+        if (!FTBTeamsAPI.api().isManagerLoaded()) return null;
+        return FTBTeamsAPI.api().getManager().getTeamForPlayerID(playerId).map(Team::getId).orElse(null);
+    }
+
     /** Registers the party listener of the team carry-over (FTB Teams' Architectury event). */
     public static void register() {
         TeamEvent.PLAYER_CHANGED.register(FtbTeamsCompat::onPlayerChanged);

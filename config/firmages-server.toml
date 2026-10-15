@@ -118,9 +118,6 @@
 	# Default: 30
 	# Range: 0 ~ 3600
 	gatherCooldownSeconds = 30
-	#Gateways to Eternity gate the end-boss script opens at the Gathering; only its completion in The Origin
-	#summons the final boss (read by the script through FirmAges.finaleGateway()).
-	finaleGateway = "firmages:the_origin"
 	#A player who has not moved or acted for this many minutes is not waited for at the altar; 0 = wait for everybody.
 	# Default: 5
 	# Range: 0 ~ 1440

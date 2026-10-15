@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "tally": {
+      "trigger": "firmages:tally",
+      "conditions": { "tag": "minecraft:dirt", "count": 5 }
+    }
+  }
+}

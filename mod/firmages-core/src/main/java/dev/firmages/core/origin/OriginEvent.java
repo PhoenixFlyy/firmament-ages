@@ -54,7 +54,7 @@ public abstract class OriginEvent extends Event {
     }
 
     /**
-     * {@code /firmages origin fight} (operators): the boss script summons its final boss at once, without the waves.
+     * {@code /firmages origin fight} (operators): the boss script summons its final boss at once, without the Gathering.
      * The script answers with {@link #summoned()} or {@link #refuse(String)}; nobody answering means no script listens.
      */
     public static final class SummonBoss extends OriginEvent {

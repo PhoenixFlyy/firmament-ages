@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "silo_launch": {
+      "trigger": "firmages:silo_launch"
+    }
+  },
+  "sends_telemetry_event": false
+}

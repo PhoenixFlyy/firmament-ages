@@ -80,17 +80,9 @@ public final class FirmAgesJS {
         return OriginRegistry.ORIGIN_ID.toString();
     }
 
-    /** The altar of the Gathering, {x, y, z} in The Origin (spawn the waves and the boss around it). */
+    /** The altar of the Gathering, {x, y, z} in The Origin (summon the boss around it). */
     public static int[] originAltar() {
         return new int[] {OriginArena.ALTAR.getX(), OriginArena.ALTAR.getY(), OriginArena.ALTAR.getZ()};
-    }
-
-    /**
-     * The Gateways to Eternity gate the boss script opens at the Gathering ({@code origin.finaleGateway}, default
-     * {@code firmages:the_origin}); the script summons the final boss only when exactly this gate completes in The Origin.
-     */
-    public static String finaleGateway() {
-        return ServerConfig.finaleGateway();
     }
 
     /** Scoreboard tag the boss script adds to the final boss ({@code entity.addTag(FirmAges.finalBossTag())}). */

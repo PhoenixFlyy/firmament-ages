@@ -87,6 +87,8 @@ PAL = {
     "void": ["#000000", "#0c0614", "#1a0a2a", "#2c1448", "#3e2060"],
     "violet": ["#4a2a80", "#7a4ac0", "#9b59ff", "#d8b8ff", "#f4f0ff"],
     "paper": ["#5a4a3a", "#b8a888", "#e0d4b4", "#f0e8cc", "#faf4e0"],
+    # Tally Chute (SPEC 22): lumber frame with bronze bands
+    "lumber": ["#2e1f12", "#5a3d22", "#7f5a36", "#a07a4e", "#c29e6e"],
     # dusts
     "zinc": ["#3a4248", "#6a7680", "#9aa6b0", "#c0cad2", "#dde4ea"],
     "bismuth": ["#2e2432", "#5e5066", "#8e8096", "#b4a8bc", "#d4ccd8"],
@@ -2058,6 +2060,79 @@ def register_accents():
 
 register_accents()
 
+TALLY_SIDE = [
+    "oooooooooooooooo",
+    "bBBBBBBBBBBBBBBb",
+    "bbbbbbbbbbbbbbbb",
+    "................",
+    "................",
+    "...t.t.t.t......",
+    "...t.t.t.tx.....",
+    "...t.t.txt......",
+    "...t.txt.t......",
+    "...txt.t.t......",
+    "..xt.t.t.t......",
+    "...t.t.t.t......",
+    "................",
+    "bBBBBBBBBBBBBBBb",
+    "bbbbbbbbbbbbbbbb",
+    "oooooooooooooooo",
+]
+
+
+@block("tally_chute_side", "tally chute side")
+def _():
+    img = new_tex()
+    rng = seeded("tally_side")
+    noise_fill(img, "lumber", rng, weights=(0, 2, 6, 3, 0), cluster=1, grain=0.15)
+    px = img.load()
+    for x in (3, 7, 11):  # plank seams
+        for y in range(16):
+            px[x, y] = tones("lumber")[1]
+    overlay(img, TALLY_SIDE, legend(o=("bronze", 0), b=("bronze", 2), B=("bronze", 3), t=("lumber", 0), x=("lumber", 0)))
+    return img
+
+
+TALLY_OPENING = [
+    "oooooooooooooooo",
+    "obbbbbbbbbbbbbbo",
+    "obBBBBBBBBBBBBbo",
+    "obB..........Bbo",
+    "obB.g..g..g..Bbo",
+    "obB..........Bbo",
+    "obB.g..g..g..Bbo",
+    "obB..........Bbo",
+    "obB..........Bbo",
+    "obB.g..g..g..Bbo",
+    "obB..........Bbo",
+    "obB.g..g..g..Bbo",
+    "obB..........Bbo",
+    "obBBBBBBBBBBBBbo",
+    "obbbbbbbbbbbbbbo",
+    "oooooooooooooooo",
+]
+
+
+@block("tally_chute_top", "tally chute top")
+def _():
+    img = new_tex()
+    noise_fill(img, "coal", seeded("tally_top"), weights=(3, 5, 2, 0, 0), cluster=2)
+    overlay(img, TALLY_OPENING, legend(o=("bronze", 0), b=("bronze", 2), B=("bronze", 3), g=("bronze", 1)))
+    return img
+
+
+@block("tally_chute_bottom", "tally chute bottom")
+def _():
+    img = new_tex()
+    noise_fill(img, "lumber", seeded("tally_bottom"), weights=(0, 3, 6, 2, 0), cluster=2)
+    bevel(img, "bronze", light=3, dark=1)
+    px = img.load()
+    for y in range(5, 11):
+        for x in range(5, 11):
+            px[x, y] = tones("coal")[1]
+    return img
+
+
 # Block model texture maps (models/block/<file>.json -> "textures"). Geometry stays as it is.
 B = "firmages:block/"
 MODEL_TEXTURES = {
@@ -2076,6 +2151,8 @@ MODEL_TEXTURES = {
                            "bottom": B + "reactor_controller_bottom"},
     "reactor_controller_ready": {"side": B + "reactor_controller_side", "top": B + "reactor_controller_top_ready",
                                  "bottom": B + "reactor_controller_bottom"},
+    "tally_chute": {"particle": B + "tally_chute_side", "side": B + "tally_chute_side", "top": B + "tally_chute_top",
+                    "bottom": B + "tally_chute_bottom"},
 }
 
 

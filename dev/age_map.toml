@@ -385,6 +385,7 @@ block = "tfc:rock/loose/granite"
 "id:firmages:shrine_heart" = "age_0"                     # firmages-core 0.3.0 shrine: fired Hearth Idol in cobble
 "id:firmages:offering_plinth" = "age_0"
 "id:firmages:sky_disc" = "age_1"
+"id:firmages:tally_chute" = "age_1"                      # firmages-core proof of work (SPEC 22.1), crafted in the Bronze Age
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"
 "id:firmages:arcane_gearbox" = "age_4"                   # magic tail of the Industrial Age (Doc 08 section 7.2)

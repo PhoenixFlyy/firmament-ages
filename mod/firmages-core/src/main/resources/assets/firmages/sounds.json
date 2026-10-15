@@ -97,5 +97,146 @@
       }
     ],
     "subtitle": "subtitles.firmages.shrine.ambient"
+  },
+  "music.age_0": {
+    "sounds": [
+      {
+        "name": "tfc:music/m0-dreams_of_the_phae",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m4-through_the_willows",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_1": {
+    "sounds": [
+      {
+        "name": "tfc:music/m1-firmavista",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m4-through_the_willows",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_2": {
+    "sounds": [
+      {
+        "name": "tfc:music/m2-sycamore_heights",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m3-terrafirmacraft",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_3": {
+    "sounds": [
+      {
+        "name": "tfc:music/m0-dreams_of_the_phae",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m2-sycamore_heights",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_4": {
+    "sounds": [
+      {
+        "name": "tfc:music/m3-terrafirmacraft",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m1-firmavista",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_5": {
+    "sounds": [
+      {
+        "name": "tfc:music/m1-firmavista",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m2-sycamore_heights",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_6": {
+    "sounds": [
+      {
+        "name": "tfc:music/m2-sycamore_heights",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m3-terrafirmacraft",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_7": {
+    "sounds": [
+      {
+        "name": "tfc:music/m0-dreams_of_the_phae",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m3-terrafirmacraft",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_8": {
+    "sounds": [
+      {
+        "name": "tfc:music/m0-dreams_of_the_phae",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m1-firmavista",
+        "stream": true
+      }
+    ]
+  },
+  "music.age_9": {
+    "sounds": [
+      {
+        "name": "tfc:music/m0-dreams_of_the_phae",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m1-firmavista",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m2-sycamore_heights",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m3-terrafirmacraft",
+        "stream": true
+      },
+      {
+        "name": "tfc:music/m4-through_the_willows",
+        "stream": true
+      }
+    ]
+  },
+  "music.firmament_night": {
+    "sounds": [
+      {
+        "name": "tfc:music/m0-dreams_of_the_phae",
+        "stream": true,
+        "volume": 0.7
+      }
+    ]
   }
 }

@@ -16,16 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class OriginSpawnListTest {
 
     @Test
-    void shippedListHasOnlyLowWeightMonsters() throws IOException {
+    void shippedListHasOnlyVanillaMonsters() throws IOException {
         OriginSpawnList l = OriginSpawnList.parse(JsonParser.parseString(Files.readString(Path.of("src/main/resources/data/firmages/origin/spawns.json"))));
         assertEquals(List.of(), l.errors());
         assertEquals(java.util.Set.of("monster"), l.spawners().keySet(), "no passive, ambient or water mobs");
         List<OriginSpawnList.Entry> m = l.of("monster");
-        assertEquals(List.of("minecraft:enderman", "cataclysm:endermaptera", "cataclysm:ignited_revenant", "cataclysm:ender_golem"),
-            m.stream().map(OriginSpawnList.Entry::type).toList());
-        int total = m.stream().mapToInt(OriginSpawnList.Entry::weight).sum();
-        OriginSpawnList.Entry golem = m.get(3);
-        assertTrue(golem.weight() * 10 < total && golem.maxCount() == 1, "the elite golem is rare and alone");
+        assertEquals(List.of(new OriginSpawnList.Entry("minecraft:enderman", 10, 1, 2)), m, "vanilla only since Cataclysm left the pack");
         assertTrue(l.of("creature").isEmpty());
     }
 

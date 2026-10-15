@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "particle": "firmages:block/tally_chute_side",
+    "side": "firmages:block/tally_chute_side",
+    "top": "firmages:block/tally_chute_top",
+    "bottom": "firmages:block/tally_chute_bottom"
+  }
+}
