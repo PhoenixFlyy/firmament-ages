@@ -2,7 +2,7 @@
 
 Eine Anleitung für jede Version.
 Alle Befehle im Repo-Hauptordner `D:\Minecraft\MinecraftModServer\FirmamentAges`, Windows PowerShell 5.1 reicht.
-`<v>` steht für die Pack-Version (z. B. `0.9.3`).
+`<v>` steht für die Pack-Version (z. B. `0.10.0`).
 
 Reihenfolge einer Version: **1** bauen, **2** lokal testen, **3** firmages-core hochladen (wenn sich die Mod geändert
 hat), **4** Modpack hochladen, **5** Freunde und Server.
@@ -28,7 +28,7 @@ verschiedene Versionen nennen. Es schreibt nach `dev\exports\` (in `.gitignore`)
 | `FirmamentAges-<v>-server.zip` | das Server-Pack (startfertiger Server-Ordner, siehe Abschnitt 4), `-SkipServerPack` lässt es weg |
 | `FirmamentAges-<v>.sha256.txt` | SHA-256 der Dateien |
 
-Die Upload-Datei schreibt `export_cf.py`: `dev\exports\FirmamentAges-<v>-curseforge-upload.zip`. Es tauscht die acht
+Die Upload-Datei schreibt `export_cf.py`: `dev\exports\FirmamentAges-<v>-curseforge-upload.zip`. Es tauscht die neun
 für Drittanbieter gesperrten Mods und das Shaderpack Complementary gegen ihre CurseForge-Einträge und listet am Ende
 die Manifest-Zahl und jedes Jar in `overrides/`. **Dort darf nur noch `firmages-core-<Version>.jar` stehen**, nach
 der Freigabe des Mod-Projekts (Abschnitt 3) gar keins.
@@ -65,7 +65,7 @@ Options (Shader-Voreinstellung, Sichtfeld, Tasten), das frühe Ladefenster und d
 beim ersten Start eines frischen Profils, und Client und Server brauchen dieselbe firmages-core-Version.
 
 1. CurseForge-App starten, links **Minecraft**, oben **Create Custom Profile** (oder das Plus), dann **Import**.
-2. Das Upload-Zip aus Abschnitt 1 wählen. Die App legt das Profil „Firmament Ages“ an und lädt alle 216 Mods und die
+2. Das Upload-Zip aus Abschnitt 1 wählen. Die App legt das Profil „Firmament Ages“ an und lädt alle 234 Mods und die
    zwei Shaderpacks (etwa 500 MB, einige Minuten). Java 21 richtet sie selbst ein; fragt sie nach einem Launcher, den
    normalen Minecraft Launcher nehmen.
 3. Im Profil **Settings** den RAM prüfen: 8 GB. Das Upload-Zip trägt 8 GB als Empfehlung im Manifest (`recommendedRam`);
@@ -183,7 +183,7 @@ Felder: `dev/cf/modpack-fields.md`. Beschreibung: `dev/cf/modpack-description.ht
   aktualisieren (`tools\packwiz.exe update <name>`) und neu exportieren.
 
 **Neue Mods** nur mit `tools\packwiz.exe curseforge add …`. Bricht danach der Installer der Freunde mit „must be
-downloaded manually“ ab, die Mod wie die acht anderen behandeln: ihre CurseForge-Metadatei nach `dev/cf/swap/`
+downloaded manually“ ab, die Mod wie die neun anderen behandeln: ihre CurseForge-Metadatei nach `dev/cf/swap/`
 verschieben und in `mods/` eine Modrinth-Metadatei derselben Datei-Version anlegen (gleicher Jar-Name, gleiches
 `side`), dann `refresh`; `export_cf.py` tauscht sie von selbst. Prüfen mit einer sauberen Client-Installation
 (`dev/poc-results.md`, „Clean client install“).

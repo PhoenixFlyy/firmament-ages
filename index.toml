@@ -21,8 +21,8 @@ file = "config/brandon3055/DraconicEvolution.cfg"
 hash = "16b87d346751be22275155555bbe466c73bee7297b3425bc1282d9e224942957"
 
 [[files]]
-file = "config/cataclysm-client.toml"
-hash = "09b235eb7f0d2590e06578a00505302c341c3f211c92b3bc8b159970e1ec1e04"
+file = "config/carryon-common.toml"
+hash = "1dbc0bb3d8aec4da765ed0c03b586dea09ab8cdde604bfa861c654ae68c56739"
 
 [[files]]
 file = "config/cave_dweller/server_config.toml"
@@ -31,6 +31,10 @@ hash = "512ced25a92db5ffaacfc8238f298a121c6c900dddcca0b2d355d252e8194712"
 [[files]]
 file = "config/colorwheel-client.toml"
 hash = "956dfd6f528457e82b72142da3e8731bdd6a6130202b9917e0ce6d22494473cf"
+
+[[files]]
+file = "config/cosycritters.json"
+hash = "95d1d158467dd4be2b3fe0c2e4e75bca7f24f6ac90847f9814bb50cc6e644a89"
 
 [[files]]
 file = "config/create-client.toml"
@@ -70,7 +74,7 @@ hash = "5868f972e3d32de91fda224402a07ae78ac32bc1e69f2a14afd341ec3c894e07"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "89f1e5e77d161fc2310193ca213ae35aad91d0964339a2f2556e066fdbf60de8"
+hash = "245f231f1c9881e17ad56f0733776e93664312d2f000689caf8e973adcaad256"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -86,7 +90,7 @@ hash = "ca187fe5c82c892b512d33479b28c0ade281734322ad2261732654cb3fb52d88"
 
 [[files]]
 file = "config/everycomp-hazardous.toml"
-hash = "0a51d07006ad2d1340ca5de35bd91fc60663db2a44e378e0b49955f9751e8bf8"
+hash = "cb0cd87e139939773ca52befd2ff99b3fd91874caa5204c024b010f9c1c9f9fd"
 
 [[files]]
 file = "config/fancymenu/assets/firmament/bar_bg.png"
@@ -134,7 +138,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "cf912040619205a1673506c6970f950e180a07e4826ba14caa05bf51cac0faeb"
+hash = "0330ae77efcd6ccc03085051e88666521fd0176d2f90b8dee943adf2b7abaf49"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -142,7 +146,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "e4a8bf353160a91100a347a9aa696d88ed6bffc19c00eeb2fda365dc0dbedd3b"
+hash = "35e91b5605b5064a5eaf9d1a02a5dfaf7221caf615aec53a6252c152ba60841e"
 
 [[files]]
 file = "config/fml.toml"
@@ -162,11 +166,11 @@ hash = "b1339ce49c5c08220086661d0e028c5277f811e6437e691a61a5ad2448097081"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/arcane_age.snbt"
-hash = "af3eca8f10a7d7aaa1012709abf72f1da1bfa68d53cd2f6c6a32c26921932cdc"
+hash = "e4a04d067e1837df9fae8e27f67db660d3e2c3a3ee1b7b0ab75011fc6f19d56a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "5b753a7f7810ea5d6100497cb358aa42b5a000af918b52175d396defe26203f9"
+hash = "7ee5bb94a6bdaecd28222ba97647e44c75c5fc36b5585c6401990a1f397a719a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
@@ -174,35 +178,35 @@ hash = "ff512d331ed3c61f05e6e1803aab91991e97870020a398ba6a4c870b1d85dce0"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
-hash = "8313464ec1e0ac63cbbf7999d17137c6e3bd17da854d460c5eb0716fec33f5a1"
+hash = "79b986fe3b280f8920a27094072270205f4dc7df6c1948d27944bf08a45ca6a2"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/industrial_age.snbt"
-hash = "b8847d770fe09e64e2a56fe5fd10e3042e502e9eed4e083a28ade0d923ea3973"
+hash = "a44cd539f5f970fde0764714980eb2b1043d243544d651d5f4945b3c8f24b7e0"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "fcabc38f240cd6635a8bff6171fb6d4f20abca7af6f0d668a384a079a7166b07"
+hash = "d8ccbbc260900809f766a2d2da483a0e2e935b6b840f258dd4b43f769ad71a20"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "8fc051f44ef56899c4e160954260240a7c3408b3ae268a004ebcbb9db190aeaa"
+hash = "20062304298efd84e1ba885e3a038f8000b89914b1d408546569531e3716ae28"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "23f618e34a891e1f90edb75946edfa363ba3e953b1e1975243966704af0fb6cd"
+hash = "ad449a2376fb683ae1a82ea21371e5f6ebc70f0155e6b3ec12e4189be4d8e251"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "3770133c605f9c2ef5ecb87870e09ce9898d0660a7e21796b6c3096d17ff6a5a"
+hash = "c92f7e03ea58b10255006d09756f7d3bf164fd4852f4d6fd08674a83c6eb712f"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
-hash = "a46636f7020bb8a0fcff1ce7e097c5f2a76c6f74fa76db242f03ef54dc8daf0d"
+hash = "d90e9f9b0b144f7377dd9295c253eb64b124a1f184d37ed5495c6c8532a3bf7c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "f0af954d7666784fa93a979fcc4443b64aceeec1a92d636963c5038908e5e68f"
+hash = "fda6e291d9bb89f44fd8b8489d8a35fa8add1e4584a47a3f0f1e7de2b8199220"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
@@ -218,7 +222,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "4a7f972595945198f5c426c1738c95b44f538ae74bd87a00520b3ba8c6280c45"
+hash = "3e6f89f5249acc0cc51105da64151c9316f73a31d728f8a67d3b06fba4e2490f"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -266,7 +270,7 @@ hash = "acf331c75abf4a0d397ee7932bbe77d26dff2114d7dd349f1dfde2f904e7ed40"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/iron_comfort.snbt"
-hash = "57d5810b6d95ec3be87d3c3d87a59397186c1f5fa5e945f6714385e5dbe4c456"
+hash = "c99702dbc4d7c98fa899729bf5222af9c3e6b2bffae8d881cd40ecd897ff91a4"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/iron_supplies.snbt"
@@ -314,7 +318,7 @@ hash = "8290ddc3ade8d293e4e60523a1cc7f141f673fca7c20c01da2bd42a42941c98b"
 
 [[files]]
 file = "config/jade/plugins.json"
-hash = "c564d96490a38db106b0ed1f9489922f215c4d73ac5b0c256e4feaddd8264c5c"
+hash = "bbbe37be0a43648724ab55c2defa7ea3e5883b5312f102e0cf5e57ca0e9ca038"
 
 [[files]]
 file = "config/jei/client/default/jei-mod-id-format.ini"
@@ -346,43 +350,43 @@ hash = "4b482316317de13271b0340cd9030b9e0bb54329ec9fdd44cda50ef010ddb2aa"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "ad4a0de0c55c0fdf846e6f101eee9681694515f0e093f20e7ad074aeb121a37d"
+hash = "fc192c38cd10ed24477083dcc0bdf63997d82606765ab839d0a5b43210d8abcf"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
-hash = "833c54695b38398cf95372c2db294be9d13e602a46bcdf34b9a94f7d5cec9667"
+hash = "b26a3a2b3df9b8c547398e1409858af2574691b7e1ff808287d0771450eb45ec"
 
 [[files]]
 file = "config/progressivestages/stages/age_2.toml"
-hash = "3842b6d984d4ad4d5aa67255a13b2d96d4525c1ede4de787f624c1e128ff8717"
+hash = "9a91339a54557771059ed375213e35b778200352ba0f05157bf9047a2373775a"
 
 [[files]]
 file = "config/progressivestages/stages/age_3.toml"
-hash = "7b8aec9c96257309a0ca5eb38596d1311e8185cfacca8070cb03412fd5162137"
+hash = "4a9de3cc793ab8b7910005243482a4a45c802cae5335c5438ddd2cd8e7001601"
 
 [[files]]
 file = "config/progressivestages/stages/age_4.toml"
-hash = "5f07777a1463717291b99362826dd01e1777e8de9e6689dc8c0be39c71d2df6f"
+hash = "40235aadd54974a2e743da5255846c0fb4f0b554a5b2fbcd6e5ccb749c2f68e2"
 
 [[files]]
 file = "config/progressivestages/stages/age_5.toml"
-hash = "a553e79e99e051db621a0fdb896bc942446f47d3c2128a4b3b61d4b68e274465"
+hash = "0aab635905dc5b40387fe43d5f5243020ddbb70d560deae516d5c0c38ee7aa1f"
 
 [[files]]
 file = "config/progressivestages/stages/age_6.toml"
-hash = "3c11ee5b91c1b2ca30e82745321795c9d4def593564a930c4fc9cc5d2606831a"
+hash = "c2c430acb9f6dd3818de9f994ea2a5cf218d09908cb3cebd448e45d9cc7b044b"
 
 [[files]]
 file = "config/progressivestages/stages/age_7.toml"
-hash = "f354fd8be14db020ac0b264300ac4d50e8360ecb2f22fc1bf4f047080fe03521"
+hash = "9256e36b95b1ad98a90493214ac57667bc80a8c673a46104d8b3e9a6b731ab57"
 
 [[files]]
 file = "config/progressivestages/stages/age_8.toml"
-hash = "c686c3609a03e545d0825130eaf1978920a6efd9268336a9a4c7626681c59429"
+hash = "7b6e50ed3da83060a09e1f20e2a652619e189e6ce7e35f402dab520393b411c1"
 
 [[files]]
 file = "config/progressivestages/stages/age_9.toml"
-hash = "57a4432ce1d273bd40e6346d2e62706d57cdff8a68261f56b8560c743f58e2f2"
+hash = "dc97ce153e93f665a9a69b5588fda1ff2a0a7a80ef6fb616e568069b171f1e02"
 
 [[files]]
 file = "config/progressivestages/stages/dawn.toml"
@@ -461,6 +465,10 @@ file = "config/simplebackups-common.toml"
 hash = "2c95584536898171c4045cdb7dc9d68cdfddb44f2db04a011c058700d50569c4"
 
 [[files]]
+file = "config/subtle_effects/entities.toml"
+hash = "921e9aee6729a8faaf08cfc256e55077f25b2bf4b851736e1952efe1491ad5ad"
+
+[[files]]
 file = "config/supplementaries-client.toml"
 hash = "fcbff2c28c3ae0282ce1805e43e495bc76a9cb7d6bcd930bbc5dc31839cfd2e6"
 
@@ -473,6 +481,14 @@ file = "config/tfc-client.toml"
 hash = "dc8b66977c99f9bb4180928db9d0e31a72555cdce4400d7de65e07611da2e76a"
 
 [[files]]
+file = "config/tfc-common.toml"
+hash = "f806106327753660f63c0dad18950c3e2f0ffc2e01348987898320cd20b6dc7f"
+
+[[files]]
+file = "config/tfcvolcanoes-startup.toml"
+hash = "e518aabe7a26354f25a623488550d4858e32a82a040361c2bb37b29d9e308465"
+
+[[files]]
 file = "defaultconfigs/Mekanism/world.toml"
 hash = "56013a8f29a698e52b927ae780a9468973bc4584d07f5c9e90a4f597f4e91f2c"
 
@@ -481,12 +497,16 @@ file = "defaultconfigs/certain_questing_additions/client-config.snbt"
 hash = "ff6400d5cf03e4b564cbb0f7150c0d3d8ac8b464159eb9d2d4e5d3e5eda0dbca"
 
 [[files]]
+file = "defaultconfigs/exposure-server.toml"
+hash = "a9f982404ddf4d30fa7f31b787d021149cc2fa018daa46a7e5d0f4183779467e"
+
+[[files]]
 file = "defaultconfigs/immersiveengineering-server.toml"
 hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
-hash = "6540beac8c94d47b81495602ed398dfc5c38a19a87119d926e3f0836db9cf76c"
+hash = "d3b0c9dc6229075b6e9e289c347a860e60e73285c6f795d706c69b3994facfaa"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
@@ -498,11 +518,11 @@ hash = "b7dede6c58d02569e9666b63c04d3d98b425f88f5775914b3f4e0a4f3970978b"
 
 [[files]]
 file = "kubejs/assets/firmages/age_namespaces.json"
-hash = "4d1a3b5dd6de6750cb4c01f9ba633338153fb298598a90c361b49b13f37fd7a8"
+hash = "7b91a5b83a8f2923a9d730149a3a7e4d11b1f52a534283f5143bad3fd405a541"
 
 [[files]]
 file = "kubejs/assets/firmages/lang/en_us.json"
-hash = "8156030ba651d9c3ed08b875efad9493e4af5d0edc15726bc2f06b92032c53cd"
+hash = "4a76e2071d69ed1b9e08dae8ba0f0470d009e010471ffa09eb7443a95e7f96ad"
 
 [[files]]
 file = "kubejs/assets/firmages/shaders/core/sky_age_0.fsh"
@@ -689,12 +709,24 @@ file = "kubejs/assets/firmages/textures/block/lantern/stone.png.mcmeta"
 hash = "77d80b3fdecb850e7c91c6459be15f8c172813928599e88a2535817a7ddcc82f"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/block/ore/normal_draconium.png"
+hash = "2f0dae3e3cf6795110e4dc7ebe173d4369a93659a06183759ac6afc2e73615a1"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/block/ore/normal_native_osmium.png"
 hash = "6313aa3967dee632a309e342c1a8473d23abc11a86ff53b54b4c5fc5a7c600a1"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/block/ore/poor_draconium.png"
+hash = "a3fce31d53478fa856a5280b3b2138d796d89691ba435e797cba088d491bf95d"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/block/ore/poor_native_osmium.png"
 hash = "dd1d11ffc6252f7e8f3c4e5ee1841975004c33ff4e9c35b359b2140233db7e84"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/ore/rich_draconium.png"
+hash = "8fa2baa0ff18800da82dcb0823acfb1c91575be033c382e88785fb8d476bbe05"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/block/ore/rich_native_osmium.png"
@@ -783,6 +815,678 @@ hash = "9745703f4a9546f4fe2bbcf484a8fd529ec36f7bb1880d7d80aae597c0617416"
 [[files]]
 file = "kubejs/assets/firmages/textures/block/rock/engraved/tuff.png"
 hash = "c5b671112cc034b91d686831712b1bfb37ad9913b334dbc390b3d1a5f1355109"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/andesite.png"
+hash = "da9e64159e6e9ac6027efa93ad3377379cdb759fe3e391a7e32b8462b4fc7cf0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/basalt.png"
+hash = "23546fea200f13ed89aaa8433968f6cc7a7738b4bb0b2398aec0cce272d9519f"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/chalk.png"
+hash = "4243ff2bfd383dbb258af7fa7ba3ae1bff9e9dae203cdc7428aa7c21cae0b5e2"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/chert.png"
+hash = "902eef9beff25dd0b8c67873def8fed1e026fdce410f6d72cdb26ec993d055f8"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/claystone.png"
+hash = "11806f1b013ec1cbc1f604169afb4f3c762c90d4769bcd52de95265cb1a074fb"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/conglomerate.png"
+hash = "8fb2c1f9c84743a4b999e194bc806d78464ec63dab5d739f74919da09a5f263f"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/dacite.png"
+hash = "d453ed3c25dff22ce3936952b66dc92f0e36df5695722bedef5fc6f69be5418c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/diorite.png"
+hash = "c8811b4bf3afbe3fb0a125f1ea6b18fc2589a11b2b58f2757ad577ada15e5888"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/dolomite.png"
+hash = "64651b212b090b2edcfbcecc869cee0dd9c7591305733f0140b6ceb36085c4e4"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/gabbro.png"
+hash = "83edb4e49a0b0833d3c070364b5c55d8af7ccadddd07b17472ed6568103bcd0d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/gneiss.png"
+hash = "b8f0bb32dafa6d11445795a9994a2aed314bc0e9c7f80806924b40f92326e701"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/granite.png"
+hash = "f4b2de7f268648b0f78d2de004400cd7822a92da9c2b7e55ee1b47c37764ad48"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/limestone.png"
+hash = "900bcd14540f01f7110da72ad7d2ef21f5138568101f3deabcd330f163d51a50"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/marble.png"
+hash = "0f2067ae2a534741d91312d705206d28a590da8d73490a9ac2f88711ef0b1d06"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/phyllite.png"
+hash = "4fe4773e1b5ee8416829b4c7e7cb5311ff3fe8e895f32646157427a8c0158e0e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/quartzite.png"
+hash = "94c017ed5bd7f276284b7ba68c93a8837b56685a4949eb205fc1a864d8aa7b2d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/rhyolite.png"
+hash = "07ed4753586833c5733fc11e5f6e304214480ab6033003803e0a4863bc4f4590"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/schist.png"
+hash = "7b7b719c5be7dec44b8664c7bd138284681ffd586b8f6098a90360c16bf5c27e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/shale.png"
+hash = "7512dc6b0515a8c8545f787c224308e3ca5102f85292660281d38dabda42cfe7"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/slate.png"
+hash = "2ffe1ade1690ab94450c611262389a2165220efabb4b7cbe29dbc84b73541a86"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/ashlar/tuff.png"
+hash = "52f1fbf1174842b7268115dcfce12316f838a4e0b3d86c7cb3444f1ea90d8773"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/andesite.png"
+hash = "c7444840ff234c752d09382b17d00274678d03214072973e4576efcc7b289543"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/basalt.png"
+hash = "65f7c177b6601da6401cfe0af58a0ecfe99c2379cdba567956e803f50cdde02f"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/chalk.png"
+hash = "b9036ca8687f0e3b47c966ef8a24254c8c428f1f2ba2f1a809c6cacf7a169c16"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/chert.png"
+hash = "73d9c077457f0f06a520fc6dd5d0ccd34acd6d5cc70f12e108f4f975f2179147"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/claystone.png"
+hash = "9038c4060e9c46d4f81cf72ce0aca8a2e1fe933d03848f41ac61477b536ef714"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/conglomerate.png"
+hash = "2e7a6eb9e4e7a66a194af94b3f08d915263758763ef5bdc506d2a26717736e1f"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/dacite.png"
+hash = "0262761fd04fdb1226557802e496503c045b34ea8dc3112475a736e11f35d62e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/diorite.png"
+hash = "f21894460a3899f12606d4c25d88b973c55365af7cd3dc4358c2bf93bc884810"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/dolomite.png"
+hash = "a2385067805203408c90b338826f6aa725d2272e64b8a34a04c694973a6c3c0d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/gabbro.png"
+hash = "36ce62f3d4197c836d80c0f3eb6b7bfe32a6d0f6e57e236ed604c053bc38699a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/gneiss.png"
+hash = "9bc4b00fa2efa3306f31c1931c6d3226c58917ec9d40065a751b7172e78e834a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/granite.png"
+hash = "6122875e6b62f8dd01b8a2530374df66738134a3dcc0343fa86a8062f5a796f4"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/limestone.png"
+hash = "45d176dc83f948532142bb595e9e25d834716e1b5ff3b171fd09595bded7b82c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/marble.png"
+hash = "0424a145bd8b2346fd7845d2ab4d2492eaa49624b151f2f81ba852800fe976b6"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/phyllite.png"
+hash = "0c5169ed97e4774b6fa1db80e32b7b60dd7482c8f05739ad4a0589c4ea1d6925"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/quartzite.png"
+hash = "61e4b2e797bf0f7983b25ad0a45e9558b4b6ed5ebe6d19a137eef8fd06be2daa"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/rhyolite.png"
+hash = "7ec9391f17953ed7374e4f93db58242c0fed4ba89a718d2dbe797f0fc8cc4d64"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/schist.png"
+hash = "2ba593016c3237c214d762ee60f69ef173c556d0d14b6b1d428cbb3fe1810991"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/shale.png"
+hash = "b3ebf3fd772814f1493ef9ef7be8ac9a345642abc9998556f1c162e1f860f957"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/slate.png"
+hash = "c975d8590bacabee9a0699743baec4b45608f6b568bcfecf7662b0bc9002212b"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/chevron/tuff.png"
+hash = "427dc2def6d9210e6280a5bc7ddd98b1f48331d31a0c4559c415a4f70cc478c6"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/andesite.png"
+hash = "99e31e033c040c973680119ea2bd3d18d7a2fb3cb6f9962324ce5c3b5cb8644d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/andesite.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/basalt.png"
+hash = "be232738c558cb6bee1b062fe3bd074f618cd620e528f8f8f0ed932c0d177f5d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/basalt.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/chalk.png"
+hash = "a0398ec30f87b4f7ddaa1c66c9e02083302de81c5ac5604ba07ec14d66c33802"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/chalk.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/chert.png"
+hash = "182cd115467b4d888dab858566a1efa8a7dc60f7b6956bdeba5d0be94dc9bdae"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/chert.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/claystone.png"
+hash = "798bbe50f31091a05a5f034c82e7c6cfe1fc106706dee43a4e10edf9bd6d245e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/claystone.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/conglomerate.png"
+hash = "e6c7942b0a5af05302d97be49155326a04cac829eddfaf4d8f2d8bb3274fb9ca"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/conglomerate.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/dacite.png"
+hash = "cfd0a4d2439a8d4bf2eed07fc280ae0033cf93b3ab2a21e2e5ff6d99bc3a91bb"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/dacite.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/diorite.png"
+hash = "5b950a00bf91311679629d7da4f568b7a8092f2368a7c1bb8c33a75d0689f518"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/diorite.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/dolomite.png"
+hash = "cf9af1d066ca38dece6c889721f3b13dee7120d800e938f5b4027edf54f1b643"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/dolomite.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/gabbro.png"
+hash = "4479c5fc869698d1ada17a7ac3ee74ac61b5d231239256b6512564e4b540e5d2"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/gabbro.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/gneiss.png"
+hash = "6aaa97ac4743c1a622b12fef7f74e80132d3c775c716b02b0c77a58fae24fac9"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/gneiss.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/granite.png"
+hash = "a6ee1cd709d52bf07d1ba8e61e4c27a13e0ca77e1dd99a375f16e8b8cd40fdd4"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/granite.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/limestone.png"
+hash = "3a14bf862086d5cbacf4db3b6633d6e2a59c9471a89980c7c46c29ce52e372e6"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/limestone.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/marble.png"
+hash = "b387ad2fbdad33254155f5844d972db75c374e515e584fa6ce61004f8e1640d5"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/marble.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/phyllite.png"
+hash = "f67abf9d28a3b91aeb995337ceb39130d6ba67de7927e6430a331329188da1f2"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/phyllite.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/quartzite.png"
+hash = "938d4440c71cda0691bb48d68c7496690d9978611cddb476ee10a87730f4ead6"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/quartzite.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/rhyolite.png"
+hash = "9b54d2e1e357f970d3d75a5dd57e5845ab6200eb2c9db245b306ba19628aa23a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/rhyolite.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/schist.png"
+hash = "b2c760780680dd1b944119411cb7dea2a217af008a82ed0fdee6589b17f8847a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/schist.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/shale.png"
+hash = "ead851368d1d41ec622e5fc64a09338d01fd6e0621ee5e9f558b13df81387236"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/shale.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/slate.png"
+hash = "43f67007a1b38ed2bf8da16e175e8dc4c1bd70836433dc31e5e66f38f31bf560"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/slate.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/tuff.png"
+hash = "71ad0461c23eb183c52c727e589cae43bd90099d0f05cd7585184d28b3559471"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/column/tuff.png.mcmeta"
+hash = "7c5e58299d729a231314cd2030ead36f1e3fb9268c756631779e2af517b11fd0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/andesite.png"
+hash = "b0aedbb6d58d5ed63ce7af59c7bff8c6af4e9c178cb37340589aa6162deb1f35"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/basalt.png"
+hash = "658b500a2619c58decd9556e34996f21f96b36070702ce25b8bf424ec2b0f12f"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/chalk.png"
+hash = "02882d69fc08e170a14873d274a8f68bea35f77eb98d6c0f398c2bac7d8da8e7"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/chert.png"
+hash = "8500ef20ef61340e8489634edac3e891bda694d64d9cc6e1465afee36e54cc8a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/claystone.png"
+hash = "70150c7ef58497fbbe686c846b15db75c923541f060425779d49826ea863c032"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/conglomerate.png"
+hash = "352f48dcb0d5f587eefbf215f5893730c2072a2133a0e776abc0dcfc78f28731"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/dacite.png"
+hash = "945fed8ec1902a8ca2898b3c94ee92a2e651c5a2a2968aa9b7057bc2a972b98a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/diorite.png"
+hash = "e01c36ad77680b9b00cd3c8d533147028c4af70a0075106f5a4601efce1806bc"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/dolomite.png"
+hash = "4182df44d754dd5a49fe54e566b64b26c33bd5aaa1ac384a7b56230de58363b9"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/gabbro.png"
+hash = "1b76a59a31874f723465c568ee2c2e20914598963ff72bd1066df1b1ac8d3fec"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/gneiss.png"
+hash = "ff8e80d2c8ffcd621ab5cd419b165ffdeeb7baf5f2c0088affc806fc9e4e7893"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/granite.png"
+hash = "04da8b1805349fbc38ec4bf4e86609e38ff146a15a03058909cce0d0b7b613c5"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/limestone.png"
+hash = "a8c4891b1bc68a402fbf77ea54238bcae70b46a4c7203b085694b3665a905015"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/marble.png"
+hash = "f1037b6e0785e095d5a4ca5cf85910186ad963149fe09bbb109aa8b64efcbb4e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/phyllite.png"
+hash = "242d703a94d4d378298e41f8676064e33ce3a70299efaa1368bb186526042f4b"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/quartzite.png"
+hash = "7e2c6e29f8b612b20b82bc909bc1c7012136f889f196c74d22f2be21500f0410"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/rhyolite.png"
+hash = "898e224d53a145a6c04f9ffd9f6e8c9f8ff88ba522a656fbfc461ebebdd05c04"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/schist.png"
+hash = "e897ac3fdf8972dbcb421b14035a0bbafe52ea0593a64159239412f66c55c4b8"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/shale.png"
+hash = "942ffe9e9f49fe64fb85a7574fbf8bf8de2ae6247d905377524eaed1f78c07e7"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/slate.png"
+hash = "e02f00a8ccc2bad65d923263791d7e50502bbe1aee7de5a77b3f77f745f8d26d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/mosaic/tuff.png"
+hash = "b7eeea9ac56f9fd4780353793b5b3183cea286adc18932b7bbe7e2dd098b1a6f"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/andesite.png"
+hash = "41a013ba802ec0e07d6e3f7d3c9682cf7235970c8d616e1b0cb68a9f9807ce35"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/andesite.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/basalt.png"
+hash = "58deb542a7055379f3813a70d0c12716c57a099decfd4e1da8c5153b18df497f"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/basalt.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/chalk.png"
+hash = "b3f9a03e8de3c1a3005d1ca7d2f468df4e91c54f9c3fbdf9dc45aa0fcd6b327a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/chalk.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/chert.png"
+hash = "cd2d338196da3dd7b9ef4481ab00301a4fcd7416814ab8c255951369181814fa"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/chert.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/claystone.png"
+hash = "e34b99a280a81cb2802cefed3f36c1a34685aeff77df03b51fb3cea3f3a6fa5b"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/claystone.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/conglomerate.png"
+hash = "c025dc2d340367e0c496ee92f833c99b66d73f8ac760182ef167124c4b2a390a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/conglomerate.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/dacite.png"
+hash = "0fc98c3d1f3e0d39e6d044a72fe95b46498fa343f287e6913ecc6fa17bb57574"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/dacite.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/diorite.png"
+hash = "75a652826f3ecdfd870544156213b2f614a1d5ed74f9ea2d45c48b82e26d53cb"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/diorite.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/dolomite.png"
+hash = "7f30ed3ae1c35cc244a867c3d2d1ac3f6df30dea8352c50ae7783f1236e6f22c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/dolomite.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/gabbro.png"
+hash = "9465d54256f2d8b7041fd43b1872da3ae2a562063e1e8f5599177312567b92c9"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/gabbro.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/gneiss.png"
+hash = "870b3ee189932cc39f93b80a2aae0b8b90b8430a5aa518db10668aa0034cedf1"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/gneiss.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/granite.png"
+hash = "6d85d2b78bfb2d0a36ea54862e59c84d392e6bb8abe6be1ce07fdaeb4869f11d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/granite.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/limestone.png"
+hash = "a63486e5d79ef1e222d641e76f91fee9d8a65ca6e28246859611b6e87d249856"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/limestone.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/marble.png"
+hash = "e07581ffdac7f3d49c1a3e208c665c7e76d31127995017b33a770785686feaff"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/marble.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/phyllite.png"
+hash = "ff946b169bf8aebb3f2f9cfad223c0cc568940efae98f16603d24bb503f12e8a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/phyllite.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/quartzite.png"
+hash = "1fe3325543264be964b2e33f93182b6e40a8ffa811d45d9772743734cc09c5e3"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/quartzite.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/rhyolite.png"
+hash = "f24b94f731eb53ff05ae044b0432b22d4b70b7b2285327220dd67b35c79b2f47"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/rhyolite.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/schist.png"
+hash = "b98abb1ac2c1834bee2904b6f8de18452332e558ea76f705043a240257cff10c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/schist.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/shale.png"
+hash = "e112a35c5f9059695004f4a99448403114b34bf78480c64c4f62fc0256c53191"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/shale.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/slate.png"
+hash = "505fb259f76ebdd823b9378946d1c6506573be58f617892376f7d9e804d3ec41"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/slate.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/tuff.png"
+hash = "63af795082a37d468920c53802f604082ab1fe584948685ec540467527a693f2"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/panel/tuff.png.mcmeta"
+hash = "f7d805fe9c69922f3e2396cb4e420cc1c9e02b5028ffa2b6b1bc71159645f63d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/andesite.png"
+hash = "546baa417b36b07a147af9fb8287d4b68c0790f30a6850ebcd1e486fc13b1454"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/basalt.png"
+hash = "058f357564fabf48a97d34b5984aa8e96815a004a61d3bffdd0db5eb9d76e31e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/chalk.png"
+hash = "11e012cf6f33239da456f41ca68f9664c1c6003504ea34e7a8990195e5fc194b"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/chert.png"
+hash = "7675c5dda25a2a203f97fd3ce4cbb302f2875aa5500fe411bc29b8c918ae9122"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/claystone.png"
+hash = "442b40eb4964a6db0c50aef1433cf06289d9592e8c2b83b38e75d02b3cb15540"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/conglomerate.png"
+hash = "b77607bff08bbaab5decf9a3d0b2231e7e5e0db95aa4f5f58f9d5c965bfe0884"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/dacite.png"
+hash = "8940949aa94b2762f46fd240286ac4d0c32047c1cc0ae762ffee165fc6930ba9"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/diorite.png"
+hash = "7e0ad31faac3fcf330ad5ec3d2c4de0b48234c8f2d4d1883c4085704fef6d5bd"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/dolomite.png"
+hash = "c9d9e12df62b0b33268e66327668285a61b03874325ccf1f23c8e89fe7df271c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/gabbro.png"
+hash = "e87f4fd4fbdfa6a89d929d527d3eb8bf9358f3f92fcead21e6ed05003a27f24b"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/gneiss.png"
+hash = "7414c41596e99c64f9f5cf3f5e8f22251e9db8daa324d6728236b278f5847ee4"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/granite.png"
+hash = "a9fb4e0fbd6a1b016275ebbfc879f4150fa7228a2199396a41f2da4fdd0157e3"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/limestone.png"
+hash = "9a3159361c67c0cfbf5e119e81a2d31802b7a1310641c61170a42882719d77a1"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/marble.png"
+hash = "79e63166f78ff7b83c3461d18d24a17391e345168c98285dc798281b47fe5c88"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/phyllite.png"
+hash = "dde472d6c4db58c61306cb49a34ffcbea0070b1e4bdd26bb5589bf8c81121e77"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/quartzite.png"
+hash = "f0609605fb6b4c99c96d23f53339386ca5f9bfd71880f01f3fdcd20822633168"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/rhyolite.png"
+hash = "fe58ab439a83e27eb4870553fadde93de6ebc6234eeba777788be406734e2c73"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/schist.png"
+hash = "9a779abc533f30d1f4fc5c1259478404714ad04ab5b746ae97a36cf0d6cec518"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/shale.png"
+hash = "be0aa65663516845a39f39ef7ada46436ae2ceb08ea50c121e0093a50dd6077c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/slate.png"
+hash = "23c2a74e01fb24bff2de150c62d567fe4a39c6a9657ede52a0c8f6eea8dc2e1d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/block/rock/pattern/runes/tuff.png"
+hash = "e633bec60fc3b1c243ef6205652ef639ec2d386d35855b0185cf93d366416490"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/banner_age_0.png"
@@ -901,10 +1605,6 @@ file = "kubejs/assets/firmages/textures/gui/quests/panel.png"
 hash = "e33f69d19fd4e72b0fba48c5f8dfb4eb62ce2a5f7870172c9d1c9f31e2e883ad"
 
 [[files]]
-file = "kubejs/assets/firmages/textures/item/abyss_sigil.png"
-hash = "66e2f36efac20b510c1c13f5062b91ea171a315116eeb4425b4be4c2c06e2307"
-
-[[files]]
 file = "kubejs/assets/firmages/textures/item/arcane_gearbox.png"
 hash = "e6eb6b6b4339b595c4eae093b986e7380cec2bc689421a3bb4490161e4383638"
 
@@ -929,10 +1629,6 @@ file = "kubejs/assets/firmages/textures/item/awakened_keystone.png.mcmeta"
 hash = "77d80b3fdecb850e7c91c6459be15f8c172813928599e88a2535817a7ddcc82f"
 
 [[files]]
-file = "kubejs/assets/firmages/textures/item/chaos_sigil.png"
-hash = "575872911573026bf54d068d9d992ed00823f4d0a2dbd73445e828af635bb2d7"
-
-[[files]]
 file = "kubejs/assets/firmages/textures/item/data_matrix.png"
 hash = "352903a9df7972525e95e6b6d6bfdcd0a55e1c20d6f7f87ad471ff41c5ff796c"
 
@@ -949,16 +1645,20 @@ file = "kubejs/assets/firmages/textures/item/dust/zinc.png"
 hash = "bbb62b7f5e5bfe39f1267b873c089d48c3a4eea2dae1b67e712e5c86a827ad9e"
 
 [[files]]
-file = "kubejs/assets/firmages/textures/item/end_sigil.png"
-hash = "f08010d4900cedbdd6f28ab1018f08020a197149d0799c4d53ca109a6e1d3b72"
+file = "kubejs/assets/firmages/textures/item/flight_recorder.png"
+hash = "b11b990230bfb493cd90877bfca7177cac1e5c820b0ca5ec57659fc69fb74da5"
 
 [[files]]
-file = "kubejs/assets/firmages/textures/item/forge_sigil.png"
-hash = "8e77ec2bbc4414ca04ca1784a0d40a96a35950eb3e498944d04e6aee24c37524"
+file = "kubejs/assets/firmages/textures/item/frontier_compass.png"
+hash = "a92020e6d7e4249df0479ab1d24844924db9c096077e5bfa762cccf46db8ecb5"
 
 [[files]]
-file = "kubejs/assets/firmages/textures/item/frontier_sigil.png"
-hash = "8d2df458844753546757b4a07964b0c5a3ce7e5be6c791003afa3aca14ee98b5"
+file = "kubejs/assets/firmages/textures/item/frontier_relic.png"
+hash = "c7d73ae04b3248e47a8e22f4f2d1cb0a6a2c22009c6eac991629f70eff2ed8ab"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/frontier_shard.png"
+hash = "097c9e87f81542e9588b0aaf297e33ade1a7064cf36aa70ab4baeeb70df67cb0"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/hearth_idol.png"
@@ -973,6 +1673,10 @@ file = "kubejs/assets/firmages/textures/item/hearthstone.png.mcmeta"
 hash = "4c9779dc1413316e79d0a4b2e32ce2959600e375b7add58d1af4263050651d04"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/item/hollow_keystone.png"
+hash = "e81f882f5cfe10e3e8796f204b4ba6d9771eee32539fc7b01b16286abec3be20"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/item/humming_core.png"
 hash = "46441448fd8f75290600139fd1bbc23cc369875f5ed6dee0f2ba8df181a3dbf3"
 
@@ -981,20 +1685,44 @@ file = "kubejs/assets/firmages/textures/item/humming_core.png.mcmeta"
 hash = "61d9ed0268db7dffd14d04ad022ec2da66c2d5f52c3b3f689331ae53880f9e40"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/item/incomplete_arcane_keystone.png"
+hash = "48423b5a53ab8bcce061e55851cb5c452f4a4948f9a89e491f42e141e3976430"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/incomplete_frontier_relic.png"
+hash = "eefc9426ecdc7b22c69eb7f3126d5145c71a95268e023ca62a5a2bad8670d16e"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/item/metal/double_ingot/osmium.png"
 hash = "2e0221c2294b2831e25e12578186f07a7283a1134fb72480149f046ea089a163"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/ore/normal_draconium.png"
+hash = "ecce2e50d4adbcda5388f4f8b45c4c4a9212c6a55e9a61aa3542b966e7687c9d"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/ore/normal_native_osmium.png"
 hash = "e4e55eb981618df14780e90f26bd39de09574c4fa88fcb77a7a3be82a7261435"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/item/ore/poor_draconium.png"
+hash = "31bb839bcd4daa1f1ee02052e8494946db3a66d457d75ea5c641da27abd9c9e8"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/item/ore/poor_native_osmium.png"
 hash = "36da64ad399700cbeb35ab479684611972f816cfe3ca953d7accc91e6f3e8374"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/item/ore/rich_draconium.png"
+hash = "15e5ea5ac62a410ecd8560902d980f143ce501c412ca1b2548f78c90092fe536"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/item/ore/rich_native_osmium.png"
 hash = "672c5f1c5296e88f6e22a8b1f789ff7f0e4c4da357f6dd3e55c7203cba6d6311"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/item/ore/small_draconium.png"
+hash = "a1b33566210580f8c478b665bf8dd39d1ac6351c54d36b73122e6c252d82d8b5"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/item/ore/small_native_osmium.png"
@@ -1029,10 +1757,6 @@ file = "kubejs/assets/firmages/textures/item/sky_disc.png.mcmeta"
 hash = "77d80b3fdecb850e7c91c6459be15f8c172813928599e88a2535817a7ddcc82f"
 
 [[files]]
-file = "kubejs/assets/firmages/textures/item/space_sigil.png"
-hash = "96dabf822a9b59f0a43187c704211293f13a76ae2ea98296dc59b5fd99f4618e"
-
-[[files]]
 file = "kubejs/assets/firmages/textures/item/star_chart.png"
 hash = "6a28d131fed8c3f1a3dcb93fdfbd3f50505712f61c76b221f8b382c0b2740e90"
 
@@ -1059,14 +1783,6 @@ hash = "eff55807164fe4f0db2f60ab8a75f03b75489abb0a3c89598e84a65db429ddb3"
 [[files]]
 file = "kubejs/assets/firmages/textures/item/unfired_hearth_idol.png"
 hash = "0b2e05b22dfed9d4cfc83a35976cdef48a80fe395b45d055c4707ac1dfc3a0c7"
-
-[[files]]
-file = "kubejs/assets/firmages/textures/item/wild_sigil.png"
-hash = "26a6bb30b45ca21d8768d7f35ca9f3789ccec137bd682bfb2b704cae5f06b860"
-
-[[files]]
-file = "kubejs/assets/firmages/textures/item/wither_sigil.png"
-hash = "21c9f0bcc27b20b8709473d7bff650301e6e0a36ffe0e82c95202b281baa314d"
 
 [[files]]
 file = "kubejs/assets/ftbquests/ftb_quests_theme.txt"
@@ -1286,7 +2002,7 @@ hash = "7de225c313cb25e8166a70434f52e83ed81dc48fe4138ea9a1281cec982914ba"
 
 [[files]]
 file = "kubejs/client_scripts/item_tooltips.js"
-hash = "3fabc174f4d63efffa1f31160255dbfbe7c08907c5fa4ba8d187c80bece20cda"
+hash = "b9583f6816bae531052c907a39577ee2eae0c509194d122e6baea50fa177cd80"
 
 [[files]]
 file = "kubejs/client_scripts/viewer_static.js"
@@ -1706,15 +2422,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "299d60e4748f5185b49d1433e09cb6819fc531ec70d999e3c23b1fec1d95b595"
-
-[[files]]
-file = "kubejs/data/cataclysm/tags/block/needs_black_steel_tool.json"
-hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
-
-[[files]]
-file = "kubejs/data/cataclysm/tags/block/needs_monstrosity_tool.json"
-hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+hash = "1b2559f563340259d77f3c8fbaee7b2dd34e8760e2cf1397ba80edad02d9aad9"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -1731,6 +2439,22 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 [[files]]
 file = "kubejs/data/create/neoforge/biome_modifier/zinc_ore.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/create/recipe/sequenced_assembly/black_and_white_film_developing.json"
+hash = "ef43fa52a83378848a7427741bb9a31eb696fabb00aaa4a96ef1960dcf7acb1f"
+
+[[files]]
+file = "kubejs/data/create/recipe/sequenced_assembly/color_film_developing.json"
+hash = "ccf88ad79c7f5c1206e9f2aa16a79392b0c08b594f386eae7e097c30ae4a404b"
+
+[[files]]
+file = "kubejs/data/create/recipe/sequenced_assembly/high_sensitivity_black_and_white_film_developing.json"
+hash = "b92c03d84b6656269398b0df46c5394832ec4ec300858edcfd0cc52e5f3cd80d"
+
+[[files]]
+file = "kubejs/data/create/recipe/sequenced_assembly/high_sensitivity_color_film_developing.json"
+hash = "3bda4750c706f3cfc735399597fa557aec08368c6ad4e9fe77025e1aa1e3308d"
 
 [[files]]
 file = "kubejs/data/create_connected/loot_table/blocks/dye_depot_amber_fan_dyeing_catalyst.json"
@@ -3141,48 +3865,360 @@ file = "kubejs/data/draconicevolution/neoforge/biome_modifier/overworld_draconiu
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
+file = "kubejs/data/dustydecorations/neoforge/biome_modifier/ore_marine_fossil.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/dustydecorations/neoforge/biome_modifier/ore_marine_fossil_buried.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/dustydecorations/neoforge/biome_modifier/sus_seaglass_gravel.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/dustydecorations/neoforge/biome_modifier/sus_seaglass_sand.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
 file = "kubejs/data/extendedae/loot_table/blocks/ex_emc_interface.json"
 hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
 
 [[files]]
+file = "kubejs/data/firmages/chiseling_recipes/andesite.json"
+hash = "b943e759bbaab73ef7c389faee7eaa45802f9193dd20073b8e9da45b9bac4529"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/basalt.json"
+hash = "191acf6d4065c5efe0d9bd8ebe47385c780cdb938393e8c18f52bfd8c20e1f63"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/chalk.json"
+hash = "25de4e9f207b8177c2989a136de149e48773108b32fc4770f84fd499b21ff090"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/chert.json"
+hash = "b5baa68ff6623048230819e7a099f482c54365dd5c47865f948e2fa6d83294f4"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/claystone.json"
+hash = "0a0475328d1dbf72179de97bea55f2fdfe257e424fa3e2cbe4782655a0e0c0c6"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/conglomerate.json"
+hash = "e0ed079db6b3cc5e087d57cff0968eefda87f3266f94df58506871e33f2c8396"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/dacite.json"
+hash = "5a79336ce68119e103b5059dc5491b8f049775c8eb1ff6c0138d370db500bea4"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/diorite.json"
+hash = "75089b260e777a5b3b1de29f65d062efc3a936f677adfa839baa4be10ad7dbe7"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/dolomite.json"
+hash = "3ae00ca85944a327e4c8b1366726ac5a46e5fd1f9cc46086a7e387d0bdfdbe3c"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/gabbro.json"
+hash = "f0ced6414daa5e9bd042fe49f006f71b909b17aedb7ce923f6990eea24aa7275"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/gneiss.json"
+hash = "e45aae0e5ea2ef26dec730704ddf40eee6de876c194f971e3b243f88f5abeb08"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/granite.json"
+hash = "c45eff355233beb5f730bdfe1bfd9bbb4c7655e7560782f77502ae8a1bb27db7"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/limestone.json"
+hash = "0e84199837b32505bf051326a567fc5dbe71b1692ea0b7533b43703e54e2df56"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/marble.json"
+hash = "1e98eb683a09a36ef18872e115a29c8c21c85dd666c7eb73a27de4b9a19eb47a"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/phyllite.json"
+hash = "cc4054cb6de03ca0677b24fb7954b0197460c308186ab67e80ded228ac603a4c"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/quartzite.json"
+hash = "f65a2df02dbeb349295a9c027c512bdcf2053c6120181d7c2de6b1e263d3e85c"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/rhyolite.json"
+hash = "898e8d97bf7c90765851d88e96244cf011faa38c9c59d4bc56697e976e0715d1"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/schist.json"
+hash = "38b4cf59d79c63479aaac35cb23a968097ff33eacb6f8454646c1b8d2ba39854"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/shale.json"
+hash = "cb7ba28a8ddd71e8b567ae5d2eeacbbf0742365b1d3dc2176a0220b924a58c45"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/slate.json"
+hash = "524cc226e3bb4eace9c77af639e79351e5e9c04b8dbf5d3737fae18082cb0d1d"
+
+[[files]]
+file = "kubejs/data/firmages/chiseling_recipes/tuff.json"
+hash = "24e4e21299fd56a731baf58da66829f0960729092c5dd5a14d668909dd9a8b89"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/black_steel_armor_full.json"
+hash = "843cac089672e39f753f14eadc08eaf7b8f21fc346357eee7fc4bcfe5594b929"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/black_steel_armor_half.json"
+hash = "8b638464bff4cabfbbd7d0dd4e13bdd4448ea969ed678517db9441994ca3bdfa"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/black_steel_mace.json"
+hash = "eeb7976424f0dd0cc9bc1aa816dbbfafc6f846c9658c49abbe7c3f83aed16baf"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/black_steel_sword.json"
+hash = "2af30a6bcb4d208ebe15aead5def039fe68a2f28081c1d392727becfd833e2c8"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/blue_steel_armor_full.json"
+hash = "b6071f375fae42e54a67947f6c4dea8db72cbbc019ce978b97e42367f61ebf85"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/blue_steel_armor_half.json"
+hash = "861385e5eb35702f9bdf3b18434980189ad63bb5313c87d46793f680dd0d51ea"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/blue_steel_mace.json"
+hash = "90eb984743b85e0794aff3eecfd2ae00af879223a418c72a309848b4d2af8364"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/blue_steel_sword.json"
+hash = "29ded728e74d87c897afbdab062fc75624c0efa94960965921c9522dd4d337c3"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/bronze_armor_full.json"
+hash = "d03e8a5a98ca565c8feb58171502727fca9e702fad2e78f36c779c1a0632a3a6"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/bronze_armor_half.json"
+hash = "c1a0e8c1659e39a2d83154835e31296d1b1a86f0ed5374e2282d1e893993cba5"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/bronze_mace.json"
+hash = "7f7d617eafe89c2e80de87b02fcb72ce62b9b466bf799a554ff826685cdd858b"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/bronze_sword.json"
+hash = "bd3e3334314d94ba779e85e5dd6a9b3a61312647ff1f24927d9f704f25e5d176"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/red_steel_armor_full.json"
+hash = "ebdc0284a3533d92375c3e4e3db1bafd52d0358b4056377f8f4bc66a969be0a1"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/red_steel_armor_half.json"
+hash = "69928a60a351f6b805884e0d1369a81d72bfa24413502cd282f12d8b84f1269d"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/red_steel_mace.json"
+hash = "d953953a233ac5a44b4a8783ba1486093d5a57c8751a35686c34e2b386bb4753"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/red_steel_sword.json"
+hash = "c74fd3b4ccfb0debb073ec9f9b39f2dac3fd54f824f7f93272ed68ce01bc63c8"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/steel_armor_full.json"
+hash = "47dfc1c61a89fafe4c228f81938e04033e104c4e461a71fed708f570bbdfdbef"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/steel_armor_half.json"
+hash = "0ac527fbb538659f1643f7794d3a1ea485829fe8e60bfd27f17f94378c241cc9"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/steel_mace.json"
+hash = "4bc9ae4b2e6dfcbc10231bb7a53545b22ab7848869b28c025726ae36658eef13"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/steel_sword.json"
+hash = "ac8971bbce8a12f49d74295f04aea304d9547cff01574874c52b6da7398961d5"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/wrought_iron_armor_full.json"
+hash = "6345d48717ac5dbb5479a4c06dc2e9212eac9c0edb76463dff06773334ef5692"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/wrought_iron_armor_half.json"
+hash = "0e4ddf06b1279e350158be8f57dfb80927bea77c8eb3cb4ee80609fd9500b417"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/wrought_iron_mace.json"
+hash = "bcf2b9ac06b76c601598d7de6ecc8936f78b4f98f22b5da034844515062173a9"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/equipment_set/wrought_iron_sword.json"
+hash = "714f9bf97b49c22038b6e3983a0ba594b4c5998ca44a1cf9f2323fd9a75d96b5"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/blood_moon_age_2.json"
+hash = "56a33d37db39bc4be7e56c9956da3c29d2d2f0a0ee5bcef725a05715fdd4ebd7"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/blood_moon_age_3.json"
+hash = "f8c7ed6c386ad46032ce83f2dcd5e79d2e3fa647590a4530c553fe965677895c"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/blood_moon_age_4.json"
+hash = "9b1b589d7b3fc9a156598da2509114af75582e4d2065e3bee05e6dd1347a6046"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/blood_moon_age_5.json"
+hash = "9c272d14c3dbab85321ecd76abf33d783f3161c07c2d94f58f6f81060be0084a"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/blood_moon_age_6.json"
+hash = "38f35e9cf38a9912b67a5e4db8349fc38fa88b9dd77a36889ac4d6f662d9411d"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/blood_moon_age_7.json"
+hash = "94fb5e94a3f890d8a6847c1f521f7cacf39b8fd1d6f5fb81ce5b4f9fe8a060cc"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/blood_moon_age_8.json"
+hash = "80147d639b8f1a2364821ccf7ec7eece7984ffbe301d2f5279a5f3874c5fd63a"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/blood_moon_age_9.json"
+hash = "06a6e1a9025efb520f02892f0c2c5abecfb7b851e28a29dce26718cc6ef20082"
+
+[[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_0.json"
-hash = "86cf11a0e6aa979f338ec1e5f8f8be778b3c0beb0b60a21589d0855cc95a42fd"
+hash = "a84b3caa17d2a9048a614460eaf248232d10c863baad5376fa4a00d35bbd506a"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_1.json"
-hash = "7e7f089864edc2ed16f1214c32a0667af50afac8191d27882ae8e3969819118d"
+hash = "d410ec266870ac0038f45fc260688620b9700799f0ca6823b6e0bb8230961fdb"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_2.json"
-hash = "4b01ca7f86846f96b426339932efc3c3ad407bd0d290437610c232a3c3809db6"
+hash = "b33fd70d7382aaf56bcab989e3236e813ac26b52111956bb507c59f1648a17dd"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_3.json"
-hash = "698207e820533f266569c67cb67b7f57bd1f60f19f6b243cb8eb506395d0de80"
+hash = "c36f3d8cdb7ab69abab738ed4865fab3d76193bc4f4bd2a6e078691331cc469e"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_4.json"
-hash = "8d3015169f2fd8a1f51a9223a9f09334820939290ac04149d1723164c51f2708"
+hash = "5e69eaaad28ab48ee08ae2c0e8f5bf33b3d78bdb53a0b034fb811ffbd509b4b3"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_5.json"
-hash = "bc2aaec1b3b2caa20000e2a45ce6eda560262945d4c2233b408cbdbcd05dded9"
+hash = "f29db2a6af27dedafc7ae1c923c8f6f0759ec9c5a2e95bba922604a8ce26129c"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_6.json"
-hash = "2a06cdff5b40ff24c02a4cb22e753c8f42ba4b45527aec2a599fa7b824662070"
+hash = "66936124cc51baec8ec741f87a5f1cb9b0dc4bc4f76105c415a2fd87df7d0e4a"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_7.json"
-hash = "615c0451ed6adc9e3badf973a582c8ddf813414941c6359dd51cdf9f1e2102df"
+hash = "2ff942a977bb14ac878c12b6758e3f2bf6450c48ba900f045736bfb301cce150"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_8.json"
-hash = "f017f3b34453d3cc7e22e190cf334d44cd3ad89e95d79e2ec581fe6869857a6e"
+hash = "5ccd3eaa08aaa917fef8c95cfbe10e4a12115dc666922c59707c548c8c8ffd88"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/firmament_age_9.json"
-hash = "021c7917a125d92e1ecb2a170a30ca8bb19add1113fe461d9a8224021f81afed"
+hash = "f741777bf49b6e86a99ed05e42f8fc40ad86c667be6c5bf1f12ec876a26c34b1"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/super_blood_moon_age_2.json"
+hash = "85136fb3c456696afdbc6ae9c1a578a6030e593a692898fdf4d3f4c7ca9b641c"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/super_blood_moon_age_3.json"
+hash = "eb3d62dda021df96f097711ba3e015023689ade9c617e9a087462f2617f93a74"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/super_blood_moon_age_4.json"
+hash = "25361758d85de8fffd83b5a0b72cf75d608de504227ca31748a38f9a2a8da557"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/super_blood_moon_age_5.json"
+hash = "58d359ebdfec71512cbe381ce5c2c4c8692037369d818b1e3217fdd31ffeff74"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/super_blood_moon_age_6.json"
+hash = "9738a5261555a80a6434189e6902f284406afa45104aa70fe51c4d113f8668de"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/super_blood_moon_age_7.json"
+hash = "d3ab78d2bcb24d8ce5eaa2414a02c9cc3dda0f795f435f13ce1de243a037eb84"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/super_blood_moon_age_8.json"
+hash = "869ea85935e7b8c5e051c59f33afedfcebc376ce30eb21654b5de8a1c35f770a"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event/super_blood_moon_age_9.json"
+hash = "27a60442b18350768734378e8ebe817fac1298d0689cd9449f6508d966e6e45f"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_2_equipment.json"
+hash = "991b09c7562ac1f6af370e1af0c642f0a277a21bcbdecf42c56c0ea9987735ad"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_3_equipment.json"
+hash = "006081435adb96df0929785f0dbb391afc21304b24fc9aa620d78cdb149bd5c9"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_4_equipment.json"
+hash = "d8870b0b0d4f0a7c3c9ea7b0ce03e7e6e9638b3448b39f4b17c96e07015c79ec"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_5_effects.json"
+hash = "4ea489fa1171422ff6815e6f5acbc7c30ce03994667e94511ce92143dde28832"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_5_equipment.json"
+hash = "9d4e6c8afddb072f2eacdb121fbebd3c84388d6776f41829900b24406c87a291"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_6_effects.json"
+hash = "4ea489fa1171422ff6815e6f5acbc7c30ce03994667e94511ce92143dde28832"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_6_equipment.json"
+hash = "db58321ae662d38524bf682e47d12520198a1e9e0485d27e651dbec893a20094"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_7_effects.json"
+hash = "363141b7479601b1b0fe2745543646c6de698cae63d49cba898fdcba323110a1"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_7_equipment.json"
+hash = "7b1ce151a22f6eb067eb50057de1f86df29ef54416faaa246d23d6aae59baf3f"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_8_effects.json"
+hash = "363141b7479601b1b0fe2745543646c6de698cae63d49cba898fdcba323110a1"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_8_equipment.json"
+hash = "c04f3d9e62be6dd366763e6360edda51f59ece4cbcd242a1c715b0d429f3cd6f"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_9_effects.json"
+hash = "b0f7ae641a6689c05f7f1d0a9a83f55997830391dbf06364092195a70b60bb30"
+
+[[files]]
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/blood_moon_age_9_equipment.json"
+hash = "cdc8f65ef66419627088bd7c27a8735b6e26ba98a918cb4906507bc9732641c4"
 
 [[files]]
 file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_0_moon.json"
@@ -3317,48 +4353,20 @@ file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmam
 hash = "316e3158de81f4b05ef676ec310ccb64f696a1e9df04c478480ab67a9cfb183d"
 
 [[files]]
-file = "kubejs/data/firmages/gateways/abyss_trial.json"
-hash = "f1ec5cd0bf97f2d0eee46059de789f5ab3fe87612b007ba098f8687f5a0a7592"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/chaos_trial.json"
-hash = "d167b29f62f2528a888e688a9f8efa0d7d345650952ae15d558d71e7338d8897"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/end_trial.json"
-hash = "2c91bc4c21c33844b619696d2bdb4c3ed2428479f00072e6d5214c6bcbc5e9f1"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/forge_trial.json"
-hash = "921445e4df658164a5f30a140b9720e9fc5b6a63ca48a550a0b5d371148c1b07"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/frontier_trial.json"
-hash = "f5b570402daf5b7b4c458439ab55cb73c456ad5f0ae6af297155f98f0a82e0c0"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/space_trial.json"
-hash = "f433bfce92f7d7959bf7b385d379c047c3aa99a20b1e2080aad6fafdcc6a7a71"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/the_origin.json"
-hash = "5a4bf5c21276c2de27f4314ecf83d3bca0818657646811801f2163f197854e7d"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/the_origin_fallback.json"
-hash = "75d919a894773d86e038f633968dcadc43859a6c0e2e4b9ea60e9a728f0c6f1e"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/wild_trial.json"
-hash = "de31c10cf1cf74db4352b6b8411113b628775f1a98893c813ab9340f40e04769"
-
-[[files]]
-file = "kubejs/data/firmages/gateways/wither_trial.json"
-hash = "dfaebb6a1a9bd5f2f348f62a578a73927ac28d9ef8f80d7e965edd1d05433213"
+file = "kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_music.json"
+hash = "6c4ad7bbaae92e9eeea0d832587d1f2d8e9f3555fc65e39d5f00a0108b37c452"
 
 [[files]]
 file = "kubejs/data/firmages/loot_modifiers/datura_seed_from_tfc_grass.json"
 hash = "4456bd6e6adf69b904906202f4eb2a11eb1aa769dfbef2a9f8ad199b9605d71f"
+
+[[files]]
+file = "kubejs/data/firmages/loot_modifiers/flight_recorder_mars_temple.json"
+hash = "5d4b4ad38fd868efbb59a1610ee20dffcdd59a509b59380b9142bd7184f5f73f"
+
+[[files]]
+file = "kubejs/data/firmages/loot_modifiers/hollow_keystone_nether_bridge.json"
+hash = "d2ebd8e6087ff0a0ccb9fe4d24efd4763eb8ca975418221b24ec2d67b0312ac8"
 
 [[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/andesite.json"
@@ -3445,6 +4453,18 @@ file = "kubejs/data/firmages/loot_table/blocks/ore/inferium/tuff.json"
 hash = "4c485b0040e0af26ff1ce90893c5ee21025904fb7045f1d1a41b4699fd765ffb"
 
 [[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_draconium/diorite.json"
+hash = "f53a443e1c8d67ef94e9dd82eec0146e31df55f01dcc760071123283e850c39e"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_draconium/gabbro.json"
+hash = "f53a443e1c8d67ef94e9dd82eec0146e31df55f01dcc760071123283e850c39e"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/normal_draconium/granite.json"
+hash = "f53a443e1c8d67ef94e9dd82eec0146e31df55f01dcc760071123283e850c39e"
+
+[[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/andesite.json"
 hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
 
@@ -3483,6 +4503,18 @@ hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
 [[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/normal_native_osmium/schist.json"
 hash = "014be6b798f83d8b0819240e8f2d2066395c87a65d9f5d4f879898e01df4b903"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_draconium/diorite.json"
+hash = "b004613ab589a43f72f61b04ab9ca6e611ef35907ae690fd777e9386d6ac880b"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_draconium/gabbro.json"
+hash = "b004613ab589a43f72f61b04ab9ca6e611ef35907ae690fd777e9386d6ac880b"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/poor_draconium/granite.json"
+hash = "b004613ab589a43f72f61b04ab9ca6e611ef35907ae690fd777e9386d6ac880b"
 
 [[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/poor_native_osmium/andesite.json"
@@ -3577,6 +4609,18 @@ file = "kubejs/data/firmages/loot_table/blocks/ore/prosperity/slate.json"
 hash = "658788df1ea55f209a42c2bc71de7de7312bebc9a09fe803c99b55b82198c08a"
 
 [[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_draconium/diorite.json"
+hash = "40750310e98fa28c7bfff773894d4de653b579d0eea775bd81412ddc08633284"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_draconium/gabbro.json"
+hash = "40750310e98fa28c7bfff773894d4de653b579d0eea775bd81412ddc08633284"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/blocks/ore/rich_draconium/granite.json"
+hash = "40750310e98fa28c7bfff773894d4de653b579d0eea775bd81412ddc08633284"
+
+[[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/andesite.json"
 hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
 
@@ -3615,6 +4659,18 @@ hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
 [[files]]
 file = "kubejs/data/firmages/loot_table/blocks/ore/rich_native_osmium/schist.json"
 hash = "dbc703f576ad364d3548df3f53361e45477db1bb5a654e7c038e1cc6249404af"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/chests/cold_forge.json"
+hash = "9007f4b632709206ce1d3377558790815fa583c50430d19f23ce4288ddad1291"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/chests/ruin_rich.json"
+hash = "88376544dcd9593916b83575a9315e941e19c096f03753ae9681807193209c83"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/chests/ruin_small.json"
+hash = "3312b95501066cc1b8686d038b61824dca9c120cafd47fe7cf5f4747632bbeed"
 
 [[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/ars_drygmy_spawn_tfc.json"
@@ -3717,6 +4773,598 @@ file = "kubejs/data/firmages/recipe/chisel/engraved_bricks/tuff.json"
 hash = "6da900eef4159fdf83647e28bc409489556aa9a90e1f4cbf30d79119a08473f2"
 
 [[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/andesite.json"
+hash = "c56667e5e5a58a456baf21052152e9290a94e7759c5053396a007deaa0850dc5"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/basalt.json"
+hash = "1b6eaf54846fedcf04240dec3fd996d0ba81541ba46b0f9d25ef3e3d59e0dea2"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/chalk.json"
+hash = "86801682dfbd73c6682bf893a741e5aae71513bb88d44de459ebcfa2dd5d4232"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/chert.json"
+hash = "7d7b273bda87ffbd9a47f7001acff31eded4a977f819cf9b9ccae7e13e00fe86"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/claystone.json"
+hash = "c19663444641401ce9d911548acd91a96e0b34865c57fdb7bde12f4af4478414"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/conglomerate.json"
+hash = "e50ea53b6e426c2793a5120e2f6e432add6e1b03c085081651a46195c73442ac"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/dacite.json"
+hash = "9775520d370add2f5d1db6f0b53728fe36cdabc51015d5164ec1c0f91e8d92bc"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/diorite.json"
+hash = "92c19c6617bd0dbe11cc3fd7fc7050be3e9c3124e87c95c4b76b654e9553d100"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/dolomite.json"
+hash = "a795f1e4369e53d79e732d85a28d56bc20c08c50900102487f9f26c4df9e8d90"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/gabbro.json"
+hash = "be0162a6db9a416cd4efbc971d15c39ded5d8630a2fb199f4f4ad0f659815934"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/gneiss.json"
+hash = "6b9ec7eff69d049afd3bff3c4dbff8eb24fd875e3a64c26630ea48408d15f18e"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/granite.json"
+hash = "8aad0683d900bfbe48bac8f283cfaed2be99b8fe343fcd898f3af01313325629"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/limestone.json"
+hash = "fd06fdf29cc97b671442d227d032babee6e649acbc4e88930e33dccee344d7e7"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/marble.json"
+hash = "9a6f86df28bf0ca6b45dc07048294075666e03b271def65579e309a81c6924cd"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/phyllite.json"
+hash = "a132e55e5385153892a0d3d316f2cbdbda647eb91e7fdd961e2d8cf4998975ab"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/quartzite.json"
+hash = "d087f65e334053d8b8822852b2e9a3e1d8f2c7e310874a422ad17aca9489e033"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/rhyolite.json"
+hash = "d0237525cde212e076743417a2f06220a9fc877c7bf74da43bb440b4cadae534"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/schist.json"
+hash = "e1e434f2299f09b8d5503df4e2ca5c742336895e6febe69c109528d38a46b1c5"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/shale.json"
+hash = "0d4838cb267ac11e6c3140719a100e16098aa0f9f65a357852159d31762ce0f3"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/slate.json"
+hash = "578da20648e679bd164697fb8d9ab4709e090ae35bffbbbc35f9988212d96ddb"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/ashlar/tuff.json"
+hash = "32006f803234e0274b4bbb530f602c5f5bd588ee0b760b1c80ef9d42e9eb1ec8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/andesite.json"
+hash = "ab0872181187819d4aa129c7f0d99177ad208d492be4563e7e6de8f835f72904"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/basalt.json"
+hash = "a40efcd94ebff48cec9f7c391fc60ad0547d79e19a1e5193e88dabb67e9c14a7"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/chalk.json"
+hash = "373cbc1f3ba3d232236a9839dca8134a5b32c3a2217f10a17db3cae7646a204f"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/chert.json"
+hash = "55b5275b654b44f89d4792680a65ebc24d1e492abdb9e07d40e0736d69a69488"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/claystone.json"
+hash = "471d235b1110b9f218fe7aae9dc7f10fe4d0960f33c0ed1e68021e416d9befbb"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/conglomerate.json"
+hash = "e71547a95e2fadef2397043e24e4b2159a8128c4ebd3126c69234e8678d7f6f8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/dacite.json"
+hash = "6c4fd8aa9d698be28cb76017ff00c702e1232eee5de79c9f78d8735bf0060195"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/diorite.json"
+hash = "aa440bccef5d7a9a73f6ffc4f2c70080c548153a0e94dcab1aa3a267f40dcafd"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/dolomite.json"
+hash = "4647e173f236c8ae62f6f02faa947a8f5f05963e520dfb30df094a21dc6fb6a5"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/gabbro.json"
+hash = "5732a3cf46322fccce9c0e7678bd55856ab6822d4317072c768c97c0374db80e"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/gneiss.json"
+hash = "0f252d6085f9e52ba1a611da588914cb0d563424dc35eaf4a759f56a8d8fa117"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/granite.json"
+hash = "b092ee3956b061f45dbc117017194e5af581c27863db78b1da8f5370b4e1b636"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/limestone.json"
+hash = "68b9e3812c91a052f1e4e627e00425a1731c331e37ff219c23b2ef5f9f488ed8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/marble.json"
+hash = "0fe170dbdc67dddbcdeb4fa7c3a676cd0593444f8fb0da964d1f9025fccd1d1b"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/phyllite.json"
+hash = "12df174fec3096b74a93b7d1e952c7893c8e49a07a1a285bd43128314532f3dd"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/quartzite.json"
+hash = "cee6c887321b88a605b737213f40f637fb12bf4b117520d2727f6d1f9d3b8e0b"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/rhyolite.json"
+hash = "c0ba4c3de2421777a8e70259c5fa363fbb0cf50bd2898bdd3e4e6c35c534218f"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/schist.json"
+hash = "105ebb9332c1bef62273f7d8de2f36546fee5c5c7ae31d3cc5057f06b618c449"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/shale.json"
+hash = "492a909150b996997f372312e99e9b57714fdc2339f3da87ca235be3ab533bc2"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/slate.json"
+hash = "befecd3f84e5ede4d05ace59c9f7a1aa09587fe405d8e3d74025d08b1e062d04"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/chevron/tuff.json"
+hash = "3810b890b34d616d028b76f5eeb6d0ccdf770f68800a2721b568327089406816"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/andesite.json"
+hash = "509434c75645bf9c168bf15d822cf0032838659cdca91006477c3a9516409b83"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/basalt.json"
+hash = "a9a1254c67acdde7c1ff4e04496baac72fb6cf13f35d93e0970560e7e474a819"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/chalk.json"
+hash = "a4153ac0167c2a12fe00b72b7370727fe6345e4cec6a6c3ed6af659e2d2ab6ab"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/chert.json"
+hash = "e61da3711a8365de06b6ad899548d99d4c569d1ac3e77c3aa00c65b5e7c760d3"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/claystone.json"
+hash = "ba37d9332ff1c681632c34cb4607b2967dc655ade890d95a5c8940066ff33825"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/conglomerate.json"
+hash = "48f454a6c89b0f34e5bd29bf0cfaea700194155971bcad0f3ba88ef51da96e37"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/dacite.json"
+hash = "558b5ea48f4cbf89aa6b6fefb4a4d80bc94a2f78fb461fbd8b22b686381c3dc9"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/diorite.json"
+hash = "4a6011ba889082f8ac3112f485b2e1428d034cbd4d27ab4f3592e291a271c0fd"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/dolomite.json"
+hash = "b9e4ea134eee9b5fd21dc91116ffa218b19aa1dfd95ac39a4d943fc884e2d648"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/gabbro.json"
+hash = "1768fbddf7449bf8258436fc310f0d67752edfe0f93dc0f78bc47827cb9f9fa6"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/gneiss.json"
+hash = "3b7e524ac233c549bfe007233df177d461a813452c0e3e2f434290bbd004ae4d"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/granite.json"
+hash = "c18b08788378ae93999662b25670bb83a76ecdb3c61354fdf848272175cc6210"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/limestone.json"
+hash = "036992e4b28ee2c992902f1067e18cafd561ca02b8ea0c6ee4b2c1835c48918f"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/marble.json"
+hash = "2a34bf251eb08351584e2ef09ab162b29fa4ce956375ca584165e932155954c9"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/phyllite.json"
+hash = "32d7fbcbb0598dac932beaa7126769fd16a1d76304f71a3554ed3c2b70519bda"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/quartzite.json"
+hash = "5d96d17d8a4ac65ec5342903337903a0af17d06aa143a84122327a91170f40ee"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/rhyolite.json"
+hash = "b7f585426149a2503adaa8057a648b50195cf2b47cc1b777cb8367dcc1fc36aa"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/schist.json"
+hash = "f320a80ec78b1a803c935986c5a691cf58d096d0b42f8f26c73eff091823599d"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/shale.json"
+hash = "cd13579c77057f2efe4ecaae0c2528bcee35923f29be8cae8d00101a99b7e81a"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/slate.json"
+hash = "639c078157803ee567ba91be4b776c966393d225854bc5e853efc22fb006b748"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/column/tuff.json"
+hash = "b439b6e2d487088863ecc81d9edfa63b240e53c6e1601b32fc4c2c85fef99f59"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/andesite.json"
+hash = "95d28a096f31b3cd87670f2bc2a945258310be1273f321e5f80275b5643e60b5"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/basalt.json"
+hash = "d7fb150c219e6855243599f0b6aa43f00457ec90e6bb1cf738bffe36708dee28"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/chalk.json"
+hash = "81577ed7343365df0a717de52de4b948ee0f41043594df64ee185db2b3de2a97"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/chert.json"
+hash = "0366a0aea523b4449f0d2c0bc3531d03118c53dafd72d614e258da2998a47877"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/claystone.json"
+hash = "a89cd72ec480825535bc934eb547a6487c4b1f2c1deea5c7fb768d564b88d72e"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/conglomerate.json"
+hash = "74d57ed9711ff40bf4faad75d6ad9f6d73f81779716e41053ec8a3504c2ebce8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/dacite.json"
+hash = "93b53ce547c45761fb77f7a6b45a40f75440841eb46dc4e61dfc6c7ab906b553"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/diorite.json"
+hash = "351ddc6a85262a21447893c3861a76a40aedcaf73f7577a0c19139ed8af85c43"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/dolomite.json"
+hash = "adfbf33a9f7cd10a2f5dd432caefdb3a66252cf92fb0f6aec7f8642c61a430fc"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/gabbro.json"
+hash = "53d7e1a36375643fec591637985156afb8e3cea38c7e8e264fc63b0e3e11f708"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/gneiss.json"
+hash = "0a6caae1b475fce24bbebc231805c0d4cef3252d7ebb033b4f0277b06dd8b173"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/granite.json"
+hash = "ffe614af035ad08966f110196c7f785d89df16b868b760201c520c05659bed46"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/limestone.json"
+hash = "5b039c6b014eb17c7d96aa1e384c94792dd77a012da4f004faedce86f76df1cf"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/marble.json"
+hash = "cebf6d239bf2d4708e39f45a1625c2e7bad20311c6f8ab62f5cd2a0ba4e61ca7"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/phyllite.json"
+hash = "9d371ee2dd7273d9b927c588f022e86bdb33aec1b493aefae9278d8148b139b8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/quartzite.json"
+hash = "562fffcae80b47d8009ca4ee433b7fab4c922b65089ec6c3fe678aeff06c13f8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/rhyolite.json"
+hash = "998ae42a1e06ac63fa2bf6b26424493698653df53b49cd88da118f648ec65c8a"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/schist.json"
+hash = "e9ef8a0057a7d3f7d3e919af643670100fcea2e11de808184654cf4e419fa500"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/shale.json"
+hash = "b2543f71947cabad14cddaca8a832237783e976e2e779b9a98ceb60c406f7d77"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/slate.json"
+hash = "421c25d883480807dbc353f62357596bb4fe109078ffef4d392b3b93abe195d9"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/cycle/tuff.json"
+hash = "9e3861d88f9298b2ee360b80d6d87bd0e6df852bdc1a03b59720f1e8b795c9e8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/andesite.json"
+hash = "ef1c0b2c799c13d2b075db7c98f183aabd8a4dff37d725988a347c1d2e338e8a"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/basalt.json"
+hash = "4bf7a81c78995bfcefd44c6ff578861dcc59fe94b954e0fca80cc8a4d73462f4"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/chalk.json"
+hash = "f3bc472968775dedf852e03894f4b2726897340875d8fe8b73741a1a3f25bb43"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/chert.json"
+hash = "d89c198794c0c5804479fef73101defd6a69eb80297cec8e347e70d4bb84f27d"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/claystone.json"
+hash = "20eb1999ddefe3653a86d3fd7dd995f2111efa80598450b974ae4e423318ca5e"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/conglomerate.json"
+hash = "29a6c5f257d616ad75e4313258637eb88e2e0df89a03deb9ec2a73f663b6b6b0"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/dacite.json"
+hash = "71eab90cf62f85198cf048d4619be2747b05395e444e12e78031e9ff73cec402"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/diorite.json"
+hash = "116b92cbff319a41b62fc9444fd772bfdd575357ad6c198986df8a89019154fa"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/dolomite.json"
+hash = "d5550955be73978f59b4e5df0840c9b1c9b79ca53cecc52bef741c8a4cbc25d1"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/gabbro.json"
+hash = "384988ec113922bfdd898ecc4982e09faa741125f1fde8680b0f8291bde466aa"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/gneiss.json"
+hash = "35d136d8c9181672e055cd55380a489f869477f7b0e24d2c122fe2627a3b4b98"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/granite.json"
+hash = "e31bcc39ae98fdb93a89d513ac48792924224fe3852708e035bac02ceb8b4992"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/limestone.json"
+hash = "d69d3d78f6694f703c58349885417069e9e644de30755fd3a7f2b8805ebac800"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/marble.json"
+hash = "6e9f472082f96e991397a910fec3885cbaed6ae08fa2b2b1cad2e36b8a7125d5"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/phyllite.json"
+hash = "010422021e3d7c26c4d7f4ac8fd0980689a673c975c8907b1aa62a6adf48aae5"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/quartzite.json"
+hash = "c985d6d1124c3426febf042f5abfda11deb7bf5b922f491214c5860a4c45516a"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/rhyolite.json"
+hash = "bc723cd251f83164e51dd9fc7c66d71e1fe2e3d357843d878308679e1fba28af"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/schist.json"
+hash = "0ca7753e620396cd910d887bc4bab64912184945ca777746df4ed4650c4a22b1"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/shale.json"
+hash = "07417f0f4875d1c6c0ac795797815acb357a0fa92ed1c5a54154f826b8963f82"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/slate.json"
+hash = "42d42d67357156c74f26487eb66af6f00549fb63d637a64885c6d696d937764d"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/mosaic/tuff.json"
+hash = "6c463cf1ebf0386a4df77b9330b3cf1b1e283e7dfff65807e5846e046414a88a"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/andesite.json"
+hash = "3062fc5ff55c083a837d759412bf4f45349033cfd7f5affec18a2d6a9fe17c02"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/basalt.json"
+hash = "822ef5888e3feca8b7d7d81bbb307fea813e4998de1d1ec1461a3d24a43631f6"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/chalk.json"
+hash = "06bc128f6cb1ca02337e80ca5b39ee6aeaf6180dc5d4a244cfd0ca026120cc5b"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/chert.json"
+hash = "e631bccc0f57f527c64c3a9aa3858682d9de5b1da1229e8f7329a58657fec0e8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/claystone.json"
+hash = "fffb959a9ecb1f3d7d8dd9d08f064ab7465061571e581fe69582d3ea74db8180"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/conglomerate.json"
+hash = "1e8e8da3af1bc3b3cfb56b7d50e3761ceef1d99b2dd4e9b5e00b879762d5e291"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/dacite.json"
+hash = "35b238a63aa71ac1764fa933ada156644facf045baa1067e33614a327f5dbbec"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/diorite.json"
+hash = "0375b5a0601675646007dcb73aaa6339375a83f605c8b27b5ba6606be118ef69"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/dolomite.json"
+hash = "e91b6bad9cbb2a8143438b2a956a12c84abc1e7428c61e8f9a095755672b5ad2"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/gabbro.json"
+hash = "543be687f5f6160b886a360b829c89c2fc4b19bacd97bf6391e5fe97355011dd"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/gneiss.json"
+hash = "a7072ad73afd70e5c9e805779f25dc5ffdb4528aeb1e549119771985a7981556"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/granite.json"
+hash = "3301d902fc4fad09fa5aad6a0fb4dad1b1a1b74c793fb0d5b85071931fc21876"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/limestone.json"
+hash = "5fe3a15275a84af3eec498c36623188a9613509a5bc801cf5d4fdf19be6112b0"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/marble.json"
+hash = "eed00b21b9d148a83bb365d7069101de7a773e6d3e77c3bf33b2a4fa0cec65a1"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/phyllite.json"
+hash = "486073f9ca8d25717029501491313e6e470d2025586bb63dec9d648786aa0cee"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/quartzite.json"
+hash = "bca9dbc2324b405f3052560e8952cbf1a4bafe362f0133031ab0601824386ad0"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/rhyolite.json"
+hash = "e9e1936412a28ffaa1fae59d88bb4d347ff9168fff774de563c51fe62e02ecdb"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/schist.json"
+hash = "b4ddf268145df0f2661d779b3c36a0ee1e92590d9f3b8ebb8b6e73ee87103dc2"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/shale.json"
+hash = "d7e278f98d6aad4fe4e7cc747cb7754e444e90abe82178381382bde305df9502"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/slate.json"
+hash = "a510df32fb79c2e45af61ce773a33b03ac454e7c44090e8ea1a273946fa9440c"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/panel/tuff.json"
+hash = "e635d7100ffd27c07b165b627e32531e2e5c92f205cc7fbe6a88bf6ae99ed87d"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/andesite.json"
+hash = "d439526b8f14d67f8e06cc75e546163980711eec5a699bc4dc6ad8451ab62ce9"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/basalt.json"
+hash = "26aa22712d7139aeb6f466f7d817ac9edf74b0957e5bd901d75ed649ce07e7f8"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/chalk.json"
+hash = "34a65857e95e846013e028976362d4891f822e02ae63ed3899e11a30f2903a0f"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/chert.json"
+hash = "10a3fd444899754c8fae0e57e40752ce491b57386ce00988142f8e34a3635023"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/claystone.json"
+hash = "251ba972e44d2c44949f82c7177638d2df4e3f7427b60965ba437a998d9c11bb"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/conglomerate.json"
+hash = "2505e7df3228e65921256e4b9907eabaa96055a6a52c59e05de9322f178441f1"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/dacite.json"
+hash = "bdabce255dda4e5fd6edc03972830184e1426278a7be07146c2e7a536a4795f5"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/diorite.json"
+hash = "1251aeacaa9027409b35f7667aba74c4ef8fc97910602471ccdab648c764dbc7"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/dolomite.json"
+hash = "15d17551579dd243b62ed024cf135232492f38056e03b53c7f011c11d5fb65d7"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/gabbro.json"
+hash = "f16aaa0e96314fed6e3334d8183cb88006389ee00e432848b5095c5d909e413c"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/gneiss.json"
+hash = "5181965c82796c61a89f6f525d32210ad33a217fc5c52016376702ab330774fb"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/granite.json"
+hash = "fbaa16f01c4cb480c4b4571a4657c7259522f97e32ca6759864df3190ec308c5"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/limestone.json"
+hash = "8075ff1f18e944b646ecdadae1abe418fe3e3787e5e9a697b9cb63e16f5f3c17"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/marble.json"
+hash = "fd491b8f71df3ed017a7ba57cd484dbe235b49f74eda07a4e85c7aee1344e6bc"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/phyllite.json"
+hash = "b64a1a3b2c3bdb37925665d5e0dd9bf0bcff84adcb4e2be2dd53598e5c28d8bb"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/quartzite.json"
+hash = "99f526384ab827d1a15eaff2fbee42270811440aeae7298c74f28a98691ca530"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/rhyolite.json"
+hash = "e697ca1bae7641cbcfd8bcef804825f452a4d72c48de10985a4bf8a0ab03f789"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/schist.json"
+hash = "b4d70083f87eab3501aedcd62558627f405d467d1747cf36d427f2c1980cfb32"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/shale.json"
+hash = "e187cc9b82f9e75814d42853b8cbeb408e4e88ae7225cfa4ae6461e0c5503dfa"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/slate.json"
+hash = "12eb910d751e1e252a47f02af52ae5df26062675dc128bc7ebaff4868849d66a"
+
+[[files]]
+file = "kubejs/data/firmages/recipe/chisel/pattern/runes/tuff.json"
+hash = "3b83fd368c02f98c66ff7c0beb1b2a0352007375993434514fc8bfba18fe3c99"
+
+[[files]]
+file = "kubejs/data/firmages/structure/cold_forge.nbt"
+hash = "6018122d6dc60bd52ea2a38d4db73098d1014ba908ed85ae5b195eb046278ad2"
+
+[[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_0.json"
 hash = "4fbf163eea869e131b3d46cf9378b5fecd4d9fffe7c6d912cae3e297980c7ef7"
 
@@ -3746,7 +5394,7 @@ hash = "039624ab946e23759da847f2785c9927f20c02a479edbbef0217621cb2de3818"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_7.json"
-hash = "f6282bf394eb103a2304b1a8ddfdfd756357b81bb3b205a2bbb6b57be6b0ded7"
+hash = "842236fadb6c8ee92d61f8de0d213b4afe5a53565c51ab190787e889af6720f9"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_8.json"
@@ -3763,6 +5411,14 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 [[files]]
 file = "kubejs/data/firmages/tags/block/sable/copycat_catwalk.json"
 hash = "03ea2cdb818c28cd35c4603078fe407f3b9c42ab6d23a688b025370f251c92c9"
+
+[[files]]
+file = "kubejs/data/firmages/tags/entity_type/blood_moon_armored.json"
+hash = "d3d45898e896e281e73b9749f64a0376b4e2d96e8d4a575eecf2973f6092b833"
+
+[[files]]
+file = "kubejs/data/firmages/tags/entity_type/blood_moon_melee.json"
+hash = "31af167d84e6d0682dae70ab4071b0c9fd5e286814806b8917dda1b1c743debb"
 
 [[files]]
 file = "kubejs/data/firmages/tags/fluid/age_fluids/age_0.json"
@@ -3814,55 +5470,63 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "4c108fd73c5ffa649d79be3e8ca5341b7498422b7d1763a53fbb009acb67db4e"
+hash = "296ac6471999b5948a80f9ddf66146102a8ca413a43c14e6ed3ca436721f4c6f"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "287064361b4b6e3343189e0965fab3533e036538a37d5ae41d4188b4d3a0f3bf"
+hash = "40440db81e143b48f182f84ac98d28cef791e7b3566c181f1b9722a257fe392a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "391088ad66fda379f16831b8e3254c265806f6550c04aa3d1a9fea764200e534"
+hash = "d2c01ae020b15de10409b13133e21fbeaea6ff05b9034670af9696c5b2fb51de"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "17cf0dc9d0fc6d5a4c7ca09ddb35af9c4d2c61a76328bda2e519c268f447477a"
+hash = "51ae0a90904caf2945c2100b7ad28bfab0abd7f6a4a1b4338b9fdc82797a5ab9"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "6f349f0619edaeedef72a91d2609a00bece09a31d4713470cee257456fe6fdf1"
+hash = "79f06ebcf54fbc334aa933de9af6eae0b6775b4d929db59471535b569405187c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "1749f13df03d6a1a914a403380b399dd3f2b35cad5cddda9aae8e651dba88dd8"
+hash = "4d7becb1573586179f3559eaa00bc6674205f37f2b236268cf4ed49c55689f68"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "a6c8f0189ea2cba535c7307979cd912efa4f4363b31f475bb56c1dfb3d7af213"
+hash = "834e804655131f4faff6e482c1bf808d2f0be539eca78fc4d87e240c8ce3027a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "5e74fa2ee8b8d9d530eae6c460e17283b633ecf45d53fa8b601293e9dca2e969"
+hash = "a8929146259490f238059d1e137b38058c5c989fbefb941f92c670d7498d0fec"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "69e13e39ca15850d84da980f8aa27af9316d3dfaddf80c75cd846041c670a6be"
+hash = "8daf469e244ba298b726d304f0a248ca97d4eb4015d6bbe4cefc2de73da7e388"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "df0bca9c6e10a616ec0e9e4b1fda8ac447c5f6a138dc1476dc42fc9bb085034e"
+hash = "9f14b1f51faa5164cbf8b0f7151c5c193b26f6ea1c812a92ec8be2d2684e267b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "90275abb9d36c91177dbe111e3395113d461d2850f258dbefc0b5491e3960715"
+hash = "5dd11e34ef24028359a86d6c38722862822b74800e371cbcb5cee9239f0a6b17"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "e243ec7bf94db5d90b190bef1e89cad94ffa5d9c78ced390524eb3836154bef9"
+hash = "67291652d938b51e1570cb6fdd5c21a6c10ee691f9841845cf74ecd812a6641a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
 hash = "7655ff6addc912102765472bd7e3fe703b190fa03125f3ed14e4ba7251182c6b"
+
+[[files]]
+file = "kubejs/data/firmages/tags/worldgen/biome/has_structure/cold_forge.json"
+hash = "287a196bf299d598845bc5624403d272c5ea079ce289d1e8ab6384246c66dd5f"
+
+[[files]]
+file = "kubejs/data/firmages/tags/worldgen/structure/cold_forge.json"
+hash = "307fd4d777b70576477f474c9b43495bb00cc1686c9762a169d6101a64ce9603"
 
 [[files]]
 file = "kubejs/data/firmages/tfc/fluid_heat/osmium.json"
@@ -3929,6 +5593,10 @@ file = "kubejs/data/firmages/worldgen/configured_feature/ore_naquadah_mercury.js
 hash = "26a046016f9a4781004e962949d1b91e17ae7cf75ed6da60305d3b68f3f38f8a"
 
 [[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vein/draconium.json"
+hash = "956def7f9b3250bdd87768ae54ed5ce14025c1b492b6e4e38ce800e657a5a86c"
+
+[[files]]
 file = "kubejs/data/firmages/worldgen/configured_feature/vein/inferium.json"
 hash = "212592c0bba792d5819e3f59bd6821f1e831b2b982a5febe23006d3a405772e4"
 
@@ -3949,6 +5617,10 @@ file = "kubejs/data/firmages/worldgen/placed_feature/ore_naquadah_mercury.json"
 hash = "fc00945295762a682434b84afad33cab4d8911b9eed43aebc47dfba2b5a2eeee"
 
 [[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vein/draconium.json"
+hash = "1baf9728dd156e051f854cdac89f2005881b1af9d9784029d63f3b57395a4c11"
+
+[[files]]
 file = "kubejs/data/firmages/worldgen/placed_feature/vein/inferium.json"
 hash = "eb672d4245cf7b7e40b6c7c48acffbbea7f6b1e8ea5a972bc409385806f7cdd7"
 
@@ -3963,6 +5635,22 @@ hash = "5f35aebdcf3b5cd5000e9d8e746f346b3370a3b270bf56311be0b54f96494a73"
 [[files]]
 file = "kubejs/data/firmages/worldgen/placed_feature/vein/soulstone.json"
 hash = "6e607bbda910d5a80cea71f26bbb9b3f15b7482ae53d4be50a697de430b7ab4e"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/processor_list/cold_forge.json"
+hash = "1357e554caeecc96cb1fd83eaa67132594a9b0c85ae89982e939e9bcbfeb4733"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/structure/cold_forge.json"
+hash = "bffd54ccb6c87c76a20dd70cb9a3fdaf2e413768240f1f273d89505cd39a035c"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/structure_set/cold_forge.json"
+hash = "6b99cb9876ff25d0dffc226e4b50718e7fe91fac8d92906093fbd328ba25188f"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/template_pool/cold_forge.json"
+hash = "5a83cf800733cb941c3495c0d5782efe04c78ef5f25e9397789b6217aaf1b882"
 
 [[files]]
 file = "kubejs/data/firmalife/tags/item/cellar_insulation.json"
@@ -4902,7 +6590,7 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
 file = "kubejs/data/neoforge/loot_modifiers/global_loot_modifiers.json"
-hash = "dd1b3cf7a6fb69f9668d30c73b4c4a2d30570b382d658aa03db37abd4c68a913"
+hash = "2bf73ca1e6665b56c168c3fea579dfee51fc22437e4190626998d44fda899cb4"
 
 [[files]]
 file = "kubejs/data/occultism/modonomicon/books/dictionary_of_spirits/entries/crafting_rituals/bee_nest.json"
@@ -5709,8 +7397,284 @@ file = "kubejs/data/railways/loot_table/blocks/track_quark_blossom_wide.json"
 hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
 
 [[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_canopy.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_canopy_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_canopy_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_darkwood.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_darkwood_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_darkwood_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_mangrove.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_mangrove_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_mangrove_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_minewood.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_minewood_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_minewood_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_sortingwood.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_sortingwood_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_sortingwood_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_timewood.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_timewood_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_timewood_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_transwood.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_transwood_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_transwood_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_twilight_oak.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_twilight_oak_narrow.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/railways/loot_table/blocks/track_twilightforest_twilight_oak_wide.json"
+hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/acacia_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/amethyst_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/andesite.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/bamboo_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/basalt.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/birch_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/blackstone.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/blue_ice.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/bone_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/cherry_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/coal_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/cobbled_deepslate.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/cobblestone.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/copper_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/crimson_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/dark_oak_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/dark_prismarine.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/diamond_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/diorite.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/dirt.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/emerald_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/end_stone.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/glowstone.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/gold_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/granite.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/iron_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/jungle_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/lapis_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/mangrove_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/nether_bricks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/netherite_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/netherrack.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/oak_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/obsidian.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/prismarine_bricks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/purpur_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/quartz_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/red_nether_bricks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/red_sandstone.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/redstone_block.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/sandstone.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/spruce_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/stone.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
+file = "kubejs/data/rechiseled/chiseling_recipes/warped_planks.json"
+hash = "1076120550da395da8135adc91d20593efa093e61af66652c5482bd218fd4b2c"
+
+[[files]]
 file = "kubejs/data/rnr/tags/block/mineable_with_mattock.json"
 hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
+file = "kubejs/data/storagedrawers/recipe/personal_key_cofh.json"
+hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
 
 [[files]]
 file = "kubejs/data/supplementaries/recipe/altimeter.json"
@@ -6498,15 +8462,31 @@ hash = "73cc82e39df4f2450649f894aa7e0e102573ce14938ec94c14cc18ab8db620b4"
 
 [[files]]
 file = "kubejs/data/tfc/tags/item/ore_pieces.json"
-hash = "d52cac761c0e49d37cc6085e5952dcf7974e14de17642c438a8d76ab09476252"
+hash = "3f204ec777620f170828532ac154595edde862fac809f815fd10a5aafda4e2a5"
 
 [[files]]
 file = "kubejs/data/tfc/tags/item/small_ore_pieces.json"
-hash = "382d6532623604358d02758c0ed4512c448cb13f9eaab337d1c0c9bdc501f70a"
+hash = "4dbbb31db2bfbe50cb4f4541bf022e142a466fddb9d53d81b028653cd535bd95"
 
 [[files]]
 file = "kubejs/data/tfc/tags/worldgen/placed_feature/in_biome/veins.json"
-hash = "ab3ba70bbc90d059ec25478e3c2346d5a5100c19ca09d691511fed848cb541d1"
+hash = "c6054dfcb64af59e05c3e91cb2b30c147c5e16f405133d1a1788fcd84d547efa"
+
+[[files]]
+file = "kubejs/data/tfc_ruins/worldgen/processor_list/ruin_beach.json"
+hash = "23bacc86ac8d3ca59cfa480f2ac650afbc1f15b8210ecf72da723d08b6f57bc3"
+
+[[files]]
+file = "kubejs/data/tfc_ruins/worldgen/processor_list/ruin_rich.json"
+hash = "adef3e9c5972e3d714cd3cd7811adaa8ac2a883e5689b4c5c2d7376ad28668ba"
+
+[[files]]
+file = "kubejs/data/tfc_ruins/worldgen/processor_list/ruin_small.json"
+hash = "f6596c6cd55a4f99bf1c5efb3132a88178c2763eb266515c84f846d5f3a62e88"
+
+[[files]]
+file = "kubejs/data/tfc_ruins/worldgen/structure_set/ruins.json"
+hash = "81e8621bd7e2a00d2e43b5bd68a0a11f2e4875e3b32aeb77e9fc86ebed631c29"
 
 [[files]]
 file = "kubejs/data/trainutilities/advancement/door_ingrediants.json"
@@ -6523,26 +8503,6 @@ hash = "dab39cfd4c820c47415a60d35cf1dd5c5b5223e3f6af7880b84f52e08e465c7e"
 [[files]]
 file = "kubejs/data/trainutilities/advancement/platform_block.json"
 hash = "e11638548d9f044456d122a96dba7f8e9308124b9bea7ba514c5a713ef56ccf7"
-
-[[files]]
-file = "kubejs/data/twilightforest/function/dev_new_world.mcfunction"
-hash = "0facd34157b340c11a8c3f29a7de58fedd10ee8a8c952e045f474744b14531ba"
-
-[[files]]
-file = "kubejs/data/twilightforest/recipe/giant_cobblestone_to_cobblestone.json"
-hash = "b33cd1f11da546f825e83752b2dbb0e4bc47d32cc4cb2d5cfa0213659d115514"
-
-[[files]]
-file = "kubejs/data/twilightforest/recipe/giant_leaves_to_oak_leaves.json"
-hash = "06f43fbd6b19b32ea1aceb86300f208a934a9b08226c02850e892f3b1bfe6f39"
-
-[[files]]
-file = "kubejs/data/twilightforest/recipe/giant_log_to_oak_log.json"
-hash = "040516ea8d8353a0453abdd108dbd06a668b9d36911a1cfd578af9175348dc0e"
-
-[[files]]
-file = "kubejs/data/twilightforest/recipe/giant_obsidian_to_obsidian.json"
-hash = "46a668ac908f0210bcbd08cee76c353d028baf2b5126a7e25865269fbd0758d3"
 
 [[files]]
 file = "kubejs/data/undergarden/tags/worldgen/biome/is_undergarden.json"
@@ -6609,20 +8569,16 @@ file = "kubejs/server_scripts/debug/scan.js"
 hash = "98fcbe8e1fa04083c390331deff60d24f416d416b317f4f6866eef7eec74573a"
 
 [[files]]
-file = "kubejs/server_scripts/finale/the_primordial.js"
-hash = "1c56e44b25005b415b40352d0f2b183ec92a3365683f5e7c574876089b4c6be3"
-
-[[files]]
 file = "kubejs/server_scripts/firmages/blood_moon.js"
-hash = "3fb80e9ff6859c3f88e410040b21feea0cc3699ba5c008b96f3b2ea51b204990"
-
-[[files]]
-file = "kubejs/server_scripts/firmages/boss_fallback.js"
-hash = "0a00001a0b195332dc486bd7d2484134fed7a1e5f69623d1cbe46f97179a1d8a"
+hash = "6c0587f6090f8c4d9f533d24b69c3cf1b4a7f38c637c0896a5d131c0399499fa"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/firmament_night.js"
 hash = "57dbc6257a7b7c88efe7c065a573461bbd350217fecd1ed36901a44f1a3ce8b6"
+
+[[files]]
+file = "kubejs/server_scripts/firmages/frontier_compass.js"
+hash = "f70c4c68f28385a6105d23f717127b02837180e52a1fc06041ed782bcbb60743"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/gamerules.js"
@@ -6634,47 +8590,59 @@ hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/bronze_age.js"
-hash = "66384f925752e40904adc593a57cb7958f2d71c84b3c76cf71dce8ca11c0d5b4"
+hash = "07c7f6a06fc24ceecd18909f91e66d978eb7b6825d25a215f8bf55b3338173d3"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
-hash = "5f75100fb59a014496b934f14c61aa1d5c39c2b2fae8ae5b3d3ea677fe708552"
+hash = "09b9dd4eafee54d4c10fa1494b1b7e8f301ee4d84b6bb6d7438cbbd77038aa2f"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
-hash = "f9d81a0a2d98bc2bd420771d5feb0623c331a965be639d2fad9f10fac8731d3c"
+hash = "75f8814faa4b4e621b87175791cd006804a35d5ffb851f3123d91644b67fb5b4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
-hash = "5ab6bb16f3776b342b0835d02738b435eea2f12c493813de8a95fbd46c4e9c1f"
+hash = "98b4a9ddae1260a131cf609557c80fb1d4225d080184ae1a7d64e607ff6930b9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
-hash = "1afb1c357b014136dd2f8ca01bf2519ed58be64cf458d87f7b5d826892f5b632"
+hash = "b22080fa0fdb2e753ae1bf3a2b776057b66f3a761d2260661288161fde5d716f"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
-hash = "c529e272e07b21c018c6225c0f6e76b6ece49965009b0e0ce7cb25b0ff766568"
+hash = "0d3c9f3c87c9b15cd678792ca877027f4200e2308f8670dd50508be28902a70c"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_5/refurbished_furniture.js"
+hash = "3033c7535c407ac9a4edc0e11c85ed7ccda184087cc53377b20cc702757499cd"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
-hash = "2d10f91fd98b87664d92b6eabaea7c578f91f0d1e721cf27f8418f615c132c3f"
+hash = "24c7ef87f86ef89c85432d2bf4f1b450c29ddba8291c5cbdd0128990ffffc606"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
-hash = "4d80ca368b7831febc5258b8243921ffb6fef9e095a5bfd5b8fd6712a4465acf"
+hash = "0f6629bce2e5400be9206fcff1455fd0da862b356f2fc172c2f5ecc0f20ca6c8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/osmium.js"
 hash = "4da63744e94967e3aa002cf8409fe4cc0501627aec2d6bf702632f4ae5569289"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_7/laser_bridges.js"
+hash = "e6d88bc7bec456ca55d38786703d5a7b243c1b7db72371a2cd4f40d04886e062"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_7/space_age.js"
-hash = "1094b35d0e1a73ffa96cde024fa1f7974ebd597f860318ded23daee612805c8b"
+hash = "acfc50117c5162a9a73cfc6791dd5a313b9bd10b8358cee500eff7f8b8f23729"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"
-hash = "b67bbcbc3fbbecd5f98c8faf1b2bfbe45cd90126f465f289f0abe863d9795fdf"
+hash = "f15303f49eb90dec9c13318438488f27b9a13c8042b052950cb052578f2952df"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_9/chaos_bootstrap.js"
+hash = "6c2b85489f0de28058a360c41735dd4736c05bf5658f41b1be05e33a017761b9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_9/reactor_controller.js"
@@ -6682,11 +8650,7 @@ hash = "e634c620d501f928cdb9b44589a5706a5b820204ae670fc2f1881a54253f80e8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_9/singularity_age.js"
-hash = "b9c28d40987580a0dfb95f91ed7e43f334f33e582955d874b473944f8636c567"
-
-[[files]]
-file = "kubejs/server_scripts/recipes/boss_sigils.js"
-hash = "d760492a27163680276967360152b29595c5d58f2bd23034eb17fc4d39b59eff"
+hash = "86d7c4a520a8e78543135945a229195c29962266c5dc9cd98b6a585e1f925fe5"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/byproducts.js"
@@ -6697,24 +8661,32 @@ file = "kubejs/server_scripts/recipes/dead_inputs.js"
 hash = "89b87005fb6e2ef07eeb789b837ab91708089593e4583dd3a08f7d9799e3b8b1"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/deco_inputs.js"
+hash = "0f87bf54814bb5c08248285b41ecef6438b661cf74d6f68175d3e05c42d9059f"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/exposure.js"
+hash = "4e0c8e521b6f460205baeec863e8859dc642fa6d6992d8950cdb61f9b5a08975"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/gear_rule.js"
 hash = "dd0902086c52f3e48b7445e9ec4c8f793d62b010a48ecd999f61fd395d6ad8f4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "c0c89ba767c8cd2137a41f21e681685c302d1daabae90ac58d940b567b07bf6a"
+hash = "7c3d839b6512220b3224bcf127b24913ea959158540d702f98b433112e20c935"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/signature_blocks.js"
-hash = "53197902aa04335a4843bf340d54af195255d7e5155a9d00e62ea64691e3cd20"
+hash = "2ab4cd5aa2fe3672fd67f0c0ed6bd565af5366b35176862d84cc48c75f88f371"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/station_ages.js"
-hash = "0928887599cc2dc0bc9d64bf6bf2a0ca8268456d90dff02f1bb44964258e6b32"
+hash = "dea74dc014093fd761cc3d2a8a9248e36bf9914357672ace6dd3ff762c7e84d5"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/tfc_station_inputs.js"
-hash = "6fd9bd67ef86ec40a373f071d796aab1795b5ccba90866669800a10c21cc6e9b"
+hash = "4d91014d7cdf7aa8f470fb78918645176ec425a9fa1b682a80f57add6ee8fdcb"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
@@ -6730,7 +8702,7 @@ hash = "8d2aaeaeb7766f7d0035fb6ef21aaf290fa04072b5c25f6295d48c3784b2e745"
 
 [[files]]
 file = "kubejs/server_scripts/tags/arcane_industrial.js"
-hash = "f419ed8678bf1bcc7464dc59287ffb80335ba6557c85d405e968283dbd414bde"
+hash = "eb264463d1e4df8d224ddaf555095f7923b3da586248c18a4b5866da6259d4df"
 
 [[files]]
 file = "kubejs/server_scripts/tags/broken_mod_tags.js"
@@ -6742,7 +8714,7 @@ hash = "9866ed1e642b5c18884b0433dd8d32d604fd51ef1e1a5d19001ff8d821315e3d"
 
 [[files]]
 file = "kubejs/server_scripts/tags/late_ages.js"
-hash = "97d59ab77d3a8043af081d508debd6d16084efe19846b9a4ce7562b47e47e1f6"
+hash = "610c3185d5870855d51597fb485ac1664a16fe927233f3bd1c18a0ef1dd288cf"
 
 [[files]]
 file = "kubejs/server_scripts/tags/tfc_common_tags.js"
@@ -6750,19 +8722,23 @@ hash = "1b77037663297161e2a573da8689e3b5def5e45fb8e49babccbcf6be116d0869"
 
 [[files]]
 file = "kubejs/server_scripts/tags/tfc_stations.js"
-hash = "f3ac29f73c344d50175341cac291e4c2d423f0344e3417f65235d0ad72bd0383"
+hash = "2d9c86565b5ef6d364e167f9c5572b96d5285fd0048e2499a0583abbca767f12"
 
 [[files]]
 file = "kubejs/server_scripts/tags/unification.js"
-hash = "ef817e26ccf509cd1509dd62f76f52576a7e269e6b703102c128b15410e617b7"
+hash = "2f259945df4d3cb1b583a75697e3e1e5895452f5caf72c44b99144aede58ec62"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "f4e2c550eb9ee016eee92d1e41b2e4005729c73df09e1c4c74c0715b2c64ee18"
+hash = "128aea0b889bac85b056dcdb309697d3b1bdc1ed256b6167d137277f651bd793"
+
+[[files]]
+file = "kubejs/startup_scripts/draconium.js"
+hash = "f78db3b171bc5964127344b35ed471f6d4aad4f31ad3fb21030b043504a53eff"
 
 [[files]]
 file = "kubejs/startup_scripts/items.js"
-hash = "b2a6031e73fc8f32fc8e5a1dd0ab2478ddaa47cc06148c23a5e6824824aa2312"
+hash = "b275e38435314286f302a17b3bebfe78f59d55e0430b4d1af97d9727b84d75c8"
 
 [[files]]
 file = "kubejs/startup_scripts/mystical_veins.js"
@@ -6774,7 +8750,7 @@ hash = "17df96428810845e8b6c6c4894385c9c0d483fef6d766d17e55e76bf939d5501"
 
 [[files]]
 file = "kubejs/startup_scripts/signature_blocks.js"
-hash = "ec074e2b75b70c1cf1aab0ff1a501b8a653febea7c3241347e59ed38e4dcddcd"
+hash = "c4a6600335d3f911c38f18951e052e6ab657fe4d3285d342dc990379f69f0a05"
 
 [[files]]
 file = "mods/ad-astra.pw.toml"
@@ -6814,6 +8790,11 @@ metafile = true
 [[files]]
 file = "mods/alternating-flux-neoforge.pw.toml"
 hash = "73eb1b11f9d84863c4b2b1c90114a9693b43ef26c3a0cf5b998022144f13557b"
+metafile = true
+
+[[files]]
+file = "mods/another-furniture.pw.toml"
+hash = "ef3367cda8d69ad8e3732bfd4bb6ba437017fda1e2697ce9717bee2055b41234"
 metafile = true
 
 [[files]]
@@ -6942,6 +8923,16 @@ hash = "7904c140247e0d8a87231cf4d36718fc018e0f851dbec2517b673acdc25547df"
 metafile = true
 
 [[files]]
+file = "mods/cacophony-tfc.pw.toml"
+hash = "cc888683261fba06445e24a322a97593fb7c06d4ee11005660734f5be6bd436a"
+metafile = true
+
+[[files]]
+file = "mods/carry-on.pw.toml"
+hash = "98250d952145b18c452883997e7e675d445bfce33e9afb35bf372040c429a179"
+metafile = true
+
+[[files]]
 file = "mods/cave-dweller-reevolved.pw.toml"
 hash = "0a8a4286c00017318d37ce7be4ac1d52f94933805bebb386dd9858d5c8d4db6b"
 metafile = true
@@ -6994,6 +8985,11 @@ metafile = true
 [[files]]
 file = "mods/corgilib.pw.toml"
 hash = "88b8e547b137f1435b0e383b933062ef0085454561f6adecff585b2fb9b50dd6"
+metafile = true
+
+[[files]]
+file = "mods/cosy-critters.pw.toml"
+hash = "2e88e6e081840379599f64b7c70c4660d654ea7d281af65102f939c2ca482424"
 metafile = true
 
 [[files]]
@@ -7162,6 +9158,16 @@ hash = "099dde695a3e0a0386f933172259045d273ff5234bafebd8bea5efa728adc671"
 metafile = true
 
 [[files]]
+file = "mods/deimos-fabric-forge-neoforge.pw.toml"
+hash = "ff4171ef297c7296a7c878d5c79806848d083f37e6a39da3677b32a20b598476"
+metafile = true
+
+[[files]]
+file = "mods/diagonal-fences.pw.toml"
+hash = "db153992e71c2c1ca7643ad93d11f1276cada2843879cd01909abef2f2ed9df9"
+metafile = true
+
+[[files]]
 file = "mods/draconic-evolution-render-patcher.pw.toml"
 hash = "dbc78480bb0c1e86686273df4ee110c7ca292fce8aec7345b059997832693259"
 metafile = true
@@ -7184,6 +9190,11 @@ metafile = true
 [[files]]
 file = "mods/drippy-loading-screen.pw.toml"
 hash = "a0a08557c2985af8f6c92adef8b654c8f8b239277c4bb8eb94810b22109cc351"
+metafile = true
+
+[[files]]
+file = "mods/dusty-decorations.pw.toml"
+hash = "63987a728003b283cff993b6c9f7b857fbe39ccce0710ebb9a74bebb08dde9f6"
 metafile = true
 
 [[files]]
@@ -7242,6 +9253,11 @@ hash = "58c8a64f256889552536342d3544d6a957a6dbf0cf9f22ebf7f2c493acf34c0e"
 metafile = true
 
 [[files]]
+file = "mods/exposure.pw.toml"
+hash = "c21fdfb4055a25a2658c58995e0088f973b570c0c0b60e3bb8bf8291fa2a8e64"
+metafile = true
+
+[[files]]
 file = "mods/fancymenu.pw.toml"
 hash = "0a5ade10e9b270da0cb791c4675e350042c23b4fe01a6ddc1ddebcbf356ed86d"
 metafile = true
@@ -7257,8 +9273,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.9.2.jar"
-hash = "b1d7516188384f5c9bacb2fd6f8d9928bb521dbd839e694b55d657d4cff2239d"
+file = "mods/firmages-core-0.10.0.jar"
+hash = "eecb3810719754f3bae3c48a42213a386dc1d4038d8201e0c95fc559ffd06c90"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
@@ -7273,6 +9289,11 @@ metafile = true
 [[files]]
 file = "mods/framedblocks.pw.toml"
 hash = "be4d309355c854d8b20aa36276f134270a5c4c1abe6cac955b41deabf83cecb3"
+metafile = true
+
+[[files]]
+file = "mods/framework.pw.toml"
+hash = "dd0153bc05a3ffc8592dfaf35b4e8014127e6e1b352d7c18462d49a1ed7a5035"
 metafile = true
 
 [[files]]
@@ -7298,6 +9319,11 @@ metafile = true
 [[files]]
 file = "mods/ftb-xmod-compat.pw.toml"
 hash = "6ad22c468d67dcbb65784e161d4af9e671d3437cb5bfb1e86a42ae25207cf25b"
+metafile = true
+
+[[files]]
+file = "mods/fusion-connected-textures.pw.toml"
+hash = "760b68f2927bf6e2043afa4e3a19956f5405e4dfad2940bb6140c904974cdcad"
 metafile = true
 
 [[files]]
@@ -7356,6 +9382,11 @@ hash = "901106fc6fcb4dcb86c13dd8c1dfb0d26e048387fec5bd610d06082242bd786a"
 metafile = true
 
 [[files]]
+file = "mods/immersive-paintings.pw.toml"
+hash = "33628426bbfebfa8b0d5abf0ccdec9632c877650b9c1be048277c6a59ea3b311"
+metafile = true
+
+[[files]]
 file = "mods/immersive-petroleum.pw.toml"
 hash = "d5496dcb36c7417e52d568e060077d79e2dac2cb7686be9739941c841a644254"
 metafile = true
@@ -7363,6 +9394,11 @@ metafile = true
 [[files]]
 file = "mods/immersiveposts.pw.toml"
 hash = "cbb304e473209f205d70863acdc9a544bc78a65aa5cac1626d3cbf70cc3b1ab3"
+metafile = true
+
+[[files]]
+file = "mods/interiors.pw.toml"
+hash = "69b39b9ae4625d2b3b8b48974ef9447e28286a06bfdaf12f986a3da8efd76ae6"
 metafile = true
 
 [[files]]
@@ -7388,6 +9424,11 @@ metafile = true
 [[files]]
 file = "mods/jei.pw.toml"
 hash = "f45960e78cdfe0d4ffe832cc289f81221b1e453dc47dfaee72502bda84cded26"
+metafile = true
+
+[[files]]
+file = "mods/joy-of-painting.pw.toml"
+hash = "66dce0f38721829843216d80cbc8e7a95098be6e405b5bfea386becb20cd98d1"
 metafile = true
 
 [[files]]
@@ -7441,6 +9482,11 @@ hash = "7211de0ddeab153fc2bf9588f5922de705006be507002ec03cb9f8e6b67ab4cf"
 metafile = true
 
 [[files]]
+file = "mods/laser-bridges-doors.pw.toml"
+hash = "109db7442a7027c6476198c0b2e0df5879e7f5e6d9d60287e73fa26e534f13bf"
+metafile = true
+
+[[files]]
 file = "mods/lithium.pw.toml"
 hash = "fb6171c8f7ff0d83513b3f75ee5d7a98659559c427d79fb69eb0219639af8a37"
 metafile = true
@@ -7458,6 +9504,36 @@ metafile = true
 [[files]]
 file = "mods/macaws-doors.pw.toml"
 hash = "5b6e513d543f82ffd9f01ef217e3abb7b55da78184bf52f07d2cc305f1ce16f7"
+metafile = true
+
+[[files]]
+file = "mods/macaws-fences-and-walls.pw.toml"
+hash = "da326d59e505ce18857f1b72be406a03c7b7f96e09c0953cf1fff194c7ff58cd"
+metafile = true
+
+[[files]]
+file = "mods/macaws-furniture.pw.toml"
+hash = "e31aebea2649cad495197a6736570f59b286d75c7a08c06a8a33fd84abd94817"
+metafile = true
+
+[[files]]
+file = "mods/macaws-paintings.pw.toml"
+hash = "59e096e0fa6ddb2b95d3705d605445a084e5b4dae9d54ec8d8b84dc881264a22"
+metafile = true
+
+[[files]]
+file = "mods/macaws-roofs.pw.toml"
+hash = "8b0e9d3c66f2a5276a3e1eaaab073f4e41f8d352c6d282e724129c23f0940bfc"
+metafile = true
+
+[[files]]
+file = "mods/macaws-stairs.pw.toml"
+hash = "749bf8f43a3b49b103685b1d1c8c39a2ca7bcd796818dc7aad226711760f0857"
+metafile = true
+
+[[files]]
+file = "mods/macaws-trapdoors.pw.toml"
+hash = "ed2fb750e3b70e31756408d1d6b6007c6fb39e80091cbaa0e60117a434821473"
 metafile = true
 
 [[files]]
@@ -7586,6 +9662,11 @@ hash = "75d42d0a0bcfbcce376fb229f72b75e3a40592fdff5490b997c19ef439a9c832"
 metafile = true
 
 [[files]]
+file = "mods/particle-rain.pw.toml"
+hash = "33072e6d0d27e9d5d35ad83b0e9f68784358adf2af9d51b353e6641aa3188de5"
+metafile = true
+
+[[files]]
 file = "mods/patchouli.pw.toml"
 hash = "3718e8a37d0dc2939cc350cce74bcb9c36b59f48baf4560e62804f7ca6478185"
 metafile = true
@@ -7613,6 +9694,16 @@ metafile = true
 [[files]]
 file = "mods/puzzles-lib.pw.toml"
 hash = "b50f3be99af30eed556bc1f6c142b2e454996d6d7c143dc207274b396ca0f698"
+metafile = true
+
+[[files]]
+file = "mods/rechiseled.pw.toml"
+hash = "ae8e448fe3c56667203cd20d9e96058594a8e263d96bc64fbcaebd07b89d23c9"
+metafile = true
+
+[[files]]
+file = "mods/refurbished-furniture.pw.toml"
+hash = "208de52370a896983814bd3f69ed0e2b46ca52d99603656562f3890f96d151da"
 metafile = true
 
 [[files]]
@@ -7701,8 +9792,18 @@ hash = "a2681409a01e496281b21d383cb28043efc4425f7110d21dfd8b6362e258a817"
 metafile = true
 
 [[files]]
+file = "mods/storage-drawers.pw.toml"
+hash = "9f0cd1d096b591cb49077fbe4f95a1e24a93354cd9b4d77e74c49af2d29381cf"
+metafile = true
+
+[[files]]
 file = "mods/strut-your-stuff.pw.toml"
 hash = "be50160d9d37a186eaf955f39f22a4e1a3d76fb4e61c63aaca25fd5ab2124f9e"
+metafile = true
+
+[[files]]
+file = "mods/subtle-effects.pw.toml"
+hash = "fdf3d8942d14758ea44a1f27e071fcfbffeafd4720e2d326dbc7dd939d588adc"
 metafile = true
 
 [[files]]
@@ -7763,6 +9864,11 @@ metafile = true
 [[files]]
 file = "mods/tfc-vessel-tooltip.pw.toml"
 hash = "8cc70e8217f5280a08902f84223f40d9bea8afd8b06e12ee53d88cb399383584"
+metafile = true
+
+[[files]]
+file = "mods/tfc-volcanoes.pw.toml"
+hash = "b28c05a0b24c05ef76ac19c5ace0f60cefab0edb12426a8e02eef519995dd067"
 metafile = true
 
 [[files]]

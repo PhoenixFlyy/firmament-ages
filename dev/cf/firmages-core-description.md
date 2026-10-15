@@ -14,6 +14,8 @@
 - **Reactor Controller.** A block that refuels a Draconic Evolution reactor through pipes or from an adjacent chest and signals READY by redstone. It never restarts the reactor on its own.
 - **The Origin.** The finale dimension of the pack: a fixed Stargate Journey address, an arena, its own spawn list and travel lock, and the end-boss trigger. The fight itself is a KubeJS script of the pack.
 - **Immersion.** Nothing of the pack's machinery shows before its time: join messages and popups of other mods, advancement toasts and the advancement screen (the quest book opens instead) are silenced, the Mods and Advancements buttons are hidden, and EMI and Jade stay off until the server's configured Age (`ui.emiFromAge`, `ui.jadeFromAge`). A small HUD line names the current Age and its offering (fades out, hold H to show), and every new player gets a one-time welcome. With TerraFirmaCraft, thirst is off and nutrition can only raise health above the starting value, never lower it.
+- **Proof of work.** The Tally Chute passes items straight into the inventory below and counts them per team and Age; the advancement criterion `firmages:tally` (item or tag, count, optional Age) lets quests ask that a line really runs. `firmages:silo_launch` fires when a crewed Ad Astra rocket starts from a pad at least 8 blocks deep under a moving Create hatch.
+- **Ponder and music.** Two Ponder scenes of the pack ("Silo Hatch", "Portcullis") that a quest picture can open, returning to the quest book afterwards; background music by Age, silent during the Firmament Night's own track and the ceremony.
 - **Tools for pack makers.** `/firmages ages`, `/firmages recipes audit|why|locked`, `/firmages dump registry`, `/firmages shrine status`, `/firmages selftest`, `/firmages ceremony preview`, headless debug players for server-side tests, a KubeJS binding `FirmAges`, Jade tooltips for the shrine. Shrine rings, tiers, offerings, rites and blessings are data files (`data/firmages/firmages_shrine/`, `data/firmages/modonomicon/multiblocks/`) and can be replaced by a datapack.
 
 ## Dependencies
@@ -44,6 +46,15 @@ Optional (the mod hooks into them when they are present):
 MIT License. Source: the `mod/firmages-core` folder of the pack repository, [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages/tree/main/mod/firmages-core). Issues go to the [pack's issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues). The textures are generated pixel art made for this mod.
 
 ## Changelog
+
+**0.10.0**
+
+- Tally Chute (`firmages:tally_chute`): items enter from the top or a side and pass into the inventory below; counts per FTB team and world Age in SavedData `firmages_tally`, a stack of chutes counts once, a full outlet backs the line up. Jade shows the counts.
+- Criteria `firmages:tally` (item or tag, count, optional Age; checked once a second for changed teams and at login) and `firmages:silo_launch` (crewed Ad Astra rocket from a launch pad at least 8 blocks deep, a moving Create contraption of 100 or more blocks over the shaft within 60 s before launch).
+- Ponder scenes "Silo Hatch" (Ad Astra launch pad) and "Portcullis" (Create rope pulley). A quest picture with `custom_event:firmages:ponder/<namespace>/<path>` opens the scenes of that item; closing Ponder reopens the quest book.
+- Per-Age music: `firmages:music.age_0` to `age_9` replace the generic game music (TerraFirmaCraft's five bundled tracks); silent while the Firmament Night track `firmages:music.firmament_night` loops and during the ceremony. Switch `music.ageMusic` (client).
+- Removed with the pack's Cataclysm and Gateways to Eternity: the Cataclysm block-immunity tags, `origin.finaleGateway`, the Gateways branches of the finale, and the Cataclysm mobs of The Origin's spawn list (only endermen remain).
+- Network protocol version 4, unchanged; client and server need 0.10.0 (new block and item).
 
 **0.9.2**
 

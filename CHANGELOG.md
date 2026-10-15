@@ -1,6 +1,34 @@
 # Firmament Ages changelog
 
-Beta: the whole progression is playable from Dawn to the final boss, balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
+Beta: the whole progression is playable from Dawn to The Origin (its final boss is being rebuilt for 1.0), balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
+
+## 0.10.0
+
+First round towards 1.0. No famous boss is required any more: every Age has its own technical route, the big adventure mods are gone, and the world and the home get a lot richer. **Start a new world:** removed mods take their blocks, items and structures with them, and the new world features only generate in new chunks.
+
+- **Removed:** The Twilight Forest, L_Ender's Cataclysm, Bosses of Mass Destruction, Mowzie's Mobs, Summoning Rituals and Gateways to Eternity (with their libraries Lionfish API and CERBON's API). With them go the boss sigils, the trials, the boss fallback recipes and the Monstrosity altar. The final boss of The Origin is being rebuilt and comes in a later round.
+- **Age tokens instead of boss drops.** Each shrine offering asks for an Age token with a route you build yourself; the bosses, the End, the Wither and the dragon stay optional shortcuts:
+  - **Iron Age:** the Frontier Relic. A Frontier Compass (wrought iron around magnetite) points to the nearest Cold Forge, a new ruined forge in highlands and hills; its chest holds the Frontier Shard, which a deployer and a press turn into the relic.
+  - **Arcane Age:** the Arcane Keystone. A Hollow Keystone from Nether fortress chests runs through a spout (liquid experience), a deployer (blaze rod) and a press. The magic route is the Djinni ritual; its Wilden Tribute now comes from the Enchanting Apparatus.
+  - **Industrial Age:** a built-up steel cannon chamber from Create Big Cannons, cast, bored, layered and heated.
+  - **Electric Age:** a Nether Star from the arc furnace (one wither skeleton skull, soul sand, gold, electrum). The Afrit ritual is the magic route, the Wither optional.
+  - **Information Age:** an Applied Energistics 2 singularity.
+  - **Space Age:** the flight recorder from the chest of the Mars temple; the dragon heart comes from wyvern fusion.
+  - **Quantum Age:** subatomic alloy.
+  - **Singularity Age:** a large chaos fragment from your own Draconic reactor, which can now be built without chaos (about four reactor cycles).
+- **Draconium veins** deep in granite, diorite and gabbro, so Draconic Evolution no longer needs the End. They show from the Space Age.
+- **A vanilla bucket** is made from steel sheets in the Electric Age (the Twilight Forest was its only source); the volcanic sourcelink takes a magma block instead of a lava bucket. Vanilla oak, birch, spruce and jungle wood only grow on the forest worlds behind the Stargate (Singularity Age); dark oak, acacia, mangrove, cherry and bamboo are gone, and their decoration with them. Every decoration set comes in TerraFirmaCraft and ArborFirmaCraft woods.
+- **A living world:** Cacophony (birds and wind by climate and season), TFC Volcanoes (eruptions and quakes that only show and shake, mineral crusts at hot springs), Exposure (a film camera from brass, silver, a lens and leather in the Bronze Age, developed with soda ash and salt; colour film in the Industrial Age; pictures from a URL are switched off), Carry On (sneak and right-click with empty hands to carry a chest or block; anvils, crucibles, barrels, vessels, bloomery, blast furnace and shrine blocks stay put). On the client: Subtle Effects, Particle Rain and Cosy Critters & Creepy Crawlies (birds, no moths).
+- **Months have 5 days** (new worlds still start on June 1) and snow piles up twice as fast. TerraFirmaCraft ruins appear more often, and their chests hold loot of your Age.
+- **Blood moons by Age:** from the Iron Age on, undead wear armour and weapons of the metal one Age behind yours; from the Electric Age on, monsters also get speed, then resistance, then strength.
+- **A new home:** Macaw's Stairs, Fences and Walls, Trapdoors, Roofs, Furniture and Paintings, Storage Drawers (one upgrade per Age), Another Furniture, Dusty Decorations, Joy of Painting, Create: Interiors (Iron Age), MrCrayfish's Furniture: Refurbished (Electric Age kitchen and electronics), Immersive Paintings (Information Age), Laser Bridges & Doors (Space Age) and Diagonal Fences, in TerraFirmaCraft and ArborFirmaCraft woods where they have wood. The TerraFirmaCraft chisel cycles every rock through six new patterns (chevron, ashlar, runes, mosaic, connected panels and columns); Rechiseled shows the whole family of a rock.
+- **Tally Chute** (Bronze Age): put it into a line like a chute; it counts what your team pushes through and passes everything on. Quests will use it to prove that a line runs.
+- **Music by Age:** TerraFirmaCraft's five tracks play by Age, and the Firmament Night has its own track.
+
+### Technical
+
+- **Firmament Ages Core 0.10.0:** the Tally Chute with the criteria `firmages:tally` and `firmages:silo_launch`, two Ponder scenes ("Silo Hatch", "Portcullis") that quest pictures can open, per-Age music, and everything that only served Cataclysm and Gateways to Eternity removed. Client and server need 0.10.0.
+- 234 mods (26 added, 8 removed). Subtle Effects is a Modrinth file with a CurseForge twin, like the eight before it.
 
 ## 0.9.3
 
