@@ -528,19 +528,19 @@ public final class OriginGameTests {
             .thenSucceed();
     }
 
-    /** mob_9: The Origin spawns only from data/firmages/origin/spawns.json (Cataclysm entries are skipped without the mod). */
+    /** mob_9: The Origin spawns only from data/firmages/origin/spawns.json (endermen since Cataclysm left the pack). */
     @GameTest(template = "empty", batch = "firmages_5_origin_world")
     public static void originSpawnList(GameTestHelper h) {
         ServerLevel o = origin(h);
         WeightedRandomList<MobSpawnSettings.SpawnerData> none = WeightedRandomList.create();
         List<Object> monsters = EventHooks.getPotentialSpawns(o, MobCategory.MONSTER, OriginArena.ALTAR.above(), none).unwrap().stream()
             .map(d -> (Object) d.type).toList();
-        ok(h, monsters.equals(List.of(EntityType.ENDERMAN)), "Origin monsters from the spawn list (vanilla part in this run): " + monsters);
+        ok(h, monsters.equals(List.of(EntityType.ENDERMAN)), "Origin monsters from the spawn list: " + monsters);
         WeightedRandomList<MobSpawnSettings.SpawnerData> cows = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.COW, 8, 4, 4));
         ok(h, EventHooks.getPotentialSpawns(o, MobCategory.CREATURE, OriginArena.ALTAR.above(), cows).isEmpty(), "no passive mobs in The Origin");
         ok(h, EventHooks.getPotentialSpawns(h.getLevel(), MobCategory.CREATURE, h.absolutePos(BlockPos.ZERO), cows).unwrap().size() == 1,
             "other dimensions keep their own lists");
-        ok(h, OriginSpawns.list().errors().isEmpty() && OriginSpawns.list().of("monster").size() == 4, "spawn list file parsed: " + OriginSpawns.list());
+        ok(h, OriginSpawns.list().errors().isEmpty() && OriginSpawns.list().of("monster").size() == 1, "spawn list file parsed: " + OriginSpawns.list());
         h.succeed();
     }
 

@@ -35,7 +35,7 @@ import java.util.UUID;
  * Blessings of the awakened tiers (SPEC §7.6), active only while the shrine is intact.
  * <ul>
  *   <li>{@code sanctuary} (Hearthward): no natural monster spawns within {@code 12 + 4 * (awakened - 1)} blocks of the
- *       heart. Spawners, Gateways and ritual summons are untouched.</li>
+ *       heart. Spawners and ritual summons are untouched.</li>
  *   <li>Effects of every awakened tier's blessing, for each player within that same radius of the heart (the
  *       blessing radius; {@code shrine.blessings.everywhere} lifts the radius for attributes and XP): transient
  *       attribute modifiers {@code firmages:blessing/<name>/<index>}, status effects (always only within the radius)

@@ -30,9 +30,9 @@ import java.util.Locale;
  * {@code origin tp} uses the normal teleport path, so the age_9 dimension locks apply: a player without
  * {@code age_9} (and outside creative) stays where they are; {@code force} gives the players a forced visit that
  * passes both locks until they leave The Origin ({@link OriginAccess}). {@code gathering} starts the Gathering at
- * once, wherever the players stand and regardless of the cooldown; {@code fight} asks the boss script to summon The
- * Primordial without the gateway waves; {@code kill} kills the hostiles of the current wave and the boss's helpers,
- * {@code kill boss} the final boss itself, whose death then wins the finale the normal way (test shortcuts).
+ * once, wherever the players stand and regardless of the cooldown; {@code fight} asks for the final boss at once,
+ * without the Gathering; {@code kill} kills the hostiles and the boss's helpers, {@code kill boss} the final boss
+ * itself, whose death then wins the finale the normal way (test shortcuts).
  */
 final class OriginCommands {
     private static final SimpleCommandExceptionType NO_ORIGIN = new SimpleCommandExceptionType(
@@ -113,14 +113,14 @@ final class OriginCommands {
         }
         OriginEvent.SummonBoss e = OriginService.summonBoss(c.getSource().getServer());
         if (e == null || !e.answered()) {
-            c.getSource().sendFailure(Component.literal("No boss script answered (kubejs/server_scripts/finale/the_primordial.js not loaded?)"));
+            c.getSource().sendFailure(Component.literal("Nothing answered the boss summon (OriginEvent.SummonBoss)"));
             return 0;
         }
         if (!e.isSummoned()) {
-            c.getSource().sendFailure(Component.literal("The boss script did not summon: " + e.getRefusal()));
+            c.getSource().sendFailure(Component.literal("The boss was not summoned: " + e.getRefusal()));
             return 0;
         }
-        c.getSource().sendSuccess(() -> Component.literal("The Origin: final boss summoned at the altar (gateway waves skipped)"), true);
+        c.getSource().sendSuccess(() -> Component.literal("The Origin: final boss summoned at the altar (Gathering skipped)"), true);
         return 1;
     }
 
@@ -130,7 +130,7 @@ final class OriginCommands {
             c.getSource().sendFailure(Component.literal("No hostile alive in the loaded part of The Origin (the final boss is spared; /firmages origin kill boss)"));
             return 0;
         }
-        c.getSource().sendSuccess(() -> Component.literal("The Origin: " + n + " hostile(s) killed (wave enemies and boss helpers; the final boss is spared)"), true);
+        c.getSource().sendSuccess(() -> Component.literal("The Origin: " + n + " hostile(s) killed (the final boss is spared)"), true);
         return n;
     }
 
@@ -160,7 +160,7 @@ final class OriginCommands {
             sd.won() ? "DEFEATED (finale_won)" : "alive"));
         long echoes = java.util.stream.IntStream.range(0, OriginArena.ISLANDS).filter(i -> level.getEntity(dev.firmages.core.origin.OriginEchoes.uuid(i)) != null).count();
         line(c, "  Island echoes loaded: " + echoes + " of " + OriginArena.ISLANDS + " (they appear while players are in The Origin)");
-        line(c, "  Finale gateway " + dev.firmages.core.config.ServerConfig.finaleGateway() + "; spawn list "
+        line(c, "  Spawn list "
             + java.util.Arrays.stream(net.minecraft.world.entity.MobCategory.values()).filter(m -> !dev.firmages.core.origin.OriginSpawns.spawns(m).isEmpty())
                 .map(m -> m.getSerializedName() + " " + dev.firmages.core.origin.OriginSpawns.spawns(m).stream()
                     .map(d -> net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(d.type) + " w" + d.getWeight().asInt()).toList()).toList());

@@ -12,8 +12,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.functions.CommandFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -36,15 +34,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * The Origin at runtime (SPEC §16): builds the arena once, watches the Gathering at the altar and turns the death
- * of the tagged final boss into {@code finale_won} plus the FINALE ceremony. The fight itself (Gateways to Eternity
- * waves, the Cataclysm boss, its phases) is KubeJS; this class only provides the trigger and the result.
+ * of the tagged final boss into {@code finale_won} plus the FINALE ceremony. The boss itself answers
+ * {@link OriginEvent.Gathering} and {@link OriginEvent.SummonBoss}; this class only provides the trigger and the result.
  */
 public final class OriginService {
     /**
@@ -56,8 +51,6 @@ public final class OriginService {
     public static final ResourceLocation START_FUNCTIONS = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "origin/start");
     public static final ResourceLocation WON_FUNCTIONS = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "origin/won");
     private static final int CHECK_PERIOD = 20;
-    /** Namespace of Gateways to Eternity's gate entities; the mod is not a compile dependency, its save data is read instead. */
-    private static final String GATEWAYS = "gateways";
 
     private static boolean wasGathered;
     /** Server tick of the last start, -1 for none since boot (the cooldown is not persisted). */
@@ -166,7 +159,7 @@ public final class OriginService {
      * arrives at the altar (the rising edge), at most once per {@code origin.gatherCooldownSeconds}, and never while
      * its fight runs ({@link #fightActive}): players walk away from the altar and back during the waves and the
      * boss, and each return used to start (and announce) the Gathering again once the cooldown had passed. After a
-     * wipe the gate and the boss are gone, so the next arrival after the cooldown starts it again.
+     * wipe the boss is gone, so the next arrival after the cooldown starts it again.
      * @return true if the start fired now
      */
     public static boolean checkGathering(MinecraftServer server) {
@@ -194,51 +187,29 @@ public final class OriginService {
     }
 
     /**
-     * The fight of a Gathering runs: the finale gate ({@code origin.finaleGateway}) or an entity with
-     * {@link #FINAL_BOSS_TAG} is alive in The Origin (loaded entities; players stand next to both while it matters).
+     * The fight of a Gathering runs: an entity with {@link #FINAL_BOSS_TAG} is alive in The Origin (loaded entities;
+     * players stand next to it while it matters).
      */
     public static boolean fightActive(ServerLevel level) {
-        String gate = ServerConfig.finaleGateway();
         for (Entity e : level.getAllEntities()) {
-            if (e.isAlive() && (e.getTags().contains(FINAL_BOSS_TAG) || gate.equals(gatewayId(e)))) return true;
+            if (e.isAlive() && e.getTags().contains(FINAL_BOSS_TAG)) return true;
         }
         return false;
     }
 
     /**
-     * The gateway id of a Gateways to Eternity gate entity, from its save data ({@code gate}, verified with javap in
-     * GatewaysToEternity 5.1.0 {@code GatewayEntity#addAdditionalSaveData}); null for every other entity.
-     */
-    @Nullable
-    static String gatewayId(Entity e) {
-        if (!isGate(e)) return null;
-        return e.saveWithoutId(new CompoundTag()).getString("gate");
-    }
-
-    private static boolean isGate(Entity e) {
-        return GATEWAYS.equals(BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getNamespace());
-    }
-
-    /**
-     * {@code /firmages origin kill} (operators): kills every hostile in The Origin, i.e. the enemies of the current gate
-     * wave (also those a gate tracks that are not monsters, from its {@code wave_entities}) and the boss's helpers,
-     * but never the final boss. A kill (not a discard) counts for the gate, so the wave ends as if fought.
+     * {@code /firmages origin kill} (operators): kills every hostile ({@link Enemy}) in The Origin, the boss's helpers
+     * among them, but never the final boss.
      * @return the number of entities killed
      */
     public static int killHostiles(ServerLevel level) {
-        Set<UUID> waves = new HashSet<>();
-        List<Entity> all = new ArrayList<>();
+        List<LivingEntity> hostiles = new ArrayList<>();
         for (Entity e : level.getAllEntities()) {
-            all.add(e);
-            if (isGate(e)) {
-                long[] ids = e.saveWithoutId(new CompoundTag()).getLongArray("wave_entities");
-                for (int i = 0; i + 1 < ids.length; i += 2) waves.add(new UUID(ids[i], ids[i + 1]));
-            }
+            if (!(e instanceof LivingEntity le) || !le.isAlive() || le instanceof ServerPlayer || le.getTags().contains(FINAL_BOSS_TAG)) continue;
+            if (le instanceof Enemy) hostiles.add(le);
         }
         int killed = 0;
-        for (Entity e : all) {
-            if (!(e instanceof LivingEntity le) || !le.isAlive() || le instanceof ServerPlayer || le.getTags().contains(FINAL_BOSS_TAG)) continue;
-            if (!(le instanceof Enemy) && !waves.contains(le.getUUID())) continue;
+        for (LivingEntity le : hostiles) {
             if (kill(le)) killed++;
         }
         FirmagesCore.LOGGER.info("The Origin: {} hostile(s) killed by an operator", killed);
@@ -261,8 +232,8 @@ public final class OriginService {
     }
 
     /**
-     * {@code /kill}'s damage (generic_kill bypasses invulnerability, so Cataclysm's per-hit damage cap and its
-     * invulnerable attack animations do not apply); a death cancelled by a listener stays cancelled.
+     * {@code /kill}'s damage (generic_kill bypasses invulnerability, so a boss's damage cap and invulnerable attack
+     * animations do not apply); a death cancelled by a listener stays cancelled.
      */
     private static boolean kill(LivingEntity e) {
         e.kill();
@@ -297,8 +268,8 @@ public final class OriginService {
     }
 
     /**
-     * {@code /firmages origin fight} (operators): asks the boss script to summon its final boss now, without the
-     * gateway waves ({@link OriginEvent.SummonBoss}). @return the answered event, or null without The Origin
+     * {@code /firmages origin fight} (operators): asks the boss to be summoned now, without the Gathering
+     * ({@link OriginEvent.SummonBoss}). @return the answered event, or null without The Origin
      */
     @Nullable
     public static OriginEvent.SummonBoss summonBoss(MinecraftServer server) {

@@ -57,7 +57,6 @@ public final class ServerConfig {
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_IDLE_MINUTES;
-    public static final ModConfigSpec.ConfigValue<String> ORIGIN_FINALE_GATEWAY;
     // sync
     public static final ModConfigSpec.BooleanValue SYNC_COALESCE;
     // team (SPEC §2.3)
@@ -80,7 +79,6 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
     public static final List<String> DEFAULT_BOOT_FALLBACK = List.of("dawn");
-    public static final String DEFAULT_FINALE_GATEWAY = "firmages:the_origin";
     /** Felix 2026-10-13: the recipe viewer (EMI) and the block overlay (Jade) both open with the Bronze Age (Jade
      *  moved from the Stone Age, H9); nothing of the machinery shows in Dawn or the Stone Age. */
     public static final AgeId DEFAULT_EMI_FROM_AGE = AgeId.AGE_1;
@@ -169,9 +167,6 @@ public final class ServerConfig {
             .defineInRange("gatherIdleMinutes", 5, 0, 1440);
         ORIGIN_GATHER_COOLDOWN = b.comment("Seconds before a broken-up Gathering can start the fight again.")
             .defineInRange("gatherCooldownSeconds", 30, 0, 3600);
-        ORIGIN_FINALE_GATEWAY = b.comment("Gateways to Eternity gate the end-boss script opens at the Gathering; only its completion in The Origin",
-                "summons the final boss (read by the script through FirmAges.finaleGateway()).")
-            .define("finaleGateway", DEFAULT_FINALE_GATEWAY, o -> o instanceof String str && str.matches("[a-z0-9_.-]+:[a-z0-9_./-]+"));
         b.pop();
 
         b.comment("ProgressiveStages client syncs").push("sync");
@@ -287,10 +282,6 @@ public final class ServerConfig {
     }
 
 
-    /** {@code origin.finaleGateway}: the gate id the end-boss script opens and waits for. */
-    public static String finaleGateway() {
-        return loaded() ? ORIGIN_FINALE_GATEWAY.get() : DEFAULT_FINALE_GATEWAY;
-    }
 
     public static AgeId emiFromAge() {
         return loaded() ? AgeId.byId(UI_EMI_FROM_AGE.get()).orElse(DEFAULT_EMI_FROM_AGE) : DEFAULT_EMI_FROM_AGE;
