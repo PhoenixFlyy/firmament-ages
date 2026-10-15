@@ -1,6 +1,6 @@
 """Build the CurseForge upload zip: dev/exports/FirmamentAges-<version>-curseforge-upload.zip
 
-Why not plain `packwiz curseforge export` in the repo: eight mods stay Modrinth metafiles in mods/ because their
+Why not plain `packwiz curseforge export` in the repo: nine mods stay Modrinth metafiles in mods/ because their
 CurseForge files are excluded from third-party downloads (packwiz-installer could not fetch them for the friends'
 Prism instances and the server). The Complementary Reimagined shader pack stays a Modrinth metafile in shaderpacks/,
 because its license forbids a direct file upload and the .mrpack would carry a CurseForge file in overrides/.

@@ -1,0 +1,26 @@
+{
+  "head": {
+    "item": {
+      "id": "tfc:metal/helmet/black_steel",
+      "count": 1
+    }
+  },
+  "chest": {
+    "item": {
+      "id": "tfc:metal/chestplate/black_steel",
+      "count": 1
+    }
+  },
+  "legs": {
+    "item": {
+      "id": "tfc:metal/greaves/black_steel",
+      "count": 1
+    }
+  },
+  "feet": {
+    "item": {
+      "id": "tfc:metal/boots/black_steel",
+      "count": 1
+    }
+  }
+}

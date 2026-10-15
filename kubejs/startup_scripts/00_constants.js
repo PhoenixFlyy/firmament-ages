@@ -376,7 +376,10 @@ global.FA = {
     'immersiveengineering:shader_transpride', 'immersiveengineering:shader_trident',
     'immersiveengineering:shader_twili', 'immersiveengineering:shader_usurper',
     'immersiveengineering:shader_vanguard', 'immersiveengineering:shader_vaulttec',
-    'immersiveengineering:shader_waaagh', 'immersiveengineering:shader_warbird'
+    'immersiveengineering:shader_waaagh', 'immersiveengineering:shader_warbird',
+    // Exposure: the Interplanar Projector loads pictures from a URL or the player's disk (n7-world; projecting is off
+    // in defaultconfigs/exposure-server.toml)
+    'exposure:interplanar_projector', 'exposure:broken_interplanar_projector'
   ]
 }
 // Only plain data goes into `global`: functions created in the startup context are not reliably callable

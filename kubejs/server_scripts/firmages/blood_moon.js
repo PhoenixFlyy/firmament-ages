@@ -11,6 +11,12 @@
 // server (enableTimeStopWhenServerEmpty), so no night passes. One team = one progression (ProgressiveStages team mode).
 // When mob_2 arrives (grants.js, Iron Age), the forecast is rolled once more if the gate removed anything, so blood
 // moons come back at once instead of after the two 100-day years EC2 keeps scheduled.
+//
+// Age blood moons (n7-world): from mob_2 on, the same 10 s pass swaps every blood and super blood moon in the forecast
+// for the variant of the team's Age, firmages:blood_moon_age_<N> / super_blood_moon_age_<N> (N = 2..9, highest Age of
+// the players online; dev/gen_blood_moon.py). The variants keep EC2's modifiers and add the Age: armour and weapons of
+// the metal one Age behind, from the Electric Age on speed, resistance and strength. LunarForecast.insertLunarEvent
+// (EC2 Core 2.0.3.3, javap) replaces the event of that night; a moon that is already up is left as it is.
 
 (() => {
   if (!Platform.isLoaded('enhancedcelestials2core')) {
@@ -18,16 +24,66 @@
     return
   }
   const EC = Java.loadClass('dev.corgitaco.enhancedcelestials2core.EnhancedCelestials')
-  const BLOOD_MOONS = [
-    'enhancedcelestials2defaultlunarevents:blood_moon',
-    'enhancedcelestials2defaultlunarevents:super_blood_moon'
-  ]
+  const ECRegistry = Java.loadClass('dev.corgitaco.enhancedcelestials2core.api.EnhancedCelestialsRegistry')
+  const ResourceKey = Java.loadClass('net.minecraft.resources.ResourceKey')
+  const ResourceLocation = Java.loadClass('net.minecraft.resources.ResourceLocation')
+  // default blood moons and the Age variants: id -> kind
+  const BLOOD_MOON = /^(?:enhancedcelestials2defaultlunarevents:(blood_moon|super_blood_moon)|firmages:(blood_moon|super_blood_moon)_age_[2-9])$/
   const GATE_STAGE = 'mob_2'
+  const FIRST_AGE = 2 // the Age of mob_2
   const REMOVED_FLAG = 'firmages_blood_moons_removed' // server persistentData: the gate changed the forecast
   const PERIOD_TICKS = 200
 
   const short = (stage) => String(stage).replace(/^progressivestages:/, '')
-  const isBloodMoon = (holder) => BLOOD_MOONS.indexOf(String(holder.getRegisteredName())) >= 0
+  const bloodMoonKind = (holder) => {
+    const m = String(holder.getRegisteredName()).match(BLOOD_MOON)
+    return m ? m[1] || m[2] : null
+  }
+  const isBloodMoon = (holder) => bloodMoonKind(holder) !== null
+
+  const highestAge = (server) => {
+    let best = -1
+    server.players.forEach((p) => {
+      for (let k = best + 1; k <= 9; k++) {
+        if (ProgressiveStages.has(p, `age_${k}`)) best = k
+      }
+    })
+    return best
+  }
+
+  const holderFor = (server, path) => {
+    const registry = server.registryAccess().registryOrThrow(ECRegistry.LUNAR_EVENT_KEY)
+    const key = ResourceKey.create(ECRegistry.LUNAR_EVENT_KEY, ResourceLocation.fromNamespaceAndPath('firmages', path))
+    // getHolder has a ResourceKey and a ResourceLocation overload, which Rhino calls ambiguous; getHolderOrThrow has one
+    try {
+      return registry.getHolderOrThrow(key)
+    } catch (e) {
+      return null
+    }
+  }
+
+  // swap every blood moon of the forecast that is not yet the team's Age variant (a running one stays)
+  const reskin = (server) => {
+    const n = Math.max(FIRST_AGE, highestAge(server))
+    EC.lunarForecastWorldData(server.overworld()).ifPresent((forecast) => {
+      const swaps = []
+      const active = forecast.isEventActive()
+      forecast.upcomingEventsByDaysInAdvance().forEach((days, holder) => {
+        const kind = bloodMoonKind(holder)
+        if (kind === null || String(holder.getRegisteredName()) === `firmages:${kind}_age_${n}`) return
+        if (Number(days) > 0 || !active) swaps.push([Number(days), kind])
+      })
+      swaps.forEach((swap) => {
+        const target = holderFor(server, `${swap[1]}_age_${n}`)
+        if (target === null) {
+          console.warn(`[firmages] blood_moon: lunar event firmages:${swap[1]}_age_${n} missing, EC2 default kept`)
+          return
+        }
+        forecast.insertLunarEvent(target, swap[0])
+        console.info(`[firmages] blood_moon: ${swap[1]} in ${swap[0]} day(s) is now the Age ${n} variant`)
+      })
+    })
+  }
 
   const anyoneHasGate = (server) => {
     let ok = false
@@ -39,7 +95,11 @@
 
   ServerEvents.tick((event) => {
     const server = event.server
-    if (server.tickCount % PERIOD_TICKS !== 0 || server.players.isEmpty() || anyoneHasGate(server)) return
+    if (server.tickCount % PERIOD_TICKS !== 0 || server.players.isEmpty()) return
+    if (anyoneHasGate(server)) {
+      reskin(server)
+      return
+    }
     EC.lunarForecastWorldData(server.overworld()).ifPresent((forecast) => {
       const removed = forecast.removeLunarEvents((holder) => isBloodMoon(holder))
       if (removed > 0) {

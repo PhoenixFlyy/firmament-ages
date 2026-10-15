@@ -1,0 +1,26 @@
+{
+  "head": {
+    "item": {
+      "id": "tfc:metal/helmet/bronze",
+      "count": 1
+    }
+  },
+  "chest": {
+    "item": {
+      "id": "tfc:metal/chestplate/bronze",
+      "count": 1
+    }
+  },
+  "legs": {
+    "item": {
+      "id": "tfc:metal/greaves/bronze",
+      "count": 1
+    }
+  },
+  "feet": {
+    "item": {
+      "id": "tfc:metal/boots/bronze",
+      "count": 1
+    }
+  }
+}

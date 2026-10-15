@@ -1,0 +1,14 @@
+{
+  "head": {
+    "item": {
+      "id": "tfc:metal/helmet/wrought_iron",
+      "count": 1
+    }
+  },
+  "chest": {
+    "item": {
+      "id": "tfc:metal/chestplate/wrought_iron",
+      "count": 1
+    }
+  }
+}

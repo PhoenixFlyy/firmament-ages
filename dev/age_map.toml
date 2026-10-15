@@ -38,6 +38,7 @@ azimuth = "dawn"                 # library (ponder helper item)
 dragonlib = "dawn"               # library
 moonlight = "dawn"               # library of Supplementaries and Every Compat
 firmages = "dawn"                # pack items: see [items]
+tfcvolcanoes = "dawn"            # TFC Volcanoes minerals and ash: world finds near lava and hot springs; quern and heat follow
 totemic = "age_0"                # 0-2
 framedblocks = "age_1"           # wood decoration with its framing saw: needs the recipe viewer (Bronze Age)
 decorative_blocks = "age_1"      # Decorative Blocks Reborn; its Stone Age camp blocks are Every Compat db/ in TFC woods
@@ -60,6 +61,7 @@ handcrafted = "age_1"            # furniture; fancy beds age_2 in [items] (bed r
 mcwwindows = "age_1"             # Macaw's Windows: glass needs the Bronze Age
 mcwdoors = "age_1"               # Macaw's Doors
 everycomp = "age_1"              # Every Compat: the mods above in TFC/AFC woods; db/ and mcb/ age_0 in [items]
+exposure = "age_1"               # film camera from brass, silver, leather and a lens (recipes/exposure.js); film tiers in [items]
 tfcreate = "age_2"               # 1-2; Fuel Heater for the heated basin (Iron Age). Its TFC welding recipes are no grid recipes
 railways = "age_2"
 toms_storage = "age_2"
@@ -516,6 +518,16 @@ block = "tfc:rock/loose/granite"
 "id:firmages:lantern/quantum" = "age_8"
 "id:firmages:lantern/singularity" = "age_9"
 "name:firmages:rock/engraved_bricks/" = "age_0"
+# Exposure film tiers (n7-world): sulfur-sensitised black-and-white film with sulfur (Iron Age), colour film and the
+# chromatic sheet with the Industrial Age (kubejs/server_scripts/recipes/exposure.js).
+"id:exposure:high_sensitivity_black_and_white_film" = "age_2"
+"id:exposure:color_film" = "age_4"
+"id:exposure:high_sensitivity_color_film" = "age_4"
+"id:exposure:developed_color_film" = "age_4"
+"id:exposure:chromatic_sheet" = "age_4"
+# TFC Volcanoes: pitchblende is uranium ore, disguised like the other uranium sources until the Space Age.
+"id:tfcvolcanoes:mineral/pitchblende" = "age_7"
+"id:tfcvolcanoes:mineral/powder/pitchblende" = "age_7"
 
 # ------------------------------------------------------------------------------------------------ hidden
 # Disabled items of the Electric to the Singularity Age (Doc 10 v3 section 7.2). They join the tag
@@ -1137,6 +1149,10 @@ items = [
     "immersiveengineering:shader_vaulttec",
     "immersiveengineering:shader_waaagh",
     "immersiveengineering:shader_warbird",
+    # Exposure (n7-world): the Interplanar Projector loads pictures from a URL or the player's disk; projecting is off
+    # in defaultconfigs/exposure-server.toml.
+    "exposure:interplanar_projector",
+    "exposure:broken_interplanar_projector",
 ]
 
 # ------------------------------------------------------------------------------------------------ derived
