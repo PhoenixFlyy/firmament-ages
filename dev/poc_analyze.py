@@ -489,7 +489,8 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
         ls = [] if r["type"] in GATE_EXEMPT else locks(r["id"], r["result"], bfull.get(r["id"]), btags)
         sl = None if ls else station_lock(r, bfull.get(r["id"]))
         until = re.match(r"^firmages:byproducts/.+/before_(age_\d)$", r["id"])
-        if until and until.group(1) in unlocked and r["id"] not in have:
+        until_age = until.group(1) if until else next((st for rx, st in UNTIL_LOADED if re.match(rx, r["id"])), None)
+        if until_age and until_age in unlocked and r["id"] not in have:
             # recipes/byproducts.js: a copy without locked byproducts lives only until its Age (FirmAges.untilAge);
             # a baseline taken with gate.enabled = false still holds it, the gate drops it as superseded
             superseded += 1
@@ -508,7 +509,7 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
           + ", ".join(f"{k}={per_age[k]}" for k in order if per_age[k]))
     print("    kept out by the Age of their station (station_ages.js and the late pack recipes): "
           + ", ".join(f"{k}={by_station[k]}" for k in order if by_station[k]))
-    print(f"    byproduct copies superseded by their unlocked Age (FirmAges.untilAge): {superseded}")
+    print(f"    byproduct copies and stand-ins superseded by their unlocked Age (FirmAges.untilAge): {superseded}")
     check("G-2 every baseline recipe whose outputs are all unlocked is loaded (the gate drops nothing more)",
           not missing, missing)
     print(f"    Mekanism-family tag outputs the mirror cannot resolve (dropped by the gate's resolved stack): "
@@ -520,7 +521,11 @@ STATION_AGES_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "sta
 # Pack recipes that the gate holds until a later Age than their outputs (FirmAges.requireAge in the recipe scripts).
 LATE_LOADED = [(r"^firmages:injecting/", "age_7"), (r"^firmages:dissolution/", "age_8"),
                (r"^firmages:metallurgic_infusing/blue_steel$", "age_7"),
-               (r"^create:sequenced_assembly/black_and_white_film_developing$", "age_2")]  # recipes/exposure.js
+               (r"^create:sequenced_assembly/black_and_white_film_developing$", "age_2"),  # recipes/exposure.js
+               (r"^ae2:network/(upgrade_)?wireless_crafting_terminal$", "age_6")]  # recipes/age_4/wireless_terminal.js
+# Pack recipes that exist only while an Age is locked (FirmAges.untilAge; the byproduct copies of byproducts.js are
+# matched by their id pattern): from that Age on a later recipe replaces them.
+UNTIL_LOADED = [(r"^firmages:mechanical_crafting/wireless_crafting_terminal$", "age_6")]  # recipes/age_4/wireless_terminal.js
 
 
 def load_station_ages():
@@ -856,7 +861,9 @@ def _slots(o, out, key=None):
         if isinstance(o.get("tag"), str) and len(o) <= 3:
             out.append([("tag", o["tag"])])
             return out
-        if o.get("type") == "neoforge:single" or "fluid" in o or "fluid_stack" in str(o.get("type", "")):
+        # a fluid ingredient is a dict whose "fluid" is the fluid id; a recipe with a "fluid" block (Theurgy digestion
+        # and fermentation, IE bottling) still has item ingredients next to it
+        if o.get("type") == "neoforge:single" or isinstance(o.get("fluid"), str) or "fluid_stack" in str(o.get("type", "")):
             return out
         if o.get("type") == "theurgy:reformation" and isinstance(o.get("target"), dict):
             # the target sulfur sits on the reformation's target pedestal: not consumed, but needed (a catalyst)
@@ -1085,8 +1092,8 @@ def emi_checks(base, rows, tags, item_age, check):
         gate = [ix(station_age[t]) for t in {r["type"], jt} if t in station_age]
         gate += [heat_ix(r["type"], j)] + [ix(st) for rx, st in LATE_LOADED if re.match(rx, rid)]
         first = max([first] + gate)
-        # (2) ProgressiveStages
-        last = never
+        # (2) ProgressiveStages; a FirmAges.untilAge stand-in ends before its Age
+        last = min([never] + [ix(st) - 1 for rx, st in UNTIL_LOADED if re.match(rx, rid)])
         for s in r["locks"]:
             a_, b_ = stage_span(s)
             first, last = max(first, a_), min(last, b_)
