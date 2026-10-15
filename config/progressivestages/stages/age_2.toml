@@ -36,25 +36,11 @@ locked_ids = [
     "mod:createframed",
     "mod:createrailwaysnavigator",
     "mod:dndecor",
-    "mod:gateways",
     "mod:railways",
     "mod:tfcbetterbf",
     "mod:tfcreate",
     "mod:toms_storage",
-    "mod:twilightforest",
     # <<< generated:recipes <<<
-]
-
-[dimensions]
-locked = [
-    "id:twilightforest:twilight_forest",
-]
-
-[mobs]
-# POC: Mowzie ids from research-raw/r3-misc.md. The Ferrous Wroughtnaut is a structure boss and is
-# NOT spawn-locked (it would be gone forever); lock its drops here once the item ids are known.
-locked_spawns = [
-    "id:mowziesmobs:naga",
 ]
 
 # >>> generated:ore_overrides >>>

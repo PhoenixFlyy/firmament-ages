@@ -43,14 +43,8 @@ locked = [
     "id:ad_astra:mars_orbit",
 ]
 
-[mobs]
-# POC: entity ids unverified.
-locked_spawns = [
-    "id:cataclysm:the_harbinger",
-]
-
 # >>> generated:ore_overrides >>>
-# 64 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+# 74 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
 
 [[ores.overrides]]
 target = "id:tfc_ie_addon:ore/poor_uraninite/andesite"
@@ -369,6 +363,56 @@ drop_as = "id:tfc:rock/loose/tuff"
 
 [[ores.overrides]]
 target = "id:tfc_ie_addon:ore/small_uraninite"
+display_as = "id:tfc:rock/loose/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/poor_draconium/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/poor_draconium/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:firmages:ore/poor_draconium/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/normal_draconium/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/normal_draconium/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:firmages:ore/normal_draconium/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/rich_draconium/diorite"
+display_as = "id:tfc:rock/raw/diorite"
+drop_as = "id:tfc:rock/loose/diorite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/rich_draconium/gabbro"
+display_as = "id:tfc:rock/raw/gabbro"
+drop_as = "id:tfc:rock/loose/gabbro"
+
+[[ores.overrides]]
+target = "id:firmages:ore/rich_draconium/granite"
+display_as = "id:tfc:rock/raw/granite"
+drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:firmages:ore/small_draconium"
 display_as = "id:tfc:rock/loose/granite"
 drop_as = "id:tfc:rock/loose/granite"
 # <<< generated:ore_overrides <<<

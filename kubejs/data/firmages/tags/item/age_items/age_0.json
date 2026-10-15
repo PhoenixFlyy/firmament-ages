@@ -498,8 +498,6 @@
     {"id": "minecraft:wither_skeleton_skull", "required": false},
     {"id": "minecraft:yellow_banner", "required": false},
     {"id": "minecraft:yellow_carpet", "required": false},
-    {"id": "mowziesmobs:glowing_jelly", "required": false},
-    {"id": "mowziesmobs:spear", "required": false},
     {"id": "patchouli:guide_book", "required": false},
     {"id": "supplementaries:daub", "required": false},
     {"id": "supplementaries:daub_brace", "required": false},

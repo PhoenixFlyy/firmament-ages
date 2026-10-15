@@ -21,9 +21,7 @@
     "bellsandwhistles": "age_2",
     "beneath": "age_3",
     "bits_n_bobs": "age_2",
-    "bosses_of_mass_destruction": "age_6",
     "c2tfc": "age_1",
-    "cataclysm": "age_4",
     "copycats": "age_2",
     "create": "age_1",
     "create_connected": "age_1",
@@ -59,7 +57,6 @@
     "framedblocks": "age_1",
     "ftblibrary": "dawn",
     "ftbquests": "dawn",
-    "gateways": "age_2",
     "gravestone": "dawn",
     "guideme": "dawn",
     "handcrafted": "age_1",
@@ -85,7 +82,6 @@
     "moonlight": "dawn",
     "more_immersive_wires": "age_5",
     "moremekanismprocessing": "age_6",
-    "mowziesmobs": "age_0",
     "mysticalagradditions": "age_8",
     "mysticalagriculture": "age_6",
     "occultengineering": "age_3",
@@ -99,7 +95,6 @@
     "simulated": "age_4",
     "sophisticatedbackpacks": "age_1",
     "sophisticatedcore": "age_1",
-    "summoningrituals": "age_3",
     "supplementaries": "age_1",
     "tfc": "dawn",
     "tfc_ie_addon": "age_4",
@@ -111,7 +106,6 @@
     "totemic": "age_0",
     "trainutilities": "age_2",
     "trashcans": "age_0",
-    "twilightforest": "age_2",
     "woodencog": "age_1"
   }
 }

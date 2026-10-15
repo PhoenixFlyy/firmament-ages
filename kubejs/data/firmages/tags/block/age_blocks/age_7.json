@@ -1,6 +1,16 @@
 {
   "replace": false,
   "values": [
+    {"id": "firmages:ore/normal_draconium/diorite", "required": false},
+    {"id": "firmages:ore/normal_draconium/gabbro", "required": false},
+    {"id": "firmages:ore/normal_draconium/granite", "required": false},
+    {"id": "firmages:ore/poor_draconium/diorite", "required": false},
+    {"id": "firmages:ore/poor_draconium/gabbro", "required": false},
+    {"id": "firmages:ore/poor_draconium/granite", "required": false},
+    {"id": "firmages:ore/rich_draconium/diorite", "required": false},
+    {"id": "firmages:ore/rich_draconium/gabbro", "required": false},
+    {"id": "firmages:ore/rich_draconium/granite", "required": false},
+    {"id": "firmages:ore/small_draconium", "required": false},
     {"id": "tfc_ie_addon:ore/normal_uraninite/andesite", "required": false},
     {"id": "tfc_ie_addon:ore/normal_uraninite/basalt", "required": false},
     {"id": "tfc_ie_addon:ore/normal_uraninite/chalk", "required": false},
