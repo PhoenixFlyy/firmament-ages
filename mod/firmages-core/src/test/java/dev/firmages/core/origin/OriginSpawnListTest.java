@@ -21,7 +21,7 @@ class OriginSpawnListTest {
         assertEquals(List.of(), l.errors());
         assertEquals(java.util.Set.of("monster"), l.spawners().keySet(), "no passive, ambient or water mobs");
         List<OriginSpawnList.Entry> m = l.of("monster");
-        assertEquals(List.of(new OriginSpawnList.Entry("minecraft:enderman", 10, 1, 2)), m, "vanilla only since Cataclysm left the pack");
+        assertEquals(List.of(new OriginSpawnList.Entry("minecraft:enderman", 10, 1, 2)), m, "endermen only: The Primordial has no adds");
         assertTrue(l.of("creature").isEmpty());
     }
 
