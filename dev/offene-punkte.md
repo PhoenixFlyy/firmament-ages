@@ -33,6 +33,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Endkampf: Länge des Kampfs gegen The Primordial (1024 Leben, Cataclysm-Schadensdeckel) mit Chaos-Ausrüstung | The Origin | Felix |
 | Neue Sperrtexte (0.9.0): gesperrtes Item zeigt „Something Unknown“ und eine graue Zeile „Not of this Age“, Hotbar-Zeile „… Their Age has not come.“, keine Fehler im Log | `config/progressivestages/progressivestages.toml` `[messages]` | Felix |
 | Startzeit-Test: `mixin.perf.dynamic_resources=true` in `config/modernfix-mixins.properties`, Client starten, Create-Kontraption, Framed-Blöcke und ein Sable-Schiff ansehen; Startphasen vorher/nachher mit `python dev/check_log.py --client` (0.9.0: 64 s erstes Resource-Reload, 128 s bis zum Titelbild) | `config/modernfix-mixins.properties` | Felix testet, Claude wertet aus |
+| n7-Deko: Startzeit und Heap mit dem vollen Set messen (A gegen B, je drei Läufe) und die Sichtprüfung (Meißelzyklus, Verbundtexturen Panel/Column, Rechiseled-Gruppen, keine Vanilla-Holz-Originale in EMI) | `dev/client-test-brief.md`, Abschnitt „n7-Deko“ | Integrator, dann Felix |
 
 ## Inhalt und Config (Claude)
 
@@ -57,6 +58,11 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Walkthrough, Fallstrick der Weltraumzeit, nennt Naquadah der Singularitätszeit (Vorwärtsname; die Quests sind bereinigt, der Walkthrough deckt alle Ages ab) | `docs/WALKTHROUGH.md` | Claude |
 | `Modpack-Planung/docs/12-Walkthrough.md` doppelt `docs/WALKTHROUGH.md`: auf einen Verweis kürzen | `../Modpack-Planung/docs/` | Claude |
 | Java-Fallback-Texte der Mod stimmen nicht mehr mit der Lang-Datei überein („The world realigns...“, „No shrine heart is placed“) | `FirmagesClient.java`, `ReloadStatePayload.java`, `ShrineCommands.java` | Claude (mit der nächsten firmages-core-Version) |
+| n7-Deko: Server-Boot mit `fa_dump` bei `age_9`, dann `gen_stage_locks.py --registry`, `derive_ages.py` (Dump plus `predict_dump.py`), `gen_stage_locks.py`, `poc_analyze.py`: ersetzt die vorläufigen IDs (Item-Modelle der Jars) durch die echten und leitet die Ages der neuen Rezepte ab. Erwartet: Vanilla-Stein-Varianten von Macaw's und Dusty Decorations werden versteckt oder später | `dev/data/registry.json`, `dev/age_map.toml` | Integrator |
+| n7-Deko POC: KubeJS-Blockmodell mit `loader: fusion:model` (Panel, Column), leere Rechiseled-Gruppen (`"overwrite": true`, `entries: []`), Umschreiben der Every-Compat-Rezepte (Moonlight-Laufzeitpaket) durch `recipes/deco_inputs.js` | `kubejs/startup_scripts/signature_blocks.js`, `kubejs/data/rechiseled/chiseling_recipes/`, `kubejs/server_scripts/recipes/deco_inputs.js` | Integrator (Boot-Log) |
+| Storage Drawers: kompaktierende Schubladen nutzen umkehrbare Grid-Rezepte; nach dem Dump prüfen, ob ein TFC-Metall oder -Erz so am Schweißen oder Schmelzen vorbeikommt | `dev/poc_analyze.py`, Storage-Drawers-Config | Integrator |
+| Every-Compat-Hecken (Macaw's Fences, Blätter-Typen): erkennt Moonlight TFC/AFC-Blätter? Erst der Dump zeigt es; falls ja, Age-Regel `name:everycomp:mcf/` deckt sie schon | `config/everycomp-hazardous.toml` | Integrator |
+| Questbuch (nächste Runde): Deko-Quests aus n7 §2 (Gatehouse, Living House mit Refurbished-Küche, Silo) und je eine Einführung für Meißel (TFC-Zyklus, Rechiseled), Drawers, Joy of Painting, Exposure | `dev/gen_quests.py` | nächste Runde |
 
 ## Prüfen, ob noch offen
 
