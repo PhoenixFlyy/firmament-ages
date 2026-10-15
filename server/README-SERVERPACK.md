@@ -98,6 +98,11 @@ Permission level 2 (`op <name>`), or the server console.
 | `/firmages shrine status` | The shrine: missing blocks per ring, offering, rites, prayer. `shrine locate` finds the heart; `shrine maintenance on\|off` opens the consecrated shrine for repair. |
 | `/firmages origin tp <player> force` | Sends a player into The Origin without the Singularity Age, for example to fetch a lost item. |
 | `/firmages origin status` / `reset` | State of the finale arena / lets the Gathering and the boss happen again (the won finale stays won). `origin rebuild` builds the arena again. |
+| `/firmages origin fight` | Summons The Primordial above the altar at once (the Gathering skipped). Refused while it lives, while nobody is in The Origin to keep the altar loaded, and once the finale is won. |
+| `/firmages origin kill boss` | Kills The Primordial; the finale is won the normal way. |
+
+The fight's numbers are the `[boss]` section of `config/firmages-server.toml`: `effectiveHealth` (2400, one player),
+`perPlayerFactor` (0.45), `veilFactor` (0.25), `enrageMinutes` (10), `starfallEnrageMinutes` (12), `wipeSeconds` (30).
 
 ## Update
 

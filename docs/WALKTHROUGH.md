@@ -41,6 +41,11 @@ Sneak is Left Ctrl here; Left Shift sprints.
 9. A thin beam in the colour of the latest Age stands over a lit, whole shrine. A dark beam means a broken ring.
    The beam is the way home from far off. A friend who was away sees the short ceremony of the new Age at his
    next login.
+10. Wayshrines: ruined shrines of Caelum lie in the wide world, the first a few hundred blocks from spawn. Right-click
+    the heart to learn the way to the nearest. Right-click its core to see the missing blocks, rebuild it from the
+    stone around it, lay the offering of your Age (Bronze Age: a bronze double ingot; Iron Age: a meteoric iron
+    ingot), do the rite and pray. A lit Wayshrine carries your blessings within 24 blocks and stays lit for good.
+    The offerings of the later Ages come with the Lens Crown in a later version.
 
 ---
 
@@ -253,6 +258,9 @@ Offer the Steel Heart at the shrine, in the Iron Sanctum (ring 2).
   shortcuts; every Age has its own way to what they drop.
 - No food goes into any recipe or turn-in.
 - The storage terminal can be built until the Information Age.
+- Stars fall now on some clear nights: a streak, a boom, and a hint on screen ("A star falls to the north-east").
+  The crater lies 300 to 2,500 blocks away. Its meteorites are the only meteoric iron; while the core glows (two
+  days) they drop double. Missing a fall costs only the bonus.
 
 ---
 
@@ -570,7 +578,7 @@ Defeat The Primordial, the final boss in The Origin. Its fall grants `finale_won
      hold one in the off hand and strike, or throw one at it (sneak and use) to open the veil.
 4. Expect six to ten minutes. After ten minutes the veil opens for less time, after twelve the stars fall everywhere.
 5. It falls: "Beyond the Firmament". The MekaSuit and the Meka-Tool can now be made. The shrine's beam turns gold.
-6. The gate at the arena dials home.
+6. The gate at the arena dials home. Keep a shard ("A Piece of the Sky"): with four glass it makes Firmament Glass.
 
 ### Pitfalls
 - Every online player who is not a spectator must stand at the altar. One friend elsewhere and nothing starts.

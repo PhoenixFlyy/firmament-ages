@@ -1721,11 +1721,23 @@ SINGULARITY = age_chapter(
             Q('singularity/side/staff', 'Chaotic Staff', t_item('draconicevolution:chaotic_staff'), kind='side',
               desc=['A tool for everything, built directly from the chaotic core.']),
         ]),
+        # The shards exist only while The Primordial lives (firmages-core boss, docs/primordial.md); after the gate.
+        ('singularity/gate/key', [
+            Q('singularity/side/shard', 'A Piece of the Sky', t_item('firmages:consecrated_shard'), kind='side',
+              desc=['Pick up the shards it sheds. Use one and the stars pass you. Keep one: a shard and four glass',
+                    'make four Firmament Glass.']),
+        ]),
     ],
     explains=[
         Q('singularity/info/reactor', 'The Reactor', t_check(), kind='explain', icon='draconicevolution:reactor_core',
           desc=['The draconic reactor can explode. Watch temperature and field strength and keep the shields',
                 'fed. Refuel it only while it is cold.']),
+        # How to open the veil of The Primordial (dev/finale-text-c1.md section 1, docs/primordial.md).
+        Q('singularity/info/primordial', 'The Primordial', t_check(), kind='explain', icon='firmages:consecrated_shard',
+          desc=['Answer its attacks and the veil opens.',
+                '- First: hit the grounded keel or shoot the white node.',
+                '- Nine Lights: shoot the burning node, or strike as it pulls.',
+                '- Shatter: strike with an off-hand shard, or throw one.']),
         Q('singularity/info/finale', 'After the Battle', t_check(), kind='explain', icon='mekanism:ultimate_control_circuit',
           desc=['The MekaSuit and the Meka-Tool are trophies. They can be made only after the final boss falls.']),
     ],

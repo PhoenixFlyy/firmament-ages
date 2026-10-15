@@ -606,6 +606,39 @@
 			y: -5.0d
 		}
 		{
+			dependencies: ["5C0C8D3E5C081AA2"]
+			id: "7AB56731725A5ABE"
+			optional: true
+			rewards: [
+				{
+					id: "11640558A657C603"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "560B4CF84878DD6A"
+					table_id: 4026478518536199106L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "578326F303351165"
+					item: {
+						count: 1
+						id: "firmages:consecrated_shard"
+					}
+					type: "item"
+				}
+			]
+			x: 9.75d
+			y: -5.0d
+		}
+		{
 			dependencies: ["5209B9E49235822B"]
 			hide_dependency_lines: true
 			icon: {
@@ -628,6 +661,25 @@
 			dependencies: ["5209B9E49235822B"]
 			hide_dependency_lines: true
 			icon: {
+				id: "firmages:consecrated_shard"
+			}
+			id: "29208AA5BC5ACFFC"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "2BB7D700B30801DD"
+					type: "checkmark"
+				}
+			]
+			x: 1.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["5209B9E49235822B"]
+			hide_dependency_lines: true
+			icon: {
 				id: "mekanism:ultimate_control_circuit"
 			}
 			id: "049A5B04B3B800F6"
@@ -640,7 +692,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 1.5d
+			x: 3.0d
 			y: 5.0d
 		}
 	]

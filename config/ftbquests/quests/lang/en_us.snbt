@@ -555,6 +555,13 @@
 		"Real beds open: wool beds and fancy beds with cushions and sheets. Sleeping in one skips the night."
 	]
 	quest.28EB5F0CDDB30BAA.title: "A Home"
+	quest.29208AA5BC5ACFFC.quest_desc: [
+		"Answer its attacks and the veil opens."
+		"- First: hit the grounded keel or shoot the white node."
+		"- Nine Lights: shoot the burning node, or strike as it pulls."
+		"- Shatter: strike with an off-hand shard, or throw one."
+	]
+	quest.29208AA5BC5ACFFC.title: "The Primordial"
 	quest.29BB85F4AE1E4A82.quest_desc: [
 		"Fusion power, the SPS, rockets to Venus, Mercury and Glacio, awakened draconium and the Marid."
 		""
@@ -1486,6 +1493,10 @@
 		"Mix deuterium and tritium into fusion fuel. It keeps the reactor burning."
 	]
 	quest.79DA4E6D4518762C.title: "Fusion Fuel"
+	quest.7AB56731725A5ABE.quest_desc: [
+		"Pick up the shards it sheds. Use one and the stars pass you. Keep one: a shard and four glass make four Firmament Glass."
+	]
+	quest.7AB56731725A5ABE.title: "A Piece of the Sky"
 	quest.7B0276B3AACDABA7.quest_desc: [
 		"Craft four awakened injectors. Fusion at draconic level needs them."
 	]
