@@ -525,6 +525,10 @@ block = "tfc:rock/loose/granite"
 "id:mekanismgenerators:rotational_complex" = "age_7"
 "id:mekanismgenerators:electromagnetic_coil" = "age_7"
 "id:mekanismgenerators:saturating_condenser" = "age_7"
+# AE2 package (2026-10-15): the wireless crafting terminal comes with the Industrial Age through a costly Create
+# recipe (recipes/age_4/wireless_terminal.js); AE2's own recipes take over in the Information Age. Autocrafting
+# (molecular assembler, pattern provider, crafting CPU) stays with the ae2 namespace in the Information Age.
+"id:ae2:wireless_crafting_terminal" = "age_4"
 # Trophies after the final boss (stage finale_won locks them on top).
 "id:mekanism:mekasuit_helmet" = "age_9"
 "id:mekanism:mekasuit_bodyarmor" = "age_9"
