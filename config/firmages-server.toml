@@ -178,3 +178,22 @@
 	#gets one: the player team with the most Ages founds it (on a new server the first player) and everybody online joins.
 	#false = players form parties themselves (/ftbteams party create, invite, join).
 	autoJoin = true
+
+#The Lens Crown: the Star Anvil forges celestial alloys and lenses from a chord of lenses (SPEC 27)
+[crown]
+	#false: the anvil never forges (the recipes stay).
+	enabled = true
+	#Forging needs the open sky above the anvil (rain does not matter; the Nether, the End and The Origin never count).
+	requireOpenSky = true
+	#Forge time factor under the night sky: 0.5 makes night twice as fast.
+	# Default: 0.5
+	# Range: 0.1 ~ 1.0
+	nightTimeFactor = 0.5
+	#A loaded crown re-validates this often (ticks), besides every block change inside it.
+	# Default: 100
+	# Range: 20 ~ 1200
+	validateTicks = 100
+	#Ticks a lens takes to swing in or out; it counts only once it is fully in.
+	# Default: 10
+	# Range: 1 ~ 100
+	swingTicks = 10
