@@ -59,7 +59,7 @@ public final class StarfallService {
     public static final String KIND = "starfall";
     /** Operator {@code starfall carve}: keeps the box loaded for 20 s. */
     public static final TicketType<ChunkPos> TICKET = TicketType.create("firmages_starfall", Comparator.comparingLong(ChunkPos::toLong), 400);
-    private static final int OLD_PER_TICK = 2;
+    private static final int OLD_PER_TICK = 4;
 
     /** False in the GameTest run: no night rolls and no old craters there (the sky tests drive the service directly). */
     private static volatile boolean naturalEvents = true;
@@ -102,9 +102,17 @@ public final class StarfallService {
 
     private static void onChunkLoad(ChunkEvent.Load event) {
         DeferredSites.onChunkLoad(event);
-        // old craters: only remember the new chunk; the tick step decides (no level access here)
-        if (event.isNewChunk() && naturalEvents && event.getLevel() instanceof ServerLevel sl && sl.dimension() == Level.OVERWORLD) {
-            NEW_CHUNKS.add(event.getChunk().getPos().toLong());
+        // old craters: a pure hash of the seed and the region picks the one candidate chunk per region; only that chunk
+        // is remembered, the tick step registers the crater (no chunk access here)
+        if (event.isNewChunk() && naturalEvents && event.getLevel() instanceof ServerLevel sl && sl.dimension() == Level.OVERWORLD
+            && ServerConfig.starfallEnabled() && ServerConfig.starfallOldCraters()) {
+            StarfallData data = StarfallDataLoader.current();
+            if (!data.valid() || data.oldCraterChance() <= 0) return;
+            ChunkPos cp = event.getChunk().getPos();
+            int size = ServerConfig.starfallOldCraterRegion();
+            Optional<int[]> o = StarfallRules.oldCrater(sl.getSeed(), StarfallRules.region(cp.getMinBlockX(), size),
+                StarfallRules.region(cp.getMinBlockZ(), size), size, data.oldCraterChance());
+            if (o.isPresent() && (o.get()[0] >> 4) == cp.x && (o.get()[1] >> 4) == cp.z) NEW_CHUNKS.add(cp.toLong());
         }
     }
 
@@ -450,6 +458,7 @@ public final class StarfallService {
             Long c = NEW_CHUNKS.poll();
             if (c == null) return;
             if (!naturalEvents || !ServerConfig.starfallEnabled() || !ServerConfig.starfallOldCraters()) continue;
+            // the event queued only region candidates; check again with the data of now
             StarfallData data = StarfallDataLoader.current();
             if (!data.valid() || data.oldCraterChance() <= 0) continue;
             int size = ServerConfig.starfallOldCraterRegion();
