@@ -1,0 +1,14 @@
+{
+  "head": {
+    "item": {
+      "id": "tfc:metal/helmet/red_steel",
+      "count": 1
+    }
+  },
+  "chest": {
+    "item": {
+      "id": "tfc:metal/chestplate/red_steel",
+      "count": 1
+    }
+  }
+}

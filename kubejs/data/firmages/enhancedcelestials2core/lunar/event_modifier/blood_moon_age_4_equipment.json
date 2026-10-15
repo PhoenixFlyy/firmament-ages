@@ -1,0 +1,41 @@
+{
+  "type": "enhancedcelestials2core:mob_spawn_equipment",
+  "settings": {
+    "equipment_combinations": [
+      {
+        "filter": {
+          "type": "corgilib:is_type_tag",
+          "tag": "#firmages:blood_moon_armored"
+        },
+        "chance": 0.35,
+        "equipment": [
+          {
+            "data": "firmages:steel_armor_half",
+            "weight": 2
+          },
+          {
+            "data": "firmages:steel_armor_full",
+            "weight": 1
+          }
+        ]
+      },
+      {
+        "filter": {
+          "type": "corgilib:is_type_tag",
+          "tag": "#firmages:blood_moon_melee"
+        },
+        "chance": 0.3,
+        "equipment": [
+          {
+            "data": "firmages:steel_sword",
+            "weight": 1
+          },
+          {
+            "data": "firmages:steel_mace",
+            "weight": 1
+          }
+        ]
+      }
+    ]
+  }
+}

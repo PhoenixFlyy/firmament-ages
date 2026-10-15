@@ -1,0 +1,26 @@
+{
+  "head": {
+    "item": {
+      "id": "tfc:metal/helmet/steel",
+      "count": 1
+    }
+  },
+  "chest": {
+    "item": {
+      "id": "tfc:metal/chestplate/steel",
+      "count": 1
+    }
+  },
+  "legs": {
+    "item": {
+      "id": "tfc:metal/greaves/steel",
+      "count": 1
+    }
+  },
+  "feet": {
+    "item": {
+      "id": "tfc:metal/boots/steel",
+      "count": 1
+    }
+  }
+}

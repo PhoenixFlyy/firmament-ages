@@ -1,0 +1,14 @@
+{
+  "head": {
+    "item": {
+      "id": "tfc:metal/helmet/bronze",
+      "count": 1
+    }
+  },
+  "chest": {
+    "item": {
+      "id": "tfc:metal/chestplate/bronze",
+      "count": 1
+    }
+  }
+}

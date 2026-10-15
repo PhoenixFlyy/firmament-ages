@@ -1,0 +1,16 @@
+{
+  "modifiers": [
+    "enhancedcelestials2defaultlunarevents:blood_moon_sky_light_color",
+    "enhancedcelestials2defaultlunarevents:blood_moon_moon_texture_color",
+    "enhancedcelestials2defaultlunarevents:blood_moon_sound_track",
+    "enhancedcelestials2defaultlunarevents:blood_moon_text_components",
+    "enhancedcelestials2defaultlunarevents:blood_moon_name_color",
+    "enhancedcelestials2defaultlunarevents:blood_moon_spawn_category_multiplier",
+    "enhancedcelestials2defaultlunarevents:blood_moon_force_surface_spawning",
+    "enhancedcelestials2defaultlunarevents:blood_moon_block_sleeping",
+    "enhancedcelestials2defaultlunarevents:blood_moon_village_siege_probability",
+    "enhancedcelestials2defaultlunarevents:blood_moon_mob_spawn_distances",
+    "firmages:blood_moon_age_5_equipment",
+    "firmages:blood_moon_age_5_effects"
+  ]
+}

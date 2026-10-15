@@ -1,0 +1,26 @@
+{
+  "head": {
+    "item": {
+      "id": "tfc:metal/helmet/wrought_iron",
+      "count": 1
+    }
+  },
+  "chest": {
+    "item": {
+      "id": "tfc:metal/chestplate/wrought_iron",
+      "count": 1
+    }
+  },
+  "legs": {
+    "item": {
+      "id": "tfc:metal/greaves/wrought_iron",
+      "count": 1
+    }
+  },
+  "feet": {
+    "item": {
+      "id": "tfc:metal/boots/wrought_iron",
+      "count": 1
+    }
+  }
+}
