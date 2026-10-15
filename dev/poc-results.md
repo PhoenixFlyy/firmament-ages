@@ -3013,6 +3013,7 @@ Primordial's Cataclysm helpers; both say now that the guardian of The Origin is 
   `config/firmages-server.toml` before the grants.
 - Arcane Age quest book: the goal depends on the three magic keystones (`dev/offene-punkte.md`).
 
+
 ## 1.0 round C, mods-tech (2026-10-15, branch c1/mods-tech)
 
 Fourteen mods of the locked list (Goblin Traders, Artifacts, MmmMmmMmmMmm, Ars Elemental, Ars Ocultas, Create: Extra
@@ -3058,3 +3059,43 @@ Fixes of the boot loop:
   world, goblin offers, Artifacts in ruin chests, gadget deny list.
 - Ars Elemental lightning parts and the Flashjack/Siren familiars stay hidden (flashing biome only).
 - Quest strands for every new non-deco mod: next round.
+
+## 1.0 round C1 (2026-10-15)
+
+`--no-ff` merges of c1/harmonie, c1/mods-deco, c1/mods-tech, c1/boss, c1/sky-m10, c1/sky-m12 and c1/sky-m16a (in that
+order) into dev, then pack 0.11.0 and firmages-core 0.11.0 (run on 2026-10-16). Generated files were taken from one
+side in the conflicts and regenerated on copy dumps; code conflicts were merged by hand (`FirmagesCommands` selftest
+suites `sky`, `crown` and `wayshrines` side by side, the three Jade providers, `ServerConfig` sections, `Numbers` from
+c1/sky-m16a, one `"meteoric"` palette and one `MOD_ITEMS` table in `gen_textures.py`). Felix's test server stayed off
+and untouched; every boot ran on the copy `.wt/test-server-c1-int` (`robocopy` without world, logs, local,
+simplebackups and crash-reports; ports 25566 and RCON 25576; whitelist off; the copy's stale `kubejs/` deleted before
+the first sync; synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8095
+--refresh=false`, "Finished successfully"; `debug.allowSimulate = true` after each sync), each with a new world and
+`-Xms3G -Xmx6G`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 188 unit tests, 0 failures (first run: `EmiAgeViewTest` failed on the merged `age_namespaces.json` until `gen_stage_locks.py` ran on the new dump); `build/libs/firmages-core-0.11.0.jar` byte-identical to `mods/firmages-core-0.11.0.jar` (SHA-256 `3696e018…acbd`, also in `index.toml`) | pass |
+| `runGameTestServer` in a fresh `run/gametest` | firmages 0.11.0; "All 81 required tests passed" (0.10.0: 53) | pass |
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | 43,609 recipes (0.10.0: 42,136); `gen_stage_locks.py --registry` 36,628 items, 1,700 ore and rock blocks, 767 fluids, 124 grid-recipe namespaces; `derive_ages.py --scan --mods <copy>/mods` 25,522 loot tables, 107 loot modifiers, 225 biomes, 1,623 features, 122 structures, 1,608 templates | done |
+| `derive_ages.py` on that dump | 36,628 items; 3,383 moved later, 4,609 never reachable (hidden); final dawn 4,171, age_0 963, age_1 6,952, age_2 4,716, age_3 2,286, age_4 1,235, age_5 736, age_6 1,579, age_7 595, age_8 671, age_9 779, disabled 11,945. First pass hid the boss's consecrated shard and Firmament Glass: CODE_DROPS entry added | done after fix |
+| Copy boot 2 (gate off, same commands) | Done after 93.0 s wall clock (server 17.7 s); 266 mod files with 257 mods; FTB Quests 13 chapters, 339 quests; tutorial Wayshrine placed 436 blocks from spawn; `derive_ages.py --check` and `gen_stage_locks.py --check` up to date | pass |
+| Copy boot 3 (gate on, grants, dumps, `firmages recipes audit`, `selftest all`) | gate at Dawn: 7,296 of 43,609 live; at age_9: 38,562 of 43,609, 5,047 dropped (disabled 5,040, superseded 7), 849 undetected (37 types, 117 serializers); Age coverage: all 20,512 ProgressiveStages Age item locks in an Age tag; `selftest all` 71 passed, 3 failed (`crown/library_loaded` 1 of 22, `crown/live_after_age_9`, `crown/v4a_chain`: the M15 end state, red by design until M11, M13, M14 and M15); sky 7 of 7 and wayshrines 6 of 6 pass | pass (crown by design) |
+| `poc_analyze.py --baseline <boot 2 dump>` on boot 3 | 104 PASS, 0 FAIL at the first run, including G-1 to G-4 (37 types accepted), E-1, L-1 to L-5 (13 metals, 68 ore pieces), R-T age_2 to age_9 and R-X age_2 to age_9 (2,750 magic recipes left out) | pass |
+| Copy boot 4 (gate on, grants, hold 120 s; no dump and no selftest, both stall the server thread) | `check_log.py`: 89.9 s from the first log line to Done (91.9 s wall clock, server 17.6 s); FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0 | pass |
+| Copy boot 5 (release commit, gate on, grants, `starfall now`, `selftest all`) | FTB Quests "13 chapters, 341 quests, 21 reward tables"; Starfall data loaded (Ages age_2 to age_7, pity 8 nights, old craters 0.35); `firmages starfall now` without a position finds no anchor (no player online, no shrine) and places nothing; `selftest all` 71 passed, 3 failed (crown, as boot 3) | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 1,258 object ids, 0 errors, 0 warnings (two new quests: "The Primordial", "A Piece of the Sky") | pass |
+| `check_menus.py`, `gen_textures.py --check`, `gen_way_sign_textures.py --check`, `gen_multiblock_templates.py --check --mods <copy>/mods`, `gen_recipe_overrides.py --check --mods <copy>/mods`, `gen_loot_silence.py --check`, `gen_cold_forge.py --check`, `gen_blood_moon.py --check`, `gen_firmament_night.py --check`, `gen_ponder_schematics.py --check`, `gen_stage_locks.py --check` | menus pass; 291 textures 0 errors 0 warnings (after limiting the tile check to `block/` and `item/`; c1/boss alone gave 8 errors on its 128 px GeckoLib skins); 34 way sign icons; 35 templates, 7 pack copies; 543 overrides 0 problems; 504 loot overrides 0 problems; Cold Forge 594 blocks; 56 and 45 files up to date | pass |
+| `check_registry_parity.py dump` against the 0.10.0 gate-off dump (`scratchpad/baseline2`) | items 34,970 to 36,629 (+2,549: bibliocraft 1,462, alexsmobs 280, ars_elemental 167, connectedglass 119, everycomp 106, ars_elemancy 105, psi 82, artifacts 49, aeroengineering 46, firmages 35, …; −890: refurbished_furniture 470, everycomp 420 `rfm/`); blocks 29,226 to 29,688; entity types 1,062 to 1,228; fluids 762 to 768. Namespaces added: adchimneys, adpoles, aeroengineering, ahandfulofacorns, akashictome, alexsmobs, ars_elemancy, ars_elemental, ars_ocultas, arseng, artifacts, bibliocraft, buildinggadgets2, connectedglass, draconicadditions, dummmmmmy, extra_gauges, goblintraders, psi, sauce; removed: refurbished_furniture (Carry On registers no items) | expected |
+| `release.ps1 -Version 0.11.0`, `export_cf.py` | first run stopped: CurseForge blocks API downloads of Skin Layers 3D (a manual download in the `.mrpack` export); after the Modrinth swap: `.mrpack` 474.9 MB, CurseForge zip 74.6 MB, server pack 501.8 MB, SHA-256 list; upload zip 4.8 MB, 12 swaps, 265 manifest files, only `firmages-core-0.11.0.jar` in overrides | pass after fix |
+| Mods | 264 metafiles plus `firmages-core` (265 in the CurseForge credits, 0.10.0: 234): 33 added (with ForgeEndertech, Bookshelf, Prickle, Codxlib), 2 removed | done |
+
+### Open points
+
+- In the client (brief 0.11.0): the new mods by Age, The Primordial (model, animations, sounds, fight length), Starfall
+  (streak, boom, crater, emissive core), Wayshrines (pointer, ghost, lighting), the balance numbers, the client
+  measurement.
+- Wayshrine offerings from the Arcane Age on are Lens Crown alloys without a recipe until M11 to M15: Felix decides on
+  an interim offering (`dev/offene-punkte.md`).
+- `selftest all` keeps three red crown checks until M15; H2A and H5A, quest strands and real quest rewards are later
+  rounds.

@@ -1,5 +1,64 @@
 # Client-Test
 
+## 0.11.0 Nachtrag (1.0 Runde C1 2026-10-16, Pack 0.11.0, firmages-core 0.11.0)
+
+**Voller Reset:** neue Welt und neu importiertes Profil (Client und Server brauchen firmages-core 0.11.0, Netzwerk-
+Protokoll 5). Wayshrines und alte Krater entstehen nur in neuen Chunks. Server-Teil auf einer Kopie des Test-Servers
+geprüft (`dev/poc-results.md`, Abschnitt „1.0 round C1 (2026-10-15)“): jeder Boot mit neuer Welt, alle Ages per
+Simulation, `poc_analyze.py` 104 PASS und 0 FAIL, `check_log.py` 0 übrig, GameTests 81 von 81, `selftest all` 71 von 74
+(drei Lens-Crown-Prüfungen rot bis M15, gewollt). Die Einzelprüfungen der Zweige stehen in den zwei Abschnitten
+darunter („C1-Deko“, acht Punkte, und „Technik- und Welt-Mods“, acht Punkte); hier nur, was dazukommt.
+
+1. **Neue Mods nach Age** (in EMI nur ab ihrer Age, als OP alles sichtbar):
+   - Dawn: A handful of acorns (Nüsse im Herbst), KleeSlabs, Goblin Traders (Höhle unter Y 40), Alex's Mobs Continued
+     (22 Arten). Stein: Armor Statues, Banner Flags. Bronze: Connected Glass, Advanced Chimneys, To the Bat Poles!,
+     Artifacts (Ruinenkisten). Eisen: Bibliocraft Legacy, MmmMmmMmmMmm, Hebestange. Arkan: Ars Elemental, Ars Ocultas,
+     Akashic Tome, Enchantment Descriptions. Industrie: Create: Extra Gauges, das teure Wireless Crafting Terminal.
+     Elektrik: AeroEngine, Building Gadgets 2, Ars Elemancy. Information: Psi, Ars Énergistique. Singularität:
+     Draconic Additions (drei Halsketten). Nur Client: 3D Skin Layers, Auroras, Cool Rain, BetterF3, Chat Heads,
+     Big Sign Writer.
+   - Weg sind Carry On (Shift-Rechtsklick hebt keine Kisten und Tiere mehr) und Furniture: Refurbished (keine Küchen,
+     Computer, Fernseher; auch nicht in EMI).
+   - Melden: Chat-Zeilen oder Fenster beim Beitreten, fehlende Texturen, Items vor ihrer Age.
+2. **The Primordial.** Testwelt mit 1 bis 4 Spielern: `/stage grant <Spieler> age_9`, Gate bauen oder
+   `/firmages origin tp <Spieler> force`, alle in 6 Blöcken um den Altar. Ansehen: Modell (Glas, Kiel, Halo aus neun
+   Lichtern), Animationen, Bossleiste, Titel der drei Phasen, Klänge mit Untertiteln, Laternen gehen in Phase 2 aus
+   und kommen beim Tod zurück, Sternfall mit goldener Markierung, Splitter (Benutzen: Firmament Ward; Nebenhand +
+   Schlag; Schleichen + Benutzen: Wurf). Dauer stoppen: Ziel 6 bis 10 Minuten mit 2 bis 4 Spielern. Danach Titel
+   „Beyond the Firmament“, goldener Schreinstrahl, MekaSuit baubar. Die Erklärung „The Primordial“ im Chronicle lesen;
+   „A Piece of the Sky“ schließt mit einem Splitter ab. Wipe testen: alle sterben, nach 30 s zieht es sich zurück.
+3. **Starfall.** Ab der Eisenzeit in einer klaren Nacht (`/firmages starfall now` als OP, oder `/firmages starfall
+   tonight` und warten): Streifen am Himmel in die echte Richtung, Knall auch aus 1.000 Blöcken, Actionbar „A star falls
+   to the …“, Rauchsäule, Krater mit glühendem Kern (mit Sodium und Complementary: leuchtet der Kern?), TFC-Erdrutsche
+   am Kraterrand. Meteorit abbauen: Meteoreisen-Brocken, doppelt solange der Kern glüht (Jade zeigt die Restzeit).
+   Meteoreisen erhitzen und auf dem Amboss schmieden; Sternenstahl ab der Elektrikzeit im Lichtbogenofen. Vor der
+   Eisenzeit muss ein Meteorit wie Himmelsgestein aussehen und nur Gestein geben.
+4. **Wayshrines.** Neue Welt: Rechtsklick auf das Schrein-Herz nennt Richtung und Entfernung der nächsten (die
+   Tutorial-Wayshrine liegt etwa 400 Blöcke vom Spawn). Am Kern: Geist der fehlenden Blöcke, Jade „Ruined: … missing“.
+   Wiederaufbau aus dem Gestein der Umgebung, Opfergabe der Bronzezeit (Bronze-Doppelbarren) oder Eisenzeit
+   (Meteoreisenbarren), Ritus (Licht), Gebet. Danach Strahl, Wayshrine Stone fällt, Segen im Umkreis von 24 Blöcken
+   (Segen nur noch am Schrein und an Wayshrines, nicht mehr überall). Ab der Arkanzeit verlangt eine neue Wayshrine
+   eine Lens-Crown-Legierung, die es noch nicht gibt (offene Entscheidung, `dev/offene-punkte.md`).
+5. **Lens Crown.** Nicht im Spiel: Star Anvil, Lens Mount, Linsen und Legierungen sind versteckt und ohne Rezept, bis
+   M11 bis M15 kommen. Als OP in EMI nachsehen, dass keines davon im Überleben auftaucht.
+6. **Balance vorher/nachher** (im Spiel nachmessen, wo es geht):
+   - Alternator bei 256 RPM: 360 → 168 FE/t (`generator_efficiency` 0,75 → 0,35). Lava im Blaze Burner: aus.
+   - Huge-Dieselmotor: 0,05 → 0,11 mB/t; jeder Dieselmotor gibt 1,3 bis 1,7 Mio. FE je Eimer (IE-Generator 1,32 Mio.).
+     Pflanzenöl und Ethanol laufen nicht mehr im Dieselmotor.
+   - Weg: Crystal Resonance Generator, Applied-Kinetics-Energy-Provider, Solar-Upgrade von Evolved Mekanism.
+     Thermoelektrischer Kessel, Industrieturbine, Fuelwood- und Resistive Heater: Information → Raumfahrt.
+   - Mystical-Agriculture-Metall-Essenz: 8 Essenz → 2 normale TFC-Erzstücke (vorher Barren). HNN gibt Erzstücke.
+   - Theurgy Digestion Vat: genau 2,0x auf jedem Grad (10 reiche Stücke → 7 Schwefel, 2 normale → 1).
+   - Waschen von Kies, Seelensand und rotem Sand: keine Nuggets mehr. End-Draconium: 2 reiche Stücke statt Staub;
+     Planetenerze: reiche TFC-Stücke.
+   - AE2: 32 Kanäle je Kabel, 128 je dichtem Kabel (vorher 8 und 32). Wireless Crafting Terminal ab der
+     Industriezeit (Mechanical Crafter, teuer), nutzbar erst mit Wireless Access Point (Information).
+7. **Messroutine Client** (wie Abschnitt „n7-Deko“, Messung, mit A = 0.10.0 und B = 0.11.0, je drei Läufe, dieselbe
+   Instanz und RAM): Startzeit bis Titelbild, erster Einstieg, Heap nach `/sparkc heapsummary`, Blockatlas-Größe,
+   mit `python dev/check_log.py --client <log>` auswerten. Zusätzlich in B: Bildzeit in einer Nacht mit Auroras und
+   Complementary (`/sparkc profiler` 60 s) und beim Blick auf einen glühenden Krater. Ergebnis in `dev/poc-results.md`
+   als „0.11.0 client measurement“.
+
 ## C1-Deko (1.0 Runde C1 2026-10-15, Zweig c1/mods-deco, für den Integrator)
 
 16 Mods aus der Inhaltssperre plus die Bibliotheken ForgeEndertech, Bookshelf und Prickle; Carry On und Furniture:

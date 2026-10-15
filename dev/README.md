@@ -12,6 +12,7 @@ Dawn ends with a quest (The First Spark grants the Stone Age). From the Stone Ag
 |---|---|
 | `../Modpack-Planung/docs/README.md` | index of the German design documents outside this repo (`08-Ages-Design.md`, `09-Entscheidungen.md`); older planning is in `../Modpack-Planung/archive/` |
 | `dev/decisions-while-away.md` | every design call made while Felix was away (German, one row each) |
+| `dev/content-lock.md` | the locked content of 1.0 with Felix's answers (German): no new mods from here on |
 | `dev/offene-punkte.md` | every open point in one place (German) |
 | `dev/release.md` | build, local test, CurseForge upload, friends, server (German) |
 | `dev/client-test-brief.md` | what Felix checks in the client, per version (German) |

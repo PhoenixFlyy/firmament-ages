@@ -1,6 +1,6 @@
 # Offene Punkte
 
-Alle offenen Punkte an einer Stelle, Stand 2026-10-15 (0.10.0, 1.0 Runde A). Gesammelt aus `dev/config-todo.md` (archiviert),
+Alle offenen Punkte an einer Stelle, Stand 2026-10-16 (0.11.0, 1.0 Runde C1). Gesammelt aus `dev/config-todo.md` (archiviert),
 den „Offen“-Listen in `dev/client-test-brief.md`, „Open points“ in `dev/archive/quests-notes.md` und den „Open points“-Abschnitten
 in `dev/poc-results.md`; jeder Punkt wurde gegen den aktuellen Stand geprüft, Erledigtes steht unten mit Beleg.
 Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile nach unten verschieben, mit Beleg.
@@ -18,6 +18,8 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Backups ohne erzwungenes Speichern (`saveAll = false` seit 0.9.1): ein Backup hält den Stand des letzten Autosaves, also bis fünf Minuten alt, und fällt ein Backup in einen Autosave, kann eine Region-Datei halb geschrieben im Zip landen (Simple Backups 4.0.30 schaltet das Speichern nicht ab). `saveAll = true` speichert vorher, bringt aber „Could not save data“ (AccessDeniedException beim Zippen, Live-Sitzung 2026-10-14) zurück. So lassen? | `config/simplebackups-common.toml`, `dev/decisions-while-away.md` („Backups ohne erzwungenes Speichern“) | Felix |
 | Bekannte Lücken mit Regel-Age: Apothic-Enchanting-Tisch braucht Diamant (Industriezeit), die Arkane-Nebenquest „Enchantment Industry“ hängt daran; das Create-Dragons-Plus-Blaze-Template hat keine sichtbare Quelle. Quest oder Rezept ändern? | `dev/decisions-while-away.md` (Zeile „Bekannte Lücken bleiben sichtbar“) | Felix |
 | Firmament-Kapitel (Entscheidung A): die neun Opfergaben erscheinen erst mit ihrer Age, am Anfang ist nur „The First Spark“ sichtbar. „Beyond the Firmament“ (neutrales Icon) erscheint zusammen mit „Quantum Core“, also ab der Quantenzeit (FTB Quests zeigt eine Quest ohne Schalter nur, wenn eine Abhängigkeit sichtbar ist). Ziel ab Start sichtbar, als Ende des Wegs, oder erst ab der Quantenzeit (so jetzt)? Ab Start hieße: „Beyond the Firmament“ hängt zusätzlich an „The First Spark“, Linie ausgeblendet (`hide_dependency_lines`). | `dev/gen_quests.py` `build_firmament` | Felix |
+| Wayshrine-Opfergaben ab der Arkanzeit sind Lens-Crown-Legierungen (Starlit Iron, Cloudsteel, Aurora Steel, Halo Steel). Ihre Starforge-Rezepte laden erst mit den Himmelsmaterialien von M11, M13 und M14, und Star Anvil, Lens Mount und Linsen bekommen ihre Rezepte erst in M15. Bis dahin lässt sich ab der Arkanzeit keine neue Wayshrine entzünden; früher entzündete bleiben an. Übergangs-Opfergabe (z. B. Meteoreisen bis age_4, Sternenstahl ab age_5) oder warten? | `mod/firmages-core/src/main/resources/data/firmages/firmages_wayshrine/offerings.json` | Felix |
+| Himmelsblöcke ohne eigenen Drop (Meteorit, Starsteel-Meteorit, Starfall-Kern) und alle Lens-Crown-Items stehen in `age_items/disabled` und sind in EMI versteckt (Ableitungsregel: nie erreichbar). Die Lens-Crown-Teile kommen mit M15 zurück; sollen die Meteorite als Blöcke sichtbar sein? | `dev/age_map.toml`, `dev/derive_ages.py` | Felix |
 
 ## Im Client prüfen (Felix)
 
@@ -39,6 +41,8 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Blutmond pro Age: `/ec lunarForecast` nach der Eisenzeit zeigt `firmages:blood_moon_age_<N>`; Zombies mit Rüstung und Waffe der Vor-Age, ab der Elektrischen Age schneller | `kubejs/server_scripts/firmages/blood_moon.js`, `dev/gen_blood_moon.py` | Felix |
 | Vulkan: Ausbruch und Beben ohne Schaden an Blöcken, Mineralkrusten an heißen Quellen | `config/tfcvolcanoes-startup.toml` | Felix |
 | n7-Deko: Startzeit und Heap mit dem vollen Set messen (A gegen B, je drei Läufe) und die Sichtprüfung (Meißelzyklus, Verbundtexturen Panel/Column, Rechiseled-Gruppen, keine Vanilla-Holz-Originale in EMI) | `dev/client-test-brief.md`, Abschnitt „n7-Deko“ | Integrator, dann Felix |
+| 0.11.0-Nachtrag in `dev/client-test-brief.md`: neue Mods pro Age, The Primordial, Starfall, Wayshrines, Balance-Zahlen, Messroutine | `dev/client-test-brief.md` | Felix |
+| Felix' Test-Server hält veraltete Dateien, die der packwiz-Installer nicht löscht: `mods/` mit Cataclysm, Gateways to Eternity und `firmages-core-0.9.2.jar`, `kubejs/data/twilightforest`, `kubejs/server_scripts/finale`. Vor dem nächsten Start dort `kubejs/` löschen und die drei Jars entfernen, dann synchronisieren (die Kopie dieser Runde lief so sauber) | `test-server/` | Felix |
 
 ## Inhalt und Config (Claude)
 
@@ -75,6 +79,14 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Runde C (mods-tech): Quest-Stränge für Goblin Traders, Artifacts, Psi, Building Gadgets 2, AeroEngine, Ars Elemental/Elemancy/Ocultas/Énergistique, Extra Gauges, Draconic Additions und die 22 Alex's-Mobs-Arten (Felix: jede Nicht-Deko-Mod braucht einen Strang) | `dev/gen_quests.py` | Claude, nächste Runde |
 | Ars Elemental: Blitz-Teile (Discharge-Glyphe, Shock-Faden) und Flashjack/Sirene bleiben versteckt, weil Flashpine-Schoten und die Splitter nur aus den abgeschalteten Elementar-Biomen kommen; ein Pack-Rezept für die Schote würde sie zurückholen (wie bei den Ars-Nouveau-Schoten offen) | `recipes/age_3/ars_addons.js` | Felix entscheidet |
 | Alex's Mobs Continued: Klima-Fenster und Spawn-Gewichte der 22 Arten sind in keiner Welt geprüft (der Server-Test hat keinen Spieler, also keine natürlichen Spawns); Arten, Klima und Dichte in echter Welt | `kubejs/server_scripts/firmages/wildlife_climate.js`, Biome-Modifier | Felix im Client |
+| Harmonie H2A (Mekanism-Maschinen-Verbrauch x10) ist noch nicht gebaut; Runde C1 hatte die Pakete A1 bis A3 und AE2 | `config/Mekanism/` (Server-Config), `dev/data/metals.json` | Claude |
+| Harmonie H5A: Tally-Nachweis in den Schrein-Opfergaben ab age_4 (spätere Runde) | `data/firmages/firmages_shrine/offerings.json`, `dev/gen_quests.py` | Claude |
+| Questbuch: echte Item-Belohnungen statt XP und ein Quest-Strang für jede neue Nicht-Deko-Mod von Runde C1 (spätere Runde) | `dev/gen_quests.py` | Claude |
+| `firmages selftest all` hat drei rote Crown-Prüfungen (`library_loaded` 1 von 22, `live_after_age_9`, `v4a_chain`), gewollt bis M11, M13, M14 (Himmelsmaterialien) und M15 (Rezepte, V4A-Kette); Rest 71 von 71 grün | firmages-core `CrownSuite` | Claude |
+| Wayshrines: Dichte-PoC über 20 Seeds (`dev/scan_regions.py`) fehlt; gemessen 6/10/13 auf drei Seeds bei Abstand 80. SPEC §28 nennt noch Abstand 128/48, Mountain Spire `min_elevation` 110, nur Basis-Biome und Pointer-Radius 100; geliefert sind 80/30, keine Höhengrenze, TFC-4.2-Varianten und 256. SPEC nachziehen | `mod/firmages-core/SPEC.md` §28, `dev/gen_wayshrines.py` | Claude |
+| Wayshrines: Opfergaben und Riten von age_2 bis age_6, das Verstummen bei kaputtem Muster und das gemeinsame Gebet sind nur per GameTest geprüft; die Tutorial-Wayshrine wird nach einem harten Kill vor dem ersten Speichern neu gesetzt (SavedData nicht sofort gesichert) | firmages-core `wayshrine/` | Claude |
+| Drifting Isles (M13) müssen `WayshrinePlacement.placeIsleShrine` für den Wind-Schrein aufrufen (S6B) | firmages-core | Claude |
+| Starfall: der Ausschluss um FTB-Chunks-Claims hat keinen Test (FTB Chunks fehlt im GameTest-Lauf); die Tarnung als Himmelsgestein vor age_2 nur aus den Stage-Overrides, nicht im Spiel geprüft. Auf der Integrationskopie fand `firmages starfall now` ohne Spieler und Schrein keinen Anker | firmages-core `sky/`, `compat/ftbchunks` | Claude |
 
 ## Prüfen, ob noch offen
 
