@@ -13,7 +13,6 @@
 // BEGIN BYPRODUCTS
 const FA_BYPRODUCTS = {
   "tfcreate:sequenced_assembly/precision_mechanism": { "create:crushed_raw_gold": "disabled" },
-  "create:splashing/gravel": { "minecraft:iron_nugget": "age_2" },
   "create:crushing/tuff": { "minecraft:iron_nugget": "age_2", "immersiveengineering:nugget_electrum": "age_4" },
   "create:crushing/tuff_recycling": { "minecraft:iron_nugget": "age_2", "immersiveengineering:nugget_electrum": "age_4" },
   "immersiveengineering:crusher/blaze_powder": { "mekanism:dust_sulfur": "age_6" },

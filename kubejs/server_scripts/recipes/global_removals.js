@@ -30,6 +30,19 @@ ServerEvents.recipes((event) => {
   // and raw zinc block are disabled); the zinc nugget stays.
   removeIdPatterns.push(/^create:(blasting|smelting)\/zinc_ingot_from_/)
 
+  // No metal without ore (harmony plan 2026-10-15, dev/poc_analyze.py L-5): washing gravel keeps its flint, soul sand
+  // its quartz and red sand its dead bush, but none washes out nuggets any more (iron 12.5 %, gold 2 %, 3 gold 12.5 %).
+  // Same ids as Create's recipes.
+  event.remove({ id: 'create:splashing/gravel' })
+  event.custom({ type: 'create:splashing', ingredients: [{ item: 'minecraft:gravel' }],
+    results: [{ id: 'minecraft:flint', chance: 0.25 }] }).id('create:splashing/gravel')
+  event.remove({ id: 'create:splashing/soul_sand' })
+  event.custom({ type: 'create:splashing', ingredients: [{ item: 'minecraft:soul_sand' }],
+    results: [{ id: 'minecraft:quartz', count: 4, chance: 0.125 }] }).id('create:splashing/soul_sand')
+  event.remove({ id: 'create:splashing/red_sand' })
+  event.custom({ type: 'create:splashing', ingredients: [{ item: 'minecraft:red_sand' }],
+    results: [{ id: 'minecraft:dead_bush', chance: 0.05 }] }).id('create:splashing/red_sand')
+
   // Crushing: no Create crushing of vanilla/mod ores, raw metals or the four Create stones (Doc 10 v3 7.3).
   // TFC ore pieces -> canonical dust is added in recipes/age_2/iron_age.js.
   event.remove({ type: 'create:crushing', input: '#c:ores' })
