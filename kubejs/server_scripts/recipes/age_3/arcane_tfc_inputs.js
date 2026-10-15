@@ -264,4 +264,7 @@ ServerEvents.recipes((event) => {
   event.replaceInput({ id: 'minecraft:golden_apple' }, 'minecraft:apple', 'tfc:food/red_apple')
   event.replaceInput({ id: 'minecraft:golden_carrot' }, 'minecraft:carrot', 'tfc:food/carrot')
   event.replaceInput({ id: 'minecraft:glistering_melon_slice' }, 'minecraft:melon_slice', 'tfc:food/melon_slice')
+  // The volcanic sourcelink took a vanilla lava bucket; the vanilla bucket is Electric Age since the Twilight Forest
+  // left (0.10.0), and no TFC bucket of the Arcane Age holds lava. A Nether magma block (age_3) takes its place.
+  event.replaceInput({ id: 'ars_nouveau:volcanic_sourcelink' }, 'minecraft:lava_bucket', 'minecraft:magma_block')
 })
