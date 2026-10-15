@@ -1,0 +1,77 @@
+{
+  "type": "immersiveengineering:mineral_mix",
+  "biome_predicates": [
+    [
+      "minecraft:is_overworld"
+    ],
+    [
+      "minecraft:is_river"
+    ]
+  ],
+  "fail_chance": 0.2,
+  "ores": [
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/diamond"
+      }
+    },
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/ruby"
+      }
+    },
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/sapphire"
+      }
+    },
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/topaz"
+      }
+    },
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/opal"
+      }
+    },
+    {
+      "chance": 0.4,
+      "output": {
+        "id": "minecraft:clay"
+      }
+    },
+    {
+      "chance": 0.4,
+      "output": {
+        "id": "minecraft:sand"
+      }
+    }
+  ],
+  "spoils": [
+    {
+      "chance": 0.6,
+      "output": {
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 0.3,
+      "output": {
+        "id": "minecraft:cobblestone"
+      }
+    },
+    {
+      "chance": 0.1,
+      "output": {
+        "id": "minecraft:coarse_dirt"
+      }
+    }
+  ],
+  "weight": 15
+}

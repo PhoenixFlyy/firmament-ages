@@ -13,7 +13,9 @@
 // Removed: every Mekanism-family recipe that eats an ore block, a raw ore or a raw-ore block of a TFC metal or gem.
 // TFC puts its ore pieces into c:raw_materials/<metal> and its ore blocks into c:ores/<metal>, so these recipes
 // applied vanilla raw-ore ratios to every grade (3 small pieces = 30 mB gave 2,000 mB slurry, 10 ingots). The planet
-// and End metals (desh, ostrum, calorite, draconium) are no TFC ores and keep More Mekanism Processing's recipes.
+// metals (desh, ostrum, calorite) are no TFC ores and keep More Mekanism Processing's recipes. Draconium does not
+// (plan fix 9, 2026-10-15): the End ore drops the pack's draconium pieces (kubejs/data/draconicevolution/loot_table),
+// so More Mekanism Processing's four recipes on c:ores/draconium go and draconium runs through the ladder below.
 // Also removed (matrix 6.1, losers): crushing ingots to dust in any Mekanism-family crusher, stone and gravel
 // crushing, ore blocks from the combiner, and the duplicate silver chain of Mekanism: More Machine.
 
@@ -30,6 +32,9 @@ ServerEvents.recipes((event) => {
   // copper + tin infusion. Enriched iron itself stays (fusion reactor glass).
   ;['mekanism:processing/steel/enriched_iron_to_dust', 'mekanism:processing/bronze/dust/from_infusing',
     'mekanism:processing/bronze/ingot/from_infusing'].forEach((id) => event.remove({ id: id }))
+  ;['moremekanismprocessing:processing/draconium/clump/from_ore', 'moremekanismprocessing:processing/draconium/dust/from_ore',
+    'moremekanismprocessing:processing/draconium/shard/from_ore', 'moremekanismprocessing:processing/draconium/slurry/dirty/ore']
+    .forEach((id) => event.remove({ id: id }))
 
   // ======================================================================================== the ladder
   // Smallest n <= 10 pieces with m whole items and |m/n - target| <= 5 % (first found wins, else the closest).

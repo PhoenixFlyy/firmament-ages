@@ -1,0 +1,69 @@
+{
+  "type": "immersiveengineering:mineral_mix",
+  "biome_predicates": [
+    [
+      "minecraft:is_nether"
+    ]
+  ],
+  "fail_chance": 0.15,
+  "ores": [
+    {
+      "chance": 0.6,
+      "output": {
+        "id": "minecraft:quartz"
+      }
+    },
+    {
+      "chance": 0.07,
+      "output": {
+        "id": "tfc:ore/small_native_gold"
+      }
+    },
+    {
+      "chance": 0.06,
+      "output": {
+        "id": "tfc:ore/poor_native_gold"
+      }
+    },
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/normal_native_gold"
+      }
+    },
+    {
+      "chance": 0.03,
+      "output": {
+        "id": "tfc:ore/rich_native_gold"
+      }
+    },
+    {
+      "chance": 0.2,
+      "output": {
+        "id": "tfc:ore/sulfur"
+      }
+    }
+  ],
+  "sample_background": "minecraft:netherrack",
+  "spoils": [
+    {
+      "chance": 0.5,
+      "output": {
+        "id": "minecraft:netherrack"
+      }
+    },
+    {
+      "chance": 0.3,
+      "output": {
+        "id": "minecraft:basalt"
+      }
+    },
+    {
+      "chance": 0.2,
+      "output": {
+        "id": "minecraft:gravel"
+      }
+    }
+  ],
+  "weight": 20
+}

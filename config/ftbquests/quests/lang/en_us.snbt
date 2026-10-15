@@ -260,7 +260,7 @@
 	quest.0F97073C5BDEA813.quest_desc: ["Transformers step the voltage between wire tiers."]
 	quest.0F97073C5BDEA813.title: "Transformers"
 	quest.0FBE04E270216ADA.quest_desc: [
-		"Build the liquefaction cauldron. It dissolves rich ore pieces into alchemical sulfur, where spagyrics begin."
+		"Build the liquefaction cauldron and a digestion vat. Ore pieces of every grade digest into alchemical sulfur, where spagyrics begin."
 	]
 	quest.0FBE04E270216ADA.title: "Liquefaction Cauldron"
 	quest.0FF697E3625FD70E.quest_desc: [
@@ -437,7 +437,7 @@
 	quest.1E2B67282F83843D.quest_desc: [
 		"Three ways now give more metal per ore:"
 		"- Crushing wheels: about 1.7 times."
-		"- Spagyrics: about 2.5 to 3 times, rich pieces only."
+		"- Spagyrics: twice the metal, every grade."
 		"- The Dimensional Mineshaft: rich pieces without end."
 		""
 		"The spirit crusher grinds no ore."

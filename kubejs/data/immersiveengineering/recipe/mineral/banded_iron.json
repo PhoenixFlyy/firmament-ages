@@ -1,0 +1,110 @@
+{
+  "type": "immersiveengineering:mineral_mix",
+  "biome_predicates": [
+    [
+      "minecraft:is_overworld"
+    ]
+  ],
+  "fail_chance": 0.05,
+  "ores": [
+    {
+      "chance": 0.14,
+      "output": {
+        "id": "tfc:ore/small_hematite"
+      }
+    },
+    {
+      "chance": 0.12,
+      "output": {
+        "id": "tfc:ore/poor_hematite"
+      }
+    },
+    {
+      "chance": 0.08,
+      "output": {
+        "id": "tfc:ore/normal_hematite"
+      }
+    },
+    {
+      "chance": 0.06,
+      "output": {
+        "id": "tfc:ore/rich_hematite"
+      }
+    },
+    {
+      "chance": 0.07,
+      "output": {
+        "id": "tfc:ore/small_magnetite"
+      }
+    },
+    {
+      "chance": 0.06,
+      "output": {
+        "id": "tfc:ore/poor_magnetite"
+      }
+    },
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/normal_magnetite"
+      }
+    },
+    {
+      "chance": 0.03,
+      "output": {
+        "id": "tfc:ore/rich_magnetite"
+      }
+    },
+    {
+      "chance": 0.07,
+      "output": {
+        "id": "tfc:ore/small_limonite"
+      }
+    },
+    {
+      "chance": 0.06,
+      "output": {
+        "id": "tfc:ore/poor_limonite"
+      }
+    },
+    {
+      "chance": 0.04,
+      "output": {
+        "id": "tfc:ore/normal_limonite"
+      }
+    },
+    {
+      "chance": 0.03,
+      "output": {
+        "id": "tfc:ore/rich_limonite"
+      }
+    },
+    {
+      "chance": 0.2,
+      "output": {
+        "id": "tfc:ore/sulfur"
+      }
+    }
+  ],
+  "spoils": [
+    {
+      "chance": 0.2,
+      "output": {
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 0.5,
+      "output": {
+        "id": "minecraft:cobblestone"
+      }
+    },
+    {
+      "chance": 0.3,
+      "output": {
+        "id": "minecraft:cobbled_deepslate"
+      }
+    }
+  ],
+  "weight": 25
+}

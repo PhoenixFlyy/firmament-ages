@@ -280,9 +280,10 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
    - A Wilden Tribute in the enchanting apparatus: a source gem block in the middle; two horns, two wings, two
      spikes of the Wilden, a spirit attuned crystal and a mercury shard on the pedestals (5,000 source). The Wilden
      Chimera drops one too. Keystone: the Wilden Tribute.
-3. Alchemy: pyromantic brazier, calcination oven, sal ammoniac accumulator, liquefaction cauldron, distiller,
-   incubator, divination rod. Keystone: the mercury catalyst. Only rich ore pieces dissolve; one rich piece gives a
-   whole dust, about 2.5 to 3 times the metal.
+3. Alchemy: pyromantic brazier, calcination oven, sal ammoniac accumulator, liquefaction cauldron, digestion vat,
+   distiller, incubator, divination rod. Keystone: the mercury catalyst. Ore pieces of every grade digest in the
+   digestion vat with sal ammoniac (ten rich pieces give seven sulfur, two normal pieces one); each sulfur incubates
+   into a whole dust, twice the metal of the pieces.
 4. The Arcane Keystone, two ways:
    - On the Create line: a Hollow Keystone from a chest of a Nether fortress, three passes of a spout (250 mB of
      liquid experience), a deployer (a blaze rod) and a press.
