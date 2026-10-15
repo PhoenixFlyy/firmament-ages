@@ -3,7 +3,7 @@
 
     python dev/gen_primordial.py                    # write geo, animations, textures (entity, item, block, effect)
     python dev/gen_primordial.py --check            # only verify: outputs exist and match what this script would write
-    python dev/gen_primordial.py --preview OUT.png  # also render the model (three phases) with the projector below
+    python dev/gen_primordial.py --preview OUT.png  # also render the written geo JSON and textures (three phases)
 
 Writes into mod/firmages-core/src/main/resources/assets/firmages/:
   geo/entity/primordial.geo.json               GeckoLib geometry, format 1.12.0, per-face UVs on a 128x128 atlas
@@ -576,6 +576,39 @@ def check_nodes(model):
 
 
 # ---- preview projector --------------------------------------------------------------------------------------------------
+def load_geo(geo_path=GEO, tex_path=TEX, glow_path=GLOW, eye_path=EYE_GLOW):
+    """The model as the game sees it: bones and cubes read back from the geo JSON, each cube's colour sampled from the
+    texture under its north-face UV, glowing where the glow masks cover that UV (the eye: its own mask)."""
+    geo = json.loads(Path(geo_path).read_text(encoding="utf-8"))["minecraft:geometry"][0]
+    tex = Image.open(tex_path).convert("RGBA")
+    masks = {"glow": Image.open(glow_path).convert("RGBA"), "eye": Image.open(eye_path).convert("RGBA")}
+
+    def region(img, u, v, w, h):
+        px = [img.getpixel((x, y)) for x in range(int(u), int(u + max(w, 1))) for y in range(int(v), int(v + max(h, 1)))]
+        return [p for p in px if p[3] > 0]
+
+    model = []
+    for bn in geo["bones"]:
+        e = {"name": bn["name"], "pivot": bn["pivot"], "cubes": []}
+        for k in ("parent", "rotation"):
+            if k in bn:
+                e[k] = bn[k]
+        for c in bn.get("cubes", []):
+            uv = c["uv"]["north"]
+            (u, v), (w, h) = uv["uv"], uv["uv_size"]
+            inner = (u + 1, v + 1, w - 2, h - 2) if w > 2 and h > 2 else (u, v, w, h)  # inside the gold edge lines
+            px = region(tex, *inner)
+            mean = tuple(sum(p[i] for p in px) // max(1, len(px)) for i in range(3))
+            lit = [p for p in region(masks["glow"], *inner) if p[3] == 255]  # full glow: a node (edges glow faintly)
+            cc = {"origin": c["origin"], "size": c["size"], "rgb": mean, "glow": len(lit) > len(px) * 0.5,
+                  "eye": bool(region(masks["eye"], u, v, w, h))}
+            if "rotation" in c:
+                cc["rotation"], cc["pivot"] = c["rotation"], c["pivot"]
+            e["cubes"].append(cc)
+        model.append(e)
+    return model
+
+
 MAT_COL = {"core": GLASS, "shard": GLASS, "spire": GLASS, "keel": GLASS, "veil": rgb(PAL["violet"][0]), "void": VOID,
            "eye": rgb(PAL["void"][4])}
 
@@ -618,10 +651,20 @@ def render_panel(model, anims, playing, code, title, beam_node=None, eye_lit=Fal
                 n = (nx[1] * ny[2] - nx[2] * ny[1], nx[2] * ny[0] - nx[0] * ny[2], nx[0] * ny[1] - nx[1] * ny[0])
                 ln = math.sqrt(sum(x * x for x in n)) or 1
                 light = 0.55 + 0.45 * abs((n[0] * 0.3 + n[1] * 0.8 + n[2] * -0.5) / ln)
-                faces.append((depth, pts, c["mat"], light))
+                faces.append((depth, pts, c, light))
     faces.sort(key=lambda f: -f[0])
-    for depth, pts, mat, light in faces:
+    for depth, pts, c, light in faces:
         poly = [proj(p)[0] for p in pts]
+        if "rgb" in c:  # read back from the geo JSON and the textures
+            if c["glow"] or (c["eye"] and eye_lit):
+                col = WHITE_VIOLET[:3] if c["eye"] else tuple(min(255, int(x * 1.25)) for x in c["rgb"])
+                d.polygon(poly, fill=col)
+                g.polygon(poly, fill=col)
+            else:
+                col = tuple(int(min(255, x * light * 1.6)) for x in c["rgb"])
+                d.polygon(poly, fill=col, outline=GOLD[:3])
+            continue
+        mat = c["mat"]
         if mat.startswith("node_"):
             col = NODES[int(mat[5:])]
             d.polygon(poly, fill=col[:3])
@@ -726,8 +769,8 @@ def main():
             else:
                 v.save(p)
         print(f"wrote {len(files)} files")
-    if a.preview:
-        print("preview:", preview(model, anims, a.preview))
+    if a.preview:  # from the files on disk: the geo JSON and the textures the game loads
+        print("preview:", preview(load_geo(), json.loads(ANIM.read_text(encoding="utf-8")), a.preview))
     sys.exit(0 if ok else 1)
 
 

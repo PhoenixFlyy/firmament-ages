@@ -528,7 +528,7 @@ public final class OriginGameTests {
             .thenSucceed();
     }
 
-    /** mob_9: The Origin spawns only from data/firmages/origin/spawns.json (endermen since Cataclysm left the pack). */
+    /** mob_9: The Origin spawns only from data/firmages/origin/spawns.json (1.0: endermen only). */
     @GameTest(template = "empty", batch = "firmages_5_origin_world")
     public static void originSpawnList(GameTestHelper h) {
         ServerLevel o = origin(h);
