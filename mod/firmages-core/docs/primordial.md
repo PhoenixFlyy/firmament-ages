@@ -5,11 +5,11 @@ marble, gold trim and a beam going up, The Primordial is dark glass with gold ed
 a keel below, a cage of four veil plates around the keel and a tilted halo of nine shards, one per Age 0..8, each with
 a node in that Age's ceremony beam colour. It never speaks; Caelum does, twice.
 
-One entity (`firmages:primordial`, package `dev.firmages.core.boss`), no adds, no waves, no Gateways. It carries the
-scoreboard tag `firmages.final_boss` from birth, so its death in The Origin wins the finale through the existing
-`OriginService` path (`finale_won` plus the FINALE ceremony). The pack script
-`kubejs/server_scripts/finale/the_primordial.js` only summons it: on the Gathering (with `PartySize` = the players at
-the altar) and for `/firmages origin fight`.
+One entity (`firmages:primordial`, package `dev.firmages.core.boss`), no adds, no waves. It carries the scoreboard tag
+`firmages.final_boss` from birth, so its death in The Origin wins the finale through the existing `OriginService` path
+(`finale_won` plus the FINALE ceremony). The core summons it itself (`BossEvents`, no pack script): on the Gathering
+(party size = the players at the altar) and for `/firmages origin fight` (party size = the players near it when it
+wakes), 2.5 blocks above the altar.
 
 Concept and research: `Modpack-Planung/research-raw/n7-boss.md`.
 
@@ -110,4 +110,6 @@ so a player who joins mid-fight sees the right state.
 
 GameTests `BossGameTests`: phase thresholds and the lantern swap (and relight on death), veil and keel window,
 per-attacker damage and the effective pool, the shatter's six shards and nine stars, death grants `finale_won`
-through the tag, return home, nothing stays behind. Unit: `OriginSpawnListTest` (endermen only in The Origin).
+through the tag, a fight summoned by `/firmages origin fight` and won by scaled player hits
+(`summonedFightIsWonByScaledDamage`), return home, nothing stays behind. `OriginGameTests`: the Gathering and
+`origin fight` wake it, no second one while it lives. Unit: `OriginSpawnListTest` (endermen only in The Origin).

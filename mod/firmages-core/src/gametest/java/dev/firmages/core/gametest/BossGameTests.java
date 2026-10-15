@@ -4,6 +4,7 @@ import com.enviouse.progressivestages.common.api.ProgressiveStagesAPI;
 import com.enviouse.progressivestages.common.api.StageId;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.boss.ArenaLights;
 import dev.firmages.core.boss.BossRegistry;
@@ -15,6 +16,7 @@ import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.origin.OriginArena;
 import dev.firmages.core.origin.OriginSavedData;
 import dev.firmages.core.origin.OriginService;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -23,8 +25,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.damagesource.CombatRules;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.GameType;
@@ -313,6 +318,98 @@ public final class BossGameTests {
                 ok(h, b.isRemoved(), "the body is gone after the die animation");
             })
             .thenSucceed();
+    }
+
+    /**
+     * The core answers {@code /firmages origin fight} itself (boss/BossEvents, no pack script): The Primordial wakes above
+     * the altar, sized by the players present; every hit loses exactly the scaled amount (after armour, times
+     * 1024 / effectiveHealth * ((1 - f) + f * players), times veilFactor behind the closed veil, never past the phase
+     * floor); the killing hit of a player wins the finale through the tag.
+     */
+    @GameTest(template = "empty", batch = "firmages_6_boss_summon", timeoutTicks = 300)
+    public static void summonedFightIsWonByScaledDamage(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel o = OriginService.level(server);
+        if (o == null) h.fail("firmages:origin is not loaded");
+        OriginService.reset(server);
+        List<ChunkForce> chunks = forceArena(o);
+        PrimordialEntity[] boss = new PrimordialEntity[1];
+        h.startSequence()
+            .thenWaitUntil(() -> {
+                if (!o.isPositionEntityTicking(OriginArena.ALTAR)) h.fail("the arena does not tick entities yet");
+            })
+            .thenExecute(() -> {
+                ServerPlayer p = player(h, o, "gt_boss_sum_a", arenaEdge(0));
+                ServerPlayer q = player(h, o, "gt_boss_sum_b", arenaEdge(2));
+                try {
+                    CommandSourceStack op = server.createCommandSourceStack().withPermission(2).withSuppressedOutput();
+                    ok(h, command(server, op, "firmages origin fight") == 1, "/firmages origin fight succeeds without a pack script");
+                    List<PrimordialEntity> found = o.getEntitiesOfClass(PrimordialEntity.class, new AABB(OriginArena.ALTAR).inflate(8));
+                    ok(h, found.size() == 1, "one Primordial above the altar, found " + found.size());
+                    PrimordialEntity b = boss[0] = found.get(0);
+                    b.setNoAi(true);
+                    b.initFight();
+                    b.setPos(b.home());
+                    ok(h, command(server, op, "firmages origin fight") == 0, "a second summon is refused while it lives");
+                    ok(h, b.getTags().contains(OriginService.FINAL_BOSS_TAG) && b.home().distanceTo(aboveAltar()) < 1.0E-6,
+                        "tagged, home above the altar");
+                    double f = ServerConfig.bossPerPlayer();
+                    double pool = ServerConfig.bossEffectiveHealth() * ((1 - f) + f * 2);
+                    ok(h, b.partySize() == 2 && Math.abs(b.effectivePool() - pool) < 1.0E-6,
+                        "sized for the two players present: party " + b.partySize() + ", pool " + b.effectivePool());
+
+                    float closed = hit(b, p, 20);
+                    float expected = scaled(b, p, 20, pool, false);
+                    ok(h, Math.abs(closed - expected) < 0.01F, "closed veil: lost " + closed + ", expected " + expected);
+                    b.openVeil(PrimordialEntity.VEIL_MELEE);
+                    float open = hit(b, q, 20);
+                    expected = scaled(b, q, 20, pool, true);
+                    ok(h, Math.abs(open - expected) < 0.01F, "open veil: lost " + open + ", expected " + expected);
+
+                    // To the end with real hits; each loses the scaled amount and stops at the phase floor.
+                    ServerPlayer[] who = {p, q};
+                    for (int i = 0; i < 40 && b.isAlive(); i++) {
+                        cooldown(b);
+                        if (b.phaseLock() > 0) steps(b, b.phaseLock());
+                        b.openVeil(PrimordialEntity.VEIL_MELEE);
+                        ServerPlayer by = who[i % 2];
+                        float want = Math.min(scaled(b, by, 1000, pool, true), b.phase() < 3 ? b.getHealth() - b.phaseFloor() : Float.MAX_VALUE);
+                        float before = b.getHealth();
+                        float lost = hit(b, by, 1000);
+                        if (b.isAlive()) ok(h, Math.abs(lost - want) < 0.05F, "hit " + i + " in phase " + b.phase() + ": lost " + lost + ", expected " + want);
+                        else ok(h, want >= before - 0.05F, "the last hit " + i + " needed " + before + " and dealt " + want);
+                    }
+                    ok(h, b.isDeadOrDying() && b.phase() == 3, "it fell in phase 3");
+                    ok(h, OriginSavedData.get(server).won(), "the players' last hit wins the finale (OriginService, the tag)");
+                    ok(h, ProgressiveStagesAPI.hasStage(p, StageId.of(OriginService.FINALE_STAGE))
+                        && ProgressiveStagesAPI.hasStage(q, StageId.of(OriginService.FINALE_STAGE)), "finale_won granted to both players");
+                } finally {
+                    DebugPlayerCommands.despawn(p);
+                    DebugPlayerCommands.despawn(q);
+                    OriginService.reset(server);
+                }
+            })
+            .thenIdle(PrimordialEntity.DEATH_TICKS + 2)
+            .thenExecute(() -> {
+                if (boss[0] != null && !boss[0].isRemoved()) boss[0].discard();
+                release(o, chunks);
+            })
+            .thenSucceed();
+    }
+
+    /** What a hit of {@code amount} by {@code by} takes off: vanilla armour, then 1024 / pool, then the veil. */
+    private static float scaled(PrimordialEntity b, ServerPlayer by, float amount, double pool, boolean open) {
+        DamageSource src = by.damageSources().playerAttack(by);
+        float afterArmour = CombatRules.getDamageAfterAbsorb(b, amount, src, b.getArmorValue(), (float) b.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
+        return (float) (afterArmour * PrimordialEntity.MAX_HEALTH / pool * (open ? 1.0 : ServerConfig.bossVeilFactor()));
+    }
+
+    private static int command(MinecraftServer server, CommandSourceStack src, String command) {
+        try {
+            return server.getCommands().getDispatcher().execute(command, src);
+        } catch (CommandSyntaxException e) {
+            return -1;
+        }
     }
 
     @GameTest(template = "empty", batch = "firmages_6_boss_home", timeoutTicks = 200)

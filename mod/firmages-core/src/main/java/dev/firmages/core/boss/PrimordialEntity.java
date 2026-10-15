@@ -228,7 +228,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         return List.copyOf(darkened);
     }
 
-    /** The Gathering's size; the script passes it as NBT {@code PartySize}, otherwise the players present at birth. */
+    /** The Gathering's size (BossEvents, or NBT {@code PartySize}); unset, the players present at birth. */
     public void setPartySize(int n) {
         partySize = Math.max(1, n);
     }

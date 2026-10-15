@@ -277,7 +277,7 @@ public final class OriginService {
         if (level == null) return null;
         OriginEvent.SummonBoss e = NeoForge.EVENT_BUS.post(new OriginEvent.SummonBoss(level, OriginArena.ALTAR));
         FirmagesCore.LOGGER.info("The Origin: boss summon forced by an operator: {}", e.isSummoned() ? "summoned"
-            : e.getRefusal().isEmpty() ? "no script answered" : "refused (" + e.getRefusal() + ")");
+            : e.getRefusal().isEmpty() ? "nothing answered" : "refused (" + e.getRefusal() + ")");
         return e;
     }
 
