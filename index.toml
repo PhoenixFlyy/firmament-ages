@@ -6947,6 +6947,16 @@ hash = "7904c140247e0d8a87231cf4d36718fc018e0f851dbec2517b673acdc25547df"
 metafile = true
 
 [[files]]
+file = "mods/cacophony-tfc.pw.toml"
+hash = "cc888683261fba06445e24a322a97593fb7c06d4ee11005660734f5be6bd436a"
+metafile = true
+
+[[files]]
+file = "mods/carry-on.pw.toml"
+hash = "98250d952145b18c452883997e7e675d445bfce33e9afb35bf372040c429a179"
+metafile = true
+
+[[files]]
 file = "mods/cave-dweller-reevolved.pw.toml"
 hash = "0a8a4286c00017318d37ce7be4ac1d52f94933805bebb386dd9858d5c8d4db6b"
 metafile = true
@@ -7004,6 +7014,11 @@ metafile = true
 [[files]]
 file = "mods/corgilib.pw.toml"
 hash = "88b8e547b137f1435b0e383b933062ef0085454561f6adecff585b2fb9b50dd6"
+metafile = true
+
+[[files]]
+file = "mods/cosy-critters.pw.toml"
+hash = "2e88e6e081840379599f64b7c70c4660d654ea7d281af65102f939c2ca482424"
 metafile = true
 
 [[files]]
@@ -7249,6 +7264,11 @@ metafile = true
 [[files]]
 file = "mods/ex-pattern-provider.pw.toml"
 hash = "58c8a64f256889552536342d3544d6a957a6dbf0cf9f22ebf7f2c493acf34c0e"
+metafile = true
+
+[[files]]
+file = "mods/exposure.pw.toml"
+hash = "c21fdfb4055a25a2658c58995e0088f973b570c0c0b60e3bb8bf8291fa2a8e64"
 metafile = true
 
 [[files]]
@@ -7616,6 +7636,11 @@ hash = "75d42d0a0bcfbcce376fb229f72b75e3a40592fdff5490b997c19ef439a9c832"
 metafile = true
 
 [[files]]
+file = "mods/particle-rain.pw.toml"
+hash = "33072e6d0d27e9d5d35ad83b0e9f68784358adf2af9d51b353e6641aa3188de5"
+metafile = true
+
+[[files]]
 file = "mods/patchouli.pw.toml"
 hash = "3718e8a37d0dc2939cc350cce74bcb9c36b59f48baf4560e62804f7ca6478185"
 metafile = true
@@ -7736,6 +7761,11 @@ hash = "be50160d9d37a186eaf955f39f22a4e1a3d76fb4e61c63aaca25fd5ab2124f9e"
 metafile = true
 
 [[files]]
+file = "mods/subtle-effects.pw.toml"
+hash = "fdf3d8942d14758ea44a1f27e071fcfbffeafd4720e2d326dbc7dd939d588adc"
+metafile = true
+
+[[files]]
 file = "mods/summoningrituals.pw.toml"
 hash = "59b49692f23195e2d53945afef3d8c29ecfd942305c5c3daa1d52275e939d7d6"
 metafile = true
@@ -7796,8 +7826,18 @@ hash = "0a0b4d650eb7c6f72cb8e798c4c39c52a2245f42fef29205e09730e90f7fea63"
 metafile = true
 
 [[files]]
+file = "mods/tfc-tumbleweed.pw.toml"
+hash = "430c75194a1eef7e05529af6416b7dbdfe2119ce295775254120057f0d04b8ac"
+metafile = true
+
+[[files]]
 file = "mods/tfc-vessel-tooltip.pw.toml"
 hash = "8cc70e8217f5280a08902f84223f40d9bea8afd8b06e12ee53d88cb399383584"
+metafile = true
+
+[[files]]
+file = "mods/tfc-volcanoes.pw.toml"
+hash = "b28c05a0b24c05ef76ac19c5ace0f60cefab0edb12426a8e02eef519995dd067"
 metafile = true
 
 [[files]]

@@ -1,0 +1,13 @@
+name = "TFC Volcanoes"
+filename = "TFCVolcanoes-1.21.1-2.3.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "44c0af4481cd3f45b6c7df5b96453bc7a655b8d1"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 9139612
+project-id = 962578

@@ -31,7 +31,7 @@ All player-facing text in the pack is English.
 |---|---|---|---|
 | `pack.toml`, `index.toml` | pack metadata and file index (`packwiz refresh`) | yes | yes |
 | `LICENSE` | MIT License (2026, PhoenixFlyy) for the pack's own parts; not served | yes | no |
-| `mods/*.pw.toml` | one metafile per mod (all on CurseForge; eight keep a Modrinth metafile with a CurseForge twin in `dev/cf/swap/`) | yes | yes |
+| `mods/*.pw.toml` | one metafile per mod (all on CurseForge; nine keep a Modrinth metafile with a CurseForge twin in `dev/cf/swap/`) | yes | yes |
 | `config/` | changed configs only; `config/progressivestages/stages/*.toml` holds the stage definitions | yes | yes |
 | `defaultconfigs/` | server configs that NeoForge copies into every new world (TFC, IE, Mekanism) | yes | yes |
 | `kubejs/` | `startup_scripts/` (items, shared constants), `server_scripts/` (recipes, tags, stage logic), `client_scripts/` (tooltips, recipe viewer), `data/` (datapack: biome modifiers, TFC item heat), `assets/` (textures, quest art) | yes | yes |

@@ -44,7 +44,8 @@ CF_IDS = {"fastsuite": 475117, "kubejs-create": 429371, "sophisticated-core": 61
 # against `packwiz serve` on 2026-10-01 (client and server side).
 DISTRIBUTION_BLOCKED = {1555217: "Alternating Flux", 676721: "Create Aeronautics", 923238: "Create: Design n' Decor",
                         1218807: "Create Factory Logistics", 448233: "Entity Culling",
-                        1383031: "TFC Ruins"}  # TFC Ruins: server-only, found by the server-side installer run
+                        1383031: "TFC Ruins",  # TFC Ruins: server-only, found by the server-side installer run
+                        1023913: "Subtle Effects"}  # client-only, found by the client-side installer run of 2026-10-14
 SWAP = ROOT / "dev" / "cf" / "swap"
 BASE_COMMIT = "3846499"  # last commit before the conversion: source of the Modrinth metafiles
 # Same person under different names on the two sites (checked on the project pages and the GitHub repo).
