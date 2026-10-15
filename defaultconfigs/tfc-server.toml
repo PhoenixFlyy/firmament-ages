@@ -20,3 +20,8 @@
 		# fireStarterChance stays at TFC's file value 0.25: TFC 4.2.11 reads the firestarter AND flint and pyrite
 		# from that one key (defined twice), so raising it would make both easier, not harder.
 		torchTicks = 43200
+
+	[blocks.snow]
+		# Default 80 (vanilla 16). n7-world (2026-10-14): snow piles up twice as fast, so winters look and walk
+		# different; the melt rate is snowMeltMultiplier (3) times the accumulation rate, so spring thaw doubles too.
+		ticksPerSnowAccumulation = 40
