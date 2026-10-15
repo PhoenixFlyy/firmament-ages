@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /** SPEC §21: what EMI and Ponder hide at the player's Ages, and the generated namespace map. */
 class EmiAgeViewTest {
     private static final Map<String, AgeId> NS = Map.of("minecraft", AgeId.DAWN, "tfc", AgeId.DAWN, "create", AgeId.AGE_1,
-        "mekanism", AgeId.AGE_6, "ad_astra", AgeId.AGE_7, "cataclysm", AgeId.AGE_4, "sgjourney", AgeId.AGE_9);
+        "mekanism", AgeId.AGE_6, "ad_astra", AgeId.AGE_7, "draconicevolution", AgeId.AGE_4, "sgjourney", AgeId.AGE_9);
 
     // Items and fluids are opaque keys; the view compares them by identity, so each test uses these instances.
     private static final String COGWHEEL = new String("create:cogwheel");
@@ -101,18 +101,18 @@ class EmiAgeViewTest {
         assertTrue(bronze.categoryLocked("mekanism:boiler"));
         assertFalse(bronze.categoryLocked("minecraft:crafting"));
         assertTrue(bronze.recipeLocked("mekanism:sps", "mekanism:sps/antimatter"));
-        assertTrue(bronze.recipeLocked("emi_loot:mob_drops", "emi_loot:/mob_drops/cataclysm/entities/ignis"), "a later mod's mob");
+        assertTrue(bronze.recipeLocked("emi_loot:mob_drops", "emi_loot:/mob_drops/draconicevolution/entities/draconic_guardian"), "a later mod's mob");
         assertFalse(bronze.recipeLocked("emi_loot:mob_drops", "emi_loot:/mob_drops/minecraft/entities/zombie"));
         assertFalse(bronze.recipeLocked("emi_loot:chest_loot", null));
         assertFalse(bronze.recipeLocked("create:mixing", "mekanism:compat/create/mixing"), "only the category's mod counts");
-        assertEquals(Set.of("mekanism", "ad_astra", "cataclysm", "sgjourney"), bronze.lockedNamespaces());
+        assertEquals(Set.of("mekanism", "ad_astra", "draconicevolution", "sgjourney"), bronze.lockedNamespaces());
         assertFalse(view("age_0", "age_1", "age_2", "age_3", "age_4").recipeLocked("emi_loot:mob_drops",
-            "emi_loot:/mob_drops/cataclysm/entities/ignis"));
+            "emi_loot:/mob_drops/draconicevolution/entities/draconic_guardian"));
     }
 
     @Test
     void lootNamespace() {
-        assertEquals("cataclysm", EmiAgeView.lootNamespace("emi_loot:/mob_drops/cataclysm/entities/ignis"));
+        assertEquals("draconicevolution", EmiAgeView.lootNamespace("emi_loot:/mob_drops/draconicevolution/entities/draconic_guardian"));
         assertEquals("minecraft", EmiAgeView.lootNamespace("emi_loot:/chest_loot/minecraft/chests/simple_dungeon"));
         assertEquals(null, EmiAgeView.lootNamespace("emi_loot:/odd"));
         assertEquals(null, EmiAgeView.lootNamespace("minecraft:crafting/stick"));

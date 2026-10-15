@@ -1,9 +1,13 @@
 package dev.firmages.core.client;
 
 import dev.firmages.core.FirmagesCore;
+import dev.firmages.core.boss.BossRegistry;
+import dev.firmages.core.client.boss.PrimordialRenderer;
+import dev.firmages.core.client.boss.StarFallRenderer;
 import dev.firmages.core.net.ReloadStatePayload;
 import dev.firmages.core.shrine.ShrineRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -28,6 +32,9 @@ public final class FirmagesClient {
         public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ShrineRegistry.SHRINE_HEART_BE.get(), ShrineHeartRenderer::new);
             event.registerBlockEntityRenderer(ShrineRegistry.OFFERING_PLINTH_BE.get(), OfferingPlinthRenderer::new);
+            event.registerEntityRenderer(BossRegistry.PRIMORDIAL.get(), PrimordialRenderer::new);
+            event.registerEntityRenderer(BossRegistry.STAR_FALL.get(), StarFallRenderer::new);
+            event.registerEntityRenderer(BossRegistry.THROWN_SHARD.get(), ThrownItemRenderer::new);
         }
     }
 

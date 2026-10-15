@@ -6,6 +6,7 @@ import com.enviouse.progressivestages.common.api.StageId;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.age.AgeService;
 import dev.firmages.core.age.ReloadScheduler;
+import dev.firmages.core.boss.PrimordialEntity;
 import dev.firmages.core.origin.OriginAccess;
 import dev.firmages.core.origin.OriginSpawns;
 import net.minecraft.util.random.WeightedRandomList;
@@ -85,7 +86,6 @@ public final class OriginGameTests {
     private static int gatherings;
     private static int victories;
     private static int summons;
-    private static boolean answerSummon;
 
     @SubscribeEvent
     public static void register(RegisterGameTestsEvent event) {
@@ -102,11 +102,23 @@ public final class OriginGameTests {
         victories++;
     }
 
-    /** Stands in for the boss script of the pack (not in this run): answers {@code /firmages origin fight} when asked to. */
+    /** Counts {@code /firmages origin fight}; the core's boss ({@code boss/BossEvents}) answers it. */
     @SubscribeEvent
     public static void onSummonBoss(OriginEvent.SummonBoss e) {
         summons++;
-        if (answerSummon) e.summoned();
+    }
+
+    /** The Primordials alive in The Origin (the core summons one on every Gathering and {@code origin fight}). */
+    private static List<PrimordialEntity> primordials(ServerLevel o) {
+        List<PrimordialEntity> out = new java.util.ArrayList<>();
+        for (Entity e : o.getAllEntities()) {
+            if (e instanceof PrimordialEntity b && b.isAlive()) out.add(b);
+        }
+        return out;
+    }
+
+    private static void discardPrimordials(ServerLevel o) {
+        primordials(o).forEach(Entity::discard);
     }
 
     private static void ok(GameTestHelper h, boolean cond, String what) {
@@ -208,8 +220,8 @@ public final class OriginGameTests {
      * The operators' test commands (Felix 2026-10-14): without permission 2 none of them exists; {@code origin tp
      * <players> force} lets a survival player without age_9 into The Origin and both age_9 locks (firmages-core's and
      * ProgressiveStages', which re-checks every second) let him stay until he leaves; a plain tp is turned back again
-     * afterwards; {@code origin gathering} starts the Gathering far from the altar; {@code origin fight} asks the boss
-     * script and reports when nobody answers; after the win both refuse.
+     * afterwards; {@code origin gathering} starts the Gathering far from the altar and wakes The Primordial;
+     * {@code origin fight} refuses while it lives and summons it once it is gone; after the win both refuse.
      */
     @GameTest(template = "empty", batch = "firmages_5_origin_ops", timeoutTicks = 400)
     public static void operatorCommands(GameTestHelper h) {
@@ -218,11 +230,14 @@ public final class OriginGameTests {
         OriginService.reset(server);
         gatherings = 0;
         summons = 0;
-        answerSummon = false;
+        List<BlockPos> area = List.of(OriginArena.ALTAR);
+        forceChunks(o, area, true); // the altar's chunk ticks entities, as it does for players standing there
         ServerPlayer[] p = new ServerPlayer[1];
         BlockPos home = h.absolutePos(new BlockPos(1, 1, 1));
         h.startSequence()
+            .thenWaitUntil(() -> entitiesLoaded(h, o, area))
             .thenExecute(() -> {
+                discardPrimordials(o);
                 ok(h, !AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9), "test starts without age_9");
                 p[0] = DebugPlayerCommands.spawn(server, h.getLevel(), "gt_operator", Vec3.atCenterOf(home));
                 p[0].setGameMode(GameType.SURVIVAL);
@@ -241,9 +256,17 @@ public final class OriginGameTests {
                 CommandSourceStack op = p[0].createCommandSourceStack().withPermission(2);
                 ok(h, run(server, op, "firmages origin gathering") == 1 && gatherings == 1 && OriginSavedData.get(server).gatherings() == 1,
                     "the Gathering starts at the arrival point, 14 blocks from the altar");
-                ok(h, run(server, op, "firmages origin fight") == 0 && summons == 1, "no script answered: the command fails");
-                answerSummon = true;
-                ok(h, run(server, op, "firmages origin fight") == 1 && summons == 2, "a script that summons: the command succeeds");
+                ok(h, primordials(o).size() == 1 && OriginService.fightActive(o), "the Gathering woke The Primordial: " + primordials(o).size());
+                ok(h, run(server, op, "firmages origin fight") == 0 && summons == 1 && primordials(o).size() == 1,
+                    "while it lives the summon is refused");
+                discardPrimordials(o);
+                ok(h, run(server, op, "firmages origin fight") == 1 && summons == 2 && primordials(o).size() == 1,
+                    "with no boss alive the command summons The Primordial");
+                PrimordialEntity b = primordials(o).get(0);
+                BlockPos al = OriginArena.ALTAR;
+                ok(h, b.getTags().contains(OriginService.FINAL_BOSS_TAG) && Math.abs(b.getX() - (al.getX() + 0.5)) < 1.0E-6
+                    && Math.abs(b.getZ() - (al.getZ() + 0.5)) < 1.0E-6 && b.getY() > al.getY(), "tagged, above the altar at " + b.position());
+                discardPrimordials(o);
                 p[0].teleportTo(h.getLevel(), home.getX() + 0.5, home.getY(), home.getZ() + 0.5, 0, 0);
                 ok(h, p[0].level() == h.getLevel() && DimensionEnforcer.isDimensionLockedForPlayer(p[0], OriginRegistry.ORIGIN_ID),
                     "leaving ends the forced visit");
@@ -253,7 +276,8 @@ public final class OriginGameTests {
                     "after the win both commands refuse");
             })
             .thenExecute(() -> {
-                answerSummon = false;
+                discardPrimordials(o);
+                forceChunks(o, area, false);
                 OriginService.reset(server);
                 DebugPlayerCommands.despawn(p[0]);
             })
@@ -303,6 +327,16 @@ public final class OriginGameTests {
         OriginService.reset(server);
         gatherings = 0;
         victories = 0;
+        // The altar's chunk ticks entities, as it does for players who stand there: the summoned boss is then loaded.
+        List<BlockPos> area = List.of(OriginArena.ALTAR, OriginArena.ARRIVAL);
+        forceChunks(o, area, true);
+        h.startSequence()
+            .thenWaitUntil(() -> entitiesLoaded(h, o, area))
+            .thenExecute(() -> gatheringAndFinalBossSteps(h, server, o, area))
+            .thenSucceed();
+    }
+
+    private static void gatheringAndFinalBossSteps(GameTestHelper h, MinecraftServer server, ServerLevel o, List<BlockPos> area) {
         ServerPlayer p = DebugPlayerCommands.spawn(server, h.getLevel(), "gt_origin", Vec3.atCenterOf(h.absolutePos(new BlockPos(1, 1, 1))));
         try {
             p.setGameMode(GameType.CREATIVE); // creative bypasses the age_9 lock (ProgressiveStages allow_creative_bypass)
@@ -316,6 +350,8 @@ public final class OriginGameTests {
             p.teleportTo(o, al.getX() + 2.5, al.getY(), al.getZ() + 1.5, 0, 0);
             ok(h, OriginService.gathered(server) && OriginService.checkGathering(server), "Gathering fires when everyone stands at the altar");
             ok(h, gatherings == 1 && OriginSavedData.get(server).gatherings() == 1, "one Gathering event, count " + gatherings);
+            ok(h, primordials(o).size() == 1 && primordials(o).get(0).partySize() == 1, "the Gathering of one woke one Primordial sized for one");
+            discardPrimordials(o); // this test wins with tagged zombies; BossGameTests kill the real one
             ok(h, !OriginService.checkGathering(server), "no second start while still gathered");
             p.teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
             ok(h, !OriginService.checkGathering(server), "breaking up does nothing");
@@ -352,17 +388,17 @@ public final class OriginGameTests {
             ok(h, victories == 1 && CeremonyService.sentCount() == sentBefore + 1, "a second tagged boss changes nothing");
             ok(h, !OriginService.checkGathering(server), "no Gathering after the win");
         } finally {
+            discardPrimordials(o);
             DebugPlayerCommands.despawn(p);
             OriginService.reset(server);
+            forceChunks(o, area, false);
         }
-        h.succeed();
     }
 
     /**
      * Felix 2026-10-14: during the fight, walking away from the altar and back announced the Gathering again every
-     * time once the cooldown had passed. While the fight runs (here a tagged boss stands in for the finale gate and
-     * The Primordial) no arrival starts it again, even with the cooldown at 0; once the fight is gone (a wipe) the
-     * next arrival does.
+     * time once the cooldown had passed. While the fight runs (The Primordial the Gathering woke) no arrival starts it
+     * again, even with the cooldown at 0; once the fight is gone (a wipe) the next arrival does and wakes it anew.
      */
     @GameTest(template = "empty", batch = "firmages_5_origin_repeat", timeoutTicks = 400)
     public static void noRepeatWhileFightRuns(GameTestHelper h) {
@@ -375,10 +411,9 @@ public final class OriginGameTests {
         BlockPos a = OriginArena.ARRIVAL;
         List<BlockPos> area = List.of(al, al.south(8), a);
         ServerPlayer[] p = new ServerPlayer[1];
-        Zombie[] boss = new Zombie[1];
         Runnable cleanup = () -> {
             ServerConfig.ORIGIN_GATHER_COOLDOWN.set(cooldown);
-            if (boss[0] != null && !boss[0].isRemoved()) boss[0].discard();
+            discardPrimordials(o);
             if (p[0] != null) DebugPlayerCommands.despawn(p[0]);
             forceChunks(o, area, false);
             OriginService.reset(server);
@@ -393,9 +428,7 @@ public final class OriginGameTests {
                     p[0].teleportTo(o, al.getX() + 2.5, al.getY(), al.getZ() + 1.5, 0, 0);
                     ok(h, !OriginService.fightActive(o), "no fight before the Gathering");
                     ok(h, OriginService.checkGathering(server) && gatherings == 1, "first arrival starts the Gathering");
-                    boss[0] = spawnZombie(o, al.south(8), true);
-                    boss[0].setNoAi(true);
-                    ok(h, OriginService.fightActive(o), "a living tagged boss in The Origin is a running fight");
+                    ok(h, primordials(o).size() == 1 && OriginService.fightActive(o), "The Primordial woke: a running fight");
                     ServerConfig.ORIGIN_GATHER_COOLDOWN.set(0);
                     for (int i = 0; i < 3; i++) {
                         p[0].teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
@@ -405,12 +438,14 @@ public final class OriginGameTests {
                             "returning during the fight does not start it again");
                     }
                     ok(h, gatherings == 1 && OriginSavedData.get(server).gatherings() == 1, "one Gathering (and one announcement), count " + gatherings);
-                    boss[0].discard(); // the wipe: the gate failed, no boss
-                    ok(h, !OriginService.fightActive(o), "no fight without gate and boss");
+                    ok(h, primordials(o).size() == 1, "one Primordial, not one per return: " + primordials(o).size());
+                    discardPrimordials(o); // the wipe: it withdrew
+                    ok(h, !OriginService.fightActive(o), "no fight once it withdrew");
                     p[0].teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
                     OriginService.checkGathering(server);
                     p[0].teleportTo(o, al.getX() + 2.5, al.getY(), al.getZ() + 1.5, 0, 0);
                     ok(h, OriginService.checkGathering(server) && gatherings == 2, "after the wipe the next arrival starts the Gathering again");
+                    ok(h, primordials(o).size() == 1, "and wakes The Primordial anew");
                 } finally {
                     cleanup.run();
                 }
@@ -528,7 +563,7 @@ public final class OriginGameTests {
             .thenSucceed();
     }
 
-    /** mob_9: The Origin spawns only from data/firmages/origin/spawns.json (endermen since Cataclysm left the pack). */
+    /** mob_9: The Origin spawns only from data/firmages/origin/spawns.json (1.0: endermen only). */
     @GameTest(template = "empty", batch = "firmages_5_origin_world")
     public static void originSpawnList(GameTestHelper h) {
         ServerLevel o = origin(h);

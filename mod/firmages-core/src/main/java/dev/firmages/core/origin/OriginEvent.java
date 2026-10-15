@@ -9,8 +9,9 @@ import net.neoforged.bus.api.Event;
 import java.util.List;
 
 /**
- * Hooks of the script-first end boss (SPEC §16.3), posted on {@code NeoForge.EVENT_BUS}. KubeJS listens with
- * {@code NativeEvents.onEvent('dev.firmages.core.origin.OriginEvent$Gathering', e => ...)}; datapacks get the same
+ * Hooks of the end boss (SPEC §16.3), posted on {@code NeoForge.EVENT_BUS}. The core's own boss, The Primordial
+ * ({@code boss/BossEvents}), answers {@code Gathering} and {@code SummonBoss}; KubeJS can listen as well with
+ * {@code NativeEvents.onEvent('dev.firmages.core.origin.OriginEvent$Gathering', e => ...)}, and datapacks get the same
  * moments as the function tags {@code #firmages:origin/start} and {@code #firmages:origin/won}. {@code SummonBoss} is
  * the operators' shortcut to the boss ({@code /firmages origin fight}).
  */
@@ -32,7 +33,7 @@ public abstract class OriginEvent extends Event {
         return altar;
     }
 
-    /** Every online player stands at the altar: the boss script starts the fight. Not posted once the boss fell. */
+    /** Every online player stands at the altar: The Primordial wakes. Not posted once the boss fell. */
     public static final class Gathering extends OriginEvent {
         private final List<ServerPlayer> players;
         private final int count;
@@ -54,8 +55,9 @@ public abstract class OriginEvent extends Event {
     }
 
     /**
-     * {@code /firmages origin fight} (operators): the boss script summons its final boss at once, without the Gathering.
-     * The script answers with {@link #summoned()} or {@link #refuse(String)}; nobody answering means no script listens.
+     * {@code /firmages origin fight} (operators): the final boss at once, without the Gathering. The core's boss answers
+     * with {@link #summoned()} or {@link #refuse(String)} (it lives already); a listener of higher priority that answers
+     * first replaces it. Nobody answering means no boss is installed.
      */
     public static final class SummonBoss extends OriginEvent {
         private boolean summoned;
@@ -65,12 +67,12 @@ public abstract class OriginEvent extends Event {
             super(level, altar);
         }
 
-        /** The script summoned the boss. */
+        /** The boss was summoned. */
         public void summoned() {
             summoned = true;
         }
 
-        /** The script did not summon (its fight is running, ...); {@code why} goes to the operator. */
+        /** The boss was not summoned (its fight is running, ...); {@code why} goes to the operator. */
         public void refuse(String why) {
             refusal = why == null ? "" : why;
         }

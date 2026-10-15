@@ -153,7 +153,7 @@ public final class EmiAgeView {
         return EMI_LOOT.equals(namespace(categoryId)) && namespaceLocked(lootNamespace(recipeId));
     }
 
-    /** {@code emi_loot:/mob_drops/cataclysm/entities/ignis} gives {@code cataclysm}; null for other ids. */
+    /** {@code emi_loot:/mob_drops/draconicevolution/entities/draconic_guardian} gives {@code draconicevolution}; null for other ids. */
     static String lootNamespace(String recipeId) {
         if (recipeId == null || !recipeId.startsWith(EMI_LOOT + ":/")) return null;
         String[] parts = recipeId.substring(EMI_LOOT.length() + 2).split("/");
