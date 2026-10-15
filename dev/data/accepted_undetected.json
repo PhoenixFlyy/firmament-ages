@@ -36,7 +36,6 @@
     "mysticalagriculture:enchanter": "enchants the input item; inputs need Mystical Agriculture essence (age_6)",
     "mysticalagriculture:soulium_spawner": "spawner entity table, no item output",
     "tfcrf:regrowth": "TFC Regrowing Forests world data, no recipe output",
-    "theurgy:catalysation": "turns the input into mercury flux energy, no item output",
-    "twilightforest:uncrafting": "uncrafting-table cost overrides; the table only reverses recipes that the gate kept"
+    "theurgy:catalysation": "turns the input into mercury flux energy, no item output"
   }
 }

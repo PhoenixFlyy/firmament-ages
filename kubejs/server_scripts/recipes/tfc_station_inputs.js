@@ -12,7 +12,6 @@
 // "Reload performance").
 
 ServerEvents.recipes((event) => {
-  const TWILIGHT_WOODS = ['canopy', 'dark', 'mangrove', 'mining', 'sorting', 'time', 'transformation', 'twilight_oak']
   const TFC = {
     'minecraft:crafting_table': '#tfc:workbenches',
     'minecraft:furnace': 'tfc:crucible',
@@ -25,12 +24,10 @@ ServerEvents.recipes((event) => {
     // mechanical pipe (the Space Age fission chain needs the PRC and the oxidizer, both built on the Dynamic Tank).
     'minecraft:bucket': 'tfc:wooden_bucket',
     // Content fixes after the late Ages (2026-10-01): Apothic Enchanting's table is the pack's enchanting table
-    // (tome, diamonds, obsidian); TFC barrels, chests and trapped chests (tags/tfc_stations.js); milk is a fluid in a
-    // TFC bucket, so the ingredient is TFC's fluid-content test for 1000 mB of milk.
+    // (tome, diamonds, obsidian); TFC barrels (tags/tfc_stations.js); milk is a fluid in a TFC bucket, so the
+    // ingredient is TFC's fluid-content test for 1000 mB of milk.
     'minecraft:enchanting_table': 'apothic_enchanting:apothic_enchanting_table',
     'minecraft:barrel': '#tfc:barrels',
-    'minecraft:chest': '#firmages:chests/tfc',
-    'minecraft:trapped_chest': '#firmages:chests/trapped_tfc',
     'minecraft:milk_bucket': { type: 'tfc:fluid_content', fluid: { fluid: 'minecraft:milk', amount: 1000 } }
   }
   const USERS = {
@@ -40,7 +37,7 @@ ServerEvents.recipes((event) => {
       'ae2:network/crafting/molecular_assembler', 'ae2:network/parts/terminals_crafting',
       'ae2:network/upgrade_wireless_crafting_terminal', 'create:crafting/appliances/crafting_blueprint',
       'create:crafting/kinetics/mechanical_crafter', 'engineered_schematics:schematic_table',
-      'sophisticatedbackpacks:crafting_upgrade', 'toms_storage:crafting_terminal', 'twilightforest:uncrafting_table'
+      'sophisticatedbackpacks:crafting_upgrade', 'toms_storage:crafting_terminal'
     ],
     'minecraft:furnace': [
       'ad_astra:coal_generator', 'ad_astra:fuel_refinery', 'ae2:network/blocks/energy_vibration_chamber',
@@ -67,7 +64,7 @@ ServerEvents.recipes((event) => {
       'toms_storage:paint_kit'
     ],
     'minecraft:anvil': [
-      'apothic_enchanting:scrap_tome', 'cataclysm:mechanical_fusion_anvil',
+      'apothic_enchanting:scrap_tome',
       'create_enchantment_industry:smithing/blaze_forger', 'sophisticatedbackpacks:anvil_upgrade'
     ],
     'minecraft:enchanting_table': [
@@ -78,9 +75,7 @@ ServerEvents.recipes((event) => {
     // create_dragons_plus:crafting/fragile_fluid_tank also takes a Create copper sheet: recipes/dead_inputs.js rewrites it.
     'minecraft:barrel': ['simulated:velocity_sensor'].concat(
       ['black', 'blue', 'brown', 'cyan', 'gray', 'green', 'light_blue', 'light_gray', 'lime', 'magenta', 'orange', 'pink',
-        'purple', 'red', 'white', 'yellow'].map((c) => `create:crafting/logistics/${c}_postbox`)),
-    'minecraft:chest': TWILIGHT_WOODS.map((w) => `twilightforest:wood/${w}_chest`),
-    'minecraft:trapped_chest': TWILIGHT_WOODS.map((w) => `twilightforest:wood/${w}_trapped_chest`)
+        'purple', 'red', 'white', 'yellow'].map((c) => `create:crafting/logistics/${c}_postbox`))
   }
   let n = 0
   Object.keys(USERS).forEach((from) => {

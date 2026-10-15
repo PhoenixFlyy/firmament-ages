@@ -6,7 +6,7 @@
 	#        "biomesoplenty:redwood"		COMMENT: exclude redwood from Wood Mod for any module
 	#    ]
 	#
-	blacklist = ["twilightforest:.*", "ad_astra:.*", "ars_nouveau:.*", "cataclysm:.*", "occultism:.*", "totemic:.*"]
+	blacklist = ["ad_astra:.*", "ars_nouveau:.*", "occultism:.*", "totemic:.*"]
 
 [entryset]
 	#Exclude EntrySet from the module for All of WoodType or LeavesType
@@ -27,7 +27,7 @@
 	#        "variantvanillablocks"
 	#    ]
 	#
-	blacklist = ["twilightforest"]
+	blacklist = []
 
 [leavestype]
 	#Exclude LeavesType from all of Modules
