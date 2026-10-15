@@ -1,0 +1,8 @@
+{
+  "type": "enhancedcelestials2core:sound_track",
+  "settings": {
+    "sound_track": {
+      "sound_id": "firmages:music.firmament_night"
+    }
+  }
+}

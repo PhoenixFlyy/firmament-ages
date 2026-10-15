@@ -6,7 +6,7 @@ Writes
   kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_<N>_sky.json   sky light colour
   kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_<N>_moon.json  moon colour
   kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_age_<N>_text.json  hot-bar line at dusk
-  kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_{moon_size,calm,experience}.json
+  kubejs/data/firmages/enhancedcelestials2core/lunar/event_modifier/firmament_{moon_size,calm,experience,music}.json
   kubejs/assets/firmages/lang/en_us.json   the keys below (other keys in that file are kept)
 
 No event_probability file is written: EC2 only rolls events that have one, so these nights never come by chance.
@@ -16,7 +16,8 @@ Colours: Age N takes the beam_color of shrine ring N (mod tier/ring_N.json), the
 banner of that Age (dev/gen_quest_art.py, AGES). Age 9 has no ring of its own and takes the Singularity white of
 gen_quest_art (#F4F0FF, also the finale gold-white of the ceremony).
 Formats verified against Enhanced Celestials 2 Core 2.0.3.3 / Default Lunar Events 2.0.1.3 (jar data and javap):
-colour = hex RGB string without '#', notification type CHAT | HOT_BAR | NONE, end_notification optional.
+colour = hex RGB string without '#', notification type CHAT | HOT_BAR | NONE, end_notification optional,
+sound_track = a SoundEvent in its direct codec ({"sound_id": ...}).
 
 Usage: python dev/gen_firmament_night.py [--check]   (--check: exit 1 when a written file would change)
 """
@@ -70,6 +71,9 @@ def files():
     out[DATA / "event_modifier" / "firmament_calm.json"] = modifier(
         "spawn_category_multiplier", {"multipliers": {"monster": MONSTERS}})
     out[DATA / "event_modifier" / "firmament_experience.json"] = modifier("experience", {"amplifier": EXPERIENCE})
+    # The night's own track (firmages-core SPEC 23): EC2 loops it; firmages-core silences the Age music meanwhile.
+    out[DATA / "event_modifier" / "firmament_music.json"] = modifier(
+        "sound_track", {"sound_track": {"sound_id": "firmages:music.firmament_night"}})
     lang = {}
     for n, ((name, line), color) in enumerate(zip(AGES, colors)):
         base = f"firmament_age_{n}"
@@ -88,6 +92,7 @@ def files():
             f"firmages:{base}_text",
             "firmages:firmament_calm",
             "firmages:firmament_experience",
+            "firmages:firmament_music",
         ]}
         lang[f"lunar.event.firmages.{base}"] = f"Firmament Night ({name})"
         lang[f"firmages.night.age_{n}"] = line
