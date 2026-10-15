@@ -1,0 +1,89 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:is_ocean",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_deep_ocean",
+      "required": false
+    },
+    {
+      "id": "#minecraft:is_river",
+      "required": false
+    },
+    {
+      "id": "#c:is_ocean",
+      "required": false
+    },
+    {
+      "id": "#c:is_river",
+      "required": false
+    },
+    {
+      "id": "#c:is_lake",
+      "required": false
+    },
+    {
+      "id": "#tfc:is_ocean",
+      "required": false
+    },
+    {
+      "id": "#tfc:is_river",
+      "required": false
+    },
+    {
+      "id": "tfc:lake",
+      "required": false
+    },
+    {
+      "id": "tfc:mountain_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:volcanic_mountain_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:old_mountain_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:plateau_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:oceanic_mountain_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:volcanic_oceanic_mountain_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:meltwater_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:rift_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:tower_karst_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:subglacial_lake",
+      "required": false
+    },
+    {
+      "id": "tfc:salt_marsh",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_flats",
+      "required": false
+    }
+  ]
+}

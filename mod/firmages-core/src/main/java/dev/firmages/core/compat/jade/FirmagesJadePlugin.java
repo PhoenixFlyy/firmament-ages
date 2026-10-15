@@ -39,6 +39,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation PLINTH = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "offering_plinth");
     static final ResourceLocation CONSECRATED = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "consecrated");
     static final ResourceLocation TALLY = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "tally_chute");
+    static final ResourceLocation STARFALL_CORE = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "starfall_core");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
@@ -46,6 +47,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Plinth.INSTANCE, OfferingPlinthBlock.class);
         registration.registerBlockComponent(Consecrated.INSTANCE, ConsecratedBlock.class);
         registration.registerBlockComponent(Tally.INSTANCE, TallyChuteBlock.class);
+        registration.registerBlockComponent(StarfallCore.INSTANCE, dev.firmages.core.sky.StarfallCoreBlock.class);
         // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
@@ -160,6 +162,31 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return TALLY;
+        }
+    }
+
+    /** A starfall core (SPEC §25.4): "Glowing: cools in 1 day 6 h" from the synced {@code coolsAt}, or "Cold". */
+    enum StarfallCore implements IBlockComponentProvider {
+        INSTANCE;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (!(accessor.getBlockEntity() instanceof dev.firmages.core.sky.StarfallCoreBlockEntity be)) return;
+            long left = be.coolsAt() - accessor.getLevel().getGameTime();
+            if (left <= 0) {
+                tooltip.add(Component.translatable("firmages.jade.starfall_core.cold").withStyle(ChatFormatting.GRAY));
+                return;
+            }
+            int[] dh = dev.firmages.core.sky.StarfallRules.daysHours(left);
+            Component time = dh[0] > 0
+                ? Component.translatable(dh[0] == 1 ? "firmages.jade.starfall_core.day_hours" : "firmages.jade.starfall_core.days_hours", dh[0], dh[1])
+                : Component.translatable("firmages.jade.starfall_core.hours", dh[1]);
+            tooltip.add(Component.translatable("firmages.jade.starfall_core.glowing", time).withStyle(ChatFormatting.GOLD));
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return STARFALL_CORE;
         }
     }
 }

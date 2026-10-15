@@ -21,6 +21,10 @@ public final class ClientPayloads {
         ImmersionClient.onWelcome();
     }
 
+    public static void starfall(dev.firmages.core.net.StarfallStreakPayload payload) {
+        SkyStreaks.start(payload);
+    }
+
     public static void preview(ShrinePreviewPayload payload) {
         if (payload.clear()) PreviewBridge.clear();
         else PreviewBridge.show(payload);

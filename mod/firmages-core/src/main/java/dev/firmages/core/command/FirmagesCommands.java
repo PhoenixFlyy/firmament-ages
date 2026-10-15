@@ -39,7 +39,7 @@ import java.util.Locale;
  * debug players for the headless shrine test ({@link DebugPlayerCommands}).
  */
 public final class FirmagesCommands {
-    private static final List<String> SUITES = List.of("all", "core", "gate", "server");
+    private static final List<String> SUITES = List.of("all", "core", "gate", "server", "sky");
     private static final SimpleCommandExceptionType SIMULATE_DISABLED = new SimpleCommandExceptionType(
         Component.literal("Simulation is disabled; set debug.allowSimulate = true in firmages-server.toml"));
     private static final SimpleCommandExceptionType UNKNOWN_AGE = new SimpleCommandExceptionType(Component.literal("Unknown Age"));
@@ -75,6 +75,7 @@ public final class FirmagesCommands {
             .then(ShrineCommands.ceremony())
             .then(OriginCommands.origin())
             .then(OriginCommands.reactor())
+            .then(StarfallCommands.starfall())
             .then(DebugPlayerCommands.debug())
             .then(Commands.literal("welcome")
                 .then(Commands.literal("reset").then(Commands.argument("targets", EntityArgument.players())
@@ -255,10 +256,11 @@ public final class FirmagesCommands {
     private static int selftest(CommandContext<CommandSourceStack> c, String suite) throws CommandSyntaxException {
         MinecraftServer server = c.getSource().getServer();
         List<SelfTest.Suite> suites = switch (suite) {
-            case "all" -> List.of(new CoreSuite(), new GateSuite(), new ServerSuite(server));
+            case "all" -> List.of(new CoreSuite(), new GateSuite(), new ServerSuite(server), new SkySuite(server));
             case "core" -> List.of(new CoreSuite());
             case "gate" -> List.of(new GateSuite());
             case "server" -> List.of(new ServerSuite(server));
+            case "sky" -> List.of(new SkySuite(server));
             default -> throw UNKNOWN_SUITE.create();
         };
         SelfTest.Report report = SelfTest.run(suites);

@@ -6,7 +6,8 @@
     python dev/gen_textures.py --sheet-only
 
 Item textures go to kubejs/assets/firmages/textures/item/<path>.png (KubeJS 2101 builds the item/generated model
-itself when no model file exists, texture firmages:item/<path>). Block textures go to the mod,
+itself when no model file exists, texture firmages:item/<path>); items the mod registers itself (MOD_ITEMS, the sky
+metals of SPEC 25) go to mod/firmages-core/src/main/resources/assets/firmages/textures/item/<path>.png. Block textures go to the mod,
 mod/firmages-core/src/main/resources/assets/firmages/textures/block/<name>.png, and the block models in
 models/block/*.json get their "textures" map rewritten from MODEL_TEXTURES below (the element geometry is untouched).
 
@@ -2133,6 +2134,246 @@ def _():
     return img
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Starfall (SPEC 25, firmages-core M10): the crater shell, the meteorites, the core and the two sky metals. Sky rock is
+# dark fused stone with glassy streaks; meteoric iron is a dark brown-grey iron with the crossed etch lines of a real
+# iron meteorite (Widmanstaetten pattern); starsteel is pale blue steel with star sparkles. The core is drawn cold (a
+# cracked lump of its metal) and gets an emissive overlay while it glows (starfall_core_hot, model neoforge_data
+# block_light 15). Mod items (registered in firmages-core, not KubeJS) go to the mod's textures/item through MOD_ITEMS.
+# ---------------------------------------------------------------------------------------------------------------------
+PAL.update({
+    "skyrock": ["#0b0a10", "#1b1922", "#2a2733", "#3b3846", "#555066"],
+    "meteoric": ["#1c1714", "#3d342d", "#5e534a", "#857a6e", "#b6ab9a"],
+    "starsteel": ["#1d2a3a", "#3f5a78", "#7092b8", "#a9c8e8", "#e6f4ff"],
+})
+MOD_ITEMS = {}  # mod item texture path -> (label, builder() -> RGBA strip, mcmeta or None); written to MOD_TEX/item
+
+
+def mod_item(path, label, rows, leg, post=None):
+    def build():
+        img = grid_tex(rows, leg)
+        if post:
+            post(img)
+        return img
+    MOD_ITEMS[path] = (label, build, None)
+
+
+def etch(img, pal, rng, n=5, mask_alpha=True):
+    """Widmanstaetten etch: short crossing diagonal lines in the metal's light tone over the opaque pixels."""
+    t = tones(pal)
+    px = img.load()
+    for _ in range(n):
+        x, y = rng.randrange(1, 15), rng.randrange(1, 15)
+        dx = rng.choice((1, -1))
+        for i in range(rng.randint(2, 4)):
+            nx, ny = x + dx * i, y + i
+            if 0 <= nx < 16 and 0 <= ny < 16 and (not mask_alpha or px[nx, ny][3] == 255) and px[nx, ny] != t[0]:
+                px[nx, ny] = t[3] if i % 2 == 0 else t[4]
+
+
+def sparkle(img, rng, n=3, color="#ffffff"):
+    """Star points: a white pixel with four faint neighbours, only on opaque pixels."""
+    px = img.load()
+    c = rgb(color)
+    for _ in range(n):
+        for _try in range(30):
+            x, y = rng.randrange(2, 14), rng.randrange(2, 14)
+            if px[x, y][3] == 255 and all(px[x + a, y + b][3] == 255 for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                break
+        else:
+            continue
+        px[x, y] = c
+        for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            o = px[x + a, y + b]
+            px[x + a, y + b] = tuple((o[i] + c[i]) // 2 for i in range(3)) + (255,)
+
+
+SHEET_SHAPE = [
+    "................",
+    "................",
+    "................",
+    "......oooooooo..",
+    "....oohhhhhhhlo.",
+    "..oohlllllllldo.",
+    ".ohllmmmmmmmmdo.",
+    ".olmmmmmmmmmddo.",
+    ".olmmmmmmmmmddo.",
+    ".olmmmmmmmmddo..",
+    ".odmmmmmmmddo...",
+    ".odddddddddo....",
+    "..oooooooooo....",
+    "................",
+    "................",
+    "................",
+]
+ROD_SHAPE = [
+    "................",
+    "................",
+    "............ooo.",
+    "...........ohlo.",
+    "..........ohmdo.",
+    ".........ohmdo..",
+    "........ohmdo...",
+    ".......ohmdo....",
+    "......ohmdo.....",
+    ".....ohmdo......",
+    "....ohmdo.......",
+    "...ohmdo........",
+    "..olmdo.........",
+    "..oddo..........",
+    "..ooo...........",
+    "................",
+]
+INGOT_ONE = ["................"] * 5 + [r.ljust(16, ".") for r in INGOT] + ["................"] * 4
+
+
+def _metal_items():
+    mleg = shade("meteoric")
+    sleg = shade("starsteel")
+    mod_item("meteoric_iron_chunk", "meteoric chunk", ORE_PIECE["normal"], {**mleg, **legend(s=("meteoric", 1), g=("meteoric", 3))},
+             lambda img: etch(img, "meteoric", seeded("met_chunk"), 3))
+    mod_item("meteoric_iron_ingot", "meteoric ingot", INGOT_ONE, mleg, lambda img: etch(img, "meteoric", seeded("met_ingot"), 3))
+    MOD_ITEMS["meteoric_iron_double_ingot"] = ("meteoric double ingot", lambda: _double(mleg, "met_double"), None)
+    mod_item("meteoric_iron_sheet", "meteoric sheet", SHEET_SHAPE, mleg, lambda img: etch(img, "meteoric", seeded("met_sheet"), 4))
+    mod_item("meteoric_iron_rod", "meteoric rod", ROD_SHAPE, mleg)
+    mod_item("starsteel_chunk", "starsteel chunk", ORE_PIECE["rich"], {**sleg, **legend(s=("skyrock", 2), g=("skyrock", 3))},
+             lambda img: sparkle(img, seeded("ss_chunk"), 2))
+    mod_item("starsteel_ingot", "starsteel ingot", INGOT_ONE, sleg, lambda img: sparkle(img, seeded("ss_ingot"), 1))
+
+
+def _double(leg, seed):
+    img = new_tex()
+    paint(img, INGOT, leg, 0, 3)
+    paint(img, INGOT, leg, 0, 8)
+    etch(img, "meteoric", seeded(seed), 3)
+    return img
+
+
+_metal_items()
+
+
+@block("sky_rock", "sky rock")
+def _():
+    img = new_tex()
+    noise_fill(img, "skyrock", seeded("sky_rock"), weights=(1, 4, 6, 3, 1), cluster=2, grain=0.3)
+    rng = seeded("sky_rock_glass")
+    px = img.load()
+    t = tones("skyrock")
+    for _ in range(4):  # glassy fused streaks
+        x, y = rng.randrange(0, 16), rng.randrange(0, 16)
+        for i in range(rng.randint(2, 4)):
+            px[(x + i) % 16, y] = t[4] if i == 0 else t[3]
+    return img
+
+
+def meteorite_tile(seed, base, metal, sparkles=0):
+    img = new_tex()
+    noise_fill(img, base, seeded(seed), weights=(1, 3, 6, 3, 1), cluster=2)
+    rng = seeded(seed + "_metal")
+    t = tones(metal)
+    px = img.load()
+    for _ in range(7):  # metal grains in the fused stone
+        x, y = rng.randrange(0, 16), rng.randrange(0, 16)
+        cl = [(x, y)]
+        for _s in range(rng.randint(2, 5)):
+            cx, cy = rng.choice(cl)
+            nx, ny = (cx + rng.choice((-1, 0, 1))) % 16, (cy + rng.choice((-1, 0, 1))) % 16
+            if (nx, ny) not in cl:
+                cl.append((nx, ny))
+        for c in cl:
+            px[c] = t[2]
+        px[min(cl, key=lambda p: (p[1], p[0]))] = t[3]
+    for _ in range(5):  # thumbprint pits of the fall (regmaglypts)
+        x, y = rng.randrange(1, 15), rng.randrange(1, 15)
+        px[x, y] = tones(base)[0]
+        px[x + 1, y] = tones(base)[1]
+    etch(img, metal, rng, 4, mask_alpha=False)
+    if sparkles:
+        sparkle(img, rng, sparkles, "#e6f4ff")
+    return img
+
+
+@block("meteorite", "meteorite")
+def _():
+    return meteorite_tile("meteorite", "meteoric", "meteoric")
+
+
+@block("starsteel_meteorite", "starsteel meteorite")
+def _():
+    return meteorite_tile("starsteel_meteorite", "skyrock", "starsteel", sparkles=3)
+
+
+CORE_CRACKS = [
+    "................",
+    "..c.......c.....",
+    "...c.....c......",
+    "....c...c...c...",
+    ".....c.c...c....",
+    "......c...c.....",
+    "...cc.c..c......",
+    "..c...cccc......",
+    ".c......cc..cc..",
+    ".......c..cc..c.",
+    "......c....c....",
+    ".....c......c...",
+    "....c........c..",
+    "...c..........c.",
+    "................",
+    "................",
+]
+
+
+def core_tile(metal, seed):
+    img = meteorite_tile(seed, "skyrock" if metal == "starsteel" else "meteoric", metal, sparkles=2 if metal == "starsteel" else 0)
+    overlay(img, CORE_CRACKS, legend(c=("coal", 0)))
+    bevel(img, metal, light=3, dark=0, corner=1)
+    return img
+
+
+@block("starfall_core_meteoric_iron", "core (meteoric iron, cold)")
+def _():
+    return core_tile("meteoric", "core_met")
+
+
+@block("starfall_core_starsteel", "core (starsteel, cold)")
+def _():
+    return core_tile("starsteel", "core_ss")
+
+
+@block("starfall_core_hot", "core glow overlay", anim(5, True))
+def _():
+    """The cracks glow and breathe: four frames from ember orange to white-hot."""
+    frames = []
+    for f, (a, b) in enumerate([(2, 3), (3, 4), (3, 4), (2, 3)]):
+        fr = new_tex()
+        overlay(fr, CORE_CRACKS, legend(c=("ember", a)))
+        px = fr.load()
+        rng = seeded(f"core_hot_{f}")
+        cracks = [(x, y) for y in range(16) for x in range(16) if px[x, y][3]]
+        for x, y in rng.sample(cracks, 6):
+            px[x, y] = tones("ember")[b]
+        frames.append(fr)
+    return strip(frames)
+
+
+@block("meteoric_iron_block", "meteoric iron block")
+def _():
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded("met_block"), weights=(0, 2, 6, 4, 1), cluster=4, grain=0.15)
+    etch(img, "meteoric", seeded("met_block_etch"), 9, mask_alpha=False)
+    bevel(img, "meteoric")
+    return img
+
+
+@block("starsteel_block", "starsteel block")
+def _():
+    img = new_tex()
+    noise_fill(img, "starsteel", seeded("ss_block"), weights=(0, 1, 6, 4, 1), cluster=4, grain=0.15)
+    bevel(img, "starsteel")
+    sparkle(img, seeded("ss_block_spark"), 3)
+    return img
+
+
 # Block model texture maps (models/block/<file>.json -> "textures"). Geometry stays as it is.
 B = "firmages:block/"
 MODEL_TEXTURES = {
@@ -2153,6 +2394,14 @@ MODEL_TEXTURES = {
                                  "bottom": B + "reactor_controller_bottom"},
     "tally_chute": {"particle": B + "tally_chute_side", "side": B + "tally_chute_side", "top": B + "tally_chute_top",
                     "bottom": B + "tally_chute_bottom"},
+    "sky_rock": {"all": B + "sky_rock"},
+    "meteorite": {"all": B + "meteorite"},
+    "starsteel_meteorite": {"all": B + "starsteel_meteorite"},
+    "starfall_core_meteoric_iron": {"all": B + "starfall_core_meteoric_iron"},
+    "starfall_core_starsteel": {"all": B + "starfall_core_starsteel"},
+    "starfall_core_hot": {"glow": B + "starfall_core_hot", "particle": B + "starfall_core_hot"},
+    "meteoric_iron_block": {"all": B + "meteoric_iron_block"},
+    "starsteel_block": {"all": B + "starsteel_block"},
 }
 
 
@@ -2187,6 +2436,10 @@ def generate():
         written.append(out)
     for name, (label, builder, mcmeta) in KJS_BLOCKS.items():
         out = KJS_TEX / "block" / (name + ".png")
+        write_with_meta(builder(), out, mcmeta)
+        written.append(out)
+    for path, (label, builder, mcmeta) in MOD_ITEMS.items():
+        out = MOD_TEX / "item" / (path + ".png")
         write_with_meta(builder(), out, mcmeta)
         written.append(out)
     for table in (BLOCKS, CONSECRATED):
@@ -2225,6 +2478,8 @@ def sheet(scale=8, cols=5):
         entries.append((name, label, MOD_TEX / "block" / (name + ".png"), mcmeta))
     for name, (label, builder, mcmeta) in KJS_BLOCKS.items():
         entries.append((name, label, KJS_TEX / "block" / (name + ".png"), mcmeta))
+    for path, (label, builder, mcmeta) in MOD_ITEMS.items():
+        entries.append((path, label, MOD_TEX / "item" / (path + ".png"), mcmeta))
     font = ImageFont.load_default(size=11)
     title_font = ImageFont.load_default(size=14)
     cell = 16 * scale
@@ -2386,6 +2641,10 @@ def check():
         f = KJS_TEX / "block" / (name + ".png")
         if any(pt.match("firmages:block/" + name) for pt in patterns):
             referenced.add(f.resolve())
+        if not f.exists():
+            errors.append(f"{f.relative_to(ROOT)}: drawn by gen_textures.py but not written (run without --check)")
+    for path in MOD_ITEMS:
+        f = MOD_TEX / "item" / (path + ".png")
         if not f.exists():
             errors.append(f"{f.relative_to(ROOT)}: drawn by gen_textures.py but not written (run without --check)")
     for path in ITEMS:

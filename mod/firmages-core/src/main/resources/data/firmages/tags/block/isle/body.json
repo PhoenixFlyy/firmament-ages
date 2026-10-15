@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "firmages:skystone",
+      "required": false
+    },
+    {
+      "id": "firmages:firmament_crystal_cluster",
+      "required": false
+    },
+    {
+      "id": "firmages:firmament_lode",
+      "required": false
+    }
+  ]
+}

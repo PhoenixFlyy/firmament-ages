@@ -1,0 +1,57 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:saplings",
+      "required": false
+    },
+    {
+      "id": "#minecraft:crops",
+      "required": false
+    },
+    {
+      "id": "#minecraft:beehives",
+      "required": false
+    },
+    {
+      "id": "minecraft:spawner",
+      "required": false
+    },
+    {
+      "id": "minecraft:suspicious_sand",
+      "required": false
+    },
+    {
+      "id": "minecraft:suspicious_gravel",
+      "required": false
+    },
+    {
+      "id": "#tfc:spreading_bushes",
+      "required": false
+    },
+    {
+      "id": "#tfc:fruit_tree_saplings",
+      "required": false
+    },
+    {
+      "id": "#tfc:fruit_tree_branches",
+      "required": false
+    },
+    {
+      "id": "#tfc:fruit_tree_leaves",
+      "required": false
+    },
+    {
+      "id": "#tfc:natural_regrowing_plants",
+      "required": false
+    },
+    {
+      "id": "tfc:snow_pile",
+      "required": false
+    },
+    {
+      "id": "tfc:ice_pile",
+      "required": false
+    }
+  ]
+}

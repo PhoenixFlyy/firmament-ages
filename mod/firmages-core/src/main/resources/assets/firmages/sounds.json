@@ -238,5 +238,23 @@
         "volume": 0.7
       }
     ]
+  },
+  "starfall.impact": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.generic.explode",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.starfall.impact"
+  },
+  "starfall.distant": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.lightning_bolt.thunder",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.starfall.distant"
   }
 }

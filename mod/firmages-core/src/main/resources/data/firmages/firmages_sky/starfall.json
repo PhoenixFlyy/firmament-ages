@@ -1,0 +1,111 @@
+{
+  "pity_nights": 8,
+  "ages": {
+    "age_2": {
+      "chance": 0.12,
+      "distance": [
+        300,
+        800
+      ],
+      "size": "small",
+      "metal": "meteoric_iron"
+    },
+    "age_3": {
+      "chance": 0.12,
+      "distance": [
+        400,
+        1000
+      ],
+      "size": "small",
+      "metal": "meteoric_iron"
+    },
+    "age_4": {
+      "chance": 0.15,
+      "distance": [
+        600,
+        1600
+      ],
+      "size": "medium",
+      "metal": "meteoric_iron"
+    },
+    "age_5": {
+      "chance": 0.18,
+      "distance": [
+        800,
+        2000
+      ],
+      "size": "medium",
+      "metal": "starsteel"
+    },
+    "age_6": {
+      "chance": 0.18,
+      "distance": [
+        800,
+        2000
+      ],
+      "size": "medium",
+      "metal": "starsteel"
+    },
+    "age_7": {
+      "chance": 0.2,
+      "distance": [
+        1000,
+        2500
+      ],
+      "size": "large",
+      "metal": "starsteel"
+    }
+  },
+  "sizes": {
+    "old": {
+      "radius": 4,
+      "depth": 2,
+      "meteorites": [
+        6,
+        10
+      ]
+    },
+    "small": {
+      "radius": 5,
+      "depth": 3,
+      "meteorites": [
+        10,
+        14
+      ]
+    },
+    "medium": {
+      "radius": 7,
+      "depth": 4,
+      "meteorites": [
+        16,
+        22
+      ]
+    },
+    "large": {
+      "radius": 9,
+      "depth": 5,
+      "meteorites": [
+        24,
+        32
+      ]
+    }
+  },
+  "metals": {
+    "meteoric_iron": {
+      "mass": {
+        "firmages:meteorite": 1.0
+      },
+      "mix": "firmages:mineral/meteoric"
+    },
+    "starsteel": {
+      "mass": {
+        "firmages:meteorite": 0.6,
+        "firmages:starsteel_meteorite": 0.4
+      },
+      "mix": "firmages:mineral/starfall"
+    }
+  },
+  "old_craters": {
+    "chance": 0.35
+  }
+}

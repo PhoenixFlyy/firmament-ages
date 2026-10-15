@@ -109,4 +109,18 @@ public final class FirmAgesJS {
         MinecraftServer s = ServerLifecycleHooks.getCurrentServer();
         return s == null ? 0 : dev.firmages.core.shrine.ShrineSavedData.get(s).originals().size();
     }
+
+    // ---- Starfall (SPEC §25.3) ----
+
+    /**
+     * The next clear night (tonight, if the night has not passed 20000 yet) brings a falling star for sure, from the
+     * Iron Age on. {@code server_scripts/firmages/firmament_night.js} calls it on a Firmament Night. False with no
+     * server running.
+     */
+    public static boolean starfallTonight() {
+        MinecraftServer s = ServerLifecycleHooks.getCurrentServer();
+        if (s == null) return false;
+        s.execute(() -> dev.firmages.core.sky.StarfallService.requestTonight(s));
+        return true;
+    }
 }

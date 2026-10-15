@@ -16,6 +16,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.DoubleValue PARTICLE_SCALE;
     public static final ModConfigSpec.BooleanValue AMBIENT_DRONE;
     public static final ModConfigSpec.BooleanValue IDLE_BEAM;
+    public static final ModConfigSpec.BooleanValue SKY_STREAKS;
     public static final ModConfigSpec.BooleanValue AGE_MUSIC;
 
     public static final ModConfigSpec.EnumValue<HudFade.Mode> HUD_MODE;
@@ -59,6 +60,8 @@ public final class ClientConfig {
             .define("ambientDrone", true);
         IDLE_BEAM = b.comment("Show the shrine's thin idle beam (the server turns it on with shrine.permanentBeam).")
             .define("idleBeam", true);
+        SKY_STREAKS = b.comment("Draw the streak and the falling body of a falling star (SPEC 25.9).")
+            .define("skyStreaks", true);
         b.pop();
 
         b.comment("Music (SPEC 23)").push("music");
