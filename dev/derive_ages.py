@@ -181,7 +181,10 @@ CODE_WORLD = [(["ad_astra:glacian_log", "ad_astra:glacian_leaves", "ad_astra:gla
               ([f"tfcvolcanoes:mineral/{m}" for m in (
                   "alabandite", "apatite", "arcanite", "bastnasite", "brimstone", "calcite", "galena", "greigite", "jet",
                   "magnesite", "microcline", "olivine", "pitchblende", "salmiak", "salt", "saltpeter", "satinspar",
-                  "selenite", "serpentine", "smithsonite", "spherocobaltite", "zabuyelite")], "dawn")]
+                  "selenite", "serpentine", "smithsonite", "spherocobaltite", "zabuyelite")], "dawn"),
+              # firmages-core Starfall (SPEC 25.3): old craters in new chunks line their bowls and rims with sky rock;
+              # their meteorites and cores are [ore_blocks] of dev/age_map.toml
+              (["firmages:sky_rock"], "dawn")]
 # Drops a mod adds in code (no loot table or modifier file): (items, Age; None = the item's mod Age).
 CODE_DROPS = [
     (["apotheosis:gem"], None),                         # gem drops from any mob (apotheosis:gem_entity_drops, code)

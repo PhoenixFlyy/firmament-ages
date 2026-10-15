@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    {"id": "firmages:meteorite", "required": false},
+    {"id": "firmages:starfall_core", "required": false},
     {"id": "tfc:ore/cinnabar/andesite", "required": false},
     {"id": "tfc:ore/cinnabar/basalt", "required": false},
     {"id": "tfc:ore/cinnabar/chalk", "required": false},

@@ -146,7 +146,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "35e91b5605b5064a5eaf9d1a02a5dfaf7221caf615aec53a6252c152ba60841e"
+hash = "60dc86ef6f168f9fc93e35a12eceb8ecf1f44b25263c036d2957f8d71dcd0fa1"
 
 [[files]]
 file = "config/fml.toml"
@@ -358,7 +358,7 @@ hash = "b26a3a2b3df9b8c547398e1409858af2574691b7e1ff808287d0771450eb45ec"
 
 [[files]]
 file = "config/progressivestages/stages/age_2.toml"
-hash = "9a91339a54557771059ed375213e35b778200352ba0f05157bf9047a2373775a"
+hash = "598aac1a38378ac9091c760b292d8b235935cfb1013117b6436303d4bbe22fe3"
 
 [[files]]
 file = "config/progressivestages/stages/age_3.toml"
@@ -370,7 +370,7 @@ hash = "40235aadd54974a2e743da5255846c0fb4f0b554a5b2fbcd6e5ccb749c2f68e2"
 
 [[files]]
 file = "config/progressivestages/stages/age_5.toml"
-hash = "0aab635905dc5b40387fe43d5f5243020ddbb70d560deae516d5c0c38ee7aa1f"
+hash = "d3749d11e35aff23e5d9655e1db51702fd4aa059b7dfb7c6770ef1af9b3c30c1"
 
 [[files]]
 file = "config/progressivestages/stages/age_6.toml"
@@ -2422,7 +2422,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "1b2559f563340259d77f3c8fbaee7b2dd34e8760e2cf1397ba80edad02d9aad9"
+hash = "aa7fec5a0bb14a6552ff894309c7faef82f29faa6d7f83491dd5179162318bb4"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -5374,7 +5374,7 @@ hash = "d68149a0c6400c9b819370b733739097c56b94cb2db56f97ea624c581619a522"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_2.json"
-hash = "fdbd251f2f636f1b58613819857ad64eae62e3b1f6b8ce521586e18d2029ad15"
+hash = "44a84ba6d2bcb85acfda0b2d901dccdfa846bd544275bb77feb9e555c905a5e1"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_3.json"
@@ -5386,7 +5386,7 @@ hash = "84a38970be38cb56d520ea8b43de6b490bb9b8b924178850f1429aa7f58087cc"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_5.json"
-hash = "11e6db371b8f682d70f14d753ef8d2daaafe7c6734f3d3cc3f24cac5de29d93b"
+hash = "39075a7882ca45a01800287426f53c9b7272552e6b4a2a217b27c866a03e8d40"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_6.json"
@@ -5478,7 +5478,7 @@ hash = "40440db81e143b48f182f84ac98d28cef791e7b3566c181f1b9722a257fe392a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "d2c01ae020b15de10409b13133e21fbeaea6ff05b9034670af9696c5b2fb51de"
+hash = "f017db25d83e23d7a57ca45a3304bb68b557502eb6c3fe2856ea274c5d18a861"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
@@ -5490,7 +5490,7 @@ hash = "79f06ebcf54fbc334aa933de9af6eae0b6775b4d929db59471535b569405187c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "4d7becb1573586179f3559eaa00bc6674205f37f2b236268cf4ed49c55689f68"
+hash = "454bd5206bde93bc1bf1312d2ca168be1f844f8cfd063177c9c1bf3d6118f3cb"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
@@ -5510,11 +5510,11 @@ hash = "9f14b1f51faa5164cbf8b0f7151c5c193b26f6ea1c812a92ec8be2d2684e267b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "5dd11e34ef24028359a86d6c38722862822b74800e371cbcb5cee9239f0a6b17"
+hash = "0dca11dce12169b9b0c99fa6118732430c80d153f0785fca98e9192bf6aa965b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "67291652d938b51e1570cb6fdd5c21a6c10ee691f9841845cf74ecd812a6641a"
+hash = "a335ec3b98f51b238a5de15bdc4a11def4612cc90931994ffca0e21e8433f3d1"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"

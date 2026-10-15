@@ -57,7 +57,7 @@ locked_spawns = [
 ]
 
 # >>> generated:ore_overrides >>>
-# 276 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+# 278 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
 
 [[ores.overrides]]
 target = "id:tfc:ore/cinnabar/andesite"
@@ -1438,4 +1438,14 @@ drop_as = "id:tfc:rock/loose/slate"
 target = "id:tfcreate:quartz_tuff"
 display_as = "id:tfc:rock/raw/tuff"
 drop_as = "id:tfc:rock/loose/tuff"
+
+[[ores.overrides]]
+target = "id:firmages:meteorite"
+display_as = "id:firmages:sky_rock"
+drop_as = "id:firmages:sky_rock"
+
+[[ores.overrides]]
+target = "id:firmages:starfall_core"
+display_as = "id:firmages:sky_rock"
+drop_as = "id:firmages:sky_rock"
 # <<< generated:ore_overrides <<<

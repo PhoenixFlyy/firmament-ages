@@ -884,6 +884,7 @@
     {"id": "afc:wood/workbench/teak", "required": false},
     {"id": "afc:wood/workbench/tualang", "required": false},
     {"id": "firmages:frontier_shard", "required": false},
+    {"id": "firmages:sky_rock", "required": false},
     {"id": "minecraft:armadillo_scute", "required": false},
     {"id": "minecraft:bell", "required": false},
     {"id": "minecraft:black_concrete_powder", "required": false},
