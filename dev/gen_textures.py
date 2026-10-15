@@ -2593,8 +2593,75 @@ for _alloy in ("starlit_iron", "cloudsteel", "aurora_steel", "halo_steel", "void
     MOD_ITEMS[f"{_alloy}_ingot"] = (_alloy.replace("_", " ") + " ingot", (lambda p=_alloy: alloy_ingot(p, ALLOY_SPARK)), None)
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Wayshrines (SPEC-himmel 28): a weathered core stone with a carved star; its top shows the phase (ruin grey, restored
+# pale marble, lit glowing). The Wayshrine Stone carries the same star in the colour of its kind.
+WAYSHRINE_STAR = [
+    "................",
+    "................",
+    ".......ss.......",
+    ".......ss.......",
+    "......shhs......",
+    "..s...shhs...s..",
+    "...ssshhhhsss...",
+    "....shhhhhhs....",
+    "....shhhhhhs....",
+    "...ssshhhhsss...",
+    "..s...shhs...s..",
+    "......shhs......",
+    ".......ss.......",
+    ".......ss.......",
+    "................",
+    "................",
+]
+WAYSHRINE_PHASES = {"ruin": ("stone", "stone"), "restored": ("marble", "vein"), "lit": ("marble", "lampglow")}
+WAYSHRINE_KINDS = {"forest_ring": "patina", "steppe_stones": "clay", "swamp_altar": "pcb", "desert_arch": "gold",
+                   "mountain_spire": "steel", "wind_shrine": "star", "reef_altar": "cyan", "volcanic_ring": "heat"}
+
+
+@block("wayshrine_core_side", "wayshrine core side")
+def _():
+    img = new_tex()
+    bricks_fill(img, "stone", seeded("wayshrine_side"), bw=8, bh=4, weights=(0, 2, 6, 3, 1))
+    bevel(img, "stone")
+    return img
+
+
+@block("wayshrine_core_bottom", "wayshrine core bottom")
+def _():
+    img = new_tex()
+    noise_fill(img, "stone", seeded("wayshrine_bottom"), weights=(1, 4, 6, 2, 0), cluster=2)
+    return img
+
+
+def _wayshrine_top(phase):
+    base, star = WAYSHRINE_PHASES[phase]
+    img = new_tex()
+    noise_fill(img, base, seeded("wayshrine_top_" + phase), weights=(0, 2, 6, 3, 1), cluster=2)
+    bevel(img, base)
+    overlay(img, WAYSHRINE_STAR, legend(s=(star, 1), h=(star, 3 if phase != "ruin" else 2)))
+    return img
+
+
+for _ph in WAYSHRINE_PHASES:
+    block("wayshrine_core_top_" + _ph, "wayshrine core top, " + _ph)(lambda ph=_ph: _wayshrine_top(ph))
+
+
+def _wayshrine_stone(kind):
+    img = new_tex()
+    noise_fill(img, "marble", seeded("wayshrine_stone_" + kind), weights=(0, 1, 5, 4, 2), cluster=2)
+    bevel(img, "marble")
+    overlay(img, WAYSHRINE_STAR, legend(s=(WAYSHRINE_KINDS[kind], 1), h=(WAYSHRINE_KINDS[kind], 3)))
+    return img
+
+
+for _k in WAYSHRINE_KINDS:
+    block("wayshrine_stone_" + _k, "wayshrine stone, " + _k)(lambda k=_k: _wayshrine_stone(k))
+
+
 # Block model texture maps (models/block/<file>.json -> "textures"). Geometry stays as it is.
 B = "firmages:block/"
+BLOCKS_WITHOUT_ITEM = {"wayshrine_core"}
 MODEL_TEXTURES = {
     "shrine_heart": {"particle": B + "shrine_heart_base", "side": B + "shrine_heart_side",
                      "base": B + "shrine_heart_base", "top": B + "shrine_heart_top", "band": B + "shrine_heart_band"},
@@ -2632,6 +2699,11 @@ MODEL_TEXTURES = {
     "lens_mount_in": {"particle": B + "lens_mount_frame", "frame": B + "lens_mount_frame", "top": B + "lens_mount_top_in",
                       "glass": B + "lens_glass"},
 }
+for _ph in WAYSHRINE_PHASES:
+    MODEL_TEXTURES["wayshrine_core_" + _ph] = {"particle": B + "wayshrine_core_side", "side": B + "wayshrine_core_side",
+                                                "top": B + "wayshrine_core_top_" + _ph, "bottom": B + "wayshrine_core_bottom"}
+for _k in WAYSHRINE_KINDS:
+    MODEL_TEXTURES["wayshrine_stone_" + _k] = {"particle": B + "wayshrine_stone_" + _k, "all": B + "wayshrine_stone_" + _k}
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -2840,10 +2912,10 @@ def check():
             mp = MOD_ASSETS / "models" / (path + ".json")
             if ns == "firmages" and not mp.exists():
                 errors.append(f"{p.relative_to(ROOT)}: model {m} missing")
-    # 3. mod block items need a model
+    # 3. mod block items need a model (the Wayshrine core has no item, SPEC-himmel 24.5)
     for p in sorted((MOD_ASSETS / "blockstates").glob("*.json")):
         im = MOD_ASSETS / "models" / "item" / p.name
-        if not im.exists():
+        if not im.exists() and p.stem not in BLOCKS_WITHOUT_ITEM:
             errors.append(f"block {p.stem}: no item model models/item/{p.name}")
     # 4. KubeJS items: every id registered with a literal create('firmages:...') in a startup script (items.js, and
     # the small osmium piece in osmium.js) needs textures/item/<path>.png (KubeJS generates the model)

@@ -1,0 +1,60 @@
+{
+  "values": [
+    {
+      "id": "tfc:smooth_sandstone/black",
+      "required": false
+    },
+    {
+      "id": "tfc:smooth_sandstone/brown",
+      "required": false
+    },
+    {
+      "id": "tfc:smooth_sandstone/yellow",
+      "required": false
+    },
+    {
+      "id": "tfc:smooth_sandstone/white",
+      "required": false
+    },
+    {
+      "id": "tfc:smooth_sandstone/red",
+      "required": false
+    },
+    {
+      "id": "tfc:smooth_sandstone/pink",
+      "required": false
+    },
+    {
+      "id": "tfc:smooth_sandstone/green",
+      "required": false
+    },
+    {
+      "id": "tfc:cut_sandstone/black",
+      "required": false
+    },
+    {
+      "id": "tfc:cut_sandstone/brown",
+      "required": false
+    },
+    {
+      "id": "tfc:cut_sandstone/yellow",
+      "required": false
+    },
+    {
+      "id": "tfc:cut_sandstone/white",
+      "required": false
+    },
+    {
+      "id": "tfc:cut_sandstone/red",
+      "required": false
+    },
+    {
+      "id": "tfc:cut_sandstone/pink",
+      "required": false
+    },
+    {
+      "id": "tfc:cut_sandstone/green",
+      "required": false
+    }
+  ]
+}

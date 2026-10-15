@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/forest_ring",
+  "multiblock": "firmages:wayshrine_forest_ring",
+  "min_age": "age_1",
+  "light_key": "L",
+  "ruin_beam": "#9FD38A"
+}

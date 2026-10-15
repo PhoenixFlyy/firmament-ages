@@ -1,0 +1,53 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:old_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:highlands",
+      "required": false
+    },
+    {
+      "id": "tfc:collisional_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:oceanic_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:extreme_doline_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:doline_highlands",
+      "required": false
+    },
+    {
+      "id": "tfc:cenote_highlands",
+      "required": false
+    },
+    {
+      "id": "tfc:shilin_highlands",
+      "required": false
+    },
+    {
+      "id": "tfc:tower_karst_highlands",
+      "required": false
+    },
+    {
+      "id": "tfc:glacially_carved_mountains",
+      "required": false
+    },
+    {
+      "id": "tfc:glaciated_mountains",
+      "required": false
+    }
+  ]
+}

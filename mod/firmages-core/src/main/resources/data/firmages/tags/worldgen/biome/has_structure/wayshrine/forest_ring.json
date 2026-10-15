@@ -1,0 +1,73 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:plains",
+      "required": false
+    },
+    {
+      "id": "tfc:hills",
+      "required": false
+    },
+    {
+      "id": "tfc:rolling_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:lowlands",
+      "required": false
+    },
+    {
+      "id": "tfc:doline_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:doline_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:doline_rolling_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:cenote_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:cenote_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:cenote_rolling_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:burren_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:shilin_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:shilin_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:tower_karst_plains",
+      "required": false
+    },
+    {
+      "id": "tfc:tower_karst_hills",
+      "required": false
+    },
+    {
+      "id": "tfc:drumlins",
+      "required": false
+    },
+    {
+      "id": "tfc:knob_and_kettle",
+      "required": false
+    }
+  ]
+}

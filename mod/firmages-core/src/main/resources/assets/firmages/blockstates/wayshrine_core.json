@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "phase=ruin": {
+      "model": "firmages:block/wayshrine_core_ruin"
+    },
+    "phase=restored": {
+      "model": "firmages:block/wayshrine_core_restored"
+    },
+    "phase=lit,intact=true": {
+      "model": "firmages:block/wayshrine_core_lit"
+    },
+    "phase=lit,intact=false": {
+      "model": "firmages:block/wayshrine_core_restored"
+    }
+  }
+}

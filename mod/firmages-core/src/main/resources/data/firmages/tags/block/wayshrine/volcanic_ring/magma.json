@@ -1,0 +1,33 @@
+{
+  "values": [
+    {
+      "id": "tfc:rock/magma/granite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/magma/diorite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/magma/gabbro",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/magma/rhyolite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/magma/basalt",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/magma/andesite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/magma/dacite",
+      "required": false
+    },
+    "minecraft:magma_block"
+  ]
+}

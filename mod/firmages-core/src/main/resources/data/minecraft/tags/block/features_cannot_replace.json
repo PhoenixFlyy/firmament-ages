@@ -4,6 +4,10 @@
     {
       "id": "#firmages:consecrated",
       "required": false
+    },
+    {
+      "id": "firmages:wayshrine_core",
+      "required": false
     }
   ]
 }

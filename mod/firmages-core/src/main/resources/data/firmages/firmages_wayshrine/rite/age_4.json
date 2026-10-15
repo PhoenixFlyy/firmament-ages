@@ -1,0 +1,5 @@
+{
+  "rites": [
+    { "type": "blockstate", "key": "L", "property": "active", "value": "true", "hint": "firmages.wayshrine.rite.power" }
+  ]
+}

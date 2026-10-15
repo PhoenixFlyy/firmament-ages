@@ -200,6 +200,10 @@ public final class ShrineService {
 
     /** The Age set changed (any source): the heart re-validates on its next tick ({@code awakened}, blessings). */
     public static void onAgeChanged(MinecraftServer s) {
+        // The Wayshrines carry a new tier without a visit (SPEC-himmel §28.3), also while the heart's chunk sleeps:
+        // the cached awakened count follows the Ages at once, the intact flag waits for the heart's next validation.
+        ShrineState.Snapshot st = ShrineState.get();
+        if (st != null) ShrineState.set(st.dimension(), st.heart(), st.intact(), ShrineRules.awakened(unlocked(s)));
         heart(s).ifPresent(h -> h.be.invalidate());
     }
 
@@ -935,6 +939,8 @@ public final class ShrineService {
         if (!ShrineSavedData.get(level.getServer()).intact() && ShrineRules.awakened(unlocked) > 0) {
             player.sendSystemMessage(msg("firmages.shrine.dormant").withStyle(ChatFormatting.GRAY));
         }
+        // From the Bronze Age Caelum names the nearest sleeping Wayshrine (SPEC-himmel §28.8).
+        if (ShrineRules.awakened(unlocked) > 0) player.sendSystemMessage(dev.firmages.core.wayshrine.WayshrinePointer.line(level.getServer(), player, true));
     }
 
     static Optional<Integer> firstIncompleteRing(ShrineHeartBlockEntity be) {
@@ -1039,7 +1045,7 @@ public final class ShrineService {
             + " praying" + (h.be.awakening(now) ? "; awakening for " + (h.be.awakeningUntil - now) + " ticks" : "")));
         out.add(ShrineConsecration.statusLine(s));
         out.add(Component.literal("Sanctuary radius " + Blessings.sanctuaryRadius(s) + " (active: " + Blessings.sanctuaryActive(s) + "); blessings "
-            + Blessings.activeBlessings(s).stream().map(Blessing::id).toList() + (Blessings.everywhere() ? " everywhere" : " within that radius")));
+            + Blessings.activeBlessings(s).stream().map(Blessing::id).toList() + " at " + BlessingIndex.peek().size() + " sources (heart and lit Wayshrines)"));
         return out;
     }
 

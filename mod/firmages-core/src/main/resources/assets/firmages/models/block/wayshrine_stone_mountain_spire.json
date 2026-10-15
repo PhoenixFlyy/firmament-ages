@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "particle": "firmages:block/wayshrine_stone_mountain_spire",
+    "all": "firmages:block/wayshrine_stone_mountain_spire"
+  }
+}

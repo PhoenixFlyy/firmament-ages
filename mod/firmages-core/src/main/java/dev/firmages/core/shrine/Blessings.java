@@ -32,15 +32,16 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Blessings of the awakened tiers (SPEC §7.6), active only while the shrine is intact.
+ * Blessings of the awakened tiers (SPEC §7.6), active only while the shrine is intact, at the blessing sources of
+ * {@link BlessingIndex} (SPEC-himmel §29.5): the heart, every lit and intact Wayshrine, later the Sky Anchors.
  * <ul>
- *   <li>{@code sanctuary} (Hearthward): no natural monster spawns within {@code 12 + 4 * (awakened - 1)} blocks of the
- *       heart. Spawners and ritual summons are untouched.</li>
- *   <li>Effects of every awakened tier's blessing, for each player within that same radius of the heart (the
- *       blessing radius; {@code shrine.blessings.everywhere} lifts the radius for attributes and XP): transient
- *       attribute modifiers {@code firmages:blessing/<name>/<index>}, status effects (always only within the radius)
- *       and an XP bonus on orb pickup. Checked every second; a broken shrine, leaving the radius or a data reload
- *       removes them on the next check. TFC food decay and tool durability are never touched.</li>
+ *   <li>{@code sanctuary} (Hearthward): no natural monster spawns within a source that carries it (the heart: within
+ *       {@code 12 + 4 * (awakened - 1)} blocks). Spawners and ritual summons are untouched.</li>
+ *   <li>Effects of the blessings of the tiers in reach (the OR of the masks of every source within its radius of the
+ *       player): transient attribute modifiers {@code firmages:blessing/<name>/<index>}, status effects and an XP bonus
+ *       on orb pickup. Checked every second; a broken shrine, leaving every radius or a data reload removes them on the
+ *       next check. TFC food decay and tool durability are never touched. {@code shrine.blessings.everywhere} is gone
+ *       (S4A, Felix 2026-10-15): the Sky Anchors carry the blessings away from the shrine from the Space Age on.</li>
  * </ul>
  */
 public final class Blessings {
@@ -58,7 +59,12 @@ public final class Blessings {
 
     /** True when an awakened tier carries a blessing with {@code flag}. */
     static boolean granted(int awakened, String flag) {
-        for (Blessing b : blessingsOf(awakened)) {
+        return grantedMask(BlessingSources.allTiers(awakened), flag);
+    }
+
+    /** True when a tier of {@code mask} carries a blessing with {@code flag}. */
+    static boolean grantedMask(int mask, String flag) {
+        for (Blessing b : blessingsOfMask(mask)) {
             if (b.has(flag)) return true;
         }
         return false;
@@ -66,9 +72,15 @@ public final class Blessings {
 
     /** The blessings of the tiers 0..awakened-1, in tier order. */
     static List<Blessing> blessingsOf(int awakened) {
+        return blessingsOfMask(BlessingSources.allTiers(awakened));
+    }
+
+    /** The blessings of the tiers in {@code mask} (bit k = tier k), in tier order, each once. */
+    public static List<Blessing> blessingsOfMask(int mask) {
         ShrineData d = ShrineDataLoader.current();
         Map<String, Blessing> out = new LinkedHashMap<>();
-        for (int k = 0; k < Math.min(awakened, ShrineData.MAX_TIER + 1); k++) {
+        for (int k = 0; k < BlessingSources.TIERS; k++) {
+            if ((mask & (1 << k)) == 0) continue;
             Optional<Blessing> b = d.tier(k).flatMap(ShrineTier::blessing).map(id -> d.blessings().get(id));
             b.ifPresent(x -> out.putIfAbsent(x.id(), x));
         }
@@ -80,10 +92,6 @@ public final class Blessings {
         ShrineState.Snapshot st = ShrineState.get();
         if (st == null || !st.intact() || st.awakened() <= 0) return List.of();
         return blessingsOf(st.awakened());
-    }
-
-    public static boolean everywhere() {
-        return ServerConfig.loaded() && ServerConfig.SHRINE_BLESSINGS_EVERYWHERE.get();
     }
 
     public static int sanctuaryRadius(int awakened) {
@@ -102,33 +110,32 @@ public final class Blessings {
         return st != null && st.intact() && granted(st.awakened(), Blessing.SANCTUARY);
     }
 
-    /** True when {@code p} stands within the blessing radius of the heart (same dimension). */
-    public static boolean withinRadius(Player p) {
-        ShrineState.Snapshot st = ShrineState.get();
-        if (st == null || st.awakened() <= 0 || p.level().dimension() != st.dimension()) return false;
-        double r = sanctuaryRadius(st.awakened());
-        return st.heart().distToCenterSqr(p.getX(), p.getY(), p.getZ()) <= r * r;
+    /** The tiers in force where {@code p} stands: the OR of every blessing source in reach (0 = none). */
+    public static int maskAt(ServerPlayer p) {
+        return BlessingSources.mask(BlessingIndex.current(p.server), p.level().dimension().location().toString(), p.getX(), p.getY(), p.getZ());
+    }
+
+    /** True when a blessing source reaches {@code p}. */
+    public static boolean withinRadius(ServerPlayer p) {
+        return maskAt(p) != 0;
     }
 
     // ---------------------------------------------------------------- application
 
-    /** Server tick: every second, every player's blessing effects follow the shrine and their position. */
+    /** Server tick: every second, every player's blessing effects follow the sources and their position. */
     public static void tick(MinecraftServer s) {
         if (s.getTickCount() % PERIOD != 0) return;
+        BlessingIndex.current(s); // rebuilt when stale, so the spawn check sees it with nobody online too
         for (ServerPlayer p : s.getPlayerList().getPlayers()) apply(p);
     }
 
     /** Applies or removes the blessing effects of one player now (also called by the GameTests). */
     public static void apply(ServerPlayer p) {
-        List<Blessing> active = activeBlessings(p.server);
-        apply(p, active, !active.isEmpty() && withinRadius(p), !active.isEmpty() && everywhere());
+        apply(p, blessingsOfMask(maskAt(p)));
     }
 
-    /**
-     * Sets exactly the effects of {@code active} on {@code p} and removes every other blessing modifier of this
-     * class. {@code near}: within the blessing radius; {@code far}: attributes and XP act without the radius.
-     */
-    public static void apply(ServerPlayer p, List<Blessing> active, boolean near, boolean far) {
+    /** Sets exactly the effects of {@code active} on {@code p} and removes every other blessing modifier of this class. */
+    public static void apply(ServerPlayer p, List<Blessing> active) {
         Map<Applied, AttributeModifier> want = new HashMap<>();
         double xp = 0;
         for (Blessing b : active) {
@@ -136,7 +143,6 @@ public final class Blessings {
                 Blessing.Effect e = b.effects().get(i);
                 switch (e.kind()) {
                     case ATTRIBUTE -> {
-                        if (!near && !far) continue;
                         Optional<Holder.Reference<Attribute>> attr = BuiltInRegistries.ATTRIBUTE.getHolder(ResourceLocation.parse(e.target()));
                         if (attr.isEmpty()) {
                             warnOnce("attribute " + e.target() + " of blessing " + b.id() + " is not registered");
@@ -146,7 +152,6 @@ public final class Blessings {
                         want.put(new Applied(attr.get(), id), new AttributeModifier(id, e.amount(), operation(e.operation())));
                     }
                     case MOB_EFFECT -> {
-                        if (!near) continue;
                         Optional<Holder.Reference<MobEffect>> eff = BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.parse(e.target()));
                         if (eff.isEmpty()) {
                             warnOnce("status effect " + e.target() + " of blessing " + b.id() + " is not registered");
@@ -157,9 +162,7 @@ public final class Blessings {
                             p.addEffect(new MobEffectInstance(eff.get(), EFFECT_TICKS, e.amplifier(), true, false, true));
                         }
                     }
-                    case XP_BONUS -> {
-                        if (near || far) xp += e.amount();
-                    }
+                    case XP_BONUS -> xp += e.amount();
                 }
             }
         }
@@ -223,6 +226,7 @@ public final class Blessings {
     }
 
     static void clear() {
+        BlessingIndex.clear();
         APPLIED.clear();
         XP_BONUS.clear();
         WARNED.clear();
@@ -230,25 +234,32 @@ public final class Blessings {
 
     // ---------------------------------------------------------------- sanctuary
 
-    /** {@code MobSpawnEvent.PositionCheck}: Hearthward refuses natural monster spawns near the heart. */
+    /**
+     * {@code MobSpawnEvent.PositionCheck}: Hearthward refuses natural monster spawns within every source that carries
+     * it (the heart, a lit Wayshrine, an anchor with the tier-0 shard). Reads the last built index; the blessing tick
+     * rebuilds it within a second of any change.
+     */
     public static void onSpawnCheck(MobSpawnEvent.PositionCheck event) {
-        ShrineState.Snapshot st = ShrineState.get();
-        if (st == null || !st.intact() || st.awakened() <= 0) return;
+        List<BlessingSources.Source> sources = BlessingIndex.peek();
+        if (sources.isEmpty()) return;
         if (event.getSpawnType() != MobSpawnType.NATURAL && event.getSpawnType() != MobSpawnType.CHUNK_GENERATION) return;
         if (event.getEntity().getType().getCategory() != MobCategory.MONSTER) return;
-        if (!(event.getLevel() instanceof ServerLevel level) || level.dimension() != st.dimension()) return;
-        if (!granted(st.awakened(), Blessing.SANCTUARY)) return;
-        double r = sanctuaryRadius(st.awakened());
-        if (st.heart().distToCenterSqr(event.getX(), event.getY(), event.getZ()) <= r * r) {
+        if (!(event.getLevel() instanceof ServerLevel level)) return;
+        if (BlessingSources.sanctuaryAt(sources, level.dimension().location().toString(), event.getX(), event.getY(), event.getZ())) {
             event.setResult(MobSpawnEvent.PositionCheck.Result.FAIL);
         }
     }
 
-    /** Pure check used by the GameTest: would a natural monster spawn at that distance be refused now? */
+    /** Pure check used by the GameTest: would a natural monster spawn at that distance from the heart be refused now? */
     public static boolean refusesSpawnAt(double distance) {
         ShrineState.Snapshot st = ShrineState.get();
         if (st == null || !st.intact() || st.awakened() <= 0 || !granted(st.awakened(), Blessing.SANCTUARY)) return false;
         return distance <= sanctuaryRadius(st.awakened());
+    }
+
+    /** Would a natural monster spawn at that point be refused now by any source (GameTests, status)? */
+    public static boolean refusesSpawnAt(ServerLevel level, double x, double y, double z) {
+        return BlessingSources.sanctuaryAt(BlessingIndex.current(level.getServer()), level.dimension().location().toString(), x, y, z);
     }
 
     /** Attribute modifier ids this build would set for the given blessings (status command, tests). */

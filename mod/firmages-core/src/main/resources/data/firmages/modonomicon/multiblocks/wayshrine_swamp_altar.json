@@ -1,0 +1,71 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:wayshrine_core"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/lights"
+    },
+    "I": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/swamp_altar/bars"
+    },
+    "M": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/swamp_altar/mud"
+    },
+    "W": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/swamp_altar/post"
+    }
+  },
+  "pattern": [
+    [
+      "_________",
+      "_________",
+      "__W___W__",
+      "_________",
+      "_________",
+      "_________",
+      "__W___W__",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "_________",
+      "__W___W__",
+      "_________",
+      "___L_____",
+      "_________",
+      "__W___W__",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "_________",
+      "__WIIIW__",
+      "_________",
+      "___M_____",
+      "_________",
+      "__WIIIW__",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "_________",
+      "__MMMMM__",
+      "__MMMMM__",
+      "__MM0MM__",
+      "__MMMMM__",
+      "__MMMMM__",
+      "_________",
+      "_________"
+    ]
+  ]
+}

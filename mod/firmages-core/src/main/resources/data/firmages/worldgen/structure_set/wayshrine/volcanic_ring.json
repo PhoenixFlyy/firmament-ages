@@ -1,0 +1,21 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:wayshrine/volcanic_ring",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "tfc:climate",
+    "salt": 1810817937,
+    "spacing": 80,
+    "separation": 30,
+    "climate": {}
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "tfc"
+    }
+  ]
+}

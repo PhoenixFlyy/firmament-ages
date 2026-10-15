@@ -1,0 +1,23 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:wayshrine/reef_altar",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "tfc:climate",
+    "salt": 428674249,
+    "spacing": 80,
+    "separation": 30,
+    "climate": {
+      "min_temperature": 20.0
+    }
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "tfc"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "rites": [
+    { "type": "blockstate", "key": "L", "property": "lit", "value": "true", "hint": "firmages.wayshrine.rite.kindle" },
+    { "type": "sky", "hint": "firmages.wayshrine.rite.sky" }
+  ]
+}

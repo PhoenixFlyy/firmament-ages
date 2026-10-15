@@ -1,0 +1,9 @@
+{
+  "values": [
+    {
+      "id": "tfc:rock/smooth/basalt",
+      "required": false
+    },
+    "minecraft:smooth_basalt"
+  ]
+}

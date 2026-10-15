@@ -8,6 +8,8 @@
     "firmages:starsteel_meteorite",
     "firmages:starfall_core",
     "firmages:meteoric_iron_block",
-    "firmages:starsteel_block"
+    "firmages:starsteel_block",
+    "firmages:wayshrine_core",
+    "firmages:wayshrine_stone"
   ]
 }

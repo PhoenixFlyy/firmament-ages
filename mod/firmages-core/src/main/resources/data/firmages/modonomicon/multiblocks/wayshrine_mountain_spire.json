@@ -1,0 +1,90 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:wayshrine_core"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/lights"
+    },
+    "B": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/mountain_spire/bricks"
+    },
+    "I": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/mountain_spire/bars"
+    },
+    "S": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/mountain_spire/smooth"
+    }
+  },
+  "pattern": [
+    [
+      "_______",
+      "_______",
+      "_______",
+      "_B_____",
+      "_______",
+      "_______",
+      "_______"
+    ],
+    [
+      "_______",
+      "_______",
+      "_______",
+      "_B_____",
+      "_______",
+      "_______",
+      "_______"
+    ],
+    [
+      "_______",
+      "_______",
+      "_______",
+      "_B_____",
+      "_______",
+      "_______",
+      "_______"
+    ],
+    [
+      "_______",
+      "_______",
+      "_I_____",
+      "_B_____",
+      "_I_____",
+      "_______",
+      "_______"
+    ],
+    [
+      "_______",
+      "_______",
+      "_I_____",
+      "_BL____",
+      "_I_____",
+      "_______",
+      "_______"
+    ],
+    [
+      "_______",
+      "__S__S_",
+      "_______",
+      "_BB____",
+      "_______",
+      "__S__S_",
+      "_______"
+    ],
+    [
+      "_______",
+      "___S___",
+      "__SSS__",
+      "_BS0SS_",
+      "__SSS__",
+      "___S___",
+      "_______"
+    ]
+  ]
+}

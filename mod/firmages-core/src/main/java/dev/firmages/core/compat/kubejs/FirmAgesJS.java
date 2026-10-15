@@ -122,6 +122,8 @@ public final class FirmAgesJS {
         if (s == null) return false;
         s.execute(() -> dev.firmages.core.sky.StarfallService.requestTonight(s));
         return true;
+    }
+
     // ---- The Lens Crown (SPEC §27.12) ----
 
     /**

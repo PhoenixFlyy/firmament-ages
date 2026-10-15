@@ -50,7 +50,6 @@ public final class ServerConfig {
     public static final ModConfigSpec.IntValue SHRINE_SANCTUARY_PER_TIER;
     public static final ModConfigSpec.BooleanValue SHRINE_PERMANENT_BEAM;
     public static final ModConfigSpec.BooleanValue SHRINE_CLEAR_WEATHER;
-    public static final ModConfigSpec.BooleanValue SHRINE_BLESSINGS_EVERYWHERE;
     public static final ModConfigSpec.IntValue SHRINE_MAINTENANCE_SECONDS;
     public static final ModConfigSpec.IntValue SHRINE_CONSECRATION_TICKS;
     // crown (SPEC §27.12)
@@ -59,6 +58,11 @@ public final class ServerConfig {
     public static final ModConfigSpec.DoubleValue CROWN_NIGHT_TIME_FACTOR;
     public static final ModConfigSpec.IntValue CROWN_VALIDATE_TICKS;
     public static final ModConfigSpec.IntValue CROWN_SWING_TICKS;
+    // wayshrines (SPEC-himmel §28.9)
+    public static final ModConfigSpec.IntValue WAYSHRINE_RADIUS;
+    public static final ModConfigSpec.IntValue WAYSHRINE_PRAYER_SECONDS;
+    public static final ModConfigSpec.IntValue WAYSHRINE_POINTER_RADIUS_CHUNKS;
+    public static final ModConfigSpec.BooleanValue WAYSHRINE_TUTORIAL;
     // origin
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
@@ -179,10 +183,17 @@ public final class ServerConfig {
             .defineInRange("maintenanceSeconds", 60, 5, 3600);
         SHRINE_CONSECRATION_TICKS = b.comment("Ticks the consecration of a ring takes, from the heart outward (after the Age reload).")
             .defineInRange("consecrationTicks", 120, 0, 1200);
-        b.comment("Blessing effects (attributes, status effects, XP) act on players within the sanctuary radius of the heart while the shrine is intact.").push("blessings");
-        SHRINE_BLESSINGS_EVERYWHERE = b.comment("true: attribute and XP blessings act everywhere (team-wide, SPEC 7.6); status effects stay near the shrine.")
-            .define("everywhere", false);
         b.pop();
+
+        b.comment("Wayshrines: ruined shrines of Caelum in the wide world (SPEC-himmel 28). A lit and intact Wayshrine carries the",
+            "blessings of the awakened tiers and Hearthward into its radius while the home shrine stands.").push("wayshrine");
+        WAYSHRINE_RADIUS = b.comment("Blocks around a lit Wayshrine in which its blessings act.").defineInRange("radius", 24, 8, 64);
+        WAYSHRINE_PRAYER_SECONDS = b.comment("Seconds of prayer that light a Wayshrine, divided by the number of praying players (at least 2 s).")
+            .defineInRange("prayerSeconds", 5, 2, 600);
+        WAYSHRINE_POINTER_RADIUS_CHUNKS = b.comment("Chunks the pointer (right-click on the heart or a lit Wayshrine) searches for a sleeping Wayshrine.")
+            .defineInRange("pointerRadiusChunks", 256, 8, 512);
+        WAYSHRINE_TUTORIAL = b.comment("Place one Forest Ring 300 to 800 blocks from the world spawn at the first start (also on an existing world).")
+            .define("tutorial", true);
         b.pop();
 
         b.comment("The Lens Crown: the Star Anvil forges celestial alloys and lenses from a chord of lenses (SPEC 27)").push("crown");
@@ -500,6 +511,42 @@ public final class ServerConfig {
 
     public static boolean allowSimulate() {
         return loaded() && DEBUG_ALLOW_SIMULATE.get();
+    }
+
+    /** {@code wayshrine.radius}. */
+    public static int wayshrineRadius() {
+        return loaded() ? WAYSHRINE_RADIUS.get() : 24;
+    }
+
+    /** {@code wayshrine.prayerSeconds}. */
+    public static int wayshrinePrayerSeconds() {
+        return loaded() ? WAYSHRINE_PRAYER_SECONDS.get() : 5;
+    }
+
+    /** {@code wayshrine.pointerRadiusChunks}. */
+    public static int wayshrinePointerRadiusChunks() {
+        return loaded() ? WAYSHRINE_POINTER_RADIUS_CHUNKS.get() : 256;
+    }
+
+    /** {@code wayshrine.tutorial}. */
+    public static boolean wayshrineTutorial() {
+        return !loaded() || WAYSHRINE_TUTORIAL.get();
+    }
+
+    /** Keys removed from this file that NeoForge drops silently when it corrects the file: key -> the WARN line. */
+    public static final Map<String, String> REMOVED_KEYS = Map.of(
+        "shrine.blessings.everywhere",
+        "shrine.blessings.everywhere was removed: Sky Anchors carry the blessings away from the shrine from the Space Age on.");
+
+    /**
+     * Mod construction: one WARN per removed key that an existing {@code firmages-server.toml} still holds (SPEC-himmel
+     * §29.7, S4A). Read through {@link EarlyServerConfig} before NeoForge loads and corrects the file.
+     */
+    public static void warnRemovedKeys() {
+        java.nio.file.Path world = EarlyServerConfig.dedicatedWorldDir();
+        REMOVED_KEYS.forEach((key, line) -> {
+            if (EarlyServerConfig.value(world, key).isPresent()) dev.firmages.core.FirmagesCore.LOGGER.warn(line);
+        });
     }
 
     private static boolean isAgeId(Object o) {

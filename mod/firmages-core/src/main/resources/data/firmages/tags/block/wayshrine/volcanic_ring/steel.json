@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:storage_blocks/steel",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/block/steel",
+      "required": false
+    }
+  ]
+}

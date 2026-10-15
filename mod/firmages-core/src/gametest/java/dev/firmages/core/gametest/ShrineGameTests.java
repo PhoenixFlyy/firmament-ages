@@ -246,7 +246,8 @@ public final class ShrineGameTests {
     /**
      * SPEC §7.6 (M6): the shipped blessings of nine awakened tiers on a player inside the blessing radius: +15 % max
      * health, +5 % speed, +5 % break speed, +0.5 reach, -20 % fall damage and +1 safe fall block, +1 luck, +10 % XP;
-     * all gone outside the radius or with a broken shrine, back everywhere with {@code shrine.blessings.everywhere};
+     * all gone outside the radius or with a broken shrine, back far from the heart within a lit Wayshrine's radius (the
+     * blessing sources of SPEC-himmel §29.5 replace {@code shrine.blessings.everywhere});
      * three awakened tiers give only theirs. Status effects (no shipped blessing uses one) on a synthetic blessing.
      */
     @GameTest(template = "empty", batch = "firmages_3_shrine_bless")
@@ -281,10 +282,14 @@ public final class ShrineGameTests {
             Blessings.apply(p);
             ok(h, p.getMaxHealth() == 20.0F && Blessings.xpBonus(p) == 0 && modifier(p, net.minecraft.world.entity.ai.attributes.Attributes.LUCK, "firmages:blessing/resolve/1") == 0,
                 "outside the radius: no blessing");
-            ServerConfig.SHRINE_BLESSINGS_EVERYWHERE.set(true);
+            net.minecraft.core.GlobalPos way = net.minecraft.core.GlobalPos.of(level.dimension(), p.blockPosition().east(3));
+            dev.firmages.core.wayshrine.WayshrineSavedData.get(server).put(new dev.firmages.core.wayshrine.WayshrineSavedData.Record(way, "stand_in",
+                dev.firmages.core.wayshrine.WayshrinePhase.LIT, true, "age_9", 0, true));
+            dev.firmages.core.shrine.BlessingIndex.markDirty();
             Blessings.apply(p);
-            ok(h, Math.abs(p.getMaxHealth() - 23.0F) < 1e-4 && Blessings.xpBonus(p) > 0, "shrine.blessings.everywhere: blessed far away too");
-            ServerConfig.SHRINE_BLESSINGS_EVERYWHERE.set(false);
+            ok(h, Math.abs(p.getMaxHealth() - 23.0F) < 1e-4 && Blessings.xpBonus(p) > 0, "a lit Wayshrine carries them far from the heart");
+            dev.firmages.core.wayshrine.WayshrineSavedData.get(server).remove(way);
+            dev.firmages.core.shrine.BlessingIndex.markDirty();
 
             dev.firmages.core.shrine.ShrineState.set(level.dimension(), near, false, 9);
             Blessings.apply(p);
@@ -299,19 +304,19 @@ public final class ShrineGameTests {
             // status effects: near only, never refreshed far away
             dev.firmages.core.shrine.Blessing glow = new dev.firmages.core.shrine.Blessing("firmages_test:glow", "", "", java.util.Set.of(),
                 List.of(new dev.firmages.core.shrine.Blessing.Effect(dev.firmages.core.shrine.Blessing.Effect.Kind.MOB_EFFECT, "minecraft:night_vision", "", 0, 0)));
-            Blessings.apply(p, List.of(glow), true, false);
+            Blessings.apply(p, List.of(glow));
             net.minecraft.world.effect.MobEffectInstance nv = p.getEffect(net.minecraft.world.effect.MobEffects.NIGHT_VISION);
             ok(h, nv != null && nv.isAmbient() && nv.getDuration() > 200, "status effect near the shrine: " + nv);
             p.removeEffect(net.minecraft.world.effect.MobEffects.NIGHT_VISION);
-            Blessings.apply(p, List.of(glow), false, true);
-            ok(h, !p.hasEffect(net.minecraft.world.effect.MobEffects.NIGHT_VISION), "no status effect away from the shrine, even with everywhere");
+            dev.firmages.core.shrine.ShrineState.set(level.dimension(), p.blockPosition().east(500), true, 9);
+            Blessings.apply(p);
+            ok(h, !p.hasEffect(net.minecraft.world.effect.MobEffects.NIGHT_VISION), "no status effect away from every source");
             ok(h, p.getMaxHealth() == 20.0F, "the other modifiers are gone with their blessings");
         } finally {
             if (prev == null) dev.firmages.core.shrine.ShrineState.clear();
             else dev.firmages.core.shrine.ShrineState.set(prev.dimension(), prev.heart(), prev.intact(), prev.awakened());
-            Blessings.apply(p, List.of(), false, false);
+            Blessings.apply(p, List.of());
             dev.firmages.core.command.DebugPlayerCommands.despawn(p);
-            ServerConfig.SHRINE_BLESSINGS_EVERYWHERE.set(false);
         }
         h.succeed();
     }

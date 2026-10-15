@@ -72,6 +72,7 @@ public final class ShrineDataLoader extends SimpleJsonResourceReloadListener {
         FirmagesCore.LOGGER.info("Shrine consecration: roles for {} rings", roles.size());
         ringRoles = Map.copyOf(roles);
         current = data;
+        BlessingIndex.markDirty();
     }
 
     private static Optional<JsonObject> readMultiblock(ResourceManager rm, ResourceLocation id) {

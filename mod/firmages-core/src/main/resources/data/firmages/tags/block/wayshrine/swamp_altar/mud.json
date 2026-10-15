@@ -1,0 +1,36 @@
+{
+  "values": [
+    {
+      "id": "tfc:mud_bricks/entisol",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_bricks/mollisol",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_bricks/alfisol",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_bricks/andisol",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_bricks/podzol",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_bricks/oxisol",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_bricks/fluvisol",
+      "required": false
+    },
+    {
+      "id": "tfc:mud_bricks/aridisol",
+      "required": false
+    }
+  ]
+}

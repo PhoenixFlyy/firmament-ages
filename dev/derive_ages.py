@@ -219,6 +219,7 @@ CODE_DROPS = [
                                  "scarf_of_invisibility")], "age_3"),
     (["artifacts:crystal_heart", "artifacts:warp_drive"], "age_4"),
     (["alexsmobs:emu_egg"], "dawn"),                    # emus lay their eggs (EntityEmu, code), Dawn wildlife
+    (["firmages:wayshrine_stone"], "dawn"),             # a lit Wayshrine drops it (firmages-core, SPEC-himmel 28.7); Dawn by 24.5
 ]
 # Pre-existing design gaps: items the walk cannot reach from any source although the design uses them. They stay at
 # their age_map Age (visible from that Age) instead of being hidden, and each is an open point in dev/poc-results.md.

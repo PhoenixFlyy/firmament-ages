@@ -1,0 +1,21 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:wayshrine/mountain_spire",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "tfc:climate",
+    "salt": 1190432521,
+    "spacing": 80,
+    "separation": 30,
+    "climate": {}
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "tfc"
+    }
+  ]
+}

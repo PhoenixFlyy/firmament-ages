@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#c:storage_blocks/bronze",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/block/bronze",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/block/bismuth_bronze",
+      "required": false
+    },
+    {
+      "id": "tfc:metal/block/black_bronze",
+      "required": false
+    }
+  ]
+}

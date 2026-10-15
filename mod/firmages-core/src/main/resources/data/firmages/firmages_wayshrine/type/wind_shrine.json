@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/wind_shrine",
+  "multiblock": "firmages:wayshrine_wind_shrine",
+  "min_age": "age_4",
+  "light_key": "L",
+  "ruin_beam": "#D8E6F0"
+}

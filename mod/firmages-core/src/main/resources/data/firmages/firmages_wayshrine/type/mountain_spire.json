@@ -1,0 +1,7 @@
+{
+  "structure": "firmages:wayshrine/mountain_spire",
+  "multiblock": "firmages:wayshrine_mountain_spire",
+  "min_age": "age_3",
+  "light_key": "L",
+  "ruin_beam": "#C8D6E8"
+}

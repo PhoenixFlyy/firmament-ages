@@ -1,0 +1,86 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:wayshrine_core"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/lights"
+    },
+    "B": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/wind_shrine/body"
+    },
+    "G": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/wind_shrine/glass"
+    },
+    "I": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/wind_shrine/bars"
+    },
+    "P": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/wind_shrine/pillar"
+    }
+  },
+  "pattern": [
+    [
+      "_________",
+      "_________",
+      "__G___G__",
+      "_________",
+      "_________",
+      "_________",
+      "__G___G__",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "_________",
+      "__P___P__",
+      "_________",
+      "_________",
+      "_________",
+      "__P___P__",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "_________",
+      "__P___P__",
+      "______I__",
+      "___L__I__",
+      "______I__",
+      "__P___P__",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "_________",
+      "__P___P__",
+      "______I__",
+      "___P__I__",
+      "______I__",
+      "__P___P__",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "_________",
+      "__BBBBB__",
+      "__BBBBB__",
+      "__BB0BB__",
+      "__BBBBB__",
+      "__BBBBB__",
+      "_________",
+      "_________"
+    ]
+  ]
+}

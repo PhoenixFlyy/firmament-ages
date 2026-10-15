@@ -37,6 +37,7 @@ public final class FirmagesClient {
             event.registerEntityRenderer(BossRegistry.THROWN_SHARD.get(), ThrownItemRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.STAR_ANVIL_BE.get(), CrownRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.LENS_MOUNT_BE.get(), LensMountRenderer::new);
+            event.registerBlockEntityRenderer(dev.firmages.core.wayshrine.WayshrineRegistry.CORE_BE.get(), WayshrineCoreRenderer::new);
         }
 
         /** Lens items: layer 1 (the glass) in the colour of the lens's shrine tier (SPEC §27.4), white until synced. */

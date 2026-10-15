@@ -1,0 +1,82 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:wayshrine_core"
+    },
+    "L": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/lights"
+    },
+    "F": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/steppe_stones/floor"
+    },
+    "P": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/steppe_stones/stone"
+    },
+    "Z": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:wayshrine/steppe_stones/bronze"
+    }
+  },
+  "pattern": [
+    [
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________"
+    ],
+    [
+      "_________",
+      "_P_____P_",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_P_____P_",
+      "_________"
+    ],
+    [
+      "_________",
+      "_P_____P_",
+      "_________",
+      "_________",
+      "___L_____",
+      "_________",
+      "_________",
+      "_P_____P_",
+      "_________"
+    ],
+    [
+      "_________",
+      "_P_____P_",
+      "_________",
+      "_________",
+      "___Z_____",
+      "_________",
+      "_________",
+      "_P_____P_",
+      "_________"
+    ],
+    [
+      "_________",
+      "_P_____P_",
+      "____F____",
+      "___FFF___",
+      "__FF0FF__",
+      "___FFF___",
+      "____F____",
+      "_P_____P_",
+      "_________"
+    ]
+  ]
+}
