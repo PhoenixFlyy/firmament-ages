@@ -2689,6 +2689,7 @@ patterns = [
 "immersiveengineering:ethanol_bucket" = "age_5"
 "immersiveengineering:generator" = "age_5"
 "immersiveengineering:glider" = "age_5"
+"immersiveengineering:grindingdisk" = "age_5"
 "immersiveengineering:herbicide_bucket" = "age_5"
 "immersiveengineering:high_power_biodiesel_bucket" = "age_5"
 "immersiveengineering:ingot_hop_graphite" = "age_6"
@@ -3823,8 +3824,8 @@ patterns = [
 "minecraft:rail" = "age_2"
 "minecraft:raw_copper" = "age_8"
 "minecraft:raw_copper_block" = "age_8"
-"minecraft:raw_gold" = "age_8"
-"minecraft:raw_gold_block" = "age_8"
+"minecraft:raw_gold" = "age_9"
+"minecraft:raw_gold_block" = "age_9"
 "minecraft:raw_iron" = "age_7"
 "minecraft:raw_iron_block" = "age_7"
 "minecraft:recovery_compass" = "age_3"
@@ -4555,14 +4556,19 @@ items = [
     "ad_astra:etrium_plateblock",
     "ad_astra:etrium_rod",
     "ad_astra:glacian_ram_spawn_egg",
+    "ad_astra:glacio_copper_ore",
     "ad_astra:glacio_globe",
+    "ad_astra:glacio_iron_ore",
     "ad_astra:infernal_spire_block",
     "ad_astra:lunarian_spawn_egg",
     "ad_astra:lunarian_wandering_trader_spawn_egg",
     "ad_astra:mars_globe",
+    "ad_astra:mars_iron_ore",
     "ad_astra:martian_raptor_spawn_egg",
     "ad_astra:mercury_globe",
+    "ad_astra:mercury_iron_ore",
     "ad_astra:mogler_spawn_egg",
+    "ad_astra:moon_iron_ore",
     "ad_astra:photovoltaic_vesnium_cell",
     "ad_astra:pygro_brute_spawn_egg",
     "ad_astra:pygro_spawn_egg",
@@ -4570,6 +4576,7 @@ items = [
     "ad_astra:steel_block",
     "ad_astra:sulfur_creeper_spawn_egg",
     "ad_astra:venus_globe",
+    "ad_astra:venus_gold_ore",
     "ad_astra:zombified_mogler_spawn_egg",
     "ad_astra:zombified_pygro_spawn_egg",
     "advanced_ae:adv_processing_pattern",
@@ -5856,6 +5863,7 @@ items = [
     "draconicevolution:creative_capacitor",
     "draconicevolution:creative_op_capacitor",
     "draconicevolution:deepslate_draconium_ore",
+    "draconicevolution:end_draconium_ore",
     "draconicevolution:info_tablet",
     "draconicevolution:mob_soul",
     "draconicevolution:nether_draconium_ore",

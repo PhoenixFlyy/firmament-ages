@@ -462,6 +462,8 @@
     {"id": "minecraft:oak_trapdoor", "required": false},
     {"id": "minecraft:oak_wood", "required": false},
     {"id": "minecraft:peony", "required": false},
+    {"id": "minecraft:raw_gold", "required": false},
+    {"id": "minecraft:raw_gold_block", "required": false},
     {"id": "minecraft:redstone_ore", "required": false},
     {"id": "minecraft:rose_bush", "required": false},
     {"id": "minecraft:seagrass", "required": false},

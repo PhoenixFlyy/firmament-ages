@@ -594,6 +594,7 @@
     {"id": "immersiveengineering:ethanol_bucket", "required": false},
     {"id": "immersiveengineering:generator", "required": false},
     {"id": "immersiveengineering:glider", "required": false},
+    {"id": "immersiveengineering:grindingdisk", "required": false},
     {"id": "immersiveengineering:herbicide_bucket", "required": false},
     {"id": "immersiveengineering:high_power_biodiesel_bucket", "required": false},
     {"id": "immersiveengineering:ingot_aluminum", "required": false},
