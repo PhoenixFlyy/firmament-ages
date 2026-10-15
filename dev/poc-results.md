@@ -2934,3 +2934,56 @@ and client (Windows page file, errno 1455), so both boots ran with `-Xms3G -Xmx6
 - A backup restore after the server README's four steps has not been played through.
 - Retired helper items read "Its making belongs to a later Age" for non-operators; the walkthrough's Space Age
   pitfall still names naquadah.
+
+## 1.0 round A (2026-10-15)
+
+`--no-ff` merges of a1/adventure, a1/world, a1/deco and a1/core (in that order) into dev, then pack 0.10.0 and
+firmages-core 0.10.0. a1/boss stays out (round C). Felix's test server stayed untouched and running; every boot ran on
+a copy (`robocopy` without world, logs and local; ports 25566 and RCON 25576, whitelist off; synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8095`, quest folder deleted first, "Finished
+successfully"), each with a new world and `-Xms3G -Xmx6G` next to the live server. The copy is deleted.
+
+Boot loop (nine copy boots). Boot 1 crashed during mod loading: TFC Tumbleweed 1.3 loads `ClientLevel` on a dedicated
+server, so it left the pack again. Boots 2 to 5 fixed what the merged branches broke in the log and the dump (commit
+"0.10.0 boot loop": Exposure's server config, Exposure's Create 6 developing recipes, the Storage Drawers CoFH key,
+24 Twilight track loot tables, Every Compat's Macaw's coffee tables, TFC Volcanoes minerals and Exposure prints in
+`derive_ages.py`, and a TFC Ruins chest item id without its namespace). Boots 6 and 7 dumped with `gate.enabled =
+false` for the derivation (see `derive_ages.py`: on a gated dump a hidden item stays hidden), boot 8 dumped with the
+gate on for the checks, boot 9 ran without dump and self test for the log check (both debug commands stall the server
+thread, see the open points of round N5).
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21, offline) | BUILD SUCCESSFUL; `build/libs/firmages-core-0.10.0.jar` byte-identical to `mods/firmages-core-0.10.0.jar` (SHA-256 `eecb3810…6c90`, also in `index.toml`) | pass |
+| `runGameTestServer` in a fresh `run/gametest` | firmages 0.10.0 loaded; "All 53 required tests passed" | pass |
+| Copy boot 7 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | 42,136 recipes; `gen_stage_locks.py --registry` (34,969 items), `derive_ages.py`, `gen_stage_locks.py`; second pass: `derive_ages.py --check` and `gen_stage_locks.py --check` up to date | pass |
+| `derive_ages.py` on that dump | 34,969 items; 3,286 moved later, 4,593 never reachable (hidden); final dawn 4,158, age_0 959, age_1 6,793, age_2 4,539, age_3 2,211, age_4 1,212, age_5 1,118, age_6 1,498, age_7 572, age_8 680, age_9 783, disabled 10,446 | done |
+| Copy boot 8 (gate on, grants, `fa_dump`, `fa_dump_full`, `firmages recipes audit`, `selftest all`) | gate at age_9: 38,335 of 42,136 recipes, 3,801 dropped (disabled 3,794, superseded 7); `selftest all` 55 passed, 0 failed; Age coverage: all 20,365 ProgressiveStages Age item locks in an Age tag | pass |
+| `poc_analyze.py --baseline <boot 7 dump>` on boot 8 | first 83 PASS, 8 FAIL (G-2 and the late R- chains); after two tool fixes 91 PASS, 0 FAIL, including R-T age_2..age_9 (every Age token reachable without a boss), G-4 (36 types accepted) and E-1 | pass after fix |
+| `check_log.py` on boot 9 (gate on, grants, hold 120 s) | Done after 84.6 s from the first log line (86.6 s wall clock, server reported 16.7 s); FATAL 0, ERROR 8, STDERR 0, WARN 214, all documented; remaining 0 after one new noise entry (spark at boot) | pass after fix |
+| Mods | 239 mod files with 230 mods loaded (jar-in-jar included); pack 233 metafiles plus `firmages-core` (234 in the CurseForge credits, 0.9.3: 216): 26 added, 8 removed | done |
+| FTB Quests | "13 chapters, 339 quests, 21 reward tables"; `gen_quests.py` reproduces the book byte for byte; `validate_quests.py --style` (jars of the copy) 1251 object ids, 0 errors, 0 warnings | pass |
+| `check_registry_parity.py dump` against Felix's server dump (pre-N5, 2026-10-14; no plain 0.9.3 dump exists) | items 26,694 to 34,970: removed 1,098 (twilightforest 660, cataclysm 284, mowziesmobs 56, railways 48 Twilight-wood tracks, bosses_of_mass_destruction 21, supplementaries 17 Twilight/Cataclysm boats and way signs, firmages 8 sigils, summoningrituals 3, gateways 1), added 9,374 (rechiseled 3,628, everycomp 2,434, mcwfurnitures 654, mcwroofs 607, refurbished_furniture 470, dustydecorations 387, …). Blocks 20,314 to 29,226 (703 removed, 9,615 added), entity types 1,279 to 1,062 (237 removed incl. `apotheosis:tiered_gateway`, 20 added). Every removed id belongs to the removed mods or to their compat content | expected |
+| `check_menus.py`, `gen_textures.py --check`, `gen_way_sign_textures.py --check`, `gen_multiblock_templates.py --check`, `gen_recipe_overrides.py --check --mods <copy>`, `gen_loot_silence.py --check`, `gen_cold_forge.py --check`, `gen_blood_moon.py --check`, `gen_firmament_night.py --check`, `gen_ponder_schematics.py --check` | menus pass; 234 textures 0 errors; 34 way sign icons; 35 templates; 543 overrides 0 problems; 504 loot overrides 0 problems; Cold Forge 594 blocks; 56 and 45 files up to date | pass |
+| `gen_credits.py`, `md2html.py`, `packwiz refresh` | 234 mods, no change after regeneration; index refreshed | pass |
+
+Fixes of this pass:
+- `poc_analyze.py` counted the Theurgy reformation's target sulfur as an ingredient (it stays on the target pedestal).
+  That closed a false loop that made vanilla oak reachable from the Arcane Age; by the rule, vanilla oak, birch,
+  spruce and jungle wood and their decoration are Singularity Age now (forest worlds behind the Stargate), the other
+  vanilla woods hidden.
+- With the vanilla bucket in the Electric Age, the R- walk had no lava bucket: the Mekanism crusher and everything
+  behind it (bio fuel, HDPE, polonium, antimatter, chaos fragments, the Stargate) failed. `poc_analyze.py` now fills a
+  bucket at water and lava (GROWN), as `derive_ages.py` already did. G-2 counts the byproduct copies
+  (`FirmAges.untilAge`) whose Age is open as superseded, since a gate-off baseline still holds them.
+- The Ars volcanic sourcelink took a vanilla lava bucket and moved to the Electric Age, away from its Arcane quest; it
+  takes a magma block now (`recipes/age_3/arcane_tfc_inputs.js`).
+- `log_noise.json`: spark's "Timed out waiting for world statistics" while the server creates its dimensions.
+
+### Open points
+
+- In the client (brief 0.10.0): the Age token routes, Cold Forge and compass, fortress and Mars temple loot, the
+  built-up chamber, the reactor's chaos fragments, the draconium vein, Ponder scenes, Age music, the deco set with its
+  client measurement, the chisel patterns.
+- Vanilla wood in the Singularity Age is the rule's result, not a design: Felix decides (`dev/offene-punkte.md`).
+- `derive_ages.py --scan` reads feature predicates as placed blocks (vanilla oak sapling "from" crimson fungus).

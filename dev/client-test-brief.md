@@ -1,5 +1,48 @@
 # Client-Test
 
+## 0.10.0 Nachtrag (1.0 Runde A 2026-10-15, Pack 0.10.0, firmages-core 0.10.0)
+
+**Voller Reset:** neue Welt und neu importiertes Profil (Client und Server brauchen firmages-core 0.10.0). Alte Welten
+verlieren Blöcke, Items und Strukturen der entfernten Mods, und die neuen Welt-Features (Cold Forge, Draconium-Adern,
+Vulkan-Minerale, dichtere Ruinen) entstehen nur in neuen Chunks. Server-Teil auf einer Kopie des Test-Servers geprüft
+(`dev/poc-results.md`, Abschnitt „1.0 round A (2026-10-15)“): jeder Boot mit neuer Welt, alle Ages per Simulation,
+`poc_analyze.py` 91 PASS, `check_log.py` 0 übrig, `selftest all` 55 von 55.
+
+1. **Was fehlt.** Kein Twilight Forest (kein Portal, keine Twilight-Hölzer), keine Bosse aus Cataclysm, Bosses of
+   Mass Destruction und Mowzie's Mobs, keine Sigille, Trials und Gateways, kein Monstrosity-Altar, kein TFC Tumbleweed
+   (stürzt jeden Server ab). In The Origin gibt es noch keinen Endboss (kommt mit Runde C). In EMI taucht keines davon
+   auf, auch kein Vanilla-Bambus, keine Vanilla-Gold- und Eisenblöcke, kein Kettenhemd und kein TNT. Vanilla-Holz
+   (Eiche, Birke, Fichte, Tropenholz) und seine Deko erst in der Singularitätszeit (Waldwelten hinter dem Stargate),
+   Schwarzeiche, Akazie, Mangrove und Kirsche gar nicht; Wasser- und Lavaeimer aus Vanilla erst in der Elektrikzeit.
+2. **Age-Token-Wege** (je einmal in Kreativ oder per `/stage grant` bis zur Age, dann im Überleben bauen):
+   - Eisenzeit: Frontier Compass (Schmiedeeisen um Magnetit) zeigt Richtung und Entfernung zur nächsten Cold Forge
+     (Hochland, Hügel); in der Kiste die Frontier Shard, Deployer und Presse machen das Frontier Relic.
+   - Arkanzeit: Hollow Keystone aus einer Netherfestungs-Kiste (etwa 40 %), Spout mit flüssiger Erfahrung, Deployer
+     mit Lohenrute, Presse; der Djinni-Weg mit Wilden Tribute aus dem Enchanting Apparatus. Der Volcanic Sourcelink
+     nimmt jetzt einen Magmablock statt eines Lavaeimers.
+   - Industriezeit: gebaute Stahl-Kanonenkammer (Create Big Cannons). Elektrikzeit: Nether Star im Lichtbogenofen
+     (ein Witherskelett-Schädel). Information: AE2-Singularität. Raumfahrt: Flugschreiber in der Mars-Tempelkiste,
+     Drachenherz per Fusion. Quanten: subatomare Legierung. Singularität: großes Chaos-Fragment aus dem eigenen Reaktor.
+   - Draconium-Adern in Granit, Diorit, Gabbro (tief) erst ab der Raumfahrt sichtbar; Vanilla-Eimer aus Stahlblechen
+     in der Elektrikzeit.
+3. **Welt.** Vulkan: Ausbruch und Beben ohne Schaden an Blöcken, an Lava und heißen Quellen wachsen Mineral-Krusten
+   (z. B. Salpeter, Schwefel). Monat mit 5 Tagen (Start 1. Juni), Schnee doppelt so schnell. TFC-Ruinen häufiger, ihre
+   Truhen in Dawn nur mit Dawn-Kleinkram. Blutmond ab der Eisenzeit: Untote mit Rüstung und Waffe der Vor-Age.
+   Cacophony (Vögel, Wind), Particle Rain, Cosy-Critters-Vögel (keine Motten), Subtle Effects ohne Herzschlag.
+4. **Carry On.** Schleichen und Rechtsklick mit leeren Händen trägt eine Truhe; TFC-Amboss, Tiegel, Fass, großes
+   Gefäß, Rennofen, Hochofen und Schrein-Blöcke lassen sich nicht tragen, Tiere und Spieler auch nicht.
+5. **Exposure.** Kamera aus Messing, Silber, Linse und Leder in der Bronzezeit; Schwarzweißfilm belichten, mit Soda
+   und Salz entwickeln, in der Lichtkammer drucken (Licht 13). Kommt das Foto in der Bronzezeit an, ohne dass es aus
+   dem Inventar fällt? Farbfilm erst in der Industriezeit; der Interplanar Projector fehlt.
+6. **Deko.** Messung und Sichtprüfung laut Abschnitt „n7-Deko“ unten (A = 0.9.3, B = 0.10.0). Zusätzlich: Macaw's
+   Couchtisch und Tisch in TFC-Eiche, Storage-Drawers-Upgrades je Age, Refurbished-Küche in der Elektrikzeit.
+7. **Tally Chute** (Bronzezeit, Rezept Bauholz, Create-Rutsche, Bronzeblech): unter einen Trichter oder ein Band
+   setzen, Kiste darunter; Jade zeigt die gezählte Menge. Noch keine Quest nutzt sie.
+8. **Musik.** Pro Age eigene TFC-Stücke statt der Vanilla-Musik; in der Firmament-Nacht läuft ein eigener Loop, die
+   Age-Musik schweigt, ebenso während der Zeremonie. `music.ageMusic = false` in `firmages-client.toml` schaltet zurück.
+9. **Ponder** (als OP, W über dem Item halten): „Silo Hatch“ am Ad-Astra-Launch-Pad, „Portcullis“ am Rope Pulley.
+   Textposition und Ausrichtung des Launch Pads ansehen.
+
 ## n7-Deko (Runde A1 2026-10-15, Zweig a1/deco, für den Integrator)
 
 20 neue Mods (Inventar: `dev/decisions-while-away.md`, Abschnitt „n7-Deko-Inventar“), 126 Gesteinsmuster, Rechiseled.
