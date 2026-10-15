@@ -15,6 +15,7 @@
     "ars_additions:locate_structure": "ritual effect that locates a structure, no item output",
     "ars_additions:source_spawner": "ritual effect on a spawner, no item output",
     "ars_nouveau:alakarkinos_conversion": "loot table of the Alakarkinos familiar, no crafting output",
+    "ars_elemental:netherite_upgrade": "makes the input spell book unbreakable with netherite and four essences (output = input); Ars Elemental is age_3+, netherite age_4",
     "ars_nouveau:armor_upgrade": "raises the tier of the input armour (output = input)",
     "ars_nouveau:dispel_entity": "dispel effect on an entity, no item output",
     "ars_nouveau:enchantment": "enchanting apparatus: enchants the input item (output = input)",

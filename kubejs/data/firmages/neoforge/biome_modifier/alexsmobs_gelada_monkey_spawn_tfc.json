@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_land",
+  "spawners": {
+    "type": "alexsmobs:gelada_monkey",
+    "weight": 4,
+    "minCount": 3,
+    "maxCount": 5
+  }
+}

@@ -30,12 +30,14 @@ locked_ids = [
     "mod:apothic_enchanting",
     "mod:ars_additions",
     "mod:ars_creo",
+    "mod:ars_elemental",
     "mod:ars_nouveau",
     "mod:beneath",
     "mod:create_dragons_plus",
     "mod:create_enchantment_industry",
     "mod:occultengineering",
     "mod:occultism",
+    "mod:sauce",
     "mod:theurgy",
     # <<< generated:recipes <<<
 ]

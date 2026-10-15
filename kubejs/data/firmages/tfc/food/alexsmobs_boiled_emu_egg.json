@@ -1,0 +1,11 @@
+{
+  "ingredient": {
+    "item": "alexsmobs:boiled_emu_egg"
+  },
+  "hunger": 4,
+  "protein": 1.5,
+  "dairy": 0.6,
+  "saturation": 2.0,
+  "water": 10.0,
+  "decay_modifier": 4.0
+}

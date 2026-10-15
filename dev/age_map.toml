@@ -154,6 +154,21 @@ evolvedmekanism = "age_8"
 advanced_ae = "age_8"
 mysticalagradditions = "age_8"
 sgjourney = "age_9"
+# 1.0 round C, technical and world mods (vorauswahl 2026-10-15, dev/decisions-while-away.md).
+goblintraders = "dawn"           # Goblin Traders: cave goblins from Dawn; the Vein Goblin lives in the Beneath (age_3)
+artifacts = "age_1"              # trinkets as ruin loot, age_1 to age_4 in [items]; eight are hidden
+dummmmmmy = "age_2"              # MmmMmmMmmMmm target dummy (Iron Age weapon smithing)
+ars_elemental = "age_3"
+ars_ocultas = "age_3"            # Ars Nouveau x Occultism bridge
+sauce = "age_3"                  # library of Ars Elemental and Ars Elemancy (jar-in-jar): Source fluid, big Source jars (off)
+ars_elemancy = "age_5"           # dual and quad element gear of Ars Elemental
+arseng = "age_6"                 # Ars Energistique: Source in ME; the source acceptors are hidden (magic gives no FE)
+psi = "age_6"                    # programming magic of the Information Age (V3B)
+extra_gauges = "age_4"           # logic gauges for the Factory Panel (Factory Gauge age_4)
+aeroengineering = "age_5"        # AeroEngine jet engines on Immersive Petroleum kerosene; missiles hidden
+buildinggadgets2 = "age_5"       # Building Gadgets 2: building, exchanging, destruction; copy/cut-paste hidden
+draconicadditions = "age_9"      # Draconic Additions: the three necklaces only (V2A)
+alexsmobs = "dawn"               # Alex's Mobs Continued: 22 species TFC lacks (V1B); the rest is hidden
 
 # ------------------------------------------------------------------------------------------------ recipes
 # Grid-recipe lock per recipe namespace ("mod:<ns>" in [recipes].locked_ids of that stage). Default: the
@@ -578,6 +593,12 @@ block = "tfc:rock/loose/granite"
 # Lights without fuel come with the Iron Age, like the Create Deco cage lamps (no new light may beat TFC burn-out earlier).
 "re:another_furniture:.+_lamp" = "age_2"
 "re:dustydecorations:(.*paper_lantern|.+_seaglass_lamp|(waxed_)?(shoddy_)?copper_light|fairy_lights|beet_o_lantern|big_nautilus_lantern)" = "age_2"
+
+# Artifacts (vorauswahl M043): trinkets of the TFC ruins, the Cold Forge and the Beneath fortresses by Age
+# (kubejs/server_scripts/firmages/artifacts_loot.js; running shoes and the cloud in a bottle not before the Iron Age).
+"re:artifacts:(running_shoes|cloud_in_a_bottle|aqua_dashers|steadfast_spikes|feral_claws|power_glove|pocket_piston|charm_of_sinking|charm_of_shrinking|night_vision_goggles|antidote_vessel|panic_necklace)" = "age_2"
+"re:artifacts:(fire_gauntlet|flame_pendant|shock_pendant|thorn_pendant|cross_necklace|strider_shoes|withered_bracelet|obsidian_skull|vampiric_glove|scarf_of_invisibility)" = "age_3"
+"re:artifacts:(crystal_heart|warp_drive)" = "age_4"
 
 # ------------------------------------------------------------------------------------------------ hidden
 # Disabled items of the Electric to the Singularity Age (Doc 10 v3 section 7.2). They join the tag
@@ -1203,6 +1224,295 @@ items = [
     # in defaultconfigs/exposure-server.toml.
     "exposure:interplanar_projector",
     "exposure:broken_interplanar_projector",
+    # Artifacts (vorauswahl M043): endless food, ore smelting, mining level, death teleport, flight and the item magnet
+    # (Sophisticated Backpacks has the magnet) are off; config/artifacts/items.toml switches their effects off too.
+    "artifacts:eternal_steak",
+    "artifacts:everlasting_beef",
+    "artifacts:pickaxe_heater",
+    "artifacts:digging_claws",
+    "artifacts:rooted_boots",
+    "artifacts:chorus_totem",
+    "artifacts:helium_flamingo",
+    "artifacts:universal_attractor",
+    # Ars Energistique: the ME Source Acceptors turn Source into AE energy; magic gives no FE (standing rule).
+    "arseng:source_acceptor",
+    "arseng:cable_source_acceptor",
+    # Building Gadgets 2: copy-paste, cut-paste and the template manager with its templates (instant houses; the Create
+    # schematicannon of the Iron Age copies builds).
+    "buildinggadgets2:gadget_copy_paste",
+    "buildinggadgets2:gadget_cut_paste",
+    "buildinggadgets2:template_manager",
+    "buildinggadgets2:template",
+    "buildinggadgets2:redprint",
+    # AeroEngine: the guided missiles and their assembly station (terrain damage on a shared server).
+    "aeroengineering:air_to_air_missile",
+    "aeroengineering:missile_assembly_station",
+    "aeroengineering:missile_thruster",
+    # Draconic Additions (V2A): everything except the three necklaces (chaos machines and modules, potato armour, fake
+    # reactor, hermal).
+    "draconicadditions:chaos_container",
+    "draconicadditions:chaos_crystalizer",
+    "draconicadditions:chaos_extractor",
+    "draconicadditions:chaos_heart",
+    "draconicadditions:chaos_infuser",
+    "draconicadditions:chaos_liquifier",
+    "draconicadditions:fake_reactor_core",
+    "draconicadditions:fake_reactor_injector",
+    "draconicadditions:fake_reactor_stabilizer",
+    "draconicadditions:hermal",
+    "draconicadditions:inert_potato_boots",
+    "draconicadditions:inert_potato_chest",
+    "draconicadditions:inert_potato_helm",
+    "draconicadditions:inert_potato_legs",
+    "draconicadditions:infused_potato_boots",
+    "draconicadditions:infused_potato_chest",
+    "draconicadditions:infused_potato_helm",
+    "draconicadditions:infused_potato_legs",
+    "draconicadditions:item_chaos_injector",
+    "draconicadditions:item_chaotic_auto_feed",
+    "draconicadditions:item_semi_stable_chaos",
+    "draconicadditions:item_stable_chaos",
+    "draconicadditions:item_unstable_chaos",
+    # Alex's Mobs Continued (V1B): every item that does not belong to the 22 kept species (species table in
+    # dev/decisions-while-away.md 2026-10-15).
+    "alexsmobs:acacia_blossom",
+    "alexsmobs:ambergris",
+    "alexsmobs:ancient_dart",
+    "alexsmobs:banana",
+    "alexsmobs:banana_peel",
+    "alexsmobs:banana_slug_slime",
+    "alexsmobs:banana_slug_slime_block",
+    "alexsmobs:banner_pattern_australia_0",
+    "alexsmobs:banner_pattern_australia_1",
+    "alexsmobs:banner_pattern_bear",
+    "alexsmobs:banner_pattern_brazil",
+    "alexsmobs:banner_pattern_new_mexico",
+    "alexsmobs:bear_dust",
+    "alexsmobs:bear_fur",
+    "alexsmobs:bison_carpet",
+    "alexsmobs:bison_fur",
+    "alexsmobs:bison_fur_block",
+    "alexsmobs:blobfish",
+    "alexsmobs:blobfish_bucket",
+    "alexsmobs:blood_sac",
+    "alexsmobs:blood_sprayer",
+    "alexsmobs:bone_serpent_tooth",
+    "alexsmobs:cachalot_whale_tooth",
+    "alexsmobs:caiman_egg",
+    "alexsmobs:capsid",
+    "alexsmobs:centipede_leg",
+    "alexsmobs:centipede_leggings",
+    "alexsmobs:chorus_on_a_stick",
+    "alexsmobs:cockroach_ootheca",
+    "alexsmobs:cockroach_wing",
+    "alexsmobs:cockroach_wing_fragment",
+    "alexsmobs:comb_jelly_bucket",
+    "alexsmobs:cooked_catfish",
+    "alexsmobs:cooked_lobster_tail",
+    "alexsmobs:cooked_moose_ribs",
+    "alexsmobs:cosmic_cod",
+    "alexsmobs:cosmic_cod_bucket",
+    "alexsmobs:crocodile_chestplate",
+    "alexsmobs:crocodile_egg",
+    "alexsmobs:crocodile_scute",
+    "alexsmobs:crystalized_banana_slug_mucus",
+    "alexsmobs:devils_hole_pupfish_bucket",
+    "alexsmobs:dimensional_carver",
+    "alexsmobs:dimensional_carver_shard_0",
+    "alexsmobs:dimensional_carver_shard_1",
+    "alexsmobs:dimensional_carver_shard_10",
+    "alexsmobs:dimensional_carver_shard_2",
+    "alexsmobs:dimensional_carver_shard_3",
+    "alexsmobs:dimensional_carver_shard_4",
+    "alexsmobs:dimensional_carver_shard_5",
+    "alexsmobs:dimensional_carver_shard_6",
+    "alexsmobs:dimensional_carver_shard_7",
+    "alexsmobs:dimensional_carver_shard_8",
+    "alexsmobs:dimensional_carver_shard_9",
+    "alexsmobs:dropbear_claw",
+    "alexsmobs:echolocator",
+    "alexsmobs:effect_item",
+    "alexsmobs:elastic_tendon",
+    "alexsmobs:ender_residue",
+    "alexsmobs:enderiophage_rocket",
+    "alexsmobs:endolocator",
+    "alexsmobs:falconry_glove",
+    "alexsmobs:falconry_glove_hand",
+    "alexsmobs:falconry_glove_inventory",
+    "alexsmobs:falconry_hood",
+    "alexsmobs:fancy_item",
+    "alexsmobs:farseer_arm",
+    "alexsmobs:fedora",
+    "alexsmobs:fish_bones",
+    "alexsmobs:fish_oil",
+    "alexsmobs:frilled_shark_bucket",
+    "alexsmobs:froststalker_helmet",
+    "alexsmobs:froststalker_horn",
+    "alexsmobs:gazelle_horn",
+    "alexsmobs:ghostly_pickaxe",
+    "alexsmobs:gongylidia",
+    "alexsmobs:guster_eye",
+    "alexsmobs:gustmaker",
+    "alexsmobs:halo",
+    "alexsmobs:hemolymph_blaster",
+    "alexsmobs:hemolymph_sac",
+    "alexsmobs:kangaroo_burger",
+    "alexsmobs:komodo_spit",
+    "alexsmobs:komodo_spit_bottle",
+    "alexsmobs:large_catfish_bucket",
+    "alexsmobs:lava_bottle",
+    "alexsmobs:leafcutter_ant_chamber",
+    "alexsmobs:leafcutter_ant_pupa",
+    "alexsmobs:leafcutter_anthill",
+    "alexsmobs:lobster_bucket",
+    "alexsmobs:lobster_tail",
+    "alexsmobs:lost_tentacle",
+    "alexsmobs:maggot",
+    "alexsmobs:medium_catfish_bucket",
+    "alexsmobs:mimic_octopus_bucket",
+    "alexsmobs:mimicream",
+    "alexsmobs:moose_antler",
+    "alexsmobs:moose_headgear",
+    "alexsmobs:moose_ribs",
+    "alexsmobs:mosquito_larva",
+    "alexsmobs:mosquito_proboscis",
+    "alexsmobs:mosquito_repellent_stew",
+    "alexsmobs:mungal_spores",
+    "alexsmobs:music_disc_daze",
+    "alexsmobs:music_disc_thime",
+    "alexsmobs:mysterious_worm",
+    "alexsmobs:novelty_hat",
+    "alexsmobs:pigshoes",
+    "alexsmobs:platypus_egg",
+    "alexsmobs:pocket_sand",
+    "alexsmobs:poison_bottle",
+    "alexsmobs:potted_flutter",
+    "alexsmobs:pupfish_locator",
+    "alexsmobs:rainbow_glass",
+    "alexsmobs:rainbow_jelly",
+    "alexsmobs:raw_catfish",
+    "alexsmobs:red_sand_circle",
+    "alexsmobs:rocky_chestplate",
+    "alexsmobs:rocky_shell",
+    "alexsmobs:sand_circle",
+    "alexsmobs:sculk_boomer",
+    "alexsmobs:serrated_shark_tooth",
+    "alexsmobs:shark_tooth",
+    "alexsmobs:shark_tooth_arrow",
+    "alexsmobs:shattered_dimensional_carver",
+    "alexsmobs:shed_snake_skin",
+    "alexsmobs:shield_of_the_deep",
+    "alexsmobs:shrimp_fried_rice",
+    "alexsmobs:skelewag_sword",
+    "alexsmobs:skelewag_sword_hand",
+    "alexsmobs:skelewag_sword_inventory",
+    "alexsmobs:skreecher_soul",
+    "alexsmobs:small_catfish_bucket",
+    "alexsmobs:sombrero",
+    "alexsmobs:sopa_de_macaco",
+    "alexsmobs:soul_heart",
+    "alexsmobs:spawn_egg_alligator_snapping_turtle",
+    "alexsmobs:spawn_egg_anaconda",
+    "alexsmobs:spawn_egg_bald_eagle",
+    "alexsmobs:spawn_egg_banana_slug",
+    "alexsmobs:spawn_egg_bison",
+    "alexsmobs:spawn_egg_blobfish",
+    "alexsmobs:spawn_egg_bone_serpent",
+    "alexsmobs:spawn_egg_bunfungus",
+    "alexsmobs:spawn_egg_cachalot_whale",
+    "alexsmobs:spawn_egg_caiman",
+    "alexsmobs:spawn_egg_catfish",
+    "alexsmobs:spawn_egg_centipede",
+    "alexsmobs:spawn_egg_cockroach",
+    "alexsmobs:spawn_egg_comb_jelly",
+    "alexsmobs:spawn_egg_cosmaw",
+    "alexsmobs:spawn_egg_cosmic_cod",
+    "alexsmobs:spawn_egg_crimson_mosquito",
+    "alexsmobs:spawn_egg_crocodile",
+    "alexsmobs:spawn_egg_crow",
+    "alexsmobs:spawn_egg_devils_hole_pupfish",
+    "alexsmobs:spawn_egg_dropbear",
+    "alexsmobs:spawn_egg_endergrade",
+    "alexsmobs:spawn_egg_enderiophage",
+    "alexsmobs:spawn_egg_farseer",
+    "alexsmobs:spawn_egg_flutter",
+    "alexsmobs:spawn_egg_fly",
+    "alexsmobs:spawn_egg_frilled_shark",
+    "alexsmobs:spawn_egg_froststalker",
+    "alexsmobs:spawn_egg_gazelle",
+    "alexsmobs:spawn_egg_giant_squid",
+    "alexsmobs:spawn_egg_grizzly_bear",
+    "alexsmobs:spawn_egg_guster",
+    "alexsmobs:spawn_egg_hammerhead_shark",
+    "alexsmobs:spawn_egg_jerboa",
+    "alexsmobs:spawn_egg_laviathan",
+    "alexsmobs:spawn_egg_leafcutter_ant",
+    "alexsmobs:spawn_egg_lobster",
+    "alexsmobs:spawn_egg_maned_wolf",
+    "alexsmobs:spawn_egg_mantis_shrimp",
+    "alexsmobs:spawn_egg_mimic_octopus",
+    "alexsmobs:spawn_egg_mimicube",
+    "alexsmobs:spawn_egg_moose",
+    "alexsmobs:spawn_egg_mungus",
+    "alexsmobs:spawn_egg_murmur",
+    "alexsmobs:spawn_egg_orca",
+    "alexsmobs:spawn_egg_rain_frog",
+    "alexsmobs:spawn_egg_rocky_roller",
+    "alexsmobs:spawn_egg_seagull",
+    "alexsmobs:spawn_egg_seal",
+    "alexsmobs:spawn_egg_skelewag",
+    "alexsmobs:spawn_egg_skreecher",
+    "alexsmobs:spawn_egg_skunk",
+    "alexsmobs:spawn_egg_snow_leopard",
+    "alexsmobs:spawn_egg_soul_vulture",
+    "alexsmobs:spawn_egg_spectre",
+    "alexsmobs:spawn_egg_straddler",
+    "alexsmobs:spawn_egg_stradpole",
+    "alexsmobs:spawn_egg_sunbird",
+    "alexsmobs:spawn_egg_tarantula_hawk",
+    "alexsmobs:spawn_egg_terrapin",
+    "alexsmobs:spawn_egg_tiger",
+    "alexsmobs:spawn_egg_triops",
+    "alexsmobs:spawn_egg_tusklin",
+    "alexsmobs:spawn_egg_underminer",
+    "alexsmobs:spawn_egg_void_worm",
+    "alexsmobs:spawn_egg_warped_mosco",
+    "alexsmobs:spawn_egg_warped_toad",
+    "alexsmobs:spiked_scute",
+    "alexsmobs:spiked_turtle_shell",
+    "alexsmobs:squid_grapple",
+    "alexsmobs:stink_bottle",
+    "alexsmobs:stink_ray",
+    "alexsmobs:stink_ray_empty_hand",
+    "alexsmobs:stink_ray_empty_inventory",
+    "alexsmobs:stink_ray_hand",
+    "alexsmobs:stink_ray_inventory",
+    "alexsmobs:straddle_helmet",
+    "alexsmobs:straddle_saddle",
+    "alexsmobs:straddleboard",
+    "alexsmobs:straddlite",
+    "alexsmobs:straddlite_block",
+    "alexsmobs:stradpole_bucket",
+    "alexsmobs:tab_icon",
+    "alexsmobs:tarantula_hawk_elytra",
+    "alexsmobs:tarantula_hawk_wing",
+    "alexsmobs:tarantula_hawk_wing_fragment",
+    "alexsmobs:tendon_whip",
+    "alexsmobs:terrapin_bucket",
+    "alexsmobs:terrapin_egg",
+    "alexsmobs:transmutation_table",
+    "alexsmobs:triops_bucket",
+    "alexsmobs:triops_eggs",
+    "alexsmobs:unsettling_kimono",
+    "alexsmobs:vine_lasso",
+    "alexsmobs:vine_lasso_hand",
+    "alexsmobs:vine_lasso_inventory",
+    "alexsmobs:void_worm_beak",
+    "alexsmobs:void_worm_effigy",
+    "alexsmobs:void_worm_eye",
+    "alexsmobs:void_worm_mandible",
+    "alexsmobs:warped_mixture",
+    "alexsmobs:warped_muscle",
 ]
 # Regular expressions (full match on the item id), same effect as the ids above.
 patterns = [
@@ -1331,6 +1641,11 @@ patterns = [
 "afc:wood/trapped_chest/mahogany" = "age_2"
 "afc:wood/trapped_chest/teak" = "age_2"
 "afc:wood/trapped_chest/tualang" = "age_2"
+"alexsmobs:animal_dictionary" = "age_1"
+"alexsmobs:emu_leggings" = "age_0"
+"alexsmobs:flying_fish_boots" = "age_0"
+"alexsmobs:maraca" = "age_0"
+"alexsmobs:roadrunner_boots" = "age_1"
 "another_furniture:service_bell" = "age_2"
 "apotheosis:augmenting_table" = "age_4"
 "apotheosis:reforging_table" = "age_4"
@@ -1347,6 +1662,93 @@ patterns = [
 "ars_additions:polished_sourcestone_lantern" = "age_4"
 "ars_additions:sourcestone_lantern" = "age_4"
 "ars_additions:warp_nexus" = "age_6"
+"ars_elemental:air_boots" = "age_5"
+"ars_elemental:air_boots_heavy" = "age_5"
+"ars_elemental:air_chestplate" = "age_5"
+"ars_elemental:air_focus" = "age_5"
+"ars_elemental:air_hat" = "age_5"
+"ars_elemental:air_helmet" = "age_5"
+"ars_elemental:air_hood" = "age_5"
+"ars_elemental:air_leggings" = "age_5"
+"ars_elemental:air_leggings_heavy" = "age_5"
+"ars_elemental:air_pants" = "age_5"
+"ars_elemental:air_relay" = "age_4"
+"ars_elemental:air_robes" = "age_5"
+"ars_elemental:air_shoes" = "age_5"
+"ars_elemental:air_tunic" = "age_5"
+"ars_elemental:air_turret" = "age_5"
+"ars_elemental:aqua_boots" = "age_5"
+"ars_elemental:aqua_boots_heavy" = "age_5"
+"ars_elemental:aqua_chestplate" = "age_5"
+"ars_elemental:aqua_hat" = "age_5"
+"ars_elemental:aqua_helmet" = "age_5"
+"ars_elemental:aqua_hood" = "age_5"
+"ars_elemental:aqua_leggings" = "age_5"
+"ars_elemental:aqua_leggings_heavy" = "age_5"
+"ars_elemental:aqua_pants" = "age_5"
+"ars_elemental:aqua_robes" = "age_5"
+"ars_elemental:aqua_shoes" = "age_5"
+"ars_elemental:aqua_tunic" = "age_5"
+"ars_elemental:earth_boots" = "age_5"
+"ars_elemental:earth_boots_heavy" = "age_5"
+"ars_elemental:earth_chestplate" = "age_5"
+"ars_elemental:earth_focus" = "age_5"
+"ars_elemental:earth_hat" = "age_5"
+"ars_elemental:earth_helmet" = "age_5"
+"ars_elemental:earth_hood" = "age_5"
+"ars_elemental:earth_leggings" = "age_5"
+"ars_elemental:earth_leggings_heavy" = "age_5"
+"ars_elemental:earth_pants" = "age_5"
+"ars_elemental:earth_relay" = "age_4"
+"ars_elemental:earth_robes" = "age_5"
+"ars_elemental:earth_shoes" = "age_5"
+"ars_elemental:earth_tunic" = "age_5"
+"ars_elemental:earth_turret" = "age_5"
+"ars_elemental:everfull_urn" = "age_5"
+"ars_elemental:fire_bangle" = "age_4"
+"ars_elemental:fire_boots" = "age_5"
+"ars_elemental:fire_boots_heavy" = "age_5"
+"ars_elemental:fire_chestplate" = "age_5"
+"ars_elemental:fire_focus" = "age_5"
+"ars_elemental:fire_hat" = "age_5"
+"ars_elemental:fire_helmet" = "age_5"
+"ars_elemental:fire_hood" = "age_5"
+"ars_elemental:fire_leggings" = "age_5"
+"ars_elemental:fire_leggings_heavy" = "age_5"
+"ars_elemental:fire_pants" = "age_5"
+"ars_elemental:fire_relay" = "age_4"
+"ars_elemental:fire_robes" = "age_5"
+"ars_elemental:fire_shoes" = "age_5"
+"ars_elemental:fire_tunic" = "age_5"
+"ars_elemental:fire_turret" = "age_5"
+"ars_elemental:firenando_charm" = "age_4"
+"ars_elemental:glyph_bubble_shield" = "age_6"
+"ars_elemental:glyph_cauterize" = "age_4"
+"ars_elemental:glyph_cavitate" = "age_5"
+"ars_elemental:glyph_conflagrate" = "age_6"
+"ars_elemental:glyph_geyser" = "age_5"
+"ars_elemental:glyph_homing_projectile" = "age_4"
+"ars_elemental:glyph_mist" = "age_5"
+"ars_elemental:glyph_oxidize" = "age_5"
+"ars_elemental:glyph_propagator_homing" = "age_4"
+"ars_elemental:glyph_rage" = "age_4"
+"ars_elemental:glyph_slip_feet" = "age_5"
+"ars_elemental:glyph_spike" = "age_7"
+"ars_elemental:glyph_summon_slime" = "age_5"
+"ars_elemental:glyph_water_jet" = "age_5"
+"ars_elemental:glyph_watery_grave" = "age_5"
+"ars_elemental:homing_prism_lens" = "age_4"
+"ars_elemental:lesser_fire_focus" = "age_4"
+"ars_elemental:lesser_water_focus" = "age_5"
+"ars_elemental:magma_upstream" = "age_4"
+"ars_elemental:mark_of_mastery" = "age_5"
+"ars_elemental:ritual_archwood_forestation" = "age_6"
+"ars_elemental:ritual_tesla_coil" = "age_4"
+"ars_elemental:water_bangle" = "age_5"
+"ars_elemental:water_focus" = "age_5"
+"ars_elemental:water_relay" = "age_5"
+"ars_elemental:water_turret" = "age_5"
+"ars_elemental:water_upstream" = "age_5"
 "ars_nouveau:bastion_pod" = "age_6"
 "ars_nouveau:bombegranate_pod" = "age_6"
 "ars_nouveau:fire_essence" = "age_4"
@@ -2617,7 +3019,6 @@ patterns = [
 "handcrafted:spruce_shelf" = "age_9"
 "handcrafted:spruce_side_table" = "age_9"
 "handcrafted:spruce_table" = "age_9"
-"handcrafted:tropical_fish_trophy" = "age_3"
 "handcrafted:warped_bench" = "age_3"
 "handcrafted:warped_chair" = "age_3"
 "handcrafted:warped_corner_trim" = "age_3"
@@ -3930,7 +4331,6 @@ patterns = [
 "minecraft:trial_key" = "age_3"
 "minecraft:trident" = "age_3"
 "minecraft:tripwire_hook" = "age_2"
-"minecraft:tropical_fish" = "age_3"
 "minecraft:tube_coral" = "age_3"
 "minecraft:tube_coral_block" = "age_3"
 "minecraft:tube_coral_fan" = "age_3"
@@ -4275,6 +4675,7 @@ patterns = [
 "rnr:terracotta_roof_stairs" = "age_2"
 "rnr:terracotta_roof_tile" = "age_2"
 "rnr:unfired_terracotta_roof_tile" = "age_2"
+"sauce:source_fluid_bucket" = "age_5"
 "sophisticatedbackpacks:advanced_alchemy_upgrade" = "age_4"
 "sophisticatedbackpacks:advanced_compacting_upgrade" = "age_4"
 "sophisticatedbackpacks:advanced_deposit_upgrade" = "age_4"
@@ -4605,6 +5006,33 @@ items = [
     "aeronautics:red_envelope_encased_shaft",
     "aeronautics:white_envelope_encased_shaft",
     "aeronautics:yellow_envelope_encased_shaft",
+    "alexsmobs:flying_fish_bucket",
+    "alexsmobs:frontier_cap",
+    "alexsmobs:hummingbird_feeder",
+    "alexsmobs:mudskipper_bucket",
+    "alexsmobs:platypus_bucket",
+    "alexsmobs:spawn_egg_anteater",
+    "alexsmobs:spawn_egg_blue_jay",
+    "alexsmobs:spawn_egg_capuchin_monkey",
+    "alexsmobs:spawn_egg_elephant",
+    "alexsmobs:spawn_egg_emu",
+    "alexsmobs:spawn_egg_flying_fish",
+    "alexsmobs:spawn_egg_gelada_monkey",
+    "alexsmobs:spawn_egg_gorilla",
+    "alexsmobs:spawn_egg_hummingbird",
+    "alexsmobs:spawn_egg_kangaroo",
+    "alexsmobs:spawn_egg_komodo_dragon",
+    "alexsmobs:spawn_egg_mudskipper",
+    "alexsmobs:spawn_egg_platypus",
+    "alexsmobs:spawn_egg_potoo",
+    "alexsmobs:spawn_egg_raccoon",
+    "alexsmobs:spawn_egg_rattlesnake",
+    "alexsmobs:spawn_egg_rhinoceros",
+    "alexsmobs:spawn_egg_roadrunner",
+    "alexsmobs:spawn_egg_shoebill",
+    "alexsmobs:spawn_egg_sugar_glider",
+    "alexsmobs:spawn_egg_tasmanian_devil",
+    "alexsmobs:spawn_egg_toucan",
     "apotheosis:ascent_spawner_upgrade_rune",
     "apotheosis:boss_summoner",
     "apotheosis:burning_spawner_rune",
@@ -4647,6 +5075,24 @@ items = [
     "ars_additions:ritual_chunk_loading",
     "ars_additions:source_spawner",
     "ars_additions:thread_reach",
+    "ars_elemental:debug",
+    "ars_elemental:firenando_familiar",
+    "ars_elemental:flashjack_charm",
+    "ars_elemental:flashjack_familiar",
+    "ars_elemental:flashjack_shards",
+    "ars_elemental:flashpine_pod",
+    "ars_elemental:glyph_discharge",
+    "ars_elemental:glyph_nullify_defense",
+    "ars_elemental:mermaid_rock",
+    "ars_elemental:rainbow_prism_lens",
+    "ars_elemental:siren_charm",
+    "ars_elemental:siren_familiar",
+    "ars_elemental:siren_shards",
+    "ars_elemental:sparkflower",
+    "ars_elemental:spawn_egg_flashjack",
+    "ars_elemental:spawn_egg_siren",
+    "ars_elemental:thread_shock",
+    "ars_elemental:yellow_archwood_leaves",
     "ars_nouveau:alakarkinos_charm",
     "ars_nouveau:alakarkinos_hat",
     "ars_nouveau:alakarkinos_se",
@@ -4695,6 +5141,7 @@ items = [
     "ars_nouveau:wilden_stalker_se",
     "ars_nouveau:wixie_cauldron",
     "ars_nouveau:wixie_shards",
+    "artifacts:mimic_spawn_egg",
     "astikorcartsredux:acacia_animal_cart",
     "astikorcartsredux:acacia_hand_cart",
     "astikorcartsredux:acacia_plow",
@@ -6038,6 +6485,7 @@ items = [
     "everycomp:mcb/createdieselgenerators/chip_wood_rope_bridge_stair",
     "everycomp:mcb/createdieselgenerators/rope_chip_wood_bridge",
     "everycomp:mcd/createdieselgenerators/chip_wood_western_door",
+    "everycomp:mcf/ars_elemental/yellow_archwood_hedge",
     "everycomp:mcf/ars_nouveau/blue_archwood_hedge",
     "everycomp:mcf/ars_nouveau/green_archwood_hedge",
     "everycomp:mcf/ars_nouveau/purple_archwood_hedge",
@@ -6094,6 +6542,8 @@ items = [
     "ftbquests:lootcrate",
     "ftbquests:missing_item",
     "ftbquests:stage_barrier",
+    "goblintraders:goblin_trader_spawn_egg",
+    "goblintraders:vein_goblin_trader_spawn_egg",
     "gravestone:obituary",
     "guideme:guide",
     "handcrafted:acacia_bench",
@@ -6520,7 +6970,6 @@ items = [
     "megacells:mega_experience_cell_housing",
     "megacells:mega_mana_cell_housing",
     "megacells:mega_soul_cell_housing",
-    "megacells:mega_source_cell_housing",
     "megacells:portable_experience_cell_16m",
     "megacells:portable_experience_cell_1m",
     "megacells:portable_experience_cell_256m",
@@ -6531,21 +6980,11 @@ items = [
     "megacells:portable_mana_cell_256m",
     "megacells:portable_mana_cell_4m",
     "megacells:portable_mana_cell_64m",
-    "megacells:portable_source_cell_16m",
-    "megacells:portable_source_cell_1m",
-    "megacells:portable_source_cell_256m",
-    "megacells:portable_source_cell_4m",
-    "megacells:portable_source_cell_64m",
     "megacells:soul_storage_cell_16m",
     "megacells:soul_storage_cell_1m",
     "megacells:soul_storage_cell_256m",
     "megacells:soul_storage_cell_4m",
     "megacells:soul_storage_cell_64m",
-    "megacells:source_storage_cell_16m",
-    "megacells:source_storage_cell_1m",
-    "megacells:source_storage_cell_256m",
-    "megacells:source_storage_cell_4m",
-    "megacells:source_storage_cell_64m",
     "mekanism:block_bronze",
     "mekanism:block_lead",
     "mekanism:block_steel",
@@ -7542,6 +7981,7 @@ items = [
     "occultism:spirit_fire",
     "occultism:stripped_otherworld_log_natural",
     "occultism:sweet_honey_heart",
+    "psi:cad_assembly_creative",
     "railways:black_paint_pitcher",
     "railways:blue_paint_pitcher",
     "railways:brown_paint_pitcher",
@@ -7747,6 +8187,9 @@ items = [
     "rnr:trodden_wet_concrete_road",
     "rnr:wet_concrete_road",
     "rnr:wet_concrete_road_control_joint",
+    "sauce:source_jar_core",
+    "sauce:source_jar_frame",
+    "sauce:source_jar_valve",
     "sgjourney:andromeda_dhd",
     "sgjourney:andromeda_stargate",
     "sgjourney:archeologist_notebook",

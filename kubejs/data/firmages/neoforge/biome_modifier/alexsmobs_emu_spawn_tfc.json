@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_land",
+  "spawners": {
+    "type": "alexsmobs:emu",
+    "weight": 5,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}

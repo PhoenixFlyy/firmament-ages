@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#c:is_plains",
+    "#c:is_hill",
+    "#c:is_plateau",
+    "#c:is_swamp",
+    "#tfc:is_karst",
+    "#c:is_badlands",
+    "#c:is_dry"
+  ]
+}

@@ -1,0 +1,13 @@
+name = "Psi"
+filename = "Psi-neoforge-1.21.1-110.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "f4be150631efd276e780b7cc693a71d565ce3e21"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8786571
+project-id = 241665

@@ -1,0 +1,252 @@
+{
+  "replace": true,
+  "trades": [
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/rice"
+      },
+      "payment_item": {
+        "count": 6,
+        "id": "tfc:food/red_apple"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/sugarcane"
+      },
+      "payment_item": {
+        "count": 6,
+        "id": "tfc:food/red_apple"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/papyrus"
+      },
+      "payment_item": {
+        "count": 6,
+        "id": "tfc:food/green_apple"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/cassava"
+      },
+      "payment_item": {
+        "count": 6,
+        "id": "tfc:food/green_apple"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/peanut"
+      },
+      "payment_item": {
+        "count": 12,
+        "id": "tfc:jute_fiber"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/soybean"
+      },
+      "payment_item": {
+        "count": 12,
+        "id": "tfc:jute_fiber"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/tomato"
+      },
+      "payment_item": {
+        "count": 12,
+        "id": "tfc:jute_fiber"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/red_bell_pepper"
+      },
+      "payment_item": {
+        "count": 16,
+        "id": "tfc:straw"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/squash"
+      },
+      "payment_item": {
+        "count": 16,
+        "id": "tfc:straw"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "tfc:seeds/jute"
+      },
+      "payment_item": {
+        "count": 16,
+        "id": "tfc:straw"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 1,
+        "id": "tfc:wood/sapling/kapok"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:small_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 1,
+        "id": "tfc:wood/sapling/palm"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:small_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 1,
+        "id": "tfc:wood/sapling/rosewood"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:small_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 1,
+        "id": "tfc:wood/sapling/sequoia"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:medium_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 3,
+        "id": "tfc:kaolin_clay"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:medium_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 1,
+        "id": "tfc:silk_cloth"
+      },
+      "payment_item": {
+        "count": 8,
+        "id": "tfc:wool_yarn"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 4,
+        "id": "tfc:powder/soda_ash"
+      },
+      "payment_item": {
+        "count": 8,
+        "id": "tfc:powder/charcoal"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 3,
+        "id": "tfc:candle"
+      },
+      "payment_item": {
+        "count": 2,
+        "id": "tfc:blubber"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 3,
+        "id": "tfc:glue"
+      },
+      "payment_item": {
+        "count": 2,
+        "id": "tfc:small_raw_hide"
+      }
+    }
+  ]
+}

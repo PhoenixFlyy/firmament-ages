@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "item": "alexsmobs:emu_egg"
+  },
+  "hunger": 4,
+  "edible": false,
+  "decay_modifier": 2.0
+}

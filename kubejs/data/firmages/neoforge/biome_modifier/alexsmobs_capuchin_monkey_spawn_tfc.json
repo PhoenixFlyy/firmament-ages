@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_land",
+  "spawners": {
+    "type": "alexsmobs:capuchin_monkey",
+    "weight": 6,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

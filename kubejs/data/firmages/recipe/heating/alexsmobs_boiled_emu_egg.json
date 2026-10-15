@@ -1,0 +1,26 @@
+{
+  "type": "tfc:heating",
+  "ingredient": {
+    "type": "tfc:and",
+    "children": [
+      {
+        "item": "alexsmobs:emu_egg"
+      },
+      {
+        "type": "tfc:not_rotten"
+      }
+    ]
+  },
+  "result_item": {
+    "modifiers": [
+      {
+        "type": "tfc:copy_food"
+      }
+    ],
+    "stack": {
+      "count": 1,
+      "id": "alexsmobs:boiled_emu_egg"
+    }
+  },
+  "temperature": 200.0
+}

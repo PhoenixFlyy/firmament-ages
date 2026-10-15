@@ -1,0 +1,44 @@
+{
+  "replace": true,
+  "trades": [
+    {
+      "type": "goblintraders:basic",
+      "experience": 10,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 4,
+        "id": "tfc:powder/sulfur"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:large_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 10,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 2,
+        "id": "minecraft:slime_ball"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:large_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 10,
+      "max_trades": 4,
+      "offer_item": {
+        "count": 2,
+        "id": "firmalife:spice/vanilla"
+      },
+      "payment_item": {
+        "count": 2,
+        "id": "tfc:silk_cloth"
+      }
+    }
+  ]
+}

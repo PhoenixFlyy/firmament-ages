@@ -45,6 +45,8 @@
     {"id": "create_enchantment_industry:infused_dragon_breath", "required": false},
     {"id": "occultengineering:flowing_spirit_solution", "required": false},
     {"id": "occultengineering:spirit_solution", "required": false},
+    {"id": "sauce:source_fluid", "required": false},
+    {"id": "sauce:source_fluid_flowing", "required": false},
     {"id": "theurgy:sal_ammoniac", "required": false},
     {"id": "theurgy:sal_ammoniac_flowing", "required": false}
   ]

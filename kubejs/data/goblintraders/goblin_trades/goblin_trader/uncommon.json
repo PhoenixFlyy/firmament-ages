@@ -1,0 +1,96 @@
+{
+  "replace": true,
+  "trades": [
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 6,
+        "id": "tfc:powder/flux"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:medium_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 6,
+        "id": "tfc:powder/salt"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:medium_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 6,
+        "id": "tfc:fire_clay"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:large_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 6,
+        "id": "tfc:powder/sylvite"
+      },
+      "payment_item": {
+        "count": 2,
+        "id": "tfc:wool_cloth"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 4,
+        "id": "tfc:powder/saltpeter"
+      },
+      "payment_item": {
+        "count": 2,
+        "id": "tfc:wool_cloth"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 2,
+        "id": "firmalife:spice/allspice"
+      },
+      "payment_item": {
+        "count": 4,
+        "id": "tfc:burlap_cloth"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 2,
+        "id": "firmalife:spice/bay_leaves"
+      },
+      "payment_item": {
+        "count": 4,
+        "id": "tfc:burlap_cloth"
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_land",
+  "spawners": {
+    "type": "alexsmobs:toucan",
+    "weight": 5,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}
