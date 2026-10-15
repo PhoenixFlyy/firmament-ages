@@ -1,5 +1,24 @@
 # Client-Test
 
+## C1-Deko (1.0 Runde C1 2026-10-15, Zweig c1/mods-deco, für den Integrator)
+
+16 Mods aus der Inhaltssperre plus die Bibliotheken ForgeEndertech, Bookshelf und Prickle; Carry On und Furniture:
+Refurbished sind raus. Server-Teil auf einer Kopie mit neuer Welt geprüft: `poc_analyze.py` 98 PASS, `check_log.py`
+0 offen (nur „Can't keep up“ beim Erzeugen der neuen Welt), `selftest all` 55 von 55. Im Client noch offen:
+
+1. **BetterF3 in der Steinzeit:** F3 zeigt keine XYZ-, Block- und Chunk-Koordinaten, nur „Chunk-relative“ wie Vanilla.
+2. **Ein Polarlicht:** in kalter Breite (Norden, negatives z) bei klarer Nacht nur das Polarlicht von Auroras, keins
+   von Complementary (neues Profil, damit defaultoptions die Shader-Einstellung schreibt).
+3. **Banner Flags:** Banner schleichend an einen Zaun oder eine Mauer setzen, die Flagge weht; beim Beitritt kein
+   Toast „Gurkis Datapacks“.
+4. **Bibliocraft (Eisenzeit):** Vitrine aus TFC-Holzstufe, Etikett, Klemmbrett, Lagerkatalog, Bücherregal und edles
+   Schild in TFC-Holz; Sitze, Tische, Regale, Lampen, Uhren und Werkzeugregal fehlen in EMI.
+5. **Kamine:** Rauch einer TFC-Feuerstelle steigt durch einen Kamin darüber, ohne Vergiftung.
+6. **Akashic Tome (Arkanzeit):** TFC-Feldführer, Schrein-Buch und Occultism-Buch lassen sich einlegen und wechseln.
+7. **Client-Mods:** 3D Skin Layers, Cool Rain, Chat Heads, Big Sign Writer (Schild mit großer Schrift),
+   Enchantment Descriptions (Tooltip auf verzaubertem Buch) laufen ohne Meldung beim Start.
+8. **Bat Poles:** Holzstange in der Bronzezeit, die Hebestange erst in der Eisenzeit.
+
 ## 0.10.0 Nachtrag (1.0 Runde A 2026-10-15, Pack 0.10.0, firmages-core 0.10.0)
 
 **Voller Reset:** neue Welt und neu importiertes Profil (Client und Server brauchen firmages-core 0.10.0). Alte Welten
