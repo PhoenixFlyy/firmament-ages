@@ -1,0 +1,75 @@
+{
+  "_doc": [
+    "Firmament Ages - the metal table: the one place that says how much metal an ore piece yields at which station and Age.",
+    "dev/poc_analyze.py reads it for the L- checks (ladder): it measures every station on every ore piece in the recipe dump",
+    "and fails when a measured factor leaves its target here by more than 'tolerance', when a later tech station yields",
+    "less than an earlier one, when magic yields more than the next tech step, when an unlisted recipe type multiplies ore,",
+    "or when a metal is reachable from the world without ore. Harmony plan 2026-10-15, package A3 (German notes:",
+    "dev/decisions-while-away.md). The recipe scripts carry the numbers: recipes/age_2/iron_age.js (YIELD),",
+    "age_3/arcane_age.js (DIGEST), age_4/industrial_age.js, age_6/ore_ladder.js (ratio())."
+  ],
+  "grade_mb": {"small": 10, "poor": 15, "normal": 25, "rich": 35},
+  "tolerance": 0.05,
+  "units": {
+    "_doc": "mB of metal per output: a dust, clump, shard, crystal or Theurgy sulfur is one ingot (100 mB); a slurry (dirty or clean) gives one crystal per 200 mB; a nugget is a ninth; a TFC fluid counts its mB.",
+    "item_mb": 100,
+    "nugget_mb": 11.11,
+    "slurry_mb_per_ingot": 200
+  },
+  "powder": {
+    "_doc": "TFC quern powder (tfc:powder/<ore>, tfc_ie_addon:powder/<ore>): the IE Arc Furnace melts 20 into one ingot (5 mB each). The quern and the millstone give 1.0x in powder; the IE Crusher gives the quern amount as its main output on top of its dust, so from the Age of the arc furnace its factor counts the powder too.",
+    "station_type": "immersiveengineering:arc_furnace"
+  },
+  "stations": {
+    "tfc_melting":       {"type": "tfc:heating",                 "age": "age_0", "kind": "tech",  "factor": 1.0, "label": "TFC crucible / vessel"},
+    "create_crushing":   {"type": "create:crushing",             "age": "age_2", "kind": "tech",  "factor": 1.7, "label": "Create crushing wheels"},
+    "theurgy_digestion": {"type": "theurgy:digestion",           "age": "age_3", "kind": "magic", "factor": 2.0, "label": "Theurgy digestion vat (H3A)"},
+    "ie_crusher":        {"type": "immersiveengineering:crusher","age": "age_4", "kind": "tech",  "factor": 2.0, "label": "IE Crusher (+ quern powder)"},
+    "mek_purifying":     {"type": "mekanism:purifying",          "age": "age_6", "kind": "tech",  "factor": 3.0, "label": "Mekanism Purification"},
+    "mek_injecting":     {"type": "mekanism:injecting",          "age": "age_7", "kind": "tech",  "factor": 4.0, "label": "Mekanism Injection"},
+    "mek_dissolution":   {"type": "mekanism:dissolution",        "age": "age_8", "kind": "tech",  "factor": 5.0, "label": "Mekanism Dissolution"}
+  },
+  "extra_ores": {
+    "_doc": "World blocks outside the ore families that hold a metal and count as ore for L-5 (Create crushes gilded blackstone into gold nuggets).",
+    "items": ["minecraft:gilded_blackstone", "minecraft:ancient_debris"]
+  },
+  "metal_items": {
+    "_doc": "Items that are a metal form without the usual names (the TFC iron blooms).",
+    "iron": ["tfc:raw_iron_bloom", "tfc:refined_iron_bloom"]
+  },
+  "neutral_types": {
+    "_doc": "Recipe types that take an ore piece without multiplying it (factor <= 1.0 is checked) or only use it as a part.",
+    "types": ["tfc:quern", "create:milling", "woodencog:heated_mixing", "minecraft:crafting_shaped", "minecraft:crafting_shapeless",
+              "kubejs:shaped", "kubejs:shapeless", "tfc:collapse", "tfc:landslide", "create:splashing"]
+  },
+  "metals": {
+    "copper":    {"first_age": "age_0", "aliases": ["copper"],
+                  "ores": ["tfc:ore/{g}_native_copper", "tfc:ore/{g}_malachite", "tfc:ore/{g}_tetrahedrite"],
+                  "stations": ["tfc_melting", "create_crushing", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "tin":       {"first_age": "age_1", "aliases": ["tin"], "ores": ["tfc:ore/{g}_cassiterite"],
+                  "stations": ["tfc_melting", "create_crushing", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "zinc":      {"first_age": "age_1", "aliases": ["zinc"], "ores": ["tfc:ore/{g}_sphalerite"],
+                  "stations": ["tfc_melting", "create_crushing", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "bismuth":   {"first_age": "age_1", "aliases": ["bismuth"], "ores": ["tfc:ore/{g}_bismuthinite"],
+                  "stations": ["tfc_melting", "create_crushing", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "silver":    {"first_age": "age_1", "aliases": ["silver"], "ores": ["tfc:ore/{g}_native_silver"],
+                  "stations": ["tfc_melting", "create_crushing", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "gold":      {"first_age": "age_1", "aliases": ["gold"], "ores": ["tfc:ore/{g}_native_gold"],
+                  "stations": ["tfc_melting", "create_crushing", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "iron":      {"first_age": "age_2", "aliases": ["iron", "cast_iron", "wrought_iron", "pig_iron"],
+                  "ores": ["tfc:ore/{g}_hematite", "tfc:ore/{g}_limonite", "tfc:ore/{g}_magnetite"],
+                  "stations": ["tfc_melting", "create_crushing", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "nickel":    {"first_age": "age_4", "aliases": ["nickel"], "ores": ["tfc:ore/{g}_garnierite"],
+                  "stations": ["tfc_melting", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "lead":      {"first_age": "age_4", "aliases": ["lead"], "ores": ["tfc_ie_addon:ore/{g}_galena"],
+                  "stations": ["tfc_melting", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "aluminum":  {"first_age": "age_5", "aliases": ["aluminum", "aluminium"], "ores": ["tfc_ie_addon:ore/{g}_bauxite"],
+                  "stations": ["tfc_melting", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "osmium":    {"first_age": "age_6", "aliases": ["osmium"], "ores": ["firmages:ore/{g}_native_osmium"],
+                  "stations": ["tfc_melting", "theurgy_digestion", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "uranium":   {"first_age": "age_7", "aliases": ["uranium"], "ores": ["tfc_ie_addon:ore/{g}_uraninite"],
+                  "stations": ["tfc_melting", "theurgy_digestion", "ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution"]},
+    "draconium": {"first_age": "age_7", "aliases": ["draconium"], "ores": ["firmages:ore/{g}_draconium"],
+                  "stations": ["mek_purifying", "mek_injecting", "mek_dissolution"]}
+  }
+}
