@@ -194,7 +194,7 @@ hash = "20062304298efd84e1ba885e3a038f8000b89914b1d408546569531e3716ae28"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "ad449a2376fb683ae1a82ea21371e5f6ebc70f0155e6b3ec12e4189be4d8e251"
+hash = "f50ef53ae733e0b9ef5347677ededae12c6b06ab71aada26447b1c87408404c2"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
@@ -222,7 +222,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "3e6f89f5249acc0cc51105da64151c9316f73a31d728f8a67d3b06fba4e2490f"
+hash = "49126a19567d2052b9392bc030fdb6e2639842e9a32f5f60a8864e15f31bfc17"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -8606,11 +8606,11 @@ hash = "98b4a9ddae1260a131cf609557c80fb1d4225d080184ae1a7d64e607ff6930b9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
-hash = "b22080fa0fdb2e753ae1bf3a2b776057b66f3a761d2260661288161fde5d716f"
+hash = "68c0b10a430eca0fce8f5313b412a006f74b00c4bfce5e7ee3c5af6bd25740fd"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
-hash = "0d3c9f3c87c9b15cd678792ca877027f4200e2308f8670dd50508be28902a70c"
+hash = "9e5ec8233cdd6cd7117403b906d238902f6cbcea187cf8805a9eace493db59c3"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/refurbished_furniture.js"
@@ -8638,7 +8638,7 @@ hash = "acfc50117c5162a9a73cfc6791dd5a313b9bd10b8358cee500eff7f8b8f23729"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"
-hash = "f15303f49eb90dec9c13318438488f27b9a13c8042b052950cb052578f2952df"
+hash = "9f0bc2f1b7f294329ff09635a2d99d8c34d922c50c7474797e454182d29f0931"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_9/chaos_bootstrap.js"

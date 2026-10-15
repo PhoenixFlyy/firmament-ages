@@ -135,7 +135,7 @@
 	]
 	quest.06055D169B0CC629.title: "Iesnium"
 	quest.063D45434D0281D0.quest_desc: [
-		"A circuit board with a spirit attuned crystal: the magic tail of the Electric Age. Let the assembler make them."
+		"A circuit board tuned by quartz, with two advanced electronic components and electrum wire. With magic, a spirit attuned crystal tunes it alone. Let the assembler make them."
 	]
 	quest.063D45434D0281D0.title: "Attuned Circuits"
 	quest.063F1A5EA37B6B16.quest_desc: [
@@ -239,7 +239,7 @@
 	]
 	quest.0D99128B070FE166.title: "Chaotic Armor"
 	quest.0DD300C809C84163.quest_desc: [
-		"Fuse hypercharged alloy with antimatter into two subatomic alloys. The Quantum Core and the Marid ritual each want one."
+		"Fuse hypercharged alloy with antimatter into two subatomic alloys. The Quantum Core and the Awakened Keystone each want one."
 	]
 	quest.0DD300C809C84163.title: "Subatomic Alloy"
 	quest.0E48C0E43D256E7D.quest_desc: [
@@ -413,7 +413,7 @@
 	]
 	quest.1D238635FCC5C642.title: "Autocrafting Online"
 	quest.1D5C854562BD6F58.quest_desc: [
-		"Dial The Origin and step through the gate. Hold out against the waves, Maledictus and Ignis among them, then face the final boss."
+		"Dial The Origin and step through the gate. Its guardian is being rebuilt for version 1.0: until then the Gathering at the altar calls no boss, and this goal stays open."
 		""
 		"Its fall completes the Firmament. The MekaSuit and the Meka-Tool can then be made."
 	]
@@ -558,7 +558,7 @@
 	quest.29BB85F4AE1E4A82.quest_desc: [
 		"Fusion power, the SPS, rockets to Venus, Mercury and Glacio, awakened draconium and the Marid."
 		""
-		"Four strands lead to the Quantum Core: Fusion, Inner Planets, Awakened and Marid. The Quantum Core is the last offering at the shrine."
+		"Four strands lead to the Quantum Core: Fusion, Inner Planets, Awakened and Keystone. The Quantum Core is the last offering at the shrine."
 	]
 	quest.29BB85F4AE1E4A82.quest_subtitle: "The ninth Age"
 	quest.29BB85F4AE1E4A82.title: "The Quantum Age Dawns"
@@ -705,9 +705,7 @@
 		"A divination rod points to the ore veins your Age has woken."
 	]
 	quest.3931946D843ABA96.title: "Divination Rod"
-	quest.39882F695B4F5776.quest_desc: [
-		"Make four atomic alloys. The Marid book and its ritual need them."
-	]
+	quest.39882F695B4F5776.quest_desc: ["Make four atomic alloys. The Awakened Keystone needs them."]
 	quest.39882F695B4F5776.title: "Atomic Alloy"
 	quest.398B809EEA8DDFB5.quest_desc: [
 		"Make a 1M cell component. MEGA cells hold far more than the first cells."
@@ -864,7 +862,7 @@
 	]
 	quest.484BD83C5FBABCE1.title: "A Home"
 	quest.485FE6EFB6565F6E.quest_desc: [
-		"Take the Arcane Keystone from its plinth (sneak and right-click the plinth with an empty hand), or bind a second one with the Djinni. Awaken it in the Marid ritual with two atomic alloys, a wyvern core and a subatomic alloy."
+		"Take the Arcane Keystone from its plinth (sneak and right-click the plinth with an empty hand), or make a second one. Awaken it by fusion at draconic level: the Keystone on the fusion core, four atomic alloys, a wyvern core and a subatomic alloy in the injectors. With magic, the Marid ritual does it with two atomic alloys."
 		""
 		"Lay the Awakened Keystone back on its plinth. It stays the relic of the Arcane Age and goes into the Ultimate Singularity."
 	]
@@ -980,7 +978,7 @@
 	]
 	quest.4F89B63F08027F21.title: "Simulation Chamber"
 	quest.4FC3CDC1654522C0.quest_desc: [
-		"Bind the Marid, the strongest of the spirits. Only it can awaken the Keystone."
+		"Bind the Marid, the strongest of the spirits. Its ritual awakens the Keystone for half the alloy."
 	]
 	quest.4FC3CDC1654522C0.title: "Bind a Marid"
 	quest.4FD3780AF1ECC795.quest_desc: [
@@ -1335,7 +1333,7 @@
 	quest.6C6E95AB6ABD2B3E.quest_desc: ["The packager boxes items for the package network."]
 	quest.6C6E95AB6ABD2B3E.title: "Packager"
 	quest.6C89D8CCD3EEFE88.quest_desc: [
-		"Source gems in a steel gearbox. A Wixie can automate it. It goes into the reinforced blast bricks and into the Pressure Core."
+		"A gearbox with steel and precision mechanisms from the mechanical crafter, or with source gems by magic. Reinforced blast bricks and Pressure Cores need it."
 	]
 	quest.6C89D8CCD3EEFE88.title: "Arcane Gearbox"
 	quest.6CBAA83920DDC925.quest_desc: [

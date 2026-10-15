@@ -253,9 +253,24 @@ ServerEvents.recipes((event) => {
   event.custom(jetpack('create_jetpack:netherite_jetpack', 'c:ingots/netherite', { item: 'create:fluid_tank' }))
     .id('firmages:mechanical_crafting/netherite_jetpack')
 
-  // ======================================================================================== magic tail: Arcane Gearbox
-  // Doc 08 section 7.2: a pack item from source gems, crafted in the grid so a Wixie can automate it; it sits in the
-  // Improved Blast Furnace (reinforced blast bricks) and in the Pressure Core.
+  // ======================================================================================== Arcane Gearbox
+  // It sits in the Improved Blast Furnace (reinforced blast bricks) and in the Pressure Core. Two routes
+  // (dev/decisions-while-away.md, 2026-10-15: tech is required, magic a bonus):
+  // - tech: the Create mechanical crafter from a gearbox, steel plates, precision mechanisms and IE steel components;
+  // - magic (Doc 08 section 7.2, the magic tail): source gems in the grid, cheaper, and a Wixie can automate it.
+  event.custom({
+    type: 'create:mechanical_crafting',
+    accept_mirrored: true,
+    category: 'misc',
+    key: {
+      P: { tag: 'c:plates/steel' },
+      M: { item: 'create:precision_mechanism' },
+      C: { item: 'immersiveengineering:component_steel' },
+      B: { item: 'create:gearbox' }
+    },
+    pattern: ['PMP', 'CBC', 'PMP'],
+    result: { id: 'firmages:arcane_gearbox', count: 1 }
+  }).id('firmages:mechanical_crafting/arcane_gearbox')
   event.shaped('firmages:arcane_gearbox', ['GSG', 'SBS', 'GSG'], {
     G: '#c:gems/source',
     S: '#c:plates/steel',

@@ -388,14 +388,14 @@ block = "tfc:rock/loose/granite"
 "id:firmages:tally_chute" = "age_1"                      # firmages-core proof of work (SPEC 22.1), crafted in the Bronze Age
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"
-"id:firmages:arcane_gearbox" = "age_4"                   # magic tail of the Industrial Age (Doc 08 section 7.2)
+"id:firmages:arcane_gearbox" = "age_4"                   # mechanical crafter (tech) or source gems (magic tail, Doc 08 7.2)
 "id:firmages:pressure_core" = "age_4"
-"id:firmages:attuned_circuit" = "age_5"                  # IE circuit board + spirit attuned crystal (recipes/age_5)
+"id:firmages:attuned_circuit" = "age_5"                  # IE circuit board + quartz (tech) or spirit crystal (magic)
 "id:firmages:humming_core" = "age_5"                     # shrine offering of age_5 (IE Arc Furnace)
 "id:firmages:data_matrix" = "age_6"                      # shrine offering of age_6 (Mekanism + AE2 parts)
 "id:firmages:star_chart" = "age_7"                       # shrine offering of age_7 (DE fusion, wyvern)
 "id:firmages:quantum_core" = "age_8"                     # shrine offering of age_8, the last one (DE fusion, draconic)
-"id:firmages:awakened_keystone" = "age_8"                # Marid ritual (recipes/age_8)
+"id:firmages:awakened_keystone" = "age_8"                # draconic fusion (tech) or Marid ritual (recipes/age_8)
 "id:firmages:ultimate_singularity" = "age_9"             # DE fusion, chaotic, from the nine relics (recipes/age_9)
 "id:firmages:origin_coordinates" = "age_9"               # the dial address of The Origin (recipes/age_9)
 # The End opens with the Information Age through a crafted portal frame (recipes/age_6, Doc 08 section 6).

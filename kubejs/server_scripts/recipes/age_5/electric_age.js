@@ -87,8 +87,17 @@ ServerEvents.recipes((event) => {
     b: 'occultism:book_of_binding_empty', p: '#c:dyes/yellow', H: 'immersiveengineering:coil_hv'
   }).id('occultism:crafting/book_of_binding_afrit_from_empty')
 
-  // ======================================================================================== magic tail: Attuned Circuit
-  // IE circuit board with a spirit attuned crystal (Doc 08 section 7.2). A grid recipe, so the IE Assembler automates it.
+  // ======================================================================================== Attuned Circuit
+  // Two grid recipes, so the IE Assembler automates both (dev/decisions-while-away.md, 2026-10-15: tech is required,
+  // magic a bonus):
+  // - tech: an IE circuit board tuned by a quartz crystal, with two advanced electronic components and electrum wire;
+  // - magic (Doc 08 section 7.2, the magic tail): the circuit board with a spirit attuned crystal, cheaper.
+  event.shaped('firmages:attuned_circuit', [' Q ', 'ECE', ' W '], {
+    Q: '#c:gems/quartz',
+    E: 'immersiveengineering:component_electronic_adv',
+    C: 'immersiveengineering:circuit_board',
+    W: '#c:wires/electrum'
+  }).id('firmages:crafting/attuned_circuit_tuned')
   event.shapeless('firmages:attuned_circuit', ['immersiveengineering:circuit_board', 'occultism:spirit_attuned_crystal'])
     .id('firmages:crafting/attuned_circuit')
 

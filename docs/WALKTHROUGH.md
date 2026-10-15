@@ -15,9 +15,9 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 | Electric Age | Humming Core | arc furnace, diesel generator, pumpjack, distillation tower, excavator, assembler | Ring 5, Tesla Crown. Rites: four floodlights on (power and redstone), 1,000,000 FE in its four HV capacitors. Opens the Information Age. |
 | Information Age | Data Matrix | inscriber, ME network, metallurgic infuser, purification chamber, simulation chamber, a built End portal | Ring 6, Data Nave. Rite: two of you pray together. Opens the Space Age. |
 | Space Age | Star Chart | fission reactor, industrial turbine, NASA workbench, rockets tier 1 and 2, fusion crafting (wyvern) | Ring 7, Star Spire. Rite: pray at night under an open sky. Opens the Quantum Age. |
-| Quantum Age | Quantum Core, the last offering | fusion reactor, SPS, rockets tier 3 and 4, fusion crafting (draconic), Marid pentacle | Ring 8, Quantum Ring. Rites: two pray together, night sky, the Awakened Keystone back on its plinth. Opens the Singularity Age. |
+| Quantum Age | Quantum Core, the last offering | fusion reactor, SPS, rockets tier 3 and 4, fusion crafting (draconic), Marid pentacle (optional) | Ring 8, Quantum Ring. Rites: two pray together, night sky, the Awakened Keystone back on its plinth. Opens the Singularity Age. |
 | Singularity Age | Ultimate Singularity, then the Stargate (no offering) | draconic reactor, chaotic fusion, naquadah line, Stargate and DHD | The Gathering: one prayer at the complete shrine gives the nine relics back for the last forging. |
-| Finale | Defeat The Primordial in The Origin | the altar and arena of The Origin | No shrine. The boss's death grants `finale_won` to all of you. |
+| Finale | Defeat the final boss in The Origin (being rebuilt for 1.0) | the altar and arena of The Origin | No shrine. The boss's death grants `finale_won` to all of you. |
 
 ### The shrine in brief (Stone Age to Quantum Age)
 
@@ -314,7 +314,8 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
    - Coke oven: 3x3x3 coke bricks, formed with the Engineer's Hammer. It cokes bituminous coal and lignite. 32 coal
      coke.
    - Blast bricks: three from nether bricks, fire bricks and a magma block. Build and form the blast furnace.
-   - Arcane Gearbox: four source gems, four steel plates, a gearbox. A Wixie can make it.
+   - Arcane Gearbox: on the mechanical crafter a gearbox, four steel plates, two precision mechanisms and two steel
+     components. With magic: four source gems, four steel plates and a gearbox in the grid; a Wixie can make it.
    - Reinforced blast bricks: four from four blast bricks, four steel plates and an Arcane Gearbox. Improved blast
      furnace with preheaters.
    - Black steel (8): alloy weak steel (steel, nickel, black bronze), weld it with pig iron, work it on the anvil.
@@ -366,8 +367,9 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
    - Keystone: 32 aluminium plates.
 4. Circuits: 8 vacuum tubes, 4 circuit boards, the assembler (grid autocrafting). A Nether Star from the arc
    furnace (a wither skeleton skull with eight soul sand, a gold block and two electrum plates), from the Afrit
-   crafting pentacle, or from the Wither. Keystone: 16 Attuned Circuits (a circuit board and a spirit attuned crystal;
-   let the assembler make them).
+   crafting pentacle, or from the Wither. Keystone: 16 Attuned Circuits (a circuit board, a quartz, two advanced
+   electronic components and electrum wire; with magic a circuit board and a spirit attuned crystal; let the
+   assembler make them).
 5. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four aluminium plates, two red
    steel sheets and a Nether Star.
 6. Raise the Tesla Crown (15x15, 5 high): aluminium blocks on the border (51); on each corner a red steel block, an HV
@@ -474,12 +476,16 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 3. Awakened: 4 Nether Stars; 16 awakened draconium (draconium blocks, a dragon heart, Nether Stars); 4 awakened
    injectors; 4 hypercharged alloy; 2 subatomic alloy (hypercharged alloy and antimatter in the antiprotonic
    nucleosynthesizer). Keystone: an awakened core.
-4. Marid:
-   - 4 atomic alloy. The Marid's book of binding: an empty book of binding with three green dye (or the taboo book,
-     purified ink, an awakened feather and green dye), two atomic alloys and a wyvern core. Bind the Marid.
-   - Take the Arcane Keystone from its plinth: sneak and right-click the Spirit Circle plinth with an empty hand. Or bind a
-     second one with the Djinni.
-   - Awaken it in the Marid crafting pentacle: Arcane Keystone, two atomic alloys, a wyvern core, a subatomic alloy.
+4. Keystone:
+   - 4 atomic alloy.
+   - Take the Arcane Keystone from its plinth: sneak and right-click the Spirit Circle plinth with an empty hand. Or make
+     a second one (Create line or Djinni).
+   - Awaken it by fusion at draconic level: the Arcane Keystone on the fusion core; four atomic alloys, a wyvern core
+     and a subatomic alloy in the injectors.
+   - With magic instead: the Marid's book of binding (an empty book of binding with three green dye, or the taboo
+     book, purified ink, an awakened feather and green dye; two atomic alloys and a wyvern core). Bind the Marid and
+     awaken the Keystone in the Marid crafting pentacle: Arcane Keystone, two atomic alloys, a wyvern core, a
+     subatomic alloy.
    - Lay the Awakened Keystone on the Spirit Circle plinth. Keystone "Awakened Keystone".
 5. Fuse the Quantum Core at draconic level: the awakened core on the fusion core; two antimatter pellets, two
    calorite plates, two ice shards and a subatomic alloy in the injectors; 64,000,000 FE.
@@ -491,7 +497,7 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 ### Pitfalls
 - **Keystone lending.** Only while the Quantum Age is your highest Age does the Spirit Circle plinth lend its relic.
   It keeps glowing and waits. While the relic is away the Quantum Core is refused and the prayer says what is
-  missing. Lay back the Arcane Keystone or the Awakened Keystone; any Arcane Keystone works in the Marid ritual.
+  missing. Lay back the Arcane Keystone or the Awakened Keystone; any Arcane Keystone can be awakened.
 - You need **two** subatomic alloys: one for the Awakened Keystone, one for the Quantum Core.
 - Draconic tools are crafted straight from the awakened core; no lesser tool goes into them.
 - Dissolution, washing and crystallizing: five times the metal per ore piece.
@@ -548,24 +554,23 @@ offering.
 ## Finale
 
 ### What you must reach
-Defeat The Primordial in The Origin. Its fall grants `finale_won` to all of you.
+Defeat the final boss in The Origin. Its fall grants `finale_won` to all of you. The boss is being rebuilt
+for version 1.0; until then the finale cannot be won.
 
 ### The way
 1. You step out of the gate south of a floating arena and walk north past the DHD. Nine islands float around it, one
    per Age, each with its relic turning above it.
 2. Everyone online stands within 6 blocks of the altar in the middle. The altar answers.
-3. A trial opens over the altar: Maledictus, then Ignis, then both.
-4. When the trial is done, The Primordial rises south of the altar: 1024 health, heavy armour. At two thirds it calls
-   two Ender Golems, darkens the arena and hardens. At one third it calls Endermapteras and lightning and hardens
-   again. Expect about seven minutes of fighting.
-5. It falls: "Beyond the Firmament". The MekaSuit and the Meka-Tool can now be made. The shrine's beam turns gold.
-6. The gate at the arena dials home.
+3. The guardian of The Origin is being rebuilt for version 1.0. Until then no boss comes and the finale cannot be
+   won yet.
+4. When the boss falls: "Beyond the Firmament". The MekaSuit and the Meka-Tool can now be made. The shrine's beam
+   turns gold.
+5. The gate at the arena dials home.
 
 ### Pitfalls
 - Every online player who is not a spectator must stand at the altar. One friend elsewhere and nothing starts.
   A player who has not moved or acted for five minutes is not counted.
-- After a wipe the trial fails. Gather again after 30 s.
-- The altar cannot be broken, not even by the bosses.
+- The altar cannot be broken.
 - Monsters spawn in The Origin only in darkness; the arena is lit. Beds and respawn anchors do not work there.
 - The victory counts once. A friend who logs in later receives it silently.
 

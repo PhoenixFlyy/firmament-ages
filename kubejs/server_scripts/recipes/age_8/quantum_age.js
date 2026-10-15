@@ -2,8 +2,9 @@
 // Canonical stations of the Age: Mekanism fusion and the SPS (antimatter), the 5x ore chain (age_6/ore_ladder.js),
 // Evolved Mekanism tiers (its creative tier is disabled), Ad Astra tier 3-4 rockets (Venus calorite, Mercury,
 // Glacio ice shards), DE Fusion Crafting with awakened (draconic) injectors.
-// Magic tail: the Marid binding book needs Mekanism atomic alloy and a DE Wyvern Core; the Marid ritual awakens an
-// Arcane Keystone into the Awakened Keystone (the Marid strand's keystone, an ingredient of the Ultimate Singularity).
+// The Awakened Keystone (an ingredient of the Ultimate Singularity): DE Fusion Crafting at draconic level awakens an
+// Arcane Keystone (tech route); magic tail: the Marid binding book needs Mekanism atomic alloy and a DE Wyvern Core,
+// and the Marid ritual awakens the Keystone for less.
 // Goal: the Quantum Core, the last offering at the shrine (age_8 -> age_9): Mekanism antimatter pellets, DE
 // Awakened Core, calorite plates, Glacio ice shards and the age_8 token, Evolved Mekanism subatomic alloy (hypercharged
 // alloy and antimatter in the antiprotonic nucleosynthesizer; tags/late_ages.js).
@@ -43,13 +44,30 @@ ServerEvents.recipes((event) => {
     ],
     result: { id: 'firmages:awakened_keystone', count: 1 }
   }).id('firmages:ritual/awakened_keystone')
+  // Tech route (dev/decisions-while-away.md, 2026-10-15: tech is required, magic a bonus): the Arcane Keystone is the
+  // catalyst on the fusion core, at draconic level like the Quantum Core; twice the atomic alloy of the ritual.
+  const consume = (ing) => ({ ingredient: ing, consume: true })
+  event.custom({
+    type: 'draconicevolution:fusion_crafting',
+    result: { id: 'firmages:awakened_keystone', count: 1 },
+    catalyst: { item: 'firmages:arcane_keystone' },
+    totalEnergy: 32000000,
+    techLevel: 'draconic',
+    ingredients: [
+      consume({ item: 'mekanism:alloy_atomic' }),
+      consume({ item: 'mekanism:alloy_atomic' }),
+      consume({ item: 'mekanism:alloy_atomic' }),
+      consume({ item: 'mekanism:alloy_atomic' }),
+      consume({ item: 'draconicevolution:wyvern_core' }),
+      consume({ tag: 'firmages:age_token/age_8' })
+    ]
+  }).id('firmages:fusion/awakened_keystone')
 
   // AdvancedAE's reaction chamber asked for the disabled AE2 Vibration Chamber; the Gas-Burning Generator takes its place.
   event.replaceInput({ id: 'advanced_ae:reactionchamber' }, 'ae2:vibration_chamber', 'mekanismgenerators:gas_burning_generator')
 
   // ======================================================================================== goal: Quantum Core
   // The Awakened Core is the catalyst on the fusion core; seven injectors at draconic level.
-  const consume = (ing) => ({ ingredient: ing, consume: true })
   event.custom({
     type: 'draconicevolution:fusion_crafting',
     result: { id: 'firmages:quantum_core', count: 1 },

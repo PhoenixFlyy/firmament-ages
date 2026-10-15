@@ -2987,3 +2987,28 @@ Fixes of this pass:
   client measurement, the chisel patterns.
 - Vanilla wood in the Singularity Age is the rule's result, not a design: Felix decides (`dev/offene-punkte.md`).
 - `derive_ages.py --scan` reads feature predicates as placed blocks (vanilla oak sapling "from" crimson fungus).
+
+## 1.0 round A review fixes (2026-10-15)
+
+Two review findings on 0.10.0. (1) Without magic, four shrine offerings were out of reach: the Pressure Core needed
+the Arcane Gearbox (source gems), the Humming Core the Attuned Circuit (spirit attuned crystal), the Ultimate
+Singularity the Awakened Keystone (Marid ritual only) and both cores. Against the decision "tech is required, magic a
+bonus", each part has a tech recipe now next to the cheaper magic one; `poc_analyze.py` R-X walks without the magic
+recipes. (2) The Singularity goal quest and the walkthrough finale still described the removed Cataclysm trial and The
+Primordial's Cataclysm helpers; both say now that the guardian of The Origin is rebuilt for 1.0.
+
+| Check | Observed | Result |
+|---|---|---|
+| `poc_analyze.py` R-X on the boot 8 dump (before the fix, `--baseline` boot 7) | 2,448 magic recipes left out; R-X age_4, age_5, age_8 and age_9 FAIL (Arcane Gearbox, Attuned Circuit, Awakened Keystone), age_2, age_3, age_6, age_7 PASS | finding reproduced |
+| Copy boot 10 (gate on, new world, fresh sync from the repo) | Done after 101 s; KubeJS 42/42 server scripts, 0 errors; FTB Quests "13 chapters, 339 quests"; gate master 42,138 recipes; `firmages recipes audit` lists `firmages:mechanical_crafting/arcane_gearbox` [create:mechanical_crafting], `firmages:crafting/attuned_circuit_tuned` [minecraft:crafting] and `firmages:fusion/awakened_keystone` [draconicevolution:fusion_crafting] with their outputs; `selftest all` 55 passed, 0 failed | pass |
+| Grants and dumps of boot 10 | `firmages ages simulate grant` was refused (`debug.allowSimulate` off in the copied config), so `fa_dump` ran at Dawn (7,262 recipes) and is no age_9 dump | not usable |
+| `poc_analyze.py` on a predicted dump (boot 8 dump plus the three new recipes, encoded like their siblings; audit of boot 10) | 99 PASS, 0 FAIL, including R-X age_2 to age_9 and G-4 (9 types, 36 accepted) | pass (predicted) |
+| `check_log.py` on boot 10 | FATAL 0, ERROR 8, all documented; 1 remaining: Every Compat corrects `everycomp-entries.toml` of the copied 0.9.2 config | pass |
+| `gen_quests.py`, `validate_quests.py --style` (jars of the copy) | 1252 object ids, 0 errors, 0 warnings; Marid book and binding are side quests, the strand is "Keystone" | pass |
+| `derive_ages.py --check` (boot 7 dump), `gen_stage_locks.py --check` | up to date | pass |
+
+### Open points
+
+- R-X on a real age_9 dump: the next copy boot needs `debug.allowSimulate = true` in the copy's
+  `config/firmages-server.toml` before the grants.
+- Arcane Age quest book: the goal depends on the three magic keystones (`dev/offene-punkte.md`).

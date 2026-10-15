@@ -591,52 +591,6 @@
 		}
 		{
 			dependencies: ["39882F695B4F5776"]
-			id: "7479AAADAC50C431"
-			rewards: [
-				{
-					id: "0FCED31E2DE3699E"
-					type: "xp"
-					xp: 160
-				}
-			]
-			tasks: [
-				{
-					id: "615A42D78B7B58D5"
-					item: {
-						count: 1
-						id: "occultism:book_of_binding_marid"
-					}
-					type: "item"
-				}
-			]
-			x: 4.25d
-			y: 3.75d
-		}
-		{
-			dependencies: ["7479AAADAC50C431"]
-			id: "4FC3CDC1654522C0"
-			rewards: [
-				{
-					id: "3A4FBA959755B695"
-					type: "xp"
-					xp: 160
-				}
-			]
-			tasks: [
-				{
-					id: "1D8C02BE77D94E9A"
-					item: {
-						count: 1
-						id: "occultism:book_of_binding_bound_marid"
-					}
-					type: "item"
-				}
-			]
-			x: 6.0d
-			y: 3.75d
-		}
-		{
-			dependencies: ["4FC3CDC1654522C0"]
 			id: "485FE6EFB6565F6E"
 			rewards: [
 				{
@@ -665,7 +619,7 @@
 					type: "item"
 				}
 			]
-			x: 8.0d
+			x: 4.5d
 			y: 3.75d
 		}
 		{
@@ -733,6 +687,66 @@
 			y: -6.25d
 		}
 		{
+			dependencies: ["39882F695B4F5776"]
+			id: "7479AAADAC50C431"
+			optional: true
+			rewards: [
+				{
+					id: "0FCED31E2DE3699E"
+					type: "xp"
+					xp: 160
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "615A42D78B7B58D5"
+					item: {
+						count: 1
+						id: "occultism:book_of_binding_marid"
+					}
+					type: "item"
+				}
+			]
+			x: 4.5d
+			y: -6.25d
+		}
+		{
+			dependencies: ["7479AAADAC50C431"]
+			id: "4FC3CDC1654522C0"
+			optional: true
+			rewards: [
+				{
+					id: "3A4FBA959755B695"
+					type: "xp"
+					xp: 160
+				}
+				{
+					id: "3DDFF5C7BF3B16B5"
+					table_id: 4581690186732968573L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "1D8C02BE77D94E9A"
+					item: {
+						count: 1
+						id: "occultism:book_of_binding_bound_marid"
+					}
+					type: "item"
+				}
+			]
+			x: 6.0d
+			y: -6.25d
+		}
+		{
 			dependencies: ["6CBAA83920DDC925"]
 			id: "280FF1CBD99D0A4A"
 			optional: true
@@ -762,7 +776,7 @@
 					type: "item"
 				}
 			]
-			x: 4.5d
+			x: 8.0d
 			y: -6.25d
 		}
 		{

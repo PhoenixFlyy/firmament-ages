@@ -1539,10 +1539,9 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     map_start = src3.index("const MAP = {")
     map_block = src3[map_start:src3.index(chr(10) + "  }" + chr(10), map_start)]
     map_keys = set(re.findall(r"^\s*'([a-z0-9_]+:[a-z0-9_/]+)':", map_block, re.M))
-    magic_ns = ("occultism:", "ars_nouveau:", "ars_additions:", "ars_creo:", "theurgy:", "occultengineering:")
     magic_left = sorted(f"{r}: {sorted(set(m) & map_keys)}" for r, m in
                         ((r, re.findall(r'"item": "([a-z0-9_]+:[a-z0-9_/]+)"', inputs_text(j))) for r, j in full.items()
-                         if r.startswith(magic_ns)) if set(m) & map_keys)
+                         if r.startswith(MAGIC_NS)) if set(m) & map_keys)
     check(f"C-3m no magic-mod recipe names one of the {len(map_keys)} vanilla items of the Arcane MAP (REWRITE_IDS)",
           map_keys and not magic_left, magic_left)
     # C-Gv: no recipe consumes a vanilla tool or armour piece that no recipe of the pack makes (a TFC world has no
@@ -1750,6 +1749,8 @@ STATION_TRANSFORMS = {"mekanism:sawing/crafting_table", "create:haunting/soul_ca
 # firmages-core gate locks them the same way (GateRules.HEAT_TYPES, HEAT_SOURCES).
 HEAT_STATION = {"heated": ("tfcreate:primitive_heater", "create:blaze_burner"), "superheated": ("create:blaze_burner",)}
 HEAT_TYPES = {"create:mixing", "create:compacting"}
+# Recipe and item namespaces of the magic mods (C-3m, R-X).
+MAGIC_NS = ("occultism:", "ars_nouveau:", "ars_additions:", "ars_creo:", "theurgy:", "occultengineering:")
 REACH_GOALS = [  # (Age, goal recipe id, chain items that must be reachable too)
     ("age_2", "firmages:crafting/steel_heart", ["create:precision_mechanism", "create:mechanical_crafter", "create:deployer",
                                                  "create:mechanical_press", "tfcreate:primitive_heater", "tfc:metal/ingot/steel",
@@ -1994,6 +1995,40 @@ def reach_checks(full, recs, items, tags, item_age, check, server_dir=None):
               bool(got), lines + [f"age_token/{st} {token}, reached {got}"])
     gone = sorted(t for t in tags if t.startswith("firmages:boss_token/"))
     check("R-T no firmages:boss_token tag is left", not gone, gone)
+
+    # R-X: tech is required, magic a bonus (dev/decisions-while-away.md, 2026-10-15). The walk again without the
+    # recipes of the magic mods (by recipe id or recipe type) and without the pack's rituals (firmages:ritual/*): every
+    # Age token, every tech goal and its chain items outside the magic namespaces stay reachable at their Age.
+    def magic(rid):
+        return rid.startswith(MAGIC_NS) or full[rid].get("type", "").startswith(MAGIC_NS) or rid.startswith("firmages:ritual/")
+    tech_recs = [r for r in recs if not magic(r[0])]
+    _, _, tech_walk = make_walk(full, tech_recs, items, tags, item_age, amap)
+    for st in AGES[AGES.index("age_2"):]:
+        n = AGES.index(st)
+        token = tags.get(f"firmages:age_token/{st}", [])
+        have, live, sat = tech_walk(n)
+        got = [t for t in token if t in have]
+        lines = [] if got or not token else why(token[0], have, live, sat, n)
+        goals = [(rid, chain) for st_, rid, chain in REACH_GOALS if st_ == st and rid in full and not magic(rid)]
+        goals_ok = True
+        for rid, chain in goals:
+            j = full[rid]
+            goal = _outs(j, [])
+            miss = [s_ for s_ in _slots(j, []) if not sat(s_)]
+            chain_bad = [c for c in chain if not c.startswith(MAGIC_NS) and c not in have]
+            goal_ok = bool(goal) and all(g in have for g in goal)
+            if goal_ok and not miss and not chain_bad:
+                continue
+            goals_ok = False
+            lines.append(f"{rid}: goal reached {goal_ok}, unreached slots {[' | '.join(x for _, x in s_)[:80] for s_ in miss]}, "
+                         f"chain items not reached {chain_bad}")
+            for s_ in miss:
+                lines += why(first_item(s_), have, live, sat, n)
+            for c in chain_bad:
+                lines += why(c, have, live, sat, n)
+        check(f"R-X {st} without magic ({len(recs) - len(tech_recs)} magic recipes left out): the Age token and the tech goal "
+              f"{', '.join(r for r, _ in goals) or '-'} with its chain are reachable at {st}",
+              (bool(got) or not token) and goals_ok, lines + [f"age_token/{st} {token}, reached {got}"])
 
     # R-M: every block of every IE-style multiblock template the server loads (IE, Immersive Petroleum, Advanced TFC
     # Tech, TFC + IE Crossover's arc furnace over IE's) is obtainable at the multiblock's Age, and none is disabled or
