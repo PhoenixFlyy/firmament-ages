@@ -28,6 +28,7 @@ public final class FirmagesClient {
         public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ShrineRegistry.SHRINE_HEART_BE.get(), ShrineHeartRenderer::new);
             event.registerBlockEntityRenderer(ShrineRegistry.OFFERING_PLINTH_BE.get(), OfferingPlinthRenderer::new);
+            event.registerBlockEntityRenderer(dev.firmages.core.wayshrine.WayshrineRegistry.CORE_BE.get(), WayshrineCoreRenderer::new);
         }
     }
 

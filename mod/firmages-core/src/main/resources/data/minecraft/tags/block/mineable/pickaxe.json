@@ -2,6 +2,8 @@
   "values": [
     "firmages:shrine_heart",
     "firmages:offering_plinth",
-    "#firmages:consecrated"
+    "#firmages:consecrated",
+    "firmages:wayshrine_core",
+    "firmages:wayshrine_stone"
   ]
 }

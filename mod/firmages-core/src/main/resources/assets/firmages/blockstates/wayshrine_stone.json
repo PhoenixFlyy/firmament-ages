@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "kind=forest_ring": {
+      "model": "firmages:block/wayshrine_stone_forest_ring"
+    },
+    "kind=steppe_stones": {
+      "model": "firmages:block/wayshrine_stone_steppe_stones"
+    },
+    "kind=swamp_altar": {
+      "model": "firmages:block/wayshrine_stone_swamp_altar"
+    },
+    "kind=desert_arch": {
+      "model": "firmages:block/wayshrine_stone_desert_arch"
+    },
+    "kind=mountain_spire": {
+      "model": "firmages:block/wayshrine_stone_mountain_spire"
+    },
+    "kind=wind_shrine": {
+      "model": "firmages:block/wayshrine_stone_wind_shrine"
+    },
+    "kind=reef_altar": {
+      "model": "firmages:block/wayshrine_stone_reef_altar"
+    },
+    "kind=volcanic_ring": {
+      "model": "firmages:block/wayshrine_stone_volcanic_ring"
+    }
+  }
+}

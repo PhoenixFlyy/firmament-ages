@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "particle": "firmages:block/wayshrine_core_side",
+    "side": "firmages:block/wayshrine_core_side",
+    "top": "firmages:block/wayshrine_core_top_ruin",
+    "bottom": "firmages:block/wayshrine_core_bottom"
+  }
+}

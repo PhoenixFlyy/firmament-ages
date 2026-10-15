@@ -238,5 +238,14 @@
         "volume": 0.7
       }
     ]
+  },
+  "wayshrine.lit": {
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.power_select",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.wayshrine.lit"
   }
 }

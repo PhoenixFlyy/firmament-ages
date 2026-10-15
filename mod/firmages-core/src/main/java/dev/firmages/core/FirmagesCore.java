@@ -37,8 +37,10 @@ public final class FirmagesCore {
     public FirmagesCore(IEventBus modEventBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC);
         container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+        ServerConfig.warnRemovedKeys(); // S4A: shrine.blessings.everywhere is gone (SPEC-himmel §29.7)
         modEventBus.addListener(FirmagesNetwork::register);
         ShrineRegistry.register(modEventBus);
+        dev.firmages.core.wayshrine.WayshrineRegistry.register(modEventBus); // Wayshrines (SPEC-himmel §28)
         ReactorRegistry.register(modEventBus);
         OriginRegistry.register(modEventBus);
         dev.firmages.core.proof.ProofRegistry.register(modEventBus); // Tally Chute, firmages:tally, firmages:silo_launch (SPEC §22)
@@ -65,6 +67,7 @@ public final class FirmagesCore {
         bus.addListener(EventPriority.HIGH, OreGuard::onBreak);
         bus.addListener(EventPriority.LOW, OreGuard::onDrops);
         ShrineEvents.register(bus);
+        dev.firmages.core.wayshrine.WayshrineEvents.register(bus);
         OriginService.register(bus);
         OriginAccess.register(bus);
         OriginSpawns.register(bus);

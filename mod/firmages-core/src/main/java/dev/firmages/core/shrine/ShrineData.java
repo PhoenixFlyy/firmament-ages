@@ -164,7 +164,7 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
         return new ShrineTier(tier, multiblock, key.charAt(0), radius, offering, List.copyOf(rites), prayerTicks, response, blessing, fallback);
     }
 
-    static ShrineTier.Rite parseRite(JsonObject r) {
+    public static ShrineTier.Rite parseRite(JsonObject r) {
         String typeName = r.get("type").getAsString();
         ShrineTier.Rite.Type type;
         try {

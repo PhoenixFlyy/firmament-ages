@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "particle": "firmages:block/wayshrine_stone_swamp_altar",
+    "all": "firmages:block/wayshrine_stone_swamp_altar"
+  }
+}

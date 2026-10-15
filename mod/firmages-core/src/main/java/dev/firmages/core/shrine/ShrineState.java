@@ -23,9 +23,11 @@ public final class ShrineState {
 
     public static void set(ResourceKey<Level> dimension, BlockPos heart, boolean intact, int awakened) {
         current = new Snapshot(dimension, heart.immutable(), intact, awakened);
+        BlessingIndex.markDirty();
     }
 
     public static void clear() {
         current = null;
+        BlessingIndex.markDirty();
     }
 }

@@ -10,6 +10,11 @@ import dev.firmages.core.shrine.ConsecratedBlock;
 import dev.firmages.core.shrine.OfferingPlinthBlock;
 import dev.firmages.core.shrine.OfferingPlinthBlockEntity;
 import dev.firmages.core.shrine.ShrineHeartBlock;
+import dev.firmages.core.text.Numbers;
+import dev.firmages.core.wayshrine.WayshrineCoreBlock;
+import dev.firmages.core.wayshrine.WayshrineCoreBlockEntity;
+import dev.firmages.core.wayshrine.WayshrinePhase;
+import dev.firmages.core.wayshrine.WayshrineService;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -39,6 +44,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation PLINTH = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "offering_plinth");
     static final ResourceLocation CONSECRATED = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "consecrated");
     static final ResourceLocation TALLY = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "tally_chute");
+    static final ResourceLocation WAYSHRINE = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "wayshrine_core");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
@@ -46,6 +52,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Plinth.INSTANCE, OfferingPlinthBlock.class);
         registration.registerBlockComponent(Consecrated.INSTANCE, ConsecratedBlock.class);
         registration.registerBlockComponent(Tally.INSTANCE, TallyChuteBlock.class);
+        registration.registerBlockComponent(Wayshrine.INSTANCE, WayshrineCoreBlock.class);
         // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
@@ -160,6 +167,38 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return TALLY;
+        }
+    }
+
+    /**
+     * A Wayshrine core (SPEC-himmel §28.8), from its synced block entity and block state: its name, how many blocks
+     * are missing, the offering on it, whether it carries the blessings and in which radius, or that it is broken.
+     */
+    enum Wayshrine implements IBlockComponentProvider {
+        INSTANCE;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (!(accessor.getBlockEntity() instanceof WayshrineCoreBlockEntity be)) return;
+            BlockState s = accessor.getBlockState();
+            tooltip.add(Component.translatable("firmages.jade.wayshrine.name", WayshrineService.typeName(be.type())).withStyle(ChatFormatting.GOLD));
+            WayshrinePhase phase = s.getValue(WayshrineCoreBlock.PHASE);
+            if (phase == WayshrinePhase.LIT) {
+                tooltip.add(s.getValue(WayshrineCoreBlock.INTACT)
+                    ? Component.translatable("firmages.jade.wayshrine.lit", Numbers.words(be.radius())).withStyle(ChatFormatting.GREEN)
+                    : Component.translatable("firmages.jade.wayshrine.broken").withStyle(ChatFormatting.GRAY));
+                return;
+            }
+            if (phase == WayshrinePhase.RUIN && be.missing() > 0) {
+                tooltip.add(Component.translatable(be.missing() == 1 ? "firmages.jade.wayshrine.ruined.one" : "firmages.jade.wayshrine.ruined",
+                    Numbers.words(be.missing())).withStyle(ChatFormatting.GRAY));
+            }
+            if (!be.offering().isEmpty()) tooltip.add(Component.translatable("firmages.jade.wayshrine.offering", be.offering().getHoverName()));
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return WAYSHRINE;
         }
     }
 }
