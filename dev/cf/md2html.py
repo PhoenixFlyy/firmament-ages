@@ -57,6 +57,16 @@ def convert(md: str) -> str:
             out.append(f"<h{level}>{inline(m.group(2))}</h{level}>")
             i += 1
             continue
+        if stripped == "::: spoiler":
+            flush_para()
+            out.append('<div class="spoiler">')
+            i += 1
+            continue
+        if stripped == ":::":
+            flush_para()
+            out.append("</div>")
+            i += 1
+            continue
         if re.match(r"^(-{3,}|\*{3,})$", stripped):
             flush_para()
             out.append("<hr>")

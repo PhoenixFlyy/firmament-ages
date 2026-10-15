@@ -1,14 +1,21 @@
 # Firmament Ages
 
-**Ten Ages of one sky. From knapped flint to a reactor of chaos and a gate beyond the stars, earned together at one shrine.**
+Ten Ages in one TerraFirmaCraft world. You start with a rock in your hand and end with a reactor and a Stargate, and every step in between has to be earned at a shrine your whole server shares.
 
-An Ages pack in the line of SevTech: Ages, built new for Minecraft 1.21.1. You wake in Dawn with no pickaxe and no fire. What a later Age holds does not exist yet: its items, ores, machines, mobs and dimensions stay hidden until your fellowship earns that Age.
+This is a progression pack in the SevTech: Ages tradition, built from scratch for Minecraft 1.21.1 and NeoForge. Nothing from a later Age exists yet: locked items show up as "Something Unknown", ore of a later Age looks like plain rock, the Nether and the End stay closed. When your team lays the Age's offering on the shrine and prays, the next Age opens for everyone at the same moment.
 
-- **Why play it:** no tier can be skipped. A hard survival world carries you from stone to steel; machines, three schools of magic, heavy industry, digital storage, rockets and the power of dragons follow, each in its own Age (the table below names them).
-- **How long:** built for 120 hours and more, from the first knapped axe to the final boss.
-- **Co-op:** one fellowship per server. Everyone lives in the same Age, and each Age ends with an offering at one shared shrine.
+## What to expect
+
+- Slow and deliberate. Plan on well over a hundred hours, and there is no shortcut past an Age.
+- One team per server. Everyone is in the same Age, the shrine belongs to all of you, and the last fight is fought together.
+- Tech is the main road: TerraFirmaCraft, Create, Immersive Engineering, Mekanism, Applied Energistics 2, Ad Astra and Draconic Evolution, one after the other. Magic (Occultism, Ars Nouveau, Theurgy) is there for those who want it and is never required.
+- A TerraFirmaCraft world that feels alive: climate and seasons, birds and wind, volcanoes, ruins with loot of your Age, blood moons that get nastier with every Age.
+- A large building set in every TerraFirmaCraft and ArborFirmaCraft wood and rock, gated by Age like everything else.
+- The quest book (K) is the only guide, and it stays short on purpose: what to do, and later why. No recipe viewer before the Bronze Age, no map before the Iron Age.
 
 ## The Ages
+
+::: spoiler
 
 | Age | What opens | Offering |
 |---|---|---|
@@ -24,37 +31,39 @@ An Ages pack in the line of SevTech: Ages, built new for Minecraft 1.21.1. You w
 | Quantum Age | Fusion, antimatter, Evolved Mekanism, Venus, Mercury and Glacio | Quantum Core |
 | Singularity Age | Chaotic Draconic gear, the Draconic Reactor, a Stargate | none: the final battle |
 
-## Features
+:::
 
-- **Nothing before its time.** Locked items show as "Something Unknown", veins of a later Age look like plain stone, and its mobs and dimensions stay shut.
-- **One shrine.** Add a ring for every Age, from a hearth circle of cobblestone and thatch to a ring of quantum casings. Lay the offering on its plinth, fulfil the rite and pray together. Caelum, the sky itself, answers with light and a new Age; the ring turns to consecrated stone, adds a blessing around the shrine and keeps the offering as a relic.
-- **The finale.** In the Singularity Age the nine relics are fused into the Ultimate Singularity, the heart of a Stargate. Dial The Origin, a dimension of floating islands made of the stone of every Age, and face the last battle.
-- **The Chronicle.** The quest book (K) carries every Age: what to do, then what for. A small sign in the corner names your Age and its offering.
-- **Automation later, never forced early.** Everything you need in quantity can be automated once its Age comes.
+## The shrine
 
-## Walkthrough
+::: spoiler
 
-Stuck? The [walkthrough](https://github.com/PhoenixFlyy/firmament-ages/blob/main/docs/WALKTHROUGH.md) goes through every Age: the way, the shrine ring, the pitfalls.
+You build it yourself, one ring per Age, from a circle of cobblestone and thatch up to a ring of quantum casings. Lay the Age's offering on the plinth, fulfil the rite and pray together. The sky answers: the ring turns to consecrated stone, a blessing settles around the shrine, the offering stays behind as a relic, and the next Age is open for everyone.
+
+In the Singularity Age the nine relics are fused into the Ultimate Singularity, the heart of a Stargate. Dial The Origin, a dimension of floating islands made from the stone of every Age, and face what waits there.
+
+Stuck? The [walkthrough](https://github.com/PhoenixFlyy/firmament-ages/blob/main/docs/WALKTHROUGH.md) goes through every Age: the way, the ring, the pitfalls.
+
+:::
 
 ## Install
 
-- **Minecraft 1.21.1, NeoForge 21.1.252, Java 21.** The CurseForge App sets up NeoForge and Java for you. The first start takes a few minutes.
-- **RAM:** 8 GB for the game (6 GB minimum), set in the CurseForge App under *Settings → Minecraft → Java Settings*; the default of 4 GB is not enough. A PC with 16 GB of RAM is the practical minimum.
-- **Server:** a ready-to-run server pack is attached to every release as an additional file; its README covers memory and pregeneration. 8 GB of heap for up to four players, 10 GB for five to ten.
-- **Multiplayer:** every player joins the server's one party at the first login, without an invite. A host who wants separate parties sets `team.autoJoin = false` in `firmages-server.toml`. PvP is on; set `pvp=false` in `server.properties` for a public server. Single player works like a fellowship of one.
+- Minecraft 1.21.1, NeoForge 21.1.252, Java 21. The CurseForge App sets up NeoForge and Java for you; the first start takes a few minutes.
+- RAM: 8 GB for the game (6 GB at the very least), set in the CurseForge App under *Settings → Minecraft → Java Settings*. The default of 4 GB is not enough. A PC with 16 GB is the practical minimum.
+- Server: a ready-to-run server pack comes with every release as an additional file. Its README covers memory and pregeneration: 8 GB of heap for up to four players, 10 GB for five to ten.
+- Multiplayer: every player joins the server's one team at the first login, no invite needed. If you want separate teams, set `team.autoJoin = false` in `firmages-server.toml`. PvP is on; set `pvp=false` in `server.properties` for a public server. Single player works too, as a team of one.
 
 ## Beta
 
-The whole road from Dawn to The Origin is playable; its final boss is being rebuilt for 1.0. Balance and texts will still change. Draconic Evolution and Stargate Journey are beta mods on 1.21.1: back up your world before the Space Age. Please report bugs on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
+The whole road from Dawn to The Origin is playable. The final boss is being rebuilt for 1.0, balance and texts will still change, and a new world will be needed for 1.0. Draconic Evolution and Stargate Journey are beta mods on 1.21.1: back up your world before the Space Age. Bugs go to the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 ## Shaders
 
-Firmament Ages starts with shaders turned on: it uses Complementary Shaders – Reimagined (r5.9.3) by EminGT and Complementary Development, unmodified and installed through CurseForge's own system ([complementary.dev](https://www.complementary.dev/), [CurseForge](https://www.curseforge.com/minecraft/shaders/complementary-reimagined)). Any problem caused by using it in this modpack is the modpack's responsibility, so please report it to us and not to Complementary. For weaker PCs the pack includes MakeUp – Ultra Fast by XavierFST (LGPL-3.0); press O in game to switch shader packs or turn shaders off. Shaders switch off by themselves on Ad Astra planets and in The Origin.
+Firmament Ages starts with shaders turned on. It uses Complementary Shaders – Reimagined (r5.9.3) by EminGT and Complementary Development, unmodified and installed through CurseForge's own system ([complementary.dev](https://www.complementary.dev/), [CurseForge](https://www.curseforge.com/minecraft/shaders/complementary-reimagined)). Any problem caused by using it in this modpack is the modpack's responsibility, so please report it here and not to Complementary. For weaker PCs the pack includes MakeUp – Ultra Fast by XavierFST (LGPL-3.0); press O in game to switch shader packs or turn shaders off. Shaders switch off by themselves on Ad Astra planets and in The Origin.
 
 ## Source and license
 
-- Source of the quests, scripts, configs and the pack's own mod, Firmament Ages Core: [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages)
-- The pack's own parts are released under the MIT License (the `LICENSE` file of the source repository). Every other mod belongs to its authors and keeps its own license; the credits below name each one.
+- Quests, scripts, configs and the pack's own mod, Firmament Ages Core: [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages)
+- The pack's own parts are MIT licensed (the `LICENSE` file in the repository). Every other mod belongs to its authors and keeps its own license; the credits below name each one.
 
 ## Credits
 
