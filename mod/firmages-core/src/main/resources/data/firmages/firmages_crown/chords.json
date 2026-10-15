@@ -1,0 +1,16 @@
+{
+  "dawn_triad": {"lenses": [0, 1, 2], "signal": 1},
+  "forge_triad": {"lenses": [1, 2, 3], "signal": 2},
+  "spark_triad": {"lenses": [2, 3, 4], "signal": 3},
+  "lattice_triad": {"lenses": [3, 4, 5], "signal": 4},
+  "orbit_triad": {"lenses": [4, 5, 6], "signal": 5},
+  "quantum_triad": {"lenses": [5, 6, 7], "signal": 6},
+  "full_crown": {"lenses": [0, 1, 2, 3, 4, 5, 6, 7, 8], "signal": 7},
+  "stone_and_iron": {"lenses": [0, 2], "signal": 8},
+  "stone_and_arcane": {"lenses": [0, 3], "signal": 9},
+  "stone_and_industrial": {"lenses": [0, 4], "signal": 10},
+  "stone_and_electric": {"lenses": [0, 5], "signal": 11},
+  "stone_and_information": {"lenses": [0, 6], "signal": 12},
+  "stone_and_space": {"lenses": [0, 7], "signal": 13},
+  "anchor_chord": {"lenses": [6], "signal": 14}
+}

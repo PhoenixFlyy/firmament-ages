@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:blessing_shard"
+    }
+  ],
+  "type": "firmages:starforge",
+  "chord": "firmages:anchor_chord",
+  "ingredients": [
+    {
+      "tag": "firmages:anchor/ring_7"
+    },
+    {
+      "item": "firmages:void_steel_ingot"
+    }
+  ],
+  "time": 100,
+  "result": {
+    "id": "firmages:blessing_shard",
+    "components": {
+      "firmages:tier": 7
+    }
+  }
+}

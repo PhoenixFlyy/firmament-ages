@@ -1,0 +1,16 @@
+{
+  "type": "firmages:starforge",
+  "chord": "firmages:stone_and_iron",
+  "ingredients": [
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ],
+  "time": 100,
+  "result": {
+    "id": "minecraft:prismarine_crystals"
+  }
+}

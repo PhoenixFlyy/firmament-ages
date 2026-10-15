@@ -35,6 +35,17 @@ public final class FirmagesClient {
             event.registerEntityRenderer(BossRegistry.PRIMORDIAL.get(), PrimordialRenderer::new);
             event.registerEntityRenderer(BossRegistry.STAR_FALL.get(), StarFallRenderer::new);
             event.registerEntityRenderer(BossRegistry.THROWN_SHARD.get(), ThrownItemRenderer::new);
+            event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.STAR_ANVIL_BE.get(), CrownRenderer::new);
+            event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.LENS_MOUNT_BE.get(), LensMountRenderer::new);
+        }
+
+        /** Lens items: layer 1 (the glass) in the colour of the lens's shrine tier (SPEC §27.4), white until synced. */
+        @SubscribeEvent
+        public static void itemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
+            for (var lens : dev.firmages.core.crown.CrownRegistry.LENSES) {
+                event.register((stack, tint) -> tint != 1 || !(stack.getItem() instanceof dev.firmages.core.crown.LensItem l) ? -1
+                    : 0xFF000000 | dev.firmages.core.net.ShrineSyncPayload.clientTierColor(l.index()).orElse(0xFFFFFF), lens.get());
+            }
         }
     }
 

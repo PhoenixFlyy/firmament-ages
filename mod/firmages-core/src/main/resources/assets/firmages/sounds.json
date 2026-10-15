@@ -384,5 +384,14 @@
       }
     ],
     "subtitle": "subtitles.firmages.starfall.distant"
+  },
+  "crown.chord": {
+    "sounds": [
+      {
+        "name": "minecraft:block.note_block.bell",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.crown.chord"
   }
 }

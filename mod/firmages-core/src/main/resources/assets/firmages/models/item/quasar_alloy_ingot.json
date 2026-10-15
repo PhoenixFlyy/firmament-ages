@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "firmages:item/quasar_alloy_ingot"
+  }
+}

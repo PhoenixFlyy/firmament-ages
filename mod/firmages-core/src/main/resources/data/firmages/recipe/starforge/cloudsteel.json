@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:meteoric_iron_ingot"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:firmament_crystal"
+    }
+  ],
+  "type": "firmages:starforge",
+  "chord": "firmages:forge_triad",
+  "ingredients": [
+    {
+      "item": "firmages:meteoric_iron_ingot"
+    },
+    {
+      "tag": "c:ingots/black_steel"
+    },
+    {
+      "item": "firmages:firmament_crystal"
+    }
+  ],
+  "time": 100,
+  "result": {
+    "id": "firmages:cloudsteel_ingot",
+    "count": 2
+  }
+}

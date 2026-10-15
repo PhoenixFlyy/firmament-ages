@@ -122,5 +122,14 @@ public final class FirmAgesJS {
         if (s == null) return false;
         s.execute(() -> dev.firmages.core.sky.StarfallService.requestTonight(s));
         return true;
+    // ---- The Lens Crown (SPEC §27.12) ----
+
+    /**
+     * The lens indices (0..8) of chord {@code name} ({@code "dawn_triad"} or {@code "firmages:dawn_triad"}) in the
+     * loaded chord library, empty for an unknown chord.
+     */
+    public static List<Integer> crownChord(String name) {
+        String id = name.contains(":") ? name : "firmages:" + name;
+        return dev.firmages.core.crown.ChordLibrary.latest().get(id).map(dev.firmages.core.crown.Chord::lenses).orElse(List.of());
     }
 }

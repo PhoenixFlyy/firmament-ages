@@ -69,6 +69,7 @@ public final class FirmagesEmiPlugin implements EmiPlugin {
     @Override
     public void register(EmiRegistry registry) {
         EmiAgeView v = view;
+        CrownEmi.register(registry); // Starforging (SPEC §27.11), before the Age filter so it applies to these recipes too
         registry.removeRecipes(r -> recipeLocked(v, r));
         if (ModList.get().isLoaded(EvolvedMekanismEmi.MOD_ID) && ModList.get().isLoaded("mekanism")) {
             EvolvedMekanismEmi.register(registry); // its JEI-only chemical categories (SPEC 21.12)

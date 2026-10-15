@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:voidglass"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:aurora_light_bucket"
+    }
+  ],
+  "type": "firmages:starforge",
+  "chord": "firmages:stone_and_space",
+  "ingredients": [
+    {
+      "item": "firmages:voidglass"
+    },
+    {
+      "tag": "c:plates/calorite",
+      "count": 2
+    }
+  ],
+  "fluid": {
+    "fluid": "firmages:aurora_light",
+    "amount": 250
+  },
+  "time": 100,
+  "result": {
+    "id": "firmages:lens/quantum"
+  }
+}

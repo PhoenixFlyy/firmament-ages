@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:firmament_crystal"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:aurora_light_bucket"
+    }
+  ],
+  "type": "firmages:starforge",
+  "chord": "firmages:stone_and_arcane",
+  "ingredients": [
+    {
+      "item": "firmages:lens_blank"
+    },
+    {
+      "item": "firmages:firmament_crystal"
+    },
+    {
+      "tag": "c:sheets/black_steel",
+      "count": 2
+    }
+  ],
+  "fluid": {
+    "fluid": "firmages:aurora_light",
+    "amount": 100
+  },
+  "time": 100,
+  "result": {
+    "id": "firmages:lens/industrial"
+  }
+}

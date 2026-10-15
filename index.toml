@@ -234,7 +234,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "573756003aa6e4ed3b02ca755bbef0a27a22a7a41caab8875b587740aad2c08e"
+hash = "53a0ab8bc76ab73c8cb330fb6d402c1462cef7e5b50fb0e9a1576ca6f3185270"
 
 [[files]]
 file = "config/fml.toml"

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "formed=false": {
+      "model": "firmages:block/star_anvil"
+    },
+    "formed=true,active=false": {
+      "model": "firmages:block/star_anvil_formed"
+    },
+    "formed=true,active=true": {
+      "model": "firmages:block/star_anvil_active"
+    }
+  }
+}

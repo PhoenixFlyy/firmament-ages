@@ -1,0 +1,17 @@
+{
+  "type": "firmages:starforge",
+  "chord": "firmages:stone_and_iron",
+  "ingredients": [
+    {
+      "item": "firmages:lens_blank"
+    },
+    {
+      "tag": "firmages:crown/arcane_gems",
+      "count": 2
+    }
+  ],
+  "time": 100,
+  "result": {
+    "id": "firmages:lens/arcane"
+  }
+}

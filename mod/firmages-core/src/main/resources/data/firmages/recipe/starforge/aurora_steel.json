@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:starsteel_ingot"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:storm_glass"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:aurora_light_bucket"
+    }
+  ],
+  "type": "firmages:starforge",
+  "chord": "firmages:spark_triad",
+  "ingredients": [
+    {
+      "item": "firmages:starsteel_ingot"
+    },
+    {
+      "tag": "c:ingots/red_steel"
+    },
+    {
+      "item": "firmages:storm_glass"
+    }
+  ],
+  "fluid": {
+    "fluid": "firmages:aurora_light",
+    "amount": 100
+  },
+  "time": 100,
+  "result": {
+    "id": "firmages:aurora_steel_ingot",
+    "count": 2
+  }
+}
