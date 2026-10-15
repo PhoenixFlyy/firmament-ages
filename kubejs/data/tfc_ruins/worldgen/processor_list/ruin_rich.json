@@ -1,0 +1,850 @@
+{
+  "processors": [
+    {
+      "rules": [
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.35
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "tfc:wood/chest/oak",
+            "Properties": {
+              "facing": "north",
+              "type": "single",
+              "waterlogged": "false"
+            }
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "firmages:chests/ruin_rich"
+          }
+        },
+        {
+          "output_state": {
+            "Name": "tfc:rock/mossy_cobble/phyllite"
+          },
+          "input_predicate": {
+            "block": "tfc:rock/cobble/phyllite",
+            "probability": 0.4,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          }
+        },
+        {
+          "output_state": {
+            "Name": "minecraft:air"
+          },
+          "input_predicate": {
+            "block": "tfc:rock/loose/phyllite",
+            "probability": 0.5,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          }
+        },
+        {
+          "output_state": {
+            "Name": "tfc:groundcover/bone"
+          },
+          "input_predicate": {
+            "block": "tfc:rock/loose/phyllite",
+            "probability": 0.1,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.12
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 0,
+                    "id": "tfc:ore/small_native_gold",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 4,
+                    "id": "tfc:ore/small_native_gold",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 5,
+                    "id": "tfc:ore/small_native_gold",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 6,
+                    "id": "tfc:ore/small_native_gold",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_native_gold",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.12
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 1,
+                    "id": "tfc:ore/small_native_silver",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 2,
+                    "id": "tfc:ore/small_native_silver",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:ore/small_native_silver",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 4,
+                    "id": "tfc:ore/small_native_silver",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 6,
+                    "id": "tfc:ore/small_native_silver",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_native_silver",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 8,
+                    "id": "ore/small_native_silver",
+                    "count": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.12
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 0,
+                    "id": "tfc:ore/small_hematite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 1,
+                    "id": "tfc:ore/small_hematite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 2,
+                    "id": "tfc:ore/small_hematite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:ore/small_hematite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 4,
+                    "id": "tfc:ore/small_hematite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_hematite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 8,
+                    "id": "tfc:ore/small_hematite",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.12
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 0,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 1,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 4,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 5,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 6,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 8,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.12
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 0,
+                    "id": "tfc:ore/lignite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 1,
+                    "id": "tfc:ore/lignite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:ore/lignite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 4,
+                    "id": "tfc:ore/lignite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 5,
+                    "id": "tfc:ore/lignite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/lignite",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.12
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 2,
+                    "id": "tfc:kaolin_clay",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:kaolin_clay",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 4,
+                    "id": "tfc:kaolin_clay",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 5,
+                    "id": "tfc:kaolin_clay",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 6,
+                    "id": "tfc:kaolin_clay",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:kaolin_clay",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 1,
+                    "id": "tfc:ore/small_native_copper",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:ore/small_native_copper",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 8,
+                    "id": "tfc:ore/small_native_copper",
+                    "count": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 0,
+                    "id": "tfc:small_raw_hide",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 5,
+                    "id": "tfc:small_raw_hide",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:small_raw_hide",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 2,
+                    "id": "tfc:medium_raw_hide",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:medium_raw_hide",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:medium_raw_hide",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 0,
+                    "id": "tfc:large_raw_hide",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 5,
+                    "id": "tfc:large_raw_hide",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:large_raw_hide",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 2,
+                    "id": "tfc:small_raw_hide",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:small_raw_hide",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:small_raw_hide",
+                    "count": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 2,
+                    "id": "tfc:groundcover/pumice",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:groundcover/pumice",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:groundcover/pumice",
+                    "count": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 0,
+                    "id": "tfc:ore/small_native_gold",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 5,
+                    "id": "tfc:ore/small_native_gold",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_native_gold",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 2,
+                    "id": "tfc:ore/small_sphalerite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:ore/small_sphalerite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_sphalerite",
+                    "count": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 2,
+                    "id": "tfc:ore/small_limonite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:ore/small_limonite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_limonite",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 2,
+                    "id": "tfc:ore/small_malachite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:ore/small_malachite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_malachite",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "tfc:ceramic/large_vessel",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "tfc:ceramic/large_vessel",
+            "Properties": {
+              "sealed": "true"
+            }
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_static",
+            "data": {
+              "inventory": {
+                "Items": [
+                  {
+                    "Slot": 2,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 1
+                  },
+                  {
+                    "Slot": 3,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 2
+                  },
+                  {
+                    "Slot": 7,
+                    "id": "tfc:ore/small_magnetite",
+                    "count": 2
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "processor_type": "minecraft:rule"
+    }
+  ]
+}
