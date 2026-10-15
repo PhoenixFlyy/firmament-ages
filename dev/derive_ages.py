@@ -7,7 +7,10 @@ section, so the derivation only ever moves an item LATER, never earlier, and run
 
 Inputs
   <dump>/registries.json, recipes.json, recipes_full.json, item_tags.json
-        /fa_dump and /fa_dump_full taken with every Age unlocked (age_9), as for dev/poc_analyze.py
+        /fa_dump and /fa_dump_full taken with every Age unlocked (age_9) and gate.enabled = false in
+        config/firmages-server.toml (on a copy): the gate drops every recipe whose output is in age_items/disabled,
+        [derived_hidden] included, so on a gated dump an item hidden once stays hidden even after its recipe chain
+        returns (0.10.0: Macaw's tables after the coffee tables came back)
   dev/age_map.toml, dev/data/registry.json, dev/data/tfc-4.2.11-ids.json   (via gen_stage_locks.AgeMap)
   config/progressivestages/stages/*.toml   mob spawn locks ([mobs]) and the mob ladder
   dev/data/world_sources.json   facts read from the pack's jars and kubejs/data by --scan: loot tables, global loot

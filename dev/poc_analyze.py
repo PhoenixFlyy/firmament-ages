@@ -484,10 +484,16 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
             if re.match(rx, r["id"]) and st not in unlocked:
                 return st
         return None
+    superseded = 0
     for r in brows:
         ls = [] if r["type"] in GATE_EXEMPT else locks(r["id"], r["result"], bfull.get(r["id"]), btags)
         sl = None if ls else station_lock(r, bfull.get(r["id"]))
-        if ls:
+        until = re.match(r"^firmages:byproducts/.+/before_(age_\d)$", r["id"])
+        if until and until.group(1) in unlocked and r["id"] not in have:
+            # recipes/byproducts.js: a copy without locked byproducts lives only until its Age (FirmAges.untilAge);
+            # a baseline taken with gate.enabled = false still holds it, the gate drops it as superseded
+            superseded += 1
+        elif ls:
             per_age[max((st for _, st in ls), key=order.index)] += 1
         elif sl:
             by_station[sl] += 1
@@ -502,6 +508,7 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
           + ", ".join(f"{k}={per_age[k]}" for k in order if per_age[k]))
     print("    kept out by the Age of their station (station_ages.js and the late pack recipes): "
           + ", ".join(f"{k}={by_station[k]}" for k in order if by_station[k]))
+    print(f"    byproduct copies superseded by their unlocked Age (FirmAges.untilAge): {superseded}")
     check("G-2 every baseline recipe whose outputs are all unlocked is loaded (the gate drops nothing more)",
           not missing, missing)
     print(f"    Mekanism-family tag outputs the mirror cannot resolve (dropped by the gate's resolved stack): "
@@ -695,10 +702,12 @@ MOB_DROPS = ["ars_nouveau:wilden_horn", "ars_nouveau:wilden_spike", "ars_nouveau
              "ars_nouveau:wilden_tribute",   # the optional Wilden Chimera; the Enchanting Apparatus makes it too
              "occultism:datura_seeds",   # pack loot modifier on TFC grass (kubejs/data/firmages/loot_modifiers)
              "occultism:tallow"]         # butcher knife on TFC animals (entity tags in tags/arcane_industrial.js)
-# World processes the recipe graph does not see: saplings grow into trees, crops ripen, ore blocks drop.
+# World processes the recipe graph does not see: saplings grow into trees, crops ripen, ore blocks drop, a vanilla
+# bucket fills at a water source or a lava pool (the bucket has a recipe from the Electric Age since 0.10.0).
 GROWN = {"occultism:otherworld_sapling_natural": ["occultism:otherworld_log"], "occultism:datura_seeds": ["occultism:datura"],
          "ars_nouveau:magebloom_crop": ["ars_nouveau:magebloom"],
-         "theurgy:sal_ammoniac_ore": ["theurgy:sal_ammoniac_crystal"]}
+         "theurgy:sal_ammoniac_ore": ["theurgy:sal_ammoniac_crystal"],
+         "minecraft:bucket": ["minecraft:water_bucket", "minecraft:lava_bucket"]}
 # Datura and Magebloom break on TFC farmland (setblock test); they need vanilla farmland (the pack's Arcane Soil).
 GROWN_NEEDS = {"occultism:datura_seeds": "minecraft:farmland", "ars_nouveau:magebloom_crop": "minecraft:farmland"}
 for _c in ("blue", "red", "green", "purple"):
@@ -849,6 +858,9 @@ def _slots(o, out, key=None):
             return out
         if o.get("type") == "neoforge:single" or "fluid" in o or "fluid_stack" in str(o.get("type", "")):
             return out
+        if o.get("type") == "theurgy:reformation" and isinstance(o.get("target"), dict):
+            # the target sulfur sits on the reformation's target pedestal: not consumed, but needed (a catalyst)
+            _slots(o["target"], out, "ingredient")
         for k, v in o.items():
             if k in RESULT_KEYS or k == "pattern":
                 continue
