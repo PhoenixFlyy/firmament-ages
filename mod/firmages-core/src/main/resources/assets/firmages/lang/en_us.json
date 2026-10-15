@@ -218,5 +218,26 @@
   "firmages.welcome.caelum.heading": "Caelum",
   "firmages.welcome.caelum.text": "The sky above you. It watches, and it answers.",
   "firmages.welcome.open": "Open the Chronicle (%s)",
-  "firmages.welcome.close": "Into the world"
+  "firmages.welcome.close": "Into the world",
+
+  "block.firmages.tally_chute": "Tally Chute",
+  "firmages.jade.tally.counted": "Counted: %s %s",
+  "firmages.jade.tally.empty": "Nothing counted yet",
+  "firmages.jade.tally.passed": "Through this chute: %s",
+  "firmages.jade.tally.no_owner": "Counts nothing: no hand placed it",
+  "config.jade.plugin_firmages.tally_chute": "Tally Chute",
+
+  "firmages.ponder.silo_hatch.header": "A Silo Hatch over the Launch Pad",
+  "firmages.ponder.silo_hatch.text_1": "Sink a shaft into the ground, eight deep at least. Shore its walls; the rock remembers every cut.",
+  "firmages.ponder.silo_hatch.text_2": "Set the launch pad at the bottom, and the rocket on it.",
+  "firmages.ponder.silo_hatch.text_3": "Glue two leaves over the shaft. Each rides a gantry carriage and slides into a pocket under the rim.",
+  "firmages.ponder.silo_hatch.text_4": "One redstone link opens the hatch.",
+  "firmages.ponder.silo_hatch.text_5": "A delayed link wakes the pad. Ten heartbeats later the rocket rises.",
+  "firmages.ponder.silo_hatch.text_6": "Ride it up through your own sky.",
+  "firmages.ponder.portcullis.header": "A Portcullis on a Rope Pulley",
+  "firmages.ponder.portcullis.text_1": "Leave a slot in the wall above your gate, as tall as the gate.",
+  "firmages.ponder.portcullis.text_2": "Glue an iron grate together and hang it in the slot under a rope pulley.",
+  "firmages.ponder.portcullis.text_3": "Turn the pulley one way and the grate drops. The gate is shut.",
+  "firmages.ponder.portcullis.text_4": "Throw the lever on the gearshift and the pulley turns back. The grate rises into the wall.",
+  "firmages.ponder.portcullis.text_5": "Pair two redstone links and the gate obeys from across the yard."
 }

@@ -4,6 +4,8 @@ import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.client.immersion.ImmersionClient;
 import dev.firmages.core.net.ShrineSyncPayload;
+import dev.firmages.core.proof.TallyChuteBlock;
+import dev.firmages.core.proof.TallyChuteBlockEntity;
 import dev.firmages.core.shrine.ConsecratedBlock;
 import dev.firmages.core.shrine.OfferingPlinthBlock;
 import dev.firmages.core.shrine.OfferingPlinthBlockEntity;
@@ -24,7 +26,8 @@ import snownee.jade.api.config.IPluginConfig;
 /**
  * Jade tooltips for the shrine (SPEC §7.6, M6): the heart shows its awakened tiers, whether the next ring stands,
  * whether it is kindled and maintenance mode; a plinth shows its Age, its relic or offering, and a lent relic; a
- * consecrated block (M7, SPEC §17) its role, the Age of its ring, its original material and the maintenance state.
+ * consecrated block (M7, SPEC §17) its role, the Age of its ring, its original material and the maintenance state; a
+ * Tally Chute (SPEC §22.1) the team's count of the last item it passed and its own total.
  * Everything comes from the synced blockstates, the plinth block entity and the {@code firmages:shrine_sync}
  * payload, so no server data provider is needed. Before {@code ui.jadeFromAge} the overlay is suppressed entirely
  * (SPEC §18.3). Jade finds this class by
@@ -35,12 +38,14 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation HEART = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "shrine_heart");
     static final ResourceLocation PLINTH = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "offering_plinth");
     static final ResourceLocation CONSECRATED = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "consecrated");
+    static final ResourceLocation TALLY = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "tally_chute");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
         registration.registerBlockComponent(Heart.INSTANCE, ShrineHeartBlock.class);
         registration.registerBlockComponent(Plinth.INSTANCE, OfferingPlinthBlock.class);
         registration.registerBlockComponent(Consecrated.INSTANCE, ConsecratedBlock.class);
+        registration.registerBlockComponent(Tally.INSTANCE, TallyChuteBlock.class);
         // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
@@ -128,6 +133,33 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return PLINTH;
+        }
+    }
+
+    /** A Tally Chute: the team's total of the last item it counted, its own total, or that it has no owner. */
+    enum Tally implements IBlockComponentProvider {
+        INSTANCE;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (!(accessor.getBlockEntity() instanceof TallyChuteBlockEntity be)) return;
+            if (be.owner() == null) {
+                tooltip.add(Component.translatable("firmages.jade.tally.no_owner").withStyle(ChatFormatting.GRAY));
+                return;
+            }
+            ResourceLocation last = ResourceLocation.tryParse(be.lastItem());
+            if (last != null && BuiltInRegistries.ITEM.containsKey(last)) {
+                tooltip.add(Component.translatable("firmages.jade.tally.counted", be.lastTeamCount(), BuiltInRegistries.ITEM.get(last).getDescription())
+                    .withStyle(ChatFormatting.GOLD));
+            } else {
+                tooltip.add(Component.translatable("firmages.jade.tally.empty").withStyle(ChatFormatting.GRAY));
+            }
+            if (be.passed() > 0) tooltip.add(Component.translatable("firmages.jade.tally.passed", be.passed()).withStyle(ChatFormatting.GRAY));
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return TALLY;
         }
     }
 }
