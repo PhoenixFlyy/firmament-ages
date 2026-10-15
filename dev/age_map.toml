@@ -76,8 +76,7 @@ rechiseled = "age_1"             # the chisel screen; only the pack's TFC rock g
 fusion = "dawn"                  # library of Rechiseled (connected textures)
 diagonalfences = "dawn"          # no items: diagonal fence and wall states
 interiors = "age_2"              # Create: Interiors, seats for trains and contraptions
-refurbished_furniture = "age_5"  # the Electric Age home: own power, kitchen, electronics (recipes/age_5)
-framework = "dawn"               # library of Refurbished Furniture
+framework = "dawn"               # library of Goblin Traders (MrCrayfish's Furniture: Refurbished left the pack in round C1)
 immersive_paintings = "age_6"    # uploaded pictures, stored on the server
 laserbridges = "age_7"           # Laser Bridges & Doors: light bridges and laser doors of the Space Age
 deimos = "dawn"                  # library of Laser Bridges
@@ -563,7 +562,6 @@ block = "tfc:rock/loose/granite"
 "name:everycomp:mcfur/" = "age_1"                        # Macaw's Furniture
 "name:everycomp:sd/" = "age_1"                           # Storage Drawers
 "name:everycomp:af/" = "age_1"                           # Another Furniture
-"name:everycomp:rfm/" = "age_5"                          # Refurbished Furniture: the Electric Age home
 # Storage Drawers: one storage upgrade per Age, each with that Age's material (kubejs/server_scripts/recipes/
 # deco_inputs.js); the other upgrades, keys and the controller are iron parts of the Iron Age.
 "id:storagedrawers:copper_storage_upgrade" = "age_1"
@@ -1209,7 +1207,7 @@ patterns = [
     # Deco round n7: the vanilla-wood originals of the new furniture and building mods (Felix 2026-10-14). Vanilla
     # planks only come from the Create saw in the Iron Age; the TFC/AFC copies of Every Compat carry the home.
     # Dusty Decorations' banisters and large shelves have no Every Compat module and go with them.
-    "(mcwstairs|mcwfences|mcwtrpdoors|mcwroofs|mcwfurnitures|another_furniture|refurbished_furniture|storagedrawers|dustydecorations):(.*_)?(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|bamboo|crimson|warped)(_.*)?",
+    "(mcwstairs|mcwfences|mcwtrpdoors|mcwroofs|mcwfurnitures|another_furniture|storagedrawers|dustydecorations):(.*_)?(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|bamboo|crimson|warped)(_.*)?",
     # Rechiseled's own 3,600 vanilla-material blocks: the chisel screen only shows the pack's TFC rock groups.
     "rechiseled:(?!chisel$).+",
     # Macaw's Trapdoors prints of the styles Every Compat does not build (config/everycomp-hazardous.toml).

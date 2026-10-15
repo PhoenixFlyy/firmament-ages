@@ -29,18 +29,16 @@ Vulkan-Minerale, dichtere Ruinen) entstehen nur in neuen Chunks. Server-Teil auf
    (z. B. Salpeter, Schwefel). Monat mit 5 Tagen (Start 1. Juni), Schnee doppelt so schnell. TFC-Ruinen häufiger, ihre
    Truhen in Dawn nur mit Dawn-Kleinkram. Blutmond ab der Eisenzeit: Untote mit Rüstung und Waffe der Vor-Age.
    Cacophony (Vögel, Wind), Particle Rain, Cosy-Critters-Vögel (keine Motten), Subtle Effects ohne Herzschlag.
-4. **Carry On.** Schleichen und Rechtsklick mit leeren Händen trägt eine Truhe; TFC-Amboss, Tiegel, Fass, großes
-   Gefäß, Rennofen, Hochofen und Schrein-Blöcke lassen sich nicht tragen, Tiere und Spieler auch nicht.
-5. **Exposure.** Kamera aus Messing, Silber, Linse und Leder in der Bronzezeit; Schwarzweißfilm belichten, mit Soda
+4. **Exposure.** Kamera aus Messing, Silber, Linse und Leder in der Bronzezeit; Schwarzweißfilm belichten, mit Soda
    und Salz entwickeln, in der Lichtkammer drucken (Licht 13). Kommt das Foto in der Bronzezeit an, ohne dass es aus
    dem Inventar fällt? Farbfilm erst in der Industriezeit; der Interplanar Projector fehlt.
-6. **Deko.** Messung und Sichtprüfung laut Abschnitt „n7-Deko“ unten (A = 0.9.3, B = 0.10.0). Zusätzlich: Macaw's
-   Couchtisch und Tisch in TFC-Eiche, Storage-Drawers-Upgrades je Age, Refurbished-Küche in der Elektrikzeit.
-7. **Tally Chute** (Bronzezeit, Rezept Bauholz, Create-Rutsche, Bronzeblech): unter einen Trichter oder ein Band
+5. **Deko.** Messung und Sichtprüfung laut Abschnitt „n7-Deko“ unten (A = 0.9.3, B = 0.10.0). Zusätzlich: Macaw's
+   Couchtisch und Tisch in TFC-Eiche und Storage-Drawers-Upgrades je Age.
+6. **Tally Chute** (Bronzezeit, Rezept Bauholz, Create-Rutsche, Bronzeblech): unter einen Trichter oder ein Band
    setzen, Kiste darunter; Jade zeigt die gezählte Menge. Noch keine Quest nutzt sie.
-8. **Musik.** Pro Age eigene TFC-Stücke statt der Vanilla-Musik; in der Firmament-Nacht läuft ein eigener Loop, die
+7. **Musik.** Pro Age eigene TFC-Stücke statt der Vanilla-Musik; in der Firmament-Nacht läuft ein eigener Loop, die
    Age-Musik schweigt, ebenso während der Zeremonie. `music.ageMusic = false` in `firmages-client.toml` schaltet zurück.
-9. **Ponder** (als OP, W über dem Item halten): „Silo Hatch“ am Ad-Astra-Launch-Pad, „Portcullis“ am Rope Pulley.
+8. **Ponder** (als OP, W über dem Item halten): „Silo Hatch“ am Ad-Astra-Launch-Pad, „Portcullis“ am Rope Pulley.
    Textposition und Ausrichtung des Launch Pads ansehen.
 
 ## n7-Deko (Runde A1 2026-10-15, Zweig a1/deco, für den Integrator)
@@ -89,12 +87,11 @@ n7, `dev` bei 27cfbf6) gegen B (mit n7), auf demselben Rechner, je drei Läufe.
    `fusion` durchsuchen).
 3. **Rechiseled.** Bronzemeißel bauen, Granitziegel hineinlegen: genau die Granit-Familie (Ziegel, Gemeißelt, Engraved,
    sechs Muster). Ein Vanilla-Stein zeigt nichts.
-4. **EMI.** Keine Vanilla-Holz-Variante von Macaw's, Storage Drawers, Another Furniture, Refurbished oder Dusty
-   Decorations sichtbar, keine Rechiseled-Blöcke; TFC-Eiche als Küchenschrank, Schublade (Drawers) und Fensterladen
+4. **EMI.** Keine Vanilla-Holz-Variante von Macaw's, Storage Drawers, Another Furniture oder Dusty Decorations
+   sichtbar, keine Rechiseled-Blöcke; TFC-Eiche als Küchenschrank, Schublade (Drawers) und Fensterladen
    (Another Furniture) mit TFC-Rezept.
 5. **Rezepte.** Kitchen Sink (Macaw's, TFC-Holz) nimmt einen TFC-Holzeimer; Lampen von Another Furniture eine
-   TFC-Fackel; Drawer-Upgrades Kupferblech, Schmiedeeisenblech, Goldblech; Refurbished-Werkbank und Kühlschrank in der
-   Elektrozeit mit Aluminium.
+   TFC-Fackel; Drawer-Upgrades Kupferblech, Schmiedeeisenblech, Goldblech.
 6. **Hecken.** Gibt es `everycomp:mcf/tfc/oak_hedge`? Wenn ja, erkennt Moonlight TFC-Blätter; dann die Hecken-IDs
    in den Registry-Snapshot (macht der Dump ohnehin).
 

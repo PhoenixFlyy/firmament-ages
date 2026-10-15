@@ -5,9 +5,9 @@
 // A TFC world makes no vanilla iron, copper or gold ingot, iron nugget, torch, dirt, bucket, barrel or iron trapdoor, so
 // these recipes take the TFC item (MAP; the vanilla copper and gold ingots as in recipes/dead_inputs.js). Torches stay TFC
 // torches: a lamp of Another Furniture or Dusty Decorations is an Iron Age item (dev/age_map.toml), like every light
-// that does not burn out. Refurbished Furniture (age_5) and Laser Bridges (age_7) have their own Age materials in
-// recipes/age_N/; Exposure's camera, film and developing recipes are rebuilt in recipes/exposure.js (OWNED, skipped
-// here), this file only maps the vanilla metals of its other recipes.
+// that does not burn out. Laser Bridges (age_7) has its own Age materials in recipes/age_7/; Exposure's camera, film
+// and developing recipes are rebuilt in recipes/exposure.js (OWNED, skipped here), this file only maps the vanilla
+// metals of its other recipes.
 // Ages of the outputs: dev/age_map.toml [mods] and [items]; the vanilla-wood originals are in [hidden] (patterns).
 // Ids from the mod jars (no fa_dump with these mods yet). POC: Every Compat's recipes come from Moonlight's runtime
 // pack; check one TFC kitchen sink and one TFC drawer in EMI.

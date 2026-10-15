@@ -21,10 +21,6 @@ file = "config/brandon3055/DraconicEvolution.cfg"
 hash = "16b87d346751be22275155555bbe466c73bee7297b3425bc1282d9e224942957"
 
 [[files]]
-file = "config/carryon-common.toml"
-hash = "1dbc0bb3d8aec4da765ed0c03b586dea09ab8cdde604bfa861c654ae68c56739"
-
-[[files]]
 file = "config/cave_dweller/server_config.toml"
 hash = "512ced25a92db5ffaacfc8238f298a121c6c900dddcca0b2d355d252e8194712"
 
@@ -90,7 +86,7 @@ hash = "ca187fe5c82c892b512d33479b28c0ade281734322ad2261732654cb3fb52d88"
 
 [[files]]
 file = "config/everycomp-hazardous.toml"
-hash = "cb0cd87e139939773ca52befd2ff99b3fd91874caa5204c024b010f9c1c9f9fd"
+hash = "1aae907e13a4d775bba28525e80d5550a309ab70aca34feed93c9f53d3e59b47"
 
 [[files]]
 file = "config/fancymenu/assets/firmament/bar_bg.png"
@@ -8613,10 +8609,6 @@ file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
 hash = "9e5ec8233cdd6cd7117403b906d238902f6cbcea187cf8805a9eace493db59c3"
 
 [[files]]
-file = "kubejs/server_scripts/recipes/age_5/refurbished_furniture.js"
-hash = "3033c7535c407ac9a4edc0e11c85ed7ccda184087cc53377b20cc702757499cd"
-
-[[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
 hash = "24c7ef87f86ef89c85432d2bf4f1b450c29ddba8291c5cbdd0128990ffffc606"
 
@@ -8662,7 +8654,7 @@ hash = "89b87005fb6e2ef07eeb789b837ab91708089593e4583dd3a08f7d9799e3b8b1"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/deco_inputs.js"
-hash = "0f87bf54814bb5c08248285b41ecef6438b661cf74d6f68175d3e05c42d9059f"
+hash = "7ae26b8dc6cd08268c3600f5f49dfa24e8ed0800d77e1765ed1c078cc6f13cfb"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/exposure.js"
@@ -8674,7 +8666,7 @@ hash = "dd0902086c52f3e48b7445e9ec4c8f793d62b010a48ecd999f61fd395d6ad8f4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
-hash = "7c3d839b6512220b3224bcf127b24913ea959158540d702f98b433112e20c935"
+hash = "d259eb606d9fdd83af361579b4bc385813f879eee05acd19b75142d8b4819fb9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/signature_blocks.js"
@@ -8925,11 +8917,6 @@ metafile = true
 [[files]]
 file = "mods/cacophony-tfc.pw.toml"
 hash = "cc888683261fba06445e24a322a97593fb7c06d4ee11005660734f5be6bd436a"
-metafile = true
-
-[[files]]
-file = "mods/carry-on.pw.toml"
-hash = "98250d952145b18c452883997e7e675d445bfce33e9afb35bf372040c429a179"
 metafile = true
 
 [[files]]
@@ -9699,11 +9686,6 @@ metafile = true
 [[files]]
 file = "mods/rechiseled.pw.toml"
 hash = "ae8e448fe3c56667203cd20d9e96058594a8e263d96bc64fbcaebd07b89d23c9"
-metafile = true
-
-[[files]]
-file = "mods/refurbished-furniture.pw.toml"
-hash = "208de52370a896983814bd3f69ed0e2b46ca52d99603656562f3890f96d151da"
 metafile = true
 
 [[files]]
