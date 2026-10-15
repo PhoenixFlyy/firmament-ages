@@ -1,0 +1,7 @@
+# Firmament Ages - Exposure 1.9.19 server config defaults (copied into new worlds' serverconfig).
+# Key path from io.github.mortuusars.exposure.Config$Server (javap): section "capture".
+
+[capture]
+	# Default true. The Interplanar Projector loads pictures from a URL or a file on the player's PC; the pack
+	# hides the item (dev/age_map.toml [hidden]) and switches the feature off (n7-world, 2026-10-15).
+	projecting_enabled = false
