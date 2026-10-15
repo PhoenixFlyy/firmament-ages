@@ -12,7 +12,7 @@ facing north in the template; the bottom layer is the floor, one block below the
 Written into mod/firmages-core/src/main/resources/data/firmages/ (the mod jar, overridable from kubejs/data/firmages/):
   structure/wayshrine/<type>.nbt                         the ruin (all eight types, the Wind Shrine included)
   worldgen/structure/wayshrine/<type>.json               jigsaw, size 1, surface (seven types, not the Wind Shrine)
-  worldgen/structure_set/wayshrine/<type>.json           TFC climate placement (tfc:climate), spacing 128, separation 48
+  worldgen/structure_set/wayshrine/<type>.json           TFC climate placement (tfc:climate), spacing 80, separation 30
   worldgen/template_pool/wayshrine/<type>.json           the ruin with the processor list (all eight)
   worldgen/processor_list/wayshrine.json                 cracked and mossy bricks, block_rot on #firmages:wayshrine/rottable
   tags/worldgen/structure/wayshrine.json                 the seven structures (/locate, the pointer)
@@ -89,6 +89,15 @@ ROCK_BRICKS = ["#firmages:wayshrine/any_rock_bricks"]
 # of the land. The tfc:climate placement stays the real filter. No type uses min_elevation: ClimateStructurePlacement tests
 # the climate at y 0 of the chunk (javap TFC 4.2.11), so an elevation bound never passes; the mountain biomes carry the
 # height of the Mountain Spire instead. All ids are in data/tfc/worldgen/biome of TFC 4.2.11.
+# Density (SPEC-himmel 28.4 says spacing 128, separation 48; acceptance 2 wants 7 to 11 Wayshrines within 4,000 blocks
+# of spawn [PoC]). Three fresh seeds of the 0.10.0 copy boot at spacing 128 had 1, 1 and 4 within 4,096 blocks: about
+# 2.8 % of the candidate chunks pass climate and biome, and the hot types (Desert Arch, Reef Altar) lie beyond the
+# spawn band by design. Spacing 64 gave 5, 1 and 4 on three more seeds; the climate bands of the near types are wider
+# since: Forest Ring from edge forest (min_forest 2, was 3), Steppe Stones up to 220 mm groundwater and edge forest
+# (was 150 and sparse), Swamp Altar from 300 mm (was 350) and also in wet plains and river valleys (TFC has no swamp
+# biome; its swamps are wet plains and lowlands). With those bands spacing 64 gave 11, 11 and 20 on three seeds, so
+# the spacing is 80: (64 / 80)^2 of that is about 9 per seed.
+SPACING, SEPARATION = 80, 30
 FOREST_RING_BIOMES = ["plains", "hills", "rolling_hills", "lowlands",
                       "doline_plains", "doline_hills", "doline_rolling_hills", "cenote_plains", "cenote_hills",
                       "cenote_rolling_hills", "burren_plains", "shilin_plains", "shilin_hills", "tower_karst_plains",
@@ -98,7 +107,7 @@ STEPPE_STONES_BIOMES = ["plains", "rolling_hills", "plateau",
                         "cenote_plains", "cenote_rolling_hills", "cenote_plateau", "burren_plains", "burren_plateau",
                         "shilin_plains", "shilin_plateau", "patterned_ground", "inverted_patterned_ground",
                         "stone_circles", "terrace_lower", "terrace_upper"]
-SWAMP_ALTAR_BIOMES = ["lowlands", "salt_marsh", "mud_flats", "tidal_flats", "knob_and_kettle"]
+SWAMP_ALTAR_BIOMES = ["lowlands", "salt_marsh", "mud_flats", "tidal_flats", "knob_and_kettle", "plains", "river_valley"]
 DESERT_ARCH_BIOMES = ["dune_sea", "grassy_dunes", "badlands", "mesas", "buttes",
                       "coastal_dunes", "burren_badlands", "burren_badlands_tall", "hoodoos", "salt_flats",
                       "stair_step_canyons", "whorled_canyons"]
@@ -175,7 +184,7 @@ def forest_ring():
              "T": Role("thatch", ["tfc:thatch", "minecraft:hay_block"], "tfc:thatch")}
     return Kind("forest_ring", "Forest Ring", "age_1", "#9FD38A", size, "granite", roles, cells, missing, rubble,
                 biomes=FOREST_RING_BIOMES,
-                climate={"min_temperature": 4.0, "max_temperature": 22.0, "min_forest": 3})
+                climate={"min_temperature": 4.0, "max_temperature": 22.0, "min_forest": 2})
 
 
 def steppe_stones():
@@ -196,7 +205,7 @@ def steppe_stones():
              "Z": Role("bronze", ["#c:storage_blocks/bronze", "tfc:metal/block/bronze", "tfc:metal/block/bismuth_bronze",
                                   "tfc:metal/block/black_bronze"], "tfc:metal/block/bronze")}
     return Kind("steppe_stones", "Steppe Stones", "age_1", "#E8D7A0", size, "andesite", roles, cells, missing, rubble,
-                biomes=STEPPE_STONES_BIOMES, climate={"max_groundwater": 150.0, "max_forest": 1})
+                biomes=STEPPE_STONES_BIOMES, climate={"max_groundwater": 220.0, "max_forest": 2})
 
 
 def swamp_altar():
@@ -221,7 +230,7 @@ def swamp_altar():
                                 "tfc:metal/bars/red_steel", "tfc:metal/bars/blue_steel", "minecraft:iron_bars"],
                        "tfc:metal/bars/wrought_iron", bars=True)}
     return Kind("swamp_altar", "Swamp Altar", "age_2", "#7FA88A", size, "shale", roles, cells, missing, rubble,
-                biomes=SWAMP_ALTAR_BIOMES, climate={"min_groundwater": 350.0}, terrain="beard_box")
+                biomes=SWAMP_ALTAR_BIOMES, climate={"min_groundwater": 300.0}, terrain="beard_box")
 
 
 def desert_arch():
@@ -557,7 +566,7 @@ def worldgen_files(k):
     }
     out[f"worldgen/structure_set/wayshrine/{k.tid}.json"] = {
         "structures": [{"structure": f"firmages:wayshrine/{k.tid}", "weight": 1}],
-        "placement": {"type": "tfc:climate", "salt": salt(k.tid), "spacing": 128, "separation": 48, "climate": k.climate},
+        "placement": {"type": "tfc:climate", "salt": salt(k.tid), "spacing": SPACING, "separation": SEPARATION, "climate": k.climate},
         "neoforge:conditions": TFC_LOADED,
     }
     out[f"tags/worldgen/biome/has_structure/wayshrine/{k.tid}.json"] = {

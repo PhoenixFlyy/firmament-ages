@@ -8,10 +8,10 @@
   "placement": {
     "type": "tfc:climate",
     "salt": 2101444522,
-    "spacing": 128,
-    "separation": 48,
+    "spacing": 80,
+    "separation": 30,
     "climate": {
-      "min_groundwater": 350.0
+      "min_groundwater": 300.0
     }
   },
   "neoforge:conditions": [
