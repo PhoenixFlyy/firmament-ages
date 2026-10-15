@@ -15,6 +15,7 @@
     {"id": "afc:wood/hanging_sign/copper/mahogany", "required": false},
     {"id": "afc:wood/hanging_sign/copper/teak", "required": false},
     {"id": "afc:wood/hanging_sign/copper/tualang", "required": false},
+    {"id": "ahandfulofacorns:pine_nut", "required": false},
     {"id": "everycomp:db/afc/araucaria_beam", "required": false},
     {"id": "everycomp:db/afc/araucaria_palisade", "required": false},
     {"id": "everycomp:db/afc/araucaria_seat", "required": false},

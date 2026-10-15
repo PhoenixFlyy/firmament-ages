@@ -11,6 +11,8 @@
     {"id": "afc:latex", "required": false},
     {"id": "afc:maple_sap", "required": false},
     {"id": "afc:maple_syrup", "required": false},
+    {"id": "ahandfulofacorns:coconut_juice", "required": false},
+    {"id": "ahandfulofacorns:flowing_coconut_juice", "required": false},
     {"id": "minecraft:flowing_lava", "required": false},
     {"id": "minecraft:flowing_milk", "required": false},
     {"id": "minecraft:flowing_water", "required": false},

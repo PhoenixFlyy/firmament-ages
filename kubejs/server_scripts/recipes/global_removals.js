@@ -111,8 +111,6 @@ ServerEvents.recipes((event) => {
   // TFC Volcanoes 2.3: volcanic ash to light gray dye is a vanilla grid recipe open in Dawn; the pack switches ash
   // placement off (config/tfcvolcanoes-startup.toml pyroclasticFlowAshPlacementFactor = 0), so the ash never exists.
   ;['volcanic_ash', 'baked_volcanic_ash'].forEach((a) => event.remove({ id: `tfcvolcanoes:crafting/${a}` }))
-  // Refurbished Furniture's cheese takes a vanilla milk bucket, which a TFC world never fills (TFC milk is a fluid).
-  event.remove({ id: 'refurbished_furniture:cheese' })
 
   // The collected patterns, one pass (see the top of this handler).
   event.remove({ id: anyOf(removeIdPatterns) })

@@ -1,0 +1,13 @@
+name = "A handful of acorns"
+filename = "ahandfulofacorns-1.21.1-1.2.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "7b66e52afa07211822b58c9532783feb30fe4c88"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8661080
+project-id = 1473091

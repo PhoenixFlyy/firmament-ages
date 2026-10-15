@@ -27,6 +27,7 @@ locked = [
 locked_ids = [
     # >>> generated:recipes >>>
     "mod:bellsandwhistles",
+    "mod:bibliocraft",
     "mod:bits_n_bobs",
     "mod:copycats",
     "mod:create_mechanical_extruder",

@@ -162,6 +162,12 @@ INTERACTIONS = [
     ("dawn", ["create:brown_toolbox"], [f"create:{c}_toolbox" for c in (               # create:toolbox_dyeing (special)
         "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple",
         "blue", "green", "red", "black")]),
+    # A handful of acorns 1.2: the long secateurs cut nuts from TFC oak, chestnut, hickory, pine and palm leaves in
+    # autumn (LongSecateurs.useOn, javap; the pine gives TFC pinecones). No loot table, so the walk needs this step.
+    ("dawn", ["ahandfulofacorns:long_secateurs"], ["ahandfulofacorns:acorn", "ahandfulofacorns:chestnut",
+                                                    "ahandfulofacorns:hickory_nut", "ahandfulofacorns:coconut"]),
+    # An opened coconut used on a TFC barrel pours its juice into the barrel and leaves the meat (OpenedCoconutItem).
+    ("dawn", ["ahandfulofacorns:opened_coconut", "tfc:wood/barrel/oak"], ["ahandfulofacorns:coconut_meat"]),
 ]
 # Roads and Roofs: poured concrete dries in the world, trodden roads crack: (wet or fresh block, the block it becomes).
 WORLD_CHANGES = [("rnr:wet_concrete_road", "rnr:concrete_road"), ("rnr:wet_concrete_road_panel", "rnr:concrete_road_panel"),
@@ -1086,7 +1092,12 @@ def main():
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if a.scan or not os.path.isfile(WORLD_SOURCES):
-        scan(a.mods, os.path.join(TEST_SERVER, VANILLA_JAR))
+        # The vanilla server jar of the server whose mods are scanned: without it every vanilla loot table, biome,
+        # feature and structure is missing and vanilla items fall to "never reachable" (a copy outside test-server).
+        vanilla = os.path.join(os.path.dirname(os.path.abspath(a.mods)), VANILLA_JAR)
+        if not os.path.isfile(vanilla):
+            sys.exit(f"vanilla server jar missing: {vanilla}")
+        scan(a.mods, vanilla)
     res = derive(a.dump_dir, a.show)
     base, first, via = res["base"], res["first"], res["via"]
     if a.explain:

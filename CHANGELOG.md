@@ -2,6 +2,18 @@
 
 Beta: the whole progression is playable from Dawn to The Origin (its final boss is being rebuilt for 1.0), balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## Unreleased (1.0 round C1)
+
+- **More for the home:** Armor Statues and Banner Flags (Stone Age; sneak and right-click a fence or wall with a banner), Connected Glass, Advanced Chimneys and To the Bat Poles! (Bronze Age; the redstone lift pole in the Iron Age), Bibliocraft Legacy (Iron Age: display cases in the oak look from any wooden slab, labels, clipboard, stockroom catalog, bookcases and fancy signs in every TerraFirmaCraft and ArborFirmaCraft wood, typewriters and the printing table; its seats, tables, shelves, lamps, clocks, fancy armor stands, tool rack and sword pedestal are not in the pack, and the printing table no longer copies enchanted books), KleeSlabs (break one half of a double slab), Akashic Tome (Arcane Age: every guide book in one tome) and Enchantment Descriptions.
+- **A handful of acorns:** long secateurs (Bronze Age, brass mechanism) cut acorns, chestnuts, hickory nuts and coconuts from TerraFirmaCraft trees in autumn; roast them in a firepit.
+- **Chimneys for TerraFirmaCraft:** the smoke of a lit firepit, grill, pot, bloomery, blast furnace or charcoal forge rises through a chimney built above it. Smoke never poisons anyone.
+- **On the client:** 3D Skin Layers, Auroras (northern lights towards the cold north; the Complementary shader's own aurora is off in new installs), Cool Rain, BetterF3 (it hides the coordinates in the Stone Age like the plain debug screen), Chat Heads and Big Sign Writer.
+- **Removed:** Carry On and MrCrayfish's Furniture: Refurbished.
+
+### Technical
+
+- 250 metafiles plus `firmages-core` (19 added with the libraries ForgeEndertech, Bookshelf and Prickle, 2 removed). Banner Flags is a Modrinth file without a CurseForge project and is left out of the CurseForge upload; the server pack and the `.mrpack` carry it.
+
 ## 0.10.0
 
 First round towards 1.0. No famous boss is required any more: every Age has its own technical route, the big adventure mods are gone, and the world and the home get a lot richer. **Start a new world:** removed mods take their blocks, items and structures with them, and the new world features only generate in new chunks.
@@ -18,17 +30,17 @@ First round towards 1.0. No famous boss is required any more: every Age has its 
   - **Singularity Age:** a large chaos fragment from your own Draconic reactor, which can now be built without chaos (about four reactor cycles).
 - **Draconium veins** deep in granite, diorite and gabbro, so Draconic Evolution no longer needs the End. They show from the Space Age.
 - **A vanilla bucket** is made from steel sheets in the Electric Age (the Twilight Forest was its only source); the volcanic sourcelink takes a magma block instead of a lava bucket. Vanilla oak, birch, spruce and jungle wood only grow on the forest worlds behind the Stargate (Singularity Age); dark oak, acacia, mangrove, cherry and bamboo are gone, and their decoration with them. Every decoration set comes in TerraFirmaCraft and ArborFirmaCraft woods.
-- **A living world:** Cacophony (birds and wind by climate and season), TFC Volcanoes (eruptions and quakes that only show and shake, mineral crusts at hot springs), Exposure (a film camera from brass, silver, a lens and leather in the Bronze Age, developed with soda ash and salt; colour film in the Industrial Age; pictures from a URL are switched off), Carry On (sneak and right-click with empty hands to carry a chest or block; anvils, crucibles, barrels, vessels, bloomery, blast furnace and shrine blocks stay put). On the client: Subtle Effects, Particle Rain and Cosy Critters & Creepy Crawlies (birds, no moths).
+- **A living world:** Cacophony (birds and wind by climate and season), TFC Volcanoes (eruptions and quakes that only show and shake, mineral crusts at hot springs), Exposure (a film camera from brass, silver, a lens and leather in the Bronze Age, developed with soda ash and salt; colour film in the Industrial Age; pictures from a URL are switched off). On the client: Subtle Effects, Particle Rain and Cosy Critters & Creepy Crawlies (birds, no moths).
 - **Months have 5 days** (new worlds still start on June 1) and snow piles up twice as fast. TerraFirmaCraft ruins appear more often, and their chests hold loot of your Age.
 - **Blood moons by Age:** from the Iron Age on, undead wear armour and weapons of the metal one Age behind yours; from the Electric Age on, monsters also get speed, then resistance, then strength.
-- **A new home:** Macaw's Stairs, Fences and Walls, Trapdoors, Roofs, Furniture and Paintings, Storage Drawers (one upgrade per Age), Another Furniture, Dusty Decorations, Joy of Painting, Create: Interiors (Iron Age), MrCrayfish's Furniture: Refurbished (Electric Age kitchen and electronics), Immersive Paintings (Information Age), Laser Bridges & Doors (Space Age) and Diagonal Fences, in TerraFirmaCraft and ArborFirmaCraft woods where they have wood. The TerraFirmaCraft chisel cycles every rock through six new patterns (chevron, ashlar, runes, mosaic, connected panels and columns); Rechiseled shows the whole family of a rock.
+- **A new home:** Macaw's Stairs, Fences and Walls, Trapdoors, Roofs, Furniture and Paintings, Storage Drawers (one upgrade per Age), Another Furniture, Dusty Decorations, Joy of Painting, Create: Interiors (Iron Age), Immersive Paintings (Information Age), Laser Bridges & Doors (Space Age) and Diagonal Fences, in TerraFirmaCraft and ArborFirmaCraft woods where they have wood. The TerraFirmaCraft chisel cycles every rock through six new patterns (chevron, ashlar, runes, mosaic, connected panels and columns); Rechiseled shows the whole family of a rock.
 - **Tally Chute** (Bronze Age): put it into a line like a chute; it counts what your team pushes through and passes everything on. Quests will use it to prove that a line runs.
 - **Music by Age:** TerraFirmaCraft's five tracks play by Age, and the Firmament Night has its own track.
 
 ### Technical
 
 - **Firmament Ages Core 0.10.0:** the Tally Chute with the criteria `firmages:tally` and `firmages:silo_launch`, two Ponder scenes ("Silo Hatch", "Portcullis") that quest pictures can open, per-Age music, and everything that only served Cataclysm and Gateways to Eternity removed. Client and server need 0.10.0.
-- 234 mods (26 added, 8 removed). Subtle Effects is a Modrinth file with a CurseForge twin, like the eight before it.
+- 232 mods (24 added, 8 removed). Subtle Effects is a Modrinth file with a CurseForge twin, like the eight before it.
 
 ## 0.9.3
 

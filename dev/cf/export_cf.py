@@ -29,6 +29,12 @@ PACKWIZ = ROOT / "tools" / "packwiz.exe"
 SWAP = ROOT / "dev" / "cf" / "swap"
 WORK = ROOT / "dev" / "exports" / "cf-work" / "upload-pack"
 RECOMMENDED_RAM_MB = 8192
+# Modrinth metafiles with no CurseForge project. They stay in the packwiz pack (server pack, .mrpack, friends' Prism)
+# and are left out of the CurseForge upload: packwiz would put their jar into overrides/, and their licence does not
+# allow redistribution. Banner Flags (2026-10-15, round C1): a datapack wrapped as a mod by Modrinth, All Rights
+# Reserved; CurseForge has only its old resource pack. It is data only, so a CurseForge client still sees the flags on
+# a server that runs the packwiz server pack; a CurseForge single-player world has no banner flags.
+MODRINTH_ONLY = {"banner-flags.pw.toml"}
 
 
 def set_recommended_ram(zip_path: Path, mb: int) -> dict:
@@ -60,6 +66,8 @@ def main():
         dst = WORK / f["file"]
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / f["file"], dst)
+    for name in sorted(MODRINTH_ONLY):
+        (WORK / "mods" / name).unlink()
     swapped = []
     for cf in sorted(SWAP.glob("*.pw.toml")):
         cf_data = tomllib.loads(cf.read_text(encoding="utf-8"))

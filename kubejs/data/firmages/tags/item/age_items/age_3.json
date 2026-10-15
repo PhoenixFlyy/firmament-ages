@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    {"id": "akashictome:tome", "required": false},
     {"id": "apotheosis:arcane_sands", "required": false},
     {"id": "apotheosis:ender_gem_case", "required": false},
     {"id": "apotheosis:gem", "required": false},
@@ -614,6 +615,7 @@
     {"id": "beneath:wood/wood/warped", "required": false},
     {"id": "beneath:wood/workbench/crimson", "required": false},
     {"id": "beneath:wood/workbench/warped", "required": false},
+    {"id": "bibliocraft:cookie_jar", "required": false},
     {"id": "bits_n_bobs:calcite_tile_slab", "required": false},
     {"id": "bits_n_bobs:calcite_tile_stairs", "required": false},
     {"id": "bits_n_bobs:calcite_tile_wall", "required": false},
