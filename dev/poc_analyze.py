@@ -712,6 +712,7 @@ GROWN = {"occultism:otherworld_sapling_natural": ["occultism:otherworld_log"], "
 GROWN_NEEDS = {"occultism:datura_seeds": "minecraft:farmland", "ars_nouveau:magebloom_crop": "minecraft:farmland"}
 for _c in ("blue", "red", "green", "purple"):
     GROWN[f"ars_nouveau:{_c}_archwood_sapling"] = [f"ars_nouveau:{_c}_archwood_log"]
+GROWN["ars_elemental:yellow_archwood_sapling"] = ["ars_elemental:yellow_archwood_log"]   # Ars Elemental's flashing archwood
 # Industrial Age station parts (multiblocks, power, logistics) that must be makeable.
 INDUSTRIAL_CHAIN = ("immersiveengineering:cokebrick immersiveengineering:blastbrick immersiveengineering:blastbrick_reinforced "
                     "immersiveengineering:alloybrick immersiveengineering:treated_wood_horizontal immersiveengineering:heavy_engineering "
