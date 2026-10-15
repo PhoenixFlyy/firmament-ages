@@ -9,7 +9,7 @@ This is a progression pack in the SevTech: Ages tradition, built from scratch fo
 - Slow and deliberate. Plan on well over a hundred hours, and there is no shortcut past an Age.
 - One team per server. Everyone is in the same Age, the shrine belongs to all of you, and the last fight is fought together.
 - Tech is the main road: TerraFirmaCraft, Create, Immersive Engineering, Mekanism, Applied Energistics 2, Ad Astra and Draconic Evolution, one after the other. Magic (Occultism, Ars Nouveau, Theurgy) is there for those who want it and is never required.
-- A TerraFirmaCraft world that feels alive: climate and seasons, birds and wind, volcanoes, ruins with loot of your Age, blood moons that get nastier with every Age.
+- A TerraFirmaCraft world that feels alive: climate and seasons, birds and wind, volcanoes, falling stars, ruined shrines to restore, ruins with loot of your Age, blood moons that get nastier with every Age.
 - A large building set in every TerraFirmaCraft and ArborFirmaCraft wood and rock, gated by Age like everything else.
 - The quest book (K) is the only guide, and it stays short on purpose: what to do, and later why. No recipe viewer before the Bronze Age, no map before the Iron Age.
 
@@ -54,7 +54,7 @@ Stuck? The [walkthrough](https://github.com/PhoenixFlyy/firmament-ages/blob/main
 
 ## Beta
 
-The whole road from Dawn to The Origin is playable. The final boss is being rebuilt for 1.0, balance and texts will still change, and a new world will be needed for 1.0. Draconic Evolution and Stargate Journey are beta mods on 1.21.1: back up your world before the Space Age. Bugs go to the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
+The whole road from Dawn to The Origin and its final boss is playable. Balance and texts will still change, and a new world will be needed for 1.0. Draconic Evolution and Stargate Journey are beta mods on 1.21.1: back up your world before the Space Age. Bugs go to the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 ## Shaders
 
@@ -69,17 +69,19 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 0.10.0 contains 251 mods. Thank you to every author.
+Firmament Ages 0.11.0 contains 265 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **A handful of acorns** by Lepidocrocite ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/a-handful-of-acorns))
-- **Ad Astra** by terrariumearth, AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
+- **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
 - **Advanced Chimneys** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-chimneys))
 - **Advanced TFC Tech Unofficial** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-tfc-tech-unofficial))
 - **AdvancedAE** by pedroksl ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advancedae))
 - **AE2 Draconic Fusion Autocrafter** by Franchino961 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ae2-draconic-fusion-autocrafter))
+- **AeroEngine by w843373525** by Calvix_MC ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/aeroengine-by-w843373525))
 - **Akashic Tome** by Vazkii, Uraneptus ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/akashic-tome))
+- **Alex's Mobs Continued** by CodxIO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/alexs-mobs-continued))
 - **AllTheLeaks (Memory Leak Fix)** by Uncandango ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/alltheleaks))
 - **Almost Unified** by AlmostReliable, Relentless, Lytho ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/almostunified))
 - **Alternating Flux NeoForge** by Arctonix ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/alternating-flux-neoforge))

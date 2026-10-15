@@ -226,7 +226,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "0330ae77efcd6ccc03085051e88666521fd0176d2f90b8dee943adf2b7abaf49"
+hash = "bcf46a5cab89c0913fc9d9f254d79a31530772260fb9251f9fc1c66e2f1cd811"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -286,7 +286,7 @@ hash = "f50ef53ae733e0b9ef5347677ededae12c6b06ab71aada26447b1c87408404c2"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "c92f7e03ea58b10255006d09756f7d3bf164fd4852f4d6fd08674a83c6eb712f"
+hash = "9479d0c9f81f90c341fd0de5b99419ed8dc1ade287f0d12a1845fe3cb9492c8c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
@@ -310,7 +310,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "8ab21cd0d07930b9452ac85c457ae0eba6e6340dcbaa7e1036f98c6878751077"
+hash = "a9033a643bcf5db5dfc2a841285214ca7699f401325fb01cd14a37b2e71e341e"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -618,7 +618,7 @@ hash = "b7dede6c58d02569e9666b63c04d3d98b425f88f5775914b3f4e0a4f3970978b"
 
 [[files]]
 file = "kubejs/assets/firmages/age_namespaces.json"
-hash = "19c010a132ad5ab9849d56027794c5dfb484c43cda119110d38a944aa81c7896"
+hash = "ba0c4e77229adf6712fe6c6bb31155d428b0a2668b695e74c2bde465516da1f1"
 
 [[files]]
 file = "kubejs/assets/firmages/lang/en_us.json"
@@ -2554,7 +2554,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "f5438519f44f71fb1d6222933b496b142c785f2723b0bdea3cfbba20a2e44e71"
+hash = "088165a3f9423cac4dcf8f0a8ac9b604c31eded9c8457ea2a8004e8d57dbe744"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -5718,11 +5718,11 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "7de25e035f9cd05f576debc766547bbeb40b3a281131960e99662a514b9d0074"
+hash = "01d2b89bffdfb17b53504da22ee6e694bcdffbcaa1e2f46cb8551ef4ea29bcf3"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "6cee9947f9ae75ab22c77d6fbdd8d1a46930f6b991d5a16f14c2b99bf00343e4"
+hash = "72eff68c8e70d90f6da1dc9f4eed2689eb9200a3cf6a0d947ff1f08290522472"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
@@ -5754,15 +5754,15 @@ hash = "c9ef436b8499e2f3ab4a68b639db5909f12f0ba0bcfe59e09df4dada970cf26f"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "e8c0ce59c3f6d2792873f2ab10ce01d447d2e1315aab5d6de3aa8f139255f052"
+hash = "733a89630ec9cd6dd3a5ec0ad62f6c195f9daa9c1a9c27df3fd362c24ff02c65"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "1136bbde6da3be6ac62df7046886b308f3ac1df91a3d0c3eb97ac1defa0c1d25"
+hash = "c832a2bcb49c28d959f70103b9fd4eee0479c0f9d1931f747e1e516655837f0e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "7a8c138f120c818a846cd6f1aedc87c320d7c7497ea204bb4d19a53b9d577c68"
+hash = "eada0d86e3fceca6f67151cbcc41db5f9e3b99f82155145da30c2f784b41bdcf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -9853,8 +9853,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.10.0.jar"
-hash = "eecb3810719754f3bae3c48a42213a386dc1d4038d8201e0c95fc559ffd06c90"
+file = "mods/firmages-core-0.11.0.jar"
+hash = "3696e018d600839797ee558a6e78fb86aa40b737f921c960dc436551c3f5acbd"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
@@ -10363,7 +10363,7 @@ metafile = true
 
 [[files]]
 file = "mods/skin-layers-3d.pw.toml"
-hash = "dc059048456f39386534fd35569932af770c50bd3977b1f35eda7d9073c832df"
+hash = "7df04b145e9e042c02a5c7367326589f47f8c90796236c09eeec533b49f5f6f2"
 metafile = true
 
 [[files]]

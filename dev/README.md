@@ -31,7 +31,7 @@ All player-facing text in the pack is English.
 |---|---|---|---|
 | `pack.toml`, `index.toml` | pack metadata and file index (`packwiz refresh`) | yes | yes |
 | `LICENSE` | MIT License (2026, PhoenixFlyy) for the pack's own parts; not served | yes | no |
-| `mods/*.pw.toml` | one metafile per mod (all on CurseForge; nine keep a Modrinth metafile with a CurseForge twin in `dev/cf/swap/`) | yes | yes |
+| `mods/*.pw.toml` | one metafile per mod (all on CurseForge except Banner Flags, which is Modrinth-only; eleven keep a Modrinth metafile with a CurseForge twin in `dev/cf/swap/`) | yes | yes |
 | `config/` | changed configs only; `config/progressivestages/stages/*.toml` holds the stage definitions | yes | yes |
 | `defaultconfigs/` | server configs that NeoForge copies into every new world (TFC, IE, Mekanism) | yes | yes |
 | `kubejs/` | `startup_scripts/` (items, shared constants), `server_scripts/` (recipes, tags, stage logic), `client_scripts/` (tooltips, recipe viewer), `data/` (datapack: biome modifiers, TFC item heat), `assets/` (textures, quest art) | yes | yes |
@@ -52,8 +52,8 @@ All player-facing text in the pack is English.
 
 ## Current state
 
-- **Pack 0.10.0:** 233 mods on CurseForge plus the pack's own `firmages-core` jar (234 in the CurseForge credits), and two shader packs in `shaderpacks/` (Complementary Reimagined on by default, MakeUp Ultra Fast). Content for all Ages from Dawn to Singularity, the quest book (`dev/gen_quests.py`), the shrine of Caelum and The Origin are in; the final boss is rebuilt after the removal of Cataclysm (round C of 1.0).
-- **firmages-core:** milestones M1 to M7 of `mod/firmages-core/SPEC.md` (Age state and reloads, machine-recipe gate, miner filter and prospecting, reactor refuelling, the shrine multiblock, Keystone lending, blessings, rites, consecration and maintenance mode, the immersion layer of SPEC §18), The Origin with its own travel lock and spawn list, and the boss scaffolding.
+- **Pack 0.11.0:** 264 mod metafiles plus the pack's own `firmages-core` jar (265 in the CurseForge credits; the content is locked, `dev/content-lock.md`), and two shader packs in `shaderpacks/` (Complementary Reimagined on by default, MakeUp Ultra Fast). Content for all Ages from Dawn to Singularity, the quest book (`dev/gen_quests.py`), the shrine of Caelum and The Origin with its final boss, The Primordial, are in.
+- **firmages-core:** milestones M1 to M7 of `mod/firmages-core/SPEC.md` (Age state and reloads, machine-recipe gate, miner filter and prospecting, reactor refuelling, the shrine multiblock, Keystone lending, blessings, rites, consecration and maintenance mode, the immersion layer of SPEC §18), The Origin with its own travel lock and spawn list, The Primordial (`mod/firmages-core/docs/primordial.md`), and of the sky features (SPEC §24 to §33) M10 Starfall, M12 the Lens Crown (hidden until its sky materials arrive) and the Wayshrine half of M16.
 - **Verified without a client:** the test server boots on Felix's age_9 world, `dev/poc_analyze.py` runs its checks on a recipe dump, and the debug players of the mod walk the shrine, team and quest paths (`dev/poc-results.md`). The client checklist is `dev/client-test-brief.md`.
 
 ## Build and serve (packwiz)

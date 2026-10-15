@@ -65,7 +65,7 @@ Options (Shader-Voreinstellung, Sichtfeld, Tasten), das frühe Ladefenster und d
 beim ersten Start eines frischen Profils, und Client und Server brauchen dieselbe firmages-core-Version.
 
 1. CurseForge-App starten, links **Minecraft**, oben **Create Custom Profile** (oder das Plus), dann **Import**.
-2. Das Upload-Zip aus Abschnitt 1 wählen. Die App legt das Profil „Firmament Ages“ an und lädt alle 234 Mods und die
+2. Das Upload-Zip aus Abschnitt 1 wählen. Die App legt das Profil „Firmament Ages“ an und lädt alle 265 Mods und die
    zwei Shaderpacks (etwa 500 MB, einige Minuten). Java 21 richtet sie selbst ein; fragt sie nach einem Launcher, den
    normalen Minecraft Launcher nehmen.
 3. Im Profil **Settings** den RAM prüfen: 8 GB. Das Upload-Zip trägt 8 GB als Empfehlung im Manifest (`recommendedRam`);

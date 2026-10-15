@@ -12,7 +12,10 @@
 - **The Shrine.** A Shrine Heart and one Offering Plinth per Age. Each Age adds a ring to the shrine (a Modonomicon multiblock, shown as a ghost preview). Offer the Age's signature item, fulfil the ring's rite (pray at night, keep a lamp lit, charge the capacitors, pray together), then pray at the heart. Caelum answers with a ceremony: music fades, a beam of light, a tinted sky, a title, and the next Age for the whole team. Every awakened ring adds a blessing around the shrine, starting with a circle where no monsters spawn. The offerings stay on the shrine as relics; the Arcane Keystone can be borrowed for the Quantum Age and must be brought back; from the last Age on the relics can be taken for the finale.
 - **Consecration and maintenance mode.** An accepted ring is consecrated: its blocks become unbreakable consecrated stone with the Age's colour accent, from the heart outward. Sneak and punch the heart with an empty hand for 60 seconds of maintenance mode; then the blocks break and drop their original material, and the ring can be rebuilt.
 - **Reactor Controller.** A block that refuels a Draconic Evolution reactor through pipes or from an adjacent chest and signals READY by redstone. It never restarts the reactor on its own.
-- **The Origin.** The finale dimension of the pack: a fixed Stargate Journey address, an arena, its own spawn list and travel lock, and the end-boss trigger. The fight itself is a KubeJS script of the pack.
+- **The Origin and The Primordial.** The finale dimension of the pack: a fixed Stargate Journey address, an arena, its own spawn list and travel lock. When the whole team gathers at the altar, The Primordial wakes: a GeckoLib boss in three phases whose veil opens only when the players answer its attacks, with consecrated shards to throw and Firmament Glass to keep. Its death grants the finale stage to the team.
+- **Starfall.** From the Iron Age a star falls on some clear nights: a streak toward its real bearing, a boom, and a crater carved lazily once its chunks are loaded, away from the shrine, respawn points and FTB Chunks claims. Its meteorites are the only meteoric iron and starsteel; a glowing core doubles their drops for two days. Old craters in new chunks, excavator veins at craters from a configured Age.
+- **Wayshrines.** Eight kinds of ruined shrines in TerraFirmaCraft climates (worldgen jigsaws) plus a tutorial one near spawn. The shrine heart points to the nearest one; restore it from its ghost, lay the Age's offering, do the rite and pray, and it carries the shrine's blessings into its radius. They replace the old "blessings everywhere" switch.
+- **The Lens Crown.** A Star Anvil under nine lens mounts in the shrine ring colours forges the celestial alloys by chords of lenses (`firmages:starforge` recipe type, chord library, Jade, EMI category, Ponder scenes). In the pack it stays hidden until its sky materials arrive.
 - **Immersion.** Nothing of the pack's machinery shows before its time: join messages and popups of other mods, advancement toasts and the advancement screen (the quest book opens instead) are silenced, the Mods and Advancements buttons are hidden, and EMI and Jade stay off until the server's configured Age (`ui.emiFromAge`, `ui.jadeFromAge`). A small HUD line names the current Age and its offering (fades out, hold H to show), and every new player gets a one-time welcome. With TerraFirmaCraft, thirst is off and nutrition can only raise health above the starting value, never lower it.
 - **Proof of work.** The Tally Chute passes items straight into the inventory below and counts them per team and Age; the advancement criterion `firmages:tally` (item or tag, count, optional Age) lets quests ask that a line really runs. `firmages:silo_launch` fires when a crewed Ad Astra rocket starts from a pad at least 8 blocks deep under a moving Create hatch.
 - **Ponder and music.** Two Ponder scenes of the pack ("Silo Hatch", "Portcullis") that a quest picture can open, returning to the quest book afterwards; background music by Age, silent during the Firmament Night's own track and the ceremony.
@@ -25,6 +28,7 @@ Required:
 - [NeoForge](https://neoforged.net) 21.1.252 or newer for Minecraft 1.21.1, Java 21
 - [ProgressiveStages](https://www.curseforge.com/minecraft/mc-mods/progressivestages) 3.0.5 or newer
 - [Modonomicon](https://www.curseforge.com/minecraft/mc-mods/modonomicon)
+- [GeckoLib](https://www.curseforge.com/minecraft/mc-mods/geckolib) 4.9.3 or newer (The Primordial)
 
 Optional (the mod hooks into them when they are present):
 
@@ -32,6 +36,7 @@ Optional (the mod hooks into them when they are present):
 - Create, Immersive Engineering, Mekanism, Occultism, Ars Nouveau, TerraFirmaCraft, Applied Energistics 2 (recipe readers and miner hooks)
 - Draconic Evolution with Brandon's Core and CodeChicken Lib (reactor controller)
 - Stargate Journey (The Origin's gate)
+- FTB Chunks (no star falls on claimed land)
 - Jade (shrine tooltips)
 - FTB Quests (quest window and text spacing)
 - Cave Dweller ReEvolved (Cave Dweller until an Age)
@@ -39,13 +44,21 @@ Optional (the mod hooks into them when they are present):
 
 ## Configuration
 
-`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, Cave Dweller Age, Dawn tool rule, start-up scan scope, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays and weight/size line, Ars Nouveau HUD Age, locked-item tooltips, quest window size and paragraph gap).
+`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, Wayshrines, Starfall, Lens Crown, the boss, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, Cave Dweller Age, Dawn tool rule, start-up scan scope, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, star streaks and crown beams, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays and weight/size line, Ars Nouveau HUD Age, locked-item tooltips, quest window size and paragraph gap).
 
 ## Source and license
 
 MIT License. Source: the `mod/firmages-core` folder of the pack repository, [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages/tree/main/mod/firmages-core). Issues go to the [pack's issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues). The textures are generated pixel art made for this mod.
 
 ## Changelog
+
+**0.11.0**
+
+- The Primordial (`firmages:primordial`), the final boss of The Origin: GeckoLib model and animations, three phases (keel slam and node volley, Nine Lights with beam sweep and pull, Firmament Shatter with star-falls and consecrated shards), a veil that takes 75 % of the damage until the players answer an attack, health scaled per player, enrage after 10 and 12 minutes, wipe and withdrawal after 30 s. The core summons it on the Gathering and on `/firmages origin fight`; its death grants `finale_won`. GeckoLib 4.9.3 is now required. Config section `[boss]`.
+- Starfall (SPEC 25): sky rock, meteorite and starsteel meteorite, the starfall core with its hot state, meteoric iron (chunk, ingot, double ingot, sheet, rod, block) and starsteel (chunk, ingot, block), the streak payload and two sounds, the loot condition `firmages:starfall_hot`, mineral mixes for the IE excavator. `/firmages starfall` commands, selftest suite `sky`, config `[starfall]`, client option `effects.skyStreaks`.
+- Wayshrines (SPEC 28): eight types with ruin templates and restored forms, worldgen structures with TFC climate placement, the tutorial Wayshrine near spawn, the pointer at the shrine heart, offerings and rites by Age, the Wayshrine Stone. The blessing index (`BlessingIndex`) replaces `shrine.blessings.everywhere`, which is removed; an old file that still holds it logs one warning. `/firmages wayshrine` commands, selftest suite `wayshrines`, config `[wayshrine]`.
+- The Lens Crown (SPEC 27): Star Anvil, Lens Mount, lens blank, nine lenses, seven celestial alloys with `celestial_alloy/age_N` tags, the `firmages:starforge` recipe type with 14 chords and 22 library recipes guarded by `neoforge:item_exists`, redstone lens swinging and a comparator chord signal, Jade, EMI category, three Ponder scenes, `/firmages crown` commands, selftest suite `crown`, config `[crown]`, client option `effects.crownBeams`, KubeJS `FirmAges.crownChord`.
+- Network protocol version 5; client and server need 0.11.0.
 
 **0.10.0**
 
