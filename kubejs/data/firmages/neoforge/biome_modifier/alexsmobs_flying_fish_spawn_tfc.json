@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_ocean",
+  "spawners": {
+    "type": "alexsmobs:flying_fish",
+    "weight": 4,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

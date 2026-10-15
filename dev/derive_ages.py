@@ -159,6 +159,13 @@ INTERACTIONS = [
               "minecraft:magenta_dye", "minecraft:yellow_dye"], ["exposure:chromatic_sheet"]),
     ("dawn", ["exposure:photograph"], ["exposure:stacked_photographs"]),
     ("dawn", ["exposure:album"], ["exposure:signed_album"]),
+    # 1.0 round C: Psi's CAD Assembler builds the CAD from its parts (GUI, no recipe JSON); Ars Energistique's P2P
+    # tunnels are AE2 P2P tunnels attuned with a Source gem or a spell book (arseng p2p_attunements tags); AeroEngine
+    # encases a Create shaft with its engine casing (right click).
+    ("dawn", ["psi:cad_assembler", "psi:cad_assembly_iron", "psi:cad_core_basic", "psi:cad_socket_basic"], ["psi:cad"]),
+    ("dawn", ["ae2:me_p2p_tunnel", "ars_nouveau:source_gem"], ["arseng:source_p2p_tunnel"]),
+    ("dawn", ["ae2:me_p2p_tunnel", "ars_nouveau:novice_spell_book"], ["arseng:spell_p2p_tunnel"]),
+    ("dawn", ["create:shaft", "aeroengineering:engine_casing"], ["aeroengineering:engine_encased_shaft"]),
     ("dawn", ["create:brown_toolbox"], [f"create:{c}_toolbox" for c in (               # create:toolbox_dyeing (special)
         "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple",
         "blue", "green", "red", "black")]),
@@ -188,9 +195,27 @@ CODE_WORLD = [(["ad_astra:glacian_log", "ad_astra:glacian_leaves", "ad_astra:gla
                   "alabandite", "apatite", "arcanite", "bastnasite", "brimstone", "calcite", "galena", "greigite", "jet",
                   "magnesite", "microcline", "olivine", "pitchblende", "salmiak", "salt", "saltpeter", "satinspar",
                   "selenite", "serpentine", "smithsonite", "spherocobaltite", "zabuyelite")], "dawn")]
+# Mods whose own spawning is switched off by config: their mobs spawn only where a scanned source puts them (the pack's
+# biome modifiers in kubejs/data), not from the mod Age. Alex's Mobs Continued: config/amc.json sets every weight to 0,
+# kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_*_spawn_tfc.json spawns the 22 kept species (V1B).
+OWN_SPAWNS_OFF = {"alexsmobs"}
 # Drops a mod adds in code (no loot table or modifier file): (items, Age; None = the item's mod Age).
 CODE_DROPS = [
     (["apotheosis:gem"], None),                         # gem drops from any mob (apotheosis:gem_entity_drops, code)
+    # Artifacts in the TFC ruins, the Cold Forge and the Beneath fortresses: LootJS pools of
+    # kubejs/server_scripts/firmages/artifacts_loot.js (same lists, same Ages).
+    ([f"artifacts:{i}" for i in ("anglers_hat", "cowboy_hat", "novelty_drinking_hat", "plastic_drinking_hat",
+                                 "superstitious_hat", "villager_hat", "lucky_scarf", "whoopee_cushion", "umbrella",
+                                 "snorkel", "flippers", "kitty_slippers", "snowshoes", "golden_hook", "onion_ring",
+                                 "bunny_hoppers")], "age_1"),
+    ([f"artifacts:{i}" for i in ("running_shoes", "cloud_in_a_bottle", "aqua_dashers", "steadfast_spikes", "feral_claws",
+                                 "power_glove", "pocket_piston", "charm_of_sinking", "charm_of_shrinking",
+                                 "night_vision_goggles", "antidote_vessel", "panic_necklace")], "age_2"),
+    ([f"artifacts:{i}" for i in ("fire_gauntlet", "flame_pendant", "shock_pendant", "thorn_pendant", "cross_necklace",
+                                 "strider_shoes", "withered_bracelet", "obsidian_skull", "vampiric_glove",
+                                 "scarf_of_invisibility")], "age_3"),
+    (["artifacts:crystal_heart", "artifacts:warp_drive"], "age_4"),
+    (["alexsmobs:emu_egg"], "dawn"),                    # emus lay their eggs (EntityEmu, code), Dawn wildlife
 ]
 # Pre-existing design gaps: items the walk cannot reach from any source although the design uses them. They stay at
 # their age_map Age (visible from that Age) instead of being hidden, and each is an open point in dev/poc-results.md.
@@ -309,6 +334,8 @@ def _loot_entries(o, items, tags, refs):
 
 def scan(mods_dir, vanilla_jar):
     """Read loot tables, loot modifiers, world generation, templates and spawns of every jar (+ kubejs/data last)."""
+    if not os.path.isfile(vanilla_jar):  # without it every vanilla loot table, structure and biome drops out
+        sys.exit(f"scan: no vanilla jar at {vanilla_jar}")
     jars = [vanilla_jar] + sorted(glob.glob(os.path.join(mods_dir, "*.jar")))
     loot = {}            # table -> {"items", "tags", "refs"}; a mod's copy of a vanilla table replaces it, mods merge
     loot_owner = {}
@@ -818,7 +845,7 @@ def derive(dump_dir, show):
             if earlier(st, a) != st or st is None:
                 st, why = a, w
         ns = e.split(":")[0]
-        if ns != "minecraft" and ns in amap["mods"] and earlier(st, amap["mods"][ns]) != st:
+        if ns != "minecraft" and ns in amap["mods"] and ns not in OWN_SPAWNS_OFF and earlier(st, amap["mods"][ns]) != st:
             st, why = amap["mods"][ns], f"mob of {ns} ({amap['mods'][ns]})"
         if e in built and not built[e][1]:
             st, why = earlier(st, built[e][0]), why or "summoned"

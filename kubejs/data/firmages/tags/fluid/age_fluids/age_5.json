@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    {"id": "aeroengineering:aviation_kerosene", "required": false},
+    {"id": "aeroengineering:flowing_aviation_kerosene", "required": false},
     {"id": "createdieselgenerators:biodiesel", "required": false},
     {"id": "createdieselgenerators:black_cement", "required": false},
     {"id": "createdieselgenerators:blue_cement", "required": false},

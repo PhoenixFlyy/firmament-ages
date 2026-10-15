@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#c:is_river",
+    "#c:is_lake",
+    "#c:is_swamp",
+    "#c:is_beach"
+  ]
+}

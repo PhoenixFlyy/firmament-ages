@@ -1,0 +1,31 @@
+{
+  "replace": true,
+  "trades": [
+    {
+      "type": "goblintraders:basic",
+      "experience": 40,
+      "max_trades": 1,
+      "offer_item": {
+        "count": 1,
+        "id": "minecraft:name_tag"
+      },
+      "payment_item": {
+        "count": 6,
+        "id": "tfc:silk_cloth"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 40,
+      "max_trades": 1,
+      "offer_item": {
+        "count": 2,
+        "id": "minecraft:lead"
+      },
+      "payment_item": {
+        "count": 4,
+        "id": "tfc:large_raw_hide"
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_land",
+  "spawners": {
+    "type": "alexsmobs:komodo_dragon",
+    "weight": 2,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}

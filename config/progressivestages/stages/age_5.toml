@@ -26,7 +26,9 @@ locked = [
 # A recipe whose result is locked is also blocked by the item tag above.
 locked_ids = [
     # >>> generated:recipes >>>
+    "mod:aeroengineering",
     "mod:alternatingflux",
+    "mod:buildinggadgets2",
     "mod:create_hypertube",
     "mod:create_mobile_packages",
     "mod:createdieselgenerators",

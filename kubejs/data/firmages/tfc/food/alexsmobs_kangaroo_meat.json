@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "item": "alexsmobs:kangaroo_meat"
+  },
+  "hunger": 4,
+  "protein": 1.0,
+  "decay_modifier": 2.0
+}

@@ -1,0 +1,83 @@
+{
+  "replace": true,
+  "trades": [
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "beneath:seeds/nether_wart"
+      },
+      "payment_item": {
+        "count": 6,
+        "id": "tfc:food/red_apple"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "beneath:seeds/crimson_roots"
+      },
+      "payment_item": {
+        "count": 12,
+        "id": "tfc:jute_fiber"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 2,
+        "id": "beneath:seeds/warped_roots"
+      },
+      "payment_item": {
+        "count": 12,
+        "id": "tfc:jute_fiber"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 1,
+        "id": "beneath:wood/sapling/crimson"
+      },
+      "payment_item": {
+        "count": 16,
+        "id": "tfc:straw"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 6,
+      "offer_item": {
+        "count": 1,
+        "id": "beneath:wood/sapling/warped"
+      },
+      "payment_item": {
+        "count": 16,
+        "id": "tfc:straw"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 4,
+      "max_trades": 12,
+      "offer_item": {
+        "count": 4,
+        "id": "minecraft:glowstone_dust"
+      },
+      "payment_item": {
+        "count": 8,
+        "id": "tfc:powder/charcoal"
+      }
+    }
+  ]
+}

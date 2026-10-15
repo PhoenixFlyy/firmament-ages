@@ -1,0 +1,57 @@
+{
+  "replace": true,
+  "trades": [
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 2,
+        "id": "beneath:seeds/ghost_pepper"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:medium_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 2,
+        "id": "beneath:seeds/gleamflower"
+      },
+      "payment_item": {
+        "count": 1,
+        "id": "tfc:medium_raw_hide"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 4,
+        "id": "beneath:soul_clay"
+      },
+      "payment_item": {
+        "count": 2,
+        "id": "tfc:wool_cloth"
+      }
+    },
+    {
+      "type": "goblintraders:basic",
+      "experience": 6,
+      "max_trades": 8,
+      "offer_item": {
+        "count": 2,
+        "id": "minecraft:magma_cream"
+      },
+      "payment_item": {
+        "count": 2,
+        "id": "tfc:wool_cloth"
+      }
+    }
+  ]
+}

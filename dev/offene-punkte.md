@@ -72,6 +72,9 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Storage Drawers: kompaktierende Schubladen nutzen umkehrbare Grid-Rezepte; nach dem Dump prüfen, ob ein TFC-Metall oder -Erz so am Schweißen oder Schmelzen vorbeikommt | `dev/poc_analyze.py`, Storage-Drawers-Config | Integrator |
 | Questbuch Arkanzeit: das Ziel „Offer the Arcane Keystone“ hängt an den drei Magie-Schlüsseln (Spirit Proof, Wilden Tribute, Mercury Catalyst); ein Team, das den Arcane Keystone auf der Create-Linie baut, sieht die Ziel-Quest gesperrt (die Age selbst kommt über den Schrein). Technik ist Pflicht: einen Technik-Strang oder ein Entweder-oder als Abhängigkeit ergänzen | `dev/gen_quests.py` `ARCANE` | Claude |
 | Questbuch (nächste Runde): Deko-Quests aus n7 §2 (Gatehouse, Living House, Silo) und je eine Einführung für Meißel (TFC-Zyklus, Rechiseled), Drawers, Joy of Painting, Exposure | `dev/gen_quests.py` | nächste Runde |
+| Runde C (mods-tech): Quest-Stränge für Goblin Traders, Artifacts, Psi, Building Gadgets 2, AeroEngine, Ars Elemental/Elemancy/Ocultas/Énergistique, Extra Gauges, Draconic Additions und die 22 Alex's-Mobs-Arten (Felix: jede Nicht-Deko-Mod braucht einen Strang) | `dev/gen_quests.py` | Claude, nächste Runde |
+| Ars Elemental: Blitz-Teile (Discharge-Glyphe, Shock-Faden) und Flashjack/Sirene bleiben versteckt, weil Flashpine-Schoten und die Splitter nur aus den abgeschalteten Elementar-Biomen kommen; ein Pack-Rezept für die Schote würde sie zurückholen (wie bei den Ars-Nouveau-Schoten offen) | `recipes/age_3/ars_addons.js` | Felix entscheidet |
+| Alex's Mobs Continued: Klima-Fenster und Spawn-Gewichte der 22 Arten sind in keiner Welt geprüft (der Server-Test hat keinen Spieler, also keine natürlichen Spawns); Arten, Klima und Dichte in echter Welt | `kubejs/server_scripts/firmages/wildlife_climate.js`, Biome-Modifier | Felix im Client |
 
 ## Prüfen, ob noch offen
 

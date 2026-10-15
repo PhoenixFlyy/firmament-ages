@@ -29,6 +29,7 @@ locked_ids = [
     "mod:ae2",
     "mod:ae2wtlib",
     "mod:appmek",
+    "mod:arseng",
     "mod:createappliedkinetics",
     "mod:createstockbridge",
     "mod:extendedae",
@@ -43,6 +44,7 @@ locked_ids = [
     "mod:mekmm",
     "mod:moremekanismprocessing",
     "mod:mysticalagriculture",
+    "mod:psi",
     # <<< generated:recipes <<<
 ]
 

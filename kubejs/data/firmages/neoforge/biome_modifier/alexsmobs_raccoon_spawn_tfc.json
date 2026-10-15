@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_land",
+  "spawners": {
+    "type": "alexsmobs:raccoon",
+    "weight": 4,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}

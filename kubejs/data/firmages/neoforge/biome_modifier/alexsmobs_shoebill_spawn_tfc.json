@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_water",
+  "spawners": {
+    "type": "alexsmobs:shoebill",
+    "weight": 3,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

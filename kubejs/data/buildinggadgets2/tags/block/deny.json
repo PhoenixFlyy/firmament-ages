@@ -1,0 +1,52 @@
+{
+  "replace": false,
+  "values": [
+    "#c:ores",
+    "#c:stones/raw",
+    "#c:stones/hardened",
+    {
+      "id": "#firmages:age_blocks/dawn",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_0",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_1",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_2",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_3",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_4",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_5",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_6",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_7",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_8",
+      "required": false
+    },
+    {
+      "id": "#firmages:age_blocks/age_9",
+      "required": false
+    }
+  ]
+}

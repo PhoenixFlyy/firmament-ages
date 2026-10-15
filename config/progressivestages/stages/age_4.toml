@@ -32,6 +32,7 @@ locked_ids = [
     "mod:create_mechanical_spawner",
     "mod:createbigcannons",
     "mod:engineered_schematics",
+    "mod:extra_gauges",
     "mod:immersiveengineering",
     "mod:immersiveposts",
     "mod:offroad",
