@@ -207,3 +207,45 @@
 	#gets one: the player team with the most Ages founds it (on a new server the first player) and everybody online joins.
 	#false = players form parties themselves (/ftbteams party create, invite, join).
 	autoJoin = true
+
+#Starfall (SPEC 25): from the Iron Age a star falls on some clear nights; the only source of meteoric iron and starsteel.
+#Balance values (chances, distances, sizes, metals) are data: data/firmages/firmages_sky/starfall.json.
+[starfall]
+	#Live falls at night and old craters in new chunks. false = no new falls (operator commands still work).
+	enabled = true
+	#Block changes per server tick across all craters (a large crater is about 1,100 changes).
+	# Default: 64
+	# Range: 1 ~ 4096
+	carveBlocksPerTick = 64
+	#Ticks a core glows after the impact (48000 = two days); meteorites within 12 blocks of a glowing core drop double.
+	# Default: 48000
+	# Range: 0 ~ 2400000
+	coolTicks = 48000
+	#No new fall while this many craters wait to be carved (their chunks were never loaded).
+	# Default: 6
+	# Range: 1 ~ 64
+	maxPending = 6
+	#No fall within this many blocks of the shrine heart (or the sanctuary radius + 64, if larger).
+	# Default: 256
+	# Range: 0 ~ 4096
+	shrineClearance = 256
+	#No fall within this many blocks of a player's respawn point or the world spawn.
+	# Default: 128
+	# Range: 0 ~ 4096
+	spawnClearance = 128
+	#No fall within this many chunks of a claimed chunk (FTB Chunks).
+	# Default: 2
+	# Range: 0 ~ 16
+	claimMarginChunks = 2
+	#A crater moves away from chunks where players spent more than this many ticks (12000 = ten minutes).
+	# Default: 12000
+	# Range: > 0
+	inhabitedTicks = 12000
+	#Old cold craters in newly generated chunks (meteoric iron, one candidate per region).
+	oldCraters = true
+	#Side of the square region (blocks) that holds at most one old crater.
+	# Default: 1024
+	# Range: 256 ~ 16384
+	oldCraterRegion = 1024
+	#From this Age every crater also records an Immersive Engineering excavator vein ("never" = off).
+	automationAge = "age_6"

@@ -38,7 +38,7 @@ locked_ids = [
 ]
 
 # >>> generated:ore_overrides >>>
-# 95 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+# 96 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
 
 [[ores.overrides]]
 target = "id:tfc_ie_addon:ore/poor_bauxite/andesite"
@@ -514,4 +514,9 @@ drop_as = "id:tfc:rock/loose/schist"
 target = "id:firmages:ore/small_native_osmium"
 display_as = "id:tfc:rock/loose/granite"
 drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:firmages:starsteel_meteorite"
+display_as = "id:firmages:sky_rock"
+drop_as = "id:firmages:sky_rock"
 # <<< generated:ore_overrides <<<

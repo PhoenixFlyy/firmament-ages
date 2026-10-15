@@ -82,6 +82,18 @@ public final class ServerConfig {
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_TOOL_RULE_UNTIL;
     // perf (SPEC §20); read at mod construction through EarlyServerConfig, the value here only documents the key
     public static final ModConfigSpec.BooleanValue PERF_LIMIT_TFC_REGISTRY_API_SCAN;
+    // starfall (SPEC §25.10)
+    public static final ModConfigSpec.BooleanValue STARFALL_ENABLED;
+    public static final ModConfigSpec.IntValue STARFALL_CARVE_BLOCKS_PER_TICK;
+    public static final ModConfigSpec.IntValue STARFALL_COOL_TICKS;
+    public static final ModConfigSpec.IntValue STARFALL_MAX_PENDING;
+    public static final ModConfigSpec.IntValue STARFALL_SHRINE_CLEARANCE;
+    public static final ModConfigSpec.IntValue STARFALL_SPAWN_CLEARANCE;
+    public static final ModConfigSpec.IntValue STARFALL_CLAIM_MARGIN_CHUNKS;
+    public static final ModConfigSpec.IntValue STARFALL_INHABITED_TICKS;
+    public static final ModConfigSpec.BooleanValue STARFALL_OLD_CRATERS;
+    public static final ModConfigSpec.IntValue STARFALL_OLD_CRATER_REGION;
+    public static final ModConfigSpec.ConfigValue<String> STARFALL_AUTOMATION_AGE;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -251,6 +263,32 @@ public final class ServerConfig {
             .define("limitTfcRegistryApiScan", true);
         b.pop();
 
+        b.comment("Starfall (SPEC 25): from the Iron Age a star falls on some clear nights; the only source of meteoric iron and starsteel.",
+                "Balance values (chances, distances, sizes, metals) are data: data/firmages/firmages_sky/starfall.json.").push("starfall");
+        STARFALL_ENABLED = b.comment("Live falls at night and old craters in new chunks. false = no new falls (operator commands still work).")
+            .define("enabled", true);
+        STARFALL_CARVE_BLOCKS_PER_TICK = b.comment("Block changes per server tick across all craters (a large crater is about 1,100 changes).")
+            .defineInRange("carveBlocksPerTick", 64, 1, 4096);
+        STARFALL_COOL_TICKS = b.comment("Ticks a core glows after the impact (48000 = two days); meteorites within 12 blocks of a glowing core drop double.")
+            .defineInRange("coolTicks", 48000, 0, 2_400_000);
+        STARFALL_MAX_PENDING = b.comment("No new fall while this many craters wait to be carved (their chunks were never loaded).")
+            .defineInRange("maxPending", 6, 1, 64);
+        STARFALL_SHRINE_CLEARANCE = b.comment("No fall within this many blocks of the shrine heart (or the sanctuary radius + 64, if larger).")
+            .defineInRange("shrineClearance", 256, 0, 4096);
+        STARFALL_SPAWN_CLEARANCE = b.comment("No fall within this many blocks of a player's respawn point or the world spawn.")
+            .defineInRange("spawnClearance", 128, 0, 4096);
+        STARFALL_CLAIM_MARGIN_CHUNKS = b.comment("No fall within this many chunks of a claimed chunk (FTB Chunks).")
+            .defineInRange("claimMarginChunks", 2, 0, 16);
+        STARFALL_INHABITED_TICKS = b.comment("A crater moves away from chunks where players spent more than this many ticks (12000 = ten minutes).")
+            .defineInRange("inhabitedTicks", 12000, 0, Integer.MAX_VALUE);
+        STARFALL_OLD_CRATERS = b.comment("Old cold craters in newly generated chunks (meteoric iron, one candidate per region).")
+            .define("oldCraters", true);
+        STARFALL_OLD_CRATER_REGION = b.comment("Side of the square region (blocks) that holds at most one old crater.")
+            .defineInRange("oldCraterRegion", 1024, 256, 16384);
+        STARFALL_AUTOMATION_AGE = b.comment("From this Age every crater also records an Immersive Engineering excavator vein (\"never\" = off).")
+            .define("automationAge", "age_6", o -> o instanceof String s && (s.equals("never") || AgeId.byId(s).isPresent()));
+        b.pop();
+
         b.push("debug");
         DEBUG_ALLOW_SIMULATE = b.comment("Enables /firmages ages simulate (self-tests only).").define("allowSimulate", false);
         b.pop();
@@ -375,6 +413,51 @@ public final class ServerConfig {
     /** {@code origin.gatherIdleMinutes}: 0 = nobody is left out. */
     public static int gatherIdleMinutes() {
         return loaded() ? ORIGIN_GATHER_IDLE_MINUTES.get() : 5;
+    }
+
+    public static boolean starfallEnabled() {
+        return !loaded() || STARFALL_ENABLED.get();
+    }
+
+    public static int starfallCarveBlocksPerTick() {
+        return loaded() ? STARFALL_CARVE_BLOCKS_PER_TICK.get() : 64;
+    }
+
+    public static int starfallCoolTicks() {
+        return loaded() ? STARFALL_COOL_TICKS.get() : 48000;
+    }
+
+    public static int starfallMaxPending() {
+        return loaded() ? STARFALL_MAX_PENDING.get() : 6;
+    }
+
+    public static int starfallShrineClearance() {
+        return loaded() ? STARFALL_SHRINE_CLEARANCE.get() : 256;
+    }
+
+    public static int starfallSpawnClearance() {
+        return loaded() ? STARFALL_SPAWN_CLEARANCE.get() : 128;
+    }
+
+    public static int starfallClaimMarginChunks() {
+        return loaded() ? STARFALL_CLAIM_MARGIN_CHUNKS.get() : 2;
+    }
+
+    public static int starfallInhabitedTicks() {
+        return loaded() ? STARFALL_INHABITED_TICKS.get() : 12000;
+    }
+
+    public static boolean starfallOldCraters() {
+        return !loaded() || STARFALL_OLD_CRATERS.get();
+    }
+
+    public static int starfallOldCraterRegion() {
+        return loaded() ? STARFALL_OLD_CRATER_REGION.get() : 1024;
+    }
+
+    /** {@code starfall.automationAge}: the first Age with excavator veins at craters, empty for never. */
+    public static Optional<AgeId> starfallAutomationAge() {
+        return AgeId.byId(loaded() ? STARFALL_AUTOMATION_AGE.get() : "age_6");
     }
 
     public static boolean allowSimulate() {

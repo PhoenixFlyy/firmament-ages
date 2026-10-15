@@ -310,6 +310,11 @@ tier_4 = "age_8"
 [ore_blocks]
 "mysticalagriculture:soulstone" = { stage = "age_6", rock = "basalt" }     # the soulstone vein (decision 8A)
 "mysticalagriculture:soulium_ore" = { stage = "age_6", rock = "basalt" }   # 5 % of the soulstone vein, as in MA
+# Starfall (firmages-core SPEC 24.5, 25.4): crater blocks outside the rock layers look like sky rock and drop it until
+# their Age (key disguise = a block id instead of rock); OreGuard stops machines on them until then.
+"firmages:meteorite" = { stage = "age_2", disguise = "firmages:sky_rock" }
+"firmages:starfall_core" = { stage = "age_2", disguise = "firmages:sky_rock" }
+"firmages:starsteel_meteorite" = { stage = "age_5", disguise = "firmages:sky_rock" }
 
 # ------------------------------------------------------------------------------------------------ TFC tables
 # Stage in which a TFC ore becomes visible/usable (Doc 08 v3 sections 3.2, 4.1). Copper ores are visible
@@ -409,6 +414,18 @@ block = "tfc:rock/loose/granite"
 "id:firmages:offering_plinth" = "age_0"
 "id:firmages:sky_disc" = "age_1"
 "id:firmages:tally_chute" = "age_1"                      # firmages-core proof of work (SPEC 22.1), crafted in the Bronze Age
+# Starfall (firmages-core SPEC 24.5, 25): sky rock is a Dawn building block; meteoric iron falls from the Iron Age,
+# starsteel from the Electric Age; the meteorites and the core are [ore_blocks] (their items follow the blocks).
+"id:firmages:sky_rock" = "dawn"
+"id:firmages:meteoric_iron_chunk" = "age_2"
+"id:firmages:meteoric_iron_ingot" = "age_2"
+"id:firmages:meteoric_iron_double_ingot" = "age_2"
+"id:firmages:meteoric_iron_sheet" = "age_2"
+"id:firmages:meteoric_iron_rod" = "age_2"
+"id:firmages:meteoric_iron_block" = "age_2"
+"id:firmages:starsteel_chunk" = "age_5"
+"id:firmages:starsteel_ingot" = "age_5"
+"id:firmages:starsteel_block" = "age_5"
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"
 "id:firmages:arcane_gearbox" = "age_4"                   # mechanical crafter (tech) or source gems (magic tail, Doc 08 7.2)
@@ -6602,7 +6619,10 @@ items = [
     "firmages:consecrated_scaffold",
     "firmages:consecrated_stone",
     "firmages:consecrated_trim",
+    "firmages:meteorite",
     "firmages:origin_altar",
+    "firmages:starfall_core",
+    "firmages:starsteel_meteorite",
     "framedblocks:framing_saw_pattern",
     "ftblibrary:icon_item",
     "ftbquests:barrier",

@@ -1,0 +1,28 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "metal": "meteoric_iron"
+      },
+      "apply": {
+        "model": "firmages:block/starfall_core_meteoric_iron"
+      }
+    },
+    {
+      "when": {
+        "metal": "starsteel"
+      },
+      "apply": {
+        "model": "firmages:block/starfall_core_starsteel"
+      }
+    },
+    {
+      "when": {
+        "hot": "true"
+      },
+      "apply": {
+        "model": "firmages:block/starfall_core_hot"
+      }
+    }
+  ]
+}

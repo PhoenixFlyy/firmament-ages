@@ -67,6 +67,7 @@ public final class FirmagesClient {
         @SubscribeEvent
         public static void stage(RenderLevelStageEvent event) {
             SkyEffects.onRenderStage(event);
+            SkyStreaks.onRenderStage(event); // the falling star (SPEC §25.9)
         }
 
         @SubscribeEvent
@@ -85,6 +86,7 @@ public final class FirmagesClient {
             PreviewBridge.clear();
             dev.firmages.core.net.ShrineSyncPayload.clientReset();
             AgeMusic.reset();
+            SkyStreaks.reset();
         }
     }
 }

@@ -84,6 +84,9 @@ dev.firmages.core
   mixin/   RecipeManagerMixin; GameTestServerMixin (GameTests only); ie.MineralMixMixin; occultism.MineshaftMixin;
            ars.ApparatusMixin; ps.*; ftbquests.* (client, §18.8); ftbq.* (client, §18.9); tfcregistryapi.HelpersMixin (§20)
   perf/    RegistryScanScope (pure), TfcRegistryScan (§20)
+  sky/     DeferredSites, ClimateSource(s), SkySavedData; Starfall: StarfallService, StarfallRules, CraterPlan (pure),
+           CraterCarver, StarfallData(+Loader), StarfallSite, SkyRegistry, StarfallCoreBlock(+BE), StarfallHotCondition (§24, §25)
+  text/    Numbers (player-text quantities, §24.3)
   config/  ServerConfig, ClientConfig, EarlyServerConfig
 ```
 
@@ -108,6 +111,7 @@ Rules:
 | Jade | 15.10.6 | optional, compileOnly (libs/, fetched from `mods/jade.pw.toml`; also in the GameTest run, M6) | shrine tooltip (`compat/jade`) |
 | GeckoLib | 4.9.3 | optional, compileOnly (**add**, M9) | animated idol |
 | FTB Quests/Teams | pinned | optional, compileOnly | quest data; the client opens the FTB Quests screen (`compat/ftbquests`, §18); FTB Teams is read for the one-team guard (optional) |
+| FTB Chunks | 2101.1.22 | optional, compileOnly (maven, M10) | Starfall keeps clear of claims (`compat/ftbchunks/Claims`, §25.3); not in the GameTest run |
 | TFCRegistryAPI | 1.2 | none (mixin only), compileOnly (libs/, fetched from `mods/tfc-registry-api.pw.toml`; in the GameTest run only with `-PgametestTfc`) | scan scope (§20) |
 | EMI, Create Train Utilities, Corgilib, Patchouli, Cave Dweller ReEvolved | pack versions | none (by name: reflection, `@Pseudo` mixins, registry ids) | §18 immersion, §19 hardship; TFC and Patchouli join the GameTest run only with `-PgametestTfc`; Cave Dweller is never in it |
 
@@ -577,7 +581,7 @@ The shrine is visible and audible between ceremonies, and its state reads from f
 | `team.autoJoin` | true | §2.3: a player outside a party joins the party that holds the Ages; a server without a party gets one, founded by the player who holds the most Ages (the team carry-over gives it the Ages) |
 | `shrine.prayerSeconds` / `shrine.minPrayerSeconds` / `shrine.prayRadius` | 10 / 4 / 6 | |
 | `shrine.sanctuary.baseRadius` / `.perTier` | 12 / 4 | |
-| `shrine.blessings.everywhere` | false | §7.9: false = blessing effects only within the sanctuary radius of the heart; true = attributes and XP team-wide (§7.6). The effect values themselves are data (`firmages_shrine/blessing/*.json`) |
+| `shrine.blessings.everywhere` | false | §7.9: false = blessing effects only within the sanctuary radius of the heart; true = attributes and XP team-wide (§7.6). The effect values themselves are data (`firmages_shrine/blessing/*.json`). Removed with M16 (Felix S4A, §29.7): the Sky Anchors carry the blessings away from the shrine, and an old file that still holds the key logs one WARN |
 | `shrine.permanentBeam` / `shrine.clearWeather` | true / true | §7.10: the idle beam (0.9.0: default true; `energyCapacity` removed) / clear rain for a FULL ceremony |
 | `shrine.maintenanceSeconds` | 60 | §17: maintenance mode ends by itself after this many seconds (5..3600) |
 | `shrine.consecrationTicks` | 120 | §17: a ring's consecration from the heart outward takes this long (0..1200), after the Age reload |
@@ -585,6 +589,15 @@ The shrine is visible and audible between ceremonies, and its state reads from f
 | `hardship.caveDwellerUntilAge` | `age_2` | §19: first Age without Cave Dweller ReEvolved (an Age id or `never`) |
 | `hardship.toolRuleUntilAge` | `age_0` | §19.2: first Age without the hand-breaking rule (an Age id; `never` or `dawn` = off) |
 | `perf.limitTfcRegistryApiScan` | true | §20: TFCRegistryAPI scans only mod files that are or depend on TFC or TFCRegistryAPI; false = its original scan of every mod. Read once at game start (dedicated server: `<world>/serverconfig/`, then `config/`, then `defaultconfigs/`; client: `config/`, then `defaultconfigs/`) |
+| `starfall.enabled` / `.carveBlocksPerTick` / `.coolTicks` / `.maxPending` | true / 64 / 48000 / 6 | §25.10 (M10): live falls and old craters on/off; block changes per tick across all craters; glow time of a core; no new fall while this many craters wait for their chunks |
+| `starfall.shrineClearance` / `.spawnClearance` / `.claimMarginChunks` / `.inhabitedTicks` | 256 / 128 / 2 / 12000 | §25.3 (M10): the site choice and the base check at carve time |
+| `starfall.oldCraters` / `.oldCraterRegion` / `.automationAge` | true / 1024 / `age_6` | §25.3, §25.6 (M10): old craters in new chunks, one candidate per region; the first Age with IE excavator veins at craters (`never` = off) |
+| `skyHarvest.enabled` | true | §26.8 (M11) |
+| `crown.enabled` / `.requireOpenSky` / `.nightTimeFactor` / `.validateTicks` / `.swingTicks` | true / true / 0.5 / 100 / 10 | §27.12 (M12) |
+| `wayshrine.radius` / `.prayerSeconds` / `.pointerRadiusChunks` / `.tutorial` | 24 / 5 / 100 / true | §28.9 (M16) |
+| `anchor.radius` | 24 | §29.7 (M16); M16 also removes `shrine.blessings.everywhere` (S4A) |
+| `isles.lodeYield` / `.fallback` / `.fallbackRadius` | 2 / true / 600 | §30.9 (M13) |
+| `launch.enabled` / `.fxRange` / `.countdownTicks` / `.autoRelaunch`, `ark.growthTicks` | true / 256 / 100 / true, 200 | §31.9 (M14, M17) |
 | `debug.allowSimulate` | false | Enables `/firmages ages simulate` (self-tests only) |
 
 `firmages-client.toml`:
@@ -597,6 +610,10 @@ The shrine is visible and audible between ceremonies, and its state reads from f
 | `effects.particleScale` | 1.0 |
 | `effects.ambientDrone` | true (§7.10: the hum near the heart) |
 | `effects.idleBeam` | true (§7.10: hide the idle beam on this client) |
+| `effects.skyStreaks` | true (§25.9, M10: the streak and the falling body of a star) |
+| `effects.aurora` / `effects.auroraWithShaders` | true / true (§26.8, M11) |
+| `effects.crownBeams` | true (§27.12, M12) |
+| `effects.launchFx` | true (§31.9, M14) |
 | `ui.*`, `chat.blocklist`, `tfc.*` | §18.7 (immersion) |
 
 The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`, `ui.welcome`, `tfc.disableThirst`, `tfc.noNutritionMalus`) are listed in §18.7.
@@ -631,9 +648,17 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `origin kill` | N5, for tests: kills every hostile (`Enemy`) loaded in The Origin except the final boss, the boss's helpers among them (1.0: the Gateways wave branch is gone with the mod); fails when there is nothing to kill |
 | `origin kill boss` | N5, for tests: kills every loaded entity with the tag `firmages.final_boss` in The Origin with the damage of `/kill` (generic_kill bypasses invulnerability, so a boss's damage cap and invulnerable animations do not apply); its death wins the finale the normal way (§16.3); fails without a boss |
 | `origin status` / `origin reset` / `origin rebuild` | Arena version, return gate, altar, Gathering count, whether the fight runs (N5), boss state / let the Gathering and the boss happen again (finale_won stays) / rebuild the arena and place the gate again |
-| `selftest <suite|all>` | Server-side test suites (§12), report in `logs/firmages-selftest.json` |
+| `starfall now [pos] [metal] [size]` | §25.10 (M10): a fall in 120 ticks with streak; without pos the normal site search, with pos exactly there (no base check, no move) |
+| `starfall list` / `carve <id>` / `cool <id>` / `heat <id>` / `old <pos>` / `tonight` / `veins` | §25.10 (M10): sites with state, metal, distance, glow, cursor and vein; a temporary ticket and the carve now; the hot-core bonus off or on; an old crater there; the next clear night falls for sure; reconcile the IE veins and list them |
+| `sky aurora on\|off\|auto`, `sky aurora status [pos]`, `sky aurora band [radius]` | §26.8 (M11) |
+| `crown status [pos]` / `chords` / `swing <pos> <lens,...>` | §27.12 (M12) |
+| `wayshrine list` / `status [pos]` / `locate <type>` / `tutorial [here]` / `light <pos>` / `reset <pos> [stone]` / `stone <pos>` | §28.9 (M16) |
+| `anchor list` / `status [pos]` | §29.7 (M16) |
+| `isles lode <pos>` / `isles fallback status\|place [pos]` | §30.9 (M13) |
+| `launch status [pos]` / `finish <pos>`, `ark status` / `grant <island> <group>` / `reset <island>` | §31.9 (M14, M17) |
+| `selftest <suite|all>` | Server-side test suites (§12; `sky` since M10, §24.7), report in `logs/firmages-selftest.json` |
 
-## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "4" since 0.9.0: `firmages:age_status` gained `reloadPending` and `gathered`, `firmages:shrine_sync` gained the living-shrine fields; "3" since 0.8.1 added `toolRule`)
+## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "5" since the sky features' M10: `firmages:starfall_streak`; "6" with M14 and "7" with M17, §24.6; "4" since 0.9.0: `firmages:age_status` gained `reloadPending` and `gathered`, `firmages:shrine_sync` gained the living-shrine fields; "3" since 0.8.1 added `toolRule`)
 
 | Payload | Fields | Client action |
 |---|---|---|
@@ -644,6 +669,10 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `firmages:shrine_sync` | heart dimension, maintenance, seconds left, position -> original block id; since 0.9.0 heart position, intact, finale won, idle beam on, the nine tier beam colours | M7 (§17): client copy for the destroy-progress prediction (consecrated blocks break only in maintenance) and the Jade tooltip; §7.10: idle beam, hum, relic dust; on login, on every maintenance change, at most once a second when the originals, the heart, the intact flag, the finale or the beam switch change |
 | `firmages:age_status` | current Age id, goal item id, recipe viewer allowed, block overlay allowed, open TFC tabs (byte, one bit per `InventoryTab`), Cave Dweller hunts, hand-breaking rule holds, `reloadPending` (an Age swap or reload is pending or running), the Gathering done (0.9.0: the age_9 HUD goal key `firmages.hud.goal.age_9_gathered`) | §18.3/18.4/18.6/§19/§3.3/§7.5: EMI and Jade gating, HUD Age indicator and goal, TFC inventory tabs, Cave Dweller sound mute, break-speed prediction, one EMI reload per Age change; on login, after every Age state change and after every swap or reload |
 | `firmages:welcome` | none | §18.5: first join of a player: title, then the welcome screen |
+| `firmages:starfall_streak` | entry angle, target pos, impact game time, metal, near flag | §25.10 (M10, "5"): `SkyStreaks` draws the streak and, near the crater, the falling body; sent 120 ticks before the impact to every overworld player |
+| `firmages:sky_sync` | aurora seed, override, the `aurora` block of `sky_harvest.json` | §26.8 (M11, still "5"): on login, data reload and override change |
+| `firmages:launch_fx` | pos, phase, phase start game time, probe item | §31.7 (M14, "6") |
+| `firmages:ark_sync` | stage per island, complete mask | §31.8 (M17, "7") |
 
 The BE state uses vanilla block-entity sync. There is no C2S payload of our own (TFC's `SwitchInventoryTabPacket` is guarded, §18.6).
 
@@ -709,9 +738,9 @@ Test levels:
 | M7 | Consecration and maintenance mode (§17, Felix 2026-10-01) | M | U and G green, the look checked in a client |
 | M8 | The Gathering (after the DE injector PoC) | M | Ultimate Singularity forged at the shrine |
 | M9 | GeckoLib idol | L | 10 tier looks animated |
-| M10 | Own sounds (CC0 or self-made), particles, sky tint, Sodium check (was M7 until 2026-10-01) | M | M test with Sodium and Enhanced Celestials |
+| M9b | Own sounds (CC0 or self-made), particles, sky tint, Sodium check (was M7 until 2026-10-01, M10 until 2026-10-15; the sky features took M10 to M17, §32) | M | M test with Sodium and Enhanced Celestials |
 
-M0–M4 must ship before the first playtest beyond the Stone Age. Shipping: copy the jar to `FirmamentAges/mods/` and run `packwiz refresh` (hand-off).
+The sky features are M10 to M17 (§32). M0–M4 must ship before the first playtest beyond the Stone Age. Shipping: copy the jar to `FirmamentAges/mods/` and run `packwiz refresh` (hand-off).
 
 **State (2026-10-13, round B, for 0.8.0):** Jade from the Bronze Age (§18.3, H9), the Cave Dweller gate (§19, H12), Enhanced Celestials 2 instead of 1 (§18.1: the join silence is a pack file now, no code). U and G green (`gradlew build`: 93 unit tests; `runGameTestServer`: "All 34 required tests passed"). The sound mute and the despawn of a real dweller need the client and server **[PoC]** of §19.
 
@@ -1085,3 +1114,1188 @@ G `ProofGameTests.tallyHopperLine` (hopper -> chute -> chest with 10 cobblestone
 - **Ceremony:** with `effects.stopMusic` the music is silenced while the Age ceremony runs (since N7 really silenced with `overrideMusic(null)`; the old `setCanceled(true)` only kept the current choice).
 - **Switch:** `music.ageMusic` in `firmages-client.toml` (default true); false leaves vanilla's selection (the night silence and the ceremony silence stay).
 - **Tests:** M only (client sound).
+
+## 24. Sky materials and the one-source rule
+
+Design of the eight sky features (merged spec of 2026-10-15, built from the four drafts and two reviews in the
+sky workflow). Felix's content lock (2026-10-15): the eight features stand and nothing else is added; **V4A** (from the
+Arcane Age one celestial alloy per Age enters that Age's keystone or signature recipe, so the Lens Crown is mandatory);
+**V5A** (no fast travel at Wayshrines; the first teleport of the pack is the Mekanism teleporter in age_7). Felix's
+answers: **S1A** the names "Wayshrine Stone" and "Shard of <blessing>"; **S2A** the alloy names and lens colours of
+§27; **S3A** the aurora on every clear night in the cold band, twice as often in its cold half of the year (§26.3);
+**S4A** `shrine.blessings.everywhere` is removed and the Sky Anchors replace it, with a WARN line for old configs
+(§29.7, built in M16); **S5A** static isles (§30); **S6B** the Wind Shrine replaces the Glacier Cairn as an isle shrine
+on the Drifting Isles from the Industrial Age (§28.4a). Rejected ideas: the Skyroot, Orrery, Heralds, Tally Gauge,
+Leylines and the Firmament dimension; nothing here depends on them. "Firmament Night" is the existing lunar event.
+Sections 24 to 33 follow the build order; their config, command and network rows are also listed in §9, §10 and §11.
+
+### 24.1 Purpose
+
+Eight features turn the sky into a second material road beside the ores. Each sky material has exactly **one** source. The Lens Crown refines the materials into seven celestial alloys, and from the Arcane Age each Age's keystone or signature recipe takes its alloy (V4A). Wayshrines, Sky Anchors, the Launch Complex and the Origin Archipelago consume alloys. Nothing in the sky makes FE, nothing generates ore, and magic stays optional.
+
+### 24.2 The one-source table
+
+| Material | Id | The one source | From | Consumers |
+|---|---|---|---|---|
+| Meteoric iron | `firmages:meteoric_iron_{chunk,ingot,double_ingot,sheet,rod}` | Starfall meteorites and cores (§25) | age_2 | Storm Rod, Aurora Net, Lens Mount, Star Anvil, Starlit Iron, Cloudsteel, Wayshrine offering of the Iron Age |
+| Starsteel | `firmages:starsteel_{chunk,ingot}` | Starfall from the Electric Age (§25) | age_5 | Aurora Steel, Halo Steel, Void Steel, Information Lens, Firmament Alloy |
+| Storm glass | `firmages:storm_glass` (block) | Storm Rod in rain and thunder (§26) | age_2 | Star Anvil, crown caps, lens blanks, Aurora Net, Starlit Iron, Aurora Steel |
+| Aurora light | `firmages:aurora_light` (fluid) | Aurora Net under the aurora (§26) | age_4 | Lens Crown fluid ingredient from recipe 4 on (§27.6) |
+| Firmament crystal | `firmages:firmament_crystal` | Drifting Isles: clusters and the re-forming lode (§30) | age_4 | Cloudsteel, Industrial Lens, Electric Lens, Halo Steel, Firmament Alloy |
+| Voidglass | `firmages:voidglass` | Launch Complex probes (§31) | age_7 | Void Steel, Space Lens, Quasar Alloy, Quantum Lens, Firmament Alloy, Sky Anchor |
+| Deep-space sample | `firmages:deep_space_sample` | Launch Complex deep-space flights (§31) | age_8 | Quasar Alloy, the Archipelago's Space crown |
+| Celestial alloys (7) | `firmages:<alloy>_ingot`, tags `#firmages:celestial_alloy/age_3`..`age_9` | Lens Crown only (`firmages:starforge` recipes, §27) | age_3..age_9 | V4A recipes (§27.7), Wayshrine offerings, sampler and deep-space modules, Sky Anchor, blessing shards, Archipelago crowns |
+
+Building blocks with no material role: `firmages:sky_rock` (crater shell, Dawn) and `firmages:skystone` (isle body, Dawn).
+
+**Total demand for the whole pack (estimate, main road plus three to five anchors):** about 70 meteoric iron, 5 to 8 starsteel, about 25 storm glass, about 2.5 buckets of aurora light, 6 to 10 firmament crystal, about 14 voidglass (about four sampler flights), 2 to 4 deep-space samples.
+
+### 24.3 Rules that bind every sky feature
+
+1. **One source.** No recipe, loot table, trade or machine outside the source of §24.2 outputs a sky material. Alloys come only from `firmages:starforge` recipes.
+2. **No ore duplication.** No sky item is in `#c:ores` or `#c:raw_materials`, so Mekanism and IE ore multiplication never apply.
+3. **No FE.** No block of §24 to §31 has an energy capability that outputs, and none needs FE except the Archipelago's work samples (which only hold it).
+4. **No hidden ingredients.** No sky recipe uses an item from `dev/age_map.toml [hidden]` (for example `ad_astra:steel_plate`, line 958). Sky recipes name `c:` tags where a tag exists.
+5. **Player text.** It is English and follows `dev/style-guide.md`: quantities up to twelve are words ("three blocks"), 13 and up are digits; there are no mod names, no "!" and no meta words; "relic" stays reserved for the nine shrine relics. Jade lines with a count use the shared helper `text/Numbers.words(n)`.
+6. **Worldgen data lives in the mod jar** (`src/main/resources/data/firmages/worldgen/...`) for all three structure features (old craters are code, Wayshrines and Drifting Isles are structures). The pack can override any of it from `kubejs/data/firmages/`.
+7. **Caelum speaks only at the shrine.** Sky events carry no Caelum line.
+
+### 24.4 Shared plumbing (package `sky/`, built in M10)
+
+- **`sky/DeferredSites`:** a chunk-to-site index (`Long2ObjectMap<ChunkPos -> site ids>`). `ChunkEvent.Load` only looks the chunk up and, when it belongs to a pending site, enqueues the site id (O(1)). The NeoForge 21.1.252 javadoc warns that the event "may be called before the underlying LevelChunk is promoted to FULL" and that level interactions there deadlock [verified]. A `ServerTickEvent.Post` step then checks each queued site: every chunk of its box must be `level.hasChunk` at FULL status. Only then does it run the site's work (crater base check and carve, isle fallback placement). The step has a budget per tick (§25.3). Old craters and isle fallback sites register through the same queue, never inside the event.
+- **`sky/ClimateSource`:** an interface with `averageTemp(x, y, z)` and `instantTemp(x, y, z)`. `compat/tfc/TfcClimateSource` reads TFC's `Climate` (and works on the client for loaded chunks through TFC's `UpdateClimateModelPacket` and `ChunkWatchPacket` [verified]). The GameTest run has no TFC, so it uses `TestClimateSource` (values set by the test). Common code never references `net.dries007` classes (SPEC rule: compat only).
+- **`sky/SkySavedData`** (overworld storage `firmages_sky`) holds the Starfall sites and the aurora state (§25.8, §26.6).
+
+### 24.5 Age map hand-off (`dev/age_map.toml`)
+
+| Section | Entries |
+|---|---|
+| `[items]` dawn | `sky_rock`, `skystone` |
+| `[items]` age_2 | `meteorite`, `starfall_core`, `meteoric_iron_*`, `meteoric_iron_block`, `storm_rod`, `storm_glass` |
+| `[items]` age_3 | `star_anvil`, `lens_mount`, `lens_blank`, `lens/stone`, `lens/bronze`, `lens/iron`, `starlit_iron_ingot` |
+| `[items]` age_4 | `aurora_net`, `aurora_light_bucket`, `firmament_crystal`, `lens/arcane`, `cloudsteel_ingot` |
+| `[items]` age_5 | `starsteel_*`, `starsteel_meteorite`, `starsteel_block`, `lens/industrial`, `aurora_steel_ingot` |
+| `[items]` age_6 | `lens/electric`, `halo_steel_ingot` |
+| `[items]` age_7 | `lens/information`, `void_steel_ingot`, `launch_control`, `probe_cradle`, `launch_port`, `probe`, `sampler_module`, `voidglass`, `sky_anchor`, `blessing_shard` |
+| `[items]` age_8 | `lens/space`, `quasar_alloy_ingot`, `deep_space_module`, `deep_space_sample` |
+| `[items]` age_9 | `lens/quantum`, `firmament_alloy_ingot`, `ark_plinth` |
+| `[fluids]` age_4 | `aurora_light` |
+| `[ore_blocks]` (format extension) | `"firmages:meteorite" = { stage = "age_2", disguise = "firmages:sky_rock" }`, the same for `firmages:starfall_core` (age_2) and `firmages:starsteel_meteorite` (age_5). `dev/gen_stage_locks.py` learns the key `disguise` (a block id) as the alternative to `rock` (a TFC host rock) |
+| `firmages:age_blocks/age_4` | `firmament_crystal_cluster`, `firmament_lode` |
+
+`wayshrine_core` gets no item. `wayshrine_stone` stays Dawn (it drops from the first lit Wayshrine in age_1 on). The ark plinth is never crafted.
+
+### 24.6 Consolidated deltas for §9, §10 and §11
+
+- **Network (§11 heading).** Version "5" (M10) adds `firmages:starfall_streak` and `firmages:sky_sync`. Version "6" (M14) adds `firmages:launch_fx`. Version "7" (M17) adds `firmages:ark_sync`. The Lens Crown, the Wayshrines and the Sky Anchors add no payload. There is still no C2S payload. A worktree that adds a payload bumps the version only at merge, in this order.
+- **Config (§9).** The keys of §25.10, §26.8, §27.12, §28.9, §29.7, §30.9 and §31.9.
+- **Commands (§10).** The command tables of the same sections.
+
+### 24.7 Shared acceptance criteria and tests
+
+1. `dev/validate_recipes` (hand-off, extended) runs over all sky materials of §24.2 and all seven alloys. It finds no recipe, loot table or trade outside the one source, and no alloy output outside `firmages:starforge`.
+2. No sky item is in `#c:ores` or `#c:raw_materials` (P `selftest sky`, item tags after every Age swap).
+3. No ingredient of any `firmages:*` sky recipe resolves only to items in `[hidden]` (P `selftest sky`, against `dev/data/hidden.json` written by `gen_stage_locks.py`).
+4. After `ages simulate grant` up to age_9 the chain of §27.7 is complete: every V4A recipe holds its alloy and every alloy has exactly one live recipe (P `selftest crown`).
+
+## 25. Starfall
+
+### 25.1 Purpose
+
+The only source of meteoric iron (from the Iron Age) and starsteel (from the Electric Age). A falling star is a short event that sends the fellowship out; the metal stays in the crater for good.
+
+### 25.2 Player loop
+
+From the Iron Age a star falls on some clear nights. A streak crosses the sky toward its real bearing, a boom follows, and a smoking crater with a glowing core waits 300 to 2,500 blocks away. While the core glows (two TFC days) every meteorite of that crater drops double; after that it drops normally, forever. Missing a fall costs the bonus, never the metal. Old cold craters lie in the world from generation; their meteorites look like sky rock until the Iron Age. There is **no forecast** (no item, no screen, no player command): the streak, the boom and the smoke column are the signal.
+
+### 25.3 Scheduling, site choice and carving (`sky/StarfallService`, `CraterPlan`, `CraterCarver`; overworld only)
+
+**Scheduling.**
+- At TFC dusk (`dayTime % 24000` crosses 13000) the service rolls once for the night. It rolls only if all of these hold: `starfall.enabled`; the current Age has an entry in `starfall.json`; the overworld is not raining (vanilla flag); at least one player is online; and fewer than `starfall.maxPending` sites are uncarved.
+- **Pity:** after `pity_nights` clear nights without a fall, the next clear night falls for sure.
+- **First fall:** the first clear night after an Age whose `metal` differs from the last fall's metal falls for sure (age_2 meteoric iron, age_5 starsteel). The KubeJS call `FirmAges.starfallTonight()` sets the same guarantee, and `kubejs/server_scripts/firmages/firmament_night.js` calls it on a Firmament Night (no Enhanced Celestials code dependency).
+- The impact time is random in 14000..22000 of that night. 120 ticks earlier `firmages:starfall_streak` goes to every overworld player, and the actionbar says "A star falls to the north-east." (eight bearings, lang `firmages.starfall.bearing.<dir>`).
+
+**Site choice** (at roll time; no chunk is loaded or generated).
+- The anchor is the shrine heart if recorded, else a random online player. The service makes up to 16 attempts, each at a random bearing and a distance in the Age's `distance` range.
+- An attempt is rejected when any of these holds:
+  - the noise biome (`getNoiseBiome`, no generation; works under TFC's `RegionBiomeSource` [verified]) is in `#firmages:starfall/no_impact` (oceans, rivers and lakes, with TFC biome ids as optional entries);
+  - the column lies within `starfall.shrineClearance` (256) of the heart, or within the sanctuary radius plus 64, whichever is larger;
+  - the column lies within `starfall.spawnClearance` (128) of a player's respawn point;
+  - the column lies within `starfall.claimMarginChunks` (2) of an FTB Chunks claim (`compat/ftbchunks/Claims`, `FTBChunksAPI.api().getManager().getChunk(new ChunkDimPos(level, pos))` [verified]; FTB Chunks is a new `compileOnly` dependency in §1.4 and `build.gradle`, and the class loads only with the mod present);
+  - the column lies inside the box of a known `firmages:drifting_isle` structure start or an isle fallback record (§30).
+- With no site after 16 attempts nothing falls tonight, and the pity count goes on.
+
+**Lazy carving.** The site is stored PENDING in `SkySavedData` and registered with `DeferredSites` (§24.4). It is carved once every chunk of its box (radius + 3) is loaded at FULL status: at impact if they are loaded, otherwise when the tick step finds them loaded. Nothing is force-loaded and nothing is generated.
+
+**Base check at carve time** (the chunks are loaded now). The site is moved once, by up to 128 blocks, and then re-checked, if any chunk of the box meets one of these:
+- `getInhabitedTime() > starfall.inhabitedTicks` (12,000, ten minutes of players nearby);
+- it holds a block entity whose block is not in `#firmages:starfall/natural_block_entities` (TFC tick-counter blocks, bushes, saplings, beehives, structure chests);
+- it holds a block of `#firmages:starfall/player_blocks` (planks, bricks, glass, rails, and slabs and stairs of worked stone; one scan of the box at carve time);
+- the surface block (`WORLD_SURFACE`) of any bowl column is in `#firmages:isle/body` (skystone, crystal cluster, lode), which means the column lies under a Drifting Isle;
+- fluid covers more than 20 % of the bowl.
+
+Three failed moves give the state BURNED: no crater, no chat line, and the next clear night falls for sure.
+
+**Plan** (`CraterPlan`, pure, deterministic from the site seed).
+- The bowl has the size's `radius` and `depth`; depth falls off with the square of the distance, with ±1 noise.
+- Everything inside the bowl and up to 12 blocks above it becomes air (trees included).
+- A one-block lining of `sky_rock` covers the bowl surface and extends one block outward over the lip.
+- The meteorite cluster (an ellipsoid of `meteorites` blocks) sits at the bowl floor around the core.
+- An ejecta rim of `sky_rock` runs from radius to radius + 2, one block high with chance 0.4.
+- `sky_rock` is in no TFC collapse or landslide tag, while every `tfc:rock/cobble/*` is in `tfc:can_landslide` [verified, TFC 4.2.11 tags]. So the rim and the extended lining leave no exposed landslide block at the bowl.
+
+**Carving over ticks.** At most `starfall.carveBlocksPerTick` (64) `setBlock` calls run per server tick across all sites, with flags `UPDATE_CLIENTS | UPDATE_KNOWN_SHAPE` (no neighbour updates), core last. The cursor is saved, and an unload mid-carve resumes when the tick step finds the box loaded again. A large crater (about 1,100 changes) takes 18 ticks.
+
+**TFC collapse safety.** No Starfall block is in `#c:ores` or `#c:stones`. `tfc:can_trigger_collapse` is `#c:ores` plus `#c:stones` [verified], so no Starfall block can trigger a collapse. Whether a real crater starts a landslide in a TFC world is still **[PoC]**.
+
+**Impact effects.**
+- Players within 256 blocks see the last 3 s of the body (drawn by `SkyStreaks`, no entity), `EXPLOSION_EMITTER` particles, and hear `firmages:starfall.impact`.
+- Every overworld player hears `firmages:starfall.distant` from the bearing (volume 1 at 256 blocks, 0.25 beyond 1,500).
+- There is no fire, no damage and no block-breaking explosion.
+
+**Old craters.**
+- There is one candidate per `starfall.oldCraterRegion` (1024 by 1024) region, kept with chance `old_craters.chance` (0.35) from a hash of the world seed and the region.
+- When its centre chunk loads with `isNewChunk()`, the event only enqueues it; the tick step registers and carves it like a live site, with the same checks.
+- An old crater is CARVED with a cold core, its metal is always meteoric iron, and its size is `old`. Only new chunks get old craters; on an existing world the live falls cover the need.
+
+### 25.4 Blocks, drops and the glowing core
+
+| Block | Properties | Tool (TFC tier mapping [verified]) | Drop (cold / hot) |
+|---|---|---|---|
+| `sky_rock` | dark fused stone, building block, Dawn | `mineable/pickaxe` only | itself |
+| `meteorite` | meteoric iron mass | `minecraft:needs_diamond_tool` (wrought iron and up; bronze fails) | 1 / 2 `meteoric_iron_chunk` |
+| `starsteel_meteorite` | starsteel mass (Electric Age falls) | in `minecraft:incorrect_for_diamond_tool` (steel and up; wrought iron fails) | 1 / 2 `starsteel_chunk` |
+| `starfall_core` | `metal` (meteoric_iron, starsteel), `hot` (bool), light 15 when hot and 0 when cold, BE stores `coolsAt` (game time) | as its metal's meteorite | 3 / 6 chunks of its metal |
+| `meteoric_iron_block`, `starsteel_block` | storage, nine ingots | pickaxe | itself |
+
+- TFC 4.2.11 ships no `needs_*_tool` tags of its own. Its tiers map onto vanilla's `incorrect_for_*` tags: stone `wooden`, copper `stone`, bronzes `iron`, wrought iron `diamond`, steel and up `netherite` [verified, javap `TFCTiers`].
+- `hot` turns false when the game time passes `coolsAt` = impact time + `starfall.coolTicks` (48,000, two TFC days). A crater carved after that is cold from the start. The core BE checks every 100 ticks. The client emits `CAMPFIRE_SIGNAL_SMOKE` above a hot core (`animateTick`).
+- **Bonus:** the loot condition `firmages:starfall_hot` looks up the site of the broken block's chunk in the `SkySavedData` chunk index. It is true when the block lies within 12 blocks of that site's core position and the game time is before `coolsAt`. There is no world scan, so drills and excavators pay one map lookup per block.
+- Jade: "Glowing: cools in 1 day 6 h" or "Cold".
+
+### 25.5 Sky metals and TFC
+
+- **Meteoric iron is forged, never cast.** There is no TFC metal file and no fluid. The chunk, ingot, double ingot, sheet and rod carry `tfc:item_heat` (data in `kubejs/data/firmages/tfc/item_heat/meteoric_iron/`, with wrought iron's values: forging 921 °C, welding 1228 °C). TFC anvil recipes run at tier 3 (wrought iron anvil): chunk to ingot, two ingots welded to a double ingot, double ingot to sheet, and ingot to rod.
+- **Machine route:** the IE metal press makes sheets and rods from the Industrial Age (`station_ages.js`: `metal_press` age_4). The IE arc furnace turns chunks into ingots from the Electric Age (`arc_furnace` age_5 [verified]). In age_2 to age_4 the TFC anvil is the only route.
+- **No TFC tool heads.** A meteoric pick would either repeat wrought iron or leapfrog steel, and sky iron is never a second steel (craft.md rule 3).
+- **Starsteel** is worked in machines only: IE arc furnace, `starsteel_chunk` + `#c:dusts/coal_coke` gives `starsteel_ingot` and slag. There is no plate (it had no consumer).
+- Tags: `c:ingots/meteoric_iron`, `c:sheets/meteoric_iron`, `c:rods/meteoric_iron`, `c:ingots/starsteel`, `c:storage_blocks/meteoric_iron`, `c:storage_blocks/starsteel`.
+
+### 25.6 Automation
+
+- **IE excavator (from `starfall.automationAge`, age_6):** every carved site records a vein. Once the world holds that Age, the service calls `ExcavatorHandler.addVein(Level.OVERWORLD, new MineralVein(new ColumnPos(x, z), mix, radius))` for every recorded site, and at carve time afterwards [verified, javap IE 12.4.2]. It then calls `IESaveData.markInstanceDirty()`, because `addVein` does not mark IE's save data dirty itself [verified]. At `ServerStartedEvent` the service re-checks every recorded site against `getMineralVeinList()` and re-adds any missing vein (idempotent). The vein radius is the crater radius + 8. It depletes like every IE vein, and m3's `ExcavatorFilter` applies to it.
+- The mixes are `immersiveengineering:mineral_mix` recipes with `weight` 0, so worldgen never rolls them (weight is a plain int, 0 allowed [verified]). `mineral_mix` is already in `gate.exemptRecipeTypes`.
+
+```json
+{"type": "immersiveengineering:mineral_mix", "weight": 0, "fail_chance": 0.1, "biome_predicates": [],
+ "ores": [{"chance": 0.85, "output": {"id": "firmages:meteoric_iron_chunk"}}, {"chance": 0.15, "output": {"id": "firmages:sky_rock"}}],
+ "spoils": [{"chance": 1.0, "output": {"id": "firmages:sky_rock"}}]}
+```
+
+  `firmages:mineral/meteoric` (above) serves meteoric falls and old craters. `firmages:mineral/starfall` (meteoric iron chunk 0.6, starsteel chunk 0.3, sky rock 0.1) serves Electric Age falls and later.
+- **Create drills** mine craters from the Iron Age (players' own build). The **Mekanism Digital Miner** is `age_7` (`dev/age_map.toml`). OreGuard (§5) and the disguise of §24.5 apply as for any ore.
+
+### 25.7 Data: `data/firmages/firmages_sky/starfall.json`
+
+```json
+{
+  "pity_nights": 8,
+  "ages": {
+    "age_2": {"chance": 0.12, "distance": [300, 800],   "size": "small",  "metal": "meteoric_iron"},
+    "age_3": {"chance": 0.12, "distance": [400, 1000],  "size": "small",  "metal": "meteoric_iron"},
+    "age_4": {"chance": 0.15, "distance": [600, 1600],  "size": "medium", "metal": "meteoric_iron"},
+    "age_5": {"chance": 0.18, "distance": [800, 2000],  "size": "medium", "metal": "starsteel"},
+    "age_6": {"chance": 0.18, "distance": [800, 2000],  "size": "medium", "metal": "starsteel"},
+    "age_7": {"chance": 0.20, "distance": [1000, 2500], "size": "large",  "metal": "starsteel"}
+  },
+  "sizes": {"old": {"radius": 4, "depth": 2, "meteorites": [6, 10]}, "small": {"radius": 5, "depth": 3, "meteorites": [10, 14]},
+            "medium": {"radius": 7, "depth": 4, "meteorites": [16, 22]}, "large": {"radius": 9, "depth": 5, "meteorites": [24, 32]}},
+  "metals": {"meteoric_iron": {"mass": {"firmages:meteorite": 1.0}, "mix": "firmages:mineral/meteoric"},
+             "starsteel": {"mass": {"firmages:meteorite": 0.6, "firmages:starsteel_meteorite": 0.4}, "mix": "firmages:mineral/starfall"}},
+  "old_craters": {"chance": 0.35}
+}
+```
+
+- An Age without an entry inherits the latest earlier entry (age_8 and age_9 use age_7). Dawn to age_1 have no live falls.
+- Unknown metals, sizes or Ages reject the file with an ERROR (as `ShrineDataLoader` does).
+- Expected yield: a cold small crater gives about 15 chunks and a hot one about 30. There is about one fall per two to three real hours of play.
+
+### 25.8 SavedData
+
+`firmages_sky` (overworld) holds:
+- per site: id, pos, metal, size, origin (live or old), impact time, `coolsAt`, core pos, state (PENDING, CARVING, CARVED, BURNED), carve cursor, moves, vein added;
+- `nightsSinceFall`, `lastMetal`, `guaranteedTonight`;
+- the chunk-to-site index (rebuilt on load).
+
+### 25.9 Rendering and sound
+
+- `client/SkyStreaks` draws the streak and the falling body as quads in `RenderLevelStageEvent.AFTER_SKY` (the `SkyEffects` pattern). Client toggle: `effects.skyStreaks`.
+- Sounds `firmages:starfall.impact` and `firmages:starfall.distant` map onto vanilla events in `sounds.json` (as §8.1).
+
+### 25.10 Network, config, commands
+
+- **Network:** `firmages:starfall_streak` (bearing start, target pos, impact game time, metal, near flag), sent to every overworld player. Protocol "5" (§24.6).
+- **Server config:** `starfall.enabled` (true), `starfall.carveBlocksPerTick` (64), `starfall.coolTicks` (48000), `starfall.maxPending` (6), `starfall.shrineClearance` (256), `starfall.spawnClearance` (128), `starfall.claimMarginChunks` (2), `starfall.inhabitedTicks` (12000), `starfall.oldCraters` (true), `starfall.oldCraterRegion` (1024), `starfall.automationAge` (`age_6`). Balance values are data (§25.7).
+- **Client config:** `effects.skyStreaks` (true).
+
+| Command | Purpose |
+|---|---|
+| `starfall now [pos] [metal] [size]` | A fall in 120 ticks with streak; without pos, the normal site search |
+| `starfall list` | Id, state, metal, distance, hot time left, vein |
+| `starfall carve <id>` | Adds a temporary ticket and carves now |
+| `starfall cool <id>` / `starfall heat <id>` | Debug for the bonus |
+| `starfall old <pos>` | An old crater there |
+| `starfall tonight` | The same as the KubeJS call |
+| `starfall veins` | Reconcile IE veins now and list them |
+
+### 25.11 Tests
+
+- **U** `StarfallRulesTest`: Age table with inheritance, pity, first-fall guarantee, site rejection rules with a fake world (isle box included), deterministic old-crater regions, the shipped `starfall.json` parses, bad files are rejected.
+- **U** `CraterPlanTest`: the same seed gives the same plan; block counts lie within the size; the core comes last; the lining covers every bowl column and the lip ring; the rim is only `sky_rock`; nothing lies outside radius + 3.
+- **G** `SkyGameTests`, with vanilla stand-in terrain:
+  - `forcedImpactCarves`: the carve finishes in the expected ticks, never more than 64 changes per tick, hot core, meteorite count in range.
+  - `lazyCarveOnLoad`: PENDING while unloaded; after a forceload the tick step carves (never from inside the load event).
+  - `exclusionsMoveTheSite`: near the shrine heart, a chest, a plank road, an inhabited chunk and a skystone surface all move the site; three times gives BURNED and tonight guaranteed.
+  - `hotCoreDoubles`: two chunks hot, one after `starfall cool`, with no block scan (counted reads).
+  - `toolTiers`: the vanilla tag membership of the four blocks.
+  - `skySavedDataRoundTrip`.
+  - `excavatorVeinAtAutomationAge` (IE is in the run): no vein in age_5; after the age_6 grant a vein with the mix id and radius exists, and IE's save data is dirty; a vein removed by hand comes back at the reconcile.
+  - `skyPayloadCodecs`.
+- **U (TFC jar data)** `NoCollapseTagsTest`: no Starfall block in `#c:ores` or `#c:stones`; `sky_rock` is in no `tfc:can_*` tag (read from the TFC jar's tag JSON on the test classpath).
+- **M:** the streak and boom from 1,000 blocks, the smoke column, TFC landslides at a real crater.
+
+### 25.12 Acceptance criteria
+
+1. No live fall comes before the Iron Age. The first clear night of the Iron Age and of the Electric Age brings a fall for sure. No fall lands inside a claim, within 256 blocks of the heart, near a respawn point, in an inhabited chunk, on a player road or under an isle.
+2. A crater never stalls the server: at most 64 block changes per tick, nothing force-loaded or generated, no level access inside `ChunkEvent.Load`.
+3. Missing the glow costs only the double drop. A cold crater still yields its full metal.
+4. Meteoric iron goes the TFC anvil way without melting and has no tools. Starsteel comes only from falls from the Electric Age on.
+5. From the Information Age every crater feeds an IE excavator, and the vein survives a restart. No other ore enters the world, and no TFC ore sits in a crater.
+6. Before the Iron Age, meteorites and cores look like sky rock and drop nothing usable.
+
+### 25.13 Implementation notes (M10, branch `c1/sky-m10`, 2026-10-15)
+
+- **Packages.** `sky/` holds the plumbing (`DeferredSites`, `ClimateSource` with `ClimateSources`, `SkySavedData`) and Starfall (`StarfallService`, `StarfallRules` and `CraterPlan` (pure), `CraterCarver`, `StarfallData` with its loader, `StarfallSite`, `SkyRegistry`, `StarfallCoreBlock`(+BE), `StarfallHotCondition`, `SkyTags`, `SkyMetal`). `text/Numbers` is the words helper. Compat: `compat/tfc/TfcClimateSource`, `compat/ftbchunks/Claims`, `compat/ie/StarfallVeins`. Client: `client/SkyStreaks`. Commands: `command/StarfallCommands`, suite `command/SkySuite` (`selftest sky`, also in `all`).
+- **Registry names.** Blocks (with items): `firmages:sky_rock`, `meteorite`, `starsteel_meteorite`, `starfall_core` (`metal` = `meteoric_iron`|`starsteel`, `hot`), `meteoric_iron_block`, `starsteel_block`. Items: `firmages:meteoric_iron_{chunk,ingot,double_ingot,sheet,rod}`, `firmages:starsteel_{chunk,ingot}`. Block entity `firmages:starfall_core`. Sounds `firmages:starfall.impact` (vanilla `entity.generic.explode`), `firmages:starfall.distant` (vanilla `entity.lightning_bolt.thunder`). Loot condition `firmages:starfall_hot`. Mineral mixes `firmages:mineral/meteoric`, `firmages:mineral/starfall` (weight 0, `neoforge:mod_loaded` immersiveengineering). Tags: `#firmages:starfall/no_impact` (biomes), `#firmages:starfall/natural_block_entities`, `#firmages:starfall/player_blocks`, `#firmages:isle/body` (optional M13 entries), the `c:` metal tags of §25.5 plus `c:double_ingots/meteoric_iron`, and the vanilla tool tags of §25.4 (`needs_stone_tool` for the two storage blocks).
+- **`ClimateSource`** takes the level: `averageTemp(level, x, y, z)`, `instantTemp(level, x, y, z)`; `ClimateSources.get()` is TFC's climate with TFC loaded, a mild constant without, and the GameTests install `TestClimateSource`.
+- **Night and impact.** The roll runs once per overworld day once `dayTime % 24000` is in 13000..19999 (a server that starts mid-night still rolls). The live site is planned at roll time with its impact time and registered with `DeferredSites` only at the impact, so a loaded box is never carved before the star lands. `FirmAges.starfallTonight()` sets the guarantee and, when tonight's roll already ran, rolls again at once. `firmament_night.js` calls it once on the Firmament Night (persistentData key `firmages_night_star`).
+- **Carving.** `CraterPlan` resolves `y` against the ground: bowl ops relative to the centre column's ground, lip and rim ops (`surface`) against their own column's ground, read when the carver gets there. The ground skips air, fluids, leaves, logs, replaceable plants and barriers. Unchanged positions cost a read (at most 4,096 reads per tick), not a change. A site that unloads mid-carve drops out of the active list and is queued again by the next chunk load of its box.
+- **Base check and moves.** A player block entity is any block entity whose block is not in `#firmages:starfall/natural_block_entities`, except a container that still holds its loot table (an unopened structure chest). The player-block scan covers the box from ground − 8 to ground + 16. Isles are excluded through `StarfallService.registerIsleProbe` (M13 registers the isle starts and fallback records) and the `#firmages:isle/body` surface tag. A moved site also passes the site-choice rules again (shrine, spawn, biome, isle, claims).
+- **Operator falls.** `starfall now <pos>` and `starfall old <pos>` are forced: exactly there, no base check, no move.
+- **Core tier.** The core's tags are those of the meteorite (`needs_diamond_tool`); `canHarvestBlock` and the destroy progress follow the meteorite of its `metal`, so a starsteel core needs steel like its meteorites.
+- **Network.** Protocol "5" carries `firmages:starfall_streak` (entry angle, target, impact time, metal, near flag). `firmages:sky_sync` comes with M11 inside "5" (§24.6).
+- **Pack data (hand-off done here).** TFC heat of meteoric iron in `kubejs/data/firmages/tfc/item_heat/meteoric_iron/`; anvil, welding, IE metal press and arc furnace recipes and the storage block in `kubejs/server_scripts/recipes/age_2/sky_metals.js` and `age_5/starsteel.js`; the Age rows and the `[ore_blocks]` key `disguise` in `dev/age_map.toml` and `dev/gen_stage_locks.py`.
+- **Tests.** U: `StarfallRulesTest` (9), `CraterPlanTest` (3), `NoCollapseTagsTest` (1); `gradlew build`: 160 unit tests green. G (`SkyGameTests`, template `sky_area` 25 by 26 by 25): `forcedImpactCarves`, `lazyCarveOnLoad`, `exclusionsMoveTheSite`, `hotCoreDoubles`, `toolTiers`, `skySavedDataRoundTrip`, `skyPayloadCodecs`, `skySelftestAndCommands`, `excavatorVeinAtAutomationAge`; `runGameTestServer`: "All 62 required tests passed". Night rolls and old craters are off in the GameTest run (`StarfallService.setNaturalEvents(false)`), since a live fall could land in another test's area. Not covered by G: the FTB claims rule (FTB Chunks is not in the run) and a skystone surface (no skystone before M13; the isle probe stands in).
+- **Open (M).** The streak and the boom from 1,000 blocks, the smoke column, TFC landslides at a real crater (§25.11), the core's emissive overlay with Sodium and the shader.
+
+## 26. Sky Harvest
+
+### 26.1 Purpose
+
+The only source of storm glass (Storm Rod, Iron Age) and aurora light (Aurora Net, Industrial Age). It ties the weather and the cold lands to the main road.
+
+### 26.2 Player loop
+
+In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand. Every rain brings strikes, thunder brings many, and each strike fuses sand into storm glass. In the Industrial Age they carry Aurora Nets north, raise them on high frames under open sky, and catch aurora light on clear nights. They bring it home by pipe, by train or in buckets.
+
+### 26.3 The aurora (`sky/AuroraRules`, pure, the same on server and client)
+
+- `active(x, z, time)` is true when all of these hold:
+  - it is night (`dayTime % 24000` in 13000..23000);
+  - `averageTemp(x, reference_y, z) <= max_average_temp` (the cold band, hemisphere-proof);
+  - the overworld is not raining (vanilla flag);
+  - the night roll `hash(auroraSeed, day, x >> 9, z >> 9) < chance`.
+- `chance` is `night_chance.cold` when `instantTemp(x, reference_y, z) <= averageTemp(x, reference_y, z)` (the cold half of the year there), else `night_chance.warm`. So every clear cold-band night can yield, and winter yields twice as often. A summer group is not stuck waiting for winter.
+- **Reference height:** both temperatures are read through `ClimateSource` at the fixed `reference_y` (140), never at the net's or the camera's own height. TFC lowers the average by 0.16225 °C per block above Y 63, capped at 17.82 °C [verified, javap `Helpers.adjustAverageTemperatureByElevation`]. Without a fixed height, every isle top would count as polar, and the server and the client would disagree.
+- **Band distance:** TFC's base gradient is about 2.5 °C per 1,000 blocks (-20..30 °C over `temperature_scale` 20,000 [verified, `RegionGenerator`]). The default `max_average_temp` 0.0 at Y 140 (about 12.5 °C at sea level) puts the band about 1,000 to 2,000 blocks poleward of a temperate spawn **[PoC, see 26.10]**.
+- Intensity is 0.5..1.0, from the same hash.
+- `/firmages sky aurora on|off|auto` overrides everything but the band and the height.
+- The seed and the thresholds reach the client in `firmages:sky_sync`.
+- Enhanced Celestials is not used: its lunar events are world-wide nights, while the aurora is a place.
+
+### 26.4 Aurora Net (`firmages:aurora_net`, Industrial Age)
+
+- **A single block,** not a multiblock. A net works only at `y >= min_y` (140) with open sky above it (`canSeeSky`), so players build it on high frames of any blocks. Scale comes from more nets. There is no validation code, and a Mekanism pipe connects to any side.
+- **Filling:** every 20 ticks while `AuroraRules.active` holds at its (x, z), it adds `mb_per_hour * intensity / 50` mB to its 4,000 mB tank. The amount is divided by 1 + the number of other nets within `share_radius` (1), so packing nets tight gains nothing.
+- **State and Jade:** the blockstate `catching` (light 10, shimmer) shows it. Jade lines: "Catching the aurora", "No aurora overhead", "Too low: needs height 140" or "Needs open sky".
+- **Capabilities:** `Capabilities.FluidHandler.BLOCK` on all sides, drain only. There is no energy capability.
+- **Yield:** 100 mB per in-game hour at full intensity, about 750 mB per aurora night per net at average intensity. Four nets on a cold-band trip fill the pack's whole demand (about 2.5 buckets, §24.2) in one or two aurora nights.
+- **Aurora light** (`firmages:aurora_light`, bucket, light 12, no world interaction) is a fluid because nets are pumped by pipe or train, and the Lens Crown takes it as a fluid ingredient.
+- **Recipe** (Industrial Age, shaped, `kubejs/server_scripts/recipes/age_4/sky_harvest.js`): four `immersiveengineering:stick_steel` (corners), two `immersiveengineering:wirecoil_copper`, two `firmages:meteoric_iron_sheet`, one `firmages:storm_glass` (centre).
+
+### 26.5 Storm Rod (`firmages:storm_rod`, Iron Age)
+
+- **Shape:** two blocks high, placed and broken as one like a door: a lower basin with the block entity and an upper rod.
+- **Inventory:** a 16-slot input for `#c:sands` (holds the seven TFC sands [verified]) and a 16-slot output. `Capabilities.ItemHandler.BLOCK` inserts into the input from the top and sides and extracts from the output below. A plain container screen.
+- **Weather:** while `level.isRaining()` (global) and the sky is open above the rod tip, each rod rolls every 20 ticks so that it is struck on average every `mean_strike_ticks_rain` (4,800). During `level.isThundering()` the rate is multiplied by `thunder_factor` (4).
+- **Local climate is ignored:** an arid base under TFC's local climate still gets strikes when the world rains (a dry storm). This decides the arid-base case: storm glass is needed in the Arcane Age, and no base may be cut off from it.
+- **Strike:** it spawns a visual-only `LightningBolt` at the tip (`setVisualOnly(true)`: no fire, no damage, no charged creeper) and fuses `sand_per_strike` (4) sand into storm glass. It uses its own roll, with no mixin on vanilla lightning; vanilla lightning rods stay as they are.
+- **Rate:** TFC's climate model gives one rain window of 12,000..24,000 ticks per 66,000 ticks (about 27 % of the time), and thunder needs rain and thunder together (about 2.5 %) [verified, javap `OverworldClimateModel`]. One rod therefore averages about 16 storm glass per real hour, more in thunder. Two rods cover the Iron and Arcane Ages' 13 storm glass within about an hour of play that includes one rain.
+- **No FE output:** no energy capability on any side, and no redstone pulse that counts strikes.
+- **Jade:** "Waiting for rain", "Waiting for rain: needs open sky", "Storm: fusing sand", or "No sand".
+- **Recipe** (Iron Age, TFC workbench, `age_2/sky_metals.js`): `firmages:meteoric_iron_rod` (top), two `tfc:metal/rod/wrought_iron` (middle column), three `tfc:metal/sheet/copper` (basin row).
+- **`storm_glass`:** a full glass block with blast resistance 1200 and hardness 3. It drops itself (no silk touch needed) and has a connected glass look.
+
+### 26.6 Data: `data/firmages/firmages_sky/sky_harvest.json`
+
+```json
+{
+  "aurora": {"min_y": 140, "reference_y": 140, "max_average_temp": 0.0, "night_chance": {"cold": 0.5, "warm": 0.25},
+             "mb_per_hour": 100, "net_capacity": 4000, "share_radius": 1, "colors": ["#3CFF9E", "#7A5CFF"]},
+  "storm": {"mean_strike_ticks_rain": 4800, "thunder_factor": 4, "sand_per_strike": 4,
+            "input": "#c:sands", "result": "firmages:storm_glass"}
+}
+```
+
+`SkySavedData` adds `auroraSeed` (random at creation) and `auroraOverride`.
+
+### 26.7 Rendering and sound
+
+- `client/AuroraRenderer` draws ribbons as translucent quads in `AFTER_SKY` wherever `AuroraRules.active` holds at the camera's (x, z), in `colors`, scaled by intensity.
+- **Complementary Reimagined:** its own aurora follows biomes and cannot follow ours, so the pack's shader settings ship it **off** (pack hand-off, `vorauswahl.md` M046). Under Iris our ribbons draw unless `effects.auroraWithShaders` is false. Whether `AFTER_SKY` quads show under Iris is **[PoC]**. If they do not, nothing breaks: the net's `catching` glow and Jade carry the state.
+- **Sounds:** the strike uses vanilla thunder at reduced volume, and the net plays a soft amethyst chime when it starts catching (`firmages:aurora_net.catch`, mapped onto a vanilla event).
+
+### 26.8 Network, config, commands
+
+- **Network:** `firmages:sky_sync` (aurora seed, override, the `aurora` block of `sky_harvest.json`), sent on login, data reload and override change. Protocol "5".
+- **Server config:** `skyHarvest.enabled` (true).
+- **Client config:** `effects.aurora` (true), `effects.auroraWithShaders` (true).
+
+| Command | Purpose |
+|---|---|
+| `sky aurora on\|off\|auto` | Override for tests and events |
+| `sky aurora status [pos]` | Night, both temperatures at `reference_y` against the threshold, cold or warm half, height, sky, roll, chance, intensity, override |
+| `sky aurora band [radius]` | Samples the band boundary around the caller (every 256 blocks) and prints the nearest cold-band point; for the PoC of 26.10 |
+
+### 26.9 Tests
+
+- **U** `AuroraRulesTest`: night window, band at the reference height (a net at Y 250 above a warm column stays off), cold and warm chance, rain, override, intensity range, all with a fake `ClimateSource`.
+- **G** `SkyGameTests` with `TestClimateSource`:
+  - `auroraNetFills`: override on, height and sky give the expected mB; covered, too low or override off give 0; two adjacent nets get half each; a drain like a pipe takes it; no energy capability.
+  - `stormRodFusesSand`: forced rain gives the base rate and forced thunder four times it (seeded roll); the bolt is visual-only; four sand become four storm glass; no fire block is placed, no entity is hurt, and no side has an energy capability.
+- **M:** the aurora with and without Complementary; strike frequency over a real TFC day.
+
+### 26.10 Acceptance criteria
+
+1. Aurora nets fill only in the cold band (at the reference height), at night, without rain, high and under open sky, and pipes drain them. Every clear cold-band night has a chance, so no group waits for winter.
+2. **[PoC]** On three seeds, `sky aurora band` finds the cold band within 2,000 blocks of world spawn. Otherwise `max_average_temp` is raised in data until it does.
+3. Storm Rods make storm glass in every rain, faster in thunder, at any base climate. Over five real hours on the pack server one rod averages 10 to 25 storm glass per real hour **[PoC]**.
+4. No block of §25 or §26 exposes an energy capability, and no forecast exists.
+
+## 27. The Lens Crown and the celestial alloys
+
+### 27.1 Purpose
+
+The only refinery of sky materials and, under V4A, a mandatory station from the Arcane Age. A ring of lens mounts around a Star Anvil plays a **chord** of lenses into the anvil under the open sky. Each recipe needs its exact chord. Lenses come one per Age, so the Crown grows with the shrine.
+
+### 27.2 Player loop
+
+In the Arcane Age the fellowship builds the 9 by 9 crown from local stone, four storm glass caps and a Star Anvil, and grid-crafts the first three lenses (Stone, Bronze, Iron). They set the lenses in mounts, power the chord's mounts with redstone, feed the anvil and forge the first Starlit Iron under the open sky. Night halves the time. Each later Age adds one lens (made in the Crown itself) and one alloy for that Age's offering. A comparator and a redstone decoder later run the whole chord library unattended.
+
+### 27.3 Naming and package
+
+- One stem, **crown**, for everything except the recipe type: package `crown/` (`CrownRegistry`, `StarAnvilBlock`(+BE), `LensMountBlock`(+BE), `LensItem`, `Chord` and `CrownRules` (pure), `ChordLibrary` (reload listener), `StarforgeRecipe`(+`Serializer`, `Type`), `CrownService`), data folder `firmages_crown/`, config `crown.*`, commands `/firmages crown`, compat `compat/emi/CrownEmi` and `compat/ponder/CrownScenes`, and `client/CrownRenderer`.
+- The recipe type stays `firmages:starforge` ("Starforging" in EMI).
+- No kinetic mount: redstone mounts plus Create redstone links already automate every chord, and a Create `KineticBlockEntity` subclass would need Flywheel at compile time and cannot be tested headless.
+
+### 27.4 Blocks and items
+
+| Id | Kind | Age | Notes |
+|---|---|---|---|
+| `firmages:star_anvil` | block + BE | age_3 | Crown anchor; four input slots, one output, 4,000 mB tank; blockstates `formed`, `active` |
+| `firmages:lens_mount` | block + BE | age_3 | Holds one lens; blockstates `facing` (horizontal, toward the anvil), `in` (bool), `lens` (0..9, 9 = empty) |
+| `firmages:lens_blank` | item | age_3 | Polished storm glass |
+| `firmages:lens/<age>` | nine items | §24.5 | `stone, bronze, iron, arcane, industrial, electric, information, space, quantum` = lens 0..8, stack size 1 |
+| seven alloy ingots | items | their Age | `starlit_iron_ingot`, `cloudsteel_ingot`, `aurora_steel_ingot`, `halo_steel_ingot`, `void_steel_ingot`, `quasar_alloy_ingot`, `firmament_alloy_ingot` |
+
+- **Indices are 0-based everywhere:** lens N belongs to shrine tier N, and lens N can be made once tier N is awakened, which is age_(N+1). So the Stone, Bronze and Iron Lenses come in age_3, Arcane in age_4, Industrial in age_5, Electric in age_6, Information in age_7, Space in age_8 and Quantum in age_9.
+- Lens N carries the colour of tier N (`tier/ring_N.json` `response.beam_color`: #FFB347, #FFD54A, #E06030, #9B59FF, #F0F0F0, #40E0FF, #40FF80, #E0E8FF, #E0B0FF [verified]). The colour is read from the loaded tier data, never copied.
+- Item tags `#firmages:celestial_alloy/age_3` .. `age_9`, one member each (§27.7). Consumers outside the Crown name these tags or the concrete ids.
+
+### 27.5 The crown multiblock
+
+`data/firmages/modonomicon/multiblocks/lens_crown.json`, `modonomicon:dense`, 9 by 9 by 3, top layer first. Key `0` is the Star Anvil in the centre of the bottom layer: the anchor is not in the middle layer, because of the Modonomicon layer bug (§7.8).
+
+| Layer | Content |
+|---|---|
+| Bottom | A 32-block border `S` (`#firmages:crown/stones`: TFC smooth rock and rock bricks; vanilla smooth stone as the test stand-in), the anvil `0`, and the inside `_` (any block, free for pipes and hoppers) |
+| Middle | Four corner pillars `P` (`#firmages:crown/pillars`: TFC rock pillars and polished rock) and twelve sockets `M` on the border, three per side at offsets -2, 0 and +2 (`#firmages:crown/sockets` = the crown stones plus the lens mount) |
+| Top | Four storm glass caps `G` (`#firmages:crown/caps`) |
+
+- There are 53 positions, and the pattern is four-fold symmetric, so any rotation validates.
+- A socket holding a stone is valid. The crown grows by swapping stones for mounts: three in the Arcane Age, up to nine lenses on twelve sockets.
+- **Validation** calls the existing `ShrineMultiblocks.check(level, anchor, id)`; `ringRoles(id)` returns an empty map for a non-ring id, so no consecrated equivalents apply [verified, source]. It runs on anvil placement; on any `BreakEvent`, `EntityPlaceEvent` or `ExplosionEvent.Detonate` inside the crown box; on mount insert or removal; and every `crown.validateTicks` (100) while loaded. A valid crown sets `formed=true` and turns every mount's `facing` toward the anvil.
+- **Preview:** right-click on the anvil with an empty hand. An unformed crown sends the ghost through the existing `firmages:shrine_preview` payload (multiblock id, anchor, rotation) and the actionbar line "The crown lacks three blocks." A formed crown names the current chord and the pending forging.
+
+### 27.6 Lenses, chords and the forge cycle
+
+**Mounting.** Right-click a mount with a lens to set it; sneak and right-click with an empty hand to take it back. Mounts have no item handler: lenses stay put and only swing. Survival players cannot break a mount that holds a lens (as the relic plinth, §7.8).
+
+**Swing.** A mount is **in** while it receives a redstone signal (level-triggered, so a sequencer holds a chord as long as it powers the line). A swing takes `crown.swingTicks` (10), and a lens counts only once it is fully in.
+
+**Chord.** The set of lens indices that are fully in. Two copies of one lens count once. A recipe matches only its exact chord, so an extra lens in makes a different chord.
+
+**Chord library.** `data/firmages/firmages_crown/chords.json` holds named chords, each with its comparator signal. Recipes name a chord. There are at most 15 chords (signals 1..15), and lang keys are `firmages.chord.<name>`.
+
+```json
+{ "dawn_triad": {"lenses": [0,1,2], "signal": 1}, "forge_triad": {"lenses": [1,2,3], "signal": 2},
+  "spark_triad": {"lenses": [2,3,4], "signal": 3}, "lattice_triad": {"lenses": [3,4,5], "signal": 4},
+  "orbit_triad": {"lenses": [4,5,6], "signal": 5}, "quantum_triad": {"lenses": [5,6,7], "signal": 6},
+  "full_crown": {"lenses": [0,1,2,3,4,5,6,7,8], "signal": 7},
+  "stone_and_iron": {"lenses": [0,2], "signal": 8}, "stone_and_arcane": {"lenses": [0,3], "signal": 9},
+  "stone_and_industrial": {"lenses": [0,4], "signal": 10}, "stone_and_electric": {"lenses": [0,5], "signal": 11},
+  "stone_and_information": {"lenses": [0,6], "signal": 12}, "stone_and_space": {"lenses": [0,7], "signal": 13},
+  "anchor_chord": {"lenses": [6], "signal": 14} }
+```
+
+Library rules:
+- An alloy is the triad of the three newest lenses.
+- A lens is the Stone Lens plus the newest lens.
+- The last alloy is the full crown.
+- `anchor_chord` (the Information Lens alone, from age_7) serves all nine blessing shards (§29). Recipes are chosen by their ingredient set, so one chord can serve many recipes.
+- Signal 15 stays free.
+
+**Forge cycle.**
+1. The anvil holds the ingredients of one recipe; ingredient sets are disjoint, so at most one recipe matches. A comparator on any side gives that recipe's chord signal (0 = nothing matches).
+2. Forging runs while all of these hold: the crown is formed; the chord equals the recipe's chord; the fluid is in the tank; the output slot can take the result; and `level.canSeeSky(anvil.above())` (`crown.requireOpenSky`; rain does not matter; the Moon and Mars count, the Nether, the End and The Origin do not).
+3. Time is the recipe's `time` (default 100 ticks). While `level.isNight()` and the sky is open, each tick counts `1 / crown.nightTimeFactor` (factor 0.5, so night is twice as fast).
+4. A changed chord resets the progress to 0 and keeps every item. A covered sky pauses it. Nothing is ever lost.
+5. When the forging is done, the ingredients and fluid are consumed and the result goes into the output slot. A flash runs down the active beams, and the chord plays once as bell notes (`minecraft:block.note_block.bell`, lens N at pitch 0.5 + N × 0.1875, through `firmages:crown.chord`).
+
+### 27.7 Recipe format (`firmages:starforge`) and the library
+
+`data/<ns>/recipe/starforge/<name>.json` uses the NeoForge `SizedIngredient` flat codec (ingredient fields plus `count`), with one to four ingredients, an optional fluid and `time` 20..1200. The result is an `ItemStack` codec, so components are allowed.
+
+```json
+{
+  "type": "firmages:starforge",
+  "chord": "firmages:spark_triad",
+  "ingredients": [ {"item": "firmages:starsteel_ingot"}, {"tag": "c:ingots/red_steel"}, {"item": "firmages:storm_glass"} ],
+  "fluid": {"fluid": "firmages:aurora_light", "amount": 100},
+  "time": 100,
+  "result": {"id": "firmages:aurora_steel_ingot", "count": 2}
+}
+```
+
+- A file is rejected (ERROR) for an unknown chord, more than four ingredients, a `count` below 1, a non-positive fluid amount or a missing result. Two recipes with identical ingredient lists give a WARN, and the later id loses.
+- **Recipe gate (§4):** the walker finds `result` [verified: `JsonOutputWalker` key pattern `results?`]. Alloys, lenses and shards are Age-tagged, so a locked Age's forging never reaches the anvil or EMI. Station Age: `FirmAges.stationAge('firmages:starforge', 'age_3')` in `station_ages.js` (hand-off).
+- **The shipped library has 22 recipes and 14 chords; the cap is 25 recipes.**
+
+| # | Chord | Inputs (anvil) | Aurora light | Result | Age |
+|---|---|---|---|---|---|
+| 1 | dawn_triad 0,1,2 | 2 meteoric iron ingot, storm glass, `#firmages:crown/arcane_gems` | none | 2 Starlit Iron | age_3 |
+| 2 | forge_triad 1,2,3 | meteoric iron ingot, `#c:ingots/black_steel`, firmament crystal | none | 2 Cloudsteel | age_4 |
+| 3 | stone_and_iron 0,2 | lens blank, 2 `#firmages:crown/arcane_gems` | none | Arcane Lens | age_4 |
+| 4 | spark_triad 2,3,4 | starsteel ingot, `#c:ingots/red_steel`, storm glass | 100 mB | 2 Aurora Steel | age_5 |
+| 5 | stone_and_arcane 0,3 | lens blank, firmament crystal, 2 `#c:sheets/black_steel` | 100 mB | Industrial Lens | age_5 |
+| 6 | lattice_triad 3,4,5 | starsteel ingot, `#c:ingots/blue_steel`, firmament crystal | 100 mB | 2 Halo Steel | age_6 |
+| 7 | stone_and_industrial 0,4 | lens blank, firmament crystal, 2 `#c:plates/aluminum` | 100 mB | Electric Lens | age_6 |
+| 8 | orbit_triad 4,5,6 | 2 voidglass, `#c:ingots/desh`, starsteel ingot | 100 mB | 2 Void Steel | age_7 |
+| 9 | stone_and_electric 0,5 | lens blank, starsteel ingot, 2 `#c:sheets/blue_steel` | 100 mB | Information Lens | age_7 |
+| 10 | quantum_triad 5,6,7 | voidglass, `#c:ingots/calorite`, deep-space sample | 250 mB | 2 Quasar Alloy | age_8 |
+| 11 | stone_and_information 0,6 | voidglass, 2 `#c:plates/desh` | 250 mB | Space Lens | age_8 |
+| 12 | full_crown 0..8 | `evolvedmekanism:alloy_singular`, voidglass, starsteel ingot, firmament crystal | 1,000 mB | Firmament Alloy | age_9 |
+| 13 | stone_and_space 0,7 | voidglass, 2 `#c:plates/calorite` | 250 mB | Quantum Lens | age_9 |
+| 14..22 | anchor_chord 6 | one `#firmages:anchor/ring_N`, one alloy (§29.4) | none | Shard of tier N | age_7 (tier 8: age_8) |
+
+- `#firmages:crown/arcane_gems` holds the cut TFC gems of the Arcane Age (lapis lazuli, amethyst, emerald, ruby, sapphire, topaz, opal). The Arcane Age has no metal of its own (`[materials]` [verified]), so its gems stand in.
+- **Chain check:** every alloy uses materials of its own Age or earlier, and nothing is circular. Voidglass (age_7) needs the sampler module, which needs Halo Steel (age_6), never Void Steel. Quasar Alloy's deep-space sample (age_8) needs the deep-space module, which needs Void Steel (age_7).
+
+### 27.8 Celestial alloys and V4A: the recipe changes (pack hand-off)
+
+| Age | Alloy (id, tag) | Sky inputs + Age metal | Signature recipe (file, id) | Change: one ingredient |
+|---|---|---|---|---|
+| age_3 | Starlit Iron `firmages:starlit_iron_ingot` | meteoric iron, storm glass + Arcane gem | Arcane Keystone, tech route (`age_3/arcane_age.js`, `firmages:sequenced_assembly/arcane_keystone`) | new fourth step `create:deploying` of Starlit Iron before the press; with `loops: 3` the keystone takes three ingots |
+| age_3 | (same) | | Arcane Keystone, magic route (`firmages:ritual/arcane_keystone`) | `tfc:metal/ingot/steel` becomes `firmages:starlit_iron_ingot` |
+| age_4 | Cloudsteel `firmages:cloudsteel_ingot` | meteoric iron, firmament crystal + black steel | Pressure Core (`age_4/industrial_age.js`, `firmages:crafting/pressure_core`) | pattern `[' H ','DGD',' T ']` becomes `['AHA','DGD',' T ']`, A = Cloudsteel (two) |
+| age_5 | Aurora Steel `firmages:aurora_steel_ingot` | starsteel, storm glass, aurora light + red steel | Humming Core (`age_5/electric_age.js`, `firmages:arc_furnace/humming_core`) | additive `2 #c:sheets/red_steel` becomes `1 firmages:aurora_steel_ingot` (the arc furnace's four additive slots are all used [verified]) |
+| age_6 | Halo Steel `firmages:halo_steel_ingot` | starsteel, firmament crystal, aurora light + blue steel | Data Matrix (`age_6/information_age.js`, `firmages:crafting/data_matrix`) | `['BCB','CSC','BTB']` becomes `['ACA','CSC','BTB']`, A = Halo Steel (two of the four blue steel sheets) |
+| age_7 | Void Steel `firmages:void_steel_ingot` | voidglass, starsteel, aurora light + desh | Star Chart (`age_7/space_age.js`, `firmages:fusion/star_chart`) | one `#c:plates/desh` becomes Void Steel (injector count stays six) |
+| age_8 | Quasar Alloy `firmages:quasar_alloy_ingot` | voidglass, deep-space sample, aurora light + calorite | Quantum Core (`age_8/quantum_age.js`, `firmages:fusion/quantum_core`) | one `#c:plates/calorite` becomes Quasar Alloy (injector count stays seven) |
+| age_9 | Firmament Alloy `firmages:firmament_alloy_ingot` | voidglass, starsteel, firmament crystal, aurora light + `evolvedmekanism:alloy_singular` | Ultimate Singularity (`age_9/singularity_age.js`, `firmages:fusion/ultimate_singularity`) | `evolvedmekanism:alloy_singular` becomes Firmament Alloy (which consumes it); the nine relic slots stay, so the Gathering (§7.5) is unaffected |
+
+- **Not touched:** the Hearthstone, Sky Disc and Steel Heart (they come before the Crown), the Age tokens, the Cold Forge, and the Awakened Keystone ritual (it consumes an Arcane Keystone, which already holds Starlit Iron).
+- **Quests:** the goal quests list the offering's ingredients (style guide rule 3), so `dev/gen_quests.py` gains the alloy lines (hand-off).
+- **Alloy consumers outside the main road:**
+
+| Alloy | Wayshrine offering (§28) | Launch Complex (§31) | Sky Anchor and shards (§29) | Archipelago crown (§31) |
+|---|---|---|---|---|
+| Starlit Iron | age_3 offering | | shards of tiers 0 to 3 | Arcane island |
+| Cloudsteel | age_4 offering | | shard of tier 4 | Industrial island |
+| Aurora Steel | age_5 offering | | shard of tier 5 | Electric island |
+| Halo Steel | age_6 offering | sampler module | shard of tier 6 | Information island |
+| Void Steel | | deep-space module | Sky Anchor, shard of tier 7 | Space island |
+| Quasar Alloy | | | shard of tier 8 | Quantum island |
+| Firmament Alloy | | | | (none; only the Ultimate Singularity) |
+
+### 27.9 Part recipes (pack, KubeJS, hand-off)
+
+- Lens blank: storm glass on Create sandpaper polishing (`create:sandpaper_polishing`), one to one.
+- Stone, Bronze and Iron Lens (age_3, grid; the Crown cannot make its own first lenses): `[' S ','SBS',' S ']`, B = lens blank, S = copper, bronze or wrought iron sheet (TFC).
+- Lens Mount: four meteoric iron ingots around a Create precision mechanism.
+- Star Anvil: TFC steel anvil, four meteoric iron ingots, four storm glass.
+
+### 27.10 Automation
+
+- **Item and fluid handlers** (`Capabilities.ItemHandler.BLOCK`, `FluidHandler.BLOCK`): the top and sides insert into slots 0..3 (each slot takes what fits the open recipe set) and the tank (aurora light only). The bottom extracts the output only. An AE2 pattern provider in blocking mode pushes one set of items and fluid per pattern; an import bus or hopper under the anvil takes the result.
+- **Comparator:** gives the pending recipe's chord signal (§27.6). A decoder (vanilla comparators, or Create redstone links with one frequency per lens) turns the signal into the right mount lines. The puzzle is finite: at most 15 signals and at most nine lines.
+- Lens mounts need no hand after setup.
+
+### 27.11 Rendering, sound, Jade, EMI, Ponder
+
+- **`client/CrownRenderer`** (BER of the anvil; render box = the crown box while formed):
+  - a thin coloured beam from each lens that is in, down to the anvil top (the vanilla beacon beam routine already used by `ShrineHeartRenderer`, posed along the segment);
+  - a short white column into the sky while forging;
+  - the input items circling and the output glowing.
+- **Mount BER:** the lens glass as a quad tinted with the tier colour, tilted 45 degrees toward the anvil when in. Client toggle: `effects.crownBeams`.
+- **Data on the client:** lens colours come from `firmages:shrine_sync` (the nine tier colours, §7.10). There is no new payload; anvil and mount state ride on vanilla block-entity sync.
+- **Jade** (`FirmagesJadePlugin.Crown`):
+  - anvil: "Chord: Dawn Triad", "Forging Starlit Iron, 45 %", or the reason ("The sky is hidden", "The crown lacks three blocks", "No forging matches", "Swing in: Bronze Lens");
+  - mount: "Bronze Lens, in".
+- **EMI** (`compat/emi/CrownEmi`, from `FirmagesEmiPlugin.register`): category `firmages:starforge` ("Starforging"), with the Star Anvil and the Lens Mount as workstations. The widget shows the inputs, the fluid, the result, nine dots (filled in the tier colour when in the chord, hollow otherwise), the chord name, the time, and "Twice as fast under the night sky". The Age view (§21) hides locked lenses and alloys like any item.
+- **Ponder** (`compat/ponder/CrownScenes`, only with Create; schematics by `dev/gen_ponder_schematics.py`):
+  - "The Lens Crown" (frame, sockets, anvil, ghost) on `star_anvil`;
+  - "Chords" (mount a lens, redstone in, forge, a roof pauses, night speeds up) on `lens_mount`;
+  - "A Chord Library" (pattern provider, comparator, link decoder, output bus) on `star_anvil`.
+
+### 27.12 Config and commands
+
+| Key (`firmages-server.toml`) | Default | Meaning |
+|---|---|---|
+| `crown.enabled` | true | false: the anvil never forges (the recipes stay) |
+| `crown.requireOpenSky` | true | the sky rule of §27.6 |
+| `crown.nightTimeFactor` | 0.5 | 0.1..1.0, forge time factor under the night sky |
+| `crown.validateTicks` / `crown.swingTicks` | 100 / 10 | §27.5, §27.6 |
+
+Client config: `effects.crownBeams` (true).
+
+| Command | Purpose |
+|---|---|
+| `crown status [pos]` | Formed, missing blocks, mounts and lenses, chord, pending recipe, progress, sky, night |
+| `crown chords` | The library with its signals |
+| `crown swing <pos> <lens,...>` | Debug; needs `debug.allowSimulate` |
+
+KubeJS binding: `FirmAges.crownChord(name)` returns the lens list.
+
+### 27.13 Tests
+
+- **U** `ChordLibraryTest`: the shipped `chords.json` parses; 14 chords; signals unique in 1..15; lenses in 0..8; no empty chord; no two chords with the same lens set; bad files are rejected.
+- **U** `StarforgeRecipeTest`: the 22 shipped recipes parse; at most 25 recipes; no identical ingredient lists; every chord uses only lenses that exist in the result's Age (lens N from max(age_3, age_(N+1))); one alloy per Age from age_3 to age_9, and each alloy is in its `celestial_alloy/age_N` tag; aurora light only from recipe 4 (age_5) on; every input's Age is at or below the result's Age.
+- **U** `CrownRulesTest`: exact chord match, duplicates count once, swing completion, night factor and rounding, reset on chord change, pause under a covered sky.
+- **G** `CrownGameTests` (vanilla stand-ins through `firmages_test` crown tags, test recipes with vanilla items):
+  - `crownValidatesAndGrows`: all rotations; a missing pillar fails; stone sockets count; twelve mounts; mount facing set; the ghost payload on an unformed crown.
+  - `redstoneChordForges`: three lenses and a hopper feed; powering two of three does nothing; all three give the result after 100 ticks; a fourth lens in does nothing; a chord change mid-way resets and keeps the items; a roof pauses; night halves the time.
+  - `comparatorNamesTheChord`: the signals of two recipes, and 0 for a mismatch.
+  - `handlersAndSave`: side rules; the tank accepts only the test fluid; anvil and mount NBT round trip; a mount with a lens is unbreakable in survival.
+  - `gateFollowsAges`: in age_3 the age_4 recipe is absent from the recipe manager; after the swap it is present.
+- **P** `selftest crown`: §24.7 criterion 4; the live `firmages:starforge` recipe count is 22.
+- **M** (client, pack): beams with Sodium and Complementary, EMI dots and colours, the three Ponder scenes, an AE2 pattern provider running recipes 1, 2 and 4 unattended through a link decoder for one TFC day, and the AE2 fluid push into the anvil tank **[PoC]**.
+
+### 27.14 Acceptance criteria
+
+1. The 53-position crown validates in every rotation from TFC blocks and storm glass, grows from three to twelve mounts, and shows its ghost.
+2. The exact chord plus an open sky forges. Night only halves the time. No state of the world loses an item.
+3. There are seven alloys, one per Age from age_3 to age_9, each with exactly one starforge recipe, and nine lenses: the first three by grid, six by the Crown.
+4. The eight recipe changes of §27.8 are in the pack, nothing else in a signature chain changed, and the P self-test is green.
+5. One chord library runs unattended with redstone (G) and with AE2 plus Create (M).
+6. No FE is produced or required, no magic mod is required, and all player text passes the style rules.
+
+## 28. Wayshrines
+
+### 28.1 Purpose
+
+Eight to twelve ruined shrines of Caelum in the wide world, each in its own climate and built from that place's materials. The fellowship restores one, lays one offering of the current Age, does the Age's lighting rite and prays. A lit Wayshrine carries the home shrine's blessings and Hearthward into its radius and shows a beam. It is optional travel content and a consumer of offerings. **No travel** (V5A): no teleport, no sky-ride, no C2S packet.
+
+### 28.2 Player loop
+
+Caelum at the heart names the bearing and distance of the nearest sleeping Wayshrine. The fellowship travels there, right-clicks the core to see the ghost of the restored form, and rebuilds it from the local materials. They lay the offering, do the rite and pray. The shrine lights up for good and follows every new Age without another visit. On its first lighting it drops a Wayshrine Stone, which later becomes the heart of a Sky Anchor.
+
+### 28.3 Rules
+
+- **Ages:** a Wayshrine can be restored from its type's `min_age` (age_1 to age_5). Offerings and rites are defined for age_1 to age_6. A Wayshrine first restored in age_7 or later takes the age_6 entry, so nothing is ever closed.
+- **One lighting per Wayshrine.** A lit Wayshrine follows the home shrine and carries each new tier at once: no return trip, no fuel, no decay.
+- **No consecration:** restored blocks keep their local look. Pattern blocks break normally. A broken pattern makes the Wayshrine quiet (no blessings, no beam) until it is repaired; it stays lit, and the repair needs no new offering.
+- **Co-op:** the state is world-global (one fellowship, §2.3), and any player can do every step.
+
+### 28.4 Types and placement
+
+There are eight types. The Wind Shrine stands on the Drifting Isles and replaces the Glacier Cairn of the drafts (Felix S6B, §28.4a); the other seven are ground shrines. Ground worldgen follows the Cold Forge pattern: jigsaw `size` 1, `step` `surface_structures`, `start_height` -1, `project_start_to_heightmap` `WORLD_SURFACE_WG`, and weathering by processor list.
+
+Placement uses TFC's climate structure placement `tfc:climate` (`ClimateStructurePlacement`; codec fields `spacing`, `separation`, `spread_type`, `climate` with `min_temperature`..`max_temperature`, `min_groundwater`, `max_groundwater`, `min_forest`, `max_forest`, `min_elevation`, `max_elevation`, `fuzzy`, `ignore_rivers` [verified, javap TFC 4.2.11]). It extends `RandomSpreadStructurePlacement`, so locate works with it [verified]. Biome ids come from `TFCBiomes` [verified].
+
+| Type id | Name | Biomes (`#firmages:has_structure/wayshrine/<type>`) | Climate band | min_age | Local materials (restored form) | Terrain |
+|---|---|---|---|---|---|---|
+| `forest_ring` | Forest Ring | plains, hills, rolling_hills, lowlands | forest normal or more, 4..22 °C | age_1 | logs, rock bricks, thatch, one candle | `beard_thin` |
+| `steppe_stones` | Steppe Stones | plains, rolling_hills, plateau | groundwater up to 150, sparse forest | age_1 | raw rock pillars, rock bricks, bronze block | `beard_thin` |
+| `swamp_altar` | Swamp Altar | lowlands, salt_marsh, mud_flats | groundwater 350 or more | age_2 | mud bricks, logs, wrought iron bars | `beard_box` |
+| `desert_arch` | Desert Arch | dune_sea, grassy_dunes, badlands, mesas, buttes | groundwater up to 100, 18 °C or more | age_2 | raw and smooth sandstone, copper block | `beard_thin` |
+| `mountain_spire` | Mountain Spire | mountains, old_mountains, highlands | high elevation | age_3 | smooth rock, rock bricks, wrought iron bars | `beard_box` **[PoC]** |
+| `wind_shrine` | Wind Shrine | on a Drifting Isle (§28.4a), no biome | none | age_4 | skystone, rock bricks brought up, steel bars, an electric lantern | none (placed by the isle piece) |
+| `reef_altar` | Reef Altar | ocean_reef, ocean_atolls | 20 °C or more | age_4 | coral blocks, rock bricks, glass | `OCEAN_FLOOR_WG`, `apply_waterlogging` **[PoC]** |
+| `volcanic_ring` | Volcanic Ring | volcanic_mountains, volcanic_island, volcanic_oceanic_mountains | any | age_5 | basalt bricks, smooth basalt, magma, steel block | `beard_box` |
+
+- **Density:** one structure set per ground type, `spacing` 128 chunks, `separation` 48, each with a distinct `salt`. The Wind Shrine has no structure set of its own (§28.4a).
+
+#### 28.4a The Wind Shrine (Felix S6B)
+
+- **Where:** on the top surface of the largest isle of a Drifting Isle cluster (§30), with chance `wind_shrine_chance` (0.25) per cluster, decided from the structure start's seed, so `locate` and the pointer know it without generating the isle. The isle fallback cluster of an existing world (§30.3) always carries one, so every world has a Wind Shrine within `isles.fallbackRadius` of the heart from the Industrial Age.
+- **How:** the isle's `StructurePiece` places the ruin template `structure/wayshrine/wind_shrine.nbt` on the isle top after the body, inside the chunk being generated (the piece is chunk-safe like the body). The fallback placer of §30.3 places the same template after the cluster's pieces, within the same 64 blocks per tick.
+- **Reach and Age:** `min_age` age_4, the Age of the airship and the jetpack (§30.7), so the Wind Shrine takes the Industrial and Electric offerings and rites like any Wayshrine (age_4 and age_5: power the light). Its restored form is skystone with rock bricks and steel bars carried up, and an electric lantern on a charged capacitor as the light.
+- **Pointer:** the pointer (§28.8) searches `#firmages:wayshrine` and, from age_4, the isle starts whose cluster carries a Wind Shrine.
+- **Dependencies:** the template and the shrine data come with M16, the placement with the isle piece of M13 (§32).
+- **The tutorial Wayshrine is placed by code, not by worldgen.** Vanilla `concentric_rings` centres on chunk (0, 0), while the TFC preset spawns players anywhere within `spawn_distance` 4000 of `spawn_center` [verified, `world_preset/overworld.json`; test worlds spawned at (3456, 1408) and (576, 1600)]. Biome search also finds nothing under TFC's biome source [poc-results.md].
+  - On the first `ServerStartedEvent` with this feature (flag in `firmages_wayshrines`), `WayshrineService.placeTutorial` picks a point 300 to 800 blocks from `level.getSharedSpawnPos()` at a random bearing.
+  - It loads the needed chunks once (the `OriginArena` build-once pattern) and checks land (no fluid at the surface) and slope (at most three blocks of height spread over the footprint). It tries up to 16 bearings, then places the `forest_ring` ruin template at the surface and records it.
+  - The same code runs on an existing world, so an old server world gets its tutorial Wayshrine too. Its other Wayshrines appear only in chunks generated after the update.
+- **Files** (mod jar, `src/main/resources/data/firmages/`, all written by one generator, `dev/gen_wayshrines.py --check`):
+
+| Path | Content |
+|---|---|
+| `structure/wayshrine/<type>.nbt` | the ruin, at most 11 by 8 by 11; the core in the bottom-layer centre with NBT `{type:"<type>"}`, facing north |
+| `worldgen/structure/wayshrine/<type>.json` | jigsaw as above, terrain per the table (the seven ground types) |
+| `worldgen/structure_set/wayshrine/<type>.json` | `tfc:climate` placement (the seven ground types) |
+| `worldgen/template_pool/wayshrine/<type>.json`, `worldgen/processor_list/wayshrine.json` | template plus processors: mossy and cracked variants, `block_rot` only on `#firmages:wayshrine/rottable` (never the core) |
+| `tags/worldgen/structure/wayshrine.json` | the seven ground types, for `/locate structure #firmages:wayshrine` and the pointer (the Wind Shrine is found through its isle, §28.4a) |
+| `modonomicon/multiblocks/wayshrine_<type>.json` | the restored form, `modonomicon:dense`, `0` = core, `L` = the light, matchers `#firmages:wayshrine/<type>/<role>` |
+
+  The generator writes the ruin and the restored form from one layout, so they cannot drift. The core must not sit in the exact middle layer (§7.8). TFC rock bricks of every rock count (`#firmages:wayshrine/any_rock_bricks`), so the local rock works.
+
+### 28.5 Blocks and items
+
+- **`firmages:wayshrine_core`** (BE `WayshrineCoreBlockEntity`): blast resistance 1200, destroy progress 0 in survival, pistons refuse it, and it has no survival item.
+  - Blockstate: `phase` (`ruin`, `restored`, `lit`), `intact` (bool), `facing`.
+  - The BE saves `type`, the offering stack and `prayerProgress`. It syncs `type`, `missing` (a count) and the offering to the client (vanilla BE sync), and the core's renderer draws the offering on top.
+- **`firmages:wayshrine_stone`** ("Wayshrine Stone", Felix S1A): a block and item, one per lit Wayshrine. Blockstate `kind` = the eight types; item component `firmages:wayshrine` (type and position). Its line in the item's hover text is "From the Wind Shrine". It is a decorative block that drops itself, and the heart of every Sky Anchor (§29). It is never a relic.
+
+### 28.6 Data formats (mod jar, overridable from `kubejs/data/firmages/`, reload listener `WayshrineDataLoader`)
+
+`data/<ns>/firmages_wayshrine/type/<type>.json`:
+
+```json
+{ "structure": "firmages:wayshrine/volcanic_ring", "multiblock": "firmages:wayshrine_volcanic_ring",
+  "min_age": "age_5", "light_key": "L", "ruin_beam": "#E07040" }
+```
+
+`data/<ns>/firmages_wayshrine/offerings.json` (the key is the Age in which the offering is laid; the highest key at or below the current Age applies):
+
+```json
+{ "age_1": "tfc:metal/double_ingot/bronze", "age_2": "firmages:meteoric_iron_ingot",
+  "age_3": "firmages:starlit_iron_ingot", "age_4": "firmages:cloudsteel_ingot",
+  "age_5": "firmages:aurora_steel_ingot", "age_6": "firmages:halo_steel_ingot" }
+```
+
+`data/<ns>/firmages_wayshrine/rite/<age>.json` (the lighting rite of that Age; the rite types and parser of §2.6 are reused, and keys refer to the type's multiblock):
+
+```json
+{ "rites": [ { "type": "blockstate", "key": "L", "property": "active", "value": "true",
+               "hint": "firmages.wayshrine.rite.power" } ] }
+```
+
+- Shipped rites:
+  - age_1 and age_2: kindle the light (`blockstate L lit`; `#firmages:wayshrine/lights` holds candles, TFC lamps and IE electric lanterns);
+  - age_3: the light plus `sky`;
+  - age_4 and age_5: power the light (`blockstate L active`, an electric lantern on a charged capacitor brought along);
+  - age_6: the light plus `players_praying` 2 (met at once when fewer players are online, as at the shrine).
+- A wrong item, an unknown Age key or an unknown rite type rejects that file with an ERROR, as in §2.6.
+- **SavedData `firmages_wayshrines`** (overworld storage) holds, per Wayshrine: `pos`, `type`, `phase`, `intact`, `litAge` (info only), `litAt` (game time) and `stoneGiven`. It also holds the tutorial flag and the pointer cache (found and lit structure positions). A core registers itself in `onLoad` (server); a core removed by force drops its record with a WARN.
+
+### 28.7 Flow (`wayshrine/WayshrineService`, server only)
+
+| Step | Logic |
+|---|---|
+| Ruin | `ShrineMultiblocks.check(level, core, multiblock)` fails (any rotation). Right-click with an empty hand sends `firmages:shrine_preview` with the type's multiblock, the core as anchor and the rotation from `facing`, plus the actionbar line "Seven blocks are missing." (words up to twelve) |
+| Restored | The pattern validates: `phase=restored`, and the faint beam stays. Before `min_age`: "This Wayshrine waits for a later Age." |
+| Offered | Right-click with the offering of the current Age takes exactly one item. A wrong item is refused with the expected item's name. Sneak and right-click with an empty hand returns it until the prayer ends |
+| Rite | The Age's rites hold (checked on interaction and every 20 ticks while a player is within 16 blocks) |
+| Prayer | As at the shrine: sneak and hold right-click on the core; `wayshrine.prayerSeconds` divided by the number of praying players, at least 2 s; refusals on the actionbar once a second |
+| Lit | The offering is consumed: `phase=lit`, `litAge` set. Server-side particles (end-rod burst) and a sound (`firmages:wayshrine.lit`), as §7.4 does (the `shrine_fx` payload is still unbuilt, §11). One chat line to the fellowship: "The Wind Shrine burns again." The blessing index is rebuilt (§29.5). First lighting only: the Wayshrine Stone drops 1.2 blocks above the core with no velocity, unlimited lifetime and invulnerability (as the Gathering's relics, §7.5) |
+
+Validation runs every 200 ticks while the chunk is loaded, and on the next tick after a break, place or explosion inside the box of a known record (a cheap AABB index first), never every tick. A change of `intact` rebuilds the index.
+
+### 28.8 Beam, finding, Jade
+
+- **Beam:** the core's renderer shares the heart's beam code (`ShrineHeartRenderer`, `BeaconRenderer.renderBeaconBeam`, height 1024, infinite render box).
+  - Ruin and restored: radius 0.05, the type's `ruin_beam` at alpha 0x40.
+  - Lit and intact: radius 0.08, the colour of the latest awakened tier (from `shrine_sync` and `age_status`), alpha 0x90.
+  - Lit but broken: no beam.
+  - The client toggle `effects.idleBeam` hides them all. Nothing is drawn for unloaded chunks.
+- **Finding:** from age_1, a plain right-click on the home heart adds the line "Caelum: A Wayshrine sleeps to the north-east, about 1,200 blocks." A plain right-click on a lit Wayshrine shows the same pointer on the actionbar, without Caelum's name.
+  - The pointer first looks at the cache in `firmages_wayshrines`, then searches with `ChunkGenerator.findNearestMapStructure` over `#firmages:wayshrine`, radius `wayshrine.pointerRadiusChunks` (100), `skipKnownStructures` true. The tutorial Wayshrine comes from the cache.
+  - Lighting calls `level.structureManager().addReference(start)`, which marks the chunk unsaved, so a lit Wayshrine is skipped like an explorer-map target.
+  - There is one search per player per 10 s. None found: "No Wayshrine sleeps within reach."
+- **Jade** (`FirmagesJadePlugin`, synced state only): "Wayshrine: Wind Shrine", "Ruined: seven blocks missing", "Offering: Meteoric Iron Ingot", "Lit, carries the blessings within 24 blocks", "Broken: repair it to wake it".
+
+### 28.9 Network, config, commands
+
+- **Network:** no new payload; `shrine_preview` is reused unchanged.
+- **Config:** `wayshrine.radius` (24, 8..64), `wayshrine.prayerSeconds` (5), `wayshrine.pointerRadiusChunks` (100), `wayshrine.tutorial` (true).
+
+| Command (`/firmages wayshrine ...`) | Purpose |
+|---|---|
+| `list` | All records: position, type, phase, intact, lit Age, stone given |
+| `status [pos]` | The nearest core within 32 blocks or at `pos`: missing blocks per role, offering, rite state, prayer |
+| `locate <type>` | The nearest structure of that type (the pointer search, known ones included) |
+| `tutorial [here]` | Places the tutorial Wayshrine again (debug) |
+| `light <pos>` | Needs `debug.allowSimulate`: completes the offering, rite and prayer of a restored Wayshrine |
+| `reset <pos> [stone]` | Back to `ruin` or `restored` by the world; with `stone` also clears `stoneGiven` |
+| `stone <pos>` | Admin repair: drops that Wayshrine's stone again |
+
+### 28.10 Tests
+
+- **U** `WayshrineDataTest`: the shipped types, offerings and rites parse without warnings; the offering key falls back (age_8 uses age_6); bad files are rejected.
+- **U** `WayshrineFilesTest`: per type one core in the bottom-layer centre and not in the middle layer; key `L` present; at most 11 by 8 by 11; every tag file exists; `gen_wayshrines.py --check` is clean.
+- **G** `WayshrineGameTests.restoreAndLight` (a stand-in type from vanilla blocks in `src/gametest/resources`):
+  - the ruin refuses and sends one preview payload with the right rotation; the repair gives `restored`;
+  - below `min_age` it refuses;
+  - a wrong offering is refused, the right one takes one item, and sneaking returns it;
+  - an unmet rite blocks the prayer with its hint; the prayer lights it;
+  - exactly one Wayshrine Stone drops, invulnerable and never despawning; a second lighting drops none;
+  - BE and SavedData NBT round trip.
+- **G** `WayshrineGameTests.tutorialPlacement`: on a flat test world the tutorial Wayshrine is placed 300 to 800 blocks from the shared spawn on land, once; a second start places none.
+- **G** `WayshrineGameTests.blessingsAtWayshrine`: see §29.8.
+- **P** `selftest wayshrines`: the eight structures and sets load with `tfc:climate`; every template exists; `locate` finds each type within 100 chunks on the test seed or reports the type as out of reach.
+- **M:** beams from 150 blocks, ghost alignment on a rotated ruin, a ruin on a steep slope, the Reef Altar under water.
+
+### 28.11 Acceptance criteria
+
+1. On every new and every existing world the tutorial Wayshrine stands 300 to 800 blocks from spawn, on land.
+2. On the pack server, a new world has 7 to 11 more Wayshrines within 4,000 blocks of spawn on at least 16 of 20 test seeds (`dev/scan_regions.py`) **[PoC]**. No Wayshrine floats or is buried more than two blocks on a slope.
+3. Every type validates its restored form from the generator's own layout, and the ruin never validates.
+4. The ghost preview, offering, rite, prayer and lighting work as in §28.7 with one player and with two (half the prayer time).
+5. A lit Wayshrine gives the awakened tiers' blessings and Hearthward within 24 blocks. A new Age adds its tier without a visit. A broken pattern stops both within one validation, and the repair restores them.
+6. The Wayshrine Stone drops once per Wayshrine, never despawns, and survives lava and explosions.
+7. There is no teleport, no C2S payload, no FE, and no item of a later Age in any restored form below its `min_age`.
+
+## 29. Sky Anchors and the blessing sources
+
+### 29.1 Purpose
+
+A built anchor that carries the home shrine's blessings to any place in any dimension (Moon, Mars, an outpost, the factory), from the Space Age. It is the in-world successor of `shrine.blessings.everywhere`, which is **removed** (§29.7; Felix S4A, built in M16). Wayshrines are found places in the overworld for age_1 to age_6; anchors are placed by the fellowship from age_7, in every dimension.
+
+### 29.2 Player loop
+
+In the Space Age the fellowship crafts a Sky Anchor around a Wayshrine Stone, forges blessing shards in the Lens Crown (one per tier, from the ring material of that tier and an alloy), and slots the shards they want. A Moon base with an anchor holding the shards of tiers 0 and 2 gets Hearthward and Iron Will.
+
+### 29.3 Blocks and items
+
+- **`firmages:sky_anchor`** (BE `SkyAnchorBlockEntity`): nine shard slots, one per tier 0..8.
+  - Right-click with a shard puts it into its tier slot. A second shard of the same tier is refused: "This anchor holds that shard already."
+  - Sneak and right-click with an empty hand takes the highest shard back.
+  - Breaking it (pickaxe) drops the anchor and its shards.
+  - Blockstate `active`. Its BER shows the shards circling the top in their tier colours, and an active anchor shows the lit-Wayshrine beam.
+- **`firmages:blessing_shard`** ("Shard of <blessing>", for example "Shard of Iron Will"; Felix S1A): one item with the component `firmages:tier` (0..8). EMI lists the nine variants (`EmiRegistry.addEmiStack`).
+- **SavedData `firmages_anchors`:** `dimension`, `pos` and `tiers` (bit mask). It is written on place, change and break, and checked against the block on load.
+
+### 29.4 Recipes (pack, KubeJS, `kubejs/server_scripts/recipes/age_7/space_age.js`; hand-off)
+
+- **Sky Anchor** (shaped): four `#c:plates/desh`, one `#c:plates/steel`, one `firmages:voidglass`, one `firmages:wayshrine_stone` (any kind) in the middle, one `firmages:void_steel_ingot`, one `#c:storage_blocks/desh` as the base. `ad_astra:steel_plate` is hidden, so it is not used. One stone per anchor ties the anchors to the restored Wayshrines (8 to 12 per world, three to five anchors expected).
+- **Blessing shard of tier N** (`firmages:starforge`, chord `anchor_chord` = the Information Lens alone):
+  - inputs: one `#firmages:anchor/ring_N` and one alloy;
+  - the alloy is Starlit Iron for tiers 0..3, Cloudsteel for tier 4, Aurora Steel for 5, Halo Steel for 6, Void Steel for 7 and Quasar Alloy for 8;
+  - the result is `{"id": "firmages:blessing_shard", "components": {"firmages:tier": N}}`.
+- **Item tags** `#firmages:anchor/ring_0` .. `ring_8` mirror the ring block tags of §7.8 (`#firmages:shrine/hearth_stones`, `#c:storage_blocks/bronze`, `#c:storage_blocks/wrought_iron`, `#firmages:shrine/source_gem_blocks`, `#firmages:shrine/heavy_engineering`, `#firmages:shrine/red_steel_blocks`, `#firmages:shrine/fluix_blocks`, `#firmages:shrine/desh_blocks`, `#firmages:shrine/calorite_blocks`). They are generated from the same list by `dev/gen_stage_locks.py`.
+- **Ages:** the shard is `age_7`. Tiers 0..7 can be made from age_7, and tier 8 from age_8 (its Quasar Alloy). The ingredient sets are disjoint because the ring materials differ.
+
+### 29.5 Rules and the blessing sources (`shrine/BlessingSources`, pure, and `BlessingIndex`)
+
+- **When an anchor acts:** while age_7 is open and the home shrine is intact with at least one awakened tier. It gives the blessings of the tiers it holds **and** that are awakened, within `anchor.radius` (24) blocks, in its own dimension. Hearthward (the `sanctuary` flag of tier 0) acts only with the tier-0 shard.
+- **Keystone lending (§7.4) and the Gathering (§7.5) change nothing.** A lent relic keeps its record, so `intact` and the awakened tiers stay, and so do the anchors. A shard is never a relic: no plinth takes it, it never satisfies `relic_returned`, the Gathering does not count it, and the Ultimate Singularity does not accept it. The anchor has no prayer, grants nothing and is no second shrine.
+- **Shrine maintenance (§17.4)** changes nothing as long as the rings stand. A broken ring silences the heart, the Wayshrines and the anchors alike; the existing "the shrine is broken" announcement covers it.
+- **Sources:** `record Source(Kind kind, ResourceKey<Level> dimension, BlockPos pos, int radius, int tierMask, boolean sanctuary)` with the kinds `HEART`, `WAYSHRINE` and `ANCHOR`.
+  - Heart: radius `sanctuaryRadius(awakened)` (§7.9, unchanged), mask all awakened tiers.
+  - Lit and intact Wayshrine: radius `wayshrine.radius`, mask all awakened tiers, sanctuary when tier 0 is awakened.
+  - Anchor: radius `anchor.radius`, mask its shards AND the awakened tiers, sanctuary with the tier-0 shard.
+- **`BlessingIndex.current()`** is a volatile immutable list. It is rebuilt on shrine validation, a Wayshrine phase or `intact` change, an anchor change, an Age change and a data reload, and it is empty while the shrine is not intact.
+- **`Blessings.apply(p)`:** the mask is the OR of every source in the player's dimension within its radius. `blessingsOf(mask)` replaces `blessingsOf(awakened)`, and `near` means the mask is not 0. `Blessings.onSpawnCheck` refuses a natural monster spawn inside any source with `sanctuary`. With a few dozen sources at most, the loop is trivial; it runs once a second as now.
+
+### 29.6 Rendering, Jade
+
+- `client/SkyAnchorRenderer`: shards circling, plus the beam when active.
+- Jade: "Sky Anchor: four shards", "Quiet until the Space Age", "Quiet: the shrine is broken", and the list of blessings in force.
+
+### 29.7 Network, config, commands
+
+- **Network:** none.
+- **Config:** `anchor.radius` (24, 8..64). The key `shrine.blessings.everywhere` is **removed**. If an existing file still holds it, the mod logs one WARN: "shrine.blessings.everywhere was removed: Sky Anchors carry the blessings away from the shrine from the Space Age on." The shipped default was false, so the pack itself is unaffected; a server that ran it true loses team-wide blessings in age_1 to age_6. The removal, the WARN line and the rewrite of `ShrineGameTests.blessingEffects` land with M16; until then the key stays as in §9.
+
+| Command | Purpose |
+|---|---|
+| `anchor list` | Dimension, position, tiers, active |
+| `anchor status [pos]` | Shards, awakened mask, blessings in force, reason when quiet |
+
+### 29.8 Tests
+
+- **U** `BlessingSourcesTest`: the union of masks; the radius edge at 24.0 and 24.01; another dimension ignored; sanctuary per kind; empty while not intact.
+- **G** `WayshrineGameTests.blessingsAtWayshrine` (an age_3 shrine with three tiers): modifiers at 20 blocks and none at 30; a new Age adds its tier without interaction; a broken pattern removes them within one validation and the repair restores them; a broken home ring silences the Wayshrine; `refusesSpawnAt` inside and outside.
+- **G** `AnchorGameTests`:
+  - `anchorInAnyDimension`: an anchor in `firmages:origin` with tiers 0 and 2 gives only those blessings and Hearthward; an unawakened tier is inert; the anchor is quiet below age_7.
+  - `anchorKeepsThroughLending`: age_8 lend and return, then the age_9 Gathering; the blessings are unchanged.
+  - `anchorShards`: insert, duplicate refused, take back, breaking drops all, NBT round trip.
+- **G** `ShrineGameTests.blessingEffects` is rewritten: its `everywhere` part becomes "an anchor restores them far away".
+- **M:** shards circling on the Moon.
+
+### 29.9 Acceptance criteria
+
+1. On the Moon an anchor with the shards of tiers 0 and 2 gives Hearthward and Iron Will within 24 blocks and nothing at 25; tier 2 without its shard is absent.
+2. A shard of a tier that is not awakened does nothing. An anchor before age_7 (after a revoke) is quiet.
+3. Lending the Arcane Keystone in age_8 and the Gathering in age_9 leave every anchor's blessings unchanged. A broken ring stops them, and the repair restores them.
+4. A player in reach of several sources gets the union of their tiers, each blessing once.
+5. The anchor, the shards and the SavedData survive save and load, and breaking drops everything.
+6. Every shard recipe is craftable in its Age: tiers 0..7 in age_7, tier 8 in age_8 (P `selftest crown` resolves each input).
+
+## 30. Drifting Isles (static)
+
+### 30.1 Purpose
+
+Isles of pale skystone above the clouds, the only source of firmament crystal. Under V4A Cloudsteel takes crystal directly, so **the isles are on the main road from the Industrial Age** (age_4), reached by airship or jetpack. There is no metal, no ore and no FE on an isle.
+
+### 30.2 Player loop
+
+From the ground the fellowship sees the isles glow at night: their crystal clusters shine through the clouds. In the Industrial Age they fly up by hot-air airship or jetpack, break the clusters and, on medium and large isles, the firmament lode, which re-forms at once. Later a Create drill (from the Iron Age's tech) or, from the Space Age, the Digital Miner works the lode, and the crystals go home by airship cargo or an AE2 quantum link.
+
+### 30.3 Height band and placement
+
+- TFC's preset uses `"settings": "minecraft:overworld"` [verified, TFC 4.2.11 `world_preset/overworld.json`], so the build range is Y -64..319 and the vanilla cloud layer sits at Y 192. No pack override of the overworld `dimension_type` or noise settings exists under `kubejs/data` [verified].
+- **Band:** top surface at Y 228..272; the underside tip at least at Y 200 (above the clouds); crowns and trees below Y 300 (19 blocks of headroom for an airship envelope docked on top). At each start the generator reads `getBaseHeight(WORLD_SURFACE_WG)` at the centre and keeps the isle at least `min_clearance` (40) above the terrain. A start with no room below Y 272 (high TFC mountains) is skipped.
+- **Generation route: a worldgen structure** with its own `Structure` type `firmages:drifting_isle` and one code-shaped `StructurePiece` per isle (a noise-shaped inverted cone, no templates for the body).
+  - It is deterministic per seed, `/locate structure` works for operators, it is chunk-safe (pieces write only into the chunk being generated), and `spawn_overrides` keep the isle free of mobs.
+  - `TFCChunkGenerator` delegates `createStructures` to vanilla and calls `StructureStart.placeInChunk` per step in its own `applyBiomeDecoration` [verified, javap]. The pack's `tfc_ruins` 1.0.0 already ships plain jigsaw and `random_spread` sets on TFC biome tags, so a datapack structure set generates under TFC. This is a scan check, not a blocking PoC: `selftest isles` locates three isles on the test seed.
+- **Density:** structure set `random_spread`, spacing 20 chunks, separation 6. That gives on average one **cluster** of one to four isles per 320 by 320 block cell, over every TFC overworld biome (`#firmages:has_structure/drifting_isle`, oceans included).
+- **Size mix:** small r 8..12 (weight 6), medium r 13..18 (weight 3), large r 19..24 (weight 1). Cluster satellites are always small.
+
+```json
+// data/firmages/worldgen/structure/drifting_isle.json
+{ "type": "firmages:drifting_isle", "biomes": "#firmages:has_structure/drifting_isle",
+  "step": "top_layer_modification", "terrain_adaptation": "none",
+  "spawn_overrides": { "monster":  { "bounding_box": "full", "spawns": [] },
+                       "creature": { "bounding_box": "full", "spawns": [] },
+                       "ambient":  { "bounding_box": "full", "spawns": [] } },
+  "top_y": { "min": 228, "max": 272 }, "min_clearance": 40, "cluster": { "min": 1, "max": 4 },
+  "radius": { "small": [8, 12], "medium": [13, 18], "large": [19, 24] }, "weights": { "small": 6, "medium": 3, "large": 1 },
+  "crystal_clusters_per_100_top": 3, "lode_from": "medium", "trees_max": 2, "wind_shrine_chance": 0.25 }
+// data/firmages/worldgen/structure_set/drifting_isles.json
+{ "structures": [ { "structure": "firmages:drifting_isle", "weight": 1 } ],
+  "placement": { "type": "minecraft:random_spread", "spacing": 20, "separation": 6, "salt": 1874201551 } }
+```
+
+- **Existing worlds:** structures generate only in new chunks, so an explored world has no isle within its explored land.
+  - When the world reaches age_4, and at every server start in age_4 or later, `isles/IsleFallback` checks for a known isle start or fallback record within `isles.fallbackRadius` (600) of the heart (structure search over the set, cached in `firmages_isles`).
+  - If there is none, it records one fallback cluster at 300 to 600 blocks from the heart. It registers the cluster with `DeferredSites` (§24.4), and once the box chunks are loaded at FULL it places the same piece shapes with the same height rules, at most 64 blocks per tick.
+  - The fallback body is the same skystone, which refuses mob spawns by itself (`isValidSpawn` false), so the missing `spawn_overrides` change nothing.
+- **The Wind Shrine** (Felix S6B, §28.4a) stands on the largest isle of one cluster in four (`wind_shrine_chance` 0.25 in `drifting_isle.json`) and always on the fallback cluster. The isle piece places its ruin template after the body; the isle's height rules leave room for it below Y 300.
+
+### 30.4 Blocks and the isle body
+
+| Id | Role | Age map |
+|---|---|---|
+| `firmages:skystone` | body and top surface; pale stone that lets sky light through; no mob spawns on it | Dawn (building block, drops itself) |
+| `firmages:firmament_crystal_cluster` | one-time deposit on the underside, in rim cracks and in a hollow; light 10; drops one `firmament_crystal` | block in `firmages:age_blocks/age_4` |
+| `firmages:firmament_lode` | one per medium or large isle, set into the centre of the underside; re-forms (§30.5) | block in `firmages:age_blocks/age_4` |
+| `firmages:firmament_crystal` | item | age_4 |
+
+- There is no mossy variant (it was cosmetic only). Weathering, if a look is wanted, is a processor on the top layer.
+- **No shadow on the ground:** skystone keeps face culling but returns `propagatesSkylightDown = true` and `getLightBlock = 0`. Land under an isle keeps sky light 15: no dark patch, no spawns, and crops grow. Whether lighting and AO look right with occluding faces is **[PoC]**; the fallback is `noOcclusion` on the underside shell only.
+- **No collapse, no landslide:** skystone is in neither `tfc:can_collapse` nor `tfc:can_landslide`. Trees (zero to two, TFC species of the climate below) stand in an enclosed pocket of TFC dirt.
+- **One ore model:** the isle carries no ore. TFC vein features only replace `tfc:rock/raw/*`, and skystone is none of them. Tag `#firmages:isle/body` = skystone, crystal cluster and lode (used by Starfall, §25.3).
+- **Before age_4** both crystal blocks are in `age_blocks/age_4`, so ProgressiveStages' ore disguise shows them as skystone and OreGuard (§5) stops machines. The clusters still glow at night, which makes the isles visible as lights from the ground.
+
+### 30.5 The re-forming lode (automation)
+
+- **Re-forming:** breaking the lode by any means that drops items (player, fake player, Create drill, or the Mekanism Digital Miner from age_7) yields `isles.lodeYield` (default 2) crystal, and the lode stands again at once. `Block#onRemove` (not by piston; new state air) queues the position in SavedData `firmages_isles`, and the next server tick sets the lode back.
+- **Hardness 50** (obsidian is 50), so the drill's rotation is the work.
+- **Immune** to explosions, the Wither and the Dragon (the immune tags of consecrated blocks). Pistons and Create contraptions cannot move it (`PushReaction.BLOCK`, `create:non_movable`).
+- **[PoC]** Create 6.0.10's `BlockBreakingKineticBlockEntity` and Mekanism's Digital Miner both reach `onRemove`, and the lode re-forms without a duplicate drop.
+- **Age by Age:** the Create drill automates the lode in age_4 to age_6, and the Digital Miner from age_7.
+- **Transport home** is the players' own logistics: airship cargo, or from age_6 an AE2 quantum link with the isle chunk claimed and force-loaded by FTB Chunks.
+
+### 30.6 Mobs and comfort
+
+There are no spawns inside an isle's box, and no new mob, hazard or wind push. Phantoms at Y 250 (vanilla insomnia) are the only fliers near the isles if the pack keeps `doInsomnia` **[M check]**.
+
+### 30.7 Reaching them in the Industrial Age
+
+- **Means:** Create Aeronautics airships (`aeronautics`, `simulated` age_4) and the Create Jetpack (`create_jetpack` age_4) [verified, `dev/age_map.toml`]. Levitite blend is `age_5` [verified], so age_4 airships fly on hot air and propellers.
+- **Air pressure:** Aeronautics' lift and thrust fall with Sable's air pressure: pressure = base_pressure × Bezier(y), loaded from the data-driven `dimension_physics` reload listener. By default it falls roughly as exp(-0.004 × (y - sea level)), so at Y 250 lift is about half of sea level: reachable, not a hard ceiling [verified, javap Sable 2.0.6 and Aeronautics 1.3.2].
+- **[PoC, blocking]** An age_4 hot-air airship climbs from Y 90 to Y 275 and holds there, and a copper-backtank jetpack climbs from Y 120 to Y 240 and back. If the airship fails, first ship a Sable `dimension_physics` override for the overworld (pack data) that flattens the curve above Y 192. Only then lower `top_y` in data, never below Y 210.
+- **[PoC]** On three seeds the nearest cluster lies within 400 blocks of world spawn; otherwise lower `spacing` to 16.
+
+### 30.8 Rendering and sound
+
+- No renderer: the clusters' light and the vanilla clouds do the work.
+- Breaking the lode plays the amethyst cluster sound; re-forming plays a soft chime (`firmages:lode.reform`, mapped onto a vanilla event).
+
+### 30.9 Network, config, commands
+
+- **Network:** none.
+- **Config:** `isles.lodeYield` (2, 1..8), `isles.fallback` (true), `isles.fallbackRadius` (600).
+
+| Command | Purpose |
+|---|---|
+| `isles lode <pos>` | The re-form queue state |
+| `isles fallback status\|place [pos]` | The fallback record; places a cluster now (debug) |
+| (vanilla) `/locate structure firmages:drifting_isle` | For operators |
+
+### 30.10 Tests
+
+- **G** `IsleGameTests`:
+  - `shapeHasNoOre`: a generated piece in a test level holds only skystone, crystal blocks and the TFC-dirt stand-in pocket, and no `firmages:age_blocks/*` block other than the two crystal blocks.
+  - `isleKeepsSkyLight`: sky light 15 on the floor under a radius-12 piece.
+  - `lodeReforms`: breaking by player and by fake player gives two crystals, the lode is back on the next tick, and there is no duplicate.
+  - `lodeLockedBeforeAge4`: OreGuard cancels a fake-player break.
+  - `fallbackPlacesWhenLoaded`: the fallback places nothing while the box is unloaded and places the cluster after a forceload, at most 64 blocks per tick.
+- **P** `selftest isles`: three isles located on the test seed; the structure set loads.
+- **M:** flights to the isles (PoC §30.7), the look from the ground at night.
+
+### 30.11 Acceptance criteria
+
+1. No isle has an ore block, a monster or a dark ground patch below it.
+2. On three new seeds the nearest cluster lies within 400 blocks of spawn. On an existing world in age_4 a fallback cluster exists within 600 blocks of the heart.
+3. An age_4 airship and a jetpack reach the band (PoC §30.7).
+4. Firmament crystal has exactly one source (§24.7).
+
+## 31. The Launch Complex and the Origin Archipelago
+
+### 31.1 Purpose
+
+**Launch Complex (age_7 to age_8):** unmanned probes are the only source of voidglass (age_7) and deep-space samples (age_8). Ad Astra stays the crewed trip and the only source of desh, ostrum and calorite. Under V4A voidglass goes into Void Steel (the age_7 alloy) and the Space Lens, so **the complex is main road in the Space Age**, before the Star Chart.
+
+**Origin Archipelago (post-game):** after `finale_won`, the nine Age islands of The Origin take living samples of their Age and grow into small dioramas. Nothing in the pack waits on it.
+
+### 31.2 Player loop
+
+**Launch Complex.**
+1. In the Space Age the fellowship builds an 11 by 11 complex: a pad with the probe cradle, a gantry tower with the launch control, a flame trench, and one to four fuel ports.
+2. They load the reusable probe and a sampler module and pipe in diesel, biodiesel or kerosene.
+3. The probe climbs on a flame trail. The flight runs on fuel, and the throttle trades fuel for time.
+4. The probe returns under canopies with four voidglass.
+5. In the Quantum Age a deep-space module brings samples.
+
+**Archipelago.** After the finale the fellowship brings saplings, seeds, a leashed animal, a working machine and four alloy ingots to each island's plinth. The island grows in three steps, and a completed island lights its beam at the altar.
+
+### 31.3 Launch Complex multiblock (`firmages:launch_complex`, Modonomicon dense)
+
+- 11 by 11 by 20. The bottom layer is the pad level, with `firmages:probe_cradle` as key `0` in its centre, so the ghost anchors like the shrine's (`PreviewBridge` anchors at the bottom layer).
+- **Pad:** 5 by 5 around the cradle. Its rim cells take `#firmages:launch/rim` = `#firmages:launch/pad` (IE concrete, Mekanism steel casing) plus `firmages:launch_port`.
+- **Tower:** a 3 by 3 gantry tower on one side up to the top (`#firmages:launch/frame`: IE steel scaffolding, Create metal girders), with `firmages:launch_control` at its foot.
+- **Free cells:** every other cell is `_` (any block), so pipes and decoration fit. Modonomicon's ` ` means AIR [verified, javap `DenseMultiblock`] and is not used.
+- **Checked in code after the pattern validates:**
+  - the port count is 1..4;
+  - **the trench:** a 3-wide, 3-deep air channel under the pad centre that runs to the pad edge and opens to the side, with walls and floor from `#firmages:launch/trench` (TFC fire bricks, IE concrete).
+- All ids are checked against `dev/data/registry.json`. The control shows the ghost preview on right-click, like the shrine heart.
+- Ghost alignment with the real build is **[PoC]** (M).
+
+### 31.4 Probe, modules, fuel
+
+| Item | Recipe (pack, KubeJS) | Age |
+|---|---|---|
+| `firmages:probe` (reusable hull, never lost) | Ad Astra and Mekanism parts | age_7 |
+| `firmages:sampler_module` (consumed per flight) | Halo Steel (`#firmages:celestial_alloy/age_6`) plus parts | age_7 |
+| `firmages:deep_space_module` (consumed per flight) | Void Steel (`#firmages:celestial_alloy/age_7`) plus parts | age_8 |
+
+- **Deadlock rule:** the age_7 payload needs the Information Age alloy, never the Space alloy; the age_8 payload needs the Space alloy.
+- **Fuel** is the fluid tag `#ad_astra:fuel`, the same tag the crewed rockets burn. It resolves in the pack to Immersive Petroleum diesel and kerosene, `ad_astra:fuel`, `ad_astra:cryo_fuel`, `#c:fuel` and `#c:biodiesel`. Create Diesel Generators (age_5) puts its biodiesel and diesel into `#c:fuel`, `#c:diesel` and `#c:biodiesel` [verified, jar data and `kubejs/server_scripts/tags/late_ages.js`].
+  - Ad Astra's own fuel has no source because the Fuel Refinery is hidden [verified].
+  - A plant-oil biodiesel line flies probes as it already flies crewed rockets: accepted.
+  - Handlers match the tag, never flowing variants.
+- **Flight is work:** the launch takes `launch_mb`; then each tick the control burns fuel at the throttle rate and adds progress, and the flight ends when progress reaches the module's `flight_work`. An empty tank pauses the flight; nothing fails.
+- **Throttle:** right-click the control, or give redstone strength 1..15 on its back, mapped to the steps. It trades fuel for time. Step 1 burns 1 mB/t for 1 progress, step 2 burns 3 for 2, and step 3 burns 8 for 4. With `flight_work` 12,000 that is 10, 5 or 2.5 minutes for 12, 18 or 24 buckets.
+- **Returns are fixed** (no roll, no loss) and come back with the probe into the control's nine-slot output.
+
+```json
+// data/firmages/firmages_launch/fuel.json
+{ "fluid_tag": "ad_astra:fuel", "launch_mb": 4000,
+  "throttle": [ { "burn": 1, "progress": 1 }, { "burn": 3, "progress": 2 }, { "burn": 8, "progress": 4 } ] }
+// data/firmages/firmages_launch/module/sampler.json
+{ "module": "firmages:sampler_module", "age": "age_7", "flight_work": 12000,
+  "returns": [ { "item": "firmages:voidglass", "count": 4 } ] }
+// data/firmages/firmages_launch/module/deep_space.json
+{ "module": "firmages:deep_space_module", "age": "age_8", "flight_work": 24000,
+  "returns": [ { "item": "firmages:deep_space_sample", "count": 2 }, { "item": "firmages:voidglass", "count": 2 } ] }
+```
+
+The loader (`launch/LaunchDataLoader`, a reload listener like `ShrineDataLoader`) rejects a file with an ERROR if a return item is in `#c:ores`, `#c:raw_materials`, the `ad_astra` namespace or any `firmages:age_blocks/*` tag, or if a return's Age is later than the module's Age. A module whose item is not registered is skipped.
+
+### 31.5 Mission state machine (`launch/LaunchControlBlockEntity`, server)
+
+- **Phases:** `IDLE` -> `COUNTDOWN` (100 ticks) -> `ASCENT` (200 ticks) -> `FLIGHT` (fuel-driven) -> `DESCENT` (160 ticks) -> `IDLE`.
+- **Start conditions:** a valid complex; a probe and a module in the slots; `launch_mb` in the tank; free output space for the returns; open sky from the cradle to the build limit (heightmap); no redstone hold. An unmet condition waits with a Jade line ("The sky is closed above the cradle.").
+- **Silo hatch:** during `COUNTDOWN` and `ASCENT` the control emits redstone 15 on its back face, so a Create gantry hatch over a silo opens by itself (the existing Ponder scene "Silo Hatch", §22.5, teaches the build).
+- **Persistence:** breaking the control mid-flight drops it with the mission as the data component `firmages:mission`; placed again, it resumes. Save and load keep the phase, progress and slots.
+- One probe per complex is in flight at a time; parallel lines need more complexes.
+
+### 31.6 Automation, proof
+
+- **Capabilities:** the control and ports expose `Capabilities.ItemHandler.BLOCK` (insert probe and modules; extract returns, and the returned probe only when `launch.autoRelaunch` is false) and `Capabilities.FluidHandler.BLOCK` (fuel, `#ad_astra:fuel` only).
+- **Logistics:** Mekanism logistical and mechanical pipes are the reference. An AE2 pattern provider in blocking mode pushes module plus fuel as a processing pattern (module in, voidglass out), and an import bus or interface takes the returns. The probe stays in the control and relaunches by default.
+- **Crewed criterion:** `firmages:silo_launch` stays the crewed Ad Astra criterion of §22.4; a probe launch never fires it.
+- **New criterion `firmages:probe`** (`module` id optional, `count`): counted per team in SavedData `firmages_launch` (`teams.<uuid>.<module> = long`) and credited to the control's owner team (the placer, as the Tally Chute). It fires once a second for online members and at login (the `TallyService` pattern). The quest strand "launch 16 probes" uses it.
+
+### 31.7 Rendering and sound (no GeckoLib)
+
+- **`client/LaunchRenderer`** (BER on the cradle; `shouldRenderOffScreen` true, `getViewDistance` 256, infinite render box like `ShrineHeartRenderer`):
+  - the probe's baked item model at scale 3, rising 300 blocks with ease-in over `ASCENT`;
+  - a trail of vanilla particles along the path (`campfire_signal_smoke`, `flame`, and `explosion` at ignition), plus flame jets out of the trench exit;
+  - on `DESCENT`, the capsule falling back under three white canopies drawn by the same renderer.
+  - There is no entity, and nothing collides.
+- **Sounds:** vanilla events only (`entity.firework_rocket.launch`, a muffled `entity.generic.explode`, and a `block.fire.ambient` loop). The sky gives no line.
+- **Timing:** the payload `firmages:launch_fx` (pos, phase, phase start game time, probe item) goes to players within `launch.fxRange`. The block-entity sync tag carries the same, so a player who arrives late sees the right moment.
+
+### 31.8 Origin Archipelago
+
+**Arena version 3.**
+- `OriginService` rebuilds the arena with `OriginArena.buildArena` whenever `arena_version` < `VERSION`, and `buildArena` sets every block without an air check [verified, source]. So version 3 is **not** a full rebuild.
+- A dedicated migration step (`arena_version` 2 to 3) widens each island to radius 9..11 with an **air-only** setter and places `firmages:ark_plinth` one block north of the echo (unbreakable, no loot, Age map age_9, never crafted).
+- A fresh world builds version 3 directly.
+- Before the win, a plinth answers "The island sleeps."
+
+**Samples.**
+- Each island has three groups and, for Ages with an alloy, a crown. Groups complete in any order and are recorded for good in `OriginSavedData` (`ark.<age>.<group> = true`).
+- Items are inserted by hand or by pipe into the plinth; distinct ids count.
+- A fauna sample is a leashed animal brought within four blocks and right-clicked on the plinth with the lead. It becomes persistent and stays, and its later death changes nothing.
+- A work sample is a block on the island that satisfies a rule when the plinth checks. Rule types reuse the shrine rites (`blockstate`, `energy`) plus `kinetic` (Create speed of at least `rpm`).
+
+| Island | Flora (distinct) | Fauna (any one) | Work | Crown |
+|---|---|---|---|---|
+| Stone | four TFC saplings | `tfc:rabbit` | lit `tfc:firepit` | none |
+| Bronze | four TFC seeds | `tfc:chicken`, `tfc:duck` | lit `#firmages:ark/bronze_work` (TFC charcoal forge or bloomery) | none |
+| Iron | four TFC fruit tree saplings (`#firmages:ark/fruit_saplings`) | `tfc:cow`, `tfc:goat` | `create:water_wheel` at 16 RPM | none |
+| Arcane | four archwood saplings or four enchanted books | `tfc:cat`, `ars_nouveau:starbuncle` | lit `#firmages:ark/arcane_work` | four Starlit Iron |
+| Industrial | eight IE hemp seeds | `tfc:horse` | `immersiveengineering:crusher` holding FE | four Cloudsteel |
+| Electric | four TFC crops of a greenhouse climate | `tfc:sheep` | `immersiveengineering:capacitor_hv` holding FE | four Aurora Steel |
+| Information | four Mystical Agriculture seeds | `tfc:pig` | `ae2:controller` online | four Halo Steel |
+| Space | four `ad_astra` plants (aeronos, strophar, glacian) | none | `mekanism:teleporter` holding FE | four Void Steel, two deep-space samples |
+| Quantum | four items of `#firmages:ark/quantum_flora` | none | `mekanismgenerators:fusion_reactor_controller` active | four Quasar Alloy |
+
+- The ids are default data and are checked against `dev/data/registry.json` and `dev/data/tfc-4.2.11-ids.json` before the build.
+- Magic stays optional, because every Arcane group has a non-magic choice.
+- The teleporter is only a work sample and is never used to travel.
+
+```json
+// data/firmages/firmages_ark/island/age_2.json
+{ "island": 2, "flora": { "tag": "firmages:ark/fruit_saplings", "distinct": 4 },
+  "fauna": { "entities": ["tfc:cow", "tfc:goat"] },
+  "work": { "type": "kinetic", "block": "create:water_wheel", "rpm": 16 },
+  "crown": [], "stages": ["firmages:ark/age_2/stage_1", "firmages:ark/age_2/stage_2", "firmages:ark/age_2/stage_3"] }
+```
+
+The Archipelago crown entries name `#firmages:celestial_alloy/age_3` .. `age_8` and `firmages:deep_space_sample`.
+
+**Growth and the nine beams.**
+- Each completed group places the next stage template (`data/firmages/structure/ark/age_N/stage_K.nbt`, K = groups done) from the plinth outward over `ark.growthTicks`, using the consecration's batch placer (§17).
+- Templates write only into air and into blocks of the island's own earlier stages (stored positions), never over a player block.
+- An island with every group and its crown is **complete**. A beacon beam in that tier's `response.beam_color` then lights in a ring of nine sockets around `firmages:origin_altar` (radius 3), drawn by the heart's beam routine.
+- When all nine are lit, the altar's crown shows the FINALE sky tint once more for 10 s and then stays as nine beams.
+- **Sync:** the payload `firmages:ark_sync` (stage per island, complete mask), sent on entering The Origin and on change.
+
+### 31.9 Network, config, commands
+
+- **Network:** `firmages:launch_fx` (protocol "6", M14) and `firmages:ark_sync` (protocol "7", M17).
+- **Server config:** `launch.enabled` (true), `launch.fxRange` (256), `launch.countdownTicks` (100), `launch.autoRelaunch` (true), `ark.growthTicks` (200, 0..1200).
+- **Client config:** `effects.launchFx` (true).
+
+| Command | Purpose |
+|---|---|
+| `launch status [pos]` | Phase, progress, fuel, slots, wait reason |
+| `launch finish <pos>` | Needs `debug.allowSimulate` |
+| `ark status` | Groups, crown and stage per island |
+| `ark grant <island> <group>` / `ark reset <island>` | Debug |
+
+### 31.10 Tests
+
+- **U** `LaunchDataLoaderTest`, `ThrottleMathTest`, `ArkRulesTest`.
+- **G** `LaunchGameTests`:
+  - `complexValidates`: the test multiblock; a blocked trench, zero ports or five ports fail; pipes on `_` cells pass.
+  - `missionRunsOnFuel`: water in the test copy of the fuel tag; the launch takes `launch_mb`; progress only while burning; an empty tank pauses; the end gives four voidglass and keeps the probe.
+  - `throttleShortensFlight`, `closedSkyWaits`, `countdownEmitsRedstone`, `missionSurvivesSave`, `controlDropKeepsMission`, `oreReturnRejected`, `probeCriterionForTheParty`.
+- **G** `ArkGameTests`:
+  - `inertBeforeFinale`, `samplesCountOnce` (distinct items, a leashed cow, a kinetic stand-in), `stagesNeverOverwritePlayerBlocks`, `completeLightsSocket`;
+  - `arenaV3KeepsBuilds`: starts from a version-2 arena carrying player blocks on the disc and the islands; after the migration every player block is unchanged and the plinths stand.
+- **M:** the launch spectacle from 200 blocks, a silo hatch opening on the countdown, the ghost alignment of the complex, Archipelago stages in a client.
+
+### 31.11 Acceptance criteria
+
+1. Voidglass and deep-space samples have exactly one source each (§24.7).
+2. A probe never vanishes. A flight with an empty tank pauses and resumes. Returns match the module file exactly.
+3. No module file with an Ad Astra ore or raw material loads.
+4. The age_7 payload needs no Space Age alloy (no deadlock with V4A).
+5. The arena migration never changes a player block.
+6. Nothing outside §31.8 reads the Archipelago state, and a world that never touches it finishes the pack.
+
+## 32. Work breakdown (M10 to M17)
+
+The milestones are listed in dependency order; the column "Depends on" names the real dependencies. The estimates use the reviews' re-estimates, with the cuts of this merge (no kinetic mount, no starsteel plate, no mossy skystone, no Glacier Cairn, no Sable drift); the Wind Shrine takes the Glacier Cairn's place (S6B).
+
+| M | Scope | Depends on | Effort | Protocol | Done when |
+|---|---|---|---|---|---|
+| **M10** (built, §25.13) | Sky plumbing (`DeferredSites`, `ClimateSource` with the TFC and test sources, `SkySavedData`, the `text/Numbers` helper) and Starfall (§25): scheduling, site choice with claims and isle exclusion, plan and carver, blocks and loot condition, sky metals and TFC heat data, IE veins with dirty-mark and reconcile, streak renderer and sounds, FTB Chunks `compileOnly` | none | 45–60 h | "5" | §25.11 U and G green, `selftest sky` green, M: streak and crater in the pack |
+| **M11** | Sky Harvest (§26): `AuroraRules` at the reference height, Aurora Net, aurora fluid, Storm Rod with the rain and thunder rates, `sky_sync`, aurora renderer, band command | M10 | 25–35 h | (in "5") | §26.9 green, PoC §26.10 (band distance, rod rate) measured |
+| **M12** | Lens Crown, mod side (§27.3 to §27.7, §27.10 to §27.13): recipe type and serializer, Star Anvil, Lens Mount, lenses, chord library, multiblock reuse, comparator, renderer, Jade, EMI, three Ponder scenes, the 22 library recipes as mod data | M10 item ids only (stand-ins in tests) | 50–70 h | none | §27.13 U and G green, M: beams and EMI |
+| **M13** | Drifting Isles (§30): structure type and piece, skystone lighting, crystal blocks, the re-forming lode, fallback placement, the Wind Shrine's place on the isle (§28.4a, template from M16), plus the flight PoCs (§30.7) | M10 (`DeferredSites`) | 34–46 h | none | §30.10 green, flight PoCs passed or the band lowered |
+| **M14** | Launch Complex (§31.3 to §31.7): multiblock and trench check, control state machine, modules data, fuel, renderer, `launch_fx`, `firmages:probe` criterion | M12 (alloy ids) | 30–40 h | "6" | `LaunchGameTests` green, M: one real flight in the pack |
+| **M15** | V4A integration (pack): the eight recipe changes of §27.8, the part recipes of §27.9, the Storm Rod, Net, anvil and probe recipes, `station_ages.js`, the Age map rows of §24.5 and the `[ore_blocks]` `disguise` key in `gen_stage_locks.py`, quests and goal lines, `dev/validate_recipes` over the sky materials | M10 to M14 | 15–25 h | none | §24.7 criteria 1 to 4 green on the test server (`selftest sky`, `selftest crown`), one playthrough of age_2 to age_5 by commands |
+| **M16** | Wayshrines, Sky Anchors and the blessing sources (§28, §29): the generator, the eight structures, `tfc:climate` sets, tutorial placement by code, the service, the pointer with cache, `BlessingSources` and `BlessingIndex`, the anchor and shards, removal of `everywhere` | M12 (shard recipes), M13 (the isle piece places the Wind Shrine); the ground Wayshrines need nothing | 60–85 h | none | §28.10 and §29.8 green, `selftest wayshrines`, scan of 20 seeds |
+| **M17** | Origin Archipelago (§31.8): arena migration v3, plinths, sample rules, 27 stage templates, socket beams, `ark_sync` | M14 (deep-space sample), M12 (alloys) | 30–45 h | "7" | `ArkGameTests` green, M: one island grown in a client |
+
+**Total: about 290 to 405 hours.**
+
+**Parallel worktrees** (each on its own branch from `dev`; protocol bumps only at merge, in the order "5", "6", "7"):
+- **Worktree A:** M10 then M11 (the sky package).
+- **Worktree B:** M12 from day one; it uses stand-in items and registers the real ids once A merges.
+- **Worktree C:** M13 once A's `DeferredSites` is merged (or with a copied interface), then M14.
+- **Worktree D:** the Wayshrine half of M16 (generator, structures, service; about two thirds of M16) from day one. The anchor half waits for M12.
+- **Joins:** M15 after A, B and C have merged. M17 last.
+
+**Playtest gates:**
+- M10, M11 and M12 must ship before a playtest beyond the Iron Age.
+- M13 must ship before a playtest beyond the Arcane Age.
+- M14 must ship before a playtest beyond the Information Age.
+- M15 makes V4A live, and the main road is complete only with it.
+- M16 and M17 are off the main road.
+
+## 33. Assets needed
+
+**Textures and models (block):**
+- `sky_rock`; `meteorite`; `starsteel_meteorite`; `starfall_core` (cold base and an emissive hot overlay, two metals); `meteoric_iron_block`; `starsteel_block`.
+- `storm_glass` (connected glass, CTM sheet); `storm_rod` (basin and rod, two-block model); `aurora_net` (translucent animated panel, `catching` variant).
+- `aurora_light` still and flowing (animated).
+- `star_anvil` (top, side, base, `formed` and `active` variants); `lens_mount` (frame; models `lens_mount` and `lens_mount_in`, y-rotated by `facing`); `lens_glass` (greyscale, tinted).
+- `wayshrine_core` (three phases); `wayshrine_stone` (eight `kind` variants).
+- `sky_anchor` (base with nine sockets, `active` variant).
+- `skystone`; `firmament_crystal_cluster` (emissive); `firmament_lode` (emissive).
+- `probe_cradle`; `launch_control` (front with throttle states); `launch_port`.
+- `ark_plinth`.
+
+**Textures (item):**
+- `meteoric_iron_{chunk,ingot,double_ingot,sheet,rod}`, `starsteel_{chunk,ingot}`, `aurora_light_bucket`.
+- `lens_blank`, nine `lens/<age>` (rim in the Age material, glass in the tier colour), seven alloy ingots.
+- `blessing_shard` (greyscale, tinted by tier).
+- `firmament_crystal`, `voidglass`, `deep_space_sample`.
+- `probe` (also the model the launch renderer draws at scale 3), `sampler_module`, `deep_space_module`.
+
+All textures go through `dev/gen_textures.py`, checked with `--check`.
+
+**Structures (`.nbt`):**
+- Eight Wayshrine ruins plus their eight restored multiblocks, from `dev/gen_wayshrines.py`.
+- 27 Archipelago stage templates (`ark/age_N/stage_1..3`).
+- Isles and craters are code-shaped (no templates).
+- GameTest templates: a crown test frame, a Wayshrine stand-in, a launch complex stand-in, and a version-2 arena with player blocks.
+
+**Multiblocks (Modonomicon JSON):** `lens_crown`, `launch_complex`, eight `wayshrine_<type>`.
+
+**Sounds** (`sounds.json`, all mapped onto vanilla events as §8.1; own files are optional later):
+- `starfall.impact`, `starfall.distant`;
+- `aurora_net.catch`;
+- `crown.chord` (note-block bell at nine pitches);
+- `wayshrine.lit`;
+- `lode.reform`;
+- the launch sounds are vanilla events directly.
+
+**Ponder scenes** (with schematics from `dev/gen_ponder_schematics.py`): "The Lens Crown", "Chords" and "A Chord Library". The launch build reuses the existing "Silo Hatch".
+
+**Lang (en_us):**
+- all blocks and items, the 14 chord names, the eight Wayshrine names, the nine shard names (from the blessing names);
+- the Jade, EMI and Ponder texts, the actionbar lines and the eight bearings.
+- Everything follows `dev/style-guide.md`.
+
+**Shader pack setting:** Complementary's own aurora off (pack hand-off).

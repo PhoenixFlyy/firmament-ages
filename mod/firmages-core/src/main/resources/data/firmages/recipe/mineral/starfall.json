@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "type": "immersiveengineering:mineral_mix",
+  "biome_predicates": [],
+  "fail_chance": 0.1,
+  "ores": [
+    {
+      "chance": 0.6,
+      "output": {
+        "id": "firmages:meteoric_iron_chunk"
+      }
+    },
+    {
+      "chance": 0.3,
+      "output": {
+        "id": "firmages:starsteel_chunk"
+      }
+    },
+    {
+      "chance": 0.1,
+      "output": {
+        "id": "firmages:sky_rock"
+      }
+    }
+  ],
+  "spoils": [
+    {
+      "chance": 1.0,
+      "output": {
+        "id": "firmages:sky_rock"
+      }
+    }
+  ],
+  "weight": 0
+}

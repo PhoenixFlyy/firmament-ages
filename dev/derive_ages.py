@@ -194,7 +194,10 @@ CODE_WORLD = [(["ad_astra:glacian_log", "ad_astra:glacian_leaves", "ad_astra:gla
               ([f"tfcvolcanoes:mineral/{m}" for m in (
                   "alabandite", "apatite", "arcanite", "bastnasite", "brimstone", "calcite", "galena", "greigite", "jet",
                   "magnesite", "microcline", "olivine", "pitchblende", "salmiak", "salt", "saltpeter", "satinspar",
-                  "selenite", "serpentine", "smithsonite", "spherocobaltite", "zabuyelite")], "dawn")]
+                  "selenite", "serpentine", "smithsonite", "spherocobaltite", "zabuyelite")], "dawn"),
+              # firmages-core Starfall (SPEC 25.3): old craters in new chunks line their bowls and rims with sky rock;
+              # their meteorites and cores are [ore_blocks] of dev/age_map.toml
+              (["firmages:sky_rock"], "dawn")]
 # Mods whose own spawning is switched off by config: their mobs spawn only where a scanned source puts them (the pack's
 # biome modifiers in kubejs/data), not from the mod Age. Alex's Mobs Continued: config/amc.json sets every weight to 0,
 # kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_*_spawn_tfc.json spawns the 22 kept species (V1B).

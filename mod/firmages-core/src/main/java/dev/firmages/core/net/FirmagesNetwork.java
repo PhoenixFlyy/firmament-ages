@@ -3,9 +3,12 @@ package dev.firmages.core.net;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-/** Payload registration (SPEC §11, protocol version "4"). All payloads are S2C and optional for the client. */
+/**
+ * Payload registration (SPEC §11, protocol version "5" since the sky features' M10: {@code firmages:starfall_streak}).
+ * All payloads are S2C and optional for the client.
+ */
 public final class FirmagesNetwork {
-    public static final String VERSION = "4";
+    public static final String VERSION = "5";
 
     private FirmagesNetwork() {}
 
@@ -17,5 +20,6 @@ public final class FirmagesNetwork {
         registrar.playToClient(ShrineSyncPayload.TYPE, ShrineSyncPayload.STREAM_CODEC, ShrineSyncPayload::handle);
         registrar.playToClient(AgeStatusPayload.TYPE, AgeStatusPayload.STREAM_CODEC, AgeStatusPayload::handle);
         registrar.playToClient(WelcomePayload.TYPE, WelcomePayload.STREAM_CODEC, WelcomePayload::handle);
+        registrar.playToClient(StarfallStreakPayload.TYPE, StarfallStreakPayload.STREAM_CODEC, StarfallStreakPayload::handle);
     }
 }

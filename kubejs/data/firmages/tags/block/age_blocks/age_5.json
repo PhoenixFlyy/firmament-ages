@@ -32,6 +32,7 @@
     {"id": "firmages:ore/rich_native_osmium/rhyolite", "required": false},
     {"id": "firmages:ore/rich_native_osmium/schist", "required": false},
     {"id": "firmages:ore/small_native_osmium", "required": false},
+    {"id": "firmages:starsteel_meteorite", "required": false},
     {"id": "tfc_ie_addon:ore/normal_bauxite/andesite", "required": false},
     {"id": "tfc_ie_addon:ore/normal_bauxite/basalt", "required": false},
     {"id": "tfc_ie_addon:ore/normal_bauxite/chalk", "required": false},

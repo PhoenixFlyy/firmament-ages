@@ -234,7 +234,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "9e9801c164cebf3968062f83d7540fc69f7e27c05438741dedfb99e21993d5dc"
+hash = "573756003aa6e4ed3b02ca755bbef0a27a22a7a41caab8875b587740aad2c08e"
 
 [[files]]
 file = "config/fml.toml"
@@ -450,7 +450,7 @@ hash = "e49be7a1d45c0192ce4fd8656b9b783d2ef60b7b73d0d6bd175f282a3c35c6a4"
 
 [[files]]
 file = "config/progressivestages/stages/age_2.toml"
-hash = "c16ff4b76225c588e926eae8f852c8b2efe8f697da06bc969ab6529d5c6e022c"
+hash = "0b2953a3703bae601282d8e97967c4859d600288d1e23bc063b9c5ed00e91782"
 
 [[files]]
 file = "config/progressivestages/stages/age_3.toml"
@@ -462,7 +462,7 @@ hash = "fcd66348b1d1b725f1123a86ef10f0303e07564554f98d1b57e809abec506e12"
 
 [[files]]
 file = "config/progressivestages/stages/age_5.toml"
-hash = "0b48e7b49cf35e1de4322bc534f170b3dd0e60562b768719dd31bf8d6fb40e9a"
+hash = "aa78760e1ced8b9f4bc95e00be4af376ba208e843dda42f1a3789059465c4751"
 
 [[files]]
 file = "config/progressivestages/stages/age_6.toml"
@@ -2554,7 +2554,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "dcce274cb21825afb79630bf5595737f81f396075a77da05300f6e66e9a33028"
+hash = "f5438519f44f71fb1d6222933b496b142c785f2723b0bdea3cfbba20a2e44e71"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -5622,7 +5622,7 @@ hash = "d68149a0c6400c9b819370b733739097c56b94cb2db56f97ea624c581619a522"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_2.json"
-hash = "fdbd251f2f636f1b58613819857ad64eae62e3b1f6b8ce521586e18d2029ad15"
+hash = "44a84ba6d2bcb85acfda0b2d901dccdfa846bd544275bb77feb9e555c905a5e1"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_3.json"
@@ -5634,7 +5634,7 @@ hash = "84a38970be38cb56d520ea8b43de6b490bb9b8b924178850f1429aa7f58087cc"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_5.json"
-hash = "11e6db371b8f682d70f14d753ef8d2daaafe7c6734f3d3cc3f24cac5de29d93b"
+hash = "39075a7882ca45a01800287426f53c9b7272552e6b4a2a217b27c866a03e8d40"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_6.json"
@@ -5726,7 +5726,7 @@ hash = "6cee9947f9ae75ab22c77d6fbdd8d1a46930f6b991d5a16f14c2b99bf00343e4"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "359e3c8428662962bee627cc67325ce88baa58492c78cf70d7aebd395fb3fb6d"
+hash = "b0541028a40f902b99744e179b43b9cc4b29403296f2767a9c220e7e50971a33"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
@@ -5738,7 +5738,7 @@ hash = "c8425b37d69fa04615b48810a766082007d4e7a9637ba4c9d467e478dd6eda53"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "803423d33337e403f29edd854d241806cc657af5d2cb915350ae2f6d1f9336fe"
+hash = "dca6bfd36766da934e3d6dc5295a66b9dfce8c41220639faeb43d904272061da"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
@@ -5758,11 +5758,11 @@ hash = "e8c0ce59c3f6d2792873f2ab10ce01d447d2e1315aab5d6de3aa8f139255f052"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "1e38e476b0c2119c55dec9b59d72c502469078db22c5da47512db6d1b8b8a916"
+hash = "1136bbde6da3be6ac62df7046886b308f3ac1df91a3d0c3eb97ac1defa0c1d25"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "daaab4353ade341628dbe28591dbb474f3d55e34640786c2f46f853d8236c055"
+hash = "7a8c138f120c818a846cd6f1aedc87c320d7c7497ea204bb4d19a53b9d577c68"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -5867,6 +5867,26 @@ hash = "2809f8359c578328473bf9997455b41419a5a092dfd0a76557a079e74bbe6e19"
 [[files]]
 file = "kubejs/data/firmages/tfc/item_heat/dust_zinc.json"
 hash = "b3afbd582fb0473161561574c1d2ace146d4533c50c4fa05fd86dd0b21284f33"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/chunk.json"
+hash = "6c692b35c83e48582b677c93331329b73ce57f240101879e1bade7363a313761"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/double_ingot.json"
+hash = "28cabd50dde6fd2f5065c7e6337f3245b4263b4df5e1d038ede31987591f97cc"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/ingot.json"
+hash = "b4cc95edfcf5951385a7509b22bace64a3da57805137578dede5739487d0f2ec"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/rod.json"
+hash = "967146f6cebde65303611737bc92f4a397378a9c3b0dc6b8f33e0cf982d8f47c"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/sheet.json"
+hash = "7de7369cae445ec0887cc04349c02f4f229a214e46bf96234ad878b94cb6ccb9"
 
 [[files]]
 file = "kubejs/data/firmages/tfc/item_heat/native_osmium.json"
@@ -8970,7 +8990,7 @@ hash = "6c0587f6090f8c4d9f533d24b69c3cf1b4a7f38c637c0896a5d131c0399499fa"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/firmament_night.js"
-hash = "57dbc6257a7b7c88efe7c065a573461bbd350217fecd1ed36901a44f1a3ce8b6"
+hash = "26002177cfd7c196d523bb26ea299e4d1727cc5fe2288b4a445f38329f6037f3"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/frontier_compass.js"
@@ -9003,6 +9023,10 @@ hash = "07c7f6a06fc24ceecd18909f91e66d978eb7b6825d25a215f8bf55b3338173d3"
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
 hash = "09b9dd4eafee54d4c10fa1494b1b7e8f301ee4d84b6bb6d7438cbbd77038aa2f"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_2/sky_metals.js"
+hash = "e428e04a5690a2746385d227853e60a644840288ae4fc1de76677862b12b5f69"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
@@ -9039,6 +9063,10 @@ hash = "294c5af8600e6842318bbb872916c2ba0076c9973f022c8bfb664677d4578770"
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
 hash = "9e5ec8233cdd6cd7117403b906d238902f6cbcea187cf8805a9eace493db59c3"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_5/starsteel.js"
+hash = "f5b1b9ec286e31944f63c00b48675c72b637271abad19de974f7c8b718758313"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"

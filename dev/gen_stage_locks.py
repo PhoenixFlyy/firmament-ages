@@ -135,7 +135,8 @@ def refresh_registry(dump_dir, amap):
     snap = {
         "source": f"/fa_dump in {source} (kubejs/server_scripts/debug/dump.js)",
         "items": sorted(i for i in reg["item"] if i != "minecraft:air"),
-        "blocks": sorted(b for b in reg["block"] if BLOCK_KEEP.search(b) or b in amap.get("ore_blocks", {})),
+        "blocks": sorted(b for b in reg["block"] if BLOCK_KEEP.search(b) or b in amap.get("ore_blocks", {})
+                         or b in {v.get("disguise") for v in amap.get("ore_blocks", {}).values()}),
         "fluids": sorted(f for f in reg["fluid"] if f != "minecraft:empty"),
         "fluid_buckets": {f: b for f, b in sorted(buckets.items()) if b != "minecraft:air"},
         "item_tags": {t: sorted(item_tags.get(t, [])) for t in wanted},
@@ -276,13 +277,22 @@ class AgeMap:
                     items[extra] = st
             if not found:
                 die(f"[ore_families] {fam}: no ore blocks in the registry snapshot")
-        # [ore_blocks]: a mod's own block that a pack vein places in one host rock, disguised as that rock
+        # [ore_blocks]: a mod's own block that a pack vein places in one host rock, disguised as that rock ("rock"), or
+        # a block placed outside the rock layers, disguised as another block that it also drops ("disguise", a block
+        # id: the Starfall meteorites and cores look like sky rock until their Age, firmages-core SPEC 24.5)
         for b, v in a.get("ore_blocks", {}).items():
             if b not in self.blocks_set:
                 die(f"[ore_blocks] {b}: not in the registry snapshot")
+            if ("rock" in v) == ("disguise" in v):
+                die(f"[ore_blocks] {b}: give exactly one of rock (a TFC rock) or disguise (a block id)")
+            blocks[b] = v["stage"]
+            if "disguise" in v:
+                if v["disguise"] not in self.blocks_set:
+                    die(f"[ore_blocks] {b}: disguise block {v['disguise']} not in the registry snapshot")
+                ovr(v["stage"], (b, v["disguise"], v["disguise"]))
+                continue
             if v["rock"] not in rocks:
                 die(f"[ore_blocks] {b}: unknown TFC rock {v['rock']!r}")
-            blocks[b] = v["stage"]
             ovr(v["stage"], (b, f"tfc:rock/raw/{v['rock']}", f"tfc:rock/loose/{v['rock']}"))
 
         # The item form of an ore or deposit block follows the block (silk touch, creative, loot).
