@@ -18,6 +18,8 @@
 // event, and the next pass puts it back. Sleeping through it ends it like any night.
 // Worlds from before this script: the first login records the team's current Age as seen, so an update never
 // replays old Ages. Admin: /stage grant <player> age_N on a test world plays the night of a new N once.
+// Starfall (firmages-core SPEC 25.3): on the Firmament Night itself the script calls FirmAges.starfallTonight() once,
+// so a star falls that night from the Iron Age on (no Enhanced Celestials code in the mod).
 
 (() => {
   if (!Platform.isLoaded('enhancedcelestials2core')) {
@@ -38,6 +40,7 @@
   const PENDING_AGE = 'firmages_night_age' // the night to play: Age number,
   const PENDING_DAY = 'firmages_night_day' // overworld day (day time / 24000) of that night,
   const PENDING_AFTER = 'firmages_night_after' // overworld day time before which nothing is scheduled
+  const STAR_DAY = 'firmages_night_star' // overworld day + 1 of the night that already asked for a falling star
 
   const short = (stage) => String(stage).replace(/^progressivestages:/, '')
   const eventId = (n) => `firmages:firmament_age_${n}`
@@ -89,6 +92,10 @@
       console.warn(`[firmages] firmament_night: lunar event ${eventId(n)} missing, night of age_${n} dropped`)
       clearPending(data)
       return
+    }
+    if (offset === 0 && Number(data.getLong(STAR_DAY)) !== target + 1) {
+      data.putLong(STAR_DAY, target + 1)
+      if (typeof FirmAges !== 'undefined' && FirmAges.starfallTonight) FirmAges.starfallTonight()
     }
     // clear sky until the dawn that ends the night (EC2 hides lunar events in rain)
     const clear = (target + 1) * DAY - now

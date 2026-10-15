@@ -5569,6 +5569,26 @@ file = "kubejs/data/firmages/tfc/item_heat/dust_zinc.json"
 hash = "b3afbd582fb0473161561574c1d2ace146d4533c50c4fa05fd86dd0b21284f33"
 
 [[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/chunk.json"
+hash = "6c692b35c83e48582b677c93331329b73ce57f240101879e1bade7363a313761"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/double_ingot.json"
+hash = "28cabd50dde6fd2f5065c7e6337f3245b4263b4df5e1d038ede31987591f97cc"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/ingot.json"
+hash = "b4cc95edfcf5951385a7509b22bace64a3da57805137578dede5739487d0f2ec"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/rod.json"
+hash = "967146f6cebde65303611737bc92f4a397378a9c3b0dc6b8f33e0cf982d8f47c"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/meteoric_iron/sheet.json"
+hash = "7de7369cae445ec0887cc04349c02f4f229a214e46bf96234ad878b94cb6ccb9"
+
+[[files]]
 file = "kubejs/data/firmages/tfc/item_heat/native_osmium.json"
 hash = "8fb7fd6754e29acde770062421e33bcab99130b45c66e714ccf1f1c46ba99e53"
 
@@ -8574,7 +8594,7 @@ hash = "6c0587f6090f8c4d9f533d24b69c3cf1b4a7f38c637c0896a5d131c0399499fa"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/firmament_night.js"
-hash = "57dbc6257a7b7c88efe7c065a573461bbd350217fecd1ed36901a44f1a3ce8b6"
+hash = "26002177cfd7c196d523bb26ea299e4d1727cc5fe2288b4a445f38329f6037f3"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/frontier_compass.js"
@@ -8597,6 +8617,10 @@ file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
 hash = "09b9dd4eafee54d4c10fa1494b1b7e8f301ee4d84b6bb6d7438cbbd77038aa2f"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_2/sky_metals.js"
+hash = "e428e04a5690a2746385d227853e60a644840288ae4fc1de76677862b12b5f69"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
 hash = "75f8814faa4b4e621b87175791cd006804a35d5ffb851f3123d91644b67fb5b4"
 
@@ -8615,6 +8639,10 @@ hash = "9e5ec8233cdd6cd7117403b906d238902f6cbcea187cf8805a9eace493db59c3"
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/refurbished_furniture.js"
 hash = "3033c7535c407ac9a4edc0e11c85ed7ccda184087cc53377b20cc702757499cd"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_5/starsteel.js"
+hash = "f5b1b9ec286e31944f63c00b48675c72b637271abad19de974f7c8b718758313"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
