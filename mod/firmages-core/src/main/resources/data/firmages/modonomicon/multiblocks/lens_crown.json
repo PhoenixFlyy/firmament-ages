@@ -1,0 +1,60 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "firmages:star_anvil"
+    },
+    "S": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:crown/stones"
+    },
+    "P": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:crown/pillars"
+    },
+    "M": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:crown/sockets"
+    },
+    "G": {
+      "type": "modonomicon:tag",
+      "tag": "#firmages:crown/caps"
+    }
+  },
+  "pattern": [
+    [
+      "G_______G",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "_________",
+      "G_______G"
+    ],
+    [
+      "P_M_M_M_P",
+      "_________",
+      "M_______M",
+      "_________",
+      "M_______M",
+      "_________",
+      "M_______M",
+      "_________",
+      "P_M_M_M_P"
+    ],
+    [
+      "SSSSSSSSS",
+      "S_______S",
+      "S_______S",
+      "S_______S",
+      "S___0___S",
+      "S_______S",
+      "S_______S",
+      "S_______S",
+      "SSSSSSSSS"
+    ]
+  ]
+}

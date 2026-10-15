@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "firmages:storm_glass",
+      "required": false
+    },
+    {
+      "id": "#firmages_test:crown/caps",
+      "required": false
+    }
+  ]
+}

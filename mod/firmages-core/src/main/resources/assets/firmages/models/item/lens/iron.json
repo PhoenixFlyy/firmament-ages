@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "firmages:item/lens/iron",
+    "layer1": "firmages:item/lens_glass"
+  }
+}

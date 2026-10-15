@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,in=false": {
+      "model": "firmages:block/lens_mount"
+    },
+    "facing=north,in=true": {
+      "model": "firmages:block/lens_mount_in"
+    },
+    "facing=east,in=false": {
+      "model": "firmages:block/lens_mount",
+      "y": 90
+    },
+    "facing=east,in=true": {
+      "model": "firmages:block/lens_mount_in",
+      "y": 90
+    },
+    "facing=south,in=false": {
+      "model": "firmages:block/lens_mount",
+      "y": 180
+    },
+    "facing=south,in=true": {
+      "model": "firmages:block/lens_mount_in",
+      "y": 180
+    },
+    "facing=west,in=false": {
+      "model": "firmages:block/lens_mount",
+      "y": 270
+    },
+    "facing=west,in=true": {
+      "model": "firmages:block/lens_mount_in",
+      "y": 270
+    }
+  }
+}

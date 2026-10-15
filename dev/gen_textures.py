@@ -6,7 +6,8 @@
     python dev/gen_textures.py --sheet-only
 
 Item textures go to kubejs/assets/firmages/textures/item/<path>.png (KubeJS 2101 builds the item/generated model
-itself when no model file exists, texture firmages:item/<path>). Block textures go to the mod,
+itself when no model file exists, texture firmages:item/<path>); the items firmages-core registers itself (the Lens
+Crown's, SPEC 27) go to the mod's textures/item/<path>.png. Block textures go to the mod,
 mod/firmages-core/src/main/resources/assets/firmages/textures/block/<name>.png, and the block models in
 models/block/*.json get their "textures" map rewritten from MODEL_TEXTURES below (the element geometry is untouched).
 
@@ -100,6 +101,16 @@ PAL = {
     "vein": ["#c3a86c", "#d9c48c", "#eadcb2", "#f3e8c8", "#faf3dc"],
     "lampglass": ["#3a3650", "#55506e", "#6e6888", "#8c86a4", "#a8a2bc"],
     "lampglow": ["#b8702a", "#e8a848", "#ffd070", "#ffe8a8", "#fff6d8"],
+    # Lens Crown (SPEC 27): meteoric iron frames, storm glass, and the seven celestial alloys
+    "meteoric": ["#15141c", "#2e2c3a", "#4a475c", "#6c6984", "#9592ae"],
+    "stormglass": ["#3a4a5c", "#5f7890", "#8aa6be", "#b8d0e2", "#e4f0f8"],
+    "starlit_iron": ["#26243a", "#4f4c6e", "#8582a8", "#b8b4dc", "#ece8ff"],
+    "cloudsteel": ["#3c4652", "#6e7c8c", "#a4b2c2", "#d2dce6", "#f6faff"],
+    "aurora_steel": ["#0c3a34", "#16705e", "#2cb08c", "#7ae8c0", "#d8fff0"],
+    "halo_steel": ["#4a3a14", "#8a6e2c", "#c8a85a", "#ecd894", "#fff8dc"],
+    "void_steel": ["#04040c", "#141428", "#2a2450", "#4a3c80", "#8070c0"],
+    "quasar_alloy": ["#3a0a34", "#741a68", "#b03aa0", "#e080d4", "#ffd0f8"],
+    "firmament_alloy": ["#5a4a30", "#a08ca0", "#d4c8e8", "#f0e8ff", "#ffffff"],
 }
 
 # Beam colour per ring (accent index) from the tier files; the fallback is the Doc 08 ladder.
@@ -2133,6 +2144,217 @@ def _():
     return img
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# The Lens Crown (SPEC 27): Star Anvil, Lens Mount, lens glass; mod items (lens blank, nine lenses, seven alloys)
+# ---------------------------------------------------------------------------------------------------------------------
+MOD_ITEMS = {}  # texture path under the mod's textures/item -> (label, builder, mcmeta or None)
+
+
+def mod_item(path, label, mcmeta=None):
+    def deco(fn):
+        MOD_ITEMS[path] = (label, fn, mcmeta)
+        return fn
+    return deco
+
+
+def disc(img, r0, r1, colour_at):
+    """Paint the pixels whose centre lies in r0 <= d < r1 around (7.5, 7.5); colour_at(x, y, d) -> RGBA or None."""
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            d = math.hypot(x - 7.5, y - 7.5)
+            if r0 <= d < r1:
+                c = colour_at(x, y, d)
+                if c is not None:
+                    px[x, y] = c
+    return img
+
+
+def lit(x, y):
+    """Light from the top-left: -1 (shadow) .. 1 (highlight)."""
+    return max(-1.0, min(1.0, ((7.5 - x) + (7.5 - y)) / 10.5))
+
+
+@block("star_anvil_side", "star anvil side")
+def _():
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded("anvil_side"), weights=(0, 3, 6, 2, 0), cluster=2)
+    overlay(img, [
+        "hhhhhhhhhhhhhhhh",
+        "llllllllllllllll",
+        "................",
+        "................",
+        "................",
+        "dddddddddddddddd",
+        "oooooooooooooooo",
+        "....o......o....",
+        "....o......o....",
+        "....o......o....",
+        "oooooooooooooooo",
+        "llllllllllllllll",
+        "................",
+        "................",
+        "dddddddddddddddd",
+        "oooooooooooooooo",
+    ], shade("meteoric"))
+    return img
+
+
+@block("star_anvil_base", "star anvil base")
+def _():
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded("anvil_base"), weights=(1, 4, 6, 2, 0), cluster=2)
+    bevel(img, "meteoric", light=3, dark=0)
+    return img
+
+
+STAR = [
+    "................",
+    "................",
+    "................",
+    "................",
+    ".......s........",
+    ".......s........",
+    "......sSs.......",
+    "....ssSSSss.....",
+    "......sSs.......",
+    ".......s........",
+    ".......s........",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+]
+
+
+def anvil_top(seed, star):
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded(seed), weights=(0, 2, 6, 3, 1), cluster=2)
+    bevel(img, "meteoric", light=4, dark=0)
+    if star:
+        overlay(img, STAR, star)
+    return img
+
+
+@block("star_anvil_top", "star anvil top")
+def _():
+    return anvil_top("anvil_top", legend(s=("meteoric", 1), S=("meteoric", 0)))
+
+
+@block("star_anvil_top_formed", "star anvil top, crown formed")
+def _():
+    return anvil_top("anvil_top", legend(s=("stormglass", 2), S=("stormglass", 3)))
+
+
+@block("star_anvil_top_active", "star anvil top, forging", anim(3, True))
+def _():
+    frames = []
+    for f in range(6):
+        k = 0.5 + 0.5 * math.sin(f / 6 * 2 * math.pi)
+        s = scale_rgb(tones("stormglass")[3], 1 + 0.4 * k)
+        S = scale_rgb(tones("stormglass")[4], 1 + 0.6 * k)
+        frames.append(anvil_top("anvil_top", {"s": s, "S": S}))
+    return strip(frames)
+
+
+@block("lens_mount_frame", "lens mount frame")
+def _():
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded("mount_frame"), weights=(0, 3, 6, 3, 0), cluster=1, grain=0.15)
+    bevel(img, "meteoric", light=4, dark=0)
+    return img
+
+
+def mount_top(glow):
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded("mount_top"), weights=(0, 3, 6, 2, 0), cluster=2)
+    bevel(img, "meteoric", light=3, dark=0)
+    groove = tones("stormglass")[4] if glow else tones("meteoric")[0]
+    px = img.load()
+    for i in range(3, 13):  # the slot the lens swings over
+        px[i, 7] = groove
+        px[i, 8] = groove if glow else tones("meteoric")[1]
+    return img
+
+
+@block("lens_mount_top", "lens mount top")
+def _():
+    return mount_top(False)
+
+
+@block("lens_mount_top_in", "lens mount top, lens in")
+def _():
+    return mount_top(True)
+
+
+def glass_tone(x, y, d, edge):
+    """Greyscale lens glass (tinted in game): bright top-left, darker soft edge, a three-pixel glint."""
+    v = 205 + int(40 * lit(x, y))
+    if d >= edge - 1:
+        v -= 35
+    if (x, y) in ((5, 4), (4, 5), (5, 5)):
+        v = 255
+    v = max(0, min(255, v))
+    return (v, v, v, 225)
+
+
+@block("lens_glass", "lens glass (greyscale, tinted)")
+def _():
+    return disc(new_tex(), 0, 8, lambda x, y, d: glass_tone(x, y, d, 8))
+
+
+LENS_RIM = {"stone": "stone", "bronze": "bronze", "iron": "steel", "arcane": "arcane", "industrial": "iron",
+            "electric": "alu", "information": "quartz", "space": "desh", "quantum": "draconium"}
+
+
+def rim(pal):
+    t = tones(pal)
+
+    def colour(x, y, d):
+        if d >= 6.6:
+            return t[0]
+        k = lit(x, y)
+        return t[4] if k > 0.5 else t[3] if k > 0 else t[2] if k > -0.5 else t[1]
+    return disc(new_tex(), 4.6, 7.3, colour)
+
+
+for _name, _pal in LENS_RIM.items():
+    MOD_ITEMS[f"lens/{_name}"] = (f"{_name} lens rim", (lambda p=_pal: rim(p)), None)
+
+
+@mod_item("lens_glass", "lens glass (greyscale, tinted)")
+def _():
+    return disc(new_tex(), 0, 4.6, lambda x, y, d: glass_tone(x, y, d, 4.6))
+
+
+@mod_item("lens_blank", "lens blank")
+def _():
+    t = tones("stormglass")
+
+    def colour(x, y, d):
+        if d >= 6.6:
+            return t[0]
+        k = lit(x, y)
+        c = t[4] if k > 0.6 else t[3] if k > 0.1 else t[2] if k > -0.5 else t[1]
+        return c[:3] + (235,)
+    return disc(new_tex(), 0, 7.3, colour)
+
+
+def alloy_ingot(pal, spark):
+    img = new_tex()
+    paint(img, INGOT, shade(pal), 0, 5)
+    px = img.load()
+    for x, y in spark:  # a glint of the sky in the metal
+        px[x, y] = (255, 255, 255, 255)
+    return img
+
+
+ALLOY_SPARK = [(5, 7), (6, 6), (10, 8)]
+for _alloy in ("starlit_iron", "cloudsteel", "aurora_steel", "halo_steel", "void_steel", "quasar_alloy", "firmament_alloy"):
+    MOD_ITEMS[f"{_alloy}_ingot"] = (_alloy.replace("_", " ") + " ingot", (lambda p=_alloy: alloy_ingot(p, ALLOY_SPARK)), None)
+
+
 # Block model texture maps (models/block/<file>.json -> "textures"). Geometry stays as it is.
 B = "firmages:block/"
 MODEL_TEXTURES = {
@@ -2153,6 +2375,16 @@ MODEL_TEXTURES = {
                                  "bottom": B + "reactor_controller_bottom"},
     "tally_chute": {"particle": B + "tally_chute_side", "side": B + "tally_chute_side", "top": B + "tally_chute_top",
                     "bottom": B + "tally_chute_bottom"},
+    "star_anvil": {"particle": B + "star_anvil_side", "side": B + "star_anvil_side", "base": B + "star_anvil_base",
+                   "top": B + "star_anvil_top"},
+    "star_anvil_formed": {"particle": B + "star_anvil_side", "side": B + "star_anvil_side", "base": B + "star_anvil_base",
+                          "top": B + "star_anvil_top_formed"},
+    "star_anvil_active": {"particle": B + "star_anvil_side", "side": B + "star_anvil_side", "base": B + "star_anvil_base",
+                          "top": B + "star_anvil_top_active"},
+    "lens_mount": {"particle": B + "lens_mount_frame", "frame": B + "lens_mount_frame", "top": B + "lens_mount_top",
+                   "glass": B + "lens_glass"},
+    "lens_mount_in": {"particle": B + "lens_mount_frame", "frame": B + "lens_mount_frame", "top": B + "lens_mount_top_in",
+                      "glass": B + "lens_glass"},
 }
 
 
@@ -2194,6 +2426,10 @@ def generate():
             out = MOD_TEX / "block" / (name + ".png")
             write_with_meta(builder(), out, mcmeta)
             written.append(out)
+    for path, (label, builder, mcmeta) in MOD_ITEMS.items():
+        out = MOD_TEX / "item" / (path + ".png")
+        write_with_meta(builder(), out, mcmeta)
+        written.append(out)
     for model, textures in MODEL_TEXTURES.items():
         p = MOD_ASSETS / "models" / "block" / (model + ".json")
         data = json.loads(p.read_text(encoding="utf-8"))
@@ -2225,6 +2461,8 @@ def sheet(scale=8, cols=5):
         entries.append((name, label, MOD_TEX / "block" / (name + ".png"), mcmeta))
     for name, (label, builder, mcmeta) in KJS_BLOCKS.items():
         entries.append((name, label, KJS_TEX / "block" / (name + ".png"), mcmeta))
+    for path, (label, builder, mcmeta) in MOD_ITEMS.items():
+        entries.append((path, label, MOD_TEX / "item" / (path + ".png"), mcmeta))
     font = ImageFont.load_default(size=11)
     title_font = ImageFont.load_default(size=14)
     cell = 16 * scale
@@ -2386,6 +2624,10 @@ def check():
         f = KJS_TEX / "block" / (name + ".png")
         if any(pt.match("firmages:block/" + name) for pt in patterns):
             referenced.add(f.resolve())
+        if not f.exists():
+            errors.append(f"{f.relative_to(ROOT)}: drawn by gen_textures.py but not written (run without --check)")
+    for path in MOD_ITEMS:
+        f = MOD_TEX / "item" / (path + ".png")
         if not f.exists():
             errors.append(f"{f.relative_to(ROOT)}: drawn by gen_textures.py but not written (run without --check)")
     for path in ITEMS:

@@ -1,0 +1,32 @@
+{
+  "values": [
+    {
+      "id": "tfc:gem/lapis_lazuli",
+      "required": false
+    },
+    {
+      "id": "tfc:gem/amethyst",
+      "required": false
+    },
+    {
+      "id": "tfc:gem/emerald",
+      "required": false
+    },
+    {
+      "id": "tfc:gem/ruby",
+      "required": false
+    },
+    {
+      "id": "tfc:gem/sapphire",
+      "required": false
+    },
+    {
+      "id": "tfc:gem/topaz",
+      "required": false
+    },
+    {
+      "id": "tfc:gem/opal",
+      "required": false
+    }
+  ]
+}

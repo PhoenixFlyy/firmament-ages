@@ -1,0 +1,176 @@
+{
+  "values": [
+    {
+      "id": "tfc:rock/chiseled/andesite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/basalt",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/chalk",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/chert",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/claystone",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/conglomerate",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/dacite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/diorite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/dolomite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/gabbro",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/gneiss",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/granite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/limestone",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/marble",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/phyllite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/quartzite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/rhyolite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/schist",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/shale",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/slate",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/chiseled/tuff",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/andesite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/basalt",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/chalk",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/chert",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/claystone",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/conglomerate",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/dacite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/diorite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/dolomite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/gabbro",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/gneiss",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/granite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/limestone",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/marble",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/phyllite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/quartzite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/rhyolite",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/schist",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/shale",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/slate",
+      "required": false
+    },
+    {
+      "id": "tfc:rock/smooth/tuff",
+      "required": false
+    },
+    {
+      "id": "#firmages_test:crown/pillars",
+      "required": false
+    }
+  ]
+}

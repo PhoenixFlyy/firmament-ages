@@ -6,7 +6,11 @@ without the game:
 
     mod/firmages-core/src/main/resources/assets/firmages/ponder/silo_hatch.nbt    scene "Silo Hatch" (ad_astra:launch_pad)
     mod/firmages-core/src/main/resources/assets/firmages/ponder/portcullis.nbt    scene "Portcullis" (create:rope_pulley)
+    mod/firmages-core/src/main/resources/assets/firmages/ponder/lens_crown.nbt    scene "The Lens Crown" (firmages:star_anvil)
+    mod/firmages-core/src/main/resources/assets/firmages/ponder/chords.nbt        scene "Chords" (firmages:lens_mount)
+    mod/firmages-core/src/main/resources/assets/firmages/ponder/chord_library.nbt scene "A Chord Library" (firmages:star_anvil)
     mod/firmages-core/src/gametest/resources/data/firmages/structure/silo_area.nbt  empty 11x11x11 template (GameTests)
+    mod/firmages-core/src/gametest/resources/data/firmages/structure/crown_area.nbt empty 13x6x13 template (CrownGameTests)
 
 The scene coordinates are repeated in compat/ponder/FirmagesScenes.java; move a block here and fix the selections
 there. Ponder looks from the north-west (yRotation 145: north and west faces are visible), so the silo's earth is cut
@@ -189,6 +193,75 @@ def portcullis():
     return p
 
 
+CROWN_STONE = "tfc:rock/smooth/granite"
+CROWN_PILLAR = "tfc:rock/chiseled/granite"
+CROWN_CAP = "firmages:storm_glass"
+
+
+def lens_nbt(name, swing=0, powered=False):
+    """Block-entity data of a lens mount holding lens/<name> (LensMountBlockEntity: lens, powered, swing)."""
+    return {"lens": {"id": "firmages:lens/" + name, "count": Int(1)}, "powered": powered, "swing": Int(swing)}
+
+
+def crown(p, ox, oy, oz, mounts=None):
+    """The 9 x 3 x 9 Lens Crown (multiblock firmages:lens_crown) with its bottom layer at (ox, oy, oz); anvil at
+    (ox+4, oy, oz+4). mounts: {(dx, dz): (facing, lens name or None, swing)} on sockets; other sockets hold rock."""
+    mounts = mounts or {}
+    for x in range(9):
+        for z in range(9):
+            if x in (0, 8) or z in (0, 8):
+                p.set(ox + x, oy, oz + z, CROWN_STONE)
+    p.set(ox + 4, oy, oz + 4, "firmages:star_anvil", {"formed": "true", "active": "false"})
+    for x, z in ((0, 0), (0, 8), (8, 0), (8, 8)):
+        p.set(ox + x, oy + 1, oz + z, CROWN_PILLAR)
+        p.set(ox + x, oy + 2, oz + z, CROWN_CAP)
+    sockets = [(x, z) for x in (2, 4, 6) for z in (0, 8)] + [(x, z) for x in (0, 8) for z in (2, 4, 6)]
+    for x, z in sockets:
+        if (x, z) in mounts:
+            facing, lens, swing = mounts[(x, z)]
+            props = {"facing": facing, "in": "true" if swing >= 10 else "false", "lens": str(LENSES.index(lens)) if lens else "9"}
+            p.set(ox + x, oy + 1, oz + z, "firmages:lens_mount", props, lens_nbt(lens, swing) if lens else None)
+        else:
+            p.set(ox + x, oy + 1, oz + z, CROWN_STONE)
+
+
+LENSES = ["stone", "bronze", "iron", "arcane", "industrial", "electric", "information", "space", "quantum"]
+
+
+def lens_crown():
+    """11 x 5 x 11: floor y0; crown bottom layer y1 at x/z 1..9, anvil (5,1,5); north sockets (3|5|7, 2, 1) hold the
+    Stone, Bronze and Iron Lens, the other nine sockets rock."""
+    p = Plan((11, 5, 11))
+    p.fill(0, 0, 0, 10, 0, 10, "minecraft:grass_block", {"snowy": "false"})
+    crown(p, 1, 1, 1, {(2, 0): ("south", "stone", 0), (4, 0): ("south", "bronze", 0), (6, 0): ("south", "iron", 0)})
+    return p
+
+
+def chords():
+    """11 x 5 x 11: the crown of lens_crown(); a lever on the outside (north, z0) of each of the three north mounts at
+    (3|5|7, 2, 0), and a roof slab row that the scene shows over the anvil at (4..6, 4, 4..6)."""
+    p = lens_crown()
+    for x in (3, 5, 7):
+        p.set(x, 2, 0, "minecraft:lever", {"face": "wall", "facing": "north", "powered": "false"})
+    p.fill(4, 4, 4, 6, 4, 6, "minecraft:oak_slab", {"type": "bottom", "waterlogged": "false"})
+    return p
+
+
+def chord_library():
+    """11 x 5 x 11: the crown of lens_crown() with mounts on all three north sockets; inside: a pattern provider west
+    of the anvil (4,1,5), a comparator east of it (6,1,5) facing east, redstone links on the mounts' outer side
+    (3|5|7, 2, 0) and a hopper under the anvil (5,0,5) into a chest (5,0,6)."""
+    p = lens_crown()
+    p.set(4, 1, 5, "ae2:pattern_provider")
+    p.set(6, 1, 5, "minecraft:comparator", {"facing": "west", "mode": "compare", "powered": "false"})
+    p.set(7, 1, 5, "create:redstone_link", {"facing": "up", "powered": "false", "receiver": "false"})
+    for x in (3, 5, 7):
+        p.set(x, 2, 0, "create:redstone_link", {"facing": "north", "powered": "false", "receiver": "true"})
+    p.set(5, 0, 5, "minecraft:hopper", {"enabled": "true", "facing": "south"})
+    p.set(5, 0, 6, "minecraft:chest", {"facing": "north", "type": "single", "waterlogged": "false"})
+    return p
+
+
 def empty(size):
     return Plan(size)
 
@@ -196,7 +269,11 @@ def empty(size):
 OUTPUTS = [
     (os.path.join(PONDER, "silo_hatch.nbt"), silo_hatch),
     (os.path.join(PONDER, "portcullis.nbt"), portcullis),
+    (os.path.join(PONDER, "lens_crown.nbt"), lens_crown),
+    (os.path.join(PONDER, "chords.nbt"), chords),
+    (os.path.join(PONDER, "chord_library.nbt"), chord_library),
     (os.path.join(GT_STRUCT, "silo_area.nbt"), lambda: empty((11, 11, 11))),
+    (os.path.join(GT_STRUCT, "crown_area.nbt"), lambda: empty((13, 6, 13))),
 ]
 
 

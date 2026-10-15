@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:meteoric_iron_ingot"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:storm_glass"
+    }
+  ],
+  "type": "firmages:starforge",
+  "chord": "firmages:dawn_triad",
+  "ingredients": [
+    {
+      "item": "firmages:meteoric_iron_ingot",
+      "count": 2
+    },
+    {
+      "item": "firmages:storm_glass"
+    },
+    {
+      "tag": "firmages:crown/arcane_gems"
+    }
+  ],
+  "time": 100,
+  "result": {
+    "id": "firmages:starlit_iron_ingot",
+    "count": 2
+  }
+}

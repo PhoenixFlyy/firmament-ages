@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:voidglass"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:deep_space_sample"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:aurora_light_bucket"
+    }
+  ],
+  "type": "firmages:starforge",
+  "chord": "firmages:quantum_triad",
+  "ingredients": [
+    {
+      "item": "firmages:voidglass"
+    },
+    {
+      "tag": "c:ingots/calorite"
+    },
+    {
+      "item": "firmages:deep_space_sample"
+    }
+  ],
+  "fluid": {
+    "fluid": "firmages:aurora_light",
+    "amount": 250
+  },
+  "time": 100,
+  "result": {
+    "id": "firmages:quasar_alloy_ingot",
+    "count": 2
+  }
+}

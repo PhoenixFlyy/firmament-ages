@@ -42,6 +42,7 @@ public final class FirmagesCore {
         ReactorRegistry.register(modEventBus);
         OriginRegistry.register(modEventBus);
         dev.firmages.core.proof.ProofRegistry.register(modEventBus); // Tally Chute, firmages:tally, firmages:silo_launch (SPEC §22)
+        dev.firmages.core.crown.CrownRegistry.register(modEventBus); // Lens Crown, firmages:starforge (SPEC §27)
 
         IEventBus bus = NeoForge.EVENT_BUS;
         bus.addListener(AgeService::onAddReloadListeners);
@@ -70,6 +71,7 @@ public final class FirmagesCore {
         OriginSpawns.register(bus);
         dev.firmages.core.proof.TallyService.register(bus);
         dev.firmages.core.proof.SiloLaunch.register(bus);
+        dev.firmages.core.crown.CrownService.register(bus);
         LOGGER.info("firmages-core loaded");
     }
 }

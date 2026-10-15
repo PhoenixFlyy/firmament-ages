@@ -39,6 +39,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation PLINTH = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "offering_plinth");
     static final ResourceLocation CONSECRATED = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "consecrated");
     static final ResourceLocation TALLY = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "tally_chute");
+    static final ResourceLocation ANVIL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "star_anvil");
+    static final ResourceLocation MOUNT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "lens_mount");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
@@ -46,6 +48,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Plinth.INSTANCE, OfferingPlinthBlock.class);
         registration.registerBlockComponent(Consecrated.INSTANCE, ConsecratedBlock.class);
         registration.registerBlockComponent(Tally.INSTANCE, TallyChuteBlock.class);
+        registration.registerBlockComponent(Crown.ANVIL, dev.firmages.core.crown.StarAnvilBlock.class);
+        registration.registerBlockComponent(Crown.MOUNT, dev.firmages.core.crown.LensMountBlock.class);
         // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
@@ -160,6 +164,30 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return TALLY;
+        }
+    }
+
+    /**
+     * The Lens Crown (SPEC §27.11): the anvil names the pending recipe's chord and what it does ("Forging Starlit Iron,
+     * 45 %") or why not ("The sky is hidden", "Swing in: Bronze Lens"); a mount names its lens and whether it is in.
+     * Everything comes from the synced block entities.
+     */
+    enum Crown implements IBlockComponentProvider {
+        ANVIL, MOUNT;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (this == ANVIL && accessor.getBlockEntity() instanceof dev.firmages.core.crown.StarAnvilBlockEntity be) {
+                if (!be.chord().isEmpty()) tooltip.add(dev.firmages.core.crown.CrownText.chordLine(be.chord()).withStyle(ChatFormatting.GOLD));
+                tooltip.add(dev.firmages.core.crown.CrownText.state(be).withStyle(be.reason().forging() ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+            } else if (this == MOUNT && accessor.getBlockEntity() instanceof dev.firmages.core.crown.LensMountBlockEntity be) {
+                tooltip.add(dev.firmages.core.crown.CrownText.mount(be));
+            }
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return this == ANVIL ? FirmagesJadePlugin.ANVIL : FirmagesJadePlugin.MOUNT;
         }
     }
 }

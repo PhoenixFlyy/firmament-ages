@@ -16,6 +16,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.DoubleValue PARTICLE_SCALE;
     public static final ModConfigSpec.BooleanValue AMBIENT_DRONE;
     public static final ModConfigSpec.BooleanValue IDLE_BEAM;
+    public static final ModConfigSpec.BooleanValue CROWN_BEAMS;
     public static final ModConfigSpec.BooleanValue AGE_MUSIC;
 
     public static final ModConfigSpec.EnumValue<HudFade.Mode> HUD_MODE;
@@ -59,6 +60,8 @@ public final class ClientConfig {
             .define("ambientDrone", true);
         IDLE_BEAM = b.comment("Show the shrine's thin idle beam (the server turns it on with shrine.permanentBeam).")
             .define("idleBeam", true);
+        CROWN_BEAMS = b.comment("The Lens Crown's beams from each lens in to the Star Anvil, and its column into the sky while it forges.")
+            .define("crownBeams", true);
         b.pop();
 
         b.comment("Music (SPEC 23)").push("music");

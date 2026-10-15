@@ -53,6 +53,12 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue SHRINE_BLESSINGS_EVERYWHERE;
     public static final ModConfigSpec.IntValue SHRINE_MAINTENANCE_SECONDS;
     public static final ModConfigSpec.IntValue SHRINE_CONSECRATION_TICKS;
+    // crown (SPEC §27.12)
+    public static final ModConfigSpec.BooleanValue CROWN_ENABLED;
+    public static final ModConfigSpec.BooleanValue CROWN_REQUIRE_OPEN_SKY;
+    public static final ModConfigSpec.DoubleValue CROWN_NIGHT_TIME_FACTOR;
+    public static final ModConfigSpec.IntValue CROWN_VALIDATE_TICKS;
+    public static final ModConfigSpec.IntValue CROWN_SWING_TICKS;
     // origin
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
@@ -158,6 +164,18 @@ public final class ServerConfig {
         SHRINE_BLESSINGS_EVERYWHERE = b.comment("true: attribute and XP blessings act everywhere (team-wide, SPEC 7.6); status effects stay near the shrine.")
             .define("everywhere", false);
         b.pop();
+        b.pop();
+
+        b.comment("The Lens Crown: the Star Anvil forges celestial alloys and lenses from a chord of lenses (SPEC 27)").push("crown");
+        CROWN_ENABLED = b.comment("false: the anvil never forges (the recipes stay).").define("enabled", true);
+        CROWN_REQUIRE_OPEN_SKY = b.comment("Forging needs the open sky above the anvil (rain does not matter; the Nether, the End and The Origin never count).")
+            .define("requireOpenSky", true);
+        CROWN_NIGHT_TIME_FACTOR = b.comment("Forge time factor under the night sky: 0.5 makes night twice as fast.")
+            .defineInRange("nightTimeFactor", 0.5, 0.1, 1.0);
+        CROWN_VALIDATE_TICKS = b.comment("A loaded crown re-validates this often (ticks), besides every block change inside it.")
+            .defineInRange("validateTicks", 100, 20, 1200);
+        CROWN_SWING_TICKS = b.comment("Ticks a lens takes to swing in or out; it counts only once it is fully in.")
+            .defineInRange("swingTicks", 10, 1, 100);
         b.pop();
 
         b.comment("The Origin and the Gathering at its altar (the end-boss trigger)").push("origin");
@@ -326,6 +344,26 @@ public final class ServerConfig {
     /** {@code origin.gatherIdleMinutes}: 0 = nobody is left out. */
     public static int gatherIdleMinutes() {
         return loaded() ? ORIGIN_GATHER_IDLE_MINUTES.get() : 5;
+    }
+
+    public static boolean crownEnabled() {
+        return !loaded() || CROWN_ENABLED.get();
+    }
+
+    public static boolean crownRequireOpenSky() {
+        return !loaded() || CROWN_REQUIRE_OPEN_SKY.get();
+    }
+
+    public static double crownNightTimeFactor() {
+        return loaded() ? CROWN_NIGHT_TIME_FACTOR.get() : 0.5;
+    }
+
+    public static int crownValidateTicks() {
+        return loaded() ? CROWN_VALIDATE_TICKS.get() : 100;
+    }
+
+    public static int crownSwingTicks() {
+        return loaded() ? CROWN_SWING_TICKS.get() : 10;
     }
 
     public static boolean allowSimulate() {

@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:starsteel_ingot"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:firmament_crystal"
+    },
+    {
+      "type": "neoforge:item_exists",
+      "item": "firmages:aurora_light_bucket"
+    }
+  ],
+  "type": "firmages:starforge",
+  "chord": "firmages:lattice_triad",
+  "ingredients": [
+    {
+      "item": "firmages:starsteel_ingot"
+    },
+    {
+      "tag": "c:ingots/blue_steel"
+    },
+    {
+      "item": "firmages:firmament_crystal"
+    }
+  ],
+  "fluid": {
+    "fluid": "firmages:aurora_light",
+    "amount": 100
+  },
+  "time": 100,
+  "result": {
+    "id": "firmages:halo_steel_ingot",
+    "count": 2
+  }
+}
