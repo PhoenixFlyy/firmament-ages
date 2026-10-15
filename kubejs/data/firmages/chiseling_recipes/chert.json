@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/chert",
+      "slab": "tfc:rock/bricks/chert_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/chert_stairs"
+    },
+    "tfc:rock/chiseled/chert",
+    "firmages:rock/engraved_bricks/chert",
+    "firmages:rock/pattern/chevron/chert",
+    "firmages:rock/pattern/ashlar/chert",
+    "firmages:rock/pattern/runes/chert",
+    "firmages:rock/pattern/mosaic/chert",
+    "firmages:rock/pattern/panel/chert",
+    "firmages:rock/pattern/column/chert"
+  ]
+}

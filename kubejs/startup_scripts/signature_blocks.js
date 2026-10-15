@@ -7,6 +7,14 @@
 // of the Age. The vanilla lantern is disabled in the pack; these replace it as the decorative light of each Age.
 // Engraved bricks: one per TFC rock, the TFC brick texture with a carved star, sun and moon (model tfc:block/ore =
 // texture plus overlay, like the pack's ore blocks). Made with the TFC chisel (smooth mode) from chiseled rock.
+// Rock patterns (research n7-build 3.4 option A): six more faces per TFC rock. Chevron, ashlar, runes and mosaic use the
+// same model (TFC smooth rock plus an overlay from dev/gen_textures.py ROCK_PATTERNS); panel and column are Fusion
+// connected textures (CONNECTED, gen_textures.py CONNECTED_PATTERNS): neighbouring panels share one frame, stacked
+// columns one shaft. POC: the KubeJS model with loader fusion:model connects in game. The TFC chisel in smooth mode
+// cycles a placed block: bricks ->
+// chiseled (TFC) -> engraved -> chevron -> ashlar -> runes -> mosaic -> panel -> column -> chiseled
+// (kubejs/data/firmages/recipe/chisel/). Rechiseled shows the same family in its chisel screen
+// (kubejs/data/firmages/chiseling_recipes/).
 
 global.FA_SIGNATURE_BLOCKS = {
   // lantern key -> Age, display name, the Age material of its recipe (one item or tag)
@@ -25,7 +33,18 @@ global.FA_SIGNATURE_BLOCKS = {
   // every TFC rock (TFC 4.2.11 has 21)
   ROCKS: ['andesite', 'basalt', 'chalk', 'chert', 'claystone', 'conglomerate', 'dacite', 'diorite', 'dolomite',
     'gabbro', 'gneiss', 'granite', 'limestone', 'marble', 'phyllite', 'quartzite', 'rhyolite', 'schist', 'shale',
-    'slate', 'tuff']
+    'slate', 'tuff'],
+  // rock pattern -> display name ("%" = the rock's name), in chisel cycle order
+  ROCK_PATTERNS: {
+    chevron: '% Chevron',
+    ashlar: '% Ashlar',
+    runes: 'Runed %',
+    mosaic: '% Mosaic',
+    panel: 'Paneled %',
+    column: 'Fluted %'
+  },
+  // connected rock patterns (Fusion model type fusion:connecting, layout in the texture's .mcmeta)
+  CONNECTED: ['panel', 'column']
 }
 
 StartupEvents.registry('block', (event) => {
@@ -62,5 +81,29 @@ StartupEvents.registry('block', (event) => {
       .tagBlock('minecraft:mineable/pickaxe')
       .parentModel('tfc:block/ore')
       .textures({ all: `tfc:block/rock/bricks/${rock}`, overlay: `firmages:block/rock/engraved/${rock}` })
+    Object.keys(B.ROCK_PATTERNS).forEach((pattern) => {
+      const b = event.create(`firmages:rock/pattern/${pattern}/${rock}`)
+        .displayName(B.ROCK_PATTERNS[pattern].replace('%', rockName))
+        .hardness(4.0)
+        .resistance(10)
+        .requiresTool(true)
+        .stoneSoundType()
+        .mapColor('stone')
+        .renderType('cutout_mipped')
+        .tagBlock('minecraft:mineable/pickaxe')
+      if (B.CONNECTED.indexOf(pattern) >= 0) {
+        b.renderType('solid').modelGenerator((m) => {
+          m.parent('minecraft:block/cube_all')
+          m.texture('all', `firmages:block/rock/pattern/${pattern}/${rock}`)
+          m.custom((json) => {
+            json.addProperty('loader', 'fusion:model')
+            json.addProperty('type', 'fusion:connecting')
+          })
+        })
+      } else {
+        b.parentModel('tfc:block/ore')
+          .textures({ all: `tfc:block/rock/smooth/${rock}`, overlay: `firmages:block/rock/pattern/${pattern}/${rock}` })
+      }
+    })
   })
 })

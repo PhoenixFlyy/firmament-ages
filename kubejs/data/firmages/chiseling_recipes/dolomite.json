@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/dolomite",
+      "slab": "tfc:rock/bricks/dolomite_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/dolomite_stairs"
+    },
+    "tfc:rock/chiseled/dolomite",
+    "firmages:rock/engraved_bricks/dolomite",
+    "firmages:rock/pattern/chevron/dolomite",
+    "firmages:rock/pattern/ashlar/dolomite",
+    "firmages:rock/pattern/runes/dolomite",
+    "firmages:rock/pattern/mosaic/dolomite",
+    "firmages:rock/pattern/panel/dolomite",
+    "firmages:rock/pattern/column/dolomite"
+  ]
+}

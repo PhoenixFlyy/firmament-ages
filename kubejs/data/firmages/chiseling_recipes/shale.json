@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/shale",
+      "slab": "tfc:rock/bricks/shale_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/shale_stairs"
+    },
+    "tfc:rock/chiseled/shale",
+    "firmages:rock/engraved_bricks/shale",
+    "firmages:rock/pattern/chevron/shale",
+    "firmages:rock/pattern/ashlar/shale",
+    "firmages:rock/pattern/runes/shale",
+    "firmages:rock/pattern/mosaic/shale",
+    "firmages:rock/pattern/panel/shale",
+    "firmages:rock/pattern/column/shale"
+  ]
+}

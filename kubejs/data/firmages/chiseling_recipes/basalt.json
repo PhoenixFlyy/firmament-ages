@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/basalt",
+      "slab": "tfc:rock/bricks/basalt_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/basalt_stairs"
+    },
+    "tfc:rock/chiseled/basalt",
+    "firmages:rock/engraved_bricks/basalt",
+    "firmages:rock/pattern/chevron/basalt",
+    "firmages:rock/pattern/ashlar/basalt",
+    "firmages:rock/pattern/runes/basalt",
+    "firmages:rock/pattern/mosaic/basalt",
+    "firmages:rock/pattern/panel/basalt",
+    "firmages:rock/pattern/column/basalt"
+  ]
+}

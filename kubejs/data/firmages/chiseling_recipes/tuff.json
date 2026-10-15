@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/tuff",
+      "slab": "tfc:rock/bricks/tuff_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/tuff_stairs"
+    },
+    "tfc:rock/chiseled/tuff",
+    "firmages:rock/engraved_bricks/tuff",
+    "firmages:rock/pattern/chevron/tuff",
+    "firmages:rock/pattern/ashlar/tuff",
+    "firmages:rock/pattern/runes/tuff",
+    "firmages:rock/pattern/mosaic/tuff",
+    "firmages:rock/pattern/panel/tuff",
+    "firmages:rock/pattern/column/tuff"
+  ]
+}

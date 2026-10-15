@@ -1097,6 +1097,201 @@ def engraved_overlay(rock):
 for _r in ROCK_TONES:
     KJS_BLOCKS[f"rock/engraved/{_r}"] = (f"engraved {_r}", (lambda r=_r: engraved_overlay(r)), None)
 
+# Rock patterns of the TFC chisel cycle (signature_blocks.js ROCK_PATTERNS, research n7-build 3.4 option A): one overlay
+# per pattern and rock on model tfc:block/ore over the TFC smooth rock texture (bevelled rim in rows/columns 0 and 15,
+# so the patterns stay inside 1..14). g = groove in the rock's dark tone (lit lower-right edge added like the engraved
+# bricks), d / l = a tile in the rock's dark / light tone, e = an explicit lit edge (a pattern with e gets no automatic
+# edge: chevron, whose diagonals would double). Panel and column connect across blocks (Fusion, below).
+ROCK_PATTERNS = {
+    "chevron": [
+        "................",
+        "..eg...ee...ge..",
+        "...eg......ge...",
+        "....eg....ge....",
+        ".g...eg..ge...g.",
+        ".eg...egge...ge.",
+        "..eg...ee...ge..",
+        "...eg......ge...",
+        "....eg....ge....",
+        ".g...eg..ge...g.",
+        ".eg...egge...ge.",
+        "..eg...ee...ge..",
+        "...eg......ge...",
+        "....eg....ge....",
+        ".g...eg..ge...g.",
+        "................",
+    ],
+    "ashlar": [
+        "................",
+        ".........g......",
+        ".........g......",
+        ".........g......",
+        ".........g......",
+        ".gggggggggggggg.",
+        "....g.......g...",
+        "....g.......g...",
+        "....g.......g...",
+        "....g.......g...",
+        ".gggggggggggggg.",
+        ".......g........",
+        ".......g........",
+        ".......g........",
+        ".......g........",
+        "................",
+    ],
+    "runes": [
+        "................",
+        "................",
+        "................",
+        "................",
+        ".gggggggggggggg.",
+        "................",
+        "..gg..g..g.g.g..",
+        "..g.g..gg...g...",
+        "..gg...gg...g...",
+        "..g...g..g..g...",
+        "................",
+        ".gggggggggggggg.",
+        "................",
+        "................",
+        "................",
+        "................",
+    ],
+    "mosaic": [
+        "................",
+        ".llllg....gllll.",
+        ".llllg....gllll.",
+        ".llllg....gllll.",
+        ".llllg....gllll.",
+        ".gggggggggggggg.",
+        ".....gddddg.....",
+        ".....gddddg.....",
+        ".....gddddg.....",
+        ".....gddddg.....",
+        ".gggggggggggggg.",
+        ".llllg....gllll.",
+        ".llllg....gllll.",
+        ".llllg....gllll.",
+        ".llllg....gllll.",
+        "................",
+    ],
+}
+
+
+def pattern_overlay(rock, pattern):
+    rows = ROCK_PATTERNS[pattern]
+    dark, mid, light = (rgb(c) for c in ROCK_TONES[rock])
+    lit = scale_rgb(light, 1.08)
+    fill = {"g": scale_rgb(dark, 0.72), "d": dark, "l": light, "e": lit}
+    img = new_tex()
+    px = img.load()
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch in fill:
+                px[x, y] = fill[ch]
+    if not any("e" in row for row in rows):
+        cut = {(x, y) for y, row in enumerate(rows) for x, ch in enumerate(row) if ch == "g"}
+        for x, y in cut:
+            for nx, ny in ((x + 1, y), (x, y + 1)):
+                if nx < 16 and ny < 16 and rows[ny][nx] == ".":
+                    px[nx, ny] = lit
+    return img
+
+
+for _p in ROCK_PATTERNS:
+    for _r in ROCK_TONES:
+        KJS_BLOCKS[f"rock/pattern/{_p}/{_r}"] = (f"{_p} {_r}", (lambda p=_p, r=_r: pattern_overlay(r, p)), None)
+
+
+# Connected rock patterns (Fusion, the library of Rechiseled; model fusion:connecting in signature_blocks.js). A
+# connected face cannot sit on the TFC smooth texture (its bevelled rim would cut every joint), so these are whole
+# textures: a stone surface of clustered noise in the rock's three tones (drawn, not copied), then the grooves.
+# Panel, layout "pieced" (5 tiles of 16, side by side): 0 alone, 1 joined on all sides, 2 joined above and below,
+# 3 joined left and right, 4 joined on all sides but not diagonally (inner corners). One frame runs around the whole
+# wall of panels. Column, layout "vertical" (4 tiles stacked): 0 alone, 1 top, 2 middle, 3 bottom: a fluted shaft
+# with a capital on top and a base below, however tall.
+def rock_fill(rock):
+    dark, mid, light = (rgb(c) for c in ROCK_TONES[rock])
+    mix = lambda a, b, f: tuple(round(a[i] + (b[i] - a[i]) * f) for i in range(3)) + (255,)  # noqa: E731
+    t = [mix(mid, dark, 0.6), mix(mid, dark, 0.3), mid, mix(mid, light, 0.35), mix(mid, light, 0.6)]
+    rng = random.Random("rock_fill_" + rock)
+    img = new_tex()
+    px = img.load()
+    cells = {}
+    for y in range(16):
+        for x in range(16):
+            key = (x // 2, y // 2)
+            if key not in cells:
+                cells[key] = rng.choices(range(5), weights=(1, 3, 8, 3, 1))[0]
+            idx = cells[key]
+            if rng.random() < 0.25:
+                idx = max(0, min(4, idx + rng.choice((-1, 1))))
+            px[x, y] = t[idx]
+    return img
+
+
+def carve(img, rows, rock):
+    """Cut the grooves of a 16-row grid (g) into a filled tile; lit lower-right edge as in pattern_overlay; d = dark."""
+    dark, mid, light = (rgb(c) for c in ROCK_TONES[rock])
+    px = img.load()
+    cut = {(x, y) for y, row in enumerate(rows) for x, ch in enumerate(row) if ch == "g"}
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch == "g":
+                px[x, y] = scale_rgb(dark, 0.72)
+            elif ch == "d":
+                px[x, y] = dark
+    for x, y in cut:
+        for nx, ny in ((x + 1, y), (x, y + 1)):
+            if nx < 16 and ny < 16 and rows[ny][nx] == ".":
+                px[nx, ny] = scale_rgb(light, 1.08)
+    return img
+
+
+def ct_grid(fn):
+    return ["".join(fn(x, y) for x in range(16)) for y in range(16)]
+
+
+PANEL_TILES = [
+    ct_grid(lambda x, y: "g" if (x in (1, 14) and 1 <= y <= 14) or (y in (1, 14) and 1 <= x <= 14) else "."),
+    ct_grid(lambda x, y: "."),
+    ct_grid(lambda x, y: "g" if x in (1, 14) else "."),
+    ct_grid(lambda x, y: "g" if y in (1, 14) else "."),
+    ct_grid(lambda x, y: "g" if (x in (1, 14) and y in (0, 1, 14, 15)) or (y in (1, 14) and x in (0, 1, 14, 15)) else "."),
+]
+FLUTES = (3, 6, 9, 12)
+
+
+def column_tile(top, bottom):
+    def cell(x, y):
+        if x in (0, 15):
+            return "d"
+        if top and y in (1, 3) or bottom and y in (12, 14):
+            return "g"
+        if x in FLUTES and (5 if top else 0) <= y <= (10 if bottom else 15):
+            return "g"
+        return "."
+    return ct_grid(cell)
+
+
+COLUMN_TILES = [column_tile(True, True), column_tile(True, False), column_tile(False, False), column_tile(False, True)]
+CONNECTED_PATTERNS = {"panel": ("pieced", PANEL_TILES), "column": ("vertical", COLUMN_TILES)}
+
+
+def connected_texture(rock, pattern):
+    layout, tiles = CONNECTED_PATTERNS[pattern]
+    wide = layout == "pieced"
+    out = Image.new("RGBA", (16 * len(tiles), 16) if wide else (16, 16 * len(tiles)), (0, 0, 0, 0))
+    for i, rows in enumerate(tiles):
+        out.paste(carve(rock_fill(rock), rows, rock), (16 * i, 0) if wide else (0, 16 * i))
+    return out
+
+
+for _p, (_layout, _tiles) in CONNECTED_PATTERNS.items():
+    for _r in ROCK_TONES:
+        KJS_BLOCKS[f"rock/pattern/{_p}/{_r}"] = (f"{_p} {_r} (connected)", (lambda p=_p, r=_r: connected_texture(r, p)),
+                                                  {"fusion": {"type": "connecting", "layout": _layout}})
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Block tiles. Each entry: name -> builder() returning a 16x16 (or 16 x 16*frames) RGBA image, plus optional mcmeta.
@@ -1861,7 +2056,7 @@ def sheet(scale=8, cols=5):
     label_h = 40
     cw, ch = max(cell + pad * 2, 184), cell + pad + label_h
     rows_n = (len(entries) + cols - 1) // cols
-    animated = [e for e in entries if e[3]]
+    animated = [e for e in entries if e[3] and "animation" in e[3]]
     fscale = 6
     fcell = 16 * fscale
     anim_h = 40 + len(animated) * (fcell + 30)
@@ -2030,9 +2225,16 @@ def check():
             continue
         for p in sorted(x for x in root.rglob("*.png") if blockitem(x, root)):
             img = Image.open(p)
+            meta = p.with_suffix(".png.mcmeta")
+            if meta.exists() and "fusion" in json.loads(meta.read_text(encoding="utf-8")):
+                # Fusion connected texture: tiles of 16 side by side (pieced) or stacked (vertical), no animation
+                if img.width % 16 or img.height % 16 or (img.width > 16 and img.height > 16):
+                    errors.append(f"{p.relative_to(ROOT)}: size {img.width}x{img.height}, want a row or column of 16 px tiles")
+                if p.resolve() not in referenced:
+                    warnings.append(f"{p.relative_to(ROOT)}: not referenced by any model or items.js")
+                continue
             if img.width != 16 or img.height % 16 != 0:
                 errors.append(f"{p.relative_to(ROOT)}: size {img.width}x{img.height}, want 16 x n*16")
-            meta = p.with_suffix(".png.mcmeta")
             if img.height > 16 and not meta.exists():
                 errors.append(f"{p.relative_to(ROOT)}: {img.height // 16} frames but no .mcmeta")
             if img.height == 16 and meta.exists():
@@ -2048,6 +2250,8 @@ def check():
             if b"\r\n" in raw:
                 errors.append(f"{m.relative_to(ROOT)}: CRLF line endings")
             data = json.loads(raw.decode("utf-8"))
+            if "fusion" in data:
+                continue
             if "animation" not in data or not isinstance(data["animation"].get("frametime", 1), int):
                 errors.append(f"{m.relative_to(ROOT)}: no animation.frametime")
     for p in sorted((MOD_ASSETS / "models").rglob("*.json")):

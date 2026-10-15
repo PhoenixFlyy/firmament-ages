@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/gneiss",
+      "slab": "tfc:rock/bricks/gneiss_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/gneiss_stairs"
+    },
+    "tfc:rock/chiseled/gneiss",
+    "firmages:rock/engraved_bricks/gneiss",
+    "firmages:rock/pattern/chevron/gneiss",
+    "firmages:rock/pattern/ashlar/gneiss",
+    "firmages:rock/pattern/runes/gneiss",
+    "firmages:rock/pattern/mosaic/gneiss",
+    "firmages:rock/pattern/panel/gneiss",
+    "firmages:rock/pattern/column/gneiss"
+  ]
+}
