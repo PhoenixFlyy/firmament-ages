@@ -386,6 +386,7 @@ block = "tfc:rock/loose/granite"
 "id:firmages:offering_plinth" = "age_0"
 "id:firmages:sky_disc" = "age_1"
 "id:firmages:tally_chute" = "age_1"                      # firmages-core proof of work (SPEC 22.1), crafted in the Bronze Age
+"id:firmages:wayshrine_stone" = "dawn"                   # firmages-core Wayshrines (SPEC-himmel 24.5): drops from a lit Wayshrine (age_1 on), decorative, Sky Anchor heart
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"
 "id:firmages:arcane_gearbox" = "age_4"                   # mechanical crafter (tech) or source gems (magic tail, Doc 08 7.2)

@@ -185,6 +185,7 @@ CODE_WORLD = [(["ad_astra:glacian_log", "ad_astra:glacian_leaves", "ad_astra:gla
 # Drops a mod adds in code (no loot table or modifier file): (items, Age; None = the item's mod Age).
 CODE_DROPS = [
     (["apotheosis:gem"], None),                         # gem drops from any mob (apotheosis:gem_entity_drops, code)
+    (["firmages:wayshrine_stone"], "dawn"),             # a lit Wayshrine drops it (firmages-core, SPEC-himmel 28.7); Dawn by 24.5
 ]
 # Pre-existing design gaps: items the walk cannot reach from any source although the design uses them. They stay at
 # their age_map Age (visible from that Age) instead of being hidden, and each is an open point in dev/poc-results.md.
