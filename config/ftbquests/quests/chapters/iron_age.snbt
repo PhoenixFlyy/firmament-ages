@@ -539,56 +539,45 @@
 		}
 		{
 			dependencies: ["05C4B3AE61613A9B"]
-			icon: {
-				id: "twilightforest:twilight_portal_miniature_structure"
-			}
-			id: "6A80066F26918539"
+			id: "6A2C745F47AF776B"
 			rewards: [
 				{
-					id: "10D19E156F22A4EF"
+					id: "1E201B8F02CD8F7E"
 					type: "xp"
 					xp: 50
 				}
 			]
 			tasks: [
 				{
-					dimension: "twilightforest:twilight_forest"
-					id: "1B884D192ABF9B17"
-					type: "dimension"
+					id: "039F47BA8E5EC833"
+					item: {
+						count: 1
+						id: "firmages:frontier_compass"
+					}
+					type: "item"
 				}
 			]
 			x: 2.5d
 			y: 3.75d
 		}
 		{
-			dependencies: ["6A80066F26918539"]
-			icon: {
-				id: "twilightforest:naga_trophy"
-			}
-			id: "1C3849490BE7F034"
+			dependencies: ["6A2C745F47AF776B"]
+			id: "4E069E7BCFBE1D68"
 			rewards: [
 				{
-					id: "0A611E1EC3877985"
+					id: "0A7C66B350294538"
 					type: "xp"
 					xp: 50
 				}
 			]
 			tasks: [
 				{
-					entity: "twilightforest:naga"
-					id: "58B7F1D68605A4F4"
-					optional_task: true
-					type: "kill"
-					value: 1L
-				}
-				{
 					consume_items: false
-					id: "4AF3A7318C7E5B6A"
+					id: "3B29D7584F9F2849"
 					item: {
 						count: 1
-						id: "twilightforest:naga_trophy"
+						id: "firmages:frontier_shard"
 					}
-					optional_task: true
 					type: "item"
 				}
 			]
@@ -596,42 +585,7 @@
 			y: 3.75d
 		}
 		{
-			dependencies: ["1C3849490BE7F034"]
-			icon: {
-				id: "twilightforest:lich_trophy"
-			}
-			id: "70CBE25D834EEF9F"
-			rewards: [
-				{
-					id: "1E0C7775BE15FA12"
-					type: "xp"
-					xp: 50
-				}
-			]
-			tasks: [
-				{
-					entity: "twilightforest:lich"
-					id: "37B8FB455DDA9BDA"
-					optional_task: true
-					type: "kill"
-					value: 1L
-				}
-				{
-					consume_items: false
-					id: "50FB3F18510792B8"
-					item: {
-						count: 1
-						id: "twilightforest:lich_trophy"
-					}
-					optional_task: true
-					type: "item"
-				}
-			]
-			x: 6.0d
-			y: 3.75d
-		}
-		{
-			dependencies: ["70CBE25D834EEF9F"]
+			dependencies: ["4E069E7BCFBE1D68"]
 			id: "6E4438CCF1A5BF3D"
 			rewards: [
 				{
@@ -655,12 +609,12 @@
 					id: "78A59DCDD377F593"
 					item: {
 						count: 1
-						id: "twilightforest:lich_trophy"
+						id: "firmages:frontier_relic"
 					}
 					type: "item"
 				}
 			]
-			x: 8.0d
+			x: 6.25d
 			y: 3.75d
 		}
 		{
@@ -762,40 +716,6 @@
 			y: -6.25d
 		}
 		{
-			dependencies: ["2444E19A6383B59C"]
-			icon: {
-				id: "mowziesmobs:wrought_helmet"
-			}
-			id: "5DB9500F2C943C21"
-			optional: true
-			rewards: [
-				{
-					id: "3AC9B0A27FE3D245"
-					type: "xp"
-					xp: 50
-				}
-				{
-					id: "1F82325BA11EB5DE"
-					table_id: 147794354376245541L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "mowziesmobs:ferrous_wroughtnaut"
-					id: "423E302AD5D6ABF3"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 6.5d
-			y: -6.25d
-		}
-		{
 			dependencies: ["05C4B3AE61613A9B"]
 			hide_dependency_lines: true
 			icon: {
@@ -831,25 +751,6 @@
 				}
 			]
 			x: 1.5d
-			y: 6.25d
-		}
-		{
-			dependencies: ["05C4B3AE61613A9B"]
-			hide_dependency_lines: true
-			icon: {
-				id: "firmages:frontier_sigil"
-			}
-			id: "6ECC3504EF73D5B0"
-			optional: true
-			shape: "gear"
-			tags: ["explain"]
-			tasks: [
-				{
-					id: "04FA4A55E736E68B"
-					type: "checkmark"
-				}
-			]
-			x: 3.0d
 			y: 6.25d
 		}
 		{

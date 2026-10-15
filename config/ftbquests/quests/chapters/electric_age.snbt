@@ -828,40 +828,6 @@
 			y: -6.25d
 		}
 		{
-			dependencies: ["72DBAB3B1C9E0AD4"]
-			icon: {
-				id: "mowziesmobs:sculptor_staff"
-			}
-			id: "545F7082DA91E6D0"
-			optional: true
-			rewards: [
-				{
-					id: "604D29BAF47EF611"
-					type: "xp"
-					xp: 100
-				}
-				{
-					id: "2FE51E308D9EB9A8"
-					table_id: 5096654483866401500L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "mowziesmobs:sculptor"
-					id: "6FFD2E5064FB9165"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 8.5d
-			y: -6.25d
-		}
-		{
 			dependencies: ["44B3F8C53C417220"]
 			hide_dependency_lines: true
 			icon: {

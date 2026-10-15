@@ -9,7 +9,7 @@
 			id: "3146138A727FD543"
 			item: {
 				count: 1
-				id: "twilightforest:charm_of_life_1"
+				id: "firmages:frontier_compass"
 			}
 		}
 		{
@@ -23,7 +23,7 @@
 			id: "17BCE7FF8C4A3451"
 			item: {
 				count: 1
-				id: "twilightforest:magic_map_focus"
+				id: "sophisticatedbackpacks:iron_backpack"
 			}
 		}
 	]

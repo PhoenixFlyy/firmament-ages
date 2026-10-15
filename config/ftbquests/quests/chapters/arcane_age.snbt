@@ -750,40 +750,6 @@
 			y: 0.0d
 		}
 		{
-			dependencies: ["4CA32185961FD920"]
-			icon: {
-				id: "mowziesmobs:sol_visage"
-			}
-			id: "1661C5530B8C2FE2"
-			optional: true
-			rewards: [
-				{
-					id: "601CCD595DFA874D"
-					type: "xp"
-					xp: 65
-				}
-				{
-					id: "763F37684ACA56F8"
-					table_id: 3505765590638410220L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "mowziesmobs:umvuthi"
-					id: "6455A11431BADECA"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 4.25d
-			y: -5.0d
-		}
-		{
 			dependencies: ["33BEA94E7673D21D"]
 			id: "4881717821F8F9DA"
 			optional: true

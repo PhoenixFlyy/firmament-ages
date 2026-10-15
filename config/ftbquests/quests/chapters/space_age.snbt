@@ -513,33 +513,22 @@
 		}
 		{
 			dependencies: ["10F7B6A8850E3BCE"]
-			icon: {
-				id: "cataclysm:witherite_block"
-			}
-			id: "16669304CEE25FCB"
+			id: "019EA9CBCB2A6326"
 			rewards: [
 				{
-					id: "5B21032E1423C0F8"
+					id: "7596747F7E89E854"
 					type: "xp"
 					xp: 140
 				}
 			]
 			tasks: [
 				{
-					entity: "cataclysm:the_harbinger"
-					id: "2C9E3E8F3B63A5C9"
-					optional_task: true
-					type: "kill"
-					value: 1L
-				}
-				{
 					consume_items: false
-					id: "44878218794ADC2E"
+					id: "1C191649D3873FF3"
 					item: {
 						count: 1
-						id: "cataclysm:witherite_block"
+						id: "firmages:flight_recorder"
 					}
-					optional_task: true
 					type: "item"
 				}
 			]
@@ -547,7 +536,7 @@
 			y: 1.25d
 		}
 		{
-			dependencies: ["16669304CEE25FCB"]
+			dependencies: ["019EA9CBCB2A6326"]
 			id: "10E81DCA65CCD6C7"
 			rewards: [
 				{
@@ -816,40 +805,6 @@
 			y: -6.25d
 		}
 		{
-			dependencies: ["73CDE4A02F764C5D"]
-			icon: {
-				id: "cataclysm:ancient_metal_ingot"
-			}
-			id: "355268AD22D21602"
-			optional: true
-			rewards: [
-				{
-					id: "60819E27192DEF1E"
-					type: "xp"
-					xp: 140
-				}
-				{
-					id: "5C9E06CCA2682BBF"
-					table_id: 3220200442226352662L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "cataclysm:ancient_remnant"
-					id: "0DB9B9E8CA9C57CF"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 6.5d
-			y: -6.25d
-		}
-		{
 			dependencies: ["15AD3FABD5A6F24F"]
 			id: "5AFB81560199F553"
 			optional: true
@@ -880,7 +835,7 @@
 					type: "item"
 				}
 			]
-			x: 8.5d
+			x: 6.5d
 			y: -6.25d
 		}
 		{

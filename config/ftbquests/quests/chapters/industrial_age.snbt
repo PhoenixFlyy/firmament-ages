@@ -249,33 +249,22 @@
 		}
 		{
 			dependencies: ["77217628E2664B69"]
-			icon: {
-				id: "cataclysm:monstrous_horn"
-			}
-			id: "00DEC03D1B329588"
+			id: "63D5F1A42BB79A53"
 			rewards: [
 				{
-					id: "0D113EDAB0237B52"
+					id: "5A0A2EC0CB824E44"
 					type: "xp"
 					xp: 80
 				}
 			]
 			tasks: [
 				{
-					entity: "cataclysm:netherite_monstrosity"
-					id: "20DEDE89AF1F525E"
-					optional_task: true
-					type: "kill"
-					value: 1L
-				}
-				{
 					consume_items: false
-					id: "3B5C852C83E11A9D"
+					id: "0C59572595365038"
 					item: {
 						count: 1
-						id: "cataclysm:monstrous_horn"
+						id: "createbigcannons:built_up_steel_cannon_chamber"
 					}
-					optional_task: true
 					type: "item"
 				}
 			]
@@ -283,7 +272,7 @@
 			y: -3.75d
 		}
 		{
-			dependencies: ["00DEC03D1B329588"]
+			dependencies: ["63D5F1A42BB79A53"]
 			id: "6A1C715211FCA0FB"
 			rewards: [
 				{
@@ -857,40 +846,6 @@
 			y: -6.25d
 		}
 		{
-			dependencies: ["6C6E95AB6ABD2B3E"]
-			icon: {
-				id: "mowziesmobs:ice_crystal"
-			}
-			id: "245F94A13DBFA3D1"
-			optional: true
-			rewards: [
-				{
-					id: "7ACC453905E6CADA"
-					type: "xp"
-					xp: 80
-				}
-				{
-					id: "111F243C84B532EE"
-					table_id: 6120114784080342898L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "mowziesmobs:frostmaw"
-					id: "71FB15358F385D94"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 6.5d
-			y: -6.25d
-		}
-		{
 			dependencies: ["1129C4816E846CCC"]
 			id: "7317EE63A824831B"
 			optional: true
@@ -920,7 +875,7 @@
 					type: "item"
 				}
 			]
-			x: 8.5d
+			x: 6.5d
 			y: -6.25d
 		}
 		{

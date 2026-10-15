@@ -510,33 +510,23 @@
 		}
 		{
 			dependencies: ["06EDA9E3C94958CB"]
-			icon: {
-				id: "cataclysm:abyssal_egg"
-			}
-			id: "70B4778AD5C5B83E"
+			id: "0DD300C809C84163"
 			rewards: [
 				{
-					id: "5D4A6D100FBAFEE9"
+					id: "3AEFAC432F50D293"
 					type: "xp"
 					xp: 160
 				}
 			]
 			tasks: [
 				{
-					entity: "cataclysm:the_leviathan"
-					id: "0C774C1086D1B5F3"
-					optional_task: true
-					type: "kill"
-					value: 1L
-				}
-				{
 					consume_items: false
-					id: "601FF3DD54AE5566"
+					count: 2L
+					id: "31244AE90EDDC4C3"
 					item: {
 						count: 1
-						id: "cataclysm:abyssal_egg"
+						id: "evolvedmekanism:alloy_subatomic"
 					}
-					optional_task: true
 					type: "item"
 				}
 			]
@@ -544,7 +534,7 @@
 			y: 1.25d
 		}
 		{
-			dependencies: ["70B4778AD5C5B83E"]
+			dependencies: ["0DD300C809C84163"]
 			id: "6B60917A5984A799"
 			rewards: [
 				{
@@ -773,40 +763,6 @@
 				}
 			]
 			x: 4.5d
-			y: -6.25d
-		}
-		{
-			dependencies: ["4FD3780AF1ECC795"]
-			icon: {
-				id: "minecraft:trident"
-			}
-			id: "68D0F147E4B64250"
-			optional: true
-			rewards: [
-				{
-					id: "43CE3168C3B0D58B"
-					type: "xp"
-					xp: 160
-				}
-				{
-					id: "504E3BCEB6071E4C"
-					table_id: 4581690186732968573L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					entity: "cataclysm:scylla"
-					id: "3CD2E795C13522AE"
-					type: "kill"
-					value: 1L
-				}
-			]
-			x: 6.5d
 			y: -6.25d
 		}
 		{

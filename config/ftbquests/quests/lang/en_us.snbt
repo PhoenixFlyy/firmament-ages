@@ -49,12 +49,6 @@
 		"Prospect for inferium in any rock, prosperity deep in igneous and metamorphic rock and soulstone in basalt. Then grow the seeds your Age allows."
 	]
 	quest.002A92F3E9C8D81F.title: "Resource Crops"
-	quest.00DEC03D1B329588.quest_desc: [
-		"Call the Netherite Monstrosity at the summoning altar. Its horn goes into the Pressure Core."
-		""
-		"The Forge Sigil opens the Forge Trial instead."
-	]
-	quest.00DEC03D1B329588.title: "Netherite Monstrosity"
 	quest.00DFEEA122BF8999.quest_desc: [
 		"The draconic reactor can explode. Watch temperature and field strength and keep the shields fed. Refuel it only while it is cold."
 	]
@@ -67,6 +61,10 @@
 		"Split water into hydrogen and oxygen. Hydrogen burns in the gas-burning generator."
 	]
 	quest.018A77CF29560891.title: "Electrolytic Separator"
+	quest.019EA9CBCB2A6326.quest_desc: [
+		"Something landed on Mars before you. Its temple keeps the record. The Star Chart needs it."
+	]
+	quest.019EA9CBCB2A6326.title: "The Mars Temple"
 	quest.01A60C077F4FEDFD.quest_desc: [
 		"A spirit attuned crystal and iesnium: the proof of the Spirits strand. Next, Dimensional Storage and the Mineshaft with a Djinni miner, which gives rich ore pieces of every metal your Age allows."
 	]
@@ -94,7 +92,7 @@
 	]
 	quest.03A410CC86110162.title: "Black Steel"
 	quest.0416219650D02993.quest_desc: [
-		"Summon the Wilden Chimera with its ritual and defeat it, or clear the Wild Trial."
+		"Bind horn, wing and spike of the Wilden with source in the enchanting apparatus. The Wilden Chimera drops a tribute too."
 	]
 	quest.0416219650D02993.title: "Wilden Chimera"
 	quest.046444D7885EFB7E.quest_desc: [
@@ -126,7 +124,7 @@
 	quest.055D1D227906CC81.quest_desc: ["The LV capacitor stores FE and evens out the grid."]
 	quest.055D1D227906CC81.title: "LV Capacitor"
 	quest.05C4B3AE61613A9B.quest_desc: [
-		"Iron veins are visible now, the map opens and the Twilight Forest can be reached."
+		"Iron veins are visible now and the map opens."
 		""
 		"Four strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival and Frontier."
 	]
@@ -240,12 +238,14 @@
 		"The chaotic chestpiece has a direct recipe. Wear it into the final battle."
 	]
 	quest.0D99128B070FE166.title: "Chaotic Armor"
-	quest.0E48C0E43D256E7D.quest_desc: [
-		"Summon the Wither and defeat it. The Humming Core needs its Nether Star."
-		""
-		"The Wither Sigil opens the Wither Trial instead."
+	quest.0DD300C809C84163.quest_desc: [
+		"Fuse hypercharged alloy with antimatter into two subatomic alloys. The Quantum Core and the Marid ritual each want one."
 	]
-	quest.0E48C0E43D256E7D.title: "The Wither"
+	quest.0DD300C809C84163.title: "Subatomic Alloy"
+	quest.0E48C0E43D256E7D.quest_desc: [
+		"Fuse a Nether Star in the arc furnace. The Humming Core needs it; the Wither drops one too."
+	]
+	quest.0E48C0E43D256E7D.title: "Nether Star"
 	quest.0F1AE784BF392A25.quest_desc: [
 		"Ore triples, the ME network stores and crafts, and the End can be reached. Veins of certus quartz, inferium, prosperity and soulstone wake."
 		""
@@ -320,8 +320,6 @@
 		"Right-click two thatch blocks side by side with a large raw hide: a thatch bed. It sets your spawn but does not skip the night. Beds that do come with the Iron Age."
 	]
 	quest.153E204EC2BA3ACA.title: "Shelter"
-	quest.155AA2A2258BDD49.quest_desc: ["Test yourself against Ignis before the final battle."]
-	quest.155AA2A2258BDD49.title: "Ignis"
 	quest.15673B5A9807871D.quest_desc: [
 		"The excavator digs the mineral mix under a chunk. A core sample shows which one lies there."
 	]
@@ -346,16 +344,6 @@
 		"Land on Glacio, the frozen world. Ice shards are mined there."
 	]
 	quest.1628C003B7759E11.title: "Glacio"
-	quest.1661C5530B8C2FE2.quest_desc: [
-		"The Umvuthana chief rules a grove in hot biomes. Defeat Umvuthi for the Sol Visage."
-	]
-	quest.1661C5530B8C2FE2.title: "Umvuthi"
-	quest.16669304CEE25FCB.quest_desc: [
-		"Defeat the Harbinger. Its witherite block goes into the Star Chart."
-		""
-		"The Space Sigil's trial ends with a Wither: open it far from home."
-	]
-	quest.16669304CEE25FCB.title: "The Harbinger"
 	quest.166C4569CC75A30A.quest_desc: [
 		"Build a drying mat, the first piece of a real kitchen. Ovens, cheese and dried food follow."
 	]
@@ -383,8 +371,6 @@
 		"Put hot metal in the anvil and hold a hammer. Pick the plan from the scroll. Strike until the green marker meets the red one; your last three strikes must match the rules shown on top."
 	]
 	quest.1A7B308A025FA2CD.title: "Anvil Work"
-	quest.1AFE479E5402BCCB.quest_desc: ["Grottols hide in caves and flee. Catch one if you can."]
-	quest.1AFE479E5402BCCB.title: "Grottol Hunt"
 	quest.1B12D746242380A4.quest_desc: ["Aluminium comes only from the arc furnace."]
 	quest.1B12D746242380A4.title: "Aluminium"
 	quest.1BAB0B9CCD6A8CB3.quest_desc: ["The infuser makes the alloys and the control circuits."]
@@ -405,10 +391,6 @@
 		"Work weak red steel on the anvil, then into a sheet. Red steel is the metal of the Electric Age."
 	]
 	quest.1BF2818DC437F21D.title: "Red Steel"
-	quest.1C3849490BE7F034.quest_desc: [
-		"Defeat the Naga in its courtyard, or bring its trophy from the Frontier Trial."
-	]
-	quest.1C3849490BE7F034.title: "The Naga"
 	quest.1C7F62ECF8FA8027.quest_desc: [
 		"Furniture opens: chairs, tables, shelves, doors and windows in every wood. The recipe viewer shows how each is made."
 	]
@@ -468,9 +450,9 @@
 	]
 	quest.1FC065AF7A77E6DD.title: "Sal Ammoniac"
 	quest.1FD61E2A23294166.quest_desc: [
-		"Keep eight chaos shards from the guardian's crystals. Two go into the Ultimate Singularity, one into the Coordinates of The Origin."
+		"Keep eight large chaos fragments from the reactor. Two go into the Ultimate Singularity, one into the Coordinates of The Origin."
 	]
-	quest.1FD61E2A23294166.title: "Chaos Shards"
+	quest.1FD61E2A23294166.title: "Chaos Fragments"
 	quest.203071592A4D660A.quest_desc: [
 		"Four straw make one block of thatch. It is the only building block of Dawn."
 	]
@@ -508,9 +490,7 @@
 	]
 	quest.21B580750CD1579A.title: "Bind an Afrit"
 	quest.21C2AA41F93E700F.quest_desc: [
-		"The Ender Dragon now drops its heart."
-		""
-		"The End Sigil opens the End Trial instead; in this Age it pays a Dragon Heart too."
+		"Fuse a dragon heart at wyvern level from a draconium block and core, pellets and ostrum. The Ender Dragon drops one too."
 	]
 	quest.21C2AA41F93E700F.title: "Dragon Heart"
 	quest.222144A9AFE56147.quest_desc: ["The pressurized reaction chamber makes HDPE from ethene."]
@@ -538,10 +518,6 @@
 	quest.23C92958F20BE038.title: "Water Wheel"
 	quest.2444E19A6383B59C.quest_desc: ["Hammer the bloom on an anvil until it becomes wrought iron."]
 	quest.2444E19A6383B59C.title: "Wrought Iron"
-	quest.245F94A13DBFA3D1.quest_desc: [
-		"A giant sleeps in the cold lands. Wake it and take its ice crystal."
-	]
-	quest.245F94A13DBFA3D1.title: "Frostmaw"
 	quest.24B73E0B6F871DEE.quest_desc: ["Spawn fluid turns into mobs, only those your Age allows."]
 	quest.24B73E0B6F871DEE.title: "Mechanical Spawner"
 	quest.24E7968E14C34C9C.quest_desc: ["Cut tall grass with a stone knife to get straw."]
@@ -567,7 +543,7 @@
 	]
 	quest.289281EB5946B550.title: "Andesite Alloy"
 	quest.28A963AA218A4EE4.quest_desc: [
-		"Craft the Steel Heart from the Lich trophy, a precision mechanism, a steel sheet and wrought iron double sheets."
+		"Craft the Steel Heart from the Frontier Relic, a precision mechanism, a steel sheet and wrought iron double sheets."
 		""
 		"Raise the Iron Sanctum: four smooth rock pillars with wrought iron bars and four wrought iron lamps. Lay the Heart on the new plinth, light the lamps and pray."
 		""
@@ -699,8 +675,6 @@
 		"Datura seeds now drop from grass. Plant them on Arcane Soil, dirt charged with amethyst; plain farmland will not hold them."
 	]
 	quest.354A9C13E074B572.title: "Datura"
-	quest.355268AD22D21602.quest_desc: ["A desert tomb hides the Ancient Remnant."]
-	quest.355268AD22D21602.title: "Ancient Remnant"
 	quest.35ADF495118E2323.quest_desc: ["Split a zinc ingot into nine nuggets in the crafting grid."]
 	quest.35ADF495118E2323.title: "Zinc Nuggets"
 	quest.35AFC9346F30C43A.quest_desc: [
@@ -804,7 +778,7 @@
 	]
 	quest.40FA4C9F6A00F51F.title: "Backfill Line"
 	quest.41B3251BB5EB3A3A.quest_desc: [
-		"Bottle four breaths of the dragon. The Data Matrix needs one."
+		"Bottle four breaths of the dragon. Brewers and enchanters want them."
 	]
 	quest.41B3251BB5EB3A3A.title: "Dragon's Breath"
 	quest.41B46B0D9C0E8AB4.quest_desc: [
@@ -848,7 +822,7 @@
 	quest.44B3F8C53C417220.quest_subtitle: "The sixth Age"
 	quest.44B3F8C53C417220.title: "The Electric Age Dawns"
 	quest.44FB988268E119B4.quest_desc: [
-		"Fuse the Star Chart at wyvern level: a polonium pellet in the middle, two desh plates, two ostrum plates, a wyvern core and the Harbinger's witherite block."
+		"Fuse the Star Chart at wyvern level: a polonium pellet in the middle, two desh plates, two ostrum plates, a wyvern core and the flight recorder from Mars."
 		""
 		"Raise the Star Spire; the heart shows what is missing. Lay the Chart on the new plinth and pray at night, under an open sky, without rain."
 		""
@@ -877,7 +851,7 @@
 	]
 	quest.4637931365FDF60B.title: "Refined Naquadah"
 	quest.470272BFC8013E57.quest_desc: [
-		"The Wilden Chimera drops the Wilden Tribute. The Arcane Keystone needs it."
+		"Keep a Wilden Tribute. The Djinni ritual of the Arcane Keystone needs it."
 	]
 	quest.470272BFC8013E57.title: "Wilden Tribute"
 	quest.484BD83C5FBABCE1.quest_desc: [
@@ -890,7 +864,7 @@
 	]
 	quest.484BD83C5FBABCE1.title: "A Home"
 	quest.485FE6EFB6565F6E.quest_desc: [
-		"Take the Arcane Keystone from its plinth (sneak and right-click the plinth with an empty hand), or bind a second one with the Djinni. Awaken it in the Marid ritual with two atomic alloys, a wyvern core and the Leviathan's abyssal egg."
+		"Take the Arcane Keystone from its plinth (sneak and right-click the plinth with an empty hand), or bind a second one with the Djinni. Awaken it in the Marid ritual with two atomic alloys, a wyvern core and a subatomic alloy."
 		""
 		"Lay the Awakened Keystone back on its plinth. It stays the relic of the Arcane Age and goes into the Ultimate Singularity."
 	]
@@ -903,10 +877,6 @@
 		"Catch a blaze in the Nether with an empty blaze burner. Superheated mixing follows."
 	]
 	quest.4881717821F8F9DA.title: "Blaze Burner"
-	quest.4901966F799B2493.quest_desc: [
-		"Lanterns float over swamps at night. Look, then decide whether to hunt them."
-	]
-	quest.4901966F799B2493.title: "Lights in the Swamp"
 	quest.4914DB06E3F96086.quest_desc: [
 		"Bind a Djinni into a book of binding. A Djinni runs crafting rituals and the Mineshaft."
 	]
@@ -960,7 +930,7 @@
 	]
 	quest.4CB0E2CEF90AD9CE.title: "Ice Shards"
 	quest.4CB43131B416FB17.quest_desc: [
-		"Keep a store of 32 calorite plates. Two go into the Quantum Core; engines, tanks and the Abyss Sigil take the rest."
+		"Keep a store of 32 calorite plates. Two go into the Quantum Core; engines and tanks take the rest."
 	]
 	quest.4CB43131B416FB17.title: "Calorite Plates"
 	quest.4CBDFA0CE2A9C85C.quest_desc: [
@@ -983,6 +953,10 @@
 		"Build the 3x3x3 coke oven from coke bricks and form it with the Engineer's Hammer. It cokes bituminous coal and lignite and gives creosote."
 	]
 	quest.4D59CA22796434A3.title: "Coke Oven"
+	quest.4E069E7BCFBE1D68.quest_desc: [
+		"An older smith worked these hills. Find the cold forge and bring back what its chest kept."
+	]
+	quest.4E069E7BCFBE1D68.title: "The Cold Forge"
 	quest.4E8C8CCFFBD993C1.quest_desc: [
 		"A blaze enchanter enchants with liquid experience. No more enchanting table luck."
 	]
@@ -994,7 +968,7 @@
 	quest.4EC4BBA27265C3E1.quest_desc: ["Hypertubes shoot players across the base."]
 	quest.4EC4BBA27265C3E1.title: "Hypertubes"
 	quest.4F513B23D9320098.quest_desc: [
-		"Forge the Ultimate Singularity from the nine relics, chaos shards, the singular alloy and the chaotic core in a chaotic fusion."
+		"Forge the Ultimate Singularity from the nine relics, chaos fragments, the singular alloy and the chaotic core in a chaotic fusion."
 	]
 	quest.4F513B23D9320098.title: "The Ultimate Singularity"
 	quest.4F85BB08A2142E6A.quest_desc: [
@@ -1051,9 +1025,7 @@
 	]
 	quest.5298B856BFEE50A2.quest_subtitle: "Goal of the Stone Age: Caelum opens the Bronze Age"
 	quest.5298B856BFEE50A2.title: "Offer the Hearthstone at the Shrine"
-	quest.532C13282586CA95.quest_desc: [
-		"Destroy the crystals, then the dragon, or clear the End Trial."
-	]
+	quest.532C13282586CA95.quest_desc: ["Destroy the crystals, then the dragon."]
 	quest.532C13282586CA95.title: "The Ender Dragon"
 	quest.53348C90243DE4F0.quest_desc: [
 		"Everybody on this server is one fellowship. The Ages are shared by all of you. Split the strands between you: one friend smiths, one prospects, one builds."
@@ -1065,10 +1037,6 @@
 		"Purification gives three times the metal from every ore piece."
 	]
 	quest.533C7CC2EEA570E4.title: "Purification Chamber"
-	quest.545F7082DA91E6D0.quest_desc: [
-		"A sculptor waits on a mountain top. Pass the climb to earn the geomancer gear."
-	]
-	quest.545F7082DA91E6D0.title: "The Sculptor"
 	quest.55A04983F152F598.quest_desc: [
 		"The arc furnace takes over alloying from the alloy kiln. Old stations stay in the world, but their recipes move to the new one."
 	]
@@ -1091,13 +1059,9 @@
 	quest.57663DC8E013A906.quest_desc: ["The archmage spellbook needs an advanced control circuit."]
 	quest.57663DC8E013A906.title: "Archmage"
 	quest.57F5B8C4363E589D.quest_desc: [
-		"The Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards."
-		""
-		"The Chaos Sigil opens the Chaos Trial instead."
+		"The Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards. The reactor makes chaos without it."
 	]
 	quest.57F5B8C4363E589D.title: "Chaos Guardian"
-	quest.5A0D6C8DEDA78181.quest_desc: ["A guardian of the End waits in its ruins."]
-	quest.5A0D6C8DEDA78181.title: "Ender Guardian"
 	quest.5ACC660E88F7FC61.quest_desc: [
 		"Make a steel casing. Every machine of the Factory strand is built on one."
 	]
@@ -1131,8 +1095,6 @@
 		"Lay sixteen tracks. Trains bring ore home from distant mines."
 	]
 	quest.5D31E5FF6DE9E042.title: "Trains"
-	quest.5DB9500F2C943C21.quest_desc: ["A metal giant waits in a deep chamber. Strike its back."]
-	quest.5DB9500F2C943C21.title: "Ferrous Wroughtnaut"
 	quest.5EE630041C685EFA.quest_desc: [
 		"The assembler autocrafts grid recipes: the autocrafting of this Age."
 	]
@@ -1183,8 +1145,12 @@
 		"Fell a tree with your stone axe. With axe, knife, hammer and shovel you have a full stone kit."
 	]
 	quest.63A45BCAE3254E00.title: "Stone Kit"
+	quest.63D5F1A42BB79A53.quest_desc: [
+		"Cast steel layers, bore them, build them up and heat them into one chamber. It goes into the Pressure Core."
+	]
+	quest.63D5F1A42BB79A53.title: "Built-Up Chamber"
 	quest.64CDFFD93C9CBDCE.quest_desc: [
-		"Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a bottle of dragon's breath."
+		"Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a singularity from the matter condenser."
 		""
 		"Raise the Data Nave; the heart shows what is missing. Lay the Matrix on the new plinth and pray: together, if two of you are online."
 		""
@@ -1255,7 +1221,7 @@
 	]
 	quest.6708655329216D20.title: "Hohlraum"
 	quest.67314514BDCA1DB3.quest_desc: [
-		"Fuse the Quantum Core at draconic level around the awakened core: two antimatter pellets, two calorite plates, two ice shards and the Leviathan's abyssal egg."
+		"Fuse the Quantum Core at draconic level around the awakened core: two antimatter pellets, two calorite plates, two ice shards and a subatomic alloy."
 		""
 		"Raise the Quantum Ring and lay the Awakened Keystone back on its plinth. Lay the Core on the new plinth and pray at night under an open sky: together, if two of you are online."
 		""
@@ -1268,7 +1234,7 @@
 	]
 	quest.67CA15BF14B359A8.title: "Fusion Crafting"
 	quest.68A4B5AC4EBE2085.quest_desc: [
-		"Craft the Pressure Core from two black steel double sheets, a heavy engineering block, the Arcane Gearbox and the Monstrosity's horn."
+		"Craft the Pressure Core from two black steel double sheets, a heavy engineering block, the Arcane Gearbox and a built-up steel chamber."
 		""
 		"Raise the Foundry Nave; the heart shows what is missing. Lay the Core on the new plinth, power the four electric lanterns and pray."
 		""
@@ -1276,8 +1242,6 @@
 	]
 	quest.68A4B5AC4EBE2085.quest_subtitle: "Goal of the Industrial Age: Caelum opens the Electric Age"
 	quest.68A4B5AC4EBE2085.title: "Offer the Pressure Core at the Shrine"
-	quest.68D0F147E4B64250.quest_desc: ["Scylla rules a storm-wracked sea. A hard optional fight."]
-	quest.68D0F147E4B64250.title: "Scylla"
 	quest.692BE6A196CEF07F.quest_desc: ["Land on the Moon. Desh lies in its rock."]
 	quest.692BE6A196CEF07F.title: "The Moon"
 	quest.69CB2309855D14E1.quest_desc: [
@@ -1350,10 +1314,10 @@
 		"X X X X X"
 	]
 	quest.6A272A1F4193488A.title: "Clay Patterns"
-	quest.6A80066F26918539.quest_desc: [
-		"Ring a 2x2 pool of water with flowers on grass and throw in nether quartz. Sandpaper turns unpolished quartz into it."
+	quest.6A2C745F47AF776B.quest_desc: [
+		"Set magnetite in wrought iron and right-click with the compass. It names the way to the nearest cold forge."
 	]
-	quest.6A80066F26918539.title: "Into the Twilight"
+	quest.6A2C745F47AF776B.title: "Frontier Compass"
 	quest.6ABCB02049FE872B.quest_desc: ["Knap and fire a crucible. It mixes metals into alloys."]
 	quest.6ABCB02049FE872B.title: "The Crucible"
 	quest.6B502DAD3EAE52D5.quest_desc: [
@@ -1390,14 +1354,10 @@
 		"Soak a hide in limewater, scrape it, then soak it in tannin."
 	]
 	quest.6DE17D691978916D.title: "Genuine Leather"
-	quest.6E4438CCF1A5BF3D.quest_desc: ["Bring home the Lich's trophy. The Steel Heart needs it."]
-	quest.6E4438CCF1A5BF3D.title: "Lich Trophy"
-	quest.6ECC3504EF73D5B0.quest_desc: [
-		"Every boss an Age needs has a sigil. On open ground it opens a trial of waves in the boss's place; the last wave pays the drop."
-		""
-		"Use one when the boss cannot be found or fought. Trials repeat."
+	quest.6E4438CCF1A5BF3D.quest_desc: [
+		"Finish the shard on the deployer and the press. The Steel Heart needs the relic."
 	]
-	quest.6ECC3504EF73D5B0.title: "When a Boss Will Not Come"
+	quest.6E4438CCF1A5BF3D.title: "Frontier Relic"
 	quest.6F0E9B4D0BD4227A.quest_desc: [
 		"Build a crusher and feed it ore pieces. It returns twice the metal as powder and dust, plus a by-product."
 	]
@@ -1406,16 +1366,6 @@
 		"Mine 16 raw desh on the Moon. It is the metal of the next rocket."
 	]
 	quest.6F9493CFB1887C79.title: "Desh"
-	quest.70B4778AD5C5B83E.quest_desc: [
-		"Defeat the Leviathan in the deep. Its abyssal egg goes into the Quantum Core."
-		""
-		"The Abyss Sigil opens the Abyss Trial instead."
-	]
-	quest.70B4778AD5C5B83E.title: "The Leviathan"
-	quest.70CBE25D834EEF9F.quest_desc: [
-		"Climb the Lich tower and defeat the Lich, or bring its trophy from the Frontier Trial."
-	]
-	quest.70CBE25D834EEF9F.title: "The Lich"
 	quest.71013FE9F62EC68E.quest_desc: [
 		"Craft four chaotic injectors. Chaotic fusion, the highest tier, needs them."
 	]
@@ -1465,7 +1415,7 @@
 	quest.7317EE63A824831B.quest_desc: ["Craft a jetpack. It flies on compressed air from its tank."]
 	quest.7317EE63A824831B.title: "Air Jetpack"
 	quest.73CDE4A02F764C5D.quest_desc: [
-		"Smelt 16 draconium ingots from End ore. Every fusion part is made of it."
+		"Make 16 draconium ingots. The ore lies deep in granite, diorite and gabbro. Every fusion part is made of it."
 	]
 	quest.73CDE4A02F764C5D.title: "Draconium"
 	quest.73D3949D8DE47C1A.quest_desc: [
@@ -1687,7 +1637,6 @@
 	task.58632406487259A5.title: "Reach the Industrial Age"
 	task.5864029FAFC0F42D.title: "Space suit"
 	task.5BAE8972952CF5F9.title: "Supercharged coils"
-	task.5CAA3ACF5298FED3.title: "Look at a Lantern"
 	task.5DE22F71BE32AF59.title: "Reach the Singularity Age"
 	task.5EBCDBD25D48AA10.title: "Light a firepit"
 	task.5EE1D4B01D9C11FE.title: "Offer the Pressure Core at the shrine"
