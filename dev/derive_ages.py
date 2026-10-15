@@ -290,7 +290,7 @@ def scan(mods_dir, vanilla_jar):
     glm = []             # {"id", "items", "tables"}
     biome_tags = collections.defaultdict(set)
     biomes = {}          # biome -> {"features", "spawns"}
-    modifiers = []       # {"kind", "biomes", "values"}
+    modifiers = {}       # biome modifier id -> {"kind", "biomes", "values"}
     features = {}        # feature id -> strings
     noise = {}           # noise settings id -> strings
     structures = {}      # structure -> {"biomes", "pool", "spawns"}
@@ -339,17 +339,20 @@ def scan(mods_dir, vanilla_jar):
                     spawns = {e.get("type") for lst in (d.get("spawners") or {}).values() for e in lst if isinstance(e, dict)}
                     biomes[f"{ns}:{rest[len('worldgen/biome/'):-5]}"] = {"features": sorted(feats), "spawns": sorted(spawns - {None})}
             elif rest.startswith("neoforge/biome_modifier/") and n.endswith(".json"):
+                # keyed by resource id: a later copy (kubejs/data, e.g. "neoforge:none") replaces the jar's modifier
                 d = read_json(n)
                 if not isinstance(d, dict):
                     continue
+                mid = f"{ns}:{rest[len('neoforge/biome_modifier/'):-5]}"
+                modifiers.pop(mid, None)
                 t = d.get("type", "")
                 if t == "neoforge:add_features":
-                    modifiers.append({"kind": "features", "biomes": d.get("biomes"), "values": sorted(_strings(d.get("features"), set()))})
+                    modifiers[mid] = {"kind": "features", "biomes": d.get("biomes"), "values": sorted(_strings(d.get("features"), set()))}
                 elif t == "neoforge:add_spawns":
                     sp = d.get("spawners")
                     sp = sp if isinstance(sp, list) else [sp]
-                    modifiers.append({"kind": "spawns", "biomes": d.get("biomes"),
-                                      "values": sorted({s.get("type") for s in sp if isinstance(s, dict)} - {None})})
+                    modifiers[mid] = {"kind": "spawns", "biomes": d.get("biomes"),
+                                      "values": sorted({s.get("type") for s in sp if isinstance(s, dict)} - {None})}
             elif re.match(r"worldgen/(configured_feature|placed_feature)/.+\.json$", rest):
                 d = read_json(n)
                 if d is not None:
@@ -423,7 +426,7 @@ def scan(mods_dir, vanilla_jar):
         "glm": sorted(glm, key=lambda g: g["id"]),
         "biome_tags": {k: sorted(v) for k, v in sorted(biome_tags.items())},
         "biomes": dict(sorted(biomes.items())),
-        "biome_modifiers": modifiers,
+        "biome_modifiers": list(modifiers.values()),
         "features": {k: sorted(v) for k, v in sorted(features.items())},
         "noise_settings": dict(sorted(noise.items())),
         "structures": dict(sorted(structures.items())),

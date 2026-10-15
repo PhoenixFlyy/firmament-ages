@@ -26,22 +26,32 @@ locked = [
 # A recipe whose result is locked is also blocked by the item tag above.
 locked_ids = [
     # >>> generated:recipes >>>
+    "mod:another_furniture",
     "mod:c2tfc",
     "mod:create",
     "mod:create_connected",
     "mod:decorative_blocks",
+    "mod:dustydecorations",
     "mod:firmalife",
     "mod:framedblocks",
     "mod:handcrafted",
     "mod:mcwbridges",
     "mod:mcwdoors",
+    "mod:mcwfences",
+    "mod:mcwfurnitures",
+    "mod:mcwroofs",
+    "mod:mcwstairs",
+    "mod:mcwtrpdoors",
     "mod:mcwwindows",
     "mod:precisionprospecting",
+    "mod:rechiseled",
     "mod:rnr",
     "mod:sophisticatedbackpacks",
     "mod:sophisticatedcore",
+    "mod:storagedrawers",
     "mod:tfcastikorcarts",
     "mod:woodencog",
+    "mod:xercapaint",
     # <<< generated:recipes <<<
 ]
 

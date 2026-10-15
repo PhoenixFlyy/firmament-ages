@@ -10,7 +10,7 @@
 # How an item gets its Age (first rule that applies wins):
 #   1. listed in config/progressivestages/stages/disabled.toml  -> tag age_items/disabled (never unlocked)
 #   2. [items] "id:<item>"                                        -> that Age (may be EARLIER than the mod Age)
-#   3. [items] "name:<text>" / "tag:<item tag>" / "mod:<ns>", in file order
+#   3. [items] "name:<text>" / "tag:<item tag>" / "mod:<ns>" / "re:<regex, full match on the id>", in file order
 #   4. [ore_families], [ore_blocks] and the TFC tables ([tfc_ores], [tfc_metals], [tfc_powders]): ore pieces, ore blocks,
 #      metal items (derived from dev/data/tfc-4.2.11-ids.json and the registry)
 #   5. max([mods] Age of the namespace, Age of every [materials] word in the item path)
@@ -60,6 +60,28 @@ firmasupps = "age_1"             # FirmaSupplementaries: TFC recipes and mechani
 handcrafted = "age_1"            # furniture; fancy beds age_2 in [items] (bed rule)
 mcwwindows = "age_1"             # Macaw's Windows: glass needs the Bronze Age
 mcwdoors = "age_1"               # Macaw's Doors
+# Deco round n7 (research n7-build Tier 1 + 2, chisel A + B). The vanilla-wood originals of these mods are in [hidden]
+# patterns; the home is built from their Every Compat copies in TFC/AFC woods (short ids in [items]).
+mcwstairs = "age_1"              # Macaw's Stairs and Balconies; stone variants follow their vanilla stone (derived)
+mcwfences = "age_1"              # Macaw's Fences and Walls; wired fences age_2 in [items]
+mcwtrpdoors = "age_1"            # Macaw's Trapdoors (6 of 17 styles in Every Compat); glass, barn and barred age_2 in [items]
+mcwroofs = "age_1"               # Macaw's Roofs (Every Compat: the seven planks roofs)
+mcwfurnitures = "age_1"          # Macaw's Furniture (Every Compat: 16 of 62 sets)
+mcwpaintings = "age_0"           # Macaw's Paintings: painting variants only, the painting is a Stone Age item
+storagedrawers = "age_1"         # drawers in TFC woods; controller, compacting drawers and upgrades in [items]
+xercapaint = "age_1"             # Joy of Painting: easel, canvas (TFC burlap), palette
+another_furniture = "age_1"      # curtains, shutters, flower boxes, benches; lamps age_2 in [items] (light rule)
+dustydecorations = "age_1"       # harbour and market deco; its lights age_2 in [items], its world generation is off
+rechiseled = "age_1"             # the chisel screen; only the pack's TFC rock groups (kubejs/data/firmages/chiseling_recipes)
+fusion = "dawn"                  # library of Rechiseled (connected textures)
+diagonalfences = "dawn"          # no items: diagonal fence and wall states
+interiors = "age_2"              # Create: Interiors, seats for trains and contraptions
+exposure = "age_4"               # cameras and film need chemistry
+refurbished_furniture = "age_5"  # the Electric Age home: own power, kitchen, electronics (recipes/age_5)
+framework = "dawn"               # library of Refurbished Furniture
+immersive_paintings = "age_6"    # uploaded pictures, stored on the server
+laserbridges = "age_7"           # Laser Bridges & Doors: light bridges and laser doors of the Space Age
+deimos = "dawn"                  # library of Laser Bridges
 everycomp = "age_1"              # Every Compat: the mods above in TFC/AFC woods; db/ and mcb/ age_0 in [items]
 tfcreate = "age_2"               # 1-2; Fuel Heater for the heated basin (Iron Age). Its TFC welding recipes are no grid recipes
 railways = "age_2"
@@ -541,6 +563,34 @@ block = "tfc:rock/loose/granite"
 "id:firmages:lantern/quantum" = "age_8"
 "id:firmages:lantern/singularity" = "age_9"
 "name:firmages:rock/engraved_bricks/" = "age_0"
+# Rock patterns of the TFC chisel cycle (signature_blocks.js): chiseled, engraved, then six patterns per rock.
+"name:firmages:rock/pattern/" = "age_0"
+# Deco round n7 (research n7-build). Every Compat short ids of the new modules; Every Compat's namespace is age_1, so
+# only the later ones change anything, the age_1 lines name the module. Specific rules first (file order).
+"re:everycomp:mct/.+_(glass|barred|barn)_trapdoor" = "age_2"  # glass (the barn trapdoor is made from a glass one), iron bars
+"re:everycomp:mcf/.+_wired_fence" = "age_2"              # wire
+"name:everycomp:mct/" = "age_1"                          # Macaw's Trapdoors
+"name:everycomp:mws/" = "age_1"                          # Macaw's Stairs and Balconies
+"name:everycomp:mcf/" = "age_1"                          # Macaw's Fences and Walls (with hedges per TFC/AFC leaves)
+"name:everycomp:mcr/" = "age_1"                          # Macaw's Roofs
+"name:everycomp:mcfur/" = "age_1"                        # Macaw's Furniture
+"name:everycomp:sd/" = "age_1"                           # Storage Drawers
+"name:everycomp:af/" = "age_1"                           # Another Furniture
+"name:everycomp:rfm/" = "age_5"                          # Refurbished Furniture: the Electric Age home
+# Storage Drawers: one storage upgrade per Age, each with that Age's material (kubejs/server_scripts/recipes/
+# deco_inputs.js); the other upgrades, keys and the controller are iron parts of the Iron Age.
+"id:storagedrawers:copper_storage_upgrade" = "age_1"
+"id:storagedrawers:iron_storage_upgrade" = "age_2"
+"id:storagedrawers:gold_storage_upgrade" = "age_2"
+"id:storagedrawers:obsidian_storage_upgrade" = "age_4"
+"id:storagedrawers:diamond_storage_upgrade" = "age_5"
+"id:storagedrawers:emerald_storage_upgrade" = "age_6"
+"id:storagedrawers:netherite_storage_upgrade" = "age_6"
+"re:storagedrawers:.+_upgrade(_[0-9])?" = "age_2"
+"re:storagedrawers:(framed_)?(controller|controller_io|compacting_.+)" = "age_2"
+# Lights without fuel come with the Iron Age, like the Create Deco cage lamps (no new light may beat TFC burn-out earlier).
+"re:another_furniture:.+_lamp" = "age_2"
+"re:dustydecorations:(.*paper_lantern|.+_seaglass_lamp|(waxed_)?(shoddy_)?copper_light|fairy_lights|beet_o_lantern|big_nautilus_lantern)" = "age_2"
 
 # ------------------------------------------------------------------------------------------------ hidden
 # Disabled items of the Electric to the Singularity Age (Doc 10 v3 section 7.2). They join the tag
@@ -1162,6 +1212,17 @@ items = [
     "immersiveengineering:shader_vaulttec",
     "immersiveengineering:shader_waaagh",
     "immersiveengineering:shader_warbird",
+]
+# Regular expressions (full match on the item id), same effect as the ids above.
+patterns = [
+    # Deco round n7: the vanilla-wood originals of the new furniture and building mods (Felix 2026-10-14). Vanilla
+    # planks only come from the Create saw in the Iron Age; the TFC/AFC copies of Every Compat carry the home.
+    # Dusty Decorations' banisters and large shelves have no Every Compat module and go with them.
+    "(mcwstairs|mcwfences|mcwtrpdoors|mcwroofs|mcwfurnitures|another_furniture|refurbished_furniture|storagedrawers|dustydecorations):(.*_)?(oak|spruce|birch|jungle|acacia|dark_oak|mangrove|cherry|bamboo|crimson|warped)(_.*)?",
+    # Rechiseled's own 3,600 vanilla-material blocks: the chisel screen only shows the pack's TFC rock groups.
+    "rechiseled:(?!chisel$).+",
+    # Macaw's Trapdoors prints of the styles Every Compat does not build (config/everycomp-hazardous.toml).
+    "mcwtrpdoors:print_(bamboo|beach|blossom|classic|mystic|paper|swamp|tropical|whispering)",
 ]
 
 # ------------------------------------------------------------------------------------------------ derived
@@ -5371,6 +5432,7 @@ items = [
     "draconicevolution:deepslate_draconium_ore",
     "draconicevolution:info_tablet",
     "draconicevolution:mob_soul",
+    "draconicevolution:nether_draconium_ore",
     "draconicevolution:overworld_draconium_ore",
     "draconicevolution:p2p_dislocator",
     "draconicevolution:player_dislocator",

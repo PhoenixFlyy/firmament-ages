@@ -37,6 +37,7 @@ locked_ids = [
     "mod:createrailwaysnavigator",
     "mod:dndecor",
     "mod:gateways",
+    "mod:interiors",
     "mod:railways",
     "mod:tfcbetterbf",
     "mod:tfcreate",
