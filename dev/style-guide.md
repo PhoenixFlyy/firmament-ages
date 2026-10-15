@@ -30,9 +30,9 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
    Holzkohleschmiede), jede mit Grund. Neue Einträge nur mit Grund.
 3. Kein Rezept, das der Rezeptbetrachter zeigt. Ausnahmen: Dawn und Steinzeit (EMI erst ab der Bronzezeit,
    `ui.emiFromAge = age_1`) und die Opfergaben (ihre Zutaten sind die Checkliste der Stränge).
-4. Jede Mechanik wird an genau einer Stelle erklärt (Geistervorschau am Herz: "Raise the Shrine"; Siegel: "When a
-   Boss Will Not Come"; Gebet: Ziel der Steinzeit; Leihe: "Awakened Keystone"). Sonst ein Halbsatz: "the heart shows
-   what is missing", "The Wither Sigil opens the Wither Trial instead."
+4. Jede Mechanik wird an genau einer Stelle erklärt (Geistervorschau am Herz: "Raise the Shrine"; Gebet: Ziel der
+   Steinzeit; Leihe: "Awakened Keystone"). Sonst ein Halbsatz: "the heart shows what is missing", "The Wither drops
+   one too."
 5. Gleich gebaute Quests klingen gleich: alle Ziele "Craft ... / Raise ...; the heart shows what is missing. Lay ...
    and pray. / Caelum keeps ... and opens ...". Eingänge heißen "The X Age Dawns" wie der Zeremonie-Titel.
 
@@ -43,9 +43,9 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
 - Prolog: "Dawn" ohne Artikel.
 - Gegenstände und Maschinen heißen wie im Spiel ("Aluminium Plate", "Engineer's Hammer"), kleingeschrieben im
   Satz, wenn das Spiel sie nicht als Eigennamen führt ("a steel casing"). Eigene Namen groß: Shrine Heart,
-  Offering Plinth, Hearth Circle, Hearth Idol, Arcane Keystone, Frontier Sigil, The Origin, The Gathering.
+  Offering Plinth, Hearth Circle, Hearth Idol, Arcane Keystone, Frontier Relic, Cold Forge, The Origin, The Gathering.
 - Glossar (immer dieselben Wörter): the Chronicle (Questbuch, überall so: Willkommen, Quests, Doku, CurseForge), shrine, heart, plinth, ring, rite, offering, relic,
-  strand, keystone, goal, sigil, trial, fellowship. Nicht: signature item, Gateway, stand-in, quest.
+  strand, keystone, goal, fellowship. Nicht: signature item, Gateway, stand-in, quest.
 - Bedienung: "right-click", "sneak and right-click", "hold right-click", "punch" (linke Taste); nie "use" für
   die Maustaste (2026-10-14: Spieler kennen "right-click", "hold use" ist Fachjargon). Tasten mit Standard
   nennen: "Press K", "Hold H".
@@ -56,7 +56,7 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
 
 - Ausrufezeichen, Gedankenstriche (— –), Auslassungspunkte, Emojis.
 - Modnamen (TFC, Create, Mekanism, AE2, IE, Occultism, Theurgy, Ars ...), außer sie stecken im Gegenstandsnamen
-  ("MEGA Cell", "draconic pickaxe") oder sind ein Ort (Twilight Forest, The End).
+  ("MEGA Cell", "draconic pickaxe") oder sind ein Ort (The End).
 - Meta-Wörter: quest, stage, unlock, lock, EMI, JEI, tooltip, "in this pack", "mod". Statt "unlock": "open", "wake",
   "can be made".
 - Füllwörter und KI-Muster: journey, embark, dive into, unleash, unlock the power, realm, vast, mighty, powerful,

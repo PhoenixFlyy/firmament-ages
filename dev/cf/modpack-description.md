@@ -15,7 +15,7 @@ An Ages pack in the line of SevTech: Ages, built new for Minecraft 1.21.1. You w
 | Dawn | A TerraFirmaCraft world: knapping, stone tools, thatch, the first fire | none: the first fire opens the Stone Age |
 | Stone Age | Pottery, pit kilns, copper casting, ArborFirmaCraft | Hearthstone |
 | Bronze Age | TFC anvils, three bronzes, Create (Andesite tier), Sophisticated Backpacks | Sky Disc |
-| Iron Age | Bloomery, blast furnace, steel, Create Brass tier, the world map, the Twilight Forest | Steel Heart |
+| Iron Age | Bloomery, blast furnace, steel, Create Brass tier, the world map, the Cold Forge expedition | Steel Heart |
 | Arcane Age | Occultism, Ars Nouveau, Theurgy, Apotheosis, the Nether | Arcane Keystone |
 | Industrial Age | Immersive Engineering, coke and FE power, black steel, Create packages | Pressure Core |
 | Electric Age | IE HV, Arc Furnace, Excavator, oil and diesel | Humming Core |
