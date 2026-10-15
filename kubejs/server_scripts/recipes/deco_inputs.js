@@ -2,8 +2,8 @@
 // Macaw's Stairs, Fences, Trapdoors, Roofs and Furniture, Storage Drawers, Another Furniture, Dusty Decorations, Joy
 // of Painting, Create: Interiors, Exposure, Immersive Paintings, the Rechiseled chisel and the Every Compat copies of
 // the furniture mods in TFC and AFC woods (short ids mws, mcf, mct, mcr, mcfur, sd, af).
-// A TFC world makes no vanilla iron, copper or gold ingot, iron nugget, torch, dirt, bucket or iron trapdoor, so these
-// recipes take the TFC item (MAP; the vanilla copper and gold ingots as in recipes/dead_inputs.js). Torches stay TFC
+// A TFC world makes no vanilla iron, copper or gold ingot, iron nugget, torch, dirt, bucket, barrel or iron trapdoor, so
+// these recipes take the TFC item (MAP; the vanilla copper and gold ingots as in recipes/dead_inputs.js). Torches stay TFC
 // torches: a lamp of Another Furniture or Dusty Decorations is an Iron Age item (dev/age_map.toml), like every light
 // that does not burn out. Refurbished Furniture (age_5) and Laser Bridges (age_7) have their own Age materials in
 // recipes/age_N/; Exposure's camera, film and developing recipes are rebuilt in recipes/exposure.js (OWNED, skipped
@@ -23,6 +23,7 @@ ServerEvents.recipes((event) => {
     'minecraft:bucket': { item: 'tfc:wooden_bucket' },
     'minecraft:water_bucket': { item: 'tfc:wooden_bucket' },
     'minecraft:iron_trapdoor': { item: 'tfc:metal/trapdoor/wrought_iron' },
+    'minecraft:barrel': { tag: 'tfc:barrels' },
     'minecraft:honeycomb': { item: 'firmalife:beeswax' },
     // Macaw's dyed couches and chaises (never in an Every Compat recipe: there the vanilla wood is Moonlight's swap key)
     'minecraft:oak_planks': { tag: 'minecraft:planks' }

@@ -7,10 +7,10 @@
   "old-format": "Create 0.5 format that Create 6 still loads but KubeJS cannot read ('Falling back to vanilla'); rewritten in Create 6.0.10's own format, same recipe.",
   "wrong-tag": "The recipe names a tag that does not exist, so its ingredient was empty and the recipe could not be crafted; KubeJS warned 'not allowed to be empty'. Points to the tag the mod meant."
  },
- "count": 538,
+ "count": 543,
  "by_reason": {
-  "modernise old-format": 48,
-  "remove missing-item": 8,
+  "modernise old-format": 52,
+  "remove missing-item": 9,
   "remove pack-removes": 18,
   "remove typeless-removal": 462,
   "retag wrong-tag": 2
@@ -417,6 +417,30 @@
    "action": "remove",
    "why": "typeless-removal",
    "from": "TFCAstikorCarts-1.21.x-1.2.4.jar"
+  },
+  {
+   "id": "create:sequenced_assembly/black_and_white_film_developing",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "exposure-neoforge-1.21.1-1.9.19.jar"
+  },
+  {
+   "id": "create:sequenced_assembly/color_film_developing",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "exposure-neoforge-1.21.1-1.9.19.jar"
+  },
+  {
+   "id": "create:sequenced_assembly/high_sensitivity_black_and_white_film_developing",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "exposure-neoforge-1.21.1-1.9.19.jar"
+  },
+  {
+   "id": "create:sequenced_assembly/high_sensitivity_color_film_developing",
+   "action": "modernise",
+   "why": "old-format",
+   "from": "exposure-neoforge-1.21.1-1.9.19.jar"
   },
   {
    "id": "create_mechanical_spawner:spawn_fluid_enchantment_industry_experience",
@@ -2055,6 +2079,13 @@
    "action": "remove",
    "why": "typeless-removal",
    "from": "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
+  },
+  {
+   "id": "storagedrawers:personal_key_cofh",
+   "action": "remove",
+   "why": "missing-item",
+   "note": "Storage Drawers' CoFH personal key names an item of CoFH Core, which is not in the pack (empty ingredient)",
+   "from": "StorageDrawers-neoforge-1.21.1-13.11.4.jar"
   },
   {
    "id": "supplementaries:altimeter",

@@ -146,6 +146,16 @@ INTERACTIONS = [
     ("dawn", ["occultengineering:empty_pentacle_schematic"], ["occultengineering:pentacle_schematic"]),
     ("dawn", ["ars_nouveau:blank_parchment", "ars_nouveau:scribes_table"], ["ars_nouveau:spell_parchment"]),
     ("dawn", ["immersiveengineering:sample_drill"], ["immersiveengineering:coresample"]),
+    # Exposure 1.9.19: the lightroom prints a developed film on paper with dyes (lightroom.dyes_* in
+    # defaultconfigs/exposure-server.toml), photographs stack by using one on another, an album is signed like a book.
+    ("dawn", ["exposure:lightroom", "exposure:developed_black_and_white_film", "minecraft:paper", "minecraft:black_dye"],
+     ["exposure:photograph"]),
+    ("dawn", ["exposure:lightroom", "exposure:developed_color_film", "minecraft:paper", "minecraft:cyan_dye",
+              "minecraft:magenta_dye", "minecraft:yellow_dye", "minecraft:black_dye"], ["exposure:photograph"]),
+    ("dawn", ["exposure:lightroom", "exposure:developed_black_and_white_film", "minecraft:paper", "minecraft:cyan_dye",
+              "minecraft:magenta_dye", "minecraft:yellow_dye"], ["exposure:chromatic_sheet"]),
+    ("dawn", ["exposure:photograph"], ["exposure:stacked_photographs"]),
+    ("dawn", ["exposure:album"], ["exposure:signed_album"]),
     ("dawn", ["create:brown_toolbox"], [f"create:{c}_toolbox" for c in (               # create:toolbox_dyeing (special)
         "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple",
         "blue", "green", "red", "black")]),
@@ -160,7 +170,15 @@ WORLD_CHANGES = [("rnr:wet_concrete_road", "rnr:concrete_road"), ("rnr:wet_concr
 # Trees and giant mushrooms Ad Astra places by code on its planets: (items, Age of the planet).
 CODE_WORLD = [(["ad_astra:glacian_log", "ad_astra:glacian_leaves", "ad_astra:glacian_fur"], "age_8"),   # Glacio
               (["ad_astra:aeronos_cap", "ad_astra:aeronos_stem", "ad_astra:aeronos_mushroom"], "age_7"),   # Mars
-              (["ad_astra:strophar_cap", "ad_astra:strophar_stem", "ad_astra:strophar_mushroom"], "age_8")]  # Venus
+              (["ad_astra:strophar_cap", "ad_astra:strophar_stem", "ad_astra:strophar_mushroom"], "age_8"),  # Venus
+              # TFC Volcanoes: random ticks of lava and hot-spring water add mineral sheets to the rock around them
+              # (FluidBlockEventHelpers.tryPlaceMineralSheet, javap 2.3; shouldLavaDepositMinerals and
+              # shouldHotSpringsDepositMinerals stay on in config/tfcvolcanoes-startup.toml). Overworld, from Dawn;
+              # pitchblende keeps its age_map Age.
+              ([f"tfcvolcanoes:mineral/{m}" for m in (
+                  "alabandite", "apatite", "arcanite", "bastnasite", "brimstone", "calcite", "galena", "greigite", "jet",
+                  "magnesite", "microcline", "olivine", "pitchblende", "salmiak", "salt", "saltpeter", "satinspar",
+                  "selenite", "serpentine", "smithsonite", "spherocobaltite", "zabuyelite")], "dawn")]
 # Drops a mod adds in code (no loot table or modifier file): (items, Age; None = the item's mod Age).
 CODE_DROPS = [
     (["apotheosis:gem"], None),                         # gem drops from any mob (apotheosis:gem_entity_drops, code)

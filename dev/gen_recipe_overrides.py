@@ -74,6 +74,8 @@ PACK_REMOVES = [
     (re.compile(r"^woodencog:cutting/(slab|stair)/(loam|sandy_loam|silt|silty_loam)_brick_(slab|stairs)$"),
      "missing-item", "Wooden Cog 1.2.19 cuts mud bricks of the pre-4.2 TFC soils; TFC 4.2.11 has no "
                      "tfc:mud_bricks/<loam|sandy_loam|silt|silty_loam>"),
+    (re.compile(r"^storagedrawers:personal_key_cofh$"), "missing-item",
+     "Storage Drawers' CoFH personal key names an item of CoFH Core, which is not in the pack (empty ingredient)"),
 ]
 # Fallback ids with a wrong tag: id -> {old tag: new tag}. Tags checked in the fa_dump item_tags.json of 2026-10-14.
 RETAG = {
@@ -141,7 +143,13 @@ def find_mods(arg):
 def modernise_fluid(ing):
     if not isinstance(ing, dict):
         return ing
-    if ing.get("type") == "fluid_stack" and "fluid" in ing:
+    if ing.get("type") == "fluid_stack" and "fluid" in ing and "components" in ing:
+        # a fluid with data components (Create's potion fluid): NeoForge's components ingredient, as in Create 6.0.10's
+        # own filling/glowstone.json
+        out = {"type": "neoforge:components", "amount": ing.get("amount", 1000), "components": ing["components"],
+               "fluids": ing["fluid"]}
+        ing = {k: v for k, v in ing.items() if k != "components"}
+    elif ing.get("type") == "fluid_stack" and "fluid" in ing:
         out = {"type": "neoforge:single", "amount": ing.get("amount", 1000), "fluid": ing["fluid"]}
     elif ing.get("type") == "fluid_tag" and "fluid_tag" in ing:
         out = {"type": "neoforge:tag", "amount": ing.get("amount", 1000), "tag": ing["fluid_tag"]}
@@ -174,6 +182,10 @@ def modernise(obj):
             out[k] = [modernise_fluid(i) for i in v]
         elif k == "results" and isinstance(v, list):
             out[k] = [modernise_result(r) for r in v]
+        elif k == "transitional_item":  # sequenced assembly: one result in the same format
+            out[k] = modernise_result(v)
+        elif k == "sequence" and isinstance(v, list):  # sequenced assembly steps are Create recipes themselves
+            out[k] = [modernise(step) if isinstance(step, dict) else step for step in v]
         else:
             out[k] = v
     return out

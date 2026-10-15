@@ -4,14 +4,14 @@
   "2026-10-14-2.log.gz",
   "latest.log"
  ],
- "count": 480,
+ "count": 504,
  "by_namespace": {
   "create_connected": 16,
   "createcasing": 8,
   "dndecor": 256,
   "extendedae": 1,
   "more_immersive_wires": 7,
-  "railways": 192
+  "railways": 216
  },
  "tables": [
   {
@@ -2413,6 +2413,126 @@
    "table": "railways:blocks/track_quark_blossom_wide",
    "missing": "item railways:track_quark_blossom_wide",
    "file": "kubejs/data/railways/loot_table/blocks/track_quark_blossom_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_canopy",
+   "missing": "item railways:track_twilightforest_canopy",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_canopy.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_canopy_narrow",
+   "missing": "item railways:track_twilightforest_canopy_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_canopy_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_canopy_wide",
+   "missing": "item railways:track_twilightforest_canopy_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_canopy_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_darkwood",
+   "missing": "item railways:track_twilightforest_darkwood",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_darkwood.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_darkwood_narrow",
+   "missing": "item railways:track_twilightforest_darkwood_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_darkwood_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_darkwood_wide",
+   "missing": "item railways:track_twilightforest_darkwood_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_darkwood_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_mangrove",
+   "missing": "item railways:track_twilightforest_mangrove",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_mangrove.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_mangrove_narrow",
+   "missing": "item railways:track_twilightforest_mangrove_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_mangrove_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_mangrove_wide",
+   "missing": "item railways:track_twilightforest_mangrove_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_mangrove_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_minewood",
+   "missing": "item railways:track_twilightforest_minewood",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_minewood.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_minewood_narrow",
+   "missing": "item railways:track_twilightforest_minewood_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_minewood_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_minewood_wide",
+   "missing": "item railways:track_twilightforest_minewood_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_minewood_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_sortingwood",
+   "missing": "item railways:track_twilightforest_sortingwood",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_sortingwood.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_sortingwood_narrow",
+   "missing": "item railways:track_twilightforest_sortingwood_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_sortingwood_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_sortingwood_wide",
+   "missing": "item railways:track_twilightforest_sortingwood_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_sortingwood_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_timewood",
+   "missing": "item railways:track_twilightforest_timewood",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_timewood.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_timewood_narrow",
+   "missing": "item railways:track_twilightforest_timewood_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_timewood_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_timewood_wide",
+   "missing": "item railways:track_twilightforest_timewood_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_timewood_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_transwood",
+   "missing": "item railways:track_twilightforest_transwood",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_transwood.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_transwood_narrow",
+   "missing": "item railways:track_twilightforest_transwood_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_transwood_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_transwood_wide",
+   "missing": "item railways:track_twilightforest_transwood_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_transwood_wide.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_twilight_oak",
+   "missing": "item railways:track_twilightforest_twilight_oak",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_twilight_oak.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_twilight_oak_narrow",
+   "missing": "item railways:track_twilightforest_twilight_oak_narrow",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_twilight_oak_narrow.json"
+  },
+  {
+   "table": "railways:blocks/track_twilightforest_twilight_oak_wide",
+   "missing": "item railways:track_twilightforest_twilight_oak_wide",
+   "file": "kubejs/data/railways/loot_table/blocks/track_twilightforest_twilight_oak_wide.json"
   }
  ]
 }

@@ -510,9 +510,10 @@ def gate_checks(base, baseline, rows, tags, item_age, unlocked, check):
 
 
 STATION_AGES_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "station_ages.js")
-# Pack recipes that a script adds only once a later Age than their outputs is unlocked (FirmAges.isUnlocked).
+# Pack recipes that the gate holds until a later Age than their outputs (FirmAges.requireAge in the recipe scripts).
 LATE_LOADED = [(r"^firmages:injecting/", "age_7"), (r"^firmages:dissolution/", "age_8"),
-               (r"^firmages:metallurgic_infusing/blue_steel$", "age_7")]
+               (r"^firmages:metallurgic_infusing/blue_steel$", "age_7"),
+               (r"^create:sequenced_assembly/black_and_white_film_developing$", "age_2")]  # recipes/exposure.js
 
 
 def load_station_ages():

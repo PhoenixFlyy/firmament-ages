@@ -116,6 +116,11 @@
       "id": "moonlight-dynamic-pack-pool-at-stop",
       "regex": "^\\[[^\\]]+/WARN\\] \\[AllTheLeaks/\\]: (If you did \\*NOT CRASH\\*, consider activating \"debugThreadsStuck\"|Seems like server is stuck while trying to close\\.)",
       "reason": "Moonlight 3.7.2 runs Every Compat's dynamic datapack generation (DynamicResourcesProvider.runGenerationPipeline, CompletableFuture.supplyAsync) on a fixed pool of non-daemon threads ('pool-N-thread-1..15') that is never shut down; at 'stop' AllTheLeaks' watcher sees those idle threads when the shutdown passes its window and logs these two lines. The JVM still exits with code 0 (N5 copy, round 3: exit 0 ten seconds after 'All dimensions are saved'; stack trace from debugThreadsStuck in round 4). Not every stop shows it (round 2 did not). A fix belongs in Moonlight (a daemon thread factory or shutting the pool down)."
+    },
+    {
+      "id": "dustydecorations-client-config-on-server",
+      "regex": "^\\[[^\\]]+/ERROR\\] \\[DustyDecorations/\\]: Tried to load a client config on a dedicated server!",
+      "reason": "Dusty Decorations 1.21.1 registers its client config from common code and logs this ERROR itself on every dedicated-server start (0.10.0 copy boot); the server keeps running and the config is client-only anyway. A fix belongs in the mod."
     }
   ]
 }

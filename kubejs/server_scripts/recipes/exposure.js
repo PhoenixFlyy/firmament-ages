@@ -84,4 +84,8 @@ ServerEvents.recipes((event) => {
     ingredients: [{ item: 'tfc:powder/soda_ash' }, { item: 'tfc:powder/sulfur' }, { item: 'tfc:powder/saltpeter' }],
     result: { id: 'exposure:developed_color_film' }
   }))
+
+  // Exposure's own automated developing is a Create sequenced assembly with a spout (Iron Age station); its film is
+  // Bronze Age, so the gate holds the recipe until the station's Age (poc_analyze E-1).
+  FirmAges.requireAge('create:sequenced_assembly/black_and_white_film_developing', 'age_2')
 })

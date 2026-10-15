@@ -1,0 +1,35 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "exposure:high_sensitivity_black_and_white_film"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "exposure:developed_black_and_white_film"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "exposure:high_sensitivity_black_and_white_film"
+        },
+        {
+          "type": "neoforge:single",
+          "amount": 250,
+          "fluid": "minecraft:water"
+        }
+      ],
+      "results": [
+        {
+          "id": "exposure:high_sensitivity_black_and_white_film"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "exposure:high_sensitivity_black_and_white_film"
+  }
+}
