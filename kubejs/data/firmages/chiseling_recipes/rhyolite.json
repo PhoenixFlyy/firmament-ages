@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/rhyolite",
+      "slab": "tfc:rock/bricks/rhyolite_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/rhyolite_stairs"
+    },
+    "tfc:rock/chiseled/rhyolite",
+    "firmages:rock/engraved_bricks/rhyolite",
+    "firmages:rock/pattern/chevron/rhyolite",
+    "firmages:rock/pattern/ashlar/rhyolite",
+    "firmages:rock/pattern/runes/rhyolite",
+    "firmages:rock/pattern/mosaic/rhyolite",
+    "firmages:rock/pattern/panel/rhyolite",
+    "firmages:rock/pattern/column/rhyolite"
+  ]
+}

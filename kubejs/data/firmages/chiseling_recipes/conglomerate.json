@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/conglomerate",
+      "slab": "tfc:rock/bricks/conglomerate_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/conglomerate_stairs"
+    },
+    "tfc:rock/chiseled/conglomerate",
+    "firmages:rock/engraved_bricks/conglomerate",
+    "firmages:rock/pattern/chevron/conglomerate",
+    "firmages:rock/pattern/ashlar/conglomerate",
+    "firmages:rock/pattern/runes/conglomerate",
+    "firmages:rock/pattern/mosaic/conglomerate",
+    "firmages:rock/pattern/panel/conglomerate",
+    "firmages:rock/pattern/column/conglomerate"
+  ]
+}

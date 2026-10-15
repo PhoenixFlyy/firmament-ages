@@ -39,6 +39,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Exposure: Kamera bauen, S/W-Film belichten, mit Soda und Salz entwickeln, in der Lichtkammer drucken (Licht 13 nötig); Farbfilm erst in der Industriezeit | `kubejs/server_scripts/recipes/exposure.js` | Felix |
 | Blutmond pro Age: `/ec lunarForecast` nach der Eisenzeit zeigt `firmages:blood_moon_age_<N>`; Zombies mit Rüstung und Waffe der Vor-Age, ab der Elektrischen Age schneller | `kubejs/server_scripts/firmages/blood_moon.js`, `dev/gen_blood_moon.py` | Felix |
 | Vulkan: Ausbruch und Beben ohne Schaden an Blöcken, Mineralkrusten an heißen Quellen | `config/tfcvolcanoes-startup.toml` | Felix |
+| n7-Deko: Startzeit und Heap mit dem vollen Set messen (A gegen B, je drei Läufe) und die Sichtprüfung (Meißelzyklus, Verbundtexturen Panel/Column, Rechiseled-Gruppen, keine Vanilla-Holz-Originale in EMI) | `dev/client-test-brief.md`, Abschnitt „n7-Deko“ | Integrator, dann Felix |
 
 ## Inhalt und Config (Claude)
 
@@ -66,6 +67,11 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Neue Namespaces `exposure` und `tfcvolcanoes` stehen in keinem Age-Tag, bis ein Dump mit den neuen Jars da ist: Boot mit `fa_dump`, dann `gen_stage_locks.py --registry <dump>`, `derive_ages.py --dump-dir <dump>`, `gen_stage_locks.py` | `dev/age_map.toml`, `kubejs/data/firmages/tags/item/age_items/` | Claude (Integration) |
 | Ruinen-Truhen: prüfen, dass ProgressiveStages' `stage_filter` beim Öffnen gesperrte Pools entfernt (Truhe in Dawn öffnen: nur Dawn-Kleinkram) und dass Trichter unter der Truhe nichts Gesperrtes ziehen | `kubejs/data/firmages/loot_table/chests/ruin_*.json` | Claude, mit Server-Test |
 | EC2-Daten der Age-Blutmonde (Ausrüstungssets per Registry-Verweis, `corgilib:is_type_tag`) beim Boot ohne Fehler laden | `kubejs/data/firmages/enhancedcelestials2core/lunar/` | Claude, mit Server-Test |
+| n7-Deko: Server-Boot mit `fa_dump` bei `age_9`, dann `gen_stage_locks.py --registry`, `derive_ages.py` (Dump plus `predict_dump.py`), `gen_stage_locks.py`, `poc_analyze.py`: ersetzt die vorläufigen IDs (Item-Modelle der Jars) durch die echten und leitet die Ages der neuen Rezepte ab. Erwartet: Vanilla-Stein-Varianten von Macaw's und Dusty Decorations werden versteckt oder später | `dev/data/registry.json`, `dev/age_map.toml` | Integrator |
+| n7-Deko POC: KubeJS-Blockmodell mit `loader: fusion:model` (Panel, Column), leere Rechiseled-Gruppen (`"overwrite": true`, `entries: []`), Umschreiben der Every-Compat-Rezepte (Moonlight-Laufzeitpaket) durch `recipes/deco_inputs.js` | `kubejs/startup_scripts/signature_blocks.js`, `kubejs/data/rechiseled/chiseling_recipes/`, `kubejs/server_scripts/recipes/deco_inputs.js` | Integrator (Boot-Log) |
+| Storage Drawers: kompaktierende Schubladen nutzen umkehrbare Grid-Rezepte; nach dem Dump prüfen, ob ein TFC-Metall oder -Erz so am Schweißen oder Schmelzen vorbeikommt | `dev/poc_analyze.py`, Storage-Drawers-Config | Integrator |
+| Every-Compat-Hecken (Macaw's Fences, Blätter-Typen): erkennt Moonlight TFC/AFC-Blätter? Erst der Dump zeigt es; falls ja, Age-Regel `name:everycomp:mcf/` deckt sie schon | `config/everycomp-hazardous.toml` | Integrator |
+| Questbuch (nächste Runde): Deko-Quests aus n7 §2 (Gatehouse, Living House mit Refurbished-Küche, Silo) und je eine Einführung für Meißel (TFC-Zyklus, Rechiseled), Drawers, Joy of Painting, Exposure | `dev/gen_quests.py` | nächste Runde |
 
 ## Prüfen, ob noch offen
 

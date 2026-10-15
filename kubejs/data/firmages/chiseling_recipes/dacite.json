@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/dacite",
+      "slab": "tfc:rock/bricks/dacite_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/dacite_stairs"
+    },
+    "tfc:rock/chiseled/dacite",
+    "firmages:rock/engraved_bricks/dacite",
+    "firmages:rock/pattern/chevron/dacite",
+    "firmages:rock/pattern/ashlar/dacite",
+    "firmages:rock/pattern/runes/dacite",
+    "firmages:rock/pattern/mosaic/dacite",
+    "firmages:rock/pattern/panel/dacite",
+    "firmages:rock/pattern/column/dacite"
+  ]
+}

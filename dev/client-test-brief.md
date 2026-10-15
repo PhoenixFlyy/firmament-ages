@@ -1,5 +1,60 @@
 # Client-Test
 
+## n7-Deko (Runde A1 2026-10-15, Zweig a1/deco, für den Integrator)
+
+20 neue Mods (Inventar: `dev/decisions-while-away.md`, Abschnitt „n7-Deko-Inventar“), 126 Gesteinsmuster, Rechiseled.
+Kein Server- und kein Client-Start in dieser Runde. Zuerst der Server-Boot mit `fa_dump` (siehe Notiz an den
+Integrator), dann diese Messung und die Sichtprüfung.
+
+### Messung: Startzeit und Heap mit dem vollen Set
+
+Ziel nach `research-raw/n7-build.md` §6: höchstens +20 s Start und +300 MB Heap pro Tier. Gemessen wird A (Stand vor
+n7, `dev` bei 27cfbf6) gegen B (mit n7), auf demselben Rechner, je drei Läufe.
+
+1. **Vorbereitung.** Prism-Dev-Instanz (`tools/PrismLauncher`, `dev/archive/dev-client.md`) oder ein eigenes
+   CurseForge-Profil, nie Felix' Spielprofil. RAM-Einstellung der Instanz notieren und für A und B gleich lassen
+   (`-Xmx` wie bisher, kein Ändern zwischen den Läufen). Shader wie im Auslieferungszustand (Complementary an), andere
+   große Programme zu.
+2. **Stand setzen.** `tools\packwiz.exe serve` im jeweiligen Stand (A: Worktree auf 27cfbf6, B: Zweig `a1/deco` bzw.
+   der Integrationsstand), Instanz einmal starten und schließen, damit packwiz-installer synchronisiert hat und Every
+   Compat seine Ressourcen einmal gebaut hat. Dieser erste Start zählt nicht.
+3. **Drei Läufe je Stand.** Starten, im Titelbild 10 s warten, in eine feste Testwelt (Einzelspieler, dieselbe Welt
+   für A und B, mit einem eingerichteten Haus aus Deko-Blöcken) einsteigen, 60 s stehen bleiben, dann
+   `/sparkc heapsummary` und `/sparkc gc` und erneut 30 s warten, Spiel schließen. Nach jedem Lauf
+   `logs/latest.log` als `n7-<A|B>-<n>.log` wegkopieren.
+4. **Auswerten je Log.** `python dev/check_log.py --client n7-B-1.log` gibt die Startphasen aus: „total up to the title
+   screen“ (Startzeit), „first resource reload up to the title screen“ (Modelle und Atlas), pro Einstieg „in the world
+   after …“ und „EMI … s“. Zusätzlich aus dem Log:
+   - `Created: <B>x<H>x4 minecraft:textures/atlas/blocks.png-atlas` (bleibt der Blockatlas bei 8192x8192?)
+   - `Generated runtime CLIENT_RESOURCES for pack everycomp:dynamic_resources in N s` und `Registered N compat blocks`
+     (Every Compat; erwartet etwa 1.670 + 2.392)
+   - die AllTheLeaks-Zeile `B: … MB / C: … MB` nach dem Einstieg (Heap) und die Summe aus `heapsummary`
+5. **Ergebnis.** Mittelwert und Spanne von A und B je Größe in `dev/poc-results.md` (neuer Abschnitt „n7 deco
+   measurement“), Differenz B − A gegen das Budget. Über Budget: Every-Compat-Sätze in dieser Reihenfolge kürzen
+   (`config/everycomp-hazardous.toml`): Macaw's Furniture, dann Roofs, dann Another Furniture; danach Rechiseled
+   prüfen (3.627 versteckte, aber registrierte Blöcke).
+6. **Bildrate.** In einem Raum voller Möbel mit Iris an: `/sparkc profiler start`, 60 s umsehen,
+   `/sparkc profiler stop`; Link und mittlere Bildzeit in denselben Abschnitt.
+
+### Sichtprüfung (nach der Messung, Stand B)
+
+1. **TFC-Meißel.** Granitziegel setzen, mit dem Kupfermeißel im Glätten-Modus zehnmal bearbeiten: Gemeißelt, Engraved,
+   Chevron, Ashlar, Runed, Mosaic, Paneled, Fluted, wieder Gemeißelt.
+2. **Verbundtexturen.** Eine 3x3-Wand „Paneled Granite“: ein Rahmen außen herum, keine Fugen innen; eine Lücke in der
+   Wand bekommt einen eigenen Rahmen. Drei „Fluted Granite“ übereinander: oben Kapitell, unten Basis, dazwischen
+   durchgehende Kanneluren. Fehlt die Verbindung, lädt das KubeJS-Modell mit `loader: fusion:model` nicht (Log nach
+   `fusion` durchsuchen).
+3. **Rechiseled.** Bronzemeißel bauen, Granitziegel hineinlegen: genau die Granit-Familie (Ziegel, Gemeißelt, Engraved,
+   sechs Muster). Ein Vanilla-Stein zeigt nichts.
+4. **EMI.** Keine Vanilla-Holz-Variante von Macaw's, Storage Drawers, Another Furniture, Refurbished oder Dusty
+   Decorations sichtbar, keine Rechiseled-Blöcke; TFC-Eiche als Küchenschrank, Schublade (Drawers) und Fensterladen
+   (Another Furniture) mit TFC-Rezept.
+5. **Rezepte.** Kitchen Sink (Macaw's, TFC-Holz) nimmt einen TFC-Holzeimer; Lampen von Another Furniture eine
+   TFC-Fackel; Drawer-Upgrades Kupferblech, Schmiedeeisenblech, Goldblech; Refurbished-Werkbank und Kühlschrank in der
+   Elektrozeit mit Aluminium.
+6. **Hecken.** Gibt es `everycomp:mcf/tfc/oak_hedge`? Wenn ja, erkennt Moonlight TFC-Blätter; dann die Hecken-IDs
+   in den Registry-Snapshot (macht der Dump ohnehin).
+
 ## 0.9.3 Nachtrag (Runde N6 2026-10-14, Pack 0.9.3, firmages-core 0.9.2)
 
 Nur Texte, Quests, Stage-Configs und ein Skript; firmages-core bleibt 0.9.2. Server-Teil geprüft auf einer Kopie des

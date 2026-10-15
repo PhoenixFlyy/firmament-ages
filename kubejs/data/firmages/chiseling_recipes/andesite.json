@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/andesite",
+      "slab": "tfc:rock/bricks/andesite_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/andesite_stairs"
+    },
+    "tfc:rock/chiseled/andesite",
+    "firmages:rock/engraved_bricks/andesite",
+    "firmages:rock/pattern/chevron/andesite",
+    "firmages:rock/pattern/ashlar/andesite",
+    "firmages:rock/pattern/runes/andesite",
+    "firmages:rock/pattern/mosaic/andesite",
+    "firmages:rock/pattern/panel/andesite",
+    "firmages:rock/pattern/column/andesite"
+  ]
+}

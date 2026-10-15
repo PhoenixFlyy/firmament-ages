@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/diorite",
+      "slab": "tfc:rock/bricks/diorite_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/diorite_stairs"
+    },
+    "tfc:rock/chiseled/diorite",
+    "firmages:rock/engraved_bricks/diorite",
+    "firmages:rock/pattern/chevron/diorite",
+    "firmages:rock/pattern/ashlar/diorite",
+    "firmages:rock/pattern/runes/diorite",
+    "firmages:rock/pattern/mosaic/diorite",
+    "firmages:rock/pattern/panel/diorite",
+    "firmages:rock/pattern/column/diorite"
+  ]
+}

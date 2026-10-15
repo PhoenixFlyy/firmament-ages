@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/claystone",
+      "slab": "tfc:rock/bricks/claystone_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/claystone_stairs"
+    },
+    "tfc:rock/chiseled/claystone",
+    "firmages:rock/engraved_bricks/claystone",
+    "firmages:rock/pattern/chevron/claystone",
+    "firmages:rock/pattern/ashlar/claystone",
+    "firmages:rock/pattern/runes/claystone",
+    "firmages:rock/pattern/mosaic/claystone",
+    "firmages:rock/pattern/panel/claystone",
+    "firmages:rock/pattern/column/claystone"
+  ]
+}

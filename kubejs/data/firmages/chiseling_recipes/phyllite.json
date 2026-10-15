@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/phyllite",
+      "slab": "tfc:rock/bricks/phyllite_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/phyllite_stairs"
+    },
+    "tfc:rock/chiseled/phyllite",
+    "firmages:rock/engraved_bricks/phyllite",
+    "firmages:rock/pattern/chevron/phyllite",
+    "firmages:rock/pattern/ashlar/phyllite",
+    "firmages:rock/pattern/runes/phyllite",
+    "firmages:rock/pattern/mosaic/phyllite",
+    "firmages:rock/pattern/panel/phyllite",
+    "firmages:rock/pattern/column/phyllite"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/schist",
+      "slab": "tfc:rock/bricks/schist_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/schist_stairs"
+    },
+    "tfc:rock/chiseled/schist",
+    "firmages:rock/engraved_bricks/schist",
+    "firmages:rock/pattern/chevron/schist",
+    "firmages:rock/pattern/ashlar/schist",
+    "firmages:rock/pattern/runes/schist",
+    "firmages:rock/pattern/mosaic/schist",
+    "firmages:rock/pattern/panel/schist",
+    "firmages:rock/pattern/column/schist"
+  ]
+}

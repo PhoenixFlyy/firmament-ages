@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/limestone",
+      "slab": "tfc:rock/bricks/limestone_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/limestone_stairs"
+    },
+    "tfc:rock/chiseled/limestone",
+    "firmages:rock/engraved_bricks/limestone",
+    "firmages:rock/pattern/chevron/limestone",
+    "firmages:rock/pattern/ashlar/limestone",
+    "firmages:rock/pattern/runes/limestone",
+    "firmages:rock/pattern/mosaic/limestone",
+    "firmages:rock/pattern/panel/limestone",
+    "firmages:rock/pattern/column/limestone"
+  ]
+}

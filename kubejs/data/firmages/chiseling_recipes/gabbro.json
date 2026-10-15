@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/gabbro",
+      "slab": "tfc:rock/bricks/gabbro_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/gabbro_stairs"
+    },
+    "tfc:rock/chiseled/gabbro",
+    "firmages:rock/engraved_bricks/gabbro",
+    "firmages:rock/pattern/chevron/gabbro",
+    "firmages:rock/pattern/ashlar/gabbro",
+    "firmages:rock/pattern/runes/gabbro",
+    "firmages:rock/pattern/mosaic/gabbro",
+    "firmages:rock/pattern/panel/gabbro",
+    "firmages:rock/pattern/column/gabbro"
+  ]
+}

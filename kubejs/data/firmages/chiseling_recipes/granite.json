@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/granite",
+      "slab": "tfc:rock/bricks/granite_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/granite_stairs"
+    },
+    "tfc:rock/chiseled/granite",
+    "firmages:rock/engraved_bricks/granite",
+    "firmages:rock/pattern/chevron/granite",
+    "firmages:rock/pattern/ashlar/granite",
+    "firmages:rock/pattern/runes/granite",
+    "firmages:rock/pattern/mosaic/granite",
+    "firmages:rock/pattern/panel/granite",
+    "firmages:rock/pattern/column/granite"
+  ]
+}

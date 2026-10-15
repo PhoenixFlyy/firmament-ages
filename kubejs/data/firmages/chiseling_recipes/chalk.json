@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/chalk",
+      "slab": "tfc:rock/bricks/chalk_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/chalk_stairs"
+    },
+    "tfc:rock/chiseled/chalk",
+    "firmages:rock/engraved_bricks/chalk",
+    "firmages:rock/pattern/chevron/chalk",
+    "firmages:rock/pattern/ashlar/chalk",
+    "firmages:rock/pattern/runes/chalk",
+    "firmages:rock/pattern/mosaic/chalk",
+    "firmages:rock/pattern/panel/chalk",
+    "firmages:rock/pattern/column/chalk"
+  ]
+}

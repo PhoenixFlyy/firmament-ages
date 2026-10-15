@@ -1,0 +1,19 @@
+{
+  "type": "rechiseled:chiseling",
+  "entries": [
+    {
+      "block": "tfc:rock/bricks/quartzite",
+      "slab": "tfc:rock/bricks/quartzite_slab",
+      "slab_worth": 0.5,
+      "stairs": "tfc:rock/bricks/quartzite_stairs"
+    },
+    "tfc:rock/chiseled/quartzite",
+    "firmages:rock/engraved_bricks/quartzite",
+    "firmages:rock/pattern/chevron/quartzite",
+    "firmages:rock/pattern/ashlar/quartzite",
+    "firmages:rock/pattern/runes/quartzite",
+    "firmages:rock/pattern/mosaic/quartzite",
+    "firmages:rock/pattern/panel/quartzite",
+    "firmages:rock/pattern/column/quartzite"
+  ]
+}

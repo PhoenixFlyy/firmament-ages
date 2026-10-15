@@ -1293,6 +1293,7 @@
     {"id": "draconicevolution:deepslate_draconium_ore", "required": false},
     {"id": "draconicevolution:info_tablet", "required": false},
     {"id": "draconicevolution:mob_soul", "required": false},
+    {"id": "draconicevolution:nether_draconium_ore", "required": false},
     {"id": "draconicevolution:overworld_draconium_ore", "required": false},
     {"id": "draconicevolution:p2p_dislocator", "required": false},
     {"id": "draconicevolution:player_dislocator", "required": false},
