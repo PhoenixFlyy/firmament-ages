@@ -20,7 +20,7 @@ newly disabled block cannot slip through.
 The swap is done on the decompressed NBT: a palette name is a length-prefixed string and no enclosing tag stores a
 byte length, so replacing the prefixed string is a valid edit. The result is parsed again as a check.
 
-Usage:  python dev/gen_multiblock_templates.py [--check] [--list]
+Usage:  python dev/gen_multiblock_templates.py [--check] [--list] [--mods <server>/mods]
   --check  exit 1 if a pack copy is missing, stale or no longer needed
   --list   print every template with its source jar and palette
 """
@@ -117,14 +117,15 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--mods", default=MODS, help="mods folder of the server whose jars hold the templates (a copy)")
     a = ap.parse_args()
     off = tag_ids(DISABLED_TAG) | tag_ids(HIDDEN_TAG)
     with open(REGISTRY, encoding="utf-8") as f:
         reg = json.load(f)
     known = set(reg["blocks"]) | set(reg["items"])
-    templates = effective_templates()
+    templates = effective_templates(a.mods)
     if not templates:
-        sys.exit(f"no multiblock templates in {MODS}")
+        sys.exit(f"no multiblock templates in {a.mods}")
     stale, unmapped, wanted, replaced = [], [], set(), 0
     for (ns, name), (jar, data, providers) in sorted(templates.items()):
         raw = gzip.decompress(data)
