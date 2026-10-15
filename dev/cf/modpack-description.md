@@ -15,7 +15,7 @@ This is a progression pack in the SevTech: Ages tradition, built from scratch fo
 
 ## The Ages
 
-::: spoiler
+::: spoiler The Ages
 
 | Age | What opens | Offering |
 |---|---|---|
@@ -35,7 +35,7 @@ This is a progression pack in the SevTech: Ages tradition, built from scratch fo
 
 ## The shrine
 
-::: spoiler
+::: spoiler The shrine and the finale
 
 You build it yourself, one ring per Age, from a circle of cobblestone and thatch up to a ring of quantum casings. Lay the Age's offering on the plinth, fulfil the rite and pray together. The sky answers: the ring turns to consecrated stone, a blessing settles around the shrine, the offering stays behind as a relic, and the next Age is open for everyone.
 

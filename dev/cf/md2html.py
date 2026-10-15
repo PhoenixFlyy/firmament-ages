@@ -57,14 +57,16 @@ def convert(md: str) -> str:
             out.append(f"<h{level}>{inline(m.group(2))}</h{level}>")
             i += 1
             continue
-        if stripped == "::: spoiler":
+        m = re.match(r"^::: spoiler(?:\s+(.*))?$", stripped)
+        if m:
             flush_para()
-            out.append('<div class="spoiler">')
+            title = m.group(1) or "Spoiler"
+            out.append(f"<details><summary>{inline(title + ' (click to show)')}</summary>")
             i += 1
             continue
         if stripped == ":::":
             flush_para()
-            out.append("</div>")
+            out.append("</details>")
             i += 1
             continue
         if re.match(r"^(-{3,}|\*{3,})$", stripped):
