@@ -80,7 +80,7 @@ public final class FirmAgesJS {
         return OriginRegistry.ORIGIN_ID.toString();
     }
 
-    /** The altar of the Gathering, {x, y, z} in The Origin (spawn the waves and the boss around it). */
+    /** The altar of the Gathering, {x, y, z} in The Origin (summon the boss around it). */
     public static int[] originAltar() {
         return new int[] {OriginArena.ALTAR.getX(), OriginArena.ALTAR.getY(), OriginArena.ALTAR.getZ()};
     }

@@ -157,8 +157,8 @@ public final class OriginService {
     /**
      * One Gathering check (every second; GameTests call it directly). The Gathering starts when the whole team
      * arrives at the altar (the rising edge), at most once per {@code origin.gatherCooldownSeconds}, and never while
-     * its fight runs ({@link #fightActive}): players walk away from the altar and back during the waves and the
-     * boss, and each return used to start (and announce) the Gathering again once the cooldown had passed. After a
+     * its fight runs ({@link #fightActive}): players walk away from the altar and back during the
+     * boss fight, and each return used to start (and announce) the Gathering again once the cooldown had passed. After a
      * wipe the boss is gone, so the next arrival after the cooldown starts it again.
      * @return true if the start fired now
      */
