@@ -223,6 +223,7 @@
     {"id": "draconicevolution:item_draconic_speed", "required": false},
     {"id": "draconicevolution:item_draconic_tree_harvest", "required": false},
     {"id": "draconicevolution:item_draconic_undying", "required": false},
+    {"id": "everycomp:mcf/ad_astra/glacian_hedge", "required": false},
     {"id": "evolvedmekanism:advanced_alloying_factory", "required": false},
     {"id": "evolvedmekanism:advanced_personal_chest", "required": false},
     {"id": "evolvedmekanism:alloy_exoversal", "required": false},
@@ -674,6 +675,8 @@
     {"id": "occultism:storage_stabilizer_tier5", "required": false},
     {"id": "occultism:storage_stabilizer_tier5_dark", "required": false},
     {"id": "occultism:trinity_gem", "required": false},
-    {"id": "occultism:true_sight_staff", "required": false}
+    {"id": "occultism:true_sight_staff", "required": false},
+    {"id": "refurbished_furniture:computer", "required": false},
+    {"id": "refurbished_furniture:television", "required": false}
   ]
 }

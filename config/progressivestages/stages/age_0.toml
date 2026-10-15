@@ -31,6 +31,7 @@ locked = [
 locked_ids = [
     # >>> generated:recipes >>>
     "mod:afc",
+    "mod:deimos",
     "mod:everycomp",
     "mod:firmages",
     "mod:firmasupps",

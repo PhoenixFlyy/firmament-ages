@@ -36,13 +36,11 @@ locked_ids = [
     "mod:createframed",
     "mod:createrailwaysnavigator",
     "mod:dndecor",
-    "mod:gateways",
     "mod:interiors",
     "mod:railways",
     "mod:tfcbetterbf",
     "mod:tfcreate",
     "mod:toms_storage",
-    "mod:twilightforest",
     # <<< generated:recipes <<<
 ]
 

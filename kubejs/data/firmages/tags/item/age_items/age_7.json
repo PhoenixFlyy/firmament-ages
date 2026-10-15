@@ -569,6 +569,8 @@
     {"id": "tfc_ie_addon:ore/rich_uraninite/tuff", "required": false},
     {"id": "tfc_ie_addon:ore/small_uraninite", "required": false},
     {"id": "tfc_ie_addon:powder/uraninite", "required": false},
+    {"id": "tfcvolcanoes:mineral/pitchblende", "required": false},
+    {"id": "tfcvolcanoes:mineral/powder/pitchblende", "required": false},
     {"id": "theurgy:alchemical_sulfur_uranium", "required": false}
   ]
 }
