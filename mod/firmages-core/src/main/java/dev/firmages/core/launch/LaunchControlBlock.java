@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
  * the throttle and names the phase. Right-click with a probe, a module or a fuel container puts it in; sneak and
  * right-click with an empty hand takes the returns, then the probe, then the modules back. A redstone signal on the
  * back sets the throttle, one on any other face holds the launch; the back gives redstone 15 during the countdown and
- * the climb. Breaking it mid-flight keeps the mission in the dropped item.
+ * the climb. Breaking it keeps a mission in flight and the fuel in the dropped item.
  */
 public final class LaunchControlBlock extends BaseEntityBlock {
     public static final MapCodec<LaunchControlBlock> CODEC = simpleCodec(LaunchControlBlock::new);

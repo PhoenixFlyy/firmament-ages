@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * The Launch Complex (SPEC §31.3, §31.4): the launch control, the probe cradle, the launch port, the probe and its two
  * payload modules, the two sky materials only probes bring (voidglass, deep-space samples), the {@code firmages:mission}
- * item component and the {@code firmages:probe} criterion.
+ * item component (with {@code firmages:launch_fuel} for the tank) and the {@code firmages:probe} criterion.
  */
 public final class LaunchRegistry {
     private LaunchRegistry() {}
@@ -72,6 +72,11 @@ public final class LaunchRegistry {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Mission>> MISSION = COMPONENTS.registerComponentType("mission",
         b -> b.persistent(Mission.CODEC).networkSynchronized(Mission.STREAM_CODEC));
+
+    /** The tank of a broken control rides in its item as well, so no fuel is lost. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<net.neoforged.neoforge.fluids.SimpleFluidContent>> LAUNCH_FUEL =
+        COMPONENTS.registerComponentType("launch_fuel", b -> b.persistent(net.neoforged.neoforge.fluids.SimpleFluidContent.CODEC)
+            .networkSynchronized(net.neoforged.neoforge.fluids.SimpleFluidContent.STREAM_CODEC));
 
     public static final DeferredHolder<CriterionTrigger<?>, ProbeTrigger> PROBE_TRIGGER = TRIGGERS.register("probe", ProbeTrigger::new);
 

@@ -328,7 +328,7 @@ public final class LaunchGameTests {
             .thenSucceed();
     }
 
-    /** Breaking the control in flight drops it with the mission; placed again it flies on and brings the returns. */
+    /** Breaking the control in flight drops it with the mission and its fuel; placed again it flies on and brings the returns. */
     @GameTest(template = "launch_area", batch = BATCH, skyAccess = true, timeoutTicks = 1600)
     public static void controlDropKeepsMission(GameTestHelper h) {
         useTestData();
@@ -338,11 +338,13 @@ public final class LaunchGameTests {
         BlockState[] state = new BlockState[1];
         ItemStack[] dropped = new ItemStack[1];
         Mission[] carried = new Mission[1];
+        int[] fuelAtBreak = new int[1];
         h.startSequence()
             .thenWaitUntil(() -> h.assertTrue(be.mission() != null && be.mission().phase() == LaunchRules.Phase.FLIGHT && be.mission().progress() > 10, "flight"))
             .thenExecute(() -> {
                 state[0] = h.getBlockState(CONTROL);
                 carried[0] = be.mission();
+                fuelAtBreak[0] = be.fluid().getAmount();
                 h.getLevel().destroyBlock(h.absolutePos(CONTROL), true);
             })
             .thenIdle(1)
@@ -359,11 +361,13 @@ public final class LaunchGameTests {
                 ok(h, m != null && m.phase() == LaunchRules.Phase.FLIGHT && m.progress() >= carried[0].progress() && m.probe().is(LaunchRegistry.PROBE.get()),
                     "the item carries the mission with the probe: " + m);
                 ok(h, drops.stream().noneMatch(e -> e.getItem().is(LaunchRegistry.PROBE.get())), "the probe stays in the mission");
+                var fuel = dropped[0].get(LaunchRegistry.LAUNCH_FUEL.get());
+                ok(h, fuel != null && fuel.getAmount() == fuelAtBreak[0] && fuelAtBreak[0] > 0, "the item carries the fuel: " + fuel + " of " + fuelAtBreak[0]);
                 h.setBlock(CONTROL, state[0]);
                 LaunchControlBlockEntity again = control(h);
                 again.applyComponentsFromItemStack(dropped[0]);
-                again.automationFluid().fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE);
                 ok(h, again.mission() != null && again.mission().progress() == m.progress(), "placed again, it resumes");
+                ok(h, again.fluid().getAmount() == fuelAtBreak[0] && again.fluid().getFluid() == Fluids.WATER, "and has its fuel back");
             })
             .thenWaitUntil(() -> h.assertTrue(control(h).mission() == null, "the probe is home"))
             .thenExecute(() -> {
@@ -372,6 +376,31 @@ public final class LaunchGameTests {
                 ok(h, again.stack(LaunchControlBlockEntity.PROBE_SLOT).is(LaunchRegistry.PROBE.get()), "the probe came home");
             })
             .thenSucceed();
+    }
+
+    /** A player's bucket of fuel fills the tank by hand; a bucket of something else does not, and a probe goes in by hand. */
+    @GameTest(template = "launch_area", batch = BATCH, skyAccess = true, timeoutTicks = 200)
+    public static void handFillsFuel(GameTestHelper h) {
+        useTestData();
+        MinecraftServer server = h.getLevel().getServer();
+        buildComplex(h);
+        LaunchControlBlockEntity be = placeControl(h);
+        ServerPlayer p = DebugPlayerCommands.spawn(server, h.getLevel(), "gt_launch_hand", Vec3.atCenterOf(h.absolutePos(CONTROL.east(2))));
+        p.setGameMode(GameType.SURVIVAL);
+        BlockPos at = h.absolutePos(CONTROL);
+        net.minecraft.world.phys.BlockHitResult hit = new net.minecraft.world.phys.BlockHitResult(Vec3.atCenterOf(at), Direction.EAST, at, false);
+        p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(net.minecraft.world.item.Items.LAVA_BUCKET));
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+        ok(h, be.fluid().isEmpty() && p.getMainHandItem().is(net.minecraft.world.item.Items.LAVA_BUCKET), "lava is not fuel");
+        p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(net.minecraft.world.item.Items.WATER_BUCKET));
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+        ok(h, be.fluid().getAmount() == 1000, "a bucket of the fuel tag fills 1000 mB: " + be.fluid().getAmount());
+        ok(h, p.getMainHandItem().is(net.minecraft.world.item.Items.BUCKET), "the bucket comes back empty: " + p.getMainHandItem());
+        p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(LaunchRegistry.PROBE.get()));
+        p.gameMode.useItemOn(p, h.getLevel(), p.getMainHandItem(), net.minecraft.world.InteractionHand.MAIN_HAND, hit);
+        ok(h, be.stack(LaunchControlBlockEntity.PROBE_SLOT).is(LaunchRegistry.PROBE.get()) && p.getMainHandItem().isEmpty(), "the probe goes in by hand");
+        DebugPlayerCommands.despawn(p);
+        h.succeed();
     }
 
     /** A module file that returns an ore, a raw material or an Ad Astra item does not load (SPEC §31.4, §31.11 3). */

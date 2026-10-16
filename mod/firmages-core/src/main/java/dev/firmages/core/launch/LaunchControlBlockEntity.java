@@ -707,12 +707,15 @@ public final class LaunchControlBlockEntity extends BlockEntity {
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
         if (mission != null) components.set(LaunchRegistry.MISSION.get(), mission);
+        if (!tank.isEmpty()) components.set(LaunchRegistry.LAUNCH_FUEL.get(), net.neoforged.neoforge.fluids.SimpleFluidContent.copyOf(tank.getFluid()));
     }
 
     @Override
     protected void applyImplicitComponents(BlockEntity.DataComponentInput input) {
         super.applyImplicitComponents(input);
         restoreMission(input.get(LaunchRegistry.MISSION.get()));
+        var fuel = input.get(LaunchRegistry.LAUNCH_FUEL.get());
+        if (fuel != null && !fuel.isEmpty()) tank.setFluid(fuel.copy());
     }
 
     @Override
@@ -720,6 +723,7 @@ public final class LaunchControlBlockEntity extends BlockEntity {
     public void removeComponentsFromTag(CompoundTag tag) {
         super.removeComponentsFromTag(tag);
         tag.remove("mission");
+        tag.remove("tank");
     }
 
     @Override

@@ -14,7 +14,8 @@
               "function": "minecraft:copy_components",
               "source": "block_entity",
               "include": [
-                "firmages:mission"
+                "firmages:mission",
+                "firmages:launch_fuel"
               ]
             }
           ]
