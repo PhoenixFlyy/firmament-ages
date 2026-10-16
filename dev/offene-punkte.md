@@ -60,7 +60,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Mod-Rauschen: JEI schreibt sechs „Found a broken recipe“ für Chemixer und APT (Client); Moonlight hält beim Stop 15 Threads offen. Beide in den Rauschlisten | Evolved Mekanism, JEI, Moonlight | Mod-Autor |
 | GUI-Resourcepacks mit anderer Grundfarbe zeigen in Dawn ein graues Rechteck über dem Feld (#C6C6C6 fest); das Pack liefert keins mit | firmages-core `client/immersion/GridLockClient` | Claude, falls ein GUI-Pack dazukommt |
 | Planungsdokumente: `08-Ages-Design.md` „§0 Stand“, `10-Modliste.md` aus `mods/*.pw.toml` erzeugen, `12-Walkthrough.md` auf einen Verweis auf `docs/WALKTHROUGH.md` kürzen | `../Modpack-Planung/docs/` | Claude |
-| Sauce (Bibliothek von Ars Elemental) wirft beim Start einmal `Cannot get config value before config is loaded` aus `SauceConfig.onReload`, wenn der Config-Watcher feuert, bevor die Config geladen ist (Boot des Release-Reviews 1.0.0, nicht in den F1-Boots); harmlos, aber nicht in `log_noise.json`. Beim nächsten Boot beobachten, dann Rauschen eintragen oder melden | `dev/data/log_noise.json` | Claude |
+| Tutorial-Wayshrine fehlt auf etwa jeder zweiten neuen Welt: in der Abschlussprüfung 1.0.0 fanden 2 von 5 Seeds keinen Platz („no fit site 300 to 800 blocks“, Spawn auf y 63 und 69; ein WARN bei jedem Start, bis es klappt), die Prüfung versucht sechzehn Peilungen auf nur einem Abstand. Vorschlag: je Peilung mehrere Abstände (300, 550, 800 Blöcke); das ändert firmages-core (Neubau, GameTests). Bis dahin endet `check_log.py` auf einem frischen Seed nicht sicher bei remaining 0 | firmages-core `wayshrine/WayshrineTutorial`, `WayshrineRules.TUTORIAL_TRIES` | Claude, nach Freigabe eines Core-Neubaus |
 | Der TFC-GameTest-Lauf (`-PgametestTfc`) stürzt in `IsleGameTests.shapeAndSkyLight` ab (NPE in `LightEngine.getLightValue`); der Standardlauf (124 von 124) ist grün | `src/gametest/.../IsleGameTests.java` | Claude |
 
 ## Erledigt in Runde F1 (mit Beleg)
@@ -82,3 +82,11 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Kopie-Prüfungen der Runde: `sequenced_assembly` von Simulated und Create Factory Logistics, Createdeco-Schiffscontainer, Flüssigkeits-Tags `age_fluids` | alle mit Age auf dem echten Dump (age_2 bzw. age_4); `gen_stage_locks.py` schreibt `age_fluids` je Stage |
 | Bekannte Lücken Apothic-Tisch und Blaze-Template (Machine Route der Arkanzeit) | Release-Review 1.0.0: Tisch mit Arkan-Edelsteinen, Template als Kistenbeute (`CODE_DROPS`), `KNOWN_GAPS` leer; Q-1 0 ohne Quelle; Zeile „Release-Review 1.0.0: Machine Route ohne Diamant“ |
 | Splitter und Kristalle vor ihrer Maschine (Informationszeit-Straße „More Metals“) | `LATE_LOADED` im Walk, Q-1 mit Entweder-oder-Quests; Aufgaben in „Ore Times Four“ und „Ore Times Five“ |
+
+## Erledigt in der Abschlussprüfung 1.0.0 (mit Beleg)
+
+| Was | Beleg |
+|---|---|
+| Sauce (Bibliothek von Ars Elemental) warf beim ersten Start `Cannot get config value before config is loaded` aus `SauceConfig.onReload` | Ursache: der Config-Watcher meldet das erste Schreiben von `sauce-startup.toml` als Reload, `onReload` liest dabei den noch nicht geladenen Server-Wert; `config/sauce-startup.toml` jetzt im Pack. Frische Installation, Boot C: keine Sauce-Zeile, die Datei unverändert (`dev/poc-results.md`, „1.0.0 Abschlussprüfung“) |
+| `everycomp-entries.toml` korrigiert | nur Felix' alte Datei aus `test-server/` (Einträge für Cataclysm und Twilight Forest); auf einer frischen Installation schreibt Every Compat die Datei ohne Korrektur |
+| Every-Compat-Schmuckschilder mit einer Rezept-ID je Namensraum (G-2 schwankte um ein Rezept) | `deco_c1.js` entfernt `everycomp:bcl/tfc/fancy_sign` und `everycomp:bcl/afc/fancy_sign`; poc 134 PASS auf den echten Dumps |

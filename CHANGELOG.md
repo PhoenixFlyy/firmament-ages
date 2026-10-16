@@ -39,6 +39,8 @@ A co-op progression pack for one team per server on Minecraft 1.21.1 and NeoForg
 - `dev/gen_recipe_overrides.py`: action `recount` for a mod recipe whose result is larger than its stack size.
 - Diagonal Fences: Macaw's five vanilla-oak fence sources (horse, picket, stockade, wired, hedge) connect straight (`diagonalfences:non_diagonal_fences`); Diagonal Fences swapped their block after the first data load, and Every Compat's reload then lost 147 fence recipes in TerraFirmaCraft and ArborFirmaCraft woods.
 - `dev/derive_ages.py` and `dev/poc_analyze.py`: the reachability walk holds the pack recipes the gate loads late (`LATE_LOADED`: ore injection age_7, ore dissolution age_8, ...); Q-1 also checks either-or quests; `KNOWN_GAPS` is empty (the Create Dragons Plus template is a code drop of the Nether chests).
+- The pack ships `config/sauce-startup.toml` (Ars Elemental's library Sauce), so the first start writes no Sauce config and no longer logs "Cannot get config value before config is loaded".
+- Bibliocraft fancy signs in TerraFirmaCraft and ArborFirmaCraft woods: Every Compat's recipe, one id for every wood of a mod (a different wood won on each start), is removed; each wood keeps its own recipe.
 - The Chronicle: 26 chapters, 666 quests (Ages 329, Side Roads 291, Great Works 18, The Firmament 28).
 - No mod added or removed: 264 metafiles plus `firmages-core`, 265 in the credits.
 

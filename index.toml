@@ -561,6 +561,10 @@ file = "config/sauce-server.toml"
 hash = "491c0543b2b290e6e46bb95907820d8f4532a422f02b66c48ad97248eec3a3d5"
 
 [[files]]
+file = "config/sauce-startup.toml"
+hash = "b0ebd587b971cb31bff96cbe646f6d7f643d3331e6d2fbf2fbe0dde8ce6d515a"
+
+[[files]]
 file = "config/sgjourney-common.toml"
 hash = "1f9cc5b88250a76060122d9647d8f7e3a80ea82b37d5ff3b271a6512163e8434"
 
@@ -10790,7 +10794,7 @@ hash = "89b87005fb6e2ef07eeb789b837ab91708089593e4583dd3a08f7d9799e3b8b1"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/deco_c1.js"
-hash = "8abfe1a0432cbc1f610a2b9856e40b07c946fa93fe20fd33dc13e5cf8b9f7320"
+hash = "0891087a2fcce804ad285e6b2ce10b3d9d047e817ffcf6eac628384d424f56c3"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/deco_inputs.js"

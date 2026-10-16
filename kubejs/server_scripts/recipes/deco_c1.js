@@ -10,8 +10,12 @@ ServerEvents.recipes((event) => {
   event.replaceInput({ id: /^bibliocraft:color\/[a-z_]+\/wood\/oak\/display_case$/ }, 'minecraft:oak_slab',
     '#minecraft:wooden_slabs')
 
-  // Every Compat builds the fancy sign in every TFC and AFC wood but writes no recipe for it (Bibliocraft's recipe ids
-  // are wood/<wood>/fancy_sign); this is Bibliocraft's own pattern with the planks of that wood.
+  // Every Compat builds the fancy sign in every TFC and AFC wood but names its recipe without the wood (Bibliocraft's
+  // recipe ids are wood/<wood>/fancy_sign): all woods of a namespace write everycomp:bcl/<ns>/fancy_sign, and which wood
+  // survives changes from boot to boot (1.0.0 final check: tfc maple, then mangrove). The pack removes those two and
+  // gives every wood Bibliocraft's own pattern with the planks of that wood.
+  event.remove({ id: 'everycomp:bcl/tfc/fancy_sign' })
+  event.remove({ id: 'everycomp:bcl/afc/fancy_sign' })
   const WOODS = {
     tfc: ['acacia', 'ash', 'aspen', 'birch', 'blackwood', 'chestnut', 'douglas_fir', 'hickory', 'kapok', 'mangrove',
       'maple', 'oak', 'palm', 'pine', 'rosewood', 'sequoia', 'spruce', 'sycamore', 'white_cedar', 'willow'],
