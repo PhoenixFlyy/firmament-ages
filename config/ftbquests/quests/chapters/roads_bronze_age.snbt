@@ -31,7 +31,7 @@
 					id: "4C9DAA6B2EFE1634"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "tfc:metal/sheet/copper"
 					}
 					team_reward: true
 					type: "item"
@@ -72,11 +72,11 @@
 					xp: 35
 				}
 				{
-					count: 8
+					count: 4
 					id: "11419545A78B340A"
 					item: {
 						count: 1
-						id: "create:andesite_alloy"
+						id: "minecraft:leather"
 					}
 					team_reward: true
 					type: "item"
@@ -162,10 +162,11 @@
 					xp: 35
 				}
 				{
+					count: 4
 					id: "43911CFBD2A0F5AD"
 					item: {
 						count: 1
-						id: "tfc:metal/hammer/bronze"
+						id: "totemic:cooked_buffalo_meat"
 					}
 					team_reward: false
 					type: "item"
@@ -206,11 +207,11 @@
 					xp: 35
 				}
 				{
-					count: 4
+					count: 6
 					id: "0060DEA33E082E54"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "tfc:wool_cloth"
 					}
 					team_reward: true
 					type: "item"
@@ -738,13 +739,13 @@
 					xp: 35
 				}
 				{
-					count: 2
+					count: 3
 					id: "3CCABDB31D14F807"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "firmalife:food/bacon"
 					}
-					team_reward: true
+					team_reward: false
 					type: "item"
 				}
 			]
@@ -786,11 +787,11 @@
 					xp: 35
 				}
 				{
-					count: 8
+					count: 4
 					id: "0D6D70FE5B8D2487"
 					item: {
 						count: 1
-						id: "tfc:powder/flux"
+						id: "firmalife:beeswax"
 					}
 					team_reward: true
 					type: "item"
@@ -899,7 +900,7 @@
 					id: "448E554DDB4A9B1B"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "tfc:metal/sheet/copper"
 					}
 					team_reward: true
 					type: "item"
@@ -982,13 +983,13 @@
 					xp: 35
 				}
 				{
-					count: 4
+					count: 3
 					id: "64459D2DAF510C69"
 					item: {
 						count: 1
-						id: "tfc:powder/flux"
+						id: "firmalife:food/toast"
 					}
-					team_reward: true
+					team_reward: false
 					type: "item"
 				}
 			]
@@ -1049,11 +1050,11 @@
 					xp: 35
 				}
 				{
-					count: 4
+					count: 2
 					id: "4F59C4E78D46DC1F"
 					item: {
 						count: 1
-						id: "create:shaft"
+						id: "create:gearbox"
 					}
 					team_reward: true
 					type: "item"
@@ -1101,7 +1102,7 @@
 					id: "27DF8B53824849E0"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/tin"
+						id: "tfc:metal/ingot/bismuth"
 					}
 					team_reward: true
 					type: "item"
@@ -1148,7 +1149,7 @@
 					id: "6C5B7AAC62F37886"
 					item: {
 						count: 1
-						id: "create:shaft"
+						id: "tfc:metal/chain/bronze"
 					}
 					team_reward: true
 					type: "item"
@@ -1235,11 +1236,10 @@
 					xp: 35
 				}
 				{
-					count: 2
 					id: "31FEFD60C77538AC"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "tfc:metal/lamp/bronze"
 					}
 					team_reward: true
 					type: "item"
@@ -1324,11 +1324,11 @@
 					xp: 35
 				}
 				{
-					count: 8
+					count: 2
 					id: "305BAA0568F0B1C7"
 					item: {
 						count: 1
-						id: "tfc:powder/flux"
+						id: "tfc:metal/sheet/copper"
 					}
 					team_reward: true
 					type: "item"
@@ -1364,11 +1364,11 @@
 					xp: 35
 				}
 				{
-					count: 4
+					count: 2
 					id: "5EF49E141896153B"
 					item: {
 						count: 1
-						id: "create:shaft"
+						id: "minecraft:leather"
 					}
 					team_reward: true
 					type: "item"
@@ -2090,12 +2090,13 @@
 					xp: 35
 				}
 				{
+					count: 8
 					id: "03BB3536AD24D641"
 					item: {
 						count: 1
-						id: "tfc:metal/hoe/bronze"
+						id: "tfc:seeds/barley"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -2435,12 +2436,13 @@
 					xp: 35
 				}
 				{
+					count: 8
 					id: "7779D1471E5834A7"
 					item: {
 						count: 1
-						id: "tfc:metal/scythe/bronze"
+						id: "tfc:seeds/wheat"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -2780,11 +2782,11 @@
 					xp: 35
 				}
 				{
-					count: 4
+					count: 2
 					id: "54A1C2E49BA48192"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "tfc:metal/sheet/copper"
 					}
 					team_reward: true
 					type: "item"
@@ -3119,7 +3121,7 @@
 					id: "6A73EB093DD8F702"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "tfc:metal/sheet/copper"
 					}
 					team_reward: true
 					type: "item"
@@ -3161,11 +3163,11 @@
 					xp: 35
 				}
 				{
-					count: 8
+					count: 2
 					id: "5AEC69DE1C904231"
 					item: {
 						count: 1
-						id: "tfc:powder/flux"
+						id: "tfc:metal/ingot/bismuth"
 					}
 					team_reward: true
 					type: "item"
@@ -3207,11 +3209,11 @@
 					xp: 35
 				}
 				{
-					count: 8
+					count: 2
 					id: "53324E386C31A6E3"
 					item: {
 						count: 1
-						id: "create:andesite_alloy"
+						id: "create:andesite_casing"
 					}
 					team_reward: true
 					type: "item"
@@ -3256,7 +3258,7 @@
 					id: "63AA85132A3CB18E"
 					item: {
 						count: 1
-						id: "create:shaft"
+						id: "tfc:metal/chain/bronze"
 					}
 					team_reward: true
 					type: "item"
@@ -3432,7 +3434,7 @@
 					id: "5C3ADE51C99788F2"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "storagedrawers:upgrade_template"
 					}
 					team_reward: true
 					type: "item"
@@ -3546,11 +3548,11 @@
 					xp: 35
 				}
 				{
-					count: 8
+					count: 2
 					id: "4C2AB25D6468677B"
 					item: {
 						count: 1
-						id: "tfc:powder/flux"
+						id: "sophisticatedbackpacks:upgrade_base"
 					}
 					team_reward: true
 					type: "item"
@@ -3591,11 +3593,11 @@
 					xp: 35
 				}
 				{
-					count: 4
+					count: 2
 					id: "39F3B1B6E811D994"
 					item: {
 						count: 1
-						id: "create:shaft"
+						id: "tfc:metal/ingot/bismuth"
 					}
 					team_reward: true
 					type: "item"
@@ -3676,7 +3678,7 @@
 					id: "4140775EDE936A5C"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "tfc:metal/sheet/copper"
 					}
 					team_reward: true
 					type: "item"
@@ -3717,12 +3719,13 @@
 					xp: 35
 				}
 				{
+					count: 2
 					id: "4E3BA1F0316EC9A9"
 					item: {
 						count: 1
-						id: "tfc:metal/propick/bronze"
+						id: "tfc:metal/sheet/copper"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -3761,12 +3764,13 @@
 					xp: 35
 				}
 				{
+					count: 2
 					id: "55E407EEBBC978AA"
 					item: {
 						count: 1
-						id: "tfc:metal/hammer/bronze"
+						id: "tfc:metal/sheet/copper"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -3876,11 +3880,11 @@
 					xp: 35
 				}
 				{
-					count: 2
+					count: 4
 					id: "403101A649DC386F"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/bronze"
+						id: "minecraft:leather"
 					}
 					team_reward: true
 					type: "item"
@@ -4159,12 +4163,13 @@
 					xp: 35
 				}
 				{
+					count: 4
 					id: "1B3170F3E4D6A7B5"
 					item: {
 						count: 1
-						id: "tfc:metal/boots/bronze"
+						id: "tfc:wool_cloth"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]

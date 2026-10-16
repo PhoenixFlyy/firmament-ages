@@ -27,11 +27,11 @@
 					xp: 200
 				}
 				{
-					count: 4
+					count: 2
 					id: "6066CC6366427C02"
 					item: {
 						count: 1
-						id: "draconicevolution:small_chaos_frag"
+						id: "evolvedmekanism:overclocked_control_circuit"
 					}
 					team_reward: true
 					type: "item"
@@ -72,11 +72,11 @@
 					xp: 200
 				}
 				{
-					count: 8
+					count: 4
 					id: "11C6F6CC54815D5B"
 					item: {
 						count: 1
-						id: "sgjourney:raw_naquadah"
+						id: "sgjourney:naquadah"
 					}
 					team_reward: true
 					type: "item"
@@ -142,49 +142,6 @@
 			]
 			x: 4.2d
 			y: 0.1d
-		}
-		{
-			dep_control_pts: {
-				43C52E01ADB93C69: [
-					5.3d
-					0.464d
-					5.978d
-					-0.036d
-				]
-			}
-			dependencies: ["43C52E01ADB93C69"]
-			icon: {
-				id: "draconicadditions:chaotic_necklace"
-			}
-			id: "7821425D528C525D"
-			optional: true
-			rewards: [
-				{
-					id: "4201E7C3A069F126"
-					type: "xp"
-					xp: 200
-				}
-				{
-					id: "53EA39811D3B04F1"
-					item: {
-						count: 1
-						id: "draconicevolution:chaotic_capacitor"
-					}
-					team_reward: false
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "5849343D7214765A"
-					type: "checkmark"
-				}
-			]
-			x: 6.35d
-			y: -0.4d
 		}
 		{
 			dependencies: ["774C554B16ACE98C"]
@@ -287,11 +244,11 @@
 					xp: 200
 				}
 				{
-					count: 4
+					count: 2
 					id: "6C0D97FB1349E214"
 					item: {
 						count: 1
-						id: "draconicevolution:small_chaos_frag"
+						id: "evolvedmekanism:overclocked_control_circuit"
 					}
 					team_reward: true
 					type: "item"
@@ -332,10 +289,11 @@
 					xp: 200
 				}
 				{
+					count: 4
 					id: "30612E7D2C4B69E2"
 					item: {
 						count: 1
-						id: "draconicevolution:chaos_shard"
+						id: "sgjourney:naquadah"
 					}
 					team_reward: true
 					type: "item"

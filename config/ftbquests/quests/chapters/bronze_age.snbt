@@ -1166,7 +1166,7 @@
 					id: "28BF09646A2D5259"
 					item: {
 						count: 1
-						id: "sophisticatedbackpacks:copper_backpack"
+						id: "tfc:metal/shield/bronze"
 					}
 					team_reward: false
 					type: "item"
@@ -1236,18 +1236,19 @@
 					id: "7681396A18ECE861"
 					item: {
 						count: 1
-						id: "sophisticatedbackpacks:pickup_upgrade"
+						id: "sophisticatedbackpacks:stack_upgrade_starter_tier"
 					}
 					team_reward: false
 					type: "item"
 				}
 				{
+					count: 4
 					id: "65FCFB396B4686AA"
 					item: {
 						count: 1
-						id: "sophisticatedbackpacks:stack_upgrade_starter_tier"
+						id: "minecraft:leather"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -1286,21 +1287,23 @@
 					xp: 35
 				}
 				{
+					count: 4
 					id: "0CB4C9E423118936"
 					item: {
 						count: 1
-						id: "firmalife:mixing_bowl"
+						id: "firmalife:beeswax"
 					}
 					team_reward: true
 					type: "item"
 				}
 				{
+					count: 3
 					id: "5F08BC61C6A05C87"
 					item: {
 						count: 1
-						id: "firmalife:beehive"
+						id: "firmalife:food/bacon"
 					}
-					team_reward: true
+					team_reward: false
 					type: "item"
 				}
 			]
@@ -1339,19 +1342,11 @@
 					xp: 35
 				}
 				{
+					count: 4
 					id: "2CBBA1C399B51573"
 					item: {
 						count: 1
-						id: "totemic:drum"
-					}
-					team_reward: false
-					type: "item"
-				}
-				{
-					id: "309B78DD15C15155"
-					item: {
-						count: 1
-						id: "totemic:rattle"
+						id: "totemic:cooked_buffalo_meat"
 					}
 					team_reward: false
 					type: "item"

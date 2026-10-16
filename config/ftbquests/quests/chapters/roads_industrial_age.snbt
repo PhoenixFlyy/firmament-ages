@@ -27,11 +27,11 @@
 					xp: 80
 				}
 				{
-					count: 16
+					count: 4
 					id: "0999C83A13535525"
 					item: {
 						count: 1
-						id: "immersiveengineering:coal_coke"
+						id: "createbigcannons:packed_gunpowder"
 					}
 					team_reward: true
 					type: "item"
@@ -72,11 +72,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "681CB671BB5E3602"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_constantan"
+						id: "immersiveengineering:component_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -166,7 +166,7 @@
 					id: "0086223AFA7FE65C"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_copper"
+						id: "createbigcannons:powder_charge"
 					}
 					team_reward: true
 					type: "item"
@@ -211,7 +211,7 @@
 					id: "6A5476FC73380877"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_lead"
+						id: "createbigcannons:solid_shot"
 					}
 					team_reward: true
 					type: "item"
@@ -333,11 +333,11 @@
 					xp: 80
 				}
 				{
-					count: 16
+					count: 8
 					id: "4A336DAFB81DE883"
 					item: {
 						count: 1
-						id: "immersiveengineering:coal_coke"
+						id: "immersiveengineering:hemp_fabric"
 					}
 					team_reward: true
 					type: "item"
@@ -378,11 +378,11 @@
 					xp: 80
 				}
 				{
-					count: 16
+					count: 8
 					id: "080DF7D7EF6335DA"
 					item: {
 						count: 1
-						id: "immersiveengineering:treated_wood_horizontal"
+						id: "immersiveengineering:wirecoil_structure_rope"
 					}
 					team_reward: true
 					type: "item"
@@ -428,7 +428,7 @@
 					id: "4B3D2F86EB32DA08"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_copper"
+						id: "immersiveengineering:sheetmetal_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -469,11 +469,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "5281AA3166FFF627"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_lead"
+						id: "immersiveengineering:component_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -559,10 +559,11 @@
 					xp: 80
 				}
 				{
+					count: 4
 					id: "238D7C2BF2A74A5B"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/black_steel"
+						id: "immersiveengineering:sheetmetal_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -596,11 +597,11 @@
 					xp: 80
 				}
 				{
-					count: 16
+					count: 2
 					id: "36F3B43629B7F4C8"
 					item: {
 						count: 1
-						id: "immersiveengineering:treated_wood_horizontal"
+						id: "immersiveengineering:component_iron"
 					}
 					team_reward: true
 					type: "item"
@@ -646,7 +647,7 @@
 					id: "503D4FFE918E9465"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_copper"
+						id: "immersiveengineering:electric_lantern"
 					}
 					team_reward: true
 					type: "item"
@@ -773,7 +774,7 @@
 					id: "0B7938A0297B0276"
 					item: {
 						count: 1
-						id: "immersiveengineering:coal_coke"
+						id: "immersiveengineering:hemp_fiber"
 					}
 					team_reward: true
 					type: "item"
@@ -822,7 +823,7 @@
 					id: "79C4CCA34FEAA9CB"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_copper"
+						id: "immersiveengineering:hemp_fabric"
 					}
 					team_reward: true
 					type: "item"
@@ -939,7 +940,7 @@
 					id: "1604470C76D05671"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_lead"
+						id: "immersiveengineering:conveyor_basic"
 					}
 					team_reward: true
 					type: "item"
@@ -1026,10 +1027,11 @@
 					xp: 80
 				}
 				{
+					count: 2
 					id: "75265671A6085892"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/black_steel"
+						id: "immersiveengineering:component_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -1062,11 +1064,11 @@
 					xp: 80
 				}
 				{
-					count: 16
+					count: 4
 					id: "0B45BF906A835B38"
 					item: {
 						count: 1
-						id: "immersiveengineering:coal_coke"
+						id: "immersiveengineering:conveyor_basic"
 					}
 					team_reward: true
 					type: "item"
@@ -1107,11 +1109,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "681AE4FBF42FE2C5"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_copper"
+						id: "immersiveengineering:wooden_barrel"
 					}
 					team_reward: true
 					type: "item"
@@ -1197,11 +1199,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "0906B04FC1393B02"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_constantan"
+						id: "immersiveengineering:rs_engineering"
 					}
 					team_reward: true
 					type: "item"
@@ -1242,11 +1244,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "503ABB958D2846E0"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_lead"
+						id: "immersiveengineering:component_iron"
 					}
 					team_reward: true
 					type: "item"
@@ -1324,11 +1326,11 @@
 					xp: 80
 				}
 				{
-					count: 16
+					count: 2
 					id: "3AE557B80C67CA5A"
 					item: {
 						count: 1
-						id: "immersiveengineering:treated_wood_horizontal"
+						id: "immersiveengineering:component_iron"
 					}
 					team_reward: true
 					type: "item"
@@ -1373,7 +1375,7 @@
 					id: "521220ECF48E4B80"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_copper"
+						id: "immersiveengineering:conveyor_basic"
 					}
 					team_reward: true
 					type: "item"
@@ -1460,11 +1462,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "2DDC6721ECD0D83B"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_lead"
+						id: "immersiveengineering:component_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -1589,11 +1591,10 @@
 					xp: 80
 				}
 				{
-					count: 16
 					id: "79AAAFAD400EA98B"
 					item: {
 						count: 1
-						id: "immersiveengineering:coal_coke"
+						id: "immersiveengineering:graphite_electrode"
 					}
 					team_reward: true
 					type: "item"
@@ -1703,7 +1704,7 @@
 					id: "78E0BB56F8600A61"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_constantan"
+						id: "immersiveengineering:sheetmetal_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -1829,11 +1830,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "28A22BBAAAFDE541"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_lead"
+						id: "immersiveengineering:plate_lead"
 					}
 					team_reward: true
 					type: "item"
@@ -1902,11 +1903,11 @@
 					xp: 80
 				}
 				{
-					count: 16
+					count: 4
 					id: "2B92183B8C0D10B5"
 					item: {
 						count: 1
-						id: "immersiveengineering:coal_coke"
+						id: "immersiveengineering:wirecoil_structure_rope"
 					}
 					team_reward: true
 					type: "item"
@@ -1948,11 +1949,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "6226AFB50AEE9EF4"
 					item: {
 						count: 1
-						id: "immersiveengineering:ingot_constantan"
+						id: "immersiveengineering:plate_constantan"
 					}
 					team_reward: true
 					type: "item"
@@ -1994,11 +1995,11 @@
 					xp: 80
 				}
 				{
-					count: 4
+					count: 2
 					id: "584A65537411401B"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_copper"
+						id: "immersiveengineering:plate_electrum"
 					}
 					team_reward: true
 					type: "item"
@@ -2043,7 +2044,7 @@
 					id: "1256C79BFFAB5EB9"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/black_steel"
+						id: "immersiveengineering:toolupgrade_drill_damage"
 					}
 					team_reward: true
 					type: "item"

@@ -72,11 +72,11 @@
 					xp: 140
 				}
 				{
-					count: 8
+					count: 4
 					id: "2C541F98C0E78733"
 					item: {
 						count: 1
-						id: "ad_astra:desh_plate"
+						id: "megacells:accumulation_processor"
 					}
 					team_reward: true
 					type: "item"
@@ -288,11 +288,11 @@
 					xp: 140
 				}
 				{
-					count: 8
+					count: 16
 					id: "2C31E1838E1F8C5F"
 					item: {
 						count: 1
-						id: "ad_astra:desh_plate"
+						id: "ad_astra:desh_nugget"
 					}
 					team_reward: true
 					type: "item"

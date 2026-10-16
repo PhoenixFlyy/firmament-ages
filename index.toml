@@ -278,11 +278,11 @@ hash = "b2f1ffc81a1159f4438d750612b5cd89cf5f6e516c499625ba26c63a917ef08d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/arcane_age.snbt"
-hash = "1cb7707574d5a756b1b7cd9b7fd74e3395b60e5e9f8aa3455c1e2fec2329fd67"
+hash = "319619afbf8386c8ce904cd82a1ab96cf54fdfe406897aa23ca28e6a112a5b60"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "8c852a3cf630e1c42b5625ac0ca8a16454a4d40b1c9e585acf3669ffc067f73e"
+hash = "cbc99c101124d8e85fcf842915b3a8479930a483b928bdbbd746862c0e1d7fda"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
@@ -290,79 +290,79 @@ hash = "ffb2e0b913a2dbb358618d6a7a0e6a047b8c45461a43bc3d9e48a42b4316dfbc"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
-hash = "e1103a5cd92c045f278c349744ccdf89c8366290247c84534f14e097a5b19a93"
+hash = "75b810c8aded376e00f1f874eeddccbb24f1fb0a1e00df76d3d9face91c7c0bd"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/industrial_age.snbt"
-hash = "ee2b194aedb834851aec6f333ada7a37b3a2282179f59a2f1719050c4f3951ea"
+hash = "7aec246ba2e772ced3637162ef9136c35b9253f4f1f55b1fdfb1758ab1ab5ec7"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "d8e93b2ff206924a1b071c76b4387bd704c69025dd9c5977c9ed0b6454b5a4b4"
+hash = "5730e95788620ade3e4547345eb5dd0660d17dc1a08cb1caa537b057acbc79ba"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "833bc887a77c317c69424fd95b20d306e62a2355d3dfde7d06c5ed31f6294f6a"
+hash = "38c89d62a820cd201058e76fb9b8b5076301b3aa9d4a43743ec4d4d443dc3aa6"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "452b03a95ed1dcb85d8992ad80bda90bb6aa9cc310023eeeea8232778fe30f4e"
+hash = "755503a00aab091c46a10929bf849eb3a692989974ca0115c5b71f29deaff233"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_arcane_age.snbt"
-hash = "089f29e637389c9dcae4281671900b28e21f6ced64817531fc3c6354de15e535"
+hash = "e27da03528e180415cee573fd8b711167df9c8978acac7685dd443b562a2555d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_bronze_age.snbt"
-hash = "d5163f3e45d4348e776475ce620ea3ade0eeafb3463c5153bf8af41a143d172f"
+hash = "3c471ac84ffac4952101c662eef3a2e3e9238eb1f3efd67dc9634ca987c3c737"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_dawn.snbt"
-hash = "f26e837100db0510273791212c087ead249bbd8b52461e1f6aed4fc1683e3fa6"
+hash = "1a0031e44d3d38d9fd4f0aec9a576524baeaa1e53ecac9414f9d7bf76d43fea1"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_electric_age.snbt"
-hash = "b8f3b8eeac111972ee270805b6cb73378666581163340c1552dbbb9fb0d14b94"
+hash = "90921fa9b210994efb5c04ad438329b232fe57d1ae8dbc3168896cbc6238273a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_industrial_age.snbt"
-hash = "1abc49e62beff149883702054b0413abf9cb783c8f59161cfc0a23ce05e9f0e2"
+hash = "28385231312e74df3809e3be442c5f43cce6c41f008f2f62759afc52095c5898"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_information_age.snbt"
-hash = "22cad2a27dd90d78f5e903f3c3f62e3438d2be3f9ce44017929884fc393786fe"
+hash = "3492eedeeab6aec9788805a77844f7d1ac7ae6937ee5c985a7c0ccf211b2202a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_iron_age.snbt"
-hash = "17796dd3dda625e4c2357b512497d789cb72ffd212ce6fa55089eb3b493a0fbf"
+hash = "644bd20114e803fa8d4b7a2efcd22957aee18417298ac5a6ab2d665af432b675"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_quantum_age.snbt"
-hash = "2579a6375493c49440d765a0455de621206ef6410861210fa460bffac6947df5"
+hash = "03d8e8eea02554f60bfb4e73419291d212b54a2168f65e2d9498bca8b800b704"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_singularity_age.snbt"
-hash = "b162a60423cadd0bd855f7c86a071e123d103281f6173b17039887b138caf309"
+hash = "cb97a64d1cf52f64c596872d07ba45057c802c1d3a63cf8168503a98f82f783f"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_space_age.snbt"
-hash = "5faba56ab7965d663ffb0d2dc489552bd3f4524dc8fa781ca45846f570b48f0d"
+hash = "499a3bac0546ff4a932e4e96a349a15e8a5ef076998c875187cb9327ff02e04b"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_stone_age.snbt"
-hash = "11091ec0deaff28f040c234d3f8ab3c439668bae21f9e455799f196fc86d23cc"
+hash = "cbf920a0acc727a7569212cd3a64e1962d19f070ffce96b7b8992e092e2ce3b5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "70602f0f1dc1d85002357e20114f51320af942333a78a6c21b34d3e7f4a84ede"
+hash = "6a55f985bdbb7f32ce345a8a02ac8339e9f94fc88f1d3548aac01fdf770f6fe9"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
-hash = "0d4f31732dcd9d6f789fd9d539269ae9273531e29ca00248ae2a9cb2628e3666"
+hash = "e192294607c72a1be1f7b2e0e0b37f82328b0323ac8f1225da60f40203fdb326"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "12cbed459255348fccbd40be49e2f3fc7e4ecb212985798768557d5631f9aac6"
+hash = "ea3c557f7b57e17335db987c3a1cf4e6365e7a58b6744e768de6e01d36dddfd0"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
@@ -386,7 +386,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "392fce87ad19d6dab476b18d5e45f10692775a426291340bac36143862178fc8"
+hash = "2e2d1841fc0f32807ca5907329a78dff1e39a938e88f34c19532ac3c82633bd7"
 
 [[files]]
 file = "config/goblintraders-entities.toml"

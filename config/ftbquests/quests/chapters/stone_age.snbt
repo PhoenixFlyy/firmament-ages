@@ -726,10 +726,11 @@
 					xp: 60
 				}
 				{
+					count: 4
 					id: "42F02DD690EC6BEB"
 					item: {
 						count: 1
-						id: "totemic:tipi"
+						id: "tfc:wool_cloth"
 					}
 					team_reward: true
 					type: "item"

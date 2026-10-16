@@ -18,6 +18,10 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
              it), no stage reward. Goal of any other Age (Dawn): its reward grants exactly the next Age stage, with
              auto "invisible". Optional "Raise the ring" quests (tag ring): one block_state observation of
              firmages:shrine_heart with ready=true and awakened=N in the chapter of age_N, only where ring_N exists
+  rewards    book-wide (review B2): for every item task the item rewards of quests of the same or an earlier Age
+             that are not its descendants add up to at most a third of the task count (a per-player reward counts
+             twice); a Side Roads task item is paid by no quest that is not its descendant; no reward is an Age token,
+             an offering or a chaos shard or fragment; no Dawn reward is a torch
   grants     one grant path per Age, book-wide: age_0 by one quest reward, age_1..age_9 by their shrine tier and
              no quest reward, finale_won by no quest reward (warning while no KubeJS script grants it)
   tables     a reward table carries tag age:<stage> and is used only by chapters of that Age
@@ -235,6 +239,84 @@ def load_portal_tags():
                 r0, a0 = out.get(tag, (False, []))
                 out[tag] = (r0 or removed, a0 + added)
     return out
+
+
+def load_token_items():
+    """Items of the #firmages:age_token/<age> tags, read from the KubeJS tag scripts."""
+    out = set()
+    for f in glob.glob(os.path.join(ROOT, 'kubejs', 'server_scripts', 'tags', '*.js')):
+        out |= set(re.findall(r"\.add\(\s*'firmages:age_token/[a-z_0-9]+'\s*,\s*'([^']+)'\s*\)",
+                              open(f, encoding='utf-8').read()))
+    return out
+
+
+# Never a quest reward (B2 reward rules): the chaos shard presses into nine large fragments, the age_9 token, and every
+# fragment size feeds the reactor budget of recipes/age_9/chaos_bootstrap.js. Tokens and offerings come from their files.
+REWARD_BLOCKLIST = {'draconicevolution:chaos_shard', 'draconicevolution:large_chaos_frag',
+                    'draconicevolution:medium_chaos_frag', 'draconicevolution:small_chaos_frag'}
+# Never a reward of a Dawn chapter: the first torch is the work of "Before Dark" (decision log "Dawn ohne Fackel").
+DAWN_REWARD_BLOCKLIST = {'tfc:torch'}
+PER_PLAYER_WEIGHT = 2   # a per-player reward counts for the smallest fellowship the pack is tuned for (2 to 4 players)
+
+
+def check_reward_overlap(quests, chapters, chapter_age, offerings, E):
+    deps = {q: [d.upper() for d in qd.get('dependencies', []) if d.upper() in quests] for q, (_c, qd) in quests.items()}
+    children = {}
+    for q, ds in deps.items():
+        for d in ds:
+            children.setdefault(d, set()).add(q)
+    memo = {}
+
+    def below(q):
+        if q not in memo:
+            memo[q] = set()
+            out, stack = set(), list(children.get(q, ()))
+            while stack:
+                c = stack.pop()
+                if c not in out:
+                    out.add(c)
+                    stack += children.get(c, ())
+            memo[q] = out
+        return memo[q]
+
+    staged = {c for c, ch in chapters.items() if ch.get('progressivestages_required_stage') in AGES}
+    blocked = REWARD_BLOCKLIST | load_token_items() | set(offerings.values())
+    paid = {}   # item -> [(quest id, amount, where)]
+    for q, (cname, qd) in quests.items():
+        for r in qd.get('rewards', []):
+            if r.get('type', 'item') != 'item':
+                continue
+            iid = r.get('item', {}).get('id')
+            n = r.get('count', 1)
+            n = int(n.value if isinstance(n, Num) else n)
+            where = 'chapters/%s quest %s reward %s' % (cname, q, iid)
+            if iid in blocked:
+                E('%s: never a token, an offering or a chaos item as a reward' % where)
+            if chapter_age[cname] == 'dawn' and iid in DAWN_REWARD_BLOCKLIST and cname in staged:
+                E('%s: no torch as a Dawn reward ("Before Dark" asks for the first one)' % where)
+            if cname in staged:
+                paid.setdefault(iid, []).append((q, n if r.get('team_reward') else n * PER_PLAYER_WEIGHT, cname))
+    for q, (cname, qd) in quests.items():
+        if cname not in staged:
+            continue
+        road = 'roads' in chapters[cname].get('tags', [])
+        qa = age_index(chapter_age[cname])
+        for t in qd.get('tasks', []):
+            if t.get('type') != 'item':
+                continue
+            iid = t.get('item', {}).get('id')
+            need = t.get('count', 1)
+            need = int(need.value if isinstance(need, Num) else need)
+            src = [(rq, n, rc) for rq, n, rc in paid.get(iid, ()) if rq != q and rq not in below(q)]
+            head = sum(n for rq, n, rc in src if age_index(chapter_age[rc]) <= qa)
+            if road and src:
+                E('chapters/%s quest %s: Side Roads task %s is paid by %s' % (
+                    cname, q, iid, ', '.join('chapters/%s quest %s' % (rc, rq) for rq, n, rc in src)))
+            elif 3 * head > need:
+                E('chapters/%s quest %s: task %s x%d gets %d from rewards of quests that are not its descendants (%s), '
+                  'more than a third' % (cname, q, iid, need, head,
+                                         ', '.join('%s/%s x%d' % (rc, rq, n) for rq, n, rc in src
+                                                   if age_index(chapter_age[rc]) <= qa)))
 
 
 def strval(x):
@@ -1091,6 +1173,14 @@ def main():
         for qd in ch['quests']:
             if qd['id'].upper() not in reach:
                 E('chapters/%s: quest %s does not lead to the goal' % (cname, qd['id']))
+
+    # ---- rewards across chapters (review B2): the reward rule "never a task item of an open quest, at most one third
+    # of the need as a head start" holds book-wide, not per chapter. For every item task: the rewards of the same item
+    # from every quest of the same or an earlier Age that is not a descendant of the task's quest add up to at most
+    # one third of the task count (a per-player reward counts twice, the smallest fellowship). A Side Roads task gets
+    # no reward of its item from any quest that is not its descendant. Never a token, an offering or a chaos item,
+    # never a torch in Dawn (decision log "B2 Belohnungen: Auswahlregeln").
+    check_reward_overlap(quests, chapters, chapter_age, offerings, E)
 
     # ---- dependency cycles
     state = {}

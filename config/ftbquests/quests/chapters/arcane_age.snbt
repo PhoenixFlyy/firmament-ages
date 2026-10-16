@@ -22,7 +22,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -10.314285714285713d
+			y: -9.314285714285713d
 		}
 		{
 			alpha: 255
@@ -66,15 +66,15 @@
 					type: "gamestage"
 				}
 			]
-			x: -15.35d
+			x: -14.6d
 			y: 0.0d
 		}
 		{
 			dep_control_pts: {
 				188B8BAD88328299: [
-					-14.246d
-					1.132d
-					-13.296d
+					-13.506d
+					1.142d
+					-12.547d
 					1.508d
 				]
 			}
@@ -107,16 +107,16 @@
 					type: "item"
 				}
 			]
-			x: -12.9d
+			x: -12.15d
 			y: 1.6d
 		}
 		{
 			dep_control_pts: {
 				354A9C13E074B572: [
-					-11.99d
-					2.332d
-					-12.091d
-					3.246d
+					-11.267d
+					2.315d
+					-11.411d
+					3.208d
 				]
 			}
 			dependencies: ["354A9C13E074B572"]
@@ -148,16 +148,16 @@
 					type: "item"
 				}
 			]
-			x: -12.0d
-			y: 3.05d
+			x: -11.35d
+			y: 3.0d
 		}
 		{
 			dep_control_pts: {
 				04722DE2A3532A26: [
-					-10.891d
-					3.783d
-					-10.086d
-					2.868d
+					-10.284d
+					3.716d
+					-9.541d
+					2.777d
 				]
 			}
 			dependencies: ["04722DE2A3532A26"]
@@ -209,16 +209,16 @@
 					type: "item"
 				}
 			]
-			x: -9.8d
-			y: 2.65d
+			x: -9.3d
+			y: 2.55d
 		}
 		{
 			dep_control_pts: {
 				41F6B8884809B526: [
-					-8.7d
-					3.277d
-					-8.764d
-					4.624d
+					-8.229d
+					3.172d
+					-8.383d
+					4.522d
 				]
 			}
 			dependencies: ["41F6B8884809B526"]
@@ -249,16 +249,16 @@
 					type: "dimension"
 				}
 			]
-			x: -8.5d
-			y: 4.3d
+			x: -8.15d
+			y: 4.2d
 		}
 		{
 			dep_control_pts: {
 				33BEA94E7673D21D: [
-					-7.415d
-					4.828d
-					-7.185d
-					3.472d
+					-7.102d
+					4.728d
+					-6.899d
+					3.415d
 				]
 			}
 			dependencies: ["33BEA94E7673D21D"]
@@ -291,16 +291,16 @@
 					type: "item"
 				}
 			]
-			x: -6.95d
-			y: 3.05d
+			x: -6.7d
+			y: 3.0d
 		}
 		{
 			dep_control_pts: {
 				06055D169B0CC629: [
-					-5.843d
-					3.485d
-					-5.342d
-					4.433d
+					-5.66d
+					3.442d
+					-5.278d
+					4.412d
 				]
 			}
 			dependencies: ["06055D169B0CC629"]
@@ -338,10 +338,10 @@
 		{
 			dep_control_pts: {
 				4914DB06E3F96086: [
-					-3.905d
-					4.457d
-					-3.465d
-					4.027d
+					-3.881d
+					4.464d
+					-3.44d
+					3.976d
 				]
 			}
 			dependencies: ["4914DB06E3F96086"]
@@ -397,16 +397,16 @@
 					type: "item"
 				}
 			]
-			x: -3.6d
-			y: 3.15d
+			x: -3.55d
+			y: 3.1d
 		}
 		{
 			dep_control_pts: {
 				188B8BAD88328299: [
-					-14.3d
-					-1.165d
-					-13.427d
-					-2.767d
+					-13.558d
+					-1.168d
+					-12.695d
+					-2.788d
 				]
 			}
 			dependencies: ["188B8BAD88328299"]
@@ -438,16 +438,16 @@
 					type: "item"
 				}
 			]
-			x: -12.55d
+			x: -11.8d
 			y: -4.3d
 		}
 		{
 			dep_control_pts: {
 				69CB2309855D14E1: [
-					-11.444d
-					-4.445d
-					-10.858d
-					-5.161d
+					-10.623d
+					-4.484d
+					-9.895d
+					-5.157d
 				]
 			}
 			dependencies: ["69CB2309855D14E1"]
@@ -519,16 +519,16 @@
 					type: "item"
 				}
 			]
-			x: -10.5d
+			x: -9.45d
 			y: -6.0d
 		}
 		{
 			dep_control_pts: {
 				659EBC46D8F70B24: [
-					-9.265d
-					-5.992d
-					-8.292d
-					-5.959d
+					-8.144d
+					-5.988d
+					-7.116d
+					-5.947d
 				]
 			}
 			dependencies: ["659EBC46D8F70B24"]
@@ -560,16 +560,16 @@
 					type: "item"
 				}
 			]
-			x: -7.85d
-			y: -6.65d
+			x: -6.6d
+			y: -6.6d
 		}
 		{
 			dep_control_pts: {
 				36A59893ED5389B6: [
-					-6.547d
-					-6.486d
-					-5.678d
-					-6.811d
+					-5.198d
+					-6.403d
+					-4.221d
+					-6.681d
 				]
 			}
 			dependencies: ["36A59893ED5389B6"]
@@ -602,16 +602,16 @@
 					type: "item"
 				}
 			]
-			x: -5.2d
-			y: -7.35d
+			x: -3.65d
+			y: -7.15d
 		}
 		{
 			dep_control_pts: {
 				0BA4D1B6A66D0C59: [
-					-3.862d
-					-7.033d
-					-2.937d
-					-6.97d
+					-2.237d
+					-6.761d
+					-1.243d
+					-6.685d
 				]
 			}
 			dependencies: ["0BA4D1B6A66D0C59"]
@@ -643,16 +643,16 @@
 					type: "item"
 				}
 			]
-			x: -2.45d
-			y: -7.35d
+			x: -0.7d
+			y: -6.95d
 		}
 		{
 			dep_control_pts: {
 				2303CB5F822C38B6: [
-					-1.146d
-					-6.875d
-					-0.271d
-					-6.738d
+					0.685d
+					-6.361d
+					1.595d
+					-5.972d
 				]
 			}
 			dependencies: ["2303CB5F822C38B6"]
@@ -683,16 +683,16 @@
 					type: "item"
 				}
 			]
-			x: 0.15d
-			y: -6.95d
+			x: 2.05d
+			y: -6.0d
 		}
 		{
 			dep_control_pts: {
 				5628873FCDD13028: [
-					1.412d
-					-6.309d
-					2.226d
-					-5.989d
+					3.321d
+					-5.19d
+					4.17d
+					-4.717d
 				]
 			}
 			dependencies: ["5628873FCDD13028"]
@@ -723,71 +723,22 @@
 					type: "item"
 				}
 			]
-			x: 2.55d
-			y: -6.0d
+			x: 4.35d
+			y: -4.45d
 		}
 		{
 			dep_control_pts: {
 				6B502DAD3EAE52D5: [
-					3.785d
-					-5.124d
-					4.538d
-					-4.518d
+					5.621d
+					-3.089d
+					6.344d
+					-1.973d
 				]
 			}
 			dependencies: ["6B502DAD3EAE52D5"]
 			icon: {
-				id: "ars_nouveau:ritual_wilden_summon"
+				id: "ars_nouveau:wilden_tribute"
 			}
-			id: "0416219650D02993"
-			rewards: [
-				{
-					id: "5761300F8C6D37A4"
-					type: "xp"
-					xp: 65
-				}
-				{
-					id: "68D4F271F6B4CA6D"
-					item: {
-						count: 1
-						id: "ars_nouveau:amulet_of_mana_regen"
-					}
-					team_reward: false
-					type: "item"
-				}
-			]
-			tasks: [
-				{
-					entity: "ars_nouveau:wilden_boss"
-					id: "20FFE023AEA2D280"
-					optional_task: true
-					type: "kill"
-					value: 1L
-				}
-				{
-					consume_items: false
-					id: "2A2FFBEEDEFD0069"
-					item: {
-						count: 1
-						id: "ars_nouveau:wilden_tribute"
-					}
-					optional_task: true
-					type: "item"
-				}
-			]
-			x: 4.65d
-			y: -4.2d
-		}
-		{
-			dep_control_pts: {
-				0416219650D02993: [
-					5.788d
-					-2.873d
-					6.339d
-					-1.854d
-				]
-			}
-			dependencies: ["0416219650D02993"]
 			id: "470272BFC8013E57"
 			rewards: [
 				{
@@ -809,7 +760,7 @@
 					id: "671ACE03CC12EBFB"
 					item: {
 						count: 1
-						id: "ars_additions:undying_charm"
+						id: "ars_nouveau:amulet_of_mana_regen"
 					}
 					team_reward: false
 					type: "item"
@@ -828,6 +779,13 @@
 					}
 					type: "item"
 				}
+				{
+					entity: "ars_nouveau:wilden_boss"
+					id: "2F46393378F076FC"
+					optional_task: true
+					type: "kill"
+					value: 1L
+				}
 			]
 			x: 5.3d
 			y: -1.75d
@@ -835,10 +793,10 @@
 		{
 			dep_control_pts: {
 				188B8BAD88328299: [
-					-13.83d
-					2.678d
-					-12.07d
-					4.835d
+					-13.256d
+					2.415d
+					-11.829d
+					4.359d
 				]
 			}
 			dependencies: ["188B8BAD88328299"]
@@ -870,16 +828,16 @@
 					type: "item"
 				}
 			]
-			x: -10.25d
-			y: 5.5d
+			x: -10.35d
+			y: 5.0d
 		}
 		{
 			dep_control_pts: {
 				06FEAB3BC2EA4431: [
-					-7.691d
-					6.965d
-					-4.613d
-					7.383d
+					-7.873d
+					6.577d
+					-4.817d
+					7.069d
 				]
 			}
 			dependencies: ["06FEAB3BC2EA4431"]
@@ -929,16 +887,16 @@
 					type: "item"
 				}
 			]
-			x: -4.15d
-			y: 9.15d
+			x: -4.45d
+			y: 8.85d
 		}
 		{
 			dep_control_pts: {
 				4CA32185961FD920: [
-					-3.483d
-					10.165d
-					-2.507d
-					10.417d
+					-3.798d
+					9.899d
+					-2.792d
+					10.202d
 				]
 			}
 			dependencies: ["4CA32185961FD920"]
@@ -970,16 +928,16 @@
 					type: "item"
 				}
 			]
-			x: -2.35d
-			y: 9.75d
+			x: -2.6d
+			y: 9.55d
 		}
 		{
 			dep_control_pts: {
 				0FBE04E270216ADA: [
-					-1.348d
-					9.945d
-					-0.938d
-					9.052d
+					-1.582d
+					9.767d
+					-1.159d
+					8.868d
 				]
 			}
 			dependencies: ["0FBE04E270216ADA"]
@@ -1029,16 +987,16 @@
 					type: "item"
 				}
 			]
-			x: -1.6d
-			y: 8.05d
+			x: -1.8d
+			y: 7.85d
 		}
 		{
 			dep_control_pts: {
 				0725F0C2566548FA: [
-					-1.907d
-					6.354d
-					4.837d
-					6.11d
+					-2.014d
+					6.111d
+					4.688d
+					6.123d
 				]
 			}
 			dependencies: ["0725F0C2566548FA"]
@@ -1119,10 +1077,10 @@
 		{
 			dep_control_pts: {
 				188B8BAD88328299: [
-					-12.269d
-					-2.9d
-					-7.643d
-					-5.664d
+					-11.724d
+					-2.739d
+					-7.457d
+					-5.395d
 				]
 			}
 			dependencies: ["188B8BAD88328299"]
@@ -1156,16 +1114,16 @@
 					type: "observation"
 				}
 			]
-			x: -3.85d
-			y: -5.55d
+			x: -3.9d
+			y: -5.45d
 		}
 		{
 			dep_control_pts: {
 				4AD21CEABC66DCC2: [
-					-1.856d
-					-4.733d
-					-0.282d
-					-4.451d
+					-1.898d
+					-4.68d
+					-0.326d
+					-4.417d
 				]
 			}
 			dependencies: ["4AD21CEABC66DCC2"]
@@ -1216,10 +1174,10 @@
 		{
 			dep_control_pts: {
 				188B8BAD88328299: [
-					-14.259d
-					-0.261d
-					-13.58d
-					-0.961d
+					-13.512d
+					-0.279d
+					-12.84d
+					-1.005d
 				]
 			}
 			dependencies: ["188B8BAD88328299"]
@@ -1252,16 +1210,16 @@
 					type: "item"
 				}
 			]
-			x: -13.2d
-			y: -1.9d
+			x: -12.45d
+			y: -1.95d
 		}
 		{
 			dep_control_pts: {
 				216ADE120332EDCD: [
-					-11.793d
-					-2.09d
-					-10.682d
-					-2.494d
+					-11.123d
+					-2.088d
+					-10.088d
+					-2.415d
 				]
 			}
 			dependencies: ["216ADE120332EDCD"]
@@ -1293,16 +1251,16 @@
 					type: "item"
 				}
 			]
-			x: -10.0d
-			y: -3.25d
+			x: -9.5d
+			y: -3.15d
 		}
 		{
 			dep_control_pts: {
 				084B1FF3C902B47A: [
-					-8.565d
-					-3.118d
-					-7.521d
-					-3.361d
+					-8.145d
+					-3.0d
+					-7.189d
+					-3.25d
 				]
 			}
 			dependencies: ["084B1FF3C902B47A"]
@@ -1334,16 +1292,16 @@
 					type: "item"
 				}
 			]
-			x: -6.9d
-			y: -3.8d
+			x: -6.65d
+			y: -3.7d
 		}
 		{
 			dep_control_pts: {
 				66EB6D8730E3AB2D: [
-					-5.139d
-					-3.168d
-					-3.972d
-					-3.026d
+					-4.977d
+					-3.08d
+					-3.901d
+					-2.97d
 				]
 			}
 			dependencies: ["66EB6D8730E3AB2D"]
@@ -1394,10 +1352,10 @@
 		{
 			dep_control_pts: {
 				01A60C077F4FEDFD: [
-					-0.983d
-					2.627d
-					1.184d
-					1.627d
+					-0.95d
+					2.593d
+					1.2d
+					1.61d
 				]
 				373193C62E3C9E35: [
 					3.746d
@@ -1583,10 +1541,10 @@
 		{
 			dep_control_pts: {
 				084B1FF3C902B47A: [
-					-9.866d
-					-3.382d
-					-9.816d
-					-3.849d
+					-9.402d
+					-3.306d
+					-9.369d
+					-3.806d
 				]
 			}
 			dependencies: ["084B1FF3C902B47A"]
@@ -1622,16 +1580,16 @@
 					type: "item"
 				}
 			]
-			x: -9.85d
+			x: -9.4d
 			y: -4.65d
 		}
 		{
 			dep_control_pts: {
 				5628873FCDD13028: [
-					0.824d
-					-7.037d
-					1.107d
-					-7.503d
+					2.806d
+					-6.065d
+					3.173d
+					-6.515d
 				]
 			}
 			dependencies: ["5628873FCDD13028"]
@@ -1667,8 +1625,8 @@
 					type: "item"
 				}
 			]
-			x: 1.0d
-			y: -8.35d
+			x: 3.15d
+			y: -7.35d
 		}
 		{
 			dependencies: ["188B8BAD88328299"]
@@ -1686,7 +1644,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -18.35d
+			x: -17.6d
 			y: 1.0d
 		}
 		{
@@ -1705,7 +1663,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -17.75d
+			x: -17.0d
 			y: 2.75d
 		}
 		{

@@ -201,7 +201,7 @@ After the ceremony the recipe viewer, the block tooltip and F3 coordinates appea
 gold, graphite, borax and the salts wake.
 
 Rewards: "Pottery for Metal" pays the four other tool molds (axe, hammer, knife, shovel), "Copper Kit" 16 copper ore
-pieces and a copper knife for each of you, "Stocked Camp" a tipi, "Raise the Shrine" stone lanterns and torches; the
+pieces and a copper knife for each of you, "Stocked Camp" wool cloth and cooked beef for each of you, "Raise the Shrine" stone lanterns and torches; the
 goal pays a copper sword and a copper shield for each of you, copper and stone lanterns. Side roads: Goblins Below
 (off "Gatherer"), Fire Mountain (off "Native Copper"), Old Stones (off "The Stone Age Dawns": ruins, the cave
 watcher, regrowing forests).
@@ -260,7 +260,7 @@ Offer the Sky Disc at the shrine, in the Bronze Sanctum (ring 1).
 8. The Iron Age dawns. Blessing **Skyreading**: 5 % faster near the shrine.
 
 Rewards: "Copper Anvil" and "First Mine" pay copper and charcoal, "Bronze Anvil" bronze and a bronze hammer for each
-of you, "Flux Mill" two encased fans and a wrench and goggles for each; the goal pays a copper backpack and a bronze
+of you, "Flux Mill" two encased fans and a wrench and goggles for each; the goal pays a bronze shield and a bronze
 sword for each of you, bronze ingots and bronze lanterns. Side roads (ten): Totem Ceremonies (off "A Flute"), Torque
 and Connect (off "Mechanical Saw"), Pantry and Nuts of the Wood (off "Kitchen"), Hearth Odds and Ruin Trinkets (off
 the entry), Wheels of the Field (off "Water Wheel"), Smoke and Poles (off "Forging"), Packs and Drawers (off "Pack
@@ -357,7 +357,7 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
      sourceberry bush: a blueberry and two lapis lazuli powder.
    - A Wilden Tribute in the enchanting apparatus: a source gem block in the middle; two horns, two wings, two
      spikes of the Wilden, a spirit attuned crystal and a mercury shard on the pedestals (5,000 source). The Wilden
-     Chimera drops one too. Keystone: the Wilden Tribute.
+     Chimera drops one too; slaying it is an optional task of the keystone. Keystone: the Wilden Tribute.
 3. Alchemy: pyromantic brazier; calcination oven and sal ammoniac accumulator ("Calcination Oven"); liquefaction
    cauldron and digestion vat; distiller and incubator ("The Three Principles"). Keystone: the mercury catalyst, with
    a divination rod as optional task. Ore pieces of every grade digest in the digestion vat with sal ammoniac (ten
@@ -379,7 +379,7 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
 7. The Industrial Age dawns. Blessing **Attunement**: 10 % more experience near the shrine.
 
 Rewards: "Spirit Proof" pays otherworld essence and a familiar ring for each of you, "Wilden Tribute" source gems and
-an undying charm for each, "Mercury Catalyst" mercury shards, sal ammoniac crystals, a mercurial wand and a second
+an amulet of mana regeneration for each, "Mercury Catalyst" mercury shards, sal ammoniac crystals, a mercurial wand and a second
 divination rod for each, "Starlit Iron" steel sheets and a cross necklace for each, "Hollow Keystone" two mechanical
 arms and a potato cannon for each; the goal pays strider shoes for each of you, source jars and arcane lanterns. Side
 roads (seven): Shelves of Power and Industry of Enchantment (off "Enchantment Industry"), Gems and Sigils (off
@@ -492,7 +492,7 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
    together; nothing is drained. Pray.
 8. The Information Age dawns. Blessing **Long Arm**: half a block more reach near the shrine.
 
-Rewards: "Grid Online" pays electrum and steel wire, "Refined Diesel" two diesel engines and an oil can for each of
+Rewards: "Grid Online" pays electrum and steel wire, "Refined Diesel" two buckets of gasoline and an oil can for each of
 you, "Aluminium Plates" electronic components and a red steel pickaxe for each, "Attuned Circuits" advanced
 components and electrum plates, "Aurora Steel" a red steel helmet for each; the goal pays a glider and a red steel
 sword for each of you, MV capacitors and electric lanterns. "Proof of Work" pays a speedboat for each. Side roads
@@ -541,9 +541,10 @@ Offer the Data Matrix in the Data Nave (ring 6).
 3. Mob Data: deep learner and blank data model; simulation chamber and loot fabricator; 64 prediction matrices; a
    Wither data model and four Nether Stars printed in the fabricator ("Wither on Demand"). Keystone: a data model
    trained to tier 3, running in a chamber.
-4. The End: two portal frames from seven obsidian, an ender pearl and a reinforced alloy. Set twelve frames as a ring
-   around a 3x3 hole, facing inward, and fill them with twelve eyes of ender. Destroy the crystals, then the dragon.
-   Keystone: four bottles of dragon's breath. The End is optional: no Age needs it.
+4. The End, a side path off "Autocrafting Online": two portal frames from seven obsidian, an ender pearl and a
+   reinforced alloy. Set twelve frames as a ring around a 3x3 hole, facing inward, and fill them with twelve eyes of
+   ender ("The End"). Destroy the crystals, then the dragon, and bottle four breaths ("Dragon's Breath"; the dragon is
+   an optional task). The End is optional: no Age needs it, and the goal does not wait for it.
 5. Halo Steel: starsteel, firmament crystal, aurora light and blue steel in the Lens Crown. Craft the Data Matrix:
    Halo Steel ingots in the top corners, blue steel sheets in the bottom corners, advanced
    control circuits on three edges, the 64k storage component in the middle, a singularity from the matter condenser
@@ -555,8 +556,8 @@ Offer the Data Matrix in the Data Nave (ring 6).
 8. The Space Age dawns. Blessing **Clarity**: another 5 % maximum health near the shrine.
 
 Rewards: "Autocrafting Online" pays 16k crafting storage, crafting accelerators and a network tool for each of you,
-"Factory Line" reinforced alloys, "Data Model: Tier 3" a wireless terminal for each and an access point, "Dragon's
-Breath" breath and ender dust, "Halo Steel" a blue steel helmet for each; the goal pays a blue steel sword for each of
+"Factory Line" reinforced alloys, "Data Model: Tier 3" a wireless terminal for each and an access point, "The End"
+free runners for each and ender dust, "Dragon's Breath" a refined obsidian chestplate for each and ender dust, "Halo Steel" a blue steel helmet for each; the goal pays a blue steel sword for each of
 you, fluix crystals and information lanterns. "Proof of Work" pays a charged staff for each. Side roads (eight):
 Essence Farms (off "Resource Crops"), Pattern Halls (off "Molecular Assembler"), Bridges of the Network (off
 "Autocrafting Online"), Refined Gear (off "HDPE"), Laser Lines (off "Energy Upgrades"), Bigger Machines (off "Factory
@@ -662,7 +663,7 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 Rewards: "Antimatter Pellets" pays an overclocked energy cube and energy upgrades, "Calorite Plates" a large gas tank,
 "Awakened Core" an advanced magnet for each of you, "Awakened Keystone" overclocked control circuits and reinforced
 alloys, "Quasar Alloy" speed upgrades; the goal pays an imperium apple for each of you, a space painting and quantum
-lanterns. "Proof of Work" pays a supremium apple for each. Side roads (three): Quantum Network and Evolved Factories
+lanterns. "Proof of Work" pays an insanium apple for each. Side roads (three): Quantum Network and Evolved Factories
 (off "Subatomic Alloy"), Insanium Fields (off "Ore Times Five").
 
 ### Pitfalls
@@ -688,16 +689,19 @@ offering.
    1,000,000,000 FE, then pray at the heart, two of you together if two are online. Caelum: "Nine gifts. One light. Open the gate." The nine relics fall
    out above the heart; they never despawn and do not burn. The plinths keep glowing. The sign top left now reads
    "Goal: Beyond the Firmament".
-2. Chaos comes from your own reactor: it hands its spent fuel out as chaos fragments (a full cycle about six large
-   fragments). The reactor parts are fused at draconic level without chaos: the core around an antimatter pellet
-   with two subatomic alloys, each stabilizer with an awakened core and an antimatter pellet. About four cycles make
-   the chaos the Age needs: twelve chaotic injectors (one large and three medium fragments and an antimatter pellet
-   each), the chaotic core, two fragments for the Singularity, one for the Coordinates. The Chaos Guardian in the
-   End drops chaos shards too; it is optional.
-3. The draconic reactor: 4 stabilizers, an injector, the reactor core, 4 awakened draconium blocks as fuel. The
-   reactor controller (a stabilizer frame, two awakened draconium ingots, two elite control circuits) sits against a
-   stabilizer or injector: it shuts the reactor down at 80 % conversion, swaps the fuel while it is cold and signals
-   ready by redstone. Starting it is your job. Keystone "Reactor Online".
+2. The draconic reactor comes first ("Reactor Parts", "Reactor Fuel", "Reactor Online"): 4 stabilizers, an injector,
+   the reactor core, 4 awakened draconium blocks as fuel. The parts are fused at draconic level without chaos: the
+   core around an antimatter pellet with two subatomic alloys, each stabilizer with an awakened core and an
+   antimatter pellet. The reactor controller (a stabilizer frame, two awakened draconium ingots, two elite control
+   circuits) sits against a stabilizer or injector: it shuts the reactor down at 80 % conversion, swaps the fuel
+   while it is cold and signals ready by redstone. Starting it is your job.
+3. Chaos comes from your own reactor: it hands its spent fuel out as chaos fragments (a full cycle about six large
+   fragments; "Chaos Fragments" asks for eight). About four cycles make the chaos the Age needs: twelve chaotic
+   injectors (one large and three medium fragments and an antimatter pellet each), the chaotic core, two fragments
+   for the Singularity, one for the Coordinates. Nine large fragments press into a chaos shard. The Chaos Guardian
+   in the End drops chaos shards too; it is an optional side path off "Chaos Fragments". The Chaos strand runs on
+   from the fragments through the chaotic injectors and the chaotic core to its keystone, the Ultimate Singularity;
+   the Gathering and the singular alloy need no chaos and stand in the Sky strand before the Firmament Alloy.
 4. A chaotic core and the Firmament Alloy: the full Lens Crown forges it from a singular alloy with voidglass,
    starsteel, firmament crystal and aurora light.
 5. The Ultimate Singularity, chaotic fusion: the chaotic core on the fusion core; Hearthstone, Sky Disc, Steel Heart,

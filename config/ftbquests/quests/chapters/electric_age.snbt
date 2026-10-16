@@ -270,7 +270,7 @@
 					id: "644F1A3037CDB40D"
 					item: {
 						count: 1
-						id: "alternatingflux:connector_af_relay"
+						id: "immersiveengineering:connector_hv"
 					}
 					team_reward: true
 					type: "item"
@@ -529,7 +529,7 @@
 					id: "6C89D16378D9005C"
 					item: {
 						count: 1
-						id: "createdieselgenerators:diesel_engine"
+						id: "immersivepetroleum:gasoline_bucket"
 					}
 					team_reward: true
 					type: "item"
@@ -1453,11 +1453,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "5A348746CD15859B"
 					item: {
 						count: 1
-						id: "create_hypertube:hypertube_entrance"
+						id: "immersiveengineering:component_electronic"
 					}
 					team_reward: true
 					type: "item"

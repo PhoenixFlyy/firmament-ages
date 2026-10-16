@@ -133,11 +133,11 @@
 					xp: 65
 				}
 				{
-					count: 8
+					count: 2
 					id: "53E0D6A8D1F6F5E6"
 					item: {
 						count: 1
-						id: "ars_nouveau:source_gem"
+						id: "tfc:gem/emerald"
 					}
 					team_reward: true
 					type: "item"
@@ -580,11 +580,11 @@
 					xp: 65
 				}
 				{
-					count: 8
+					count: 4
 					id: "105DD4166E4B2100"
 					item: {
 						count: 1
-						id: "ars_nouveau:source_gem"
+						id: "occultism:otherworld_essence"
 					}
 					team_reward: true
 					type: "item"
@@ -666,7 +666,7 @@
 					id: "467D90C822F2EBEB"
 					item: {
 						count: 1
-						id: "create:blaze_cake"
+						id: "tfc:gem/topaz"
 					}
 					team_reward: true
 					type: "item"
@@ -882,7 +882,7 @@
 			}
 			dependencies: ["680BF7D02202F292"]
 			icon: {
-				id: "occultism:iesnium_ingot"
+				id: "minecraft:shroomlight"
 			}
 			id: "4C9313FE2FCD30AD"
 			optional: true
@@ -893,11 +893,11 @@
 					xp: 65
 				}
 				{
-					count: 8
+					count: 2
 					id: "45A1E90CC2522F91"
 					item: {
 						count: 1
-						id: "ars_nouveau:source_gem"
+						id: "tfc:gem/ruby"
 					}
 					team_reward: true
 					type: "item"
@@ -909,7 +909,21 @@
 			tasks: [
 				{
 					id: "7194F3CB9E52271F"
-					type: "checkmark"
+					item: {
+						count: 1
+						id: "minecraft:shroomlight"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "15A415B51CB6983F"
+					item: {
+						count: 1
+						id: "beneath:seeds/gleamflower"
+					}
+					optional_task: true
+					type: "item"
 				}
 			]
 			x: 10.7d
@@ -978,7 +992,7 @@
 					id: "22D8800F21166A21"
 					item: {
 						count: 1
-						id: "ars_nouveau:source_gem"
+						id: "ars_nouveau:magebloom_fiber"
 					}
 					team_reward: true
 					type: "item"
@@ -1199,7 +1213,7 @@
 					id: "08837DD2A74C33DE"
 					item: {
 						count: 1
-						id: "create:blaze_cake"
+						id: "tfc:gem/sapphire"
 					}
 					team_reward: true
 					type: "item"
@@ -1277,11 +1291,11 @@
 					xp: 65
 				}
 				{
-					count: 2
+					count: 4
 					id: "10C1F23D3D3960FB"
 					item: {
 						count: 1
-						id: "create:blaze_cake"
+						id: "create:sturdy_sheet"
 					}
 					team_reward: true
 					type: "item"
@@ -1389,11 +1403,11 @@
 					xp: 65
 				}
 				{
-					count: 8
+					count: 4
 					id: "34234DC2111B4AE3"
 					item: {
 						count: 1
-						id: "ars_nouveau:source_gem"
+						id: "tfc:gem/lapis_lazuli"
 					}
 					team_reward: true
 					type: "item"
@@ -1565,7 +1579,7 @@
 					id: "6EED63169B1AB76A"
 					item: {
 						count: 1
-						id: "ars_nouveau:source_gem"
+						id: "ars_nouveau:blank_parchment"
 					}
 					team_reward: true
 					type: "item"

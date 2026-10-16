@@ -25,6 +25,12 @@ geprüft (`dev/poc-results.md`, Abschnitt „1.0 round B2 (2026-10-16)“): FTB 
    der 57 Mods, die in Deiner Client-Instanz fehlen, etwa Alex's Mobs, Psi, Artifacts, Storage Drawers).
 6. **Texte.** Brechwalzen „about 1.5 times“, Crusher „two and a half times“; neue Knapping-Bilder für Axt-, Hammer-,
    Messer- und Schaufelkopf in „Copper Kit“.
+7. **Review B2 (670 Quests).** Neue Aufgabenarten in den Side Roads: „A Fallen House“ (Struktur-Aufgabe, eine der vier
+   TFC-Ruinen betreten), „The Pale Watcher“ (Beobachtung des Cave Dweller), „Armed Dead“ (16 Zombies). Tickt die
+   Struktur-Aufgabe beim Betreten einer Ruine? Singularitätszeit: Chaos-Strang Reaktor, Fragmente, Injektoren, Kern,
+   Ultimate Singularity; „Chaos Guardian“ als Nebenquest an „Chaos Fragments“. Informationszeit: „The End“ und
+   „Dragon's Breath“ als Nebenpfad an „Autocrafting Online“, das Ziel wartet nicht darauf; optionale Kill-Aufgaben in
+   „Dragon's Breath“ und „Wilden Tribute“ blockieren die Quest nicht.
 
 ## 0.13.0 Review-Fixes (2026-10-16, Pack 0.13.0 neu gebaut, firmages-core 0.13.0 neu gebaut)
 

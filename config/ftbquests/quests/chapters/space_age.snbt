@@ -513,7 +513,7 @@
 					id: "5FF61E5C3BF523B9"
 					item: {
 						count: 1
-						id: "immersivepetroleum:kerosene_bucket"
+						id: "ad_astra:gas_tank"
 					}
 					team_reward: true
 					type: "item"
@@ -767,11 +767,11 @@
 					xp: 140
 				}
 				{
-					count: 4
+					count: 2
 					id: "42EE2DBD1125B317"
 					item: {
 						count: 1
-						id: "immersivepetroleum:kerosene_bucket"
+						id: "ad_astra:engine_frame"
 					}
 					team_reward: true
 					type: "item"
@@ -1198,11 +1198,11 @@
 					xp: 140
 				}
 				{
-					count: 4
+					count: 2
 					id: "36E293FD10A5075E"
 					item: {
 						count: 1
-						id: "immersivepetroleum:kerosene_bucket"
+						id: "ad_astra:oxygen_gear"
 					}
 					team_reward: true
 					type: "item"

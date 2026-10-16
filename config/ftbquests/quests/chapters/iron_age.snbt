@@ -728,12 +728,13 @@
 					xp: 50
 				}
 				{
+					count: 6
 					id: "5073754EFA5139AB"
 					item: {
 						count: 1
-						id: "artifacts:snowshoes"
+						id: "tfc:wool_cloth"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -1098,12 +1099,13 @@
 					xp: 50
 				}
 				{
+					count: 4
 					id: "0A3446B1298CF439"
 					item: {
 						count: 1
-						id: "artifacts:umbrella"
+						id: "tfc:metal/rod/wrought_iron"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -1295,20 +1297,21 @@
 					xp: 50
 				}
 				{
+					count: 2
 					id: "712CCDFB75B9247D"
 					item: {
 						count: 1
-						id: "railways:handcar"
+						id: "railways:buffer"
 					}
 					team_reward: true
 					type: "item"
 				}
 				{
-					count: 2
+					count: 4
 					id: "5124198C6667D10A"
 					item: {
 						count: 1
-						id: "railways:buffer"
+						id: "tfc:metal/rod/wrought_iron"
 					}
 					team_reward: true
 					type: "item"
@@ -1360,19 +1363,11 @@
 					type: "item"
 				}
 				{
+					count: 2
 					id: "68679FBB839639CA"
 					item: {
 						count: 1
-						id: "toms_storage:open_crate"
-					}
-					team_reward: true
-					type: "item"
-				}
-				{
-					id: "279989689A819D4B"
-					item: {
-						count: 1
-						id: "toms_storage:inventory_proxy"
+						id: "create:electron_tube"
 					}
 					team_reward: true
 					type: "item"

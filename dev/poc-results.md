@@ -3698,3 +3698,26 @@ each boot with a new world and `-Xms3G -Xmx5G`. The copy is deleted.
 Not checked on a server: how FTB Quests draws the `quest_links` and opens their target, the Side Roads chapters
 hidden until their Age in a client, the team and per-player reward flags when a quest is claimed, and
 `hide_until_deps_complete` on "Beyond the Firmament"; these are in `dev/client-test-brief.md`, "0.14.0 Nachtrag".
+
+## 0.14.0 review fixes (B2 review, 2026-10-16, on dev)
+
+Seven findings of the B2 review fixed in the Chronicle (rewards across chapters, chaos rewards, Dawn torch, Singularity
+order, optional End and bosses, Side Roads checkmarks, keystone gear on roads). Only the quest book, `dev/` tools and
+docs changed: no recipe, tag, KubeJS script or Java, so firmages-core stays 0.13.0, the pack stays 0.14.0 and its
+exports are rebuilt. No server was booted (worker round; Felix's test server untouched); the static checks below ran
+on the last B2 dumps (`scratchpad/b2int/d1` gate off, `d2` gate on).
+
+| Check | Observed | Result |
+|---|---|---|
+| New `validate_quests.py` reward check on the 0.14.0 book (before the fixes) | 69 errors: 65 head starts or road task items paid by other quests (e.g. "Flux Mill" 36 of 32 flux from roads, "Coal Coke" 72 of 32, "Source Gems" 40 of 16, "Elite Circuits" 2 of 4 from the Information road "Lithium", "Rocket Fuel" 8 kerosene; 37 head starts over a third, 28 road task items paid elsewhere), chaos shard and small fragments on three Singularity roads, `tfc:torch` on "Emu Egg" | found |
+| `gen_quests.py`, `validate_quests.py --style --mods test-server/mods` and `--mods <client instance>/mods` | 26 chapters, 670 quests (Ages 328, Side Roads 296, The Firmament 28, Great Works 18), 1,736 lang keys; 3,200 object ids, 0 errors, 0 warnings, line crossings within 2 per chapter | pass |
+| Rewards changed against `HEAD` | 152 quests re-rewarded, 8 quests removed (folded), 0 new ids; Singularity 25 quests with 3 keystones, Information 34 with "The End" and "Dragon's Breath" as side quests, Arcane 35 | done |
+| `derive_ages.py --dump-dir <b2int/d1> --check`, `gen_stage_locks.py --check` | `[derived]` up to date; Q-1 525 required item tasks, 0 without a recipe, world or loot source by their Age (B2: 524) | pass |
+| `poc_analyze.py --server-dir <scratch dir: test-server/mods as junction, boot 2 log> --dump-dir <b2int/d2> --baseline <b2int/d1>` | 128 PASS, 0 FAIL, G-4 skipped (its recipe audit file lived on the deleted copy; recipes unchanged since) | pass |
+| `gen_quest_images.py --check`, `preview_quests.py` | 40 pictures, 108,910 bytes, 0 problems; 26 maps, 0 quests too close | pass |
+| Pacing model (`scratchpad/b2/pacing`, driver `scratchpad/fix14/drive.py`, gate-off dump of 0.13.0) | 3 players 54.0 h, ratio share/target: Dawn 1.15, Stone 0.84, Bronze 0.87, Iron 0.93, Arcane (Spirit Route) 0.86, Industrial 0.98, Electric 1.00, Information 1.03, Space 1.11, Quantum 1.15, Singularity 1.12, all in the 0.8 to 1.2 band; 2 players 66.4 h (Stone 0.77), 4 players 52.2 h (Dawn 1.30). The model counts quest work only; rewards now take at most a third off an open task | measured |
+| `release.ps1 -Version 0.14.0`, `export_cf.py`, `verify_install.py` | `.mrpack` 477.4 MB, CurseForge zip 77.1 MB, server pack 504.4 MB, SHA-256 list; upload zip 7.5 MB, 12 swaps, 265 manifest files, only `firmages-core-0.13.0.jar` in overrides; `cfzip` 2,970 of 2,970 and `mrpack --side server` 2,934 of 2,934, no missing, extra or wrong hash. Nothing uploaded | pass |
+
+Not checked on a server: FTB Quests loading the new task types (structure task on `tfc_ruins:ruin_*`, entity
+observation of `cave_dweller:cave_dweller`, optional kill tasks beside item tasks); they are in
+`dev/client-test-brief.md`, "0.14.0 Nachtrag", point 7.

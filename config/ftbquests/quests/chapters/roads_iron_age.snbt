@@ -31,7 +31,7 @@
 					id: "5465AA2BE1337C11"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/wrought_iron"
+						id: "tfc:metal/sheet/bronze"
 					}
 					team_reward: true
 					type: "item"
@@ -273,7 +273,7 @@
 					id: "7AB0D9B1EED8C03E"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/wrought_iron"
+						id: "tfc:metal/sheet/bronze"
 					}
 					team_reward: true
 					type: "item"
@@ -485,11 +485,11 @@
 					xp: 50
 				}
 				{
-					count: 2
+					count: 4
 					id: "1913369FA9A51989"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/wrought_iron"
+						id: "tfc:metal/rod/wrought_iron"
 					}
 					team_reward: true
 					type: "item"
@@ -666,10 +666,11 @@
 					xp: 50
 				}
 				{
+					count: 2
 					id: "0B7364E20295EAAB"
 					item: {
 						count: 1
-						id: "create:precision_mechanism"
+						id: "create:electron_tube"
 					}
 					team_reward: true
 					type: "item"
@@ -710,10 +711,11 @@
 					xp: 50
 				}
 				{
+					count: 2
 					id: "6469D83B4788136F"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/steel"
+						id: "tfc:metal/sheet/brass"
 					}
 					team_reward: true
 					type: "item"
@@ -750,7 +752,7 @@
 					id: "3B2AC6CF9CB7AF7D"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/wrought_iron"
+						id: "tfc:metal/sheet/bronze"
 					}
 					team_reward: true
 					type: "item"
@@ -969,7 +971,7 @@
 					id: "7E1682C0A0DAAE78"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/pig_iron"
+						id: "tfc:metal/sheet/wrought_iron"
 					}
 					team_reward: true
 					type: "item"
@@ -1010,12 +1012,13 @@
 					xp: 50
 				}
 				{
+					count: 6
 					id: "751E1093FEF2AD40"
 					item: {
 						count: 1
-						id: "tfc:metal/sword/steel"
+						id: "minecraft:leather"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -1057,12 +1060,13 @@
 					xp: 50
 				}
 				{
+					count: 8
 					id: "7D7812AA217B060D"
 					item: {
 						count: 1
-						id: "tfc:metal/hammer/wrought_iron"
+						id: "tfc:powder/flux"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -1072,7 +1076,11 @@
 			tasks: [
 				{
 					id: "1BD7BA729BE629C7"
-					type: "checkmark"
+					item: {
+						count: 1
+						id: "tfc:metal/double_ingot/wrought_iron"
+					}
+					type: "item"
 				}
 			]
 			x: 4.35d
@@ -1097,10 +1105,11 @@
 					xp: 50
 				}
 				{
+					count: 4
 					id: "0FFFE7BF3E215112"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/steel"
+						id: "minecraft:leather"
 					}
 					team_reward: true
 					type: "item"
@@ -1137,7 +1146,7 @@
 					id: "083FD18349DC84E7"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/wrought_iron"
+						id: "tfc:metal/sheet/bronze"
 					}
 					team_reward: true
 					type: "item"
@@ -1492,10 +1501,11 @@
 					xp: 50
 				}
 				{
+					count: 8
 					id: "7A8F03076505F3BA"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/steel"
+						id: "firmalife:beeswax"
 					}
 					team_reward: true
 					type: "item"
@@ -1704,7 +1714,7 @@
 					id: "4BBAD38563F9EFD8"
 					item: {
 						count: 1
-						id: "tfc:metal/ingot/wrought_iron"
+						id: "tfc:metal/sheet/bronze"
 					}
 					team_reward: true
 					type: "item"
@@ -1867,50 +1877,6 @@
 		{
 			dependencies: ["05C4B3AE61613A9B"]
 			icon: {
-				id: "tfc:metal/shield/wrought_iron"
-			}
-			id: "6AC9F30FF8F600C7"
-			optional: true
-			rewards: [
-				{
-					id: "06778885A9B7AFAF"
-					type: "xp"
-					xp: 50
-				}
-				{
-					count: 4
-					id: "6032F3955CB9C1FA"
-					item: {
-						count: 1
-						id: "tfc:metal/ingot/wrought_iron"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "38436F2B7031CF66"
-					type: "checkmark"
-				}
-			]
-			x: 0.05d
-			y: 20.3d
-		}
-		{
-			dep_control_pts: {
-				6AC9F30FF8F600C7: [
-					1.094d
-					20.664d
-					1.734d
-					20.264d
-				]
-			}
-			dependencies: ["6AC9F30FF8F600C7"]
-			icon: {
 				id: "tfc:metal/helmet/wrought_iron"
 			}
 			id: "549D57AE4E7A9202"
@@ -1922,10 +1888,11 @@
 					xp: 50
 				}
 				{
+					count: 2
 					id: "1F1F23972CBE3864"
 					item: {
 						count: 1
-						id: "tfc:metal/shield/steel"
+						id: "tfc:metal/javelin/wrought_iron"
 					}
 					team_reward: false
 					type: "item"
@@ -1936,81 +1903,28 @@
 			tags: ["side"]
 			tasks: [
 				{
+					entity: "minecraft:zombie"
 					id: "685C0BF55B387E11"
-					item: {
-						count: 1
-						id: "tfc:metal/helmet/wrought_iron"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "4C1B8A9EBF0FC570"
-					item: {
-						count: 1
-						id: "tfc:metal/chestplate/wrought_iron"
-					}
-					optional_task: true
-					type: "item"
+					type: "kill"
+					value: 16L
 				}
 			]
-			x: 2.05d
-			y: 19.9d
+			x: -0.1d
+			y: 20.4d
 		}
 		{
 			dep_control_pts: {
 				549D57AE4E7A9202: [
-					3.179d
-					20.264d
-					3.899d
-					20.714d
+					1.073d
+					20.764d
+					1.806d
+					20.164d
 				]
 			}
 			dependencies: ["549D57AE4E7A9202"]
 			icon: {
-				id: "firmages:meteorite"
+				id: "tfc:metal/lamp/wrought_iron"
 			}
-			id: "3E3A65A3874E8086"
-			optional: true
-			rewards: [
-				{
-					id: "7370D57BED66EBE7"
-					type: "xp"
-					xp: 50
-				}
-				{
-					count: 2
-					id: "768EDA3681AB4193"
-					item: {
-						count: 1
-						id: "tfc:metal/ingot/steel"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "46F03614674EEC67"
-					type: "checkmark"
-				}
-			]
-			x: 4.3d
-			y: 20.35d
-		}
-		{
-			dep_control_pts: {
-				3E3A65A3874E8086: [
-					5.436d
-					20.714d
-					6.142d
-					20.164d
-				]
-			}
-			dependencies: ["3E3A65A3874E8086"]
 			id: "64EFA98C99BE41E9"
 			optional: true
 			rewards: [
@@ -2023,9 +1937,9 @@
 					id: "7C773A8E974B633D"
 					item: {
 						count: 1
-						id: "tfc:metal/sword/steel"
+						id: "tfc:bucket/olive_oil"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -2034,16 +1948,27 @@
 			tags: ["side"]
 			tasks: [
 				{
-					count: 16L
+					count: 4L
 					id: "116CCEF336C3E152"
 					item: {
 						count: 1
-						id: "tfc:torch"
+						id: "tfc:metal/lamp/wrought_iron"
 					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "3EFB2FC0CBA34B8E"
+					item: {
+						count: 1
+						id: "tfc:metal/lamp/steel"
+					}
+					optional_task: true
 					type: "item"
 				}
 			]
-			x: 6.55d
+			x: 2.25d
 			y: 19.8d
 		}
 	]

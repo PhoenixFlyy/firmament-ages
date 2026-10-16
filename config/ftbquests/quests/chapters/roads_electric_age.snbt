@@ -72,11 +72,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "2E7C591EC6092B7C"
 					item: {
 						count: 1
-						id: "immersiveengineering:plate_aluminum"
+						id: "immersiveengineering:component_electronic"
 					}
 					team_reward: true
 					type: "item"
@@ -118,11 +118,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 8
 					id: "5C04DA518672604C"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_electrum"
+						id: "immersivepetroleum:petcoke"
 					}
 					team_reward: true
 					type: "item"
@@ -163,11 +163,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "1490C1DEF76E827C"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_steel"
+						id: "immersiveengineering:component_electronic"
 					}
 					team_reward: true
 					type: "item"
@@ -255,7 +255,7 @@
 					id: "0DD432EC68B975F6"
 					item: {
 						count: 1
-						id: "immersivepetroleum:lubricant_bucket"
+						id: "immersivepetroleum:gasoline_bucket"
 					}
 					team_reward: true
 					type: "item"
@@ -288,11 +288,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "089B019ACAF56F7B"
 					item: {
 						count: 1
-						id: "immersiveengineering:plate_aluminum"
+						id: "tfc:metal/sheet/black_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -384,7 +384,7 @@
 					id: "2D18FE71D8C047AD"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_electrum"
+						id: "immersiveengineering:wirecoil_redstone"
 					}
 					team_reward: true
 					type: "item"
@@ -425,12 +425,13 @@
 					xp: 100
 				}
 				{
+					count: 8
 					id: "40EEF2D44E9F7DC1"
 					item: {
 						count: 1
-						id: "immersiveengineering:capacitor_mv"
+						id: "immersivepetroleum:petcoke"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -469,11 +470,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "07DFC5A5DA705C3F"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_steel"
+						id: "tfc:metal/sheet/black_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -620,11 +621,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 8
 					id: "76F60273CF71CE7D"
 					item: {
 						count: 1
-						id: "immersiveengineering:plate_aluminum"
+						id: "ars_nouveau:source_gem"
 					}
 					team_reward: true
 					type: "item"
@@ -693,11 +694,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "3C9827EB54BA87B2"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_electrum"
+						id: "ars_nouveau:source_jar"
 					}
 					team_reward: true
 					type: "item"
@@ -738,12 +739,13 @@
 					xp: 100
 				}
 				{
+					count: 8
 					id: "7F67CE2D791756D5"
 					item: {
 						count: 1
-						id: "immersiveengineering:capacitor_mv"
+						id: "ars_nouveau:magebloom_fiber"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -823,7 +825,7 @@
 						count: 1
 						id: "immersiveengineering:capacitor_mv"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -862,11 +864,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "6A3F8E07461F5F9A"
 					item: {
 						count: 1
-						id: "immersiveengineering:plate_aluminum"
+						id: "immersiveengineering:component_electronic"
 					}
 					team_reward: true
 					type: "item"
@@ -934,50 +936,6 @@
 			y: 8.8d
 		}
 		{
-			dep_control_pts: {
-				7AD930D88D608D2B: [
-					5.456d
-					9.164d
-					6.073d
-					8.614d
-				]
-			}
-			dependencies: ["7AD930D88D608D2B"]
-			icon: {
-				id: "buildinggadgets2:gadget_exchanging"
-			}
-			id: "0CFDAAA6C5CBDDDB"
-			optional: true
-			rewards: [
-				{
-					id: "43460329F2E41C69"
-					type: "xp"
-					xp: 100
-				}
-				{
-					count: 4
-					id: "7B73288F0CA41DF6"
-					item: {
-						count: 1
-						id: "immersiveengineering:wirecoil_steel"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "398BFD48DC682874"
-					type: "checkmark"
-				}
-			]
-			x: 6.4d
-			y: 8.25d
-		}
-		{
 			dependencies: ["046444D7885EFB7E"]
 			id: "0E19FEB2C2B7231D"
 			optional: true
@@ -992,7 +950,7 @@
 					id: "59802FEF8C3D12DA"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_electrum"
+						id: "immersiveengineering:connector_mv"
 					}
 					team_reward: true
 					type: "item"
@@ -1034,12 +992,13 @@
 					xp: 100
 				}
 				{
+					count: 2
 					id: "6846F35C3C7F21F8"
 					item: {
 						count: 1
-						id: "immersiveengineering:capacitor_mv"
+						id: "immersiveengineering:component_electronic"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -1128,7 +1087,7 @@
 					id: "77BCE89A843D7C85"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_steel"
+						id: "immersiveengineering:connector_hv"
 					}
 					team_reward: true
 					type: "item"
@@ -1207,11 +1166,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "55F5ADEFF9356124"
 					item: {
 						count: 1
-						id: "immersiveengineering:plate_aluminum"
+						id: "tfc:metal/sheet/black_steel"
 					}
 					team_reward: true
 					type: "item"
@@ -1252,11 +1211,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "00D5482949F0C94A"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_electrum"
+						id: "immersiveengineering:component_electronic"
 					}
 					team_reward: true
 					type: "item"
@@ -1297,12 +1256,13 @@
 					xp: 100
 				}
 				{
+					count: 8
 					id: "1CA46091A8B824C9"
 					item: {
 						count: 1
-						id: "immersiveengineering:capacitor_mv"
+						id: "immersivepetroleum:petcoke"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]
@@ -1345,7 +1305,7 @@
 					id: "4401FD8A4F64FD05"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_steel"
+						id: "immersiveengineering:wirecoil_redstone"
 					}
 					team_reward: true
 					type: "item"
@@ -1480,11 +1440,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 8
 					id: "161D885C97B6EAE3"
 					item: {
 						count: 1
-						id: "immersiveengineering:plate_aluminum"
+						id: "immersivepetroleum:paraffin_wax"
 					}
 					team_reward: true
 					type: "item"
@@ -1525,11 +1485,11 @@
 					xp: 100
 				}
 				{
-					count: 4
+					count: 2
 					id: "73B9846AF90C2995"
 					item: {
 						count: 1
-						id: "immersiveengineering:wirecoil_electrum"
+						id: "immersiveengineering:component_electronic"
 					}
 					team_reward: true
 					type: "item"
@@ -1570,12 +1530,13 @@
 					xp: 100
 				}
 				{
+					count: 16
 					id: "5AE30E3109C45772"
 					item: {
 						count: 1
-						id: "immersiveengineering:capacitor_mv"
+						id: "create:experience_nugget"
 					}
-					team_reward: false
+					team_reward: true
 					type: "item"
 				}
 			]

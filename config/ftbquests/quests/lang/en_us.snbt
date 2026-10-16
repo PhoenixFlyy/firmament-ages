@@ -188,10 +188,6 @@
 		"Fly to the Drifting Isles at height 228 to 272 by airship or jetpack. Firmament crystal grows only there."
 	]
 	quest.03C78EEE9599C6D7.title: "Above the Clouds"
-	quest.0416219650D02993.quest_desc: [
-		"Bind horn, wing and spike of the Wilden with source in the enchanting apparatus. The Wilden Chimera drops a tribute too."
-	]
-	quest.0416219650D02993.title: "Wilden Chimera"
 	quest.0437D41886A4BCD6.quest_desc: [
 		"Put a shear pin in the line. It breaks before the machines do when the network is overstressed."
 	]
@@ -327,10 +323,6 @@
 		"Build a pyromantic brazier. It heats every alchemical apparatus; read the Hermetica as you go."
 	]
 	quest.06FEAB3BC2EA4431.title: "Pyromantic Brazier"
-	quest.07205F9A9FA4E721.quest_desc: [
-		"No stronghold stands in this land, so build your own End portal: twelve frames and twelve eyes of ender."
-	]
-	quest.07205F9A9FA4E721.title: "Your Own End Portal"
 	quest.0725F0C2566548FA.quest_desc: [
 		"Build the distiller and the incubator. Mercury shards, salt and sulfur incubate into a metal dust. Melt it in a vessel."
 	]
@@ -422,11 +414,6 @@
 	]
 	quest.0AF9B610A751A285.quest_subtitle: "Crystals and Rings, off \"Stargate Blocks\""
 	quest.0AF9B610A751A285.title: "Crystallizer"
-	quest.0B05A7526370B865.quest_desc: [
-		"Go deep and find a goblin trader. It walks the dark with a pack of goods and wants fruit."
-	]
-	quest.0B05A7526370B865.quest_subtitle: "Goblins Below, off \"Gatherer\""
-	quest.0B05A7526370B865.title: "A Light Below"
 	quest.0B222390EB21C8E3.quest_desc: [
 		"Craft a universal terminal. One slot of your pack opens the network, the crafting grid and patterns."
 	]
@@ -502,16 +489,12 @@
 	]
 	quest.0CDFA3FE518F620D.quest_subtitle: "The shrine ring of the Information Age"
 	quest.0CDFA3FE518F620D.title: "Data Nave"
-	quest.0CFDAAA6C5CBDDDB.quest_desc: [
-		"The exchanging gadget refuses ore and raw stone of the wild. The rock stays as it grew."
-	]
-	quest.0CFDAAA6C5CBDDDB.title: "Mind the Veins"
 	quest.0D0AB1CA40800F5A.quest_desc: ["Break a wild crop to get its seeds."]
 	quest.0D0AB1CA40800F5A.title: "Gatherer"
 	quest.0D406931BD8899E4.quest_desc: [
-		"Set an overclocked energy cube. The fusion and the long lines need a store this deep."
+		"Raise an overclocked cube to a quantum energy cube. The reactor and the gate drink from a store this deep."
 	]
-	quest.0D406931BD8899E4.title: "Overclocked Energy Cube"
+	quest.0D406931BD8899E4.title: "Quantum Energy Cube"
 	quest.0D7A39FE4D5A01B4.quest_desc: [
 		"Wear a psimetal exosuit chestplate. Add a controller and sensors, and the suit casts for you."
 	]
@@ -557,7 +540,7 @@
 	quest.0F1AE784BF392A25.quest_desc: [
 		"Ore triples, the ME network stores and crafts, and the End can be reached. Veins of certus quartz, inferium, prosperity and soulstone wake."
 		""
-		"Five strands lead to the Data Matrix: Digital, Factory, Mob Data, The End and Sky."
+		"Four strands lead to the Data Matrix: Digital, Factory, Mob Data and Sky. The End is a side path."
 		""
 		"Caelum asks for proof of work this time: 1,024 osmium ingots fed into Tally Chutes in this Age."
 	]
@@ -979,7 +962,7 @@
 	quest.1F3F85FE5B0041D8.quest_desc: ["Build a NASA workbench. Every rocket is assembled on it."]
 	quest.1F3F85FE5B0041D8.title: "NASA Workbench"
 	quest.1FD61E2A23294166.quest_desc: [
-		"Keep eight large chaos fragments from the reactor. Two go into the Ultimate Singularity, one into the Coordinates of The Origin."
+		"Keep eight large chaos fragments from the reactor's spent fuel. Two go into the Ultimate Singularity, one into the Coordinates of The Origin."
 	]
 	quest.1FD61E2A23294166.title: "Chaos Fragments"
 	quest.1FE13D3931164773.quest_desc: [
@@ -1511,7 +1494,7 @@
 	]
 	quest.33BEA94E7673D21D.title: "The Way Below"
 	quest.33C11901A7A16BA3.quest_desc: [
-		"Open a ruin chest. Its goods follow your Age: flint and yarn, then metal."
+		"Open a ruin chest. Its goods follow your Age: flint, glue, yarn and charcoal at first."
 	]
 	quest.33C11901A7A16BA3.title: "What the Ruin Kept"
 	quest.3439831B7895C627.quest_desc: [
@@ -1554,7 +1537,7 @@
 	]
 	quest.34A20DCC53F255CC.title: "Blast Furnace"
 	quest.3544B98B44E7DD28.quest_desc: [
-		"Fell a tree and wait. Saplings rise from the fallen leaves and the clearing fills."
+		"Fell a tree and wait. Saplings rise from the fallen leaves and the clearing fills. Dig one up."
 	]
 	quest.3544B98B44E7DD28.title: "Forests Close"
 	quest.354A9C13E074B572.quest_desc: [
@@ -1609,7 +1592,7 @@
 	]
 	quest.38790CD14A01A1C1.title: "Source Cell"
 	quest.38BA8AD136589CDA.quest_desc: [
-		"Build the draconic reactor and bring it online. Only it can power the Stargate."
+		"Build the draconic reactor and bring it online. Its spent fuel comes out as chaos fragments, and only it can power the Stargate."
 	]
 	quest.38BA8AD136589CDA.title: "Reactor Online"
 	quest.38EE69E0921920DA.quest_desc: [
@@ -1738,10 +1721,6 @@
 		"Inject a crystal with gas and it becomes a shard. The shard holds more metal than the crystal did."
 	]
 	quest.3D68BFAEB3205167.title: "Shards"
-	quest.3E3A65A3874E8086.quest_desc: [
-		"The night after an Age dawns, the moon swells in the color of the new Age. Fewer monsters walk, and fights give more."
-	]
-	quest.3E3A65A3874E8086.title: "Firmament Night"
 	quest.3E3CE4C327FE1A6A.quest_desc: [
 		"Load a program into a spell bullet. The CAD casts it as a shot, a mine or a loop."
 	]
@@ -1828,7 +1807,7 @@
 	]
 	quest.418C81DD568EB184.title: "Laser Fence"
 	quest.41B3251BB5EB3A3A.quest_desc: [
-		"Bottle four breaths of the dragon. Brewers and enchanters want them."
+		"Destroy the crystals, then the dragon, and bottle four breaths of it. Brewers and enchanters want them."
 	]
 	quest.41B3251BB5EB3A3A.title: "Dragon's Breath"
 	quest.41B46B0D9C0E8AB4.quest_desc: [
@@ -1870,7 +1849,7 @@
 	quest.4343CC0402E9CAFA.quest_subtitle: "Gauges and Ledgers, off \"Factory Gauge\""
 	quest.4343CC0402E9CAFA.title: "Network Link"
 	quest.43C52E01ADB93C69.quest_desc: [
-		"Craft a chaotic necklace. It is the last link, and only the last Age can forge it."
+		"Craft a chaotic necklace, the last link of the chain, and wear it. It shows how far you came."
 	]
 	quest.43C52E01ADB93C69.title: "Chaotic Necklace"
 	quest.43EE716147A43CFE.quest_desc: [
@@ -1946,7 +1925,7 @@
 	]
 	quest.46DF21F2D2D5904C.title: "Proof of Work"
 	quest.470272BFC8013E57.quest_desc: [
-		"Keep a Wilden Tribute. The Djinni ritual of the Arcane Keystone needs it."
+		"Bind horn, wing and spike of the Wilden with source in the enchanting apparatus, or take the tribute from the Wilden Chimera. Keep it: the Djinni ritual of the Arcane Keystone needs it."
 	]
 	quest.470272BFC8013E57.title: "Wilden Tribute"
 	quest.47EADFDE57EAF836.quest_desc: [
@@ -2008,7 +1987,7 @@
 	]
 	quest.4868CA77D43496DE.title: "Tier 1 Rocket"
 	quest.486B7720D498A44B.quest_desc: [
-		"Find a ruin: toppled walls and chests, in the open and on the beaches."
+		"Find a ruin: toppled walls and chests, in the open and on the beaches. Step inside."
 	]
 	quest.486B7720D498A44B.quest_subtitle: "Old Stones, off \"The Stone Age Dawns\""
 	quest.486B7720D498A44B.title: "A Fallen House"
@@ -2059,7 +2038,7 @@
 	]
 	quest.498E3CB76B5E962C.title: "Processors"
 	quest.49AD8E5EC6FB24F9.quest_desc: [
-		"Build four stabilizers and an injector. They hold the reactor core in its field."
+		"Build four stabilizers and an injector at draconic level. They hold the reactor core in its field."
 	]
 	quest.49AD8E5EC6FB24F9.title: "Reactor Parts"
 	quest.4A34D752E7A4B499.quest_desc: [
@@ -2101,7 +2080,7 @@
 	]
 	quest.4C78408E6835BC56.title: "Hunter"
 	quest.4C9313FE2FCD30AD.quest_desc: [
-		"A goblin of the veins trades below, for ore and goods of the deep. Meet it and see its stock."
+		"A goblin of the veins trades in the Nether, for ore and goods of the deep. Trade it for a shroomlight or a gleamflower seed."
 	]
 	quest.4C9313FE2FCD30AD.title: "The Vein Goblin"
 	quest.4CA32185961FD920.quest_desc: [
@@ -2239,7 +2218,7 @@
 	quest.5209B9E49235822B.quest_desc: [
 		"The last Age. Chaos, the Ultimate Singularity and a Stargate to The Origin."
 		""
-		"Four strands lead to the final battle: Chaos, Singularity, Stargate and Sky."
+		"Three strands lead to the final battle: Chaos, Stargate and Sky."
 	]
 	quest.5209B9E49235822B.quest_subtitle: "The tenth and last Age"
 	quest.5209B9E49235822B.title: "The Singularity Age Dawns"
@@ -2265,8 +2244,6 @@
 	]
 	quest.531FCAC59D841C4F.quest_subtitle: "Bigger Machines, off \"Factory Line\""
 	quest.531FCAC59D841C4F.title: "Washing Factory"
-	quest.532C13282586CA95.quest_desc: ["Destroy the crystals, then the dragon."]
-	quest.532C13282586CA95.title: "The Ender Dragon"
 	quest.53348C90243DE4F0.quest_desc: [
 		"Everybody on this server is one fellowship. The Ages are shared by all of you. Split the strands between you: one friend smiths, one prospects, one builds."
 		""
@@ -2305,8 +2282,9 @@
 	]
 	quest.54432F5A30AE7695.title: "Wood Classes"
 	quest.549D57AE4E7A9202.quest_desc: [
-		"Zombies on a red night wear the armor and carry the blades of the metal before yours. Meet them in a doorway."
+		"On a red moon the dead rise armed. On a Firmament Night, after an Age dawns, fewer walk and fights pay more."
 	]
+	quest.549D57AE4E7A9202.quest_subtitle: "Red Moons, off \"The Iron Age Dawns\""
 	quest.549D57AE4E7A9202.title: "Armed Dead"
 	quest.55A04983F152F598.quest_desc: [
 		"The arc furnace takes over alloying from the alloy kiln. Old stations stay in the world, but their recipes move to the new one."
@@ -2329,7 +2307,7 @@
 	]
 	quest.56540F254F25E020.title: "Quantum Processor"
 	quest.56A17C9D31C86E04.quest_desc: [
-		"Craft an exchanging gadget. It swaps a wall of one block for another in a single sweep."
+		"Craft an exchanging gadget. It swaps a wall of blocks in one sweep, but never ore or the raw stone of the wild."
 	]
 	quest.56A17C9D31C86E04.title: "Exchanging Gadget"
 	quest.571394917C105C6B.quest_desc: [
@@ -2367,7 +2345,7 @@
 	quest.57A450FE81B342F6.quest_subtitle: "Cannon Works, off \"Built-Up Chamber\""
 	quest.57A450FE81B342F6.title: "Foundry Lid"
 	quest.57F5B8C4363E589D.quest_desc: [
-		"The Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards. The reactor makes chaos without it."
+		"The Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards. Nine large fragments press into a shard too."
 	]
 	quest.57F5B8C4363E589D.title: "Chaos Guardian"
 	quest.581F27EACB0B6A07.quest_desc: [
@@ -2462,7 +2440,7 @@
 	quest.5B849EF8FE147622.quest_desc: ["Reinforced blast bricks and preheaters make steel faster."]
 	quest.5B849EF8FE147622.title: "Improved Blast Furnace"
 	quest.5BCEF3BCCD6A832E.quest_desc: [
-		"Keep a torch lit below Y 40. A thing walks the dark caves until iron is yours."
+		"Keep a torch lit below Y 40. A thing walks the dark caves until iron is yours. See it once."
 	]
 	quest.5BCEF3BCCD6A832E.title: "The Pale Watcher"
 	quest.5C0BB2F0411B50A4.quest_desc: [
@@ -2480,9 +2458,9 @@
 	quest.5C1872FCA111DFAA.quest_desc: ["Craft a launch pad. Rockets start only from one."]
 	quest.5C1872FCA111DFAA.title: "Launch Pad"
 	quest.5C1B3FA3E42205BB.quest_desc: [
-		"Wait two days and trade again. A goblin restocks slowly, and its wares follow your Age."
+		"Now and then a goblin carries rarer goods for silk or a large hide. Trade it for a saddle."
 	]
-	quest.5C1B3FA3E42205BB.title: "Two Days Later"
+	quest.5C1B3FA3E42205BB.title: "Rare Goods"
 	quest.5C56E1A066E7C72A.quest_desc: [
 		"Grow an energy crystal. A gate that is dialed costs more than a reactor can give in one breath."
 	]
@@ -2543,7 +2521,7 @@
 	]
 	quest.5F3D1DE20EF6632E.title: "Oxygen and Gravity"
 	quest.5F4A609BCB040DE7.quest_desc: [
-		"Open the anvil and press the weld button. It joins the two items in one press."
+		"Open the anvil with two hot ingots and flux and press the weld button. It joins them in one press."
 	]
 	quest.5F4A609BCB040DE7.title: "Weld Button"
 	quest.5F74A3FDB04E14F6.quest_desc: [
@@ -2674,11 +2652,11 @@
 	quest.64CDFFD93C9CBDCE.quest_subtitle: "Goal of the Information Age: Caelum opens the Space Age"
 	quest.64CDFFD93C9CBDCE.title: "Offer the Data Matrix at the Shrine"
 	quest.64E0D1AE8C5265E7.quest_desc: [
-		"Set the twelve frames as a ring around a 3 by 3 hole, facing inwards, fill them with the eyes and step through."
+		"No stronghold stands here. Ring a 3 by 3 hole with twelve frames facing inwards, fill them with twelve eyes of ender and step through."
 	]
 	quest.64E0D1AE8C5265E7.title: "The End"
 	quest.64EFA98C99BE41E9.quest_desc: [
-		"Light the yard and the walls before dusk. A lit house is quiet on the reddest night."
+		"Hang lamps at the yard and the walls before dusk. A lit house is quiet on the reddest night."
 	]
 	quest.64EFA98C99BE41E9.title: "Keeping the Door"
 	quest.6522D484BFB67425.quest_desc: [
@@ -2787,7 +2765,10 @@
 		"Fusion crafting needs a core, injectors of the right tier and FE. Wyvern items need wyvern injectors. Every tool and armor piece has a direct recipe: no gear goes into better gear."
 	]
 	quest.67CA15BF14B359A8.title: "Fusion Crafting"
-	quest.67D2B7F30B2F443D.quest_desc: ["Carry six apples to a goblin. It pays in seed."]
+	quest.67D2B7F30B2F443D.quest_desc: [
+		"Go deep and find a goblin trader below the surface. It walks the dark with a pack of goods and pays fruit in seed."
+	]
+	quest.67D2B7F30B2F443D.quest_subtitle: "Goblins Below, off \"Gatherer\""
 	quest.67D2B7F30B2F443D.title: "Fruit for Seed"
 	quest.680BF7D02202F292.quest_desc: [
 		"Grow ghost pepper in the Nether. It is hot enough to be called a fruit of the dark."
@@ -2894,11 +2875,6 @@
 		"Lay a duct where several pipes meet. It gathers the smoke of a whole smithy into one stack."
 	]
 	quest.6A84AF4A8D4A7FBA.title: "Smoke Duct"
-	quest.6AC9F30FF8F600C7.quest_desc: [
-		"When the moon turns red, the dead rise armed. Stay behind walls until the sky pales."
-	]
-	quest.6AC9F30FF8F600C7.quest_subtitle: "Red Moons, off \"The Iron Age Dawns\""
-	quest.6AC9F30FF8F600C7.title: "The Red Moon"
 	quest.6ADB4DA20F502E35.quest_desc: [
 		"Make psidust. It is the ink of every spell, and the metal of the CAD is made from it."
 	]
@@ -2993,7 +2969,7 @@
 	]
 	quest.6FBF7C800CAD422B.title: "The House Speaks"
 	quest.71013FE9F62EC68E.quest_desc: [
-		"Craft four chaotic injectors. Chaotic fusion, the highest tier, needs them."
+		"Craft four chaotic injectors from fragments and antimatter. Chaotic fusion, the highest tier, needs them."
 	]
 	quest.71013FE9F62EC68E.title: "Chaotic Injectors"
 	quest.7124AA6401C814BF.quest_desc: ["Build the Dial Home Device. It dials the gate."]
@@ -3168,10 +3144,6 @@
 		"Fire a jug and fill it at a river. Put a fired ceramic pot on the firepit, pour the water in and cook a soup."
 	]
 	quest.7794323527566501.title: "A Pot of Soup"
-	quest.7821425D528C525D.quest_desc: [
-		"Wear a necklace of the chain. It gives no strength; it shows how far you came."
-	]
-	quest.7821425D528C525D.title: "Worn Quietly"
 	quest.785E11655A4373F7.quest_desc: [
 		"White needles grow where the vents run cold. Gather saltpeter."
 	]
@@ -3402,7 +3374,6 @@
 	task.0E6AB4ACAA318F51.title: "ME drive"
 	task.0FE0F6300D2B29B0.title: "Land on Mercury"
 	task.10059F1778A7C84F.title: "Offer the Humming Core at the shrine"
-	task.1013313AB2F7A4D8.title: "Watch a cleared patch fill with saplings"
 	task.1071B42988230BBE.title: "Feed 512 aluminium ingots into Tally Chutes"
 	task.114A24E0C56CE299.title: "Knap a clay piece"
 	task.124D117E2BC55E5C.title: "Iesnium ingots"
@@ -3415,7 +3386,7 @@
 	task.19AE69BBB724B329.title: "Basic injectors"
 	task.1AAC9A0184959725.title: "A large raw hide"
 	task.1AD365B9D570D19B.title: "Dig out charcoal"
-	task.1BD7BA729BE629C7.title: "Weld two items with the button"
+	task.1BD7BA729BE629C7.title: "A double ingot of wrought iron"
 	task.1C63BBD78A1CE3A0.title: "A torch"
 	task.1CFB0568626363E1.title: "Turbine blades"
 	task.1D0D22EFA355E319.title: "Dictionary of Spirits"
@@ -3449,6 +3420,7 @@
 	task.2DB5E4AC7669F346.title: "1k storage cell"
 	task.2E191734D8AA6C6F.title: "Kill any wild animal"
 	task.2F02F7582D1B7CDF.title: "Look at a formed excavator"
+	task.2F46393378F076FC.title: "Slay the Wilden Chimera (optional)"
 	task.30CA0794084F8E53.title: "Find a body of soulstone"
 	task.319476C720BB440C.title: "Knap a stone axe head"
 	task.31EE89CEE13DA473.title: "Tan a hide"
@@ -3463,10 +3435,8 @@
 	task.363EF3BA28ADA833.title: "Look at a formed metal press"
 	task.375DD780913A8CE0.title: "Reach the Space Age"
 	task.377CE4E779C2C6AA.title: "Offer the Steel Heart at the shrine"
-	task.38436F2B7031CF66.title: "Live through a blood moon night"
 	task.38C88F7DA9D7B715.title: "A pulse repeater"
 	task.3989D0404E562EAF.title: "Offer the Quantum Core at the shrine"
-	task.398BFD48DC682874.title: "Try the exchanging gadget on a vein and be refused"
 	task.39A97E9618CA7E55.title: "Reactor stabilizers"
 	task.39E58633F694C6F5.title: "Look at a formed beamhouse"
 	task.3A2A187B984181EF.title: "SPS casings"
@@ -3476,7 +3446,6 @@
 	task.3EA910EB828696C0.title: "Feed 1,024 osmium ingots into Tally Chutes"
 	task.3FBC56717A9E3565.title: "Bronze pickaxe"
 	task.40897BEF6100181B.title: "Look at a formed improved blast furnace"
-	task.4115BDCC30C4699E.title: "Stand in a ruin"
 	task.4197F6859B0FBD4A.title: "Look at the heart with the Bronze Sanctum complete"
 	task.4310383F8BF8DFA7.title: "Chevron blocks"
 	task.433F0E586DCFD500.title: "Feed 2,880 desh ingots into Tally Chutes"
@@ -3484,7 +3453,6 @@
 	task.44371205C7AA8957.title: "Look at your assembled Stargate"
 	task.45FAD6B31F5BEAA1.title: "Two redstone links"
 	task.465D3A2469B147A9.title: "Look at a formed coke oven"
-	task.46F03614674EEC67.title: "See a Firmament Night"
 	task.47B7FEC819CCF685.title: "Two gantry carriages"
 	task.47CF49747E646CDC.title: "Read the build guide"
 	task.4B6C1BDA1DC7E548.title: "Look at the heart of the finished Hearth Circle"
@@ -3497,20 +3465,18 @@
 	task.5018E7505F72F589.title: "Step through the gate into The Origin"
 	task.502E1A6E2A025A3A.title: "Pattern provider"
 	task.5066EB11BB353E02.title: "Fired ingot mold"
-	task.5099071BE7567996.title: "Hear the cave noises in the dark"
+	task.5099071BE7567996.title: "Look at the pale watcher"
 	task.50E45E7306466F88.title: "A fired crucible"
 	task.51A37CD127AB2DB7.title: "Look at your farmland"
 	task.5210E90314773463.title: "Leather boots"
 	task.52C50C8218E32C6B.title: "Look at a placed water wheel"
 	task.54407B0BFE041F07.title: "Copper saw"
 	task.549B75B02A349FB4.title: "Fired small vessel"
-	task.555FFA453C769834.title: "Eyes of ender"
 	task.55C92C85FCE9B94B.title: "Defeat the final boss in The Origin"
 	task.567ED971885E806E.title: "Super glue"
 	task.5695F5E6FED3E709.title: "Read the build guide"
-	task.57B54935E38B1A48.title: "Trade with the same goblin on a later day"
+	task.57B54935E38B1A48.title: "A saddle"
 	task.580126B6FCDE4D54.title: "Read the plan"
-	task.5849343D7214765A.title: "Wear a necklace of the chain"
 	task.585C29CB2582C5B9.title: "Ring blocks"
 	task.58632406487259A5.title: "Reach the Industrial Age"
 	task.5864029FAFC0F42D.title: "Space suit"
@@ -3519,6 +3485,7 @@
 	task.59BF7656C593CD18.title: "A divination rod, if you like"
 	task.5A998F344D9F1289.title: "Craft a quern"
 	task.5B16F4CC9E177845.title: "Read the build guide"
+	task.5B928069E906FB89.title: "Step into the End"
 	task.5BAE8972952CF5F9.title: "Supercharged coils"
 	task.5D70E4DC5873EA26.title: "Copper knife"
 	task.5DE22F71BE32AF59.title: "Reach the Singularity Age"
@@ -3540,8 +3507,10 @@
 	task.661F88E7CD851EBD.title: "Look at a formed diesel generator"
 	task.669D4FD80983FFE5.title: "Spirit attuned crystal"
 	task.67348FC7A8278387.title: "LV connectors"
+	task.6755E71F147BB3D1.title: "Slay the Ender Dragon (optional)"
 	task.67C61DC00BBA458E.title: "Super glue"
 	task.68337F48FE1A4BB2.title: "Feed 3,584 calorite ingots into Tally Chutes"
+	task.685C0BF55B387E11.title: "Put down sixteen of the dead"
 	task.68DDEBC52D237F8A.title: "Read the build guide"
 	task.6912FF34FC324B3D.title: "Look at your placed Shrine Heart"
 	task.6979E53DBE2CBE0F.title: "Grind 32 flux"
@@ -3552,8 +3521,6 @@
 	task.7149233AAC3479B7.title: "Advanced enriching factory"
 	task.715F70D28A1A4B47.title: "Look at the heart with the Tesla Crown complete"
 	task.7164F60688495EFE.title: "Bronze axe"
-	task.7194F3CB9E52271F.title: "Meet a vein goblin in the Nether"
-	task.719E36824F786210.title: "End portal frames"
 	task.72777F0B3C025AB4.title: "A chute"
 	task.72C67C8CA11A2DC3.title: "Look at a formed pumpjack"
 	task.72D41C305D7B1882.title: "Look at a working elevator contact"
@@ -3564,12 +3531,13 @@
 	task.76120E8D8EDDC9B9.title: "Light a charcoal forge"
 	task.763BD161B2214A17.title: "Reach the Information Age"
 	task.76580C7802686F82.title: "Engineering processors"
+	task.77496B04A9B0626C.title: "Eyes of ender"
 	task.779342C0C35572D7.title: "Offer the Data Matrix at the shrine"
 	task.78D7806496388201.title: "Look at the clockwork bearing in your gable"
-	task.78DA691BC254000A.title: "Meet a goblin trader below the surface"
 	task.78E6821FB034183E.title: "Shafts"
 	task.794087CA08B1FDE3.title: "Look at the heart with the Data Nave complete"
 	task.79C58CBEDEC0DC2B.title: "Read the build guide"
+	task.7A332B5B5E0313FC.title: "End portal frames"
 	task.7AE00F2A016BF75A.title: "Look at a formed thresher"
 	task.7C2F5D2903FE109A.title: "Space boots"
 	task.7C32F9C6C5A6BCCA.title: "Defeat the final boss"

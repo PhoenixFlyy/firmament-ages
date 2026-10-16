@@ -80,7 +80,7 @@
 					id: "7AD445964578F63B"
 					item: {
 						count: 1
-						id: "ae2:certus_quartz_crystal"
+						id: "mysticalagriculture:mystical_fertilizer"
 					}
 					team_reward: true
 					type: "item"
@@ -1131,11 +1131,11 @@
 					xp: 120
 				}
 				{
-					count: 8
+					count: 4
 					id: "3D819F19E156AB86"
 					item: {
 						count: 1
-						id: "ae2:silicon"
+						id: "mekanism:alloy_infused"
 					}
 					team_reward: true
 					type: "item"
@@ -1537,11 +1537,11 @@
 					xp: 120
 				}
 				{
-					count: 8
+					count: 4
 					id: "45F04EB311312929"
 					item: {
 						count: 1
-						id: "ae2:silicon"
+						id: "mekanism:alloy_infused"
 					}
 					team_reward: true
 					type: "item"
@@ -1640,11 +1640,11 @@
 					xp: 120
 				}
 				{
-					count: 2
+					count: 4
 					id: "16594A35628D1207"
 					item: {
 						count: 1
-						id: "mekanism:elite_control_circuit"
+						id: "mekanism:alloy_reinforced"
 					}
 					team_reward: true
 					type: "item"

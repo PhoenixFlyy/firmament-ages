@@ -72,13 +72,13 @@
 					xp: 10
 				}
 				{
-					count: 4
+					count: 3
 					id: "3719457A7388CEED"
 					item: {
 						count: 1
-						id: "tfc:torch"
+						id: "tfc:food/cooked_venison"
 					}
-					team_reward: true
+					team_reward: false
 					type: "item"
 				}
 			]
@@ -117,11 +117,11 @@
 					xp: 10
 				}
 				{
-					count: 2
+					count: 8
 					id: "253E9C39DCF94131"
 					item: {
 						count: 1
-						id: "tfc:candle"
+						id: "tfc:jute_fiber"
 					}
 					team_reward: true
 					type: "item"
