@@ -230,6 +230,7 @@ def main():
         print(f"    {tag}: {tags.get(tag)}")
 
     emi_checks(base, rows, tags, item_age, check)
+    wood_checks(base, rows, tags, item_age, check)
     content_checks(base, a.server_dir, rows, by_id, tags, item_age, check)
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -702,7 +703,8 @@ VANILLA_WORLD = ("feather egg bone string spider_eye rotten_flesh gunpowder slim
                  "rabbit_hide rabbit_foot wither_skeleton_skull skeleton_skull phantom_membrane leather arrow bow magma_block "
                  "gilded_blackstone crimson_fungus warped_fungus crimson_stem warped_stem shroomlight ancient_debris bone_meal "
                  "redstone clay sugar_cane sugar paper glass white_wool brown_mushroom red_mushroom cactus dead_bush vine "
-                 "lily_pad kelp crying_obsidian").split()
+                 "lily_pad kelp crying_obsidian " + " ".join(f"{w}_log {w}_sapling" for w in (
+                     "oak", "birch", "spruce", "jungle", "acacia", "dark_oak", "cherry")) + " mangrove_log mangrove_propagule").split()
 MOB_DROPS = ["ars_nouveau:wilden_horn", "ars_nouveau:wilden_spike", "ars_nouveau:wilden_wing", "ars_nouveau:starbuncle_shards",
              "ars_nouveau:wilden_tribute",   # the optional Wilden Chimera; the Enchanting Apparatus makes it too
              "occultism:datura_seeds",   # pack loot modifier on TFC grass (kubejs/data/firmages/loot_modifiers)
@@ -1687,6 +1689,243 @@ _YIELD_KEYS = {"result", "results", "output", "outputs", "secondaries", "result_
 _WORLD_TYPES = {"immersiveengineering:mineral_mix", "occultism:miner", "tfc:collapse", "tfc:landslide"}
 
 
+# ================================================================================================ wood classes (W-)
+# dev/wood_classes.toml, dev/gen_wood_classes.py, kubejs/server_scripts/recipes/age_0/wood_classes.js (HW1A).
+# Recipes whose result names no wood but that take one wood only, kept on purpose (W-6): rituals and processing with a
+# thematic wood, prints that copy a vanilla door's or trapdoor's picture, a card from an oak boat, the Beneath's crimson
+# unposter, Dusty Decorations' cutting board from stripped oak.
+WOOD_W6_ALLOW = [
+    r"^occultism:ritual/", r"^mekanism:reaction/wood_gasification/", r"^twilightforest:", r"^advanced_ae:swim_speed_card$",
+    r"^mcwdoors:print_", r"^mcwtrpdoors:print_", r"^beneath:crafting/unposter$", r"^dustydecorations:cutting_board$"]
+WOOD_GRID_TYPES = ("minecraft:crafting_shaped", "minecraft:crafting_shapeless", "tfc:advanced_shaped_crafting",
+                   "tfc:advanced_shapeless_crafting", "tfc:no_remainder_shapeless_crafting",
+                   "tfc:no_remainder_shaped_crafting", "kubejs:shaped", "kubejs:shapeless")
+
+
+def _ing_accepts(ing, item, tags):
+    """True when a grid ingredient JSON accepts the item."""
+    if isinstance(ing, list):
+        return any(_ing_accepts(x, item, tags) for x in ing)
+    if isinstance(ing, str):
+        return item in tags.get(ing[1:], []) if ing.startswith("#") else ing == item
+    if not isinstance(ing, dict):
+        return False
+    if "item" in ing:
+        return ing["item"] == item
+    if "tag" in ing:
+        return item in tags.get(ing["tag"], [])
+    if "items" in ing:
+        return _ing_accepts(ing["items"], item, tags)
+    for k in ("ingredient", "children", "values"):
+        if k in ing:
+            return _ing_accepts(ing[k], item, tags)
+    return False
+
+
+def _first_member(ing, tags):
+    if isinstance(ing, list):
+        return _first_member(ing[0], tags) if ing else None
+    if isinstance(ing, str):
+        return (sorted(tags.get(ing[1:], [])) or [None])[0] if ing.startswith("#") else ing
+    if isinstance(ing, dict):
+        if "item" in ing:
+            return ing["item"]
+        if "tag" in ing:
+            return (sorted(tags.get(ing["tag"], [])) or [None])[0]
+    return None
+
+
+def _grid(j):
+    """('shaped', rows of ingredient JSON or None) or ('shapeless', [ingredient JSON]) of a grid recipe, else None."""
+    if isinstance(j.get("pattern"), list) and isinstance(j.get("key"), dict):
+        return "shaped", [[(j["key"].get(ch) if ch != " " else None) for ch in row] for row in j["pattern"]]
+    if isinstance(j.get("ingredients"), list):
+        return "shapeless", j["ingredients"]
+    return None
+
+
+def _grid_matches(g, cells, tags):
+    """Does grid recipe g accept the concrete grid `cells` (shaped: rows of item or None; shapeless: item list)?"""
+    kind, body = g
+    flat = [c for row in cells for c in row if c] if cells and isinstance(cells[0], list) else list(cells)
+    if kind == "shapeless":
+        if len(flat) != len(body):
+            return False
+        used = [False] * len(body)
+
+        def place(k):
+            if k == len(flat):
+                return True
+            for n, ing in enumerate(body):
+                if not used[n] and _ing_accepts(ing, flat[k], tags):
+                    used[n] = True
+                    if place(k + 1):
+                        return True
+                    used[n] = False
+            return False
+        return place(0)
+    if not cells or not isinstance(cells[0], list):
+        return False
+    for variant in (body, [list(reversed(r)) for r in body]):
+        if len(variant) == len(cells) and all(len(a_) == len(b_) for a_, b_ in zip(variant, cells)):
+            if all((ing is None) == (it is None) and (ing is None or _ing_accepts(ing, it, tags))
+                   for r1, r2 in zip(variant, cells) for ing, it in zip(r1, r2)):
+                return True
+    return False
+
+
+def wood_checks(base, rows, tags, item_age, check):
+    import tomllib
+    path = os.path.join(base, "recipes_full.json")
+    if not os.path.isfile(path):
+        return
+    full = {k: json.loads(v) for k, v in json.load(open(path, encoding="utf-8")).items()}
+    with open(os.path.join(REPO, "dev", "wood_classes.toml"), "rb") as f:
+        table = tomllib.load(f)
+    classes = table["classes"]
+    kdata = os.path.join(REPO, "kubejs", "data")
+
+    def vlog(k, c):
+        return f"minecraft:{k}_stem" if c.get("nether") else f"minecraft:{k}_log"
+
+    # W-1 drops: every natural trunk drops its class log, a placed one itself, a hammer sticks
+    bad = []
+    n = 0
+    for k, c in classes.items():
+        for s in c["species"] + c.get("variants", []):
+            ns, sp = s.split(":")
+            for kind in ("log", "wood"):
+                p = os.path.join(kdata, ns, "loot_table", "blocks", "wood", kind, f"{sp}.json")
+                try:
+                    alts = json.load(open(p, encoding="utf-8"))["pools"][0]["entries"][0]["children"]
+                except (OSError, ValueError, KeyError, IndexError):
+                    bad.append(f"{ns}:blocks/wood/{kind}/{sp}: no pack loot table")
+                    continue
+                n += 1
+                names = [x.get("name") for x in alts]
+                cond = json.dumps(alts[1].get("conditions", []))
+                if names != ["minecraft:stick", f"{ns}:wood/{kind}/{sp}", vlog(k, c)] or '"branch_direction": "none"' not in cond:
+                    bad.append(f"{ns}:blocks/wood/{kind}/{sp}: drops {names}")
+    check(f"W-1 natural trunks drop their class log, placed trunks themselves, hammers sticks ({n} loot tables)",
+          not bad, bad)
+
+    # W-2 fallen trunks and ruins (placed state, species log) turn back into the class log
+    miss = []
+    for k, c in classes.items():
+        for s in c["species"] + c.get("variants", []):
+            rid = f"firmages:wood/class_log/{s.replace(':', '_')}"
+            j = full.get(rid)
+            if not j or vlog(k, c) not in json.dumps(j.get("result", {})):
+                miss.append(f"{rid}: missing or wrong result")
+    check("W-2 every species log and wood has its one-step way back to the class log (R7)", not miss, miss)
+
+    # W-3 fuel, tannin, firepit
+    bad = []
+    for k, c in classes.items():
+        if not os.path.isfile(os.path.join(kdata, "firmages", "tfc", "fuel", f"{k}_logs.json")):
+            bad.append(f"no fuel for {k} logs")
+        # Nether stems do not burn, the Beneath's own stems are no firepit logs either
+        if not c.get("nether") and vlog(k, c) not in tags.get("tfc:firepit_logs", []):
+            bad.append(f"{vlog(k, c)} not in tfc:firepit_logs")
+    for w in ("oak", "birch", "spruce", "dark_oak", "jungle", "acacia"):
+        if f"minecraft:{w}_log" not in tags.get("tfc:tannin_logs", []):
+            bad.append(f"minecraft:{w}_log not in tfc:tannin_logs")
+    if "minecraft:crafting_table" not in tags.get("tfc:workbenches", []):
+        bad.append("minecraft:crafting_table not in the item tag tfc:workbenches")
+    check("W-3 vanilla logs burn (TFC fuel), tan (tfc:tannin_logs) and light the firepit; the crafting table is a workbench",
+          not bad, bad)
+
+    # W-4 one recipe per grid: each wood-class recipe's own grid matches no other grid recipe
+    grids = {}
+    for rid, j in full.items():
+        t = str(j.get("type", ""))
+        if t in WOOD_GRID_TYPES or t.endswith(("crafting_shaped", "crafting_shapeless")):
+            g = _grid(j)
+            if g:
+                grids[rid] = g
+    clash, tested = [], 0
+    for rid, g in sorted(grids.items()):
+        if not rid.startswith("firmages:wood/"):
+            continue
+        kind, body = g
+        if kind == "shaped":
+            cells = [[_first_member(ing, tags) if ing is not None else None for ing in row] for row in body]
+            if any(c is None for row, crow in zip(body, cells) for ing, c in zip(row, crow) if ing is not None):
+                continue
+        else:
+            cells = [_first_member(ing, tags) for ing in body]
+            if None in cells:
+                continue
+        tested += 1
+        for other, g2 in grids.items():
+            if other != rid and _grid_matches(g2, cells, tags):
+                clash.append(f"{rid} and {other} take the same grid {cells}")
+    check(f"W-4 every wood-class grid makes exactly one recipe ({tested} grids against {len(grids)} grid recipes)",
+          tested > 0 and not clash, clash)
+
+    # W-5 Ages
+    want = {}
+    for k, c in classes.items():
+        want[vlog(k, c)] = "age_3" if c.get("nether") else "dawn"
+        want[f"minecraft:{k}_planks"] = "age_3" if c.get("nether") else "age_0"
+        if not c.get("nether"):
+            want["minecraft:mangrove_propagule" if k == "mangrove" else f"minecraft:{k}_sapling"] = "dawn"
+    want.update({"minecraft:crafting_table": "age_0", "minecraft:bamboo": "age_0", "minecraft:bamboo_block": "age_0",
+                 "minecraft:bamboo_planks": "age_0"})
+    off = [f"{i}: {item_age.get(i)} (want {st})" for i, st in sorted(want.items()) if item_age.get(i) != st]
+    check("W-5 class logs and saplings Dawn, planks, crafting table and bamboo Stone Age, Nether stems Arcane Age",
+          not off, off)
+
+    # W-6 no recipe with a wood-neutral result that takes one wood only (one class or one species in a slot)
+    # chip_wood: Create Diesel Generators' wood type; Every Compat builds its furniture from oak planks
+    woods = set(classes) | {s.split(":")[1] for c in classes.values() for s in c["species"] + c.get("variants", [])}         | {"chip_wood"}
+    tok = re.compile(r"(^|[/_:])(" + "|".join(sorted(woods, key=len, reverse=True)) + r")([/_]|$)")
+    base_rx = re.compile(r"^(minecraft:(stripped_)?\w+?_(log|wood|planks|stem|hyphae)|(tfc|afc|beneath):wood/"
+                         r"(log|wood|stripped_log|stripped_wood|planks|lumber)/\w+)$")
+    allow = [re.compile(x) for x in WOOD_W6_ALLOW]
+    bound = []
+    for rid, j in full.items():
+        if any(x.search(rid) for x in allow):
+            continue
+        outs = _outs(j, [])
+        if not outs or any(tok.search(o.split(":", 1)[1]) for o in outs if ":" in o):
+            continue
+        for slot in _slots(j, []):
+            mem = {x for k_, x in slot if k_ == "item"} | {m for k_, x in slot if k_ == "tag" for m in tags.get(x, [])}
+            wood = {m for m in mem if base_rx.match(m)}
+            kinds = {tok.search(m.split(":", 1)[1]).group(2) for m in wood if tok.search(m.split(":", 1)[1])}
+            if wood and wood == mem and len(kinds) == 1:
+                bound.append(f"{rid} -> {outs[0]} takes only {sorted(wood)[:3]}")
+                break
+    check(f"W-6 no recipe with a wood-neutral result takes one wood only (allowlist {len(WOOD_W6_ALLOW)} patterns)",
+          not bound, sorted(bound))
+
+    # W-7 the lead species' function blocks take the class tags
+    miss = []
+    for k, c in classes.items():
+        ns, sp = c["lead"].split(":")
+        for kind in ("support", "axle", "crate", "clutch", "encased_axle", "sewing_table", "water_wheel",
+                     "scribing_table", "shelf"):
+            rid = f"{ns}:crafting/wood/{kind}/{sp}"
+            if rid in full and f"firmages:wood_class/{k}/" not in json.dumps(full[rid]).replace(" ", ""):
+                miss.append(f"{rid}: no class tag")
+    check("W-7 the lead species' TFC function blocks take the class tags (R9)", not miss, miss)
+
+    # W-8 style parity in the recipe viewer: no pixel twin of a vanilla original and no style TFC wood lacks
+    sys.path.insert(0, os.path.join(REPO, "dev"))
+    import gen_stage_locks as gsl
+    am = gsl.AgeMap(gsl.tomllib.loads(open(gsl.AGE_MAP, encoding="utf-8").read()),
+                    json.load(open(gsl.REGISTRY, encoding="utf-8")), json.load(open(gsl.TFC_IDS, encoding="utf-8")))
+    twin = re.compile(r"^everycomp:[a-z_]+/tfc/(.+_)?(oak|mangrove)(_.+)?$")
+    seen = sorted(i for i, st in item_age.items() if st != "disabled" and (twin.match(i) or am.parity_hidden(i)))
+    vis = collections.Counter(i.split(":")[0] for i, st in item_age.items()
+                              if st != "disabled" and i.split(":")[0] in am.parity_mods
+                              and am.parity_wood.search(i.split(":")[1]))
+    check("W-8 no Every Compat TFC oak/mangrove twin and no vanilla-wood style without a TFC-wood copy is visible",
+          not seen, seen)
+    print("    visible vanilla-wood deco by mod: " + ", ".join(f"{k}={v}" for k, v in vis.most_common()))
+
+
 def load_metals():
     return json.load(open(METALS_JSON, encoding="utf-8"))
 
@@ -1960,10 +2199,14 @@ def ladder_checks(full, recs, items, tags, check):
 # checkpoint) and fires a recipe only when every ingredient is reached, every output belongs to the Age or earlier
 # (the firmages-core gate) and its station exists by then (mod Age of the recipe type in dev/age_map.toml, Create
 # heat levels). Runs on a dump with every Age unlocked, like the A- and C- checks.
+# Wood classes (dev/wood_classes.toml): every natural TFC/AFC trunk drops the vanilla log of its class, and vanilla trees
+# grow in TFC forests (logs, leaves, saplings).
+VANILLA_TREES = " ".join(f"{w}_log {w}_leaves {w}_sapling" for w in (
+    "oak", "birch", "spruce", "jungle", "acacia", "dark_oak", "cherry")) + " mangrove_log mangrove_leaves mangrove_propagule"
 VANILLA_BY_AGE = {
     "dawn": "feather egg bone string spider_eye rotten_flesh ink_sac glow_ink_sac clay_ball flint snowball ice snow_block "
             "charcoal stick cobweb rabbit_hide rabbit_foot leather bone_meal redstone clay sugar_cane sugar paper glass "
-            "white_wool brown_mushroom red_mushroom cactus dead_bush vine lily_pad kelp obsidian",
+            "white_wool brown_mushroom red_mushroom cactus dead_bush vine lily_pad kelp obsidian " + VANILLA_TREES,
     "age_1": "gunpowder arrow bow skeleton_skull",                       # mob_1: skeletons, creepers
     "age_2": "slime_ball phantom_membrane glowstone_dust",               # mob_2: slimes, phantoms, witches
     "age_3": "blaze_rod ghast_tear magma_cream nether_wart glowstone quartz netherrack soul_sand soul_soil basalt "
