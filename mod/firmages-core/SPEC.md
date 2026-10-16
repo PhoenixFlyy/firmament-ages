@@ -657,7 +657,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `crown status [pos]` / `chords` / `swing <pos> <lens,...>` | §27.12 (M12) |
 | `wayshrine list` / `status [pos]` / `locate <type>` / `tutorial [here]` / `light <pos>` / `reset <pos> [stone]` / `stone <pos>` | §28.9 (M16) |
 | `anchor list` / `status [pos]` | §29.7 (M16) |
-| `isles lode <pos>` / `isles fallback status\|place [pos]` | §30.9 (M13) |
+| `isles locate [radius]` / `shrine` / `list` / `lode <pos>` / `fallback status\|check\|place [pos]` / `place <pos>` | §30.9 (M13) |
 | `launch status [pos]` / `finish <pos>`, `ark status` / `grant <island> <group>` / `reset <island>` | §31.9 (M14, M17) |
 | `selftest <suite|all>` | Server-side test suites (§12; `sky` since M10, §24.7), report in `logs/firmages-selftest.json` |
 
@@ -2039,8 +2039,12 @@ There are no spawns inside an isle's box, and no new mob, hazard or wind push. P
 
 | Command | Purpose |
 |---|---|
+| `isles locate [radius]` | The nearest isle cluster start (default 2,048 blocks) with its isles: size, radius, top, tip, lode, Wind Shrine, trees, clusters |
+| `isles shrine` | The nearest Wind Shrine of an isle within the pointer radius (code clusters and starts whose roll is true) |
+| `isles list` | The clusters placed by code, their isles (placed, waiting, skipped), the re-form queue and the placer jobs |
 | `isles lode <pos>` | The re-form queue state |
-| `isles fallback status\|place [pos]` | The fallback record; places a cluster now (debug) |
+| `isles fallback status\|check\|place [pos]` | The fallback record and the known start; runs the check now; records a fallback cluster now (debug) |
+| `isles place <pos>` | Records an operator cluster with the Wind Shrine there, placed once its chunks load (no site checks) |
 | (vanilla) `/locate structure firmages:drifting_isle` | For operators |
 
 ### 30.10 Tests
@@ -2060,6 +2064,19 @@ There are no spawns inside an isle's box, and no new mob, hazard or wind push. P
 2. On three new seeds the nearest cluster lies within 400 blocks of spawn. On an existing world in age_4 a fallback cluster exists within 600 blocks of the heart.
 3. An age_4 airship and a jetpack reach the band (PoC §30.7).
 4. Firmament crystal has exactly one source (§24.7).
+
+### 30.12 Implementation notes (M13, branch `c2/sky-m13`, 2026-10-16)
+
+- **Package `isles/`.** Pure: `IsleSettings` (the JSON fields, codec in `IsleCodecs`), `IsleLayout` (cluster plan from world seed and start chunk, heights from a terrain sampler), `IsleShape` (the body of one isle), `IsleSpec`, `IsleSize`. World: `DriftingIsleStructure` (type `firmages:drifting_isle`), `IslePiece` (piece type `firmages:drifting_isle`, the spec in its NBT), `IsleWriter` (blocks, trees, the Wind Shrine), `IsleSearch` (starts near a point, the way the Wayshrine pointer searches), `IsleService` (lode queue, fallback, placer, Starfall probe), `IsleSavedData` (`firmages_isles`), `IsleRegistry`, `SkystoneBlock`, `FirmamentLodeBlock`, `LodeYieldFunction` (`firmages:lode_yield`). Commands `command/IsleCommands`, suite `command/IsleSuite` (`selftest isles`, also in `all`).
+- **One plan, three writers.** A start, the fallback placer and the GameTests resolve the same `IsleSpec` list, and `IsleShape.emit` writes a column range: the piece passes its chunk box, the placer takes all blocks as steps of at most 64 per tick. The cluster's horizontal plan and the Wind Shrine roll are pure functions of the world seed and the start chunk, so the Starfall probe (`IsleSearch.plannedOver`) and the pointer know an isle without loading anything; only the heights need the generator (`getBaseHeight(WORLD_SURFACE_WG)`, sampled at the centre and 16 points under the body).
+- **Shape.** Edge radius `r × (0.88 + three sine terms)` (rounder on the shrine's isle), underside `depth × (1 − t)^1.6` with `depth = round(1.15 r) + 4`, a dome of at most one block, the rim one block lower. Medium and large isles carry a hollow open to the top with one to three clusters on its floor; the rest of the clusters sit in rim cracks (35 %) and under the body. Tree pockets are TFC podzol dirt under podzol grass (TFC 4.2 has no loam), trees are the TFC configured features `tfc:tree/{spruce,pine,white_cedar,douglas_fir,aspen,birch}`. The shrine's isle keeps its top flat within seven blocks of the centre and has a radius of at least ten.
+- **Wind Shrine (S6B).** `IslePiece.postProcess` calls `WayshrinePlacement.placeIsleShrine` with the chunk box as `clip` on the main isle when the roll is true; the core sits in the top surface at the centre. The fallback cluster always carries it. `WayshrinePointer.nearest` adds the isle shrines from age_4 (`IsleService.nearestShrine`: code clusters, then the nearest starts whose roll is true, only those are loaded to `STRUCTURE_STARTS`); an isle shrine wins over a ground Wayshrine only when it is nearer. `wayshrine locate wind_shrine` uses the same search. The tutorial Wayshrine never lands on an isle top.
+- **Lode.** `onRemove` queues the position when the new state is air or a fluid and no piston moved it; the next server tick sets the lode back with the chime (`firmages:lode.reform`). A block set in its place stays (operator fills). The drop is the loot table with `firmages:lode_yield`; no silk touch path, so the lode never drops itself.
+- **Age gate.** `[ore_blocks]` disguise: cluster and lode look like skystone and drop skystone before age_4 (ProgressiveStages for players, OreGuard for fake players and machines). A player can break a disguised lode by hand before age_4 and gets skystone; it re-forms like after age_4 (harmless: skystone is a Dawn building block, and the isles are out of reach before the Industrial Age).
+- **Fallback.** Checked once per server start, on the first tick divisible by 100 in age_4 or later (`isles.fallback`). The site is 300 to 600 blocks from the heart (else the world spawn), at least 96 blocks plus the isle radius from the world spawn, not over an FTB Chunks claim; a fallback whose main isle meets a block when its chunks load picks a new site. Satellites that meet a block are skipped. Players that the world spawn or a respawn places on an isle top are set down on the ground below (first join and respawns without a bed).
+- **Config validation.** `top_y` must lie within 208..276 (tip above Y 200, 24 blocks of headroom below Y 300), radii within 4..32, cluster within 1..8.
+- **Tests.** U: `IsleLayoutTest` (5); `gradlew build`: 198 unit tests green. G (`IsleGameTests`): `shapeAndSkyLight` (§30.10 `shapeHasNoOre` and `isleKeepsSkyLight` in one: a radius-11 isle written chunk box by chunk box, sky light 15 three blocks under the body), `lodeReforms` (debug player and fake player, two crystals each, back within two ticks, no duplicate, an operator's block stays), `lodeLockedBeforeAge4`, `fallbackPlacesWhenLoaded` (with the Wind Shrine's core and the pointer before and from age_4), `pieceShrineByChunks`; "All 87 required tests passed". Copy boot on a fresh TFC world: an isle cluster 56 blocks from spawn, the Wind Shrine generated and registered 264 blocks out, census of the main isle without any ore, two TFC trees grown (`dev/poc-results.md`, M13).
+- **Open (M).** The flights of §30.7 (jar facts in `dev/poc-results.md`: no altitude cap in Create Jetpack, Sable or Aeronautics; Sable pressure about 0.43 at Y 275), the look from the ground at night, skystone lighting and AO.
 
 ## 31. The Launch Complex and the Origin Archipelago
 

@@ -3126,3 +3126,40 @@ Notes:
 - The tutorial Wayshrine found no fit site on the seed of boot 1 (16 bearings, slope or water; WARN, retried at the
   next start while the world is young); boots 2, 3 and 5 placed it 311, 538 and 578 blocks out.
 - The portable cell mixin was dropped after boot 3: AE2 and MEGA portable cells never use 63 types.
+
+## 1.0 round C2, M13 Drifting Isles (2026-10-16, branch c2/sky-m13)
+
+SPEC §30 (static isles, S5A) with the Wind Shrine on the isles (S6B). Felix's test server stayed off and untouched;
+the boot ran on the copy `.wt/test-server-sky-m13` (`robocopy` without world, logs, local, simplebackups and
+crash-reports; ports 25731 and RCON 25741; whitelist off; the copy's `kubejs/` deleted before the sync; synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8131 --refresh=false` of the worktree, "Finished
+successfully"; the copy's `firmages-core-0.11.0.jar` replaced by the branch build; `debug.allowSimulate = true`), new
+world, `-Xms3G -Xmx5G`, driven over RCON. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 198 unit tests, 0 failures (new: `IsleLayoutTest` 5: determinism, band and clearance, high terrain skips, shrine roll 0.23..0.27 of 20,000 chunks, shape rules) | pass |
+| `runGameTestServer` | "All 87 required tests passed" (new `IsleGameTests`: `shapeAndSkyLight`, `lodeReforms`, `lodeLockedBeforeAge4`, `fallbackPlacesWhenLoaded`, `pieceShrineByChunks`); the fallback test placed a cluster of four isles at 6008, -6008 only after the forceload, at most 64 blocks per tick | pass |
+| `gen_textures.py --check`, `gen_stage_locks.py` | 296 referenced textures, 0 errors; age_4 stage file 215 ore overrides (+2), Age tags with the crystal (age_4) and skystone (Dawn) | pass |
+| Copy boot, seed -3107454076715593504, spawn 160, -3440 | Done in 23 s; `isles locate`: cluster in chunk 7, -218, 56 blocks from spawn, large r20 top 249 tip 222 with lode, two small satellites (tops 235 and 257); `selftest isles` 8 of 8 (125 biomes in the isle tag; three clusters at 56, 264 and 273 blocks, the second with the Wind Shrine) | pass |
+| Spread model | A Python model of `random_spread` 20/6 with the salt (`m13_spread.py` in the session scratchpad) gives the same three candidates (56, 264, 273 blocks); over 20,000 random seeds and spawn points within ±4,000 the nearest candidate lies at median 131, p99 249, max 310 blocks | pass (§30.11 criterion 2 by model plus one seed) |
+| Generation under TFC (forceload of the cluster) | `execute if block`: skystone at the three isle centres, the lode at 120 222 -3480 (the tip), air below it; census of the main isle box by `fill … replace` on the copy: skystone 7,568, crystal clusters 31 (as planned), lode 1, TFC logs 22 and leaves 336 (two trees), podzol dirt 36 and grass 18 (two pockets), `#c:ores` 0, one other block (the lode re-formed during the census) | pass |
+| Wind Shrine (S6B) | `isles shrine` and `wayshrine locate wind_shrine` at age_3 both name the core at 8 238 -3656 (264 blocks); after a forceload the worldgen piece had placed it: `Wayshrine wind_shrine … BlockPos{x=8, y=238, z=-3656} registered (ruin)`, `wayshrine list` shows it beside the tutorial Wayshrine | pass |
+| Fallback check | after `simulate grant` up to age_4: `Drifting Isles: fallback check: isle start at 120 -3480, 56 blocks from 160, 88, -3440`; no fallback cluster recorded | pass |
+| Lode in the pack at age_4 | debug player (survival) `debug break` on the lode: two firmament crystals (one stack of 2), the lode stands again, nothing left in the re-form queue | pass |
+| `selftest all` at age_4 | 80 passed, 2 failed: `crown/library_loaded` (2 of 22 library recipes; the rest wait for M11, M14, M15 materials) and `crown/v4a_chain` (M15); `crown/live_after_age_9` skips below age_9 and stays red until M11, M14 and M15 bring their materials | pass (crown red by design) |
+| Registry | `firmages dump registry`: 36,630 items, identical to `dev/data/registry.json` with the four isle ids added by hand before the boot | pass |
+| `check_log.py` | Done 131.8 s after the first log line (sibling builds on the machine), FATAL 0, ERROR 8, WARN 324, documented noise 324; remaining 10: four "Can't keep up" (forceloads and Age reloads under load), two TFC `LocalPlayer` DISTXFORM lines with TFC's own "This is fine" follow-up, the two crown selftest WARNs, and the config corrections of `firmages-server.toml` (the new `[isles]` section, now in the pack's `config/firmages-server.toml`) and `everycomp-entries.toml` | pass (no isle line) |
+
+Flight PoC (§30.7), from the jars of the copy (no client):
+- **Create Jetpack 5.2.1** (flightlib 4.0.36): `heightAboveGroundLimit` defaults to -1 (no limit; the pack has no
+  `create_jetpack` server config override), `air.seconds_per_tank` 450 (900 hovering), `speed.vertical` 0.4. The
+  only altitude rule in flightlib (`FlightApiImpl.uprightAction`) is that optional ground distance, so a backtank
+  jetpack climbs from Y 120 to Y 240 with air to spare.
+- **Create Aeronautics 1.3.2 on Sable 2.0.6**: no altitude cap in Aeronautics, Simulated or Sable. Sable's default
+  `DimensionPhysics` pressure is a Bezier through exp(-0.004 × (y − sea level)) points every 200 blocks from sea
+  level up to the build top (Y 320), then down to 0 above it: pressure about 0.47 at Y 250 and 0.43 at Y 275 (sea
+  level 63), so hot-air lift is a bit under half of sea level, not a ceiling. The envelope size needed at Y 275 is a
+  client test.
+- Open (client): one age_4 hot-air airship from Y 90 to Y 275 and back, one jetpack climb; the look of the isles and
+  their glow from the ground at night; skystone lighting and AO with face culling (§30.4 PoC).
