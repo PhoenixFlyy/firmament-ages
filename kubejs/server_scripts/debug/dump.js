@@ -266,6 +266,9 @@
     const mixes = []
     let lockedRolls = 0
     let spoilRolls = 0
+    // Biomes the overworld generator can place (TFC's, not vanilla's): a mix whose predicates match none never forms a vein there.
+    const overworldBiomes = []
+    event.server.overworld().getChunkSource().getGenerator().getBiomeSource().possibleBiomes().forEach((b) => overworldBiomes.push(b))
     event.server.getRecipeManager().getRecipes().forEach((holder) => {
       const mix = holder.value()
       if (String(BuiltInRegistries.RECIPE_TYPE.getKey(mix.getType())) !== 'immersiveengineering:mineral_mix') return
@@ -291,7 +294,10 @@
       }
       lockedRolls += bad
       spoilRolls += spoil
-      mixes.push({ id: String(holder.id()), outputs: outs, locked_outputs: lockedOuts, locked_rolls: bad, spoil_rolls: spoil })
+      let biomes = 0
+      overworldBiomes.forEach((b) => { if (mix.validBiome(b)) biomes++ })
+      mixes.push({ id: String(holder.id()), outputs: outs, locked_outputs: lockedOuts, locked_rolls: bad, spoil_rolls: spoil,
+        overworld_biomes: biomes })
     })
     const ages = ['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6', 'age_7', 'age_8', 'age_9']
     const tags = {}

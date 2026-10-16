@@ -2,10 +2,10 @@
   "type": "immersiveengineering:mineral_mix",
   "biome_predicates": [
     [
-      "minecraft:is_overworld"
+      "tfc_ie_addon:generate_mineral_mix"
     ],
     [
-      "minecraft:is_badlands"
+      "c:is_badlands"
     ]
   ],
   "fail_chance": 0.1,
