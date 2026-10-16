@@ -1,0 +1,118 @@
+# Firmament Ages: Kontext für Agenten
+
+Diese Seite ersetzt für den Einstieg `mod/firmages-core/SPEC.md`, `dev/README.md` und die langen Notizen; die Pfade führen zu den Details.
+Stand 2026-10-16: Pack und firmages-core 0.13.0 (Release-Commit `78d1591`), Branch `dev`.
+
+## 1. Was das Pack ist
+
+Öffentliches Koop-Progressionspack (ein Team pro Server) auf Minecraft 1.21.1, NeoForge 21.1.252, Java 21. TerraFirmaCraft trägt Welt und Metallurgie bis Stahl, Create ist die Kinetik- und Logistikschicht, Immersive Engineering, Mekanism und Draconic Evolution tragen das Spätspiel.
+Stages: `dawn` (Prolog) und zehn Ages `age_0` bis `age_9` (Stone, Bronze, Iron, Arcane, Industrial, Electric, Information, Space, Quantum, Singularity). Die Quest „The First Spark“ gewährt `age_0`, der Schrein von Caelum gewährt `age_1` bis `age_9` (Ring, Opfergabe auf dem Plinth, Ritus, Gebet); Finale: Ultimate Singularity, Sternentor nach The Origin, Endboss The Primordial, Stage `finale_won`.
+Eigene Mod `firmages-core` (Mod-ID `firmages`, Paket `dev.firmages.core`, `mod/firmages-core/`). 264 Mod-Metadateien plus das firmages-core-Jar, 265 Mods in den Credits. Inhaltssperre seit 2026-10-15: keine neuen Mods, auch keine Bibliotheken (`dev/content-lock.md`). Questbuch heißt „the Chronicle“ (Taste K).
+
+## 2. Die Regeln
+
+- **Technik ist Pflicht, Magie Bonus, kein Boss Pflicht:** jede Age hat einen Technik-Weg; die Arkanzeit öffnet über die Spirit Route oder die Machine Route (Hollow Keystone). Belege: `dev/decisions-while-away.md` „Age-Token statt Boss-Token“, „Technik-Weg für die drei Magie-Teile“, Prüfung R-X.
+- **Eine Erzleiter:** jede Route Erz zu Metall sitzt auf einer Stufe 1 / 1,5 / 2,5 / 3 / 4 / 5 / 6 (Arkan-Magie 2,0); Tabelle `kubejs/data/firmages/balance/metals.json`, Prüfungen L-1 bis L-7, `/firmages ore audit`. Ein Eisen: Schmiedeeisen ist `c:ingots/iron`, kein Vanilla-Eisenbarren (U-2).
+- **Energie:** nur FE, ein FE-Generator pro Age, kein Passiv- oder Billigstrom (`../Modpack-Planung/docs/09-Entscheidungen.md`, Zeile „Energie“); der Alternator gibt FE nur aus befeuerter SU (H1A), Mekanism-Maschinen x10 (H2A). Bänder je Age: `dev/harmonie-messung.md`.
+- **Chunk-Laden nur über FTB Chunks:** Team-Kontingent ab `age_4` (`CHUNK_QUOTA` in `kubejs/startup_scripts/00_constants.js`); andere Chunkloader sind aus.
+- **Alles wartet auf seine Age, in Menüs und Welt:** ProgressiveStages versteckt Items, Rezepte, Erze (als Gestein), Mobs und Dimensionen; firmages-core sperrt Maschinenrezepte (SPEC §4) und zeigt EMI, Jade und Ponder nach Age (§18, §21). Stage-Dateien ohne `unlock_message`: die Zeremonie ist die einzige Ansage.
+- **Kein Kram:** ein Item pro Material, eine Station pro Funktion und Age; kein nutzloser Block vor seiner Age (Entscheidungszeilen „Abschaltliste ab der Electric Age“, „Tally Chute erst ab der Industriezeit“).
+- **Keine nervigen Mechaniken:** z. B. Advanced Chimneys ohne Rauchvergiftung, Vulkane ohne Blockschaden (Entscheidungszeilen „Rauch nur durch Kamine“, „Vulkane zeigen und rütteln nur“).
+- **Echte Belohnungen:** Quest-Belohnungen sind echte Items; jede Nicht-Deko-Mod bekommt einen Quest-Strang (`dev/content-lock.md`).
+- **Sprache:** Spielertext Englisch nach `dev/style-guide.md` (Questtext nur in `dev/gen_quests.py`, nie im SNBT); Dev-Notizen Deutsch, Belege in `dev/poc-results.md` Englisch.
+- **Holzklassen (HW1A):** Vanilla-Holz ist so viel wert wie das Holz seiner Klasse; natürlich gewachsene TFC- und AFC-Stämme droppen den Vanilla-Stamm ihrer Klasse. Tabelle `dev/wood_classes.toml`, Prüfungen W-1 bis W-9.
+- **Dawn ohne 2x2-Feld:** das Inventarfeld öffnet mit der Steinzeit, Dawn craftet am Boden (bis vier Items mit V legen, schleichen und Rechtsklick); Abbau mit der Hand nur mit passendem Werkzeug (SPEC §19.2, §19.3, Prüfung D-1).
+- **Eine Quelle je Himmelsmaterial** (SPEC §24.2, Prüfungen S-1 bis S-4).
+- **V4A:** ab der Arkanzeit eine Himmelslegierung der Lens Crown pro Age im Schlüsselrezept (SPEC §27.8); `kubejs/startup_scripts/sky.js` schaltet diese Rezepte, solange jedes Himmelsmaterial registriert ist.
+- **Tally-Zehnt ab der Industriezeit (H5A):** die Opfergabe braucht erst den Zehnt des Age-Metalls in Tally Chutes (`firmages_shrine/tallies.json`, SPEC §35).
+- **Jede Age baut die nächste:** die Maschinen einer Age nehmen ein Teil der Age davor (`recipes/age_N/links.js`, Prüfung K-1).
+
+## 3. Die Age-Leiter
+
+Opfergabe und Token gehören zur Age, in der sie gemacht werden; der Schrein öffnet damit die nächste Age. Daten: `mod/firmages-core/src/main/resources/data/firmages/firmages_shrine/` (`offerings.json`, `tallies.json`, `tier/ring_N.json`), Token-Tag `#firmages:age_token/<age>` in `kubejs/server_scripts/tags/`.
+
+| Age | Schlüssel-Mods (`[mods]` in `dev/age_map.toml`) | Opfergabe (Ring) | Age-Token | Legierung → Schlüsselrezept | Tally |
+|---|---|---|---|---|---|
+| Dawn `dawn` | TFC, AFC, Goblin Traders | Quest „The First Spark“ | | | |
+| Stone `age_0` | TFC, Totemic | Hearthstone (0 Hearth Circle) | | | |
+| Bronze `age_1` | Create, Firmalife, Supplementaries | Sky Disc (1 Bronze Sanctum) | | | |
+| Iron `age_2` | TFCreate, Create Steam 'n' Rails, Tom's Storage | Steel Heart (2 Iron Sanctum) | Frontier Relic | | |
+| Arcane `age_3` | Occultism, Ars Nouveau, Theurgy, Apotheosis | Arcane Keystone (3 Spirit Circle) | Hollow Keystone | Starlit Iron → Arcane Keystone | |
+| Industrial `age_4` | Immersive Engineering, Create Crafts & Additions, Create Big Cannons | Pressure Core (4 Foundry Nave) | gebaute Stahl-Kanonenkammer | Cloudsteel → Pressure Core | 384 Stahl |
+| Electric `age_5` | Immersive Petroleum, Create Diesel Generators | Humming Core (5 Tesla Crown) | Nether Star | Aurora Steel → Humming Core | 512 Aluminium |
+| Information `age_6` | Mekanism, AE2, Mystical Agriculture, Psi | Data Matrix (6 Data Nave) | AE2-Singularität | Halo Steel → Data Matrix | 1.024 Osmium |
+| Space `age_7` | Ad Astra, Draconic Evolution, MEGA Cells | Star Chart (7 Star Spire) | Flugschreiber (Mars-Tempel) | Void Steel → Star Chart | 2.880 Desh |
+| Quantum `age_8` | Evolved Mekanism, Advanced AE | Quantum Core (8 Quantum Ring) | subatomare Legierung | Quasar Alloy → Quantum Core | 3.584 Calorit |
+| Singularity `age_9` | Stargate Journey, Draconic Additions | keine; Ultimate Singularity, Sternentor nach The Origin | großes Chaos-Fragment | Firmament Alloy → Ultimate Singularity | |
+
+Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G für The Gathering (SPEC §36). Bester Erzfaktor `age_0` bis `age_9` (0.13.0, `/firmages ore audit`): 1 / 1 / 1,5 / 1,5 / 2,5 / 2,5 / 2,857 bis 3 / 4 / 5 / 6.
+
+## 4. Werkzeuge (aus dem Repo-Ordner)
+
+- `python dev/derive_ages.py --scan --mods <Kopie>/mods`, dann `python dev/derive_ages.py --dump-dir <Gate-aus-Dump>`, `--check`: schreibt `[derived]` und `[derived_hidden]` in `dev/age_map.toml` (Age = später von Regel und erster Erreichbarkeit, nie erreichbar = `[derived_hidden]`); Q-1 prüft die Quest-Aufgaben.
+- `python dev/gen_stage_locks.py` (`--check`, `--registry <Dump>`, `--explain <id>`): Age-Tags und Stage-Dateien aus `dev/age_map.toml`; nur Tabellen editieren, nie die Zeilen zwischen `# >>> generated` und `# <<< generated`.
+- `python dev/gen_quests.py`, dann `python dev/validate_quests.py --style` (`--mods <Kopie>/mods` oder `--no-jars`): Buch erzeugen, 0 Fehler, 0 Warnungen; danach `git diff config/ftbquests/quests/lang/en_us.snbt` lesen.
+- `python dev/poc_analyze.py --server-dir <Kopie> --dump-dir <Dump> --baseline <Gate-aus-Dump>`: eine PASS/FAIL-Zeile je Prüfung, Exit 1 bei FAIL. Familien: G Gate, A Stage-Rezeptsperren, C Inhalt, D Dawn-Bodenhandwerk, E EMI je Age, R Erreichbarkeit (R-0 Vanilla-Stationen, R-X ohne Magie, R-M Multiblöcke, R-K), K Querverbindungen, L Erzleiter, U Vereinheitlichung, W Holzklassen, S Himmelsmaterialien.
+- `python dev/predict_dump.py <Dump> <Ziel>` und `--sync-locks <Ziel>`: Dump einer KubeJS-Rezeptänderung ohne Boot vorhersagen; der nächste echte Dump muss `derive_ages.py --check` bestehen.
+- `python dev/check_log.py <Kopie>/logs/latest.log` (`--client` für Client-Logs): Problemzeilen gegen `dev/data/log_noise.json`, Ziel „remaining 0“.
+- `python dev/check_menus.py`: FancyMenu-Titel-, Pause- und Ladebildschirm, Shader-Defaults.
+- `python dev/gen_textures.py` (`--check`): alle firmages-Texturen (KubeJS-Items, Mod-Blöcke).
+- `python dev/gen_wood_classes.py` (`--check`): Drops, Brennwerte, Tags, Vanilla-Haine und Rezeptkonstanten aus `dev/wood_classes.toml`.
+- `python dev/gen_fuels.py` (`--check`): Generatordaten aus `kubejs/data/firmages/balance/fuels.json`.
+- `python dev/gen_machine_usage.py` (`--check --server-dir <Kopie>`): Mekanism-, More-Machine-, Generators- und IE-Configs als volle Dateien.
+- `python dev/miner_ladder.py --check`: Digital Miner und Excavator gegen die Erzleiter (jede Stufe senkt die FE je Barren).
+- `python dev/gen_wayshrines.py`, `python dev/gen_ark.py`, `python dev/gen_cold_forge.py` (je `--check`): Wayshrines samt Ruinen, Origin-Archipel, Cold-Forge-Vorlage.
+- `python dev/gen_recipe_overrides.py --check --mods <Kopie>/mods`: Overrides für Mod-Rezeptdateien, die KubeJS nicht lesen kann.
+- `python dev/gen_loot_silence.py` (`--check`): leere Loot-Tabellen für Compat-Blöcke fehlender Mods.
+- `powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1 -Version X.Y.Z`: LF-Prüfung, `packwiz refresh`, Version in `pack.toml` und Titelbild, Exporte nach `dev/exports/`.
+- `python dev\cf\export_cf.py`: CurseForge-Upload-Zip (Modrinth-Metadateien gegen `dev/cf/swap/` getauscht); hochladen nie.
+- `python dev/run_server.py --server-dir <Kopie> --xmx 5G --hold 240 --timeout 900` (`--wipe-world`, `--cmd "<Befehl>"`): Boot, Konsolenbefehle, Zusammenfassung; nur auf einer Kopie (Abschnitt 6).
+
+## 5. Wo was liegt
+
+- firmages-core `mod/firmages-core/src/main/java/dev/firmages/core/`:
+  - `age/` Age-Zustand, Reload, `AgeSwap` (SPEC §2, §3, §4.8); `gate/` Maschinenrezept-Gate (§4); `miner/`, `reactor/` (§5, §6).
+  - `shrine/` Herz, Plinth, Zustandsmaschine, Blessings (`Blessings`, `BlessingIndex`, `BlessingSources`), Consecration (`ShrineConsecration`), The Gathering (§7, §17, §29.5); `ceremony/` (§8); `proof/` Tally Chute und Silo-Start (§22, §35).
+  - `origin/` The Origin, Arena, Rücktor (§16); `boss/` The Primordial, Kampfmodell (§16.4, §39).
+  - Himmel: `sky/` Starfall und Sky Harvest (§25, §26), `crown/` Lens Crown (§27), `isles/` (§30), `launch/` (§31.3 bis §31.7), `ark/` Origin Archipelago (§31.8), `wayshrine/` (§28), `anchor/` Sky Anchors und Blessing Shards (§29).
+  - `balance/` Erzleiter, Audits, FE-Deckel, One Iron (§34, §37, §38); `machine/` Ore Processor (§40) und Arcane Catalyst (§41).
+  - `hardship/` `ToolRule` (Abbau mit der Hand, §19.2), `GridLock` und `GroundCraft` (Dawn-Feld, Bodenhandwerk, §19.3), Cave Dweller (§19.1); `immersion/` EMI, Jade, HUD nach Age (§18, §21).
+  - `net/` Netzprotokoll `"6"` (`FirmagesNetwork.VERSION`, §11); `compat/<mod>` und `mixin/<mod>` laden nur mit der Mod.
+  - Config (§9): `firmages-server.toml` (Pack-Kopie `config/firmages-server.toml`) mit `gate miner prospecting reactor shrine sanctuary wayshrine anchor crown launch origin ark boss sync team ui tfc hardship perf starfall skyHarvest isles balance machines debug`; `firmages-client.toml` mit `effects music ui chat tfc`.
+  - Tests: `/firmages selftest [all|core|gate|server|sky|crown|wayshrines|isles|launch|ark|endgame]` (`command/*Suite.java`); GameTests in `src/gametest/java/dev/firmages/core/gametest/*GameTests.java` (24 Klassen), JUnit in `src/test/java/`.
+- KubeJS:
+  - `kubejs/startup_scripts/00_constants.js`: `global.FA` (Stages, Titel, Mob-Leiter, `CHUNK_QUOTA`, `HIDDEN_ITEMS`, `WOOD_CLASSES`); `metal_table.js` (`global.FA_METALS`), `sky.js`, `items.js`.
+  - `kubejs/server_scripts/recipes/age_N/*.js` (Rezepte je Age, `links.js` Querverbindungen) und übergreifende `recipes/*.js`; `stages/grants.js` leitet Mob-Leiter, Karte, Stationsfenster und Chunk-Kontingent aus dem Age-Stage ab; `tags/` (Age-Token, `hidden_from_viewers.js`); `debug/dump.js` (`/fa_dump`, `/fa_dump_full`).
+  - Tags (generiert): `kubejs/data/firmages/tags/item/age_items/<stage>.json` (`dawn`, `age_0` bis `age_9`, `disabled`), `tags/block/age_blocks/`, `tags/fluid/age_fluids/`; statisch versteckt: `kubejs/data/c/tags/item/hidden_from_recipe_viewers.json`.
+  - Balance: `kubejs/data/firmages/balance/metals.json` (Metalle, Stationen, Faktoren) und `fuels.json` (FE je Eimer).
+- `dev/age_map.toml`: die eine Quelle der Age je Item. Abschnitte `[mods]`, `[materials]`, `[mod_materials.*]`, `[items]`, `[ore_families]`, `[ore_blocks]`, `[tfc_ores]`, `[tfc_ores_visible]`, `[tfc_metals]`, `[tfc_powders]`, `[small_ore_display]`, `[recipes]`, `[hidden]`, `[hidden.parity]`, `[dawn_whitelist]`, erzeugt `[derived]`, `[derived_hidden]`.
+- Stage-Dateien `config/progressivestages/stages/*.toml`; Questbuch `config/ftbquests/quests/`, erzeugt von `dev/gen_quests.py` (Layout `dev/quest_layout.py`, `LAYOUT_HINTS`; Vorschau `dev/preview_quests.py`).
+- Quest-Bilder: `kubejs/assets/firmages/textures/quests/<gruppe>/` (`dev/gen_quest_images.py`), Schrein- und Werke-Bilder `kubejs/assets/firmages/textures/gui/quests/` (`dev/gen_quest_pictures.py`); KubeJS lädt `kubejs/assets` als Client-Resourcepack (`dev/quest-images.md`).
+
+## 6. Prüfregeln vor einem Commit
+
+1. `cd mod/firmages-core`, `JAVA_HOME` = `tools/jdk-21`, `gradlew build`: BUILD SUCCESSFUL, 0 Testfehler.
+2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (0.13.0: 123).
+3. Jedes betroffene `gen_*.py --check`, dazu `check_menus.py` und `miner_ladder.py --check`: alles aktuell.
+4. `python dev/derive_ages.py --check` und `python dev/gen_stage_locks.py --check`: up to date.
+5. `python dev/validate_quests.py --style`: 0 Fehler, 0 Warnungen.
+6. `python dev/poc_analyze.py ...`: alle PASS, 0 FAIL.
+7. Boot auf einer Kopie, `check_log.py`: remaining 0. Boots macht nur der Integrator.
+
+- Textdateien LF (`.gitattributes`; CRLF bricht die Hashes in `index.toml`). Autor `PhoenixFlyy <97892522+PhoenixFlyy@users.noreply.github.com>`, Trailer `Co-Authored-By: Claude <Modell> <noreply@anthropic.com>` mit dem Modell, das committet.
+- Nie pushen, nie zu CurseForge hochladen, `test-server/` nie anfassen (Felix' Server).
+- Boot-Kopie: `robocopy test-server ..\.wt\test-server-<name> /E /XD world logs local` (Ziel `D:/Minecraft/MinecraftModServer/.wt/test-server-<name>`), `kubejs/` der Kopie vor dem ersten Sync löschen; in `server.properties` ein freier Port über 25566, `rcon.port` = Port + 10, Whitelist aus.
+- Sync: `tools\packwiz.exe serve -p <p>` im Arbeitsbaum; `tools\packwiz-installer-bootstrap.jar` in die Kopie legen und dort (Arbeitsordner = Kopie) mit `tools\jdk-21\bin\java` `-jar packwiz-installer-bootstrap.jar -g -s server http://localhost:<p>/pack.toml` bis „Finished successfully“; danach in `<Kopie>/config/firmages-server.toml` `debug.allowSimulate = true` und `gate.enabled` (aus für Dumps) setzen.
+- Boot: `python dev/run_server.py --server-dir <Kopie> --xmx 5G --hold 240 --timeout 900`; Befehle z. B. `firmages ages simulate grant age_9`, `fa_dump`, `fa_dump_full`, `firmages selftest all`. Kopie danach löschen.
+
+## 7. Offene Punkte und Entscheidungen
+
+- Felix entscheidet (`dev/offene-punkte.md`, „Entscheidungen“): eigene Schrift, Ernährungs-Untergrenze 0,85 oder 1,0, Chunk-Laden offline, Mob-Leiter kumulativ, AdvancedAE Strength Card, Backups ohne `saveAll`, bekannte Lücken (Apothic-Tisch, Blaze-Template), Firmament-Ziel ab Start sichtbar.
+- Im Client (Felix): Review-Fixes 0.13.0, Chronik B1, Arcane Catalyst an echten Maschinen, Ore Processor, Querverbindungen; Liste je Version in `dev/client-test-brief.md`.
+- Chronik B2 auf der B1-Engine: Takt und Stränge neu, Great Works in die Age-Stränge einhängen (`dev/gen_quests.py`, `dev/quest_layout.py`).
+- Veraltete Faktoren im Questtext: Brechwalzen „about 1.7 times“ (jetzt 1,5x), Crusher „twice the metal“ (jetzt 2,5x).
+- Wayshrine-Dichte auf Vulkangürtel-Seeds (18 statt 7 bis 11) und die Suche des Tutorial-Wayshrines (`dev/gen_wayshrines.py`, SPEC §28).
+- Alte Origin-Arenen behalten den Fusionskern im Arena-DHD (`SgjGates.removeEnergyCore`); `derive_ages.py --scan` liest Feature-Prädikate als platzierte Blöcke.
+- Ungeprüfte Config-Keys (TFC + IE Quarz-Geode, Enchantable Machinery, Bits 'n' Bobs, Mechanical Spawner, Mekanism Additions, Stargate Journey): `dev/offene-punkte.md`, „Inhalt und Config“.
+- Entscheidungen: eine Zeile in `dev/decisions-while-away.md`, Deutsch, Format `| Datum | Thema | Entscheidung | Warum | So änderst Du es |`, neue Zeilen unten, Thema mit Runde als Präfix (z. B. „Integration H3+B1: …“).
+- Offene Punkte: `| Was | Wo | Wer |` in `dev/offene-punkte.md`; Erledigtes mit Beleg nach unten. Belege jeder Runde: `dev/poc-results.md` (`| Check | Observed | Result |`).

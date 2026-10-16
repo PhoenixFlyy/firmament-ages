@@ -1,5 +1,7 @@
 # Firmament Ages: developer notes
 
+Kurzfassung für Agenten: `dev/kontext.md`.
+
 Firmament Ages is a public co-op progression modpack on Minecraft 1.21.1 with NeoForge 21.1.x and Java 21; the player-facing summary is the root [`README.md`](../README.md). This file is for whoever builds the pack.
 
 The whole server plays as **one team** through **Dawn and ten Ages**: Stone, Bronze, Iron, Arcane, Industrial, Electric, Information, Space, Quantum and Singularity. TerraFirmaCraft carries the world and the metallurgy up to steel. Create is the kinetics and logistics layer. The Arcane Age is the magic Age. Immersive Engineering, Mekanism and Draconic Evolution carry the late game. The finale runs from the Ultimate Singularity through a Stargate to a final boss in The Origin.
