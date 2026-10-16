@@ -21,6 +21,7 @@ public final class IeReference {
 
     @Nullable
     public static String step(String op, JsonObject s, ServerLevel level, BlockPos pos) {
+        if ("ie_rs".equals(op)) return redstone(level, pos, s.get("enabled_without_signal").getAsBoolean());
         if (!"ie_form".equals(op)) return null;
         MultiblockHandler.IMultiblock mb = MultiblockHandler.getByUniqueName(ResourceLocation.parse(s.get("name").getAsString()));
         if (mb == null) return "no IE multiblock " + s.get("name").getAsString();
@@ -51,7 +52,10 @@ public final class IeReference {
                 f.setAccessible(true);
                 Object v = f.get(state);
                 String t = v instanceof net.neoforged.neoforge.fluids.capability.templates.FluidTank tank ? tank.getFluidAmount() + " mB"
-                    : v instanceof java.util.Collection<?> c ? c.size() + " entries" : String.valueOf(v);
+                    : v instanceof java.util.Collection<?> c ? c.size() + " entries, " + present(c) + " present" : String.valueOf(v);
+                if (v instanceof java.util.function.BiFunction<?, ?, ?> getter && f.getName().contains("recipe")) {
+                    t = "recipe for the tank: " + recipeFor(state, getter, level);
+                }
                 out.append(' ').append(f.getName()).append('=').append(t.length() > 60 ? t.substring(0, 60) : t);
                 if (v instanceof blusunrize.immersiveengineering.api.multiblocks.blocks.component.RedstoneControl.RSState rs) {
                     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -63,5 +67,61 @@ public final class IeReference {
             }
         }
         return out.toString();
+    }
+
+    /**
+     * Sets a formed multiblock's redstone mode (the setting a player flips in its GUI or with a screwdriver):
+     * {@code enabled_without_signal} true makes it run without a signal (IE's RSState field rsEnablesMachine false).
+     */
+    private static String redstone(ServerLevel level, BlockPos pos, boolean enabledWithoutSignal) {
+        if (!(level.getBlockEntity(pos) instanceof blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockBE<?> mb)) return "no IE multiblock";
+        Object state = mb.getHelper().getState();
+        for (java.lang.reflect.Field f : state.getClass().getDeclaredFields()) {
+            try {
+                f.setAccessible(true);
+                if (f.get(state) instanceof blusunrize.immersiveengineering.api.multiblocks.blocks.component.RedstoneControl.RSState rs) {
+                    java.lang.reflect.Field g = rs.getClass().getDeclaredField("rsEnablesMachine");
+                    g.setAccessible(true);
+                    g.setBoolean(rs, !enabledWithoutSignal);
+                    @SuppressWarnings({"unchecked", "rawtypes"})
+                    boolean on = rs.isEnabled((blusunrize.immersiveengineering.api.multiblocks.blocks.env.IMultiblockContext) mb.getHelper().getContext());
+                    return "rsEnablesMachine " + !enabledWithoutSignal + ", enabled now " + on;
+                }
+            } catch (ReflectiveOperationException e) {
+                return "cannot set: " + e;
+            }
+        }
+        return "no redstone control";
+    }
+
+    /** How many capability references of a list resolve now (IE's CapabilityReference.getNullable). */
+    private static int present(java.util.Collection<?> refs) {
+        int n = 0;
+        for (Object r : refs) {
+            try {
+                java.lang.reflect.Method m = r.getClass().getMethod("getNullable");
+                if (m.invoke(r) != null) n++;
+            } catch (ReflectiveOperationException | RuntimeException e) {
+                return -1;
+            }
+        }
+        return n;
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static String recipeFor(Object state, java.util.function.BiFunction getter, ServerLevel level) {
+        for (java.lang.reflect.Field f : state.getClass().getDeclaredFields()) {
+            try {
+                f.setAccessible(true);
+                if (f.get(state) instanceof net.neoforged.neoforge.fluids.capability.templates.FluidTank tank) {
+                    if (tank.getFluid().isEmpty()) return "empty tank";
+                    Object r = getter.apply(level, tank.getFluid().getFluid());
+                    return r == null ? "none for " + BuiltInRegistries.FLUID.getKey(tank.getFluid().getFluid()) : r.toString();
+                }
+            } catch (ReflectiveOperationException | RuntimeException e) {
+                return "? " + e;
+            }
+        }
+        return "no tank";
     }
 }

@@ -1,0 +1,71 @@
+{
+  "age": "age_6",
+  "kind": "consumer",
+  "sinks": [],
+  "users": [
+    "mekanism:purification_chamber"
+  ],
+  "centre": [
+    2,
+    1,
+    2
+  ],
+  "radius": 4,
+  "warmup": 100,
+  "steps": [
+    {
+      "op": "use",
+      "at": [
+        2,
+        0,
+        2
+      ],
+      "item": "mekanism:purification_chamber",
+      "face": "up",
+      "yaw": 180
+    },
+    {
+      "op": "wait",
+      "ticks": 5
+    },
+    {
+      "op": "item",
+      "at": [
+        2,
+        1,
+        2
+      ],
+      "id": "tfc:ore/rich_hematite",
+      "count": 64
+    },
+    {
+      "op": "chemical",
+      "at": [
+        2,
+        1,
+        2
+      ],
+      "id": "mekanism:oxygen",
+      "amount": 10000
+    },
+    {
+      "op": "energy",
+      "at": [
+        2,
+        1,
+        2
+      ],
+      "amount": 1000000,
+      "every": 1,
+      "quiet": true
+    }
+  ],
+  "probe": [
+    [
+      2,
+      1,
+      2
+    ]
+  ],
+  "seconds": 60
+}

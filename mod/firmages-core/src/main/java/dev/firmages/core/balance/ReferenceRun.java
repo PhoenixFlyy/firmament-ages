@@ -129,6 +129,11 @@ public final class ReferenceRun {
         return n;
     }
 
+    /** The results of this server's finished runs, oldest first (GameTests). */
+    public static List<JsonObject> results() {
+        return List.copyOf(RESULTS);
+    }
+
     public static boolean busy() {
         return current != null || !QUEUE.isEmpty();
     }

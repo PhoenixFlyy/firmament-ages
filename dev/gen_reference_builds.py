@@ -130,20 +130,20 @@ def put_ie(p, t, ox, oy, oz):
 
 def ie_diesel_generator(jar):
     """One IE Diesel Generator (template unrotated, formed from the south by a hammer looking north) on diesel; its three
-    energy outputs face up from (0..2, 2, 4) [javap DieselGeneratorLogic]; a trash can on each."""
+    energy outputs face up from (0..2, 2, 4) [javap DieselGeneratorLogic]; trash cans cover the roof."""
     t = ie_template(jar, "diesel_generator")
     p = Plan((5, 5, 7))
     put_ie(p, t, 1, 0, 1)
-    for i in range(3):
-        p.set(1 + i, 3, 5, TRASH)
+    for x in range(1, 4):            # the whole roof: the output row's side depends on the formed orientation
+        for z in range(1, 6):
+            p.set(x, 3, z, TRASH)
     return p, run(age="age_5", kind="generator", band=[3900, 4200], centre=[2, 1, 3], radius=6, warmup=100,
                   steps=[{"op": "ie_form", "at": [2, 1, 5], "name": "immersiveengineering:multiblocks/diesel_generator"},
                          {"op": "wait", "ticks": 10},
                          {"op": "fluid", "at": [1, 0, 5], "id": "immersivepetroleum:diesel", "amount": 24000},
                          {"op": "fluid", "at": [3, 0, 5], "id": "immersivepetroleum:diesel", "amount": 24000},
-                         # the generator runs only on a redstone signal at its control panel: redstone blocks in every
-                         # free spot of and around the frame (the panel's side depends on the formed orientation)
-                         {"op": "command", "cmd": "fill ~0 ~0 ~0 ~4 ~2 ~6 minecraft:redstone_block replace minecraft:air"}],
+                         # its control panel's redstone mode, as a player sets it (no signal reached the formed panel)
+                         {"op": "ie_rs", "at": [1, 0, 5], "enabled_without_signal": True}],
                   probe=[[1, 0, 5]])
 
 
@@ -353,12 +353,13 @@ def mek_fusion_active():
 
 
 # ------------------------------------------------------------------------------------------- Draconic Evolution
-DE_FUEL = 2592          # two blocks of awakened draconium (1,296 each): the small reactor
-DE_FLOW = 1_000_000     # flux gate setting per stabilizer (RF/t), four stabilizers
+DE_FUEL = 5184          # four blocks of awakened draconium (1,296 each): half a reactor, "small"
+DE_FLOW = 2_000_000     # extraction through the four flux gates (RF/t); measured: 5,250 C and steady, net 1.09 M FE/t
+                        # (two blocks at 1 M: 0.55 M net; four at 3 M: 8,800 to 9,100 C and a net loss)
 
 
 def de_reactor_small():
-    """A Draconic reactor with two blocks of fuel: the core is built and formed by the runner (DE keeps the component
+    """A Draconic reactor with four blocks of fuel: the core is built and formed by the runner (DE keeps the component
     facing in managed data), four flux gates behind the stabilizers limit the extraction, trash cans behind them; the
     field is fed each tick what it drains, through the core as the injector would (counted against the output)."""
     p = Plan((15, 13, 15))
@@ -375,6 +376,27 @@ def de_reactor_small():
     steps.append({"op": "de_feed", "at": [c, 4, c], "every": 1, "quiet": True})
     return p, run(age="age_9", kind="generator", band=list(BAND["age_9"]),
                   centre=[c, 4, c], radius=9, warmup=2400, steps=steps, probe=[[c, 4, c]])
+
+
+# ------------------------------------------------------------------------------------------- consumers (harmony H2A)
+ORE = "tfc:ore/rich_hematite"
+
+
+def mek_machine(item, chemical, upgrades=None):
+    """One Mekanism ore-ladder machine (placed by a fake player: a templated Mekanism block gets no side configuration),
+    TFC ore pieces, its chemical and energy offered every tick through its energy capability; the audit's net use of the
+    machine is what it draws (machine-usage.toml x10, H2A)."""
+    p = Plan((5, 3, 5))
+    p.set(2, 0, 2, FLOOR)
+    steps = [{"op": "use", "at": [2, 0, 2], "item": item, "face": "up", "yaw": 180},
+             {"op": "wait", "ticks": 5}]
+    if upgrades:
+        steps.append(dict({"op": "mek_upgrades", "at": [2, 1, 2]}, **upgrades))
+    steps += [{"op": "item", "at": [2, 1, 2], "id": ORE, "count": 64},
+              {"op": "chemical", "at": [2, 1, 2], "id": chemical, "amount": 10000},
+              {"op": "energy", "at": [2, 1, 2], "amount": 1000000, "every": 1, "quiet": True}]
+    return p, run(age="age_6", kind="consumer", sinks=[], users=[item], centre=[2, 1, 2], radius=4, warmup=100,
+                  steps=steps, probe=[[2, 1, 2]])
 
 
 # ------------------------------------------------------------------------------------------- Sky Harvest (SPEC §26)
@@ -411,10 +433,26 @@ def builds(ie_jar):
         "mek_fusion_active": mek_fusion_active(),
         "de_reactor_small": de_reactor_small(),
         "storm_rods": storm_rods(),
+        "mek_purification": mek_machine("mekanism:purification_chamber", "mekanism:oxygen"),
+        "mek_purification_upgraded": mek_machine("mekanism:purification_chamber", "mekanism:oxygen", {"speed": 8, "energy": 8}),
+        "mek_injection": mek_machine("mekanism:chemical_injection_chamber", "mekanism:hydrogen_chloride"),
+        "mek_dissolution": mek_machine("mekanism:chemical_dissolution_chamber", "mekanism:sulfuric_acid"),
     }
     if ie_jar:
         out["ie_diesel_generator"] = ie_diesel_generator(ie_jar)
     return out
+
+
+# The GameTest smoke build (BalanceGameTests.referenceRunMetersASmokeBuild): an IE MV capacitor fed 100 FE a tick through
+# its top face; the run must read 100 FE/t "in" at the sink. Written into the GameTest resources, not dev/reference/.
+GT_DATA = os.path.join(REPO, "mod", "firmages-core", "src", "gametest", "resources", "data", "firmages")
+
+
+def smoke_capacitor():
+    p = Plan((3, 3, 3))
+    p.set(1, 1, 1, "immersiveengineering:capacitor_mv")
+    return p, run(age="test", kind="smoke", sinks=["immersiveengineering:capacitor_mv"], centre=[1, 1, 1], radius=3, settle=2,
+                  warmup=5, seconds=2, steps=[{"op": "energy", "at": [1, 1, 1], "side": "up", "amount": 100, "every": 1, "quiet": True}])
 
 
 def find_ie_jar():
@@ -441,8 +479,12 @@ def main():
     for name, (plan, recipe) in builds(ie_jar).items():
         files[f"{name}.nbt"] = ("nbt", plan.nbt())
         files[f"{name}.json"] = ("json", json.dumps(recipe, indent=2) + "\n")
+    plan, recipe = smoke_capacitor()
+    files["gametest:structure/reference/smoke_capacitor.nbt"] = ("nbt", plan.nbt())
+    files["gametest:firmages_energy_reference/smoke_capacitor.json"] = ("json", json.dumps(recipe, indent=2) + "\n")
     for fn, (kind, data) in files.items():
-        path = os.path.join(OUT, fn)
+        path = os.path.join(GT_DATA, fn.split(":", 1)[1]) if fn.startswith("gametest:") else os.path.join(OUT, fn)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         if a.check:
             if not os.path.isfile(path):
                 print(f"MISSING {fn}")
@@ -466,7 +508,7 @@ def main():
     if a.check:
         print(f"gen_reference_builds --check: {len(files)} files, " + ("up to date" if not bad else f"{bad} stale or missing"))
         sys.exit(1 if bad else 0)
-    print(f"gen_reference_builds: {len(files) // 2} builds written to {OUT}")
+    print(f"gen_reference_builds: {len(files) // 2 - 1} builds written to {OUT}, the GameTest smoke build to {GT_DATA}")
     if a.install:
         dp = os.path.join(a.install, "world", "datapacks", NS)
         shutil.rmtree(dp, ignore_errors=True)
@@ -477,6 +519,8 @@ def main():
         with open(os.path.join(dp, "pack.mcmeta"), "w", encoding="utf-8", newline="\n") as f:
             json.dump({"pack": {"pack_format": 48, "description": "Firmament Ages reference builds (dev only)"}}, f)
         for fn in files:
+            if fn.startswith("gametest:"):
+                continue
             shutil.copy(os.path.join(OUT, fn), os.path.join(sdir if fn.endswith(".nbt") else rdir, fn))
         print(f"installed into {dp}")
 

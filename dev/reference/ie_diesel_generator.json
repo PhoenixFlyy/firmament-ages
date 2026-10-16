@@ -47,8 +47,13 @@
       "amount": 24000
     },
     {
-      "op": "command",
-      "cmd": "fill ~0 ~0 ~0 ~4 ~2 ~6 minecraft:redstone_block replace minecraft:air"
+      "op": "ie_rs",
+      "at": [
+        1,
+        0,
+        5
+      ],
+      "enabled_without_signal": true
     }
   ],
   "probe": [
