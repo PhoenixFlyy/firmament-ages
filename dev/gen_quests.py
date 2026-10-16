@@ -1634,7 +1634,7 @@ QUANTUM = age_chapter(
            t_stage('age_9', 'Offer the Quantum Core at the shrine'), kind='goal', icon='firmages:quantum_core',
            sub='Goal of the Quantum Age: Caelum opens the Singularity Age',
            desc=['Fuse the Quantum Core at draconic level: two antimatter pellets, a calorite plate, Quasar Alloy, two',
-                 'ice shards and a subatomic alloy around the awakened core.',
+                 'ice shards and a subatomic alloy.',
                  '',
                  'Raise the Quantum Ring and set the Awakened Keystone back. Once 8,192 calorite ingots have passed',
                  'your Tally Chutes, lay the Core down, feed the heart 100,000,000 FE and pray at night under open sky,',
