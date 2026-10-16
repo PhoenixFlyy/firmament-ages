@@ -1727,7 +1727,8 @@ Library rules:
 - **Ponder** (`compat/ponder/CrownScenes`, only with Create; schematics by `dev/gen_ponder_schematics.py`):
   - "The Lens Crown" (frame, sockets, anvil, ghost) on `star_anvil`;
   - "Chords" (mount a lens, redstone in, forge, a roof pauses, night speeds up) on `lens_mount`;
-  - "A Chord Library" (pattern provider, comparator, link decoder, output bus) on `star_anvil`.
+  - "A Chord Library" (pattern provider, comparator, link decoder, output bus) on `ae2:pattern_provider` (with AE2;
+    on `star_anvil` until the 0.13.0 review, where an Arcane Age player saw the Information Age block through W).
 
 ### 27.11a Pack integration (M15, branch `c2/sky-m15`, 2026-10-16)
 
