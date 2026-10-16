@@ -10,8 +10,9 @@ import java.util.Locale;
  * <p>Active when it is night ({@code dayTime % 24000} in 13000..23000), the column lies in the cold band (yearly
  * average at the reference height at or below {@code max_average_temp}), the overworld is not raining, and the night
  * roll of the column's 512-block cell is below the chance. The chance is {@code night_chance.cold} in the cold half of
- * the year there (instant temperature at or below the average), else {@code night_chance.warm}: every clear cold-band
- * night can yield, winter twice as often. The operator override {@code on}/{@code off} beats everything but the band.
+ * the year there (instant temperature at or below the average), else {@code night_chance.warm}; both ship as 1.0, so
+ * every clear cold-band night has an aurora, and a net catches {@code cold_half_factor} (2) times as much in the cold
+ * half (S3A: "every clear night in the cold band, double in winter"). The operator override {@code on}/{@code off} beats everything but the band.
  */
 public final class AuroraRules {
     public static final int NIGHT_START = 13000;
@@ -92,10 +93,11 @@ public final class AuroraRules {
     }
 
     /**
-     * mB one net adds in one 20-tick step (SPEC §26.4): {@code mb_per_hour * intensity / 50}, divided by 1 + the
-     * other nets within {@code share_radius}.
+     * mB one net adds in one 20-tick step (SPEC §26.4): {@code mb_per_hour * intensity / 50}, times
+     * {@code cold_half_factor} in the cold half of the year, divided by 1 + the other nets within {@code share_radius}.
      */
-    public static double fillPerStep(SkyHarvestData.Aurora data, double intensity, int otherNets) {
-        return data.mbPerHour() * intensity / 50.0 / (1 + Math.max(0, otherNets));
+    public static double fillPerStep(SkyHarvestData.Aurora data, double intensity, int otherNets, boolean coldHalf) {
+        double season = coldHalf ? data.coldHalfFactor() : 1.0;
+        return data.mbPerHour() * season * intensity / 50.0 / (1 + Math.max(0, otherNets));
     }
 }

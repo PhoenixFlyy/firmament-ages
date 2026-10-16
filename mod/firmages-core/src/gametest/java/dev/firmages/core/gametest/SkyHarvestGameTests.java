@@ -80,7 +80,7 @@ public final class SkyHarvestGameTests {
         SkyHarvestData.Aurora a = before.aurora();
         // the net's own height is min_y here (the template sits far below Y 140); the band reads the test climate
         SkyHarvestDataLoader.set(new SkyHarvestData(new SkyHarvestData.Aurora(abs.getY(), a.referenceY(), a.maxAverageTemp(), a.chanceCold(),
-            a.chanceWarm(), a.mbPerHour(), a.netCapacity(), a.shareRadius(), a.colors()), before.storm(), List.of()));
+            a.chanceWarm(), a.mbPerHour(), a.coldHalfFactor(), a.netCapacity(), a.shareRadius(), a.colors()), before.storm(), List.of()));
         ClimateSources.set(new TestClimateSource(-15F, -20F));
         sky.setAuroraOverride("on");
         Runnable restore = () -> {
@@ -103,7 +103,7 @@ public final class SkyHarvestGameTests {
                 ok(h, r.active() && r.inBand(), "override on, cold test climate: " + r);
                 double intensity = r.intensity();
                 int got = steps(h, NET, 10);
-                int want = (int) Math.floor(10 * AuroraRules.fillPerStep(SkyHarvestDataLoader.current().aurora(), intensity, 0));
+                int want = (int) Math.floor(10 * AuroraRules.fillPerStep(SkyHarvestDataLoader.current().aurora(), intensity, 0, r.coldHalf()));
                 ok(h, Math.abs(got - want) <= 1, "ten steps give about " + want + " mB: " + got);
                 ok(h, net(h, NET).reason() == AuroraNetBlockEntity.Reason.CATCHING, "catching: " + net(h, NET).reason());
                 ok(h, h.getBlockState(NET).getValue(dev.firmages.core.sky.AuroraNetBlock.CATCHING), "the catching state glows");
@@ -112,7 +112,7 @@ public final class SkyHarvestGameTests {
                 double pairIntensity = AuroraService.at(level, h.absolutePos(PAIR_A).getX(), h.absolutePos(PAIR_A).getZ()).intensity();
                 int pa = steps(h, PAIR_A, 10);
                 int pb = steps(h, PAIR_B, 10);
-                int half = (int) Math.floor(10 * AuroraRules.fillPerStep(SkyHarvestDataLoader.current().aurora(), pairIntensity, 1));
+                int half = (int) Math.floor(10 * AuroraRules.fillPerStep(SkyHarvestDataLoader.current().aurora(), pairIntensity, 1, r.coldHalf()));
                 ok(h, Math.abs(pa - half) <= 1 && Math.abs(pb - half) <= 1, "two adjacent nets get half each (" + half + "): " + pa + ", " + pb);
 
                 // a pipe drains it from any side and never fills it

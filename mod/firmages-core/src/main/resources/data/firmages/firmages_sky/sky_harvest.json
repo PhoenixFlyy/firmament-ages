@@ -4,10 +4,11 @@
     "reference_y": 140,
     "max_average_temp": -10.0,
     "night_chance": {
-      "cold": 0.5,
-      "warm": 0.25
+      "cold": 1.0,
+      "warm": 1.0
     },
     "mb_per_hour": 100,
+    "cold_half_factor": 2.0,
     "net_capacity": 4000,
     "share_radius": 1,
     "colors": [

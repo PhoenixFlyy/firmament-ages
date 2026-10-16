@@ -1422,7 +1422,7 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
   - `averageTemp(x, reference_y, z) <= max_average_temp` (the cold band, hemisphere-proof);
   - the overworld is not raining (vanilla flag);
   - the night roll `hash(auroraSeed, day, x >> 9, z >> 9) < chance`.
-- `chance` is `night_chance.cold` when `instantTemp(x, reference_y, z) <= averageTemp(x, reference_y, z)` (the cold half of the year there), else `night_chance.warm`. So every clear cold-band night can yield, and winter yields twice as often. A summer group is not stuck waiting for winter.
+- `chance` is `night_chance.cold` when `instantTemp(x, reference_y, z) <= averageTemp(x, reference_y, z)` (the cold half of the year there), else `night_chance.warm`. **Both ship as 1.0** (Felix S3A: "aurora every clear night in the cold band, double in winter"; review fix 0.12.0, the earlier 0.5/0.25 left nights where the Auroras mod drew northern lights overhead while Jade said "No aurora overhead"). Winter doubles the yield instead (`cold_half_factor`, §26.4). A summer group is not stuck waiting for winter.
 - **Reference height:** both temperatures are read through `ClimateSource` at the fixed `reference_y` (140), never at the net's or the camera's own height. TFC lowers the average by 0.16225 °C per block above Y 63, capped at 17.82 °C [verified, javap `Helpers.adjustAverageTemperatureByElevation`]. Without a fixed height, every isle top would count as polar, and the server and the client would disagree.
 - **Band distance:** TFC's base gradient is about 2.5 °C per 1,000 blocks (-20..30 °C over `temperature_scale` 20,000 [verified, `RegionGenerator`]). TFC's spawn lies at about 5 to 7 °C sea-level average (-5.8 °C at Y 140 on the M11 boot seed), so the planned 0.0 at Y 140 would have put spawn itself in the band. **As built: `max_average_temp` -10.0 at Y 140** (about 2.5 °C at sea level), measured on the copy boot: -7.9 °C 500 blocks north of spawn, -10.3 °C at 1,000, -11.4 °C at 2,000; the band starts about 1,000 blocks poleward.
 - Intensity is 0.5..1.0, from the same hash.
@@ -1433,10 +1433,10 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 ### 26.4 Aurora Net (`firmages:aurora_net`, Industrial Age)
 
 - **A single block,** not a multiblock. A net works only at `y >= min_y` (140) with open sky above it (`canSeeSky`), so players build it on high frames of any blocks. Scale comes from more nets. There is no validation code, and a Mekanism pipe connects to any side.
-- **Filling:** every 20 ticks while `AuroraRules.active` holds at its (x, z), it adds `mb_per_hour * intensity / 50` mB to its 4,000 mB tank. The amount is divided by 1 + the number of other nets within `share_radius` (1), so packing nets tight gains nothing.
+- **Filling:** every 20 ticks while `AuroraRules.active` holds at its (x, z), it adds `mb_per_hour * intensity / 50` mB to its 4,000 mB tank, times `cold_half_factor` (2) in the cold half of the year. The amount is divided by 1 + the number of other nets within `share_radius` (1), so packing nets tight gains nothing.
 - **State and Jade:** the blockstate `catching` (light 10, shimmer) shows it. Jade lines: "Catching the aurora", "No aurora overhead", "Too low: needs height 140" or "Needs open sky".
 - **Capabilities:** `Capabilities.FluidHandler.BLOCK` on all sides, drain only. There is no energy capability.
-- **Yield:** 100 mB per in-game hour at full intensity, about 750 mB per aurora night per net at average intensity. Four nets on a cold-band trip fill the pack's whole demand (about 2.5 buckets, §24.2) in one or two aurora nights.
+- **Yield:** 100 mB per in-game hour at full intensity (200 in the cold half), about 750 mB per clear night per net at average intensity (1,500 in the cold half). Four nets on a cold-band trip fill the pack's whole demand (about 2.5 buckets, §24.2) in one clear night.
 - **Aurora light** (`firmages:aurora_light`, bucket, light 12, no world interaction) is a fluid because nets are pumped by pipe or train, and the Lens Crown takes it as a fluid ingredient.
 - **Recipe** (Industrial Age, shaped, `kubejs/server_scripts/recipes/age_4/sky_harvest.js`): four `immersiveengineering:stick_steel` (corners), two `immersiveengineering:wirecoil_copper`, two `firmages:meteoric_iron_sheet`, one `firmages:storm_glass` (centre).
 
@@ -1457,8 +1457,8 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 
 ```json
 {
-  "aurora": {"min_y": 140, "reference_y": 140, "max_average_temp": -10.0, "night_chance": {"cold": 0.5, "warm": 0.25},
-             "mb_per_hour": 100, "net_capacity": 4000, "share_radius": 1, "colors": ["#3CFF9E", "#7A5CFF"]},
+  "aurora": {"min_y": 140, "reference_y": 140, "max_average_temp": -10.0, "night_chance": {"cold": 1.0, "warm": 1.0},
+             "mb_per_hour": 100, "cold_half_factor": 2.0, "net_capacity": 4000, "share_radius": 1, "colors": ["#3CFF9E", "#7A5CFF"]},
   "storm": {"mean_strike_ticks_rain": 4800, "thunder_factor": 4, "sand_per_strike": 4,
             "input": "#c:sands", "result": "firmages:storm_glass"}
 }
@@ -1488,7 +1488,7 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 
 ### 26.9 Tests
 
-- **U** `AuroraRulesTest`: night window, band at the reference height (a net at Y 250 above a warm column stays off), cold and warm chance, rain, override, intensity range, all with a fake `ClimateSource`.
+- **U** `AuroraRulesTest`: night window, band at the reference height (a net at Y 250 above a warm column stays off), every clear night in both halves of the year and the doubled cold-half fill, rain, override, intensity range, all with a fake `ClimateSource`.
 - **G** `SkyGameTests` with `TestClimateSource`:
   - `auroraNetFills`: override on, height and sky give the expected mB; covered, too low or override off give 0; two adjacent nets get half each; a drain like a pipe takes it; no energy capability.
   - `stormRodFusesSand`: forced rain gives the base rate and forced thunder four times it (seeded roll); the bolt is visual-only; four sand become four storm glass; no fire block is placed, no entity is hurt, and no side has an energy capability.
@@ -1496,7 +1496,7 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 
 ### 26.10 Acceptance criteria
 
-1. Aurora nets fill only in the cold band (at the reference height), at night, without rain, high and under open sky, and pipes drain them. Every clear cold-band night has a chance, so no group waits for winter.
+1. Aurora nets fill only in the cold band (at the reference height), at night, without rain, high and under open sky, and pipes drain them. Every clear cold-band night has an aurora, so no group waits for winter; the cold half fills twice as fast.
 2. **[PoC]** On three seeds, `sky aurora band` finds the cold band within 2,000 blocks of world spawn. Otherwise `max_average_temp` is raised in data until it does.
 3. Storm Rods make storm glass in every rain, faster in thunder, at any base climate. Over five real hours on the pack server one rod averages 10 to 25 storm glass per real hour **[PoC]**.
 4. No block of §25 or §26 exposes an energy capability, and no forecast exists.

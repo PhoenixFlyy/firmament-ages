@@ -22,13 +22,14 @@ public record SkyHarvestData(Aurora aurora, Storm storm, List<String> errors) {
      * @param maxAverageTemp the cold band: yearly average at {@code referenceY} at or below this (°C)
      * @param chanceCold     night chance in the cold half of the year there (instant at or below the average)
      * @param chanceWarm     night chance in the warm half
-     * @param mbPerHour      mB per in-game hour (1,000 ticks) at full intensity
+     * @param mbPerHour      mB per in-game hour (1,000 ticks) at full intensity, in the warm half of the year
+     * @param coldHalfFactor the fill is multiplied by this in the cold half of the year (S3A: double in winter)
      * @param netCapacity    tank of one net (mB)
      * @param shareRadius    nets within this many blocks (cube) share the light
      * @param colors         ribbon colours (RGB), kept for a renderer and the data contract
      */
     public record Aurora(int minY, int referenceY, double maxAverageTemp, double chanceCold, double chanceWarm, double mbPerHour,
-                         int netCapacity, int shareRadius, List<Integer> colors) {}
+                         double coldHalfFactor, int netCapacity, int shareRadius, List<Integer> colors) {}
 
     /**
      * The Storm Rod (SPEC §26.5).
@@ -42,7 +43,7 @@ public record SkyHarvestData(Aurora aurora, Storm storm, List<String> errors) {
     public record Storm(int meanStrikeTicksRain, double thunderFactor, int sandPerStrike, String input, String result) {}
 
     public static final SkyHarvestData DEFAULT = new SkyHarvestData(
-        new Aurora(140, 140, -10.0, 0.5, 0.25, 100, 4000, 1, List.of(0x3CFF9E, 0x7A5CFF)),
+        new Aurora(140, 140, -10.0, 1.0, 1.0, 100, 2.0, 4000, 1, List.of(0x3CFF9E, 0x7A5CFF)),
         new Storm(4800, 4, 4, "#c:sands", "firmages:storm_glass"), List.of());
 
     public boolean valid() {
@@ -60,6 +61,7 @@ public record SkyHarvestData(Aurora aurora, Storm storm, List<String> errors) {
         double cold = doubleOr(nc, "cold", errors);
         double warm = doubleOr(nc, "warm", errors);
         double mbPerHour = doubleOr(a, "mb_per_hour", errors);
+        double coldFactor = a.has("cold_half_factor") ? doubleOr(a, "cold_half_factor", errors) : 2.0;
         int capacity = intOr(a, "net_capacity", errors);
         int share = intOr(a, "share_radius", errors);
         List<Integer> colors = new ArrayList<>();
@@ -76,6 +78,7 @@ public record SkyHarvestData(Aurora aurora, Storm storm, List<String> errors) {
         if (cold < 0 || cold > 1) errors.add("aurora.night_chance.cold " + cold + " outside 0..1");
         if (warm < 0 || warm > 1) errors.add("aurora.night_chance.warm " + warm + " outside 0..1");
         if (mbPerHour <= 0 || mbPerHour > 100_000) errors.add("aurora.mb_per_hour " + mbPerHour + " outside 0..100000");
+        if (coldFactor < 1 || coldFactor > 16) errors.add("aurora.cold_half_factor " + coldFactor + " outside 1..16");
         if (capacity < 1000 || capacity > 1_000_000) errors.add("aurora.net_capacity " + capacity + " outside 1000..1000000");
         if (share < 0 || share > 8) errors.add("aurora.share_radius " + share + " outside 0..8");
 
@@ -92,7 +95,7 @@ public record SkyHarvestData(Aurora aurora, Storm storm, List<String> errors) {
         if (!result.contains(":") || result.startsWith("#")) errors.add("storm.result " + result + " is not an item id");
 
         if (!errors.isEmpty()) return new SkyHarvestData(DEFAULT.aurora, DEFAULT.storm, List.copyOf(errors));
-        return new SkyHarvestData(new Aurora(minY, refY, maxTemp, cold, warm, mbPerHour, capacity, share, List.copyOf(colors)),
+        return new SkyHarvestData(new Aurora(minY, refY, maxTemp, cold, warm, mbPerHour, coldFactor, capacity, share, List.copyOf(colors)),
             new Storm(mean, factor, sand, input, result), List.of());
     }
 

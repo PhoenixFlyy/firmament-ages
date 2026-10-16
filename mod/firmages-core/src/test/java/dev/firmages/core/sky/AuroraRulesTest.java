@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Level U (SPEC §26.9): the night window, the band at the reference height (a net at Y 250 above a warm column stays
- * off), the cold and the warm chance, rain, the override, the intensity range, the net's fill and the Storm Rod's
+ * off), every clear night in both halves of the year, rain, the override, the intensity range, the net's fill and the Storm Rod's
  * rates, the shipped {@code sky_harvest.json} and rejected files. The temperatures come from a fake climate column
  * with TFC's elevation rule (-0.16225 °C per block above Y 63).
  */
@@ -55,11 +55,12 @@ class AuroraRulesTest {
     void badFilesAreRejected() throws IOException {
         JsonObject o = JsonParser.parseString(Files.readString(FILE)).getAsJsonObject();
         o.getAsJsonObject("aurora").getAsJsonObject("night_chance").addProperty("cold", 1.5);
+        o.getAsJsonObject("aurora").addProperty("cold_half_factor", 0.5);
         o.getAsJsonObject("storm").addProperty("thunder_factor", 0);
         o.getAsJsonObject("storm").remove("result");
         SkyHarvestData d = SkyHarvestData.parse(o);
         assertFalse(d.valid());
-        assertTrue(d.errors().size() >= 3, "errors: " + d.errors());
+        assertTrue(d.errors().size() >= 4, "errors: " + d.errors());
         assertEquals(SkyHarvestData.DEFAULT.aurora(), d.aurora(), "a rejected file keeps the built-in values");
         assertFalse(SkyHarvestData.parse(new JsonObject()).valid());
     }
@@ -86,24 +87,22 @@ class AuroraRulesTest {
     }
 
     @Test
-    void chanceColdAndWarmHalf() {
-        int coldHits = 0;
-        int warmHits = 0;
-        int n = 0;
+    void everyClearNightInTheBand() {
+        // S3A: "aurora every clear night in the cold band, double in winter" (the Auroras mod draws it every night too)
+        assertEquals(1.0, A.chanceCold());
+        assertEquals(1.0, A.chanceWarm());
+        assertEquals(2.0, A.coldHalfFactor());
         for (int day = 0; day < 40; day++) {
             for (int cell = 0; cell < 100; cell++) {
                 long t = day * 24000L + 18000;
                 int x = (cell % 10) * 512;
                 int z = (cell / 10) * 512;
-                if (eval(AuroraRules.Override.AUTO, t, false, -13F, -18F, x, z).active()) coldHits++;
-                if (eval(AuroraRules.Override.AUTO, t, false, -13F, -8F, x, z).active()) warmHits++;
-                n++;
+                AuroraRules.Result cold = eval(AuroraRules.Override.AUTO, t, false, -13F, -18F, x, z);
+                AuroraRules.Result warm = eval(AuroraRules.Override.AUTO, t, false, -13F, -8F, x, z);
+                assertTrue(cold.active() && cold.coldHalf(), "every clear cold-half night: " + cold);
+                assertTrue(warm.active() && !warm.coldHalf(), "every clear warm-half night: " + warm);
             }
         }
-        double cold = coldHits / (double) n;
-        double warm = warmHits / (double) n;
-        assertEquals(0.5, cold, 0.04, "cold half yields every other clear night");
-        assertEquals(0.25, warm, 0.04, "warm half yields half as often");
         // one cell agrees across its 512 blocks and the roll is stable for a night
         AuroraRules.Result a = eval(AuroraRules.Override.AUTO, NIGHT, false, -13F, -18F, 1, 1);
         AuroraRules.Result b = eval(AuroraRules.Override.AUTO, NIGHT + 3000, false, -13F, -18F, 511, 300);
@@ -136,10 +135,12 @@ class AuroraRulesTest {
             max = Math.max(max, v);
         }
         assertTrue(min >= 0.5 && max <= 1.0 && min < 0.55 && max > 0.95, "intensity 0.5..1.0: " + min + ".." + max);
-        assertEquals(2.0, AuroraRules.fillPerStep(A, 1.0, 0), 1e-9, "100 mB per hour = 2 mB per 20 ticks");
-        assertEquals(1.0, AuroraRules.fillPerStep(A, 1.0, 1), 1e-9, "two adjacent nets share");
-        // a full aurora night (10,000 ticks = 500 steps) at average intensity 0.75: about 750 mB (SPEC §26.4)
-        assertEquals(750, 500 * AuroraRules.fillPerStep(A, 0.75, 0), 1e-6);
+        assertEquals(2.0, AuroraRules.fillPerStep(A, 1.0, 0, false), 1e-9, "100 mB per hour = 2 mB per 20 ticks");
+        assertEquals(4.0, AuroraRules.fillPerStep(A, 1.0, 0, true), 1e-9, "double in the cold half");
+        assertEquals(1.0, AuroraRules.fillPerStep(A, 1.0, 1, false), 1e-9, "two adjacent nets share");
+        // a full aurora night (10,000 ticks = 500 steps) at average intensity 0.75: 750 mB, 1,500 in the cold half (SPEC §26.4)
+        assertEquals(750, 500 * AuroraRules.fillPerStep(A, 0.75, 0, false), 1e-6);
+        assertEquals(1500, 500 * AuroraRules.fillPerStep(A, 0.75, 0, true), 1e-6);
     }
 
     @Test

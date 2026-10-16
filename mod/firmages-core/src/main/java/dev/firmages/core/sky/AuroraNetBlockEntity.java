@@ -90,7 +90,7 @@ public final class AuroraNetBlockEntity extends BlockEntity {
             AuroraRules.Result res = AuroraService.at(level, worldPosition.getX(), worldPosition.getZ());
             if (ServerConfig.skyHarvestEnabled() && res.active()) {
                 r = Reason.CATCHING;
-                add = AuroraRules.fillPerStep(a, res.intensity(), otherNets(level, a.shareRadius()));
+                add = AuroraRules.fillPerStep(a, res.intensity(), otherNets(level, a.shareRadius()), res.coldHalf());
             } else {
                 r = Reason.NO_AURORA;
             }

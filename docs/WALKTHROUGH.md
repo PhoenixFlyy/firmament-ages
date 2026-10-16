@@ -145,12 +145,11 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
      X - - - -
      X X X - -
      ```
-   - A saw and a log make eight lumber; four lumber make planks; four planks make a workbench.
+   - A saw and a log make two planks; four planks make a crafting table (it works as a workbench); a saw and
+     planks make four lumber.
    - Wild trees drop the vanilla log of their class (oak, birch, spruce, jungle, acacia, dark oak, mangrove or
-     cherry); a placed log drops itself. A saw and a vanilla log make two vanilla planks, a saw and vanilla planks
-     the lumber of the class's lead tree, and four vanilla planks make a crafting table, which works as a
-     workbench. For a tree's own wood, set eight class logs or planks around its sapling (Chronicle: "Wood
-     Classes").
+     cherry); a placed log drops itself. The lumber a saw cuts from vanilla planks is that of the class's lead
+     tree. For a tree's own wood, set eight class logs or planks around its sapling (Chronicle: "Wood Classes").
    - Four loose rocks in the 2x2 grid make a cobblestone.
 10. Craft in the workbench (H Hearth Idol, S cobblestone, C charcoal, K copper ingot, - empty):
     ```
@@ -404,8 +403,8 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
    electronic components and electrum wire; with magic a circuit board and a spirit attuned crystal; let the
    assembler make them).
 5. Aurora Steel: starsteel, storm glass, aurora light and red steel in the Lens Crown. Aurora light comes from an
-   Aurora Net (Industrial Age) at Y 140 or higher under open sky in the cold north, on clear nights with an aurora;
-   pipe it or bucket it out. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four
+   Aurora Net (Industrial Age) at Y 140 or higher under open sky in the cold north, on every clear night (twice as
+   much in the cold half of the year); pipe it or bucket it out. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four
    aluminium plates, an Aurora Steel ingot and a Nether Star.
 6. Raise the Tesla Crown (15x15, 5 high): aluminium blocks on the border (51); on each corner a red steel block, an HV
    capacitor, aluminium scaffolding two high and a floodlight on top. Plinth: seven blocks from the heart.

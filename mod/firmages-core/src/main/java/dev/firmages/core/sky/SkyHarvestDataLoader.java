@@ -55,8 +55,8 @@ public final class SkyHarvestDataLoader extends SimpleJsonResourceReloadListener
             return;
         }
         SkyHarvestData.Aurora a = data.aurora();
-        FirmagesCore.LOGGER.info("Sky Harvest data: aurora at Y {} at or below {} C (chance {}/{}), {} mB/h; storm every {} ticks, thunder x{}",
-            a.referenceY(), a.maxAverageTemp(), a.chanceCold(), a.chanceWarm(), a.mbPerHour(), data.storm().meanStrikeTicksRain(),
+        FirmagesCore.LOGGER.info("Sky Harvest data: aurora at Y {} at or below {} C (chance {}/{}), {} mB/h, x{} in the cold half; storm every {} ticks, thunder x{}",
+            a.referenceY(), a.maxAverageTemp(), a.chanceCold(), a.chanceWarm(), a.mbPerHour(), a.coldHalfFactor(), data.storm().meanStrikeTicksRain(),
             data.storm().thunderFactor());
         current = data;
         loaded = true;
