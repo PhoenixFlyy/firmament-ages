@@ -2,6 +2,7 @@ package dev.firmages.core.config;
 
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.hardship.CaveDwellerGate;
+import dev.firmages.core.hardship.GridLock;
 import dev.firmages.core.hardship.ToolRule;
 import dev.firmages.core.immersion.InventoryTab;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -90,6 +91,7 @@ public final class ServerConfig {
     // hardship (SPEC §19)
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_CAVE_DWELLER_UNTIL;
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_TOOL_RULE_UNTIL;
+    public static final ModConfigSpec.ConfigValue<String> HARDSHIP_GRID_LOCK_UNTIL;
     // perf (SPEC §20); read at mod construction through EarlyServerConfig, the value here only documents the key
     public static final ModConfigSpec.BooleanValue PERF_LIMIT_TFC_REGISTRY_API_SCAN;
     // starfall (SPEC §25.10)
@@ -286,6 +288,10 @@ public final class ServerConfig {
                 "#firmages:needs_tool_early (logs, raw and hardened rock, ores, sandstone) cannot be broken without a correct tool:",
                 "logs need an axe (a stone axe or hammer counts), rock and ore a pickaxe. Default age_0: the rule holds in Dawn only.")
             .define("toolRuleUntilAge", ToolRule.DEFAULT_UNTIL.id(), ToolRule::isValid);
+        HARDSHIP_GRID_LOCK_UNTIL = b.comment("First Age with the 2x2 crafting grid of the inventory, or \"never\" to keep it open. Below this Age the",
+                "inventory grid (and the one of the Curios screen) is closed and hidden; items laid on a block with the place key",
+                "(TerraFirmaCraft, V) are crafted by sneaking and using the pile with an empty hand. Default age_0: Dawn only.")
+            .define("gridLockUntilAge", GridLock.DEFAULT_UNTIL.id(), GridLock::isValid);
         b.pop();
 
         b.comment("Start-up performance (SPEC 20). Read once at game start, before worlds load: a dedicated server reads",
@@ -420,6 +426,11 @@ public final class ServerConfig {
     /** {@code hardship.toolRuleUntilAge}: the first Age without the hand-breaking rule, empty when it is off. */
     public static Optional<AgeId> toolRuleUntil() {
         return ToolRule.until(loaded() ? HARDSHIP_TOOL_RULE_UNTIL.get() : ToolRule.DEFAULT_UNTIL.id());
+    }
+
+    /** {@code hardship.gridLockUntilAge}: the first Age with an open inventory crafting grid, empty when the lock is off. */
+    public static Optional<AgeId> gridLockUntil() {
+        return GridLock.until(loaded() ? HARDSHIP_GRID_LOCK_UNTIL.get() : GridLock.DEFAULT_UNTIL.id());
     }
 
     /** {@code team.autoJoin}. */

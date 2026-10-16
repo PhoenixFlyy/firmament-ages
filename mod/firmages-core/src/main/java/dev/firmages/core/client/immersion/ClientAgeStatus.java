@@ -24,6 +24,11 @@ public final class ClientAgeStatus {
         return known && status.toolRule();
     }
 
+    /** The inventory crafting grid is locked (SPEC §19.3); false before the first status, the server decides alone until then. */
+    public static boolean gridLock() {
+        return known && status.gridLock();
+    }
+
     /** Last login or Age change, for the indicator's fade. */
     public static long shownAt() {
         return shownAt;

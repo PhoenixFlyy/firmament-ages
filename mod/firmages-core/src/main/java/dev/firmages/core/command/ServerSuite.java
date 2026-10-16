@@ -169,5 +169,28 @@ public final class ServerSuite implements SelfTest.Suite {
             checkEquals(expected, (long) ores.size(), "lockedOreBlocks size");
             return ores.size() + " locked ore blocks";
         });
+        r.test("grid_lock_hooked", () -> {
+            // SPEC 19.3: the grid menus carry the lock (mixins applied), the status agrees with the server, TFC piles are hooked
+            check(dev.firmages.core.hardship.GridLockMenu.class.isAssignableFrom(net.minecraft.world.inventory.InventoryMenu.class),
+                "InventoryMenu is not a GridLockMenu (mixin not applied)");
+            String curios = "Curios not loaded";
+            if (net.neoforged.fml.ModList.get().isLoaded("curios")) {
+                try {
+                    Class<?> c = Class.forName("top.theillusivec4.curios.common.inventory.container.CuriosContainer");
+                    check(dev.firmages.core.hardship.GridLockMenu.class.isAssignableFrom(c), "CuriosContainer is not a GridLockMenu (mixin not applied)");
+                    curios = "Curios grid hooked";
+                } catch (ClassNotFoundException e) {
+                    check(false, "Curios loaded but CuriosContainer missing: " + e);
+                }
+            }
+            String tfc = "TFC not loaded";
+            if (net.neoforged.fml.ModList.get().isLoaded("tfc")) {
+                check(dev.firmages.core.compat.tfc.TfcPiles.hooked(), "TFC placed-item pile not hooked (block or accessor missing)");
+                tfc = "TFC piles hooked";
+            }
+            boolean active = dev.firmages.core.hardship.GridLockService.active(server);
+            checkEquals(active, dev.firmages.core.immersion.ImmersionService.status(server).gridLock(), "status gridLock");
+            return "locked " + active + " (until " + dev.firmages.core.config.ServerConfig.gridLockUntil().map(AgeId::id).orElse("never") + "), " + curios + ", " + tfc;
+        });
     }
 }

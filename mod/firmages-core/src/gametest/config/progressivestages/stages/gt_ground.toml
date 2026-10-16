@@ -1,0 +1,13 @@
+# GameTest stage for ground crafting (HardshipGameTests.groundCraft): a player without it may not craft this recipe,
+# so ground crafting must refuse it as a crafting grid would.
+[stage]
+id = "gt_ground"
+display_name = "Ground crafting lock (GameTest)"
+description = "GameTest stage for the ProgressiveStages check of ground crafting."
+icon = "minecraft:oxeye_daisy"
+category = "GameTest"
+
+[recipes]
+locked_ids = [
+    "id:minecraft:light_gray_dye_from_oxeye_daisy",
+]

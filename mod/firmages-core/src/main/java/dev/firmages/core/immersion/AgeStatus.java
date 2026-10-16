@@ -3,6 +3,7 @@ package dev.firmages.core.immersion;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.age.AgeSnapshot;
 import dev.firmages.core.hardship.CaveDwellerGate;
+import dev.firmages.core.hardship.GridLock;
 import dev.firmages.core.hardship.ToolRule;
 
 import java.util.Optional;
@@ -13,7 +14,7 @@ import java.util.function.IntFunction;
 /**
  * What a client needs to know about the world's Age (SPEC §18): the current Age, its goal item, whether the
  * recipe viewer (EMI), the block-info overlay (Jade) and each of TerraFirmaCraft's inventory tabs are open yet, and
- * whether the Cave Dweller still hunts and the hand-breaking rule holds (§19). Computed on the server from the global Age state, the shrine offering
+ * whether the Cave Dweller still hunts, the hand-breaking rule holds and the crafting grid is locked (§19). Computed on the server from the global Age state, the shrine offering
  * map and {@code firmages-server.toml [ui]} and {@code [hardship]}; sent as {@code firmages:age_status}. Pure Java
  * (unit-tested).
  *
@@ -27,13 +28,15 @@ import java.util.function.IntFunction;
  * @param reloadPending an Age swap (or reload) is pending or running: the client lets the recipe viewer reload once,
  *                      after the new recipes arrive, instead of on each stage change (§3.3)
  * @param gathered     the shrine's Gathering is done (§7.5): the HUD goal of age_9 turns to "Beyond the Firmament"
+ * @param gridLock     the inventory crafting grid is locked (§19.3): the client hides it and predicts no result
  */
 public record AgeStatus(AgeId age, String goalItem, boolean recipeViewer, boolean blockInfo, Set<InventoryTab> tabs, boolean caveDweller,
-                        boolean toolRule, boolean reloadPending, boolean gathered) {
+                        boolean toolRule, boolean reloadPending, boolean gathered, boolean gridLock) {
 
     /** Before the first status arrives the client treats the world as Dawn: nothing of the machinery shows. The
-     *  hand-breaking rule is left to the server until then (the client predicts no block). */
-    public static final AgeStatus UNKNOWN = new AgeStatus(AgeId.DAWN, "", false, false, Set.of(), true, false, false, false);
+     *  hand-breaking rule and the grid lock are left to the server until then (the client predicts no block and shows
+     *  the grid). */
+    public static final AgeStatus UNKNOWN = new AgeStatus(AgeId.DAWN, "", false, false, Set.of(), true, false, false, false, false);
 
     /**
      * @param offeringFor      tier N (worked in age_N, grants age_(N+1)) to its offering item id
@@ -49,17 +52,23 @@ public record AgeStatus(AgeId age, String goalItem, boolean recipeViewer, boolea
         int ix = current.ordinal() - AgeId.AGE_0.ordinal();
         if (ix >= 0 && current != AgeId.AGE_9) goal = offeringFor.apply(ix).orElse("");
         return new AgeStatus(current, goal, reached(current, viewerFrom), reached(current, overlayFrom), InventoryTab.open(current, tabFrom),
-            CaveDwellerGate.hunts(current, caveDwellerUntil), ToolRule.active(current, toolRuleUntil), false, false);
+            CaveDwellerGate.hunts(current, caveDwellerUntil), ToolRule.active(current, toolRuleUntil), false, false, false);
+    }
+
+    /** This status with the grid lock decided for its Age by {@code gridLockUntil} (the first Age with an open grid, empty for never). */
+    public AgeStatus withGridLock(Optional<AgeId> gridLockUntil) {
+        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, reloadPending, gathered,
+            GridLock.active(age, gridLockUntil));
     }
 
     /** This status with {@link #reloadPending} set. */
     public AgeStatus withReloadPending(boolean pending) {
-        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, pending, gathered);
+        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, pending, gathered, gridLock);
     }
 
     /** This status with the shrine's Gathering done or not. */
     public AgeStatus withGathered(boolean done) {
-        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, reloadPending, done);
+        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, reloadPending, done, gridLock);
     }
 
     /** Lang key of the HUD goal when the Age has no goal item: {@code firmages.hud.goal.<age>}, after the Gathering {@code ..._gathered}. */

@@ -218,6 +218,10 @@
 	##firmages:needs_tool_early (logs, raw and hardened rock, ores, sandstone) cannot be broken without a correct tool:
 	#logs need an axe (a stone axe or hammer counts), rock and ore a pickaxe. Default age_0: the rule holds in Dawn only.
 	toolRuleUntilAge = "age_0"
+	#First Age with the 2x2 crafting grid of the inventory, or "never" to keep it open. Below this Age the
+	#inventory grid (and the one of the Curios screen) is closed and hidden; items laid on a block with the place key
+	#(TerraFirmaCraft, V) are crafted by sneaking and using the pile with an empty hand. Default age_0: Dawn only.
+	gridLockUntilAge = "age_0"
 
 #Start-up performance (SPEC 20). Read once at game start, before worlds load: a dedicated server reads
 #<world>/serverconfig/firmages-server.toml, then config/, then defaultconfigs/; a client reads config/, then defaultconfigs/.
