@@ -92,7 +92,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 ## 6. Prüfregeln vor einem Commit
 
 1. `cd mod/firmages-core`, `JAVA_HOME` = `tools/jdk-21`, `gradlew build`: BUILD SUCCESSFUL, 0 Testfehler.
-2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (1.0.0: 124).
+2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (1.0.0: 125).
 3. Jedes betroffene `gen_*.py --check`, dazu `check_menus.py` und `miner_ladder.py --check`: alles aktuell.
 4. `python dev/derive_ages.py --check` und `python dev/gen_stage_locks.py --check`: up to date.
 5. `python dev/validate_quests.py --style`: 0 Fehler, 0 Warnungen.
@@ -109,7 +109,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 
 - Felix entscheidet (`dev/offene-punkte.md`, „Entscheidungen“): eigene Schrift, Ernährungs-Untergrenze 0,85 oder 1,0, Chunk-Laden offline, Mob-Leiter kumulativ, AdvancedAE Strength Card, Backups ohne `saveAll`, Ars-Elemental-Blitzteile, Jade-Namen gesperrter Blöcke, Last des Arkan-Katalysators.
 - Im Client (Felix): die „1.0 Checkliste“ oben in `dev/client-test-brief.md` (alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age; die Abschnitte darunter sind Archiv), dazu die Client-Zeilen in `dev/offene-punkte.md`.
-- Nach 1.0 (`dev/offene-punkte.md`, „Nach 1.0“): Pacing-Modell als `dev/pacing.py` ins Repo holen und an einem Durchgang eichen, Questbuch-Ideen, Wayshrine-Dichte und Tutorial-Suche, Teleporter- und Warp-Sperre in The Origin, unverifizierte Config-Keys, Live-Messungen.
+- Nach 1.0 (`dev/offene-punkte.md`, „Nach 1.0“): Pacing-Modell als `dev/pacing.py` ins Repo holen und an einem Durchgang eichen, Questbuch-Ideen, Wayshrine-Dichte, Teleporter- und Warp-Sperre in The Origin, unverifizierte Config-Keys, Live-Messungen.
 - Basis für `check_registry_parity.py dump`: `dev/data/baseline-1.0.0/` (Gate-aus-Dump der Integration F1, `registries.json.gz`, `recipes.json.gz`).
 - Entscheidungen: eine Zeile in `dev/decisions-while-away.md`, Deutsch, Format `| Datum | Thema | Entscheidung | Warum | So änderst Du es |`, neue Zeilen unten, Thema mit Runde als Präfix (z. B. „Integration F1: …“).
 - Offene Punkte: `| Was | Wo | Wer |` in `dev/offene-punkte.md`; Erledigtes mit Beleg nach unten. Belege jeder Runde: `dev/poc-results.md` (`| Check | Observed | Result |`).

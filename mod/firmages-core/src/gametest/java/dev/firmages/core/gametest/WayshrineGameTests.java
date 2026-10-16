@@ -341,6 +341,13 @@ public final class WayshrineGameTests {
      */
     @GameTest(template = "empty", batch = "firmages_4_wayshrine_tutorial", timeoutTicks = 1200)
     public static void tutorialPlacement(GameTestHelper h) {
+        h.startSequence()
+            .thenWaitUntil(() -> h.assertFalse(WayshrineTutorial.searching(), "the search of the start still runs"))
+            .thenExecute(() -> tutorialPlaced(h))
+            .thenSucceed();
+    }
+
+    private static void tutorialPlaced(GameTestHelper h) {
         MinecraftServer server = h.getLevel().getServer();
         ServerLevel ow = server.overworld();
         WayshrineSavedData sd = WayshrineSavedData.get(server);
@@ -365,7 +372,46 @@ public final class WayshrineGameTests {
             if (!a.equals(pos)) ow.setBlock(a, Blocks.AIR.defaultBlockState(), 3); // its record goes with the core
         });
         sd.setTutorial(pos);
-        h.succeed();
+    }
+
+    /**
+     * The search tries every distance of a bearing before the next bearing (§28.4): on flat land 20,000 blocks east of the
+     * test, a plank on each of the sites 300, 425, 550 and 675 blocks north of a stand-in spawn makes them unfit, and the
+     * pass places the ruin on the same bearing at 800 blocks, not on the next bearing.
+     */
+    @GameTest(template = "empty", batch = "firmages_4_wayshrine_tutorial", timeoutTicks = 1200)
+    public static void tutorialSearchTriesEveryDistance(GameTestHelper h) {
+        h.startSequence()
+            .thenWaitUntil(() -> h.assertFalse(WayshrineTutorial.searching(), "the search of the start still runs"))
+            .thenExecute(() -> {
+                ServerLevel level = h.getLevel();
+                WayshrineSavedData sd = WayshrineSavedData.get(level.getServer());
+                Optional<BlockPos> before = sd.tutorialPos();
+                BlockPos centre = h.absolutePos(BlockPos.ZERO).offset(20_000, 0, 0);
+                WayshrineTutorial.Pass pass = new WayshrineTutorial.Pass(0, 0);
+                List<BlockPos> planks = new java.util.ArrayList<>();
+                for (int i = 0; i < 4; i++) {
+                    int[] xz = pass.point(centre, i);
+                    level.getChunk(xz[0] >> 4, xz[1] >> 4);
+                    int y = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, xz[0], xz[1]);
+                    BlockPos plank = new BlockPos(xz[0], y, xz[1]);
+                    level.setBlock(plank, Blocks.OAK_PLANKS.defaultBlockState(), 3);
+                    planks.add(plank);
+                }
+                Optional<BlockPos> core = WayshrineTutorial.placeAround(level, centre, pass, level.getRandom());
+                int[] outer = pass.point(centre, 4);
+                ok(h, core.isPresent(), "a site was found");
+                core.ifPresent(c -> {
+                    ok(h, c.getX() == outer[0] && c.getZ() == outer[1], "the fifth site, 800 blocks north on the same bearing: " + c.toShortString()
+                        + " (expected " + outer[0] + ", " + outer[1] + ")");
+                    ok(h, (int) Math.round(Math.hypot(c.getX() - centre.getX(), c.getZ() - centre.getZ())) == WayshrineRules.TUTORIAL_MAX, "800 blocks out");
+                    ok(h, level.getBlockState(c).is(WayshrineRegistry.CORE.get()), "the core stands at " + c.toShortString());
+                    level.setBlock(c, Blocks.AIR.defaultBlockState(), 3); // its record goes with the core
+                });
+                for (BlockPos p : planks) level.setBlock(p, Blocks.AIR.defaultBlockState(), 3);
+                sd.setTutorial(before.orElse(null));
+            })
+            .thenSucceed();
     }
 
     /**

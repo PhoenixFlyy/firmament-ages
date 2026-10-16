@@ -14,6 +14,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /** Game-bus wiring of the Wayshrines (SPEC-himmel §28) and their blessing source provider. */
 public final class WayshrineEvents {
@@ -29,6 +30,7 @@ public final class WayshrineEvents {
         bus.addListener(WayshrineEvents::onExplosion);
         bus.addListener(WayshrineEvents::onServerStarted);
         bus.addListener(WayshrineEvents::onServerStopped);
+        bus.addListener((ServerTickEvent.Post e) -> WayshrineTutorial.tick(e.getServer()));
     }
 
     private static void onReloadListeners(AddReloadListenerEvent event) {
@@ -77,5 +79,6 @@ public final class WayshrineEvents {
 
     private static void onServerStopped(ServerStoppedEvent event) {
         WayshrinePointer.clear();
+        WayshrineTutorial.onServerStopped();
     }
 }

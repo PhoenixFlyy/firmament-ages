@@ -3864,3 +3864,29 @@ unberührt. Die Kopie ist gelöscht.
 | `everycomp-entries.toml` korrigiert (Review) | die Korrektur kam aus Felix' alter Datei in `test-server/` (Einträge für Cataclysm und Twilight Forest, nicht im Pack); Boot A und Boot C mit frischer Config: Every Compat schreibt die Datei neu, 0 Korrekturzeilen; keine Pack-Datei nötig | pass |
 | Boot C (Gate an, frische Installation, neue Welt, keine Grants, keine Befehle, 240 s halten), `check_log.py` | 90,4 s bis Done; FATAL 0, ERROR 8, STDERR 0, WARN 812, dokumentiertes Rauschen 821, remaining 1: „Tutorial Wayshrine: no fit site 300 to 800 blocks“ (Seed mit Spawn auf y 63); FTB Quests 26 Kapitel, 666 Quests. Die Tutorial-Wayshrine fand in 2 von 5 neuen Welten dieser Prüfung keinen Platz (Boot A2 und C); offener Punkt in `dev/offene-punkte.md` | fail (1 Seed-Warnung, firmages-core) |
 | `packwiz refresh`, `release.ps1 -Version 1.0.0`, `export_cf.py`, `verify_install.py` | `.mrpack` 477,5 MB, CurseForge-Zip 77,2 MB, Server-Pack 504,4 MB, SHA-256-Liste geprüft (3 OK); `mrpack --side client` 2.987 von 2.987, `mrpack --side server` 2.951 von 2.951, `cfzip` 2.987 von 2.987, entpacktes Server-Zip 2.951 von 2.951 plus seine sechs Beigaben, kein fehlender Eintrag, kein falscher Hash (eine Datei mehr: `config/sauce-startup.toml`); Upload-Zip 7,5 MB, 12 Tausche, 265 Manifest-Dateien, nur `firmages-core-1.0.0.jar` in den Overrides. Nichts hochgeladen, nichts gepusht | pass |
+
+## 1.0.0 tutorial Wayshrine search (2026-10-17, on dev)
+
+The last defect of the 1.0.0 final check: the tutorial Wayshrine found no site on 2 of 5 fresh worlds (16 bearings at
+one distance). firmages-core stays 1.0.0 (the release was never pushed). All boots on the copy
+`.wt/test-server-tut` (`robocopy` without world, logs, local, simplebackups and crash-reports; `kubejs/`, `config/` and
+`defaultconfigs/` deleted; ports 25793 and RCON 25803; whitelist off; `debug.allowSimulate = true`, gate on), synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve -p 8433 --refresh=false` ("Finished successfully"),
+`-Xms3G -Xmx5G`, the world deleted before each boot, no commands except the selftest of boot 3. Felix' `test-server/` was
+not touched. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 275 unit tests, 0 failures (new: `WayshrineRulesTest.tutorialSearchTriesEveryDistanceOnEveryBearing`: 160 sites, each of 32 bearings and 5 distances once; `tutorialSearchWalksOutwardOnOneBearing`: the order of the sites; they replace `tutorialRing`) | pass |
+| `runGameTestServer` in a fresh `run/gametest` | "All 125 required tests passed" (new: `tutorialSearchTriesEveryDistance`: planks on the sites 300, 425, 550 and 675 blocks north, the pass placed the ruin 800 blocks north on the same bearing, "5 sites tried (0 unfit ground, 4 near players' traces)"; `tutorialPlacement` waits for the search of the start, placed after 1 site) | pass |
+| First copy boot (a version that generated one site per tick on the server thread) | placed 300 blocks out after 6 sites (5 unfit ground), but `check_log.py` remaining 1: "Can't keep up! ... Running 2037ms or 40 ticks behind" 7 s after Done, during the search. Fix: a chunk ticket loads each site's chunks (footprint plus margin) on the worker threads, the site is checked once all are loaded | fixed |
+| `mods/firmages-core-1.0.0.jar` | byte-identical to `build/libs` and to the copy's jar (SHA-256 `1d01d4e7…`); `packwiz refresh` | pass |
+| Boot 1 (new world, 240 s hold) | 91.3 s to Done; "Tutorial Wayshrine (forest_ring) placed at 344, 70, 26, 675 blocks from the spawn (pass 1, 7 sites tried (6 unfit ground, 0 near players' traces))" 13 s after Done; `check_log.py`: FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0 | pass |
+| Boot 2 (new world, 240 s hold) | 109.9 s to Done; placed at -687, 74, 1179, 300 blocks out (pass 1, 2 sites tried, 1 unfit ground) 9 s after Done; FATAL 0, ERROR 8, STDERR 0, WARN 241, noise 251, remaining 0 | pass |
+| Boot 3 (new world, 240 s hold, `firmages selftest all`) | 97.4 s to Done; `selftest all` 106 passed, 0 failed; placed at -1144, 88, 2984, 424 blocks out (pass 1, 5 sites tried, 4 unfit ground) 15 s after Done; `check_log.py` FATAL 0, ERROR 8, STDERR 0, WARN 243, noise 252, remaining 1: "Can't keep up! ... 4285ms" at 01:14:22.156, 12 ms after "selftest all: 106 passed" (the selftest's own stall, as in F1 boots 2 and 3; the search placed 5 s later) | pass (selftest stall) |
+| `release.ps1 -Version 1.0.0`, `export_cf.py`, `verify_install.py` | `.mrpack` 477.5 MB, CurseForge zip 77.2 MB, server pack 504.4 MB, SHA-256 list checked (3 OK); `mrpack --side client` 2,987 of 2,987, `mrpack --side server` 2,951 of 2,951, `cfzip` 2,987 of 2,987, no missing, extra or wrong hash; upload zip 7.5 MB, 12 swaps, 265 manifest files, only `firmages-core-1.0.0.jar` in the overrides (SHA-256 `1d01d4e7…` in all three archives). Nothing uploaded, nothing pushed | pass |
+
+Notes:
+- Unfit ground (fluid or more than three blocks of slope) caused 11 of the 14 sites tried on the three worlds; no site
+  was near players' traces. The old search had one distance per bearing, so a coast or river valley along that ring
+  failed all sixteen tries.

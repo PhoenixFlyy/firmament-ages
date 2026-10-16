@@ -9,7 +9,19 @@ public final class WayshrineRules {
     public static final String[] BEARINGS = {"north", "north_east", "east", "south_east", "south", "south_west", "west", "north_west"};
     public static final int TUTORIAL_MIN = 300;
     public static final int TUTORIAL_MAX = 800;
-    public static final int TUTORIAL_TRIES = 16;
+    /** The bearings of one search pass, a 32nd of a turn apart. */
+    public static final int TUTORIAL_BEARINGS = 32;
+    /** The distances tried on each bearing, from 300 to 800 blocks. */
+    public static final int[] TUTORIAL_DISTANCES = {300, 425, 550, 675, 800};
+    /** The sites of one search pass: every distance on every bearing (160). */
+    public static final int TUTORIAL_SITES = TUTORIAL_BEARINGS * TUTORIAL_DISTANCES.length;
+    /**
+     * The bearings are visited 13 steps of 32 apart (13 and 32 are coprime, so each bearing comes once): two sites tried
+     * one after the other lie on opposite sides of the spawn, not on the same coast or slope.
+     */
+    public static final int TUTORIAL_BEARING_STRIDE = 13;
+    /** A pass that found no site is followed by another one, at a new start bearing, this many ticks later (a quarter day). */
+    public static final long TUTORIAL_RETRY_TICKS = 6000L;
     /** At most this many blocks of height spread over the footprint of the tutorial site. */
     public static final int TUTORIAL_MAX_SLOPE = 3;
     /**
@@ -44,10 +56,18 @@ public final class WayshrineRules {
         return Math.round(d / 100.0) * 100;
     }
 
-    /** The tutorial candidate {@code i} of {@link #TUTORIAL_TRIES}: a bearing that turns by 1/16 each try. */
-    public static int[] tutorialPoint(int spawnX, int spawnZ, double startAngle, double distance, int i) {
-        double a = startAngle + i * (Math.PI * 2 / TUTORIAL_TRIES);
-        double d = Math.max(TUTORIAL_MIN, Math.min(TUTORIAL_MAX, distance));
+    /**
+     * The tutorial site {@code i} of a pass ({@code 0 <= i <} {@link #TUTORIAL_SITES}): every distance of one bearing in
+     * turn, then the next bearing ({@link #TUTORIAL_BEARING_STRIDE}). The pass starts at {@code startAngle} with the
+     * distance {@code firstDistance}; each bearing starts one distance further out, so the first fit site is not always the
+     * nearest one. Bearing 0 is north (-z), east is +x.
+     */
+    public static int[] tutorialPoint(int spawnX, int spawnZ, double startAngle, int firstDistance, int i) {
+        int n = TUTORIAL_DISTANCES.length;
+        int b = i / n;
+        int bearing = (int) ((long) b * TUTORIAL_BEARING_STRIDE % TUTORIAL_BEARINGS);
+        double a = startAngle + bearing * (Math.PI * 2 / TUTORIAL_BEARINGS);
+        int d = TUTORIAL_DISTANCES[Math.floorMod(firstDistance + b + i % n, n)];
         return new int[] {spawnX + (int) Math.round(Math.sin(a) * d), spawnZ - (int) Math.round(Math.cos(a) * d)};
     }
 
