@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=north,lit=false": {
+      "model": "firmages:block/arcane_catalyst"
+    },
+    "facing=north,lit=true": {
+      "model": "firmages:block/arcane_catalyst_lit"
+    },
+    "facing=east,lit=false": {
+      "model": "firmages:block/arcane_catalyst",
+      "y": 90
+    },
+    "facing=east,lit=true": {
+      "model": "firmages:block/arcane_catalyst_lit",
+      "y": 90
+    },
+    "facing=south,lit=false": {
+      "model": "firmages:block/arcane_catalyst",
+      "y": 180
+    },
+    "facing=south,lit=true": {
+      "model": "firmages:block/arcane_catalyst_lit",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "firmages:block/arcane_catalyst",
+      "y": 270
+    },
+    "facing=west,lit=true": {
+      "model": "firmages:block/arcane_catalyst_lit",
+      "y": 270
+    },
+    "facing=up,lit=false": {
+      "model": "firmages:block/arcane_catalyst",
+      "x": 270
+    },
+    "facing=up,lit=true": {
+      "model": "firmages:block/arcane_catalyst_lit",
+      "x": 270
+    },
+    "facing=down,lit=false": {
+      "model": "firmages:block/arcane_catalyst",
+      "x": 90
+    },
+    "facing=down,lit=true": {
+      "model": "firmages:block/arcane_catalyst_lit",
+      "x": 90
+    }
+  }
+}

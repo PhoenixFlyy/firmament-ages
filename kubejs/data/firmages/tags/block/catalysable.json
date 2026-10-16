@@ -1,0 +1,501 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mekanism:enrichment_chamber",
+      "required": false
+    },
+    {
+      "id": "mekanism:crusher",
+      "required": false
+    },
+    {
+      "id": "mekanism:energized_smelter",
+      "required": false
+    },
+    {
+      "id": "mekanism:osmium_compressor",
+      "required": false
+    },
+    {
+      "id": "mekanism:combiner",
+      "required": false
+    },
+    {
+      "id": "mekanism:purification_chamber",
+      "required": false
+    },
+    {
+      "id": "mekanism:chemical_injection_chamber",
+      "required": false
+    },
+    {
+      "id": "mekanism:metallurgic_infuser",
+      "required": false
+    },
+    {
+      "id": "mekanism:precision_sawmill",
+      "required": false
+    },
+    {
+      "id": "mekanism:chemical_dissolution_chamber",
+      "required": false
+    },
+    {
+      "id": "mekanism:chemical_washer",
+      "required": false
+    },
+    {
+      "id": "mekanism:chemical_crystallizer",
+      "required": false
+    },
+    {
+      "id": "mekanism:chemical_oxidizer",
+      "required": false
+    },
+    {
+      "id": "mekanism:chemical_infuser",
+      "required": false
+    },
+    {
+      "id": "mekanism:electrolytic_separator",
+      "required": false
+    },
+    {
+      "id": "mekanism:pressurized_reaction_chamber",
+      "required": false
+    },
+    {
+      "id": "mekanism:isotopic_centrifuge",
+      "required": false
+    },
+    {
+      "id": "mekanism:antiprotonic_nucleosynthesizer",
+      "required": false
+    },
+    {
+      "id": "mekanism:pigment_extractor",
+      "required": false
+    },
+    {
+      "id": "mekanism:pigment_mixer",
+      "required": false
+    },
+    {
+      "id": "mekanism:painting_machine",
+      "required": false
+    },
+    {
+      "id": "mekanism:nutritional_liquifier",
+      "required": false
+    },
+    {
+      "id": "mekanism:rotary_condensentrator",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:advanced_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:basic_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_combining_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:creative_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_combining_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:dense_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:elite_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_combining_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:multiversal_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_combining_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:overclocked_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_combining_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:quantum_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "evolvedmekanism:ultimate_alloying_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_combining_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:advanced_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_combining_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_combining_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:elite_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_combining_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_compressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_crushing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_enriching_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_infusing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_injecting_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_purifying_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_sawing_factory",
+      "required": false
+    },
+    {
+      "id": "mekanism:ultimate_smelting_factory",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:crusher",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:arc_furnace",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:metal_press",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:assembler",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:squeezer",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:fermenter",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:refinery",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:mixer",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:bottling_machine",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:sawmill",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:auto_workbench",
+      "required": false
+    }
+  ]
+}

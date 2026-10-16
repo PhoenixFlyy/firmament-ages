@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "particle": "firmages:block/ore_processor_side",
+    "side": "firmages:block/ore_processor_side_active",
+    "top": "firmages:block/ore_processor_top",
+    "bottom": "firmages:block/ore_processor_bottom"
+  }
+}

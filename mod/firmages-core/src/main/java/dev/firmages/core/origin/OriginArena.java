@@ -113,8 +113,9 @@ public final class OriginArena {
     }
 
     /**
-     * Places Stargate Journey's pedestal gate and finishes it like SGJ's worldgen (network entry, DHD energy core).
-     * Call only with Stargate Journey loaded. @return false if the template is missing
+     * Places Stargate Journey's pedestal gate and finishes it like SGJ's worldgen (network entry), then takes the DHD's
+     * fusion core and charges the gate for one trip home instead (SPEC §16.2a). Call only with Stargate Journey
+     * loaded. @return false if the template is missing
      */
     public static boolean buildGate(ServerLevel level) {
         Optional<StructureTemplate> t = level.getStructureManager().get(GATE_TEMPLATE);
@@ -123,8 +124,11 @@ public final class OriginArena {
         StructurePlaceSettings settings = new StructurePlaceSettings().addProcessor(BlockIgnoreProcessor.AIR);
         t.get().placeInWorld(level, GATE_ORIGIN, GATE_ORIGIN, settings, level.random, Block.UPDATE_CLIENTS);
         int generated = SgjGates.finishPlacement(level, t.get().getBoundingBox(settings, GATE_ORIGIN));
-        FirmagesCore.LOGGER.info("The Origin: return stargate placed at {} (DHD {}), {} Stargate Journey parts generated, in the network: {}",
-            GATE_BASE, DHD, generated, SgjGates.inNetwork(level.getServer(), level.dimension()));
+        boolean core = SgjGates.removeEnergyCore(level, DHD);
+        long added = SgjGates.keepCharged(level, GATE_BASE);
+        FirmagesCore.LOGGER.info("The Origin: return stargate placed at {} (DHD {}), {} Stargate Journey parts generated, in the network: {}; "
+            + "DHD energy core taken: {}, gate charged with {} FE for one trip home", GATE_BASE, DHD, generated,
+            SgjGates.inNetwork(level.getServer(), level.dimension()), core, added);
         return true;
     }
 

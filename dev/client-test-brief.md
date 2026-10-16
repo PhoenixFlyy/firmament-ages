@@ -1,5 +1,24 @@
 # Client-Test
 
+## Runde H3 Endspiel (2026-10-16, Zweig h3/endgame, für den Integrator)
+
+Server-Teil auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0 round H3, end game“): GameTests 122 von
+122, `selftest all` 106 von 106 (neu: Suite `endgame`), `poc_analyze.py` alle PASS (age_9 6,0x), `check_log.py` 0 übrig.
+
+1. **Erzprozessor (Singularitätszeit).** Block setzen, Erzstücke mit Rechtsklick hinein, Kerosin- und Schmiermittel-Eimer
+   hinein, Fluorwasserstoffsäure per Mekanism-Leitung, Strom per Kabel. Jade zeigt „Processing: 21 Iron Dust, 45 %“
+   (bzw. „Processing, lubricated: …“), die FE-Zeile und je Tank eine Zeile; leere Hand: dieselbe Zeile in der
+   Aktionsleiste; Schleichen + Rechtsklick nimmt den Staub. Die Seiten leuchten animiert, solange er arbeitet. EMI:
+   Kategorie „Ore Processing“ erst ab der Singularitätszeit, Säure als Text, Kerosin, Schmiermittel als Katalysator.
+2. **Arkan-Katalysator (Informationszeit).** An eine Mekanism-Anreicherungskammer setzen (die Rune schaut auf die
+   Kammer), eine Welle mit 64 RPM daneben, ein Source-Gefäß im Umkreis 6, Strom an die Rückseite: die Kammer arbeitet
+   sichtbar schneller (etwa +50 %), Jade „Quickening the machine it faces: 50 % faster“, Source-Partikel vom Gefäß, die
+   Front leuchtet. Ohne Welle „Needs a shaft turning at 64 RPM beside it“, ohne Source „Waiting for Source …“. Dasselbe
+   an einem IE-Brecher (an irgendein Teil gesetzt).
+3. **Sternentor.** Das Wählen von The Origin braucht 1 G FE im Tor (ein Interface, das der Reaktor speist); mit
+   weniger kommt „not enough power“. In The Origin heimwählen geht immer (das Rücktor hält eine Heimreise).
+4. **Händler.** Ein Waffen- oder Rüstungsschmied, der Eisenbarren kauft, verlangt Schmiedeeisen-Barren (Handelsfenster).
+
 ## 0.12.0 Review-Fixes (2026-10-16, Pack 0.12.0, firmages-core 0.12.0 neu gebaut)
 
 Server-Teil auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „0.12.0 review fixes, round C2“): GameTests

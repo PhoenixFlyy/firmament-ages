@@ -64,7 +64,7 @@ mcwdoors = "age_1"               # Macaw's Doors
 # patterns; the home is built from their Every Compat copies in TFC/AFC woods (short ids in [items]).
 mcwstairs = "age_1"              # Macaw's Stairs and Balconies; stone variants follow their vanilla stone (derived)
 mcwfences = "age_1"              # Macaw's Fences and Walls; wired fences age_2 in [items]
-mcwtrpdoors = "age_1"            # Macaw's Trapdoors (6 of 17 styles in Every Compat); glass, barn and barred age_2 in [items]
+mcwtrpdoors = "age_1"            # Macaw's Trapdoors (6 of 17 styles in Every Compat); glass and barn age_2 in [items], barred by its iron bars
 mcwroofs = "age_1"               # Macaw's Roofs (Every Compat: the seven planks roofs)
 mcwfurnitures = "age_1"          # Macaw's Furniture (Every Compat: 16 of 62 sets)
 mcwpaintings = "age_0"           # Macaw's Paintings: painting variants only, the painting is a Stone Age item
@@ -478,6 +478,11 @@ block = "tfc:rock/loose/granite"
 "id:firmages:quasar_alloy_ingot" = "age_8"
 "id:firmages:lens/quantum" = "age_9"
 "id:firmages:firmament_alloy_ingot" = "age_9"
+# The harmony plan's end game (firmages-core SPEC 40, 41): the Ore Processor, the 6x ore step of the Singularity Age
+# (station firmages:ore_processing, age_9 in station_ages.js), and the Arcane Catalyst, optional magic that quickens
+# the Information Age's machines.
+"id:firmages:ore_processor" = "age_9"
+"id:firmages:arcane_catalyst" = "age_6"
 "id:firmages:wayshrine_stone" = "dawn"                   # firmages-core Wayshrines (SPEC-himmel 24.5): drops from a lit Wayshrine (age_1 on), decorative, Sky Anchor heart
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"
@@ -675,6 +680,7 @@ block = "tfc:rock/loose/granite"
 # Deco round n7 (research n7-build). Every Compat short ids of the new modules; Every Compat's namespace is age_1, so
 # only the later ones change anything, the age_1 lines name the module. Specific rules first (file order).
 "re:everycomp:mct/.+_(glass|barred|barn)_trapdoor" = "age_2"  # glass (the barn trapdoor is made from a glass one), iron bars
+"re:mcwtrpdoors:.+_(glass|barn)_trapdoor" = "age_2"  # the vanilla-wood originals with their TFC copies (round H3; Nether woods stay age_3)
 "re:everycomp:mcf/.+_wired_fence" = "age_2"              # wire
 "name:everycomp:mct/" = "age_1"                          # Macaw's Trapdoors
 "name:everycomp:mws/" = "age_1"                          # Macaw's Stairs and Balconies

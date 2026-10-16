@@ -1,0 +1,24 @@
+{
+  "type": "firmages:ore_processing",
+  "input": {
+    "item": "minecraft:raw_iron",
+    "count": 2
+  },
+  "result": {
+    "id": "minecraft:iron_nugget",
+    "count": 3
+  },
+  "chemical": {
+    "id": "mekanism:hydrogen",
+    "amount": 30
+  },
+  "fluid": {
+    "fluid": "minecraft:water",
+    "amount": 15
+  },
+  "lubricant": {
+    "fluid": "minecraft:lava",
+    "amount": 3
+  },
+  "time": 20
+}

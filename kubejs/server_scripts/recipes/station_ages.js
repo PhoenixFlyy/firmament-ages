@@ -79,9 +79,9 @@ ServerEvents.recipes((event) => {
   // ---- Quantum Age: antimatter and Evolved Mekanism ----
   put('age_8', ['mekanism:nucleosynthesizing', 'mekanism:apt', 'mekanism:chemixing', 'advanced_ae:reaction'])
 
-  // ---- Singularity Age: Stargate Journey ----
+  // ---- Singularity Age: Stargate Journey, the firmages-core Ore Processor (SPEC 40) ----
   put('age_9', ['sgjourney:crystallizing', 'sgjourney:advanced_crystallizing', 'sgjourney:naquadah_liquidizing',
-    'sgjourney:naquadah_heavy_liquidizing'])
+    'sgjourney:naquadah_heavy_liquidizing', 'firmages:ore_processing'])
 
   Object.keys(STATION_AGE).forEach((type) => FirmAges.stationAge(type, STATION_AGE[type]))
   console.info(`[firmages] station Ages: ${Object.keys(STATION_AGE).length} machine types declared to the recipe gate`)

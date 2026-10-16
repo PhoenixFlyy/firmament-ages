@@ -39,7 +39,7 @@ import java.util.Locale;
  * debug players for the headless shrine test ({@link DebugPlayerCommands}).
  */
 public final class FirmagesCommands {
-    private static final List<String> SUITES = List.of("all", "core", "gate", "server", "sky", "crown", "wayshrines", "isles", "launch", "ark");
+    private static final List<String> SUITES = List.of("all", "core", "gate", "server", "sky", "crown", "wayshrines", "isles", "launch", "ark", "endgame");
     private static final SimpleCommandExceptionType SIMULATE_DISABLED = new SimpleCommandExceptionType(
         Component.literal("Simulation is disabled; set debug.allowSimulate = true in firmages-server.toml"));
     private static final SimpleCommandExceptionType UNKNOWN_AGE = new SimpleCommandExceptionType(Component.literal("Unknown Age"));
@@ -49,10 +49,10 @@ public final class FirmagesCommands {
     private FirmagesCommands() {}
 
     public static void register(RegisterCommandsEvent event) {
-        register(event.getDispatcher());
+        register(event.getDispatcher(), event.getBuildContext());
     }
 
-    static void register(CommandDispatcher<CommandSourceStack> d) {
+    static void register(CommandDispatcher<CommandSourceStack> d, net.minecraft.commands.CommandBuildContext ctx) {
         d.register(Commands.literal("firmages").requires(s -> s.hasPermission(2))
             .then(Commands.literal("ages")
                 .executes(FirmagesCommands::ages)
@@ -86,10 +86,18 @@ public final class FirmagesCommands {
             .then(DebugPlayerCommands.debug())
             .then(BalanceCommands.energy()) // energy audit (SPEC 38)
             .then(BalanceCommands.ore()) // ore audit (SPEC 38)
+            .then(MachineCommands.processor(ctx)) // Ore Processor (SPEC 40.8)
+            .then(MachineCommands.catalyst()) // Arcane Catalyst (SPEC 41.7)
             .then(Commands.literal("balance")
                 .then(Commands.literal("alternator")
                     .then(Commands.argument("pos", net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos()).executes(FirmagesCommands::alternator)))
-                .then(Commands.literal("cells").executes(FirmagesCommands::cells)))
+                .then(Commands.literal("cells").executes(FirmagesCommands::cells))
+                .then(Commands.literal("merchant").then(Commands.argument("target", EntityArgument.entity()).executes(FirmagesCommands::merchant))))
+            .then(Commands.literal("perf").then(Commands.literal("regrowth")
+                .executes(c -> regrowth(c, false))
+                .then(Commands.literal("reset").executes(c -> regrowth(c, true)))
+                .then(Commands.literal("spread").then(Commands.argument("pos", net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos())
+                    .then(Commands.argument("times", com.mojang.brigadier.arguments.IntegerArgumentType.integer(1, 10000)).executes(FirmagesCommands::regrowthSpread))))))
             .then(Commands.literal("welcome")
                 .then(Commands.literal("reset").then(Commands.argument("targets", EntityArgument.players())
                     .executes(c -> welcome(c, false))))
@@ -100,6 +108,46 @@ public final class FirmagesCommands {
                 .then(Commands.argument("suite", StringArgumentType.word())
                     .suggests((c, b) -> SharedSuggestionProvider.suggest(SUITES, b))
                     .executes(c -> selftest(c, StringArgumentType.getString(c, "suite"))))));
+    }
+
+    /** SPEC §34.4: rewrites the offers of a merchant with {@code balance.merchantRedirects} and lists them. */
+    private static int merchant(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        var e = EntityArgument.getEntity(c, "target");
+        if (!(e instanceof net.minecraft.world.item.trading.Merchant m)) {
+            c.getSource().sendFailure(Component.literal(e.getName().getString() + " is no merchant"));
+            return 0;
+        }
+        var offers = m.getOffers();
+        int changed = dev.firmages.core.balance.OneIron.redirect(offers, dev.firmages.core.balance.OneIron.redirects());
+        line(c.getSource(), e.getName().getString() + ": " + offers.size() + " offers, " + changed + " rewritten");
+        for (String l : dev.firmages.core.balance.OneIron.describe(offers)) {
+            FirmagesCore.LOGGER.info("merchant {}: {}", e.getName().getString(), l);
+            line(c.getSource(), "  " + l);
+        }
+        return offers.size();
+    }
+
+    /** SPEC §20.1: spreads of TFC Regrowing Forests that looked at a column and those skipped for an unloaded chunk. */
+    private static int regrowth(CommandContext<CommandSourceStack> c, boolean reset) {
+        long[] n = dev.firmages.core.perf.RegrowthGuard.counts();
+        String l = "Regrowth spreads since " + (reset ? "the last reset" : "start or reset") + ": " + n[0] + " looked, " + n[1]
+            + " skipped (chunk not loaded); guard " + (dev.firmages.core.config.ServerConfig.regrowthLoadedChunksOnly() ? "on" : "off");
+        FirmagesCore.LOGGER.info(l);
+        line(c.getSource(), l);
+        if (reset) dev.firmages.core.perf.RegrowthGuard.reset();
+        return (int) Math.min(Integer.MAX_VALUE, n[1]);
+    }
+
+    /** SPEC §20.1: TFC Regrowing Forests' own spread for one leaf, {@code times} times, timed (debug.allowSimulate). */
+    private static int regrowthSpread(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        if (!dev.firmages.core.config.ServerConfig.allowSimulate()) throw SIMULATE_DISABLED.create();
+        var pos = net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos(c, "pos");
+        int times = com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(c, "times");
+        for (String l : dev.firmages.core.perf.RegrowthProbe.spread(c.getSource().getLevel(), pos, times)) {
+            FirmagesCore.LOGGER.info("regrowth spread: {}", l);
+            line(c.getSource(), l);
+        }
+        return 1;
     }
 
     /** SPEC §18.5: {@code reset} lets the targets see the welcome again on their next join, {@code show} shows it now. */
@@ -270,7 +318,7 @@ public final class FirmagesCommands {
         MinecraftServer server = c.getSource().getServer();
         List<SelfTest.Suite> suites = switch (suite) {
             case "all" -> List.of(new CoreSuite(), new GateSuite(), new ServerSuite(server), new SkySuite(server), new CrownSuite(server),
-                new WayshrineSuite(server), new IsleSuite(server), new LaunchSuite(server), new ArkSuite(server));
+                new WayshrineSuite(server), new IsleSuite(server), new LaunchSuite(server), new ArkSuite(server), new EndgameSuite(server));
             case "core" -> List.of(new CoreSuite());
             case "gate" -> List.of(new GateSuite());
             case "server" -> List.of(new ServerSuite(server));
@@ -280,6 +328,7 @@ public final class FirmagesCommands {
             case "ark" -> List.of(new ArkSuite(server));
             case "launch" -> List.of(new LaunchSuite(server));
             case "isles" -> List.of(new IsleSuite(server));
+            case "endgame" -> List.of(new EndgameSuite(server));
             default -> throw UNKNOWN_SUITE.create();
         };
         SelfTest.Report report = SelfTest.run(suites);

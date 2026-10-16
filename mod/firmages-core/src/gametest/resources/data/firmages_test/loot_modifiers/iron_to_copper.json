@@ -1,0 +1,6 @@
+{
+  "type": "firmages:replace_item",
+  "conditions": [],
+  "from": "minecraft:iron_ingot",
+  "to": "minecraft:copper_ingot"
+}

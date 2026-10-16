@@ -457,6 +457,7 @@
     {"id": "extendedae:wireless_ex_pat", "required": false},
     {"id": "extendedae:wireless_hub", "required": false},
     {"id": "extendedae:wireless_tool", "required": false},
+    {"id": "firmages:arcane_catalyst", "required": false},
     {"id": "firmages:data_matrix", "required": false},
     {"id": "firmages:halo_steel_ingot", "required": false},
     {"id": "firmages:lantern/information", "required": false},

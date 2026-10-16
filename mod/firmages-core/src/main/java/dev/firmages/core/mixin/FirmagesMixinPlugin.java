@@ -32,7 +32,8 @@ public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
         Map.entry("ponder", "ponder"),
         Map.entry("ae2", "ae2"),
         Map.entry("cca", "createaddition"),
-        Map.entry("curios", "curios"));
+        Map.entry("curios", "curios"),
+        Map.entry("tfcrf", "tfcrf"));
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
