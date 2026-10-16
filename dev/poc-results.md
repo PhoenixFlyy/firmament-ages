@@ -3558,3 +3558,19 @@ spaces, `key:value` at the first colon, `%20` for a space), FTB Quests 2101.1.36
 | `validate_quests.py --style --dir <copy of the book>` with seven test lines | the three lines from `image_line` (Ponder with click and hover, knapping, build with `fit`) pass; a missing file, a picture inside a sentence, `width:x`, a Ponder link to `create:nope_block` and `click_action:explode:now` give five errors | pass |
 | Copy boot (hold 240 s, `kubejs errors server`) | Done after 117.8 s wall clock (server 19.8 s), 266 mod files; KubeJS startup and server 0 errors; `check_log.py`: FATAL 0, ERROR 8, WARN 248, documented noise 252, remaining 6 in 4 signatures, none from this branch (a DUMMY block entity at -526 90 2130 in the new world, two config corrections of the copy) | pass |
 | Client rendering | not tested (no client); `dev/client-test-brief.md`, section "Quest-Bilder" | open |
+## Chronicle round B1: layout engine, The Firmament, Great Works (2026-10-16, branch b1/quest-engine)
+
+Copy of `test-server` (`robocopy /E /XD world logs local`, ports 26420 and RCON 26430, whitelist off,
+`debug.allowSimulate = true`), quest folder deleted, synced with `packwiz-installer-bootstrap -g -s server` from
+`packwiz serve --port 8421` of the worktree, "Finished successfully". One boot with a new world, `-Xms4G -Xmx5G`. The
+copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gen_quests.py` twice, `git status` | 15 chapters, 21 reward tables, 1,079 lang keys; the second run changes no file | pass |
+| `validate_quests.py --style --mods <CurseForge instance mods>` | 1,520 object ids, 0 errors, 0 warnings (new checks: pictures and clicks resolve, no two quests closer than 0.2 units, curves only for dependencies, Great Works structure) | pass |
+| `gen_quest_pictures.py`, then `--check` and a second run | 58 pictures (9 rings: finished, 29 layers, 9 animations; 5 works pictures), 3 banners; 1.7 MB as palette PNGs; second run byte-identical; `--check` up to date | pass |
+| `preview_quests.py` | 15 maps in `dev/quest-preview/`, 0 quests drawn too close; Age chapters 21 to 27 units wide, The Firmament 39 by 23 | pass |
+| javap FTB Quests 2101.1.36, FTB Library 2101.1.37, Certain Questing Additions 1.2.0.4 | `QuestPanel.alignWidgets` (quest x/y is the centre; button 1.5 zoom, spacing zoom x `quest_spacing` / 4), `QuestButton.positionControlPoints`/`getConnectionPoints` (stored control point = wanted point + 3/7 x the dependent's size; first point near the dependency), `Quest.readDepControlPoints` (`dep_control_pts`, four doubles), `Chapter` (`autofocus_id`, image ids via `readID`), `ChapterImage` (`click_action`, `dependency`), `ImageClickAction` (`open_quest`, `custom_event`), `ClientTextComponentUtils` (`image`, `width`, `height`, `align`, `fit`, `click_action`, `text`), `ViewQuestPanel` (`{@pagebreak}`), CQA `ApngTextureManager.isAPngPath` (only `*.apng.png` animate) | facts used |
+| Copy boot | Done after 152 s wall clock (server 28.1 s); 266 mod files with 257 mods; FTB Quests "Loaded 3 chapter groups, 15 chapters, 404 quests, 21 reward tables" with no FTB Quests warning; KubeJS startup and server 0 errors; `check_log.py`: FATAL 0, ERROR 8, WARN 244, documented noise 250, remaining 4 (Tutorial Wayshrine site search on the new world, a deferred task of Advanced Chimneys, two config corrections of the copy), none from the book; clean stop after 240 s hold | pass |
+| In the client | curves, APNG playback, picture clicks, page arrows, hidden chapter images | needs client (`dev/client-test-brief.md`, section Chronik B1) |

@@ -19,6 +19,14 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 | Singularity Age | Ultimate Singularity, then the Stargate (no offering) | draconic reactor, chaotic fusion, naquadah line, Stargate and DHD | The Gathering: one prayer at the complete shrine gives the nine relics back for the last forging. |
 | Finale | Defeat The Primordial, the final boss in The Origin | the altar and arena of The Origin | No shrine. The boss's death grants `finale_won` to all of you. |
 
+### The Chronicle
+
+Press K. The first chapter, The Firmament, holds the notes to read first (keys, the sign, the fellowship, what Dawn
+withholds, crafting by hand), the road of offerings and, from the Stone Age on, a build guide for each shrine ring
+beside its offering: the ring rising, every layer with its blocks, then offering and rite. Each Age chapter winds its
+strands round the goal in the middle. The group Great Works holds three optional builds: The Gatehouse (Bronze Age),
+The Living House (Iron Age) and The Silo (Space Age); a click on their pictures opens the Ponder scene.
+
 ### The shrine in brief (Stone Age to Quantum Age)
 
 Sneak is Left Ctrl here; Left Shift sprints.
@@ -73,7 +81,7 @@ The First Spark: craft a firestarter and light a firepit. The quest itself opens
    X X X X -
    - X - - -
    ```
-   Dawn has no crafting grid (quest "By Hand"): hold the head and press V to lay it on a block, lay a stick, twig or
+   Dawn has no crafting grid (The Firmament, "By Hand"): hold the head and press V to lay it on a block, lay a stick, twig or
    bone beside it, then sneak and right-click the pile with an empty hand: a stone axe. Knife (two blades per rock), hammer,
    shovel, hoe and javelin heads are in the quest "Knapping Patterns". There is no stone pickaxe.
 4. Stone: fell a tree with the stone axe. Keystone "Stone Kit".

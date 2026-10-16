@@ -30,6 +30,23 @@ Kopie ohne Fehler, `validate_quests.py` mit Testzeilen). Sobald eine Quest sie z
    (Silo Hatch am Launch Pad, Portcullis am Rope Pulley, The Lens Crown und A Chord Library am Star Anvil, Chords am
    Lens Mount), Escape führt zurück in die Chronik. Vor der Age des Items öffnet der Klick nichts.
 4. **Farben.** Die Bilder passen zum Firmament-Thema (Nachtblau, Gold); nichts wirkt wie ein Fremdkörper.
+## Chronik B1 (Runde B1 2026-10-16, Zweig b1/quest-engine, für den Integrator)
+
+Vorher ansehen: `dev/quest-preview/index.html` (jede Kapitelkarte, so wie der Generator sie meint).
+
+1. K öffnen: The Firmament ist das erste Kapitel, Welcome fehlt. Die Karte öffnet auf „You Wake“; die Notizen (Zahnräder) liegen links,
+   die Opfergaben laufen als Spirale nach innen zu „Beyond the Firmament“.
+2. Linien: in jedem Age-Kapitel laufen die Linien als Bögen entlang der Stränge zum Ziel in der Mitte, nicht als gerade Striche
+   und nicht mit Knick oder Versatz am Anfang oder Ende. Sehen sie falsch aus, Bildschirmfoto der Steinzeit an Claude
+   (`CP_SHIFT` in `dev/quest_layout.py`).
+3. Steinzeit: das Schreinbild in der Kartenmitte anklicken: The Firmament öffnet die Anleitung „Hearth Circle“. Seite 1 zeigt
+   den wachsenden Ring (Animation), die Pfeile blättern durch drei Lagen und die Ritus-Seite.
+4. Bronzezeit: die Ring-Quest „Raise the Bronze Sanctum“ öffnen, das Bild oben anklicken: dieselbe Anleitung („Bronze Sanctum“).
+   In The Firmament erscheint mit der Bronzezeit die Anleitung samt Bild neben „Sky Disc“.
+5. Great Works: ab der Bronzezeit die Gruppe mit „The Gatehouse“; Bild im Plan anklicken öffnet die Ponder-Szene des Fallgitters,
+   Escape führt zurück in die Chronik. „Shut the Gate“ wird erfüllt, wenn man das Gearshift ansieht, während der Hebel es antreibt.
+6. Eisenzeit: „The Living House“, Aufgabe „A Lift“ (Aufzugskontakt ansehen); Weltraumzeit: „The Silo“, Ziel ist die Startrampe mit
+   Signal.
 
 ## 0.12.0 Review-Fixes (2026-10-16, Pack 0.12.0, firmages-core 0.12.0 neu gebaut)
 
