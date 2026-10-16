@@ -3099,3 +3099,30 @@ the first sync; synced with `packwiz-installer-bootstrap -g -s server` from `pac
   an interim offering (`dev/offene-punkte.md`).
 - `selftest all` keeps three red crown checks until M15; H2A and H5A, quest strands and real quest rewards are later
   rounds.
+
+## 1.0 round C1, review fixes (2026-10-16, branch c1/review-fix)
+
+Nine review findings on dev 7083e59 (pack 0.11.0, firmages-core 0.11.0, version kept: 0.11.0 is not pushed or
+uploaded). Felix's test server stayed off and untouched; every boot ran on the copy `.wt/test-server-review-fix`
+(`robocopy` without world, logs, local, simplebackups and crash-reports; ports 25566 and RCON 25576; whitelist off;
+the copy's `kubejs/` deleted before the first sync; synced with `packwiz-installer-bootstrap -g -s server` from
+`packwiz serve --port 8096 --refresh=false` of the worktree, "Finished successfully", stale jars removed by the
+installer; `debug.allowSimulate = true` after each sync), each with a new world and `-Xms3G -Xmx6G`. The copy is
+deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 193 unit tests, 0 failures (new: `FuelShareTest` 4, `WayshrineRulesTest.tutorialOnlyOnNewWorlds`; `WayshrineDataTest` on the interim offerings); `mods/firmages-core-0.11.0.jar` = `build/libs` jar = the copy's jar (SHA-256 `ee8a041d…`) | pass |
+| `runGameTestServer` | "All 82 required tests passed" in four of five runs (new: `tutorialSiteKeepsClearOfPlayers`); one run failed `SkyGameTests.excavatorVeinAtAutomationAge` ("IE's save data is marked dirty"), untouched code, open point | pass (one flaky test) |
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`, `fa_m3`) | 43,607 recipes; `gen_stage_locks.py --registry`, `derive_ages.py`, `gen_stage_locks.py`: age_map unchanged, the meteoric rod in `age_items/disabled`; `fa_m3` with the old predicates (first fix): banded iron and lazulitic intrusion 109 overworld biomes, rich auricupride 8, alluvial sift and super vein 1 (`tfc:river` only), then widened to rivers and lakes | done |
+| Copy boot 2 (gate on, new world, debug player, RCON) | tutorial Wayshrine 311 blocks from spawn; unlinked terminal with the class check opened ae2wtlib's `WCTMenu` (ae2wtlib 19.5.1 registers `ItemWCT` under the AE2 id) and closed it a few ticks later: the check now goes by id; alternator on a creative motor at 256 RPM: `balance alternator` share 0.0, LV capacitor below stays at 0 FE; `alternatorFuelOnly = false` (live config reload): 12,600 FE in about 75 ticks (168 FE/t); back to true: no further gain; a diesel engine could not be filled by command (NBT and bucket), so no in-world fuelled case | pass (fuelled case: client) |
+| Copy boot 3 (gate on, new world, grants, debug player, dumps, audit, `selftest all`) | `balance cells`: 1k 126, 256k 126, portable 16k 36, MEGA 1M 126, fluid 64k 18; `debug useitem` with the unlinked terminal: `PortableCrafting$Grid`, still open after further commands; `fa_m3`: banded iron 109, lazulitic intrusion 109, rich auricupride 8, alluvial sift 11, super vein 11, mephitic quarzite 0 (Nether); gate at age_9 38,560 of 43,607, 5,047 dropped (disabled 5,040, superseded 7); `selftest all` 71 passed, 3 failed (the three crown checks, red by design until M15), wayshrines `offering_of_current_age`: "age_9 wants firmages:starsteel_ingot" | pass |
+| Copy boot 4 (gate off, grants, `fa_dump`, `fa_dump_full`) | baseline 43,607 recipes; `derive_ages.py --check` up to date | pass |
+| `poc_analyze.py --dump-dir <boot 3> --baseline <boot 4>` | 104 PASS, 0 FAIL (G-2: the gate drops nothing more) | pass |
+| Copy boot 5 (gate on, new world, grants, hold 120 s, no debug commands) | tutorial Wayshrine 578 blocks from spawn; `check_log.py`: 75.8 s to Done, FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0 | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods`, `check_menus.py` | 1,258 object ids, 0 errors, 0 warnings; menus pass | pass |
+
+Notes:
+- The tutorial Wayshrine found no fit site on the seed of boot 1 (16 bearings, slope or water; WARN, retried at the
+  next start while the world is young); boots 2, 3 and 5 placed it 311, 538 and 578 blocks out.
+- The portable cell mixin was dropped after boot 3: AE2 and MEGA portable cells never use 63 types.

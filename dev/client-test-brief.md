@@ -24,7 +24,7 @@ darunter („C1-Deko“, acht Punkte, und „Technik- und Welt-Mods“, acht Pun
    `/firmages origin tp <Spieler> force`, alle in 6 Blöcken um den Altar. Ansehen: Modell (Glas, Kiel, Halo aus neun
    Lichtern), Animationen, Bossleiste, Titel der drei Phasen, Klänge mit Untertiteln, Laternen gehen in Phase 2 aus
    und kommen beim Tod zurück, Sternfall mit goldener Markierung, Splitter (Benutzen: Firmament Ward; Nebenhand +
-   Schlag; Schleichen + Benutzen: Wurf). Dauer stoppen: Ziel 6 bis 10 Minuten mit 2 bis 4 Spielern. Danach Titel
+   Schlag; Schleichen + Benutzen: Wurf; der Tooltip nennt die drei Wege). Dauer stoppen: Ziel 6 bis 10 Minuten mit 2 bis 4 Spielern. Danach Titel
    „Beyond the Firmament“, goldener Schreinstrahl, MekaSuit baubar. Die Erklärung „The Primordial“ im Chronicle lesen;
    „A Piece of the Sky“ schließt mit einem Splitter ab. Wipe testen: alle sterben, nach 30 s zieht es sich zurück.
 3. **Starfall.** Ab der Eisenzeit in einer klaren Nacht (`/firmages starfall now` als OP, oder `/firmages starfall
@@ -35,14 +35,17 @@ darunter („C1-Deko“, acht Punkte, und „Technik- und Welt-Mods“, acht Pun
    Eisenzeit muss ein Meteorit wie Himmelsgestein aussehen und nur Gestein geben.
 4. **Wayshrines.** Neue Welt: Rechtsklick auf das Schrein-Herz nennt Richtung und Entfernung der nächsten (die
    Tutorial-Wayshrine liegt etwa 400 Blöcke vom Spawn). Am Kern: Geist der fehlenden Blöcke, Jade „Ruined: … missing“.
-   Wiederaufbau aus dem Gestein der Umgebung, Opfergabe der Bronzezeit (Bronze-Doppelbarren) oder Eisenzeit
-   (Meteoreisenbarren), Ritus (Licht), Gebet. Danach Strahl, Wayshrine Stone fällt, Segen im Umkreis von 24 Blöcken
-   (Segen nur noch am Schrein und an Wayshrines, nicht mehr überall). Ab der Arkanzeit verlangt eine neue Wayshrine
-   eine Lens-Crown-Legierung, die es noch nicht gibt (offene Entscheidung, `dev/offene-punkte.md`).
+   Wiederaufbau aus dem Gestein der Umgebung, Opfergabe der Age (Bronze: Bronze-Doppelbarren; Eisen: Meteoreisenbarren;
+   Arkan: Meteoreisen-Doppelbarren; Industrie: Meteoreisen-Blech; ab Elektrik: Sternenstahl-Barren), Ritus, Gebet.
+   Danach Strahl, Wayshrine Stone fällt, Segen im Umkreis von 24 Blöcken (Segen nur noch am Schrein und an
+   Wayshrines, nicht mehr überall). Auf einer alten Welt (älter als drei Tage) entsteht keine Tutorial-Wayshrine.
 5. **Lens Crown.** Nicht im Spiel: Star Anvil, Lens Mount, Linsen und Legierungen sind versteckt und ohne Rezept, bis
    M11 bis M15 kommen. Als OP in EMI nachsehen, dass keines davon im Überleben auftaucht.
 6. **Balance vorher/nachher** (im Spiel nachmessen, wo es geht):
-   - Alternator bei 256 RPM: 360 → 168 FE/t (`generator_efficiency` 0,75 → 0,35). Lava im Blaze Burner: aus.
+   - Alternator bei 256 RPM: 360 → 168 FE/t (`generator_efficiency` 0,75 → 0,35), aber nur aus befeuerter Drehung:
+     Dampfmaschine über einem Blaze Burner mit Brennstoff (oder Dieselmotor) gibt 168 FE/t, Wasserrad oder Windmühle
+     allein 0, beides an einer Welle den befeuerten Anteil (`/firmages balance alternator <pos>` als OP zeigt Quellen
+     und Anteil). Lava im Blaze Burner: aus.
    - Huge-Dieselmotor: 0,05 → 0,11 mB/t; jeder Dieselmotor gibt 1,3 bis 1,7 Mio. FE je Eimer (IE-Generator 1,32 Mio.).
      Pflanzenöl und Ethanol laufen nicht mehr im Dieselmotor.
    - Weg: Crystal Resonance Generator, Applied-Kinetics-Energy-Provider, Solar-Upgrade von Evolved Mekanism.
@@ -51,8 +54,12 @@ darunter („C1-Deko“, acht Punkte, und „Technik- und Welt-Mods“, acht Pun
    - Theurgy Digestion Vat: genau 2,0x auf jedem Grad (10 reiche Stücke → 7 Schwefel, 2 normale → 1).
    - Waschen von Kies, Seelensand und rotem Sand: keine Nuggets mehr. End-Draconium: 2 reiche Stücke statt Staub;
      Planetenerze: reiche TFC-Stücke.
-   - AE2: 32 Kanäle je Kabel, 128 je dichtem Kabel (vorher 8 und 32). Wireless Crafting Terminal ab der
-     Industriezeit (Mechanical Crafter, teuer), nutzbar erst mit Wireless Access Point (Information).
+   - AE2: 32 Kanäle je Kabel, 128 je dichtem Kabel (vorher 8 und 32); Item-Zellen 126 Typen statt 63 (Tooltip
+     einer 64k-Zelle; tragbare Zellen unverändert). Wireless Crafting Terminal ab der Industriezeit (Mechanical Crafter, teuer): unverlinkt öffnet
+     Rechtsklick ein 3×3-Crafting-Raster (Rezept legen, Ergebnis nehmen, schließen: die Zutaten kommen zurück);
+     verlinkt (Wireless Access Point, Information) AE2s Terminal.
+   - Excavator: Banded Iron, Lazulitic Intrusion und Rich Auricupride (Badlands) entstehen jetzt in TFC-Biomen,
+     Alluvial Sift und Super Vein an TFC-Flüssen und -Seen (Core Sample).
 7. **Messroutine Client** (wie Abschnitt „n7-Deko“, Messung, mit A = 0.10.0 und B = 0.11.0, je drei Läufe, dieselbe
    Instanz und RAM): Startzeit bis Titelbild, erster Einstieg, Heap nach `/sparkc heapsummary`, Blockatlas-Größe,
    mit `python dev/check_log.py --client <log>` auswerten. Zusätzlich in B: Bildzeit in einer Nacht mit Auroras und
