@@ -117,7 +117,8 @@ public final class ArkSuite implements SelfTest.Suite {
             for (int i = 0; i < ArkData.ISLANDS; i++) {
                 int[] s = ArkRules.socket(i);
                 check(seen.add(((long) s[0] << 32) ^ (s[1] & 0xFFFFFFFFL)), "socket " + i + " shares its cell");
-                check(s[0] * s[0] + s[1] * s[1] <= 10, "socket " + i + " off the ring");
+                double dist = Math.hypot(s[0], s[1]);
+                check(dist >= 2.5 && dist <= 3.7, "socket " + i + " off the ring (" + dist + ")");
             }
             int mask = OriginSavedData.get(server).ark().completeMask();
             return "nine sockets around the altar; lit " + Integer.bitCount(mask) + (ArkService.awake(server) ? "" : " (the islands sleep until the finale)");
