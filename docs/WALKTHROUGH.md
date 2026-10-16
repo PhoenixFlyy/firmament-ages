@@ -499,7 +499,7 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
 1. Atomic: 4 elite control circuits; 8 yellow cake (uraninite wakes now); 4 fuel assemblies; the fission reactor
    (32 casings); a thermoelectric boiler and an industrial turbine (4 rotors, 8 blades). Keystone: two polonium
    pellets from reactor waste.
-2. Rocketry & Moon: NASA workbench; a full space suit; one bucket of rocket fuel from your oil; a launch pad; the
+2. Rocketry & Moon: NASA workbench; a full space suit; one bucket of diesel or kerosene from the distillation tower; a launch pad; the
    tier 1 rocket; land on the Moon; mine 16 desh. Keystone: 32 desh plates from the metal press.
 3. Mars: tier 2 rocket, Mars, 16 ostrum. The temple on Mars keeps a flight recorder in its chest. Keystone: 32
    ostrum plates.
@@ -537,7 +537,9 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
 Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8). It is the last offering.
 
 ### The way
-1. Fusion: 32 reactor frames, the controller, a filled hohlraum and a laser, deuterium and tritium fuel. The SPS
+1. Fusion: 32 reactor frames, the controller, a filled hohlraum and a laser, deuterium and tritium fuel. Cool the
+   reactor with water and run the steam through an industrial turbine (about 840,000 FE/t, fewer than 100,000
+   air-cooled); below injection 20 it goes out. The SPS
    (16 casings, 2 supercharged coils) turns polonium into antimatter. Keystone: 2 antimatter pellets.
 2. Inner Planets: tier 3 rocket (ostrum); Venus, 16 calorite; visit Mercury; tier 4 rocket (calorite); Glacio,
    8 ice shards. Keystone: 32 calorite plates.
@@ -566,7 +568,7 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 8. The Singularity Age dawns. Blessing **Resolve**: another 5 % maximum health and some luck near the shrine.
 
 ### Pitfalls
-- One antimatter pellet takes 100,000 mB of polonium and 40 billion FE: about 50 minutes of a fusion plant
+- One antimatter pellet takes 100,000 mB of polonium and 40 billion FE: about 40 minutes of a fusion plant
   through a turbine, many hours without one. The fusion frames are built on the mechanical crafter.
 - **Keystone lending.** Only while the Quantum Age is your highest Age does the Spirit Circle plinth lend its relic.
   It keeps glowing and waits. While the relic is away the Quantum Core is refused and the prayer says what is
@@ -615,7 +617,7 @@ offering.
 
 ### Pitfalls
 - The Ore Processor is the last ore step: six times the metal per ore piece, as dust, for 10 mB of hydrofluoric
-  acid, 5 mB of kerosene and 500,000 FE per dust; lubricant doubles its speed for the same power.
+  acid, 5 mB of kerosene and 150,000 FE per dust; lubricant doubles its speed for the same power.
 - Dialling The Origin costs one billion FE and 50,000 FE/t while the wormhole is open (a gate within your system
   10 million FE and 5,000 FE/t). Fill the gate from the reactor first. The return gate in The Origin keeps one
   trip home charged.

@@ -3638,3 +3638,29 @@ each sync), each boot with a new world and `-Xms3G -Xmx5G`. The copy is deleted.
 - Wayshrine density on volcanic-belt seeds (18 on the copy seed), the Tutorial Wayshrine site search, the TFC heat
   StackOverflow after `/reload` (h3/measure), the old Origin arenas with their fusion core: `dev/offene-punkte.md`.
 - Pacing and strands of the quest round B2 build on this book: `dev/quest-hints-links.md`, `LAYOUT_HINTS`.
+
+## 0.13.0 review fixes (2026-10-16, on dev)
+
+Thirteen review findings on 0.13.0 fixed on `dev`: rocket fuel in the Chronicle (link 16), the Chord Library Ponder
+scene on the pattern provider, gate, fusion and antimatter power texts, the Ore Processor at 15,000 FE/t with step 6 in
+`miner_ladder.py`, link 17 dropped, Ore Times Six and Arcane Catalyst quests, the Hearth Circle guide, rope bridges of
+every wood, the Great Works pictures and a lane per strand. Decisions: `dev/decisions-while-away.md` (rows "Review
+0.13.0"). Felix's test server stayed off and untouched; every boot ran on the copy `.wt/test-server-rv13` (`robocopy`
+without world, logs, local, simplebackups and crash-reports; its `kubejs/` deleted before the first sync; ports 25740
+and RCON 25750; whitelist off; `debug.allowSimulate = true`), synced with `packwiz-installer-bootstrap -g -s server`
+from my own `packwiz serve --port 8417 --refresh=false`, "Finished successfully", each boot with a new world and
+`-Xms3G -Xmx5G`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 270 unit tests, 0 failures; `mods/firmages-core-0.13.0.jar` byte-identical to `build/libs` (`cmp`) | pass |
+| `runGameTestServer` in a fresh `run/gametest` | "All 123 required tests passed" (the processor test reads the configured FE per tick) | pass |
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | 43,960 recipes encoded, 0 not encodable; KubeJS 0 errors | done |
+| `derive_ages.py` on boot 1, `gen_stage_locks.py` | only the elite and ultimate tier installer leave the derived rows (age_7 and age_8 -> their rule Age, the Information Age); three Age tags rewritten; `--check` up to date | pass |
+| `derive_ages.py --check` Q-1 (new) | second walk without quest rewards: 261 required item tasks, 0 without a recipe, world or loot source by their chapter's Age. The first version flagged 31 tasks because the walk gives a reward at the start of its Age and named it as the first source; the second walk fixed the check, not the book | pass after fix |
+| Copy boot 2 (gate on, `recipes audit`, grants, dumps, `ore audit`, `selftest all`) | `selftest all` 106 passed, 0 failed; `ore audit` best tech factor age_8 5.000, age_9 6.000 over 68 pieces; item tag `firmages:rope_bridges` 40 items | pass |
+| `poc_analyze.py --server-dir <copy> --dump-dir <boot 2> --baseline <boot 1>` | 129 PASS, 0 FAIL: K-1 23 link recipes hold their part (25 before, link 17 dropped), 7 replaced routes gone; R-K, L-1 to L-7, G-1 to G-4, E-1, D-1, W-1 to W-9, S-1 to S-4 | pass |
+| Copy boot 3 (gate on, grants, hold 120 s) | `check_log.py`: 89.8 s to Done; FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0; KubeJS startup and server 0 errors | pass |
+| `miner_ladder.py --dump-dir <boot 1> --check` | step 6 (Ore Processor, 150,000 FE per dust plus 3,600 FE of hydrofluoric acid without upgrades and 256 FE of kerosene) against 5x: Digital Miner -10.9 %, average excavator vein (13.68 mB per dig, 26,939 FE per mB) -8.5 %; at the old 50,000 FE/t +27.3 % and +35.4 % | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 15 chapters, 21 reward tables, 1,084 lang keys; 1,523 object ids, 0 errors, 0 warnings; new: the "any wood" rule (the old Gatehouse task misses 32 live woods), line crossings and lines over quests (limit 2 each): before the fix Electric 3/4, Space 3/2, Quantum 6/3, Information 1/2, Singularity 0/3; after it no chapter above 1 crossing, 0 lines over a quest in those five | pass |
+| `gen_quest_images.py --check`, `gen_quest_pictures.py --check`, `gen_textures.py --check`, `check_menus.py`, `gen_fuels.py --check`, `gen_machine_usage.py --check`, `gen_ponder_schematics.py --check`, `gen_wood_classes.py --check`, `preview_quests.py` | 36 pictures, 106,131 bytes, 0 problems (four Create Ponder stills new); quest_pictures.json up to date; 348 textures; menus pass; fuels up to date; 91 values off default; 276 wood class files | pass |

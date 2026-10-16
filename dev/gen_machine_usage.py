@@ -58,7 +58,8 @@ def mek_storage(sec, key):
 # Antimatter (integration H3+B1, dev/decisions-while-away.md): Mekanism's SPS wants 1,000 mB polonium per mB antimatter
 # at 1,000,000 J each, so a pellet (1,000 mB) was 10^6 mB polonium and 400 G FE: 6.6 h of the Quantum Age reference
 # fusion plant (841,139 FE/t through a turbine) and 13.9 h of a 1 mB/t fission plant's waste per pellet. x0.1 on the
-# polonium keeps the 1 MJ per mB: 100,000 mB polonium and 40 G FE per pellet, about 48 minutes of that plant.
+# polonium keeps the 1 MJ per mB: 100,000 mB polonium and 40 G FE per pellet, about 40 minutes of that plant (47,555
+# ticks; the 48 minutes first written here were a slip, review 0.13.0).
 GENERAL = {("digital_miner", "ticksPerMine"): 2.5, ("sps", "inputPerAntimatter"): 0.1}
 
 

@@ -1,5 +1,20 @@
 # Client-Test
 
+## 0.13.0 Review-Fixes (2026-10-16, Pack 0.13.0 neu gebaut, firmages-core 0.13.0 neu gebaut)
+
+Dreizehn Review-Befunde auf `dev` behoben (`dev/poc-results.md`, Abschnitt „0.13.0 review fixes“; Entscheidungen
+„Review 0.13.0“ in `dev/decisions-while-away.md`). Im Client prüfen:
+
+1. **Seilbrücken.** „A Bridge Over the Ditch“ (The Gatehouse) hakt ab, sobald acht Seilbrücken einer Holzart in einem
+   Stapel im Inventar liegen, auch TFC- und AFC-Hölzer (Esche, Kapok); Aufgabe zeigt „Eight rope bridges of one wood“.
+2. **Ponder.** Standbilder in „The House Speaks“, „A Lift“, „The House Keeps Time“ und „Drawbridge“ öffnen Creates
+   Szenen; Escape führt zurück. Am Star Anvil nur noch „The Lens Crown“; „A Chord Library“ am Pattern Provider (ab der
+   Informationszeit im Ponder-Index).
+3. **Treibstoff.** „Rocket Fuel“ hakt mit einem Diesel- oder Kerosin-Eimer ab; „One Signal“ gibt einen Kerosin-Eimer.
+4. **Erzprozessor** zieht 15.000 FE/t (Jade: Puffer 600.000 FE), EMI zeigt die FE eines Vorgangs (150.000 FE je Staub, also 3.150.000 für zehn reiche Stücke zu 21 Staub).
+5. **Elite-Installer** wieder mit Mekanisms Rezept (Holzbretter statt Desh-Platte).
+6. **Karten** von Elektro-, Weltraum- und Quantenzeit wie in `dev/quest-preview/` (Fusion oben, Planeten unten).
+
 ## 0.13.0 Nachtrag (1.0 Runde H3+B1 2026-10-16, Pack 0.13.0, firmages-core 0.13.0)
 
 **Profil neu importieren** (Client und Server brauchen firmages-core 0.13.0 wegen der zwei neuen Blöcke; Protokoll
@@ -30,7 +45,7 @@ Einzelheiten stehen in den Zweig-Abschnitten darunter („Runde H3 Endspiel“, 
 7. **Sternentor.** Wählen nach The Origin zieht 1 G FE aus dem Tor, offen 50.000 FE/t; ohne Strom wählt es nicht.
    Rückweg aus The Origin klappt ohne eigenen Strom.
 8. **Antimaterie.** Ein Pellet braucht jetzt 100.000 mB Polonium (SPS-Anzeige); Zeit je Pellet an der Fusionsanlage
-   mit Turbine notieren (gerechnet etwa 48 min bei 841.000 FE/t).
+   mit Turbine notieren (gerechnet etwa 40 min bei 841.000 FE/t; die frühere Angabe 48 min war ein Rechenfehler).
 9. **Messung im Client:** IE-Diesel-Generator von Hand gebaut mit `/firmages energy audit 8 10` daneben (auf dem
    Server blieb er inaktiv); Polarlicht auf einer Welt mit warmem Spawn (Band ab etwa −5,8 °C).
 
