@@ -12,7 +12,7 @@ facing north in the template; the bottom layer is the floor, one block below the
 Written into mod/firmages-core/src/main/resources/data/firmages/ (the mod jar, overridable from kubejs/data/firmages/):
   structure/wayshrine/<type>.nbt                         the ruin (all eight types, the Wind Shrine included)
   worldgen/structure/wayshrine/<type>.json               jigsaw, size 1, surface (seven types, not the Wind Shrine)
-  worldgen/structure_set/wayshrine/<type>.json           TFC climate placement (tfc:climate), spacing 80, separation 30
+  worldgen/structure_set/wayshrine/<type>.json           TFC climate placement (tfc:climate), spacing 72, separation 27
   worldgen/template_pool/wayshrine/<type>.json           the ruin with the processor list (all eight)
   worldgen/processor_list/wayshrine.json                 cracked and mossy bricks, block_rot on #firmages:wayshrine/rottable
   tags/worldgen/structure/wayshrine.json                 the seven structures (/locate, the pointer)
@@ -96,8 +96,12 @@ ROCK_BRICKS = ["#firmages:wayshrine/any_rock_bricks"]
 # since: Forest Ring from edge forest (min_forest 2, was 3), Steppe Stones up to 220 mm groundwater and edge forest
 # (was 150 and sparse), Swamp Altar from 300 mm (was 350) and also in wet plains and river valleys (TFC has no swamp
 # biome; its swamps are wet plains and lowlands). With those bands spacing 64 gave 11, 11 and 20 on three seeds, so
-# the spacing is 80: (64 / 80)^2 of that is about 9 per seed.
-SPACING, SEPARATION = 80, 30
+# the spacing was 80: (64 / 80)^2 of that is about 9 per seed. Round C2 measured acceptance 2 with
+# `/firmages wayshrine census 4000 [spacing separation]` on 20 fresh seeds (1001 to 1020; dev/poc-results.md):
+# 80/30 gave 7 of 20 seeds in 7 to 11 (mean 7.0, three below 4), 64/24 8 (mean 10.9), 72/27 11 (mean 10.0, none
+# below 5, at most 16), 96/36 6, 112/42 2. No spacing reaches 16 of 20: the count swings with the spawn's climate.
+# 72/27 is the best measured.
+SPACING, SEPARATION = 72, 27
 FOREST_RING_BIOMES = ["plains", "hills", "rolling_hills", "lowlands",
                       "doline_plains", "doline_hills", "doline_rolling_hills", "cenote_plains", "cenote_hills",
                       "cenote_rolling_hills", "burren_plains", "shilin_plains", "shilin_hills", "tower_karst_plains",

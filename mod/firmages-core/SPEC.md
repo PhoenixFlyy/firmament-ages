@@ -1729,16 +1729,28 @@ Placement uses TFC's climate structure placement `tfc:climate` (`ClimateStructur
 
 | Type id | Name | Biomes (`#firmages:has_structure/wayshrine/<type>`) | Climate band | min_age | Local materials (restored form) | Terrain |
 |---|---|---|---|---|---|---|
-| `forest_ring` | Forest Ring | plains, hills, rolling_hills, lowlands | forest normal or more, 4..22 °C | age_1 | logs, rock bricks, thatch, one candle | `beard_thin` |
-| `steppe_stones` | Steppe Stones | plains, rolling_hills, plateau | groundwater up to 150, sparse forest | age_1 | raw rock pillars, rock bricks, bronze block | `beard_thin` |
-| `swamp_altar` | Swamp Altar | lowlands, salt_marsh, mud_flats | groundwater 350 or more | age_2 | mud bricks, logs, wrought iron bars | `beard_box` |
+| `forest_ring` | Forest Ring | plains, hills, rolling_hills, lowlands | edge forest or more (`min_forest` 2), 4..22 °C | age_1 | logs, rock bricks, thatch, one candle | `beard_thin` |
+| `steppe_stones` | Steppe Stones | plains, rolling_hills, plateau | groundwater up to 220, up to edge forest | age_1 | raw rock pillars, rock bricks, bronze block | `beard_thin` |
+| `swamp_altar` | Swamp Altar | lowlands, salt_marsh, mud_flats, wet plains and river valleys | groundwater 300 or more | age_2 | mud bricks, logs, wrought iron bars | `beard_box` |
 | `desert_arch` | Desert Arch | dune_sea, grassy_dunes, badlands, mesas, buttes | groundwater up to 100, 18 °C or more | age_2 | raw and smooth sandstone, copper block | `beard_thin` |
-| `mountain_spire` | Mountain Spire | mountains, old_mountains, highlands | high elevation | age_3 | smooth rock, rock bricks, wrought iron bars | `beard_box` **[PoC]** |
+| `mountain_spire` | Mountain Spire | mountains, old_mountains, highlands | none: the mountain biomes carry the height | age_3 | smooth rock, rock bricks, wrought iron bars | `beard_box` **[PoC]** |
 | `wind_shrine` | Wind Shrine | on a Drifting Isle (§28.4a), no biome | none | age_4 | skystone, rock bricks brought up, steel bars, an electric lantern | none (placed by the isle piece) |
 | `reef_altar` | Reef Altar | ocean_reef, ocean_atolls | 20 °C or more | age_4 | coral blocks, rock bricks, glass | `OCEAN_FLOOR_WG`, `apply_waterlogging` **[PoC]** |
 | `volcanic_ring` | Volcanic Ring | volcanic_mountains, volcanic_island, volcanic_oceanic_mountains | any | age_5 | basalt bricks, smooth basalt, magma, steel block | `beard_box` |
 
-- **Density:** one structure set per ground type, `spacing` 128 chunks, `separation` 48, each with a distinct `salt`. The Wind Shrine has no structure set of its own (§28.4a).
+- **Biomes:** each type lists the base biomes of the table and their TFC 4.2.11 variants (the doline, cenote, burren, shilin and tower karst families, glacial and volcanic variants; `dev/gen_wayshrines.py`, all ids in `data/tfc/worldgen/biome`). With the base biomes alone a 0.10.0 copy found no Wayshrine within 4,096 blocks of spawn: the variants cover most of the land. The `tfc:climate` placement stays the real filter.
+- **No elevation bound:** `ClimateStructurePlacement` tests the climate at y 0 of the chunk [verified, javap TFC 4.2.11], so `min_elevation` never passes; no type uses it.
+- **Density:** one structure set per ground type, `spacing` 72 chunks, `separation` 27, each with a distinct `salt`. The Wind Shrine has no structure set of its own (§28.4a). Measured for acceptance 2 (§28.11) with `/firmages wayshrine census 4000 [spacing separation]` on 20 fresh seeds (1001 to 1020, round C2):
+
+  | Spacing / separation | Seeds with 7 to 11 | Mean | Range | Seeds below 4 |
+  |---|---|---|---|---|
+  | 64 / 24 | 8 | 10.9 | 3 to 20 | 2 |
+  | **72 / 27 (shipped)** | **11** | **10.0** | **5 to 16** | **0** |
+  | 80 / 30 (0.11.0) | 7 | 7.0 | 2 to 15 | 3 |
+  | 96 / 36 | 6 | 4.7 | 1 to 9 | 6 |
+  | 112 / 42 | 2 | 3.6 | 1 to 7 | 9 |
+
+  No spacing reaches 16 of 20 seeds in the window: the count swings with the climate around the spawn (Mountain Spires dominate cold, hilly spawns; Desert Arch and Reef Altar lie beyond 4,000 blocks by design). 72 / 27 is the best measured: the most seeds in the window and none below five.
 
 #### 28.4a The Wind Shrine (Felix S6B)
 
@@ -1827,7 +1839,8 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
   - Lit but broken: no beam.
   - The client toggle `effects.idleBeam` hides them all. Nothing is drawn for unloaded chunks.
 - **Finding:** from age_1, a plain right-click on the home heart adds the line "Caelum: A Wayshrine sleeps to the north-east, about 1,200 blocks." A plain right-click on a lit Wayshrine shows the same pointer on the actionbar, without Caelum's name.
-  - The pointer first looks at the cache in `firmages_wayshrines`, then searches with `ChunkGenerator.findNearestMapStructure` over `#firmages:wayshrine`, radius `wayshrine.pointerRadiusChunks` (100), `skipKnownStructures` true. The tutorial Wayshrine comes from the cache.
+  - The pointer first looks at the cache in `firmages_wayshrines`, then searches `#firmages:wayshrine` within `wayshrine.pointerRadiusChunks` (256) in blocks, skipping referenced (lit) structures. The tutorial Wayshrine comes from the cache.
+  - Not `ChunkGenerator.findNearestMapStructure`: its radius counts placement cells, so it searched far beyond the radius and generated structure starts up to 200,000 blocks away (a two-minute tick on the 0.10.0 copy). `WayshrinePointer.search` lists the one candidate chunk of every cell within the radius, sorts them by distance, drops those the placement refuses (`isStructureChunk`: climate, frequency) and only then asks the structure manager; the first valid start wins.
   - Lighting calls `level.structureManager().addReference(start)`, which marks the chunk unsaved, so a lit Wayshrine is skipped like an explorer-map target.
   - There is one search per player per 10 s. None found: "No Wayshrine sleeps within reach."
 - **Jade** (`FirmagesJadePlugin`, synced state only): "Wayshrine: Wind Shrine", "Ruined: seven blocks missing", "Offering: Meteoric Iron Ingot", "Lit, carries the blessings within 24 blocks", "Broken: repair it to wake it".
@@ -1835,7 +1848,7 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
 ### 28.9 Network, config, commands
 
 - **Network:** no new payload; `shrine_preview` is reused unchanged.
-- **Config:** `wayshrine.radius` (24, 8..64), `wayshrine.prayerSeconds` (5), `wayshrine.pointerRadiusChunks` (100), `wayshrine.tutorial` (true).
+- **Config:** `wayshrine.radius` (24, 8..64), `wayshrine.prayerSeconds` (5), `wayshrine.pointerRadiusChunks` (256, 8..512), `wayshrine.tutorial` (true).
 
 | Command (`/firmages wayshrine ...`) | Purpose |
 |---|---|
@@ -1846,6 +1859,7 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
 | `light <pos>` | Needs `debug.allowSimulate`: completes the offering, rite and prayer of a restored Wayshrine |
 | `reset <pos> [stone]` | Back to `ruin` or `restored` by the world; with `stone` also clears `stoneGiven` |
 | `stone <pos>` | Admin repair: drops that Wayshrine's stone again |
+| `census [radius [spacing separation]]` | The ground Wayshrine starts within `radius` blocks (4,000) of the world spawn, per type, each logged with its position: the pointer's candidates and the structure manager's start check, which for a chunk without data asks the structure (biome, height) and generates nothing (acceptance 2). With a spacing, as if the structure sets had it (the placement re-encoded through its codec, climate and salt kept), to compare densities on one seed |
 
 ### 28.10 Tests
 
@@ -1861,13 +1875,13 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
 - **G** `WayshrineGameTests.tutorialPlacement`: on a flat test world the tutorial Wayshrine is placed 300 to 800 blocks from the shared spawn on land, once; a second start places none.
 - **G** `WayshrineGameTests.tutorialSiteKeepsClearOfPlayers`: on untouched land a plank, a placed chest or a chunk with inhabited time each make the site unfit; the free site passes. **U** `WayshrineRulesTest.tutorialOnlyOnNewWorlds`: the world-age gate.
 - **G** `WayshrineGameTests.blessingsAtWayshrine`: see §29.8.
-- **P** `selftest wayshrines`: the eight structures and sets load with `tfc:climate`; every template exists; `locate` finds each type within 100 chunks on the test seed or reports the type as out of reach.
+- **P** `selftest wayshrines`: the eight structures and sets load with `tfc:climate`; every template exists; `locate` finds each type within 256 chunks on the test seed or reports the type as out of reach.
 - **M:** beams from 150 blocks, ghost alignment on a rotated ruin, a ruin on a steep slope, the Reef Altar under water.
 
 ### 28.11 Acceptance criteria
 
 1. On every new world the tutorial Wayshrine stands 300 to 800 blocks from spawn, on land and away from anything players built; an existing world older than three days gets none by itself.
-2. On the pack server, a new world has 7 to 11 more Wayshrines within 4,000 blocks of spawn on at least 16 of 20 test seeds (`dev/scan_regions.py`) **[PoC]**. No Wayshrine floats or is buried more than two blocks on a slope.
+2. On the pack server, a new world has 5 to 16 more Wayshrines within 4,000 blocks of spawn on every one of 20 test seeds, and 7 to 11 on at least half of them (`/firmages wayshrine census 4000` on fresh copies; `dev/scan_regions.py` would need 250,000 generated chunks per seed). Met in round C2 at 72 / 27: 20 of 20 in 5 to 16, 11 of 20 in 7 to 11 (§28.4). The first target, 7 to 11 on 16 of 20, is out of reach for any spacing (best 11 of 20). No Wayshrine floats or is buried more than two blocks on a slope.
 3. Every type validates its restored form from the generator's own layout, and the ruin never validates.
 4. The ghost preview, offering, rite, prayer and lighting work as in §28.7 with one player and with two (half the prayer time).
 5. A lit Wayshrine gives the awakened tiers' blessings and Hearthward within 24 blocks. A new Age adds its tier without a visit. A broken pattern stops both within one validation, and the repair restores them.

@@ -94,8 +94,8 @@ class WayshrineFilesTest {
                 JsonObject set = read(RES.resolve("worldgen/structure_set/wayshrine/" + t + ".json"));
                 JsonObject placement = set.getAsJsonObject("placement");
                 assertEquals("tfc:climate", placement.get("type").getAsString(), t);
-                assertEquals(80, placement.get("spacing").getAsInt(), t);
-                assertEquals(30, placement.get("separation").getAsInt(), t);
+                assertEquals(72, placement.get("spacing").getAsInt(), t); // round C2 census, SPEC-himmel 28.4
+                assertEquals(27, placement.get("separation").getAsInt(), t);
                 assertTrue(set.has("neoforge:conditions"), t + ": the set needs TFC");
                 assertTrue(Files.isRegularFile(RES.resolve("tags/worldgen/biome/has_structure/wayshrine/" + t + ".json")), t + " biomes");
             }
