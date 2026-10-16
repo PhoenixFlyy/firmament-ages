@@ -1,0 +1,951 @@
+{
+ "shrine": {
+  "0": {
+   "age": "age_0",
+   "blocks": [
+    [
+     "logs",
+     8
+    ],
+    [
+     "cobblestone",
+     8
+    ],
+    [
+     "thatch",
+     4
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 21,
+   "grants": "age_1",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "cobblestone",
+       8
+      ],
+      [
+       "logs",
+       4
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "logs",
+       4
+      ]
+     ],
+     "y": 1
+    },
+    {
+     "blocks": [
+      [
+       "thatch",
+       4
+      ]
+     ],
+     "y": 2
+    }
+   ],
+   "n": 0,
+   "name": "the Hearth Circle",
+   "offering": "firmages:hearthstone",
+   "pictures": {
+    "build": [
+     396,
+     292
+    ],
+    "layer_1": [
+     396,
+     292
+    ],
+    "layer_2": [
+     396,
+     292
+    ],
+    "layer_3": [
+     396,
+     292
+    ],
+    "ring": [
+     396,
+     292
+    ]
+   },
+   "rites": [
+    "The heart is cold. Kindle it with a firestarter."
+   ]
+  },
+  "1": {
+   "age": "age_1",
+   "blocks": [
+    [
+     "rock bricks",
+     19
+    ],
+    [
+     "bronze blocks",
+     4
+    ],
+    [
+     "bell, bronze or brass",
+     1
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 25,
+   "grants": "age_2",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "rock bricks",
+       19
+      ],
+      [
+       "bronze blocks",
+       4
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "bell, bronze or brass",
+       1
+      ]
+     ],
+     "y": 1
+    }
+   ],
+   "n": 1,
+   "name": "the Bronze Sanctum",
+   "offering": "firmages:sky_disc",
+   "pictures": {
+    "build": [
+     432,
+     276
+    ],
+    "layer_1": [
+     432,
+     276
+    ],
+    "layer_2": [
+     432,
+     276
+    ],
+    "ring": [
+     432,
+     276
+    ]
+   },
+   "rites": [
+    "Ring the bell of the sanctum."
+   ]
+  },
+  "2": {
+   "age": "age_2",
+   "blocks": [
+    [
+     "smooth rock",
+     39
+    ],
+    [
+     "iron bars",
+     8
+    ],
+    [
+     "iron lamps",
+     4
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 52,
+   "grants": "age_3",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "smooth rock",
+       31
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "iron bars",
+       8
+      ],
+      [
+       "smooth rock",
+       4
+      ]
+     ],
+     "y": 1
+    },
+    {
+     "blocks": [
+      [
+       "smooth rock",
+       4
+      ]
+     ],
+     "y": 2
+    },
+    {
+     "blocks": [
+      [
+       "iron lamps",
+       4
+      ]
+     ],
+     "y": 3
+    }
+   ],
+   "n": 2,
+   "name": "the Iron Sanctum",
+   "offering": "firmages:steel_heart",
+   "pictures": {
+    "build": [
+     432,
+     304
+    ],
+    "layer_1": [
+     432,
+     304
+    ],
+    "layer_2": [
+     432,
+     304
+    ],
+    "layer_3": [
+     432,
+     304
+    ],
+    "layer_4": [
+     432,
+     304
+    ],
+    "ring": [
+     432,
+     304
+    ]
+   },
+   "rites": [
+    "Light the four lamps on the pillars."
+   ]
+  },
+  "3": {
+   "age": "age_3",
+   "blocks": [
+    [
+     "gilded sourcestone",
+     35
+    ],
+    [
+     "otherstone",
+     12
+    ],
+    [
+     "candles",
+     8
+    ],
+    [
+     "source gem blocks",
+     4
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 60,
+   "grants": "age_4",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "gilded sourcestone",
+       35
+      ],
+      [
+       "otherstone",
+       4
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "candles",
+       8
+      ],
+      [
+       "otherstone",
+       4
+      ]
+     ],
+     "y": 1
+    },
+    {
+     "blocks": [
+      [
+       "otherstone",
+       4
+      ]
+     ],
+     "y": 2
+    },
+    {
+     "blocks": [
+      [
+       "source gem blocks",
+       4
+      ]
+     ],
+     "y": 3
+    }
+   ],
+   "n": 3,
+   "name": "the Spirit Circle",
+   "offering": "firmages:arcane_keystone",
+   "pictures": {
+    "build": [
+     432,
+     293
+    ],
+    "layer_1": [
+     432,
+     293
+    ],
+    "layer_2": [
+     432,
+     293
+    ],
+    "layer_3": [
+     432,
+     293
+    ],
+    "layer_4": [
+     432,
+     293
+    ],
+    "ring": [
+     432,
+     293
+    ]
+   },
+   "rites": [
+    "Light the eight candles of the Spirit Circle."
+   ]
+  },
+  "4": {
+   "age": "age_4",
+   "blocks": [
+    [
+     "coke bricks",
+     43
+    ],
+    [
+     "steel scaffolding",
+     12
+    ],
+    [
+     "electric lanterns",
+     4
+    ],
+    [
+     "heavy engineering blocks",
+     4
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 64,
+   "grants": "age_5",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "coke bricks",
+       43
+      ],
+      [
+       "heavy engineering blocks",
+       4
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "steel scaffolding",
+       4
+      ]
+     ],
+     "y": 1
+    },
+    {
+     "blocks": [
+      [
+       "steel scaffolding",
+       4
+      ]
+     ],
+     "y": 2
+    },
+    {
+     "blocks": [
+      [
+       "steel scaffolding",
+       4
+      ]
+     ],
+     "y": 3
+    },
+    {
+     "blocks": [
+      [
+       "electric lanterns",
+       4
+      ]
+     ],
+     "y": 4
+    }
+   ],
+   "n": 4,
+   "name": "the Foundry Nave",
+   "offering": "firmages:pressure_core",
+   "pictures": {
+    "build": [
+     432,
+     298
+    ],
+    "layer_1": [
+     432,
+     298
+    ],
+    "layer_2": [
+     432,
+     298
+    ],
+    "layer_3": [
+     432,
+     298
+    ],
+    "layer_4": [
+     432,
+     298
+    ],
+    "layer_5": [
+     432,
+     298
+    ],
+    "ring": [
+     432,
+     298
+    ]
+   },
+   "rites": [
+    "Power the four electric lanterns on the pillars."
+   ]
+  },
+  "5": {
+   "age": "age_5",
+   "blocks": [
+    [
+     "aluminium blocks",
+     51
+    ],
+    [
+     "aluminium scaffolding",
+     8
+    ],
+    [
+     "floodlights",
+     4
+    ],
+    [
+     "HV capacitors",
+     4
+    ],
+    [
+     "red steel blocks",
+     4
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 72,
+   "grants": "age_6",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "aluminium blocks",
+       51
+      ],
+      [
+       "red steel blocks",
+       4
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "HV capacitors",
+       4
+      ]
+     ],
+     "y": 1
+    },
+    {
+     "blocks": [
+      [
+       "aluminium scaffolding",
+       4
+      ]
+     ],
+     "y": 2
+    },
+    {
+     "blocks": [
+      [
+       "aluminium scaffolding",
+       4
+      ]
+     ],
+     "y": 3
+    },
+    {
+     "blocks": [
+      [
+       "floodlights",
+       4
+      ]
+     ],
+     "y": 4
+    }
+   ],
+   "n": 5,
+   "name": "the Tesla Crown",
+   "offering": "firmages:humming_core",
+   "pictures": {
+    "build": [
+     432,
+     290
+    ],
+    "layer_1": [
+     432,
+     290
+    ],
+    "layer_2": [
+     432,
+     290
+    ],
+    "layer_3": [
+     432,
+     290
+    ],
+    "layer_4": [
+     432,
+     290
+    ],
+    "layer_5": [
+     432,
+     290
+    ],
+    "ring": [
+     432,
+     290
+    ]
+   },
+   "rites": [
+    "Light the four floodlights of the crown: they need power and a redstone signal.",
+    "Charge the four capacitors of the crown with 1,000,000 FE together."
+   ]
+  },
+  "6": {
+   "age": "age_6",
+   "blocks": [
+    [
+     "quartz blocks",
+     59
+    ],
+    [
+     "quartz glass",
+     8
+    ],
+    [
+     "fluix blocks",
+     4
+    ],
+    [
+     "steel casings",
+     4
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 76,
+   "grants": "age_7",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "quartz blocks",
+       59
+      ],
+      [
+       "steel casings",
+       4
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "quartz glass",
+       4
+      ]
+     ],
+     "y": 1
+    },
+    {
+     "blocks": [
+      [
+       "quartz glass",
+       4
+      ]
+     ],
+     "y": 2
+    },
+    {
+     "blocks": [
+      [
+       "fluix blocks",
+       4
+      ]
+     ],
+     "y": 3
+    }
+   ],
+   "n": 6,
+   "name": "the Data Nave",
+   "offering": "firmages:data_matrix",
+   "pictures": {
+    "build": [
+     432,
+     274
+    ],
+    "layer_1": [
+     432,
+     274
+    ],
+    "layer_2": [
+     432,
+     274
+    ],
+    "layer_3": [
+     432,
+     274
+    ],
+    "layer_4": [
+     432,
+     274
+    ],
+    "ring": [
+     432,
+     274
+    ]
+   },
+   "rites": [
+    "At least two of you pray together.",
+    "Feed 10,000,000 FE into the heart; Caelum takes it."
+   ]
+  },
+  "7": {
+   "age": "age_7",
+   "blocks": [
+    [
+     "steel plating",
+     67
+    ],
+    [
+     "desh blocks",
+     16
+    ],
+    [
+     "ostrum blocks",
+     4
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 88,
+   "grants": "age_8",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "steel plating",
+       67
+      ],
+      [
+       "desh blocks",
+       4
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "desh blocks",
+       4
+      ]
+     ],
+     "y": 1
+    },
+    {
+     "blocks": [
+      [
+       "desh blocks",
+       4
+      ]
+     ],
+     "y": 2
+    },
+    {
+     "blocks": [
+      [
+       "desh blocks",
+       4
+      ]
+     ],
+     "y": 3
+    },
+    {
+     "blocks": [
+      [
+       "ostrum blocks",
+       4
+      ]
+     ],
+     "y": 4
+    }
+   ],
+   "n": 7,
+   "name": "the Star Spire",
+   "offering": "firmages:star_chart",
+   "pictures": {
+    "build": [
+     432,
+     279
+    ],
+    "layer_1": [
+     432,
+     279
+    ],
+    "layer_2": [
+     432,
+     279
+    ],
+    "layer_3": [
+     432,
+     279
+    ],
+    "layer_4": [
+     432,
+     279
+    ],
+    "layer_5": [
+     432,
+     279
+    ],
+    "ring": [
+     432,
+     279
+    ]
+   },
+   "rites": [
+    "Caelum wants to see the stars: pray at night, under an open sky, without rain."
+   ]
+  },
+  "8": {
+   "age": "age_8",
+   "blocks": [
+    [
+     "calorite blocks",
+     75
+    ],
+    [
+     "SPS casings or fusion reactor frames",
+     8
+    ],
+    [
+     "awakened draconium blocks",
+     4
+    ],
+    [
+     "Offering Plinth",
+     1
+    ]
+   ],
+   "count": 88,
+   "grants": "age_9",
+   "layers": [
+    {
+     "blocks": [
+      [
+       "calorite blocks",
+       75
+      ],
+      [
+       "SPS casings or fusion reactor frames",
+       4
+      ],
+      [
+       "Offering Plinth",
+       1
+      ]
+     ],
+     "y": 0
+    },
+    {
+     "blocks": [
+      [
+       "SPS casings or fusion reactor frames",
+       4
+      ]
+     ],
+     "y": 1
+    },
+    {
+     "blocks": [
+      [
+       "awakened draconium blocks",
+       4
+      ]
+     ],
+     "y": 2
+    }
+   ],
+   "n": 8,
+   "name": "the Quantum Ring",
+   "offering": "firmages:quantum_core",
+   "pictures": {
+    "build": [
+     432,
+     266
+    ],
+    "layer_1": [
+     432,
+     266
+    ],
+    "layer_2": [
+     432,
+     266
+    ],
+    "layer_3": [
+     432,
+     266
+    ],
+    "ring": [
+     432,
+     266
+    ]
+   },
+   "rites": [
+    "At least two of you pray together.",
+    "Caelum wants to see the stars: pray at night, under an open sky, without rain.",
+    "The lent Awakened Keystone rests on its plinth again.",
+    "Feed 100,000,000 FE into the heart; Caelum takes it."
+   ]
+  }
+ },
+ "works": {
+  "gatehouse_open": [
+   360,
+   295
+  ],
+  "gatehouse_shut": [
+   360,
+   295
+  ],
+  "living_house": [
+   360,
+   299
+  ],
+  "silo_open": [
+   360,
+   287
+  ],
+  "silo_shut": [
+   360,
+   287
+  ]
+ }
+}
