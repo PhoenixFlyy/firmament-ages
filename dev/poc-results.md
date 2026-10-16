@@ -3537,3 +3537,24 @@ copy is deleted. No firmages-core code changed: no `gradlew build` or GameTest r
 
 - Not checked in a world: rockets refusing diesel at tier 3 (fluid tags are not in the dump), the hydrotreater making
   ethene, the press making rods from a hot ingot, a new osmium excavator vein, latex supply for rubber.
+## 1.0 round B1, quest pictures (2026-10-16, branch b1/quest-images)
+
+Worktree `b1/quest-images` from `dev` at b78760f. Copy `.wt/test-server-b1img` of the test server (robocopy without
+`world`, `logs`, `local`), port 25740, RCON 25750, whitelist off, synced with `packwiz-installer-bootstrap -g -s server`
+from `packwiz serve --port 8240 --refresh=false` of the worktree ("Finished successfully", 2,904 entries, the four
+`kubejs/assets/firmages/textures/quests/` folders arrived), then `debug.allowSimulate = true`. `-Xms3G -Xmx5G`, new
+world. Format facts read from the jars with javap: FTB Library 2101.1.37 `ClientTextComponentUtils` (image component:
+`image`, `width`/`height` default 100, `align` default center, `fit`, `click_action`, hover `text`; properties split at
+spaces, `key:value` at the first colon, `%20` for a space), FTB Quests 2101.1.36 `ViewQuestPanel` (panel width
+`max(200, title + 54)` or the quest's `min_width`; `fit` scales to the panel width) and `ImageClickAction.ActionType`
+(none, open_uri, open_quest, run_command, custom_event, show_recipe, show_docs); TFC 4.2.11 field guide and
+`PatchouliIntegration` multiblocks (bloomery, full blast furnace, charcoal forge) for the device diagrams.
+
+| Check | Result | Verdict |
+|---|---|---|
+| `gen_quest_images.py` | 32 pictures (15 knapping 128 px, 9 device, 4 ponder, 4 build 256 px), 88,725 bytes together, largest 6.9 KB; every texture a power of two | pass |
+| `gen_quest_images.py --check` | 0 problems; every one of the 15 `knap_grid` calls in `dev/gen_quests.py` matches a picture; a changed pixel in `knapping/jug.png` gave "stale" and exit 1 | pass |
+| `validate_quests.py --style --mods <copy>/mods` | 1,374 object ids, 0 errors, 0 warnings (the book references no picture yet) | pass |
+| `validate_quests.py --style --dir <copy of the book>` with seven test lines | the three lines from `image_line` (Ponder with click and hover, knapping, build with `fit`) pass; a missing file, a picture inside a sentence, `width:x`, a Ponder link to `create:nope_block` and `click_action:explode:now` give five errors | pass |
+| Copy boot (hold 240 s, `kubejs errors server`) | Done after 117.8 s wall clock (server 19.8 s), 266 mod files; KubeJS startup and server 0 errors; `check_log.py`: FATAL 0, ERROR 8, WARN 248, documented noise 252, remaining 6 in 4 signatures, none from this branch (a DUMMY block entity at -526 90 2130 in the new world, two config corrections of the copy) | pass |
+| Client rendering | not tested (no client); `dev/client-test-brief.md`, section "Quest-Bilder" | open |

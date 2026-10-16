@@ -1,0 +1,429 @@
+{
+  "//": "Written by dev/gen_quest_images.py; path and sizes agreed in dev/quest-images.md.",
+  "images": {
+    "build/gatehouse": {
+      "caption": "The Gatehouse: portcullis on a rope pulley, drawbridge on a bearing, one signal",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/build/gatehouse.png",
+      "path": "firmages:textures/quests/build/gatehouse.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "build/living_house": {
+      "caption": "The Living House: hearth, sliding door with a sensor, lift and garage",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/build/living_house.png",
+      "path": "firmages:textures/quests/build/living_house.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "build/silo_closed": {
+      "caption": "The Silo closed: a 15 by 15 hatch over a shaft nine deep",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/build/silo_closed.png",
+      "path": "firmages:textures/quests/build/silo_closed.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "build/silo_open": {
+      "caption": "The Silo open: both leaves in their pockets, the rocket on the pad",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/build/silo_open.png",
+      "path": "firmages:textures/quests/build/silo_open.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/barrel": {
+      "caption": "Barrel: fluid, item in the middle, sealed",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/barrel.png",
+      "path": "firmages:textures/quests/device/barrel.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/blast_furnace": {
+      "caption": "Blast furnace with fire brick rings, bellows and crucible",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/blast_furnace.png",
+      "path": "firmages:textures/quests/device/blast_furnace.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/bloomery": {
+      "caption": "Bloomery: the block in front of a stone shaft, filled from the top",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/bloomery.png",
+      "path": "firmages:textures/quests/device/bloomery.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/charcoal_pit": {
+      "caption": "Charcoal pit: log piles closed in by dirt",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/charcoal_pit.png",
+      "path": "firmages:textures/quests/device/charcoal_pit.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/firepit": {
+      "caption": "Firepit: one log, three sticks and straw on one block, lit with a firestarter",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/firepit.png",
+      "path": "firmages:textures/quests/device/firepit.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/forge_anvil": {
+      "caption": "Charcoal forge in a stone hole, bellows and an anvil",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/forge_anvil.png",
+      "path": "firmages:textures/quests/device/forge_anvil.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/log_pile": {
+      "caption": "Log pile: sneak and right-click the ground with a log",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/log_pile.png",
+      "path": "firmages:textures/quests/device/log_pile.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/pit_kiln": {
+      "caption": "Pit kiln in four steps: pottery, straw, logs, fire",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/pit_kiln.png",
+      "path": "firmages:textures/quests/device/pit_kiln.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "device/quern": {
+      "caption": "Quern with handstone and handle",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/device/quern.png",
+      "path": "firmages:textures/quests/device/quern.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "knapping/axe_head": {
+      "caption": "Knapping pattern (stone): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/axe_head.png",
+      "path": "firmages:textures/quests/knapping/axe_head.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/bowls": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/bowls.png",
+      "path": "firmages:textures/quests/knapping/bowls.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/hammer_head": {
+      "caption": "Knapping pattern (stone): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/hammer_head.png",
+      "path": "firmages:textures/quests/knapping/hammer_head.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/hearth_idol": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/hearth_idol.png",
+      "path": "firmages:textures/quests/knapping/hearth_idol.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/hoe_heads": {
+      "caption": "Knapping pattern (stone): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/hoe_heads.png",
+      "path": "firmages:textures/quests/knapping/hoe_heads.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/ingot_molds": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/ingot_molds.png",
+      "path": "firmages:textures/quests/knapping/ingot_molds.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/javelin_head": {
+      "caption": "Knapping pattern (stone): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/javelin_head.png",
+      "path": "firmages:textures/quests/knapping/javelin_head.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/jug": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/jug.png",
+      "path": "firmages:textures/quests/knapping/jug.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/knife_blades": {
+      "caption": "Knapping pattern (stone): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/knife_blades.png",
+      "path": "firmages:textures/quests/knapping/knife_blades.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/large_vessel": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/large_vessel.png",
+      "path": "firmages:textures/quests/knapping/large_vessel.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/pickaxe_head_mold": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/pickaxe_head_mold.png",
+      "path": "firmages:textures/quests/knapping/pickaxe_head_mold.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/pot": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/pot.png",
+      "path": "firmages:textures/quests/knapping/pot.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/saw_blade_mold": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/saw_blade_mold.png",
+      "path": "firmages:textures/quests/knapping/saw_blade_mold.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/shovel_head": {
+      "caption": "Knapping pattern (stone): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/shovel_head.png",
+      "path": "firmages:textures/quests/knapping/shovel_head.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/small_vessel": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/small_vessel.png",
+      "path": "firmages:textures/quests/knapping/small_vessel.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "ponder/chords": {
+      "caption": "Ponder scene Chords: levers swing the lenses of the Lens Crown",
+      "click_action": "custom_event:firmages:ponder/firmages/lens_mount",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/ponder/chords.png",
+      "hover": "Click to watch",
+      "path": "firmages:textures/quests/ponder/chords.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "ponder/lens_crown": {
+      "caption": "Ponder scenes The Lens Crown and A Chord Library on the Star Anvil",
+      "click_action": "custom_event:firmages:ponder/firmages/star_anvil",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/ponder/lens_crown.png",
+      "hover": "Click to watch",
+      "path": "firmages:textures/quests/ponder/lens_crown.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "ponder/portcullis": {
+      "caption": "Ponder scene Portcullis: an iron grate on a rope pulley over a gate",
+      "click_action": "custom_event:firmages:ponder/create/rope_pulley",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/ponder/portcullis.png",
+      "hover": "Click to watch",
+      "path": "firmages:textures/quests/ponder/portcullis.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "ponder/silo_hatch": {
+      "caption": "Ponder scene Silo Hatch: two glued leaves slide open on gantries above the launch pad",
+      "click_action": "custom_event:firmages:ponder/ad_astra/launch_pad",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/ponder/silo_hatch.png",
+      "hover": "Click to watch",
+      "path": "firmages:textures/quests/ponder/silo_hatch.png",
+      "texture": [
+        256,
+        256
+      ]
+    }
+  }
+}

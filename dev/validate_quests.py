@@ -26,12 +26,16 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
              (not yet registered: warning, that ring takes no offering); each ring_N tier grants age_(N+1)
   text       every chapter and quest has an English title in lang/en_us.snbt, no lang key points to a
              missing object, no German letters in player text
+  pictures   every {image:...} description line is a line of its own, its texture exists (kubejs/assets or the
+             firmages-core assets), width/height are numbers, the click action type is FTB Quests' and a Ponder link
+             (custom_event:firmages:ponder/<ns>/<path>) names a registered item (dev/quest-images.md)
   data       data.snbt: book never dropped on death, no loot crates, no emergency items
   portals    a dimension task needs its entry item: the KubeJS item tag that opens the portal (PORTAL_TAGS, read
              from kubejs/server_scripts/tags/*.js) is overridden and holds only items of the chapter's Age or earlier
 With --mods <dir> (default test-server/mods if it exists) it also looks inside the mod jars for advancement,
 entity type, entity/block tag and dimension ids used by tasks. With --style it also lints the player text against
-dev/style-guide.md (warnings only): words per description by quest kind (knapping and crafting grid lines excluded), more than
+dev/style-guide.md (warnings only): words per description by quest kind (knapping and crafting grid lines and
+pictures excluded), more than
 three paragraphs, banned and meta words, mod names, "Age <n>" anywhere (chapter and quest titles included), "!" anywhere, dashes and ellipses.
 Exit code 1 on any error.
 """
@@ -311,6 +315,52 @@ STYLE_TEACHING = {
 }
 # knapping grid rows (5 squares of X and -) and crafting grid rows (3 squares, a letter per item: gen_quests.craft_grid)
 GRID_LINE = re.compile(r'[X-]( [X-]){4}|[A-Z-]( [A-Z-]){2}')
+# a picture line: FTB Library 2101.1.37 image component, the whole description line (dev/quest-images.md)
+IMAGE_LINE = re.compile(r'\{image:[^ {}]+( [^{}]*)?\}')
+# FTB Quests 2101.1.36 ImageClickAction.ActionType (javap): <type>:<data>
+IMAGE_CLICK_TYPES = ('none', 'open_uri', 'open_quest', 'run_command', 'custom_event', 'show_recipe', 'show_docs')
+ASSET_ROOTS = [os.path.join(ROOT, 'kubejs', 'assets'),
+               os.path.join(ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources', 'assets')]
+
+
+def check_image_line(tx, where, E, items):
+    """A description line with an {image:...} component: it is the whole line, the texture exists in the pack's
+    resource pack (kubejs/assets) or the firmages-core jar sources, sizes are numbers, the click action is known and a
+    Ponder link names a registered item."""
+    if not IMAGE_LINE.fullmatch(tx.strip()):
+        E('%s: a picture must be a line of its own: %r' % (where, tx[:80]))
+        return
+    props = {}
+    for part in tx.strip()[1:-1].split(' '):
+        if part:
+            k, _, v = part.partition(':')
+            props[k] = v.replace('%20', ' ')
+    loc = props.get('image', '')
+    ns, _, path = loc.partition(':')
+    if not ns or not path or not re.fullmatch(r'[a-z0-9_.-]+', ns) or not re.fullmatch(r'[a-z0-9_./-]+', path):
+        E('%s: picture %r is not a resource location' % (where, loc))
+    elif not any(os.path.isfile(os.path.join(r, ns, *path.split('/'))) for r in ASSET_ROOTS):
+        E('%s: picture %s has no file in kubejs/assets or the firmages-core assets' % (where, loc))
+    for k in ('width', 'height'):
+        if k in props and not re.fullmatch(r'[1-9][0-9]{0,3}', props[k]):
+            E('%s: picture %s %s=%r is not a number' % (where, loc, k, props[k]))
+    if props.get('align', 'center') not in ('left', 'center', 'right'):
+        E('%s: picture %s align=%r' % (where, loc, props['align']))
+    if props.get('fit', 'false') not in ('true', 'false'):
+        E('%s: picture %s fit=%r' % (where, loc, props['fit']))
+    click = props.get('click_action')
+    if click:
+        typ, _, data = click.partition(':')
+        if typ not in IMAGE_CLICK_TYPES or not data:
+            E('%s: picture %s click_action %r: type must be one of %s' % (where, loc, click, ', '.join(IMAGE_CLICK_TYPES)))
+        elif typ == 'custom_event' and data.startswith('firmages:ponder/'):
+            m = re.fullmatch(r'firmages:ponder/([a-z0-9_.-]+)/([a-z0-9_./-]+)', data)
+            if not m:
+                E('%s: picture %s Ponder link %r is not firmages:ponder/<ns>/<path>' % (where, loc, data))
+            elif '%s:%s' % m.groups() not in items:
+                E('%s: picture %s Ponder link names %s:%s, not a registered item' % ((where, loc) + m.groups()))
+
+
 # (pattern, label); case-insensitive unless the label says "mod name" (those are matched as written).
 STYLE_BANNED = [r'unlock the power', r'tapestry', r'testament', r'journey', r'embark', r'dive into',
                 r"it'?s important to", r'unleash', r'incredible', r'amazing', r'\bepic\b', r'seamless', r'streamline',
@@ -326,6 +376,11 @@ STYLE_MODS = ['TFC', r"Create(?! (a|an|the) )", 'Mekanism', 'AE2', 'IE', 'Dracon
               'Hostile Networks', 'Ad Astra', 'Applied Kinetics', 'Gateways?', 'Cataclysm', "Mowzie",
               'Apotheosis', 'Stargate Journey', 'Sophisticated', 'Supplementaries', 'Every Compat', 'Handcrafted',
               "Macaw's", 'Evolved Mekanism', 'ProgressiveStages', 'KubeJS', 'Jade']
+
+
+def figure(t):
+    """A knapping or crafting grid row or a picture line: neither counts as words nor makes a paragraph."""
+    return bool(GRID_LINE.fullmatch(t) or IMAGE_LINE.fullmatch(t.strip()))
 
 
 def style_lint(lang, chapters, W):
@@ -347,6 +402,8 @@ def style_lint(lang, chapters, W):
         texts = [t for t in texts if isinstance(t, str)]
         where = 'style: %s' % key
         for tx in texts:
+            if IMAGE_LINE.fullmatch(tx.strip()):  # a picture: its path is no player text
+                continue
             for rx, label in banned:
                 hit = rx.search(tx)
                 if hit:
@@ -357,7 +414,7 @@ def style_lint(lang, chapters, W):
             if re.search(r'\bAge \d', tx):
                 W('%s: "Age <n>", write the Age name: %r' % (where, tx[:70]))
         if typ == 'quest' and field == 'quest_desc':
-            words = sum(len(t.split()) for t in texts if not GRID_LINE.fullmatch(t))
+            words = sum(len(t.split()) for t in texts if not figure(t))
             kind = kinds.get(oid, 'step')
             limit = STYLE_TEACH if oid in STYLE_TEACHING else STYLE_LIMITS[kind]
             if words > limit:
@@ -369,8 +426,8 @@ def style_lint(lang, chapters, W):
                 elif cur:
                     blocks.append(cur)
                     cur = []
-            # a block with a knapping grid is the grid and its caption, not a paragraph
-            paras = [b for b in blocks if not any(GRID_LINE.fullmatch(t) for t in b)]
+            # a block with a knapping grid or a picture is the figure and its caption, not a paragraph
+            paras = [b for b in blocks if not any(figure(t) for t in b)]
             if len(paras) > 3:
                 W('%s: %d paragraphs, at most 3' % (where, len(paras)))
 
@@ -806,6 +863,8 @@ def main():
                 E('lang: %s has a non-string value' % key)
             elif re.search('[äöüÄÖÜß]', tx):
                 E('lang: %s contains German letters: %r' % (key, tx))
+            elif '{image:' in tx:
+                check_image_line(tx, 'lang: %s' % key, E, items)
     for oid, (typ, where) in objects.items():
         if typ in ('chapter', 'quest', 'chapter_group', 'reward_table') and \
                 '%s.%s.title' % (typ, oid) not in lang:

@@ -17,6 +17,7 @@ Dawn ends with a quest (The First Spark grants the Stone Age). From the Stone Ag
 | `dev/release.md` | build, local test, CurseForge upload, friends, server (German) |
 | `dev/client-test-brief.md` | what Felix checks in the client, per version (German) |
 | `dev/style-guide.md` | rules for player text, checked by `dev/validate_quests.py --style` (German) |
+| `dev/quest-images.md` | quest pictures: path, sizes, the `{image:...}` line and who renders what (German) |
 | `dev/poc-results.md` | evidence log of every server and static run |
 | `dev/harmonie-messung.md` | the measured reference plants per Age against the harmony bands, the fission/fusion tuning (German) |
 | `mod/firmages-core/SPEC.md` | the pack's own mod |
@@ -65,6 +66,7 @@ tools\packwiz.exe refresh            # after any change under config/, defaultco
 tools\packwiz.exe serve              # serves the working tree on http://localhost:8080/pack.toml (dev\serve.bat)
 python dev/gen_stage_locks.py        # after changing dev/age_map.toml or the Age tables in the generator
 python dev/gen_quests.py; python dev/validate_quests.py --style   # after changing quests
+python dev/gen_quest_images.py       # quest pictures in kubejs/assets/firmages/textures/quests (--check compares pixels)
 python dev/gen_fuels.py              # after changing kubejs/data/firmages/balance/fuels.json (--check compares)
 python dev/gen_machine_usage.py      # Mekanism, More Machine and IE excavator config values (--check, --server-dir)
 python dev/miner_ladder.py --check   # miners against the ore ladder (metals.json, the configs, --dump-dir for all veins)
