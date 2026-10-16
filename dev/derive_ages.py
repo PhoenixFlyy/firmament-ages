@@ -175,6 +175,10 @@ INTERACTIONS = [
                                                     "ahandfulofacorns:hickory_nut", "ahandfulofacorns:coconut"]),
     # An opened coconut used on a TFC barrel pours its juice into the barrel and leaves the meat (OpenedCoconutItem).
     ("dawn", ["ahandfulofacorns:opened_coconut", "tfc:wood/barrel/oak"], ["ahandfulofacorns:coconut_meat"]),
+    # firmages-core Sky Harvest (SPEC 26): the Storm Rod fuses sand into storm glass in rain (block entity, no recipe);
+    # a bucket takes aurora light from an Aurora Net (pipes take the fluid itself).
+    ("dawn", ["firmages:storm_rod", "tfc:sand/yellow"], ["firmages:storm_glass"]),
+    ("dawn", ["firmages:aurora_net", "minecraft:bucket"], ["firmages:aurora_light_bucket"]),
 ]
 # Roads and Roofs: poured concrete dries in the world, trodden roads crack: (wet or fresh block, the block it becomes).
 WORLD_CHANGES = [("rnr:wet_concrete_road", "rnr:concrete_road"), ("rnr:wet_concrete_road_panel", "rnr:concrete_road_panel"),

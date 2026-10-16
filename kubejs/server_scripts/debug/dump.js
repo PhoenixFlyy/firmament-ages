@@ -47,10 +47,12 @@
   // fluid id -> its bucket item id, for the fluid Age tags (dev/gen_stage_locks.py); fluids without a bucket are left out.
   const fluidBuckets = () => {
     const out = {}
-    BuiltInRegistries.FLUID.keySet().forEach((k) => {
+    // No declaration inside the callback: Rhino 2101 treats a const in a callback's try block as a var declared again
+    // on the next call and throws "redeclaration of var" for every fluid after the first, which the catch swallowed,
+    // so the 0.11.0 dumps had no buckets at all.
+    BuiltInRegistries.FLUID.forEach((fluid) => {
       try {
-        const bucket = itemId(BuiltInRegistries.FLUID.get(k).getBucket())
-        if (bucket !== 'minecraft:air') out[String(k)] = bucket
+        if (itemId(fluid.getBucket()) !== 'minecraft:air') out[String(BuiltInRegistries.FLUID.getKey(fluid))] = itemId(fluid.getBucket())
       } catch (e) {
         // a fluid whose bucket cannot be read keeps the generator's fallback (metal or namespace Age)
       }

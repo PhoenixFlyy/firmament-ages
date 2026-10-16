@@ -126,7 +126,7 @@ def refresh_registry(dump_dir, amap):
     # fluid -> bucket item (Fluid#getBucket; dump.js and /firmages dump registry write it since firmages-core 0.9).
     # An older dump has no such key; then the buckets of the current snapshot stay.
     buckets = reg.get("fluid_buckets")
-    if buckets is None:
+    if not buckets:  # missing (old dump) or empty (a dump whose bucket lookup failed)
         old = json.loads(REGISTRY.read_text(encoding="utf-8")) if REGISTRY.exists() else {}
         buckets = old.get("fluid_buckets", {})
         print(f"note: {dump_dir.as_posix()}/registries.json has no fluid_buckets; kept {len(buckets)} from the snapshot")
@@ -352,7 +352,8 @@ class AgeMap:
     def fluid_age(self, fluid):
         """(stage, reason) of one fluid: its bucket's rule Age, a TFC-style metal fluid's metal, else its namespace."""
         bucket = self.reg.get("fluid_buckets", {}).get(fluid)
-        if bucket in self.items_set:
+        # A few mods return the empty bucket from Fluid#getBucket (Decorative Blocks' thatch): not a bucket of the fluid.
+        if bucket in self.items_set and bucket != "minecraft:bucket":
             # The hand-written rules only: a bucket's derived Age says when a bucket can be filled, not when the fluid
             # exists, and a never reachable bucket item does not make the fluid unreachable.
             st, why = self.rule_age(bucket)
