@@ -173,7 +173,7 @@ public final class BossGameTests {
                         "nothing spawns in the arena while it lives");
 
                     float max = b.getMaxHealth();
-                    b.setHealth(max * FightModel.PHASE2_AT + 1);
+                    b.setHealth(max * FightModel.PHASE2_AT + 0.5F); // a capped hit behind the closed veil takes 0.79
                     hit(b, p, 1000);
                     ok(h, b.phase() == 2 && Math.abs(b.getHealth() - max * FightModel.PHASE2_AT) < 0.01F, "one big hit stops at 69 % and enters phase 2, health "
                         + b.getHealth());
@@ -185,7 +185,7 @@ public final class BossGameTests {
                     steps(b, PrimordialEntity.PHASE2_LOCK);
                     ok(h, b.phaseLock() == 0, "the lock runs out with the fight steps");
 
-                    b.setHealth(max * FightModel.PHASE3_AT + 1);
+                    b.setHealth(max * FightModel.PHASE3_AT + 0.5F);
                     hit(b, q, 1000);
                     ok(h, b.phase() == 3 && Math.abs(b.getHealth() - max * FightModel.PHASE3_AT) < 0.01F, "phase 3 at 38 %, health " + b.getHealth());
                     ok(h, ArenaLights.lit(o).isEmpty() && b.darkened().size() == lit.size(), "still dark in phase 3");
