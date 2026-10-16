@@ -31,7 +31,8 @@ GameTest stand-in (vanilla blocks) into mod/firmages-core/src/gametest/resources
 
 Usage
   python dev/gen_wayshrines.py           write every file
-  python dev/gen_wayshrines.py --check   exit 1 if a file on disk differs or a layout breaks a rule
+  python dev/gen_wayshrines.py --check   exit 1 if a file on disk differs or a layout breaks a rule (among them: every
+                                         block of a ruin template is a Dawn block in dev/age_map.toml)
 """
 import gzip
 import json
@@ -128,10 +129,12 @@ VOLCANIC_RING_BIOMES = ["volcanic_mountains", "volcanic_island", "volcanic_ocean
 
 
 class Role:
-    """One pattern key: its tag (role name inside the type) and the block the templates use."""
+    """One pattern key: its tag (role name inside the type) and the block the templates use. `ruin` is a Dawn stand-in
+    the ruin template keeps in this role's cells instead of `block` (the restored form still asks for the role)."""
 
-    def __init__(self, name, values, block, props=None, bars=False):
+    def __init__(self, name, values, block, props=None, bars=False, ruin=None):
         self.name, self.values, self.block, self.props, self.bars = name, values, block, props or {}, bars
+        self.ruin = ruin
 
 
 class Kind:
@@ -225,8 +228,10 @@ def swamp_altar():
             cells[(cx + dx, 1, cz + dz)] = "I"
     cells[(cx, 1, cz - 1)] = "M"
     cells[(cx, 2, cz - 1)] = "L"
-    missing = {(cx + 2, 1, cz - 1): None, (cx + 2, 1, cz): None, (cx - 2, 1, cz + 1): None, (cx - 2, 1, cz): None,
-               (cx - 2, 3, cz - 2): None, (cx - 2, 2, cz - 2): None, (cx + 1, 0, cz + 2): None}
+    # every bars cell is gone from the ruin (stolen): iron bars are an Iron Age block and the ruin stands from Dawn
+    missing = {(cx + 2, 1, cz - 1): None, (cx + 2, 1, cz): None, (cx + 2, 1, cz + 1): None, (cx - 2, 1, cz + 1): None,
+               (cx - 2, 1, cz): None, (cx - 2, 1, cz - 1): None, (cx - 2, 3, cz - 2): None, (cx - 2, 2, cz - 2): None,
+               (cx + 1, 0, cz + 2): None}
     rubble = [(cx + 3, 0, cz + 1, "log_z"), (cx - 3, 0, cz - 1, "log_z")]
     roles = {"M": Role("mud", [f"tfc:mud_bricks/{s}" for s in SOILS], "tfc:mud_bricks/alfisol"),
              "W": Role("post", LOGS, "tfc:wood/log/oak", {"axis": "y"}),
@@ -276,8 +281,9 @@ def mountain_spire():
         cells[(cx + dx, 1, cz + dz)] = "S"
     cells[(cx, 1, cz - 1)] = "B"
     cells[(cx, 2, cz - 1)] = "L"
+    # every bars cell is gone from the ruin (stolen): iron bars are an Iron Age block and the ruin stands from Dawn
     missing = {(cx, 6, cz - 2): None, (cx, 5, cz - 2): None, (cx, 4, cz - 2): "loose", (cx + 1, 3, cz - 2): None,
-               (cx - 1, 2, cz - 2): None, (cx - 2, 1, cz + 2): None}
+               (cx + 1, 2, cz - 2): None, (cx - 1, 3, cz - 2): None, (cx - 1, 2, cz - 2): None, (cx - 2, 1, cz + 2): None}
     rubble = [(cx + 2, 1, cz + 1, "loose"), (cx - 1, 1, cz + 2, "loose"), (cx + 1, 1, cz - 1, "loose")]
     roles = {"S": Role("smooth", SMOOTH_ROCK, "tfc:rock/smooth/slate"), "B": Role("bricks", ROCK_BRICKS, "tfc:rock/bricks/slate"),
              "I": Role("bars", ["tfc:metal/bars/wrought_iron", "tfc:metal/bars/steel", "tfc:metal/bars/black_steel",
@@ -301,8 +307,10 @@ def wind_shrine():
             cells[(cx + dx, y, cz + 2)] = "I"
     cells[(cx, 1, cz - 1)] = "P"
     cells[(cx, 2, cz - 1)] = "L"
+    # every bars cell is gone from the ruin (stolen): the isles can be seen and climbed to from Dawn, steel bars are Iron Age
     missing = {(cx + 2, 4, cz - 2): None, (cx - 2, 4, cz + 2): None, (cx - 1, 2, cz + 2): None, (cx, 2, cz + 2): None,
-               (cx + 1, 1, cz + 2): None, (cx - 2, 3, cz - 2): None}
+               (cx + 1, 1, cz + 2): None, (cx - 1, 1, cz + 2): None, (cx, 1, cz + 2): None, (cx + 1, 2, cz + 2): None,
+               (cx - 2, 3, cz - 2): None}
     rubble = [(cx + 3, 1, cz + 3, "loose"), (cx - 3, 1, cz, "loose")]
     body = ["firmages:skystone"] + SMOOTH_ROCK + ROCK_BRICKS
     roles = {"B": Role("body", body, "tfc:rock/smooth/marble"), "P": Role("pillar", ["firmages:skystone"] + SMOOTH_ROCK, "tfc:rock/smooth/marble"),
@@ -328,7 +336,8 @@ def reef_altar():
                (cx - 1, 1, cz - 1): None, (cx - 2, 0, cz): "gravel"}
     rubble = [(cx + 1, 1, cz + 2, "loose"), (cx - 2, 1, cz + 1, "loose")]
     roles = {"F": Role("floor", ROCK_BRICKS, "tfc:rock/bricks/limestone"),
-             "K": Role("coral", ["#minecraft:coral_blocks"], "minecraft:brain_coral_block"),
+             # the ruin's corals died and turned to stone: coral blocks are an Arcane Age block, the ruin stands from Dawn
+             "K": Role("coral", ["#minecraft:coral_blocks"], "minecraft:brain_coral_block", ruin="tfc:rock/raw/limestone"),
              "G": Role("glass", GLASS, "tfc:poured_glass")}
     return Kind("reef_altar", "Reef Altar", "age_4", "#6FD6D0", size, "limestone", roles, cells, missing, rubble,
                 biomes=REEF_ALTAR_BIOMES, climate={"min_temperature": 20.0}, heightmap="OCEAN_FLOOR_WG", water=True)
@@ -444,13 +453,15 @@ def bars_props(k, cells, pos):
     return out
 
 
-def template_block(k, cells, pos, key):
+def template_block(k, cells, pos, key, ruin=False):
     if key == "0":
         return ("firmages:wayshrine_core", {"facing": "north", "intact": "false", "phase": "ruin"},
                 {"id": "firmages:wayshrine_core", "type": k.tid})
     if key == "L":
         return TEST_LIGHT_BLOCK + (None,) if k.test else LIGHT_BLOCK + (None,)
     role = k.roles[key]
+    if ruin and role.ruin:
+        return (role.ruin, {}, None)
     props = bars_props(k, cells, pos) if role.bars else dict(role.props)
     return (role.block, props, None)
 
@@ -466,7 +477,7 @@ def ruin_blocks(k):
                     blocks[(x, y, z)] = ("minecraft:air", {}, None)
     kept = {p: c for p, c in k.cells.items() if p not in k.missing}
     for p, c in kept.items():
-        blocks[p] = template_block(k, kept, p, c)
+        blocks[p] = template_block(k, kept, p, c, ruin=True)
     for p, what in k.missing.items():
         if what is not None:
             name, props = rubble_block(k, what)
@@ -628,6 +639,24 @@ def all_files():
     return files
 
 
+def age_errors():
+    """Every block of a ruin template must be a Dawn block (review fix 0.12.0): ground ruins stand from Dawn and the
+    isle Wind Shrine can be climbed to before the Industrial Age; ProgressiveStages has no structure locks."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import gen_stage_locks as gsl
+    am = gsl.AgeMap(gsl.tomllib.loads(open(gsl.AGE_MAP, encoding="utf-8").read()),
+                    json.load(open(gsl.REGISTRY, encoding="utf-8")), json.load(open(gsl.TFC_IDS, encoding="utf-8")))
+    errors = []
+    for k in KINDS:
+        for p, (name, _, _) in sorted(ruin_blocks(k).items()):
+            if name == "minecraft:air":
+                continue
+            st, why = am.age_of(name)
+            if st != "dawn":
+                errors.append(f"{k.tid}: ruin block {name} at {p} is {st} ({why}), want dawn")
+    return errors
+
+
 def same(path, data):
     if not os.path.exists(path):
         return False
@@ -643,6 +672,8 @@ def main():
         errors += check_kind(k)
     if len({salt(k.tid) for k in KINDS}) != len(KINDS):
         errors.append("two structure sets share a salt")
+    if not errors:
+        errors += age_errors()
     if errors:
         for e in errors:
             print("ERROR " + e)
