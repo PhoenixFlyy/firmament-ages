@@ -271,7 +271,7 @@ REWARD_ONLY = {
 def WORLD_BUCKETS(items):
     """The vanilla-bucket items of the TFC-world namespaces ("tfc:bucket/olive_oil", "afc:bucket/maple_syrup",
     "tfc:bucket/cod"): a minecraft:bucket with its content, reached with the bucket, not from the world."""
-    return sorted(i for i in items if i.split(":")[0] in pa.WORLD_NS and i.split(":", 1)[1].startswith("bucket/"))
+    return sorted(i for i in items if pa.world_bucket(i))
 
 
 def _nbt(buf):

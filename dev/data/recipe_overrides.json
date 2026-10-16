@@ -5,17 +5,26 @@
   "pack-removes": "KubeJS could not read the mod's old format ('Falling back to vanilla'), and the pack removes the recipe anyway (see the entry's note); removed before KubeJS reads it.",
   "missing-item": "The recipe names an item that does not exist in this pack (see the entry's note); it failed to load on every data load and is removed before KubeJS reads it.",
   "old-format": "Create 0.5 format that Create 6 still loads but KubeJS cannot read ('Falling back to vanilla'); rewritten in Create 6.0.10's own format, same recipe.",
+  "over-stack": "The recipe makes more than the item's stack size; it loaded at boot but every later data load (/reload, /firmages ages sync) rejected it with 'larger than maximum'. Same recipe, count at the stack size.",
   "wrong-tag": "The recipe names a tag that does not exist, so its ingredient was empty and the recipe could not be crafted; KubeJS warned 'not allowed to be empty'. Points to the tag the mod meant."
  },
- "count": 543,
+ "count": 544,
  "by_reason": {
   "modernise old-format": 52,
+  "recount over-stack": 1,
   "remove missing-item": 9,
   "remove pack-removes": 18,
   "remove typeless-removal": 462,
   "retag wrong-tag": 2
  },
  "recipes": [
+  {
+   "id": "adpoles:redstone_pole",
+   "action": "recount",
+   "why": "over-stack",
+   "count": 32,
+   "from": "AdPoles-1.21.1-10.1.0.2-NeoForge-build.0821.jar"
+  },
   {
    "id": "astikorcartsredux:acacia_animal_cart",
    "action": "remove",

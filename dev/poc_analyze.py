@@ -780,6 +780,12 @@ RESULT_KEYS = {"result", "results", "output", "outputs", "ritual_dummy", "entity
 # the Arcane Age (vanilla, Beneath Nether), Nether blocks, and the drops of the Ars Wilden (mob_3, ritual-summoned)
 # and of wild Starbuncles (spawn modifier; the spawn itself needs a client to observe).
 WORLD_NS = ("tfc", "afc", "firmalife", "beneath")
+
+
+def world_bucket(i):
+    """A vanilla-bucket item of a world namespace ("tfc:bucket/olive_oil", "afc:bucket/maple_syrup"): it comes with the
+    bucket (Electric Age), not from the world (dev/derive_ages.py WORLD_BUCKETS)."""
+    return i.split(":")[0] in WORLD_NS and i.split(":", 1)[1].startswith("bucket/")
 VANILLA_WORLD = ("feather egg bone string spider_eye rotten_flesh gunpowder slime_ball ink_sac glow_ink_sac ender_pearl "
                  "blaze_rod ghast_tear magma_cream nether_wart glowstone_dust glowstone quartz netherrack soul_sand soul_soil "
                  "basalt blackstone obsidian gold_nugget clay_ball flint snowball ice snow_block charcoal stick cobweb "
@@ -1260,13 +1266,16 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         """Items obtainable from the world set; with max_age only items of that Age or earlier may enter."""
         def fits(i):
             return max_age is None or age_ix(i) <= AGES.index(max_age)
-        have = {i for i in items if i.split(":")[0] in WORLD_NS} | {"minecraft:" + x for x in VANILLA_WORLD} | set(MOB_DROPS)
+        have = ({i for i in items if i.split(":")[0] in WORLD_NS and not world_bucket(i)}
+                | {"minecraft:" + x for x in VANILLA_WORLD} | set(MOB_DROPS))
         have |= {i for drops in SKY_WORLD.values() for i in drops if i in items}   # Starfall, Drifting Isles
         have = {i for i in have if fits(i)}
 
         def sat_(slot):
             return any((k in ("item", "chem") and x in have) or (k == "tag" and any(i in have for i in tags.get(x, [])))
                        for k, x in slot)
+        grown = dict(GROWN)
+        grown["minecraft:bucket"] = GROWN["minecraft:bucket"] + sorted(i for i in items if world_bucket(i))
         grew = True
         while grew:
             grew = False
@@ -1275,7 +1284,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
                 if new and all(sat_(x) for x in sl):
                     have |= new
                     grew = True
-            for seed, got in GROWN.items():
+            for seed, got in grown.items():
                 new = {g for g in got if seed in have and GROWN_NEEDS.get(seed, seed) in have and g not in have and fits(g)}
                 if new:
                     have |= new
@@ -2750,7 +2759,8 @@ def ladder_checks(full, recs, items, tags, check):
 
     def metal_fluid(f):  # any molten metal, alloys included (TFC tfc:metal/<m>, molten_<m>, fluid tags c:molten_<m>)
         return bool(re.search(r":(?:metal/|molten_)", f)) or any(res[m][1].match(f) for m in metals)
-    start = {i for i in items if i.split(":")[0] in WORLD_NS} | {"minecraft:" + x for x in VANILLA_WORLD} | set(MOB_DROPS)
+    start = ({i for i in items if i.split(":")[0] in WORLD_NS and not world_bucket(i)}
+             | {"minecraft:" + x for x in VANILLA_WORLD} | set(MOB_DROPS))
     have = {i for i in start if not is_ore(i) and not any_metal(i)}
     def fluid_ins(o, out):   # fluid ids and fluid tags (neoforge:tag with an amount) outside the outputs
         if isinstance(o, dict):

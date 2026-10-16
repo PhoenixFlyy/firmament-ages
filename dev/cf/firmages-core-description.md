@@ -57,6 +57,15 @@ MIT License. Source: the `mod/firmages-core` folder of the pack repository, [git
 
 ## Changelog
 
+**1.0.0**
+
+- TerraFirmaCraft lookup guard (SPEC 42, mixin `tfc.ItemStackHooksMixin` with `compat/tfc/LookupGuard`): TerraFirmaCraft's heat and food lookups never nest on one thread. A heat definition built from a tag compound (`#c:storage_blocks/<metal>`) built a stack per tag member, and each stack ran the same lookup again, which overflowed the stack after `/reload`.
+- Mekanism: Neutron Activator: the Fusion Neutron Activator is a workstation of EMI's activating category (client mixin, loaded only with the mod).
+- The Origin: a one-time migration takes the fusion core out of the return gate's dialling device in worlds whose arena was built before 0.13.0 (`dhd_core_taken`).
+- The tutorial Wayshrine's record is saved at once, so a hard stop right after it is placed no longer places a second ruin.
+- Fallback texts match the language file ("The sky shifts. Hold still.", "No Shrine Heart is placed in this world").
+- Network protocol version 6 as in 0.12.0 and 0.13.0; client and server need 1.0.0 for the EMI workstation and the lookup guard.
+
 **0.13.0**
 
 - Ore Processor (SPEC 40): `firmages:ore_processor`, one block with an input, four outputs, a chemical tank (Mekanism `Capabilities.CHEMICAL`, insert only), a working-fluid and a lubricant tank and an FE buffer; recipe type `firmages:ore_processing` (piece count, result, chemical, sized fluid, optional lubricant, time); lubricant multiplies the speed by `machines.oreProcessorLubricantSpeed` at the same FE per operation (`machines.oreProcessorFePerTick`); Jade lines and an EMI category; `/firmages processor status|feed`.

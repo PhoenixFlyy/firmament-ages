@@ -33,14 +33,14 @@ Optional. `dev/cf/gallery/03-shrine-quantum-age.png` (the shrine) and `dev/cf/ga
 
 | Field | Value |
 |---|---|
-| File | `mods/firmages-core-0.13.0.jar` (byte-identical to `mod/firmages-core/build/libs/firmages-core-0.13.0.jar` from `gradlew build`) |
-| Display name | `firmages-core 0.13.0` |
-| Release type | Beta |
+| File | `mods/firmages-core-1.0.0.jar` (byte-identical to `mod/firmages-core/build/libs/firmages-core-1.0.0.jar` from `gradlew build`) |
+| Display name | `firmages-core 1.0.0` |
+| Release type | Release |
 | Game version | 1.21.1 |
 | Mod loader | NeoForge |
 | Java version | Java 21 |
 | Environment | Client and server (both) |
-| Changelog | the entries **0.13.0**, **0.12.0**, **0.11.0**, **0.10.0**, **0.9.2**, **0.9.1**, **0.9.0**, **0.8.1**, **0.8.0**, **0.7.2**, **0.7.1**, **0.7.0** and **0.6.2** from the changelog in `dev/cf/firmages-core-description.md` (Markdown) |
+| Changelog | the entries **1.0.0**, **0.13.0**, **0.12.0**, **0.11.0**, **0.10.0**, **0.9.2**, **0.9.1**, **0.9.0**, **0.8.1**, **0.8.0**, **0.7.2**, **0.7.1**, **0.7.0** and **0.6.2** from the changelog in `dev/cf/firmages-core-description.md` (Markdown) |
 
 ## Relations (on the file)
 

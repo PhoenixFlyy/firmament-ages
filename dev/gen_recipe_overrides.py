@@ -17,11 +17,13 @@ sits above every mod), built from the mod's own file:
   modernise the mod's recipe in Create 6.0.10's own format: {"type": "neoforge:single"|"neoforge:tag", "amount", "fluid"|
             "tag"} fluid ingredients, flat {"id", "count", "chance"} results, "heat_requirement"
   retag     the mod's recipe with the tag ids of the entry's "tags" map replaced
+  recount   the mod's recipe with the result count set to the entry's "count" (a result above the item's stack size
+            loads at boot but fails every later data load with "larger than maximum")
 
 With a log, every "not a json object" id becomes "remove" (only when one of the jars holds exactly the removal file),
 and every "Falling back" id becomes "remove" when it matches PACK_REMOVES (the pack removes it anyway), "retag" when
-it is in RETAG, else "modernise" when that changes it; anything else is listed for a manual look. New entries are
-merged into the manifest, so a later log (where the fixed ids no longer warn) keeps the existing ones.
+it is in RETAG, "recount" when it is in RECOUNT, else "modernise" when that changes it; anything else is listed for
+a manual look. New entries are merged into the manifest, so a later log (where the fixed ids no longer warn) keeps the existing ones.
 
 Usage:
   python dev/gen_recipe_overrides.py --log test-server/logs/latest.log   add the log's ids, then write every file
@@ -63,6 +65,9 @@ WHY = {
                     "load on every data load and is removed before KubeJS reads it.",
     "old-format": "Create 0.5 format that Create 6 still loads but KubeJS cannot read ('Falling back to vanilla'); "
                   "rewritten in Create 6.0.10's own format, same recipe.",
+    "over-stack": "The recipe makes more than the item's stack size; it loaded at boot but every later data load "
+                  "(/reload, /firmages ages sync) rejected it with 'larger than maximum'. Same recipe, count at the "
+                  "stack size.",
     "wrong-tag": "The recipe names a tag that does not exist, so its ingredient was empty and the recipe could not be "
                  "crafted; KubeJS warned 'not allowed to be empty'. Points to the tag the mod meant.",
 }
@@ -81,6 +86,10 @@ PACK_REMOVES = [
 RETAG = {
     "firmasupps:crafting/soap/clean_tfc_candle": {"tfc:candles": "tfc:colored_candles"},
     "firmasupps:crafting/soap/clean_tfc_bricks_alabaster": {"tfc:colored_bricks_alabaster": "tfc:colored_alabaster_bricks"},
+}
+# Fallback ids whose result count is above the item's stack size: id -> the stack size the reload error names.
+RECOUNT = {
+    "adpoles:redstone_pole": 32,   # AdPoles 10.1.0.2 makes 48 (ModRecipes); the item stacks to 32 (F1 server pack log)
 }
 DOC = ("Recipe overrides written by dev/gen_recipe_overrides.py into kubejs/data/<ns>/recipe/. 'why' names the reason "
        "in 'reasons'; 'from' is the jar whose file the override replaces. Regenerate with python "
@@ -218,6 +227,9 @@ def build(entry, idx):
         out = modernise(src)
     elif entry["action"] == "retag":
         out = retag(src, entry["tags"])
+    elif entry["action"] == "recount":
+        out = json.loads(json.dumps(src))
+        out["result"]["count"] = entry["count"]
     else:
         raise ValueError("unknown action %r" % entry["action"])
     if out == src:
@@ -280,6 +292,8 @@ def classify(rid, idx, skipped):
             return {"id": rid, "action": "remove", "why": why, "note": note, "from": ", ".join(jars)}, None
     if rid in RETAG:
         return {"id": rid, "action": "retag", "why": "wrong-tag", "tags": RETAG[rid], "from": ", ".join(jars)}, None
+    if rid in RECOUNT:
+        return {"id": rid, "action": "recount", "why": "over-stack", "count": RECOUNT[rid], "from": ", ".join(jars)}, None
     e = {"id": rid, "action": "modernise", "why": "old-format", "from": ", ".join(jars)}
     try:
         build(e, idx)

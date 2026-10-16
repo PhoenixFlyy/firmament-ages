@@ -1,6 +1,42 @@
 # Firmament Ages changelog
 
-Beta: the whole progression is playable from Dawn to The Origin and its final boss, balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
+Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
+
+## 1.0.0
+
+Firmament Ages 1.0. The road from a rock in Dawn to The Origin and its final boss is finished and has been checked end to end: every item, recipe, ore, mob and structure waits for its Age, every quest asks for something your team can make by then, and every Age can be reached by machines alone. **Coming from 0.9.x or earlier: start a new world** (0.10.0 removed several mods with their blocks and structures). **Coming from 0.14.0:** your world keeps working; the world generation changes below only reach new chunks.
+
+### What the pack is
+
+A co-op progression pack for one team per server on Minecraft 1.21.1 and NeoForge, in a TerraFirmaCraft world. Ten Ages after Dawn: Stone, Bronze, Iron, Arcane, Industrial, Electric, Information, Space, Quantum and Singularity. Nothing of a later Age exists yet: locked items are unknown, its ore looks like rock, its mobs, dimensions and structures stay away. Your team builds the Shrine of Caelum one ring per Age, lays the Age's offering on its plinth, does the rite and prays, and the next Age opens for everyone. Technology is the main road (TerraFirmaCraft, Create, Immersive Engineering, Mekanism, Applied Energistics 2, Ad Astra, Draconic Evolution); magic (Occultism, Ars Nouveau, Theurgy) is a bonus, and no boss is required until the last one. The Chronicle (K) is the only guide.
+
+### The road since 0.10.0
+
+- **Tokens instead of trophies.** The Twilight Forest, Cataclysm, Bosses of Mass Destruction, Mowzie's Mobs and Gateways to Eternity left the pack. Each offering now asks for an Age token you build yourself: a Frontier Relic from the Cold Forge, a Hollow Keystone filled on a machine line, a built-up cannon chamber, a Nether Star from the arc furnace, an AE2 singularity, the flight recorder of the Mars temple, subatomic alloy and a chaos fragment from your own reactor. The Wither, the dragon and the End are optional.
+- **The sky road.** Stars fall from the Iron Age on and leave craters of meteoric iron and starsteel. The Storm Rod catches lightning for storm glass, the Aurora Net catches aurora light in the cold north, the Drifting Isles above the clouds hold firmament crystal, and the Launch Complex sends probes for voidglass and deep-space samples. The Lens Crown forges one celestial alloy per Age from these, and each alloy goes into its Age's offering.
+- **Wayshrines and Sky Anchors.** Eight kinds of ruined shrines lie in the wide world; rebuild one, lay your Age's offering and pray, and it carries the shrine's blessings around it. From the Space Age a Sky Anchor carries them anywhere, the Moon and Mars included.
+- **The Primordial,** the pack's own final boss in The Origin: three phases and a veil that opens only when you answer its attacks. After its fall the nine islands of The Origin grow with samples of their Ages.
+- **Wood classes and Dawn by hand.** Vanilla trees grow in TerraFirmaCraft forests again, and every wood of a class is worth the same. In Dawn there is no crafting grid: you lay items on the ground and craft the pile by hand until the first fire.
+- **The new Chronicle.** Every Age chapter winds its strands round the goal; knapping patterns, devices and the shrine rings are drawn as pictures and build guides; three Great Works (a gatehouse, a living house, a rocket silo) and a Side Road for every mod that is not decoration. Every quest pays real items of its Age.
+- **Balance.** One FE generator per Age and no free power: the alternator only runs on burning fuel, Mekanism machines use ten times the energy, and fission and fusion are measured against reference plants. From the Industrial Age each offering first takes a tithe of the Age's metal through Tally Chutes. One ore ladder from 1.5 to 6 times the metal; the Digital Miner and the excavator cost real power per ore, and every step of the ladder lowers the power per ingot. Applied Energistics 2 carries more channels and types, autocrafting stays late, and the wireless crafting terminal comes early at a price.
+
+### New in 1.0.0
+
+- **No more free metal.** Some recipes counted a TerraFirmaCraft metal block as nine ingots or a sheet as one ingot, while TerraFirmaCraft makes a block from one ingot's worth and a sheet from two. Round trips through them created metal from nothing (copper eighteenfold). The 42 recipes are gone: 9 ingots to a block, a block to 9 ingots, the Create Big Cannons melt of a block, the Immersive Engineering anvil plates and Create Casing's zinc press that made a sheet from one ingot, and the second zinc nugget of More Mekanism Processing. Blocks are still building blocks and still fill every recipe that wants a block.
+- **Stargate Journey's naquadah has a source:** the arc furnace turns pure naquadah into naquadah. The Milky Way and Pegasus gates with their dialling devices, naquadah tools and armour, the advanced crystallizer, the large naquadah cable and the rest of Stargate Journey can be made in the Singularity Age.
+- **The Wixie charm** is made at the enchanting apparatus with conjuration essence (Wixie shards only came from witches). **The Fusion Neutron Activator** (Quantum Age) sits under a running fusion reactor and makes polonium and tritium day and night; the recipe viewer lists it under activating.
+- **Nothing of a later Age in an early world** (new chunks): Apotheosis towers and Stargate Journey's buried gates, Nether temple and planet pedestals no longer generate; Evolved Mekanism's Nether and End ores are gone; ice shard ore on the Moon and Mars, naquadah ore on Mercury and the End's draconium ore look like the stone around them until their Age.
+- **Products of the pack's mobs** can be had: Drygmy shards, the Drygmy charm and Ars Additions' source spawner (Arcane Age), and buckets of flying fish, mudskipper and platypus (Electric Age, with the bucket).
+- **Side Roads checked against every mod:** 119 quests got a corrected text, task, title or reward, and two new ones ask for the Wixie charm and the Fusion Neutron Activator. The latex, walkie-talkie and alloyer quests are gone, and with them the Evolved Mekanism Alloyer and its alloying factories (the pack has no alloying recipe for them) and the walkie-talkie (no voice server): they are hidden like any other block without a use. Quests that waited for a vanilla bucket in the Iron Age now ask for what the Age has.
+- **Fixed:** `/reload` could crash the server with a StackOverflowError inside TerraFirmaCraft's heat lookup. After `/reload`, `/firmages reload` or `/firmages ages sync` the redstone pole recipe of To the Bat Poles! was lost; it now makes 32, its stack size. The Origin's return gate loses the fusion core from its dialling device in worlds built before 0.13.0, as in newer worlds.
+- **Server pack:** the start scripts find Java 21 even when `JAVA_HOME` points to another Java; two configs are no longer rewritten at the first start; the server list shows the pack's name and version instead of CHANGE_ME.
+
+### Technical
+
+- **Firmament Ages Core 1.0.0:** TerraFirmaCraft lookup guard (SPEC 42), the Fusion Neutron Activator as an EMI workstation, the Origin DHD migration, the tutorial Wayshrine saved at once, fallback texts as in the language file. Network protocol 6 as before; client and server need 1.0.0.
+- `dev/poc_analyze.py`: L-8 (no recipe cycle over the forms of one metal returns more than went in), X-1 to X-4 (structures, world generation, templates and mob products by Age). `dev/derive_ages.py`: Q-2 (no item only from quest rewards); vanilla-bucket items of the TerraFirmaCraft namespaces come with the bucket. `kubejs/server_scripts/recipes/metal_values.js` holds the removed metal recipes.
+- `dev/gen_recipe_overrides.py`: action `recount` for a mod recipe whose result is larger than its stack size.
+- No mod added or removed: 264 metafiles plus `firmages-core`, 265 in the credits.
 
 ## 0.14.0
 
@@ -347,4 +383,4 @@ First public Beta. The whole road from Dawn to the final boss is playable; balan
 
 ## Known issues
 
-See "Beta" in the project description.
+Open issues are on the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).

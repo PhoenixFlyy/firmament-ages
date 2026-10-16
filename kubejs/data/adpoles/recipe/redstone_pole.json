@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:storage_blocks/redstone"
+    }
+  },
+  "pattern": [
+    " I ",
+    " I ",
+    " I "
+  ],
+  "result": {
+    "count": 32,
+    "id": "adpoles:redstone_pole"
+  }
+}

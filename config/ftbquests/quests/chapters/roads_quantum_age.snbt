@@ -465,6 +465,51 @@
 			y: 2.5d
 		}
 		{
+			dep_control_pts: {
+				051BA54888A28667: [
+					7.458d
+					2.864d
+					8.12d
+					3.464d
+				]
+			}
+			dependencies: ["051BA54888A28667"]
+			id: "339049C0883429BA"
+			optional: true
+			rewards: [
+				{
+					id: "54BD39C7D98E199D"
+					type: "xp"
+					xp: 160
+				}
+				{
+					count: 2
+					id: "6C4AB4229EDDF607"
+					item: {
+						count: 1
+						id: "evolvedmekanism:alloy_hypercharged"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "3D575075A9F80B13"
+					item: {
+						count: 1
+						id: "mekanismneutronactivator:fusion_neutron_activator"
+					}
+					type: "item"
+				}
+			]
+			x: 8.5d
+			y: 3.1d
+		}
+		{
 			dependencies: ["280FF1CBD99D0A4A"]
 			id: "714CFD10B16BAA23"
 			optional: true

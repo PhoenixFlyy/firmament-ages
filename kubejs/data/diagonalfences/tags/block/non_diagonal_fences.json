@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "mcwfences:oak_horse_fence", "required": false},
+    {"id": "mcwfences:oak_picket_fence", "required": false},
+    {"id": "mcwfences:oak_stockade_fence", "required": false},
+    {"id": "mcwfences:oak_wired_fence", "required": false},
+    {"id": "mcwfences:oak_hedge", "required": false}
+  ]
+}

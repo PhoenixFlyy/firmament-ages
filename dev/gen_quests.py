@@ -1050,7 +1050,7 @@ IRON = age_chapter(
     sides=[
         ('iron/power/brass', [
             Q('iron/side/rails', 'Trains', t_item('create:track', 16), kind='side',
-              desc=['Lay sixteen tracks. Trains bring ore home from distant mines.'],
+              desc=['Lay 16 tracks. Trains bring ore home from distant mines.'],
               rewards=[T('railways:buffer', 2), T('tfc:metal/rod/wrought_iron', 4)]),
         ]),
         ('iron/surv/leather', [
@@ -2162,7 +2162,7 @@ SINGULARITY = age_chapter(
                t_item('sgjourney:classic_stargate_base_block', title='Base block')],
               icon='sgjourney:classic_stargate_chevron_block',
               desc=['Refine naquadah with refined obsidian in the infuser, then cast one base block, nine chevrons and',
-                    'fourteen ring blocks. The Singularity goes into the base.'],
+                    '14 ring blocks. The Singularity goes into the base.'],
               rewards=[T('sgjourney:diamond_graver'), T('sgjourney:steel_iris')]),
             Q('singularity/gate/dhd', 'Dial Home Device', t_item('sgjourney:classic_dhd'),
               desc=['Build the Dial Home Device. It dials the gate.'],
@@ -3571,7 +3571,7 @@ ROADS = [
                     'a shroomlight or a gleamflower seed.'],
               rewards=[T('tfc:gem/ruby', 2)], icon='minecraft:shroomlight'),
         ]),
-        # Elemental Arts (Ars Elemental, Ars Additions, Akashic Tome)
+        # Elemental Arts (Ars Elemental, Ars Additions, Akashic Tome; the Wixie of Ars Nouveau)
         ('Elemental Arts', 'arcane/source/apprentice', [
             Q('arcane/elements/tome', 'One Book', t_item('akashictome:tome'), kind='side',
               desc=['Craft an Akashic Tome and craft your handbooks into it. Sneak and right-click to',
@@ -3599,6 +3599,10 @@ ROADS = [
               desc=['Carry a charm of second wind. When the last blow lands, it keeps death at the door',
                     'while its charge lasts.'],
               rewards=[T('tfc:gem/sapphire', 2)]),
+            Q('arcane/elements/wixie', 'Wixie Charm', t_item('ars_nouveau:wixie_charm'), kind='side',
+              desc=['Make a Wixie charm at the enchanting apparatus with conjuration essence. Use it on a cauldron:',
+                    'the Wixie crafts or brews what you show it.'],
+              rewards=[T('ars_nouveau:source_gem', 4)]),
         ]),
         # Steam on Rails (Steam 'n' Rails Neoforge, Create Train Utilities (Create Train Doors), Create Railways Navigator)
         ('Steam on Rails', 'arcane/machine/burner', [
@@ -4301,7 +4305,7 @@ ROADS = [
                       'factory.'],
               rewards=[P('draconicevolution:draconic_capacitor')], icon='advanced_ae:quantum_storage_128'),
         ]),
-        # Evolved Factories (Evolved Mekanism)
+        # Evolved Factories (Evolved Mekanism, Mekanism: Neutron Activator)
         ('Evolved Factories', 'quantum/awake/subatomic', [
             Q('quantum/evolved/chemixer', 'Chemixer', t_item('evolvedmekanism:chemixer'), kind='side',
               desc=['Build a chemixer. It mixes chemicals and items in one stroke.'],
@@ -4320,6 +4324,11 @@ ROADS = [
               desc=['Raise a large antiprotonic nucleosynthesizer. It spends antimatter on matter at a',
                     'pace the plain machine cannot match.'],
               rewards=[P('draconicevolution:draconic_capacitor')]),
+            Q('quantum/evolved/neutron', 'Fusion Neutron Activator',
+              t_item('mekanismneutronactivator:fusion_neutron_activator'), kind='side',
+              desc=['Set it under the centre of a burning fusion reactor. Its neutrons turn nuclear waste into',
+                    'polonium and lithium into tritium, day and night.'],
+              rewards=[T('evolvedmekanism:alloy_hypercharged', 2)]),
         ]),
         # Insanium Fields (Mystical Agradditions)
         ('Insanium Fields', 'quantum/side/crystallizer', [

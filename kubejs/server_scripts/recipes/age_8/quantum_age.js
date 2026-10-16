@@ -99,4 +99,13 @@ ServerEvents.recipes((event) => {
     A: 'mekanism:alloy_atomic', R: 'mekanismgenerators:fission_fuel_assembly', C: 'mekanism:ultimate_control_circuit',
     F: 'mekanismgenerators:fusion_reactor_frame', P: 'mekanism:sps_casing', S: 'mekanism:solar_neutron_activator'
   }).id('firmages:crafting/fusion_neutron_activator')
+
+  // Evolved Mekanism's Chemixer had the Alloyer as its core. The pack has no evolvedmekanism:alloying recipe (the alloys
+  // come from the crucible and the arc furnace), so the Alloyer and its factories are hidden as blocks without a use
+  // (dev/age_map.toml [hidden], round F1); the Chemixer, which mixes chemicals and items, takes Mekanism's chemical
+  // infuser as its core instead. Everything else as in the mod's recipe.
+  event.remove({ id: 'evolvedmekanism:chemixer' })
+  event.shaped('evolvedmekanism:chemixer', ['ACA', 'OPO', 'ACA'], {
+    A: '#evolvedmekanism:alloys/singular', C: '#c:circuits/dense', O: '#c:ingots/osmium', P: 'mekanism:chemical_infuser'
+  }).id('firmages:crafting/chemixer')
 })

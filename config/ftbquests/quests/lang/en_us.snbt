@@ -871,6 +871,10 @@
 		"After about six minutes the fire is out and the pottery is fired."
 	]
 	quest.1CC29E163A94FCE6.title: "Potter"
+	quest.1CC36C2772C8BF13.quest_desc: [
+		"Make a Wixie charm at the enchanting apparatus with conjuration essence. Use it on a cauldron: the Wixie crafts or brews what you show it."
+	]
+	quest.1CC36C2772C8BF13.title: "Wixie Charm"
 	quest.1CE33853BEFBE413.quest_desc: [
 		"Stack modular diesel engines in a row. They work like the small one, and each module adds its share of stress."
 	]
@@ -1473,6 +1477,10 @@
 	]
 	quest.33818E6B3089AF9E.quest_subtitle: "Goal of the Space Age"
 	quest.33818E6B3089AF9E.title: "Star Chart"
+	quest.339049C0883429BA.quest_desc: [
+		"Set it under the centre of a burning fusion reactor. Its neutrons turn nuclear waste into polonium and lithium into tritium, day and night."
+	]
+	quest.339049C0883429BA.title: "Fusion Neutron Activator"
 	quest.33BEA94E7673D21D.quest_desc: [
 		"No portal leads to the Nether in this land. It opens to a sacrifice:"
 		"- Set at least seven offerings within five blocks of one spot: anvils, mob heads, gold or black steel blocks, or piles of gold, pig iron or black steel ingots."
@@ -2472,9 +2480,7 @@
 		"Feed a wild animal to familiarize it. Tame animals are the start of a farm."
 	]
 	quest.5CC2939838550FB5.title: "A New Friend"
-	quest.5D31E5FF6DE9E042.quest_desc: [
-		"Lay sixteen tracks. Trains bring ore home from distant mines."
-	]
+	quest.5D31E5FF6DE9E042.quest_desc: ["Lay 16 tracks. Trains bring ore home from distant mines."]
 	quest.5D31E5FF6DE9E042.title: "Trains"
 	quest.5D5A925A47A11BB0.quest_desc: [
 		"Set an advanced prism in the path of a spell. It turns the cast and gives it a new course."
@@ -3104,7 +3110,7 @@
 	]
 	quest.772B64FC091E11AB.title: "Grid Online"
 	quest.774C554B16ACE98C.quest_desc: [
-		"Refine naquadah with refined obsidian in the infuser, then cast one base block, nine chevrons and fourteen ring blocks. The Singularity goes into the base."
+		"Refine naquadah with refined obsidian in the infuser, then cast one base block, nine chevrons and 14 ring blocks. The Singularity goes into the base."
 	]
 	quest.774C554B16ACE98C.title: "Stargate Blocks"
 	quest.774CB8EF94856508.quest_desc: [

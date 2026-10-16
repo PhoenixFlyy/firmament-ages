@@ -53,9 +53,9 @@ Stuck? The [walkthrough](https://github.com/PhoenixFlyy/firmament-ages/blob/main
 - Server: a ready-to-run server pack comes with every release as an additional file. Its README covers memory and pregeneration: 8 GB of heap for up to four players, 10 GB for five to ten.
 - Multiplayer: every player joins the server's one team at the first login, no invite needed. If you want separate teams, set `team.autoJoin = false` in `firmages-server.toml`. PvP is on; set `pvp=false` in `server.properties` for a public server. Single player works too, as a team of one.
 
-## Beta
+## Version 1.0
 
-The whole road from Dawn to The Origin and its final boss is playable. Balance and texts will still change, and a new world will be needed for 1.0. Draconic Evolution and Stargate Journey are beta mods on 1.21.1: back up your world before the Space Age. Bugs go to the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
+The whole road from Dawn to The Origin and its final boss is finished and checked end to end: every item waits for its Age, every quest asks for something your team can make by then, and every Age has a road without magic and without a boss. Draconic Evolution and Stargate Journey are beta mods on 1.21.1, so back up your world before the Space Age. Bugs go to the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 ## Shaders
 

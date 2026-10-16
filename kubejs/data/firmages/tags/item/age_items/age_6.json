@@ -1018,7 +1018,6 @@
     {"id": "mekanismadditions:red_plastic_transparent_stairs", "required": false},
     {"id": "mekanismadditions:red_reinforced_plastic", "required": false},
     {"id": "mekanismadditions:red_slick_plastic", "required": false},
-    {"id": "mekanismadditions:walkie_talkie", "required": false},
     {"id": "mekanismadditions:white_balloon", "required": false},
     {"id": "mekanismadditions:white_glow_panel", "required": false},
     {"id": "mekanismadditions:white_plastic", "required": false},

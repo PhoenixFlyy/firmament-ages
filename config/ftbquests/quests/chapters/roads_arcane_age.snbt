@@ -1236,6 +1236,51 @@
 			y: 11.25d
 		}
 		{
+			dep_control_pts: {
+				7AA47D3B7EF4F22D: [
+					11.83d
+					11.614d
+					12.498d
+					12.064d
+				]
+			}
+			dependencies: ["7AA47D3B7EF4F22D"]
+			id: "1CC36C2772C8BF13"
+			optional: true
+			rewards: [
+				{
+					id: "6141957536A8350C"
+					type: "xp"
+					xp: 65
+				}
+				{
+					count: 4
+					id: "358E00A828475DEF"
+					item: {
+						count: 1
+						id: "ars_nouveau:source_gem"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "239D7AF369F7BB90"
+					item: {
+						count: 1
+						id: "ars_nouveau:wixie_charm"
+					}
+					type: "item"
+				}
+			]
+			x: 12.85d
+			y: 11.7d
+		}
+		{
 			dependencies: ["084B1FF3C902B47A"]
 			id: "1AA3DA7FC73C7765"
 			optional: true
