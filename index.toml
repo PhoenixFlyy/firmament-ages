@@ -234,7 +234,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "ef9077801857f355c87c2eef671789bf568d8e1640a3544971e90559a6bd0872"
+hash = "c0e6298b5402056e951a7b60269d80e8434e9b444b384b5d23e24c0bde9b18d6"
 
 [[files]]
 file = "config/fml.toml"
@@ -262,7 +262,7 @@ hash = "7ee5bb94a6bdaecd28222ba97647e44c75c5fc36b5585c6401990a1f397a719a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
-hash = "ff512d331ed3c61f05e6e1803aab91991e97870020a398ba6a4c870b1d85dce0"
+hash = "6b2175029629e1b22422263a7c94a7d01049326924cf5bfe3362b2ec5c34636a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
@@ -310,7 +310,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "27516699df7d3a68b5e197553a93f397eb4c560f5749a5c9043a34e79533a530"
+hash = "6a02d2daab7ada3f712ccb02eaff82af058b9567588a0ea54016978e5eee4844"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -442,7 +442,7 @@ hash = "4b482316317de13271b0340cd9030b9e0bb54329ec9fdd44cda50ef010ddb2aa"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "b72897fd48a82589417680559504e9ffb9638d486d3c0ff6397dd141a7f07535"
+hash = "d8f7235de0b7ef2077c8ad54038c813b6d1a010aa4a71ba8e8fc83ce18fd4b87"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
@@ -9854,7 +9854,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-0.11.0.jar"
-hash = "ee8a041d8858a902fdcd79964e5f0e0ca768ac75595f054dbb3fca3b0a89376d"
+hash = "f4b2928085f8100f10150da0f5729e77861557dd4d185c6b4f5c3d5f3f3ed975"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
