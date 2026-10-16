@@ -425,7 +425,7 @@ public final class ServerConfig {
         b.comment("The pack's own machines: the Ore Processor of the Singularity Age (SPEC 40) and the Arcane Catalyst (SPEC 41).").push("machines");
         PROCESSOR_FE_PER_TICK = b.comment("FE the Ore Processor draws per tick of work at base speed; an operation costs this times its time.",
                 "Its recipes are data (firmages:ore_processing, written from metals.json).")
-            .defineInRange("oreProcessorFePerTick", 50_000, 1_000, 10_000_000);
+            .defineInRange("oreProcessorFePerTick", 15_000, 1_000, 10_000_000);
         PROCESSOR_LUBRICANT_SPEED = b.comment("Speed of an operation that starts with its lubricant; the FE per tick rises with it, the FE per operation stays.")
             .defineInRange("oreProcessorLubricantSpeed", 2.0, 1.0, 4.0);
         CATALYST_EXTRA_TICKS = b.comment("Extra work ticks per game tick the Arcane Catalyst gives the machine it faces (0.5 = +50 % speed).")
@@ -712,7 +712,7 @@ public final class ServerConfig {
     }
 
     public static long processorFePerTick() {
-        return loaded() ? PROCESSOR_FE_PER_TICK.get() : 50_000;
+        return loaded() ? PROCESSOR_FE_PER_TICK.get() : 15_000;
     }
 
     public static double processorLubricantSpeed() {

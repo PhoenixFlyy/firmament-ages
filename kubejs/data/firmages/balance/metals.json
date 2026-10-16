@@ -45,7 +45,7 @@
     "ore_processor":     {"type": "firmages:ore_processing",     "age": "age_9", "kind": "tech",  "factor": 6.0, "label": "Ore Processor (firmages-core)"}
   },
   "ore_processor": {
-    "_doc": "The Singularity Age's Ore Processor (firmages-core SPEC 40, harmony plan link 23 and section 5): every ore piece of the table goes in at the station 'ore_processor' factor and leaves as the metal's 'dust' (one ingot each, n pieces for m dusts by the table's ratio). Per dust it uses 'chemical_per_dust' mB of the Mekanism chemical and 'fluid_per_dust' mB of the working fluid; the lubricant ('lubricant_per_dust' mB) only makes it faster. 'ticks_per_dust' at base speed, the FE per tick is the mod's config (machines.oreProcessorFePerTick, 50,000: 500,000 FE per dust). Recipes: kubejs/server_scripts/recipes/age_9/ore_processor.js.",
+    "_doc": "The Singularity Age's Ore Processor (firmages-core SPEC 40, harmony plan link 23 and section 5): every ore piece of the table goes in at the station 'ore_processor' factor and leaves as the metal's 'dust' (one ingot each, n pieces for m dusts by the table's ratio). Per dust it uses 'chemical_per_dust' mB of the Mekanism chemical and 'fluid_per_dust' mB of the working fluid; the lubricant ('lubricant_per_dust' mB) only makes it faster. 'ticks_per_dust' at base speed, the FE per tick is the mod's config (machines.oreProcessorFePerTick, 15,000: 150,000 FE per dust, so the 6x step lowers the FE per ingot like every step before it; dev/miner_ladder.py --check). Recipes: kubejs/server_scripts/recipes/age_9/ore_processor.js.",
     "chemical": "mekanism:hydrofluoric_acid",
     "chemical_per_dust": 10,
     "fluid_tag": "c:kerosene",

@@ -5,7 +5,7 @@ unlimited miners").
 Computes, from the shipped files, what one Digital Miner and one IE Excavator deliver (ore pieces, mB and ingots per
 hour) and the FE per ingot of every ladder step when a miner feeds it (mining + processing). With unlimited miners
 energy is what limits a base, so a ladder step is worth it when it lowers the FE per ingot. The rules checked here:
-  - every step (2.5x -> 3x -> 4x -> 5x) lowers the FE per ingot by at least --min-gain (default 5 %) for the Digital
+  - every step (2.5x -> 3x -> 4x -> 5x -> 6x) lowers the FE per ingot by at least --min-gain (default 5 %) for the Digital
     Miner and for the average excavator vein, with 8 energy upgrades in every Mekanism machine (the Chronicle teaches
     them in the Information Age; the miner on any equal number of speed and energy upgrades: FE per block as without);
     the rows without energy upgrades are printed, not checked (there only 3x pays off: the trap the quest names);
@@ -14,7 +14,15 @@ energy is what limits a base, so a ladder step is worth it when it lowers the FE
   - a fully upgraded Digital Miner (8 speed, 8 energy) draws at most --plant FE/t, one Space Age plant (fission at
     1 mB/t through a turbine: 100,000 FE/t measured after the A8 tuning, dev/harmonie-messung.md).
 
-Inputs: kubejs/data/firmages/balance/metals.json (factors, grades, IE Crusher energy), config/Mekanism/machine-usage.toml
+The 6x step is the Ore Processor of the Singularity Age (firmages-core SPEC 40): ore pieces straight in, one dust per
+ingot for machines.oreProcessorFePerTick (config/firmages-server.toml) times metals.json ore_processor.ticks_per_dust,
+plus its reagents: hydrofluoric acid (Mekanism 10.7.19 recipes: one fluorite and 100 mB sulfuric acid give 1,000 mB in
+a dissolution operation; sulfuric acid 1 mB per infuser tick from sulfur trioxide, that 2 mB per tick from sulfur
+dioxide, that 100 mB per oxidizer operation; Mekanism energy, so divided by the energy upgrades too) and kerosene
+(Immersive Petroleum 4.5.0 distillation: 1,024 FE per 60 mB crude oil, charged in full to its 20 mB kerosene).
+
+Inputs: kubejs/data/firmages/balance/metals.json (factors, grades, IE Crusher energy, the Ore Processor's reagents),
+config/firmages-server.toml (oreProcessorFePerTick), config/Mekanism/machine-usage.toml
 and general.toml (usage J/t, ticksPerMine), config/immersiveengineering-server.toml (excavator consumption, speed),
 the mineral mixes (recipes_full.json of a /fa_dump_full with --dump-dir, else kubejs/data/immersiveengineering).
 Machine times are Mekanism 10.7.19's (javap: 200 ticks per operation, dissolution 100, washer 1 mB per tick); the
@@ -96,7 +104,17 @@ def main():
     op = {k: use[("", k)] / J_PER_FE * t for k, t in TICKS.items()}            # FE per operation, no upgrades
     wash = use[("", "chemicalWasher")] / J_PER_FE * SLURRY_PER_CRYSTAL          # FE per crystal's slurry
     mb = gmb["normal"]
-    f = {k: float(st[k]["factor"]) for k in ("ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution")}
+    f = {k: float(st[k]["factor"]) for k in ("ie_crusher", "mek_purifying", "mek_injecting", "mek_dissolution",
+                                             "ore_processor")}
+    fa = toml_values(os.path.join(ROOT, "config", "firmages-server.toml"))
+    opr = mt["ore_processor"]
+    opr_fe = fa[("machines", "oreProcessorFePerTick")] * float(opr["ticks_per_dust"])     # FE per dust, the machine
+    # reagents per mB, Mekanism part (J -> FE, before upgrades) and the kerosene (IE energy, no upgrades)
+    hf_mek = (use[("", "chemicalDissolutionChamber")] * TICKS["chemicalDissolutionChamber"]   # 1,000 mB per fluorite
+              + use[("", "chemicalInfuser")] * 100                                         # 100 mB sulfuric acid
+              + use[("", "chemicalInfuser")] * 50                                          # 100 mB sulfur trioxide
+              + use[("", "chemicalOxidizer")] * 100) / J_PER_FE / 1000.0                   # 100 mB sulfur dioxide
+    kero = 1024.0 / 20.0
 
     def proc(div):
         """FE per ingot of processing for each factor (normal pieces), Mekanism FE divided by div (energy upgrades)."""
@@ -109,10 +127,13 @@ def main():
         # one purifying / injecting operation takes n pieces and gives m clumps / shards (the metal table's ratio)
         m_pur = ratio(mb * f["mek_purifying"] / 100, mt["max_pieces"], mt["tolerance"])[1]
         m_inj = ratio(mb * f["mek_injecting"] / 100, mt["max_pieces"], mt["tolerance"])[1]
+        # the Ore Processor: ore pieces straight in, one dust per ingot; FE of the machine plus its reagents
+        e_opr = opr_fe + float(opr["chemical_per_dust"]) * hf_mek / div + float(opr["fluid_per_dust"]) * kero
         return {f["ie_crusher"]: e_ie,
                 f["mek_purifying"]: pur / m_pur + cr + en,
                 f["mek_injecting"]: inj / m_inj + pur + cr + en,
-                f["mek_dissolution"]: dis + wash / div + op["chemicalCrystallizer"] / div + inj + pur + cr + en}
+                f["mek_dissolution"]: dis + wash / div + op["chemicalCrystallizer"] / div + inj + pur + cr + en,
+                f["ore_processor"]: e_opr}
 
     # ---- miners -------------------------------------------------------------------------------------------------
     dm_use = use[("", "digitalMiner")] / J_PER_FE
@@ -124,6 +145,8 @@ def main():
           f"per block (any equal speed/energy upgrades), {72000 / dm_ticks:,.0f} blocks/h without, "
           f"{72000 * 10 / dm_ticks:,.0f} with 8 speed upgrades ({dm_use * 10:,.0f} FE/t with 8 energy, "
           f"{dm_use * 100:,.0f} without); vein mean {a.vein_mb} mB per block")
+    print(f"Ore Processor: {opr_fe:,.0f} FE per dust, reagents {float(opr['chemical_per_dust']) * hf_mek:,.0f} FE of "
+          f"hydrofluoric acid (a tenth with energy upgrades) and {float(opr['fluid_per_dust']) * kero:,.0f} FE of kerosene")
     print(f"IE Excavator: {ex_fe:,.0f} FE/t, speed {ex_speed:g} -> one dig per {ex_ticks:.0f} ticks, "
           f"{72000 / ex_ticks:,.0f} digs/h, {ex_fe * ex_ticks:,.0f} FE per dig")
     mx = []

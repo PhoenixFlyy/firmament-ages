@@ -2724,7 +2724,7 @@ refinery, the power from the reactor.
 
 - `firmages:ore_processor` (`machine/OreProcessorBlock`, block entity `OreProcessorBlockEntity`): one block, property
   `active`. One input slot, four output slots, a chemical tank (16,000 mB, the chemical as id and amount), a working-fluid
-  tank (16,000 mB), a lubricant tank (8,000 mB), an FE buffer of one second at full speed (2,000,000 FE with the defaults).
+  tank (16,000 mB), a lubricant tank (8,000 mB), an FE buffer of one second at full speed (600,000 FE with the defaults).
 - Handlers on every side: items in (only an ore piece a live recipe takes) and results out; fluids in (a recipe's
   lubricant into the lubricant tank, a recipe's working fluid into the other); FE in; Mekanism chemicals in
   (`compat/mekanism/ProcessorChemicals`, `Capabilities.CHEMICAL`, insert only, only a chemical a live recipe uses).
@@ -2749,22 +2749,23 @@ for 3, poor 10 for 9, small 5 for 3). 68 recipes for the 68 pieces of 13 metals.
 Waits in order for: input of at least the recipe's count, the chemical, the working fluid, room for the result. At the
 start of an operation it takes the lubricant if the tank holds the recipe's amount; a lubricated operation runs
 `machines.oreProcessorLubricantSpeed` (2.0) times as fast. Every tick of work draws `machines.oreProcessorFePerTick`
-(50,000) times the speed; without that much FE the operation waits and keeps its progress. An operation therefore costs
-fePerTick x time either way (500,000 FE per dust): the lubricant buys speed, never metal or power. At the end it takes
-the input, the chemical and the fluid and puts the result out. A DE reactor at 1.5 M FE/t runs 30 processors (60 dusts
-a second).
+(15,000) times the speed; without that much FE the operation waits and keeps its progress. An operation therefore costs
+fePerTick x time either way (150,000 FE per dust; 50,000 FE/t and 500,000 FE until the 0.13.0 review, when the 6x step cost more FE per
+ingot than 5x: `dev/miner_ladder.py --check` now holds it to the ladder rule): the lubricant buys speed, never metal or power. At the end it takes
+the input, the chemical and the fluid and puts the result out. A DE reactor at 1.5 M FE/t runs 100 processors
+(200 dusts a second).
 
 ### 40.5 Text
 
 Jade (`Machines.PROCESSOR`): "Processing: 21 Iron Dust, 45 %" (or "Processing, lubricated: ...") or what it waits for
 ("Waiting for its acid", "Waiting for its working fluid", "Waiting for power", "Output full", "Not enough of this ore for
-one batch", "Waiting for ore"); "Energy: 1,950,000 of 2,000,000 FE"; one line per filled tank. EMI category
+one batch", "Waiting for ore"); "Energy: 585,000 of 600,000 FE"; one line per filled tank. EMI category
 `firmages:ore_processing` ("Ore Processing", `compat/emi/ProcessorEmi`, the processor as workstation): pieces, working
 fluid, lubricant as catalyst, result; the chemical, the time and the FE of one operation as text.
 
 ### 40.6 Config
 
-`[machines] oreProcessorFePerTick` (50,000, 1,000..10,000,000), `oreProcessorLubricantSpeed` (2.0, 1..4).
+`[machines] oreProcessorFePerTick` (15,000, 1,000..10,000,000), `oreProcessorLubricantSpeed` (2.0, 1..4).
 
 ### 40.7 Commands
 
@@ -2777,12 +2778,12 @@ U `ProcessorRulesTest` (lubricant halves the time at the same FE, waits in order
 recipe resets, percent). G `EndgameGameTests.processorRunsItsRecipe` (test recipe 2 raw iron + 30 mB hydrogen + 15 mB
 water, lava as lubricant, 20 ticks, 3 nuggets: cobblestone refused, oxygen refused, waits for the chemical, the fluid,
 then power; the lubricated operation done in about 10 ticks, the plain one not 11 ticks after it began, 6 nuggets,
-everything used up, 2 x 50,000 x 20 FE; nothing comes back out). P `selftest endgame` `processor_recipes_cover_the_table`
+everything used up, 2 x `oreProcessorFePerTick` x 20 FE; nothing comes back out). P `selftest endgame` `processor_recipes_cover_the_table`
 (after age_9 every ore piece of the table has a recipe to its dust at 6.0x within the tolerance; before it none is
 live). `poc_analyze.py` L-1/L-2 (station `ore_processor` 6.00 on all 68 pieces, age_9 best tech 6.00), C-4d and C-M
 know the type. **[S]** copy boot H3 at age_9: 10 rich hematite + 210 mB acid + 105 mB kerosene + 21 mB lubricant gave 21
 `mekanism:dust_iron`; `/firmages ore audit` "age_9: best tech factor 6.000 to 6.000 over 68 pieces"; the energy audit
-read 125,000 FE/t for a plain processor (50,000) and a quickened one (75,000, §41).
+read 125,000 FE/t for a plain processor (50,000) and a quickened one (75,000, §41), at the 0.13.0 release value.
 
 ## 41. The Arcane Catalyst (harmony plan link 24, round H3)
 

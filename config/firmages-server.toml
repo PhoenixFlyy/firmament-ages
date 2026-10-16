@@ -375,9 +375,9 @@
 [machines]
 	#FE the Ore Processor draws per tick of work at base speed; an operation costs this times its time.
 	#Its recipes are data (firmages:ore_processing, written from metals.json).
-	# Default: 50000
+	# Default: 15000
 	# Range: 1000 ~ 10000000
-	oreProcessorFePerTick = 50000
+	oreProcessorFePerTick = 15000
 	#Speed of an operation that starts with its lubricant; the FE per tick rises with it, the FE per operation stays.
 	# Default: 2.0
 	# Range: 1.0 ~ 4.0
