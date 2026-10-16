@@ -672,6 +672,22 @@ def main():
                 reg_id(r.get('id'), 'reward', 'chapters/%s reward' % cname)
         for im in ch.get('images', []):
             reg_id(im.get('id'), 'image', 'chapters/%s image' % cname)
+        for ql in ch.get('quest_links', []):
+            reg_id(ql.get('id'), 'quest_link', 'chapters/%s quest link' % cname)
+
+    # ---- quest links (FTB Quests QuestLink, javap 2101.1.36: linked_quest hex id, x, y, shape, size): the Great Works
+    # plans on their Age maps (B2); the linked quest must exist in another chapter
+    for cname, ch in chapters.items():
+        for ql in ch.get('quest_links', []):
+            lw = 'chapters/%s quest link %s' % (cname, ql.get('id'))
+            target = str(ql.get('linked_quest', '')).upper()
+            if target not in quests:
+                E('%s: linked quest %s does not exist' % (lw, ql.get('linked_quest')))
+            elif quests[target][0] == cname:
+                E('%s: links a quest of its own chapter' % lw)
+            for k in ('x', 'y', 'size'):
+                if not isinstance(ql.get(k), Num):
+                    E('%s: %s must be a number' % (lw, k))
 
     # ---- chapter-level refs and ages
     chapter_age = {}
@@ -751,7 +767,7 @@ def main():
     for cname, ch in chapters.items():
         cage = chapter_age[cname]
         is_age_chapter = ch.get('progressivestages_required_stage') in AGE_CHAPTER_STAGES and \
-            'works' not in ch.get('tags', [])
+            not {'works', 'roads'} & set(ch.get('tags', []))
         if 'icon' in ch:
             check_item(ch['icon'].get('id'), 'chapters/%s' % cname, None, 'chapter icon')
         kinds = {}
@@ -1034,6 +1050,25 @@ def main():
                 if gap < quest_layout.MIN_GAP:
                     E('chapters/%s: quests %s and %s are drawn %.2f units apart (at least %.2f)'
                       % (cname, a[0], b[0], gap, quest_layout.MIN_GAP))
+
+    # ---- Side Roads chapters (B2): hidden until their Age, every quest a side quest that hangs on an Age quest or on
+    # the quest before it in its road; rewards are items of the Age (checked above like every reward)
+    for cname, ch in chapters.items():
+        if 'roads' not in ch.get('tags', []):
+            continue
+        if ch.get('progressivestages_required_stage') not in AGE_CHAPTER_STAGES:
+            E('chapters/%s: a Side Roads chapter needs the required stage of its Age' % cname)
+        for qd in ch['quests']:
+            qw = 'chapters/%s quest %s' % (cname, qd['id'])
+            if 'side' not in qd.get('tags', []) or not qd.get('optional'):
+                E('%s: a Side Roads quest is an optional side quest' % qw)
+            deps = qd.get('dependencies', [])
+            if len(deps) != 1:
+                E('%s: a Side Roads quest hangs on exactly one quest, has %d' % (qw, len(deps)))
+            elif str(deps[0]).upper() not in quests:
+                E('%s: dependency %s does not resolve' % (qw, deps[0]))
+            if not any(r.get('type', 'item') == 'item' for r in qd.get('rewards', [])):
+                E('%s: a Side Roads quest pays an item' % qw)
 
     # ---- Great Works chapters: a stage, one entry, one goal, every quest leads to the goal
     for cname, ch in chapters.items():

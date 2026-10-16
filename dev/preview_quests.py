@@ -108,7 +108,8 @@ def wrap(text, f, width, d):
     return lines[:2]
 
 
-def render(name, ch, lang):
+def render(name, ch, lang, all_quests=None):
+    all_quests = all_quests or {}
     default_size = num(ch.get('default_quest_size'), 1.0) or 1.0
     default_shape = ch.get('default_quest_shape', 'circle')
     quests = {q['id'].upper(): q for q in ch.get('quests', [])}
@@ -227,10 +228,16 @@ def render(name, ch, lang):
                     icon_id = str(t.get('to_observe')).split('[')[0]
                     break
         ic = T.icon(icon_id, 32) if icon_id else None
-        if ic is not None:
-            isz = int(sz * (0.5 if kind in ('goal', 'entry', 'note') else 0.58))
-            layer.alpha_composite(ic.resize((isz, isz), Image.NEAREST), (int(px - isz / 2), int(py - isz / 2)))
         title = lang.get('quest.%s.title' % qid_, '?')
+        isz = int(sz * (0.5 if kind in ('goal', 'entry', 'note') else 0.58))
+        if ic is not None:
+            layer.alpha_composite(ic.resize((isz, isz), Image.NEAREST), (int(px - isz / 2), int(py - isz / 2)))
+        elif icon_id:   # a valid id the flat renderer cannot draw (entity models, custom loaders, a jar not in MODS)
+            gf = font(int(isz * 0.8), True)
+            gw = ld.textlength(title[0], font=gf)
+            ld.text((px - gw / 2, py - isz * 0.5), title[0], font=gf, fill=(169, 196, 255, 200))
+        else:
+            ld.ellipse([px - 5, py - 5, px + 5, py + 5], fill=(255, 60, 60, 255))   # no icon at all: fix the quest
         f = bold if kind in ('goal', 'keystone', 'entry', 'ring', 'guide', 'note') else small
         ty = py + sz / 2 + 1
         for ln in wrap(title, f, 3.3 * U, ld):
@@ -241,6 +248,29 @@ def render(name, ch, lang):
         if qid_ in hidden:
             layer.putalpha(layer.split()[3].point(lambda v: int(v * 0.4)))
         canvas.alpha_composite(layer)
+
+    for ql in ch.get('quest_links', []):   # links to quests of other chapters (the Great Works plans, B2)
+        x, y = num(ql.get('x')), num(ql.get('y'))
+        px, py = P(x, y)
+        sz = int((num(ql.get('size')) or 1.0) * QL.CELL * U)
+        shp = ql.get('shape') or default_shape
+        bgt, olt = shape(shp, 'background'), shape(shp, 'outline')
+        if bgt is not None:
+            canvas.alpha_composite(tint(bgt.resize((sz, sz), Image.LANCZOS), (40, 52, 104)), (int(px - sz / 2), int(py - sz / 2)))
+        if olt is not None:
+            canvas.alpha_composite(tint(olt.resize((sz, sz), Image.LANCZOS), (169, 196, 255)), (int(px - sz / 2), int(py - sz / 2)))
+        target = all_quests.get(str(ql.get('linked_quest')).upper())
+        ic = T.icon(target['icon']['id'], 32) if target and target.get('icon') else None
+        if ic is not None:
+            isz = int(sz * 0.58)
+            canvas.alpha_composite(ic.resize((isz, isz), Image.NEAREST), (int(px - isz / 2), int(py - isz / 2)))
+        t = lang.get('quest_link.%s.title' % ql['id'].upper(), '?')
+        ty = py + sz / 2 + 1
+        for ln in wrap(t, small, 3.3 * U, d):
+            tw = d.textlength(ln, font=small)
+            d.text((px - tw / 2 + 1, ty + 1), ln, font=small, fill=(0, 0, 0, 210))
+            d.text((px - tw / 2, ty), ln, font=small, fill=(169, 196, 255, 240))
+            ty += small.size + 2
 
     # quests drawn too close (should never happen: the layout relaxes them apart)
     items = list(quests.values())
@@ -285,8 +315,9 @@ def main(argv):
     if not T.available():
         print('warning: mod jars not found (%s); quests without icons' % T.MODS)
     rows = []
+    all_quests = {q['id'].upper(): q for ch in chapters.values() for q in ch.get('quests', [])}
     for name, ch in chapter_order(chapters, groups):
-        st = render(name, ch, lang)
+        st = render(name, ch, lang, all_quests)
         rows.append((name, st))
         print('%-22s %3d quests  %5.1f x %4.1f units  %2d hidden  %d too close' % (
             name, st['quests'], st['width'], st['height'], st['hidden'], st['close']))

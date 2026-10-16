@@ -183,6 +183,19 @@
         128
       ]
     },
+    "knapping/axe_head_mold": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/axe_head_mold.png",
+      "path": "firmages:textures/quests/knapping/axe_head_mold.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
     "knapping/bowls": {
       "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
       "display": [
@@ -204,6 +217,19 @@
       ],
       "file": "kubejs/assets/firmages/textures/quests/knapping/hammer_head.png",
       "path": "firmages:textures/quests/knapping/hammer_head.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/hammer_head_mold": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/hammer_head_mold.png",
+      "path": "firmages:textures/quests/knapping/hammer_head_mold.png",
       "texture": [
         128,
         128
@@ -269,6 +295,19 @@
       ],
       "file": "kubejs/assets/firmages/textures/quests/knapping/jug.png",
       "path": "firmages:textures/quests/knapping/jug.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/knife_blade_mold": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/knife_blade_mold.png",
+      "path": "firmages:textures/quests/knapping/knife_blade_mold.png",
       "texture": [
         128,
         128
@@ -347,6 +386,19 @@
       ],
       "file": "kubejs/assets/firmages/textures/quests/knapping/shovel_head.png",
       "path": "firmages:textures/quests/knapping/shovel_head.png",
+      "texture": [
+        128,
+        128
+      ]
+    },
+    "knapping/shovel_head_mold": {
+      "caption": "Knapping pattern (clay): light squares stay, dark squares are knocked away",
+      "display": [
+        64,
+        64
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/knapping/shovel_head_mold.png",
+      "path": "firmages:textures/quests/knapping/shovel_head_mold.png",
       "texture": [
         128,
         128

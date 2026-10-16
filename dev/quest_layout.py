@@ -31,6 +31,10 @@ CELL = 6.0 / 7.0          # drawn diameter of a size-1 quest in grid units
 CP_SHIFT = 3.0 / 7.0      # control point offset per unit of the dependent's size (see above)
 GAP = 0.36                # free space kept between two drawn quests, grid units
 MIN_GAP = 0.2             # what dev/validate_quests.py accepts
+# Titles are drawn under the quests (dev/preview_quests.py, 13 px at 46 px per unit; in game they show on hover, but
+# the preview is what the layout is judged by): a label is about 0.15 units per character, wrapped at 3.3 units, and
+# 0.5 units high (0.85 for two lines). The relaxation keeps labels off other labels and discs (B2 layout polish).
+LABEL_CHAR, LABEL_MAX, LABEL_H, LABEL_H2 = 0.15, 3.3, 0.5, 0.85
 
 # size per quest kind; must match SHAPES in dev/gen_quests.py (0 there = the chapter default 1.0)
 SIZE = {'entry': 2.0, 'step': 1.0, 'keystone': 1.5, 'goal': 3.0, 'side': 0.85, 'explain': 1.0, 'info': 1.0,
@@ -73,6 +77,16 @@ class Layout:
         self.edges = []            # (dep, quest, c0, c1) in math coordinates
         self.edge_tang = {}        # (dep, quest) -> tangent the line leaves dep along (overrides tang[dep])
         self.focus = None
+        self.labels = {}           # quest key -> title, for the label room in relax()
+
+    def label_box(self, n):
+        """(x0, y0, x1, y1) of the title under quest n in math coordinates (y up), or None without a title."""
+        t = self.labels.get(n.key)
+        if not t:
+            return None
+        w = min(LABEL_MAX, LABEL_CHAR * len(t) + 0.3)
+        h = LABEL_H2 if LABEL_CHAR * len(t) + 0.3 > LABEL_MAX else LABEL_H
+        return n.x - w / 2, n.y - n.r - h, n.x + w / 2, n.y - n.r
 
     def add(self, key, kind, x=0.0, y=0.0, deps=(), hide_lines=False, size=None, fixed=False):
         n = Node(key, kind, deps, hide_lines, size)
@@ -105,6 +119,34 @@ class Layout:
                 b.x += ux * push * wb / (wa + wb)
                 b.y += uy * push * wb / (wa + wb)
                 moved = True
+            for a, b in itertools.combinations(nodes, 2):   # label room: no title under another title or disc
+                wa = 0.0 if a.fixed else (0.35 if a.stiff else 1.0)
+                wb = 0.0 if b.fixed else (0.35 if b.stiff else 1.0)
+                if wa + wb == 0:
+                    continue
+                boxes = []
+                la, lb = self.label_box(a), self.label_box(b)
+                if la and lb:
+                    boxes.append((la, lb))
+                if la:
+                    boxes.append((la, (b.x - b.r, b.y - b.r, b.x + b.r, b.y + b.r)))
+                if lb:
+                    boxes.append(((a.x - a.r, a.y - a.r, a.x + a.r, a.y + a.r), lb))
+                for ra, rb in boxes:
+                    ox = min(ra[2], rb[2]) - max(ra[0], rb[0])
+                    oy = min(ra[3], rb[3]) - max(ra[1], rb[1])
+                    if ox <= 0.02 or oy <= 0.02:
+                        continue
+                    if ox < oy * 1.6:   # push sideways (labels are wide and flat), else apart vertically
+                        push, ux, uy = ox + 0.05, (1.0 if b.x >= a.x else -1.0), 0.0
+                    else:
+                        push, ux, uy = oy + 0.05, 0.0, (1.0 if b.y >= a.y else -1.0)
+                    a.x -= ux * push * wa / (wa + wb)
+                    a.y -= uy * push * wa / (wa + wb)
+                    b.x += ux * push * wb / (wa + wb)
+                    b.y += uy * push * wb / (wa + wb)
+                    moved = True
+                    break
             for im in self.images:
                 for n in nodes:
                     if n.fixed or n.key == im.get('anchor'):
@@ -290,9 +332,12 @@ def age_chapter(spec, hints=None):
     [keys], ring (key or None), links [(key, [deps])] for quests between keystones and goal (bridge, routes), kinds
     {key: kind}, deps {key: [deps]}, hide_lines {keys}. hints: related {(a, b): 0..1}, style {name: arc|meander|
     circle}, axis (strand name), shrine (ring number for the picture, or None), r_key, r_entry, order (strand names
-    in slot order from the top-west round to the bottom-west: replaces the search by relatedness)."""
+    in slot order from the top-west round to the bottom-west: replaces the search by relatedness). spec may carry
+    titles {key: title} (label room) and satellites [(attach key, node key, size)]: extra nodes such as the links to
+    the Great Works, hung off their quest like a one-quest side path."""
     h = dict(hints or {})
     lay = Layout(spec['key'])
+    lay.labels = dict(spec.get('titles') or {})
     kinds, deps = spec['kinds'], spec['deps']
 
     def add(k, kind=None):
@@ -395,6 +440,9 @@ def age_chapter(spec, hints=None):
     by_attach = {}
     for attach, keys in spec['sides']:
         by_attach.setdefault(attach, []).append(keys)
+    for attach, key, size in spec.get('satellites') or []:
+        by_attach.setdefault(attach, []).append([key])
+        lay.add(key, 'guide', size=size)
     for attach in sorted(by_attach):
         lines = by_attach[attach]
         a = lay.nodes[attach]
@@ -416,7 +464,7 @@ def age_chapter(spec, hints=None):
             vx, vy = ox * math.cos(turn) - oy * math.sin(turn), ox * math.sin(turn) + oy * math.cos(turn)
             px, py = a.x, a.y
             for k, key in enumerate(keys):
-                nd = add(key)
+                nd = lay.nodes[key] if key in lay.nodes else add(key)
                 dist = (a.r + nd.r + 0.9) if k == 0 else 1.35
                 px, py = px + vx * dist + jit(key, 'sx', 0.12), py + vy * dist + jit(key, 'sy', 0.12)
                 nd.x, nd.y = px, py

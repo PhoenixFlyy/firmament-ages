@@ -172,7 +172,30 @@ def block_faces(block_id):
     return top, side
 
 
+def _pick(tex, *keys):
+    """The first loadable texture of the model chain under the given keys, then any other texture."""
+    for k in list(keys) + sorted(k for k in tex if k not in keys):
+        v = tex.get(k)
+        if isinstance(v, str) and not v.startswith('#'):
+            t = texture(v)
+            if t is not None:
+                return t
+    return None
+
+
+def _named_texture(ns, p):
+    """A texture of the mod named like the item (models of custom loaders and builtin/entity carry no textures:
+    rockets, spell books, data models); textures/item first, then any folder."""
+    name = p.rsplit('/', 1)[-1]
+    hits = [n for n in index() if n.startswith('assets/%s/textures/' % ns) and n.endswith('/%s.png' % name)]
+    hits.sort(key=lambda n: (0 if '/textures/item/' in n else 1 if '/textures/block/' in n else 2, len(n)))
+    return texture('%s:%s' % (ns, hits[0][len('assets/%s/textures/' % ns):-4])) if hits else None
+
+
 def icon(item_id, size=32):
+    """A 32 px icon as the quest map shows it, as far as flat textures allow: layer0 of the item model, the cube of
+    a block model (any parent path), the first texture of a model with a custom loader, or a texture of the mod
+    named like the item. None only when the mod jar is missing from MODS."""
     from qart_iso import cube_icon
     ns, p = _split(item_id)
     m = model('%s:item/%s' % (ns, p))
@@ -187,10 +210,20 @@ def icon(item_id, size=32):
             faces = block_faces(item_id)
             if faces:
                 return cube_icon(faces[0], faces[1], size)
+            top = _pick(tex, 'top', 'end', 'up', 'all', 'texture', 'particle', 'side')
+            side = _pick(tex, 'side', 'all', 'texture', 'north', 'front', 'particle', 'top')
+            if top is not None:
+                return cube_icon(top, side or top, size)
+        t = _pick(tex, 'particle', 'texture', 'all', '0', 'front', 'side')
+        if t is not None:
+            return t.resize((size, size), Image.NEAREST)
     t = texture('%s:item/%s' % (ns, p))
     if t is not None:
         return t.resize((size, size), Image.NEAREST)
     faces = block_faces(item_id)
     if faces:
         return cube_icon(faces[0], faces[1], size)
+    t = _named_texture(ns, p)
+    if t is not None:
+        return t.resize((size, size), Image.NEAREST)
     return None
