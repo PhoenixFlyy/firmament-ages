@@ -156,14 +156,16 @@ ServerEvents.recipes((event) => {
   // Fused in the IE Arc Furnace (the Electric Age HV station): the HV capacitor is the main input, the four additive
   // slots take the Attuned Circuit, aluminium plates, red steel sheets and the age_5 token (a Nether Star).
   // The diesel jerrycan of Doc 08 10.2 is left out: the arc furnace takes no fluids; diesel is the Oil strand's
-  // keystone instead (decision log 2026-10-01).
+  // keystone instead (decision log 2026-10-01). V4A (firmages-core SPEC 27.8): the two red steel sheets become one
+  // Aurora Steel ingot from the Lens Crown (the four additive slots are all used), while the sky road is complete.
+  const SKY = global.FA_SKY.REQUIRED.every((id) => Item.exists(id)) // V4A live (startup_scripts/sky.js)
   arc({
     type: 'immersiveengineering:arc_furnace',
     input: { item: 'immersiveengineering:capacitor_hv' },
     additives: [
       { item: 'firmages:attuned_circuit' },
       { basePredicate: { tag: 'c:plates/aluminum' }, count: 4 },
-      { basePredicate: { tag: 'c:sheets/red_steel' }, count: 2 },
+      SKY ? { item: global.FA_SKY.ALLOYS.age_5 } : { basePredicate: { tag: 'c:sheets/red_steel' }, count: 2 },
       { tag: 'firmages:age_token/age_5' }
     ],
     results: [{ id: 'firmages:humming_core', count: 1 }],

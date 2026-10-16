@@ -452,6 +452,32 @@ block = "tfc:rock/loose/granite"
 "id:firmages:voidglass" = "age_7"
 "id:firmages:deep_space_module" = "age_8"
 "id:firmages:deep_space_sample" = "age_8"
+# The Lens Crown and its consumers (firmages-core SPEC 24.5, M15 and M16b): the crown parts and the first three lenses
+# in the Arcane Age, one lens and one celestial alloy per later Age, the Sky Anchor and its shards in the Space Age.
+# Every celestial alloy comes only from the Crown (firmages:starforge, station Age age_3). The rows of the Sky Harvest
+# (M11), the Drifting Isles (M13), the Launch Complex (M14) and the Archipelago plinth (M17) come with their branches;
+# until those sources are in the jar the crown items stay hidden (derive_ages.py finds no source; startup_scripts/sky.js).
+"id:firmages:star_anvil" = "age_3"
+"id:firmages:lens_mount" = "age_3"
+"id:firmages:lens_blank" = "age_3"
+"id:firmages:lens/stone" = "age_3"
+"id:firmages:lens/bronze" = "age_3"
+"id:firmages:lens/iron" = "age_3"
+"id:firmages:starlit_iron_ingot" = "age_3"
+"id:firmages:lens/arcane" = "age_4"
+"id:firmages:cloudsteel_ingot" = "age_4"
+"id:firmages:lens/industrial" = "age_5"
+"id:firmages:aurora_steel_ingot" = "age_5"
+"id:firmages:lens/electric" = "age_6"
+"id:firmages:halo_steel_ingot" = "age_6"
+"id:firmages:lens/information" = "age_7"
+"id:firmages:void_steel_ingot" = "age_7"
+"id:firmages:sky_anchor" = "age_7"
+"id:firmages:blessing_shard" = "age_7"                   # all nine tiers; the tier-8 shard needs the Quasar Alloy (age_8)
+"id:firmages:lens/space" = "age_8"
+"id:firmages:quasar_alloy_ingot" = "age_8"
+"id:firmages:lens/quantum" = "age_9"
+"id:firmages:firmament_alloy_ingot" = "age_9"
 "id:firmages:wayshrine_stone" = "dawn"                   # firmages-core Wayshrines (SPEC-himmel 24.5): drops from a lit Wayshrine (age_1 on), decorative, Sky Anchor heart
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"
@@ -6143,6 +6169,7 @@ items = [
     "extendedae:entro_shard",
     "extendedae:package",
     "firmages:aurora_steel_ingot",
+    "firmages:blessing_shard",
     "firmages:cloudsteel_ingot",
     "firmages:consecrated_brick",
     "firmages:consecrated_glass",
@@ -6168,6 +6195,7 @@ items = [
     "firmages:meteorite",
     "firmages:origin_altar",
     "firmages:quasar_alloy_ingot",
+    "firmages:sky_anchor",
     "firmages:star_anvil",
     "firmages:starfall_core",
     "firmages:starlit_iron_ingot",

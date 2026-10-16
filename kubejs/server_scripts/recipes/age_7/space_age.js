@@ -60,7 +60,9 @@ ServerEvents.recipes((event) => {
   // ======================================================================================== goal: Star Chart
   // Polonium pellet as the catalyst on the fusion core; six injectors at wyvern level. The token slot takes the age_7
   // token: the flight recorder from the chest of Ad Astra's Mars temple (loot modifier
-  // kubejs/data/firmages/loot_modifiers/flight_recorder_mars_temple.json).
+  // kubejs/data/firmages/loot_modifiers/flight_recorder_mars_temple.json). V4A (firmages-core SPEC 27.8): one desh plate
+  // becomes a Void Steel ingot from the Lens Crown (still six injectors), while the sky road is complete.
+  const SKY = global.FA_SKY.REQUIRED.every((id) => Item.exists(id)) // V4A live (startup_scripts/sky.js)
   event.custom({
     type: 'draconicevolution:fusion_crafting',
     result: { id: 'firmages:star_chart', count: 1 },
@@ -69,13 +71,28 @@ ServerEvents.recipes((event) => {
     techLevel: 'wyvern',
     ingredients: [
       consume({ tag: 'c:plates/desh' }),
-      consume({ tag: 'c:plates/desh' }),
+      consume(SKY ? { item: global.FA_SKY.ALLOYS.age_7 } : { tag: 'c:plates/desh' }),
       consume({ tag: 'c:plates/ostrum' }),
       consume({ tag: 'c:plates/ostrum' }),
       consume({ item: 'draconicevolution:wyvern_core' }),
       consume({ tag: 'firmages:age_token/age_7' })
     ]
   }).id('firmages:fusion/star_chart')
+
+  // ---- Sky Anchor (firmages-core SPEC-himmel 29.4): a Wayshrine Stone (any kind) in a desh and voidglass frame on a
+  // desh block, with a Void Steel ingot. One stone per anchor ties the anchors to the restored Wayshrines. The steel
+  // plate tag also holds Ad Astra's hidden plate; the IE plate and the TFC steel sheet stand in it. The nine blessing
+  // shards are forged in the Lens Crown (anchor_chord). Only while the sky road is complete (startup_scripts/sky.js).
+  if (SKY) {
+    event.shaped('firmages:sky_anchor', ['PVP', 'SWT', 'PBP'], {
+      P: '#c:plates/desh',
+      V: 'firmages:voidglass',
+      S: '#c:plates/steel',
+      W: 'firmages:wayshrine_stone',
+      T: global.FA_SKY.ALLOYS.age_7,
+      B: '#c:storage_blocks/desh'
+    }).id('firmages:crafting/sky_anchor')
+  }
 })
 
 // Ad Astra machine and planet-ore furnace recipes, as fixed ids (see the removals at the top of the handler).

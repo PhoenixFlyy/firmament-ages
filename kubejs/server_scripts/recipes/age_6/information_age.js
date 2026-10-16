@@ -170,13 +170,18 @@ ServerEvents.recipes((event) => {
   // ======================================================================================== goal: Data Matrix
   // A grid recipe like the Steel Heart and the Pressure Core: the Mekanism and AE2 parts carry the Age's chains,
   // and an AE2 Molecular Assembler can craft it. The token slot takes the age_6 token: an AE2 singularity from the
-  // Matter Condenser (256,000 condenser power, a real automation line).
-  event.shaped('firmages:data_matrix', ['BCB', 'CSC', 'BTB'], {
+  // Matter Condenser (256,000 condenser power, a real automation line). V4A (firmages-core SPEC 27.8): two Halo Steel
+  // ingots from the Lens Crown take the top two blue steel sheets, while the sky road is complete.
+  const SKY = global.FA_SKY.REQUIRED.every((id) => Item.exists(id)) // V4A live (startup_scripts/sky.js)
+  const MATRIX_KEY = {
     B: '#c:sheets/blue_steel',
     C: 'mekanism:advanced_control_circuit',
     S: 'ae2:cell_component_64k',
     T: '#firmages:age_token/age_6'
-  }).id('firmages:crafting/data_matrix')
+  }
+  if (SKY) MATRIX_KEY.A = global.FA_SKY.ALLOYS.age_6
+  event.shaped('firmages:data_matrix', SKY ? ['ACA', 'CSC', 'BTB'] : ['BCB', 'CSC', 'BTB'], MATRIX_KEY)
+    .id('firmages:crafting/data_matrix')
 
   event.remove(removeTypes)
   event.remove({ id: new RegExp(removeIdPatterns.map((r) => r.source).join('|')) })

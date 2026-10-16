@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "ad_astra:desh_block",
+      "required": false
+    },
+    {
+      "id": "ad_astra:desh_pillar",
+      "required": false
+    }
+  ]
+}

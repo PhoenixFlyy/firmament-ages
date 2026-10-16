@@ -1,0 +1,14 @@
+{
+  "values": [
+    {
+      "id": "#c:cobblestones/normal",
+      "required": false
+    },
+    {
+      "id": "#c:cobblestones/mossy",
+      "required": false
+    },
+    "minecraft:cobblestone",
+    "minecraft:mossy_cobblestone"
+  ]
+}

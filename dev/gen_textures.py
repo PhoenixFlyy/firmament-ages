@@ -2822,6 +2822,87 @@ for _k in WAYSHRINE_KINDS:
 
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Sky Anchor and blessing shards (SPEC-himmel 29): a desh plinth around a void-dark core; its top carries the Wayshrine
+# star (the anchor is built around a Wayshrine Stone), starlit while it carries a blessing. The shard is greyscale and
+# tinted in game with its tier's beam colour (FirmagesClient), like the lens glass.
+@block("sky_anchor_base", "sky anchor base")
+def _():
+    img = new_tex()
+    noise_fill(img, "desh", seeded("anchor_base"), weights=(0, 2, 6, 3, 1), cluster=2)
+    bevel(img, "desh")
+    return img
+
+
+@block("sky_anchor_side", "sky anchor core side")
+def _():
+    img = new_tex()
+    noise_fill(img, "navy", seeded("anchor_side"), weights=(1, 3, 6, 2, 0), cluster=2)
+    overlay(img, [
+        "................",
+        "................",
+        ".......h........",
+        ".......s........",
+        "................",
+        "...h........s...",
+        "................",
+        "..........h.....",
+        "....s...........",
+        "................",
+        ".......h........",
+        "................",
+        "..s.........h...",
+        "................",
+        "......s.........",
+        "................",
+    ], legend(s=("star", 2), h=("star", 4)))
+    bevel(img, "navy")
+    return img
+
+
+def _anchor_top(active):
+    img = new_tex()
+    noise_fill(img, "desh", seeded("anchor_top"), weights=(0, 2, 6, 3, 1), cluster=2)
+    bevel(img, "desh")
+    overlay(img, WAYSHRINE_STAR, legend(s=("star" if active else "navy", 2 if active else 3), h=("star", 4 if active else 1)))
+    return img
+
+
+block("sky_anchor_top", "sky anchor top")(lambda: _anchor_top(False))
+block("sky_anchor_top_active", "sky anchor top, active")(lambda: _anchor_top(True))
+
+SHARD = [
+    "................",
+    "................",
+    ".........oo.....",
+    "........ohho....",
+    ".......ohhmo....",
+    "......ohhmmo....",
+    ".....ohhmmdo....",
+    "....ohhmmmdo....",
+    "....ohmmmdo.....",
+    "...ohmmmddo.....",
+    "...ommmddo......",
+    "...ommddo.......",
+    "....oddo........",
+    ".....oo.........",
+    "................",
+    "................",
+]
+
+
+@crown_item("blessing_shard", "blessing shard (greyscale, tinted)")
+def _():
+    img = new_tex()
+    tone = {"o": (70, 70, 70, 255), "d": (150, 150, 150, 255), "m": (205, 205, 205, 255), "h": (250, 250, 250, 255)}
+    px = img.load()
+    for y, row in enumerate(SHARD):
+        for x, ch in enumerate(row):
+            if ch in tone:
+                px[x, y] = tone[ch]
+    return img
+
+
+# ---------------------------------------------------------------------------------------------------------------------
 # The Launch Complex (SPEC 31): launch control (front with three throttle lamps), launch port, probe cradle; the probe
 # (its custom item model is also what the launch renderer draws at scale 3), the two payload modules, voidglass and
 # the deep-space sample.
@@ -3401,6 +3482,9 @@ for _ph in WAYSHRINE_PHASES:
                                                 "top": B + "wayshrine_core_top_" + _ph, "bottom": B + "wayshrine_core_bottom"}
 for _k in WAYSHRINE_KINDS:
     MODEL_TEXTURES["wayshrine_stone_" + _k] = {"particle": B + "wayshrine_stone_" + _k, "all": B + "wayshrine_stone_" + _k}
+for _top, _model in (("sky_anchor_top", "sky_anchor"), ("sky_anchor_top_active", "sky_anchor_active")):
+    MODEL_TEXTURES[_model] = {"particle": B + "sky_anchor_side", "side": B + "sky_anchor_side", "base": B + "sky_anchor_base",
+                              "top": B + _top}
 for _st in (1, 2, 3):
     MODEL_TEXTURES[f"launch_control_{_st}"] = {"particle": B + "launch_control_side", "front": B + f"launch_control_front_{_st}",
                                               "side": B + "launch_control_side", "top": B + "launch_control_top",

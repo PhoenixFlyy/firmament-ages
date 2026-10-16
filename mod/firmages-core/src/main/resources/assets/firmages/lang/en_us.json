@@ -561,5 +561,27 @@
   "firmages.jade.wayshrine.lit": "Lit, carries the blessings within %s blocks",
   "firmages.jade.wayshrine.broken": "Broken: repair it to wake it",
   "config.jade.plugin_firmages.wayshrine_core": "Wayshrine Core",
-  "subtitles.firmages.wayshrine.lit": "A Wayshrine kindles"
+  "subtitles.firmages.wayshrine.lit": "A Wayshrine kindles",
+
+  "block.firmages.sky_anchor": "Sky Anchor",
+  "item.firmages.blessing_shard": "Blessing Shard",
+  "item.firmages.blessing_shard.tier_0": "Shard of Hearthward",
+  "item.firmages.blessing_shard.tier_1": "Shard of Skyreading",
+  "item.firmages.blessing_shard.tier_2": "Shard of Iron Will",
+  "item.firmages.blessing_shard.tier_3": "Shard of Attunement",
+  "item.firmages.blessing_shard.tier_4": "Shard of Tireless Hands",
+  "item.firmages.blessing_shard.tier_5": "Shard of Long Arm",
+  "item.firmages.blessing_shard.tier_6": "Shard of Clarity",
+  "item.firmages.blessing_shard.tier_7": "Shard of Starwalker",
+  "item.firmages.blessing_shard.tier_8": "Shard of Resolve",
+  "item.firmages.blessing_shard.tooltip": "Set it into a Sky Anchor. The anchor carries its blessing from the Space Age on.",
+  "firmages.anchor.duplicate": "This anchor holds that shard already.",
+  "firmages.jade.anchor.none": "Sky Anchor: no shards",
+  "firmages.jade.anchor.one": "Sky Anchor: one shard",
+  "firmages.jade.anchor.shards": "Sky Anchor: %s shards",
+  "firmages.jade.anchor.before_age": "Quiet until the Space Age",
+  "firmages.jade.anchor.broken": "Quiet: the shrine is broken",
+  "firmages.jade.anchor.sleeping": "Quiet: its shards wait for their rings to awaken",
+  "firmages.jade.anchor.active": "Carries these blessings within %s blocks:",
+  "config.jade.plugin_firmages.sky_anchor": "Sky Anchor"
 }

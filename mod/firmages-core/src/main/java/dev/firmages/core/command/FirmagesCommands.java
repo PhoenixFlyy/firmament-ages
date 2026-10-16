@@ -76,6 +76,7 @@ public final class FirmagesCommands {
             .then(CrownCommands.crown())
             .then(LaunchCommands.launch())
             .then(WayshrineCommands.wayshrine())
+            .then(AnchorCommands.anchor())
             .then(OriginCommands.origin())
             .then(ArkCommands.ark())
             .then(OriginCommands.reactor())

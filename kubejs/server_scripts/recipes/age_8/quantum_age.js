@@ -67,7 +67,9 @@ ServerEvents.recipes((event) => {
   event.replaceInput({ id: 'advanced_ae:reactionchamber' }, 'ae2:vibration_chamber', 'mekanismgenerators:gas_burning_generator')
 
   // ======================================================================================== goal: Quantum Core
-  // The Awakened Core is the catalyst on the fusion core; seven injectors at draconic level.
+  // The Awakened Core is the catalyst on the fusion core; seven injectors at draconic level. V4A (firmages-core SPEC
+  // 27.8): one calorite plate becomes a Quasar Alloy ingot from the Lens Crown, while the sky road is complete.
+  const SKY = global.FA_SKY.REQUIRED.every((id) => Item.exists(id)) // V4A live (startup_scripts/sky.js)
   event.custom({
     type: 'draconicevolution:fusion_crafting',
     result: { id: 'firmages:quantum_core', count: 1 },
@@ -78,7 +80,7 @@ ServerEvents.recipes((event) => {
       consume({ item: 'mekanism:pellet_antimatter' }),
       consume({ item: 'mekanism:pellet_antimatter' }),
       consume({ tag: 'c:plates/calorite' }),
-      consume({ tag: 'c:plates/calorite' }),
+      consume(SKY ? { item: global.FA_SKY.ALLOYS.age_8 } : { tag: 'c:plates/calorite' }),
       consume({ item: 'ad_astra:ice_shard' }),
       consume({ item: 'ad_astra:ice_shard' }),
       consume({ tag: 'firmages:age_token/age_8' })

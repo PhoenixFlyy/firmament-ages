@@ -49,6 +49,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation ANVIL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "star_anvil");
     static final ResourceLocation MOUNT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "lens_mount");
     static final ResourceLocation WAYSHRINE = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "wayshrine_core");
+    static final ResourceLocation ANCHOR = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "sky_anchor");
     static final ResourceLocation LAUNCH_CONTROL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "launch_control");
     static final ResourceLocation LAUNCH_PORT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "launch_port");
     static final ResourceLocation AURORA_NET = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "aurora_net");
@@ -64,6 +65,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Crown.ANVIL, dev.firmages.core.crown.StarAnvilBlock.class);
         registration.registerBlockComponent(Crown.MOUNT, dev.firmages.core.crown.LensMountBlock.class);
         registration.registerBlockComponent(Wayshrine.INSTANCE, WayshrineCoreBlock.class);
+        registration.registerBlockComponent(Anchor.INSTANCE, dev.firmages.core.anchor.SkyAnchorBlock.class);
         registration.registerBlockComponent(Launch.CONTROL, dev.firmages.core.launch.LaunchControlBlock.class);
         registration.registerBlockComponent(Launch.PORT, dev.firmages.core.launch.LaunchPortBlock.class);
         registration.registerBlockComponent(SkyHarvest.NET, dev.firmages.core.sky.AuroraNetBlock.class);
@@ -280,6 +282,37 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return WAYSHRINE;
+        }
+    }
+
+    /**
+     * A Sky Anchor (SPEC-himmel §29.6), from its synced block entity: "Sky Anchor: four shards", then why it is quiet
+     * ("Quiet until the Space Age", "Quiet: the shrine is broken") or the blessings in force and their radius.
+     */
+    enum Anchor implements IBlockComponentProvider {
+        INSTANCE;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (!(accessor.getBlockEntity() instanceof dev.firmages.core.anchor.SkyAnchorBlockEntity be)) return;
+            int n = dev.firmages.core.anchor.AnchorRules.count(be.tiers());
+            tooltip.add(Component.translatable(n == 0 ? "firmages.jade.anchor.none" : n == 1 ? "firmages.jade.anchor.one" : "firmages.jade.anchor.shards",
+                Numbers.words(n)).withStyle(ChatFormatting.GOLD));
+            switch (be.status()) {
+                case BEFORE_AGE -> tooltip.add(Component.translatable("firmages.jade.anchor.before_age").withStyle(ChatFormatting.GRAY));
+                case BROKEN -> tooltip.add(Component.translatable("firmages.jade.anchor.broken").withStyle(ChatFormatting.GRAY));
+                case SLEEPING -> tooltip.add(Component.translatable("firmages.jade.anchor.sleeping").withStyle(ChatFormatting.GRAY));
+                case EMPTY -> { }
+                case ACTIVE -> {
+                    tooltip.add(Component.translatable("firmages.jade.anchor.active", Numbers.words(be.radius())).withStyle(ChatFormatting.GREEN));
+                    for (String key : be.blessings()) tooltip.add(Component.literal("  ").append(Component.translatable(key)));
+                }
+            }
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return ANCHOR;
         }
     }
 

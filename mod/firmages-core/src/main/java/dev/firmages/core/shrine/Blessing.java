@@ -5,8 +5,8 @@ import java.util.Set;
 
 /**
  * A blessing (SPEC §7.6), parsed from {@code data/<ns>/firmages_shrine/blessing/<name>.json}. Blessings act only
- * while the shrine is intact, on the players within the blessing radius of the heart (the sanctuary radius;
- * {@code shrine.blessings.everywhere} lifts the radius for attributes and XP). Pure Java, so the parser is unit-tested.
+ * while the shrine is intact, on the players within the radius of a blessing source (the heart's sanctuary radius, a
+ * lit Wayshrine, a Sky Anchor; SPEC-himmel §29.5). Pure Java, so the parser is unit-tested.
  *
  * @param id             {@code <ns>:<name>}
  * @param nameKey        lang key of the name shown in the ceremony
@@ -36,7 +36,7 @@ public record Blessing(String id, String nameKey, String descriptionKey, Set<Str
         public enum Kind {
             /** A transient attribute modifier {@code firmages:blessing/<name>/<index>} on every blessed player. */
             ATTRIBUTE,
-            /** A status effect, refreshed every second, for players within the blessing radius only (never everywhere). */
+            /** A status effect, refreshed every second, for players within the radius of a blessing source. */
             MOB_EFFECT,
             /** Extra experience points when a blessed player picks up an orb. */
             XP_BONUS

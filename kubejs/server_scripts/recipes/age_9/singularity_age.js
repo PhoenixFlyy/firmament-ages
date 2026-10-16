@@ -16,6 +16,9 @@ ServerEvents.recipes((event) => {
   // tags/late_ages.js) and an Evolved Mekanism alloy, about 2 billion
   // FE. The ingredients are the item ids themselves: the shrine's relics (released from their plinths from age_9 on,
   // or moved into the injectors by the Gathering, SPEC 7.5 / M8) or copies crafted again. Twelve injectors.
+  // V4A (firmages-core SPEC 27.8): the singular alloy becomes the Firmament Alloy, the last forging of the full Lens
+  // Crown, which consumes it; the nine relic slots stay. Only while the sky road is complete (startup_scripts/sky.js).
+  const SKY = global.FA_SKY.REQUIRED.every((id) => Item.exists(id)) // V4A live (startup_scripts/sky.js)
   event.custom({
     type: 'draconicevolution:fusion_crafting',
     result: { id: 'firmages:ultimate_singularity', count: 1 },
@@ -34,7 +37,7 @@ ServerEvents.recipes((event) => {
       consume({ item: 'firmages:quantum_core' }),
       consume({ tag: 'firmages:age_token/age_9' }),
       consume({ tag: 'firmages:age_token/age_9' }),
-      consume({ item: 'evolvedmekanism:alloy_singular' })
+      consume(SKY ? { item: global.FA_SKY.ALLOYS.age_9 } : { item: 'evolvedmekanism:alloy_singular' })
     ]
   }).id('firmages:fusion/ultimate_singularity')
 

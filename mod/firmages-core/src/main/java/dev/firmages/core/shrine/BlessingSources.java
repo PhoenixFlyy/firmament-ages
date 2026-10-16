@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * The blessing sources (SPEC-himmel §29.5), pure Java so the rules are unit-tested. A source carries a set of awakened
  * tiers (a bit mask, bit k = tier k) into a sphere around a block. The home heart is one source; every lit and intact
- * Wayshrine is one (M16); the Sky Anchors (the anchor half of M16) register theirs through
- * {@link BlessingIndex#registerProvider}. A player gets the blessings of the OR of every source in reach.
+ * Wayshrine is one; every Sky Anchor with a shard is one from the Space Age (each registers through
+ * {@link BlessingIndex#registerProvider}). A player gets the blessings of the OR of every source in reach.
  * <p>
  * Deviation from the spec's record: the dimension is the level id as a string and the position three ints, so this
  * class needs no Minecraft classes; {@link BlessingIndex} converts.

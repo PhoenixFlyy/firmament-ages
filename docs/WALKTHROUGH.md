@@ -297,9 +297,11 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
    into a whole dust, twice the metal of the pieces.
 4. The Arcane Keystone, two ways:
    - On the Create line: a Hollow Keystone from a chest of a Nether fortress, three passes of a spout (250 mB of
-     liquid experience), a deployer (a blaze rod) and a press.
+     liquid experience), a deployer (a blaze rod), a second deployer (a Starlit Iron ingot) and a press.
    - In the Djinni crafting pentacle (bound Djinni book): spirit attuned crystal, iesnium ingot, Wilden Tribute,
-     mercury catalyst, steel ingot, source gem block.
+     mercury catalyst, Starlit Iron ingot, source gem block.
+   - Starlit Iron comes from the Lens Crown: a Star Anvil inside a 9x9 stone ring with three lens mounts under the
+     open sky. Each later Age adds one lens and one alloy, and every later offering takes that alloy.
 5. Raise the Spirit Circle (11x11, 4 high): a sourcestone border (35); on each corner an otherstone pillar three high
    capped with a source gem block; eight candles standing on the border. Plinth: five blocks from the heart.
 6. Lay the Keystone, light the eight candles, pray.
@@ -347,8 +349,8 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
 4. Logistics & Backfill: packager, frogport, stock ticker, factory gauge; the thresher (steel sheet metal, light
    engineering blocks, a redstone engineering block, a hopper, formed with the hammer). Keystone: 64 steel sheets
    delivered through the package network.
-5. Craft the Pressure Core: a heavy engineering block on top, a black steel double sheet left and right, the Arcane
-   Gearbox in the middle, the built-up steel chamber below.
+5. Craft the Pressure Core: a heavy engineering block on top between two Cloudsteel ingots, a black steel double
+   sheet left and right, the Arcane Gearbox in the middle, the built-up steel chamber below.
 6. Raise the Foundry Nave (13x13, 5 high): a coke brick border (43); on each corner a heavy engineering block, steel
    scaffolding three high and an electric lantern on top. Plinth: six blocks from the heart.
 7. Lay the Core, power the four lanterns, pray.
@@ -385,8 +387,8 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
    crafting pentacle, or from the Wither. Keystone: 16 Attuned Circuits (a circuit board, a quartz, two advanced
    electronic components and electrum wire; with magic a circuit board and a spirit attuned crystal; let the
    assembler make them).
-5. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four aluminium plates, two red
-   steel sheets and a Nether Star.
+5. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four aluminium plates, an Aurora
+   Steel ingot and a Nether Star.
 6. Raise the Tesla Crown (15x15, 5 high): aluminium blocks on the border (51); on each corner a red steel block, an HV
    capacitor, aluminium scaffolding two high and a floodlight on top. Plinth: seven blocks from the heart.
 7. Lay the Core. The four floodlights need power and a redstone signal. Charge the four capacitors with 1,000,000 FE
@@ -429,9 +431,9 @@ Offer the Data Matrix in the Data Nave (ring 6).
 4. The End: two portal frames from seven obsidian, an ender pearl and a reinforced alloy. Set twelve frames as a ring
    around a 3x3 hole, facing inward, and fill them with twelve eyes of ender. Destroy the crystals, then the dragon.
    Keystone: four bottles of dragon's breath. The End is optional: no Age needs it.
-5. Craft the Data Matrix: blue steel sheets in the corners, advanced control circuits on three edges, the 64k storage
-   component in the middle, a singularity from the matter condenser bottom middle (it eats a quarter of a million
-   items: feed it a cobblestone line).
+5. Craft the Data Matrix: Halo Steel ingots in the top corners, blue steel sheets in the bottom corners, advanced
+   control circuits on three edges, the 64k storage component in the middle, a singularity from the matter condenser
+   bottom middle (it eats a quarter of a million items: feed it a cobblestone line).
 6. Raise the Data Nave (17x17, 4 high): certus quartz blocks on the border (59); on each corner a steel casing, quartz
    glass two high and a fluix block on top. Plinth: eight blocks from the heart.
 7. Lay the Matrix and pray: two of you together, if two are online.
@@ -462,8 +464,8 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
    turns the pieces into clumps, shards and slurry. A dragon heart: wyvern fusion of a draconium block with two
    polonium and two plutonium pellets, two ostrum plates and a draconium core (the dragon drops one too). A fusion
    crafting core; four basic and four wyvern injectors. Keystone: a wyvern core.
-5. Fuse the Star Chart at wyvern level: a polonium pellet on the core; two desh plates, two ostrum plates, a wyvern
-   core and the flight recorder in the injectors; 16,000,000 FE.
+5. Fuse the Star Chart at wyvern level: a polonium pellet on the core; a desh plate, a Void Steel ingot, two ostrum
+   plates, a wyvern core and the flight recorder in the injectors; 16,000,000 FE.
 6. Raise the Star Spire (19x19, 5 high): a steel plating border (67); on each corner a pillar of four desh blocks (or
    desh pillars) capped with an ostrum block. Plinth: nine blocks from the heart.
 7. Lay the Chart and pray at night, with open sky above the heart and no rain.
@@ -502,8 +504,8 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
      awaken the Keystone in the Marid crafting pentacle: Arcane Keystone, two atomic alloys, a wyvern core, a
      subatomic alloy.
    - Lay the Awakened Keystone on the Spirit Circle plinth. Keystone "Awakened Keystone".
-5. Fuse the Quantum Core at draconic level: the awakened core on the fusion core; two antimatter pellets, two
-   calorite plates, two ice shards and a subatomic alloy in the injectors; 64,000,000 FE.
+5. Fuse the Quantum Core at draconic level: the awakened core on the fusion core; two antimatter pellets, a
+   calorite plate, a Quasar Alloy ingot, two ice shards and a subatomic alloy in the injectors; 64,000,000 FE.
 6. Raise the Quantum Ring (21x21, 3 high): calorite blocks on the border (75); on each corner SPS casings or fusion
    reactor frames two high with an awakened draconium block on top. Plinth: ten blocks from the heart.
 7. Lay the Core. Pray at night under an open sky, two of you together if two are online.
@@ -540,10 +542,10 @@ offering.
    reactor controller (a stabilizer frame, two awakened draconium ingots, two elite control circuits) sits against a
    stabilizer or injector: it shuts the reactor down at 80 % conversion, swaps the fuel while it is cold and signals
    ready by redstone. Starting it is your job. Keystone "Reactor Online".
-4. A chaotic core and a singular alloy.
+4. A chaotic core and the Firmament Alloy: the full Lens Crown forges it from a singular alloy.
 5. The Ultimate Singularity, chaotic fusion: the chaotic core on the fusion core; Hearthstone, Sky Disc, Steel Heart,
    Awakened Keystone, Pressure Core, Humming Core, Data Matrix, Star Chart, Quantum Core, two large chaos fragments and the
-   singular alloy in twelve injectors; 2,000,000,000 FE.
+   Firmament Alloy in twelve injectors; 2,000,000,000 FE.
 6. Naquadah lies on Mercury; mine 16 with the digital miner. In the arc furnace raw naquadah becomes a naquadah
    ingot, and a naquadah ingot with a steel ingot becomes two naquadah-iron alloy. The metallurgic infuser makes
    refined naquadah (with refined obsidian); the nucleosynthesizer makes pure naquadah from it (with antimatter).

@@ -19,6 +19,9 @@
     "firmages:firmament_lode",
     "firmages:launch_control",
     "firmages:probe_cradle",
-    "firmages:launch_port"
+    "firmages:launch_port",
+    "firmages:star_anvil",
+    "firmages:lens_mount",
+    "firmages:sky_anchor"
   ]
 }

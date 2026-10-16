@@ -39,6 +39,8 @@ ServerEvents.recipes((event) => {
     'create_dragons_plus:freezing', 'create_dragons_plus:ending', 'ars_additions:locate_structure',
     'ars_additions:source_spawner'])
   put('age_6', ['theurgy:reformation']) // Reformation Array, magic tail of the Information Age (Doc 08 section 7.2)
+  // The Lens Crown of the sky road (firmages-core SPEC 27.7): the Star Anvil forges from the Arcane Age on
+  put('age_3', ['firmages:starforge'])
 
   // ---- Industrial Age: IE LV machines, Advanced TFC Tech, Create Big Cannons ----
   put('age_4', ['immersiveengineering:alloy', 'immersiveengineering:blast_furnace', 'immersiveengineering:coke_oven',
