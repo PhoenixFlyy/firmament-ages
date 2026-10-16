@@ -29,7 +29,7 @@ energizedSmelter = 500
 #Energy per operation in Joules of: Digital Miner
 # Default: 1000
 # Range: 0 ~ 9223372036854775807
-digitalMiner = 90000
+digitalMiner = 12000
 #Energy per operation in Joules of: Electric Pump
 # Default: 100
 # Range: 0 ~ 9223372036854775807

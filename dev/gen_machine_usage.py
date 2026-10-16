@@ -3,7 +3,7 @@
 
 Sets the values of these shipped server configs (full files as the mods write them, so every instance gets them on
 an update, like config/createdieselgenerators-server.toml; NeoForge 21.1 reads server configs from config/):
-  config/Mekanism/machine-usage.toml             Mekanism machines x10 (Felix H2A), Digital Miner x90
+  config/Mekanism/machine-usage.toml             Mekanism machines x10 (Felix H2A), Digital Miner x12
   config/Mekanism/machine-storage.toml           the buffers grow with the usage (upgrades behave as in Mekanism)
   config/Mekanism/general.toml                   Digital Miner ticksPerMine 80 -> 200
   config/MekanismMoreMachine/machine-usage.toml  Mekanism: More Machine x10 (H2A, "More Machine equivalents")
@@ -29,7 +29,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 H2A = 10          # Felix H2A: Mekanism machine usage x10 (default 20-160 FE/t -> 200-1,600 FE/t)
-MINER = 90        # Digital Miner usage 1,000 -> 90,000 J/t: a mined ore piece costs more than the ore ladder saves
+MINER = 12        # Digital Miner usage 1,000 -> 12,000 J/t (4,800 FE/t; 0.96 M FE per block at 200 ticks, about 1.5x the
+                  # excavator's FE per ore mB; 48,000 FE/t with 8 speed and 8 energy upgrades, inside one Space Age
+                  # fission plant). Review fix 0.12.0: at x90 the Space Age miner cost 9x the excavator per mB and
+                  # 360,000 FE/t upgraded, more than a whole Age-7 plant.
 J_PER_FE = 2.5    # Mekanism feConversionRate
 
 MEK_USAGE_KEEP = {"chargepad", "antiprotonicNucleosynthesizer", "dimensionalStabilizer", "randomizedConsumption"}

@@ -4,11 +4,15 @@ unlimited miners").
 
 Computes, from the shipped files, what one Digital Miner and one IE Excavator deliver (ore pieces, mB and ingots per
 hour) and the FE per ingot of every ladder step when a miner feeds it (mining + processing). With unlimited miners
-energy is what limits a base, so a ladder step is worth it when it lowers the FE per ingot. The rule checked here:
-every step (2.5x -> 3x -> 4x -> 5x) lowers the FE per ingot by at least --min-gain (default 5 %) for the Digital
-Miner and for the average excavator vein, both with Mekanism machines and miner on the same upgrades (any equal number
-of speed and energy upgrades: FE per operation as without upgrades) and, for the excavator, with 8 energy upgrades in
-every Mekanism machine (the excavator has none).
+energy is what limits a base, so a ladder step is worth it when it lowers the FE per ingot. The rules checked here:
+  - every step (2.5x -> 3x -> 4x -> 5x) lowers the FE per ingot by at least --min-gain (default 5 %) for the Digital
+    Miner and for the average excavator vein, with 8 energy upgrades in every Mekanism machine (the Chronicle teaches
+    them in the Information Age; the miner on any equal number of speed and energy upgrades: FE per block as without);
+    the rows without energy upgrades are printed, not checked (there only 3x pays off: the trap the quest names);
+  - the Digital Miner (Space Age) costs 1 to 2 times the average excavator vein's FE per ore mB (review fix 0.12.0:
+    the later miner may cost more per mB, never be useless);
+  - a fully upgraded Digital Miner (8 speed, 8 energy) draws at most --plant FE/t, one Space Age plant (fission at
+    1 mB/t through a turbine, dev/harmonie-r2.md section 5).
 
 Inputs: kubejs/data/firmages/balance/metals.json (factors, grades, IE Crusher energy), config/Mekanism/machine-usage.toml
 and general.toml (usage J/t, ticksPerMine), config/immersiveengineering-server.toml (excavator consumption, speed),
@@ -80,6 +84,7 @@ def main():
     ap.add_argument("--vein-mb", type=float, default=24.0, help="mean mB per ore block of a TFC vein (TFC 4.2.11: "
                     "18.5 poor-heavy, 24.0 most iron/tin/gold veins, 29.5 rich veins)")
     ap.add_argument("--min-gain", type=float, default=0.05)
+    ap.add_argument("--plant", type=float, default=80000.0, help="FE/t of one Space Age plant (harmonie-r2 section 5)")
     ap.add_argument("--check", action="store_true", help="exit 1 when a step fails the rule")
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -142,7 +147,8 @@ def main():
     ex_mean = sum(r[1] * r[2] for r in mx) / wsum
 
     # ---- FE per ingot -------------------------------------------------------------------------------------------
-    routes = [("Digital Miner, Mekanism on the same upgrades", dm_block / a.vein_mb, 1),
+    routes = [("Digital Miner, Mekanism with 8 energy upgrades", dm_block / a.vein_mb, 10),
+              ("Digital Miner, Mekanism without upgrades", dm_block / a.vein_mb, 1),
               (f"Excavator, average vein ({ex_mean:.2f} mB/dig), Mekanism without upgrades", ex_fe * ex_ticks / ex_mean, 1),
               (f"Excavator, average vein, Mekanism with 8 energy upgrades", ex_fe * ex_ticks / ex_mean, 10)]
     if mx:
@@ -157,13 +163,21 @@ def main():
             fe = m_per_mb * 100 / fac + p[fac]
             gain = "" if prev is None else f"  {fe / prev - 1:+.1%}"
             print(f"  {fac:g}x: {m_per_mb * 100 / fac:>12,.0f} mining + {p[fac]:>10,.0f} processing = {fe:>12,.0f} FE per ingot{gain}")
-            rule = name.startswith("Digital") or "average" in name and div == 10
+            rule = div == 10 and (name.startswith("Digital") or "average" in name)
             if prev is not None and rule and fe > prev * (1 - a.min_gain):
                 bad.append(f"{name}: {fac:g}x saves less than {a.min_gain:.0%}")
             prev = fe
+    ratio_dm = (dm_block / a.vein_mb) / (ex_fe * ex_ticks / ex_mean)
+    full = dm_use * 10
+    print(f"\nDigital Miner against the excavator: {dm_block / a.vein_mb:,.0f} / {ex_fe * ex_ticks / ex_mean:,.0f} FE per "
+          f"ore mB = {ratio_dm:.2f}x; fully upgraded {full:,.0f} FE/t against one Space Age plant of {a.plant:,.0f} FE/t")
+    if not 1.0 <= ratio_dm <= 2.0:
+        bad.append(f"Digital Miner costs {ratio_dm:.2f}x the average excavator vein per ore mB, want 1 to 2")
+    if full > a.plant:
+        bad.append(f"a fully upgraded Digital Miner draws {full:,.0f} FE/t, more than one Space Age plant ({a.plant:,.0f})")
     for b in bad:
         print(f"FAIL {b}")
-    print("miner_ladder: " + ("every step lowers the FE per ingot" if not bad else f"{len(bad)} failed"))
+    print("miner_ladder: " + ("every step lowers the FE per ingot, the miners fit their Ages" if not bad else f"{len(bad)} failed"))
     sys.exit(1 if bad and a.check else 0)
 
 
