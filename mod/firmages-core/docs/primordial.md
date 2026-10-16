@@ -17,9 +17,9 @@ Concept and research: `Modpack-Planung/research-raw/n7-boss.md`.
 
 | Phase | Health | Title | Attacks | Opens the veil (the damage window) |
 |---|---|---|---|---|
-| 1 | 100 to 67 % | (wake: "The Primordial", "The dark before the first light") | **Keel slam** every 12 s: it glides over the nearest player and rises half a block for 1.1 s, drops in 0.4 s, ring shock radius 5 (18 damage, knockback), the keel rests on the floor 2 s, rises 1.5 s. **Node volley** every 8 s: one node glows white for 1 s, then three bolts at the nearest players (10 damage, 2 s Darkness). | Melee hit on the keel while it rests on the floor: veil open 6 s. Ranged hit on the charging node (before the bolts leave): volley cancelled, veil open 4 s. |
-| 2 | 67 to 33 % | Nine Lights; Caelum: "Nine lights. Keep one burning." | On entry the arena's sea lanterns go out (polished blackstone until the fight ends), nothing spawns near it. **Beam sweep** every 15 s: one node washes in its Age colour 1 s, then its ceremony beam burns from the node to the floor (9 blocks out) and sweeps 180 degrees in 6 s, 8 damage every half second plus Darkness. **The pull** every 20 s: every player within 24 blocks is drawn under the core for 2 s, then a keel slam. | Melee hit from below (within 2.5 blocks of its axis) during the pull: the slam never lands, veil open 6 s. A melee hit on the grounded keel after the slam: veil open 6 s. Ranged hit on the burning node: the beam stops, veil open 4 s. |
-| 3 | 33 to 0 % | Firmament Shatter; Caelum: "The Firmament breaks. Gather what falls." | The core splits, the eye lights, the halo scatters. **Star-fall** every 2 s near a random player (gold mark on the floor 1.5 s ahead, 14 damage, radius 2). **Firmament shatter** every 25 s: it rises 3 blocks (untouchable for those 3 s), nine stars fall at once (the eight spoke marks and the nearest player), six **consecrated shards** drop on the floor. | A melee hit with a consecrated shard in the off hand (spends it): veil open 8 s. A thrown shard (sneak + use) that hits it: veil open 8 s. Use (no sneak): 10 s of Firmament Ward, star-fall passes you. |
+| 1 | 100 to 69 % | (wake: "The Primordial", "The dark before the first light") | **Keel slam** every 12 s: it glides over the nearest player and rises half a block for 1.1 s, drops in 0.4 s, ring shock radius 5 (18 damage, knockback), the keel rests on the floor 2 s, rises 1.5 s. **Node volley** every 8 s: one node glows white for 1 s, then three bolts at the nearest players (10 damage, 2 s Darkness). | Melee hit on the keel while it rests on the floor: veil open 6 s. Ranged hit on the charging node (before the bolts leave): volley cancelled, veil open 4 s. |
+| 2 | 69 to 38 % | Nine Lights; Caelum: "Nine lights. Keep one burning." | On entry the arena's sea lanterns go out (polished blackstone until the fight ends), nothing spawns near it. **Beam sweep** every 15 s: one node washes in its Age colour 1 s, then its ceremony beam burns from the node to the floor (9 blocks out) and sweeps 180 degrees in 6 s, 8 damage every half second plus Darkness. **The pull** every 20 s: every player within 24 blocks is drawn under the core for 2 s, then a keel slam. | Melee hit from below (within 2.5 blocks of its axis) during the pull: the slam never lands, veil open 6 s. A melee hit on the grounded keel after the slam: veil open 6 s. Ranged hit on the burning node: the beam stops, veil open 4 s. |
+| 3 | 38 to 0 % | Firmament Shatter; Caelum: "The Firmament breaks. Gather what falls." | The core splits, the eye lights, the halo scatters. **Star-fall** every 2 s near a random player (gold mark on the floor 1.5 s ahead, 14 damage, radius 2). **Firmament shatter** every 25 s: it rises 3 blocks (untouchable for those 3 s), nine stars fall at once (the eight spoke marks and the nearest player), six **consecrated shards** drop on the floor. | A melee hit with a consecrated shard in the off hand (spends it): veil open 8 s. A thrown shard (sneak + use) that hits it: veil open 8 s. Use (no sneak): 10 s of Firmament Ward, star-fall passes you. |
 
 Entering phase 2 or 3 locks it for 1 s or 2 s (no damage, no attacks). A single hit never skips a phase: the damage of
 a hit stops at the phase floor. Death: the die animation (3 s), the halo collapses into the core, a last star rises;
@@ -37,8 +37,9 @@ its star-falls go. The next Gathering (after `origin.gatherCooldownSeconds`) sum
 |---|---|---|
 | Health | 1024 (the attribute cap) | `PrimordialEntity.MAX_HEALTH` |
 | Armour / toughness | 12 / 8 | `createAttributes` |
-| Effective pool | `effectiveHealth * ((1 - f) + f * players)`: 2400 (1), 3480 (2), 4560 (3), 5640 (4) | `[boss] effectiveHealth`, `perPlayerFactor` |
-| Damage taken | after armour, times `1024 / pool`, times `veilFactor` (0.25) while the veil is closed | `scaleDamage`, `BossEvents` (`LivingDamageEvent.Pre`) |
+| Effective pool | `effectiveHealth * ((1 - f) + f * players)`: 13,000 (1), 22,100 (2), 31,200 (3), 40,300 (4) | `[boss] effectiveHealth`, `perPlayerFactor` |
+| Damage taken | after armour, at most `hitCap` (40), times `1024 / pool`, times `veilFactor` (0.25) while the veil is closed | `scaleDamage`, `BossEvents` (`LivingDamageEvent.Pre`) |
+| Phase thresholds | 69 % and 38 % of 1024: each phase about a third of the fight | `FightModel.PHASE2_AT`, `PHASE3_AT` |
 | Hurt cooldown | 10 ticks per attacker (each player's hits count, not two hits a second for everyone) | `IFRAMES` |
 | Hover | 2.5 blocks above the floor (the hitbox starts there; melee reaches the keel and the underside) | `PrimordialGeometry.HOVER` |
 | Hitbox | 6 x 7 blocks | `BossRegistry.PRIMORDIAL` |
@@ -52,19 +53,21 @@ its star-falls go. The next Gathering (after `origin.gatherCooldownSeconds`) sum
 | Veil windows | melee 6 s, ranged 4 s, shard 8 s | `VEIL_MELEE`, `VEIL_RANGED`, `VEIL_SHARD` |
 | Cooldowns | slam 12 s, volley 8 s, beam 15 s, pull 20 s, shatter 25 s; 1.5 s between two attacks | `COOLDOWN`, `GAP` |
 
-Expected length (first estimate, before tuning): a Chaotic sword (17.5 per hit, about 12.2 after armour, at most two
-hits a second that count per player) deals about 24 per second to the pool with the veil open and 6 with it closed.
-With the veil open a third of the time that is about 12 per second per player: one player needs about 200 s of hitting
-(about 6 minutes with dodging and the phase locks), two players about 145 s each, four players about 120 s each. The
-target is 6 to 10 minutes; if the larger groups finish too fast, raise `perPlayerFactor` (0.6: four players 6720).
+Expected length (the fight model, `boss/FightModel`, SPEC §39): Draconic Evolution's jar gives a Chaotic sword 17.5
+damage and 3.2 swings a second, each Chaotic damage module +16 (javap of `EquipCfg`, `DEModules`). The reference
+build (two damage modules, 49.5 per hit, 44.7 after armour) is at the hit cap of 40, and each attacker counts twice a
+second. With a player hitting 60 % of the time and the veil open a third of the time in phases 1 and 2 and 60 % in
+phase 3: 1 player 8.4 minutes, 2 players 7.2, 4 players 6.5. Without the cap a sword full of damage modules (657.5)
+would end it in under a minute. `FightModelTest` holds these numbers; the wake log line prints them for the party.
 
 ## Tuning knobs
 
 Per world, without a rebuild (`serverconfig/firmages-server.toml`, section `[boss]`):
 
-- `effectiveHealth` (2400): the fight's length for one player.
-- `perPlayerFactor` (0.45): how much each further player adds.
+- `effectiveHealth` (13000): the fight's length for one player.
+- `perPlayerFactor` (0.7): how much each further player adds.
 - `veilFactor` (0.25): how much the closed veil protects; 1 makes the counters pointless, 0 makes them mandatory.
+- `hitCap` (40): the most one hit counts after armour; 0 lets Draconic damage modules end the fight in seconds.
 - `enrageMinutes` (10), `starfallEnrageMinutes` (12): when the soft enrage starts.
 - `wipeSeconds` (30): how long it waits for players before it withdraws.
 
@@ -72,9 +75,9 @@ In code (`PrimordialEntity` constants, a rebuild): damage per attack, cooldowns,
 timelines (each must stay in step with its animation in `dev/gen_primordial.py`: `PrimordialAbility.length` equals the
 animation length in ticks).
 
-Open tuning, to be measured on the test server with 1, 2 and 4 players in Chaotic gear: the fight length, the slam's
-2 s keel window for melee players, whether the beam is readable from the rim, and the player damage numbers against
-TFC's damage resistance.
+Open tuning, to be measured on the test server with 1, 2 and 4 players in Chaotic gear: the model's uptime and veil
+share against a recorded fight, the slam's 2 s keel window for melee players, whether the beam is readable from the
+rim, and the player damage numbers against TFC's damage resistance.
 
 ## Assets
 

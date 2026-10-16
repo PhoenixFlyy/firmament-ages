@@ -500,11 +500,11 @@
 	]
 	quest.2303CB5F822C38B6.title: "Enchanting Apparatus"
 	quest.23536BC1524A5044.quest_desc: [
-		"Fuse the Humming Core in the arc furnace from an HV capacitor, an Attuned Circuit, four aluminium plates, two red steel sheets and a Nether Star."
+		"Fuse the Humming Core in the arc furnace: an HV capacitor, an Attuned Circuit, four aluminium plates, two red steel sheets and a Nether Star."
 		""
-		"Raise the Tesla Crown; the heart shows what is missing. Lay the Core on the new plinth. Give the four floodlights power and a redstone signal, charge the crown's capacitors with 1,000,000 FE, and pray."
+		"Raise the Tesla Crown. Once 2,048 aluminium ingots have passed your Tally Chutes in this Age, lay the Core on the plinth, give the floodlights power and a signal, charge the capacitors with 1,000,000 FE and pray."
 		""
-		"Caelum keeps the Core and opens the Information Age."
+		"Caelum opens the Information Age."
 	]
 	quest.23536BC1524A5044.quest_subtitle: "Goal of the Electric Age: Caelum opens the Information Age"
 	quest.23536BC1524A5044.title: "Offer the Humming Core at the Shrine"
@@ -829,9 +829,9 @@
 	quest.44FB988268E119B4.quest_desc: [
 		"Fuse the Star Chart at wyvern level: a polonium pellet in the middle, two desh plates, two ostrum plates, a wyvern core and the flight recorder from Mars."
 		""
-		"Raise the Star Spire; the heart shows what is missing. Lay the Chart on the new plinth and pray at night, under an open sky, without rain."
+		"Raise the Star Spire. Once 4,096 desh ingots have passed your Tally Chutes in this Age, lay the Chart on the plinth and pray at night, under an open sky, without rain."
 		""
-		"Caelum keeps the Chart and opens the Quantum Age."
+		"Caelum opens the Quantum Age."
 	]
 	quest.44FB988268E119B4.quest_subtitle: "Goal of the Space Age: Caelum opens the Quantum Age"
 	quest.44FB988268E119B4.title: "Offer the Star Chart at the Shrine"
@@ -1157,9 +1157,9 @@
 	quest.64CDFFD93C9CBDCE.quest_desc: [
 		"Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a singularity from the matter condenser."
 		""
-		"Raise the Data Nave; the heart shows what is missing. Lay the Matrix on the new plinth and pray: together, if two of you are online."
+		"Raise the Data Nave. Once 4,096 osmium ingots have passed your Tally Chutes in this Age, lay the Matrix on the plinth, feed the heart 10,000,000 FE and pray, together if two of you are online."
 		""
-		"Caelum keeps the Matrix and opens the Space Age."
+		"Caelum opens the Space Age."
 	]
 	quest.64CDFFD93C9CBDCE.quest_subtitle: "Goal of the Information Age: Caelum opens the Space Age"
 	quest.64CDFFD93C9CBDCE.title: "Offer the Data Matrix at the Shrine"
@@ -1226,11 +1226,11 @@
 	]
 	quest.6708655329216D20.title: "Hohlraum"
 	quest.67314514BDCA1DB3.quest_desc: [
-		"Fuse the Quantum Core at draconic level around the awakened core: two antimatter pellets, two calorite plates, two ice shards and a subatomic alloy."
+		"Fuse the Quantum Core at draconic level: two antimatter pellets, two calorite plates, two ice shards and a subatomic alloy around the awakened core."
 		""
-		"Raise the Quantum Ring and lay the Awakened Keystone back on its plinth. Lay the Core on the new plinth and pray at night under an open sky: together, if two of you are online."
+		"Raise the Quantum Ring and set the Awakened Keystone back. Once 8,192 calorite ingots have passed your Tally Chutes, lay the Core down, feed the heart 100,000,000 FE and pray at night under open sky, together if two are online."
 		""
-		"Caelum keeps the last relic and opens the Singularity Age."
+		"Caelum opens the Singularity Age."
 	]
 	quest.67314514BDCA1DB3.quest_subtitle: "Goal of the Quantum Age: Caelum opens the Singularity Age"
 	quest.67314514BDCA1DB3.title: "Offer the Quantum Core at the Shrine"
@@ -1241,7 +1241,7 @@
 	quest.68A4B5AC4EBE2085.quest_desc: [
 		"Craft the Pressure Core from two black steel double sheets, a heavy engineering block, the Arcane Gearbox and a built-up steel chamber."
 		""
-		"Raise the Foundry Nave; the heart shows what is missing. Lay the Core on the new plinth, power the four electric lanterns and pray."
+		"Raise the Foundry Nave; the heart shows what is missing. Once 512 steel ingots have passed your Tally Chutes in this Age, lay the Core on the new plinth, power the four electric lanterns and pray."
 		""
 		"Caelum keeps the Core and opens the Electric Age."
 	]
@@ -1475,7 +1475,7 @@
 	quest.7794323527566501.quest_desc: ["Put a fired ceramic pot on the firepit and cook a soup."]
 	quest.7794323527566501.title: "A Pot of Soup"
 	quest.7883DC5AF7968152.quest_desc: [
-		"Pray at the complete shrine with your fellowship. Caelum gives back the nine relics for the chaotic fusion."
+		"Feed 1,000,000,000 FE into the heart, then pray at the complete shrine with your fellowship. Caelum gives back the nine relics for the chaotic fusion."
 	]
 	quest.7883DC5AF7968152.title: "The Gathering"
 	quest.7997DC1DFF73EA36.quest_desc: [

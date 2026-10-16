@@ -19,6 +19,11 @@
         "firmages:awakened_keystone"
       ],
       "hint": "firmages.shrine.rite.keystone"
+    },
+    {
+      "type": "energy_consume",
+      "amount": 100000000,
+      "hint": "firmages.shrine.rite.heart_power"
     }
   ],
   "response": {

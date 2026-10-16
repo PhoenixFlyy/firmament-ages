@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * {@code /firmages shrine status|locate|relics|extract <plinth>|simulate_pray|maintenance on|off|status|consecrate <ring>|originals} and
+ * {@code /firmages shrine status|locate|relics|extract <plinth>|simulate_pray|maintenance on|off|status|consecrate <ring>|originals|build <pos> <ring>} and
  * {@code /firmages ceremony preview <stage> [full|short]} (SPEC §10).
  */
 final class ShrineCommands {
@@ -57,7 +57,61 @@ final class ShrineCommands {
                 .then(Commands.literal("status").executes(ShrineCommands::maintenanceStatus)))
             .then(Commands.literal("consecrate").then(Commands.argument("ring", IntegerArgumentType.integer(0, ShrineData.MAX_TIER))
                 .executes(ShrineCommands::consecrate)))
-            .then(Commands.literal("originals").executes(ShrineCommands::originals));
+            .then(Commands.literal("originals").executes(ShrineCommands::originals))
+            .then(Commands.literal("build").then(Commands.argument("pos", BlockPosArgument.blockPos())
+                .then(Commands.argument("ring", IntegerArgumentType.integer(0, ShrineData.MAX_TIER)).executes(ShrineCommands::build))));
+    }
+
+    /**
+     * {@code build <pos> <ring>} (debug, {@code debug.allowSimulate}): a heart at {@code pos} with the rings 0 to
+     * {@code ring} in consecrated blocks; the plinths below {@code ring} hold their enshrined offering, the plinth of
+     * {@code ring} stays empty for a live offering (copy boots of the tally proof, SPEC §35). Overwrites what stands there.
+     */
+    private static int build(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        if (!ServerConfig.allowSimulate()) throw SIMULATE_DISABLED.create();
+        ServerLevel level = c.getSource().getLevel();
+        BlockPos heart = BlockPosArgument.getBlockPos(c, "pos");
+        int ring = IntegerArgumentType.getInteger(c, "ring");
+        ShrineData d = ShrineDataLoader.current();
+        level.setBlock(heart, dev.firmages.core.shrine.ShrineRegistry.SHRINE_HEART.get().defaultBlockState()
+            .setValue(dev.firmages.core.shrine.ShrineHeartBlock.LIT, true), 3);
+        int placed = 0;
+        BlockPos open = null;
+        for (int k = 0; k <= ring; k++) {
+            Optional<ShrineTier> t = d.tier(k);
+            if (t.isEmpty() || t.get().multiblock().isEmpty()) continue;
+            BlockPos plinth = null;
+            for (ShrineMultiblocks.Cell cell : ShrineMultiblocks.cells(level, heart, ResourceLocation.parse(t.get().multiblock().get()),
+                    net.minecraft.world.level.block.Rotation.NONE)) {
+                if (cell.key() == '0' || !cell.counts()) continue;
+                if (cell.key() == t.get().plinthKey()) {
+                    level.setBlock(cell.pos(), dev.firmages.core.shrine.ShrineRegistry.OFFERING_PLINTH.get().defaultBlockState(), 3);
+                    plinth = cell.pos();
+                } else if (cell.role() != null) {
+                    level.setBlock(cell.pos(), dev.firmages.core.shrine.ShrineRegistry.consecrated(cell.role(), k), 3);
+                }
+                placed++;
+            }
+            if (plinth == null) continue;
+            if (k == ring) {
+                open = plinth;
+                continue;
+            }
+            Optional<net.minecraft.world.item.Item> relic = d.offeringFor(k).map(ResourceLocation::parse)
+                .flatMap(net.minecraft.core.registries.BuiltInRegistries.ITEM::getOptional);
+            if (relic.isPresent() && level.getBlockEntity(plinth) instanceof dev.firmages.core.shrine.OfferingPlinthBlockEntity pb) {
+                pb.offer(new ItemStack(relic.get()), k);
+                pb.enshrine(k);
+                ShrineSavedData.get(c.getSource().getServer()).putRelic(new ShrineSavedData.Relic(plinth, k,
+                    net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(relic.get()).toString()));
+            }
+        }
+        if (level.getBlockEntity(heart) instanceof dev.firmages.core.shrine.ShrineHeartBlockEntity be) ShrineService.validate(level, heart, be);
+        String msg = "Shrine built at " + heart.toShortString() + ": rings 0 to " + ring + ", " + placed + " positions; open plinth "
+            + (open == null ? "none" : open.getX() + " " + open.getY() + " " + open.getZ());
+        dev.firmages.core.FirmagesCore.LOGGER.info(msg);
+        c.getSource().sendSuccess(() -> Component.literal(msg), true);
+        return placed;
     }
 
     static LiteralArgumentBuilder<CommandSourceStack> ceremony() {

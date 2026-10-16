@@ -210,6 +210,69 @@ public final class WayshrinePointer {
         return Math.sqrt(dx * dx + dz * dz);
     }
 
+    /** One ground Wayshrine start the census found. */
+    public record Census(String type, BlockPos pos, double distance) {}
+
+    /**
+     * Every ground Wayshrine start within {@code radius} blocks of {@code from} (SPEC-himmel §28.11, acceptance 2): the same
+     * candidates and placement check as {@link #search}, and the structure manager's start check, which for a chunk
+     * without data asks the structure itself (biome, height) and generates nothing; a loaded chunk is read for its start.
+     *
+     * @param spacing    0 for the shipped placement; else the placement with this spacing and {@code separation}
+     *                   (re-encoded through its codec, climate and salt kept), to compare densities on one seed
+     */
+    public static List<Census> census(ServerLevel overworld, BlockPos from, int radius, int spacing, int separation) {
+        var registry = overworld.registryAccess().registryOrThrow(Registries.STRUCTURE);
+        Optional<HolderSet.Named<Structure>> tag = registry.getTag(WayshrineService.STRUCTURES);
+        List<Census> out = new ArrayList<>();
+        if (tag.isEmpty()) return out;
+        ChunkGeneratorStructureState state = overworld.getChunkSource().getGeneratorState();
+        long seed = state.getLevelSeed();
+        int fromCx = SectionPos.blockToSectionCoord(from.getX());
+        int fromCz = SectionPos.blockToSectionCoord(from.getZ());
+        StructureManager structures = overworld.structureManager();
+        for (Holder<Structure> holder : tag.get()) {
+            for (StructurePlacement shipped : state.getPlacementsForStructure(holder)) {
+                StructurePlacement placement = spacing > 0 ? respaced(shipped, spacing, separation) : shipped;
+                if (!(placement instanceof RandomSpreadStructurePlacement spread)) continue;
+                int sp = spread.spacing();
+                int cells = Math.ceilDiv(Math.ceilDiv(radius, 16), sp) + 1;
+                int cellX = Math.floorDiv(fromCx, sp);
+                int cellZ = Math.floorDiv(fromCz, sp);
+                for (int dx = -cells; dx <= cells; dx++) {
+                    for (int dz = -cells; dz <= cells; dz++) {
+                        ChunkPos c = spread.getPotentialStructureChunk(seed, (cellX + dx) * sp, (cellZ + dz) * sp);
+                        BlockPos at = placement.getLocatePos(c);
+                        double d = horizontal(from, at);
+                        if (d > radius || !placement.isStructureChunk(state, c.x, c.z)) continue;
+                        StructureCheckResult r = structures.checkStructurePresence(c, holder.value(), placement, false);
+                        if (r == StructureCheckResult.START_NOT_PRESENT) continue;
+                        ChunkAccess loaded = r == StructureCheckResult.CHUNK_LOAD_NEEDED ? overworld.getChunkSource().getChunkNow(c.x, c.z) : null;
+                        if (loaded != null) {
+                            StructureStart start = structures.getStartForStructure(SectionPos.bottomOf(loaded), holder.value(), loaded);
+                            if (start == null || !start.isValid()) continue;
+                        }
+                        out.add(new Census(target(holder, at).type(), at, d));
+                    }
+                }
+            }
+        }
+        out.sort(Comparator.comparingDouble(Census::distance));
+        return out;
+    }
+
+    /** {@code p} with another spacing and separation: through the placement codec, so TFC's climate and the salt stay. */
+    @Nullable
+    static StructurePlacement respaced(StructurePlacement p, int spacing, int separation) {
+        var ops = com.mojang.serialization.JsonOps.INSTANCE;
+        return StructurePlacement.CODEC.encodeStart(ops, p).result().filter(com.google.gson.JsonElement::isJsonObject).map(j -> {
+            com.google.gson.JsonObject o = j.getAsJsonObject().deepCopy();
+            o.addProperty("spacing", spacing);
+            o.addProperty("separation", separation);
+            return StructurePlacement.CODEC.parse(ops, o).result().orElse(null);
+        }).orElse(null);
+    }
+
     /** Server stop: forget the per-player answers. */
     static void clear() {
         LAST.clear();

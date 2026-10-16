@@ -31,7 +31,7 @@ import java.util.Locale;
  * {@code age_9} (and outside creative) stays where they are; {@code force} gives the players a forced visit that
  * passes both locks until they leave The Origin ({@link OriginAccess}). {@code gathering} starts the Gathering at
  * once, wherever the players stand and regardless of the cooldown; {@code fight} asks for the final boss at once,
- * without the Gathering; {@code kill} kills the hostiles and the boss's helpers, {@code kill boss} the final boss
+ * without the Gathering; {@code kill} kills every hostile but the final boss, {@code kill boss} the final boss
  * itself, whose death then wins the finale the normal way (test shortcuts).
  */
 final class OriginCommands {

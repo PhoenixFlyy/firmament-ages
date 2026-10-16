@@ -128,6 +128,11 @@
 	# Default: 126
 	# Range: 63 ~ 252
 	ae2CellTypes = 126
+	#FE safety net (SPEC 37): "<block id>=<FE per tick>" caps what one block of that type gives per game tick through
+	#the energy capability, both what is drawn out of it and what it pushes into a neighbour (also Mekanism's own energy
+	#link). For sources a mod's own config cannot tame. Example: ["createappliedkinetics:energy_provider=0"]. Applies to
+	#new capability lookups: placed or reloaded blocks, or after a restart.
+	feCap = []
 
 [debug]
 	#Enables /firmages ages simulate (self-tests only).
@@ -150,19 +155,26 @@
 
 #The Primordial, the end boss (docs/primordial.md). Its health stays at the attribute cap of 1024; the damage it takes is
 #scaled so the fight lasts as if it had effectiveHealth * ((1 - perPlayerFactor) + perPlayerFactor * players) health.
+#The defaults come from the fight model (SPEC 39, boss/FightModel): 1, 2 and 4 players in Chaotic gear fight 8.4, 7.2 and
+#6.5 minutes. The server log names the model's numbers each time it wakes.
 [boss]
 	#Effective health for one player.
-	# Default: 2400.0
-	# Range: 100.0 ~ 100000.0
-	effectiveHealth = 2400.0
-	#Share of the effective health each further player of the Gathering adds (0.45: 2 players 1.45x, 4 players 2.35x).
-	# Default: 0.45
+	# Default: 13000.0
+	# Range: 100.0 ~ 1000000.0
+	effectiveHealth = 13000.0
+	#Share of the effective health each further player of the Gathering adds (0.7: 2 players 1.7x, 4 players 3.1x).
+	# Default: 0.7
 	# Range: 0.0 ~ 1.0
-	perPlayerFactor = 0.45
+	perPlayerFactor = 0.7
 	#Damage factor while the veil is closed (1 = the veil does not matter).
 	# Default: 0.25
 	# Range: 0.0 ~ 1.0
 	veilFactor = 0.25
+	#The most one hit counts after armour, before the scaling (0 = no cap). A Draconic Evolution sword full of
+	#damage modules hits for about 650; with the cap the fight does not depend on the module count.
+	# Default: 40.0
+	# Range: 0.0 ~ 10000.0
+	hitCap = 40.0
 	#After this many minutes of fighting the veil stays open only half as long.
 	# Default: 10
 	# Range: 1 ~ 120

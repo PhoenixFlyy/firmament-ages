@@ -823,7 +823,7 @@ Design source: Doc 08 §10 (finale: Ultimate Singularity, Stargate, The Origin, 
 - **KubeJS binding additions:** `FirmAges.originDimension()` (`"firmages:origin"`), `FirmAges.originAltar()` (an `int[3]`: x, y, z), `FirmAges.finalBossTag()` (`"firmages.final_boss"`), `FirmAges.isFinaleWon()`. (M6 to 0.9.x also `FirmAges.finaleGateway()`; removed in 1.0 with Gateways to Eternity.)
 - **The boss answers (1.0, `boss/BossEvents`):** the core summons its own final boss, The Primordial (§16.4), 2.5 blocks above the altar (`BossEvents.summon`, only while the altar's chunk ticks entities: a boss in an unloaded chunk would be invisible to `fightActive`). `OriginEvent.Gathering` summons it with the Gathering's size as its party size, unless a tagged boss lives already (a forced Gathering during the fight). `OriginEvent.SummonBoss` is answered with `summoned()` (party size = the players near it when it wakes) or `refuse(...)` (it is already awake, or nobody keeps the altar's chunk loaded); an event another listener answered first is left alone, so a pack can replace the boss with a listener of higher priority. The pack has no boss script any more (`kubejs/server_scripts/finale/` left with 0.10.0; until 0.9.x a KubeJS script ran Gateways to Eternity waves and a Cataclysm boss). Scripts and datapacks may still listen to the events and fill `#firmages:origin/start`; they never grant `finale_won` themselves.
 - **Operators' shortcuts (0.9.0):** `/firmages origin gathering` runs the same start (message, count, `OriginEvent.Gathering`, `#firmages:origin/start`) at once for everyone online, regardless of radius and cooldown. `/firmages origin fight` posts `OriginEvent.SummonBoss` (level, altar); The Primordial answers (see above) and the command reports a refusal; without an answer the command fails ("Nothing answered the boss summon"). Both refuse once the finale is won; `gathering` also while the fight runs (N5). N5: `/firmages origin kill` kills the hostiles in The Origin but never the boss (1.0: endermen, or what a pack adds; The Primordial has no adds), `/firmages origin kill boss` kills the tagged boss, whose death goes through `onLivingDeath` like any other (§10).
-- **Tests:** G `operatorCommands` (permission 0: none of the three commands exists; a plain tp keeps the lock, the forced tp lets a survival player without age_9 in and both locks let him stay past ProgressiveStages' checks; `gathering` starts at the arrival point 14 blocks out and wakes one Primordial; `fight` is refused while it lives and summons a tagged Primordial above the altar once it is gone; leaving ends the forced visit and the next plain tp is turned back; after the win both refuse). G `gatheringAndFinalBoss` (a creative headless player, `/firmages origin tp`, no start at the arrival point, one start at the altar with one event that wakes one Primordial sized for one, no second start while gathered, none after breaking up within the cooldown, a function tag at the altar, an untagged zombie changes nothing, the tagged zombie's death wins, grants finale_won and sends exactly one FINALE payload at the altar, a second tagged death and a later Gathering do nothing; M6: a tagged zombie dying in the overworld changes nothing). N5: G `noRepeatWhileFightRuns` (forced chunks around the altar; the first arrival starts the Gathering and wakes The Primordial; with it alive and the cooldown at 0, three walks away and back start nothing and summon no second one, count 1; once it is gone (the wipe) the next arrival starts Gathering 2 and wakes it anew). G `operatorKill` (permission 0: neither command; `kill` takes an untagged zombie and one tagged `firmages.primordial_add`, spares the tagged boss and a cow, wins nothing, then fails with nothing left; `kill boss` takes the boss and wins the finale once, then fails).
+- **Tests:** G `operatorCommands` (permission 0: none of the three commands exists; a plain tp keeps the lock, the forced tp lets a survival player without age_9 in and both locks let him stay past ProgressiveStages' checks; `gathering` starts at the arrival point 14 blocks out and wakes one Primordial; `fight` is refused while it lives and summons a tagged Primordial above the altar once it is gone; leaving ends the forced visit and the next plain tp is turned back; after the win both refuse). G `gatheringAndFinalBoss` (a creative headless player, `/firmages origin tp`, no start at the arrival point, one start at the altar with one event that wakes one Primordial sized for one, no second start while gathered, none after breaking up within the cooldown, a function tag at the altar, an untagged zombie changes nothing, the tagged zombie's death wins, grants finale_won and sends exactly one FINALE payload at the altar, a second tagged death and a later Gathering do nothing; M6: a tagged zombie dying in the overworld changes nothing). N5: G `noRepeatWhileFightRuns` (forced chunks around the altar; the first arrival starts the Gathering and wakes The Primordial; with it alive and the cooldown at 0, three walks away and back start nothing and summon no second one, count 1; once it is gone (the wipe) the next arrival starts Gathering 2 and wakes it anew). G `operatorKill` (permission 0: neither command; `kill` takes two untagged zombies, spares the tagged boss and a cow, wins nothing, then fails with nothing left; `kill boss` takes the boss and wins the finale once, then fails).
 
 ### 16.4 The Primordial (1.0, own boss entity)
 
@@ -1729,16 +1729,28 @@ Placement uses TFC's climate structure placement `tfc:climate` (`ClimateStructur
 
 | Type id | Name | Biomes (`#firmages:has_structure/wayshrine/<type>`) | Climate band | min_age | Local materials (restored form) | Terrain |
 |---|---|---|---|---|---|---|
-| `forest_ring` | Forest Ring | plains, hills, rolling_hills, lowlands | forest normal or more, 4..22 °C | age_1 | logs, rock bricks, thatch, one candle | `beard_thin` |
-| `steppe_stones` | Steppe Stones | plains, rolling_hills, plateau | groundwater up to 150, sparse forest | age_1 | raw rock pillars, rock bricks, bronze block | `beard_thin` |
-| `swamp_altar` | Swamp Altar | lowlands, salt_marsh, mud_flats | groundwater 350 or more | age_2 | mud bricks, logs, wrought iron bars | `beard_box` |
+| `forest_ring` | Forest Ring | plains, hills, rolling_hills, lowlands | edge forest or more (`min_forest` 2), 4..22 °C | age_1 | logs, rock bricks, thatch, one candle | `beard_thin` |
+| `steppe_stones` | Steppe Stones | plains, rolling_hills, plateau | groundwater up to 220, up to edge forest | age_1 | raw rock pillars, rock bricks, bronze block | `beard_thin` |
+| `swamp_altar` | Swamp Altar | lowlands, salt_marsh, mud_flats, wet plains and river valleys | groundwater 300 or more | age_2 | mud bricks, logs, wrought iron bars | `beard_box` |
 | `desert_arch` | Desert Arch | dune_sea, grassy_dunes, badlands, mesas, buttes | groundwater up to 100, 18 °C or more | age_2 | raw and smooth sandstone, copper block | `beard_thin` |
-| `mountain_spire` | Mountain Spire | mountains, old_mountains, highlands | high elevation | age_3 | smooth rock, rock bricks, wrought iron bars | `beard_box` **[PoC]** |
+| `mountain_spire` | Mountain Spire | mountains, old_mountains, highlands | none: the mountain biomes carry the height | age_3 | smooth rock, rock bricks, wrought iron bars | `beard_box` **[PoC]** |
 | `wind_shrine` | Wind Shrine | on a Drifting Isle (§28.4a), no biome | none | age_4 | skystone, rock bricks brought up, steel bars, an electric lantern | none (placed by the isle piece) |
 | `reef_altar` | Reef Altar | ocean_reef, ocean_atolls | 20 °C or more | age_4 | coral blocks, rock bricks, glass | `OCEAN_FLOOR_WG`, `apply_waterlogging` **[PoC]** |
 | `volcanic_ring` | Volcanic Ring | volcanic_mountains, volcanic_island, volcanic_oceanic_mountains | any | age_5 | basalt bricks, smooth basalt, magma, steel block | `beard_box` |
 
-- **Density:** one structure set per ground type, `spacing` 128 chunks, `separation` 48, each with a distinct `salt`. The Wind Shrine has no structure set of its own (§28.4a).
+- **Biomes:** each type lists the base biomes of the table and their TFC 4.2.11 variants (the doline, cenote, burren, shilin and tower karst families, glacial and volcanic variants; `dev/gen_wayshrines.py`, all ids in `data/tfc/worldgen/biome`). With the base biomes alone a 0.10.0 copy found no Wayshrine within 4,096 blocks of spawn: the variants cover most of the land. The `tfc:climate` placement stays the real filter.
+- **No elevation bound:** `ClimateStructurePlacement` tests the climate at y 0 of the chunk [verified, javap TFC 4.2.11], so `min_elevation` never passes; no type uses it.
+- **Density:** one structure set per ground type, `spacing` 72 chunks, `separation` 27, each with a distinct `salt`. The Wind Shrine has no structure set of its own (§28.4a). Measured for acceptance 2 (§28.11) with `/firmages wayshrine census 4000 [spacing separation]` on 20 fresh seeds (1001 to 1020, round C2):
+
+  | Spacing / separation | Seeds with 7 to 11 | Mean | Range | Seeds below 4 |
+  |---|---|---|---|---|
+  | 64 / 24 | 8 | 10.9 | 3 to 20 | 2 |
+  | **72 / 27 (shipped)** | **11** | **10.0** | **5 to 16** | **0** |
+  | 80 / 30 (0.11.0) | 7 | 7.0 | 2 to 15 | 3 |
+  | 96 / 36 | 6 | 4.7 | 1 to 9 | 6 |
+  | 112 / 42 | 2 | 3.6 | 1 to 7 | 9 |
+
+  No spacing reaches 16 of 20 seeds in the window: the count swings with the climate around the spawn (Mountain Spires dominate cold, hilly spawns; Desert Arch and Reef Altar lie beyond 4,000 blocks by design). 72 / 27 is the best measured: the most seeds in the window and none below five.
 
 #### 28.4a The Wind Shrine (Felix S6B)
 
@@ -1827,7 +1839,8 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
   - Lit but broken: no beam.
   - The client toggle `effects.idleBeam` hides them all. Nothing is drawn for unloaded chunks.
 - **Finding:** from age_1, a plain right-click on the home heart adds the line "Caelum: A Wayshrine sleeps to the north-east, about 1,200 blocks." A plain right-click on a lit Wayshrine shows the same pointer on the actionbar, without Caelum's name.
-  - The pointer first looks at the cache in `firmages_wayshrines`, then searches with `ChunkGenerator.findNearestMapStructure` over `#firmages:wayshrine`, radius `wayshrine.pointerRadiusChunks` (100), `skipKnownStructures` true. The tutorial Wayshrine comes from the cache.
+  - The pointer first looks at the cache in `firmages_wayshrines`, then searches `#firmages:wayshrine` within `wayshrine.pointerRadiusChunks` (256) in blocks, skipping referenced (lit) structures. The tutorial Wayshrine comes from the cache.
+  - Not `ChunkGenerator.findNearestMapStructure`: its radius counts placement cells, so it searched far beyond the radius and generated structure starts up to 200,000 blocks away (a two-minute tick on the 0.10.0 copy). `WayshrinePointer.search` lists the one candidate chunk of every cell within the radius, sorts them by distance, drops those the placement refuses (`isStructureChunk`: climate, frequency) and only then asks the structure manager; the first valid start wins.
   - Lighting calls `level.structureManager().addReference(start)`, which marks the chunk unsaved, so a lit Wayshrine is skipped like an explorer-map target.
   - There is one search per player per 10 s. None found: "No Wayshrine sleeps within reach."
 - **Jade** (`FirmagesJadePlugin`, synced state only): "Wayshrine: Wind Shrine", "Ruined: seven blocks missing", "Offering: Meteoric Iron Ingot", "Lit, carries the blessings within 24 blocks", "Broken: repair it to wake it".
@@ -1835,7 +1848,7 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
 ### 28.9 Network, config, commands
 
 - **Network:** no new payload; `shrine_preview` is reused unchanged.
-- **Config:** `wayshrine.radius` (24, 8..64), `wayshrine.prayerSeconds` (5), `wayshrine.pointerRadiusChunks` (100), `wayshrine.tutorial` (true).
+- **Config:** `wayshrine.radius` (24, 8..64), `wayshrine.prayerSeconds` (5), `wayshrine.pointerRadiusChunks` (256, 8..512), `wayshrine.tutorial` (true).
 
 | Command (`/firmages wayshrine ...`) | Purpose |
 |---|---|
@@ -1846,6 +1859,7 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
 | `light <pos>` | Needs `debug.allowSimulate`: completes the offering, rite and prayer of a restored Wayshrine |
 | `reset <pos> [stone]` | Back to `ruin` or `restored` by the world; with `stone` also clears `stoneGiven` |
 | `stone <pos>` | Admin repair: drops that Wayshrine's stone again |
+| `census [radius [spacing separation]]` | The ground Wayshrine starts within `radius` blocks (4,000) of the world spawn, per type, each logged with its position: the pointer's candidates and the structure manager's start check, which for a chunk without data asks the structure (biome, height) and generates nothing (acceptance 2). With a spacing, as if the structure sets had it (the placement re-encoded through its codec, climate and salt kept), to compare densities on one seed |
 
 ### 28.10 Tests
 
@@ -1861,13 +1875,13 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
 - **G** `WayshrineGameTests.tutorialPlacement`: on a flat test world the tutorial Wayshrine is placed 300 to 800 blocks from the shared spawn on land, once; a second start places none.
 - **G** `WayshrineGameTests.tutorialSiteKeepsClearOfPlayers`: on untouched land a plank, a placed chest or a chunk with inhabited time each make the site unfit; the free site passes. **U** `WayshrineRulesTest.tutorialOnlyOnNewWorlds`: the world-age gate.
 - **G** `WayshrineGameTests.blessingsAtWayshrine`: see §29.8.
-- **P** `selftest wayshrines`: the eight structures and sets load with `tfc:climate`; every template exists; `locate` finds each type within 100 chunks on the test seed or reports the type as out of reach.
+- **P** `selftest wayshrines`: the eight structures and sets load with `tfc:climate`; every template exists; `locate` finds each type within 256 chunks on the test seed or reports the type as out of reach.
 - **M:** beams from 150 blocks, ghost alignment on a rotated ruin, a ruin on a steep slope, the Reef Altar under water.
 
 ### 28.11 Acceptance criteria
 
 1. On every new world the tutorial Wayshrine stands 300 to 800 blocks from spawn, on land and away from anything players built; an existing world older than three days gets none by itself.
-2. On the pack server, a new world has 7 to 11 more Wayshrines within 4,000 blocks of spawn on at least 16 of 20 test seeds (`dev/scan_regions.py`) **[PoC]**. No Wayshrine floats or is buried more than two blocks on a slope.
+2. On the pack server, a new world has 5 to 16 more Wayshrines within 4,000 blocks of spawn on every one of 20 test seeds, and 7 to 11 on at least half of them (`/firmages wayshrine census 4000` on fresh copies; `dev/scan_regions.py` would need 250,000 generated chunks per seed). Met in round C2 at 72 / 27: 20 of 20 in 5 to 16, 11 of 20 in 7 to 11 (§28.4). The first target, 7 to 11 on 16 of 20, is out of reach for any spacing (best 11 of 20). No Wayshrine floats or is buried more than two blocks on a slope.
 3. Every type validates its restored form from the generator's own layout, and the ruin never validates.
 4. The ghost preview, offering, rite, prayer and lighting work as in §28.7 with one player and with two (half the prayer time).
 5. A lit Wayshrine gives the awakened tiers' blessings and Hearthward within 24 blocks. A new Age adds its tier without a visit. A broken pattern stops both within one validation, and the repair restores them.
@@ -2352,3 +2366,136 @@ needs AE2, `cca` needs Create Crafts and Additions) or an event listener registe
   behaviour, out of range included. ae2wtlib's hotkey is not covered.
 - `/firmages debug useitem <name>` (debug players, `debug.allowSimulate`) right-clicks into the air and logs the menu
   that opened **[S]**.
+
+## 35. Proof of work in the shrine offerings (Felix H5A, round C2)
+
+From the Industrial Age an offering waits for a tally: the Age's product must pass the fellowship's Tally Chutes
+(§22) in that Age before the shrine takes the relic. The product is one the main road makes in bulk anyway, so the
+proof costs automation, not detours.
+
+- **Data:** `data/<ns>/firmages_shrine/tallies.json`, one entry per offering Age (the Age the offering is made in):
+  `{"tag": "c:ingots/steel", "count": 512}` or `{"item": "<id>", "count": n, "age": "age_4"}` (`TallyRequirement`:
+  exactly one of `item` and `tag`, `count` positive, `age` dawn or age_0..age_9, by default the key). Merged over
+  datapacks like `offerings.json`; a broken entry is a load error with its key.
+- **Shipped numbers** (harmony plan table 2.2, the product each Age's loop already makes):
+
+  | Offering in | Tally | Count | Why this product |
+  |---|---|---|---|
+  | age_4 Industrial | `#c:ingots/steel` | 512 | IE blast furnace and the Excavator parts |
+  | age_5 Electric | `#c:ingots/aluminum` | 2,048 | arc furnace and HV wiring |
+  | age_6 Information | `#c:ingots/osmium` | 4,096 | Mekanism casings and the 3x purification loop |
+  | age_7 Space | `#c:ingots/desh` | 4,096 | Ad Astra rockets and the elite tier |
+  | age_8 Quantum | `#c:ingots/calorite` | 8,192 | the ultimate tier and the fusion frame |
+
+  The Stone to the Arcane Age keep plain offerings; the Singularity Age has none (the Gathering, §16).
+- **Counting:** the numbers of the criterion `firmages:tally` (§22.2): items counted by the Tally Chutes since the
+  `age` dawned (`TallyData` per team). The offering player's team counts; without a player (heart line, status,
+  Jade, GameTests) the team with the highest count (one fellowship per server, §2.3).
+- **Refusal:** `ShrineService.offer` returns `NO_PROOF` and keeps the item in the player's hand; the plinth stays
+  empty. Caelum says what is missing (`firmages.shrine.proof.missing`: "Caelum asks for proof of work: your Tally
+  Chutes must count 512 Steel Ingot in the Industrial Age. They have counted 140."). The same line follows the
+  heart's right-click while the current tier waits for proof, and the Chronicle's goal quests of age_4 to age_8 name
+  the tally.
+- **Jade:** the heart syncs `proofNeed`, `proofHave`, `proofItem` (update tag, once a second and after a validation);
+  the heart line shows "Proof of work: 140 of 512 Steel Ingot" or "Proof of work: 512 Steel Ingot counted".
+- **Status:** `/firmages shrine` prints the requirement, the leading team's count and whether it is met.
+- **Tests:** U `ShrineRulesTest.talliesParseMergeAndReject`. G `offeringWaitsForProof` (test data
+  `firmages_test/firmages_shrine/tallies.json`: 8 iron ingots in the Industrial Age; refused at 0 and at 5 with gold
+  that does not count, accepted at 8; the heart syncs 8 of 8; the player read the line on both refusals).
+
+## 36. The heart draws power: rite `energy_consume` (harmony plan table 2.1)
+
+The late Ages give the shrine a real power sink instead of a charged buffer (the `energy` rite of §2.6 only holds
+FE in the ring's capacitors and spends nothing).
+
+- **Rite:** `{"type": "energy_consume", "amount": <FE>, "hint": "<lang key>"}` in a tier file or in
+  `firmages_shrine/gathering.json`. The heart (`ShrineHeartBlockEntity#energy`, the FE capability on the null side
+  and every side) takes FE while the shrine's current work has unmet `energy_consume` rites, up to their sum, and
+  never gives any back. The rite holds once that much is drawn; the FE is spent when the prayer is heard
+  (`spendDrawn`). The drawn FE belongs to one work (`tier_<N>` or `gathering`): when the work changes, what was drawn
+  lapses (INFO line).
+- **Shipped:** ring 6 (grants age_7) 10,000,000 FE and ring 8 (grants age_9) 100,000,000 FE, each next to the ring's
+  own rites; the Gathering 1,000,000,000 FE. The hold rite `energy` stays on ring 5 (1,000,000 FE in the Tesla
+  Crown's capacitors), where the plan keeps it.
+- **Messages:** `firmages.shrine.rite.heart_power` and `firmages.shrine.gathering.energy` name the amount and what is
+  drawn; Jade shows "Power drawn: 4,000,000 of 10,000,000 FE".
+- **Tests:** U `ShrineRulesTest.energyConsumeRite`. G `heartDrawsPower` (ring 6: a simulated insert changes nothing,
+  null side and a side both feed, nothing comes back out, half is not enough, the full 10 M holds the rite, the
+  prayer spends it and grants age_7; ring 7 draws nothing) and the Gathering part of the finale test (1 G FE drawn,
+  spent on the Gathering).
+
+## 37. FE safety net: `balance.feCap`
+
+A generic cap for a power source that a mod's own config cannot tame. Nothing is capped by default.
+
+- **Config:** `balance.feCap`, a list of `"<block id>=<FE per tick>"` (`FeCaps`: bad entries and unknown blocks
+  are logged and ignored, a block listed twice takes the last value). Example:
+  `feCap = ["createappliedkinetics:energy_provider=0"]`.
+- **Pattern** (`balance/EnergyMeter`): one capability provider is registered at `EventPriority.HIGHEST` for every
+  block entity type, for `Capabilities.EnergyStorage.BLOCK` and, with Mekanism, for Mekanism's strict energy
+  (`compat/mekanism/MekEnergyMeter`, Joules converted with Mekanism's FE conversion). It answers only when it has a
+  reason and otherwise returns null, so the block's own provider answers. With a reason it asks the block's own
+  capability (a thread-local flag makes it step aside for that one nested lookup) and wraps it:
+  - a capped block: what is drawn out of it (`extractEnergy`) counts against its budget of the game tick;
+  - a block looked up from the side of a capped block: a pushing generator looks up its neighbour with the side facing
+    itself, so `pos.relative(side)` is the source; what the neighbour receives from that side counts against the
+    source's budget. This caps generators that push on their own.
+  The budget is per block position and game tick (`FeCaps.room`), cleared every 200 ticks.
+- **When it applies:** capability caches are not invalidated by a config change; a changed cap applies to new
+  lookups (a placed or reloaded block, a restart). Cost when nothing is capped and no audit runs: one map check per
+  lookup.
+- **Limits:** a source that hands FE out without the capability (a mod's own network, a wireless link) is not seen.
+  Hiding a source (`dev/age_map.toml` `[hidden]`) or its mod's config stays the first fix; the cap is the net.
+- **Tests:** U `FeCapsTest`. G `BalanceGameTests.feCapLimitsAPushingCapacitor` (an IE LV capacitor capped at 50
+  FE/t pushes 50 per tick into an MV capacitor instead of 256; drawn out, at most 50 in a tick).
+
+## 38. Measuring commands (harmony plan section 6)
+
+Both need permission 2, like all of `/firmages`.
+
+- **`/firmages energy audit [radius] [seconds]`** (16 blocks, 10 s; 1..128, 1..600): meters every block with an
+  energy capability within `radius` blocks horizontally (all heights) of the caller for `seconds`, through the same
+  provider as §37. It invalidates the capabilities in the radius at start and end, so cached lookups are metered.
+  Per block: FE in, FE out (drawn out of it, or pushed into a neighbour), the change of its stored FE. Summed per block
+  type and divided by the ticks: "in / out / stored change / net use" in FE/t. A generator's output is "out", a
+  machine's use is "in" minus the stored change, a cable carries as much in as out. Chat shows the top 15 types, the
+  log and `logs/firmages-energy-audit.json` all of them. One audit at a time; a new one replaces the running one.
+- **`/firmages ore audit`:** the ore ladder of the live server with the logic of the L- checks of
+  `dev/poc_analyze.py` (`balance/OreLadder`, a port): every recipe of every Age (the recipe gate's master list, §8,
+  else the recipe manager) encoded to JSON with its codec, every recipe that consumes an ore piece of the metal table
+  measured (metal out over the piece's `grade_mb`, with the input count, chances and IE wrappers, quern powder at the
+  arc furnace's mB from the furnace's Age). Reports per Age the lowest and highest best tech factor and the best magic
+  factor, per station the measured range against the target, and the L-1 table deviations, L-2 tech steps back, L-3
+  magic above the next tech step and L-4 unlisted multiplying types. `logs/firmages-ore-audit.json` holds every
+  entry. The table is `data/firmages/balance/metals.json`, which the build copies from `dev/data/metals.json` (one
+  source; a datapack may override it).
+- **Tests:** U `OreLadderTest` (on the real table: melting 1.0, purification with input counts and clumps, the IE
+  crusher's wrappers and chances, the metal's first Age, a step back, an unlisted grid recipe, world data skipped).
+  G `energyAuditMetersPerBlockType` (the LV capacitor gives about 256 FE/t, the MV one takes it),
+  `oreAuditReadsTheTable`.
+
+## 39. The Primordial by numbers (round C2)
+
+The fight length comes from a model, not from a guess (`boss/FightModel`, docs/primordial.md).
+
+- **Inputs from the Draconic Evolution jar** (1.21.1-3.1.4.633 [verified, javap: `EquipCfg`, `DEModules`,
+  `ModuleCfg`, `IModularTieredItem`]; the pack's `DraconicEvolution.cfg` keeps the internal defaults): a sword hits
+  for `tierDamage x swordDamageMultiplier + damage modules` (Chaotic 2.5 x 7.0 = 17.5; a Chaotic damage module +16,
+  one cell of the 8 x 6 Chaotic grid) and swings `2.0 x 1.6 = 3.2` times a second.
+- **Boss rules:** armour 12, toughness 8 (vanilla armour formula); one counting hit per attacker per 10 ticks (2 a
+  second); new `boss.hitCap` (40): a hit counts at most 40 after armour, then the scaling of §16 (1024 / pool, the
+  closed veil x0.25). Without the cap a grid full of damage modules (657.5 per hit) ends the fight in under a minute;
+  with it the reference build (two Chaotic damage modules, 49.5, 44.7 after armour) is at the cap.
+- **Assumptions:** a player hits 60 % of the time; the veil is open a third of the time in phases 1 and 2 (countered
+  slams and pulls) and 60 % in phase 3 (shards); the shatter makes it untouchable 3 s in 25; the phase locks cost 3 s.
+- **Settings** (defaults of `[boss]`, the pack's `config/firmages-server.toml` the same): `effectiveHealth` 13000,
+  `perPlayerFactor` 0.7 (pools 13,000 / 22,100 / 40,300 for 1 / 2 / 4 players), `veilFactor` 0.25, `hitCap` 40,
+  phases at 69 % and 38 % health (each phase a third of the fight), `enrageMinutes` 10 and `starfallEnrageMinutes`
+  12 (only a fight slower than the model meets them).
+- **Result:** 1 player 8.4 min (505.9 s), 2 players 7.2 min (430.5 s), 4 players 6.5 min (392.8 s). The wake log line
+  names the model for the party at hand.
+- **Tests:** U `FightModelTest` (the jar stats, armour and the cap, the pools, 6 to 10 minutes for 1, 2 and 4, each
+  phase a third within 1 %, the uncapped full grid under a minute). G `BossGameTests` (phase floors at 69 % and 38 %,
+  pools, a 1000 hit counted as the cap, the summoned fight won by capped hits).
+- **To check on a real fight [S]:** uptime and veil share against a recording with 1, 2 and 4 players; the model's
+  assumptions move with them, the settings with the model.

@@ -401,6 +401,9 @@ public final class SkyGameTests {
             .thenWaitUntil(() -> ok(h, reloadIdle(server), "reload after the age_6 grant still running"))
             .thenExecute(() -> {
                 SavedData ie = ieSaveData();
+                // the age_6 grant reconciles on its own and may have added the vein already; start from none
+                StarfallVeins.remove(77_000, -77_000);
+                s[0].veinAdded = false;
                 if (ie != null) ie.setDirty(false);
                 StarfallService.reconcileVeins(server, false);
                 ok(h, StarfallVeins.present(77_000, -77_000, mix) && s[0].veinAdded, "vein after the age_6 grant: " + StarfallVeins.describe(77_000, -77_000));

@@ -101,8 +101,10 @@ Permission level 2 (`op <name>`), or the server console.
 | `/firmages origin fight` | Summons The Primordial above the altar at once (the Gathering skipped). Refused while it lives, while nobody is in The Origin to keep the altar loaded, and once the finale is won. |
 | `/firmages origin kill boss` | Kills The Primordial; the finale is won the normal way. |
 
-The fight's numbers are the `[boss]` section of `config/firmages-server.toml`: `effectiveHealth` (2400, one player),
-`perPlayerFactor` (0.45), `veilFactor` (0.25), `enrageMinutes` (10), `starfallEnrageMinutes` (12), `wipeSeconds` (30).
+The fight's numbers are the `[boss]` section of `config/firmages-server.toml`: `effectiveHealth` (13000, one player),
+`perPlayerFactor` (0.7), `veilFactor` (0.25), `hitCap` (40, the most one hit counts), `enrageMinutes` (10),
+`starfallEnrageMinutes` (12), `wipeSeconds` (30). The fight model behind them (1, 2, 4 players: 8.4, 7.2, 6.5 minutes in
+Chaotic gear) is in `mod/firmages-core/docs/primordial.md`; the server log names it each time the boss wakes.
 
 ## Update
 

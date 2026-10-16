@@ -83,13 +83,13 @@ public class PrimordialEntity extends Monster implements GeoEntity {
 
     // ---- tuning (docs/primordial.md, "Numbers"); the per-world knobs are ServerConfig [boss] ----------------------------
     /** Ticks one attacker waits between two hits that count (per attacker, not shared). */
-    public static final int IFRAMES = 10;
+    public static final int IFRAMES = FightModel.IFRAMES;
     public static final int SLAM_IMPACT = 30, SLAM_REST_END = 70;
     public static final int VOLLEY_FIRE = 20;
     public static final int BEAM_START = 20;
     public static final int PULL_START = 10, PULL_END = 50, PULL_IMPACT = 65, PULL_REST_END = 85;
     public static final int SHATTER_PEAK = 30;
-    public static final int PHASE2_LOCK = 20, PHASE3_LOCK = 40;
+    public static final int PHASE2_LOCK = FightModel.PHASE2_LOCK, PHASE3_LOCK = FightModel.PHASE3_LOCK;
     public static final int VEIL_MELEE = 120, VEIL_RANGED = 80, VEIL_SHARD = 160;
     public static final int DEATH_TICKS = 60;
     public static final int SHARDS_PER_SHATTER = 6;
@@ -155,8 +155,8 @@ public class PrimordialEntity extends Monster implements GeoEntity {
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH, MAX_HEALTH)
-            .add(Attributes.ARMOR, 12.0)
-            .add(Attributes.ARMOR_TOUGHNESS, 8.0)
+            .add(Attributes.ARMOR, FightModel.ARMOUR)
+            .add(Attributes.ARMOR_TOUGHNESS, FightModel.TOUGHNESS)
             .add(Attributes.KNOCKBACK_RESISTANCE, 1.0)
             .add(Attributes.FOLLOW_RANGE, 64.0)
             .add(Attributes.MOVEMENT_SPEED, 0.2)
@@ -244,19 +244,23 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         return (float) (getMaxHealth() / effectivePool() * (veilOpen() ? 1.0 : ServerConfig.bossVeilFactor()));
     }
 
-    /** Health below which the current phase ends (2/3, 1/3, 0 of the maximum). */
+    /** Health below which the current phase ends (69 %, 38 %, 0 of the maximum: {@link FightModel#PHASE2_AT}). */
     public float phaseFloor() {
         return switch (phase()) {
-            case 1 -> getMaxHealth() * 2 / 3F;
-            case 2 -> getMaxHealth() / 3F;
+            case 1 -> getMaxHealth() * FightModel.PHASE2_AT;
+            case 2 -> getMaxHealth() * FightModel.PHASE3_AT;
             default -> 0;
         };
     }
 
-    /** The damage this boss takes, after armour (BossEvents, LivingDamageEvent.Pre): scaled, never past the phase floor. */
+    /**
+     * The damage this boss takes, after armour (BossEvents, LivingDamageEvent.Pre): at most {@code boss.hitCap}, scaled,
+     * never past the phase floor.
+     */
     public float scaleDamage(DamageSource source, float afterArmour) {
         if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return afterArmour;
-        float d = afterArmour * damageFactor();
+        double cap = ServerConfig.bossHitCap();
+        float d = (cap > 0 ? Math.min(afterArmour, (float) cap) : afterArmour) * damageFactor();
         if (phase() < 3) d = Math.min(d, Math.max(0, getHealth() - phaseFloor()));
         return d;
     }
@@ -290,8 +294,9 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         title(Component.translatable("entity.firmages.primordial").withStyle(ChatFormatting.DARK_PURPLE),
             Component.translatable("firmages.boss.primordial.wake").withStyle(ChatFormatting.GRAY), null);
         sound(BossRegistry.IDLE.get(), 2.0F, 1.0F);
-        FirmagesCore.LOGGER.info("The Primordial wakes at {} in {} for a Gathering of {} (effective health {})", BlockPos.containing(home),
-            sl.dimension().location(), partySize, Math.round(effectivePool()));
+        FirmagesCore.LOGGER.info("The Primordial wakes at {} in {} for a Gathering of {} (effective health {}); {}", BlockPos.containing(home),
+            sl.dimension().location(), partySize, Math.round(effectivePool()), new FightModel.Settings(ServerConfig.bossEffectiveHealth(),
+                ServerConfig.bossPerPlayer(), ServerConfig.bossVeilFactor(), ServerConfig.bossHitCap()).describe(partySize));
     }
 
     @Override
@@ -725,8 +730,8 @@ public class PrimordialEntity extends Monster implements GeoEntity {
 
     private void checkPhase() {
         float max = getMaxHealth(), h = getHealth();
-        if (phase() == 1 && h <= max * 2 / 3F + 0.01F) enterPhase(2);
-        else if (phase() == 2 && h <= max / 3F + 0.01F) enterPhase(3);
+        if (phase() == 1 && h <= max * FightModel.PHASE2_AT + 0.01F) enterPhase(2);
+        else if (phase() == 2 && h <= max * FightModel.PHASE3_AT + 0.01F) enterPhase(3);
     }
 
     /** Enters phase 2 (Nine Lights: lanterns out) or 3 (Firmament Shatter); public for the GameTests. */

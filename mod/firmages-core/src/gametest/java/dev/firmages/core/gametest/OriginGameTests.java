@@ -472,21 +472,20 @@ public final class OriginGameTests {
             .thenExecute(() -> {
                 try {
                     Zombie wave = spawnZombie(o, al.east(4), false);
-                    Zombie helper = spawnZombie(o, al.west(4), false);
-                    helper.addTag("firmages.primordial_add");
+                    Zombie second = spawnZombie(o, al.west(4), false);
                     Zombie boss = spawnZombie(o, al.south(8), true);
                     net.minecraft.world.entity.animal.Cow cow = EntityType.COW.create(o);
                     cow.moveTo(al.getX() + 0.5, al.getY(), al.getZ() - 3.5);
                     o.addFreshEntity(cow);
-                    spawned.addAll(List.of(wave, helper, boss, cow));
-                    for (Zombie z : List.of(wave, helper, boss)) z.setNoAi(true);
+                    spawned.addAll(List.of(wave, second, boss, cow));
+                    for (Zombie z : List.of(wave, second, boss)) z.setNoAi(true);
                     CommandSourceStack none = server.createCommandSourceStack().withPermission(0);
                     ok(h, run(server, none, "firmages origin kill") == -1 && run(server, none, "firmages origin kill boss") == -1 && wave.isAlive(),
                         "permission 0: no kill commands");
                     CommandSourceStack op = server.createCommandSourceStack().withPermission(2).withSuppressedOutput();
                     ok(h, OriginService.fightActive(o), "fight running");
                     int first = run(server, op, "firmages origin kill");
-                    ok(h, first >= 2 && wave.isDeadOrDying() && helper.isDeadOrDying(), "kill takes the wave enemy and the helper (" + first + " killed)");
+                    ok(h, first >= 2 && wave.isDeadOrDying() && second.isDeadOrDying(), "kill takes both hostiles (" + first + " killed)");
                     ok(h, boss.isAlive() && cow.isAlive(), "the boss and a passive mob are spared");
                     ok(h, !OriginSavedData.get(server).won() && victories == 0, "no win from the hostiles");
                     ok(h, run(server, op, "firmages origin kill") == 0, "nothing left to kill: the command fails");

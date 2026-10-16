@@ -25,7 +25,7 @@ import net.minecraft.server.level.ServerLevel;
 import java.util.Optional;
 
 /**
- * {@code /firmages wayshrine list|status [pos]|locate <type>|tutorial [here]|light <pos>|reset <pos> [stone]|stone <pos>}
+ * {@code /firmages wayshrine list|status [pos]|locate <type>|tutorial [here]|light <pos>|reset <pos> [stone]|stone <pos>|census [radius]}
  * (SPEC-himmel §28.9).
  */
 final class WayshrineCommands {
@@ -48,7 +48,42 @@ final class WayshrineCommands {
             .then(Commands.literal("light").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(WayshrineCommands::light)))
             .then(Commands.literal("reset").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(c -> reset(c, false))
                 .then(Commands.literal("stone").executes(c -> reset(c, true)))))
-            .then(Commands.literal("stone").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(WayshrineCommands::stone)));
+            .then(Commands.literal("stone").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(WayshrineCommands::stone)))
+            .then(Commands.literal("census").executes(c -> census(c, 4000, 0, 0))
+                .then(Commands.argument("radius", com.mojang.brigadier.arguments.IntegerArgumentType.integer(16, 20000))
+                    .executes(c -> census(c, com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(c, "radius"), 0, 0))
+                    .then(Commands.argument("spacing", com.mojang.brigadier.arguments.IntegerArgumentType.integer(2, 4096))
+                        .then(Commands.argument("separation", com.mojang.brigadier.arguments.IntegerArgumentType.integer(1, 4095))
+                            .executes(c -> census(c, com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(c, "radius"),
+                                com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(c, "spacing"),
+                                com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(c, "separation")))))));
+    }
+
+    /**
+     * {@code census [radius [spacing separation]]}: the ground Wayshrines around the world spawn (SPEC-himmel §28.11,
+     * acceptance 2), logged; with a spacing, as if the structure sets had it (nothing changes in the world).
+     */
+    private static int census(CommandContext<CommandSourceStack> c, int radius, int spacing, int separation) {
+        if (spacing > 0 && separation >= spacing) {
+            c.getSource().sendFailure(Component.literal("separation must be smaller than spacing"));
+            return 0;
+        }
+        ServerLevel overworld = c.getSource().getServer().overworld();
+        BlockPos spawn = overworld.getSharedSpawnPos();
+        long t0 = System.nanoTime();
+        java.util.List<WayshrinePointer.Census> found = WayshrinePointer.census(overworld, spawn, radius, spacing, separation);
+        long ms = (System.nanoTime() - t0) / 1_000_000;
+        java.util.Map<String, Integer> per = new java.util.TreeMap<>();
+        found.forEach(f -> per.merge(f.type(), 1, Integer::sum));
+        String head = "Wayshrine census: seed " + overworld.getSeed() + ", spacing " + (spacing > 0 ? spacing + "/" + separation : "shipped")
+            + ", spawn " + spawn.toShortString() + ", " + found.size()
+            + " ground Wayshrines within " + radius + " blocks " + per + " (" + ms + " ms)";
+        dev.firmages.core.FirmagesCore.LOGGER.info(head);
+        for (WayshrinePointer.Census f : found) {
+            dev.firmages.core.FirmagesCore.LOGGER.info("  {} at {} ~ {}, {} blocks", f.type(), f.pos().getX(), f.pos().getZ(), (int) f.distance());
+        }
+        line(c.getSource(), Component.literal(head));
+        return found.size();
     }
 
     private static void line(CommandSourceStack src, Component c) {

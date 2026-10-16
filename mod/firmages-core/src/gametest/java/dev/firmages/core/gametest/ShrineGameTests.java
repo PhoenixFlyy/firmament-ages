@@ -51,8 +51,11 @@ import java.util.Optional;
  * list TFC blocks as optional entries plus cobblestone, logs and hay), offering acceptance and refusal, the rite,
  * broken-structure refusal, prayer completion through the simulate path (no players online), relic persistence,
  * the Hearthward sanctuary and the ceremony payload; since M6 also Keystone lending, the blessing effects and the
- * energy rite's capability read. The test datapack {@code firmages_test:offerings} replaces the KubeJS signature items
- * (absent here): Hearthstone by a heart of the sea, Arcane Keystone by an amethyst shard, Quantum Core by a nether star.
+ * energy rite's capability read; since the harmony round (SPEC §35, §36) the proof of work of an offering and the
+ * heart's power draw. The test datapack {@code firmages_test:offerings} replaces the KubeJS signature items (absent
+ * here): Hearthstone by a heart of the sea, Arcane Keystone by an amethyst shard, Pressure Core by an emerald, Data
+ * Matrix by a diamond, Quantum Core by a nether star; its {@code tallies.json} asks eight iron ingots in the
+ * Industrial Age and nothing later.
  */
 @GameTestHolder(FirmagesCore.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -549,6 +552,11 @@ public final class ShrineGameTests {
                 ShrineHeartBlockEntity be = (ShrineHeartBlockEntity) level.getBlockEntity(heart);
                 ShrineService.validate(level, heart, be);
                 ok(h, level.getBlockState(heart).getValue(ShrineHeartBlock.AWAKENED) == 9 && sd.intact(), "age_9: awakened 9, intact");
+                // SPEC §36: the Gathering's sink, 1 G FE into the heart
+                ok(h, isKey(ShrineService.prayerRefusal(server), "firmages.shrine.gathering.energy"), "the Gathering wants power: "
+                    + text(ShrineService.prayerRefusal(server)));
+                net.neoforged.neoforge.energy.IEnergyStorage power = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, heart, null);
+                ok(h, power.receiveEnergy(Integer.MAX_VALUE, false) == 1_000_000_000 && be.drawn() == 1_000_000_000, "the heart drew 1 G FE: " + be.drawn());
                 ok(h, ShrineService.prayerRefusal(server).isEmpty(), "the Gathering listens: " + text(ShrineService.prayerRefusal(server)));
                 ok(h, ShrineService.lend(level, plinths[0][3], null) == null, "nothing is lent before the Gathering");
                 ok(h, !ImmersionService.status(server).gathered(), "HUD: Goal: the Gathering");
@@ -584,6 +592,7 @@ public final class ShrineGameTests {
                 ok(h, ShrineSavedData.get(server).gathered() && ShrineSavedData.get(server).lentRelics().size() == 9, "gathered, nine records kept as lent");
                 ok(h, ShrineSavedData.reload(ShrineSavedData.get(server), server.registryAccess()).gathered(), "gathered in the SavedData round trip");
                 AgeTransitionPayload p = CeremonyService.last().orElseThrow();
+                ok(h, ((ShrineHeartBlockEntity) level.getBlockEntity(heart)).drawn() == 0, "the Gathering spent the 1 G FE");
                 ok(h, CeremonyService.sentCount() == sentBefore[0] + 1 && p.stage().equals(CeremonyService.GATHERING) && p.full()
                     && p.voiceKey().equals("firmages.shrine.voice.gathering") && p.blessingName().equals("firmages.blessing.crowned")
                     && p.shrine().map(g -> g.pos().equals(heart)).orElse(false), "one GATHERING payload at the heart: " + p);
@@ -666,6 +675,132 @@ public final class ShrineGameTests {
                 dev.firmages.core.command.DebugPlayerCommands.despawn(p[0]);
                 h.setBlock(HEART, Blocks.AIR);
                 ShrineService.extract(level, h.absolutePos(PLINTH));
+                agesUpTo(server, AgeId.DAWN);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))
+            .thenExecute(() -> ServerConfig.DEBUG_ALLOW_SIMULATE.set(false))
+            .thenSucceed();
+    }
+
+    /**
+     * SPEC §35 (Felix H5A): the Industrial Age offering (stand-in: an emerald) waits for the proof of work of the test
+     * datapack's {@code tallies.json} (eight iron ingots through a Tally Chute in the Industrial Age): refused at five
+     * with Caelum's line, accepted at eight; the heart's synced Jade values follow the count; the plinth's empty-hand line
+     * names the proof too.
+     */
+    @GameTest(template = "empty", batch = "firmages_3_shrine_proof", timeoutTicks = 3000)
+    public static void offeringWaitsForProof(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel level = h.getLevel();
+        BlockPos heart = h.absolutePos(new BlockPos(0, 1, 0)).above(24);
+        BlockPos[][] plinths = new BlockPos[1][];
+        net.minecraft.server.level.ServerPlayer[] p = new net.minecraft.server.level.ServerPlayer[1];
+        String name = "gt_prover";
+        h.startSequence()
+            .thenExecute(() -> {
+                ServerConfig.DEBUG_ALLOW_SIMULATE.set(true);
+                agesUpTo(server, AgeId.AGE_4);
+                plinths[0] = buildConsecratedShrine(level, heart);
+                for (int k = 4; k <= ShrineData.MAX_TIER; k++) ShrineService.extract(level, plinths[0][k]);
+                p[0] = dev.firmages.core.command.DebugPlayerCommands.spawn(server, level, name, net.minecraft.world.phys.Vec3.atCenterOf(heart.above(2)));
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the age_4 setup still running"))
+            .thenExecute(() -> {
+                ShrineHeartBlockEntity be = (ShrineHeartBlockEntity) level.getBlockEntity(heart);
+                ShrineService.validate(level, heart, be);
+                ok(h, ShrineDataLoader.current().tallyFor(4).map(r -> r.count() == 8 && r.item().orElse("").equals("minecraft:iron_ingot")).orElse(false),
+                    "the test datapack asks for eight iron ingots: " + ShrineDataLoader.current().tallyFor(4));
+                long base = dev.firmages.core.proof.TallyService.countsOf(server, p[0].getUUID()).sum("minecraft:iron_ingot"::equals, AgeId.AGE_4);
+                ok(h, base == 0, "no iron counted yet in the Industrial Age: " + base);
+                dev.firmages.core.command.DebugPlayerCommands.record(name);
+                ItemStack gift = new ItemStack(Items.EMERALD, 2);
+                ShrineService.OfferResult r = ShrineService.offerAtPlinth(level, plinths[0][4], gift, p[0]);
+                ok(h, r == ShrineService.OfferResult.NO_PROOF && gift.getCount() == 2, "refused without proof: " + r);
+                ok(h, ((OfferingPlinthBlockEntity) level.getBlockEntity(plinths[0][4])).isEmpty(), "the plinth stays empty");
+                dev.firmages.core.proof.TallyService.count(server, p[0].getUUID(), "minecraft:iron_ingot", 5);
+                dev.firmages.core.proof.TallyService.count(server, p[0].getUUID(), "minecraft:gold_ingot", 50);
+                r = ShrineService.offerAtPlinth(level, plinths[0][4], gift, p[0]);
+                ok(h, r == ShrineService.OfferResult.NO_PROOF, "five of eight (and gold that does not count) is not enough: " + r);
+                ShrineService.refreshHeart(level, heart, be);
+                ok(h, be.proofNeed() == 8 && be.proofHave() == 5 && be.proofItem().equals("minecraft:iron_ingot"),
+                    "the heart syncs 5 of 8 iron ingots: " + be.proofHave() + "/" + be.proofNeed() + " " + be.proofItem());
+                ShrineService.usePlinthEmptyHand(level, plinths[0][4], p[0]);
+                dev.firmages.core.proof.TallyService.count(server, p[0].getUUID(), "minecraft:iron_ingot", 3);
+                r = ShrineService.offerAtPlinth(level, plinths[0][4], gift, p[0]);
+                ok(h, r == ShrineService.OfferResult.ACCEPTED && gift.getCount() == 1, "accepted with eight counted: " + r);
+                ShrineService.refreshHeart(level, heart, be);
+                ok(h, be.proofHave() == 8, "the heart syncs 8 of 8");
+                CompoundTag sync = be.getUpdateTag(server.registryAccess());
+                ok(h, sync.getLong("proofNeed") == 8 && sync.getLong("proofHave") == 8 && sync.getString("proofItem").equals("minecraft:iron_ingot"),
+                    "the update tag carries the proof: " + sync);
+            })
+            .thenIdle(3)
+            .thenExecute(() -> {
+                long lines = dev.firmages.core.command.DebugPlayerCommands.recordedChat(name).stream()
+                    .filter(c -> c.getContents() instanceof TranslatableContents t && t.getKey().equals("firmages.shrine.proof.missing")).count();
+                FirmagesCore.LOGGER.info("GameTest proof of work: {} proof lines reached the player", lines);
+                ok(h, lines >= 3, "the player read the proof line on both refusals and at the plinth: " + lines);
+                dev.firmages.core.command.DebugPlayerCommands.despawn(p[0]);
+                clearShrine(level, heart);
+                for (ShrineSavedData.Relic rel : ShrineSavedData.get(server).relics().values()) ShrineSavedData.get(server).removeRelic(rel.plinth());
+                agesUpTo(server, AgeId.DAWN);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))
+            .thenExecute(() -> ServerConfig.DEBUG_ALLOW_SIMULATE.set(false))
+            .thenSucceed();
+    }
+
+    /**
+     * SPEC §36: ring 6 has the rite {@code energy_consume} 10 M FE. The heart takes FE through its energy capability
+     * only for the current work and only up to the need, gives none back, the rite holds once it is full, the prayer
+     * spends it, and in the next Age (ring 7 draws nothing) the heart takes nothing.
+     */
+    @GameTest(template = "empty", batch = "firmages_3_shrine_power", timeoutTicks = 3000)
+    public static void heartDrawsPower(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel level = h.getLevel();
+        BlockPos heart = h.absolutePos(new BlockPos(0, 1, 0)).above(24);
+        BlockPos[][] plinths = new BlockPos[1][];
+        h.startSequence()
+            .thenExecute(() -> {
+                ServerConfig.DEBUG_ALLOW_SIMULATE.set(true);
+                agesUpTo(server, AgeId.AGE_6);
+                plinths[0] = buildConsecratedShrine(level, heart);
+                for (int k = 6; k <= ShrineData.MAX_TIER; k++) ShrineService.extract(level, plinths[0][k]);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the age_6 setup still running"))
+            .thenExecute(() -> {
+                ShrineHeartBlockEntity be = (ShrineHeartBlockEntity) level.getBlockEntity(heart);
+                ShrineService.validate(level, heart, be);
+                ok(h, ShrineService.offerAtPlinth(level, plinths[0][6], new ItemStack(Items.DIAMOND), null) == ShrineService.OfferResult.ACCEPTED,
+                    "the Information Age offering (stand-in diamond) lies on its plinth");
+                ok(h, isKey(ShrineService.prayerRefusal(server), "firmages.shrine.rite.heart_power"), "the heart wants power: " + text(ShrineService.prayerRefusal(server)));
+                net.neoforged.neoforge.energy.IEnergyStorage e = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, heart, null);
+                net.neoforged.neoforge.energy.IEnergyStorage side = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, heart,
+                    net.minecraft.core.Direction.UP);
+                ok(h, e != null && side != null && e.canReceive() && !e.canExtract(), "the heart takes FE from every side and gives none");
+                ok(h, e.receiveEnergy(4_000_000, true) == 4_000_000 && be.drawn() == 0, "a simulated insert changes nothing");
+                ok(h, e.receiveEnergy(4_000_000, false) == 4_000_000 && side.receiveEnergy(1_000_000, false) == 1_000_000 && be.drawn() == 5_000_000,
+                    "5 M FE drawn: " + be.drawn());
+                ok(h, e.extractEnergy(1_000_000, false) == 0 && be.drawn() == 5_000_000, "nothing comes back out");
+                ok(h, isKey(ShrineService.prayerRefusal(server), "firmages.shrine.rite.heart_power"), "half is not enough");
+                ok(h, e.receiveEnergy(Integer.MAX_VALUE, false) == 5_000_000 && be.drawn() == 10_000_000 && !e.canReceive()
+                    && e.receiveEnergy(1000, false) == 0, "the heart takes exactly the rest: " + be.drawn());
+                ShrineService.refreshHeart(level, heart, be);
+                ok(h, be.drawNeed() == 10_000_000 && be.getUpdateTag(server.registryAccess()).getLong("drawn") == 10_000_000, "Jade sees 10 M of 10 M FE");
+                ok(h, ShrineService.prayerRefusal(server).isEmpty(), "the rite holds (no player online: the chorus is met): " + text(ShrineService.prayerRefusal(server)));
+                ok(h, ShrineService.simulatePray(server) == null, "the prayer is heard");
+                ok(h, be.drawn() == 0 && !e.canReceive(), "the prayer spent the FE");
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the age_7 grant still running"))
+            .thenExecute(() -> {
+                ShrineHeartBlockEntity be = (ShrineHeartBlockEntity) level.getBlockEntity(heart);
+                ok(h, AgeService.state(server).snapshot().unlocked().contains(AgeId.AGE_7), "the prayer granted the Space Age");
+                ShrineService.refreshHeart(level, heart, be);
+                net.neoforged.neoforge.energy.IEnergyStorage e = level.getCapability(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, heart, null);
+                ok(h, e.receiveEnergy(1000, false) == 0 && be.drawNeed() == 0, "ring 7 draws nothing: the heart takes no FE");
+                clearShrine(level, heart);
+                for (ShrineSavedData.Relic rel : ShrineSavedData.get(server).relics().values()) ShrineSavedData.get(server).removeRelic(rel.plinth());
                 agesUpTo(server, AgeId.DAWN);
             })
             .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))

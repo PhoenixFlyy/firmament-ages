@@ -1,0 +1,9 @@
+{
+  "rites": [
+    {
+      "type": "energy_consume",
+      "amount": 1000000000,
+      "hint": "firmages.shrine.gathering.energy"
+    }
+  ]
+}

@@ -190,6 +190,33 @@ public final class ShrineService {
         be.validationDue = false;
         be.nextValidation = level.getGameTime() + VALIDATE_INTERVAL;
         ShrineConsecration.afterValidation(level, pos, checks, awakened);
+        refreshHeart(level, pos, be);
+    }
+
+    /**
+     * Once a second and after each validation: the FE the heart still takes for the current work (a new work starts at
+     * 0, SPEC §36) and the Jade values (proof of work of the current offering, FE drawn and needed, SPEC §35); a change
+     * goes to the clients as a block update.
+     */
+    public static void refreshHeart(ServerLevel level, BlockPos pos, ShrineHeartBlockEntity be) {
+        MinecraftServer s = level.getServer();
+        Optional<String> slot = ShrineProof.drawSlot(s);
+        if (!slot.orElse("").equals(be.drawnFor)) {
+            if (be.drawn > 0) FirmagesCore.LOGGER.info("Shrine heart: {} FE drawn for {} lapse, the work is now {}", be.drawn, be.drawnFor, slot.orElse("none"));
+            be.drawn = 0;
+            be.drawnFor = slot.orElse("");
+            be.setChanged();
+        }
+        long need = slot.map(ShrineProof::drawNeed).orElse(0L);
+        be.drawRoom = Math.max(0, need - be.drawn);
+        Optional<ShrineProof.Progress> proof = ShrineRules.currentTier(unlocked(s)).flatMap(t -> ShrineProof.progress(s, t, null));
+        boolean changed = be.setSynced(need, proof.map(ShrineProof.Progress::have).orElse(0L), proof.map(p -> p.req().count()).orElse(0L),
+            proof.map(p -> BuiltInRegistries.ITEM.getKey(p.shown()).toString()).orElse(""));
+        if (changed || be.drawn != be.syncedDrawn) {
+            be.syncedDrawn = be.drawn;
+            BlockState st = level.getBlockState(pos);
+            level.sendBlockUpdated(pos, st, st, 3);
+        }
     }
 
     /** True when every ring the tier needs stands (rings above the highest defined ring are not required). */
@@ -296,7 +323,9 @@ public final class ShrineService {
     }
 
     /** Result of an offering attempt (also used by the GameTests). */
-    public enum OfferResult { ACCEPTED, ACCEPTED_LATE, WRONG_ITEM, OCCUPIED, NOT_SHRINE, LATER_TIER, RUINS, NO_TIER, UNKNOWN_OFFERING, RELIC_LENT, RETURNED }
+    public enum OfferResult { ACCEPTED, ACCEPTED_LATE, WRONG_ITEM, OCCUPIED, NOT_SHRINE, LATER_TIER, RUINS, NO_TIER, UNKNOWN_OFFERING, RELIC_LENT, RETURNED,
+        /** The fellowship's Tally Chutes have not counted the Age's proof of work yet (Felix H5A, SPEC §35). */
+        NO_PROOF }
 
     /** Right-click on a plinth with an item. */
     public static OfferResult offerAtPlinth(ServerLevel level, BlockPos plinthPos, ItemStack stack, @Nullable ServerPlayer player) {
@@ -371,6 +400,12 @@ public final class ShrineService {
             FirmagesCore.LOGGER.info("Late offering for tier {} enshrined at {}", k, plinthPos);
             return OfferResult.ACCEPTED_LATE;
         }
+        Optional<ShrineProof.Progress> proof = ShrineProof.progress(level.getServer(), k, player);
+        if (proof.isPresent() && !proof.get().met()) {
+            tell(player, ShrineProof.missingLine(proof.get()));
+            FirmagesCore.LOGGER.info("Offering for tier {} refused: proof of work {} has {}", k, proof.get().req().describe(), proof.get().have());
+            return OfferResult.NO_PROOF;
+        }
         ItemStack one = stack.split(1);
         pb.offer(one, k);
         h.be.prayerProgress = 0;
@@ -421,6 +456,10 @@ public final class ShrineService {
             Optional<Item> want = slot.flatMap(ShrineService::offeringItem);
             tell(player, want.isPresent() ? msg("firmages.shrine.plinth.wants", new ItemStack(want.get()).getHoverName())
                 : msg(h.isPresent() ? "firmages.shrine.plinth.outside" : "firmages.shrine.no_heart"));
+            Optional<Integer> current = ShrineRules.currentTier(unlocked(level.getServer()));
+            if (want.isPresent() && slot.equals(current)) {
+                ShrineProof.progress(level.getServer(), slot.get(), player).filter(p -> !p.met()).ifPresent(p -> tell(player, ShrineProof.missingLine(p)));
+            }
             return;
         }
         if (pb.isRelic()) {
@@ -588,12 +627,14 @@ public final class ShrineService {
             if (!rite.type().supported() || (skipChorus && rite.type() == ShrineTier.Rite.Type.PLAYERS_PRAYING) || riteDone(level, h, t, rite)) continue;
             Object arg = switch (rite.type()) {
                 case ENERGY -> String.format(java.util.Locale.ROOT, "%,d", rite.amount());
+                case ENERGY_CONSUME -> ShrineProof.fmt(ShrineProof.drawNeed("tier_" + t.tier()));
                 case RELIC_RETURNED -> ShrineSavedData.get(level.getServer()).relicForTier(rite.relicTier()).map(r -> itemName(r.item()))
                     .orElse(Component.literal("?"));
                 default -> rite.min();
             };
             Object arg2 = rite.type() == ShrineTier.Rite.Type.ENERGY
-                ? String.format(java.util.Locale.ROOT, "%,d", storedEnergy(level, ringPositions(level, h, t, rite.key()))) : "";
+                ? String.format(java.util.Locale.ROOT, "%,d", storedEnergy(level, ringPositions(level, h, t, rite.key())))
+                : rite.type() == ShrineTier.Rite.Type.ENERGY_CONSUME ? ShrineProof.fmt(ShrineProof.drawn(level.getServer(), h.be)) : "";
             out.add(rite.hint().isEmpty() ? msg("firmages.shrine.rite." + rite.type().name().toLowerCase(java.util.Locale.ROOT), arg, arg2)
                 : msg(rite.hint(), arg, arg2));
         }
@@ -641,6 +682,7 @@ public final class ShrineService {
             case SKY -> level.isNight() && level.canSeeSky(h.pos.above()) && !level.isRaining();
             case PLAYERS_PRAYING -> level.getServer().getPlayerCount() < rite.min() || h.be.prayers.size() >= rite.min();
             case ENERGY -> t.multiblock().isEmpty() || storedEnergy(level, ringPositions(level, h, t, rite.key())) >= rite.amount();
+            case ENERGY_CONSUME -> ShrineProof.drawn(level.getServer(), h.be) >= ShrineProof.drawNeed("tier_" + t.tier());
             case RELIC_RETURNED -> ShrineSavedData.get(level.getServer()).lentRelics().stream().noneMatch(r -> r.tier() == rite.relicTier());
         };
     }
@@ -665,7 +707,7 @@ public final class ShrineService {
     static Optional<Component> refusal(ServerLevel level, Heart h, Rites rites, boolean sendPreview, @Nullable ServerPlayer player) {
         Set<AgeId> unlocked = unlocked(level.getServer());
         Optional<Integer> tier = ShrineRules.currentTier(unlocked);
-        if (tier.isEmpty() && ShrineRules.highest(unlocked) == AgeId.AGE_9) return ShrineGathering.refusal(level, h, rites == Rites.ALL, sendPreview, player);
+        if (tier.isEmpty() && ShrineRules.highest(unlocked) == AgeId.AGE_9) return ShrineGathering.refusal(level, h, rites, sendPreview, player);
         if (tier.isEmpty()) return Optional.of(msg(ShrineRules.highest(unlocked) == AgeId.DAWN ? "firmages.shrine.sleeping" : "firmages.shrine.complete"));
         Optional<ShrineTier> t = data().tier(tier.get());
         if (t.isEmpty()) return Optional.of(msg("firmages.shrine.plinth.unknown_offering"));
@@ -739,6 +781,7 @@ public final class ShrineService {
         if (now % 20 == 0) be.inert = !isTheHeart(level, pos);
         if (be.inert) return;
         if (be.validationDue || now >= be.nextValidation) validate(level, pos, be);
+        else if (now % 20 == 0) refreshHeart(level, pos, be);
         if (be.awakening(now)) {
             be.prayers.clear();
             if (now % 5 == 0) level.sendParticles(ParticleTypes.END_ROD, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 3, 0.2, 1.0, 0.2, 0.02);
@@ -830,6 +873,7 @@ public final class ShrineService {
         h.be.prayerProgress = 0;
         h.be.prayers.clear();
         h.be.interacted.clear();
+        spendDrawn(h.be, "tier " + t.tier());
         h.be.awakeningUntil = level.getGameTime() + AWAKENING_TICKS;
         h.be.setChanged();
         FirmagesCore.LOGGER.info("Shrine prayer heard (tier {}, by {}): granting {}", t.tier(), by, stage.id());
@@ -837,6 +881,14 @@ public final class ShrineService {
         grant(s, stage);
         CeremonyService.ensureFullStarted(s, stage);
         h.be.invalidate();
+    }
+
+    /** The prayer is heard: the FE drawn for it is spent (SPEC §36). */
+    static void spendDrawn(ShrineHeartBlockEntity be, String work) {
+        if (be.drawn > 0) FirmagesCore.LOGGER.info("Shrine heart: {} FE spent on {}", be.drawn, work);
+        be.drawn = 0;
+        be.drawRoom = 0;
+        be.drawnFor = "";
     }
 
     /**
@@ -931,6 +983,8 @@ public final class ShrineService {
         Optional<Integer> tier = ShrineRules.currentTier(unlocked);
         if (no.isPresent()) {
             player.sendSystemMessage(no.get());
+            tier.flatMap(t -> ShrineProof.progress(level.getServer(), t, player)).filter(p -> !p.met())
+                .ifPresent(p -> player.sendSystemMessage(ShrineProof.missingLine(p)));
         } else if (tier.isPresent()) {
             player.sendSystemMessage(msg("firmages.shrine.inspect.ready"));
         } else if (ShrineGathering.pending(level.getServer())) {
@@ -1038,6 +1092,9 @@ public final class ShrineService {
             ? pb.item() + (pb.isRelic() ? " (relic)" : "") : "?")).orElse("none found");
         out.add(Component.literal("Tier " + tier.get() + (t.fallback() ? " (fallback)" : "") + " grants " + t.grants() + "; offering "
             + d.offeringFor(tier.get()).orElse("?") + "; plinth " + plinthText));
+        out.add(Component.literal("Proof of work: " + ShrineProof.progress(s, tier.get(), null)
+            .map(p -> p.req().describe() + ", counted " + p.have() + " by the leading team" + (p.met() ? " (met)" : "")).orElse("none")
+            + "; heart FE drawn " + ShrineProof.drawn(s, h.be) + " of " + ShrineProof.drawNeed("tier_" + tier.get())));
         List<String> rites = unmetRites(h.level, h, t, false).stream().map(Component::getString).toList();
         long now = h.level.getGameTime();
         out.add(Component.literal("Phase " + phase(h) + "; rites not done " + rites + "; prayer " + h.be.prayerProgress + "/"

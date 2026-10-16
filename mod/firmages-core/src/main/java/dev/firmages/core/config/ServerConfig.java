@@ -71,6 +71,7 @@ public final class ServerConfig {
     public static final ModConfigSpec.DoubleValue BOSS_EFFECTIVE_HEALTH;
     public static final ModConfigSpec.DoubleValue BOSS_PER_PLAYER;
     public static final ModConfigSpec.DoubleValue BOSS_VEIL_FACTOR;
+    public static final ModConfigSpec.DoubleValue BOSS_HIT_CAP;
     public static final ModConfigSpec.IntValue BOSS_ENRAGE_MINUTES;
     public static final ModConfigSpec.IntValue BOSS_STARFALL_ENRAGE_MINUTES;
     public static final ModConfigSpec.IntValue BOSS_WIPE_SECONDS;
@@ -107,6 +108,7 @@ public final class ServerConfig {
     // balance
     public static final ModConfigSpec.BooleanValue BALANCE_ALTERNATOR_FUEL_ONLY;
     public static final ModConfigSpec.IntValue BALANCE_AE2_CELL_TYPES;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> BALANCE_FE_CAP;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -221,17 +223,22 @@ public final class ServerConfig {
         b.pop();
 
         b.comment("The Primordial, the end boss (docs/primordial.md). Its health stays at the attribute cap of 1024; the damage it takes is",
-                "scaled so the fight lasts as if it had effectiveHealth * ((1 - perPlayerFactor) + perPlayerFactor * players) health.").push("boss");
+                "scaled so the fight lasts as if it had effectiveHealth * ((1 - perPlayerFactor) + perPlayerFactor * players) health.",
+                "The defaults come from the fight model (SPEC 39, boss/FightModel): 1, 2 and 4 players in Chaotic gear fight 8.4, 7.2 and",
+                "6.5 minutes. The server log names the model's numbers each time it wakes.").push("boss");
         BOSS_EFFECTIVE_HEALTH = b.comment("Effective health for one player.")
-            .defineInRange("effectiveHealth", 2400.0, 100.0, 100000.0);
-        BOSS_PER_PLAYER = b.comment("Share of the effective health each further player of the Gathering adds (0.45: 2 players 1.45x, 4 players 2.35x).")
-            .defineInRange("perPlayerFactor", 0.45, 0.0, 1.0);
+            .defineInRange("effectiveHealth", dev.firmages.core.boss.FightModel.EFFECTIVE_HEALTH, 100.0, 1000000.0);
+        BOSS_PER_PLAYER = b.comment("Share of the effective health each further player of the Gathering adds (0.7: 2 players 1.7x, 4 players 3.1x).")
+            .defineInRange("perPlayerFactor", dev.firmages.core.boss.FightModel.PER_PLAYER_FACTOR, 0.0, 1.0);
         BOSS_VEIL_FACTOR = b.comment("Damage factor while the veil is closed (1 = the veil does not matter).")
-            .defineInRange("veilFactor", 0.25, 0.0, 1.0);
+            .defineInRange("veilFactor", dev.firmages.core.boss.FightModel.VEIL_FACTOR, 0.0, 1.0);
+        BOSS_HIT_CAP = b.comment("The most one hit counts after armour, before the scaling (0 = no cap). A Draconic Evolution sword full of",
+                "damage modules hits for about 650; with the cap the fight does not depend on the module count.")
+            .defineInRange("hitCap", dev.firmages.core.boss.FightModel.HIT_CAP, 0.0, 10000.0);
         BOSS_ENRAGE_MINUTES = b.comment("After this many minutes of fighting the veil stays open only half as long.")
-            .defineInRange("enrageMinutes", 10, 1, 120);
+            .defineInRange("enrageMinutes", dev.firmages.core.boss.FightModel.ENRAGE_MINUTES, 1, 120);
         BOSS_STARFALL_ENRAGE_MINUTES = b.comment("After this many minutes star-fall rains in every phase, twice as often.")
-            .defineInRange("starfallEnrageMinutes", 12, 1, 120);
+            .defineInRange("starfallEnrageMinutes", dev.firmages.core.boss.FightModel.STARFALL_ENRAGE_MINUTES, 1, 120);
         BOSS_WIPE_SECONDS = b.comment("With no living player within 48 blocks of the altar for this many seconds, the boss withdraws and the",
                 "lanterns come back (a wipe); the next Gathering summons it anew.")
             .defineInRange("wipeSeconds", 30, 5, 3600);
@@ -329,6 +336,11 @@ public final class ServerConfig {
         BALANCE_AE2_CELL_TYPES = b.comment("Item types per AE2 item storage cell (AE2's own limit is 63; MEGA item cells too, portable cells keep theirs).",
                 "Fluid and chemical cells keep their own limit. Synced to the clients with the server config.")
             .defineInRange("ae2CellTypes", 126, 63, 252);
+        BALANCE_FE_CAP = b.comment("FE safety net (SPEC 37): \"<block id>=<FE per tick>\" caps what one block of that type gives per game tick through",
+                "the energy capability, both what is drawn out of it and what it pushes into a neighbour (also Mekanism's own energy",
+                "link). For sources a mod's own config cannot tame. Example: [\"createappliedkinetics:energy_provider=0\"]. Applies to",
+                "new capability lookups: placed or reloaded blocks, or after a restart.")
+            .defineListAllowEmpty("feCap", List.of(), () -> "", dev.firmages.core.balance.FeCaps::validEntry);
         b.pop();
 
         b.push("debug");
@@ -429,23 +441,28 @@ public final class ServerConfig {
 
     /** {@code boss.effectiveHealth}: the effective health The Primordial is scaled to for one player. */
     public static double bossEffectiveHealth() {
-        return loaded() ? BOSS_EFFECTIVE_HEALTH.get() : 2400.0;
+        return loaded() ? BOSS_EFFECTIVE_HEALTH.get() : dev.firmages.core.boss.FightModel.EFFECTIVE_HEALTH;
     }
 
     public static double bossPerPlayer() {
-        return loaded() ? BOSS_PER_PLAYER.get() : 0.45;
+        return loaded() ? BOSS_PER_PLAYER.get() : dev.firmages.core.boss.FightModel.PER_PLAYER_FACTOR;
     }
 
     public static double bossVeilFactor() {
-        return loaded() ? BOSS_VEIL_FACTOR.get() : 0.25;
+        return loaded() ? BOSS_VEIL_FACTOR.get() : dev.firmages.core.boss.FightModel.VEIL_FACTOR;
+    }
+
+    /** {@code boss.hitCap}: the most one hit counts after armour (0 = no cap). */
+    public static double bossHitCap() {
+        return loaded() ? BOSS_HIT_CAP.get() : dev.firmages.core.boss.FightModel.HIT_CAP;
     }
 
     public static int bossEnrageMinutes() {
-        return loaded() ? BOSS_ENRAGE_MINUTES.get() : 10;
+        return loaded() ? BOSS_ENRAGE_MINUTES.get() : dev.firmages.core.boss.FightModel.ENRAGE_MINUTES;
     }
 
     public static int bossStarfallEnrageMinutes() {
-        return loaded() ? BOSS_STARFALL_ENRAGE_MINUTES.get() : 12;
+        return loaded() ? BOSS_STARFALL_ENRAGE_MINUTES.get() : dev.firmages.core.boss.FightModel.STARFALL_ENRAGE_MINUTES;
     }
 
     public static int bossWipeSeconds() {

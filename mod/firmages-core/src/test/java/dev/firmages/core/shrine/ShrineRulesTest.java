@@ -196,6 +196,72 @@ class ShrineRulesTest {
         assertEquals(Optional.empty(), d.tier(9));
         assertEquals(0xFFFFB347, t0.response().beamColor());
         assertEquals(0xFF8C3A, t0.response().skyTint());
+        // Felix H5A (SPEC §35): from the Industrial Age every offering waits for a tally of the Age's product, counted
+        // since the Age dawned; before it no offering asks for one.
+        String[][] proof = {{"4", "c:ingots/steel", "512"}, {"5", "c:ingots/aluminum", "2048"}, {"6", "c:ingots/osmium", "4096"},
+            {"7", "c:ingots/desh", "4096"}, {"8", "c:ingots/calorite", "8192"}};
+        for (int k = 0; k < 4; k++) assertEquals(Optional.empty(), d.tallyFor(k), "no proof before the Industrial Age: tier " + k);
+        long last = 0;
+        for (String[] p : proof) {
+            int k = Integer.parseInt(p[0]);
+            TallyRequirement r = d.tallyFor(k).orElseThrow();
+            assertEquals(Optional.of(p[1]), r.tag(), "tier " + k);
+            assertEquals(Long.parseLong(p[2]), r.count(), "tier " + k);
+            assertEquals("age_" + k, r.age(), "counted since the Age dawned");
+            assertTrue(r.count() >= last, "the proof never shrinks: tier " + k);
+            last = r.count();
+        }
+        // Harmony plan table 2.1: the heart draws 10 M FE in ring 6, 100 M FE in ring 8 and 1 G FE for the Gathering
+        // (SPEC §36); ring 5 keeps its four capacitors (the hold-only energy rite).
+        assertEquals(10_000_000L, consume(d.tier(6).orElseThrow().rites()));
+        assertEquals(100_000_000L, consume(d.tier(8).orElseThrow().rites()));
+        assertEquals(1_000_000_000L, consume(d.gatheringRites()));
+        for (int k : new int[] {0, 1, 2, 3, 4, 5, 7}) assertEquals(0L, consume(d.tier(k).orElseThrow().rites()), "tier " + k + " draws nothing");
+    }
+
+    private static long consume(List<ShrineTier.Rite> rites) {
+        return rites.stream().filter(r -> r.type() == ShrineTier.Rite.Type.ENERGY_CONSUME).mapToLong(ShrineTier.Rite::amount).sum();
+    }
+
+    /** tallies.json: one of item and tag, a positive count, an Age; a later namespace replaces single keys, null removes one. */
+    @Test
+    void talliesParseMergeAndReject() {
+        ShrineData d = ShrineData.parse(new TreeMap<>(Map.of(
+            "firmages:tallies", JsonParser.parseString("{\"age_4\":{\"tag\":\"#c:ingots/steel\",\"count\":512},"
+                + "\"age_5\":{\"item\":\"minecraft:iron_ingot\",\"count\":8,\"age\":\"age_3\"},\"age_6\":{\"tag\":\"c:ingots/osmium\",\"count\":4096}}"),
+            "zz_pack:tallies", JsonParser.parseString("{\"age_4\":{\"tag\":\"c:ingots/steel\",\"count\":256},\"age_6\":null}"))));
+        assertEquals(List.of(), d.errors());
+        assertEquals(new TallyRequirement(Optional.empty(), Optional.of("c:ingots/steel"), 256, "age_4"), d.tallyFor(4).orElseThrow(), "the later namespace wins");
+        assertEquals(new TallyRequirement(Optional.of("minecraft:iron_ingot"), Optional.empty(), 8, "age_3"), d.tallyFor(5).orElseThrow());
+        assertEquals(Optional.empty(), d.tallyFor(6), "null switches a requirement off");
+        assertEquals("tag #c:ingots/steel x256 since age_4", d.tallyFor(4).orElseThrow().describe());
+        for (String bad : new String[] {
+            "{\"age_9\":{\"tag\":\"c:x\",\"count\":1}}",
+            "{\"age_4\":{\"count\":1}}",
+            "{\"age_4\":{\"tag\":\"c:x\",\"item\":\"minecraft:stone\",\"count\":1}}",
+            "{\"age_4\":{\"tag\":\"c:x\"}}",
+            "{\"age_4\":{\"tag\":\"c:x\",\"count\":0}}",
+            "{\"age_4\":{\"tag\":\"c:x\",\"count\":5,\"age\":\"age_10\"}}"}) {
+            assertFalse(parseOne("firmages:tallies", bad).errors().isEmpty(), "rejected: " + bad);
+        }
+    }
+
+    /** energy_consume draws into the heart: an amount and no key; the Gathering takes only that rite. */
+    @Test
+    void energyConsumeRite() {
+        ShrineData ok = parseOne("firmages:tier/ring_6", "{\"multiblock\":\"firmages:x\",\"rites\":[{\"type\":\"energy_consume\",\"amount\":10000000}]}");
+        assertEquals(List.of(), ok.errors());
+        assertEquals(List.of(), ok.warnings(), "energy_consume is implemented");
+        assertEquals(10_000_000L, consume(ok.tier(6).orElseThrow().rites()));
+        assertFalse(parseOne("firmages:tier/ring_6", "{\"multiblock\":\"firmages:x\",\"rites\":[{\"type\":\"energy_consume\"}]}").errors().isEmpty(),
+            "energy_consume without an amount");
+        assertFalse(parseOne("firmages:tier/ring_6", "{\"multiblock\":\"firmages:x\",\"rites\":[{\"type\":\"energy_consume\",\"key\":\"V\",\"amount\":5}]}")
+            .errors().isEmpty(), "energy_consume has no key: the FE goes into the heart");
+        ShrineData g = parseOne("firmages:gathering", "{\"rites\":[{\"type\":\"energy_consume\",\"amount\":1000000000}]}");
+        assertEquals(List.of(), g.errors());
+        assertEquals(1_000_000_000L, consume(g.gatheringRites()));
+        assertFalse(parseOne("firmages:gathering", "{\"rites\":[{\"type\":\"sky\"}]}").errors().isEmpty(), "the Gathering takes only energy_consume");
+        assertEquals(List.of(), ShrineData.EMPTY.gatheringRites());
     }
 
     private static ShrineData parseOne(String id, String json) {

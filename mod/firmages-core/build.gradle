@@ -301,6 +301,11 @@ def prepareGametestConfig = tasks.register('prepareGametestConfig', Copy) {
 }
 tasks.matching { it.name == 'runGameTestServer' }.configureEach { dependsOn prepareGametestRun, prepareGametestConfig, fetchLibs }
 
+// The metal table ships in the jar for /firmages ore audit (SPEC 38): dev/data/metals.json stays the one source.
+tasks.named('processResources', ProcessResources) {
+    from('../../dev/data/metals.json') { into 'data/firmages/balance' }
+}
+
 tasks.named('test', Test) {
     useJUnitPlatform()
     testLogging { events 'failed'; exceptionFormat 'full' }

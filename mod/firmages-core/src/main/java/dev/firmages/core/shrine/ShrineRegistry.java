@@ -119,6 +119,7 @@ public final class ShrineRegistry {
         BLOCK_ENTITIES.register(modBus);
         SOUNDS.register(modBus);
         modBus.addListener(ShrineRegistry::creativeTab);
+        modBus.addListener(ShrineRegistry::capabilities);
     }
 
     private static void creativeTab(BuildCreativeModeTabContentsEvent event) {
@@ -129,5 +130,10 @@ public final class ShrineRegistry {
         if (event.getTabKey() == CreativeModeTabs.OP_BLOCKS && event.hasPermissions()) {
             CONSECRATED_ITEMS.values().forEach(i -> event.accept(i.get()));
         }
+    }
+
+    /** The heart takes FE for {@code energy_consume} rites from every side (SPEC §36). */
+    private static void capabilities(net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK, SHRINE_HEART_BE.get(), (be, side) -> be.energy());
     }
 }
