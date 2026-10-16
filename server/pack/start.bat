@@ -9,14 +9,13 @@ set "RESTART_DELAY=10"
 set "INSTALLER=neoforge-%NEOFORGE%-installer.jar"
 set "WINARGS=libraries\net\neoforged\neoforge\%NEOFORGE%\win_args.txt"
 
-rem Java 21: FA_JAVA_HOME, then JAVA_HOME, then java on PATH.
+rem Java 21: the first of FA_JAVA_HOME, JAVA_HOME and java on PATH that is Java 21 (another version is skipped).
 set "JAVA="
-if defined FA_JAVA_HOME if exist "%FA_JAVA_HOME%\bin\java.exe" set "JAVA=%FA_JAVA_HOME%\bin\java.exe"
-if not defined JAVA if defined JAVA_HOME if exist "%JAVA_HOME%\bin\java.exe" set "JAVA=%JAVA_HOME%\bin\java.exe"
-if not defined JAVA set "JAVA=java"
-"%JAVA%" -version 2>&1 | findstr /r /c:"version .21[^0-9]" >nul
-if errorlevel 1 (
-  echo Java 21 not found. Install Java 21 and put it on PATH, or set FA_JAVA_HOME to its folder.
+if defined FA_JAVA_HOME if exist "%FA_JAVA_HOME%\bin\java.exe" call :try "%FA_JAVA_HOME%\bin\java.exe"
+if not defined JAVA if defined JAVA_HOME if exist "%JAVA_HOME%\bin\java.exe" call :try "%JAVA_HOME%\bin\java.exe"
+if not defined JAVA call :try java
+if not defined JAVA (
+  echo Java 21 not found. Install Java 21, or set FA_JAVA_HOME to its folder. FA_JAVA_HOME, JAVA_HOME and PATH were checked.
   pause
   exit /b 1
 )
@@ -46,3 +45,9 @@ goto loop
 :end
 endlocal
 pause
+exit /b 0
+
+:try
+"%~1" -version 2>&1 | findstr /r /c:"version .21[^0-9]" >nul
+if not errorlevel 1 set "JAVA=%~1"
+exit /b 0
