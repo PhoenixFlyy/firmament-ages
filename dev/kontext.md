@@ -1,7 +1,7 @@
 # Firmament Ages: Kontext für Agenten
 
 Diese Seite ersetzt für den Einstieg `mod/firmages-core/SPEC.md`, `dev/README.md` und die langen Notizen; die Pfade führen zu den Details.
-Stand 2026-10-16: Pack 0.14.0 (1.0 Runde B2, Chronik getaktet), firmages-core 0.13.0 (unverändert seit Release-Commit `78d1591`), Branch `dev`.
+Stand 2026-10-16: Pack 0.14.0 (1.0 Runde B2, Chronik getaktet, Release-Commit `fd59274`), firmages-core 0.13.0 (unverändert seit Release-Commit `78d1591`), Branch `dev`.
 
 ## 1. Was das Pack ist
 
