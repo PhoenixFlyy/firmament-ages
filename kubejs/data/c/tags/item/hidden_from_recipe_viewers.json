@@ -235,6 +235,7 @@
     {"id": "ars_nouveau:wilden_hunter_se", "required": false},
     {"id": "ars_nouveau:wilden_stalker_se", "required": false},
     {"id": "ars_nouveau:wixie_cauldron", "required": false},
+    {"id": "ars_nouveau:wixie_charm", "required": false},
     {"id": "ars_nouveau:wixie_shards", "required": false},
     {"id": "artifacts:mimic_spawn_egg", "required": false},
     {"id": "astikorcartsredux:wheel", "required": false},

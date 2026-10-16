@@ -524,7 +524,6 @@
     {"id": "ars_nouveau:wilden_spike", "required": false},
     {"id": "ars_nouveau:wilden_tribute", "required": false},
     {"id": "ars_nouveau:wilden_wing", "required": false},
-    {"id": "ars_nouveau:wixie_charm", "required": false},
     {"id": "ars_nouveau:wixie_hat", "required": false},
     {"id": "ars_nouveau:wololo", "required": false},
     {"id": "ars_nouveau:worn_notebook", "required": false},
