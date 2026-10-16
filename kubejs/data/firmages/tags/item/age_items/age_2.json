@@ -2901,7 +2901,6 @@
     {"id": "minecraft:iron_bars", "required": false},
     {"id": "minecraft:iron_chestplate", "required": false},
     {"id": "minecraft:iron_door", "required": false},
-    {"id": "minecraft:iron_ingot", "required": false},
     {"id": "minecraft:iron_nugget", "required": false},
     {"id": "minecraft:light_blue_bed", "required": false},
     {"id": "minecraft:light_gray_bed", "required": false},

@@ -130,7 +130,7 @@ ServerEvents.recipes((event) => {
   // Metal essence gives TFC ore pieces, not ingots (Felix 2026-10-15, harmony H4A; plan fix 2): eight essence in a
   // ring make two normal pieces (50 mB of metal) instead of 2 to 8 ingots, so Mystical Agriculture feeds the ore ladder
   // (Purification 3x, Injection 4x, Dissolution 5x) instead of skipping it. One piece per metal of the pack's metal
-  // table (dev/data/metals.json, the first TFC or TFC-IE ore of the metal); netherite essence gives ancient debris.
+  // table (kubejs/data/firmages/balance/metals.json, the first TFC or TFC-IE ore of the metal); netherite essence gives ancient debris.
   // Same recipe ids as Mystical Agriculture's, so its guide and EMI pages keep working.
   const MA_METAL_PIECES = {
     'minecraft/iron_ingot': ['iron', 'tfc:ore/normal_hematite'],
@@ -164,7 +164,7 @@ ServerEvents.recipes((event) => {
   event.shapeless('2x tfc:ore/normal_hematite', ['4x hostilenetworks:overworld_prediction', 'minecraft:rotten_flesh'])
     .id('hostilenetworks:living_matter/overworldian/iron_ingot')
   event.remove({ id: 'hostilenetworks:living_matter/hellish/gold_ingot' })
-  event.shapeless('2x tfc:ore/normal_native_gold', ['minecraft:glowstone_dust', 'minecraft:iron_ingot', 'hostilenetworks:nether_prediction'])
+  event.shapeless('2x tfc:ore/normal_native_gold', ['minecraft:glowstone_dust', '#c:ingots/iron', 'hostilenetworks:nether_prediction'])
     .id('hostilenetworks:living_matter/hellish/gold_ingot')
 
   // ======================================================================================== goal: Data Matrix

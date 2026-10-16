@@ -1,0 +1,5 @@
+{
+  "type": "immersiveengineering:generator_fuel",
+  "fluidTag": "c:diesel_sulfur",
+  "burnTime": 285
+}

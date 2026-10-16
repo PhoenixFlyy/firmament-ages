@@ -61,7 +61,7 @@ ServerEvents.recipes((event) => {
     'mekanism:crushing', 'mekanism:crystallizing', 'mekanism:dissolution', 'mekanism:energy_conversion', 'mekanism:enriching',
     'mekanism:evaporating', 'mekanism:injecting', 'mekanism:metallurgic_infusing', 'mekanism:oxidizing', 'mekanism:painting',
     'mekanism:pigment_extracting', 'mekanism:pigment_mixing', 'mekanism:purifying', 'mekanism:reaction', 'mekanism:rotary',
-    'mekanism:separating', 'mekanism:washing', 'ae2:inscriber', 'ae2:charger', 'ae2:transform', 'ae2:entropy',
+    'mekanism:separating', 'mekanism:smelting', 'mekanism:washing', 'ae2:inscriber', 'ae2:charger', 'ae2:transform', 'ae2:entropy',
     'ae2:matter_cannon', 'ae2:storage_cell_disassembly', 'ae2:crafting_unit_transform',
     'extendedae:circuit_cutter', 'extendedae:crystal_assembler', 'extendedae:crystal_fixer',
     'mysticalagriculture:infusion', 'mysticalagriculture:reprocessor', 'mysticalagriculture:soul_extraction',

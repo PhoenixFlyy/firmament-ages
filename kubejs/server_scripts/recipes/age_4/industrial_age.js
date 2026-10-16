@@ -20,7 +20,7 @@ ServerEvents.recipes((event) => {
   event.remove({ id: 'immersiveengineering:cokeoven/coke_block' })
 
   // ======================================================================================== crusher (ore -> dust)
-  // Matrix Doc 10 v3 6.1: IE Crusher = 2x plus by-products. TFC ore pieces sit in c:raw_materials/<metal> and TFC
+  // Matrix Doc 10 v3 6.1: IE Crusher = 2.5x plus by-products (metal table). TFC ore pieces sit in c:raw_materials/<metal> and TFC
   // ore blocks in c:ores/<metal>, so IE's tag recipes crushed a 10 mB small piece into 1.33 dusts (133 mB). They go,
   // like the arc furnace ore doubling (Doc 10 v3 7.3) and TFC + IE's ore -> 2x TFC powder recipes.
   const oreTag = /"tag":"c:(ores|raw_materials)\/|"tag":"c:storage_blocks\/raw_/
@@ -32,13 +32,22 @@ ServerEvents.recipes((event) => {
   })
   oreRecipes.forEach((id) => event.remove({ id: id }))
   removeIdPatterns.push(/^tfc_ie_addon:crusher\/ore\//)
+  // TFC + IE melts 20 powder into an ingot in the Arc Furnace (1.0x of the quern). With the IE Crusher's powder on top
+  // of its 2.5x dust that made the IE line 3.5x in the Electric Age, above Purification (3.0x, Information Age): the
+  // powder goes into the Enrichment Chamber instead (metal table "powder", recipes/age_6/ore_ladder.js).
+  removeIdPatterns.push(/^tfc_ie_addon:arcfurnace\/(bauxite|bismuthinite|cassiterite|galena|garnierite|hematite|limonite|magnetite|malachite|native_copper|native_gold|native_silver|sphalerite|tetrahedrite|uraninite)$/)
   event.remove({ id: 'tfc_ie_addon:crusher/wrought_iron_ingot' }) // same as immersiveengineering:crusher/ingot_iron
 
-  // The IE Crusher takes ONE item and its main output has no chance, so 2x of a 10-35 mB piece cannot be a whole
-  // dust. Main output: the TFC mineral powder in quern amount (the by-product: glass colourant, pigment); the metal
-  // comes as the canonical dust with chance = 2 x piece mB / 100, plus IE's classic secondary metal at 5 % of that.
-  const GRADE_MB = { small: 10, poor: 15, normal: 25, rich: 35 }
-  const QUERN_POWDER = { small: 2, poor: 3, normal: 5, rich: 7 }
+  // The IE Crusher takes ONE item and its main output has no chance, so 2.5x of a 10-35 mB piece cannot be a whole
+  // dust. Main output: the TFC mineral powder in quern amount (glass colourant, pigment; from the Information Age the
+  // Enrichment Chamber turns 64 powder into a dust, recipes/age_6/ore_ladder.js); the metal comes as the canonical dust
+  // with chance = factor x piece mB / 100, plus IE's classic secondary metal at 5 % of that. Factor, powder count,
+  // secondary share and energy are the metal table's (kubejs/data/firmages/balance/metals.json, station ie_crusher:
+  // 2.5x since 2026-10-16, harmony A4; was 2.0x, only +18 % over Create).
+  const M = global.FA_METALS
+  const IE = M.table.stations.ie_crusher
+  const GRADE_MB = M.GRADE_MB
+  const QUERN_POWDER = M.table.powder.quern_count
   const ORES = {
     // piece prefix: [powder, canonical dust, secondary dust or null]
     'tfc:ore/{g}_native_copper': ['tfc:powder/native_copper', 'mekanism:dust_copper', 'mekanism:dust_gold'],
@@ -64,12 +73,12 @@ ServerEvents.recipes((event) => {
     const row = ORES[pattern]
     Object.keys(GRADE_MB).forEach((g) => {
       const piece = pattern.replace('{g}', g)
-      const dustChance = round3((GRADE_MB[g] * 2) / 100)
+      const dustChance = round3(M.perPiece('ie_crusher', g))
       const secondaries = [{ chance: dustChance, output: { item: row[1] } }]
-      if (row[2]) secondaries.push({ chance: round3(dustChance * 0.05), output: { item: row[2] } })
+      if (row[2]) secondaries.push({ chance: round3(dustChance * Number(IE.byproduct)), output: { item: row[2] } })
       event.custom({
         type: 'immersiveengineering:crusher',
-        energy: 1000 + 100 * GRADE_MB[g],
+        energy: Number(IE.energy_base) + Number(IE.energy_per_mb) * GRADE_MB[g],
         input: { item: piece },
         result: { basePredicate: { item: row[0] }, count: QUERN_POWDER[g] },
         secondaries: secondaries

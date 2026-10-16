@@ -1,5 +1,5 @@
 // Firmament Ages - Age 2: Iron Age recipes.
-// Create brass tier, Crushing Wheels (TFC ore piece -> canonical dust, 1.5-1.9x), trains (Doc 10 v3 section 2.1).
+// Create brass tier, Crushing Wheels (TFC ore piece -> canonical dust, 1.5x from the metal table), trains (Doc 10 v3 2.1).
 // The brass-tier items themselves are item-locked until age_2 (dev/age_map.toml); brass comes from TFC
 // (crucible) or the WoodenCog heated basin, create:mixing/brass_ingot is removed in global_removals.js.
 
@@ -7,11 +7,12 @@ ServerEvents.recipes((event) => {
   const { tfc } = event.recipes
 
   // ---- Crushing Wheels: TFC ore pieces -> canonical dust (Doc 08 section 4.1, matrix Doc 10 v3 6.1) ----
-  // One dust = 100 mB when melted. Expected output = ore mB x YIELD, expressed as the chance of one dust
-  // (TFC ore pieces: small 10, poor 15, normal 25, rich 35 mB; verified in tfc:heating/ore/*).
-  // POC: YIELD 1.7 sits in the 1.5-1.9 band; tune against Theurgy spagyrics (2.5x) and the IE Crusher (2x).
-  const YIELD = 1.7
-  const GRADE_MB = { small: 10, poor: 15, normal: 25, rich: 35 }
+  // One dust = 100 mB when melted. Expected output = ore mB x factor, expressed as the chance of one dust
+  // (TFC ore pieces: small 10, poor 15, normal 25, rich 35 mB; verified in tfc:heating/ore/*). The factor is the
+  // metal table's (kubejs/data/firmages/balance/metals.json, station create_crushing: 1.5x since 2026-10-16, harmony
+  // A4): above the crucible (1.0x), below Theurgy (2.0x) and the IE Crusher (2.5x).
+  const M = global.FA_METALS
+  const GRADE_MB = M.GRADE_MB
   // Canonical dusts: Mekanism for Mekanism metals, IE for IE-only metals, KubeJS for TFC-only metals.
   // Mekanism/IE are item-locked until their Ages; these dusts are age_2 items (dev/age_map.toml [items]).
   const ORE_DUST = {
@@ -25,7 +26,7 @@ ServerEvents.recipes((event) => {
   }
   Object.keys(ORE_DUST).forEach((ore) => {
     Object.keys(GRADE_MB).forEach((grade) => {
-      const chance = Math.min(1, (GRADE_MB[grade] * YIELD) / 100)
+      const chance = Math.min(1, M.perPiece('create_crushing', grade))
       event.custom({
         type: 'create:crushing',
         ingredients: [{ item: `tfc:ore/${grade}_${ore}` }],

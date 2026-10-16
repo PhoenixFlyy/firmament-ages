@@ -1,0 +1,61 @@
+{
+  "_doc": [
+    "Firmament Ages - the fuel table: one FE value per bucket for every fluid a generator burns, whichever generator burns it",
+    "(harmony plan 2026-10-15, rule 3 and package A6). dev/gen_fuels.py writes the generator data from it: the IE Diesel",
+    "Generator fuels (burn time = FE per bucket / 4,096 FE/t), the Create: Diesel Generators fuel types (burn rate so that",
+    "engine + C&A Alternator gives the table value) and the Mekanism Gas-Burning Generator data map (energy per tick).",
+    "dev/gen_fuels.py --check compares the generated files with this table, every generator route within 'tolerance',",
+    "and the ladder: each fuel of 'ladder' holds more FE per bucket than the one before it.",
+    "Values are the mods' own defaults except where a second route paid more for the same fluid (CDG engines, 2026-10-16)."
+  ],
+  "tolerance": 0.25,
+  "ladder": ["creosote", "diesel", "ethene", "deuterium_tritium"],
+  "generators": {
+    "ie_diesel_generator": {"fe_per_tick": 4096, "_doc": "IE dieselGen_output (default, not changed by the pack); a bucket lasts burnTime ticks"},
+    "cdg_alternator": {"config": "config/createaddition-common.toml", "_doc": "FE per SU = fe_at_max_rpm x generator_efficiency / max_stress (480 x 0.35 / 16,384); every Diesel Generators engine is fuelled (H1A)"},
+    "cdg_turbocharger": {"config": "config/createdieselgenerators-server.toml", "_doc": "the turbocharger multiplies speed and stress capacity; its burn rate multiplier equals the speed multiplier, so FE per bucket stays"},
+    "mek_gas_burning": {"joules_per_fe": 2.5, "_doc": "Mekanism feConversionRate; energy (J per tick) x burn_time (ticks per mB) = J per mB"}
+  },
+  "fuels": {
+    "creosote": {
+      "fe_per_bucket": 81920,
+      "ie": {"recipe": "immersiveengineering:generator_fuel/creosote", "fluid_tag": "c:creosote"}
+    },
+    "kerosene": {
+      "fe_per_bucket": 851968,
+      "ie": {"recipe": "immersivepetroleum:fuels/kerosene", "fluid_tag": "c:kerosene"}
+    },
+    "diesel_sulfur": {
+      "fe_per_bucket": 1167360,
+      "ie": {"recipe": "immersivepetroleum:fuels/diesel_sulfur", "fluid_tag": "c:diesel_sulfur"}
+    },
+    "diesel": {
+      "fe_per_bucket": 1318912,
+      "ie": {"recipe": "immersivepetroleum:fuels/diesel", "fluid_tag": "c:diesel"},
+      "cdg": {
+        "file": "diesel", "fluid": "#c:diesel", "sound_pitch": 0.9, "burner_multiplier": 0.6,
+        "engines": {
+          "normal": {"speed": 96.0, "strength": 6144.0},
+          "modular": {"speed": 96.0, "strength": 8192.0},
+          "huge": {"speed": 224.0, "strength": 16384.0}
+        }
+      }
+    },
+    "ethene": {
+      "fe_per_bucket": 11280000,
+      "mekanism": {"chemical": "mekanism:ethene", "burn_time": 40}
+    },
+    "hydrogen": {
+      "fe_per_bucket": 80000,
+      "mekanism": {"chemical": "mekanism:hydrogen", "burn_time": 1}
+    },
+    "deuterium_tritium": {
+      "fe_per_bucket": 200000000,
+      "_doc": "Mekanism fusion: fuelEnergy 10,000,000 J of heat per mB (generators.toml default), of which the passive thermocouples turn 5 % into power: 200 M FE per bucket before water heating. A ladder bound only; the fusion reactor reads its own config."
+    }
+  },
+  "dead": {
+    "_doc": "Fluids some generator would burn but nothing in the pack makes (refinery, CDG distillation and C&A fluids are removed): no table value, the generator data stays as the mod ships it or empty.",
+    "fluid_tags": ["c:biodiesel", "c:high_power_biodiesel", "c:gasoline", "c:plantoil", "c:ethanol"]
+  }
+}

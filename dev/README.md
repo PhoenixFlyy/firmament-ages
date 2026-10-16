@@ -64,6 +64,9 @@ tools\packwiz.exe refresh            # after any change under config/, defaultco
 tools\packwiz.exe serve              # serves the working tree on http://localhost:8080/pack.toml (dev\serve.bat)
 python dev/gen_stage_locks.py        # after changing dev/age_map.toml or the Age tables in the generator
 python dev/gen_quests.py; python dev/validate_quests.py --style   # after changing quests
+python dev/gen_fuels.py              # after changing kubejs/data/firmages/balance/fuels.json (--check compares)
+python dev/gen_machine_usage.py      # Mekanism, More Machine and IE excavator config values (--check, --server-dir)
+python dev/miner_ladder.py --check   # miners against the ore ladder (metals.json, the configs, --dump-dir for all veins)
 ```
 
 Text files are LF (`.gitattributes`). packwiz hashes the working copy, GitHub serves the git copy: a file with CRLF in the working tree gets a wrong hash in `index.toml`, and every install from GitHub then fails on it. `dev/release.ps1` checks this.

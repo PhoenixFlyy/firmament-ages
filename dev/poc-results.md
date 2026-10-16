@@ -3126,3 +3126,30 @@ Notes:
 - The tutorial Wayshrine found no fit site on the seed of boot 1 (16 bearings, slope or water; WARN, retried at the
   next start while the world is young); boots 2, 3 and 5 placed it 311, 538 and 578 blocks out.
 - The portable cell mixin was dropped after boot 3: AE2 and MEGA portable cells never use 63 types.
+
+## 1.0 round C2, harmony (2026-10-16, branch c2/harmonie)
+
+Harmony packages A4 (ore ladder from the metal table), A5 (one iron), A6 (fuel table), H2A (Mekanism usage x10) and
+the miners against the ladder, on dev ff67812 (pack 0.11.0). Felix's test server stayed off and untouched; every
+boot ran on the copy `.wt/test-server-c2-harmonie` (`robocopy` without world, logs, local, simplebackups and
+crash-reports; ports 25740 and RCON 25750, whitelist off; the copy's `kubejs/` and its Mekanism, More Machine and IE
+server configs deleted before the first sync, so the shipped files are what loads; synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8170 --refresh=false` of the worktree,
+"Finished successfully"; `debug.allowSimulate = true` after each sync), each with a new world and `-Xms3G -Xmx5G`.
+German write-up with all tables: `dev/harmonie-r2.md`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | first try: KubeJS "'global' cannot be assigned to in client or server scripts" (`recipes/metal_table.js`), six recipe scripts failed; the table moved to `startup_scripts/`; then 43,641 recipes, KubeJS 0 errors; `derive_ages.py` hid `sgjourney:tollan_stargate` (its upgrade crystal still took `minecraft:iron_ingot` inside an `ingredient` wrapper) | fixed |
+| Copy boot 2 (gate off, same commands, after the three JSON rewrites in `unify_iron.js`) | 43,641 recipes, 0 not encodable; `gen_stage_locks.py --registry`, `derive_ages.py`, `gen_stage_locks.py`: only `minecraft:iron_ingot` moves to `age_items/disabled`; second pass `--check` up to date | pass |
+| Copy boot 3 (gate on, new world, grants, dumps, `firmages recipes audit`, `selftest all`) | gate at age_9: 38,582 of 43,641 recipes, 5,059 dropped (disabled 5,052, superseded 7); `selftest all` 71 passed, 3 failed (the three crown checks, red by design until M15) | pass (crown by design) |
+| `poc_analyze.py --dump-dir <boot 3> --baseline <boot 2>` | 107 PASS, 0 FAIL at the first run: L-1 (13 metals, 68 ore pieces), L-2 best tech factor per Age 1.0 / 1.0 / 1.5 / 1.5 / 2.5 / 2.5 / 2.86-3.0 / 4.0 / 5.0 / 5.0, L-3, L-4, L-5, L-6 Mineshaft mean 20.75 mB, L-7 16 arc furnace dust recipes at 6,400 FE, U-2 no live recipe with `minecraft:iron_ingot` (394 take `#c:ingots/iron`), R-X age_2 to age_9 (2,783 magic recipes left out), G-1 to G-4 | pass |
+| `gen_fuels.py --check --dump-dir <boot 3>` | up to date; every route within +-0.5 % of its table value; 6 IE generator fuels in the dump, all known | pass |
+| `gen_machine_usage.py --check --server-dir <copy>` | up to date, 87 values off their default; 282 values read back from the booted copy equal the shipped files | pass |
+| `miner_ladder.py --dump-dir <boot 3> --check` | 13 excavator mixes (2.46 to 22.5 mB per dig, mean 13.64); FE per ingot per step: Digital Miner -15.6 / -20.5 / -11.1 %, average excavator vein with energy upgrades -15.9 / -20.0 / -10.2 % | pass |
+| Copy boot 4 (gate on, new world, grants, hold 120 s, no debug command) | `check_log.py`: 93.2 s to Done, FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0 | pass |
+
+Notes:
+- Not run: `gradlew runGameTestServer` (no firmages-core code changed this round).
+- Not checked in a world: the Energized Smelter's choice of the wrought iron recipe over the furnace recipe, the
+  diesel engine and gas-burning generator output (data loads without an error), the Digital Miner and excavator rates.
