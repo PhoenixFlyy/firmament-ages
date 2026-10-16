@@ -314,7 +314,7 @@ hash = "e27da03528e180415cee573fd8b711167df9c8978acac7685dd443b562a2555d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_bronze_age.snbt"
-hash = "3c471ac84ffac4952101c662eef3a2e3e9238eb1f3efd67dc9634ca987c3c737"
+hash = "6fecf90e0d286d11058dd1c13e82e23fb294db1ba777b24cb8411398a77d7b96"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_dawn.snbt"
@@ -322,7 +322,7 @@ hash = "1a0031e44d3d38d9fd4f0aec9a576524baeaa1e53ecac9414f9d7bf76d43fea1"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_electric_age.snbt"
-hash = "90921fa9b210994efb5c04ad438329b232fe57d1ae8dbc3168896cbc6238273a"
+hash = "dae8c3ce0064f5eb6263923150209466e8533c6588e76621f7ba85674f22b819"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_industrial_age.snbt"
@@ -330,19 +330,19 @@ hash = "28385231312e74df3809e3be442c5f43cce6c41f008f2f62759afc52095c5898"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_information_age.snbt"
-hash = "3492eedeeab6aec9788805a77844f7d1ac7ae6937ee5c985a7c0ccf211b2202a"
+hash = "191625fb2739d70a65c178fda0cfdb83cd0190d45a3774b9afc04fdae9589e9d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_iron_age.snbt"
-hash = "644bd20114e803fa8d4b7a2efcd22957aee18417298ac5a6ab2d665af432b675"
+hash = "d33ce90f5495e76e82a88031b8798a71e80172df735e9b2630083987cc8aa60a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_quantum_age.snbt"
-hash = "03d8e8eea02554f60bfb4e73419291d212b54a2168f65e2d9498bca8b800b704"
+hash = "24a35835bdd5157bbd36b8cf5b8e3f4c32663b74f40af63bab485111d3f046e1"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_singularity_age.snbt"
-hash = "cb97a64d1cf52f64c596872d07ba45057c802c1d3a63cf8168503a98f82f783f"
+hash = "b7ca2eb633ef6253ba5c581c9929c01531a44bc1e8ca0445d3481933408defb2"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_space_age.snbt"
@@ -386,7 +386,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "2e2d1841fc0f32807ca5907329a78dff1e39a938e88f34c19532ac3c82633bd7"
+hash = "d7b9c73334673eb1956e0e47fbfd86743a1d2d2abb37b923ce8e589601027496"
 
 [[files]]
 file = "config/goblintraders-entities.toml"
@@ -3462,7 +3462,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "6af080a009500fb32a88015da625ff102ebc15cc3f387caede14bba1c35b695a"
+hash = "4296c35496efea42d4ea340afcd83811078984cc227e6242521d0eb9b080ae1c"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -6674,15 +6674,15 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "29525e5e39e29b031aff12f36021dd9907bdc7eabe319105722b6480786582c0"
+hash = "4c7bf327c8364a6f54a9e458066b7890bc5789398919ccbb870c27990cb94a7d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "2de02578b568d717d89b933f4e1b65dc6db7a5592b524570bb2059598b368bfc"
+hash = "650dcf8052979f457115bca08ae46de3e0ae81ab91df08b63105af55b3207e4e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "ddc89e53d1c775c5fa50904dec2fd40a775928ff4d34add700bf850bd4fbb570"
+hash = "96e1298f892554f1226261f5d2e282b8bf957e30f9e2044565df40987861182d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
@@ -6690,11 +6690,11 @@ hash = "8c06ef711fc3a49aa996d8c81fb61f182b1354327f6049be084a7be7b425c182"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "aacf2759d3c917bd4b88546e10b71add90fc90dfe8f254601458bf01990c6dfc"
+hash = "32fba324b194c328851937d4ab898822ad22ee3a76d2d9aaa13ce26a3642be3f"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "ed049383eadc2fb2dbff19997264a387052a36db021901f063b09b724bb0edb0"
+hash = "5b6f9fc8e12888672075c78a26a464ba34b10ce969b7eebeeff814b235f1714b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
@@ -6710,15 +6710,15 @@ hash = "3e7e1fb7410c0f6335482ad2dcddb7caf69e4385af52df1c5d347d0b63e1718b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "2396eb4c6b3ff5a3749fb8ea98284ed6ddcdc7d1b82269b3daec4249bef26284"
+hash = "32bf18d1227a26ac562ae4091c957cc248ec0c9b2b0df76e730d1c8b01622946"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "5431cf5ef2e40dbf80d388e2119472668f13f23d0955f29d00fb6ed275efa94c"
+hash = "1c42888a9187e07205194d920e1b8903f4da79523496ab0dd8c47efebf91daaa"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "80487ce9d510d30de5822e94cb64429bf6bcb1eecc83d2c0f958accee30554ab"
+hash = "7e91b8fa05869952483885aea26c79b2c9e03068bcf145f452d36eb4b504505b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/rope_bridges.json"
