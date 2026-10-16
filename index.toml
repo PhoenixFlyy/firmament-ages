@@ -618,7 +618,7 @@ hash = "b7dede6c58d02569e9666b63c04d3d98b425f88f5775914b3f4e0a4f3970978b"
 
 [[files]]
 file = "kubejs/assets/firmages/age_namespaces.json"
-hash = "ba0c4e77229adf6712fe6c6bb31155d428b0a2668b695e74c2bde465516da1f1"
+hash = "33003c86212de24054ca2258c25a254eef305e7e287d5375b9cb50965f09f06e"
 
 [[files]]
 file = "kubejs/assets/firmages/lang/en_us.json"
@@ -3462,7 +3462,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "6af080a009500fb32a88015da625ff102ebc15cc3f387caede14bba1c35b695a"
+hash = "4f550a3af5142e441507a123b73289010824510c06136f075f696019f89f290c"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -6686,7 +6686,7 @@ hash = "ddc89e53d1c775c5fa50904dec2fd40a775928ff4d34add700bf850bd4fbb570"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "8c06ef711fc3a49aa996d8c81fb61f182b1354327f6049be084a7be7b425c182"
+hash = "23304d9bf841f3e6101600d3207e6536ea281b96aa472c79a863d3dfec99627e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
@@ -6698,7 +6698,7 @@ hash = "ed049383eadc2fb2dbff19997264a387052a36db021901f063b09b724bb0edb0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "52522bba3af080bc47ef315a1ba949020bc44ec6ee18bdccd13353ebe7438621"
+hash = "d705b4f0068e1ac4ded15a7642bfdada662de4f6664d8fe92943aeb652b5d742"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
@@ -6706,7 +6706,7 @@ hash = "30060bc8a07b9e51b8911ec950c0a1450f2347e3be2933ba3d6ecad4a38f3461"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "3e7e1fb7410c0f6335482ad2dcddb7caf69e4385af52df1c5d347d0b63e1718b"
+hash = "dc3f45d88782e613029e3193e6b43f4d2aadcf0ece00fbabab01b58bf167395a"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -6718,7 +6718,7 @@ hash = "5431cf5ef2e40dbf80d388e2119472668f13f23d0955f29d00fb6ed275efa94c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "80487ce9d510d30de5822e94cb64429bf6bcb1eecc83d2c0f958accee30554ab"
+hash = "403cd7a5993b4f1cfaeb007acbb213bd6be19b426a14ef0ef5f28a641ce92126"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/rope_bridges.json"
@@ -10602,7 +10602,7 @@ hash = "c65eddd8ad73f47f7d6f7c27965019eabffafe19d087abca8c6ed660f4ee4c93"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
-hash = "98b4a9ddae1260a131cf609557c80fb1d4225d080184ae1a7d64e607ff6930b9"
+hash = "58281a1704ecba8e041b5d403aa509d6ca69f584e33e9c657d688981eda342e0"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/ars_addons.js"
@@ -10702,7 +10702,7 @@ hash = "d95c6b75b12ce0a1d3e66b5b2a8fdff8d71e796a8a3470c9d305c89735fdf54a"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"
-hash = "3f291e5669705a948f32aa935369768c33aa8f2fccc8a411a29a3f4bcb541620"
+hash = "b9834f1dc7f22d8c15c7c314676eccb22f55adc1ff4a9dd81a3a72c6acfcc6ec"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_9/chaos_bootstrap.js"
@@ -10747,6 +10747,10 @@ hash = "dd0902086c52f3e48b7445e9ec4c8f793d62b010a48ecd999f61fd395d6ad8f4"
 [[files]]
 file = "kubejs/server_scripts/recipes/global_removals.js"
 hash = "3b1325d33c1a3135ae64ae064a37fbf596f6502358979728d26b677464eda8aa"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/metal_values.js"
+hash = "bb1ba4101f05c5e6bb2420f2443c8e1c29c6ea12502d7225261d7cadf47e0396"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/signature_blocks.js"

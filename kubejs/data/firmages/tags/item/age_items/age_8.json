@@ -557,6 +557,7 @@
     {"id": "mekanismgenerators:fusion_reactor_frame", "required": false},
     {"id": "mekanismgenerators:fusion_reactor_logic_adapter", "required": false},
     {"id": "mekanismgenerators:fusion_reactor_port", "required": false},
+    {"id": "mekanismneutronactivator:fusion_neutron_activator", "required": false},
     {"id": "mekmm:dense_centrifuging_factory", "required": false},
     {"id": "mekmm:dense_crystallizing_factory", "required": false},
     {"id": "mekmm:dense_dissolving_factory", "required": false},

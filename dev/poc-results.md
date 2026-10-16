@@ -3721,3 +3721,30 @@ on the last B2 dumps (`scratchpad/b2int/d1` gate off, `d2` gate on).
 Not checked on a server: FTB Quests loading the new task types (structure task on `tfc_ruins:ruin_*`, entity
 observation of `cave_dweller:cave_dweller`, optional kill tasks beside item tasks); they are in
 `dev/client-test-brief.md`, "0.14.0 Nachtrag", point 7.
+
+## 1.0 round F1: core fixes (2026-10-16, branch f1/core)
+
+Four fixes of the last round before 1.0 and three small firmages-core points; firmages-core is 1.0.0 in
+`gradle.properties` (the release jar is the integrator's). No server was booted (worker round; Felix's test server
+untouched). The recipe changes were predicted with `dev/predict_dump.py` (round F1 edit set) on the last B2 dumps
+(`scratchpad/b2int/d1` gate off, `d2` gate on) into `scratchpad/f1core/d1p` and `d2p`; the jar set is a copy install of
+the pack synced with packwiz (`.wt/test-server-f1core`, 225 jars, not booted).
+
+| Check | Observed | Result |
+|---|---|---|
+| New `poc_analyze.py` L-8 (no value-creating metal cycle) on the 0.14.0 gate-off dump | FAIL, 19 cycles in 14 metals, e.g. copper x18: TFC block -> 9 ingots (`minecraft:copper_ingot`) -> 1 sheet each (`tfc_ie_addon:anvil/plate_copper`) -> 2 blocks per sheet (`tfc:crafting/metal/block/copper`); copper x2: 100 mB -> ingot -> anvil plate (a TFC sheet) -> 200 mB; tin x9 through `mekanism:processing/tin/ingot/from_block`; bronze, cast iron and steel also through the CBC melt of a block (810 mB) | found |
+| Cause | TFC tags its own blocks `c:storage_blocks/<metal>` (and Almost Unified makes them the target of every storage block), `c:plates/<metal>` targets the TFC sheet; a TFC block is one ingot (4 sheets -> 8 blocks, melts to 100 mB), a sheet two. 16 "block -> 9 ingots" recipes and the CBC block melts, 17 "9 ingots -> block" recipes, six TFC-IE anvil plates and Create Casing's zinc pressing assumed the vanilla price; More Mekanism Processing had a second zinc nugget | found |
+| `recipes/metal_values.js` (42 ids), predicted | L-8 PASS: 72 metal groups, 598 conversion edges, no cycle above 1 | pass |
+| Wixie charm: Ars' apparatus recipe with conjuration essence for the witch-only shards (`REAGENT_FIX`), `[items]` age_3 | `derive_ages.py` on `d1p`: `ars_nouveau:wixie_charm` leaves `[derived_hidden]`, age_3 | pass |
+| Mekanism: Neutron Activator 1.0.0 | jar ships its two recipes under `data/<ns>/recipes/` (pre-1.21 folder), so 1.21 loads none; both blocks were in `[derived_hidden]` | found |
+| Fusion Neutron Activator recipe (`recipes/age_8/quantum_age.js`), `[mods]` age_8 | `derive_ages.py` on `d1p`: leaves `[derived_hidden]`, age_8; the fission block stays hidden; `moremekanismprocessing:zinc_nugget` becomes `[derived_hidden]`; Q-1 525 required item tasks, 0 without a source | pass |
+| `gen_stage_locks.py`, then `--check` | 6 files rewritten (age_3, age_6, age_8, disabled, hidden_from_recipe_viewers, age_namespaces.json); check clean | pass |
+| `poc_analyze.py --server-dir <copy> --dump-dir d2p --baseline d1p` | 129 PASS, 0 FAIL, G-4 skipped (no audit file on an unbooted copy): G-1, G-2, E-1, C-3a to C-3s, L-1 to L-8, R-X age_2 to age_9, K-1, S-4 | pass |
+| TFC heat StackOverflow after `/reload` (H3 copy boot 7) | TFC 4.2.11 re-enters `HeatCapability.getDefinition` from the `ItemStack` constructor; its metal block heat definitions are tag compounds (`[#c:storage_blocks/<m>, exposed, weathered, oxidized]`) whose tag child builds stacks while it is tested; ModernFix's single-tag fast path is off while a reload is active (`MinecraftServerReloadTracker.isReloadActive`) [javap, NeoForge sources] | found |
+| Guard `mixin/tfc/ItemStackHooksMixin` + `compat/tfc/LookupGuard` (SPEC §42) | `gradlew build`: 274 unit tests, 0 failures (`LookupGuardTest` 4); opt-in TFC GameTest run: "Mixing tfc.ItemStackHooksMixin from firmages.mixins.json into net.dries007.tfc.common.component.ItemStackHooks", no injection error, no StackOverflow (that run then crashed in `IsleGameTests.shapeAndSkyLight`, an NPE in the light engine under TFC worldgen, not in the guard) | pass |
+| `gradlew runGameTestServer` in a fresh `run/gametest` | "All 124 required tests passed" (0.13.0: 123; new `OriginGameTests.oldReturnGateLosesItsDhdCore`) | pass |
+| `validate_quests.py --style --mods <copy>/mods` | 3,200 object ids, 0 errors, 0 warnings (book unchanged) | pass |
+
+Not checked on a server: the real gate-off dump (`derive_ages.py --check` must hold on it), the guard in the pack after
+`/reload` with TFC ore pieces in a Mekanism injection chamber, the EMI workstation of the Fusion Neutron Activator
+(client), the Wixie on a cauldron.

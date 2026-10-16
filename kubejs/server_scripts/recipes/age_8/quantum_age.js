@@ -86,4 +86,17 @@ ServerEvents.recipes((event) => {
       consume({ tag: 'firmages:age_token/age_8' })
     ]
   }).id('firmages:fusion/quantum_core')
+
+  // ======================================================================================== Fusion Neutron Activator
+  // Mekanism: Neutron Activator 1.0.0 ships its two recipes in data/<ns>/recipes/ (the pre-1.21 folder name), so 1.21
+  // never loads them and both blocks had no source (round F1, 2026-10-16). The fusion one opens here, beside the SPS:
+  // under the centre of a burning fusion reactor it runs Mekanism's activating recipes (nuclear waste to polonium,
+  // lithium to tritium) from the reactor's neutrons, without the sun and the weather the Solar Neutron Activator needs,
+  // so the polonium -> SPS -> antimatter chain of this Age runs day and night. Built on the Solar Neutron Activator
+  // (Information Age) and a fission fuel assembly (Space Age). The fission one stays without a recipe: it is a slower
+  // second station for the same job (one station per function), so it stays in [derived_hidden].
+  event.shaped('mekanismneutronactivator:fusion_neutron_activator', ['ARA', 'CFC', 'PSP'], {
+    A: 'mekanism:alloy_atomic', R: 'mekanismgenerators:fission_fuel_assembly', C: 'mekanism:ultimate_control_circuit',
+    F: 'mekanismgenerators:fusion_reactor_frame', P: 'mekanism:sps_casing', S: 'mekanism:solar_neutron_activator'
+  }).id('firmages:crafting/fusion_neutron_activator')
 })
