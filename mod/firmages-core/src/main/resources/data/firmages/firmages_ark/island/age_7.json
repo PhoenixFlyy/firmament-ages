@@ -1,0 +1,42 @@
+{
+  "island": 7,
+  "flora": {
+    "tag": "firmages:ark/space_flora",
+    "distinct": 4
+  },
+  "fauna": {
+    "entities": []
+  },
+  "work": {
+    "type": "energy",
+    "block": "mekanism:teleporter",
+    "amount": 1
+  },
+  "crown": [
+    {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:item_exists",
+          "item": "firmages:void_steel_ingot"
+        }
+      ],
+      "tag": "firmages:celestial_alloy/age_7",
+      "count": 4
+    },
+    {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:item_exists",
+          "item": "firmages:deep_space_sample"
+        }
+      ],
+      "item": "firmages:deep_space_sample",
+      "count": 2
+    }
+  ],
+  "stages": [
+    "firmages:ark/age_7/stage_1",
+    "firmages:ark/age_7/stage_2",
+    "firmages:ark/age_7/stage_3"
+  ]
+}

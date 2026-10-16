@@ -45,6 +45,7 @@ public final class FirmagesCore {
         dev.firmages.core.wayshrine.WayshrineRegistry.register(modEventBus); // Wayshrines (SPEC-himmel §28)
         ReactorRegistry.register(modEventBus);
         OriginRegistry.register(modEventBus);
+        dev.firmages.core.ark.ArkRegistry.register(modEventBus); // the Archipelago's plinth (SPEC §31.8)
         dev.firmages.core.proof.ProofRegistry.register(modEventBus); // Tally Chute, firmages:tally, firmages:silo_launch (SPEC §22)
         BossRegistry.register(modEventBus); // The Primordial, the end boss (docs/primordial.md)
         dev.firmages.core.balance.EnergyMeter.register(modEventBus, NeoForge.EVENT_BUS); // balance.feCap and the energy audit (SPEC 37, 38)
@@ -79,6 +80,8 @@ public final class FirmagesCore {
         ShrineEvents.register(bus);
         dev.firmages.core.wayshrine.WayshrineEvents.register(bus);
         OriginService.register(bus);
+        dev.firmages.core.ark.ArkService.register(bus); // the Origin Archipelago, post-game (SPEC §31.8)
+        if (ModList.get().isLoaded("create")) dev.firmages.core.ark.ArkWork.kineticSpeed = dev.firmages.core.compat.create.CreateKinetics::speed;
         OriginAccess.register(bus);
         OriginSpawns.register(bus);
         dev.firmages.core.proof.TallyService.register(bus);

@@ -1,0 +1,35 @@
+{
+  "island": 6,
+  "flora": {
+    "tag": "firmages:ark/mystical_seeds",
+    "distinct": 4
+  },
+  "fauna": {
+    "entities": [
+      "tfc:pig"
+    ]
+  },
+  "work": {
+    "type": "blockstate",
+    "block": "ae2:controller",
+    "property": "state",
+    "value": "online"
+  },
+  "crown": [
+    {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:item_exists",
+          "item": "firmages:halo_steel_ingot"
+        }
+      ],
+      "tag": "firmages:celestial_alloy/age_6",
+      "count": 4
+    }
+  ],
+  "stages": [
+    "firmages:ark/age_6/stage_1",
+    "firmages:ark/age_6/stage_2",
+    "firmages:ark/age_6/stage_3"
+  ]
+}

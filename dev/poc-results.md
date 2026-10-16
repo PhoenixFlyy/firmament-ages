@@ -3321,3 +3321,23 @@ and two sampler modules by hand. The copy is deleted.
 | `check_log.py` on the copy's latest.log | Done 125.7 s from the first line (server reported 21.6 s, sibling servers on the machine); FATAL 0; remaining only the three expected selftest lines, a "Can't keep up", RCON port busy, and the config correction of `firmages-server.toml` (new `[launch]` keys) and `everycomp-entries.toml` | pass |
 | Hand fill with an IP diesel bucket by the Dawn debug player | `use` returned PASS six times and the tank stayed empty; the tank was then filled with `data merge`. IP registers `FluidBucketWrapper` for its buckets (javap), so the likely cause is the Age lock of the age_5 bucket for a Dawn player; the hand path itself is covered by the GameTest `handFillsFuel` (water bucket in the test fuel tag) | plausible |
 | `runGameTestServer` after the fuel-in-item change and `handFillsFuel` | first run: 91 of 92, the known flaky `SkyGameTests.excavatorVeinAtAutomationAge` ("IE's save data is marked dirty", in `offene-punkte.md` since the 0.11.0 review); second run on a fresh `run/gametest`: "All 92 required tests passed", batch `firmages_12_launch` with ten tests | pass |
+## 1.0 round C2, sky M17: the Origin Archipelago (2026-10-16, branch c2/sky-m17)
+Worktree `c2/sky-m17` from `dev` at ff67812. Copy `.wt/test-server-sky-m17` of the test server (robocopy without
+`world`, `logs`, `local`), port 25680, RCON 25690, whitelist off, synced with `packwiz-installer-bootstrap -g -s server`
+from `packwiz serve --port 8187 --refresh=false` of the worktree ("Finished successfully"), then the branch's
+`build/libs/firmages-core-0.11.0.jar` over the synced jar (the repo jar is unchanged) and `debug.allowSimulate = true`
+(set after the sync: boot 1 had set it before the sync, so its debug steps were refused). `-Xms3G -Xmx5G`. The copy is
+| `gen_ark.py --check` | 47 files up to date, ids checked against `dev/data/registry.json` and the hidden lists | pass |
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 203 unit tests, 0 failures (new: `ArkRulesTest` 10) | pass |
+| `runGameTestServer` (fresh `run/gametest`) | "All 87 required tests passed" (new: `ArkGameTests` 5). The first two runs failed `samplesCountOnce` on the test itself (a sapling the island no longer wants passes to block use; the cow was spawned before the forced chunk reached entity status) | pass |
+| Copy boot 1 (new world, `selftest ark`, `selftest all`) | arena v3 built at start: "15945 air blocks filled, 9 plinths, in 203 ms"; `selftest ark` 4 of 5: `ark/sockets` used a radius bound of 3.16 while socket 5 sits at 3.6 (selftest fixed to 2.5..3.7 like the unit test) | fixed |
+| Copy boot 2 (new world, `ages simulate grant age_9`, debug player `m17t`, `origin tp m17t force`, `origin fight`, `origin kill boss`) | "final boss entity.firmages.primordial defeated, granting finale_won"; at once the Space and Quantum islands (no animal) take their fauna group and grow stage 1 (180 and 227 blocks); `ark_sync` reaches the player in The Origin on entry and on each change | pass |
+| Samples on the Stone island via commands | four TFC saplings by `debug use` on the plinth at 44 59 8: "one of four given" .. "The Stone Island takes root", "grew to stage 1 (120 blocks placed, 0 kept)"; a summoned `tfc:rabbit` on the player's lead, empty hand on the plinth: "took a tfc:rabbit ... as its fauna", "grew to stage 2 (17 blocks placed)"; `ark status`: groups fauna and flora, stage 2, 132 grown blocks | pass |
+| Work sample | `setblock 50 59 9 tfc:firepit[lit=true]`, 10 s later `ark check 0`: "work not found"; a TFC firepit without fuel goes out on its first tick, so the check found it unlit. The rule's block, property and value exist (`ark/sample_ids` checks them for all nine islands); a fuelled firepit stays for the client test | open (M) |
+| `selftest ark` / `selftest all` | 5 of 5 before and after the samples; `all` 76 of 79, the three red ones are the known `crown/*` checks that wait for M11, M13, M14, M15 | pass |
+| `check_log.py` boot 2 | FATAL 0, ERROR 8, STDERR 0, WARN 566, documented noise 570, remaining 10: two "Can't keep up", the debug player's ProgressiveStages chat after `simulate grant` (world grant before he joined), the expected "work not found" and the three `crown/*` selftest lines | pass |
+- `ark_plinth` has its Age row (age_9) but is not yet in `age_items/disabled` and the hidden list: that needs the
+  gate-off dump of the integration (`derive_ages.py`), as for `origin_altar`.
+- The network protocol stays "5" in the branch; the integration sets "7" after M14's "6" (SPEC §24.6).
+- M: one island grown in a client (stages, beams at the altar, FINALE tint after the ninth); a fuelled firepit as the
+  Stone island's work.

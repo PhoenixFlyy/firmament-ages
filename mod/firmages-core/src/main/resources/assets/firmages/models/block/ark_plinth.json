@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "particle": "firmages:block/ark_plinth_side",
+    "side": "firmages:block/ark_plinth_side",
+    "top": "firmages:block/ark_plinth_top",
+    "bottom": "firmages:block/ark_plinth_bottom"
+  }
+}

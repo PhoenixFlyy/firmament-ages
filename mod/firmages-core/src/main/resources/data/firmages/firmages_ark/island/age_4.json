@@ -1,0 +1,36 @@
+{
+  "island": 4,
+  "flora": {
+    "items": [
+      "immersiveengineering:seed"
+    ],
+    "count": 8
+  },
+  "fauna": {
+    "entities": [
+      "tfc:horse"
+    ]
+  },
+  "work": {
+    "type": "energy",
+    "block": "immersiveengineering:crusher",
+    "amount": 1
+  },
+  "crown": [
+    {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:item_exists",
+          "item": "firmages:cloudsteel_ingot"
+        }
+      ],
+      "tag": "firmages:celestial_alloy/age_4",
+      "count": 4
+    }
+  ],
+  "stages": [
+    "firmages:ark/age_4/stage_1",
+    "firmages:ark/age_4/stage_2",
+    "firmages:ark/age_4/stage_3"
+  ]
+}

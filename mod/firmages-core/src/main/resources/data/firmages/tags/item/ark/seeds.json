@@ -1,0 +1,96 @@
+{
+  "values": [
+    {
+      "id": "tfc:seeds/barley",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/beet",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/cabbage",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/carrot",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/garlic",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/green_bean",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/jute",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/maize",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/oat",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/onion",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/papyrus",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/potato",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/pumpkin",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/melon",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/red_bell_pepper",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/rice",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/rye",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/soybean",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/squash",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/sugarcane",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/tomato",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/wheat",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/yellow_bell_pepper",
+      "required": false
+    }
+  ]
+}

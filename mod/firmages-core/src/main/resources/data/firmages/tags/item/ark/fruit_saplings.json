@@ -1,0 +1,40 @@
+{
+  "values": [
+    {
+      "id": "tfc:plant/banana_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/cherry_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/green_apple_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/lemon_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/olive_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/orange_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/peach_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/plum_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/red_apple_sapling",
+      "required": false
+    }
+  ]
+}

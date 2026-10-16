@@ -658,10 +658,10 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `wayshrine list` / `status [pos]` / `locate <type>` / `tutorial [here]` / `light <pos>` / `reset <pos> [stone]` / `stone <pos>` | §28.9 (M16) |
 | `anchor list` / `status [pos]` | §29.7 (M16) |
 | `isles locate [radius]` / `shrine` / `list` / `lode <pos>` / `fallback status\|check\|place [pos]` / `place <pos>` | §30.9 (M13) |
-| `launch status [pos]` / `finish <pos>`, `ark status` / `grant <island> <group>` / `reset <island>` | §31.9 (M14, M17) |
+| `launch status [pos]` / `finish <pos>`, `ark status` / `check <island>` / `grant <island> <group>` / `reset <island>` | §31.9 (M14, M17) |
 | `selftest <suite|all>` | Server-side test suites (§12; `sky` since M10, §24.7), report in `logs/firmages-selftest.json` |
 
-## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "5" since the sky features' M10: `firmages:starfall_streak`; "6" with M14 and "7" with M17, §24.6; "4" since 0.9.0: `firmages:age_status` gained `reloadPending` and `gathered`, `firmages:shrine_sync` gained the living-shrine fields; "3" since 0.8.1 added `toolRule`)
+## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "5" since the sky features' M10: `firmages:starfall_streak`; "6" since 0.12.0 (the Dawn grid lock's `gridLock` in `firmages:age_status`, M14's `firmages:launch_fx` and M17's `firmages:ark_sync`, one bump for the release, §24.6); "4" since 0.9.0: `firmages:age_status` gained `reloadPending` and `gathered`, `firmages:shrine_sync` gained the living-shrine fields; "3" since 0.8.1 added `toolRule`)
 
 | Payload | Fields | Client action |
 |---|---|---|
@@ -674,7 +674,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `firmages:welcome` | none | §18.5: first join of a player: title, then the welcome screen |
 | `firmages:starfall_streak` | entry angle, target pos, impact game time, metal, near flag | §25.10 (M10, "5"): `SkyStreaks` draws the streak and, near the crater, the falling body; sent 120 ticks before the impact to every overworld player |
 | `firmages:launch_fx` | pos, phase, phase start game time, probe item | §31.7 (M14, "6") |
-| `firmages:ark_sync` | stage per island, complete mask | §31.8 (M17, "7") |
+| `firmages:ark_sync` | stage per island, complete mask | §31.8 (M17, "6") |
 
 The BE state uses vanilla block-entity sync. There is no C2S payload of our own (TFC's `SwitchInventoryTabPacket` is guarded, §18.6).
 
@@ -1203,7 +1203,7 @@ Building blocks with no material role: `firmages:sky_rock` (crater shell, Dawn) 
 
 ### 24.6 Consolidated deltas for §9, §10 and §11
 
-- **Network (§11 heading).** Version "5" (M10) adds `firmages:starfall_streak` (M11 added no `firmages:sky_sync` after all, §26.7). Version "6" (M14) adds `firmages:launch_fx`. Version "7" (M17) adds `firmages:ark_sync`. The Lens Crown, the Wayshrines and the Sky Anchors add no payload. There is still no C2S payload. A worktree that adds a payload bumps the version only at merge, in this order.
+- **Network (§11 heading).** Version "5" (M10) adds `firmages:starfall_streak` (M11 added no `firmages:sky_sync` after all, §26.7). Version "6" (0.12.0) adds `firmages:launch_fx` (M14) and `firmages:ark_sync` (M17), together with the grid lock's `gridLock` field (§19.3); the three branches merged into one release, so one bump covers them. The Lens Crown, the Wayshrines and the Sky Anchors add no payload. There is still no C2S payload. A worktree that adds a payload bumps the version only at merge, in this order.
 - **Config (§9).** The keys of §25.10, §26.8, §27.12, §28.9, §29.7, §30.9 and §31.9.
 - **Commands (§10).** The command tables of the same sections.
 
@@ -2243,7 +2243,7 @@ The Archipelago crown entries name `#firmages:celestial_alloy/age_3` .. `age_8` 
 
 ### 31.9 Network, config, commands
 
-- **Network:** `firmages:launch_fx` (protocol "6", M14) and `firmages:ark_sync` (protocol "7", M17).
+- **Network:** `firmages:launch_fx` (protocol "6", M14) and `firmages:ark_sync` (protocol "6", M17; one bump for 0.12.0).
 - **Server config:** `launch.enabled` (true), `launch.fxRange` (256), `launch.countdownTicks` (100), `launch.autoRelaunch` (true), `ark.growthTicks` (200, 0..1200).
 - **Client config:** `effects.launchFx` (true).
 
@@ -2252,7 +2252,8 @@ The Archipelago crown entries name `#firmages:celestial_alloy/age_3` .. `age_8` 
 | `launch status [pos]` | Phase, progress, fuel, slots, wait reason |
 | `launch finish <pos>` | Needs `debug.allowSimulate` |
 | `ark status` | Groups, crown and stage per island |
-| `ark grant <island> <group>` / `ark reset <island>` | Debug |
+| `ark check <island>` | Runs the plinth's work check, as an empty-hand click does |
+| `ark grant <island> <group>` / `ark reset <island>` | Debug (`debug.allowSimulate`) |
 
 ### 31.10 Tests
 
@@ -2291,6 +2292,24 @@ The Archipelago crown entries name `#firmages:celestial_alloy/age_3` .. `age_8` 
 - **Pack hand-off (M15).** Recipes for the complex, the probe and the two modules (deadlock rule of §31.4; `selftest launch` case `module_recipes` stays red until then), the quest strand "launch 16 probes" (`firmages:probe` or the advancement `firmages:probe_sixteen`), and the Age tags of the eight items: the rows are in `dev/age_map.toml [items]`, the tags follow with the next dump and `derive_ages.py`.
 - **Open (M).** The spectacle from 200 blocks in a client, a silo hatch opening on the countdown, the ghost alignment of the complex.
 
+### 31.13 Implementation notes (M17, Archipelago part, branch `c2/sky-m17`, 2026-10-16)
+
+- **Package `ark/`.** `ArkData` (pure parser of `data/<ns>/firmages_ark/island/*.json`) with `ArkDataLoader` (reload listener; crown entries carry `neoforge:item_exists` guards, a failed guard leaves the entry out with an INFO line), `ArkRules` (pure: accept, apply, settle, target stage, completion, sockets, growth order), `ArkProgress` (pure) and `ArkState` (NBT, inside `OriginSavedData` under `ark.age_0`..`age_8`), `ArkWork` (work check), `ArkGrowth` (template blocks, scheduling, placement), `ArkService` (events, plinth, operators, sync), `ArkPlinthBlock`, `ArkPlinthInput`, `ArkRegistry`. Client: `client/ArkClient`. Commands: `command/ArkCommands`, suite `command/ArkSuite` (`selftest ark`, also in `all`). Compat: `compat/create/CreateKinetics` (set as `ArkWork.kineticSpeed` only with Create loaded).
+- **Islands are 0..8,** the shrine Ages of `OriginArena.islandTop` (Stone .. Quantum); the Singularity Age has none.
+- **Arena v3.** `OriginArena.VERSION` = 3. A world below v2 gets `buildArena` (v2 layout) and then the same air-only step as a v2 world: `migrateV3` = `widenIsland` (new ring, trim rim at the edge, deeper rock cone; no top block inside the old footprint, so a dug hole stays) plus `placePlinth` (first free spot of `plinthSpots`: one north of the echo, then seven fallbacks; an existing plinth is found again). `origin rebuild` runs both. The plinth positions are recorded in the island progress.
+- **Plinth.** Unbreakable, no loot, light 9, `Capabilities.ItemHandler.BLOCK` without a block entity (one always-empty slot that takes only what the island still asks for; nothing extracts). Right-click order: a led animal, then the held item as a sample; a block item it does not want passes to normal block use; an empty hand also runs the work check and tells what is missing.
+- **Groups.** flora (one option of `distinct` ids or `count` items), fauna, work; each done group grows the next stage (K = groups done). The crown grows no stage; it only completes the island. An island whose `fauna.entities` is empty (Space, Quantum) gets its fauna group once the finale is won, so it grows stage 1 right after the win.
+- **Rules shipped (`dev/gen_ark.py`).** As the §31.8 table with these choices: Stone flora also takes the eight vanilla saplings (wood decision HW1A); Bronze work is a lit bloomery or a charcoal forge at `heat_level` >= 1; Arcane flora is four archwood saplings **or four TFC flowers** (enchanted books are hidden in this pack and are one item id), work a lit Theurgy brazier or calcination oven **or a kindled Create blaze burner**; Industrial flora eight IE hemp seeds (`count`); Information work `ae2:controller[state=online]`; Space flora from aeronos and strophar mushrooms and caps and glacian leaves; Quantum flora vanilla Nether and End plants (`#firmages:ark/quantum_flora`). Energy rules ask for at least 1 FE.
+- **Templates.** 25 by 22 by 25, island top centre at template (12, 6, 12); stage 1 soil and plants, stage 2 the Age's work (north-east), stage 3 a landmark (south-west) and what hangs under the rim; vanilla blocks only; nothing inside radius 2.6 above the surface (plinth and echo). 120 to 233 blocks per stage 1, 15 to 95 per later stage.
+- **Growth.** Steps ordered by distance from the plinth over `ark.growthTicks`; a step waits while its chunk is unloaded; the grown blocks are recorded at once (position and block id), so a later stage may replace only those, and `ark reset` removes only those that still stand.
+- **Beams.** `ArkClient` draws `BeaconRenderer.renderBeaconBeam` at `ALTAR + ArkRules.socket(i)` (radius 3, toward island `i`) in the tier's `beam_color` for each set bit; the ninth bit sends `celebrate`, and the client shows the FINALE tint (0xD9C2FF) for 200 ticks through `SkyEffects`.
+- **Network.** `firmages:ark_sync` = stages (byte per island), complete mask, beam colours, celebrate flag; sent on entering The Origin, at login there, and to everyone in The Origin on change. Protocol "6" for 0.12.0 (one bump with the grid lock and M14, §24.6).
+- **Commands.** `ark status`, `ark check <island>` (operators), `ark grant <island> <group>` and `ark reset <island>` (also `debug.allowSimulate`).
+- **Tests.** U `ArkRulesTest` (10, including `gen_ark.py --check`). G `ArkGameTests`: `inertBeforeFinale`, `samplesCountOnce`, `stagesNeverOverwritePlayerBlocks`, `completeLightsSocket`, `arenaV3KeepsBuilds`. The GameTest run has no TFC or Create: the islands under test get vanilla rules and a lodestone stands in for the kinetic work.
+- **Pack hand-off.** `dev/age_map.toml` row `firmages:ark_plinth` = age_9; the next gate-off dump puts it into `age_items/disabled` and the hidden list like `origin_altar` (`derive_ages.py`).
+- **Copy boot (pack, 2026-10-16).** Arena v3 on a new world: 15,945 air blocks and nine plinths in about 0.2 s. After `origin kill boss` the Space and Quantum islands grow stage 1; four TFC saplings by `debug use` grow the Stone island's stage 1 (120 blocks), a led `tfc:rabbit` its stage 2 (17 blocks). `selftest ark` 5 of 5. Details in `dev/poc-results.md`.
+- **Open (M).** One island grown in a client: the stages, the beams at the altar from the arena and the FINALE tint after the ninth; a fuelled TFC firepit as the Stone island's work (an unfuelled one goes out on its first tick).
+
 ## 32. Work breakdown (M10 to M17)
 
 The milestones are listed in dependency order; the column "Depends on" names the real dependencies. The estimates use the reviews' re-estimates, with the cuts of this merge (no kinetic mount, no starsteel plate, no mossy skystone, no Glacier Cairn, no Sable drift); the Wind Shrine takes the Glacier Cairn's place (S6B).
@@ -2304,11 +2323,11 @@ The milestones are listed in dependency order; the column "Depends on" names the
 | **M14** (built, §31.12) | Launch Complex (§31.3 to §31.7): multiblock and trench check, control state machine, modules data, fuel, renderer, `launch_fx`, `firmages:probe` criterion | M12 (alloy ids) | 30–40 h | "6" | `LaunchGameTests` green, M: one real flight in the pack |
 | **M15** | V4A integration (pack): the eight recipe changes of §27.8, the part recipes of §27.9, the Storm Rod, Net, anvil and probe recipes, `station_ages.js`, the Age map rows of §24.5 and the `[ore_blocks]` `disguise` key in `gen_stage_locks.py`, quests and goal lines, `dev/validate_recipes` over the sky materials | M10 to M14 | 15–25 h | none | §24.7 criteria 1 to 4 green on the test server (`selftest sky`, `selftest crown`), one playthrough of age_2 to age_5 by commands |
 | **M16** | Wayshrines, Sky Anchors and the blessing sources (§28, §29): the generator, the eight structures, `tfc:climate` sets, tutorial placement by code, the service, the pointer with cache, `BlessingSources` and `BlessingIndex`, the anchor and shards, removal of `everywhere` | M12 (shard recipes), M13 (the isle piece places the Wind Shrine); the ground Wayshrines need nothing | 60–85 h | none | §28.10 and §29.8 green, `selftest wayshrines`, scan of 20 seeds |
-| **M17** | Origin Archipelago (§31.8): arena migration v3, plinths, sample rules, 27 stage templates, socket beams, `ark_sync` | M14 (deep-space sample), M12 (alloys) | 30–45 h | "7" | `ArkGameTests` green, M: one island grown in a client |
+| **M17** | Origin Archipelago (§31.8): arena migration v3, plinths, sample rules, 27 stage templates, socket beams, `ark_sync` | M14 (deep-space sample), M12 (alloys) | 30–45 h | "6" (0.12.0) | `ArkGameTests` green, M: one island grown in a client |
 
 **Total: about 290 to 405 hours.**
 
-**Parallel worktrees** (each on its own branch from `dev`; protocol bumps only at merge, in the order "5", "6", "7"):
+**Parallel worktrees** (each on its own branch from `dev`; protocol bumps only at merge, one bump per release ("5" in 0.11.0, "6" in 0.12.0)):
 - **Worktree A:** M10 then M11 (the sky package).
 - **Worktree B:** M12 from day one; it uses stand-in items and registers the real ids once A merges.
 - **Worktree C:** M13 once A's `DeferredSites` is merged (or with a copied interface), then M14.

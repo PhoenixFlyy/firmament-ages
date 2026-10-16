@@ -1,0 +1,148 @@
+{
+  "values": [
+    {
+      "id": "tfc:plant/allium",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/anthurium",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/black_orchid",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/blue_orchid",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/butterfly_milkweed",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/calendula",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/canna",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/dandelion",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/foxglove",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/goldenrod",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/grape_hyacinth",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/heliconia",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/houstonia",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/kangaroo_paw",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/lilac",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/lotus",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/marigold",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/meads_milkweed",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/nasturtium",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/oxeye_daisy",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/poppy",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/primrose",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/pulsatilla",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/rose",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/sapphire_tower",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/snapdragon_pink",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/snapdragon_red",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/snapdragon_white",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/snapdragon_yellow",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/strelitzia",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/trillium",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/tulip_orange",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/tulip_pink",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/tulip_red",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/tulip_white",
+      "required": false
+    },
+    {
+      "id": "tfc:plant/yucca",
+      "required": false
+    }
+  ]
+}

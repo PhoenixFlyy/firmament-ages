@@ -1,0 +1,64 @@
+{
+  "values": [
+    {
+      "id": "mysticalagriculture:inferium_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:air_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:earth_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:fire_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:water_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:coal_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:copper_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:iron_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:gold_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:redstone_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:glowstone_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:nether_quartz_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:obsidian_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:certus_quartz_seeds",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:fluix_seeds",
+      "required": false
+    }
+  ]
+}
