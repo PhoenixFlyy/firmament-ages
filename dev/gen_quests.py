@@ -24,6 +24,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -316,7 +317,7 @@ REWARD_TABLES = {
         ('mekanism:configurator', 1)]),
     'space_supplies': ('Space Age Supplies', 'age_7', [
         ('ad_astra:desh_ingot', 4), ('ad_astra:ostrum_ingot', 2), ('ad_astra:desh_plate', 8),
-        ('draconicevolution:draconium_ingot', 4), ('ad_astra:ostrum_plate', 4), ('ad_astra:fuel_bucket', 1),
+        ('draconicevolution:draconium_ingot', 4), ('ad_astra:ostrum_plate', 4), ('immersivepetroleum:kerosene_bucket', 1),
         ('mekanism:teleporter', 1)]),
     'space_comfort': ('Space Age Comforts', 'age_7', [
         ('ad_astra:tier_1_rover', 1), ('ad_astra:zip_gun', 1), ('draconicevolution:wyvern_capacitor', 1)]),
@@ -1590,6 +1591,16 @@ INFORMATION = age_chapter(
             Q('information/side/jetpack', 'Hydrogen Jetpack', t_item('mekanism:jetpack'), kind='side',
               desc=['Craft a jetpack and fill it with hydrogen from the separator.']),
         ]),
+        # firmages-core SPEC 41, recipes/age_6/arcane_catalyst.js (Halo Steel, Arcane Core, steel casing): magic as a
+        # bonus, never asked for.
+        ('information/sky/key', [
+            Q('information/side/catalyst', 'Arcane Catalyst', t_item('firmages:arcane_catalyst'), kind='side',
+              desc=['Set an Arcane Catalyst against a processing machine, a factory or an electric multiblock. It needs a',
+                    'Source jar within six blocks and a turning shaft at 64 RPM or more beside it.',
+                    '',
+                    'The machine works 50 % faster and pays the power of each extra tick once more. Generators and',
+                    'miners do not take it.']),
+        ]),
     ],
     explains=[
         Q('information/info/one', 'One Network', t_check(), kind='explain', icon='ae2:controller',
@@ -1635,8 +1646,13 @@ SPACE = age_chapter(
               [t_item('ad_astra:space_helmet', title='Space helmet'), t_item('ad_astra:space_suit', title='Space suit'),
                t_item('ad_astra:space_pants', title='Space pants'), t_item('ad_astra:space_boots', title='Space boots')],
               icon='ad_astra:space_helmet', desc=['Make a full space suit. Off-world it carries your air.']),
-            Q('space/moon/fuel', 'Rocket Fuel', t_item('ad_astra:fuel_bucket'),
-              desc=['Refine rocket fuel from your oil. One bucket proves the line runs.']),
+            # Link 16 (recipes/age_7/links.js): tier 1 and 2 rockets burn #c:diesel or kerosene, tier 3 and 4 hydrogen
+            # or cryo fuel; ad_astra:fuel has no recipe in the pack (refinery disabled) and only fuels the rover.
+            Q('space/moon/fuel', 'Rocket Fuel',
+              t_any_item(['immersivepetroleum:diesel_bucket', 'immersivepetroleum:kerosene_bucket'],
+                         'A bucket of diesel or kerosene'), icon='immersivepetroleum:kerosene_bucket',
+              desc=['Fill a bucket with diesel or kerosene from your distillation tower. Tier 1 and 2 rockets burn',
+                    'either.']),
             Q('space/moon/pad', 'Launch Pad', t_item('ad_astra:launch_pad'),
               desc=['Craft a launch pad. Rockets start only from one.']),
             Q('space/moon/rocket', 'Tier 1 Rocket', t_item('ad_astra:tier_1_rocket'),
@@ -1742,7 +1758,10 @@ QUANTUM = age_chapter(
     strands=[
         ('Fusion', [
             Q('quantum/fusion/frame', 'Fusion Reactor', t_item('mekanismgenerators:fusion_reactor_frame', 32),
-              desc=['Build the fusion reactor from 32 frames. It powers this Age.']),
+              desc=['Build the fusion reactor from 32 frames. Cool it with water and run the steam through an',
+                    'industrial turbine: about 840,000 FE/t, against fewer than 100,000 air-cooled.',
+                    '',
+                    'Keep injection at 20 or more, or it goes out.']),
             Q('quantum/fusion/controller', 'Reactor Controller', t_item('mekanismgenerators:fusion_reactor_controller'),
               desc=['Craft the reactor controller. It sits in the top of the reactor.']),
             Q('quantum/fusion/hohlraum', 'Hohlraum', t_item('mekanismgenerators:hohlraum'),
@@ -1753,10 +1772,14 @@ QUANTUM = age_chapter(
                                             t_item('mekanism:supercharged_coil', 2, title='Supercharged coils')],
               icon='mekanism:sps_casing', desc=['Build the SPS from 16 casings and two supercharged coils. It turns polonium into antimatter.']),
         ], Q('quantum/fusion/key', 'Antimatter Pellets', t_item('mekanism:pellet_antimatter', 2), kind='keystone',
-             desc=['Make two antimatter pellets in the SPS. Both go into the Quantum Core.'])),
+             desc=['Make two antimatter pellets in the SPS. Both go into the Quantum Core.',
+                   '',
+                   'Each pellet takes 100,000 mB polonium and 40,000,000,000 FE: about 40 minutes of a turbine-fed',
+                   'fusion plant.'])),
         ('Inner Planets', [
             Q('quantum/planets/t3', 'Tier 3 Rocket', t_item('ad_astra:tier_3_rocket'),
-              desc=['Build the tier 3 rocket from ostrum. It reaches Venus and Mercury.']),
+              desc=['Build the tier 3 rocket from ostrum. It reaches Venus and Mercury and burns liquid hydrogen from a',
+                    'rotary condensentrator or cryo fuel, not diesel.']),
             Q('quantum/planets/venus', 'Venus', t_dim('ad_astra:venus'), icon='ad_astra:raw_calorite',
               desc=['Land on Venus. Calorite lies under its clouds.']),
             Q('quantum/planets/calorite', 'Calorite', t_item('ad_astra:raw_calorite', 16),
@@ -1839,7 +1862,7 @@ QUANTUM = age_chapter(
           desc=['The Quantum Core is the ninth relic. The Singularity Age has no offering: it ends in battle.']),
         Q('quantum/info/reactor', 'Power for the End', t_check(), kind='explain',
           icon='mekanismgenerators:fusion_reactor_controller',
-          desc=['Fusion powers this Age. The next Age asks for more than fusion can give.']),
+          desc=['Fusion through a turbine powers this Age. The next Age asks for more than fusion can give.']),
     ],
     supplies='quantum_supplies', comfort='quantum_comfort',
     ring=ring_quest('quantum', 8, 'the Quantum Ring', 'ad_astra:calorite_block',
@@ -1918,7 +1941,11 @@ SINGULARITY = age_chapter(
              desc=['Assemble the Stargate from its base, chevron and ring blocks; the draconic reactor powers it',
                    'through a flux gate.',
                    '',
-                   'Its address, on the Coordinates of The Origin: 9, 16, 21, 33, 2, 37, then the point of origin.'])),
+                   'Its address, on the Coordinates of The Origin: 9, 16, 21, 33, 2, 37, then the point of origin.',
+                   '',
+                   'Dialing The Origin takes 1,000,000,000 FE stored in the gate and 50,000 FE/t while the wormhole',
+                   'stays open; a gate in your own system takes 10,000,000 FE. Fill the gate from the reactor before you',
+                   'dial. The gate in The Origin always keeps one trip home charged.'])),
         ('Sky', [], Q('singularity/sky/key', 'Firmament Alloy', t_item('firmages:firmament_alloy_ingot', consume=False),
                       kind='keystone',
                       desc=['Set the Quantum lens and forge the Firmament Alloy under the full crown from the singular',
@@ -1944,6 +1971,12 @@ SINGULARITY = age_chapter(
         ('singularity/sing/core', [
             Q('singularity/side/staff', 'Chaotic Staff', t_item('draconicevolution:chaotic_staff'), kind='side',
               desc=['A tool for everything, built directly from the chaotic core.']),
+        ]),
+        # firmages-core SPEC 40: the last step of the ore ladder (recipes/age_9/ore_processor.js, Firmament Alloy shell).
+        ('singularity/sky/key', [
+            Q('singularity/side/processor', 'Ore Times Six', t_item('firmages:ore_processor'), kind='side',
+              desc=['Feed the Ore Processor ore pieces, hydrofluoric acid and kerosene: six times the metal as dust,',
+                    '150,000 FE each. Lubricant doubles its speed.']),
         ]),
         # The shards exist only while The Primordial lives (firmages-core boss, docs/primordial.md); after the gate.
         ('singularity/gate/key', [
@@ -2133,8 +2166,12 @@ def guide_quest(n):
     first = ('Build %s round the Shrine Heart.' % name if n == 0 else
              'Raise %s round %s.' % (name, RING_NAMES[n - 1]))
     count = amount(info['count'])
-    desc = [picture('shrine/ring_%d_build.apng.png' % n, info['pictures']['build'], 220),
-            '%s %s new blocks in %s layers:' % (first, count[0].upper() + count[1:], amount(len(layers)))]
+    desc = [picture('shrine/ring_%d_build.apng.png' % n, info['pictures']['build'], 220)]
+    if n == 0:   # where the heart and the plinth come from (Stone Age, Hearth & Shrine), so ring 0 builds from here
+        desc += ['Craft the Shrine Heart from a fired Hearth Idol, cobblestone and charcoal (Stone Age, Hearth & Shrine).',
+                 'Set it where 21 by 21 blocks stay free: each Age adds a ring. The Offering Plinth is four cobblestone.',
+                 '']
+    desc += ['%s %s new blocks in %s layers:' % (first, count[0].upper() + count[1:], amount(len(layers)))]
     desc += ['- ' + b for b in block_list(info['blocks'])]
     desc += ['', 'Right-click the heart with an empty hand: it shows every missing block as a ghost.']
     for k, layer in enumerate(layers):
@@ -2546,8 +2583,31 @@ def r_item(item, count=1):
     return d
 
 
-ROPE_BRIDGES = ['mcwbridges:rope_%s_bridge' % w for w in
-                ('oak', 'birch', 'spruce', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry')]
+AGE_ITEMS_DIR = os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'tags', 'item', 'age_items')
+
+
+def live_variants(pattern, max_age):
+    """Every item of the Age tags up to max_age (dev/gen_stage_locks.py) whose last path segment matches pattern: all
+    live woods of a wood block, so an 'any wood' task takes TFC and AFC woods too (dev/validate_quests.py checks it)."""
+    rx, out = re.compile(pattern), []
+    for st in AGE_ORDER[:AGE_ORDER.index(max_age) + 1]:
+        for v in json.load(open(os.path.join(AGE_ITEMS_DIR, st + '.json'), encoding='utf-8'))['values']:
+            i = v['id'] if isinstance(v, dict) else v
+            if rx.fullmatch(i.split(':', 1)[1].rsplit('/', 1)[-1]):
+                out.append(i)
+    return sorted(out)
+
+
+# The Gatehouse's bridges (review 0.13.0: the task took only the eight vanilla woods, a TFC world builds ash or kapok).
+# FTB Quests 2101.1.36 has no tag task without FTB Filter System, so a hidden advancement on the pack tag
+# firmages:rope_bridges counts eight of one wood (inventory_changed counts per stack, like an item task per wood).
+ROPE_BRIDGES = live_variants(r'rope_[a-z_]+_bridge', 'age_1')
+WORK_TAGS = {os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'tags', 'item', 'rope_bridges.json'):
+             {'replace': False, 'values': [{'id': i, 'required': False} for i in ROPE_BRIDGES]}}
+WORK_ADVANCEMENTS = {
+    os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'advancement', 'works', 'rope_bridges.json'):
+        {'criteria': {'bridges': {'trigger': 'minecraft:inventory_changed',
+                                  'conditions': {'items': [{'items': '#firmages:rope_bridges', 'count': {'min': 8}}]}}}}}
 
 WORKS = [
     dict(key='gatehouse', filename='work_gatehouse', title='The Gatehouse', stage='age_1', order=20,
@@ -2566,8 +2626,9 @@ WORKS = [
                       'The plan: towers, ditch and bridge, the grate on its pulley, the drawbridge on its bearing.']),
               (-4.6, -3.0), [r_xp(XP['age_1'])]),
              (Q('works/gate/bridge', 'A Bridge Over the Ditch',
-                t_any_item(ROPE_BRIDGES, 'Eight rope bridges of any wood', count=8), icon='mcwbridges:rope_oak_bridge',
-                desc=['Make eight rope bridges of any wood. They span the ditch before your gate.']),
+                t_adv('firmages:works/rope_bridges', 'Eight rope bridges of one wood'),
+                icon='mcwbridges:rope_oak_bridge',
+                desc=['Make eight rope bridges of one wood, any tree. They span the ditch before your gate.']),
               (-4.7, 0.3), [r_item('create:shaft', 8)]),
              (Q('works/gate/portcullis', 'Portcullis',
                 [t_observe('create:rope_pulley', title='Look at the rope pulley over your gate'),
@@ -2676,9 +2737,12 @@ WORKS = [
                 [t_item('create:redstone_link', 2, title='Two redstone links'),
                  t_item('create:pulse_repeater', title='A pulse repeater')], icon='create:redstone_link',
                 desc=['One link opens the hatch. A delayed link wakes the pad once the leaves are clear.']),
-              (-2.5, 1.5), [r_item('ad_astra:fuel_bucket')]),
-             (Q('works/silo/fuel', 'Fuel Line', t_item('ad_astra:fuel_bucket', 4), icon='ad_astra:fuel_bucket',
-                desc=['Pipe fuel down to the pad. A rocket in the silo waits full.']),
+              (-2.5, 1.5), [r_item('immersivepetroleum:kerosene_bucket')]),
+             (Q('works/silo/fuel', 'Fuel Line',
+                t_any_item(['immersivepetroleum:diesel_bucket', 'immersivepetroleum:kerosene_bucket'],
+                           'Four buckets of diesel or kerosene', count=4), icon='immersivepetroleum:kerosene_bucket',
+                desc=['Lay up four buckets of diesel or kerosene by the pad. A tier 1 or 2 rocket in the silo waits '
+                      'full.']),
               (2.5, 1.5), [r_item('ad_astra:gas_tank')]),
              (Q('works/silo/goal', 'Launch from the Silo',
                 t_observe('ad_astra:launch_pad[powered=true]', kind='block_state',
@@ -2822,7 +2886,7 @@ def main():
         write(os.path.join(OUT, 'reward_tables', key + '.snbt'), t)
     write(os.path.join(OUT, 'lang', 'en_us.snbt'), LANG)
     write_chapter_shaders(chapters)
-    for path, adv in proof_advancements().items():
+    for path, adv in list(proof_advancements().items()) + list(WORK_ADVANCEMENTS.items()) + list(WORK_TAGS.items()):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w', encoding='utf-8', newline='\n') as f:
             f.write(json.dumps(adv, indent=2) + '\n')

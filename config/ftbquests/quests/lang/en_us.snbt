@@ -260,6 +260,12 @@
 		"Build an ME drive and a 1k storage cell. The drive holds the cells; the network reads them all."
 	]
 	quest.078F36B103C471CF.title: "ME Drive"
+	quest.07D0E5C2A9206383.quest_desc: [
+		"Set an Arcane Catalyst against a processing machine, a factory or an electric multiblock. It needs a Source jar within six blocks and a turning shaft at 64 RPM or more beside it."
+		""
+		"The machine works 50 % faster and pays the power of each extra tick once more. Generators and miners do not take it."
+	]
+	quest.07D0E5C2A9206383.title: "Arcane Catalyst"
 	quest.07D42ECD95337D7C.quest_desc: [
 		"Power a millstone from a water wheel. It grinds what the quern grinds by hand."
 	]
@@ -308,7 +314,7 @@
 	]
 	quest.0AD1277F0C750FBC.title: "Fuel Heater"
 	quest.0AF4168528180400.quest_desc: [
-		"Refine rocket fuel from your oil. One bucket proves the line runs."
+		"Fill a bucket with diesel or kerosene from your distillation tower. Tier 1 and 2 rockets burn either."
 	]
 	quest.0AF4168528180400.title: "Rocket Fuel"
 	quest.0B2B6BE451DD1912.quest_desc: ["Sixteen buckets of diesel from your own refinery."]
@@ -564,7 +570,7 @@
 	]
 	quest.1A7B308A025FA2CD.title: "Anvil Work"
 	quest.1A85B2B291F401B5.quest_desc: [
-		"Make eight rope bridges of any wood. They span the ditch before your gate."
+		"Make eight rope bridges of one wood, any tree. They span the ditch before your gate."
 	]
 	quest.1A85B2B291F401B5.title: "A Bridge Over the Ditch"
 	quest.1B12D746242380A4.quest_desc: ["Aluminium comes only from the arc furnace."]
@@ -840,7 +846,9 @@
 		"Make eight energy upgrades for your ore machines. Without them the fourfold and fivefold ore lines cost more power than they gain."
 	]
 	quest.2B9263D6A5FEA18B.title: "Energy Upgrades"
-	quest.2BE0D6CB6EF8C395.quest_desc: ["Pipe fuel down to the pad. A rocket in the silo waits full."]
+	quest.2BE0D6CB6EF8C395.quest_desc: [
+		"Lay up four buckets of diesel or kerosene by the pad. A tier 1 or 2 rocket in the silo waits full."
+	]
 	quest.2BE0D6CB6EF8C395.title: "Fuel Line"
 	quest.2C29644013E0FBF2.quest_desc: [
 		"Starsteel meteorites fall now. Melt their chunks in the arc furnace; the sky is its only source."
@@ -1249,6 +1257,8 @@
 	quest.470272BFC8013E57.title: "Wilden Tribute"
 	quest.47EADFDE57EAF836.quest_desc: [
 		"{image:firmages:textures/gui/quests/shrine/ring_0_build.apng.png width:220 height:162 align:center}"
+		"Craft the Shrine Heart from a fired Hearth Idol, cobblestone and charcoal (Stone Age, Hearth & Shrine). Set it where 21 by 21 blocks stay free: each Age adds a ring. The Offering Plinth is four cobblestone."
+		""
 		"Build the Hearth Circle round the Shrine Heart. 21 new blocks in three layers:"
 		"- eight logs"
 		"- eight cobblestone"
@@ -1323,6 +1333,8 @@
 	quest.492F1E68565B651C.title: "Mineral Prospector"
 	quest.4954E2BC98921D04.quest_desc: [
 		"Make two antimatter pellets in the SPS. Both go into the Quantum Core."
+		""
+		"Each pellet takes 100,000 mB polonium and 40,000,000,000 FE: about 40 minutes of a turbine-fed fusion plant."
 	]
 	quest.4954E2BC98921D04.title: "Antimatter Pellets"
 	quest.498E3CB76B5E962C.quest_desc: [
@@ -1378,7 +1390,7 @@
 	]
 	quest.4D29DE0763D2A602.title: "A Jug of Water"
 	quest.4D42F86F954FD88C.quest_desc: [
-		"Fusion powers this Age. The next Age asks for more than fusion can give."
+		"Fusion through a turbine powers this Age. The next Age asks for more than fusion can give."
 	]
 	quest.4D42F86F954FD88C.title: "Power for the End"
 	quest.4D478E63C575E42A.quest_desc: [
@@ -1583,6 +1595,8 @@
 		"Assemble the Stargate from its base, chevron and ring blocks; the draconic reactor powers it through a flux gate."
 		""
 		"Its address, on the Coordinates of The Origin: 9, 16, 21, 33, 2, 37, then the point of origin."
+		""
+		"Dialing The Origin takes 1,000,000,000 FE stored in the gate and 50,000 FE/t while the wormhole stays open; a gate in your own system takes 10,000,000 FE. Fill the gate from the reactor before you dial. The gate in The Origin always keeps one trip home charged."
 	]
 	quest.5C0C8D3E5C081AA2.title: "Gate Online"
 	quest.5C1872FCA111DFAA.quest_desc: ["Craft a launch pad. Rockets start only from one."]
@@ -1714,7 +1728,9 @@
 	]
 	quest.659EBC46D8F70B24.title: "Sourcelink"
 	quest.65E696893D25C27D.quest_desc: [
-		"Build the fusion reactor from 32 frames. It powers this Age."
+		"Build the fusion reactor from 32 frames. Cool it with water and run the steam through an industrial turbine: about 840,000 FE/t, against fewer than 100,000 air-cooled."
+		""
+		"Keep injection at 20 or more, or it goes out."
 	]
 	quest.65E696893D25C27D.title: "Fusion Reactor"
 	quest.661054914CDF7CFA.quest_desc: [
@@ -1851,7 +1867,7 @@
 	]
 	quest.6CB4ABCF94DB39FA.title: "Void Steel"
 	quest.6CBAA83920DDC925.quest_desc: [
-		"Build the tier 3 rocket from ostrum. It reaches Venus and Mercury."
+		"Build the tier 3 rocket from ostrum. It reaches Venus and Mercury and burns liquid hydrogen from a rotary condensentrator or cryo fuel, not diesel."
 	]
 	quest.6CBAA83920DDC925.title: "Tier 3 Rocket"
 	quest.6DC5BE16C605C596.quest_desc: [
@@ -1897,6 +1913,10 @@
 		"Fuse 16 awakened draconium from draconium blocks, a dragon heart and Nether Stars. Draconic gear and the reactor are made of it."
 	]
 	quest.716420BDBE218479.title: "Awakened Draconium"
+	quest.716D0A3D8C64B407.quest_desc: [
+		"Feed the Ore Processor ore pieces, hydrofluoric acid and kerosene: six times the metal as dust, 150,000 FE each. Lubricant doubles its speed."
+	]
+	quest.716D0A3D8C64B407.title: "Ore Times Six"
 	quest.71A054B30C7FB195.quest_desc: [
 		"Train a data model to tier 3 (Superior) and keep it running in a simulation chamber."
 	]
@@ -2154,6 +2174,7 @@
 	task.0701CAFE5ABCE9D4.title: "Feed 384 steel ingots into Tally Chutes"
 	task.0774FDB7B4523A99.title: "Read the build guide"
 	task.08F238DF8DB1B94E.title: "Calculation processor"
+	task.0955179AAEA03B9E.title: "Eight rope bridges of one wood"
 	task.0A489537ED4F84AB.title: "Look at a placed millstone"
 	task.0C96AD52183065A6.title: "Look at your display link"
 	task.0DB0ECEDFCF6B365.title: "Offer the Star Chart at the shrine"

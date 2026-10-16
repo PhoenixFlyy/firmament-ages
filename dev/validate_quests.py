@@ -323,6 +323,9 @@ STYLE_TEACHING = {
     '71B6B8FAE5353DAB',  # bronze/smith/forge: building a charcoal forge (a structure no viewer shows)
     '54432F5A30AE7695',  # stone/info/woods: the wood class table and the sapling recipes (no viewer in the Stone Age)
     '64181B7811C2814E',  # dawn/info/hand: ground crafting, Dawn's only crafting (no grid, no viewer; SPEC 19.3)
+    '65E696893D25C27D',  # quantum/fusion/frame: water cooling through a turbine and the injection floor (config, no viewer)
+    '5C0C8D3E5C081AA2',  # singularity/gate/key: what a dial costs (config values; SGJ only says NOT_ENOUGH_POWER)
+    '07D0E5C2A9206383',  # information/side/catalyst: the catalyst's three conditions (a placement rule, no viewer)
 }
 # knapping grid rows (5 squares of X and -) and crafting grid rows (3 squares, a letter per item: gen_quests.craft_grid)
 GRID_LINE = re.compile(r'[X-]( [X-]){4}|[A-Z-]( [A-Z-]){2}')
@@ -332,6 +335,55 @@ IMAGE_LINE = re.compile(r'\{image:[^ {}]+( [^{}]*)?\}')
 IMAGE_CLICK_TYPES = ('none', 'open_uri', 'open_quest', 'run_command', 'custom_event', 'show_recipe', 'show_docs')
 ASSET_ROOTS = [os.path.join(ROOT, 'kubejs', 'assets'),
                os.path.join(ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources', 'assets')]
+
+
+def wood_task_items(qd):
+    """Items a wood task accepts: its item tasks, or the item tag of its advancement (kubejs/data, one criterion with
+    an items predicate on a tag)."""
+    out = set()
+    for t in qd.get('tasks', []):
+        if t.get('type') == 'item':
+            out.add(t.get('item', {}).get('id'))
+        elif t.get('type') == 'advancement':
+            ns, path = strval(t.get('advancement')).split(':', 1)
+            f = os.path.join(ROOT, 'kubejs', 'data', ns, 'advancement', path + '.json')
+            if not os.path.isfile(f):
+                continue
+            for c in json.load(open(f, encoding='utf-8')).get('criteria', {}).values():
+                for pred in c.get('conditions', {}).get('items', []):
+                    it = pred.get('items')
+                    if isinstance(it, str) and it.startswith('#'):
+                        tns, tpath = it[1:].split(':', 1)
+                        tf = os.path.join(ROOT, 'kubejs', 'data', tns, 'tags', 'item', tpath + '.json')
+                        if os.path.isfile(tf):
+                            out |= {v['id'] if isinstance(v, dict) else v
+                                    for v in json.load(open(tf, encoding='utf-8'))['values']}
+                    elif isinstance(it, str):
+                        out.add(it)
+                    elif isinstance(it, list):
+                        out |= set(it)
+    return {i for i in out if isinstance(i, str)}
+
+
+def check_any_wood(qd, where, cage, item_age, E):
+    """The family is the shared prefix and suffix of the accepted ids' last path segment (rope_ ... _bridge); every
+    item of the Age tags up to the chapter's Age with a segment of that form must be accepted."""
+    got = wood_task_items(qd)
+    segs = [i.split(':', 1)[1].rsplit('/', 1)[-1] for i in got]
+    if len(segs) < 2:
+        E('%s: an "any wood" task accepts %d item, no wood family to check' % (where, len(segs)))
+        return
+    pre = os.path.commonprefix(segs)
+    suf = os.path.commonprefix([x[::-1] for x in segs])[::-1]
+    pre = pre[:pre.rfind('_') + 1]
+    suf = suf[suf.find('_'):] if '_' in suf else ''
+    rx = re.compile(re.escape(pre) + r'[a-z_]+' + re.escape(suf))
+    live = {i for i, a in item_age.items() if a != 'disabled' and age_index(a) is not None and
+            age_index(a) <= age_index(cage) and rx.fullmatch(i.split(':', 1)[1].rsplit('/', 1)[-1])}
+    missing = sorted(live - got)
+    if missing:
+        E('%s: an "any wood" task misses %d live woods of %s*%s, e.g. %s' % (where, len(missing), pre, suf,
+                                                                           ', '.join(missing[:4])))
 
 
 def check_image_line(tx, where, E, items):
@@ -677,6 +729,10 @@ def main():
                     pass
                 else:
                     E('%s: unknown task type %r' % (tw, typ))
+            # an "any wood" task covers every live wood of its block (review 0.13.0: the Gatehouse took only vanilla woods)
+            titles = ' '.join(str(lang.get('task.%s.title' % t.get('id'), '')) for t in qd.get('tasks', []))
+            if re.search(r'(any|one) wood', titles, re.I):
+                check_any_wood(qd, where, cage, item_age, E)
             for r in qd.get('rewards', []):
                 typ = r.get('type', 'item')
                 rw = '%s reward %s' % (where, r.get('id'))

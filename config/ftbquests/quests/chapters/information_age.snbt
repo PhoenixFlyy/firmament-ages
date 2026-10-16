@@ -1321,6 +1321,47 @@
 			y: -4.8d
 		}
 		{
+			dep_control_pts: {
+				1FE13D3931164773: [
+					-2.217d
+					3.469d
+					-1.767d
+					3.886d
+				]
+			}
+			dependencies: ["1FE13D3931164773"]
+			id: "07D0E5C2A9206383"
+			optional: true
+			rewards: [
+				{
+					id: "59BC6C06F72CD50B"
+					type: "xp"
+					xp: 120
+				}
+				{
+					id: "530AB1BAC06C64DB"
+					table_id: 5532495464634191153L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "2E50F28573E8EC93"
+					item: {
+						count: 1
+						id: "firmages:arcane_catalyst"
+					}
+					type: "item"
+				}
+			]
+			x: -1.6d
+			y: 3.85d
+		}
+		{
 			dependencies: ["0F1AE784BF392A25"]
 			hide_dependency_lines: true
 			icon: {

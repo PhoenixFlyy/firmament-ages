@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "bridges": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#firmages:rope_bridges",
+            "count": {
+              "min": 8
+            }
+          }
+        ]
+      }
+    }
+  }
+}

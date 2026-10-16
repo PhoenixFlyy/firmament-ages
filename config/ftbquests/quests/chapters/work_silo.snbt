@@ -195,7 +195,7 @@
 					id: "0167D8F4F4B8BE3A"
 					item: {
 						count: 1
-						id: "ad_astra:fuel_bucket"
+						id: "immersivepetroleum:kerosene_bucket"
 					}
 					team_reward: true
 					type: "item"
@@ -234,7 +234,7 @@
 			}
 			dependencies: ["3F05F326F8CF2577"]
 			icon: {
-				id: "ad_astra:fuel_bucket"
+				id: "immersivepetroleum:kerosene_bucket"
 			}
 			id: "2BE0D6CB6EF8C395"
 			rewards: [
@@ -254,8 +254,19 @@
 					id: "1BAC69116105F218"
 					item: {
 						count: 1
-						id: "ad_astra:fuel_bucket"
+						id: "immersivepetroleum:diesel_bucket"
 					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "34CD3AAC16087D70"
+					item: {
+						count: 1
+						id: "immersivepetroleum:kerosene_bucket"
+					}
+					optional_task: true
 					type: "item"
 				}
 			]

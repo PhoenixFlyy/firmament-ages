@@ -43,7 +43,9 @@ Output
 Usage
   python dev/derive_ages.py --scan            read the jars of test-server/mods (+ vanilla) into world_sources.json, derive
   python dev/derive_ages.py                   derive from the dump and world_sources.json, rewrite age_map.toml
-  python dev/derive_ages.py --check           exit 1 if age_map.toml would change
+  python dev/derive_ages.py --check           exit 1 if age_map.toml would change or a quest task has no source
+                                              (Q-1: every required item task reached by its chapter's Age through a
+                                              recipe, the world or loot, not only as a quest reward)
   python dev/derive_ages.py --explain ITEM    base Age, first reachable Age and the step that reached it
   options: --dump-dir DIR (default test-server/local/firmages), --mods DIR, --show N (report lines per list)
 """
@@ -1131,6 +1133,38 @@ def derive(dump_dir, show):
                 transforms=transforms, world_ns_late=sorted(late))
 
 
+# ------------------------------------------------------------------------------------------------ quest tasks
+def quest_task_sources(res):
+    """Q-1 (review 0.13.0): every non-optional item task of the Chronicle names an item the walk reaches by its
+    chapter's Age through a recipe, the world or loot. A quest reward is no source: the walk takes rewards as given,
+    so an item it first reaches as a reward has no other way in at that Age (0.13.0 asked for ad_astra:fuel_bucket,
+    which no recipe makes). -> (problems, count of tasks checked, loot-only tasks as info lines)."""
+    first, via = res["first"], res["via"]
+    bad, info, n = [], [], 0
+    for p in sorted(glob.glob(os.path.join(vq.QDIR, "chapters", "*.snbt"))):
+        ch = vq.load(p)
+        st = ch.get("progressivestages_required_stage")
+        if st not in AGES:
+            continue
+        name = os.path.basename(p)[:-5]
+        for q in ch.get("quests", []):
+            for t in q.get("tasks", []):
+                if t.get("type") != "item" or t.get("optional_task") or not isinstance(t.get("item"), dict):
+                    continue
+                i = t["item"].get("id")
+                n += 1
+                where = f"{name} task {t.get('id')} ({i})"
+                if i not in first:
+                    bad.append(f"{where}: never reachable")
+                elif AGES.index(first[i]) > AGES.index(st):
+                    bad.append(f"{where}: first reachable in {first[i]}, the chapter is {st}")
+                elif str(via.get(i, "")).startswith("quest reward"):
+                    bad.append(f"{where}: only a quest reward gives it by {first[i]} ({via[i]})")
+                elif str(via.get(i, "")).startswith("structure"):
+                    info.append(f"{where}: loot only? first via {via[i]}")
+    return bad, n, info
+
+
 # ------------------------------------------------------------------------------------------------ output
 def render(res):
     lines = [MARK_BEGIN + "\n",
@@ -1195,12 +1229,18 @@ def main():
             print(f"    later {i}: {base[i]} -> {res['derived'][i]} via {via.get(i)}")
         for i in res["hidden"][:a.show]:
             print(f"    hidden {i} ({base[i]}, {res['base_why'][i]})")
+    q_bad, q_n, q_info = quest_task_sources(res)
+    for line in q_info:
+        print(f"  Q-1 info: {line}")
+    for line in q_bad:
+        print(f"FAIL Q-1 {line}")
+    print(f"Q-1 quest tasks: {q_n} required item tasks, {len(q_bad)} without a recipe, world or loot source by their Age")
     if a.check:
         if new != res["raw"]:
             print("dev/age_map.toml: generated:derived is out of date")
             sys.exit(1)
         print("dev/age_map.toml: generated:derived is up to date")
-        return
+        sys.exit(1 if q_bad else 0)
     write_lines(DERIVED_JSON, {"columns": ["age_map", "first_reachable", "final", "via"],
                                "note": "items whose final Age differs from the age_map rules; --explain ITEM for any other",
                                "items": dict(sorted(out.items()))})
@@ -1210,6 +1250,7 @@ def main():
         print("rewrote dev/age_map.toml (generated:derived)")
     else:
         print("dev/age_map.toml unchanged")
+    sys.exit(1 if q_bad else 0)
 
 
 if __name__ == "__main__":

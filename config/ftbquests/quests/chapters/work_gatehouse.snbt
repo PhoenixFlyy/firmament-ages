@@ -96,84 +96,10 @@
 			]
 			tasks: [
 				{
-					count: 8L
+					advancement: "firmages:works/rope_bridges"
+					criterion: ""
 					id: "0955179AAEA03B9E"
-					item: {
-						count: 1
-						id: "mcwbridges:rope_oak_bridge"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "7948ADAD66802773"
-					item: {
-						count: 1
-						id: "mcwbridges:rope_birch_bridge"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "1CBF17CC74269EFB"
-					item: {
-						count: 1
-						id: "mcwbridges:rope_spruce_bridge"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "19B46134E8B7B0F8"
-					item: {
-						count: 1
-						id: "mcwbridges:rope_jungle_bridge"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "3D7996FCB62ACC77"
-					item: {
-						count: 1
-						id: "mcwbridges:rope_acacia_bridge"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "77F83831DBAEDF49"
-					item: {
-						count: 1
-						id: "mcwbridges:rope_dark_oak_bridge"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "3E0EAE8C3804D6AB"
-					item: {
-						count: 1
-						id: "mcwbridges:rope_mangrove_bridge"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "43A08A4CDB52786B"
-					item: {
-						count: 1
-						id: "mcwbridges:rope_cherry_bridge"
-					}
-					optional_task: true
-					type: "item"
+					type: "advancement"
 				}
 			]
 			x: -4.7d

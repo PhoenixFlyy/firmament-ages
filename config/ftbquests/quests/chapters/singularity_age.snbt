@@ -826,6 +826,47 @@
 		}
 		{
 			dep_control_pts: {
+				5959E93431484DD5: [
+					-3.102d
+					3.967d
+					-3.085d
+					4.567d
+				]
+			}
+			dependencies: ["5959E93431484DD5"]
+			id: "716D0A3D8C64B407"
+			optional: true
+			rewards: [
+				{
+					id: "1F459C5BAF9D34DF"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "40D94E0111A89F03"
+					table_id: 4026478518536199106L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "60A1DCCCA7D6E406"
+					item: {
+						count: 1
+						id: "firmages:ore_processor"
+					}
+					type: "item"
+				}
+			]
+			x: -3.35d
+			y: 4.8d
+		}
+		{
+			dep_control_pts: {
 				5C0C8D3E5C081AA2: [
 					5.31d
 					2.795d

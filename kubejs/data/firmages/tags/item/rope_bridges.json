@@ -1,0 +1,165 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "everycomp:mcb/afc/rope_araucaria_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_baobab_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_beech_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_cypress_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_eucalyptus_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_fig_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_ginkgo_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_hevea_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_ipe_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_ironwood_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_mahoe_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_mahogany_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_teak_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/afc/rope_tualang_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_acacia_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_ash_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_aspen_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_birch_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_blackwood_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_chestnut_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_douglas_fir_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_hickory_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_kapok_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_maple_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_palm_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_pine_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_rosewood_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_sequoia_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_spruce_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_sycamore_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_white_cedar_bridge",
+      "required": false
+    },
+    {
+      "id": "everycomp:mcb/tfc/rope_willow_bridge",
+      "required": false
+    },
+    {
+      "id": "mcwbridges:rope_acacia_bridge",
+      "required": false
+    },
+    {
+      "id": "mcwbridges:rope_birch_bridge",
+      "required": false
+    },
+    {
+      "id": "mcwbridges:rope_cherry_bridge",
+      "required": false
+    },
+    {
+      "id": "mcwbridges:rope_dark_oak_bridge",
+      "required": false
+    },
+    {
+      "id": "mcwbridges:rope_jungle_bridge",
+      "required": false
+    },
+    {
+      "id": "mcwbridges:rope_mangrove_bridge",
+      "required": false
+    },
+    {
+      "id": "mcwbridges:rope_oak_bridge",
+      "required": false
+    },
+    {
+      "id": "mcwbridges:rope_spruce_bridge",
+      "required": false
+    }
+  ]
+}
