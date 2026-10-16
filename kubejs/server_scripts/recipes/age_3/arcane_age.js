@@ -167,6 +167,9 @@ ServerEvents.recipes((event) => {
   // kubejs/data/firmages/loot_modifiers/hollow_keystone_nether_bridge.json). Three passes on the Create line: a spout
   // fills it with 250 mB of liquid experience (Create Enchantment Industry), a deployer sets a blaze rod, the press
   // closes it. The spout and the deployer are Iron Age stations, the experience and the blaze rods Arcane Age goods.
+  // V4A (firmages-core SPEC 27.8): a second deployer sets a Starlit Iron ingot from the Lens Crown before the press, so
+  // the three passes take three ingots. Only while the sky road is complete (startup_scripts/sky.js).
+  const SKY = global.FA_SKY.REQUIRED.every((id) => Item.exists(id)) // V4A live (startup_scripts/sky.js)
   const KEY = 'firmages:incomplete_arcane_keystone'
   event.custom({
     type: 'create:sequenced_assembly',
@@ -175,9 +178,9 @@ ServerEvents.recipes((event) => {
     sequence: [
       { type: 'create:filling', ingredients: [{ item: KEY }, { type: 'neoforge:single', fluid: 'create_enchantment_industry:experience', amount: 250 }],
         results: [{ id: KEY }] },
-      { type: 'create:deploying', ingredients: [{ item: KEY }, { tag: 'c:rods/blaze' }], results: [{ id: KEY }] },
-      { type: 'create:pressing', ingredients: [{ item: KEY }], results: [{ id: KEY }] }
-    ],
+      { type: 'create:deploying', ingredients: [{ item: KEY }, { tag: 'c:rods/blaze' }], results: [{ id: KEY }] }
+    ].concat(SKY ? [{ type: 'create:deploying', ingredients: [{ item: KEY }, { item: global.FA_SKY.ALLOYS.age_3 }], results: [{ id: KEY }] }] : [],
+      [{ type: 'create:pressing', ingredients: [{ item: KEY }], results: [{ id: KEY }] }]),
     results: [{ id: 'firmages:arcane_keystone' }],
     loops: 3
   }).id('firmages:sequenced_assembly/arcane_keystone')
@@ -201,7 +204,8 @@ ServerEvents.recipes((event) => {
   }).id('firmages:apparatus/wilden_tribute')
 
   // ---- Goal: Arcane Keystone, magic route (Doc 08 sections 7.1 and 10.2) ----------------------------------------
-  // Djinni crafting pentacle, bound Djinni book, the three proofs of the magic strands.
+  // Djinni crafting pentacle, bound Djinni book, the three proofs of the magic strands. V4A: the steel ingot becomes a
+  // Starlit Iron ingot from the Lens Crown, so the crown stands on both routes.
   event.custom({
     type: 'occultism:ritual',
     ritual_type: 'occultism:craft',
@@ -214,7 +218,7 @@ ServerEvents.recipes((event) => {
       { item: 'occultism:iesnium_ingot' },
       { item: 'ars_nouveau:wilden_tribute' },
       { item: 'theurgy:mercury_catalyst' },
-      { item: 'tfc:metal/ingot/steel' },
+      SKY ? { item: global.FA_SKY.ALLOYS.age_3 } : { item: 'tfc:metal/ingot/steel' },
       { item: 'ars_nouveau:source_gem_block' }
     ],
     result: { id: 'firmages:arcane_keystone', count: 1 }

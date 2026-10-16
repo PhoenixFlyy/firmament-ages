@@ -1662,6 +1662,12 @@ Library rules:
   - "Chords" (mount a lens, redstone in, forge, a roof pauses, night speeds up) on `lens_mount`;
   - "A Chord Library" (pattern provider, comparator, link decoder, output bus) on `star_anvil`.
 
+### 27.11a Pack integration (M15, branch `c2/sky-m15`, 2026-10-16)
+
+- **One switch:** `kubejs/startup_scripts/sky.js` defines `global.FA_SKY` (the alloy of each Age and `REQUIRED`, the sky materials and the items of their sources: Starfall, Sky Harvest, Drifting Isles, Launch Complex). Every V4A change, the crown parts, the Sky Anchor, the Launch Complex parts and the Wayshrine alloy offerings load only while every `REQUIRED` item is registered (`Item.exists` inside the event, so the Age swap needs no script rerun). A jar without one of the sky features keeps the old signature recipes, so the main road never waits for a missing source.
+- **Recipes:** the eight changes of §27.8 in `recipes/age_3..age_9`; the parts of §27.9 in `recipes/age_3/lens_crown.js` (lens blank by sandpaper polishing, the first three lenses, mount, anvil); the Sky Anchor in `recipes/age_7/space_age.js`; the Launch Complex parts of §31.3 and §31.4 in `recipes/age_7/launch_complex.js` (launch control, cradle and port from desh, steel and Mekanism parts, the probe as a small desh rocket, one Halo Steel per sampler module and one Void Steel per deep-space module). Station Age: `firmages:starforge` age_3 in `station_ages.js`.
+- **Checks:** `dev/poc_analyze.py` S-1 to S-4 (the one-source rule of §24.3 and §24.7 criterion 1, over recipes, ore tags, loot tables and loot modifiers); the R- walk knows the starforge station (anvil, mount and the chord's lenses), the sky world sources (meteoric iron chunk age_2, firmament crystal age_4, starsteel chunk age_5) and the sky machines (Storm Rod, Launch Complex). `dev/predict_dump.py` predicts the merged dump.
+
 ### 27.12 Config and commands
 
 | Key (`firmages-server.toml`) | Default | Meaning |
@@ -1789,7 +1795,7 @@ Placement uses TFC's climate structure placement `tfc:climate` (`ClimateStructur
   "age_5": "firmages:aurora_steel_ingot", "age_6": "firmages:halo_steel_ingot" }
 ```
 
-- **Shipped until M15 (review 0.11.0):** the celestial alloys have no recipe before M11, M13, M14 and M15, so the shipped file uses sky metal every Age can make: `age_3` `firmages:meteoric_iron_double_ingot`, `age_4` `firmages:meteoric_iron_sheet`, `age_5` and `age_6` `firmages:starsteel_ingot` (age_7 to age_9 fall back to age_6). The alloy list above comes back with M15.
+- **Shipped until M15 (review 0.11.0):** the celestial alloys have no recipe before M11, M13, M14 and M15, so the shipped file uses sky metal every Age can make: `age_3` `firmages:meteoric_iron_double_ingot`, `age_4` `firmages:meteoric_iron_sheet`, `age_5` and `age_6` `firmages:starsteel_ingot` (age_7 to age_9 fall back to age_6). The jar keeps this list as the fallback; since M15 the pack writes the alloy list above into KubeJS's last data pack (`kubejs/server_scripts/firmages/wayshrine_offerings.js`, `ServerEvents.generateData`) once every sky material is registered (`startup_scripts/sky.js`).
 
 `data/<ns>/firmages_wayshrine/rite/<age>.json` (the lighting rite of that Age; the rite types and parser of §2.6 are reused, and keys refer to the type's multiblock):
 

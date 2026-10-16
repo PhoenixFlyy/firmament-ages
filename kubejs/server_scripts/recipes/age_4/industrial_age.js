@@ -285,13 +285,18 @@ ServerEvents.recipes((event) => {
   // ======================================================================================== goal: Pressure Core
   // Doc 08 sections 9.3 and 10.2. The token slot takes the age_4 token: a built-up steel cannon chamber of Create Big
   // Cannons (molten steel cast in the four layer moulds, bored on the cannon drill, stacked by the cannon builder and
-  // heated into one block; tags/arcane_industrial.js).
-  event.shaped('firmages:pressure_core', [' H ', 'DGD', ' T '], {
+  // heated into one block; tags/arcane_industrial.js). V4A (firmages-core SPEC 27.8): two Cloudsteel ingots from the
+  // Lens Crown flank the heavy engineering block, while the sky road is complete (startup_scripts/sky.js).
+  const SKY = global.FA_SKY.REQUIRED.every((id) => Item.exists(id)) // V4A live (startup_scripts/sky.js)
+  const PRESSURE_KEY = {
     H: 'immersiveengineering:heavy_engineering',
     D: '#c:double_sheets/black_steel',
     G: 'firmages:arcane_gearbox',
     T: '#firmages:age_token/age_4'
-  }).id('firmages:crafting/pressure_core')
+  }
+  if (SKY) PRESSURE_KEY.A = global.FA_SKY.ALLOYS.age_4
+  event.shaped('firmages:pressure_core', SKY ? ['AHA', 'DGD', ' T '] : [' H ', 'DGD', ' T '], PRESSURE_KEY)
+    .id('firmages:crafting/pressure_core')
 
   // The collected patterns, one pass (see the top of this handler).
   event.remove({ id: anyOf(removeIdPatterns) })
