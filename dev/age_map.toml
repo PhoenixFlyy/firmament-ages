@@ -426,6 +426,16 @@ block = "tfc:rock/loose/granite"
 "id:firmages:starsteel_chunk" = "age_5"
 "id:firmages:starsteel_ingot" = "age_5"
 "id:firmages:starsteel_block" = "age_5"
+# Launch Complex (firmages-core SPEC 24.5, 31): the complex, the probe and the sampler in the Space Age; the probes are
+# the one source of voidglass (age_7) and deep-space samples (age_8, from the deep-space module).
+"id:firmages:launch_control" = "age_7"
+"id:firmages:probe_cradle" = "age_7"
+"id:firmages:launch_port" = "age_7"
+"id:firmages:probe" = "age_7"
+"id:firmages:sampler_module" = "age_7"
+"id:firmages:voidglass" = "age_7"
+"id:firmages:deep_space_module" = "age_8"
+"id:firmages:deep_space_sample" = "age_8"
 "id:firmages:wayshrine_stone" = "dawn"                   # firmages-core Wayshrines (SPEC-himmel 24.5): drops from a lit Wayshrine (age_1 on), decorative, Sky Anchor heart
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"

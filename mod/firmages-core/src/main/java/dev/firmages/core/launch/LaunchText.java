@@ -27,11 +27,15 @@ public final class LaunchText {
         };
     }
 
-    /** What the probe does now ("Countdown: five seconds", "In flight, 45 %", ...). */
+    /** What the probe does now ("Ignition in five seconds", "In flight, 45 %", ...). */
     public static MutableComponent phaseLine(LaunchRules.Phase phase, int countdownLeftTicks, int percent) {
         return switch (phase) {
             case IDLE -> Component.translatable("firmages.launch.phase.idle");
-            case COUNTDOWN -> Component.translatable("firmages.launch.phase.countdown", Numbers.words(Math.max(1, (countdownLeftTicks + 19) / 20)));
+            case COUNTDOWN -> {
+                int seconds = Math.max(1, (countdownLeftTicks + 19) / 20);
+                yield seconds == 1 ? Component.translatable("firmages.launch.phase.countdown_one")
+                    : Component.translatable("firmages.launch.phase.countdown", Numbers.words(seconds));
+            }
             case ASCENT -> Component.translatable("firmages.launch.phase.ascent");
             case FLIGHT -> Component.translatable("firmages.launch.phase.flight", percent);
             case DESCENT -> Component.translatable("firmages.launch.phase.descent");
