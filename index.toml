@@ -310,7 +310,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "66c47c97d207828d510f29808a5ce9b6b4e1a01ca5e657039f549ebc8c1f28d7"
+hash = "2b82e3fa12c86333cb13fca8993ce7697b8dc4edfc2426e787479b25cafdde48"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
