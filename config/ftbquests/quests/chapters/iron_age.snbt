@@ -22,7 +22,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -11.07857142857143d
+			y: -11.128571428571428d
 		}
 		{
 			alpha: 255
@@ -42,7 +42,16 @@
 	order_index: 3
 	progression_mode: "flexible"
 	progressivestages_required_stage: "age_2"
-	quest_links: [ ]
+	quest_links: [
+		{
+			id: "07C54D511BACC902"
+			linked_quest: "687CBF7A7AA65BF4"
+			shape: "rune"
+			size: 1.25d
+			x: -9.5d
+			y: -6.8d
+		}
+	]
 	quests: [
 		{
 			icon: {
@@ -86,6 +95,16 @@
 					type: "xp"
 					xp: 50
 				}
+				{
+					count: 16
+					id: "1DE6B97C37B87853"
+					item: {
+						count: 1
+						id: "minecraft:charcoal"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -117,6 +136,16 @@
 					type: "xp"
 					xp: 50
 				}
+				{
+					count: 8
+					id: "01843CBDEDB1A428"
+					item: {
+						count: 1
+						id: "tfc:powder/flux"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -147,6 +176,16 @@
 					id: "36CF5A24BBD23C2E"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 2
+					id: "249D12963B9BA268"
+					item: {
+						count: 1
+						id: "tfc:metal/sheet/wrought_iron"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -180,6 +219,15 @@
 					type: "xp"
 					xp: 50
 				}
+				{
+					id: "047FA6450EB35460"
+					item: {
+						count: 1
+						id: "tfc:metal/hammer/wrought_iron"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -211,6 +259,26 @@
 					type: "xp"
 					xp: 50
 				}
+				{
+					count: 16
+					id: "08D9FF681EAFF4CD"
+					item: {
+						count: 1
+						id: "minecraft:charcoal"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 8
+					id: "1AF80C6941B13C84"
+					item: {
+						count: 1
+						id: "tfc:powder/flux"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -241,6 +309,16 @@
 					id: "25D9CD075CA452AF"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 2
+					id: "77FFB7EE5DF351AF"
+					item: {
+						count: 1
+						id: "tfc:metal/ingot/pig_iron"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -275,10 +353,33 @@
 					xp: 150
 				}
 				{
+					count: 4
 					id: "55362085B1786D25"
-					table_id: 4138550597130724526L
+					item: {
+						count: 1
+						id: "tfc:metal/ingot/steel"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "3231A0F6E5749B14"
+					item: {
+						count: 1
+						id: "tfc:powder/flux"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "0C6C250357E3A23D"
+					item: {
+						count: 1
+						id: "tfc:metal/hammer/steel"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -301,10 +402,10 @@
 		{
 			dep_control_pts: {
 				05C4B3AE61613A9B: [
-					-12.778d
-					-1.117d
-					-11.86d
-					-2.666d
+					-12.367d
+					-1.824d
+					-10.504d
+					-3.934d
 				]
 			}
 			dependencies: ["05C4B3AE61613A9B"]
@@ -314,6 +415,26 @@
 					id: "4207429FE8949863"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 4
+					id: "4E56089917CA099C"
+					item: {
+						count: 1
+						id: "create:brass_casing"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 2
+					id: "4E05F13F10FDC3AA"
+					item: {
+						count: 1
+						id: "create:fluid_tank"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -326,17 +447,25 @@
 					}
 					type: "item"
 				}
+				{
+					id: "7CC587936309410E"
+					item: {
+						count: 1
+						id: "tfcreate:primitive_heater"
+					}
+					type: "item"
+				}
 			]
-			x: -10.95d
-			y: -4.1d
+			x: -8.65d
+			y: -5.35d
 		}
 		{
 			dep_control_pts: {
 				3EAA8BE972DC58F9: [
-					-7.747d
-					-5.754d
-					-1.976d
-					-4.586d
+					-5.964d
+					-5.898d
+					-2.66d
+					-5.915d
 				]
 			}
 			dependencies: ["3EAA8BE972DC58F9"]
@@ -346,6 +475,16 @@
 					id: "1AEC589FADDF04B1"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 2
+					id: "28F1CBD06B38D15A"
+					item: {
+						count: 1
+						id: "create:electron_tube"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -358,16 +497,16 @@
 					type: "item"
 				}
 			]
-			x: -1.45d
-			y: -8.35d
+			x: -2.0d
+			y: -8.55d
 		}
 		{
 			dep_control_pts: {
 				36C48EC86A43AA92: [
-					-0.898d
-					-8.353d
-					-0.32d
-					-8.606d
+					-1.301d
+					-8.67d
+					-0.37d
+					-8.942d
 				]
 			}
 			dependencies: ["36C48EC86A43AA92"]
@@ -377,6 +516,16 @@
 					id: "69D52B518F236782"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 8
+					id: "237AB3F648FEBFE1"
+					item: {
+						count: 1
+						id: "create:fluid_pipe"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -390,56 +539,44 @@
 					type: "item"
 				}
 			]
-			x: -0.3d
-			y: -9.05d
+			x: -0.25d
+			y: -9.1d
 		}
 		{
 			dep_control_pts: {
 				6C112D72835F57BD: [
-					0.651d
-					-8.64d
-					1.299d
-					-8.313d
+					0.694d
+					-8.417d
+					0.933d
+					-7.537d
 				]
 			}
 			dependencies: ["6C112D72835F57BD"]
-			id: "0AD1277F0C750FBC"
-			rewards: [
-				{
-					id: "6CB6DE1F388B5178"
-					type: "xp"
-					xp: 50
-				}
-			]
-			tasks: [
-				{
-					id: "447835FB2EA68650"
-					item: {
-						count: 1
-						id: "tfcreate:primitive_heater"
-					}
-					type: "item"
-				}
-			]
-			x: 1.05d
-			y: -8.25d
-		}
-		{
-			dep_control_pts: {
-				0AD1277F0C750FBC: [
-					1.64d
-					-7.379d
-					1.299d
-					-6.811d
-				]
-			}
-			dependencies: ["0AD1277F0C750FBC"]
 			id: "136A6DB3C34D16EB"
 			rewards: [
 				{
 					id: "6E2F23EAE39E70A2"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 2
+					id: "5031297A520A5F12"
+					item: {
+						count: 1
+						id: "create:mechanical_pump"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "412F0EBEE975B88E"
+					item: {
+						count: 1
+						id: "create:steam_whistle"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -452,16 +589,16 @@
 					type: "item"
 				}
 			]
-			x: 0.5d
-			y: -6.95d
+			x: 0.25d
+			y: -7.45d
 		}
 		{
 			dep_control_pts: {
 				136A6DB3C34D16EB: [
-					-0.642d
-					-4.912d
-					6.291d
-					-2.563d
+					-0.191d
+					-4.61d
+					6.397d
+					-2.715d
 				]
 			}
 			dependencies: ["136A6DB3C34D16EB"]
@@ -476,10 +613,23 @@
 					xp: 150
 				}
 				{
+					count: 4
 					id: "476EF58CE023E426"
-					table_id: 4138550597130724526L
+					item: {
+						count: 1
+						id: "tfc:metal/sheet/wrought_iron"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					id: "49C9A6818259F6A5"
+					item: {
+						count: 1
+						id: "tfc:metal/chestplate/wrought_iron"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -502,45 +652,13 @@
 		{
 			dep_control_pts: {
 				05C4B3AE61613A9B: [
-					-12.726d
-					-0.644d
-					-12.032d
-					-1.807d
+					-12.631d
+					-0.789d
+					-11.726d
+					-2.01d
 				]
 			}
 			dependencies: ["05C4B3AE61613A9B"]
-			icon: {
-				id: "tfc:wood/barrel/oak"
-			}
-			id: "0025DE3687DD8D07"
-			rewards: [
-				{
-					id: "3A33EE35B1D735C9"
-					type: "xp"
-					xp: 50
-				}
-			]
-			tasks: [
-				{
-					advancement: "tfc:story/barrel"
-					criterion: ""
-					id: "5A99EF170C0E7563"
-					type: "advancement"
-				}
-			]
-			x: -11.4d
-			y: -2.95d
-		}
-		{
-			dep_control_pts: {
-				0025DE3687DD8D07: [
-					-10.129d
-					-3.089d
-					-9.134d
-					-3.397d
-				]
-			}
-			dependencies: ["0025DE3687DD8D07"]
 			icon: {
 				id: "minecraft:leather"
 			}
@@ -551,25 +669,51 @@
 					type: "xp"
 					xp: 50
 				}
+				{
+					count: 8
+					id: "6E833E397A1DEB0B"
+					item: {
+						count: 1
+						id: "minecraft:leather"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 8
+					id: "5634B9A055B1F766"
+					item: {
+						count: 1
+						id: "tfc:powder/lime"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
-					advancement: "tfc:story/leather"
+					advancement: "tfc:story/barrel"
 					criterion: ""
 					id: "32F0B5AB78FD136E"
 					type: "advancement"
 				}
+				{
+					advancement: "tfc:story/leather"
+					criterion: ""
+					id: "31EE89CEE13DA473"
+					type: "advancement"
+				}
 			]
-			x: -8.6d
-			y: -4.15d
+			x: -10.95d
+			y: -3.25d
 		}
 		{
 			dep_control_pts: {
 				6DE17D691978916D: [
-					-7.195d
-					-4.05d
-					-6.149d
-					-4.145d
+					-9.507d
+					-3.505d
+					-8.259d
+					-3.778d
 				]
 			}
 			dependencies: ["6DE17D691978916D"]
@@ -583,6 +727,15 @@
 					type: "xp"
 					xp: 50
 				}
+				{
+					id: "5073754EFA5139AB"
+					item: {
+						count: 1
+						id: "artifacts:snowshoes"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -591,47 +744,43 @@
 						count: 1
 						id: "minecraft:leather_helmet"
 					}
-					optional_task: true
 					type: "item"
 				}
 				{
-					id: "2B803B96A78749A3"
+					id: "200CE9A867010CE2"
 					item: {
 						count: 1
 						id: "minecraft:leather_chestplate"
 					}
-					optional_task: true
 					type: "item"
 				}
 				{
-					id: "264E6D43305D95CE"
+					id: "7E0B8EBE939ECDC4"
 					item: {
 						count: 1
 						id: "minecraft:leather_leggings"
 					}
-					optional_task: true
 					type: "item"
 				}
 				{
-					id: "69B8F295193ACB9A"
+					id: "5210E90314773463"
 					item: {
 						count: 1
 						id: "minecraft:leather_boots"
 					}
-					optional_task: true
 					type: "item"
 				}
 			]
-			x: -5.55d
-			y: -4.65d
+			x: -7.5d
+			y: -4.5d
 		}
 		{
 			dep_control_pts: {
 				0672AC049845AEE4: [
-					-4.207d
-					-4.289d
-					-3.265d
-					-4.475d
+					-5.853d
+					-4.373d
+					-4.569d
+					-4.564d
 				]
 			}
 			dependencies: ["0672AC049845AEE4"]
@@ -641,6 +790,16 @@
 					id: "6795A19C9A8A9C44"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 16
+					id: "6266650153D2EFE6"
+					item: {
+						count: 1
+						id: "tfc:powder/salt"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -654,16 +813,16 @@
 					type: "item"
 				}
 			]
-			x: -2.8d
-			y: -4.7d
+			x: -3.75d
+			y: -4.85d
 		}
 		{
 			dep_control_pts: {
 				214D6B55DD018CDF: [
-					-1.19d
-					-3.837d
-					-0.158d
-					-3.397d
+					-1.818d
+					-4.06d
+					-0.343d
+					-3.64d
 				]
 			}
 			dependencies: ["214D6B55DD018CDF"]
@@ -679,9 +838,12 @@
 				}
 				{
 					id: "755A9BC38A844EBE"
-					table_id: 4138550597130724526L
-					team_reward: true
-					type: "random"
+					item: {
+						count: 1
+						id: "sophisticatedbackpacks:iron_backpack"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -699,10 +861,10 @@
 		{
 			dep_control_pts: {
 				05C4B3AE61613A9B: [
-					-12.461d
-					-0.487d
-					-11.28d
-					-1.174d
+					-12.488d
+					-0.462d
+					-11.197d
+					-0.889d
 				]
 			}
 			dependencies: ["05C4B3AE61613A9B"]
@@ -712,6 +874,15 @@
 					id: "1E201B8F02CD8F7E"
 					type: "xp"
 					xp: 50
+				}
+				{
+					id: "44368A6F46B82BC6"
+					item: {
+						count: 1
+						id: "artifacts:running_shoes"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			tasks: [
@@ -724,16 +895,16 @@
 					type: "item"
 				}
 			]
-			x: -10.5d
-			y: -2.15d
+			x: -10.45d
+			y: -1.85d
 		}
 		{
 			dep_control_pts: {
 				6A2C745F47AF776B: [
-					-8.924d
-					-2.241d
-					-7.728d
-					-2.788d
+					-8.864d
+					-1.946d
+					-7.689d
+					-2.588d
 				]
 			}
 			dependencies: ["6A2C745F47AF776B"]
@@ -743,6 +914,16 @@
 					id: "0A7C66B350294538"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 2
+					id: "78EA4D7F94949871"
+					item: {
+						count: 1
+						id: "tfc:metal/sheet/wrought_iron"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -756,16 +937,16 @@
 					type: "item"
 				}
 			]
-			x: -6.9d
-			y: -3.3d
+			x: -6.85d
+			y: -3.1d
 		}
 		{
 			dep_control_pts: {
 				4E069E7BCFBE1D68: [
-					-4.923d
-					-2.745d
-					-3.499d
-					-2.563d
+					-4.899d
+					-2.543d
+					-3.476d
+					-2.551d
 				]
 			}
 			dependencies: ["4E069E7BCFBE1D68"]
@@ -778,9 +959,22 @@
 				}
 				{
 					id: "7440064E21C2E1FB"
-					table_id: 4138550597130724526L
+					item: {
+						count: 1
+						id: "firmages:frontier_compass"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 4
+					id: "29770A440FF0860D"
+					item: {
+						count: 1
+						id: "tfc:metal/sheet/wrought_iron"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -820,6 +1014,16 @@
 					type: "xp"
 					xp: 50
 				}
+				{
+					count: 16
+					id: "40756978FF237392"
+					item: {
+						count: 1
+						id: "minecraft:charcoal"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -850,6 +1054,16 @@
 					id: "3858B80036B3CBC5"
 					type: "xp"
 					xp: 50
+				}
+				{
+					count: 2
+					id: "7808EA131484BE8C"
+					item: {
+						count: 1
+						id: "tfc:metal/sheet/wrought_iron"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -883,6 +1097,15 @@
 					type: "xp"
 					xp: 50
 				}
+				{
+					id: "0A3446B1298CF439"
+					item: {
+						count: 1
+						id: "artifacts:umbrella"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -915,10 +1138,23 @@
 					xp: 150
 				}
 				{
+					count: 2
 					id: "3C8FAD6C19BC6CAB"
-					table_id: 4138550597130724526L
+					item: {
+						count: 1
+						id: "tfc:metal/sheet/steel"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					id: "1373D85112F74076"
+					item: {
+						count: 1
+						id: "tfc:metal/helmet/steel"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -988,6 +1224,44 @@
 					type: "xp"
 					xp: 500
 				}
+				{
+					id: "1CC6DE2BE8521750"
+					item: {
+						count: 1
+						id: "artifacts:cloud_in_a_bottle"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					id: "51046FB1895E80C5"
+					item: {
+						count: 1
+						id: "tfc:metal/sword/steel"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 8
+					id: "15090B2B49CBD103"
+					item: {
+						count: 1
+						id: "tfc:metal/ingot/steel"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "4101098A430FCA72"
+					item: {
+						count: 1
+						id: "firmages:lantern/iron"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			shape: "gilded"
 			size: 3.0d
@@ -1005,10 +1279,10 @@
 		{
 			dep_control_pts: {
 				3EAA8BE972DC58F9: [
-					-10.636d
-					-4.321d
-					-10.869d
-					-4.821d
+					-7.927d
+					-5.554d
+					-7.793d
+					-6.17d
 				]
 			}
 			dependencies: ["3EAA8BE972DC58F9"]
@@ -1022,9 +1296,22 @@
 				}
 				{
 					id: "712CCDFB75B9247D"
-					table_id: 147794354376245541L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "railways:handcar"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 2
+					id: "5124198C6667D10A"
+					item: {
+						count: 1
+						id: "railways:buffer"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1041,19 +1328,19 @@
 					type: "item"
 				}
 			]
-			x: -11.65d
-			y: -5.6d
+			x: -8.25d
+			y: -7.2d
 		}
 		{
 			dep_control_pts: {
-				0025DE3687DD8D07: [
-					-11.326d
-					-3.023d
-					-11.676d
-					-3.407d
+				6DE17D691978916D: [
+					-11.189d
+					-3.183d
+					-11.806d
+					-3.45d
 				]
 			}
-			dependencies: ["0025DE3687DD8D07"]
+			dependencies: ["6DE17D691978916D"]
 			id: "00276F8FDCF146F5"
 			optional: true
 			rewards: [
@@ -1063,10 +1350,32 @@
 					xp: 50
 				}
 				{
+					count: 16
 					id: "209E0FE8A35E7E31"
-					table_id: 147794354376245541L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "toms_storage:inventory_cable"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "68679FBB839639CA"
+					item: {
+						count: 1
+						id: "toms_storage:open_crate"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "279989689A819D4B"
+					item: {
+						count: 1
+						id: "toms_storage:inventory_proxy"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1082,8 +1391,8 @@
 					type: "item"
 				}
 			]
-			x: -12.45d
-			y: -4.1d
+			x: -12.8d
+			y: -4.05d
 		}
 		{
 			dependencies: ["05C4B3AE61613A9B"]
@@ -1136,6 +1445,16 @@
 					id: "2D5172B263F0EBF7"
 					type: "xp"
 					xp: 100
+				}
+				{
+					count: 6
+					id: "45A316E3BACDA9C3"
+					item: {
+						count: 1
+						id: "firmages:lantern/iron"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "diamond"

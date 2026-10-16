@@ -22,7 +22,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -9.964285714285714d
+			y: -10.364285714285714d
 		}
 		{
 			alpha: 255
@@ -66,16 +66,16 @@
 					type: "gamestage"
 				}
 			]
-			x: -16.1d
+			x: -16.85d
 			y: 0.0d
 		}
 		{
 			dep_control_pts: {
 				0F1AE784BF392A25: [
-					-15.023d
-					-1.165d
-					-13.976d
-					-2.649d
+					-15.677d
+					-1.352d
+					-14.48d
+					-3.018d
 				]
 			}
 			dependencies: ["0F1AE784BF392A25"]
@@ -85,6 +85,15 @@
 					id: "1E8D22311A265A5C"
 					type: "xp"
 					xp: 120
+				}
+				{
+					id: "17715450379445AD"
+					item: {
+						count: 1
+						id: "ae2:charger"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -98,16 +107,16 @@
 					type: "item"
 				}
 			]
-			x: -13.1d
-			y: -4.2d
+			x: -13.4d
+			y: -4.65d
 		}
 		{
 			dep_control_pts: {
 				71AC4F9CCF7E6538: [
-					-11.714d
-					-4.595d
-					-10.779d
-					-5.514d
+					-11.978d
+					-5.014d
+					-10.998d
+					-5.891d
 				]
 			}
 			dependencies: ["71AC4F9CCF7E6538"]
@@ -117,6 +126,15 @@
 					id: "3A3FAAD23D4E6AE6"
 					type: "xp"
 					xp: 120
+				}
+				{
+					id: "4CD19139C45CA262"
+					item: {
+						count: 1
+						id: "ae2:inscriber"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -130,16 +148,16 @@
 					type: "item"
 				}
 			]
-			x: -10.05d
-			y: -6.45d
+			x: -10.25d
+			y: -6.8d
 		}
 		{
 			dep_control_pts: {
 				750293899E6D4B62: [
-					-8.388d
-					-6.562d
-					-7.001d
-					-6.654d
+					-8.511d
+					-6.906d
+					-7.072d
+					-7.069d
 				]
 			}
 			dependencies: ["750293899E6D4B62"]
@@ -153,9 +171,20 @@
 					type: "xp"
 					xp: 120
 				}
+				{
+					count: 8
+					id: "04781DD1A922E8DD"
+					item: {
+						count: 1
+						id: "ae2:fluix_crystal"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
+					count: 16L
 					id: "2B2D77F115A16E27"
 					item: {
 						count: 1
@@ -164,6 +193,7 @@
 					type: "item"
 				}
 				{
+					count: 16L
 					id: "08F238DF8DB1B94E"
 					item: {
 						count: 1
@@ -172,6 +202,7 @@
 					type: "item"
 				}
 				{
+					count: 16L
 					id: "76580C7802686F82"
 					item: {
 						count: 1
@@ -181,15 +212,15 @@
 				}
 			]
 			x: -6.1d
-			y: -7.3d
+			y: -7.7d
 		}
 		{
 			dep_control_pts: {
 				498E3CB76B5E962C: [
-					-4.436d
-					-7.074d
-					-3.169d
-					-7.175d
+					-4.417d
+					-7.452d
+					-3.132d
+					-7.495d
 				]
 			}
 			dependencies: ["498E3CB76B5E962C"]
@@ -199,6 +230,16 @@
 					id: "2A3264CA5E8BFDE7"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 2
+					id: "125A503B1E2B6B52"
+					item: {
+						count: 1
+						id: "ae2:energy_cell"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -211,16 +252,16 @@
 					type: "item"
 				}
 			]
-			x: -2.35d
-			y: -7.5d
+			x: -2.3d
+			y: -7.8d
 		}
 		{
 			dep_control_pts: {
 				018153F3C0E3E923: [
-					-0.656d
-					-6.966d
-					0.602d
-					-6.648d
+					-0.568d
+					-7.243d
+					0.725d
+					-6.888d
 				]
 			}
 			dependencies: ["018153F3C0E3E923"]
@@ -233,6 +274,16 @@
 					id: "414C613FA98ECBD8"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 4
+					id: "431FD7CAC862E9A7"
+					item: {
+						count: 1
+						id: "ae2:item_cell_housing"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -253,16 +304,16 @@
 					type: "item"
 				}
 			]
-			x: 1.35d
-			y: -6.6d
+			x: 1.5d
+			y: -6.8d
 		}
 		{
 			dep_control_pts: {
 				078F36B103C471CF: [
-					2.996d
-					-5.678d
-					4.207d
-					-4.935d
+					3.163d
+					-5.842d
+					4.371d
+					-5.031d
 				]
 			}
 			dependencies: ["078F36B103C471CF"]
@@ -275,6 +326,25 @@
 					id: "5DED579D3EA0AE94"
 					type: "xp"
 					xp: 120
+				}
+				{
+					id: "2929492D6A44B7E2"
+					item: {
+						count: 1
+						id: "ae2:pattern_encoding_terminal"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 16
+					id: "581898F5FF43E4E6"
+					item: {
+						count: 1
+						id: "ae2:blank_pattern"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -295,16 +365,16 @@
 					type: "item"
 				}
 			]
-			x: 4.55d
-			y: -4.3d
+			x: 4.7d
+			y: -4.35d
 		}
 		{
 			dep_control_pts: {
 				2036F321608B520E: [
-					5.868d
-					-2.726d
-					6.128d
-					-0.941d
+					6.001d
+					-2.743d
+					6.163d
+					-0.925d
 				]
 			}
 			dependencies: ["2036F321608B520E"]
@@ -319,10 +389,33 @@
 					xp: 360
 				}
 				{
+					count: 2
 					id: "2EEC26F20F45F640"
-					table_id: 8542365264795376294L
+					item: {
+						count: 1
+						id: "ae2:16k_crafting_storage"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 2
+					id: "35C0C5B06AB66024"
+					item: {
+						count: 1
+						id: "ae2:crafting_accelerator"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "3AB2259CD8CF793A"
+					item: {
+						count: 1
+						id: "ae2:network_tool"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -338,6 +431,7 @@
 					type: "item"
 				}
 				{
+					count: 4L
 					id: "2D8D953433316F39"
 					item: {
 						count: 1
@@ -352,10 +446,10 @@
 		{
 			dep_control_pts: {
 				0F1AE784BF392A25: [
-					-15.159d
-					1.672d
-					-14.365d
-					2.82d
+					-15.872d
+					1.754d
+					-15.214d
+					3.092d
 				]
 			}
 			dependencies: ["0F1AE784BF392A25"]
@@ -365,6 +459,16 @@
 					id: "77F89C45C0CF4E1B"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 4
+					id: "4263B8B899FB2D96"
+					item: {
+						count: 1
+						id: "mekanism:basic_control_circuit"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -378,25 +482,124 @@
 					type: "item"
 				}
 			]
-			x: -13.85d
-			y: 3.35d
+			x: -14.65d
+			y: 3.7d
 		}
 		{
 			dep_control_pts: {
 				12AA975B971EC62B: [
-					-12.864d
-					4.344d
-					-12.586d
-					5.195d
+					-13.708d
+					4.665d
+					-13.232d
+					5.255d
 				]
 			}
 			dependencies: ["12AA975B971EC62B"]
+			icon: {
+				id: "mysticalagriculture:inferium_essence"
+			}
+			id: "695266C0097AFA59"
+			rewards: [
+				{
+					id: "1A2F44EF55293EDF"
+					type: "xp"
+					xp: 120
+				}
+				{
+					count: 16
+					id: "0AAA76A36A2A4435"
+					item: {
+						count: 1
+						id: "mysticalagriculture:mystical_fertilizer"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "0C566C9B4380903C"
+					item: {
+						count: 1
+						id: "mysticalagriculture:inferium_watering_can"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					count: 32L
+					id: "337DA069BB0E8F32"
+					item: {
+						count: 1
+						id: "mysticalagriculture:inferium_essence"
+					}
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "63E6A0B08BECA2CD"
+					item: {
+						count: 1
+						id: "mysticalagriculture:prosperity_shard"
+					}
+					type: "item"
+				}
+				{
+					id: "30CA0794084F8E53"
+					observation_type: "block"
+					timer: 0L
+					to_observe: "mysticalagriculture:soulstone"
+					type: "observation"
+				}
+			]
+			x: -13.05d
+			y: 5.25d
+		}
+		{
+			dep_control_pts: {
+				695266C0097AFA59: [
+					-11.995d
+					6.113d
+					-11.064d
+					5.761d
+				]
+			}
+			dependencies: ["695266C0097AFA59"]
 			id: "5ACC660E88F7FC61"
 			rewards: [
 				{
 					id: "3A57D5D58AF900BE"
 					type: "xp"
 					xp: 120
+				}
+				{
+					id: "1BAA018CA40681C8"
+					item: {
+						count: 1
+						id: "mekanism:configurator"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 16
+					id: "4425D7BAFAC8E0ED"
+					item: {
+						count: 1
+						id: "mekanism:basic_universal_cable"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 8
+					id: "4588333451ECABB9"
+					item: {
+						count: 1
+						id: "mekanism:alloy_infused"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -408,31 +611,8 @@
 					}
 					type: "item"
 				}
-			]
-			x: -12.35d
-			y: 5.2d
-		}
-		{
-			dep_control_pts: {
-				5ACC660E88F7FC61: [
-					-11.173d
-					6.116d
-					-10.097d
-					5.688d
-				]
-			}
-			dependencies: ["5ACC660E88F7FC61"]
-			id: "1BAB0B9CCD6A8CB3"
-			rewards: [
 				{
-					id: "7AE207AE52B0F10D"
-					type: "xp"
-					xp: 120
-				}
-			]
-			tasks: [
-				{
-					id: "189F433DD5CA8F49"
+					id: "1FAF57CD9BA5BD81"
 					item: {
 						count: 1
 						id: "mekanism:metallurgic_infuser"
@@ -440,25 +620,35 @@
 					type: "item"
 				}
 			]
-			x: -9.7d
-			y: 5.6d
+			x: -10.8d
+			y: 5.65d
 		}
 		{
 			dep_control_pts: {
-				1BAB0B9CCD6A8CB3: [
-					-8.399d
-					6.388d
-					-8.092d
-					7.72d
+				5ACC660E88F7FC61: [
+					-9.557d
+					6.452d
+					-9.283d
+					7.684d
 				]
 			}
-			dependencies: ["1BAB0B9CCD6A8CB3"]
+			dependencies: ["5ACC660E88F7FC61"]
 			id: "533C7CC2EEA570E4"
 			rewards: [
 				{
 					id: "174E76D3BFA16FDC"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 2
+					id: "495631C3E6A5B189"
+					item: {
+						count: 1
+						id: "mekanism:upgrade_speed"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -471,25 +661,86 @@
 					type: "item"
 				}
 			]
-			x: -7.6d
+			x: -8.85d
 			y: 7.5d
 		}
 		{
 			dep_control_pts: {
 				533C7CC2EEA570E4: [
-					-6.2d
-					8.148d
-					-5.316d
-					6.965d
+					-7.564d
+					8.172d
+					-6.754d
+					7.011d
 				]
 			}
 			dependencies: ["533C7CC2EEA570E4"]
+			icon: {
+				id: "mekanism:clump_iron"
+			}
+			id: "68C9F9F5A0410703"
+			rewards: [
+				{
+					id: "6F5B217D6124A17B"
+					type: "xp"
+					xp: 120
+				}
+				{
+					count: 8
+					id: "2E7C5337252D57C8"
+					item: {
+						count: 1
+						id: "mekanism:basic_universal_cable"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "130222BAFECB958C"
+					observation_type: "block_state"
+					timer: 60L
+					to_observe: "mekanism:purification_chamber[active=true]"
+					type: "observation"
+				}
+				{
+					count: 64L
+					id: "5E44A6470FF769FF"
+					item: {
+						count: 1
+						id: "mekanism:clump_iron"
+					}
+					type: "item"
+				}
+			]
+			x: -6.3d
+			y: 6.7d
+		}
+		{
+			dep_control_pts: {
+				68C9F9F5A0410703: [
+					-4.891d
+					7.26d
+					-4.361d
+					8.744d
+				]
+			}
+			dependencies: ["68C9F9F5A0410703"]
 			id: "2B9263D6A5FEA18B"
 			rewards: [
 				{
 					id: "485CB2E8126AE71D"
 					type: "xp"
 					xp: 120
+				}
+				{
+					id: "27EA321BE83AD2E0"
+					item: {
+						count: 1
+						id: "mekanism:basic_energy_cube"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -503,16 +754,16 @@
 					type: "item"
 				}
 			]
-			x: -4.75d
-			y: 6.6d
+			x: -3.8d
+			y: 8.3d
 		}
 		{
 			dep_control_pts: {
 				2B9263D6A5FEA18B: [
-					-3.414d
-					7.087d
-					-2.776d
-					8.326d
+					-2.478d
+					8.714d
+					-2.101d
+					7.287d
 				]
 			}
 			dependencies: ["2B9263D6A5FEA18B"]
@@ -522,6 +773,16 @@
 					id: "2F968EE4E4BB1432"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 2
+					id: "5C2E12E1E91E2672"
+					item: {
+						count: 1
+						id: "mekanism:basic_chemical_tank"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -534,16 +795,16 @@
 					type: "item"
 				}
 			]
-			x: -2.3d
-			y: 7.8d
+			x: -1.65d
+			y: 6.7d
 		}
 		{
 			dep_control_pts: {
 				018A77CF29560891: [
-					-0.933d
-					8.128d
-					-0.371d
-					7.012d
+					-0.301d
+					6.963d
+					0.659d
+					8.022d
 				]
 			}
 			dependencies: ["018A77CF29560891"]
@@ -554,10 +815,20 @@
 					type: "xp"
 					xp: 120
 				}
+				{
+					count: 8
+					id: "3F358CA87641CD7B"
+					item: {
+						count: 1
+						id: "mekanism:basic_pressurized_tube"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
-					count: 8L
+					count: 64L
 					id: "4E07B69B4649C3E4"
 					item: {
 						count: 1
@@ -566,16 +837,16 @@
 					type: "item"
 				}
 			]
-			x: 0.1d
-			y: 6.3d
+			x: 1.1d
+			y: 7.25d
 		}
 		{
 			dep_control_pts: {
 				222144A9AFE56147: [
-					1.376d
-					6.461d
-					2.435d
-					6.917d
+					2.319d
+					7.366d
+					2.558d
+					6.301d
 				]
 			}
 			dependencies: ["222144A9AFE56147"]
@@ -585,6 +856,16 @@
 					id: "1FB893BB6BA850B8"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 8
+					id: "0C9C9760F253B765"
+					item: {
+						count: 1
+						id: "mekanism:basic_logistical_transporter"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -597,16 +878,16 @@
 					type: "item"
 				}
 			]
-			x: 2.75d
-			y: 6.0d
+			x: 2.8d
+			y: 5.35d
 		}
 		{
 			dep_control_pts: {
 				2CDFC10C1482A709: [
-					3.87d
-					5.974d
-					4.2d
-					5.114d
+					3.818d
+					5.32d
+					4.698d
+					5.071d
 				]
 			}
 			dependencies: ["2CDFC10C1482A709"]
@@ -616,6 +897,15 @@
 					id: "5562822C306B9927"
 					type: "xp"
 					xp: 120
+				}
+				{
+					id: "594390B646508AD7"
+					item: {
+						count: 1
+						id: "tfc:metal/hammer/blue_steel"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			tasks: [
@@ -629,19 +919,22 @@
 					type: "item"
 				}
 			]
-			x: 4.15d
+			x: 4.55d
 			y: 3.95d
 		}
 		{
 			dep_control_pts: {
 				6DC5BE16C605C596: [
-					5.174d
-					3.851d
-					5.429d
-					2.732d
+					5.509d
+					3.815d
+					5.453d
+					2.718d
 				]
 			}
 			dependencies: ["6DC5BE16C605C596"]
+			icon: {
+				id: "mekanism:advanced_smelting_factory"
+			}
 			id: "2640D22EE4D7FCF3"
 			rewards: [
 				{
@@ -650,10 +943,14 @@
 					xp: 360
 				}
 				{
+					count: 8
 					id: "11E75972DFAAECBF"
-					table_id: 8542365264795376294L
+					item: {
+						count: 1
+						id: "mekanism:alloy_reinforced"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -668,6 +965,14 @@
 					}
 					type: "item"
 				}
+				{
+					id: "7149233AAC3479B7"
+					item: {
+						count: 1
+						id: "mekanism:advanced_enriching_factory"
+					}
+					type: "item"
+				}
 			]
 			x: 4.25d
 			y: 1.45d
@@ -675,10 +980,10 @@
 		{
 			dep_control_pts: {
 				0F1AE784BF392A25: [
-					-14.951d
-					1.093d
-					-14.02d
-					1.487d
+					-15.67d
+					1.111d
+					-14.648d
+					1.417d
 				]
 			}
 			dependencies: ["0F1AE784BF392A25"]
@@ -688,6 +993,25 @@
 					id: "38EC0C2BAA224400"
 					type: "xp"
 					xp: 120
+				}
+				{
+					id: "491A147120FE3AB1"
+					item: {
+						count: 1
+						id: "mekanismtools:refined_glowstone_sword"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 2
+					id: "391051AEFCA61E16"
+					item: {
+						count: 1
+						id: "hostilenetworks:blank_data_model"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -699,31 +1023,8 @@
 					}
 					type: "item"
 				}
-			]
-			x: -13.6d
-			y: 1.55d
-		}
-		{
-			dep_control_pts: {
-				369057F8A5EDCD0C: [
-					-12.478d
-					2.381d
-					-12.174d
-					3.353d
-				]
-			}
-			dependencies: ["369057F8A5EDCD0C"]
-			id: "139C6E2EB6E5944E"
-			rewards: [
 				{
-					id: "34B4FF3DA225FCC4"
-					type: "xp"
-					xp: 120
-				}
-			]
-			tasks: [
-				{
-					id: "5512C1FE6B359E6C"
+					id: "308BB0BF2084F2AC"
 					item: {
 						count: 1
 						id: "hostilenetworks:blank_data_model"
@@ -731,25 +1032,48 @@
 					type: "item"
 				}
 			]
-			x: -11.85d
-			y: 3.2d
+			x: -14.2d
+			y: 1.5d
 		}
 		{
 			dep_control_pts: {
-				139C6E2EB6E5944E: [
-					-10.643d
-					3.913d
-					-9.837d
-					2.83d
+				369057F8A5EDCD0C: [
+					-12.905d
+					2.435d
+					-12.478d
+					3.625d
 				]
 			}
-			dependencies: ["139C6E2EB6E5944E"]
+			dependencies: ["369057F8A5EDCD0C"]
+			icon: {
+				id: "hostilenetworks:sim_chamber"
+			}
 			id: "4F89B63F08027F21"
 			rewards: [
 				{
 					id: "5844AEFAF4D81197"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 8
+					id: "4ACE6AC9829D2BCF"
+					item: {
+						count: 1
+						id: "ae2:fluix_crystal"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 16
+					id: "43FBE0E28B7D168A"
+					item: {
+						count: 1
+						id: "mekanism:basic_universal_cable"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -761,17 +1085,25 @@
 					}
 					type: "item"
 				}
+				{
+					id: "10C85CD11D56F035"
+					item: {
+						count: 1
+						id: "hostilenetworks:loot_fabricator"
+					}
+					type: "item"
+				}
 			]
-			x: -9.45d
-			y: 2.55d
+			x: -11.95d
+			y: 3.5d
 		}
 		{
 			dep_control_pts: {
 				4F89B63F08027F21: [
-					-8.175d
-					3.133d
-					-7.782d
-					4.475d
+					-10.502d
+					4.251d
+					-9.436d
+					3.234d
 				]
 			}
 			dependencies: ["4F89B63F08027F21"]
@@ -782,10 +1114,20 @@
 					type: "xp"
 					xp: 120
 				}
+				{
+					count: 2
+					id: "34F419368379C49E"
+					item: {
+						count: 1
+						id: "ae2:energy_cell"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
-					count: 16L
+					count: 64L
 					id: "76D5B502707CA11B"
 					item: {
 						count: 1
@@ -794,50 +1136,64 @@
 					type: "item"
 				}
 			]
-			x: -7.35d
-			y: 4.05d
+			x: -8.8d
+			y: 2.9d
 		}
 		{
 			dep_control_pts: {
 				31A4263D40A1EF78: [
-					-6.077d
-					4.482d
-					-5.4d
-					3.695d
+					-7.292d
+					3.425d
+					-6.293d
+					4.291d
 				]
 			}
 			dependencies: ["31A4263D40A1EF78"]
-			id: "72A1265F53716B52"
+			icon: {
+				id: "minecraft:nether_star"
+			}
+			id: "168E732D468D0F98"
 			rewards: [
 				{
-					id: "27F493640C779673"
+					id: "274A582197C43719"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 32
+					id: "7587FC8FC74CD68C"
+					item: {
+						count: 1
+						id: "hostilenetworks:prediction_matrix"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
 				{
-					id: "77D0BD066A327E7F"
+					count: 4L
+					id: "712462A7500431AF"
 					item: {
 						count: 1
-						id: "hostilenetworks:loot_fabricator"
+						id: "minecraft:nether_star"
 					}
 					type: "item"
 				}
 			]
-			x: -5.0d
-			y: 3.1d
+			x: -5.65d
+			y: 3.7d
 		}
 		{
 			dep_control_pts: {
-				72A1265F53716B52: [
-					-3.668d
-					3.605d
-					-2.919d
-					3.589d
+				168E732D468D0F98: [
+					-4.046d
+					4.197d
+					-3.148d
+					3.731d
 				]
 			}
-			dependencies: ["72A1265F53716B52"]
+			dependencies: ["168E732D468D0F98"]
 			icon: {
 				id: "hostilenetworks:data_model"
 			}
@@ -850,9 +1206,21 @@
 				}
 				{
 					id: "475F813EB6736FFA"
-					table_id: 8542365264795376294L
+					item: {
+						count: 1
+						id: "ae2:wireless_terminal"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					id: "21300A209EF0BB76"
+					item: {
+						count: 1
+						id: "ae2:wireless_access_point"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -874,10 +1242,10 @@
 		{
 			dep_control_pts: {
 				0F1AE784BF392A25: [
-					-14.08d
-					-2.029d
-					-11.613d
-					-4.188d
+					-14.615d
+					-2.269d
+					-11.803d
+					-4.615d
 				]
 			}
 			dependencies: ["0F1AE784BF392A25"]
@@ -890,6 +1258,16 @@
 					id: "44CF258DDD061B74"
 					type: "xp"
 					xp: 120
+				}
+				{
+					count: 8
+					id: "78F56730AD99884E"
+					item: {
+						count: 1
+						id: "ae2:ender_dust"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -912,16 +1290,16 @@
 					type: "item"
 				}
 			]
-			x: -9.25d
-			y: -5.5d
+			x: -9.1d
+			y: -5.9d
 		}
 		{
 			dep_control_pts: {
 				07205F9A9FA4E721: [
-					-7.63d
-					-5.449d
-					-6.371d
-					-5.643d
+					-7.492d
+					-5.794d
+					-6.244d
+					-5.83d
 				]
 			}
 			dependencies: ["07205F9A9FA4E721"]
@@ -935,6 +1313,15 @@
 					type: "xp"
 					xp: 120
 				}
+				{
+					id: "422B942714B99666"
+					item: {
+						count: 1
+						id: "mekanism:free_runners"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -943,16 +1330,16 @@
 					type: "dimension"
 				}
 			]
-			x: -5.55d
-			y: -6.1d
+			x: -5.45d
+			y: -6.25d
 		}
 		{
 			dep_control_pts: {
 				64E0D1AE8C5265E7: [
-					-3.768d
-					-5.702d
-					-2.4d
-					-5.416d
+					-3.692d
+					-5.812d
+					-2.312d
+					-5.748d
 				]
 			}
 			dependencies: ["64E0D1AE8C5265E7"]
@@ -965,6 +1352,15 @@
 					id: "0045F287E70D4FBA"
 					type: "xp"
 					xp: 120
+				}
+				{
+					id: "1002DBD0189F1F06"
+					item: {
+						count: 1
+						id: "mekanismtools:refined_obsidian_chestplate"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			tasks: [
@@ -986,16 +1382,16 @@
 					type: "item"
 				}
 			]
-			x: -1.55d
-			y: -5.4d
+			x: -1.5d
+			y: -5.7d
 		}
 		{
 			dep_control_pts: {
 				532C13282586CA95: [
-					0.295d
-					-4.339d
-					1.936d
-					-3.714d
+					0.378d
+					-4.582d
+					1.973d
+					-3.769d
 				]
 			}
 			dependencies: ["532C13282586CA95"]
@@ -1007,10 +1403,24 @@
 					xp: 360
 				}
 				{
+					count: 4
 					id: "32793536C29188AA"
-					table_id: 8542365264795376294L
+					item: {
+						count: 1
+						id: "minecraft:dragon_breath"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 8
+					id: "3082B752BAF7CE5A"
+					item: {
+						count: 1
+						id: "ae2:ender_dust"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -1033,10 +1443,10 @@
 		{
 			dep_control_pts: {
 				0F1AE784BF392A25: [
-					-11.817d
-					-1.954d
-					-6.2d
-					-4.207d
+					-12.342d
+					-2.061d
+					-6.386d
+					-4.375d
 				]
 			}
 			dependencies: ["0F1AE784BF392A25"]
@@ -1049,9 +1459,12 @@
 				}
 				{
 					id: "500E204757D05586"
-					table_id: 8542365264795376294L
-					team_reward: true
-					type: "random"
+					item: {
+						count: 1
+						id: "tfc:metal/helmet/blue_steel"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -1074,32 +1487,32 @@
 		{
 			dep_control_pts: {
 				1D238635FCC5C642: [
-					4.685d
-					1.431d
+					4.656d
+					1.395d
 					2.819d
 					1.002d
 				]
 				1FE13D3931164773: [
-					-0.514d
-					-0.714d
+					-0.521d
+					-0.701d
 					0.302d
 					0.402d
 				]
 				2640D22EE4D7FCF3: [
-					4.574d
-					1.589d
+					4.537d
+					1.621d
 					2.702d
 					1.769d
 				]
 				41B3251BB5EB3A3A: [
-					2.972d
-					-0.682d
+					2.933d
+					-0.676d
 					1.786d
 					0.252d
 				]
 				71A054B30C7FB195: [
-					-0.523d
-					3.241d
+					-0.531d
+					3.228d
 					0.302d
 					2.152d
 				]
@@ -1121,6 +1534,35 @@
 					type: "xp"
 					xp: 1200
 				}
+				{
+					id: "6178970BB9BF04FE"
+					item: {
+						count: 1
+						id: "tfc:metal/sword/blue_steel"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 16
+					id: "08E84C09FE11ABF1"
+					item: {
+						count: 1
+						id: "ae2:fluix_crystal"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "38E42BB3D2908EEC"
+					item: {
+						count: 1
+						id: "firmages:lantern/information"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			shape: "gilded"
 			size: 3.0d
@@ -1138,10 +1580,10 @@
 		{
 			dep_control_pts: {
 				0F1AE784BF392A25: [
-					-16.335d
-					-0.062d
-					-16.952d
-					-0.462d
+					-17.152d
+					-0.065d
+					-17.835d
+					-0.465d
 				]
 			}
 			dependencies: ["0F1AE784BF392A25"]
@@ -1158,9 +1600,12 @@
 				}
 				{
 					id: "2DEFE4D52295E3E1"
-					table_id: 5532495464634191153L
+					item: {
+						count: 1
+						id: "ae2:charged_staff"
+					}
 					team_reward: false
-					type: "choice"
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1174,77 +1619,16 @@
 					type: "advancement"
 				}
 			]
-			x: -17.95d
+			x: -18.9d
 			y: -1.2d
 		}
 		{
 			dep_control_pts: {
-				12AA975B971EC62B: [
-					-13.734d
-					4.214d
-					-14.034d
-					4.681d
-				]
-			}
-			dependencies: ["12AA975B971EC62B"]
-			icon: {
-				id: "mysticalagriculture:inferium_essence"
-			}
-			id: "002A92F3E9C8D81F"
-			optional: true
-			rewards: [
-				{
-					id: "193CF709020655CF"
-					type: "xp"
-					xp: 120
-				}
-				{
-					id: "056EDA983524575F"
-					table_id: 5532495464634191153L
-					team_reward: false
-					type: "choice"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					count: 32L
-					id: "29A5335D061994F0"
-					item: {
-						count: 1
-						id: "mysticalagriculture:inferium_essence"
-					}
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "18B431469A1330AA"
-					item: {
-						count: 1
-						id: "mysticalagriculture:prosperity_shard"
-					}
-					type: "item"
-				}
-				{
-					id: "632D11C7696BF019"
-					observation_type: "block"
-					timer: 0L
-					to_observe: "mysticalagriculture:soulstone"
-					type: "observation"
-				}
-			]
-			x: -14.75d
-			y: 4.75d
-		}
-		{
-			dep_control_pts: {
 				750293899E6D4B62: [
-					-10.021d
-					-6.583d
-					-10.054d
-					-7.1d
+					-10.197d
+					-6.969d
+					-10.197d
+					-7.502d
 				]
 			}
 			dependencies: ["750293899E6D4B62"]
@@ -1258,9 +1642,12 @@
 				}
 				{
 					id: "39D9DC1488742A4D"
-					table_id: 5532495464634191153L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "arseng:me_source_jar"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1276,16 +1663,16 @@
 					type: "item"
 				}
 			]
-			x: -10.15d
-			y: -8.0d
+			x: -10.25d
+			y: -8.4d
 		}
 		{
 			dep_control_pts: {
 				369057F8A5EDCD0C: [
-					-13.487d
-					2.487d
-					-13.903d
-					2.887d
+					-14.202d
+					2.348d
+					-14.685d
+					2.631d
 				]
 			}
 			dependencies: ["369057F8A5EDCD0C"]
@@ -1299,9 +1686,12 @@
 				}
 				{
 					id: "29F3463DB8E9F6D3"
-					table_id: 5532495464634191153L
+					item: {
+						count: 1
+						id: "mekanism:scuba_mask"
+					}
 					team_reward: false
-					type: "choice"
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1317,16 +1707,16 @@
 					type: "item"
 				}
 			]
-			x: -14.85d
-			y: 2.75d
+			x: -15.65d
+			y: 2.35d
 		}
 		{
 			dep_control_pts: {
 				1FE13D3931164773: [
-					-2.315d
-					-2.873d
-					-2.165d
-					-3.49d
+					-2.325d
+					-2.823d
+					-2.175d
+					-3.39d
 				]
 			}
 			dependencies: ["1FE13D3931164773"]
@@ -1339,10 +1729,14 @@
 					xp: 120
 				}
 				{
+					count: 2
 					id: "530AB1BAC06C64DB"
-					table_id: 5532495464634191153L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "ars_nouveau:source_jar"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1359,7 +1753,7 @@
 				}
 			]
 			x: -2.5d
-			y: -4.5d
+			y: -4.35d
 		}
 		{
 			dependencies: ["0F1AE784BF392A25"]
@@ -1377,7 +1771,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -18.75d
+			x: -19.5d
 			y: 1.75d
 		}
 		{
@@ -1393,6 +1787,16 @@
 					id: "05AD1C4E91554610"
 					type: "xp"
 					xp: 240
+				}
+				{
+					count: 6
+					id: "0C746FEEC441344B"
+					item: {
+						count: 1
+						id: "firmages:lantern/information"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "diamond"

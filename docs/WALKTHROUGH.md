@@ -23,10 +23,17 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 
 Press K. The first chapter, The Firmament, holds the notes to read first (keys, the sign, the fellowship, what Dawn
 withholds, crafting by hand), the road of offerings and, from the Stone Age on, a build guide for each shrine ring
-beside its offering: the ring rising, every layer with its blocks, then offering and rite. Each Age chapter winds its
-strands round the goal in the middle. The group Great Works holds three optional builds: The Gatehouse (Bronze Age),
-The Living House (Iron Age) and The Silo (Space Age); a click on their pictures opens the Ponder scene. Knapping
-patterns, the TerraFirmaCraft devices and the Lens Crown are drawn in their quests.
+beside its offering: the ring rising, every layer with its blocks, then offering and rite. The end of the road,
+"Beyond the Firmament", appears with the Singularity Age. Each Age chapter winds its strands round the goal in the
+middle. The group Great Works holds three optional builds: The Gatehouse (Bronze Age, off "Flux Mill"), The Living
+House (Iron Age, off "Brass") and The Silo (Space Age, off "Launch Pad"); each Age map carries a link to its plan, and
+a click on the pictures opens the Ponder scene. The group Side Roads holds one optional chapter per Age: rows of four
+to seven quests, each row a craft of one mod that branches off a quest of the Age (its first quest says which);
+59 roads in all. Knapping patterns, the TerraFirmaCraft devices and the Lens Crown are drawn in their quests.
+
+Every quest that asks for work pays items of its Age besides experience: materials for the base go to whoever claims
+them first, gear and food come to each of you. The sections below name what the keystones and the goal of each Age
+pay. Info quests (entries, notes, build guides) pay experience only.
 
 ### The shrine in brief (Stone Age to Quantum Age)
 
@@ -69,10 +76,10 @@ Sneak is Left Ctrl here; Left Shift sprints.
 The First Spark: craft a firestarter and light a firepit. The quest itself opens the Stone Age for everyone.
 
 ### The way
-1. Loose rocks lie everywhere. Right-click one with an empty hand. Collect about ten.
-2. Twigs lie under trees: pick them up with an empty hand; each crafts into a stick. Leaves cut with a stone knife
-   drop sticks too. Eight sticks.
-3. Knap: hold two or more loose rocks of one kind and right-click into the air. A 5x5 grid opens. A click knocks a
+1. Twigs lie under trees: pick them up with an empty hand; each crafts into a stick. Leaves cut with a stone knife
+   drop sticks too. Eight sticks ("A Bundle of Sticks").
+2. Loose rocks lie everywhere. Right-click one with an empty hand. Collect about ten of one kind.
+3. Knap ("Stone Tools"): hold two or more loose rocks of one kind and right-click into the air. A 5x5 grid opens. A click knocks a
    square away for good; the first click uses one rock; closing the grid early wastes it. The axe head
    (X stays, - is knocked away):
    ```
@@ -86,13 +93,17 @@ The First Spark: craft a firestarter and light a firepit. The quest itself opens
    bone beside it, then sneak and right-click the pile with an empty hand: a stone axe. Knife (two blades per rock), hammer,
    shovel, hoe and javelin heads are in the quest "Knapping Patterns". There is no stone pickaxe.
 4. Stone: fell a tree with the stone axe. Keystone "Stone Kit".
-5. Shelter: cut tall grass with the stone knife for straw. Four straw laid on one block make one thatch; make eight. Right-click two
-   thatch blocks side by side with a large raw hide: a thatch bed. Keystone "Shelter".
-6. Hunt: knap a javelin head, craft it with a stick on the ground, kill any wild animal. Large prey drops large hides; carry a knife
-   to butcher. Keystone "Raw Hide".
+5. Shelter: cut tall grass with the stone knife for straw. Four straw laid on one block make one thatch; make eight
+   ("Thatch"). Right-click two thatch blocks side by side with a large raw hide: a thatch bed. Keystone "Shelter".
+6. Hunt: knap a javelin head, craft it with a stick on the ground, kill any wild animal and bring home a large raw
+   hide. Large prey drops it; carry a knife to butcher. Keystone "Hunter".
 7. Goal: lay two sticks on one block and sneak and right-click them: a firestarter. Throw a log, three sticks and some straw on one block and hold
    right-click on it with the firestarter until the firepit lights. The Stone Age dawns for all of you: a short
    ceremony, and Caelum says "A spark in the dark. I have seen you." The crafting grid (E) is open from now on.
+
+Rewards: the three keystones pay sticks, rocks, thatch and rope for the camp; the goal pays loose rocks, straw and rope
+for the fellowship and cooked venison for each of you. Side road: Strange Beasts (off "Hunter"): kangaroo, emu,
+roadrunner and rattlesnake.
 
 ### Pitfalls
 - **Hands are not tools.** In Dawn logs, raw and hardened rock, ores and sandstone do not break without the right
@@ -119,25 +130,35 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
 
 ### The way
 1. Clay lies under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and water canna
-   grow above it. Knap five clay into a vessel, jug, bowl or mold.
-2. Pit kiln: dig a hole one block deep. Hold an unfired piece, look at the floor of the hole and press V (the
+   grow above it ("Locating Clay").
+2. Knap five clay into a vessel, jug, bowl or mold, then fire it ("Potter"). Pit kiln: dig a hole one block deep. Hold an unfired piece, look at the floor of the hole and press V (the
    place key); up to four pieces fit. Right-click the pile with eight straw (or two thatch), then with eight logs,
    and light the top with a firestarter. After about six minutes the pottery is fired. The kiln reaches 1400 °C.
-3. Fire an ingot mold and a pickaxe head mold. Keystone "Mold Set".
+3. Fire a small vessel, an ingot mold and a pickaxe head mold in one burn. Keystone "Pottery for Metal".
 4. Copper ore pieces (native copper, malachite, tetrahedrite) lie on the surface above copper veins.
 5. Charcoal pit: sneak and right-click the ground with logs for a log pile and right-click it with more logs.
    Cover every side with dirt, leave the top open, light it, then close the gap with dirt. When the smoke stops,
-   dig the charcoal out with a shovel. The Shrine Heart and the Hearthstone need charcoal.
+   dig the charcoal out with a shovel. Keep 32: the forge, the casting and the Hearthstone burn it; a bigger pile
+   burns in the same time ("A Better Fuel").
 6. Fill the small vessel with copper ore and fire it in a pit kiln: the copper melts at 1080 °C. A firepit never
    gets hot enough: its fuels burn at 1000 °C at most, logs at about 600 to 760 °C. Take the vessel out while it
    glows and right-click it; put a fired mold in the slot and the copper pours in. Each small piece holds
    10 units of metal, an ingot 100: ten small pieces make one ingot. When the mold has cooled, right-click it to
    take the ingot out. Two ingots, then the pickaxe head mold the same way; set the head on a stick: a copper
-   pickaxe. Keystone "Copper Pickaxe".
-7. Camp: break wild crops for seeds, till and plant; fire a jug and fill it at a river; cook a soup in a ceramic pot
+   pickaxe. Then the Copper Kit: cast axe, hammer, knife, shovel and saw heads in their molds (about 50 small
+   ore pieces) and haft them. Keystone "Copper Kit".
+   ```
+   Axe head mold      Hammer head mold   Knife blade mold   Shovel head mold
+   X - X X X          X X X X X          X X - X X          X - - - X
+   - - - - X          - - - - -          X - - X X          X - - - X
+   - - - - -          - - - - -          X - - X X          X - - - X
+   - - - - X          X X - X X          X - - X X          X - - - X
+   X - X X X          X X X X X          X - - X X          X X - X X
+   ```
+7. Camp: break wild crops for seeds, till and plant; fire a jug, fill it at a river and cook a soup in a ceramic pot
    on the firepit; fill a large vessel with food and seal it. Keystone "Stocked Camp".
-8. Knap clay into the Unfired Hearth Idol and fire it in a pit kiln. Fire **two**: one for the heart, one for the
-   Hearthstone.
+8. Knap clay into the Hearth Idol and fire it in a pit kiln ("Hearth Idol"). Fire **two**: one for the heart, one for
+   the Hearthstone.
    ```
    - X X X -
    X X X X X
@@ -179,6 +200,12 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
 After the ceremony the recipe viewer, the block tooltip and F3 coordinates appear, and tin, zinc, bismuth, silver,
 gold, graphite, borax and the salts wake.
 
+Rewards: "Pottery for Metal" pays the four other tool molds (axe, hammer, knife, shovel), "Copper Kit" 16 copper ore
+pieces and a copper knife for each of you, "Stocked Camp" a tipi, "Raise the Shrine" stone lanterns and torches; the
+goal pays a copper sword and a copper shield for each of you, copper and stone lanterns. Side roads: Goblins Below
+(off "Gatherer"), Fire Mountain (off "Native Copper"), Old Stones (off "The Stone Age Dawns": ruins, the cave
+watcher, regrowing forests).
+
 ### Pitfalls
 - The recipe viewer is still closed. The steps above and the Chronicle's notes ("Clay Patterns", "A Home") show the
   recipes on the way to the Hearthstone and every home block of this Age.
@@ -204,23 +231,25 @@ Offer the Sky Disc at the shrine, in the Bronze Sanctum (ring 1).
 1. Smithing: build a charcoal forge: a hole one block deep lined with stone on four sides and below, charcoal
    right-clicked into it seven or eight layers high, open sky above, lit with a firestarter. Fuel goes in the
    forge's lower slots, the metal to heat in the upper ones. Make a stone anvil with a stone hammer on raw igneous
-   rock. On an anvil, pick the plan from the scroll, strike until the green marker meets the red one, and end
-   with the strikes the rules on top ask for (note "Anvil Work"). Craft a quern and a handstone; grind borax, lime
-   or other flux stones into flux (4). Weld two hot ingots into a double ingot. Weld copper double ingots into a
-   copper anvil. Keystone "Copper Anvil".
-2. Prospecting: cassiterite pieces point to tin, sphalerite pieces to zinc. Smith a prospector's pick; build a
-   mineral prospector (it shows direction and size of a vein). Saw support beams and set them in your mine. Cast
-   4 tin and 2 zinc ingots. Keystone "First Mine".
-3. Alloys: mix clay with kaolinite and graphite powder into fire clay; knap and fire a crucible. Melt copper with
-   tin (or bismuth, or gold and silver) into bronze. Smith a bronze tool, then a bronze anvil. Keystone
-   "Bronze Anvil". Only a bronze anvil forges the bronze double sheet.
+   rock (both in "Forging"). On an anvil, pick the plan from the scroll, strike until the green marker meets the
+   red one, and end with the strikes the rules on top ask for (note "Anvil Work"). Craft a quern and a handstone;
+   grind borax, lime or other flux stones into flux (4; "In Flux"). Weld two hot ingots into a double ingot. Weld
+   copper double ingots into a copper anvil. Keystone "Copper Anvil".
+2. Prospecting: cassiterite pieces point to tin, sphalerite pieces to zinc. Smith a prospector's pick; a mineral
+   prospector (it shows direction and size of a vein) is the optional second task of "Prospector". Saw support
+   beams and set them in your mine. Cast 16 tin and 8 zinc ingots: enough for the bronze anvil, the Sanctum and the
+   brass of the Iron Age. Keystone "First Mine".
+3. Alloys: mix clay with kaolinite and graphite powder into fire clay; knap and fire a crucible and melt copper with
+   tin, nine parts to one, into bronze ("Bronze"; bismuth bronze and black bronze serve for tools too). Smith a
+   bronze tool, then the Bronze Kit (pickaxe, axe, saw, hammer and chisel of plain bronze), then a bronze anvil.
+   Keystone "Bronze Anvil". Only a bronze anvil forges the bronze double sheet.
 4. Kinetics:
-   - One zinc ingot crafts into nine zinc nuggets. There is no way back.
-   - Andesite alloy from andesite cobble and zinc nuggets. Make four. Andesite is a grey volcanic rock (igneous
-     extrusive, with basalt, rhyolite and dacite). If your land has none, travel: rock regions change every few
-     hundred blocks.
-   - A water wheel in flowing water, 8 shafts and 4 cogwheels, a mechanical saw.
-   - A millstone on a water wheel. Keystone "First Mill". It grinds what the quern grinds.
+   - Andesite alloy from andesite cobble and zinc nuggets (one zinc ingot crafts into nine nuggets; there is no
+     way back). Make 16. Andesite is a grey volcanic rock (igneous extrusive, with basalt, rhyolite and dacite). If
+     your land has none, travel: rock regions change every few hundred blocks.
+   - A water wheel in flowing water; 8 shafts, 4 cogwheels and a mechanical saw ("Mechanical Saw").
+   - Flux Mill: a millstone on a water wheel grinds 32 flux, and a chute under it drops the flux into a vessel: the
+     first running line. Keystone "Flux Mill". The Gatehouse, a Great Work, branches off here.
    - The press turns a double ingot into a sheet. A fan blowing through water washes ore deposits: the pan's
      work, by machine.
 5. Craft the Sky Disc: a bronze double sheet in the middle, a gold sheet on each side.
@@ -229,6 +258,13 @@ Offer the Sky Disc at the shrine, in the Bronze Sanctum (ring 1).
    brass bell on the brick opposite the plinth.
 7. Lay the Sky Disc on the plinth, ring the bell, pray.
 8. The Iron Age dawns. Blessing **Skyreading**: 5 % faster near the shrine.
+
+Rewards: "Copper Anvil" and "First Mine" pay copper and charcoal, "Bronze Anvil" bronze and a bronze hammer for each
+of you, "Flux Mill" two encased fans and a wrench and goggles for each; the goal pays a copper backpack and a bronze
+sword for each of you, bronze ingots and bronze lanterns. Side roads (ten): Totem Ceremonies (off "A Flute"), Torque
+and Connect (off "Mechanical Saw"), Pantry and Nuts of the Wood (off "Kitchen"), Hearth Odds and Ruin Trinkets (off
+the entry), Wheels of the Field (off "Water Wheel"), Smoke and Poles (off "Forging"), Packs and Drawers (off "Pack
+Mule"), Prospector's Kit (off "Prospector").
 
 ### Pitfalls
 - The recipe viewer and the block tooltip open now, without relogging: hover over an item, R shows its recipes,
@@ -251,11 +287,13 @@ Offer the Steel Heart at the shrine, in the Iron Sanctum (ring 2).
 1. Metallurgy: build a bloomery from bronze double sheets and stone bricks. Fill it with iron ore and charcoal: a
    raw iron bloom. Hammer it into wrought iron (4). Smith a wrought iron anvil. Build a blast furnace: iron ore,
    charcoal and flux give pig iron. Hammer pig iron into high carbon steel, then steel. Keystone: 16 steel ingots.
-2. Power & Motion: brass (copper and zinc, in the crucible or a heated basin); a precision mechanism by sequenced
-   assembly; crushing wheels (ore pieces to dust, 1.5 times the metal); a fuel heater for heated mixing; a
-   steam engine on a boiler. Keystone: 32 wrought iron ingots from a machine-fed bloomery line.
-3. Survival: a barrel; leather (limewater, scrape, tannin); one leather armour piece; four sealed large vessels in a
-   cellar below ground. Keystone "Winter Stores": tick it when the cellar holds enough for all of you.
+2. Power & Motion: brass (4; copper and zinc, in the crucible or a basin over a fuel heater, which is the second task
+   of "Brass"; The Living House, a Great Work, branches off here); a precision mechanism by sequenced assembly;
+   crushing wheels (ore pieces to dust, 1.5 times the metal); a steam engine on a boiler. Keystone: 32 wrought iron
+   ingots from a machine-fed bloomery line.
+3. Survival: a barrel and leather (limewater, scrape, tannin; one quest, "Genuine Leather"); all four leather armor
+   pieces ("Winter Gear"); four sealed large vessels in a cellar below ground. Keystone "Winter Stores": tick it when
+   the cellar holds enough for all of you.
 4. Frontier: the Frontier Compass (four wrought iron ingots around a magnetite ore piece). Right-click with it: it
    names the direction and the distance of the nearest Cold Forge, a ruined smithy of granite in the hills and
    highlands. Its chest keeps a Frontier Shard (a team that finds a forge earlier keeps the shard too). Three passes
@@ -268,6 +306,14 @@ Offer the Steel Heart at the shrine, in the Iron Sanctum (ring 2).
    pillar, one block above the border. The plinth: middle of one side, four blocks from the heart.
 7. Lay the Heart on the plinth, light the four lamps, pray. A lamp without fuel goes out later.
 8. The Arcane Age dawns. Blessing **Iron Will**: 5 % more maximum health near the shrine.
+
+Rewards: "Steel Ingots" pays steel, flux and a steel hammer for each of you, "Automated Bloomery Line" wrought iron
+sheets and a wrought iron chestplate for each, "Winter Stores" an iron backpack for each, "Frontier Relic" a Frontier
+Compass for each and sheets, "Storm Glass" steel sheets and a steel helmet for each; the goal pays a cloud in a bottle
+and a steel sword for each of you, steel ingots and iron lanterns. Side roads (eight): Sap, Syrup and Latex (off
+"Genuine Leather"), Terminal Habits (off "Storage Terminal"), The Line (off "Trains"), Mechanical Odds (off "Crushing
+Wheels"), Smith's Aids (off "Blast Furnace"), Cellar and Glass (off "Winter Stores"), Flue and Lift (off "Ironworks"),
+Red Moons (off the entry).
 
 ### Pitfalls
 - A hot ingot under the mechanical press gives two rods, as on the anvil. Three rubber bars make four belts.
@@ -297,7 +343,7 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
 1. Spirits:
    - Datura seeds now drop from grass. They grow only on Arcane Soil: eight dirt around an amethyst make eight
      farmland; a hoe tills it again when it dries.
-   - Datura fruit becomes Demon's Dream essence. Then the Dictionary of Spirits and white chalk.
+   - Datura fruit becomes Demon's Dream essence. Then the Dictionary of Spirits and white chalk ("White Chalk").
    - No portal leads to the Nether here. Set at least seven offerings within five blocks of one spot (anvils, mob
      heads, gold or black steel blocks, piles of gold, pig iron or black steel ingots) and kill a goat, pig or sheep
      there with a scythe. A portal opens where you stand. Bring back 4 iesnium ingots.
@@ -312,13 +358,16 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
    - A Wilden Tribute in the enchanting apparatus: a source gem block in the middle; two horns, two wings, two
      spikes of the Wilden, a spirit attuned crystal and a mercury shard on the pedestals (5,000 source). The Wilden
      Chimera drops one too. Keystone: the Wilden Tribute.
-3. Alchemy: pyromantic brazier, calcination oven, sal ammoniac accumulator, liquefaction cauldron, digestion vat,
-   distiller, incubator, divination rod. Keystone: the mercury catalyst. Ore pieces of every grade digest in the
-   digestion vat with sal ammoniac (ten rich pieces give seven sulfur, two normal pieces one); each sulfur incubates
-   into a whole dust, twice the metal of the pieces.
+3. Alchemy: pyromantic brazier; calcination oven and sal ammoniac accumulator ("Calcination Oven"); liquefaction
+   cauldron and digestion vat; distiller and incubator ("The Three Principles"). Keystone: the mercury catalyst, with
+   a divination rod as optional task. Ore pieces of every grade digest in the digestion vat with sal ammoniac (ten
+   rich pieces give seven sulfur, two normal pieces one); each sulfur incubates into a whole dust, twice the metal
+   of the pieces.
 4. The Arcane Keystone, two ways:
-   - On the Create line: a Hollow Keystone from a chest of a Nether fortress, three passes of a spout (250 mB of
-     liquid experience), a deployer (a blaze rod), a second deployer (a Starlit Iron ingot) and a press.
+   - On the Create line (the Machine Line strand): three blaze rods, a blaze burner with a caught blaze, a blaze
+     enchanter fed liquid experience, then a Hollow Keystone from a chest of a Nether fortress, finished in three
+     passes of a spout (250 mB of liquid experience), a deployer (a blaze rod), a second deployer (a Starlit Iron
+     ingot) and a press. Side path "Blaze Cake" off the burner.
    - In the Djinni crafting pentacle (bound Djinni book): spirit attuned crystal, iesnium ingot, Wilden Tribute,
      mercury catalyst, Starlit Iron ingot, source gem block.
    - Starlit Iron comes from the Lens Crown: a Star Anvil inside a 9x9 stone ring with three lens mounts under the
@@ -328,6 +377,14 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
    capped with a source gem block; eight candles standing on the border. Plinth: five blocks from the heart.
 6. Lay the Keystone, light the eight candles, pray.
 7. The Industrial Age dawns. Blessing **Attunement**: 10 % more experience near the shrine.
+
+Rewards: "Spirit Proof" pays otherworld essence and a familiar ring for each of you, "Wilden Tribute" source gems and
+an undying charm for each, "Mercury Catalyst" mercury shards, sal ammoniac crystals, a mercurial wand and a second
+divination rod for each, "Starlit Iron" steel sheets and a cross necklace for each, "Hollow Keystone" two mechanical
+arms and a potato cannon for each; the goal pays strider shoes for each of you, source jars and arcane lanterns. Side
+roads (seven): Shelves of Power and Industry of Enchantment (off "Enchantment Industry"), Gems and Sigils (off
+"Enchanting Apparatus"), Spirits at Work (off "Bind a Djinni"), The Hot Dark (off "The Way Below"), Elemental Arts
+(off "Apprentice Spellbook"), Steam on Rails (off "Blaze Burner").
 
 ### Pitfalls
 - The Foliot and Djinni binding books take a precision mechanism in place of one dye.
@@ -361,8 +418,8 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
      them on the cannon drill, stack them with the cannon builder and heat them in a fan's blast over lava. It goes
      into the Core.
    - Keystone: two black steel double sheets.
-2. Power: the alternator (rotation into FE, the only bridge); 8 copper wire; 4 LV connectors; 4 lead (galena wakes
-   now); an LV capacitor. Keystone "Grid Online (LV)": alternator and capacitor placed and wired. The alternator
+2. Power: the alternator (rotation into FE, the only bridge); 4 lead (galena wakes now); an LV capacitor. Keystone
+   "Grid Online (LV)": alternator and capacitor placed, 8 copper wire hung on 4 LV connectors. The alternator
    needs a fuelled source: a steam engine on a boiler over a blaze burner with fuel (from the Electric Age also a
    diesel engine). Water wheels and windmills turn it but give no FE; with both on one shaft it gives the fuelled
    share.
@@ -383,6 +440,15 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
    power the four lanterns, pray.
 8. The Electric Age dawns. Blessing **Tireless Hands**: you break blocks 5 % faster near the shrine.
 
+Rewards: "Black Steel Double Sheets" pays steel components and a black steel chestplate for each of you, "Grid Online
+(LV)" two LV capacitors, electric lanterns, LV relays and a wirecutter for each, "Automated Ore Line" constantan and
+iron components, "Backfill Line" redstone requesters and stock links, "Cloudsteel" black steel sheets; the goal pays a
+crystal heart and a black steel sword for each of you, steel components and industrial lanterns. "Proof of Work"
+pays a skyhook for each and steel sheets. Side roads (eight): Cannon Works (off "Built-Up Chamber"), Ships in the Sky
+(off "Airship"), Mobs and Wings (off "Mechanical Spawner"), Hands Retired (off "The Thresher"), Gauges and Ledgers
+(off "Factory Gauge"), Terminals and Packs (off "Stock Ticker"), Jars and Stainless (off "Black Steel"), Veins of the
+Crossing (off "Constantan").
+
 ### Pitfalls
 - Insulated copper wire and conveyor belts take a rubber bar (latex from hevea or rubber fig, boiled with sulfur).
 - Your fellowship can now claim 25 chunks and keep them loaded. Lines in unloaded chunks stop.
@@ -401,8 +467,8 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
 ### The way
 1. Power Grid: 8 electrum wire (MV), 8 steel wire (HV), a transformer and an HV transformer, the diesel generator
    (the one FE generator of this Age), 4 Alternating Flux wire. Keystone: two HV capacitors.
-2. Oil: a core sample (it shows what lies under a chunk), a pumpjack over a reservoir, crude oil, a distillation
-   tower, lubricant. Keystone: 16 buckets of diesel.
+2. Oil: a core sample (it shows what lies under a chunk); a pumpjack over a reservoir and the first bucket of crude
+   oil; a distillation tower and a bucket of lubricant. Keystone: 16 buckets of diesel.
 3. Aluminium & Excavator:
    - Bauxite wakes. Aluminium (16) comes only from the arc furnace.
    - Arc furnace steels: two steel, a black bronze and a nickel make four weak steel; weak steel and pig iron make
@@ -410,7 +476,7 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
      steel on the anvil, two sheets.
    - The excavator digs a chunk's mineral mix forever.
    - Keystone: 32 aluminium plates.
-4. Circuits: 8 vacuum tubes, 4 circuit boards, the assembler (grid autocrafting). A Nether Star from the arc
+4. Circuits: 8 vacuum tubes and 4 circuit boards ("Electronics"), the assembler (grid autocrafting). A Nether Star from the arc
    furnace (a wither skeleton skull with eight soul sand, a gold block and two electrum plates), from the Afrit
    crafting pentacle, or from the Wither. Keystone: 16 Attuned Circuits (a circuit board, a quartz, two advanced
    electronic components and electrum wire; with magic a circuit board and a spirit attuned crystal; let the
@@ -425,6 +491,14 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
    and a redstone signal. Charge the four capacitors with 1,000,000 FE
    together; nothing is drained. Pray.
 8. The Information Age dawns. Blessing **Long Arm**: half a block more reach near the shrine.
+
+Rewards: "Grid Online" pays electrum and steel wire, "Refined Diesel" two diesel engines and an oil can for each of
+you, "Aluminium Plates" electronic components and a red steel pickaxe for each, "Attuned Circuits" advanced
+components and electrum plates, "Aurora Steel" a red steel helmet for each; the goal pays a glider and a red steel
+sword for each of you, MV capacitors and electric lanterns. "Proof of Work" pays a speedboat for each. Side roads
+(seven): Diesel Engines (off "Diesel Generator"), Jet Works (off "Refined Diesel"), Elemental Robes (off "Bind an
+Afrit"), Builder's Hand (off "Assembler"), Flux Without Loss (off "Alternating Flux"), Parcel Roads (off
+"Hypertubes"), Liquid Beasts (off "Nether Star").
 
 ### Pitfalls
 - Each generator block of the diesel generator holds an alternator; the huge diesel engine takes an Attuned Circuit.
@@ -445,24 +519,28 @@ Offer the Data Matrix in the Data Nave (ring 6).
 ### The way
 1. Factory:
    - Osmium: melt the ore pieces in a vessel or crucible and cast them in an ingot mold. Eight ingots.
-   - Steel casing: steel ingots, an osmium ingot and glass around a heavy engineering block.
+   - Resource Crops: prospect inferium (any rock), prosperity (deep in igneous and metamorphic rock) and soulstone
+     (basalt): 32 inferium essence, 8 prosperity shards, a body of soulstone seen.
+   - Steel casing (steel ingots, an osmium ingot and glass around a heavy engineering block) and the metallurgic
+     infuser on it (alloys, elite and ultimate circuits; it also finishes weak red steel into red steel).
    - Control circuits: a basic one is a circuit board with osmium and redstone; four advanced ones take four basic
      circuits, four infused alloys and one Attuned Circuit. The assembler makes both.
-   - Metallurgic infuser (alloys, elite and ultimate circuits; it also finishes weak red steel into red steel), purification
-     chamber (three times the metal per ore piece), electrolytic separator, 8 HDPE (pressurized reaction chamber,
-     from ethene), gas-burning generator (the FE generator of this Age).
+   - Purification chamber (three times the metal per ore piece), then Ore Tripling: 64 iron clumps from the running
+     chamber. Energy upgrades (8), electrolytic separator, 64 HDPE (pressurized reaction chamber, from ethene; the
+     SPS casings of the Quantum Age take them), gas-burning generator (the FE generator of this Age).
    - Blue steel: weak blue steel from the arc furnace, welded and worked like red steel. Four sheets for the Matrix,
      more for the presses below.
-   - Keystone: an advanced smelting factory.
+   - Keystone "Factory Line": an advanced smelting factory and an advanced enriching factory on the osmium line.
 2. Digital:
    - 16 certus quartz (its own vein) and 8 silicon.
    - The inscriber presses are crafted: four blue steel sheets around silicon, a gold ingot, a certus quartz crystal
      or a diamond.
-   - Logic, calculation and engineering processors from the inscriber. ME controller, ME drive and a 1k cell,
-     molecular assembler and pattern provider.
-   - Keystone "Autocrafting Online": a crafting CPU that crafts a 64k storage component.
-3. Mob Data: deep learner, blank data model, simulation chamber, 16 prediction matrices, loot fabricator. Keystone:
-   a data model trained to tier 3, running in a chamber.
+   - 16 logic, 16 calculation and 16 engineering processors from an inscriber line. ME controller, ME drive and a 1k
+     cell, molecular assembler and pattern provider.
+   - Keystone "Autocrafting Online": a crafting CPU that crafts four 64k storage components.
+3. Mob Data: deep learner and blank data model; simulation chamber and loot fabricator; 64 prediction matrices; a
+   Wither data model and four Nether Stars printed in the fabricator ("Wither on Demand"). Keystone: a data model
+   trained to tier 3, running in a chamber.
 4. The End: two portal frames from seven obsidian, an ender pearl and a reinforced alloy. Set twelve frames as a ring
    around a 3x3 hole, facing inward, and fill them with twelve eyes of ender. Destroy the crystals, then the dragon.
    Keystone: four bottles of dragon's breath. The End is optional: no Age needs it.
@@ -476,6 +554,14 @@ Offer the Data Matrix in the Data Nave (ring 6).
    pray: two of you together, if two are online.
 8. The Space Age dawns. Blessing **Clarity**: another 5 % maximum health near the shrine.
 
+Rewards: "Autocrafting Online" pays 16k crafting storage, crafting accelerators and a network tool for each of you,
+"Factory Line" reinforced alloys, "Data Model: Tier 3" a wireless terminal for each and an access point, "Dragon's
+Breath" breath and ender dust, "Halo Steel" a blue steel helmet for each; the goal pays a blue steel sword for each of
+you, fluix crystals and information lanterns. "Proof of Work" pays a charged staff for each. Side roads (eight):
+Essence Farms (off "Resource Crops"), Pattern Halls (off "Molecular Assembler"), Bridges of the Network (off
+"Autocrafting Online"), Refined Gear (off "HDPE"), Laser Lines (off "Energy Upgrades"), Bigger Machines (off "Factory
+Line"), More Metals (off "Purification Chamber"), Programming Magic (off "Archmage").
+
 ### Pitfalls
 - The Arcane Catalyst is optional magic: against a Mekanism processing machine or factory or an electric IE
   multiblock, with a Source jar within six blocks and a shaft turning at 64 RPM or more beside it, the machine
@@ -483,7 +569,7 @@ Offer the Data Matrix in the Data Nave (ring 6).
 - The hydrotreater cracks naphtha into ethene for the gas-burning generator.
 - The ME network is now the one store and crafter. The storage terminal, LV and MV capacitors and the mechanical
   spawner can no longer be built; energy cubes replace the capacitors.
-- Inferium, prosperity and soulstone veins wake: prospect them before you farm resource seeds.
+- Inferium, prosperity and soulstone veins wake: "Resource Crops" is a required step of the Factory strand now.
 - No stronghold exists. The End portal is built, not found.
 - The machines of this Age draw much power. Fit energy upgrades into your ore machines: without them the
   four and five times ore lines of the next Ages cost more power per ingot than purification.
@@ -497,10 +583,11 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
 
 ### The way
 1. Atomic: 4 elite control circuits; 8 yellow cake (uraninite wakes now); 4 fuel assemblies; the fission reactor
-   (32 casings); a thermoelectric boiler and an industrial turbine (4 rotors, 8 blades). Keystone: two polonium
-   pellets from reactor waste.
-2. Rocketry & Moon: NASA workbench; a full space suit; one bucket of diesel or kerosene from the distillation tower; a launch pad; the
-   tier 1 rocket; land on the Moon; mine 16 desh. Keystone: 32 desh plates from the metal press.
+   (32 casings); a thermoelectric boiler and an industrial turbine (4 rotors, 8 blades). Keystone: 24 polonium
+   pellets from reactor waste: one for the Star Chart, the rest for the fusion frames and SPS casings of the next Age.
+2. Rocketry & Moon: NASA workbench; a full space suit; one bucket of diesel or kerosene from the distillation tower; a
+   launch pad (The Silo, a Great Work, branches off here); the tier 1 rocket; land on the Moon; mine 16 desh.
+   Keystone: 32 desh plates from the metal press.
 3. Mars: tier 2 rocket, Mars, 16 ostrum. The temple on Mars keeps a flight recorder in its chest. Keystone: 32
    ostrum plates.
 4. Draconium: 16 draconium ingots. Draconium veins wake now, deep in granite, diorite and gabbro; the ore ladder
@@ -518,6 +605,11 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
    the heart and no rain.
 8. The Quantum Age dawns. Blessing **Starwalker**: near the shrine falls hurt 20 % less and one more block of fall is
    safe.
+
+Rewards: "Reactor Online" pays electromagnetic coils, "Desh Plates" cable ducts, "Ostrum Plates" gas tanks, "Wyvern
+Core" draconium dust, "Void Steel" a cryo freezer; the goal pays a tier 1 rover, a space painting and space lanterns.
+"Proof of Work" pays a space painting and a radio for each. Side roads (two): Mega Storage (off "MEGA Cells"), Light
+Bridges (off "Launch Pad").
 
 ### Pitfalls
 - Tier 1 and 2 rockets burn diesel or kerosene; tier 3 and 4 rockets need liquid hydrogen or cryo fuel.
@@ -537,17 +629,17 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
 Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8). It is the last offering.
 
 ### The way
-1. Fusion: 32 reactor frames, the controller, a filled hohlraum and a laser, deuterium and tritium fuel. Cool the
+1. Fusion: 32 reactor frames, the controller, fusion fuel (deuterium and tritium) in a hohlraum and a laser. Cool the
    reactor with water and run the steam through an industrial turbine (about 840,000 FE/t, fewer than 100,000
    air-cooled); below injection 20 it goes out. The SPS
    (16 casings, 2 supercharged coils) turns polonium into antimatter. Keystone: 2 antimatter pellets.
-2. Inner Planets: tier 3 rocket (ostrum); Venus, 16 calorite; visit Mercury; tier 4 rocket (calorite); Glacio,
-   8 ice shards. Keystone: 32 calorite plates.
-3. Awakened: 4 Nether Stars; 16 awakened draconium (draconium blocks, a dragon heart, Nether Stars); 4 awakened
-   injectors; 4 hypercharged alloy; 2 subatomic alloy (hypercharged alloy and antimatter in the antiprotonic
-   nucleosynthesizer). Keystone: an awakened core.
+2. Inner Planets: tier 3 rocket (ostrum); Venus, 16 calorite; tier 4 rocket (calorite); Glacio, 8 ice shards.
+   Keystone: 32 calorite plates. Mercury waits for the Singularity Age (naquadah).
+3. Awakened: 16 awakened draconium (draconium blocks, a dragon heart and the four Nether Stars the fabricator printed
+   in the Information Age); 4 awakened injectors; 2 subatomic alloy (hypercharged alloy and antimatter in the
+   antiprotonic nucleosynthesizer). Keystone: an awakened core.
 4. Keystone:
-   - 4 atomic alloy.
+   - 4 atomic alloy (part of the keystone).
    - Take the Arcane Keystone from its plinth: sneak and right-click the Spirit Circle plinth with an empty hand. Or make
      a second one (Create line or Djinni).
    - Awaken it by fusion at draconic level: the Arcane Keystone on the fusion core; four atomic alloys, a wyvern core
@@ -566,6 +658,12 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 7. Feed 3,584 calorite ingots into Tally Chutes in this Age. Lay the Core, feed the heart 100,000,000 FE and
    pray at night under an open sky, two of you together if two are online.
 8. The Singularity Age dawns. Blessing **Resolve**: another 5 % maximum health and some luck near the shrine.
+
+Rewards: "Antimatter Pellets" pays an overclocked energy cube and energy upgrades, "Calorite Plates" a large gas tank,
+"Awakened Core" an advanced magnet for each of you, "Awakened Keystone" overclocked control circuits and reinforced
+alloys, "Quasar Alloy" speed upgrades; the goal pays an imperium apple for each of you, a space painting and quantum
+lanterns. "Proof of Work" pays a supremium apple for each. Side roads (three): Quantum Network and Evolved Factories
+(off "Subatomic Alloy"), Insanium Fields (off "Ore Times Five").
 
 ### Pitfalls
 - One antimatter pellet takes 100,000 mB of polonium and 40 billion FE: about 40 minutes of a fusion plant
@@ -605,15 +703,21 @@ offering.
 5. The Ultimate Singularity, chaotic fusion: the chaotic core on the fusion core; Hearthstone, Sky Disc, Steel Heart,
    Awakened Keystone, Pressure Core, Humming Core, Data Matrix, Star Chart, Quantum Core, two large chaos fragments and the
    Firmament Alloy in twelve injectors; 2,000,000,000 FE.
-6. Naquadah lies on Mercury; mine 16 with the digital miner. In the arc furnace raw naquadah becomes a naquadah
-   ingot, and a naquadah ingot with a steel ingot becomes two naquadah-iron alloy. The metallurgic infuser makes
-   refined naquadah (with refined obsidian); the nucleosynthesizer makes pure naquadah from it (with antimatter).
-7. Stargate: 14 ring blocks, 9 chevron blocks, one base block and a DHD. The base block: two naquadah-iron alloy, a
+6. Naquadah lies on Mercury: fly the tier 3 rocket there and mine 16 with the digital miner ("Naquadah"). In the arc
+   furnace raw naquadah becomes a naquadah ingot, and a naquadah ingot with a steel ingot becomes two naquadah-iron
+   alloy. The metallurgic infuser makes refined naquadah (with refined obsidian); the nucleosynthesizer makes pure
+   naquadah from it (with antimatter).
+7. Stargate ("Stargate Blocks"): 14 ring blocks, 9 chevron blocks, one base block and a DHD. The base block: two naquadah-iron alloy, a
    communication crystal, two refined naquadah, the Ultimate Singularity, two transfer crystals, a control crystal.
    Assemble the gate; power it from the reactor through a flux gate. Keystone "Gate Online".
 8. Coordinates of The Origin: paper, an ink sac and a chaos shard. Dial **9, 16, 21, 33, 2, 37**, then the point of
    origin.
 9. Step through.
+
+Rewards: "Reactor Online" pays an overclocked energy cube and draconium dust, "The Ultimate Singularity" two
+enchanted golden apples for each of you, "Gate Online" a naquadah iris and an overclocked energy cube, "Firmament
+Alloy" overclocked control circuits; "Into The Origin" a totem of undying for each. Side roads (two): Chain of
+Necklaces (off "Chaos Fragments"), Crystals and Rings (off "Stargate Blocks").
 
 ### Pitfalls
 - The Ore Processor is the last ore step: six times the metal per ore piece, as dust, for 10 mB of hydrofluoric
@@ -649,7 +753,8 @@ Defeat The Primordial, the final boss in The Origin. Its fall grants `finale_won
    - Firmament Shatter (below 38 percent): stars fall. Pick up the shards it sheds: right-click one to let the stars
      pass you, hold one in the off hand and strike, or throw one at it (sneak and right-click) to open the veil.
 4. Expect six to ten minutes. After ten minutes the veil opens for less time, after twelve the stars fall everywhere.
-5. It falls: "Beyond the Firmament". The MekaSuit and the Meka-Tool can now be made. The shrine's beam turns gold.
+5. It falls: "Beyond the Firmament". The goal pays a dragon egg, singularity lanterns and an insanium apple for each
+   of you. The MekaSuit and the Meka-Tool can now be made. The shrine's beam turns gold.
 6. The gate at the arena dials home. Keep at least one Consecrated Shard ("A Piece of the Sky"): a shard lies on the
    floor for a minute, and once The Primordial has fallen no shard ever drops again. With four glass a shard makes
    four Firmament Glass.

@@ -75,6 +75,15 @@
 					type: "xp"
 					xp: 200
 				}
+				{
+					id: "1F1927DAB67C0E08"
+					item: {
+						count: 1
+						id: "mysticalagradditions:insanium_apple"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -115,6 +124,15 @@
 					type: "xp"
 					xp: 200
 				}
+				{
+					id: "30A0AC66D8846604"
+					item: {
+						count: 1
+						id: "draconicevolution:flux_gate"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -146,6 +164,16 @@
 					id: "46C735F9FF6172E5"
 					type: "xp"
 					xp: 200
+				}
+				{
+					count: 2
+					id: "55A328733A8C55D7"
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_control_circuit"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -181,6 +209,16 @@
 					id: "6288C86B8C237664"
 					type: "xp"
 					xp: 200
+				}
+				{
+					count: 16
+					id: "729E17264AAB875F"
+					item: {
+						count: 1
+						id: "draconicevolution:draconium_dust"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -222,6 +260,15 @@
 					type: "xp"
 					xp: 200
 				}
+				{
+					id: "1AE8881E516CF298"
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_energy_cube"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -259,9 +306,22 @@
 				}
 				{
 					id: "7E8762CC35034ED2"
-					table_id: 6223418334311331122L
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_energy_cube"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "13E3BF7EF75854F7"
+					item: {
+						count: 1
+						id: "draconicevolution:draconium_dust"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -299,6 +359,16 @@
 					type: "xp"
 					xp: 200
 				}
+				{
+					count: 4
+					id: "5DACDED030EA80A4"
+					item: {
+						count: 1
+						id: "firmages:lantern/singularity"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -328,6 +398,16 @@
 					id: "20AECFA3368F45D1"
 					type: "xp"
 					xp: 200
+				}
+				{
+					count: 2
+					id: "1A9844F8E3ED5952"
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_control_circuit"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -359,6 +439,16 @@
 					id: "17D3EC7015E2C54B"
 					type: "xp"
 					xp: 200
+				}
+				{
+					count: 8
+					id: "60126417AADE9B13"
+					item: {
+						count: 1
+						id: "mekanism:alloy_reinforced"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -395,10 +485,14 @@
 					xp: 600
 				}
 				{
+					count: 2
 					id: "3B6F4BF6C31164C3"
-					table_id: 6223418334311331122L
-					team_reward: true
-					type: "random"
+					item: {
+						count: 1
+						id: "minecraft:enchanted_golden_apple"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -427,6 +521,9 @@
 				]
 			}
 			dependencies: ["5209B9E49235822B"]
+			icon: {
+				id: "sgjourney:raw_naquadah"
+			}
 			id: "35AFC9346F30C43A"
 			rewards: [
 				{
@@ -434,11 +531,34 @@
 					type: "xp"
 					xp: 200
 				}
+				{
+					id: "479306B698D9DBBE"
+					item: {
+						count: 1
+						id: "sgjourney:transceiver"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					id: "0B77F565C82E85A3"
+					item: {
+						count: 1
+						id: "ad_astra:space_painting"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
-					count: 16L
+					dimension: "ad_astra:mercury"
 					id: "0FE0F6300D2B29B0"
+					type: "dimension"
+				}
+				{
+					count: 16L
+					id: "074E8FF31C7CC391"
 					item: {
 						count: 1
 						id: "sgjourney:raw_naquadah"
@@ -452,45 +572,13 @@
 		{
 			dep_control_pts: {
 				35AFC9346F30C43A: [
-					-8.849d
-					2.582d
-					-8.383d
-					2.756d
+					-8.599d
+					2.731d
+					-7.87d
+					3.049d
 				]
 			}
 			dependencies: ["35AFC9346F30C43A"]
-			id: "4637931365FDF60B"
-			rewards: [
-				{
-					id: "4F7CFA206EE14F06"
-					type: "xp"
-					xp: 200
-				}
-			]
-			tasks: [
-				{
-					count: 8L
-					id: "54AB26FC759B7FCB"
-					item: {
-						count: 1
-						id: "sgjourney:refined_naquadah"
-					}
-					type: "item"
-				}
-			]
-			x: -8.35d
-			y: 2.5d
-		}
-		{
-			dep_control_pts: {
-				4637931365FDF60B: [
-					-7.304d
-					3.159d
-					-6.72d
-					3.51d
-				]
-			}
-			dependencies: ["4637931365FDF60B"]
 			icon: {
 				id: "sgjourney:classic_stargate_chevron_block"
 			}
@@ -500,6 +588,24 @@
 					id: "7CD6E2FC162BC619"
 					type: "xp"
 					xp: 200
+				}
+				{
+					id: "575A172FBC3E703B"
+					item: {
+						count: 1
+						id: "sgjourney:diamond_graver"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "72CEB56A736F9BD4"
+					item: {
+						count: 1
+						id: "sgjourney:steel_iris"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -530,16 +636,16 @@
 					type: "item"
 				}
 			]
-			x: -6.5d
-			y: 3.2d
+			x: -7.55d
+			y: 2.85d
 		}
 		{
 			dep_control_pts: {
 				774C554B16ACE98C: [
-					-5.546d
-					3.724d
-					-5.006d
-					3.733d
+					-6.506d
+					3.467d
+					-5.914d
+					3.792d
 				]
 			}
 			dependencies: ["774C554B16ACE98C"]
@@ -549,6 +655,15 @@
 					id: "773A7D6D47C7CEA3"
 					type: "xp"
 					xp: 200
+				}
+				{
+					id: "645512F95566E177"
+					item: {
+						count: 1
+						id: "sgjourney:gdo"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			tasks: [
@@ -561,16 +676,16 @@
 					type: "item"
 				}
 			]
-			x: -4.9d
-			y: 3.3d
+			x: -5.7d
+			y: 3.4d
 		}
 		{
 			dep_control_pts: {
 				7124AA6401C814BF: [
-					-3.747d
-					3.939d
-					-3.237d
-					3.815d
+					-4.247d
+					4.089d
+					-3.421d
+					3.916d
 				]
 			}
 			dependencies: ["7124AA6401C814BF"]
@@ -586,9 +701,21 @@
 				}
 				{
 					id: "37E446746043DB97"
-					table_id: 6223418334311331122L
+					item: {
+						count: 1
+						id: "sgjourney:naquadah_iris"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					id: "5A406E948AC11805"
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_energy_cube"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -603,7 +730,7 @@
 					type: "observation"
 				}
 			]
-			x: -3.4d
+			x: -3.3d
 			y: 3.0d
 		}
 		{
@@ -624,10 +751,14 @@
 					xp: 600
 				}
 				{
+					count: 2
 					id: "2769F7408BE731FF"
-					table_id: 6223418334311331122L
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_control_circuit"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -650,10 +781,10 @@
 		{
 			dep_control_pts: {
 				5C0C8D3E5C081AA2: [
-					-2.612d
-					2.911d
-					-2.212d
-					2.428d
+					-2.55d
+					2.864d
+					-2.183d
+					2.331d
 				]
 			}
 			dependencies: ["5C0C8D3E5C081AA2"]
@@ -667,6 +798,15 @@
 					type: "xp"
 					xp: 200
 				}
+				{
+					id: "77068CD7420E7D75"
+					item: {
+						count: 1
+						id: "minecraft:totem_of_undying"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -676,15 +816,15 @@
 				}
 			]
 			x: -2.2d
-			y: 1.55d
+			y: 1.4d
 		}
 		{
 			dep_control_pts: {
 				2E30926B1075171A: [
-					0.019d
-					2.602d
-					0.752d
-					2.086d
+					-0.001d
+					2.502d
+					0.733d
+					2.036d
 				]
 				38BA8AD136589CDA: [
 					5.759d
@@ -705,9 +845,9 @@
 					0.286d
 				]
 				5C0C8D3E5C081AA2: [
-					-0.691d
-					3.776d
-					0.152d
+					-0.615d
+					3.785d
+					0.186d
 					2.286d
 				]
 			}
@@ -727,6 +867,34 @@
 					id: "2654F0604F3064AD"
 					type: "xp"
 					xp: 2000
+				}
+				{
+					id: "4A40AE3339817F23"
+					item: {
+						count: 1
+						id: "minecraft:dragon_egg"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 8
+					id: "19F06907E58C8002"
+					item: {
+						count: 1
+						id: "firmages:lantern/singularity"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "69282E444EF91BA1"
+					item: {
+						count: 1
+						id: "mysticalagradditions:insanium_apple"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "gilded"
@@ -762,9 +930,12 @@
 				}
 				{
 					id: "5E8438933CC72094"
-					table_id: 4026478518536199106L
+					item: {
+						count: 1
+						id: "sgjourney:naquadah_chestplate"
+					}
 					team_reward: false
-					type: "choice"
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -802,10 +973,14 @@
 					xp: 200
 				}
 				{
+					count: 16
 					id: "764CD2409C89958E"
-					table_id: 4026478518536199106L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "draconicevolution:draconium_dust"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -843,10 +1018,24 @@
 					xp: 200
 				}
 				{
+					count: 4
 					id: "40D94E0111A89F03"
-					table_id: 4026478518536199106L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "immersivepetroleum:kerosene_bucket"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 2
+					id: "1D2740BDE6ECDAEB"
+					item: {
+						count: 1
+						id: "immersivepetroleum:lubricant_bucket"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -868,10 +1057,10 @@
 		{
 			dep_control_pts: {
 				5C0C8D3E5C081AA2: [
-					-2.805d
-					4.0d
-					-2.405d
-					4.5d
+					-2.744d
+					4.005d
+					-2.377d
+					4.522d
 				]
 			}
 			dependencies: ["5C0C8D3E5C081AA2"]
@@ -884,10 +1073,14 @@
 					xp: 200
 				}
 				{
+					count: 4
 					id: "560B4CF84878DD6A"
-					table_id: 4026478518536199106L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "firmages:lantern/singularity"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -904,7 +1097,7 @@
 				}
 			]
 			x: -2.2d
-			y: 4.5d
+			y: 4.55d
 		}
 		{
 			dependencies: ["5209B9E49235822B"]

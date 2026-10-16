@@ -22,7 +22,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -8.864285714285714d
+			y: -8.264285714285714d
 		}
 	]
 	order_index: 0
@@ -58,51 +58,29 @@
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-10.509d
-					1.101d
-					-9.608d
-					1.492d
+					-10.532d
+					1.078d
+					-9.63d
+					1.407d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
-			icon: {
-				id: "tfc:rock/loose/granite"
-			}
-			id: "32C8626D60896E8F"
-			rewards: [
-				{
-					id: "6FD66ED45A7CDD9C"
-					type: "xp"
-					xp: 10
-				}
-			]
-			tasks: [
-				{
-					advancement: "tfc:story/find_rock"
-					criterion: ""
-					id: "3216C2D10A4480CD"
-					type: "advancement"
-				}
-			]
-			x: -9.2d
-			y: 1.5d
-		}
-		{
-			dep_control_pts: {
-				32C8626D60896E8F: [
-					-8.04d
-					2.31d
-					-7.874d
-					3.537d
-				]
-			}
-			dependencies: ["32C8626D60896E8F"]
 			id: "0ABF4F27145CD228"
 			rewards: [
 				{
 					id: "69FF7EE6121181F3"
 					type: "xp"
 					xp: 10
+				}
+				{
+					count: 4
+					id: "6DE8BDEDBCA6D3B8"
+					item: {
+						count: 1
+						id: "tfc:jute_fiber"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -116,16 +94,16 @@
 					type: "item"
 				}
 			]
-			x: -7.5d
-			y: 3.3d
+			x: -9.25d
+			y: 1.4d
 		}
 		{
 			dep_control_pts: {
 				0ABF4F27145CD228: [
-					-6.178d
-					3.941d
-					-5.339d
-					2.998d
+					-7.709d
+					2.409d
+					-6.819d
+					3.59d
 				]
 			}
 			dependencies: ["0ABF4F27145CD228"]
@@ -139,25 +117,51 @@
 					type: "xp"
 					xp: 10
 				}
+				{
+					count: 4
+					id: "0A1C6E5A16CDFFA9"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_beef"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 6
+					id: "7C8FC042F160D35B"
+					item: {
+						count: 1
+						id: "tfc:rock/loose/granite"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
-					advancement: "tfc:story/stone_age"
+					advancement: "tfc:story/find_rock"
 					criterion: ""
 					id: "0AA203CAB8D4A2D0"
 					type: "advancement"
 				}
+				{
+					advancement: "tfc:story/stone_age"
+					criterion: ""
+					id: "319476C720BB440C"
+					type: "advancement"
+				}
 			]
-			x: -4.85d
-			y: 2.55d
+			x: -6.0d
+			y: 3.3d
 		}
 		{
 			dep_control_pts: {
 				6522D484BFB67425: [
-					-3.489d
-					3.178d
-					-2.709d
-					3.346d
+					-4.224d
+					4.068d
+					-3.091d
+					3.524d
 				]
 			}
 			dependencies: ["6522D484BFB67425"]
@@ -172,10 +176,24 @@
 					xp: 30
 				}
 				{
+					count: 16
 					id: "31A0FD4E3492CFBB"
-					table_id: 7389902611175970977L
+					item: {
+						count: 1
+						id: "minecraft:stick"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 6
+					id: "44FF31D7AE2EC76E"
+					item: {
+						count: 1
+						id: "tfc:rock/loose/basalt"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -195,45 +213,16 @@
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-10.497d
-					-0.256d
-					-9.624d
-					-0.727d
+					-9.803d
+					-0.841d
+					-8.16d
+					-2.047d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
 			icon: {
-				id: "tfc:straw"
+				id: "tfc:thatch"
 			}
-			id: "24E7968E14C34C9C"
-			rewards: [
-				{
-					id: "647D4ED61004D2D1"
-					type: "xp"
-					xp: 10
-				}
-			]
-			tasks: [
-				{
-					advancement: "tfc:story/get_straw"
-					criterion: ""
-					id: "6BD0A92003D7B439"
-					type: "advancement"
-				}
-			]
-			x: -9.2d
-			y: -1.6d
-		}
-		{
-			dep_control_pts: {
-				24E7968E14C34C9C: [
-					-7.805d
-					-1.675d
-					-6.855d
-					-2.351d
-				]
-			}
-			dependencies: ["24E7968E14C34C9C"]
 			id: "203071592A4D660A"
 			rewards: [
 				{
@@ -241,11 +230,37 @@
 					type: "xp"
 					xp: 10
 				}
+				{
+					count: 2
+					id: "5FDA463F40DEA035"
+					item: {
+						count: 1
+						id: "tfc:rope"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 8
+					id: "1D808B8CCB8F1025"
+					item: {
+						count: 1
+						id: "tfc:straw"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
-					count: 8L
+					advancement: "tfc:story/get_straw"
+					criterion: ""
 					id: "07928CED7733A947"
+					type: "advancement"
+				}
+				{
+					count: 8L
+					id: "019A47E2BEDE9406"
 					item: {
 						count: 1
 						id: "tfc:thatch"
@@ -253,16 +268,16 @@
 					type: "item"
 				}
 			]
-			x: -6.2d
-			y: -2.9d
+			x: -6.75d
+			y: -2.8d
 		}
 		{
 			dep_control_pts: {
 				203071592A4D660A: [
-					-4.386d
-					-2.387d
-					-3.126d
-					-2.254d
+					-4.771d
+					-2.393d
+					-3.287d
+					-2.329d
 				]
 			}
 			dependencies: ["203071592A4D660A"]
@@ -277,10 +292,24 @@
 					xp: 30
 				}
 				{
+					count: 4
 					id: "69C7DB9F45774A36"
-					table_id: 7389902611175970977L
+					item: {
+						count: 1
+						id: "tfc:thatch"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 2
+					id: "1D8AA68902395E96"
+					item: {
+						count: 1
+						id: "tfc:rope"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -301,10 +330,10 @@
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-9.485d
-					-2.486d
-					-5.938d
-					-4.784d
+					-8.637d
+					-3.224d
+					-2.772d
+					-5.939d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
@@ -317,6 +346,16 @@
 					id: "304EEA998B0A2AAD"
 					type: "xp"
 					xp: 10
+				}
+				{
+					count: 2
+					id: "0B6DB75E299FF56C"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_venison"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			tasks: [
@@ -357,27 +396,63 @@
 					type: "item"
 				}
 			]
-			x: -3.0d
-			y: -5.3d
+			x: 0.9d
+			y: -4.65d
 		}
 		{
 			dep_control_pts: {
 				206BCC87705BB466: [
-					-1.215d
-					-4.907d
-					0.177d
-					-4.646d
+					2.696d
+					-3.524d
+					4.399d
+					-2.469d
 				]
 			}
 			dependencies: ["206BCC87705BB466"]
+			icon: {
+				id: "tfc:large_raw_hide"
+			}
 			id: "4C78408E6835BC56"
 			rewards: [
 				{
 					id: "754BB99EFDF4E401"
 					type: "xp"
-					xp: 10
+					xp: 30
+				}
+				{
+					count: 4
+					id: "0BEC019D68D0EEB2"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_pork"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 2
+					id: "7C6D82899F50F80D"
+					item: {
+						count: 1
+						id: "tfc:rope"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 6
+					id: "3A84AC5D48C70F51"
+					item: {
+						count: 1
+						id: "tfc:rock/loose/limestone"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
 			tasks: [
 				{
 					entity: "minecraft:zombie"
@@ -386,66 +461,12 @@
 					type: "kill"
 					value: 1L
 				}
-			]
-			x: 1.0d
-			y: -4.55d
-		}
-		{
-			dep_control_pts: {
-				4C78408E6835BC56: [
-					2.752d
-					-3.442d
-					4.387d
-					-2.424d
-				]
-			}
-			dependencies: ["4C78408E6835BC56"]
-			icon: {
-				id: "tfc:large_raw_hide"
-			}
-			id: "5D192D80646308F9"
-			rewards: [
 				{
-					id: "5A7E8CBEBA7ACD94"
-					type: "xp"
-					xp: 30
-				}
-				{
-					id: "38A27FE464B0440A"
-					table_id: 7389902611175970977L
-					team_reward: true
-					type: "random"
-				}
-			]
-			shape: "rune"
-			size: 1.5d
-			tags: ["keystone"]
-			tasks: [
-				{
-					id: "66879175D75A00BA"
-					item: {
-						count: 1
-						id: "tfc:small_raw_hide"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "007D91D7242141A7"
-					item: {
-						count: 1
-						id: "tfc:medium_raw_hide"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "335812569406B5E8"
+					id: "1AAC9A0184959725"
 					item: {
 						count: 1
 						id: "tfc:large_raw_hide"
 					}
-					optional_task: true
 					type: "item"
 				}
 			]
@@ -460,7 +481,7 @@
 					0.386d
 					0.486d
 				]
-				5D192D80646308F9: [
+				4C78408E6835BC56: [
 					4.415d
 					0.659d
 					2.436d
@@ -473,7 +494,7 @@
 					2.086d
 				]
 			}
-			dependencies: ["63A45BCAE3254E00", "153E204EC2BA3ACA", "5D192D80646308F9"]
+			dependencies: ["63A45BCAE3254E00", "153E204EC2BA3ACA", "4C78408E6835BC56"]
 			icon: {
 				id: "tfc:firestarter"
 			}
@@ -489,6 +510,46 @@
 					id: "7B0FC31E42CA30AA"
 					stage: "age_0"
 					type: "gamestage"
+				}
+				{
+					count: 8
+					id: "75D9AA73DA1ECB33"
+					item: {
+						count: 1
+						id: "tfc:rock/loose/slate"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 16
+					id: "2D3E7BA7C1DC81F1"
+					item: {
+						count: 1
+						id: "tfc:straw"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "7C32D7B77ADCB8ED"
+					item: {
+						count: 1
+						id: "tfc:rope"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "34A01F31EE2E6517"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_venison"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "gilded"
@@ -535,10 +596,14 @@
 					xp: 10
 				}
 				{
+					count: 4
 					id: "6EFE8C0D692C1363"
-					table_id: 7389902611175970977L
+					item: {
+						count: 1
+						id: "tfc:food/cooked_chicken"
+					}
 					team_reward: false
-					type: "choice"
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -560,10 +625,10 @@
 		{
 			dep_control_pts: {
 				206BCC87705BB466: [
-					-3.049d
-					-5.39d
-					-3.233d
-					-5.923d
+					1.077d
+					-4.857d
+					1.127d
+					-5.407d
 				]
 			}
 			dependencies: ["206BCC87705BB466"]
@@ -579,10 +644,14 @@
 					xp: 10
 				}
 				{
+					count: 4
 					id: "39C15832B0BB5B06"
-					table_id: 7389902611175970977L
+					item: {
+						count: 1
+						id: "tfc:food/cooked_mutton"
+					}
 					team_reward: false
-					type: "choice"
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -689,8 +758,8 @@
 					type: "item"
 				}
 			]
-			x: -3.55d
-			y: -6.9d
+			x: 1.05d
+			y: -6.3d
 		}
 		{
 			dependencies: ["49153BBE2AD958B7"]

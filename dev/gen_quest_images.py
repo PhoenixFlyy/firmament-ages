@@ -590,6 +590,12 @@ KNAPPING = [
     ("bowls", "clay", ("#   #", " ### ", "     ", "#   #", " ### "), " "),
     ("large_vessel", "clay", ("#   #", "#   #", "#   #", "#   #", "#####"), " "),
     ("hearth_idol", "clay", (" ### ", "#####", " ### ", " ### ", "## ##"), " "),
+    # tfc:knapping/ceramic/unfired_axe_head_mold and unfired_hammer_head_mold (no default_on: the rest is knocked away)
+    ("axe_head_mold", "clay", ("# ###", "    #", "     ", "    #", "# ###"), " "),
+    ("hammer_head_mold", "clay", ("#####", "     ", "     ", "## ##", "#####"), " "),
+    # unfired_knife_blade_mold ("default_on": true) and unfired_shovel_head_mold (no default_on)
+    ("knife_blade_mold", "clay", ("## #", "#  #", "#  #", "#  #", "#  #"), "#"),
+    ("shovel_head_mold", "clay", ("#   #", "#   #", "#   #", "#   #", "## ##"), " "),
 ]
 MATERIAL = {
     # stand base, stand light, stand dark, pit, pit dark
