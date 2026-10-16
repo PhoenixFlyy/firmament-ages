@@ -1410,7 +1410,7 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
   - the night roll `hash(auroraSeed, day, x >> 9, z >> 9) < chance`.
 - `chance` is `night_chance.cold` when `instantTemp(x, reference_y, z) <= averageTemp(x, reference_y, z)` (the cold half of the year there), else `night_chance.warm`. So every clear cold-band night can yield, and winter yields twice as often. A summer group is not stuck waiting for winter.
 - **Reference height:** both temperatures are read through `ClimateSource` at the fixed `reference_y` (140), never at the net's or the camera's own height. TFC lowers the average by 0.16225 °C per block above Y 63, capped at 17.82 °C [verified, javap `Helpers.adjustAverageTemperatureByElevation`]. Without a fixed height, every isle top would count as polar, and the server and the client would disagree.
-- **Band distance:** TFC's base gradient is about 2.5 °C per 1,000 blocks (-20..30 °C over `temperature_scale` 20,000 [verified, `RegionGenerator`]). The default `max_average_temp` 0.0 at Y 140 (about 12.5 °C at sea level) puts the band about 1,000 to 2,000 blocks poleward of a temperate spawn **[PoC, see 26.10]**.
+- **Band distance:** TFC's base gradient is about 2.5 °C per 1,000 blocks (-20..30 °C over `temperature_scale` 20,000 [verified, `RegionGenerator`]). TFC's spawn lies at about 5 to 7 °C sea-level average (-5.8 °C at Y 140 on the M11 boot seed), so the planned 0.0 at Y 140 would have put spawn itself in the band. **As built: `max_average_temp` -10.0 at Y 140** (about 2.5 °C at sea level), measured on the copy boot: -7.9 °C 500 blocks north of spawn, -10.3 °C at 1,000, -11.4 °C at 2,000; the band starts about 1,000 blocks poleward.
 - Intensity is 0.5..1.0, from the same hash.
 - `/firmages sky aurora on|off|auto` overrides everything but the band and the height.
 - The aurora is evaluated on the server only (the net, Jade and the status command); no client needs the seed (§26.7).
@@ -1443,7 +1443,7 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 
 ```json
 {
-  "aurora": {"min_y": 140, "reference_y": 140, "max_average_temp": 0.0, "night_chance": {"cold": 0.5, "warm": 0.25},
+  "aurora": {"min_y": 140, "reference_y": 140, "max_average_temp": -10.0, "night_chance": {"cold": 0.5, "warm": 0.25},
              "mb_per_hour": 100, "net_capacity": 4000, "share_radius": 1, "colors": ["#3CFF9E", "#7A5CFF"]},
   "storm": {"mean_strike_ticks_rain": 4800, "thunder_factor": 4, "sand_per_strike": 4,
             "input": "#c:sands", "result": "firmages:storm_glass"}

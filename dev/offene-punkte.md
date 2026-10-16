@@ -27,6 +27,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Alles aus den Abschnitten von `dev/client-test-brief.md` (pro Version, neueste oben) | `dev/client-test-brief.md` | Felix |
 | Titelbild: nach dem ersten Blick auf das Shader-Sternbild `show_compile_errors = true` wieder auf `false` | `config/fancymenu/customization/title_screen_layout.txt` | Felix sieht, Claude stellt um |
 | Blutmond erst ab `mob_2`: `/ec lunarForecast` vor und nach der Eisenzeit | `kubejs/server_scripts/firmages/blood_moon.js` | Felix |
+| Himmel M11: Sturmglas als verbundenes Glas (Fusion), Aurora-Netz mit Schleier im Zustand `catching`, Polarlicht-Fluid im Tank, Sturmstab-Fenster (16 Sand, 16 Glas), der leise Donner am Stab (nur in etwa 64 Blöcken hörbar), Jade-Zeilen | Spiel, Jade | Felix |
 | Industriezeit-Quest „The Thresher“ schließt beim Blick auf einen geformten Thresher ab; Loot-Crate-Opener und Task-Screen-Konfigurator fehlen in EMI | Questbuch, EMI | Felix |
 | IE-Handbuch-Vorschau von Mahlwerk, Webstuhl, Lichtbogenofen, Schaufelrad, Bagger, Koker und Pumpjack zeigt den TFC-Stahlblock | IE-Handbuch | Felix |
 | Chronicle 0.9.3: Firmament-Kapitel deckt pro Age auf, Linien um „Into The Origin“ in der Singularitätszeit, Ring-Quests Bronze/Eisen, Stage-Namen in „Opens with …“ (als OP). Eine Welt, die „A Weird Rock“ schon abgeschlossen hat, behält nur einen verwaisten Fortschrittseintrag | `dev/client-test-brief.md` (0.9.3) | Felix |
@@ -85,6 +86,8 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | GameTest `SkyGameTests.excavatorVeinAtAutomationAge` ist wackelig: 1 von 5 Läufen (Review 0.11.0) schlug „IE's save data is marked dirty“ fehl; vermutlich hat der Abgleich nach dem age_6-Wechsel die Ader schon vor dem Test gesetzt | firmages-core `SkyGameTests` | Claude |
 | Tutorial-Wayshrine: auf einem von drei Seeds der Review-Kopie fand der erste Start auf 16 Peilungen keinen Platz (Hang oder Wasser), WARN „no fit site … trying again at the next start“; der nächste Start versucht es wieder, solange die Welt jünger als drei Tage ist. Mehr Peilungen oder eine zweite Entfernung, falls das öfter vorkommt | `WayshrineTutorial`, `WayshrineRules` | Claude |
 | Starfall: der Ausschluss um FTB-Chunks-Claims hat keinen Test (FTB Chunks fehlt im GameTest-Lauf); die Tarnung als Himmelsgestein vor age_2 nur aus den Stage-Overrides, nicht im Spiel geprüft. Auf der Integrationskopie fand `firmages starfall now` ohne Spieler und Schrein keinen Anker | firmages-core `sky/`, `compat/ftbchunks` | Claude |
+| Himmel M11 PoC §26.10: Polarlicht-Band auf zwei Seeds gemessen (Band ab etwa 1.000 und 256 Blöcken vom Spawn), der dritte Seed fehlt; Sturmstab-Rate über fünf echte Stunden mit echtem TFC-Regen nicht gemessen (nur erzwungenes Gewitter) | `sky aurora band`, `sky storm status` | Claude, mit Server-Test |
+| G-2 auf der M11-Kopie: `create_dragons_plus:sandpaper_polishing/ars_additions/cracked_sourcestone_wall` fehlt im Dump mit Sperre an, in der Grundlinie nicht (Ausgabe age_3, kein Himmels-Bezug; nach `/reload` fehlen in einem Dump 148 Rezepte) | `poc_analyze.py` G-2 | Claude |
 
 ## Prüfen, ob noch offen
 
