@@ -203,7 +203,7 @@
 	quest.0A81ED2F8A5BB2AE.quest_subtitle: "The second Age"
 	quest.0A81ED2F8A5BB2AE.title: "The Bronze Age Dawns"
 	quest.0ABF4F27145CD228.quest_desc: [
-		"Pick up twigs under trees with an empty hand; each crafts into a stick. Leaves cut with a stone knife drop sticks too."
+		"Pick up twigs under trees with an empty hand; each makes a stick on the ground. Leaves cut with a stone knife drop sticks too."
 	]
 	quest.0ABF4F27145CD228.title: "A Bundle of Sticks"
 	quest.0AD1277F0C750FBC.quest_desc: [
@@ -349,7 +349,7 @@
 	]
 	quest.166C4569CC75A30A.title: "Kitchen"
 	quest.16708A1C39158F9C.quest_desc: [
-		"In Dawn you cannot dig clay, build pit kilns or use metal. The crafting grid only makes stone and obsidian tools, the firestarter, straw, thatch, sticks and rope."
+		"In Dawn you cannot dig clay, build pit kilns or use metal. There is no crafting grid: you craft on the ground (see \"By Hand\"), and only stone and obsidian tools, the firestarter, straw, thatch, sticks and rope. The grid opens with the Stone Age."
 		""
 		"Logs and stone do not break by hand: the stone axe fells trees, stone waits for the copper pickaxe."
 		""
@@ -454,13 +454,13 @@
 	]
 	quest.1FD61E2A23294166.title: "Chaos Fragments"
 	quest.203071592A4D660A.quest_desc: [
-		"Four straw make one block of thatch. It is the only building block of Dawn."
+		"Lay four straw on one block, then sneak and right-click the pile: thatch, the only building block of Dawn."
 	]
 	quest.203071592A4D660A.title: "Thatch"
 	quest.2036F321608B520E.quest_desc: ["Patterns and assemblers craft on request."]
 	quest.2036F321608B520E.title: "Molecular Assembler"
 	quest.206BCC87705BB466.quest_desc: [
-		"Knap a javelin head (see \"Knapping Patterns\") and set it above a stick. Throw it or stab with it."
+		"Knap a javelin head (see \"Knapping Patterns\") and craft it with a stick on the ground. Throw it or stab with it."
 	]
 	quest.206BCC87705BB466.title: "A Stone Javelin"
 	quest.2070B77706F2CB8E.quest_desc: [
@@ -795,7 +795,7 @@
 	]
 	quest.41F6B8884809B526.title: "White Chalk"
 	quest.4207F8051EF451B3.quest_desc: [
-		"Fire is tamed. Clay is yours now, and with it pottery, molds and copper."
+		"Fire is tamed. Clay is yours now, and with it pottery, molds and copper. Your hands have learned: the crafting grid (E) is open."
 		""
 		"Four strands lead to the Hearthstone: Fire & Clay, First Metal, Camp, and Hearth & Shrine. The last one raises the shrine where the Hearthstone is offered to Caelum."
 	]
@@ -889,7 +889,7 @@
 	quest.49153BBE2AD958B7.quest_desc: [
 		"Dawn gives you nothing: no pick, no clay, no fire."
 		""
-		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out. Sneak is Left Ctrl here; Left Shift sprints."
+		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out. Sneak is Left Ctrl here; Left Shift sprints. Read \"By Hand\" first."
 		""
 		"Nights are dark. Light a fire and make torches before the first one (see \"Before Dark\"). When all three strands are done, the first fire opens the Stone Age for all of you."
 	]
@@ -1154,6 +1154,14 @@
 		"Cast steel layers, bore them, build them up and heat them into one chamber. It goes into the Pressure Core."
 	]
 	quest.63D5F1A42BB79A53.title: "Built-Up Chamber"
+	quest.64181B7811C2814E.quest_desc: [
+		"You have no crafting grid yet. Hold an item and press V to lay it on a block; up to four items fit on one block, one in each corner."
+		""
+		"Lay the parts together, then sneak and right-click the pile with an empty hand. If they make something, you get it. Where on the block each part lies does not matter."
+		""
+		"Four straw make thatch, two sticks a firestarter, a stone head and a stick a stone tool. The crafting grid (E) opens with the Stone Age."
+	]
+	quest.64181B7811C2814E.title: "By Hand"
 	quest.64CDFFD93C9CBDCE.quest_desc: [
 		"Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a singularity from the matter condenser."
 		""
@@ -1180,7 +1188,7 @@
 		"X X X X -"
 		"- X - - -"
 		""
-		"In the 2x2 crafting grid, put the head above a stick, a twig or a bone: a stone axe. The knife and the other heads are in \"Knapping Patterns\" at the bottom of this chapter."
+		"Craft the head with a stick, a twig or a bone on the ground (see \"By Hand\"): a stone axe. The knife and the other heads are in \"Knapping Patterns\" at the bottom of this chapter."
 	]
 	quest.6522D484BFB67425.title: "Stone Tools"
 	quest.652657C4C5B8CAC5.quest_desc: [
@@ -1401,9 +1409,9 @@
 	]
 	quest.71B6B8FAE5353DAB.title: "Forging"
 	quest.724BED62EE9DF8FB.quest_desc: [
-		"Craft a firestarter from two sticks. Throw a log, three sticks and some straw on one block and hold right-click on it with the firestarter until the firepit lights."
+		"Lay two sticks on one block and sneak and right-click the pile: a firestarter. Throw a log, three sticks and some straw on one block and hold right-click on it with the firestarter until the firepit lights."
 		""
-		"Fire opens the Stone Age for all of you: clay, pit kilns and the first copper."
+		"Fire opens the Stone Age for all of you: clay, pit kilns, the first copper and the crafting grid (E)."
 	]
 	quest.724BED62EE9DF8FB.quest_subtitle: "Goal of Dawn: grants the Stone Age"
 	quest.724BED62EE9DF8FB.title: "The First Spark"
@@ -1506,7 +1514,7 @@
 	]
 	quest.7CDF23C64D3D4961.title: "Food Decay and Nutrition"
 	quest.7E2D0099177BFBE8.quest_desc: [
-		"Every head goes above a stick in the crafting grid. X = leave standing, - = knock away. Mirrored shapes work too."
+		"Every head is laid with a stick on one block and crafted on the ground (see \"By Hand\"). X = leave standing, - = knock away. Mirrored shapes work too."
 		""
 		"Knife blades, two from one rock:"
 		"X - - X -"

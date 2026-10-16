@@ -206,7 +206,9 @@ locked_ids = [
 ]
 
 [screens]
-# No crafting table and no TFC workbench GUI in Dawn (the 2x2 inventory grid is gated by [recipes] above).
+# No crafting table and no TFC workbench GUI in Dawn. The 2x2 inventory grid (and the Curios one) is closed in Dawn by
+# firmages-core (firmages-server.toml [hardship] gridLockUntilAge = age_0, SPEC 19.3); Dawn crafts on the ground:
+# items laid with V on one block, sneak + right-click with an empty hand, by the [recipes] whitelist above.
 # POC: `name:_workbench` should match tfc:wood/planks/<wood>_workbench and afc:... workbenches.
 locked = [
     "id:minecraft:crafting_table",
