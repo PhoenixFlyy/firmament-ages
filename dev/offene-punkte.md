@@ -22,6 +22,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 
 | Was | Wo | Wer |
 |---|---|---|
+| Querverbindungen A9 im Client: Stangen aus heißem Barren unter der Presse, Rakete Stufe 3 lehnt Diesel ab und nimmt Flüssigwasserstoff, Hydrotreater macht Ethen, Digital Miner und Fusionsrahmen im Mechanical Crafter, Osmium-Ader im Excavator (neue Chunks), Latex-Menge für Gummi | `dev/quest-hints-links.md`, `recipes/age_N/links.js` | Felix |
 | Review-Fixes 0.12.0 im Client: Dawn-Hinweis in der leeren Feldfläche (Zeilenumbruch, Tasten V und Rechtsklick, Farbe) und die einmalige Aktionsleiste; EMI-Infoseiten der Himmelsmaterialien (nur Client-Skript, Server-Boot ohne KubeJS-Fehler, Syntax geprüft) und die Meteoriten in EMI ab der Eisenzeit; Jade an der Tally Chute („Takes … for Caelum“) und Hand-Einwurf; Sky-Stränge und die zwei Arkan-Routen im Questbuch | `dev/client-test-brief.md` (Abschnitt 0.12.0 Review-Fixes) | Felix |
 | Alles aus den Abschnitten von `dev/client-test-brief.md` (pro Version, neueste oben) | `dev/client-test-brief.md` | Felix |
 | Dawn ohne 2x2-Feld im Client: Inventar und Curios-Bildschirm ohne Feld, Pfeil, Titel und Rezeptbuch-Knopf; graue Fläche passt zur Textur; EMI-„+“ grau; Bodenhandwerk ohne Flackern (Client-Vorhersage), Ton und Partikel; Hinweis einmal pro Minute; nach `age_0` Chatzeile und Feld wieder da; Mouse Tweaks auf der Fläche; ob eine JEI-Oberfläche sichtbar ist | `dev/client-test-brief.md` (Abschnitt „Dawn ohne 2x2-Feld“), SPEC §19.3 | Felix |
@@ -55,6 +56,10 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 
 | Was | Wo | Wer |
 |---|---|---|
+| Antimaterie-Preis gegen das Fusionsband: ein Antimaterie-Pellet sind 1.000 mB Antimaterie = 1.000.000 mB Polonium × 1 MJ = 10^12 J = 400 G FE (Mekanism-Standard, `config/Mekanism/general.toml` [sps]); bei 1 M FE/t Fusion etwa 5,6 h, bei 200 k FE/t 28 h je Pellet; das Quantum Core braucht zwei. Messen und Band oder SPS-Kosten festlegen | A8/A10, `kubejs/data/firmages/balance/`, Harmonie-Plan 2.1 | Claude (A8) |
+| Osmium-Nachweis (1.024 Barren, SPEC §35) war ohne Excavator-Ader gerechnet; mit der Osmium-Ader (A9 Verbindung 8) die Referenzlinie neu messen | `tallies.json`, `dev/harmonie-r2.md` | Claude (A8) |
+| Sternentor-Wählkosten (Verbindung 22) setzt das Endspiel-Paket | `config/sgjourney-common.toml` | Claude (A10) |
+| „Tutorial Wayshrine: no fit site 300 to 800 blocks“ auf einem neuen Seed (h3/links Boot 3, Spawn bei 1232/1952): prüfen, ob die Suche zu eng ist | firmages-core Wayshrines (SPEC §28) | Claude |
 | Veraltete Faktoren im Questtext: „Ore in the Arcane Age“ nennt Brechwalzen „about 1.7 times“ (seit Harmonie C2 1,5x), die Industriezeit-Quest „Crusher“ „twice the metal“ (jetzt 2,5x) | `dev/gen_quests.py` (`arcane/info/ore`, `industrial/ore/crusher`) | Claude |
 | Archipel-Vorlagen enthalten seit dem Review-Fix 0.12.0 TFC-Blöcke; in GameTests ohne TFC laden diese Zellen als Luft (die Ark-Tests prüfen Stufen und Zahlen, nicht einzelne Blöcke) | `dev/gen_ark.py`, `ArkGameTests` | Claude, falls ein Test Blöcke prüfen soll |
 | Bodenhandwerk und R-Walker: die R-Prüfungen gehen für Dawn noch von einem Raster aus; D-1 sichert, dass jedes Dawn-Rezept auf einen Haufen passt, der Walker selbst rechnet das nicht nach | `dev/poc_analyze.py` (`reach_checks`, `ground_craft_check`) | Claude |
