@@ -23,7 +23,7 @@ class OreLadderTest {
 
     @BeforeAll
     static void table() throws IOException {
-        Path p = Path.of("../../dev/data/metals.json");
+        Path p = Path.of("../../kubejs/data/firmages/balance/metals.json");
         ladder = new OreLadder(JsonParser.parseString(Files.readString(p, StandardCharsets.UTF_8)).getAsJsonObject());
     }
 

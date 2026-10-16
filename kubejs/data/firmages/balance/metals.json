@@ -22,6 +22,7 @@
   "powder": {
     "_doc": "TFC mineral powder (tfc:powder/<ore>, tfc_ie_addon:powder/<ore>): the quern, the millstone and the IE Crusher (as its main output) give 'quern_count' per piece. Only the Mekanism Enrichment Chamber turns powder back into metal, 'per_dust' powder into one canonical dust, so the IE Crusher's powder adds 2.5 x 20 / 64 = 0.31x from the Information Age (IE line 2.81x, below Purification 3.0x). The Arc Furnace no longer melts powder (it made the IE line 3.5x in the Electric Age).",
     "station_type": "mekanism:enriching",
+    "age": "age_6",
     "per_dust": 64,
     "quern_count": {"small": 2, "poor": 3, "normal": 5, "rich": 7}
   },

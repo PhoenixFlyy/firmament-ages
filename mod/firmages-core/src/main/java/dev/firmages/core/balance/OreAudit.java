@@ -34,7 +34,7 @@ import java.util.TreeMap;
  * {@code /firmages ore audit} (SPEC §38): the ore ladder of the live server. Every recipe the server knows (all Ages:
  * the recipe gate's master list when the gate ran, else the recipe manager) is encoded to JSON with its own codec and
  * measured by {@link OreLadder} against the metal table {@code data/firmages/balance/metals.json} (the build copies
- * {@code dev/data/metals.json} into the jar; a datapack may override it). Same logic as the L- checks of
+ * {@code kubejs/data/firmages/balance/metals.json} into the jar; a datapack may override it). Same logic as the L- checks of
  * {@code dev/poc_analyze.py}, so the numbers match the offline check. Written to {@code logs/firmages-ore-audit.json}.
  */
 public final class OreAudit {

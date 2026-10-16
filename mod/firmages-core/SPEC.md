@@ -2549,7 +2549,7 @@ Both need permission 2, like all of `/firmages`.
   arc furnace's mB from the furnace's Age). Reports per Age the lowest and highest best tech factor and the best magic
   factor, per station the measured range against the target, and the L-1 table deviations, L-2 tech steps back, L-3
   magic above the next tech step and L-4 unlisted multiplying types. `logs/firmages-ore-audit.json` holds every
-  entry. The table is `data/firmages/balance/metals.json`, which the build copies from `dev/data/metals.json` (one
+  entry. The table is `data/firmages/balance/metals.json`, which the build copies from `kubejs/data/firmages/balance/metals.json` (one
   source; a datapack may override it).
 - **Tests:** U `OreLadderTest` (on the real table: melting 1.0, purification with input counts and clumps, the IE
   crusher's wrappers and chances, the metal's first Age, a step back, an unlisted grid recipe, world data skipped).

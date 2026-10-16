@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 /**
  * The ore ladder measured from recipe JSON (SPEC §38): the same logic as the {@code L-} checks of
  * {@code dev/poc_analyze.py} on the metal table ({@code data/firmages/balance/metals.json}, a copy of
- * {@code dev/data/metals.json}). Every recipe that consumes an ore piece of the table yields some metal in mB; the
+ * {@code kubejs/data/firmages/balance/metals.json}). Every recipe that consumes an ore piece of the table yields some metal in mB; the
  * factor is that metal over the piece's metal ({@code grade_mb}). Each station of the table has an Age and a kind
  * (tech or magic); the best tech factor a piece has by an Age is the ladder. Pure Java (Gson only), unit-tested.
  */
@@ -40,7 +40,7 @@ public final class OreLadder {
 
     /**
      * One measured recipe on one piece: the metal it yields directly over the piece's metal, and the metal of the quern
-     * powder it yields (at the arc furnace's mB per powder, counted from {@code powderAge}) over the same.
+     * powder it yields (at the powder station's mB per powder, the Enrichment Chamber, counted from {@code powderAge}) over the same.
      */
     public record Measure(String piece, String metal, String recipe, String type, double direct, double powder, String powderAge) {
         public double factor() {
@@ -76,7 +76,7 @@ public final class OreLadder {
         slurryMb = units.get("slurry_mb_per_ingot").getAsDouble();
         JsonObject powder = table.getAsJsonObject("powder");
         powderType = powder.get("station_type").getAsString();
-        powderAge = powder.has("age") ? powder.get("age").getAsString() : "age_5"; // the arc furnace (station_ages.js)
+        powderAge = powder.has("age") ? powder.get("age").getAsString() : "age_6"; // the Enrichment Chamber (station_ages.js)
         neutral = new java.util.HashSet<>();
         table.getAsJsonObject("neutral_types").getAsJsonArray("types").forEach(t -> neutral.add(t.getAsString()));
         for (Map.Entry<String, JsonElement> e : table.getAsJsonObject("stations").entrySet()) {
@@ -198,7 +198,7 @@ public final class OreLadder {
 
     /**
      * Every ore-piece recipe of {@code recipes} (id -> JSON with a {@code type}) measured. Powder of a piece's recipe
-     * counts at the arc furnace's mB once the powder recipe exists ({@code powder.station_type}).
+     * counts at the powder station's mB once the powder recipe exists ({@code powder.station_type}).
      */
     public List<Measure> measure(Map<String, JsonObject> recipes) {
         Map<String, Double> powderMb = new HashMap<>();
