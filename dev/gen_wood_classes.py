@@ -101,23 +101,8 @@ def would_survive(sapling):
                 {"Properties": {"stage": "0"}} if not sapling.endswith("propagule") else {})}}}
 
 
-def dark_oak_tfc_dirt():
-    """minecraft:dark_oak with TFC loam as its dirt: the 2x2 trunk sets dirt under all four cells."""
-    return {"type": "minecraft:tree", "config": {
-        "decorators": [], "dirt_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "tfc:dirt/loam"}},
-        "foliage_placer": {"type": "minecraft:dark_oak_foliage_placer", "offset": 0, "radius": 0},
-        "foliage_provider": {"type": "minecraft:simple_state_provider", "state": {
-            "Name": "minecraft:dark_oak_leaves", "Properties": {"distance": "7", "persistent": "false", "waterlogged": "false"}}},
-        "force_dirt": False, "ignore_vines": True,
-        "minimum_size": {"type": "minecraft:three_layers_feature_size", "limit": 1, "lower_size": 0, "middle_size": 1,
-                         "upper_limit": 1, "upper_size": 2},
-        "trunk_placer": {"type": "minecraft:dark_oak_trunk_placer", "base_height": 6, "height_rand_a": 2, "height_rand_b": 1},
-        "trunk_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "minecraft:dark_oak_log",
-                                                                                 "Properties": {"axis": "y"}}}}}
-
-
 def mangrove_plain():
-    """minecraft:mangrove without bee nest, vines and moss carpets; TFC loam as dirt."""
+    """minecraft:mangrove without bee nest, vines and moss carpets; TFC fluvisol (river and marsh soil) as dirt."""
     return {"type": "minecraft:tree", "config": {
         "decorators": [{"type": "minecraft:attached_to_leaves", "block_provider": {
             "type": "minecraft:randomized_int_state_provider", "property": "age",
@@ -127,7 +112,7 @@ def mangrove_plain():
             "values": {"type": "minecraft:uniform", "min_inclusive": 0, "max_inclusive": 4}},
             "directions": ["down"], "exclusion_radius_xz": 1, "exclusion_radius_y": 0, "probability": 0.14,
             "required_empty_blocks": 2}],
-        "dirt_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "tfc:dirt/loam"}},
+        "dirt_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "tfc:dirt/fluvisol"}},
         "foliage_placer": {"type": "minecraft:random_spread_foliage_placer", "foliage_height": 2,
                            "leaf_placement_attempts": 70, "offset": 0, "radius": 3},
         "foliage_provider": {"type": "minecraft:simple_state_provider", "state": {
@@ -153,7 +138,9 @@ def mangrove_plain():
                                                                                  "Properties": {"axis": "y"}}}}}
 
 
-CUSTOM_TREES = {"firmages:vanilla_tree/mangrove": mangrove_plain, "firmages:vanilla_tree/dark_oak": dark_oak_tfc_dirt}
+# Tree features of the pack's own (ids under vanilla_tree/tree/, apart from the class selectors vanilla_tree/<class>: a
+# selector at the same path as its tree would place itself until the stack overflows)
+CUSTOM_TREES = {"firmages:vanilla_tree/tree/mangrove": mangrove_plain}
 
 
 def forest_biomes(mods_dir):
@@ -269,17 +256,23 @@ def build(table, reg_items, biomes):
         placed = []
         for f in t["features"]:
             if f in CUSTOM_TREES:
-                files[os.path.join(W, "configured_feature", *f.split(":")[1].split("/")) + ".json"] = CUSTOM_TREES[f]()
+                tree = CUSTOM_TREES[f]()
+                for name in re.findall(r'"Name": "([a-z0-9_:/]+)"', json.dumps(tree)):
+                    need(name)   # an unknown block id fails the whole worldgen registry at boot
+                files[os.path.join(W, "configured_feature", *f.split(":")[1].split("/")) + ".json"] = tree
             pid = f"firmages:vanilla_tree/{k}/{f.split('/')[-1].split(':')[-1]}"
             files[os.path.join(W, "placed_feature", *pid.split(":")[1].split("/")) + ".json"] = \
                 {"feature": f, "placement": [would_survive(sap)]}
             placed.append(pid)
         sel = {"type": "minecraft:random_selector", "config": {
             "features": [{"feature": p, "chance": 0.2} for p in placed[1:]], "default": placed[0]}}
-        files[os.path.join(W, "configured_feature", "vanilla_tree", f"{k}.json")] = sel
+        sel_path = os.path.join(W, "configured_feature", "vanilla_tree", f"{k}.json")
+        if sel_path in files:
+            die(f"vanilla tree feature {k} would overwrite a tree feature at the same path")
+        files[sel_path] = sel
         climate = {key: t[key] for key in ("min_temperature", "max_temperature", "min_groundwater", "max_groundwater",
                                            "min_rain_variance", "max_rain_variance")}
-        climate["rain_variance_absolute"] = False
+        climate["rain_variance_absolute"] = bool(t.get("rain_variance_absolute", False))
         files[os.path.join(W, "configured_feature", "vanilla_tree", f"{k}_entry.json")] = {
             "type": "tfc:forest_entry", "config": {
                 "climate": climate, "normal_tree": f"firmages:vanilla_tree/{k}", "dead_tree": f"firmages:vanilla_tree/{k}",

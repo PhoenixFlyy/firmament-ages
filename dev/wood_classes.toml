@@ -18,8 +18,14 @@
 #   lead      the species whose lumber, fuel values and function blocks vanilla wood stands in for ("ns:species")
 #   species   "ns:species" with planks and lumber of their own
 #   variants  AFC variant logs (log, wood and sapling only; their lumber recipe makes the lead of their species)
-#   tree      vanilla trees in TFC forests: climate window (TFC forest_entry fields) and the tree features
+#   tree      vanilla trees in TFC forests: climate window (TFC forest_entry fields, rain_variance_absolute as TFC) and
+#             the tree features
 #   fuel      [duration, temperature, purity] of the lead species' logs; planks burn 2/5 as long, 50 C hotter (TFC rule)
+
+# Species whose logs TFC or AFC list in tfc:tannin_logs (TFC 4.2.11, AFC 2.1.3): their class's vanilla logs tan too.
+tannin_species = ["tfc:birch", "tfc:chestnut", "tfc:douglas_fir", "tfc:hickory", "tfc:maple", "tfc:oak", "tfc:sequoia",
+                  "afc:cypress", "afc:teak", "afc:eucalyptus", "afc:gum_arabic", "afc:redcedar", "afc:rainbow_eucalyptus",
+                  "afc:black_oak"]
 
 [classes.oak]
 lead = "tfc:oak"
@@ -58,16 +64,16 @@ lead = "tfc:acacia"
 species = ["tfc:acacia", "afc:baobab"]
 variants = ["afc:gum_arabic"]
 fuel = [1000, 650.0, 0.95]
-# hot and dry: savanna next to TFC acacia
-tree = { min_temperature = 14.0, max_temperature = 40.0, min_groundwater = 90, max_groundwater = 260, min_rain_variance = 0.4, max_rain_variance = 0.85, features = ["minecraft:acacia"], sapling = "minecraft:acacia_sapling" }
+# hot and dry: savanna next to TFC acacia (like TFC's acacia entry: strong seasonal rain swing either way)
+tree = { min_temperature = 14.0, max_temperature = 40.0, min_groundwater = 90, max_groundwater = 260, min_rain_variance = 0.4, max_rain_variance = 0.85, rain_variance_absolute = true, features = ["minecraft:acacia"], sapling = "minecraft:acacia_sapling" }
 
 [classes.dark_oak]
 lead = "tfc:hickory"
 species = ["tfc:blackwood", "tfc:hickory", "tfc:chestnut", "afc:ironwood", "afc:ipe"]
 variants = []
 fuel = [2000, 762.0, 0.8]
-# temperate and dense: the wet half of the TFC hickory window
-tree = { min_temperature = 7.0, max_temperature = 17.0, min_groundwater = 330, max_groundwater = 500, min_rain_variance = -0.4, max_rain_variance = 0.6, features = ["minecraft:dark_oak"], sapling = "minecraft:dark_oak_sapling" }
+# temperate: the TFC hickory window (lead species); where it overlaps the oak window, half the vanilla groves are dark oak
+tree = { min_temperature = 6.8, max_temperature = 17.6, min_groundwater = 210, max_groundwater = 500, min_rain_variance = -0.4, max_rain_variance = 0.6, features = ["minecraft:dark_oak"], sapling = "minecraft:dark_oak_sapling" }
 
 [classes.mangrove]
 lead = "tfc:mangrove"
@@ -75,15 +81,15 @@ species = ["tfc:mangrove", "tfc:willow", "afc:mahogany"]
 variants = []
 fuel = [1000, 655.0, 0.95]
 # warm salt marsh only (the TFC mangrove forest); the vanilla tree without bee nest and vines
-tree = { min_temperature = 16.0, max_temperature = 40.0, min_groundwater = 200, max_groundwater = 500, min_rain_variance = -1.0, max_rain_variance = 1.0, features = ["firmages:vanilla_tree/mangrove"], sapling = "minecraft:mangrove_propagule", forest = "mangrove" }
+tree = { min_temperature = 16.0, max_temperature = 40.0, min_groundwater = 200, max_groundwater = 500, min_rain_variance = -1.0, max_rain_variance = 1.0, features = ["firmages:vanilla_tree/tree/mangrove"], sapling = "minecraft:mangrove_propagule", forest = "mangrove" }
 
 [classes.cherry]
 lead = "afc:fig"
 species = ["tfc:rosewood", "afc:fig"]
 variants = ["afc:rubber_fig"]
 fuel = [1900, 715.0, 0.95]
-# mild temperate: warm, moist, little seasonal rain swing
-tree = { min_temperature = 10.0, max_temperature = 18.0, min_groundwater = 200, max_groundwater = 420, min_rain_variance = -0.3, max_rain_variance = 0.4, features = ["minecraft:cherry"], sapling = "minecraft:cherry_sapling" }
+# mild and moist with a strong seasonal rain swing: the window of its species rosewood and rubber fig
+tree = { min_temperature = 12.0, max_temperature = 23.0, min_groundwater = 200, max_groundwater = 500, min_rain_variance = 0.35, max_rain_variance = 1.0, rain_variance_absolute = true, features = ["minecraft:cherry"], sapling = "minecraft:cherry_sapling" }
 
 # The Beneath (Arcane Age): its crimson and warped trunks drop the vanilla stems.
 [classes.crimson]
@@ -110,8 +116,3 @@ pairs = [["tfc:plant/golden_bamboo", "minecraft:bamboo"], ["tfc:golden_bamboo_bl
 [worldgen]
 rarity = 6
 mangrove_rarity = 4
-
-# Species whose logs TFC or AFC list in tfc:tannin_logs (TFC 4.2.11, AFC 2.1.3): their class's vanilla logs tan too.
-tannin_species = ["tfc:birch", "tfc:chestnut", "tfc:douglas_fir", "tfc:hickory", "tfc:maple", "tfc:oak", "tfc:sequoia",
-                  "afc:cypress", "afc:teak", "afc:eucalyptus", "afc:gum_arabic", "afc:redcedar", "afc:rainbow_eucalyptus",
-                  "afc:black_oak"]

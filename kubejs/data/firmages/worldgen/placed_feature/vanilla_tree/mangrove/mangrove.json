@@ -1,5 +1,5 @@
 {
-  "feature": "firmages:vanilla_tree/mangrove",
+  "feature": "firmages:vanilla_tree/tree/mangrove",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

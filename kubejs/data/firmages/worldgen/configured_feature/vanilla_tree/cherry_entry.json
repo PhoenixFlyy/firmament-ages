@@ -2,13 +2,13 @@
   "type": "tfc:forest_entry",
   "config": {
     "climate": {
-      "min_temperature": 10.0,
-      "max_temperature": 18.0,
+      "min_temperature": 12.0,
+      "max_temperature": 23.0,
       "min_groundwater": 200,
-      "max_groundwater": 420,
-      "min_rain_variance": -0.3,
-      "max_rain_variance": 0.4,
-      "rain_variance_absolute": false
+      "max_groundwater": 500,
+      "min_rain_variance": 0.35,
+      "max_rain_variance": 1.0,
+      "rain_variance_absolute": true
     },
     "normal_tree": "firmages:vanilla_tree/cherry",
     "dead_tree": "firmages:vanilla_tree/cherry",

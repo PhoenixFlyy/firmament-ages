@@ -8,7 +8,7 @@
       "max_groundwater": 260,
       "min_rain_variance": 0.4,
       "max_rain_variance": 0.85,
-      "rain_variance_absolute": false
+      "rain_variance_absolute": true
     },
     "normal_tree": "firmages:vanilla_tree/acacia",
     "dead_tree": "firmages:vanilla_tree/acacia",

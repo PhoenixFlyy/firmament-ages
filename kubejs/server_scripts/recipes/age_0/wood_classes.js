@@ -10,7 +10,7 @@
 //   R4  4 vanilla planks -> crafting table (TFC removed the vanilla recipe; the TFC workbenches take species planks)
 //   R5  8 class logs around a species sapling -> 8 logs of that species; R6 the same with planks
 //   R7  1 species log or wood -> 1 class log (fallen trunks, ruins, torn-down builds)
-//   R8  golden bamboo <-> bamboo, golden bamboo block <-> bamboo block
+//   R8  golden bamboo <-> bamboo, golden bamboo block <-> bamboo block; saw + bamboo block -> 2 bamboo planks
 //   R9  the lead species' TFC function blocks (support, axle, crate, clutch, encased axle, sewing table, water wheel,
 //       scribing table, shelf) take the class tags firmages:wood_class/<class>/...
 //   R10 buttons, plates, slabs, stairs, fences, gates, doors, trapdoors, signs and boats stay species-only: vanilla has
@@ -70,12 +70,15 @@ ServerEvents.recipes((event) => {
     .id('firmages:wood/crafting_table')
   n++
 
-  // R8
+  // R8, and bamboo planks like every other planks: saw + bamboo block = 2 (the pack has no other grid recipe for them)
   W.bamboo.forEach((pair) => {
     event.shapeless(pair[1], [pair[0]]).id(`firmages:wood/bamboo/${leaf(pair[1])}_from_golden`)
     event.shapeless(pair[0], [pair[1]]).id(`firmages:wood/bamboo/golden_${leaf(pair[1])}`)
     n += 2
   })
+  event.remove({ id: 'minecraft:bamboo_planks' })
+  sawn({ tag: 'minecraft:bamboo_blocks' }, 'minecraft:bamboo_planks', 2, 'firmages:wood/planks/bamboo')
+  n++
 
   // R9: JSON rewrite (the pack's pattern for recipe types without a KubeJS schema, recipes/deco_inputs.js)
   const KINDS = ['support', 'axle', 'crate', 'clutch', 'encased_axle', 'sewing_table', 'water_wheel', 'scribing_table',
