@@ -48,6 +48,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation ANVIL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "star_anvil");
     static final ResourceLocation MOUNT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "lens_mount");
     static final ResourceLocation WAYSHRINE = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "wayshrine_core");
+    static final ResourceLocation ANCHOR = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "sky_anchor");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
@@ -59,6 +60,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Crown.ANVIL, dev.firmages.core.crown.StarAnvilBlock.class);
         registration.registerBlockComponent(Crown.MOUNT, dev.firmages.core.crown.LensMountBlock.class);
         registration.registerBlockComponent(Wayshrine.INSTANCE, WayshrineCoreBlock.class);
+        registration.registerBlockComponent(Anchor.INSTANCE, dev.firmages.core.anchor.SkyAnchorBlock.class);
         // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
@@ -254,6 +256,37 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return WAYSHRINE;
+        }
+    }
+
+    /**
+     * A Sky Anchor (SPEC-himmel §29.6), from its synced block entity: "Sky Anchor: four shards", then why it is quiet
+     * ("Quiet until the Space Age", "Quiet: the shrine is broken") or the blessings in force and their radius.
+     */
+    enum Anchor implements IBlockComponentProvider {
+        INSTANCE;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (!(accessor.getBlockEntity() instanceof dev.firmages.core.anchor.SkyAnchorBlockEntity be)) return;
+            int n = dev.firmages.core.anchor.AnchorRules.count(be.tiers());
+            tooltip.add(Component.translatable(n == 0 ? "firmages.jade.anchor.none" : n == 1 ? "firmages.jade.anchor.one" : "firmages.jade.anchor.shards",
+                Numbers.words(n)).withStyle(ChatFormatting.GOLD));
+            switch (be.status()) {
+                case BEFORE_AGE -> tooltip.add(Component.translatable("firmages.jade.anchor.before_age").withStyle(ChatFormatting.GRAY));
+                case BROKEN -> tooltip.add(Component.translatable("firmages.jade.anchor.broken").withStyle(ChatFormatting.GRAY));
+                case SLEEPING -> tooltip.add(Component.translatable("firmages.jade.anchor.sleeping").withStyle(ChatFormatting.GRAY));
+                case EMPTY -> { }
+                case ACTIVE -> {
+                    tooltip.add(Component.translatable("firmages.jade.anchor.active", Numbers.words(be.radius())).withStyle(ChatFormatting.GREEN));
+                    for (String key : be.blessings()) tooltip.add(Component.literal("  ").append(Component.translatable(key)));
+                }
+            }
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return ANCHOR;
         }
     }
 }

@@ -63,6 +63,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.IntValue WAYSHRINE_PRAYER_SECONDS;
     public static final ModConfigSpec.IntValue WAYSHRINE_POINTER_RADIUS_CHUNKS;
     public static final ModConfigSpec.BooleanValue WAYSHRINE_TUTORIAL;
+    // Sky Anchors (SPEC-himmel §29.7)
+    public static final ModConfigSpec.IntValue ANCHOR_RADIUS;
     // origin
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
@@ -197,6 +199,11 @@ public final class ServerConfig {
             .defineInRange("pointerRadiusChunks", 256, 8, 512);
         WAYSHRINE_TUTORIAL = b.comment("Place one Forest Ring 300 to 800 blocks from the world spawn at the first start of a new world (never on a world older than three days or on land with traces of players).")
             .define("tutorial", true);
+        b.pop();
+
+        b.comment("Sky Anchors: from the Space Age an anchor carries the blessings of the shards it holds (and whose tiers are awakened)",
+            "into its radius, in any dimension, while the home shrine stands (SPEC-himmel 29).").push("anchor");
+        ANCHOR_RADIUS = b.comment("Blocks around a Sky Anchor in which its blessings act.").defineInRange("radius", 24, 8, 64);
         b.pop();
 
         b.comment("The Lens Crown: the Star Anvil forges celestial alloys and lenses from a chord of lenses (SPEC 27)").push("crown");
@@ -534,6 +541,11 @@ public final class ServerConfig {
     /** {@code wayshrine.prayerSeconds}. */
     public static int wayshrinePrayerSeconds() {
         return loaded() ? WAYSHRINE_PRAYER_SECONDS.get() : 5;
+    }
+
+    /** {@code anchor.radius}. */
+    public static int anchorRadius() {
+        return loaded() ? ANCHOR_RADIUS.get() : 24;
     }
 
     /** {@code wayshrine.pointerRadiusChunks}. */

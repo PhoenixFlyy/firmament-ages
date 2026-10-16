@@ -2659,6 +2659,87 @@ for _k in WAYSHRINE_KINDS:
     block("wayshrine_stone_" + _k, "wayshrine stone, " + _k)(lambda k=_k: _wayshrine_stone(k))
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Sky Anchor and blessing shards (SPEC-himmel 29): a desh plinth around a void-dark core; its top carries the Wayshrine
+# star (the anchor is built around a Wayshrine Stone), starlit while it carries a blessing. The shard is greyscale and
+# tinted in game with its tier's beam colour (FirmagesClient), like the lens glass.
+@block("sky_anchor_base", "sky anchor base")
+def _():
+    img = new_tex()
+    noise_fill(img, "desh", seeded("anchor_base"), weights=(0, 2, 6, 3, 1), cluster=2)
+    bevel(img, "desh")
+    return img
+
+
+@block("sky_anchor_side", "sky anchor core side")
+def _():
+    img = new_tex()
+    noise_fill(img, "navy", seeded("anchor_side"), weights=(1, 3, 6, 2, 0), cluster=2)
+    overlay(img, [
+        "................",
+        "................",
+        ".......h........",
+        ".......s........",
+        "................",
+        "...h........s...",
+        "................",
+        "..........h.....",
+        "....s...........",
+        "................",
+        ".......h........",
+        "................",
+        "..s.........h...",
+        "................",
+        "......s.........",
+        "................",
+    ], legend(s=("star", 2), h=("star", 4)))
+    bevel(img, "navy")
+    return img
+
+
+def _anchor_top(active):
+    img = new_tex()
+    noise_fill(img, "desh", seeded("anchor_top"), weights=(0, 2, 6, 3, 1), cluster=2)
+    bevel(img, "desh")
+    overlay(img, WAYSHRINE_STAR, legend(s=("star" if active else "navy", 2 if active else 3), h=("star", 4 if active else 1)))
+    return img
+
+
+block("sky_anchor_top", "sky anchor top")(lambda: _anchor_top(False))
+block("sky_anchor_top_active", "sky anchor top, active")(lambda: _anchor_top(True))
+
+SHARD = [
+    "................",
+    "................",
+    ".........oo.....",
+    "........ohho....",
+    ".......ohhmo....",
+    "......ohhmmo....",
+    ".....ohhmmdo....",
+    "....ohhmmmdo....",
+    "....ohmmmdo.....",
+    "...ohmmmddo.....",
+    "...ommmddo......",
+    "...ommddo.......",
+    "....oddo........",
+    ".....oo.........",
+    "................",
+    "................",
+]
+
+
+@crown_item("blessing_shard", "blessing shard (greyscale, tinted)")
+def _():
+    img = new_tex()
+    tone = {"o": (70, 70, 70, 255), "d": (150, 150, 150, 255), "m": (205, 205, 205, 255), "h": (250, 250, 250, 255)}
+    px = img.load()
+    for y, row in enumerate(SHARD):
+        for x, ch in enumerate(row):
+            if ch in tone:
+                px[x, y] = tone[ch]
+    return img
+
+
 # Block model texture maps (models/block/<file>.json -> "textures"). Geometry stays as it is.
 B = "firmages:block/"
 BLOCKS_WITHOUT_ITEM = {"wayshrine_core"}
@@ -2704,6 +2785,9 @@ for _ph in WAYSHRINE_PHASES:
                                                 "top": B + "wayshrine_core_top_" + _ph, "bottom": B + "wayshrine_core_bottom"}
 for _k in WAYSHRINE_KINDS:
     MODEL_TEXTURES["wayshrine_stone_" + _k] = {"particle": B + "wayshrine_stone_" + _k, "all": B + "wayshrine_stone_" + _k}
+for _top, _model in (("sky_anchor_top", "sky_anchor"), ("sky_anchor_top_active", "sky_anchor_active")):
+    MODEL_TEXTURES[_model] = {"particle": B + "sky_anchor_side", "side": B + "sky_anchor_side", "base": B + "sky_anchor_base",
+                              "top": B + _top}
 
 
 # ---------------------------------------------------------------------------------------------------------------------

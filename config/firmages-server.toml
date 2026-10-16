@@ -117,6 +117,14 @@
 	#Place one Forest Ring 300 to 800 blocks from the world spawn at the first start of a new world (never on a world older than three days or on land with traces of players).
 	tutorial = true
 
+#Sky Anchors: from the Space Age an anchor carries the blessings of the shards it holds (and whose tiers are awakened)
+#into its radius, in any dimension, while the home shrine stands (SPEC-himmel 29).
+[anchor]
+	#Blocks around a Sky Anchor in which its blessings act.
+	# Default: 24
+	# Range: 8 ~ 64
+	radius = 24
+
 #Balance hooks of the harmony round (SPEC 34).
 [balance]
 	#Felix H1A: the Crafts and Additions alternator gives FE only for the share of its network's rotation

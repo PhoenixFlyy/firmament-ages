@@ -38,6 +38,7 @@ public final class FirmagesClient {
             event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.STAR_ANVIL_BE.get(), CrownRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.LENS_MOUNT_BE.get(), LensMountRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.wayshrine.WayshrineRegistry.CORE_BE.get(), WayshrineCoreRenderer::new);
+            event.registerBlockEntityRenderer(dev.firmages.core.anchor.AnchorRegistry.SKY_ANCHOR_BE.get(), SkyAnchorRenderer::new);
         }
 
         /** Lens items: layer 1 (the glass) in the colour of the lens's shrine tier (SPEC §27.4), white until synced. */
@@ -47,7 +48,18 @@ public final class FirmagesClient {
                 event.register((stack, tint) -> tint != 1 || !(stack.getItem() instanceof dev.firmages.core.crown.LensItem l) ? -1
                     : 0xFF000000 | dev.firmages.core.net.ShrineSyncPayload.clientTierColor(l.index()).orElse(0xFFFFFF), lens.get());
             }
+            // Blessing shards (SPEC-himmel 29.3): the greyscale shard in its tier's colour, the fallback ladder until synced
+            event.register((stack, tint) -> tint != 0 ? -1 : 0xFF000000 | shardColor(dev.firmages.core.anchor.BlessingShardItem.tier(stack)),
+                dev.firmages.core.anchor.AnchorRegistry.BLESSING_SHARD.get());
         }
+    }
+
+    /** The beam colour of the Doc 08 ladder, used before {@code firmages:shrine_sync} arrives (EMI on the title screen). */
+    private static final int[] TIER_FALLBACK = {0xFFB347, 0xFFD54A, 0xE06030, 0x9B59FF, 0xF0F0F0, 0x40E0FF, 0x40FF80, 0xE0E8FF, 0xE0B0FF};
+
+    static int shardColor(int tier) {
+        int t = Math.max(0, Math.min(TIER_FALLBACK.length - 1, tier));
+        return dev.firmages.core.net.ShrineSyncPayload.clientTierColor(t).orElse(TIER_FALLBACK[t]);
     }
 
     @EventBusSubscriber(modid = FirmagesCore.MOD_ID, value = Dist.CLIENT)

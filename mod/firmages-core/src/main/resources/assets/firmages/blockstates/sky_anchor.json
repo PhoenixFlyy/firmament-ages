@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "firmages:block/sky_anchor"
+    },
+    "active=true": {
+      "model": "firmages:block/sky_anchor_active"
+    }
+  }
+}

@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
@@ -28,8 +29,9 @@ import java.util.Optional;
 import static dev.firmages.core.command.SelfTest.check;
 
 /**
- * Suite {@code wayshrines} (SPEC-himmel §28.10, level P): the data, the restored forms, the ruin templates, the TFC
- * structures and sets, and a locate of every worldgen type from the world spawn (found, or reported out of reach).
+ * Suite {@code wayshrines} (SPEC-himmel §28.10, §29.8, level P): the data, the restored forms, the ruin templates, the
+ * Sky Anchor's nine shard recipes and ring tags and its records, the TFC structures and sets, and a locate of every
+ * worldgen type from the world spawn (found, or reported out of reach).
  */
 public final class WayshrineSuite implements SelfTest.Suite {
     /** The types that generate as structures (the Wind Shrine comes with the Drifting Isles). */
@@ -43,6 +45,13 @@ public final class WayshrineSuite implements SelfTest.Suite {
     @Override
     public String name() {
         return "wayshrines";
+    }
+
+    /** Every recipe of this load, whatever its Age (the gate's master list), else the live ones. */
+    private List<RecipeHolder<?>> allRecipes() {
+        dev.firmages.core.gate.RecipeMaster m = dev.firmages.core.gate.RecipeGate.master(server.getRecipeManager());
+        if (m != null) return m.entries().stream().<RecipeHolder<?>>map(dev.firmages.core.gate.RecipeMaster.Entry::holder).toList();
+        return new ArrayList<>(server.getRecipeManager().getRecipes());
     }
 
     @Override
@@ -93,6 +102,38 @@ public final class WayshrineSuite implements SelfTest.Suite {
                 out.add(t.id() + " " + size.getX() + "x" + size.getY() + "x" + size.getZ());
             }
             return String.join(", ", out);
+        });
+        r.test("anchor_shards", () -> {
+            // SPEC-himmel 29.4: nine anchor_chord recipes, one per tier, each from a non-empty #firmages:anchor/ring_N
+            List<String> problems = new ArrayList<>();
+            java.util.Set<Integer> tiers = new java.util.TreeSet<>();
+            for (RecipeHolder<?> h : allRecipes()) {
+                if (!(h.value() instanceof dev.firmages.core.crown.StarforgeRecipe sf)) continue;
+                int t = dev.firmages.core.anchor.BlessingShardItem.tier(sf.result());
+                if (t < 0) continue;
+                if (!sf.chord().equals(ResourceLocation.fromNamespaceAndPath("firmages", "anchor_chord"))) problems.add(h.id() + " is not on anchor_chord");
+                if (!tiers.add(t)) problems.add("a second recipe for tier " + t + ": " + h.id());
+            }
+            for (int n = 0; n < dev.firmages.core.shrine.BlessingSources.TIERS; n++) {
+                var tag = net.minecraft.tags.TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("firmages", "anchor/ring_" + n));
+                if (BuiltInRegistries.ITEM.getTag(tag).map(x -> x.size()).orElse(0) == 0) problems.add("#" + tag.location() + " is empty");
+                if (!tiers.contains(n)) problems.add("no shard recipe for tier " + n);
+            }
+            check(problems.isEmpty(), String.join("; ", problems));
+            return "nine shard recipes, nine ring tags";
+        });
+        r.test("anchor_records", () -> {
+            // SPEC-himmel 29.3: every anchor record in a loaded chunk stands on an anchor block
+            List<String> stale = new ArrayList<>();
+            var all = dev.firmages.core.anchor.AnchorSavedData.get(server).anchors();
+            all.forEach((where, t) -> {
+                ServerLevel l = server.getLevel(where.dimension());
+                if (l != null && l.isLoaded(where.pos()) && !l.getBlockState(where.pos()).is(dev.firmages.core.anchor.AnchorRegistry.SKY_ANCHOR.get())) {
+                    stale.add(where.dimension().location() + " " + where.pos().toShortString());
+                }
+            });
+            check(stale.isEmpty(), "anchor records without an anchor: " + stale);
+            return all.size() + " anchors, Space Age " + (dev.firmages.core.anchor.AnchorService.ageOpen(server) ? "open" : "closed");
         });
         if (!ModList.get().isLoaded("tfc")) {
             r.test("structures", () -> "skipped: no TerraFirmaCraft (the worldgen files need it)");

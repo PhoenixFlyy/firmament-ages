@@ -75,6 +75,7 @@ public final class FirmagesCommands {
             .then(ShrineCommands.ceremony())
             .then(CrownCommands.crown())
             .then(WayshrineCommands.wayshrine())
+            .then(AnchorCommands.anchor())
             .then(OriginCommands.origin())
             .then(OriginCommands.reactor())
             .then(StarfallCommands.starfall())

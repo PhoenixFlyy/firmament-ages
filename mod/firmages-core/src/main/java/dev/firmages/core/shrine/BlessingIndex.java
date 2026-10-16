@@ -12,8 +12,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * and a data reload, and rebuilt on the next read, so a burst of changes costs one rebuild. It is empty while the home
  * shrine is not intact.
  * <p>
- * The heart is built in. Further sources come from providers: the Wayshrines register theirs at mod construction; the
- * Sky Anchors (the anchor half of M16) plug in the same way with {@link #registerProvider}.
+ * The heart is built in. Further sources come from providers registered at mod construction with
+ * {@link #registerProvider}: the Wayshrines ({@code WayshrineService::sources}) and the Sky Anchors
+ * ({@code AnchorService::sources}, which also marks the index stale when the Space Age opens or closes).
  */
 public final class BlessingIndex {
     /** A kind of blessing source besides the heart. Called on the server thread during a rebuild. */

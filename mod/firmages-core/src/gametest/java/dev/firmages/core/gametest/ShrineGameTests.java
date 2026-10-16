@@ -247,7 +247,8 @@ public final class ShrineGameTests {
      * SPEC §7.6 (M6): the shipped blessings of nine awakened tiers on a player inside the blessing radius: +15 % max
      * health, +5 % speed, +5 % break speed, +0.5 reach, -20 % fall damage and +1 safe fall block, +1 luck, +10 % XP;
      * all gone outside the radius or with a broken shrine, back far from the heart within a lit Wayshrine's radius (the
-     * blessing sources of SPEC-himmel §29.5 replace {@code shrine.blessings.everywhere});
+     * blessing sources of SPEC-himmel §29.5 replace the removed {@code shrine.blessings.everywhere}; a Sky Anchor restores
+     * them far away in any dimension, {@link AnchorGameTests#anchorInAnyDimension});
      * three awakened tiers give only theirs. Status effects (no shipped blessing uses one) on a synthetic blessing.
      */
     @GameTest(template = "empty", batch = "firmages_3_shrine_bless")
