@@ -1,7 +1,6 @@
 // Firmament Ages - cross-mod links of the Quantum Age (harmony plan section 4, package A9; dev/quest-hints-links.md).
 // Link 15: Create stays needed. The fusion reactor frames are built on the Mechanical Crafter (Mekanism's grid recipe
 //   goes); four frames per craft as before.
-// Link 17: the ultimate tier installer takes a calorite plate in place of the planks.
 // Link 20: the patterns and the power of the earlier Ages. The awakened core (the heart of every awakened part of
 //   Draconic Evolution and the catalyst of the Quantum Core) takes an AE2 256k storage component in place of one wyvern
 //   core; the fusion reactor controller takes a fission reactor port in place of its chemical tank.
@@ -26,15 +25,6 @@ ServerEvents.recipes((event) => {
     pattern: ['APA', 'PXP', 'APA'],
     result: { id: 'mekanismgenerators:fusion_reactor_frame', count: 4 }
   }).id('firmages:mechanical_crafting/fusion_reactor_frame')
-
-  // ======================================================================================== link 17: ultimate installer
-  event.remove({ id: 'mekanism:tier_installer/ultimate' })
-  event.shaped('mekanism:ultimate_tier_installer', ['ACA', 'IPI', 'ACA'], {
-    A: '#mekanism:alloys/atomic',
-    C: '#c:circuits/ultimate',
-    I: '#c:gems/diamond',
-    P: '#c:plates/calorite'
-  }).id('mekanism:tier_installer/ultimate')
 
   // ======================================================================================== link 20: awakened core
   const consume = (ing) => ({ ingredient: ing, consume: true })

@@ -1809,14 +1809,12 @@ LINK_RECIPES = [
     ("age_6", 25, "-mekanism:control_circuit/infused_advanced", []),
     ("age_7", 15, "firmages:mechanical_crafting/digital_miner", ["mekanism:digital_miner"]),
     ("age_7", 15, "-mekanism:digital_miner", []),
-    ("age_7", 17, "mekanism:tier_installer/elite", ["c:plates/desh"]),
     ("age_7", 18, "mekanismgenerators:fission_reactor/port", ["mekmm:advanced_electrolysis_core"]),
     ("age_7", 18, "mekanismgenerators:turbine/casing", ["immersiveengineering:sheetmetal_steel"]),
     ("age_7", 19, "draconicevolution:machines/wyvern_crafting_injector", ["ae2:engineering_processor"]),
     ("age_7", 25, "draconicevolution:components/wyvern_core", ["mekanism:advanced_control_circuit"]),
     ("age_8", 15, "firmages:mechanical_crafting/fusion_reactor_frame", ["mekanismgenerators:fusion_reactor_frame"]),
     ("age_8", 15, "-mekanismgenerators:reactor/frame", []),
-    ("age_8", 17, "mekanism:tier_installer/ultimate", ["c:plates/calorite"]),
     ("age_8", 20, "draconicevolution:components/awakened_core", ["ae2:cell_component_256k"]),
     ("age_8", 20, "mekanismgenerators:reactor/controller", ["mekanismgenerators:fission_reactor_port"]),
 ]
@@ -2652,11 +2650,11 @@ LINK_REACH = [("age_2", ["tfc:metal/rod/steel", "tfc:metal/rod/wrought_iron", "c
               ("age_5", ["immersiveengineering:generator", "createdieselgenerators:huge_diesel_engine"]),
               ("age_6", ["mekanism:steel_casing", "mekanism:basic_control_circuit", "mekanism:advanced_control_circuit",
                          "ae2:controller", "ae2:drive", "mekanism:hdpe_sheet"]),
-              ("age_7", ["mekanism:digital_miner", "mekanism:elite_tier_installer", "mekanismgenerators:fission_reactor_port",
+              ("age_7", ["mekanism:digital_miner", "mekanismgenerators:fission_reactor_port",
                          "mekanismgenerators:turbine_casing", "draconicevolution:wyvern_crafting_injector",
                          "draconicevolution:wyvern_core"]),
               ("age_8", ["mekanismgenerators:fusion_reactor_frame", "mekanismgenerators:fusion_reactor_controller",
-                         "mekanism:ultimate_tier_installer", "draconicevolution:awakened_core"])]
+                         "draconicevolution:awakened_core"])]
 
 # Items whose only recipe needed a dead part (Create sheets, barrel, a disabled rod, the brass nugget, the bronze nugget). Not here because
 # the walk does not model their chain: the MA soul extractor (Mystical Agriculture ores) and the AdvancedAE strength

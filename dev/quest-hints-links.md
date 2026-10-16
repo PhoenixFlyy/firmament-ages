@@ -24,7 +24,7 @@ Verbindung 23 (Erzprozessor) und 24 (Arkan-Katalysator) gehören dem Endspiel-Pa
 | 14 | age_6 | Information Age, Digital: "ME Controller" | The controller rests on a steel casing, the drive on an advanced control circuit. The network grows from the factory. |
 | 15 | age_7 | Space Age, Atomic: "Digital Miner" | Build the Digital Miner on the mechanical crafter. Gears built your first factory; they still build the last machines. |
 | 16 | age_7 | Space Age, Rocket: "Fuel by Tier" | Fill tier 1 and 2 rockets with diesel or kerosene. Tier 3 and 4 burn liquid hydrogen or cryo fuel. |
-| 17 | age_7 | Space Age, Factory: "Elite Installer" | The elite tier installer takes a desh plate, the ultimate one calorite. The planets lift your machines. |
+| 17 | – | entfällt (Review 0.13.0) | Die Elite- und Ultimate-Maschinen haben eigene Rezepte ab der Informationszeit; die Platte im Installer verzögerte nur das Aufrüsten. Mekanisms Installer bleiben. |
 | 18 | age_7 | Space Age, Atomic: "Fission Port" | Each fission port holds an advanced electrolysis core, the heart of the large gas generator. Turbine casings take steel sheet metal. |
 | 19 | age_7 | Space Age, Fusion Crafting: "Wyvern Injector" | The wyvern injector takes an engineering processor from your network. Patterns of the last Age guide the fusion. |
 | 20 | age_8 | Quantum Age, Fusion: "Fusion Controller" | The fusion controller holds a fission port; the awakened core takes a 256k storage component. Old power, old patterns. |

@@ -4,8 +4,8 @@
 // Link 16: Mekanism flies the rocket. Mekanism oxygen fills the Oxygen Loader already (Mekanism tags it c:oxygen, which
 //   ad_astra:oxygen holds). The tier 1 and 2 rockets burn diesel or kerosene from the oil chain, the tier 3 and 4 rockets
 //   liquid hydrogen (Mekanism's Rotary Condensentrator) or cryo fuel (the Cryo Freezer, the efficient fuel).
-// Link 17: the space road lifts the Mekanism tiers. The elite tier installer takes a desh plate in place of the planks
-//   (the ultimate installer takes calorite, recipes/age_8/links.js).
+// Link 17 is dropped (0.13.0 review): a desh plate in the elite tier installer only delayed in-place upgrades, since the
+//   elite and ultimate machines keep their own grid recipes from the Information Age. Mekanism's installers stay.
 // Link 18: the new generator contains the old one. The fission reactor port takes an advanced electrolysis core, the
 //   heart of the Large Gas-Burning Generator; the turbine casing takes IE steel sheet metal.
 // Link 19: AE2 carries Draconic Evolution. The wyvern crafting injector takes an AE2 engineering processor in place of
@@ -31,15 +31,6 @@ ServerEvents.recipes((event) => {
     pattern: ['ACA', 'SRS', 'TXT'],
     result: { id: 'mekanism:digital_miner', count: 1 }
   }).id('firmages:mechanical_crafting/digital_miner')
-
-  // ======================================================================================== link 17: elite installer
-  event.remove({ id: 'mekanism:tier_installer/elite' })
-  event.shaped('mekanism:elite_tier_installer', ['ACA', 'IPI', 'ACA'], {
-    A: '#mekanism:alloys/reinforced',
-    C: '#c:circuits/elite',
-    I: '#c:ingots/gold',
-    P: '#c:plates/desh'
-  }).id('mekanism:tier_installer/elite')
 
   // ======================================================================================== link 18: fission and turbine
   event.remove({ id: 'mekanismgenerators:fission_reactor/port' })

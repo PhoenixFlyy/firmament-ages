@@ -521,7 +521,7 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
 
 ### Pitfalls
 - Tier 1 and 2 rockets burn diesel or kerosene; tier 3 and 4 rockets need liquid hydrogen or cryo fuel.
-- The Digital Miner is built on the mechanical crafter; the elite tier installer takes a desh plate.
+- The Digital Miner is built on the mechanical crafter.
 - Off-world you need the full suit and oxygen. An oxygen distributor fills a sealed base.
 - A Sky Anchor (Void Steel, voidglass and a Wayshrine Stone) carries the shrine's blessings within 24 blocks in any
   dimension, also on the Moon and Mars; set the blessing shards of awakened rings into it.
