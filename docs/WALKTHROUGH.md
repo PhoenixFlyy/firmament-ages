@@ -11,11 +11,11 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 | Bronze Age | Sky Disc | forge, stone, copper and bronze anvils, quern, crucible, water wheel, millstone, mechanical saw | Ring 1, Bronze Sanctum. Rite: ring the bell. Opens the Iron Age. |
 | Iron Age | Steel Heart | bloomery, blast furnace, crushing wheels, fuel heater, steam engine, sequenced assembly | Ring 2, Iron Sanctum. Rite: light the four lamps. Opens the Arcane Age. |
 | Arcane Age | Arcane Keystone | Djinni pentacle, imbuement chamber, enchanting apparatus, liquefaction cauldron, incubator, Dimensional Mineshaft | Ring 3, Spirit Circle. Rite: light the eight candles. Opens the Industrial Age. |
-| Industrial Age | Pressure Core | coke oven, blast furnace, crusher, metal press, alloy kiln, alternator, packager and frogports | Ring 4, Foundry Nave. Rite: power the four electric lanterns. Opens the Electric Age. |
-| Electric Age | Humming Core | arc furnace, diesel generator, pumpjack, distillation tower, excavator, assembler | Ring 5, Tesla Crown. Rites: four floodlights on (power and redstone), 1,000,000 FE in its four HV capacitors. Opens the Information Age. |
-| Information Age | Data Matrix | inscriber, ME network, metallurgic infuser, purification chamber, simulation chamber, a built End portal | Ring 6, Data Nave. Rite: two of you pray together. Opens the Space Age. |
-| Space Age | Star Chart | fission reactor, industrial turbine, NASA workbench, rockets tier 1 and 2, fusion crafting (wyvern) | Ring 7, Star Spire. Rite: pray at night under an open sky. Opens the Quantum Age. |
-| Quantum Age | Quantum Core, the last offering | fusion reactor, SPS, rockets tier 3 and 4, fusion crafting (draconic), Marid pentacle (optional) | Ring 8, Quantum Ring. Rites: two pray together, night sky, the Awakened Keystone back on its plinth. Opens the Singularity Age. |
+| Industrial Age | Pressure Core | coke oven, blast furnace, crusher, metal press, alloy kiln, alternator, packager and frogports | Ring 4, Foundry Nave. Proof: 512 steel ingots through Tally Chutes. Rite: power the four electric lanterns. Opens the Electric Age. |
+| Electric Age | Humming Core | arc furnace, diesel generator, pumpjack, distillation tower, excavator, assembler | Ring 5, Tesla Crown. Proof: 2,048 aluminium ingots. Rites: four floodlights on (power and redstone), 1,000,000 FE in its four HV capacitors. Opens the Information Age. |
+| Information Age | Data Matrix | inscriber, ME network, metallurgic infuser, purification chamber, simulation chamber, a built End portal | Ring 6, Data Nave. Proof: 4,096 osmium ingots. Rites: 10,000,000 FE into the heart, two of you pray together. Opens the Space Age. |
+| Space Age | Star Chart | fission reactor, industrial turbine, NASA workbench, rockets tier 1 and 2, fusion crafting (wyvern) | Ring 7, Star Spire. Proof: 4,096 desh ingots. Rite: pray at night under an open sky. Opens the Quantum Age. |
+| Quantum Age | Quantum Core, the last offering | fusion reactor, SPS, rockets tier 3 and 4, fusion crafting (draconic), Marid pentacle (optional) | Ring 8, Quantum Ring. Proof: 8,192 calorite ingots. Rites: 100,000,000 FE into the heart, two pray together, night sky, the Awakened Keystone back on its plinth. Opens the Singularity Age. |
 | Singularity Age | Ultimate Singularity, then the Stargate (no offering) | draconic reactor, chaotic fusion, naquadah line, Stargate and DHD | The Gathering: one prayer at the complete shrine gives the nine relics back for the last forging. |
 | Finale | Defeat The Primordial, the final boss in The Origin | the altar and arena of The Origin | No shrine. The boss's death grants `finale_won` to all of you. |
 
@@ -29,7 +29,9 @@ Sneak is Left Ctrl here; Left Shift sprints.
 3. Right-click the heart with an empty hand. It says what Caelum wants next and shows every missing block as a ghost.
    When the ring is whole, the heart glows.
 4. Lay the offering on the new plinth (or right-click the heart with it). A wrong item is refused and the right one named.
-   Sneak and right-click the plinth with an empty hand to take it back, until the prayer ends.
+   Sneak and right-click the plinth with an empty hand to take it back, until the prayer ends. From the Industrial
+   Age on, Caelum first asks for proof of work: a count of the Age's metal through your Tally Chutes in that Age
+   (the heart and Jade show it).
 5. Do the Age's rite.
 6. Pray: sneak and hold right-click on the heart, main hand empty, within 6 blocks. 10 s alone, 5 s with two, never less
    than 4 s. Progress drains while nobody prays.
@@ -44,9 +46,10 @@ Sneak is Left Ctrl here; Left Shift sprints.
 10. Wayshrines: ruined shrines of Caelum lie in the wide world, the first a few hundred blocks from spawn. Right-click
     the heart to learn the way to the nearest. Right-click its core to see the missing blocks, rebuild it from the
     stone around it, lay the offering of your Age (Bronze Age: a bronze double ingot; Iron Age: a meteoric iron
-    ingot; Arcane Age: a meteoric iron double ingot; Industrial Age: a meteoric iron sheet; from the Electric Age:
-    a starsteel ingot), do the rite and pray. A lit Wayshrine carries your blessings within 24 blocks and stays lit
-    for good. Meteoric iron and starsteel come from fallen stars (Starfall).
+    ingot; Arcane Age: a Starlit Iron ingot; Industrial Age: a Cloudsteel ingot; Electric Age: an Aurora Steel
+    ingot; from the Information Age: a Halo Steel ingot), do the rite and pray. A lit Wayshrine carries your
+    blessings within 24 blocks and stays lit for good. Meteoric iron comes from fallen stars (Starfall), the alloys
+    from the Lens Crown. From the Industrial Age one Wayshrine waits on the Drifting Isles: the Wind Shrine.
 
 ---
 
@@ -143,6 +146,11 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
      X X X - -
      ```
    - A saw and a log make eight lumber; four lumber make planks; four planks make a workbench.
+   - Wild trees drop the vanilla log of their class (oak, birch, spruce, jungle, acacia, dark oak, mangrove or
+     cherry); a placed log drops itself. A saw and a vanilla log make two vanilla planks, a saw and vanilla planks
+     the lumber of the class's lead tree, and four vanilla planks make a crafting table, which works as a
+     workbench. For a tree's own wood, set eight class logs or planks around its sapling (Chronicle: "Wood
+     Classes").
    - Four loose rocks in the 2x2 grid make a cobblestone.
 10. Craft in the workbench (H Hearth Idol, S cobblestone, C charcoal, K copper ingot, - empty):
     ```
@@ -235,7 +243,7 @@ Offer the Steel Heart at the shrine, in the Iron Sanctum (ring 2).
    raw iron bloom. Hammer it into wrought iron (4). Smith a wrought iron anvil. Build a blast furnace: iron ore,
    charcoal and flux give pig iron. Hammer pig iron into high carbon steel, then steel. Keystone: 16 steel ingots.
 2. Power & Motion: brass (copper and zinc, in the crucible or a heated basin); a precision mechanism by sequenced
-   assembly; crushing wheels (ore pieces to dust, about 1.7 times the metal); a fuel heater for heated mixing; a
+   assembly; crushing wheels (ore pieces to dust, 1.5 times the metal); a fuel heater for heated mixing; a
    steam engine on a boiler. Keystone: 32 wrought iron ingots from a machine-fed bloomery line.
 3. Survival: a barrel; leather (limewater, scrape, tannin); one leather armour piece; four sealed large vessels in a
    cellar below ground. Keystone "Winter Stores": tick it when the cellar holds enough for all of you.
@@ -264,6 +272,9 @@ Offer the Steel Heart at the shrine, in the Iron Sanctum (ring 2).
 - Stars fall now on some clear nights: a streak, a boom, and a hint on screen ("A star falls to the north-east").
   The crater lies 300 to 2,500 blocks away. Its meteorites are the only meteoric iron; while the core glows (two
   days) they drop double. Missing a fall costs only the bonus.
+- Storm Rod (wrought iron rods on copper sheets, a meteoric iron rod as its tip): fill it with 16 sand. In rain
+  lightning strikes it now and then and fuses four sand into storm glass, the glass of the Lens Crown's first
+  alloys. Set one up early.
 
 ---
 
@@ -301,7 +312,8 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
    - In the Djinni crafting pentacle (bound Djinni book): spirit attuned crystal, iesnium ingot, Wilden Tribute,
      mercury catalyst, Starlit Iron ingot, source gem block.
    - Starlit Iron comes from the Lens Crown: a Star Anvil inside a 9x9 stone ring with three lens mounts under the
-     open sky. Each later Age adds one lens and one alloy, and every later offering takes that alloy.
+     open sky, forging meteoric iron, storm glass and an Arcane gem. Each later Age adds one lens and one alloy, and
+     every later offering takes that alloy. The Wayshrines now want Starlit Iron as their offering.
 5. Raise the Spirit Circle (11x11, 4 high): a sourcestone border (35); on each corner an otherstone pillar three high
    capped with a source gem block; eight candles standing on the border. Plinth: five blocks from the heart.
 6. Lay the Keystone, light the eight candles, pray.
@@ -343,17 +355,21 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
    needs a fuelled source: a steam engine on a boiler over a blaze burner with fuel (from the Electric Age also a
    diesel engine). Water wheels and windmills turn it but give no FE; with both on one shaft it gives the fuelled
    share.
-3. Ore Line: a crusher (ore pieces to powder plus dust, twice the metal); a metal press (a sheet from two ingots);
+3. Ore Line: a crusher (ore pieces to dust, 2.5 times the metal, plus mineral powder for later); a metal press (a sheet from two ingots);
    alloy bricks (two from sandstone and fire bricks) and the alloy kiln; 8 constantan. Keystone: 64 iron dust from a
    machine-fed crusher.
 4. Logistics & Backfill: packager, frogport, stock ticker, factory gauge; the thresher (steel sheet metal, light
    engineering blocks, a redstone engineering block, a hopper, formed with the hammer). Keystone: 64 steel sheets
    delivered through the package network.
-5. Craft the Pressure Core: a heavy engineering block on top between two Cloudsteel ingots, a black steel double
+5. Cloudsteel: the Lens Crown with its fourth lens forges meteoric iron, firmament crystal and black steel. Firmament
+   crystal grows only on the Drifting Isles above the clouds (tops at Y 228 to 272): reach them by airship or
+   jetpack and break the clusters and the lode, which stands again at once. One isle carries the Wind Shrine.
+   Craft the Pressure Core: a heavy engineering block on top between two Cloudsteel ingots, a black steel double
    sheet left and right, the Arcane Gearbox in the middle, the built-up steel chamber below.
 6. Raise the Foundry Nave (13x13, 5 high): a coke brick border (43); on each corner a heavy engineering block, steel
    scaffolding three high and an electric lantern on top. Plinth: six blocks from the heart.
-7. Lay the Core, power the four lanterns, pray.
+7. Pass 512 steel ingots through your Tally Chutes in this Age (Jade on the heart shows the count). Lay the Core,
+   power the four lanterns, pray.
 8. The Electric Age dawns. Blessing **Tireless Hands**: you break blocks 5 % faster near the shrine.
 
 ### Pitfalls
@@ -387,11 +403,14 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
    crafting pentacle, or from the Wither. Keystone: 16 Attuned Circuits (a circuit board, a quartz, two advanced
    electronic components and electrum wire; with magic a circuit board and a spirit attuned crystal; let the
    assembler make them).
-5. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four aluminium plates, an Aurora
-   Steel ingot and a Nether Star.
+5. Aurora Steel: starsteel, storm glass, aurora light and red steel in the Lens Crown. Aurora light comes from an
+   Aurora Net (Industrial Age) at Y 140 or higher under open sky in the cold north, on clear nights with an aurora;
+   pipe it or bucket it out. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four
+   aluminium plates, an Aurora Steel ingot and a Nether Star.
 6. Raise the Tesla Crown (15x15, 5 high): aluminium blocks on the border (51); on each corner a red steel block, an HV
    capacitor, aluminium scaffolding two high and a floodlight on top. Plinth: seven blocks from the heart.
-7. Lay the Core. The four floodlights need power and a redstone signal. Charge the four capacitors with 1,000,000 FE
+7. Pass 2,048 aluminium ingots through your Tally Chutes in this Age. Lay the Core. The four floodlights need power
+   and a redstone signal. Charge the four capacitors with 1,000,000 FE
    together; nothing is drained. Pray.
 8. The Information Age dawns. Blessing **Long Arm**: half a block more reach near the shrine.
 
@@ -431,12 +450,14 @@ Offer the Data Matrix in the Data Nave (ring 6).
 4. The End: two portal frames from seven obsidian, an ender pearl and a reinforced alloy. Set twelve frames as a ring
    around a 3x3 hole, facing inward, and fill them with twelve eyes of ender. Destroy the crystals, then the dragon.
    Keystone: four bottles of dragon's breath. The End is optional: no Age needs it.
-5. Craft the Data Matrix: Halo Steel ingots in the top corners, blue steel sheets in the bottom corners, advanced
+5. Halo Steel: starsteel, firmament crystal, aurora light and blue steel in the Lens Crown. Craft the Data Matrix:
+   Halo Steel ingots in the top corners, blue steel sheets in the bottom corners, advanced
    control circuits on three edges, the 64k storage component in the middle, a singularity from the matter condenser
    bottom middle (it eats a quarter of a million items: feed it a cobblestone line).
 6. Raise the Data Nave (17x17, 4 high): certus quartz blocks on the border (59); on each corner a steel casing, quartz
    glass two high and a fluix block on top. Plinth: eight blocks from the heart.
-7. Lay the Matrix and pray: two of you together, if two are online.
+7. Pass 4,096 osmium ingots through your Tally Chutes in this Age. Lay the Matrix, feed the heart 10,000,000 FE and
+   pray: two of you together, if two are online.
 8. The Space Age dawns. Blessing **Clarity**: another 5 % maximum health near the shrine.
 
 ### Pitfalls
@@ -464,16 +485,22 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
    turns the pieces into clumps, shards and slurry. A dragon heart: wyvern fusion of a draconium block with two
    polonium and two plutonium pellets, two ostrum plates and a draconium core (the dragon drops one too). A fusion
    crafting core; four basic and four wyvern injectors. Keystone: a wyvern core.
-5. Fuse the Star Chart at wyvern level: a polonium pellet on the core; a desh plate, a Void Steel ingot, two ostrum
+5. Void Steel: voidglass, starsteel, aurora light and desh in the Lens Crown. Voidglass comes only from probes: build
+   the Launch Complex (a gantry and a flame trench around a probe cradle, the launch control three blocks away),
+   load a probe and a sampler module (Halo Steel), fill the control with rocket fuel or diesel and launch. Fuse the
+   Star Chart at wyvern level: a polonium pellet on the core; a desh plate, a Void Steel ingot, two ostrum
    plates, a wyvern core and the flight recorder in the injectors; 16,000,000 FE.
 6. Raise the Star Spire (19x19, 5 high): a steel plating border (67); on each corner a pillar of four desh blocks (or
    desh pillars) capped with an ostrum block. Plinth: nine blocks from the heart.
-7. Lay the Chart and pray at night, with open sky above the heart and no rain.
+7. Pass 4,096 desh ingots through your Tally Chutes in this Age. Lay the Chart and pray at night, with open sky above
+   the heart and no rain.
 8. The Quantum Age dawns. Blessing **Starwalker**: near the shrine falls hurt 20 % less and one more block of fall is
    safe.
 
 ### Pitfalls
 - Off-world you need the full suit and oxygen. An oxygen distributor fills a sealed base.
+- A Sky Anchor (Void Steel, voidglass and a Wayshrine Stone) carries the shrine's blessings within 24 blocks in any
+  dimension, also on the Moon and Mars; set the blessing shards of awakened rings into it.
 - Every tool and armour piece has a direct recipe; no gear goes into better gear.
 - Build a digital miner now. It is the only way to the naquadah of the Singularity Age.
 - Ore by injection: four times the metal.
@@ -504,11 +531,14 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
      awaken the Keystone in the Marid crafting pentacle: Arcane Keystone, two atomic alloys, a wyvern core, a
      subatomic alloy.
    - Lay the Awakened Keystone on the Spirit Circle plinth. Keystone "Awakened Keystone".
-5. Fuse the Quantum Core at draconic level: the awakened core on the fusion core; two antimatter pellets, a
+5. Quasar Alloy: voidglass, a deep-space sample, aurora light and calorite in the Lens Crown. Deep-space samples come
+   back from probes with the deep-space module (Void Steel). Fuse the Quantum Core at draconic level: the awakened
+   core on the fusion core; two antimatter pellets, a
    calorite plate, a Quasar Alloy ingot, two ice shards and a subatomic alloy in the injectors; 64,000,000 FE.
 6. Raise the Quantum Ring (21x21, 3 high): calorite blocks on the border (75); on each corner SPS casings or fusion
    reactor frames two high with an awakened draconium block on top. Plinth: ten blocks from the heart.
-7. Lay the Core. Pray at night under an open sky, two of you together if two are online.
+7. Pass 8,192 calorite ingots through your Tally Chutes in this Age. Lay the Core, feed the heart 100,000,000 FE and
+   pray at night under an open sky, two of you together if two are online.
 8. The Singularity Age dawns. Blessing **Resolve**: another 5 % maximum health and some luck near the shrine.
 
 ### Pitfalls
@@ -528,8 +558,8 @@ Forge the Ultimate Singularity from the nine relics, build a Stargate around it 
 offering.
 
 ### The way
-1. **The Gathering.** All nine relics on their plinths, every ring whole, none lent, no maintenance. Pray at the
-   heart, two of you together if two are online. Caelum: "Nine gifts. One light. Open the gate." The nine relics fall
+1. **The Gathering.** All nine relics on their plinths, every ring whole, none lent, no maintenance. Feed the heart
+   1,000,000,000 FE, then pray at the heart, two of you together if two are online. Caelum: "Nine gifts. One light. Open the gate." The nine relics fall
    out above the heart; they never despawn and do not burn. The plinths keep glowing. The sign top left now reads
    "Goal: Beyond the Firmament".
 2. Chaos comes from your own reactor: it hands its spent fuel out as chaos fragments (a full cycle about six large
@@ -542,7 +572,8 @@ offering.
    reactor controller (a stabilizer frame, two awakened draconium ingots, two elite control circuits) sits against a
    stabilizer or injector: it shuts the reactor down at 80 % conversion, swaps the fuel while it is cold and signals
    ready by redstone. Starting it is your job. Keystone "Reactor Online".
-4. A chaotic core and the Firmament Alloy: the full Lens Crown forges it from a singular alloy.
+4. A chaotic core and the Firmament Alloy: the full Lens Crown forges it from a singular alloy with voidglass,
+   starsteel, firmament crystal and aurora light.
 5. The Ultimate Singularity, chaotic fusion: the chaotic core on the fusion core; Hearthstone, Sky Disc, Steel Heart,
    Awakened Keystone, Pressure Core, Humming Core, Data Matrix, Star Chart, Quantum Core, two large chaos fragments and the
    Firmament Alloy in twelve injectors; 2,000,000,000 FE.

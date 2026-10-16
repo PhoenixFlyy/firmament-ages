@@ -9,8 +9,8 @@ This is a progression pack in the SevTech: Ages tradition, built from scratch fo
 - Slow and deliberate. Plan on well over a hundred hours, and there is no shortcut past an Age.
 - One team per server. Everyone is in the same Age, the shrine belongs to all of you, and the last fight is fought together.
 - Tech is the main road: TerraFirmaCraft, Create, Immersive Engineering, Mekanism, Applied Energistics 2, Ad Astra and Draconic Evolution, one after the other. Magic (Occultism, Ars Nouveau, Theurgy) is there for those who want it and is never required.
-- A TerraFirmaCraft world that feels alive: climate and seasons, birds and wind, volcanoes, falling stars, ruined shrines to restore, ruins with loot of your Age, blood moons that get nastier with every Age.
-- A large building set in every TerraFirmaCraft and ArborFirmaCraft wood and rock, gated by Age like everything else.
+- A TerraFirmaCraft world that feels alive: climate and seasons, birds and wind, volcanoes, falling stars, auroras, islands above the clouds, ruined shrines to restore, ruins with loot of your Age, blood moons that get nastier with every Age.
+- A large building set in every TerraFirmaCraft and ArborFirmaCraft wood and rock, vanilla woods included, gated by Age like everything else.
 - The quest book (K) is the only guide, and it stays short on purpose: what to do, and later why. No recipe viewer before the Bronze Age, no map before the Iron Age.
 
 ## The Ages
@@ -22,12 +22,12 @@ This is a progression pack in the SevTech: Ages tradition, built from scratch fo
 | Dawn | A TerraFirmaCraft world: knapping, stone tools, thatch, the first fire | none: the first fire opens the Stone Age |
 | Stone Age | Pottery, pit kilns, copper casting, ArborFirmaCraft | Hearthstone |
 | Bronze Age | TFC anvils, three bronzes, Create (Andesite tier), Sophisticated Backpacks | Sky Disc |
-| Iron Age | Bloomery, blast furnace, steel, Create Brass tier, the world map, the Cold Forge expedition | Steel Heart |
-| Arcane Age | Occultism, Ars Nouveau, Theurgy, Apotheosis, the Nether | Arcane Keystone |
-| Industrial Age | Immersive Engineering, coke and FE power, black steel, Create packages | Pressure Core |
+| Iron Age | Bloomery, blast furnace, steel, Create Brass tier, the world map, the Cold Forge expedition, meteoric iron, the Storm Rod | Steel Heart |
+| Arcane Age | Occultism, Ars Nouveau, Theurgy, Apotheosis, the Nether, the Lens Crown and its celestial alloys | Arcane Keystone |
+| Industrial Age | Immersive Engineering, coke and FE power, black steel, Create packages, the Drifting Isles, the Aurora Net | Pressure Core |
 | Electric Age | IE HV, Arc Furnace, Excavator, oil and diesel | Humming Core |
 | Information Age | Mekanism, Applied Energistics 2, Mystical Agriculture, the End | Data Matrix |
-| Space Age | Fission, Ad Astra rockets, the Moon and Mars, Draconic Evolution | Star Chart |
+| Space Age | Fission, Ad Astra rockets, the Moon and Mars, Draconic Evolution, the Launch Complex, Sky Anchors | Star Chart |
 | Quantum Age | Fusion, antimatter, Evolved Mekanism, Venus, Mercury and Glacio | Quantum Core |
 | Singularity Age | Chaotic Draconic gear, the Draconic Reactor, a Stargate | none: the final battle |
 
@@ -69,7 +69,7 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 0.11.0 contains 265 mods. Thank you to every author.
+Firmament Ages 0.12.0 contains 265 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
