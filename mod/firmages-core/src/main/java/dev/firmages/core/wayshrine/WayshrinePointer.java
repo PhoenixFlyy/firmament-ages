@@ -210,6 +210,54 @@ public final class WayshrinePointer {
         return Math.sqrt(dx * dx + dz * dz);
     }
 
+    /** One ground Wayshrine start the census found. */
+    public record Census(String type, BlockPos pos, double distance) {}
+
+    /**
+     * Every ground Wayshrine start within {@code radius} blocks of {@code from} (SPEC-himmel §28.11, acceptance 2): the same
+     * candidates and placement check as {@link #search}, and the structure manager's start check, which on chunks that
+     * were never generated asks the structure itself (biome, height) without generating anything. A candidate in a
+     * chunk that already exists is loaded to {@code STRUCTURE_STARTS}.
+     */
+    public static List<Census> census(ServerLevel overworld, BlockPos from, int radius) {
+        var registry = overworld.registryAccess().registryOrThrow(Registries.STRUCTURE);
+        Optional<HolderSet.Named<Structure>> tag = registry.getTag(WayshrineService.STRUCTURES);
+        List<Census> out = new ArrayList<>();
+        if (tag.isEmpty()) return out;
+        ChunkGeneratorStructureState state = overworld.getChunkSource().getGeneratorState();
+        long seed = state.getLevelSeed();
+        int fromCx = SectionPos.blockToSectionCoord(from.getX());
+        int fromCz = SectionPos.blockToSectionCoord(from.getZ());
+        StructureManager structures = overworld.structureManager();
+        for (Holder<Structure> holder : tag.get()) {
+            for (StructurePlacement placement : state.getPlacementsForStructure(holder)) {
+                if (!(placement instanceof RandomSpreadStructurePlacement spread)) continue;
+                int spacing = spread.spacing();
+                int cells = Math.ceilDiv(Math.ceilDiv(radius, 16), spacing) + 1;
+                int cellX = Math.floorDiv(fromCx, spacing);
+                int cellZ = Math.floorDiv(fromCz, spacing);
+                for (int dx = -cells; dx <= cells; dx++) {
+                    for (int dz = -cells; dz <= cells; dz++) {
+                        ChunkPos c = spread.getPotentialStructureChunk(seed, (cellX + dx) * spacing, (cellZ + dz) * spacing);
+                        BlockPos at = placement.getLocatePos(c);
+                        double d = horizontal(from, at);
+                        if (d > radius || !placement.isStructureChunk(state, c.x, c.z)) continue;
+                        StructureCheckResult r = structures.checkStructurePresence(c, holder.value(), placement, false);
+                        if (r == StructureCheckResult.START_NOT_PRESENT) continue;
+                        if (r == StructureCheckResult.CHUNK_LOAD_NEEDED) {
+                            ChunkAccess chunk = overworld.getChunk(c.x, c.z, ChunkStatus.STRUCTURE_STARTS);
+                            StructureStart start = structures.getStartForStructure(SectionPos.bottomOf(chunk), holder.value(), chunk);
+                            if (start == null || !start.isValid()) continue;
+                        }
+                        out.add(new Census(target(holder, at).type(), at, d));
+                    }
+                }
+            }
+        }
+        out.sort(Comparator.comparingDouble(Census::distance));
+        return out;
+    }
+
     /** Server stop: forget the per-player answers. */
     static void clear() {
         LAST.clear();
