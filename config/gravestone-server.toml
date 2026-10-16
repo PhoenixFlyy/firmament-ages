@@ -1,5 +1,3 @@
-# Firmament Ages: no obituary after death (Felix 2026-10-13, H5). Its "Location" line would show the grave's coordinates,
-# which F3 hides until the Bronze Age (gamerule reducedDebugInfo). The grave itself and its items are unchanged.
 #If this is set to true you get an obituary after you died
 enable_obituary = false
 #The blocks that can be replaced with a grave

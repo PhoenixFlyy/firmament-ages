@@ -7,9 +7,10 @@
        then fails with "Hash invalid!". The script stops; -FixLineEndings rewrites those files with LF
        (git content unchanged).
     1. packwiz refresh (index.toml, pack.toml hash)
-    2. optional: set version = "<Version>" in pack.toml and the title screen's version line
-       (config/fancymenu/customization/title_screen_layout.txt, "source = Firmament Ages <Version>"), refresh
-       again. Without -Version the script stops if the title line and pack.toml disagree.
+    2. optional: set version = "<Version>" in pack.toml, the title screen's version line
+       (config/fancymenu/customization/title_screen_layout.txt, "source = Firmament Ages <Version>") and
+       modpackVersion in config/bcc-common.toml (the server list tooltip), refresh again. Without -Version the
+       script stops if the title line, bcc-common.toml and pack.toml disagree.
     3. packwiz modrinth export   -> dev/exports/FirmamentAges-<version>.mrpack
     4. packwiz curseforge export -> dev/exports/FirmamentAges-<version>-curseforge.zip (client side)
     5. server pack                -> dev/exports/FirmamentAges-<version>-server.zip, the "Additional File"
@@ -45,6 +46,9 @@ $Java     = Join-Path $Repo 'tools\jdk-21\bin\java.exe'
 $Bootstrap = Join-Path $Repo 'tools\packwiz-installer-bootstrap.jar'
 $TitleLayout = Join-Path $Repo 'config\fancymenu\customization\title_screen_layout.txt'
 $TitleVersionLine = New-Object Text.RegularExpressions.Regex('(?m)^([ \t]*source = Firmament Ages )(\S+)')
+# Better Compatibility Checker (server list tooltip): the pack version in config/bcc-common.toml, same number as pack.toml.
+$BccConfig = Join-Path $Repo 'config\bcc-common.toml'
+$BccVersionLine = New-Object Text.RegularExpressions.Regex('(?m)^([ \t]*modpackVersion = ")([^"]*)(")')
 
 if (-not (Test-Path -LiteralPath $Packwiz)) { throw "packwiz not found at $Packwiz" }
 Set-Location -LiteralPath $Repo
@@ -88,6 +92,10 @@ if ($Version -ne '') {
     if ($TitleVersionLine.Matches($title).Count -ne 1) { throw "Expected one 'source = Firmament Ages <v>' line in $TitleLayout" }
     $title = $TitleVersionLine.Replace($title, "`${1}$Version")
     [IO.File]::WriteAllText($TitleLayout, $title, (New-Object Text.UTF8Encoding($false)))
+    $bcc = [IO.File]::ReadAllText($BccConfig)
+    if ($BccVersionLine.Matches($bcc).Count -ne 1) { throw "Expected one 'modpackVersion = ...' line in $BccConfig" }
+    $bcc = $BccVersionLine.Replace($bcc, "`${1}$Version`${3}")
+    [IO.File]::WriteAllText($BccConfig, $bcc, (New-Object Text.UTF8Encoding($false)))
     Invoke-Packwiz refresh
 }
 
@@ -98,6 +106,11 @@ $PackVersion = $m.Groups[1].Value
 $tm = $TitleVersionLine.Match([IO.File]::ReadAllText($TitleLayout))
 if (-not $tm.Success -or $tm.Groups[2].Value -ne $PackVersion) {
     throw "Title screen says '$($tm.Groups[2].Value)', pack.toml says '$PackVersion'. Run with -Version $PackVersion."
+}
+# The server list tooltip must not show the wrong pack version either (or the template's CHANGE_ME).
+$bm = $BccVersionLine.Match([IO.File]::ReadAllText($BccConfig))
+if (-not $bm.Success -or $bm.Groups[2].Value -ne $PackVersion) {
+    throw "config\bcc-common.toml says '$($bm.Groups[2].Value)', pack.toml says '$PackVersion'. Run with -Version $PackVersion."
 }
 
 New-Item -ItemType Directory -Force -Path $OutDir | Out-Null

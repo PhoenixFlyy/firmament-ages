@@ -109,8 +109,8 @@
     },
     {
       "id": "moonlight-quark-color-sets",
-      "regex": "^\\[main/INFO\\] \\[Moonlight/\\]: Failed to load custom color set definition \\{\"id\":\"quark:(rune|shard)\",",
-      "reason": "Moonlight ships color sets for Quark (absent) and reads every pack's copy of the file, so an override cannot replace them."
+      "regex": "^\\[(main|Server thread)/INFO\\] \\[Moonlight/\\]: Failed to load custom color set definition \\{\"id\":\"quark:(rune|shard)\",",
+      "reason": "Moonlight ships color sets for Quark (absent) and reads every pack's copy of the file, so an override cannot replace them. Logged again on every datapack reload (/reload, /firmages ages sync), then on the Server thread."
     },
     {
       "id": "moonlight-dynamic-pack-pool-at-stop",
@@ -126,6 +126,16 @@
       "id": "spark-sampler-at-stop",
       "regex": "^\\[spark-java-sampler-[0-9-]+/WARN\\] \\[spark/\\]: Exception occurred while getting world info",
       "reason": "spark 1.10.124's background sampler asks the server thread for world info (NeoForgeServerSparkPlugin.executeSync) in the same millisecond the server stops; MinecraftServer.executeIfPossible rejects it with 'Server already shutting down' (0.10.0 copy boot 5, at 'stop'). Harmless, a race inside spark."
+    },
+    {
+      "id": "partial-defaultconfigs-first-start",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.neoforged\\.neoforge\\.common\\.ModConfigSpec/CORE\\]: (Configuration LoadedConfig\\[config=|Incorrect key \\S+ was corrected from null to its default, )",
+      "reason": "defaultconfigs/tfc-server.toml and defaultconfigs/Mekanism/world.toml hold only the keys the pack sets; on the first start of a new server folder NeoForge fills the rest with the mod defaults and logs one WARN per key (about 570 lines, server pack boot 2026-10-16). Kept partial on purpose: a full copy would freeze every default of the mod version and drop the notes in the file. A copy of the test server never shows it, because its config folder already holds the completed files."
+    },
+    {
+      "id": "mod-config-range-quirks-first-start",
+      "regex": "^\\[[^\\]]+/WARN\\] \\[net\\.neoforged\\.neoforge\\.common\\.ModConfigSpec/CORE\\]: Incorrect key (general\\.apt\\.(energyStorage|energyPerInput) was corrected from (10000000|100000) to its default, (10000000|100000)|kinetics\\.fluids\\.mechanicalGrindstoneFluidCapacity was corrected from 1000 to its default, 5000)\\.",
+      "reason": "Evolved Mekanism writes apt.energyStorage and apt.energyPerInput with their own default and then 'corrects' the same value (a long against an int range); Create: Enchantment Industry writes a grindstone fluid capacity of 1000 into a file whose range starts at 5000. Both happen when the mod creates its own config file on the first start; no pack file is involved."
     },
     {
       "id": "spark-world-stats-at-boot",
