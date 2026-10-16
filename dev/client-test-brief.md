@@ -1,5 +1,27 @@
 # Client-Test
 
+## Dawn ohne 2x2-Feld (Runde C2 2026-10-16, Zweig c2/gridlock, für den Integrator)
+
+Felix' HW2A (SPEC §19.3): das 2x2-Feld im Inventar ist nur in Dawn zu, es öffnet mit „The First Spark“ (age_0), wie
+die Handabbau-Regel. Client und Server brauchen dasselbe firmages-core (Netzwerk-Protokoll 6). Neue Welt, als
+Überlebens-Spieler ohne OP (OP nur für die Befehle).
+
+1. **Inventar in Dawn.** E öffnen: kein 2x2-Feld, kein Pfeil, kein Ergebnisfeld, kein Titel „Crafting“, kein
+   Rezeptbuch-Knopf; die Fläche ist glatt grau, Spielermodell und Rüstungsplätze wie immer. Mausrad und Ziehen mit
+   Mouse Tweaks über der Fläche legen nichts ab. Dasselbe im Curios-Bildschirm (Knopf am Inventar).
+2. **EMI als OP.** In Dawn ein Rezept in EMI öffnen: das „+“ ist grau, Shift-Klick legt nichts ins Feld. Falls
+   irgendwo eine JEI-Oberfläche mit eigenem „+“ auftaucht: notieren (der Server legt trotzdem nichts ab).
+3. **Bodenhandwerk.** Steinaxtkopf knappen, Kopf in die Hand, V auf einen Block, Stock in die Hand, V auf denselben
+   Block. In der Aktionsleiste steht einmal „Sneak and right-click with an empty hand: Stone Axe“ (danach höchstens
+   einmal pro Minute). Leere Hand, Strg halten, Rechtsklick auf den Haufen: Steinaxt im Inventar, Haufen weg, Ton und
+   ein paar Krümel. Ebenso: vier Stroh = Stroh-Block (Thatch), zwei Stöcke = Feuerstarter. Ein Haufen, der nichts
+   ergibt (ein einzelner Kopf), gibt wie bisher ein Teil zurück; ohne Strg nimmt Rechtsklick wie bisher ein Teil.
+   Wichtig: kein kurzes Flackern (Teil verschwindet und kommt wieder) beim erfolgreichen Rechtsklick.
+4. **Freischaltung.** `/stage grant @s age_0` (oder The First Spark spielen): im Chat „Your hands have learned: the
+   crafting grid is open (E).“; Inventar neu öffnen, das Feld ist da und macht aus vier Stroh wieder Thatch. Ein
+   offenes Inventar zeigt das Feld schon beim nächsten Bild. Bodenhandwerk geht weiter.
+5. **Sophisticated Backpacks.** Rucksack öffnen: kein 2x2 im Rucksack-Bildschirm (nur das Upgrade, das bleibt).
+
 ## 0.11.0 Nachtrag (1.0 Runde C1 2026-10-16, Pack 0.11.0, firmages-core 0.11.0)
 
 **Voller Reset:** neue Welt und neu importiertes Profil (Client und Server brauchen firmages-core 0.11.0, Netzwerk-
@@ -452,7 +474,8 @@ frisches Profil. Der Test-Server ist schon auf 0.8.1 synchronisiert und hat `inf
 4. **Knapping im Questbuch.** In Dawn das Questbuch öffnen: „Just a Rock“, „A Bundle of Sticks“ und „Paleolithic!“
    erklären Schritt für Schritt: Steine aufheben, mindestens zwei in die Hand, Rechtsklick in die Luft, dann im
    5x5-Raster Felder wegklicken (der erste Klick verbraucht einen Stein). Das Axt-Muster steht als Raster aus X
-   (stehen lassen) und - (wegschlagen), dann der Axtkopf über einem Stock im 2x2-Feld. Unten im Kapitel steht die neue
+   (stehen lassen) und - (wegschlagen), dann Axtkopf und Stock am Boden (Quest „By Hand“, siehe Punkt „Dawn ohne
+   2x2-Feld“). Unten im Kapitel steht die neue
    Erklärquest „Knapping Patterns“ mit Hammer, Schaufel, Hacke und Speer. Prüfen: Stehen die Raster als saubere Spalten
    untereinander (GUI-Skala 3)? Ergibt das Axt-Raster, genau nachgeklickt, einen Axtkopf, und das Messer-Raster zwei
    Klingen aus einem Stein?
