@@ -3341,3 +3341,59 @@ from `packwiz serve --port 8187 --refresh=false` of the worktree ("Finished succ
 - The network protocol stays "5" in the branch; the integration sets "7" after M14's "6" (SPEC §24.6).
 - M: one island grown in a client (stages, beams at the altar, FINALE tint after the ninth); a fuelled firepit as the
   Stone island's work.
+
+## 1.0 round C2 (2026-10-16)
+
+`--no-ff` merges of c2/harmonie, c2/core-balance, c2/holz, c2/gridlock, c2/sky-m11, c2/sky-m13, c2/sky-m14, c2/sky-m17
+and c2/sky-m15 (in that order) into dev, then pack 0.12.0 and firmages-core 0.12.0. c2/sky-m15 had uncommitted Age rows
+and docs from its interrupted run; they were committed on the branch first (f19a362). Generated files (registry,
+derived Ages, world sources, Age tags, stage files, quests, index) were taken from one side in the conflicts and
+regenerated; code conflicts were merged by hand with both sides (`FirmagesCore` registrations, the selftest suites
+`isles`, `launch` and `ark` beside `sky`, `crown` and `wayshrines`, the Jade providers `SkyHarvest`, `Launch` and
+`Anchor`, the `ServerConfig` sections `[skyHarvest]` and `[isles]`, `sounds.json`, the pickaxe tag, the goal texts of
+`gen_quests.py`); SPEC §31.12 (M14) and §31.13 (M17) both kept. Integration fixes: the jar's metal table now comes from
+`kubejs/data/firmages/balance/metals.json` (c2/harmonie moved it, c2/core-balance read the old path), skystone has a
+code source in `derive_ages.py`, the shipped `firmages-server.toml` has the `[launch]` and `[ark]` sections, network
+protocol "6" for the whole release, the TFC `LocalPlayer` probe in the log noise list. Felix's test server stayed off
+and untouched; every boot ran on the copy `.wt/test-server-c2-int` (`robocopy` without world, logs, local,
+simplebackups and crash-reports; ports 25900 and RCON 25910; whitelist off; the copy's `kubejs/` deleted before the
+first sync; synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8190 --refresh=false`,
+"Finished successfully"; `debug.allowSimulate = true` and the gate switch set after each sync), each with a new world
+and `-Xms3G -Xmx5G`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 258 unit tests, 0 failures (0.11.0: 193); `mods/firmages-core-0.12.0.jar` byte-identical to `build/libs` | pass |
+| `runGameTestServer` in a fresh `run/gametest`, twice | firmages 0.12.0; "All 115 required tests passed" in both runs (0.11.0: 82); `excavatorVeinAtAutomationAge` green in both (root fix d7fd97c of c2/core-balance: the test removes the vein and `veinAdded` before its dirty check) | pass |
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | Done after 81.9 s wall clock (server 15.3 s); 266 mod files with 257 mods; 43,877 recipes (0.11.0: 43,607); `gen_stage_locks.py --registry` 36,645 items, 1,703 ore and rock blocks, 769 fluids (763 with a bucket, the `fluid_buckets` dump fix of M11), 124 grid-recipe namespaces; `derive_ages.py --scan --mods <copy>/mods` 25,534 loot tables, 107 loot modifiers, 225 biomes, 1,652 features, 123 structures, 1,635 templates | done |
+| `derive_ages.py` on that dump | 36,645 items; 3,223 moved later, 3,820 never reachable (hidden); final dawn 4,208, age_0 1,148, age_1 7,490, age_2 4,918, age_3 2,285, age_4 1,233, age_5 738, age_6 1,590, age_7 614, age_8 682, age_9 377, disabled 11,362 (0.11.0: age_9 779, disabled 11,945; the vanilla wood moved from age_9 and disabled to Dawn to age_3). First pass hid skystone (the isles are code, not a template): `CODE_DROPS` row | done after fix |
+| Sky items in their Ages | storm rod and storm glass age_2; Aurora Net and firmament crystal age_4; aurora light bucket age_5 (its empty bucket, decision of M11); launch control, cradle, port, probe, sampler module, voidglass age_7; deep-space module and sample age_8; Star Anvil, Lens Mount, first lenses and Starlit Iron age_3, one alloy per Age to the Firmament Alloy age_9; Sky Anchor and blessing shards age_7; skystone Dawn; `ark_plinth` hidden like `origin_altar` | pass |
+| Copy boot 2 (gate off, same commands) | Done after 73.3 s; 43,878 recipes (one more `create_dragons_plus:sandpaper_polishing/*`, generated from tags at load; open point); `derive_ages.py --check` and `gen_stage_locks.py --registry <dump> --check` up to date | pass |
+| Copy boot 3 (gate on, new world, `recipes audit`, grants, dumps, audits, `selftest all`, sky commands) | gate at Dawn: 7,489 of 43,877 live; at age_9: 39,476 live, 4,401 dropped (disabled 4,394, superseded 7), 849 undetected (37 types, 117 serializers); Age coverage: all 21,075 ProgressiveStages Age item locks in an Age tag; `selftest all` 101 passed, 0 failed (core 18, gate 24, server 14, sky 10, crown 6, wayshrines 8, isles 8, launch 8, ark 5): crown `library_loaded` 22 recipes, `live_after_age_9` 22 live, `v4a_chain` 8 recipes hold their alloys; wayshrines `offering_of_current_age` "age_9 wants firmages:halo_steel_ingot"; launch `module_recipes` every part has a recipe | pass |
+| `/firmages ore audit` (boot 3, age_9, live recipes) | 43,877 recipes, 608 ore-piece measurements, 68 ore pieces; best tech factor per Age: age_0 1.0, age_1 1.0, age_2 1.5, age_3 1.5 (magic 2.0), age_4 2.5, age_5 2.5, age_6 2.857 to 3.0, age_7 4.0, age_8 5.0, age_9 5.0; every station within the tolerance; L-1 to L-4 pass (the same ladder as `poc_analyze.py`) | pass |
+| `/firmages wayshrine census` (boot 3 seed -1753741307621312218) | 10 ground Wayshrines within 4,000 blocks at 72/27 (mountain spire 5, steppe stones 2, swamp altar 2, volcanic ring 1), nearest 656 blocks; inside the 7 to 11 window. The 20-seed census of c2/core-balance stands (every seed 5 to 16, 11 of 20 within 7 to 11) | pass |
+| `/firmages isles locate`, `sky aurora band`, `anchor list`, `ark status` (boot 3) | an isle cluster 175 blocks from spawn: 2 isles, the medium one (radius 14, top 265, tip 245) with the lode and the Wind Shrine, 15 crystal clusters; aurora: average at Y 140 over spawn -7.23 C, cold band at or below -10 C from 768 blocks north (coldest -13.15 C), none within 2,048 blocks south, east or west; 0 anchors, Space Age open; Archipelago asleep, nine plinths, crown of the Space island "4 alloys, 2 deep-space samples" | pass |
+| `poc_analyze.py --dump-dir <boot 3> --baseline <boot 2>` | 121 PASS, 0 FAIL at the first run: G-1 to G-4, E-1, L-1 to L-7, U-1, U-2, R-0, R-T, R-L, R-M, R-X age_2 to age_9 (2,798 magic recipes left out; the tech goals hold their alloys), D-1 (42 Dawn recipes fit a pile, 1 allowlisted), W-1 to W-8, S-1 to S-4 (22 starforge recipes, 7 of 7 alloys with one recipe each), the C- content checks | pass |
+| Copy boot 4 (gate on, new world, grants, hold 120 s; no dump and no selftest) | `check_log.py`: 72.5 s from the first log line to Done; FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0 | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 13 chapters, 21 reward tables, 879 lang keys; 1,262 object ids, 0 errors, 0 warnings after shortening the merged Quantum goal (71 words, limit 70) | pass after fix |
+| `check_menus.py`, `gen_textures.py --check`, `gen_wood_classes.py --check`, `gen_fuels.py --check`, `gen_machine_usage.py --check`, `miner_ladder.py --check`, `gen_ark.py --check`, `gen_wayshrines.py --check`, `gen_recipe_overrides.py --check --mods`, `gen_multiblock_templates.py --check --mods`, `gen_way_sign_textures.py --check`, `gen_loot_silence.py --check`, `gen_cold_forge.py --check`, `gen_blood_moon.py --check`, `gen_firmament_night.py --check`, `gen_ponder_schematics.py --check`, `gen_stage_locks.py --check` | menus pass; 340 textures, 0 errors, 0 warnings; 267 wood class files up to date; fuel ladder creosote 81,920 < diesel 1,318,912 < ethene 11,280,000 < D-T 200,000,000 FE per bucket, up to date; 87 machine values up to date; miners: every ladder step lowers the FE per ingot (Digital Miner 3x 10.13 M, 4x 8.06 M, 5x 7.17 M FE per ingot; excavator, average vein, Mekanism with 8 energy upgrades 1.11 M, 0.88 M, 0.78 M; without upgrades 4x and 5x cost more than 3x, open point of c2/harmonie); 47 ark files; 89 Wayshrine files; 543 recipe overrides and 504 loot overrides, 0 problems; 35 templates, 7 pack copies; 34 way sign icons; Cold Forge 594 blocks; 56 and 45 files up to date | pass |
+| `check_registry_parity.py dump` against D0 of c2/sky-m15 (0.11.0 plus the two anchor items; no pure 0.11.0 gate-off dump was kept) | only `firmages` ids added: items 36,631 to 36,646 (+15), blocks +10, block entities +5, fluids +2 (aurora light), fluid types +1, sounds +3, data components +2, menu +1, trigger +1, loot function +1, structure type and piece +1 each; `fluid_buckets` 0 to 763 (the dump fix); TFCAstikorCarts 81 woods per part, TFC Regrowing Forests unchanged. The wood classes and the harmony round register nothing | expected |
+| `release.ps1 -Version 0.12.0`, `export_cf.py` | `pack.toml` and title line 0.12.0; `.mrpack` 475.6 MB, CurseForge zip 75.3 MB, server pack 502.5 MB, SHA-256 list; upload zip 5.6 MB, 12 swaps, 265 manifest files, only `firmages-core-0.12.0.jar` in overrides; `verify_install.py cfzip` (client) 2,851 of 2,851 and `mrpack --side server` 2,815 of 2,815, no missing, extra or wrong hash. Nothing uploaded | pass |
+| Mods | 264 metafiles plus `firmages-core`, 265 in the credits; none added or removed (content lock) | done |
+
+Measurements of the round (kept from the branch sections, not re-measured on the integration copy):
+- Vanilla trees per sample area: section "1.0 round C2, wood classes" (four worlds, all eight classes, 1 to 18 % vanilla
+  logs in forest areas, e.g. dark oak 1,035 and cherry 160 at 4000 5000 of world D, spruce 723 at 0 -15000 of world A).
+- Generator FE/t by `/firmages energy audit`: no branch left reference builds; the one live measurement is the FE cap on
+  IE capacitors (c2/core-balance, 300 FE/t through the cap). Open point.
+
+### Open points
+
+- In the client (brief 0.12.0): the Dawn grid, the wood classes, the Sky Harvest, the isles by airship and jetpack,
+  the Lens Crown and the alloys in EMI, the Launch Complex spectacle, the Sky Anchor on the Moon, the tally proofs, the
+  boss fight length, the Archipelago, the balance numbers.
+- Sky quest strands (Starfall, Sky Harvest, Lens Crown, isles, Launch Complex, anchors) and "launch 16 probes" are for
+  the quest round; the goal quests already name the alloys.
+- `create_dragons_plus:sandpaper_polishing/*` counts differ between boots of the same pack; G-2 can turn red on it.
+- Reference builds for `/firmages energy audit`, then fission, turbine and fusion against the Digital Miner (package
+  A8).

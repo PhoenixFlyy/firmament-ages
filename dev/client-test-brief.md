@@ -1,6 +1,61 @@
 # Client-Test
 
-## Dawn ohne 2x2-Feld (Runde C2 2026-10-16, Zweig c2/gridlock, für den Integrator)
+## 0.12.0 Nachtrag (1.0 Runde C2 2026-10-16, Pack 0.12.0, firmages-core 0.12.0)
+
+**Neue Welt empfohlen, Profil neu importieren** (Client und Server brauchen firmages-core 0.12.0, Netzwerk-Protokoll 6).
+Vanilla-Haine und die dichteren Wayshrines entstehen nur in neuen Chunks; eine alte Welt läuft weiter (Inseln kommen
+dort als ein Cluster nahe dem Schrein ab der Industriezeit, The Origin bekommt ihre Sockel nur in Luft). Server-Teil auf
+einer Kopie des Test-Servers geprüft (`dev/poc-results.md`, Abschnitt „1.0 round C2 (2026-10-16)“): jeder Boot mit neuer
+Welt, alle Ages per Simulation, `poc_analyze.py` 121 PASS und 0 FAIL, `check_log.py` 0 übrig, GameTests 115 von 115
+(zwei Läufe), `selftest all` 101 von 101 (Crown 6 von 6). Hier nur, was nur ein Client zeigt; die Punkte zum
+Dawn-Raster stehen im Abschnitt darunter („Dawn ohne 2x2-Feld“). Ältere Abschnitte, die Vanilla-Holz erst in der
+Singularitätszeit oder gar nicht nennen (0.10.0 Punkt 1, n7-Deko Sichtprüfung Punkt 4), gelten nicht mehr: Vanilla-Holz-Deko gibt
+es jetzt in den Stilen, die auch eine TFC-Holz-Kopie haben, in deren Age.
+
+1. **Dawn.** Abschnitt „Dawn ohne 2x2-Feld“ unten, fünf Punkte. Dazu die neue erste Erklär-Quest „By Hand“.
+2. **Holzklassen.** Einen wilden TFC-Baum fällen: es fallen Vanilla-Stämme seiner Klasse (Jade nennt die Art). Säge +
+   Vanilla-Stamm = 2 Bretter, Säge + Bretter = Bretter-Holz (Lumber) der Leitart, 4 Vanilla-Bretter = Werkbank; Quest
+   „Workbench“ zählt sie. „Wood Classes“ lesen; acht Klassen-Stämme um einen Art-Setzling = acht Stämme der Art.
+   Vanilla-Bäume in Wäldern (Eiche, Birke, Fichte, Tropen, Akazie, Schwarzeiche, Kirsche, Mangrove im Salzmarsch): sehen
+   sie neben TFC-Bäumen fremd aus, stört Laub ohne Jahreszeiten? In EMI ab der Steinzeit Vanilla-Holz-Deko nur in
+   Stilen mit TFC-Kopie.
+3. **Sky Harvest.** Eisenzeit: Sturmstab bauen (zwei Blöcke hoch), Fenster (16 Sand, 16 Glas), im Regen ein Blitz ab
+   und zu, leiser Donner nur in etwa 64 Blöcken; Sturmglas als verbundenes Glas (Fusion). Industriezeit: Aurora-Netz
+   auf Y 140 oder höher im kalten Norden (`/firmages sky aurora band` als OP nennt die Richtung), nachts Schleier im
+   Zustand `catching`, Polarlicht-Fluid im Tank, Jade-Zeilen an Stab und Netz. Passt das Leuchten zu den Auroras der
+   Mod Auroras?
+4. **Drifting Isles.** Ein Heißluft-Luftschiff der Industriezeit von Y 90 auf Y 275 und zurück (wie groß muss die
+   Hülle sein?), ein Jetpack-Aufstieg von Y 120 auf Y 240; die Inseln und das Leuchten der Cluster nachts vom Boden;
+   Skystone-Licht und Schatten (Face Culling); Lode abbauen: Klang, steht sofort wieder, Kristalle; die Wind Shrine auf
+   einer Insel des Clusters (`/firmages isles locate` als OP).
+5. **Lens Crown und Legierungen.** Arkanzeit: Star Anvil im Steinring mit drei Lens Mounts, Akkord der Linsen,
+   Starlit Iron schmieden (Ponder-Szenen, EMI-Kategorie). In EMI je Age genau eine neue Legierung, und die
+   Signatur-Rezepte zeigen sie: Arcane Keystone (Deployer-Schritt), Pressure Core (zwei Cloudsteel), Humming Core
+   (Aurora Steel), Data Matrix (zwei Halo Steel), Star Chart (Void Steel), Quantum Core (Quasar Alloy), Ultimate
+   Singularity (Firmament Alloy). Wayshrine-Opfergabe: Arkan Starlit Iron, Industrie Cloudsteel, Elektrik Aurora Steel,
+   ab Information Halo Steel.
+6. **Startkomplex (Raumfahrtzeit).** Geist-Vorschau mit leerer Hand an der Steuerung deckt sich mit dem echten Bau;
+   Start aus 200 Blöcken (Flammenspur, Graben-Strahlen, Abstieg unter drei Schirmen); eine Create-Silo-Luke öffnet beim
+   Countdown (Redstone hinten); Dieseleimer per Hand in die Steuerung (mit freigeschalteter Age); Rückkehr mit
+   Voidglass; Platzhalter-Texturen und das Sondenmodell.
+7. **Sky Anchor.** Anker auf dem Mond setzen, Splitter einer erweckten Stufe einlegen: Segen im Umkreis von 24 Blöcken,
+   Jade-Zeile; nur Splitter nicht erweckter Stufen: Jade „Quiet …“.
+8. **Arbeitsnachweis am Schrein.** Ab der Industriezeit: Opfergabe ohne Zählung wird abgelehnt und bleibt in der Hand,
+   Caelum nennt die fehlende Zahl (512 Stahl, dann 2.048 Aluminium, 4.096 Osmium, 4.096 Desh, 8.192 Calorit durch
+   Tally Chutes in dieser Age); Jade am Herz zeigt die Zählung, die Ziel-Quest nennt sie. Data Nave: 10 Mio. FE ins
+   Herz, Quantum Ring 100 Mio., die Gathering 1 Mrd.
+9. **The Primordial.** Kampfdauer mit 1, 2 und 4 Spielern stoppen gegen das Modell 8,4 / 7,2 / 6,5 Minuten; ein Treffer
+   macht höchstens 40 Schaden (auch mit dem Draconic-Bogen).
+10. **Archipel.** Nach dem Sieg eine Insel wachsen lassen (Stufen 1 bis 3, vom Sockel nach außen), Strahl am Altar in
+    der Farbe der Insel, nach der neunten Insel 10 s FINALE-Himmel; Sockel-Textur; Steininsel mit befeuerter
+    TFC-Feuerstelle als Arbeit.
+11. **Balance vorher/nachher** (Zahlen aus `dev/harmonie-r2.md`): Brechräder 1,7 → 1,5x, IE Crusher 2,0 → 2,5x plus
+    Mineralpulver, Lichtbogenofen Staub → Barren 51.200 → 6.400 FE, Mekanism-Maschinen 10-facher Verbrauch, Digital
+    Miner 36.000 FE/t und 10 s je Block ohne Upgrades, Excavator halbes Tempo, Vanilla-Eisenbarren weg (Eisenstaub im
+    Energized Smelter gibt Schmiedeeisen?), modularer Dieselmotor 1,68 → 1,31 Mio. FE je Eimer. Fühlen sich Miner und
+    Mekanism in der Weltraumzeit zu teuer oder zu langsam an?
+
+## Dawn ohne 2x2-Feld (Runde C2 2026-10-16, Zweig c2/gridlock, in 0.12.0)
 
 Felix' HW2A (SPEC §19.3): das 2x2-Feld im Inventar ist nur in Dawn zu, es öffnet mit „The First Spark“ (age_0), wie
 die Handabbau-Regel. Client und Server brauchen dasselbe firmages-core (Netzwerk-Protokoll 6). Neue Welt, als
