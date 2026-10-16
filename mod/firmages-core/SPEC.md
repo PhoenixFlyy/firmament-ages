@@ -1080,10 +1080,10 @@ Design source: `Modpack-Planung/research-raw/n7-pacing.md` §7.3 (Tally Chute) a
 
 ### 22.1 The Tally Chute (`firmages:tally_chute`)
 
-- **Naming contract:** block, item and block entity `firmages:tally_chute`; criterion `firmages:tally`; SavedData `firmages_tally` (overworld storage). Age map `age_1` (`dev/age_map.toml`); the recipe is pack data (Bronze Age, KubeJS).
-- **Behaviour:** a full block with an `IItemHandler` on the top and the four sides (`Capabilities.ItemHandler.BLOCK`; the bottom offers nothing, so nothing can be pulled out). An insert goes straight on into the inventory below (its top face, through a `BlockCapabilityCache`); what the outlet refuses is refused, so a hopper, funnel, chute or pipe keeps its items and the line backs up. The chute holds nothing, has no GUI and takes nothing from a hand. Simulated inserts are passed on simulated and count nothing.
-- **Counting:** each accepted insert adds the moved count to the chute's own `passed` and, when the chute has an owner and does not feed another Tally Chute (a stack of chutes counts once, at the lowest), to the owner's team in `firmages_tally`. Owner = the placer (`setPlacedBy`). The team is resolved at each count (`TallyService.teamOf`: the owner's FTB team, the owner's own id without FTB Teams), so a player who joins a party later counts for the party. The count is split by the world's current Age (`AgeStatus.current`), so a criterion can ask only for what passed since an Age dawned. Layout: `teams.<team uuid>.<age id>.<item id> = long`.
-- **Jade (`FirmagesJadePlugin.Tally`):** "Counted: 27 Wrought Iron Ingot" (the team's total of the last item, from the synced block entity, updated at most every 10 ticks while items pass), "Through this chute: N", or "Counts nothing: no hand placed it" for a chute without an owner (placed by a machine or `/setblock`). Jade's Age gate (§18.3) applies as everywhere.
+- **Naming contract:** block, item and block entity `firmages:tally_chute`; criterion `firmages:tally`; SavedData `firmages_tally` (overworld storage). Age map `age_4` (`dev/age_map.toml`); the recipe is pack data (Industrial Age, KubeJS `recipes/age_4/industrial_age.js`).
+- **Behaviour: a tithe** (review fix 0.12.0; until then the chute passed every insert on to the inventory below and counted it, so one ingot sent around a loop, or a stockpile pushed through again, counted on every lap). A full block with an `IItemHandler` on every side (`Capabilities.ItemHandler.BLOCK`). It takes only what the shrine's current proof of work (§35) still wants from the owner's team (`ShrineProof.room`: the tally requirement of the tier the shrine works on, if its item or tag matches, minus what the team counted since the requirement's Age dawned), counts it and **consumes it**; everything else is refused, so a hopper, funnel, chute or pipe keeps its items. Before the Industrial Age, after the proof is met, for an item the proof does not name and for a chute without an owner it takes nothing. A hand feeds it like a pipe (right-click with the stack; the hand keeps the rest). It holds nothing and has no GUI and no outlet. Simulated inserts count and consume nothing. What it took can never pass a chute again, so nothing counts twice; a stockpile counts once, when it is given.
+- **Counting:** each accepted insert adds the taken count to the chute's own `passed` and, when the chute has an owner, to the owner's team in `firmages_tally`. Owner = the placer (`setPlacedBy`). The team is resolved at each count (`TallyService.teamOf`: the owner's FTB team, the owner's own id without FTB Teams), so a player who joins a party later counts for the party. The count is split by the world's current Age (`AgeStatus.current`), so a criterion can ask only for what passed since an Age dawned. Layout: `teams.<team uuid>.<age id>.<item id> = long`.
+- **Jade (`FirmagesJadePlugin.Tally`):** "Counted: 27 Steel Ingot" (the team's total of the last item, from the synced block entity, updated at most every 10 ticks while items pass), "Takes 485 more Steel Ingot for Caelum" or "Takes nothing now: no proof is asked" (the block entity looks at the proof every 40 ticks and after each count and syncs a change), "Taken by this chute: N", or "Counts nothing: no hand placed it" for a chute without an owner (placed by a machine or `/setblock`). Jade's Age gate (§18.3) applies as everywhere.
 - **Look:** lumber frame with bronze bands and tally marks, a dark opening on top (`dev/gen_textures.py`, `tally_chute_*`); axe-mineable; drops itself.
 - **Not built:** comparator output, a shrine rite type `tally` (n7-pacing question 5).
 
@@ -1101,7 +1101,7 @@ Design source: `Modpack-Planung/research-raw/n7-pacing.md` §7.3 (Tally Chute) a
 
 ### 22.3 Tests (Tally)
 
-G `ProofGameTests.tallyHopperLine` (hopper -> chute -> chest with 10 cobblestone; hopper -> two chutes -> chest with 5 dirt: everything arrives, the team counts each item once, both chutes know their own `passed`; a chute over a full chest takes nothing and the hopper keeps its 3; the item, tag and Age test advancements in `src/gametest/resources/data/firmages/advancement/test/`), `tallySurvivesSave` (save and load keep team, Age and item), `tallyCountsForTheParty` (with FTB Teams: a chute owned by A counts for A's party; A and B both earn the criterion).
+G `ProofGameTests.tallyChuteTakesTheProof` (Industrial Age, the test datapack asks for 8 iron ingots: hoppers with 5 and 10 iron over two chutes give exactly 8, which are gone from the world, and 7 stay in the hoppers; 4 gold stay in their hopper; a hand gives nothing once the proof is met; the item, tag and Age test advancements in `src/gametest/resources/data/firmages/advancement/test/`; the count stays 8 while the line idles; in Dawn no proof is asked), `tallySurvivesSave` (save and load keep team, Age and item), `tallyCountsForTheParty` (with FTB Teams: a chute owned by A counts for A's party, B's chute then wants only the party's rest; A and B both earn the criterion).
 
 ### 22.4 Criterion `firmages:silo_launch`
 
@@ -2451,8 +2451,9 @@ needs AE2, `cca` needs Create Crafts and Additions) or an event listener registe
 
 ## 35. Proof of work in the shrine offerings (Felix H5A, round C2)
 
-From the Industrial Age an offering waits for a tally: the Age's product must pass the fellowship's Tally Chutes
-(§22) in that Age before the shrine takes the relic. The product is one the main road makes in bulk anyway, so the
+From the Industrial Age an offering waits for a tally: the fellowship's Tally Chutes (§22) must take the Age's product
+in that Age before the shrine takes the relic. The chutes consume what they count (a tithe, review fix 0.12.0), so the
+proof cannot be looped and a stockpile counts once. The product is one the main road makes in bulk anyway, so the
 proof costs automation, not detours.
 
 - **Data:** `data/<ns>/firmages_shrine/tallies.json`, one entry per offering Age (the Age the offering is made in):
@@ -2475,7 +2476,7 @@ proof costs automation, not detours.
   Jade, GameTests) the team with the highest count (one fellowship per server, §2.3).
 - **Refusal:** `ShrineService.offer` returns `NO_PROOF` and keeps the item in the player's hand; the plinth stays
   empty. Caelum says what is missing (`firmages.shrine.proof.missing`: "Caelum asks for proof of work: your Tally
-  Chutes must count 512 Steel Ingot in the Industrial Age. They have counted 140."). The same line follows the
+  Chutes must take 512 Steel Ingot in the Industrial Age. They have taken 140."). The same line follows the
   heart's right-click while the current tier waits for proof, and the Chronicle's goal quests of age_4 to age_8 name
   the tally.
 - **Jade:** the heart syncs `proofNeed`, `proofHave`, `proofItem` (update tag, once a second and after a validation);

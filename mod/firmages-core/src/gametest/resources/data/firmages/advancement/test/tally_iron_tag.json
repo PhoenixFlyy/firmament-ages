@@ -2,7 +2,7 @@
   "criteria": {
     "tally": {
       "trigger": "firmages:tally",
-      "conditions": { "item": "minecraft:cobblestone", "count": 10 }
+      "conditions": { "tag": "c:ingots/iron", "count": 8 }
     }
   }
 }

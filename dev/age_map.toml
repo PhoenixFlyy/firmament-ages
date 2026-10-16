@@ -419,7 +419,7 @@ block = "tfc:rock/loose/granite"
 "id:firmages:shrine_heart" = "age_0"                     # firmages-core 0.3.0 shrine: fired Hearth Idol in cobble
 "id:firmages:offering_plinth" = "age_0"
 "id:firmages:sky_disc" = "age_1"
-"id:firmages:tally_chute" = "age_1"                      # firmages-core proof of work (SPEC 22.1), crafted in the Bronze Age
+"id:firmages:tally_chute" = "age_4"                      # firmages-core proof of work (SPEC 22.1, 35): a tithe that takes only the proof metal, asked from the Industrial Age
 # Starfall (firmages-core SPEC 24.5, 25): sky rock is a Dawn building block; meteoric iron falls from the Iron Age,
 # starsteel from the Electric Age; the meteorites and the core are [ore_blocks] (their items follow the blocks).
 "id:firmages:sky_rock" = "dawn"

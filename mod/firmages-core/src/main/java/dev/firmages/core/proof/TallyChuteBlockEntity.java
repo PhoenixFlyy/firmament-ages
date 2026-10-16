@@ -1,7 +1,7 @@
 package dev.firmages.core.proof;
 
+import dev.firmages.core.shrine.ShrineProof;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -14,22 +14,24 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * The Tally Chute's state (SPEC §22.1): its owner (the placer; the team is resolved at each count, so a player who
- * joins a party later counts for the party), how many items passed this chute, and for Jade the last item and the
- * team's total of it. A chute that feeds another Tally Chute does not count, so a stack of them counts once.
+ * joins a party later counts for the party), how many items it took, and for Jade the last item and the team's total
+ * of it. The chute is a tithe: it takes only what the shrine's current proof of work still wants from the owner's team
+ * ({@link ShrineProof#room}) and keeps nothing, so every counted item is consumed and nothing can be counted twice
+ * (review fix 0.12.0: a pass-through chute counted a stack sent around a loop again on every lap).
  */
 public class TallyChuteBlockEntity extends BlockEntity {
     /** Ticks between two client updates while items pass. */
     private static final int SYNC_TICKS = 10;
+    /** Ticks between two looks at what the current proof still wants (for Jade). */
+    private static final int WANT_TICKS = 40;
 
     private final Inlet inlet = new Inlet();
     @Nullable
@@ -37,10 +39,10 @@ public class TallyChuteBlockEntity extends BlockEntity {
     private long passed;
     private String lastItem = "";
     private long lastTeamCount;
+    private long want;
+    private String wantItem = "";
     private boolean syncPending;
     private long lastSync;
-    @Nullable
-    private BlockCapabilityCache<IItemHandler, Direction> outlet;
 
     public TallyChuteBlockEntity(BlockPos pos, BlockState state) {
         super(ProofRegistry.TALLY_CHUTE_BE.get(), pos, state);
@@ -55,6 +57,7 @@ public class TallyChuteBlockEntity extends BlockEntity {
         return owner;
     }
 
+    /** Items this chute took (and consumed). */
     public long passed() {
         return passed;
     }
@@ -69,30 +72,68 @@ public class TallyChuteBlockEntity extends BlockEntity {
         return lastTeamCount;
     }
 
+    /** How many more the current proof wants from the owner's team (0: none now), as of the last look. */
+    public long want() {
+        return want;
+    }
+
+    /** Item id the current proof names, empty when it wants nothing. */
+    public String wantItem() {
+        return wantItem;
+    }
+
+    private void lookAtProof(ServerLevel sl) {
+        long w = 0;
+        String item = "";
+        if (owner != null) {
+            Optional<ShrineProof.Progress> p = ShrineProof.current(sl.getServer(), owner);
+            if (p.isPresent() && !p.get().met()) {
+                w = p.get().req().count() - p.get().have();
+                item = BuiltInRegistries.ITEM.getKey(p.get().shown()).toString();
+            }
+        }
+        if (w != want || !item.equals(wantItem)) {
+            want = w;
+            wantItem = item;
+            syncPending = true;
+        }
+    }
+
     public void setOwner(UUID owner) {
         this.owner = owner;
         setChanged();
         sync();
     }
 
-    @Nullable
-    private IItemHandler target() {
-        if (!(level instanceof ServerLevel sl)) return null;
-        if (outlet == null) outlet = BlockCapabilityCache.create(Capabilities.ItemHandler.BLOCK, sl, worldPosition.below(), Direction.UP);
-        return outlet.getCapability();
+    /** How many of {@code stack} the chute takes now: what the owner's team still owes the current proof, at most the stack. */
+    int room(ItemStack stack) {
+        if (stack.isEmpty() || owner == null || !(level instanceof ServerLevel sl)) return 0;
+        String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        return (int) Math.min(stack.getCount(), ShrineProof.room(sl.getServer(), owner, id));
+    }
+
+    /** A hand feeds the chute: takes and consumes up to {@link #room} of {@code stack} (shrinks it); returns how many. */
+    public int take(ItemStack stack) {
+        int n = room(stack);
+        if (n <= 0) return 0;
+        counted(stack, n);
+        stack.shrink(n);
+        return n;
     }
 
     private void counted(ItemStack stack, int n) {
         passed += n;
-        if (owner != null && level instanceof ServerLevel sl && !(level.getBlockEntity(worldPosition.below()) instanceof TallyChuteBlockEntity)) {
-            lastItem = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        lastItem = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        if (owner != null && level instanceof ServerLevel sl) {
             lastTeamCount = TallyService.count(sl.getServer(), owner, lastItem, n);
+            lookAtProof(sl);
         }
         setChanged();
         syncPending = true;
     }
 
     static void serverTick(Level level, BlockPos pos, BlockState state, TallyChuteBlockEntity be) {
+        if (level instanceof ServerLevel sl && (level.getGameTime() + pos.asLong()) % WANT_TICKS == 0) be.lookAtProof(sl);
         if (be.syncPending && level.getGameTime() - be.lastSync >= SYNC_TICKS) be.sync();
     }
 
@@ -110,6 +151,8 @@ public class TallyChuteBlockEntity extends BlockEntity {
         passed = tag.getLong("passed");
         lastItem = tag.getString("last_item");
         lastTeamCount = tag.getLong("last_team_count");
+        want = tag.getLong("want");
+        wantItem = tag.getString("want_item");
     }
 
     @Override
@@ -119,6 +162,8 @@ public class TallyChuteBlockEntity extends BlockEntity {
         tag.putLong("passed", passed);
         tag.putString("last_item", lastItem);
         tag.putLong("last_team_count", lastTeamCount);
+        tag.putLong("want", want);
+        tag.putString("want_item", wantItem);
     }
 
     @Override
@@ -134,8 +179,9 @@ public class TallyChuteBlockEntity extends BlockEntity {
     }
 
     /**
-     * The chute's item handler: one always-empty slot that hands every insert straight on to the inventory below
-     * (its top face). What the outlet refuses is refused here, so hoppers, funnels and pipes keep their items.
+     * The chute's item handler: one always-empty slot that takes what the current proof wants and consumes it. What it
+     * does not want (another item, a met proof, no proof in this Age, a chute nobody placed) is refused, so hoppers,
+     * funnels and pipes keep their items.
      */
     private final class Inlet implements IItemHandler {
         @Override
@@ -150,13 +196,10 @@ public class TallyChuteBlockEntity extends BlockEntity {
 
         @Override
         public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.isEmpty()) return stack;
-            IItemHandler out = target();
-            if (out == null) return stack;
-            ItemStack rest = ItemHandlerHelper.insertItem(out, stack.copy(), simulate);
-            int moved = stack.getCount() - rest.getCount();
-            if (!simulate && moved > 0) counted(stack, moved);
-            return rest;
+            int n = room(stack);
+            if (n <= 0) return stack;
+            if (!simulate) counted(stack, n);
+            return n >= stack.getCount() ? ItemStack.EMPTY : stack.copyWithCount(stack.getCount() - n);
         }
 
         @Override
@@ -171,7 +214,7 @@ public class TallyChuteBlockEntity extends BlockEntity {
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return true;
+            return room(stack) > 0;
         }
     }
 }

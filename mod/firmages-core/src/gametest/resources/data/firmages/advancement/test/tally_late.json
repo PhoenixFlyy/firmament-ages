@@ -2,7 +2,7 @@
   "criteria": {
     "tally": {
       "trigger": "firmages:tally",
-      "conditions": { "item": "minecraft:cobblestone", "count": 1, "age": "age_9" }
+      "conditions": { "item": "minecraft:iron_ingot", "count": 1, "age": "age_9" }
     }
   }
 }

@@ -2,7 +2,7 @@
   "criteria": {
     "tally": {
       "trigger": "firmages:tally",
-      "conditions": { "tag": "minecraft:dirt", "count": 5 }
+      "conditions": { "item": "minecraft:iron_ingot", "count": 8 }
     }
   }
 }

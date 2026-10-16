@@ -21,15 +21,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 /**
  * Proof of work and the power sink of the late Ages at the shrine (SPEC §35, §36).
  * <ul>
  *   <li><b>Tally proof (Felix H5A):</b> from the Industrial Age an offering is refused until the fellowship's Tally
- *   Chutes counted the Age's product ({@code firmages_shrine/tallies.json}). The offering player's team counts (one
- *   fellowship per server, SPEC §2.3); without a player (heart line, status, GameTests) the team with the highest
- *   count.</li>
+ *   Chutes took the Age's product ({@code firmages_shrine/tallies.json}). A chute takes only what the current proof
+ *   still wants ({@link #room}) and keeps nothing: what it counts is consumed, so a loop or a re-fed stockpile can
+ *   never count twice (review fix 0.12.0). The offering player's team counts (one fellowship per server, SPEC §2.3);
+ *   without a player (heart line, status, GameTests) the team with the highest count.</li>
  *   <li><b>Energy sink ({@code energy_consume}):</b> the heart takes FE through its energy capability while the
  *   shrine's current work (a tier, or the Gathering in the Singularity Age) has {@code energy_consume} rites, up to
  *   their sum; the rite holds once that much is drawn, and the FE is spent when the prayer is heard.</li>
@@ -61,12 +63,38 @@ public final class ShrineProof {
      * Empty when the tier has no requirement.
      */
     public static Optional<Progress> progress(MinecraftServer s, int tier, @Nullable ServerPlayer player) {
+        return progressOf(s, tier, player == null ? null : player.getUUID());
+    }
+
+    /** As {@link #progress}, for the team of the player with id {@code member} (null: the team with the most). */
+    public static Optional<Progress> progressOf(MinecraftServer s, int tier, @Nullable UUID member) {
         Optional<TallyRequirement> req = ShrineService.data().tallyFor(tier);
         if (req.isEmpty()) return Optional.empty();
         AgeId from = AgeId.byId(req.get().age()).orElse(null);
         Predicate<String> f = filter(req.get());
-        long have = player != null ? TallyService.countsOf(s, player.getUUID()).sum(f, from) : TallyData.get(s).best(f, from);
+        long have = member != null ? TallyService.countsOf(s, member).sum(f, from) : TallyData.get(s).best(f, from);
         return Optional.of(new Progress(req.get(), have, shown(req.get())));
+    }
+
+    /** The current proof for {@code member}'s team, empty when the shrine's current work asks none. */
+    public static Optional<Progress> current(MinecraftServer s, UUID member) {
+        return ShrineRules.currentTier(ShrineService.unlocked(s)).flatMap(t -> progressOf(s, t, member));
+    }
+
+    /**
+     * How many more items with id {@code item} the shrine's current proof wants from {@code owner}'s team: the
+     * requirement of the tier the shrine works on, if its filter takes the item, minus what the team counted since the
+     * requirement's Age dawned. 0 when no proof is asked now, the item does not count, or the proof is met.
+     */
+    public static long room(MinecraftServer s, UUID owner, String item) {
+        Optional<Integer> tier = ShrineRules.currentTier(ShrineService.unlocked(s));
+        if (tier.isEmpty()) return 0;
+        Optional<TallyRequirement> req = ShrineService.data().tallyFor(tier.get());
+        if (req.isEmpty()) return 0;
+        Predicate<String> f = filter(req.get());
+        if (!f.test(item)) return 0;
+        AgeId from = AgeId.byId(req.get().age()).orElse(null);
+        return Math.max(0, req.get().count() - TallyService.countsOf(s, owner).sum(f, from));
     }
 
     static Component name(Progress p) {

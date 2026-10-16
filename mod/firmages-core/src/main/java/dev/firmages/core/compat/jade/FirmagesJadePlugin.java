@@ -177,7 +177,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         }
     }
 
-    /** A Tally Chute: the team's total of the last item it counted, its own total, or that it has no owner. */
+    /** A Tally Chute: the team's total of the last item it counted, what the current proof still wants, its own total, or that it has no owner. */
     enum Tally implements IBlockComponentProvider {
         INSTANCE;
 
@@ -194,6 +194,13 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
                     .withStyle(ChatFormatting.GOLD));
             } else {
                 tooltip.add(Component.translatable("firmages.jade.tally.empty").withStyle(ChatFormatting.GRAY));
+            }
+            ResourceLocation want = ResourceLocation.tryParse(be.wantItem());
+            if (be.want() > 0 && want != null && BuiltInRegistries.ITEM.containsKey(want)) {
+                tooltip.add(Component.translatable("firmages.jade.tally.wants", be.want(), BuiltInRegistries.ITEM.get(want).getDescription())
+                    .withStyle(ChatFormatting.YELLOW));
+            } else {
+                tooltip.add(Component.translatable("firmages.jade.tally.wants_nothing").withStyle(ChatFormatting.GRAY));
             }
             if (be.passed() > 0) tooltip.add(Component.translatable("firmages.jade.tally.passed", be.passed()).withStyle(ChatFormatting.GRAY));
         }

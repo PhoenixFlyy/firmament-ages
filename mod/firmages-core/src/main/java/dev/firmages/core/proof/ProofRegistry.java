@@ -2,7 +2,6 @@ package dev.firmages.core.proof;
 
 import dev.firmages.core.FirmagesCore;
 import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -50,7 +49,7 @@ public final class ProofRegistry {
 
     /** Items go in from the top and the four sides; the bottom is the outlet and offers nothing to pull. */
     private static void capabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TALLY_CHUTE_BE.get(), (be, side) -> side == Direction.DOWN ? null : be.inlet());
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TALLY_CHUTE_BE.get(), (be, side) -> be.inlet());
     }
 
     private static void creativeTab(BuildCreativeModeTabContentsEvent event) {

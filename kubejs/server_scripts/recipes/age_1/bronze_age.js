@@ -212,12 +212,4 @@ ServerEvents.recipes((event) => {
     event.custom(c.json).id(c.id)
   })
   console.info(`[firmages] deco: ${counters.length} counters take smooth rock`)
-
-  // The Tally Chute (firmages-core SPEC 22.1): proof of work for a running line. A Create chute in a lumber frame
-  // with a bronze sheet over the outlet, Bronze Age like its Age map row.
-  event.shaped('firmages:tally_chute', ['LCL', ' S '], {
-    L: '#tfc:lumber',
-    C: 'create:chute',
-    S: 'tfc:metal/sheet/bronze'
-  }).id('firmages:crafting/tally_chute')
 })

@@ -2,7 +2,7 @@
   "criteria": {
     "tally": {
       "trigger": "firmages:tally",
-      "conditions": { "item": "minecraft:gravel", "count": 4 }
+      "conditions": { "item": "minecraft:iron_ingot", "count": 4 }
     }
   }
 }

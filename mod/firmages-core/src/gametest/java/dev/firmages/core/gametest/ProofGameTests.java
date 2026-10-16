@@ -2,6 +2,10 @@ package dev.firmages.core.gametest;
 
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.age.AgeId;
+import dev.firmages.core.age.AgeService;
+import dev.firmages.core.age.ReloadScheduler;
+import dev.firmages.core.config.ServerConfig;
+import dev.firmages.core.shrine.ShrineProof;
 import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.compat.ftbteams.FtbTeamsCompat;
 import dev.firmages.core.proof.ProofRegistry;
@@ -25,14 +29,15 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HopperBlock;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -46,9 +51,10 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Level G tests of proof of work (SPEC §22): the Tally Chute in a hopper line (counting, a stack of chutes counting
- * once, a full outlet blocking, the criterion with item, tag and Age), its team (two party members both earn the
- * criterion), the saved tally surviving a save and load, and the silo launch with stand-ins for Ad Astra's rocket and
+ * Level G tests of proof of work (SPEC §22, §35): the Tally Chute as a tithe (it takes and consumes only what the
+ * Industrial Age proof of the test datapack still wants, refuses the rest, counts nothing twice; the criterion with
+ * item, tag and Age), its team (two party members both earn the criterion), the saved tally surviving a save and
+ * load, and the silo launch with stand-ins for Ad Astra's rocket and
  * Create's hatch (neither mod is in the GameTest run).
  */
 @GameTestHolder(FirmagesCore.MOD_ID)
@@ -79,67 +85,104 @@ public final class ProofGameTests {
         return p;
     }
 
-    /** chest at {@code base}, then {@code chutes} Tally Chutes owned by {@code owner}, then a hopper (pointing down) with {@code load}. */
-    private static BlockPos line(GameTestHelper h, BlockPos base, int chutes, UUID owner, ItemStack load) {
-        h.setBlock(base, Blocks.CHEST);
-        for (int i = 1; i <= chutes; i++) {
-            h.setBlock(base.above(i), ProofRegistry.TALLY_CHUTE.get());
-            ((TallyChuteBlockEntity) h.getBlockEntity(base.above(i))).setOwner(owner);
-        }
-        BlockPos hopper = base.above(chutes + 1);
+    private static void ok(GameTestHelper h, boolean condition, String message) {
+        if (!condition) FirmagesCore.LOGGER.error("Proof GameTest assertion failed: {}", message);
+        h.assertTrue(condition, message);
+    }
+
+    private static boolean reloadIdle(MinecraftServer s) {
+        return AgeService.status(s).phase() == ReloadScheduler.Phase.IDLE;
+    }
+
+    private static void agesUpTo(MinecraftServer server, AgeId last) {
+        for (int i = AgeId.all().size() - 1; i > last.ordinal(); i--) AgeService.simulate(server, AgeId.all().get(i), false);
+        for (int i = 0; i <= last.ordinal(); i++) AgeService.simulate(server, AgeId.all().get(i), true);
+    }
+
+    /** A Tally Chute at {@code chute} owned by {@code owner}, a hopper (pointing down) above it with {@code load}. */
+    private static BlockPos line(GameTestHelper h, BlockPos chute, UUID owner, ItemStack load) {
+        h.setBlock(chute, ProofRegistry.TALLY_CHUTE.get());
+        ((TallyChuteBlockEntity) h.getBlockEntity(chute)).setOwner(owner);
+        BlockPos hopper = chute.above();
         h.setBlock(hopper, Blocks.HOPPER.defaultBlockState().setValue(HopperBlock.FACING, Direction.DOWN));
         ((HopperBlockEntity) h.getBlockEntity(hopper)).setItem(0, load);
         return hopper;
     }
 
-    private static int chestCount(GameTestHelper h, BlockPos pos, net.minecraft.world.item.Item item) {
-        ChestBlockEntity c = (ChestBlockEntity) h.getBlockEntity(pos);
+    private static int hopperCount(GameTestHelper h, BlockPos pos, net.minecraft.world.item.Item item) {
+        HopperBlockEntity c = (HopperBlockEntity) h.getBlockEntity(pos);
         int n = 0;
         for (int i = 0; i < c.getContainerSize(); i++) if (c.getItem(i).is(item)) n += c.getItem(i).getCount();
         return n;
     }
 
     /**
-     * A hopper line through one chute and through a stack of two: every item arrives in the chest, the team counts
-     * each item once, and item, tag and Age criteria follow the count. A chute over a full chest takes nothing.
+     * The chute is a tithe (SPEC §22.1, §35; review fix 0.12.0). In the Industrial Age the test datapack asks for eight
+     * iron ingots: two hopper lines of 5 and 10 iron give exactly eight to the chutes, which consume them, and the rest
+     * stays in the hoppers; gold (not asked) stays in its hopper; a hand gives nothing once the proof is met; item, tag
+     * and Age criteria follow the count; and an ingot taken once is gone, so nothing can send it around again: the
+     * count stays at eight while the line idles.
      */
-    @GameTest(template = "shrine_area", batch = "firmages_10_proof", timeoutTicks = 400)
-    public static void tallyHopperLine(GameTestHelper h) {
+    @GameTest(template = "shrine_area", batch = "firmages_10_proof_tally", timeoutTicks = 1200)
+    public static void tallyChuteTakesTheProof(GameTestHelper h) {
         MinecraftServer server = h.getLevel().getServer();
-        ServerPlayer p = spawn(h, "gt_tally");
-        UUID team = TallyService.teamOf(p.getUUID());
-        BlockPos cobbleChest = new BlockPos(2, 1, 2);
-        BlockPos dirtChest = new BlockPos(5, 1, 2);
-        BlockPos fullChest = new BlockPos(8, 1, 2);
-        line(h, cobbleChest, 1, p.getUUID(), new ItemStack(Items.COBBLESTONE, 10));
-        line(h, dirtChest, 2, p.getUUID(), new ItemStack(Items.DIRT, 5));
-        BlockPos fullHopper = line(h, fullChest, 1, p.getUUID(), new ItemStack(Items.COBBLESTONE, 3));
-        ChestBlockEntity full = (ChestBlockEntity) h.getBlockEntity(fullChest);
-        for (int i = 0; i < full.getContainerSize(); i++) full.setItem(i, new ItemStack(Items.STONE, 64));
-        AgeId[] ageAtStart = new AgeId[1];
+        ServerPlayer[] p = new ServerPlayer[1];
+        UUID[] team = new UUID[1];
+        BlockPos chuteA = new BlockPos(2, 1, 2);
+        BlockPos chuteB = new BlockPos(5, 1, 2);
+        BlockPos chuteGold = new BlockPos(8, 1, 2);
+        BlockPos[] hoppers = new BlockPos[3];
         h.startSequence()
-            .thenExecute(() -> ageAtStart[0] = dev.firmages.core.immersion.AgeStatus.current(dev.firmages.core.age.AgeService.state(server).snapshot()))
-            .thenWaitUntil(() -> {
-                h.assertTrue(chestCount(h, cobbleChest, Items.COBBLESTONE) == 10, "10 cobblestone through one chute");
-                h.assertTrue(chestCount(h, dirtChest, Items.DIRT) == 5, "5 dirt through two chutes");
-            })
-            .thenIdle(20)
             .thenExecute(() -> {
-                TallyCounts c = TallyData.get(server).of(team);
-                h.assertTrue(c.total("minecraft:cobblestone") == 10, "cobblestone counted once each: " + c.view());
-                h.assertTrue(c.total("minecraft:dirt") == 5, "a stack of two chutes counts once: " + c.view());
-                h.assertTrue(((HopperBlockEntity) h.getBlockEntity(fullHopper)).getItem(0).getCount() == 3, "a full outlet takes nothing");
-                h.assertTrue(chestCount(h, fullChest, Items.COBBLESTONE) == 0, "nothing squeezed into the full chest");
-                TallyChuteBlockEntity top = (TallyChuteBlockEntity) h.getBlockEntity(dirtChest.above(2));
-                TallyChuteBlockEntity bottom = (TallyChuteBlockEntity) h.getBlockEntity(dirtChest.above(1));
-                h.assertTrue(top.passed() == 5 && bottom.passed() == 5 && "minecraft:dirt".equals(bottom.lastItem()) && bottom.lastTeamCount() == 5,
-                    "each chute knows what passed it; the lowest one counted for the team");
-                TallyService.fireDirty(server);
-                h.assertTrue(done(p, rl("test/tally_cobble")), "item criterion (10 cobblestone)");
-                h.assertTrue(done(p, rl("test/tally_dirt_tag")), "tag criterion (#minecraft:dirt, 5)");
-                h.assertTrue(ageAtStart[0] == AgeId.AGE_9 || !done(p, rl("test/tally_late")), "Age criterion: nothing counted in age_9");
+                ServerConfig.DEBUG_ALLOW_SIMULATE.set(true);
+                agesUpTo(server, AgeId.AGE_4);
             })
-            .thenExecute(() -> DebugPlayerCommands.despawn(p))
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the age_4 setup still running"))
+            .thenExecute(() -> {
+                p[0] = spawn(h, "gt_tally");
+                team[0] = TallyService.teamOf(p[0].getUUID());
+                ok(h, ShrineProof.room(server, p[0].getUUID(), "minecraft:iron_ingot") == 8,
+                    "the test datapack asks for eight iron ingots in the Industrial Age: " + ShrineProof.room(server, p[0].getUUID(), "minecraft:iron_ingot"));
+                ok(h, ShrineProof.room(server, p[0].getUUID(), "minecraft:gold_ingot") == 0, "gold is not asked");
+                hoppers[0] = line(h, chuteA, p[0].getUUID(), new ItemStack(Items.IRON_INGOT, 5));
+                hoppers[1] = line(h, chuteB, p[0].getUUID(), new ItemStack(Items.IRON_INGOT, 10));
+                hoppers[2] = line(h, chuteGold, p[0].getUUID(), new ItemStack(Items.GOLD_INGOT, 4));
+            })
+            .thenWaitUntil(() -> h.assertTrue(hopperCount(h, hoppers[0], Items.IRON_INGOT) + hopperCount(h, hoppers[1], Items.IRON_INGOT) == 7,
+                "eight of fifteen iron taken"))
+            .thenIdle(40)
+            .thenExecute(() -> {
+                TallyCounts c = TallyData.get(server).of(team[0]);
+                ok(h, c.total("minecraft:iron_ingot") == 8, "eight iron counted: " + c.view());
+                ok(h, hopperCount(h, hoppers[0], Items.IRON_INGOT) + hopperCount(h, hoppers[1], Items.IRON_INGOT) == 7, "the rest stays in the hoppers");
+                ok(h, hopperCount(h, hoppers[2], Items.GOLD_INGOT) == 4 && c.total("minecraft:gold_ingot") == 0, "gold refused and kept");
+                TallyChuteBlockEntity a = (TallyChuteBlockEntity) h.getBlockEntity(chuteA);
+                TallyChuteBlockEntity b = (TallyChuteBlockEntity) h.getBlockEntity(chuteB);
+                ok(h, a.passed() + b.passed() == 8 && "minecraft:iron_ingot".equals(a.lastItem()), "each chute knows what it took: " + a.passed() + " + " + b.passed());
+                ok(h, ShrineProof.room(server, p[0].getUUID(), "minecraft:iron_ingot") == 0, "the proof is met, the chutes want nothing more");
+                ItemStack hand = new ItemStack(Items.IRON_INGOT, 2);
+                ok(h, a.take(hand) == 0 && hand.getCount() == 2, "a hand gives nothing once the proof is met");
+                TallyService.fireDirty(server);
+                ok(h, done(p[0], rl("test/tally_iron")), "item criterion (8 iron ingots)");
+                ok(h, done(p[0], rl("test/tally_iron_tag")), "tag criterion (#c:ingots/iron, 8)");
+                ok(h, !done(p[0], rl("test/tally_late")), "Age criterion: nothing counted in age_9");
+                int loose = 0;
+                for (ItemEntity e : h.getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(h.absolutePos(BlockPos.ZERO)).inflate(16))) {
+                    if (e.getItem().is(Items.IRON_INGOT)) loose += e.getItem().getCount();
+                }
+                ok(h, loose == 0, "the taken iron is gone, not dropped: " + loose);
+            })
+            .thenIdle(100)
+            .thenExecute(() -> ok(h, TallyData.get(server).of(team[0]).total("minecraft:iron_ingot") == 8, "an idle line counts nothing twice"))
+            .thenExecute(() -> {
+                DebugPlayerCommands.despawn(p[0]);
+                agesUpTo(server, AgeId.DAWN);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))
+            .thenExecute(() -> {
+                ok(h, ShrineProof.room(server, p[0].getUUID(), "minecraft:iron_ingot") == 0, "in Dawn no proof is asked");
+                ServerConfig.DEBUG_ALLOW_SIMULATE.set(false);
+            })
             .thenSucceed();
     }
 
@@ -159,35 +202,43 @@ public final class ProofGameTests {
     }
 
     /** Two members of one party: a chute owned by one counts for the party, and both earn the criterion. */
-    @GameTest(template = "shrine_area", batch = "firmages_10_proof_team", timeoutTicks = 400)
+    @GameTest(template = "shrine_area", batch = "firmages_10_proof_team", timeoutTicks = 1200)
     public static void tallyCountsForTheParty(GameTestHelper h) {
         if (!ModList.get().isLoaded(FtbTeamsCompat.MOD_ID) || !FTBTeamsAPI.api().isManagerLoaded()) {
             h.succeed();
             return;
         }
         MinecraftServer server = h.getLevel().getServer();
-        ServerPlayer a = spawn(h, "gt_tally_a");
-        ServerPlayer b = spawn(h, "gt_tally_b");
+        ServerPlayer[] pl = new ServerPlayer[2];
         PartyTeam[] party = new PartyTeam[1];
-        BlockPos chest = new BlockPos(3, 1, 3);
+        BlockPos chute = new BlockPos(3, 1, 3);
+        BlockPos[] hopper = new BlockPos[1];
         h.startSequence()
             .thenExecute(() -> {
+                ServerConfig.DEBUG_ALLOW_SIMULATE.set(true);
+                agesUpTo(server, AgeId.AGE_4);
+            })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the age_4 setup still running"))
+            .thenExecute(() -> {
+                pl[0] = spawn(h, "gt_tally_a");
+                pl[1] = spawn(h, "gt_tally_b");
                 try {
-                    Team t = FTBTeamsAPI.api().getManager().createPartyTeam(a, "gt_tally", null, null);
+                    Team t = FTBTeamsAPI.api().getManager().createPartyTeam(pl[0], "gt_tally", null, null);
                     party[0] = (PartyTeam) t;
-                    party[0].join(b);
+                    party[0].join(pl[1]);
                 } catch (Exception e) {
                     throw new IllegalStateException("party for the tally test: " + e, e);
                 }
-                h.assertTrue(TallyService.teamOf(a.getUUID()).equals(party[0].getId()) && TallyService.teamOf(b.getUUID()).equals(party[0].getId()),
+                h.assertTrue(TallyService.teamOf(pl[0].getUUID()).equals(party[0].getId()) && TallyService.teamOf(pl[1].getUUID()).equals(party[0].getId()),
                     "both count for the party");
-                line(h, chest, 1, a.getUUID(), new ItemStack(Items.GRAVEL, 4));
+                hopper[0] = line(h, chute, pl[0].getUUID(), new ItemStack(Items.IRON_INGOT, 4));
             })
-            .thenWaitUntil(() -> h.assertTrue(chestCount(h, chest, Items.GRAVEL) == 4, "4 gravel through the chute"))
+            .thenWaitUntil(() -> h.assertTrue(hopperCount(h, hopper[0], Items.IRON_INGOT) == 0, "4 iron into the chute"))
             .thenExecute(() -> {
                 TallyService.fireDirty(server);
-                h.assertTrue(TallyData.get(server).of(party[0].getId()).total("minecraft:gravel") == 4, "the party's tally");
-                h.assertTrue(done(a, rl("test/tally_team")) && done(b, rl("test/tally_team")), "both members earn the criterion");
+                h.assertTrue(TallyData.get(server).of(party[0].getId()).total("minecraft:iron_ingot") == 4, "the party's tally");
+                h.assertTrue(ShrineProof.room(server, pl[1].getUUID(), "minecraft:iron_ingot") == 4, "the other member's chute wants the party's rest");
+                h.assertTrue(done(pl[0], rl("test/tally_team")) && done(pl[1], rl("test/tally_team")), "both members earn the criterion");
             })
             .thenExecute(() -> {
                 try {
@@ -195,9 +246,12 @@ public final class ProofGameTests {
                 } catch (Exception e) {
                     FirmagesCore.LOGGER.warn("GameTest tally party: cannot disband: {}", e.toString());
                 }
-                DebugPlayerCommands.despawn(a);
-                DebugPlayerCommands.despawn(b);
+                DebugPlayerCommands.despawn(pl[0]);
+                DebugPlayerCommands.despawn(pl[1]);
+                agesUpTo(server, AgeId.DAWN);
             })
+            .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))
+            .thenExecute(() -> ServerConfig.DEBUG_ALLOW_SIMULATE.set(false))
             .thenSucceed();
     }
 

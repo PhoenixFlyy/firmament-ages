@@ -307,6 +307,14 @@ ServerEvents.recipes((event) => {
   event.shaped('firmages:pressure_core', SKY ? ['AHA', 'DGD', ' T '] : [' H ', 'DGD', ' T '], PRESSURE_KEY)
     .id('firmages:crafting/pressure_core')
 
+  // The Tally Chute (firmages-core SPEC 22.1, 35): the shrine's proof of work from the Industrial Age. It takes only the
+  // metal Caelum asks for and consumes it. A Create chute in a lumber frame with a bronze sheet over the opening.
+  event.shaped('firmages:tally_chute', ['LCL', ' S '], {
+    L: '#tfc:lumber',
+    C: 'create:chute',
+    S: 'tfc:metal/sheet/bronze'
+  }).id('firmages:crafting/tally_chute')
+
   // The collected patterns, one pass (see the top of this handler).
   event.remove({ id: anyOf(removeIdPatterns) })
 })
