@@ -23,6 +23,8 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
 2. Höchstens drei Absätze. Wortgrenzen: Schritt und Nebenquest 25, Keystone, Hinweis (Zahnrad) und Ring 40,
    Eingang, Ziel und Welcome-Quest 70. Knapping-Raster (Verbatim-Zeilen aus `X` und `-`) zählen nicht, die Prosa
    drumherum schon; ein Absatz mit Raster und Überschrift zählt nicht als Absatz.
+   Bauanleitungen der Schreinringe (Tag `guide`, The Firmament) zählen je Seite (`{@pagebreak}`), bis 90 Wörter.
+   Bildzeilen (`{image:...}`) und Seitenumbrüche zählen nie als Text.
    Ausnahme Lehrquest (bis 110 Wörter): die eine Stelle, an der eine Mechanik oder ein Bauplan erklärt wird, den kein
    Rezeptbetrachter zeigt. Die Liste steht in `STYLE_TEACHING` in `dev/validate_quests.py` (Knapping-Anleitung,
    Knapping-Muster, Herdkreis, Keystone-Leihe, Dreschmaschine, Feuer und Fackeln vor der ersten Nacht, Ton-Muster,
