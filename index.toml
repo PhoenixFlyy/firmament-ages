@@ -234,7 +234,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "ef9077801857f355c87c2eef671789bf568d8e1640a3544971e90559a6bd0872"
+hash = "fb748d416a738c0882e5871da0f01402f519ec9c900618d64620e22ec356874d"
 
 [[files]]
 file = "config/fml.toml"
@@ -310,7 +310,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "27516699df7d3a68b5e197553a93f397eb4c560f5749a5c9043a34e79533a530"
+hash = "66c47c97d207828d510f29808a5ce9b6b4e1a01ca5e657039f549ebc8c1f28d7"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
