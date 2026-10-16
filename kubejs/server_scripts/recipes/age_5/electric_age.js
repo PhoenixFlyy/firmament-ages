@@ -47,6 +47,24 @@ ServerEvents.recipes((event) => {
     energy: 51200
   }, 'firmages:arc_furnace/weak_red_steel')
 
+  // ======================================================================================== arc furnace: dust -> ingot
+  // Harmony plan fix 14 (2026-10-16): IE melts a dust for 51,200 FE, eight times a crusher pass, while a Create fan
+  // smelts it for nothing. At the metal table's "arc_furnace.dust_energy" (6,400 FE) the Arc Furnace is the Electric
+  // Age's smelter. It is also the iron route: iron dust gives wrought iron only here and in the Energized Smelter
+  // (Information Age); a furnace or a fan gives cast iron (recipes/unify_iron.js, the One Iron rule).
+  const DUST_ENERGY = Number(global.FA_METALS.table.arc_furnace.dust_energy)
+  ;['aluminum', 'brass', 'bronze', 'cobalt', 'constantan', 'copper', 'electrum', 'gold', 'iron', 'lead', 'nickel', 'osmium',
+    'platinum', 'silver', 'steel', 'tin', 'tungsten', 'uranium', 'zinc'].forEach((m) => {
+    const id = `immersiveengineering:arcfurnace/dust_${m}`
+    const found = []
+    event.forEachRecipe({ id: id }, (r) => found.push(String(r.json)))
+    if (found.length !== 1) return  // an optional metal (cobalt, platinum, tungsten) without its dust tag
+    const json = JSON.parse(found[0])
+    json.energy = DUST_ENERGY
+    event.remove({ id: id })
+    event.custom(json).id(id)
+  })
+
   // ======================================================================================== disabled parts of the Age
   // Immersive Petroleum: the gas generator is a second FE generator next to the IE Diesel Generator (Doc 10 v3 7.2).
   // It is disabled, so the firmages-core gate drops its recipe (no output filter: a full scan per reload).

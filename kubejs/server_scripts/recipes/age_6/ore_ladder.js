@@ -3,8 +3,10 @@
 // piece (and the pack's osmium and draconium and TFC + IE galena, bauxite and uraninite pieces) gets one recipe per
 // grade and step.
 // Yield per piece = piece mB x factor / 100 ingots (TFC pieces: small 10, poor 15, normal 25, rich 35 mB; a Mekanism
-// ore block counts as one ingot). Clumps and shards are whole items, so a grade takes n pieces for m items with m/n
-// within 5 % of the target; slurry is a chemical and takes the exact amount (200 mB = 1 crystal).
+// ore block counts as one ingot). Clumps and shards are whole items, so a grade takes n pieces for m items (the metal
+// table's ratio: exact if n <= 10 allows, else within 5 %); slurry is a chemical and takes the exact amount (200 mB =
+// 1 crystal). The three factors are the metal table's (kubejs/data/firmages/balance/metals.json, stations
+// mek_purifying, mek_injecting, mek_dissolution; global.FA_METALS, startup_scripts/metal_table.js).
 // The steps after the first one (clump -> dirty dust -> dust, shard -> clump, crystal -> shard, slurry washing) are
 // Mekanism's and More Mekanism Processing's own recipes and stay. The 4x and 5x entry recipes need their Age
 // (FirmAges.requireAge): their outputs (shards, slurry) are Information Age items, so the firmages-core gate alone
@@ -20,7 +22,9 @@
 // crushing, ore blocks from the combiner, and the duplicate silver chain of Mekanism: More Machine.
 
 ServerEvents.recipes((event) => {
-  const GRADE_MB = { small: 10, poor: 15, normal: 25, rich: 35 }
+  const M = global.FA_METALS
+  const GRADE_MB = M.GRADE_MB
+  const SLURRY_PER_ITEM = Number(M.table.units.slurry_mb_per_ingot)
 
   // ======================================================================================== removals
   // ORE_LADDER_REMOVALS below: every Mekanism-family recipe (Mekanism, More Mekanism Processing, Mekanism: More
@@ -37,27 +41,13 @@ ServerEvents.recipes((event) => {
     .forEach((id) => event.remove({ id: id }))
 
   // ======================================================================================== the ladder
-  // Smallest n <= 10 pieces with m whole items and |m/n - target| <= 5 % (first found wins, else the closest).
-  // No const/let inside the loop body: Rhino reports "redeclaration of var" on the second pass (PoC fix 1).
-  const relErr = (target, n) => {
-    const m = Math.round(target * n)
-    return m > 0 ? Math.abs(m / n - target) / target : 1e9
-  }
-  const ratio = (target) => {
-    let bestN = 1
-    for (let n = 1; n <= 10; n++) {
-      if (relErr(target, n) <= 0.05) return [n, Math.round(target * n)]
-      if (relErr(target, n) < relErr(target, bestN)) bestN = n
-    }
-    return [bestN, Math.max(1, Math.round(target * bestN))]
-  }
+  const ratio = M.ratio
 
   // piece prefix with {g}, the metal, the namespace of its clumps, shards and slurry, and the id base
   const oreLadder = (piecePrefix, metal, ns, idBase) => {
     Object.keys(GRADE_MB).forEach((g) => {
       const piece = piecePrefix.replace('{g}', g)
-      const mb = GRADE_MB[g]
-      const p = ratio((mb * 3) / 100)
+      const p = ratio(M.perPiece('mek_purifying', g))
       event.custom({
         type: 'mekanism:purifying',
         chemical_input: { amount: 1, chemical: 'mekanism:oxygen' },
@@ -65,7 +55,7 @@ ServerEvents.recipes((event) => {
         output: { count: p[1], id: `${ns}:clump_${metal}` },
         per_tick_usage: true
       }).id(`firmages:purifying/${idBase}_${g}`)
-      const i = ratio((mb * 4) / 100)
+      const i = ratio(M.perPiece('mek_injecting', g))
       event.custom({
         type: 'mekanism:injecting',
         chemical_input: { amount: 1, chemical: 'mekanism:hydrogen_chloride' },
@@ -78,7 +68,7 @@ ServerEvents.recipes((event) => {
         type: 'mekanism:dissolution',
         chemical_input: { amount: 1, chemical: 'mekanism:sulfuric_acid' },
         item_input: { count: 1, item: piece },
-        output: { amount: mb * 10, id: `${ns}:dirty_${metal}` },
+        output: { amount: Math.round(M.perPiece('mek_dissolution', g) * SLURRY_PER_ITEM), id: `${ns}:dirty_${metal}` },
         per_tick_usage: true
       }).id(`firmages:dissolution/${idBase}_${g}`)
       FirmAges.requireAge(`firmages:dissolution/${idBase}_${g}`, 'age_8')
@@ -97,6 +87,28 @@ ServerEvents.recipes((event) => {
     ['tfc:ore/{g}_garnierite', 'nickel', MMP], ['tfc_ie_addon:ore/{g}_bauxite', 'aluminum', MMP],
     ['firmages:ore/{g}_draconium', 'draconium', MMP]   // the pack's draconium vein (startup_scripts/draconium.js)
   ].forEach((row) => oreLadder(row[0], row[1], row[2], row[0].split('{g}_')[1]))
+
+  // ======================================================================================== powder -> dust
+  // Harmony plan link 12 (2026-10-16): the TFC mineral powder of the IE Crusher (its main output) and of the quern feeds
+  // the Enrichment Chamber, "powder.per_dust" (64) powder into one canonical dust. The IE line then gives 2.5x + 0.31x
+  // = 2.81x, below Purification (3.0x): the Mekanism ladder stays the better road, the IE by-product is not waste.
+  const PER_DUST = Number(M.table.powder.per_dust)
+  ;[
+    ['tfc:powder/native_copper', 'mekanism:dust_copper'], ['tfc:powder/malachite', 'mekanism:dust_copper'],
+    ['tfc:powder/tetrahedrite', 'mekanism:dust_copper'], ['tfc:powder/cassiterite', 'mekanism:dust_tin'],
+    ['tfc:powder/sphalerite', 'firmages:dust/zinc'], ['tfc:powder/bismuthinite', 'firmages:dust/bismuth'],
+    ['tfc:powder/native_gold', 'mekanism:dust_gold'], ['tfc:powder/native_silver', 'immersiveengineering:dust_silver'],
+    ['tfc:powder/hematite', 'mekanism:dust_iron'], ['tfc:powder/limonite', 'mekanism:dust_iron'],
+    ['tfc:powder/magnetite', 'mekanism:dust_iron'], ['tfc:powder/garnierite', 'immersiveengineering:dust_nickel'],
+    ['tfc_ie_addon:powder/galena', 'mekanism:dust_lead'], ['tfc_ie_addon:powder/bauxite', 'immersiveengineering:dust_aluminum'],
+    ['tfc_ie_addon:powder/uraninite', 'mekanism:dust_uranium']
+  ].forEach((row) => {
+    event.custom({
+      type: 'mekanism:enriching',
+      input: { count: PER_DUST, item: row[0] },
+      output: { count: 1, id: row[1] }
+    }).id(`firmages:enriching/${row[0].split('/')[1]}_powder`)
+  })
 
   // ======================================================================================== fluorite
   // Doc 10 v3 section 8.1: Mekanism fluorite from TFC cryolite (the Mekanism fluorite ore does not generate). The

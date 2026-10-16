@@ -6,8 +6,10 @@
 // Enchanting Apparatus) and Alchemy (Theurgy: Mercury Catalyst), with a TFC steel ingot and a source gem block
 // (Doc 08 section 7.1). TFC input adaptations of the magic mods live in arcane_tfc_inputs.js.
 //
-// Occultism Dimensional Mineshaft: the first endless ore source gives only RICH TFC ore pieces of the metals
-// the Arcane Age has unlocked (Doc 08 section 3 rule 6 and section 7: "nur Rich-Erze freigeschalteter Metalle").
+// Occultism Dimensional Mineshaft: the first endless ore source gives TFC ore pieces of every grade of the metals the
+// Arcane Age has unlocked (harmony plan fix 6, 2026-10-16: mixed grades, mean 20.75 mB per piece, instead of only rich
+// pieces at 35 mB; the split is the metal table's "mineshaft.grade_weight"). Its pieces go into Create, the IE Crusher
+// or Theurgy, never straight into ingots.
 // Occultism ships vanilla, Mekanism, IE, Create and Mystical Agriculture ores, raw-ore blocks and gems for its
 // miners; all of those are replaced. Kept: Occultism's own materials (iesnium, otherstone, the mining core),
 // Theurgy sal ammoniac (no world vein in TFC) and plain world blocks (stone, gravel, clay, obsidian, glowstone).
@@ -17,10 +19,11 @@
 // the unspecialised Foliot. The Afrit (age_5) and Marid (age_8) miners are item-locked until their Ages.
 
 ServerEvents.recipes((event) => {
-  // Rich ore pieces of the metals unlocked by age_3 (dev/age_map.toml [tfc_ores]: copper 0, tin/zinc/bismuth/
-  // silver/gold 1, iron 2). Weights follow Occultism's own ore weights (iron 750, copper 584, tin 602,
-  // silver 381, gold 311, zinc 186), split evenly across the TFC ores of one metal; bismuth takes zinc's weight.
-  const RICH_ORES = {
+  // Ore pieces of the metals unlocked by age_3 (dev/age_map.toml [tfc_ores]: copper 0, tin/zinc/bismuth/silver/gold 1,
+  // iron 2). Weights follow Occultism's own ore weights (iron 750, copper 584, tin 602, silver 381, gold 311, zinc 186),
+  // split evenly across the TFC ores of one metal; bismuth takes zinc's weight. Each ore weight is split across the
+  // grades by the metal table (small 15, poor 35, normal 35, rich 15 per hundred).
+  const ORE_WEIGHT = {
     native_copper: 195, malachite: 195, tetrahedrite: 194,
     cassiterite: 602,
     sphalerite: 186,
@@ -29,6 +32,7 @@ ServerEvents.recipes((event) => {
     native_gold: 311,
     hematite: 250, limonite: 250, magnetite: 250
   }
+  const GRADE_WEIGHT = global.FA_METALS.table.mineshaft.grade_weight
 
   // Every ore-type output of the shipped miner recipes. Ids from /fa_dump (2026-09-30, 92 miner recipes).
   const REMOVE = [
@@ -49,12 +53,15 @@ ServerEvents.recipes((event) => {
   minerIds.forEach((id) => event.remove({ id: id }))
 
   // The miner is an Arcane Age station (recipes/station_ages.js): the gate keeps these out until age_3.
-  Object.keys(RICH_ORES).forEach((ore) => {
-    event.custom({
-      type: 'occultism:miner',
-      ingredient: { tag: 'occultism:miners/ores' },
-      result: { type: 'occultism:weighted_item', stack: { id: `tfc:ore/rich_${ore}`, count: 1 }, weight: RICH_ORES[ore] }
-    }).id(`firmages:miner/ores/rich_${ore}`)
+  Object.keys(ORE_WEIGHT).forEach((ore) => {
+    Object.keys(GRADE_WEIGHT).forEach((g) => {
+      event.custom({
+        type: 'occultism:miner',
+        ingredient: { tag: 'occultism:miners/ores' },
+        result: { type: 'occultism:weighted_item', stack: { id: `tfc:ore/${g}_${ore}`, count: 1 },
+          weight: Math.max(1, Math.round((ORE_WEIGHT[ore] * Number(GRADE_WEIGHT[g])) / 100)) }
+      }).id(`firmages:miner/ores/${g}_${ore}`)
+    })
   })
 })
 
@@ -96,11 +103,11 @@ ServerEvents.recipes((event) => {
   // Ore yield 2.0x on every grade (Felix 2026-10-15, harmony H3A; plan fix 6): better than Create crushing, never
   // above the IE Crusher of the next Age (dev/poc_analyze.py check L-2). Liquefaction takes one item without a count,
   // so the ore pieces dissolve in the Digestion Vat, whose ingredients have counts: n pieces + sal ammoniac -> m sulfur,
-  // one sulfur = one canonical dust (100 mB, incubation below). small 5 -> 1, poor 10 -> 3, normal 2 -> 1, rich 10 -> 7
+  // one sulfur = one canonical dust (100 mB, incubation below). n and m come from the metal table (station
+  // theurgy_digestion, smallest n <= 10 within 5 %): small 5 -> 1, poor 10 -> 3, normal 2 -> 1, rich 10 -> 7
   // (50 -> 100, 150 -> 300, 50 -> 100, 350 -> 700 mB: exactly 2.0x). 10 mB sal ammoniac per sulfur, as the old
-  // liquefaction took. The numbers live in dev/data/metals.json (station theurgy_digestion).
-  // The Mineshaft gives rich pieces (Arcane ore line: Mineshaft -> Digestion Vat -> Incubator); vein pieces of every
-  // grade fit too.
+  // liquefaction took.
+  // The Mineshaft gives pieces of every grade (Arcane ore line: Mineshaft -> Digestion Vat -> Incubator).
   const SPAGYRIC = {
     'tfc:ore/{g}_native_copper': 'copper', 'tfc:ore/{g}_malachite': 'copper', 'tfc:ore/{g}_tetrahedrite': 'copper',
     'tfc:ore/{g}_cassiterite': 'tin', 'tfc:ore/{g}_sphalerite': 'zinc', 'tfc:ore/{g}_native_gold': 'gold',
@@ -109,7 +116,8 @@ ServerEvents.recipes((event) => {
     'tfc_ie_addon:ore/{g}_bauxite': 'aluminum', 'tfc_ie_addon:ore/{g}_uraninite': 'uranium',
     'firmages:ore/{g}_native_osmium': 'osmium'
   }
-  const DIGEST = { small: [5, 1], poor: [10, 3], normal: [2, 1], rich: [10, 7] }  // grade -> [pieces in, sulfur out]
+  const DIGEST = {}  // grade -> [pieces in, sulfur out]
+  global.FA_METALS.GRADES.forEach((g) => { DIGEST[g] = global.FA_METALS.ratio(global.FA_METALS.perPiece('theurgy_digestion', g)) })
   Object.keys(SPAGYRIC).forEach((prefix) => {
     Object.keys(DIGEST).forEach((g) => {
       const piece = prefix.replace('{g}', g)

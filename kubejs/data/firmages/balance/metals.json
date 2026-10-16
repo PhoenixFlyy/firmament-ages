@@ -1,15 +1,18 @@
 {
   "_doc": [
     "Firmament Ages - the metal table: the one place that says how much metal an ore piece yields at which station and Age.",
+    "The recipe scripts read it at every game start (kubejs/startup_scripts/metal_table.js, global.FA_METALS): Create",
+    "crushing (age_2/iron_age.js), Theurgy digestion and the Dimensional Mineshaft (age_3/arcane_age.js), the IE Crusher, its",
+    "powder and the Arc Furnace (age_4/industrial_age.js), the Mekanism ladder and the powder enrichment (age_6/ore_ladder.js).",
     "dev/poc_analyze.py reads it for the L- checks (ladder): it measures every station on every ore piece in the recipe dump",
     "and fails when a measured factor leaves its target here by more than 'tolerance', when a later tech station yields",
     "less than an earlier one, when magic yields more than the next tech step, when an unlisted recipe type multiplies ore,",
-    "or when a metal is reachable from the world without ore. Harmony plan 2026-10-15, package A3 (German notes:",
-    "dev/decisions-while-away.md). The recipe scripts carry the numbers: recipes/age_2/iron_age.js (YIELD),",
-    "age_3/arcane_age.js (DIGEST), age_4/industrial_age.js, age_6/ore_ladder.js (ratio())."
+    "or when a metal is reachable from the world without ore. Harmony plan 2026-10-15, packages A3 and A4 (German notes:",
+    "dev/decisions-while-away.md, dev/harmonie-r2.md)."
   ],
   "grade_mb": {"small": 10, "poor": 15, "normal": 25, "rich": 35},
   "tolerance": 0.05,
+  "max_pieces": 10,
   "units": {
     "_doc": "mB of metal per output: a dust, clump, shard, crystal or Theurgy sulfur is one ingot (100 mB); a slurry (dirty or clean) gives one crystal per 200 mB; a nugget is a ninth; a TFC fluid counts its mB.",
     "item_mb": 100,
@@ -17,14 +20,24 @@
     "slurry_mb_per_ingot": 200
   },
   "powder": {
-    "_doc": "TFC quern powder (tfc:powder/<ore>, tfc_ie_addon:powder/<ore>): the IE Arc Furnace melts 20 into one ingot (5 mB each). The quern and the millstone give 1.0x in powder; the IE Crusher gives the quern amount as its main output on top of its dust, so from the Age of the arc furnace its factor counts the powder too.",
-    "station_type": "immersiveengineering:arc_furnace"
+    "_doc": "TFC mineral powder (tfc:powder/<ore>, tfc_ie_addon:powder/<ore>): the quern, the millstone and the IE Crusher (as its main output) give 'quern_count' per piece. Only the Mekanism Enrichment Chamber turns powder back into metal, 'per_dust' powder into one canonical dust, so the IE Crusher's powder adds 2.5 x 20 / 64 = 0.31x from the Information Age (IE line 2.81x, below Purification 3.0x). The Arc Furnace no longer melts powder (it made the IE line 3.5x in the Electric Age).",
+    "station_type": "mekanism:enriching",
+    "per_dust": 64,
+    "quern_count": {"small": 2, "poor": 3, "normal": 5, "rich": 7}
+  },
+  "arc_furnace": {
+    "_doc": "The IE Arc Furnace melts every canonical dust into its ingot for 'dust_energy' FE (IE: 51,200). Iron dust gives wrought iron there; in a furnace or on a Create fan it gives cast iron (the One Iron rule, package A5).",
+    "dust_energy": 6400
+  },
+  "mineshaft": {
+    "_doc": "The Occultism Dimensional Mineshaft rolls TFC ore pieces of every grade: Occultism's ore weight split by 'grade_weight' (mean 20.75 mB per piece, was only rich pieces at 35 mB).",
+    "grade_weight": {"small": 15, "poor": 35, "normal": 35, "rich": 15}
   },
   "stations": {
     "tfc_melting":       {"type": "tfc:heating",                 "age": "age_0", "kind": "tech",  "factor": 1.0, "label": "TFC crucible / vessel"},
-    "create_crushing":   {"type": "create:crushing",             "age": "age_2", "kind": "tech",  "factor": 1.7, "label": "Create crushing wheels"},
+    "create_crushing":   {"type": "create:crushing",             "age": "age_2", "kind": "tech",  "factor": 1.5, "label": "Create crushing wheels"},
     "theurgy_digestion": {"type": "theurgy:digestion",           "age": "age_3", "kind": "magic", "factor": 2.0, "label": "Theurgy digestion vat (H3A)"},
-    "ie_crusher":        {"type": "immersiveengineering:crusher","age": "age_4", "kind": "tech",  "factor": 2.0, "label": "IE Crusher (+ quern powder)"},
+    "ie_crusher":        {"type": "immersiveengineering:crusher","age": "age_4", "kind": "tech",  "factor": 2.5, "label": "IE Crusher (+ powder for Enrichment)", "byproduct": 0.05, "energy_base": 1000, "energy_per_mb": 100},
     "mek_purifying":     {"type": "mekanism:purifying",          "age": "age_6", "kind": "tech",  "factor": 3.0, "label": "Mekanism Purification"},
     "mek_injecting":     {"type": "mekanism:injecting",          "age": "age_7", "kind": "tech",  "factor": 4.0, "label": "Mekanism Injection"},
     "mek_dissolution":   {"type": "mekanism:dissolution",        "age": "age_8", "kind": "tech",  "factor": 5.0, "label": "Mekanism Dissolution"}

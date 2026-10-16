@@ -1672,12 +1672,13 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
 
 
 # ================================================================================================ ore ladder (L-)
-# L- checks (harmony plan 2026-10-15, package A3): dev/data/metals.json is the one metal table (ore pieces per metal,
+# L- checks (harmony plan 2026-10-15, packages A3 and A4): kubejs/data/firmages/balance/metals.json is the one metal table
+# (the recipe scripts read the same file through startup_scripts/metal_table.js) (ore pieces per metal,
 # the Age a metal is first processed, the target factor of every ore station). The checks measure every station on
 # every ore piece of the recipe dump and compare: L-1 the table (coverage, factor within the tolerance, station Age
 # as in station_ages.js), L-2 the tech ladder never steps back, L-3 magic never beats the next tech step, L-4 no
 # unlisted recipe type multiplies ore, L-5 no metal is reachable from the world without ore.
-METALS_JSON = os.path.join(REPO, "dev", "data", "metals.json")
+METALS_JSON = os.path.join(REPO, "kubejs", "data", "firmages", "balance", "metals.json")
 _LADDER_TRACE = {}   # the last L-5 closure (made_by, tainted, have), for debugging an entrance
 _METAL_FORMS = ("ingot|nugget|dust|dirty_dust|clump|shard|crystal|sheet|double_ingot|double_sheet|rod|plate|block|"
                 "storage_block|raw|alchemical_sulfur")
@@ -1752,7 +1753,7 @@ def _input_count(o, item, parent=None):
 def ladder_checks(full, recs, items, tags, check):
     """L-1 .. L-5 on the all-Ages recipe dump (see the comment above METALS_JSON)."""
     if not os.path.isfile(METALS_JSON):
-        check("L-0 dev/data/metals.json present", False, [METALS_JSON])
+        check("L-0 kubejs/data/firmages/balance/metals.json present", False, [METALS_JSON])
         return
     mt = load_metals()
     grades, tol, metals, stations = mt["grade_mb"], mt["tolerance"], mt["metals"], mt["stations"]
@@ -1772,7 +1773,7 @@ def ladder_checks(full, recs, items, tags, check):
                 return amount * nug_mb
             return amount * item_mb * (9 if re.search(r"(^|[:/_])(storage_)?block([/_]|$)", oid) else 1)
         return 0.0
-    # powder: mB per powder item from its arc furnace recipe (20 powder -> 1 ingot)
+    # powder: mB per powder item from its recipe at the powder station (Enrichment Chamber: 64 powder -> 1 dust)
     powder_mb, powder_age = {}, {}
     pst = mt["powder"]["station_type"]
     for rid, j in full.items():
@@ -1833,7 +1834,7 @@ def ladder_checks(full, recs, items, tags, check):
             entries[p].append((eff, s["kind"], k, f))
             if pw > 0 and s["kind"] == "tech":
                 entries[p].append((max(eff, pa, key=aix), "tech", f"{k}+powder", f + pw))
-    check(f"L-1 metal table (dev/data/metals.json): {len(metals)} metals, {len(piece_metal)} ore pieces; every listed station "
+    check(f"L-1 metal table (kubejs/data/firmages/balance/metals.json): {len(metals)} metals, {len(piece_metal)} ore pieces; every listed station "
           f"has its recipe and yields its factor within {tol:.0%}; station Ages match station_ages.js", not bad1, bad1)
 
     # ---- L-2 / L-3: monotonic tech ladder, magic below the next tech step --------------------------------------------
@@ -1952,6 +1953,42 @@ def ladder_checks(full, recs, items, tags, check):
     check("L-5 no metal without ore: no ingot, nugget, dust, clump, shard, sulfur or other metal form of the table is "
           "reachable from the world when every ore piece, ore block, deposit and raw ore is left out",
           not free_metal, [f"{'ENTRANCE ' if i in roots else ''}{i} <- {made_by.get(i, 'start set')}" for i in free_metal])
+
+    # ---- L-6: the Mineshaft rolls mixed grades (metal table "mineshaft") ----------------------------------------------
+    gw = mt.get("mineshaft", {}).get("grade_weight", {})
+    want = sum(grades[g] * w for g, w in gw.items()) / max(1, sum(gw.values()))
+    tot, mbw, bad6 = 0, 0.0, []
+    for rid, j in full.items():
+        if j.get("type") != "occultism:miner" or not rid.startswith("firmages:miner/ores/"):
+            continue
+        res_ = j.get("result", {})
+        sid = (res_.get("stack") or {}).get("id", "")
+        m_ = re.match(r"^[a-z0-9_]+:ore/(small|poor|normal|rich)_", sid)
+        if not m_:
+            continue
+        w = res_.get("weight", 0)
+        tot += w
+        mbw += w * grades[m_.group(1)]
+    got6 = mbw / tot if tot else 0.0
+    if not tot or abs(got6 - want) > tol * want:
+        bad6.append(f"mean {got6:.2f} mB per ore piece over weight {tot}, table {want:.2f}")
+    check(f"L-6 Dimensional Mineshaft: ore pieces of every grade, mean {got6:.2f} mB (table {want:.2f})", not bad6, bad6)
+
+    # ---- L-7: the Arc Furnace melts a dust at the table's energy (metal table "arc_furnace") --------------------------
+    de = mt.get("arc_furnace", {}).get("dust_energy")
+    bad7, n7 = [], 0
+    for rid, j in full.items():
+        if j.get("type") == "immersiveengineering:arc_furnace" and re.match(r"^immersiveengineering:arcfurnace/dust_", rid):
+            n7 += 1
+            if j.get("energy") != de:
+                bad7.append(f"{rid}: {j.get('energy')} FE")
+    check(f"L-7 Arc Furnace dust -> ingot at {de} FE ({n7} recipes)", n7 > 0 and not bad7, bad7)
+
+    # ---- U-2: one iron (harmony fix 10, package A5) -------------------------------------------------------------------
+    iron = "minecraft:iron_ingot"
+    bad_u2 = sorted(f"{rid} ({'input' if any(('item', iron) in slot for slot in sl) else 'output'})"
+                    for rid, sl, os_ in recs if any(("item", iron) in slot for slot in sl) or iron in os_)
+    check(f"U-2 one iron: no live recipe takes or makes {iron} (wrought iron is c:ingots/iron)", not bad_u2, bad_u2)
 
 
 # ================================================================================================ reachability per Age
