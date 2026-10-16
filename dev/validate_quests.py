@@ -32,7 +32,10 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
              Ponder click to a registered item; a chapter image's dependency is a quest of the book; a description
              picture is a line of its own, width/height are numbers, its click type is FTB Quests' (dev/quest-images.md)
   layout     no two quests of a chapter are drawn closer than dev/quest_layout.MIN_GAP grid units (their drawn size is
-             6/7 of their size), dep_control_pts only name the quest's own dependencies, four numbers each
+             6/7 of their size), dep_control_pts only name the quest's own dependencies, four numbers each; with
+             --style at most LINE_LIMITS line crossings and lines over a quest they do not join per chapter
+  wood       a task titled "any wood" or "one wood" accepts every live wood of its block up to the chapter's Age
+             (its item tasks, or the item tag of its advancement)
   works      a Great Works chapter (tag works): its required stage, one entry, one goal, every quest leads to the goal
   portals    a dimension task needs its entry item: the KubeJS item tag that opens the portal (PORTAL_TAGS, read
              from kubejs/server_scripts/tags/*.js) is overridden and holds only items of the chapter's Age or earlier
@@ -441,13 +444,104 @@ STYLE_MODS = ['TFC', r"Create(?! (a|an|the) )", 'Mekanism', 'AE2', 'IE', 'Dracon
               "Macaw's", 'Evolved Mekanism', 'ProgressiveStages', 'KubeJS', 'Jade']
 
 
+# Dependency lines of a chapter map as FTB Quests draws them (dev/quest_layout.py, dev/preview_quests.py): a cubic
+# Bezier from the quest (t = 0) to its dependency through dep_control_pts. A map reads as paths when few lines cross
+# and no line runs over a quest it does not join (review 0.13.0: Electric, Space and Quantum Age had 5 and more).
+LINE_LIMITS = {'crossings': 2, 'over_quests': 2}
+
+
+def _bez(p0, c0, c1, p1, n=40):
+    out = []
+    for i in range(n + 1):
+        t = i / n
+        m = 1 - t
+        out.append((m ** 3 * p0[0] + 3 * m * m * t * c0[0] + 3 * m * t * t * c1[0] + t ** 3 * p1[0],
+                    m ** 3 * p0[1] + 3 * m * m * t * c0[1] + 3 * m * t * t * c1[1] + t ** 3 * p1[1]))
+    return out
+
+
+def _seg_cross(a, b, c, d):
+    def orient(p, q, r):
+        return (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])
+    o1, o2, o3, o4 = orient(a, b, c), orient(a, b, d), orient(c, d, a), orient(c, d, b)
+    return (o1 > 0) != (o2 > 0) and (o3 > 0) != (o4 > 0) and o1 * o2 != 0 and o3 * o4 != 0
+
+
+def _seg_dist(p, a, b):
+    vx, vy = b[0] - a[0], b[1] - a[1]
+    L = vx * vx + vy * vy
+    t = 0.0 if L == 0 else max(0.0, min(1.0, ((p[0] - a[0]) * vx + (p[1] - a[1]) * vy) / L))
+    return ((p[0] - a[0] - t * vx) ** 2 + (p[1] - a[1] - t * vy) ** 2) ** 0.5
+
+
+def map_lines(ch):
+    """-> (crossings [(line, line)], over [(line, quest id)]) of one chapter; a line is 'dep>quest' by ids."""
+    def num(v, d=0.0):
+        return v.value if isinstance(v, Num) else d
+    dsize = num(ch.get('default_quest_size'), 1.0) or 1.0
+    qs = {str(q['id']).upper(): q for q in ch.get('quests', [])}
+    size = {k: (num(q.get('size')) or dsize) for k, q in qs.items()}
+    pos = {k: (num(q.get('x')), num(q.get('y'))) for k, q in qs.items()}
+    lines = []
+    for k, q in qs.items():
+        if q.get('hide_dependency_lines'):
+            continue
+        cps = q.get('dep_control_pts') or {}
+        sh = quest_layout.CP_SHIFT * size[k]
+        for dep in q.get('dependencies', []):
+            d = str(dep).upper()
+            if d not in qs:
+                continue
+            pts = cps.get(d) or cps.get(str(dep))
+            if pts:
+                c_d, c_q = (num(pts[0]) - sh, num(pts[1]) - sh), (num(pts[2]) - sh, num(pts[3]) - sh)
+                curve = _bez(pos[k], c_q, c_d, pos[d])
+            else:
+                curve = [pos[k], pos[d]]
+            lines.append((d, k, curve))
+    def box(pts):
+        xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+        return min(xs), min(ys), max(xs), max(ys)
+
+    def meet(b1, b2, m=0.0):
+        return b1[0] - m <= b2[2] and b2[0] - m <= b1[2] and b1[1] - m <= b2[3] and b2[1] - m <= b1[3]
+    segs = [[((p, q), box((p, q))) for p, q in zip(c, c[1:])] for _d, _k, c in lines]
+    boxes = [box(c) for _d, _k, c in lines]
+    cross = []
+    for i in range(len(lines)):
+        for j in range(i + 1, len(lines)):
+            a, b = lines[i], lines[j]
+            if {a[0], a[1]} & {b[0], b[1]} or not meet(boxes[i], boxes[j]):
+                continue
+            if any(meet(ba, bb) and _seg_cross(sa[0], sa[1], sb[0], sb[1])
+                   for sa, ba in segs[i] if meet(ba, boxes[j]) for sb, bb in segs[j]):
+                cross.append(('%s>%s' % a[:2], '%s>%s' % b[:2]))
+    over = []
+    for i, (d, k, curve) in enumerate(lines):
+        for n, c in pos.items():
+            r = size[n] * quest_layout.CELL / 2 * 0.9
+            if n in (d, k) or not meet(boxes[i], (c[0], c[1], c[0], c[1]), r):
+                continue
+            if any(_seg_dist(c, sg[0], sg[1]) < r for sg, _b in segs[i]):
+                over.append(('%s>%s' % (d, k), n))
+    return cross, over
+
+
 def figure(t):
     """A knapping or crafting grid row or a picture line: neither counts as words nor makes a paragraph."""
     return bool(GRID_LINE.fullmatch(t) or IMAGE_LINE.fullmatch(t.strip()))
 
 
 def style_lint(lang, chapters, W):
-    """Warnings for player text that breaks dev/style-guide.md."""
+    """Warnings for player text that breaks dev/style-guide.md, and for chapter maps that stop reading as paths."""
+    for cname, ch in sorted(chapters.items()):
+        cross, over = map_lines(ch)
+        if len(cross) > LINE_LIMITS['crossings']:
+            W('chapters/%s: %d line crossings, at most %d (%s)' % (cname, len(cross), LINE_LIMITS['crossings'],
+                                                                 '; '.join('%s x %s' % c for c in cross[:4])))
+        if len(over) > LINE_LIMITS['over_quests']:
+            W('chapters/%s: %d lines run over a quest they do not join, at most %d (%s)'
+              % (cname, len(over), LINE_LIMITS['over_quests'], '; '.join('%s over %s' % o for o in over[:4])))
     kinds = {}
     for cname, ch in chapters.items():
         for qd in ch.get('quests', []):

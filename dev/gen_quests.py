@@ -2191,8 +2191,10 @@ def guide_quest(n):
 # ------------------------------------------------------------------------------------------------ layout hints
 # dev/quest_layout.py: related {(strand, strand): 0..1} (shared stations, items or craft; default 0.3), style per
 # strand (arc, meander, circle), axis (the strand that ends next to the shrine picture), shrine (ring shown on the
-# axis; its click opens the build guide). Strand names must match the chapter definitions; an unknown name falls
-# back to the defaults.
+# axis; its click opens the build guide), order (slot order from the top-west round to the bottom-west, in place of
+# the search by relatedness). Strand names must match the chapter definitions; an unknown name falls back to the
+# defaults. Review 0.13.0: Electric, Information, Space, Quantum and Singularity Age carry an order, picked so that no
+# two lines cross more than validate_quests.py --style allows (LINE_LIMITS) and no line runs over a quest.
 LAYOUT_HINTS = {
     'dawn': dict(related={('Stone', 'Hunt'): 0.7, ('Stone', 'Shelter'): 0.5, ('Shelter', 'Hunt'): 0.6},
                  style={'Stone': 'meander', 'Shelter': 'arc', 'Hunt': 'arc'}),
@@ -2224,22 +2226,27 @@ LAYOUT_HINTS = {
                               ('Power Grid', 'Oil'): 0.5, ('Circuits', 'Sky'): 0.6,
                               ('Aluminium & Excavator', 'Circuits'): 0.5},
                      style={'Power Grid': 'arc', 'Oil': 'meander', 'Aluminium & Excavator': 'circle', 'Circuits': 'arc',
-                            'Sky': 'arc'}, shrine=5),
+                            'Sky': 'arc'}, shrine=5,
+                     order=['Power Grid', 'Sky', 'Circuits', 'Oil', 'Aluminium & Excavator']),
     'information': dict(related={('Digital', 'Factory'): 0.8, ('Digital', 'Mob Data'): 0.6, ('Factory', 'The End'): 0.3,
                                  ('Mob Data', 'The End'): 0.6, ('Digital', 'Sky'): 0.5},
                         style={'Digital': 'arc', 'Factory': 'meander', 'Mob Data': 'circle', 'The End': 'arc',
-                               'Sky': 'arc'}, shrine=6),
+                               'Sky': 'arc'}, shrine=6,
+                        order=['Sky', 'The End', 'Digital', 'Factory', 'Mob Data']),
     'space': dict(related={('Atomic', 'Rocketry & Moon'): 0.5, ('Rocketry & Moon', 'Mars'): 0.9,
                            ('Mars', 'Draconium'): 0.4, ('Atomic', 'Draconium'): 0.5, ('Sky', 'Rocketry & Moon'): 0.7},
                   style={'Atomic': 'circle', 'Rocketry & Moon': 'meander', 'Mars': 'arc', 'Draconium': 'arc',
-                         'Sky': 'arc'}, shrine=7),
+                         'Sky': 'arc'}, shrine=7,
+                  order=['Draconium', 'Mars', 'Atomic', 'Rocketry & Moon', 'Sky']),
     'quantum': dict(related={('Fusion', 'Awakened'): 0.6, ('Inner Planets', 'Fusion'): 0.4,
                              ('Awakened', 'Keystone'): 0.9, ('Sky', 'Inner Planets'): 0.5},
                     style={'Fusion': 'circle', 'Inner Planets': 'meander', 'Awakened': 'arc', 'Keystone': 'arc',
-                           'Sky': 'arc'}, shrine=8),
+                           'Sky': 'arc'}, shrine=8,
+                    order=['Sky', 'Keystone', 'Fusion', 'Inner Planets', 'Awakened']),
     'singularity': dict(related={('Chaos', 'Singularity'): 0.8, ('Singularity', 'Stargate'): 0.6,
                                  ('Stargate', 'Sky'): 0.5, ('Chaos', 'Stargate'): 0.3},
-                        style={'Chaos': 'meander', 'Singularity': 'circle', 'Stargate': 'arc', 'Sky': 'arc'}),
+                        style={'Chaos': 'meander', 'Singularity': 'circle', 'Stargate': 'arc', 'Sky': 'arc'},
+                        order=['Sky', 'Chaos', 'Singularity', 'Stargate']),
 }
 LAYOUTS = {}   # chapter file name -> dev/quest_layout.Layout of the last build (dev/preview_quests.py reads them)
 

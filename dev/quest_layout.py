@@ -233,6 +233,9 @@ def _slots(order, names, hints):
 
 
 def _choose_order(key, names, lens, hints):
+    if hints.get('order'):   # fixed slot order, over the top first (review 0.13.0: lanes that would braid)
+        perm = tuple(names.index(n) for n in hints['order'])
+        return perm, _slots(perm, names, hints)
     best = None
     for perm in itertools.permutations(range(len(names))):
         sl = _slots(perm, names, hints)
@@ -286,7 +289,8 @@ def age_chapter(spec, hints=None):
     """spec: key, entry, goal, strands [(name, [quest keys, keystone last])], sides [(attach, [keys])], explains
     [keys], ring (key or None), links [(key, [deps])] for quests between keystones and goal (bridge, routes), kinds
     {key: kind}, deps {key: [deps]}, hide_lines {keys}. hints: related {(a, b): 0..1}, style {name: arc|meander|
-    circle}, axis (strand name), shrine (ring number for the picture, or None), r_key, r_entry."""
+    circle}, axis (strand name), shrine (ring number for the picture, or None), r_key, r_entry, order (strand names
+    in slot order from the top-west round to the bottom-west: replaces the search by relatedness)."""
     h = dict(hints or {})
     lay = Layout(spec['key'])
     kinds, deps = spec['kinds'], spec['deps']
