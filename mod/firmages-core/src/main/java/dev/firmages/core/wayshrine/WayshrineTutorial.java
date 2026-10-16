@@ -117,6 +117,10 @@ public final class WayshrineTutorial {
         WayshrineSavedData sd = WayshrineSavedData.get(level.getServer());
         sd.setTutorial(core);
         sd.addFound(new WayshrineSavedData.Found(core, TYPE));
+        // Written now, not at the next autosave: the ruin's chunks are saved when they unload (the site is 300 to 800
+        // blocks out), so a server killed before the autosave kept the ruin but lost the record and placed a second
+        // tutorial Wayshrine at the next start (round F1, dev/offene-punkte.md).
+        level.getServer().overworld().getDataStorage().save();
         FirmagesCore.LOGGER.info("Tutorial Wayshrine ({}) placed at {}, {} blocks from the spawn", TYPE, core.toShortString(),
             (int) Math.sqrt(core.distSqr(level.getSharedSpawnPos().atY(core.getY()))));
         return placed;

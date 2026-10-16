@@ -39,7 +39,7 @@ import java.util.Optional;
 final class ShrineCommands {
     private static final SimpleCommandExceptionType SIMULATE_DISABLED = new SimpleCommandExceptionType(
         Component.literal("Simulation is disabled; set debug.allowSimulate = true in firmages-server.toml"));
-    private static final SimpleCommandExceptionType NO_HEART = new SimpleCommandExceptionType(Component.literal("No shrine heart is placed"));
+    private static final SimpleCommandExceptionType NO_HEART = new SimpleCommandExceptionType(Component.literal("No Shrine Heart is placed in this world"));
     private static final SimpleCommandExceptionType UNKNOWN_AGE = new SimpleCommandExceptionType(Component.literal("Unknown Age"));
 
     private ShrineCommands() {}

@@ -34,7 +34,7 @@ public record ReloadStatePayload(boolean running) implements CustomPacketPayload
             clientRunning = payload.running();
             if (payload.running() && ctx.player() != null) {
                 ctx.player().displayClientMessage(
-                    Component.translatableWithFallback("firmages.reload.running", "The world realigns..."), true);
+                    Component.translatableWithFallback("firmages.reload.running", "The sky shifts. Hold still."), true);
             }
         });
     }

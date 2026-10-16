@@ -15,6 +15,7 @@ public final class OriginSavedData extends SavedData {
 
     private int arenaVersion;
     private boolean gateBuilt;
+    private boolean dhdCoreTaken;
     private boolean won;
     private int gatherings;
     private final ArkState ark = new ArkState(this::setDirty);
@@ -28,6 +29,7 @@ public final class OriginSavedData extends SavedData {
         OriginSavedData d = new OriginSavedData();
         d.arenaVersion = tag.getInt("arena_version");
         d.gateBuilt = tag.getBoolean("gate_built");
+        d.dhdCoreTaken = tag.getBoolean("dhd_core_taken");
         d.won = tag.getBoolean("won");
         d.gatherings = tag.getInt("gatherings");
         d.ark.load(tag.getCompound("ark"));
@@ -38,6 +40,7 @@ public final class OriginSavedData extends SavedData {
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         tag.putInt("arena_version", arenaVersion);
         tag.putBoolean("gate_built", gateBuilt);
+        tag.putBoolean("dhd_core_taken", dhdCoreTaken);
         tag.putBoolean("won", won);
         tag.putInt("gatherings", gatherings);
         tag.put("ark", ark.save());
@@ -46,6 +49,8 @@ public final class OriginSavedData extends SavedData {
 
     public int arenaVersion() { return arenaVersion; }
     public boolean gateBuilt() { return gateBuilt; }
+    /** The return gate's DHD holds no energy core (taken when the gate was built, or once by the 1.0 migration). */
+    public boolean dhdCoreTaken() { return dhdCoreTaken; }
     public boolean won() { return won; }
     public int gatherings() { return gatherings; }
     /** The Archipelago's progress (SPEC §31.8). */
@@ -54,6 +59,8 @@ public final class OriginSavedData extends SavedData {
     /** Set by {@link OriginService#ensureBuilt}; public for the GameTests of the arena migration (SPEC §31.10). */
     public void setArenaVersion(int v) { arenaVersion = v; setDirty(); }
     void setGateBuilt(boolean b) { gateBuilt = b; setDirty(); }
+    /** Set with the gate and by {@link OriginService#migrateDhdCore}; public for the GameTest of that migration. */
+    public void setDhdCoreTaken(boolean b) { dhdCoreTaken = b; setDirty(); }
     public void setWon(boolean b) { won = b; setDirty(); }
 
     void gathered() {
