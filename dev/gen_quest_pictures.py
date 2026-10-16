@@ -67,7 +67,7 @@ SPRITES = {'bells': 'tfc:bronze_bell', 'iron_lamps': 'tfc:metal/lamp/wrought_iro
            'electric_lanterns': 'immersiveengineering:electric_lantern', 'floodlights': 'immersiveengineering:floodlight'}
 # names the guides print (player text: no mod names)
 MAT_NAME = {
-    'hearth_stones': 'cobblestone', 'hearth_posts': 'logs', 'thatch': 'thatch', 'sanctum_bricks': 'rock bricks',
+    'hearth_stones': 'cobblestone of any rock', 'hearth_posts': 'logs of any tree', 'thatch': 'thatch', 'sanctum_bricks': 'rock bricks',
     'bronze_blocks': 'bronze blocks', 'bells': 'bell, bronze or brass', 'smooth_stones': 'smooth rock',
     'iron_bars': 'iron bars', 'iron_lamps': 'iron lamps', 'sourcestone': 'gilded sourcestone',
     'otherstone': 'otherstone', 'source_gem_blocks': 'source gem blocks', 'candles': 'candles',
@@ -272,11 +272,11 @@ def shrine_pictures(rings, materials, lang, offerings, write=True):
 
 
 # ------------------------------------------------------------------------------------------------ Great Works
-def plan_blocks(plan, skip=(), moved=None):
+def plan_blocks(plan, skip=(), moved=None, skip_pos=()):
     """Blocks of a dev/gen_ponder_schematics.Plan as painter cubes; moved: {(x, y, z): (x2, y2, z2)}."""
     out = []
     for (x, y, z), (name, _props, _nbt) in plan.blocks.items():
-        if name in skip:
+        if name in skip or (x, y, z) in skip_pos:
             continue
         x2, y2, z2 = (moved or {}).get((x, y, z), (x, y, z))
         if name == 'minecraft:grass_block':
@@ -290,13 +290,17 @@ def works_pictures(write=True):
     import gen_ponder_schematics as GP
     out = {}
     base = os.path.join(PIC_DIR, 'works')
-    # gatehouse: the portcullis plan, grate up in its slot (open) and down in the gate (shut)
+    # gatehouse: the portcullis plan with a ditch before the gate (review 0.13.0: the pictures showed no bridge).
+    # Open: grate up in its slot, drawbridge deck down over the ditch. Shut: grate down in the gate, deck raised
+    # against the gate. The rope pulley sits on the wall top, the bearing at the bridge foot.
     p = GP.portcullis()
     grate = {pos for pos, (name, _p, _n) in p.blocks.items() if name == 'minecraft:iron_bars'}
-    open_ = plan_blocks(p)
-    shut = plan_blocks(p, moved={pos: (pos[0], pos[1] - 3, pos[2]) for pos in grate})
+    ditch = {(x, 0, z) for x in range(9) for z in (6, 7)}
+    open_ = gate_ditch(plan_blocks(p, skip_pos=ditch), deck_down=True)
+    shut = gate_ditch(plan_blocks(p, skip_pos=ditch, moved={pos: (pos[0], pos[1] - 3, pos[2]) for pos in grate}),
+                      deck_down=False)
     a = 22
-    frame = ISO.bounds(open_, a)
+    frame = ISO.bounds(open_ + shut, a)
     for name, bl in (('gatehouse_open', open_), ('gatehouse_shut', shut)):
         im = ISO.render(bl, a, frame=frame)
         if write:
@@ -320,6 +324,26 @@ def works_pictures(write=True):
     return out
 
 
+def gate_ditch(bl, deck_down):
+    """The ditch (z 6..7 in front of the wall, water one block down) and the drawbridge (x 3..5, the gate's width)
+    with its mechanical bearing at the foot (x 6, z 6)."""
+    water = ISO.solid_tex((52, 92, 196))
+    bricks = block_faces('minecraft:stone_bricks', (120, 120, 120))
+    deck = block_faces('minecraft:spruce_planks', (110, 80, 50))
+    out = list(bl)
+    for x in range(9):
+        for z in (6, 7):
+            out.append(cube(x, -2, z, bricks))
+            out.append(cube(x, -1, z, (water, water), alpha=0.85))
+    out.append(cube(6, -1, 6, bricks))
+    out.append(cube(6, 0, 6, block_faces('create:mechanical_bearing', (176, 140, 90))))
+    if deck_down:
+        out += [cube(x, 0, z, deck) for x in range(3, 6) for z in (6, 7)]
+    else:
+        out += [cube(x, y, 6, deck) for x in range(3, 6) for y in (0, 1)]
+    return out
+
+
 # chapter banners of the Great Works, drawn like the Age banners (dev/gen_quest_art.py), in the accent of their Age
 WORK_BANNERS = [('work_gatehouse', 'The Gatehouse', 'A Gate That Shuts on Its Own', 'age_1'),
                 ('work_house', 'The Living House', 'Doors, Lifts and a Clock', 'age_2'),
@@ -334,16 +358,20 @@ def work_banners():
 
 
 def house_pictures(base, write):
+    """The finished house of the quests (review 0.13.0): sliding doors, lamps on a link, a display board by the door,
+    the lift shaft east of the hall and the clock in the south gable."""
     stone = block_faces('tfc:rock/smooth/granite', (150, 150, 150))
     bricks = block_faces('tfc:rock/bricks/granite', (140, 140, 140))
     planks = block_faces('minecraft:oak_planks', (160, 120, 70))
+    roof = block_faces('minecraft:spruce_planks', (110, 80, 50))
     glass = block_faces('minecraft:glass', (200, 220, 230))
-    lamp = block_faces('minecraft:redstone_lamp', (230, 200, 120))
     lamp_on = (T.texture('minecraft:block/redstone_lamp_on') or ISO.solid_tex((250, 220, 140)),) * 2
     door = block_faces('create:brass_casing', (200, 160, 80))
-    pulley = block_faces('create:brass_casing', (200, 160, 80))
+    pulley = block_faces('create:elevator_pulley', (200, 160, 80))
+    bearing = block_faces('create:clockwork_bearing', (196, 160, 90))
+    hand = block_faces('minecraft:polished_blackstone', (40, 34, 30))
     grass = grass_faces()
-    bl = [cube(x, -1, z, grass) for x in range(-1, 11) for z in range(-1, 9)]
+    bl = [cube(x, -1, z, grass) for x in range(-1, 11) for z in range(-1, 10)]
     for y in range(0, 7):
         for x in range(0, 9):
             for z in range(0, 7):
@@ -354,11 +382,15 @@ def house_pictures(base, write):
                     continue
                 if edge_x or edge_z:
                     if z == 6 and x in (3, 4) and y in (1, 2):
-                        continue   # the door, slid open
+                        continue   # the doors, slid open
                     if z == 6 and x in (2, 5, 6) and y in (1, 2, 4, 5):
                         bl.append(cube(x, y, z, glass, alpha=0.55))
                     else:
                         bl.append(cube(x, y, z, bricks))
+    for k, y in enumerate(range(7, 11)):     # pitched roof, ridge north to south; the south gable in brick
+        for x in range(k, 9 - k):
+            for z in range(0, 7):
+                bl.append(cube(x, y, z, bricks if z == 6 else roof))
     for y in (1, 2):
         bl.append(cube(2, y, 7, door))   # door leaves pushed aside
         bl.append(cube(5, y, 7, door))
@@ -367,8 +399,15 @@ def house_pictures(base, write):
             bl.append(cube(x, y, z, bricks))
     bl.append(cube(9, 8, 2, pulley))
     bl.append(cube(9, 4, 2, planks))
-    bl.append(cube(3, 5, 6, lamp_on))
-    bl.append(cube(5, 2, 7, lamp))
+    for pos in ((2, 5, 6), (5, 5, 6), (1, 2, 6)):   # lamps lit by one link
+        bl.append(cube(*pos, lamp_on))
+    board = (T.texture('create:block/flap_display_top') or ISO.solid_tex((60, 60, 62)),
+             T.texture('create:block/flap_display_front') or ISO.solid_tex((230, 210, 140)))
+    for x in (6, 7):                     # the display board by the door
+        bl.append(cube(x, 2, 7, board))
+    bl.append(cube(4, 8, 7, bearing))    # the clock: bearing on the gable, hour hand east, minute hand up
+    for pos in ((4, 9, 7), (4, 10, 7), (5, 8, 7)):
+        bl.append(cube(*pos, hand))
     a = 18
     im = ISO.render(bl, a)
     out = {}

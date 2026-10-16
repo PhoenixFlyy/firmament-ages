@@ -28,7 +28,7 @@
 			alpha: 255
 			click_action: "custom_event:firmages:ponder/create/rope_pulley"
 			color: 16777215
-			height: 3.6055555555555556d
+			height: 3.935555555555556d
 			id: "0F74608512E3F55F"
 			image: "firmages:textures/gui/quests/works/gatehouse_open.png"
 			order: 1

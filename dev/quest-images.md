@@ -70,11 +70,17 @@ Geräte (`device/`, nummerierte Teile und Legende in Großbuchstaben, ohne Titel
 `blast_furnace`, `forge_anvil`, `quern`, `barrel`.
 
 Ponder (`ponder/`): `silo_hatch` (ad_astra/launch_pad), `portcullis` (create/rope_pulley), `lens_crown`
-(firmages/star_anvil: „The Lens Crown“ und „A Chord Library“), `chords` (firmages/lens_mount); Standbild der
-Ponder-Schematic von Nordwesten wie Ponder, Titel oben, „CLICK TO WATCH“ unten, Hover „Click to watch“.
+(firmages/star_anvil: „The Lens Crown“; „A Chord Library“ hängt seit dem Review 0.13.0 am AE2-Pattern-Provider),
+`chords` (firmages/lens_mount); Standbild der Ponder-Schematic von Nordwesten wie Ponder, Titel oben, „CLICK TO
+WATCH“ unten, Hover „Click to watch“. Dazu Standbilder aus Creates eigenen Szenen für die Schritte der Großbauten
+(Review 0.13.0): `elevator` (create/elevator_pulley), `display_link`, `clockwork_bearing`, `mechanical_bearing`. Ihre
+Schematics liegen als Blocklisten in `dev/data/create_ponder_plans.json` (`--refresh-ponders --mods <dir>` liest sie
+aus dem Create-Jar), damit `--check` ohne Jar läuft.
 
-Bau-Stränge (`build/`): `gatehouse`, `living_house`, `silo_closed`, `silo_open` (15 x 15 Luke, Taschen 7 und 8
-breit, Schnitt durch den Schacht), als beschriftete Teile-Diagramme.
+Bau-Stränge (`build/`): `gatehouse` (in Questreihenfolge: Seilbrücken und Graben, Fallgitter, Zugbrücke, Signal),
+`living_house` (Schiebetüren, Lampen an einem Link, Anzeigetafel, Aufzugsschacht, Uhr im Giebel; die Garage ist
+weg), `silo_closed`, `silo_open` (15 x 15 Luke, Taschen 7 und 8 breit, Schnitt durch den Schacht), als beschriftete
+Teile-Diagramme.
 
 ## Aufteilung mit dem Questbuch-Generator (Stand 2026-10-16 08:30)
 

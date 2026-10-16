@@ -1,6 +1,102 @@
 {
   "//": "Mean colours of modded block textures (gen_quest_images.py --refresh-colors); vanilla and hand colours live in the script.",
   "blocks": {
+    "create:belt": {
+      "side": [
+        54,
+        50,
+        42
+      ],
+      "top": [
+        54,
+        50,
+        42
+      ]
+    },
+    "create:brass_casing": {
+      "side": [
+        117,
+        85,
+        48
+      ],
+      "top": [
+        117,
+        85,
+        48
+      ]
+    },
+    "create:cogwheel": {
+      "side": [
+        107,
+        80,
+        47
+      ],
+      "top": [
+        107,
+        80,
+        47
+      ]
+    },
+    "create:depot": {
+      "side": [
+        106,
+        95,
+        78
+      ],
+      "top": [
+        92,
+        91,
+        93
+      ]
+    },
+    "create:gearbox": {
+      "side": [
+        86,
+        79,
+        68
+      ],
+      "top": [
+        112,
+        98,
+        77
+      ]
+    },
+    "create:large_cogwheel": {
+      "side": [
+        108,
+        81,
+        47
+      ],
+      "top": [
+        108,
+        81,
+        47
+      ]
+    },
+    "create:linear_chassis": {
+      "side": [
+        97,
+        89,
+        77
+      ],
+      "top": [
+        140,
+        125,
+        99
+      ]
+    },
+    "create:secondary_linear_chassis": {
+      "side": [
+        117,
+        106,
+        87
+      ],
+      "top": [
+        117,
+        106,
+        87
+      ]
+    },
     "tfc:rock/chiseled/granite": {
       "side": [
         151,

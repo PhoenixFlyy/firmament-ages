@@ -4,11 +4,11 @@
    "age": "age_0",
    "blocks": [
     [
-     "logs",
+     "logs of any tree",
      8
     ],
     [
-     "cobblestone",
+     "cobblestone of any rock",
      8
     ],
     [
@@ -26,11 +26,11 @@
     {
      "blocks": [
       [
-       "cobblestone",
+       "cobblestone of any rock",
        8
       ],
       [
-       "logs",
+       "logs of any tree",
        4
       ],
       [
@@ -43,7 +43,7 @@
     {
      "blocks": [
       [
-       "logs",
+       "logs of any tree",
        4
       ]
      ],
@@ -929,15 +929,15 @@
  "works": {
   "gatehouse_open": [
    360,
-   295
+   322
   ],
   "gatehouse_shut": [
    360,
-   295
+   322
   ],
   "living_house": [
    360,
-   299
+   330
   ],
   "silo_open": [
    360,

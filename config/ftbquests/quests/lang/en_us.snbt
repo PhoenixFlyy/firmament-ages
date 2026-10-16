@@ -218,7 +218,7 @@
 	]
 	quest.063F1A5EA37B6B16.title: "Prospector"
 	quest.0663C990B303E311.quest_desc: [
-		"{image:firmages:textures/gui/quests/works/gatehouse_open.png width:200 height:164 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Watch%20it%20built}"
+		"{image:firmages:textures/gui/quests/works/gatehouse_open.png width:200 height:179 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Watch%20it%20built}"
 		"Build a gate that shuts on its own: towers of rock, a bridge over the ditch, a grate that drops and a bridge that lifts."
 		""
 		"Click the picture to watch the grate built, step by step."
@@ -436,7 +436,7 @@
 	quest.1129C4816E846CCC.quest_desc: ["LV wire carries FE between connectors."]
 	quest.1129C4816E846CCC.title: "Copper Wire"
 	quest.1164F7391DDF80C9.quest_desc: [
-		"{image:firmages:textures/gui/quests/works/gatehouse_shut.png width:180 height:148 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Watch%20it%20built}"
+		"{image:firmages:textures/gui/quests/works/gatehouse_shut.png width:180 height:161 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Watch%20it%20built}"
 		"Throw the lever on the gearshift of the pulley. The grate drops, the bridge rises, and the night stays outside."
 	]
 	quest.1164F7391DDF80C9.quest_subtitle: "The gate holds"
@@ -549,8 +549,8 @@
 	quest.16D1C406E00151F0.quest_subtitle: "The shrine ring of the Industrial Age"
 	quest.16D1C406E00151F0.title: "Foundry Nave"
 	quest.175259B58F7782F8.quest_desc: [
+		"{image:firmages:textures/quests/ponder/clockwork_bearing.png width:128 height:128 align:center click_action:custom_event:firmages:ponder/create/clockwork_bearing text:Click%20to%20watch}"
 		"Set a clockwork bearing in the gable and give it hands. The house keeps the hours of the sun."
-		"{image:firmages:textures/gui/quests/works/living_house.png width:120 height:100 align:center click_action:custom_event:firmages:ponder/create/clockwork_bearing text:Watch%20a%20clock%20built}"
 	]
 	quest.175259B58F7782F8.quest_subtitle: "The house is awake"
 	quest.175259B58F7782F8.title: "The House Keeps Time"
@@ -1260,18 +1260,18 @@
 		"Craft the Shrine Heart from a fired Hearth Idol, cobblestone and charcoal (Stone Age, Hearth & Shrine). Set it where 21 by 21 blocks stay free: each Age adds a ring. The Offering Plinth is four cobblestone."
 		""
 		"Build the Hearth Circle round the Shrine Heart. 21 new blocks in three layers:"
-		"- eight logs"
-		"- eight cobblestone"
+		"- eight logs of any tree"
+		"- eight cobblestone of any rock"
 		"- four thatch"
 		"- the Offering Plinth"
 		""
 		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
 		"{@pagebreak}"
 		"{image:firmages:textures/gui/quests/shrine/ring_0_layer_1.png width:220 height:162 align:center}"
-		"Layer one of three, level with the heart: eight cobblestone, four logs, the Offering Plinth."
+		"Layer one of three, level with the heart: eight cobblestone of any rock, four logs of any tree, the Offering Plinth."
 		"{@pagebreak}"
 		"{image:firmages:textures/gui/quests/shrine/ring_0_layer_2.png width:220 height:162 align:center}"
-		"Layer two of three, one block up: four logs."
+		"Layer two of three, one block up: four logs of any tree."
 		"{@pagebreak}"
 		"{image:firmages:textures/gui/quests/shrine/ring_0_layer_3.png width:220 height:162 align:center}"
 		"Layer three of three, two blocks up: four thatch."
@@ -1776,12 +1776,12 @@
 	]
 	quest.67CA15BF14B359A8.title: "Fusion Crafting"
 	quest.687CBF7A7AA65BF4.quest_desc: [
-		"{image:firmages:textures/gui/quests/works/living_house.png width:200 height:166 align:center click_action:custom_event:firmages:ponder/create/elevator_pulley text:Watch%20a%20lift%20built}"
+		"{image:firmages:textures/gui/quests/works/living_house.png width:200 height:183 align:center click_action:custom_event:firmages:ponder/create/elevator_pulley text:Watch%20a%20lift%20built}"
 		"Build a house that moves for you: doors that slide, a lift between floors, lamps on a link, a board that speaks and a clock in the gable. The hearth stays its heart."
 		"{@pagebreak}"
 		"{image:firmages:textures/quests/build/living_house.png width:128 height:128 align:center}"
 		""
-		"The plan: doors, lamps, board, lift and clock, each wired to the next."
+		"The plan: doors, lamps, board, lift and clock."
 	]
 	quest.687CBF7A7AA65BF4.quest_subtitle: "A Great Work of the Iron Age"
 	quest.687CBF7A7AA65BF4.title: "The Living House"
@@ -1895,7 +1895,7 @@
 	]
 	quest.6F9493CFB1887C79.title: "Desh"
 	quest.6FBF7C800CAD422B.quest_desc: [
-		"{image:firmages:textures/gui/quests/works/living_house.png width:120 height:100 align:center click_action:custom_event:firmages:ponder/create/display_link text:Watch%20a%20display%20link}"
+		"{image:firmages:textures/quests/ponder/display_link.png width:128 height:128 align:center click_action:custom_event:firmages:ponder/create/display_link text:Click%20to%20watch}"
 		"Show the time and your stores on a display board by the door."
 	]
 	quest.6FBF7C800CAD422B.title: "The House Speaks"
@@ -2090,8 +2090,8 @@
 	]
 	quest.79DA4E6D4518762C.title: "Fusion Fuel"
 	quest.79F8E831F68430F0.quest_desc: [
+		"{image:firmages:textures/quests/ponder/elevator.png width:128 height:128 align:center click_action:custom_event:firmages:ponder/create/elevator_pulley text:Click%20to%20watch}"
 		"Run an elevator pulley through the floors. A redstone contact on each floor turns into an elevator contact once the lift works."
-		"{image:firmages:textures/gui/quests/works/living_house.png width:120 height:100 align:center click_action:custom_event:firmages:ponder/create/elevator_pulley text:Watch%20a%20lift%20built}"
 	]
 	quest.79F8E831F68430F0.title: "A Lift"
 	quest.7A1EFBE16BED1D0E.quest_desc: [
@@ -2111,8 +2111,8 @@
 	]
 	quest.7CDF23C64D3D4961.title: "Food Decay and Nutrition"
 	quest.7D79D0CCA81D025B.quest_desc: [
+		"{image:firmages:textures/quests/ponder/mechanical_bearing.png width:128 height:128 align:center click_action:custom_event:firmages:ponder/create/mechanical_bearing text:Click%20to%20watch}"
 		"Glue the bridge deck to a mechanical bearing at the gate. Turn it up at night and the ditch is open again."
-		"{image:firmages:textures/gui/quests/works/gatehouse_open.png width:120 height:98 align:center click_action:custom_event:firmages:ponder/create/mechanical_bearing text:Watch%20a%20bearing%20turn}"
 	]
 	quest.7D79D0CCA81D025B.title: "Drawbridge"
 	quest.7E2D0099177BFBE8.quest_desc: [

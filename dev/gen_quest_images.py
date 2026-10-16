@@ -26,7 +26,9 @@ Sources:
              net.dries007.tfc.compat.patchouli.PatchouliIntegration (bloomery, blast furnace, charcoal forge; javap)
   ponder     the build plans of dev/gen_ponder_schematics.py (the same plans the Ponder scenes load), seen from the
              north-west like Ponder; click action custom_event:firmages:ponder/<ns>/<path> (firmages-core
-             QuestPonderLink, SPEC 22.5)
+             QuestPonderLink, SPEC 22.5). Stills of Create's own scenes (elevator, display link, clockwork and
+             mechanical bearing) come from the schematics in the Create jar, copied into
+             dev/data/create_ponder_plans.json by --refresh-ponders (so --check needs no jar)
   build      plans in this file after Modpack-Planung/research-raw/n7-build.md 1.4 and 2.1 to 2.3
 
 Usage:
@@ -38,6 +40,9 @@ Usage:
   python dev/gen_quest_images.py --refresh-colors --mods <mods dir>
                                                  sample the mean colour of modded block textures from the jars into
                                                  dev/data/quest_block_colors.json (vanilla blocks keep the hand table)
+  python dev/gen_quest_images.py --refresh-ponders --mods <mods dir>
+                                                 copy the Create Ponder schematics the stills use into
+                                                 dev/data/create_ponder_plans.json
   python dev/gen_quest_images.py --preview out.png
                                                  contact sheet of every picture (not tracked)
 Needs Pillow.
@@ -61,6 +66,7 @@ DEV = ROOT / "dev"
 OUT = ROOT / "kubejs" / "assets" / "firmages" / "textures" / "quests"
 MANIFEST = DEV / "data" / "quest_images.json"
 COLORS_FILE = DEV / "data" / "quest_block_colors.json"
+CREATE_PONDERS_FILE = DEV / "data" / "create_ponder_plans.json"
 QUESTS_PY = DEV / "gen_quests.py"
 NS = "firmages"
 GROUPS = ("knapping", "device", "ponder", "build")
@@ -296,6 +302,12 @@ VANILLA = {
     "minecraft:lantern": ((230, 170, 80), (90, 80, 70)),
     "minecraft:campfire": ((240, 140, 40), (90, 64, 40)),
     "minecraft:cobblestone": ((127, 127, 127), (118, 118, 118)),
+    "minecraft:redstone_lamp": ((236, 196, 120), (214, 170, 96)),
+    "minecraft:redstone_wire": ((170, 30, 20), (150, 26, 18)),
+    "minecraft:snow_block": ((236, 240, 242), (226, 230, 232)),
+    "minecraft:oak_fence": ((162, 131, 79), (150, 121, 72)),
+    "minecraft:magenta_glazed_terracotta": ((208, 100, 191), (190, 90, 175)),
+    "minecraft:stone_brick_wall": ((122, 121, 122), (112, 111, 112)),
     "minecraft:air": ((0, 0, 0), (0, 0, 0)),
 }
 FALLBACK = ((150, 120, 170), (130, 100, 150))
@@ -311,12 +323,19 @@ HAND = {
     "create:gantry_shaft": ((190, 150, 80), (140, 110, 60)),
     "create:gantry_carriage": ((176, 140, 90), (120, 110, 100)),
     "create:mechanical_bearing": ((176, 140, 90), (120, 110, 100)),
+    "create:clockwork_bearing": ((196, 160, 90), (120, 110, 100)),
+    "firmages:quest/clock_hand": ((40, 34, 30), (30, 26, 22)),   # picture only: the hands of the gable clock
+    "firmages:quest/rope_bridge": ((176, 140, 90), (150, 118, 72)),  # picture only: a rope bridge plank
     "create:elevator_pulley": ((196, 160, 90), (150, 120, 70)),
     "create:redstone_link": ((150, 60, 50), (120, 50, 40)),
     "create:display_link": ((90, 70, 50), (80, 60, 40)),
     "create:display_board": ((60, 60, 62), (230, 210, 140)),
     "create:brass_door": ((196, 160, 90), (176, 140, 80)),
     "create:andesite_casing": ((160, 160, 150), (140, 140, 130)),
+    "create:andesite_encased_shaft": ((160, 160, 150), (140, 140, 130)),
+    "create:andesite_scaffolding": ((160, 150, 120), (140, 130, 105)),
+    "create:metal_girder": ((92, 92, 98), (72, 72, 78)),
+    "create:redstone_contact": ((150, 60, 50), (120, 50, 40)),
     "simulated:optical_sensor": ((90, 130, 160), (70, 100, 130)),
     "ae2:pattern_provider": ((90, 90, 110), (70, 70, 90)),
     "tfc:log_pile": ((176, 136, 82), (110, 78, 40)),
@@ -411,8 +430,11 @@ class Scene:
                 s.put(x, y, z, name, kind="bars")
             elif name.endswith("_slab"):
                 s.put(x, y, z, name, h=0.5)
-            elif name in ("minecraft:lever", "minecraft:comparator", "create:redstone_link"):
-                s.put(x, y, z, name, h=0.25)
+            elif name in ("minecraft:lever", "minecraft:comparator", "create:redstone_link", "minecraft:redstone_wire",
+                          "create:redstone_contact", "create:belt", "create:depot"):
+                s.put(x, y, z, name, h=0.25 if name != "create:depot" else 0.5)
+            elif name in THIN_SKIP or name.endswith("_button") or name.endswith("_sign") or name.startswith("minecraft:potted_"):
+                continue
             elif name == "ad_astra:launch_pad":
                 s.put(x, y, z, name, h=0.25)
             elif name == "create:shaft":
@@ -420,6 +442,24 @@ class Scene:
             else:
                 s.put(x, y, z, name)
         return s
+
+
+# blocks a still leaves out: too small to read at this size, a cube would mislead
+THIN_SKIP = {"minecraft:air", "minecraft:lectern", "create:cuckoo_clock", "create:nixie_tube", "create:stressometer",
+             "create:content_observer", "create:contraption_controls", "create:train_door"}
+
+
+class CreatePlan:
+    """A Create Ponder schematic from dev/data/create_ponder_plans.json, shaped like gen_ponder_schematics.Plan."""
+
+    def __init__(self, key):
+        data = json.loads(CREATE_PONDERS_FILE.read_text(encoding="utf-8"))["plans"][key]
+        self.size = tuple(data["size"])
+        self.blocks = {(x, y, z): (name, (), None) for x, y, z, name in data["blocks"]}
+
+
+def create_plan(key):
+    return lambda: CreatePlan(key)
 
 
 def _opaque(b):
@@ -917,15 +957,28 @@ PONDERS = [
      "Ponder scene The Lens Crown on the Star Anvil"),
     ("chords", "CHORDS", "firmages:lens_mount", "chords", None, None,
      "Ponder scene Chords: levers swing the lenses of the Lens Crown"),
+    # Create's own scenes, one still per Great Works step (review 0.13.0: the steps showed the finished house)
+    ("elevator", "ELEVATOR", "create:elevator_pulley", create_plan("elevator_pulley/elevator"), None, None,
+     "Create Ponder scene: an elevator pulley lifts a cabin between floors with contacts"),
+    ("display_link", "DISPLAY LINK", "create:display_link", create_plan("display_link"), None, None,
+     "Create Ponder scene: display links write onto display boards"),
+    ("clockwork_bearing", "CLOCKWORK BEARING", "create:clockwork_bearing", create_plan("clockwork_bearing"), None,
+     None, "Create Ponder scene: a clockwork bearing turns the hands of a clock"),
+    ("mechanical_bearing", "MECHANICAL BEARING", "create:mechanical_bearing", create_plan("mechanical_bearing/anchor"),
+     None, None, "Create Ponder scene: a mechanical bearing turns the blocks glued to it"),
 ]
+# the Create schematics copied by --refresh-ponders (assets/create/ponder/<key>.nbt in the Create jar)
+CREATE_PONDER_KEYS = ("elevator_pulley/elevator", "display_link", "clockwork_bearing", "mechanical_bearing/anchor")
 
 
 # ------------------------------------------------------------------------------------------------ build strands
 def build_gatehouse():
+    """The plan in quest order: rope bridges over the ditch, the grate on its rope pulley, the drawbridge on its bearing,
+    one signal (dev/gen_quests.py WORKS 'gatehouse')."""
     s = Scene()
     W = 13
     s.fill(0, 0, 0, W - 1, 0, 9, "minecraft:grass_block")
-    s.fill(0, 0, 6, W - 1, 0, 7, "minecraft:water", h=0.85)  # moat in front of the wall
+    s.fill(0, 0, 6, W - 1, 0, 7, "minecraft:water", h=0.85)  # the ditch in front of the wall
     wall = "minecraft:stone_bricks"
     s.fill(0, 1, 2, W - 1, 6, 4, wall)
     for x in range(0, W, 2):  # crenellations
@@ -942,7 +995,11 @@ def build_gatehouse():
             s.put(x, y, 3, "minecraft:iron_bars", kind="bars")
     s.put(6, 7, 3, "create:rope_pulley")
     s.put(7, 7, 3, "create:gearshift")
-    # drawbridge lowered over the moat
+    # rope bridges: a footbridge over the ditch west of the gate
+    for z in range(5, 9):
+        s.put(1, 1, z, "firmages:quest/rope_bridge", h=0.25)
+        s.put(2, 1, z, "firmages:quest/rope_bridge", h=0.25)
+    # drawbridge lowered over the ditch, its bearing at the foot
     s.fill(5, 1, 5, 7, 1, 8, "minecraft:spruce_planks", h=0.5)
     s.put(4, 1, 5, "create:mechanical_bearing")
     s.put(9, 1, 5, "create:redstone_link", h=0.25)
@@ -950,33 +1007,41 @@ def build_gatehouse():
 
 
 def build_living_house():
+    """The plan in quest order: sliding doors, lamps on a link, the display board, the lift shaft and the clock in the
+    gable (dev/gen_quests.py WORKS 'house'). Cutaway: the back and the left wall stand, the front is open."""
     s = Scene()
     s.fill(0, 0, 0, 14, 0, 11, "minecraft:grass_block")
     floor = "minecraft:spruce_planks"
     wall = "minecraft:stone_bricks"
     s.fill(1, 1, 1, 11, 1, 9, floor, h=0.2)
-    # back and left walls only (cutaway): two floors
     s.fill(1, 1, 1, 11, 8, 1, wall)
     s.fill(1, 1, 1, 1, 8, 9, wall)
+    for k, y in enumerate(range(9, 13)):  # the gable over the back wall
+        s.fill(1 + k + 1, y, 1, 11 - k - 1, y, 1, wall)
     s.fill(2, 5, 2, 11, 5, 9, floor, h=0.3)  # upper floor
     s.clear(9, 5, 6, 11, 5, 9)  # lift hole
-    # hearth in the middle
-    s.fill(5, 1, 4, 7, 1, 5, "minecraft:bricks")
-    s.put(6, 2, 4, "minecraft:campfire", h=0.4)
-    s.fill(6, 2, 2, 6, 8, 2, "minecraft:bricks")  # chimney against the back wall
-    # lift: elevator pulley over a glass shaft at the east
+    # hearth and chimney
+    s.fill(3, 1, 3, 4, 1, 4, "minecraft:bricks")
+    s.put(3, 2, 3, "minecraft:campfire", h=0.4)
+    s.fill(3, 2, 2, 3, 8, 2, "minecraft:bricks")
+    # 1 sliding doors in the south entrance
+    s.fill(6, 1, 10, 7, 3, 10, "create:brass_door", h=1.0)
+    # 2 lamps under the upper floor and on it, one redstone link by the door
+    for x in (4, 8):
+        s.put(x, 4, 5, "minecraft:redstone_lamp")
+    s.put(5, 6, 3, "minecraft:redstone_lamp")
+    s.put(5, 2, 10, "create:redstone_link", h=0.25)
+    # 3 display board by the door
+    s.fill(8, 2, 10, 9, 3, 10, "create:display_board")
+    # 4 lift: elevator pulley over a glass shaft at the east
     for y in range(1, 9):
         s.put(12, y, 7, "minecraft:glass", kind="bars")
     s.put(12, 9, 7, "create:elevator_pulley")
     s.put(11, 1, 7, "create:andesite_casing", h=0.3)
-    # sliding front door with an optical sensor above it (south side)
-    s.fill(6, 1, 10, 7, 3, 10, "create:brass_door", h=1.0)
-    s.put(6, 4, 10, "simulated:optical_sensor", h=0.5)
-    # garage: a wall section on a gantry at the west
-    s.fill(-3, 1, 3, -3, 4, 7, "minecraft:spruce_planks")
-    s.fill(-3, 5, 2, -3, 5, 8, "create:gantry_shaft", h=0.4)
-    # display board by the door
-    s.fill(8, 2, 10, 9, 3, 10, "create:display_board")
+    # 5 the clock in the gable: a clockwork bearing, hour hand east, minute hand up
+    s.put(6, 10, 2, "create:clockwork_bearing")
+    for pos in ((6, 11, 2), (6, 12, 2), (7, 10, 2)):
+        s.put(*pos, "firmages:quest/clock_hand", h=1.0)
     return s
 
 
@@ -1048,15 +1113,18 @@ def build_silo_open():
 
 def bd_gatehouse():
     return diagram("THE GATEHOUSE", build_gatehouse(),
-                   [(1, "GRATE, ROPE PULLEY"), (2, "BRIDGE ON A BEARING"), (3, "LINKS: ONE SIGNAL")],
-                   badges=[(1, (6.5, 8, 3.5), 0, -8), (2, (4.5, 2, 6.0), -12, 0), (3, (9.5, 1.5, 5.5), 10, 0)])
+                   [(1, "ROPE BRIDGES, DITCH"), (2, "GRATE, ROPE PULLEY"), (3, "DRAWBRIDGE, BEARING"),
+                    (4, "LINKS: ONE SIGNAL")],
+                   badges=[(1, (1.5, 1.5, 8.0), -10, 0), (2, (6.5, 8, 3.5), 0, -8), (3, (4.5, 2, 6.0), -10, 2),
+                           (4, (9.5, 1.5, 5.5), 10, 0)])
 
 
 def bd_living_house():
     return diagram("THE LIVING HOUSE", build_living_house(),
-                   [(1, "HEARTH"), (2, "SENSOR, SLIDING DOOR"), (3, "LIFT"), (4, "GARAGE ON A GANTRY"), (5, "DISPLAY BOARD")],
-                   badges=[(1, (6.5, 2.5, 5.0), -4, -8), (2, (7, 4.5, 11), -6, -4), (3, (12.5, 10, 7.5), 8, 0),
-                           (4, (-3, 6, 5), -10, -4), (5, (9.5, 4, 11), 8, 0)])
+                   [(1, "SLIDING DOORS"), (2, "LAMPS ON A LINK"), (3, "DISPLAY BOARD"), (4, "LIFT SHAFT"),
+                    (5, "CLOCK IN THE GABLE")],
+                   badges=[(1, (6.5, 3, 10.5), -12, 2), (2, (5.5, 7, 3.5), -10, -6), (3, (9.5, 3.5, 10.5), 4, 8),
+                           (4, (12.5, 10, 7.5), 8, 0), (5, (6.5, 12.5, 2.5), 10, -2)])
 
 
 def bd_silo_closed():
@@ -1072,8 +1140,10 @@ def bd_silo_open():
 
 
 BUILDS = [
-    ("gatehouse", bd_gatehouse, "The Gatehouse: portcullis on a rope pulley, drawbridge on a bearing, one signal"),
-    ("living_house", bd_living_house, "The Living House: hearth, sliding door with a sensor, lift and garage"),
+    ("gatehouse", bd_gatehouse, "The Gatehouse: rope bridges over the ditch, portcullis on a rope pulley, drawbridge "
+                                "on a bearing, one signal"),
+    ("living_house", bd_living_house, "The Living House: sliding doors, lamps on a link, display board, lift and the "
+                                      "clock in the gable"),
     ("silo_closed", bd_silo_closed, "The Silo closed: a 15 by 15 hatch over a shaft nine deep"),
     ("silo_open", bd_silo_open, "The Silo open: both leaves in their pockets, the rocket on the pad"),
 ]
@@ -1112,7 +1182,8 @@ def build_all(only=None):
     if only in (None, "ponder"):
         pm = _ponder_module()
         for name, title, item, plan_fn, cut, extra, caption in PONDERS:
-            cv = ponder_still(title, getattr(pm, plan_fn)(), cut=cut, extra=extra)
+            plan = plan_fn() if callable(plan_fn) else getattr(pm, plan_fn)()
+            cv = ponder_still(title, plan, cut=cut, extra=extra)
             ns, path = item.split(":")
             add("ponder", name, cv, caption, click=f"custom_event:{NS}:ponder/{ns}/{path}", hover="Click to watch")
     if only in (None, "build"):
@@ -1215,6 +1286,30 @@ def preview(items, path):
     print(f"preview: {path}")
 
 
+def refresh_ponders(mods_dir: Path):
+    """Copy the Create Ponder schematics of CREATE_PONDER_KEYS (block names and positions) into
+    dev/data/create_ponder_plans.json."""
+    import gzip
+    sys.path.insert(0, str(DEV))
+    from scan_regions import read_nbt
+    jar = next((j for j in sorted(mods_dir.glob("create-*.jar"))), None)
+    if jar is None:
+        raise SystemExit(f"no create-*.jar in {mods_dir}")
+    z = zipfile.ZipFile(jar)
+    plans = {}
+    for key in CREATE_PONDER_KEYS:
+        d = read_nbt(gzip.decompress(z.read(f"assets/create/ponder/{key}.nbt")))
+        pal = [p["Name"] for p in d["palette"]]
+        blocks = sorted([*b["pos"], pal[b["state"]]] for b in d["blocks"] if pal[b["state"]] != "minecraft:air")
+        plans[key] = {"size": list(d["size"]), "blocks": blocks}
+        print(f"{key}: {len(blocks)} blocks, size {d['size']}")
+    CREATE_PONDERS_FILE.write_text(json.dumps({"//": f"Create Ponder schematics from {jar.name} "
+                                                     "(gen_quest_images.py --refresh-ponders); Create is MIT-licensed.",
+                                               "plans": plans}, indent=1, sort_keys=True) + "\n",
+                                   encoding="utf-8", newline="\n")
+    print(f"wrote {CREATE_PONDERS_FILE.relative_to(ROOT).as_posix()}")
+
+
 def refresh_colors(mods_dir: Path):
     """Mean colour (opaque pixels) of block textures in the jars for every modded block id the scenes use."""
     global COLORS
@@ -1279,8 +1374,14 @@ def main():
     ap.add_argument("--only", choices=GROUPS)
     ap.add_argument("--preview")
     ap.add_argument("--refresh-colors", action="store_true")
+    ap.add_argument("--refresh-ponders", action="store_true")
     ap.add_argument("--mods", type=Path)
     args = ap.parse_args()
+    if args.refresh_ponders:
+        if not args.mods or not args.mods.is_dir():
+            ap.error("--refresh-ponders needs --mods <dir with the pack jars>")
+        refresh_ponders(args.mods)
+        return 0
     if args.refresh_colors:
         if not args.mods or not args.mods.is_dir():
             ap.error("--refresh-colors needs --mods <dir with the pack jars>")

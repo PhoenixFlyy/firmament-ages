@@ -28,7 +28,7 @@
 			alpha: 255
 			click_action: "custom_event:firmages:ponder/create/elevator_pulley"
 			color: 16777215
-			height: 3.820555555555555d
+			height: 4.216666666666666d
 			id: "1CACCB162CB2DE0A"
 			image: "firmages:textures/gui/quests/works/living_house.png"
 			order: 1

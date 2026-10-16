@@ -2,7 +2,7 @@
   "//": "Written by dev/gen_quest_images.py; path and sizes agreed in dev/quest-images.md.",
   "images": {
     "build/gatehouse": {
-      "caption": "The Gatehouse: portcullis on a rope pulley, drawbridge on a bearing, one signal",
+      "caption": "The Gatehouse: rope bridges over the ditch, portcullis on a rope pulley, drawbridge on a bearing, one signal",
       "display": [
         128,
         128
@@ -15,7 +15,7 @@
       ]
     },
     "build/living_house": {
-      "caption": "The Living House: hearth, sliding door with a sensor, lift and garage",
+      "caption": "The Living House: sliding doors, lamps on a link, display board, lift and the clock in the gable",
       "display": [
         128,
         128
@@ -380,8 +380,53 @@
         256
       ]
     },
+    "ponder/clockwork_bearing": {
+      "caption": "Create Ponder scene: a clockwork bearing turns the hands of a clock",
+      "click_action": "custom_event:firmages:ponder/create/clockwork_bearing",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/ponder/clockwork_bearing.png",
+      "hover": "Click to watch",
+      "path": "firmages:textures/quests/ponder/clockwork_bearing.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "ponder/display_link": {
+      "caption": "Create Ponder scene: display links write onto display boards",
+      "click_action": "custom_event:firmages:ponder/create/display_link",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/ponder/display_link.png",
+      "hover": "Click to watch",
+      "path": "firmages:textures/quests/ponder/display_link.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "ponder/elevator": {
+      "caption": "Create Ponder scene: an elevator pulley lifts a cabin between floors with contacts",
+      "click_action": "custom_event:firmages:ponder/create/elevator_pulley",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/ponder/elevator.png",
+      "hover": "Click to watch",
+      "path": "firmages:textures/quests/ponder/elevator.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
     "ponder/lens_crown": {
-      "caption": "Ponder scenes The Lens Crown and A Chord Library on the Star Anvil",
+      "caption": "Ponder scene The Lens Crown on the Star Anvil",
       "click_action": "custom_event:firmages:ponder/firmages/star_anvil",
       "display": [
         128,
@@ -390,6 +435,21 @@
       "file": "kubejs/assets/firmages/textures/quests/ponder/lens_crown.png",
       "hover": "Click to watch",
       "path": "firmages:textures/quests/ponder/lens_crown.png",
+      "texture": [
+        256,
+        256
+      ]
+    },
+    "ponder/mechanical_bearing": {
+      "caption": "Create Ponder scene: a mechanical bearing turns the blocks glued to it",
+      "click_action": "custom_event:firmages:ponder/create/mechanical_bearing",
+      "display": [
+        128,
+        128
+      ],
+      "file": "kubejs/assets/firmages/textures/quests/ponder/mechanical_bearing.png",
+      "hover": "Click to watch",
+      "path": "firmages:textures/quests/ponder/mechanical_bearing.png",
       "texture": [
         256,
         256
