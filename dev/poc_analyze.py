@@ -1683,18 +1683,19 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
                   and full[r].get("result_fluid", {}).get("id") == "evolvedmekanism:molten_osmium")
     cast = sorted(r for r in full if full[r].get("type") == "tfc:casting"
                   and full[r].get("result", {}).get("id") == "mekanism:ingot_osmium")
+    # the TFC weld of the steel casing and its osmium double ingot went with harmony link 9 (recipes/age_6/links.js)
     weld = sorted(r for r in ("firmages:welding/osmium_double_ingot", "firmages:welding/steel_casing") if r in full)
     raw_tag = [i for i in tags.get("c:raw_materials/osmium", []) + tags.get("c:ores/osmium", []) if i.startswith("firmages:")]
     ages = {i: item_age.get(i) for i in osm_pieces + osm_blocks + ["firmages:metal/double_ingot/osmium"]}
     bad_age = [f"{i}: {a_}" for i, a_ in ages.items()
-               if a_ != ("age_6" if i == "firmages:metal/double_ingot/osmium" else "age_5")]
+               if a_ != ("disabled" if i == "firmages:metal/double_ingot/osmium" else "age_5")]
     check("C-M osmium vein: no MekaTFC or TFC Ore Tooltips id left; 30 ore blocks; 12 ladder recipes on the pack "
-          "pieces; pieces eaten only by the ladder, TFC heating and the spagyric; 7 heating recipes to molten osmium, "
-          "2 casting recipes to the Mekanism ingot, double ingot and steel casing welding; pieces and blocks out of "
-          "c:raw_materials/osmium and c:ores/osmium; pieces and blocks age_5, double ingot age_6",
+          "pieces; pieces eaten only by the ladder, TFC heating and the spagyric; 6 heating recipes to molten osmium, "
+          "2 casting recipes to the Mekanism ingot, no double ingot or steel casing weld (link 9); pieces and blocks out "
+          "of c:raw_materials/osmium and c:ores/osmium; pieces and blocks age_5, double ingot hidden",
           not gone_ns and len(osm_blocks) == 30 and len(ladder) == 12 and len(ladder_in) == 4
-          and all("firmages:ore/" in x for x in ladder_in) and not bad_eaters and len(heat) == 7 and len(cast) == 2
-          and len(weld) == 2 and not raw_tag and not bad_age,
+          and all("firmages:ore/" in x for x in ladder_in) and not bad_eaters and len(heat) == 6 and len(cast) == 2
+          and not weld and not raw_tag and not bad_age,
           [f"leftover ids {gone_ns[:5]}", f"ore blocks {len(osm_blocks)}", f"ladder {len(ladder)} on {ladder_in}",
            f"other consumers {bad_eaters}", f"heating {len(heat)}", f"casting {cast}", f"welding {weld}",
            f"raw/ore tag {raw_tag}", f"wrong Age {bad_age[:5]}"])
@@ -1760,6 +1761,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     ladder_checks(full, recs, items, tags, check)
     reach_checks(full, recs, items, tags, item_age, check, server_dir)
     sky_checks(full, recs, items, tags, check)
+    link_checks(full, check)
 
 
 # ================================================================================================ sky road (S-)
@@ -1778,6 +1780,65 @@ CROWN_ONLY = [f"firmages:{a}_ingot" for a in ("starlit_iron", "cloudsteel", "aur
     + [f"firmages:lens/{n}" for n in ("arcane", "industrial", "electric", "information", "space", "quantum")] \
     + ["firmages:blessing_shard"]
 GRID_LENSES = {f"firmages:crafting/lens/{n}" for n in ("stone", "bronze", "iron")}
+
+
+# ================================================================================================ cross-mod links (K-)
+# Harmony plan section 4, package A9 (kubejs/server_scripts/recipes/age_N/links.js, dev/quest-hints-links.md): each
+# link recipe holds its part of the earlier Age, and the route it replaced is gone. (recipe id, [ids or tags its JSON
+# must name]); "-" in front of a recipe id: that recipe must be absent.
+LINK_RECIPES = [
+    ("age_2", 2, "firmages:heated_pressing/rod_steel", ["c:ingots/steel", "tfc:metal/rod/steel"]),
+    ("age_2", 2, "-create:pressing/steel_ingot", []),
+    ("age_2", 6, "firmages:crafting/belt_connector_rubber", ["afc:rubber_bar"]),
+    ("age_3", 3, "occultism:crafting/book_of_binding_foliot", ["create:precision_mechanism"]),
+    ("age_3", 3, "occultism:crafting/book_of_binding_djinni", ["create:precision_mechanism"]),
+    ("age_3", 3, "-occultengineering:mixing/book_of_binding_foliot", []),
+    ("age_4", 6, "immersiveengineering:crafting/wirecoil_copper_ins", ["afc:rubber_bar"]),
+    ("age_4", 6, "immersiveengineering:crafting/conveyor_basic", ["afc:rubber_bar"]),
+    ("age_5", 7, "immersiveengineering:crafting/generator", ["createaddition:alternator"]),
+    ("age_5", 8, "firmages:mineral/native_osmium", ["firmages:ore/normal_native_osmium"]),
+    ("age_5", 25, "createdieselgenerators:crafting/huge_diesel_engine", ["firmages:attuned_circuit"]),
+    ("age_6", 9, "mekanism:steel_casing", ["immersiveengineering:heavy_engineering"]),
+    ("age_6", 9, "-firmages:welding/steel_casing", []),
+    ("age_6", 10, "firmages:crafting/basic_control_circuit", ["immersiveengineering:circuit_board"]),
+    ("age_6", 10, "-mekanism:control_circuit/basic", []),
+    ("age_6", 11, "immersivepetroleum:hydrotreater/naphtha_cracking", ["c:naphtha", "mekanism:ethene"]),
+    ("age_6", 14, "ae2:network/blocks/controller", ["mekanism:steel_casing"]),
+    ("age_6", 14, "ae2:network/blocks/storage_drive", ["mekanism:advanced_control_circuit"]),
+    ("age_6", 25, "mekanism:control_circuit/advanced", ["firmages:attuned_circuit"]),
+    ("age_6", 25, "-mekanism:control_circuit/infused_advanced", []),
+    ("age_7", 15, "firmages:mechanical_crafting/digital_miner", ["mekanism:digital_miner"]),
+    ("age_7", 15, "-mekanism:digital_miner", []),
+    ("age_7", 17, "mekanism:tier_installer/elite", ["c:plates/desh"]),
+    ("age_7", 18, "mekanismgenerators:fission_reactor/port", ["mekmm:advanced_electrolysis_core"]),
+    ("age_7", 18, "mekanismgenerators:turbine/casing", ["immersiveengineering:sheetmetal_steel"]),
+    ("age_7", 19, "draconicevolution:machines/wyvern_crafting_injector", ["ae2:engineering_processor"]),
+    ("age_7", 25, "draconicevolution:components/wyvern_core", ["mekanism:advanced_control_circuit"]),
+    ("age_8", 15, "firmages:mechanical_crafting/fusion_reactor_frame", ["mekanismgenerators:fusion_reactor_frame"]),
+    ("age_8", 15, "-mekanismgenerators:reactor/frame", []),
+    ("age_8", 17, "mekanism:tier_installer/ultimate", ["c:plates/calorite"]),
+    ("age_8", 20, "draconicevolution:components/awakened_core", ["ae2:cell_component_256k"]),
+    ("age_8", 20, "mekanismgenerators:reactor/controller", ["mekanismgenerators:fission_reactor_port"]),
+]
+
+
+def link_checks(full, check):
+    bad = []
+    for st, n, rid, parts in LINK_RECIPES:
+        if rid.startswith("-"):
+            if rid[1:] in full:
+                bad.append(f"link {n} ({st}): {rid[1:]} should be gone")
+            continue
+        j = full.get(rid)
+        if j is None:
+            bad.append(f"link {n} ({st}): {rid} missing")
+            continue
+        text = json.dumps(j)
+        miss = [p_ for p_ in parts if f'"{p_}"' not in text]
+        if miss:
+            bad.append(f"link {n} ({st}): {rid} lacks {miss}")
+    check(f"K-1 cross-mod links: {sum(1 for r in LINK_RECIPES if not r[2].startswith('-'))} link recipes hold their part "
+          f"of the earlier Age, {sum(1 for r in LINK_RECIPES if r[2].startswith('-'))} replaced routes are gone", not bad, bad)
 
 
 def sky_checks(full, recs, items, tags, check):
@@ -2584,6 +2645,19 @@ MULTIBLOCK_AGE = {f"immersiveengineering:{m}": "age_5" for m in (
 # sensor (no deep dark in a TFC world); chunk loading is FTB Chunks' job (one station per function).
 MULTIBLOCK_UNBUILT = {"immersiveengineering:chunk_loader": "chunk loading is FTB Chunks (force-load quota from age_4)"}
 
+# Outputs of the cross-mod links (kubejs/server_scripts/recipes/age_N/links.js, package A9), by the Age they belong to.
+LINK_REACH = [("age_2", ["tfc:metal/rod/steel", "tfc:metal/rod/wrought_iron", "create:belt_connector"]),
+              ("age_3", ["occultism:book_of_binding_foliot", "occultism:book_of_binding_djinni"]),
+              ("age_4", ["immersiveengineering:wirecoil_copper_ins", "immersiveengineering:conveyor_basic"]),
+              ("age_5", ["immersiveengineering:generator", "createdieselgenerators:huge_diesel_engine"]),
+              ("age_6", ["mekanism:steel_casing", "mekanism:basic_control_circuit", "mekanism:advanced_control_circuit",
+                         "ae2:controller", "ae2:drive", "mekanism:hdpe_sheet"]),
+              ("age_7", ["mekanism:digital_miner", "mekanism:elite_tier_installer", "mekanismgenerators:fission_reactor_port",
+                         "mekanismgenerators:turbine_casing", "draconicevolution:wyvern_crafting_injector",
+                         "draconicevolution:wyvern_core"]),
+              ("age_8", ["mekanismgenerators:fusion_reactor_frame", "mekanismgenerators:fusion_reactor_controller",
+                         "mekanism:ultimate_tier_installer", "draconicevolution:awakened_core"])]
+
 # Items whose only recipe needed a dead part (Create sheets, barrel, a disabled rod, the brass nugget, the bronze nugget). Not here because
 # the walk does not model their chain: the MA soul extractor (Mystical Agriculture ores) and the AdvancedAE strength
 # card (quantum alloy from AE2 singularities); their recipes are checked by C-Di and C-Gv.
@@ -2839,6 +2913,18 @@ def reach_checks(full, recs, items, tags, item_age, check, server_dir=None):
         check(f"R-X {st} without magic ({len(recs) - len(tech_recs)} magic recipes left out): the Age token and the tech goal "
               f"{', '.join(r for r, _ in goals) or '-'} with its chain are reachable at {st}",
               (bool(got) or not token) and goals_ok, lines + [f"age_token/{st} {token}, reached {got}"])
+
+    # R-K: the outputs of the cross-mod links (LINK_REACH, package A9) are reachable at their Age: the tech parts by the
+    # walk without magic, the magic ones by the full walk.
+    for st, its in LINK_REACH:
+        n = AGES.index(st)
+        lines = []
+        for magic_ok, w in ((False, tech_walk), (True, walk)):
+            have, live, sat = w(n)
+            miss = [i for i in its if i.startswith(MAGIC_NS) == magic_ok and i not in have]
+            lines += [f"not reached ({'full' if magic_ok else 'tech'} walk): {miss}"] if miss else []
+            lines += [l for i in miss for l in why(i, have, live, sat, n)]
+        check(f"R-K {st}: {len(its)} link outputs reachable ({', '.join(i.split(':')[1] for i in its)})", not lines, lines)
 
     # R-M: every block of every IE-style multiblock template the server loads (IE, Immersive Petroleum, Advanced TFC
     # Tech, TFC + IE Crossover's arc furnace over IE's) is obtainable at the multiblock's Age, and none is disabled or

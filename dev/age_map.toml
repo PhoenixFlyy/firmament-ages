@@ -3550,6 +3550,7 @@ mods = { mcwfurnitures = "mcfur", handcrafted = "hc", mcwwindows = "mcw", mcwdoo
 "mcwwindows:warped_plank_parapet" = "age_3"
 "mcwwindows:warped_shutter" = "age_3"
 "mekanism:antiprotonic_nucleosynthesizer" = "age_8"
+"mekanism:elite_tier_installer" = "age_7"
 "mekanism:modification_station" = "age_7"
 "mekanism:module_charge_distribution_unit" = "age_7"
 "mekanism:module_elytra_unit" = "age_8"
@@ -3573,6 +3574,7 @@ mods = { mcwfurnitures = "mcfur", handcrafted = "hc", mcwwindows = "mcw", mcwdoo
 "mekanism:module_vision_enhancement_unit" = "age_7"
 "mekanism:reprocessed_fissile_fragment" = "age_7"
 "mekanism:supercharged_coil" = "age_7"
+"mekanism:ultimate_tier_installer" = "age_8"
 "mekanism_lasers:odecm" = "age_7"
 "mekmm:dense_centrifuging_factory" = "age_8"
 "mekmm:dense_crystallizing_factory" = "age_8"
@@ -6183,6 +6185,7 @@ items = [
     "firmages:consecrated_scaffold",
     "firmages:consecrated_stone",
     "firmages:consecrated_trim",
+    "firmages:metal/double_ingot/osmium",
     "firmages:origin_altar",
     "framedblocks:framing_saw_pattern",
     "ftblibrary:icon_item",

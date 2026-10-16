@@ -3510,3 +3510,30 @@ boots (age_9 granted in boot 1). The copy is deleted.
   against boot 1 it reported `age_map.toml` unchanged).
 - The repo jar `mods/firmages-core-0.12.0.jar` is unchanged on the branch; the integrator builds it from the merged
   sources and runs `packwiz refresh`.
+## 1.0 round H3, cross-mod links (2026-10-16, branch h3/links)
+
+Harmony package A9: links 1 to 22 and 25 of the harmony plan (section 4) as KubeJS recipes, one file per Age
+(`kubejs/server_scripts/recipes/age_2..age_8/links.js`), on dev b78760f (pack and firmages-core 0.12.0). Links 23 and
+24 belong to the endgame package A10; link 22 (dial cost) is A10's number. Decisions: `dev/decisions-while-away.md`
+(rows "A9"), quest hints: `dev/quest-hints-links.md`, changelog lines: `dev/changelog-h3-links.md`. Felix's test server
+stayed off and untouched; every boot ran on the copy `.wt/test-server-links` (`robocopy` without world, logs, local,
+simplebackups and crash-reports; its `kubejs/` deleted before the first sync; ports 26270 and RCON 26280; whitelist
+off; `debug.allowSimulate = true`), synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve --port
+8371 --refresh=false` of the worktree, "Finished successfully", each boot with a new world and `-Xms3G -Xmx5G`. The
+copy is deleted. No firmages-core code changed: no `gradlew build` or GameTest run.
+
+| Check | Observed | Result |
+|---|---|---|
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | 43,890 recipes (0.12.0: 43,878), 0 not encodable; KubeJS startup 8/8 and server 67/67 scripts, 0 errors, 0 warnings; "Added 1998 recipes, removed 3382 ... 0 failed recipes" | pass |
+| `derive_ages.py` on that dump, `gen_stage_locks.py` | only three moves: `mekanism:elite_tier_installer` age_6 -> age_7 (desh plate), `mekanism:ultimate_tier_installer` age_6 -> age_8 (calorite plate), `firmages:metal/double_ingot/osmium` hidden (its weld is gone); four Age tags and the hidden tag rewritten; `derive_ages.py --check` up to date | done |
+| `miner_ladder.py --dump-dir <boot 1> --check` | 14 excavator mixes with the osmium vein (15.0 mB of metal per dig before fail chance), average 13.68 mB per dig (was 13.64); Digital Miner 1.48x the average vein per ore mB; every ladder step lowers the FE per ingot with energy upgrades | pass |
+| Copy boot 2 (gate on, new world, `recipes audit`, grants, dumps, `recipes audit`, `selftest all`) | gate at age_9: 43,890 recipes, 4,402 dropped (disabled 4,395, superseded 7), 849 undetected, 0 extraction errors (same drop count as 0.12.0); `selftest all` 101 passed, 0 failed | pass |
+| `poc_analyze.py --server-dir <copy> --dump-dir <boot 2> --baseline <boot 1>` | 129 PASS, 0 FAIL: the new K-1 (25 link recipes name their part of the earlier Age, 7 replaced routes gone) and R-K age_2 to age_8 (25 link outputs reachable at their Age, tech parts by the walk without magic), R-X age_2 to age_9 (2,884 magic recipes left out), R-0, R-T, R-M, R-L, L-1 to L-7, G-1 to G-4, E-1, C-M with six osmium heating recipes and no weld | pass |
+| Recipe audit at Dawn (copy boot 3, before the grants) | every link recipe is listed as dropped at its Age: rods and rubber belt age_2 (belt by `requireAge`), binding books age_3, wire and conveyor age_4, generator block and huge engine age_5, casing, circuits, hydrotreater, ME controller and drive age_6, Digital Miner, elite installer, fission port, turbine casing, wyvern injector and core age_7, fusion frame and controller, ultimate installer, awakened core age_8; the osmium mix is world data (exempt) | pass |
+| Copy boot 3 (gate on, new world, audit, grants, hold 120 s), `check_log.py` | 87.7 s to Done; FATAL 0, ERROR 8, STDERR 0, WARN 243, documented noise 252, remaining 1: "Tutorial Wayshrine: no fit site 300 to 800 blocks" for this seed (world generation, not this branch) | pass (1 seed warning) |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 13 chapters, 949 lang keys; 1,374 object ids, 0 errors, 0 warnings (casing and infuser texts follow links 9, 10 and 25) | pass |
+| `gen_fuels.py --check`, `gen_recipe_overrides.py --check --mods`, `gen_textures.py --check`, `gen_stage_locks.py --check` | up to date; 543 overrides, 0 problems; 340 textures, 0 errors | pass |
+| Jars read | Ad Astra 1.16.26: one fluid tag per rocket tier (`ad_astra:tier_N_rocket_fuel`, `Rocket.class` static init), efficient fuel = launch cost only; Mekanism tags its oxygen fluid `c:oxygen`, which `ad_astra:oxygen` holds; Sauce 0.0.61 (in Ars Elemental) registers `sauce:source_fluid` but no fluid capability on Source jars (only an item handler on the Arcane Plinth) | read |
+
+- Not checked in a world: rockets refusing diesel at tier 3 (fluid tags are not in the dump), the hydrotreater making
+  ethene, the press making rods from a hot ingot, a new osmium excavator vein, latex supply for rubber.
