@@ -236,6 +236,7 @@ def main():
     emi_checks(base, rows, tags, item_age, check)
     wood_checks(base, rows, tags, item_age, check)
     sapling_checks(item_age, check)
+    world_checks(base, item_age, check)
     content_checks(base, a.server_dir, rows, by_id, tags, item_age, check)
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -840,6 +841,7 @@ FINALE_CHAIN = ("draconicevolution:chaotic_crafting_injector draconicevolution:c
                 "draconicevolution:reactor_core draconicevolution:reactor_stabilizer draconicevolution:reactor_injector "
                 "draconicevolution:flux_gate firmages:awakened_keystone").split()
 STARGATE_CHAIN = ("sgjourney:naquadah_ingot sgjourney:naquadah_iron_alloy sgjourney:refined_naquadah sgjourney:pure_naquadah "
+                  "sgjourney:naquadah "   # pure naquadah in the arc furnace (f1: it was a quest reward only)
                   "sgjourney:naquadah_liquidizer sgjourney:crystallizer sgjourney:crystal_base sgjourney:control_crystal "
                   "sgjourney:communication_crystal sgjourney:transfer_crystal sgjourney:classic_stargate_ring_block "
                   "sgjourney:classic_stargate_chevron_block sgjourney:classic_dhd firmages:ultimate_singularity "
@@ -2182,6 +2184,130 @@ def sapling_checks(item_age, check):
                 if b.startswith("?") or ba == "?" or ba == "disabled" or AGES.index(ba) > AGES.index(sa):
                     bad.append(f"{sap} ({sa}) grows {feat}: {b} ({ba})")
     check(f"W-9 a vanilla sapling grows only blocks of its own Age or earlier ({n} sapling features)", not bad, bad)
+
+
+# ================================================================================================ world (X-1 to X-4)
+# f1 gating audit (2026-10-16): what the world shows or hands out before its Age. Read from dev/data/world_sources.json
+# (derive_ages.py --scan) with the world model of dev/derive_ages.py (biome, feature, template and spawn Ages).
+# X-2/X-3: blocks a place shows before their Age on purpose: (block, place prefix or "*") -> reason.
+WORLD_BLOCK_ALLOW = {
+    ("minecraft:bedrock", "*"): "the floor and roof of the Nether; nothing breaks it",
+    ("minecraft:spawner", "*"): "a dungeon spawner works as a spawner; it drops nothing in any Age",
+    ("minecraft:jigsaw", "*"): "replaced while the structure generates, never in the world",
+    ("sgjourney:universe_stargate", "sgjourney:stargate/universe/destiny/"): "the Destiny's own gate in a Stargate "
+        "world (age_9); Universe gates are not part of the pack, the block stays locked",
+    ("minecraft:structure_block", "*"): "replaced while the structure generates, never in the world",
+}
+# X-4: items named after a mob that spawns, never reachable on purpose: item -> reason.
+MOB_PRODUCT_ALLOW = {
+    "ars_nouveau:whirlisprig_shards": "Ars Nouveau 5.13.3 never sets Whirlisprig.droppingShards (javap)",
+}
+MOB_PRODUCT_SUFFIX = ("_bucket", "_shard", "_shards", "_charm")
+
+
+def world_checks(base, item_age, check):
+    """X-1: no structure of a later mod's Age generates in an earlier Age's world (Apotheosis towers in Dawn; Stargate
+    Journey's buried gate in the overworld bypassed the crafted gate of the Singularity Age).
+    X-2: no block that world generation places is of a later Age than its place and gives nothing of that Age when
+    mined, unless a ProgressiveStages ore override disguises it (age_blocks tag) (Evolved Mekanism's Nether and End
+    ores, ice shard ore on the Moon).
+    X-3: the same for structure templates, on the blocks of the template's own namespace and every block of the pack's
+    own templates (firmages); the furnishing a mod's structure borrows (a barrel in a Moon village) is the mod's look,
+    not a source (decision 2026-10-13 "Erreichbarkeit: Strukturen").
+    X-4: no item named after a spawning mob (bucket, shard, charm) is never reachable (Drygmy shards, the Alex's Mobs
+    fish buckets).
+    The world model is dev/derive_ages.py World on dev/data/world_sources.json."""
+    sys.path.insert(0, os.path.join(REPO, "dev"))
+    import tomllib
+    import derive_ages as da
+    reg = json.load(open(os.path.join(base, "registries.json"), encoding="utf-8"))
+    tags = json.load(open(os.path.join(base, "item_tags.json"), encoding="utf-8"))
+    amap = tomllib.load(open(os.path.join(REPO, "dev", "age_map.toml"), "rb"))
+    ws = da.load_world_sources()
+    items, blocks = set(reg["item"]), set(reg["block"])
+    w = da.World(ws, amap["mods"], items, blocks)
+    disguised = set()
+    bdir = os.path.join(REPO, "kubejs", "data", "firmages", "tags", "block", "age_blocks")
+    for f in os.listdir(bdir):
+        disguised |= {v["id"] if isinstance(v, dict) else v for v in json.load(open(os.path.join(bdir, f)))["values"]}
+
+    def ix(st):
+        return AGES.index(st) if st in AGES else 99
+
+    def later(a, st):
+        return a == "disabled" or (a in AGES and ix(a) > ix(st))
+
+    def drops_now(b, st):
+        """Items of the block's loot table that are unlocked at st."""
+        ns, path = b.split(":", 1)
+        t = ws["loot"].get(f"{ns}:blocks/{path}")
+        if t is None:
+            return set()
+        got = set(t["items"]) | {m for tg in t["tags"] for m in tags.get(tg, [])}
+        return {i for i in got if item_age.get(i) in AGES and ix(item_age[i]) <= ix(st)}
+
+    def allowed(b, place):
+        return any(bb == b and (pre == "*" or place.startswith(pre)) for (bb, pre) in WORLD_BLOCK_ALLOW)
+
+    def shows_early(b, st, place):
+        return (b in items and b not in disguised and not allowed(b, place)
+                and later(item_age.get(b, "dawn"), st) and not drops_now(b, st))
+
+    # X-1: structure Age = earliest Age of its biomes; mod Age = [mods] Age of its template pool's namespace; structures
+    # a mod config switches off (derive_ages.structures_off: Stargate Journey's common stargates) do not count
+    off = da.structures_off()
+    bad, n = [], 0
+    for sid, s in sorted(ws["structures"].items()):
+        st = w.age_of_biomes(s["biomes"])
+        if st is None or sid.startswith(off):
+            continue
+        n += 1
+        ns = (s["pool"] or sid).split(":")[0]
+        mod = amap["mods"].get(ns) or amap["mods"].get(sid.split(":")[0])
+        if mod and later(mod, st):
+            bad.append(f"{sid} generates from {st} ({s['biomes'] if isinstance(s['biomes'], str) else 'biome set'}), "
+                       f"its mod {ns} is {mod}")
+    check(f"X-1 no structure of a later mod's Age generates in an earlier Age ({n} structures with a place)", not bad, bad)
+
+    # X-2: blocks of world generation and terrain (World.world_blocks keeps each block's earliest place)
+    bad, n = [], 0
+    for b, (st, why) in sorted(w.world_blocks.items()):
+        if not why.startswith(("world generation", "terrain")):
+            continue
+        n += 1
+        if shows_early(b, st, why.split()[-1]):
+            bad.append(f"{b} ({item_age.get(b)}) placed from {st} by {why}; mined there it gives nothing of {st}")
+    check(f"X-2 world generation shows no block of a later Age that gives nothing at its place ({n} placed blocks)",
+          not bad, bad)
+
+    # X-3: the own blocks of every structure template that has a place
+    bad, n = [], 0
+    for tid, st in sorted(w.template_age.items()):
+        n += 1
+        ns = tid.split(":")[0]
+        for b in ws["templates"][tid]["blocks"]:
+            if (ns == "firmages" or b.split(":")[0] == ns) and shows_early(b, st, tid):
+                bad.append(f"{tid} ({st}): {b} ({item_age.get(b)})")
+    check(f"X-3 structure templates show no own block of a later Age that gives nothing at their Age ({n} templates)",
+          not bad, bad)
+
+    # X-4: never reachable items named after a mob that spawns
+    hidden = set(amap.get("derived_hidden", {}).get("items", []))
+    spawning = set(w.entity_src)
+    bad = []
+    for i in sorted(hidden):
+        ns, path = i.split(":", 1)
+        if not path.endswith(MOB_PRODUCT_SUFFIX) or i in MOB_PRODUCT_ALLOW:
+            continue
+        mob = next((e for e in sorted(spawning) if e.split(":")[0] == ns and path.startswith(e.split(":", 1)[1] + "_")),
+                   None)
+        if mob:
+            bad.append(f"{i}: never reachable, but {mob} spawns ({sorted(w.entity_src[mob])[0]}); model how the mob "
+                       f"yields it (derive_ages.py INTERACTIONS) or list it in MOB_PRODUCT_ALLOW")
+    stale = [f"MOB_PRODUCT_ALLOW {i} is no longer hidden; drop the row" for i in MOB_PRODUCT_ALLOW if i not in hidden]
+    check(f"X-4 every bucket, shard or charm of a spawning mob is reachable ({len(spawning)} spawning mobs)",
+          not bad and not stale, bad + stale)
+
 
 
 def load_metals():

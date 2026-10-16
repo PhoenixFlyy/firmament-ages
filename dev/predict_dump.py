@@ -7,22 +7,18 @@ that dev/derive_ages.py --dump-dir and dev/poc_analyze.py --dump-dir read like a
 KubeJS scripts it names; it is a stand-in until the next boot with fa_dump, after which `derive_ages.py --check` on
 the real dump must say "up to date".
 
-Current edit set: the sky road with V4A (firmages-core SPEC 24 to 31, M15), on a dump of a branch that has the Lens
-Crown (M12) but not yet the Sky Harvest (M11), the Drifting Isles (M13) and the Launch Complex (M14). It adds their
-items, blocks and aurora light as the merged jar registers them, their pack recipes (the meteoric rod of
-recipes/age_2/sky_metals.js and recipes/age_4/sky_harvest.js of M11; recipes/age_7/launch_complex.js), the 22 starforge
-recipes of the mod jar (their neoforge:conditions hold once every sky material exists), the Lens Crown parts
-(recipes/age_3/lens_crown.js), the Sky Anchor (recipes/age_7/space_age.js) and the eight V4A changes of SPEC 27.8
-(recipes/age_3..age_9; startup_scripts/sky.js switches them on). The edit sets of earlier changes (the adventure round,
-deco in TFC woods) are in the git history.
+Current edit set: the f1 gating audit (2026-10-16): naquadah from pure naquadah in the IE arc furnace
+(recipes/age_9/singularity_age.js, firmages:arc_furnace/naquadah). Stargate Journey's own blasting recipe is removed
+by the same script, so naquadah had no recipe. The edit sets of earlier changes (the sky road with V4A, the adventure
+round, deco in TFC woods) are in the git history.
 
 Usage
   python dev/predict_dump.py SRC_DUMP OUT_DIR           write the predicted dump
-  python dev/predict_dump.py --sync-locks OUT_DIR       after derive_ages.py and gen_stage_locks.py: set the item_lock
-        column and the age_items / hidden tags of the predicted dump from the regenerated Age tags, as the next boot
-        would (only rows and members of items whose Age changed are touched)
+  python dev/predict_dump.py --sync-locks OUT_DIR [BASELINE_DIR]   after derive_ages.py and gen_stage_locks.py: set
+        the item_lock column and the age_items / hidden tags of the predicted dump from the regenerated Age tags, as
+        the next boot would (only rows and members of items whose Age changed are touched); with BASELINE_DIR (the
+        predicted gate-off dump) a gate-on dump also gets back the baseline recipes whose result left age_items/disabled
 """
-import copy
 import json
 import os
 import sys
@@ -34,133 +30,13 @@ PS = "progressivestages:"
 
 GRID_TYPES = ("minecraft:crafting_shaped", "minecraft:crafting_shapeless", "kubejs:shaped", "kubejs:shapeless")
 I = lambda i: {"item": i}  # noqa: E731
-T = lambda t: {"tag": t}   # noqa: E731
-F = "firmages:"
-MOD_DATA = os.path.join(REPO, "mod", "firmages-core", "src", "main", "resources", "data", "firmages")
-# Items of the sibling milestones as the merged jar registers them (M11 Sky Harvest, M13 Drifting Isles, M14 Launch
-# Complex) with their blocks; the aurora light is a fluid.
-SKY_ITEMS = [F + i for i in ("storm_rod", "storm_glass", "aurora_net", "aurora_light_bucket",              # M11
-                             "skystone", "firmament_crystal",                                             # M13
-                             "launch_control", "probe_cradle", "launch_port", "probe", "sampler_module",  # M14
-                             "deep_space_module", "voidglass", "deep_space_sample")]
-SKY_BLOCKS = [F + b for b in ("storm_rod", "storm_glass", "aurora_net", "aurora_light", "skystone",
-                              "firmament_crystal_cluster", "firmament_lode", "launch_control", "probe_cradle", "launch_port")]
-SKY_FLUIDS = [F + "aurora_light", F + "flowing_aurora_light"]
-ALLOYS = {"age_3": F + "starlit_iron_ingot", "age_4": F + "cloudsteel_ingot", "age_5": F + "aurora_steel_ingot",
-          "age_6": F + "halo_steel_ingot", "age_7": F + "void_steel_ingot", "age_8": F + "quasar_alloy_ingot",
-          "age_9": F + "firmament_alloy_ingot"}
-
-
-def shaped(result, pattern, key, count=1):
-    return {"type": "minecraft:crafting_shaped", "category": "misc", "pattern": pattern,
-            "key": {k: (T(v[1:]) if v.startswith("#") else I(v)) for k, v in key.items()},
-            "result": {"id": result, "count": count}}
-
-
 # recipe id -> JSON as the KubeJS scripts add it
 NEW_RECIPES = {
-    # M11: recipes/age_2/sky_metals.js (the meteoric rod back from [hidden]) and recipes/age_4/sky_harvest.js
-    "firmages:anvil/meteoric_iron_rod": {"type": "tfc:anvil", "input": T("c:ingots/meteoric_iron"), "tier": 3,
-                                         "rules": ["bend_last", "draw_second_last", "draw_third_last"],
-                                         "result": {"id": F + "meteoric_iron_rod", "count": 2}},
-    "firmages:crafting/storm_rod": shaped(F + "storm_rod", [" M ", "R R", "CCC"],
-                                          {"M": "#c:rods/meteoric_iron", "R": "#c:rods/wrought_iron", "C": "#c:sheets/copper"}),
-    "firmages:crafting/aurora_net": shaped(F + "aurora_net", ["SWS", "MGM", "SWS"],
-                                           {"S": "#c:rods/steel", "W": "immersiveengineering:wirecoil_copper",
-                                            "M": "#c:sheets/meteoric_iron", "G": F + "storm_glass"}),
-    # recipes/age_3/lens_crown.js
-    "firmages:sandpaper_polishing/lens_blank": {"type": "create:sandpaper_polishing", "ingredients": [I(F + "storm_glass")],
-                                                "results": [{"id": F + "lens_blank"}]},
-    **{f"firmages:crafting/lens/{lens}": shaped(F + "lens/" + lens, [" S ", "SBS", " S "], {"S": "#" + sheet, "B": F + "lens_blank"})
-       for lens, sheet in (("stone", "c:sheets/copper"), ("bronze", "c:sheets/bronze"), ("iron", "c:sheets/wrought_iron"))},
-    "firmages:crafting/lens_mount": shaped(F + "lens_mount", [" M ", "MPM", " M "],
-                                           {"M": "#c:ingots/meteoric_iron", "P": "create:precision_mechanism"}),
-    "firmages:crafting/star_anvil": shaped(F + "star_anvil", ["MGM", "GAG", "MGM"],
-                                           {"M": "#c:ingots/meteoric_iron", "G": F + "storm_glass", "A": "tfc:metal/anvil/steel"}),
-    # recipes/age_7/space_age.js
-    "firmages:crafting/sky_anchor": shaped(F + "sky_anchor", ["PVP", "SWT", "PBP"],
-                                           {"P": "#c:plates/desh", "V": F + "voidglass", "S": "#c:plates/steel",
-                                            "W": F + "wayshrine_stone", "T": ALLOYS["age_7"], "B": "#c:storage_blocks/desh"}),
-    # recipes/age_7/launch_complex.js
-    "firmages:crafting/launch_control": shaped(F + "launch_control", ["DCD", "SKS", "DED"],
-                                               {"D": "#c:plates/desh", "C": "mekanism:elite_control_circuit", "S": "#c:plates/steel",
-                                                "K": "mekanism:steel_casing", "E": "immersiveengineering:component_electronic_adv"}),
-    "firmages:crafting/probe_cradle": shaped(F + "probe_cradle", ["DSD", "SHS", "DSD"],
-                                             {"D": "#c:plates/desh", "S": "#c:plates/steel", "H": "immersiveengineering:heavy_engineering"}),
-    "firmages:crafting/launch_port": shaped(F + "launch_port", ["DPD", "PTP", "DPD"],
-                                            {"D": "#c:plates/desh", "P": "immersiveengineering:fluid_pipe", "T": "mekanism:basic_fluid_tank"}),
-    "firmages:crafting/probe": shaped(F + "probe", [" N ", "DTD", "FEF"],
-                                      {"N": "ad_astra:rocket_nose_cone", "D": "#c:plates/desh", "T": "ad_astra:desh_tank",
-                                       "F": "ad_astra:rocket_fin", "E": "ad_astra:desh_engine"}),
-    "firmages:crafting/sampler_module": shaped(F + "sampler_module", [" C ", "DAD", " H "],
-                                               {"C": "mekanism:advanced_control_circuit", "D": "#c:plates/desh",
-                                                "A": "#firmages:celestial_alloy/age_6", "H": "minecraft:hopper"}),
-    "firmages:crafting/deep_space_module": shaped(F + "deep_space_module", [" C ", "PAP", " H "],
-                                                  {"C": "mekanism:elite_control_circuit", "P": "#c:plates/calorite",
-                                                   "A": "#firmages:celestial_alloy/age_7", "H": "minecraft:hopper"}),
+    # recipes/age_9/singularity_age.js
+    "firmages:arc_furnace/naquadah": {"type": "immersiveengineering:arc_furnace", "input": I("sgjourney:pure_naquadah"),
+                                      "additives": [], "results": [{"id": "sgjourney:naquadah", "count": 1}],
+                                      "time": 200, "energy": 102400},
 }
-
-
-def replace_first(o, old, new):
-    """o with the first value equal to `old` replaced by `new` (depth first); returns (o, replaced)."""
-    if o == old:
-        return copy.deepcopy(new), True
-    if isinstance(o, dict):
-        for k in o:
-            o[k], done = replace_first(o[k], old, new)
-            if done:
-                return o, True
-    elif isinstance(o, list):
-        for i, v in enumerate(o):
-            o[i], done = replace_first(v, old, new)
-            if done:
-                return o, True
-    return o, False
-
-
-def v4a(full):
-    """The eight V4A changes of SPEC 27.8 on the dumped JSON (recipes/age_3..age_9). Returns the ids changed."""
-    done = []
-
-    def edit(rid, fn):
-        j = json.loads(full[rid])
-        fn(j)
-        full[rid] = json.dumps(j, separators=(",", ":"))
-        done.append(rid)
-
-    def swap(old, new):
-        def fn(j):
-            if not replace_first(j, old, new)[1]:
-                sys.exit(f"V4A: {old} not found")
-        return fn
-
-    def keystone(j):   # a Starlit Iron deployer before the press, in each of the three loops
-        seq = j["sequence"]
-        press = next(i for i, st in enumerate(seq) if st.get("type") == "create:pressing")
-        seq.insert(press, {"type": "create:deploying",
-                           "ingredients": [I("firmages:incomplete_arcane_keystone"), I(ALLOYS["age_3"])],
-                           "results": [{"id": "firmages:incomplete_arcane_keystone"}]})
-
-    def grid(pattern, key_add):
-        def fn(j):
-            j["pattern"] = pattern
-            j["key"].update(key_add)
-        return fn
-
-    def humming(j):
-        adds = j["additives"]
-        i = next(i for i, a in enumerate(adds) if "red_steel" in json.dumps(a))
-        adds[i] = I(ALLOYS["age_5"])
-
-    edit("firmages:sequenced_assembly/arcane_keystone", keystone)
-    edit("firmages:ritual/arcane_keystone", swap(I("tfc:metal/ingot/steel"), I(ALLOYS["age_3"])))
-    edit("firmages:crafting/pressure_core", grid(["AHA", "DGD", " T "], {"A": I(ALLOYS["age_4"])}))
-    edit("firmages:arc_furnace/humming_core", humming)
-    edit("firmages:crafting/data_matrix", grid(["ACA", "CSC", "BTB"], {"A": I(ALLOYS["age_6"])}))
-    edit("firmages:fusion/star_chart", swap(T("c:plates/desh"), I(ALLOYS["age_7"])))
-    edit("firmages:fusion/quantum_core", swap(T("c:plates/calorite"), I(ALLOYS["age_8"])))
-    edit("firmages:fusion/ultimate_singularity", swap(I("evolvedmekanism:alloy_singular"), I(ALLOYS["age_9"])))
-    return done
 
 
 def load(d, n):
@@ -201,34 +77,11 @@ def predict(src, out):
     tags = load(src, "item_tags.json")
     reg = load(src, "registries.json")
     log = []
-    # ---- registry: the items, blocks and fluid of M11, M13 and M14
-    reg["item"] = sorted(set(reg["item"]) | set(SKY_ITEMS))
-    if isinstance(reg.get("block"), list):
-        reg["block"] = sorted(set(reg["block"]) | set(SKY_BLOCKS))
-    if isinstance(reg.get("fluid"), list):
-        reg["fluid"] = sorted(set(reg["fluid"]) | set(SKY_FLUIDS))
-    log.append(f"registry: {len(SKY_ITEMS)} items, {len(SKY_BLOCKS)} blocks, {len(SKY_FLUIDS)} fluids in")
-    # ---- the 22 starforge recipes of the jar (their conditions hold once every sky material exists)
-    sdir = os.path.join(MOD_DATA, "recipe", "starforge")
-    n = 0
-    for f in sorted(os.listdir(sdir)):
-        j = json.load(open(os.path.join(sdir, f), encoding="utf-8"))
-        j.pop("neoforge:conditions", None)
-        rid = "firmages:starforge/" + f[:-5]
-        full[rid] = json.dumps(j, separators=(",", ":"))
-        rows[rid] = row_for(rid, j, rows)
-        n += 1
-    log.append(f"starforge recipes: {n}")
-    # ---- new pack recipes and the V4A changes
+    # ---- new pack recipes
     for rid, j in NEW_RECIPES.items():
         full[rid] = json.dumps(j, separators=(",", ":"))
         rows[rid] = row_for(rid, j, rows)
     log.append(f"pack recipes added: {len(NEW_RECIPES)}")
-    log.append("V4A: " + ", ".join(v4a(full)))
-    # ---- tags the sibling milestones fill
-    rods = tags.setdefault("c:rods/meteoric_iron", [])
-    if F + "meteoric_iron_rod" not in rods:
-        rods.append(F + "meteoric_iron_rod")
     rj["recipes"] = [[r[c] for c in cols] for r in rows.values()]
     dump_json(os.path.join(out, "recipes_full.json"), full)
     dump_json(os.path.join(out, "recipes.json"), rj)
@@ -238,7 +91,7 @@ def predict(src, out):
     print(f"recipes {len(full)} ({len(rj['recipes'])} rows); written to {out}")
 
 
-def sync_locks(out):
+def sync_locks(out, baseline=None):
     """The item locks and Age tags the next boot would dump after the regeneration (items whose Age changed only)."""
     tag_dir = os.path.join(REPO, "kubejs", "data", "firmages", "tags", "item", "age_items")
     age = {}
@@ -277,15 +130,27 @@ def sync_locks(out):
     full = load(out, "recipes_full.json")
     for rid in gone:
         full.pop(rid, None)
+    back = []
+    if baseline:   # the gate drops a recipe while its result is disabled; it returns when the result gets an Age
+        brj = load(baseline, "recipes.json")
+        bfull = load(baseline, "recipes_full.json")
+        have = {r[0] for r in rj["recipes"]}
+        for r in brj["recipes"]:
+            row = dict(zip(brj["columns"], r))
+            if row["id"] not in have and changed.get(row["result"], ("", ""))[0] == "disabled":
+                rj["recipes"].append([row.get(c, "") for c in cols])
+                full[row["id"]] = bfull[row["id"]]
+                back.append(row["id"])
     dump_json(os.path.join(out, "item_tags.json"), tags)
     dump_json(os.path.join(out, "recipes.json"), rj)
     dump_json(os.path.join(out, "recipes_full.json"), full)
-    print(f"{len(changed)} items with a new Age; {n} recipe rows got a new item_lock, {len(gone)} dropped (disabled result)")
+    print(f"{len(changed)} items with a new Age; {n} recipe rows got a new item_lock, {len(gone)} dropped (disabled result), "
+          f"{len(back)} back from the baseline")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 3 and sys.argv[1] == "--sync-locks":
-        sync_locks(sys.argv[2])
+    if len(sys.argv) in (3, 4) and sys.argv[1] == "--sync-locks":
+        sync_locks(sys.argv[2], sys.argv[3] if len(sys.argv) == 4 else None)
     elif len(sys.argv) == 3:
         predict(sys.argv[1], sys.argv[2])
     else:

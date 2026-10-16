@@ -321,6 +321,14 @@ tier_4 = "age_8"
 # Age; OreGuard stops machines on them until then. The clusters keep their light, so the isles glow from the ground.
 "firmages:firmament_crystal_cluster" = { stage = "age_4", disguise = "firmages:skystone" }
 "firmages:firmament_lode" = { stage = "age_4", disguise = "firmages:skystone" }
+# Planet ores of a later Age than their planet (f1 gating audit): Ad Astra's ice shard ore on the Moon and Mars (age_7)
+# is age_8 like the ice shard, the pack's naquadah vein on Mercury (age_8, kubejs/data/firmages/worldgen) is age_9 like
+# the naquadah. Until their Age they look like the planet's stone and drop it, as the TFC ores look like rock.
+"ad_astra:moon_ice_shard_ore" = { stage = "age_8", disguise = "ad_astra:moon_stone" }
+"ad_astra:mars_ice_shard_ore" = { stage = "age_8", disguise = "ad_astra:mars_stone" }
+"sgjourney:naquadah_ore" = { stage = "age_9", disguise = "ad_astra:mercury_stone" }
+# Draconic Evolution's End ore (the End is age_6) drops two rich pack draconium pieces (age_7, decision "Harmonie A2").
+"draconicevolution:end_draconium_ore" = { stage = "age_7", disguise = "minecraft:end_stone" }
 
 # ------------------------------------------------------------------------------------------------ TFC tables
 # Stage in which a TFC ore becomes visible/usable (Doc 08 v3 sections 3.2, 4.1). Copper ores are visible
@@ -1808,7 +1816,10 @@ mods = { mcwfurnitures = "mcfur", handcrafted = "hc", mcwwindows = "mcw", mcwdoo
 "alexsmobs:animal_dictionary" = "age_1"
 "alexsmobs:emu_leggings" = "age_0"
 "alexsmobs:flying_fish_boots" = "age_0"
+"alexsmobs:flying_fish_bucket" = "age_5"
 "alexsmobs:maraca" = "age_0"
+"alexsmobs:mudskipper_bucket" = "age_5"
+"alexsmobs:platypus_bucket" = "age_5"
 "alexsmobs:roadrunner_boots" = "age_1"
 "another_furniture:crimson_bench" = "age_3"
 "another_furniture:crimson_chair" = "age_3"
@@ -5006,11 +5017,8 @@ items = [
     "aeronautics:red_envelope_encased_shaft",
     "aeronautics:white_envelope_encased_shaft",
     "aeronautics:yellow_envelope_encased_shaft",
-    "alexsmobs:flying_fish_bucket",
     "alexsmobs:frontier_cap",
     "alexsmobs:hummingbird_feeder",
-    "alexsmobs:mudskipper_bucket",
-    "alexsmobs:platypus_bucket",
     "alexsmobs:spawn_egg_anteater",
     "alexsmobs:spawn_egg_blue_jay",
     "alexsmobs:spawn_egg_capuchin_monkey",
@@ -5074,7 +5082,6 @@ items = [
     "ars_additions:memory_crystal",
     "ars_additions:nexus_warp_scroll",
     "ars_additions:ritual_chunk_loading",
-    "ars_additions:source_spawner",
     "ars_additions:thread_reach",
     "ars_elemental:debug",
     "ars_elemental:firenando_familiar",
@@ -5105,9 +5112,7 @@ items = [
     "ars_nouveau:creative_source_jar",
     "ars_nouveau:creative_spell_book",
     "ars_nouveau:debug",
-    "ars_nouveau:drygmy_charm",
     "ars_nouveau:drygmy_se",
-    "ars_nouveau:drygmy_shard",
     "ars_nouveau:drygmy_stone",
     "ars_nouveau:experience_gem",
     "ars_nouveau:familiar_amethyst_golem",
@@ -5131,7 +5136,6 @@ items = [
     "ars_nouveau:scryer_scroll",
     "ars_nouveau:starbuncle_se",
     "ars_nouveau:starby_gift",
-    "ars_nouveau:thread_drygmy",
     "ars_nouveau:thread_whirlisprig",
     "ars_nouveau:thread_wixie",
     "ars_nouveau:whirlisprig_flower",
@@ -6154,14 +6158,24 @@ items = [
     "evolvedmekanism:depthrock_silver_ore",
     "evolvedmekanism:depthrock_tin_ore",
     "evolvedmekanism:depthrock_uranium_ore",
+    "evolvedmekanism:end_stone_fluorite_ore",
+    "evolvedmekanism:end_stone_lead_ore",
+    "evolvedmekanism:end_stone_osmium_ore",
     "evolvedmekanism:end_stone_silver_ore",
+    "evolvedmekanism:end_stone_tin_ore",
+    "evolvedmekanism:end_stone_uranium_ore",
     "evolvedmekanism:holystone_fluorite_ore",
     "evolvedmekanism:holystone_lead_ore",
     "evolvedmekanism:holystone_osmium_ore",
     "evolvedmekanism:holystone_silver_ore",
     "evolvedmekanism:holystone_tin_ore",
     "evolvedmekanism:holystone_uranium_ore",
+    "evolvedmekanism:netherrack_fluorite_ore",
+    "evolvedmekanism:netherrack_lead_ore",
+    "evolvedmekanism:netherrack_osmium_ore",
     "evolvedmekanism:netherrack_silver_ore",
+    "evolvedmekanism:netherrack_tin_ore",
+    "evolvedmekanism:netherrack_uranium_ore",
     "evolvedmekanism:shiverstone_fluorite_ore",
     "evolvedmekanism:shiverstone_lead_ore",
     "evolvedmekanism:shiverstone_osmium_ore",

@@ -45,7 +45,7 @@ locked = [
 ]
 
 # >>> generated:ore_overrides >>>
-# 74 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+# 75 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
 
 [[ores.overrides]]
 target = "id:tfc_ie_addon:ore/poor_uraninite/andesite"
@@ -416,4 +416,9 @@ drop_as = "id:tfc:rock/loose/granite"
 target = "id:firmages:ore/small_draconium"
 display_as = "id:tfc:rock/loose/granite"
 drop_as = "id:tfc:rock/loose/granite"
+
+[[ores.overrides]]
+target = "id:draconicevolution:end_draconium_ore"
+display_as = "id:minecraft:end_stone"
+drop_as = "id:minecraft:end_stone"
 # <<< generated:ore_overrides <<<
