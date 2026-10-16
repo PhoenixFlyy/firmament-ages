@@ -3428,3 +3428,20 @@ each boot with a new world and `-Xms3G -Xmx5G`. The copy is deleted.
 | `gen_machine_usage.py --check --server-dir <copy>`, `gen_fuels.py --check`, `gen_wayshrines.py --check`, `gen_ark.py --check`, `gen_wood_classes.py --check`, `derive_ages.py --check`, `gen_stage_locks.py --check` | 282 values read back, 87 off their default, up to date; fuels up to date; 89 Wayshrine files, every ruin block Dawn (the first run named the four ruins of the review); 47 ark files, no disabled block (the first run named the eight vanilla blocks); 276 wood class files | pass |
 | `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 13 chapters, 21 reward tables, 949 lang keys; 1,374 object ids, 0 errors, 0 warnings (the proof advancements resolved from `kubejs/data`) | pass |
 | `release.ps1 -Version 0.12.0`, `export_cf.py`, `verify_install.py` | `.mrpack` 475.6 MB, CurseForge zip 75.3 MB, server pack 502.5 MB; upload zip 5.6 MB, 12 swaps, 265 manifest files, only `firmages-core-0.12.0.jar` in overrides; `cfzip` 2,866 of 2,866 and `mrpack --side server` 2,830 of 2,830, no missing, extra or wrong hash; the server pack's jar has the build's SHA-256 and the new `tallies.json`. Nothing uploaded | pass |
+
+## Chronicle round B1: layout engine, The Firmament, Great Works (2026-10-16, branch b1/quest-engine)
+
+Copy of `test-server` (`robocopy /E /XD world logs local`, ports 26420 and RCON 26430, whitelist off,
+`debug.allowSimulate = true`), quest folder deleted, synced with `packwiz-installer-bootstrap -g -s server` from
+`packwiz serve --port 8421` of the worktree, "Finished successfully". One boot with a new world, `-Xms4G -Xmx5G`. The
+copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gen_quests.py` twice, `git status` | 15 chapters, 21 reward tables, 1,079 lang keys; the second run changes no file | pass |
+| `validate_quests.py --style --mods <CurseForge instance mods>` | 1,520 object ids, 0 errors, 0 warnings (new checks: pictures and clicks resolve, no two quests closer than 0.2 units, curves only for dependencies, Great Works structure) | pass |
+| `gen_quest_pictures.py`, then `--check` and a second run | 58 pictures (9 rings: finished, 29 layers, 9 animations; 5 works pictures), 3 banners; 1.7 MB as palette PNGs; second run byte-identical; `--check` up to date | pass |
+| `preview_quests.py` | 15 maps in `dev/quest-preview/`, 0 quests drawn too close; Age chapters 21 to 27 units wide, The Firmament 39 by 23 | pass |
+| javap FTB Quests 2101.1.36, FTB Library 2101.1.37, Certain Questing Additions 1.2.0.4 | `QuestPanel.alignWidgets` (quest x/y is the centre; button 1.5 zoom, spacing zoom x `quest_spacing` / 4), `QuestButton.positionControlPoints`/`getConnectionPoints` (stored control point = wanted point + 3/7 x the dependent's size; first point near the dependency), `Quest.readDepControlPoints` (`dep_control_pts`, four doubles), `Chapter` (`autofocus_id`, image ids via `readID`), `ChapterImage` (`click_action`, `dependency`), `ImageClickAction` (`open_quest`, `custom_event`), `ClientTextComponentUtils` (`image`, `width`, `height`, `align`, `fit`, `click_action`, `text`), `ViewQuestPanel` (`{@pagebreak}`), CQA `ApngTextureManager.isAPngPath` (only `*.apng.png` animate) | facts used |
+| Copy boot | Done after 152 s wall clock (server 28.1 s); 266 mod files with 257 mods; FTB Quests "Loaded 3 chapter groups, 15 chapters, 404 quests, 21 reward tables" with no FTB Quests warning; KubeJS startup and server 0 errors; `check_log.py`: FATAL 0, ERROR 8, WARN 244, documented noise 250, remaining 4 (Tutorial Wayshrine site search on the new world, a deferred task of Advanced Chimneys, two config corrections of the copy), none from the book; clean stop after 240 s hold | pass |
+| In the client | curves, APNG playback, picture clicks, page arrows, hidden chapter images | needs client (`dev/client-test-brief.md`, section Chronik B1) |
