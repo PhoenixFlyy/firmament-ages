@@ -11,11 +11,11 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 | Bronze Age | Sky Disc | forge, stone, copper and bronze anvils, quern, crucible, water wheel, millstone, mechanical saw | Ring 1, Bronze Sanctum. Rite: ring the bell. Opens the Iron Age. |
 | Iron Age | Steel Heart | bloomery, blast furnace, crushing wheels, fuel heater, steam engine, sequenced assembly | Ring 2, Iron Sanctum. Rite: light the four lamps. Opens the Arcane Age. |
 | Arcane Age | Arcane Keystone | Djinni pentacle, imbuement chamber, enchanting apparatus, liquefaction cauldron, incubator, Dimensional Mineshaft | Ring 3, Spirit Circle. Rite: light the eight candles. Opens the Industrial Age. |
-| Industrial Age | Pressure Core | coke oven, blast furnace, crusher, metal press, alloy kiln, alternator, packager and frogports | Ring 4, Foundry Nave. Proof: 512 steel ingots through Tally Chutes. Rite: power the four electric lanterns. Opens the Electric Age. |
-| Electric Age | Humming Core | arc furnace, diesel generator, pumpjack, distillation tower, excavator, assembler | Ring 5, Tesla Crown. Proof: 2,048 aluminium ingots. Rites: four floodlights on (power and redstone), 1,000,000 FE in its four HV capacitors. Opens the Information Age. |
-| Information Age | Data Matrix | inscriber, ME network, metallurgic infuser, purification chamber, simulation chamber, a built End portal | Ring 6, Data Nave. Proof: 4,096 osmium ingots. Rites: 10,000,000 FE into the heart, two of you pray together. Opens the Space Age. |
-| Space Age | Star Chart | fission reactor, industrial turbine, NASA workbench, rockets tier 1 and 2, fusion crafting (wyvern) | Ring 7, Star Spire. Proof: 4,096 desh ingots. Rite: pray at night under an open sky. Opens the Quantum Age. |
-| Quantum Age | Quantum Core, the last offering | fusion reactor, SPS, rockets tier 3 and 4, fusion crafting (draconic), Marid pentacle (optional) | Ring 8, Quantum Ring. Proof: 8,192 calorite ingots. Rites: 100,000,000 FE into the heart, two pray together, night sky, the Awakened Keystone back on its plinth. Opens the Singularity Age. |
+| Industrial Age | Pressure Core | coke oven, blast furnace, crusher, metal press, alloy kiln, alternator, packager and frogports | Ring 4, Foundry Nave. Proof: 384 steel ingots fed into Tally Chutes. Rite: power the four electric lanterns. Opens the Electric Age. |
+| Electric Age | Humming Core | arc furnace, diesel generator, pumpjack, distillation tower, excavator, assembler | Ring 5, Tesla Crown. Proof: 512 aluminium ingots. Rites: four floodlights on (power and redstone), 1,000,000 FE in its four HV capacitors. Opens the Information Age. |
+| Information Age | Data Matrix | inscriber, ME network, metallurgic infuser, purification chamber, simulation chamber, a built End portal | Ring 6, Data Nave. Proof: 1,024 osmium ingots. Rites: 10,000,000 FE into the heart, two of you pray together. Opens the Space Age. |
+| Space Age | Star Chart | fission reactor, industrial turbine, NASA workbench, rockets tier 1 and 2, fusion crafting (wyvern) | Ring 7, Star Spire. Proof: 2,880 desh ingots. Rite: pray at night under an open sky. Opens the Quantum Age. |
+| Quantum Age | Quantum Core, the last offering | fusion reactor, SPS, rockets tier 3 and 4, fusion crafting (draconic), Marid pentacle (optional) | Ring 8, Quantum Ring. Proof: 3,584 calorite ingots. Rites: 100,000,000 FE into the heart, two pray together, night sky, the Awakened Keystone back on its plinth. Opens the Singularity Age. |
 | Singularity Age | Ultimate Singularity, then the Stargate (no offering) | draconic reactor, chaotic fusion, naquadah line, Stargate and DHD | The Gathering: one prayer at the complete shrine gives the nine relics back for the last forging. |
 | Finale | Defeat The Primordial, the final boss in The Origin | the altar and arena of The Origin | No shrine. The boss's death grants `finale_won` to all of you. |
 
@@ -30,8 +30,9 @@ Sneak is Left Ctrl here; Left Shift sprints.
    When the ring is whole, the heart glows.
 4. Lay the offering on the new plinth (or right-click the heart with it). A wrong item is refused and the right one named.
    Sneak and right-click the plinth with an empty hand to take it back, until the prayer ends. From the Industrial
-   Age on, Caelum first asks for proof of work: a count of the Age's metal through your Tally Chutes in that Age
-   (the heart and Jade show it).
+   Age on, Caelum first asks for proof of work: a tithe of the Age's metal fed into Tally Chutes in that Age. A chute
+   takes only what is still asked, from a hand, a hopper or a pipe, and keeps it (the chute, the heart and Jade show
+   the count).
 5. Do the Age's rite.
 6. Pray: sneak and hold right-click on the heart, main hand empty, within 6 blocks. 10 s alone, 5 s with two, never less
    than 4 s. Progress drains while nobody prays.
@@ -367,7 +368,7 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
    sheet left and right, the Arcane Gearbox in the middle, the built-up steel chamber below.
 6. Raise the Foundry Nave (13x13, 5 high): a coke brick border (43); on each corner a heavy engineering block, steel
    scaffolding three high and an electric lantern on top. Plinth: six blocks from the heart.
-7. Pass 512 steel ingots through your Tally Chutes in this Age (Jade on the heart shows the count). Lay the Core,
+7. Feed 384 steel ingots into Tally Chutes in this Age (Jade on a chute or the heart shows the count). Lay the Core,
    power the four lanterns, pray.
 8. The Electric Age dawns. Blessing **Tireless Hands**: you break blocks 5 % faster near the shrine.
 
@@ -408,7 +409,7 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
    aluminium plates, an Aurora Steel ingot and a Nether Star.
 6. Raise the Tesla Crown (15x15, 5 high): aluminium blocks on the border (51); on each corner a red steel block, an HV
    capacitor, aluminium scaffolding two high and a floodlight on top. Plinth: seven blocks from the heart.
-7. Pass 2,048 aluminium ingots through your Tally Chutes in this Age. Lay the Core. The four floodlights need power
+7. Feed 512 aluminium ingots into Tally Chutes in this Age. Lay the Core. The four floodlights need power
    and a redstone signal. Charge the four capacitors with 1,000,000 FE
    together; nothing is drained. Pray.
 8. The Information Age dawns. Blessing **Long Arm**: half a block more reach near the shrine.
@@ -455,7 +456,7 @@ Offer the Data Matrix in the Data Nave (ring 6).
    bottom middle (it eats a quarter of a million items: feed it a cobblestone line).
 6. Raise the Data Nave (17x17, 4 high): certus quartz blocks on the border (59); on each corner a steel casing, quartz
    glass two high and a fluix block on top. Plinth: eight blocks from the heart.
-7. Pass 4,096 osmium ingots through your Tally Chutes in this Age. Lay the Matrix, feed the heart 10,000,000 FE and
+7. Feed 1,024 osmium ingots into Tally Chutes in this Age. Lay the Matrix, feed the heart 10,000,000 FE and
    pray: two of you together, if two are online.
 8. The Space Age dawns. Blessing **Clarity**: another 5 % maximum health near the shrine.
 
@@ -464,6 +465,8 @@ Offer the Data Matrix in the Data Nave (ring 6).
   spawner can no longer be built; energy cubes replace the capacitors.
 - Inferium, prosperity and soulstone veins wake: prospect them before you farm resource seeds.
 - No stronghold exists. The End portal is built, not found.
+- The machines of this Age draw much power. Fit energy upgrades into your ore machines: without them the
+  four and five times ore lines of the next Ages cost more power per ingot than purification.
 
 ---
 
@@ -491,7 +494,7 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
    plates, a wyvern core and the flight recorder in the injectors; 16,000,000 FE.
 6. Raise the Star Spire (19x19, 5 high): a steel plating border (67); on each corner a pillar of four desh blocks (or
    desh pillars) capped with an ostrum block. Plinth: nine blocks from the heart.
-7. Pass 4,096 desh ingots through your Tally Chutes in this Age. Lay the Chart and pray at night, with open sky above
+7. Feed 2,880 desh ingots into Tally Chutes in this Age. Lay the Chart and pray at night, with open sky above
    the heart and no rain.
 8. The Quantum Age dawns. Blessing **Starwalker**: near the shrine falls hurt 20 % less and one more block of fall is
    safe.
@@ -536,7 +539,7 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
    calorite plate, a Quasar Alloy ingot, two ice shards and a subatomic alloy in the injectors; 64,000,000 FE.
 6. Raise the Quantum Ring (21x21, 3 high): calorite blocks on the border (75); on each corner SPS casings or fusion
    reactor frames two high with an awakened draconium block on top. Plinth: ten blocks from the heart.
-7. Pass 8,192 calorite ingots through your Tally Chutes in this Age. Lay the Core, feed the heart 100,000,000 FE and
+7. Feed 3,584 calorite ingots into Tally Chutes in this Age. Lay the Core, feed the heart 100,000,000 FE and
    pray at night under an open sky, two of you together if two are online.
 8. The Singularity Age dawns. Blessing **Resolve**: another 5 % maximum health and some luck near the shrine.
 

@@ -4,7 +4,7 @@
       "trigger": "firmages:tally",
       "conditions": {
         "tag": "c:ingots/calorite",
-        "count": 2048,
+        "count": 3584,
         "age": "age_8"
       }
     }

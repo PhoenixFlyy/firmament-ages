@@ -2457,18 +2457,20 @@ proof cannot be looped and a stockpile counts once. The product is one the main 
 proof costs automation, not detours.
 
 - **Data:** `data/<ns>/firmages_shrine/tallies.json`, one entry per offering Age (the Age the offering is made in):
-  `{"tag": "c:ingots/steel", "count": 512}` or `{"item": "<id>", "count": n, "age": "age_4"}` (`TallyRequirement`:
+  `{"tag": "c:ingots/steel", "count": 384}` or `{"item": "<id>", "count": n, "age": "age_4"}` (`TallyRequirement`:
   exactly one of `item` and `tag`, `count` positive, `age` dawn or age_0..age_9, by default the key). Merged over
   datapacks like `offerings.json`; a broken entry is a load error with its key.
-- **Shipped numbers** (harmony plan table 2.2, the product each Age's loop already makes):
+- **Shipped numbers** (review fix 0.12.0: about two hours of one reference line of the Age, measured on the
+  0.12.0 data, `dev/harmonie-r2.md` section 7; the harmony plan's 512 / 2,048 / 4,096 / 4,096 / 8,192 were never
+  measured):
 
-  | Offering in | Tally | Count | Why this product |
+  | Offering in | Tally | Count | Reference line, two hours |
   |---|---|---|---|
-  | age_4 Industrial | `#c:ingots/steel` | 512 | IE blast furnace and the Excavator parts |
-  | age_5 Electric | `#c:ingots/aluminum` | 2,048 | arc furnace and HV wiring |
-  | age_6 Information | `#c:ingots/osmium` | 4,096 | Mekanism casings and the 3x purification loop |
-  | age_7 Space | `#c:ingots/desh` | 4,096 | Ad Astra rockets and the elite tier |
-  | age_8 Quantum | `#c:ingots/calorite` | 8,192 | the ultimate tier and the fusion frame |
+  | age_4 Industrial | `#c:ingots/steel` | 384 | one improved blast furnace with two powered preheaters: 1,200 / 3 ticks per ingot, 180 per hour |
+  | age_5 Electric | `#c:ingots/aluminum` | 512 | one excavator on a laterite vein (11.5 mB bauxite per dig, 800 digs per hour) and the crusher at 2.5x: 230 per hour |
+  | age_6 Information | `#c:ingots/osmium` | 1,024 | no excavator mix and no miner yet: 1,440 osmium ore blocks at 3x (23.7 mB each), the osmium of about 47 chunks (census 30.6 per chunk) |
+  | age_7 Space | `#c:ingots/desh` | 2,880 | one Digital Miner without upgrades on the Moon (360 blocks per hour; 52 desh ore per chunk) and one injection chamber (4x): 1,440 per hour |
+  | age_8 Quantum | `#c:ingots/calorite` | 3,584 | one Digital Miner on Venus (360 blocks per hour; 38 calorite ore per chunk) at 5x: 1,800 per hour |
 
   The Stone to the Arcane Age keep plain offerings; the Singularity Age has none (the Gathering, §16).
 - **Counting:** the numbers of the criterion `firmages:tally` (§22.2): items counted by the Tally Chutes since the
@@ -2476,7 +2478,7 @@ proof costs automation, not detours.
   Jade, GameTests) the team with the highest count (one fellowship per server, §2.3).
 - **Refusal:** `ShrineService.offer` returns `NO_PROOF` and keeps the item in the player's hand; the plinth stays
   empty. Caelum says what is missing (`firmages.shrine.proof.missing`: "Caelum asks for proof of work: your Tally
-  Chutes must take 512 Steel Ingot in the Industrial Age. They have taken 140."). The same line follows the
+  Chutes must take 384 Steel Ingot in the Industrial Age. They have taken 140."). The same line follows the
   heart's right-click while the current tier waits for proof, and the Chronicle's goal quests of age_4 to age_8 name
   the tally.
 - **Jade:** the heart syncs `proofNeed`, `proofHave`, `proofItem` (update tag, once a second and after a validation);

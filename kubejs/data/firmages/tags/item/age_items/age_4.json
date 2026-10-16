@@ -299,6 +299,7 @@
     {"id": "firmages:lantern/industrial", "required": false},
     {"id": "firmages:lens/arcane", "required": false},
     {"id": "firmages:pressure_core", "required": false},
+    {"id": "firmages:tally_chute", "required": false},
     {"id": "firmalife:bucket/metal/chromium", "required": false},
     {"id": "firmalife:bucket/metal/stainless_steel", "required": false},
     {"id": "firmalife:empty_jar_with_stainless_steel_lid", "required": false},

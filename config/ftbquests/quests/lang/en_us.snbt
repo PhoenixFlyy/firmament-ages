@@ -235,7 +235,7 @@
 	]
 	quest.0B2CE763E15475FA.title: "Locating Clay"
 	quest.0B4C781BE87EF3D3.quest_desc: [
-		"Feed 1,024 desh ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
+		"Feed 2,880 desh ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
 	]
 	quest.0B4C781BE87EF3D3.title: "Proof of Work"
 	quest.0BA4D1B6A66D0C59.quest_desc: [
@@ -448,7 +448,7 @@
 		""
 		"Five strands lead to the Star Chart: Atomic, Rocketry & Moon, Mars, Draconium and Sky."
 		""
-		"Caelum asks for proof of work this time: 1,024 desh ingots fed into Tally Chutes in this Age."
+		"Caelum asks for proof of work this time: 2,880 desh ingots fed into Tally Chutes in this Age."
 	]
 	quest.1D842B40E0C51F06.quest_subtitle: "The eighth Age"
 	quest.1D842B40E0C51F06.title: "The Space Age Dawns"
@@ -601,7 +601,7 @@
 		""
 		"Five strands lead to the Quantum Core: Fusion, Inner Planets, Awakened, Keystone and Sky. The Quantum Core is the last offering at the shrine."
 		""
-		"Caelum asks for proof of work this time: 2,048 calorite ingots fed into Tally Chutes in this Age."
+		"Caelum asks for proof of work this time: 3,584 calorite ingots fed into Tally Chutes in this Age."
 	]
 	quest.29BB85F4AE1E4A82.quest_subtitle: "The ninth Age"
 	quest.29BB85F4AE1E4A82.title: "The Quantum Age Dawns"
@@ -761,7 +761,7 @@
 	]
 	quest.373193C62E3C9E35.title: "Mercury Catalyst"
 	quest.3815DB396BBFB360.quest_desc: [
-		"Feed 2,048 calorite ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
+		"Feed 3,584 calorite ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
 	]
 	quest.3815DB396BBFB360.title: "Proof of Work"
 	quest.38BA8AD136589CDA.quest_desc: [
@@ -915,7 +915,7 @@
 	quest.44FB988268E119B4.quest_desc: [
 		"Fuse the Star Chart at wyvern level: a polonium pellet in the middle, a desh plate, a Void Steel ingot, two ostrum plates, a wyvern core and the flight recorder from Mars."
 		""
-		"Raise the Star Spire. Once your Tally Chutes have taken 1,024 desh ingots in this Age, lay the Chart on the plinth and pray at night, under an open sky, without rain."
+		"Raise the Star Spire. Once your Tally Chutes have taken 2,880 desh ingots in this Age, lay the Chart on the plinth and pray at night, under an open sky, without rain."
 		""
 		"Caelum opens the Quantum Age."
 	]
@@ -1372,7 +1372,7 @@
 	quest.67314514BDCA1DB3.quest_desc: [
 		"Fuse the Quantum Core at draconic level: two antimatter pellets, a calorite plate, Quasar Alloy, two ice shards and a subatomic alloy."
 		""
-		"Raise the Quantum Ring and set the Awakened Keystone back. Once your Tally Chutes have taken 2,048 calorite ingots, lay the Core down, feed the heart 100,000,000 FE and pray at night under open sky, together if two are online."
+		"Raise the Quantum Ring and set the Awakened Keystone back. Once your Tally Chutes have taken 3,584 calorite ingots, lay the Core down, feed the heart 100,000,000 FE and pray at night under open sky, together if two are online."
 		""
 		"Caelum opens the Singularity Age."
 	]
@@ -1795,7 +1795,7 @@
 	task.40897BEF6100181B.title: "Look at a formed improved blast furnace"
 	task.4197F6859B0FBD4A.title: "Look at the heart with the Bronze Sanctum complete"
 	task.4310383F8BF8DFA7.title: "Chevron blocks"
-	task.433F0E586DCFD500.title: "Feed 1,024 desh ingots into Tally Chutes"
+	task.433F0E586DCFD500.title: "Feed 2,880 desh ingots into Tally Chutes"
 	task.44371205C7AA8957.title: "Look at your assembled Stargate"
 	task.465D3A2469B147A9.title: "Look at a formed coke oven"
 	task.4B6C1BDA1DC7E548.title: "Look at the heart of the finished Hearth Circle"
@@ -1825,7 +1825,7 @@
 	task.65A76C6C45E7C1E9.title: "Look at your placed LV capacitor"
 	task.661F88E7CD851EBD.title: "Look at a formed diesel generator"
 	task.669D4FD80983FFE5.title: "Spirit attuned crystal"
-	task.68337F48FE1A4BB2.title: "Feed 2,048 calorite ingots into Tally Chutes"
+	task.68337F48FE1A4BB2.title: "Feed 3,584 calorite ingots into Tally Chutes"
 	task.6912FF34FC324B3D.title: "Look at your placed Shrine Heart"
 	task.6A2FE882B54A3D6A.title: "Crafting unit"
 	task.6C03C2A36B8346CC.title: "Look at your placed alternator"

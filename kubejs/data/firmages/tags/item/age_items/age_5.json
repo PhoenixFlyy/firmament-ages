@@ -374,6 +374,7 @@
     {"id": "firmages:starsteel_block", "required": false},
     {"id": "firmages:starsteel_chunk", "required": false},
     {"id": "firmages:starsteel_ingot", "required": false},
+    {"id": "firmages:starsteel_meteorite", "required": false},
     {"id": "immersiveengineering:acetaldehyde_bucket", "required": false},
     {"id": "immersiveengineering:alu_catwalk", "required": false},
     {"id": "immersiveengineering:alu_catwalk_stairs", "required": false},

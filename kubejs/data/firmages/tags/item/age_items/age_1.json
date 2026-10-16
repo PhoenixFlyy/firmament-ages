@@ -3338,7 +3338,6 @@
     {"id": "exposure:stacked_photographs", "required": false},
     {"id": "firmages:lantern/bronze", "required": false},
     {"id": "firmages:sky_disc", "required": false},
-    {"id": "firmages:tally_chute", "required": false},
     {"id": "firmalife:aromatic_honeycomb", "required": false},
     {"id": "firmalife:beehive", "required": false},
     {"id": "firmalife:beehive_frame", "required": false},

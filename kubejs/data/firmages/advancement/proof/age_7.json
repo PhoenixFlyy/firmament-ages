@@ -4,7 +4,7 @@
       "trigger": "firmages:tally",
       "conditions": {
         "tag": "c:ingots/desh",
-        "count": 1024,
+        "count": 2880,
         "age": "age_7"
       }
     }

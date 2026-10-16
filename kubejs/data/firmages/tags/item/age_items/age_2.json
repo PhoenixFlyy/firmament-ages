@@ -2547,6 +2547,8 @@
     {"id": "firmages:meteoric_iron_ingot", "required": false},
     {"id": "firmages:meteoric_iron_rod", "required": false},
     {"id": "firmages:meteoric_iron_sheet", "required": false},
+    {"id": "firmages:meteorite", "required": false},
+    {"id": "firmages:starfall_core", "required": false},
     {"id": "firmages:steel_heart", "required": false},
     {"id": "firmages:storm_glass", "required": false},
     {"id": "firmages:storm_rod", "required": false},

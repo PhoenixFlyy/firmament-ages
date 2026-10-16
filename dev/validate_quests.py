@@ -45,6 +45,7 @@ import tomllib
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+KUBEJS_DATA = os.path.join(ROOT, 'kubejs', 'data')
 QDIR = os.path.join(ROOT, 'config', 'ftbquests', 'quests')
 AGES = ['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6', 'age_7', 'age_8', 'age_9']
 AGE_CHAPTER_STAGES = set(AGES)  # every Age has its chapter (rule set applies to all of them)
@@ -254,7 +255,9 @@ class JarIndex:
         ns, _, path = rid.lstrip('#').partition(':')
         folder = {'advancement': 'advancement', 'entity_tag': 'tags/entity_type', 'block_tag': 'tags/block',
                   'dimension': 'dimension'}[kind]
-        return 'data/%s/%s/%s.json' % (ns, folder, path) in self.files
+        # the pack's own datapack (kubejs/data) counts like a jar: the Chronicle's proof advancements live there
+        return ('data/%s/%s/%s.json' % (ns, folder, path) in self.files
+                or os.path.isfile(os.path.join(KUBEJS_DATA, ns, *folder.split('/'), *path.split('/')) + '.json'))
 
 
 VANILLA_DIMS = {'minecraft:overworld', 'minecraft:the_nether', 'minecraft:the_end'}
