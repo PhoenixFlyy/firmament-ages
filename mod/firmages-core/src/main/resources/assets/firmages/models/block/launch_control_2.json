@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "particle": "firmages:block/launch_control_side",
+    "front": "firmages:block/launch_control_front_2",
+    "side": "firmages:block/launch_control_side",
+    "top": "firmages:block/launch_control_top",
+    "bottom": "firmages:block/launch_control_bottom"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "facing=north,throttle=1": {
+      "model": "firmages:block/launch_control_1"
+    },
+    "facing=north,throttle=2": {
+      "model": "firmages:block/launch_control_2"
+    },
+    "facing=north,throttle=3": {
+      "model": "firmages:block/launch_control_3"
+    },
+    "facing=east,throttle=1": {
+      "model": "firmages:block/launch_control_1",
+      "y": 90
+    },
+    "facing=east,throttle=2": {
+      "model": "firmages:block/launch_control_2",
+      "y": 90
+    },
+    "facing=east,throttle=3": {
+      "model": "firmages:block/launch_control_3",
+      "y": 90
+    },
+    "facing=south,throttle=1": {
+      "model": "firmages:block/launch_control_1",
+      "y": 180
+    },
+    "facing=south,throttle=2": {
+      "model": "firmages:block/launch_control_2",
+      "y": 180
+    },
+    "facing=south,throttle=3": {
+      "model": "firmages:block/launch_control_3",
+      "y": 180
+    },
+    "facing=west,throttle=1": {
+      "model": "firmages:block/launch_control_1",
+      "y": 270
+    },
+    "facing=west,throttle=2": {
+      "model": "firmages:block/launch_control_2",
+      "y": 270
+    },
+    "facing=west,throttle=3": {
+      "model": "firmages:block/launch_control_3",
+      "y": 270
+    }
+  }
+}

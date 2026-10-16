@@ -11,6 +11,7 @@ without the game:
     mod/firmages-core/src/main/resources/assets/firmages/ponder/chord_library.nbt scene "A Chord Library" (firmages:star_anvil)
     mod/firmages-core/src/gametest/resources/data/firmages/structure/silo_area.nbt  empty 11x11x11 template (GameTests)
     mod/firmages-core/src/gametest/resources/data/firmages/structure/crown_area.nbt empty 13x6x13 template (CrownGameTests)
+    mod/firmages-core/src/gametest/resources/data/firmages/structure/launch_area.nbt empty 15x27x15 template (LaunchGameTests)
 
 The scene coordinates are repeated in compat/ponder/FirmagesScenes.java; move a block here and fix the selections
 there. Ponder looks from the north-west (yRotation 145: north and west faces are visible), so the silo's earth is cut
@@ -274,6 +275,7 @@ OUTPUTS = [
     (os.path.join(PONDER, "chord_library.nbt"), chord_library),
     (os.path.join(GT_STRUCT, "silo_area.nbt"), lambda: empty((11, 11, 11))),
     (os.path.join(GT_STRUCT, "crown_area.nbt"), lambda: empty((13, 6, 13))),
+    (os.path.join(GT_STRUCT, "launch_area.nbt"), lambda: empty((15, 27, 15))),
 ]
 
 

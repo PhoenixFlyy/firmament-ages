@@ -3300,3 +3300,24 @@ Flight PoC (§30.7), from the jars of the copy (no client):
   client test.
 - Open (client): one age_4 hot-air airship from Y 90 to Y 275 and back, one jetpack climb; the look of the isles and
   their glow from the ground at night; skystone lighting and AO with face culling (§30.4 PoC).
+## 1.0 round C2, sky M14: the Launch Complex (2026-10-16, branch c2/sky-m14)
+firmages-core with the Launch Complex (SPEC §31.3 to §31.7, notes §31.12) on dev ff67812. Felix's test server stayed
+off and untouched; one boot ran on a copy (`.wt/test-server-sky-m14`, port 25670, RCON 25680, whitelist off,
+`debug.allowSimulate = true`, fresh world), synced with `packwiz-installer-bootstrap -g -s server` from
+`packwiz serve --port 8160` of the worktree ("Finished successfully", 2570 entries), the branch jar copied over
+`mods/firmages-core-0.11.0.jar`, `-Xms5G -Xmx5G`. The complex was built by commands at y 200 (IE concrete pad, IE steel
+scaffolding gantry, TFC fire brick trench open west, one port), a Dawn debug player placed the control and loaded probe
+and two sampler modules by hand. The copy is deleted.
+| `gradlew build` | exit 0; 208 unit tests, 0 failures (new: `ThrottleMathTest` 8, `LaunchDataLoaderTest` 7) | pass |
+| `runGameTestServer` (fresh `run/gametest`) | "All 91 required tests passed" with the nine `LaunchGameTests` of batch `firmages_12_launch`; with `handFillsFuel` and the fuel-in-item check (ten tests) see the last row | pass |
+| `gen_textures.py --check`, `gen_ponder_schematics.py --check` | 311 referenced textures, 0 errors, 0 warnings; templates up to date | pass |
+| Complex from pack blocks | `launch status`: "pattern complete, rotation COUNTERCLOCKWISE_90", "Ports 1 [8, 200, 6]; trench opens west; sky open"; owner = the debug player who placed the control | pass |
+| Fuel tag in the pack (`selftest launch` `fuel_tag`) | `#ad_astra:fuel` = 10 fluids: `ad_astra:fuel`, `ad_astra:cryo_fuel`, IP diesel, diesel_sulfur and kerosene, IE biodiesel, Create Diesel Generators diesel and biodiesel (with their flowing forms) | pass |
+| Launch | countdown with 7000 mB diesel in the tank; "probe launched with firmages:sampler_module (flight work 12000, owner …)"; at ignition the tank fell to 3000 mB and the probe and one module left their slots; `launch_fx` payloads for phases 0, 1, 2, 3, 0 reached the player | pass |
+| Flight on fuel | FLIGHT 185 ticks in: progress 185/12000, tank 2815 mB (1 mB per tick at step one) | pass |
+| Return | `launch finish`: "probe returned with [4xfirmages:voidglass] (module firmages:sampler_module, team flights of it 1)"; outputs 4 voidglass, probe back in its slot, second module waiting with "wait FUEL" (2715 < 4000 mB) | pass |
+| `selftest launch` | 7 passed, 1 failed: `module_recipes` (no recipe for control, cradle, port, probe and the modules: pack data of M15, expected) | expected |
+| `selftest all` | 79 passed, 3 failed: `crown/library_loaded`, `crown/v4a_chain` (M11, M13, M15 as before) and `launch/module_recipes` (M15) | expected |
+| `check_log.py` on the copy's latest.log | Done 125.7 s from the first line (server reported 21.6 s, sibling servers on the machine); FATAL 0; remaining only the three expected selftest lines, a "Can't keep up", RCON port busy, and the config correction of `firmages-server.toml` (new `[launch]` keys) and `everycomp-entries.toml` | pass |
+| Hand fill with an IP diesel bucket by the Dawn debug player | `use` returned PASS six times and the tank stayed empty; the tank was then filled with `data merge`. IP registers `FluidBucketWrapper` for its buckets (javap), so the likely cause is the Age lock of the age_5 bucket for a Dawn player; the hand path itself is covered by the GameTest `handFillsFuel` (water bucket in the test fuel tag) | plausible |
+| `runGameTestServer` after the fuel-in-item change and `handFillsFuel` | first run: 91 of 92, the known flaky `SkyGameTests.excavatorVeinAtAutomationAge` ("IE's save data is marked dirty", in `offene-punkte.md` since the 0.11.0 review); second run on a fresh `run/gametest`: "All 92 required tests passed", batch `firmages_12_launch` with ten tests | pass |

@@ -2767,6 +2767,268 @@ for _k in WAYSHRINE_KINDS:
     block("wayshrine_stone_" + _k, "wayshrine stone, " + _k)(lambda k=_k: _wayshrine_stone(k))
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# The Launch Complex (SPEC 31): launch control (front with three throttle lamps), launch port, probe cradle; the probe
+# (its custom item model is also what the launch renderer draws at scale 3), the two payload modules, voidglass and
+# the deep-space sample.
+RIVETS = [
+    "................",
+    ".r............r.",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    ".r............r.",
+    "................",
+]
+
+
+def steel_plate(seed, rivets=True):
+    img = new_tex()
+    noise_fill(img, "steel", seeded(seed), weights=(0, 2, 6, 3, 0), cluster=2, grain=0.15)
+    bevel(img, "steel", light=4, dark=0)
+    if rivets:
+        overlay(img, RIVETS, legend(r=("steel", 4)))
+    return img
+
+
+@block("launch_control_side", "launch control side")
+def _():
+    img = steel_plate("lc_side")
+    overlay(img, [
+        "................",
+        "................",
+        "................",
+        "....oooooooo....",
+        "....oddddddo....",
+        "....oddddddo....",
+        "....oooooooo....",
+        "................",
+        "................",
+        "................",
+        "...yy..yy..yy...",
+        "..yy..yy..yy..y.",
+        ".yy..yy..yy..yy.",
+        "................",
+        "................",
+        "................",
+    ], legend(o=("steel", 0), d=("steel", 1), y=("ember", 3)))
+    return img
+
+
+@block("launch_control_top", "launch control top")
+def _():
+    return steel_plate("lc_top")
+
+
+@block("launch_control_bottom", "launch control bottom")
+def _():
+    return steel_plate("lc_bottom", rivets=False)
+
+
+def control_front(step):
+    img = steel_plate("lc_front")
+    lamps = {"1": ("ember", 3), "2": ("ember", 3) if step >= 2 else ("coal", 2), "3": ("heat", 4) if step >= 3 else ("coal", 2)}
+    overlay(img, [
+        "................",
+        "................",
+        "..oooooooooooo..",
+        "..occcccccccco..",
+        "..occcccccccco..",
+        "..occcccccccco..",
+        "..occcccccccco..",
+        "..oooooooooooo..",
+        "................",
+        "...ooo.ooo.ooo..",
+        "...o1o.o2o.o3o..",
+        "...ooo.ooo.ooo..",
+        "................",
+        "..ssssssssssss..",
+        "................",
+        "................",
+    ], legend(o=("steel", 0), c=("cyan", 1), s=("steel", 1), **lamps))
+    px = img.load()
+    for x in range(4, 4 + 2 * step + 2):  # the screen shows the throttle as a bar
+        px[x, 5] = tones("cyan")[3]
+        px[x, 4] = tones("cyan")[4]
+    return img
+
+
+for _st in (1, 2, 3):
+    block(f"launch_control_front_{_st}", f"launch control front, throttle {_st}")(lambda st=_st: control_front(st))
+
+
+@block("launch_port_side", "launch port side")
+def _():
+    img = steel_plate("lp_side")
+    overlay(img, [
+        "................",
+        "................",
+        "................",
+        "................",
+        ".....oooooo.....",
+        "....oddddddo....",
+        "....odlllldo....",
+        "....odlaaldo....",
+        "....odlaaldo....",
+        "....odlllldo....",
+        "....oddddddo....",
+        ".....oooooo.....",
+        "................",
+        "................",
+        "................",
+        "................",
+    ], legend(o=("steel", 0), d=("iron", 1), l=("iron", 2), a=("ember", 3)))
+    return img
+
+
+@block("launch_port_top", "launch port top")
+def _():
+    img = steel_plate("lp_top")
+    t = tones("iron")
+    return disc(img, 3, 6, lambda x, y, d: t[0] if d >= 5 else t[2] if lit(x, y) > 0 else t[1])
+
+
+def hazard(img, y0, y1):
+    px = img.load()
+    for y in range(y0, y1):
+        for x in range(16):
+            px[x, y] = tones("halo_steel")[3] if ((x + y) // 2) % 2 == 0 else tones("coal")[1]
+
+
+@block("probe_cradle_side", "probe cradle side")
+def _():
+    img = steel_plate("pc_side", rivets=False)
+    hazard(img, 11, 15)
+    return img
+
+
+@block("probe_cradle_top", "probe cradle top")
+def _():
+    img = steel_plate("pc_top")
+    t = tones("heat")
+    return disc(img, 4.5, 6, lambda x, y, d: t[1])
+
+
+@block("probe_cradle_bottom", "probe cradle bottom")
+def _():
+    return steel_plate("pc_bottom", rivets=False)
+
+
+@block("probe_cradle_clamp", "probe cradle clamp")
+def _():
+    img = new_tex()
+    noise_fill(img, "iron", seeded("pc_clamp"), weights=(0, 3, 6, 2, 0), cluster=1, grain=0.1)
+    bevel(img, "iron", light=3, dark=0)
+    return img
+
+
+def probe_part(path, label, pal, seed, weights=(0, 2, 6, 3, 1), band=None):
+    def build():
+        img = new_tex()
+        noise_fill(img, pal, seeded(seed), weights=weights, cluster=2, grain=0.1)
+        if band:
+            px = img.load()
+            for y in band:
+                for x in range(16):
+                    px[x, y] = tones("heat")[2]
+        return img
+    MOD_ITEMS[path] = (label, build, None)
+
+
+probe_part("probe_hull", "probe hull", "alu", "probe_hull", band=(9, 10))
+probe_part("probe_cap", "probe cap", "quartz", "probe_cap")
+probe_part("probe_fin", "probe fin", "heat", "probe_fin", weights=(0, 3, 6, 2, 0))
+probe_part("probe_nozzle", "probe nozzle", "iron", "probe_nozzle", weights=(2, 4, 4, 1, 0))
+
+PAYLOAD_MODULE = [
+    "................",
+    "................",
+    "....oooooooo....",
+    "...ommmmmmmmo...",
+    "..omllllllllmo..",
+    "..omlhhhhhhlmo..",
+    "..omlwwwwwwlmo..",
+    "..omlwWWWWwlmo..",
+    "..omlwWWWWwlmo..",
+    "..omlwwwwwwlmo..",
+    "..omllllllllmo..",
+    "..odddddddddddo.",
+    "...oddddddddo...",
+    "....oooooooo....",
+    "................",
+    "................",
+]
+
+
+def module_item(path, label, pal, window):
+    leg = shade(pal)
+    leg.update(legend(w=(window, 2), W=(window, 4)))
+    mod_item(path, label, PAYLOAD_MODULE, leg)
+
+
+module_item("sampler_module", "sampler module (halo steel)", "halo_steel", "cyan")
+module_item("deep_space_module", "deep-space module (void steel)", "void_steel", "draconium")
+
+
+@crown_item("voidglass", "voidglass")
+def _():
+    rows = [
+        "................",
+        ".......oo.......",
+        "......omho......",
+        ".....ommlho.....",
+        ".....odmmlo.....",
+        "....oddmmmlo....",
+        "....odddmmlo....",
+        "...oddddmmmlo...",
+        "...odddddmmlo...",
+        "...odddddmmmo...",
+        "....odddddmo....",
+        "....oddddddo....",
+        ".....oddddo.....",
+        "......oddo......",
+        ".......oo.......",
+        "................",
+    ]
+    img = grid_tex(rows, shade("void"))
+    px = img.load()
+    for x, y in ((6, 6), (8, 9), (5, 10), (9, 5)):  # stars inside the glass
+        px[x, y] = rgb("#e0e8ff")
+    return img
+
+
+@crown_item("deep_space_sample", "deep-space sample")
+def _():
+    rows = [
+        "................",
+        "......oooo......",
+        "......ossso.....",
+        ".....oooooo.....",
+        ".....ogGggo.....",
+        ".....ogGggo.....",
+        ".....ogggGo.....",
+        ".....oggGgo.....",
+        ".....oGgggo.....",
+        ".....ogggGo.....",
+        ".....ogGggo.....",
+        ".....ogggGo.....",
+        ".....oggggo.....",
+        "......oooo......",
+        "................",
+        "................",
+    ]
+    return grid_tex(rows, legend(o=("void_steel", 0), s=("steel", 3), g=("quasar_alloy", 2), G=("quasar_alloy", 4)))
+
+
 # Block model texture maps (models/block/<file>.json -> "textures"). Geometry stays as it is.
 # ---------------------------------------------------------------------------------------------------------------------
 # The Sky Harvest (SPEC 26, firmages-core M11): storm glass (a Fusion connected glass, pieced layout like the rock panel
@@ -3083,6 +3345,14 @@ for _ph in WAYSHRINE_PHASES:
                                                 "top": B + "wayshrine_core_top_" + _ph, "bottom": B + "wayshrine_core_bottom"}
 for _k in WAYSHRINE_KINDS:
     MODEL_TEXTURES["wayshrine_stone_" + _k] = {"particle": B + "wayshrine_stone_" + _k, "all": B + "wayshrine_stone_" + _k}
+for _st in (1, 2, 3):
+    MODEL_TEXTURES[f"launch_control_{_st}"] = {"particle": B + "launch_control_side", "front": B + f"launch_control_front_{_st}",
+                                              "side": B + "launch_control_side", "top": B + "launch_control_top",
+                                              "bottom": B + "launch_control_bottom"}
+MODEL_TEXTURES["launch_port"] = {"particle": B + "launch_port_side", "side": B + "launch_port_side", "top": B + "launch_port_top",
+                                 "bottom": B + "launch_port_top"}
+MODEL_TEXTURES["probe_cradle"] = {"particle": B + "probe_cradle_side", "side": B + "probe_cradle_side", "top": B + "probe_cradle_top",
+                                  "bottom": B + "probe_cradle_bottom", "clamp": B + "probe_cradle_clamp"}
 
 
 # ---------------------------------------------------------------------------------------------------------------------

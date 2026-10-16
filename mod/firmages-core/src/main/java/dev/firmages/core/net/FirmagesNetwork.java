@@ -4,8 +4,9 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 /**
- * Payload registration (SPEC §11, protocol version "6" since the Dawn grid lock: {@code firmages:age_status} gained
- * {@code gridLock}; "5" since the sky features' M10: {@code firmages:starfall_streak}).
+ * Payload registration (SPEC §11, protocol version "6" since 0.12.0: {@code firmages:age_status} gained {@code gridLock}
+ * (Dawn grid lock), new {@code firmages:launch_fx} (M14) and {@code firmages:ark_sync} (M17); "5" since the sky
+ * features' M10: {@code firmages:starfall_streak}).
  * All payloads are S2C and optional for the client.
  */
 public final class FirmagesNetwork {
@@ -22,5 +23,6 @@ public final class FirmagesNetwork {
         registrar.playToClient(AgeStatusPayload.TYPE, AgeStatusPayload.STREAM_CODEC, AgeStatusPayload::handle);
         registrar.playToClient(WelcomePayload.TYPE, WelcomePayload.STREAM_CODEC, WelcomePayload::handle);
         registrar.playToClient(StarfallStreakPayload.TYPE, StarfallStreakPayload.STREAM_CODEC, StarfallStreakPayload::handle);
+        registrar.playToClient(LaunchFxPayload.TYPE, LaunchFxPayload.STREAM_CODEC, LaunchFxPayload::handle);
     }
 }

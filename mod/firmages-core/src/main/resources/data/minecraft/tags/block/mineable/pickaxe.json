@@ -16,6 +16,9 @@
     "firmages:aurora_net",
     "firmages:skystone",
     "firmages:firmament_crystal_cluster",
-    "firmages:firmament_lode"
+    "firmages:firmament_lode",
+    "firmages:launch_control",
+    "firmages:probe_cradle",
+    "firmages:launch_port"
   ]
 }

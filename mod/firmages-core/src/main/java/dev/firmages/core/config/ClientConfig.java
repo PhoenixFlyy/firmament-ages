@@ -18,6 +18,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue IDLE_BEAM;
     public static final ModConfigSpec.BooleanValue SKY_STREAKS;
     public static final ModConfigSpec.BooleanValue CROWN_BEAMS;
+    public static final ModConfigSpec.BooleanValue LAUNCH_FX;
     public static final ModConfigSpec.BooleanValue AGE_MUSIC;
 
     public static final ModConfigSpec.EnumValue<HudFade.Mode> HUD_MODE;
@@ -65,6 +66,8 @@ public final class ClientConfig {
             .define("skyStreaks", true);
         CROWN_BEAMS = b.comment("The Lens Crown's beams from each lens in to the Star Anvil, and its column into the sky while it forges.")
             .define("crownBeams", true);
+        LAUNCH_FX = b.comment("The Launch Complex: the probe climbing on its flame trail, the trench jets and the descent under canopies.")
+            .define("launchFx", true);
         b.pop();
 
         b.comment("Music (SPEC 23)").push("music");

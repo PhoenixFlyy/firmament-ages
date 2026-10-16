@@ -1,0 +1,11 @@
+{
+  "criteria": {
+    "probe": {
+      "trigger": "firmages:probe",
+      "conditions": {
+        "count": 1
+      }
+    }
+  },
+  "sends_telemetry_event": false
+}

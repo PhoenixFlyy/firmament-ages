@@ -1,0 +1,15 @@
+{
+  "module": "firmages:deep_space_module",
+  "age": "age_8",
+  "flight_work": 24000,
+  "returns": [
+    {
+      "item": "firmages:deep_space_sample",
+      "count": 2
+    },
+    {
+      "item": "firmages:voidglass",
+      "count": 2
+    }
+  ]
+}

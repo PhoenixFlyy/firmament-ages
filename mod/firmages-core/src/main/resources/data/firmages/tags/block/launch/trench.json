@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "tfc:fire_bricks",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:concrete",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:concrete_tile",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:concrete_reinforced",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:concrete_reinforced_tile",
+      "required": false
+    },
+    {
+      "id": "#firmages_test:launch/trench",
+      "required": false
+    }
+  ]
+}
