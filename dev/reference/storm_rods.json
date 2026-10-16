@@ -1,0 +1,150 @@
+{
+  "age": "age_2",
+  "kind": "other",
+  "band": [
+    0,
+    0
+  ],
+  "sinks": [],
+  "centre": [
+    12,
+    1,
+    1
+  ],
+  "radius": 14,
+  "warmup": 20,
+  "seconds": 10,
+  "keep": true,
+  "steps": [
+    {
+      "op": "item",
+      "at": [
+        1,
+        1,
+        1
+      ],
+      "id": "tfc:sand/yellow",
+      "count": 256,
+      "side": "up"
+    },
+    {
+      "op": "item",
+      "at": [
+        4,
+        1,
+        1
+      ],
+      "id": "tfc:sand/yellow",
+      "count": 256,
+      "side": "up"
+    },
+    {
+      "op": "item",
+      "at": [
+        7,
+        1,
+        1
+      ],
+      "id": "tfc:sand/yellow",
+      "count": 256,
+      "side": "up"
+    },
+    {
+      "op": "item",
+      "at": [
+        10,
+        1,
+        1
+      ],
+      "id": "tfc:sand/yellow",
+      "count": 256,
+      "side": "up"
+    },
+    {
+      "op": "item",
+      "at": [
+        13,
+        1,
+        1
+      ],
+      "id": "tfc:sand/yellow",
+      "count": 256,
+      "side": "up"
+    },
+    {
+      "op": "item",
+      "at": [
+        16,
+        1,
+        1
+      ],
+      "id": "tfc:sand/yellow",
+      "count": 256,
+      "side": "up"
+    },
+    {
+      "op": "item",
+      "at": [
+        19,
+        1,
+        1
+      ],
+      "id": "tfc:sand/yellow",
+      "count": 256,
+      "side": "up"
+    },
+    {
+      "op": "item",
+      "at": [
+        22,
+        1,
+        1
+      ],
+      "id": "tfc:sand/yellow",
+      "count": 256,
+      "side": "up"
+    }
+  ],
+  "probe": [
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      4,
+      1,
+      1
+    ],
+    [
+      7,
+      1,
+      1
+    ],
+    [
+      10,
+      1,
+      1
+    ],
+    [
+      13,
+      1,
+      1
+    ],
+    [
+      16,
+      1,
+      1
+    ],
+    [
+      19,
+      1,
+      1
+    ],
+    [
+      22,
+      1,
+      1
+    ]
+  ]
+}

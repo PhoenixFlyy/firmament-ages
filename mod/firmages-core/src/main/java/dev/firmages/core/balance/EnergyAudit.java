@@ -52,6 +52,7 @@ public final class EnergyAudit {
     private final Map<BlockPos, Long> storedAtStart = new HashMap<>();
     private final Map<BlockPos, String> blockOf = new HashMap<>();
     private List<String> lastLines = List.of();
+    private List<TypeFlow> lastTypes = List.of();
 
     public EnergyAudit(ServerLevel level, BlockPos centre, int radius, int ticks, CommandSourceStack source) {
         this.level = level;
@@ -167,6 +168,9 @@ public final class EnergyAudit {
                 r.in / (double) t, r.out / (double) t, r.delta / (double) t, (r.in - r.out - r.delta) / (double) t));
         }
         lastLines = List.copyOf(lines);
+        List<TypeFlow> types = new ArrayList<>();
+        for (Row r : sorted) types.add(new TypeFlow(r.id, r.count, r.in / (double) t, r.out / (double) t, r.delta / (double) t));
+        lastTypes = List.copyOf(types);
         JsonObject json = new JsonObject();
         json.addProperty("dimension", level.dimension().location().toString());
         json.addProperty("centre", centre.toShortString());
@@ -207,6 +211,18 @@ public final class EnergyAudit {
 
     public int ticks() {
         return ticks;
+    }
+
+    /** The per-type flows of the finished run in FE per tick (the reference runs, {@link ReferenceRun}). */
+    public List<TypeFlow> types() {
+        return lastTypes;
+    }
+
+    /** One block type of a finished audit: FE per tick in, out and the change of what it stores. */
+    public record TypeFlow(String block, int count, double in, double out, double stored) {
+        public double netUse() {
+            return in - out - stored;
+        }
     }
 
     private static final class Row {

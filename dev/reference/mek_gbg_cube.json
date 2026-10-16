@@ -1,0 +1,62 @@
+{
+  "age": "age_6",
+  "kind": "cap test",
+  "sinks": [
+    "mekanism:basic_energy_cube"
+  ],
+  "centre": [
+    2,
+    1,
+    2
+  ],
+  "radius": 4,
+  "warmup": 20,
+  "seconds": 20,
+  "steps": [
+    {
+      "op": "use",
+      "at": [
+        2,
+        0,
+        1
+      ],
+      "item": "mekanism:basic_energy_cube",
+      "face": "up",
+      "yaw": 0
+    },
+    {
+      "op": "wait",
+      "ticks": 5
+    },
+    {
+      "op": "chemical",
+      "at": [
+        2,
+        1,
+        2
+      ],
+      "id": "mekanism:ethene",
+      "amount": 100
+    },
+    {
+      "op": "capcheck",
+      "at": [
+        2,
+        1,
+        1
+      ]
+    }
+  ],
+  "probe": [
+    [
+      2,
+      1,
+      2
+    ],
+    [
+      2,
+      1,
+      1
+    ]
+  ]
+}

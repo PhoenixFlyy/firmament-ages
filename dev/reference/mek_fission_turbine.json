@@ -1,0 +1,69 @@
+{
+  "age": "age_7",
+  "kind": "generator",
+  "band": [
+    50000,
+    120000
+  ],
+  "centre": [
+    8,
+    2,
+    5
+  ],
+  "radius": 12,
+  "warmup": 3000,
+  "steps": [
+    {
+      "op": "wait",
+      "ticks": 60
+    },
+    {
+      "op": "chemical",
+      "at": [
+        2,
+        2,
+        0
+      ],
+      "id": "mekanism:fissile_fuel",
+      "amount": 16000
+    },
+    {
+      "op": "fluid",
+      "at": [
+        2,
+        2,
+        0
+      ],
+      "id": "minecraft:water",
+      "amount": 800000,
+      "every": 20,
+      "quiet": true
+    },
+    {
+      "op": "mek_fission",
+      "at": [
+        2,
+        2,
+        0
+      ],
+      "rate": 1.0,
+      "active": true
+    }
+  ],
+  "probe": [
+    [
+      2,
+      2,
+      0
+    ],
+    [
+      5,
+      2,
+      2
+    ]
+  ],
+  "sinks": [
+    "trashcans:energy_trash_can"
+  ],
+  "seconds": 60
+}

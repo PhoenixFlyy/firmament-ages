@@ -1,0 +1,26 @@
+{
+  "age": "age_4",
+  "kind": "passive",
+  "band": [
+    0,
+    302.40000000000003
+  ],
+  "centre": [
+    2,
+    2,
+    2
+  ],
+  "radius": 5,
+  "warmup": 100,
+  "probe": [
+    [
+      3,
+      2,
+      2
+    ]
+  ],
+  "sinks": [
+    "trashcans:energy_trash_can"
+  ],
+  "seconds": 60
+}
