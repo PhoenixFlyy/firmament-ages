@@ -22,7 +22,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -11.428571428571429d
+			y: -11.228571428571428d
 		}
 		{
 			alpha: 255
@@ -66,16 +66,16 @@
 					type: "gamestage"
 				}
 			]
-			x: -14.6d
+			x: -13.85d
 			y: 0.0d
 		}
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-13.537d
-					-1.098d
-					-12.472d
-					-2.501d
+					-12.344d
+					-1.878d
+					-10.265d
+					-3.876d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -85,6 +85,16 @@
 					id: "2C5D100082CEFCF2"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 2
+					id: "410B4640C7570EA4"
+					item: {
+						count: 1
+						id: "mekanismgenerators:fusion_reactor_port"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -98,16 +108,16 @@
 					type: "item"
 				}
 			]
-			x: -11.6d
-			y: -3.95d
+			x: -8.35d
+			y: -5.3d
 		}
 		{
 			dep_control_pts: {
 				65E696893D25C27D: [
-					-8.286d
-					-5.786d
-					-2.219d
-					-4.692d
+					-5.684d
+					-5.821d
+					-2.556d
+					-6.096d
 				]
 			}
 			dependencies: ["65E696893D25C27D"]
@@ -117,6 +127,16 @@
 					id: "2B09FF6EFB60CE41"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 2
+					id: "43EE72B0BFAE6C21"
+					item: {
+						count: 1
+						id: "mekanismgenerators:laser_focus_matrix"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -129,56 +149,44 @@
 					type: "item"
 				}
 			]
-			x: -1.65d
-			y: -8.65d
+			x: -1.9d
+			y: -8.7d
 		}
 		{
 			dep_control_pts: {
 				10708C5D853308E7: [
-					-1.101d
-					-8.648d
-					-0.565d
-					-8.954d
+					-1.208d
+					-8.8d
+					-0.3d
+					-9.035d
 				]
 			}
 			dependencies: ["10708C5D853308E7"]
-			id: "6708655329216D20"
-			rewards: [
-				{
-					id: "78B3AD115F8BB3BC"
-					type: "xp"
-					xp: 160
-				}
-			]
-			tasks: [
-				{
-					id: "4CD1E585803C44BF"
-					item: {
-						count: 1
-						id: "mekanismgenerators:hohlraum"
-					}
-					type: "item"
-				}
-			]
-			x: -0.55d
-			y: -9.4d
-		}
-		{
-			dep_control_pts: {
-				6708655329216D20: [
-					0.37d
-					-8.99d
-					1.008d
-					-8.733d
-				]
-			}
-			dependencies: ["6708655329216D20"]
 			id: "79DA4E6D4518762C"
 			rewards: [
 				{
 					id: "37172441469FD635"
 					type: "xp"
 					xp: 160
+				}
+				{
+					id: "4652C769FF8227A4"
+					item: {
+						count: 1
+						id: "mekanismgenerators:fusion_reactor_logic_adapter"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 8
+					id: "18C4011A5CD37DF9"
+					item: {
+						count: 1
+						id: "mekanismgenerators:turbine_blade"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -190,17 +198,25 @@
 					}
 					type: "item"
 				}
+				{
+					id: "34D306C0D6CF7521"
+					item: {
+						count: 1
+						id: "mekanismgenerators:hohlraum"
+					}
+					type: "item"
+				}
 			]
-			x: 0.75d
-			y: -8.7d
+			x: -0.2d
+			y: -9.2d
 		}
 		{
 			dep_control_pts: {
 				79DA4E6D4518762C: [
-					1.35d
-					-7.805d
-					1.219d
-					-7.129d
+					0.785d
+					-8.494d
+					1.156d
+					-7.578d
 				]
 			}
 			dependencies: ["79DA4E6D4518762C"]
@@ -213,6 +229,16 @@
 					id: "25AE4A3D39341F6D"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 2
+					id: "43155EB5983D54A3"
+					item: {
+						count: 1
+						id: "mekanism:sps_port"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -235,16 +261,16 @@
 					type: "item"
 				}
 			]
-			x: 0.4d
-			y: -7.25d
+			x: 0.45d
+			y: -7.45d
 		}
 		{
 			dep_control_pts: {
 				5EE99FD47DD299FC: [
-					-0.827d
-					-5.134d
-					6.467d
-					-2.526d
+					0.01d
+					-4.635d
+					6.408d
+					-2.63d
 				]
 			}
 			dependencies: ["5EE99FD47DD299FC"]
@@ -257,9 +283,22 @@
 				}
 				{
 					id: "2044A454EB5AC2EE"
-					table_id: 7029906026602936521L
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_energy_cube"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 8
+					id: "1BDC1D3B8A58F2D9"
+					item: {
+						count: 1
+						id: "mekanism:upgrade_energy"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -282,10 +321,10 @@
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-13.642d
-					1.642d
-					-12.796d
-					2.733d
+					-12.903d
+					1.632d
+					-12.049d
+					2.707d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -295,6 +334,16 @@
 					id: "3F9D7A1DE5211B9A"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 2
+					id: "40CADCB6E78F1A95"
+					item: {
+						count: 1
+						id: "ad_astra:cryo_fuel_bucket"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -307,16 +356,16 @@
 					type: "item"
 				}
 			]
-			x: -12.25d
-			y: 3.2d
+			x: -11.5d
+			y: 3.15d
 		}
 		{
 			dep_control_pts: {
 				6CBAA83920DDC925: [
-					-11.177d
-					4.221d
-					-10.889d
-					5.208d
+					-10.44d
+					4.142d
+					-10.483d
+					5.359d
 				]
 			}
 			dependencies: ["6CBAA83920DDC925"]
@@ -330,6 +379,15 @@
 					type: "xp"
 					xp: 160
 				}
+				{
+					id: "352F33FE95B8AD76"
+					item: {
+						count: 1
+						id: "ad_astra:oxygen_distributor"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -338,16 +396,16 @@
 					type: "dimension"
 				}
 			]
-			x: -10.55d
-			y: 5.2d
+			x: -10.15d
+			y: 5.3d
 		}
 		{
 			dep_control_pts: {
 				2562E428698729A6: [
-					-9.185d
-					6.141d
-					-7.943d
-					5.421d
+					-8.462d
+					6.34d
+					-6.888d
+					5.372d
 				]
 			}
 			dependencies: ["2562E428698729A6"]
@@ -357,6 +415,15 @@
 					id: "536D4967AF585B25"
 					type: "xp"
 					xp: 160
+				}
+				{
+					id: "152AF9525ED4D53F"
+					item: {
+						count: 1
+						id: "ad_astra:oxygen_loader"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -370,56 +437,35 @@
 					type: "item"
 				}
 			]
-			x: -7.35d
-			y: 5.3d
+			x: -5.95d
+			y: 5.25d
 		}
 		{
 			dep_control_pts: {
 				69FBE953FD290F68: [
-					-5.979d
-					6.013d
-					-5.451d
-					7.282d
+					-4.565d
+					5.893d
+					-4.002d
+					7.234d
 				]
 			}
 			dependencies: ["69FBE953FD290F68"]
-			icon: {
-				id: "ad_astra:tier_3_rocket"
-			}
-			id: "3E8ADD553D7E26A2"
-			rewards: [
-				{
-					id: "0D53C1BE5E5CF975"
-					type: "xp"
-					xp: 160
-				}
-			]
-			tasks: [
-				{
-					dimension: "ad_astra:mercury"
-					id: "6D0C6B46C2312CB6"
-					type: "dimension"
-				}
-			]
-			x: -4.9d
-			y: 6.95d
-		}
-		{
-			dep_control_pts: {
-				3E8ADD553D7E26A2: [
-					-3.574d
-					7.467d
-					-2.969d
-					6.219d
-				]
-			}
-			dependencies: ["3E8ADD553D7E26A2"]
 			id: "7544B0CD7D29A814"
 			rewards: [
 				{
 					id: "2B66EBEB30E4BC2D"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 2
+					id: "0B4FF5CCBB03106D"
+					item: {
+						count: 1
+						id: "ad_astra:cryo_fuel_bucket"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -432,16 +478,16 @@
 					type: "item"
 				}
 			]
-			x: -2.5d
-			y: 5.7d
+			x: -3.45d
+			y: 6.8d
 		}
 		{
 			dep_control_pts: {
 				7544B0CD7D29A814: [
-					-1.005d
-					6.021d
-					0.072d
-					7.147d
+					-1.894d
+					7.222d
+					-1.011d
+					6.166d
 				]
 			}
 			dependencies: ["7544B0CD7D29A814"]
@@ -455,6 +501,15 @@
 					type: "xp"
 					xp: 160
 				}
+				{
+					id: "2AD6BA406942142E"
+					item: {
+						count: 1
+						id: "ad_astra:oxygen_distributor"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -463,16 +518,16 @@
 					type: "dimension"
 				}
 			]
-			x: 0.65d
-			y: 6.35d
+			x: -0.35d
+			y: 5.45d
 		}
 		{
 			dep_control_pts: {
 				1628C003B7759E11: [
-					1.964d
-					6.455d
-					2.389d
-					5.421d
+					1.028d
+					5.628d
+					2.151d
+					5.729d
 				]
 			}
 			dependencies: ["1628C003B7759E11"]
@@ -482,6 +537,16 @@
 					id: "7749A1F3AD7DF05E"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 2
+					id: "46209FA79AB54F39"
+					item: {
+						count: 1
+						id: "ad_astra:gas_tank"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -495,16 +560,16 @@
 					type: "item"
 				}
 			]
-			x: 2.65d
-			y: 4.35d
+			x: 2.5d
+			y: 4.7d
 		}
 		{
 			dep_control_pts: {
 				4CB0E2CEF90AD9CE: [
 					3.893d
-					4.433d
-					4.596d
-					3.506d
+					4.763d
+					4.597d
+					3.64d
 				]
 			}
 			dependencies: ["4CB0E2CEF90AD9CE"]
@@ -517,9 +582,12 @@
 				}
 				{
 					id: "65ABB398CB99D335"
-					table_id: 7029906026602936521L
+					item: {
+						count: 1
+						id: "ad_astra:large_gas_tank"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -542,51 +610,39 @@
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-13.463d
-					1.106d
-					-12.623d
-					1.643d
+					-12.725d
+					1.109d
+					-11.969d
+					1.749d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
-			id: "4FD3780AF1ECC795"
-			rewards: [
-				{
-					id: "60FF3A083696FE3F"
-					type: "xp"
-					xp: 160
-				}
-			]
-			tasks: [
-				{
-					count: 4L
-					id: "24272BE9F0850F7B"
-					item: {
-						count: 1
-						id: "minecraft:nether_star"
-					}
-					type: "item"
-				}
-			]
-			x: -12.2d
-			y: 1.7d
-		}
-		{
-			dep_control_pts: {
-				4FD3780AF1ECC795: [
-					-11.227d
-					2.439d
-					-10.71d
-					2.814d
-				]
-			}
-			dependencies: ["4FD3780AF1ECC795"]
 			id: "716420BDBE218479"
 			rewards: [
 				{
 					id: "75DA1CFE4E26D8F2"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 4
+					id: "04437B04CF03B149"
+					item: {
+						count: 1
+						id: "draconicevolution:infused_obsidian"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 16
+					id: "30301E1ACCDD6CB3"
+					item: {
+						count: 1
+						id: "draconicevolution:draconium_dust"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -600,16 +656,16 @@
 					type: "item"
 				}
 			]
-			x: -10.55d
-			y: 2.6d
+			x: -11.55d
+			y: 1.8d
 		}
 		{
 			dep_control_pts: {
 				716420BDBE218479: [
-					-9.464d
-					3.269d
-					-8.759d
-					3.349d
+					-10.227d
+					2.735d
+					-9.219d
+					3.031d
 				]
 			}
 			dependencies: ["716420BDBE218479"]
@@ -619,6 +675,16 @@
 					id: "453C24E61DBEFF9A"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 16
+					id: "51A9A3B3D812C41A"
+					item: {
+						count: 1
+						id: "draconicevolution:draconium_dust"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -632,57 +698,45 @@
 					type: "item"
 				}
 			]
-			x: -8.5d
-			y: 3.05d
+			x: -8.65d
+			y: 2.85d
 		}
 		{
 			dep_control_pts: {
 				7B0276B3AACDABA7: [
-					-7.462d
-					3.594d
-					-6.842d
-					3.667d
+					-7.297d
+					3.508d
+					-6.323d
+					3.51d
 				]
 			}
 			dependencies: ["7B0276B3AACDABA7"]
-			id: "06EDA9E3C94958CB"
-			rewards: [
-				{
-					id: "746D86670847DC0A"
-					type: "xp"
-					xp: 160
-				}
-			]
-			tasks: [
-				{
-					count: 4L
-					id: "610C7847F3915D73"
-					item: {
-						count: 1
-						id: "evolvedmekanism:alloy_hypercharged"
-					}
-					type: "item"
-				}
-			]
-			x: -6.65d
-			y: 3.25d
-		}
-		{
-			dep_control_pts: {
-				06EDA9E3C94958CB: [
-					-5.583d
-					3.69d
-					-4.95d
-					3.541d
-				]
-			}
-			dependencies: ["06EDA9E3C94958CB"]
 			id: "0DD300C809C84163"
 			rewards: [
 				{
 					id: "3AEFAC432F50D293"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 4
+					id: "6B26ECF5A9A37B03"
+					item: {
+						count: 1
+						id: "mekanism:upgrade_speed"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 2
+					id: "3CBE9A12F714CCB3"
+					item: {
+						count: 1
+						id: "mekanism:ultimate_control_circuit"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -697,16 +751,16 @@
 					type: "item"
 				}
 			]
-			x: -4.75d
-			y: 3.0d
+			x: -5.8d
+			y: 3.05d
 		}
 		{
 			dep_control_pts: {
 				0DD300C809C84163: [
-					-3.502d
-					3.535d
-					-2.85d
-					3.53d
+					-4.196d
+					3.661d
+					-3.165d
+					3.678d
 				]
 			}
 			dependencies: ["0DD300C809C84163"]
@@ -719,9 +773,12 @@
 				}
 				{
 					id: "7D6013B3BA0E726E"
-					table_id: 7029906026602936521L
-					team_reward: true
-					type: "random"
+					item: {
+						count: 1
+						id: "draconicevolution:advanced_magnet"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -743,45 +800,13 @@
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-11.382d
-					-3.068d
-					-6.167d
-					-5.884d
+					-9.75d
+					-3.123d
+					-0.066d
+					-7.32d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
-			id: "39882F695B4F5776"
-			rewards: [
-				{
-					id: "246846691D36A1C2"
-					type: "xp"
-					xp: 160
-				}
-			]
-			tasks: [
-				{
-					count: 4L
-					id: "79DADA5440389890"
-					item: {
-						count: 1
-						id: "mekanism:alloy_atomic"
-					}
-					type: "item"
-				}
-			]
-			x: -2.25d
-			y: -5.25d
-		}
-		{
-			dep_control_pts: {
-				39882F695B4F5776: [
-					-0.322d
-					-4.293d
-					1.368d
-					-3.81d
-				]
-			}
-			dependencies: ["39882F695B4F5776"]
 			id: "485FE6EFB6565F6E"
 			rewards: [
 				{
@@ -790,10 +815,24 @@
 					xp: 480
 				}
 				{
+					count: 2
 					id: "0DBB9982CE83F521"
-					table_id: 7029906026602936521L
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_control_circuit"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 8
+					id: "037D62C198B8FABD"
+					item: {
+						count: 1
+						id: "mekanism:alloy_reinforced"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -816,10 +855,10 @@
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-11.997d
-					-1.372d
-					-9.193d
-					-2.794d
+					-11.474d
+					-1.241d
+					-8.981d
+					-2.602d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -829,6 +868,16 @@
 					id: "6F9A117D11170672"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 2
+					id: "4B2697E2BC3D8F3B"
+					item: {
+						count: 1
+						id: "ad_astra:cryo_fuel_bucket"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -841,16 +890,16 @@
 					type: "item"
 				}
 			]
-			x: -6.8d
-			y: -3.3d
+			x: -6.85d
+			y: -3.2d
 		}
 		{
 			dep_control_pts: {
 				3C03E230F16471D7: [
-					-4.856d
-					-2.693d
-					-3.457d
-					-2.616d
+					-4.897d
+					-2.644d
+					-3.478d
+					-2.602d
 				]
 			}
 			dependencies: ["3C03E230F16471D7"]
@@ -862,10 +911,14 @@
 					xp: 480
 				}
 				{
+					count: 4
 					id: "03AB50FD3B831B0C"
-					table_id: 7029906026602936521L
+					item: {
+						count: 1
+						id: "mekanism:upgrade_speed"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -888,32 +941,32 @@
 		{
 			dep_control_pts: {
 				3B35B4F1EAA55F1D: [
-					-0.496d
-					-0.746d
+					-0.486d
+					-0.766d
 					0.302d
 					0.402d
 				]
 				485FE6EFB6565F6E: [
-					2.8d
-					-0.841d
+					2.848d
+					-0.858d
 					1.669d
 					0.219d
 				]
 				4954E2BC98921D04: [
-					4.698d
-					1.174d
+					4.754d
+					1.215d
 					2.736d
 					0.852d
 				]
 				4CB43131B416FB17: [
-					4.418d
-					2.081d
+					4.486d
+					2.056d
 					2.502d
 					1.986d
 				]
 				6B60917A5984A799: [
-					-0.506d
-					3.273d
+					-0.496d
+					3.292d
 					0.302d
 					2.152d
 				]
@@ -935,6 +988,34 @@
 					type: "xp"
 					xp: 1600
 				}
+				{
+					id: "48FF8F360FC69300"
+					item: {
+						count: 1
+						id: "mysticalagradditions:imperium_apple"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					id: "79C1CF2B3EB39A47"
+					item: {
+						count: 1
+						id: "ad_astra:space_painting"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "311924A4239C9C22"
+					item: {
+						count: 1
+						id: "firmages:lantern/quantum"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			shape: "gilded"
 			size: 3.0d
@@ -952,10 +1033,10 @@
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-14.991d
-					0.165d
-					-15.541d
-					-0.285d
+					-14.357d
+					0.218d
+					-15.024d
+					-0.232d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -972,9 +1053,12 @@
 				}
 				{
 					id: "4BA0686D7EAB1F5B"
-					table_id: 4581690186732968573L
+					item: {
+						count: 1
+						id: "mysticalagradditions:supremium_apple"
+					}
 					team_reward: false
-					type: "choice"
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -988,16 +1072,16 @@
 					type: "advancement"
 				}
 			]
-			x: -16.25d
+			x: -15.85d
 			y: -1.35d
 		}
 		{
 			dep_control_pts: {
 				65E696893D25C27D: [
-					-11.501d
-					-4.164d
-					-11.951d
-					-4.481d
+					-8.074d
+					-5.59d
+					-8.424d
+					-6.04d
 				]
 			}
 			dependencies: ["65E696893D25C27D"]
@@ -1010,10 +1094,14 @@
 					xp: 160
 				}
 				{
+					count: 16
 					id: "2E898DBC97410B26"
-					table_id: 4581690186732968573L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "draconicevolution:draconium_dust"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1029,19 +1117,19 @@
 					type: "item"
 				}
 			]
-			x: -12.95d
-			y: -4.9d
+			x: -9.4d
+			y: -6.65d
 		}
 		{
 			dep_control_pts: {
-				39882F695B4F5776: [
-					-1.438d
-					-5.257d
-					-1.138d
-					-5.724d
+				7B0276B3AACDABA7: [
+					-7.971d
+					3.708d
+					-7.755d
+					4.241d
 				]
 			}
-			dependencies: ["39882F695B4F5776"]
+			dependencies: ["7B0276B3AACDABA7"]
 			id: "7479AAADAC50C431"
 			optional: true
 			rewards: [
@@ -1049,6 +1137,16 @@
 					id: "0FCED31E2DE3699E"
 					type: "xp"
 					xp: 160
+				}
+				{
+					count: 8
+					id: "729E75D3B5F541A4"
+					item: {
+						count: 1
+						id: "occultism:otherworld_essence"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1064,16 +1162,16 @@
 					type: "item"
 				}
 			]
-			x: -1.35d
-			y: -6.65d
+			x: -8.0d
+			y: 4.45d
 		}
 		{
 			dep_control_pts: {
 				7479AAADAC50C431: [
-					-0.676d
-					-6.628d
-					-0.493d
-					-7.028d
+					-7.987d
+					5.29d
+					-8.17d
+					5.823d
 				]
 			}
 			dependencies: ["7479AAADAC50C431"]
@@ -1086,10 +1184,14 @@
 					xp: 160
 				}
 				{
+					count: 4
 					id: "3DDFF5C7BF3B16B5"
-					table_id: 4581690186732968573L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "occultism:chalk_red"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1105,16 +1207,16 @@
 					type: "item"
 				}
 			]
-			x: -0.8d
-			y: -7.85d
+			x: -8.55d
+			y: 6.05d
 		}
 		{
 			dep_control_pts: {
 				6CBAA83920DDC925: [
-					-12.19d
-					4.095d
-					-12.49d
-					4.629d
+					-11.407d
+					4.046d
+					-11.673d
+					4.579d
 				]
 			}
 			dependencies: ["6CBAA83920DDC925"]
@@ -1128,9 +1230,12 @@
 				}
 				{
 					id: "5E91FC418D27C34E"
-					table_id: 4581690186732968573L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_chemical_tank"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1146,8 +1251,8 @@
 					type: "item"
 				}
 			]
-			x: -13.15d
-			y: 4.8d
+			x: -12.3d
+			y: 4.75d
 		}
 		{
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -1165,7 +1270,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -17.8d
+			x: -17.05d
 			y: 0.8d
 		}
 		{
@@ -1184,7 +1289,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -17.05d
+			x: -16.3d
 			y: 2.75d
 		}
 		{
@@ -1200,6 +1305,16 @@
 					id: "72F933AA1D9BFD00"
 					type: "xp"
 					xp: 320
+				}
+				{
+					count: 6
+					id: "47FD48366F6A3648"
+					item: {
+						count: 1
+						id: "firmages:lantern/quantum"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "diamond"

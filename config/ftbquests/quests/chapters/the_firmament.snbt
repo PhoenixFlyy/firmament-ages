@@ -285,10 +285,10 @@
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-19.427d
-					0.307d
-					-19.977d
-					1.157d
+					-19.477d
+					0.31d
+					-20.077d
+					1.16d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
@@ -310,16 +310,16 @@
 					type: "checkmark"
 				}
 			]
-			x: -21.0d
+			x: -21.15d
 			y: 1.55d
 		}
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-18.879d
-					0.381d
-					-18.562d
-					1.231d
+					-18.829d
+					0.397d
+					-18.462d
+					1.247d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
@@ -341,7 +341,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -18.4d
+			x: -18.25d
 			y: 1.55d
 		}
 		{
@@ -459,10 +459,10 @@
 		{
 			dep_control_pts: {
 				3240A673372AF11A: [
-					-6.515d
-					-5.91d
-					-4.425d
-					-6.447d
+					-6.518d
+					-5.908d
+					-4.421d
+					-6.397d
 				]
 			}
 			dependencies: ["3240A673372AF11A"]
@@ -482,15 +482,15 @@
 				}
 			]
 			x: -3.0d
-			y: -7.25d
+			y: -7.2d
 		}
 		{
 			dep_control_pts: {
 				04DAC1D51AABFF20: [
-					-0.371d
-					-6.761d
-					1.684d
-					-6.625d
+					-0.37d
+					-6.711d
+					1.682d
+					-6.525d
 				]
 			}
 			dependencies: ["04DAC1D51AABFF20"]
@@ -510,15 +510,15 @@
 				}
 			]
 			x: 2.95d
-			y: -6.7d
+			y: -6.6d
 		}
 		{
 			dep_control_pts: {
 				652657C4C5B8CAC5: [
-					5.18d
-					-5.585d
-					6.774d
-					-4.83d
+					5.165d
+					-5.49d
+					6.785d
+					-4.819d
 				]
 			}
 			dependencies: ["652657C4C5B8CAC5"]
@@ -543,10 +543,10 @@
 		{
 			dep_control_pts: {
 				077BFA2D599B1A4B: [
-					8.78d
-					-2.818d
-					9.483d
-					-1.642d
+					8.775d
+					-2.823d
+					9.433d
+					-1.635d
 				]
 			}
 			dependencies: ["077BFA2D599B1A4B"]
@@ -565,16 +565,16 @@
 					type: "gamestage"
 				}
 			]
-			x: 8.85d
+			x: 8.8d
 			y: -1.1d
 		}
 		{
 			dep_control_pts: {
 				663A4EAE1B3FAF8C: [
-					9.502d
-					0.589d
-					9.007d
-					1.679d
+					9.451d
+					0.583d
+					9.003d
+					1.683d
 				]
 			}
 			dependencies: ["663A4EAE1B3FAF8C"]
@@ -655,10 +655,10 @@
 		{
 			dep_control_pts: {
 				33818E6B3089AF9E: [
-					0.171d
-					4.685d
-					-0.739d
-					4.38d
+					0.373d
+					4.709d
+					-0.268d
+					4.284d
 				]
 			}
 			dependencies: ["33818E6B3089AF9E"]
@@ -677,19 +677,20 @@
 					type: "gamestage"
 				}
 			]
-			x: -2.2d
+			x: -1.55d
 			y: 3.3d
 		}
 		{
 			dep_control_pts: {
 				3C8510408C6A23D6: [
-					-1.59d
-					4.225d
-					-2.266d
-					3.691d
+					-1.088d
+					4.146d
+					-2.201d
+					3.846d
 				]
 			}
 			dependencies: ["3C8510408C6A23D6"]
+			hide_until_deps_complete: true
 			icon: {
 				id: "minecraft:nether_star"
 			}
@@ -761,7 +762,7 @@
 				}
 			]
 			x: -3.8d
-			y: -8.85d
+			y: -8.9d
 		}
 		{
 			dependencies: ["04DAC1D51AABFF20"]
@@ -789,7 +790,7 @@
 				}
 			]
 			x: 3.8d
-			y: -8.25d
+			y: -8.35d
 		}
 		{
 			dependencies: ["652657C4C5B8CAC5"]
@@ -844,7 +845,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 10.95d
+			x: 11.0d
 			y: -1.3d
 		}
 		{

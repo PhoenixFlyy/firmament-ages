@@ -59,6 +59,7 @@
 	quest_links: [ ]
 	quests: [
 		{
+			dependencies: ["5C1872FCA111DFAA"]
 			icon: {
 				id: "ad_astra:launch_pad"
 			}
@@ -98,11 +99,16 @@
 			id: "238D92258CB69AD6"
 			rewards: [
 				{
-					count: 4
 					id: "31947370E8A2101E"
+					type: "xp"
+					xp: 140
+				}
+				{
+					count: 8
+					id: "0518AA1B4A73E2D1"
 					item: {
 						count: 1
-						id: "ad_astra:desh_plate"
+						id: "ad_astra:fluid_pipe_duct"
 					}
 					team_reward: true
 					type: "item"
@@ -136,11 +142,16 @@
 			id: "3F05F326F8CF2577"
 			rewards: [
 				{
-					count: 4
 					id: "0D1BAF0F66F871AD"
+					type: "xp"
+					xp: 140
+				}
+				{
+					count: 8
+					id: "22A5B08BD6E54432"
 					item: {
 						count: 1
-						id: "ad_astra:desh_ingot"
+						id: "create:gantry_shaft"
 					}
 					team_reward: true
 					type: "item"
@@ -193,9 +204,15 @@
 			rewards: [
 				{
 					id: "0167D8F4F4B8BE3A"
+					type: "xp"
+					xp: 140
+				}
+				{
+					count: 2
+					id: "1AA25F850CCEB210"
 					item: {
 						count: 1
-						id: "immersivepetroleum:kerosene_bucket"
+						id: "create:pulse_extender"
 					}
 					team_reward: true
 					type: "item"
@@ -240,6 +257,11 @@
 			rewards: [
 				{
 					id: "749F80C190D3C70F"
+					type: "xp"
+					xp: 140
+				}
+				{
+					id: "4DF05B329BB1F939"
 					item: {
 						count: 1
 						id: "ad_astra:gas_tank"
@@ -295,20 +317,25 @@
 			id: "2CF7A994345A2A94"
 			rewards: [
 				{
-					count: 4
 					id: "42BAB87C6A34BE72"
-					item: {
-						count: 1
-						id: "ad_astra:ostrum_plate"
-					}
-					team_reward: true
-					type: "item"
+					type: "xp"
+					xp: 1400
 				}
 				{
 					id: "4B10DDF5B558D7C3"
 					item: {
 						count: 1
 						id: "ad_astra:large_gas_tank"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "54CE3B0A025BA4F9"
+					item: {
+						count: 1
+						id: "firmages:lantern/space"
 					}
 					team_reward: true
 					type: "item"

@@ -72,10 +72,10 @@
 		{
 			dep_control_pts: {
 				188B8BAD88328299: [
-					-14.299d
-					1.081d
-					-13.425d
-					1.434d
+					-14.246d
+					1.132d
+					-13.296d
+					1.508d
 				]
 			}
 			dependencies: ["188B8BAD88328299"]
@@ -85,6 +85,16 @@
 					id: "48C5E8FB39EFF24E"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 4
+					id: "36784379BF6EA119"
+					item: {
+						count: 1
+						id: "tfc:gem/amethyst"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -97,16 +107,16 @@
 					type: "item"
 				}
 			]
-			x: -13.1d
-			y: 1.5d
+			x: -12.9d
+			y: 1.6d
 		}
 		{
 			dep_control_pts: {
 				354A9C13E074B572: [
-					-12.246d
-					2.208d
-					-12.328d
-					3.005d
+					-11.99d
+					2.332d
+					-12.091d
+					3.246d
 				]
 			}
 			dependencies: ["354A9C13E074B572"]
@@ -116,6 +126,16 @@
 					id: "759572F24578A637"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 4
+					id: "789E91EA6DC6B380"
+					item: {
+						count: 1
+						id: "occultism:otherworld_essence"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -128,50 +148,22 @@
 					type: "item"
 				}
 			]
-			x: -12.3d
-			y: 2.8d
+			x: -12.0d
+			y: 3.05d
 		}
 		{
 			dep_control_pts: {
 				04722DE2A3532A26: [
-					-11.312d
-					3.502d
-					-10.659d
-					2.524d
+					-10.891d
+					3.783d
+					-10.086d
+					2.868d
 				]
 			}
 			dependencies: ["04722DE2A3532A26"]
-			id: "3674604366D3C8BE"
-			rewards: [
-				{
-					id: "6E67ECF64FFA12C4"
-					type: "xp"
-					xp: 65
-				}
-			]
-			tasks: [
-				{
-					id: "1BF367DC3179F212"
-					item: {
-						count: 1
-						id: "occultism:dictionary_of_spirits"
-					}
-					type: "item"
-				}
-			]
-			x: -10.5d
-			y: 2.3d
-		}
-		{
-			dep_control_pts: {
-				3674604366D3C8BE: [
-					-9.394d
-					2.965d
-					-9.672d
-					4.423d
-				]
+			icon: {
+				id: "occultism:chalk_white"
 			}
-			dependencies: ["3674604366D3C8BE"]
 			id: "41F6B8884809B526"
 			rewards: [
 				{
@@ -179,10 +171,37 @@
 					type: "xp"
 					xp: 65
 				}
+				{
+					count: 4
+					id: "729EEB866C08BEE9"
+					item: {
+						count: 1
+						id: "occultism:chalk_white"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "064CFAA150E90007"
+					item: {
+						count: 1
+						id: "occultism:otherworld_goggles"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
 					id: "1D0D22EFA355E319"
+					item: {
+						count: 1
+						id: "occultism:dictionary_of_spirits"
+					}
+					type: "item"
+				}
+				{
+					id: "3B8BF5ADE31BDFC1"
 					item: {
 						count: 1
 						id: "occultism:chalk_white"
@@ -190,16 +209,16 @@
 					type: "item"
 				}
 			]
-			x: -9.4d
-			y: 4.15d
+			x: -9.8d
+			y: 2.65d
 		}
 		{
 			dep_control_pts: {
 				41F6B8884809B526: [
-					-8.321d
-					4.723d
-					-7.934d
-					3.463d
+					-8.7d
+					3.277d
+					-8.764d
+					4.624d
 				]
 			}
 			dependencies: ["41F6B8884809B526"]
@@ -213,6 +232,15 @@
 					type: "xp"
 					xp: 65
 				}
+				{
+					id: "19CE4D28446346C8"
+					item: {
+						count: 1
+						id: "artifacts:obsidian_skull"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -221,16 +249,16 @@
 					type: "dimension"
 				}
 			]
-			x: -7.7d
-			y: 3.1d
+			x: -8.5d
+			y: 4.3d
 		}
 		{
 			dep_control_pts: {
 				33BEA94E7673D21D: [
-					-6.774d
-					3.578d
-					-6.571d
-					4.443d
+					-7.415d
+					4.828d
+					-7.185d
+					3.472d
 				]
 			}
 			dependencies: ["33BEA94E7673D21D"]
@@ -240,6 +268,16 @@
 					id: "7E9590685628AD92"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 4
+					id: "4356C5FE8F1CB486"
+					item: {
+						count: 1
+						id: "occultism:golden_sacrificial_bowl"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -253,16 +291,16 @@
 					type: "item"
 				}
 			]
-			x: -6.5d
-			y: 4.0d
+			x: -6.95d
+			y: 3.05d
 		}
 		{
 			dep_control_pts: {
 				06055D169B0CC629: [
-					-5.539d
-					4.413d
-					-5.096d
-					3.973d
+					-5.843d
+					3.485d
+					-5.342d
+					4.433d
 				]
 			}
 			dependencies: ["06055D169B0CC629"]
@@ -272,6 +310,16 @@
 					id: "3BFB6B73EE14BC3C"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 2
+					id: "4703675C0A377C89"
+					item: {
+						count: 1
+						id: "occultism:chalk_gold"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -284,16 +332,16 @@
 					type: "item"
 				}
 			]
-			x: -5.0d
-			y: 3.45d
+			x: -5.1d
+			y: 3.9d
 		}
 		{
 			dep_control_pts: {
 				4914DB06E3F96086: [
-					-3.887d
-					4.008d
-					-3.39d
-					3.993d
+					-3.905d
+					4.457d
+					-3.465d
+					4.027d
 				]
 			}
 			dependencies: ["4914DB06E3F96086"]
@@ -308,10 +356,23 @@
 					xp: 195
 				}
 				{
+					count: 8
 					id: "309EE05C15B13C00"
-					table_id: 5131420377483479010L
+					item: {
+						count: 1
+						id: "occultism:otherworld_essence"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					id: "72E79E5727288110"
+					item: {
+						count: 1
+						id: "occultism:familiar_ring"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -356,6 +417,16 @@
 					type: "xp"
 					xp: 65
 				}
+				{
+					count: 8
+					id: "01698571269D33BA"
+					item: {
+						count: 1
+						id: "ars_nouveau:blank_parchment"
+					}
+					team_reward: false
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -373,10 +444,10 @@
 		{
 			dep_control_pts: {
 				69CB2309855D14E1: [
-					-11.472d
-					-4.421d
-					-10.776d
-					-4.928d
+					-11.444d
+					-4.445d
+					-10.858d
+					-5.161d
 				]
 			}
 			dependencies: ["69CB2309855D14E1"]
@@ -389,6 +460,16 @@
 					id: "72EA4968B42C47CE"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 2
+					id: "3E24B642053D0932"
+					item: {
+						count: 1
+						id: "ars_nouveau:source_jar"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -438,16 +519,16 @@
 					type: "item"
 				}
 			]
-			x: -10.45d
-			y: -5.75d
+			x: -10.5d
+			y: -6.0d
 		}
 		{
 			dep_control_pts: {
 				659EBC46D8F70B24: [
-					-9.208d
-					-5.746d
-					-8.299d
-					-5.956d
+					-9.265d
+					-5.992d
+					-8.292d
+					-5.959d
 				]
 			}
 			dependencies: ["659EBC46D8F70B24"]
@@ -457,6 +538,16 @@
 					id: "000DC0CDF6C3C370"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 4
+					id: "5EB71820B44C5A31"
+					item: {
+						count: 1
+						id: "tfc:gem/lapis_lazuli"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -488,6 +579,16 @@
 					id: "50C302080A88D27A"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 8
+					id: "7C03A974DE8ACACF"
+					item: {
+						count: 1
+						id: "ars_nouveau:source_gem"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -521,6 +622,16 @@
 					type: "xp"
 					xp: 65
 				}
+				{
+					count: 4
+					id: "2048FC94C8F57475"
+					item: {
+						count: 1
+						id: "ars_nouveau:arcane_pedestal"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -552,6 +663,15 @@
 					type: "xp"
 					xp: 65
 				}
+				{
+					id: "5DF1DAFA47D3B447"
+					item: {
+						count: 1
+						id: "ars_nouveau:whirlisprig_charm"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -582,6 +702,15 @@
 					id: "484C47EE4849404A"
 					type: "xp"
 					xp: 65
+				}
+				{
+					id: "2F4F963C95787A7C"
+					item: {
+						count: 1
+						id: "ars_nouveau:amulet_of_mana_boost"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			tasks: [
@@ -616,6 +745,15 @@
 					id: "5761300F8C6D37A4"
 					type: "xp"
 					xp: 65
+				}
+				{
+					id: "68D4F271F6B4CA6D"
+					item: {
+						count: 1
+						id: "ars_nouveau:amulet_of_mana_regen"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			tasks: [
@@ -658,10 +796,23 @@
 					xp: 195
 				}
 				{
+					count: 8
 					id: "6E389558729E55FC"
-					table_id: 5131420377483479010L
+					item: {
+						count: 1
+						id: "ars_nouveau:source_gem"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					id: "671ACE03CC12EBFB"
+					item: {
+						count: 1
+						id: "ars_additions:undying_charm"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -684,10 +835,10 @@
 		{
 			dep_control_pts: {
 				188B8BAD88328299: [
-					-14.412d
-					1.641d
-					-13.862d
-					2.909d
+					-13.83d
+					2.678d
+					-12.07d
+					4.835d
 				]
 			}
 			dependencies: ["188B8BAD88328299"]
@@ -697,6 +848,16 @@
 					id: "3F13007D081A2DF8"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 16
+					id: "323CF0ABD1771BCD"
+					item: {
+						count: 1
+						id: "minecraft:charcoal"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -709,16 +870,16 @@
 					type: "item"
 				}
 			]
-			x: -13.35d
-			y: 3.4d
+			x: -10.25d
+			y: 5.5d
 		}
 		{
 			dep_control_pts: {
 				06FEAB3BC2EA4431: [
-					-12.197d
-					4.537d
-					-11.348d
-					5.12d
+					-7.691d
+					6.965d
+					-4.613d
+					7.383d
 				]
 			}
 			dependencies: ["06FEAB3BC2EA4431"]
@@ -728,6 +889,26 @@
 					id: "76F83ED790146225"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 8
+					id: "470710D789AD4EAD"
+					item: {
+						count: 1
+						id: "tfc:ore/normal_hematite"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "7473CBD7E7057F0E"
+					item: {
+						count: 1
+						id: "theurgy:sal_ammoniac_crystal"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -739,31 +920,8 @@
 					}
 					type: "item"
 				}
-			]
-			x: -10.9d
-			y: 5.2d
-		}
-		{
-			dep_control_pts: {
-				4CA32185961FD920: [
-					-8.454d
-					6.798d
-					-4.644d
-					6.903d
-				]
-			}
-			dependencies: ["4CA32185961FD920"]
-			id: "1FC065AF7A77E6DD"
-			rewards: [
 				{
-					id: "16BCE98738A59172"
-					type: "xp"
-					xp: 65
-				}
-			]
-			tasks: [
-				{
-					id: "70A89B771A108822"
+					id: "7AE1B4BEE5013D74"
 					item: {
 						count: 1
 						id: "theurgy:sal_ammoniac_accumulator"
@@ -771,25 +929,35 @@
 					type: "item"
 				}
 			]
-			x: -4.9d
-			y: 8.8d
+			x: -4.15d
+			y: 9.15d
 		}
 		{
 			dep_control_pts: {
-				1FC065AF7A77E6DD: [
-					-4.439d
-					9.662d
-					-4.163d
-					10.14d
+				4CA32185961FD920: [
+					-3.483d
+					10.165d
+					-2.507d
+					10.417d
 				]
 			}
-			dependencies: ["1FC065AF7A77E6DD"]
+			dependencies: ["4CA32185961FD920"]
 			id: "0FBE04E270216ADA"
 			rewards: [
 				{
 					id: "7A1B1566C3D5E68F"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 8
+					id: "1C3D6041D8375D7F"
+					item: {
+						count: 1
+						id: "tfc:ore/normal_limonite"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -802,16 +970,16 @@
 					type: "item"
 				}
 			]
-			x: -4.2d
-			y: 9.9d
+			x: -2.35d
+			y: 9.75d
 		}
 		{
 			dep_control_pts: {
 				0FBE04E270216ADA: [
-					-3.287d
-					10.562d
-					-2.616d
-					10.431d
+					-1.348d
+					9.945d
+					-0.938d
+					9.052d
 				]
 			}
 			dependencies: ["0FBE04E270216ADA"]
@@ -821,6 +989,26 @@
 					id: "70FEAE5A789F4F48"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 4
+					id: "4EC5FADABAACFDF7"
+					item: {
+						count: 1
+						id: "theurgy:mercury_shard"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 8
+					id: "4FEFA313E395A3CF"
+					item: {
+						count: 1
+						id: "tfc:ore/normal_magnetite"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -832,31 +1020,8 @@
 					}
 					type: "item"
 				}
-			]
-			x: -2.6d
-			y: 9.7d
-		}
-		{
-			dep_control_pts: {
-				0725F0C2566548FA: [
-					-1.817d
-					9.888d
-					-1.84d
-					9.306d
-				]
-			}
-			dependencies: ["0725F0C2566548FA"]
-			id: "2C575E91F55039E2"
-			rewards: [
 				{
-					id: "73D5AD1AEB1D3897"
-					type: "xp"
-					xp: 65
-				}
-			]
-			tasks: [
-				{
-					id: "39A9BC921FC0FE98"
+					id: "03D0FC2112B3E1CF"
 					item: {
 						count: 1
 						id: "theurgy:incubator"
@@ -864,50 +1029,22 @@
 					type: "item"
 				}
 			]
-			x: -2.3d
-			y: 8.45d
+			x: -1.6d
+			y: 8.05d
 		}
 		{
 			dep_control_pts: {
-				2C575E91F55039E2: [
-					-1.904d
-					8.439d
-					-2.125d
-					7.92d
+				0725F0C2566548FA: [
+					-1.907d
+					6.354d
+					4.837d
+					6.11d
 				]
 			}
-			dependencies: ["2C575E91F55039E2"]
-			id: "3931946D843ABA96"
-			rewards: [
-				{
-					id: "4AC81CF76DD4C481"
-					type: "xp"
-					xp: 65
-				}
-			]
-			tasks: [
-				{
-					id: "0C9DAE03068EF315"
-					item: {
-						count: 1
-						id: "theurgy:divination_rod_t1"
-					}
-					type: "item"
-				}
-			]
-			x: -2.95d
-			y: 7.3d
-		}
-		{
-			dep_control_pts: {
-				3931946D843ABA96: [
-					-4.768d
-					6.755d
-					4.853d
-					6.318d
-				]
+			dependencies: ["0725F0C2566548FA"]
+			icon: {
+				id: "theurgy:mercury_catalyst"
 			}
-			dependencies: ["3931946D843ABA96"]
 			id: "373193C62E3C9E35"
 			rewards: [
 				{
@@ -916,10 +1053,42 @@
 					xp: 195
 				}
 				{
+					count: 8
 					id: "7EE1ECD2253E2EB5"
-					table_id: 5131420377483479010L
+					item: {
+						count: 1
+						id: "theurgy:mercury_shard"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					count: 8
+					id: "65C2DC9CB4D4D9D0"
+					item: {
+						count: 1
+						id: "theurgy:sal_ammoniac_crystal"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "7EB913B1444373E3"
+					item: {
+						count: 1
+						id: "theurgy:mercurial_wand"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					id: "56422169E2734086"
+					item: {
+						count: 1
+						id: "theurgy:divination_rod_t2"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -932,6 +1101,15 @@
 						count: 1
 						id: "theurgy:mercury_catalyst"
 					}
+					type: "item"
+				}
+				{
+					id: "59BF7656C593CD18"
+					item: {
+						count: 1
+						id: "theurgy:divination_rod_t1"
+					}
+					optional_task: true
 					type: "item"
 				}
 			]
@@ -957,6 +1135,16 @@
 					id: "5218A7CCCDB51F46"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 4
+					id: "266C9ABAB8872A5E"
+					item: {
+						count: 1
+						id: "tfc:gem/amethyst"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -989,10 +1177,23 @@
 					xp: 195
 				}
 				{
+					count: 4
 					id: "67F84D105011BE6E"
-					table_id: 5131420377483479010L
+					item: {
+						count: 1
+						id: "tfc:metal/sheet/steel"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					id: "281E78E519FE97B3"
+					item: {
+						count: 1
+						id: "artifacts:cross_necklace"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -1015,10 +1216,10 @@
 		{
 			dep_control_pts: {
 				188B8BAD88328299: [
-					-12.791d
-					-1.494d
-					-10.034d
-					-3.121d
+					-14.259d
+					-0.261d
+					-13.58d
+					-0.961d
 				]
 			}
 			dependencies: ["188B8BAD88328299"]
@@ -1028,6 +1229,16 @@
 					id: "7E731FCE6C9CE6F2"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 2
+					id: "630CE88FAE15690A"
+					item: {
+						count: 1
+						id: "create:deployer"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -1041,19 +1252,101 @@
 					type: "item"
 				}
 			]
-			x: -7.6d
-			y: -3.75d
+			x: -13.2d
+			y: -1.9d
 		}
 		{
 			dep_control_pts: {
 				216ADE120332EDCD: [
-					-5.615d
-					-3.201d
-					-4.179d
-					-3.122d
+					-11.793d
+					-2.09d
+					-10.682d
+					-2.494d
 				]
 			}
 			dependencies: ["216ADE120332EDCD"]
+			id: "084B1FF3C902B47A"
+			rewards: [
+				{
+					id: "19094BD2B5B153FA"
+					type: "xp"
+					xp: 65
+				}
+				{
+					count: 4
+					id: "2112B302DC3D8498"
+					item: {
+						count: 1
+						id: "minecraft:blaze_rod"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "6CBCA8F56A5A0B20"
+					item: {
+						count: 1
+						id: "create:blaze_burner"
+					}
+					type: "item"
+				}
+			]
+			x: -10.0d
+			y: -3.25d
+		}
+		{
+			dep_control_pts: {
+				084B1FF3C902B47A: [
+					-8.565d
+					-3.118d
+					-7.521d
+					-3.361d
+				]
+			}
+			dependencies: ["084B1FF3C902B47A"]
+			id: "66EB6D8730E3AB2D"
+			rewards: [
+				{
+					id: "09AB306D46BCB2B1"
+					type: "xp"
+					xp: 65
+				}
+				{
+					count: 32
+					id: "16526630D634CB8F"
+					item: {
+						count: 1
+						id: "create:experience_nugget"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "775759A00CE098D3"
+					item: {
+						count: 1
+						id: "create_enchantment_industry:blaze_enchanter"
+					}
+					type: "item"
+				}
+			]
+			x: -6.9d
+			y: -3.8d
+		}
+		{
+			dep_control_pts: {
+				66EB6D8730E3AB2D: [
+					-5.139d
+					-3.168d
+					-3.972d
+					-3.026d
+				]
+			}
+			dependencies: ["66EB6D8730E3AB2D"]
 			id: "3150B924AEF25965"
 			rewards: [
 				{
@@ -1062,10 +1355,23 @@
 					xp: 195
 				}
 				{
+					count: 2
 					id: "4E5D1529DEE84E2B"
-					table_id: 5131420377483479010L
+					item: {
+						count: 1
+						id: "create:mechanical_arm"
+					}
 					team_reward: true
-					type: "random"
+					type: "item"
+				}
+				{
+					id: "5326E143D0E6CFAA"
+					item: {
+						count: 1
+						id: "create:potato_cannon"
+					}
+					team_reward: false
+					type: "item"
 				}
 			]
 			shape: "rune"
@@ -1128,6 +1434,16 @@
 					type: "xp"
 					xp: 65
 				}
+				{
+					count: 8
+					id: "24095C280BA5E987"
+					item: {
+						count: 1
+						id: "ars_nouveau:source_gem"
+					}
+					team_reward: true
+					type: "item"
+				}
 			]
 			tasks: [
 				{
@@ -1146,16 +1462,16 @@
 		{
 			dep_control_pts: {
 				3150B924AEF25965: [
-					-2.549d
-					-2.1d
-					-1.782d
-					-1.717d
+					-2.524d
+					-2.167d
+					-1.757d
+					-1.85d
 				]
 				574F377D613986E5: [
-					0.046d
-					-2.902d
-					-0.37d
-					-2.235d
+					0.038d
+					-2.969d
+					-0.379d
+					-2.369d
 				]
 			}
 			dependencies: ["3150B924AEF25965", "574F377D613986E5"]
@@ -1168,6 +1484,16 @@
 					id: "3DD8C5BC1D12498C"
 					type: "xp"
 					xp: 65
+				}
+				{
+					count: 16
+					id: "2121C606AFACDC62"
+					item: {
+						count: 1
+						id: "create:experience_nugget"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			tasks: [
@@ -1182,7 +1508,7 @@
 				}
 			]
 			x: -1.3d
-			y: -2.05d
+			y: -2.25d
 		}
 		{
 			dep_control_pts: {
@@ -1193,10 +1519,10 @@
 					1.487d
 				]
 				6932FDCAADC46220: [
-					0.152d
-					0.089d
-					0.585d
-					0.772d
+					0.126d
+					-0.045d
+					0.559d
+					0.705d
 				]
 			}
 			dependencies: ["3B249CF88F286E7D", "6932FDCAADC46220"]
@@ -1210,6 +1536,35 @@
 					id: "7B428EA8A775A130"
 					type: "xp"
 					xp: 650
+				}
+				{
+					id: "1842E8154CF3291D"
+					item: {
+						count: 1
+						id: "artifacts:strider_shoes"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 2
+					id: "156E0C6C4C2A269C"
+					item: {
+						count: 1
+						id: "ars_nouveau:source_jar"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "38BB342C92E6D7CB"
+					item: {
+						count: 1
+						id: "firmages:lantern/arcane"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "gilded"
@@ -1227,62 +1582,31 @@
 		}
 		{
 			dep_control_pts: {
-				33BEA94E7673D21D: [
-					-7.474d
-					4.014d
-					-7.691d
-					4.53d
+				084B1FF3C902B47A: [
+					-9.866d
+					-3.382d
+					-9.816d
+					-3.849d
 				]
 			}
-			dependencies: ["33BEA94E7673D21D"]
-			id: "4881717821F8F9DA"
+			dependencies: ["084B1FF3C902B47A"]
+			id: "2DE9049C7AF1B89F"
 			optional: true
 			rewards: [
 				{
-					id: "7F53FCC181FC1B52"
+					id: "12E498F387F6D884"
 					type: "xp"
 					xp: 65
 				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
 				{
-					id: "58D5E913BF818C68"
+					count: 8
+					id: "4980533E97A2C2DC"
 					item: {
 						count: 1
-						id: "create:blaze_burner"
+						id: "create:experience_nugget"
 					}
-					type: "item"
-				}
-			]
-			x: -8.35d
-			y: 4.65d
-		}
-		{
-			dep_control_pts: {
-				4881717821F8F9DA: [
-					-8.376d
-					5.298d
-					-8.56d
-					5.682d
-				]
-			}
-			dependencies: ["4881717821F8F9DA"]
-			id: "4E8C8CCFFBD993C1"
-			optional: true
-			rewards: [
-				{
-					id: "22BD2D45E5FA6346"
-					type: "xp"
-					xp: 65
-				}
-				{
-					id: "0C973E1B1AF1A9B8"
-					table_id: 3505765590638410220L
 					team_reward: false
-					type: "choice"
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1290,16 +1614,16 @@
 			tags: ["side"]
 			tasks: [
 				{
-					id: "3CD6D886B34914E0"
+					id: "407AD246F7F56C1D"
 					item: {
 						count: 1
-						id: "create_enchantment_industry:blaze_enchanter"
+						id: "create:blaze_cake"
 					}
 					type: "item"
 				}
 			]
-			x: -8.9d
-			y: 5.8d
+			x: -9.85d
+			y: -4.65d
 		}
 		{
 			dep_control_pts: {
@@ -1320,10 +1644,14 @@
 					xp: 65
 				}
 				{
+					count: 2
 					id: "176DF8ED335BF8F2"
-					table_id: 3505765590638410220L
-					team_reward: false
-					type: "choice"
+					item: {
+						count: 1
+						id: "ars_nouveau:starbuncle_charm"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "ember"
@@ -1359,7 +1687,7 @@
 				}
 			]
 			x: -18.35d
-			y: 0.85d
+			y: 1.0d
 		}
 		{
 			dependencies: ["188B8BAD88328299"]
@@ -1393,6 +1721,16 @@
 					id: "23438F6B5D0FEA1C"
 					type: "xp"
 					xp: 130
+				}
+				{
+					count: 6
+					id: "2AA8240402488B6B"
+					item: {
+						count: 1
+						id: "firmages:lantern/arcane"
+					}
+					team_reward: true
+					type: "item"
 				}
 			]
 			shape: "diamond"
