@@ -8,13 +8,14 @@ RESTART_DELAY=10
 INSTALLER="neoforge-$NEOFORGE-installer.jar"
 UNIXARGS="libraries/net/neoforged/neoforge/$NEOFORGE/unix_args.txt"
 
-# Java 21: FA_JAVA_HOME, then JAVA_HOME, then java on PATH.
-if [ -n "$FA_JAVA_HOME" ]; then JAVA="$FA_JAVA_HOME/bin/java"
-elif [ -n "$JAVA_HOME" ]; then JAVA="$JAVA_HOME/bin/java"
-else JAVA=java
-fi
-if ! "$JAVA" -version 2>&1 | grep -q 'version "21[."]'; then
-  echo "Java 21 not found. Install Java 21 and put it on PATH, or set FA_JAVA_HOME to its folder."
+# Java 21: the first of FA_JAVA_HOME, JAVA_HOME and java on PATH that is Java 21 (another version is skipped).
+JAVA=""
+for CANDIDATE in "${FA_JAVA_HOME:+$FA_JAVA_HOME/bin/java}" "${JAVA_HOME:+$JAVA_HOME/bin/java}" java; do
+  [ -n "$CANDIDATE" ] || continue
+  if { "$CANDIDATE" -version; } 2>&1 | grep -q 'version "21[."]'; then JAVA="$CANDIDATE"; break; fi
+done
+if [ -z "$JAVA" ]; then
+  echo "Java 21 not found. Install Java 21, or set FA_JAVA_HOME to its folder. FA_JAVA_HOME, JAVA_HOME and PATH were checked."
   exit 1
 fi
 [ -f eula.txt ] || echo "WARNING: eula.txt is missing. Read https://aka.ms/MinecraftEULA and create eula.txt with eula=true."

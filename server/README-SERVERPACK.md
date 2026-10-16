@@ -10,8 +10,8 @@ join, or it shows recipes and locks that do not match the server.
 ## Start
 
 1. Unzip into an empty folder.
-2. Install Java 21 (for example Eclipse Temurin 21). The scripts use `FA_JAVA_HOME`, then `JAVA_HOME`, then `java`
-   on PATH, and stop if that is not Java 21.
+2. Install Java 21 (for example Eclipse Temurin 21). The scripts take the first of `FA_JAVA_HOME`, `JAVA_HOME` and
+   `java` on PATH that is Java 21 (another version is skipped), and stop if none is.
 3. Read the [Minecraft EULA](https://aka.ms/MinecraftEULA) and create `eula.txt` with the line `eula=true`.
 4. Windows: run `start.bat`. Linux: run `sh start.sh`. The first start installs NeoForge from
    `neoforge-21.1.252-installer.jar` once, then the server runs in a restart loop. To end the loop for good, create an
@@ -54,7 +54,7 @@ chunky radius 2000
 chunky start
 ```
 
-That is about 62,500 chunks; a Ryzen 7 3700X does about 66 chunks per second, so roughly 16 minutes. `chunky
+That is about 62,500 chunks; a Ryzen 7 3700X does 35 to 65 chunks per second, so plan 16 to 30 minutes. `chunky
 progress` shows how far it is, and an interrupted run continues with `chunky continue` after a restart.
 
 ## Play together
@@ -75,7 +75,8 @@ the Industrial Age; then the party gets 25 claims and 25 force-loaded chunks, wh
 - **Restore a backup:**
   1. Stop the server: create `STOP` next to the scripts, then type `stop` in the console.
   2. Rename the folder `world` to `world_broken` (delete it later, once the restored world runs).
-  3. Unzip the chosen backup into the server folder, so that `world/level.dat` exists again.
+  3. Unzip the chosen backup into the server folder, so that `world/level.dat` exists again (the zip also holds a
+     `backup.log`, which can be deleted).
   4. Delete `STOP` and start the server. Everything after the time in the zip name is lost.
 - **Repair Ages:** `/stage grant <player> age_N` grants an Age to the whole party (grant in order). The map, the
   mob ladder and the station windows follow on their own, at once or at the next login.
