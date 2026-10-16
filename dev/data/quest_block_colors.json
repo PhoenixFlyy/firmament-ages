@@ -1,0 +1,29 @@
+{
+  "//": "Mean colours of modded block textures (gen_quest_images.py --refresh-colors); vanilla and hand colours live in the script.",
+  "blocks": {
+    "tfc:rock/chiseled/granite": {
+      "side": [
+        151,
+        129,
+        135
+      ],
+      "top": [
+        151,
+        129,
+        135
+      ]
+    },
+    "tfc:rock/smooth/granite": {
+      "side": [
+        153,
+        129,
+        135
+      ],
+      "top": [
+        153,
+        129,
+        135
+      ]
+    }
+  }
+}

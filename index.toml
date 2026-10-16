@@ -1909,6 +1909,134 @@ file = "kubejs/assets/firmages/textures/item/unfired_hearth_idol.png"
 hash = "0b2e05b22dfed9d4cfc83a35976cdef48a80fe395b45d055c4707ac1dfc3a0c7"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/quests/build/gatehouse.png"
+hash = "cc830d3a3d61ca8e943760273677eee4b5d7c9599737b03f3b1d891979beba64"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/build/living_house.png"
+hash = "fea41c342e7dc5b2dc0d8dcfefd36fe9990e4215e16d88cc807916154c6233a8"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/build/silo_closed.png"
+hash = "692664aff17e9ea599138fd8e616a23dca70ae58e393ca4baa7a5f035dcef789"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/build/silo_open.png"
+hash = "1e6fca81441864b1823d6682e7a304cda63bc328feae5cbc9ff1da7dfd0a830d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/barrel.png"
+hash = "385357d93f88614ed864812b2c5d60d2e6c32980192a9c8e5b9dc4b1b66c9413"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/blast_furnace.png"
+hash = "d3ceed91e4abb7c2a877982eba5abdf162a64881f6f8714aa104f9b99de62646"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/bloomery.png"
+hash = "09e53700e168572a1cfc0856e754626caf155208aef09a78820617a51987607e"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/charcoal_pit.png"
+hash = "20b9c1d948a3415230048b818cf84dccbf54c9b485afb70c440436a87aadd0fd"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/firepit.png"
+hash = "6624411bdff96b3227436a7aca06a5c668319e53ca2f5ba5518768f26f242111"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/forge_anvil.png"
+hash = "d07c150f8e3d7c4140dfe867c92547adb334d6a0644b73233f818313ec4b7c62"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/log_pile.png"
+hash = "69cda69f9ef654f68f86b3791ae002d0a0c3fb774dd9241058554a8960d02d9a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/pit_kiln.png"
+hash = "6d12eb844b69a76f98de2b43acd28e6393f62e346f57c90ff5fe2e835fbf7c0c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/device/quern.png"
+hash = "508721b81de068081f3753628688758246e43063619fdd8b0ed5505d63648c02"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/axe_head.png"
+hash = "7ab4ed400968adf2033962546012feeebd1bf6437ea9549b2ba31ef6c7e6ad00"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/bowls.png"
+hash = "a91c78e8ffedd53131cdfc396fbb4a400d7e3e99467196ecf9096e385a319618"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/hammer_head.png"
+hash = "af29eaa5d31e093eca7e196e55f0a66515409254f5a50d1a6783f718fdd5f428"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/hearth_idol.png"
+hash = "5be7c2cec9660888a72d141eab935f76a8b599731a3af10e0855f1fdfb6a9ffd"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/hoe_heads.png"
+hash = "2af895b3791a047bd1d7355ad9c2bb4e7c6ea12f0d3164e6828de58e6d5ff8e9"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/ingot_molds.png"
+hash = "3475db4ae89ca8bb9d46701a948da6eea6f90032429f1f79395a6780278a28ee"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/javelin_head.png"
+hash = "34f69b118fbac96a9135e55a0f4e306423fd6bd8c527d679ad5cdf2dd74e0bb4"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/jug.png"
+hash = "2b16e8a5eda05e3e7489a34e4885c3125f5ee09445dc4285aedfa4eca13aa44c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/knife_blades.png"
+hash = "33b4f78745f1dc36c1b581686e08a4ffa4b2ad55cf47ae2801c89a15a0b9454a"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/large_vessel.png"
+hash = "de9655c7eb9fd6c7e1eb23f682f44dcf0ec7ef416ca2541d8082a928fc04b404"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/pickaxe_head_mold.png"
+hash = "aba5473d29d9082edfcead3f5fdbefb74e8d8177098da6a9c2ff4de419828ba0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/pot.png"
+hash = "2c04f0c9e6aad07eeba3afc1fe32345ac1dd133a1da1b0375c59fac3d69416d5"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/saw_blade_mold.png"
+hash = "87a68e88ad27a4f348d5a89fc47543fef16bbadac5386e2c5fe7224146b0c0ee"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/shovel_head.png"
+hash = "616469fa053ff00e17ce213969f020038a0af28ab5511e0268b520c27940dec7"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/small_vessel.png"
+hash = "463ca8492588e6b6a4978a5864e8fc1c85a085cd4682c7fe3acfee903539e0c0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/ponder/chords.png"
+hash = "e91c0b3ebd7b64f57de7411bab6b4549ea49f62702b4df1871e78e634eee9bfd"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/ponder/lens_crown.png"
+hash = "6175a33efb6fee13c85c67b55db966747951df98f84d1cdd3966a27a4caeb1e0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/ponder/portcullis.png"
+hash = "44175e884c105d79d0ebed99358a6e57ce6566cc93e0d8b4e357f788c2e09627"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/ponder/silo_hatch.png"
+hash = "80d6537847846bdb42654c161ca3ce592e2107e58c62827db760cddb017b8320"
+
+[[files]]
 file = "kubejs/assets/ftbquests/ftb_quests_theme.txt"
 hash = "4c9ea126154b6537732975e560c6ccb44ed34da10ace2a38aeedfa624602c308"
 
