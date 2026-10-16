@@ -215,11 +215,13 @@ public final class WayshrinePointer {
 
     /**
      * Every ground Wayshrine start within {@code radius} blocks of {@code from} (SPEC-himmel §28.11, acceptance 2): the same
-     * candidates and placement check as {@link #search}, and the structure manager's start check, which on chunks that
-     * were never generated asks the structure itself (biome, height) without generating anything. A candidate in a
-     * chunk that already exists is loaded to {@code STRUCTURE_STARTS}.
+     * candidates and placement check as {@link #search}, and the structure manager's start check, which for a chunk
+     * without data asks the structure itself (biome, height) and generates nothing; a loaded chunk is read for its start.
+     *
+     * @param spacing    0 for the shipped placement; else the placement with this spacing and {@code separation}
+     *                   (re-encoded through its codec, climate and salt kept), to compare densities on one seed
      */
-    public static List<Census> census(ServerLevel overworld, BlockPos from, int radius) {
+    public static List<Census> census(ServerLevel overworld, BlockPos from, int radius, int spacing, int separation) {
         var registry = overworld.registryAccess().registryOrThrow(Registries.STRUCTURE);
         Optional<HolderSet.Named<Structure>> tag = registry.getTag(WayshrineService.STRUCTURES);
         List<Census> out = new ArrayList<>();
@@ -230,23 +232,24 @@ public final class WayshrinePointer {
         int fromCz = SectionPos.blockToSectionCoord(from.getZ());
         StructureManager structures = overworld.structureManager();
         for (Holder<Structure> holder : tag.get()) {
-            for (StructurePlacement placement : state.getPlacementsForStructure(holder)) {
+            for (StructurePlacement shipped : state.getPlacementsForStructure(holder)) {
+                StructurePlacement placement = spacing > 0 ? respaced(shipped, spacing, separation) : shipped;
                 if (!(placement instanceof RandomSpreadStructurePlacement spread)) continue;
-                int spacing = spread.spacing();
-                int cells = Math.ceilDiv(Math.ceilDiv(radius, 16), spacing) + 1;
-                int cellX = Math.floorDiv(fromCx, spacing);
-                int cellZ = Math.floorDiv(fromCz, spacing);
+                int sp = spread.spacing();
+                int cells = Math.ceilDiv(Math.ceilDiv(radius, 16), sp) + 1;
+                int cellX = Math.floorDiv(fromCx, sp);
+                int cellZ = Math.floorDiv(fromCz, sp);
                 for (int dx = -cells; dx <= cells; dx++) {
                     for (int dz = -cells; dz <= cells; dz++) {
-                        ChunkPos c = spread.getPotentialStructureChunk(seed, (cellX + dx) * spacing, (cellZ + dz) * spacing);
+                        ChunkPos c = spread.getPotentialStructureChunk(seed, (cellX + dx) * sp, (cellZ + dz) * sp);
                         BlockPos at = placement.getLocatePos(c);
                         double d = horizontal(from, at);
                         if (d > radius || !placement.isStructureChunk(state, c.x, c.z)) continue;
                         StructureCheckResult r = structures.checkStructurePresence(c, holder.value(), placement, false);
                         if (r == StructureCheckResult.START_NOT_PRESENT) continue;
-                        if (r == StructureCheckResult.CHUNK_LOAD_NEEDED) {
-                            ChunkAccess chunk = overworld.getChunk(c.x, c.z, ChunkStatus.STRUCTURE_STARTS);
-                            StructureStart start = structures.getStartForStructure(SectionPos.bottomOf(chunk), holder.value(), chunk);
+                        ChunkAccess loaded = r == StructureCheckResult.CHUNK_LOAD_NEEDED ? overworld.getChunkSource().getChunkNow(c.x, c.z) : null;
+                        if (loaded != null) {
+                            StructureStart start = structures.getStartForStructure(SectionPos.bottomOf(loaded), holder.value(), loaded);
                             if (start == null || !start.isValid()) continue;
                         }
                         out.add(new Census(target(holder, at).type(), at, d));
@@ -256,6 +259,18 @@ public final class WayshrinePointer {
         }
         out.sort(Comparator.comparingDouble(Census::distance));
         return out;
+    }
+
+    /** {@code p} with another spacing and separation: through the placement codec, so TFC's climate and the salt stay. */
+    @Nullable
+    static StructurePlacement respaced(StructurePlacement p, int spacing, int separation) {
+        var ops = com.mojang.serialization.JsonOps.INSTANCE;
+        return StructurePlacement.CODEC.encodeStart(ops, p).result().filter(com.google.gson.JsonElement::isJsonObject).map(j -> {
+            com.google.gson.JsonObject o = j.getAsJsonObject().deepCopy();
+            o.addProperty("spacing", spacing);
+            o.addProperty("separation", separation);
+            return StructurePlacement.CODEC.parse(ops, o).result().orElse(null);
+        }).orElse(null);
     }
 
     /** Server stop: forget the per-player answers. */
