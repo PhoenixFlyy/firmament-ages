@@ -68,6 +68,13 @@ public final class TallyData extends SavedData {
         return c != null ? c : new TallyCounts();
     }
 
+    /** The highest sum over all teams (one fellowship per server: its tally), see {@link TallyCounts#sum}. */
+    public long best(java.util.function.Predicate<String> item, AgeId from) {
+        long best = 0;
+        for (TallyCounts c : teams.values()) best = Math.max(best, c.sum(item, from));
+        return best;
+    }
+
     void add(UUID team, AgeId age, String item, long n) {
         teams.computeIfAbsent(team, t -> new TallyCounts()).add(age, item, n);
         setDirty();

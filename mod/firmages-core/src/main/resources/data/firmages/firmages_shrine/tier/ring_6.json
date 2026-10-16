@@ -7,6 +7,11 @@
       "type": "players_praying",
       "min": 2,
       "hint": "firmages.shrine.rite.chorus"
+    },
+    {
+      "type": "energy_consume",
+      "amount": 10000000,
+      "hint": "firmages.shrine.rite.heart_power"
     }
   ],
   "response": {

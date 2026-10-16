@@ -26,14 +26,18 @@ import java.util.regex.Pattern;
  * @param offerings Age stage (whose signature item it is) to item id, e.g. {@code age_0 -> firmages:hearthstone}
  * @param blessings by id
  * @param consecration the ring block roles of {@code consecration.json} (SPEC §17)
+ * @param tallies   offering Age to the proof of work its offering waits for ({@code tallies.json}, Felix H5A, SPEC §35)
+ * @param gatheringRites the rites of the Gathering in the Singularity Age ({@code gathering.json}: {@code energy_consume}, SPEC §36)
  */
 public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fallback, Map<String, String> offerings,
-                         Map<String, Blessing> blessings, List<String> errors, List<String> warnings, Consecration consecration) {
+                         Map<String, Blessing> blessings, List<String> errors, List<String> warnings, Consecration consecration,
+                         Map<String, TallyRequirement> tallies, List<ShrineTier.Rite> gatheringRites) {
 
     /** Tiers are 0..8: tier N is worked in age_N and grants age_(N+1); age_9 has no tier (the Gathering is M8). */
     public static final int MAX_TIER = 8;
 
-    public static final ShrineData EMPTY = new ShrineData(Map.of(), Optional.empty(), Map.of(), Map.of(), List.of(), List.of(), Consecration.EMPTY);
+    public static final ShrineData EMPTY = new ShrineData(Map.of(), Optional.empty(), Map.of(), Map.of(), List.of(), List.of(), Consecration.EMPTY,
+        Map.of(), List.of());
 
     private static final Pattern RING_FILE = Pattern.compile("tier/ring_(\\d+)");
     private static final Pattern COLOR = Pattern.compile("#?([0-9a-fA-F]{6}|[0-9a-fA-F]{8})");
@@ -54,6 +58,11 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
     /** Item id the tier expects: the tier's own {@code offering}, else the offering map entry for {@code age_N}. */
     public Optional<String> offeringFor(int tier) {
         return tier(tier).flatMap(ShrineTier::offering).or(() -> Optional.ofNullable(offerings.get("age_" + tier)));
+    }
+
+    /** The proof of work the offering of {@code tier} waits for (Felix H5A), if any. */
+    public Optional<TallyRequirement> tallyFor(int tier) {
+        return Optional.ofNullable(tallies.get("age_" + tier));
     }
 
     /** The {@code relic_returned} rite of {@code tier} that lends the relic of {@code relicTier}, if any (SPEC §7.4). */
@@ -84,6 +93,8 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
         List<String> errors = new ArrayList<>();
         List<String> warnings = new ArrayList<>();
         Consecration consecration = Consecration.EMPTY;
+        Map<String, TallyRequirement> tallies = new TreeMap<>();
+        List<ShrineTier.Rite> gatheringRites = List.of();
         for (Map.Entry<String, JsonElement> e : new TreeMap<>(files).entrySet()) {
             String id = e.getKey();
             String ns = id.contains(":") ? id.substring(0, id.indexOf(':')) : "minecraft";
@@ -96,6 +107,24 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
                         if (!m.getKey().matches("age_[0-8]")) throw new IllegalArgumentException("offering key '" + m.getKey() + "' is not age_0..age_8");
                         offerings.put(m.getKey(), itemId(m.getValue().getAsString()));
                     }
+                } else if (path.equals("tallies")) {
+                    // a later namespace replaces single keys; null switches a requirement off
+                    for (Map.Entry<String, JsonElement> m : o.entrySet()) {
+                        if (!m.getKey().matches("age_[0-8]")) throw new IllegalArgumentException("tally key '" + m.getKey() + "' is not age_0..age_8");
+                        if (m.getValue().isJsonNull()) tallies.remove(m.getKey());
+                        else tallies.put(m.getKey(), TallyRequirement.parse(m.getKey(), m.getValue().getAsJsonObject()));
+                    }
+                } else if (path.equals("gathering")) {
+                    List<ShrineTier.Rite> rites = new ArrayList<>();
+                    if (o.has("rites")) {
+                        for (JsonElement r : o.getAsJsonArray("rites")) rites.add(parseRite(r.getAsJsonObject()));
+                    }
+                    for (ShrineTier.Rite r : rites) {
+                        if (r.type() != ShrineTier.Rite.Type.ENERGY_CONSUME) {
+                            throw new IllegalArgumentException("the Gathering takes only energy_consume rites (its chorus is built in), not " + r.type().name().toLowerCase(Locale.ROOT));
+                        }
+                    }
+                    gatheringRites = List.copyOf(rites);
                 } else if (path.equals("consecration")) {
                     Consecration c = Consecration.parse(o);
                     c.errors().forEach(err -> errors.add(id + ": " + err));
@@ -127,7 +156,7 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
             t.blessing().filter(b -> !blessings.containsKey(b)).ifPresent(b -> warnings.add("tier " + t.tier() + " names unknown blessing " + b));
         }
         return new ShrineData(Map.copyOf(tiers), Optional.ofNullable(fallback), Map.copyOf(offerings), Map.copyOf(blessings),
-            List.copyOf(errors), List.copyOf(warnings), consecration);
+            List.copyOf(errors), List.copyOf(warnings), consecration, Map.copyOf(tallies), gatheringRites);
     }
 
     static ShrineTier parseTier(JsonObject o, int tier, boolean fallback, List<String> warnings, String id) {
@@ -200,6 +229,11 @@ public record ShrineData(Map<Integer, ShrineTier> tiers, Optional<ShrineTier> fa
             case ENERGY -> {
                 if (key.length() != 1 || amount < 1) {
                     throw new IllegalArgumentException("rite energy needs 'key' (one character: the ring blocks that store the FE) and 'amount' >= 1");
+                }
+            }
+            case ENERGY_CONSUME -> {
+                if (!key.isEmpty() || amount < 1) {
+                    throw new IllegalArgumentException("rite energy_consume needs 'amount' >= 1 and no 'key' (the FE goes into the heart)");
                 }
             }
             case RELIC_RETURNED -> {

@@ -128,6 +128,13 @@
   "firmages.shrine.rite.relic_returned": "A lent relic (%s) must rest on its plinth again.",
   "firmages.shrine.rite.capacitors": "Charge the four capacitors of the crown with %s FE together (now %s FE).",
   "firmages.shrine.rite.energy": "The ring needs %s FE in its storage blocks (now %s FE).",
+  "firmages.shrine.rite.heart_power": "Feed %s FE into the heart. Caelum takes the power of this Age; the heart has drawn %s FE.",
+  "firmages.shrine.rite.energy_consume": "The heart must draw %s FE. It has drawn %s FE.",
+  "firmages.shrine.gathering.energy": "Feed %s FE into the heart for the last forging. It has drawn %s FE.",
+  "firmages.shrine.proof.missing": "Caelum asks for proof of work: your Tally Chutes must count %1$s %2$s in the %3$s. They have counted %4$s.",
+  "firmages.jade.heart.proof": "Proof of work: %s of %s %s",
+  "firmages.jade.heart.proof_met": "Proof of work: %s %s counted",
+  "firmages.jade.heart.drawn": "Power drawn: %s of %s FE",
   "firmages.shrine.cmd.no_heart": "No Shrine Heart is placed, or its chunk is not loaded.",
 
   "subtitles.firmages.shrine.sting": "Caelum answers",

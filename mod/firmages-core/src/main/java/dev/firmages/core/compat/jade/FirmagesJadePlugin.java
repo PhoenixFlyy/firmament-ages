@@ -30,7 +30,8 @@ import snownee.jade.api.config.IPluginConfig;
 
 /**
  * Jade tooltips for the shrine (SPEC §7.6, M6): the heart shows its awakened tiers, whether the next ring stands,
- * whether it is kindled and maintenance mode; a plinth shows its Age, its relic or offering, and a lent relic; a
+ * whether it is kindled, maintenance mode, the proof of work of the current offering and the FE it drew (SPEC §35, §36,
+ * from the heart's synced block entity); a plinth shows its Age, its relic or offering, and a lent relic; a
  * consecrated block (M7, SPEC §17) its role, the Age of its ring, its original material and the maintenance state; a
  * Tally Chute (SPEC §22.1) the team's count of the last item it passed and its own total.
  * Everything comes from the synced blockstates, the plinth block entity and the {@code firmages:shrine_sync}
@@ -80,6 +81,23 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
             if (!s.getValue(ShrineHeartBlock.LIT)) tooltip.add(Component.translatable("firmages.jade.heart.cold").withStyle(ChatFormatting.GRAY));
             if (s.getValue(ShrineHeartBlock.MAINTENANCE)) {
                 tooltip.add(Component.translatable("firmages.jade.maintenance", ShrineSyncPayload.clientSecondsLeft()).withStyle(ChatFormatting.YELLOW));
+            }
+            // SPEC §35, §36: the proof of work of the current offering and the FE the heart draws (synced block entity)
+            if (accessor.getBlockEntity() instanceof dev.firmages.core.shrine.ShrineHeartBlockEntity be) {
+                if (be.proofNeed() > 0) {
+                    ResourceLocation id = ResourceLocation.tryParse(be.proofItem());
+                    Component item = id == null ? Component.literal(be.proofItem()) : BuiltInRegistries.ITEM.get(id).getDescription();
+                    String need = String.format(java.util.Locale.ROOT, "%,d", be.proofNeed());
+                    tooltip.add(be.proofHave() >= be.proofNeed()
+                        ? Component.translatable("firmages.jade.heart.proof_met", need, item).withStyle(ChatFormatting.GREEN)
+                        : Component.translatable("firmages.jade.heart.proof", String.format(java.util.Locale.ROOT, "%,d", be.proofHave()), need, item)
+                            .withStyle(ChatFormatting.YELLOW));
+                }
+                if (be.drawNeed() > 0) {
+                    tooltip.add(Component.translatable("firmages.jade.heart.drawn", String.format(java.util.Locale.ROOT, "%,d", be.drawn()),
+                        String.format(java.util.Locale.ROOT, "%,d", be.drawNeed()))
+                        .withStyle(be.drawn() >= be.drawNeed() ? ChatFormatting.GREEN : ChatFormatting.YELLOW));
+                }
             }
         }
 

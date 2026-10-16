@@ -25,8 +25,8 @@ import java.util.Set;
 /**
  * The Gathering (SPEC §7.5): in the Singularity Age the team prays once more at the intact shrine with all nine
  * relics enshrined, and Caelum gives the relics back for the last forging (the Ultimate Singularity takes the nine
- * items). Same prayer as an Age (sneak and hold use on the heart, 10 s / n, at least 4 s); the only rite is the
- * chorus (two players together once two are online). On completion every relic leaves its plinth the way a lent
+ * items). Same prayer as an Age (sneak and hold use on the heart, 10 s / n, at least 4 s); the rites are the chorus
+ * (two players together once two are online) and the heart's draw of {@code gathering.json} (1 G FE, SPEC §36). On completion every relic leaves its plinth the way a lent
  * relic does (record kept and marked lent, the plinth keeps its glow and takes the relic back), the nine items drop
  * above the heart, the heart shows {@code awakened=10} and the GATHERING ceremony plays. A relic laid back can be
  * taken again by sneak-use with an empty hand, so nothing can be lost. No Age is granted, nothing reloads.
@@ -60,9 +60,10 @@ public final class ShrineGathering {
     /**
      * Why the Gathering prayer is not heard now, or empty when it is. Call after a validation (the intact flag).
      *
-     * @param chorus also check that enough players pray together
+     * @param rites {@code ALL} also checks that enough players pray together; {@code SKIP} (simulate_pray) skips the
+     *              Gathering's {@code energy_consume} rites (SPEC §36) too
      */
-    static Optional<Component> refusal(ServerLevel level, ShrineService.Heart h, boolean chorus, boolean sendPreview, @Nullable ServerPlayer player) {
+    static Optional<Component> refusal(ServerLevel level, ShrineService.Heart h, ShrineService.Rites rites, boolean sendPreview, @Nullable ServerPlayer player) {
         MinecraftServer s = level.getServer();
         ShrineSavedData sd = ShrineSavedData.get(s);
         Relics relics = relics(level);
@@ -83,7 +84,11 @@ public final class ShrineGathering {
                     ShrineService.ageName(AgeId.all().get(ShrineRules.firstMissingRelic(relics.present()).orElse(0) + 1)));
             });
         }
-        if (chorus) {
+        if (rites == ShrineService.Rites.SKIP) return Optional.empty();
+        long drawNeed = ShrineProof.drawNeed("gathering");
+        long drawn = ShrineProof.drawn(s, h.be());
+        if (drawn < drawNeed) return Optional.of(ShrineService.msg("firmages.shrine.gathering.energy", ShrineProof.fmt(drawNeed), ShrineProof.fmt(drawn)));
+        if (rites == ShrineService.Rites.ALL) {
             int need = ShrineRules.gatheringChorus(s.getPlayerCount());
             if (h.be().prayers.size() < need) return Optional.of(ShrineService.msg("firmages.shrine.rite.chorus", need));
         }
@@ -113,6 +118,7 @@ public final class ShrineGathering {
             released++;
         }
         sd.setGathered(true);
+        ShrineService.spendDrawn(h.be(), "the Gathering");
         h.be().prayerProgress = 0;
         h.be().prayers.clear();
         h.be().interacted.clear();

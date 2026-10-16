@@ -57,15 +57,20 @@ public final class TallyTrigger extends SimpleCriterionTrigger<TallyTrigger.Inst
 
         /** Item ids this criterion counts. */
         public Predicate<String> itemFilter() {
-            if (item.isPresent()) {
-                String id = item.get().toString();
-                return id::equals;
-            }
-            TagKey<Item> key = TagKey.create(Registries.ITEM, tag.orElseThrow());
-            return id -> {
-                ResourceLocation rl = ResourceLocation.tryParse(id);
-                return rl != null && BuiltInRegistries.ITEM.getOptional(rl).map(it -> it.builtInRegistryHolder().is(key)).orElse(false);
-            };
+            return filter(item, tag);
         }
+    }
+
+    /** Item ids an item id or an item tag (exactly one present) counts; the tag is matched at test time. */
+    public static Predicate<String> filter(Optional<ResourceLocation> item, Optional<ResourceLocation> tag) {
+        if (item.isPresent()) {
+            String id = item.get().toString();
+            return id::equals;
+        }
+        TagKey<Item> key = TagKey.create(Registries.ITEM, tag.orElseThrow());
+        return id -> {
+            ResourceLocation rl = ResourceLocation.tryParse(id);
+            return rl != null && BuiltInRegistries.ITEM.getOptional(rl).map(it -> it.builtInRegistryHolder().is(key)).orElse(false);
+        };
     }
 }

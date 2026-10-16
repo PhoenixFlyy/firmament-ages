@@ -44,7 +44,8 @@ public record ShrineTier(int tier, Optional<String> multiblock, char plinthKey, 
     /**
      * A rite: one small Age-flavoured act that must be done before the prayer is heard.
      *
-     * @param amount    {@code energy}: FE the ring positions with {@code key} must hold together
+     * @param amount    {@code energy}: FE the ring positions with {@code key} must hold together; {@code energy_consume}: FE
+     *                  the heart must draw
      * @param relicTier {@code relic_returned}: the tier whose relic the shrine lends during this tier (-1 otherwise)
      * @param items     {@code relic_returned}: item ids accepted back besides the lent relic itself (the Awakened Keystone)
      * @param hint      lang key of the message that tells the players what to do (empty = a generic text)
@@ -58,6 +59,11 @@ public record ShrineTier(int tier, Optional<String> multiblock, char plinthKey, 
             INTERACT(true),
             /** The ring blocks with pattern key {@code key} (capacitors) hold {@code amount} FE together (NeoForge energy capability). */
             ENERGY(true),
+            /**
+             * The heart has drawn {@code amount} FE through its energy capability since this tier (or the Gathering)
+             * became the shrine's work; the FE is consumed, a sink for the late Ages (harmony plan §5, SPEC §36).
+             */
+            ENERGY_CONSUME(true),
             /** Night, the heart sees the sky, no rain. */
             SKY(true),
             /** At least {@code min} players pray at once (only when that many players are online). */
