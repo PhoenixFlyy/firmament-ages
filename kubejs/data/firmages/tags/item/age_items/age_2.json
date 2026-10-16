@@ -2539,7 +2539,6 @@
     {"id": "firmages:meteoric_iron_chunk", "required": false},
     {"id": "firmages:meteoric_iron_double_ingot", "required": false},
     {"id": "firmages:meteoric_iron_ingot", "required": false},
-    {"id": "firmages:meteoric_iron_rod", "required": false},
     {"id": "firmages:meteoric_iron_sheet", "required": false},
     {"id": "firmages:steel_heart", "required": false},
     {"id": "firmalife:ashtray", "required": false},

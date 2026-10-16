@@ -234,7 +234,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "d2d6a3833dde0332e83bd42ca360a715494d16001cf1d9b1b74f68025092262a"
+hash = "ef9077801857f355c87c2eef671789bf568d8e1640a3544971e90559a6bd0872"
 
 [[files]]
 file = "config/fml.toml"
@@ -310,7 +310,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "a9033a643bcf5db5dfc2a841285214ca7699f401325fb01cd14a37b2e71e341e"
+hash = "27516699df7d3a68b5e197553a93f397eb4c560f5749a5c9043a34e79533a530"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -5726,7 +5726,7 @@ hash = "72eff68c8e70d90f6da1dc9f4eed2689eb9200a3cf6a0d947ff1f08290522472"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "b0541028a40f902b99744e179b43b9cc4b29403296f2767a9c220e7e50971a33"
+hash = "8b27cd64f5cbe341fd44566baa9803865153294db68c5d88de3a94988ac6ddd0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
@@ -5762,7 +5762,7 @@ hash = "c832a2bcb49c28d959f70103b9fd4eee0479c0f9d1931f747e1e516655837f0e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "eada0d86e3fceca6f67151cbcc41db5f9e3b99f82155145da30c2f784b41bdcf"
+hash = "ba6ae970f8f1481fcf1c44f1e856c8219fe33d80915db3a9ae825a8c07bc6bd1"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -6102,15 +6102,15 @@ hash = "bb673a19f43e281319458ed7f67c1f021d5b2f90846a4cef86b8e600a325ff3e"
 
 [[files]]
 file = "kubejs/data/immersiveengineering/recipe/mineral/alluvial_sift.json"
-hash = "3de8d1b178d441a35ba7f72bc734328eb5d6ebfe9f8d98f60853a5f5693dd696"
+hash = "e80bae134729be1d7061a1218e9de70c9b09a0e1b7e00919ec06a807aa497e3b"
 
 [[files]]
 file = "kubejs/data/immersiveengineering/recipe/mineral/banded_iron.json"
-hash = "4b863916df26de0cf2b43ccb5f46a73ddf1748c44ef83914b84af1ae85efc2d1"
+hash = "3eb6120cd973bd06734ab860981f8346f5e5887163876d440eb3a8ac7714ae8f"
 
 [[files]]
 file = "kubejs/data/immersiveengineering/recipe/mineral/lazulitic_intrusion.json"
-hash = "39a0ed62aabf25706ec25366d9685440afca0ac2eb1153c90b07919df7356955"
+hash = "d740bdb33b52d9d99db66fa748a4a10bdedc74810b1fec278249214386fc7d38"
 
 [[files]]
 file = "kubejs/data/immersiveengineering/recipe/mineral/mephitic_quarzite.json"
@@ -6118,11 +6118,11 @@ hash = "ae26d1144c761453b4088aab06452568b1b57fa8f4274162981221e1a91a991a"
 
 [[files]]
 file = "kubejs/data/immersiveengineering/recipe/mineral/rich_auricupride.json"
-hash = "5b2570fbb521334e2c83287d373924b9f2729eac30b4737e6a51ac5b448b6f22"
+hash = "d258a962f4f612970f632de4bca1a191c7117461f7f90955a87661ac610301ea"
 
 [[files]]
 file = "kubejs/data/immersiveengineering/recipe/super_mineral_vein.json"
-hash = "8eb4ea6f32633d9c9df70f88c6264308f081648034300a978bdf4027e116c26a"
+hash = "8b2be4372e0d9734672be98bea8acef29f31587d3a5e572925aa1c5c23b255cb"
 
 [[files]]
 file = "kubejs/data/immersiveengineering/structure/multiblocks/arcfurnace.nbt"
@@ -8974,7 +8974,7 @@ hash = "d0f760fc355175ac99a802ff5aa500e61e4a8b3c7d3c01736439dc2e07a091cd"
 
 [[files]]
 file = "kubejs/server_scripts/debug/dump.js"
-hash = "2ce37eb20d8a4e62985c65acd3aac9e0bb4fa306bf4c77d3cd0507fa768d2644"
+hash = "9b289dca50d475b602fa3ccb2891fbd3987ad4cf1ffa369319a3a9f2fc8c66d7"
 
 [[files]]
 file = "kubejs/server_scripts/debug/scan.js"
@@ -9026,7 +9026,7 @@ hash = "09b9dd4eafee54d4c10fa1494b1b7e8f301ee4d84b6bb6d7438cbbd77038aa2f"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/sky_metals.js"
-hash = "e428e04a5690a2746385d227853e60a644840288ae4fc1de76677862b12b5f69"
+hash = "e5fda1d4bfe26b4348bbb05557349397ecf2744ec333bd689769f0c70a202e3d"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
@@ -9066,7 +9066,7 @@ hash = "9e5ec8233cdd6cd7117403b906d238902f6cbcea187cf8805a9eace493db59c3"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/starsteel.js"
-hash = "f5b1b9ec286e31944f63c00b48675c72b637271abad19de974f7c8b718758313"
+hash = "5e38a970f7f334e8783789ca4003f77b1a54765025a03b3c1dcdb96574555fba"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
@@ -9854,7 +9854,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-0.11.0.jar"
-hash = "3696e018d600839797ee558a6e78fb86aa40b737f921c960dc436551c3f5acbd"
+hash = "ee8a041d8858a902fdcd79964e5f0e0ca768ac75595f054dbb3fca3b0a89376d"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

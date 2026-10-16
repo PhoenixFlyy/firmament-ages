@@ -79,6 +79,10 @@ public final class FirmagesCommands {
             .then(OriginCommands.reactor())
             .then(StarfallCommands.starfall())
             .then(DebugPlayerCommands.debug())
+            .then(Commands.literal("balance")
+                .then(Commands.literal("alternator")
+                    .then(Commands.argument("pos", net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos()).executes(FirmagesCommands::alternator)))
+                .then(Commands.literal("cells").executes(FirmagesCommands::cells)))
             .then(Commands.literal("welcome")
                 .then(Commands.literal("reset").then(Commands.argument("targets", EntityArgument.players())
                     .executes(c -> welcome(c, false))))
@@ -285,5 +289,34 @@ public final class FirmagesCommands {
         FirmagesCore.LOGGER.info(summary);
         c.getSource().sendSuccess(() -> Component.literal(summary).withStyle(report.failed() == 0 ? ChatFormatting.GREEN : ChatFormatting.RED), false);
         return (int) report.failed();
+    }
+
+    /** {@code balance cells} (SPEC §34.2): item types of fresh AE2, MEGA and portable item cells and a fluid cell. */
+    private static int cells(CommandContext<CommandSourceStack> c) {
+        if (!net.neoforged.fml.ModList.get().isLoaded(dev.firmages.core.compat.ae2.PortableCrafting.MOD_ID)) {
+            c.getSource().sendFailure(Component.literal("AE2 is not loaded"));
+            return 0;
+        }
+        String line = dev.firmages.core.compat.ae2.CellTypes.describe(dev.firmages.core.compat.ae2.CellTypes.PROBES);
+        FirmagesCore.LOGGER.info("Balance: {}", line);
+        c.getSource().sendSuccess(() -> Component.literal(line), false);
+        return 1;
+    }
+
+    /** {@code balance alternator <pos>} (Felix H1A, SPEC §34.1): the fuelled share of the kinetic network at {@code pos}. */
+    private static int alternator(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        net.minecraft.core.BlockPos pos = net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos(c, "pos");
+        if (!net.neoforged.fml.ModList.get().isLoaded("create")) {
+            c.getSource().sendFailure(Component.literal("Create is not loaded"));
+            return 0;
+        }
+        String line = dev.firmages.core.compat.create.AlternatorFuel.describe(c.getSource().getLevel(), pos);
+        if (line == null) {
+            c.getSource().sendFailure(Component.literal("No kinetic block at " + pos.toShortString()));
+            return 0;
+        }
+        FirmagesCore.LOGGER.info("Balance: {}", line);
+        c.getSource().sendSuccess(() -> Component.literal(line), false);
+        return 1;
     }
 }

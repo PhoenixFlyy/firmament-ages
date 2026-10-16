@@ -104,6 +104,9 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue STARFALL_OLD_CRATERS;
     public static final ModConfigSpec.IntValue STARFALL_OLD_CRATER_REGION;
     public static final ModConfigSpec.ConfigValue<String> STARFALL_AUTOMATION_AGE;
+    // balance
+    public static final ModConfigSpec.BooleanValue BALANCE_ALTERNATOR_FUEL_ONLY;
+    public static final ModConfigSpec.IntValue BALANCE_AE2_CELL_TYPES;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -192,7 +195,7 @@ public final class ServerConfig {
             .defineInRange("prayerSeconds", 5, 2, 600);
         WAYSHRINE_POINTER_RADIUS_CHUNKS = b.comment("Chunks the pointer (right-click on the heart or a lit Wayshrine) searches for a sleeping Wayshrine.")
             .defineInRange("pointerRadiusChunks", 256, 8, 512);
-        WAYSHRINE_TUTORIAL = b.comment("Place one Forest Ring 300 to 800 blocks from the world spawn at the first start (also on an existing world).")
+        WAYSHRINE_TUTORIAL = b.comment("Place one Forest Ring 300 to 800 blocks from the world spawn at the first start of a new world (never on a world older than three days or on land with traces of players).")
             .define("tutorial", true);
         b.pop();
 
@@ -316,6 +319,16 @@ public final class ServerConfig {
             .defineInRange("oldCraterRegion", 1024, 256, 16384);
         STARFALL_AUTOMATION_AGE = b.comment("From this Age every crater also records an Immersive Engineering excavator vein (\"never\" = off).")
             .define("automationAge", "age_6", o -> o instanceof String s && (s.equals("never") || AgeId.byId(s).isPresent()));
+        b.pop();
+
+        b.comment("Balance hooks of the harmony round (SPEC 34).").push("balance");
+        BALANCE_ALTERNATOR_FUEL_ONLY = b.comment("Felix H1A: the Crafts and Additions alternator gives FE only for the share of its network's rotation",
+                "that comes from fuelled sources (steam engines on an actively heated boiler, diesel engines). Water wheels, windmills,",
+                "hand cranks and electric motors turn it but give no FE. false = the alternator's own rate.")
+            .define("alternatorFuelOnly", true);
+        BALANCE_AE2_CELL_TYPES = b.comment("Item types per AE2 item storage cell (AE2's own limit is 63; MEGA item cells too, portable cells keep theirs).",
+                "Fluid and chemical cells keep their own limit. Synced to the clients with the server config.")
+            .defineInRange("ae2CellTypes", 126, 63, 252);
         b.pop();
 
         b.push("debug");
@@ -529,6 +542,16 @@ public final class ServerConfig {
     }
 
     /** {@code wayshrine.tutorial}. */
+    /** {@code balance.alternatorFuelOnly} (Felix H1A). */
+    public static boolean alternatorFuelOnly() {
+        return !loaded() || BALANCE_ALTERNATOR_FUEL_ONLY.get();
+    }
+
+    /** {@code balance.ae2CellTypes}: item types per AE2 item cell. */
+    public static int ae2CellTypes() {
+        return loaded() ? BALANCE_AE2_CELL_TYPES.get() : 126;
+    }
+
     public static boolean wayshrineTutorial() {
         return !loaded() || WAYSHRINE_TUTORIAL.get();
     }

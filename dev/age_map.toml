@@ -1570,6 +1570,9 @@ items = [
     "alexsmobs:void_worm_mandible",
     "alexsmobs:warped_mixture",
     "alexsmobs:warped_muscle",
+    # Starfall (round C1 review): the meteoric rod has no use before the Storm Rod of the Sky Harvest (sky M11); its
+    # recipes are out of recipes/age_2/sky_metals.js until then.
+    "firmages:meteoric_iron_rod",
 ]
 # Regular expressions (full match on the item id), same effect as the ids above.
 patterns = [

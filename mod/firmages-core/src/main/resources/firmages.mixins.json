@@ -24,7 +24,10 @@
     "tfc.PlayerInfoMixin",
     "tfc.TfcDamageMixin",
     "tfc.SwitchInventoryTabMixin",
-    "tfcregistryapi.HelpersMixin"
+    "tfcregistryapi.HelpersMixin",
+    "ae2.BasicCellInventoryMixin",
+    "ae2.BasicStorageCellMixin",
+    "cca.AlternatorMixin"
   ],
   "client": [
     "client.ChatComponentMixin",

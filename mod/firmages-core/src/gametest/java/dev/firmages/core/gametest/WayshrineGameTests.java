@@ -369,6 +369,38 @@ public final class WayshrineGameTests {
     }
 
     /**
+     * The tutorial site keeps clear of players' traces (Starfall's base check, review 0.11.0): on untouched land 1,500 blocks
+     * north of the test, a plank, a chest or a chunk a player stayed in each make the site unfit, and the free site passes.
+     */
+    @GameTest(template = "empty", batch = "firmages_4_wayshrine_tutorial", timeoutTicks = 400)
+    public static void tutorialSiteKeepsClearOfPlayers(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        BlockPos o = h.absolutePos(BlockPos.ZERO).offset(0, 0, -1500);
+        int x0 = o.getX();
+        int z0 = o.getZ();
+        level.getChunk(x0 >> 4, z0 >> 4);
+        int floor = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x0 + 2, z0 + 2);
+        BlockPos spot = new BlockPos(x0 + 2, floor, z0 + 2);
+        ok(h, WayshrineTutorial.siteBlocker(level, x0, z0, 5, 5, floor) == null, "untouched land is free: "
+            + WayshrineTutorial.siteBlocker(level, x0, z0, 5, 5, floor));
+        level.setBlock(spot, Blocks.OAK_PLANKS.defaultBlockState(), 3);
+        String plank = WayshrineTutorial.siteBlocker(level, x0, z0, 5, 5, floor);
+        ok(h, plank != null && plank.startsWith("player block"), "a plank blocks the site: " + plank);
+        level.setBlock(spot, Blocks.CHEST.defaultBlockState(), 3);
+        String chest = WayshrineTutorial.siteBlocker(level, x0, z0, 5, 5, floor);
+        ok(h, chest != null && chest.startsWith("block entity minecraft:chest"), "a placed chest blocks the site: " + chest);
+        level.setBlock(spot, Blocks.AIR.defaultBlockState(), 3);
+        var chunk = level.getChunk(x0 >> 4, z0 >> 4);
+        long before = chunk.getInhabitedTime();
+        chunk.setInhabitedTime(ServerConfig.starfallInhabitedTicks() + 1);
+        String lived = WayshrineTutorial.siteBlocker(level, x0, z0, 5, 5, floor);
+        ok(h, lived != null && lived.startsWith("inhabited"), "a chunk a player stayed in blocks the site: " + lived);
+        chunk.setInhabitedTime(before);
+        ok(h, WayshrineTutorial.siteBlocker(level, x0, z0, 5, 5, floor) == null, "free again");
+        h.succeed();
+    }
+
+    /**
      * The ghost alignment on a rotated ruin (§28.10 M, checked here without a client): for every structure rotation the
      * core's facing gives that rotation, the ghost is sent in it, and the restored form validates in exactly it, so the
      * Modonomicon pattern and the ruin template share one frame.

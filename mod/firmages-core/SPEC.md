@@ -594,7 +594,8 @@ The shrine is visible and audible between ceremonies, and its state reads from f
 | `starfall.oldCraters` / `.oldCraterRegion` / `.automationAge` | true / 1024 / `age_6` | §25.3, §25.6 (M10): old craters in new chunks, one candidate per region; the first Age with IE excavator veins at craters (`never` = off) |
 | `skyHarvest.enabled` | true | §26.8 (M11) |
 | `crown.enabled` / `.requireOpenSky` / `.nightTimeFactor` / `.validateTicks` / `.swingTicks` | true / true / 0.5 / 100 / 10 | §27.12 (M12) |
-| `wayshrine.radius` / `.prayerSeconds` / `.pointerRadiusChunks` / `.tutorial` | 24 / 5 / 100 / true | §28.9 (M16) |
+| `wayshrine.radius` / `.prayerSeconds` / `.pointerRadiusChunks` / `.tutorial` | 24 / 5 / 100 / true | §28.9 (M16); the tutorial only on a new world (§28.4) |
+| `balance.alternatorFuelOnly` / `.ae2CellTypes` | true / 126 (63..252) | §34.1, §34.2 |
 | `anchor.radius` | 24 | §29.7 (M16); M16 also removes `shrine.blessings.everywhere` (S4A) |
 | `isles.lodeYield` / `.fallback` / `.fallbackRadius` | 2 / true / 600 | §30.9 (M13) |
 | `launch.enabled` / `.fxRange` / `.countdownTicks` / `.autoRelaunch`, `ark.growthTicks` | true / 256 / 100 / true, 200 | §31.9 (M14, M17) |
@@ -638,7 +639,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `shrine maintenance on\|off\|status` | M7 (§17): maintenance mode for everyone (the same as the sneak-punch on the heart); status shows the seconds left and the stored originals |
 | `shrine consecrate <ring>` | M7 debug: consecrate a complete ring now (from the heart outward over `shrine.consecrationTicks`), awakened or not |
 | `shrine originals` | M7: stored originals per ring and how many are not consecrated now (holes); the full list (position, original state) goes to the server log |
-| `debug player join|leave <name>`, `debug use <name> <pos> [sneak]`, `debug pray <name> <pos> <seconds>`, `debug run <name> <command>`, `debug punch <name> <pos> [sneak]`, `debug mine|break <name> <pos>` | Headless test players for the dedicated test server (needs `debug.allowSimulate`): a real `ServerPlayer` on an in-memory connection (vanilla GameTest mock style, every payload channel accepted), offline UUID of the name; it logs the firmages payloads, the ProgressiveStages `lock_sync` and `stage_sync` payloads (id only), titles and chat it receives as `[debug-player <name>]`; GameTests can record its payloads in order (`DebugPlayerCommands.record`/`recorded`). `punch` is one left click (start of mining, then abort; with `sneak` the maintenance toggle at the heart), `mine` mines the survival way (start, then stop once the destroy progress reaches 0.7; progress 0 aborts). `break` runs the server side of a finished mining (`ServerPlayerGameMode.destroyBlock`: the `BreakEvent` and the drops, no progress check). Used for the server-side shrine proof (`dev/poc-results.md`, "Shrine M4 and ceremony") |
+| `debug player join|leave <name>`, `debug use <name> <pos> [sneak]`, `debug useitem <name>`, `debug pray <name> <pos> <seconds>`, `debug run <name> <command>`, `debug punch <name> <pos> [sneak]`, `debug mine|break <name> <pos>` | Headless test players for the dedicated test server (needs `debug.allowSimulate`): a real `ServerPlayer` on an in-memory connection (vanilla GameTest mock style, every payload channel accepted), offline UUID of the name; it logs the firmages payloads, the ProgressiveStages `lock_sync` and `stage_sync` payloads (id only), titles and chat it receives as `[debug-player <name>]`; GameTests can record its payloads in order (`DebugPlayerCommands.record`/`recorded`). `punch` is one left click (start of mining, then abort; with `sneak` the maintenance toggle at the heart), `mine` mines the survival way (start, then stop once the destroy progress reaches 0.7; progress 0 aborts). `break` runs the server side of a finished mining (`ServerPlayerGameMode.destroyBlock`: the `BreakEvent` and the drops, no progress check). Used for the server-side shrine proof (`dev/poc-results.md`, "Shrine M4 and ceremony") |
 | `ceremony preview <stage> [full|short]` | Play the ceremony to yourself, no grant |
 | `reactor status [pos]` | Every loaded reactor controller (or the one at `pos`): state, reason, reactor phase, fuel, chaos, conversion, redstone, comparator, settings, buffers (0.4.0; replaces `reactor info`) |
 | `origin tp [players]` | Teleport to The Origin's arrival point (normal teleport path, so the age_9 dimension lock applies outside creative) |
@@ -648,6 +649,8 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `origin kill` | N5, for tests: kills every hostile (`Enemy`) loaded in The Origin except the final boss, the boss's helpers among them (1.0: the Gateways wave branch is gone with the mod); fails when there is nothing to kill |
 | `origin kill boss` | N5, for tests: kills every loaded entity with the tag `firmages.final_boss` in The Origin with the damage of `/kill` (generic_kill bypasses invulnerability, so a boss's damage cap and invulnerable animations do not apply); its death wins the finale the normal way (§16.3); fails without a boss |
 | `origin status` / `origin reset` / `origin rebuild` | Arena version, return gate, altar, Gathering count, whether the fight runs (N5), boss state / let the Gathering and the boss happen again (finale_won stays) / rebuild the arena and place the gate again |
+| `balance cells` | §34.2: item types of fresh AE2, portable, MEGA item cells and a fluid cell |
+| `balance alternator <pos>` | §34.1: the sources of the kinetic network at pos, their capacity, which burn fuel, and the fuelled share |
 | `starfall now [pos] [metal] [size]` | §25.10 (M10): a fall in 120 ticks with streak; without pos the normal site search, with pos exactly there (no base check, no move) |
 | `starfall list` / `carve <id>` / `cool <id>` / `heat <id>` / `old <pos>` / `tonight` / `veins` | §25.10 (M10): sites with state, metal, distance, glow, cursor and vein; a temporary ticket and the carve now; the hot-core bonus off or on; an old crater there; the next clear night falls for sure; reconcile the IE veins and list them |
 | `sky aurora on\|off\|auto`, `sky aurora status [pos]`, `sky aurora band [radius]` | §26.8 (M11) |
@@ -1747,7 +1750,8 @@ Placement uses TFC's climate structure placement `tfc:climate` (`ClimateStructur
 - **The tutorial Wayshrine is placed by code, not by worldgen.** Vanilla `concentric_rings` centres on chunk (0, 0), while the TFC preset spawns players anywhere within `spawn_distance` 4000 of `spawn_center` [verified, `world_preset/overworld.json`; test worlds spawned at (3456, 1408) and (576, 1600)]. Biome search also finds nothing under TFC's biome source [poc-results.md].
   - On the first `ServerStartedEvent` with this feature (flag in `firmages_wayshrines`), `WayshrineService.placeTutorial` picks a point 300 to 800 blocks from `level.getSharedSpawnPos()` at a random bearing.
   - It loads the needed chunks once (the `OriginArena` build-once pattern) and checks land (no fluid at the surface) and slope (at most three blocks of height spread over the footprint). It tries up to 16 bearings, then places the `forest_ring` ruin template at the surface and records it.
-  - The same code runs on an existing world, so an old server world gets its tutorial Wayshrine too. Its other Wayshrines appear only in chunks generated after the update.
+  - It never builds over players' work (review 0.11.0): each candidate also passes Starfall's base check (§25.3) on the footprint plus eight blocks: no chunk with more than `starfall.inhabitedTicks` of inhabited time, no block entity that is not natural (`#firmages:starfall/natural_block_entities` or a structure container with its loot table), no `#firmages:starfall/player_blocks` from eight below to 16 above the floor, no FTB Chunks claim within `starfall.claimMarginChunks` (`WayshrineTutorial.siteBlocker`).
+  - It places itself only on a new world: on a world older than three days (`WayshrineRules.TUTORIAL_MAX_WORLD_TICKS`, 72,000 ticks of game time) the start logs one INFO line and places nothing, so an old server world updating to this feature keeps its land untouched. `/firmages wayshrine tutorial` places one there on purpose (with the site checks), `tutorial here` without them. The other Wayshrines of an old world appear only in chunks generated after the update.
 - **Files** (mod jar, `src/main/resources/data/firmages/`, all written by one generator, `dev/gen_wayshrines.py --check`):
 
 | Path | Content |
@@ -1784,6 +1788,8 @@ Placement uses TFC's climate structure placement `tfc:climate` (`ClimateStructur
   "age_3": "firmages:starlit_iron_ingot", "age_4": "firmages:cloudsteel_ingot",
   "age_5": "firmages:aurora_steel_ingot", "age_6": "firmages:halo_steel_ingot" }
 ```
+
+- **Shipped until M15 (review 0.11.0):** the celestial alloys have no recipe before M11, M13, M14 and M15, so the shipped file uses sky metal every Age can make: `age_3` `firmages:meteoric_iron_double_ingot`, `age_4` `firmages:meteoric_iron_sheet`, `age_5` and `age_6` `firmages:starsteel_ingot` (age_7 to age_9 fall back to age_6). The alloy list above comes back with M15.
 
 `data/<ns>/firmages_wayshrine/rite/<age>.json` (the lighting rite of that Age; the rite types and parser of §2.6 are reused, and keys refer to the type's multiblock):
 
@@ -1853,13 +1859,14 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
   - exactly one Wayshrine Stone drops, invulnerable and never despawning; a second lighting drops none;
   - BE and SavedData NBT round trip.
 - **G** `WayshrineGameTests.tutorialPlacement`: on a flat test world the tutorial Wayshrine is placed 300 to 800 blocks from the shared spawn on land, once; a second start places none.
+- **G** `WayshrineGameTests.tutorialSiteKeepsClearOfPlayers`: on untouched land a plank, a placed chest or a chunk with inhabited time each make the site unfit; the free site passes. **U** `WayshrineRulesTest.tutorialOnlyOnNewWorlds`: the world-age gate.
 - **G** `WayshrineGameTests.blessingsAtWayshrine`: see §29.8.
 - **P** `selftest wayshrines`: the eight structures and sets load with `tfc:climate`; every template exists; `locate` finds each type within 100 chunks on the test seed or reports the type as out of reach.
 - **M:** beams from 150 blocks, ghost alignment on a rotated ruin, a ruin on a steep slope, the Reef Altar under water.
 
 ### 28.11 Acceptance criteria
 
-1. On every new and every existing world the tutorial Wayshrine stands 300 to 800 blocks from spawn, on land.
+1. On every new world the tutorial Wayshrine stands 300 to 800 blocks from spawn, on land and away from anything players built; an existing world older than three days gets none by itself.
 2. On the pack server, a new world has 7 to 11 more Wayshrines within 4,000 blocks of spawn on at least 16 of 20 test seeds (`dev/scan_regions.py`) **[PoC]**. No Wayshrine floats or is buried more than two blocks on a slope.
 3. Every type validates its restored form from the generator's own layout, and the ruin never validates.
 4. The ghost preview, offering, rite, prayer and lighting work as in §28.7 with one player and with two (half the prayer time).
@@ -2299,3 +2306,49 @@ All textures go through `dev/gen_textures.py`, checked with `--check`.
 - Everything follows `dev/style-guide.md`.
 
 **Shader pack setting:** Complementary's own aurora off (pack hand-off).
+
+## 34. Balance hooks (harmony round, review 0.11.0)
+
+Small hooks into other mods for the harmony decisions; each is a guarded mixin (`FirmagesMixinPlugin`: package `ae2`
+needs AE2, `cca` needs Create Crafts and Additions) or an event listener registered only when its mod is loaded.
+
+### 34.1 The alternator burns fuel (Felix H1A)
+
+- Create Crafts and Additions 1.7.2 [verified, javap]: `AlternatorBlockEntity#tick` produces
+  `getEnergyProductionRate((int) getSpeed())` FE per tick (480 × RPM/256 × `generator_efficiency`, the pack sets 0.35:
+  168 FE/t at 256 RPM). `mixin/cca/AlternatorMixin` multiplies that value by the fuelled share of the alternator's
+  kinetic network (`compat/create/AlternatorFuel`, rounded down by `balance/FuelShare`).
+- Share = fuelled capacity / all capacity over `KineticNetwork#sources`, each weighted by `getActualCapacityOf`
+  (Create 6.0.10 [verified, javap]). Fuelled: a steam engine's `PoweredShaftBlockEntity` whose boiler has
+  `BoilerData#activeHeat > 0` (a fuelled blaze burner; passive heat does not count), and every engine of Create:
+  Diesel Generators (they turn only while burning). Not fuelled: water wheel, windmill, hand crank, the electric motor
+  (FE to SU to FE), TFC rotation through the torque link, flywheels, the creative motor. Cached per network id once per
+  tick. The goggle line keeps the unscaled rate.
+- Config `balance.alternatorFuelOnly` (true). `/firmages balance alternator <pos>` lists the network's sources, their
+  capacity and whether they burn fuel, and the share.
+- Tests: **U** `FuelShareTest` (windmill alone 0 FE/t, coal boiler 168 FE/t, half wind and half steam 84 FE/t, edges).
+  Create is not in the GameTest run (it needs Ponder and Flywheel there), so the network glue is checked on a server
+  copy with `balance alternator` **[S]**.
+
+### 34.2 AE2 cell types (Felix: freer, as in other expert packs)
+
+- AE2 19.2.18 [verified, javap] clamps a cell's types to the inlined `MAX_ITEM_TYPES = 63` in the constructor of
+  `BasicCellInventory`, and its item cells (and MEGA Cells 4.11.0's item cells, both `BasicStorageCell`) are built
+  with 63 types. `mixin/ae2/BasicCellInventoryMixin` lifts the clamp, `BasicStorageCellMixin` reports
+  `balance.ae2CellTypes` (126, 63..252) for cells built with 63. Fluid cells (18) and portable cells (AE2 and MEGA
+  derive theirs from 18 and the tier; the 16k portable item cell holds 36) keep their limits.
+- Bytes still bound small cells: a 1k cell at 8 bytes per type fills its bytes before 126 types.
+- The server config syncs to the clients, so the cell tooltip shows the same limit. `/firmages balance cells` reads
+  the types of fresh 1k, 256k, portable 16k, MEGA 1M item cells and a 64k fluid cell through AE2's `StorageCells`
+  (copy boot: 126, 126, 36, 126, 18) **[S]**.
+
+### 34.3 The wireless crafting terminal as a portable grid (AE2 package)
+
+- The pack makes `ae2:wireless_crafting_terminal` from the Industrial Age (`recipes/age_4/wireless_terminal.js`); AE2
+  opens it only when it is linked to an ME network (wireless access point, Information Age).
+- `compat/ae2/PortableCrafting`: right-click with a terminal whose `WirelessTerminalItem#getLinkedPosition` is null opens
+  vanilla's crafting menu (a subclass that stays valid away from a table, with a real level access, so the result slot
+  works and the grid returns its items on close), titled with the terminal's name. A linked terminal keeps AE2's
+  behaviour, out of range included. ae2wtlib's hotkey is not covered.
+- `/firmages debug useitem <name>` (debug players, `debug.allowSimulate`) right-clicks into the air and logs the menu
+  that opened **[S]**.

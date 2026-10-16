@@ -58,8 +58,11 @@ class WayshrineDataTest {
         }
         assertEquals(Optional.of("tfc:metal/double_ingot/bronze"), d.offeringFor(AgeId.AGE_1));
         assertEquals(Optional.of("firmages:meteoric_iron_ingot"), d.offeringFor(AgeId.AGE_2));
-        assertEquals(Optional.of("firmages:halo_steel_ingot"), d.offeringFor(AgeId.AGE_6));
-        assertEquals(Optional.of("firmages:halo_steel_ingot"), d.offeringFor(AgeId.AGE_8), "age_8 falls back to age_6");
+        // Interim sky-metal offerings until the Lens Crown alloys arrive (M15): every Age has one it can make.
+        assertEquals(Optional.of("firmages:meteoric_iron_double_ingot"), d.offeringFor(AgeId.AGE_3));
+        assertEquals(Optional.of("firmages:meteoric_iron_sheet"), d.offeringFor(AgeId.AGE_4));
+        assertEquals(Optional.of("firmages:starsteel_ingot"), d.offeringFor(AgeId.AGE_6));
+        assertEquals(Optional.of("firmages:starsteel_ingot"), d.offeringFor(AgeId.AGE_8), "age_8 falls back to age_6");
         assertEquals(Optional.empty(), d.offeringFor(AgeId.AGE_0), "nothing before the Bronze Age");
         List<ShrineTier.Rite> r1 = d.ritesFor(AgeId.AGE_1);
         assertEquals(1, r1.size());

@@ -12,8 +12,20 @@ public final class WayshrineRules {
     public static final int TUTORIAL_TRIES = 16;
     /** At most this many blocks of height spread over the footprint of the tutorial site. */
     public static final int TUTORIAL_MAX_SLOPE = 3;
+    /**
+     * The tutorial Wayshrine places itself only on a world younger than this many ticks (three days, an hour of play):
+     * an older world has a history, and its players may have built near the spawn.
+     */
+    public static final long TUTORIAL_MAX_WORLD_TICKS = 3 * 24000L;
+    /** Blocks around the footprint of a tutorial site that must be free of player blocks and block entities. */
+    public static final int TUTORIAL_SITE_MARGIN = 8;
 
     private WayshrineRules() {}
+
+    /** True while the world is young enough for the tutorial Wayshrine to place itself ({@link #TUTORIAL_MAX_WORLD_TICKS}). */
+    public static boolean tutorialWorldFresh(long gameTime) {
+        return gameTime <= TUTORIAL_MAX_WORLD_TICKS;
+    }
 
     /** The bearing from (fx, fz) to (tx, tz); Minecraft's north is -z, east is +x. */
     public static String bearing(double fx, double fz, double tx, double tz) {

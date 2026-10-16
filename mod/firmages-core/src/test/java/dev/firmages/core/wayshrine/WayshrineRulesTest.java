@@ -54,6 +54,14 @@ class WayshrineRulesTest {
     }
 
     @Test
+    void tutorialOnlyOnNewWorlds() {
+        assertTrue(WayshrineRules.tutorialWorldFresh(0), "the first start of a new world");
+        assertTrue(WayshrineRules.tutorialWorldFresh(3 * 24000L), "still within three days");
+        assertFalse(WayshrineRules.tutorialWorldFresh(3 * 24000L + 1), "an older world has a history");
+        assertFalse(WayshrineRules.tutorialWorldFresh(40_000_000L), "an existing world updating to 0.11.0");
+    }
+
+    @Test
     void numberWords() {
         assertEquals("seven", Numbers.words(7));
         assertEquals("twelve", Numbers.words(12));

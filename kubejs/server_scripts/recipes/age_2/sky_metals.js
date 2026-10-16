@@ -2,10 +2,12 @@
 // Starfall craters are its only source (meteorite blocks and the core drop meteoric iron chunks). Meteoric iron is
 // forged, never cast: no TFC metal and no fluid. Its heat data (wrought iron's values: forging 921 C, welding
 // 1228 C) is in kubejs/data/firmages/tfc/item_heat/meteoric_iron/. On the TFC anvil at tier 3 (wrought iron anvil):
-// chunk to ingot, two ingots welded to a double ingot, double ingot to sheet, ingot to two rods. There are no
-// meteoric tools (sky iron is never a second steel). The IE metal press (station age_4, recipes/station_ages.js)
-// makes sheets and rods, the IE arc furnace (age_5) smelts chunks into ingots; in age_2 to age_4 the anvil is the
-// only route. The Storm Rod recipe of the Sky Harvest (sky M11) joins this file.
+// chunk to ingot, two ingots welded to a double ingot, double ingot to sheet. There are no meteoric tools (sky iron
+// is never a second steel). The IE metal press (station age_4, recipes/station_ages.js) makes sheets, the IE arc
+// furnace (age_5) smelts chunks into ingots; in age_2 to age_4 the anvil is the only route. Until the Lens Crown
+// alloys arrive (M15), the ingot, the double ingot and the sheet are the Wayshrine offerings of the Iron, Arcane and
+// Industrial Age (firmages_wayshrine/offerings.json). The meteoric rod has no use before the Storm Rod of the Sky
+// Harvest (sky M11): it is in [hidden] of dev/age_map.toml, and its anvil and metal press recipes come back with M11.
 
 ServerEvents.recipes((event) => {
   const RULES = ['hit_last', 'hit_second_last', 'hit_third_last']
@@ -30,13 +32,6 @@ ServerEvents.recipes((event) => {
     rules: RULES,
     tier: 3
   }).id('firmages:anvil/meteoric_iron_sheet')
-  event.custom({
-    type: 'tfc:anvil',
-    ingredient: { tag: 'c:ingots/meteoric_iron' },
-    result: { id: 'firmages:meteoric_iron_rod', count: 2 },
-    rules: ['bend_last', 'draw_second_last', 'draw_third_last'],
-    tier: 3
-  }).id('firmages:anvil/meteoric_iron_rod')
 
   // ---- machines: the IE metal press (age_4) and arc furnace (age_5) ----
   event.custom({
@@ -46,13 +41,6 @@ ServerEvents.recipes((event) => {
     result: { id: 'firmages:meteoric_iron_sheet', count: 1 },
     energy: 2400
   }).id('firmages:metal_press/meteoric_iron_sheet')
-  event.custom({
-    type: 'immersiveengineering:metal_press',
-    input: { tag: 'c:ingots/meteoric_iron' },
-    mold: 'immersiveengineering:mold_rod',
-    result: { id: 'firmages:meteoric_iron_rod', count: 2 },
-    energy: 2400
-  }).id('firmages:metal_press/meteoric_iron_rod')
   event.custom({
     type: 'immersiveengineering:arc_furnace',
     input: { item: 'firmages:meteoric_iron_chunk' },

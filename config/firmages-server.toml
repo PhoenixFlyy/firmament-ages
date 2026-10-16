@@ -114,8 +114,20 @@
 	# Default: 256
 	# Range: 8 ~ 512
 	pointerRadiusChunks = 256
-	#Place one Forest Ring 300 to 800 blocks from the world spawn at the first start (also on an existing world).
+	#Place one Forest Ring 300 to 800 blocks from the world spawn at the first start of a new world (never on a world older than three days or on land with traces of players).
 	tutorial = true
+
+#Balance hooks of the harmony round (SPEC 34).
+[balance]
+	#Felix H1A: the Crafts and Additions alternator gives FE only for the share of its network's rotation
+	#that comes from fuelled sources (steam engines on an actively heated boiler, diesel engines). Water wheels, windmills,
+	#hand cranks and electric motors turn it but give no FE. false = the alternator's own rate.
+	alternatorFuelOnly = true
+	#Item types per AE2 item storage cell (AE2's own limit is 63; MEGA item cells too, portable cells keep theirs).
+	#Fluid and chemical cells keep their own limit. Synced to the clients with the server config.
+	# Default: 126
+	# Range: 63 ~ 252
+	ae2CellTypes = 126
 
 [debug]
 	#Enables /firmages ages simulate (self-tests only).

@@ -81,6 +81,8 @@ public final class FirmagesCore {
         BossEvents.register(bus);
         dev.firmages.core.sky.StarfallService.register(bus); // sky plumbing and Starfall (SPEC §24.4, §25)
         dev.firmages.core.crown.CrownService.register(bus);
+        // the unlinked wireless crafting terminal opens a portable crafting grid (AE2 package, review 0.11.0)
+        if (ModList.get().isLoaded(dev.firmages.core.compat.ae2.PortableCrafting.MOD_ID)) dev.firmages.core.compat.ae2.PortableCrafting.register(bus);
         LOGGER.info("firmages-core loaded");
     }
 }

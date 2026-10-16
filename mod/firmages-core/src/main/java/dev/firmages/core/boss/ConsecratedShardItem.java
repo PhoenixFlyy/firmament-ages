@@ -50,5 +50,8 @@ public class ConsecratedShardItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext ctx, List<Component> lines, TooltipFlag flag) {
         lines.add(Component.translatable("item.firmages.consecrated_shard.tooltip").withStyle(ChatFormatting.GRAY));
+        for (String use : new String[] {"ward", "throw", "veil"}) {
+            lines.add(Component.translatable("item.firmages.consecrated_shard.tooltip." + use).withStyle(ChatFormatting.DARK_AQUA));
+        }
     }
 }

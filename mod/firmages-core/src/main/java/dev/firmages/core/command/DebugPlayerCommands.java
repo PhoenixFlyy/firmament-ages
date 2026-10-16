@@ -67,8 +67,9 @@ import java.util.Set;
  * the firmages payloads, particles, titles and chat lines it receives as {@code [debug-player <name>]}. Its UUID is the offline
  * UUID of the name, so it keeps its player data across restarts. {@code debug run <name> <command>} runs a command as
  * that player (for player-only commands such as {@code ftbteams party create}). {@code debug punch} sends one left
- * click (start of mining, optionally sneaking) and aborts it; {@code debug mine} mines a block the survival way: start,
- * then stop once the destroy progress allows it, through {@code ServerPlayerGameMode.handleBlockBreakAction}.
+ * click (start of mining, optionally sneaking) and aborts it; {@code debug useitem} right-clicks into the air with the
+ * main hand item; {@code debug mine} mines a block the survival way: start, then stop once the destroy progress allows
+ * it, through {@code ServerPlayerGameMode.handleBlockBreakAction}.
  */
 public final class DebugPlayerCommands {
     private static final SimpleCommandExceptionType DISABLED = new SimpleCommandExceptionType(
@@ -97,6 +98,7 @@ public final class DebugPlayerCommands {
                 .then(Commands.argument("pos", BlockPosArgument.blockPos())
                     .executes(c -> use(c, false))
                     .then(Commands.literal("sneak").executes(c -> use(c, true))))))
+            .then(Commands.literal("useitem").then(Commands.argument("name", StringArgumentType.word()).executes(DebugPlayerCommands::useItem)))
             .then(Commands.literal("punch").then(Commands.argument("name", StringArgumentType.word())
                 .then(Commands.argument("pos", BlockPosArgument.blockPos())
                     .executes(c -> punch(c, false))
@@ -202,6 +204,17 @@ public final class DebugPlayerCommands {
         FirmagesCore.LOGGER.info("[debug-player {}] use{} {} on {} with {}: {}", p.getGameProfile().getName(), sneak ? " (sneak)" : "",
             p.serverLevel().getBlockState(pos).getBlock(), pos.toShortString(), p.getMainHandItem(), r);
         c.getSource().sendSuccess(() -> Component.literal("use -> " + r), false);
+        return 1;
+    }
+
+    /** A right-click into the air with the main hand item ({@code ServerPlayerGameMode.useItem}); logs the menu it opened. */
+    private static int useItem(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        check();
+        ServerPlayer p = player(c);
+        InteractionResult r = p.gameMode.useItem(p, p.serverLevel(), p.getMainHandItem(), InteractionHand.MAIN_HAND);
+        String menu = p.containerMenu == p.inventoryMenu ? "none" : p.containerMenu.getClass().getName();
+        FirmagesCore.LOGGER.info("[debug-player {}] useitem with {}: {}, menu {}", p.getGameProfile().getName(), p.getMainHandItem(), r, menu);
+        c.getSource().sendSuccess(() -> Component.literal("useitem -> " + r + ", menu " + menu), false);
         return 1;
     }
 

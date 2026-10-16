@@ -1,7 +1,8 @@
 // Firmament Ages - Age 5: starsteel, the sky metal of the Electric Age falls (firmages-core SPEC 25.5, sky M10).
 // Starfall craters from the Electric Age on are its only source (starsteel meteorites and starsteel cores drop
 // starsteel chunks). It is worked in machines only: the IE arc furnace (station age_5) smelts a chunk with coke dust
-// into an ingot and slag. There is no starsteel plate and no TFC route.
+// into an ingot and slag. There is no starsteel plate and no TFC route. Until the Lens Crown alloys arrive (M15), the
+// starsteel ingot is the Wayshrine offering from the Electric Age on (firmages_wayshrine/offerings.json).
 
 ServerEvents.recipes((event) => {
   event.custom({

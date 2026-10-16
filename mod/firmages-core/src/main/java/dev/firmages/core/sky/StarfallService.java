@@ -445,7 +445,8 @@ public final class StarfallService {
         return null;
     }
 
-    private static boolean natural(BlockEntity be) {
+    /** A block entity of the world, not of a player: natural by tag, or a structure container that still holds its loot table. */
+    public static boolean natural(BlockEntity be) {
         if (be.getBlockState().is(SkyTags.NATURAL_BLOCK_ENTITIES)) return true;
         // a structure chest that was never opened still holds its loot table
         return be instanceof RandomizableContainerBlockEntity c && c.getLootTable() != null;
