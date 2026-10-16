@@ -49,6 +49,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation ANVIL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "star_anvil");
     static final ResourceLocation MOUNT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "lens_mount");
     static final ResourceLocation WAYSHRINE = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "wayshrine_core");
+    static final ResourceLocation AURORA_NET = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "aurora_net");
+    static final ResourceLocation STORM_ROD = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "storm_rod");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
@@ -60,6 +62,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Crown.ANVIL, dev.firmages.core.crown.StarAnvilBlock.class);
         registration.registerBlockComponent(Crown.MOUNT, dev.firmages.core.crown.LensMountBlock.class);
         registration.registerBlockComponent(Wayshrine.INSTANCE, WayshrineCoreBlock.class);
+        registration.registerBlockComponent(SkyHarvest.NET, dev.firmages.core.sky.AuroraNetBlock.class);
+        registration.registerBlockComponent(SkyHarvest.ROD, dev.firmages.core.sky.StormRodBlock.class);
         // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
@@ -272,6 +276,40 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return WAYSHRINE;
+        }
+    }
+
+    /**
+     * The Sky Harvest (SPEC §26.4, §26.5), from the synced block entities: the net says whether it catches the aurora
+     * or why not, the rod whether the storm fuses its sand or what it waits for (the upper half reads the basin below).
+     * The tank and the slots are Jade's own lines.
+     */
+    enum SkyHarvest implements IBlockComponentProvider {
+        NET, ROD;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (this == NET && accessor.getBlockEntity() instanceof dev.firmages.core.sky.AuroraNetBlockEntity be) {
+                var r = be.reason();
+                Component line = switch (r) {
+                    case CATCHING -> Component.translatable("firmages.jade.aurora_net.catching");
+                    case NO_AURORA -> Component.translatable("firmages.jade.aurora_net.none");
+                    case TOO_LOW -> Component.translatable("firmages.jade.aurora_net.too_low", Numbers.words(be.minY()));
+                    case NO_SKY -> Component.translatable("firmages.jade.aurora_net.no_sky");
+                };
+                tooltip.add(line.copy().withStyle(r == dev.firmages.core.sky.AuroraNetBlockEntity.Reason.CATCHING ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+            } else if (this == ROD) {
+                var pos = dev.firmages.core.sky.StormRodBlock.basin(accessor.getBlockState(), accessor.getPosition());
+                if (!(accessor.getLevel().getBlockEntity(pos) instanceof dev.firmages.core.sky.StormRodBlockEntity be)) return;
+                var r = be.reason();
+                tooltip.add(Component.translatable("firmages.jade.storm_rod." + r.name().toLowerCase(java.util.Locale.ROOT))
+                    .withStyle(r == dev.firmages.core.sky.StormRodBlockEntity.Reason.STORM ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+            }
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return this == NET ? AURORA_NET : STORM_ROD;
         }
     }
 }

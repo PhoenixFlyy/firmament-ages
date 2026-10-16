@@ -2371,6 +2371,8 @@ STATION_ITEMS.update({
     "sgjourney:crystallizing": [["sgjourney:crystallizer"]], "sgjourney:advanced_crystallizing": [["sgjourney:advanced_crystallizer"]],
     "sgjourney:naquadah_liquidizing": [["sgjourney:naquadah_liquidizer"]],
     "sgjourney:naquadah_heavy_liquidizing": [["sgjourney:heavy_naquadah_liquidizer"]],
+    # the Lens Crown (firmages-core SPEC 27): a starforge recipe needs the Star Anvil and a Lens Mount
+    "firmages:starforge": [["firmages:star_anvil"], ["firmages:lens_mount"]],
 })
 FUSION_INJECTOR = {"draconium": "basic", "wyvern": "wyvern", "draconic": "awakened", "chaotic": "chaotic"}
 # What a machine or multiblock makes without a recipe JSON: the fission reactor burns fissile fuel into nuclear waste,

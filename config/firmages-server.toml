@@ -290,6 +290,7 @@
 	oldCraterRegion = 1024
 	#From this Age every crater also records an Immersive Engineering excavator vein ("never" = off).
 	automationAge = "age_6"
+
 #The Lens Crown: the Star Anvil forges celestial alloys and lenses from a chord of lenses (SPEC 27)
 [crown]
 	#false: the anvil never forges (the recipes stay).
@@ -308,3 +309,9 @@
 	# Default: 10
 	# Range: 1 ~ 100
 	swingTicks = 10
+
+#Sky Harvest (SPEC 26): the Storm Rod fuses sand into storm glass in rain, the Aurora Net catches aurora light.
+#Balance values (aurora band, chances, yield, strike rate) are data: data/firmages/firmages_sky/sky_harvest.json.
+[skyHarvest]
+	#false: rods are never struck and nets catch nothing (operator commands still report).
+	enabled = true

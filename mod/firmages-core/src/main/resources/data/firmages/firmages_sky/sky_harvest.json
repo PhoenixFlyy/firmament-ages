@@ -1,0 +1,25 @@
+{
+  "aurora": {
+    "min_y": 140,
+    "reference_y": 140,
+    "max_average_temp": -10.0,
+    "night_chance": {
+      "cold": 0.5,
+      "warm": 0.25
+    },
+    "mb_per_hour": 100,
+    "net_capacity": 4000,
+    "share_radius": 1,
+    "colors": [
+      "#3CFF9E",
+      "#7A5CFF"
+    ]
+  },
+  "storm": {
+    "mean_strike_ticks_rain": 4800,
+    "thunder_factor": 4,
+    "sand_per_strike": 4,
+    "input": "#c:sands",
+    "result": "firmages:storm_glass"
+  }
+}

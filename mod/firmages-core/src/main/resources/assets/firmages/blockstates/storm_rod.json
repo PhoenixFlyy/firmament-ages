@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "firmages:block/storm_rod_lower"
+    },
+    "half=upper": {
+      "model": "firmages:block/storm_rod_upper"
+    }
+  }
+}

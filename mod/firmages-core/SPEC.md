@@ -612,7 +612,6 @@ The shrine is visible and audible between ceremonies, and its state reads from f
 | `effects.ambientDrone` | true (§7.10: the hum near the heart) |
 | `effects.idleBeam` | true (§7.10: hide the idle beam on this client) |
 | `effects.skyStreaks` | true (§25.9, M10: the streak and the falling body of a star) |
-| `effects.aurora` / `effects.auroraWithShaders` | true / true (§26.8, M11) |
 | `effects.crownBeams` | true (§27.12, M12) |
 | `effects.launchFx` | true (§31.9, M14) |
 | `ui.*`, `chat.blocklist`, `tfc.*` | §18.7 (immersion) |
@@ -654,6 +653,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `starfall now [pos] [metal] [size]` | §25.10 (M10): a fall in 120 ticks with streak; without pos the normal site search, with pos exactly there (no base check, no move) |
 | `starfall list` / `carve <id>` / `cool <id>` / `heat <id>` / `old <pos>` / `tonight` / `veins` | §25.10 (M10): sites with state, metal, distance, glow, cursor and vein; a temporary ticket and the carve now; the hot-core bonus off or on; an old crater there; the next clear night falls for sure; reconcile the IE veins and list them |
 | `sky aurora on\|off\|auto`, `sky aurora status [pos]`, `sky aurora band [radius]` | §26.8 (M11) |
+| `sky storm rain\|thunder\|clear [seconds]`, `sky storm strike <pos>`, `sky storm status <pos>` | §26.8 (M11) |
 | `crown status [pos]` / `chords` / `swing <pos> <lens,...>` | §27.12 (M12) |
 | `wayshrine list` / `status [pos]` / `locate <type>` / `tutorial [here]` / `light <pos>` / `reset <pos> [stone]` / `stone <pos>` | §28.9 (M16) |
 | `anchor list` / `status [pos]` | §29.7 (M16) |
@@ -673,7 +673,6 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `firmages:age_status` | current Age id, goal item id, recipe viewer allowed, block overlay allowed, open TFC tabs (byte, one bit per `InventoryTab`), Cave Dweller hunts, hand-breaking rule holds, `reloadPending` (an Age swap or reload is pending or running), the Gathering done (0.9.0: the age_9 HUD goal key `firmages.hud.goal.age_9_gathered`) | §18.3/18.4/18.6/§19/§3.3/§7.5: EMI and Jade gating, HUD Age indicator and goal, TFC inventory tabs, Cave Dweller sound mute, break-speed prediction, one EMI reload per Age change; on login, after every Age state change and after every swap or reload |
 | `firmages:welcome` | none | §18.5: first join of a player: title, then the welcome screen |
 | `firmages:starfall_streak` | entry angle, target pos, impact game time, metal, near flag | §25.10 (M10, "5"): `SkyStreaks` draws the streak and, near the crater, the falling body; sent 120 ticks before the impact to every overworld player |
-| `firmages:sky_sync` | aurora seed, override, the `aurora` block of `sky_harvest.json` | §26.8 (M11, still "5"): on login, data reload and override change |
 | `firmages:launch_fx` | pos, phase, phase start game time, probe item | §31.7 (M14, "6") |
 | `firmages:ark_sync` | stage per island, complete mask | §31.8 (M17, "7") |
 
@@ -1204,7 +1203,7 @@ Building blocks with no material role: `firmages:sky_rock` (crater shell, Dawn) 
 
 ### 24.6 Consolidated deltas for §9, §10 and §11
 
-- **Network (§11 heading).** Version "5" (M10) adds `firmages:starfall_streak` and `firmages:sky_sync`. Version "6" (M14) adds `firmages:launch_fx`. Version "7" (M17) adds `firmages:ark_sync`. The Lens Crown, the Wayshrines and the Sky Anchors add no payload. There is still no C2S payload. A worktree that adds a payload bumps the version only at merge, in this order.
+- **Network (§11 heading).** Version "5" (M10) adds `firmages:starfall_streak` (M11 added no `firmages:sky_sync` after all, §26.7). Version "6" (M14) adds `firmages:launch_fx`. Version "7" (M17) adds `firmages:ark_sync`. The Lens Crown, the Wayshrines and the Sky Anchors add no payload. There is still no C2S payload. A worktree that adds a payload bumps the version only at merge, in this order.
 - **Config (§9).** The keys of §25.10, §26.8, §27.12, §28.9, §29.7, §30.9 and §31.9.
 - **Commands (§10).** The command tables of the same sections.
 
@@ -1401,7 +1400,7 @@ Three failed moves give the state BURNED: no crater, no chat line, and the next 
 - **Base check and moves.** A player block entity is any block entity whose block is not in `#firmages:starfall/natural_block_entities`, except a container that still holds its loot table (an unopened structure chest). The player-block scan covers the box from ground − 8 to ground + 16. Isles are excluded through `StarfallService.registerIsleProbe` (M13 registers the isle starts and fallback records) and the `#firmages:isle/body` surface tag. A moved site also passes the site-choice rules again (shrine, spawn, biome, isle, claims).
 - **Operator falls.** `starfall now <pos>` and `starfall old <pos>` are forced: exactly there, no base check, no move.
 - **Core tier.** The core's tags are those of the meteorite (`needs_diamond_tool`); `canHarvestBlock` and the destroy progress follow the meteorite of its `metal`, so a starsteel core needs steel like its meteorites.
-- **Network.** Protocol "5" carries `firmages:starfall_streak` (entry angle, target, impact time, metal, near flag). `firmages:sky_sync` comes with M11 inside "5" (§24.6).
+- **Network.** Protocol "5" carries `firmages:starfall_streak` (entry angle, target, impact time, metal, near flag). M11 adds no payload (§26.7).
 - **Pack data (hand-off done here).** TFC heat of meteoric iron in `kubejs/data/firmages/tfc/item_heat/meteoric_iron/`; anvil, welding, IE metal press and arc furnace recipes and the storage block in `kubejs/server_scripts/recipes/age_2/sky_metals.js` and `age_5/starsteel.js`; the Age rows and the `[ore_blocks]` key `disguise` in `dev/age_map.toml` and `dev/gen_stage_locks.py`.
 - **Tests.** U: `StarfallRulesTest` (9), `CraterPlanTest` (3), `NoCollapseTagsTest` (1); `gradlew build`: 160 unit tests green. G (`SkyGameTests`, template `sky_area` 25 by 26 by 25): `forcedImpactCarves`, `lazyCarveOnLoad`, `exclusionsMoveTheSite`, `hotCoreDoubles`, `toolTiers`, `skySavedDataRoundTrip`, `skyPayloadCodecs`, `skySelftestAndCommands`, `excavatorVeinAtAutomationAge`; `runGameTestServer`: "All 62 required tests passed". Night rolls and old craters are off in the GameTest run (`StarfallService.setNaturalEvents(false)`), since a live fall could land in another test's area. Not covered by G: the FTB claims rule (FTB Chunks is not in the run) and a skystone surface (no skystone before M13; the isle probe stands in).
 - **Open (M).** The streak and the boom from 1,000 blocks, the smoke column, TFC landslides at a real crater (§25.11), the core's emissive overlay with Sodium and the shader.
@@ -1425,10 +1424,10 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
   - the night roll `hash(auroraSeed, day, x >> 9, z >> 9) < chance`.
 - `chance` is `night_chance.cold` when `instantTemp(x, reference_y, z) <= averageTemp(x, reference_y, z)` (the cold half of the year there), else `night_chance.warm`. So every clear cold-band night can yield, and winter yields twice as often. A summer group is not stuck waiting for winter.
 - **Reference height:** both temperatures are read through `ClimateSource` at the fixed `reference_y` (140), never at the net's or the camera's own height. TFC lowers the average by 0.16225 °C per block above Y 63, capped at 17.82 °C [verified, javap `Helpers.adjustAverageTemperatureByElevation`]. Without a fixed height, every isle top would count as polar, and the server and the client would disagree.
-- **Band distance:** TFC's base gradient is about 2.5 °C per 1,000 blocks (-20..30 °C over `temperature_scale` 20,000 [verified, `RegionGenerator`]). The default `max_average_temp` 0.0 at Y 140 (about 12.5 °C at sea level) puts the band about 1,000 to 2,000 blocks poleward of a temperate spawn **[PoC, see 26.10]**.
+- **Band distance:** TFC's base gradient is about 2.5 °C per 1,000 blocks (-20..30 °C over `temperature_scale` 20,000 [verified, `RegionGenerator`]). TFC's spawn lies at about 5 to 7 °C sea-level average (-5.8 °C at Y 140 on the M11 boot seed), so the planned 0.0 at Y 140 would have put spawn itself in the band. **As built: `max_average_temp` -10.0 at Y 140** (about 2.5 °C at sea level), measured on the copy boot: -7.9 °C 500 blocks north of spawn, -10.3 °C at 1,000, -11.4 °C at 2,000; the band starts about 1,000 blocks poleward.
 - Intensity is 0.5..1.0, from the same hash.
 - `/firmages sky aurora on|off|auto` overrides everything but the band and the height.
-- The seed and the thresholds reach the client in `firmages:sky_sync`.
+- The aurora is evaluated on the server only (the net, Jade and the status command); no client needs the seed (§26.7).
 - Enhanced Celestials is not used: its lunar events are world-wide nights, while the aurora is a place.
 
 ### 26.4 Aurora Net (`firmages:aurora_net`, Industrial Age)
@@ -1458,7 +1457,7 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 
 ```json
 {
-  "aurora": {"min_y": 140, "reference_y": 140, "max_average_temp": 0.0, "night_chance": {"cold": 0.5, "warm": 0.25},
+  "aurora": {"min_y": 140, "reference_y": 140, "max_average_temp": -10.0, "night_chance": {"cold": 0.5, "warm": 0.25},
              "mb_per_hour": 100, "net_capacity": 4000, "share_radius": 1, "colors": ["#3CFF9E", "#7A5CFF"]},
   "storm": {"mean_strike_ticks_rain": 4800, "thunder_factor": 4, "sand_per_strike": 4,
             "input": "#c:sands", "result": "firmages:storm_glass"}
@@ -1469,21 +1468,23 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 
 ### 26.7 Rendering and sound
 
-- `client/AuroraRenderer` draws ribbons as translucent quads in `AFTER_SKY` wherever `AuroraRules.active` holds at the camera's (x, z), in `colors`, scaled by intensity.
-- **Complementary Reimagined:** its own aurora follows biomes and cannot follow ours, so the pack's shader settings ship it **off** (pack hand-off, `vorauswahl.md` M046). Under Iris our ribbons draw unless `effects.auroraWithShaders` is false. Whether `AFTER_SKY` quads show under Iris is **[PoC]**. If they do not, nothing breaks: the net's `catching` glow and Jade carry the state.
+- **As built (M11, 2026-10-16): no renderer of our own.** The pack ships the Auroras mod, which draws the northern lights by TFC latitude, and turns Complementary's aurora off (decision C1-Deko "ein Polarlicht" in `dev/decisions-while-away.md`). A second ribbon set on top would look wrong, so `client/AuroraRenderer`, `firmages:sky_sync` and the client keys `effects.aurora*` are dropped. The Auroras lights mark the cold north; the net's `catching` glow (light 10, a shimmering veil), its chime and Jade say whether this column catches tonight.
 - **Sounds:** the strike uses vanilla thunder at reduced volume, and the net plays a soft amethyst chime when it starts catching (`firmages:aurora_net.catch`, mapped onto a vanilla event).
 
 ### 26.8 Network, config, commands
 
-- **Network:** `firmages:sky_sync` (aurora seed, override, the `aurora` block of `sky_harvest.json`), sent on login, data reload and override change. Protocol "5".
+- **Network:** none (§26.7).
 - **Server config:** `skyHarvest.enabled` (true).
-- **Client config:** `effects.aurora` (true), `effects.auroraWithShaders` (true).
+- **Client config:** none (§26.7).
 
 | Command | Purpose |
 |---|---|
 | `sky aurora on\|off\|auto` | Override for tests and events |
 | `sky aurora status [pos]` | Night, both temperatures at `reference_y` against the threshold, cold or warm half, height, sky, roll, chance, intensity, override |
 | `sky aurora band [radius]` | Samples the band boundary around the caller (every 256 blocks) and prints the nearest cold-band point; for the PoC of 26.10 |
+| `sky storm rain\|thunder\|clear [seconds]` | Sets the overworld weather for a test (default 600 s) |
+| `sky storm strike <pos>` | Strikes the Storm Rod at `pos` (either half) once: bolt and fusing, without the roll |
+| `sky storm status <pos>` | Jade reason, sand, output room, strikes since load, open sky, rain and thunder |
 
 ### 26.9 Tests
 
@@ -2264,7 +2265,7 @@ The milestones are listed in dependency order; the column "Depends on" names the
 | M | Scope | Depends on | Effort | Protocol | Done when |
 |---|---|---|---|---|---|
 | **M10** (built, §25.13) | Sky plumbing (`DeferredSites`, `ClimateSource` with the TFC and test sources, `SkySavedData`, the `text/Numbers` helper) and Starfall (§25): scheduling, site choice with claims and isle exclusion, plan and carver, blocks and loot condition, sky metals and TFC heat data, IE veins with dirty-mark and reconcile, streak renderer and sounds, FTB Chunks `compileOnly` | none | 45–60 h | "5" | §25.11 U and G green, `selftest sky` green, M: streak and crater in the pack |
-| **M11** | Sky Harvest (§26): `AuroraRules` at the reference height, Aurora Net, aurora fluid, Storm Rod with the rain and thunder rates, `sky_sync`, aurora renderer, band command | M10 | 25–35 h | (in "5") | §26.9 green, PoC §26.10 (band distance, rod rate) measured |
+| **M11** | Sky Harvest (§26): `AuroraRules` at the reference height, Aurora Net, aurora fluid, Storm Rod with the rain and thunder rates, band command (as built: no `sky_sync`, no renderer, §26.7) | M10 | 25–35 h | (in "5") | §26.9 green, PoC §26.10 (band distance, rod rate) measured |
 | **M12** | Lens Crown, mod side (§27.3 to §27.7, §27.10 to §27.13): recipe type and serializer, Star Anvil, Lens Mount, lenses, chord library, multiblock reuse, comparator, renderer, Jade, EMI, three Ponder scenes, the 22 library recipes as mod data | M10 item ids only (stand-ins in tests) | 50–70 h | none | §27.13 U and G green, M: beams and EMI |
 | **M13** | Drifting Isles (§30): structure type and piece, skystone lighting, crystal blocks, the re-forming lode, fallback placement, the Wind Shrine's place on the isle (§28.4a, template from M16), plus the flight PoCs (§30.7) | M10 (`DeferredSites`) | 34–46 h | none | §30.10 green, flight PoCs passed or the band lowered |
 | **M14** | Launch Complex (§31.3 to §31.7): multiblock and trench check, control state machine, modules data, fuel, renderer, `launch_fx`, `firmages:probe` criterion | M12 (alloy ids) | 30–40 h | "6" | `LaunchGameTests` green, M: one real flight in the pack |

@@ -428,6 +428,12 @@ block = "tfc:rock/loose/granite"
 "id:firmages:starsteel_chunk" = "age_5"
 "id:firmages:starsteel_ingot" = "age_5"
 "id:firmages:starsteel_block" = "age_5"
+# Sky Harvest (firmages-core SPEC 24.5, 26): the Storm Rod fuses sand into storm glass in rain from the Iron Age; the
+# Aurora Net catches aurora light in the cold band from the Industrial Age (the fluid takes its bucket's Age).
+"id:firmages:storm_rod" = "age_2"
+"id:firmages:storm_glass" = "age_2"
+"id:firmages:aurora_net" = "age_4"
+"id:firmages:aurora_light_bucket" = "age_4"
 "id:firmages:wayshrine_stone" = "dawn"                   # firmages-core Wayshrines (SPEC-himmel 24.5): drops from a lit Wayshrine (age_1 on), decorative, Sky Anchor heart
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"
@@ -1579,9 +1585,6 @@ items = [
     "alexsmobs:void_worm_mandible",
     "alexsmobs:warped_mixture",
     "alexsmobs:warped_muscle",
-    # Starfall (round C1 review): the meteoric rod has no use before the Storm Rod of the Sky Harvest (sky M11); its
-    # recipes are out of recipes/age_2/sky_metals.js until then.
-    "firmages:meteoric_iron_rod",
 ]
 # Regular expressions (full match on the item id), same effect as the ids above.
 patterns = [
@@ -2815,6 +2818,7 @@ mods = { mcwfurnitures = "mcfur", handcrafted = "hc", mcwwindows = "mcw", mcwdoo
 "everycomp:mcfur/tfc/willow_kitchen_sink" = "age_2"
 "everycomp:mcfur/tfc/willow_wardrobe" = "age_2"
 "extendedae:vacuum_interface" = "age_7"
+"firmages:aurora_light_bucket" = "age_5"
 "firmalife:ashtray" = "age_2"
 "firmalife:barrel_stave" = "age_2"
 "firmalife:clay_oven_hopper" = "age_2"

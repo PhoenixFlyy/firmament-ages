@@ -3248,3 +3248,25 @@ true`), new world, `-Xms5G -Xmx5G`. The copy is deleted.
   2x2-Feld").
 - The sync step ran `taskkill /IM packwiz.exe` to stop this worker's `packwiz serve`; that also ends any sibling's
   `packwiz serve` running at that moment (03:20). A sibling sync at that moment would have to be repeated.
+## 1.0 round C2, sky M11 Sky Harvest (2026-10-16, branch c2/sky-m11)
+firmages-core M11 (SPEC §26): Storm Rod, storm glass, Aurora Net, aurora light. Felix's test server stayed off and
+untouched; both boots ran on the copy `.wt/test-server-sky-m11` (`robocopy` without world, logs, local, simplebackups
+and crash-reports; the copy's `kubejs/` and quest folder deleted before the first sync; ports 25817 and RCON 25827
+after 25640 was taken by a sibling copy; whitelist off; synced with `packwiz-installer-bootstrap -g -s server` from
+`packwiz serve --port 8141 --refresh=false` of the worktree, "Finished successfully"; `debug.allowSimulate = true`),
+`-Xms3G -Xmx5G`, each with a new world. The copy is deleted.
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL; `AuroraRulesTest` 8 of 8 (night window, band at the reference height, cold and warm chance 0.5 and 0.25 over 4,000 cell nights, cell stability, rain, day, override, intensity, rod rates) | pass |
+| `runGameTestServer` | "All 84 required tests passed" (new: `auroraNetFills`, `stormRodFusesSand` with the test storm override) | pass |
+| Boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | 43,614 recipes (+7: rod anvil and press, Storm Rod, Aurora Net and the rest of the M11 data); `/fa_dump` wrote 0 fluid buckets: Rhino "redeclaration of var" in `dump.js`, fixed and checked after `/reload` (763 buckets); `gen_stage_locks.py --registry`, `derive_ages.py --scan`, `derive_ages.py`, `gen_stage_locks.py`, both `--check` up to date | done |
+| Boot 1 world test (debug player `skytest`, spawn 400 / 208) | net placed at Y 151 by the player, override on: 35 mB after about 18 steps, `catching=true`; Mekanism pipe in pull mode drained it into a Mekanism tank (110 mB); rod placed by the player (two halves), a side hopper fed 16 sand into the upper half, two `sky storm strike`: 8 sand fused, the hopper below the basin took 8 storm glass | pass |
+| `sky aurora band`, seed 1 | spawn -5.8 °C at Y 140; north: -7.9 (500 blocks), -10.3 (1,000), -11.1 (1,500), -11.4 (2,000), -13.5 (2,500), -15.7 °C (3,000); band threshold set to -10.0 | measured |
+| `sky aurora band`, seed `firmament-m11` (boot 2) | spawn -800 / -1712 at -9.9 °C, band from 256 blocks north (-10.9 °C), coldest -20.1 °C at 4,096 | measured |
+| Boot 2 (gate on, grants, two nets, four rods) | net at spawn (out of band) with override on: `reason` No aurora, empty; net 512 blocks north: 1,033 mB after about 14 minutes; a bucket filled from it (1,000 mB), a full bucket is not poured back | pass |
+| Storm Rod rate (boot 2, four rods, test storm override) | thunder 37 strikes in 2,132 rod-seconds (expected 35.5 at one per 1,200 ticks); rain 2 strikes in 1,060 rod-seconds (expected 4.4); no lightning entity left, no fire on the tip | pass |
+| `selftest all` (boot 2) | 74 passed, 3 failed: the three crown checks, red by design until M15 (`library_loaded` now 4 of 22) | pass |
+| `fa_dump`, `fa_dump_full`, `firmages recipes audit` (boot 2, gate on) | gate at age_9: 38,563 of 43,613, 5,050 dropped (disabled 5,043, superseded 7) | done |
+| `poc_analyze.py --server-dir <copy> --baseline <boot 1 dump>` | 103 PASS, 1 FAIL: G-2 `create_dragons_plus:sandpaper_polishing/ars_additions/cracked_sourcestone_wall` missing in the gated dump (age_3 output, no sky link; open point) | open |
+| `check_log.py` (boot 2) | 138 s to Done; FATAL 0; remaining 11 in 7 signatures: `Can't keep up` after the dumps and selftest, two DUMMY block entity lines on TFC water at -755 62 -1857, one debug-player command typo, the three crown selftest lines | pass |
+- TerraFirmaCraft refuses `/weather` (its `WeatherCommand` points at `/time set rain`), so the storm commands are a
+  timed override that only rods read (`StormWeather`).
+- The aurora light bucket derives to age_5 (the empty bucket is the Electric Age steel bucket); the fluid is age_4.

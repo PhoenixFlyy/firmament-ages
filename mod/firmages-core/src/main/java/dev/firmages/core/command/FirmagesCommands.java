@@ -78,6 +78,7 @@ public final class FirmagesCommands {
             .then(OriginCommands.origin())
             .then(OriginCommands.reactor())
             .then(StarfallCommands.starfall())
+            .then(SkyHarvestCommands.sky())
             .then(DebugPlayerCommands.debug())
             .then(BalanceCommands.energy()) // energy audit (SPEC 38)
             .then(BalanceCommands.ore()) // ore audit (SPEC 38)
