@@ -295,96 +295,6 @@
 		}
 		{
 			dependencies: ["0DD300C809C84163"]
-			id: "10689F32932B44D7"
-			optional: true
-			rewards: [
-				{
-					id: "43D3C3A182D4A277"
-					type: "xp"
-					xp: 160
-				}
-				{
-					count: 2
-					id: "18199477665796CA"
-					item: {
-						count: 1
-						id: "evolvedmekanism:alloy_hypercharged"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "4F49460FECFBF05D"
-					item: {
-						count: 1
-						id: "evolvedmekanism:alloyer"
-					}
-					type: "item"
-				}
-			]
-			x: 0.1d
-			y: 3.0d
-		}
-		{
-			dep_control_pts: {
-				10689F32932B44D7: [
-					1.161d
-					3.364d
-					1.818d
-					2.964d
-				]
-			}
-			dependencies: ["10689F32932B44D7"]
-			id: "18BC68E9674E3353"
-			optional: true
-			rewards: [
-				{
-					id: "3DC4FACE0A3224E0"
-					type: "xp"
-					xp: 160
-				}
-				{
-					count: 2
-					id: "35F8C8155880E51F"
-					item: {
-						count: 1
-						id: "evolvedmekanism:alloy_hypercharged"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "1867923D8DD13481"
-					item: {
-						count: 1
-						id: "evolvedmekanism:basic_alloying_factory"
-					}
-					type: "item"
-				}
-			]
-			x: 2.15d
-			y: 2.6d
-		}
-		{
-			dep_control_pts: {
-				18BC68E9674E3353: [
-					3.263d
-					2.964d
-					3.966d
-					3.414d
-				]
-			}
-			dependencies: ["18BC68E9674E3353"]
 			id: "6362434FA320A007"
 			optional: true
 			rewards: [
@@ -417,15 +327,15 @@
 					type: "item"
 				}
 			]
-			x: 4.35d
+			x: 0.05d
 			y: 3.05d
 		}
 		{
 			dep_control_pts: {
 				6362434FA320A007: [
-					5.442d
+					1.142d
 					3.414d
-					6.086d
+					1.786d
 					2.814d
 				]
 			}
@@ -462,15 +372,15 @@
 					type: "item"
 				}
 			]
-			x: 6.45d
+			x: 2.15d
 			y: 2.45d
 		}
 		{
 			dep_control_pts: {
 				0D406931BD8899E4: [
-					7.522d
+					3.222d
 					2.814d
-					8.157d
+					3.857d
 					3.364d
 				]
 			}
@@ -507,15 +417,15 @@
 					type: "item"
 				}
 			]
-			x: 8.5d
+			x: 4.2d
 			y: 3.0d
 		}
 		{
 			dep_control_pts: {
 				0FEADDD76E0ED422: [
-					9.6d
+					5.3d
 					3.364d
-					10.278d
+					5.978d
 					2.864d
 				]
 			}
@@ -551,7 +461,7 @@
 					type: "item"
 				}
 			]
-			x: 10.65d
+			x: 6.35d
 			y: 2.5d
 		}
 		{

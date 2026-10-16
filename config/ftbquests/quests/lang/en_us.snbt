@@ -169,7 +169,7 @@
 	quest.02BAEBC0675BF246.quest_subtitle: "Goal of the Arcane Age: Caelum opens the Industrial Age"
 	quest.02BAEBC0675BF246.title: "Offer the Arcane Keystone at the Shrine"
 	quest.02EA35E9BD1F97D5.quest_desc: [
-		"Lay sixteen flux coils end to end. The grid reaches the far shaft and the far mill."
+		"Lay 16 flux coils end to end. The grid reaches the far shaft and the far mill."
 	]
 	quest.02EA35E9BD1F97D5.title: "Long Haul"
 	quest.02F9ECC9D5A253E9.quest_desc: [
@@ -249,7 +249,7 @@
 	]
 	quest.04AB34FB1FD2E8B6.title: "Reading the Chronicle"
 	quest.04C1F441EE627382.quest_desc: [
-		"Make a lesser focus and keep it in hand. Spells of its element strike harder."
+		"Imbue a lesser focus and wear it. Spells of its element strike harder."
 	]
 	quest.04C1F441EE627382.title: "Lesser Focus"
 	quest.04DAC1D51AABFF20.quest_desc: [
@@ -258,17 +258,17 @@
 	quest.04DAC1D51AABFF20.quest_subtitle: "Goal of the Bronze Age"
 	quest.04DAC1D51AABFF20.title: "Sky Disc"
 	quest.051BA54888A28667.quest_desc: [
-		"Raise a large antiprotonic nucleosynthesizer. Antimatter is made here on a scale the plain machine cannot match."
+		"Raise a large antiprotonic nucleosynthesizer. It spends antimatter on matter at a pace the plain machine cannot match."
 	]
 	quest.051BA54888A28667.title: "Nucleosynthesizer"
 	quest.053A6F68FCEB62A5.quest_desc: [
-		"Set framed dark glass in the cell walls. It shuts the light out and shows the room within."
+		"Darken framed glass with coal for the walls of the spawner hall. You watch the stock without opening a door."
 	]
 	quest.053A6F68FCEB62A5.title: "Dark Glass"
 	quest.055D1D227906CC81.quest_desc: ["The LV capacitor stores FE and evens out the grid."]
 	quest.055D1D227906CC81.title: "LV Capacitor"
 	quest.05A433B227D1F928.quest_desc: [
-		"Craft a draconic necklace. Its dragon-bone gleam is the second link."
+		"Craft a draconic necklace. It holds more modules and more power than the wyvern one."
 	]
 	quest.05A433B227D1F928.title: "Draconic Necklace"
 	quest.05C4B3AE61613A9B.quest_desc: [
@@ -316,7 +316,7 @@
 	]
 	quest.0672AC049845AEE4.title: "Winter Gear"
 	quest.06ED97F3737EE971.quest_desc: [
-		"Take cinnabar and ruby dust from the same line. Gems are ground like metal here."
+		"Crush a ruby into dust, or draw cinnabar from its ore. Gems pass through the machines like metal here."
 	]
 	quest.06ED97F3737EE971.title: "Cinnabar"
 	quest.06FEAB3BC2EA4431.quest_desc: [
@@ -368,7 +368,7 @@
 	]
 	quest.0869D302C86C0C86.title: "Singular Alloy"
 	quest.08A7A60782C22367.quest_desc: [
-		"Mine cursecoal in the deep. It burns where wood and charcoal fail."
+		"Mine cursecoal from the netherrack above Y 80 in the deep. It is a fuel far stronger than charcoal."
 	]
 	quest.08A7A60782C22367.title: "Cursecoal"
 	quest.08FA57541FB57841.quest_desc: [
@@ -410,7 +410,7 @@
 	]
 	quest.0AF4168528180400.title: "Rocket Fuel"
 	quest.0AF9B610A751A285.quest_desc: [
-		"Build a crystallizer. Crystals for the gate and its devices grow in it from naquadah."
+		"Build a crystallizer. Crystals for the gate and its devices grow in it from liquid naquadah."
 	]
 	quest.0AF9B610A751A285.quest_subtitle: "Crystals and Rings, off \"Stargate Blocks\""
 	quest.0AF9B610A751A285.title: "Crystallizer"
@@ -433,7 +433,7 @@
 	]
 	quest.0B4C781BE87EF3D3.title: "Proof of Work"
 	quest.0B6E6399C2A3149B.quest_desc: [
-		"Take a gem from a deep chest. Each carries one power for the gear it is set in."
+		"Slay monsters until one drops a gem. Each carries one power for the gear it is set in."
 	]
 	quest.0B6E6399C2A3149B.title: "A Gem"
 	quest.0B920DA5835D008C.quest_desc: [
@@ -517,7 +517,7 @@
 	quest.0E19FEB2C2B7231D.quest_subtitle: "Flux Without Loss, off \"Alternating Flux\""
 	quest.0E19FEB2C2B7231D.title: "Flux Relay"
 	quest.0E20210FC1A9FDD3.quest_desc: [
-		"Run a pipe from the furnace room to the chimney. Smoke follows it round every corner."
+		"Raise a pump pipe, a narrow flue. Right-click it with more pipe to stack up to eight at once."
 	]
 	quest.0E20210FC1A9FDD3.quest_subtitle: "Flue and Lift, off \"Ironworks\""
 	quest.0E20210FC1A9FDD3.title: "Flue Pipe"
@@ -534,7 +534,7 @@
 	]
 	quest.0EDED5D6837D3002.title: "Clock Block"
 	quest.0EEEF839B7D015F2.quest_desc: [
-		"Build a beamhouse. Hides are limed, scraped and tanned in it by machine."
+		"Build a beamhouse. Hides are limed, washed and tanned in it by machine; the scraping waits for the fleshing machine."
 	]
 	quest.0EEEF839B7D015F2.title: "Beamhouse"
 	quest.0F1AE784BF392A25.quest_desc: [
@@ -585,11 +585,6 @@
 		"Craft a jetpack and fill it with hydrogen from the separator."
 	]
 	quest.102A4D2C50AB6948.title: "Hydrogen Jetpack"
-	quest.10689F32932B44D7.quest_desc: [
-		"Build an alloyer. It fuses several ingredients into one alloy where the infuser took two."
-	]
-	quest.10689F32932B44D7.quest_subtitle: "Evolved Factories, off \"Subatomic Alloy\""
-	quest.10689F32932B44D7.title: "Alloyer"
 	quest.10708C5D853308E7.quest_desc: [
 		"Craft the reactor controller. It sits in the top of the reactor."
 	]
@@ -653,9 +648,8 @@
 	quest.1446D5F0DD3F4985.quest_subtitle: "Jars and Stainless, off \"Black Steel\""
 	quest.1446D5F0DD3F4985.title: "Chromite"
 	quest.147A87428E5CADF3.quest_desc: [
-		"Gather acorns under oaks in season. A tree lets them fall only once a year."
+		"Cut acorns from oak leaves with the long secateurs. Out of their season the leaves give nothing."
 	]
-	quest.147A87428E5CADF3.quest_subtitle: "Nuts of the Wood, off \"Kitchen\""
 	quest.147A87428E5CADF3.title: "Acorns"
 	quest.14A493C9A2F06B38.quest_desc: [
 		"Fit a turbocharger. The engine runs twice as fast and burns twice as much."
@@ -682,7 +676,7 @@
 	]
 	quest.157E197DE71E5ECA.title: "Copper Anvil"
 	quest.15841564A71DE8DE.quest_desc: [
-		"Lay a navigation table. Chart a course on it for the ship to follow."
+		"Lay a navigation table and give it a compass or a map. Its redstone signal points toward the goal."
 	]
 	quest.15841564A71DE8DE.title: "Navigation Table"
 	quest.15AD3FABD5A6F24F.quest_desc: [
@@ -690,13 +684,9 @@
 	]
 	quest.15AD3FABD5A6F24F.title: "Yellow Cake"
 	quest.15C1854EDB24AD7F.quest_desc: [
-		"Build a library. It stores enchanted books by the hundred and hands them out by name."
+		"Build a library. Enchanted books dropped in become stored levels, and you draw out any enchantment you saved."
 	]
 	quest.15C1854EDB24AD7F.title: "Library"
-	quest.15C23E11D1FD2809.quest_desc: [
-		"Tap a hevea or a rubber fig. The latex runs white and sticky into the bucket."
-	]
-	quest.15C23E11D1FD2809.title: "Latex"
 	quest.15E3FB7395A86F61.quest_desc: [
 		"Soak planks in creosote. Treated wood is the frame of every engineering machine."
 	]
@@ -773,9 +763,10 @@
 	quest.17A6DF62A27B20B3.quest_desc: [
 		"Build a CAD assembler. Its frame takes two control circuits from the factory line."
 	]
+	quest.17A6DF62A27B20B3.quest_subtitle: "Programming Magic, off \"Archmage\""
 	quest.17A6DF62A27B20B3.title: "CAD Assembler"
 	quest.17C422C791C0C955.quest_desc: [
-		"Build a hand cart. It carries stacks of goods, and only you can pull it."
+		"Build a hand cart. It carries stacks of goods, and you pull it yourself, no beast needed."
 	]
 	quest.17C422C791C0C955.title: "Hand Cart"
 	quest.17D565AAFDDF8749.quest_desc: [
@@ -793,12 +784,8 @@
 		"Set a level emitter on the network. It gives a redstone signal that follows the count of an item."
 	]
 	quest.189EECC0C6A48A7B.title: "Level Emitter"
-	quest.18BC68E9674E3353.quest_desc: [
-		"Build an alloying factory. It runs the alloyer many times over for the cost of one machine."
-	]
-	quest.18BC68E9674E3353.title: "Alloying Factory"
 	quest.18D83559159A93C7.quest_desc: [
-		"Set a metal vent on the chimney top. Smoke leaves through it and the rain stays out."
+		"Cap a chimney with a metal vent. The smoke leaves through its slots."
 	]
 	quest.18D83559159A93C7.title: "Metal Vent"
 	quest.193395E7E30FE028.quest_desc: [
@@ -810,7 +797,7 @@
 	]
 	quest.1A05AE87B72A9F8F.title: "Remote Control"
 	quest.1A281872B94741FF.quest_desc: [
-		"Gather chunks of gold from the netherrack. The deep gives it native and soft."
+		"Break gilded blackstone in the bastions of the deep. One block in four gives up a chunk of gold."
 	]
 	quest.1A281872B94741FF.title: "Gold Chunks"
 	quest.1A7B308A025FA2CD.quest_desc: [
@@ -834,11 +821,11 @@
 	quest.1B12D746242380A4.quest_desc: ["Aluminium comes only from the arc furnace."]
 	quest.1B12D746242380A4.title: "Aluminium"
 	quest.1B193EBB6445A940.quest_desc: [
-		"Craft a sigil of socketing. At the anvil it opens a socket in a blade or a helm."
+		"Craft a sigil of socketing. At the smithing table it opens a socket in a blade or a helm."
 	]
 	quest.1B193EBB6445A940.title: "Sigil of Socketing"
 	quest.1B1F800A08B9A66B.quest_desc: [
-		"Set a growth accelerator beside the field. It nudges the crops along with no one to tend them."
+		"Set a growth accelerator under the farmland. It hastens the crop above it with no one to tend it."
 	]
 	quest.1B1F800A08B9A66B.title: "Growth Accelerator"
 	quest.1BBF74D29B1896AB.quest_desc: [
@@ -866,7 +853,7 @@
 	]
 	quest.1C074E3001752190.title: "Lead Sheet"
 	quest.1C0F00ABF4E17A0E.quest_desc: [
-		"Set a junction where the tubes fork. Your look decides the branch."
+		"Set a junction where the tubes fork. You choose the branch as you pass through."
 	]
 	quest.1C0F00ABF4E17A0E.title: "Tube Junction"
 	quest.1C7F62ECF8FA8027.quest_desc: [
@@ -885,11 +872,11 @@
 	]
 	quest.1CC29E163A94FCE6.title: "Potter"
 	quest.1CE33853BEFBE413.quest_desc: [
-		"Raise a large engine from modules. It works like the small one and answers more steps of work."
+		"Stack modular diesel engines in a row. They work like the small one, and each module adds its share of stress."
 	]
 	quest.1CE33853BEFBE413.title: "Large Engine"
 	quest.1CE3C9737EEF224F.quest_desc: [
-		"Place a loot collector in the cell. Drops are gathered where you can reach them."
+		"Set a loot collector at the spawn point of a spawner. The drops come straight into it, and no beast walks out."
 	]
 	quest.1CE3C9737EEF224F.title: "Loot Collector"
 	quest.1CEE5246AF1BDCB2.quest_desc: [
@@ -926,7 +913,7 @@
 	quest.1D924EC74CBF936E.quest_subtitle: "Parcel Roads, off \"Hypertubes\""
 	quest.1D924EC74CBF936E.title: "Tube Entrance"
 	quest.1DC6FC26B0415CF5.quest_desc: [
-		"Find pale crusts beside lava and hot springs. Break salt from them."
+		"Find pale crusts on the stones of a hot spring. Each spring field grows its own mineral; break salt from one."
 	]
 	quest.1DC6FC26B0415CF5.quest_subtitle: "Fire Mountain, off \"Native Copper\""
 	quest.1DC6FC26B0415CF5.title: "Crust of Salt"
@@ -958,6 +945,7 @@
 	quest.1EBE873E5DBB12CD.quest_desc: [
 		"Make long secateurs with a brass mechanism. They reach the high leaves where the nuts hide."
 	]
+	quest.1EBE873E5DBB12CD.quest_subtitle: "Nuts of the Wood, off \"Kitchen\""
 	quest.1EBE873E5DBB12CD.title: "Long Secateurs"
 	quest.1F3F85FE5B0041D8.quest_desc: ["Build a NASA workbench. Every rocket is assembled on it."]
 	quest.1F3F85FE5B0041D8.title: "NASA Workbench"
@@ -1032,7 +1020,7 @@
 	quest.2184B4EB21075F37.quest_subtitle: "The shrine ring of this Age"
 	quest.2184B4EB21075F37.title: "Raise the Tesla Crown"
 	quest.21976C7EF3201112.quest_desc: [
-		"Fill a bucket of aviation kerosene from your refinery. The engines burn it and nothing else."
+		"Heat refinery kerosene in a mixer into aviation kerosene and fill a bucket. The engines burn it and nothing else."
 	]
 	quest.21976C7EF3201112.title: "Aviation Kerosene"
 	quest.21B580750CD1579A.quest_desc: [
@@ -1048,7 +1036,7 @@
 	]
 	quest.21E4F24EBD59297F.title: "Printer"
 	quest.220334E35F590E73.quest_desc: [
-		"Fit a steering wheel on the deck. Turn it and the whole ship answers."
+		"Fit a steering wheel on the deck. Hold right-click and turn it; its rotation steers the bearings it drives."
 	]
 	quest.220334E35F590E73.title: "Steering Wheel"
 	quest.222144A9AFE56147.quest_desc: [
@@ -1056,7 +1044,7 @@
 	]
 	quest.222144A9AFE56147.title: "HDPE"
 	quest.2252A136E1B796AC.quest_desc: [
-		"Cast an armor-piercing shell. It breaks plate that a plain shot only dents."
+		"Build an armor-piercing shell in the mechanical crafter. It pierces blocks and bursts inside the walls behind them."
 	]
 	quest.2252A136E1B796AC.title: "Armor-Piercing Shell"
 	quest.22B39386CC3DD54E.quest_desc: [
@@ -1072,7 +1060,7 @@
 	]
 	quest.230D1D609551F243.title: "Reaper"
 	quest.233A332A44850ABA.quest_desc: [
-		"Assemble a CAD from a casing, a core, a socket and a battery. Hold it and the spells answer."
+		"Assemble a CAD from an assembly, a core, a socket and a battery. Hold it and the spells answer."
 	]
 	quest.233A332A44850ABA.title: "CAD"
 	quest.23536BC1524A5044.quest_desc: [
@@ -1096,12 +1084,12 @@
 	]
 	quest.238D92258CB69AD6.title: "The Shaft"
 	quest.23A2C7DF76F29DD2.quest_desc: [
-		"Fit insulation to the blast furnace and line it with insulated fire bricks. It holds its heat longer."
+		"Right-click fire bricks with blast furnace insulation. The chimney then needs no iron sheets around it."
 	]
 	quest.23A2C7DF76F29DD2.quest_subtitle: "Smith's Aids, off \"Blast Furnace\""
 	quest.23A2C7DF76F29DD2.title: "Insulation"
 	quest.23A4B5655F90BEFB.quest_desc: [
-		"Raise an iron greenhouse. It is the next step after the copper one, and it takes the same crops."
+		"Raise an iron greenhouse. Bonsai fruit trees, bananas and berry trellises grow only under iron or better."
 	]
 	quest.23A4B5655F90BEFB.quest_subtitle: "Cellar and Glass, off \"Winter Stores\""
 	quest.23A4B5655F90BEFB.title: "Iron Greenhouse"
@@ -1126,7 +1114,7 @@
 	quest.24B73E0B6F871DEE.quest_desc: ["Spawn fluid turns into mobs, only those your Age allows."]
 	quest.24B73E0B6F871DEE.title: "Mechanical Spawner"
 	quest.24D85BC36ADF2596.quest_desc: [
-		"Build the huge engine around an alternator of the old Age. The old engine lives inside the new one."
+		"Build the huge engine around a steam engine of the old Age. The old engine lives inside the new one."
 	]
 	quest.24D85BC36ADF2596.title: "Huge Engine"
 	quest.2562E428698729A6.quest_desc: ["Land on Venus. Calorite lies under its clouds."]
@@ -1144,11 +1132,11 @@
 	quest.271B9FEFDBDBD98F.quest_desc: ["Weld two hot ingots into a double ingot on the stone anvil."]
 	quest.271B9FEFDBDBD98F.title: "First Weld"
 	quest.275B0719D6CB26D4.quest_desc: [
-		"Set a jarring station. Food sealed in a jar under a stainless lid keeps for seasons."
+		"Set a jarring station by the vat. It fills lidded jars with jam and seals them by itself."
 	]
 	quest.275B0719D6CB26D4.title: "Jarring Station"
 	quest.278ED51C30E57DC0.quest_desc: [
-		"Build an advanced pattern provider. It holds more patterns and larger recipes than the plain one."
+		"Build an advanced extended pattern provider. It holds many more patterns and sends each ingredient to the side you choose."
 	]
 	quest.278ED51C30E57DC0.title: "Advanced Pattern Provider"
 	quest.27E68AB440FA98EB.quest_desc: [
@@ -1160,7 +1148,7 @@
 	]
 	quest.280FF1CBD99D0A4A.title: "Ore Times Five"
 	quest.2871D429A8DFF9F5.quest_desc: [
-		"Craft a fluid hatch. It lets liquid pass into a machine that has no pipe of its own."
+		"Set a fluid hatch on a tank. Right-click it with a bucket to pour in or fill up, with no pipe needed."
 	]
 	quest.2871D429A8DFF9F5.title: "Fluid Hatch"
 	quest.289281EB5946B550.quest_desc: [
@@ -1209,7 +1197,7 @@
 	]
 	quest.294677522BA270B6.title: "Gem Cutter"
 	quest.29BB2D5846614E8A.quest_desc: [
-		"Yellow brimstone sits at the lip of a vent. Take it before the ground shakes again."
+		"Yellow brimstone crusts the rock beside open lava. Take it before the ground shakes again."
 	]
 	quest.29BB2D5846614E8A.title: "Brimstone"
 	quest.29BB85F4AE1E4A82.quest_desc: [
@@ -1226,7 +1214,7 @@
 	]
 	quest.29BF6EA4F2FCD8F4.title: "First Mine"
 	quest.2A2E2D065C2E2DDD.quest_desc: [
-		"Carry an altimeter and read your height. Caves below Y 40 are where the dark things walk."
+		"Carry an altimeter and read your height. Below Y 0 the pale watcher walks."
 	]
 	quest.2A2E2D065C2E2DDD.title: "Altimeter"
 	quest.2AA19A118F3D7E22.quest_desc: [
@@ -1277,7 +1265,7 @@
 	]
 	quest.2B9263D6A5FEA18B.title: "Energy Upgrades"
 	quest.2BBAAE526E05F938.quest_desc: [
-		"Smelt insanium into an ingot. It is the hardest metal the fields give."
+		"Craft an insanium ingot from a prosperity ingot and insanium essence. It is the hardest metal the fields give."
 	]
 	quest.2BBAAE526E05F938.title: "Insanium Ingot"
 	quest.2BE0D6CB6EF8C395.quest_desc: [
@@ -1340,7 +1328,7 @@
 	quest.2CF7A994345A2A94.quest_subtitle: "The sky opens from below"
 	quest.2CF7A994345A2A94.title: "Launch from the Silo"
 	quest.2D3669263769C21A.quest_desc: [
-		"Set an experience hatch on a machine. Liquid experience flows in and out through it."
+		"Set an experience hatch on a tank. Right-click to pour your own experience in; sneak and right-click to draw it back."
 	]
 	quest.2D3669263769C21A.quest_subtitle: "Industry of Enchantment, off \"Enchantment Industry\""
 	quest.2D3669263769C21A.title: "Experience Hatch"
@@ -1379,12 +1367,12 @@
 	quest.2F40BC4F2411937D.quest_desc: ["Cassiterite pieces on the ground point to a tin vein below."]
 	quest.2F40BC4F2411937D.title: "Tin on the Surface"
 	quest.300C6E3765CDE12A.quest_desc: [
-		"Set stoneshelves round the enchanting table. Each adds Eterna, the reach of your enchanting."
+		"Set stoneshelves round the enchanting table. They lower Eterna and Arcana, for a weaker but surer enchantment."
 	]
 	quest.300C6E3765CDE12A.quest_subtitle: "Shelves of Power, off \"Enchantment Industry\""
 	quest.300C6E3765CDE12A.title: "Stoneshelf"
 	quest.3025445C8E744839.quest_desc: [
-		"Raise ancient transport rings. Step in and you rise to the platform above, or sink to the one below."
+		"Raise ancient transport rings. Step inside, and they carry you to another set of rings nearby."
 	]
 	quest.3025445C8E744839.title: "Transport Rings"
 	quest.30838230E7113E41.quest_desc: [
@@ -1402,11 +1390,11 @@
 	]
 	quest.30A13F8701E9EF80.title: "Raise the Shrine"
 	quest.30B3B5086799C262.quest_desc: [
-		"Build a drawer. It stores one kind of item in great number and hands out a stack at a click."
+		"Build a drawer. Each front stores one kind of item in great number and gives a stack when you punch it."
 	]
 	quest.30B3B5086799C262.title: "Drawer"
 	quest.31053371A45E76FF.quest_desc: [
-		"Build a compost tumbler. Scraps turn to compost faster than they do in a heap."
+		"Build a compost tumbler and turn it by axle. It takes bones, fish and sherds too, and asks for no exact mix."
 	]
 	quest.31053371A45E76FF.title: "Compost Tumbler"
 	quest.3150B924AEF25965.quest_desc: [
@@ -1414,7 +1402,7 @@
 	]
 	quest.3150B924AEF25965.title: "Hollow Keystone"
 	quest.318CB6D6673E6B76.quest_desc: [
-		"Craft plastic blocks from HDPE and dye. They come in all sixteen colors."
+		"Craft plastic blocks from HDPE and dye. They come in all 16 colors."
 	]
 	quest.318CB6D6673E6B76.quest_subtitle: "Refined Gear, off \"HDPE\""
 	quest.318CB6D6673E6B76.title: "Plastic Blocks"
@@ -1448,7 +1436,7 @@
 	]
 	quest.32561F3017350CAF.title: "The Sign in the Corner"
 	quest.32B3BD93CA3C8CA0.quest_desc: [
-		"Boil latex with sulfur into rubber bars. Three bars make four belts, and wire will want them later."
+		"Tap a hevea or a rubber fig for latex and boil it with sulfur into rubber bars. Three bars make four belts."
 	]
 	quest.32B3BD93CA3C8CA0.title: "Rubber"
 	quest.32D33BE8EB20FCA6.quest_desc: [
@@ -1469,7 +1457,7 @@
 	]
 	quest.333133C7E32AE19D.title: "Aluminium Plates"
 	quest.3358C99F9F19A863.quest_desc: [
-		"Build a barrel press. Fruit and seed give up their juice and oil under its screw."
+		"Build a barrel press. Fermented grapes go in, and red, white or sparkling wine comes out."
 	]
 	quest.3358C99F9F19A863.title: "Barrel Press"
 	quest.336329A8F7223BF0.quest_desc: [
@@ -1477,7 +1465,7 @@
 	]
 	quest.336329A8F7223BF0.title: "Watering Can"
 	quest.3379918EB4503611.quest_desc: [
-		"Set a beehive in a meadow. Its frames give honey and beeswax; wear the beekeeper helmet near it."
+		"Set a beehive among flowers and bring a queen in a skep. Its frames fill with honey; a full beekeeper suit stops the stings."
 	]
 	quest.3379918EB4503611.title: "Beehive"
 	quest.33818E6B3089AF9E.quest_desc: [
@@ -1537,7 +1525,7 @@
 	]
 	quest.34A20DCC53F255CC.title: "Blast Furnace"
 	quest.3544B98B44E7DD28.quest_desc: [
-		"Fell a tree and wait. Saplings rise from the fallen leaves and the clearing fills. Dig one up."
+		"Leave a stand of trees beside a clearing. Their leaves seed saplings around them and the forest closes in. Dig one up."
 	]
 	quest.3544B98B44E7DD28.title: "Forests Close"
 	quest.354A9C13E074B572.quest_desc: [
@@ -1545,8 +1533,9 @@
 	]
 	quest.354A9C13E074B572.title: "Datura"
 	quest.35875349E1B00375.quest_desc: [
-		"Fit pistons to a large engine. Each adds its share to the turning."
+		"Make engine pistons from andesite alloy, a shaft and zinc. Every diesel engine is built around them."
 	]
+	quest.35875349E1B00375.quest_subtitle: "Diesel Engines, off \"Diesel Generator\""
 	quest.35875349E1B00375.title: "Engine Piston"
 	quest.35AFC9346F30C43A.quest_desc: [
 		"Fly the tier 3 rocket to Mercury and mine 16 raw naquadah there with a digital miner. No other tool reaches it."
@@ -1557,7 +1546,7 @@
 	]
 	quest.35EA1200D7712B4C.title: "Electrum Double Ingot"
 	quest.360F8121259AAE75.quest_desc: [
-		"Take a lump of jet from the cooled rock. It is black as the first night."
+		"Take a lump of jet from the rock beside lava. Each lava field grows its own mineral, so seek one that gives jet."
 	]
 	quest.360F8121259AAE75.title: "Black Jet"
 	quest.369057F8A5EDCD0C.quest_desc: [
@@ -1620,7 +1609,7 @@
 	]
 	quest.39CD760BC12D7E53.title: "Schematic Table"
 	quest.3A12C121F4CA3C7A.quest_desc: [
-		"Hang a rope from a beam or a bridge post. Climb it, lower a lamp on it, tie a gate to it."
+		"Hang a rope from a beam or a bridge post. Climb it, lower a lamp on it, tie it to a post."
 	]
 	quest.3A12C121F4CA3C7A.quest_subtitle: "Hearth Odds, off \"The Bronze Age Dawns\""
 	quest.3A12C121F4CA3C7A.title: "A Hanging Rope"
@@ -1629,7 +1618,7 @@
 	]
 	quest.3A44A36D7EE32C9C.title: "Iris"
 	quest.3A4CC2E27A1A6B30.quest_desc: [
-		"Stand a redstone pole and step in. It lifts you up the shaft as the wooden pole let you down."
+		"Stand a redstone pole and power it. Grab it and you slide up the shaft as the wooden pole let you down."
 	]
 	quest.3A4CC2E27A1A6B30.title: "Lift Pole"
 	quest.3A5D0F3FAA56A074.quest_desc: ["Copper ore pieces lie on the surface above copper veins."]
@@ -1678,7 +1667,7 @@
 	]
 	quest.3BAC7E39FA05241C.title: "In Flux"
 	quest.3BC6283B6C5CF1A4.quest_desc: [
-		"Craft a logic gauge. It holds a rule: when this stock is high and that one low, send the order."
+		"Craft a logic gauge. It joins signals as AND or OR, and it can hold a factory gauge back until the rule is met."
 	]
 	quest.3BC6283B6C5CF1A4.title: "Logic Gauge"
 	quest.3C03E230F16471D7.quest_desc: [
@@ -1699,11 +1688,11 @@
 	quest.3C8510408C6A23D6.quest_subtitle: "Goal of the Quantum Age"
 	quest.3C8510408C6A23D6.title: "Quantum Core"
 	quest.3C9D31349113519E.quest_desc: [
-		"Build an energy storage cell. A laser line fills it and it hands the power on when asked."
+		"Build an energy store of casing and ports with cells inside. Each cell deepens the store, and its ports take and give power."
 	]
 	quest.3C9D31349113519E.title: "Energy Storage Cell"
 	quest.3C9E8304B6F53808.quest_desc: [
-		"Craft a wyvern necklace. It is the first link of the chain and marks the road you walked."
+		"Craft a wyvern necklace. Worn at the throat, it carries armor modules as a chestplate does."
 	]
 	quest.3C9E8304B6F53808.quest_subtitle: "Chain of Necklaces, off \"Chaos Fragments\""
 	quest.3C9E8304B6F53808.title: "Wyvern Necklace"
@@ -1718,17 +1707,17 @@
 	quest.3D1D49324454F634.quest_desc: ["Make a full space suit. Off-world it carries your air."]
 	quest.3D1D49324454F634.title: "Space Suit"
 	quest.3D68BFAEB3205167.quest_desc: [
-		"Inject a crystal with gas and it becomes a shard. The shard holds more metal than the crystal did."
+		"Feed ore pieces and hydrogen chloride to an injection chamber. They break into shards, a rung above clumps."
 	]
 	quest.3D68BFAEB3205167.title: "Shards"
 	quest.3E3CE4C327FE1A6A.quest_desc: [
-		"Load a program into a spell bullet. The CAD casts it as a shot, a mine or a loop."
+		"Load a program into a spell bullet and slot it in the CAD. Other bullets cast it as a shot, a mine or a loop."
 	]
 	quest.3E3CE4C327FE1A6A.title: "Spell Bullet"
 	quest.3E966315791F2727.quest_desc: [
-		"Bismuth bronze and black bronze make sharper heads. Each metal of a later Age reads farther down."
+		"Make a mineral prospector. It searches a great cube around the blow, but only for ores that are not metal."
 	]
-	quest.3E966315791F2727.title: "Better Heads"
+	quest.3E966315791F2727.title: "Mineral Prospector"
 	quest.3EAA8BE972DC58F9.quest_desc: [
 		"Alloy copper and zinc into brass, by hand in the crucible or in a basin over a fuel heater."
 	]
@@ -1753,7 +1742,7 @@
 	]
 	quest.3F2796853AD668B5.title: "Storm Glass"
 	quest.3F3FE750CB712E39.quest_desc: [
-		"Craft the altar that joins two arts. Spirits and source work side by side at it."
+		"Craft the sacrificial altar. It holds a ritual in place of the golden bowl and pays its cost in source from nearby jars."
 	]
 	quest.3F3FE750CB712E39.title: "The Joined Altar"
 	quest.3F543B7459A71C09.quest_desc: [
@@ -1795,7 +1784,7 @@
 	quest.410089BAECE00BB6.quest_subtitle: "Wheels of the Field, off \"Water Wheel\""
 	quest.410089BAECE00BB6.title: "Cart Wheel"
 	quest.41040BCCCFEF6572.quest_desc: [
-		"Raise a tower on girder struts. Struts brace tall builds and long spans."
+		"Span a gap with girder struts. They run straight or at an angle between two anchor points."
 	]
 	quest.41040BCCCFEF6572.title: "Girder Strut"
 	quest.4151345FA96F7BF6.quest_desc: [
@@ -1815,7 +1804,7 @@
 	]
 	quest.41B46B0D9C0E8AB4.title: "Zinc on the Surface"
 	quest.41EB0942305C67D2.quest_desc: [
-		"Cast fleshing blades for the fleshing machine of the next Age. The last scraper dies out with them."
+		"Craft fleshing blades now for the fleshing machine of the next Age. Fitted to it, they scrape hides with no hand on the knife."
 	]
 	quest.41EB0942305C67D2.title: "Fleshing Blades"
 	quest.41F6B8884809B526.quest_desc: [
@@ -1849,7 +1838,7 @@
 	quest.4343CC0402E9CAFA.quest_subtitle: "Gauges and Ledgers, off \"Factory Gauge\""
 	quest.4343CC0402E9CAFA.title: "Network Link"
 	quest.43C52E01ADB93C69.quest_desc: [
-		"Craft a chaotic necklace, the last link of the chain, and wear it. It shows how far you came."
+		"Craft a chaotic necklace, the last link of the chain, and fill it with your strongest modules."
 	]
 	quest.43C52E01ADB93C69.title: "Chaotic Necklace"
 	quest.43EE716147A43CFE.quest_desc: [
@@ -1873,7 +1862,7 @@
 	]
 	quest.448BD3A078F6BB33.title: "Train Door"
 	quest.44968B0BE887DA25.quest_desc: [
-		"Crush andesite into powder and wash it in a basin. The cleaner the powder, the more it is worth."
+		"Hammer loose dacite or basalt into powder and wash it in a barrel of water. Welded to iron or zinc, it makes andesite alloy."
 	]
 	quest.44968B0BE887DA25.quest_subtitle: "Mechanical Odds, off \"Crushing Wheels\""
 	quest.44968B0BE887DA25.title: "Andesite Powder"
@@ -1913,9 +1902,9 @@
 	]
 	quest.45A2C462480FC269.title: "Mechanical Grindstone"
 	quest.46601FCDB82F1D6F.quest_desc: [
-		"Boil maple or birch sap down to syrup. Sweet food keeps a winter camp cheerful."
+		"Boil maple or birch sap to syrup in a pot, then craft the syrup into sugar. Sweet food keeps a winter camp cheerful."
 	]
-	quest.46601FCDB82F1D6F.title: "Syrup"
+	quest.46601FCDB82F1D6F.title: "Syrup and Sugar"
 	quest.46A84ED2704A67FB.quest_desc: [
 		"Carry a portable stock ticker. Order from your stores wherever you walk."
 	]
@@ -1959,11 +1948,11 @@
 	quest.47EADFDE57EAF836.quest_subtitle: "The shrine ring of the Stone Age"
 	quest.47EADFDE57EAF836.title: "Hearth Circle"
 	quest.48005F99E5E4AF80.quest_desc: [
-		"Craft a spell book of one element. Its spells are tuned to fire, air, earth or water."
+		"Search fortress and bastion chests for a caster tome of one element. It casts its written spell with no glyphs of your own."
 	]
 	quest.48005F99E5E4AF80.title: "An Element Tome"
 	quest.48429F79B39E7C02.quest_desc: [
-		"Craft the book of the deep. It shows what grows, burns and bites below."
+		"Find a blank tome in a fortress or bastion chest. Inscribed on an ancient altar with a cut gem, it carries one enchantment."
 	]
 	quest.48429F79B39E7C02.quest_subtitle: "The Hot Dark, off \"The Way Below\""
 	quest.48429F79B39E7C02.title: "Book of the Deep"
@@ -1992,7 +1981,7 @@
 	quest.486B7720D498A44B.quest_subtitle: "Old Stones, off \"The Stone Age Dawns\""
 	quest.486B7720D498A44B.title: "A Fallen House"
 	quest.4873B8AFF7C2489F.quest_desc: [
-		"Craft a keg and fill it. Wine rests in it until it is worth drinking."
+		"Craft a keg, a barrel two blocks high and wide. It holds far more goods or fluid than a plain barrel."
 	]
 	quest.4873B8AFF7C2489F.title: "Keg"
 	quest.48803AB38AE3E466.quest_desc: [
@@ -2002,7 +1991,7 @@
 	]
 	quest.48803AB38AE3E466.title: "Hands and Keys"
 	quest.48FEA2290AA48A7E.quest_desc: [
-		"Hang curds in cheesecloth and age the wheel in a cool cellar. It keeps for seasons."
+		"Seal curdled milk with cheesecloth in a barrel for curds, then age the wheel in a cellar. It keeps for seasons."
 	]
 	quest.48FEA2290AA48A7E.title: "A Wheel of Cheese"
 	quest.48FECE3C222A44BF.quest_desc: [
@@ -2062,7 +2051,7 @@
 	]
 	quest.4AD5DA22A64D9944.title: "Energy Transformer"
 	quest.4B3E22FB31AA68AE.quest_desc: [
-		"Cast a bronze drill and fit it to a haft. It reads the rock where the pick only guesses."
+		"Fit a bronze drill head to two sticks. Strike a rock face and it reads a long, narrow column behind it."
 	]
 	quest.4B3E22FB31AA68AE.title: "Prospector Drill"
 	quest.4B5686EB34477AC2.quest_desc: [
@@ -2080,7 +2069,7 @@
 	]
 	quest.4C78408E6835BC56.title: "Hunter"
 	quest.4C9313FE2FCD30AD.quest_desc: [
-		"A goblin of the veins trades in the Nether, for ore and goods of the deep. Trade it for a shroomlight or a gleamflower seed."
+		"A goblin of the veins trades in the Nether for silk, hides and cloth. Trade it for a shroomlight or a gleamflower seed."
 	]
 	quest.4C9313FE2FCD30AD.title: "The Vein Goblin"
 	quest.4CA32185961FD920.quest_desc: [
@@ -2121,7 +2110,7 @@
 	]
 	quest.4E069E7BCFBE1D68.title: "The Cold Forge"
 	quest.4E67382814C86929.quest_desc: [
-		"Wear a haversack. A second store rides on your back and opens without a table."
+		"Bind a handy haversack to a chest. Right-click items onto it and they land in that chest from anywhere."
 	]
 	quest.4E67382814C86929.title: "Handy Haversack"
 	quest.4E834A3270A36576.quest_desc: [
@@ -2149,7 +2138,7 @@
 	]
 	quest.4F513B23D9320098.title: "The Ultimate Singularity"
 	quest.4F7A0CECA30BE9CE.quest_desc: [
-		"Build a locomotive boiler and heat it with a blaze burner. Steam gives the engine its breath."
+		"Build a locometal boiler for the engine. It gives the locomotive its body; the train itself runs without fuel."
 	]
 	quest.4F7A0CECA30BE9CE.title: "Boiler"
 	quest.4F807EAA363A03FC.quest_desc: [
@@ -2165,7 +2154,7 @@
 	]
 	quest.4F89B63F08027F21.title: "Simulation"
 	quest.4FBD526C99D8B97C.quest_desc: [
-		"Craft a wooden transformer. It hands the rotation of your machines to wooden wheels and mills at the same speed."
+		"Craft a wooden transformer. It hands the rotation of your shafts to wooden axles at the same speed."
 	]
 	quest.4FBD526C99D8B97C.title: "Wooden Transformer"
 	quest.4FC3CDC1654522C0.quest_desc: [
@@ -2184,7 +2173,7 @@
 	]
 	quest.5032B9C3899A4044.title: "Workbench"
 	quest.50B16E3D332F89A1.quest_desc: [
-		"Build an infusion altar with four pedestals. Seeds of higher tiers are woven there from lesser ones."
+		"Build an infusion altar with eight pedestals. Seeds of higher tiers are woven there from lesser ones."
 	]
 	quest.50B16E3D332F89A1.title: "Infusion Altar"
 	quest.50B1CD95742F5B7B.quest_desc: [
@@ -2192,17 +2181,17 @@
 	]
 	quest.50B1CD95742F5B7B.title: "Pumpjack"
 	quest.513536825A512E7C.quest_desc: [
-		"Gather the essence of two elements fused. It is the thread of every dual robe."
+		"Imbue an essence of two elements fused, such as cinder from fire and air. It is the thread of every dual robe."
 	]
 	quest.513536825A512E7C.quest_subtitle: "Elemental Robes, off \"Bind an Afrit\""
 	quest.513536825A512E7C.title: "Elemental Essence"
 	quest.515B6E8052E75DC3.quest_desc: [
-		"Craft reinforced brass casing. The spawner and its cell are built of it."
+		"Apply an iron block to brass casing for reinforced casing. It is the wall stone of a spawner hall."
 	]
 	quest.515B6E8052E75DC3.quest_subtitle: "Mobs and Wings, off \"Mechanical Spawner\""
 	quest.515B6E8052E75DC3.title: "Reinforced Casing"
 	quest.51BC07FECD1154CB.quest_desc: [
-		"Craft an empty pattern schematic. Written once, it lets deployer trains and cannons repeat one design."
+		"Craft an empty pattern schematic and write a schematic to it at the table. The cannon then repeats the design side by side."
 	]
 	quest.51BC07FECD1154CB.title: "Pattern Schematic"
 	quest.51D1F56529776258.quest_desc: [
@@ -2251,7 +2240,7 @@
 	]
 	quest.53348C90243DE4F0.title: "One Fellowship"
 	quest.5338C416BA1F348B.quest_desc: [
-		"A hellshelf or a seashelf lifts the table past level thirty. Quanta and Arcana grow with them."
+		"A hellshelf or a seashelf lifts the table past level 30. Quanta and Arcana grow with them."
 	]
 	quest.5338C416BA1F348B.title: "Hell and Sea"
 	quest.533C7CC2EEA570E4.quest_desc: [
@@ -2291,7 +2280,7 @@
 	]
 	quest.55A04983F152F598.title: "Stations Retire"
 	quest.55D1BCCE8D10146E.quest_desc: [
-		"Set a draconic pattern provider. Patterns of the last Age guide the fusion, and the engineering processor comes from your network."
+		"Set a draconic pattern provider by the fusion core. The network then sends fusion crafting jobs to it like any pattern."
 	]
 	quest.55D1BCCE8D10146E.title: "Draconic Patterns"
 	quest.5628873FCDD13028.quest_desc: [
@@ -2299,7 +2288,7 @@
 	]
 	quest.5628873FCDD13028.title: "Starbuncle"
 	quest.562F75E577567E32.quest_desc: [
-		"Set a pulverizer under a spirit. It crushes what a spirit can crush, and yields more than the wheel."
+		"Turn a mechanical pulverizer by shaft. It crushes whatever a crusher spirit can, with no spirit bound to it."
 	]
 	quest.562F75E577567E32.title: "Mechanical Pulverizer"
 	quest.56540F254F25E020.quest_desc: [
@@ -2316,7 +2305,7 @@
 	quest.571394917C105C6B.quest_subtitle: "Pattern Halls, off \"Molecular Assembler\""
 	quest.571394917C105C6B.title: "Extended Pattern Provider"
 	quest.5739BF626921BBC3.quest_desc: [
-		"Lay inferium farmland. Resource crops thrive on it and the lower tiers grow faster."
+		"Lay inferium farmland. Crops planted on it often drop a second seed, more so crops of its own tier."
 	]
 	quest.5739BF626921BBC3.quest_subtitle: "Essence Farms, off \"Resource Crops\""
 	quest.5739BF626921BBC3.title: "Inferium Farmland"
@@ -2391,7 +2380,7 @@
 	quest.589B89079D60A34B.quest_subtitle: "The shrine ring of the Space Age"
 	quest.589B89079D60A34B.title: "Star Spire"
 	quest.58FF93CB8B9AA47F.quest_desc: [
-		"Set a bee port on a roof. Bees carry parcels to it across any distance."
+		"Set a bee port and load a robo bee. It flies a parcel addressed to a friend straight to them."
 	]
 	quest.58FF93CB8B9AA47F.title: "Bee Port"
 	quest.5959E93431484DD5.quest_desc: [
@@ -2399,7 +2388,7 @@
 	]
 	quest.5959E93431484DD5.title: "Firmament Alloy"
 	quest.598991B51FCE284F.quest_desc: [
-		"Take lithium from the line. The ingot feeds the batteries and the fusion fuel of the last Ages."
+		"Crystallize lithium from brine and smelt the dust into an ingot. The fusion fuel of the last Ages is bred from lithium."
 	]
 	quest.598991B51FCE284F.title: "Lithium"
 	quest.598B671102148097.quest_desc: [
@@ -2407,12 +2396,12 @@
 	]
 	quest.598B671102148097.title: "Launch Complex"
 	quest.59B152077A8E7D71.quest_desc: [
-		"Cast an aviation alloy ingot. Light as aluminium, it stands the heat of a turbine."
+		"Mix iron with netherite powder over a superheated burner. The aviation alloy ingot stands the heat of a turbine."
 	]
 	quest.59B152077A8E7D71.quest_subtitle: "Jet Works, off \"Refined Diesel\""
 	quest.59B152077A8E7D71.title: "Aviation Alloy"
 	quest.5A0FF2D693DE411D.quest_desc: [
-		"Build a hull and set a physics assembler on it. The ship comes alive and floats free of the ground."
+		"Glue a hull together and pull the lever of a physics assembler. The whole frame becomes one body with weight."
 	]
 	quest.5A0FF2D693DE411D.quest_subtitle: "Ships in the Sky, off \"Airship\""
 	quest.5A0FF2D693DE411D.title: "Physics Assembler"
@@ -2440,7 +2429,7 @@
 	quest.5B849EF8FE147622.quest_desc: ["Reinforced blast bricks and preheaters make steel faster."]
 	quest.5B849EF8FE147622.title: "Improved Blast Furnace"
 	quest.5BCEF3BCCD6A832E.quest_desc: [
-		"Keep a torch lit below Y 40. A thing walks the dark caves until iron is yours. See it once."
+		"Go below Y 0 into the deep caves. A pale thing hunts there until iron is yours. See it once."
 	]
 	quest.5BCEF3BCCD6A832E.title: "The Pale Watcher"
 	quest.5C0BB2F0411B50A4.quest_desc: [
@@ -2462,15 +2451,15 @@
 	]
 	quest.5C1B3FA3E42205BB.title: "Rare Goods"
 	quest.5C56E1A066E7C72A.quest_desc: [
-		"Grow an energy crystal. A gate that is dialed costs more than a reactor can give in one breath."
+		"Grow an energy crystal. Set in a device of the gate, it stores power and raises its energy target."
 	]
 	quest.5C56E1A066E7C72A.title: "Energy Crystal"
 	quest.5C65563268425F2A.quest_desc: [
-		"Cut a coconut from a palm and open it at the barrel. Its milk and meat feed a camp."
+		"Cut a coconut from palm leaves and crack it with a stone. Sneak and right-click a barrel with it for juice and meat."
 	]
 	quest.5C65563268425F2A.title: "Coconut"
 	quest.5C703A0D82A3D9DA.quest_desc: [
-		"Make a drill head mold of fire clay. Cast the drill head in it."
+		"Knap a drill head mold from clay and fire it. Cast the drill head in it."
 	]
 	quest.5C703A0D82A3D9DA.quest_subtitle: "Prospector's Kit, off \"Prospector\""
 	quest.5C703A0D82A3D9DA.title: "Drill Head Mold"
@@ -2500,7 +2489,7 @@
 	]
 	quest.5E15ECD059F8730C.title: "Glass Pole"
 	quest.5E9A4477F8B0C84D.quest_desc: [
-		"Set a stress converter on a shaft and let the wheel turn your quern and bellows. Hands are for better work now."
+		"Set a stress converter on a shaft. Its turning drives axles of the old kind, and the quern turns without a hand."
 	]
 	quest.5E9A4477F8B0C84D.quest_subtitle: "Torque and Connect, off \"Mechanical Saw\""
 	quest.5E9A4477F8B0C84D.title: "Torque"
@@ -2534,7 +2523,7 @@
 	quest.5F74A3FDB04E14F6.quest_subtitle: "The fifth Age"
 	quest.5F74A3FDB04E14F6.title: "The Industrial Age Dawns"
 	quest.5F78BC82C07FA1BE.quest_desc: [
-		"An umbrella keeps off the rain and slows a fall. Hold it up when the sky opens."
+		"An umbrella slows a fall while you hold it, and it turns a blow like a shield. Hold it up when the sky opens."
 	]
 	quest.5F78BC82C07FA1BE.title: "Umbrella"
 	quest.6001BDFB1A5EFECE.quest_desc: [
@@ -2562,7 +2551,6 @@
 	quest.61D8A94B3B41AF71.quest_desc: [
 		"Build a diesel engine. It turns a pipe of diesel into rotation in a small frame."
 	]
-	quest.61D8A94B3B41AF71.quest_subtitle: "Diesel Engines, off \"Diesel Generator\""
 	quest.61D8A94B3B41AF71.title: "Diesel Engine"
 	quest.61EE57DC75EED266.quest_desc: [
 		"Feed the bloomery by machine and collect 32 wrought iron ingots from the line."
@@ -2573,7 +2561,7 @@
 	]
 	quest.621572E49939AC7D.title: "Quantum Accelerator"
 	quest.62301EA77A69B720.quest_desc: [
-		"Set a pump in the flue. It pulls smoke along a long run where the draught fails."
+		"Set a stone pump by a fire and give it a redstone signal. It draws the smoke away into the flue."
 	]
 	quest.62301EA77A69B720.title: "Stone Pump"
 	quest.623C908B3CDF2E3E.quest_desc: [
@@ -2601,6 +2589,7 @@
 	quest.6362434FA320A007.quest_desc: [
 		"Build a chemixer. It mixes chemicals and items in one stroke."
 	]
+	quest.6362434FA320A007.quest_subtitle: "Evolved Factories, off \"Subatomic Alloy\""
 	quest.6362434FA320A007.title: "Chemixer"
 	quest.63A1F4DCDC41DC00.quest_desc: [
 		"Wear the robes of a single element. They suit casters of fire, air, earth or water."
@@ -2631,7 +2620,7 @@
 	]
 	quest.641FB17315FC626A.title: "Doors That Slide"
 	quest.645C0C2F787D0E66.quest_desc: [
-		"Craft a grave. If you fall, your goods rest where you died. Right-click it to take them back."
+		"Craft a grave. Should you fall, one rises where you died and keeps your goods; break it to take them back."
 	]
 	quest.645C0C2F787D0E66.title: "Grave"
 	quest.647F6707C7F51449.quest_desc: [
@@ -2639,7 +2628,7 @@
 	]
 	quest.647F6707C7F51449.title: "Semaphore"
 	quest.64BC23A64CDCB0FA.quest_desc: [
-		"Eat a supremium apple. It heals and shields for long hours, and the wounds of the Quantum Age close."
+		"Craft a supremium apple from a golden apple and essence. It heals and shields you for a time."
 	]
 	quest.64BC23A64CDCB0FA.title: "Supremium Apple"
 	quest.64CDFFD93C9CBDCE.quest_desc: [
@@ -2686,10 +2675,6 @@
 		"Set a Starbuncle in a wheel. It turns shafts without water or wind."
 	]
 	quest.6567773B43A82031.title: "Starbuncle Wheel"
-	quest.659C6CEFF5A3823F.quest_desc: [
-		"Craft a walkie-talkie. Friends on one channel talk across the whole world."
-	]
-	quest.659C6CEFF5A3823F.title: "Walkie-Talkie"
 	quest.659EBC46D8F70B24.quest_desc: [
 		"Sourcelinks turn fuel, growth or life around them into source. Store it in source jars."
 	]
@@ -2715,7 +2700,7 @@
 	]
 	quest.6617FD431A7EFA87.title: "Cloudsteel"
 	quest.6623ADA8B4009C1B.quest_desc: [
-		"Open ruin chests until a trinket lies among the flint and yarn. One chest in eight holds one."
+		"Open ruin chests until a trinket lies among the flint and yarn. Now and then a chest holds one."
 	]
 	quest.6623ADA8B4009C1B.quest_subtitle: "Ruin Trinkets, off \"The Bronze Age Dawns\""
 	quest.6623ADA8B4009C1B.title: "A Trinket"
@@ -2729,11 +2714,11 @@
 	quest.663A4EAE1B3FAF8C.quest_subtitle: "Goal of the Industrial Age"
 	quest.663A4EAE1B3FAF8C.title: "Pressure Core"
 	quest.664583FF7A5FA49E.quest_desc: [
-		"Raise a tipi of hide and poles. A camp with a totem and a tipi feels settled."
+		"Raise a tipi of hide or wool and poles. You can sleep in it out in the open field."
 	]
 	quest.664583FF7A5FA49E.title: "Tipi"
 	quest.665C0FA04D3E6C59.quest_desc: [
-		"Cast a bronze hammer and strike the rock. It answers with what lies below."
+		"Fit a bronze hammer head to a stick and strike the rock. It searches a small cube around the blow."
 	]
 	quest.665C0FA04D3E6C59.title: "Prospector Hammer"
 	quest.66EB6D8730E3AB2D.quest_desc: [
@@ -2766,7 +2751,7 @@
 	]
 	quest.67CA15BF14B359A8.title: "Fusion Crafting"
 	quest.67D2B7F30B2F443D.quest_desc: [
-		"Go deep and find a goblin trader below the surface. It walks the dark with a pack of goods and pays fruit in seed."
+		"Go deep and find a goblin trader below the surface. It walks the dark with a pack of goods and pays seed for fruit."
 	]
 	quest.67D2B7F30B2F443D.quest_subtitle: "Goblins Below, off \"Gatherer\""
 	quest.67D2B7F30B2F443D.title: "Fruit for Seed"
@@ -2775,7 +2760,7 @@
 	]
 	quest.680BF7D02202F292.title: "Ghost Pepper"
 	quest.68514035FFA8720F.quest_desc: [
-		"Build a plow and hitch it to a beast. It tills the ground, lays paths and strips logs as it goes."
+		"Build a plow, fit a hoe in it and hitch it to a beast. It tills the ground in rows as it walks."
 	]
 	quest.68514035FFA8720F.title: "Plow"
 	quest.687CBF7A7AA65BF4.quest_desc: [
@@ -2798,7 +2783,7 @@
 	quest.68A4B5AC4EBE2085.quest_subtitle: "Goal of the Industrial Age: Caelum opens the Electric Age"
 	quest.68A4B5AC4EBE2085.title: "Offer the Pressure Core at the Shrine"
 	quest.68B8F92E23663113.quest_desc: [
-		"Set a laser source on a ledge. A bridge of hard light crosses the gap in front of it."
+		"Power a laser source on a ledge. A bridge of hard light crosses the gap, and a stronger signal reaches farther."
 	]
 	quest.68B8F92E23663113.quest_subtitle: "Light Bridges, off \"Launch Pad\""
 	quest.68B8F92E23663113.title: "Laser Source"
@@ -2809,7 +2794,7 @@
 	quest.692BE6A196CEF07F.quest_desc: ["Land on the Moon. Desh lies in its rock."]
 	quest.692BE6A196CEF07F.title: "The Moon"
 	quest.692D420F38A7CC69.quest_desc: [
-		"Craft an Akashic Tome. Sneak and right-click a handbook onto it, and all your guides share one slot."
+		"Craft an Akashic Tome and craft your handbooks into it. Sneak and right-click to turn it to the one you need."
 	]
 	quest.692D420F38A7CC69.quest_subtitle: "Elemental Arts, off \"Apprentice Spellbook\""
 	quest.692D420F38A7CC69.title: "One Book"
@@ -2834,7 +2819,7 @@
 	]
 	quest.69FBE953FD290F68.title: "Calorite"
 	quest.6A0550CA8D053A1A.quest_desc: [
-		"Snowshoes carry you over deep snow. Winter stops being a wall."
+		"Snowshoes carry you over powder snow and quicken your step on snow. Winter stops being a wall."
 	]
 	quest.6A0550CA8D053A1A.title: "Snowshoes"
 	quest.6A1C715211FCA0FB.quest_desc: ["Two black steel double sheets for the Pressure Core."]
@@ -2872,13 +2857,12 @@
 	]
 	quest.6A2C745F47AF776B.title: "Frontier Compass"
 	quest.6A84AF4A8D4A7FBA.quest_desc: [
-		"Lay a duct where several pipes meet. It gathers the smoke of a whole smithy into one stack."
+		"Lay ducts to lead smoke sideways. They join chimneys round corners, so many fires share one stack."
 	]
 	quest.6A84AF4A8D4A7FBA.title: "Smoke Duct"
 	quest.6ADB4DA20F502E35.quest_desc: [
-		"Make psidust. It is the ink of every spell, and the metal of the CAD is made from it."
+		"Assemble a bare CAD from an iron assembly and cast it at redstone dust on the ground. The burst makes psidust."
 	]
-	quest.6ADB4DA20F502E35.quest_subtitle: "Programming Magic, off \"Archmage\""
 	quest.6ADB4DA20F502E35.title: "Psidust"
 	quest.6B502DAD3EAE52D5.quest_desc: [
 		"The apprentice spellbook holds the stronger glyphs you need against the Wilden Chimera."
@@ -2943,7 +2927,7 @@
 	]
 	quest.6E4438CCF1A5BF3D.title: "Frontier Relic"
 	quest.6EBC0FF61E331733.quest_desc: [
-		"Build a gem cutting table. A gem is cut to higher purity here, with dust and a worthy stone."
+		"Build a gem cutting table. A gem, gem dust and a rarity material go in, and the gem comes out of higher purity."
 	]
 	quest.6EBC0FF61E331733.quest_subtitle: "Gems and Sigils, off \"Enchanting Apparatus\""
 	quest.6EBC0FF61E331733.title: "Gem Cutting Table"
@@ -3036,7 +3020,7 @@
 	]
 	quest.72E155A942A5A2F6.title: "Electronics"
 	quest.72F6DBF63A22264B.quest_desc: [
-		"Craft a trash can. What you drop in is gone for good, so keep it away from the chests."
+		"Craft a trash can. It destroys what you drop in, and its filter can limit it to the junk you name."
 	]
 	quest.72F6DBF63A22264B.title: "Trash Can"
 	quest.7317EE63A824831B.quest_desc: ["Craft a jetpack. It flies on compressed air from its tank."]
@@ -3054,7 +3038,7 @@
 	]
 	quest.73D3949D8DE47C1A.title: "Reactor Fuel"
 	quest.7437CB9426CFA902.quest_desc: [
-		"Fit a smokestack for wood, coal or oil. It lets the locomotive burn what you have."
+		"Fit a smokestack for wood, coal or oil. It puffs the smoke of its kind while the train runs."
 	]
 	quest.7437CB9426CFA902.title: "Smokestack"
 	quest.7448E77754C5FDAD.quest_desc: [
@@ -3106,7 +3090,7 @@
 	]
 	quest.7633534E257B8AD8.title: "Alternator"
 	quest.7667B0006A9F5393.quest_desc: [
-		"Set a hydroponic planter in the greenhouse. Its crops grow in water instead of soil."
+		"Set a hydroponic planter over a sprinkler pipe. Rice and cranberries grow in it with no watering can."
 	]
 	quest.7667B0006A9F5393.title: "Hydroponic Planter"
 	quest.76AD68F8436EBAC0.quest_desc: [
@@ -3137,7 +3121,7 @@
 	]
 	quest.7755ECDE0FFE3821.title: "The Shrine Heart"
 	quest.7790A6723360B877.quest_desc: [
-		"Purify shards in oxygen into clumps of nickel or zinc. Every step on the ladder gives back more than the last."
+		"Purify ore pieces in oxygen into clumps of nickel or zinc. Clumps sit one rung below shards."
 	]
 	quest.7790A6723360B877.title: "Clumps"
 	quest.7794323527566501.quest_desc: [
@@ -3145,11 +3129,11 @@
 	]
 	quest.7794323527566501.title: "A Pot of Soup"
 	quest.785E11655A4373F7.quest_desc: [
-		"White needles grow where the vents run cold. Gather saltpeter."
+		"White needles crust the rim of some hot springs. Gather saltpeter where they grow."
 	]
 	quest.785E11655A4373F7.title: "Saltpeter"
 	quest.7862543503C7427F.quest_desc: [
-		"Make psimetal from psidust and an ingot. Its tools and exosuit hold spells in the metal itself."
+		"Cast an infusion spell at a gold ingot to turn it into psimetal. Its tools and exosuit hold spells in the metal itself."
 	]
 	quest.7862543503C7427F.title: "Psimetal"
 	quest.7883DC5AF7968152.quest_desc: [
@@ -3161,7 +3145,7 @@
 	]
 	quest.788DBBB6DC2F675A.title: "Snorkel and Flippers"
 	quest.78BC50AA2EA84FAF.quest_desc: [
-		"Build a stainless steel vat. Milk, juice and brine are worked in it in great measure."
+		"Set a stainless steel vat on an oven. It boils sugar water, jam and sauces in great measure."
 	]
 	quest.78BC50AA2EA84FAF.title: "Vat"
 	quest.78BCBA6ED2298E76.quest_desc: [
@@ -3237,7 +3221,7 @@
 	]
 	quest.79F8E831F68430F0.title: "A Lift"
 	quest.7A112170DDA4569A.quest_desc: [
-		"Build a mobile packager. A parcel can leave the base on the back of a cart or a ship."
+		"Carry a mobile packager. It wraps and addresses parcels in your hands, wherever you stand."
 	]
 	quest.7A112170DDA4569A.title: "Mobile Packager"
 	quest.7A1EFBE16BED1D0E.quest_desc: [
@@ -3249,15 +3233,15 @@
 	]
 	quest.7A8400A11F9672D2.title: "Schedule"
 	quest.7AA47D3B7EF4F22D.quest_desc: [
-		"Carry an undying charm. When the last blow lands, it keeps death at the door once."
+		"Carry a charm of second wind. When the last blow lands, it keeps death at the door while its charge lasts."
 	]
-	quest.7AA47D3B7EF4F22D.title: "Undying Charm"
+	quest.7AA47D3B7EF4F22D.title: "Second Wind"
 	quest.7AB56731725A5ABE.quest_desc: [
 		"Keep a shard from The Primordial's last phase: they lie a minute and never come again. Four glass and a shard make four Firmament Glass."
 	]
 	quest.7AB56731725A5ABE.title: "A Piece of the Sky"
 	quest.7AD930D88D608D2B.quest_desc: [
-		"Craft a destruction gadget. It clears a marked cube of ground at the cost of power."
+		"Craft a destruction gadget. It clears a marked cube of blocks at the cost of power."
 	]
 	quest.7AD930D88D608D2B.title: "Destruction Gadget"
 	quest.7B0276B3AACDABA7.quest_desc: [
@@ -3273,7 +3257,7 @@
 	]
 	quest.7C878DBD5BA844AA.title: "Brick Chimney"
 	quest.7CAFD457060E1D38.quest_desc: [
-		"Grow a nether star shard from its crop. Four such stars spare you the hunt for the Wither."
+		"Craft a nether star shard from the essence of its crop. Three shards make a star, and the Wither can rest."
 	]
 	quest.7CAFD457060E1D38.title: "Nether Star Shard"
 	quest.7CBAA4C9C912A97A.quest_desc: [
@@ -3293,11 +3277,11 @@
 	]
 	quest.7D4E607C9802B193.title: "Cell Dock"
 	quest.7D63696AE5DD4462.quest_desc: [
-		"Build a simple reforging table. It rolls the affixes of a piece anew, for a price in dust."
+		"Build a simple reforging table. It rolls the affixes of a piece anew for rarity materials and sigils of rebirth."
 	]
 	quest.7D63696AE5DD4462.title: "Reforging"
 	quest.7D7123962985F669.quest_desc: [
-		"Raise a MEGA crafting unit with accelerators. One storage of a million bytes feeds a whole factory of jobs."
+		"Raise a MEGA crafting unit, the frame of a greater crafting computer. Its storage blocks hold jobs too big for the old one."
 	]
 	quest.7D7123962985F669.title: "MEGA Crafting Unit"
 	quest.7D79D0CCA81D025B.quest_desc: [
@@ -3306,7 +3290,7 @@
 	]
 	quest.7D79D0CCA81D025B.title: "Drawbridge"
 	quest.7E170B2C5BDCD664.quest_desc: [
-		"Craft a counter gauge. It counts what passes and signals when the count is reached."
+		"Craft a counter gauge. It counts redstone pulses and gives a signal when the count is reached."
 	]
 	quest.7E170B2C5BDCD664.title: "Counter Gauge"
 	quest.7E2D0099177BFBE8.quest_desc: [
@@ -3510,7 +3494,7 @@
 	task.6755E71F147BB3D1.title: "Slay the Ender Dragon (optional)"
 	task.67C61DC00BBA458E.title: "Super glue"
 	task.68337F48FE1A4BB2.title: "Feed 3,584 calorite ingots into Tally Chutes"
-	task.685C0BF55B387E11.title: "Put down sixteen of the dead"
+	task.685C0BF55B387E11.title: "Put down 16 of the dead"
 	task.68DDEBC52D237F8A.title: "Read the build guide"
 	task.6912FF34FC324B3D.title: "Look at your placed Shrine Heart"
 	task.6979E53DBE2CBE0F.title: "Grind 32 flux"

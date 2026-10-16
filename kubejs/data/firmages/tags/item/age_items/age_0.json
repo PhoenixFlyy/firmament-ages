@@ -822,7 +822,6 @@
     {"id": "supplementaries:timber_brace", "required": false},
     {"id": "supplementaries:timber_cross_brace", "required": false},
     {"id": "supplementaries:timber_frame", "required": false},
-    {"id": "tfc:bucket/metal/copper", "required": false},
     {"id": "tfc:deposit/native_copper/andesite", "required": false},
     {"id": "tfc:deposit/native_copper/basalt", "required": false},
     {"id": "tfc:deposit/native_copper/chalk", "required": false},

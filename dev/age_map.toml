@@ -1734,6 +1734,11 @@ mods = { mcwfurnitures = "mcfur", handcrafted = "hc", mcwwindows = "mcw", mcwdoo
 "adchimneys:stone_pump" = "age_2"
 "advancedtfctech:fleshing_machine" = "age_5"
 "aeronautics:levitite_blend_bucket" = "age_5"
+"afc:bucket/birch_sap" = "age_5"
+"afc:bucket/birch_syrup" = "age_5"
+"afc:bucket/latex" = "age_5"
+"afc:bucket/maple_sap" = "age_5"
+"afc:bucket/maple_syrup" = "age_5"
 "afc:rubber_bar" = "age_2"
 "afc:tree_tap" = "age_2"
 "afc:wood/barrel_press/araucaria" = "age_2"
@@ -2889,6 +2894,27 @@ mods = { mcwfurnitures = "mcfur", handcrafted = "hc", mcwwindows = "mcw", mcwdoo
 "firmages:aurora_light_bucket" = "age_5"
 "firmalife:ashtray" = "age_2"
 "firmalife:barrel_stave" = "age_2"
+"firmalife:bucket/caramel" = "age_5"
+"firmalife:bucket/chocolate" = "age_5"
+"firmalife:bucket/coconut_milk" = "age_5"
+"firmalife:bucket/cream" = "age_5"
+"firmalife:bucket/curdled_goat_milk" = "age_5"
+"firmalife:bucket/curdled_yak_milk" = "age_5"
+"firmalife:bucket/dessert_wine" = "age_5"
+"firmalife:bucket/goat_milk" = "age_5"
+"firmalife:bucket/mead" = "age_5"
+"firmalife:bucket/metal/chromium" = "age_5"
+"firmalife:bucket/metal/stainless_steel" = "age_5"
+"firmalife:bucket/pina_colada" = "age_5"
+"firmalife:bucket/red_wine" = "age_5"
+"firmalife:bucket/rose_wine" = "age_5"
+"firmalife:bucket/soybean_oil" = "age_5"
+"firmalife:bucket/sparkling_wine" = "age_5"
+"firmalife:bucket/sugar_water" = "age_5"
+"firmalife:bucket/whey" = "age_5"
+"firmalife:bucket/white_wine" = "age_5"
+"firmalife:bucket/yak_milk" = "age_5"
+"firmalife:bucket/yeast_starter" = "age_5"
 "firmalife:clay_oven_hopper" = "age_2"
 "firmalife:compost_tumbler" = "age_2"
 "firmalife:hydroponic_planter" = "age_2"
@@ -4772,6 +4798,86 @@ mods = { mcwfurnitures = "mcfur", handcrafted = "hc", mcwwindows = "mcw", mcwdoo
 "supplementaries:way_sign_warped" = "age_3"
 "supplementaries:wind_vane" = "age_2"
 "tfc:blast_furnace" = "age_2"
+"tfc:bucket/arctic_char" = "age_5"
+"tfc:bucket/beer" = "age_5"
+"tfc:bucket/black_dye" = "age_5"
+"tfc:bucket/blue_dye" = "age_5"
+"tfc:bucket/bluegill" = "age_5"
+"tfc:bucket/brine" = "age_5"
+"tfc:bucket/brown_dye" = "age_5"
+"tfc:bucket/burbot" = "age_5"
+"tfc:bucket/canola_oil" = "age_5"
+"tfc:bucket/canola_oil_water" = "age_5"
+"tfc:bucket/cider" = "age_5"
+"tfc:bucket/cod" = "age_5"
+"tfc:bucket/corn_whiskey" = "age_5"
+"tfc:bucket/crappie" = "age_5"
+"tfc:bucket/curdled_milk" = "age_5"
+"tfc:bucket/cyan_dye" = "age_5"
+"tfc:bucket/gray_dye" = "age_5"
+"tfc:bucket/green_dye" = "age_5"
+"tfc:bucket/jellyfish" = "age_5"
+"tfc:bucket/lake_trout" = "age_5"
+"tfc:bucket/largemouth_bass" = "age_5"
+"tfc:bucket/light_blue_dye" = "age_5"
+"tfc:bucket/light_gray_dye" = "age_5"
+"tfc:bucket/lime_dye" = "age_5"
+"tfc:bucket/limewater" = "age_5"
+"tfc:bucket/lye" = "age_5"
+"tfc:bucket/magenta_dye" = "age_5"
+"tfc:bucket/metal/bismuth" = "age_5"
+"tfc:bucket/metal/bismuth_bronze" = "age_5"
+"tfc:bucket/metal/black_bronze" = "age_5"
+"tfc:bucket/metal/black_steel" = "age_5"
+"tfc:bucket/metal/brass" = "age_5"
+"tfc:bucket/metal/bronze" = "age_5"
+"tfc:bucket/metal/cast_iron" = "age_5"
+"tfc:bucket/metal/copper" = "age_5"
+"tfc:bucket/metal/gold" = "age_5"
+"tfc:bucket/metal/high_carbon_black_steel" = "age_5"
+"tfc:bucket/metal/high_carbon_steel" = "age_5"
+"tfc:bucket/metal/nickel" = "age_5"
+"tfc:bucket/metal/pig_iron" = "age_5"
+"tfc:bucket/metal/rose_gold" = "age_5"
+"tfc:bucket/metal/silver" = "age_5"
+"tfc:bucket/metal/steel" = "age_5"
+"tfc:bucket/metal/sterling_silver" = "age_5"
+"tfc:bucket/metal/tin" = "age_5"
+"tfc:bucket/metal/unknown" = "age_5"
+"tfc:bucket/metal/weak_steel" = "age_5"
+"tfc:bucket/metal/wrought_iron" = "age_5"
+"tfc:bucket/metal/zinc" = "age_5"
+"tfc:bucket/milk_vinegar" = "age_5"
+"tfc:bucket/muksun" = "age_5"
+"tfc:bucket/northern_pike" = "age_5"
+"tfc:bucket/olive_oil" = "age_5"
+"tfc:bucket/olive_oil_water" = "age_5"
+"tfc:bucket/orange_dye" = "age_5"
+"tfc:bucket/pacu" = "age_5"
+"tfc:bucket/peacock_bass" = "age_5"
+"tfc:bucket/pink_dye" = "age_5"
+"tfc:bucket/pufferfish" = "age_5"
+"tfc:bucket/purple_dye" = "age_5"
+"tfc:bucket/rainbow_trout" = "age_5"
+"tfc:bucket/red_dye" = "age_5"
+"tfc:bucket/red_piranha" = "age_5"
+"tfc:bucket/rum" = "age_5"
+"tfc:bucket/rye_whiskey" = "age_5"
+"tfc:bucket/sake" = "age_5"
+"tfc:bucket/salmon" = "age_5"
+"tfc:bucket/salt_water" = "age_5"
+"tfc:bucket/smallmouth_bass" = "age_5"
+"tfc:bucket/spotted_gudgeon" = "age_5"
+"tfc:bucket/spring_water" = "age_5"
+"tfc:bucket/tallow" = "age_5"
+"tfc:bucket/tannin" = "age_5"
+"tfc:bucket/tilapia" = "age_5"
+"tfc:bucket/tropical_fish" = "age_5"
+"tfc:bucket/vinegar" = "age_5"
+"tfc:bucket/vodka" = "age_5"
+"tfc:bucket/whiskey" = "age_5"
+"tfc:bucket/white_dye" = "age_5"
+"tfc:bucket/yellow_dye" = "age_5"
 "tfc:fire_brick_shelf" = "age_2"
 "tfc:firebox" = "age_2"
 "tfc:fireproof_door" = "age_2"
@@ -7396,6 +7502,16 @@ items = [
     "sauce:source_jar_core",
     "sauce:source_jar_frame",
     "sauce:source_jar_valve",
+    "sgjourney:advanced_communication_crystal",
+    "sgjourney:advanced_control_crystal",
+    "sgjourney:advanced_crystal_adapter",
+    "sgjourney:advanced_crystal_interface",
+    "sgjourney:advanced_crystallizer",
+    "sgjourney:advanced_energy_crystal",
+    "sgjourney:advanced_materialization_crystal",
+    "sgjourney:advanced_memory_crystal",
+    "sgjourney:advanced_transfer_crystal",
+    "sgjourney:ancient_gene_detector",
     "sgjourney:andromeda_dhd",
     "sgjourney:andromeda_stargate",
     "sgjourney:archeologist_notebook",
@@ -7408,8 +7524,15 @@ items = [
     "sgjourney:goauld",
     "sgjourney:goauld_burger",
     "sgjourney:goauld_fossil",
+    "sgjourney:heavy_naquadah_liquidizer",
     "sgjourney:jaffa_cake",
     "sgjourney:large_naquadah_battery",
+    "sgjourney:large_naquadah_cable",
+    "sgjourney:milky_way_dhd",
+    "sgjourney:milky_way_stargate",
+    "sgjourney:naquadah",
+    "sgjourney:naquadah_axe",
+    "sgjourney:naquadah_boots",
     "sgjourney:naquadah_copper_alloy",
     "sgjourney:naquadah_copper_block",
     "sgjourney:naquadah_copper_iris",
@@ -7417,18 +7540,29 @@ items = [
     "sgjourney:naquadah_copper_nugget",
     "sgjourney:naquadah_copper_rod",
     "sgjourney:naquadah_copper_slab",
+    "sgjourney:naquadah_graver",
+    "sgjourney:naquadah_helmet",
+    "sgjourney:naquadah_hoe",
     "sgjourney:naquadah_iron_mixture",
+    "sgjourney:naquadah_leggings",
+    "sgjourney:naquadah_pickaxe",
     "sgjourney:naquadah_reactor",
+    "sgjourney:naquadah_shovel",
+    "sgjourney:naquadah_sword",
     "sgjourney:naquadria_ore",
     "sgjourney:nether_naquadah_ore",
     "sgjourney:nether_naquadria_ore",
     "sgjourney:nether_trinium_ore",
+    "sgjourney:pda",
+    "sgjourney:pegasus_dhd",
+    "sgjourney:pegasus_stargate",
     "sgjourney:personal_shield_emitter",
     "sgjourney:pocket_crystal_computer",
     "sgjourney:raw_naquadria",
     "sgjourney:raw_naquadria_block",
     "sgjourney:schrodingers_map",
     "sgjourney:symbol_paper",
+    "sgjourney:universe_dhd",
     "sgjourney:universe_stargate",
     "sgjourney:waxed_chiseled_naquadah_copper_block",
     "sgjourney:waxed_cut_naquadah_copper_block",
@@ -7491,6 +7625,8 @@ items = [
     "sgjourney:waxed_weathered_smooth_naquadah_copper_slab",
     "sgjourney:waxed_weathered_smooth_naquadah_copper_stairs",
     "sgjourney:zero_point_module",
+    "sgjourney:zpm_hub",
+    "sgjourney:zpm_port",
     "simulated:black_portable_engine",
     "simulated:blue_portable_engine",
     "simulated:brown_portable_engine",

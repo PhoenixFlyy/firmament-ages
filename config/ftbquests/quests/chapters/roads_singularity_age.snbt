@@ -76,7 +76,7 @@
 					id: "11C6F6CC54815D5B"
 					item: {
 						count: 1
-						id: "sgjourney:naquadah"
+						id: "sgjourney:naquadah_ingot"
 					}
 					team_reward: true
 					type: "item"
@@ -121,7 +121,7 @@
 					id: "0471A553848CF96E"
 					item: {
 						count: 1
-						id: "sgjourney:naquadah"
+						id: "sgjourney:naquadah_ingot"
 					}
 					team_reward: true
 					type: "item"
@@ -203,7 +203,7 @@
 					id: "59A41A7517793618"
 					item: {
 						count: 1
-						id: "sgjourney:naquadah"
+						id: "sgjourney:naquadah_ingot"
 					}
 					team_reward: true
 					type: "item"
@@ -293,7 +293,7 @@
 					id: "30612E7D2C4B69E2"
 					item: {
 						count: 1
-						id: "sgjourney:naquadah"
+						id: "sgjourney:naquadah_ingot"
 					}
 					team_reward: true
 					type: "item"

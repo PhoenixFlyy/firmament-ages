@@ -268,6 +268,12 @@ REWARD_ONLY = {
 
 
 # ------------------------------------------------------------------------------------------------ NBT (templates)
+def WORLD_BUCKETS(items):
+    """The vanilla-bucket items of the TFC-world namespaces ("tfc:bucket/olive_oil", "afc:bucket/maple_syrup",
+    "tfc:bucket/cod"): a minecraft:bucket with its content, reached with the bucket, not from the world."""
+    return sorted(i for i in items if i.split(":")[0] in pa.WORLD_NS and i.split(":", 1)[1].startswith("bucket/"))
+
+
 def _nbt(buf):
     """Minimal reader for gzip'd structure templates: returns the root compound as dicts and lists."""
     data = gzip.decompress(buf)
@@ -1041,6 +1047,10 @@ def derive(dump_dir, show, rewards=True):
     fluids = set(json.load(open(os.path.join(dump_dir, "registries.json"), encoding="utf-8"))["fluid"])
     buckets = [i for i in items if i.endswith("_bucket") and i[:-len("_bucket")] in fluids]
     transforms.append((0, ("minecraft:bucket",), buckets, "bucket filled with the fluid"))
+    # TFC, AFC and Firmalife name their vanilla-bucket items "<ns>:bucket/<fluid>" (tfc:bucket/olive_oil,
+    # afc:bucket/maple_syrup) and "<ns>:bucket/<fish>" (tfc:bucket/cod): a vanilla bucket with its content, so they
+    # come with the bucket, never from the world (WORLD_BUCKETS leave the world-namespace start set below).
+    transforms.append((0, ("minecraft:bucket",), WORLD_BUCKETS(items), "vanilla bucket filled in the world"))
     for i in items:
         ns, path = i.split(":", 1)
         if path.startswith("filled_") and f"{ns}:{path[7:]}" in base:
@@ -1122,7 +1132,8 @@ def derive(dump_dir, show, rewards=True):
         for o in os_:
             makes[o].append(sl)
     iron_ix = AGES.index("age_2")
-    late = set()
+    late = set(WORLD_BUCKETS(items))
+    extra["world_ns_late"] = late
 
     def slot_items(slot):
         return {m for k, x in slot for m in ([x] if k != "tag" else tags.get(x, []))}

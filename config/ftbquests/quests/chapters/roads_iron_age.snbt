@@ -50,21 +50,21 @@
 					type: "item"
 				}
 			]
-			x: 0.05d
+			x: 0.0d
 			y: 0.05d
 		}
 		{
 			dep_control_pts: {
 				4E8C4F9B5F83C9EA: [
-					1.094d
+					1.061d
 					0.414d
-					1.734d
+					1.718d
 					0.014d
 				]
 			}
 			dependencies: ["4E8C4F9B5F83C9EA"]
 			icon: {
-				id: "afc:bucket/maple_syrup"
+				id: "afc:maple_sugar"
 			}
 			id: "46601FCDB82F1D6F"
 			optional: true
@@ -93,7 +93,7 @@
 					id: "39A617BD43927AA5"
 					item: {
 						count: 1
-						id: "afc:bucket/maple_syrup"
+						id: "afc:maple_sugar"
 					}
 					optional_task: true
 					type: "item"
@@ -102,7 +102,7 @@
 					id: "0EB05D93A9317240"
 					item: {
 						count: 1
-						id: "afc:bucket/birch_syrup"
+						id: "afc:birch_sugar"
 					}
 					optional_task: true
 					type: "item"
@@ -114,58 +114,13 @@
 		{
 			dep_control_pts: {
 				46601FCDB82F1D6F: [
-					3.183d
+					3.176d
 					0.014d
-					3.896d
-					0.514d
+					3.903d
+					0.414d
 				]
 			}
 			dependencies: ["46601FCDB82F1D6F"]
-			id: "15C23E11D1FD2809"
-			optional: true
-			rewards: [
-				{
-					id: "3D44347040C97ADD"
-					type: "xp"
-					xp: 50
-				}
-				{
-					count: 8
-					id: "087C4FFD9B2F864D"
-					item: {
-						count: 1
-						id: "create:fluid_pipe"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "5E350037C815E358"
-					item: {
-						count: 1
-						id: "afc:bucket/latex"
-					}
-					type: "item"
-				}
-			]
-			x: 4.3d
-			y: 0.15d
-		}
-		{
-			dep_control_pts: {
-				15C23E11D1FD2809: [
-					5.408d
-					0.514d
-					6.07d
-					-0.086d
-				]
-			}
-			dependencies: ["15C23E11D1FD2809"]
 			id: "32B3BD93CA3C8CA0"
 			optional: true
 			rewards: [
@@ -199,16 +154,16 @@
 					type: "item"
 				}
 			]
-			x: 6.45d
-			y: -0.45d
+			x: 4.3d
+			y: 0.05d
 		}
 		{
 			dep_control_pts: {
 				32B3BD93CA3C8CA0: [
-					7.542d
-					-0.086d
-					8.186d
-					0.514d
+					5.377d
+					0.414d
+					6.052d
+					0.014d
 				]
 			}
 			dependencies: ["32B3BD93CA3C8CA0"]
@@ -255,8 +210,8 @@
 					type: "item"
 				}
 			]
-			x: 8.55d
-			y: 0.15d
+			x: 6.4d
+			y: -0.35d
 		}
 		{
 			dependencies: ["00276F8FDCF146F5"]
@@ -1934,10 +1889,11 @@
 					xp: 50
 				}
 				{
+					count: 6
 					id: "7C773A8E974B633D"
 					item: {
 						count: 1
-						id: "tfc:bucket/olive_oil"
+						id: "tfc:candle"
 					}
 					team_reward: true
 					type: "item"

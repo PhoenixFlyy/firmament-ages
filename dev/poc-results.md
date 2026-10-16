@@ -3769,3 +3769,15 @@ synced by packwiz (225 server jars, no boot). The recipe change (naquadah) is pr
 Not checked in a world: SGJ's network with no generated gate in the overworld (the crafted Classic gate is the only
 one; dialing The Origin from it is the existing GameTest), ProgressiveStages applying the new ore overrides on the
 planets, Jade naming locked blocks from age_1.
+## F1 roads audit (2026-10-16, branch f1/roads): Side Roads against the jars
+
+| Check | Observed | Result |
+|---|---|---|
+| Full jar set without a boot | packwiz sync of a copy of `test-server` (225 server jars) plus a client-side sync (40 client-only jars): 265 jars in `.wt/f1-roads-allmods`; the stale `test-server/mods` lacks 88 of them | done |
+| Every road quest against jars, dump `b2int/d1`, handbooks, ponder, configs, javap | 296 quests in 59 roads: 173 confirmed, 119 corrected (text, task, title or reward), 4 removed (walkie-talkie: voice server off; alloyer and alloying factory: no `evolvedmekanism:alloying` recipe in the pack; latex: needs a vanilla bucket); per-road evidence in `scratchpad/f1/roads-audit.md` | fixed |
+| Tasks and rewards against the reachability walk (no quest rewards) | before: 4 rewards `sgjourney:naquadah` never reachable; `afc:bucket/*` tasks reached at Dawn only through the world-namespace shortcut although `minecraft:bucket` is `age_5`; after: 292 road quests, 0 tasks or rewards later than their chapter | pass |
+| `derive_ages.py` world shortcut | vanilla-bucket items of the TFC-world namespaces (`tfc:`, `afc:`, `firmalife:` `bucket/*`) left the start set (`WORLD_BUCKETS`) and come with `minecraft:bucket`: 106 items move to `age_5`; 30 Stargate Journey items that need weapons grade naquadah become `[derived_hidden]` (its only "source" was a road reward) | done |
+| `derive_ages.py --dump-dir <b2int/d1> --check`, `gen_stage_locks.py --check` | `[derived]` up to date; Q-1 521 required item tasks, 0 without a recipe, world or loot source by their Age; 0 stage files dirty | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <265 jars>` | 26 chapters, 666 quests (Side Roads 292), 1,728 lang keys; 3,184 object ids, 0 errors, 0 warnings | pass |
+| Non-road quests naming mods missing from the stale `test-server/mods` | 7 references in 7 quests, all rewards (Artifacts Age 2 to 4 lists, `arseng:me_source_jar`), each of its chapter's Age or earlier | pass |
+| `preview_quests.py` | 26 maps, 0 quests hidden, 0 too close | pass |

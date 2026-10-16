@@ -804,63 +804,18 @@
 				}
 			]
 			x: 0.0d
-			y: 8.8d
+			y: 9.05d
 		}
 		{
 			dep_control_pts: {
 				318CB6D6673E6B76: [
-					1.12d
-					9.164d
-					1.808d
-					8.614d
+					1.177d
+					9.414d
+					1.752d
+					8.364d
 				]
 			}
 			dependencies: ["318CB6D6673E6B76"]
-			id: "659C6CEFF5A3823F"
-			optional: true
-			rewards: [
-				{
-					id: "0CBAC46A9008A198"
-					type: "xp"
-					xp: 120
-				}
-				{
-					count: 4
-					id: "7EEFE2C12AB89C1D"
-					item: {
-						count: 1
-						id: "mekanism:basic_control_circuit"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "773E50D672A940AE"
-					item: {
-						count: 1
-						id: "mekanismadditions:walkie_talkie"
-					}
-					type: "item"
-				}
-			]
-			x: 2.2d
-			y: 8.25d
-		}
-		{
-			dep_control_pts: {
-				659C6CEFF5A3823F: [
-					3.308d
-					8.614d
-					3.97d
-					9.214d
-				]
-			}
-			dependencies: ["659C6CEFF5A3823F"]
 			id: "63F9623930B5DE46"
 			optional: true
 			rewards: [
@@ -893,16 +848,16 @@
 					type: "item"
 				}
 			]
-			x: 4.35d
-			y: 8.85d
+			x: 2.2d
+			y: 8.0d
 		}
 		{
 			dep_control_pts: {
 				63F9623930B5DE46: [
-					5.479d
-					9.214d
-					6.15d
-					8.564d
+					3.357d
+					8.364d
+					3.972d
+					9.264d
 				]
 			}
 			dependencies: ["63F9623930B5DE46"]
@@ -938,16 +893,16 @@
 					type: "item"
 				}
 			]
-			x: 6.55d
-			y: 8.2d
+			x: 4.4d
+			y: 8.9d
 		}
 		{
 			dep_control_pts: {
 				0B920DA5835D008C: [
-					7.631d
-					8.564d
-					8.247d
-					9.214d
+					5.481d
+					9.264d
+					6.097d
+					8.614d
 				]
 			}
 			dependencies: ["0B920DA5835D008C"]
@@ -982,8 +937,8 @@
 					type: "item"
 				}
 			]
-			x: 8.6d
-			y: 8.85d
+			x: 6.45d
+			y: 8.25d
 		}
 		{
 			dependencies: ["2B9263D6A5FEA18B"]
@@ -1729,6 +1684,51 @@
 		}
 		{
 			dependencies: ["57663DC8E013A906"]
+			id: "17A6DF62A27B20B3"
+			optional: true
+			rewards: [
+				{
+					id: "66ADC8755B30D775"
+					type: "xp"
+					xp: 120
+				}
+				{
+					count: 4
+					id: "73519B882DA43D1E"
+					item: {
+						count: 1
+						id: "ae2:fluix_crystal"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "0BDEDA6F38DF9FAC"
+					item: {
+						count: 1
+						id: "psi:cad_assembler"
+					}
+					type: "item"
+				}
+			]
+			x: 0.05d
+			y: 20.45d
+		}
+		{
+			dep_control_pts: {
+				17A6DF62A27B20B3: [
+					1.115d
+					20.814d
+					1.713d
+					20.164d
+				]
+			}
+			dependencies: ["17A6DF62A27B20B3"]
 			id: "6ADB4DA20F502E35"
 			optional: true
 			rewards: [
@@ -1762,109 +1762,19 @@
 					type: "item"
 				}
 			]
-			x: -0.1d
-			y: 20.3d
+			x: 2.05d
+			y: 19.8d
 		}
 		{
 			dep_control_pts: {
 				6ADB4DA20F502E35: [
-					0.99d
+					3.166d
+					20.164d
+					3.862d
 					20.664d
-					1.688d
-					20.314d
 				]
 			}
 			dependencies: ["6ADB4DA20F502E35"]
-			id: "797C5C3C4D56A1A7"
-			optional: true
-			rewards: [
-				{
-					id: "2DEF1200A8524B53"
-					type: "xp"
-					xp: 120
-				}
-				{
-					count: 4
-					id: "10C39AC7F6D653DE"
-					item: {
-						count: 1
-						id: "mekanism:basic_control_circuit"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "2AF15D17D65B266B"
-					item: {
-						count: 1
-						id: "psi:programmer"
-					}
-					type: "item"
-				}
-			]
-			x: 2.05d
-			y: 19.95d
-		}
-		{
-			dep_control_pts: {
-				797C5C3C4D56A1A7: [
-					3.199d
-					20.314d
-					3.93d
-					20.814d
-				]
-			}
-			dependencies: ["797C5C3C4D56A1A7"]
-			id: "17A6DF62A27B20B3"
-			optional: true
-			rewards: [
-				{
-					id: "66ADC8755B30D775"
-					type: "xp"
-					xp: 120
-				}
-				{
-					count: 4
-					id: "73519B882DA43D1E"
-					item: {
-						count: 1
-						id: "ae2:fluix_crystal"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "0BDEDA6F38DF9FAC"
-					item: {
-						count: 1
-						id: "psi:cad_assembler"
-					}
-					type: "item"
-				}
-			]
-			x: 4.35d
-			y: 20.45d
-		}
-		{
-			dep_control_pts: {
-				17A6DF62A27B20B3: [
-					5.431d
-					20.814d
-					6.047d
-					20.164d
-				]
-			}
-			dependencies: ["17A6DF62A27B20B3"]
 			id: "233A332A44850ABA"
 			optional: true
 			rewards: [
@@ -1897,19 +1807,64 @@
 					type: "item"
 				}
 			]
-			x: 6.4d
-			y: 19.8d
+			x: 4.25d
+			y: 20.3d
 		}
 		{
 			dep_control_pts: {
 				233A332A44850ABA: [
-					7.497d
-					20.164d
-					8.132d
-					20.814d
+					5.324d
+					20.664d
+					6.005d
+					20.314d
 				]
 			}
 			dependencies: ["233A332A44850ABA"]
+			id: "797C5C3C4D56A1A7"
+			optional: true
+			rewards: [
+				{
+					id: "2DEF1200A8524B53"
+					type: "xp"
+					xp: 120
+				}
+				{
+					count: 4
+					id: "10C39AC7F6D653DE"
+					item: {
+						count: 1
+						id: "mekanism:basic_control_circuit"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "2AF15D17D65B266B"
+					item: {
+						count: 1
+						id: "psi:programmer"
+					}
+					type: "item"
+				}
+			]
+			x: 6.35d
+			y: 19.95d
+		}
+		{
+			dep_control_pts: {
+				797C5C3C4D56A1A7: [
+					7.45d
+					20.314d
+					8.128d
+					20.814d
+				]
+			}
+			dependencies: ["797C5C3C4D56A1A7"]
 			id: "3E3CE4C327FE1A6A"
 			optional: true
 			rewards: [
