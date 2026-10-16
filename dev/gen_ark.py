@@ -5,7 +5,9 @@ After the finale the nine islands of The Origin take living samples of their Age
 stages into small dioramas. This script writes, reproducibly (fixed seeds, sorted output), into
 mod/firmages-core/src/main/resources/data/firmages/:
   firmages_ark/island/age_<N>.json        the sample rules of island N (flora, fauna, work, crown, stage templates)
-  structure/ark/age_<N>/stage_<K>.nbt      the 27 stage templates (vanilla blocks only, so they work without any mod)
+  structure/ark/age_<N>/stage_<K>.nbt      the 27 stage templates (vanilla blocks, and TFC blocks where the pack disables
+                                           the vanilla one: wrought iron block, anvil and lamp, firepit, rooted dirt,
+                                           hanging vines, allium; without TFC those cells load as air)
   tags/item/ark/*.json                     the flora tags the rules name (entries "required": false)
   tags/block/ark/*.json                    the work tags the rules name
 
@@ -16,11 +18,14 @@ the floating echo (radius 2.6) stays clear. Stage 1 is the ground (soil and plan
 north-east, stage 3 its landmark in the south-west plus what hangs under the rim.
 
 Every id the rules name is checked against dev/data/registry.json (items, blocks), and no flora item may be hidden
-(dev/age_map.toml [hidden] and [derived_hidden]). The crown entries carry neoforge:item_exists guards.
+(dev/age_map.toml [hidden] and [derived_hidden]). No template block may be one whose item the pack disables or hides
+(gen_stage_locks.AgeMap.age_of "disabled"; review fix 0.12.0: the stages stand in the world and can be broken). The
+crown entries carry neoforge:item_exists guards.
 
 Usage
   python dev/gen_ark.py           write every file
-  python dev/gen_ark.py --check   exit 1 if a file on disk differs or an id is unknown or hidden
+  python dev/gen_ark.py --check   exit 1 if a file on disk differs, an id is unknown or hidden, or a template block is
+                                  disabled
 """
 import json
 import math
@@ -236,18 +241,18 @@ THEMES = {
     0: dict(soil=[("minecraft:coarse_dirt", 3), ("minecraft:gravel", 2), ("minecraft:moss_block", 2), ("minecraft:grass_block", 4)],
             plants={"minecraft:grass_block": ["minecraft:short_grass", "minecraft:fern"], "minecraft:moss_block": ["minecraft:moss_carpet"],
                     "minecraft:coarse_dirt": ["minecraft:dead_bush"]},
-            hang="minecraft:hanging_roots"),
+            hang="tfc:plant/hanging_vines"),
     1: dict(soil=[("minecraft:grass_block", 4), ("minecraft:farmland[moisture=7]", 5)],
             plants={"minecraft:farmland[moisture=7]": ["minecraft:wheat[age=7]", "minecraft:carrots[age=7]", "minecraft:potatoes[age=7]"],
                     "minecraft:grass_block": ["minecraft:short_grass", "minecraft:poppy"]},
-            hang="minecraft:hanging_roots"),
-    2: dict(soil=[("minecraft:grass_block", 6), ("minecraft:rooted_dirt", 2), ("minecraft:moss_block", 1)],
+            hang="tfc:plant/hanging_vines"),
+    2: dict(soil=[("minecraft:grass_block", 6), ("tfc:rooted_dirt/alfisol", 2), ("minecraft:moss_block", 1)],
             plants={"minecraft:grass_block": ["minecraft:short_grass", "minecraft:azalea", "minecraft:flowering_azalea", "minecraft:dandelion"],
                     "minecraft:moss_block": ["minecraft:moss_carpet"]},
             hang="minecraft:cave_vines[berries=true]"),
     3: dict(soil=[("minecraft:moss_block", 4), ("minecraft:grass_block", 3), ("minecraft:calcite", 2)],
             plants={"minecraft:moss_block": ["minecraft:small_amethyst_bud[facing=up]", "minecraft:moss_carpet"],
-                    "minecraft:grass_block": ["minecraft:allium", "minecraft:lilac[half=lower]"],
+                    "minecraft:grass_block": ["tfc:plant/allium", "minecraft:lilac[half=lower]"],
                     "minecraft:calcite": ["minecraft:amethyst_cluster[facing=up]"]},
             hang="minecraft:amethyst_cluster[facing=down]"),
     4: dict(soil=[("minecraft:coarse_dirt", 3), ("minecraft:gravel", 3), ("minecraft:packed_mud", 2), ("minecraft:stone_bricks", 2)],
@@ -312,7 +317,7 @@ def stage_2(i):
             a = math.radians(k * 60)
             x, z = cx + round(math.cos(a) * 2.5), cz + round(math.sin(a) * 2.5)
             s.column(x, z, 1, 2 + k % 2, "minecraft:mossy_cobblestone" if k % 2 else "minecraft:cobblestone")
-        s.put(cx, 1, cz, "minecraft:campfire[lit=false,facing=north,signal_fire=false,waterlogged=false]")
+        s.put(cx, 1, cz, "tfc:firepit[axis=x,lit=false]")
     elif i == 1:  # a mud-brick hut with a copper roof
         for x in range(cx - 2, cx + 2):
             for z in range(cz - 2, cz + 2):
@@ -323,7 +328,7 @@ def stage_2(i):
         s.put(cx - 1, 1, cz, "minecraft:hay_block[axis=y]")
     elif i == 2:  # an orchard
         for dx, dz in ((0, 0), (-2, 2), (2, -1)):
-            tree(s, cx + dx, cz + dz, 1, "minecraft:oak_log[axis=y]", "minecraft:flowering_azalea_leaves[persistent=true,distance=1,waterlogged=false]", h=3, rad=1.6)
+            tree(s, cx + dx, cz + dz, 1, "minecraft:oak_log[axis=y]", "minecraft:oak_leaves[persistent=true,distance=1,waterlogged=false]", h=3, rad=1.6)
     elif i == 3:  # an amethyst mound in a calcite ring
         s.blob(cx, 1, cz, 1.6, "minecraft:amethyst_block")
         for k in range(8):
@@ -334,8 +339,8 @@ def stage_2(i):
         for x in (cx, cx + 1):
             for z in (cz, cz + 1):
                 s.column(x, z, 1, 6, "minecraft:bricks")
-        s.put(cx, 7, cz, "minecraft:campfire[lit=true,facing=north,signal_fire=false,waterlogged=false]")
-        s.put(cx - 1, 1, cz + 1, "minecraft:anvil[facing=north]")
+        s.put(cx, 7, cz, "tfc:firepit[axis=x,lit=false]")
+        s.put(cx - 1, 1, cz + 1, "tfc:metal/anvil/wrought_iron[facing=north]")
         s.put(cx + 2, 1, cz, "minecraft:blast_furnace[facing=west,lit=false]")
     elif i == 5:  # a glass greenhouse
         for x in range(cx - 2, cx + 3):
@@ -391,7 +396,7 @@ def hanging(s, i):
                 last = j == n - 1 or bottom - 2 - j < -BELOW
                 b = "minecraft:cave_vines[age=25,berries=true]" if last else "minecraft:cave_vines_plant[berries=true]"
             s.put(x, bottom - 1 - j, z, b)
-            if hang.startswith("minecraft:amethyst") or hang.startswith("minecraft:end_rod") or hang.startswith("minecraft:hanging_roots"):
+            if hang.startswith("minecraft:amethyst") or hang.startswith("minecraft:end_rod") or hang.startswith("tfc:plant/hanging_vines"):
                 break
 
 
@@ -407,9 +412,9 @@ def stage_3(i):
         s.disc(cx, cz, 1.5, 5, "minecraft:waxed_cut_copper_slab[type=bottom,waterlogged=false]")
         s.put(cx, 4, cz, "minecraft:bell[attachment=ceiling,facing=north,powered=false]")
     elif i == 2:  # an iron forge yard
-        s.column(cx, cz, 1, 4, "minecraft:iron_block")
-        s.put(cx, 5, cz, "minecraft:lantern[hanging=false,waterlogged=false]")
-        s.put(cx + 1, 1, cz, "minecraft:anvil[facing=east]")
+        s.column(cx, cz, 1, 4, "tfc:metal/block/wrought_iron")
+        s.put(cx, 5, cz, "tfc:metal/lamp/wrought_iron[hanging=false,lit=false]")
+        s.put(cx + 1, 1, cz, "tfc:metal/anvil/wrought_iron[facing=east]")
         for dz in (-1, 1):
             s.column(cx, cz + dz, 1, 2, "minecraft:iron_bars[east=false,north=true,south=true,west=false,waterlogged=false]")
     elif i == 3:  # a reading circle with candles and rods
@@ -426,7 +431,7 @@ def stage_3(i):
             x, z = cx + round(math.cos(a) * 2.5), cz + round(math.sin(a) * 2.5)
             s.put(x, 1, z, "minecraft:stone_bricks")
         s.column(cx, cz, 1, 4, "minecraft:stone_brick_wall[east=none,north=none,south=none,west=none,up=true,waterlogged=false]")
-        s.put(cx, 5, cz, "minecraft:lantern[hanging=false,waterlogged=false]")
+        s.put(cx, 5, cz, "tfc:metal/lamp/steel[hanging=false,lit=false]")
     elif i == 5:  # a lightning tower
         s.column(cx, cz, 1, 5, "minecraft:waxed_copper_block")
         s.put(cx, 6, cz, "minecraft:lightning_rod[facing=up,powered=false,waterlogged=false]")
@@ -511,8 +516,24 @@ def id_errors():
     return errors
 
 
+def template_errors():
+    """Template blocks the pack disables or hides (their item is "disabled" in dev/age_map.toml)."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import gen_stage_locks as gsl
+    am = gsl.AgeMap(tomllib.loads(open(gsl.AGE_MAP, encoding="utf-8").read()), json.load(open(gsl.REGISTRY, encoding="utf-8")),
+                    json.load(open(gsl.TFC_IDS, encoding="utf-8")))
+    errors = []
+    for i in range(9):
+        for k, fn in STAGES.items():
+            for name in sorted({b[0] for b in fn(i).blocks().values()}):
+                # blocks without an item of their own (crops, vine plants) follow their item's rule by mod
+                if am.age_of(name)[0] == "disabled":
+                    errors.append(f"age_{i}/stage_{k}: template block {name} is disabled or hidden ({am.age_of(name)[1]})")
+    return errors
+
+
 def main():
-    errors = id_errors()
+    errors = id_errors() + template_errors()
     files = all_files()
     if "--check" in sys.argv:
         stale = [p for p, d in files.items() if not same(p, d)]
