@@ -1,0 +1,53 @@
+{
+  "island": 3,
+  "flora": [
+    {
+      "tag": "firmages:ark/archwood_saplings",
+      "distinct": 4
+    },
+    {
+      "tag": "firmages:ark/flowers",
+      "distinct": 4
+    }
+  ],
+  "fauna": {
+    "entities": [
+      "tfc:cat",
+      "ars_nouveau:starbuncle"
+    ]
+  },
+  "work": [
+    {
+      "type": "blockstate",
+      "tag": "firmages:ark/arcane_work",
+      "property": "lit",
+      "value": "true"
+    },
+    {
+      "type": "blockstate",
+      "block": "create:blaze_burner",
+      "property": "blaze",
+      "values": [
+        "kindled",
+        "seething"
+      ]
+    }
+  ],
+  "crown": [
+    {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:item_exists",
+          "item": "firmages:starlit_iron_ingot"
+        }
+      ],
+      "tag": "firmages:celestial_alloy/age_3",
+      "count": 4
+    }
+  ],
+  "stages": [
+    "firmages:ark/age_3/stage_1",
+    "firmages:ark/age_3/stage_2",
+    "firmages:ark/age_3/stage_3"
+  ]
+}

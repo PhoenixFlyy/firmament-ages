@@ -1,0 +1,36 @@
+{
+  "values": [
+    {
+      "id": "firmalife:seeds/red_grape",
+      "required": false
+    },
+    {
+      "id": "firmalife:seeds/white_grape",
+      "required": false
+    },
+    {
+      "id": "firmalife:plant/cocoa_sapling",
+      "required": false
+    },
+    {
+      "id": "firmalife:plant/fig_sapling",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/rice",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/sugarcane",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/papyrus",
+      "required": false
+    },
+    {
+      "id": "tfc:seeds/jute",
+      "required": false
+    }
+  ]
+}

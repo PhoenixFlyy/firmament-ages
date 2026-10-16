@@ -1,0 +1,24 @@
+{
+  "island": 0,
+  "flora": {
+    "tag": "firmages:ark/saplings",
+    "distinct": 4
+  },
+  "fauna": {
+    "entities": [
+      "tfc:rabbit"
+    ]
+  },
+  "work": {
+    "type": "blockstate",
+    "block": "tfc:firepit",
+    "property": "lit",
+    "value": "true"
+  },
+  "crown": [],
+  "stages": [
+    "firmages:ark/age_0/stage_1",
+    "firmages:ark/age_0/stage_2",
+    "firmages:ark/age_0/stage_3"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "island": 8,
+  "flora": {
+    "tag": "firmages:ark/quantum_flora",
+    "distinct": 4
+  },
+  "fauna": {
+    "entities": []
+  },
+  "work": {
+    "type": "blockstate",
+    "block": "mekanismgenerators:fusion_reactor_controller",
+    "property": "active",
+    "value": "true"
+  },
+  "crown": [
+    {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:item_exists",
+          "item": "firmages:quasar_alloy_ingot"
+        }
+      ],
+      "tag": "firmages:celestial_alloy/age_8",
+      "count": 4
+    }
+  ],
+  "stages": [
+    "firmages:ark/age_8/stage_1",
+    "firmages:ark/age_8/stage_2",
+    "firmages:ark/age_8/stage_3"
+  ]
+}

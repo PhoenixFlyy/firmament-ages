@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "tfc:bloomery",
+      "required": false
+    },
+    {
+      "id": "tfc:charcoal_forge",
+      "required": false
+    }
+  ]
+}

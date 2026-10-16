@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "theurgy:pyromantic_brazier",
+      "required": false
+    },
+    {
+      "id": "theurgy:calcination_oven",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "ad_astra:aeronos_mushroom",
+      "required": false
+    },
+    {
+      "id": "ad_astra:strophar_mushroom",
+      "required": false
+    },
+    {
+      "id": "ad_astra:aeronos_cap",
+      "required": false
+    },
+    {
+      "id": "ad_astra:strophar_cap",
+      "required": false
+    },
+    {
+      "id": "ad_astra:glacian_leaves",
+      "required": false
+    }
+  ]
+}

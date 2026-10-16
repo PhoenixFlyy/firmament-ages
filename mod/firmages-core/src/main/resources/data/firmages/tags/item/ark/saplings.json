@@ -1,0 +1,116 @@
+{
+  "values": [
+    {
+      "id": "tfc:wood/sapling/acacia",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/ash",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/aspen",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/birch",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/blackwood",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/chestnut",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/douglas_fir",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/hickory",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/kapok",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/mangrove",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/maple",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/oak",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/palm",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/pine",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/rosewood",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/sequoia",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/spruce",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/sycamore",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/white_cedar",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/sapling/willow",
+      "required": false
+    },
+    {
+      "id": "minecraft:acacia_sapling",
+      "required": false
+    },
+    {
+      "id": "minecraft:birch_sapling",
+      "required": false
+    },
+    {
+      "id": "minecraft:cherry_sapling",
+      "required": false
+    },
+    {
+      "id": "minecraft:dark_oak_sapling",
+      "required": false
+    },
+    {
+      "id": "minecraft:jungle_sapling",
+      "required": false
+    },
+    {
+      "id": "minecraft:oak_sapling",
+      "required": false
+    },
+    {
+      "id": "minecraft:spruce_sapling",
+      "required": false
+    },
+    {
+      "id": "minecraft:mangrove_propagule",
+      "required": false
+    }
+  ]
+}

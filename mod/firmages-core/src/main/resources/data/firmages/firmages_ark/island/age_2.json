@@ -1,0 +1,24 @@
+{
+  "island": 2,
+  "flora": {
+    "tag": "firmages:ark/fruit_saplings",
+    "distinct": 4
+  },
+  "fauna": {
+    "entities": [
+      "tfc:cow",
+      "tfc:goat"
+    ]
+  },
+  "work": {
+    "type": "kinetic",
+    "block": "create:water_wheel",
+    "rpm": 16
+  },
+  "crown": [],
+  "stages": [
+    "firmages:ark/age_2/stage_1",
+    "firmages:ark/age_2/stage_2",
+    "firmages:ark/age_2/stage_3"
+  ]
+}
