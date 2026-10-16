@@ -13,6 +13,9 @@
     "firmages:wayshrine_stone",
     "firmages:storm_glass",
     "firmages:storm_rod",
-    "firmages:aurora_net"
+    "firmages:aurora_net",
+    "firmages:skystone",
+    "firmages:firmament_crystal_cluster",
+    "firmages:firmament_lode"
   ]
 }

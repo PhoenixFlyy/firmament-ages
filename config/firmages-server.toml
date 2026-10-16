@@ -315,3 +315,18 @@
 [skyHarvest]
 	#false: rods are never struck and nets catch nothing (operator commands still report).
 	enabled = true
+
+#Drifting Isles (SPEC 30): static isles of skystone above the clouds, the only source of firmament crystal.
+#Shape and density are data: data/firmages/worldgen/structure/drifting_isle.json and structure_set/drifting_isles.json.
+[isles]
+	#Firmament crystals a broken lode yields; the lode stands again on the next tick.
+	# Default: 2
+	# Range: 1 ~ 8
+	lodeYield = 2
+	#On a world older than the isles: from the Industrial Age, place one cluster with the Wind Shrine near the heart
+	#when no isle start lies within fallbackRadius.
+	fallback = true
+	#Blocks around the shrine heart (else the world spawn) in which an isle must exist from the Industrial Age.
+	# Default: 600
+	# Range: 200 ~ 4096
+	fallbackRadius = 600

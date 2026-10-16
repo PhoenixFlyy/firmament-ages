@@ -2386,6 +2386,114 @@ def _():
 
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Drifting Isles (SPEC 30.4): skystone, the firmament crystal cluster and lode, the crystal item
+# ---------------------------------------------------------------------------------------------------------------------
+PAL.update({
+    "skystone": ["#7d8798", "#a3adbd", "#c3cbd8", "#dce2ea", "#f2f5f9"],
+    "firmament": ["#1c2f66", "#3460b8", "#58a0e6", "#98d6ff", "#eafcff"],
+})
+
+
+@block("skystone", "skystone")
+def _():
+    img = new_tex()
+    noise_fill(img, "skystone", seeded("skystone"), weights=(0, 2, 6, 4, 2), cluster=3, grain=0.2)
+    rng = seeded("skystone_veins")
+    px = img.load()
+    f = tones("firmament")
+    for _ in range(2):  # faint blue veins: the stone remembers the crystal
+        x, y = rng.randrange(0, 16), rng.randrange(0, 16)
+        for i in range(rng.randint(3, 5)):
+            c = px[(x + i) % 16, (y + i // 2) % 16]
+            px[(x + i) % 16, (y + i // 2) % 16] = tuple((c[k] * 2 + f[3][k]) // 3 for k in range(3)) + (255,)
+    return img
+
+
+CRYSTAL_CLUSTER = [
+    "................",
+    "................",
+    ".......h........",
+    "......hl........",
+    "......lm...h....",
+    "..h...lm..hl....",
+    "..lh..lmd.lm....",
+    "..lm..lmd.lmd...",
+    "..lmd.lmd.lmd.h.",
+    "...md.lmd.lmdhl.",
+    "...md.lmd.lmdlm.",
+    "...mdlmmd.lmdmd.",
+    "...mdlmmdlmmdmd.",
+    "...mmlmmdlmmmd..",
+    "..oooooooooooo..",
+    "................",
+]
+
+LODE_FACETS = [
+    "................",
+    "..h.........h...",
+    "..lm.......lm...",
+    "...md.....lmd...",
+    "...ldd...lmd....",
+    "....md..lmd.....",
+    ".........d......",
+    "......hl........",
+    ".....hlmd.......",
+    "....hlmmd.......",
+    "....lmmdd...hl..",
+    ".....mdd...hlmd.",
+    "......d....lmmd.",
+    "............md..",
+    ".h..............",
+    ".ld.............",
+]
+
+
+@block("firmament_crystal_cluster", "firmament crystal cluster (cross)")
+def _():
+    return grid_tex(CRYSTAL_CLUSTER, {**shade("firmament"), "o": tones("firmament")[1]})
+
+
+@block("firmament_lode", "firmament lode")
+def _():
+    img = new_tex()
+    noise_fill(img, "skystone", seeded("firmament_lode"), weights=(1, 4, 6, 3, 0), cluster=2, grain=0.25)
+    overlay(img, LODE_FACETS, shade("firmament"))
+    return img
+
+
+@block("firmament_lode_glow", "firmament lode glow overlay")
+def _():
+    img = new_tex()
+    t = tones("firmament")
+    overlay(img, LODE_FACETS, legend(h=t[4], l=t[3], m=t[3], d=t[2]))
+    return img
+
+
+def _crystal_item():
+    mod_item("firmament_crystal", "firmament crystal", [
+        "................",
+        ".........oo.....",
+        "........ohho....",
+        ".......ohllo....",
+        "......ohllmo....",
+        ".....ohllmdo....",
+        "....ohllmmdo....",
+        "...ohllmmdo.....",
+        "...olllmmdo.....",
+        "...olmmmddo.....",
+        "....omdddo......",
+        "....oddoo.......",
+        ".....oo.........",
+        "................",
+        "................",
+        "................",
+    ], shade("firmament"), lambda img: sparkle(img, seeded("firmament_crystal"), 1))
+
+
+_crystal_item()
+
+
+# ---------------------------------------------------------------------------------------------------------------------
 # The Lens Crown (SPEC 27): Star Anvil, Lens Mount, lens glass; mod items (lens blank, nine lenses, seven alloys)
 # ---------------------------------------------------------------------------------------------------------------------
 def crown_item(path, label, mcmeta=None):
@@ -2920,7 +3028,7 @@ _aurora_bucket()
 
 
 B = "firmages:block/"
-BLOCKS_WITHOUT_ITEM = {"wayshrine_core"}
+BLOCKS_WITHOUT_ITEM = {"wayshrine_core", "firmament_crystal_cluster", "firmament_lode"}  # the isle crystal blocks drop the crystal (SPEC 30.4)
 MODEL_TEXTURES = {
     "shrine_heart": {"particle": B + "shrine_heart_base", "side": B + "shrine_heart_side",
                      "base": B + "shrine_heart_base", "top": B + "shrine_heart_top", "band": B + "shrine_heart_band"},
@@ -2947,6 +3055,9 @@ MODEL_TEXTURES = {
     "starfall_core_hot": {"glow": B + "starfall_core_hot", "particle": B + "starfall_core_hot"},
     "meteoric_iron_block": {"all": B + "meteoric_iron_block"},
     "starsteel_block": {"all": B + "starsteel_block"},
+    "skystone": {"all": B + "skystone"},
+    "firmament_crystal_cluster": {"cross": B + "firmament_crystal_cluster", "particle": B + "firmament_crystal_cluster"},
+    "firmament_lode": {"all": B + "firmament_lode", "glow": B + "firmament_lode_glow", "particle": B + "firmament_lode"},
     "star_anvil": {"particle": B + "star_anvil_side", "side": B + "star_anvil_side", "base": B + "star_anvil_base",
                    "top": B + "star_anvil_top"},
     "star_anvil_formed": {"particle": B + "star_anvil_side", "side": B + "star_anvil_side", "base": B + "star_anvil_base",

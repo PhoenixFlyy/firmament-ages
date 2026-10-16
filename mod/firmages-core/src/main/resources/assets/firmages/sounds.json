@@ -421,5 +421,14 @@
       }
     ],
     "subtitle": "subtitles.firmages.storm_rod.strike"
+  },
+  "lode.reform": {
+    "sounds": [
+      {
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.lode.reform"
   }
 }

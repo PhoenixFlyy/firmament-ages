@@ -317,6 +317,10 @@ tier_4 = "age_8"
 "firmages:meteorite" = { stage = "age_2", disguise = "firmages:sky_rock" }
 "firmages:starfall_core" = { stage = "age_2", disguise = "firmages:sky_rock" }
 "firmages:starsteel_meteorite" = { stage = "age_5", disguise = "firmages:sky_rock" }
+# Drifting Isles (firmages-core SPEC 24.5, 30.4): the crystal blocks look like skystone and drop it until the Industrial
+# Age; OreGuard stops machines on them until then. The clusters keep their light, so the isles glow from the ground.
+"firmages:firmament_crystal_cluster" = { stage = "age_4", disguise = "firmages:skystone" }
+"firmages:firmament_lode" = { stage = "age_4", disguise = "firmages:skystone" }
 
 # ------------------------------------------------------------------------------------------------ TFC tables
 # Stage in which a TFC ore becomes visible/usable (Doc 08 v3 sections 3.2, 4.1). Copper ores are visible
@@ -434,6 +438,10 @@ block = "tfc:rock/loose/granite"
 "id:firmages:storm_glass" = "age_2"
 "id:firmages:aurora_net" = "age_4"
 "id:firmages:aurora_light_bucket" = "age_4"
+# Drifting Isles (SPEC 24.5, 30.4): skystone is a Dawn building block, firmament crystal comes only from the isles
+# (clusters and the re-forming lode), reached by airship or jetpack in the Industrial Age.
+"id:firmages:skystone" = "dawn"
+"id:firmages:firmament_crystal" = "age_4"
 "id:firmages:wayshrine_stone" = "dawn"                   # firmages-core Wayshrines (SPEC-himmel 24.5): drops from a lit Wayshrine (age_1 on), decorative, Sky Anchor heart
 "id:firmages:steel_heart" = "age_2"
 "id:firmages:arcane_keystone" = "age_3"

@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    {"id": "firmages:firmament_crystal_cluster", "required": false},
+    {"id": "firmages:firmament_lode", "required": false},
     {"id": "firmalife:ore/normal_chromite/andesite", "required": false},
     {"id": "firmalife:ore/normal_chromite/basalt", "required": false},
     {"id": "firmalife:ore/normal_chromite/chalk", "required": false},
