@@ -27,6 +27,12 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
   text       every chapter and quest has an English title in lang/en_us.snbt, no lang key points to a
              missing object, no German letters in player text
   data       data.snbt: book never dropped on death, no loot crates, no emergency items
+  pictures   every chapter image and every {image:...} description line points to a texture that exists (kubejs/assets
+             or the firmages-core resources for the pack's namespaces), an open_quest click to a quest of the book, a
+             Ponder click to a registered item; a chapter image's dependency is a quest of the book
+  layout     no two quests of a chapter are drawn closer than dev/quest_layout.MIN_GAP grid units (their drawn size is
+             6/7 of their size), dep_control_pts only name the quest's own dependencies, four numbers each
+  works      a Great Works chapter (tag works): its required stage, one entry, one goal, every quest leads to the goal
   portals    a dimension task needs its entry item: the KubeJS item tag that opens the portal (PORTAL_TAGS, read
              from kubejs/server_scripts/tags/*.js) is overridden and holds only items of the chapter's Age or earlier
 With --mods <dir> (default test-server/mods if it exists) it also looks inside the mod jars for advancement,
@@ -43,6 +49,9 @@ import re
 import sys
 import tomllib
 import zipfile
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import quest_layout  # noqa: E402  (dev/quest_layout.py: drawn sizes and the minimum gap)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KUBEJS_DATA = os.path.join(ROOT, 'kubejs', 'data')
@@ -286,7 +295,12 @@ def finale_script_grant():
 # ------------------------------------------------------------------------------------------------ style lint
 # dev/style-guide.md. Word limits per quest kind (the quest's tag; untagged = step, Welcome chapter = info).
 STYLE_LIMITS = {'step': 25, 'side': 25, 'keystone': 40, 'explain': 40, 'ring': 40, 'entry': 70, 'goal': 70,
-                'info': 70}
+                'info': 70, 'note': 70, 'guide': 90}
+# Build guides (tag guide: the shrine rings, a build no viewer shows, so the teaching limit) are counted per page
+# ({@pagebreak}); every other description as a whole. Picture lines
+# ({image:...}) and page breaks are never counted and never linted as words.
+PER_PAGE = {'guide'}
+PICTURE_LINE = re.compile(r'\{image:\S+[^}]*\}')
 # Teaching quests: the one place a mechanic, or a build no recipe viewer shows, is explained (style guide rules 3
 # and 4). They may run to STYLE_TEACH words (knapping and crafting grid lines are never counted).
 STYLE_TEACH = 110
@@ -344,7 +358,13 @@ def style_lint(lang, chapters, W):
             continue
         typ, oid, field = m.group(1), m.group(2).upper(), m.group(3)
         texts = val if isinstance(val, list) else [val]
-        texts = [t for t in texts if isinstance(t, str)]
+        pages = [[]]
+        for t in texts:
+            if isinstance(t, str) and t.strip() == '{@pagebreak}':
+                pages.append([])
+            elif isinstance(t, str) and not PICTURE_LINE.fullmatch(t.strip()):
+                pages[-1].append(t)
+        texts = [t for page in pages for t in page]
         where = 'style: %s' % key
         for tx in texts:
             for rx, label in banned:
@@ -357,22 +377,24 @@ def style_lint(lang, chapters, W):
             if re.search(r'\bAge \d', tx):
                 W('%s: "Age <n>", write the Age name: %r' % (where, tx[:70]))
         if typ == 'quest' and field == 'quest_desc':
-            words = sum(len(t.split()) for t in texts if not GRID_LINE.fullmatch(t))
             kind = kinds.get(oid, 'step')
             limit = STYLE_TEACH if oid in STYLE_TEACHING else STYLE_LIMITS[kind]
-            if words > limit:
-                W('%s: %d words, the limit for a %s is %d' % (where, words, kind, limit))
-            blocks, cur = [], []
-            for t in texts + ['']:
-                if t:
-                    cur.append(t)
-                elif cur:
-                    blocks.append(cur)
-                    cur = []
-            # a block with a knapping grid is the grid and its caption, not a paragraph
-            paras = [b for b in blocks if not any(GRID_LINE.fullmatch(t) for t in b)]
-            if len(paras) > 3:
-                W('%s: %d paragraphs, at most 3' % (where, len(paras)))
+            for n_page, page in enumerate(pages if kind in PER_PAGE else [texts]):
+                at = '%s page %d' % (where, n_page + 1) if kind in PER_PAGE else where
+                words = sum(len(t.split()) for t in page if not GRID_LINE.fullmatch(t))
+                if words > limit:
+                    W('%s: %d words, the limit for a %s is %d' % (at, words, kind, limit))
+                blocks, cur = [], []
+                for t in page + ['']:
+                    if t:
+                        cur.append(t)
+                    elif cur:
+                        blocks.append(cur)
+                        cur = []
+                # a block with a knapping grid is the grid and its caption, not a paragraph
+                paras = [b for b in blocks if not any(GRID_LINE.fullmatch(t) for t in b)]
+                if len(paras) > 3:
+                    W('%s: %d paragraphs, at most 3' % (at, len(paras)))
 
 
 # ------------------------------------------------------------------------------------------------ checks
@@ -448,6 +470,8 @@ def main():
                 reg_id(t.get('id'), 'task', 'chapters/%s task' % cname)
             for r in qd.get('rewards', []):
                 reg_id(r.get('id'), 'reward', 'chapters/%s reward' % cname)
+        for im in ch.get('images', []):
+            reg_id(im.get('id'), 'image', 'chapters/%s image' % cname)
 
     # ---- chapter-level refs and ages
     chapter_age = {}
@@ -526,7 +550,8 @@ def main():
     counts = {}
     for cname, ch in chapters.items():
         cage = chapter_age[cname]
-        is_age_chapter = ch.get('progressivestages_required_stage') in AGE_CHAPTER_STAGES
+        is_age_chapter = ch.get('progressivestages_required_stage') in AGE_CHAPTER_STAGES and \
+            'works' not in ch.get('tags', [])
         if 'icon' in ch:
             check_item(ch['icon'].get('id'), 'chapters/%s' % cname, None, 'chapter icon')
         kinds = {}
@@ -727,6 +752,106 @@ def main():
                 for qd in ch['quests']:
                     if not OPTIONAL_TAGS & set(qd.get('tags', [])) and qd['id'].upper() not in reach:
                         E('chapters/%s: required quest %s does not lead to the goal' % (cname, qd['id']))
+
+    # ---- pictures: chapter images and {image:...} description lines
+    def texture_exists(rl):
+        if ':' not in rl or rl.startswith(('item:', 'http', 'file:')):
+            return True
+        ns, path = rl.split(':', 1)
+        if ns not in ('firmages', 'ftbquests', 'certain_questing_additions'):
+            return True   # a mod's own texture: not checked here
+        roots = [os.path.join(ROOT, 'kubejs', 'assets'),
+                 os.path.join(ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources', 'assets')]
+        return any(os.path.isfile(os.path.join(r, ns, path)) for r in roots)
+
+    def check_click(action, where):
+        if not action:
+            return
+        kind, _sep, arg = action.partition(':')
+        if kind == 'open_quest':
+            if arg.split('/')[0].upper() not in quests:
+                E('%s: click opens quest %s, which is not in the book' % (where, arg))
+        elif kind == 'custom_event':
+            m = re.fullmatch(r'firmages:ponder/([a-z0-9_.-]+)/([a-z0-9_./-]+)', arg)
+            if not m:
+                E('%s: unknown custom event %r' % (where, arg))
+            elif '%s:%s' % m.groups() not in items:
+                E('%s: Ponder click for %s:%s, not a registered item' % ((where,) + m.groups()))
+        elif kind not in ('open_uri', 'run_command', 'show_recipe', 'none'):
+            E('%s: unknown click action %r' % (where, action))
+
+    for cname, ch in chapters.items():
+        for im in ch.get('images', []):
+            where = 'chapters/%s image %s' % (cname, im.get('id'))
+            if not texture_exists(strval(im.get('image')) or ''):
+                E('%s: texture %s does not exist' % (where, im.get('image')))
+            check_click(strval(im.get('click_action')), where)
+            dep = im.get('dependency')
+            if dep and str(dep).upper() not in quests:
+                E('%s: dependency %s is not a quest of the book' % (where, dep))
+    for key, val in lang.items():
+        if not key.endswith('.quest_desc') or not isinstance(val, list):
+            continue
+        for line in val:
+            m = re.fullmatch(r'\{image:(\S+)([^}]*)\}', line.strip()) if isinstance(line, str) else None
+            if not m:
+                continue
+            props = dict(p_.split(':', 1) for p_ in m.group(2).split() if ':' in p_)
+            if not texture_exists(m.group(1)):
+                E('lang: %s: picture %s does not exist' % (key, m.group(1)))
+            for k_ in ('width', 'height'):
+                if not props.get(k_, '').isdigit():
+                    E('lang: %s: picture %s needs a numeric %s' % (key, m.group(1), k_))
+            check_click(props.get('click_action'), 'lang: %s' % key)
+
+    # ---- layout: drawn quests never touch; curves only for real dependencies
+    for cname, ch in chapters.items():
+        dsize = ch.get('default_quest_size')
+        dsize = dsize.value if isinstance(dsize, Num) else 1.0
+        placed = []
+        for qd in ch.get('quests', []):
+            size = qd.get('size').value if isinstance(qd.get('size'), Num) else 0.0
+            x, y = qd.get('x'), qd.get('y')
+            if not isinstance(x, Num) or not isinstance(y, Num):
+                E('chapters/%s quest %s: no position' % (cname, qd.get('id')))
+                continue
+            placed.append((qd['id'], x.value, y.value, size or dsize or 1.0))
+            deps = {str(d).upper() for d in qd.get('dependencies', [])}
+            for dep, pts in (qd.get('dep_control_pts') or {}).items():
+                if dep.upper() not in deps:
+                    E('chapters/%s quest %s: dep_control_pts for %s, which is not a dependency' % (cname, qd['id'], dep))
+                if not isinstance(pts, list) or len(pts) != 4 or \
+                        not all(isinstance(v, Num) and v.kind == 'd' for v in pts):
+                    E('chapters/%s quest %s: dep_control_pts %s needs four doubles' % (cname, qd['id'], dep))
+        for i in range(len(placed)):
+            for j in range(i + 1, len(placed)):
+                a, b = placed[i], placed[j]
+                gap = ((a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2) ** 0.5 - (a[3] + b[3]) * quest_layout.CELL / 2
+                if gap < quest_layout.MIN_GAP:
+                    E('chapters/%s: quests %s and %s are drawn %.2f units apart (at least %.2f)'
+                      % (cname, a[0], b[0], gap, quest_layout.MIN_GAP))
+
+    # ---- Great Works chapters: a stage, one entry, one goal, every quest leads to the goal
+    for cname, ch in chapters.items():
+        if 'works' not in ch.get('tags', []):
+            continue
+        if ch.get('progressivestages_required_stage') not in AGE_CHAPTER_STAGES:
+            E('chapters/%s: a Great Work needs the required stage of its Age' % cname)
+        entries = [qd for qd in ch['quests'] if 'entry' in qd.get('tags', [])]
+        goals = [qd for qd in ch['quests'] if 'goal' in qd.get('tags', [])]
+        if len(entries) != 1 or len(goals) != 1:
+            E('chapters/%s: %d entries and %d goals, expected one each' % (cname, len(entries), len(goals)))
+            continue
+        byid = {qd['id'].upper(): qd for qd in ch['quests']}
+        reach, stack = set(), [goals[0]['id'].upper()]
+        while stack:
+            cur = stack.pop()
+            if cur not in reach:
+                reach.add(cur)
+                stack += [d.upper() for d in byid.get(cur, {}).get('dependencies', [])]
+        for qd in ch['quests']:
+            if qd['id'].upper() not in reach:
+                E('chapters/%s: quest %s does not lead to the goal' % (cname, qd['id']))
 
     # ---- dependency cycles
     state = {}

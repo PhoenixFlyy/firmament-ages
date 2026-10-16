@@ -7,12 +7,20 @@
 	chapter.12AE834BF6E07368.title: "Electric Age"
 	chapter.172FAEFD3F2102E6.chapter_subtitle: ["Fission, rockets and draconium."]
 	chapter.172FAEFD3F2102E6.title: "Space Age"
+	chapter.1A21A4720E938BB6.chapter_subtitle: [
+		"A Great Work of the Space Age: a rocket that rises from the ground."
+	]
+	chapter.1A21A4720E938BB6.title: "The Silo"
 	chapter.1D01936AE318F34B.chapter_subtitle: ["The map opens. Iron veins become visible."]
 	chapter.1D01936AE318F34B.title: "Iron Age"
 	chapter.1ECA2119E26A0A06.chapter_subtitle: ["Clay, pit kilns and the first cast copper."]
 	chapter.1ECA2119E26A0A06.title: "Stone Age"
-	chapter.2F7890D901468DC7.chapter_subtitle: ["Read this first."]
-	chapter.2F7890D901468DC7.title: "Welcome"
+	chapter.35C833E070507663.chapter_subtitle: ["A Great Work of the Iron Age: a house that moves for you."]
+	chapter.35C833E070507663.title: "The Living House"
+	chapter.40102C7AF88CF371.chapter_subtitle: [
+		"A Great Work of the Bronze Age: a gate that shuts on its own."
+	]
+	chapter.40102C7AF88CF371.title: "The Gatehouse"
 	chapter.40D4D715E3F4DB36.chapter_subtitle: ["Spirits, source and alchemy. The Nether opens."]
 	chapter.40D4D715E3F4DB36.title: "Arcane Age"
 	chapter.4472107CE8ED9B80.chapter_subtitle: ["Chaos, the Singularity and the gate."]
@@ -26,11 +34,34 @@
 	chapter.795C8B99823402E1.chapter_subtitle: ["Fusion, antimatter and the inner planets."]
 	chapter.795C8B99823402E1.title: "Quantum Age"
 	chapter.7D0742BC787AAFAC.chapter_subtitle: [
-		"Nine offerings and a gate. The whole road, from the first spark to the last."
+		"Read me first. Then the whole road, from the first spark to the last."
 	]
 	chapter.7D0742BC787AAFAC.title: "The Firmament"
+	chapter_group.7E30DFE764CF3EDD.title: "Great Works"
 	chapter_group.7E67E59034114849.title: "Ages"
 	file.0000000000000001.title: "The Chronicle"
+	image.077FC9D9141197D7.title: "Raise the Foundry Nave: the build guide"
+	image.0E64470CA61070E1.title: "Raise the Bronze Sanctum: the build guide"
+	image.0F74608512E3F55F.title: "Watch it built"
+	image.107829C6774EB4AD.title: "Raise the Iron Sanctum: the build guide"
+	image.112A3CC794CFF53E.title: "Raise the Hearth Circle: the build guide"
+	image.135B23363A221BA7.title: "Raise the Foundry Nave: the build guide"
+	image.15DB5FBD2D09B7DE.title: "Raise the Tesla Crown: the build guide"
+	image.1A7DB444C6B25DF5.title: "Raise the Spirit Circle: the build guide"
+	image.1CACCB162CB2DE0A.title: "Watch it built"
+	image.20160D9C4692E771.title: "Raise the Quantum Ring: the build guide"
+	image.22BA4737D7F4C281.title: "Watch it built"
+	image.24EB52BDB5D9976B.title: "Raise the Bronze Sanctum: the build guide"
+	image.2B88D0D8249DFE07.title: "Raise the Quantum Ring: the build guide"
+	image.2F6D0E5FDA06D68B.title: "Raise the Iron Sanctum: the build guide"
+	image.43CE5998CCFAADD1.title: "Raise the Spirit Circle: the build guide"
+	image.47802284BE8FE176.title: "Watch it built"
+	image.4A2D00595E57C6E3.title: "Raise the Tesla Crown: the build guide"
+	image.53A57A1416F15183.title: "Raise the Star Spire: the build guide"
+	image.5DD106A73CB9EC00.title: "Raise the Data Nave: the build guide"
+	image.6083652A9CE70E08.title: "Raise the Star Spire: the build guide"
+	image.67995DB96522F225.title: "Raise the Data Nave: the build guide"
+	image.68EE54CEEE34416C.title: "Raise the Hearth Circle: the build guide"
 	quest.001477EB265CFAF8.quest_desc: [
 		"Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter (two sticks) until the firepit lights."
 		""
@@ -70,6 +101,7 @@
 	]
 	quest.01A60C077F4FEDFD.title: "Spirit Proof"
 	quest.022B6F2B50E24B10.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_6.png width:180 height:114 align:center click_action:open_quest:0CDFA3FE518F620D text:Open%20the%20build%20guide}"
 		"Raise the Data Nave around the Tesla Crown: certus quartz blocks, steel casing bases, quartz glass and fluix block caps. The heart shows every missing block."
 	]
 	quest.022B6F2B50E24B10.quest_subtitle: "The shrine ring of this Age"
@@ -111,17 +143,48 @@
 		"The MekaSuit and the Meka-Tool are trophies. They can be made only after the final boss falls."
 	]
 	quest.049A5B04B3B800F6.title: "After the Battle"
+	quest.049DBB559FB718EA.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_8_build.apng.png width:220 height:135 align:center}"
+		"Raise the Quantum Ring round the Star Spire. 88 new blocks in three layers:"
+		"- 75 calorite blocks"
+		"- eight SPS casings or fusion reactor frames"
+		"- four awakened draconium blocks"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_8_layer_1.png width:220 height:135 align:center}"
+		"Layer one of three, level with the heart: 75 calorite blocks, four SPS casings or fusion reactor frames, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_8_layer_2.png width:220 height:135 align:center}"
+		"Layer two of three, one block up: four SPS casings or fusion reactor frames."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_8_layer_3.png width:220 height:135 align:center}"
+		"Layer three of three, two blocks up: four awakened draconium blocks."
+		"{@pagebreak}"
+		"Lay the Quantum Core on the plinth. Your Tally Chutes must have taken 3,584 calorite ingots in this Age."
+		""
+		"The rite:"
+		"- At least two of you pray together."
+		"- Caelum wants to see the stars: pray at night, under an open sky, without rain."
+		"- The lent Awakened Keystone rests on its plinth again."
+		"- Feed 100,000,000 FE into the heart; Caelum takes it."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Singularity Age."
+	]
+	quest.049DBB559FB718EA.quest_subtitle: "The shrine ring of the Quantum Age"
+	quest.049DBB559FB718EA.title: "Quantum Ring"
 	quest.04AB34FB1FD2E8B6.quest_desc: [
-		"Each chapter has one entry, three or four strands and one goal."
+		"Each Age has one chapter. Its strands wind from the entry round the goal, the gilded star."
 		"- A strand ends in a keystone, the large engraved hexagon."
-		"- The goal, the gilded star, needs every keystone."
-		"- Round ones are side paths with a small gift."
-		"- The diamond marks the Age's shrine ring."
+		"- The goal needs every keystone."
+		"- Round ember ones are side paths with a small gift."
+		"- The diamond is the shrine ring of the Age. Its picture opens the build guide."
 		"- Gears are notes. Tick them once read."
 	]
-	quest.04AB34FB1FD2E8B6.title: "Reading a Chapter"
+	quest.04AB34FB1FD2E8B6.title: "Reading the Chronicle"
 	quest.04DAC1D51AABFF20.quest_desc: [
-		"The offering of the Bronze Age. Its details appear when the Age before it is done."
+		"The offering of the Bronze Age. Its build guide stands beside it."
 	]
 	quest.04DAC1D51AABFF20.quest_subtitle: "Goal of the Bronze Age"
 	quest.04DAC1D51AABFF20.title: "Sky Disc"
@@ -150,6 +213,14 @@
 		"Smith a prospector's pick on an anvil (Smithing strand). It finds ore through stone."
 	]
 	quest.063F1A5EA37B6B16.title: "Prospector"
+	quest.0663C990B303E311.quest_desc: [
+		"{image:firmages:textures/gui/quests/works/gatehouse_open.png width:200 height:164 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Watch%20it%20built}"
+		"Build a gate that shuts on its own: towers of rock, a bridge over the ditch, a grate that drops and a bridge that lifts."
+		""
+		"Click the picture to watch the grate built, step by step."
+	]
+	quest.0663C990B303E311.quest_subtitle: "A Great Work of the Bronze Age"
+	quest.0663C990B303E311.title: "The Gatehouse"
 	quest.0672AC049845AEE4.quest_desc: [
 		"Your own tanned leather makes the first armor. Wear it before the first winter trip."
 	]
@@ -169,7 +240,7 @@
 	quest.0725F0C2566548FA.quest_desc: ["The distiller makes mercury shards, the third principle."]
 	quest.0725F0C2566548FA.title: "Distiller"
 	quest.077BFA2D599B1A4B.quest_desc: [
-		"The offering of the Arcane Age. Its details appear when the Age before it is done."
+		"The offering of the Arcane Age. Its build guide stands beside it."
 	]
 	quest.077BFA2D599B1A4B.quest_subtitle: "Goal of the Arcane Age"
 	quest.077BFA2D599B1A4B.title: "Arcane Keystone"
@@ -199,6 +270,10 @@
 		"Feed the crusher by machine and collect 64 iron dust from the line."
 	]
 	quest.092749BAB246E72D.title: "Automated Ore Line"
+	quest.09EDA4DD21F093AA.quest_desc: [
+		"One link opens the hatch. A delayed link wakes the pad once the leaves are clear."
+	]
+	quest.09EDA4DD21F093AA.title: "One Signal"
 	quest.0A44DADC27787AEE.quest_desc: [
 		"Feed 512 aluminium ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
 	]
@@ -250,6 +325,39 @@
 	quest.0C379E8319A22836.title: "Chunk Claims"
 	quest.0C522194B14B71CC.quest_desc: ["A backpack carries a second inventory."]
 	quest.0C522194B14B71CC.title: "Pack Mule"
+	quest.0CDFA3FE518F620D.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_6_build.apng.png width:220 height:140 align:center}"
+		"Raise the Data Nave round the Tesla Crown. 76 new blocks in four layers:"
+		"- 59 quartz blocks"
+		"- eight quartz glass"
+		"- four fluix blocks"
+		"- four steel casings"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_6_layer_1.png width:220 height:140 align:center}"
+		"Layer one of four, level with the heart: 59 quartz blocks, four steel casings, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_6_layer_2.png width:220 height:140 align:center}"
+		"Layer two of four, one block up: four quartz glass."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_6_layer_3.png width:220 height:140 align:center}"
+		"Layer three of four, two blocks up: four quartz glass."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_6_layer_4.png width:220 height:140 align:center}"
+		"Layer four of four, three blocks up: four fluix blocks."
+		"{@pagebreak}"
+		"Lay the Data Matrix on the plinth. Your Tally Chutes must have taken 1,024 osmium ingots in this Age."
+		""
+		"The rite:"
+		"- At least two of you pray together."
+		"- Feed 10,000,000 FE into the heart; Caelum takes it."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Space Age."
+	]
+	quest.0CDFA3FE518F620D.quest_subtitle: "The shrine ring of the Information Age"
+	quest.0CDFA3FE518F620D.title: "Data Nave"
 	quest.0D0AB1CA40800F5A.quest_desc: ["Break a wild crop to get its seeds."]
 	quest.0D0AB1CA40800F5A.title: "Gatherer"
 	quest.0D99128B070FE166.quest_desc: [
@@ -260,6 +368,10 @@
 		"Fuse hypercharged alloy with antimatter into two subatomic alloys. The Quantum Core and the Awakened Keystone each want one."
 	]
 	quest.0DD300C809C84163.title: "Subatomic Alloy"
+	quest.0E11167D545AFC02.quest_desc: [
+		"Pair two redstone links. The gate obeys a lever from across the yard."
+	]
+	quest.0E11167D545AFC02.title: "One Signal"
 	quest.0E48C0E43D256E7D.quest_desc: [
 		"Fuse a Nether Star in the arc furnace. The Humming Core needs it; the Wither drops one too."
 	]
@@ -309,9 +421,15 @@
 	quest.10F7B6A8850E3BCE.title: "Ostrum"
 	quest.1129C4816E846CCC.quest_desc: ["LV wire carries FE between connectors."]
 	quest.1129C4816E846CCC.title: "Copper Wire"
+	quest.1164F7391DDF80C9.quest_desc: [
+		"Throw the lever on the gearshift of the pulley. The grate drops, the bridge rises, and the night stays outside."
+	]
+	quest.1164F7391DDF80C9.quest_subtitle: "The gate holds"
+	quest.1164F7391DDF80C9.title: "Shut the Gate"
 	quest.11D75C261FA24AE3.quest_desc: ["A wrought iron anvil can work steel."]
 	quest.11D75C261FA24AE3.title: "Iron Anvil"
 	quest.11F575AA30F154A5.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_2.png width:180 height:127 align:center click_action:open_quest:2AD10B433A5BEAFD text:Open%20the%20build%20guide}"
 		"Raise the Iron Sanctum around the Bronze Sanctum: smooth rock pillars with wrought iron bars and four wrought iron lamps. The heart shows every missing block."
 	]
 	quest.11F575AA30F154A5.quest_subtitle: "The shrine ring of this Age"
@@ -380,6 +498,47 @@
 		"No recipe viewer until the Bronze Age; this book draws every pattern."
 	]
 	quest.16708A1C39158F9C.title: "What Dawn Withholds"
+	quest.16D1C406E00151F0.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_4_build.apng.png width:220 height:152 align:center}"
+		"Raise the Foundry Nave round the Spirit Circle. 64 new blocks in five layers:"
+		"- 43 coke bricks"
+		"- twelve steel scaffolding"
+		"- four electric lanterns"
+		"- four heavy engineering blocks"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_4_layer_1.png width:220 height:152 align:center}"
+		"Layer one of five, level with the heart: 43 coke bricks, four heavy engineering blocks, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_4_layer_2.png width:220 height:152 align:center}"
+		"Layer two of five, one block up: four steel scaffolding."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_4_layer_3.png width:220 height:152 align:center}"
+		"Layer three of five, two blocks up: four steel scaffolding."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_4_layer_4.png width:220 height:152 align:center}"
+		"Layer four of five, three blocks up: four steel scaffolding."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_4_layer_5.png width:220 height:152 align:center}"
+		"Layer five of five, four blocks up: four electric lanterns."
+		"{@pagebreak}"
+		"Lay the Pressure Core on the plinth. Your Tally Chutes must have taken 384 steel ingots in this Age."
+		""
+		"The rite:"
+		"- Power the four electric lanterns on the pillars."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Electric Age."
+	]
+	quest.16D1C406E00151F0.quest_subtitle: "The shrine ring of the Industrial Age"
+	quest.16D1C406E00151F0.title: "Foundry Nave"
+	quest.175259B58F7782F8.quest_desc: [
+		"Set a clockwork bearing in the gable and give it hands. The house keeps the hours of the sun."
+		"{image:firmages:textures/gui/quests/works/living_house.png width:120 height:100 align:center click_action:custom_event:firmages:ponder/create/clockwork_bearing text:Watch%20a%20clock%20built}"
+	]
+	quest.175259B58F7782F8.quest_subtitle: "The house is awake"
+	quest.175259B58F7782F8.title: "The House Keeps Time"
 	quest.17A29F90313EDA66.quest_desc: [
 		"A garden cloche grows crops under glass with power and water."
 	]
@@ -395,6 +554,10 @@
 		"Put hot metal in the anvil and hold a hammer. Pick the plan from the scroll. Strike until the green marker meets the red one; your last three strikes must match the rules shown on top."
 	]
 	quest.1A7B308A025FA2CD.title: "Anvil Work"
+	quest.1A85B2B291F401B5.quest_desc: [
+		"Make eight rope bridges of any wood. They span the ditch before your gate."
+	]
+	quest.1A85B2B291F401B5.title: "A Bridge Over the Ditch"
 	quest.1B12D746242380A4.quest_desc: ["Aluminium comes only from the arc furnace."]
 	quest.1B12D746242380A4.title: "Aluminium"
 	quest.1BAB0B9CCD6A8CB3.quest_desc: ["The infuser makes the alloys and the control circuits."]
@@ -506,6 +669,11 @@
 		"Melt copper with tin, bismuth or gold and silver in the right ratio."
 	]
 	quest.20986504959DC566.title: "Bronze"
+	quest.21193CB7838FAC31.quest_desc: [
+		"{image:firmages:textures/gui/quests/works/gatehouse_shut.png width:180 height:148 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Watch%20it%20built}"
+		"Glue a bronze grate together and hang it in a wall slot under a rope pulley. Turn the pulley and the gate shuts."
+	]
+	quest.21193CB7838FAC31.title: "Portcullis"
 	quest.214D6B55DD018CDF.quest_desc: [
 		"Dig a cellar below ground: it stays cool. Fill large vessels and seal them."
 	]
@@ -515,6 +683,7 @@
 	]
 	quest.216ADE120332EDCD.title: "Blaze Rods"
 	quest.2184B4EB21075F37.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_5.png width:180 height:121 align:center click_action:open_quest:79D2D4E17FC9732D text:Open%20the%20build%20guide}"
 		"Raise the Tesla Crown around the Foundry Nave: aluminium, red steel bases with HV capacitors, aluminium scaffolding and four floodlights. The heart shows every missing block."
 	]
 	quest.2184B4EB21075F37.quest_subtitle: "The shrine ring of this Age"
@@ -542,6 +711,10 @@
 	]
 	quest.23536BC1524A5044.quest_subtitle: "Goal of the Electric Age: Caelum opens the Information Age"
 	quest.23536BC1524A5044.title: "Offer the Humming Core at the Shrine"
+	quest.238D92258CB69AD6.quest_desc: [
+		"Sink a shaft 15 by 15 and nine deep. Shore its walls; the rock remembers every cut. Set the pad at the bottom."
+	]
+	quest.238D92258CB69AD6.title: "The Shaft"
 	quest.23B75CB262B7C101.quest_desc: ["Mix clay with kaolinite and graphite powder into fire clay."]
 	quest.23B75CB262B7C101.title: "Fireproof"
 	quest.23B8CBEFB688315B.quest_desc: [
@@ -617,10 +790,43 @@
 		"Launch a probe with a sampler module. It returns with voidglass, found nowhere else."
 	]
 	quest.2AA3E7314061B5F7.title: "Voidglass"
+	quest.2AD10B433A5BEAFD.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_2_build.apng.png width:220 height:155 align:center}"
+		"Raise the Iron Sanctum round the Bronze Sanctum. 52 new blocks in four layers:"
+		"- 39 smooth rock"
+		"- eight iron bars"
+		"- four iron lamps"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_2_layer_1.png width:220 height:155 align:center}"
+		"Layer one of four, level with the heart: 31 smooth rock, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_2_layer_2.png width:220 height:155 align:center}"
+		"Layer two of four, one block up: eight iron bars, four smooth rock."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_2_layer_3.png width:220 height:155 align:center}"
+		"Layer three of four, two blocks up: four smooth rock."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_2_layer_4.png width:220 height:155 align:center}"
+		"Layer four of four, three blocks up: four iron lamps."
+		"{@pagebreak}"
+		"Lay the Steel Heart on the plinth."
+		""
+		"The rite:"
+		"- Light the four lamps on the pillars."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Arcane Age."
+	]
+	quest.2AD10B433A5BEAFD.quest_subtitle: "The shrine ring of the Iron Age"
+	quest.2AD10B433A5BEAFD.title: "Iron Sanctum"
 	quest.2B9263D6A5FEA18B.quest_desc: [
 		"Make eight energy upgrades for your ore machines. Without them the fourfold and fivefold ore lines cost more power than they gain."
 	]
 	quest.2B9263D6A5FEA18B.title: "Energy Upgrades"
+	quest.2BE0D6CB6EF8C395.quest_desc: ["Pipe fuel down to the pad. A rocket in the silo waits full."]
+	quest.2BE0D6CB6EF8C395.title: "Fuel Line"
 	quest.2C29644013E0FBF2.quest_desc: [
 		"Starsteel meteorites fall now. Melt their chunks in the arc furnace; the sky is its only source."
 	]
@@ -629,12 +835,49 @@
 		"Mercury, salt and sulfur incubate into a metal dust. Melt the dust in a vessel."
 	]
 	quest.2C575E91F55039E2.title: "Incubator"
+	quest.2CBD5C8E76F766A8.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_3_build.apng.png width:220 height:149 align:center}"
+		"Raise the Spirit Circle round the Iron Sanctum. 60 new blocks in four layers:"
+		"- 35 gilded sourcestone"
+		"- twelve otherstone"
+		"- eight candles"
+		"- four source gem blocks"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_3_layer_1.png width:220 height:149 align:center}"
+		"Layer one of four, level with the heart: 35 gilded sourcestone, four otherstone, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_3_layer_2.png width:220 height:149 align:center}"
+		"Layer two of four, one block up: eight candles, four otherstone."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_3_layer_3.png width:220 height:149 align:center}"
+		"Layer three of four, two blocks up: four otherstone."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_3_layer_4.png width:220 height:149 align:center}"
+		"Layer four of four, three blocks up: four source gem blocks."
+		"{@pagebreak}"
+		"Lay the Arcane Keystone on the plinth."
+		""
+		"The rite:"
+		"- Light the eight candles of the Spirit Circle."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Industrial Age."
+	]
+	quest.2CBD5C8E76F766A8.quest_subtitle: "The shrine ring of the Arcane Age"
+	quest.2CBD5C8E76F766A8.title: "Spirit Circle"
 	quest.2CDFC10C1482A709.quest_desc: ["The FE generator of this Age."]
 	quest.2CDFC10C1482A709.title: "Gas-Burning Generator"
 	quest.2CEDC0346E550CE6.quest_desc: [
 		"The year has seasons. Crops stop growing in winter and it gets cold. Plan ahead."
 	]
 	quest.2CEDC0346E550CE6.title: "The First Winter"
+	quest.2CF7A994345A2A94.quest_desc: [
+		"Open the hatch and wake the pad with one signal. Ten heartbeats later the rocket rises through your own sky."
+	]
+	quest.2CF7A994345A2A94.quest_subtitle: "The sky opens from below"
+	quest.2CF7A994345A2A94.title: "Launch from the Silo"
 	quest.2DC5143776D7B7D7.quest_desc: [
 		"Sixteen steel ingots. From here on, steel is a material, not a trophy."
 	]
@@ -686,7 +929,7 @@
 	]
 	quest.3213BFEF5EB29C5C.title: "Mold Set"
 	quest.3240A673372AF11A.quest_desc: [
-		"The offering of the Stone Age. Its details appear when the Age before it is done."
+		"The offering of the Stone Age. Its build guide stands beside it."
 	]
 	quest.3240A673372AF11A.quest_subtitle: "Goal of the Stone Age"
 	quest.3240A673372AF11A.title: "Hearthstone"
@@ -701,7 +944,7 @@
 	]
 	quest.32C8626D60896E8F.title: "Just a Rock"
 	quest.32D33BE8EB20FCA6.quest_desc: [
-		"The offering of the Electric Age. Its details appear when the Age before it is done."
+		"The offering of the Electric Age. Its build guide stands beside it."
 	]
 	quest.32D33BE8EB20FCA6.quest_subtitle: "Goal of the Electric Age"
 	quest.32D33BE8EB20FCA6.title: "Humming Core"
@@ -710,7 +953,7 @@
 	]
 	quest.333133C7E32AE19D.title: "Aluminium Plates"
 	quest.33818E6B3089AF9E.quest_desc: [
-		"The offering of the Space Age. Its details appear when the Age before it is done."
+		"The offering of the Space Age. Its build guide stands beside it."
 	]
 	quest.33818E6B3089AF9E.quest_subtitle: "Goal of the Space Age"
 	quest.33818E6B3089AF9E.title: "Star Chart"
@@ -726,6 +969,31 @@
 		"Each magic function has one carrier: Starbuncles move items, Dimensional Storage stores them, spagyrics multiply ore, the Djinni crafts in pentacles. Duplicates are switched off."
 	]
 	quest.3439831B7895C627.title: "One Carrier per Function"
+	quest.346CC5CACE990B24.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_1_build.apng.png width:220 height:141 align:center}"
+		"Raise the Bronze Sanctum round the Hearth Circle. 25 new blocks in two layers:"
+		"- 19 rock bricks"
+		"- four bronze blocks"
+		"- one bell, bronze or brass"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_1_layer_1.png width:220 height:141 align:center}"
+		"Layer one of two, level with the heart: 19 rock bricks, four bronze blocks, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_1_layer_2.png width:220 height:141 align:center}"
+		"Layer two of two, one block up: one bell, bronze or brass."
+		"{@pagebreak}"
+		"Lay the Sky Disc on the plinth."
+		""
+		"The rite:"
+		"- Ring the bell of the sanctum."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Iron Age."
+	]
+	quest.346CC5CACE990B24.quest_subtitle: "The shrine ring of the Bronze Age"
+	quest.346CC5CACE990B24.title: "Bronze Sanctum"
 	quest.349C4476B51DAC16.quest_desc: [
 		"Fill the bloomery with iron ore and charcoal and let it burn."
 	]
@@ -817,7 +1085,7 @@
 	]
 	quest.3C03E230F16471D7.title: "Deep-Space Sample"
 	quest.3C8510408C6A23D6.quest_desc: [
-		"The offering of the Quantum Age. Its details appear when the Age before it is done."
+		"The offering of the Quantum Age. Its build guide stands beside it."
 	]
 	quest.3C8510408C6A23D6.quest_subtitle: "Goal of the Quantum Age"
 	quest.3C8510408C6A23D6.title: "Quantum Core"
@@ -831,6 +1099,11 @@
 		"Alloy copper and zinc into brass, by hand in the crucible or in a heated basin."
 	]
 	quest.3EAA8BE972DC58F9.title: "Brass"
+	quest.3F05F326F8CF2577.quest_desc: [
+		"{image:firmages:textures/gui/quests/works/silo_shut.png width:180 height:144 align:center click_action:custom_event:firmages:ponder/ad_astra/launch_pad text:Watch%20the%20hatch%20built}"
+		"Glue two leaves over the shaft. Each rides a gantry carriage and slides into a pocket under the rim."
+	]
+	quest.3F05F326F8CF2577.title: "The Hatch"
 	quest.3F2796853AD668B5.quest_desc: [
 		"Gather eight storm glass from your Storm Rods; they are its only source. With meteoric iron it becomes Starlit Iron under the Lens Crown, the first celestial alloy."
 	]
@@ -840,12 +1113,13 @@
 	]
 	quest.3F8D45ADF9515576.title: "Winter Stores"
 	quest.3F916E93EBA922A5.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_4.png width:180 height:124 align:center click_action:open_quest:16D1C406E00151F0 text:Open%20the%20build%20guide}"
 		"Raise the Foundry Nave around the Spirit Circle: coke bricks, heavy engineering block bases, steel scaffolding and four electric lanterns. The heart shows every missing block."
 	]
 	quest.3F916E93EBA922A5.quest_subtitle: "The shrine ring of this Age"
 	quest.3F916E93EBA922A5.title: "Raise the Foundry Nave"
 	quest.40280EBC4CC9F8F6.quest_desc: [
-		"The offering of the Information Age. Its details appear when the Age before it is done."
+		"The offering of the Information Age. Its build guide stands beside it."
 	]
 	quest.40280EBC4CC9F8F6.quest_subtitle: "Goal of the Information Age"
 	quest.40280EBC4CC9F8F6.title: "Data Matrix"
@@ -854,6 +1128,7 @@
 	]
 	quest.40B43DE8640EAB9B.title: "Cave-ins"
 	quest.40BDDBC61D9D82C3.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_8.png width:180 height:111 align:center click_action:open_quest:049DBB559FB718EA text:Open%20the%20build%20guide}"
 		"Raise the Quantum Ring around the Star Spire: calorite blocks, SPS casings or fusion reactor frames, and awakened draconium pylons. The heart shows every missing block."
 	]
 	quest.40BDDBC61D9D82C3.quest_subtitle: "The shrine ring of this Age"
@@ -899,10 +1174,20 @@
 		"Hover over a machine in your inventory and hold W to watch it work."
 	]
 	quest.4304B6AA00C231E8.title: "Kinetics in the Bronze Age"
+	quest.43EE716147A43CFE.quest_desc: [
+		"Wire four lamps to a redstone link. One lever by the door lights the whole house."
+	]
+	quest.43EE716147A43CFE.title: "Lights on a Link"
 	quest.43FC2CC39EF5EFE5.quest_desc: [
 		"Make four elite control circuits. The reactor parts run on them."
 	]
 	quest.43FC2CC39EF5EFE5.title: "Elite Circuits"
+	quest.44ABD64FACE0D764.quest_desc: [
+		"From the Stone Age on, every Age ends at the shrine. Raise the ring of the Age round the heart, lay the offering on the plinth and pray."
+		""
+		"The diamonds along the road are the build guides: the ring rising, every layer with its blocks, and the rite. Each appears when its Age dawns."
+	]
+	quest.44ABD64FACE0D764.title: "The Shrine of Caelum"
 	quest.44B3F8C53C417220.quest_desc: [
 		"MV and HV power, oil, the arc furnace and the excavator. Bauxite and osmium veins wake: the Information Age needs osmium at once."
 		""
@@ -949,6 +1234,34 @@
 		"Keep a Wilden Tribute. The Djinni ritual of the Arcane Keystone needs it."
 	]
 	quest.470272BFC8013E57.title: "Wilden Tribute"
+	quest.47EADFDE57EAF836.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_0_build.apng.png width:220 height:162 align:center}"
+		"Build the Hearth Circle round the Shrine Heart. 21 new blocks in three layers:"
+		"- eight logs"
+		"- eight cobblestone"
+		"- four thatch"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_0_layer_1.png width:220 height:162 align:center}"
+		"Layer one of three, level with the heart: eight cobblestone, four logs, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_0_layer_2.png width:220 height:162 align:center}"
+		"Layer two of three, one block up: four logs."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_0_layer_3.png width:220 height:162 align:center}"
+		"Layer three of three, two blocks up: four thatch."
+		"{@pagebreak}"
+		"Lay the Hearthstone on the plinth."
+		""
+		"The rite:"
+		"- The heart is cold. Kindle it with a firestarter."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Bronze Age."
+	]
+	quest.47EADFDE57EAF836.quest_subtitle: "The shrine ring of the Stone Age"
+	quest.47EADFDE57EAF836.title: "Hearth Circle"
 	quest.484BD83C5FBABCE1.quest_desc: [
 		"Any wood works:"
 		"- Palisade: two logs side by side. Beam: two stripped logs stacked."
@@ -968,6 +1281,12 @@
 		"Build the tier 1 rocket. It reaches the Moon and no further."
 	]
 	quest.4868CA77D43496DE.title: "Tier 1 Rocket"
+	quest.48803AB38AE3E466.quest_desc: [
+		"Press K to open the Chronicle. Sneak is Left Ctrl here; Left Shift sprints."
+		""
+		"Press V to lay the item in your hand on a block. Hold H to see the sign of your Age again."
+	]
+	quest.48803AB38AE3E466.title: "Hands and Keys"
 	quest.4881717821F8F9DA.quest_desc: [
 		"Catch a blaze in the Nether with an empty blaze burner. Superheated mixing follows."
 	]
@@ -979,7 +1298,7 @@
 	quest.49153BBE2AD958B7.quest_desc: [
 		"Dawn gives you nothing: no pick, no clay, no fire."
 		""
-		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out. Sneak is Left Ctrl here; Left Shift sprints. Read \"By Hand\" first."
+		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out. Read \"By Hand\" and \"Hands and Keys\" in The Firmament first."
 		""
 		"Nights are dark. Light a fire and make torches before the first one (see \"Before Dark\"). When all three strands are done, the first fire opens the Stone Age for all of you."
 	]
@@ -1014,6 +1333,7 @@
 	]
 	quest.4B5686EB34477AC2.title: "Chaotic Core"
 	quest.4BFBAC45968A80F5.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_7.png width:180 height:116 align:center click_action:open_quest:589B89079D60A34B text:Open%20the%20build%20guide}"
 		"Raise the Star Spire around the Data Nave: steel plating, desh block pillars and ostrum block caps. The heart shows every missing block."
 	]
 	quest.4BFBAC45968A80F5.quest_subtitle: "The shrine ring of this Age"
@@ -1106,6 +1426,7 @@
 	quest.50B1CD95742F5B7B.quest_desc: ["Build a pumpjack over an oil reservoir."]
 	quest.50B1CD95742F5B7B.title: "Pumpjack"
 	quest.51D1F56529776258.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_1.png width:180 height:115 align:center click_action:open_quest:346CC5CACE990B24 text:Open%20the%20build%20guide}"
 		"Raise the Bronze Sanctum around the Hearth Circle: rock bricks, a bronze block on each corner and a bronze or brass bell opposite the plinth. The heart shows every missing block."
 	]
 	quest.51D1F56529776258.quest_subtitle: "The shrine ring of this Age"
@@ -1174,7 +1495,7 @@
 		"The world is lived in Ages, from Dawn to the Singularity Age. What a later Age holds does not exist yet. Each Age ends with an offering at the shrine of Caelum, the sky itself, and its chapter appears here when it dawns."
 	]
 	quest.573FF798650E3338.quest_subtitle: "Read me first"
-	quest.573FF798650E3338.title: "Welcome to Firmament Ages"
+	quest.573FF798650E3338.title: "You Wake"
 	quest.574F377D613986E5.quest_desc: [
 		"Forge Starlit Iron under the crown from meteoric iron, storm glass and an Arcane gem. Both routes to the Arcane Keystone need it, and the Wayshrines now want it as their offering."
 	]
@@ -1185,6 +1506,40 @@
 		"The Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards. The reactor makes chaos without it."
 	]
 	quest.57F5B8C4363E589D.title: "Chaos Guardian"
+	quest.589B89079D60A34B.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_7_build.apng.png width:220 height:142 align:center}"
+		"Raise the Star Spire round the Data Nave. 88 new blocks in five layers:"
+		"- 67 steel plating"
+		"- 16 desh blocks"
+		"- four ostrum blocks"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_7_layer_1.png width:220 height:142 align:center}"
+		"Layer one of five, level with the heart: 67 steel plating, four desh blocks, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_7_layer_2.png width:220 height:142 align:center}"
+		"Layer two of five, one block up: four desh blocks."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_7_layer_3.png width:220 height:142 align:center}"
+		"Layer three of five, two blocks up: four desh blocks."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_7_layer_4.png width:220 height:142 align:center}"
+		"Layer four of five, three blocks up: four desh blocks."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_7_layer_5.png width:220 height:142 align:center}"
+		"Layer five of five, four blocks up: four ostrum blocks."
+		"{@pagebreak}"
+		"Lay the Star Chart on the plinth. Your Tally Chutes must have taken 2,880 desh ingots in this Age."
+		""
+		"The rite:"
+		"- Caelum wants to see the stars: pray at night, under an open sky, without rain."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Quantum Age."
+	]
+	quest.589B89079D60A34B.quest_subtitle: "The shrine ring of the Space Age"
+	quest.589B89079D60A34B.title: "Star Spire"
 	quest.5959E93431484DD5.quest_desc: [
 		"Set the Quantum lens and forge the Firmament Alloy under the full crown from the singular alloy and the sky materials of every Age. The Ultimate Singularity needs it."
 	]
@@ -1266,6 +1621,7 @@
 	]
 	quest.623C908B3CDF2E3E.title: "Desh Plates"
 	quest.6281CB502F09533D.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_3.png width:180 height:122 align:center click_action:open_quest:2CBD5C8E76F766A8 text:Open%20the%20build%20guide}"
 		"Raise the Spirit Circle around the Iron Sanctum: sourcestone, otherstone pillars capped with source gem blocks, and eight candles. The heart shows every missing block. When the ring stands, the heart waits for the Keystone."
 	]
 	quest.6281CB502F09533D.quest_subtitle: "The shrine ring of this Age"
@@ -1290,6 +1646,10 @@
 		"Four straw make thatch, two sticks a firestarter, a stone head and a stick a stone tool. The crafting grid (E) opens with the Stone Age."
 	]
 	quest.64181B7811C2814E.title: "By Hand"
+	quest.641FB17315FC626A.quest_desc: [
+		"Hang two brass doors in your entrance. Sliding doors open by hand or on a redstone signal."
+	]
+	quest.641FB17315FC626A.title: "Doors That Slide"
 	quest.64CDFFD93C9CBDCE.quest_desc: [
 		"Craft the Data Matrix from two blue steel sheets, two Halo Steel ingots, three advanced control circuits, a 64k storage component and a singularity from the matter condenser."
 		""
@@ -1320,7 +1680,7 @@
 	]
 	quest.6522D484BFB67425.title: "Stone Tools"
 	quest.652657C4C5B8CAC5.quest_desc: [
-		"The offering of the Iron Age. Its details appear when the Age before it is done."
+		"The offering of the Iron Age. Its build guide stands beside it."
 	]
 	quest.652657C4C5B8CAC5.quest_subtitle: "Goal of the Iron Age"
 	quest.652657C4C5B8CAC5.title: "Steel Heart"
@@ -1353,7 +1713,7 @@
 	]
 	quest.6630236A99A2E2D5.title: "Stock Ticker"
 	quest.663A4EAE1B3FAF8C.quest_desc: [
-		"The offering of the Industrial Age. Its details appear when the Age before it is done."
+		"The offering of the Industrial Age. Its build guide stands beside it."
 	]
 	quest.663A4EAE1B3FAF8C.quest_subtitle: "Goal of the Industrial Age"
 	quest.663A4EAE1B3FAF8C.title: "Pressure Core"
@@ -1382,6 +1742,12 @@
 		"Fusion crafting needs a core, injectors of the right tier and FE. Wyvern items need wyvern injectors. Every tool and armor piece has a direct recipe: no gear goes into better gear."
 	]
 	quest.67CA15BF14B359A8.title: "Fusion Crafting"
+	quest.687CBF7A7AA65BF4.quest_desc: [
+		"{image:firmages:textures/gui/quests/works/living_house.png width:200 height:166 align:center click_action:custom_event:firmages:ponder/create/elevator_pulley text:Watch%20a%20lift%20built}"
+		"Build a house that moves for you: doors that slide, a lift between floors, lamps on a link, a board that speaks and a clock in the gable. The hearth stays its heart."
+	]
+	quest.687CBF7A7AA65BF4.quest_subtitle: "A Great Work of the Iron Age"
+	quest.687CBF7A7AA65BF4.title: "The Living House"
 	quest.68A4B5AC4EBE2085.quest_desc: [
 		"Craft the Pressure Core from two black steel double sheets, a heavy engineering block, two Cloudsteel ingots, the Arcane Gearbox and a built-up steel chamber."
 		""
@@ -1523,6 +1889,11 @@
 		"Mine 16 raw desh on the Moon. It is the metal of the next rocket."
 	]
 	quest.6F9493CFB1887C79.title: "Desh"
+	quest.6FBF7C800CAD422B.quest_desc: [
+		"{image:firmages:textures/gui/quests/works/living_house.png width:120 height:100 align:center click_action:custom_event:firmages:ponder/create/display_link text:Watch%20a%20display%20link}"
+		"Show the time and your stores on a display board by the door."
+	]
+	quest.6FBF7C800CAD422B.title: "The House Speaks"
 	quest.71013FE9F62EC68E.quest_desc: [
 		"Craft four chaotic injectors. Chaotic fusion, the highest tier, needs them."
 	]
@@ -1605,6 +1976,14 @@
 		"When the mold has cooled, right-click it to take the ingot out."
 	]
 	quest.759550A45990B3C8.title: "Copper Ingot"
+	quest.75B30357728E8618.quest_desc: [
+		"{image:firmages:textures/gui/quests/works/silo_open.png width:200 height:159 align:center click_action:custom_event:firmages:ponder/ad_astra/launch_pad text:Watch%20the%20hatch%20built}"
+		"Sink a silo for your rocket: a shaft 15 by 15, a hatch of two leaves that slide apart, and one signal that opens the sky."
+		""
+		"Click the picture to watch the hatch built."
+	]
+	quest.75B30357728E8618.quest_subtitle: "A Great Work of the Space Age"
+	quest.75B30357728E8618.title: "The Silo"
 	quest.7633534E257B8AD8.quest_desc: [
 		"The alternator turns rotation into FE, the only bridge from SU to FE. Drive it with a steam engine on a fired boiler."
 	]
@@ -1649,10 +2028,52 @@
 	quest.7997DC1DFF73EA36.title: "A Better Fuel"
 	quest.79BD86B5CD663079.quest_desc: ["The alloy kiln alloys two metals in the right ratios."]
 	quest.79BD86B5CD663079.title: "Alloy Kiln"
+	quest.79D2D4E17FC9732D.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/ring_5_build.apng.png width:220 height:148 align:center}"
+		"Raise the Tesla Crown round the Foundry Nave. 72 new blocks in five layers:"
+		"- 51 aluminium blocks"
+		"- eight aluminium scaffolding"
+		"- four floodlights"
+		"- four HV capacitors"
+		"- four red steel blocks"
+		"- the Offering Plinth"
+		""
+		"Right-click the heart with an empty hand: it shows every missing block as a ghost."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_5_layer_1.png width:220 height:148 align:center}"
+		"Layer one of five, level with the heart: 51 aluminium blocks, four red steel blocks, the Offering Plinth."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_5_layer_2.png width:220 height:148 align:center}"
+		"Layer two of five, one block up: four HV capacitors."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_5_layer_3.png width:220 height:148 align:center}"
+		"Layer three of five, two blocks up: four aluminium scaffolding."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_5_layer_4.png width:220 height:148 align:center}"
+		"Layer four of five, three blocks up: four aluminium scaffolding."
+		"{@pagebreak}"
+		"{image:firmages:textures/gui/quests/shrine/ring_5_layer_5.png width:220 height:148 align:center}"
+		"Layer five of five, four blocks up: four floodlights."
+		"{@pagebreak}"
+		"Lay the Humming Core on the plinth. Your Tally Chutes must have taken 512 aluminium ingots in this Age."
+		""
+		"The rite:"
+		"- Light the four floodlights of the crown: they need power and a redstone signal."
+		"- Charge the four capacitors of the crown with 1,000,000 FE together."
+		""
+		"Then sneak and hold right-click on the heart with an empty hand. Caelum opens the Information Age."
+	]
+	quest.79D2D4E17FC9732D.quest_subtitle: "The shrine ring of the Electric Age"
+	quest.79D2D4E17FC9732D.title: "Tesla Crown"
 	quest.79DA4E6D4518762C.quest_desc: [
 		"Mix deuterium and tritium into fusion fuel. It keeps the reactor burning."
 	]
 	quest.79DA4E6D4518762C.title: "Fusion Fuel"
+	quest.79F8E831F68430F0.quest_desc: [
+		"Run an elevator pulley through the floors. A redstone contact on each floor turns into an elevator contact once the lift works."
+		"{image:firmages:textures/gui/quests/works/living_house.png width:120 height:100 align:center click_action:custom_event:firmages:ponder/create/elevator_pulley text:Watch%20a%20lift%20built}"
+	]
+	quest.79F8E831F68430F0.title: "A Lift"
 	quest.7A1EFBE16BED1D0E.quest_desc: [
 		"Craft a Tally Chute. It takes only the metal Caelum asks as proof of work, counts it and keeps it."
 	]
@@ -1669,6 +2090,11 @@
 		"Food rots. Sealed large vessels, salting, drying and cooking slow it down. Eat from every food group: grain, fruit, vegetables, protein and dairy."
 	]
 	quest.7CDF23C64D3D4961.title: "Food Decay and Nutrition"
+	quest.7D79D0CCA81D025B.quest_desc: [
+		"Glue the bridge deck to a mechanical bearing at the gate. Turn it up at night and the ditch is open again."
+		"{image:firmages:textures/gui/quests/works/gatehouse_open.png width:120 height:98 align:center click_action:custom_event:firmages:ponder/create/mechanical_bearing text:Watch%20a%20bearing%20turn}"
+	]
+	quest.7D79D0CCA81D025B.title: "Drawbridge"
 	quest.7E2D0099177BFBE8.quest_desc: [
 		"Every head is laid with a stick on one block and crafted on the ground (see \"By Hand\"). X = leave standing, - = knock away. Mirrored shapes work too."
 		""
@@ -1744,14 +2170,19 @@
 	task.0218609437AB5F8E.title: "Look at your placed crafting table"
 	task.029EBC8BCD4FA62E.title: "HV transformer"
 	task.02D20E07A2CDEA9E.title: "Look at a formed arc furnace"
+	task.059B86F37A6174D7.title: "Nine bronze bars for the grate"
 	task.0701CAFE5ABCE9D4.title: "Feed 384 steel ingots into Tally Chutes"
+	task.0774FDB7B4523A99.title: "Read the build guide"
 	task.08F238DF8DB1B94E.title: "Calculation processor"
 	task.0A489537ED4F84AB.title: "Look at a placed millstone"
+	task.0C96AD52183065A6.title: "Look at your display link"
 	task.0DB0ECEDFCF6B365.title: "Offer the Star Chart at the shrine"
 	task.0E6AB4ACAA318F51.title: "ME drive"
 	task.10059F1778A7C84F.title: "Offer the Humming Core at the shrine"
 	task.1071B42988230BBE.title: "Feed 512 aluminium ingots into Tally Chutes"
 	task.124D117E2BC55E5C.title: "Iesnium ingots"
+	task.1393B8FF6A89C62F.title: "Look at the rope pulley over your gate"
+	task.144EFC3999AA1F85.title: "Read the plan"
 	task.16FDD9AB98818001.title: "Offer the Sky Disc at the shrine"
 	task.17DC9CAF05E44B90.title: "Our cellar is stocked for the winter"
 	task.18B431469A1330AA.title: "Prosperity shards"
@@ -1762,7 +2193,9 @@
 	task.1D654C470A692AB2.title: "Look at a formed Star Anvil"
 	task.200184AA01E5A90B.title: "Look at the heart with the Star Spire complete"
 	task.20100B0FB595C7C1.title: "Transformer"
+	task.2073C3C7D5ECBA60.title: "Look at the pad while the signal wakes it"
 	task.21240DE6DE504A9E.title: "Reach the Iron Age"
+	task.23FB4CE0F984E3ED.title: "A sequenced gearshift"
 	task.2400B044708C1134.title: "Space helmet"
 	task.2402C857B3F0E700.title: "Reach the Quantum Age"
 	task.26717E0EA03954BA.title: "Reactor injector"
@@ -1782,22 +2215,29 @@
 	task.2E191734D8AA6C6F.title: "Kill any wild animal"
 	task.2F02F7582D1B7CDF.title: "Look at a formed excavator"
 	task.328A1BD6CFC1554B.title: "Look at a formed alloy kiln"
+	task.32982D0B256D8BD6.title: "Read the build guide"
 	task.3468980A6E8C7F7C.title: "Look at the heart with the Iron Sanctum complete"
 	task.3522DB90824FEBF5.title: "Offer the Arcane Keystone at the shrine"
 	task.363EF3BA28ADA833.title: "Look at a formed metal press"
 	task.375DD780913A8CE0.title: "Reach the Space Age"
 	task.377CE4E779C2C6AA.title: "Offer the Steel Heart at the shrine"
+	task.38C88F7DA9D7B715.title: "A pulse repeater"
 	task.3989D0404E562EAF.title: "Offer the Quantum Core at the shrine"
 	task.39A97E9618CA7E55.title: "Reactor stabilizers"
 	task.3A2A187B984181EF.title: "SPS casings"
 	task.3C99CD274D861CA0.title: "Wyvern injectors"
+	task.3CF5499A8D2E6BDA.title: "Read the build guide"
 	task.3EA910EB828696C0.title: "Feed 1,024 osmium ingots into Tally Chutes"
 	task.40897BEF6100181B.title: "Look at a formed improved blast furnace"
 	task.4197F6859B0FBD4A.title: "Look at the heart with the Bronze Sanctum complete"
 	task.4310383F8BF8DFA7.title: "Chevron blocks"
 	task.433F0E586DCFD500.title: "Feed 2,880 desh ingots into Tally Chutes"
+	task.442E0B849FC37B2A.title: "Look at the gearshift while the lever holds it"
 	task.44371205C7AA8957.title: "Look at your assembled Stargate"
+	task.45FAD6B31F5BEAA1.title: "Two redstone links"
 	task.465D3A2469B147A9.title: "Look at a formed coke oven"
+	task.47B7FEC819CCF685.title: "Two gantry carriages"
+	task.47CF49747E646CDC.title: "Read the build guide"
 	task.4B6C1BDA1DC7E548.title: "Look at the heart of the finished Hearth Circle"
 	task.4C0A6C7296C239BF.title: "A firestarter"
 	task.4E28DFAE9E5DA95B.title: "Look at your placed reactor core"
@@ -1811,33 +2251,49 @@
 	task.549B75B02A349FB4.title: "Fired ingot mold"
 	task.555FFA453C769834.title: "Eyes of ender"
 	task.55C92C85FCE9B94B.title: "Defeat the final boss in The Origin"
+	task.567ED971885E806E.title: "Super glue"
+	task.5695F5E6FED3E709.title: "Read the build guide"
+	task.580126B6FCDE4D54.title: "Read the plan"
 	task.585C29CB2582C5B9.title: "Ring blocks"
 	task.58632406487259A5.title: "Reach the Industrial Age"
 	task.5864029FAFC0F42D.title: "Space suit"
+	task.5905AA2A69FF3E70.title: "Read the build guide"
+	task.5B16F4CC9E177845.title: "Read the build guide"
 	task.5BAE8972952CF5F9.title: "Supercharged coils"
 	task.5DE22F71BE32AF59.title: "Reach the Singularity Age"
 	task.5EBCDBD25D48AA10.title: "Light a firepit"
 	task.5EE1D4B01D9C11FE.title: "Offer the Pressure Core at the shrine"
+	task.5EF10A008B93FC66.title: "Four display boards"
+	task.603267F4E0297D64.title: "Look at the bearing of your drawbridge"
+	task.6091182CF6EE0A07.title: "Read the plan"
 	task.632D11C7696BF019.title: "Find a body of soulstone"
 	task.638DC09ED1F3ECF4.title: "Turbine rotors"
+	task.6409CF00B93C9932.title: "Four redstone lamps"
 	task.64198A294CAF4FB8.title: "Cogwheels"
+	task.646AAAB8D651095C.title: "Look at the launch pad at the bottom of your shaft"
 	task.6494AD8893357940.title: "Offer the Hearthstone at the shrine"
 	task.65A76C6C45E7C1E9.title: "Look at your placed LV capacitor"
 	task.661F88E7CD851EBD.title: "Look at a formed diesel generator"
 	task.669D4FD80983FFE5.title: "Spirit attuned crystal"
+	task.67C61DC00BBA458E.title: "Super glue"
 	task.68337F48FE1A4BB2.title: "Feed 3,584 calorite ingots into Tally Chutes"
+	task.68DDEBC52D237F8A.title: "Read the build guide"
 	task.6912FF34FC324B3D.title: "Look at your placed Shrine Heart"
 	task.6A2FE882B54A3D6A.title: "Crafting unit"
 	task.6C03C2A36B8346CC.title: "Look at your placed alternator"
 	task.6C50E5C8F6FA0FC6.title: "Space pants"
+	task.6CE255465A8B20F2.title: "Two redstone links"
 	task.715F70D28A1A4B47.title: "Look at the heart with the Tesla Crown complete"
 	task.719E36824F786210.title: "End portal frames"
 	task.72C67C8CA11A2DC3.title: "Look at a formed pumpjack"
+	task.72D41C305D7B1882.title: "Look at a working elevator contact"
 	task.750C20F730623328.title: "Reach the Electric Age"
 	task.763BD161B2214A17.title: "Reach the Information Age"
 	task.76580C7802686F82.title: "Engineering processor"
 	task.779342C0C35572D7.title: "Offer the Data Matrix at the shrine"
+	task.78D7806496388201.title: "Look at the clockwork bearing in your gable"
 	task.794087CA08B1FDE3.title: "Look at the heart with the Data Nave complete"
+	task.79C58CBEDEC0DC2B.title: "Read the build guide"
 	task.7AE00F2A016BF75A.title: "Look at a formed thresher"
 	task.7C2F5D2903FE109A.title: "Space boots"
 	task.7C32F9C6C5A6BCCA.title: "Defeat the final boss"

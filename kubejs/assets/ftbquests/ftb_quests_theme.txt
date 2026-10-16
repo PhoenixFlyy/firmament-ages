@@ -66,9 +66,6 @@ quest_spacing:                      1.0
 pinned_quest_size:                  0.75
 
 // one sky per chapter: the chapter's Age, its shrine as it stands then, its beam colour in the nebula
-[#welcome]
-background: firmages:textures/gui/quests/bg_welcome.png
-
 [#firmament]
 background: firmages:textures/gui/quests/bg_firmament.png
 

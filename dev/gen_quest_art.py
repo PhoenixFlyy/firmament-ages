@@ -58,7 +58,6 @@ PARCHMENT_TEXT = "#F2E6C9"  # text only, no parchment surfaces
 # key, chapter title, poetic title, ring index of the shrine shown (None: none), accent, sky top, sky bottom, mood
 # Accent/sky defaults are replaced by beam_color/sky_tint of the ring's tier file when the shrine data is readable.
 AGES = [
-    ("welcome", "Welcome", "Under the Firmament", None, "#FFB347", "#070A1C", "#2A1B4E", "dawn"),
     ("firmament", "The Firmament", "The Whole Road, Spark to Gate", 8, "#E8C56A", "#070A1C", "#1A1540", "night"),
     ("dawn", "Dawn", "Stone, Straw and the First Spark", None, "#FFB347", "#0A0C24", "#3A2244", "dawn"),
     ("age_0", "Stone Age", "Clay, Fire and the Hearth Circle", 0, "#FFB347", "#070A1C", "#2A1B4E", "night"),

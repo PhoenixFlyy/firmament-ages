@@ -22,8 +22,12 @@ Format facts used here (read from the FTB Quests source at tag v2101.1.36 and th
 """
 import hashlib
 import json
+import math
 import os
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import quest_layout  # noqa: E402  (dev/quest_layout.py)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'config', 'ftbquests', 'quests')
@@ -174,9 +178,9 @@ def t_item(i, count=1, title=None, optional=False, consume=None):
     return d, title
 
 
-def t_any_item(ids, title):
+def t_any_item(ids, title, count=1):
     """Either/or: every task optional -> the quest completes with any one of them."""
-    return [t_item(i, optional=True) for i in ids], title
+    return [t_item(i, count, optional=True) for i in ids], title
 
 
 def t_adv(adv, title=None):
@@ -399,7 +403,7 @@ DAWN = age_chapter(
             desc=['Dawn gives you nothing: no pick, no clay, no fire.',
                   '',
                   'Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out.',
-                  'Sneak is Left Ctrl here; Left Shift sprints. Read "By Hand" first.',
+                  'Read "By Hand" and "Hands and Keys" in The Firmament first.',
                   '',
                   'Nights are dark. Light a fire and make torches before the first one (see "Before Dark").',
                   'When all three strands are done, the first fire opens the Stone Age for all of you.']),
@@ -1946,35 +1950,56 @@ AGE_CHAPTERS = [DAWN, STONE, BRONZE, IRON, ARCANE, INDUSTRIAL, ELECTRIC, INFORMA
 # would double the ceremony).
 GOAL_GRANTS = {'dawn': 'age_0'}
 
-# ---------------------------------------------------------------- Welcome
-# Written in-world (Felix, 2026-10-13: full immersion). No mod names, no recipe viewer, no talk of locks or stages;
-# the Ages, the shrine and Caelum, the Chronicle on K, the sign in the corner.
-WELCOME = [
-    Q('welcome/start', 'Welcome to Firmament Ages', t_check(), kind='info', icon='tfc:firestarter',
+# ---------------------------------------------------------------- The Firmament
+# The first chapter of the book (Felix 2026-10-15: Welcome goes, its read-me-first content moves here). Three parts:
+#  - read-me-first notes (left): waking, reading the Chronicle, keys, the sign, the fellowship, what Dawn withholds,
+#    crafting by hand, the shrine. Written in-world (Felix 2026-10-13: full immersion): no mod names, no recipe
+#    viewer, no talk of locks or stages. Keys of the welcome and Dawn notes are kept, so their ids and any ticked
+#    progress stay.
+#  - the road: every Age's offering on one spiral that winds in to "Beyond the Firmament"; each offering appears when
+#    its Age dawns (decision A, 2026-10-14).
+#  - a build guide per shrine ring beside its offering (diamond, hidden until its Age dawns): the ring rising as an
+#    animation, one page per layer with its blocks, the offering and the rite. The pictures and the block counts come
+#    from dev/gen_quest_pictures.py (dev/data/quest_pictures.json).
+FIRMAMENT_NOTES = [
+    Q('welcome/start', 'You Wake', t_check(), kind='note', icon='tfc:firestarter',
       sub='Read me first',
       desc=['You wake beneath a sky that watches. Your hands are empty.',
             '',
             'This is the Chronicle, the one record of your fellowship.',
             '',
-            'The world is lived in Ages, from Dawn to the Singularity Age. What a later Age holds does not exist yet. Each Age ends with an offering at the shrine of Caelum, the sky itself, and its chapter appears here when it dawns.']),
-    Q('welcome/book', 'Reading a Chapter', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:compass',
-      desc=['Each chapter has one entry, three or four strands and one goal.',
+            'The world is lived in Ages, from Dawn to the Singularity Age. What a later Age holds does not exist yet. '
+            'Each Age ends with an offering at the shrine of Caelum, the sky itself, and its chapter appears here '
+            'when it dawns.']),
+    Q('welcome/book', 'Reading the Chronicle', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:compass',
+      desc=['Each Age has one chapter. Its strands wind from the entry round the goal, the gilded star.',
             '- A strand ends in a keystone, the large engraved hexagon.',
-            '- The goal, the gilded star, needs every keystone.',
-            '- Round ones are side paths with a small gift.',
-            '- The diamond marks the Age\'s shrine ring.',
+            '- The goal needs every keystone.',
+            '- Round ember ones are side paths with a small gift.',
+            '- The diamond is the shrine ring of the Age. Its picture opens the build guide.',
             '- Gears are notes. Tick them once read.']),
+    Q('firmament/note/keys', 'Hands and Keys', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:stick',
+      desc=['Press K to open the Chronicle. Sneak is Left Ctrl here; Left Shift sprints.',
+            '',
+            'Press V to lay the item in your hand on a block. Hold H to see the sign of your Age again.']),
+    Q('welcome/sign', 'The Sign in the Corner', t_check(), deps=['welcome/start'], kind='info',
+      icon='tfc:firestarter',  # the sign shows the Age's offering; in Dawn the firestarter (oak sign is Iron Age)
+      desc=['Top left, a small sign names your Age and its offering. It fades after a few breaths. Hold H to see it again.']),
     Q('welcome/team', 'One Fellowship', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:player_head',
       desc=['Everybody on this server is one fellowship. The Ages are shared by all of you.',
             'Split the strands between you: one friend smiths, one prospects, one builds.',
             '',
             'A keystone\'s supplies go to whoever claims them first. The gift of a side path and all experience come to each of you.']),
-    Q('welcome/sign', 'The Sign in the Corner', t_check(), deps=['welcome/book'], kind='info',
-      icon='tfc:firestarter',  # the sign shows the Age's offering; in Dawn the firestarter (oak sign is Iron Age)
-      desc=['Top left, a small sign names your Age and its offering. It fades after a few breaths. Hold H to see it again.']),
+    # 'dawn/info/rules' and 'dawn/info/hand' move here from Dawn (see DAWN_MOVED below)
+    Q('firmament/note/shrine', 'The Shrine of Caelum', t_check(), deps=['welcome/start'], kind='info',
+      icon='firmages:shrine_heart',
+      desc=['From the Stone Age on, every Age ends at the shrine. Raise the ring of the Age round the heart, lay the '
+            'offering on the plinth and pray.',
+            '',
+            'The diamonds along the road are the build guides: the ring rising, every layer with its blocks, and the '
+            'rite. Each appears when its Age dawns.']),
 ]
 
-# ---------------------------------------------------------------- The Firmament
 # Every Age's goal, visible from minute one; details stay hidden until the previous goal is done (linear).
 FIRMAMENT = [
     ('first_spark', 'The First Spark', 'dawn', 'age_0', 'tfc:firestarter'),
@@ -1998,6 +2023,163 @@ AGE_NAME = {'dawn': 'Dawn', 'age_0': 'Stone Age', 'age_1': 'Bronze Age', 'age_2'
             'age_4': 'Industrial Age', 'age_5': 'Electric Age', 'age_6': 'Information Age', 'age_7': 'Space Age',
             'age_8': 'Quantum Age', 'age_9': 'Singularity Age'}
 
+
+
+# Felix 2026-10-15: what Dawn withholds and crafting by hand are read-me-first, so they move from Dawn's notes to The
+# Firmament (keys kept: ids, ticks and the STYLE_TEACHING entries of dev/validate_quests.py stay).
+DAWN_MOVED = [q_ for q_ in DAWN['explains'] if q_['key'] in ('dawn/info/rules', 'dawn/info/hand')]
+DAWN['explains'] = [q_ for q_ in DAWN['explains'] if q_ not in DAWN_MOVED]
+for q_ in DAWN_MOVED:
+    q_['deps'] = ['welcome/start']
+FIRMAMENT_NOTES += DAWN_MOVED
+
+# ------------------------------------------------------------------------------------------------ pictures
+# dev/gen_quest_pictures.py renders them into kubejs/assets/firmages/textures/gui/quests/ and writes their sizes and
+# the shrine build data (rings, layers, block counts, rites) to dev/data/quest_pictures.json.
+PICTURES = json.load(open(os.path.join(ROOT, 'dev', 'data', 'quest_pictures.json'), encoding='utf-8'))
+RINGS = {int(n): info for n, info in PICTURES['shrine'].items()}
+RING_NAMES = {n: info['name'] for n, info in RINGS.items()}   # 'the Bronze Sanctum'
+PIC = 'firmages:textures/gui/quests/'
+PAGE = Verbatim('{@pagebreak}')   # FTB Quests ViewQuestPanel splits the description into pages here
+NUMBER = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']
+
+
+def amount(n):
+    """Quantities up to twelve as a word, from 13 on as digits (dev/style-guide.md)."""
+    return NUMBER[n] if n < len(NUMBER) else '{:,}'.format(n)
+
+
+def picture(path, size, width=200, click=None, hover=None):
+    """One description line that holds only a picture (FTB Library ClientTextComponentUtils: properties split on
+    spaces, each key:value on the first colon, %20 for a space). size: the picture's pixel size; the height keeps
+    its aspect."""
+    w, h = size
+    line = '{image:%s%s width:%d height:%d align:center' % (PIC, path, width, round(width * h / float(w)))
+    if click:
+        line += ' click_action:' + click
+    if hover:
+        line += ' text:' + hover.replace(' ', '%20')
+    return Verbatim(line + '}')
+
+
+def ponder(item):
+    """Click action that opens the Ponder scene of an item (firmages-core QuestPonderLink, client side)."""
+    ns, path = item.split(':', 1)
+    return 'custom_event:firmages:ponder/%s/%s' % (ns, path)
+
+
+def guide_key(n):
+    return 'firmament/guide/ring_%d' % n
+
+
+def shrine_texture(n, kind='map'):
+    return PIC + ('shrine/ring_%d.png' % n if kind == 'map' else 'shrine/ring_%d_%s.png' % (n, kind))
+
+
+def ring_picture(n, width=200):
+    """The finished ring, clickable: opens its build guide in The Firmament."""
+    return picture('shrine/ring_%d.png' % n, RINGS[n]['pictures']['ring'], width,
+                   click='open_quest:' + qid(guide_key(n)), hover='Open the build guide')
+
+
+RING_ICONS = {0: 'firmages:offering_plinth', 1: 'tfc:bronze_bell', 2: 'tfc:metal/lamp/wrought_iron',
+              3: 'ars_nouveau:sourcestone', 4: 'immersiveengineering:cokebrick', 5: 'immersiveengineering:floodlight',
+              6: 'ae2:quartz_glass', 7: 'ad_astra:desh_block', 8: 'ad_astra:calorite_block'}
+
+
+def block_list(blocks):
+    out = []
+    for name, c in blocks:
+        out.append('the ' + name if name in ('Offering Plinth', 'Shrine Heart') else '%s %s' % (amount(c), name))
+    return out
+
+
+def layer_place(y):
+    return {0: 'level with the heart', 1: 'one block up'}.get(y, '%s blocks up' % amount(y))
+
+
+def guide_quest(n):
+    """Build guide of ring n: page 1 the ring rising and its blocks, one page per layer, last page offering and rite."""
+    info = RINGS[n]
+    name = info['name']
+    title = name[4:] if name.startswith('the ') else name
+    offering = next(f[1] for f in FIRMAMENT if f[2] == 'age_%d' % n)
+    layers = info['layers']
+    first = ('Build %s round the Shrine Heart.' % name if n == 0 else
+             'Raise %s round %s.' % (name, RING_NAMES[n - 1]))
+    count = amount(info['count'])
+    desc = [picture('shrine/ring_%d_build.apng.png' % n, info['pictures']['build'], 220),
+            '%s %s new blocks in %s layers:' % (first, count[0].upper() + count[1:], amount(len(layers)))]
+    desc += ['- ' + b for b in block_list(info['blocks'])]
+    desc += ['', 'Right-click the heart with an empty hand: it shows every missing block as a ghost.']
+    for k, layer in enumerate(layers):
+        desc += [PAGE, picture('shrine/ring_%d_layer_%d.png' % (n, k + 1), info['pictures']['layer_%d' % (k + 1)], 220),
+                 'Layer %s of %s, %s: %s.' % (amount(k + 1), amount(len(layers)), layer_place(layer['y']),
+                                              ', '.join(block_list(layer['blocks'])))]
+    desc += [PAGE, 'Lay the %s on the plinth.' % offering]
+    if 'age_%d' % n in TALLIES:
+        desc += ['Your Tally Chutes must have taken %s in this Age.' % tally('age_%d' % n)]
+    desc += ['', 'The rite:'] + ['- ' + r for r in info['rites']]
+    desc += ['', 'Then sneak and hold right-click on the heart with an empty hand. Caelum opens the %s.'
+             % AGE_NAME['age_%d' % (n + 1)]]
+    return Q(guide_key(n), title, t_check('Read the build guide'), deps=['firmament/' + FIRMAMENT[n][0]],
+             kind='guide', icon=RING_ICONS.get(n), sub='The shrine ring of the %s' % AGE_NAME['age_%d' % n], desc=desc)
+
+
+# ------------------------------------------------------------------------------------------------ layout hints
+# dev/quest_layout.py: related {(strand, strand): 0..1} (shared stations, items or craft; default 0.3), style per
+# strand (arc, meander, circle), axis (the strand that ends next to the shrine picture), shrine (ring shown on the
+# axis; its click opens the build guide). Strand names must match the chapter definitions; an unknown name falls
+# back to the defaults.
+LAYOUT_HINTS = {
+    'dawn': dict(related={('Stone', 'Hunt'): 0.7, ('Stone', 'Shelter'): 0.5, ('Shelter', 'Hunt'): 0.6},
+                 style={'Stone': 'meander', 'Shelter': 'arc', 'Hunt': 'arc'}),
+    'stone': dict(related={('Fire & Clay', 'First Metal'): 0.9, ('Fire & Clay', 'Hearth & Shrine'): 0.8,
+                           ('First Metal', 'Hearth & Shrine'): 0.6, ('Camp', 'Fire & Clay'): 0.45,
+                           ('Camp', 'First Metal'): 0.05, ('Camp', 'Hearth & Shrine'): 0.2},
+                  style={'Fire & Clay': 'arc', 'First Metal': 'meander', 'Camp': 'circle', 'Hearth & Shrine': 'arc'},
+                  axis='Hearth & Shrine', shrine=0),
+    'bronze': dict(related={('Smithing', 'Alloys'): 0.9, ('Prospecting', 'Alloys'): 0.7, ('Kinetics', 'Alloys'): 0.35,
+                            ('Smithing', 'Kinetics'): 0.25, ('Smithing', 'Prospecting'): 0.4,
+                            ('Prospecting', 'Kinetics'): 0.1},
+                   style={'Smithing': 'arc', 'Prospecting': 'meander', 'Alloys': 'arc', 'Kinetics': 'circle'},
+                   shrine=1),
+    'iron': dict(related={('Metallurgy', 'Power & Motion'): 0.6, ('Metallurgy', 'Sky'): 0.7, ('Power & Motion', 'Sky'): 0.4,
+                          ('Survival', 'Frontier'): 0.8, ('Metallurgy', 'Survival'): 0.2, ('Frontier', 'Sky'): 0.3},
+                 style={'Metallurgy': 'meander', 'Power & Motion': 'circle', 'Survival': 'arc', 'Frontier': 'arc',
+                        'Sky': 'arc'}, shrine=2),
+    'arcane': dict(related={('Spirits', 'Alchemy'): 0.7, ('Source', 'Alchemy'): 0.6, ('Spirits', 'Source'): 0.5,
+                            ('Sky', 'Machine Line'): 0.8, ('Sky', 'Source'): 0.4, ('Machine Line', 'Spirits'): 0.05},
+                   style={'Spirits': 'meander', 'Source': 'arc', 'Alchemy': 'circle', 'Sky': 'arc', 'Machine Line': 'arc'},
+                   shrine=3),
+    'industrial': dict(related={('Coke & Steel', 'Ore Line'): 0.7, ('Coke & Steel', 'Power'): 0.45,
+                                ('Ore Line', 'Logistics & Backfill'): 0.65, ('Power', 'Logistics & Backfill'): 0.4,
+                                ('Power', 'Ore Line'): 0.5, ('Coke & Steel', 'Logistics & Backfill'): 0.15,
+                                ('Sky', 'Power'): 0.6, ('Sky', 'Coke & Steel'): 0.5},
+                       style={'Coke & Steel': 'meander', 'Power': 'arc', 'Ore Line': 'circle',
+                              'Logistics & Backfill': 'arc', 'Sky': 'arc'}, shrine=4),
+    'electric': dict(related={('Power Grid', 'Circuits'): 0.7, ('Oil', 'Aluminium & Excavator'): 0.4,
+                              ('Power Grid', 'Oil'): 0.5, ('Circuits', 'Sky'): 0.6,
+                              ('Aluminium & Excavator', 'Circuits'): 0.5},
+                     style={'Power Grid': 'arc', 'Oil': 'meander', 'Aluminium & Excavator': 'circle', 'Circuits': 'arc',
+                            'Sky': 'arc'}, shrine=5),
+    'information': dict(related={('Digital', 'Factory'): 0.8, ('Digital', 'Mob Data'): 0.6, ('Factory', 'The End'): 0.3,
+                                 ('Mob Data', 'The End'): 0.6, ('Digital', 'Sky'): 0.5},
+                        style={'Digital': 'arc', 'Factory': 'meander', 'Mob Data': 'circle', 'The End': 'arc',
+                               'Sky': 'arc'}, shrine=6),
+    'space': dict(related={('Atomic', 'Rocketry & Moon'): 0.5, ('Rocketry & Moon', 'Mars'): 0.9,
+                           ('Mars', 'Draconium'): 0.4, ('Atomic', 'Draconium'): 0.5, ('Sky', 'Rocketry & Moon'): 0.7},
+                  style={'Atomic': 'circle', 'Rocketry & Moon': 'meander', 'Mars': 'arc', 'Draconium': 'arc',
+                         'Sky': 'arc'}, shrine=7),
+    'quantum': dict(related={('Fusion', 'Awakened'): 0.6, ('Inner Planets', 'Fusion'): 0.4,
+                             ('Awakened', 'Keystone'): 0.9, ('Sky', 'Inner Planets'): 0.5},
+                    style={'Fusion': 'circle', 'Inner Planets': 'meander', 'Awakened': 'arc', 'Keystone': 'arc',
+                           'Sky': 'arc'}, shrine=8),
+    'singularity': dict(related={('Chaos', 'Singularity'): 0.8, ('Singularity', 'Stargate'): 0.6,
+                                 ('Stargate', 'Sky'): 0.5, ('Chaos', 'Stargate'): 0.3},
+                        style={'Chaos': 'meander', 'Singularity': 'circle', 'Stargate': 'arc', 'Sky': 'arc'}),
+}
+LAYOUTS = {}   # chapter file name -> dev/quest_layout.Layout of the last build (dev/preview_quests.py reads them)
 
 # ------------------------------------------------------------------------------------------------ assembly
 def build_tasks(quest):
@@ -2032,7 +2214,8 @@ def build_rewards(quest, rewards):
 # kubejs/assets/ftbquests/textures/shapes/<name>/; FTB Quests only looks in its own namespace, javap QuestShape).
 # Steps keep the chapter default (hexagon); explanations stay gears, ring quests diamonds.
 SHAPES = {'entry': ('rune', 2.0), 'step': ('', 0.0), 'keystone': ('rune', 1.5), 'goal': ('gilded', 3.0),
-          'side': ('ember', 0.85), 'explain': ('gear', 0.0), 'info': ('', 0.0), 'ring': ('diamond', 1.25)}
+          'side': ('ember', 0.85), 'explain': ('gear', 0.0), 'info': ('', 0.0), 'ring': ('diamond', 1.25),
+          'guide': ('diamond', 1.25), 'note': ('rune', 1.6)}
 
 # Chapter art keys (dev/gen_quest_art.py): banner_<key>.png, bg_<key>.png, shader firmages:sky_<key>
 BANNER_W, BANNER_H = 8.0, 2.0
@@ -2056,13 +2239,13 @@ def quest_nbt(quest, x, y, rewards, extra=None):
         d['size'] = D(size)
     if quest['deps']:
         d['dependencies'] = [qid(k) for k in quest['deps']]
-    if quest['kind'] in ('side', 'explain', 'ring'):
+    if quest['kind'] in ('side', 'explain', 'ring', 'guide'):
         d['optional'] = True
     if quest['icon']:
         d['icon'] = {'id': quest['icon']}
     if rewards:
         d['rewards'] = build_rewards(quest, rewards)
-    if quest['kind'] in ('entry', 'keystone', 'goal', 'side', 'explain', 'ring'):
+    if quest['kind'] in ('entry', 'keystone', 'goal', 'side', 'explain', 'ring', 'guide', 'info', 'note'):
         d['tags'] = [quest['kind']]
     if extra:
         d.update(extra)
@@ -2097,94 +2280,199 @@ def chapter_nbt(key, filename, title, subtitle, icon, group, order, quests, requ
     return d
 
 
+def wire_age_chapter(ch):
+    """Dependencies of an Age chapter (fills the quests' empty deps, as the book always did) and the layout spec for
+    dev/quest_layout.py. Strand steps follow each other from the entry, a keystone follows its last step, the goal
+    needs every keystone (and the bridge), routes replace the keystones as the goal's dependencies; side paths start
+    at their attach quest, notes and the ring quest at the entry (their lines hidden)."""
+    entry = ch['entry']
+    kinds, deps, hide = {entry['key']: 'entry'}, {}, set()
+    strands = []
+    for name, steps, keystone in ch['strands']:
+        prev, keys = entry['key'], []
+        for s in steps:
+            s['deps'] = s['deps'] or [prev]
+            prev = s['key']
+            keys.append(s['key'])
+            kinds[s['key']] = s['kind']
+        keystone['deps'] = keystone['deps'] or [prev]
+        keys.append(keystone['key'])
+        kinds[keystone['key']] = 'keystone'
+        strands.append((name, keys))
+    goal = ch['goal']
+    goal['deps'] = [k[2]['key'] for k in ch['strands']]
+    links = []
+    bridge = ch.get('bridge')
+    if bridge:
+        goal['deps'].append(bridge['key'])
+        links.append((bridge['key'], list(bridge['deps'])))
+        kinds[bridge['key']] = bridge['kind']
+    for r in ch.get('routes') or []:
+        links.append((r['key'], list(r['deps'])))
+        kinds[r['key']] = r['kind']
+    if ch.get('routes'):
+        goal['deps'] = [r['key'] for r in ch['routes']]
+    kinds[goal['key']] = 'goal'
+    sides = []
+    for attach, line in ch['sides']:
+        prev, keys = attach, []
+        for s in line:
+            s['deps'] = s['deps'] or [prev]
+            prev = s['key']
+            keys.append(s['key'])
+            kinds[s['key']] = s['kind']
+        sides.append((attach, keys))
+    for e in ch['explains']:
+        e['deps'] = e['deps'] or [entry['key']]
+        kinds[e['key']] = e['kind']
+        hide.add(e['key'])
+    ring = ch.get('ring')
+    if ring:
+        ring['deps'] = ring['deps'] or [entry['key']]
+        kinds[ring['key']] = 'ring'
+        hide.add(ring['key'])
+    for q_ in chapter_quests(ch):
+        deps[q_['key']] = list(q_['deps'])
+    return dict(key=ch['key'], entry=entry['key'], goal=goal['key'], strands=strands, sides=sides,
+                explains=[e['key'] for e in ch['explains']], ring=ring['key'] if ring else None, links=links,
+                kinds=kinds, deps=deps, hide_lines=hide)
+
+
+def chapter_quests(ch):
+    """Every quest of an Age chapter, in book order."""
+    out = [ch['entry']]
+    for _name, steps, keystone in ch['strands']:
+        out += steps + [keystone]
+    if ch.get('bridge'):
+        out.append(ch['bridge'])
+    out += list(ch.get('routes') or [])
+    out.append(ch['goal'])
+    for _attach, line in ch['sides']:
+        out += line
+    out += ch['explains']
+    if ch.get('ring'):
+        out.append(ch['ring'])
+    return out
+
+
+def laid_out(lay, quest, rewards, extra=None):
+    """quest_nbt at the quest's place in a dev/quest_layout.Layout, with its curved lines."""
+    x, y = lay.pos(quest['key'])
+    extra = dict(extra or {})
+    cps = lay.control_points(quest['key'], qid)
+    if cps:
+        extra['dep_control_pts'] = {k: [D(v) for v in pts] for k, pts in cps.items()}
+    return quest_nbt(quest, x, y, rewards, extra=extra or None)
+
+
+def shrine_image(chapter_key, lay, im, key=None):
+    """The finished ring as a chapter image on the map; a click opens its build guide in The Firmament."""
+    x, y = lay.image_pos(im)
+    d = {'id': qid(key or 'image/%s/shrine' % chapter_key), 'x': D(x), 'y': D(y), 'width': D(im['w']), 'height': D(im['h']),
+         'rotation': D(0), 'image': shrine_texture(im['ring'], 'map'), 'color': 16777215, 'alpha': 255, 'order': 1,
+         'position_locked': True, 'click_action': 'open_quest:' + qid(guide_key(im['ring']))}
+    lang('image', d['id'], 'title', 'Raise %s: the build guide' % RING_NAMES[im['ring']])
+    return d
+
+
+def top_banner(chapter_key, art_key, lay, middle=False):
+    """The chapter banner above everything else on the map, centred on the focal quest (or the map's middle)."""
+    _x0, y0, _x1, _y1 = lay.bbox()
+    fx = lay.pos(lay.focus)[0] if lay.focus and not middle else (_x0 + _x1) / 2.0
+    return banner_image(chapter_key, art_key, fx, y0 - BANNER_H / 2.0 - 0.6)
+
+
 def build_age_chapter(ch):
     age = ch['stage']
     xp = XP[age]
-    quests = []
-    entry = ch['entry']
-    quests.append(quest_nbt(entry, 0, 0, [r_xp(xp)]))
-    n = len(ch['strands'])
-    pos = {entry['key']: (0.0, 0.0)}
-    key_x = 0
-    rows = []
-    for i, (name, steps, keystone) in enumerate(ch['strands']):
-        y = (i - (n - 1) / 2.0) * 2.5
-        rows.append(y)
-        prev = entry['key']
-        x = 2.5
+    spec = wire_age_chapter(ch)
+    lay = quest_layout.age_chapter(spec, LAYOUT_HINTS.get(ch['key']))
+    quests = [laid_out(lay, ch['entry'], [r_xp(xp)])]
+    for _name, steps, keystone in ch['strands']:
         for s in steps:
-            s['deps'] = s['deps'] or [prev]
-            quests.append(quest_nbt(s, x, y, [r_xp(xp)]))
-            pos[s['key']] = (x, y)
-            prev = s['key']
-            x += 1.75
-        keystone['deps'] = keystone['deps'] or [prev]
-        x += 0.25
-        quests.append(quest_nbt(keystone, x, y, [r_xp(xp * 3), r_random(ch['supplies'])]))
-        pos[keystone['key']] = (x, y)
-        key_x = max(key_x, x)
-    goal = ch['goal']
-    goal['deps'] = [k[2]['key'] for k in ch['strands']]
-    bridge = ch.get('bridge')
-    if bridge:
-        # between its keystone and the goal, halfway in x and y
-        bx, by = pos[bridge['deps'][0]]
-        quests.append(quest_nbt(bridge, (bx + key_x + 3.25) / 2.0, by / 2.0, [r_xp(xp)]))
-        goal['deps'].append(bridge['key'])
+            quests.append(laid_out(lay, s, [r_xp(xp)]))
+        quests.append(laid_out(lay, keystone, [r_xp(xp * 3), r_random(ch['supplies'])]))
+    if ch.get('bridge'):
+        quests.append(laid_out(lay, ch['bridge'], [r_xp(xp)]))
+    for r in ch.get('routes') or []:
+        quests.append(laid_out(lay, r, [r_xp(xp)]))
     goal_rewards = [r_xp(xp * 10)]
     if ch['key'] in GOAL_GRANTS:
         goal_rewards.append(r_stage(GOAL_GRANTS[ch['key']]))
-    goal_extra = None
-    if ch.get('routes'):
-        # each route sits right of the keystones at the mean height of its own keystones; the goal needs any one
-        for r in ch['routes']:
-            ys = [pos[d][1] for d in r['deps']]
-            quests.append(quest_nbt(r, key_x + 1.75, sum(ys) / len(ys), [r_xp(xp)]))
-        goal['deps'] = [r['key'] for r in ch['routes']]
-        goal_extra = {'dependency_requirement': 'one_completed'}
-        key_x += 1.5
-    quests.append(quest_nbt(goal, key_x + 3.25, 0, goal_rewards, extra=goal_extra))
-    # side missions above the top row, explanations below the bottom row
-    top, bottom = min(rows), max(rows)
-    cursor = -1e9
-    for attach, line in sorted(ch['sides'], key=lambda sd: pos[sd[0]][0]):
-        ax = pos[attach][0]
-        x = max(ax, cursor)
-        prev = attach
+    goal_extra = {'dependency_requirement': 'one_completed'} if ch.get('routes') else None
+    quests.append(laid_out(lay, ch['goal'], goal_rewards, extra=goal_extra))
+    for _attach, line in ch['sides']:
         for j, s in enumerate(line):
-            s['deps'] = s['deps'] or [prev]
             last = j == len(line) - 1
-            quests.append(quest_nbt(s, x, top - 2.5, [r_xp(xp), r_choice(ch['comfort'])] if last else [r_xp(xp)]))
-            prev = s['key']
-            x += 1.5
-        cursor = x + 0.5
-    for j, e in enumerate(ch['explains']):
-        e['deps'] = e['deps'] or [entry['key']]
-        quests.append(quest_nbt(e, j * 1.5, bottom + 2.5, [], extra={'hide_dependency_lines': True}))
-    # optional "Raise the ring" observation below the goal (shrine Ages from the Arcane Age on)
+            quests.append(laid_out(lay, s, [r_xp(xp), r_choice(ch['comfort'])] if last else [r_xp(xp)]))
+    for e in ch['explains']:
+        quests.append(laid_out(lay, e, [], extra={'hide_dependency_lines': True}))
     if ch.get('ring'):
-        r = ch['ring']
-        r['deps'] = r['deps'] or [entry['key']]
-        quests.append(quest_nbt(r, key_x + 3.25, bottom + 2.5, [r_xp(xp * 2)], extra={'hide_dependency_lines': True}))
-    # Age banner above everything (side missions sit at top - 2.5), centred on the chapter's width
-    banner = banner_image(ch['key'], age, (key_x + 3.25) / 2.0, top - 2.5 - BANNER_H - 0.75)
+        ring = dict(ch['ring'])   # the finished ring on top; a click opens the build guide in The Firmament
+        ring['desc'] = [ring_picture(int(age[4:]), 180)] + ring['desc']
+        quests.append(laid_out(lay, ring, [r_xp(xp * 2)], extra={'hide_dependency_lines': True}))
+    images = [shrine_image(ch['key'], lay, im) for im in lay.images if im['kind'] == 'shrine']
+    images.insert(0, top_banner(ch['key'], age, lay))
+    LAYOUTS[ch['filename']] = lay
     return chapter_nbt(ch['key'], ch['filename'], ch['title'], ch['subtitle'], ch['icon'], ch['group'], ch['order'],
-                       quests, required_stage=age, tags=[age], images=[banner])
-
-
-def build_welcome():
-    quests = []
-    layout = {'welcome/start': (0, 0), 'welcome/book': (2, -1.0), 'welcome/team': (2, 1.0), 'welcome/sign': (4, -1.0)}
-    for w in WELCOME:
-        x, y = layout[w['key']]
-        quests.append(quest_nbt(w, x, y, [r_xp(5)]))
-    return chapter_nbt('welcome', 'welcome', 'Welcome', ['Read this first.'],
-                       'tfc:firestarter', None, 0, quests, tags=['welcome'],
-                       images=[banner_image('welcome', 'welcome', 2.0, -1.0 - BANNER_H - 0.75)])
+                       quests, required_stage=age, tags=[age], images=images,
+                       extra={'autofocus_id': qid(ch['goal']['key'])})
 
 
 def build_firmament():
+    """Read-me-first notes on the left, the road of offerings as a spiral that winds in to "Beyond the Firmament",
+    and beside every offering the build guide of its Age's ring with the finished ring as a picture."""
+    lay = quest_layout.Layout('firmament')
     quests = []
+    n_road = len(FIRMAMENT)
+    flow, road_pos = [], []
+    for i, (key, _title, _age, _stage, _icon) in enumerate(FIRMAMENT):
+        t = i / (n_road - 1.0)
+        a = 10.0 + 318.0 * t + quest_layout.jit(key, 'a', 3.0)      # degrees from the west, clockwise over the top
+        r = 9.4 - 6.1 * t
+        th = math.radians(180.0 - a)
+        x, y = r * math.cos(th) * 1.42, r * math.sin(th) * 0.92
+        th2 = math.radians(180.0 - a - 1.0)
+        r2 = r - 6.1 / 318.0
+        x2, y2 = r2 * math.cos(th2) * 1.42, r2 * math.sin(th2) * 0.92
+        d = math.hypot(x2 - x, y2 - y)
+        road_pos.append((x, y))
+        node = lay.add('firmament/' + key, 'goal' if key == 'beyond' else 'keystone', x, y,
+                       deps=['firmament/' + FIRMAMENT[i - 1][0]] if i else [])
+        node.stiff = True
+        lay.tang[node.key] = ((x2 - x) / d, (y2 - y) / d)
+        if i:
+            flow.append(('firmament/' + FIRMAMENT[i - 1][0], node.key))
+    lay.nodes['firmament/beyond'].fixed = True
+    # build guides outside the spiral, the finished ring beyond each guide
+    for n in sorted(RINGS):
+        x, y = road_pos[n + 1]
+        d = math.hypot(x, y) or 1.0
+        ox, oy = x / d, y / d
+        g = lay.add(guide_key(n), 'guide', x + ox * 2.1, y + oy * 1.7, deps=['firmament/' + FIRMAMENT[n][0]],
+                    hide_lines=True)
+        g.stiff = True
+        w = 3.2
+        size = RINGS[n]['pictures']['ring']
+        lay.images.append(dict(kind='shrine', ring=n, x=x + ox * 4.6, y=y + oy * 3.5, w=w, h=w * size[1] / size[0],
+                               anchor=guide_key(n)))
+    # read-me-first notes: a constellation west of the start of the road, "You Wake" in its middle
+    sx, sy = road_pos[0]
+    cx, cy = sx - 6.2, sy - 0.4
+    lay.add('welcome/start', 'note', cx, cy).fixed = True
+    others = FIRMAMENT_NOTES[1:]
+    for j, nq in enumerate(others):
+        ang = math.radians(100 + j * (330.0 / len(others)))
+        rr = 2.7 + 0.35 * (j % 2)
+        kind = 'explain' if nq['kind'] == 'explain' else 'info'
+        lay.add(nq['key'], kind, cx + rr * math.cos(ang) * 1.2 + quest_layout.jit(nq['key'], 'nx', 0.15),
+                cy + rr * math.sin(ang) + quest_layout.jit(nq['key'], 'ny', 0.15), deps=nq['deps'])
+    lay.focus = 'welcome/start'
+    lay.relax()
+    lay.curves(flow)
+
+    for nq in FIRMAMENT_NOTES:
+        quests.append(laid_out(lay, nq, [r_xp(5)]))
     prev = None
     for i, (key, title, age, stage, icon) in enumerate(FIRMAMENT):
         final = key == 'beyond'
@@ -2196,20 +2484,229 @@ def build_firmament():
         else:
             task, sub = 'Reach the ' + AGE_NAME[stage], 'Goal of ' + name
             desc = (['The first fire. It opens the Stone Age.'] if dawn else
-                    ['The offering of %s. Its details appear when the Age before it is done.' % name])
+                    ['The offering of %s. Its build guide stands beside it.' % name])
         q_ = Q('firmament/' + key, title, t_stage(stage, task), deps=[prev] if prev else [],
                kind='goal' if final else 'keystone', icon=icon, sub=sub, desc=desc)
         # Decision A (2026-10-14): each offering appears when its Age dawns (its predecessor's Age is reached). The
         # first spark and the end of the road stay in view from the start.
         extra = {'hide_until_deps_complete': True} if prev and not final else None
-        quests.append(quest_nbt(q_, i * 2.0, 0 if i % 2 == 0 else 1.0, [], extra=extra))
+        quests.append(laid_out(lay, q_, [], extra=extra))
         prev = q_['key']
+    for n in sorted(RINGS):
+        quests.append(laid_out(lay, guide_quest(n), [r_xp(XP['age_%d' % n])],
+                               extra={'hide_until_deps_complete': True, 'hide_dependency_lines': True}))
+    images = [top_banner('firmament', 'firmament', lay, middle=True)]
+    for im in lay.images:
+        d = shrine_image('firmament', lay, im, key='image/firmament/shrine/%d' % im['ring'])
+        d['dependency'] = qid('firmament/' + FIRMAMENT[im['ring']][0])   # shown once its Age has dawned
+        images.append(d)
+    LAYOUTS['the_firmament'] = lay
     return chapter_nbt('firmament', 'the_firmament', 'The Firmament',
-                       ['Nine offerings and a gate. The whole road, from the first spark to the last.'],
-                       'tfc:firestarter', None, 1, quests,
-                       extra={'progression_mode': 'linear', 'hide_quest_details_until_startable': True},
-                       tags=['firmament'],
-                       images=[banner_image('firmament', 'firmament', (len(FIRMAMENT) - 1), -BANNER_H - 1.0)])
+                       ['Read me first. Then the whole road, from the first spark to the last.'],
+                       'tfc:firestarter', None, 0, quests,
+                       extra={'progression_mode': 'linear', 'hide_quest_details_until_startable': True,
+                              'default_quest_shape': 'gear', 'autofocus_id': qid('welcome/start')},
+                       tags=['firmament'], images=images)
+
+
+# ---------------------------------------------------------------- the Great Works
+# Felix 2026-10-15: moving multiblocks as build strands with pictures (research n7-build section 2). One small chapter
+# per work in the group "Great Works", hidden until its Age like an Age chapter, laid out in the shape of the build.
+# Steps give real items for the shared base (team rewards, like the keystone supplies); the entry is the plan.
+# Pacing and the links into the Age strands come in round B2.
+def r_item(item, count=1):
+    d = {'type': 'item', 'item': {'count': 1, 'id': item}, 'team_reward': True}
+    if count > 1:
+        d['count'] = count
+    return d
+
+
+ROPE_BRIDGES = ['mcwbridges:rope_%s_bridge' % w for w in
+                ('oak', 'birch', 'spruce', 'jungle', 'acacia', 'dark_oak', 'mangrove', 'cherry')]
+
+WORKS = [
+    dict(key='gatehouse', filename='work_gatehouse', title='The Gatehouse', stage='age_1', order=20,
+         icon='create:rope_pulley', subtitle=['A Great Work of the Bronze Age: a gate that shuts on its own.'],
+         pictures=[('gatehouse_open', (6.6, -3.4), 4.4, ponder('create:rope_pulley'))],
+         quests=[
+             (Q('works/gate/entry', 'The Gatehouse', t_check('Read the plan'), kind='entry', icon='create:rope_pulley',
+                sub='A Great Work of the Bronze Age',
+                desc=[picture('works/gatehouse_open.png', PICTURES['works']['gatehouse_open'], 200,
+                              click=ponder('create:rope_pulley'), hover='Watch it built'),
+                      'Build a gate that shuts on its own: towers of rock, a bridge over the ditch, a grate that drops '
+                      'and a bridge that lifts.',
+                      '',
+                      'Click the picture to watch the grate built, step by step.']),
+              (-4.6, -3.0), [r_xp(XP['age_1'])]),
+             (Q('works/gate/bridge', 'A Bridge Over the Ditch',
+                t_any_item(ROPE_BRIDGES, 'Eight rope bridges of any wood', count=8), icon='mcwbridges:rope_oak_bridge',
+                desc=['Make eight rope bridges of any wood. They span the ditch before your gate.']),
+              (-4.7, 0.3), [r_item('create:shaft', 8)]),
+             (Q('works/gate/portcullis', 'Portcullis',
+                [t_observe('create:rope_pulley', title='Look at the rope pulley over your gate'),
+                 t_item('tfc:metal/bars/bronze', 9, title='Nine bronze bars for the grate')], icon='tfc:metal/bars/bronze',
+                desc=[picture('works/gatehouse_shut.png', PICTURES['works']['gatehouse_shut'], 180,
+                              click=ponder('create:rope_pulley'), hover='Watch it built'),
+                      'Glue a bronze grate together and hang it in a wall slot under a rope pulley. Turn the pulley '
+                      'and the gate shuts.']),
+              (-2.6, 3.1), [r_item('tfc:metal/ingot/bronze', 2)]),
+             (Q('works/gate/drawbridge', 'Drawbridge',
+                [t_observe('create:mechanical_bearing', title='Look at the bearing of your drawbridge'),
+                 t_item('create:super_glue', title='Super glue')], icon='create:mechanical_bearing',
+                desc=['Glue the bridge deck to a mechanical bearing at the gate. Turn it up at night and the ditch is '
+                      'open again.',
+                      picture('works/gatehouse_open.png', PICTURES['works']['gatehouse_open'], 120,
+                              click=ponder('create:mechanical_bearing'), hover='Watch a bearing turn')]),
+              (2.6, 3.1), [r_item('create:cogwheel', 4)]),
+             (Q('works/gate/signal', 'One Signal', t_item('create:redstone_link', 2), icon='create:redstone_link',
+                desc=['Pair two redstone links. The gate obeys a lever from across the yard.']),
+              (4.7, 0.3), [r_item('create:andesite_alloy', 8)]),
+             (Q('works/gate/goal', 'Shut the Gate',
+                t_observe('create:gearshift[powered=true]', kind='block_state',
+                          title='Look at the gearshift while the lever holds it'),
+                kind='goal', icon='create:gearshift', sub='The gate holds',
+                desc=['Throw the lever on the gearshift of the pulley. The grate drops, the bridge rises, and the '
+                      'night stays outside.']),
+              (0.0, -0.9), [r_item('tfc:metal/ingot/bronze', 4), r_item('create:andesite_casing', 8)]),
+         ]),
+    dict(key='house', filename='work_living_house', title='The Living House', stage='age_2', order=21,
+         icon='create:clockwork_bearing', subtitle=['A Great Work of the Iron Age: a house that moves for you.'],
+         pictures=[('living_house', (7.4, -3.0), 4.6, ponder('create:elevator_pulley'))],
+         quests=[
+             (Q('works/house/entry', 'The Living House', t_check('Read the plan'), kind='entry',
+                icon='create:brass_door', sub='A Great Work of the Iron Age',
+                desc=[picture('works/living_house.png', PICTURES['works']['living_house'], 200,
+                              click=ponder('create:elevator_pulley'), hover='Watch a lift built'),
+                      'Build a house that moves for you: doors that slide, a lift between floors, lamps on a link, a '
+                      'board that speaks and a clock in the gable. The hearth stays its heart.']),
+              (0.0, -4.6), [r_xp(XP['age_2'])]),
+             (Q('works/house/doors', 'Doors That Slide', t_item('create:brass_door', 2), icon='create:brass_door',
+                desc=['Hang two brass doors in your entrance. Sliding doors open by hand or on a redstone signal.']),
+              (-3.8, -2.0), [r_item('tfc:metal/ingot/brass', 2)]),
+             (Q('works/house/lights', 'Lights on a Link',
+                [t_item('minecraft:redstone_lamp', 4, title='Four redstone lamps'),
+                 t_item('create:redstone_link', 2, title='Two redstone links')], icon='minecraft:redstone_lamp',
+                desc=['Wire four lamps to a redstone link. One lever by the door lights the whole house.']),
+              (-3.8, 2.0), [r_item('create:electron_tube', 2)]),
+             (Q('works/house/display', 'The House Speaks',
+                [t_observe('create:display_link', title='Look at your display link'),
+                 t_item('create:display_board', 4, title='Four display boards')], icon='create:display_link',
+                desc=[picture('works/living_house.png', PICTURES['works']['living_house'], 120,
+                              click=ponder('create:display_link'), hover='Watch a display link'),
+                      'Show the time and your stores on a display board by the door.']),
+              (0.0, 4.0), [r_item('create:brass_casing', 8)]),
+             (Q('works/house/lift', 'A Lift',
+                t_observe('create:elevator_contact', title='Look at a working elevator contact'),
+                icon='create:elevator_pulley',
+                desc=['Run an elevator pulley through the floors. A redstone contact on each floor turns into an '
+                      'elevator contact once the lift works.',
+                      picture('works/living_house.png', PICTURES['works']['living_house'], 120,
+                              click=ponder('create:elevator_pulley'), hover='Watch a lift built')]),
+              (3.8, 2.0), [r_item('create:precision_mechanism')]),
+             (Q('works/house/goal', 'The House Keeps Time',
+                t_observe('create:clockwork_bearing', title='Look at the clockwork bearing in your gable'),
+                kind='goal', icon='create:clockwork_bearing', sub='The house is awake',
+                desc=['Set a clockwork bearing in the gable and give it hands. The house keeps the hours of the sun.',
+                      picture('works/living_house.png', PICTURES['works']['living_house'], 120,
+                              click=ponder('create:clockwork_bearing'), hover='Watch a clock built')]),
+              (0.0, 0.0), [r_item('tfc:metal/ingot/wrought_iron', 4), r_item('tfc:metal/ingot/steel', 1)]),
+         ]),
+    dict(key='silo', filename='work_silo', title='The Silo', stage='age_7', order=22,
+         icon='ad_astra:launch_pad', subtitle=['A Great Work of the Space Age: a rocket that rises from the ground.'],
+         pictures=[('silo_shut', (-5.4, -3.0), 4.4, ponder('ad_astra:launch_pad')),
+                   ('silo_open', (5.4, -3.0), 4.4, ponder('ad_astra:launch_pad'))],
+         quests=[
+             (Q('works/silo/entry', 'The Silo', t_check('Read the plan'), kind='entry', icon='ad_astra:launch_pad',
+                sub='A Great Work of the Space Age',
+                desc=[picture('works/silo_open.png', PICTURES['works']['silo_open'], 200,
+                              click=ponder('ad_astra:launch_pad'), hover='Watch the hatch built'),
+                      'Sink a silo for your rocket: a shaft 15 by 15, a hatch of two leaves that slide apart, and one '
+                      'signal that opens the sky.',
+                      '',
+                      'Click the picture to watch the hatch built.']),
+              (0.0, -6.6), [r_xp(XP['age_7'])]),
+             (Q('works/silo/shaft', 'The Shaft',
+                t_observe('ad_astra:launch_pad', title='Look at the launch pad at the bottom of your shaft'),
+                icon='ad_astra:launch_pad',
+                desc=['Sink a shaft 15 by 15 and nine deep. Shore its walls; the rock remembers every cut. Set the pad '
+                      'at the bottom.']),
+              (0.0, -3.8), [r_item('ad_astra:desh_plate', 4)]),
+             (Q('works/silo/hatch', 'The Hatch',
+                [t_item('create:gantry_carriage', 2, title='Two gantry carriages'),
+                 t_item('create:sequenced_gearshift', title='A sequenced gearshift'),
+                 t_item('create:super_glue', title='Super glue')], icon='create:gantry_carriage',
+                desc=[picture('works/silo_shut.png', PICTURES['works']['silo_shut'], 180,
+                              click=ponder('ad_astra:launch_pad'), hover='Watch the hatch built'),
+                      'Glue two leaves over the shaft. Each rides a gantry carriage and slides into a pocket under '
+                      'the rim.']),
+              (0.0, -1.1), [r_item('ad_astra:desh_ingot', 4)]),
+             (Q('works/silo/signal', 'One Signal',
+                [t_item('create:redstone_link', 2, title='Two redstone links'),
+                 t_item('create:pulse_repeater', title='A pulse repeater')], icon='create:redstone_link',
+                desc=['One link opens the hatch. A delayed link wakes the pad once the leaves are clear.']),
+              (-2.5, 1.5), [r_item('ad_astra:fuel_bucket')]),
+             (Q('works/silo/fuel', 'Fuel Line', t_item('ad_astra:fuel_bucket', 4), icon='ad_astra:fuel_bucket',
+                desc=['Pipe fuel down to the pad. A rocket in the silo waits full.']),
+              (2.5, 1.5), [r_item('ad_astra:gas_tank')]),
+             (Q('works/silo/goal', 'Launch from the Silo',
+                t_observe('ad_astra:launch_pad[powered=true]', kind='block_state',
+                          title='Look at the pad while the signal wakes it'),
+                kind='goal', icon='ad_astra:tier_1_rocket', sub='The sky opens from below',
+                desc=['Open the hatch and wake the pad with one signal. Ten heartbeats later the rocket rises through '
+                      'your own sky.']),
+              (0.0, 4.3), [r_item('ad_astra:ostrum_plate', 4), r_item('ad_astra:large_gas_tank')]),
+         ]),
+]
+WORK_DEPS = {   # dependency wiring of each work, by quest key (the drawing follows these lines)
+    'works/gate/bridge': ['works/gate/entry'], 'works/gate/portcullis': ['works/gate/bridge'],
+    'works/gate/drawbridge': ['works/gate/portcullis'], 'works/gate/signal': ['works/gate/drawbridge'],
+    'works/gate/goal': ['works/gate/signal'],
+    'works/house/doors': ['works/house/entry'], 'works/house/lights': ['works/house/doors'],
+    'works/house/display': ['works/house/lights'], 'works/house/lift': ['works/house/display'],
+    'works/house/goal': ['works/house/lift'],
+    'works/silo/shaft': ['works/silo/entry'], 'works/silo/hatch': ['works/silo/shaft'],
+    'works/silo/signal': ['works/silo/hatch'], 'works/silo/fuel': ['works/silo/hatch'],
+    'works/silo/goal': ['works/silo/signal', 'works/silo/fuel'],
+}
+WORK_FLOW = {   # tangents of the drawn path: the gate's arch, the walk round the house, the shaft going up
+    'gatehouse': {'works/gate/entry': (0, 1), 'works/gate/bridge': (0.3, 1), 'works/gate/portcullis': (1, 0.35),
+                  'works/gate/drawbridge': (1, -0.35), 'works/gate/signal': (-0.3, -1)},
+    'house': {'works/house/entry': (-1, 0.6), 'works/house/doors': (0, 1), 'works/house/lights': (1, 0.6),
+              'works/house/display': (1, -0.6), 'works/house/lift': (-0.5, -1)},
+    'silo': {'works/silo/entry': (0, 1), 'works/silo/shaft': (0, 1), 'works/silo/hatch': (0, 1)},
+}
+
+
+def build_work(w):
+    lay = quest_layout.Layout(w['key'])
+    for q_, (x, y), _rewards in w['quests']:
+        q_['deps'] = WORK_DEPS.get(q_['key'], [])
+        lay.add(q_['key'], q_['kind'], x, y, deps=q_['deps']).stiff = True
+    for name, (x, y), wd, _click in w['pictures']:
+        size = PICTURES['works'][name]
+        lay.images.append(dict(kind='work', name=name, x=x, y=y, w=wd, h=wd * size[1] / size[0]))
+    for k, t in WORK_FLOW.get(w['key'], {}).items():
+        d = math.hypot(*t)
+        lay.tang[k] = (t[0] / d, t[1] / d)
+    goal = next(q_['key'] for q_, _p, _r in w['quests'] if q_['kind'] == 'goal')
+    lay.nodes[goal].fixed = True
+    lay.focus = goal
+    lay.relax()
+    prefix = w['quests'][0][0]['key'].rsplit('/', 1)[0] + '/'
+    lay.curves([(d, k) for k, deps in WORK_DEPS.items() for d in deps if k.startswith(prefix)])
+    quests = [laid_out(lay, q_, rewards) for q_, _p, rewards in w['quests']]
+    images = [top_banner('work_' + w['key'], 'work_' + w['key'], lay)]
+    for i, im in enumerate(lay.images):
+        x, y = lay.image_pos(im)
+        d = {'id': qid('image/work_%s/%s' % (w['key'], im['name'])), 'x': D(x), 'y': D(y), 'width': D(im['w']),
+             'height': D(im['h']), 'rotation': D(0), 'image': PIC + 'works/%s.png' % im['name'], 'color': 16777215,
+             'alpha': 255, 'order': 1 + i, 'position_locked': True, 'click_action': w['pictures'][i][3]}
+        lang('image', d['id'], 'title', 'Watch it built')
+        images.append(d)
+    LAYOUTS[w['filename']] = lay
+    return chapter_nbt('work_' + w['key'], w['filename'], w['title'], w['subtitle'], w['icon'], 'works', w['order'],
+                       quests, required_stage=w['stage'], tags=[w['stage'], 'works'], images=images,
+                       extra={'autofocus_id': qid(goal)})
 
 
 def build_tables():
@@ -2269,9 +2766,13 @@ def main():
     lang('file', '0000000000000001', 'title', 'The Chronicle')  # the quest book's one name (welcome screen, HUD, docs)
     gid = qid('group/ages')
     lang('chapter_group', gid, 'title', 'Ages')
+    wid = qid('group/works')
+    lang('chapter_group', wid, 'title', 'Great Works')
     tables = build_tables()
-    chapters = [('welcome', build_welcome()), ('the_firmament', build_firmament())]
+    LAYOUTS.clear()
+    chapters = [('the_firmament', build_firmament())]
     chapters += [(c['filename'], build_age_chapter(c)) for c in AGE_CHAPTERS]
+    chapters += [(w['filename'], build_work(w)) for w in WORKS]
 
     # wipe generated folders so renamed files do not linger
     for sub in ('chapters', 'reward_tables'):
@@ -2282,7 +2783,7 @@ def main():
                     os.remove(os.path.join(d, f))
 
     write(os.path.join(OUT, 'data.snbt'), data_nbt())
-    write(os.path.join(OUT, 'chapter_groups.snbt'), {'chapter_groups': [{'id': gid}]})
+    write(os.path.join(OUT, 'chapter_groups.snbt'), {'chapter_groups': [{'id': gid}, {'id': wid}]})
     for name, ch in chapters:
         write(os.path.join(OUT, 'chapters', name + '.snbt'), ch)
     for key, t in tables.items():
@@ -2300,8 +2801,9 @@ def write_chapter_shaders(chapters):
     """Certain Questing Additions 1.2.0.4: assets/certain_questing_additions/chapter_shaders.json maps
     Chapter.getCodeString() (16 hex digits, matched lower-case) to a core shader id; "default" covers the rest.
     The shaders are written by dev/gen_quest_art.py (kubejs/assets/firmages/shaders/core/sky_<key>.*)."""
-    art_key = {'welcome': 'welcome', 'the_firmament': 'firmament'}
+    art_key = {'the_firmament': 'firmament'}
     art_key.update({c['filename']: c['stage'] for c in AGE_CHAPTERS})
+    art_key.update({w['filename']: w['stage'] for w in WORKS})
     mapping = {}
     for name, ch in chapters:
         mapping[ch['id'].lower()] = 'firmages:sky_%s' % art_key[name]

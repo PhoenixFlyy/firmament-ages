@@ -1,7 +1,6 @@
 {
   "default": "firmages:sky_firmament",
   "chapters": {
-    "2f7890d901468dc7": "firmages:sky_welcome",
     "7d0742bc787aafac": "firmages:sky_firmament",
     "544197c921d77fcb": "firmages:sky_dawn",
     "1eca2119e26a0a06": "firmages:sky_age_0",
@@ -13,6 +12,9 @@
     "079ba6a3bf85646d": "firmages:sky_age_6",
     "172faefd3f2102e6": "firmages:sky_age_7",
     "795c8b99823402e1": "firmages:sky_age_8",
-    "4472107ce8ed9b80": "firmages:sky_age_9"
+    "4472107ce8ed9b80": "firmages:sky_age_9",
+    "40102c7af88cf371": "firmages:sky_age_1",
+    "35c833e070507663": "firmages:sky_age_2",
+    "1a21a4720e938bb6": "firmages:sky_age_7"
   }
 }
