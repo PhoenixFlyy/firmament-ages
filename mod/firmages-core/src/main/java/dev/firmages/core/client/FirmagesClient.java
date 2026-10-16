@@ -78,7 +78,7 @@ public final class FirmagesClient {
             // The reload hint stays on the actionbar for the whole freeze (the server cannot send anything then).
             if (ReloadStatePayload.clientRunning() && mc.player != null) {
                 if (hintTicks++ % 40 == 0) {
-                    mc.player.displayClientMessage(Component.translatableWithFallback("firmages.reload.running", "The world realigns..."), true);
+                    mc.player.displayClientMessage(Component.translatableWithFallback("firmages.reload.running", "The sky shifts. Hold still."), true);
                 }
             } else {
                 hintTicks = 0;

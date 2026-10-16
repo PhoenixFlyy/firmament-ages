@@ -34,7 +34,8 @@
     "curios.CuriosContainerMixin",
     "tfc.PlacedItemBlockEntityAccessor",
     "tfc.PlacedItemInsertMixin",
-    "tfcrf.RegrowthSpreadMixin"
+    "tfcrf.RegrowthSpreadMixin",
+    "tfc.ItemStackHooksMixin"
   ],
   "client": [
     "client.ChatComponentMixin",
@@ -53,7 +54,8 @@
     "emi.ListEmiIngredientMixin",
     "client.InventoryScreenMixin",
     "curios.CuriosScreenMixin",
-    "emi.InventoryRecipeHandlerMixin"
+    "emi.InventoryRecipeHandlerMixin",
+    "mekemi.MekanismEmiMixin"
   ],
   "injectors": {
     "defaultRequire": 1

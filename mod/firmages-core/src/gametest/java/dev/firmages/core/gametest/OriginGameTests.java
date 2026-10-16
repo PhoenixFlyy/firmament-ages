@@ -131,6 +131,31 @@ public final class OriginGameTests {
         return level;
     }
 
+    /** Round F1: a return gate built by an older version loses the DHD's fusion core once (OriginService.migrateDhdCore). */
+    @GameTest(template = "empty", batch = "firmages_5_origin_world", timeoutTicks = 100)
+    public static void oldReturnGateLosesItsDhdCore(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel o = origin(h);
+        OriginSavedData sd = OriginSavedData.get(server);
+        ok(h, sd.gateBuilt() && sd.dhdCoreTaken(), "the gate built at server start records its DHD core as taken");
+        o.getChunk(OriginArena.DHD);
+        if (!(o.getBlockEntity(OriginArena.DHD) instanceof net.povstalec.sgjourney.common.block_entities.dhd.AbstractDHDEntity dhd)) {
+            h.fail("no DHD at " + OriginArena.DHD);
+            return;
+        }
+        net.minecraft.world.item.ItemStack core = new net.minecraft.world.item.ItemStack(
+            BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("sgjourney", "fusion_core")));
+        dhd.energyItemHandler.setStackInSlot(0, core.copy());
+        sd.setDhdCoreTaken(false); // a world whose gate an older version built
+        OriginService.migrateDhdCore(server, o);
+        ok(h, dhd.energyItemHandler.getStackInSlot(0).isEmpty() && sd.dhdCoreTaken(), "the old core is taken");
+        dhd.energyItemHandler.setStackInSlot(0, core.copy()); // a core put in later stays: the migration runs once
+        OriginService.migrateDhdCore(server, o);
+        ok(h, !dhd.energyItemHandler.getStackInSlot(0).isEmpty(), "the migration ran a second time");
+        dhd.energyItemHandler.setStackInSlot(0, net.minecraft.world.item.ItemStack.EMPTY);
+        h.succeed();
+    }
+
     @GameTest(template = "empty", batch = "firmages_5_origin_world", timeoutTicks = 400)
     public static void originDimensionArenaAndGate(GameTestHelper h) {
         MinecraftServer server = h.getLevel().getServer();

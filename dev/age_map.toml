@@ -156,7 +156,7 @@ igleelib = "age_6"               # library metals made from End stone and nether
 ad_astra = "age_7"               # Moon/Mars 7, Venus/Mercury/Glacio 8
 draconicevolution = "age_7"      # Wyvern 7, Draconic 8, Chaotic 9
 megacells = "age_7"
-mekanismneutronactivator = "age_7"
+mekanismneutronactivator = "age_8"     # the Fusion Neutron Activator beside the SPS (recipes/age_8/quantum_age.js)
 ae2_draconic_fusion_autocrafter = "age_7"
 evolvedmekanism = "age_8"
 advanced_ae = "age_8"
@@ -713,6 +713,12 @@ block = "tfc:rock/loose/granite"
 "re:artifacts:(running_shoes|cloud_in_a_bottle|aqua_dashers|steadfast_spikes|feral_claws|power_glove|pocket_piston|charm_of_sinking|charm_of_shrinking|night_vision_goggles|antidote_vessel|panic_necklace)" = "age_2"
 "re:artifacts:(fire_gauntlet|flame_pendant|shock_pendant|thorn_pendant|cross_necklace|strider_shoes|withered_bracelet|obsidian_skull|vampiric_glove|scarf_of_invisibility)" = "age_3"
 "re:artifacts:(crystal_heart|warp_drive)" = "age_4"
+
+# Round F1 (2026-10-16): two items that had no source. The Wixie charm takes conjuration essence instead of witch-only
+# Wixie shards (recipes/age_3/arcane_tfc_inputs.js); the Fusion Neutron Activator gets a pack recipe beside the SPS
+# (recipes/age_8/quantum_age.js; the fission one keeps no recipe, [derived_hidden]).
+"id:ars_nouveau:wixie_charm" = "age_3"
+"id:mekanismneutronactivator:fusion_neutron_activator" = "age_8"
 
 # ------------------------------------------------------------------------------------------------ hidden
 # Disabled items of the Electric to the Singularity Age (Doc 10 v3 section 7.2). They join the tag
@@ -5141,7 +5147,6 @@ items = [
     "ars_nouveau:wilden_hunter_se",
     "ars_nouveau:wilden_stalker_se",
     "ars_nouveau:wixie_cauldron",
-    "ars_nouveau:wixie_charm",
     "ars_nouveau:wixie_shards",
     "artifacts:mimic_spawn_egg",
     "astikorcartsredux:wheel",
@@ -6397,7 +6402,6 @@ items = [
     "mekanismadditions:dark_red_reinforced_plastic",
     "mekanismadditions:dark_red_slick_plastic",
     "mekanismneutronactivator:fission_neutron_activator",
-    "mekanismneutronactivator:fusion_neutron_activator",
     "mekmm:author_doll",
     "mekmm:empty_crystal",
     "mekmm:modeler_doll",
@@ -6818,6 +6822,7 @@ items = [
     "moremekanismprocessing:tungsten_ingot",
     "moremekanismprocessing:tungsten_nugget",
     "moremekanismprocessing:zinc_ingot",
+    "moremekanismprocessing:zinc_nugget",
     "mysticalagradditions:awakened_draconium_crux",
     "mysticalagradditions:creative_essence",
     "mysticalagradditions:dragon_egg_crux",

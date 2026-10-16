@@ -131,6 +131,13 @@ ServerEvents.recipes((event) => {
     'ars_nouveau:spell_crossbow': { reagent: tag('c:logs/archwood'),
       add: [tag('c:strings'), tag('c:strings'), item('tfc:metal/rod/steel')] }
   }
+  // Summon charms whose shards no TFC world gives (round F1, 2026-10-16): the Wixie charm took Wixie shards, which only
+  // a witch drops, so the charm was never reachable. Conjuration essence (the Wixie is a conjured familiar, as the
+  // Drygmy in recipes/age_3/ars_addons.js) is the reagent; the pedestals stay Ars' own (sapling, emerald, workbench,
+  // brewing stand). The charm on a cauldron makes the Wixie Cauldron (Ars' crafting and potion helper).
+  const REAGENT_FIX = {
+    'ars_nouveau:wixie_charm': { reagent: item('ars_nouveau:conjuration_essence'), add: [] }
+  }
 
   // One regex pass per recipe text finds every '"item":"<mapped id>"' (the closing quote makes it an exact id match).
   // It replaces one split/join per MAP key: 80 string passes over each of the ~2,500 magic recipes cost about 0.4 s
@@ -146,7 +153,7 @@ ServerEvents.recipes((event) => {
         .split('"item":"minecraft:diamond"').join('"tag":"firmages:gems/arcane"')
         .split('"tag":"c:storage_blocks/diamond"').join('"item":"ars_nouveau:source_gem_block"')
     }
-    const fix = GEAR_FIX[id]
+    const fix = GEAR_FIX[id] || REAGENT_FIX[id]
     if (fix) {
       // let, not const: Rhino rejects a block-scoped const on the second call ("redeclaration of var j")
       let j = JSON.parse(out)

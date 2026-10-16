@@ -101,7 +101,10 @@ public final class OriginService {
             sd.setArenaVersion(OriginArena.VERSION);
         }
         if (!sd.gateBuilt() && ModList.get().isLoaded("sgjourney")) {
-            if (OriginArena.buildGate(level)) sd.setGateBuilt(true);
+            if (OriginArena.buildGate(level)) {
+                sd.setGateBuilt(true);
+                sd.setDhdCoreTaken(true); // buildGate takes the core
+            }
             else FirmagesCore.LOGGER.error("The Origin: Stargate Journey is loaded but its template {} is missing; no return gate", OriginArena.GATE_TEMPLATE);
         }
     }
@@ -117,7 +120,23 @@ public final class OriginService {
         // the return gate keeps one trip home (SPEC §16.2a), while its chunk is loaded
         if (level != null && ModList.get().isLoaded("sgjourney") && level.isLoaded(OriginArena.GATE_BASE)) {
             dev.firmages.core.compat.sgjourney.SgjGates.keepCharged(level, OriginArena.GATE_BASE);
+            migrateDhdCore(server, level);
         }
+    }
+
+    /**
+     * One-time migration (1.0, round F1): a return gate built before firmages-core 0.13.0 kept the fusion core SGJ puts
+     * into its DHD (2.2 to 6.6 G FE of free power, SPEC §16.2a); only gates built since lost it in
+     * {@link OriginArena#buildGate}. The first time the DHD's chunk is loaded in such a world the core goes, once
+     * ({@code dhd_core_taken} in {@link OriginSavedData}); worlds whose gate is built now never run it. Public for
+     * {@code OriginGameTests.oldReturnGateLosesItsDhdCore}. Call only with Stargate Journey loaded.
+     */
+    public static void migrateDhdCore(MinecraftServer server, ServerLevel level) {
+        OriginSavedData sd = OriginSavedData.get(server);
+        if (!sd.gateBuilt() || sd.dhdCoreTaken() || !level.isLoaded(OriginArena.DHD)) return;
+        boolean had = dev.firmages.core.compat.sgjourney.SgjGates.removeEnergyCore(level, OriginArena.DHD);
+        sd.setDhdCoreTaken(true);
+        FirmagesCore.LOGGER.info("The Origin: return gate built by an older version; DHD energy core taken: {}", had);
     }
 
     /**

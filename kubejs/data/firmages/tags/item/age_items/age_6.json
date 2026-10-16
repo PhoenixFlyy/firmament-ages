@@ -1185,7 +1185,6 @@
     {"id": "moremekanismprocessing:shard_nickel", "required": false},
     {"id": "moremekanismprocessing:shard_silver", "required": false},
     {"id": "moremekanismprocessing:shard_zinc", "required": false},
-    {"id": "moremekanismprocessing:zinc_nugget", "required": false},
     {"id": "mysticalagriculture:air_agglomeratio", "required": false},
     {"id": "mysticalagriculture:air_essence", "required": false},
     {"id": "mysticalagriculture:air_seeds", "required": false},

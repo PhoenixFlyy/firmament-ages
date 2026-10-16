@@ -1242,6 +1242,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     full = {k: json.loads(v) for k, v in json.load(open(path, encoding="utf-8")).items()}
     items = set(json.load(open(os.path.join(base, "registries.json"), encoding="utf-8"))["item"])
     reg_blocks = set(json.load(open(os.path.join(base, "registries.json"), encoding="utf-8"))["block"])
+    fluid_ids = json.load(open(os.path.join(base, "registries.json"), encoding="utf-8")).get("fluid", [])
     disabled = {i for i, st in item_age.items() if st == "disabled"} | set(tags.get("c:hidden_from_recipe_viewers", []))
 
     def age_ix(i):
@@ -1759,6 +1760,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
           ma_bad + [f"MA worldgen on: {ma_gen_on}"] * bool(ma_gen_on) + [f"placed blocks {len(placed)}"])
 
     ladder_checks(full, recs, items, tags, check)
+    cycle_checks(full, tags, fluid_ids, {i for i, st in item_age.items() if st == "disabled"}, check)
     reach_checks(full, recs, items, tags, item_age, check, server_dir)
     sky_checks(full, recs, items, tags, check)
     link_checks(full, check)
@@ -1907,6 +1909,234 @@ _YIELD_KEYS = {"result", "results", "output", "outputs", "secondaries", "result_
                "result_item", "chemical_output"}
 # world data, not processing: their ore outputs are ore, never "made from nothing"
 _WORLD_TYPES = {"immersiveengineering:mineral_mix", "occultism:miner", "tfc:collapse", "tfc:landslide"}
+
+
+# ================================================================================================ metal cycles (L-8)
+# L-8 (round F1): no recipe cycle over the forms of one metal returns more than went in. Nodes are the members of the
+# c:<form>/<metal> tags (ingots, nuggets, blocks, sheets, plates, double ingots and sheets, rods, dusts, gears, wires)
+# and the molten metals (tfc:metal/<m>, *:molten_<m>, in mB); an edge is a recipe whose metal inputs are one kind
+# (n of one item or tag, or one fluid amount) and whose output is a form of the same metal (expected count x chance),
+# weighted out / in. Other inputs (planks, flux, a hammer, a mold) do not count. A cycle whose weights multiply to more
+# than 1 creates metal (the 0.14.0 loop: 4 TFC sheets -> 8 TFC blocks -> 72 ingots through c:storage_blocks/<m>).
+CYCLE_FORMS = ("ingots", "nuggets", "storage_blocks", "sheets", "plates", "double_ingots", "double_sheets", "rods",
+               "dusts", "gears", "wires")
+CYCLE_EPS = 1e-6
+
+
+def _cycle_alts(o):
+    """The alternatives of one ingredient JSON as ('item'|'tag', id) pairs, or None."""
+    if isinstance(o, str) and ":" in o:
+        return [("tag", o[1:]) if o.startswith("#") else ("item", o)]
+    if isinstance(o, dict):
+        if isinstance(o.get("basePredicate"), (dict, list)):
+            return _cycle_alts(o["basePredicate"])
+        if isinstance(o.get("item"), str):
+            return [("item", o["item"])]
+        if isinstance(o.get("tag"), str) and "amount" not in o:
+            return [("tag", o["tag"])]
+        for k in ("ingredient", "children", "values"):
+            if isinstance(o.get(k), list):
+                return _cycle_alts(o[k])
+    if isinstance(o, list) and o and all(isinstance(v, (dict, str)) for v in o):
+        alts = [a for v in o for a in (_cycle_alts(v) or [])]
+        return alts or None
+    return None
+
+
+def _cycle_inputs(j):
+    """(item slots [(alternatives, count)], fluid inputs [(('fluid'|'ftag', id), mB)]) of a recipe JSON."""
+    items, fluids = [], []
+
+    def walk(o, key=None):
+        if isinstance(o, dict):
+            amt = o.get("amount")
+            if isinstance(amt, (int, float)) and "count" not in o:
+                if isinstance(o.get("fluid"), str):
+                    fluids.append((("fluid", o["fluid"]), amt))
+                elif isinstance(o.get("ingredient"), dict) and isinstance(o["ingredient"].get("fluid"), str):
+                    fluids.append((("fluid", o["ingredient"]["fluid"]), amt))
+                elif isinstance(o.get("tag"), str) and "chemical" not in str(key).lower():
+                    fluids.append((("ftag", o["tag"]), amt))
+                return
+            if "chemical" in o or str(o.get("type", "")).startswith("neoforge:components"):
+                return
+            alts = _cycle_alts(o) if ("item" in o or "tag" in o or "basePredicate" in o) else None
+            if alts:
+                n = o.get("count", 1)
+                items.append((alts, n if isinstance(n, int) and n > 0 else 1))
+                return
+            for k, v in o.items():
+                if k in _YIELD_KEYS or k in RESULT_KEYS or k in ("pattern", "key", "mold", "transitional_item"):
+                    continue
+                walk(v, k)
+        elif isinstance(o, list):
+            if o and all(isinstance(v, dict) and ("item" in v or "tag" in v) and "amount" not in v for v in o) and key in (
+                    "ingredient", "input", "basePredicate"):
+                items.append((_cycle_alts(o), 1))
+                return
+            for v in o:
+                if isinstance(v, list):
+                    alts = _cycle_alts(v)
+                    if alts:
+                        items.append((alts, 1))
+                        continue
+                walk(v, key)
+        elif isinstance(o, str) and key in ("input", "ingredient", "ingredients", "inputs") and ":" in o:
+            items.append((_cycle_alts(o), 1))
+
+    if isinstance(j.get("pattern"), list) and isinstance(j.get("key"), dict):
+        occ = collections.Counter(c for row in j["pattern"] for c in row if c != " ")
+        for ch, n in occ.items():
+            alts = _cycle_alts(j["key"].get(ch))
+            if alts:
+                items.append((alts, n))
+    walk(j)
+    return items, fluids
+
+
+def metal_conversions(full, tags, fluid_ids, disabled=frozenset()):
+    """(recipe id, metal inputs as a set of alternative nodes, their amount, {output node: amount}, node -> group) of
+    every recipe whose metal inputs are one kind (see L-8); amounts are item counts or mB. A recipe with a disabled
+    result (the firmages-core gate drops it) or with a slot only disabled items fill (nobody has one) is left out."""
+    au = load_au()
+    metals = sorted(t.split("/", 1)[1] for t in tags if t.startswith("c:ingots/") and tags[t])
+    parent = {}
+
+    def find(x):
+        while parent.setdefault(x, x) != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    node_groups = collections.defaultdict(set)
+    for m in metals:
+        for f in CYCLE_FORMS:
+            for i in tags.get(f"c:{f}/{m}", []):
+                if i not in disabled:
+                    node_groups[i].add(m)
+    for i, ms in node_groups.items():   # aliases share items (c:ingots/iron and c:ingots/wrought_iron)
+        ms = sorted(ms)
+        for m in ms[1:]:
+            parent[find(m)] = find(ms[0])
+    group = {i: find(sorted(ms)[0]) for i, ms in node_groups.items()}
+    mrx = re.compile(r"^[a-z0-9_]+:(?:metal/|molten_)(%s)$" % "|".join(sorted(map(re.escape, metals), key=len, reverse=True)))
+    for fl in fluid_ids:
+        mm = mrx.match(fl)
+        if mm:
+            group["fluid:" + fl] = find(mm.group(1))
+
+    def members(alts):
+        return {i for kind, v in alts for i in (tags.get(v, []) if kind == "tag" else [v]) if i not in disabled}
+
+    def fluid_nodes(kind, v):
+        if kind == "fluid":
+            return {"fluid:" + v} & group.keys()
+        mm = re.match(r"^c:molten_([a-z0-9_]+)$", v)
+        return {"fluid:" + f for f in fluid_ids if mm and f.endswith(":molten_" + mm.group(1))} & group.keys()
+
+    def tag_outs(o, out, inres=False, mult=1.0):
+        if isinstance(o, dict):
+            if inres and isinstance(o.get("tag"), str) and "amount" not in o:
+                for t in au_target(o["tag"], tags.get(o["tag"], []), au):
+                    out.append((t, mult))
+                return out
+            if inres and isinstance(o.get("count"), (int, float)) and isinstance(o.get("basePredicate"), dict):
+                mult = mult * o["count"]
+            for k, v in o.items():
+                tag_outs(v, out, inres or k in _YIELD_KEYS, mult)
+        elif isinstance(o, list):
+            for v in o:
+                tag_outs(v, out, inres, mult)
+        return out
+
+    for rid, j in full.items():
+        if not isinstance(j, dict) or j.get("type") in _WORLD_TYPES:
+            continue
+        if any(o in disabled for o in _outs(j, [])):
+            continue
+        items, fluids = _cycle_inputs(j)
+        ins, dead = [], False   # (frozenset of nodes, amount)
+        for alts, n in items:
+            mem = members(alts or [])
+            dead = dead or not mem
+            ns = mem & group.keys()
+            if ns:
+                ins.append((frozenset(ns), n))
+        if dead:
+            continue
+        for (kind, v), amt in fluids:
+            ns = fluid_nodes(kind, v)
+            if ns:
+                ins.append((frozenset(ns), amt))
+        kinds = {k for k, _ in ins}
+        if len(kinds) != 1:
+            continue
+        src = next(iter(kinds))
+        total = sum(n for _, n in ins)
+        outs = collections.Counter()
+        for oid, amt in _yields(j, []) + tag_outs(j, []):
+            key = oid if oid in group else ("fluid:" + oid if "fluid:" + oid in group else None)
+            if key:
+                outs[key] += amt
+        if outs:
+            yield rid, src, total, outs, group
+
+
+def metal_cycle_edges(full, tags, fluid_ids, disabled=frozenset()):
+    """group -> {(a, b): (ratio, recipe id)}: the best edge a -> b within every metal group (see L-8)."""
+    edges = collections.defaultdict(dict)
+    for rid, src, total, outs, group in metal_conversions(full, tags, fluid_ids, disabled):
+        for a in src:
+            for b, amt in outs.items():
+                if group[a] != group[b] or amt <= 0:
+                    continue
+                r = amt / total
+                g = group[a]
+                if r > edges[g].get((a, b), (0, ""))[0]:
+                    edges[g][(a, b)] = (r, rid)
+    return edges
+
+
+def value_cycles(edges, max_len=6):
+    """[(group, product, [(a, b, ratio, recipe id), ...])]: the simple cycles of every metal group whose product exceeds
+    1, the shortest first; a cycle that only adds detours to a reported one (a superset of its nodes) is left out."""
+    found = []
+    for g, es in sorted(edges.items()):
+        out = collections.defaultdict(list)
+        for (a, b), (r, rid) in es.items():
+            out[a].append((b, r, rid))
+        nodes = sorted(out)
+        rank = {n: k for k, n in enumerate(nodes)}
+        cycles = []
+
+        def dfs(start, cur, prod, path, steps):
+            for b, r, rid in out.get(cur, ()):
+                if b == start:
+                    if prod * r > 1 + CYCLE_EPS:
+                        cycles.append((prod * r, steps + [(cur, b, r, rid)]))
+                elif b not in path and rank.get(b, -1) > rank[start] and len(steps) + 1 < max_len:
+                    dfs(start, b, prod * r, path | {b}, steps + [(cur, b, r, rid)])
+        for s in nodes:   # each cycle once, from its smallest node
+            dfs(s, s, 1.0, {s}, [])
+        kept = []
+        for prod, steps in sorted(cycles, key=lambda c: (len(c[1]), -c[0])):
+            ns = {a for a, _, _, _ in steps}
+            if any(k <= ns for k in kept):
+                continue
+            kept.append(ns)
+            found.append((g, prod, steps))
+    return found
+
+
+def cycle_checks(full, tags, fluid_ids, disabled, check):
+    edges = metal_cycle_edges(full, tags, fluid_ids, disabled)
+    cyc = value_cycles(edges)
+    ev = []
+    for g, prod, steps in cyc:
+        ev.append(f"{g} x{prod:.3g}: " + " -> ".join(f"{a} [{rid} x{r:.3g}]" for a, b, r, rid in steps))
+    n_edges = sum(len(e) for e in edges.values())
+    check("L-8 no value-creating metal cycle: no chain of recipes over the forms of one metal (ingot, nugget, block, "
+          "sheet, plate, rod, dust, molten metal) gives back more than went in",
+          not cyc, ev + [f"{len(edges)} metal groups, {n_edges} conversion edges"])
 
 
 # ================================================================================================ wood classes (W-)

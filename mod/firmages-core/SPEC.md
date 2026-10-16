@@ -82,7 +82,8 @@ dev.firmages.core
            sgjourney (SgjGates), ie, occultism, ars
   client/  ShrineHeartRenderer, CeremonyPlayer, SkyEffects, MusicControl, PreviewBridge
   mixin/   RecipeManagerMixin; GameTestServerMixin (GameTests only); ie.MineralMixMixin; occultism.MineshaftMixin;
-           ars.ApparatusMixin; ps.*; ftbquests.* (client, §18.8); ftbq.* (client, §18.9); tfcregistryapi.HelpersMixin (§20)
+           ars.ApparatusMixin; ps.*; ftbquests.* (client, §18.8); ftbq.* (client, §18.9); tfcregistryapi.HelpersMixin (§20);
+           tfc.ItemStackHooksMixin (§42); mekemi.MekanismEmiMixin (client, §21.13)
   perf/    RegistryScanScope (pure), TfcRegistryScan (§20)
   sky/     DeferredSites, ClimateSource(s), SkySavedData; Starfall: StarfallService, StarfallRules, CraterPlan (pure),
            CraterCarver, StarfallData(+Loader), StarfallSite, SkyRegistry, StarfallCoreBlock(+BE), StarfallHotCondition (§24, §25)
@@ -829,7 +830,7 @@ the Gathering sink 1 G FE, the Ultimate Singularity 2 G FE; the DE reactor band 
   `generate()` puts into the arena DHD (2.2 to 6.6 G FE of free power, `MilkyWayDHDEntity.generateEnergyCore`
   [verified, javap]) and charges the gate instead; `OriginService` keeps the gate at one trip home
   (`SgjGates.homeTrip()`: the interstellar cost plus the draw of a full open time, 1,228,000,000 FE with the pack's
-  values) every 20 ticks while its chunk is loaded. Worlds whose arena gate was built before 1.0 keep their DHD core.
+  values) every 20 ticks while its chunk is loaded. A gate built before 0.13.0 kept its DHD core; since 1.0.0 `OriginService.migrateDhdCore` takes it once, the first time the DHD's chunk is loaded (`dhd_core_taken` in `firmages_origin`; a gate built now records it at once), G `OriginGameTests.oldReturnGateLosesItsDhdCore`.
 - **Log and commands:** at server start "Stargate costs (sgjourney-common.toml): ..."; `/firmages origin gate` prints the
   costs and the return gate's charge; `/firmages origin gate trial <pos>` (debug.allowSimulate) places SGJ's pedestal
   gate at `pos` and dials The Origin for real with one FE less than the cost and with the cost.
@@ -1121,6 +1122,10 @@ JEI 19.64 restarts on every `RecipesUpdatedEvent` once it runs: `StartEventObser
 ### 21.12 Evolved Mekanism's chemical recipes (N5, `compat/emi/EvolvedMekanismEmi`)
 
 Evolved Mekanism 1.2.1-fix3 shows its Chemixer (`evolvedmekanism:chemixing`: two items and a chemical) and APT (`evolvedmekanism:apt`, Mekanism's `ItemStackChemicalToItemStackRecipe`) recipes only in JEI categories that take Mekanism's chemical ingredient type. Mekanism 10.7.19 registers that type with JEI only without EMI, so JEI throws "Unknown ingredient type: ChemicalStack" for the six recipes (plaslitherite, better gold; Age 8) and JEMI copies nothing [verified, javap, 0.9.0 client log]. `FirmagesEmiPlugin.register` (with Evolved Mekanism and Mekanism loaded) adds the categories `evolvedmekanism:firmages_chemixing` and `evolvedmekanism:firmages_apt` (names: the Chemixer block, "Antimatter Protomolecular Transmutator"), their workstations (Chemixer; APT casing, port, supercharging element) and one recipe per recipe-manager entry: item inputs and Mekanism's `ChemicalEmiStack` for the chemical, an arrow, the output; the APT chemical slot says it is used per tick. The Chemixer recipe is read through its public getters by reflection (no Evolved Mekanism jar at compile time). The ids are in Evolved Mekanism's namespace, so the Age view locks the categories with the mod. JEI's own ERROR line for the six recipes stays (JEI still builds its categories); `dev/data/client_log_noise.json` lists it as noise.
+
+### 21.13 The Fusion Neutron Activator in EMI (round F1, `mixin/mekemi/MekanismEmiMixin`)
+
+Mekanism: Neutron Activator 1.0.0 runs Mekanism's `mekanism:activating` recipes, but names its blocks as catalysts for JEI only (`client/recipe_viewer/jei/MNAJEI`), and Mekanism's EMI plugin takes a category's workstations from its own recipe-viewer type (`RecipeViewerRecipeType.ACTIVATING`: the Solar Neutron Activator) [verified, javap]. A client mixin at the head of `MekanismEmi.addWorkstations` adds `mekanismneutronactivator:fusion_neutron_activator` to the activating category; the mixin package `mekemi` applies only with that mod (`FirmagesMixinPlugin`). The fission block has no recipe in the pack (`[derived_hidden]`) and is not added. The Age view (§21.1) hides the workstation before age_8 like any item. **[C]** EMI: the activating category lists both activators from the Quantum Age.
 
 ## 22. M8: Proof of work, the silo launch and the pack's Ponder scenes (N7, 2026-10-15)
 
@@ -1964,6 +1969,7 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
   - exactly one Wayshrine Stone drops, invulnerable and never despawning; a second lighting drops none;
   - BE and SavedData NBT round trip.
 - **G** `WayshrineGameTests.tutorialPlacement`: on a flat test world the tutorial Wayshrine is placed 300 to 800 blocks from the shared spawn on land, once; a second start places none.
+- Since 1.0.0 the record of the tutorial Wayshrine is written at once (`DimensionDataStorage.save()` after the placement): its chunks are saved when they unload, so a server killed before the next autosave kept the ruin but lost the record and placed a second one at the next start.
 - **G** `WayshrineGameTests.tutorialSiteKeepsClearOfPlayers`: on untouched land a plank, a placed chest or a chunk with inhabited time each make the site unfit; the free site passes. **U** `WayshrineRulesTest.tutorialOnlyOnNewWorlds`: the world-age gate.
 - **G** `WayshrineGameTests.blessingsAtWayshrine`: see §29.8.
 - **P** `selftest wayshrines`: the eight structures and sets load with `tfc:climate`; every template exists; `locate` finds each type within 256 chunks on the test seed or reports the type as out of reach.
@@ -2840,3 +2846,36 @@ creative source jar: energy audit over 5 s "firmages:ore_processor x2: in 125000
 "firmages:arcane_catalyst x1: in 25000.0"; the quickened operation finished first (86 % against 57 %). A Mekanism
 enrichment chamber placed by `/setblock` took neither items nor FE on the copy (its side configuration), so the
 Mekanism and IE case is a client check (`dev/client-test-brief.md`).
+
+## 42. TFC heat and food lookups never recurse (round F1, 2026-10-16; `compat/tfc/LookupGuard`, `mixin/tfc/ItemStackHooksMixin`)
+
+**The crash (round H3, copy boot 7, `scratchpad/h3measure/evidence/crash-2026-10-16_11.41.41-server.txt`):** after a
+`/reload`, putting a TFC ore piece into a Mekanism injection chamber ended the server with a `StackOverflowError` in the
+loop `HeatCapability.getDefinition` -> `RecipeHelpers.getRecipe` -> `HeatDefinition.matches` -> `CompoundIngredient.test`
+-> `Ingredient.test` -> `Ingredient.getItems` -> `Ingredient$TagValue.getItems` -> `new ItemStack` ->
+`ItemStackHooks.onModifyItemStackComponents` -> `HeatCapability.getDefinition` (60 rounds in the 1,024 lines of the
+report).
+
+**Cause [verified, javap and NeoForge 21.1.252 sources]:** TFC 4.2.11 gives every new stack its heat and food
+component in the `ItemStack` constructor (`ItemStackHooks.onModifyItemStackComponents`, line 61: `getDefinition` for a
+stack without the component). TFC's own heat definitions of the metal blocks (`tfc/item_heat/<metal>/block.json` for
+copper, bronze, brass, silver, sterling silver, steel and wrought iron, and `terracotta.json`) take a JSON list with a tag
+(`[#c:storage_blocks/<metal>, exposed, weathered, oxidized block]`), which NeoForge reads as a `CompoundIngredient`
+(`CraftingHelper.makeIngredientCodec`: every list). Its tag child tests a stack through `getItems()`, which builds a
+stack of each tag member when the item array is not cached, and each of those stacks runs the lookup again, meets the
+same definition with the array still unbuilt, and so on. ModernFix 5.27 normally answers a single-tag `test` with
+`Holder.is(tag)` (`perf/faster_ingredients/IngredientMixin`), but not while `MinecraftServerReloadTracker.isReloadActive()`,
+and it keeps item arrays as soft references (`IngredientItemStacksSoftReference`), so an array can be missing again: the
+window during a reload (an Age swap is one) is when the loop can start. It is a TFC re-entrancy bug, not a pack data error: any heat or food definition with a tag that misses
+its cache can start it.
+
+**Fix:** `ItemStackHooksMixin` (`remap = false`, MixinExtras `@WrapOperation` on both `getDefinition` calls of
+`onModifyItemStackComponents`) runs each lookup through `LookupGuard.lookup`, a per-thread depth counter: inside a
+running lookup a nested one returns null, so a stack that a definition's ingredient builds while it is matched gets no
+default heat or food component (those stacks only fill the ingredient's item array, which compares items), and the
+outer lookup finishes with the right definition. The counter is released in a `finally`, so an exception cannot leave
+it set. The pack data stays TFC's.
+
+**Tests:** U `LookupGuardTest` (the loop in miniature: a tag definition resolves with each stack built once; nested
+lookup gets nothing; depth after an exception; threads apart). **[S]** the integrator's copy boot: `/reload` at age_9,
+then TFC ore pieces into a Mekanism injection chamber, no crash (`dev/client-test-brief.md` if it needs a client).
