@@ -925,6 +925,51 @@
 		}
 		{
 			dependencies: ["166C4569CC75A30A"]
+			id: "1EBE873E5DBB12CD"
+			optional: true
+			rewards: [
+				{
+					id: "007F5EF2ED3810C8"
+					type: "xp"
+					xp: 35
+				}
+				{
+					count: 2
+					id: "4F59C4E78D46DC1F"
+					item: {
+						count: 1
+						id: "create:gearbox"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "05E022B8795B8F20"
+					item: {
+						count: 1
+						id: "ahandfulofacorns:long_secateurs"
+					}
+					type: "item"
+				}
+			]
+			x: 0.0d
+			y: 8.7d
+		}
+		{
+			dep_control_pts: {
+				1EBE873E5DBB12CD: [
+					1.08d
+					9.064d
+					1.748d
+					8.614d
+				]
+			}
+			dependencies: ["1EBE873E5DBB12CD"]
 			id: "147A87428E5CADF3"
 			optional: true
 			rewards: [
@@ -958,16 +1003,16 @@
 					type: "item"
 				}
 			]
-			x: -0.05d
-			y: 8.75d
+			x: 2.1d
+			y: 8.25d
 		}
 		{
 			dep_control_pts: {
 				147A87428E5CADF3: [
-					1.099d
-					9.114d
-					1.83d
+					3.253d
 					8.614d
+					3.976d
+					9.164d
 				]
 			}
 			dependencies: ["147A87428E5CADF3"]
@@ -1028,64 +1073,19 @@
 					type: "item"
 				}
 			]
-			x: 2.25d
-			y: 8.25d
-		}
-		{
-			dep_control_pts: {
-				2921FAB6E716B68B: [
-					3.322d
-					8.614d
-					3.957d
-					9.164d
-				]
-			}
-			dependencies: ["2921FAB6E716B68B"]
-			id: "1EBE873E5DBB12CD"
-			optional: true
-			rewards: [
-				{
-					id: "007F5EF2ED3810C8"
-					type: "xp"
-					xp: 35
-				}
-				{
-					count: 2
-					id: "4F59C4E78D46DC1F"
-					item: {
-						count: 1
-						id: "create:gearbox"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "05E022B8795B8F20"
-					item: {
-						count: 1
-						id: "ahandfulofacorns:long_secateurs"
-					}
-					type: "item"
-				}
-			]
-			x: 4.3d
+			x: 4.4d
 			y: 8.8d
 		}
 		{
 			dep_control_pts: {
-				1EBE873E5DBB12CD: [
-					5.429d
+				2921FAB6E716B68B: [
+					5.496d
 					9.164d
-					6.149d
+					6.182d
 					8.714d
 				]
 			}
-			dependencies: ["1EBE873E5DBB12CD"]
+			dependencies: ["2921FAB6E716B68B"]
 			icon: {
 				id: "ahandfulofacorns:opened_coconut"
 			}
@@ -3801,7 +3801,7 @@
 			}
 			dependencies: ["665C0FA04D3E6C59"]
 			icon: {
-				id: "precisionprospecting:metal/prospector_drill/bismuth_bronze"
+				id: "precisionprospecting:metal/mineral_prospector/bronze"
 			}
 			id: "3E966315791F2727"
 			optional: true
@@ -3830,7 +3830,7 @@
 					id: "2B04EC273DF2A221"
 					item: {
 						count: 1
-						id: "precisionprospecting:metal/prospector_drill/bismuth_bronze"
+						id: "precisionprospecting:metal/mineral_prospector/copper"
 					}
 					optional_task: true
 					type: "item"
@@ -3839,7 +3839,7 @@
 					id: "6431F9D038C920F9"
 					item: {
 						count: 1
-						id: "precisionprospecting:metal/prospector_drill/black_bronze"
+						id: "precisionprospecting:metal/mineral_prospector/bronze"
 					}
 					optional_task: true
 					type: "item"
