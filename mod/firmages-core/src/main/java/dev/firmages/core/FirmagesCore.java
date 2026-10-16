@@ -65,6 +65,7 @@ public final class FirmagesCore {
         dev.firmages.core.ceremony.CeremonyEcho.register(modEventBus, bus); // seen_age attachment, echo of missed ceremonies
         CaveDwellerService.register(bus);
         ToolRuleService.register(bus);
+        dev.firmages.core.hardship.GridLockService.register(bus); // Dawn grid lock and ground crafting (SPEC §19.3)
         bus.addListener(FirmagesCommands::register);
         bus.addListener(dev.firmages.core.immersion.PonderCommandGate::onCommand); // /ponder for operators only (SPEC §21.6)
         bus.addListener(DebugPlayerCommands::onServerTick);

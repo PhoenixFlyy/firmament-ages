@@ -7,6 +7,21 @@ import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.hardship.CaveDwellerGate;
 import dev.firmages.core.hardship.CaveDwellerService;
 import dev.firmages.core.hardship.ToolRuleService;
+import dev.firmages.core.command.DebugPlayerCommands;
+import dev.firmages.core.hardship.GridLockMenu;
+import dev.firmages.core.hardship.GridLockService;
+import dev.firmages.core.hardship.GridSlots;
+import dev.firmages.core.hardship.GroundCraft;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingMenu;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.common.util.FakePlayerFactory;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import dev.firmages.core.immersion.AgeStatus;
 import dev.firmages.core.immersion.ImmersionService;
 import dev.firmages.core.net.AgeStatusPayload;
@@ -184,6 +199,206 @@ public final class HardshipGameTests {
             ok(h, !ToolRuleService.active(server) && speed(p, ItemStack.EMPTY, ore, pos) > 0f, "never: off in " + current);
         } finally {
             ServerConfig.HARDSHIP_TOOL_RULE_UNTIL.set(was);
+        }
+        h.succeed();
+    }
+
+    /** A real survival player on an in-memory connection (vanilla's mock player is always creative), empty-handed. */
+    static ServerPlayer survivor(GameTestHelper h, String name) {
+        ServerPlayer p = DebugPlayerCommands.spawn(h.getLevel().getServer(), h.getLevel(), name, Vec3.atCenterOf(h.absolutePos(new BlockPos(1, 2, 1))));
+        p.setGameMode(GameType.SURVIVAL);
+        p.getInventory().clearContent();
+        return p;
+    }
+
+    private static void fillGrid(net.minecraft.world.Container grid, Item item) {
+        for (int i = 0; i < grid.getContainerSize(); i++) grid.setItem(i, new ItemStack(item));
+    }
+
+    /** Four of one item make one result in a 2x2 grid (and in the 3x3 table at 1, 2, 4, 5). */
+    record FourOf(Item part, Item result, ResourceLocation recipe) {}
+
+    /** TerraFirmaCraft's thatch from four straw when TFC is in the run (it removes vanilla's planks recipe), else the crafting table. */
+    static FourOf fourOf() {
+        if (ModList.get().isLoaded("tfc")) {
+            return new FourOf(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(ResourceLocation.parse("tfc:straw")),
+                net.minecraft.core.registries.BuiltInRegistries.ITEM.get(ResourceLocation.parse("tfc:thatch")), ResourceLocation.parse("tfc:crafting/thatch"));
+        }
+        return new FourOf(Items.OAK_PLANKS, Items.CRAFTING_TABLE, ResourceLocation.withDefaultNamespace("crafting_table"));
+    }
+
+    /**
+     * Felix 2026-10-15 (HW2A): below {@code hardship.gridLockUntilAge} (default age_0, Dawn only) the inventory's 2x2
+     * grid is closed: its slots are {@code GridSlots}, inactive, take nothing and give nothing; four planks put
+     * straight into the grid make nothing and go back to the inventory; the recipe book places nothing; the 3x3
+     * crafting table still crafts; creative and fake players are exempt; the status carries {@code gridLock} through
+     * encoding and decoding. From the configured Age on, and with {@code never}, the 2x2 grid crafts again.
+     */
+    @GameTest(template = "empty", batch = "firmages_7_hardship")
+    public static void gridLockedInDawn(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel level = h.getLevel();
+        AgeId current = AgeStatus.current(AgeService.state(server).snapshot());
+        ok(h, List.of("hardship", "gridLockUntilAge").equals(ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.getPath())
+            && "age_0".equals(ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.getDefault()),
+            "[hardship] gridLockUntilAge = age_0, got " + ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.getPath() + " = "
+            + ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.getDefault());
+        String was = ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.get();
+        ServerPlayer p = survivor(h, "gt_gridlock");
+        InventoryMenu menu = p.inventoryMenu;
+        FourOf four = fourOf();
+        try {
+            ok(h, menu instanceof GridLockMenu m && m.firmages$gridOwner() == p, "the inventory menu is a GridLockMenu of its player");
+            ok(h, menu.getSlot(0) instanceof GridSlots.Result, "slot 0 is the grid's result: " + menu.getSlot(0).getClass().getName());
+            for (int i = 1; i <= 4; i++) ok(h, menu.getSlot(i) instanceof GridSlots.Input, "slot " + i + " is a grid slot: " + menu.getSlot(i).getClass().getName());
+            ok(h, !(menu.getSlot(5) instanceof GridSlots.Input) && !(menu.getSlot(9) instanceof GridSlots.Input), "armour and inventory slots stay vanilla");
+            Optional<RecipeHolder<?>> table = server.getRecipeManager().byKey(four.recipe());
+            ok(h, table.isPresent(), four.recipe() + " recipe present");
+            if (current != AgeId.AGE_9) {
+                ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.set(AgeId.values()[current.ordinal() + 1].id()); // locked in the current Age
+                ok(h, GridLockService.active(server) && GridLockService.locked(p), "locked below its Age (world in " + current + ")");
+                for (int i = 0; i <= 4; i++) ok(h, !menu.getSlot(i).isActive(), "slot " + i + " inactive while locked");
+                ok(h, !menu.getSlot(1).mayPlace(new ItemStack(four.part())), "a locked grid slot takes nothing");
+                ok(h, !menu.getSlot(0).mayPickup(p), "a locked result gives nothing");
+                ok(h, menu.getSlot(9).isActive() && menu.getSlot(9).mayPlace(new ItemStack(four.part())), "the inventory itself works");
+                fillGrid(menu.getCraftSlots(), four.part());
+                ok(h, menu.getCraftSlots().isEmpty() && menu.getSlot(0).getItem().isEmpty(), "four planks in a locked grid make nothing and leave it");
+                ok(h, p.getInventory().countItem(four.part()) == 4, "the planks are back in the inventory: " + p.getInventory().countItem(four.part()));
+                menu.handlePlacement(true, table.get(), p);
+                ok(h, menu.getCraftSlots().isEmpty() && p.getInventory().countItem(four.part()) == 4, "the recipe book places nothing");
+                CraftingMenu bench = new CraftingMenu(7, p.getInventory(), ContainerLevelAccess.create(level, h.absolutePos(new BlockPos(1, 1, 1))));
+                for (int i : new int[] {1, 2, 4, 5}) bench.getSlot(i).set(new ItemStack(four.part()));
+                ok(h, bench.getSlot(0).getItem().is(four.result()), "the 3x3 crafting table still crafts: " + bench.getSlot(0).getItem());
+                for (int i = 1; i <= 9; i++) bench.getSlot(i).set(ItemStack.EMPTY);
+                p.setGameMode(GameType.CREATIVE);
+                ok(h, !GridLockService.locked(p) && menu.getSlot(1).isActive(), "creative is exempt");
+                p.setGameMode(GameType.SURVIVAL);
+                ok(h, !GridLockService.locked(FakePlayerFactory.getMinecraft(level)), "fake players (machines) are exempt");
+                AgeStatus on = ImmersionService.status(server);
+                ok(h, on.gridLock() && sync(server, on).gridLock(), "status: gridLock = true reaches the client");
+            }
+            ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.set(current.id()); // the world has reached the configured Age
+            AgeStatus off = ImmersionService.status(server);
+            ok(h, !GridLockService.active(server) && !GridLockService.locked(p) && !off.gridLock() && !sync(server, off).gridLock(),
+                "open from its Age (" + current + ")");
+            ok(h, menu.getSlot(1).isActive() && menu.getSlot(1).mayPlace(new ItemStack(four.part())) && menu.getSlot(0).isActive(), "open: the slots work");
+            p.getInventory().clearContent();
+            fillGrid(menu.getCraftSlots(), four.part());
+            ok(h, menu.getSlot(0).getItem().is(four.result()), "open: four planks in the 2x2 grid make a crafting table, got " + menu.getSlot(0).getItem());
+            ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.set("never");
+            ok(h, !GridLockService.active(server), "never: open in " + current);
+        } finally {
+            ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.set(was);
+            menu.getCraftSlots().clearContent();
+            DebugPlayerCommands.despawn(p);
+        }
+        h.succeed();
+    }
+
+    /**
+     * SPEC §19.3, G5: ground crafting on a pile of four places. Without TerraFirmaCraft (the default run) the pile is a
+     * four-slot item handler and the vanilla recipes stand in: four planks make a crafting table (the pile empties, the
+     * table reaches the inventory); coal and a stick make torches wherever on the pile they lie and
+     * whichever way the player looks (the recipe is found by rearranging); two planks are read as the player sees them
+     * (side by side a pressure plate, one behind the other sticks); a lone dirt fits nothing; a honey bottle makes sugar and its
+     * glass bottle stays on its place; a recipe ProgressiveStages locks for the player (stage {@code gt_ground}) is
+     * refused. With TerraFirmaCraft ({@code -PgametestTfc}, which removes those vanilla recipes) the real
+     * {@code tfc:placed_item} path runs instead ({@code TfcProbe.groundCraft}).
+     */
+    @GameTest(template = "empty", batch = "firmages_7_hardship")
+    public static void groundCraft(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        ServerPlayer p = survivor(h, "gt_ground");
+        try {
+            if (ModList.get().isLoaded("tfc")) { // TFC removes the vanilla recipes below; its own pile is the test
+                TfcProbe.groundCraft(h, p);
+                h.succeed();
+                return;
+            }
+            ItemStackHandler pile = new ItemStackHandler(4);
+            for (int i = 0; i < 4; i++) pile.setStackInSlot(i, new ItemStack(Items.OAK_PLANKS));
+            Optional<GroundCraft.Match> table = GroundCraft.find(level, pile, 2, GroundCraft.allowedFor(p, pile));
+            ok(h, table.isPresent() && table.get().recipe().id().equals(ResourceLocation.withDefaultNamespace("crafting_table")),
+                "four planks fit the crafting table: " + table.map(m -> m.recipe().id().toString()).orElse("nothing"));
+            ItemStack made = GroundCraft.craft(p, level, pile, table.get());
+            ok(h, made.is(Items.CRAFTING_TABLE) && GroundCraft.isEmpty(pile) && p.getInventory().countItem(Items.CRAFTING_TABLE) == 1,
+                "the pile became a crafting table in the inventory");
+
+            // Coal above a stick is the only recipe of the pair (a torch): found wherever the two lie and whichever way
+            // the player looks, by rearranging the pile.
+            int[][] pairs = {{0, 1}, {2, 3}, {0, 2}, {1, 3}, {0, 3}, {1, 2}};
+            for (int[] pair : pairs) {
+                for (int swap = 0; swap < 2; swap++) {
+                    ItemStackHandler two = new ItemStackHandler(4);
+                    two.setStackInSlot(pair[swap], new ItemStack(Items.COAL));
+                    two.setStackInSlot(pair[1 - swap], new ItemStack(Items.STICK));
+                    for (int facing = 0; facing < 4; facing++) {
+                        Optional<GroundCraft.Match> m = GroundCraft.find(level, two, facing, GroundCraft.allowedFor(p, two));
+                        ok(h, m.isPresent() && m.get().preview(level).is(Items.TORCH),
+                            "coal and stick on places " + pair[swap] + "," + pair[1 - swap] + " facing " + facing + " make torches: "
+                            + m.map(x -> x.recipe().id().toString()).orElse("nothing"));
+                    }
+                }
+            }
+            // Two planks fit two recipes: the pile is read as the player sees it first. Looking north (TFC slots 0 SE,
+            // 1 SW, 2 NE, 3 NW): 0 and 1 lie side by side (a pressure plate), 0 and 2 one behind the other (sticks).
+            ItemStackHandler side = new ItemStackHandler(4);
+            side.setStackInSlot(0, new ItemStack(Items.OAK_PLANKS));
+            side.setStackInSlot(1, new ItemStack(Items.OAK_PLANKS));
+            Optional<GroundCraft.Match> plate = GroundCraft.find(level, side, 2, GroundCraft.allowedFor(p, side));
+            ok(h, plate.isPresent() && plate.get().preview(level).is(Items.OAK_PRESSURE_PLATE),
+                "two planks side by side, seen from the south: a pressure plate, got " + plate.map(x -> x.recipe().id().toString()).orElse("nothing"));
+            ItemStackHandler two = new ItemStackHandler(4);
+            two.setStackInSlot(0, new ItemStack(Items.OAK_PLANKS));
+            two.setStackInSlot(2, new ItemStack(Items.OAK_PLANKS));
+            GroundCraft.craft(p, level, two, GroundCraft.find(level, two, 2, GroundCraft.allowedFor(p, two)).orElseThrow());
+            ok(h, p.getInventory().countItem(Items.STICK) == 4 && GroundCraft.isEmpty(two), "two planks one behind the other: four sticks");
+
+            ItemStackHandler dirt = new ItemStackHandler(4);
+            dirt.setStackInSlot(3, new ItemStack(Items.DIRT));
+            ok(h, GroundCraft.find(level, dirt, 2, r -> true).isEmpty() && dirt.getStackInSlot(3).is(Items.DIRT), "a lone dirt fits nothing");
+
+            ItemStackHandler honey = new ItemStackHandler(4);
+            honey.setStackInSlot(2, new ItemStack(Items.HONEY_BOTTLE));
+            ItemStack sugar = GroundCraft.craft(p, level, honey, GroundCraft.find(level, honey, 0, GroundCraft.allowedFor(p, honey)).orElseThrow());
+            ok(h, sugar.is(Items.SUGAR) && p.getInventory().countItem(Items.SUGAR) == 3, "a honey bottle makes three sugar: " + sugar);
+            ok(h, honey.getStackInSlot(2).is(Items.GLASS_BOTTLE) && honey.getStackInSlot(0).isEmpty(), "the glass bottle stays on its place");
+
+            ItemStackHandler daisy = new ItemStackHandler(4);
+            daisy.setStackInSlot(1, new ItemStack(Items.OXEYE_DAISY));
+            Optional<GroundCraft.Match> any = GroundCraft.find(level, daisy, 2, r -> true);
+            ok(h, any.isPresent() && any.get().recipe().id().getPath().equals("light_gray_dye_from_oxeye_daisy"), "an oxeye daisy fits its dye recipe");
+            ok(h, GroundCraft.find(level, daisy, 2, GroundCraft.allowedFor(p, daisy)).isEmpty(),
+                "ProgressiveStages locks it for a player without gt_ground, ground crafting refuses it");
+
+        } finally {
+            DebugPlayerCommands.despawn(p);
+        }
+        h.succeed();
+    }
+
+    /**
+     * Curios' own 2x2 grid follows the lock (its menu looks recipes up itself): grid and result are {@code GridSlots},
+     * four planks in the locked grid make nothing and go back to the inventory; open, they make a crafting table.
+     * Curios is in the GameTest run; without it the test passes empty.
+     */
+    @GameTest(template = "empty", batch = "firmages_7_hardship")
+    public static void curiosGridLocked(GameTestHelper h) {
+        if (!ModList.get().isLoaded("curios")) {
+            h.succeed();
+            return;
+        }
+        MinecraftServer server = h.getLevel().getServer();
+        AgeId current = AgeStatus.current(AgeService.state(server).snapshot());
+        String was = ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.get();
+        ServerPlayer p = survivor(h, "gt_curios_grid");
+        try {
+            CuriosProbe.gridLocked(h, p,
+                () -> ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.set(current == AgeId.AGE_9 ? "never" : AgeId.values()[current.ordinal() + 1].id()),
+                () -> ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.set("never"), current != AgeId.AGE_9, fourOf().part(), fourOf().result());
+        } finally {
+            ServerConfig.HARDSHIP_GRID_LOCK_UNTIL.set(was);
+            DebugPlayerCommands.despawn(p);
         }
         h.succeed();
     }

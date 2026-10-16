@@ -3224,3 +3224,27 @@ deserts none.
   with forceload plus Chunky); check whether players with a Chunky pregen can hit it.
 - 18 Macaw's barn and glass trapdoors in vanilla wood are age_1, their Every Compat TFC copies age_2 (the vanilla
   glass trapdoor recipe is earlier); harmless, not aligned.
+## 1.0 round C2, Dawn grid lock (2026-10-16, branch c2/gridlock)
+Felix's HW2A (SPEC §19.3): the 2x2 inventory grid (and the Curios one) is closed in Dawn and opens with age_0; Dawn
+crafts on the ground on a TFC placed-item pile. firmages-core stays 0.11.0 (network protocol 5 -> 6). Felix's test
+server stayed off and untouched; the one boot ran on the copy `.wt/test-server-gridlock` (`robocopy` without world,
+logs, local, simplebackups and crash-reports; ports 25611 and RCON 25621; whitelist off; the copy's `kubejs/` deleted
+first; synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8111 --refresh=false` of the
+worktree, "Finished successfully", the copy's firmages-core jar byte-equal to the worktree's; `debug.allowSimulate =
+true`), new world, `-Xms5G -Xmx5G`. The copy is deleted.
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 198 unit tests, 0 failures (new: `GridLockTest` 5) | pass |
+| `runGameTestServer` | "All 85 required tests passed" (new: `gridLockedInDawn`, `groundCraft`, `curiosGridLocked`; Curios 9.5.1 now in the GameTest run) | pass |
+| `runGameTestServer -PgametestTfc` | the three new tests pass against TFC (`groundCraft` through `TfcProbe.groundCraft`: a real `tfc:placed_item` with head and stick gives a stone axe through `useItemOn`, the pile is gone; a lone head comes back; without sneaking TFC takes a part back, no axe); 21 failures, all shrine, gate and ore tests of the known TFC-mode set (TFC replaces their vanilla stand-ins) | pass (expected failures) |
+| First GameTest run | Curios mixin crash at load: `@WrapOperation` on `NEW ResultSlot` in `CuriosContainer.<init>` "(0/1) succeeded"; replaced by an `@Inject` at `TAIL` that swaps slots 0 to 4 for the lock slots (`GridSlots.replaceGrid`) | fixed |
+| Copy boot (Dawn, debug player `gridtest`, pile set with `setblock tfc:placed_item` + `data merge block ... {inventory:{Items:[...],Size:4}}`) | head on the pile, stick in hand, `debug use` (no sneak): TFC laid the stick (slot 0) and the action bar read "Sneak and right-click with an empty hand: Stone Axe"; `debug use ... sneak` with an empty hand: SUCCESS, one `tfc:stone/axe/sedimentary`, the block is air; four straw: one `tfc:thatch`; a lone axe head: CONSUME, TFC handed the head back; one limonite powder (`tfc:crafting/yellow_dye`, locked in Dawn): no dye, the powder back | pass |
+| Same boot, `selftest all` | 73 passed, 2 failed (the crown checks `library_loaded` and `v4a_chain`, red by design until M15); `server/grid_lock_hooked`: "locked true (until age_0), Curios grid hooked, TFC piles hooked" | pass |
+| Same boot, `simulate grant age_0` | the debug player's chat: "Your hands have learned: the crafting grid is open (key.inventory)" (the client shows the key, E); log "The crafting grid is open"; `age_status` `gridLock=false` | pass |
+| `check_log.py` on the boot's `latest.log` | FATAL 0, STDERR 0, remaining 5: the two crown selftest lines (by design), one "Can't keep up" during the test commands (sibling servers and builds running on the machine), one `everycomp-entries.toml ... Correcting` (a server-side file the pack does not ship) | pass |
+| `poc_analyze.py` D-1 on a full dump of round C2 (copy of `.wt/test-server-sky-m11`, read only) | "42 fit, 2 allowlisted" (`tfc:crafting/stick_bunch`, `stick_bundle`: 3x3, Stone Age workbench) | pass |
+| `gen_quests.py`, `validate_quests.py --no-jars --style` | 1,260 object ids, 0 errors, 0 warnings ("By Hand" in `STYLE_TEACHING`, 87 words) | pass |
+| `gen_stage_locks.py --check` | 0 files out of date | pass |
+- Not checked on a server: anything a screen shows (paint-over, title, recipe-book button, EMI "+", Curios screen,
+  Mouse Tweaks, client prediction without flicker). Listed for Felix in `dev/client-test-brief.md` ("Dawn ohne
+  2x2-Feld").
+- The sync step ran `taskkill /IM packwiz.exe` to stop this worker's `packwiz serve`; that also ends any sibling's
+  `packwiz serve` running at that moment (03:20). A sibling sync at that moment would have to be repeated.

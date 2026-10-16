@@ -579,6 +579,25 @@
 			dependencies: ["49153BBE2AD958B7"]
 			hide_dependency_lines: true
 			icon: {
+				id: "tfc:stone/axe/sedimentary"
+			}
+			id: "64181B7811C2814E"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "315DDB39B747FA95"
+					type: "checkmark"
+				}
+			]
+			x: 0.0d
+			y: 5.0d
+		}
+		{
+			dependencies: ["49153BBE2AD958B7"]
+			hide_dependency_lines: true
+			icon: {
 				id: "minecraft:barrier"
 			}
 			id: "16708A1C39158F9C"
@@ -591,7 +610,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 0.0d
+			x: 1.5d
 			y: 5.0d
 		}
 		{
@@ -610,7 +629,7 @@
 					type: "checkmark"
 				}
 			]
-			x: 1.5d
+			x: 3.0d
 			y: 5.0d
 		}
 	]

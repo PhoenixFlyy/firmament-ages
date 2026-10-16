@@ -7,6 +7,21 @@ import net.dries007.tfc.client.screen.button.PlayerInventoryTabButton.Tab;
 import net.dries007.tfc.common.player.IPlayerInfo;
 import net.dries007.tfc.config.TFCConfig;
 import net.dries007.tfc.network.SwitchInventoryTabPacket;
+import net.dries007.tfc.common.blockentities.PlacedItemBlockEntity;
+import net.dries007.tfc.common.blocks.TFCBlocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -99,6 +114,60 @@ final class TfcProbe {
             if (Math.abs(lost - 1.0f / minimum) > 1e-3) h.fail("tfc.noNutritionMalus = false: TFC as shipped (1 / " + minimum + "), cost " + lost);
         } finally {
             ServerConfig.TFC_NO_NUTRITION_MALUS.set(true);
+        }
+    }
+
+    /**
+     * SPEC §19.3 with TerraFirmaCraft: a sneaking empty-handed use of a {@code tfc:placed_item} pile holding a stone
+     * axe head and a stick (through the server's real use path, so NeoForge's {@code RightClickBlock} fires) gives the
+     * stone axe and removes the pile; a lone head and a use without sneaking stay TerraFirmaCraft's (one item back).
+     */
+    static void groundCraft(GameTestHelper h, ServerPlayer p) {
+        ServerLevel level = h.getLevel();
+        BlockPos pos = h.absolutePos(new BlockPos(2, 2, 2));
+        Item head = BuiltInRegistries.ITEM.get(ResourceLocation.parse("tfc:stone/axe_head/sedimentary"));
+        Item axe = BuiltInRegistries.ITEM.get(ResourceLocation.parse("tfc:stone/axe/sedimentary"));
+        level.setBlockAndUpdate(pos.below(), Blocks.STONE.defaultBlockState());
+
+        p.getInventory().clearContent();
+        lay(level, pos, new ItemStack(head), new ItemStack(Items.STICK));
+        InteractionResult r = use(p, level, pos, true);
+        if (!r.consumesAction() || p.getInventory().countItem(axe) != 1) {
+            h.fail("sneak + empty hand on head and stick: a stone axe, got " + r + ", axes " + p.getInventory().countItem(axe));
+        }
+        if (!level.getBlockState(pos).isAir()) h.fail("the used pile is gone, found " + level.getBlockState(pos));
+
+        p.getInventory().clearContent();
+        lay(level, pos, new ItemStack(head), ItemStack.EMPTY);
+        use(p, level, pos, true);
+        if (p.getInventory().countItem(head) != 1) h.fail("a lone head fits nothing: TFC hands it back, heads " + p.getInventory().countItem(head));
+
+        p.getInventory().clearContent();
+        lay(level, pos, new ItemStack(head), new ItemStack(Items.STICK));
+        use(p, level, pos, false);
+        if (p.getInventory().countItem(axe) != 0 || level.getBlockState(pos).isAir()) {
+            h.fail("without sneaking nothing is crafted (TFC takes one part back), axes " + p.getInventory().countItem(axe)
+                + ", pile " + level.getBlockState(pos));
+        }
+        p.getInventory().clearContent();
+        level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+    }
+
+    private static void lay(ServerLevel level, BlockPos pos, ItemStack southEast, ItemStack northEast) {
+        level.setBlockAndUpdate(pos, TFCBlocks.PLACED_ITEM.get().defaultBlockState());
+        if (!(level.getBlockEntity(pos) instanceof PlacedItemBlockEntity be)) throw new IllegalStateException("no placed-item pile at " + pos);
+        be.getInventory().setStackInSlot(0, southEast); // TFC slot 0: east and south half (the use below hits it)
+        be.getInventory().setStackInSlot(2, northEast);
+    }
+
+    private static InteractionResult use(ServerPlayer p, ServerLevel level, BlockPos pos, boolean sneak) {
+        p.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        p.setShiftKeyDown(sneak);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(pos).add(0.25, -0.4, 0.25), Direction.UP, pos, false);
+        try {
+            return p.gameMode.useItemOn(p, level, ItemStack.EMPTY, InteractionHand.MAIN_HAND, hit);
+        } finally {
+            p.setShiftKeyDown(false);
         }
     }
 }

@@ -176,6 +176,7 @@ dependencies {
     compileOnly files("libs/architectury-${architectury_version}-neoforge.jar") // FTB Teams events (compat/ftbteams, SPEC 2.3)
     // GeckoLib: The Primordial's model, animations and glow layer (boss, docs/primordial.md); a required mod since 1.0
     compileOnly files("libs/geckolib-neoforge-1.21.1-${geckolib_version}.jar")
+    compileOnly files("libs/curios-neoforge-${curios_version}.jar") // Curios' own 2x2 grid follows the Dawn grid lock (mixin/curios, SPEC 19.3)
 
     // Required mods (and KubeJS for the binding) in dev runs: runServer, runGameTestServer
     localRuntime files("libs/progressivestages-${progressivestages_version}.jar")
@@ -197,6 +198,8 @@ dependencies {
     gametestRuntimeOnly files("libs/Stargate.Journey-1.21.1-${sgjourney_version}.jar")
     // Jade, so the GameTest server loads the tooltip plugin class (its client half never runs there).
     gametestRuntimeOnly files("libs/Jade-1.21.1-NeoForge-${jade_version}.jar")
+    // Curios, so the grid lock's Curios container mixin runs against the real menu (HardshipGameTests.curiosGridLocked).
+    gametestRuntimeOnly files("libs/curios-neoforge-${curios_version}.jar")
     // FTB Teams (with FTB Library and Architectury), so ProgressiveStages runs in team_mode ftb_teams as in the pack and
     // the team GameTests found and join a real party (TeamGameTests; the other batches run with team.autoJoin off).
     gametestRuntimeOnly("dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}") { transitive = false }
@@ -246,7 +249,7 @@ dependencies {
 // and checked against the hash in that file (sha1 for CurseForge, sha512 for Modrinth metafiles). libs/*.jar is git-ignored (TFC alone is 65 MB).
 // Bump a version by updating the pack; this task follows the .pw.toml automatically.
 def packModsDir = file('../../mods')
-def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon', 'sgjourney', 'jade', 'patchouli', 'tfc-registry-api', 'emi', 'architectury-api', 'geckolib'].collect { new File(packModsDir, "${it}.pw.toml") }
+def libMetafiles = ['progressivestages', 'terrafirmacraft', 'kubejs', 'rhino', 'modonomicon', 'sgjourney', 'jade', 'patchouli', 'tfc-registry-api', 'emi', 'architectury-api', 'geckolib', 'curios'].collect { new File(packModsDir, "${it}.pw.toml") }
 def libsDir = file('libs')
 def fetchLibs = tasks.register('fetchLibs') {
     group = 'firmages'

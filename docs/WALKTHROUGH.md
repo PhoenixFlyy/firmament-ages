@@ -6,7 +6,7 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 
 | Age | Goal (offering) | Key stations | How the next Age opens |
 |---|---|---|---|
-| Dawn | The First Spark: a firestarter and a lit firepit | knapping grid, 2x2 crafting grid | The goal quest opens the Stone Age. No shrine yet. |
+| Dawn | The First Spark: a firestarter and a lit firepit | knapping grid, crafting on the ground (no crafting grid) | The goal quest opens the Stone Age and the crafting grid. No shrine yet. |
 | Stone Age | Hearthstone | pit kiln, firepit, small vessel, ceramic molds, charcoal pit | Ring 0, Hearth Circle. Rite: kindle the heart. Opens the Bronze Age. |
 | Bronze Age | Sky Disc | forge, stone, copper and bronze anvils, quern, crucible, water wheel, millstone, mechanical saw | Ring 1, Bronze Sanctum. Rite: ring the bell. Opens the Iron Age. |
 | Iron Age | Steel Heart | bloomery, blast furnace, crushing wheels, fuel heater, steam engine, sequenced assembly | Ring 2, Iron Sanctum. Rite: light the four lamps. Opens the Arcane Age. |
@@ -69,23 +69,25 @@ The First Spark: craft a firestarter and light a firepit. The quest itself opens
    X X X X -
    - X - - -
    ```
-   Put the head above a stick, twig or bone in the 2x2 grid: a stone axe. Knife (two blades per rock), hammer,
+   Dawn has no crafting grid (quest "By Hand"): hold the head and press V to lay it on a block, lay a stick, twig or
+   bone beside it, then sneak and right-click the pile with an empty hand: a stone axe. Knife (two blades per rock), hammer,
    shovel, hoe and javelin heads are in the quest "Knapping Patterns". There is no stone pickaxe.
 4. Stone: fell a tree with the stone axe. Keystone "Stone Kit".
-5. Shelter: cut tall grass with the stone knife for straw. Four straw make one thatch; make eight. Right-click two
+5. Shelter: cut tall grass with the stone knife for straw. Four straw laid on one block make one thatch; make eight. Right-click two
    thatch blocks side by side with a large raw hide: a thatch bed. Keystone "Shelter".
-6. Hunt: knap a javelin head, set it above a stick, kill any wild animal. Large prey drops large hides; carry a knife
+6. Hunt: knap a javelin head, craft it with a stick on the ground, kill any wild animal. Large prey drops large hides; carry a knife
    to butcher. Keystone "Raw Hide".
-7. Goal: craft a firestarter from two sticks. Throw a log, three sticks and some straw on one block and hold
+7. Goal: lay two sticks on one block and sneak and right-click them: a firestarter. Throw a log, three sticks and some straw on one block and hold
    right-click on it with the firestarter until the firepit lights. The Stone Age dawns for all of you: a short
-   ceremony, and Caelum says "A spark in the dark. I have seen you."
+   ceremony, and Caelum says "A spark in the dark. I have seen you." The crafting grid (E) is open from now on.
 
 ### Pitfalls
 - **Hands are not tools.** In Dawn logs, raw and hardened rock, ores and sandstone do not break without the right
   tool: no crack, nothing happens, one hint per minute. The stone axe and the stone hammer fell trees. With no stone
   pickaxe, rock and ore stay whole until the Stone Age. From then on the hand works again, slowly and without drops.
-- Dawn withholds clay, pit kilns and metal. The crafting grid only makes stone and obsidian tools, the firestarter,
-  straw, thatch, sticks and rope.
+- Dawn withholds clay, pit kilns, metal and the crafting grid. Crafting happens on the ground: up to four items laid
+  with V on one block, then sneak and right-click the pile with an empty hand. It only makes stone and obsidian
+  tools, the firestarter, straw, thatch, sticks and rope. A hint names the result once a minute at most.
 - **Darkness.** Caves are pitch black. Nights follow the moon; a new moon is nearly black. A torch lights your way in
   hand; a placed torch burns about 36 minutes.
 - Something hunts in deep, dark caves until the Iron Age.

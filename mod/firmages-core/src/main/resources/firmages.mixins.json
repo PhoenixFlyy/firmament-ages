@@ -27,7 +27,12 @@
     "tfcregistryapi.HelpersMixin",
     "ae2.BasicCellInventoryMixin",
     "ae2.BasicStorageCellMixin",
-    "cca.AlternatorMixin"
+    "cca.AlternatorMixin",
+    "InventoryMenuMixin",
+    "RecipeBookMenuMixin",
+    "curios.CuriosContainerMixin",
+    "tfc.PlacedItemBlockEntityAccessor",
+    "tfc.PlacedItemInsertMixin"
   ],
   "client": [
     "client.ChatComponentMixin",
@@ -43,7 +48,10 @@
     "ftbq.QuestPanelCentreMixin",
     "ponder.PonderTagScreenMixin",
     "psemi.EmiReloadHoldMixin",
-    "emi.ListEmiIngredientMixin"
+    "emi.ListEmiIngredientMixin",
+    "client.InventoryScreenMixin",
+    "curios.CuriosScreenMixin",
+    "emi.InventoryRecipeHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

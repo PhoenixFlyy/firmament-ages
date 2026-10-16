@@ -24,6 +24,7 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Was | Wo | Wer |
 |---|---|---|
 | Alles aus den Abschnitten von `dev/client-test-brief.md` (pro Version, neueste oben) | `dev/client-test-brief.md` | Felix |
+| Dawn ohne 2x2-Feld im Client: Inventar und Curios-Bildschirm ohne Feld, Pfeil, Titel und Rezeptbuch-Knopf; graue Fläche passt zur Textur; EMI-„+“ grau; Bodenhandwerk ohne Flackern (Client-Vorhersage), Ton und Partikel; Hinweis einmal pro Minute; nach `age_0` Chatzeile und Feld wieder da; Mouse Tweaks auf der Fläche; ob eine JEI-Oberfläche sichtbar ist | `dev/client-test-brief.md` (Abschnitt „Dawn ohne 2x2-Feld“), SPEC §19.3 | Felix |
 | Titelbild: nach dem ersten Blick auf das Shader-Sternbild `show_compile_errors = true` wieder auf `false` | `config/fancymenu/customization/title_screen_layout.txt` | Felix sieht, Claude stellt um |
 | Blutmond erst ab `mob_2`: `/ec lunarForecast` vor und nach der Eisenzeit | `kubejs/server_scripts/firmages/blood_moon.js` | Felix |
 | Industriezeit-Quest „The Thresher“ schließt beim Blick auf einen geformten Thresher ab; Loot-Crate-Opener und Task-Screen-Konfigurator fehlen in EMI | Questbuch, EMI | Felix |
@@ -50,6 +51,8 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 
 | Was | Wo | Wer |
 |---|---|---|
+| Bodenhandwerk und R-Walker: die R-Prüfungen gehen für Dawn noch von einem Raster aus; D-1 sichert, dass jedes Dawn-Rezept auf einen Haufen passt, der Walker selbst rechnet das nicht nach | `dev/poc_analyze.py` (`reach_checks`, `ground_craft_check`) | Claude |
+| GUI-Resourcepacks mit anderer Grundfarbe zeigen in Dawn ein graues Rechteck über dem Feld (Farbe #C6C6C6 fest); das Pack liefert keins mit | firmages-core `client/immersion/GridLockClient` | Claude, falls ein GUI-Pack dazukommt |
 | `derive_ages.py --scan` liest Block-Prädikate von Features als platzierte Blöcke: `minecraft:crimson_fungus` „platziert“ `minecraft:oak_sapling` (Überlebens-Prüfung), so steht der Vanilla-Eichensetzling in der Arkanzeit, ohne dass er dort zu finden ist. Prädikate beim Scan auslassen | `dev/derive_ages.py` (Scan der Features) | Claude |
 | Apotheosis-Weltstufe pro Age (Haven bis Pinnacle): Befehlssyntax unbekannt, nur Platzhalter | `kubejs/server_scripts/stages/grants.js` (POC-Kommentar) | Claude, mit Server-Test |
 | TFC + IE Crossover: Quarz-Geode abschalten (die TFCreate-Quarzader ist kanonisch) | Datapack-Override, Key nicht verifiziert | Claude |

@@ -211,6 +211,8 @@
   "firmages.hint.needs_axe": "You need an axe for this.",
   "firmages.hint.needs_pickaxe": "Stone needs a pickaxe. The first one is cast in the Stone Age.",
   "firmages.hint.needs_tool": "You need a tool for this.",
+  "firmages.hint.ground_craft": "Sneak and right-click with an empty hand: %s",
+  "firmages.gridlock.open": "Your hands have learned: the crafting grid is open (%s).",
   "firmages.hud.goal.dawn": "the First Spark",
   "firmages.hud.goal.age_9": "the Gathering",
   "firmages.hud.goal.age_9_gathered": "Beyond the Firmament",

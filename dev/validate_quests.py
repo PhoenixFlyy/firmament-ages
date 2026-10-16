@@ -304,6 +304,7 @@ STYLE_TEACHING = {
     '759550A45990B3C8',  # stone/metal/ingot: casting from the vessel into a mold (a screen, no viewer shows it)
     '71B6B8FAE5353DAB',  # bronze/smith/forge: building a charcoal forge (a structure no viewer shows)
     '54432F5A30AE7695',  # stone/info/woods: the wood class table and the sapling recipes (no viewer in the Stone Age)
+    '64181B7811C2814E',  # dawn/info/hand: ground crafting, Dawn's only crafting (no grid, no viewer; SPEC 19.3)
 }
 # knapping grid rows (5 squares of X and -) and crafting grid rows (3 squares, a letter per item: gen_quests.craft_grid)
 GRID_LINE = re.compile(r'[X-]( [X-]){4}|[A-Z-]( [A-Z-]){2}')

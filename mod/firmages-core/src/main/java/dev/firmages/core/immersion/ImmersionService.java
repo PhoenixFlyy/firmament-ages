@@ -41,7 +41,8 @@ public final class ImmersionService {
         return AgeStatus.of(AgeService.state(s).snapshot(), tier -> ShrineDataLoader.current().offeringFor(tier),
             ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge, ServerConfig.caveDwellerUntil(),
             ServerConfig.toolRuleUntil()).withReloadPending(AgeService.reloadPending())
-            .withGathered(dev.firmages.core.shrine.ShrineSavedData.get(s).gathered());
+            .withGathered(dev.firmages.core.shrine.ShrineSavedData.get(s).gathered())
+            .withGridLock(ServerConfig.gridLockUntil());
     }
 
     /** After every change of the global Age state, and when an Age reload is scheduled or finished (AgeService). */

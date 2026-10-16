@@ -12,6 +12,9 @@ a vanilla station block (crafting table, furnace, ...) that a TFC world cannot m
 
 The "G-" checks test the firmages-core recipe gate (M2) against the Age tags: the dump records the Ages that were
 unlocked ("unlocked", written by fa_dump), and no recipe may make an item of a locked Age or of age_items/disabled.
+D-1 (any dump with recipes_full.json) checks Dawn's ground crafting (firmages-core SPEC 19.3): the inventory grid is
+closed in Dawn, so every crafting recipe open in Dawn must fit a TerraFirmaCraft pile of at most four placed items
+(a 2x2 shape or at most four shapeless ingredients, no log beside other parts: a log lies alone on a block).
 With --baseline <dir> (the fa_dump files of a world with every Age unlocked) they also check that every baseline
 recipe whose outputs are all unlocked is present, so the gate drops nothing more. G-3 (dump with every Age unlocked)
 finds recipes whose chance byproduct is later than their main output and station and checks that
@@ -105,6 +108,7 @@ def main():
                              tags, item_age, set(unlocked), a.baseline, check)
         undetected_check(a.server_dir, check)
     unify_check(tags, item_age, check)
+    ground_craft_check(base, open_in("dawn", [r for r in rows if r["type"] == "minecraft:crafting"]), check)
     if unlocked is not None and not set(AGES) <= set(unlocked):
         print(f"[SKIP] A- and C- checks: they need the whole recipe set, this dump was filtered at {sorted(unlocked, key=AGES.index)}")
         print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -235,6 +239,83 @@ def main():
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
     sys.exit(1 if failed else 0)
+
+
+# ================================================================================================ ground crafting (D-1)
+# Dawn crafting recipes that need a 3x3 grid on purpose: TFC's stick bunch and bundle (nine sticks) are on the Dawn
+# whitelist (Doc 08 section 9.2) but only the Stone Age workbench can make them; nothing in Dawn needs them.
+GROUND_CRAFT_ALLOWLIST = {
+    "tfc:crafting/stick_bunch": "nine sticks, 3x3: Stone Age workbench",
+    "tfc:crafting/stick_bundle": "nine stick bunches, 3x3: Stone Age workbench",
+}
+# Items TFC sizes very_large or huge (data/tfc/tfc/item_size): one lies alone on a block (maxPlacedItemSize LARGE).
+GROUND_CRAFT_ALONE = re.compile(r"(^|[:/_])(logs?|wood)($|[/_])")
+
+
+def _shape(o):
+    """The (pattern, ingredients) of a crafting recipe JSON, looking through TFC's wrapping recipe types."""
+    if not isinstance(o, dict):
+        return None, None
+    if isinstance(o.get("pattern"), list):
+        return o["pattern"], [v for v in (o.get("key") or {}).values()]
+    if isinstance(o.get("ingredients"), list):
+        return None, o["ingredients"]
+    for k in ("recipe", "base"):
+        if isinstance(o.get(k), dict):
+            return _shape(o[k])
+    return None, None
+
+
+def _ingredient_names(ing):
+    out = []
+    if isinstance(ing, list):
+        for x in ing:
+            out += _ingredient_names(x)
+    elif isinstance(ing, dict):
+        for k in ("item", "tag"):
+            if isinstance(ing.get(k), str):
+                out.append(ing[k])
+        for k in ("ingredient", "children", "base"):
+            if k in ing:
+                out += _ingredient_names(ing[k])
+    return out
+
+
+def ground_craft_check(base, dawn_open, check):
+    """D-1: every crafting recipe open in Dawn fits a placed-item pile of at most four (SPEC 19.3)."""
+    path = os.path.join(base, "recipes_full.json")
+    if not os.path.isfile(path):
+        print(f"[SKIP] D-1 Dawn ground crafting: {path} missing (run fa_dump_full)")
+        return
+    full = json.load(open(path, encoding="utf-8"))
+    bad, fits, allowed = [], 0, []
+    for r in sorted(dawn_open, key=lambda r: r["id"]):
+        if r["id"] in GROUND_CRAFT_ALLOWLIST:
+            allowed.append(f"{r['id']}: {GROUND_CRAFT_ALLOWLIST[r['id']]}")
+            continue
+        raw = full.get(r["id"])
+        pattern, ings = _shape(json.loads(raw) if isinstance(raw, str) else raw)
+        if ings is None:
+            bad.append(f"{r['id']}: no pattern or ingredients in its JSON (special recipe?)")
+            continue
+        if pattern is not None:
+            cells = [c for row in pattern for c in row if c != " "]
+            if len(pattern) > 2 or max((len(row) for row in pattern), default=0) > 2:
+                bad.append(f"{r['id']}: shaped {len(pattern)} rows x {max(len(row) for row in pattern)} wide")
+                continue
+            n = len(cells)
+        else:
+            n = len(ings)
+            if n > 4:
+                bad.append(f"{r['id']}: shapeless with {n} ingredients")
+                continue
+        names = [x for ing in ings for x in _ingredient_names(ing)]
+        if n > 1 and any(GROUND_CRAFT_ALONE.search(x.split(":", 1)[-1]) for x in names):
+            bad.append(f"{r['id']}: a log lies alone, but the recipe has {n} parts ({', '.join(names)})")
+            continue
+        fits += 1
+    check(f"D-1 every crafting recipe open in Dawn fits a ground pile of at most four (SPEC 19.3): {fits} fit, "
+          f"{len(allowed)} allowlisted", not bad and fits > 0, bad + allowed)
 
 
 # ================================================================================================ unification (U-1)

@@ -1,0 +1,37 @@
+package dev.firmages.core.client.immersion;
+
+import dev.firmages.core.hardship.GridLockService;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.inventory.RecipeBookType;
+
+/**
+ * The client side of the Dawn grid lock (SPEC §19.3) for the screen mixins of the player inventory and the Curios
+ * screen: whether the local player's grid is locked, the paint-over of grid, arrow and result frame, and the closed
+ * recipe book. Both screens draw the vanilla {@code textures/gui/container/inventory.png} at their left/top
+ * position; everything of the crafting area lies in x 97..170, y 17..52 on the background colour #C6C6C6 (measured
+ * from the 1.21.1 texture), the player model (x 26..75) stays clear.
+ */
+public final class GridLockClient {
+    public static final int X0 = 97, Y0 = 17, X1 = 171, Y1 = 53;
+    public static final int BACKGROUND = 0xFFC6C6C6;
+
+    private GridLockClient() {}
+
+    /** The local player's grid is locked (false in creative and spectator mode and before the first status). */
+    public static boolean locked() {
+        Minecraft mc = Minecraft.getInstance();
+        return mc.player != null && GridLockService.locked(mc.player);
+    }
+
+    /** Paints the crafting area of a screen whose background is the vanilla inventory texture at {@code left, top}. */
+    public static void paintOver(GuiGraphics g, int left, int top) {
+        g.fill(left + X0, top + Y0, left + X1, top + Y1, BACKGROUND);
+    }
+
+    /** Before a grid screen lays itself out: a remembered open recipe book would shift it and show the book. */
+    public static void closeRecipeBook() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player != null && locked()) mc.player.getRecipeBook().setOpen(RecipeBookType.CRAFTING, false);
+    }
+}
