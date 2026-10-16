@@ -79,6 +79,8 @@ public final class FirmagesCommands {
             .then(OriginCommands.reactor())
             .then(StarfallCommands.starfall())
             .then(DebugPlayerCommands.debug())
+            .then(BalanceCommands.energy()) // energy audit (SPEC 38)
+            .then(BalanceCommands.ore()) // ore audit (SPEC 38)
             .then(Commands.literal("balance")
                 .then(Commands.literal("alternator")
                     .then(Commands.argument("pos", net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos()).executes(FirmagesCommands::alternator)))

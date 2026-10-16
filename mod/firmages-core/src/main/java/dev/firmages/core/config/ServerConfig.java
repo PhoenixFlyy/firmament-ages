@@ -107,6 +107,7 @@ public final class ServerConfig {
     // balance
     public static final ModConfigSpec.BooleanValue BALANCE_ALTERNATOR_FUEL_ONLY;
     public static final ModConfigSpec.IntValue BALANCE_AE2_CELL_TYPES;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> BALANCE_FE_CAP;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -329,6 +330,11 @@ public final class ServerConfig {
         BALANCE_AE2_CELL_TYPES = b.comment("Item types per AE2 item storage cell (AE2's own limit is 63; MEGA item cells too, portable cells keep theirs).",
                 "Fluid and chemical cells keep their own limit. Synced to the clients with the server config.")
             .defineInRange("ae2CellTypes", 126, 63, 252);
+        BALANCE_FE_CAP = b.comment("FE safety net (SPEC 37): \"<block id>=<FE per tick>\" caps what one block of that type gives per game tick through",
+                "the energy capability, both what is drawn out of it and what it pushes into a neighbour (also Mekanism's own energy",
+                "link). For sources a mod's own config cannot tame. Example: [\"createappliedkinetics:energy_provider=0\"]. Applies to",
+                "new capability lookups: placed or reloaded blocks, or after a restart.")
+            .defineListAllowEmpty("feCap", List.of(), () -> "", dev.firmages.core.balance.FeCaps::validEntry);
         b.pop();
 
         b.push("debug");

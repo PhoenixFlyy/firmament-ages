@@ -128,6 +128,11 @@
 	# Default: 126
 	# Range: 63 ~ 252
 	ae2CellTypes = 126
+	#FE safety net (SPEC 37): "<block id>=<FE per tick>" caps what one block of that type gives per game tick through
+	#the energy capability, both what is drawn out of it and what it pushes into a neighbour (also Mekanism's own energy
+	#link). For sources a mod's own config cannot tame. Example: ["createappliedkinetics:energy_provider=0"]. Applies to
+	#new capability lookups: placed or reloaded blocks, or after a restart.
+	feCap = []
 
 [debug]
 	#Enables /firmages ages simulate (self-tests only).

@@ -47,6 +47,7 @@ public final class FirmagesCore {
         OriginRegistry.register(modEventBus);
         dev.firmages.core.proof.ProofRegistry.register(modEventBus); // Tally Chute, firmages:tally, firmages:silo_launch (SPEC §22)
         BossRegistry.register(modEventBus); // The Primordial, the end boss (docs/primordial.md)
+        dev.firmages.core.balance.EnergyMeter.register(modEventBus, NeoForge.EVENT_BUS); // balance.feCap and the energy audit (SPEC 37, 38)
         dev.firmages.core.sky.SkyRegistry.register(modEventBus); // Starfall blocks, metals, core, sounds, loot condition (SPEC §25)
         dev.firmages.core.crown.CrownRegistry.register(modEventBus); // Lens Crown, firmages:starforge (SPEC §27)
 
