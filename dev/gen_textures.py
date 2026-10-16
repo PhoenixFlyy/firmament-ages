@@ -1671,6 +1671,60 @@ def _():
     return img
 
 
+# The island plinth of the Origin Archipelago (SPEC 31.8): the altar's void stone with a sprout on top (an island
+# that grows) and nine notches on the sides (the nine islands).
+ARK_SPROUT = [
+    "................",
+    "................",
+    "................",
+    ".......l........",
+    "......lLl..ll...",
+    "......lLLllLl...",
+    ".....lLl.LLl....",
+    "..lll.lL.ll.....",
+    ".lLLLl.L........",
+    "..llLLlL........",
+    "....lllL........",
+    ".......L........",
+    "......sss.......",
+    ".....s...s......",
+    "................",
+    "................",
+]
+
+
+@block("ark_plinth_side", "island plinth side")
+def _():
+    img = new_tex()
+    bricks_fill(img, "void", seeded("ark_plinth_side"), bw=8, bh=4, weights=(0, 3, 6, 3, 1))
+    bevel(img, "void")
+    d = ImageDraw.Draw(img)
+    for k in range(3):
+        d.point((4 + 4 * k, 3), fill=rgb(PAL["violet"][3]))
+        d.point((4 + 4 * k, 12), fill=rgb(PAL["violet"][3]))
+    d.point((2, 7), fill=rgb(PAL["violet"][3]))
+    d.point((13, 7), fill=rgb(PAL["violet"][3]))
+    d.point((7, 7), fill=rgb(PAL["violet"][4]))
+    return img
+
+
+@block("ark_plinth_top", "island plinth top")
+def _():
+    img = new_tex()
+    noise_fill(img, "void", seeded("ark_plinth_top"), weights=(1, 4, 6, 2, 0), cluster=2)
+    bevel(img, "void")
+    overlay(img, ARK_SPROUT, legend(l=("patina", 3), L=("patina", 1), s=("violet", 3)))
+    return img
+
+
+@block("ark_plinth_bottom", "island plinth bottom")
+def _():
+    img = new_tex()
+    noise_fill(img, "void", seeded("ark_plinth_bottom"), weights=(1, 4, 6, 2, 0), cluster=2)
+    bevel(img, "void")
+    return img
+
+
 REACTOR_SIDE = [
     "o..............o",
     "................",
@@ -2674,6 +2728,8 @@ MODEL_TEXTURES = {
                                  "top": B + "offering_plinth_top_awakened"},
     "origin_altar": {"side": B + "origin_altar_side", "top": B + "origin_altar_top",
                      "bottom": B + "origin_altar_bottom"},
+    "ark_plinth": {"particle": B + "ark_plinth_side", "side": B + "ark_plinth_side", "top": B + "ark_plinth_top",
+                   "bottom": B + "ark_plinth_bottom"},
     "reactor_controller": {"side": B + "reactor_controller_side", "top": B + "reactor_controller_top",
                            "bottom": B + "reactor_controller_bottom"},
     "reactor_controller_ready": {"side": B + "reactor_controller_side", "top": B + "reactor_controller_top_ready",

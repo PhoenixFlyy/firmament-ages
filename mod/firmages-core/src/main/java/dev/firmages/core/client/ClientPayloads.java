@@ -25,6 +25,10 @@ public final class ClientPayloads {
         SkyStreaks.start(payload);
     }
 
+    public static void ark(dev.firmages.core.net.ArkSyncPayload payload) {
+        ArkClient.onSync(payload);
+    }
+
     public static void preview(ShrinePreviewPayload payload) {
         if (payload.clear()) PreviewBridge.clear();
         else PreviewBridge.show(payload);

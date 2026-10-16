@@ -176,6 +176,7 @@ final class OriginCommands {
     private static int rebuild(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
         ServerLevel level = origin(c);
         OriginArena.buildArena(level);
+        dev.firmages.core.ark.ArkService.recordPlinths(c.getSource().getServer(), OriginArena.migrateV3(level));
         boolean gate = net.neoforged.fml.ModList.get().isLoaded("sgjourney") && OriginArena.buildGate(level);
         c.getSource().sendSuccess(() -> Component.literal("The Origin: arena rebuilt" + (gate ? ", return gate placed again" : ", no return gate (Stargate Journey missing)")), true);
         return 1;

@@ -87,7 +87,11 @@ public final class OriginService {
         }
         OriginSavedData sd = OriginSavedData.get(server);
         if (sd.arenaVersion() < OriginArena.VERSION) {
-            OriginArena.buildArena(level);
+            // Version 2 to 3 is an air-only step (the Archipelago, SPEC §31.8): it never touches a player's build.
+            // Older and new worlds get the full layout first (version 1 to 2 rebuilt the islands as before).
+            if (sd.arenaVersion() < 2) OriginArena.buildArena(level);
+            else FirmagesCore.LOGGER.info("The Origin: arena v{} found; adding the Archipelago (air only)", sd.arenaVersion());
+            dev.firmages.core.ark.ArkService.recordPlinths(server, OriginArena.migrateV3(level));
             sd.setArenaVersion(OriginArena.VERSION);
         }
         if (!sd.gateBuilt() && ModList.get().isLoaded("sgjourney")) {

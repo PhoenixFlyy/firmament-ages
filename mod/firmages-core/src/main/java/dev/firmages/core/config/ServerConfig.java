@@ -67,6 +67,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_RADIUS;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_COOLDOWN;
     public static final ModConfigSpec.IntValue ORIGIN_GATHER_IDLE_MINUTES;
+    // the Archipelago (SPEC §31.9)
+    public static final ModConfigSpec.IntValue ARK_GROWTH_TICKS;
     // boss (The Primordial, docs/primordial.md)
     public static final ModConfigSpec.DoubleValue BOSS_EFFECTIVE_HEALTH;
     public static final ModConfigSpec.DoubleValue BOSS_PER_PLAYER;
@@ -218,6 +220,11 @@ public final class ServerConfig {
             .defineInRange("gatherIdleMinutes", 5, 0, 1440);
         ORIGIN_GATHER_COOLDOWN = b.comment("Seconds before a broken-up Gathering can start the fight again.")
             .defineInRange("gatherCooldownSeconds", 30, 0, 3600);
+        b.pop();
+
+        b.comment("The Origin Archipelago after the finale: the nine islands take samples of their Age and grow (SPEC 31.8)").push("ark");
+        ARK_GROWTH_TICKS = b.comment("Ticks over which a stage of an island grows from the plinth outward (0 = at once).")
+            .defineInRange("growthTicks", 200, 0, 1200);
         b.pop();
 
         b.comment("The Primordial, the end boss (docs/primordial.md). Its health stays at the attribute cap of 1024; the damage it takes is",

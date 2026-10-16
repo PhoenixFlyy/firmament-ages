@@ -80,6 +80,7 @@ public final class FirmagesClient {
         public static void stage(RenderLevelStageEvent event) {
             SkyEffects.onRenderStage(event);
             SkyStreaks.onRenderStage(event); // the falling star (SPEC §25.9)
+            ArkClient.onRenderStage(event); // the Archipelago's beams at the altar (SPEC §31.8)
         }
 
         @SubscribeEvent
@@ -99,6 +100,7 @@ public final class FirmagesClient {
             dev.firmages.core.net.ShrineSyncPayload.clientReset();
             AgeMusic.reset();
             SkyStreaks.reset();
+            ArkClient.reset();
         }
     }
 }

@@ -463,6 +463,7 @@ block = "tfc:rock/loose/granite"
 "id:minecraft:black_bed" = "age_2"
 "id:firmages:reactor_controller" = "age_9"               # firmages-core 0.4: Draconic reactor controller (recipes/age_9)
 "id:firmages:origin_altar" = "age_9"                     # Gathering altar of The Origin; arena block, never crafted
+"id:firmages:ark_plinth" = "age_9"                       # island plinth of the Origin Archipelago (arena v3); never crafted
 # Expedition items of the Age tokens (dev/decisions-while-away.md, 2026-10-14). The shard is visible from Dawn: a team
 # that finds a Cold Forge before the Iron Age keeps what the chest holds (ProgressiveStages drops a locked item from loot).
 "id:firmages:frontier_compass" = "age_2"                 # points to the nearest Cold Forge (server_scripts/firmages)

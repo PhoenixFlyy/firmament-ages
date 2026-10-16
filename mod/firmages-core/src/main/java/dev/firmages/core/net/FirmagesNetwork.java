@@ -21,5 +21,7 @@ public final class FirmagesNetwork {
         registrar.playToClient(AgeStatusPayload.TYPE, AgeStatusPayload.STREAM_CODEC, AgeStatusPayload::handle);
         registrar.playToClient(WelcomePayload.TYPE, WelcomePayload.STREAM_CODEC, WelcomePayload::handle);
         registrar.playToClient(StarfallStreakPayload.TYPE, StarfallStreakPayload.STREAM_CODEC, StarfallStreakPayload::handle);
+        // M17 (SPEC §31.9): firmages:ark_sync. The version goes to "7" at merge, after M14's "6" (SPEC §24.6).
+        registrar.playToClient(ArkSyncPayload.TYPE, ArkSyncPayload.STREAM_CODEC, ArkSyncPayload::handle);
     }
 }

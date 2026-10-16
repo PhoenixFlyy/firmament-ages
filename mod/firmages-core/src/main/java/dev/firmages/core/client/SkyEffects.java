@@ -37,6 +37,7 @@ public final class SkyEffects {
 
     static void onFogColor(ViewportEvent.ComputeFogColor event) {
         float[] tint = CeremonyPlayer.skyTint((float) event.getPartialTick());
+        if (tint == null) tint = ArkClient.skyTint((float) event.getPartialTick());
         if (tint == null) return;
         float s = tint[3] * 0.7F;
         event.setRed(event.getRed() * (1 - s) + tint[0] * s);
@@ -47,6 +48,7 @@ public final class SkyEffects {
     static void onRenderStage(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_SKY) return;
         float[] tint = CeremonyPlayer.skyTint(event.getPartialTick().getGameTimeDeltaPartialTick(false));
+        if (tint == null) tint = ArkClient.skyTint(event.getPartialTick().getGameTimeDeltaPartialTick(false));
         if (tint == null) return;
         PoseStack pose = new PoseStack();
         pose.mulPose(event.getModelViewMatrix());
