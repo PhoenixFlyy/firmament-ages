@@ -2,6 +2,13 @@
 
 Beta: the whole progression is playable from Dawn to The Origin and its final boss, balance and texts will still change. Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## Unreleased (round H3, measurements)
+
+- **Steam engines power alternators again.** A Crafts & Additions alternator on a fuelled Create boiler gave no power: the check for fuelled rotation never found the steam engine. A level 18 boiler with 18 engines now gives its 3,024 FE/t.
+- **Fission and fusion balanced** (measured on reference plants): a fission reactor burning 1 mB/t through a full turbine gives about 100,000 FE/t (was 80,000); fusion at injection 20 gives about 95,000 FE/t air-cooled and 840,000 FE/t through a turbine (was 4 million passive). Fusion now needs at least injection 20 water-cooled (10 air-cooled) to keep burning; the reactor's fuel tab shows the minimum.
+- **The aurora is closer on warm worlds.** The cold band now starts at most about 1,000 blocks north of a warm spawn; worlds with a cold spawn keep it at home.
+- **Wayshrine density per type** for new chunks (Forest Ring 72, Steppe Stones, Swamp Altar and Mountain Spire 80, Volcanic Ring 48 chunks apart): fewer worlds with very few or very many Wayshrines near spawn.
+
 ## 0.12.0
 
 The sky, the wood and the grid. The sky features are complete: the Lens Crown forges one celestial alloy per Age from the Arcane Age on, and each alloy goes into that Age's offering. Vanilla trees grow in the world again, and Dawn crafts on the ground. **A new world is best:** vanilla groves and the denser Wayshrines only appear in new chunks. An existing world keeps working; it gets one cluster of Drifting Isles near the shrine from the Industrial Age, and The Origin gains its plinths without touching your builds.
