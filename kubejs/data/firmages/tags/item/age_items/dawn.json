@@ -895,6 +895,7 @@
     {"id": "alexsmobs:roadrunner_feather", "required": false},
     {"id": "firmages:frontier_shard", "required": false},
     {"id": "firmages:sky_rock", "required": false},
+    {"id": "firmages:skystone", "required": false},
     {"id": "firmages:wayshrine_stone", "required": false},
     {"id": "minecraft:armadillo_scute", "required": false},
     {"id": "minecraft:bell", "required": false},

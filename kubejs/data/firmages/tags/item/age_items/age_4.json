@@ -296,6 +296,7 @@
     {"id": "extra_gauges:passive_gauge", "required": false},
     {"id": "extra_gauges:string_gauge", "required": false},
     {"id": "firmages:arcane_gearbox", "required": false},
+    {"id": "firmages:firmament_crystal", "required": false},
     {"id": "firmages:lantern/industrial", "required": false},
     {"id": "firmages:pressure_core", "required": false},
     {"id": "firmalife:bucket/metal/chromium", "required": false},
