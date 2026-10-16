@@ -250,7 +250,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "270d46d3c588974babd2f6cb23060f2d1b7dce3ca5e7f561fb1ae4844f4deb1b"
+hash = "3ebb36ab4e0e3ac15864e48ce448d03e965558eaab2ba498ae86a4208d25b49b"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -274,67 +274,111 @@ hash = "46a6c9b6ccf7f42c9f57365d20d39875573acfdeaef5f7f18609715205a79bcf"
 
 [[files]]
 file = "config/ftbquests/quests/chapter_groups.snbt"
-hash = "919988788d4b98dfc9ccabeb0ee35c82780723d0edef7ebd43875bce590dd8f9"
+hash = "b2f1ffc81a1159f4438d750612b5cd89cf5f6e516c499625ba26c63a917ef08d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/arcane_age.snbt"
-hash = "847f8739254ec456fe7d266de65fec54e663c68981b80e50e761a810ff2dd9b6"
+hash = "1cb7707574d5a756b1b7cd9b7fd74e3395b60e5e9f8aa3455c1e2fec2329fd67"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "dee0ff80123e961ec8744139f4a82ec8645746c5d6747262809fbebdebc98f26"
+hash = "8c852a3cf630e1c42b5625ac0ca8a16454a4d40b1c9e585acf3669ffc067f73e"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
-hash = "f5fafee6828b3ea299682b7c4b69ef477bd864da23a54136b6aa80b3f8bfe0f8"
+hash = "ffb2e0b913a2dbb358618d6a7a0e6a047b8c45461a43bc3d9e48a42b4316dfbc"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
-hash = "f93130750c5ac6a3bb0cce4e8b43c79274ab426393679e7515ae5c609bb44473"
+hash = "e1103a5cd92c045f278c349744ccdf89c8366290247c84534f14e097a5b19a93"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/industrial_age.snbt"
-hash = "ce111961c0dcb5966cafa891ef7cdb2a46f0420c7d10f767a4a564a7f38e6357"
+hash = "ee2b194aedb834851aec6f333ada7a37b3a2282179f59a2f1719050c4f3951ea"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "03928c04753a86d157b825b2b7d5eb00e0c0526f647e77aa919a6cb1ae3e709d"
+hash = "d8e93b2ff206924a1b071c76b4387bd704c69025dd9c5977c9ed0b6454b5a4b4"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
-hash = "3f5ee0339c3a1ed223eab4f73f551e9f148a5262a0d9b8a003fe2710e55db4f6"
+hash = "833bc887a77c317c69424fd95b20d306e62a2355d3dfde7d06c5ed31f6294f6a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "5176ec94f8585f35489dfc2a1276ef0f0a61738ff959847a29efbc7c56129088"
+hash = "452b03a95ed1dcb85d8992ad80bda90bb6aa9cc310023eeeea8232778fe30f4e"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_arcane_age.snbt"
+hash = "089f29e637389c9dcae4281671900b28e21f6ced64817531fc3c6354de15e535"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_bronze_age.snbt"
+hash = "d5163f3e45d4348e776475ce620ea3ade0eeafb3463c5153bf8af41a143d172f"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_dawn.snbt"
+hash = "f26e837100db0510273791212c087ead249bbd8b52461e1f6aed4fc1683e3fa6"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_electric_age.snbt"
+hash = "b8f3b8eeac111972ee270805b6cb73378666581163340c1552dbbb9fb0d14b94"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_industrial_age.snbt"
+hash = "1abc49e62beff149883702054b0413abf9cb783c8f59161cfc0a23ce05e9f0e2"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_information_age.snbt"
+hash = "22cad2a27dd90d78f5e903f3c3f62e3438d2be3f9ce44017929884fc393786fe"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_iron_age.snbt"
+hash = "17796dd3dda625e4c2357b512497d789cb72ffd212ce6fa55089eb3b493a0fbf"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_quantum_age.snbt"
+hash = "2579a6375493c49440d765a0455de621206ef6410861210fa460bffac6947df5"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_singularity_age.snbt"
+hash = "b162a60423cadd0bd855f7c86a071e123d103281f6173b17039887b138caf309"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_space_age.snbt"
+hash = "5faba56ab7965d663ffb0d2dc489552bd3f4524dc8fa781ca45846f570b48f0d"
+
+[[files]]
+file = "config/ftbquests/quests/chapters/roads_stone_age.snbt"
+hash = "11091ec0deaff28f040c234d3f8ab3c439668bae21f9e455799f196fc86d23cc"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "f93bba0d9aebd82b27b2b104a25c7aaa3b55694fc180da1c06fa300206e8d80a"
+hash = "70602f0f1dc1d85002357e20114f51320af942333a78a6c21b34d3e7f4a84ede"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
-hash = "9644aeb61f37e1ed5ae9986ea3c2220ca682fa818aec09df78f2f64a2cc938e9"
+hash = "0d4f31732dcd9d6f789fd9d539269ae9273531e29ca00248ae2a9cb2628e3666"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "04036d811f542b5eb3485403764129ca010ff2890159b990fa3ec4a409595d96"
+hash = "12cbed459255348fccbd40be49e2f3fc7e4ecb212985798768557d5631f9aac6"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
-hash = "af4b6ba3687eb8cbb9fc876c95955b76c7ec0ebe82c6e9484bcce60d8c714e71"
+hash = "a02a436e234c6192ef0e896657eda9075f04cf0a2a2b4d0d2b7e87d213af870d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/work_gatehouse.snbt"
-hash = "590ab976f99a216aaf6f56d2324a5055ece18f0aad980e757f8b6b64bdb25d6a"
+hash = "416570f59e2d78e126e7fbf4b3046a3875efa23d40c237778fedf8c17e093b6f"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/work_living_house.snbt"
-hash = "6d3f50af323a5f277514dfbab80b9ee5e411985b70d38fa6dc1f853836299f16"
+hash = "9fd4034708989217c6e10d2fda05a58207b9c190b55e59cf8ab9640389ac7129"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/work_silo.snbt"
-hash = "a90e72f008ccc542c88d3f19c66c121ce36b1578428f2375fe17937ab054dd03"
+hash = "8a4e70a0bd6adb3b282c05d6962b66d0d374e62c658b89686fd334edbf22db93"
 
 [[files]]
 file = "config/ftbquests/quests/data.snbt"
@@ -342,91 +386,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "5ff0ee7959f9df202f2dc2b31c7e9062ed54aa7946503bda58ce3c61884764f7"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
-hash = "d1604a6933c5ab12a443526e56784f5b7bf77492fb3709f640ec8d04fc92bce3"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/arcane_supplies.snbt"
-hash = "d1091abbb21d4667ffaa1d91723c9638c4975e90bac4a19704c59ed3affdb429"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/bronze_comfort.snbt"
-hash = "f9d5de7134918ef24360c209d11cbea96f5d6e62c2ffe52e9ec22d1af4325a65"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/bronze_supplies.snbt"
-hash = "6103f041d7699da615aab2652b223d3980ce111d43b5f796321ee9bb42ccc8bf"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/dawn_supplies.snbt"
-hash = "fd2b5b933f5f7483bce2c2cab79f29e85bff10c184048b8e333c6caa45261253"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/electric_comfort.snbt"
-hash = "332128fd158ec8cbe48bd1b99b20621e3ac477b38e45d78eedf4c9da360b9c82"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/electric_supplies.snbt"
-hash = "f1fe297e11e37e5711d0d03cb366368ebff8bcfb7be2233197a972fbbc5ed0d9"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/industrial_comfort.snbt"
-hash = "3d7e006bc022330e6ee831c365b93e94bc124afb88351b653b0253fbeec73399"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/industrial_supplies.snbt"
-hash = "8ff5c6714c766a4430278c990b49f8eea474c6cff66aba6fc97ebcea94ebedc0"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/information_comfort.snbt"
-hash = "581b5a0a5b5bab3c1789aa0a2ddc1487dff15eb1697aa2ce3b60ef252aa1921a"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/information_supplies.snbt"
-hash = "acf331c75abf4a0d397ee7932bbe77d26dff2114d7dd349f1dfde2f904e7ed40"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/iron_comfort.snbt"
-hash = "c99702dbc4d7c98fa899729bf5222af9c3e6b2bffae8d881cd40ecd897ff91a4"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/iron_supplies.snbt"
-hash = "f83a14f60e815f0824779ef0a65926ec68a34957c5565905cbb70c84ed7648fb"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/quantum_comfort.snbt"
-hash = "ffdb8277238d5d5907729f94737a46cbb4b46ae228871f85b760d345a1064fa0"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/quantum_supplies.snbt"
-hash = "0f16c9c1b2645f8a232196ff3ce224307d2520aba436b1afb8f4802525511e2d"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/singularity_comfort.snbt"
-hash = "5d367c537e67ddf7ed7dd839800207bd294d5dd03704c53917cf5e8cde8fe835"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/singularity_supplies.snbt"
-hash = "1ff272783ffd377aa5a2720d4e0fce0cf4e4206804d60a9e82b23f171f208f39"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/space_comfort.snbt"
-hash = "1e468067e1ca925ccc95d3ef0569eb32b89a0cc7ceb5a7bcd023eca3566e8a58"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/space_supplies.snbt"
-hash = "0933f0bd5a552d1b2c02a69624176b7b0f32e97d4c9b12f14f209bf85d1a3ba3"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/stone_comfort.snbt"
-hash = "fbe8871f231668fd71577548a52d7c0f90705e286e8dab2adb0522652487af8a"
-
-[[files]]
-file = "config/ftbquests/quests/reward_tables/stone_supplies.snbt"
-hash = "afb2635501f8fdaf7e02c07e5ff07a45f7301ec653832f146b0f27ff9c6936c7"
+hash = "392fce87ad19d6dab476b18d5e45f10692775a426291340bac36143862178fc8"
 
 [[files]]
 file = "config/goblintraders-entities.toml"
@@ -650,7 +610,7 @@ hash = "d3b0c9dc6229075b6e9e289c347a860e60e73285c6f795d706c69b3994facfaa"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
-hash = "175efa061403cb8378060cff01ab0569d79e19e9dc148c371402bf943628cba0"
+hash = "8a513d658e9248321bed95481663ef467bda02618ea80f71d2bf311ab5f37a63"
 
 [[files]]
 file = "kubejs/assets/dndecor/blockstates/text_plate.json"
@@ -2209,12 +2169,20 @@ file = "kubejs/assets/firmages/textures/quests/knapping/axe_head.png"
 hash = "7ab4ed400968adf2033962546012feeebd1bf6437ea9549b2ba31ef6c7e6ad00"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/axe_head_mold.png"
+hash = "87b14902a88bf0fde93fe80fdabd691fa6ba15a2a125584d973a278cc58eacb4"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/quests/knapping/bowls.png"
 hash = "a91c78e8ffedd53131cdfc396fbb4a400d7e3e99467196ecf9096e385a319618"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/knapping/hammer_head.png"
 hash = "af29eaa5d31e093eca7e196e55f0a66515409254f5a50d1a6783f718fdd5f428"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/hammer_head_mold.png"
+hash = "496936b7b1f45dae6c7a74ace8ef70bde624e100faf4d7660a73050b64126b6b"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/knapping/hearth_idol.png"
@@ -2235,6 +2203,10 @@ hash = "34f69b118fbac96a9135e55a0f4e306423fd6bd8c527d679ad5cdf2dd74e0bb4"
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/knapping/jug.png"
 hash = "2b16e8a5eda05e3e7489a34e4885c3125f5ee09445dc4285aedfa4eca13aa44c"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/knife_blade_mold.png"
+hash = "41f1bf3114cf9b7cbbc825f80289a303ff76fe832a6b507f509641e23d356fd2"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/knapping/knife_blades.png"
@@ -2259,6 +2231,10 @@ hash = "87a68e88ad27a4f348d5a89fc47543fef16bbadac5386e2c5fe7224146b0c0ee"
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/knapping/shovel_head.png"
 hash = "616469fa053ff00e17ce213969f020038a0af28ab5511e0268b520c27940dec7"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/knapping/shovel_head_mold.png"
+hash = "07e41b0cf0640e9dc1ed4bfb9751f5376f942149b63e7b1b3bd9c801b974dde8"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/knapping/small_vessel.png"
@@ -3486,7 +3462,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "f65e17b6612ef9dbd624b14fba6f53c41022f47998aee3b6bc7e67dcec1fb2be"
+hash = "6af080a009500fb32a88015da625ff102ebc15cc3f387caede14bba1c35b695a"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -6710,7 +6686,7 @@ hash = "ddc89e53d1c775c5fa50904dec2fd40a775928ff4d34add700bf850bd4fbb570"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "23304d9bf841f3e6101600d3207e6536ea281b96aa472c79a863d3dfec99627e"
+hash = "8c06ef711fc3a49aa996d8c81fb61f182b1354327f6049be084a7be7b425c182"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
@@ -6742,7 +6718,7 @@ hash = "5431cf5ef2e40dbf80d388e2119472668f13f23d0955f29d00fb6ed275efa94c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "03610ccb32624530184668df8698296c4c6f4f0aea49e1ad7b28e2216f295f96"
+hash = "80487ce9d510d30de5822e94cb64429bf6bcb1eecc83d2c0f958accee30554ab"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/rope_bridges.json"
