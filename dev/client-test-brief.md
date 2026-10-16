@@ -1,5 +1,212 @@
 # Client-Test
 
+## 1.0 Checkliste (Pack 1.0.0, firmages-core 1.0.0, 2026-10-17)
+
+Eine Liste für den Client-Test von 1.0. Sie fasst alle offenen Client-Punkte der Abschnitte „0.10.0 Nachtrag“ bis
+„0.14.0 Nachtrag“ darunter zusammen, nach Age geordnet, dazu die neuen Punkte der Runde F1 (mit **F1** markiert). Die
+alten Abschnitte bleiben als Archiv stehen; wo sie dieser Liste widersprechen, gilt diese. Server-Teil auf einer Kopie
+geprüft (`dev/poc-results.md`, Abschnitt „1.0.0 (2026-10-17)“): Boots mit neuer Welt, alle Ages per
+Simulation; Gate aus: Dump und `/reload` ohne Rezeptverlust (43.709 vor und nach); Gate an: `selftest all` 106 von 106,
+`poc_analyze.py` 134 PASS, 0 FAIL, FTB Quests 26 Kapitel, 668 Quests, `check_log.py` 0 übrig; GameTests 124 von 124;
+`validate_quests.py --style` 0 Fehler, 0 Warnungen; Q-1 523 Aufgaben mit Quelle.
+
+Weggelassen, weil spätere Runden es überholt haben: Vanilla-Holz erst in der Singularitätszeit (0.10.0 Punkt 1, seit
+0.12.0 Holzklassen), „In The Origin noch kein Endboss“ (0.10.0, seit 0.11.0 The Primordial), Tally Chute in der
+Bronzezeit ohne Quest (0.10.0 Punkt 6, seit 0.12.0 Industriezeit und Zehnt), Lens Crown versteckt (0.11.0 Punkt 5, seit
+0.12.0 im Spiel), Wayshrine-Opfer aus Meteoreisen ab der Arkanzeit (0.11.0 Punkt 4, seit 0.12.0 Himmelslegierungen),
+Digital Miner 36.000 FE/t (seit den 0.12.0-Review-Fixes 4.800), Welcome-Kapitel (seit B1 The Firmament), „Quest-Bilder“
+und „Chronik B1“ als eigene Abschnitte (in 0.13.0 Punkt 1 und 2 aufgegangen), Side-Roads-Reihen „vier bis sieben“ (seit
+dem B2-Review zwei bis sieben), die 57 fehlenden Mods der alten Client-Instanz (ein neues Profil hat alle 265).
+
+### Vorbereitung
+
+1. **Neues Profil** aus `dev/exports/FirmamentAges-1.0.0.mrpack` (oder der CurseForge-Zip) importieren, nie Dein
+   Spielprofil überschreiben. Client und Server brauchen firmages-core 1.0.0 (Protokoll 6). Neue Welt, Überleben ohne
+   OP; OP nur für Befehle (`/stage grant @s age_N`, `/firmages …`). Ages nacheinander vergeben, nie überspringen.
+2. **Serverliste.** Den Server (oder die Server-Zip auf einem zweiten Rechner) hinzufügen: der Tooltip von Better
+   Compatibility Checker zeigt für Server und Client „Firmament Ages 1.0.0“, nie „CHANGE_ME“. **F1**
+3. **Log.** Nach jeder Sitzung `python dev/check_log.py --client <Instanz>/logs/latest.log`; Meldungen beim Beitreten,
+   fehlende Texturen und leere Tooltips notieren.
+
+### Dawn
+
+4. **Kein 2x2-Feld.** E öffnen: kein Feld, kein Pfeil, kein Rezeptbuch-Knopf; die graue Fläche sagt umgebrochen „No grid
+   yet. V: lay items on a block. Sneak + Right Button with an empty hand: craft.“ (Tasten aus der Belegung), beim ersten
+   Öffnen der Sitzung einmal in der Aktionsleiste. Dasselbe im Curios-Bildschirm und im Rucksack. Als OP in EMI ist das
+   „+“ grau.
+5. **Bodenhandwerk.** Steinaxtkopf knappen, Kopf und Stock je mit V auf denselben Block legen, Aktionsleiste „Sneak and
+   right-click with an empty hand: Stone Axe“, leere Hand, Strg halten, Rechtsklick: Steinaxt, Haufen weg, kein
+   Flackern. Vier Stroh = Thatch, zwei Stöcke = Feuerstarter. Quest „By Hand“ hakt ab.
+6. **Tiere und Händler.** Warme, trockene Gegend: Elefanten, Nashörner, Kängurus, Emus; kalter Wald: Waschbären und
+   Blauhäher, keine Tukane. Ein Goblin in einer Höhle unter Y 40 handelt TFC-Waren der aktuellen Age, keine
+   Schatzkarte. Straße „Strange Beasts“.
+7. **Nichts Späteres in der Welt.** Auf der neuen Welt ab Dawn: kein Apotheosis-Turm, kein begrabenes Sternentor, kein
+   Evolved-Mekanism-Erz im Nether oder End (später prüfen). TFC-Ruinen zeigen nur Dawn-Blöcke; „A Fallen House“ hakt
+   ab, sobald Du eine der vier Ruinen betrittst. **F1**
+
+### Steinzeit
+
+8. **Freischaltung.** „The First Spark“: Chat „Your hands have learned: the crafting grid is open (E).“, Feld da, vier
+   Stroh geben im Feld Thatch.
+9. **Holzklassen.** Wilden TFC-Baum fällen: Vanilla-Stämme seiner Klasse (Jade nennt die Art). Säge + Vanilla-Stamm =
+   2 Bretter, Säge + Bretter = Lumber der Leitart, 4 Vanilla-Bretter = Werkbank (Quest „Workbench“). Acht
+   Klassen-Stämme um einen Art-Setzling = acht Stämme der Art. Vanilla-Bäume im Wald neben TFC-Bäumen: wirken sie
+   fremd, stört Laub ohne Jahreszeiten? EMI: Vanilla-Holz-Deko nur in Stilen mit TFC-Kopie.
+10. **Schrein.** Bild in der Kartenmitte öffnet die Anleitung „Hearth Circle“: Seite 1 Aufbau-Animation, Pfeile durch
+    drei Lagen und die Ritus-Seite. Knapping-Bilder in „Copper Kit“ (Axt-, Hammer-, Messer-, Schaufelkopf) scharf bei
+    GUI-Skala 2, 3 und Auto, Bildunterschrift „light squares stay“.
+11. **Deko.** Banner schleichend an Zaun oder Mauer: Flagge weht, kein Toast „Gurkis Datapacks“; Armor Statues.
+
+### Bronzezeit
+
+12. **EMI** öffnet für Überlebensspieler ohne OP; Rezeptfelder wechseln nur durch Items Deiner Ages.
+13. **Belohnungen.** Zwei Spieler an „Copper Kit“: die Team-Belohnung holt einmal, wer zuerst klickt; Ausrüstung und
+    Essen bekommt jeder. Opfergaben auf der Firmament-Straße geben nichts (die Belohnung sitzt auf dem Age-Ziel).
+14. **Side Roads.** Das Kapitel „Bronze Age Side Roads“ erscheint mit der Age; Reihen von zwei bis sieben Quests, die
+    erste nennt Straße und Abzweig im Untertitel und öffnet erst, wenn ihre Quest im Age-Kapitel fertig ist.
+    „Mineral Prospector“ hakt mit jedem der vier Prospektoren ab (Kupfer, Bronze, Bismut- und Schwarzbronze). **F1**
+15. **Great Work „The Gatehouse“.** In der Bronze-Karte neben „Flux Mill“ ein Link (Rune, Größe 1,25): Titel lesbar,
+    Klick springt ins Kapitel. Plan auf Seite 2, Fallgitter-Standbild öffnet Ponder, Escape führt zurück. „Shut the
+    Gate“ hakt ab, wenn Du das Gearshift ansiehst, während der Hebel es treibt; „A Bridge Over the Ditch“ mit acht
+    Seilbrücken einer Holzart in einem Stapel, auch TFC- und AFC-Hölzer.
+16. **Wayshrine.** Rechtsklick auf das Schrein-Herz nennt Richtung und Entfernung (Tutorial etwa 400 Blöcke vom
+    Spawn); am Kern Geist und Jade „Ruined: … missing“; Wiederaufbau, Bronze-Doppelbarren, Ritus, Gebet: Strahl,
+    Wayshrine Stone, Segen im Umkreis 24.
+17. **Exposure.** Kamera bauen, Schwarzweißfilm belichten, mit Soda und Salz entwickeln, in der Lichtkammer drucken
+    (Licht 13); das Foto fällt nicht aus dem Inventar.
+18. **Kleinkram.** Kamin über einer TFC-Feuerstelle: Rauch steigt hindurch, keine Vergiftung. Holzstange von To the Bat
+    Poles!. Artifacts gelegentlich in Ruinenkisten. Musik: eigene TFC-Stücke je Age.
+
+### Eisenzeit
+
+19. **Great Work „The Living House“** am Link neben „Brass“: „A Lift“ hakt ab beim Blick auf den Aufzugskontakt;
+    Ponder-Standbilder in „The House Speaks“, „A Lift“, „The House Keeps Time“, „Drawbridge“.
+20. **Starfall.** `/firmages starfall now` in klarer Nacht: Streifen in die echte Richtung, Knall auch aus 1.000
+    Blöcken, Aktionsleiste „A star falls to the …“, Krater mit glühendem Kern (leuchtet er mit Complementary?).
+    Meteorit doppelt, solange der Kern glüht (Jade); vor der Eisenzeit sieht er aus wie Himmelsgestein.
+21. **Sturmstab.** Zwei Blöcke hoch, 16 Sand, im Regen ab und zu ein Blitz, Donner nur in etwa 64 Blöcken; Sturmglas
+    als verbundenes Glas.
+22. **Cold Forge.** Frontier Compass (Schmiedeeisen um Magnetit) zeigt zur nächsten Cold Forge; Frontier Shard aus
+    der Kiste, Deployer und Presse machen das Frontier Relic.
+23. **Links.** Presse macht aus einem heißen Barren zwei Stangen; drei Gummibarren geben vier Riemen. Ein
+    Waffenschmied, der Eisen kauft, verlangt Schmiedeeisen-Barren.
+24. **Side Roads.** „Syrup and Sugar“ hakt mit Ahorn- oder Birkenzucker ab; keine Straßenquest der Eisenzeit verlangt
+    einen Vanilla-Eimer; „Rubber“ erzählt das Zapfen mit. Die Hebestange von To the Bat Poles! (32 je Rezept). **F1**
+25. **Blutmond.** Untote tragen Rüstung und Waffe der Age davor. Bibliocraft: Vitrine aus TFC-Holzstufe, Etikett,
+    Klemmbrett, Bücherregal in TFC-Holz; Sitze, Tische, Lampen und Uhren fehlen in EMI.
+
+### Arkanzeit
+
+26. **Zwei Wege.** Ziel-Quest öffnet nach „The Spirit Route“ oder „The Machine Route“ (Hollow Keystone aus der
+    Netherfestung, Spout, Deployer, Presse).
+27. **Lens Crown.** Star Anvil im Steinring mit drei Lens Mounts, Akkord, Starlit Iron (Ponder, EMI). Je Age genau eine
+    neue Legierung in EMI; Wayshrine-Opfer ab hier die Legierung der Age.
+28. **Wixie-Charm.** Am Enchanting Apparatus aus Beschwörungsessenz, Setzling, Smaragd, Werkbank, Braustand; auf einen
+    Kessel: Wixie-Kessel, der zeigt Rezept und braut oder craftet. Quest „Wixie Charm“ in „Elemental Arts“. **F1**
+29. **Drygmy.** Drygmy-Splitter, Drygmy-Charm, Drygmy-Faden und die Source-Spawner von Ars Additions stehen ab hier in
+    EMI; ein wilder Drygmy, dem Du einen Wilden-Drop gibst, wird zu Splittern. **F1**
+30. **Ars und Bücher.** Gelber Archwood-Setzling aus den vier Ars-Setzlingen; Akashic Tome nimmt TFC-Feldführer,
+    Schrein- und Occultism-Buch; Enchantment Descriptions im Tooltip.
+
+### Industriezeit
+
+31. **Zehnt.** Trichter mit Stahlbarren auf eine Tally Chute: sie nimmt nur, was der Nachweis will; Jade „Takes 384
+    more Steel Ingot for Caelum“, danach „Takes nothing now“. Opfergabe ohne Zählung wird abgelehnt und bleibt in der
+    Hand.
+32. **Aurora-Netz.** Y 140 oder höher im kalten Norden (`/firmages sky aurora band` nennt die Richtung): klare Nacht,
+    Zustand `catching`, Fluid im Tank. Passt das Leuchten zu den Auroras des Mods, nie „No aurora overhead“ unter
+    sichtbarem Polarlicht? Polarlicht nur vom Auroras-Mod, keins von Complementary.
+33. **Drifting Isles.** Heißluft-Luftschiff von Y 90 auf Y 275 und zurück (wie groß muss die Hülle sein?), Jetpack von
+    Y 120 auf Y 240. Schafft keins von beiden die Inseln, ist das ein Blocker (Cloudsteel). Lode abbauen, Wind Shrine
+    (`/firmages isles locate`).
+34. **Kleinkram.** Wireless Crafting Terminal unverlinkt: Rechtsklick öffnet ein 3x3-Raster, Zutaten kommen beim
+    Schließen zurück. Isolierter Kupferdraht und Förderband nehmen einen Gummibarren; wie viel Latex gibt ein
+    Gummibaum? Farbfilm von Exposure.
+
+### Elektrikzeit
+
+35. **Diesel.** IE-Diesel-Generator von Hand bauen, `/firmages energy audit 8 10` daneben (auf dem Server blieb er
+    inaktiv). „Rocket Fuel“ hakt mit Diesel- oder Kerosin-Eimer ab.
+36. **Eimer.** Vanilla-Eimer aus Stahlblechen; Wassereimer auf Fliegendem Fisch, Schlammspringer oder Schnabeltier gibt
+    ihren Eimer, alle drei ab hier in EMI. **F1**
+37. **Mods.** Building Gadgets 2: Baugadget mit FE, das Tauschgadget weigert sich an TFC-Erz und Rohgestein.
+    AeroEngine: Ponder des Triebwerks, Flugkerosin im beheizten Mixer. Osmium-Ader im Excavator (neuer Chunk, Core
+    Sample). Polarlicht auf einer Welt mit warmem Spawn (Band ab etwa −5,8 °C).
+
+### Informationszeit
+
+38. **Arkan-Katalysator** an einer Mekanism-Kammer und einem IE-Multiblock (an einem Teil, nicht am Master): +50 %
+    Tempo, doppelte FE je Zusatz-Tick, Source-Partikel vom Gefäß; ohne Welle mit 64 RPM „Needs a shaft …“, ohne Source
+    „Waiting for Source …“.
+39. **Chronik.** „The End“ und „Dragon's Breath“ als Nebenpfad an „Autocrafting Online“, das Ziel wartet nicht darauf;
+    die optionalen Kill-Aufgaben in „Dragon's Breath“ und „Wilden Tribute“ blockieren nicht. Data Nave: 10 Mio. FE ins
+    Herz.
+40. **Psi.** Encyclopaedia Psionica, CAD-Assembler mit zwei Grundschaltkreisen, ein CAD, ein einfacher Zauber im
+    Programmer: Buch geht auf, Programmer-Bildschirm vollständig. „Psidust“ kommt von einem leeren CAD. **F1**
+41. **AE2.** 32 Kanäle je Kabel, 128 je dichtem Kabel; 64k-Zelle zeigt 126 Typen; Hydrotreater macht Ethen.
+
+### Raumfahrtzeit
+
+42. **Startkomplex.** Geist-Vorschau an der Steuerung deckt sich mit dem Bau; Start aus 200 Blöcken, Silo-Luke öffnet
+    beim Countdown, Rückkehr mit Voidglass. Great Work „The Silo“ am Link neben „Launch Pad“: Ziel ist die Startrampe
+    mit Signal.
+43. **Sky Anchor** auf dem Mond mit dem Splitter einer erweckten Stufe: Segen im Umkreis 24, Jade-Zeile; nur nicht
+    erweckte Splitter: „Quiet …“.
+44. **Getarnte Erze.** Eissplitter-Erz auf Mond und Mars sieht bis zur Quantenzeit aus wie Mond- bzw. Marsstein,
+    End-Draconium-Erz wie Endstein bis zur Raumfahrtzeit. Rakete Stufe 3 nimmt keinen Diesel, aber
+    Flüssigwasserstoff. **F1**
+45. **Digital Miner** mit 4.800 FE/t und 10 s je Block ohne Upgrades: fühlt sich die Age damit richtig an? Mekanism-
+    Maschinen mit zehnfachem Verbrauch: zu teuer oder zu langsam?
+
+### Quantenzeit
+
+46. **Fusion Neutron Activator** direkt unter der Mitte eines brennenden Fusionsreaktors: macht aus Atommüll Polonium
+    und aus Lithium Tritium, auch nachts; EMI listet ihn ab hier in der Kategorie „Activating“. Quest „Fusion Neutron
+    Activator“ in „Evolved Factories“. **F1**
+47. **Antimaterie.** Ein Pellet braucht 100.000 mB Polonium (SPS-Anzeige); Zeit je Pellet an der Fusionsanlage mit
+    Turbine stoppen (gerechnet etwa 40 min).
+48. **Weg ist weg.** Kein Alloyer, keine Legierungsfabrik und kein Walkie-Talkie in EMI; der Chemixer hat einen
+    chemischen Infuser im Rezept. Naquadah-Erz auf dem Merkur sieht bis zur Singularitätszeit aus wie Merkurstein.
+    **F1**
+
+### Singularitätszeit und Finale
+
+49. **Erzprozessor.** Modell und aktive Textur, Jade mit Tanks und Wartegrund, EMI-Kategorie „Ore Processing“ erst
+    jetzt; Befüllen per Eimer, Rohr und Mekanism-Chemieleitung.
+50. **Naquadah und Tore.** Im Lichtbogenofen wird reines Naquadah zu Naquadah; Milky-Way-Tor, DHD, Naquadah-Werkzeug
+    und Großkabel stehen in EMI. Auf der ganzen Oberwelt liegt kein gefundenes Tor; das gebaute Classic-Tor ist das
+    einzige. **F1**
+51. **Sternentor.** Wählen nach The Origin zieht 1 G FE, offen 50.000 FE/t; ohne Strom „not enough power“. Rückweg
+    aus The Origin klappt ohne eigenen Strom.
+52. **Chronik.** Chaos-Strang Reaktor, Fragmente, Injektoren, Kern, Ultimate Singularity; „Chaos Guardian“ als
+    Nebenquest an „Chaos Fragments“; „Beyond the Firmament“ erscheint erst jetzt.
+53. **The Primordial** mit 1, 2 und 4 Spielern: Dauer gegen das Modell 8,4 / 7,2 / 6,5 Minuten; ein Treffer höchstens 40
+    Schaden (auch der Draconic-Bogen); Phasen-Titel, Laternen, Splitter (Tooltip nennt drei Wege); Wipe: nach 30 s
+    zieht es sich zurück. Danach Titel, goldener Schreinstrahl.
+54. **Archipel.** Eine Insel in drei Stufen wachsen lassen, Strahl am Altar in ihrer Farbe; nach der neunten Insel
+    10 s FINALE-Himmel.
+55. **Reload.** Als OP `/reload` in der Singularitätszeit, dann TFC-Erzstücke in eine Mekanism-Injektionskammer: kein
+    Absturz (früher StackOverflowError). **F1**
+
+### Überall
+
+56. **Karten.** Jede Karte wie in `dev/quest-preview/`: Titel liegen nicht auf Titeln oder Quests, Linien als Bögen,
+    jedes Icon echt (dort zeigt ein Buchstabe ein Icon, das der flache Renderer nicht kennt). Neu geordnete Straßen
+    „Nuts“, „Diesel“ und „Psi“; Aufgaben mit „eines von“ (Zucker, Prospektor) zeigen alle Items. **F1**
+57. **Texte.** Brechwalzen „about 1.5 times“, Crusher „two and a half times“. „The Pale Watcher“ (Cave Dweller unter
+    Y 0 sehen) und „Armed Dead“ (16 Zombies) haken ab.
+58. **Jade** zeigt ab der Bronzezeit auch Namen gesperrter Blöcke (Entscheidung „F1 Gating: bleibt wie es ist“): stört
+    das?
+59. **Client-Mods.** 3D Skin Layers, Cool Rain, Chat Heads, Big Sign Writer laufen ohne Meldung; BetterF3 zeigt in der
+    Steinzeit keine Koordinaten.
+
+### Messungen (wenn Zeit ist)
+
+60. Startzeit bis Titelbild, erster Einstieg, Heap nach `/sparkc heapsummary`, Blockatlas, je drei Läufe, ausgewertet
+    mit `python dev/check_log.py --client <log>`; Bildzeit in einer Nacht mit Auroras und Complementary (`/sparkc
+    profiler` 60 s) und beim Blick auf einen glühenden Krater. Ergebnis als „1.0.0 client measurement“ in
+    `dev/poc-results.md`.
+
 ## 0.14.0 Nachtrag (1.0 Runde B2 2026-10-16, Pack 0.14.0, firmages-core 0.13.0)
 
 **Profil neu importieren** (das Questbuch ist neu; firmages-core bleibt 0.13.0, Protokoll 6). Eine alte Welt läuft

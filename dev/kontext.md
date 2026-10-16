@@ -1,7 +1,7 @@
 # Firmament Ages: Kontext für Agenten
 
 Diese Seite ersetzt für den Einstieg `mod/firmages-core/SPEC.md`, `dev/README.md` und die langen Notizen; die Pfade führen zu den Details.
-Stand 2026-10-16: Pack 0.14.0 (1.0 Runde B2, Chronik getaktet, Release-Commit `fd59274`), firmages-core 0.13.0 (unverändert seit Release-Commit `78d1591`), Branch `dev`.
+Stand 2026-10-17: Pack 1.0.0 und firmages-core 1.0.0 (Runde F1, Release-Commit mit Tag `v1.0.0`), Branch `dev`.
 
 ## 1. Was das Pack ist
 
@@ -45,13 +45,13 @@ Opfergabe und Token gehören zur Age, in der sie gemacht werden; der Schrein öf
 | Quantum `age_8` | Evolved Mekanism, Advanced AE | Quantum Core (8 Quantum Ring) | subatomare Legierung | Quasar Alloy → Quantum Core | 3.584 Calorit |
 | Singularity `age_9` | Stargate Journey, Draconic Additions | keine; Ultimate Singularity, Sternentor nach The Origin | großes Chaos-Fragment | Firmament Alloy → Ultimate Singularity | |
 
-Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G für The Gathering (SPEC §36). Bester Erzfaktor `age_0` bis `age_9` (0.13.0, `/firmages ore audit`): 1 / 1 / 1,5 / 1,5 / 2,5 / 2,5 / 2,857 bis 3 / 4 / 5 / 6.
+Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G für The Gathering (SPEC §36). Bester Erzfaktor `age_0` bis `age_9` (1.0.0 wie 0.13.0, `/firmages ore audit`): 1 / 1 / 1,5 / 1,5 / 2,5 / 2,5 / 2,857 bis 3 / 4 / 5 / 6.
 
 ## 4. Werkzeuge (aus dem Repo-Ordner)
 
 - `python dev/derive_ages.py --scan --mods <Kopie>/mods`, dann `python dev/derive_ages.py --dump-dir <Gate-aus-Dump>`, `--check`: schreibt `[derived]` und `[derived_hidden]` in `dev/age_map.toml` (Age = später von Regel und erster Erreichbarkeit, nie erreichbar = `[derived_hidden]`); Q-1 prüft die Quest-Aufgaben, Q-2 Items nur aus Belohnungen (`REWARD_ONLY`).
 - `python dev/gen_stage_locks.py` (`--check`, `--registry <Dump>`, `--explain <id>`): Age-Tags und Stage-Dateien aus `dev/age_map.toml`; nur Tabellen editieren, nie die Zeilen zwischen `# >>> generated` und `# <<< generated`.
-- `python dev/gen_quests.py`, dann `python dev/validate_quests.py --style` (`--mods <Kopie>/mods` oder `--no-jars`): Buch erzeugen, 0 Fehler, 0 Warnungen (prüft auch Linienkreuzungen und Linien über Quests, höchstens 2 je Kapitel, Side Roads und Quest-Links und die Belohnungen kapitelübergreifend: höchstens ein Drittel einer offenen Aufgabe, nie ein Side-Roads-Task-Item, nie Token, Opfergabe oder Chaos, keine Fackel in Dawn; `gen_quests.py` bricht bei einer Arbeitsquest ohne Item-Belohnung ab); danach `git diff config/ftbquests/quests/lang/en_us.snbt` lesen. `python dev/preview_quests.py` zeichnet jede Karte nach `dev/quest-preview/` (Buchstabe = Icon, das der flache Renderer nicht kennt; roter Punkt = Quest ohne Icon). Belege 0.14.0 nach dem Review: 26 Kapitel, 670 Quests (Ages 328, Side Roads 296).
+- `python dev/gen_quests.py`, dann `python dev/validate_quests.py --style` (`--mods <Kopie>/mods` oder `--no-jars`): Buch erzeugen, 0 Fehler, 0 Warnungen (prüft auch Linienkreuzungen und Linien über Quests, höchstens 2 je Kapitel, Side Roads und Quest-Links und die Belohnungen kapitelübergreifend: höchstens ein Drittel einer offenen Aufgabe, nie ein Side-Roads-Task-Item, nie Token, Opfergabe oder Chaos, keine Fackel in Dawn; `gen_quests.py` bricht bei einer Arbeitsquest ohne Item-Belohnung ab); danach `git diff config/ftbquests/quests/lang/en_us.snbt` lesen. `python dev/preview_quests.py` zeichnet jede Karte nach `dev/quest-preview/` (Buchstabe = Icon, das der flache Renderer nicht kennt; roter Punkt = Quest ohne Icon). Belege 1.0.0: 26 Kapitel, 668 Quests (Ages 328, Side Roads 294, Great Works 18, The Firmament 28).
 - `python dev/poc_analyze.py --server-dir <Kopie> --dump-dir <Dump> --baseline <Gate-aus-Dump>`: eine PASS/FAIL-Zeile je Prüfung, Exit 1 bei FAIL. Familien: G Gate, A Stage-Rezeptsperren, C Inhalt, D Dawn-Bodenhandwerk, E EMI je Age, R Erreichbarkeit (R-0 Vanilla-Stationen, R-X ohne Magie, R-M Multiblöcke, R-K), K Querverbindungen, L Erzleiter (L-8 kein wertschöpfender Metallkreis), U Vereinheitlichung, W Holzklassen, S Himmelsmaterialien, X Welt (Strukturen, Weltgenerierung, Vorlagen, Tierprodukte nach Age).
 - `python dev/predict_dump.py <Dump> <Ziel>` und `--sync-locks <Ziel>`: Dump einer KubeJS-Rezeptänderung ohne Boot vorhersagen; der nächste echte Dump muss `derive_ages.py --check` bestehen.
 - `python dev/check_log.py <Kopie>/logs/latest.log` (`--client` für Client-Logs): Problemzeilen gegen `dev/data/log_noise.json`, Ziel „remaining 0“.
@@ -92,7 +92,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 ## 6. Prüfregeln vor einem Commit
 
 1. `cd mod/firmages-core`, `JAVA_HOME` = `tools/jdk-21`, `gradlew build`: BUILD SUCCESSFUL, 0 Testfehler.
-2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (0.13.0: 123).
+2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (1.0.0: 124).
 3. Jedes betroffene `gen_*.py --check`, dazu `check_menus.py` und `miner_ladder.py --check`: alles aktuell.
 4. `python dev/derive_ages.py --check` und `python dev/gen_stage_locks.py --check`: up to date.
 5. `python dev/validate_quests.py --style`: 0 Fehler, 0 Warnungen.
@@ -102,17 +102,14 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 - Textdateien LF (`.gitattributes`; CRLF bricht die Hashes in `index.toml`). Autor `PhoenixFlyy <97892522+PhoenixFlyy@users.noreply.github.com>`, Trailer `Co-Authored-By: Claude <Modell> <noreply@anthropic.com>` mit dem Modell, das committet.
 - Nie pushen, nie zu CurseForge hochladen, `test-server/` nie anfassen (Felix' Server).
 - Boot-Kopie: `robocopy test-server ..\.wt\test-server-<name> /E /XD world logs local` (Ziel `D:/Minecraft/MinecraftModServer/.wt/test-server-<name>`), `kubejs/` der Kopie vor dem ersten Sync löschen; in `server.properties` ein freier Port über 25566, `rcon.port` = Port + 10, Whitelist aus.
-- Sync: `tools\packwiz.exe serve -p <p>` im Arbeitsbaum; `tools\packwiz-installer-bootstrap.jar` in die Kopie legen und dort (Arbeitsordner = Kopie) mit `tools\jdk-21\bin\java` `-jar packwiz-installer-bootstrap.jar -g -s server http://localhost:<p>/pack.toml` bis „Finished successfully“; danach in `<Kopie>/config/firmages-server.toml` `debug.allowSimulate = true` und `gate.enabled` (aus für Dumps) setzen.
+- Sync: `tools\packwiz.exe refresh`, dann `tools\packwiz.exe serve -p <p>` im Arbeitsbaum (mit `--refresh=false` liest `serve` den Index nur beim Start: nach neuen Dateien neu starten, sonst 404); `tools\packwiz-installer-bootstrap.jar` in die Kopie legen und dort (Arbeitsordner = Kopie) mit `tools\jdk-21\bin\java` `-jar packwiz-installer-bootstrap.jar -g -s server http://localhost:<p>/pack.toml` bis „Finished successfully“; danach in `<Kopie>/config/firmages-server.toml` `debug.allowSimulate = true` und `gate.enabled` (aus für Dumps) setzen.
 - Boot: `python dev/run_server.py --server-dir <Kopie> --xmx 5G --hold 240 --timeout 900`; Befehle z. B. `firmages ages simulate grant age_9`, `fa_dump`, `fa_dump_full`, `firmages selftest all`. Kopie danach löschen.
 
 ## 7. Offene Punkte und Entscheidungen
 
-- Felix entscheidet (`dev/offene-punkte.md`, „Entscheidungen“): eigene Schrift, Ernährungs-Untergrenze 0,85 oder 1,0, Chunk-Laden offline, Mob-Leiter kumulativ, AdvancedAE Strength Card, Backups ohne `saveAll`, bekannte Lücken (Apothic-Tisch, Blaze-Template), Firmament-Ziel ab Start sichtbar.
-- Im Client (Felix): Review-Fixes 0.13.0, Chronik B1, Arcane Catalyst an echten Maschinen, Ore Processor, Querverbindungen; Liste je Version in `dev/client-test-brief.md`.
-- Im Client (Felix): Chronik B2 in 0.14.0 (Belohnungen Team/Spieler, Side Roads, Links auf die Great-Works-Pläne, „Beyond the Firmament“ ab der Singularitätszeit), `dev/client-test-brief.md` „0.14.0 Nachtrag“.
-- Pacing-Modell nur im Scratchpad (`scratchpad/b2/pacing/`, Treiber `scratchpad/b2int/drive.py`): drei Spieler 54,0 h nach dem B2-Review, alle Ages im ±20-%-Band (Stone 0,84, Quantum 1,15 am Rand); als `dev/pacing.py` ins Repo holen (`dev/offene-punkte.md`).
-- Wayshrine-Dichte auf Vulkangürtel-Seeds (18 statt 7 bis 11) und die Suche des Tutorial-Wayshrines (`dev/gen_wayshrines.py`, SPEC §28).
-- Alte Origin-Arenen behalten den Fusionskern im Arena-DHD (`SgjGates.removeEnergyCore`); `derive_ages.py --scan` liest Feature-Prädikate als platzierte Blöcke.
-- Ungeprüfte Config-Keys (TFC + IE Quarz-Geode, Enchantable Machinery, Bits 'n' Bobs, Mechanical Spawner, Mekanism Additions, Stargate Journey): `dev/offene-punkte.md`, „Inhalt und Config“.
-- Entscheidungen: eine Zeile in `dev/decisions-while-away.md`, Deutsch, Format `| Datum | Thema | Entscheidung | Warum | So änderst Du es |`, neue Zeilen unten, Thema mit Runde als Präfix (z. B. „Integration H3+B1: …“).
+- Felix entscheidet (`dev/offene-punkte.md`, „Entscheidungen“): eigene Schrift, Ernährungs-Untergrenze 0,85 oder 1,0, Chunk-Laden offline, Mob-Leiter kumulativ, AdvancedAE Strength Card, Backups ohne `saveAll`, bekannte Lücken (Apothic-Tisch, Blaze-Template), Ars-Elemental-Blitzteile, Jade-Namen gesperrter Blöcke, Last des Arkan-Katalysators.
+- Im Client (Felix): die „1.0 Checkliste“ oben in `dev/client-test-brief.md` (alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age; die Abschnitte darunter sind Archiv), dazu die Client-Zeilen in `dev/offene-punkte.md`.
+- Nach 1.0 (`dev/offene-punkte.md`, „Nach 1.0“): Pacing-Modell als `dev/pacing.py` ins Repo holen und an einem Durchgang eichen, Questbuch-Ideen, Wayshrine-Dichte und Tutorial-Suche, Teleporter- und Warp-Sperre in The Origin, unverifizierte Config-Keys, Live-Messungen.
+- Basis für `check_registry_parity.py dump`: `dev/data/baseline-1.0.0/` (Gate-aus-Dump der Integration F1, `registries.json.gz`, `recipes.json.gz`).
+- Entscheidungen: eine Zeile in `dev/decisions-while-away.md`, Deutsch, Format `| Datum | Thema | Entscheidung | Warum | So änderst Du es |`, neue Zeilen unten, Thema mit Runde als Präfix (z. B. „Integration F1: …“).
 - Offene Punkte: `| Was | Wo | Wer |` in `dev/offene-punkte.md`; Erledigtes mit Beleg nach unten. Belege jeder Runde: `dev/poc-results.md` (`| Check | Observed | Result |`).

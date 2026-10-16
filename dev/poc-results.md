@@ -3781,3 +3781,37 @@ planets, Jade naming locked blocks from age_1.
 | `gen_quests.py`, `validate_quests.py --style --mods <265 jars>` | 26 chapters, 666 quests (Side Roads 292), 1,728 lang keys; 3,184 object ids, 0 errors, 0 warnings | pass |
 | Non-road quests naming mods missing from the stale `test-server/mods` | 7 references in 7 quests, all rewards (Artifacts Age 2 to 4 lists, `arseng:me_source_jar`), each of its chapter's Age or earlier | pass |
 | `preview_quests.py` | 26 maps, 0 quests hidden, 0 too close | pass |
+
+## 1.0.0 (2026-10-17)
+
+Round F1 integrated on `dev` with `--no-ff` in the order f1/core, f1/gating, f1/roads, f1/serverpack; text conflicts
+(decision rows, evidence sections, `dev/kontext.md`, the edit sets of `dev/predict_dump.py`) merged by hand, `index.toml`
+and `pack.toml` by `packwiz refresh`, the generated Age data regenerated from a real gate-off dump of the merged tree.
+Integration fixes: the reload recipe loss of the server pack test (defect 5), the blocks without a use of the roads
+audit, the two quests of the core round, the world buckets of `poc_analyze.py`. Pack and firmages-core become 1.0.0.
+Felix's test server stayed off and untouched; every boot ran on the copy `.wt/test-server-f1int` (`robocopy` without
+world, logs, local, simplebackups and crash-reports; its `kubejs/` deleted; ports 25790 and RCON 25800; whitelist off;
+`debug.allowSimulate = true`), synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8431
+--refresh=false` ("Finished successfully"), each boot with a new world and `-Xms3G -Xmx5G`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JAVA_HOME `tools/jdk-21`), `gradlew test --rerun` | BUILD SUCCESSFUL; JUnit 274 tests, 0 failures, 0 errors (`LookupGuardTest` included) | pass |
+| `gradlew runGameTestServer` in a fresh `run/gametest` | "All 124 required tests passed" (0.13.0: 123; new `oldReturnGateLosesItsDhdCore`) | pass |
+| Copy boot 1 (gate off, merged tree before the integration fixes): `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`, `reload` | 43,709 recipes at boot, 43,562 after `reload`: 147 `everycomp:mcf/*` fail with "Failed to convert item stack: could not change mcwfences:oak_<x> from minecraft:oak to <wood>" (horse 34, picket 35, stockade 35, wired 35, hedge 8; TFC 80, AFC 56, modded woods 11). javap: DiagonalBlocks 21.1.1 `DiagonalBlockHandler.onTagsUpdated` sets the diagonal block on every fence `BlockItem` unless the block is in `diagonalfences:non_diagonal_fences`; Moonlight 3.7.2 `BlockType.changeItemType` falls back to `BlockItem.getBlock()` and finds no oak child. At boot Every Compat generates before the first TagsUpdated, on a reload after it. The server pack hypothesis (`deco_inputs.js` rewrites the source) does not hold: the horse fence recipe has no mapped item | found |
+| Fix: `kubejs/data/diagonalfences/tags/block/non_diagonal_fences.json` (Macaw's oak horse, picket, stockade, wired fence and oak hedge, the Every Compat sources); `kubejs/data/adpoles/recipe/redstone_pole.json` with count 32 (`dev/gen_recipe_overrides.py` action `recount`) | the generated TFC and AFC copies keep their diagonal connections; only the five vanilla-oak Macaw sources connect straight | done |
+| Copy boot 1b (gate off, integration fixes): grants, `fa_dump`, `fa_dump_full`, `reload` | 266 mod files with 257 mods; 43,709 recipes at boot and after `reload`, 0 Every Compat errors, no `adpoles:redstone_pole` line; dump 43,920 recipes encoded, 0 not encodable (0.14.0: 43,960; 42 removed by `metal_values.js`, the pack recipes of F1 added) | pass |
+| `derive_ages.py --scan --mods <copy>/mods`, `gen_stage_locks.py --registry <boot 1b>`, `derive_ages.py --dump-dir <boot 1b>`, `gen_stage_locks.py` | `world_sources.json` changed only in its source line; 36,647 items, 3,332 moved later, 3,821 never reachable; the 30 Stargate Journey items the roads branch had hidden are age_9 again (naquadah from the arc furnace), `fusion_neutron_activator` age_8, `wixie_charm` age_3, Drygmy shard age_3, the three Alex's Mobs buckets age_5; the first run failed Q-1 on `evolvedmekanism:chemixer` (its recipe holds the now hidden Alloyer): the Chemixer takes `mekanism:chemical_infuser` (`recipes/age_8/quantum_age.js`), boot 1b repeated | pass |
+| `derive_ages.py --check` Q-1, Q-2; `gen_stage_locks.py --check` | 523 required item tasks, 0 without a recipe, world or loot source by their chapter's Age; Q-2 1 reward-only item, in `REWARD_ONLY`; both up to date | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <265 jars>` (`.wt/f1-roads-allmods`, server and client jars) | 26 chapters, 668 quests (Ages 328, Side Roads 294, Great Works 18, The Firmament 28), 1,732 lang keys; 3,192 object ids, 0 errors, 0 warnings; new "Wixie Charm" (Elemental Arts) and "Fusion Neutron Activator" (Evolved Factories); "Lay 16 tracks", "14 ring blocks" | pass |
+| Copy boot 2 (gate on): `recipes audit`, grants, `fa_dump`, `fa_dump_full`, `recipes audit`, `ore audit`, `selftest all` | at Dawn 43,709 recipes, 36,217 dropped; at age_9 43,920, 4,408 dropped (disabled 4,401, superseded 7), 849 undetected; `ore audit` best tech factor age_0 to age_9 1 / 1 / 1.5 / 1.5 / 2.5 / 2.5 / 2.857 to 3 / 4 / 5 / 6 (magic 2.0 from age_3), as in 0.13.0; `selftest all` 106 passed, 0 failed; FTB Quests "Loaded 4 chapter groups, 26 chapters, 668 quests, 0 reward tables" | pass |
+| `poc_analyze.py --server-dir <copy> --dump-dir <boot 2> --baseline <boot 1b>` | 134 PASS, 0 FAIL, 0 SKIP ("all checks PASS"): G-4 37 of 37 types accepted, L-8 no value-creating metal cycle, X-1 43 structures, X-2 162 placed blocks, X-3 462 templates, X-4 135 spawning mobs, E-1, R-X age_2 to age_9 without magic, S-1, K-1 23 link recipes | pass |
+| Copy boot 3 (gate on, grants, `reload` at age_9) | 43,709 recipes after the reload, 4,392 dropped; no StackOverflowError; `check_log.py` remaining 1: "Can't keep up! … 15269ms", the reload itself | expected |
+| Copy boot 4 (gate on, grants, hold 120 s) | `check_log.py`: 93.6 s to Done; FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0; FTB Quests 26 chapters, 668 quests, no FTB Quests WARN or ERROR | pass |
+| `check_registry_parity.py dump <0.14.0 gate-off dump b2int/d1> <boot 1b>` | every compared registry the same (no id added or removed since 0.14.0); TFCAstikorCarts 567 items, 81 woods | pass |
+| Parity baseline for the next round | `dev/data/baseline-1.0.0/registries.json.gz` (378 KB) and `recipes.json.gz` (965 KB) from boot 1b; `check_registry_parity.py` reads `.json.gz`; `dump dev/data/baseline-1.0.0 <boot 1b>` PASS | done |
+| Every generator `--check` (`gen_quest_images`, `gen_quest_pictures`, `gen_textures`, `check_menus`, `miner_ladder`, `gen_fuels`, `gen_wood_classes`, `gen_loot_silence`, `gen_wayshrines`, `gen_ark`, `gen_cold_forge`, `gen_recipe_overrides --mods <265 jars>`, `gen_machine_usage --server-dir <copy>`); `preview_quests.py` | all up to date (40 pictures, 348 textures, 544 recipe overrides, 91 machine values off default); 26 preview maps, 0 drawn too close | pass |
+| Mods | 264 metafiles plus `firmages-core` 1.0.0 (0.13.0 jar removed), 265 in the credits; none added or removed (content lock) | done |
+
+Not checked on a server: the TFC ore pieces in an injection chamber after `/reload` (needs a player), the new EMI
+workstation and categories, the ore disguises seen in the world; these are in `dev/client-test-brief.md`, "1.0 Checkliste".

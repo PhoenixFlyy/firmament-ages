@@ -27,7 +27,7 @@ beside its offering: the ring rising, every layer with its blocks, then offering
 "Beyond the Firmament", appears with the Singularity Age. Each Age chapter winds its strands round the goal in the
 middle. The group Great Works holds three optional builds: The Gatehouse (Bronze Age, off "Flux Mill"), The Living
 House (Iron Age, off "Brass") and The Silo (Space Age, off "Launch Pad"); each Age map carries a link to its plan, and
-a click on the pictures opens the Ponder scene. The group Side Roads holds one optional chapter per Age: rows of four
+a click on the pictures opens the Ponder scene. The group Side Roads holds one optional chapter per Age: rows of two
 to seven quests, each row a craft of one mod that branches off a quest of the Age (its first quest says which);
 59 roads in all. Knapping patterns, the TerraFirmaCraft devices and the Lens Crown are drawn in their quests.
 
@@ -667,6 +667,8 @@ lanterns. "Proof of Work" pays an insanium apple for each. Side roads (three): Q
 (off "Subatomic Alloy"), Insanium Fields (off "Ore Times Five").
 
 ### Pitfalls
+- The Solar Neutron Activator needs the sun. The Fusion Neutron Activator, set under the centre of a burning fusion
+  reactor, makes polonium and tritium day and night.
 - One antimatter pellet takes 100,000 mB of polonium and 40 billion FE: about 40 minutes of a fusion plant
   through a turbine, many hours without one. The fusion frames are built on the mechanical crafter.
 - **Keystone lending.** Only while the Quantum Age is your highest Age does the Spirit Circle plinth lend its relic.
@@ -710,7 +712,8 @@ offering.
 6. Naquadah lies on Mercury: fly the tier 3 rocket there and mine 16 with the digital miner ("Naquadah"). In the arc
    furnace raw naquadah becomes a naquadah ingot, and a naquadah ingot with a steel ingot becomes two naquadah-iron
    alloy. The metallurgic infuser makes refined naquadah (with refined obsidian); the nucleosynthesizer makes pure
-   naquadah from it (with antimatter).
+   naquadah from it (with antimatter), and the arc furnace turns pure naquadah into the naquadah of the Milky Way
+   gate, its dialling device and the naquadah tools (all optional).
 7. Stargate ("Stargate Blocks"): 14 ring blocks, 9 chevron blocks, one base block and a DHD. The base block: two naquadah-iron alloy, a
    communication crystal, two refined naquadah, the Ultimate Singularity, two transfer crystals, a control crystal.
    Assemble the gate; power it from the reactor through a flux gate. Keystone "Gate Online".

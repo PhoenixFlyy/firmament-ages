@@ -30,6 +30,7 @@ Exit code: 0 = parity, 1 = a difference or an enum outside the scope, 2 = bad in
 """
 import argparse
 import collections
+import gzip
 import io
 import json
 import os
@@ -249,16 +250,28 @@ def cmd_jars(args):
 
 # ---- dump ------------------------------------------------------------------------------------------------------------
 
+def _open_json(path):
+    """A dump file, plain or gzip'd (the baseline in dev/data/baseline-<version>/ is kept as .json.gz)."""
+    if path.endswith(".gz"):
+        return gzip.open(path, "rt", encoding="utf-8")
+    return open(path, encoding="utf-8")
+
+
+def _dump_file(folder, name):
+    plain = os.path.join(folder, name)
+    return plain if os.path.isfile(plain) or not os.path.isfile(plain + ".gz") else plain + ".gz"
+
+
 def load_dump(path):
-    reg = path if path.endswith(".json") else os.path.join(path, "registries.json")
+    reg = path if path.endswith((".json", ".json.gz")) else _dump_file(path, "registries.json")
     if not os.path.isfile(reg):
         raise FileNotFoundError(reg)
-    with open(reg, encoding="utf-8") as f:
+    with _open_json(reg) as f:
         data = json.load(f)
     recipes = None
-    rec = os.path.join(os.path.dirname(reg), "recipes.json")
+    rec = _dump_file(os.path.dirname(reg), "recipes.json")
     if os.path.isfile(rec):
-        with open(rec, encoding="utf-8") as f:
+        with _open_json(rec) as f:
             r = json.load(f)
         cols = r["columns"]
         recipes = {row[cols.index("id")]: row[cols.index("type")] for row in r["recipes"]}

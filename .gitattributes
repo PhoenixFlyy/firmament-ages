@@ -4,5 +4,6 @@
 *.png binary
 *.zip binary
 *.mrpack binary
+*.gz binary
 # cmd.exe needs CRLF batch files (labels/goto break with LF); server/ is outside the packwiz index
 *.bat text eol=crlf
