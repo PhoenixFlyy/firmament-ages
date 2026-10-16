@@ -28,6 +28,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import quest_layout  # noqa: E402  (dev/quest_layout.py)
+from quest_image_refs import image_line  # noqa: E402  (dev/quest_image_refs.py: pictures of dev/gen_quest_images.py)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'config', 'ftbquests', 'quests')
@@ -115,18 +116,36 @@ class Verbatim(str):
     """A description line that stays an entry of its own, exactly as written (knapping grids)."""
 
 
+def _knap_cells(rows, outside):
+    return ''.join((rows[r] if r < len(rows) else '').ljust(5, outside)[:5] for r in range(5))
+
+
+def _knap_pictures():
+    """25-cell grid -> picture name, from the KNAPPING table of dev/gen_quest_images.py (read with ast, so the book
+    generator needs no PIL)."""
+    import ast
+    src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'gen_quest_images.py'), encoding='utf-8').read()
+    for node in ast.parse(src).body:
+        if isinstance(node, ast.Assign) and getattr(node.targets[0], 'id', None) == 'KNAPPING':
+            return {_knap_cells(rows, outside): name for name, _, rows, outside in ast.literal_eval(node.value)}
+    raise SystemExit('dev/gen_quest_images.py has no KNAPPING table')
+
+
+KNAP_PICTURES = _knap_pictures()
+
+
 def knap_grid(*rows, outside=' '):
-    """TFC knapping pattern rows ('#' = stays, ' ' = knocked away) -> five Verbatim lines of the 5x5 grid,
-    'X' = leave standing, '-' = knock away. A pattern smaller than 5x5 is drawn in the top-left corner: TFC 4.2.11
-    KnappingPattern.matches tries every offset and the mirror image, and every square outside the shape must equal the
-    recipe's "default_on": knocked away for false (the stone heads, outside=' '), left standing for true (the clay
-    ingot and pickaxe head molds, outside='#'). 'X' and '-' have the same advance (6 px) in the Minecraft font ('.'
-    only 2 px), so the columns line up in the quest window."""
-    out = []
-    for r in range(5):
-        row = rows[r] if r < len(rows) else ''
-        out.append(Verbatim(' '.join('X' if c == '#' else '-' for c in row.ljust(5, outside))))
-    return out
+    """TFC knapping pattern rows ('#' = stays, ' ' = knocked away) -> the picture line of that pattern
+    (dev/gen_quest_images.py draws it: light squares stay, dark squares are knocked away). A pattern smaller than 5x5
+    sits in the top-left corner: TFC 4.2.11 KnappingPattern.matches tries every offset and the mirror image, and every
+    square outside the shape must equal the recipe's "default_on": knocked away for false (the stone heads,
+    outside=' '), left standing for true (the clay ingot and pickaxe head molds, outside='#'). The rows stay here as
+    the source the picture is checked against (gen_quest_images.py --check reads every knap_grid call); a pattern
+    without a picture stops the generator."""
+    cells = _knap_cells(rows, outside)
+    if cells not in KNAP_PICTURES:
+        raise SystemExit('knap_grid%r: no knapping picture in dev/gen_quest_images.py KNAPPING' % (rows,))
+    return [Verbatim(image_line('knapping/' + KNAP_PICTURES[cells]))]
 
 
 def craft_grid(*rows):
@@ -428,7 +447,7 @@ DAWN = age_chapter(
                     '- The first click uses one rock. Closing the grid early wastes it.',
                     '- When only the shape is left, take the head from the slot on the right.',
                     '',
-                    'The axe head (X = leave standing, - = knock away):',
+                    'The axe head (light squares stay, dark squares are knocked away):',
                     *knap_grid(' #   ', '#### ', '#####', '#### ', ' #   '),
                     '',
                     'Craft the head with a stick, a twig or a bone on the ground (see "By Hand"): a stone axe.',
@@ -474,7 +493,8 @@ DAWN = age_chapter(
         # still waits for the three keystones, so lighting it early changes nothing about the Age grant.
         ('dawn/stone/key', [
             Q('dawn/side/torch', 'Before Dark', t_item('tfc:torch', title='A torch'), kind='side', icon='tfc:torch',
-              desc=['Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter',
+              desc=[Verbatim(image_line('device/firepit')), '',
+                    'Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter',
                     '(two sticks) until the firepit lights.',
                     '',
                     'Heat a stick in the firepit\'s right slot: it becomes two torches. A torch lights your way in hand;',
@@ -519,7 +539,7 @@ DAWN = age_chapter(
         Q('dawn/info/knapping', 'Knapping Patterns', t_check(), kind='explain',
           icon='tfc:stone/knife_head/sedimentary',
           desc=['Every head is laid with a stick on one block and crafted on the ground (see "By Hand").',
-                'X = leave standing, - = knock away.',
+                'Light squares stay, dark squares are knocked away.',
                 'Mirrored shapes work too.',
                 '',
                 'Knife blades, two from one rock:',
@@ -564,7 +584,8 @@ STONE = age_chapter(
             # pitKilnTemperature 1400): up to four items set down with the place-block key (tfc.key.place_block = V in
             # config/defaultoptions/keybindings.txt), eight straw (tfc:pit_kiln_straw) or two thatch, eight logs.
             Q('stone/clay/kiln', 'Potter', t_adv('tfc:story/pit_kiln'),
-              desc=['Fire clay in a pit kiln:',
+              desc=[Verbatim(image_line('device/pit_kiln')), '',
+                    'Fire clay in a pit kiln:',
                     '- Dig a hole one block deep. Hold an unfired piece, look at the floor of the hole and press V.',
                     'Up to four pieces fit.',
                     '- Right-click the pile with eight straw, then with eight logs.',
@@ -586,7 +607,8 @@ STONE = age_chapter(
             # TFC 4.2.11 charcoal pit (field guide metalworking/charcoal_pit): sneak + right-click with a log places a
             # log pile (InteractionManager checks isShiftKeyDown), light it, then close it with non-flammable blocks.
             Q('stone/metal/charcoal', 'A Better Fuel', t_adv('tfc:story/charcoal'),
-              desc=['Make charcoal in a charcoal pit:',
+              desc=[Verbatim(image_line('device/log_pile')), Verbatim(image_line('device/charcoal_pit')), '',
+                    'Make charcoal in a charcoal pit:',
                     '- Sneak and right-click the ground with logs: a log pile. Right-click it with more logs.',
                     '- Cover every side with dirt, leave the top open and light it with a firestarter.',
                     '- Close the gap with dirt.',
@@ -622,7 +644,7 @@ STONE = age_chapter(
             Q('stone/hearth/unfired', 'Unfired Hearth Idol', t_item('firmages:unfired_hearth_idol', 2),
               desc=['Knap two, five clay each: one for the Shrine Heart, one for the Hearthstone.',
                     '',
-                    'X = leave standing, - = knock away:',
+                    'Light squares stay, dark squares are knocked away:',
                     *knap_grid(' ### ', '#####', ' ### ', ' ### ', '## ##')]),
             Q('stone/hearth/idol', 'Hearth Idol', t_item('firmages:hearth_idol', 2),
               desc=['Fire both in a pit kiln, like any other pottery. One becomes the heart of the shrine,',
@@ -698,7 +720,7 @@ STONE = age_chapter(
         # their 4x5 and 5x4 shapes stay standing. The saw blade mold is a full 5x5 shape.
         Q('stone/info/clay', 'Clay Patterns', t_check(), kind='explain', icon='tfc:ceramic/unfired_vessel',
           desc=['Hold five clay and right-click into the air. Knock squares away as with stone.',
-                'X = leave standing, - = knock away. Mirrored shapes work too.',
+                'Light squares stay, dark squares are knocked away. Mirrored shapes work too.',
                 '',
                 'Small vessel, melts ore:',
                 *knap_grid(' ### ', '#####', '#####', '#####', ' ### '),
@@ -774,7 +796,8 @@ BRONZE = age_chapter(
             # five stone blocks around it (four sides and below), air above, sky in view; charcoal places a pile layer
             # on right-click (no sneak).
             Q('bronze/smith/forge', 'Forging', t_adv('tfc:story/forge'),
-              desc=['Build a charcoal forge:',
+              desc=[Verbatim(image_line('device/forge_anvil')), '',
+                    'Build a charcoal forge:',
                     '- Make a hole one block deep, lined with stone on its four sides and below.',
                     '- Right-click into it with charcoal until the pile is seven or eight layers high.',
                     '- Keep the sky open above it and light it with a firestarter.',
@@ -783,7 +806,7 @@ BRONZE = age_chapter(
             Q('bronze/smith/stone_anvil', 'Stone Anvil', t_adv('tfc:story/stone_anvil'),
               desc=['Right-click raw igneous rock with a stone hammer to make a stone anvil.']),
             Q('bronze/smith/quern', 'The Grind', t_adv('tfc:story/quern'),
-              desc=['Craft a quern and a handstone.'], icon='tfc:quern'),
+              desc=[Verbatim(image_line('device/quern')), '', 'Craft a quern and a handstone.'], icon='tfc:quern'),
             Q('bronze/smith/flux', 'In Flux', t_item('tfc:powder/flux', 4),
               desc=['Grind borax, lime or other flux stones in the quern. Welding needs flux.']),
             Q('bronze/smith/weld', 'First Weld', t_adv('tfc:story/welding'),
@@ -908,7 +931,7 @@ IRON = age_chapter(
     strands=[
         ('Metallurgy', [
             Q('iron/metal/bloomery', 'Ironworks', t_item('tfc:bloomery'),
-              desc=['Build a bloomery from bronze double sheets and stone bricks.']),
+              desc=[Verbatim(image_line('device/bloomery')), '', 'Build a bloomery from bronze double sheets and stone bricks.']),
             Q('iron/metal/bloom', 'In Bloom', t_item('tfc:raw_iron_bloom'),
               desc=['Fill the bloomery with iron ore and charcoal and let it burn.']),
             Q('iron/metal/wrought', 'Wrought Iron', t_item('tfc:metal/ingot/wrought_iron', 4),
@@ -916,7 +939,7 @@ IRON = age_chapter(
             Q('iron/metal/anvil', 'Iron Anvil', t_item('tfc:metal/anvil/wrought_iron'),
               desc=['A wrought iron anvil can work steel.']),
             Q('iron/metal/blast', 'Blast Furnace', t_item('tfc:blast_furnace'),
-              desc=['The blast furnace makes pig iron from iron ore, charcoal and flux.']),
+              desc=[Verbatim(image_line('device/blast_furnace')), '', 'The blast furnace makes pig iron from iron ore, charcoal and flux.']),
             Q('iron/metal/pig', 'Pig Iron', t_item('tfc:metal/ingot/pig_iron', 2),
               desc=['Cast the pig iron. Hammer it into high carbon steel, then into steel.']),
         ], Q('iron/metal/key', 'Steel Ingots', t_item('tfc:metal/ingot/steel', 16), kind='keystone',
@@ -937,7 +960,7 @@ IRON = age_chapter(
              desc=['Feed the bloomery by machine and collect 32 wrought iron ingots from the line.'])),
         ('Survival', [
             Q('iron/surv/barrel', 'Barrel', t_adv('tfc:story/barrel'),
-              desc=['Build a barrel with a saw and lumber. Barrels brine, pickle and tan.'],
+              desc=[Verbatim(image_line('device/barrel')), '', 'Build a barrel with a saw and lumber. Barrels brine, pickle and tan.'],
               icon='tfc:wood/barrel/oak'),
             Q('iron/surv/leather', 'Genuine Leather', t_adv('tfc:story/leather'),
               desc=['Soak a hide in limewater, scrape it, then soak it in tannin.'], icon='minecraft:leather'),
@@ -1096,8 +1119,10 @@ ARCANE = age_chapter(
             Q('arcane/sky/crown', 'The Lens Crown',
               t_observe('firmages:star_anvil[formed=true]', kind='block_state', title='Look at a formed Star Anvil'),
               icon='firmages:star_anvil',
-              desc=['Set a Star Anvil in a 9 by 9 stone ring with three lens mounts under open sky. The Lens Crown',
-                    'forges the celestial alloys.']),
+              desc=[Verbatim(image_line('ponder/lens_crown')), '',
+                    'Set a Star Anvil in a 9 by 9 stone ring with three lens mounts under open sky. The Lens Crown',
+                    'forges the celestial alloys.', '',
+                    Verbatim(image_line('ponder/chords'))]),
         ], Q('arcane/sky/key', 'Starlit Iron', t_item('firmages:starlit_iron_ingot', 3), kind='keystone',
              desc=['Forge Starlit Iron under the crown from meteoric iron, storm glass and an Arcane gem. Both routes to',
                    'the Arcane Keystone need it, and the Wayshrines now want it as their offering.'])),
@@ -2536,7 +2561,9 @@ WORKS = [
                       'Build a gate that shuts on its own: towers of rock, a bridge over the ditch, a grate that drops '
                       'and a bridge that lifts.',
                       '',
-                      'Click the picture to watch the grate built, step by step.']),
+                      'Click the picture to watch the grate built, step by step.',
+                      PAGE, Verbatim(image_line('build/gatehouse')), '',
+                      'The plan: towers, ditch and bridge, the grate on its pulley, the drawbridge on its bearing.']),
               (-4.6, -3.0), [r_xp(XP['age_1'])]),
              (Q('works/gate/bridge', 'A Bridge Over the Ditch',
                 t_any_item(ROPE_BRIDGES, 'Eight rope bridges of any wood', count=8), icon='mcwbridges:rope_oak_bridge',
@@ -2545,8 +2572,7 @@ WORKS = [
              (Q('works/gate/portcullis', 'Portcullis',
                 [t_observe('create:rope_pulley', title='Look at the rope pulley over your gate'),
                  t_item('tfc:metal/bars/bronze', 9, title='Nine bronze bars for the grate')], icon='tfc:metal/bars/bronze',
-                desc=[picture('works/gatehouse_shut.png', PICTURES['works']['gatehouse_shut'], 180,
-                              click=ponder('create:rope_pulley'), hover='Watch it built'),
+                desc=[Verbatim(image_line('ponder/portcullis')),
                       'Glue a bronze grate together and hang it in a wall slot under a rope pulley. Turn the pulley '
                       'and the gate shuts.']),
               (-2.6, 3.1), [r_item('tfc:metal/ingot/bronze', 2)]),
@@ -2565,7 +2591,9 @@ WORKS = [
                 t_observe('create:gearshift[powered=true]', kind='block_state',
                           title='Look at the gearshift while the lever holds it'),
                 kind='goal', icon='create:gearshift', sub='The gate holds',
-                desc=['Throw the lever on the gearshift of the pulley. The grate drops, the bridge rises, and the '
+                desc=[picture('works/gatehouse_shut.png', PICTURES['works']['gatehouse_shut'], 180,
+                              click=ponder('create:rope_pulley'), hover='Watch it built'),
+                      'Throw the lever on the gearshift of the pulley. The grate drops, the bridge rises, and the '
                       'night stays outside.']),
               (0.0, -0.9), [r_item('tfc:metal/ingot/bronze', 4), r_item('create:andesite_casing', 8)]),
          ]),
@@ -2578,7 +2606,9 @@ WORKS = [
                 desc=[picture('works/living_house.png', PICTURES['works']['living_house'], 200,
                               click=ponder('create:elevator_pulley'), hover='Watch a lift built'),
                       'Build a house that moves for you: doors that slide, a lift between floors, lamps on a link, a '
-                      'board that speaks and a clock in the gable. The hearth stays its heart.']),
+                      'board that speaks and a clock in the gable. The hearth stays its heart.',
+                      PAGE, Verbatim(image_line('build/living_house')), '',
+                      'The plan: doors, lamps, board, lift and clock, each wired to the next.']),
               (0.0, -4.6), [r_xp(XP['age_2'])]),
              (Q('works/house/doors', 'Doors That Slide', t_item('create:brass_door', 2), icon='create:brass_door',
                 desc=['Hang two brass doors in your entrance. Sliding doors open by hand or on a redstone signal.']),
@@ -2623,20 +2653,22 @@ WORKS = [
                       'Sink a silo for your rocket: a shaft 15 by 15, a hatch of two leaves that slide apart, and one '
                       'signal that opens the sky.',
                       '',
-                      'Click the picture to watch the hatch built.']),
+                      'Click the picture to watch the hatch built.',
+                      PAGE, Verbatim(image_line('build/silo_closed')), '',
+                      'The plan: the shaft, the pad at its foot and the two leaves over the rim.']),
               (0.0, -6.6), [r_xp(XP['age_7'])]),
              (Q('works/silo/shaft', 'The Shaft',
                 t_observe('ad_astra:launch_pad', title='Look at the launch pad at the bottom of your shaft'),
                 icon='ad_astra:launch_pad',
-                desc=['Sink a shaft 15 by 15 and nine deep. Shore its walls; the rock remembers every cut. Set the pad '
+                desc=[Verbatim(image_line('build/silo_open')), '',
+                      'Sink a shaft 15 by 15 and nine deep. Shore its walls; the rock remembers every cut. Set the pad '
                       'at the bottom.']),
               (0.0, -3.8), [r_item('ad_astra:desh_plate', 4)]),
              (Q('works/silo/hatch', 'The Hatch',
                 [t_item('create:gantry_carriage', 2, title='Two gantry carriages'),
                  t_item('create:sequenced_gearshift', title='A sequenced gearshift'),
                  t_item('create:super_glue', title='Super glue')], icon='create:gantry_carriage',
-                desc=[picture('works/silo_shut.png', PICTURES['works']['silo_shut'], 180,
-                              click=ponder('ad_astra:launch_pad'), hover='Watch the hatch built'),
+                desc=[Verbatim(image_line('ponder/silo_hatch')),
                       'Glue two leaves over the shaft. Each rides a gantry carriage and slides into a pocket under '
                       'the rim.']),
               (0.0, -1.1), [r_item('ad_astra:desh_ingot', 4)]),

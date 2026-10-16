@@ -63,12 +63,16 @@
 	image.67995DB96522F225.title: "Raise the Data Nave: the build guide"
 	image.68EE54CEEE34416C.title: "Raise the Hearth Circle: the build guide"
 	quest.001477EB265CFAF8.quest_desc: [
+		"{image:firmages:textures/quests/device/firepit.png width:128 height:128 align:center}"
+		""
 		"Drop one log, three sticks and some straw on one block. Hold right-click on it with a firestarter (two sticks) until the firepit lights."
 		""
 		"Heat a stick in the firepit's right slot: it becomes two torches. A torch lights your way in hand; a placed torch burns about 36 minutes. Zombies and spiders walk at night."
 	]
 	quest.001477EB265CFAF8.title: "Before Dark"
 	quest.0025DE3687DD8D07.quest_desc: [
+		"{image:firmages:textures/quests/device/barrel.png width:128 height:128 align:center}"
+		""
 		"Build a barrel with a saw and lumber. Barrels brine, pickle and tan."
 	]
 	quest.0025DE3687DD8D07.title: "Barrel"
@@ -218,6 +222,10 @@
 		"Build a gate that shuts on its own: towers of rock, a bridge over the ditch, a grate that drops and a bridge that lifts."
 		""
 		"Click the picture to watch the grate built, step by step."
+		"{@pagebreak}"
+		"{image:firmages:textures/quests/build/gatehouse.png width:128 height:128 align:center}"
+		""
+		"The plan: towers, ditch and bridge, the grate on its pulley, the drawbridge on its bearing."
 	]
 	quest.0663C990B303E311.quest_subtitle: "A Great Work of the Bronze Age"
 	quest.0663C990B303E311.title: "The Gatehouse"
@@ -422,6 +430,7 @@
 	quest.1129C4816E846CCC.quest_desc: ["LV wire carries FE between connectors."]
 	quest.1129C4816E846CCC.title: "Copper Wire"
 	quest.1164F7391DDF80C9.quest_desc: [
+		"{image:firmages:textures/gui/quests/works/gatehouse_shut.png width:180 height:148 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Watch%20it%20built}"
 		"Throw the lever on the gearshift of the pulley. The grate drops, the bridge rises, and the night stays outside."
 	]
 	quest.1164F7391DDF80C9.quest_subtitle: "The gate holds"
@@ -585,6 +594,8 @@
 	]
 	quest.1C7F62ECF8FA8027.title: "A Home"
 	quest.1CC29E163A94FCE6.quest_desc: [
+		"{image:firmages:textures/quests/device/pit_kiln.png width:128 height:128 align:center}"
+		""
 		"Fire clay in a pit kiln:"
 		"- Dig a hole one block deep. Hold an unfired piece, look at the floor of the hole and press V. Up to four pieces fit."
 		"- Right-click the pile with eight straw, then with eight logs."
@@ -672,7 +683,7 @@
 	]
 	quest.20986504959DC566.title: "Bronze"
 	quest.21193CB7838FAC31.quest_desc: [
-		"{image:firmages:textures/gui/quests/works/gatehouse_shut.png width:180 height:148 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Watch%20it%20built}"
+		"{image:firmages:textures/quests/ponder/portcullis.png width:128 height:128 align:center click_action:custom_event:firmages:ponder/create/rope_pulley text:Click%20to%20watch}"
 		"Glue a bronze grate together and hang it in a wall slot under a rope pulley. Turn the pulley and the gate shuts."
 	]
 	quest.21193CB7838FAC31.title: "Portcullis"
@@ -714,6 +725,8 @@
 	quest.23536BC1524A5044.quest_subtitle: "Goal of the Electric Age: Caelum opens the Information Age"
 	quest.23536BC1524A5044.title: "Offer the Humming Core at the Shrine"
 	quest.238D92258CB69AD6.quest_desc: [
+		"{image:firmages:textures/quests/build/silo_open.png width:128 height:128 align:center}"
+		""
 		"Sink a shaft 15 by 15 and nine deep. Shore its walls; the rock remembers every cut. Set the pad at the bottom."
 	]
 	quest.238D92258CB69AD6.title: "The Shaft"
@@ -1001,6 +1014,8 @@
 	]
 	quest.349C4476B51DAC16.title: "In Bloom"
 	quest.34A20DCC53F255CC.quest_desc: [
+		"{image:firmages:textures/quests/device/blast_furnace.png width:128 height:128 align:center}"
+		""
 		"The blast furnace makes pig iron from iron ore, charcoal and flux."
 	]
 	quest.34A20DCC53F255CC.title: "Blast Furnace"
@@ -1102,7 +1117,7 @@
 	]
 	quest.3EAA8BE972DC58F9.title: "Brass"
 	quest.3F05F326F8CF2577.quest_desc: [
-		"{image:firmages:textures/gui/quests/works/silo_shut.png width:180 height:144 align:center click_action:custom_event:firmages:ponder/ad_astra/launch_pad text:Watch%20the%20hatch%20built}"
+		"{image:firmages:textures/quests/ponder/silo_hatch.png width:128 height:128 align:center click_action:custom_event:firmages:ponder/ad_astra/launch_pad text:Click%20to%20watch}"
 		"Glue two leaves over the shaft. Each rides a gantry carriage and slides into a pocket under the rim."
 	]
 	quest.3F05F326F8CF2577.title: "The Hatch"
@@ -1213,12 +1228,8 @@
 	quest.4573A3F0CD529A5B.quest_desc: [
 		"Knap two, five clay each: one for the Shrine Heart, one for the Hearthstone."
 		""
-		"X = leave standing, - = knock away:"
-		"- X X X -"
-		"X X X X X"
-		"- X X X -"
-		"- X X X -"
-		"X X - X X"
+		"Light squares stay, dark squares are knocked away:"
+		"{image:firmages:textures/quests/knapping/hearth_idol.png width:64 height:64 align:center}"
 	]
 	quest.4573A3F0CD529A5B.title: "Unfired Hearth Idol"
 	quest.4581C5CB23AD4CD5.quest_desc: ["The first fire. It opens the Stone Age."]
@@ -1327,7 +1338,11 @@
 	]
 	quest.4A34D752E7A4B499.title: "Stocked Camp"
 	quest.4AD21CEABC66DCC2.quest_desc: [
+		"{image:firmages:textures/quests/ponder/lens_crown.png width:128 height:128 align:center click_action:custom_event:firmages:ponder/firmages/star_anvil text:Click%20to%20watch}"
+		""
 		"Set a Star Anvil in a 9 by 9 stone ring with three lens mounts under open sky. The Lens Crown forges the celestial alloys."
+		""
+		"{image:firmages:textures/quests/ponder/chords.png width:128 height:128 align:center click_action:custom_event:firmages:ponder/firmages/lens_mount text:Click%20to%20watch}"
 	]
 	quest.4AD21CEABC66DCC2.title: "The Lens Crown"
 	quest.4B5686EB34477AC2.quest_desc: [
@@ -1412,7 +1427,11 @@
 		"Gather four Nether Stars. Awakened draconium needs them with a dragon heart."
 	]
 	quest.4FD3780AF1ECC795.title: "Nether Stars"
-	quest.50299FDC54036A8A.quest_desc: ["Craft a quern and a handstone."]
+	quest.50299FDC54036A8A.quest_desc: [
+		"{image:firmages:textures/quests/device/quern.png width:128 height:128 align:center}"
+		""
+		"Craft a quern and a handstone."
+	]
 	quest.50299FDC54036A8A.title: "The Grind"
 	quest.5032B9C3899A4044.quest_desc: [
 		"Build a crafting table. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2."
@@ -1671,12 +1690,8 @@
 		"- The first click uses one rock. Closing the grid early wastes it."
 		"- When only the shape is left, take the head from the slot on the right."
 		""
-		"The axe head (X = leave standing, - = knock away):"
-		"- X - - -"
-		"X X X X -"
-		"X X X X X"
-		"X X X X -"
-		"- X - - -"
+		"The axe head (light squares stay, dark squares are knocked away):"
+		"{image:firmages:textures/quests/knapping/axe_head.png width:64 height:64 align:center}"
 		""
 		"Craft the head with a stick, a twig or a bone on the ground (see \"By Hand\"): a stone axe. The knife and the other heads are in \"Knapping Patterns\" at the bottom of this chapter."
 	]
@@ -1747,6 +1762,10 @@
 	quest.687CBF7A7AA65BF4.quest_desc: [
 		"{image:firmages:textures/gui/quests/works/living_house.png width:200 height:166 align:center click_action:custom_event:firmages:ponder/create/elevator_pulley text:Watch%20a%20lift%20built}"
 		"Build a house that moves for you: doors that slide, a lift between floors, lamps on a link, a board that speaks and a clock in the gable. The hearth stays its heart."
+		"{@pagebreak}"
+		"{image:firmages:textures/quests/build/living_house.png width:128 height:128 align:center}"
+		""
+		"The plan: doors, lamps, board, lift and clock, each wired to the next."
 	]
 	quest.687CBF7A7AA65BF4.quest_subtitle: "A Great Work of the Iron Age"
 	quest.687CBF7A7AA65BF4.title: "The Living House"
@@ -1776,63 +1795,31 @@
 	quest.6A1C715211FCA0FB.quest_desc: ["Two black steel double sheets for the Pressure Core."]
 	quest.6A1C715211FCA0FB.title: "Black Steel Double Sheets"
 	quest.6A272A1F4193488A.quest_desc: [
-		"Hold five clay and right-click into the air. Knock squares away as with stone. X = leave standing, - = knock away. Mirrored shapes work too."
+		"Hold five clay and right-click into the air. Knock squares away as with stone. Light squares stay, dark squares are knocked away. Mirrored shapes work too."
 		""
 		"Small vessel, melts ore:"
-		"- X X X -"
-		"X X X X X"
-		"X X X X X"
-		"X X X X X"
-		"- X X X -"
+		"{image:firmages:textures/quests/knapping/small_vessel.png width:64 height:64 align:center}"
 		""
 		"Ingot molds, two at once:"
-		"X X X X X"
-		"X - - X X"
-		"X - - X X"
-		"X - - X X"
-		"X X X X X"
+		"{image:firmages:textures/quests/knapping/ingot_molds.png width:64 height:64 align:center}"
 		""
 		"Pickaxe head mold:"
-		"X X X X X"
-		"X - - - X"
-		"- X X X -"
-		"X X X X X"
-		"X X X X X"
+		"{image:firmages:textures/quests/knapping/pickaxe_head_mold.png width:64 height:64 align:center}"
 		""
 		"Saw blade mold, for the workbench:"
-		"- - X X X"
-		"- - - X X"
-		"X - - - X"
-		"X - - - -"
-		"X X X - -"
+		"{image:firmages:textures/quests/knapping/saw_blade_mold.png width:64 height:64 align:center}"
 		""
 		"Jug, carries water:"
-		"- X - - -"
-		"X X X X -"
-		"X X X - X"
-		"X X X X -"
-		"X X X - -"
+		"{image:firmages:textures/quests/knapping/jug.png width:64 height:64 align:center}"
 		""
 		"Pot, cooks soup on the firepit:"
-		"X - - - X"
-		"X - - - X"
-		"X - - - X"
-		"X X X X X"
-		"- X X X -"
+		"{image:firmages:textures/quests/knapping/pot.png width:64 height:64 align:center}"
 		""
 		"Bowls, four at once:"
-		"X - - - X"
-		"- X X X -"
-		"- - - - -"
-		"X - - - X"
-		"- X X X -"
+		"{image:firmages:textures/quests/knapping/bowls.png width:64 height:64 align:center}"
 		""
 		"Large vessel, keeps food when sealed:"
-		"X - - - X"
-		"X - - - X"
-		"X - - - X"
-		"X - - - X"
-		"X X X X X"
+		"{image:firmages:textures/quests/knapping/large_vessel.png width:64 height:64 align:center}"
 	]
 	quest.6A272A1F4193488A.title: "Clay Patterns"
 	quest.6A2C745F47AF776B.quest_desc: [
@@ -1917,6 +1904,8 @@
 	quest.71AC4F9CCF7E6538.quest_desc: ["Certus quartz comes from its own vein."]
 	quest.71AC4F9CCF7E6538.title: "Certus Quartz"
 	quest.71B6B8FAE5353DAB.quest_desc: [
+		"{image:firmages:textures/quests/device/forge_anvil.png width:128 height:128 align:center}"
+		""
 		"Build a charcoal forge:"
 		"- Make a hole one block deep, lined with stone on its four sides and below."
 		"- Right-click into it with charcoal until the pile is seven or eight layers high."
@@ -1969,6 +1958,8 @@
 	quest.7544B0CD7D29A814.quest_desc: ["Build the tier 4 rocket from calorite. It reaches Glacio."]
 	quest.7544B0CD7D29A814.title: "Tier 4 Rocket"
 	quest.7594B03DF7F3FE55.quest_desc: [
+		"{image:firmages:textures/quests/device/bloomery.png width:128 height:128 align:center}"
+		""
 		"Build a bloomery from bronze double sheets and stone bricks."
 	]
 	quest.7594B03DF7F3FE55.title: "Ironworks"
@@ -1983,6 +1974,10 @@
 		"Sink a silo for your rocket: a shaft 15 by 15, a hatch of two leaves that slide apart, and one signal that opens the sky."
 		""
 		"Click the picture to watch the hatch built."
+		"{@pagebreak}"
+		"{image:firmages:textures/quests/build/silo_closed.png width:128 height:128 align:center}"
+		""
+		"The plan: the shaft, the pad at its foot and the two leaves over the rim."
 	]
 	quest.75B30357728E8618.quest_subtitle: "A Great Work of the Space Age"
 	quest.75B30357728E8618.title: "The Silo"
@@ -2020,6 +2015,9 @@
 	]
 	quest.78D15026ED1ED0B2.title: "Sky Anchor"
 	quest.7997DC1DFF73EA36.quest_desc: [
+		"{image:firmages:textures/quests/device/log_pile.png width:128 height:128 align:center}"
+		"{image:firmages:textures/quests/device/charcoal_pit.png width:128 height:128 align:center}"
+		""
 		"Make charcoal in a charcoal pit:"
 		"- Sneak and right-click the ground with logs: a log pile. Right-click it with more logs."
 		"- Cover every side with dirt, leave the top open and light it with a firestarter."
@@ -2098,42 +2096,22 @@
 	]
 	quest.7D79D0CCA81D025B.title: "Drawbridge"
 	quest.7E2D0099177BFBE8.quest_desc: [
-		"Every head is laid with a stick on one block and crafted on the ground (see \"By Hand\"). X = leave standing, - = knock away. Mirrored shapes work too."
+		"Every head is laid with a stick on one block and crafted on the ground (see \"By Hand\"). Light squares stay, dark squares are knocked away. Mirrored shapes work too."
 		""
 		"Knife blades, two from one rock:"
-		"X - - X -"
-		"X X - X X"
-		"X X - X X"
-		"X X - X X"
-		"X X - X X"
+		"{image:firmages:textures/quests/knapping/knife_blades.png width:64 height:64 align:center}"
 		""
 		"Hammer head, breaks logs into sticks:"
-		"X X X X X"
-		"X X X X X"
-		"- - X - -"
-		"- - - - -"
-		"- - - - -"
+		"{image:firmages:textures/quests/knapping/hammer_head.png width:64 height:64 align:center}"
 		""
 		"Shovel head, digs faster:"
-		"X X X - -"
-		"X X X - -"
-		"X X X - -"
-		"X X X - -"
-		"- X - - -"
+		"{image:firmages:textures/quests/knapping/shovel_head.png width:64 height:64 align:center}"
 		""
 		"Hoe heads, two from one rock:"
-		"X X X X X"
-		"X X - - -"
-		"- - - - -"
-		"X X X X X"
-		"X X - - -"
+		"{image:firmages:textures/quests/knapping/hoe_heads.png width:64 height:64 align:center}"
 		""
 		"Javelin head, for the hunt:"
-		"X X X - -"
-		"X X X X -"
-		"X X X X X"
-		"- X X X -"
-		"- - X - -"
+		"{image:firmages:textures/quests/knapping/javelin_head.png width:64 height:64 align:center}"
 		""
 		"There is no stone pickaxe. The first pickaxe is cast in copper in the Stone Age."
 	]

@@ -302,7 +302,6 @@ STYLE_LIMITS = {'step': 25, 'side': 25, 'keystone': 40, 'explain': 40, 'ring': 4
 # ({@pagebreak}); every other description as a whole. Picture lines
 # ({image:...}) and page breaks are never counted and never linted as words.
 PER_PAGE = {'guide'}
-PICTURE_LINE = re.compile(r'\{image:\S+[^}]*\}')
 # Teaching quests: the one place a mechanic, or a build no recipe viewer shows, is explained (style guide rules 3
 # and 4). They may run to STYLE_TEACH words (knapping and crafting grid lines are never counted).
 STYLE_TEACH = 110
@@ -415,7 +414,7 @@ def style_lint(lang, chapters, W):
         for t in texts:
             if isinstance(t, str) and t.strip() == '{@pagebreak}':
                 pages.append([])
-            elif isinstance(t, str) and not PICTURE_LINE.fullmatch(t.strip()):
+            elif isinstance(t, str):  # pictures stay: figure() keeps them out of words and paragraphs
                 pages[-1].append(t)
         texts = [t for page in pages for t in page]
         where = 'style: %s' % key
