@@ -258,7 +258,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "1f01d6330f7fe2fd7cc22a0345eea744769a8ff42535ac8033e717f260ae1408"
+hash = "fa1131b314ce6a1bd9bee1f26f0ccfd77ced2ebbd95588928e5a3e05010c0422"
 
 [[files]]
 file = "config/fml.toml"
@@ -290,7 +290,7 @@ hash = "f5fafee6828b3ea299682b7c4b69ef477bd864da23a54136b6aa80b3f8bfe0f8"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/electric_age.snbt"
-hash = "72888b8693b665efd01b6148031349a04167158a52fe53e6796811c9292c3247"
+hash = "f93130750c5ac6a3bb0cce4e8b43c79274ab426393679e7515ae5c609bb44473"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/industrial_age.snbt"
@@ -298,7 +298,7 @@ hash = "ce111961c0dcb5966cafa891ef7cdb2a46f0420c7d10f767a4a564a7f38e6357"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/information_age.snbt"
-hash = "db0367e816d031b0201779c734c6dc27226d05f114bf134fcc04d702ba544d2b"
+hash = "03928c04753a86d157b825b2b7d5eb00e0c0526f647e77aa919a6cb1ae3e709d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/iron_age.snbt"
@@ -306,15 +306,15 @@ hash = "3f5ee0339c3a1ed223eab4f73f551e9f148a5262a0d9b8a003fe2710e55db4f6"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "877e6f0e6742496f5e11da73c64495dae6c93863fbaaa5fd0585f50aa9cc9a4b"
+hash = "5176ec94f8585f35489dfc2a1276ef0f0a61738ff959847a29efbc7c56129088"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "1565809c6cdbebf2f651ec77d97fcc2764b524f3c122a1549250e58ebf8c0d7e"
+hash = "f93bba0d9aebd82b27b2b104a25c7aaa3b55694fc180da1c06fa300206e8d80a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
-hash = "384e3e649ad91d94dfdf9ddae54e521be4c69bdd3a5f0919d9ea289b8f3b0dd0"
+hash = "9644aeb61f37e1ed5ae9986ea3c2220ca682fa818aec09df78f2f64a2cc938e9"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
@@ -326,15 +326,15 @@ hash = "af4b6ba3687eb8cbb9fc876c95955b76c7ec0ebe82c6e9484bcce60d8c714e71"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/work_gatehouse.snbt"
-hash = "552cf3be08632edb4aec26edc9387f53e945d9cb8a71dc7350133968544f8a6d"
+hash = "590ab976f99a216aaf6f56d2324a5055ece18f0aad980e757f8b6b64bdb25d6a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/work_living_house.snbt"
-hash = "19138a56e91005a7fc023735bd750c62e74c811a4a39fccbd202e6fba9302f90"
+hash = "6d3f50af323a5f277514dfbab80b9ee5e411985b70d38fa6dc1f853836299f16"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/work_silo.snbt"
-hash = "75edce1baf188bb5859e13d679dbb1edc7ae31a0c402aa181c36155166d19827"
+hash = "a90e72f008ccc542c88d3f19c66c121ce36b1578428f2375fe17937ab054dd03"
 
 [[files]]
 file = "config/ftbquests/quests/data.snbt"
@@ -342,7 +342,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "7fc12b3da1dd2385b16ae06ed8ee80eac681f5429df8e41c7a6c3ff1d868227c"
+hash = "5ff0ee7959f9df202f2dc2b31c7e9062ed54aa7946503bda58ce3c61884764f7"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -418,7 +418,7 @@ hash = "1e468067e1ca925ccc95d3ef0569eb32b89a0cc7ceb5a7bcd023eca3566e8a58"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/space_supplies.snbt"
-hash = "06b557f634fad9abb64b03f24d87132c54e7ab29a514ef2ba606918e2c73e80e"
+hash = "0933f0bd5a552d1b2c02a69624176b7b0f32e97d4c9b12f14f209bf85d1a3ba3"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/stone_comfort.snbt"
@@ -1954,15 +1954,15 @@ hash = "c88d1055b5e64a1acaf2e2c8bd9c183b998a17218c5823f7a16cd34cbe1bbee5"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/works/gatehouse_open.png"
-hash = "b19e53a910e65ea9520e20a20a3112d619161f4a113ad4a7024ff26d052192b5"
+hash = "006ff0d5b005a2a4ce690bc18a9a51e12ba1dcd705355485387bc9929ccad6bd"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/works/gatehouse_shut.png"
-hash = "d33781d930e9bac0413734a2e00c610f6396483e312e7a06923e6484d83a7fad"
+hash = "5e7efb326c5af6a3fd3eeaca585980772607366dd123cbeffd569c11bb1256f2"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/works/living_house.png"
-hash = "7a02585c2f56fd30086b54f71c3a9818c7440a4edb47dfd133368278d27d17b3"
+hash = "c017ef554f662aea991648ca601bf3386517f9c3d595b21b4e96ce198cd68d10"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/works/silo_open.png"
@@ -2154,11 +2154,11 @@ hash = "0b2e05b22dfed9d4cfc83a35976cdef48a80fe395b45d055c4707ac1dfc3a0c7"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/build/gatehouse.png"
-hash = "cc830d3a3d61ca8e943760273677eee4b5d7c9599737b03f3b1d891979beba64"
+hash = "3864b4be141330948a5dca8011d5c346a3956b9eea24f7acb36add1583c77724"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/build/living_house.png"
-hash = "fea41c342e7dc5b2dc0d8dcfefd36fe9990e4215e16d88cc807916154c6233a8"
+hash = "11b5c1695481677eddd99d15fd1699dbcc3f05eda04bb28211befa5590931998"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/build/silo_closed.png"
@@ -2269,8 +2269,24 @@ file = "kubejs/assets/firmages/textures/quests/ponder/chords.png"
 hash = "e91c0b3ebd7b64f57de7411bab6b4549ea49f62702b4df1871e78e634eee9bfd"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/quests/ponder/clockwork_bearing.png"
+hash = "3f26f841dd69c9f5e001866871df8016aad685b00b7ebda5063be44c813f44f9"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/ponder/display_link.png"
+hash = "868a83ead91316c46bceb033461d104a166dc1fdefd0d4f2b5e89d3729e15a2d"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/ponder/elevator.png"
+hash = "66dbca3bc9fcbe6366dc180d98fa758514044d492edf77d9a0c56773392a0262"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/quests/ponder/lens_crown.png"
 hash = "6175a33efb6fee13c85c67b55db966747951df98f84d1cdd3966a27a4caeb1e0"
+
+[[files]]
+file = "kubejs/assets/firmages/textures/quests/ponder/mechanical_bearing.png"
+hash = "f0fcf8ac6c03bf7bcb95fd4a407a0de14a7e145ebda3f9c2bab85cc5b61005cc"
 
 [[files]]
 file = "kubejs/assets/firmages/textures/quests/ponder/portcullis.png"
@@ -4973,12 +4989,16 @@ file = "kubejs/data/firmages/advancement/proof/age_8.json"
 hash = "3e90395e763ec9e5ed54f49698bdf9b3be8a8ae209103ce5635d7162b898d21a"
 
 [[files]]
+file = "kubejs/data/firmages/advancement/works/rope_bridges.json"
+hash = "ebcd99c07499312595c0952e34e953ebd950eba52b5e8d967bbc9a7ce5de8485"
+
+[[files]]
 file = "kubejs/data/firmages/balance/fuels.json"
 hash = "03e83529a3a58719c2410829794e9b9123cb96b247c70302a09c01cb3cb24116"
 
 [[files]]
 file = "kubejs/data/firmages/balance/metals.json"
-hash = "e844023966eabc317aabdd29335eafaf002bfee023820433f0796a6b2c33f8ce"
+hash = "2450b04dba8798348b1bbbf34e9aef5245403dcf965478ead3b1a19b22ce5039"
 
 [[files]]
 file = "kubejs/data/firmages/chiseling_recipes/andesite.json"
@@ -6702,15 +6722,15 @@ hash = "ed049383eadc2fb2dbff19997264a387052a36db021901f063b09b724bb0edb0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "4bacf56800294b3affe45732b4fafdb83c949ddc1682077326c2bdf9797b4a6b"
+hash = "52522bba3af080bc47ef315a1ba949020bc44ec6ee18bdccd13353ebe7438621"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "ef1b19c01394aa6a96fead538c1ab52bc80c05c90851a0c77bed82c3fdddb3d0"
+hash = "30060bc8a07b9e51b8911ec950c0a1450f2347e3be2933ba3d6ecad4a38f3461"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "828dec9d47a8550d501a4e1f485c4916b08866adc511d9fa09e5e889549c27c4"
+hash = "3e7e1fb7410c0f6335482ad2dcddb7caf69e4385af52df1c5d347d0b63e1718b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -6723,6 +6743,10 @@ hash = "5431cf5ef2e40dbf80d388e2119472668f13f23d0955f29d00fb6ed275efa94c"
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
 hash = "03610ccb32624530184668df8698296c4c6f4f0aea49e1ad7b28e2216f295f96"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/rope_bridges.json"
+hash = "01af651898647dc4d0f0ed94ff26b6874bf931a820c4d8a92f260cc29d22fec8"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/vanilla_planks.json"
@@ -10690,7 +10714,7 @@ hash = "bdfac657b36dc3ddf367fb8c37e3f6f45e7d5c40df0c2c60f0722ed7e56f0ef9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_7/links.js"
-hash = "5c18735dd806c8d5b3f6fc80684b51ef7afefcf66ddb32233efd206eca75a1f1"
+hash = "12a9936ce61b692e6d1ef4a20de5ec2d83c2f473ca8efaefb1e9e3f755a3efdb"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_7/space_age.js"
@@ -10698,7 +10722,7 @@ hash = "e46fff5195d1d50aa81797f0c9dfc785049eb05f1e64dfb86459e10b94842687"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/links.js"
-hash = "fbf87267bf4718a102efd2cdb3d66fd97806be585eed09bba1e79e3e5a930b86"
+hash = "d95c6b75b12ce0a1d3e66b5b2a8fdff8d71e796a8a3470c9d305c89735fdf54a"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"
@@ -11478,7 +11502,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-0.13.0.jar"
-hash = "85d844be11e9d7c28c2e1bf3323503d9b8e4a94b1dea629ff44204fa4b944045"
+hash = "46de2e81ac5ffef00483f6d5690a3a997f0ad92f6ec317df3481797c0be7fdde"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

@@ -815,7 +815,7 @@ def base_age_map():
     return raw, amap, reg, gsl.AgeMap(amap, reg, tfc)
 
 
-def derive(dump_dir, show):
+def derive(dump_dir, show, rewards=True):
     raw, amap, reg, am = base_age_map()
     items = list(reg["items"])
     base = {i: am.age_of(i)[0] for i in items}
@@ -1046,7 +1046,7 @@ def derive(dump_dir, show):
             st, why = amap["mods"].get(g["id"].split(":")[0]), f"loot modifier {g['id']}"
         if st:
             give(st, its, why)
-    for i, (st, why) in quest_rewards().items():
+    for i, (st, why) in (quest_rewards().items() if rewards else ()):
         give(st, [i], why)
 
     def extra_start(n):
@@ -1136,11 +1136,11 @@ def derive(dump_dir, show):
 # ------------------------------------------------------------------------------------------------ quest tasks
 def quest_task_sources(res):
     """Q-1 (review 0.13.0): every non-optional item task of the Chronicle names an item the walk reaches by its
-    chapter's Age through a recipe, the world or loot. A quest reward is no source: the walk takes rewards as given,
-    so an item it first reaches as a reward has no other way in at that Age (0.13.0 asked for ad_astra:fuel_bucket,
-    which no recipe makes). -> (problems, count of tasks checked, loot-only tasks as info lines)."""
-    first, via = res["first"], res["via"]
-    bad, info, n = [], [], 0
+    chapter's Age through a recipe, the world or loot. res is a walk without quest rewards (derive(rewards=False)):
+    a reward is no source (0.13.0 asked for ad_astra:fuel_bucket, which no recipe makes).
+    -> (problems, count of tasks checked)."""
+    first = res["first"]
+    bad, n = [], 0
     for p in sorted(glob.glob(os.path.join(vq.QDIR, "chapters", "*.snbt"))):
         ch = vq.load(p)
         st = ch.get("progressivestages_required_stage")
@@ -1158,11 +1158,7 @@ def quest_task_sources(res):
                     bad.append(f"{where}: never reachable")
                 elif AGES.index(first[i]) > AGES.index(st):
                     bad.append(f"{where}: first reachable in {first[i]}, the chapter is {st}")
-                elif str(via.get(i, "")).startswith("quest reward"):
-                    bad.append(f"{where}: only a quest reward gives it by {first[i]} ({via[i]})")
-                elif str(via.get(i, "")).startswith("structure"):
-                    info.append(f"{where}: loot only? first via {via[i]}")
-    return bad, n, info
+    return bad, n
 
 
 # ------------------------------------------------------------------------------------------------ output
@@ -1229,9 +1225,8 @@ def main():
             print(f"    later {i}: {base[i]} -> {res['derived'][i]} via {via.get(i)}")
         for i in res["hidden"][:a.show]:
             print(f"    hidden {i} ({base[i]}, {res['base_why'][i]})")
-    q_bad, q_n, q_info = quest_task_sources(res)
-    for line in q_info:
-        print(f"  Q-1 info: {line}")
+    print("Q-1: the walk once more without quest rewards")
+    q_bad, q_n = quest_task_sources(derive(a.dump_dir, 0, rewards=False))
     for line in q_bad:
         print(f"FAIL Q-1 {line}")
     print(f"Q-1 quest tasks: {q_n} required item tasks, {len(q_bad)} without a recipe, world or loot source by their Age")

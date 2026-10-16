@@ -552,7 +552,6 @@
     {"id": "mekanism:pellet_antimatter", "required": false},
     {"id": "mekanism:sps_casing", "required": false},
     {"id": "mekanism:sps_port", "required": false},
-    {"id": "mekanism:ultimate_tier_installer", "required": false},
     {"id": "mekanismgenerators:fusion_fuel_bucket", "required": false},
     {"id": "mekanismgenerators:fusion_reactor_controller", "required": false},
     {"id": "mekanismgenerators:fusion_reactor_frame", "required": false},
