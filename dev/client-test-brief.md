@@ -1,5 +1,18 @@
 # Client-Test
 
+## Quest-Bilder (1.0 Runde B1, 2026-10-16)
+
+32 Bilder aus `dev/gen_quest_images.py` (`dev/quest-images.md`), auf dem Server nur als Dateien geprüft (Boot der
+Kopie ohne Fehler, `validate_quests.py` mit Testzeilen). Sobald eine Quest sie zeigt (Einbinden: `dev/offene-punkte.md`):
+
+1. **Schärfe.** Bei GUI-Skala 2, 3 und Auto: Knapping-Bilder (64 px) und Geräte-, Bau- und Ponder-Bilder (128 px)
+   ohne unscharfe oder ungleich breite Pixel; die Beschriftung in Großbuchstaben lesbar.
+2. **Platz.** Ein 128-px-Bild passt ins Questfenster, ohne abgeschnitten zu werden, und steht mittig.
+3. **Ponder-Klick.** Ein Bild mit „CLICK TO WATCH“ zeigt beim Überfahren „Click to watch“; ein Klick öffnet die Szene
+   (Silo Hatch am Launch Pad, Portcullis am Rope Pulley, The Lens Crown und A Chord Library am Star Anvil, Chords am
+   Lens Mount), Escape führt zurück in die Chronik. Vor der Age des Items öffnet der Klick nichts.
+4. **Farben.** Die Bilder passen zum Firmament-Thema (Nachtblau, Gold); nichts wirkt wie ein Fremdkörper.
+
 ## 0.12.0 Review-Fixes (2026-10-16, Pack 0.12.0, firmages-core 0.12.0 neu gebaut)
 
 Server-Teil auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „0.12.0 review fixes, round C2“): GameTests
