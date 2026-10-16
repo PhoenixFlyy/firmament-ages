@@ -15,6 +15,14 @@ public interface ClimateSource {
     /** Temperature right now (season and time of day included) at the column, at height {@code y}. */
     float instantTemp(Level level, int x, int y, int z);
 
+    /**
+     * {@link #averageTemp} for a column whose chunk may not be loaded, without loading or generating it (the aurora
+     * band command samples thousands of blocks out). NaN when the source cannot tell.
+     */
+    default float averageTempUnloaded(Level level, int x, int y, int z) {
+        return averageTemp(level, x, y, z);
+    }
+
     /** No climate model: a mild constant (vanilla worlds without TFC and without a test source). */
     ClimateSource NONE = new ClimateSource() {
         @Override

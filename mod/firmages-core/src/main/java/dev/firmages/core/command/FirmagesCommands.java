@@ -78,6 +78,7 @@ public final class FirmagesCommands {
             .then(OriginCommands.origin())
             .then(OriginCommands.reactor())
             .then(StarfallCommands.starfall())
+            .then(SkyHarvestCommands.sky())
             .then(DebugPlayerCommands.debug())
             .then(Commands.literal("balance")
                 .then(Commands.literal("alternator")

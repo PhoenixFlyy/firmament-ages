@@ -49,6 +49,7 @@ public final class FirmagesCore {
         BossRegistry.register(modEventBus); // The Primordial, the end boss (docs/primordial.md)
         dev.firmages.core.sky.SkyRegistry.register(modEventBus); // Starfall blocks, metals, core, sounds, loot condition (SPEC §25)
         dev.firmages.core.crown.CrownRegistry.register(modEventBus); // Lens Crown, firmages:starforge (SPEC §27)
+        dev.firmages.core.sky.HarvestRegistry.register(modEventBus); // Sky Harvest: Storm Rod, storm glass, Aurora Net, aurora light (SPEC §26)
 
         IEventBus bus = NeoForge.EVENT_BUS;
         bus.addListener(AgeService::onAddReloadListeners);
@@ -81,6 +82,7 @@ public final class FirmagesCore {
         BossEvents.register(bus);
         dev.firmages.core.sky.StarfallService.register(bus); // sky plumbing and Starfall (SPEC §24.4, §25)
         dev.firmages.core.crown.CrownService.register(bus);
+        dev.firmages.core.sky.HarvestRegistry.registerGame(bus); // sky_harvest.json
         // the unlinked wireless crafting terminal opens a portable crafting grid (AE2 package, review 0.11.0)
         if (ModList.get().isLoaded(dev.firmages.core.compat.ae2.PortableCrafting.MOD_ID)) dev.firmages.core.compat.ae2.PortableCrafting.register(bus);
         LOGGER.info("firmages-core loaded");

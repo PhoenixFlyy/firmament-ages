@@ -1,0 +1,174 @@
+package dev.firmages.core.command;
+
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import dev.firmages.core.sky.AuroraRules;
+import dev.firmages.core.sky.AuroraService;
+import dev.firmages.core.sky.ClimateSource;
+import dev.firmages.core.sky.ClimateSources;
+import dev.firmages.core.sky.HarvestRegistry;
+import dev.firmages.core.sky.SkyHarvestData;
+import dev.firmages.core.sky.SkyHarvestDataLoader;
+import dev.firmages.core.sky.SkySavedData;
+import dev.firmages.core.sky.StormRodBlock;
+import dev.firmages.core.sky.StormRodBlockEntity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Locale;
+
+/**
+ * {@code /firmages sky aurora on|off|auto | status [pos] | band [radius]} (SPEC §26.8) and {@code /firmages sky storm
+ * rain|thunder|clear [seconds] | strike <pos> | status <pos>} (operators only, like every {@code /firmages} command).
+ * The override is saved in {@code firmages_sky}; {@code band} reads far columns without loading their chunks.
+ */
+final class SkyHarvestCommands {
+    private SkyHarvestCommands() {}
+
+    static LiteralArgumentBuilder<CommandSourceStack> sky() {
+        return Commands.literal("sky")
+            .then(Commands.literal("aurora")
+                .then(Commands.literal("on").executes(c -> override(c, AuroraRules.Override.ON)))
+                .then(Commands.literal("off").executes(c -> override(c, AuroraRules.Override.OFF)))
+                .then(Commands.literal("auto").executes(c -> override(c, AuroraRules.Override.AUTO)))
+                .then(Commands.literal("status").executes(c -> status(c, BlockPos.containing(c.getSource().getPosition())))
+                    .then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(c -> status(c, BlockPosArgument.getBlockPos(c, "pos")))))
+                .then(Commands.literal("band").executes(c -> band(c, 2048))
+                    .then(Commands.argument("radius", IntegerArgumentType.integer(256, 16384)).executes(c -> band(c, IntegerArgumentType.getInteger(c, "radius"))))))
+            .then(Commands.literal("storm")
+                .then(Commands.literal("rain").executes(c -> weather(c, true, false, 600))
+                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, true, false, IntegerArgumentType.getInteger(c, "seconds")))))
+                .then(Commands.literal("thunder").executes(c -> weather(c, true, true, 600))
+                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, true, true, IntegerArgumentType.getInteger(c, "seconds")))))
+                .then(Commands.literal("clear").executes(c -> weather(c, false, false, 600))
+                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, false, false, IntegerArgumentType.getInteger(c, "seconds")))))
+                .then(Commands.literal("strike").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::strike)))
+                .then(Commands.literal("status").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::rodStatus))));
+    }
+
+    private static void line(CommandSourceStack src, String text) {
+        src.sendSuccess(() -> Component.literal(text), false);
+    }
+
+    private static String f(double v) {
+        return String.format(Locale.ROOT, "%.2f", v);
+    }
+
+    private static int override(CommandContext<CommandSourceStack> c, AuroraRules.Override o) {
+        SkySavedData.get(c.getSource().getServer()).setAuroraOverride(o.id());
+        line(c.getSource(), "Aurora override: " + o.id());
+        return 1;
+    }
+
+    private static int status(CommandContext<CommandSourceStack> c, BlockPos pos) {
+        ServerLevel level = c.getSource().getLevel();
+        SkyHarvestData.Aurora a = SkyHarvestDataLoader.current().aurora();
+        if (!level.hasChunk(pos.getX() >> 4, pos.getZ() >> 4)) {
+            float avg = ClimateSources.get().averageTempUnloaded(c.getSource().getServer().overworld(), pos.getX(), a.referenceY(), pos.getZ());
+            line(c.getSource(), "Column " + pos.getX() + " " + pos.getZ() + " is not loaded; average at Y " + a.referenceY() + ": " + f(avg)
+                + " C (band at or below " + f(a.maxAverageTemp()) + ")");
+            return 1;
+        }
+        AuroraRules.Result r = AuroraService.at(level, pos.getX(), pos.getZ());
+        ClimateSource climate = ClimateSources.get();
+        ServerLevel ow = c.getSource().getServer().overworld();
+        float avg = climate.averageTemp(ow, pos.getX(), a.referenceY(), pos.getZ());
+        float inst = climate.instantTemp(ow, pos.getX(), a.referenceY(), pos.getZ());
+        boolean sky = level.canSeeSky(pos.above());
+        line(c.getSource(), "Aurora at " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + ": " + (r.active() ? "ACTIVE" : "inactive")
+            + " (override " + r.override().id() + ", " + level.dimension().location() + ")");
+        line(c.getSource(), "  night " + r.night() + " (day time " + Math.floorMod(ow.getDayTime(), 24000L) + "), rain " + r.raining());
+        line(c.getSource(), "  at Y " + a.referenceY() + ": average " + f(avg) + " C, now " + f(inst) + " C, band at or below " + f(a.maxAverageTemp())
+            + " -> " + (r.inBand() ? "in the cold band" : "too warm") + ", " + (r.coldHalf() ? "cold half" : "warm half"));
+        line(c.getSource(), "  roll " + f(r.roll()) + " against chance " + f(r.chance()) + ", intensity " + f(r.intensity()));
+        line(c.getSource(), "  height " + pos.getY() + " (nets need " + a.minY() + "), open sky " + sky);
+        return r.active() ? 1 : 0;
+    }
+
+    /**
+     * Samples the yearly average at the reference height every 256 blocks along the four bearings from the caller and
+     * prints the nearest point in the cold band (SPEC §26.10 PoC). Far columns are read from the generator, never
+     * loaded.
+     */
+    private static int band(CommandContext<CommandSourceStack> c, int radius) {
+        ServerLevel ow = c.getSource().getServer().overworld();
+        SkyHarvestData.Aurora a = SkyHarvestDataLoader.current().aurora();
+        ClimateSource climate = ClimateSources.get();
+        BlockPos o = BlockPos.containing(c.getSource().getPosition());
+        int[][] dirs = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
+        String[] names = {"north", "south", "east", "west"};
+        float here = climate.averageTempUnloaded(ow, o.getX(), a.referenceY(), o.getZ());
+        line(c.getSource(), "Average at Y " + a.referenceY() + " here (" + o.getX() + " " + o.getZ() + "): " + f(here) + " C; band at or below "
+            + f(a.maxAverageTemp()) + " C");
+        int best = -1;
+        String bestText = "";
+        for (int d = 0; d < 4; d++) {
+            float min = Float.MAX_VALUE;
+            int first = -1;
+            for (int dist = 256; dist <= radius; dist += 256) {
+                int x = o.getX() + dirs[d][0] * dist;
+                int z = o.getZ() + dirs[d][1] * dist;
+                float t = climate.averageTempUnloaded(ow, x, a.referenceY(), z);
+                if (Float.isNaN(t)) continue;
+                min = Math.min(min, t);
+                if (first < 0 && t <= a.maxAverageTemp()) {
+                    first = dist;
+                    if (best < 0 || dist < best) {
+                        best = dist;
+                        bestText = x + " " + z + " (" + names[d] + ", " + dist + " blocks, " + f(t) + " C)";
+                    }
+                }
+            }
+            line(c.getSource(), "  " + names[d] + ": " + (first < 0 ? "no cold band within " + radius : "cold band from " + first + " blocks")
+                + (min == Float.MAX_VALUE ? "" : ", coldest " + f(min) + " C"));
+        }
+        line(c.getSource(), best < 0 ? "No cold-band point within " + radius + " blocks." : "Nearest cold-band point: " + bestText);
+        return Math.max(best, 0);
+    }
+
+    private static int weather(CommandContext<CommandSourceStack> c, boolean rain, boolean thunder, int seconds) {
+        ServerLevel ow = c.getSource().getServer().overworld();
+        int ticks = seconds * 20;
+        ow.setWeatherParameters(rain ? 0 : ticks, rain ? ticks : 0, rain, thunder);
+        line(c.getSource(), "Overworld weather: " + (thunder ? "thunder" : rain ? "rain" : "clear") + " for " + seconds + " s (now raining "
+            + ow.isRaining() + ", thundering " + ow.isThundering() + ")");
+        return 1;
+    }
+
+    private static StormRodBlockEntity rod(CommandContext<CommandSourceStack> c, BlockPos pos) {
+        ServerLevel level = c.getSource().getLevel();
+        BlockState s = level.getBlockState(pos);
+        if (!s.is(HarvestRegistry.STORM_ROD.get())) return null;
+        return level.getBlockEntity(StormRodBlock.basin(s, pos)) instanceof StormRodBlockEntity be ? be : null;
+    }
+
+    private static int strike(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        StormRodBlockEntity be = rod(c, BlockPosArgument.getLoadedBlockPos(c, "pos"));
+        if (be == null) {
+            c.getSource().sendFailure(Component.literal("No Storm Rod there"));
+            return 0;
+        }
+        int fused = be.strike(c.getSource().getLevel());
+        line(c.getSource(), "Strike: " + fused + " sand fused, " + be.strikes() + " strikes since load, reason " + be.reason());
+        return fused;
+    }
+
+    private static int rodStatus(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        StormRodBlockEntity be = rod(c, BlockPosArgument.getLoadedBlockPos(c, "pos"));
+        if (be == null) {
+            c.getSource().sendFailure(Component.literal("No Storm Rod there"));
+            return 0;
+        }
+        ServerLevel level = c.getSource().getLevel();
+        line(c.getSource(), "Storm Rod: reason " + be.reason() + ", sand " + be.sand() + ", output room " + be.outputRoom() + ", strikes "
+            + be.strikes() + ", open sky " + be.skyOpen(level) + ", raining " + level.isRaining() + ", thundering " + level.isThundering());
+        return (int) be.strikes();
+    }
+}

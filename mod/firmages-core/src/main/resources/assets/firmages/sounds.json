@@ -402,5 +402,24 @@
       }
     ],
     "subtitle": "subtitles.firmages.wayshrine.lit"
+  },
+  "aurora_net.catch": {
+    "sounds": [
+      {
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.firmages.aurora_net.catch"
+  },
+  "storm_rod.strike": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.lightning_bolt.thunder",
+        "type": "event",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.firmages.storm_rod.strike"
   }
 }

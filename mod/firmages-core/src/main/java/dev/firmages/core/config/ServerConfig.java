@@ -104,6 +104,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue STARFALL_OLD_CRATERS;
     public static final ModConfigSpec.IntValue STARFALL_OLD_CRATER_REGION;
     public static final ModConfigSpec.ConfigValue<String> STARFALL_AUTOMATION_AGE;
+    // sky harvest (SPEC §26.8)
+    public static final ModConfigSpec.BooleanValue SKY_HARVEST_ENABLED;
     // balance
     public static final ModConfigSpec.BooleanValue BALANCE_ALTERNATOR_FUEL_ONLY;
     public static final ModConfigSpec.IntValue BALANCE_AE2_CELL_TYPES;
@@ -321,6 +323,12 @@ public final class ServerConfig {
             .define("automationAge", "age_6", o -> o instanceof String s && (s.equals("never") || AgeId.byId(s).isPresent()));
         b.pop();
 
+        b.comment("Sky Harvest (SPEC 26): the Storm Rod fuses sand into storm glass in rain, the Aurora Net catches aurora light.",
+                "Balance values (aurora band, chances, yield, strike rate) are data: data/firmages/firmages_sky/sky_harvest.json.").push("skyHarvest");
+        SKY_HARVEST_ENABLED = b.comment("false: rods are never struck and nets catch nothing (operator commands still report).")
+            .define("enabled", true);
+        b.pop();
+
         b.comment("Balance hooks of the harmony round (SPEC 34).").push("balance");
         BALANCE_ALTERNATOR_FUEL_ONLY = b.comment("Felix H1A: the Crafts and Additions alternator gives FE only for the share of its network's rotation",
                 "that comes from fuelled sources (steam engines on an actively heated boiler, diesel engines). Water wheels, windmills,",
@@ -455,6 +463,10 @@ public final class ServerConfig {
     /** {@code origin.gatherIdleMinutes}: 0 = nobody is left out. */
     public static int gatherIdleMinutes() {
         return loaded() ? ORIGIN_GATHER_IDLE_MINUTES.get() : 5;
+    }
+
+    public static boolean skyHarvestEnabled() {
+        return !loaded() || SKY_HARVEST_ENABLED.get();
     }
 
     public static boolean starfallEnabled() {

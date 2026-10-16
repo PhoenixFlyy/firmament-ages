@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "catching=false": {
+      "model": "firmages:block/aurora_net"
+    },
+    "catching=true": {
+      "model": "firmages:block/aurora_net_catching"
+    }
+  }
+}

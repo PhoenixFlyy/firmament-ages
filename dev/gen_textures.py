@@ -2660,6 +2660,265 @@ for _k in WAYSHRINE_KINDS:
 
 
 # Block model texture maps (models/block/<file>.json -> "textures"). Geometry stays as it is.
+# ---------------------------------------------------------------------------------------------------------------------
+# The Sky Harvest (SPEC 26, firmages-core M11): storm glass (a Fusion connected glass, pieced layout like the rock panel
+# pattern: frame, open, vertical edges, horizontal edges, corners), the Storm Rod (a copper basin with a meteoric iron
+# rod and a storm glass tip), the Aurora Net (a meteoric frame with a fine mesh and a veil that shimmers green and
+# violet while it catches) and aurora light (still and flowing, animated in the two aurora colours of sky_harvest.json).
+# The fluid textures are named by the mod's code (client/SkyHarvestClient), see CODE_TEXTURES.
+# ---------------------------------------------------------------------------------------------------------------------
+PAL.update({
+    "aurora": ["#0a3a2a", "#16805a", "#3cff9e", "#9effd0", "#e8fff4"],
+    "auroraviolet": ["#1c1050", "#3c2a9a", "#7a5cff", "#b0a0ff", "#ece6ff"],
+})
+CODE_TEXTURES = {"block/aurora_light_still", "block/aurora_light_flow"}
+
+
+def storm_glass_tile(edges):
+    """One 16 px glass tile: the frame pixels named by edges (subset of 'nsewc'), transparent glass with two streaks."""
+    img = new_tex()
+    px = img.load()
+    t = tones("stormglass")
+    for y in range(16):
+        for x in range(16):
+            on = (("w" in edges and x == 0) or ("e" in edges and x == 15) or ("n" in edges and y == 0) or ("s" in edges and y == 15)
+                  or ("c" in edges and x in (0, 15) and y in (0, 15)))
+            if on:
+                px[x, y] = t[1] if x == 15 or y == 15 else t[3]
+    for i in range(4):  # two diagonal storm streaks, the same on every tile so neighbours line up
+        for sx, sy in ((3, 9), (8, 6)):
+            x, y = sx + i, sy - i
+            if 1 <= x <= 14 and 1 <= y <= 14:
+                px[x, y] = t[4] if i == 0 else t[2]
+    return img
+
+
+def storm_glass_strip():
+    tiles = [storm_glass_tile("nsew"), storm_glass_tile(""), storm_glass_tile("we"), storm_glass_tile("ns"), storm_glass_tile("c")]
+    out = Image.new("RGBA", (16 * len(tiles), 16), (0, 0, 0, 0))
+    for i, tile in enumerate(tiles):
+        out.paste(tile, (16 * i, 0))
+    return out
+
+
+BLOCKS["storm_glass"] = ("storm glass (connected)", storm_glass_strip, {"fusion": {"type": "connecting", "layout": "pieced"}})
+
+
+@block("storm_glass_particle", "storm glass (single)")
+def _():
+    return storm_glass_tile("nsew")
+
+
+@block("storm_rod_side", "storm rod basin side")
+def _():
+    img = new_tex()
+    noise_fill(img, "copper", seeded("storm_rod_side"), weights=(0, 2, 6, 3, 1), cluster=3, grain=0.15)
+    px = img.load()
+    t = tones("copper")
+    for x in range(16):  # rim of the basin (rows 8..9) and the foot (rows 14..15)
+        px[x, 8] = t[4]
+        px[x, 9] = t[1]
+        px[x, 14] = t[3]
+        px[x, 15] = t[0]
+    for x in (4, 8, 12):  # rivets
+        px[x, 11] = t[4]
+    return img
+
+
+@block("storm_rod_top", "storm rod basin top")
+def _():
+    img = new_tex()
+    noise_fill(img, "copper", seeded("storm_rod_top"), weights=(0, 3, 6, 2, 0), cluster=2, grain=0.2)
+    bevel(img, "copper", light=4, dark=0, corner=1)
+    px = img.load()
+    for (x, y) in ring_pixels(1.5, 2.6):  # the socket of the rod
+        px[x, y] = tones("copper")[0]
+    return img
+
+
+@block("storm_rod_bottom", "storm rod basin bottom")
+def _():
+    img = new_tex()
+    noise_fill(img, "copper", seeded("storm_rod_bottom"), weights=(1, 4, 5, 1, 0), cluster=3, grain=0.15)
+    return img
+
+
+@block("storm_rod_rod", "storm rod (meteoric iron)")
+def _():
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded("storm_rod_rod"), weights=(0, 2, 6, 4, 1), cluster=2, grain=0.2)
+    etch(img, "meteoric", seeded("storm_rod_rod_etch"), 6, mask_alpha=False)
+    return img
+
+
+@block("storm_rod_tip", "storm rod tip (storm glass)")
+def _():
+    img = new_tex()
+    noise_fill(img, "stormglass", seeded("storm_rod_tip"), weights=(0, 1, 4, 5, 2), cluster=2, grain=0.2)
+    px = img.load()
+    for x, y in ((6, 6), (7, 6), (6, 7)):
+        px[x, y] = tones("stormglass")[4]
+    return img
+
+
+@block("aurora_net_frame", "aurora net frame")
+def _():
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded("aurora_net_frame"), weights=(0, 2, 6, 4, 1), cluster=2, grain=0.2)
+    etch(img, "meteoric", seeded("aurora_net_frame_etch"), 5, mask_alpha=False)
+    bevel(img, "meteoric", light=3, dark=0, corner=1)
+    return img
+
+
+@block("aurora_net_base", "aurora net base")
+def _():
+    img = new_tex()
+    noise_fill(img, "meteoric", seeded("aurora_net_base"), weights=(0, 3, 6, 3, 0), cluster=3, grain=0.15)
+    bevel(img, "meteoric", light=3, dark=0, corner=1)
+    px = img.load()
+    for (x, y) in ring_pixels(3.5, 4.6):  # a storm glass eye in the base
+        px[x, y] = tones("stormglass")[3]
+    return img
+
+
+@block("aurora_net_net", "aurora net mesh")
+def _():
+    """A fine copper mesh on a meteoric rim; the holes are open (translucent model)."""
+    img = new_tex()
+    px = img.load()
+    m = tones("meteoric")
+    c = tones("copper")
+    for y in range(16):
+        for x in range(16):
+            if x in (0, 15) or y in (0, 15):
+                px[x, y] = m[2] if x == 0 or y == 0 else m[1]
+            elif (x + y) % 4 == 0 or (x - y) % 4 == 0:
+                px[x, y] = c[3] if (x + y) % 8 == 0 else c[2]
+    return img
+
+
+@block("aurora_net_veil", "aurora net veil (resting)")
+def _():
+    img = new_tex()
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            if (x + 2 * y) % 7 == 0:
+                px[x, y] = rgb(PAL["stormglass"][3], 90)
+    return img
+
+
+def aurora_band(f, y, x, phase_mul=1.0):
+    """The aurora colour at (x, y) of frame f: green below, violet above, a slow wave."""
+    wave = math.sin((x / 16.0 + f / 8.0) * 2 * math.pi * phase_mul) * 2.0
+    k = (y + wave) / 16.0
+    g = tones("aurora")
+    v = tones("auroraviolet")
+    a, b = (g[3], v[2]) if k > 0.5 else (g[2], g[3])
+    t = max(0.0, min(1.0, abs(k - 0.5) * 2))
+    return tuple(int(a[i] * t + b[i] * (1 - t)) for i in range(3))
+
+
+@block("aurora_net_veil_catching", "aurora net veil (catching)", anim(4, True))
+def _():
+    frames = []
+    for f in range(8):
+        fr = new_tex()
+        px = fr.load()
+        for y in range(16):
+            for x in range(16):
+                c = aurora_band(f, y, x)
+                alpha = 150 + int(70 * math.sin((y / 16.0 + f / 8.0) * 2 * math.pi) ** 2)
+                px[x, y] = c + (alpha,)
+        frames.append(fr)
+    return strip(frames)
+
+
+def aurora_light_frames(flow):
+    frames = []
+    rng = seeded("aurora_light_flow" if flow else "aurora_light_still")
+    sparks = [(rng.randrange(16), rng.randrange(16)) for _ in range(6)]
+    for f in range(8):
+        fr = new_tex()
+        px = fr.load()
+        for y in range(16):
+            for x in range(16):
+                yy = (y - 2 * f) % 16 if flow else y
+                c = aurora_band(f, yy, x, 2.0 if flow else 1.0)
+                px[x, y] = c + (235,)
+        for i, (sx, sy) in enumerate(sparks):
+            if (i + f) % 3 == 0:
+                px[sx, (sy + (2 * f if flow else 0)) % 16] = tones("aurora")[4]
+        frames.append(fr)
+    return strip(frames)
+
+
+@block("aurora_light_still", "aurora light (still)", anim(3, True))
+def _():
+    return aurora_light_frames(False)
+
+
+@block("aurora_light_flow", "aurora light (flowing)", anim(2, True))
+def _():
+    return aurora_light_frames(True)
+
+
+STORM_ROD_ITEM = [
+    "................",
+    ".......hh.......",
+    "......hlld......",
+    ".......dd.......",
+    ".......rr.......",
+    ".......rR.......",
+    ".......rR.......",
+    ".......rR.......",
+    ".......rR.......",
+    ".......rR.......",
+    "...cccccccccc...",
+    "...CccccccccC...",
+    "....CccccccC....",
+    "....CccccccC....",
+    "...kkkkkkkkkk...",
+    "................",
+]
+
+
+def _storm_rod_item():
+    leg = legend(h=("stormglass", 4), l=("stormglass", 3), d=("stormglass", 1), r=("meteoric", 3), R=("meteoric", 1),
+                 c=("copper", 3), C=("copper", 1), k=("copper", 0))
+    MOD_ITEMS["storm_rod"] = ("storm rod", lambda: grid_tex(STORM_ROD_ITEM, leg), None)
+
+
+_storm_rod_item()
+
+BUCKET = [
+    "................",
+    "................",
+    "................",
+    "...oooooooooo...",
+    "..oaaaaaaaaaao..",
+    "..oAaaaaAaaaao..",
+    "..olaaaaaaaaao..",
+    "...ollmmmmmmo...",
+    "...olmmmmmmdo...",
+    "...olmmmmmmdo...",
+    "....olmmmmdo....",
+    "....olmmmmdo....",
+    "....odddddd.....",
+    ".....oooooo.....",
+    "................",
+    "................",
+]
+
+
+def _aurora_bucket():
+    leg = {**shade("steel"), **legend(a=("aurora", 2), A=("auroraviolet", 3))}
+    MOD_ITEMS["aurora_light_bucket"] = ("aurora light bucket", lambda: grid_tex(BUCKET, leg), None)
+
+
+_aurora_bucket()
+
+
 B = "firmages:block/"
 BLOCKS_WITHOUT_ITEM = {"wayshrine_core"}
 MODEL_TEXTURES = {
@@ -2698,6 +2957,15 @@ MODEL_TEXTURES = {
                    "glass": B + "lens_glass"},
     "lens_mount_in": {"particle": B + "lens_mount_frame", "frame": B + "lens_mount_frame", "top": B + "lens_mount_top_in",
                       "glass": B + "lens_glass"},
+    "storm_glass": {"all": B + "storm_glass", "particle": B + "storm_glass_particle"},
+    "storm_glass_item": {"all": B + "storm_glass_particle"},
+    "storm_rod_lower": {"particle": B + "storm_rod_side", "side": B + "storm_rod_side", "top": B + "storm_rod_top",
+                        "bottom": B + "storm_rod_bottom", "rod": B + "storm_rod_rod"},
+    "storm_rod_upper": {"particle": B + "storm_rod_rod", "rod": B + "storm_rod_rod", "tip": B + "storm_rod_tip"},
+    "aurora_net": {"particle": B + "aurora_net_frame", "frame": B + "aurora_net_frame", "base": B + "aurora_net_base",
+                   "net": B + "aurora_net_net", "veil": B + "aurora_net_veil"},
+    "aurora_net_catching": {"particle": B + "aurora_net_frame", "frame": B + "aurora_net_frame", "base": B + "aurora_net_base",
+                            "net": B + "aurora_net_net", "veil": B + "aurora_net_veil_catching"},
 }
 for _ph in WAYSHRINE_PHASES:
     MODEL_TEXTURES["wayshrine_core_" + _ph] = {"particle": B + "wayshrine_core_side", "side": B + "wayshrine_core_side",
@@ -2893,6 +3161,12 @@ def check():
                 mp = root / "models" / (parent.split(":", 1)[1] + ".json")
                 if not mp.exists():
                     errors.append(f"{p.relative_to(ROOT)}: parent model {parent} missing")
+    # 1a. textures the mod's code names (the fluid textures of client/SkyHarvestClient)
+    for ref in CODE_TEXTURES:
+        f = MOD_TEX / (ref + ".png")
+        referenced.add(f.resolve())
+        if not f.exists():
+            errors.append(f"{f.relative_to(ROOT)}: named by the mod's code but missing")
     # 1b. the consecrated family (dev/archive/textures-notes.md) must be used by the mod's models
     for name in CONSECRATED:
         f = MOD_TEX / "block" / (name + ".png")
