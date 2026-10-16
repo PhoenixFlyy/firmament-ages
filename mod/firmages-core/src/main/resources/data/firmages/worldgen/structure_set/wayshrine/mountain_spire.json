@@ -8,8 +8,8 @@
   "placement": {
     "type": "tfc:climate",
     "salt": 1190432521,
-    "spacing": 72,
-    "separation": 27,
+    "spacing": 80,
+    "separation": 30,
     "climate": {}
   },
   "neoforge:conditions": [

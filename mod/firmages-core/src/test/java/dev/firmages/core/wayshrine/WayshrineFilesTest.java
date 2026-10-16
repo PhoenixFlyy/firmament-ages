@@ -94,8 +94,15 @@ class WayshrineFilesTest {
                 JsonObject set = read(RES.resolve("worldgen/structure_set/wayshrine/" + t + ".json"));
                 JsonObject placement = set.getAsJsonObject("placement");
                 assertEquals("tfc:climate", placement.get("type").getAsString(), t);
-                assertEquals(72, placement.get("spacing").getAsInt(), t); // round C2 census, SPEC-himmel 28.4
-                assertEquals(27, placement.get("separation").getAsInt(), t);
+                // round H3 census per type (SPEC-himmel 28.4): 80/30 for the spire, steppe and swamp, 48/18 for the
+                // volcanic ring, 72/27 for the rest
+                int spacing = switch (t) {
+                    case "mountain_spire", "steppe_stones", "swamp_altar" -> 80;
+                    case "volcanic_ring" -> 48;
+                    default -> 72;
+                };
+                assertEquals(spacing, placement.get("spacing").getAsInt(), t);
+                assertEquals(spacing * 3 / 8, placement.get("separation").getAsInt(), t);
                 assertTrue(set.has("neoforge:conditions"), t + ": the set needs TFC");
                 assertTrue(Files.isRegularFile(RES.resolve("tags/worldgen/biome/has_structure/wayshrine/" + t + ".json")), t + " biomes");
             }

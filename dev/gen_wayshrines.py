@@ -101,8 +101,15 @@ ROCK_BRICKS = ["#firmages:wayshrine/any_rock_bricks"]
 # `/firmages wayshrine census 4000 [spacing separation]` on 20 fresh seeds (1001 to 1020; dev/poc-results.md):
 # 80/30 gave 7 of 20 seeds in 7 to 11 (mean 7.0, three below 4), 64/24 8 (mean 10.9), 72/27 11 (mean 10.0, none
 # below 5, at most 16), 96/36 6, 112/42 2. No spacing reaches 16 of 20: the count swings with the spawn's climate.
-# 72/27 is the best measured.
+# Round H3 measured every type at ten spacings (48/18 to 128/48) on the same 20 seeds and on 10 more (1021 to 1030):
+# with one spacing for all, 72/27 had 14 of 30 seeds in 7 to 11 (3 below 5, 9 above 11); per type, the best on all 30
+# is below (21 of 30, 1 below 5, 4 above 11; on the 10 new seeds alone 5 of 10, none below 5). A shared 16 of 20 is
+# out of reach for independent random-spread sets: the count of each type is about Poisson-distributed and swings with
+# the spawn's climate (dev/poc-results.md, round H3). Desert Arch and Reef Altar never fell within 4,000 blocks and
+# keep 72/27.
 SPACING, SEPARATION = 72, 27
+TYPE_SPACING = {"forest_ring": (72, 27), "mountain_spire": (80, 30), "steppe_stones": (80, 30), "swamp_altar": (80, 30),
+                "volcanic_ring": (48, 18)}
 FOREST_RING_BIOMES = ["plains", "hills", "rolling_hills", "lowlands",
                       "doline_plains", "doline_hills", "doline_rolling_hills", "cenote_plains", "cenote_hills",
                       "cenote_rolling_hills", "burren_plains", "shilin_plains", "shilin_hills", "tower_karst_plains",
@@ -581,7 +588,8 @@ def worldgen_files(k):
     }
     out[f"worldgen/structure_set/wayshrine/{k.tid}.json"] = {
         "structures": [{"structure": f"firmages:wayshrine/{k.tid}", "weight": 1}],
-        "placement": {"type": "tfc:climate", "salt": salt(k.tid), "spacing": SPACING, "separation": SEPARATION, "climate": k.climate},
+        "placement": {"type": "tfc:climate", "salt": salt(k.tid), "spacing": TYPE_SPACING.get(k.tid, (SPACING, SEPARATION))[0],
+                      "separation": TYPE_SPACING.get(k.tid, (SPACING, SEPARATION))[1], "climate": k.climate},
         "neoforge:conditions": TFC_LOADED,
     }
     out[f"tags/worldgen/biome/has_structure/wayshrine/{k.tid}.json"] = {
