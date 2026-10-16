@@ -123,9 +123,10 @@ public final class HarvestRegistry {
         modBus.addListener(HarvestRegistry::creativeTab);
     }
 
-    /** Game-bus listeners: the reload listener of {@code sky_harvest.json}. */
+    /** Game-bus listeners: the reload listener of {@code sky_harvest.json}; the test storm ends with the server. */
     public static void registerGame(IEventBus bus) {
         bus.addListener((net.neoforged.neoforge.event.AddReloadListenerEvent e) -> e.addListener(new SkyHarvestDataLoader()));
+        bus.addListener((net.neoforged.neoforge.event.server.ServerStoppedEvent e) -> StormWeather.reset());
     }
 
     /**

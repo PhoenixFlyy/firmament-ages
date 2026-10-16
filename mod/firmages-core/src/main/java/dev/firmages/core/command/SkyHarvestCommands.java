@@ -14,6 +14,7 @@ import dev.firmages.core.sky.SkyHarvestDataLoader;
 import dev.firmages.core.sky.SkySavedData;
 import dev.firmages.core.sky.StormRodBlock;
 import dev.firmages.core.sky.StormRodBlockEntity;
+import dev.firmages.core.sky.StormWeather;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
@@ -26,7 +27,7 @@ import java.util.Locale;
 
 /**
  * {@code /firmages sky aurora on|off|auto | status [pos] | band [radius]} (SPEC §26.8) and {@code /firmages sky storm
- * rain|thunder|clear [seconds] | strike <pos> | status <pos>} (operators only, like every {@code /firmages} command).
+ * rain|thunder|clear [seconds] | auto | strike <pos> | status <pos>} (operators only, like every {@code /firmages} command).
  * The override is saved in {@code firmages_sky}; {@code band} reads far columns without loading their chunks.
  */
 final class SkyHarvestCommands {
@@ -43,12 +44,13 @@ final class SkyHarvestCommands {
                 .then(Commands.literal("band").executes(c -> band(c, 2048))
                     .then(Commands.argument("radius", IntegerArgumentType.integer(256, 16384)).executes(c -> band(c, IntegerArgumentType.getInteger(c, "radius"))))))
             .then(Commands.literal("storm")
-                .then(Commands.literal("rain").executes(c -> weather(c, true, false, 600))
-                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, true, false, IntegerArgumentType.getInteger(c, "seconds")))))
-                .then(Commands.literal("thunder").executes(c -> weather(c, true, true, 600))
-                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, true, true, IntegerArgumentType.getInteger(c, "seconds")))))
-                .then(Commands.literal("clear").executes(c -> weather(c, false, false, 600))
-                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, false, false, IntegerArgumentType.getInteger(c, "seconds")))))
+                .then(Commands.literal("rain").executes(c -> weather(c, StormWeather.Mode.RAIN, 600))
+                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, StormWeather.Mode.RAIN, IntegerArgumentType.getInteger(c, "seconds")))))
+                .then(Commands.literal("thunder").executes(c -> weather(c, StormWeather.Mode.THUNDER, 600))
+                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, StormWeather.Mode.THUNDER, IntegerArgumentType.getInteger(c, "seconds")))))
+                .then(Commands.literal("clear").executes(c -> weather(c, StormWeather.Mode.CLEAR, 600))
+                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, StormWeather.Mode.CLEAR, IntegerArgumentType.getInteger(c, "seconds")))))
+                .then(Commands.literal("auto").executes(c -> weather(c, StormWeather.Mode.AUTO, 0)))
                 .then(Commands.literal("strike").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::strike)))
                 .then(Commands.literal("status").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::rodStatus))));
     }
@@ -133,12 +135,15 @@ final class SkyHarvestCommands {
         return Math.max(best, 0);
     }
 
-    private static int weather(CommandContext<CommandSourceStack> c, boolean rain, boolean thunder, int seconds) {
+    /**
+     * A test storm for the rods ({@link StormWeather}): TerraFirmaCraft owns the overworld's weather and refuses
+     * vanilla {@code /weather}, so this only changes what Storm Rods see; {@code /time set rain} is TFC's own jump.
+     */
+    private static int weather(CommandContext<CommandSourceStack> c, StormWeather.Mode mode, int seconds) {
         ServerLevel ow = c.getSource().getServer().overworld();
-        int ticks = seconds * 20;
-        ow.setWeatherParameters(rain ? 0 : ticks, rain ? ticks : 0, rain, thunder);
-        line(c.getSource(), "Overworld weather: " + (thunder ? "thunder" : rain ? "rain" : "clear") + " for " + seconds + " s (now raining "
-            + ow.isRaining() + ", thundering " + ow.isThundering() + ")");
+        StormWeather.force(ow, mode, seconds * 20L);
+        line(c.getSource(), "Storm Rods see " + mode.id() + " for " + seconds + " s (the world's own weather: raining " + ow.isRaining()
+            + ", thundering " + ow.isThundering() + ")");
         return 1;
     }
 
@@ -168,7 +173,8 @@ final class SkyHarvestCommands {
         }
         ServerLevel level = c.getSource().getLevel();
         line(c.getSource(), "Storm Rod: reason " + be.reason() + ", sand " + be.sand() + ", output room " + be.outputRoom() + ", strikes "
-            + be.strikes() + ", open sky " + be.skyOpen(level) + ", raining " + level.isRaining() + ", thundering " + level.isThundering());
+            + be.strikes() + ", open sky " + be.skyOpen(level) + ", raining " + StormWeather.raining(level) + ", thundering "
+            + StormWeather.thundering(level) + " (override " + StormWeather.active(level).id() + ", " + StormWeather.remaining(level) / 20 + " s left)");
         return (int) be.strikes();
     }
 }

@@ -34,8 +34,8 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * The Storm Rod's basin (SPEC §26.5): 16 input slots for {@code storm.input} ({@code #c:sands}) and 16 output slots.
- * Every {@link StormRules#ROLL_TICKS} ticks it rolls for a strike while the overworld rains and the sky above the tip is
- * open; a strike spawns a visual-only bolt at the tip (no fire, no damage, no charged creeper, no vanilla rod pulse)
+ * Every {@link StormRules#ROLL_TICKS} ticks it rolls for a strike while the overworld rains ({@link StormWeather}) and the
+ * sky above the tip is open; a strike spawns a visual-only bolt at the tip (no fire, no damage, no charged creeper, no vanilla rod pulse)
  * and fuses {@code sand_per_strike} sand into storm glass. No energy, no redstone count, no forecast.
  */
 public final class StormRodBlockEntity extends BlockEntity implements MenuProvider {
@@ -141,10 +141,11 @@ public final class StormRodBlockEntity extends BlockEntity implements MenuProvid
     void serverTick(ServerLevel level) {
         if (Math.floorMod(level.getGameTime() + worldPosition.asLong(), (long) StormRules.ROLL_TICKS) != 0) return;
         boolean sky = skyOpen(level);
-        Reason r = reasonNow(level.isRaining(), sky);
+        boolean raining = StormWeather.raining(level);
+        Reason r = reasonNow(raining, sky);
         setReason(level, r);
         if (r == Reason.STORM && ServerConfig.skyHarvestEnabled()
-            && roll(level.getRandom(), level.isRaining(), level.isThundering(), sky)) {
+            && roll(level.getRandom(), raining, StormWeather.thundering(level), sky)) {
             strike(level);
         }
     }
@@ -183,7 +184,7 @@ public final class StormRodBlockEntity extends BlockEntity implements MenuProvid
         for (int i = INPUTS; i < INPUTS + OUTPUTS && !out.isEmpty(); i++) out = items.insertItem(i, out, false);
         if (!out.isEmpty()) Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1, worldPosition.getZ() + 0.5, out);
         setChanged();
-        setReason(level, reasonNow(level.isRaining(), skyOpen(level)));
+        setReason(level, reasonNow(StormWeather.raining(level), skyOpen(level)));
         return fused;
     }
 

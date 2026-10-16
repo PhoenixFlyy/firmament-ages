@@ -2,7 +2,7 @@
   "aurora": {
     "min_y": 140,
     "reference_y": 140,
-    "max_average_temp": 0.0,
+    "max_average_temp": -10.0,
     "night_chance": {
       "cold": 0.5,
       "warm": 0.25

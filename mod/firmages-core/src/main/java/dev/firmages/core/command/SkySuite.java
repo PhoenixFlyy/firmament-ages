@@ -142,6 +142,8 @@ public final class SkySuite implements SelfTest.Suite {
             for (Block b : blocks) {
                 var state = b.defaultBlockState();
                 var be = b instanceof net.minecraft.world.level.block.EntityBlock eb ? eb.newBlockEntity(net.minecraft.core.BlockPos.ZERO, state) : null;
+                // a detached block entity with the overworld as its level: other mods' capability providers read be.getLevel()
+                if (be != null) be.setLevel(level);
                 for (net.minecraft.core.Direction d : net.minecraft.core.Direction.values()) {
                     if (net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK.getCapability(level, net.minecraft.core.BlockPos.ZERO, state, be, d) != null) {
                         bad.add(BuiltInRegistries.BLOCK.getKey(b) + " " + d);

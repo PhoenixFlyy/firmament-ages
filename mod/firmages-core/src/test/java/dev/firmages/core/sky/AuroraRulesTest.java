@@ -76,12 +76,12 @@ class AuroraRulesTest {
 
     @Test
     void bandIsReadAtTheReferenceHeight() {
-        float seaAvg = 15.0F; // a temperate column: 2.5 °C at Y 140, -14 °C at Y 250
+        float seaAvg = 5.0F; // the spawn latitude: -7.5 °C at Y 140, -12.8 °C at Y 250
         assertTrue(column(seaAvg, 250) <= A.maxAverageTemp(), "the isle top alone would count as polar");
         float atRef = column(seaAvg, A.referenceY());
         AuroraRules.Result r = eval(AuroraRules.Override.ON, NIGHT, false, atRef, atRef - 5, 0, 0);
         assertFalse(r.inBand() || r.active(), "a net at Y 250 above a warm column stays off: " + r);
-        float cold = column(10.0F, A.referenceY()); // -2.5 °C at Y 140
+        float cold = column(0.0F, A.referenceY()); // -12.5 °C at Y 140, about 2,000 blocks poleward of spawn
         assertTrue(eval(AuroraRules.Override.ON, NIGHT, false, cold, cold - 5, 0, 0).active(), "a cold column at the reference height");
     }
 
@@ -95,8 +95,8 @@ class AuroraRulesTest {
                 long t = day * 24000L + 18000;
                 int x = (cell % 10) * 512;
                 int z = (cell / 10) * 512;
-                if (eval(AuroraRules.Override.AUTO, t, false, -3F, -8F, x, z).active()) coldHits++;
-                if (eval(AuroraRules.Override.AUTO, t, false, -3F, 2F, x, z).active()) warmHits++;
+                if (eval(AuroraRules.Override.AUTO, t, false, -13F, -18F, x, z).active()) coldHits++;
+                if (eval(AuroraRules.Override.AUTO, t, false, -13F, -8F, x, z).active()) warmHits++;
                 n++;
             }
         }
@@ -105,8 +105,8 @@ class AuroraRulesTest {
         assertEquals(0.5, cold, 0.04, "cold half yields every other clear night");
         assertEquals(0.25, warm, 0.04, "warm half yields half as often");
         // one cell agrees across its 512 blocks and the roll is stable for a night
-        AuroraRules.Result a = eval(AuroraRules.Override.AUTO, NIGHT, false, -3F, -8F, 1, 1);
-        AuroraRules.Result b = eval(AuroraRules.Override.AUTO, NIGHT + 3000, false, -3F, -8F, 511, 300);
+        AuroraRules.Result a = eval(AuroraRules.Override.AUTO, NIGHT, false, -13F, -18F, 1, 1);
+        AuroraRules.Result b = eval(AuroraRules.Override.AUTO, NIGHT + 3000, false, -13F, -18F, 511, 300);
         assertEquals(a.roll(), b.roll());
         assertEquals(a.intensity(), b.intensity());
     }
@@ -115,12 +115,12 @@ class AuroraRulesTest {
     void rainDayAndOverride() {
         // find a cell that rolls under the cold chance tonight
         int x = 0;
-        while (!eval(AuroraRules.Override.AUTO, NIGHT, false, -3F, -8F, x, 0).active()) x += 512;
-        assertFalse(eval(AuroraRules.Override.AUTO, NIGHT, true, -3F, -8F, x, 0).active(), "rain hides it");
-        assertFalse(eval(AuroraRules.Override.AUTO, NIGHT - 12000, false, -3F, -8F, x, 0).active(), "day hides it");
+        while (!eval(AuroraRules.Override.AUTO, NIGHT, false, -13F, -18F, x, 0).active()) x += 512;
+        assertFalse(eval(AuroraRules.Override.AUTO, NIGHT, true, -13F, -18F, x, 0).active(), "rain hides it");
+        assertFalse(eval(AuroraRules.Override.AUTO, NIGHT - 12000, false, -13F, -18F, x, 0).active(), "day hides it");
         assertFalse(eval(AuroraRules.Override.AUTO, NIGHT, false, 1F, -8F, x, 0).active(), "too warm");
-        assertFalse(eval(AuroraRules.Override.OFF, NIGHT, false, -3F, -8F, x, 0).active(), "off beats everything");
-        assertTrue(eval(AuroraRules.Override.ON, NIGHT - 12000, true, -3F, 5F, x + 512, 0).active(), "on beats night, rain and roll");
+        assertFalse(eval(AuroraRules.Override.OFF, NIGHT, false, -13F, -18F, x, 0).active(), "off beats everything");
+        assertTrue(eval(AuroraRules.Override.ON, NIGHT - 12000, true, -13F, 5F, x + 512, 0).active(), "on beats night, rain and roll");
         assertFalse(eval(AuroraRules.Override.ON, NIGHT, false, 1F, -8F, x, 0).active(), "but not the band");
         assertEquals(AuroraRules.Override.ON, AuroraRules.Override.parse("on"));
         assertEquals(AuroraRules.Override.AUTO, AuroraRules.Override.parse("bogus"));

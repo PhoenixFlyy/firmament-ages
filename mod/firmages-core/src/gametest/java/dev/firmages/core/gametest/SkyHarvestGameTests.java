@@ -11,6 +11,7 @@ import dev.firmages.core.sky.SkyHarvestDataLoader;
 import dev.firmages.core.sky.SkySavedData;
 import dev.firmages.core.sky.StormRodBlock;
 import dev.firmages.core.sky.StormRodBlockEntity;
+import dev.firmages.core.sky.StormWeather;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
@@ -80,7 +81,7 @@ public final class SkyHarvestGameTests {
         // the net's own height is min_y here (the template sits far below Y 140); the band reads the test climate
         SkyHarvestDataLoader.set(new SkyHarvestData(new SkyHarvestData.Aurora(abs.getY(), a.referenceY(), a.maxAverageTemp(), a.chanceCold(),
             a.chanceWarm(), a.mbPerHour(), a.netCapacity(), a.shareRadius(), a.colors()), before.storm(), List.of()));
-        ClimateSources.set(new TestClimateSource(-5F, -10F));
+        ClimateSources.set(new TestClimateSource(-15F, -20F));
         sky.setAuroraOverride("on");
         Runnable restore = () -> {
             sky.setAuroraOverride(override);
@@ -153,6 +154,14 @@ public final class SkyHarvestGameTests {
         ok(h, Math.abs(rain - 1000) < 120, "rain: about one strike in 240 rolls (4,800 ticks): " + rain);
         ok(h, ratio > 3.6 && ratio < 4.4, "thunder four times rain: " + ratio);
         ok(h, !StormRodBlockEntity.roll(r1, false, false, true) && !StormRodBlockEntity.roll(r1, true, true, false), "dry or covered: never");
+        // the operators' test storm (TFC owns the world's weather): only the rods see it, and it ends
+        StormWeather.force(level, StormWeather.Mode.THUNDER, 100);
+        ok(h, StormWeather.raining(level) && StormWeather.thundering(level), "a forced thunderstorm");
+        StormWeather.force(level, StormWeather.Mode.CLEAR, 100);
+        ok(h, !StormWeather.raining(level), "a forced clear sky");
+        StormWeather.force(level, StormWeather.Mode.RAIN, 0);
+        ok(h, StormWeather.active(level) == StormWeather.Mode.AUTO, "an override that ran out is gone");
+        StormWeather.reset();
 
         BlockPos basin = h.absolutePos(ROD);
         Pig[] pig = new Pig[1];

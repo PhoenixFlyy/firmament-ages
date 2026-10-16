@@ -42,7 +42,7 @@ public record SkyHarvestData(Aurora aurora, Storm storm, List<String> errors) {
     public record Storm(int meanStrikeTicksRain, double thunderFactor, int sandPerStrike, String input, String result) {}
 
     public static final SkyHarvestData DEFAULT = new SkyHarvestData(
-        new Aurora(140, 140, 0.0, 0.5, 0.25, 100, 4000, 1, List.of(0x3CFF9E, 0x7A5CFF)),
+        new Aurora(140, 140, -10.0, 0.5, 0.25, 100, 4000, 1, List.of(0x3CFF9E, 0x7A5CFF)),
         new Storm(4800, 4, 4, "#c:sands", "firmages:storm_glass"), List.of());
 
     public boolean valid() {
