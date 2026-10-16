@@ -3574,3 +3574,67 @@ copy is deleted.
 | javap FTB Quests 2101.1.36, FTB Library 2101.1.37, Certain Questing Additions 1.2.0.4 | `QuestPanel.alignWidgets` (quest x/y is the centre; button 1.5 zoom, spacing zoom x `quest_spacing` / 4), `QuestButton.positionControlPoints`/`getConnectionPoints` (stored control point = wanted point + 3/7 x the dependent's size; first point near the dependency), `Quest.readDepControlPoints` (`dep_control_pts`, four doubles), `Chapter` (`autofocus_id`, image ids via `readID`), `ChapterImage` (`click_action`, `dependency`), `ImageClickAction` (`open_quest`, `custom_event`), `ClientTextComponentUtils` (`image`, `width`, `height`, `align`, `fit`, `click_action`, `text`), `ViewQuestPanel` (`{@pagebreak}`), CQA `ApngTextureManager.isAPngPath` (only `*.apng.png` animate) | facts used |
 | Copy boot | Done after 152 s wall clock (server 28.1 s); 266 mod files with 257 mods; FTB Quests "Loaded 3 chapter groups, 15 chapters, 404 quests, 21 reward tables" with no FTB Quests warning; KubeJS startup and server 0 errors; `check_log.py`: FATAL 0, ERROR 8, WARN 244, documented noise 250, remaining 4 (Tutorial Wayshrine site search on the new world, a deferred task of Advanced Chimneys, two config corrections of the copy), none from the book; clean stop after 240 s hold | pass |
 | In the client | curves, APNG playback, picture clicks, page arrows, hidden chapter images | needs client (`dev/client-test-brief.md`, section Chronik B1) |
+
+## 1.0 round H3+B1 (2026-10-16)
+
+`--no-ff` merges of h3/measure, h3/endgame, h3/links, b1/quest-images and b1/quest-engine (in that order) into dev,
+then pack 0.13.0 and firmages-core 0.13.0. Before the first merge the main worktree held an uncommitted
+`dev/gen_quests.py` (08:23, an early snapshot of the quest-engine work written into the wrong tree); it was saved to
+`scratchpad/integ/gen_quests.dirty-on-dev.py` and discarded, since b1/quest-engine carries the finished version.
+Conflicts: the docs (decision rows, open points, evidence, SPEC §38 to §41, client brief, dev README) keep the rows of
+both sides, and rows one branch settled leave the open list; `BalanceCommands` keeps both energy subcommands
+(`reference` from h3/measure, `charge` from h3/endgame; the first hand merge lost one parenthesis and failed the build,
+fixed in 8b6ca18); `validate_quests.py` keeps both picture checks and counts words per guide page; `pack.toml` and
+`index.toml` taken from one side and refreshed. `dev/gen_quests.py` merged without conflict and regenerates the merged
+book byte for byte. Integration work on dev: the 32 pictures of `dev/gen_quest_images.py` wired into their quests
+(79f062c), antimatter at a tenth of the polonium (16101c6). Felix's test server stayed off and untouched; every boot
+ran on the copy `.wt/test-server-h3b1-int` (`robocopy` without world, logs and local; its `kubejs/` deleted before
+the first sync; ports 25600 and RCON 25610; whitelist off; synced with `packwiz-installer-bootstrap -g -s server` from
+my own `packwiz serve -p 8391`, "Finished successfully"; `debug.allowSimulate = true` and the gate switch set after
+each sync), each boot with a new world and `-Xms3G -Xmx5G`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 270 unit tests, 0 failures (0.12.0: 258); `mods/firmages-core-0.13.0.jar` byte-identical to `build/libs` (`cmp`) | pass |
+| `runGameTestServer` in a fresh `run/gametest` | firmages 0.13.0; "All 123 required tests passed" (0.12.0: 115; new: the endgame tests, the reference smoke build) | pass |
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | Done after 88.0 s wall clock (server 15.8 s); 266 mod files with 257 mods; 43,959 recipes encoded; KubeJS startup and server 0 errors | done |
+| `gen_stage_locks.py --registry`, `derive_ages.py --scan --mods <copy>/mods`, `derive_ages.py`, `gen_stage_locks.py` | 36,647 items; 3,225 moved later, 3,817 never reachable; final dawn 4,208, age_0 1,148, age_1 7,471, age_2 4,938, age_3 2,285, age_4 1,234, age_5 739, age_6 1,588, age_7 615, age_8 683, age_9 378, disabled 11,360; `dev/age_map.toml` unchanged, 0 tag files rewritten (the branches' derived rows agree: elite installer age_7, ultimate installer age_8, osmium double ingot hidden, the 18 trapdoors age_2); `--check` up to date | pass |
+| `check_registry_parity.py dump` against the 0.12.0 gate-off dump (`scratchpad/integ/d2`, integration C2 boot 2) | only `firmages` ids added: blocks, items and block entities +2 each (`ore_processor`, `arcane_catalyst`), recipe type and serializer `firmages:ore_processing`, global loot modifier serializer `firmages:replace_item`; TFCAstikorCarts 81 woods per part, TFC Regrowing Forests 2 ids and 99 recipes unchanged | expected |
+| Copy boot 2 (gate on, new world, `recipes audit`, grants, dumps, audits, `selftest all`, sky and endgame commands) | at Dawn 43,960 recipes, 36,470 dropped; at age_9 4,402 dropped (disabled 4,395, superseded 7), 849 undetected (37 types, 117 serializers); Age coverage: all 21,079 ProgressiveStages Age item locks in an Age tag; `selftest all` 106 passed, 0 failed (core 18, gate 24, server 14, sky 10, crown 6, wayshrines 8, isles 8, launch 8, ark 5, endgame 5: 68 processor recipes at 6.0x, 124 catalysable machines, 200 chests with 0 vanilla iron and 340 wrought iron, dial costs, regrowth guard on) | pass |
+| `/firmages ore audit` (boot 2, age_9) | 43,960 recipes, 676 ore-piece measurements, 68 pieces; best tech factor: age_0 1.0, age_1 1.0, age_2 1.5, age_3 1.5 (magic 2.0), age_4 2.5, age_5 2.5, age_6 2.857 to 3.0, age_7 4.0, age_8 5.0, age_9 6.0 (`ore_processor` 6.000, target 6.00); L-1 to L-4 pass | pass |
+| `/firmages wayshrine census` (boot 2, seed 2341207898227760221, spawn -1232 90 1472) | 18 ground Wayshrines within 4,000 blocks (volcanic ring 12, forest ring 3, mountain spire 2, steppe stones 1), nearest 630 blocks; above the 7 to 11 window on this volcanic-belt seed; the 30-seed census of h3/measure stands (21 of 30 within 7 to 11) | noted (open point) |
+| Sky and endgame commands (boot 2) | isle cluster 46 blocks from spawn, 3 isles; aurora band north from 512 blocks (spawn -3.06 C, band at or below -5.56 C with the 2.5 C spawn offset); `sky storm forecast` 24.3 storm glass per rod per real hour over the next 5 hours (target 10 to 25); `origin gate`: system-wide 10,000,000 FE, interstellar 1,000,000,000 FE, wormhole 50,000 FE/t; `energy reference list` 0 builds (the builds are not shipped, `dev/reference/`); `sky storm status` does not exist (the boot script still sent it) | pass |
+| `poc_analyze.py --server-dir <copy> --dump-dir <boot 2> --baseline <boot 1>` | 130 PASS, 0 FAIL at the first run, among them K-1 (25 link recipes hold their part, 7 replaced routes gone), R-K, L-1 to L-7 with age_9 6.0, D-1, W-1 to W-9, S-1 to S-4, the C- content checks | pass |
+| Copy boot 3 (gate on, new world, grants, hold 120 s) | `check_log.py`: 73.6 s to Done; FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0 | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 15 chapters, 21 reward tables, 1,079 lang keys; 1,520 object ids, 0 errors, 0 warnings (after keeping picture lines in the page: the merged lint counted each knapping caption as a paragraph) | pass after fix |
+| `check_menus.py`, `gen_textures.py --check`, `gen_quest_images.py --check`, `gen_quest_pictures.py --check`, `gen_wood_classes.py --check`, `gen_fuels.py --check`, `gen_machine_usage.py --check --server-dir`, `miner_ladder.py --check`, `gen_ark.py --check`, `gen_wayshrines.py --check`, `gen_recipe_overrides.py --check --mods`, `gen_multiblock_templates.py --check --mods`, `gen_way_sign_textures.py --check`, `gen_loot_silence.py --check`, `gen_cold_forge.py --check`, `gen_blood_moon.py --check`, `gen_firmament_night.py --check`, `gen_ponder_schematics.py --check`, `gen_primordial.py --check`, `gen_menu_art.py --check`, `preview_quests.py` | menus pass; 348 textures, 0 errors, 0 warnings; 32 pictures, 88,725 bytes, 0 problems; quest_pictures.json up to date; 276 wood class files; fuel ladder creosote 81,920 < diesel 1,318,912 < ethene 11,280,000 < D-T 43,190,000 FE per bucket; 325 values read back, 91 off their default; Digital Miner 1.48x the excavator per ore mB, every step lowers the FE per ingot; 47 ark files; 89 Wayshrine files; 543 recipe and 504 loot overrides, 0 problems; 35 templates, 7 pack copies; 34 way sign icons; Cold Forge 594 blocks; 56 and 45 files; 28 bones; 8 menu art files; previews unchanged (`gen_quest_art.py` has no `--check`) | pass |
+| Copy boot 4 (the release state: antimatter config, 0.13.0 title; gate on, new world, grants, hold 120 s) | Done after 77.8 s; KubeJS 0 errors; `check_log.py` 76.0 s to Done, ERROR 8, WARN 242, documented noise 252, remaining 0; `gen_machine_usage.py --check --server-dir` reads `inputPerAntimatter = 100` back, up to date | pass |
+| `release.ps1 -Version 0.13.0`, `export_cf.py`, `verify_install.py` | `pack.toml` and title line 0.13.0; `.mrpack` 477.4 MB, CurseForge zip 77.1 MB, server pack 504.3 MB, SHA-256 list; upload zip 7.4 MB, 12 swaps, 265 manifest files, only `firmages-core-0.13.0.jar` in overrides; `cfzip` 2,970 of 2,970 and `mrpack --side server` 2,934 of 2,934, no missing, extra or wrong hash. Nothing uploaded | pass |
+| Mods | 264 metafiles plus `firmages-core`, 265 in the credits; none added or removed (content lock) | done |
+
+### Measurements of the round
+
+| What | Value | Band or target | Source |
+|---|---|---|---|
+| Energy age_4: Create boiler 18 with alternators | 3,024.0 FE/t (0 before the H1A fix) | 1,000 to 3,024 | h3/measure, reference build |
+| Energy age_5: IE diesel generator / CDG huge diesel engine | 4,096 FE/t config value (not live) / 147.0 FE/t | side source | h3/measure |
+| Energy age_6: gas-burning generator, one ethene line | 11,339.7 FE/t (large GBG 11,280.0) | 10,000 to 20,000 | h3/measure |
+| Energy age_7: fission 1 mB/t through an 11x11x18 turbine | 98,399.9 FE/t (78,711.4 before tuning) | 50,000 to 120,000 | h3/measure |
+| Energy age_8: fusion at injection 20 | 96,769.7 FE/t passive, 841,139.4 FE/t through a turbine | passive at most fission; 200,000 to 1,000,000 | h3/measure |
+| Energy age_9: DE reactor, half (4 blocks fuel) | 1,090,601.5 FE/t net | 1 to 3 M | h3/measure |
+| Antimatter pellet | 100,000 mB polonium, 40 G FE (was 400 G): about 48 min of the age_8 turbine plant | demanding, not a wait | integration, config read back |
+| Stargate dial to The Origin | 1 G FE: 917 ticks (46 s) of the half DE reactor | reactor scale | integration, `origin gate` |
+| Ore factor per Age (best tech, live recipes) | age_0 1.0, age_1 1.0, age_2 1.5, age_3 1.5 (magic 2.0), age_4 2.5, age_5 2.5, age_6 2.857 to 3.0, age_7 4.0, age_8 5.0, age_9 6.0 | ladder 1 / 1.5 / 2.5 / 3 / 4 / 5 / 6 | boot 2 `ore audit` |
+| Wayshrines within 4,000 blocks | 18 on the copy seed (12 volcanic rings); 21 of 30 seeds within 7 to 11 (h3/measure census) | 7 to 11 | boot 2 census, h3/measure |
+| Storm Rod | 24.3 storm glass per rod per real hour on the copy seed (h3/measure: 19.8 and 19.3) | 10 to 25 | boot 2 `sky storm forecast` |
+| Quests per chapter | The Firmament 28, Dawn 15, Stone 30, Bronze 33, Iron 32, Arcane 39, Industrial 41, Electric 35, Information 36, Space 38, Quantum 34, Singularity 25, The Gatehouse 6, The Living House 6, The Silo 6: 404 quests, 1,520 object ids, 1,079 lang keys | | `validate_quests.py` |
+| Quest pictures | `gen_quest_images.py` 32 files, 88,725 bytes (15 knapping, 9 devices, 4 Ponder stills, 4 plans); `gen_quest_pictures.py` 53 shrine files, 1,498,519 bytes (9 ring animations as `.apng.png`) and 5 works views, 82,937 bytes; every picture in a quest | 256 KB per file, 10 MB in total (`--check`) | file sizes |
+
+### Open points
+
+- In the client (brief 0.13.0 Nachtrag): the new Chronicle (curves, APNG, picture clicks, page arrows), the pictures'
+  sharpness, the Great Works tasks, the links, the Ore Processor, the Arcane Catalyst on a real machine, a Stargate
+  dial, the antimatter time, the IE diesel generator and the aurora on a warm spawn.
+- Wayshrine density on volcanic-belt seeds (18 on the copy seed), the Tutorial Wayshrine site search, the TFC heat
+  StackOverflow after `/reload` (h3/measure), the old Origin arenas with their fusion core: `dev/offene-punkte.md`.
+- Pacing and strands of the quest round B2 build on this book: `dev/quest-hints-links.md`, `LAYOUT_HINTS`.

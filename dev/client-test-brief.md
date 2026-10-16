@@ -1,5 +1,39 @@
 # Client-Test
 
+## 0.13.0 Nachtrag (1.0 Runde H3+B1 2026-10-16, Pack 0.13.0, firmages-core 0.13.0)
+
+**Profil neu importieren** (Client und Server brauchen firmages-core 0.13.0 wegen der zwei neuen Blöcke; Protokoll
+bleibt 6). Eine alte Welt läuft weiter; die Osmium-Ader des Excavators und der neue Wayshrine-Abstand gibt es nur in
+neuen Chunks, das Origin-Rücktor verliert seinen Fusionskern nur in neuen Arenen. Server-Teil auf der Kopie geprüft
+(`dev/poc-results.md`, Abschnitt „1.0 round H3+B1 (2026-10-16)“): `poc_analyze.py` 130 PASS, 0 FAIL (K-1 Links, R-K,
+Erzleiter bis 6,0 in der Singularitätszeit), `selftest all` 106 von 106 (endgame 5 von 5), GameTests 123 von 123,
+`check_log.py` 0 übrig, `validate_quests.py --style` 0 Fehler, 0 Warnungen. Hier nur, was ein Client zeigt; die
+Einzelheiten stehen in den Zweig-Abschnitten darunter („Runde H3 Endspiel“, „Quest-Bilder“, „Chronik B1“).
+
+1. **Chronik.** The Firmament ist das erste Kapitel (kein Welcome mehr), öffnet auf „You Wake“; die Notizen links,
+   die Straße der Opfergaben als Spirale. Kurven der Abhängigkeitslinien sehen aus wie in `dev/quest-preview/`
+   (der Bezugspunkt der Kontrollpunkte ist nur aus dem Bytecode abgeleitet). Bauanleitung eines Rings: Seite 1 spielt
+   die Aufbau-Animation (APNG, nur mit Certain Questing Additions), Pfeile blättern durch die Schichten, die Bilder
+   im Age-Kapitel öffnen dieselbe Anleitung. Versteckte Kapitel und ihre Bilder erscheinen erst mit ihrer Age.
+2. **Bilder.** Knapping-Muster (64 px) und Geräte (128 px) scharf bei GUI-Skala 2, 3 und Auto; Bildunterschrift über
+   dem Muster stimmt („light squares stay“); „The Lens Crown“ zeigt Krone und Akkorde, Klick öffnet Ponder, Escape
+   führt zurück. Great Works: Seite 2 des Einstiegs zeigt den Plan; Portcullis- und Luken-Standbild öffnen ihre Szene.
+3. **Great Works.** Die Beobachtungs-Aufgaben haken ab: `create:elevator_contact` (Lift), `create:gearshift[powered=true]`
+   (Tor), `ad_astra:launch_pad[powered=true]` (Silo). Belohnungen kommen als Items.
+4. **Links (A9).** Presse macht aus einem heißen Barren zwei Stangen; drei Gummibarren geben vier Riemen; Rakete Stufe 3
+   nimmt keinen Diesel, aber Flüssigwasserstoff; Hydrotreater macht Ethen; Digital Miner und Fusionsrahmen im
+   Mechanical Crafter; Osmium-Ader im Excavator (neuer Chunk, Core Sample); wie viel Latex ein Gummibaum gibt.
+5. **Erzprozessor** (Singularitätszeit): Modell und aktive Textur, Jade-Zeilen mit Tanks und Wartegrund, EMI-Kategorie
+   „Ore Processing“ erst ab der Singularitätszeit, Befüllen per Eimer, Rohr und Mekanism-Chemieleitung.
+6. **Arkan-Katalysator** an einer echten Mekanism-Kammer und einem IE-Multiblock (an einem Teil, nicht am Master):
+   +50 % Tempo, doppelte FE je Zusatz-Tick, Source-Partikel vom Gefäß, ohne drehende Welle (64 RPM) kein Effekt.
+7. **Sternentor.** Wählen nach The Origin zieht 1 G FE aus dem Tor, offen 50.000 FE/t; ohne Strom wählt es nicht.
+   Rückweg aus The Origin klappt ohne eigenen Strom.
+8. **Antimaterie.** Ein Pellet braucht jetzt 100.000 mB Polonium (SPS-Anzeige); Zeit je Pellet an der Fusionsanlage
+   mit Turbine notieren (gerechnet etwa 48 min bei 841.000 FE/t).
+9. **Messung im Client:** IE-Diesel-Generator von Hand gebaut mit `/firmages energy audit 8 10` daneben (auf dem
+   Server blieb er inaktiv); Polarlicht auf einer Welt mit warmem Spawn (Band ab etwa −5,8 °C).
+
 ## Runde H3 Endspiel (2026-10-16, Zweig h3/endgame, für den Integrator)
 
 Server-Teil auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0 round H3, end game“): GameTests 122 von

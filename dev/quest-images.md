@@ -89,6 +89,15 @@ Damit es keine zwei Bilder für dieselbe Aussage gibt, gilt: `works/` ist das fe
 Bau-Strangs), `build/` hier das beschriftete Teile-Diagramm für die Schritt-Quests (was wo sitzt). Ponder-Klicks
 gehören auf die `ponder/`-Bilder dieses Generators, nicht auf `works/`.
 
+## Einbindung (Integration H3+B1, 2026-10-16)
+
+Alle 32 Bilder stehen in Quests (`dev/gen_quests.py`): `knap_grid()` gibt das Knapping-Bild seines Musters aus (die
+Zeilen im Aufruf bleiben die Prüfquelle für `--check`; ein Muster ohne Bild bricht den Generator ab); `device/` in
+Before Dark, Potter, A Better Fuel, Forging, The Grind, Ironworks, Blast Furnace und Barrel; `ponder/lens_crown` und
+`ponder/chords` in „The Lens Crown“, `ponder/portcullis` und `ponder/silo_hatch` in den Werk-Quests; `build/` auf
+Seite 2 der Werk-Einstiege, `build/silo_open` in „The Shaft“. Die Engine-Bilder (`works/`) zeigen Karte, Einstieg
+und Ziel. Die Ponder-Klicks hängen auch an den `works/`-Bildern der Engine (sie öffnen dieselben Szenen).
+
 ## Wünsche (quest-engine trägt ein)
 
 | Schlüssel | Was | Status |
