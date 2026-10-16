@@ -449,6 +449,8 @@ DAWN = age_chapter(
                 'obsidian tools, the firestarter, straw, thatch, sticks and rope.',
                 '',
                 'Logs and stone do not break by hand: the stone axe fells trees, stone waits for the copper pickaxe.',
+                'Every tree drops the log of its wood class: oak, birch, spruce, jungle, acacia, dark oak, mangrove or',
+                'cherry. Logs of one class stack, whatever tree they came from.',
                 '',
                 'No recipe viewer until the Bronze Age; this book draws every pattern.']),
         # Patterns: tfc:knapping/stone/knife_head/<group>_1 (two blades from one rock), hammer_head/<group>,
@@ -564,18 +566,21 @@ STONE = age_chapter(
             Q('stone/hearth/idol', 'Hearth Idol', t_item('firmages:hearth_idol', 2),
               desc=['Fire both in a pit kiln, like any other pottery. One becomes the heart of the shrine,',
                     'the other the Hearthstone.']),
-            # TFC 4.2.11: saw = blade over a stick (tfc:crafting/metal/saw/copper), saw + log = 8 lumber
-            # (wood/lumber/<wood>_from_logs), 4 lumber = planks, 4 planks = workbench, 4 loose rocks = cobblestone
-            # (rock/cobble/<rock>). The shrine recipes below are 3x3 (kubejs/server_scripts/recipes/age_0/stone_age.js).
+            # TFC 4.2.11: saw = blade over a stick (tfc:crafting/metal/saw/copper). Wood classes (HW1A,
+            # recipes/age_0/wood_classes.js): saw + vanilla log = 2 planks, 4 vanilla planks = crafting table (in the
+            # block tag tfc:workbenches, dev/gen_wood_classes.py), saw + planks = 4 lumber of the class's lead species.
+            # 4 loose rocks = cobblestone (rock/cobble/<rock>). The shrine recipes below are 3x3
+            # (kubejs/server_scripts/recipes/age_0/stone_age.js).
             Q('stone/hearth/bench', 'Workbench',
-              t_observe('tfc:workbenches', kind='block_tag', title='Look at your placed workbench'),
-              icon='tfc:wood/workbench/oak',
-              desc=['Build a workbench. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2.',
+              t_observe('tfc:workbenches', kind='block_tag', title='Look at your placed crafting table'),
+              icon='minecraft:crafting_table',
+              desc=['Build a crafting table. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2.',
                     '',
                     '- Knap a saw blade mold (see "Clay Patterns") and fire it. Right-click the glowing vessel and',
                     'put the mold in the slot.',
                     '- Put the blade above a stick: a saw.',
-                    '- A saw and a log make eight lumber, four lumber make planks, four planks a workbench.',
+                    '- A saw and a log make two planks. Four planks make a crafting table.',
+                    '- A saw and planks make four lumber: barrels, chests and tool racks take lumber.',
                     '',
                     'Four loose rocks in the 2x2 grid make a cobblestone. The shrine takes many.']),
             Q('stone/shrine/heart', 'The Shrine Heart',
@@ -670,6 +675,23 @@ STONE = age_chapter(
                 '- Rope bridge: string in the top corners, three slabs below. Log bridge: the same with fences.',
                 'Rail bridge: fences in the corners over fence, slab, fence. Pier: log, fence, log.',
                 'Six bridges as a staircase: bridge stairs.']),
+        # Wood classes (HW1A, dev/wood_classes.toml): natural trunks drop the class log (loot from
+        # dev/gen_wood_classes.py), recipes/age_0/wood_classes.js R5 to R8 and the sapling swap. No recipe viewer
+        # before the Bronze Age, so the class table lives here.
+        Q('stone/info/woods', 'Wood Classes', t_check(), kind='explain', icon='minecraft:oak_log',
+          desc=["For a tree's own wood, put eight class logs or planks around its sapling. Its own log turns back",
+                'into the class log, its sapling into the class sapling.',
+                '',
+                '- Oak: oak, ash, maple, sycamore, beech, black oak',
+                '- Birch: birch, aspen, eucalyptus, ginkgo, poplar, rainbow eucalyptus',
+                '- Spruce: spruce, pine, douglas fir, white cedar, sequoia, cypress, araucaria, red cedar, kauri',
+                '- Jungle: kapok, palm, teak, hevea, tualang, mahoe',
+                '- Acacia: acacia, baobab, gum arabic',
+                '- Dark oak: blackwood, hickory, chestnut, ironwood, ipe',
+                '- Mangrove: mangrove, willow, mahogany',
+                '- Cherry: rosewood, fig, rubber fig',
+                '',
+                'Golden bamboo and bamboo turn into each other. Class saplings grow on any soil.']),
     ],
     supplies='stone_supplies', comfort='stone_comfort')
 
@@ -760,7 +782,7 @@ BRONZE = age_chapter(
               [t_item('create:shaft', 8, title='Shafts'), t_item('create:cogwheel', 4, title='Cogwheels')],
               icon='create:cogwheel', desc=['Carry the rotation to your machines.']),
             Q('bronze/kin/saw', 'Mechanical Saw', t_item('create:mechanical_saw'),
-              desc=['Build a mechanical saw. It cuts logs into lumber without a hand saw.']),
+              desc=['Build a mechanical saw. It cuts logs into planks and lumber without a hand saw.']),
         ], Q('bronze/kin/key', 'First Mill',
              [t_observe('create:millstone', title='Look at a placed millstone'),
               t_observe('create:water_wheel', title='Look at a placed water wheel')],
@@ -803,9 +825,9 @@ BRONZE = age_chapter(
                 'Crushing wheels, deployers and brass come with the Iron Age.',
                 '',
                 'Hover over a machine in your inventory and hold W to watch it work.']),
-        Q('bronze/info/home', 'A Home', t_check(), kind='explain', icon='everycomp:hc/tfc/oak_chair',
-          desc=['Furniture opens: chairs, tables, shelves, doors and windows in every wood.',
-                'The recipe viewer shows how each is made.']),
+        Q('bronze/info/home', 'A Home', t_check(), kind='explain', icon='handcrafted:oak_chair',
+          desc=['Furniture opens: chairs, tables, shelves, doors and windows in every wood, vanilla wood and',
+                "every tree's own wood alike. The recipe viewer shows how each is made."]),
     ],
     supplies='bronze_supplies', comfort='bronze_comfort',
     ring=ring_quest('bronze', 1, 'the Bronze Sanctum', 'tfc:bronze_bell',
