@@ -43,11 +43,14 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Review-Fixes 0.11.0 im Client: Wireless Crafting Terminal unverlinkt (Raster, Ergebnis, Zutaten beim Schließen zurück), Alternator an einer befeuerten Dampfmaschine und an einem Dieselmotor (Server-Kopie zeigte nur Anteil 0 am Kreativmotor und die Gegenprobe ohne Regel, 168 FE/t; ein Dieselmotor ließ sich per Befehl nicht füllen), Tooltip des Consecrated Shard, Zell-Tooltip 126 Typen | `dev/client-test-brief.md` (0.11.0, Punkte 2, 4 und 6) | Felix |
 | 0.11.0-Nachtrag in `dev/client-test-brief.md`: neue Mods pro Age, The Primordial, Starfall, Wayshrines, Balance-Zahlen, Messroutine | `dev/client-test-brief.md` | Felix |
 | Felix' Test-Server hält veraltete Dateien, die der packwiz-Installer nicht löscht: `mods/` mit Cataclysm, Gateways to Eternity und `firmages-core-0.9.2.jar`, `kubejs/data/twilightforest`, `kubejs/server_scripts/finale`. Vor dem nächsten Start dort `kubejs/` löschen und die drei Jars entfernen, dann synchronisieren (die Kopie dieser Runde lief so sauber) | `test-server/` | Felix |
+| M17 Archipel im Client: nach dem Sieg eine Insel wachsen lassen (Stufen 1 bis 3 aus den Vorlagen, Wachstum vom Sockel nach außen), Strahl am Altar in der Farbe der Insel, nach der neunten Insel der FINALE-Himmel 10 s; Sockel-Textur; als Arbeit der Steininsel eine befeuerte TFC-Feuerstelle (ohne Brennstoff geht sie im ersten Tick aus) | The Origin, `/firmages ark status` | Felix |
 
 ## Inhalt und Config (Claude)
 
 | Was | Wo | Wer |
 |---|---|---|
+| M17-Integration: Protokoll auf „7“ setzen (nach M14s „6“), Dump ohne Gate laufen lassen, damit `derive_ages.py` den `ark_plinth` wie den `origin_altar` nach `age_items/disabled` und in die Verstecken-Liste legt; danach `selftest ark` im Pack | `FirmagesNetwork.VERSION`, `dev/derive_ages.py`, `dev/gen_stage_locks.py` | Claude (Integration) |
+| M17: Kronen der Archipel-Inseln prüfen, sobald M14 da ist (Rauminsel: zwei Deep-Space-Proben; bis dahin fällt der Eintrag per `item_exists` weg) | `firmages_ark/island/age_7.json`, `selftest ark` | Claude |
 | `derive_ages.py --scan` liest Block-Prädikate von Features als platzierte Blöcke: `minecraft:crimson_fungus` „platziert“ `minecraft:oak_sapling` (Überlebens-Prüfung), so steht der Vanilla-Eichensetzling in der Arkanzeit, ohne dass er dort zu finden ist. Prädikate beim Scan auslassen | `dev/derive_ages.py` (Scan der Features) | Claude |
 | Apotheosis-Weltstufe pro Age (Haven bis Pinnacle): Befehlssyntax unbekannt, nur Platzhalter | `kubejs/server_scripts/stages/grants.js` (POC-Kommentar) | Claude, mit Server-Test |
 | TFC + IE Crossover: Quarz-Geode abschalten (die TFCreate-Quarzader ist kanonisch) | Datapack-Override, Key nicht verifiziert | Claude |

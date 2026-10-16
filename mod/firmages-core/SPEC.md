@@ -658,7 +658,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `wayshrine list` / `status [pos]` / `locate <type>` / `tutorial [here]` / `light <pos>` / `reset <pos> [stone]` / `stone <pos>` | §28.9 (M16) |
 | `anchor list` / `status [pos]` | §29.7 (M16) |
 | `isles lode <pos>` / `isles fallback status\|place [pos]` | §30.9 (M13) |
-| `launch status [pos]` / `finish <pos>`, `ark status` / `grant <island> <group>` / `reset <island>` | §31.9 (M14, M17) |
+| `launch status [pos]` / `finish <pos>`, `ark status` / `check <island>` / `grant <island> <group>` / `reset <island>` | §31.9 (M14, M17) |
 | `selftest <suite|all>` | Server-side test suites (§12; `sky` since M10, §24.7), report in `logs/firmages-selftest.json` |
 
 ## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "5" since the sky features' M10: `firmages:starfall_streak`; "6" with M14 and "7" with M17, §24.6; "4" since 0.9.0: `firmages:age_status` gained `reloadPending` and `gathered`, `firmages:shrine_sync` gained the living-shrine fields; "3" since 0.8.1 added `toolRule`)
@@ -2206,7 +2206,8 @@ The Archipelago crown entries name `#firmages:celestial_alloy/age_3` .. `age_8` 
 | `launch status [pos]` | Phase, progress, fuel, slots, wait reason |
 | `launch finish <pos>` | Needs `debug.allowSimulate` |
 | `ark status` | Groups, crown and stage per island |
-| `ark grant <island> <group>` / `ark reset <island>` | Debug |
+| `ark check <island>` | Runs the plinth's work check, as an empty-hand click does |
+| `ark grant <island> <group>` / `ark reset <island>` | Debug (`debug.allowSimulate`) |
 
 ### 31.10 Tests
 
@@ -2228,6 +2229,24 @@ The Archipelago crown entries name `#firmages:celestial_alloy/age_3` .. `age_8` 
 4. The age_7 payload needs no Space Age alloy (no deadlock with V4A).
 5. The arena migration never changes a player block.
 6. Nothing outside §31.8 reads the Archipelago state, and a world that never touches it finishes the pack.
+
+### 31.12 Implementation notes (M17, Archipelago part, branch `c2/sky-m17`, 2026-10-16)
+
+- **Package `ark/`.** `ArkData` (pure parser of `data/<ns>/firmages_ark/island/*.json`) with `ArkDataLoader` (reload listener; crown entries carry `neoforge:item_exists` guards, a failed guard leaves the entry out with an INFO line), `ArkRules` (pure: accept, apply, settle, target stage, completion, sockets, growth order), `ArkProgress` (pure) and `ArkState` (NBT, inside `OriginSavedData` under `ark.age_0`..`age_8`), `ArkWork` (work check), `ArkGrowth` (template blocks, scheduling, placement), `ArkService` (events, plinth, operators, sync), `ArkPlinthBlock`, `ArkPlinthInput`, `ArkRegistry`. Client: `client/ArkClient`. Commands: `command/ArkCommands`, suite `command/ArkSuite` (`selftest ark`, also in `all`). Compat: `compat/create/CreateKinetics` (set as `ArkWork.kineticSpeed` only with Create loaded).
+- **Islands are 0..8,** the shrine Ages of `OriginArena.islandTop` (Stone .. Quantum); the Singularity Age has none.
+- **Arena v3.** `OriginArena.VERSION` = 3. A world below v2 gets `buildArena` (v2 layout) and then the same air-only step as a v2 world: `migrateV3` = `widenIsland` (new ring, trim rim at the edge, deeper rock cone; no top block inside the old footprint, so a dug hole stays) plus `placePlinth` (first free spot of `plinthSpots`: one north of the echo, then seven fallbacks; an existing plinth is found again). `origin rebuild` runs both. The plinth positions are recorded in the island progress.
+- **Plinth.** Unbreakable, no loot, light 9, `Capabilities.ItemHandler.BLOCK` without a block entity (one always-empty slot that takes only what the island still asks for; nothing extracts). Right-click order: a led animal, then the held item as a sample; a block item it does not want passes to normal block use; an empty hand also runs the work check and tells what is missing.
+- **Groups.** flora (one option of `distinct` ids or `count` items), fauna, work; each done group grows the next stage (K = groups done). The crown grows no stage; it only completes the island. An island whose `fauna.entities` is empty (Space, Quantum) gets its fauna group once the finale is won, so it grows stage 1 right after the win.
+- **Rules shipped (`dev/gen_ark.py`).** As the §31.8 table with these choices: Stone flora also takes the eight vanilla saplings (wood decision HW1A); Bronze work is a lit bloomery or a charcoal forge at `heat_level` >= 1; Arcane flora is four archwood saplings **or four TFC flowers** (enchanted books are hidden in this pack and are one item id), work a lit Theurgy brazier or calcination oven **or a kindled Create blaze burner**; Industrial flora eight IE hemp seeds (`count`); Information work `ae2:controller[state=online]`; Space flora from aeronos and strophar mushrooms and caps and glacian leaves; Quantum flora vanilla Nether and End plants (`#firmages:ark/quantum_flora`). Energy rules ask for at least 1 FE.
+- **Templates.** 25 by 22 by 25, island top centre at template (12, 6, 12); stage 1 soil and plants, stage 2 the Age's work (north-east), stage 3 a landmark (south-west) and what hangs under the rim; vanilla blocks only; nothing inside radius 2.6 above the surface (plinth and echo). 120 to 233 blocks per stage 1, 15 to 95 per later stage.
+- **Growth.** Steps ordered by distance from the plinth over `ark.growthTicks`; a step waits while its chunk is unloaded; the grown blocks are recorded at once (position and block id), so a later stage may replace only those, and `ark reset` removes only those that still stand.
+- **Beams.** `ArkClient` draws `BeaconRenderer.renderBeaconBeam` at `ALTAR + ArkRules.socket(i)` (radius 3, toward island `i`) in the tier's `beam_color` for each set bit; the ninth bit sends `celebrate`, and the client shows the FINALE tint (0xD9C2FF) for 200 ticks through `SkyEffects`.
+- **Network.** `firmages:ark_sync` = stages (byte per island), complete mask, beam colours, celebrate flag; sent on entering The Origin, at login there, and to everyone in The Origin on change. Registered in the branch under protocol "5"; the merge after M14 sets "7" (§24.6).
+- **Commands.** `ark status`, `ark check <island>` (operators), `ark grant <island> <group>` and `ark reset <island>` (also `debug.allowSimulate`).
+- **Tests.** U `ArkRulesTest` (10, including `gen_ark.py --check`). G `ArkGameTests`: `inertBeforeFinale`, `samplesCountOnce`, `stagesNeverOverwritePlayerBlocks`, `completeLightsSocket`, `arenaV3KeepsBuilds`. The GameTest run has no TFC or Create: the islands under test get vanilla rules and a lodestone stands in for the kinetic work.
+- **Pack hand-off.** `dev/age_map.toml` row `firmages:ark_plinth` = age_9; the next gate-off dump puts it into `age_items/disabled` and the hidden list like `origin_altar` (`derive_ages.py`).
+- **Copy boot (pack, 2026-10-16).** Arena v3 on a new world: 15,945 air blocks and nine plinths in about 0.2 s. After `origin kill boss` the Space and Quantum islands grow stage 1; four TFC saplings by `debug use` grow the Stone island's stage 1 (120 blocks), a led `tfc:rabbit` its stage 2 (17 blocks). `selftest ark` 5 of 5. Details in `dev/poc-results.md`.
+- **Open (M).** One island grown in a client: the stages, the beams at the altar from the arena and the FINALE tint after the ninth; a fuelled TFC firepit as the Stone island's work (an unfuelled one goes out on its first tick).
 
 ## 32. Work breakdown (M10 to M17)
 
