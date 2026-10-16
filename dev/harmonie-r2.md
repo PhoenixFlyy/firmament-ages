@@ -86,7 +86,7 @@ zurück. Evolved Mekanism hat keine eigene Verbrauchs-Config: Alloyer, Chemixer,
 | klein 200–400 | Enrichment, Crusher, Combiner/Alloyer, Metallurgic Infuser, Energized Smelter, Sawmill, Rotary, Seismic Vibrator (je 20 → 200); Osmium Compressor, Pumpe, Plenisher, Assemblicator, Painting Machine (40 → 400) |
 | mittel 800 | Purification, Chemical Oxidizer/Melter, Infuser, Washer, Isotopic Centrifuge, Nutritional Liquifier, Pigment Extractor/Mixer (80 → 800) |
 | groß 1.600 | Injection, Dissolution, Crystallizer, Modification Station (160 → 1.600) |
-| Sonder | Laser 4.000 → 40.000; Teleporter 400 + 4/Block → 4.000 + 40/Block (40.000 zwischen Dimensionen); Digital Miner 400 → 36.000 (Abschnitt 5) |
+| Sonder | Laser 4.000 → 40.000; Teleporter 400 + 4/Block → 4.000 + 40/Block (40.000 zwischen Dimensionen); Digital Miner 400 → 4.800 (Abschnitt 5; bis zum Review-Fix 0.12.0 36.000) |
 | unverändert | Chargepad (Übertragungsrate), Antiprotonic Nucleosynthesizer und die große Variante (40.000, schon Quantenband), Dimensional Stabilizer (Chunkladen), Evolved Mekanism APT (40.000), More-Machine-Replikatoren (versteckt) |
 | More Machine | Ambient Gas Collector 40 → 400, große Rotary 20 → 200, großer Chemical Infuser und Pigment Mixer 40 → 400 (+ versteckte Recycler, Planting Station, CNC, Presser ×10) |
 
@@ -102,34 +102,43 @@ Jars [J]: Mekanism 200 Ticks je Operation (Dissolution 100, Washer 1 mB/Tick), I
 Ticks (360° / 8 Schaufeln). TFC-Adern im Mittel 24 mB je Erzblock [J] (Eisen, Zinn, Gold; arme Kupferadern 18,5,
 reiche 29,5). Chemikalien (O₂, HCl, H₂SO₄) nicht mitgezählt; sie verteuern nur die höheren Stufen.
 
-**Vorher (H2A x10, Miner auf Mekanism-/IE-Standard) [B]:** Digital Miner 10.000 J/t × 80 Ticks = 320.000 FE je Block
-= 13.333 FE/mB. FE je Barren: 3x 578 k, 4x 893 k (+55 %), 5x 1,43 M (+61 %): jede Stufe über 3x kostete mehr Strom
-als ein zweiter Miner. Excavator Tempo 1: Mittel 13,5 k FE/mB; mit Energie-Upgrades 5x nur −1,7 % gegen 4x (reichste Ader +7,6 %).
+**Review-Fix 0.12.0.** Mit 90.000 J/t (36.000 FE/t) kostete der Digital Miner (Weltraumzeit) 300.000 FE je Erz-mB,
+etwa neunmal so viel wie der Excavator (Elektrozeit), und voll aufgerüstet 360.000 FE/t, das Dreifache einer ganzen
+Spaltanlage. Die Leiterregel hielt nur, weil der spätere Miner nutzlos war. Neu: der Miner kostet das 1- bis 2-Fache
+des Excavators je Erz-mB, die Leiter hält über die Verarbeitung (Energie-Upgrades, die das Questbuch ab der
+Informationszeit lehrt).
+
+**Weltraumzeit-Anlage (Paket A8) [J]:** Spaltreaktor 1.000.000 J Wärme je mB Brennstoff (`generators.toml`
+`energyPerFissionFuel`), Wasserkühlung 0,2 / 10 J → 20.000 mB Dampf je mB Brennstoff (`HeatUtils`: Effizienz 0,2,
+Enthalpie = `maxEnergyPerSteam` 10), Turbine höchstens 10 J je mB Dampf (`general.toml` `maxEnergyPerSteam`) →
+200.000 J = **80.000 FE/t je mB/t Abbrand**. Eine Anlage mit 1 mB/t braucht 20.000 mB/t Dampf, also 16 Dispergierer
+(je 1.280 mB/t, `disperserChemicalFlow`): eine Turbine mit 5×5 Innenfläche. Das ist das Band 50.000 bis 120.000 FE/t
+des Harmonie-Plans. Fusion (Quantenzeit) braucht diese Entscheidung nicht. Live mit `/firmages energy audit` an
+Referenzbauten gemessen ist das nicht (offener Punkt „Generator-FE/t per Audit“); die Formeln sind Mekanisms eigene,
+die Werte die der Kopie-Boot-Config.
 
 **Jetzt:**
 
 | Miner | Einstellung | Durchsatz | FE je Erz-mB |
 |---|---|---|---|
-| Digital Miner | 90.000 J/t (36.000 FE/t), 200 Ticks je Block | 360 Blöcke/h ohne, 3.600 mit 8 Tempo-Upgrades (dann 360.000 FE/t mit 8 Energie-Upgrades); 8.640 bzw. 86.400 mB/h | 7,2 M FE je Block bei gleich vielen Tempo- und Energie-Upgrades = 300.000 |
-| IE Excavator | 4.096 FE/t, Tempo 0,5 (ein Grab je 90 Ticks), Ertrag 38.400 je Ader | 800 Grabungen/h; je Ader 108 bis 760 Erzstücke/h, Mittel 13,6 mB je Grab = 109 Barren/h bei 1x | Mittel 27.021 (16.384 reichste Ader) |
+| Digital Miner | 12.000 J/t (4.800 FE/t), 200 Ticks je Block | 360 Blöcke/h ohne, 3.600 mit 8 Tempo-Upgrades (dann 48.000 FE/t mit 8 Energie-Upgrades = 0,6 mB/t Spaltbrennstoff); 8.640 bzw. 86.400 mB/h | 960.000 FE je Block bei gleich vielen Tempo- und Energie-Upgrades = 40.000 (1,48 × Excavator-Mittel) |
+| IE Excavator | 4.096 FE/t, Tempo 0,5 (ein Grab je 90 Ticks), Ertrag 38.400 je Ader | 800 Grabungen/h; Mittel 13,6 mB je Grab | Mittel 27.021 (16.384 reichste Ader) |
 
-FE je Barren (Abbau + Verarbeitung) [B, `miner_ladder.py` auf dem Dump]:
+FE je Barren (Abbau + Verarbeitung) [B, `miner_ladder.py` auf dem Gate-aus-Dump der Review-Runde]:
 
 | Route | 2,5x | 3x | 4x | 5x |
 |---|---|---|---|---|
-| Digital Miner, Mekanism mit denselben Upgrades | 12,01 M | 10,13 M (−15,6 %) | 8,06 M (−20,5 %) | 7,17 M (−11,1 %) |
+| Digital Miner, Mekanism mit 8 Energie-Upgrades | 1,61 M | 1,35 M (−16,1 %) | 1,06 M (−21,6 %) | 0,92 M (−13,2 %) |
+| Digital Miner, Mekanism ohne Upgrades | 1,61 M | 1,47 M (−8,7 %) | 1,56 M (+6,4 %) | 1,97 M (+26,2 %) |
 | Excavator Mittel, Mekanism mit 8 Energie-Upgrades | 1,09 M | 0,91 M (−15,9 %) | 0,73 M (−20,0 %) | 0,66 M (−10,2 %) |
 | Excavator reichste Ader, 8 Energie-Upgrades | 0,66 M | 0,56 M (−15,4 %) | 0,47 M (−16,8 %) | 0,44 M (−4,5 %) |
 | Excavator Mittel, Mekanism ohne Upgrades | 1,09 M | 1,03 M (−4,8 %) | 1,24 M (+19,5 %) | 1,71 M (+38,3 %) |
 
-Barren je Stunde aus einem Miner: Digital Miner mit 8 Tempo-Upgrades 86.400 mB/h → 2.592 (3x), 3.456 (4x), 4.320
-(5x) Barren/h bei 360.000 FE/t; ohne Upgrades 259 / 346 / 432 Barren/h. Excavator Mittel 10.912 mB/h → 273 (2,5x),
-327 (3x), 436 (4x), 546 (5x) Barren/h. Die Stufe hebt also bei gleichem Miner den Ertrag je Stunde um 33 % bzw.
-25 % und senkt die FE je Barren; ein zweiter Miner kostet dagegen den vollen Abbaustrom.
-
-Regel im Check: jede Stufe senkt die FE je Barren um mindestens 5 % für den Digital Miner und die mittlere
-Excavator-Ader mit Energie-Upgrades. Ohne Energie-Upgrades lohnt sich hinter dem Excavator nur 3x (Zeile 4); das
-Questbuch soll Energie-Upgrades ab der Informationszeit lehren (Paket A11, offener Punkt).
+Regeln im Check: jede Stufe senkt die FE je Barren um mindestens 5 % für den Digital Miner und die mittlere
+Excavator-Ader, jeweils mit Energie-Upgrades; der Digital Miner kostet das 1- bis 2-Fache des Excavators je Erz-mB
+(jetzt 1,48); voll aufgerüstet zieht er höchstens eine Weltraumzeit-Anlage (`--plant`, 80.000 FE/t). Ohne
+Energie-Upgrades lohnt sich hinter beiden Minern nur 3x (Zeilen 2 und 5): diese Falle nennt das Questbuch jetzt
+(„Energy Upgrades“ in der Informationszeit, „Ore Times Four“ und „Ore Times Five“).
 
 ## 6. Prüfungen dieser Runde
 
@@ -142,3 +151,20 @@ Questbuch soll Energie-Upgrades ab der Informationszeit lehren (Paket A11, offen
 | `derive_ages.py --check`, `gen_stage_locks.py --check` | aktuell |
 | `selftest all` | 71 bestanden, 3 rot (Krone, bis M15 so gewollt) |
 | `check_log.py` | FATAL 0, ERROR 8, alle dokumentiert, Rest 0 |
+
+## 7. Zählnachweis: zwei Stunden einer Referenzlinie (Review-Fix 0.12.0)
+
+Die Zahlen des Harmonie-Plans (512 / 2.048 / 4.096 / 4.096 / 8.192) waren nie gemessen. Neu ist die Tally Chute ein
+Zehnt: sie nimmt nur, was der laufende Nachweis noch will, und verbraucht es. Jede Zahl ist etwa zwei Stunden einer
+Referenzlinie der Age (SPEC §35), auf ganze Stapel gerundet. Belege aus dem Kopie-Boot der Review-Runde:
+
+| Age | Zahl | Referenzlinie | Rechnung |
+|---|---|---|---|
+| Industrie | 384 Stahl | ein Improved Blast Furnace mit zwei Vorwärmern | Rezept `immersiveengineering:blastfurnace/steel` 1.200 Ticks [Dump]; `AdvBlastFurnaceLogic.getProcessSpeed` = 1 + je aktivem Vorwärmer 1, zwei Plätze [J] → 400 Ticks je Barren, 180/h, 2 h = 360 |
+| Elektro | 512 Aluminium | ein Excavator auf Laterit, Brecher 2,5x | Mix `immersiveengineering:mineral/laterite` [Dump]: Bauxit 11,5 mB je Grab nach 5 % Fehlgrab; 800 Grabungen/h → 9.208 mB/h → 230 Barren/h, 2 h = 460 |
+| Information | 1.024 Osmium | kein Excavator-Mix, kein Miner: Create-Bohrer oder Hand auf TFC-Adern, Reinigung 3x | Zensus 208 Chunks [M]: 6.367 Osmium-Erzblöcke (30,6 je Chunk), Mittel 23,7 mB → 0,71 Barren je Block; 1.024 = 1.440 Blöcke, das Osmium von etwa 47 Chunks. Dauer nicht gemessen (Bohrer-Bauten streuen) |
+| Weltraum | 2.880 Desh | ein Digital Miner ohne Upgrades auf dem Mond, eine Injektionskammer (4x) | Zensus Mond 52 Chunks [M]: 2.730 Desh-Erz = 52,5 je Chunk (ein Minerfeld mit Radius 32 hält etwa 870); Miner 360 Blöcke/h, Injektion 1 Erz → 4 Splitter in 200 Ticks [Dump, J] → 1.440/h, 2 h = 2.880 |
+| Quanten | 3.584 Calorit | ein Digital Miner auf der Venus, Dissolution (5x) | Zensus Venus 52 Chunks [M]: 1.992 Calorit-Erz = 38,3 je Chunk (etwa 630 je Minerfeld); 360 Blöcke/h × 5 = 1.800/h, 2 h = 3.600, auf 56 Stapel gerundet. Ein Washer schafft ohne Upgrades nur 72 Erz/h (1 mB/Tick, 1.000 mB je Erz): die 5x-Linie braucht Tempo-Upgrades oder mehrere Washer |
+
+Strom: 2.880 Desh = 720 Erzblöcke × 0,96 M FE = 0,69 G FE Abbau über die zwei Stunden, also 4.800 FE/t oder 6 % einer
+1-mB/t-Spaltanlage; vorher (36.000 FE/t, 7,2 M FE je Block) wären es 5,2 G FE gewesen.

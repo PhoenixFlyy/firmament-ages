@@ -3397,3 +3397,34 @@ Measurements of the round (kept from the branch sections, not re-measured on the
 - `create_dragons_plus:sandpaper_polishing/*` counts differ between boots of the same pack; G-2 can turn red on it.
 - Reference builds for `/firmages energy audit`, then fission, turbine and fusion against the Digital Miner (package
   A8).
+
+## 0.12.0 review fixes, round C2 (2026-10-16, on dev)
+
+Sixteen review findings on 0.12.0 fixed on `dev`: the Tally Chute as a tithe and measured tally counts, the Digital
+Miner repriced against an Age-7 plant, vanilla sapling growth without later blocks, Dawn-only Wayshrine ruins, the
+Archipelago palette, the sky strands, proof, energy-upgrade and Arcane-route quests, recipe-viewer pages, the aurora
+every clear night, the Dawn grid hint and the walkthrough's saw step. Decisions: `dev/decisions-while-away.md` (rows
+"Review 0.12.0"), numbers: `dev/harmonie-r2.md` sections 5 and 7. Felix's test server stayed off and untouched apart
+from one read: a first `poc_analyze.py` run without `--server-dir` read its old `logs/firmages-recipe-audit.txt` (G-4
+then named `twilightforest:uncrafting`); the rerun against the copy is the result below. Every boot ran on the copy
+`.wt/test-server-c2fix` (`robocopy` without world, logs, local, simplebackups and crash-reports; its `kubejs/` deleted
+before the first sync; ports 25920 and RCON 25930; whitelist off; `debug.allowSimulate = true`), synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8200 --refresh=false`, "Finished successfully",
+each boot with a new world and `-Xms3G -Xmx5G`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 258 unit tests, 0 failures (`AuroraRulesTest` every clear night and the doubled cold half, `ShrineRulesTest` the new counts) | pass |
+| `runGameTestServer` in a fresh `run/gametest` | first two runs: 4 failures, all from my new tally test: its 8 counted iron stayed in `firmages_tally` and the hoppers fed 7 more once forgotten, so `offeringWaitsForProof` read "8/8" and "7/8" as the best team, failed before its clean-up and left `gt_prover` and its ages behind (`keystoneLending`, both Gathering tests). Fix: `TallyData.forget`, the tests remove their chutes, then forget their teams. Then "All 115 required tests passed" in two runs (the second on the final jar) | pass after fix |
+| `tallyChuteTakesTheProof` (in those runs) | test datapack asks 8 iron in the Industrial Age; hoppers with 5 and 10 iron give exactly 8, 7 stay; gold refused; a hand gives nothing after the proof; criteria item, tag and Age; the iron is gone from the world; idle 100 ticks, still 8 | pass |
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | Done after 84.0 s; 43,878 recipes; KubeJS startup and server 0 errors; `gen_stage_locks.py --registry`, `derive_ages.py --scan --mods <copy>/mods` (25,534 loot tables, 1,652 features, 1,635 templates), `derive_ages.py`, `gen_stage_locks.py`: the Tally Chute age_4, the meteorites age_2 and age_5 (were disabled); `derive_ages.py --check` up to date | done |
+| Sapling growth (boot 1, three debug players near spawn, `randomTickSpeed 3000`; far from a tracked player nothing ticks: debug players count only where they joined) | 256 oak saplings each with a TFC allium beside them: 0 left, 1,445 oak logs, 0 bee nests, 0 bees (vanilla's 5 % bee tree would give about 13 nests, P(0) about 2e-6); 64 mangrove propagules: 966 mangrove logs, 0 moss carpet, 0 bee nests; 36 squares of 2x2 spruce: 2,948 spruce logs (giant trees), 0 podzol | pass |
+| Ore census (boot 1, forceloaded, `scan_regions.py`) | Moon 52 chunks: 2,730 desh ore (52.5 per chunk); Venus 52 chunks: 1,992 calorite ore (38.3 per chunk); overworld 208 chunks at -1136 -1904: 6,367 osmium ore blocks (30.6 per chunk, mean 23.7 mB) | measured |
+| Jars and configs of the copy | IE `AdvBlastFurnaceLogic.getProcessSpeed` 1 + one per powered preheater, two places; steel 1,200 ticks; laterite 11.5 mB bauxite per dig; Mekanism fission 1,000,000 J per mB, steam efficiency 0.2 over enthalpy 10, turbine 10 J per mB: 80,000 FE/t per mB/t; Create Jetpack `heightAboveGroundLimit = -1`, 0.4 blocks per tick up, 450 s of air; Sable air pressure `exp(-0.004 (y - 63))` to Y 280, used by `ServerBalloon` lift; FTB Quests 2101.1.36 `dependency_requirement` / `one_completed` | read |
+| Copy boot 2 (gate on, new world, grants, dumps, `recipes audit`, `selftest all`) | gate at age_9: 39,476 live of 43,878, 4,402 dropped (disabled 4,395, superseded 7); `selftest all` 101 passed, 0 failed (ark `stage_templates` loads the TFC blocks: 225 to 337 blocks per island) | pass |
+| `poc_analyze.py --server-dir <copy> --dump-dir <boot 2> --baseline <boot 1>` | all checks PASS, among them the new W-9 (19 sapling features, none above its sapling's Age), G-1 to G-4, L-1 to L-7, D-1, W-1 to W-8, S-1 to S-4 | pass |
+| Copy boot 3 (gate on, new world, grants, hold 120 s) | `check_log.py`: 71.6 s to Done; FATAL 0, ERROR 8, WARN 241, documented noise 251, remaining 0 | pass |
+| `miner_ladder.py --dump-dir <boot 1> --check` | Digital Miner 40,000 FE per ore mB = 1.48 x the average excavator vein (27,021); fully upgraded 48,000 FE/t against 80,000; with energy upgrades every step lowers the FE per ingot (Digital Miner -16.1 / -21.6 / -13.2 %, excavator -15.9 / -20.0 / -10.2 %) | pass |
+| `gen_machine_usage.py --check --server-dir <copy>`, `gen_fuels.py --check`, `gen_wayshrines.py --check`, `gen_ark.py --check`, `gen_wood_classes.py --check`, `derive_ages.py --check`, `gen_stage_locks.py --check` | 282 values read back, 87 off their default, up to date; fuels up to date; 89 Wayshrine files, every ruin block Dawn (the first run named the four ruins of the review); 47 ark files, no disabled block (the first run named the eight vanilla blocks); 276 wood class files | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 13 chapters, 21 reward tables, 949 lang keys; 1,374 object ids, 0 errors, 0 warnings (the proof advancements resolved from `kubejs/data`) | pass |
+| `release.ps1 -Version 0.12.0`, `export_cf.py`, `verify_install.py` | `.mrpack` 475.6 MB, CurseForge zip 75.3 MB, server pack 502.5 MB; upload zip 5.6 MB, 12 swaps, 265 manifest files, only `firmages-core-0.12.0.jar` in overrides; `cfzip` 2,866 of 2,866 and `mrpack --side server` 2,830 of 2,830, no missing, extra or wrong hash; the server pack's jar has the build's SHA-256 and the new `tallies.json`. Nothing uploaded | pass |

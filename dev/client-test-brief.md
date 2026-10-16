@@ -1,5 +1,33 @@
 # Client-Test
 
+## 0.12.0 Review-Fixes (2026-10-16, Pack 0.12.0, firmages-core 0.12.0 neu gebaut)
+
+Server-Teil auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „0.12.0 review fixes, round C2“): GameTests
+115 von 115, `selftest all` 101 von 101, `poc_analyze.py` alle PASS (neu W-9), `check_log.py` 0 übrig. Hier nur, was
+ein Client zeigt; Punkt 8 und 11 des Nachtrags darunter gelten mit den neuen Zahlen.
+
+1. **Dawn-Hinweis.** In Dawn E drücken: in der grauen Fläche steht umgebrochen „No grid yet. V: lay items on a block.
+   Sneak + Right Button with an empty hand: craft.“ (Tasten aus der Belegung), lesbar, nichts über Spielermodell oder
+   Rand; beim ersten Öffnen der Sitzung derselbe Satz einmal in der Aktionsleiste. Im Curios-Bildschirm ebenso.
+2. **Tally Chute (jetzt Industriezeit).** Einen Trichter mit Stahlbarren darauf: die Chute nimmt nur, was der Nachweis
+   noch will, und behält es; Jade „Takes 384 more Steel Ingot for Caelum“, „Counted: …“, nach Erfüllung „Takes nothing
+   now“ und der Trichter behält den Rest; Rechtsklick mit Barren in der Hand wirft ein. Ziel-Quest und Herz nennen 384.
+3. **Questbuch.** Strang „Sky“ von der Eisen- bis zur Singularitätszeit (Layout mit fünf Strängen, Belohnungen der
+   Keystones), Arkanzeit mit „The Spirit Route“ und „The Machine Route“: die Ziel-Quest öffnet, sobald eine Route fertig
+   ist; „Proof of Work“-Nebenquests ab der Industriezeit, „Energy Upgrades“ in der Informationszeit.
+4. **EMI-Infoseiten.** Sturmglas, Firmament-Kristall, Polarlicht (Eimer und Fluid), Voidglass, Deep-Space-Probe,
+   Meteoreisen- und Sternenstahl-Brocken: Taste U zeigt eine Seite mit der Quelle; Meteorit und Starfall-Kern stehen ab
+   der Eisenzeit in EMI, der Sternenstahl-Meteorit ab der Elektrozeit. Das Client-Skript `viewer_info.js` lief noch in
+   keinem Client (Server ohne KubeJS-Fehler, Syntax geprüft): fehlt die Seite, das KubeJS-Log des Clients ansehen.
+5. **Polarlicht.** Im Kälteband steht jede klare Nacht Polarlicht, und das Netz fängt (Jade „Catching the aurora“),
+   im kalten Halbjahr doppelt so schnell; nie „No aurora overhead“ unter sichtbarem Polarlicht des Auroras-Mods.
+6. **Inseln.** Wie Punkt 4 des Nachtrags; erwartet nach den Jars: Jetpack ohne Höhengrenze (Luft für 450 s), die Hülle
+   eines Heißluftschiffs muss auf Inselhöhe etwa doppelt so groß sein wie am Boden (Sable-Luftdruck 0,43 bis 0,47).
+   Schafft eins von beiden die Inseln nicht, ist das ein Blocker für die Industriezeit (Cloudsteel).
+7. **Wind Shrine und Ruinen.** Keine Gitter mehr in den Ruinen von Swamp Altar, Mountain Spire und Wind Shrine, die
+   Reef-Altar-Ruine mit Kalkstein statt Korallen; nach dem Wiederaufbau mit Gittern und Korallenblöcken leuchten sie.
+8. **Digital Miner** mit 4.800 FE/t: fühlt sich die Weltraumzeit damit richtig an?
+
 ## 0.12.0 Nachtrag (1.0 Runde C2 2026-10-16, Pack 0.12.0, firmages-core 0.12.0)
 
 **Neue Welt empfohlen, Profil neu importieren** (Client und Server brauchen firmages-core 0.12.0, Netzwerk-Protokoll 6).
@@ -41,8 +69,8 @@ es jetzt in den Stilen, die auch eine TFC-Holz-Kopie haben, in deren Age.
 7. **Sky Anchor.** Anker auf dem Mond setzen, Splitter einer erweckten Stufe einlegen: Segen im Umkreis von 24 Blöcken,
    Jade-Zeile; nur Splitter nicht erweckter Stufen: Jade „Quiet …“.
 8. **Arbeitsnachweis am Schrein.** Ab der Industriezeit: Opfergabe ohne Zählung wird abgelehnt und bleibt in der Hand,
-   Caelum nennt die fehlende Zahl (512 Stahl, dann 2.048 Aluminium, 4.096 Osmium, 4.096 Desh, 8.192 Calorit durch
-   Tally Chutes in dieser Age); Jade am Herz zeigt die Zählung, die Ziel-Quest nennt sie. Data Nave: 10 Mio. FE ins
+   Caelum nennt die fehlende Zahl (seit den Review-Fixes: 384 Stahl, dann 512 Aluminium, 1.024 Osmium, 2.880 Desh,
+   3.584 Calorit, in Tally Chutes eingeworfen in dieser Age); Jade am Herz zeigt die Zählung, die Ziel-Quest nennt sie. Data Nave: 10 Mio. FE ins
    Herz, Quantum Ring 100 Mio., die Gathering 1 Mrd.
 9. **The Primordial.** Kampfdauer mit 1, 2 und 4 Spielern stoppen gegen das Modell 8,4 / 7,2 / 6,5 Minuten; ein Treffer
    macht höchstens 40 Schaden (auch mit dem Draconic-Bogen).
@@ -51,7 +79,7 @@ es jetzt in den Stilen, die auch eine TFC-Holz-Kopie haben, in deren Age.
     TFC-Feuerstelle als Arbeit.
 11. **Balance vorher/nachher** (Zahlen aus `dev/harmonie-r2.md`): Brechräder 1,7 → 1,5x, IE Crusher 2,0 → 2,5x plus
     Mineralpulver, Lichtbogenofen Staub → Barren 51.200 → 6.400 FE, Mekanism-Maschinen 10-facher Verbrauch, Digital
-    Miner 36.000 FE/t und 10 s je Block ohne Upgrades, Excavator halbes Tempo, Vanilla-Eisenbarren weg (Eisenstaub im
+    Miner 4.800 FE/t (Review-Fix; vorher 36.000) und 10 s je Block ohne Upgrades, Excavator halbes Tempo, Vanilla-Eisenbarren weg (Eisenstaub im
     Energized Smelter gibt Schmiedeeisen?), modularer Dieselmotor 1,68 → 1,31 Mio. FE je Eimer. Fühlen sich Miner und
     Mekanism in der Weltraumzeit zu teuer oder zu langsam an?
 
