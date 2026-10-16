@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:warped_slab",
+      "required": false
+    },
+    {
+      "id": "beneath:wood/planks/warped_slab",
+      "required": false
+    }
+  ]
+}

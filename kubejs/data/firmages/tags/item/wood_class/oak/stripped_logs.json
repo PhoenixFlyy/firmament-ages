@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:stripped_oak_log",
+      "required": false
+    },
+    {
+      "id": "minecraft:stripped_oak_wood",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/stripped_log/oak",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/stripped_wood/oak",
+      "required": false
+    }
+  ]
+}

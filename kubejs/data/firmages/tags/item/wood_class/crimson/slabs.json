@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:crimson_slab",
+      "required": false
+    },
+    {
+      "id": "beneath:wood/planks/crimson_slab",
+      "required": false
+    }
+  ]
+}

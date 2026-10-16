@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:stripped_crimson_stem",
+      "required": false
+    },
+    {
+      "id": "minecraft:stripped_crimson_hyphae",
+      "required": false
+    },
+    {
+      "id": "beneath:wood/stripped_log/crimson",
+      "required": false
+    },
+    {
+      "id": "beneath:wood/stripped_wood/crimson",
+      "required": false
+    }
+  ]
+}

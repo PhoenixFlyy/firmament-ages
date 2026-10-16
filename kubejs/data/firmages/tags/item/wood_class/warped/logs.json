@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:warped_stems",
+    "#beneath:warped_logs"
+  ]
+}

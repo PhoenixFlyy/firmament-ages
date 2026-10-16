@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "tfc:salt_marsh",
+  "features": "firmages:vanilla_mangrove_forest",
+  "step": "fluid_springs"
+}

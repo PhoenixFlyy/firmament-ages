@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:birch_slab",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/planks/birch_slab",
+      "required": false
+    }
+  ]
+}

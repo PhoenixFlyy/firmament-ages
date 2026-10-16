@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "firmages:vanilla_tree/oak/fancy_oak",
+        "chance": 0.2
+      }
+    ],
+    "default": "firmages:vanilla_tree/oak/oak"
+  }
+}

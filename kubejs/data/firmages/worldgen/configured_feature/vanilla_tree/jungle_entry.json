@@ -1,0 +1,20 @@
+{
+  "type": "tfc:forest_entry",
+  "config": {
+    "climate": {
+      "min_temperature": 20.0,
+      "max_temperature": 40.0,
+      "min_groundwater": 320,
+      "max_groundwater": 500,
+      "min_rain_variance": -0.55,
+      "max_rain_variance": 0.55,
+      "rain_variance_absolute": false
+    },
+    "normal_tree": "firmages:vanilla_tree/jungle",
+    "dead_tree": "firmages:vanilla_tree/jungle",
+    "old_growth_chance": 0,
+    "spoiler_old_growth_chance": 0,
+    "fallen_tree_chance": 0,
+    "dead_chance": 0
+  }
+}

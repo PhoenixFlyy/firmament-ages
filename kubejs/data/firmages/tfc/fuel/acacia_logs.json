@@ -1,0 +1,8 @@
+{
+  "duration": 1000,
+  "ingredient": {
+    "tag": "minecraft:acacia_logs"
+  },
+  "temperature": 650.0,
+  "purity": 0.95
+}

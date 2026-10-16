@@ -1,0 +1,8 @@
+{
+  "type": "tfc:forest",
+  "config": {
+    "entries": [
+      "firmages:vanilla_tree/mangrove_entry"
+    ]
+  }
+}

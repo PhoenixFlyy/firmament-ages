@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:stripped_spruce_log",
+      "required": false
+    },
+    {
+      "id": "minecraft:stripped_spruce_wood",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/stripped_log/spruce",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/stripped_wood/spruce",
+      "required": false
+    }
+  ]
+}

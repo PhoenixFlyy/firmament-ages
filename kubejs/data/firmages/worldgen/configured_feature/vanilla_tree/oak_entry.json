@@ -1,0 +1,20 @@
+{
+  "type": "tfc:forest_entry",
+  "config": {
+    "climate": {
+      "min_temperature": 2.0,
+      "max_temperature": 16.0,
+      "min_groundwater": 220,
+      "max_groundwater": 460,
+      "min_rain_variance": -0.5,
+      "max_rain_variance": 0.75,
+      "rain_variance_absolute": false
+    },
+    "normal_tree": "firmages:vanilla_tree/oak",
+    "dead_tree": "firmages:vanilla_tree/oak",
+    "old_growth_chance": 0,
+    "spoiler_old_growth_chance": 0,
+    "fallen_tree_chance": 0,
+    "dead_chance": 0
+  }
+}

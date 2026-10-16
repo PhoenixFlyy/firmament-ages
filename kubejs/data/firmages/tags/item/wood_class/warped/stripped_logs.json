@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:stripped_warped_stem",
+      "required": false
+    },
+    {
+      "id": "minecraft:stripped_warped_hyphae",
+      "required": false
+    },
+    {
+      "id": "beneath:wood/stripped_log/warped",
+      "required": false
+    },
+    {
+      "id": "beneath:wood/stripped_wood/warped",
+      "required": false
+    }
+  ]
+}

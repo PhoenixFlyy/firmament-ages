@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:dark_oak_slab",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/planks/hickory_slab",
+      "required": false
+    }
+  ]
+}

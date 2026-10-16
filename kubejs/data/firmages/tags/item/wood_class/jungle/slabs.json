@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:jungle_slab",
+      "required": false
+    },
+    {
+      "id": "afc:wood/planks/teak_slab",
+      "required": false
+    }
+  ]
+}

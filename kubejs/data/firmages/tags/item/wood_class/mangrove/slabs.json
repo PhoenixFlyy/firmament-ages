@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:mangrove_slab",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/planks/mangrove_slab",
+      "required": false
+    }
+  ]
+}

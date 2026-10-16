@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:mangrove_logs",
+    "#tfc:mangrove_logs"
+  ]
+}
