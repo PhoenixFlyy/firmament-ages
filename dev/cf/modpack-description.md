@@ -70,7 +70,7 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 0.14.0 contains 265 mods. Thank you to every author.
+Firmament Ages 1.0.0 contains 265 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
