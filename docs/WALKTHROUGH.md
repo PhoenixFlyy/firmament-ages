@@ -25,7 +25,8 @@ Press K. The first chapter, The Firmament, holds the notes to read first (keys, 
 withholds, crafting by hand), the road of offerings and, from the Stone Age on, a build guide for each shrine ring
 beside its offering: the ring rising, every layer with its blocks, then offering and rite. Each Age chapter winds its
 strands round the goal in the middle. The group Great Works holds three optional builds: The Gatehouse (Bronze Age),
-The Living House (Iron Age) and The Silo (Space Age); a click on their pictures opens the Ponder scene.
+The Living House (Iron Age) and The Silo (Space Age); a click on their pictures opens the Ponder scene. Knapping
+patterns, the TerraFirmaCraft devices and the Lens Crown are drawn in their quests.
 
 ### The shrine in brief (Stone Age to Quantum Age)
 
@@ -269,6 +270,7 @@ Offer the Steel Heart at the shrine, in the Iron Sanctum (ring 2).
 8. The Arcane Age dawns. Blessing **Iron Will**: 5 % more maximum health near the shrine.
 
 ### Pitfalls
+- A hot ingot under the mechanical press gives two rods, as on the anvil. Three rubber bars make four belts.
 - **Beds** skip the night from now on; half of you in bed is enough.
 - The map and the minimap open. The climate tab opens.
 - The cave hunter is gone for good. Blood moons may now rise.
@@ -328,6 +330,7 @@ Bind the Arcane Keystone and offer it in the Spirit Circle (ring 3).
 7. The Industrial Age dawns. Blessing **Attunement**: 10 % more experience near the shrine.
 
 ### Pitfalls
+- The Foliot and Djinni binding books take a precision mechanism in place of one dye.
 - Datura breaks on ordinary farmland.
 - One carrier per function: Starbuncles move items, Dimensional Storage stores them, alchemy multiplies ore, the
   Djinni crafts. The spirit crusher grinds no ore.
@@ -381,6 +384,7 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
 8. The Electric Age dawns. Blessing **Tireless Hands**: you break blocks 5 % faster near the shrine.
 
 ### Pitfalls
+- Insulated copper wire and conveyor belts take a rubber bar (latex from hevea or rubber fig, boiled with sulfur).
 - Your fellowship can now claim 25 chunks and keep them loaded. Lines in unloaded chunks stop.
 - Multiblocks: build the shape from the Engineer's Manual, then hit the marked block with the Engineer's Hammer.
 - Nickel (garnierite), diamond (kimberlite) and lead (galena) wake.
@@ -423,6 +427,8 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
 8. The Information Age dawns. Blessing **Long Arm**: half a block more reach near the shrine.
 
 ### Pitfalls
+- Each generator block of the diesel generator holds an alternator; the huge diesel engine takes an Attuned Circuit.
+- The excavator has a native osmium vein with garnierite (new chunks only): one more way to the Information Age's osmium.
 - LV, MV and HV wire each take their own connectors; transformers join them. Overloaded wire burns.
 - The arc furnace takes over alloying from the alloy kiln.
 - The osmium vein wakes now. Prospect it: the Information Age needs osmium at once.
@@ -471,6 +477,10 @@ Offer the Data Matrix in the Data Nave (ring 6).
 8. The Space Age dawns. Blessing **Clarity**: another 5 % maximum health near the shrine.
 
 ### Pitfalls
+- The Arcane Catalyst is optional magic: against a Mekanism processing machine or factory or an electric IE
+  multiblock, with a Source jar within six blocks and a shaft turning at 64 RPM or more beside it, the machine
+  works 50 % faster and pays the power of each extra tick once more. Generators and miners do not take it.
+- The hydrotreater cracks naphtha into ethene for the gas-burning generator.
 - The ME network is now the one store and crafter. The storage terminal, LV and MV capacitors and the mechanical
   spawner can no longer be built; energy cubes replace the capacitors.
 - Inferium, prosperity and soulstone veins wake: prospect them before you farm resource seeds.
@@ -510,6 +520,8 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
    safe.
 
 ### Pitfalls
+- Tier 1 and 2 rockets burn diesel or kerosene; tier 3 and 4 rockets need liquid hydrogen or cryo fuel.
+- The Digital Miner is built on the mechanical crafter; the elite tier installer takes a desh plate.
 - Off-world you need the full suit and oxygen. An oxygen distributor fills a sealed base.
 - A Sky Anchor (Void Steel, voidglass and a Wayshrine Stone) carries the shrine's blessings within 24 blocks in any
   dimension, also on the Moon and Mars; set the blessing shards of awakened rings into it.
@@ -554,6 +566,8 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 8. The Singularity Age dawns. Blessing **Resolve**: another 5 % maximum health and some luck near the shrine.
 
 ### Pitfalls
+- One antimatter pellet takes 100,000 mB of polonium and 40 billion FE: about 50 minutes of a fusion plant
+  through a turbine, many hours without one. The fusion frames are built on the mechanical crafter.
 - **Keystone lending.** Only while the Quantum Age is your highest Age does the Spirit Circle plinth lend its relic.
   It keeps glowing and waits. While the relic is away the Quantum Core is refused and the prayer says what is
   missing. Lay back the Arcane Keystone or the Awakened Keystone; any Arcane Keystone can be awakened.
@@ -600,6 +614,11 @@ offering.
 9. Step through.
 
 ### Pitfalls
+- The Ore Processor is the last ore step: six times the metal per ore piece, as dust, for 10 mB of hydrofluoric
+  acid, 5 mB of kerosene and 500,000 FE per dust; lubricant doubles its speed for the same power.
+- Dialling The Origin costs one billion FE and 50,000 FE/t while the wormhole is open (a gate within your system
+  10 million FE and 5,000 FE/t). Fill the gate from the reactor first. The return gate in The Origin keeps one
+  trip home charged.
 - Two Gatherings: the prayer at the shrine gives the relics back; the altar in The Origin starts the fight.
 - The shrine names a missing relic by its Age, and refuses while one is lent: "Bring back every relic first." A
   relic missing because its Age came by command is accepted at once on its plinth. The Gathering happens once. A
