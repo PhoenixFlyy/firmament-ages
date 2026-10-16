@@ -4,8 +4,8 @@
   "noise": [
     {
       "id": "distxform-boot-client-mixins",
-      "regex": "^\\[(main|modloading-sync-worker)/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/multiplayer/(ClientLevel|ClientPacketListener)|net/minecraft/client/gui/screens/inventory/HangingSignEditScreen|net/minecraft/client/gui/screens/Screen|com/mojang/blaze3d/systems/RenderSystem|net/minecraft/client/gui/components/Button) for invalid dist DEDICATED_SERVER",
-      "reason": "7 per boot: client mixins in the common mixin configs of astikorcartsredux, afc and struts, a Button reference during IMC and TFC's own two client probes ('^ This is fine'); skipped on the server, nothing missing."
+      "regex": "^\\[(main|modloading-sync-worker)/ERROR\\] \\[net\\.neoforged\\.fml\\.common\\.asm\\.RuntimeDistCleaner/DISTXFORM\\]: Attempted to load class (net/minecraft/client/multiplayer/(ClientLevel|ClientPacketListener)|net/minecraft/client/player/LocalPlayer|net/minecraft/client/gui/screens/inventory/HangingSignEditScreen|net/minecraft/client/gui/screens/Screen|com/mojang/blaze3d/systems/RenderSystem|net/minecraft/client/gui/components/Button) for invalid dist DEDICATED_SERVER",
+      "reason": "7 per boot: client mixins in the common mixin configs of astikorcartsredux, afc and struts, a Button reference during IMC and TFC's own two client probes ('^ This is fine', which load ClientLevel or LocalPlayer first depending on the load order); skipped on the server, nothing missing."
     },
     {
       "id": "rhino-dump-declared-methods",

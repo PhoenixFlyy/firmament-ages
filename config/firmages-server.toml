@@ -338,3 +338,27 @@
 	# Default: 600
 	# Range: 200 ~ 4096
 	fallbackRadius = 600
+
+#The Launch Complex: unmanned probes bring voidglass and deep-space samples (SPEC 31). Fuel, launch cost, throttle and
+#the modules are data: data/firmages/firmages_launch/.
+[launch]
+	#false: no probe launches (a probe in flight still comes home).
+	enabled = true
+	#Players within this many blocks of a launch see its flame trail and descent.
+	# Default: 256
+	# Range: 16 ~ 1024
+	fxRange = 256
+	#Ticks of the countdown before ignition; the control gives a redstone signal on its back meanwhile.
+	# Default: 100
+	# Range: 20 ~ 1200
+	countdownTicks = 100
+	#A returned probe goes back into its slot and flies again with the next module. false = it lands in
+	#the output with the returns, where pipes can take it.
+	autoRelaunch = true
+
+#The Origin Archipelago after the finale: the nine islands take samples of their Age and grow (SPEC 31.8)
+[ark]
+	#Ticks over which a stage of an island grows from the plinth outward (0 = at once).
+	# Default: 200
+	# Range: 0 ~ 1200
+	growthTicks = 200
