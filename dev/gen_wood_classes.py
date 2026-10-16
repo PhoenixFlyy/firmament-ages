@@ -13,6 +13,13 @@ Writes
   W   vanilla trees in TFC forests: firmages:vanilla_tree/* configured and placed features, the forest features
       firmages:vanilla_forest and firmages:vanilla_mangrove_forest, the biome tag firmages:has_vanilla_trees (every
       TFC biome whose large features hold tfc:forest, read from the TFC jar) and two NeoForge biome modifiers
+  V   sapling growth (review fix 0.12.0): kubejs/data/minecraft/worldgen/configured_feature/ overrides of the vanilla
+      tree features a vanilla sapling grows into (TreeGrower, Minecraft 1.21.1), so a grown tree places only blocks of
+      its sapling's Age: oak_bees_005, fancy_oak_bees_005, birch_bees_005 and cherry_bees_005 grow the plain tree (no
+      bee nest; TFC flowers are in #minecraft:flowers), mangrove and tall_mangrove like firmages:vanilla_tree/tree/
+      mangrove (no moss carpet, no bee nest, TFC fluvisol as dirt), mega_spruce and mega_pine without the podzol
+      decorator, azalea_tree with oak leaves and plain dirt (azalea leaves and rooted dirt are not in the pack).
+      SAPLING_GROWTH is the sapling -> feature table that dev/poc_analyze.py check W-9 reads.
   JS  the block between "// >>> generated:wood_classes >>>" markers of kubejs/startup_scripts/00_constants.js
 
 Usage
@@ -101,8 +108,10 @@ def would_survive(sapling):
                 {"Properties": {"stage": "0"}} if not sapling.endswith("propagule") else {})}}}
 
 
-def mangrove_plain():
-    """minecraft:mangrove without bee nest, vines and moss carpets; TFC fluvisol (river and marsh soil) as dirt."""
+def mangrove_plain(tall=False):
+    """minecraft:mangrove without bee nest, vines and moss carpets; TFC fluvisol (river and marsh soil) as dirt. tall:
+    minecraft:tall_mangrove's trunk, roots and size (TreeFeatures 1.21.1: base height 4, random 1 and 9, branch steps
+    1 to 6, roots 3 to 7 below, two-layer limit 3)."""
     return {"type": "minecraft:tree", "config": {
         "decorators": [{"type": "minecraft:attached_to_leaves", "block_provider": {
             "type": "minecraft:randomized_int_state_provider", "property": "age",
@@ -118,7 +127,7 @@ def mangrove_plain():
         "foliage_provider": {"type": "minecraft:simple_state_provider", "state": {
             "Name": "minecraft:mangrove_leaves", "Properties": {"distance": "7", "persistent": "false", "waterlogged": "false"}}},
         "force_dirt": False, "ignore_vines": True,
-        "minimum_size": {"type": "minecraft:two_layers_feature_size", "limit": 2, "lower_size": 0, "upper_size": 2},
+        "minimum_size": {"type": "minecraft:two_layers_feature_size", "limit": 3 if tall else 2, "lower_size": 0, "upper_size": 2},
         "root_placer": {"type": "minecraft:mangrove_root_placer",
                         "mangrove_root_placement": {
                             "can_grow_through": "#minecraft:mangrove_roots_can_grow_through", "max_root_length": 15,
@@ -128,12 +137,13 @@ def mangrove_plain():
                             "random_skew_chance": 0.2},
                         "root_provider": {"type": "minecraft:simple_state_provider", "state": {
                             "Name": "minecraft:mangrove_roots", "Properties": {"waterlogged": "false"}}},
-                        "trunk_offset_y": {"type": "minecraft:uniform", "min_inclusive": 1, "max_inclusive": 3}},
-        "trunk_placer": {"type": "minecraft:upwards_branching_trunk_placer", "base_height": 2,
+                        "trunk_offset_y": {"type": "minecraft:uniform", "min_inclusive": 3 if tall else 1,
+                                           "max_inclusive": 7 if tall else 3}},
+        "trunk_placer": {"type": "minecraft:upwards_branching_trunk_placer", "base_height": 4 if tall else 2,
                          "can_grow_through": "#minecraft:mangrove_logs_can_grow_through",
                          "extra_branch_length": {"type": "minecraft:uniform", "min_inclusive": 0, "max_inclusive": 1},
-                         "extra_branch_steps": {"type": "minecraft:uniform", "min_inclusive": 1, "max_inclusive": 4},
-                         "height_rand_a": 1, "height_rand_b": 4, "place_branch_per_log_probability": 0.5},
+                         "extra_branch_steps": {"type": "minecraft:uniform", "min_inclusive": 1, "max_inclusive": 6 if tall else 4},
+                         "height_rand_a": 1, "height_rand_b": 9 if tall else 4, "place_branch_per_log_probability": 0.5},
         "trunk_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "minecraft:mangrove_log",
                                                                                  "Properties": {"axis": "y"}}}}}
 
@@ -141,6 +151,103 @@ def mangrove_plain():
 # Tree features of the pack's own (ids under vanilla_tree/tree/, apart from the class selectors vanilla_tree/<class>: a
 # selector at the same path as its tree would place itself until the stack overflows)
 CUSTOM_TREES = {"firmages:vanilla_tree/tree/mangrove": mangrove_plain}
+
+
+def alias(feature):
+    """A configured feature that places another one: a random selector with only its default (inline placed feature)."""
+    return {"type": "minecraft:random_selector", "config": {"features": [], "default": {"feature": feature, "placement": []}}}
+
+
+def leaves(name):
+    return {"type": "minecraft:simple_state_provider", "state": {
+        "Name": name, "Properties": {"distance": "7", "persistent": "false", "waterlogged": "false"}}}
+
+
+def mega_spruce(crown):
+    """minecraft:mega_spruce (crown 13..17) or mega_pine (3..7) of TreeFeatures 1.21.1 without the podzol decorator."""
+    return {"type": "minecraft:tree", "config": {
+        "decorators": [],
+        "dirt_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "minecraft:dirt"}},
+        "foliage_placer": {"type": "minecraft:mega_pine_foliage_placer", "crown_height": {
+            "type": "minecraft:uniform", "min_inclusive": crown[0], "max_inclusive": crown[1]}, "offset": 0, "radius": 0},
+        "foliage_provider": leaves("minecraft:spruce_leaves"),
+        "force_dirt": False, "ignore_vines": False,
+        "minimum_size": {"type": "minecraft:two_layers_feature_size", "limit": 1, "lower_size": 1, "upper_size": 2},
+        "trunk_placer": {"type": "minecraft:giant_trunk_placer", "base_height": 13, "height_rand_a": 2, "height_rand_b": 14},
+        "trunk_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "minecraft:spruce_log",
+                                                                                 "Properties": {"axis": "y"}}}}}
+
+
+def azalea_tree():
+    """minecraft:azalea_tree of TreeFeatures 1.21.1 with oak leaves and plain dirt (no azalea leaves, no rooted dirt)."""
+    return {"type": "minecraft:tree", "config": {
+        "decorators": [],
+        "dirt_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "minecraft:dirt"}},
+        "foliage_placer": {"type": "minecraft:random_spread_foliage_placer", "foliage_height": 2,
+                           "leaf_placement_attempts": 50, "offset": 0, "radius": 3},
+        "foliage_provider": leaves("minecraft:oak_leaves"),
+        "force_dirt": False, "ignore_vines": False,
+        "minimum_size": {"type": "minecraft:two_layers_feature_size", "limit": 1, "lower_size": 0, "upper_size": 1},
+        "trunk_placer": {"type": "minecraft:bending_trunk_placer", "base_height": 4, "height_rand_a": 2, "height_rand_b": 0,
+                         "bend_length": {"type": "minecraft:uniform", "min_inclusive": 1, "max_inclusive": 2},
+                         "min_height_for_leaves": 3},
+        "trunk_provider": {"type": "minecraft:simple_state_provider", "state": {"Name": "minecraft:oak_log",
+                                                                                 "Properties": {"axis": "y"}}}}}
+
+
+# V: what a vanilla sapling grows (Minecraft 1.21.1 TreeGrower: single, 10 % secondary or the flower variants within two
+# blocks of a #minecraft:flowers block, 2x2 mega) and the overrides that keep every grown block in the sapling's Age.
+SAPLING_GROWTH = {
+    "minecraft:oak_sapling": ["minecraft:oak", "minecraft:fancy_oak", "minecraft:oak_bees_005", "minecraft:fancy_oak_bees_005"],
+    "minecraft:birch_sapling": ["minecraft:birch", "minecraft:birch_bees_005"],
+    "minecraft:cherry_sapling": ["minecraft:cherry", "minecraft:cherry_bees_005"],
+    "minecraft:spruce_sapling": ["minecraft:spruce", "minecraft:mega_spruce", "minecraft:mega_pine"],
+    "minecraft:jungle_sapling": ["minecraft:jungle_tree_no_vine", "minecraft:mega_jungle_tree"],
+    "minecraft:acacia_sapling": ["minecraft:acacia"],
+    "minecraft:dark_oak_sapling": ["minecraft:dark_oak"],
+    "minecraft:mangrove_propagule": ["minecraft:mangrove", "minecraft:tall_mangrove"],
+    "minecraft:azalea": ["minecraft:azalea_tree"],
+    "minecraft:flowering_azalea": ["minecraft:azalea_tree"],
+}
+# The blocks the vanilla features place (TreeFeatures 1.21.1, decorators included) where the pack does not override
+# them; W-9 reads the override files for the rest.
+VANILLA_FEATURE_BLOCKS = {
+    "minecraft:oak": ["minecraft:oak_log", "minecraft:oak_leaves", "minecraft:dirt"],
+    "minecraft:fancy_oak": ["minecraft:oak_log", "minecraft:oak_leaves", "minecraft:dirt"],
+    "minecraft:birch": ["minecraft:birch_log", "minecraft:birch_leaves", "minecraft:dirt"],
+    "minecraft:cherry": ["minecraft:cherry_log", "minecraft:cherry_leaves", "minecraft:dirt"],
+    "minecraft:spruce": ["minecraft:spruce_log", "minecraft:spruce_leaves", "minecraft:dirt"],
+    "minecraft:jungle_tree_no_vine": ["minecraft:jungle_log", "minecraft:jungle_leaves", "minecraft:dirt"],
+    "minecraft:mega_jungle_tree": ["minecraft:jungle_log", "minecraft:jungle_leaves", "minecraft:dirt", "minecraft:vine"],
+    "minecraft:acacia": ["minecraft:acacia_log", "minecraft:acacia_leaves", "minecraft:dirt"],
+    "minecraft:dark_oak": ["minecraft:dark_oak_log", "minecraft:dark_oak_leaves", "minecraft:dirt"],
+    # as vanilla ships them, for W-9 when an override is missing
+    "minecraft:oak_bees_005": ["minecraft:oak_log", "minecraft:oak_leaves", "minecraft:dirt", "minecraft:bee_nest"],
+    "minecraft:fancy_oak_bees_005": ["minecraft:oak_log", "minecraft:oak_leaves", "minecraft:dirt", "minecraft:bee_nest"],
+    "minecraft:birch_bees_005": ["minecraft:birch_log", "minecraft:birch_leaves", "minecraft:dirt", "minecraft:bee_nest"],
+    "minecraft:cherry_bees_005": ["minecraft:cherry_log", "minecraft:cherry_leaves", "minecraft:dirt", "minecraft:bee_nest"],
+    "minecraft:mega_spruce": ["minecraft:spruce_log", "minecraft:spruce_leaves", "minecraft:dirt", "minecraft:podzol"],
+    "minecraft:mega_pine": ["minecraft:spruce_log", "minecraft:spruce_leaves", "minecraft:dirt", "minecraft:podzol"],
+    "minecraft:mangrove": ["minecraft:mangrove_log", "minecraft:mangrove_leaves", "minecraft:mangrove_roots",
+                           "minecraft:muddy_mangrove_roots", "minecraft:mangrove_propagule", "minecraft:vine",
+                           "minecraft:moss_carpet", "minecraft:bee_nest", "minecraft:dirt"],
+    "minecraft:tall_mangrove": ["minecraft:mangrove_log", "minecraft:mangrove_leaves", "minecraft:mangrove_roots",
+                                "minecraft:muddy_mangrove_roots", "minecraft:mangrove_propagule", "minecraft:vine",
+                                "minecraft:moss_carpet", "minecraft:bee_nest", "minecraft:dirt"],
+    "minecraft:azalea_tree": ["minecraft:oak_log", "minecraft:azalea_leaves", "minecraft:flowering_azalea_leaves",
+                              "minecraft:rooted_dirt"],
+}
+GROWTH_OVERRIDES = {
+    "oak_bees_005": lambda: alias("minecraft:oak"),
+    "fancy_oak_bees_005": lambda: alias("minecraft:fancy_oak"),
+    "birch_bees_005": lambda: alias("minecraft:birch"),
+    "cherry_bees_005": lambda: alias("minecraft:cherry"),
+    "mangrove": lambda: alias("firmages:vanilla_tree/tree/mangrove"),
+    "tall_mangrove": lambda: mangrove_plain(tall=True),
+    "mega_spruce": lambda: mega_spruce((13, 17)),
+    "mega_pine": lambda: mega_spruce((3, 7)),
+    "azalea_tree": azalea_tree,
+}
 
 
 def forest_biomes(mods_dir):
@@ -286,6 +393,13 @@ def build(table, reg_items, biomes):
         files[os.path.join(KDATA, "firmages", "neoforge", "biome_modifier", f"{name}.json")] = {
             "type": "neoforge:add_features", "biomes": biome_sel, "features": f"firmages:{name}", "step": "fluid_springs"}
     files[T.format(ns="firmages", kind="worldgen/biome", path="has_vanilla_trees")] = {"replace": False, "values": biomes}
+
+    # V sapling growth: the vanilla tree features a vanilla sapling grows into, overridden by the pack's datapack
+    for name, make in GROWTH_OVERRIDES.items():
+        tree = make()
+        for b in re.findall(r'"Name": "([a-z0-9_:/]+)"', json.dumps(tree)):
+            need(b)
+        files[os.path.join(KDATA, "minecraft", "worldgen", "configured_feature", f"{name}.json")] = tree
     files[BIOME_LIST] = {"_comment": "TFC 4.2.11 biomes whose large features hold tfc:forest (" + HEADER + ")",
                          "biomes": biomes}
 

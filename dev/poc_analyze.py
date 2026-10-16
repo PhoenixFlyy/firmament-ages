@@ -235,6 +235,7 @@ def main():
 
     emi_checks(base, rows, tags, item_age, check)
     wood_checks(base, rows, tags, item_age, check)
+    sapling_checks(item_age, check)
     content_checks(base, a.server_dir, rows, by_id, tags, item_age, check)
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -2082,6 +2083,44 @@ def wood_checks(base, rows, tags, item_age, check):
     check("W-8 no Every Compat TFC oak/mangrove twin and no vanilla-wood style without a TFC-wood copy is visible",
           not seen, seen)
     print("    visible vanilla-wood deco by mod: " + ", ".join(f"{k}={v}" for k, v in vis.most_common()))
+
+
+def sapling_checks(item_age, check):
+    """W-9 (review fix 0.12.0): no tree a vanilla sapling grows places a block of a later Age than the sapling (a bee
+    nest, moss carpet, podzol, azalea leaves). The sapling -> feature table and the vanilla features' blocks are in
+    dev/gen_wood_classes.py; a feature the pack overrides is read from kubejs/data (its "Name" states and the features it
+    places, recursively)."""
+    sys.path.insert(0, os.path.join(REPO, "dev"))
+    import gen_wood_classes as gwc
+
+    def blocks_of(feature, seen):
+        if feature in seen:
+            return set()
+        seen.add(feature)
+        ns, path = feature.split(":", 1)
+        f = os.path.join(REPO, "kubejs", "data", ns, "worldgen", "configured_feature", *path.split("/")) + ".json"
+        if os.path.isfile(f):
+            text = open(f, encoding="utf-8").read()
+            out = set(re.findall(r'"Name": "([a-z0-9_:/.-]+)"', text))
+            for ref in re.findall(r'"feature": "([a-z0-9_:/.-]+)"', text):
+                out |= blocks_of(ref, seen)
+            return out
+        if feature in gwc.VANILLA_FEATURE_BLOCKS:
+            return set(gwc.VANILLA_FEATURE_BLOCKS[feature])
+        return {"?unknown feature " + feature}
+
+    bad, n = [], 0
+    for sap, feats in sorted(gwc.SAPLING_GROWTH.items()):
+        sa = item_age.get(sap)
+        if sa is None or sa == "disabled":
+            continue
+        for feat in feats:
+            n += 1
+            for b in sorted(blocks_of(feat, set())):
+                ba = item_age.get(b, "?")
+                if b.startswith("?") or ba == "?" or ba == "disabled" or AGES.index(ba) > AGES.index(sa):
+                    bad.append(f"{sap} ({sa}) grows {feat}: {b} ({ba})")
+    check(f"W-9 a vanilla sapling grows only blocks of its own Age or earlier ({n} sapling features)", not bad, bad)
 
 
 def load_metals():

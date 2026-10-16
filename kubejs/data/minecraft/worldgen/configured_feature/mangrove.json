@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [],
+    "default": {
+      "feature": "firmages:vanilla_tree/tree/mangrove",
+      "placement": []
+    }
+  }
+}
