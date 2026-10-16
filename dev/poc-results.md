@@ -3816,3 +3816,24 @@ world, logs, local, simplebackups and crash-reports; its `kubejs/` deleted; port
 
 Not checked on a server: the TFC ore pieces in an injection chamber after `/reload` (needs a player), the new EMI
 workstation and categories, the ore disguises seen in the world; these are in `dev/client-test-brief.md`, "1.0 Checkliste".
+
+## 1.0.0 release review fixes (2026-10-17, on dev)
+
+Seven findings of the release review, fixed on `dev` before the tag `v1.0.0` moved. No Java change (firmages-core
+stays 1.0.0, no rebuild). One boot on the copy `.wt/test-server-relfix` (robocopy without world, logs, local; its
+`kubejs/` deleted; ports 25791 and RCON 25801; `debug.allowSimulate = true`, gate on), synced with
+`packwiz-installer-bootstrap -g -s server` ("Finished successfully"), new world, `-Xms3G -Xmx5G`. The copy is deleted.
+The gate-off dump is predicted (`predict_dump.py`, edit set "release review 1.0.0") from the gate-off dump of round F1.
+
+| Check | Observed | Result |
+|---|---|---|
+| Arcane Machine Route: Apothic Enchanting's table takes `#firmages:gems/arcane` (`arcane_tfc_inputs.js`) | real gated dump: the table recipe keys `D` = `firmages:gems/arcane`; `derive_ages.py --explain`: table and `create_enchantment_industry:blaze_enchanter` first reachable age_3 by recipe, no `KNOWN GAP` | pass |
+| CDP blaze upgrade template | javap `CDPLoots$TableInjections`: `LootTableLoadEvent` adds it to `chests/bastion_treasure`, `bastion_other`, `bastion_bridge`, `bastion_hoglin_stable`, `nether_bridge`; the feature is on through Create Enchantment Industry's mod property `create_dragons_plus:item/blaze_upgrade_smithing_template = true`; `CODE_DROPS` row age_3, `KNOWN_GAPS` empty | pass |
+| Late-loaded recipes in the walk (`LATE_LOADED` in `make_walk`, `firmages:crafting/belt_connector_rubber` added) | 23 items later: Mekanism and More Mekanism Processing shards age_7, crystals age_8 (`crystal_draconium` age_7 to age_8); before the fix Q-1 passed, with it Q-1 reported `shard_zinc` (age_7 in an age_6 chapter) and, with the either-or extension, the "Crystals" quest | pass |
+| `derive_ages.py --check` (predicted gate-off dump), `gen_stage_locks.py --check` | Q-1 575 required item tasks (either-or quests counted), 0 without a source by their Age; Q-2 1 reward-only item, in `REWARD_ONLY`; both up to date | pass |
+| Predicted gated dump against the real one | 39,512 recipes in both, the same ids, 0 `item_lock` differences, `age_items/age_6`, `age_7`, `age_8` and `disabled` identical | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods`, `preview_quests.py` | 26 chapters, 666 quests (Ages 329, Side Roads 291, Great Works 18, The Firmament 28), 1,734 lang keys; 3,186 object ids, 0 errors, 0 warnings | pass |
+| Copy boot (gate on): grants age_0 to age_9, `firmages recipes audit`, `fa_dump`, `fa_dump_full`, `ore audit`, `selftest all` | 266 mod files with 257 mods; 43,920 recipes, 4,408 dropped (disabled 4,401, superseded 7); `selftest all` 106 passed, 0 failed | pass |
+| `poc_analyze.py --server-dir <copy> --dump-dir <boot> --baseline <predicted gate-off dump>` | 134 PASS, 0 FAIL, 0 SKIP ("all checks PASS") | pass |
+| `check_log.py <copy>/logs/latest.log` | remaining 6 in 4 signatures: "Can't keep up" 3 (the ten grant reloads and the selftest, as F1 boots 2 and 3), `everycomp-entries.toml` corrected (a file of the copy, not in the pack; F1 boot 1 the same), Sauce (Ars Elemental's library) `ModConfigEvent$Reloading` from the config file watcher before its config loaded, 2 lines, one event | expected; the Sauce race is an open point |
+| Every generator `--check` (`gen_quest_images`, `gen_quest_pictures`, `gen_textures`, `check_menus`, `miner_ladder`, `gen_fuels`, `gen_wood_classes`, `gen_loot_silence`, `gen_wayshrines`, `gen_ark`, `gen_cold_forge`, `gen_recipe_overrides --mods <copy>/mods`) | all up to date, 0 problems | pass |

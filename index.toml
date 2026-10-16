@@ -310,7 +310,7 @@ hash = "38c89d62a820cd201058e76fb9b8b5076301b3aa9d4a43743ec4d4d443dc3aa6"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/quantum_age.snbt"
-hash = "755503a00aab091c46a10929bf849eb3a692989974ca0115c5b71f29deaff233"
+hash = "68fe8f0f0c258e48b28206dca6dbf71dabe17cca42859d11d9b03827b7d78087"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_arcane_age.snbt"
@@ -334,7 +334,7 @@ hash = "28385231312e74df3809e3be442c5f43cce6c41f008f2f62759afc52095c5898"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_information_age.snbt"
-hash = "191625fb2739d70a65c178fda0cfdb83cd0190d45a3774b9afc04fdae9589e9d"
+hash = "37996922566dea491e1284e2e8012910e1981800b7469351eab0b54a3a2caa55"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_iron_age.snbt"
@@ -346,7 +346,7 @@ hash = "510c9d8554ae88f6a5415dfd9a50fb360dd8a67d60774a4c40f9a7057b7578a0"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_singularity_age.snbt"
-hash = "b7ca2eb633ef6253ba5c581c9929c01531a44bc1e8ca0445d3481933408defb2"
+hash = "fae925f904c10a8fdabfaefb1f4bf70c49244b6a5d352625ac81b8019a3875d7"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/roads_space_age.snbt"
@@ -358,11 +358,11 @@ hash = "cbf920a0acc727a7569212cd3a64e1962d19f070ffce96b7b8992e092e2ce3b5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/singularity_age.snbt"
-hash = "6a55f985bdbb7f32ce345a8a02ac8339e9f94fc88f1d3548aac01fdf770f6fe9"
+hash = "97824733b7882a41542d54d5b0907e435db0cf0a814ef91f89887a8c41138860"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/space_age.snbt"
-hash = "e192294607c72a1be1f7b2e0e0b37f82328b0323ac8f1225da60f40203fdb326"
+hash = "e2976da8b92b764bdef90dad453b27f40be827f87552955b8302a20527f075e5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
@@ -390,7 +390,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "523599e00e9cfb11996da0985848dfcc0844a8144efd89911306886508e46907"
+hash = "4645b16a0695188a885994a376b109f33f222fb716df768ea1586b98feaa8d52"
 
 [[files]]
 file = "config/goblintraders-entities.toml"
@@ -6734,15 +6734,15 @@ hash = "718b61e8c57d8d109ba0b026778f7e4cca5039123f509a36222488538449dff7"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "2006d9817a63a05392d0acf4e7dfd4f8b81193f8a5079bc1ca5933e4e5353183"
+hash = "bf107c169508fb259907d8815f82cb80dfba88547e500c115ea425193423f3c2"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "30060bc8a07b9e51b8911ec950c0a1450f2347e3be2933ba3d6ecad4a38f3461"
+hash = "f9766481db5446f428b3ac9031815f8d87d853c6e7d1f7d244d5d852d5d414fc"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "d0d29bd89298995e626f9fbcd5a751ed70ef0b9f1079cb2648fb70a5d94ee1c4"
+hash = "63cdabe5737e786f87c6a28adbd703ee8006c751c03c8997925701de41352d26"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -10662,7 +10662,7 @@ hash = "c65eddd8ad73f47f7d6f7c27965019eabffafe19d087abca8c6ed660f4ee4c93"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
-hash = "58281a1704ecba8e041b5d403aa509d6ca69f584e33e9c657d688981eda342e0"
+hash = "304be4e045668b041472fc90d229bf2b074f4064e2a639aff75c09fc22d97538"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/ars_addons.js"
@@ -10822,7 +10822,7 @@ hash = "6b6bc28f8239edf476b6ecff1e9c49bf5a3d46fc94839f4a4c77f8de98ed23e6"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/tfc_station_inputs.js"
-hash = "4d91014d7cdf7aa8f470fb78918645176ec425a9fa1b682a80f57add6ee8fdcb"
+hash = "a58a1f9a364ba919f7545a08c2187048410cff3d0149cdfa2d49b80982287fb4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/unify_iron.js"

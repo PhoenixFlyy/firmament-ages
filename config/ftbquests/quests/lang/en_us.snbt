@@ -409,11 +409,6 @@
 		"Fill a bucket with diesel or kerosene from your distillation tower. Tier 1 and 2 rockets burn either."
 	]
 	quest.0AF4168528180400.title: "Rocket Fuel"
-	quest.0AF9B610A751A285.quest_desc: [
-		"Build a crystallizer. Crystals for the gate and its devices grow in it from liquid naquadah."
-	]
-	quest.0AF9B610A751A285.quest_subtitle: "Crystals and Rings, off \"Stargate Blocks\""
-	quest.0AF9B610A751A285.title: "Crystallizer"
 	quest.0B222390EB21C8E3.quest_desc: [
 		"Craft a universal terminal. One slot of your pack opens the network, the crafting grid and patterns."
 	]
@@ -555,7 +550,7 @@
 	]
 	quest.0F533D23E29FB489.title: "Blaze Fluid"
 	quest.0F76089092EB0D28.quest_desc: [
-		"Set four basic and four wyvern injectors around the core. They hold the ingredients."
+		"Set eight basic and eight wyvern injectors around the core. The wyvern injector fills eight basic ones, the awakened core eight wyvern ones."
 	]
 	quest.0F76089092EB0D28.title: "Injectors"
 	quest.0F97073C5BDEA813.quest_desc: ["Transformers step the voltage between wire tiers."]
@@ -564,11 +559,6 @@
 		"Build the liquefaction cauldron and a digestion vat. Ore pieces of every grade digest into alchemical sulfur, where spagyrics begin."
 	]
 	quest.0FBE04E270216ADA.title: "Liquefaction Cauldron"
-	quest.0FD5F40E53DB4032.quest_desc: [
-		"Crystallize clean slurry into crystals of aluminium or zinc. The metals of the old Ages have their ladder here too."
-	]
-	quest.0FD5F40E53DB4032.quest_subtitle: "More Metals, off \"Purification Chamber\""
-	quest.0FD5F40E53DB4032.title: "Crystals"
 	quest.0FEADDD76E0ED422.quest_desc: [
 		"Build a quantum washing factory. Ore of every Age comes out clean at a pace no basic factory reaches."
 	]
@@ -828,6 +818,10 @@
 		"Set a growth accelerator under the farmland. It hastens the crop above it with no one to tend it."
 	]
 	quest.1B1F800A08B9A66B.title: "Growth Accelerator"
+	quest.1B74C0B3BA4F7609.quest_desc: [
+		"Build a crystallizer and a naquadah liquidizer. The gate's 32 crystals grow in the crystallizer from gems, a crystal base and liquid naquadah."
+	]
+	quest.1B74C0B3BA4F7609.title: "Crystallizer"
 	quest.1BBF74D29B1896AB.quest_desc: [
 		"Upgrade the pack to diamond. It carries far more, and the upgrade slots grow with it."
 	]
@@ -954,7 +948,7 @@
 	quest.1F3F85FE5B0041D8.quest_desc: ["Build a NASA workbench. Every rocket is assembled on it."]
 	quest.1F3F85FE5B0041D8.title: "NASA Workbench"
 	quest.1FD61E2A23294166.quest_desc: [
-		"Keep eight large chaos fragments from the reactor's spent fuel. Two go into the Ultimate Singularity, one into the Coordinates of The Origin."
+		"Keep 20 large and 36 medium fragments of spent fuel: twelve chaotic injectors, the chaotic core, the Singularity and the Coordinates."
 	]
 	quest.1FD61E2A23294166.title: "Chaos Fragments"
 	quest.1FE13D3931164773.quest_desc: [
@@ -1148,7 +1142,7 @@
 	]
 	quest.27E68AB440FA98EB.title: "Envelope"
 	quest.280FF1CBD99D0A4A.quest_desc: [
-		"Dissolution, washing and crystallizing give five times the metal. Without energy upgrades it costs more power per ingot than injection."
+		"Dissolution, washing and crystallizing grow ore into crystals: five times the metal. Without energy upgrades it costs more power per ingot than injection."
 	]
 	quest.280FF1CBD99D0A4A.title: "Ore Times Five"
 	quest.2871D429A8DFF9F5.quest_desc: [
@@ -1714,10 +1708,6 @@
 	quest.3D192C0507660A42.title: "Mixing Bowl"
 	quest.3D1D49324454F634.quest_desc: ["Make a full space suit. Off-world it carries your air."]
 	quest.3D1D49324454F634.title: "Space Suit"
-	quest.3D68BFAEB3205167.quest_desc: [
-		"Feed ore pieces and hydrogen chloride to an injection chamber. They break into shards, a rung above clumps."
-	]
-	quest.3D68BFAEB3205167.title: "Shards"
 	quest.3E3CE4C327FE1A6A.quest_desc: [
 		"Load a program into a spell bullet and slot it in the CAD. Other bullets cast it as a shot, a mine or a loop."
 	]
@@ -1831,7 +1821,7 @@
 	]
 	quest.426D09E37975EC57.title: "Chaotic Staff"
 	quest.42BF4D07BA145527.quest_desc: [
-		"Injection with hydrogen chloride gives four times the metal. Without energy upgrades it costs more power per ingot than purification."
+		"Hydrogen chloride in the injection chamber breaks ore into shards: four times the metal. Without energy upgrades it costs more power per ingot than purification."
 	]
 	quest.42BF4D07BA145527.title: "Ore Times Four"
 	quest.4304B6AA00C231E8.quest_desc: [
@@ -2461,6 +2451,7 @@
 	quest.5C56E1A066E7C72A.quest_desc: [
 		"Grow an energy crystal. Set in a device of the gate, it stores power and raises its energy target."
 	]
+	quest.5C56E1A066E7C72A.quest_subtitle: "Crystals and Rings, off \"Stargate Blocks\""
 	quest.5C56E1A066E7C72A.title: "Energy Crystal"
 	quest.5C65563268425F2A.quest_desc: [
 		"Cut a coconut from palm leaves and crack it with a stone. Sneak and right-click a barrel with it for juice and meat."
@@ -2728,7 +2719,7 @@
 	]
 	quest.665C0FA04D3E6C59.title: "Prospector Hammer"
 	quest.66EB6D8730E3AB2D.quest_desc: [
-		"Build a blaze enchanter and feed it liquid experience. It enchants without the luck of a table, and the Hollow Keystone drinks the same experience."
+		"Smith a blaze burner and an enchanting table with a blaze upgrade template from Nether chests. The enchanter and the Hollow Keystone drink liquid experience."
 	]
 	quest.66EB6D8730E3AB2D.title: "Enchantment Industry"
 	quest.66EDA08DBD082046.quest_desc: [
@@ -2753,7 +2744,7 @@
 	quest.67314514BDCA1DB3.quest_subtitle: "Goal of the Quantum Age: Caelum opens the Singularity Age"
 	quest.67314514BDCA1DB3.title: "Offer the Quantum Core at the Shrine"
 	quest.67CA15BF14B359A8.quest_desc: [
-		"Fusion crafting needs a core, injectors of the right tier and FE. Wyvern items need wyvern injectors. Every tool and armor piece has a direct recipe: no gear goes into better gear."
+		"Fusion crafting needs a core, injectors and FE. Every ingredient needs its own injector of the recipe's tier or better; the core shows what is missing. Tools and armor have direct recipes: no gear goes into better gear."
 	]
 	quest.67CA15BF14B359A8.title: "Fusion Crafting"
 	quest.67D2B7F30B2F443D.quest_desc: [
@@ -2905,7 +2896,7 @@
 	]
 	quest.6D4DA2C8219A6722.title: "Chromium"
 	quest.6DC5BE16C605C596.quest_desc: [
-		"Make blue steel, the metal of the Information Age. Four sheets go into the Data Matrix, more into the inscriber presses."
+		"Make blue steel, the metal of the Information Age. Two sheets go into the Data Matrix, the rest into the inscriber presses."
 	]
 	quest.6DC5BE16C605C596.title: "Blue Steel"
 	quest.6DE0808A3F92C2E7.quest_desc: [
@@ -2959,10 +2950,12 @@
 	]
 	quest.6FBF7C800CAD422B.title: "The House Speaks"
 	quest.71013FE9F62EC68E.quest_desc: [
-		"Craft four chaotic injectors from fragments and antimatter. Chaotic fusion, the highest tier, needs them."
+		"Craft twelve chaotic injectors from fragments and antimatter. Chaotic fusion, the highest tier, needs them: the Ultimate Singularity fills all twelve."
 	]
 	quest.71013FE9F62EC68E.title: "Chaotic Injectors"
-	quest.7124AA6401C814BF.quest_desc: ["Build the Dial Home Device. It dials the gate."]
+	quest.7124AA6401C814BF.quest_desc: [
+		"Build the Dial Home Device around a communication crystal. It dials the gate."
+	]
 	quest.7124AA6401C814BF.title: "Dial Home Device"
 	quest.713ED981D14D9A4D.quest_desc: [
 		"Build a fusion crafting core. It is the one pedestal crafting of the tech Ages."
@@ -3110,7 +3103,7 @@
 	]
 	quest.772B64FC091E11AB.title: "Grid Online"
 	quest.774C554B16ACE98C.quest_desc: [
-		"Refine naquadah with refined obsidian in the infuser, then cast one base block, nine chevrons and 14 ring blocks. The Singularity goes into the base."
+		"Infuse naquadah with refined obsidian, cast a base block, nine chevrons and 14 ring blocks. Chevrons take three crystals, the base four and the Singularity."
 	]
 	quest.774C554B16ACE98C.title: "Stargate Blocks"
 	quest.774CB8EF94856508.quest_desc: [
@@ -3127,8 +3120,9 @@
 	]
 	quest.7755ECDE0FFE3821.title: "The Shrine Heart"
 	quest.7790A6723360B877.quest_desc: [
-		"Purify ore pieces in oxygen into clumps of nickel or zinc. Clumps sit one rung below shards."
+		"Purify ore pieces in oxygen into clumps of nickel or zinc. Shards and crystals of the old metals follow in the Space and Quantum Ages."
 	]
+	quest.7790A6723360B877.quest_subtitle: "More Metals, off \"Purification Chamber\""
 	quest.7790A6723360B877.title: "Clumps"
 	quest.7794323527566501.quest_desc: [
 		"Fire a jug and fill it at a river. Put a fired ceramic pot on the firepit, pour the water in and cook a soup."
@@ -3251,7 +3245,7 @@
 	]
 	quest.7AD930D88D608D2B.title: "Destruction Gadget"
 	quest.7B0276B3AACDABA7.quest_desc: [
-		"Craft four awakened injectors. Fusion at draconic level needs them."
+		"Craft twelve awakened injectors. Fusion at draconic level needs them: the chaotic core and the reactor parts fill all twelve."
 	]
 	quest.7B0276B3AACDABA7.title: "Awakened Injectors"
 	quest.7BC89A40B08037A9.quest_desc: [
@@ -3347,6 +3341,7 @@
 	task.029EBC8BCD4FA62E.title: "HV transformer"
 	task.02D20E07A2CDEA9E.title: "Look at a formed arc furnace"
 	task.059B86F37A6174D7.title: "Nine bronze bars for the grate"
+	task.06A5F682F800E308.title: "Chemical crystallizer"
 	task.0701CAFE5ABCE9D4.title: "Feed 384 steel ingots into Tally Chutes"
 	task.074E8FF31C7CC391.title: "Raw naquadah"
 	task.0774FDB7B4523A99.title: "Read the build guide"
@@ -3364,6 +3359,7 @@
 	task.0E6AB4ACAA318F51.title: "ME drive"
 	task.0FE0F6300D2B29B0.title: "Land on Mercury"
 	task.10059F1778A7C84F.title: "Offer the Humming Core at the shrine"
+	task.106F74C9BCEA2727.title: "Zinc shards"
 	task.1071B42988230BBE.title: "Feed 512 aluminium ingots into Tally Chutes"
 	task.114A24E0C56CE299.title: "Knap a clay piece"
 	task.124D117E2BC55E5C.title: "Iesnium ingots"
@@ -3413,6 +3409,7 @@
 	task.2F46393378F076FC.title: "Slay the Wilden Chimera (optional)"
 	task.30CA0794084F8E53.title: "Find a body of soulstone"
 	task.319476C720BB440C.title: "Knap a stone axe head"
+	task.31CCC74DAE75FBD7.title: "Naquadah liquidizer"
 	task.31EE89CEE13DA473.title: "Tan a hide"
 	task.328A1BD6CFC1554B.title: "Look at a formed alloy kiln"
 	task.32982D0B256D8BD6.title: "Read the build guide"
@@ -3422,6 +3419,7 @@
 	task.3468980A6E8C7F7C.title: "Look at the heart with the Iron Sanctum complete"
 	task.3494D4E598AEC13C.title: "Leather cap"
 	task.3522DB90824FEBF5.title: "Offer the Arcane Keystone at the shrine"
+	task.35C39354464849D9.title: "Crystallizer"
 	task.363EF3BA28ADA833.title: "Look at a formed metal press"
 	task.375DD780913A8CE0.title: "Reach the Space Age"
 	task.377CE4E779C2C6AA.title: "Offer the Steel Heart at the shrine"
@@ -3481,6 +3479,7 @@
 	task.5DE22F71BE32AF59.title: "Reach the Singularity Age"
 	task.5E1C1B7903D14167.title: "Keep 32 charcoal"
 	task.5E44A6470FF769FF.title: "Iron clumps"
+	task.5E7B4FC0AA58064C.title: "Chemical injection chamber"
 	task.5EBCDBD25D48AA10.title: "Light a firepit"
 	task.5EE1D4B01D9C11FE.title: "Offer the Pressure Core at the shrine"
 	task.5EE276E9135F2A27.title: "A mechanical saw"
@@ -3512,6 +3511,7 @@
 	task.715F70D28A1A4B47.title: "Look at the heart with the Tesla Crown complete"
 	task.7164F60688495EFE.title: "Bronze axe"
 	task.72777F0B3C025AB4.title: "A chute"
+	task.72BA91965804195D.title: "Zinc crystals"
 	task.72C67C8CA11A2DC3.title: "Look at a formed pumpjack"
 	task.72D41C305D7B1882.title: "Look at a working elevator contact"
 	task.731290E2EF703683.title: "A bucket of crude oil"

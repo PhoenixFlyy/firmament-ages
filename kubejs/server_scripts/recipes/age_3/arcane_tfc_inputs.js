@@ -112,7 +112,10 @@ ServerEvents.recipes((event) => {
   // Age item take an Arcane Age gem instead (tag firmages:gems/arcane) and a source gem block for a diamond block.
   // List from the result Ages in kubejs/data/firmages/tags/item/age_items/ (2026-09-30); enchantment recipes
   // have no result item and keep their diamonds, so higher enchantment levels come with the Industrial Age.
+  // Apothic Enchanting's table (release review 1.0.0) is the Arcane enchanting table and the station input of the Blaze
+  // Enchanter (recipes/tfc_station_inputs.js), the Machine Route's quest step to the Hollow Keystone: Arcane gems too.
   const DIAMOND_TO_ARCANE = [
+    'apothic_enchanting:apothic_enchanting_table',
     'ars_nouveau:amulet_of_mana_boost', 'ars_nouveau:amulet_of_mana_regen', 'ars_nouveau:apprentice_book_upgrade',
     'ars_nouveau:enchanters_gauntlet', 'ars_nouveau:enchanters_sword', 'ars_nouveau:enchanting_apparatus',
     'ars_nouveau:glyph_glide', 'ars_nouveau:glyph_linger', 'ars_nouveau:glyph_wall', 'ars_nouveau:imbuement_amplify_arrow',
@@ -170,6 +173,7 @@ ServerEvents.recipes((event) => {
   // 2026-10-01). A plain id list is a map lookup; reading every magic recipe as JSON cost about 55 ms of every reload.
   // dev/poc_analyze.py check C-3m reports a magic recipe that still names a MAP item (add its id here).
   const REWRITE_IDS = [
+    'apothic_enchanting:apothic_enchanting_table',
     'ars_additions:apparatus/dispel_protection_charm', 'ars_additions:apparatus/ender_mask_charm',
     'ars_additions:apparatus/fall_prevention_charm', 'ars_additions:apparatus/fire_resistance_charm',
     'ars_additions:apparatus/golden_charm', 'ars_additions:apparatus/night_vision_charm',

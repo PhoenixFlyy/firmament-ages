@@ -201,7 +201,7 @@ After the ceremony the recipe viewer, the block tooltip and F3 coordinates appea
 gold, graphite, borax and the salts wake.
 
 Rewards: "Pottery for Metal" pays the four other tool molds (axe, hammer, knife, shovel), "Copper Kit" 16 copper ore
-pieces and a copper knife for each of you, "Stocked Camp" wool cloth and cooked beef for each of you, "Raise the Shrine" stone lanterns and torches; the
+pieces and two copper javelins for each of you, "Stocked Camp" wool cloth and cooked beef for each of you, "Raise the Shrine" stone lanterns and torches; the
 goal pays a copper sword and a copper shield for each of you, copper and stone lanterns. Side roads: Goblins Below
 (off "Gatherer"), Fire Mountain (off "Native Copper"), Old Stones (off "The Stone Age Dawns": ruins, the cave
 watcher, regrowing forests).
@@ -528,7 +528,7 @@ Offer the Data Matrix in the Data Nave (ring 6).
    - Purification chamber (three times the metal per ore piece), then Ore Tripling: 64 iron clumps from the running
      chamber. Energy upgrades (8), electrolytic separator, 64 HDPE (pressurized reaction chamber, from ethene; the
      SPS casings of the Quantum Age take them), gas-burning generator (the FE generator of this Age).
-   - Blue steel: weak blue steel from the arc furnace, welded and worked like red steel. Four sheets for the Matrix,
+   - Blue steel: weak blue steel from the arc furnace, welded and worked like red steel. Two sheets for the Matrix,
      more for the presses below.
    - Keystone "Factory Line": an advanced smelting factory and an advanced enriching factory on the osmium line.
 2. Digital:
@@ -594,7 +594,9 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
 4. Draconium: 16 draconium ingots. Draconium veins wake now, deep in granite, diorite and gabbro; the ore ladder
    turns the pieces into clumps, shards and slurry. A dragon heart: wyvern fusion of a draconium block with two
    polonium and two plutonium pellets, two ostrum plates and a draconium core (the dragon drops one too). A fusion
-   crafting core; four basic and four wyvern injectors. Keystone: a wyvern core.
+   crafting core; eight basic and eight wyvern injectors (every ingredient needs its own injector of the recipe's
+   tier or better: the wyvern injector takes eight on basic ones, the awakened core eight on wyvern ones). Keystone:
+   a wyvern core.
 5. Void Steel: voidglass, starsteel, aurora light and desh in the Lens Crown. Voidglass comes only from probes: build
    the Launch Complex (a gantry and a flame trench around a probe cradle, the launch control three blocks away),
    load a probe and a sampler module (Halo Steel), fill the control with rocket fuel or diesel and launch. Fuse the
@@ -637,7 +639,7 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 2. Inner Planets: tier 3 rocket (ostrum); Venus, 16 calorite; tier 4 rocket (calorite); Glacio, 8 ice shards.
    Keystone: 32 calorite plates. Mercury waits for the Singularity Age (naquadah).
 3. Awakened: 16 awakened draconium (draconium blocks, a dragon heart and the four Nether Stars the fabricator printed
-   in the Information Age); 4 awakened injectors; 2 subatomic alloy (hypercharged alloy and antimatter in the
+   in the Information Age); 12 awakened injectors (the chaotic core and the reactor parts fill all twelve); 2 subatomic alloy (hypercharged alloy and antimatter in the
    antiprotonic nucleosynthesizer). Keystone: an awakened core.
 4. Keystone:
    - 4 atomic alloy (part of the keystone).
@@ -698,9 +700,9 @@ offering.
    circuits) sits against a stabilizer or injector: it shuts the reactor down at 80 % conversion, swaps the fuel
    while it is cold and signals ready by redstone. Starting it is your job.
 3. Chaos comes from your own reactor: it hands its spent fuel out as chaos fragments (a full cycle about six large
-   fragments; "Chaos Fragments" asks for eight). About four cycles make the chaos the Age needs: twelve chaotic
-   injectors (one large and three medium fragments and an antimatter pellet each), the chaotic core, two fragments
-   for the Singularity, one for the Coordinates. Nine large fragments press into a chaos shard. The Chaos Guardian
+   fragments; "Chaos Fragments" asks for twenty). About four cycles make the chaos the Age needs: twelve chaotic
+   injectors (one large and three medium fragments and an antimatter pellet each), the chaotic core (five large
+   fragments), two fragments for the Singularity, one for the Coordinates: 20 large and 36 medium. Nine large fragments press into a chaos shard. The Chaos Guardian
    in the End drops chaos shards too; it is an optional side path off "Chaos Fragments". The Chaos strand runs on
    from the fragments through the chaotic injectors and the chaotic core to its keystone, the Ultimate Singularity;
    the Gathering and the singular alloy need no chaos and stand in the Sky strand before the Firmament Alloy.
@@ -714,10 +716,13 @@ offering.
    alloy. The metallurgic infuser makes refined naquadah (with refined obsidian); the nucleosynthesizer makes pure
    naquadah from it (with antimatter), and the arc furnace turns pure naquadah into the naquadah of the Milky Way
    gate, its dialling device and the naquadah tools (all optional).
-7. Stargate ("Stargate Blocks"): 14 ring blocks, 9 chevron blocks, one base block and a DHD. The base block: two naquadah-iron alloy, a
+7. Stargate ("Crystallizer", "Stargate Blocks"): first a crystallizer and a naquadah liquidizer; the gate's 32
+   crystals grow in the crystallizer from gems, a crystal base and liquid naquadah (each chevron takes a transfer, a
+   materialization and an energy crystal, the base four, the DHD a communication crystal). Then 14 ring blocks,
+   9 chevron blocks, one base block and a DHD. The base block: two naquadah-iron alloy, a
    communication crystal, two refined naquadah, the Ultimate Singularity, two transfer crystals, a control crystal.
    Assemble the gate; power it from the reactor through a flux gate. Keystone "Gate Online".
-8. Coordinates of The Origin: paper, an ink sac and a chaos shard. Dial **9, 16, 21, 33, 2, 37**, then the point of
+8. Coordinates of The Origin: paper, an ink sac and a large chaos fragment. Dial **9, 16, 21, 33, 2, 37**, then the point of
    origin.
 9. Step through.
 
@@ -739,7 +744,8 @@ Necklaces (off "Chaos Fragments"), Crystals and Rings (off "Stargate Blocks").
 - The reactor can explode. Watch temperature and field strength, keep the shields fed, refuel only while it is cold.
   Refuelling is by hand.
 - The Origin stays shut before this Age, whatever the way in: gate, portal, teleporter or command.
-- Keep chaos shards: two go into the Ultimate Singularity, one into the Coordinates of The Origin.
+- Keep large chaos fragments: twelve for the injectors, five for the chaotic core, two for the Singularity, one for
+  the Coordinates. Do not press them into chaos shards: a shard is nine fragments, and no step of the Age takes one.
 
 ---
 

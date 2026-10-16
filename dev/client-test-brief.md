@@ -7,8 +7,8 @@ Eine Liste für den Client-Test von 1.0. Sie fasst alle offenen Client-Punkte de
 alten Abschnitte bleiben als Archiv stehen; wo sie dieser Liste widersprechen, gilt diese. Server-Teil auf einer Kopie
 geprüft (`dev/poc-results.md`, Abschnitt „1.0.0 (2026-10-17)“): Boots mit neuer Welt, alle Ages per
 Simulation; Gate aus: Dump und `/reload` ohne Rezeptverlust (43.709 vor und nach); Gate an: `selftest all` 106 von 106,
-`poc_analyze.py` 134 PASS, 0 FAIL, FTB Quests 26 Kapitel, 668 Quests, `check_log.py` 0 übrig; GameTests 124 von 124;
-`validate_quests.py --style` 0 Fehler, 0 Warnungen; Q-1 523 Aufgaben mit Quelle.
+`poc_analyze.py` 134 PASS, 0 FAIL, FTB Quests 26 Kapitel, 666 Quests (nach dem Release-Review), `check_log.py` 0 übrig
+(Integration F1); GameTests 124 von 124; `validate_quests.py --style` 0 Fehler, 0 Warnungen; Q-1 575 Aufgaben mit Quelle.
 
 Weggelassen, weil spätere Runden es überholt haben: Vanilla-Holz erst in der Singularitätszeit (0.10.0 Punkt 1, seit
 0.12.0 Holzklassen), „In The Origin noch kein Endboss“ (0.10.0, seit 0.11.0 The Primordial), Tally Chute in der
@@ -98,7 +98,9 @@ dem B2-Review zwei bis sieben), die 57 fehlenden Mods der alten Client-Instanz (
 ### Arkanzeit
 
 26. **Zwei Wege.** Ziel-Quest öffnet nach „The Spirit Route“ oder „The Machine Route“ (Hollow Keystone aus der
-    Netherfestung, Spout, Deployer, Presse).
+    Netherfestung, Spout, Deployer, Presse). Ohne Diamant: der Apothic-Verzauberungstisch nimmt in EMI Arkan-Edelsteine,
+    der Blaze Enchanter ist damit baubar; das Blaze-Upgrade-Template liegt in Bastion- und Netherfestungskisten.
+    **Release-Review**
 27. **Lens Crown.** Star Anvil im Steinring mit drei Lens Mounts, Akkord, Starlit Iron (Ponder, EMI). Je Age genau eine
     neue Legierung in EMI; Wayshrine-Opfer ab hier die Legierung der Age.
 28. **Wixie-Charm.** Am Enchanting Apparatus aus Beschwörungsessenz, Setzling, Smaragd, Werkbank, Braustand; auf einen
@@ -179,7 +181,9 @@ dem B2-Review zwei bis sieben), die 57 fehlenden Mods der alten Client-Instanz (
 51. **Sternentor.** Wählen nach The Origin zieht 1 G FE, offen 50.000 FE/t; ohne Strom „not enough power“. Rückweg
     aus The Origin klappt ohne eigenen Strom.
 52. **Chronik.** Chaos-Strang Reaktor, Fragmente, Injektoren, Kern, Ultimate Singularity; „Chaos Guardian“ als
-    Nebenquest an „Chaos Fragments“; „Beyond the Firmament“ erscheint erst jetzt.
+    Nebenquest an „Chaos Fragments“; „Beyond the Firmament“ erscheint erst jetzt. „Chaos Fragments“ will 20 große
+    Fragmente, Injektor-Quests 8/8 (Raumfahrt), 12 (Quanten), 12 (Chaos); „Crystallizer“ steht vor „Stargate Blocks“;
+    Mekanism-Splitter erscheinen in EMI erst in der Raumfahrtzeit, Kristalle in der Quantenzeit. **Release-Review**
 53. **The Primordial** mit 1, 2 und 4 Spielern: Dauer gegen das Modell 8,4 / 7,2 / 6,5 Minuten; ein Treffer höchstens 40
     Schaden (auch der Draconic-Bogen); Phasen-Titel, Laternen, Splitter (Tooltip nennt drei Wege); Wipe: nach 30 s
     zieht es sich zurück. Danach Titel, goldener Schreinstrahl.

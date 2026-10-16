@@ -24,7 +24,7 @@ ServerEvents.recipes((event) => {
     // mechanical pipe (the Space Age fission chain needs the PRC and the oxidizer, both built on the Dynamic Tank).
     'minecraft:bucket': 'tfc:wooden_bucket',
     // Content fixes after the late Ages (2026-10-01): Apothic Enchanting's table is the pack's enchanting table
-    // (tome, diamonds, obsidian); TFC barrels (tags/tfc_stations.js); milk is a fluid in a TFC bucket, so the
+    // (tome, Arcane gems for its diamonds in recipes/age_3/arcane_tfc_inputs.js, obsidian); TFC barrels (tags/tfc_stations.js); milk is a fluid in a TFC bucket, so the
     // ingredient is TFC's fluid-content test for 1000 mB of milk.
     'minecraft:enchanting_table': 'apothic_enchanting:apothic_enchanting_table',
     'minecraft:barrel': '#tfc:barrels',

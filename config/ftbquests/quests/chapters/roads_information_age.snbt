@@ -1375,112 +1375,6 @@
 		{
 			dependencies: ["533C7CC2EEA570E4"]
 			icon: {
-				id: "moremekanismprocessing:crystal_aluminum"
-			}
-			id: "0FD5F40E53DB4032"
-			optional: true
-			rewards: [
-				{
-					id: "3E887DEFD3B9055B"
-					type: "xp"
-					xp: 120
-				}
-				{
-					count: 4
-					id: "381B1DDA4CCD4C0D"
-					item: {
-						count: 1
-						id: "mekanism:alloy_infused"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					count: 8L
-					id: "1D719BE13F64EEF1"
-					item: {
-						count: 1
-						id: "moremekanismprocessing:crystal_aluminum"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					count: 8L
-					id: "2CE81B1E89AE1B9E"
-					item: {
-						count: 1
-						id: "moremekanismprocessing:crystal_zinc"
-					}
-					optional_task: true
-					type: "item"
-				}
-			]
-			x: -0.05d
-			y: 17.55d
-		}
-		{
-			dep_control_pts: {
-				0FD5F40E53DB4032: [
-					1.05d
-					17.914d
-					1.728d
-					17.414d
-				]
-			}
-			dependencies: ["0FD5F40E53DB4032"]
-			id: "3D68BFAEB3205167"
-			optional: true
-			rewards: [
-				{
-					id: "7213B7CB18205B51"
-					type: "xp"
-					xp: 120
-				}
-				{
-					count: 4
-					id: "53C84DBFFE9A2E81"
-					item: {
-						count: 1
-						id: "mekanism:alloy_infused"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					count: 8L
-					id: "341CCA163C0DAF82"
-					item: {
-						count: 1
-						id: "moremekanismprocessing:shard_zinc"
-					}
-					type: "item"
-				}
-			]
-			x: 2.1d
-			y: 17.05d
-		}
-		{
-			dep_control_pts: {
-				3D68BFAEB3205167: [
-					3.226d
-					17.414d
-					3.953d
-					17.814d
-				]
-			}
-			dependencies: ["3D68BFAEB3205167"]
-			icon: {
 				id: "moremekanismprocessing:clump_nickel"
 			}
 			id: "7790A6723360B877"
@@ -1527,15 +1421,15 @@
 					type: "item"
 				}
 			]
-			x: 4.35d
+			x: 0.05d
 			y: 17.45d
 		}
 		{
 			dep_control_pts: {
 				7790A6723360B877: [
-					5.438d
+					1.138d
 					17.814d
-					6.091d
+					1.791d
 					17.264d
 				]
 			}
@@ -1573,15 +1467,15 @@
 					type: "item"
 				}
 			]
-			x: 6.45d
+			x: 2.15d
 			y: 16.9d
 		}
 		{
 			dep_control_pts: {
 				7F4BB9218EAC60EC: [
-					7.55d
+					3.25d
 					17.264d
-					8.228d
+					3.928d
 					17.764d
 				]
 			}
@@ -1619,15 +1513,15 @@
 					type: "item"
 				}
 			]
-			x: 8.6d
+			x: 4.3d
 			y: 17.4d
 		}
 		{
 			dep_control_pts: {
 				598991B51FCE284F: [
-					9.658d
+					5.358d
 					17.764d
-					10.321d
+					6.021d
 					17.414d
 				]
 			}
@@ -1679,7 +1573,7 @@
 					type: "item"
 				}
 			]
-			x: 10.65d
+			x: 6.35d
 			y: 17.05d
 		}
 		{

@@ -1115,7 +1115,7 @@
 			]
 			tasks: [
 				{
-					count: 4L
+					count: 8L
 					id: "19AE69BBB724B329"
 					item: {
 						count: 1
@@ -1124,7 +1124,7 @@
 					type: "item"
 				}
 				{
-					count: 4L
+					count: 8L
 					id: "3C99CD274D861CA0"
 					item: {
 						count: 1
@@ -1508,6 +1508,9 @@
 				]
 			}
 			dependencies: ["15AD3FABD5A6F24F"]
+			icon: {
+				id: "mekanism:chemical_injection_chamber"
+			}
 			id: "42BF4D07BA145527"
 			optional: true
 			rewards: [
@@ -1536,6 +1539,15 @@
 					item: {
 						count: 1
 						id: "mekanism:chemical_injection_chamber"
+					}
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "106F74C9BCEA2727"
+					item: {
+						count: 1
+						id: "moremekanismprocessing:shard_zinc"
 					}
 					type: "item"
 				}

@@ -7,13 +7,10 @@ that dev/derive_ages.py --dump-dir and dev/poc_analyze.py --dump-dir read like a
 KubeJS scripts it names; it is a stand-in until the next boot with fa_dump, after which `derive_ages.py --check` on
 the real dump must say "up to date".
 
-Current edit set: round F1 (2026-10-16) on the gate-off dump of 0.14.0. The ids of
-recipes/metal_values.js go (block and ingot recipes of the vanilla price, 1-ingot plates that are TFC sheets, the
-second zinc nugget), the Wixie charm takes conjuration essence as its reagent (recipes/age_3/arcane_tfc_inputs.js),
-the Fusion Neutron Activator gets its recipe (recipes/age_8/quantum_age.js) and pure naquadah becomes naquadah in the
-IE arc furnace (recipes/age_9/singularity_age.js, firmages:arc_furnace/naquadah; the same script removes Stargate
-Journey's blasting recipe). The edit sets of earlier changes (the sky road with V4A, the adventure round, deco in TFC
-woods) are in the git history.
+Current edit set: release review of 1.0.0 (2026-10-17) on the gate-off dump of round F1. Apothic Enchanting's table
+takes an Arcane gem for its diamonds (recipes/age_3/arcane_tfc_inputs.js, DIAMOND_TO_ARCANE), so the Blaze Enchanter of
+the Machine Route is an Arcane Age recipe. The edit sets of earlier changes (round F1, the sky road with V4A, the
+adventure round, deco in TFC woods) are in the git history.
 
 Usage
   python dev/predict_dump.py SRC_DUMP OUT_DIR           write the predicted dump
@@ -24,7 +21,6 @@ Usage
 """
 import json
 import os
-import re
 import sys
 
 DEV = os.path.dirname(os.path.abspath(__file__))
@@ -45,40 +41,12 @@ def shaped(result, pattern, key, count=1):
 
 # recipe id -> JSON as the KubeJS scripts add it
 NEW_RECIPES = {
-    # recipes/age_3/arcane_tfc_inputs.js (REAGENT_FIX): Ars' recipe as the pack rewrites it, conjuration essence for the
-    # Wixie shards (written out: the gate-on dump has no copy, the gate drops a recipe of a disabled item)
-    "ars_nouveau:wixie_charm": {"pedestalItems": [T("minecraft:saplings"), T("c:gems/emerald"), T("tfc:workbenches"),
-                                                  I("minecraft:brewing_stand")],
-                                "sourceCost": 0, "keepNbtOfReagent": False, "reagent": I("ars_nouveau:conjuration_essence"),
-                                "result": {"id": "ars_nouveau:wixie_charm", "count": 1},
-                                "type": "ars_nouveau:enchanting_apparatus"},
-    # Ars' own recipe that clears a charm: the gate dropped it while the charm was disabled
-    "ars_nouveau:clear_wixie_charm": {"category": "misc", "result": {"id": "ars_nouveau:wixie_charm", "count": 1},
-                                      "ingredients": [I("ars_nouveau:wixie_charm")], "type": "minecraft:crafting_shapeless"},
-    # recipes/age_8/quantum_age.js
-    "firmages:crafting/fusion_neutron_activator": shaped(
-        "mekanismneutronactivator:fusion_neutron_activator", ["ARA", "CFC", "PSP"],
-        {"A": "mekanism:alloy_atomic", "R": "mekanismgenerators:fission_fuel_assembly",
-         "C": "mekanism:ultimate_control_circuit", "F": "mekanismgenerators:fusion_reactor_frame",
-         "P": "mekanism:sps_casing", "S": "mekanism:solar_neutron_activator"}),
-    # recipes/age_9/singularity_age.js
-    "firmages:arc_furnace/naquadah": {"type": "immersiveengineering:arc_furnace", "input": I("sgjourney:pure_naquadah"),
-                                      "additives": [], "results": [{"id": "sgjourney:naquadah", "count": 1}],
-                                      "time": 200, "energy": 102400},
+    # recipes/age_3/arcane_tfc_inputs.js: the mod recipe re-added under its own id with #firmages:gems/arcane
+    "apothic_enchanting:apothic_enchanting_table": dict(shaped(
+        "apothic_enchanting:apothic_enchanting_table", [" T ", "DOD", "OOO"],
+        {"T": "#apothic_enchanting:tomes", "D": "#firmages:gems/arcane", "O": "minecraft:obsidian"}),
+        group="apothic_enchanting"),
 }
-# recipe ids recipes/metal_values.js removes (the script is the list's source; keep both in step)
-METAL_VALUES_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "metal_values.js")
-
-
-def removed_ids():
-    """The recipe ids recipes/metal_values.js removes: every quoted id of the script, and the anvil plates of its loop."""
-    text = open(METAL_VALUES_JS, encoding="utf-8").read()
-    ids = set(re.findall(r"'([a-z0-9_]+:[a-z0-9_/]+)'", text))
-    loop = re.search(r"\[([^\]]*)\]\.forEach\(\(m\) => event\.remove\(\{ id: `tfc_ie_addon:anvil/plate_", text)
-    ids |= {f"tfc_ie_addon:anvil/plate_{m}" for m in re.findall(r"'([a-z_]+)'", loop.group(1))}
-    return ids
-
-
 def load(d, n):
     return json.load(open(os.path.join(d, n), encoding="utf-8"))
 
@@ -117,14 +85,7 @@ def predict(src, out):
     tags = load(src, "item_tags.json")
     reg = load(src, "registries.json")
     log = []
-    # ---- recipes/metal_values.js
-    gone = removed_ids()
-    missing = sorted(i for i in gone if i not in full)
-    for rid in gone:
-        full.pop(rid, None)
-        rows.pop(rid, None)
-    log.append(f"metal_values.js: {len(gone) - len(missing)} recipes removed, not in the dump: {missing}")
-    # ---- new pack recipes and the Wixie charm
+    # ---- pack recipes added or rewritten
     for rid, j in NEW_RECIPES.items():
         full[rid] = json.dumps(j, separators=(",", ":"))
         rows[rid] = row_for(rid, j, rows)

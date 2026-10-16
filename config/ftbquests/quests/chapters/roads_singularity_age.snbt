@@ -145,51 +145,6 @@
 		}
 		{
 			dependencies: ["774C554B16ACE98C"]
-			id: "0AF9B610A751A285"
-			optional: true
-			rewards: [
-				{
-					id: "04B5130030582319"
-					type: "xp"
-					xp: 200
-				}
-				{
-					count: 8
-					id: "43D7B27816F62DBE"
-					item: {
-						count: 1
-						id: "sgjourney:raw_naquadah"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "ember"
-			size: 0.85d
-			tags: ["side"]
-			tasks: [
-				{
-					id: "79435F01455C7DAF"
-					item: {
-						count: 1
-						id: "sgjourney:crystallizer"
-					}
-					type: "item"
-				}
-			]
-			x: -0.05d
-			y: 3.0d
-		}
-		{
-			dep_control_pts: {
-				0AF9B610A751A285: [
-					1.086d
-					3.364d
-					1.792d
-					2.814d
-				]
-			}
-			dependencies: ["0AF9B610A751A285"]
 			id: "5C56E1A066E7C72A"
 			optional: true
 			rewards: [
@@ -222,16 +177,16 @@
 					type: "item"
 				}
 			]
-			x: 2.2d
-			y: 2.45d
+			x: 0.05d
+			y: 3.05d
 		}
 		{
 			dep_control_pts: {
 				5C56E1A066E7C72A: [
-					3.324d
-					2.814d
-					4.004d
+					1.174d
 					3.414d
+					1.854d
+					2.814d
 				]
 			}
 			dependencies: ["5C56E1A066E7C72A"]
@@ -267,16 +222,16 @@
 					type: "item"
 				}
 			]
-			x: 4.4d
-			y: 3.05d
+			x: 2.25d
+			y: 2.45d
 		}
 		{
 			dep_control_pts: {
 				0107BC143F361DE9: [
-					5.488d
+					3.342d
+					2.814d
+					3.986d
 					3.414d
-					6.141d
-					2.864d
 				]
 			}
 			dependencies: ["0107BC143F361DE9"]
@@ -312,16 +267,16 @@
 					type: "item"
 				}
 			]
-			x: 6.5d
-			y: 2.5d
+			x: 4.35d
+			y: 3.05d
 		}
 		{
 			dep_control_pts: {
 				3025445C8E744839: [
-					7.588d
-					2.864d
-					8.241d
+					5.434d
 					3.414d
+					6.095d
+					2.914d
 				]
 			}
 			dependencies: ["3025445C8E744839"]
@@ -356,8 +311,8 @@
 					type: "item"
 				}
 			]
-			x: 8.6d
-			y: 3.05d
+			x: 6.45d
+			y: 2.55d
 		}
 	]
 	tags: ["age_9", "roads"]

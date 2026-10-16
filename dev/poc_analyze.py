@@ -606,7 +606,8 @@ STATION_AGES_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "sta
 LATE_LOADED = [(r"^firmages:injecting/", "age_7"), (r"^firmages:dissolution/", "age_8"),
                (r"^firmages:metallurgic_infusing/blue_steel$", "age_7"),
                (r"^create:sequenced_assembly/black_and_white_film_developing$", "age_2"),  # recipes/exposure.js
-               (r"^ae2:network/(upgrade_)?wireless_crafting_terminal$", "age_6")]  # recipes/age_4/wireless_terminal.js
+               (r"^ae2:network/(upgrade_)?wireless_crafting_terminal$", "age_6"),  # recipes/age_4/wireless_terminal.js
+               (r"^firmages:crafting/belt_connector_rubber$", "age_2")]  # recipes/age_2/links.js
 # Pack recipes that exist only while an Age is locked (FirmAges.untilAge; the byproduct copies of byproducts.js are
 # matched by their id pattern): from that Age on a later recipe replaces them.
 UNTIL_LOADED = [(r"^firmages:mechanical_crafting/wireless_crafting_terminal$", "age_6")]  # recipes/age_4/wireless_terminal.js
@@ -3115,8 +3116,11 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
         heat = {rid: HEAT_STATION.get(full[rid].get("heat_requirement")) for rid, _, _ in recs}
         stations = {rid: station_groups(rid) for rid, _, _ in recs}
         is_open = extra.get("recipe_open", lambda rid, n_: True)
+        # LATE_LOADED: the gate holds these pack recipes until a later Age than their outputs (FirmAges.requireAge);
+        # release review 1.0.0: without it the walk made Mekanism crystals and shards from slurry and HCl at age_6
+        late = {rid: max((AGES.index(st) for rx, st in LATE_LOADED if re.match(rx, rid)), default=0) for rid, _, _ in recs}
         live = [(rid, sl, set(os_)) for rid, sl, os_ in recs
-                if station_ix(rid) <= n and os_ and all(fits(o, n) for o in os_) and is_open(rid, n)]
+                if station_ix(rid) <= n and late[rid] <= n and os_ and all(fits(o, n) for o in os_) and is_open(rid, n)]
         transforms = [(set(needs), [o for o in outs if fits(o, n) and o not in without], why_)
                       for n0, needs, outs, why_ in extra.get("transforms", ()) if n0 <= n]
 

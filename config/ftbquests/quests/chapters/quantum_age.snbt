@@ -689,7 +689,7 @@
 			]
 			tasks: [
 				{
-					count: 4L
+					count: 12L
 					id: "2A51952808F0441E"
 					item: {
 						count: 1
@@ -1220,6 +1220,9 @@
 				]
 			}
 			dependencies: ["6CBAA83920DDC925"]
+			icon: {
+				id: "mekanism:chemical_crystallizer"
+			}
 			id: "280FF1CBD99D0A4A"
 			optional: true
 			rewards: [
@@ -1247,6 +1250,15 @@
 					item: {
 						count: 1
 						id: "mekanism:chemical_crystallizer"
+					}
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "72BA91965804195D"
+					item: {
+						count: 1
+						id: "moremekanismprocessing:crystal_zinc"
 					}
 					type: "item"
 				}

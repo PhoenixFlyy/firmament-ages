@@ -244,16 +244,16 @@ CODE_DROPS = [
     # (kubejs/client_scripts/viewer_info.js; review fix 0.12.0: hidden, nobody learnt where meteoric iron comes from)
     (["firmages:meteorite", "firmages:starfall_core"], "age_2"),
     (["firmages:starsteel_meteorite"], "age_5"),
+    # Create Dragons Plus adds its blaze upgrade template to the bastion and Nether fortress chests in code
+    # (CDPLoots$TableInjections on LootTableLoadEvent; Create Enchantment Industry switches the feature on through its
+    # mod properties). The Nether opens with age_3.
+    (["create_dragons_plus:blaze_upgrade_smithing_template"], "age_3"),
 ]
 # Pre-existing design gaps: items the walk cannot reach from any source although the design uses them. They stay at
 # their age_map Age (visible from that Age) instead of being hidden, and each is an open point in dev/poc-results.md.
 KNOWN_GAPS = {
-    # Create Enchantment Industry's Blaze Enchanter (Arcane Age quest task) is smithed with Create Dragons Plus's blaze
-    # upgrade template, whose only recipe copies a template; the first one comes from no loot table or modifier file.
-    "create_dragons_plus:blaze_upgrade_smithing_template": "first template has no data-visible source",
-    # The Blaze Enchanter (Arcane Age quest task) is smithed onto Apothic Enchanting's table, whose recipe needs
-    # c:gems/diamond; diamonds are age_4 (TFC diamond ore, [tfc_ores]).
-    "apothic_enchanting:apothic_enchanting_table": "recipe needs c:gems/diamond (age_4); Arcane Age quest needs it",
+    # empty since the release review of 1.0.0: the Blaze Enchanter's two parts have sources (CODE_DROPS, the Arcane
+    # gems in Apothic Enchanting's table), so Q-1 guards the Machine Route again
 }
 
 
@@ -1185,7 +1185,9 @@ def derive(dump_dir, show, rewards=True):
 def quest_task_sources(res):
     """Q-1 (review 0.13.0): every non-optional item task of the Chronicle names an item the walk reaches by its
     chapter's Age through a recipe, the world or loot. res is a walk without quest rewards (derive(rewards=False)):
-    a reward is no source (0.13.0 asked for ad_astra:fuel_bucket, which no recipe makes).
+    a reward is no source (0.13.0 asked for ad_astra:fuel_bucket, which no recipe makes). A quest whose tasks are all
+    optional (t_any_item: any one completes it) needs one of its items reached (release review 1.0.0: "Crystals" of the
+    Information Age asked for aluminium or zinc crystals, both Quantum Age).
     -> (problems, count of tasks checked)."""
     first = res["first"]
     bad, n = [], 0
@@ -1196,7 +1198,14 @@ def quest_task_sources(res):
             continue
         name = os.path.basename(p)[:-5]
         for q in ch.get("quests", []):
-            for t in q.get("tasks", []):
+            tasks = q.get("tasks", [])
+            anyof = [t["item"].get("id") for t in tasks if t.get("type") == "item" and isinstance(t.get("item"), dict)]
+            if tasks and anyof and all(t.get("optional_task") for t in tasks):
+                n += 1
+                ok = [i for i in anyof if i in first and AGES.index(first[i]) <= AGES.index(st)]
+                if not ok:
+                    bad.append(f"{name} quest {q.get('id')} (any of {', '.join(anyof)}): none reachable by {st}")
+            for t in tasks:
                 if t.get("type") != "item" or t.get("optional_task") or not isinstance(t.get("item"), dict):
                     continue
                 i = t["item"].get("id")

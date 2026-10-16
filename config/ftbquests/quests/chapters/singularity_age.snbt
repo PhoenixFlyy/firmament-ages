@@ -230,7 +230,7 @@
 			]
 			tasks: [
 				{
-					count: 8L
+					count: 20L
 					id: "17FCA6141918BD95"
 					item: {
 						count: 1
@@ -272,7 +272,7 @@
 			]
 			tasks: [
 				{
-					count: 4L
+					count: 12L
 					id: "496C2D7EF4D898BB"
 					item: {
 						count: 1
@@ -433,13 +433,65 @@
 		{
 			dep_control_pts: {
 				35AFC9346F30C43A: [
-					-9.273d
-					2.728d
-					-8.458d
-					3.079d
+					-9.523d
+					2.578d
+					-9.018d
+					2.879d
 				]
 			}
 			dependencies: ["35AFC9346F30C43A"]
+			icon: {
+				id: "sgjourney:crystallizer"
+			}
+			id: "1B74C0B3BA4F7609"
+			rewards: [
+				{
+					id: "2E0D006BABF5812E"
+					type: "xp"
+					xp: 200
+				}
+				{
+					count: 8
+					id: "166320C976F40B26"
+					item: {
+						count: 1
+						id: "sgjourney:raw_naquadah"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "35C39354464849D9"
+					item: {
+						count: 1
+						id: "sgjourney:crystallizer"
+					}
+					type: "item"
+				}
+				{
+					id: "31CCC74DAE75FBD7"
+					item: {
+						count: 1
+						id: "sgjourney:naquadah_liquidizer"
+					}
+					type: "item"
+				}
+			]
+			x: -8.9d
+			y: 2.65d
+		}
+		{
+			dep_control_pts: {
+				1B74C0B3BA4F7609: [
+					-7.822d
+					3.316d
+					-7.153d
+					3.514d
+				]
+			}
+			dependencies: ["1B74C0B3BA4F7609"]
 			icon: {
 				id: "sgjourney:classic_stargate_chevron_block"
 			}
@@ -497,16 +549,16 @@
 					type: "item"
 				}
 			]
-			x: -8.05d
-			y: 2.9d
+			x: -6.9d
+			y: 3.2d
 		}
 		{
 			dep_control_pts: {
 				774C554B16ACE98C: [
-					-6.85d
-					3.558d
-					-6.075d
-					3.848d
+					-5.857d
+					3.732d
+					-5.294d
+					4.148d
 				]
 			}
 			dependencies: ["774C554B16ACE98C"]
@@ -537,16 +589,16 @@
 					type: "item"
 				}
 			]
-			x: -5.7d
-			y: 3.45d
+			x: -5.1d
+			y: 3.7d
 		}
 		{
 			dep_control_pts: {
 				7124AA6401C814BF: [
-					-4.276d
-					4.122d
-					-3.484d
-					3.929d
+					-3.845d
+					4.324d
+					-3.327d
+					3.868d
 				]
 			}
 			dependencies: ["7124AA6401C814BF"]
