@@ -109,6 +109,10 @@ file = "config/artifacts/items.toml"
 hash = "22b2ba8d527037ce1f8f0ee24677d8d519cda586564ac0c03523517bcec35fcb"
 
 [[files]]
+file = "config/bcc-common.toml"
+hash = "8ae2ff32b52b33d07a14e208a0c8dbedee1036031316f1ad96cd903da7798476"
+
+[[files]]
 file = "config/brandon3055/DraconicAdditions.cfg"
 hash = "d823e8fef9f6e44da65012ea79a98fa02792dfcfa22c8c926cb33ea6eefc3104"
 
@@ -146,7 +150,7 @@ hash = "328b3852fab98cec3426ffeb098ed8261ae24eefac332439df9c24df98d24dab"
 
 [[files]]
 file = "config/createdieselgenerators-server.toml"
-hash = "37c4b086faf4bad4c965146edbebc1f0bb071be62d5a0b75d6b52bc3a948d8fd"
+hash = "fc1ebb01bf8b9f3dcdc470bd1f6e82a3e49df11458fefabe1aa461a5972f993f"
 
 [[files]]
 file = "config/cucumber-tags.json"
@@ -394,7 +398,7 @@ hash = "3751be57ae782eeb97e886c5a955ab719561fc9c0210e10b3ff7d2bcad4ad013"
 
 [[files]]
 file = "config/gravestone-server.toml"
-hash = "8b7f6e3dd09dfc4416a57f87ae3c9cd47662ffb7e13191ba81ef86bce44a82f9"
+hash = "d37470a9acd9368d82dde1b33ed52cdbb201e81d4ea811bc3b0cbc10800ddf33"
 
 [[files]]
 file = "config/immersiveengineering-server.toml"
