@@ -813,6 +813,32 @@ Design source: Doc 08 §10 (finale: Ultimate Singularity, Stargate, The Origin, 
 - **Commands:** `/firmages origin tp [players]` (normal teleport, so the age_9 lock applies), `origin tp <players> force`, `origin gathering`, `origin fight` (0.9.0, operators' test shortcuts), `origin kill [boss]` (N5), `origin status`, `origin reset`, `origin rebuild` (§10).
 - **Test (0.9.0):** `originDimensionArenaAndGate` also checks every island top (consecrated stone with its accent, trim rim, no end rod) and, with the island chunks forced, one echo per island whose signature item exists in the run (the test datapack's three), with the right item, tag and place, and no duplicate after a second tick.
 
+### 16.2a What a dial costs (round H3, harmony plan link 22, 2026-10-16)
+
+The Stargate is the Singularity Age's second customer of reactor power (harmony plan table 2.1: "SGJ-Waehlen reaktorgross",
+the Gathering sink 1 G FE, the Ultimate Singularity 2 G FE; the DE reactor band 1 to 3 M FE/t).
+
+- **Pack config `config/sgjourney-common.toml`** (the file as Stargate Journey 0.6.51 writes it, four values changed;
+  `CommonStargateConfig` [verified, javap]): `interstellar_connection_energy_cost` 1,000,000,000 FE (was 100,000; The
+  Origin is an interstellar address, `CONNECTION_ESTABLISHED_INTERSTELLAR`), `interstellar_connection_energy_draw` 50,000 FE/t
+  while the wormhole is open (was 50; 228 s cost about 228 M FE), `system_wide_connection_energy_cost` 10,000,000 FE
+  (was 50,000) and its draw 5,000 FE/t (was 5). Intergalactic stays at Stargate Journey's 100 G FE (no second galaxy).
+  A reactor at 1.5 M FE/t fills one dial in about 33 s; a fusion plant at 0.5 M FE/t needs well over a minute. The
+  gate's own buffer (1 T FE) and the crystal interface (10 M FE/t) carry it.
+- **The way home:** the Origin's return gate never strands anyone. `OriginArena.buildGate` takes the fusion core SGJ's
+  `generate()` puts into the arena DHD (2.2 to 6.6 G FE of free power, `MilkyWayDHDEntity.generateEnergyCore`
+  [verified, javap]) and charges the gate instead; `OriginService` keeps the gate at one trip home
+  (`SgjGates.homeTrip()`: the interstellar cost plus the draw of a full open time, 1,228,000,000 FE with the pack's
+  values) every 20 ticks while its chunk is loaded. Worlds whose arena gate was built before 1.0 keep their DHD core.
+- **Log and commands:** at server start "Stargate costs (sgjourney-common.toml): ..."; `/firmages origin gate` prints the
+  costs and the return gate's charge; `/firmages origin gate trial <pos>` (debug.allowSimulate) places SGJ's pedestal
+  gate at `pos` and dials The Origin for real with one FE less than the cost and with the cost.
+- **Tests:** G `EndgameGameTests.dialingTheOriginCostsTheConfiguredFe` (the trial at the run's own config: one FE short
+  `NOT_ENOUGH_POWER`, the cost `CONNECTION_ESTABLISHED_INTERSTELLAR` and spent; `keepCharged` fills to one trip home).
+  P `selftest endgame` `stargate_dials_cost_reactor_power` (interstellar cost at least 1 G FE).
+  **[S]** copy boot H3: trial with 999,999,999 FE `NOT_ENOUGH_POWER`, with 1,000,000,000 FE connected and 0 FE left;
+  the return gate held 1,228,000,000 FE after a forceload of its chunk.
+
 ### 16.3 Gathering trigger, final boss, FINALE
 
 - **Gathering (`OriginService.checkGathering`, every 20 ticks):** true when every online player who is not a spectator and has acted within `origin.gatherIdleMinutes` (5; `ServerPlayer.getLastActionTime`) is alive in The Origin within `origin.gatherRadius` (6) of the altar, and the altar stands. While some of them stand at the altar and others do not, the ones at the altar read `firmages.origin.waiting` on the action bar ("The altar waits for 2 more: Alex, Sam", at most five names). On the transition to true, outside `origin.gatherCooldownSeconds` (30, in memory, reset at boot) since the last start, while the boss has not fallen and (N5) while the fight of the last Gathering does not run, the mod tells the players (`firmages.origin.gathering`), increments the count in `OriginSavedData`, posts `OriginEvent.Gathering` (level, altar, players, count) on `NeoForge.EVENT_BUS` and runs the function tag `#firmages:origin/start` as the server at the altar (permission 2). The mod ships the tag empty; the pack adds its functions under `kubejs/data/firmages/tags/function/origin/start.json`.
@@ -1007,6 +1033,28 @@ TFCRegistryAPI 1.2 (required by TFCAstikorCarts and TFCRegrowingForests) [verifi
 - Parity: `dev/check_registry_parity.py jars <mods dir> [--dump <fa_dump dir>]` reads every jar of an install (with jar-in-jar files), applies the same rule and lists every class that implements one of the interfaces (through other interfaces too), plus the TFC enums the API's own mixins add `RegistryOre`/`RegistrySand`/`RegistrySoil` to; it fails when one lies outside the scope, and with `--dump` compares the TFCAstikorCarts items per part and wood with the wood enum constants. `dev/check_registry_parity.py dump <before> <after>` diffs two `/fa_dump` outputs; `kubejs/server_scripts/debug/dump.js` now writes every built-in registry into `registries.json` and the API's registered enums as `tfcregistryapi_enums`.
 - Tests: U `RegistryScanScopeTest` (7: roots, dependents kept in order, any dependency counts including only the API, a file kept whole, order and duplicates, nothing to scan, other roots). G `PerfGameTests.tfcRegistryApiScanScope` (opt-in run `-PgametestTfc`, which now also adds TFCRegistryAPI; passes empty without it): the switch is on by default, the scope keeps `tfc` and `tfcregistryapi` and leaves out `minecraft`, `neoforge`, IE, Mekanism and ProgressiveStages, and the API registered every TFC enum value of all seven interfaces (`Metal`, `Ore`, `Rock`, `SandBlockType`, `SoilBlockType`, `SoilBlockType.Variant`, `Wood`), TFC's woods under mod `tfc`.
 - **[PoC]** on the pack server and a client: boot time, the scope log line, no TFCRegistryAPI frames in FATAL/DISTXFORM/STDERR, and `check_registry_parity.py dump` between a boot with the switch off and one with it on (both at age_9, `/fa_dump`).
+
+### 20.1 TFC Regrowing Forests spreads only into loaded chunks (round H3, 2026-10-16)
+
+- **Root cause** (TFC Regrowing Forests 2.2 [verified, javap]): a leaf's random tick (`TFCLeavesBlockMixin` at the tail
+  of `TFCLeavesBlock.randomTick`, only for leaves with `distance` > 1 more than two blocks above the ground) calls
+  `RegrowthRecipe.tryToSpread`. It picks a column at a Gaussian offset with the deviation `spread_distance` plus the
+  square of the leaf's height over the ground divided by `spread_distance + 3` (oak: 19 + h^2 / 22, a canopy 170 blocks
+  up spreads over about 1,300 blocks) and asks `Level.getHeight(MOTION_BLOCKING_NO_LEAVES, x, z)` of it. That call loads
+  the chunk on the server thread and generates it if it never was; with Chunky filling the worker queue the server
+  thread waits for the generation (the 120 s watchdog of round C2). `globalSpreadFactor` only thins the attempts, and a
+  spread radius has no config.
+- **Fix** (`mixin/tfcrf/RegrowthSpreadMixin`, `@Pseudo`, applied only with `tfcrf`): an `@Inject` before the second
+  `getHeight` of `tryToSpread` reads the target column (`@Local` ints 1 and 2) and cancels the spread when
+  `Level.hasChunk` says its chunk is not loaded (`perf/RegrowthGuard`). Forests keep spreading into loaded land, and a
+  spread into unloaded land is the same as a failed roll. Switch: `[perf] regrowthLoadedChunksOnly` (default true,
+  read at every spread).
+- **Commands:** `/firmages perf regrowth [reset]` (spreads that looked and that were skipped), `/firmages perf regrowth
+  spread <pos> <times>` (debug.allowSimulate: the mod's own `tryToSpread` for one leaf, timed, chunks loaded before and after).
+- **Tests:** G `EndgameGameTests.regrowthLooksOnlyIntoLoadedChunks` (the test's chunk: look; a column 29 million blocks
+  out: skip, and its chunk stays unloaded). P `selftest endgame` `regrowth_guard_on`. **[S]** copy boot H3 with Chunky
+  running (radius 3,000) and persistent oak leaves at y 250 over ground 76 at 20,005: guard off, one spread 1,120 ms,
+  30 spreads 8,487 ms (283 ms each), the server "8491ms behind"; guard on, 30 spreads 0 ms, 30 skipped, no chunk loaded.
 
 ## 21. Recipe viewer, Ponder and guides by Age (2026-10-14)
 
@@ -2449,6 +2497,29 @@ needs AE2, `cca` needs Create Crafts and Additions) or an event listener registe
 - `/firmages debug useitem <name>` (debug players, `debug.allowSimulate`) right-clicks into the air and logs the menu
   that opened **[S]**.
 
+### 34.4 One Iron in loot and trades (harmony plan fix 10 and section 5, round H3)
+
+- **Loot:** global loot modifier `firmages:replace_item` (`balance/ReplaceItemModifier`: `from`, `to`, loot conditions)
+  turns every stack of `from` a loot table yields into the same count of `to`, components dropped. The pack's
+  `kubejs/data/firmages/loot_modifiers/one_iron_loot.json` (no conditions, every table) turns the hidden
+  `minecraft:iron_ingot` into `tfc:metal/ingot/wrought_iron`. Audit of the 1.0 jars (data files naming the vanilla
+  ingot): chest tables of Apotheosis, Bosses of Mass Destruction, Immersive Engineering (engineer's house),
+  Stargate Journey, Ad Astra (Mars temple, Moon village), Twilight Forest (12), Enhanced Celestials' appended vanilla
+  tables, vanilla chests and mob drops (iron golem, zombie): all loot, all covered. Hostile Neural Networks' data
+  models are recipes (harmony fix 7).
+- **Trades:** merchant offers are no loot. `balance/OneIron` rewrites the offers of every `Merchant` a player
+  right-clicks (`PlayerInteractEvent.EntityInteract`, HIGH, before the trade screen opens): an offer that gives or asks
+  for an item of `balance.merchantRedirects` (default `["minecraft:iron_ingot=tfc:metal/ingot/wrought_iron"]`) gives or
+  asks for the target, same count, uses, price multiplier, demand, experience and special price. That covers vanilla
+  villagers (armorer, weaponsmith, toolsmith buy iron), the wandering trader with Apotheosis' `wanderer_trades/iron_ingot`
+  and every mod trader that is a `Merchant`; the pack's Goblin Traders data names no vanilla ingot.
+- **Command:** `/firmages balance merchant <entity>` rewrites and lists a merchant's offers.
+- **Tests:** G `EndgameGameTests.lootAndTradesLoseTheVanillaIngot` (test modifier iron to copper over a test chest: 4
+  copper, no iron, the bread stays; a buy and a sell offer rewritten with uses kept, a bread offer untouched). P
+  `selftest endgame` `loot_gives_no_vanilla_iron` (200 rolls of `minecraft:chests/village/village_weaponsmith`).
+  **[S]** copy boot H3: 0 vanilla iron ingots and 377 wrought iron ingots in 200 rolls; a weaponsmith chest filled by
+  `/loot` held wrought iron; a level-2 weaponsmith's "4 iron ingot for 1 emerald" read "4 tfc:metal/ingot/wrought_iron".
+
 ## 35. Proof of work in the shrine offerings (Felix H5A, round C2)
 
 From the Industrial Age an offering waits for a tally: the fellowship's Tally Chutes (§22) must take the Age's product
@@ -2545,6 +2616,9 @@ Both need permission 2, like all of `/firmages`.
   type and divided by the ticks: "in / out / stored change / net use" in FE/t. A generator's output is "out", a
   machine's use is "in" minus the stored change, a cable carries as much in as out. Chat shows the top 15 types, the
   log and `logs/firmages-energy-audit.json` all of them. One audit at a time; a new one replaces the running one.
+- **`/firmages energy charge <pos> <FE per tick> <seconds>`** (debug.allowSimulate, round H3): a test power line that
+  offers the block the FE every server tick through its energy capability, as a cable would (`balance/EnergyCharge`);
+  an audit counts it as "in". Copy boots run machines with it.
 - **`/firmages ore audit`:** the ore ladder of the live server with the logic of the L- checks of
   `dev/poc_analyze.py` (`balance/OreLadder`, a port): every recipe of every Age (the recipe gate's master list, §8,
   else the recipe manager) encoded to JSON with its codec, every recipe that consumes an ore piece of the metal table
@@ -2584,3 +2658,131 @@ The fight length comes from a model, not from a guess (`boss/FightModel`, docs/p
   pools, a 1000 hit counted as the cap, the summoned fight won by capped hits).
 - **To check on a real fight [S]:** uptime and veil share against a recording with 1, 2 and 4 players; the model's
   assumptions move with them, the settings with the model.
+
+## 40. The Ore Processor (harmony plan section 5 and link 23, package A10, round H3)
+
+### 40.1 Purpose
+
+The Singularity Age's ore step: 6x the metal of a TFC ore piece (the ladder 1.0 / 1.5 / 2.5 / 3 / 4 / 5 ends at 6), for
+a fixed FE per tick, with a Mekanism chemical and an Immersive Petroleum fluid. Every chain of the pack still runs at the
+end (SevTech's OreMatic pattern): the acid comes from the fluorite and sulfuric acid chain, the kerosene from the
+refinery, the power from the reactor.
+
+### 40.2 Block
+
+- `firmages:ore_processor` (`machine/OreProcessorBlock`, block entity `OreProcessorBlockEntity`): one block, property
+  `active`. One input slot, four output slots, a chemical tank (16,000 mB, the chemical as id and amount), a working-fluid
+  tank (16,000 mB), a lubricant tank (8,000 mB), an FE buffer of one second at full speed (2,000,000 FE with the defaults).
+- Handlers on every side: items in (only an ore piece a live recipe takes) and results out; fluids in (a recipe's
+  lubricant into the lubricant tank, a recipe's working fluid into the other); FE in; Mekanism chemicals in
+  (`compat/mekanism/ProcessorChemicals`, `Capabilities.CHEMICAL`, insert only, only a chemical a live recipe uses).
+  Nothing else comes out.
+- Hand: right-click with an item puts it in, with a fluid container fills a tank; right-click with an empty hand shows
+  the state; sneak and right-click takes the results.
+- Recipe (pack, `recipes/age_9/ore_processor.js`): Firmament Alloy shell, an Awakened Core, two ultimate control circuits,
+  a Mekanism Chemical Dissolution Chamber (the 5x step it follows) and an IP Auto Lubricator. Age map `age_9`.
+
+### 40.3 Recipe type `firmages:ore_processing`
+
+`{"input": {"item", "count"}, "result": {"id", "count"}, "chemical": {"id", "amount"}, "fluid": <sized fluid ingredient>,
+"lubricant": <sized fluid ingredient, optional>, "time": <ticks at base speed>}` (`machine/OreProcessingRecipe`). The pack
+writes one per ore piece from the metal table (`metals.json` station `ore_processor`, factor 6.0, age_9, and the block
+`ore_processor`: chemical `mekanism:hydrofluoric_acid` 10 mB, fluid `#c:kerosene` 5 mB, lubricant `#c:lubricant` 1 mB and
+10 ticks per dust; each metal's `dust`): n pieces of a grade for m dusts by the table's ratio (rich 10 for 21, normal 2
+for 3, poor 10 for 9, small 5 for 3). 68 recipes for the 68 pieces of 13 metals. Station Age `age_9` in
+`recipes/station_ages.js` (the outputs are earlier dusts, so the gate needs it).
+
+### 40.4 Operation (`machine/ProcessorRules`, pure)
+
+Waits in order for: input of at least the recipe's count, the chemical, the working fluid, room for the result. At the
+start of an operation it takes the lubricant if the tank holds the recipe's amount; a lubricated operation runs
+`machines.oreProcessorLubricantSpeed` (2.0) times as fast. Every tick of work draws `machines.oreProcessorFePerTick`
+(50,000) times the speed; without that much FE the operation waits and keeps its progress. An operation therefore costs
+fePerTick x time either way (500,000 FE per dust): the lubricant buys speed, never metal or power. At the end it takes
+the input, the chemical and the fluid and puts the result out. A DE reactor at 1.5 M FE/t runs 30 processors (60 dusts
+a second).
+
+### 40.5 Text
+
+Jade (`Machines.PROCESSOR`): "Processing: 21 Iron Dust, 45 %" (or "Processing, lubricated: ...") or what it waits for
+("Waiting for its acid", "Waiting for its working fluid", "Waiting for power", "Output full", "Not enough of this ore for
+one batch", "Waiting for ore"); "Energy: 1,950,000 of 2,000,000 FE"; one line per filled tank. EMI category
+`firmages:ore_processing` ("Ore Processing", `compat/emi/ProcessorEmi`, the processor as workstation): pieces, working
+fluid, lubricant as catalyst, result; the chemical, the time and the FE of one operation as text.
+
+### 40.6 Config
+
+`[machines] oreProcessorFePerTick` (50,000, 1,000..10,000,000), `oreProcessorLubricantSpeed` (2.0, 1..4).
+
+### 40.7 Commands
+
+`/firmages processor status <pos>`; `/firmages processor feed <pos> [item count [dry]]` (debug.allowSimulate): fills the
+FE buffer and the tanks for the recipe of the held or given item (`dry`: no lubricant) and puts the item in.
+
+### 40.8 Tests
+
+U `ProcessorRulesTest` (lubricant halves the time at the same FE, waits in order and keeps progress, no input or no
+recipe resets, percent). G `EndgameGameTests.processorRunsItsRecipe` (test recipe 2 raw iron + 30 mB hydrogen + 15 mB
+water, lava as lubricant, 20 ticks, 3 nuggets: cobblestone refused, oxygen refused, waits for the chemical, the fluid,
+then power; the lubricated operation done in about 10 ticks, the plain one not 11 ticks after it began, 6 nuggets,
+everything used up, 2 x 50,000 x 20 FE; nothing comes back out). P `selftest endgame` `processor_recipes_cover_the_table`
+(after age_9 every ore piece of the table has a recipe to its dust at 6.0x within the tolerance; before it none is
+live). `poc_analyze.py` L-1/L-2 (station `ore_processor` 6.00 on all 68 pieces, age_9 best tech 6.00), C-4d and C-M
+know the type. **[S]** copy boot H3 at age_9: 10 rich hematite + 210 mB acid + 105 mB kerosene + 21 mB lubricant gave 21
+`mekanism:dust_iron`; `/firmages ore audit` "age_9: best tech factor 6.000 to 6.000 over 68 pieces"; the energy audit
+read 125,000 FE/t for a plain processor (50,000) and a quickened one (75,000, §41).
+
+## 41. The Arcane Catalyst (harmony plan link 24, round H3)
+
+### 41.1 Purpose
+
+Optional magic for the Information Age's machines: Ars Nouveau Source and Create rotation make an Immersive Engineering
+or Mekanism machine work faster, for more FE per operation. Never more output per input, never free output, never
+required (no recipe, offering or quest needs it).
+
+### 41.2 Block
+
+`firmages:arcane_catalyst` (`machine/ArcaneCatalystBlock`, `ArcaneCatalystBlockEntity`): `facing` (placed against a
+machine, the face looks at it), `lit` while it quickens. FE buffer 400,000, filled from every side but its face. Recipe
+(pack, `recipes/age_6/arcane_catalyst.js`): an Arcane Core and a Mekanism steel casing between Halo Steel, two precision
+mechanisms and a block of source gems. Age map `age_6`.
+
+### 41.3 Links (`machine/CatalystHooks`, set in `FirmagesCore`)
+
+- Rotation: the fastest Create kinetic block entity on any side but the face (`compat/create/CreateKinetics.speed`). It
+  only reads the speed; it takes no stress.
+- Source: `machines.catalystSourcePerSecond` (10) once a second from jars within `machines.catalystSourceRange` (6), Ars
+  Nouveau's own `SourceUtil.takeSourceWithParticles` (5.13.3 [verified, javap], looked up by name, `compat/ars/ArsSource`).
+  Paid only while a machine is in front and the shaft turns.
+- Machines: block tag `firmages:catalysable` (pack data: 23 Mekanism processing machines, every Mekanism and Evolved
+  Mekanism factory, 11 Immersive Engineering electric multiblocks; no generator, no miner, no excavator). An extra tick
+  is the block's own ticker; an IE multiblock part forwards to its master helper's `tickServer()`
+  (`compat/ie/IeMultiblockTicks`, `mixin/ie/MultiblockDummyInvoker` on the protected `getIMasterHelper()` [verified, javap]).
+
+### 41.4 Rules (`machine/CatalystRules`, pure)
+
+While charged (Source paid this second and at least `machines.catalystMinRpm` (64) RPM) it gives the machine
+`machines.catalystExtraTicks` (0.5) extra work ticks per game tick: +50 %. For each extra tick it reads the machine's
+stored FE (FE capability through the touching face, else the null side) before and after and pays what the machine drew
+times `machines.catalystFeSurcharge` (1.0) from its own buffer: an extra operation costs twice the FE. A machine whose FE
+cannot be read (a multiblock part without an energy port) costs `machines.catalystFlatFe` (512) per extra tick. Without
+enough FE it waits ("Waiting for power"). An idle machine draws nothing, so the catalyst pays nothing.
+
+### 41.5 Text and commands
+
+Jade and right-click: "Quickening the machine it faces: 50 % faster", "Faces no machine it can quicken", "Needs a shaft
+turning at 64 RPM beside it", "Waiting for Source from a jar nearby", "Waiting for power"; the FE line.
+`/firmages catalyst status <pos>`: state, FE, extra ticks given, FE paid.
+
+### 41.6 Tests
+
+U `CatalystRulesTest` (one extra tick every second tick, surcharge by draw and flat, charged needs Source and rotation).
+G `EndgameGameTests`: `catalystQuickensAHopperAtTheFlatRate` (test tag: a hopper moves about 1.5x in 400 ticks, 200
+extra ticks at 512 FE each), `catalystQuickensAProcessorAndPaysItsDraw` (test tag: 30 against 45 nuggets in 200 ticks,
+100 extra ticks, exactly 100 x 50,000 FE paid), `catalystNeedsSourceAndRotation` (no Source, no rotation, facing away:
+no extra tick). P `selftest endgame` `catalysable_machines` (124 entries, no generator or miner). **[S]** copy boot H3
+with the processor in the tag (a world datapack), a creative motor at 16 RPM (`catalystMinRpm` 16 in the copy) and a
+creative source jar: energy audit over 5 s "firmages:ore_processor x2: in 125000.0" (50,000 plain, 75,000 quickened) and
+"firmages:arcane_catalyst x1: in 25000.0"; the quickened operation finished first (86 % against 57 %). A Mekanism
+enrichment chamber placed by `/setblock` took neither items nor FE on the copy (its side configuration), so the
+Mekanism and IE case is a client check (`dev/client-test-brief.md`).

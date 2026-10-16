@@ -76,6 +76,12 @@ public final class OriginService {
 
     private static void onServerStarted(ServerStartedEvent event) {
         ensureBuilt(event.getServer());
+        if (ModList.get().isLoaded("sgjourney")) {
+            long[] c = dev.firmages.core.compat.sgjourney.SgjGates.costs();
+            FirmagesCore.LOGGER.info("Stargate costs (sgjourney-common.toml): system-wide dial {} FE, interstellar dial {} FE (The Origin), "
+                + "interstellar wormhole {} FE/t for up to {} s; the Origin's return gate keeps {} FE", c[0], c[1], c[2], c[3],
+                dev.firmages.core.compat.sgjourney.SgjGates.homeTrip());
+        }
     }
 
     /** Builds what is missing: the arena (once per {@link OriginArena#VERSION}) and, with Stargate Journey, the gate. */
@@ -108,6 +114,10 @@ public final class OriginService {
         checkGathering(server);
         ServerLevel level = level(server);
         if (level != null && !level.players().isEmpty()) OriginEchoes.tick(level);
+        // the return gate keeps one trip home (SPEC §16.2a), while its chunk is loaded
+        if (level != null && ModList.get().isLoaded("sgjourney") && level.isLoaded(OriginArena.GATE_BASE)) {
+            dev.firmages.core.compat.sgjourney.SgjGates.keepCharged(level, OriginArena.GATE_BASE);
+        }
     }
 
     /**

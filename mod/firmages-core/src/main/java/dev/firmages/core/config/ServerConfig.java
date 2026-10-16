@@ -104,6 +104,7 @@ public final class ServerConfig {
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_GRID_LOCK_UNTIL;
     // perf (SPEC §20); read at mod construction through EarlyServerConfig, the value here only documents the key
     public static final ModConfigSpec.BooleanValue PERF_LIMIT_TFC_REGISTRY_API_SCAN;
+    public static final ModConfigSpec.BooleanValue PERF_REGROWTH_LOADED_ONLY;
     // starfall (SPEC §25.10)
     public static final ModConfigSpec.BooleanValue STARFALL_ENABLED;
     public static final ModConfigSpec.IntValue STARFALL_CARVE_BLOCKS_PER_TICK;
@@ -126,6 +127,16 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue BALANCE_ALTERNATOR_FUEL_ONLY;
     public static final ModConfigSpec.IntValue BALANCE_AE2_CELL_TYPES;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BALANCE_FE_CAP;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> BALANCE_MERCHANT_REDIRECTS;
+    // machines (SPEC 40, 41)
+    public static final ModConfigSpec.IntValue PROCESSOR_FE_PER_TICK;
+    public static final ModConfigSpec.DoubleValue PROCESSOR_LUBRICANT_SPEED;
+    public static final ModConfigSpec.DoubleValue CATALYST_EXTRA_TICKS;
+    public static final ModConfigSpec.DoubleValue CATALYST_FE_SURCHARGE;
+    public static final ModConfigSpec.IntValue CATALYST_FLAT_FE;
+    public static final ModConfigSpec.IntValue CATALYST_SOURCE_PER_SECOND;
+    public static final ModConfigSpec.IntValue CATALYST_SOURCE_RANGE;
+    public static final ModConfigSpec.IntValue CATALYST_MIN_RPM;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -343,6 +354,10 @@ public final class ServerConfig {
         PERF_LIMIT_TFC_REGISTRY_API_SCAN = b.comment("TFCRegistryAPI looks for registry enums only in mod files that are or depend on TFC or",
                 "TFCRegistryAPI, instead of loading every class of every mod seven times (~37 s, ~17k error lines). false = original scan.")
             .define("limitTfcRegistryApiScan", true);
+        PERF_REGROWTH_LOADED_ONLY = b.comment("TFC Regrowing Forests: a leaf's random tick spreads a sapling only into a chunk that is already loaded.",
+                "The mod looks up the target column's height, which loads (and generates) the chunk on the main thread; next to a",
+                "forceloaded area during a Chunky pregen one tick waited 120 s. false = the mod's own behaviour. Read at every spread.")
+            .define("regrowthLoadedChunksOnly", true);
         b.pop();
 
         b.comment("Starfall (SPEC 25): from the Iron Age a star falls on some clear nights; the only source of meteoric iron and starsteel.",
@@ -400,6 +415,29 @@ public final class ServerConfig {
                 "link). For sources a mod's own config cannot tame. Example: [\"createappliedkinetics:energy_provider=0\"]. Applies to",
                 "new capability lookups: placed or reloaded blocks, or after a restart.")
             .defineListAllowEmpty("feCap", List.of(), () -> "", dev.firmages.core.balance.FeCaps::validEntry);
+        BALANCE_MERCHANT_REDIRECTS = b.comment("One Iron in trades (SPEC 34.4): \"<item>=<item>\" makes every merchant offer (villagers, wandering",
+                "traders, mod traders) that gives or asks for the first item give or ask for the second, rewritten when a player",
+                "right-clicks the merchant. Loot is the global loot modifier firmages:replace_item (data).")
+            .defineListAllowEmpty("merchantRedirects", List.of("minecraft:iron_ingot=tfc:metal/ingot/wrought_iron"), () -> "",
+                dev.firmages.core.balance.OneIron::validEntry);
+        b.pop();
+
+        b.comment("The pack's own machines: the Ore Processor of the Singularity Age (SPEC 40) and the Arcane Catalyst (SPEC 41).").push("machines");
+        PROCESSOR_FE_PER_TICK = b.comment("FE the Ore Processor draws per tick of work at base speed; an operation costs this times its time.",
+                "Its recipes are data (firmages:ore_processing, written from metals.json).")
+            .defineInRange("oreProcessorFePerTick", 50_000, 1_000, 10_000_000);
+        PROCESSOR_LUBRICANT_SPEED = b.comment("Speed of an operation that starts with its lubricant; the FE per tick rises with it, the FE per operation stays.")
+            .defineInRange("oreProcessorLubricantSpeed", 2.0, 1.0, 4.0);
+        CATALYST_EXTRA_TICKS = b.comment("Extra work ticks per game tick the Arcane Catalyst gives the machine it faces (0.5 = +50 % speed).")
+            .defineInRange("catalystExtraTicks", 0.5, 0.0, 1.0);
+        CATALYST_FE_SURCHARGE = b.comment("FE the catalyst pays per extra tick, as a share of what the machine drew in that tick (1.0: an extra",
+                "operation costs twice the FE).").defineInRange("catalystFeSurcharge", 1.0, 0.0, 4.0);
+        CATALYST_FLAT_FE = b.comment("FE per extra tick when the machine's energy cannot be read (a multiblock part without an energy port).")
+            .defineInRange("catalystFlatFe", 512, 0, 1_000_000);
+        CATALYST_SOURCE_PER_SECOND = b.comment("Source the catalyst draws each second from source jars within catalystSourceRange blocks.")
+            .defineInRange("catalystSourcePerSecond", 10, 0, 10_000);
+        CATALYST_SOURCE_RANGE = b.defineInRange("catalystSourceRange", 6, 1, 16);
+        CATALYST_MIN_RPM = b.comment("Rotation a shaft or cog beside the catalyst must turn at.").defineInRange("catalystMinRpm", 64, 0, 256);
         b.pop();
 
         b.push("debug");
@@ -663,9 +701,51 @@ public final class ServerConfig {
     }
 
     /** {@code wayshrine.tutorial}. */
+    /** {@code perf.regrowthLoadedChunksOnly}. */
+    public static boolean regrowthLoadedChunksOnly() {
+        return !loaded() || PERF_REGROWTH_LOADED_ONLY.get();
+    }
+
     /** {@code balance.alternatorFuelOnly} (Felix H1A). */
     public static boolean alternatorFuelOnly() {
         return !loaded() || BALANCE_ALTERNATOR_FUEL_ONLY.get();
+    }
+
+    public static long processorFePerTick() {
+        return loaded() ? PROCESSOR_FE_PER_TICK.get() : 50_000;
+    }
+
+    public static double processorLubricantSpeed() {
+        return loaded() ? PROCESSOR_LUBRICANT_SPEED.get() : 2.0;
+    }
+
+    public static double catalystExtraTicks() {
+        return loaded() ? CATALYST_EXTRA_TICKS.get() : 0.5;
+    }
+
+    public static double catalystFeSurcharge() {
+        return loaded() ? CATALYST_FE_SURCHARGE.get() : 1.0;
+    }
+
+    public static int catalystFlatFe() {
+        return loaded() ? CATALYST_FLAT_FE.get() : 512;
+    }
+
+    public static int catalystSourcePerSecond() {
+        return loaded() ? CATALYST_SOURCE_PER_SECOND.get() : 10;
+    }
+
+    public static int catalystSourceRange() {
+        return loaded() ? CATALYST_SOURCE_RANGE.get() : 6;
+    }
+
+    public static int catalystMinRpm() {
+        return loaded() ? CATALYST_MIN_RPM.get() : 64;
+    }
+
+    /** {@code balance.merchantRedirects}. */
+    public static List<? extends String> merchantRedirects() {
+        return loaded() ? BALANCE_MERCHANT_REDIRECTS.get() : List.of("minecraft:iron_ingot=tfc:metal/ingot/wrought_iron");
     }
 
     /** {@code balance.ae2CellTypes}: item types per AE2 item cell. */

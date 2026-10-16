@@ -54,6 +54,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation LAUNCH_PORT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "launch_port");
     static final ResourceLocation AURORA_NET = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "aurora_net");
     static final ResourceLocation STORM_ROD = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "storm_rod");
+    static final ResourceLocation ORE_PROCESSOR = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "ore_processor");
+    static final ResourceLocation ARCANE_CATALYST = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "arcane_catalyst");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
@@ -70,6 +72,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Launch.PORT, dev.firmages.core.launch.LaunchPortBlock.class);
         registration.registerBlockComponent(SkyHarvest.NET, dev.firmages.core.sky.AuroraNetBlock.class);
         registration.registerBlockComponent(SkyHarvest.ROD, dev.firmages.core.sky.StormRodBlock.class);
+        registration.registerBlockComponent(Machines.PROCESSOR, dev.firmages.core.machine.OreProcessorBlock.class);
+        registration.registerBlockComponent(Machines.CATALYST, dev.firmages.core.machine.ArcaneCatalystBlock.class);
         // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
@@ -390,6 +394,31 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return this == NET ? AURORA_NET : STORM_ROD;
+        }
+    }
+
+    /**
+     * The pack's machines (SPEC §40.7, §41.6), from their synced block entities: the Ore Processor's state ("Processing:
+     * 21 Iron Dust, 45 %" or what it waits for), its FE and its three tanks; the Arcane Catalyst's state and FE.
+     */
+    enum Machines implements IBlockComponentProvider {
+        PROCESSOR, CATALYST;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (this == PROCESSOR && accessor.getBlockEntity() instanceof dev.firmages.core.machine.OreProcessorBlockEntity be) {
+                tooltip.add(dev.firmages.core.machine.MachineText.processorState(be));
+                dev.firmages.core.machine.MachineText.processorTanks(be).forEach(tooltip::add);
+            } else if (this == CATALYST && accessor.getBlockEntity() instanceof dev.firmages.core.machine.ArcaneCatalystBlockEntity be) {
+                tooltip.add(dev.firmages.core.machine.MachineText.catalystState(be));
+                tooltip.add(Component.translatable("firmages.processor.energy", dev.firmages.core.machine.MachineText.n(be.energy()),
+                    dev.firmages.core.machine.MachineText.n(dev.firmages.core.machine.ArcaneCatalystBlockEntity.CAPACITY)));
+            }
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return this == PROCESSOR ? ORE_PROCESSOR : ARCANE_CATALYST;
         }
     }
 }

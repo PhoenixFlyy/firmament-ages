@@ -52,7 +52,42 @@ final class OriginCommands {
                 .then(Commands.literal("boss").executes(OriginCommands::killBoss)))
             .then(Commands.literal("status").executes(OriginCommands::status))
             .then(Commands.literal("reset").executes(OriginCommands::reset))
-            .then(Commands.literal("rebuild").executes(OriginCommands::rebuild));
+            .then(Commands.literal("rebuild").executes(OriginCommands::rebuild))
+            .then(Commands.literal("gate").executes(OriginCommands::gate)
+                .then(Commands.literal("trial").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(OriginCommands::gateTrial))));
+    }
+
+    /** SPEC §16.2a: the dial costs Stargate Journey reads and the charge of The Origin's return gate. */
+    private static int gate(CommandContext<CommandSourceStack> c) {
+        if (!net.neoforged.fml.ModList.get().isLoaded("sgjourney")) {
+            c.getSource().sendFailure(Component.literal("Stargate Journey is not loaded"));
+            return 0;
+        }
+        for (String l : dev.firmages.core.compat.sgjourney.SgjGates.statusLines(c.getSource().getServer(), OriginService.level(c.getSource().getServer()),
+            OriginArena.GATE_BASE)) {
+            dev.firmages.core.FirmagesCore.LOGGER.info("origin gate: {}", l);
+            c.getSource().sendSuccess(() -> Component.literal(l), false);
+        }
+        return 1;
+    }
+
+    /** A real dial of The Origin from a pedestal gate placed at {@code pos}, below and at the cost (debug.allowSimulate). */
+    private static int gateTrial(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        if (!dev.firmages.core.config.ServerConfig.allowSimulate()) {
+            c.getSource().sendFailure(Component.literal("Disabled; set debug.allowSimulate = true in firmages-server.toml"));
+            return 0;
+        }
+        if (!net.neoforged.fml.ModList.get().isLoaded("sgjourney")) {
+            c.getSource().sendFailure(Component.literal("Stargate Journey is not loaded"));
+            return 0;
+        }
+        BlockPos pos = BlockPosArgument.getLoadedBlockPos(c, "pos");
+        for (String l : dev.firmages.core.compat.sgjourney.SgjGates.trial(c.getSource().getLevel(), pos, OriginArena.GATE_TEMPLATE,
+            new BlockPos(3, 2, 9), new int[] {9, 16, 21, 33, 2, 37}, OriginService.level(c.getSource().getServer()), OriginArena.GATE_BASE)) {
+            dev.firmages.core.FirmagesCore.LOGGER.info("origin gate trial: {}", l);
+            c.getSource().sendSuccess(() -> Component.literal(l), false);
+        }
+        return 1;
     }
 
     static LiteralArgumentBuilder<CommandSourceStack> reactor() {

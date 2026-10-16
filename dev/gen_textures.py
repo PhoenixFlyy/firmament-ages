@@ -3066,6 +3066,140 @@ def _():
     return img
 
 
+# ---- The Ore Processor (SPEC 40): void steel housing with a draconium window; the Arcane Catalyst (SPEC 41) ----------
+PROCESSOR_WINDOW = [
+    "................",
+    "................",
+    "................",
+    "...oooooooooo...",
+    "...owwwwwwwwo...",
+    "...owggggggwo...",
+    "...owg....gwo...",
+    "...owg....gwo...",
+    "...owg....gwo...",
+    "...owg....gwo...",
+    "...owggggggwo...",
+    "...owwwwwwwwo...",
+    "...oooooooooo...",
+    "................",
+    "................",
+    "................",
+]
+
+
+def processor_side(glow):
+    img = new_tex()
+    noise_fill(img, "void_steel", seeded("proc_side"), weights=(1, 4, 6, 2, 0), cluster=2, grain=0.1)
+    bevel(img, "void_steel", light=4, dark=0)
+    overlay(img, PROCESSOR_WINDOW, legend(o=("void_steel", 0), w=("void_steel", 3), g=("draconium", 1)))
+    px = img.load()
+    for y in range(6, 10):
+        for x in range(7, 9):
+            px[x, y] = glow[1] if (x + y) % 2 else glow[0]
+    for y in range(6, 10):
+        for x in (6, 9):
+            px[x, y] = glow[0]
+    return img
+
+
+@block("ore_processor_side", "ore processor side")
+def _():
+    return processor_side((tones("draconium")[1], tones("draconium")[2]))
+
+
+@block("ore_processor_side_active", "ore processor side, working", anim(2, True))
+def _():
+    frames = []
+    for f in range(6):
+        k = 0.5 + 0.5 * math.sin(f / 6 * 2 * math.pi)
+        frames.append(processor_side((scale_rgb(tones("draconium")[3], 1 + 0.3 * k), scale_rgb(tones("draconium")[4], 1 + 0.5 * k))))
+    return strip(frames)
+
+
+@block("ore_processor_top", "ore processor top")
+def _():
+    img = new_tex()
+    noise_fill(img, "void_steel", seeded("proc_top"), weights=(1, 3, 6, 3, 0), cluster=2, grain=0.1)
+    bevel(img, "void_steel", light=4, dark=0)
+    px = img.load()
+    for y in range(4, 12):
+        for x in range(4, 12):
+            ring = max(abs(x - 7.5), abs(y - 7.5))
+            px[x, y] = tones("osmium")[3] if ring > 3 else tones("draconium")[0] if ring > 2 else tones("draconium")[2]
+    return img
+
+
+@block("ore_processor_bottom", "ore processor bottom")
+def _():
+    img = new_tex()
+    noise_fill(img, "void_steel", seeded("proc_bottom"), weights=(2, 5, 5, 1, 0), cluster=2)
+    bevel(img, "void_steel", light=2, dark=0)
+    return img
+
+
+CATALYST_RUNE = [
+    "................",
+    "................",
+    "......rrrr......",
+    ".....r....r.....",
+    "....r..RR..r....",
+    "...r..R..R..r...",
+    "...r.R.cc.R.r...",
+    "...r.R.cc.R.r...",
+    "...r..R..R..r...",
+    "....r..RR..r....",
+    ".....r....r.....",
+    "......rrrr......",
+    "................",
+    "................",
+    "................",
+    "................",
+]
+
+
+def catalyst_front(lit):
+    img = new_tex()
+    noise_fill(img, "arcane", seeded("cat_front"), weights=(1, 4, 6, 1, 0), cluster=2, grain=0.15)
+    bevel(img, "bronze", light=3, dark=1)
+    leg = legend(r=("rune", 1 if lit else 0), R=("rune", 3 if lit else 1), c=("rune", 4 if lit else 2))
+    overlay(img, CATALYST_RUNE, leg)
+    return img
+
+
+@block("arcane_catalyst_front", "arcane catalyst front")
+def _():
+    return catalyst_front(False)
+
+
+@block("arcane_catalyst_front_lit", "arcane catalyst front, quickening")
+def _():
+    return catalyst_front(True)
+
+
+@block("arcane_catalyst_side", "arcane catalyst side")
+def _():
+    img = new_tex()
+    noise_fill(img, "arcane", seeded("cat_side"), weights=(1, 4, 6, 1, 0), cluster=2, grain=0.15)
+    bevel(img, "bronze", light=3, dark=1)
+    px = img.load()
+    for x in range(2, 14):
+        px[x, 7] = tones("bronze")[2]
+        px[x, 8] = tones("bronze")[1]
+    return img
+
+
+@block("arcane_catalyst_back", "arcane catalyst back (shaft side)")
+def _():
+    img = new_tex()
+    noise_fill(img, "arcane", seeded("cat_back"), weights=(1, 4, 6, 1, 0), cluster=2, grain=0.15)
+    bevel(img, "bronze", light=3, dark=1)
+    px = img.load()
+    for y in range(5, 11):
+        for x in range(5, 11):
+            px[x, y] = tones("iron")[1] if 6 <= x <= 9 and 6 <= y <= 9 else tones("bronze")[2]
+    return img
+
+
 def probe_part(path, label, pal, seed, weights=(0, 2, 6, 3, 1), band=None):
     def build():
         img = new_tex()
@@ -3491,6 +3625,14 @@ for _st in (1, 2, 3):
                                               "bottom": B + "launch_control_bottom"}
 MODEL_TEXTURES["launch_port"] = {"particle": B + "launch_port_side", "side": B + "launch_port_side", "top": B + "launch_port_top",
                                  "bottom": B + "launch_port_top"}
+MODEL_TEXTURES["ore_processor"] = {"particle": B + "ore_processor_side", "side": B + "ore_processor_side", "top": B + "ore_processor_top",
+                                   "bottom": B + "ore_processor_bottom"}
+MODEL_TEXTURES["ore_processor_active"] = {"particle": B + "ore_processor_side", "side": B + "ore_processor_side_active",
+                                          "top": B + "ore_processor_top", "bottom": B + "ore_processor_bottom"}
+for _lit in ("", "_lit"):
+    MODEL_TEXTURES["arcane_catalyst" + _lit] = {"particle": B + "arcane_catalyst_side", "front": B + "arcane_catalyst_front" + _lit,
+                                                "side": B + "arcane_catalyst_side", "top": B + "arcane_catalyst_side",
+                                                "bottom": B + "arcane_catalyst_back"}
 MODEL_TEXTURES["probe_cradle"] = {"particle": B + "probe_cradle_side", "side": B + "probe_cradle_side", "top": B + "probe_cradle_top",
                                   "bottom": B + "probe_cradle_bottom", "clamp": B + "probe_cradle_clamp"}
 

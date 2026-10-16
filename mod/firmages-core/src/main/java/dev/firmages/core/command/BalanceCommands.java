@@ -33,7 +33,24 @@ final class BalanceCommands {
                 .then(Commands.argument("radius", IntegerArgumentType.integer(1, 128))
                     .executes(c -> energyAudit(c, IntegerArgumentType.getInteger(c, "radius"), DEFAULT_SECONDS))
                     .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 600))
-                        .executes(c -> energyAudit(c, IntegerArgumentType.getInteger(c, "radius"), IntegerArgumentType.getInteger(c, "seconds"))))));
+                        .executes(c -> energyAudit(c, IntegerArgumentType.getInteger(c, "radius"), IntegerArgumentType.getInteger(c, "seconds"))))))
+            .then(Commands.literal("charge").then(Commands.argument("pos", net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos())
+                .then(Commands.argument("fePerTick", IntegerArgumentType.integer(1, Integer.MAX_VALUE))
+                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 3600)).executes(BalanceCommands::charge)))));
+    }
+
+    /** SPEC §38: a test power line into one block for a copy boot (debug.allowSimulate). */
+    private static int charge(CommandContext<CommandSourceStack> c) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        if (!dev.firmages.core.config.ServerConfig.allowSimulate()) {
+            c.getSource().sendFailure(Component.literal("Disabled; set debug.allowSimulate = true in firmages-server.toml"));
+            return 0;
+        }
+        BlockPos pos = net.minecraft.commands.arguments.coordinates.BlockPosArgument.getLoadedBlockPos(c, "pos");
+        int fe = IntegerArgumentType.getInteger(c, "fePerTick");
+        int s = IntegerArgumentType.getInteger(c, "seconds");
+        dev.firmages.core.balance.EnergyCharge.start(c.getSource().getLevel(), pos, fe, s);
+        c.getSource().sendSuccess(() -> Component.literal("Charging " + pos.toShortString() + " with up to " + fe + " FE/t for " + s + " s"), true);
+        return 1;
     }
 
     static LiteralArgumentBuilder<CommandSourceStack> ore() {

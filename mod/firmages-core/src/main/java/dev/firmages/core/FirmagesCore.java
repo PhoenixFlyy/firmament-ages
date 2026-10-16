@@ -49,12 +49,15 @@ public final class FirmagesCore {
         dev.firmages.core.proof.ProofRegistry.register(modEventBus); // Tally Chute, firmages:tally, firmages:silo_launch (SPEC §22)
         BossRegistry.register(modEventBus); // The Primordial, the end boss (docs/primordial.md)
         dev.firmages.core.balance.EnergyMeter.register(modEventBus, NeoForge.EVENT_BUS); // balance.feCap and the energy audit (SPEC 37, 38)
+        dev.firmages.core.balance.OneIron.register(modEventBus, NeoForge.EVENT_BUS); // vanilla iron in loot and trades (SPEC 34.4)
+        dev.firmages.core.balance.EnergyCharge.register(NeoForge.EVENT_BUS); // /firmages energy charge, a test power line (SPEC 38)
         dev.firmages.core.sky.SkyRegistry.register(modEventBus); // Starfall blocks, metals, core, sounds, loot condition (SPEC §25)
         dev.firmages.core.crown.CrownRegistry.register(modEventBus); // Lens Crown, firmages:starforge (SPEC §27)
         dev.firmages.core.anchor.AnchorRegistry.register(modEventBus); // Sky Anchor, blessing shards, firmages:tier (SPEC §29)
         dev.firmages.core.launch.LaunchRegistry.register(modEventBus); // Launch Complex, probes, firmages:probe (SPEC §31)
         dev.firmages.core.sky.HarvestRegistry.register(modEventBus); // Sky Harvest: Storm Rod, storm glass, Aurora Net, aurora light (SPEC §26)
         dev.firmages.core.isles.IsleRegistry.register(modEventBus); // Drifting Isles: skystone, crystal, lode, structure (SPEC §30)
+        dev.firmages.core.machine.MachineRegistry.register(modEventBus); // Ore Processor, Arcane Catalyst (SPEC §40, §41)
 
         IEventBus bus = NeoForge.EVENT_BUS;
         bus.addListener(AgeService::onAddReloadListeners);
@@ -83,6 +86,10 @@ public final class FirmagesCore {
         OriginService.register(bus);
         dev.firmages.core.ark.ArkService.register(bus); // the Origin Archipelago, post-game (SPEC §31.8)
         if (ModList.get().isLoaded("create")) dev.firmages.core.ark.ArkWork.kineticSpeed = dev.firmages.core.compat.create.CreateKinetics::speed;
+        // the Arcane Catalyst's links (SPEC §41.3)
+        if (ModList.get().isLoaded("create")) dev.firmages.core.machine.CatalystHooks.rotation = dev.firmages.core.compat.create.CreateKinetics::speed;
+        if (ModList.get().isLoaded("ars_nouveau")) dev.firmages.core.machine.CatalystHooks.source = dev.firmages.core.compat.ars.ArsSource::take;
+        if (ModList.get().isLoaded("immersiveengineering")) dev.firmages.core.machine.CatalystHooks.multiblock = dev.firmages.core.compat.ie.IeMultiblockTicks::tick;
         OriginAccess.register(bus);
         OriginSpawns.register(bus);
         dev.firmages.core.proof.TallyService.register(bus);

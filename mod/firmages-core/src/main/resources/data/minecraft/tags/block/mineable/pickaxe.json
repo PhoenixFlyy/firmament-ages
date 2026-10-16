@@ -22,6 +22,8 @@
     "firmages:launch_port",
     "firmages:star_anvil",
     "firmages:lens_mount",
-    "firmages:sky_anchor"
+    "firmages:sky_anchor",
+    "firmages:ore_processor",
+    "firmages:arcane_catalyst"
   ]
 }
