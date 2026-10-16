@@ -75,7 +75,7 @@
 	quest.022B6F2B50E24B10.quest_subtitle: "The shrine ring of this Age"
 	quest.022B6F2B50E24B10.title: "Raise the Data Nave"
 	quest.02BAEBC0675BF246.quest_desc: [
-		"Bind the Arcane Keystone in the Djinni's crafting pentacle from the proof of every strand: the spirit attuned crystal, an iesnium ingot, the Wilden Tribute and the mercury catalyst, with a steel ingot and a source gem block."
+		"Bind the Arcane Keystone in the Djinni's crafting pentacle from every strand's proof: the spirit attuned crystal, an iesnium ingot, the Wilden Tribute and the mercury catalyst, with a Starlit Iron ingot and a source gem block."
 		""
 		"Raise the Spirit Circle; the heart shows what is missing. Lay the Keystone on the new plinth, light the eight candles and pray."
 		""
@@ -177,7 +177,9 @@
 		"Power a millstone from a water wheel. It grinds what the quern grinds by hand."
 	]
 	quest.07D42ECD95337D7C.title: "First Mill"
-	quest.0869D302C86C0C86.quest_desc: ["Make the singular alloy. It binds the nine relics into one."]
+	quest.0869D302C86C0C86.quest_desc: [
+		"Make the singular alloy. The full Lens Crown forges it into the Firmament Alloy, which binds the nine relics into one."
+	]
 	quest.0869D302C86C0C86.title: "Singular Alloy"
 	quest.08C127DFAFB1D00D.quest_desc: ["Pump crude oil into tanks."]
 	quest.08C127DFAFB1D00D.title: "Crude Oil"
@@ -500,7 +502,7 @@
 	]
 	quest.2303CB5F822C38B6.title: "Enchanting Apparatus"
 	quest.23536BC1524A5044.quest_desc: [
-		"Fuse the Humming Core in the arc furnace from an HV capacitor, an Attuned Circuit, four aluminium plates, two red steel sheets and a Nether Star."
+		"Fuse the Humming Core in the arc furnace from an HV capacitor, an Attuned Circuit, four aluminium plates, an Aurora Steel ingot and a Nether Star."
 		""
 		"Raise the Tesla Crown; the heart shows what is missing. Lay the Core on the new plinth. Give the four floodlights power and a redstone signal, charge the crown's capacitors with 1,000,000 FE, and pray."
 		""
@@ -827,7 +829,7 @@
 	quest.44B3F8C53C417220.quest_subtitle: "The sixth Age"
 	quest.44B3F8C53C417220.title: "The Electric Age Dawns"
 	quest.44FB988268E119B4.quest_desc: [
-		"Fuse the Star Chart at wyvern level: a polonium pellet in the middle, two desh plates, two ostrum plates, a wyvern core and the flight recorder from Mars."
+		"Fuse the Star Chart at wyvern level: a polonium pellet in the middle, a desh plate, a Void Steel ingot, two ostrum plates, a wyvern core and the flight recorder from Mars."
 		""
 		"Raise the Star Spire; the heart shows what is missing. Lay the Chart on the new plinth and pray at night, under an open sky, without rain."
 		""
@@ -935,7 +937,7 @@
 	]
 	quest.4CB0E2CEF90AD9CE.title: "Ice Shards"
 	quest.4CB43131B416FB17.quest_desc: [
-		"Keep a store of 32 calorite plates. Two go into the Quantum Core; engines and tanks take the rest."
+		"Keep a store of 32 calorite plates. One goes into the Quantum Core; engines and tanks take the rest."
 	]
 	quest.4CB43131B416FB17.title: "Calorite Plates"
 	quest.4CBDFA0CE2A9C85C.quest_desc: [
@@ -973,7 +975,7 @@
 	quest.4EC4BBA27265C3E1.quest_desc: ["Hypertubes shoot players across the base."]
 	quest.4EC4BBA27265C3E1.title: "Hypertubes"
 	quest.4F513B23D9320098.quest_desc: [
-		"Forge the Ultimate Singularity from the nine relics, chaos fragments, the singular alloy and the chaotic core in a chaotic fusion."
+		"Forge the Ultimate Singularity from the nine relics, chaos fragments, the Firmament Alloy and the chaotic core in a chaotic fusion."
 	]
 	quest.4F513B23D9320098.title: "The Ultimate Singularity"
 	quest.4F85BB08A2142E6A.quest_desc: [
@@ -1155,7 +1157,7 @@
 	]
 	quest.63D5F1A42BB79A53.title: "Built-Up Chamber"
 	quest.64CDFFD93C9CBDCE.quest_desc: [
-		"Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a singularity from the matter condenser."
+		"Craft the Data Matrix from two blue steel sheets, two Halo Steel ingots, three advanced control circuits, a 64k storage component and a singularity from the matter condenser."
 		""
 		"Raise the Data Nave; the heart shows what is missing. Lay the Matrix on the new plinth and pray: together, if two of you are online."
 		""
@@ -1226,9 +1228,9 @@
 	]
 	quest.6708655329216D20.title: "Hohlraum"
 	quest.67314514BDCA1DB3.quest_desc: [
-		"Fuse the Quantum Core at draconic level around the awakened core: two antimatter pellets, two calorite plates, two ice shards and a subatomic alloy."
+		"Fuse the Quantum Core at draconic level around the awakened core: two antimatter pellets, a calorite plate, Quasar Alloy, two ice shards and a subatomic alloy."
 		""
-		"Raise the Quantum Ring and lay the Awakened Keystone back on its plinth. Lay the Core on the new plinth and pray at night under an open sky: together, if two of you are online."
+		"Raise the Quantum Ring and return the Awakened Keystone to its plinth. Lay the Core on the new plinth and pray at night under an open sky: together, if two of you are online."
 		""
 		"Caelum keeps the last relic and opens the Singularity Age."
 	]
@@ -1239,7 +1241,7 @@
 	]
 	quest.67CA15BF14B359A8.title: "Fusion Crafting"
 	quest.68A4B5AC4EBE2085.quest_desc: [
-		"Craft the Pressure Core from two black steel double sheets, a heavy engineering block, the Arcane Gearbox and a built-up steel chamber."
+		"Craft the Pressure Core from two black steel double sheets, a heavy engineering block, two Cloudsteel ingots, the Arcane Gearbox and a built-up steel chamber."
 		""
 		"Raise the Foundry Nave; the heart shows what is missing. Lay the Core on the new plinth, power the four electric lanterns and pray."
 		""
