@@ -1,5 +1,5 @@
 {
-"source": "dev/derive_ages.py --scan: 225 mod jars in ..\\.wt\\test-server-c2fix\\mods, the vanilla server jar and kubejs/data",
+"source": "dev/derive_ages.py --scan: 225 mod jars in ..\\test-server-h3endgame\\mods, the vanilla server jar and kubejs/data",
 "loot": {
   "ad_astra:blocks/deepslate_calorite_ore": {"items":["ad_astra:deepslate_calorite_ore","ad_astra:raw_calorite"],"tags":[],"refs":[]},
   "ad_astra:blocks/deepslate_desh_ore": {"items":["ad_astra:deepslate_desh_ore","ad_astra:raw_desh"],"tags":[],"refs":[]},
@@ -6276,6 +6276,7 @@
   {"id":"firmages:datura_seed_from_tfc_grass","strings":["occultism:datura_seeds"],"tables":[]},
   {"id":"firmages:flight_recorder_mars_temple","strings":["firmages:flight_recorder"],"tables":["ad_astra:chests/temple/mars/temple"]},
   {"id":"firmages:hollow_keystone_nether_bridge","strings":["firmages:hollow_keystone"],"tables":["minecraft:chests/nether_bridge"]},
+  {"id":"firmages:one_iron_loot","strings":["minecraft:iron_ingot","tfc:metal/ingot/wrought_iron"],"tables":[]},
   {"id":"firmalife:cherry_leaves","strings":["firmalife:blocks/fruit_leaves"],"tables":["tfc:blocks/plant/cherry_leaves"]},
   {"id":"firmalife:green_apple_leaves","strings":["firmalife:blocks/fruit_leaves"],"tables":["tfc:blocks/plant/green_apple_leaves"]},
   {"id":"firmalife:ice_shavings","strings":["firmalife:blocks/ice_shavings"],"tables":["minecraft:blocks/ice"]},
@@ -16331,6 +16332,7 @@
   "extendedae:blocks/wireless_hub",
   "extra_gauges:blocks/display_collector",
   "extra_gauges:blocks/integer_selector",
+  "firmages:blocks/arcane_catalyst",
   "firmages:blocks/aurora_net",
   "firmages:blocks/firmament_glass",
   "firmages:blocks/launch_control",
@@ -16338,6 +16340,7 @@
   "firmages:blocks/lens_mount",
   "firmages:blocks/meteoric_iron_block",
   "firmages:blocks/offering_plinth",
+  "firmages:blocks/ore_processor",
   "firmages:blocks/probe_cradle",
   "firmages:blocks/reactor_controller",
   "firmages:blocks/shrine_heart",

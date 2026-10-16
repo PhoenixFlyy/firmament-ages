@@ -66,6 +66,7 @@
     {"id": "firmages:firmament_glass", "required": false},
     {"id": "firmages:lantern/singularity", "required": false},
     {"id": "firmages:lens/quantum", "required": false},
+    {"id": "firmages:ore_processor", "required": false},
     {"id": "firmages:origin_coordinates", "required": false},
     {"id": "firmages:reactor_controller", "required": false},
     {"id": "firmages:ultimate_singularity", "required": false},

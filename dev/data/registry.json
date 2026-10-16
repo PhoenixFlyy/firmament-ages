@@ -1,5 +1,5 @@
 {
-"source": "/fa_dump in C:/Users/Felix/AppData/Local/Temp/claude/D--Minecraft-MinecraftModServer/c3a2f5de-bbd4-4cb7-a72f-75a5cf2dcb28/scratchpad/fix/dump1 (kubejs/server_scripts/debug/dump.js)",
+"source": "/fa_dump in D:/Minecraft/MinecraftModServer/.wt/test-server-h3endgame/local/firmages (kubejs/server_scripts/debug/dump.js)",
 "items": [
 "ad_astra:aeronos_cap",
 "ad_astra:aeronos_door",
@@ -13858,6 +13858,7 @@
 "extra_gauges:logic_gauge",
 "extra_gauges:passive_gauge",
 "extra_gauges:string_gauge",
+"firmages:arcane_catalyst",
 "firmages:arcane_gearbox",
 "firmages:arcane_keystone",
 "firmages:ark_plinth",
@@ -14009,6 +14010,7 @@
 "firmages:ore/rich_native_osmium/schist",
 "firmages:ore/small_draconium",
 "firmages:ore/small_native_osmium",
+"firmages:ore_processor",
 "firmages:origin_altar",
 "firmages:origin_coordinates",
 "firmages:pressure_core",

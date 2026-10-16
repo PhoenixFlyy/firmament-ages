@@ -1387,9 +1387,10 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     pieces = {i for i in items if re.match(r"^(tfc|tfc_ie_addon):ore/(small|poor|normal|rich)_", i)
               or re.match(r"^firmages:ore/(small|poor|normal|rich)_native_osmium$", i)}
     # Allowed consumers: TFC hand stations, WoodenCog heated melting (Schmelzen, 1-2), Create crushing/milling (2),
-    # Theurgy (3), the IE Crusher (4), grid recipes that use a piece as a part. Stations of later Ages are not checked.
+    # Theurgy (3), the IE Crusher (4), grid recipes that use a piece as a part. Stations of later Ages are not checked;
+    # the firmages-core Ore Processor (9) is a pack namespace, so it is named here.
     allowed = re.compile(r"^(tfc:|woodencog:heated_mixing$|create:(crushing|milling)$|theurgy:|immersiveengineering:crusher$"
-                         r"|minecraft:crafting|kubejs:shape)")
+                         r"|minecraft:crafting|kubejs:shape|firmages:ore_processing$)")
     wrong = collections.Counter()
     ex = {}
     for rid, sl, os_ in recs:
@@ -1669,13 +1670,14 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     ladder = sorted(r for r in full if re.match(r"^firmages:(purifying|injecting|dissolution)/native_osmium_", r))
     ladder_in = sorted({json.dumps(full[r].get("item_input", {}).get("item")) for r in ladder})
     # every recipe that eats an osmium piece: the 12 ladder recipes, TFC heating, the Theurgy digestion, WoodenCog
-    # heated melting (generated from TFC heating) and nothing else (no furnace, enrichment or crusher 2x)
+    # heated melting (generated from TFC heating), the Ore Processor (age_9) and nothing else (no furnace, enrichment
+    # or crusher 2x)
     eaters = collections.defaultdict(set)
     for r, sl, os_ in recs:
         if any(members(x) & set(osm_pieces) for x in sl):
             eaters[full[r].get("type", "")].add(r)
     ok_types = {"mekanism:purifying", "mekanism:injecting", "mekanism:dissolution", "tfc:heating",
-                "theurgy:digestion", "woodencog:heated_mixing"}
+                "theurgy:digestion", "woodencog:heated_mixing", "firmages:ore_processing"}
     bad_eaters = sorted(f"{t}: {sorted(rs)[:3]}" for t, rs in eaters.items() if t not in ok_types)
     heat = sorted(r for r in full if full[r].get("type") == "tfc:heating"
                   and full[r].get("result_fluid", {}).get("id") == "evolvedmekanism:molten_osmium")
@@ -2495,6 +2497,8 @@ STATION_ITEMS.update({
     "sgjourney:naquadah_heavy_liquidizing": [["sgjourney:heavy_naquadah_liquidizer"]],
     # the Lens Crown (firmages-core SPEC 27): a starforge recipe needs the Star Anvil and a Lens Mount
     "firmages:starforge": [["firmages:star_anvil"], ["firmages:lens_mount"]],
+    # the Ore Processor (firmages-core SPEC 40), the 6x step of the Singularity Age
+    "firmages:ore_processing": [["firmages:ore_processor"]],
 })
 # The Lens Crown (SPEC 27): the Star Anvil and a lens mount; station_groups adds the lenses of the recipe's chord.
 STATION_ITEMS["firmages:starforge"] = [["firmages:star_anvil"], ["firmages:lens_mount"]]
