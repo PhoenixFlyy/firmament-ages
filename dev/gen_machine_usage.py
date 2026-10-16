@@ -5,7 +5,7 @@ Sets the values of these shipped server configs (full files as the mods write th
 an update, like config/createdieselgenerators-server.toml; NeoForge 21.1 reads server configs from config/):
   config/Mekanism/machine-usage.toml             Mekanism machines x10 (Felix H2A), Digital Miner x12
   config/Mekanism/machine-storage.toml           the buffers grow with the usage (upgrades behave as in Mekanism)
-  config/Mekanism/general.toml                   Digital Miner ticksPerMine 80 -> 200
+  config/Mekanism/general.toml                   Digital Miner ticksPerMine 80 -> 200, SPS inputPerAntimatter 1000 -> 100
   config/MekanismMoreMachine/machine-usage.toml  Mekanism: More Machine x10 (H2A, "More Machine equivalents")
   config/MekanismMoreMachine/machine-storage.toml
   config/immersiveengineering-server.toml        Excavator speed 1.0 -> 0.5 (and the [ores] of defaultconfigs/)
@@ -55,8 +55,15 @@ def mek_storage(sec, key):
     return H2A if key in usage_keys and key not in MEK_USAGE_KEEP and sec == "" else 1
 
 
+# Antimatter (integration H3+B1, dev/decisions-while-away.md): Mekanism's SPS wants 1,000 mB polonium per mB antimatter
+# at 1,000,000 J each, so a pellet (1,000 mB) was 10^6 mB polonium and 400 G FE: 6.6 h of the Quantum Age reference
+# fusion plant (841,139 FE/t through a turbine) and 13.9 h of a 1 mB/t fission plant's waste per pellet. x0.1 on the
+# polonium keeps the 1 MJ per mB: 100,000 mB polonium and 40 G FE per pellet, about 48 minutes of that plant.
+GENERAL = {("digital_miner", "ticksPerMine"): 2.5, ("sps", "inputPerAntimatter"): 0.1}
+
+
 def mek_general(sec, key):
-    return 2.5 if (sec, key) == ("digital_miner", "ticksPerMine") else 1
+    return GENERAL.get((sec, key), 1)
 
 
 def mm(sec, key):

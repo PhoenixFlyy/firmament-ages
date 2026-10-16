@@ -5,8 +5,9 @@
 // Link 20: the patterns and the power of the earlier Ages. The awakened core (the heart of every awakened part of
 //   Draconic Evolution and the catalyst of the Quantum Core) takes an AE2 256k storage component in place of one wyvern
 //   core; the fusion reactor controller takes a fission reactor port in place of its chemical tank.
-// Link 21: the Supercritical Phase Shifter keeps Mekanism's cost (1,000 mB polonium and 1,000,000 J per mB of
-//   polonium for 1 mB antimatter, config/Mekanism/general.toml [sps]): only a fusion plant feeds it. No recipe change.
+// Link 21: the Supercritical Phase Shifter wants 100 mB polonium at 1,000,000 J each per mB antimatter
+//   (config/Mekanism/general.toml [sps], dev/gen_machine_usage.py): 40 G FE per pellet, so a fusion plant feeds it.
+//   No recipe change.
 // Link 25, Quantum Age component: the awakened core (link 20 above). The Quantum Core takes it as its catalyst, the
 //   chaotic core (Singularity Age) takes four.
 
