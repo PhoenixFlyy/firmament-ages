@@ -49,7 +49,6 @@ import ast
 import importlib.util
 import io
 import json
-import math
 import os
 import sys
 import zipfile
@@ -74,7 +73,6 @@ NIGHT = (7, 10, 28)
 NIGHT_BLUE = (16, 26, 62)
 PLATE = (13, 19, 46)
 PLATE_EDGE = (34, 44, 92)
-VIOLET = (42, 27, 78)
 GOLD = (232, 197, 106)
 GOLD_DARK = (138, 106, 36)
 TEXT = (242, 230, 201)
@@ -127,10 +125,6 @@ def rgba(c, a=255):
 
 def shade(c, f):
     return tuple(max(0, min(255, int(round(v * f)))) for v in c[:3])
-
-
-def mix(a, b, t):
-    return tuple(int(round(a[i] + (b[i] - a[i]) * t)) for i in range(3))
 
 
 class Canvas:
@@ -252,7 +246,7 @@ ICON_PAL = {
     "k": (40, 26, 14), "b": (122, 82, 44), "B": (160, 112, 64), "l": (196, 150, 92), "r": (92, 60, 30),
     "y": (226, 196, 92), "Y": (250, 230, 140), "o": (240, 120, 30), "O": (255, 190, 60), "w": (255, 244, 200),
     "g": (110, 112, 118), "G": (160, 162, 168), "d": (60, 62, 68), "c": (40, 40, 44), "C": (80, 80, 86),
-    "e": (180, 100, 70), "u": (70, 120, 220), "U": (130, 180, 250), "p": (232, 197, 106),
+    "e": (180, 100, 70), "q": (226, 206, 172), "Q": (150, 120, 90), "u": (70, 120, 220), "U": (130, 180, 250), "p": (232, 197, 106),
 }
 ICONS = {
     "log": ["..kkkk..", ".kbbbbk.", "kbBllBbk", "kblrrlbk", "kblrrlbk", "kbBllBbk", ".kbbbbk.", "..kkkk.."],
@@ -262,7 +256,7 @@ ICONS = {
     "firestarter": ["......kb", ".....kbk", "....kbk.", "kb.kbk..", ".kbbk...", "..kbbk..", ".kbk.kb.", "kbk...kb"],
     "ore": ["........", "..dgGd..", ".dgeGgd.", "dgGgeGgd", "dgeGgGgd", ".dgGegd.", "..dggd..", "........"],
     "charcoal": ["........", "..cCCc..", ".cCcCCc.", "cCcCCcCc", "cCCcCCcc", ".cCcCcc.", "..cccc..", "........"],
-    "pot": ["........", ".eeeeee.", "e.eeee.e", ".eeeeee.", "eeeeeeee", "eeeeeeee", ".eeeeee.", "..eeee.."],
+    "pot": ["..QQQQ..", ".QqqqqQ.", "QqqqqqqQ", "QqqqqqqQ", "QqqqqqqQ", ".QqqqqQ.", "..QQQQ..", "........"],
     "water": ["...u....", "...uu...", "..uUu...", "..uUUu..", ".uUUUUu.", ".uUwUUu.", ".uUUUUu.", "..uuuu.."],
     "arrow": ["........", "....p...", "....pp..", "ppppppp.", "ppppppp.", "....pp..", "....p...", "........"],
 }
@@ -690,7 +684,7 @@ def _kiln_pit(s: Scene):
 def dev_pit_kiln():
     cv = Canvas(128, 128)
     plate(cv)
-    s1 = Scene(); _kiln_pit(s1); s1.sprite(1, 0, 1, "pot")
+    s1 = Scene(); _kiln_pit(s1)
     s2 = Scene(); _kiln_pit(s2); s2.put(1, 1, 1, "tfc:pit_kiln/straw", h=0.35)
     s3 = Scene(); _kiln_pit(s3); s3.put(1, 1, 1, "tfc:pit_kiln/logs", h=1.0)
     s4 = Scene(); _kiln_pit(s4); s4.put(1, 1, 1, "tfc:pit_kiln/logs", h=1.0); s4.sprite(1, 1, 1, "flame")
@@ -699,7 +693,10 @@ def dev_pit_kiln():
         col, row = i % 2, i // 2
         x, y = 4 + col * 61, 4 + row * 61
         cv.rect(x, y, 59, 59, NIGHT_BLUE)
-        render_scene(cv, sc, (x + 2, y + 2, 55, 44), max_a=24)
+        pr = render_scene(cv, sc, (x + 2, y + 2, 55, 44), max_a=24)
+        if i == 0:  # the pottery sits in the hole; drawn over the rim so it shows
+            px_, py_ = pr(1.5, 1.6, 1.5)
+            cv.sprite(px_ - 4, py_ - 7, ICONS["pot"], ICON_PAL)
         panel_label(cv, x, y + 48, 59, lab, i + 1)
     return cv
 
@@ -888,6 +885,16 @@ def _silo_cut(s: Scene):
             s.blocks.pop((x, y, z))
 
 
+def _grate_down(s: Scene):
+    # the still shows the grate let down into the gate (the scene starts with it up in the slot)
+    for (x, y, z) in list(s.blocks):
+        if s.blocks[(x, y, z)]["kind"] == "bars":
+            s.blocks.pop((x, y, z))
+    for x in range(3, 6):
+        for y in range(1, 4):
+            s.put(x, y, 4, "minecraft:iron_bars", kind="bars")
+
+
 def _silo_open(s: Scene):
     # the still shows the hatch sliding open: west leaf half way into its pocket, east leaf too
     for x in range(3, 10):
@@ -904,7 +911,7 @@ PONDERS = [
     # name, title, item for the click action, plan function name, cut, extra, caption
     ("silo_hatch", "SILO HATCH", "ad_astra:launch_pad", "silo_hatch", _silo_cut, _silo_open,
      "Ponder scene Silo Hatch: two glued leaves slide open on gantries above the launch pad"),
-    ("portcullis", "PORTCULLIS", "create:rope_pulley", "portcullis", None, None,
+    ("portcullis", "PORTCULLIS", "create:rope_pulley", "portcullis", None, _grate_down,
      "Ponder scene Portcullis: an iron grate on a rope pulley over a gate"),
     ("lens_crown", "THE LENS CROWN", "firmages:star_anvil", "lens_crown", None, None,
      "Ponder scenes The Lens Crown and A Chord Library on the Star Anvil"),
