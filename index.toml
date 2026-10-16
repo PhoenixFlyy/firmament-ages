@@ -258,7 +258,7 @@ hash = "e4a04d067e1837df9fae8e27f67db660d3e2c3a3ee1b7b0ab75011fc6f19d56a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/bronze_age.snbt"
-hash = "7ee5bb94a6bdaecd28222ba97647e44c75c5fc36b5585c6401990a1f397a719a"
+hash = "f981af945071805b95ef040b611a95767833b361ebca1dc5d04513dcac9bc144"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/dawn.snbt"
@@ -294,7 +294,7 @@ hash = "d90e9f9b0b144f7377dd9295c253eb64b124a1f184d37ed5495c6c8532a3bf7c"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/stone_age.snbt"
-hash = "fda6e291d9bb89f44fd8b8489d8a35fa8add1e4584a47a3f0f1e7de2b8199220"
+hash = "9fb34a11c1b8d3e2d2d0e9ed78bfe77f318d81b91a45cfb29e32e899c1482020"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/the_firmament.snbt"
@@ -310,7 +310,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "27516699df7d3a68b5e197553a93f397eb4c560f5749a5c9043a34e79533a530"
+hash = "4b3cc9372ceb65b1153084e03e29b2f76233724715dff558e8fd48646ceacfb0"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -442,11 +442,11 @@ hash = "4b482316317de13271b0340cd9030b9e0bb54329ec9fdd44cda50ef010ddb2aa"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "b72897fd48a82589417680559504e9ffb9638d486d3c0ff6397dd141a7f07535"
+hash = "2c6f21380cd7f94ac6b9f148fc2c9f45b5fec68d0b85fc9a40b45fd49ab941fd"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
-hash = "e49be7a1d45c0192ce4fd8656b9b783d2ef60b7b73d0d6bd175f282a3c35c6a4"
+hash = "f79ff526dc2b4569952f94ffdf6cc958b69d5ec12d7e851c87eefcbdaa8cad86"
 
 [[files]]
 file = "config/progressivestages/stages/age_2.toml"
@@ -2257,6 +2257,502 @@ file = "kubejs/data/aether/tags/worldgen/biome/is_aether.json"
 hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
 
 [[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_acacia.json"
+hash = "2e40af240b3d81c3944dad06863762beb837f9020872b31fb87e7b9279764cb7"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_araucaria.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_ash.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_aspen.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_baobab.json"
+hash = "2e40af240b3d81c3944dad06863762beb837f9020872b31fb87e7b9279764cb7"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_beech.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_birch.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_black_oak.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_blackwood.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_chestnut.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_cypress.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_douglas_fir.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_eucalyptus.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_fig.json"
+hash = "6670effd1a32c13edb7686e6f25a64ef2f018037ff3bd86b5978f3dab58e5d8b"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_ginkgo.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_gum_arabic.json"
+hash = "2e40af240b3d81c3944dad06863762beb837f9020872b31fb87e7b9279764cb7"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_hevea.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_hickory.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_ipe.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_ironwood.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_kapok.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_kauri.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_mahoe.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_mahogany.json"
+hash = "afb94ec42849c9c9b514876ce2776e85058e9d53061a4ecf862d7158326e54f3"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_mangrove.json"
+hash = "afb94ec42849c9c9b514876ce2776e85058e9d53061a4ecf862d7158326e54f3"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_maple.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_oak.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_palm.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_pine.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_poplar.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_rainbow_eucalyptus.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_redcedar.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_rosewood.json"
+hash = "6670effd1a32c13edb7686e6f25a64ef2f018037ff3bd86b5978f3dab58e5d8b"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_rubber_fig.json"
+hash = "6670effd1a32c13edb7686e6f25a64ef2f018037ff3bd86b5978f3dab58e5d8b"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_sequoia.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_spruce.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_sycamore.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_teak.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_tualang.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_white_cedar.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ancient_willow.json"
+hash = "afb94ec42849c9c9b514876ce2776e85058e9d53061a4ecf862d7158326e54f3"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/araucaria.json"
+hash = "6927576f686d5ee0902bb1ea2735fad0a06f2e7e2e0a3e18378c52a1ed2495c2"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/baobab.json"
+hash = "97408969a0d48b105bdda1e695d9a192f2c5cafb0ea1fc3c7cc17c85f3b2b2f0"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/beech.json"
+hash = "a48e36b6c0d654bf8514fcd40cca34c000d8f36e1354b0a32405fcfa835d299f"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/black_oak.json"
+hash = "5371083a7f664d3a5030d4e454b9576db7c62e8bdcfadfde9ac294ea7d70661f"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/cypress.json"
+hash = "871a518b9fa6a1a0cb05360ddf162b05f9d005a108e868b23ba667cdfae22033"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/eucalyptus.json"
+hash = "59727fdafe68ca4c5d4cdeee4a9bff3d40267621100190b7e3e2942f1d3dd4a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/fig.json"
+hash = "efe0e7383f5f9b06e08f73767ddf9a69664aef5287f1c5181dd3f67a426c92b3"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ginkgo.json"
+hash = "256c99348bf3edbbe5c8f4fdd71b3a2d0568282f6c158b650d363cffa3c2fb5b"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/gum_arabic.json"
+hash = "f8651708a41ae553e21f1908848c2669527386eda392b78ba96abf187dda4a95"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/hevea.json"
+hash = "3c1b74e6241bbce3b332e370a60541d0a0ea328159209edb7dbdd41cd36abfda"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ipe.json"
+hash = "aca1c7bfefb0076b7f3cab5ca85a54ae81889dce636bfd07a423bc12cbc41e1c"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/ironwood.json"
+hash = "2d0b548274a0a65aa61c7e5b1a19d7c48c325af366b745ed4aa7ed3b2700bf1c"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/kauri.json"
+hash = "4ce3bfb143f73de92e4e8cb30989125f2beea3e70af44165a154a970b46acf36"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/mahoe.json"
+hash = "4f287d933ed586ba3b31a921e6c443f1e7ca02fbeda027a8f720fe9eef1daf04"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/mahogany.json"
+hash = "26f94244b95f09a87689fefc567fb3337b76d7f9ca0a80faa0c5eacbaa21b31f"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/poplar.json"
+hash = "686654e770f10aed6ac52371038d803b8fdb4588d92b0182809048ffdfcbae28"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/rainbow_eucalyptus.json"
+hash = "2d2f439a35c2400a451f05c6cc86a9522b2c2532ff33b3dc0170add8803b5a7a"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/redcedar.json"
+hash = "bc2fc5c3884292e6289cbea46de21457646672ff3cbbe08bf2a73dec89757538"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/rubber_fig.json"
+hash = "a0303a64154dc7533ea8b3ac1834d29a788e6659c1c0310f661d5a1bd29187d4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/teak.json"
+hash = "980ec36d411caff3f0387a69497850ffdd48ac5acfb1f0f80dd9a4802e4a9511"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/log/tualang.json"
+hash = "39c0f7fe01c6fc460dbe6eb31a3aac7361106b11edba8e51cbdf3dad9c2ae9c9"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_acacia.json"
+hash = "2e40af240b3d81c3944dad06863762beb837f9020872b31fb87e7b9279764cb7"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_araucaria.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_ash.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_aspen.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_baobab.json"
+hash = "2e40af240b3d81c3944dad06863762beb837f9020872b31fb87e7b9279764cb7"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_beech.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_birch.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_black_oak.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_blackwood.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_chestnut.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_cypress.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_douglas_fir.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_eucalyptus.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_fig.json"
+hash = "6670effd1a32c13edb7686e6f25a64ef2f018037ff3bd86b5978f3dab58e5d8b"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_ginkgo.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_gum_arabic.json"
+hash = "2e40af240b3d81c3944dad06863762beb837f9020872b31fb87e7b9279764cb7"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_hevea.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_hickory.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_ipe.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_ironwood.json"
+hash = "597868c786c81d019939550bd04a19ee9dca8d68015423fec06812d2e1f342a4"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_kapok.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_kauri.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_mahoe.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_mahogany.json"
+hash = "afb94ec42849c9c9b514876ce2776e85058e9d53061a4ecf862d7158326e54f3"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_mangrove.json"
+hash = "afb94ec42849c9c9b514876ce2776e85058e9d53061a4ecf862d7158326e54f3"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_maple.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_oak.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_palm.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_pine.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_poplar.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_rainbow_eucalyptus.json"
+hash = "e250e2844c8f9b1b65133e7f18a8615f99ebf2e18ae078feec575d29b92fa839"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_redcedar.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_rosewood.json"
+hash = "6670effd1a32c13edb7686e6f25a64ef2f018037ff3bd86b5978f3dab58e5d8b"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_rubber_fig.json"
+hash = "6670effd1a32c13edb7686e6f25a64ef2f018037ff3bd86b5978f3dab58e5d8b"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_sequoia.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_spruce.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_sycamore.json"
+hash = "e126265b1503fe4252d79e03304e5e56f8a381ac949bb03e1d24d7ae34100d44"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_teak.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_tualang.json"
+hash = "231158962e3aa155bcad0294e04acde656751599ba29bf7ae0c0b7455b148a56"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_white_cedar.json"
+hash = "d49d92d14b5343f26b9b4698e41559a21dd975cfc875fea1a7cfde19cd1192a5"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ancient_willow.json"
+hash = "afb94ec42849c9c9b514876ce2776e85058e9d53061a4ecf862d7158326e54f3"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/araucaria.json"
+hash = "167b92cc583a7f50fbc0af229a0666c65113f4b59862f37beeee5b5be895ef79"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/baobab.json"
+hash = "22f92ea9f139e5649d0b489aa64ae0430a93973a519f906e8aa3d79d955f38fb"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/beech.json"
+hash = "99e6e3c3c7f0b38900b59b5967c67a7905f7a6fba97f9e01eaa41d516b1361f6"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/black_oak.json"
+hash = "94a0ba22210d8f4223f81ae1a72fc9b046849390aa3e55c2c3af1129d363ece3"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/cypress.json"
+hash = "3a47aebc9c10f3e7875d24f33349136d64c22a40364c930dd67df73ac2fc7795"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/eucalyptus.json"
+hash = "c302bf33b72fa7e49ff986e53b4fdd0ee3ebeee845cb831fb027032af0555803"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/fig.json"
+hash = "334972f550c78c7bfc20476f3b5f8a233b1a7423b3563b008ae6599a38d4e891"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ginkgo.json"
+hash = "4eb87311ecb1ce2bd0d964cec41faa143058189f439de50659d0cea410de6c83"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/gum_arabic.json"
+hash = "0ddb6d96de42b2eccbeae9544a48affb9894a2a063957e26cadc777466d36baa"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/hevea.json"
+hash = "2be08085166db468e53bd5333d114bbe8e4bc406d1cc69294513393ee118fb8a"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ipe.json"
+hash = "600a33ff0f98cb8d07bc6abff5b7d5a9c746e57e7f375e85b41afd1c92e13164"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/ironwood.json"
+hash = "47008e43d07a754bf73ad3c97ecc5b7e78f939905215a266f0a9c2b12ca7361c"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/kauri.json"
+hash = "310a0fb7acc0d444405ffd54c66283a992691fa902f2fb64b8d4bbd28b24fc88"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/mahoe.json"
+hash = "89a7038d413fc403cb5ccd4cc34ba00251be53ea365bf1fcac9d17de202ea6d9"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/mahogany.json"
+hash = "00ae3d26563516204320e10ee1ef62c47d61074d8a94e7db35b7b786e72d050f"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/poplar.json"
+hash = "61ad5af547d67cb40e0c864ca3a24a9311cbfb12414ef0410318875fd73fa848"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/rainbow_eucalyptus.json"
+hash = "4a227af5848f6d8495154297735d28a327266d41e73b8abeec98d08fcfa088f9"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/redcedar.json"
+hash = "4e44cfb36ebb82b77d8ce1a30a630dfe04c5d877cd39820f6d9114eb36cc9ab1"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/rubber_fig.json"
+hash = "446a9147841382edcae5c9f4f17858afabcee3587d44f0e4dba3dfabaf630c82"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/teak.json"
+hash = "319e1e461e343373287459f8fc0a2fc4ef23e28fadc98d11cb652d2816914cf1"
+
+[[files]]
+file = "kubejs/data/afc/loot_table/blocks/wood/wood/tualang.json"
+hash = "23d47ef3b7029167e80d2ab9017a2bb43c7e42724207a66fd2ea0691284d558c"
+
+[[files]]
 file = "kubejs/data/alexsmobs/loot_table/gameplay/seal_reward.json"
 hash = "c810d50155877213605f6f4ff1759867c6b14fb284fae25fbec6ba50d329db2c"
 
@@ -2541,8 +3037,28 @@ file = "kubejs/data/bellsandwhistles/recipe/metro/metro_window.json"
 hash = "373ad11d23f06096d93fefccc8a785ebf159920fbd5658c98b598ac149d2330e"
 
 [[files]]
+file = "kubejs/data/beneath/loot_table/blocks/wood/log/crimson.json"
+hash = "c38411369b90c281c72f365136d406b04ae1af6acc7e751c5829889953f3bb4f"
+
+[[files]]
+file = "kubejs/data/beneath/loot_table/blocks/wood/log/warped.json"
+hash = "ccdc49ffe9008375319b694e30204df5d08c534a0e9ce07454f144f2e764fc79"
+
+[[files]]
+file = "kubejs/data/beneath/loot_table/blocks/wood/wood/crimson.json"
+hash = "5a7ff82be24371eeeb4bba10fcc1f0b0cb59d2b3b22182370dffc1af151e3f95"
+
+[[files]]
+file = "kubejs/data/beneath/loot_table/blocks/wood/wood/warped.json"
+hash = "42e26155cf72a79f462c5c994d058c0586b2bf666db7dd51ad2c0bbe2f753816"
+
+[[files]]
 file = "kubejs/data/buildinggadgets2/tags/block/deny.json"
 hash = "305c0b4eb754d5eb70f83b308ead78ccb480b5bcbf0eae6560b4cb0f1d1688a5"
+
+[[files]]
+file = "kubejs/data/c/tags/item/barrels/wooden.json"
+hash = "b9cec6c5641a090512e0cb165b5669fe4230d62ebe3bf87ec6d3a9ed491b30ce"
 
 [[files]]
 file = "kubejs/data/c/tags/item/double_ingots.json"
@@ -2554,7 +3070,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "088165a3f9423cac4dcf8f0a8ac9b604c31eded9c8457ea2a8004e8d57dbe744"
+hash = "1fcf007b74fc30a04db2d998680c1a73cb0ce0018c4228002e8dc87030ac053f"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -4929,6 +5445,14 @@ file = "kubejs/data/firmages/neoforge/biome_modifier/naquadah_mercury.json"
 hash = "4f5954c1215a4fcb31f820226f4470d6a832ea1c1100b4b1375a6faa063f4e64"
 
 [[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/vanilla_forest.json"
+hash = "b81feef125be5fab1a063bd711281f6c8bbe7b42b067af03e891878ace1b8adb"
+
+[[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/vanilla_mangrove_forest.json"
+hash = "cdd5e37de869518ddafb1a6837056d23ff2416e9f1185c7b73129de12e57a403"
+
+[[files]]
 file = "kubejs/data/firmages/recipe/chisel/engraved_bricks/andesite.json"
 hash = "a497825abcc56ffeb6236ca2840455e9cee12e4b16b260ec0908f1b021b093d7"
 
@@ -5718,51 +6242,215 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "01d2b89bffdfb17b53504da22ee6e694bcdffbcaa1e2f46cb8551ef4ea29bcf3"
+hash = "29525e5e39e29b031aff12f36021dd9907bdc7eabe319105722b6480786582c0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "72eff68c8e70d90f6da1dc9f4eed2689eb9200a3cf6a0d947ff1f08290522472"
+hash = "ec039d75d13515507956a8e54e4c9f0846196670c8495bec2accadc2b312dc80"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "8b27cd64f5cbe341fd44566baa9803865153294db68c5d88de3a94988ac6ddd0"
+hash = "70e156db95a3269bd9a10afbb87c7a8b95b5245737a9913d203c4ab12ad49462"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "21a223f8a455189838870c33eb7ced339d12e038d68d49afab40597030a54b2c"
+hash = "97c8293cecf170c8148604b07e09bef40f0f2f09ace5fa758cbcbe9ca259d344"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "c8425b37d69fa04615b48810a766082007d4e7a9637ba4c9d467e478dd6eda53"
+hash = "68e562de3d9d3b5fd3cfdc3e2b16ce4a8a8abfceb75b7af105f9f8483662d7a2"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "dca6bfd36766da934e3d6dc5295a66b9dfce8c41220639faeb43d904272061da"
+hash = "4bbc191d6bf8a2ca1008a4fdf3abaebabc19840bc5fed36d9fca113d334abef1"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "99463fc63f4b0dfb87c1ce475541a82fe98eed3987deae263cf187e0cead7033"
+hash = "147036aa2b777db75f7e22ea5eb1806a0efab734c65f20ad751cd806fa01ef17"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "59a8c0fedd2ca51fc74beb5df430ed0904037f7125bd0d5b0e6ec16b6085e61e"
+hash = "0297fd64ca5b2c49514e19dc1c0395a739fe3a9f28af664183647a88527f6347"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "c9ef436b8499e2f3ab4a68b639db5909f12f0ba0bcfe59e09df4dada970cf26f"
+hash = "bedd23635db35069f9ef644b6e28e824353bcf4cafa646d742d830de510e5c55"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "733a89630ec9cd6dd3a5ec0ad62f6c195f9daa9c1a9c27df3fd362c24ff02c65"
+hash = "2c6a25a36924510e1eeeb001da8c2f8722f8b975f3e46aa904497d66d15d3a3b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "c832a2bcb49c28d959f70103b9fd4eee0479c0f9d1931f747e1e516655837f0e"
+hash = "a633a427200a57f4fea1ca721fbca02eb54548f6544a902160ad5f6095344800"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "ba6ae970f8f1481fcf1c44f1e856c8219fe33d80915db3a9ae825a8c07bc6bd1"
+hash = "5c54883ac4360e48baed37f82004b5c25ef84eebba666a03eb52402c644aed4a"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/vanilla_planks.json"
+hash = "92a3a0cf4e81839becadb40621f292edaf77145051544ef53303429af011859a"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/acacia/logs.json"
+hash = "e53b992d133c7a33192716823f767a2d5c1e6c7a3779eb0183fc77106b817a86"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/acacia/planks.json"
+hash = "b5e3f72103e52fa63e773b2bfcfb09583934b29c3a159b9d29a2acc5c1c228d8"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/acacia/slabs.json"
+hash = "5d4de5ec8a1ad69d0f9c9c9bbc5e21632b75baae6bf23f2d8d50b22b1c2b7ff0"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/acacia/stripped_logs.json"
+hash = "14394d4bf453c4cc27ddbfbea0a0b3059aba1a45e5992f6160ba1c4f93f4a6e5"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/birch/logs.json"
+hash = "9fc45e7f9dc4f60459ff4df03318e265605b09337a94c4a820c4f02cccc02add"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/birch/planks.json"
+hash = "ae3b54a7878d7a659a5be79943d2ed0e3ceb0b1f5fcaab4881b788a0bd030501"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/birch/slabs.json"
+hash = "782a20610014165db8f48dbb3a8103e7fb583833c374003d71655516d3419a05"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/birch/stripped_logs.json"
+hash = "3c06e411a08f990bd52a40c7da8fecdd6a059c7eca8d2fe9957873d09cbef38f"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/cherry/logs.json"
+hash = "3cc34e2acea8abf1161a989e5fefac6424bcb305e243bedca003e6bdd059a150"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/cherry/planks.json"
+hash = "5ab5492ab4a843d3597608cd662b2b7f409abc3f1a5c93338bc8a858d1a18944"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/cherry/slabs.json"
+hash = "767cbb9c73f2b2efa2419f01cac54b7ce9f845a1915d2fc1712bfadb77d91b66"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/cherry/stripped_logs.json"
+hash = "49c9795745cb2efdd6ecec825bdf3988490bfe761ba0ecd2202b3f3f03ef5cb8"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/crimson/logs.json"
+hash = "0cd129a6161d8a10b6be1a688b69a46ffcf2e4e706afa8613dcbd74c0963d0ec"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/crimson/planks.json"
+hash = "7be02fd7adf0bd2020d19d5b078e65562de10d1dddb708f3f55f9e9976108c3c"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/crimson/slabs.json"
+hash = "03f471c65a650710a5b5e4074eddb0cf8ec3355329e27de2e6cb9480ceca7948"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/crimson/stripped_logs.json"
+hash = "91e71775865cd7bd2e8b2659e5f8770e42fa15faaf24cb9a9c941d17673d0a4a"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/dark_oak/logs.json"
+hash = "fdc5daca850542e8218b0f9a5846ddc9089df4540611a959a030baa4584f8774"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/dark_oak/planks.json"
+hash = "ce6e2f3149686fdec946eafd816ba45355ed66b977b42c15cdfe550cb727e4b5"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/dark_oak/slabs.json"
+hash = "8bfd64693cfb64c5f35f3c1ff99edd6d430a839889d0d023c283b5d7c937c41d"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/dark_oak/stripped_logs.json"
+hash = "dac6004f0755c303781058d091ec705d18911134d83b7c60f1782cd6148bdf1d"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/jungle/logs.json"
+hash = "81dbbfd99812f7e54f85dc49f6d4fcdcee69cdbf214346cf5e58d0706fe8c717"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/jungle/planks.json"
+hash = "a208bff29c5414df3339efbc5a7b1c78c4c7e53487af1e4a16673d3f05de602d"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/jungle/slabs.json"
+hash = "7dea5cb4bd9eefdb173f78e73b0acfa6cfc0a3c59e7d9cdf911bd82b54df965f"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/jungle/stripped_logs.json"
+hash = "c42b4945ded6478c8deb54fef66bfd231e47bcd0fc50fad19406ce1c24c6e3cf"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/mangrove/logs.json"
+hash = "23e4ac927ed587e38d6a0f8d8272c8d3216625c5cfa4f7444c97818711017565"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/mangrove/planks.json"
+hash = "bad7eee1f4808d947dae24872d7cbdfb076a5a1b784c8789bf07910e4950f586"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/mangrove/slabs.json"
+hash = "4b4209f5f9238068538ff1b37df41e004cc69b0fb6822bd72a040bec2ce22333"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/mangrove/stripped_logs.json"
+hash = "fc73982daa04668b0bd856958c89cbc369e8729bc4c56b679cbbeb095888a5ea"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/oak/logs.json"
+hash = "9ffa0c286eae1a23f29c2e407e50ec0f471ec916d2652d17a686ebcfc49e46d5"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/oak/planks.json"
+hash = "c5d78a99116bab54f104735837058908ca1e3be884f5835162029ad212e76a15"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/oak/slabs.json"
+hash = "b67c2e1e7835984e40421df110739058a42271175f50529875d881749b586427"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/oak/stripped_logs.json"
+hash = "54a7bbc1b5124a1d9a91daa58cafc77a6199b835ab9f91ed52c0f20a9864dc65"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/spruce/logs.json"
+hash = "f09617e89a97b8079e8fe8b387eb278002e83017bc7fb10b79728425d072734a"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/spruce/planks.json"
+hash = "4cd26e19599b7b709dcfff1f9a6a3ab45d480497e938ea4f6a408e238320eedf"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/spruce/slabs.json"
+hash = "22b8defb681f1e4c8006dac7e4dba58e6428feefe46dc6c478aae4c1784af0b9"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/spruce/stripped_logs.json"
+hash = "fbc061aa828f2b10c797bdf6195be62a8173ed9d02fded4524eaaa87599c81d0"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/warped/logs.json"
+hash = "02687f9e49837c0ae46e75ca0a8678d271ff22eeabb9018bbd8f86c5f81d8968"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/warped/planks.json"
+hash = "51cdf64238bce3a57b209191359d196f43324257a9a5121a9060ccb7649539d8"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/warped/slabs.json"
+hash = "e8bacd49e7233a021ee3066c73c52cf5b1a668da3c40d86d33bc532ca12f1052"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/wood_class/warped/stripped_logs.json"
+hash = "fbe76c35afeb4bc8b4f6194f29412a7e6636a4e5d724fa60f38b22526bf73e8f"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -5771,6 +6459,10 @@ hash = "7655ff6addc912102765472bd7e3fe703b190fa03125f3ed14e4ba7251182c6b"
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/has_structure/cold_forge.json"
 hash = "287a196bf299d598845bc5624403d272c5ea079ce289d1e8ab6384246c66dd5f"
+
+[[files]]
+file = "kubejs/data/firmages/tags/worldgen/biome/has_vanilla_trees.json"
+hash = "274685ae71b0e1937d2113e2e7a94e7c3783c7fff6fa80390c702e9070890436"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/wildlife_land.json"
@@ -5811,6 +6503,78 @@ hash = "110a37759ae873b7e8557ddf5aea128f92318dc809d339235ef495a5a4237241"
 [[files]]
 file = "kubejs/data/firmages/tfc/food/alexsmobs_kangaroo_meat.json"
 hash = "aa5802d75806bf42cffbeda7f9259128d59b51af353f2573ec17583fe5f8a3bf"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/acacia_logs.json"
+hash = "6da580b9dd7258b274ae3a57bffff5d867046461f1f33a9f63ca400d3a139aa4"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/acacia_planks.json"
+hash = "55e9a1a491d25c1ca835366753dcdfa7e4ed37f120ebd9e3d13446818be11bf6"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/birch_logs.json"
+hash = "e1d0520dda05fcdf1b6bc394bb030858e20fe6a9eb1bc616fa3177b780d4e413"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/birch_planks.json"
+hash = "734d2f4019a4c4064a613ebfc94fe6970b459a82002f8d5d9019df75fd6c7ce9"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/cherry_logs.json"
+hash = "81ffd54cdbb25a4ca81b6739b12f8f365049bb3509b2536707b293bcd8d7c580"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/cherry_planks.json"
+hash = "c3ec57f5524a42e8a8c53090fbddf5509a892a737c62b53c9f593a15192af50c"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/crimson_logs.json"
+hash = "f269f89a24cd951b29e5ce8ae747af5a927a861d07de637c9708e03cd14653d0"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/dark_oak_logs.json"
+hash = "9e1b7626037dae5fce1b1c849f781d2e3860ea99d0f2ed93d676914ba1a4477f"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/dark_oak_planks.json"
+hash = "27e87e79a101240c9a0a955c014e55a203866035465b9434cd054b9685ee41c9"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/jungle_logs.json"
+hash = "e95703cd3e71f96c6ffcb9e998f40a50c982ed6f391d110485fe40dc05a615bb"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/jungle_planks.json"
+hash = "4922e63f3516d50966dad6acf7a28290d8070927e626b176b36b19a82af1ecd9"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/mangrove_logs.json"
+hash = "5e67ed9546ad69acf88d829a25db6ec0956697aa9bf3f8d880b823da77f0b498"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/mangrove_planks.json"
+hash = "7cf1674a6d75b246e13ad178ab4183bb0274745a929c0181f89fbf6b4854fb49"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/oak_logs.json"
+hash = "adbfccd56c5b34b7784c0db518feee7a2652d4b8d7e5f35d4aced1ad75ff8e31"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/oak_planks.json"
+hash = "af9da6a6f2c4e5a9affbc946e4ef39b8839cd7d3af917d3dd3db9f669337633b"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/spruce_logs.json"
+hash = "080b062317afb3bf3df332a0d2aeeb1bce28533612c28b922bfdd02a6b99bf9d"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/spruce_planks.json"
+hash = "bd037d1752fa9e1c1fb597bfb91b7dda98ecd9d4d2f43b39c83066381f995f00"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/fuel/warped_logs.json"
+hash = "882342d42e21cb7feaff6a9c80fcf582297950aa9c92571fe7b0c0b486ed5571"
 
 [[files]]
 file = "kubejs/data/firmages/tfc/item_heat/alexsmobs_boiled_emu_egg.json"
@@ -5913,6 +6677,82 @@ file = "kubejs/data/firmages/worldgen/configured_feature/ore_naquadah_mercury.js
 hash = "26a046016f9a4781004e962949d1b91e17ae7cf75ed6da60305d3b68f3f38f8a"
 
 [[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_forest.json"
+hash = "9fa44412ff7c54801fb34426faddd7c46f963d45d48017cd9ae641a86de163c2"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_mangrove_forest.json"
+hash = "406e2cf8f0239d48c01fe947c9ca11b74100370c5f962308f075866259b5124e"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/acacia.json"
+hash = "26d6a6fcb1b2faac5a43144fdf8bfba18c9761dce89b05a3170b903e50e8cca4"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/acacia_entry.json"
+hash = "a656961eebebbd35d2dad77d09b4cfe603d81f2a2d14e03af4c2a75db3bcb1cb"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/birch.json"
+hash = "2f6095b7b80470d4ee05add3087afd1f564c8f3ad96e89619e0928e0a3e4f196"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/birch_entry.json"
+hash = "66f6dd2545954b12a6a13804c70f531bb5e0defef991a52d00d79134fe379a30"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/cherry.json"
+hash = "aa96acb4a029061fe2c0dd5b40c31a0e3d1b851cff68c48cf6b210258aaafcf9"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/cherry_entry.json"
+hash = "8cca9fce15abee33ed931e11a9b9a652d4f0a9dd89ebdc802d697a82a96b2862"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/dark_oak.json"
+hash = "e7b1d3bf09199dc534911f2d13bf4eaae872441bd193d267ebaad0223c09698a"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/dark_oak_entry.json"
+hash = "4144d736214b89174d7779ead94e05e03b1ed09015d14402b2e315e7ddc718ec"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/jungle.json"
+hash = "b5e902a83f532ba3737fca150379aeddfa10bcb4d65eb53ce4c80ef277155c86"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/jungle_entry.json"
+hash = "ec65058a67cbcb99e56af50c85a04c3307b607b4f38bc73f327f0f4ecb1f4a4b"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/mangrove.json"
+hash = "17e20ce1e1226155ddc757f18a7834c683321a46d6a952e4a767339114fb6b0c"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/mangrove_entry.json"
+hash = "18c9ecffc1660ce3812074b7f1cc47313620ea528fb76d3cdf1cd866fc17b0f2"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/oak.json"
+hash = "b5dd71ed8491446af3b10a0042684ab1068a0a66e2fa486143bda647e90c77db"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/oak_entry.json"
+hash = "36728b503fffdff2d5923be88c04d8904e9f933378dd16ecc9bb976c2b3adf4b"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/spruce.json"
+hash = "d7686b6dad016a8443df5da68bfb00a739a887538b2e190d35217faad648a0a8"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/spruce_entry.json"
+hash = "2d651be5bbb12a2ba48a5e011aecb3b45ca92c100f3eb7fc74b77ad074a4e839"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/configured_feature/vanilla_tree/tree/mangrove.json"
+hash = "e38509f28c855431f4ebddbb53b4a9e56383a98eefa553f5d078f0e6d15f22e2"
+
+[[files]]
 file = "kubejs/data/firmages/worldgen/configured_feature/vein/draconium.json"
 hash = "956def7f9b3250bdd87768ae54ed5ce14025c1b492b6e4e38ce800e657a5a86c"
 
@@ -5935,6 +6775,54 @@ hash = "2c757e17a724fd8054ae8269c16330c2f8e6a142d267255b1b1833fa6b04c888"
 [[files]]
 file = "kubejs/data/firmages/worldgen/placed_feature/ore_naquadah_mercury.json"
 hash = "fc00945295762a682434b84afad33cab4d8911b9eed43aebc47dfba2b5a2eeee"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_forest.json"
+hash = "10e0abd8debb564be414151d1fde39979a6dd62aa075d3e2c2cb785396b9df59"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_mangrove_forest.json"
+hash = "c5134b8cc2f7a68c44c321e6aa73fb109b34a89e4fbae7ec4364022cbaefd6b3"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/acacia/acacia.json"
+hash = "b7bad085a585c0acb54651d589c4983a0a6e7ac3eea5acf097ee006ce38d6550"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/birch/birch.json"
+hash = "840967290fa10348e3a044109286333b5f74c8d50108aa1a74b2ae69b6d37876"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/cherry/cherry.json"
+hash = "67e4b4ca8deda9f8464272489f3eaad8839b0a1dfe30d2c795b3bce854b6ea10"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/dark_oak/dark_oak.json"
+hash = "2a920e1b839d7d7a10d3ccae3e5593aeb0d9436cf74a3a3b261c4b016cf3e98a"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/jungle/jungle_tree_no_vine.json"
+hash = "c09e9c4ad57d146cd3149ff03bbe9702fa6733261c676d3dc03615e7fd6afe6f"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/mangrove/mangrove.json"
+hash = "b6e773c57b0207f4373415a8fa667418313ed8f9f5ec59e334557a1fc12b6333"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/oak/fancy_oak.json"
+hash = "743f718dbce07262096fc837c0f2dd7b2df1a5b561b8d00648c62c6ec9dfef2b"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/oak/oak.json"
+hash = "5c4dba603aedfd3525b77c452f238ef269932c5c64a063427929fe7c33f1c25b"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/spruce/pine.json"
+hash = "d91898e8c5d59e2c767e304baef7f042eb53d014c8e20f85db083e3e0d6311a3"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/placed_feature/vanilla_tree/spruce/spruce.json"
+hash = "349464ad4b1f853915cf8ff7b48a8287c46a3d3b8f1e52afdde4c36244032c33"
 
 [[files]]
 file = "kubejs/data/firmages/worldgen/placed_feature/vein/draconium.json"
@@ -8825,6 +9713,166 @@ file = "kubejs/data/supplementaries/recipe/wrench.json"
 hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
 
 [[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/acacia.json"
+hash = "213fe4a26d7e1b1a4bfd3e4b37d10873cd3d2e6581cca65581a954c786516546"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/ash.json"
+hash = "1e984490cf4ca689bf2c2a45e1197a9cd58f6d12e23e2582ad9b6928f088ced1"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/aspen.json"
+hash = "02a41e1fd2969c18d240a83d95c49489fdedddbbc4713c001a3a0941e6849518"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/birch.json"
+hash = "3c78c29d65270049e0a41ccec303658abfdbe5bb8adbc4edb462a02d328c679a"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/blackwood.json"
+hash = "7d13ac680a4b850c1224f3c9282571e434f9aefc33ed376c32b326592a98d78e"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/chestnut.json"
+hash = "9172fd4ec2d65afd3a8e2ef1af5d9c59574e71d491082488c544ccc3512ae605"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/douglas_fir.json"
+hash = "82a7196fd51a1e753a30b479f93d5ca067dc28417f3003c69a56f6a2c7fbb025"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/hickory.json"
+hash = "279edbfe9ea1e4d97f6b5f6208a2a05bd956a21fe53ce79e5ce5c0879c35e96a"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/kapok.json"
+hash = "8d0e0158033f422936bfcc1f06739b3356016b874e906672f36735455cd2e80c"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/mangrove.json"
+hash = "f406efd88d39c5f23eac13db6c6f633a3a8e2e65595a1d9dbc47a4a49cac4a49"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/maple.json"
+hash = "8c6aa69308048245fffdd6d07775fbaaf7ca5816eb5ba6061e32deb7d84b840b"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/oak.json"
+hash = "dd394f41fb88fb1d3a9a72fe22c15ff389e7c0a77883155f0a151c207e2c44f9"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/palm.json"
+hash = "1c6f339e8c27d47bd2fd01f67d96a7e696cbaa7415399b1f0307db5b8cbec26c"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/pine.json"
+hash = "5c59728c56d33a4b82992e94f8e9b34c299e64321974a1d6dca324c264d72ca8"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/rosewood.json"
+hash = "b9c1a870898e07a976b94c2d6d136e0ae76977dae0bfbbde198ebad717651a0a"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/sequoia.json"
+hash = "226f6a6a1120f147c37ed6d37990e56c411d679fa895dd4e00dc6145f4a3815a"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/spruce.json"
+hash = "81dcf9df6d51b4e0653c65ccee4b83b1a00c763610f205be91b6767cd4a5de85"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/sycamore.json"
+hash = "7ed66925887a323d9ca2d1f0808fed7369d224ca8a139a87272f8387a2e68085"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/white_cedar.json"
+hash = "1817e5bac069fed8cda32d58414c775ff360313ee55e2e95c9625c160a87ca06"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/log/willow.json"
+hash = "1566522dfa73c545a9b7c0c6b43c5beb393f1dcb6a979771ea0824b04de7aae5"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/acacia.json"
+hash = "2f28d32ceedafc8086de3ca3c629e4684cea1def0a220e05e632eef434289fed"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/ash.json"
+hash = "13b0f4beea08cea309501d5ef99000c94adc6ed1cfc5f26a4075af8512510948"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/aspen.json"
+hash = "3f222f1a2cd8af80f7784334385a4038153ecbf1dedd0197080735ab9aa4b03f"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/birch.json"
+hash = "e89b7d8dc8223a55560b05c07fab252ce4f4d6fab406f0cf5271886b9f92d3dc"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/blackwood.json"
+hash = "2adb036fc5e4b1162495a07303e0329e56dccabf2b7b581f9bd42c6aa178cf24"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/chestnut.json"
+hash = "6c637c3bd2aed9b1640ab85a041322f4519306196283274eda9d319b150dbe25"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/douglas_fir.json"
+hash = "2c8a124c33ead6d736c7bd6b7b266a19d16523a2c55eab4af75816966814c796"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/hickory.json"
+hash = "f9b75167524bf9f4f64b04032377c96f1c2b87bf56c1e7db8ff6fe543bde91b1"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/kapok.json"
+hash = "26eb396589ae61e98ca05bb42c6ed889d07cb715b25b3525c38ee99e050520e1"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/mangrove.json"
+hash = "6f8dd837129985585bf2986993ba8eefe7afdf65140f78aa45bb2b1e1be7eb89"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/maple.json"
+hash = "d2bf5adab1762905a4ccda2a7029fedfafa63ac988e40dbd0d02d1beb92974d6"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/oak.json"
+hash = "5fefc2c4d24ecbe150ad2e4637f3b281de0a36594ba3b882435b765ff5b7c118"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/palm.json"
+hash = "0ce01ec3315138273afc8d3ae44a4a7785cb80d01ed5b6046fcf7073c82862db"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/pine.json"
+hash = "782c7d3c47db67f8184384f743996c5ac7d8dbfdb51775a75fb139c0c537d7a2"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/rosewood.json"
+hash = "121cbc6ed144af25af7624a29adf04f4c3c9ef6c4e9f4500ec5facb6d27a8d98"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/sequoia.json"
+hash = "09e120bfbd6fbc5de36cca17fc1564068e3bcb3114fb5335cfd72c8fe21a7f8e"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/spruce.json"
+hash = "38eb055099687039ffb7c40d1a51dcba20acd47e68d98310ee08a7f8eeb853cd"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/sycamore.json"
+hash = "de808cee43d33f0d7d651bd286514aa69cb37d09aec7c9b98ab2b5bdac226179"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/white_cedar.json"
+hash = "de66eb9266cb91b86376c0c5ebe0e72aee6235ca0a3dd74ee2e5244b19b05e58"
+
+[[files]]
+file = "kubejs/data/tfc/loot_table/blocks/wood/wood/willow.json"
+hash = "a7862f08ca03a356156d227f4546044a32f1f823c9699b34d5ebef82e6f72b11"
+
+[[files]]
 file = "kubejs/data/tfc/recipe/barrel/curdled_milk.json"
 hash = "6f2384714053c4de75aab0287444d5bcb065e852b0cc039b8be9c1ead2473638"
 
@@ -8869,6 +9917,10 @@ file = "kubejs/data/tfc/tags/block/prospectable.json"
 hash = "fc23170db8af12f32258103069969ed68b44093cf7e0c00b17fa72ee3bc4cce2"
 
 [[files]]
+file = "kubejs/data/tfc/tags/block/workbenches.json"
+hash = "251f14a370083d5b0fbcd1e006ddc8c0f357df189513113c88b74d6a9e1b470b"
+
+[[files]]
 file = "kubejs/data/tfc/tags/fluid/molten_metals.json"
 hash = "73cc82e39df4f2450649f894aa7e0e102573ce14938ec94c14cc18ab8db620b4"
 
@@ -8879,6 +9931,14 @@ hash = "3f204ec777620f170828532ac154595edde862fac809f815fd10a5aafda4e2a5"
 [[files]]
 file = "kubejs/data/tfc/tags/item/small_ore_pieces.json"
 hash = "4dbbb31db2bfbe50cb4f4541bf022e142a466fddb9d53d81b028653cd535bd95"
+
+[[files]]
+file = "kubejs/data/tfc/tags/item/tannin_logs.json"
+hash = "4828e91063f814327721f3c285afee1069e2b32b29654841f9df1f84900685e8"
+
+[[files]]
+file = "kubejs/data/tfc/tags/item/workbenches.json"
+hash = "251f14a370083d5b0fbcd1e006ddc8c0f357df189513113c88b74d6a9e1b470b"
 
 [[files]]
 file = "kubejs/data/tfc/tags/worldgen/placed_feature/in_biome/veins.json"
@@ -8899,6 +9959,10 @@ hash = "f6596c6cd55a4f99bf1c5efb3132a88178c2763eb266515c84f846d5f3a62e88"
 [[files]]
 file = "kubejs/data/tfc_ruins/worldgen/structure_set/ruins.json"
 hash = "81e8621bd7e2a00d2e43b5bd68a0a11f2e4875e3b32aeb77e9fc86ebed631c29"
+
+[[files]]
+file = "kubejs/data/tfcreate/tags/item/andesite_casing_woods.json"
+hash = "5cf8fbdf9edc7344457557ab44c26c81f4275cf8b821fc0c82e38755f5e38374"
 
 [[files]]
 file = "kubejs/data/trainutilities/advancement/door_ingrediants.json"
@@ -9011,6 +10075,10 @@ hash = "aa9c7f0ba51b74405fc5eee3677e1db5326a66e8eb9a5a510572276c066a7806"
 [[files]]
 file = "kubejs/server_scripts/recipes/age_0/stone_age.js"
 hash = "0dc0cdba0ce2a0cac56153723ae09a6d4a9594952b030659f09954307cf545f8"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_0/wood_classes.js"
+hash = "3b00a030be15ec18d2e6011774af62207fd8affdcd5479c11a8044ec8d782550"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_1/alexs_mobs.js"
@@ -9190,7 +10258,7 @@ hash = "2f259945df4d3cb1b583a75697e3e1e5895452f5caf72c44b99144aede58ec62"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "1952bdb879eb794e20c26a962e7119d540cddeb41f4b537f58f41a57ad486877"
+hash = "011edf22f7de82f9f0bc56debebb48fea10a491f87f9d90a9866bd59f8dfcb09"
 
 [[files]]
 file = "kubejs/startup_scripts/draconium.js"
