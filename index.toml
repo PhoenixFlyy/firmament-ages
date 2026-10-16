@@ -1,6 +1,26 @@
 hash-format = "sha256"
 
 [[files]]
+file = "config/Mekanism/general.toml"
+hash = "8fbac525c2f47382f98f23c23a95a0c1da4c416dda31193b1ddf8d018ac4f757"
+
+[[files]]
+file = "config/Mekanism/machine-storage.toml"
+hash = "6ee0a258b074792a5f495e05eae8e90b0193bf2f922f095dafd3cb641c7704bc"
+
+[[files]]
+file = "config/Mekanism/machine-usage.toml"
+hash = "cb772f04be5b77b208a51944a5da6f6361dcf5f80e173cb93bfa20522b8dd91d"
+
+[[files]]
+file = "config/MekanismMoreMachine/machine-storage.toml"
+hash = "8f0a65aa2aaaf2e7c8aec3baeb07ac8025d077c5b187d9c02cf98db8ef899087"
+
+[[files]]
+file = "config/MekanismMoreMachine/machine-usage.toml"
+hash = "1f2178edacb45e9d06b2ed7e96a0666c1eacaca25d78d794717ff38771a54bc8"
+
+[[files]]
 file = "config/adchimneys-common.toml"
 hash = "792a87cae8ae22e7b329cf469b96958069b1e0dccd167cbb60b6f310840f2b0a"
 
@@ -122,7 +142,7 @@ hash = "328b3852fab98cec3426ffeb098ed8261ae24eefac332439df9c24df98d24dab"
 
 [[files]]
 file = "config/createdieselgenerators-server.toml"
-hash = "0b129185c5252400c94d0eb3314b63033ba3c982e0058bcce6e1ce3ae1606cec"
+hash = "37c4b086faf4bad4c965146edbebc1f0bb071be62d5a0b75d6b52bc3a948d8fd"
 
 [[files]]
 file = "config/cucumber-tags.json"
@@ -403,6 +423,10 @@ hash = "3751be57ae782eeb97e886c5a955ab719561fc9c0210e10b3ff7d2bcad4ad013"
 [[files]]
 file = "config/gravestone-server.toml"
 hash = "8b7f6e3dd09dfc4416a57f87ae3c9cd47662ffb7e13191ba81ef86bce44a82f9"
+
+[[files]]
+file = "config/immersiveengineering-server.toml"
+hash = "f58b94019bc97be08218610423b0000276b6f217c39e3135d013ad76901f05fb"
 
 [[files]]
 file = "config/irisblockcompat-common.toml"
@@ -2198,11 +2222,11 @@ hash = "87fba8edffac6367761b85d9bc60e331c55524ec9db04498000bc5d12b19d9e2"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/iron_factory_block.json"
-hash = "3a7b3d3412dad67540a3457c41c72e48eabfde18967795adc4b8ba1ac6e09f62"
+hash = "bd5d12cdffb54e74d238aca81612deb2de72baa99ad54fe000028b74a9c6a915"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/iron_panel.json"
-hash = "b8e1366e3525102011251465056e67857ace53f7918a86098d4ac38d6aec90bd"
+hash = "2a8652aeb92fb4f2250132a70ebfbb37df2ad4898ef7faf4279505d6354e6e04"
 
 [[files]]
 file = "kubejs/data/ad_astra/recipe/iron_plateblock.json"
@@ -2706,7 +2730,7 @@ hash = "ddc3d0dd56b604d914bedbf2f985a2f0b5f7374eac79aad668a8a2cfd7cc154c"
 
 [[files]]
 file = "kubejs/data/createdieselgenerators/createdieselgenerators/fuel_type/diesel.json"
-hash = "8bada14c901d27de87cef5142921a6205f3b1eb7ad4891da2bb11939edf5af66"
+hash = "fb69c78b4d5a4bac97c9e130b670dfe9c5fe50ea0a0699486749084bc2b9c6da"
 
 [[files]]
 file = "kubejs/data/createdieselgenerators/createdieselgenerators/fuel_type/ethanol.json"
@@ -4035,6 +4059,14 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 [[files]]
 file = "kubejs/data/extendedae/loot_table/blocks/ex_emc_interface.json"
 hash = "b919a6a814eb600562230d22d5408be2a4a909e36e74a3b7ce8280fa45650518"
+
+[[files]]
+file = "kubejs/data/firmages/balance/fuels.json"
+hash = "54d2fa692e3ece7645989ed0b2f2e6c2ecf253a6564372571d891e9102909125"
+
+[[files]]
+file = "kubejs/data/firmages/balance/metals.json"
+hash = "09ec17740de770069dab47e3407c7f043a2ebf34ac5a3e774b82bc28766b1af4"
 
 [[files]]
 file = "kubejs/data/firmages/chiseling_recipes/andesite.json"
@@ -5726,7 +5758,7 @@ hash = "72eff68c8e70d90f6da1dc9f4eed2689eb9200a3cf6a0d947ff1f08290522472"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "8b27cd64f5cbe341fd44566baa9803865153294db68c5d88de3a94988ac6ddd0"
+hash = "0553304f1061dba34f061452ff8905cb1332f4143552e1d3e5a7583aa31fb98c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
@@ -5762,7 +5794,7 @@ hash = "c832a2bcb49c28d959f70103b9fd4eee0479c0f9d1931f747e1e516655837f0e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "ba6ae970f8f1481fcf1c44f1e856c8219fe33d80915db3a9ae825a8c07bc6bd1"
+hash = "9f2169dc5af51ca2af9e464f15c0fe77cb6ce3e1a7bf02f27da9ae62b701a84d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -6101,6 +6133,10 @@ file = "kubejs/data/immersiveengineering/loot_table/gameplay/hero_of_the_village
 hash = "bb673a19f43e281319458ed7f67c1f021d5b2f90846a4cef86b8e600a325ff3e"
 
 [[files]]
+file = "kubejs/data/immersiveengineering/recipe/generator_fuel/creosote.json"
+hash = "63537410a8c816a471db3dc917c0e97798a5961ab8ccc7d50ce757025d4e2ec0"
+
+[[files]]
 file = "kubejs/data/immersiveengineering/recipe/mineral/alluvial_sift.json"
 hash = "e80bae134729be1d7061a1218e9de70c9b09a0e1b7e00919ec06a807aa497e3b"
 
@@ -6141,12 +6177,28 @@ file = "kubejs/data/immersiveengineering/tags/entity_type/shaderbag/blacklist.js
 hash = "2d780c7e22bf8c8a97d4315943a7a34c0dac7a87ce2a73aa1682468a815e3d8b"
 
 [[files]]
+file = "kubejs/data/immersivepetroleum/recipe/fuels/diesel.json"
+hash = "0be942799ddee1f239edb0a1b981a6eff42038ea15832188aef2d71af614f647"
+
+[[files]]
+file = "kubejs/data/immersivepetroleum/recipe/fuels/diesel_sulfur.json"
+hash = "d5d937e8bc4804a42735a1b59e4b186882c063b3bd597b6ca8273e161055fd4f"
+
+[[files]]
+file = "kubejs/data/immersivepetroleum/recipe/fuels/kerosene.json"
+hash = "3a54feac64cde52163d56c09bf0df38efe4a11cdae26d2df53d0716f449e98ac"
+
+[[files]]
 file = "kubejs/data/immersivepetroleum/structure/multiblocks/cokerunit.nbt"
 hash = "89c5a6b08dafa441a5ceed9e0744257fcf560c209ff6105818f43286ec01fadd"
 
 [[files]]
 file = "kubejs/data/immersivepetroleum/structure/multiblocks/pumpjack.nbt"
 hash = "df14855a6d9d71f12372e3b3e4ea6bd40f9089f5f728ab276cf8ce3a2126957e"
+
+[[files]]
+file = "kubejs/data/mekanism/data_maps/mekanism/chemical/chemical_attribute_fuel.json"
+hash = "394283d3bcb5ec020b8cb4cd390936a4365d5a8727af6a9c7292f615603376fd"
 
 [[files]]
 file = "kubejs/data/minecraft/recipe/anvil.json"
@@ -9022,7 +9074,7 @@ hash = "07c7f6a06fc24ceecd18909f91e66d978eb7b6825d25a215f8bf55b3338173d3"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
-hash = "09b9dd4eafee54d4c10fa1494b1b7e8f301ee4d84b6bb6d7438cbbd77038aa2f"
+hash = "ddffe09cc66808d007a2cd6821002056bb932ca14f9d4b99152fc64e5ea6bb2c"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/sky_metals.js"
@@ -9030,7 +9082,7 @@ hash = "e5fda1d4bfe26b4348bbb05557349397ecf2744ec333bd689769f0c70a202e3d"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
-hash = "c3b1e467ca9e6abdc8aa8fe06785bfad4340b7bcc5de821ac66314f36df50605"
+hash = "d4e759ce6c8612b0d0152ebedcdeabbf29d51177841f408ee7c22e68f196c2b5"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
@@ -9042,7 +9094,7 @@ hash = "1a20d4f12c12793bb064d4cbecaff55b5713a8bc38b6ae28b7d282cd3890e6d7"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
-hash = "68c0b10a430eca0fce8f5313b412a006f74b00c4bfce5e7ee3c5af6bd25740fd"
+hash = "587dce378fb086f05aa8303edb9957080e702a0c73ca5b5af360dbbe529169e9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/wireless_terminal.js"
@@ -9062,7 +9114,7 @@ hash = "294c5af8600e6842318bbb872916c2ba0076c9973f022c8bfb664677d4578770"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
-hash = "9e5ec8233cdd6cd7117403b906d238902f6cbcea187cf8805a9eace493db59c3"
+hash = "52dbe8f7aa43040e3eec6666da9687d543e414cef93cd7d25d3e24c9b2fddeb6"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/starsteel.js"
@@ -9070,11 +9122,11 @@ hash = "5e38a970f7f334e8783789ca4003f77b1a54765025a03b3c1dcdb96574555fba"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
-hash = "2393e7a3d6ae8ccb492ac7bbca12dc321da2b123d704bdac016d262ebdca9914"
+hash = "42c5d6d781ad6de8efa01692f4b112f3fc2dd4ab8ad12614f46e1aec4e9434cb"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
-hash = "9f0b35c23cab0aa11a8076b7baffb497575e247b09957451cc3d7df5d57466a4"
+hash = "aba707b300116d8500aa4434bdb8b57362161dd883d4575773c3787a5e5f1e90"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/osmium.js"
@@ -9142,11 +9194,15 @@ hash = "2ab4cd5aa2fe3672fd67f0c0ed6bd565af5366b35176862d84cc48c75f88f371"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/station_ages.js"
-hash = "dea74dc014093fd761cc3d2a8a9248e36bf9914357672ace6dd3ff762c7e84d5"
+hash = "f558292f64ef0438766cc50b4ebda3c801cc1c2a126f76b9d6f0d66a90167286"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/tfc_station_inputs.js"
 hash = "4d91014d7cdf7aa8f470fb78918645176ec425a9fa1b682a80f57add6ee8fdcb"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/unify_iron.js"
+hash = "1f52459ad85a8a43a04c7173d9e1d026d5f4381aa163065cd4c5e375fbc0adfd"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
@@ -9199,6 +9255,10 @@ hash = "f78db3b171bc5964127344b35ed471f6d4aad4f31ad3fb21030b043504a53eff"
 [[files]]
 file = "kubejs/startup_scripts/items.js"
 hash = "b275e38435314286f302a17b3bebfe78f59d55e0430b4d1af97d9727b84d75c8"
+
+[[files]]
+file = "kubejs/startup_scripts/metal_table.js"
+hash = "584bee4dd00210c8deca27ef8903eeb258b1b57c3b827507ea511012c79823fc"
 
 [[files]]
 file = "kubejs/startup_scripts/mystical_veins.js"
