@@ -8,6 +8,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.boss.ArenaLights;
 import dev.firmages.core.boss.BossRegistry;
+import dev.firmages.core.boss.FightModel;
 import dev.firmages.core.boss.PrimordialAbility;
 import dev.firmages.core.boss.PrimordialEntity;
 import dev.firmages.core.boss.StarFallEntity;
@@ -172,9 +173,9 @@ public final class BossGameTests {
                         "nothing spawns in the arena while it lives");
 
                     float max = b.getMaxHealth();
-                    b.setHealth(max * 2 / 3F + 3);
+                    b.setHealth(max * FightModel.PHASE2_AT + 1);
                     hit(b, p, 1000);
-                    ok(h, b.phase() == 2 && Math.abs(b.getHealth() - max * 2 / 3F) < 0.01F, "one big hit stops at two thirds and enters phase 2, health "
+                    ok(h, b.phase() == 2 && Math.abs(b.getHealth() - max * FightModel.PHASE2_AT) < 0.01F, "one big hit stops at 69 % and enters phase 2, health "
                         + b.getHealth());
                     ok(h, b.phaseLock() == PrimordialEntity.PHASE2_LOCK, "phase 2 starts with its lock");
                     ok(h, ArenaLights.lit(o).isEmpty() && b.darkened().size() == lit.size(), "Nine Lights: every lantern out, " + b.darkened().size()
@@ -184,9 +185,9 @@ public final class BossGameTests {
                     steps(b, PrimordialEntity.PHASE2_LOCK);
                     ok(h, b.phaseLock() == 0, "the lock runs out with the fight steps");
 
-                    b.setHealth(max / 3F + 3);
+                    b.setHealth(max * FightModel.PHASE3_AT + 1);
                     hit(b, q, 1000);
-                    ok(h, b.phase() == 3 && Math.abs(b.getHealth() - max / 3F) < 0.01F, "phase 3 at one third, health " + b.getHealth());
+                    ok(h, b.phase() == 3 && Math.abs(b.getHealth() - max * FightModel.PHASE3_AT) < 0.01F, "phase 3 at 38 %, health " + b.getHealth());
                     ok(h, ArenaLights.lit(o).isEmpty() && b.darkened().size() == lit.size(), "still dark in phase 3");
 
                     b.hurt(b.damageSources().genericKill(), Float.MAX_VALUE);
@@ -242,11 +243,11 @@ public final class BossGameTests {
         ServerPlayer p = player(h, level, "gt_boss_p", h.absoluteVec(new Vec3(1.5, 1, 9.5)));
         ServerPlayer q = player(h, level, "gt_boss_q", h.absoluteVec(new Vec3(3.5, 1, 9.5)));
         try {
-            ok(h, Math.abs(b.effectivePool() - 2400) < 1.0E-6, "one player: effective health 2400, was " + b.effectivePool());
+            ok(h, Math.abs(b.effectivePool() - 13000) < 1.0E-6, "one player: effective health 13000, was " + b.effectivePool());
             b.setPartySize(2);
-            ok(h, Math.abs(b.effectivePool() - 3480) < 1.0E-6, "two players: 3480");
+            ok(h, Math.abs(b.effectivePool() - 22100) < 1.0E-6, "two players: 22100");
             b.setPartySize(4);
-            ok(h, Math.abs(b.effectivePool() - 5640) < 1.0E-6, "four players: 5640");
+            ok(h, Math.abs(b.effectivePool() - 40300) < 1.0E-6, "four players: 40300");
             b.setPartySize(1);
 
             float first = hit(b, p, 20);
@@ -254,9 +255,15 @@ public final class BossGameTests {
             float other = hit(b, q, 20);
             ok(h, first > 0 && again == 0, "the same attacker within 10 ticks does not count twice");
             ok(h, Math.abs(other - first) < 1.0E-3, "a second attacker's hit counts in full in the same tick: " + first + " and " + other);
-            // 20 damage, armour 12 / toughness 8 -> 14.4, times 1024 / 2400, times the closed veil 0.25
-            float expected = (float) (14.4 * PrimordialEntity.MAX_HEALTH / 2400 * ServerConfig.bossVeilFactor());
+            // 20 damage, armour 12 / toughness 8 -> 14.4, times 1024 / 13000, times the closed veil 0.25
+            float expected = (float) (14.4 * PrimordialEntity.MAX_HEALTH / 13000 * ServerConfig.bossVeilFactor());
             ok(h, Math.abs(first - expected) < 0.01, "scaled to the effective pool behind the closed veil: " + first + ", expected " + expected);
+            // 1000 damage -> 904 after armour, counted as the hit cap 40
+            cooldown(b);
+            b.openVeil(PrimordialEntity.VEIL_MELEE);
+            float big = hit(b, q, 1000);
+            float capped = (float) (FightModel.HIT_CAP * PrimordialEntity.MAX_HEALTH / 13000);
+            ok(h, Math.abs(big - capped) < 0.01, "a huge hit counts as the cap: " + big + ", expected " + capped);
         } finally {
             b.discard();
             DebugPlayerCommands.despawn(p);
@@ -368,7 +375,7 @@ public final class BossGameTests {
 
                     // To the end with real hits; each loses the scaled amount and stops at the phase floor.
                     ServerPlayer[] who = {p, q};
-                    for (int i = 0; i < 40 && b.isAlive(); i++) {
+                    for (int i = 0; i < 2000 && b.isAlive(); i++) {
                         cooldown(b);
                         if (b.phaseLock() > 0) steps(b, b.phaseLock());
                         b.openVeil(PrimordialEntity.VEIL_MELEE);
@@ -401,6 +408,7 @@ public final class BossGameTests {
     private static float scaled(PrimordialEntity b, ServerPlayer by, float amount, double pool, boolean open) {
         DamageSource src = by.damageSources().playerAttack(by);
         float afterArmour = CombatRules.getDamageAfterAbsorb(b, amount, src, b.getArmorValue(), (float) b.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
+        afterArmour = Math.min(afterArmour, (float) ServerConfig.bossHitCap());
         return (float) (afterArmour * PrimordialEntity.MAX_HEALTH / pool * (open ? 1.0 : ServerConfig.bossVeilFactor()));
     }
 
