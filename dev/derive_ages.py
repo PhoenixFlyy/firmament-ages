@@ -319,6 +319,27 @@ def _strings(o, out):
     return out
 
 
+# Keys of feature configs that name blocks a feature tests, not blocks it places (block predicates, rule tests, the
+# blocks roots or trunks may grow through): a sapling in a would_survive filter is no sapling in the world (0.10.0 put
+# every vanilla sapling at age_3 through the replaceable blocks of minecraft:crimson_fungus).
+FEATURE_TEST_KEYS = {"predicate", "allowed_placement", "replaceable_blocks", "replaceable", "can_grow_through",
+                     "muddy_roots_in", "valid_base_block", "target", "can_place_on", "can_replace", "root_replaceable",
+                     "allowed_tree_position", "cannot_replace", "invalid_blocks"}
+
+
+def _feature_strings(o, out):
+    if isinstance(o, dict):
+        for k, v in o.items():
+            if k != "type" and k not in FEATURE_TEST_KEYS:
+                _feature_strings(v, out)
+    elif isinstance(o, list):
+        for v in o:
+            _feature_strings(v, out)
+    elif isinstance(o, str):
+        out.add(o)
+    return out
+
+
 def _loot_entries(o, items, tags, refs):
     """Item ids, item tags and nested table ids of a loot table JSON."""
     if isinstance(o, dict):
@@ -414,7 +435,7 @@ def scan(mods_dir, vanilla_jar):
                 d = read_json(n)
                 if d is not None:
                     fid = f"{ns}:{rest.split('/', 2)[2][:-5]}"
-                    features.setdefault(fid, set()).update(_strings(d, set()))
+                    features.setdefault(fid, set()).update(_feature_strings(d, set()))
             elif rest.startswith("worldgen/noise_settings/") and n.endswith(".json"):
                 d = read_json(n)
                 if d is not None:
@@ -946,6 +967,20 @@ def derive(dump_dir, show):
     for a_, b_ in WORLD_CHANGES:
         if a_ in base and b_ in base:
             transforms.append((0, (a_,), [b_], "changes in the world"))
+    # an axe strips logs, wood, stems and hyphae in the world (Dawn has the stone axe): minecraft:<w>_log ->
+    # minecraft:stripped_<w>_log, tfc:wood/log/<w> -> tfc:wood/stripped_log/<w> (wood classes: the vanilla beams of
+    # Decorative Blocks take stripped vanilla logs like their Every Compat copies take stripped TFC logs)
+    for i in items:
+        ns, path = i.split(":", 1)
+        head, _, leaf = path.rpartition("/")
+        if head.endswith(("wood/log", "wood/wood")):
+            to = f"{ns}:{head[:-3]}stripped_{head[-3:]}/{leaf}" if head.endswith("log") else                 f"{ns}:{head[:-4]}stripped_{head[-4:]}/{leaf}"
+        elif leaf.endswith(("_log", "_wood", "_stem", "_hyphae")) and not leaf.startswith("stripped_"):
+            to = f"{ns}:{head + '/' if head else ''}stripped_{leaf}"
+        else:
+            continue
+        if i in base and to in base:
+            transforms.append((0, (i,), [to], "stripped with an axe"))
     for its, st in CODE_WORLD:
         give(st, its, f"world generation by code ({st})")
     for its, st in CODE_DROPS:

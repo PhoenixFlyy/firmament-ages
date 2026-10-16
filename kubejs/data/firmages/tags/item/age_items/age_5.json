@@ -247,7 +247,6 @@
     {"id": "ars_nouveau:glyph_cold_snap", "required": false},
     {"id": "ars_nouveau:glyph_conjure_water", "required": false},
     {"id": "ars_nouveau:glyph_freeze", "required": false},
-    {"id": "ars_nouveau:glyph_sensitive", "required": false},
     {"id": "ars_nouveau:ritual_sanctuary", "required": false},
     {"id": "ars_nouveau:thread_chilling", "required": false},
     {"id": "ars_nouveau:thread_depths", "required": false},
