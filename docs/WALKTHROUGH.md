@@ -44,8 +44,9 @@ Sneak is Left Ctrl here; Left Shift sprints.
 10. Wayshrines: ruined shrines of Caelum lie in the wide world, the first a few hundred blocks from spawn. Right-click
     the heart to learn the way to the nearest. Right-click its core to see the missing blocks, rebuild it from the
     stone around it, lay the offering of your Age (Bronze Age: a bronze double ingot; Iron Age: a meteoric iron
-    ingot), do the rite and pray. A lit Wayshrine carries your blessings within 24 blocks and stays lit for good.
-    The offerings of the later Ages come with the Lens Crown in a later version.
+    ingot; Arcane Age: a meteoric iron double ingot; Industrial Age: a meteoric iron sheet; from the Electric Age:
+    a starsteel ingot), do the rite and pray. A lit Wayshrine carries your blessings within 24 blocks and stays lit
+    for good. Meteoric iron and starsteel come from fallen stars (Starfall).
 
 ---
 
@@ -334,7 +335,10 @@ Offer the Pressure Core in the Foundry Nave (ring 4).
      into the Core.
    - Keystone: two black steel double sheets.
 2. Power: the alternator (rotation into FE, the only bridge); 8 copper wire; 4 LV connectors; 4 lead (galena wakes
-   now); an LV capacitor. Keystone "Grid Online (LV)": alternator and capacitor placed and wired.
+   now); an LV capacitor. Keystone "Grid Online (LV)": alternator and capacitor placed and wired. The alternator
+   needs a fuelled source: a steam engine on a boiler over a blaze burner with fuel (from the Electric Age also a
+   diesel engine). Water wheels and windmills turn it but give no FE; with both on one shaft it gives the fuelled
+   share.
 3. Ore Line: a crusher (ore pieces to powder plus dust, twice the metal); a metal press (a sheet from two ingots);
    alloy bricks (two from sandstone and fire bricks) and the alloy kiln; 8 constantan. Keystone: 64 iron dust from a
    machine-fed crusher.
@@ -574,11 +578,13 @@ Defeat The Primordial, the final boss in The Origin. Its fall grants `finale_won
    - The Dark Before: strike the keel while it rests on the floor after a slam, or shoot the node that glows white.
    - Nine Lights (from two thirds): the lanterns go out. Shoot the node whose beam sweeps the floor, or strike the
      core from below while it pulls you in.
-   - Firmament Shatter (from one third): stars fall. Pick up the shards it sheds: use one to let the stars pass you,
-     hold one in the off hand and strike, or throw one at it (sneak and use) to open the veil.
+   - Firmament Shatter (from one third): stars fall. Pick up the shards it sheds: right-click one to let the stars
+     pass you, hold one in the off hand and strike, or throw one at it (sneak and right-click) to open the veil.
 4. Expect six to ten minutes. After ten minutes the veil opens for less time, after twelve the stars fall everywhere.
 5. It falls: "Beyond the Firmament". The MekaSuit and the Meka-Tool can now be made. The shrine's beam turns gold.
-6. The gate at the arena dials home. Keep a shard ("A Piece of the Sky"): with four glass it makes Firmament Glass.
+6. The gate at the arena dials home. Keep at least one Consecrated Shard ("A Piece of the Sky"): a shard lies on the
+   floor for a minute, and once The Primordial has fallen no shard ever drops again. With four glass a shard makes
+   four Firmament Glass.
 
 ### Pitfalls
 - Every online player who is not a spectator must stand at the altar. One friend elsewhere and nothing starts.

@@ -1081,7 +1081,8 @@ INDUSTRIAL = age_chapter(
              kind='keystone', desc=['Two black steel double sheets for the Pressure Core.'])),
         ('Power', [
             Q('industrial/power/alternator', 'Alternator', t_item('createaddition:alternator'),
-              desc=['The alternator turns rotation into FE. It is the only bridge from SU to FE.']),
+              desc=['The alternator turns rotation into FE, the only bridge from SU to FE. Drive it with a steam engine',
+                    'on a fired boiler.']),
             Q('industrial/power/coil', 'Copper Wire', t_item('immersiveengineering:wirecoil_copper', 8),
               desc=['LV wire carries FE between connectors.']),
             Q('industrial/power/connector', 'LV Connectors', t_item('immersiveengineering:connector_lv', 4),
@@ -1160,8 +1161,8 @@ INDUSTRIAL = age_chapter(
     ],
     explains=[
         Q('industrial/info/fe', 'FE and SU', t_check(), kind='explain', icon='createaddition:alternator',
-          desc=['FE is the one unit of energy. Rotation (SU) has one bridge: the alternator turns SU into FE and',
-                'the electric motor turns FE back into SU.']),
+          desc=['FE is the one unit of energy. The alternator turns SU into FE only from steam engines on a fired',
+                'boiler or diesel engines; wind and water give none. The electric motor turns FE back into SU.']),
         Q('industrial/info/multiblock', 'Multiblocks', t_check(), kind='explain', icon='immersiveengineering:manual',
           desc=['The engineering machines are multiblocks: build the shape from the Engineer\'s Manual, then hit the marked',
                 'block with the Engineer\'s Hammer. Projector blueprints show the shape in the world.']),
@@ -1724,8 +1725,8 @@ SINGULARITY = age_chapter(
         # The shards exist only while The Primordial lives (firmages-core boss, docs/primordial.md); after the gate.
         ('singularity/gate/key', [
             Q('singularity/side/shard', 'A Piece of the Sky', t_item('firmages:consecrated_shard'), kind='side',
-              desc=['Pick up the shards it sheds. Use one and the stars pass you. Keep one: a shard and four glass',
-                    'make four Firmament Glass.']),
+              desc=["Keep a shard from The Primordial's last phase: they lie a minute and never come again.",
+                    'Four glass and a shard make four Firmament Glass.']),
         ]),
     ],
     explains=[

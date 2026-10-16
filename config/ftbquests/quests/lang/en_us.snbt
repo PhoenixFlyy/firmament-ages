@@ -1205,7 +1205,7 @@
 	]
 	quest.65E696893D25C27D.title: "Fusion Reactor"
 	quest.661054914CDF7CFA.quest_desc: [
-		"FE is the one unit of energy. Rotation (SU) has one bridge: the alternator turns SU into FE and the electric motor turns FE back into SU."
+		"FE is the one unit of energy. The alternator turns SU into FE only from steam engines on a fired boiler or diesel engines; wind and water give none. The electric motor turns FE back into SU."
 	]
 	quest.661054914CDF7CFA.title: "FE and SU"
 	quest.6630236A99A2E2D5.quest_desc: [
@@ -1450,7 +1450,7 @@
 	]
 	quest.759550A45990B3C8.title: "Copper Ingot"
 	quest.7633534E257B8AD8.quest_desc: [
-		"The alternator turns rotation into FE. It is the only bridge from SU to FE."
+		"The alternator turns rotation into FE, the only bridge from SU to FE. Drive it with a steam engine on a fired boiler."
 	]
 	quest.7633534E257B8AD8.title: "Alternator"
 	quest.77217628E2664B69.quest_desc: ["A black steel anvil works black steel double sheets."]
@@ -1494,7 +1494,7 @@
 	]
 	quest.79DA4E6D4518762C.title: "Fusion Fuel"
 	quest.7AB56731725A5ABE.quest_desc: [
-		"Pick up the shards it sheds. Use one and the stars pass you. Keep one: a shard and four glass make four Firmament Glass."
+		"Keep a shard from The Primordial's last phase: they lie a minute and never come again. Four glass and a shard make four Firmament Glass."
 	]
 	quest.7AB56731725A5ABE.title: "A Piece of the Sky"
 	quest.7B0276B3AACDABA7.quest_desc: [
