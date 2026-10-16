@@ -1277,6 +1277,7 @@
     {"id": "firmages:consecrated_scaffold", "required": false},
     {"id": "firmages:consecrated_stone", "required": false},
     {"id": "firmages:consecrated_trim", "required": false},
+    {"id": "firmages:metal/double_ingot/osmium", "required": false},
     {"id": "firmages:origin_altar", "required": false},
     {"id": "framedblocks:framing_saw_pattern", "required": false},
     {"id": "ftblibrary:icon_item", "required": false},

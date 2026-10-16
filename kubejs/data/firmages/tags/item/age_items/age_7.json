@@ -450,6 +450,7 @@
     {"id": "mekanism:dust_uranium", "required": false},
     {"id": "mekanism:elite_induction_cell", "required": false},
     {"id": "mekanism:elite_induction_provider", "required": false},
+    {"id": "mekanism:elite_tier_installer", "required": false},
     {"id": "mekanism:fuelwood_heater", "required": false},
     {"id": "mekanism:induction_casing", "required": false},
     {"id": "mekanism:induction_port", "required": false},
