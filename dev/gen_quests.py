@@ -1144,6 +1144,9 @@ INDUSTRIAL = age_chapter(
                  'Raise the Foundry Nave; the heart shows what is missing. Lay the Core on the new plinth, power the',
                  'four electric lanterns and pray.',
                  '',
+                 'Caelum also asks for proof of work: 512 steel ingots must pass your Tally Chutes in this Age. The heart counts',
+                 'them and names what is missing.',
+                 '',
                  'Caelum keeps the Core and opens the Electric Age.']),
     sides=[
         ('industrial/steel/wood', [
@@ -1262,6 +1265,9 @@ ELECTRIC = age_chapter(
                  'Raise the Tesla Crown; the heart shows what is missing. Lay the Core on the new plinth. Give the',
                  'four floodlights power and a redstone signal, charge the crown\'s capacitors with 1,000,000 FE,',
                  'and pray.',
+                 '',
+                 'Caelum also asks for proof of work: 2,048 aluminium ingots must pass your Tally Chutes in this Age. The heart counts',
+                 'them and names what is missing.',
                  '',
                  'Caelum keeps the Core and opens the Information Age.']),
     sides=[
@@ -1383,6 +1389,10 @@ INFORMATION = age_chapter(
            desc=['Craft the Data Matrix from four blue steel sheets, three advanced control circuits, a 64k storage component and a singularity from the matter condenser.',
                  '',
                  'Raise the Data Nave; the heart shows what is missing. Lay the Matrix on the new plinth and pray: together, if two of you are online.',
+                 'The heart takes 10,000,000 FE through any side before Caelum hears you; Caelum keeps the power.',
+                 '',
+                 'Caelum also asks for proof of work: 4,096 osmium ingots must pass your Tally Chutes in this Age. The heart counts',
+                 'them and names what is missing.',
                  '',
                  'Caelum keeps the Matrix and opens the Space Age.']),
     sides=[
@@ -1492,6 +1502,9 @@ SPACE = age_chapter(
                  'Raise the Star Spire; the heart shows what is missing. Lay the Chart on the new plinth and pray at',
                  'night, under an open sky, without rain.',
                  '',
+                 'Caelum also asks for proof of work: 4,096 desh ingots must pass your Tally Chutes in this Age. The heart counts',
+                 'them and names what is missing.',
+                 '',
                  'Caelum keeps the Chart and opens the Quantum Age.']),
     sides=[
         ('space/atom/circuit', [
@@ -1596,7 +1609,11 @@ QUANTUM = age_chapter(
                  'calorite plates, two ice shards and a subatomic alloy.',
                  '',
                  'Raise the Quantum Ring and lay the Awakened Keystone back on its plinth. Lay the Core on the new',
-                 'plinth and pray at night under an open sky: together, if two of you are online.',
+                 'plinth and pray at night under an open sky: together, if two of you are online. The heart takes',
+                 '100,000,000 FE through any side before Caelum hears you.',
+                 '',
+                 'Caelum also asks for proof of work: 8,192 calorite ingots must pass your Tally Chutes in this Age. The heart counts',
+                 'them and names what is missing.',
                  '',
                  'Caelum keeps the last relic and opens the Singularity Age.']),
     sides=[
@@ -1669,8 +1686,8 @@ SINGULARITY = age_chapter(
               t_observe('firmages:shrine_heart[awakened=10]', kind='block_state',
                         title='Look at the heart after the Gathering'),
               icon='firmages:shrine_heart',
-              desc=['Pray at the complete shrine with your fellowship. Caelum gives back the nine relics for the',
-                    'chaotic fusion.']),
+              desc=['Feed 1,000,000,000 FE into the heart, then pray at the complete shrine with your fellowship.',
+                    'Caelum gives back the nine relics for the chaotic fusion.']),
             Q('singularity/sing/core', 'Chaotic Core', t_item('draconicevolution:chaotic_core'),
               desc=['Fuse the chaotic core. It is the catalyst of the Ultimate Singularity.']),
             Q('singularity/sing/alloy', 'Singular Alloy', t_item('evolvedmekanism:alloy_singular'),
