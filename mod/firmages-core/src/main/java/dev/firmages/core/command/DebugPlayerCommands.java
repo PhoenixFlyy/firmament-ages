@@ -111,7 +111,19 @@ public final class DebugPlayerCommands {
                 .then(Commands.argument("command", StringArgumentType.greedyString()).executes(DebugPlayerCommands::run))))
             .then(Commands.literal("pray").then(Commands.argument("name", StringArgumentType.word())
                 .then(Commands.argument("pos", BlockPosArgument.blockPos())
-                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 120)).executes(DebugPlayerCommands::pray)))));
+                    .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 120)).executes(DebugPlayerCommands::pray)))))
+            .then(Commands.literal("attack").then(Commands.argument("name", StringArgumentType.word())
+                .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 3600)).executes(DebugPlayerCommands::attack))));
+    }
+
+    /** {@code debug attack <name> <seconds>}: the player fights The Primordial by script ({@link BossFightBot}). */
+    private static int attack(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
+        check();
+        ServerPlayer p = player(c);
+        int seconds = IntegerArgumentType.getInteger(c, "seconds");
+        BossFightBot.start(p, seconds);
+        c.getSource().sendSuccess(() -> Component.literal(p.getGameProfile().getName() + " attacks The Primordial for up to " + seconds + " s"), false);
+        return 1;
     }
 
     private static void check() throws CommandSyntaxException {
@@ -338,6 +350,7 @@ public final class DebugPlayerCommands {
     public static void onServerTick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
         if (!MINING.isEmpty()) tickMining(server);
+        BossFightBot.tick(server);
         if (PRAYING.isEmpty()) return;
         Iterator<Map.Entry<String, Prayer>> it = PRAYING.entrySet().iterator();
         while (it.hasNext()) {
