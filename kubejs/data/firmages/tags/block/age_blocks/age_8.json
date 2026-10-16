@@ -1,5 +1,7 @@
 {
   "replace": false,
   "values": [
+    {"id": "ad_astra:mars_ice_shard_ore", "required": false},
+    {"id": "ad_astra:moon_ice_shard_ore", "required": false}
   ]
 }

@@ -45,7 +45,8 @@ Usage
   python dev/derive_ages.py                   derive from the dump and world_sources.json, rewrite age_map.toml
   python dev/derive_ages.py --check           exit 1 if age_map.toml would change or a quest task has no source
                                               (Q-1: every required item task reached by its chapter's Age through a
-                                              recipe, the world or loot, not only as a quest reward)
+                                              recipe, the world or loot, not only as a quest reward; Q-2: no item
+                                              comes only from a quest reward unless REWARD_ONLY names it)
   python dev/derive_ages.py --explain ITEM    base Age, first reachable Age and the step that reached it
   options: --dump-dir DIR (default test-server/local/firmages), --mods DIR, --show N (report lines per list)
 """
@@ -111,6 +112,9 @@ NOISE_AGE = {"minecraft:nether": "age_3", "minecraft:end": "age_6"}
 VANILLA_TEMPLATE_AGE = [("end_city/", "age_6"), ("nether_fossils/", "age_3"), ("ruined_portal/", "age_3"),
                         ("bastion/", "age_3")]
 TEMPLATE_SKIP_NS = ("tfc", "afc")
+# Templates that firmages-core places by code in one dimension (no pool names them): the Origin Archipelago's island
+# stages stand in The Origin (SPEC 31.8, age_9), not where the pack's other code structures (Wayshrines) stand.
+CODE_TEMPLATE_AGE = [("firmages:ark/", "age_9")]
 # Dimensions built by code (terrain features and structures that no data file describes): every block of the namespace
 # counts as placed in the world from that Age; its block loot decides what mining it yields.
 WORLD_BLOCK_NS = {}
@@ -181,6 +185,14 @@ INTERACTIONS = [
     # a bucket takes aurora light from an Aurora Net (pipes take the fluid itself).
     ("dawn", ["firmages:storm_rod", "tfc:sand/yellow"], ["firmages:storm_glass"]),
     ("dawn", ["firmages:aurora_net", "minecraft:bucket"], ["firmages:aurora_light_bucket"]),
+    # Mobs a player tames or catches (code, no loot table; f1 gating audit). A wild Drygmy given a Wilden drop
+    # (#ars_nouveau:wilden_drop) turns into Drygmy shards (EntityDrygmy.mobInteract/tick, javap Ars Nouveau 5.13.3);
+    # the pack spawns Drygmies in TFC land (kubejs/data/firmages/neoforge/biome_modifier/ars_drygmy_spawn_tfc.json).
+    # The Whirlisprig's shard drop never fires in 5.13.3 (droppingShards is never set), so it has no row.
+    ("dawn", ["entity:ars_nouveau:drygmy", "ars_nouveau:wilden_horn"], ["ars_nouveau:drygmy_shard"]),
+    # Alex's Mobs: a water bucket used on a flying fish, mudskipper or platypus (three of the 22 kept species).
+    *[("dawn", [f"entity:alexsmobs:{m}", "minecraft:water_bucket"], [f"alexsmobs:{m}_bucket"])
+      for m in ("flying_fish", "mudskipper", "platypus")],
 ]
 # Roads and Roofs: poured concrete dries in the world, trodden roads crack: (wet or fresh block, the block it becomes).
 WORLD_CHANGES = [("rnr:wet_concrete_road", "rnr:concrete_road"), ("rnr:wet_concrete_road_panel", "rnr:concrete_road_panel"),
@@ -242,6 +254,16 @@ KNOWN_GAPS = {
     # The Blaze Enchanter (Arcane Age quest task) is smithed onto Apothic Enchanting's table, whose recipe needs
     # c:gems/diamond; diamonds are age_4 (TFC diamond ore, [tfc_ores]).
     "apothic_enchanting:apothic_enchanting_table": "recipe needs c:gems/diamond (age_4); Arcane Age quest needs it",
+}
+
+
+# Items whose only source is a quest reward, on purpose (Q-2). Every other item a reward gives must also come from a
+# recipe, the world or loot: a reward is a head start, not the supply (0.14.0: the naquadah of the Stargate strand was
+# a quest reward only after Stargate Journey's blasting recipe was removed without a replacement).
+REWARD_ONLY = {
+    # Ars Nouveau 5.13.3 never sets Whirlisprig.droppingShards, so no shard drops and the charm recipe cannot run;
+    # the Arcane Age quest "Whirlisprig" hands out one charm (javap, f1 gating audit).
+    "ars_nouveau:whirlisprig_charm": "Ars Nouveau 5.13.3 drops no Whirlisprig shards",
 }
 
 
@@ -419,6 +441,8 @@ def scan(mods_dir, vanilla_jar):
                 d = read_json(n)
                 if isinstance(d, dict):
                     tag = f"{ns}:{rest[len('tags/worldgen/biome/'):-5]}"
+                    if d.get("replace") is True:   # a later copy with "replace" (kubejs/data) drops what jars added
+                        biome_tags[tag] = set()
                     for v in d.get("values", []):
                         biome_tags[tag].add(v["id"] if isinstance(v, dict) else v)
             elif rest.startswith("worldgen/biome/") and n.endswith(".json"):
@@ -720,7 +744,10 @@ class World:
                     for p in tmpl[loc]["pools"]:
                         reach_pool(p, st, why, seen)
         ns_code_age = {}
+        off = structures_off()
         for sid, s in self.ws["structures"].items():
+            if sid.startswith(off):
+                continue
             st = self.age_of_biomes(s["biomes"])
             ns = sid.split(":")[0]
             if s["pool"]:
@@ -739,9 +766,10 @@ class World:
             if ns == "minecraft":
                 st = next((a for pre, a in VANILLA_TEMPLATE_AGE if path.startswith(pre)), None)
             else:
-                st = ns_code_age.get(ns)
+                st = next((a for pre, a in CODE_TEMPLATE_AGE if tid.startswith(pre)), ns_code_age.get(ns))
             if st:
                 tmpl_age[tid] = (st, f"structure template {tid}")
+        self.template_age = {tid: st for tid, (st, _) in tmpl_age.items()}   # poc_analyze X-3
         for tid, (st, why) in tmpl_age.items():
             t = tmpl[tid]
             ns = tid.split(":")[0]
@@ -757,6 +785,15 @@ class World:
             ns, path = tid.split(":", 1)
             if ns != "minecraft" and ns in ns_code_age and not path.startswith(("blocks/", "entities/")):
                 self.table_src[tid][f"structure loot of {ns}"] = ns_code_age[ns]
+
+
+def structures_off():
+    """Structure namespaces a mod config switches off (their data stays in the jar): Stargate Journey's common
+    stargates with common_stargate_generation = false in config/sgjourney-common.toml."""
+    p = os.path.join(REPO, "config", "sgjourney-common.toml")
+    if os.path.isfile(p) and re.search(r"(?m)^\s*common_stargate_generation\s*=\s*false", open(p, encoding="utf-8").read()):
+        return ("common_stargates:",)
+    return ()
 
 
 def mob_locks():
@@ -1226,10 +1263,22 @@ def main():
         for i in res["hidden"][:a.show]:
             print(f"    hidden {i} ({base[i]}, {res['base_why'][i]})")
     print("Q-1: the walk once more without quest rewards")
-    q_bad, q_n = quest_task_sources(derive(a.dump_dir, 0, rewards=False))
+    res_nr = derive(a.dump_dir, 0, rewards=False)
+    q_bad, q_n = quest_task_sources(res_nr)
     for line in q_bad:
         print(f"FAIL Q-1 {line}")
     print(f"Q-1 quest tasks: {q_n} required item tasks, {len(q_bad)} without a recipe, world or loot source by their Age")
+    # Q-2 (f1 gating audit): an item that only a quest reward yields has no supply once the reward is spent
+    only = sorted(i for i in first if i not in res_nr["first"])
+    q2_bad = [i for i in only if i not in REWARD_ONLY]
+    for i in q2_bad:
+        print(f"FAIL Q-2 {i}: only a quest reward yields it ({via.get(i)}); give it a recipe or world source, or list it "
+              f"in REWARD_ONLY")
+    print(f"Q-2 reward-only items: {len(only)} ({len(only) - len(q2_bad)} in REWARD_ONLY), {len(q2_bad)} unexpected")
+    stale = sorted(i for i in REWARD_ONLY if i not in only)
+    for i in stale:
+        print(f"FAIL Q-2 REWARD_ONLY {i}: no longer reward-only (or gone); drop the row")
+    q_bad = q_bad + q2_bad + stale
     if a.check:
         if new != res["raw"]:
             print("dev/age_map.toml: generated:derived is out of date")

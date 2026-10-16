@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    {"id": "draconicevolution:end_draconium_ore", "required": false},
     {"id": "firmages:ore/normal_draconium/diorite", "required": false},
     {"id": "firmages:ore/normal_draconium/gabbro", "required": false},
     {"id": "firmages:ore/normal_draconium/granite", "required": false},

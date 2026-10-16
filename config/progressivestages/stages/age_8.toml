@@ -44,5 +44,15 @@ locked = [
 ]
 
 # >>> generated:ore_overrides >>>
-# (no ore becomes visible in this stage)
+# 2 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+
+[[ores.overrides]]
+target = "id:ad_astra:moon_ice_shard_ore"
+display_as = "id:ad_astra:moon_stone"
+drop_as = "id:ad_astra:moon_stone"
+
+[[ores.overrides]]
+target = "id:ad_astra:mars_ice_shard_ore"
+display_as = "id:ad_astra:mars_stone"
+drop_as = "id:ad_astra:mars_stone"
 # <<< generated:ore_overrides <<<

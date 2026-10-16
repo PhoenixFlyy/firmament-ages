@@ -9,15 +9,18 @@ the real dump must say "up to date".
 
 Current edit set: round F1 (2026-10-16) on the gate-off dump of 0.14.0. The ids of
 recipes/metal_values.js go (block and ingot recipes of the vanilla price, 1-ingot plates that are TFC sheets, the
-second zinc nugget), the Wixie charm takes conjuration essence as its reagent (recipes/age_3/arcane_tfc_inputs.js) and
-the Fusion Neutron Activator gets its recipe (recipes/age_8/quantum_age.js). The edit sets of earlier changes (the sky
-road with V4A, the adventure round, deco in TFC woods) are in the git history.
+second zinc nugget), the Wixie charm takes conjuration essence as its reagent (recipes/age_3/arcane_tfc_inputs.js),
+the Fusion Neutron Activator gets its recipe (recipes/age_8/quantum_age.js) and pure naquadah becomes naquadah in the
+IE arc furnace (recipes/age_9/singularity_age.js, firmages:arc_furnace/naquadah; the same script removes Stargate
+Journey's blasting recipe). The edit sets of earlier changes (the sky road with V4A, the adventure round, deco in TFC
+woods) are in the git history.
 
 Usage
   python dev/predict_dump.py SRC_DUMP OUT_DIR           write the predicted dump
-  python dev/predict_dump.py --sync-locks OUT_DIR       after derive_ages.py and gen_stage_locks.py: set the item_lock
-        column and the age_items / hidden tags of the predicted dump from the regenerated Age tags, as the next boot
-        would (only rows and members of items whose Age changed are touched)
+  python dev/predict_dump.py --sync-locks OUT_DIR [BASELINE_DIR]   after derive_ages.py and gen_stage_locks.py: set
+        the item_lock column and the age_items / hidden tags of the predicted dump from the regenerated Age tags, as
+        the next boot would (only rows and members of items whose Age changed are touched); with BASELINE_DIR (the
+        predicted gate-off dump) a gate-on dump also gets back the baseline recipes whose result left age_items/disabled
 """
 import json
 import os
@@ -58,6 +61,10 @@ NEW_RECIPES = {
         {"A": "mekanism:alloy_atomic", "R": "mekanismgenerators:fission_fuel_assembly",
          "C": "mekanism:ultimate_control_circuit", "F": "mekanismgenerators:fusion_reactor_frame",
          "P": "mekanism:sps_casing", "S": "mekanism:solar_neutron_activator"}),
+    # recipes/age_9/singularity_age.js
+    "firmages:arc_furnace/naquadah": {"type": "immersiveengineering:arc_furnace", "input": I("sgjourney:pure_naquadah"),
+                                      "additives": [], "results": [{"id": "sgjourney:naquadah", "count": 1}],
+                                      "time": 200, "energy": 102400},
 }
 # recipe ids recipes/metal_values.js removes (the script is the list's source; keep both in step)
 METAL_VALUES_JS = os.path.join(REPO, "kubejs", "server_scripts", "recipes", "metal_values.js")
@@ -131,7 +138,7 @@ def predict(src, out):
     print(f"recipes {len(full)} ({len(rj['recipes'])} rows); written to {out}")
 
 
-def sync_locks(out):
+def sync_locks(out, baseline=None):
     """The item locks and Age tags the next boot would dump after the regeneration (items whose Age changed only)."""
     tag_dir = os.path.join(REPO, "kubejs", "data", "firmages", "tags", "item", "age_items")
     age = {}
@@ -170,15 +177,27 @@ def sync_locks(out):
     full = load(out, "recipes_full.json")
     for rid in gone:
         full.pop(rid, None)
+    back = []
+    if baseline:   # the gate drops a recipe while its result is disabled; it returns when the result gets an Age
+        brj = load(baseline, "recipes.json")
+        bfull = load(baseline, "recipes_full.json")
+        have = {r[0] for r in rj["recipes"]}
+        for r in brj["recipes"]:
+            row = dict(zip(brj["columns"], r))
+            if row["id"] not in have and changed.get(row["result"], ("", ""))[0] == "disabled":
+                rj["recipes"].append([row.get(c, "") for c in cols])
+                full[row["id"]] = bfull[row["id"]]
+                back.append(row["id"])
     dump_json(os.path.join(out, "item_tags.json"), tags)
     dump_json(os.path.join(out, "recipes.json"), rj)
     dump_json(os.path.join(out, "recipes_full.json"), full)
-    print(f"{len(changed)} items with a new Age; {n} recipe rows got a new item_lock, {len(gone)} dropped (disabled result)")
+    print(f"{len(changed)} items with a new Age; {n} recipe rows got a new item_lock, {len(gone)} dropped (disabled result), "
+          f"{len(back)} back from the baseline")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 3 and sys.argv[1] == "--sync-locks":
-        sync_locks(sys.argv[2])
+    if len(sys.argv) in (3, 4) and sys.argv[1] == "--sync-locks":
+        sync_locks(sys.argv[2], sys.argv[3] if len(sys.argv) == 4 else None)
     elif len(sys.argv) == 3:
         predict(sys.argv[1], sys.argv[2])
     else:

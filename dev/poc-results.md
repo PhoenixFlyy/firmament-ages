@@ -3748,3 +3748,24 @@ the pack synced with packwiz (`.wt/test-server-f1core`, 225 jars, not booted).
 Not checked on a server: the real gate-off dump (`derive_ages.py --check` must hold on it), the guard in the pack after
 `/reload` with TFC ore pieces in a Mekanism injection chamber, the EMI workstation of the Fusion Neutron Activator
 (client), the Wixie on a cauldron.
+## 1.0 round F1: gating audit (2026-10-16, branch f1/gating)
+
+Static audit on the last B2 dumps (`scratchpad/b2int/d1` gate off, `d2` gate on), with the jars of a copy install
+synced by packwiz (225 server jars, no boot). The recipe change (naquadah) is predicted with `dev/predict_dump.py`
+(`f1/p1`, `f1/p2`); the next real gate-off dump must pass `derive_ages.py --check`.
+
+| Check | Observed | Result |
+|---|---|---|
+| EMI visibility vs walk (EMI from age_1; age tags minus `c:hidden_from_recipe_viewers`) | visible before reachable: 0 at every Age age_1 to age_9 (the two KNOWN_GAPS stay); reachable but hidden: 1 (`supplementaries:jar_boat`, the mod's own hidden tag) | pass |
+| Walk without quest rewards (new Q-2) | before: 36 items only from rewards (naquadah: SGJ's blasting recipe removed without a replacement; DHD, Milky Way gate, naquadah tools and armour, advanced crystallizer hang on it); after `firmages:arc_furnace/naquadah`: 1, `ars_nouveau:whirlisprig_charm` (Ars Nouveau 5.13.3 never sets `Whirlisprig.droppingShards`), listed | fixed |
+| World structures by mod Age (new X-1) | before: 7 (Apotheosis towers from Dawn; SGJ buried gate from Dawn, Nether temple age_3, Glacio pedestal age_8, End Universe pedestal age_6); after empty biome tags: 0 of 43 placed structures | fixed |
+| World generation blocks (new X-2) | before: 13 (ten Evolved Mekanism Nether/End ores age_8, Moon/Mars ice shard ore age_8, Mercury naquadah ore age_9, End draconium ore); after: modifiers off, three `[ore_blocks]` disguises; 0 of 162 placed blocks | fixed |
+| Template blocks (new X-3) | before: 11 (the SGJ gates above); after: 0 of 462 templates; `firmages:ark/*` now dated age_9 (`CODE_TEMPLATE_AGE`) | fixed |
+| Mob products (new X-4) | before: 5 (Drygmy shard and charm, three Alex's Mobs buckets) never reachable though the pack spawns the mobs; after `INTERACTIONS` rows: 0 | fixed |
+| `derive_ages.py --dump-dir f1/p1 --check` | up to date; 3,226 moved later, 3,821 hidden; final dawn 4,208, age_0 1,148, age_1 7,471, age_2 4,938, age_3 2,288, age_4 1,234, age_5 742, age_6 1,590, age_7 614, age_8 672, age_9 378, disabled 11,364; Q-1 525 tasks 0 without source; Q-2 1 listed, 0 unexpected | pass |
+| `gen_stage_locks.py --check`, `gen_wayshrines/gen_ark/gen_cold_forge/gen_loot_silence --check`, `check_menus.py`, `miner_ladder.py --check`, `gen_recipe_overrides.py --check`, `validate_quests.py --style` | all up to date; 1,359 ore overrides; 0 errors, 0 warnings | pass |
+| `poc_analyze.py --server-dir <scratch: copy jars, b2int boot 2 log> --dump-dir f1/p2 --baseline f1/p1` | 132 PASS, 0 FAIL, G-4 skipped (no audit file): A-dawn-1..3 (43 Dawn grid recipes, all TFC whitelist), D-1 (42 fit a pile, 1 allowlisted), E-1, G-1..3, R-X age_2..age_9 (2,796 magic recipes left out), R-age_2..9, L-1..7, K-1, S-1..4, X-1..4 | pass |
+
+Not checked in a world: SGJ's network with no generated gate in the overworld (the crafted Classic gate is the only
+one; dialing The Origin from it is the existing GameTest), ProgressiveStages applying the new ore overrides on the
+planets, Jade naming locked blocks from age_1.

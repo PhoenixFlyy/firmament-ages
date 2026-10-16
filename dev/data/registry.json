@@ -1,5 +1,5 @@
 {
-"source": "/fa_dump in D:/Minecraft/MinecraftModServer/.wt/test-server-h3b1-int/local/firmages (kubejs/server_scripts/debug/dump.js)",
+"source": "/fa_dump in C:/Users/Felix/AppData/Local/Temp/claude/D--Minecraft-MinecraftModServer/c3a2f5de-bbd4-4cb7-a72f-75a5cf2dcb28/scratchpad/f1/p1 (kubejs/server_scripts/debug/dump.js)",
 "items": [
 "ad_astra:aeronos_cap",
 "ad_astra:aeronos_door",
@@ -36650,6 +36650,11 @@
 "xercapaint:item_palette"
 ],
 "blocks": [
+"ad_astra:mars_ice_shard_ore",
+"ad_astra:mars_stone",
+"ad_astra:mercury_stone",
+"ad_astra:moon_ice_shard_ore",
+"ad_astra:moon_stone",
 "beneath:ore/blackstone_sylvite",
 "beneath:ore/nether_cursecoal",
 "beneath:ore/nether_pyrite",
@@ -36657,6 +36662,7 @@
 "beneath:ore/poor_nether_gold",
 "beneath:ore/rich_nether_gold",
 "beneath:ore/slimed_netherrack",
+"draconicevolution:end_draconium_ore",
 "firmages:firmament_crystal_cluster",
 "firmages:firmament_lode",
 "firmages:meteorite",
@@ -36803,8 +36809,10 @@
 "firmalife:ore/rich_chromite/slate",
 "firmalife:ore/rich_chromite/tuff",
 "firmalife:ore/small_chromite",
+"minecraft:end_stone",
 "mysticalagriculture:soulium_ore",
 "mysticalagriculture:soulstone",
+"sgjourney:naquadah_ore",
 "tfc:deposit/cassiterite/andesite",
 "tfc:deposit/cassiterite/basalt",
 "tfc:deposit/cassiterite/chalk",

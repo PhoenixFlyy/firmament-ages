@@ -82,6 +82,17 @@ ServerEvents.recipes((event) => {
     duration: 400,
     per_tick_usage: false
   }).id('firmages:nucleosynthesizing/pure_naquadah')
+  // Naquadah (the DHD, the naquadah tools and armour, the advanced crystallizer, the large cable) came only from
+  // Stargate Journey's blasting of pure naquadah, removed above; the arc furnace takes its place (f1 gating audit:
+  // without it the only naquadah was a quest reward).
+  event.custom({
+    type: 'immersiveengineering:arc_furnace',
+    input: { item: 'sgjourney:pure_naquadah' },
+    additives: [],
+    results: [{ id: 'sgjourney:naquadah', count: 1 }],
+    time: 200,
+    energy: 102400
+  }).id('firmages:arc_furnace/naquadah')
 
   // Stargate Journey's crystal recipes name vanilla gem items, which Almost Unified does not reach in its own recipe
   // types: the TFC gems take their place (the crafting-crystal tag gets #c:gems/diamond in tags/late_ages.js).

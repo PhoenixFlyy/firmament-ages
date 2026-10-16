@@ -38,5 +38,10 @@ locked = [
 ]
 
 # >>> generated:ore_overrides >>>
-# (no ore becomes visible in this stage)
+# 1 rows: ore and deposit blocks stay disguised as rock until this stage is owned.
+
+[[ores.overrides]]
+target = "id:sgjourney:naquadah_ore"
+display_as = "id:ad_astra:mercury_stone"
+drop_as = "id:ad_astra:mercury_stone"
 # <<< generated:ore_overrides <<<

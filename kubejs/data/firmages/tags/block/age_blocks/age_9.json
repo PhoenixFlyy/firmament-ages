@@ -1,5 +1,6 @@
 {
   "replace": false,
   "values": [
+    {"id": "sgjourney:naquadah_ore", "required": false}
   ]
 }

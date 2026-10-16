@@ -466,15 +466,15 @@ hash = "62c0d7c920ad50a9177d672be1792ca30173e4bdf980ac76296cecbb1d400ac1"
 
 [[files]]
 file = "config/progressivestages/stages/age_7.toml"
-hash = "9256e36b95b1ad98a90493214ac57667bc80a8c673a46104d8b3e9a6b731ab57"
+hash = "d8c585e17dd56ddf9768630040e0b8ede064dbbeb6c06b07925242cb3ec0ace4"
 
 [[files]]
 file = "config/progressivestages/stages/age_8.toml"
-hash = "7b6e50ed3da83060a09e1f20e2a652619e189e6ce7e35f402dab520393b411c1"
+hash = "2badedf526e59b9bcccbbf128ff5d0612ecc55251c137e0432abb6a87cb760cd"
 
 [[files]]
 file = "config/progressivestages/stages/age_9.toml"
-hash = "0a826d7bb181d28b5e22c6d7e810c9f98921812f712faf42ab521b3fef745e04"
+hash = "c33846b3ad726cc4c71959a39882fc899a244e9ab500aa1d93ef01b1f1d7e913"
 
 [[files]]
 file = "config/progressivestages/stages/dawn.toml"
@@ -3157,6 +3157,22 @@ file = "kubejs/data/almostunified/tags/item/hide.json"
 hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
 
 [[files]]
+file = "kubejs/data/apotheosis/tags/worldgen/biome/tower_leaf.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/apotheosis/tags/worldgen/biome/tower_main.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/apotheosis/tags/worldgen/biome/tower_sand.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/apotheosis/tags/worldgen/biome/tower_spruce.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
 file = "kubejs/data/astikorcartsredux/recipe/acacia_animal_cart.json"
 hash = "24636aad9ff90a774468f075da1d57554f76ac404c9c0038ee55d333e1b8c2b6"
 
@@ -3462,7 +3478,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "4f550a3af5142e441507a123b73289010824510c06136f075f696019f89f290c"
+hash = "5c55584b4375cfb0132e3d0cd5c461af352a6d25e08413aea263366dd29c665b"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -4938,6 +4954,14 @@ hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
 file = "kubejs/data/dustydecorations/neoforge/biome_modifier/sus_seaglass_sand.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/evolvedmekanism/neoforge/biome_modifier/add_end_features.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/evolvedmekanism/neoforge/biome_modifier/add_nether_features.json"
 hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
@@ -6594,15 +6618,15 @@ hash = "039624ab946e23759da847f2785c9927f20c02a479edbbef0217621cb2de3818"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_7.json"
-hash = "842236fadb6c8ee92d61f8de0d213b4afe5a53565c51ab190787e889af6720f9"
+hash = "9301c8f7384d62f6858ad6a4a87ba6000260d8565a6694810cc61686485c1e07"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_8.json"
-hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
+hash = "64cad2cf65cb1f06a64171403a85c17256c4b09dea76c036071f8c099fb2ce80"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_9.json"
-hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
+hash = "e6c555ee607878a6bf6ac7ee3858d826fd04c03a0837706a6aa5b83afb4e38ef"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/dawn.json"
@@ -6686,7 +6710,7 @@ hash = "ddc89e53d1c775c5fa50904dec2fd40a775928ff4d34add700bf850bd4fbb570"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "23304d9bf841f3e6101600d3207e6536ea281b96aa472c79a863d3dfec99627e"
+hash = "cd63f2bf44c973f7af29bf6002715f04ea1395b90a1b2a78941740d893cd82e3"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
@@ -6694,7 +6718,7 @@ hash = "aacf2759d3c917bd4b88546e10b71add90fc90dfe8f254601458bf01990c6dfc"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "ed049383eadc2fb2dbff19997264a387052a36db021901f063b09b724bb0edb0"
+hash = "89e1180bb9aaffb57ed9f14518d02f9e48acdfc908346d35f842e7fa93735459"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
@@ -6706,7 +6730,7 @@ hash = "30060bc8a07b9e51b8911ec950c0a1450f2347e3be2933ba3d6ecad4a38f3461"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "dc3f45d88782e613029e3193e6b43f4d2aadcf0ece00fbabab01b58bf167395a"
+hash = "fef72b7ec77512f4f1836f1a43bb6dcf3709e5de108343e03a6e6f66a259d776"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -6718,7 +6742,7 @@ hash = "5431cf5ef2e40dbf80d388e2119472668f13f23d0955f29d00fb6ed275efa94c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "403cd7a5993b4f1cfaeb007acbb213bd6be19b426a14ef0ef5f28a641ce92126"
+hash = "05b0bbf65359afef375bc855f7cefabb4d11717a66e0edd7d01d4682953415ef"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/rope_bridges.json"
@@ -9465,6 +9489,30 @@ file = "kubejs/data/rnr/tags/block/mineable_with_mattock.json"
 hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
 
 [[files]]
+file = "kubejs/data/sgjourney/tags/worldgen/biome/has_structure/buried_stargate/buried_stargate_badlands_biomes.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/sgjourney/tags/worldgen/biome/has_structure/buried_stargate/buried_stargate_biomes.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/sgjourney/tags/worldgen/biome/has_structure/buried_stargate/buried_stargate_desert_biomes.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/sgjourney/tags/worldgen/biome/has_structure/stargate_pedestal/stargate_pedestal_glacio_biomes.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/sgjourney/tags/worldgen/biome/has_structure/stargate_pedestal/stargate_pedestal_island_end_biomes.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/sgjourney/tags/worldgen/biome/has_structure/stargate_temple/stargate_temple_nether_biomes.json"
+hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
 file = "kubejs/data/storagedrawers/recipe/personal_key_cofh.json"
 hash = "e7851187ffd6b12c5e60b544e47a4cdcf4e1d42cee55e33ab2547061edb2b3a8"
 
@@ -10718,7 +10766,7 @@ hash = "e634c620d501f928cdb9b44589a5706a5b820204ae670fc2f1881a54253f80e8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_9/singularity_age.js"
-hash = "ea02212825ffb7bac74e9c567397e83de0ab10101899ec9b7b4dcc5d432d8e84"
+hash = "a9a931fad29358d9a6954256969a1066394c007c2b98bd10db8a972625ffd923"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/byproducts.js"
