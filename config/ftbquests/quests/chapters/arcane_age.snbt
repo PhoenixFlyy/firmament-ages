@@ -20,8 +20,8 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 8.0d
-			x: 10.0d
-			y: -7.75d
+			x: 10.75d
+			y: -10.25d
 		}
 	]
 	order_index: 4
@@ -75,7 +75,7 @@
 				}
 			]
 			x: 2.5d
-			y: -2.5d
+			y: -5.0d
 		}
 		{
 			dependencies: ["354A9C13E074B572"]
@@ -98,7 +98,7 @@
 				}
 			]
 			x: 4.25d
-			y: -2.5d
+			y: -5.0d
 		}
 		{
 			dependencies: ["04722DE2A3532A26"]
@@ -121,7 +121,7 @@
 				}
 			]
 			x: 6.0d
-			y: -2.5d
+			y: -5.0d
 		}
 		{
 			dependencies: ["3674604366D3C8BE"]
@@ -144,7 +144,7 @@
 				}
 			]
 			x: 7.75d
-			y: -2.5d
+			y: -5.0d
 		}
 		{
 			dependencies: ["41F6B8884809B526"]
@@ -167,7 +167,7 @@
 				}
 			]
 			x: 9.5d
-			y: -2.5d
+			y: -5.0d
 		}
 		{
 			dependencies: ["33BEA94E7673D21D"]
@@ -191,7 +191,7 @@
 				}
 			]
 			x: 11.25d
-			y: -2.5d
+			y: -5.0d
 		}
 		{
 			dependencies: ["06055D169B0CC629"]
@@ -214,7 +214,7 @@
 				}
 			]
 			x: 13.0d
-			y: -2.5d
+			y: -5.0d
 		}
 		{
 			dependencies: ["4914DB06E3F96086"]
@@ -258,7 +258,7 @@
 				}
 			]
 			x: 15.0d
-			y: -2.5d
+			y: -5.0d
 		}
 		{
 			dependencies: ["188B8BAD88328299"]
@@ -281,7 +281,7 @@
 				}
 			]
 			x: 2.5d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["69CB2309855D14E1"]
@@ -344,7 +344,7 @@
 				}
 			]
 			x: 4.25d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["659EBC46D8F70B24"]
@@ -367,7 +367,7 @@
 				}
 			]
 			x: 6.0d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["36A59893ED5389B6"]
@@ -391,7 +391,7 @@
 				}
 			]
 			x: 7.75d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["0BA4D1B6A66D0C59"]
@@ -414,7 +414,7 @@
 				}
 			]
 			x: 9.5d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["2303CB5F822C38B6"]
@@ -437,7 +437,7 @@
 				}
 			]
 			x: 11.25d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["5628873FCDD13028"]
@@ -460,7 +460,7 @@
 				}
 			]
 			x: 13.0d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["6B502DAD3EAE52D5"]
@@ -495,7 +495,7 @@
 				}
 			]
 			x: 14.75d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["0416219650D02993"]
@@ -528,7 +528,7 @@
 				}
 			]
 			x: 16.75d
-			y: 0.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["188B8BAD88328299"]
@@ -551,7 +551,7 @@
 				}
 			]
 			x: 2.5d
-			y: 2.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["06FEAB3BC2EA4431"]
@@ -574,7 +574,7 @@
 				}
 			]
 			x: 4.25d
-			y: 2.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["4CA32185961FD920"]
@@ -597,7 +597,7 @@
 				}
 			]
 			x: 6.0d
-			y: 2.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["1FC065AF7A77E6DD"]
@@ -620,7 +620,7 @@
 				}
 			]
 			x: 7.75d
-			y: 2.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["0FBE04E270216ADA"]
@@ -643,7 +643,7 @@
 				}
 			]
 			x: 9.5d
-			y: 2.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["0725F0C2566548FA"]
@@ -666,7 +666,7 @@
 				}
 			]
 			x: 11.25d
-			y: 2.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["2C575E91F55039E2"]
@@ -689,7 +689,7 @@
 				}
 			]
 			x: 13.0d
-			y: 2.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["3931946D843ABA96"]
@@ -721,10 +721,185 @@
 				}
 			]
 			x: 15.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["188B8BAD88328299"]
+			icon: {
+				id: "firmages:star_anvil"
+			}
+			id: "4AD21CEABC66DCC2"
+			rewards: [
+				{
+					id: "5218A7CCCDB51F46"
+					type: "xp"
+					xp: 65
+				}
+			]
+			tasks: [
+				{
+					id: "1D654C470A692AB2"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:star_anvil[formed=true]"
+					type: "observation"
+				}
+			]
+			x: 2.5d
 			y: 2.5d
 		}
 		{
-			dependencies: ["01A60C077F4FEDFD", "470272BFC8013E57", "373193C62E3C9E35"]
+			dependencies: ["4AD21CEABC66DCC2"]
+			id: "574F377D613986E5"
+			rewards: [
+				{
+					id: "28C157A5A02AEFE8"
+					type: "xp"
+					xp: 195
+				}
+				{
+					id: "67F84D105011BE6E"
+					table_id: 5131420377483479010L
+					team_reward: true
+					type: "random"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					count: 3L
+					id: "5CA39C152D372F34"
+					item: {
+						count: 1
+						id: "firmages:starlit_iron_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: 4.5d
+			y: 2.5d
+		}
+		{
+			dependencies: ["188B8BAD88328299"]
+			id: "216ADE120332EDCD"
+			rewards: [
+				{
+					id: "7E731FCE6C9CE6F2"
+					type: "xp"
+					xp: 65
+				}
+			]
+			tasks: [
+				{
+					count: 3L
+					id: "641D7853E30CDE15"
+					item: {
+						count: 1
+						id: "minecraft:blaze_rod"
+					}
+					type: "item"
+				}
+			]
+			x: 2.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["216ADE120332EDCD"]
+			id: "3150B924AEF25965"
+			rewards: [
+				{
+					id: "436952901A338BFC"
+					type: "xp"
+					xp: 195
+				}
+				{
+					id: "4E5D1529DEE84E2B"
+					table_id: 5131420377483479010L
+					team_reward: true
+					type: "random"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					consume_items: false
+					id: "272E4482C9D9ABEE"
+					item: {
+						count: 1
+						id: "firmages:hollow_keystone"
+					}
+					type: "item"
+				}
+			]
+			x: 4.5d
+			y: 5.0d
+		}
+		{
+			dependencies: [
+				"01A60C077F4FEDFD"
+				"470272BFC8013E57"
+				"373193C62E3C9E35"
+				"574F377D613986E5"
+			]
+			icon: {
+				id: "occultism:book_of_binding_bound_djinni"
+			}
+			id: "3B249CF88F286E7D"
+			rewards: [
+				{
+					id: "7679B479600315A7"
+					type: "xp"
+					xp: 65
+				}
+			]
+			tasks: [
+				{
+					consume_items: false
+					id: "7D84FBB687A46412"
+					item: {
+						count: 1
+						id: "firmages:arcane_keystone"
+					}
+					type: "item"
+				}
+			]
+			x: 18.5d
+			y: -1.25d
+		}
+		{
+			dependencies: ["3150B924AEF25965", "574F377D613986E5"]
+			icon: {
+				id: "create:mechanical_press"
+			}
+			id: "6932FDCAADC46220"
+			rewards: [
+				{
+					id: "3DD8C5BC1D12498C"
+					type: "xp"
+					xp: 65
+				}
+			]
+			tasks: [
+				{
+					consume_items: false
+					id: "25160AD2BEFD5C46"
+					item: {
+						count: 1
+						id: "firmages:arcane_keystone"
+					}
+					type: "item"
+				}
+			]
+			x: 18.5d
+			y: 3.75d
+		}
+		{
+			dependencies: ["3B249CF88F286E7D", "6932FDCAADC46220"]
+			dependency_requirement: "one_completed"
 			icon: {
 				id: "firmages:arcane_keystone"
 			}
@@ -746,7 +921,7 @@
 					type: "gamestage"
 				}
 			]
-			x: 20.0d
+			x: 21.5d
 			y: 0.0d
 		}
 		{
@@ -774,7 +949,7 @@
 				}
 			]
 			x: 9.5d
-			y: -5.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["4881717821F8F9DA"]
@@ -807,7 +982,7 @@
 				}
 			]
 			x: 11.0d
-			y: -5.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["5628873FCDD13028"]
@@ -840,7 +1015,7 @@
 				}
 			]
 			x: 13.0d
-			y: -5.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["188B8BAD88328299"]
@@ -859,7 +1034,7 @@
 				}
 			]
 			x: 0.0d
-			y: 5.0d
+			y: 7.5d
 		}
 		{
 			dependencies: ["188B8BAD88328299"]
@@ -878,7 +1053,7 @@
 				}
 			]
 			x: 1.5d
-			y: 5.0d
+			y: 7.5d
 		}
 		{
 			dependencies: ["188B8BAD88328299"]
@@ -907,8 +1082,8 @@
 					type: "observation"
 				}
 			]
-			x: 20.0d
-			y: 5.0d
+			x: 21.5d
+			y: 7.5d
 		}
 	]
 	tags: ["age_3"]

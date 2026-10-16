@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "tally": {
+      "trigger": "firmages:tally",
+      "conditions": {
+        "tag": "c:ingots/steel",
+        "count": 384,
+        "age": "age_4"
+      }
+    }
+  }
+}

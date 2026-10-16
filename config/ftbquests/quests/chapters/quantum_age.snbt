@@ -21,7 +21,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 9.125d
-			y: -9.0d
+			y: -10.25d
 		}
 	]
 	order_index: 9
@@ -76,7 +76,7 @@
 				}
 			]
 			x: 2.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["65E696893D25C27D"]
@@ -99,7 +99,7 @@
 				}
 			]
 			x: 4.25d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["10708C5D853308E7"]
@@ -122,7 +122,7 @@
 				}
 			]
 			x: 6.0d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["6708655329216D20"]
@@ -145,7 +145,7 @@
 				}
 			]
 			x: 7.75d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["79DA4E6D4518762C"]
@@ -181,7 +181,7 @@
 				}
 			]
 			x: 9.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["5EE99FD47DD299FC"]
@@ -214,7 +214,7 @@
 				}
 			]
 			x: 11.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -237,7 +237,7 @@
 				}
 			]
 			x: 2.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["6CBAA83920DDC925"]
@@ -260,7 +260,7 @@
 				}
 			]
 			x: 4.25d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["2562E428698729A6"]
@@ -284,7 +284,7 @@
 				}
 			]
 			x: 6.0d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["69FBE953FD290F68"]
@@ -307,7 +307,7 @@
 				}
 			]
 			x: 7.75d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["3E8ADD553D7E26A2"]
@@ -330,7 +330,7 @@
 				}
 			]
 			x: 9.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["7544B0CD7D29A814"]
@@ -353,7 +353,7 @@
 				}
 			]
 			x: 11.25d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["1628C003B7759E11"]
@@ -377,7 +377,7 @@
 				}
 			]
 			x: 13.0d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["4CB0E2CEF90AD9CE"]
@@ -410,7 +410,7 @@
 				}
 			]
 			x: 15.0d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -434,7 +434,7 @@
 				}
 			]
 			x: 2.5d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["4FD3780AF1ECC795"]
@@ -458,7 +458,7 @@
 				}
 			]
 			x: 4.25d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["716420BDBE218479"]
@@ -482,7 +482,7 @@
 				}
 			]
 			x: 6.0d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["7B0276B3AACDABA7"]
@@ -506,7 +506,7 @@
 				}
 			]
 			x: 7.75d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["06EDA9E3C94958CB"]
@@ -531,7 +531,7 @@
 				}
 			]
 			x: 9.5d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["0DD300C809C84163"]
@@ -563,7 +563,7 @@
 				}
 			]
 			x: 11.5d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -587,7 +587,7 @@
 				}
 			]
 			x: 2.5d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["39882F695B4F5776"]
@@ -620,7 +620,63 @@
 				}
 			]
 			x: 4.5d
-			y: 3.75d
+			y: 2.5d
+		}
+		{
+			dependencies: ["29BB85F4AE1E4A82"]
+			id: "3C03E230F16471D7"
+			rewards: [
+				{
+					id: "6F9A117D11170672"
+					type: "xp"
+					xp: 160
+				}
+			]
+			tasks: [
+				{
+					id: "38407D945BFB5ED2"
+					item: {
+						count: 1
+						id: "firmages:deep_space_sample"
+					}
+					type: "item"
+				}
+			]
+			x: 2.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["3C03E230F16471D7"]
+			id: "3B35B4F1EAA55F1D"
+			rewards: [
+				{
+					id: "0EC2D914B890180B"
+					type: "xp"
+					xp: 480
+				}
+				{
+					id: "03AB50FD3B831B0C"
+					table_id: 7029906026602936521L
+					team_reward: true
+					type: "random"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					consume_items: false
+					id: "213606B83BC2ED3E"
+					item: {
+						count: 1
+						id: "firmages:quasar_alloy_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: 4.5d
+			y: 5.0d
 		}
 		{
 			dependencies: [
@@ -628,6 +684,7 @@
 				"4CB43131B416FB17"
 				"6B60917A5984A799"
 				"485FE6EFB6565F6E"
+				"3B35B4F1EAA55F1D"
 			]
 			icon: {
 				id: "firmages:quantum_core"
@@ -652,6 +709,40 @@
 			]
 			x: 18.25d
 			y: 0.0d
+		}
+		{
+			dependencies: ["29BB85F4AE1E4A82"]
+			icon: {
+				id: "firmages:tally_chute"
+			}
+			id: "3815DB396BBFB360"
+			optional: true
+			rewards: [
+				{
+					id: "39D1225D4B536965"
+					type: "xp"
+					xp: 160
+				}
+				{
+					id: "4BA0686D7EAB1F5B"
+					table_id: 4581690186732968573L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					advancement: "firmages:proof/age_8"
+					criterion: ""
+					id: "68337F48FE1A4BB2"
+					type: "advancement"
+				}
+			]
+			x: 0.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["65E696893D25C27D"]
@@ -684,7 +775,7 @@
 				}
 			]
 			x: 2.5d
-			y: -6.25d
+			y: -7.5d
 		}
 		{
 			dependencies: ["39882F695B4F5776"]
@@ -711,7 +802,7 @@
 				}
 			]
 			x: 4.5d
-			y: -6.25d
+			y: -7.5d
 		}
 		{
 			dependencies: ["7479AAADAC50C431"]
@@ -744,7 +835,7 @@
 				}
 			]
 			x: 6.0d
-			y: -6.25d
+			y: -7.5d
 		}
 		{
 			dependencies: ["6CBAA83920DDC925"]
@@ -777,7 +868,7 @@
 				}
 			]
 			x: 8.0d
-			y: -6.25d
+			y: -7.5d
 		}
 		{
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -796,7 +887,7 @@
 				}
 			]
 			x: 0.0d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -815,7 +906,7 @@
 				}
 			]
 			x: 1.5d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -845,7 +936,7 @@
 				}
 			]
 			x: 18.25d
-			y: 6.25d
+			y: 7.5d
 		}
 	]
 	tags: ["age_8"]

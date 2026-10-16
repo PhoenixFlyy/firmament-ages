@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "tally": {
+      "trigger": "firmages:tally",
+      "conditions": {
+        "tag": "c:ingots/calorite",
+        "count": 2048,
+        "age": "age_8"
+      }
+    }
+  }
+}

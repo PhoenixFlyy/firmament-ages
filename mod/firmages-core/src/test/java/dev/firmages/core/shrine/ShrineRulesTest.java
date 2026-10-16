@@ -197,9 +197,10 @@ class ShrineRulesTest {
         assertEquals(0xFFFFB347, t0.response().beamColor());
         assertEquals(0xFF8C3A, t0.response().skyTint());
         // Felix H5A (SPEC §35): from the Industrial Age every offering waits for a tally of the Age's product, counted
-        // since the Age dawned; before it no offering asks for one.
-        String[][] proof = {{"4", "c:ingots/steel", "512"}, {"5", "c:ingots/aluminum", "2048"}, {"6", "c:ingots/osmium", "4096"},
-            {"7", "c:ingots/desh", "4096"}, {"8", "c:ingots/calorite", "8192"}};
+        // since the Age dawned; before it no offering asks for one. The counts are about two hours of one reference
+        // line of the Age (dev/harmonie-r2.md section 7, review fix 0.12.0).
+        String[][] proof = {{"4", "c:ingots/steel", "384"}, {"5", "c:ingots/aluminum", "512"}, {"6", "c:ingots/osmium", "1024"},
+            {"7", "c:ingots/desh", "1024"}, {"8", "c:ingots/calorite", "2048"}};
         for (int k = 0; k < 4; k++) assertEquals(Optional.empty(), d.tallyFor(k), "no proof before the Industrial Age: tier " + k);
         long last = 0;
         for (String[] p : proof) {

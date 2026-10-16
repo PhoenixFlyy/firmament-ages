@@ -21,7 +21,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 7.375d
-			y: -9.0d
+			y: -10.25d
 		}
 	]
 	order_index: 6
@@ -76,7 +76,7 @@
 				}
 			]
 			x: 2.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["72DBAB3B1C9E0AD4"]
@@ -100,7 +100,7 @@
 				}
 			]
 			x: 4.25d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["7ECFFB6EEDF1B9FB"]
@@ -134,7 +134,7 @@
 				}
 			]
 			x: 6.0d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["0F97073C5BDEA813"]
@@ -159,7 +159,7 @@
 				}
 			]
 			x: 7.75d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["1E05714D0F44B25C"]
@@ -183,7 +183,7 @@
 				}
 			]
 			x: 9.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["046444D7885EFB7E"]
@@ -216,7 +216,7 @@
 				}
 			]
 			x: 11.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["44B3F8C53C417220"]
@@ -239,7 +239,7 @@
 				}
 			]
 			x: 2.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["1E1F3E3E6C4E81FD"]
@@ -264,7 +264,7 @@
 				}
 			]
 			x: 4.25d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["50B1CD95742F5B7B"]
@@ -287,7 +287,7 @@
 				}
 			]
 			x: 6.0d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["08C127DFAFB1D00D"]
@@ -312,7 +312,7 @@
 				}
 			]
 			x: 7.75d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["6541A11C39B620C6"]
@@ -335,7 +335,7 @@
 				}
 			]
 			x: 9.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["156E48BCD0889C5E"]
@@ -368,7 +368,7 @@
 				}
 			]
 			x: 11.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["44B3F8C53C417220"]
@@ -422,7 +422,7 @@
 				}
 			]
 			x: 2.5d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["0C271F72FE0B4376"]
@@ -447,7 +447,7 @@
 				}
 			]
 			x: 4.25d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["12F2B758B0EC78AC"]
@@ -471,7 +471,7 @@
 				}
 			]
 			x: 6.0d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["1B12D746242380A4"]
@@ -495,7 +495,7 @@
 				}
 			]
 			x: 7.75d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["1BF2818DC437F21D"]
@@ -520,7 +520,7 @@
 				}
 			]
 			x: 9.5d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["15673B5A9807871D"]
@@ -553,7 +553,7 @@
 				}
 			]
 			x: 11.5d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["44B3F8C53C417220"]
@@ -577,7 +577,7 @@
 				}
 			]
 			x: 2.5d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["72E155A942A5A2F6"]
@@ -601,7 +601,7 @@
 				}
 			]
 			x: 4.25d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["3A0F28382F5AE922"]
@@ -626,7 +626,7 @@
 				}
 			]
 			x: 6.0d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["5EE630041C685EFA"]
@@ -661,7 +661,7 @@
 				}
 			]
 			x: 7.75d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["0E48C0E43D256E7D"]
@@ -694,7 +694,87 @@
 				}
 			]
 			x: 9.75d
-			y: 3.75d
+			y: 2.5d
+		}
+		{
+			dependencies: ["44B3F8C53C417220"]
+			id: "2C29644013E0FBF2"
+			rewards: [
+				{
+					id: "21E87320175016D3"
+					type: "xp"
+					xp: 100
+				}
+			]
+			tasks: [
+				{
+					count: 2L
+					id: "5AD2427E83421D40"
+					item: {
+						count: 1
+						id: "firmages:starsteel_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: 2.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["2C29644013E0FBF2"]
+			id: "1006400444BCC185"
+			rewards: [
+				{
+					id: "53D279600ADF1570"
+					type: "xp"
+					xp: 100
+				}
+			]
+			tasks: [
+				{
+					id: "526D7D76205CC340"
+					item: {
+						count: 1
+						id: "firmages:aurora_light_bucket"
+					}
+					type: "item"
+				}
+			]
+			x: 4.25d
+			y: 5.0d
+		}
+		{
+			dependencies: ["1006400444BCC185"]
+			id: "30838230E7113E41"
+			rewards: [
+				{
+					id: "343F3BB7E6466B52"
+					type: "xp"
+					xp: 300
+				}
+				{
+					id: "31C5E2CCE96B95D6"
+					table_id: 5597469422331805799L
+					team_reward: true
+					type: "random"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					consume_items: false
+					id: "3ECF5343060A8392"
+					item: {
+						count: 1
+						id: "firmages:aurora_steel_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: 6.25d
+			y: 5.0d
 		}
 		{
 			dependencies: [
@@ -702,6 +782,7 @@
 				"0B2B6BE451DD1912"
 				"333133C7E32AE19D"
 				"063D45434D0281D0"
+				"30838230E7113E41"
 			]
 			icon: {
 				id: "firmages:humming_core"
@@ -726,6 +807,40 @@
 			]
 			x: 14.75d
 			y: 0.0d
+		}
+		{
+			dependencies: ["44B3F8C53C417220"]
+			icon: {
+				id: "firmages:tally_chute"
+			}
+			id: "0A44DADC27787AEE"
+			optional: true
+			rewards: [
+				{
+					id: "0B06675731ABED95"
+					type: "xp"
+					xp: 100
+				}
+				{
+					id: "7F05D9D0234F2D7A"
+					table_id: 5096654483866401500L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					advancement: "firmages:proof/age_5"
+					criterion: ""
+					id: "1071B42988230BBE"
+					type: "advancement"
+				}
+			]
+			x: 0.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["72E155A942A5A2F6"]
@@ -758,7 +873,7 @@
 				}
 			]
 			x: 2.5d
-			y: -6.25d
+			y: -7.5d
 		}
 		{
 			dependencies: ["1E1F3E3E6C4E81FD"]
@@ -791,7 +906,7 @@
 				}
 			]
 			x: 4.5d
-			y: -6.25d
+			y: -7.5d
 		}
 		{
 			dependencies: ["0C271F72FE0B4376"]
@@ -825,7 +940,7 @@
 				}
 			]
 			x: 6.5d
-			y: -6.25d
+			y: -7.5d
 		}
 		{
 			dependencies: ["44B3F8C53C417220"]
@@ -844,7 +959,7 @@
 				}
 			]
 			x: 0.0d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["44B3F8C53C417220"]
@@ -863,7 +978,7 @@
 				}
 			]
 			x: 1.5d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["44B3F8C53C417220"]
@@ -893,7 +1008,7 @@
 				}
 			]
 			x: 14.75d
-			y: 6.25d
+			y: 7.5d
 		}
 	]
 	tags: ["age_5"]

@@ -75,7 +75,7 @@
 	quest.022B6F2B50E24B10.quest_subtitle: "The shrine ring of this Age"
 	quest.022B6F2B50E24B10.title: "Raise the Data Nave"
 	quest.02BAEBC0675BF246.quest_desc: [
-		"Bind the Arcane Keystone in the Djinni's crafting pentacle from every strand's proof: the spirit attuned crystal, an iesnium ingot, the Wilden Tribute and the mercury catalyst, with a Starlit Iron ingot and a source gem block."
+		"Bind the Arcane Keystone in the Djinni's crafting pentacle (a spirit attuned crystal, an iesnium ingot, the Wilden Tribute, the mercury catalyst, Starlit Iron and a source gem block), or fill a Hollow Keystone on the machine line."
 		""
 		"Raise the Spirit Circle; the heart shows what is missing. Lay the Keystone on the new plinth, light the eight candles and pray."
 		""
@@ -91,6 +91,10 @@
 		"Work weak steel with nickel and black bronze on the anvil into black steel, the metal of the Industrial Age."
 	]
 	quest.03A410CC86110162.title: "Black Steel"
+	quest.03C78EEE9599C6D7.quest_desc: [
+		"Fly to the Drifting Isles at height 228 to 272 by airship or jetpack. Firmament crystal grows only there."
+	]
+	quest.03C78EEE9599C6D7.title: "Above the Clouds"
 	quest.0416219650D02993.quest_desc: [
 		"Bind horn, wing and spike of the Wilden with source in the enchanting apparatus. The Wilden Chimera drops a tribute too."
 	]
@@ -126,7 +130,7 @@
 	quest.05C4B3AE61613A9B.quest_desc: [
 		"Iron veins are visible now and the map opens."
 		""
-		"Four strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival and Frontier."
+		"Five strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival, Frontier and Sky. The Sky strand readies the Lens Crown of the next Age."
 	]
 	quest.05C4B3AE61613A9B.quest_subtitle: "The third Age"
 	quest.05C4B3AE61613A9B.title: "The Iron Age Dawns"
@@ -134,6 +138,10 @@
 		"Iesnium ore lies in the Nether. Smelt it into ingots; the Djinni rituals need it."
 	]
 	quest.06055D169B0CC629.title: "Iesnium"
+	quest.0610CB3104268435.quest_desc: [
+		"Build a Storm Rod with a meteoric iron tip and fill it with sand. In any rain, lightning strikes it and fuses the sand."
+	]
+	quest.0610CB3104268435.title: "Storm Rod"
 	quest.063D45434D0281D0.quest_desc: [
 		"A circuit board tuned by quartz, with two advanced electronic components and electrum wire. With magic, a spirit attuned crystal tunes it alone. Let the assembler make them."
 	]
@@ -191,6 +199,10 @@
 		"Feed the crusher by machine and collect 64 iron dust from the line."
 	]
 	quest.092749BAB246E72D.title: "Automated Ore Line"
+	quest.0A44DADC27787AEE.quest_desc: [
+		"Feed 512 aluminium ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
+	]
+	quest.0A44DADC27787AEE.title: "Proof of Work"
 	quest.0A55EE1E0335D077.quest_desc: [
 		"Right-click raw igneous rock with a stone hammer to make a stone anvil."
 	]
@@ -222,6 +234,10 @@
 		"Clay lies under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and water canna grow above it."
 	]
 	quest.0B2CE763E15475FA.title: "Locating Clay"
+	quest.0B4C781BE87EF3D3.quest_desc: [
+		"Feed 1,024 desh ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
+	]
+	quest.0B4C781BE87EF3D3.title: "Proof of Work"
 	quest.0BA4D1B6A66D0C59.quest_desc: [
 		"Imbue amethyst or lapis lazuli. Source gems are the base of all source magic."
 	]
@@ -251,7 +267,9 @@
 	quest.0F1AE784BF392A25.quest_desc: [
 		"Ore triples, the ME network stores and crafts, and the End can be reached. Veins of certus quartz, inferium, prosperity and soulstone wake."
 		""
-		"Four strands lead to the Data Matrix: Digital, Factory, Mob Data and The End."
+		"Five strands lead to the Data Matrix: Digital, Factory, Mob Data, The End and Sky."
+		""
+		"Caelum asks for proof of work this time: 1,024 osmium ingots fed into Tally Chutes in this Age."
 	]
 	quest.0F1AE784BF392A25.quest_subtitle: "The seventh Age"
 	quest.0F1AE784BF392A25.title: "The Information Age Dawns"
@@ -269,6 +287,10 @@
 		"The engineering machines are multiblocks: build the shape from the Engineer's Manual, then hit the marked block with the Engineer's Hammer. Projector blueprints show the shape in the world."
 	]
 	quest.0FF697E3625FD70E.title: "Multiblocks"
+	quest.1006400444BCC185.quest_desc: [
+		"Pipe or bucket the aurora light out of your Aurora Nets. Nothing else makes it."
+	]
+	quest.1006400444BCC185.title: "Aurora Light"
 	quest.102A4D2C50AB6948.quest_desc: [
 		"Craft a jetpack and fill it with hydrogen from the separator."
 	]
@@ -363,9 +385,9 @@
 	]
 	quest.17A29F90313EDA66.title: "Garden Cloche"
 	quest.188B8BAD88328299.quest_desc: [
-		"Magic wakes: spirits, source and alchemy. Until the Information Age it gives the best ore yield, the first endless ore and the first item transport."
+		"Magic wakes: spirits, source and alchemy. It gives the best ore yield until the Information Age."
 		""
-		"Three strands lead to the Arcane Keystone: Spirits, Source and Alchemy."
+		"The Arcane Keystone takes one of two routes. The Spirit Route binds it from the Spirits, Source and Alchemy strands. The Machine Route fills a Hollow Keystone on your machine line. Both need Starlit Iron from the Lens Crown: the Sky strand."
 	]
 	quest.188B8BAD88328299.quest_subtitle: "The fourth Age"
 	quest.188B8BAD88328299.title: "The Arcane Age Dawns"
@@ -424,7 +446,9 @@
 	quest.1D842B40E0C51F06.quest_desc: [
 		"The sky opens upward. Uranium and fission, rockets to the Moon and Mars, and draconium from the End."
 		""
-		"Four strands lead to the Star Chart: Atomic, Rocketry & Moon, Mars and Draconium."
+		"Five strands lead to the Star Chart: Atomic, Rocketry & Moon, Mars, Draconium and Sky."
+		""
+		"Caelum asks for proof of work this time: 1,024 desh ingots fed into Tally Chutes in this Age."
 	]
 	quest.1D842B40E0C51F06.quest_subtitle: "The eighth Age"
 	quest.1D842B40E0C51F06.title: "The Space Age Dawns"
@@ -455,6 +479,10 @@
 		"Keep eight large chaos fragments from the reactor. Two go into the Ultimate Singularity, one into the Coordinates of The Origin."
 	]
 	quest.1FD61E2A23294166.title: "Chaos Fragments"
+	quest.1FE13D3931164773.quest_desc: [
+		"Add the Electric lens and forge Halo Steel from starsteel, blue steel, firmament crystal and aurora light. Two ingots go into the Data Matrix."
+	]
+	quest.1FE13D3931164773.title: "Halo Steel"
 	quest.203071592A4D660A.quest_desc: [
 		"Lay four straw on one block, then sneak and right-click the pile: thatch, the only building block of Dawn."
 	]
@@ -482,6 +510,10 @@
 		"Dig a cellar below ground: it stays cool. Fill large vessels and seal them."
 	]
 	quest.214D6B55DD018CDF.title: "Cellar Vessels"
+	quest.216ADE120332EDCD.quest_desc: [
+		"Blazes live in the Nether fortresses. A deployer sets one rod per pass."
+	]
+	quest.216ADE120332EDCD.title: "Blaze Rods"
 	quest.2184B4EB21075F37.quest_desc: [
 		"Raise the Tesla Crown around the Foundry Nave: aluminium, red steel bases with HV capacitors, aluminium scaffolding and four floodlights. The heart shows every missing block."
 	]
@@ -504,7 +536,7 @@
 	quest.23536BC1524A5044.quest_desc: [
 		"Fuse the Humming Core in the arc furnace: an HV capacitor, an Attuned Circuit, four aluminium plates, an Aurora Steel ingot and a Nether Star."
 		""
-		"Raise the Tesla Crown. Once 2,048 aluminium ingots have passed your Tally Chutes in this Age, lay the Core on the plinth, give the floodlights power and a signal, charge the capacitors with 1,000,000 FE and pray."
+		"Raise the Tesla Crown. Once your Tally Chutes have taken 512 aluminium ingots in this Age, lay the Core on the plinth, give the floodlights power and a signal, charge the capacitors with 1,000,000 FE and pray."
 		""
 		"Caelum opens the Information Age."
 	]
@@ -537,7 +569,7 @@
 	quest.271B9FEFDBDBD98F.quest_desc: ["Weld two hot ingots into a double ingot on the stone anvil."]
 	quest.271B9FEFDBDBD98F.title: "First Weld"
 	quest.280FF1CBD99D0A4A.quest_desc: [
-		"Dissolution, washing and crystallizing give five times the metal."
+		"Dissolution, washing and crystallizing give five times the metal. Without energy upgrades it costs more power per ingot than injection."
 	]
 	quest.280FF1CBD99D0A4A.title: "Ore Times Five"
 	quest.289281EB5946B550.quest_desc: [
@@ -567,7 +599,9 @@
 	quest.29BB85F4AE1E4A82.quest_desc: [
 		"Fusion power, the SPS, rockets to Venus, Mercury and Glacio, awakened draconium and the Marid."
 		""
-		"Four strands lead to the Quantum Core: Fusion, Inner Planets, Awakened and Keystone. The Quantum Core is the last offering at the shrine."
+		"Five strands lead to the Quantum Core: Fusion, Inner Planets, Awakened, Keystone and Sky. The Quantum Core is the last offering at the shrine."
+		""
+		"Caelum asks for proof of work this time: 2,048 calorite ingots fed into Tally Chutes in this Age."
 	]
 	quest.29BB85F4AE1E4A82.quest_subtitle: "The ninth Age"
 	quest.29BB85F4AE1E4A82.title: "The Quantum Age Dawns"
@@ -579,6 +613,18 @@
 		"Metal can be worked or welded only while it is hot enough. Hover over it to read its heat."
 	]
 	quest.2AA19A118F3D7E22.title: "Working Heat"
+	quest.2AA3E7314061B5F7.quest_desc: [
+		"Launch a probe with a sampler module. It returns with voidglass, found nowhere else."
+	]
+	quest.2AA3E7314061B5F7.title: "Voidglass"
+	quest.2B9263D6A5FEA18B.quest_desc: [
+		"Make eight energy upgrades for your ore machines. Without them the fourfold and fivefold ore lines cost more power than they gain."
+	]
+	quest.2B9263D6A5FEA18B.title: "Energy Upgrades"
+	quest.2C29644013E0FBF2.quest_desc: [
+		"Starsteel meteorites fall now. Melt their chunks in the arc furnace; the sky is its only source."
+	]
+	quest.2C29644013E0FBF2.title: "Starsteel"
 	quest.2C575E91F55039E2.quest_desc: [
 		"Mercury, salt and sulfur incubate into a metal dust. Melt the dust in a vessel."
 	]
@@ -607,6 +653,10 @@
 		"Fill it with ore and fire it in a pit kiln: the copper melts. A firepit never gets hot enough."
 	]
 	quest.2F5F52EBC70FEF35.title: "Small Vessel"
+	quest.30838230E7113E41.quest_desc: [
+		"Add the Industrial lens and forge Aurora Steel from starsteel, red steel, storm glass and aurora light. The Humming Core needs it."
+	]
+	quest.30838230E7113E41.title: "Aurora Steel"
 	quest.30A13F8701E9EF80.quest_desc: [
 		"Build the Hearth Circle around the heart. Right-click the heart with an empty hand: it shows every missing block as a ghost."
 		""
@@ -617,6 +667,10 @@
 		"When the circle is whole, the heart glows. Right-click it again to hear what Caelum asks for."
 	]
 	quest.30A13F8701E9EF80.title: "Raise the Shrine"
+	quest.3150B924AEF25965.quest_desc: [
+		"Find a Hollow Keystone in a chest of a Nether fortress. A spout, two deployers and a press fill it in three passes: liquid experience, a blaze rod, Starlit Iron, the press."
+	]
+	quest.3150B924AEF25965.title: "Hollow Keystone"
 	quest.31A4263D40A1EF78.quest_desc: ["Matrices are the raw output of the simulation."]
 	quest.31A4263D40A1EF78.title: "Prediction Matrices"
 	quest.31AD386737065FFF.quest_desc: [
@@ -706,6 +760,10 @@
 		"Make the mercury catalyst, the proof of the Alchemy strand. The Arcane Keystone needs it."
 	]
 	quest.373193C62E3C9E35.title: "Mercury Catalyst"
+	quest.3815DB396BBFB360.quest_desc: [
+		"Feed 2,048 calorite ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
+	]
+	quest.3815DB396BBFB360.title: "Proof of Work"
 	quest.38BA8AD136589CDA.quest_desc: [
 		"Build the draconic reactor and bring it online. Only it can power the Stargate."
 	]
@@ -724,12 +782,24 @@
 	quest.3A0F28382F5AE922.title: "Circuit Board"
 	quest.3A5D0F3FAA56A074.quest_desc: ["Copper ore pieces lie on the surface above copper veins."]
 	quest.3A5D0F3FAA56A074.title: "Native Copper"
+	quest.3A926BAFE803B76E.quest_desc: [
+		"Break a meteorite in a crater. On some clear nights a star falls a few thousand blocks away; old cold craters lie in new land."
+	]
+	quest.3A926BAFE803B76E.title: "A Falling Star"
 	quest.3AA65FA513DA3CEC.quest_desc: ["Coke burns hot and clean. The blast furnace needs it."]
 	quest.3AA65FA513DA3CEC.title: "Coal Coke"
 	quest.3AD1F9C2C23677C5.quest_desc: [
 		"Gather wild berries. You never thirst here, and a varied diet makes you hardier."
 	]
 	quest.3AD1F9C2C23677C5.title: "Berries and Herbs"
+	quest.3B249CF88F286E7D.quest_desc: [
+		"Bind the Arcane Keystone in the Djinni's crafting pentacle from the proofs of the magic strands."
+	]
+	quest.3B249CF88F286E7D.title: "The Spirit Route"
+	quest.3B35B4F1EAA55F1D.quest_desc: [
+		"Add the Space lens and forge Quasar Alloy from voidglass, calorite, a deep-space sample and aurora light. The Quantum Core needs it."
+	]
+	quest.3B35B4F1EAA55F1D.title: "Quasar Alloy"
 	quest.3B588CB49C0F4193.quest_desc: [
 		"Fire both in a pit kiln, like any other pottery. One becomes the heart of the shrine, the other the Hearthstone."
 	]
@@ -742,6 +812,10 @@
 		"Grind borax, lime or other flux stones in the quern. Welding needs flux."
 	]
 	quest.3BAC7E39FA05241C.title: "In Flux"
+	quest.3C03E230F16471D7.quest_desc: [
+		"Launch a probe with a deep-space module. It brings back deep-space samples, found nowhere else."
+	]
+	quest.3C03E230F16471D7.title: "Deep-Space Sample"
 	quest.3C8510408C6A23D6.quest_desc: [
 		"The offering of the Quantum Age. Its details appear when the Age before it is done."
 	]
@@ -757,6 +831,10 @@
 		"Alloy copper and zinc into brass, by hand in the crucible or in a heated basin."
 	]
 	quest.3EAA8BE972DC58F9.title: "Brass"
+	quest.3F2796853AD668B5.quest_desc: [
+		"Gather eight storm glass from your Storm Rods; they are its only source. With meteoric iron it becomes Starlit Iron under the Lens Crown, the first celestial alloy."
+	]
+	quest.3F2796853AD668B5.title: "Storm Glass"
 	quest.3F8D45ADF9515576.quest_desc: [
 		"Tick this when your cellar holds sealed vessels with enough food for all of you. No food goes into any recipe or turn-in."
 	]
@@ -811,6 +889,10 @@
 		"A tool for everything, built directly from the chaotic core."
 	]
 	quest.426D09E37975EC57.title: "Chaotic Staff"
+	quest.42BF4D07BA145527.quest_desc: [
+		"Injection with hydrogen chloride gives four times the metal. Without energy upgrades it costs more power per ingot than purification."
+	]
+	quest.42BF4D07BA145527.title: "Ore Times Four"
 	quest.4304B6AA00C231E8.quest_desc: [
 		"Only andesite machines exist now: water wheels, saws, presses, fans and mills. Crushing wheels, deployers and brass come with the Iron Age."
 		""
@@ -824,14 +906,16 @@
 	quest.44B3F8C53C417220.quest_desc: [
 		"MV and HV power, oil, the arc furnace and the excavator. Bauxite and osmium veins wake: the Information Age needs osmium at once."
 		""
-		"Four strands lead to the Humming Core: Power Grid, Oil, Aluminium & Excavator and Circuits."
+		"Five strands lead to the Humming Core: Power Grid, Oil, Aluminium & Excavator, Circuits and Sky."
+		""
+		"Caelum asks for proof of work this time: 512 aluminium ingots fed into Tally Chutes in this Age."
 	]
 	quest.44B3F8C53C417220.quest_subtitle: "The sixth Age"
 	quest.44B3F8C53C417220.title: "The Electric Age Dawns"
 	quest.44FB988268E119B4.quest_desc: [
 		"Fuse the Star Chart at wyvern level: a polonium pellet in the middle, a desh plate, a Void Steel ingot, two ostrum plates, a wyvern core and the flight recorder from Mars."
 		""
-		"Raise the Star Spire. Once 4,096 desh ingots have passed your Tally Chutes in this Age, lay the Chart on the plinth and pray at night, under an open sky, without rain."
+		"Raise the Star Spire. Once your Tally Chutes have taken 1,024 desh ingots in this Age, lay the Chart on the plinth and pray at night, under an open sky, without rain."
 		""
 		"Caelum opens the Quantum Age."
 	]
@@ -857,6 +941,10 @@
 		"Refine naquadah in the metallurgic infuser with refined obsidian. The base block of the gate needs it."
 	]
 	quest.4637931365FDF60B.title: "Refined Naquadah"
+	quest.46DF21F2D2D5904C.quest_desc: [
+		"Feed 384 steel ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
+	]
+	quest.46DF21F2D2D5904C.title: "Proof of Work"
 	quest.470272BFC8013E57.quest_desc: [
 		"Keep a Wilden Tribute. The Djinni ritual of the Arcane Keystone needs it."
 	]
@@ -917,6 +1005,10 @@
 		"Fill a large vessel with food and seal it. Sealed, food rots far slower."
 	]
 	quest.4A34D752E7A4B499.title: "Stocked Camp"
+	quest.4AD21CEABC66DCC2.quest_desc: [
+		"Set a Star Anvil in a 9 by 9 stone ring with three lens mounts under open sky. The Lens Crown forges the celestial alloys."
+	]
+	quest.4AD21CEABC66DCC2.title: "The Lens Crown"
 	quest.4B5686EB34477AC2.quest_desc: [
 		"Fuse the chaotic core. It is the catalyst of the Ultimate Singularity."
 	]
@@ -978,6 +1070,10 @@
 		"Forge the Ultimate Singularity from the nine relics, chaos fragments, the Firmament Alloy and the chaotic core in a chaotic fusion."
 	]
 	quest.4F513B23D9320098.title: "The Ultimate Singularity"
+	quest.4F807EAA363A03FC.quest_desc: [
+		"Set an Aurora Net at height 140 or more under open sky in the cold north. Every clear night it catches aurora light."
+	]
+	quest.4F807EAA363A03FC.title: "Aurora Net"
 	quest.4F85BB08A2142E6A.quest_desc: [
 		"Carve a flute. Its music starts the ceremonies at a totem pole."
 	]
@@ -1017,7 +1113,7 @@
 	quest.5209B9E49235822B.quest_desc: [
 		"The last Age. Chaos, the Ultimate Singularity and a Stargate to The Origin."
 		""
-		"Three strands lead to the final battle: Chaos, Singularity and Stargate."
+		"Four strands lead to the final battle: Chaos, Singularity, Stargate and Sky."
 	]
 	quest.5209B9E49235822B.quest_subtitle: "The tenth and last Age"
 	quest.5209B9E49235822B.title: "The Singularity Age Dawns"
@@ -1079,12 +1175,24 @@
 	]
 	quest.573FF798650E3338.quest_subtitle: "Read me first"
 	quest.573FF798650E3338.title: "Welcome to Firmament Ages"
+	quest.574F377D613986E5.quest_desc: [
+		"Forge Starlit Iron under the crown from meteoric iron, storm glass and an Arcane gem. Both routes to the Arcane Keystone need it, and the Wayshrines now want it as their offering."
+	]
+	quest.574F377D613986E5.title: "Starlit Iron"
 	quest.57663DC8E013A906.quest_desc: ["The archmage spellbook needs an advanced control circuit."]
 	quest.57663DC8E013A906.title: "Archmage"
 	quest.57F5B8C4363E589D.quest_desc: [
 		"The Chaos Guardian waits on a Chaos Island in the End; its crystals drop chaos shards. The reactor makes chaos without it."
 	]
 	quest.57F5B8C4363E589D.title: "Chaos Guardian"
+	quest.5959E93431484DD5.quest_desc: [
+		"Set the Quantum lens and forge the Firmament Alloy under the full crown from the singular alloy and the sky materials of every Age. The Ultimate Singularity needs it."
+	]
+	quest.5959E93431484DD5.title: "Firmament Alloy"
+	quest.598B671102148097.quest_desc: [
+		"Build the launch control, a probe cradle and a gantry with a flame trench. Probes fly from it."
+	]
+	quest.598B671102148097.title: "Launch Complex"
 	quest.5ACC660E88F7FC61.quest_desc: [
 		"Make a steel casing. Every machine of the Factory strand is built on one."
 	]
@@ -1133,7 +1241,9 @@
 	quest.5F74A3FDB04E14F6.quest_desc: [
 		"Coke ovens, blast furnaces, crushers, presses and the first FE."
 		""
-		"Four strands lead to the Pressure Core: Coke & Steel, Power, Ore Line and Logistics & Backfill."
+		"Five strands lead to the Pressure Core: Coke & Steel, Power, Ore Line, Logistics & Backfill and Sky."
+		""
+		"Caelum asks for proof of work this time: 384 steel ingots fed into Tally Chutes in this Age."
 	]
 	quest.5F74A3FDB04E14F6.quest_subtitle: "The fifth Age"
 	quest.5F74A3FDB04E14F6.title: "The Industrial Age Dawns"
@@ -1183,7 +1293,7 @@
 	quest.64CDFFD93C9CBDCE.quest_desc: [
 		"Craft the Data Matrix from two blue steel sheets, two Halo Steel ingots, three advanced control circuits, a 64k storage component and a singularity from the matter condenser."
 		""
-		"Raise the Data Nave. Once 4,096 osmium ingots have passed your Tally Chutes in this Age, lay the Matrix on the plinth, feed the heart 10,000,000 FE and pray, together if two of you are online."
+		"Raise the Data Nave. Once your Tally Chutes have taken 1,024 osmium ingots in this Age, lay the Matrix on the plinth, feed the heart 10,000,000 FE and pray, together if two of you are online."
 		""
 		"Caelum opens the Space Age."
 	]
@@ -1234,6 +1344,10 @@
 		"FE is the one unit of energy. The alternator turns SU into FE only from steam engines on a fired boiler or diesel engines; wind and water give none. The electric motor turns FE back into SU."
 	]
 	quest.661054914CDF7CFA.title: "FE and SU"
+	quest.6617FD431A7EFA87.quest_desc: [
+		"Add the Arcane lens to the crown and forge Cloudsteel from meteoric iron, black steel and firmament crystal. Two ingots go into the Pressure Core."
+	]
+	quest.6617FD431A7EFA87.title: "Cloudsteel"
 	quest.6630236A99A2E2D5.quest_desc: [
 		"A stock link and a stock ticker show and request your stock from anywhere on the network."
 	]
@@ -1251,10 +1365,14 @@
 		"Fill a hohlraum with fuel. A laser fires it to ignite the reactor."
 	]
 	quest.6708655329216D20.title: "Hohlraum"
+	quest.6717E94E673685F4.quest_desc: [
+		"Feed 1,024 osmium ingots into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the count."
+	]
+	quest.6717E94E673685F4.title: "Proof of Work"
 	quest.67314514BDCA1DB3.quest_desc: [
 		"Fuse the Quantum Core at draconic level: two antimatter pellets, a calorite plate, Quasar Alloy, two ice shards and a subatomic alloy."
 		""
-		"Raise the Quantum Ring and set the Awakened Keystone back. Once 8,192 calorite ingots have passed your Tally Chutes, lay the Core down, feed the heart 100,000,000 FE and pray at night under open sky, together if two are online."
+		"Raise the Quantum Ring and set the Awakened Keystone back. Once your Tally Chutes have taken 2,048 calorite ingots, lay the Core down, feed the heart 100,000,000 FE and pray at night under open sky, together if two are online."
 		""
 		"Caelum opens the Singularity Age."
 	]
@@ -1267,7 +1385,7 @@
 	quest.68A4B5AC4EBE2085.quest_desc: [
 		"Craft the Pressure Core from two black steel double sheets, a heavy engineering block, two Cloudsteel ingots, the Arcane Gearbox and a built-up steel chamber."
 		""
-		"Raise the Foundry Nave; the heart shows what is missing. Once 512 steel ingots have passed your Tally Chutes in this Age, lay the Core on the new plinth, power the four electric lanterns and pray."
+		"Raise the Foundry Nave; the heart shows what is missing. Once your Tally Chutes have taken 384 steel ingots in this Age, lay the Core on the new plinth, power the four electric lanterns and pray."
 		""
 		"Caelum keeps the Core and opens the Electric Age."
 	]
@@ -1275,6 +1393,10 @@
 	quest.68A4B5AC4EBE2085.title: "Offer the Pressure Core at the Shrine"
 	quest.692BE6A196CEF07F.quest_desc: ["Land on the Moon. Desh lies in its rock."]
 	quest.692BE6A196CEF07F.title: "The Moon"
+	quest.6932FDCAADC46220.quest_desc: [
+		"Fill the Hollow Keystone on your machine line. No spirit, source or alchemy is needed."
+	]
+	quest.6932FDCAADC46220.title: "The Machine Route"
 	quest.69CB2309855D14E1.quest_desc: [
 		"The novice spellbook casts the first spells and opens the worn notebook."
 	]
@@ -1369,6 +1491,10 @@
 		"A gearbox with steel and precision mechanisms from the mechanical crafter, or with source gems by magic. Reinforced blast bricks and Pressure Cores need it."
 	]
 	quest.6C89D8CCD3EEFE88.title: "Arcane Gearbox"
+	quest.6CB4ABCF94DB39FA.quest_desc: [
+		"Add the Information lens and forge Void Steel from voidglass, desh, starsteel and aurora light. The Star Chart needs it."
+	]
+	quest.6CB4ABCF94DB39FA.title: "Void Steel"
 	quest.6CBAA83920DDC925.quest_desc: [
 		"Build the tier 3 rocket from ostrum. It reaches Venus and Mercury."
 	]
@@ -1426,6 +1552,10 @@
 		"Right-click the forge: fuel goes below, the metal to heat above."
 	]
 	quest.71B6B8FAE5353DAB.title: "Forging"
+	quest.71C01B7FCAA1DFB4.quest_desc: [
+		"Heat the chunks and work them on the anvil. Meteoric iron falls only from the sky."
+	]
+	quest.71C01B7FCAA1DFB4.title: "Meteoric Iron"
 	quest.724BED62EE9DF8FB.quest_desc: [
 		"Lay two sticks on one block and sneak and right-click the pile: a firestarter. Throw a log, three sticks and some straw on one block and hold right-click on it with the firestarter until the firepit lights."
 		""
@@ -1504,6 +1634,10 @@
 		"Feed 1,000,000,000 FE into the heart, then pray at the complete shrine with your fellowship. Caelum gives back the nine relics for the chaotic fusion."
 	]
 	quest.7883DC5AF7968152.title: "The Gathering"
+	quest.78D15026ED1ED0B2.quest_desc: [
+		"A Sky Anchor carries the shrine's blessings within 24 blocks, on the Moon and Mars too. Set blessing shards into it."
+	]
+	quest.78D15026ED1ED0B2.title: "Sky Anchor"
 	quest.7997DC1DFF73EA36.quest_desc: [
 		"Make charcoal in a charcoal pit:"
 		"- Sneak and right-click the ground with logs: a log pile. Right-click it with more logs."
@@ -1519,6 +1653,10 @@
 		"Mix deuterium and tritium into fusion fuel. It keeps the reactor burning."
 	]
 	quest.79DA4E6D4518762C.title: "Fusion Fuel"
+	quest.7A1EFBE16BED1D0E.quest_desc: [
+		"Craft a Tally Chute. It takes only the metal Caelum asks as proof of work, counts it and keeps it."
+	]
+	quest.7A1EFBE16BED1D0E.title: "Tally Chute"
 	quest.7AB56731725A5ABE.quest_desc: [
 		"Keep a shard from The Primordial's last phase: they lie a minute and never come again. Four glass and a shard make four Firmament Glass."
 	]
@@ -1606,11 +1744,13 @@
 	task.0218609437AB5F8E.title: "Look at your placed crafting table"
 	task.029EBC8BCD4FA62E.title: "HV transformer"
 	task.02D20E07A2CDEA9E.title: "Look at a formed arc furnace"
+	task.0701CAFE5ABCE9D4.title: "Feed 384 steel ingots into Tally Chutes"
 	task.08F238DF8DB1B94E.title: "Calculation processor"
 	task.0A489537ED4F84AB.title: "Look at a placed millstone"
 	task.0DB0ECEDFCF6B365.title: "Offer the Star Chart at the shrine"
 	task.0E6AB4ACAA318F51.title: "ME drive"
 	task.10059F1778A7C84F.title: "Offer the Humming Core at the shrine"
+	task.1071B42988230BBE.title: "Feed 512 aluminium ingots into Tally Chutes"
 	task.124D117E2BC55E5C.title: "Iesnium ingots"
 	task.16FDD9AB98818001.title: "Offer the Sky Disc at the shrine"
 	task.17DC9CAF05E44B90.title: "Our cellar is stocked for the winter"
@@ -1619,6 +1759,7 @@
 	task.1C63BBD78A1CE3A0.title: "A torch"
 	task.1CFB0568626363E1.title: "Turbine blades"
 	task.1D485243176A7A7F.title: "A data model trained to tier 3"
+	task.1D654C470A692AB2.title: "Look at a formed Star Anvil"
 	task.200184AA01E5A90B.title: "Look at the heart with the Star Spire complete"
 	task.20100B0FB595C7C1.title: "Transformer"
 	task.21240DE6DE504A9E.title: "Reach the Iron Age"
@@ -1650,9 +1791,11 @@
 	task.39A97E9618CA7E55.title: "Reactor stabilizers"
 	task.3A2A187B984181EF.title: "SPS casings"
 	task.3C99CD274D861CA0.title: "Wyvern injectors"
+	task.3EA910EB828696C0.title: "Feed 1,024 osmium ingots into Tally Chutes"
 	task.40897BEF6100181B.title: "Look at a formed improved blast furnace"
 	task.4197F6859B0FBD4A.title: "Look at the heart with the Bronze Sanctum complete"
 	task.4310383F8BF8DFA7.title: "Chevron blocks"
+	task.433F0E586DCFD500.title: "Feed 1,024 desh ingots into Tally Chutes"
 	task.44371205C7AA8957.title: "Look at your assembled Stargate"
 	task.465D3A2469B147A9.title: "Look at a formed coke oven"
 	task.4B6C1BDA1DC7E548.title: "Look at the heart of the finished Hearth Circle"
@@ -1682,6 +1825,7 @@
 	task.65A76C6C45E7C1E9.title: "Look at your placed LV capacitor"
 	task.661F88E7CD851EBD.title: "Look at a formed diesel generator"
 	task.669D4FD80983FFE5.title: "Spirit attuned crystal"
+	task.68337F48FE1A4BB2.title: "Feed 2,048 calorite ingots into Tally Chutes"
 	task.6912FF34FC324B3D.title: "Look at your placed Shrine Heart"
 	task.6A2FE882B54A3D6A.title: "Crafting unit"
 	task.6C03C2A36B8346CC.title: "Look at your placed alternator"

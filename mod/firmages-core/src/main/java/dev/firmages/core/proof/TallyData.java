@@ -75,6 +75,11 @@ public final class TallyData extends SavedData {
         return best;
     }
 
+    /** Removes the tally of {@code team} (GameTests clean up after themselves, so the next test's best team is its own). */
+    public void forget(UUID team) {
+        if (teams.remove(team) != null) setDirty();
+    }
+
     void add(UUID team, AgeId age, String item, long n) {
         teams.computeIfAbsent(team, t -> new TallyCounts()).add(age, item, n);
         setDirty();

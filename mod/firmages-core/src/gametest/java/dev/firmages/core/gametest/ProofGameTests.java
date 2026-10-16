@@ -176,6 +176,9 @@ public final class ProofGameTests {
             .thenExecute(() -> ok(h, TallyData.get(server).of(team[0]).total("minecraft:iron_ingot") == 8, "an idle line counts nothing twice"))
             .thenExecute(() -> {
                 DebugPlayerCommands.despawn(p[0]);
+                // the hoppers still hold seven iron: without their chutes nothing is fed once the count is forgotten
+                for (BlockPos c : List.of(chuteA, chuteB, chuteGold)) h.setBlock(c, Blocks.AIR);
+                TallyData.get(server).forget(team[0]); // offeringWaitsForProof reads the best team's count
                 agesUpTo(server, AgeId.DAWN);
             })
             .thenWaitUntil(() -> h.assertTrue(reloadIdle(server), "reload after the clean-up still running"))
@@ -198,6 +201,7 @@ public final class ProofGameTests {
         h.assertTrue(back.of(team).total("minecraft:iron_ingot") == 7, "count after load: " + back.of(team).view());
         h.assertTrue(back.of(team).view().equals(data.of(team).view()), "same Ages and items after load");
         h.assertTrue(data.isDirty(), "a count marks the tally for saving");
+        data.forget(team);
         h.succeed();
     }
 
@@ -246,6 +250,8 @@ public final class ProofGameTests {
                 } catch (Exception e) {
                     FirmagesCore.LOGGER.warn("GameTest tally party: cannot disband: {}", e.toString());
                 }
+                h.setBlock(chute, Blocks.AIR);
+                TallyData.get(server).forget(party[0].getId());
                 DebugPlayerCommands.despawn(pl[0]);
                 DebugPlayerCommands.despawn(pl[1]);
                 agesUpTo(server, AgeId.DAWN);

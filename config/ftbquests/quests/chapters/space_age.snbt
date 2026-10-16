@@ -21,7 +21,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 9.125d
-			y: -9.0d
+			y: -10.25d
 		}
 	]
 	order_index: 8
@@ -76,7 +76,7 @@
 				}
 			]
 			x: 2.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["43FC2CC39EF5EFE5"]
@@ -100,7 +100,7 @@
 				}
 			]
 			x: 4.25d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["15AD3FABD5A6F24F"]
@@ -124,7 +124,7 @@
 				}
 			]
 			x: 6.0d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["617B394599496EE7"]
@@ -148,7 +148,7 @@
 				}
 			]
 			x: 7.75d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["31AD386737065FFF"]
@@ -184,7 +184,7 @@
 				}
 			]
 			x: 9.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["4CBDFA0CE2A9C85C"]
@@ -217,7 +217,7 @@
 				}
 			]
 			x: 11.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["1D842B40E0C51F06"]
@@ -240,7 +240,7 @@
 				}
 			]
 			x: 2.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["1F3F85FE5B0041D8"]
@@ -290,7 +290,7 @@
 				}
 			]
 			x: 4.25d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["3D1D49324454F634"]
@@ -313,7 +313,7 @@
 				}
 			]
 			x: 6.0d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["0AF4168528180400"]
@@ -336,7 +336,7 @@
 				}
 			]
 			x: 7.75d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["5C1872FCA111DFAA"]
@@ -359,7 +359,7 @@
 				}
 			]
 			x: 9.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["4868CA77D43496DE"]
@@ -382,7 +382,7 @@
 				}
 			]
 			x: 11.25d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["692BE6A196CEF07F"]
@@ -406,7 +406,7 @@
 				}
 			]
 			x: 13.0d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["6F9493CFB1887C79"]
@@ -439,7 +439,7 @@
 				}
 			]
 			x: 15.0d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["1D842B40E0C51F06"]
@@ -462,7 +462,7 @@
 				}
 			]
 			x: 2.5d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["2636919E4AB2F40C"]
@@ -485,7 +485,7 @@
 				}
 			]
 			x: 4.25d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["612BEB27F9AD5018"]
@@ -509,7 +509,7 @@
 				}
 			]
 			x: 6.0d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["10F7B6A8850E3BCE"]
@@ -533,7 +533,7 @@
 				}
 			]
 			x: 7.75d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["019EA9CBCB2A6326"]
@@ -566,7 +566,7 @@
 				}
 			]
 			x: 9.75d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["1D842B40E0C51F06"]
@@ -590,7 +590,7 @@
 				}
 			]
 			x: 2.5d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["73CDE4A02F764C5D"]
@@ -614,7 +614,7 @@
 				}
 			]
 			x: 4.25d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["21C2AA41F93E700F"]
@@ -637,7 +637,7 @@
 				}
 			]
 			x: 6.0d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["713ED981D14D9A4D"]
@@ -673,7 +673,7 @@
 				}
 			]
 			x: 7.75d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["0F76089092EB0D28"]
@@ -705,7 +705,87 @@
 				}
 			]
 			x: 9.75d
-			y: 3.75d
+			y: 2.5d
+		}
+		{
+			dependencies: ["1D842B40E0C51F06"]
+			id: "598B671102148097"
+			rewards: [
+				{
+					id: "28B90B4CC032C537"
+					type: "xp"
+					xp: 140
+				}
+			]
+			tasks: [
+				{
+					id: "05EBCA770CD86662"
+					item: {
+						count: 1
+						id: "firmages:launch_control"
+					}
+					type: "item"
+				}
+			]
+			x: 2.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["598B671102148097"]
+			id: "2AA3E7314061B5F7"
+			rewards: [
+				{
+					id: "4D6968CFE3C9DCD4"
+					type: "xp"
+					xp: 140
+				}
+			]
+			tasks: [
+				{
+					count: 2L
+					id: "63CDB41651862C83"
+					item: {
+						count: 1
+						id: "firmages:voidglass"
+					}
+					type: "item"
+				}
+			]
+			x: 4.25d
+			y: 5.0d
+		}
+		{
+			dependencies: ["2AA3E7314061B5F7"]
+			id: "6CB4ABCF94DB39FA"
+			rewards: [
+				{
+					id: "69AFF521D60DC22E"
+					type: "xp"
+					xp: 420
+				}
+				{
+					id: "6605C73A3AFD4B78"
+					table_id: 191100194945140181L
+					team_reward: true
+					type: "random"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					consume_items: false
+					id: "5A6A76F7C3D517ED"
+					item: {
+						count: 1
+						id: "firmages:void_steel_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: 6.25d
+			y: 5.0d
 		}
 		{
 			dependencies: [
@@ -713,6 +793,7 @@
 				"623C908B3CDF2E3E"
 				"10E81DCA65CCD6C7"
 				"078E1C7A5241C1E9"
+				"6CB4ABCF94DB39FA"
 			]
 			icon: {
 				id: "firmages:star_chart"
@@ -737,6 +818,40 @@
 			]
 			x: 18.25d
 			y: 0.0d
+		}
+		{
+			dependencies: ["1D842B40E0C51F06"]
+			icon: {
+				id: "firmages:tally_chute"
+			}
+			id: "0B4C781BE87EF3D3"
+			optional: true
+			rewards: [
+				{
+					id: "6F3BDD088A214FFD"
+					type: "xp"
+					xp: 140
+				}
+				{
+					id: "05E15F4E4AFC9097"
+					table_id: 3220200442226352662L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					advancement: "firmages:proof/age_7"
+					criterion: ""
+					id: "433F0E586DCFD500"
+					type: "advancement"
+				}
+			]
+			x: 0.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["43FC2CC39EF5EFE5"]
@@ -769,7 +884,7 @@
 				}
 			]
 			x: 2.5d
-			y: -6.25d
+			y: -7.5d
 		}
 		{
 			dependencies: ["1F3F85FE5B0041D8"]
@@ -802,7 +917,40 @@
 				}
 			]
 			x: 4.5d
-			y: -6.25d
+			y: -7.5d
+		}
+		{
+			dependencies: ["15AD3FABD5A6F24F"]
+			id: "42BF4D07BA145527"
+			optional: true
+			rewards: [
+				{
+					id: "0719BB2ACC3B90BE"
+					type: "xp"
+					xp: 140
+				}
+				{
+					id: "7025E17FCE7DB8E2"
+					table_id: 3220200442226352662L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "5E7B4FC0AA58064C"
+					item: {
+						count: 1
+						id: "mekanism:chemical_injection_chamber"
+					}
+					type: "item"
+				}
+			]
+			x: 6.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["15AD3FABD5A6F24F"]
@@ -835,8 +983,41 @@
 					type: "item"
 				}
 			]
-			x: 6.5d
-			y: -6.25d
+			x: 8.5d
+			y: -7.5d
+		}
+		{
+			dependencies: ["6CB4ABCF94DB39FA"]
+			id: "78D15026ED1ED0B2"
+			optional: true
+			rewards: [
+				{
+					id: "747ECC96F3C4D4E1"
+					type: "xp"
+					xp: 140
+				}
+				{
+					id: "33D2E3043E935B28"
+					table_id: 3220200442226352662L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "1BB9948679567741"
+					item: {
+						count: 1
+						id: "firmages:sky_anchor"
+					}
+					type: "item"
+				}
+			]
+			x: 10.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["1D842B40E0C51F06"]
@@ -855,7 +1036,7 @@
 				}
 			]
 			x: 0.0d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["1D842B40E0C51F06"]
@@ -874,7 +1055,7 @@
 				}
 			]
 			x: 1.5d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["1D842B40E0C51F06"]
@@ -904,7 +1085,7 @@
 				}
 			]
 			x: 18.25d
-			y: 6.25d
+			y: 7.5d
 		}
 	]
 	tags: ["age_7"]

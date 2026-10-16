@@ -639,10 +639,12 @@ def main():
                 E('chapters/%s: entry quest has no gamestage task for %s' % (cname, stage))
             if len(goals) != 1:
                 E('chapters/%s: %d goal quests, expected exactly 1' % (cname, len(goals)))
-            if not 3 <= len(keys) <= 4:
-                E('chapters/%s: %d keystones (required strands), expected 3-4' % (cname, len(keys)))
-            if not 2 <= len(sides) <= 4:
-                E('chapters/%s: %d side missions, expected 2-4' % (cname, len(sides)))
+            # 3-5 strands: from the Iron Age a Sky strand teaches the celestial alloys (V4A, review fix 0.12.0); up to
+            # six side missions: the Proof of Work quests of the Industrial to the Quantum Age join them
+            if not 3 <= len(keys) <= 5:
+                E('chapters/%s: %d keystones (required strands), expected 3-5' % (cname, len(keys)))
+            if not 2 <= len(sides) <= 6:
+                E('chapters/%s: %d side missions, expected 2-6' % (cname, len(sides)))
             rings = kinds.get('ring', [])
             for s in sides + kinds.get('explain', []) + rings:
                 if not s.get('optional'):
@@ -672,6 +674,10 @@ def main():
             if len(goals) == 1:
                 g = goals[0]
                 gdeps = {d.upper() for d in g.get('dependencies', [])}
+                if g.get('dependency_requirement') == 'one_completed':
+                    # routes (the Arcane Age): the goal waits for any one route; every keystone lies on some route
+                    by_id = {qd['id'].upper(): qd for qd in ch.get('quests', [])}
+                    gdeps = {d.upper() for r in gdeps if r in by_id for d in by_id[r].get('dependencies', [])}
                 missing = [k['id'] for k in keys if k['id'].upper() not in gdeps]
                 if missing:
                     E('chapters/%s: goal does not depend on keystone(s) %s' % (cname, ', '.join(missing)))

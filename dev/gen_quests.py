@@ -320,6 +320,44 @@ def table_long_id(key):
 #                  rewards[list], kind in entry|step|keystone|goal|side|explain|info, icon)
 # desc: source lines; '' is a paragraph break. The lines of a paragraph become one entry (paragraphs()), so line
 # breaks inside a paragraph are only source layout and the quest window wraps the text itself.
+# Proof of work (firmages-core SPEC 35): the counts come from the mod's tallies.json, the one source; the generator
+# writes one hidden advancement per Age (kubejs/data/firmages/advancement/proof/<age>.json, criterion firmages:tally)
+# for the Chronicle's "Proof of Work" quests.
+TALLIES_JSON = os.path.join(ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources', 'data', 'firmages', 'firmages_shrine',
+                            'tallies.json')
+TALLIES = json.load(open(TALLIES_JSON, encoding='utf-8'))
+TALLY_NAME = {'c:ingots/steel': 'steel ingots', 'c:ingots/aluminum': 'aluminium ingots', 'c:ingots/osmium': 'osmium ingots',
+              'c:ingots/desh': 'desh ingots', 'c:ingots/calorite': 'calorite ingots'}
+PROOF_ADV_DIR = os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'advancement', 'proof')
+
+
+def tally(age):
+    """'384 steel ingots' for the offering made in `age`."""
+    t = TALLIES[age]
+    return '{:,} {}'.format(t['count'], TALLY_NAME[t['tag']])
+
+
+def proof_advancements():
+    out = {}
+    for age, t in sorted(TALLIES.items()):
+        cond = {'tag': t['tag'], 'count': t['count'], 'age': t.get('age', age)}
+        out[os.path.join(PROOF_ADV_DIR, age + '.json')] = {'criteria': {'tally': {'trigger': 'firmages:tally', 'conditions': cond}}}
+    return out
+
+
+def proof_quest(chapter, age):
+    """The Age's proof of work as a side quest from the entry: done when the fellowship's Tally Chutes took the count."""
+    return Q('%s/side/proof' % chapter, 'Proof of Work', t_adv('firmages:proof/' + age, 'Feed %s into Tally Chutes' % tally(age)),
+             kind='side', icon='firmages:tally_chute',
+             desc=['Feed %s into Tally Chutes in this Age. They keep what they take; a chute or the heart shows the'
+                   % tally(age), 'count.'])
+
+
+def proof_line(age):
+    """One entry line from the Industrial Age on: what the offering will ask, so the chutes can run from the start."""
+    return 'Caelum asks for proof of work this time: %s fed into Tally Chutes in this Age.' % tally(age)
+
+
 def Q(key, title, tasks, deps=(), desc=(), sub=None, kind='step', rewards=None, icon=None):
     return dict(key=key, title=title, tasks=tasks if isinstance(tasks, list) else [tasks], deps=list(deps),
                 desc=list(desc), sub=sub, kind=kind, rewards=rewards, icon=icon)
@@ -330,14 +368,16 @@ XP = {'dawn': 10, 'age_0': 20, 'age_1': 35, 'age_2': 50, 'age_3': 65, 'age_4': 8
 
 
 def age_chapter(key, filename, title, subtitle, icon, stage, order, entry, strands, goal, sides, explains,
-                supplies, comfort, ring=None, bridge=None):
+                supplies, comfort, ring=None, bridge=None, routes=None):
     """strands: list of (name, [quests], keystone-quest). sides: list of (attach_key, [quests]).
     ring: "Raise the ring" quest (kind 'ring') for the Age's shrine ring.
     bridge: a required step between one keystone (its deps) and the goal, drawn on the main route; the goal depends
-    on it as well as on every keystone."""
+    on it as well as on every keystone.
+    routes: quests with their own keystone deps between the keystones and the goal; the goal then depends on the
+    routes alone and needs any one of them (FTB Quests dependency_requirement one_completed): magic stays optional."""
     return dict(key=key, filename=filename, title=title, subtitle=subtitle, icon=icon, stage=stage, order=order,
                 group='ages', entry=entry, strands=strands, goal=goal, sides=sides, explains=explains,
-                supplies=supplies, comfort=comfort, ring=ring, bridge=bridge)
+                supplies=supplies, comfort=comfort, ring=ring, bridge=bridge, routes=routes)
 
 
 def ring_quest(chapter_key, age_index, ring_name, icon, desc):
@@ -859,7 +899,8 @@ IRON = age_chapter(
             icon='tfc:metal/ingot/wrought_iron', sub='The third Age',
             desc=['Iron veins are visible now and the map opens.',
                   '',
-                  'Four strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival and Frontier.']),
+                  'Five strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival, Frontier and Sky. The',
+                  'Sky strand readies the Lens Crown of the next Age.']),
     strands=[
         ('Metallurgy', [
             Q('iron/metal/bloomery', 'Ironworks', t_item('tfc:bloomery'),
@@ -915,6 +956,18 @@ IRON = age_chapter(
               desc=['An older smith worked these hills. Find the cold forge and bring back what its chest kept.']),
         ], Q('iron/front/key', 'Frontier Relic', t_item('firmages:frontier_relic', consume=False), kind='keystone',
              desc=['Finish the shard on the deployer and the press. The Steel Heart needs the relic.'])),
+        ('Sky', [
+            Q('iron/sky/star', 'A Falling Star', t_item('firmages:meteoric_iron_chunk'), icon='firmages:meteorite',
+              desc=['Break a meteorite in a crater. On some clear nights a star falls a few thousand blocks away;',
+                    'old cold craters lie in new land.']),
+            Q('iron/sky/ingot', 'Meteoric Iron', t_item('firmages:meteoric_iron_ingot', 2),
+              desc=['Heat the chunks and work them on the anvil. Meteoric iron falls only from the sky.']),
+            Q('iron/sky/rod', 'Storm Rod', t_item('firmages:storm_rod'),
+              desc=['Build a Storm Rod with a meteoric iron tip and fill it with sand. In any rain, lightning strikes',
+                    'it and fuses the sand.']),
+        ], Q('iron/sky/key', 'Storm Glass', t_item('firmages:storm_glass', 8), kind='keystone',
+             desc=['Gather eight storm glass from your Storm Rods; they are its only source. With meteoric iron it',
+                   'becomes Starlit Iron under the Lens Crown, the first celestial alloy.'])),
     ],
     goal=Q('iron/goal', 'Offer the Steel Heart at the Shrine',
            t_stage('age_3', 'Offer the Steel Heart at the shrine'), kind='goal', icon='firmages:steel_heart',
@@ -953,10 +1006,11 @@ ARCANE = age_chapter(
     'firmages:arcane_keystone', 'age_3', 4,
     entry=Q('arcane/entry', 'The Arcane Age Dawns', t_stage('age_3'), kind='entry', icon='ars_nouveau:source_gem',
             sub='The fourth Age',
-            desc=['Magic wakes: spirits, source and alchemy. Until the Information Age it gives the best ore yield,',
-                  'the first endless ore and the first item transport.',
+            desc=['Magic wakes: spirits, source and alchemy. It gives the best ore yield until the Information Age.',
                   '',
-                  'Three strands lead to the Arcane Keystone: Spirits, Source and Alchemy.']),
+                  'The Arcane Keystone takes one of two routes. The Spirit Route binds it from the Spirits, Source and',
+                  'Alchemy strands. The Machine Route fills a Hollow Keystone on your machine line. Both need Starlit',
+                  'Iron from the Lens Crown: the Sky strand.']),
     strands=[
         ('Spirits', [
             Q('arcane/spirit/datura', 'Datura', t_item('occultism:datura_seeds'),
@@ -1034,13 +1088,37 @@ ARCANE = age_chapter(
               desc=['A divination rod points to the ore veins your Age has woken.']),
         ], Q('arcane/alch/key', 'Mercury Catalyst', t_item('theurgy:mercury_catalyst'), kind='keystone',
              desc=['Make the mercury catalyst, the proof of the Alchemy strand. The Arcane Keystone needs it.'])),
+        ('Sky', [
+            Q('arcane/sky/crown', 'The Lens Crown',
+              t_observe('firmages:star_anvil[formed=true]', kind='block_state', title='Look at a formed Star Anvil'),
+              icon='firmages:star_anvil',
+              desc=['Set a Star Anvil in a 9 by 9 stone ring with three lens mounts under open sky. The Lens Crown',
+                    'forges the celestial alloys.']),
+        ], Q('arcane/sky/key', 'Starlit Iron', t_item('firmages:starlit_iron_ingot', 3), kind='keystone',
+             desc=['Forge Starlit Iron under the crown from meteoric iron, storm glass and an Arcane gem. Both routes to',
+                   'the Arcane Keystone need it, and the Wayshrines now want it as their offering.'])),
+        ('Machine Line', [
+            Q('arcane/machine/blaze', 'Blaze Rods', t_item('minecraft:blaze_rod', 3),
+              desc=['Blazes live in the Nether fortresses. A deployer sets one rod per pass.']),
+        ], Q('arcane/machine/key', 'Hollow Keystone', t_item('firmages:hollow_keystone', consume=False), kind='keystone',
+             desc=['Find a Hollow Keystone in a chest of a Nether fortress. A spout, two deployers and a press fill it in',
+                   'three passes: liquid experience, a blaze rod, Starlit Iron, the press.'])),
+    ],
+    routes=[
+        Q('arcane/route/spirit', 'The Spirit Route', t_item('firmages:arcane_keystone', consume=False),
+          deps=['arcane/spirit/key', 'arcane/source/key', 'arcane/alch/key', 'arcane/sky/key'],
+          icon='occultism:book_of_binding_bound_djinni',
+          desc=['Bind the Arcane Keystone in the Djinni\'s crafting pentacle from the proofs of the magic strands.']),
+        Q('arcane/route/machine', 'The Machine Route', t_item('firmages:arcane_keystone', consume=False),
+          deps=['arcane/machine/key', 'arcane/sky/key'], icon='create:mechanical_press',
+          desc=['Fill the Hollow Keystone on your machine line. No spirit, source or alchemy is needed.']),
     ],
     goal=Q('arcane/goal', 'Offer the Arcane Keystone at the Shrine',
            t_stage('age_4', 'Offer the Arcane Keystone at the shrine'), kind='goal', icon='firmages:arcane_keystone',
            sub='Goal of the Arcane Age: Caelum opens the Industrial Age',
-           desc=['Bind the Arcane Keystone in the Djinni\'s crafting pentacle from every strand\'s proof: the',
-                 'spirit attuned crystal, an iesnium ingot, the Wilden Tribute and the mercury catalyst, with a',
-                 'Starlit Iron ingot and a source gem block.',
+           desc=['Bind the Arcane Keystone in the Djinni\'s crafting pentacle (a spirit attuned crystal, an iesnium',
+                 'ingot, the Wilden Tribute, the mercury catalyst, Starlit Iron and a source gem block), or fill a',
+                 'Hollow Keystone on the machine line.',
                  '',
                  'Raise the Spirit Circle; the heart shows what is missing. Lay the Keystone on the new plinth,',
                  'light the eight candles and pray.',
@@ -1084,7 +1162,9 @@ INDUSTRIAL = age_chapter(
             icon='immersiveengineering:hammer', sub='The fifth Age',
             desc=['Coke ovens, blast furnaces, crushers, presses and the first FE.',
                   '',
-                  'Four strands lead to the Pressure Core: Coke & Steel, Power, Ore Line and Logistics & Backfill.']),
+                  'Five strands lead to the Pressure Core: Coke & Steel, Power, Ore Line, Logistics & Backfill and Sky.',
+                  '',
+                  proof_line('age_4')]),
     strands=[
         ('Coke & Steel', [
             Q('industrial/steel/wood', 'Treated Wood', t_item('immersiveengineering:treated_wood_horizontal', 16),
@@ -1173,6 +1253,17 @@ INDUSTRIAL = age_chapter(
         ], Q('industrial/logi/key', 'Backfill Line', t_item('tfc:metal/sheet/steel', 64), kind='keystone',
              icon='create:package_frogport',
              desc=['Bring 64 steel sheets from your press line through the package network.'])),
+        ('Sky', [
+            Q('industrial/sky/isles', 'Above the Clouds', t_item('firmages:firmament_crystal', 4),
+              icon='firmages:firmament_crystal',
+              desc=['Fly to the Drifting Isles at height 228 to 272 by airship or jetpack. Firmament crystal grows only',
+                    'there.']),
+            Q('industrial/sky/net', 'Aurora Net', t_item('firmages:aurora_net'),
+              desc=['Set an Aurora Net at height 140 or more under open sky in the cold north. Every clear night it',
+                    'catches aurora light.']),
+        ], Q('industrial/sky/key', 'Cloudsteel', t_item('firmages:cloudsteel_ingot', 2), kind='keystone',
+             desc=['Add the Arcane lens to the crown and forge Cloudsteel from meteoric iron, black steel and',
+                   'firmament crystal. Two ingots go into the Pressure Core.'])),
     ],
     goal=Q('industrial/goal', 'Offer the Pressure Core at the Shrine',
            t_stage('age_5', 'Offer the Pressure Core at the shrine'), kind='goal', icon='firmages:pressure_core',
@@ -1180,14 +1271,20 @@ INDUSTRIAL = age_chapter(
            desc=['Craft the Pressure Core from two black steel double sheets, a heavy engineering block, two',
                  'Cloudsteel ingots, the Arcane Gearbox and a built-up steel chamber.',
                  '',
-                 'Raise the Foundry Nave; the heart shows what is missing. Once 512 steel ingots have passed your Tally',
-                 'Chutes in this Age, lay the Core on the new plinth, power the four electric lanterns and pray.',
+                 'Raise the Foundry Nave; the heart shows what is missing. Once your Tally Chutes have taken %s in'
+                 % tally('age_4'),
+                 'this Age, lay the Core on the new plinth, power the four electric lanterns and pray.',
                  '',
                  'Caelum keeps the Core and opens the Electric Age.']),
     sides=[
         ('industrial/steel/wood', [
             Q('industrial/side/airship', 'Airship', t_item('aeronautics:andesite_propeller'), kind='side',
               desc=['Craft a propeller, the first part of a ship that flies.']),
+        ]),
+        ('industrial/entry', [
+            Q('industrial/side/chute', 'Tally Chute', t_item('firmages:tally_chute'), kind='side',
+              desc=['Craft a Tally Chute. It takes only the metal Caelum asks as proof of work, counts it and keeps it.']),
+            proof_quest('industrial', 'age_4'),
         ]),
         ('industrial/power/coil', [
             Q('industrial/side/jetpack', 'Air Jetpack', t_item('create_jetpack:jetpack'), kind='side',
@@ -1222,7 +1319,9 @@ ELECTRIC = age_chapter(
             icon='immersiveengineering:capacitor_hv', sub='The sixth Age',
             desc=['MV and HV power, oil, the arc furnace and the excavator. Bauxite and osmium veins wake: the Information Age needs osmium at once.',
                   '',
-                  'Four strands lead to the Humming Core: Power Grid, Oil, Aluminium & Excavator and Circuits.']),
+                  'Five strands lead to the Humming Core: Power Grid, Oil, Aluminium & Excavator, Circuits and Sky.',
+                  '',
+                  proof_line('age_5')]),
     strands=[
         ('Power Grid', [
             Q('electric/grid/mv', 'MV Wire', t_item('immersiveengineering:wirecoil_electrum', 8),
@@ -1291,6 +1390,14 @@ ELECTRIC = age_chapter(
         ], Q('electric/circ/key', 'Attuned Circuits', t_item('firmages:attuned_circuit', 16), kind='keystone',
              desc=['A circuit board tuned by quartz, with two advanced electronic components and electrum wire.',
                    'With magic, a spirit attuned crystal tunes it alone. Let the assembler make them.'])),
+        ('Sky', [
+            Q('electric/sky/starsteel', 'Starsteel', t_item('firmages:starsteel_ingot', 2),
+              desc=['Starsteel meteorites fall now. Melt their chunks in the arc furnace; the sky is its only source.']),
+            Q('electric/sky/light', 'Aurora Light', t_item('firmages:aurora_light_bucket'),
+              desc=['Pipe or bucket the aurora light out of your Aurora Nets. Nothing else makes it.']),
+        ], Q('electric/sky/key', 'Aurora Steel', t_item('firmages:aurora_steel_ingot', consume=False), kind='keystone',
+             desc=['Add the Industrial lens and forge Aurora Steel from starsteel, red steel, storm glass and aurora',
+                   'light. The Humming Core needs it.'])),
     ],
     goal=Q('electric/goal', 'Offer the Humming Core at the Shrine',
            t_stage('age_6', 'Offer the Humming Core at the shrine'), kind='goal', icon='firmages:humming_core',
@@ -1298,12 +1405,13 @@ ELECTRIC = age_chapter(
            desc=['Fuse the Humming Core in the arc furnace: an HV capacitor, an Attuned Circuit, four aluminium plates,',
                  'an Aurora Steel ingot and a Nether Star.',
                  '',
-                 'Raise the Tesla Crown. Once 2,048 aluminium ingots have passed your Tally Chutes in this Age, lay the',
-                 'Core on the plinth, give the floodlights power and a signal, charge the capacitors with 1,000,000 FE',
-                 'and pray.',
+                 'Raise the Tesla Crown. Once your Tally Chutes have taken %s in this Age, lay the Core on' % tally('age_5'),
+                 'the plinth, give the floodlights power and a signal, charge the capacitors with 1,000,000 FE and',
+                 'pray.',
                  '',
                  'Caelum opens the Information Age.']),
     sides=[
+        ('electric/entry', [proof_quest('electric', 'age_5')]),
         ('electric/circ/tube', [
             Q('electric/side/afrit', 'Bind an Afrit', t_item('occultism:book_of_binding_bound_afrit'), kind='side',
               desc=['Afrits need an HV coil block for their book. They run the Dimensional Battlefield.']),
@@ -1339,7 +1447,9 @@ INFORMATION = age_chapter(
             desc=['Ore triples, the ME network stores and crafts, and the End can be reached. Veins of certus quartz,',
                   'inferium, prosperity and soulstone wake.',
                   '',
-                  'Four strands lead to the Data Matrix: Digital, Factory, Mob Data and The End.']),
+                  'Five strands lead to the Data Matrix: Digital, Factory, Mob Data, The End and Sky.',
+                  '',
+                  proof_line('age_6')]),
     strands=[
         ('Digital', [
             Q('information/digital/certus', 'Certus Quartz', t_item('ae2:certus_quartz_crystal', 16),
@@ -1376,6 +1486,9 @@ INFORMATION = age_chapter(
               desc=['The infuser makes the alloys and the control circuits.']),
             Q('information/mek/purify', 'Purification Chamber', t_item('mekanism:purification_chamber'),
               desc=['Purification gives three times the metal from every ore piece.']),
+            Q('information/mek/energy', 'Energy Upgrades', t_item('mekanism:upgrade_energy', 8),
+              desc=['Make eight energy upgrades for your ore machines. Without them the fourfold and fivefold ore lines',
+                    'cost more power than they gain.']),
             Q('information/mek/separator', 'Electrolytic Separator', t_item('mekanism:electrolytic_separator'),
               desc=['Split water into hydrogen and oxygen. Hydrogen burns in the gas-burning generator.']),
             Q('information/mek/hdpe', 'HDPE', t_item('mekanism:hdpe_sheet', 8),
@@ -1415,6 +1528,9 @@ INFORMATION = age_chapter(
               icon='minecraft:dragon_head', desc=['Destroy the crystals, then the dragon.']),
         ], Q('information/end/key', 'Dragon\'s Breath', t_item('minecraft:dragon_breath', 4), kind='keystone',
              desc=['Bottle four breaths of the dragon. Brewers and enchanters want them.'])),
+        ('Sky', [], Q('information/sky/key', 'Halo Steel', t_item('firmages:halo_steel_ingot', 2), kind='keystone',
+                      desc=['Add the Electric lens and forge Halo Steel from starsteel, blue steel, firmament crystal and',
+                            'aurora light. Two ingots go into the Data Matrix.'])),
     ],
     goal=Q('information/goal', 'Offer the Data Matrix at the Shrine',
            t_stage('age_7', 'Offer the Data Matrix at the shrine'), kind='goal', icon='firmages:data_matrix',
@@ -1422,11 +1538,12 @@ INFORMATION = age_chapter(
            desc=['Craft the Data Matrix from two blue steel sheets, two Halo Steel ingots, three advanced control',
                  'circuits, a 64k storage component and a singularity from the matter condenser.',
                  '',
-                 'Raise the Data Nave. Once 4,096 osmium ingots have passed your Tally Chutes in this Age, lay the',
-                 'Matrix on the plinth, feed the heart 10,000,000 FE and pray, together if two of you are online.',
+                 'Raise the Data Nave. Once your Tally Chutes have taken %s in this Age, lay the Matrix on' % tally('age_6'),
+                 'the plinth, feed the heart 10,000,000 FE and pray, together if two of you are online.',
                  '',
                  'Caelum opens the Space Age.']),
     sides=[
+        ('information/entry', [proof_quest('information', 'age_6')]),
         ('information/mek/osmium', [
             Q('information/side/mystical', 'Resource Crops',
               [t_item('mysticalagriculture:inferium_essence', 32, title='Inferium essence'),
@@ -1462,7 +1579,9 @@ SPACE = age_chapter(
             sub='The eighth Age',
             desc=['The sky opens upward. Uranium and fission, rockets to the Moon and Mars, and draconium from the End.',
                   '',
-                  'Four strands lead to the Star Chart: Atomic, Rocketry & Moon, Mars and Draconium.']),
+                  'Five strands lead to the Star Chart: Atomic, Rocketry & Moon, Mars, Draconium and Sky.',
+                  '',
+                  proof_line('age_7')]),
     strands=[
         ('Atomic', [
             Q('space/atom/circuit', 'Elite Circuits', t_item('mekanism:elite_control_circuit', 4),
@@ -1523,6 +1642,14 @@ SPACE = age_chapter(
               desc=['Set four basic and four wyvern injectors around the core. They hold the ingredients.']),
         ], Q('space/drac/key', 'Wyvern Core', t_item('draconicevolution:wyvern_core'), kind='keystone',
              desc=['Fuse a wyvern core. It is the heart of wyvern gear and of the Star Chart.'])),
+        ('Sky', [
+            Q('space/sky/complex', 'Launch Complex', t_item('firmages:launch_control'),
+              desc=['Build the launch control, a probe cradle and a gantry with a flame trench. Probes fly from it.']),
+            Q('space/sky/voidglass', 'Voidglass', t_item('firmages:voidglass', 2),
+              desc=['Launch a probe with a sampler module. It returns with voidglass, found nowhere else.']),
+        ], Q('space/sky/key', 'Void Steel', t_item('firmages:void_steel_ingot', consume=False), kind='keystone',
+             desc=['Add the Information lens and forge Void Steel from voidglass, desh, starsteel and aurora light.',
+                   'The Star Chart needs it.'])),
     ],
     goal=Q('space/goal', 'Offer the Star Chart at the Shrine',
            t_stage('age_8', 'Offer the Star Chart at the shrine'), kind='goal', icon='firmages:star_chart',
@@ -1530,14 +1657,25 @@ SPACE = age_chapter(
            desc=['Fuse the Star Chart at wyvern level: a polonium pellet in the middle, a desh plate, a Void Steel',
                  'ingot, two ostrum plates, a wyvern core and the flight recorder from Mars.',
                  '',
-                 'Raise the Star Spire. Once 4,096 desh ingots have passed your Tally Chutes in this Age, lay the Chart',
-                 'on the plinth and pray at night, under an open sky, without rain.',
+                 'Raise the Star Spire. Once your Tally Chutes have taken %s in this Age, lay the Chart on' % tally('age_7'),
+                 'the plinth and pray at night, under an open sky, without rain.',
                  '',
                  'Caelum opens the Quantum Age.']),
     sides=[
+        ('space/entry', [proof_quest('space', 'age_7')]),
         ('space/atom/circuit', [
             Q('space/side/miner', 'Digital Miner', t_item('mekanism:digital_miner'), kind='side',
               desc=['The digital miner clears a whole area by filter. Keep it: a later Age needs it.']),
+        ]),
+        ('space/atom/uranium', [
+            Q('space/side/injection', 'Ore Times Four', t_item('mekanism:chemical_injection_chamber'), kind='side',
+              desc=['Injection with hydrogen chloride gives four times the metal. Without energy upgrades it costs more',
+                    'power per ingot than purification.']),
+        ]),
+        ('space/sky/key', [
+            Q('space/side/anchor', 'Sky Anchor', t_item('firmages:sky_anchor'), kind='side',
+              desc=['A Sky Anchor carries the shrine\'s blessings within 24 blocks, on the Moon and Mars too. Set',
+                    'blessing shards into it.']),
         ]),
         ('space/atom/uranium', [
             Q('space/side/induction', 'Induction Matrix', t_item('mekanism:basic_induction_cell', 4), kind='side',
@@ -1568,8 +1706,10 @@ QUANTUM = age_chapter(
             icon='mekanism:pellet_antimatter', sub='The ninth Age',
             desc=['Fusion power, the SPS, rockets to Venus, Mercury and Glacio, awakened draconium and the Marid.',
                   '',
-                  'Four strands lead to the Quantum Core: Fusion, Inner Planets, Awakened and Keystone.',
-                  'The Quantum Core is the last offering at the shrine.']),
+                  'Five strands lead to the Quantum Core: Fusion, Inner Planets, Awakened, Keystone and Sky.',
+                  'The Quantum Core is the last offering at the shrine.',
+                  '',
+                  proof_line('age_8')]),
     strands=[
         ('Fusion', [
             Q('quantum/fusion/frame', 'Fusion Reactor', t_item('mekanismgenerators:fusion_reactor_frame', 32),
@@ -1629,6 +1769,12 @@ QUANTUM = age_chapter(
                    '',
                    'Lay the Awakened Keystone back on its plinth. It stays the relic of the Arcane Age and goes into',
                    'the Ultimate Singularity.'])),
+        ('Sky', [
+            Q('quantum/sky/sample', 'Deep-Space Sample', t_item('firmages:deep_space_sample'),
+              desc=['Launch a probe with a deep-space module. It brings back deep-space samples, found nowhere else.']),
+        ], Q('quantum/sky/key', 'Quasar Alloy', t_item('firmages:quasar_alloy_ingot', consume=False), kind='keystone',
+             desc=['Add the Space lens and forge Quasar Alloy from voidglass, calorite, a deep-space sample and aurora',
+                   'light. The Quantum Core needs it.'])),
     ],
     goal=Q('quantum/goal', 'Offer the Quantum Core at the Shrine',
            t_stage('age_9', 'Offer the Quantum Core at the shrine'), kind='goal', icon='firmages:quantum_core',
@@ -1636,12 +1782,13 @@ QUANTUM = age_chapter(
            desc=['Fuse the Quantum Core at draconic level: two antimatter pellets, a calorite plate, Quasar Alloy, two',
                  'ice shards and a subatomic alloy.',
                  '',
-                 'Raise the Quantum Ring and set the Awakened Keystone back. Once 8,192 calorite ingots have passed',
-                 'your Tally Chutes, lay the Core down, feed the heart 100,000,000 FE and pray at night under open sky,',
-                 'together if two are online.',
+                 'Raise the Quantum Ring and set the Awakened Keystone back. Once your Tally Chutes have taken'
+                 ' %s, lay the Core down,' % tally('age_8'),
+                 'feed the heart 100,000,000 FE and pray at night under open sky, together if two are online.',
                  '',
                  'Caelum opens the Singularity Age.']),
     sides=[
+        ('quantum/entry', [proof_quest('quantum', 'age_8')]),
         ('quantum/fusion/frame', [
             Q('quantum/side/draconic', 'Draconic Tools', t_item('draconicevolution:draconic_pickaxe'), kind='side',
               desc=['Craft a draconic pickaxe straight from the awakened core. No lesser tool goes into it.']),
@@ -1654,7 +1801,8 @@ QUANTUM = age_chapter(
         ]),
         ('quantum/planets/t3', [
             Q('quantum/side/crystallizer', 'Ore Times Five', t_item('mekanism:chemical_crystallizer'), kind='side',
-              desc=['Dissolution, washing and crystallizing give five times the metal.']),
+              desc=['Dissolution, washing and crystallizing give five times the metal. Without energy upgrades it costs',
+                    'more power per ingot than injection.']),
         ]),
     ],
     explains=[
@@ -1679,7 +1827,7 @@ SINGULARITY = age_chapter(
             icon='draconicevolution:chaos_shard', sub='The tenth and last Age',
             desc=['The last Age. Chaos, the Ultimate Singularity and a Stargate to The Origin.',
                   '',
-                  'Three strands lead to the final battle: Chaos, Singularity and Stargate.']),
+                  'Four strands lead to the final battle: Chaos, Singularity, Stargate and Sky.']),
     strands=[
         ('Chaos', [
             Q('singularity/chaos/guardian', 'Chaos Guardian',
@@ -1742,6 +1890,10 @@ SINGULARITY = age_chapter(
                    'through a flux gate.',
                    '',
                    'Its address, on the Coordinates of The Origin: 9, 16, 21, 33, 2, 37, then the point of origin.'])),
+        ('Sky', [], Q('singularity/sky/key', 'Firmament Alloy', t_item('firmages:firmament_alloy_ingot', consume=False),
+                      kind='keystone',
+                      desc=['Set the Quantum lens and forge the Firmament Alloy under the full crown from the singular',
+                            'alloy and the sky materials of every Age. The Ultimate Singularity needs it.'])),
     ],
     goal=Q('singularity/goal', 'Beyond the Firmament', t_stage('finale_won', 'Defeat the final boss in The Origin'),
            kind='goal', icon='sgjourney:classic_stargate', sub='Goal of the Singularity Age: the end of the road',
@@ -1982,7 +2134,16 @@ def build_age_chapter(ch):
     goal_rewards = [r_xp(xp * 10)]
     if ch['key'] in GOAL_GRANTS:
         goal_rewards.append(r_stage(GOAL_GRANTS[ch['key']]))
-    quests.append(quest_nbt(goal, key_x + 3.25, 0, goal_rewards))
+    goal_extra = None
+    if ch.get('routes'):
+        # each route sits right of the keystones at the mean height of its own keystones; the goal needs any one
+        for r in ch['routes']:
+            ys = [pos[d][1] for d in r['deps']]
+            quests.append(quest_nbt(r, key_x + 1.75, sum(ys) / len(ys), [r_xp(xp)]))
+        goal['deps'] = [r['key'] for r in ch['routes']]
+        goal_extra = {'dependency_requirement': 'one_completed'}
+        key_x += 1.5
+    quests.append(quest_nbt(goal, key_x + 3.25, 0, goal_rewards, extra=goal_extra))
     # side missions above the top row, explanations below the bottom row
     top, bottom = min(rows), max(rows)
     cursor = -1e9
@@ -2128,6 +2289,10 @@ def main():
         write(os.path.join(OUT, 'reward_tables', key + '.snbt'), t)
     write(os.path.join(OUT, 'lang', 'en_us.snbt'), LANG)
     write_chapter_shaders(chapters)
+    for path, adv in proof_advancements().items():
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(json.dumps(adv, indent=2) + '\n')
     print('wrote %d chapters, %d reward tables, %d lang keys to %s' % (len(chapters), len(tables), len(LANG), OUT))
 
 

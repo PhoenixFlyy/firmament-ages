@@ -1,7 +1,7 @@
 {
-  "age_4": {"tag": "c:ingots/steel", "count": 512},
-  "age_5": {"tag": "c:ingots/aluminum", "count": 2048},
-  "age_6": {"tag": "c:ingots/osmium", "count": 4096},
-  "age_7": {"tag": "c:ingots/desh", "count": 4096},
-  "age_8": {"tag": "c:ingots/calorite", "count": 8192}
+  "age_4": {"tag": "c:ingots/steel", "count": 384},
+  "age_5": {"tag": "c:ingots/aluminum", "count": 512},
+  "age_6": {"tag": "c:ingots/osmium", "count": 1024},
+  "age_7": {"tag": "c:ingots/desh", "count": 1024},
+  "age_8": {"tag": "c:ingots/calorite", "count": 2048}
 }

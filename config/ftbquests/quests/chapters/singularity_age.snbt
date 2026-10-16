@@ -21,7 +21,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 7.375d
-			y: -7.75d
+			y: -9.0d
 		}
 	]
 	order_index: 10
@@ -87,7 +87,7 @@
 				}
 			]
 			x: 2.5d
-			y: -2.5d
+			y: -3.75d
 		}
 		{
 			dependencies: ["57F5B8C4363E589D"]
@@ -111,7 +111,7 @@
 				}
 			]
 			x: 4.25d
-			y: -2.5d
+			y: -3.75d
 		}
 		{
 			dependencies: ["1FD61E2A23294166"]
@@ -135,7 +135,7 @@
 				}
 			]
 			x: 6.0d
-			y: -2.5d
+			y: -3.75d
 		}
 		{
 			dependencies: ["71013FE9F62EC68E"]
@@ -170,7 +170,7 @@
 				}
 			]
 			x: 7.75d
-			y: -2.5d
+			y: -3.75d
 		}
 		{
 			dependencies: ["49AD8E5EC6FB24F9"]
@@ -194,7 +194,7 @@
 				}
 			]
 			x: 9.5d
-			y: -2.5d
+			y: -3.75d
 		}
 		{
 			dependencies: ["73D3949D8DE47C1A"]
@@ -228,7 +228,7 @@
 				}
 			]
 			x: 11.5d
-			y: -2.5d
+			y: -3.75d
 		}
 		{
 			dependencies: ["5209B9E49235822B"]
@@ -253,7 +253,7 @@
 				}
 			]
 			x: 2.5d
-			y: 0.0d
+			y: -1.25d
 		}
 		{
 			dependencies: ["7883DC5AF7968152"]
@@ -276,7 +276,7 @@
 				}
 			]
 			x: 4.25d
-			y: 0.0d
+			y: -1.25d
 		}
 		{
 			dependencies: ["4B5686EB34477AC2"]
@@ -299,7 +299,7 @@
 				}
 			]
 			x: 6.0d
-			y: 0.0d
+			y: -1.25d
 		}
 		{
 			dependencies: ["0869D302C86C0C86"]
@@ -334,7 +334,7 @@
 				}
 			]
 			x: 8.0d
-			y: 0.0d
+			y: -1.25d
 		}
 		{
 			dependencies: ["5209B9E49235822B"]
@@ -358,7 +358,7 @@
 				}
 			]
 			x: 2.5d
-			y: 2.5d
+			y: 1.25d
 		}
 		{
 			dependencies: ["35AFC9346F30C43A"]
@@ -382,7 +382,7 @@
 				}
 			]
 			x: 4.25d
-			y: 2.5d
+			y: 1.25d
 		}
 		{
 			dependencies: ["4637931365FDF60B"]
@@ -426,7 +426,7 @@
 				}
 			]
 			x: 6.0d
-			y: 2.5d
+			y: 1.25d
 		}
 		{
 			dependencies: ["774C554B16ACE98C"]
@@ -449,7 +449,7 @@
 				}
 			]
 			x: 7.75d
-			y: 2.5d
+			y: 1.25d
 		}
 		{
 			dependencies: ["7124AA6401C814BF"]
@@ -483,7 +483,40 @@
 				}
 			]
 			x: 9.75d
-			y: 2.5d
+			y: 1.25d
+		}
+		{
+			dependencies: ["5209B9E49235822B"]
+			id: "5959E93431484DD5"
+			rewards: [
+				{
+					id: "06C46AA2BC7CB559"
+					type: "xp"
+					xp: 600
+				}
+				{
+					id: "2769F7408BE731FF"
+					table_id: 6223418334311331122L
+					team_reward: true
+					type: "random"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					consume_items: false
+					id: "321852E3D092EF4B"
+					item: {
+						count: 1
+						id: "firmages:firmament_alloy_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: 2.75d
+			y: 3.75d
 		}
 		{
 			dependencies: ["5C0C8D3E5C081AA2"]
@@ -506,13 +539,14 @@
 				}
 			]
 			x: 12.25d
-			y: 1.25d
+			y: 0.625d
 		}
 		{
 			dependencies: [
 				"38BA8AD136589CDA"
 				"4F513B23D9320098"
 				"5C0C8D3E5C081AA2"
+				"5959E93431484DD5"
 				"2E30926B1075171A"
 			]
 			icon: {
@@ -570,7 +604,7 @@
 				}
 			]
 			x: 4.25d
-			y: -5.0d
+			y: -6.25d
 		}
 		{
 			dependencies: ["4B5686EB34477AC2"]
@@ -603,7 +637,7 @@
 				}
 			]
 			x: 6.25d
-			y: -5.0d
+			y: -6.25d
 		}
 		{
 			dependencies: ["5C0C8D3E5C081AA2"]
@@ -636,7 +670,7 @@
 				}
 			]
 			x: 9.75d
-			y: -5.0d
+			y: -6.25d
 		}
 		{
 			dependencies: ["5209B9E49235822B"]
@@ -655,7 +689,7 @@
 				}
 			]
 			x: 0.0d
-			y: 5.0d
+			y: 6.25d
 		}
 		{
 			dependencies: ["5209B9E49235822B"]
@@ -674,7 +708,7 @@
 				}
 			]
 			x: 1.5d
-			y: 5.0d
+			y: 6.25d
 		}
 		{
 			dependencies: ["5209B9E49235822B"]
@@ -693,7 +727,7 @@
 				}
 			]
 			x: 3.0d
-			y: 5.0d
+			y: 6.25d
 		}
 	]
 	tags: ["age_9"]

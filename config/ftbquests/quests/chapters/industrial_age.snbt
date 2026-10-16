@@ -21,7 +21,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 10.875d
-			y: -9.0d
+			y: -10.25d
 		}
 	]
 	order_index: 5
@@ -76,7 +76,7 @@
 				}
 			]
 			x: 2.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["15E3FB7395A86F61"]
@@ -101,7 +101,7 @@
 				}
 			]
 			x: 4.25d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["4D59CA22796434A3"]
@@ -125,7 +125,7 @@
 				}
 			]
 			x: 6.0d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["3AA65FA513DA3CEC"]
@@ -150,7 +150,7 @@
 				}
 			]
 			x: 7.75d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["4EAD51182D51E618"]
@@ -173,7 +173,7 @@
 				}
 			]
 			x: 9.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["6C89D8CCD3EEFE88"]
@@ -198,7 +198,7 @@
 				}
 			]
 			x: 11.25d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["5B849EF8FE147622"]
@@ -222,7 +222,7 @@
 				}
 			]
 			x: 13.0d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["03A410CC86110162"]
@@ -245,7 +245,7 @@
 				}
 			]
 			x: 14.75d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["77217628E2664B69"]
@@ -269,7 +269,7 @@
 				}
 			]
 			x: 16.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["63D5F1A42BB79A53"]
@@ -302,7 +302,7 @@
 				}
 			]
 			x: 18.5d
-			y: -3.75d
+			y: -5.0d
 		}
 		{
 			dependencies: ["5F74A3FDB04E14F6"]
@@ -325,7 +325,7 @@
 				}
 			]
 			x: 2.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["7633534E257B8AD8"]
@@ -349,7 +349,7 @@
 				}
 			]
 			x: 4.25d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["1129C4816E846CCC"]
@@ -373,7 +373,7 @@
 				}
 			]
 			x: 6.0d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["4525E18FA6D45990"]
@@ -397,7 +397,7 @@
 				}
 			]
 			x: 7.75d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["72A754A7D51FBA06"]
@@ -420,7 +420,7 @@
 				}
 			]
 			x: 9.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["055D1D227906CC81"]
@@ -461,7 +461,7 @@
 				}
 			]
 			x: 11.5d
-			y: -1.25d
+			y: -2.5d
 		}
 		{
 			dependencies: ["5F74A3FDB04E14F6"]
@@ -486,7 +486,7 @@
 				}
 			]
 			x: 2.5d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["6F0E9B4D0BD4227A"]
@@ -511,7 +511,7 @@
 				}
 			]
 			x: 4.25d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["1BDF51DA8C6CA794"]
@@ -536,7 +536,7 @@
 				}
 			]
 			x: 6.0d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["79BD86B5CD663079"]
@@ -560,7 +560,7 @@
 				}
 			]
 			x: 7.75d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["10D18EB5418E22F1"]
@@ -593,7 +593,7 @@
 				}
 			]
 			x: 9.75d
-			y: 1.25d
+			y: 0.0d
 		}
 		{
 			dependencies: ["5F74A3FDB04E14F6"]
@@ -616,7 +616,7 @@
 				}
 			]
 			x: 2.5d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["6C6E95AB6ABD2B3E"]
@@ -639,7 +639,7 @@
 				}
 			]
 			x: 4.25d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["3B99EB35C7692364"]
@@ -662,7 +662,7 @@
 				}
 			]
 			x: 6.0d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["6630236A99A2E2D5"]
@@ -685,7 +685,7 @@
 				}
 			]
 			x: 7.75d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["1BDBAA8EB6E2DA83"]
@@ -710,7 +710,7 @@
 				}
 			]
 			x: 9.5d
-			y: 3.75d
+			y: 2.5d
 		}
 		{
 			dependencies: ["124DDC9853158E78"]
@@ -746,7 +746,90 @@
 				}
 			]
 			x: 11.5d
-			y: 3.75d
+			y: 2.5d
+		}
+		{
+			dependencies: ["5F74A3FDB04E14F6"]
+			icon: {
+				id: "firmages:firmament_crystal"
+			}
+			id: "03C78EEE9599C6D7"
+			rewards: [
+				{
+					id: "59A582743D3A93A7"
+					type: "xp"
+					xp: 80
+				}
+			]
+			tasks: [
+				{
+					count: 4L
+					id: "158289DA7F04CE7A"
+					item: {
+						count: 1
+						id: "firmages:firmament_crystal"
+					}
+					type: "item"
+				}
+			]
+			x: 2.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["03C78EEE9599C6D7"]
+			id: "4F807EAA363A03FC"
+			rewards: [
+				{
+					id: "598C230EBBD97DE5"
+					type: "xp"
+					xp: 80
+				}
+			]
+			tasks: [
+				{
+					id: "3B3C3C88B43793CC"
+					item: {
+						count: 1
+						id: "firmages:aurora_net"
+					}
+					type: "item"
+				}
+			]
+			x: 4.25d
+			y: 5.0d
+		}
+		{
+			dependencies: ["4F807EAA363A03FC"]
+			id: "6617FD431A7EFA87"
+			rewards: [
+				{
+					id: "3D2F314930C6828A"
+					type: "xp"
+					xp: 240
+				}
+				{
+					id: "316AF3BABBB3446A"
+					table_id: 5566844086030587221L
+					team_reward: true
+					type: "random"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					count: 2L
+					id: "6CBDA43925526E31"
+					item: {
+						count: 1
+						id: "firmages:cloudsteel_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: 6.25d
+			y: 5.0d
 		}
 		{
 			dependencies: [
@@ -754,6 +837,7 @@
 				"08FA57541FB57841"
 				"092749BAB246E72D"
 				"40FA4C9F6A00F51F"
+				"6617FD431A7EFA87"
 			]
 			icon: {
 				id: "firmages:pressure_core"
@@ -778,6 +862,67 @@
 			]
 			x: 21.75d
 			y: 0.0d
+		}
+		{
+			dependencies: ["5F74A3FDB04E14F6"]
+			id: "7A1EFBE16BED1D0E"
+			optional: true
+			rewards: [
+				{
+					id: "71370425B4214FDE"
+					type: "xp"
+					xp: 80
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					id: "7FCFE72464FDA1E9"
+					item: {
+						count: 1
+						id: "firmages:tally_chute"
+					}
+					type: "item"
+				}
+			]
+			x: 0.0d
+			y: -7.5d
+		}
+		{
+			dependencies: ["7A1EFBE16BED1D0E"]
+			icon: {
+				id: "firmages:tally_chute"
+			}
+			id: "46DF21F2D2D5904C"
+			optional: true
+			rewards: [
+				{
+					id: "43132CA43A622C5D"
+					type: "xp"
+					xp: 80
+				}
+				{
+					id: "5E95747AF73CA83F"
+					table_id: 6120114784080342898L
+					team_reward: false
+					type: "choice"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					advancement: "firmages:proof/age_4"
+					criterion: ""
+					id: "0701CAFE5ABCE9D4"
+					type: "advancement"
+				}
+			]
+			x: 1.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["15E3FB7395A86F61"]
@@ -809,8 +954,8 @@
 					type: "item"
 				}
 			]
-			x: 2.5d
-			y: -6.25d
+			x: 3.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["6F0E9B4D0BD4227A"]
@@ -842,8 +987,8 @@
 					type: "item"
 				}
 			]
-			x: 4.5d
-			y: -6.25d
+			x: 5.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["1129C4816E846CCC"]
@@ -875,8 +1020,8 @@
 					type: "item"
 				}
 			]
-			x: 6.5d
-			y: -6.25d
+			x: 7.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["5F74A3FDB04E14F6"]
@@ -895,7 +1040,7 @@
 				}
 			]
 			x: 0.0d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["5F74A3FDB04E14F6"]
@@ -914,7 +1059,7 @@
 				}
 			]
 			x: 1.5d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["5F74A3FDB04E14F6"]
@@ -933,7 +1078,7 @@
 				}
 			]
 			x: 3.0d
-			y: 6.25d
+			y: 7.5d
 		}
 		{
 			dependencies: ["5F74A3FDB04E14F6"]
@@ -963,7 +1108,7 @@
 				}
 			]
 			x: 21.75d
-			y: 6.25d
+			y: 7.5d
 		}
 	]
 	tags: ["age_4"]
