@@ -10,6 +10,9 @@
     "firmages:meteoric_iron_block",
     "firmages:starsteel_block",
     "firmages:wayshrine_core",
-    "firmages:wayshrine_stone"
+    "firmages:wayshrine_stone",
+    "firmages:skystone",
+    "firmages:firmament_crystal_cluster",
+    "firmages:firmament_lode"
   ]
 }

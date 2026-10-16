@@ -12,6 +12,10 @@
     {
       "id": "firmages:wayshrine_core",
       "required": false
+    },
+    {
+      "id": "firmages:firmament_lode",
+      "required": false
     }
   ]
 }

@@ -104,6 +104,10 @@ public final class ServerConfig {
     public static final ModConfigSpec.BooleanValue STARFALL_OLD_CRATERS;
     public static final ModConfigSpec.IntValue STARFALL_OLD_CRATER_REGION;
     public static final ModConfigSpec.ConfigValue<String> STARFALL_AUTOMATION_AGE;
+    // isles (SPEC §30.9)
+    public static final ModConfigSpec.IntValue ISLES_LODE_YIELD;
+    public static final ModConfigSpec.BooleanValue ISLES_FALLBACK;
+    public static final ModConfigSpec.IntValue ISLES_FALLBACK_RADIUS;
     // balance
     public static final ModConfigSpec.BooleanValue BALANCE_ALTERNATOR_FUEL_ONLY;
     public static final ModConfigSpec.IntValue BALANCE_AE2_CELL_TYPES;
@@ -321,6 +325,16 @@ public final class ServerConfig {
             .define("automationAge", "age_6", o -> o instanceof String s && (s.equals("never") || AgeId.byId(s).isPresent()));
         b.pop();
 
+        b.comment("Drifting Isles (SPEC 30): static isles of skystone above the clouds, the only source of firmament crystal.",
+                "Shape and density are data: data/firmages/worldgen/structure/drifting_isle.json and structure_set/drifting_isles.json.").push("isles");
+        ISLES_LODE_YIELD = b.comment("Firmament crystals a broken lode yields; the lode stands again on the next tick.")
+            .defineInRange("lodeYield", 2, 1, 8);
+        ISLES_FALLBACK = b.comment("On a world older than the isles: from the Industrial Age, place one cluster with the Wind Shrine near the heart",
+                "when no isle start lies within fallbackRadius.").define("fallback", true);
+        ISLES_FALLBACK_RADIUS = b.comment("Blocks around the shrine heart (else the world spawn) in which an isle must exist from the Industrial Age.")
+            .defineInRange("fallbackRadius", 600, 200, 4096);
+        b.pop();
+
         b.comment("Balance hooks of the harmony round (SPEC 34).").push("balance");
         BALANCE_ALTERNATOR_FUEL_ONLY = b.comment("Felix H1A: the Crafts and Additions alternator gives FE only for the share of its network's rotation",
                 "that comes from fuelled sources (steam engines on an actively heated boiler, diesel engines). Water wheels, windmills,",
@@ -455,6 +469,21 @@ public final class ServerConfig {
     /** {@code origin.gatherIdleMinutes}: 0 = nobody is left out. */
     public static int gatherIdleMinutes() {
         return loaded() ? ORIGIN_GATHER_IDLE_MINUTES.get() : 5;
+    }
+
+    /** {@code isles.lodeYield}. */
+    public static int islesLodeYield() {
+        return loaded() ? ISLES_LODE_YIELD.get() : 2;
+    }
+
+    /** {@code isles.fallback}. */
+    public static boolean islesFallback() {
+        return !loaded() || ISLES_FALLBACK.get();
+    }
+
+    /** {@code isles.fallbackRadius}. */
+    public static int islesFallbackRadius() {
+        return loaded() ? ISLES_FALLBACK_RADIUS.get() : 600;
     }
 
     public static boolean starfallEnabled() {

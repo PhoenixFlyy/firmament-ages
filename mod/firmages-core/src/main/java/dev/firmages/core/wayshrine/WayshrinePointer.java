@@ -1,7 +1,11 @@
 package dev.firmages.core.wayshrine;
 
 import dev.firmages.core.FirmagesCore;
+import dev.firmages.core.age.AgeId;
+import dev.firmages.core.age.AgeService;
 import dev.firmages.core.config.ServerConfig;
+import dev.firmages.core.immersion.AgeStatus;
+import dev.firmages.core.isles.IsleService;
 import dev.firmages.core.text.Numbers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -39,7 +43,9 @@ import java.util.UUID;
  * Caelum's name) and from a lit Wayshrine (without it). It looks at the cache in {@code firmages_wayshrines} first (found
  * structures, the tutorial Wayshrine, known cores that are not lit), then searches the structure tag
  * {@code #firmages:wayshrine} within {@code wayshrine.pointerRadiusChunks}, skipping structures already referenced (a lit
- * Wayshrine adds its reference). One search per player per ten seconds; in between the last answer repeats.
+ * Wayshrine adds its reference). From the Industrial Age it also names the Wind Shrines of the Drifting Isles (S6B): the
+ * isle starts whose Wind Shrine roll is true and the clusters placed by code ({@link IsleService#nearestShrine}). One
+ * search per player per ten seconds; in between the last answer repeats.
  */
 public final class WayshrinePointer {
     static final int SEARCH_COOLDOWN = 200;
@@ -87,10 +93,11 @@ public final class WayshrinePointer {
     public static Optional<Target> nearest(ServerLevel overworld, BlockPos from, boolean skipKnown) {
         int radius = ServerConfig.wayshrinePointerRadiusChunks() * 16;
         WayshrineSavedData sd = WayshrineSavedData.get(overworld.getServer());
+        boolean isles = isleShrinesShown(overworld.getServer());
         Target best = null;
         double bestD = Double.MAX_VALUE;
         for (WayshrineSavedData.Found f : sd.found()) {
-            if (lit(sd, f.pos())) continue;
+            if (lit(sd, f.pos()) || (!isles && WayshrinePlacement.ISLE_TYPE.equals(f.type()))) continue;
             double d = horizontal(from, f.pos());
             if (d <= radius && d < bestD) {
                 best = new Target(f.pos(), f.type());
@@ -98,7 +105,7 @@ public final class WayshrinePointer {
             }
         }
         for (WayshrineSavedData.Record r : sd.records()) {
-            if (r.lit() || r.where().dimension() != Level.OVERWORLD) continue;
+            if (r.lit() || r.where().dimension() != Level.OVERWORLD || (!isles && WayshrinePlacement.ISLE_TYPE.equals(r.type()))) continue;
             double d = horizontal(from, r.where().pos());
             if (d <= radius && d < bestD) {
                 best = new Target(r.where().pos(), r.type());
@@ -106,10 +113,29 @@ public final class WayshrinePointer {
             }
         }
         if (best != null) return Optional.of(best);
-        return search(overworld, from, null, skipKnown).map(t -> {
+        Optional<Target> ground = search(overworld, from, null, skipKnown);
+        if (isles) {
+            // the Wind Shrine stands on an isle (S6B): the nearest isle start whose cluster carries it, from the Industrial Age
+            int reach = ground.map(t -> (int) Math.ceil(horizontal(from, t.pos()))).orElse(radius);
+            Optional<Target> isle = isleShrine(overworld, from, reach, skipKnown);
+            if (isle.isPresent()) ground = isle;
+        }
+        return ground.map(t -> {
             sd.addFound(new WayshrineSavedData.Found(t.pos(), t.type()));
             return t;
         });
+    }
+
+    /** From the Industrial Age the pointer also names the Wind Shrines of the Drifting Isles (SPEC-himmel §28.4a). */
+    static boolean isleShrinesShown(MinecraftServer s) {
+        return AgeStatus.current(AgeService.state(s).snapshot()).ordinal() >= AgeId.AGE_4.ordinal();
+    }
+
+    /** The nearest Wind Shrine of an isle within {@code radius} blocks (lit ones skipped when {@code skipLit}). */
+    static Optional<Target> isleShrine(ServerLevel overworld, BlockPos from, int radius, boolean skipLit) {
+        WayshrineSavedData sd = WayshrineSavedData.get(overworld.getServer());
+        return IsleService.nearestShrine(overworld, from, radius, p -> skipLit && lit(sd, p))
+            .map(p -> new Target(p, WayshrinePlacement.ISLE_TYPE));
     }
 
     /**
@@ -124,6 +150,7 @@ public final class WayshrinePointer {
      * manager, loading a chunk to {@code STRUCTURE_STARTS} where the start is not known yet. The first valid start wins.
      */
     public static Optional<Target> search(ServerLevel overworld, BlockPos from, @Nullable String type, boolean skipKnown) {
+        if (WayshrinePlacement.ISLE_TYPE.equals(type)) return isleShrine(overworld, from, ServerConfig.wayshrinePointerRadiusChunks() * 16, skipKnown);
         var registry = overworld.registryAccess().registryOrThrow(Registries.STRUCTURE);
         List<Holder<Structure>> holders = new ArrayList<>();
         if (type == null) {

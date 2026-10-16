@@ -92,15 +92,17 @@ public final class WayshrineTutorial {
         }
         int[] heights = new int[sx * sz];
         boolean fluid = false;
+        boolean isle = false;
         for (int dx = 0; dx < sx; dx++) {
             for (int dz = 0; dz < sz; dz++) {
                 int h = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x0 + dx, z0 + dz);
                 heights[dx * sz + dz] = h;
                 BlockPos top = new BlockPos(x0 + dx, h - 1, z0 + dz);
                 if (!level.getFluidState(top).isEmpty() || !level.getFluidState(top.above()).isEmpty()) fluid = true;
+                if (level.getBlockState(top).is(SkyTags.ISLE_BODY)) isle = true; // the surface is a Drifting Isle's top
             }
         }
-        if (check && !WayshrineRules.fitSite(heights, fluid)) return Optional.empty();
+        if (check && (isle || !WayshrineRules.fitSite(heights, fluid))) return Optional.empty();
         BlockPos core = new BlockPos(x, WayshrineRules.floorY(heights), z);
         if (check) {
             String blocker = siteBlocker(level, x0, z0, sx, sz, core.getY());
