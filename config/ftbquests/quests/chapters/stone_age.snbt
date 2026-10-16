@@ -513,7 +513,7 @@
 		{
 			dependencies: ["3B588CB49C0F4193"]
 			icon: {
-				id: "tfc:wood/workbench/oak"
+				id: "minecraft:crafting_table"
 			}
 			id: "5032B9C3899A4044"
 			rewards: [
@@ -786,6 +786,25 @@
 				}
 			]
 			x: 6.0d
+			y: 6.25d
+		}
+		{
+			dependencies: ["4207F8051EF451B3"]
+			hide_dependency_lines: true
+			icon: {
+				id: "minecraft:oak_log"
+			}
+			id: "54432F5A30AE7695"
+			optional: true
+			shape: "gear"
+			tags: ["explain"]
+			tasks: [
+				{
+					id: "14E939A07BC8CEE8"
+					type: "checkmark"
+				}
+			]
+			x: 7.5d
 			y: 6.25d
 		}
 	]

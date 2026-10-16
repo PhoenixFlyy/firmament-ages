@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#firmages:has_vanilla_trees",
+  "features": "firmages:vanilla_forest",
+  "step": "fluid_springs"
+}

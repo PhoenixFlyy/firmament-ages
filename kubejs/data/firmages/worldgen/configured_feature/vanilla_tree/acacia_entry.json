@@ -1,0 +1,20 @@
+{
+  "type": "tfc:forest_entry",
+  "config": {
+    "climate": {
+      "min_temperature": 14.0,
+      "max_temperature": 40.0,
+      "min_groundwater": 90,
+      "max_groundwater": 260,
+      "min_rain_variance": 0.4,
+      "max_rain_variance": 0.85,
+      "rain_variance_absolute": true
+    },
+    "normal_tree": "firmages:vanilla_tree/acacia",
+    "dead_tree": "firmages:vanilla_tree/acacia",
+    "old_growth_chance": 0,
+    "spoiler_old_growth_chance": 0,
+    "fallen_tree_chance": 0,
+    "dead_chance": 0
+  }
+}

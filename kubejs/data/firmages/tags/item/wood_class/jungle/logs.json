@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:jungle_logs",
+    "#afc:teak_logs"
+  ]
+}

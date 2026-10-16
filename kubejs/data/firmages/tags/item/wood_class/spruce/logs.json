@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:spruce_logs",
+    "#tfc:spruce_logs"
+  ]
+}

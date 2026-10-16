@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:cherry_slab",
+      "required": false
+    },
+    {
+      "id": "afc:wood/planks/fig_slab",
+      "required": false
+    }
+  ]
+}

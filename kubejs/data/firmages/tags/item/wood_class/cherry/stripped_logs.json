@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:stripped_cherry_log",
+      "required": false
+    },
+    {
+      "id": "minecraft:stripped_cherry_wood",
+      "required": false
+    },
+    {
+      "id": "afc:wood/stripped_log/fig",
+      "required": false
+    },
+    {
+      "id": "afc:wood/stripped_wood/fig",
+      "required": false
+    }
+  ]
+}

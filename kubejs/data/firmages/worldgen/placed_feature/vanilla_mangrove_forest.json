@@ -1,0 +1,9 @@
+{
+  "feature": "firmages:vanilla_mangrove_forest",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 4
+    }
+  ]
+}

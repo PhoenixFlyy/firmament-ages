@@ -929,7 +929,7 @@
 			dependencies: ["0A81ED2F8A5BB2AE"]
 			hide_dependency_lines: true
 			icon: {
-				id: "everycomp:hc/tfc/oak_chair"
+				id: "handcrafted:oak_chair"
 			}
 			id: "1C7F62ECF8FA8027"
 			optional: true

@@ -351,7 +351,7 @@
 	quest.16708A1C39158F9C.quest_desc: [
 		"In Dawn you cannot dig clay, build pit kilns or use metal. The crafting grid only makes stone and obsidian tools, the firestarter, straw, thatch, sticks and rope."
 		""
-		"Logs and stone do not break by hand: the stone axe fells trees, stone waits for the copper pickaxe."
+		"Logs and stone do not break by hand: the stone axe fells trees, stone waits for the copper pickaxe. Every tree drops the log of its wood class: oak, birch, spruce, jungle, acacia, dark oak, mangrove or cherry. Logs of one class stack, whatever tree they came from."
 		""
 		"No recipe viewer until the Bronze Age; this book draws every pattern."
 	]
@@ -392,7 +392,7 @@
 	]
 	quest.1BF2818DC437F21D.title: "Red Steel"
 	quest.1C7F62ECF8FA8027.quest_desc: [
-		"Furniture opens: chairs, tables, shelves, doors and windows in every wood. The recipe viewer shows how each is made."
+		"Furniture opens: chairs, tables, shelves, doors and windows in every wood, vanilla wood and every tree's own wood alike. The recipe viewer shows how each is made."
 	]
 	quest.1C7F62ECF8FA8027.title: "A Home"
 	quest.1CC29E163A94FCE6.quest_desc: [
@@ -596,7 +596,7 @@
 	]
 	quest.2E30926B1075171A.title: "Into The Origin"
 	quest.2EC89EF1F5DED2A1.quest_desc: [
-		"Build a mechanical saw. It cuts logs into lumber without a hand saw."
+		"Build a mechanical saw. It cuts logs into planks and lumber without a hand saw."
 	]
 	quest.2EC89EF1F5DED2A1.title: "Mechanical Saw"
 	quest.2F40BC4F2411937D.quest_desc: ["Cassiterite pieces on the ground point to a tin vein below."]
@@ -995,11 +995,12 @@
 	quest.50299FDC54036A8A.quest_desc: ["Craft a quern and a handstone."]
 	quest.50299FDC54036A8A.title: "The Grind"
 	quest.5032B9C3899A4044.quest_desc: [
-		"Build a workbench. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2."
+		"Build a crafting table. The shrine is crafted in its 3x3 grid; the inventory grid is 2x2."
 		""
 		"- Knap a saw blade mold (see \"Clay Patterns\") and fire it. Right-click the glowing vessel and put the mold in the slot."
 		"- Put the blade above a stick: a saw."
-		"- A saw and a log make eight lumber, four lumber make planks, four planks a workbench."
+		"- A saw and a log make two planks. Four planks make a crafting table."
+		"- A saw and planks make four lumber: barrels, chests and tool racks take lumber."
 		""
 		"Four loose rocks in the 2x2 grid make a cobblestone. The shrine takes many."
 	]
@@ -1042,6 +1043,21 @@
 		"Purification gives three times the metal from every ore piece."
 	]
 	quest.533C7CC2EEA570E4.title: "Purification Chamber"
+	quest.54432F5A30AE7695.quest_desc: [
+		"For a tree's own wood, put eight class logs or planks around its sapling. Its own log turns back into the class log, its sapling into the class sapling."
+		""
+		"- Oak: oak, ash, maple, sycamore, beech, black oak"
+		"- Birch: birch, aspen, eucalyptus, ginkgo, poplar, rainbow eucalyptus"
+		"- Spruce: spruce, pine, douglas fir, white cedar, sequoia, cypress, araucaria, red cedar, kauri"
+		"- Jungle: kapok, palm, teak, hevea, tualang, mahoe"
+		"- Acacia: acacia, baobab, gum arabic"
+		"- Dark oak: blackwood, hickory, chestnut, ironwood, ipe"
+		"- Mangrove: mangrove, willow, mahogany"
+		"- Cherry: rosewood, fig, rubber fig"
+		""
+		"Golden bamboo and bamboo turn into each other. Class saplings grow on any soil."
+	]
+	quest.54432F5A30AE7695.title: "Wood Classes"
 	quest.55A04983F152F598.quest_desc: [
 		"The arc furnace takes over alloying from the alloy kiln. Old stations stay in the world, but their recipes move to the new one."
 	]
@@ -1577,7 +1593,7 @@
 	task.0149A8AC82C0DC26.title: "Look at a finished thatch bed"
 	task.020A5C88D011752D.title: "Shafts"
 	task.020A6CD2CB1CD7D0.title: "Look at a formed crusher"
-	task.0218609437AB5F8E.title: "Look at your placed workbench"
+	task.0218609437AB5F8E.title: "Look at your placed crafting table"
 	task.029EBC8BCD4FA62E.title: "HV transformer"
 	task.02D20E07A2CDEA9E.title: "Look at a formed arc furnace"
 	task.08F238DF8DB1B94E.title: "Calculation processor"

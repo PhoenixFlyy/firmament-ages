@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:stripped_jungle_log",
+      "required": false
+    },
+    {
+      "id": "minecraft:stripped_jungle_wood",
+      "required": false
+    },
+    {
+      "id": "afc:wood/stripped_log/teak",
+      "required": false
+    },
+    {
+      "id": "afc:wood/stripped_wood/teak",
+      "required": false
+    }
+  ]
+}

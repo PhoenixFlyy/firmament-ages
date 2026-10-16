@@ -1,0 +1,14 @@
+{
+  "type": "tfc:forest",
+  "config": {
+    "entries": [
+      "firmages:vanilla_tree/oak_entry",
+      "firmages:vanilla_tree/birch_entry",
+      "firmages:vanilla_tree/spruce_entry",
+      "firmages:vanilla_tree/jungle_entry",
+      "firmages:vanilla_tree/acacia_entry",
+      "firmages:vanilla_tree/dark_oak_entry",
+      "firmages:vanilla_tree/cherry_entry"
+    ]
+  }
+}

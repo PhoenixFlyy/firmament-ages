@@ -3179,3 +3179,48 @@ copy-only `kubejs/data/firmages/firmages_shrine/tallies.json` asked for 16 steel
   live measurement used IE capacitors (FE).
 - The fight model's assumptions (uptime, veil share) wait for a recorded fight with 1, 2 and 4 players.
 - Wayshrine density at 72/27 still spreads 5 to 16 per seed.
+## 1.0 round C2, wood classes (2026-10-16, branch c2/holz)
+Wood scheme HW1A (`dev/wood_classes.toml`, `dev/gen_wood_classes.py`, `recipes/age_0/wood_classes.js`) with Felix's
+addition that vanilla trees generate and grow. Felix's test server stayed off and untouched; every boot ran on the
+copy `.wt/test-server-c2-holz` (ports 25640 and RCON 25650, whitelist off, `debug.allowSimulate = true`), synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8140 --refresh=false` of the worktree, each with
+a new world and `-Xms5G -Xmx5G`. The copy is deleted.
+| Forest-entry PoC | TFC's `tfc:forest` takes any configured feature as `normal_tree` of a `tfc:forest_entry` and checks the entry's climate itself; a second forest with only vanilla entries, added by a NeoForge biome modifier (`fluid_springs`) to the 100 TFC biomes whose large features hold `tfc:forest`, places vanilla trees by TFC climate. No code wrapper needed | pass |
+| Loot (`loot spawn ... mine` with an iron axe) | natural TFC ash -> Oak Log, AFC kauri -> Spruce Log, TFC spruce -> Spruce Log, TFC kapok -> Jungle Log; copper hammer -> 3 Stick; placed ash log (`branch_direction=none`) -> Ash Log, placed ash wood -> Ash Wood, placed Beneath crimson -> its own log; AFC `ancient_ash` 2 of 3 rolls Oak Log (70 %) | pass |
+| Felling (debug player, stone axe, `firmages debug break`) | whole TFC kapok: 23 item entities of Jungle Log, 0 Kapok Log; whole TFC aspen (final build): 3 entities of Birch Log, 0 Aspen Log | pass |
+| Vanilla sapling growth | birch sapling on TFC mollisol grass over granite, `randomTickSpeed 3000` for 8 s: a birch tree (log at +0 and +3), the grass under it TFC mollisol dirt | pass |
+| Copy boot 2 (gate off, grants, `fa_dump`, `fa_dump_full`) | 43,805 recipes; `wood classes: 208 recipes, 90 lead-species recipes take the class tags` | pass |
+| Copy boot 3 (gate off, new world, grants, dumps) | 43,806 recipes; `gen_stage_locks.py --registry`, `derive_ages.py --scan` (25,522 loot tables, 1,651 features, 1,608 templates), `gen_stage_locks.py`; `derive_ages.py --check` on this dump: up to date. A StackOverflowError in a worldgen worker (the mangrove class selector had the path of the mangrove tree and placed itself) stalled chunk generation: fixed in 6f44e6d, see below | pass after fix |
+| Age data | visible items 24,682 -> 25,245; vanilla-wood items newly visible 986 (age_0 110, age_1 559, age_2 180, age_3 125, Dawn 12), 286 moved earlier from age_9, 114 newly hidden by style parity (Macaw's Doors 64, Macaw's Windows 44, Create Encased 6); Every Compat TFC oak/mangrove twins hidden 283. Per Age: Dawn 4,205, age_0 1,148, age_1 7,490, disabled 11,383. Vanilla logs and saplings Dawn; planks, crafting table, bamboo planks, doors and trapdoors age_0; crimson and warped stems age_3 | pass |
+| Copy boot 5 (gate on, new world, `simulate grant age_0`, `fa_dump`) | gate at Stone Age: 7,488 -> 8,940 live recipes; 195 of 209 `firmages:wood/*` live (the 14 missing make Nether wood, age_3); `firmages:wood/planks/oak` (saw + `#minecraft:oak_logs` -> 2 oak planks), `crafting_table`, `planks/bamboo` with item lock `age_0`, recipe lock `age_0` | pass |
+| Copy boot 5, all Ages (`fa_dump`, `fa_dump_full`, `firmages recipes audit`, `selftest all`) | 39,409 live of 43,806, 4,397 dropped (disabled 4,390, superseded 7); `selftest all`: 71 passed, 3 failed (the three crown checks red until M15, as before) | pass |
+| `poc_analyze.py --dump-dir <boot 5, age_9>` | 111 PASS, 0 FAIL ("all checks PASS"), among them W-1 (86 loot tables), W-2, W-3, W-4 (209 grids against 18,813 grid recipes, each one recipe), W-5, W-6 (8 allowlist patterns), W-7, W-8; visible vanilla-wood deco: mcwfurnitures 170, handcrafted 165, mcwwindows 117, mcwstairs 80, another_furniture 77, mcwroofs 77, storagedrawers 77, mcwdoors 66, mcwfences 66, mcwtrpdoors 62, mcwbridges 61, bibliocraft 49, decorative_blocks 43, create 22 | pass |
+| `check_log.py`, boot 5 (pregen and debug commands) and boot 6 (final data) | boot 6: 70.1 s to Done, FATAL 0, ERROR 11, STDERR 0, WARN 241, documented noise 254, remaining 0; boot 5: remaining 8 = 5 "Can't keep up" during Chunky and the three crown selftest lines | pass |
+| `gen_wood_classes.py --check`, `gen_stage_locks.py --check`, `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods`, `check_menus.py` | 267 data files up to date; stage files up to date; 1,260 object ids, 0 errors, 0 warnings; menus pass | pass |
+Vanilla trees per sample area (Chunky square, `scan_regions.py`, full chunks; log blocks, vanilla against TFC/AFC).
+Four worlds with different seeds; the windows of dark oak and cherry were widened before world D (decision rows).
+| World | Area (x z, radius) | Vanilla logs | TFC/AFC logs (main species) |
+| A | 0 -15000, 192 | spruce 723 | pine, spruce |
+| A | 0 0, 192 | oak 594, birch 544 | 13,364 (white cedar, birch, hickory) |
+| B | 0 7500, 192 | jungle 196 | 22,811 (araucaria, kapok, teak) |
+| B | 0 15000, 192 | oak 221, acacia 125 | 8,501 (araucaria, black oak, sequoia) |
+| B | 12000 10000, 192 | jungle 470 | 3,430 (kapok, mahogany, tualang) |
+| C | 0 -15000, 160 | spruce 615, birch 61 | 6,743 (douglas fir, pine, birch) |
+| C | 8144 10064 (salt marsh), 160 | mangrove 74 (roots 101, propagules 7) | 370 (mangrove) |
+| C | 8000 20000, 160 | oak 56, spruce 31 | 2,528 (beech, willow, aspen) |
+| D | 4000 2500, 128 | dark oak 1,010, oak 159 | 7,713 (araucaria, willow, hickory) |
+| D | -2000 5000, 128 | cherry 125, acacia 85 | 1,405 (pine, kapok, mahogany) |
+| D | 4000 5000, 128 | dark oak 1,035, cherry 160, oak 55 | 5,680 (araucaria, mahogany, kauri) |
+| D | 10000 22500, 128 | spruce 586 | 5,221 (douglas fir, aspen) |
+All eight classes generate; areas with forest carry 1 to 18 % vanilla logs (dark oak trees are log-heavy), oceans and
+deserts none.
+- First boot of the round (world A): a server watchdog crash, 120 s in one tick: TFC Regrowing Forests' leaf random
+  tick (`RegrowthRecipe.tryToSpread`) loaded a neighbouring chunk synchronously from a forceloaded test platform while
+  Chunky filled the worker queue. Not caused by the wood data (TFC leaves); later boots built the test trees in the
+  spawn chunks without `forceload` and ran no Chunky task at the same time. Open point below.
+- Vanilla dirt and grass in the world: none; vanilla tree features keep TFC soil (`force_dirt` false, TFC soil is in
+  `#minecraft:dirt`), the custom mangrove uses TFC fluvisol.
+- TFC Regrowing Forests can stall a tick by loading chunks from a leaf random tick at the edge of loaded land (seen
+  with forceload plus Chunky); check whether players with a Chunky pregen can hit it.
+- 18 Macaw's barn and glass trapdoors in vanilla wood are age_1, their Every Compat TFC copies age_2 (the vanilla
+  glass trapdoor recipe is earlier); harmless, not aligned.

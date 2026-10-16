@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:stripped_acacia_log",
+      "required": false
+    },
+    {
+      "id": "minecraft:stripped_acacia_wood",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/stripped_log/acacia",
+      "required": false
+    },
+    {
+      "id": "tfc:wood/stripped_wood/acacia",
+      "required": false
+    }
+  ]
+}

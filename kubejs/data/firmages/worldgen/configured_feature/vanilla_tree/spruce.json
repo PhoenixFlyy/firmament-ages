@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "firmages:vanilla_tree/spruce/pine",
+        "chance": 0.2
+      }
+    ],
+    "default": "firmages:vanilla_tree/spruce/spruce"
+  }
+}
