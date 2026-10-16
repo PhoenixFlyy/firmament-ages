@@ -1,5 +1,5 @@
 {
-"source": "dev/derive_ages.py --scan: 225 mod jars in ..\\.wt\\test-server-c1-int\\mods, the vanilla server jar and kubejs/data",
+"source": "dev/derive_ages.py --scan: 225 mod jars in ..\\test-server-sky-m11\\mods, the vanilla server jar and kubejs/data",
 "loot": {
   "ad_astra:blocks/deepslate_calorite_ore": {"items":["ad_astra:deepslate_calorite_ore","ad_astra:raw_calorite"],"tags":[],"refs":[]},
   "ad_astra:blocks/deepslate_desh_ore": {"items":["ad_astra:deepslate_desh_ore","ad_astra:raw_desh"],"tags":[],"refs":[]},
@@ -16268,6 +16268,7 @@
   "extendedae:blocks/wireless_hub",
   "extra_gauges:blocks/display_collector",
   "extra_gauges:blocks/integer_selector",
+  "firmages:blocks/aurora_net",
   "firmages:blocks/firmament_glass",
   "firmages:blocks/meteoric_iron_block",
   "firmages:blocks/offering_plinth",
@@ -16275,6 +16276,8 @@
   "firmages:blocks/shrine_heart",
   "firmages:blocks/sky_rock",
   "firmages:blocks/starsteel_block",
+  "firmages:blocks/storm_glass",
+  "firmages:blocks/storm_rod",
   "firmages:blocks/tally_chute",
   "firmages:blocks/wayshrine_stone",
   "firmalife:blocks/ashtray",

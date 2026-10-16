@@ -333,6 +333,7 @@
     {"id": "createdieselgenerators:huge_diesel_engine", "required": false},
     {"id": "createdieselgenerators:large_diesel_engine", "required": false},
     {"id": "firmages:attuned_circuit", "required": false},
+    {"id": "firmages:aurora_light_bucket", "required": false},
     {"id": "firmages:humming_core", "required": false},
     {"id": "firmages:lantern/electric", "required": false},
     {"id": "firmages:ore/normal_native_osmium", "required": false},

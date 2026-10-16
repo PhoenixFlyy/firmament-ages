@@ -3659,7 +3659,6 @@
     {"id": "firmages:lens/stone", "required": false},
     {"id": "firmages:lens_blank", "required": false},
     {"id": "firmages:lens_mount", "required": false},
-    {"id": "firmages:meteoric_iron_rod", "required": false},
     {"id": "firmages:meteorite", "required": false},
     {"id": "firmages:origin_altar", "required": false},
     {"id": "firmages:quasar_alloy_ingot", "required": false},

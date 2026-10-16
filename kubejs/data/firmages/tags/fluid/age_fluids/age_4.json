@@ -71,6 +71,8 @@
     {"id": "createbigcannons:molten_cast_iron", "required": false},
     {"id": "createbigcannons:molten_nethersteel", "required": false},
     {"id": "createbigcannons:molten_steel", "required": false},
+    {"id": "firmages:aurora_light", "required": false},
+    {"id": "firmages:flowing_aurora_light", "required": false},
     {"id": "firmalife:metal/chromium", "required": false},
     {"id": "firmalife:metal/flowing_chromium", "required": false},
     {"id": "firmalife:metal/flowing_stainless_steel", "required": false},
