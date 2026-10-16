@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "immersiveengineering:steel_scaffolding_standard",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:steel_scaffolding_grate_top",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:steel_scaffolding_wooden_top",
+      "required": false
+    },
+    {
+      "id": "create:metal_girder",
+      "required": false
+    },
+    {
+      "id": "#firmages_test:launch/frame",
+      "required": false
+    }
+  ]
+}

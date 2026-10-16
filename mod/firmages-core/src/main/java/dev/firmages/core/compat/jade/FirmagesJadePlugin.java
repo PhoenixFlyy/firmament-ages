@@ -48,6 +48,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation ANVIL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "star_anvil");
     static final ResourceLocation MOUNT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "lens_mount");
     static final ResourceLocation WAYSHRINE = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "wayshrine_core");
+    static final ResourceLocation LAUNCH_CONTROL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "launch_control");
+    static final ResourceLocation LAUNCH_PORT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "launch_port");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
@@ -59,6 +61,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(Crown.ANVIL, dev.firmages.core.crown.StarAnvilBlock.class);
         registration.registerBlockComponent(Crown.MOUNT, dev.firmages.core.crown.LensMountBlock.class);
         registration.registerBlockComponent(Wayshrine.INSTANCE, WayshrineCoreBlock.class);
+        registration.registerBlockComponent(Launch.CONTROL, dev.firmages.core.launch.LaunchControlBlock.class);
+        registration.registerBlockComponent(Launch.PORT, dev.firmages.core.launch.LaunchPortBlock.class);
         // SPEC §18.3: no overlay before ui.jadeFromAge. Jade skips the tooltip when a callback returns null
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
@@ -254,6 +258,42 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return WAYSHRINE;
+        }
+    }
+
+    /**
+     * The Launch Complex (SPEC §31.5): the control names the phase ("In flight, 45 %"), why it waits ("The sky is
+     * closed above the cradle"), the throttle and the fuel; a port says whether it feeds a control. From the synced
+     * block entities.
+     */
+    enum Launch implements IBlockComponentProvider {
+        CONTROL, PORT;
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (this == CONTROL && accessor.getBlockEntity() instanceof dev.firmages.core.launch.LaunchControlBlockEntity be) {
+                var phase = be.phase();
+                var wait = be.waitReason();
+                if (phase != dev.firmages.core.launch.LaunchRules.Phase.IDLE) {
+                    tooltip.add(dev.firmages.core.launch.LaunchText.phaseLine(phase, be.countdownLeft(), be.percent()).withStyle(ChatFormatting.GOLD));
+                }
+                if (phase == dev.firmages.core.launch.LaunchRules.Phase.IDLE || wait != dev.firmages.core.launch.LaunchRules.Wait.NONE) {
+                    tooltip.add(dev.firmages.core.launch.LaunchText.waitLine(wait, be.missing(), be.launchMb())
+                        .withStyle(wait == dev.firmages.core.launch.LaunchRules.Wait.NONE ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+                }
+                tooltip.add(dev.firmages.core.launch.LaunchText.throttle(be.step(), be.steps(), be.redstoneThrottle()));
+                var f = be.fluid();
+                tooltip.add(f.isEmpty() ? Component.translatable("firmages.jade.launch.fuel_empty").withStyle(ChatFormatting.GRAY)
+                    : Component.translatable("firmages.jade.launch.fuel", f.getHoverName(), f.getAmount()));
+            } else if (this == PORT && accessor.getBlockEntity() instanceof dev.firmages.core.launch.LaunchPortBlockEntity be) {
+                tooltip.add(Component.translatable(be.controlPos() != null ? "firmages.jade.launch.port_linked" : "firmages.jade.launch.port_unlinked")
+                    .withStyle(be.controlPos() != null ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+            }
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return this == CONTROL ? LAUNCH_CONTROL : LAUNCH_PORT;
         }
     }
 }

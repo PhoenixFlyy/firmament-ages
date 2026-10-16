@@ -39,7 +39,7 @@ import java.util.Locale;
  * debug players for the headless shrine test ({@link DebugPlayerCommands}).
  */
 public final class FirmagesCommands {
-    private static final List<String> SUITES = List.of("all", "core", "gate", "server", "sky", "crown", "wayshrines");
+    private static final List<String> SUITES = List.of("all", "core", "gate", "server", "sky", "crown", "wayshrines", "launch");
     private static final SimpleCommandExceptionType SIMULATE_DISABLED = new SimpleCommandExceptionType(
         Component.literal("Simulation is disabled; set debug.allowSimulate = true in firmages-server.toml"));
     private static final SimpleCommandExceptionType UNKNOWN_AGE = new SimpleCommandExceptionType(Component.literal("Unknown Age"));
@@ -74,6 +74,7 @@ public final class FirmagesCommands {
             .then(ShrineCommands.shrine())
             .then(ShrineCommands.ceremony())
             .then(CrownCommands.crown())
+            .then(LaunchCommands.launch())
             .then(WayshrineCommands.wayshrine())
             .then(OriginCommands.origin())
             .then(OriginCommands.reactor())
@@ -263,13 +264,14 @@ public final class FirmagesCommands {
         MinecraftServer server = c.getSource().getServer();
         List<SelfTest.Suite> suites = switch (suite) {
             case "all" -> List.of(new CoreSuite(), new GateSuite(), new ServerSuite(server), new SkySuite(server), new CrownSuite(server),
-                new WayshrineSuite(server));
+                new WayshrineSuite(server), new LaunchSuite(server));
             case "core" -> List.of(new CoreSuite());
             case "gate" -> List.of(new GateSuite());
             case "server" -> List.of(new ServerSuite(server));
             case "sky" -> List.of(new SkySuite(server));
             case "crown" -> List.of(new CrownSuite(server));
             case "wayshrines" -> List.of(new WayshrineSuite(server));
+            case "launch" -> List.of(new LaunchSuite(server));
             default -> throw UNKNOWN_SUITE.create();
         };
         SelfTest.Report report = SelfTest.run(suites);

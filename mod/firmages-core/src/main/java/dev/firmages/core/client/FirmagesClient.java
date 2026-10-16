@@ -38,6 +38,7 @@ public final class FirmagesClient {
             event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.STAR_ANVIL_BE.get(), CrownRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.LENS_MOUNT_BE.get(), LensMountRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.wayshrine.WayshrineRegistry.CORE_BE.get(), WayshrineCoreRenderer::new);
+            event.registerBlockEntityRenderer(dev.firmages.core.launch.LaunchRegistry.PROBE_CRADLE_BE.get(), LaunchRenderer::new);
         }
 
         /** Lens items: layer 1 (the glass) in the colour of the lens's shrine tier (SPEC §27.4), white until synced. */
@@ -60,6 +61,7 @@ public final class FirmagesClient {
         public static void tick(ClientTickEvent.Post event) {
             CeremonyPlayer.tick();
             ShrineAmbience.tick(Minecraft.getInstance());
+            LaunchFx.tick(Minecraft.getInstance()); // the launch trail, trench jets and landing (SPEC §31.7)
             Minecraft mc = Minecraft.getInstance();
             // The reload hint stays on the actionbar for the whole freeze (the server cannot send anything then).
             if (ReloadStatePayload.clientRunning() && mc.player != null) {
@@ -80,6 +82,7 @@ public final class FirmagesClient {
         public static void stage(RenderLevelStageEvent event) {
             SkyEffects.onRenderStage(event);
             SkyStreaks.onRenderStage(event); // the falling star (SPEC §25.9)
+            LaunchFx.onRenderStage(event); // launches beyond the loaded chunks (SPEC §31.7)
         }
 
         @SubscribeEvent
@@ -99,6 +102,7 @@ public final class FirmagesClient {
             dev.firmages.core.net.ShrineSyncPayload.clientReset();
             AgeMusic.reset();
             SkyStreaks.reset();
+            LaunchFx.reset();
         }
     }
 }

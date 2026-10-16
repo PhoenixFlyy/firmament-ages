@@ -58,6 +58,11 @@ public final class ServerConfig {
     public static final ModConfigSpec.DoubleValue CROWN_NIGHT_TIME_FACTOR;
     public static final ModConfigSpec.IntValue CROWN_VALIDATE_TICKS;
     public static final ModConfigSpec.IntValue CROWN_SWING_TICKS;
+    // launch complex (SPEC §31.9)
+    public static final ModConfigSpec.BooleanValue LAUNCH_ENABLED;
+    public static final ModConfigSpec.IntValue LAUNCH_FX_RANGE;
+    public static final ModConfigSpec.IntValue LAUNCH_COUNTDOWN_TICKS;
+    public static final ModConfigSpec.BooleanValue LAUNCH_AUTO_RELAUNCH;
     // wayshrines (SPEC-himmel §28.9)
     public static final ModConfigSpec.IntValue WAYSHRINE_RADIUS;
     public static final ModConfigSpec.IntValue WAYSHRINE_PRAYER_SECONDS;
@@ -209,6 +214,18 @@ public final class ServerConfig {
             .defineInRange("validateTicks", 100, 20, 1200);
         CROWN_SWING_TICKS = b.comment("Ticks a lens takes to swing in or out; it counts only once it is fully in.")
             .defineInRange("swingTicks", 10, 1, 100);
+        b.pop();
+
+        b.comment("The Launch Complex: unmanned probes bring voidglass and deep-space samples (SPEC 31). Fuel, launch cost, throttle and",
+                "the modules are data: data/firmages/firmages_launch/.").push("launch");
+        LAUNCH_ENABLED = b.comment("false: no probe launches (a probe in flight still comes home).").define("enabled", true);
+        LAUNCH_FX_RANGE = b.comment("Players within this many blocks of a launch see its flame trail and descent.")
+            .defineInRange("fxRange", 256, 16, 1024);
+        LAUNCH_COUNTDOWN_TICKS = b.comment("Ticks of the countdown before ignition; the control gives a redstone signal on its back meanwhile.")
+            .defineInRange("countdownTicks", 100, 20, 1200);
+        LAUNCH_AUTO_RELAUNCH = b.comment("A returned probe goes back into its slot and flies again with the next module. false = it lands in",
+                "the output with the returns, where pipes can take it.")
+            .define("autoRelaunch", true);
         b.pop();
 
         b.comment("The Origin and the Gathering at its altar (the end-boss trigger)").push("origin");
@@ -520,6 +537,22 @@ public final class ServerConfig {
 
     public static int crownSwingTicks() {
         return loaded() ? CROWN_SWING_TICKS.get() : 10;
+    }
+
+    public static boolean launchEnabled() {
+        return !loaded() || LAUNCH_ENABLED.get();
+    }
+
+    public static int launchFxRange() {
+        return loaded() ? LAUNCH_FX_RANGE.get() : 256;
+    }
+
+    public static int launchCountdownTicks() {
+        return loaded() ? LAUNCH_COUNTDOWN_TICKS.get() : 100;
+    }
+
+    public static boolean launchAutoRelaunch() {
+        return !loaded() || LAUNCH_AUTO_RELAUNCH.get();
     }
 
     public static boolean allowSimulate() {

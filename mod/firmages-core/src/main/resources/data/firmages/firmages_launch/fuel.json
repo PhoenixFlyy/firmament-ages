@@ -1,0 +1,18 @@
+{
+  "fluid_tag": "ad_astra:fuel",
+  "launch_mb": 4000,
+  "throttle": [
+    {
+      "burn": 1,
+      "progress": 1
+    },
+    {
+      "burn": 3,
+      "progress": 2
+    },
+    {
+      "burn": 8,
+      "progress": 4
+    }
+  ]
+}

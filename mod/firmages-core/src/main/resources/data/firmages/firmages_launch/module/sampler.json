@@ -1,0 +1,11 @@
+{
+  "module": "firmages:sampler_module",
+  "age": "age_7",
+  "flight_work": 12000,
+  "returns": [
+    {
+      "item": "firmages:voidglass",
+      "count": 4
+    }
+  ]
+}

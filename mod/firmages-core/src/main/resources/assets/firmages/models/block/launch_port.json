@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "particle": "firmages:block/launch_port_side",
+    "side": "firmages:block/launch_port_side",
+    "top": "firmages:block/launch_port_top",
+    "bottom": "firmages:block/launch_port_top"
+  }
+}
