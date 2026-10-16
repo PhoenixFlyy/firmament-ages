@@ -75,7 +75,7 @@ final class SkyHarvestCommands {
         if (!level.hasChunk(pos.getX() >> 4, pos.getZ() >> 4)) {
             float avg = ClimateSources.get().averageTempUnloaded(c.getSource().getServer().overworld(), pos.getX(), a.referenceY(), pos.getZ());
             line(c.getSource(), "Column " + pos.getX() + " " + pos.getZ() + " is not loaded; average at Y " + a.referenceY() + ": " + f(avg)
-                + " C (band at or below " + f(a.maxAverageTemp()) + ")");
+                + " C (band at or below " + f(AuroraService.band(c.getSource().getServer())) + ")");
             return 1;
         }
         AuroraRules.Result r = AuroraService.at(level, pos.getX(), pos.getZ());
@@ -87,7 +87,7 @@ final class SkyHarvestCommands {
         line(c.getSource(), "Aurora at " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + ": " + (r.active() ? "ACTIVE" : "inactive")
             + " (override " + r.override().id() + ", " + level.dimension().location() + ")");
         line(c.getSource(), "  night " + r.night() + " (day time " + Math.floorMod(ow.getDayTime(), 24000L) + "), rain " + r.raining());
-        line(c.getSource(), "  at Y " + a.referenceY() + ": average " + f(avg) + " C, now " + f(inst) + " C, band at or below " + f(a.maxAverageTemp())
+        line(c.getSource(), "  at Y " + a.referenceY() + ": average " + f(avg) + " C, now " + f(inst) + " C, band at or below " + f(AuroraService.band(c.getSource().getServer()))
             + " -> " + (r.inBand() ? "in the cold band" : "too warm") + ", " + (r.coldHalf() ? "cold half" : "warm half"));
         line(c.getSource(), "  roll " + f(r.roll()) + " against chance " + f(r.chance()) + ", intensity " + f(r.intensity()));
         line(c.getSource(), "  height " + pos.getY() + " (nets need " + a.minY() + "), open sky " + sky);
@@ -107,8 +107,9 @@ final class SkyHarvestCommands {
         int[][] dirs = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
         String[] names = {"north", "south", "east", "west"};
         float here = climate.averageTempUnloaded(ow, o.getX(), a.referenceY(), o.getZ());
+        double threshold = AuroraService.band(c.getSource().getServer());
         line(c.getSource(), "Average at Y " + a.referenceY() + " here (" + o.getX() + " " + o.getZ() + "): " + f(here) + " C; band at or below "
-            + f(a.maxAverageTemp()) + " C");
+            + f(threshold) + " C (max_average_temp " + f(a.maxAverageTemp()) + ", spawn offset " + f(a.spawnOffset()) + ")");
         int best = -1;
         String bestText = "";
         for (int d = 0; d < 4; d++) {
@@ -120,7 +121,7 @@ final class SkyHarvestCommands {
                 float t = climate.averageTempUnloaded(ow, x, a.referenceY(), z);
                 if (Float.isNaN(t)) continue;
                 min = Math.min(min, t);
-                if (first < 0 && t <= a.maxAverageTemp()) {
+                if (first < 0 && t <= threshold) {
                     first = dist;
                     if (best < 0 || dist < best) {
                         best = dist;

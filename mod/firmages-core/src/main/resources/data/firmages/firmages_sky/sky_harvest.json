@@ -11,6 +11,7 @@
     "cold_half_factor": 2.0,
     "net_capacity": 4000,
     "share_radius": 1,
+    "spawn_offset": 2.5,
     "colors": [
       "#3CFF9E",
       "#7A5CFF"

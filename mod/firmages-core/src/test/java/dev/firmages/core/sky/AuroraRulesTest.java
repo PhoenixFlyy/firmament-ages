@@ -58,9 +58,10 @@ class AuroraRulesTest {
         o.getAsJsonObject("aurora").addProperty("cold_half_factor", 0.5);
         o.getAsJsonObject("storm").addProperty("thunder_factor", 0);
         o.getAsJsonObject("storm").remove("result");
+        o.getAsJsonObject("aurora").addProperty("spawn_offset", -1);
         SkyHarvestData d = SkyHarvestData.parse(o);
         assertFalse(d.valid());
-        assertTrue(d.errors().size() >= 4, "errors: " + d.errors());
+        assertTrue(d.errors().size() >= 5, "errors: " + d.errors());
         assertEquals(SkyHarvestData.DEFAULT.aurora(), d.aurora(), "a rejected file keeps the built-in values");
         assertFalse(SkyHarvestData.parse(new JsonObject()).valid());
     }
@@ -84,6 +85,23 @@ class AuroraRulesTest {
         assertFalse(r.inBand() || r.active(), "a net at Y 250 above a warm column stays off: " + r);
         float cold = column(0.0F, A.referenceY()); // -12.5 °C at Y 140, about 2,000 blocks poleward of spawn
         assertTrue(eval(AuroraRules.Override.ON, NIGHT, false, cold, cold - 5, 0, 0).active(), "a cold column at the reference height");
+    }
+
+    @Test
+    void bandFollowsAWarmSpawn() {
+        // round H3: 20 seeds, spawn averages at Y 140 from -15.2 to -1.3 °C; the fixed -10 °C left warm spawns without a
+        // band inside 2,000 (seed 1005: none inside 4,096). The world's threshold is the warmer of -10 and spawn - 2.5.
+        assertEquals(2.5, A.spawnOffset());
+        assertEquals(-3.76, AuroraRules.band(A, -1.26F), 1e-4, "warm spawn: about 1,000 blocks poleward of it");
+        assertEquals(-10.0, AuroraRules.band(A, -15.18F), 1e-9, "cold spawn: the fixed threshold (the spawn is in the band)");
+        assertEquals(-10.0, AuroraRules.band(A, -7.5F), 1e-9, "spawn 2.5 above the fixed threshold: the fixed one");
+        assertEquals(-10.0, AuroraRules.band(A, Float.NaN), 1e-9, "unknown spawn climate: the fixed threshold");
+        SkyHarvestData.Aurora off = new SkyHarvestData.Aurora(A.minY(), A.referenceY(), A.maxAverageTemp(), A.chanceCold(), A.chanceWarm(),
+            A.mbPerHour(), A.coldHalfFactor(), A.netCapacity(), A.shareRadius(), A.colors(), 0);
+        assertEquals(-10.0, AuroraRules.band(off, -1.26F), 1e-9, "spawn_offset 0 switches the rule off");
+        AuroraRules.Input in = new AuroraRules.Input(42L, AuroraRules.Override.AUTO, NIGHT, false, -5F, -8F, 0, 0);
+        assertFalse(AuroraRules.evaluate(A, in).inBand(), "-5 °C is outside the fixed band");
+        assertTrue(AuroraRules.evaluate(A, AuroraRules.band(A, -1.26F), in).active(), "inside the band of a warm-spawn world");
     }
 
     @Test

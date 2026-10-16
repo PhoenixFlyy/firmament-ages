@@ -129,7 +129,7 @@ public final class SkySuite implements SelfTest.Suite {
                 if (st.is(itemTag("c:ores")) || st.is(itemTag("c:raw_materials"))) bad.add(i.getId().toString());
             }
             checkEquals(List.of(), bad, "Sky Harvest items in c:ores or c:raw_materials");
-            return "storm input " + in + ", aurora band at or below " + SkyHarvestDataLoader.current().aurora().maxAverageTemp() + " C at Y "
+            return "storm input " + in + ", aurora band at or below " + String.format(java.util.Locale.ROOT, "%.2f", dev.firmages.core.sky.AuroraService.band(server)) + " C at Y "
                 + SkyHarvestDataLoader.current().aurora().referenceY();
         });
         r.test("no_energy", () -> {
