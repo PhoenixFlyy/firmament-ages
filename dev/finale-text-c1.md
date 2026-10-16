@@ -104,5 +104,6 @@ Pitfalls:
 - `/firmages origin fight`: summons The Primordial above the altar at once (the Gathering skipped). Refused while
   it lives, while nobody is in The Origin to keep the altar loaded, and once the finale is won.
 - `/firmages origin kill boss`: kills it; the finale is won the normal way.
-- `[boss]` in `serverconfig/firmages-server.toml`: `effectiveHealth` (2400, one player), `perPlayerFactor` (0.45),
-  `veilFactor` (0.25), `enrageMinutes` (10), `starfallEnrageMinutes` (12), `wipeSeconds` (30).
+- `[boss]` in `serverconfig/firmages-server.toml`: `effectiveHealth` (13000, one player), `perPlayerFactor` (0.7),
+  `veilFactor` (0.25), `hitCap` (40), `enrageMinutes` (10), `starfallEnrageMinutes` (12), `wipeSeconds` (30) (round C2,
+  the fight model of SPEC 39).

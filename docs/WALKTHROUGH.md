@@ -576,9 +576,9 @@ Defeat The Primordial, the final boss in The Origin. Its fall grants `finale_won
 3. The Primordial wakes above the altar: dark glass, a keel below, a halo of nine lights. Its veil takes most of your
    damage; it opens only when you answer an attack.
    - The Dark Before: strike the keel while it rests on the floor after a slam, or shoot the node that glows white.
-   - Nine Lights (from two thirds): the lanterns go out. Shoot the node whose beam sweeps the floor, or strike the
+   - Nine Lights (below 69 percent): the lanterns go out. Shoot the node whose beam sweeps the floor, or strike the
      core from below while it pulls you in.
-   - Firmament Shatter (from one third): stars fall. Pick up the shards it sheds: right-click one to let the stars
+   - Firmament Shatter (below 38 percent): stars fall. Pick up the shards it sheds: right-click one to let the stars
      pass you, hold one in the off hand and strike, or throw one at it (sneak and right-click) to open the veil.
 4. Expect six to ten minutes. After ten minutes the veil opens for less time, after twelve the stars fall everywhere.
 5. It falls: "Beyond the Firmament". The MekaSuit and the Meka-Tool can now be made. The shrine's beam turns gold.

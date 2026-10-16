@@ -3126,3 +3126,40 @@ Notes:
 - The tutorial Wayshrine found no fit site on the seed of boot 1 (16 bearings, slope or water; WARN, retried at the
   next start while the world is young); boots 2, 3 and 5 placed it 311, 538 and 578 blocks out.
 - The portable cell mixin was dropped after boot 3: AE2 and MEGA portable cells never use 63 types.
+
+## 1.0 round C2, core-balance (2026-10-16, branch c2/core-balance)
+
+firmages-core on dev ff67812 (pack and firmages-core 0.11.0, version kept): H5A tally proof (SPEC §35), the rite
+`energy_consume` (§36), `balance.feCap` (§37), `/firmages energy audit` and `/firmages ore audit` (§38), The
+Primordial by numbers (§39), the Wayshrine density measured (§28). Felix's test server stayed off and untouched; every
+boot ran on the copy `.wt/test-server-core-balance` (`robocopy` without world, logs, local; port 25900, RCON 25910;
+whitelist off; synced with `packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8093` of the
+worktree, "Finished successfully"; `debug.allowSimulate = true`; the worktree's jar copied over the synced one; a
+copy-only `kubejs/data/firmages/firmages_shrine/tallies.json` asked for 16 steel ingots instead of 512, and the copy's
+`feCap` named an IE creative capacitor at 300 FE/t), each boot on a new world with `-Xms4G -Xmx5G`. The copy is
+deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | BUILD SUCCESSFUL, 211 unit tests, 0 failures (new: `OreLadderTest` 7, `FeCapsTest` 3, `FightModelTest` 6; `ShrineRulesTest` tallies and `energy_consume`) | pass |
+| `runGameTestServer` (fresh `run/gametest`) | "All 87 required tests passed" in three runs in a row after the race fix of `excavatorVeinAtAutomationAge` (before it failed 2 of 2: the age_6 grant's own reconcile had added the vein). New: `BalanceGameTests` (an LV capacitor capped at 50 FE/t pushes 50 a tick; the audit shows the LV at out 256.0 and the MV at in 256.0 FE/t; the ore audit reads the table), `offeringWaitsForProof`, `heartDrawsPower`; boss phases at 69 % and 38 %, pools 13,000 / 22,100 / 40,300, a 1000 hit counted as the cap | pass |
+| Copy boot 1 (seed 1001; grants age_0 to age_4, `shrine build 8 229 8 4`, debug player) | the Pressure Core on the open plinth: refused, chat "Caelum asks for proof of work: your Tally Chutes must count 16 Steel Ingot in the Industrial Age. They have counted 0."; a Tally Chute placed by the player between a hopper and a chest: `passed: 16L`, `shrine status` "counted 16 by the leading team (met)"; the Core again: "Offering for tier 4 laid"; `ore audit` 43,607 recipes, 608 measurements, per Age best tech 1.0 / 1.0 / 1.7 / 1.7 / 2.0 / 3.0 / 2.857 to 3.0 / 3.81 to 4.0 / 5.0, magic 2.0 from age_3, L-1 to L-4 clean, 817 ms; `selftest all` 72 passed, 2 failed (the crown checks red by design until M15) | pass |
+| Copy boot 2 (seed 1001, census boot with extras) | IE creative capacitor under an MV capacitor, `feCap` 300: `energy audit 6 5` capacitor_creative out 300.0, capacitor_mv in 300.0 FE/t, MV holds 103,200 FE after the run; `origin fight` with The Origin's altar chunks forceloaded: "The Primordial wakes ... (effective health 13000); fight model (Chaotic sword +2 damage modules, 49.5 per hit, 40.0 to the pool, 2.0 hits/s, uptime 60%): 1 player 8.4 min, 2 players 7.2 min, 4 players 6.5 min"; 30 s later the wipe | pass |
+| Copy boots 2 to 21 (seeds 1001 to 1020, `wayshrine census 4000` shipped and at 64/24, 72/27, 96/36, 112/42) | seeds in 7 to 11: 80/30 7 of 20 (mean 7.0, 2 to 15), 64/24 8 (10.9, 3 to 20), 72/27 11 (10.0, 5 to 16), 96/36 6 (4.7), 112/42 2 (3.6); each census under 0.2 s | 72/27 chosen |
+| Copy boot 22 (final jar, spacing 72/27, seed 1001, all of boot 1 and 2) | census shipped 9 (= the 72/27 variant of boot 2), refusal and acceptance as in boot 1, audit 300 / 300 FE/t, ore audit as in boot 1, boss and model line, `selftest all` 72 / 2 (crown); `check_log.py`: 70.7 s to Done, FATAL 0, ERROR 8, STDERR 0, remaining 14: the debug commands' own lines (rings 5 to 8 missing after `shrine status`, the two crown checks, one "Can't keep up" during `selftest all`) and 2 ERROR "DISTXFORM ... LocalPlayer" from TFC's "This is fine" probe (open point: noise list) | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods`, `check_menus.py`, `gen_wayshrines.py --check` | 1,258 object ids, 0 errors, 0 warnings; menus pass; 89 files up to date | pass |
+
+Notes:
+- `dev/scan_regions.py` was not used for acceptance 2: it reads generated region files and would need a pregen of
+  4,000 blocks around spawn (about 250,000 chunks) per seed. `/firmages wayshrine census` lists the same candidates
+  as `locate` and asks the structure manager, which decides a start for a chunk without data from the structure's
+  own check (biome, height) and generates nothing; boot 22 confirms its spacing variant against the shipped data.
+- The first census loop was started twice by mistake and ran two servers on one copy for about four minutes; both
+  were stopped and the world deleted before the counted loop. Its numbers are not used.
+
+### Open points
+
+- `balance.feCap` applies to new capability lookups only; Mekanism's strict-energy path is compiled and wired, the
+  live measurement used IE capacitors (FE).
+- The fight model's assumptions (uptime, veil share) wait for a recorded fight with 1, 2 and 4 players.
+- Wayshrine density at 72/27 still spreads 5 to 16 per seed.
