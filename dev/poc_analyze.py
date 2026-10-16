@@ -1174,6 +1174,7 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
         def fits(i):
             return max_age is None or age_ix(i) <= AGES.index(max_age)
         have = {i for i in items if i.split(":")[0] in WORLD_NS} | {"minecraft:" + x for x in VANILLA_WORLD} | set(MOB_DROPS)
+        have |= {i for drops in SKY_WORLD.values() for i in drops if i in items}   # Starfall, Drifting Isles
         have = {i for i in have if fits(i)}
 
         def sat_(slot):
@@ -1216,24 +1217,27 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     # ---- C-3: Arcane Age ---------------------------------------------------------------------------------------
     ks = full.get("firmages:ritual/arcane_keystone", {})
     ks_ings = sorted(x for s in _slots(ks, []) for _, x in s)
+    # V4A (SPEC 27.8): with the sky road complete the steel ingot is a Starlit Iron ingot, and the tech route deploys one
+    sky_road = "firmages:starlit_iron_ingot" in json.dumps(ks)
     want_ings = sorted(["occultism:book_of_binding_bound_djinni", "occultism:spirit_attuned_crystal", "occultism:iesnium_ingot",
-                        "ars_nouveau:wilden_tribute", "theurgy:mercury_catalyst", "tfc:metal/ingot/steel",
-                        "ars_nouveau:source_gem_block"])
+                        "ars_nouveau:wilden_tribute", "theurgy:mercury_catalyst",
+                        "firmages:starlit_iron_ingot" if sky_road else "tfc:metal/ingot/steel", "ars_nouveau:source_gem_block"])
     ks_row = by_id.get("firmages:ritual/arcane_keystone", {})
     ks_tech = full.get("firmages:sequenced_assembly/arcane_keystone", {})
     tribute = full.get("firmages:apparatus/wilden_tribute", {})
     check("C-3a Arcane Keystone: tech route on the Create line from the age_3 token (Hollow Keystone), magic route in the "
-          "Djinni pentacle from the three proofs (Wilden Tribute from the Enchanting Apparatus), TFC steel and a source gem "
-          "block; item age_3",
+          "Djinni pentacle from the three proofs (Wilden Tribute from the Enchanting Apparatus), TFC steel (Starlit Iron on both "
+          "routes with the sky road, V4A) and a source gem block; item age_3",
           ks.get("type") == "occultism:ritual" and ks.get("pentacle_id") == "occultism:craft_djinni" and ks_ings == want_ings
           and item_age.get("firmages:arcane_keystone") == "age_3" and ks_row.get("item_lock") == PS + "age_3"
           and ks_tech.get("type") == "create:sequenced_assembly"
           and (ks_tech.get("ingredient") or {}).get("tag") == "firmages:age_token/age_3"
+          and sky_road == ("firmages:starlit_iron_ingot" in json.dumps(ks_tech))
           and tags.get("firmages:age_token/age_3") == ["firmages:hollow_keystone"]
           and tribute.get("type") == "ars_nouveau:enchanting_apparatus",
           [f"type {ks.get('type')}, pentacle {ks.get('pentacle_id')}, ingredients {ks_ings}",
            f"item age {item_age.get('firmages:arcane_keystone')}, PS item lock {ks_row.get('item_lock')}",
-           f"tech route {ks_tech.get('type')} from {ks_tech.get('ingredient')}",
+           f"tech route {ks_tech.get('type')} from {ks_tech.get('ingredient')}, V4A Starlit Iron on both routes: {sky_road}",
            f"age_token/age_3 {tags.get('firmages:age_token/age_3')}, apparatus tribute {tribute.get('type')}"])
     missing = [c for c in ARCANE_CHAIN if c not in ok]
     check("C-3b Arcane strands (Spirits, Source, Alchemy), their stations and the Keystone are obtainable from TFC-world inputs",
@@ -1268,10 +1272,10 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
     pc = full.get("firmages:crafting/pressure_core", {})
     pc_ings = sorted(x for s in _slots(pc, []) for _, x in s)
     pc_want = sorted(["immersiveengineering:heavy_engineering", "c:double_sheets/black_steel", "firmages:arcane_gearbox",
-                      "firmages:age_token/age_4"])
+                      "firmages:age_token/age_4"] + ["firmages:cloudsteel_ingot"] * ("firmages:cloudsteel_ingot" in pc_ings))  # V4A
     pc_row = by_id.get("firmages:crafting/pressure_core", {})
     check("C-4a Pressure Core: black steel double sheet, Heavy Engineering Block, Arcane Gearbox, built-up steel cannon "
-          "chamber (age_4 token); age_4",
+          "chamber (age_4 token), with the sky road two Cloudsteel ingots (V4A); age_4",
           pc_ings == pc_want and item_age.get("firmages:pressure_core") == "age_4"
           and pc_row.get("item_lock") == PS + "age_4" and item_age.get("firmages:arcane_gearbox") == "age_4"
           and tags.get("firmages:age_token/age_4") == ["createbigcannons:built_up_steel_cannon_chamber"]
@@ -1669,6 +1673,78 @@ def content_checks(base, server_dir, rows, by_id, tags, item_age, check):
 
     ladder_checks(full, recs, items, tags, check)
     reach_checks(full, recs, items, tags, item_age, check, server_dir)
+    sky_checks(full, recs, items, tags, check)
+
+
+# ================================================================================================ sky road (S-)
+# S- checks (firmages-core SPEC 24.3 and 24.7 criterion 1, the "validate_recipes" hand-off of M15): every sky material
+# has exactly one source. A recipe may turn a sky metal into another form of the same metal (meteoric iron chunk to
+# ingot, sheet, rod, block), but nothing else makes a sky material; the celestial alloys, the later lenses and the
+# blessing shards come only from the Lens Crown (firmages:starforge); the first three lenses are grid recipes from a
+# lens blank (SPEC 27.9). No sky item is an ore or raw material (no ore doubling), and no loot table outside the
+# firmages blocks and no global loot modifier hands one out (dev/data/world_sources.json of derive_ages.py --scan).
+SKY_FAMILIES = {"meteoric_iron": r"^firmages:meteoric_iron_(chunk|ingot|double_ingot|sheet|rod|block)$",
+                "starsteel": r"^firmages:starsteel_(chunk|ingot|block)$"}
+SKY_SINGLE = ["firmages:storm_glass", "firmages:aurora_light_bucket", "firmages:firmament_crystal", "firmages:voidglass",
+              "firmages:deep_space_sample"]
+CROWN_ONLY = [f"firmages:{a}_ingot" for a in ("starlit_iron", "cloudsteel", "aurora_steel", "halo_steel", "void_steel",
+                                              "quasar_alloy", "firmament_alloy")] \
+    + [f"firmages:lens/{n}" for n in ("arcane", "industrial", "electric", "information", "space", "quantum")] \
+    + ["firmages:blessing_shard"]
+GRID_LENSES = {f"firmages:crafting/lens/{n}" for n in ("stone", "bronze", "iron")}
+
+
+def sky_checks(full, recs, items, tags, check):
+    fam = {f: re.compile(rx) for f, rx in SKY_FAMILIES.items()}
+
+    def family(i):
+        return next((f for f, rx in fam.items() if rx.match(i)), None)
+
+    def slot_items(sl):
+        out = set()
+        for alts in sl:
+            for k, x in alts:
+                out |= set(tags.get(x, [])) if k == "tag" else {x}
+        return out
+    sky = {i for i in items if family(i)} | set(SKY_SINGLE) | set(CROWN_ONLY)
+    bad = []
+    for rid, sl, os_ in recs:
+        if full[rid].get("type") in _WORLD_TYPES:
+            continue   # world data, not processing: the IE veins under Starfall craters (SPEC 25.6) are part of the source
+        for o in os_:
+            if o not in sky:
+                continue
+            t = full[rid].get("type", "")
+            if o in CROWN_ONLY:
+                if t != "firmages:starforge":
+                    bad.append(f"{rid} ({t}) makes {o} outside the Lens Crown")
+            elif family(o):
+                if not any(family(i) == family(o) for i in slot_items(sl)):
+                    bad.append(f"{rid} ({t}) makes {o} without {family(o)}")
+            else:
+                bad.append(f"{rid} ({t}) makes {o}, whose one source is not a recipe")
+    lens_bad = [f"{rid} makes {o}" for rid, sl, os_ in recs for o in os_
+                if o.startswith("firmages:lens/") and o.split("/")[-1] in ("stone", "bronze", "iron")
+                and rid not in GRID_LENSES and full[rid].get("type") != "firmages:starforge"]
+    check(f"S-1 one source: no recipe makes a sky material ({len(sky)} items) outside its source; alloys, later lenses "
+          "and shards only in the Lens Crown", not bad and not lens_bad, bad + lens_bad)
+    ore = sorted(i for t in tags if t.startswith(("c:ores", "c:raw_materials")) for i in tags[t] if i in sky)
+    check("S-2 no sky material is in #c:ores or #c:raw_materials (no ore doubling)", not ore, ore)
+    try:
+        ws = json.load(open(os.path.join(REPO, "dev", "data", "world_sources.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        ws = {}
+    loot = sorted(f"{t}: {i}" for t, d in ws.get("loot", {}).items() for i in d.get("items", [])
+                  if i in sky and not t.startswith("firmages:blocks/"))
+    glm = sorted(f"{g['id']}: {s}" for g in ws.get("glm", []) for s in g.get("strings", []) if s in sky)
+    check("S-3 no loot table outside the firmages blocks and no global loot modifier hands out a sky material",
+          not loot and not glm, loot + glm)
+    starforge = [rid for rid, _, _ in recs if full[rid].get("type") == "firmages:starforge"]
+    per_alloy = {a: [rid for rid, _, os_ in recs if a in os_] for a in CROWN_ONLY[:7]}
+    multi = [f"{a}: {r}" for a, r in per_alloy.items() if len(r) > 1]
+    print(f"    S-4 starforge recipes in the dump: {len(starforge)}; alloys with a recipe: "
+          f"{sum(1 for r in per_alloy.values() if r)} of 7")
+    check("S-4 every celestial alloy has at most one recipe (the Lens Crown's; SPEC 27.7)", not multi, multi)
 
 
 # ================================================================================================ ore ladder (L-)
@@ -1981,6 +2057,13 @@ EXPEDITION_DROPS = {"dawn": ["firmages:frontier_shard"],
                     "age_2": ["tfcreate:unpolished_quartz"],
                     "age_3": ["firmages:hollow_keystone"],
                     "age_7": ["firmages:flight_recorder"]}
+# The sky road (firmages-core SPEC 24.2): sky materials that the world hands out without a recipe. Starfall craters
+# drop meteoric iron chunks from the Iron Age and starsteel chunks from the Electric Age; the Drifting Isles grow
+# firmament crystal, reached by airship or jetpack in the Industrial Age. Storm glass, voidglass and the deep-space
+# samples come from machines (MACHINE_MADE), aurora light is a fluid (fluids count as available).
+SKY_WORLD = {"age_2": ["firmages:meteoric_iron_chunk"],
+             "age_4": ["firmages:firmament_crystal"],
+             "age_5": ["firmages:starsteel_chunk"]}
 # What the rockets of the Space and Quantum Age reach without a recipe (Ad Astra planets: stone, sand, ore drops,
 # Moon cheese) and the draconium ore of the End (pack pieces since 2026-10-15). Regexes over the registry, per Age.
 LATE_WORLD = {"age_7": [r"^ad_astra:(moon|mars)_(stone|cobblestone|sand|deepslate)$", r"^ad_astra:(raw_desh|raw_ostrum|cheese)$",
@@ -2011,6 +2094,21 @@ STATION_ITEMS.update({
     "sgjourney:naquadah_liquidizing": [["sgjourney:naquadah_liquidizer"]],
     "sgjourney:naquadah_heavy_liquidizing": [["sgjourney:heavy_naquadah_liquidizer"]],
 })
+# The Lens Crown (SPEC 27): the Star Anvil and a lens mount; station_groups adds the lenses of the recipe's chord.
+STATION_ITEMS["firmages:starforge"] = [["firmages:star_anvil"], ["firmages:lens_mount"]]
+LENSES = ["stone", "bronze", "iron", "arcane", "industrial", "electric", "information", "space", "quantum"]
+CHORDS_JSON = os.path.join(REPO, "mod", "firmages-core", "src", "main", "resources", "data", "firmages", "firmages_crown",
+                           "chords.json")
+
+
+def chord_lenses(chord):
+    """Lens items of a chord of the shipped library (firmages:<name>), [] for an unknown chord."""
+    try:
+        lib = json.load(open(CHORDS_JSON, encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    c = lib.get(str(chord).split(":")[-1], {})
+    return [f"firmages:lens/{LENSES[i]}" for i in c.get("lenses", []) if 0 <= i < len(LENSES)]
 FUSION_INJECTOR = {"draconium": "basic", "wyvern": "wyvern", "draconic": "awakened", "chaotic": "chaotic"}
 # What a machine or multiblock makes without a recipe JSON: the fission reactor burns fissile fuel into nuclear waste,
 # the SPS turns polonium into antimatter, the AE2 Matter Condenser compresses anything into matter balls and the
@@ -2020,6 +2118,7 @@ FUSION_INJECTOR = {"draconium": "basic", "wyvern": "wyvern", "draconic": "awaken
 CBC_CHAMBER = ["tfc:metal/ingot/steel", "create:basin", "createbigcannons:very_small_cast_mould",
                "createbigcannons:small_cast_mould", "createbigcannons:medium_cast_mould", "createbigcannons:large_cast_mould",
                "createbigcannons:cannon_drill", "createbigcannons:cannon_builder", "create:encased_fan"]
+LAUNCH_COMPLEX = ["firmages:launch_control", "firmages:probe_cradle", "firmages:launch_port", "firmages:probe"]
 DE_REACTOR = ["draconicevolution:reactor_core", "draconicevolution:reactor_stabilizer", "draconicevolution:reactor_injector",
               "firmages:reactor_controller", "draconicevolution:awakened_draconium_block"]
 MACHINE_MADE = {"ae2:matter_ball": ["ae2:condenser"], "ae2:singularity": ["ae2:condenser"],
@@ -2032,7 +2131,12 @@ MACHINE_MADE = {"ae2:matter_ball": ["ae2:condenser"], "ae2:singularity": ["ae2:c
                                            "mekanismgenerators:fission_fuel_assembly", "mekanismgenerators:control_rod_assembly",
                                            "mekanismgenerators:fission_reactor_port"],
                 "mekanism:antimatter": ["mekanism:polonium", "mekanism:sps_casing", "mekanism:sps_port",
-                                        "mekanism:supercharged_coil"]}
+                                        "mekanism:supercharged_coil"],
+                # the sky road (SPEC 26.5, 31.4): the Storm Rod fuses sand into storm glass in rain; the Launch Complex
+                # flies a probe with a sampler module (voidglass) or a deep-space module (samples and voidglass)
+                "firmages:storm_glass": ["firmages:storm_rod"],
+                "firmages:voidglass": LAUNCH_COMPLEX + ["firmages:sampler_module"],
+                "firmages:deep_space_sample": LAUNCH_COMPLEX + ["firmages:deep_space_module"]}
 # Vanilla station blocks without a recipe in a TFC world, and the recipes that only transform such a block itself.
 STATION_VANILLA = {"minecraft:bucket", "minecraft:crafting_table", "minecraft:furnace", "minecraft:blast_furnace", "minecraft:smoker",
                    "minecraft:campfire", "minecraft:anvil",
@@ -2128,6 +2232,8 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
         if t == "draconicevolution:fusion_crafting":
             lvl = FUSION_INJECTOR.get(str(full[rid].get("techLevel", "draconium")).lower(), "basic")
             groups.append([f"draconicevolution:{lvl}_crafting_injector"])
+        if t == "firmages:starforge":
+            groups += [[lens] for lens in chord_lenses(full[rid].get("chord"))]
         return groups
 
     def start(n, without=(), via=None):
@@ -2141,6 +2247,9 @@ def make_walk(full, recs, items, tags, item_age, amap, extra=None):
         for st, drops in EXPEDITION_DROPS.items():
             if AGES.index(st) <= n:
                 src.update({d: f"expedition or vein drop {st}" for d in drops})
+        for st, drops in SKY_WORLD.items():
+            if AGES.index(st) <= n:
+                src.update({d: f"sky road world source {st}" for d in drops})
         for st, pats in LATE_WORLD.items():
             if AGES.index(st) <= n:
                 src.update({i: f"planet/End world {st}" for i in items if any(re.search(p_, i) for p_ in pats)})
