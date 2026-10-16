@@ -15,13 +15,17 @@ import net.neoforged.fml.ModList;
  * player's Ages hides the scenes of locked items from the index (opened from Create's config menu). The tag screens
  * ignore exclusions; {@code mixin.ponder.PonderTagScreenMixin} filters those. The pack's own scenes (SPEC §22.5):
  * "Silo Hatch" on {@code ad_astra:launch_pad} and "Portcullis" on {@code create:rope_pulley}, built with Create's scene
- * builder; the Lens Crown's "The Lens Crown", "Chords" and "A Chord Library" ({@link CrownScenes}). A quest picture opens a scene through {@link QuestPonderLink}. Client only, registered only with Ponder.
+ * builder; the Lens Crown's "The Lens Crown" and "Chords" ({@link CrownScenes}). "A Chord Library" automates the anvil
+ * with an AE2 pattern provider, so it hangs on {@code ae2:pattern_provider} (Information Age): on the Star Anvil an
+ * Arcane Age player would see an Age-6 block through W. A quest picture opens a scene through {@link QuestPonderLink}.
+ * Client only, registered only with Ponder.
  */
 public final class FirmagesPonderPlugin implements PonderPlugin {
     static final ResourceLocation LAUNCH_PAD = ResourceLocation.fromNamespaceAndPath("ad_astra", "launch_pad");
     static final ResourceLocation ROPE_PULLEY = ResourceLocation.fromNamespaceAndPath("create", "rope_pulley");
     static final ResourceLocation STAR_ANVIL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "star_anvil");
     static final ResourceLocation LENS_MOUNT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "lens_mount");
+    static final ResourceLocation PATTERN_PROVIDER = ResourceLocation.fromNamespaceAndPath("ae2", "pattern_provider");
 
     @Override
     public String getModId() {
@@ -39,7 +43,8 @@ public final class FirmagesPonderPlugin implements PonderPlugin {
         if (ModList.get().isLoaded("ad_astra")) helper.forComponents(LAUNCH_PAD).addStoryBoard("silo_hatch", FirmagesScenes::siloHatch);
         helper.forComponents(ROPE_PULLEY).addStoryBoard("portcullis", FirmagesScenes::portcullis);
         // The Lens Crown (SPEC §27.11)
-        helper.forComponents(STAR_ANVIL).addStoryBoard("lens_crown", CrownScenes::lensCrown).addStoryBoard("chord_library", CrownScenes::chordLibrary);
+        helper.forComponents(STAR_ANVIL).addStoryBoard("lens_crown", CrownScenes::lensCrown);
+        if (ModList.get().isLoaded("ae2")) helper.forComponents(PATTERN_PROVIDER).addStoryBoard("chord_library", CrownScenes::chordLibrary);
         helper.forComponents(LENS_MOUNT).addStoryBoard("chords", CrownScenes::chords);
     }
 

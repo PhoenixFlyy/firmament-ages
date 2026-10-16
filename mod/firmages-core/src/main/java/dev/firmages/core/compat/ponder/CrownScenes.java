@@ -11,7 +11,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
 /**
- * The Lens Crown's Ponder storyboards (SPEC §27.11): "The Lens Crown" and "A Chord Library" on the Star Anvil, "Chords"
+ * The Lens Crown's Ponder storyboards (SPEC §27.11): "The Lens Crown" on the Star Anvil, "A Chord Library" on the AE2
+ * pattern provider (Information Age), "Chords"
  * on the Lens Mount. Schematics {@code assets/firmages/ponder/lens_crown|chords|chord_library.nbt} from
  * {@code dev/gen_ponder_schematics.py}: the crown's bottom layer at y1 from x/z 1 to 9, the anvil at (5,1,5), the
  * Stone, Bronze and Iron Lens on the north sockets (3|5|7, 2, 1). Texts: {@code firmages.ponder.<scene>.*}.
@@ -136,7 +137,7 @@ final class CrownScenes {
         scene.markAsFinished();
     }
 
-    /** "A Chord Library" on {@code firmages:star_anvil}: pattern provider, comparator, link decoder, output. */
+    /** "A Chord Library" on {@code ae2:pattern_provider}: pattern provider, comparator, link decoder, output. */
     static void chordLibrary(SceneBuilder builder, SceneBuildingUtil util) {
         CreateSceneBuilder scene = new CreateSceneBuilder(builder);
         scene.title("chord_library", "A Chord Library");

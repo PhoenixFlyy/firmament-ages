@@ -914,7 +914,7 @@ PONDERS = [
     ("portcullis", "PORTCULLIS", "create:rope_pulley", "portcullis", None, _grate_down,
      "Ponder scene Portcullis: an iron grate on a rope pulley over a gate"),
     ("lens_crown", "THE LENS CROWN", "firmages:star_anvil", "lens_crown", None, None,
-     "Ponder scenes The Lens Crown and A Chord Library on the Star Anvil"),
+     "Ponder scene The Lens Crown on the Star Anvil"),
     ("chords", "CHORDS", "firmages:lens_mount", "chords", None, None,
      "Ponder scene Chords: levers swing the lenses of the Lens Crown"),
 ]
