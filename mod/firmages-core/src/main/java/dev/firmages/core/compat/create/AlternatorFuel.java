@@ -81,7 +81,9 @@ public final class AlternatorFuel {
     public static boolean fuelled(KineticBlockEntity source) {
         if (source.getClass().getName().startsWith(DIESEL_PACKAGE)) return true;
         if (source instanceof PoweredShaftBlockEntity shaft && shaft.enginePos != null && source.getLevel() != null) {
-            BlockEntity engine = source.getLevel().getBlockEntity(shaft.enginePos);
+            // Create 6.0.10 keeps the engine as an offset (shaft minus engine, PoweredShaftBlockEntity.update [javap]);
+            // read as an absolute position it never found the engine, so no boiler ever counted as fuelled (round H3)
+            BlockEntity engine = source.getLevel().getBlockEntity(shaft.getBlockPos().subtract(shaft.enginePos));
             if (engine instanceof SteamEngineBlockEntity steam) {
                 FluidTankBlockEntity tank = steam.getTank();
                 if (tank != null) {

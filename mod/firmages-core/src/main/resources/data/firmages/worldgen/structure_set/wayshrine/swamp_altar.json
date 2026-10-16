@@ -8,8 +8,8 @@
   "placement": {
     "type": "tfc:climate",
     "salt": 2101444522,
-    "spacing": 72,
-    "separation": 27,
+    "spacing": 80,
+    "separation": 30,
     "climate": {
       "min_groundwater": 300.0
     }

@@ -50,8 +50,8 @@
       "mekanism": {"chemical": "mekanism:hydrogen", "burn_time": 1}
     },
     "deuterium_tritium": {
-      "fe_per_bucket": 200000000,
-      "_doc": "Mekanism fusion: fuelEnergy 10,000,000 J of heat per mB (generators.toml default), of which the passive thermocouples turn 5 % into power: 200 M FE per bucket before water heating. A ladder bound only; the fusion reactor reads its own config."
+      "fe_per_bucket": 43190000,
+      "_doc": "Mekanism fusion, water-cooled through a full-blade turbine (harmony A8, dev/harmonie-messung.md): fuelEnergy 700,000 J of heat per mB (config/Mekanism/generators.toml), 75 % into steam at 0.2 J per J of heat, 25 % to the thermocouples at 0.017: 700,000 x 0.15425 / 2.5 = 43,190 FE per mB. A ladder bound only; the fusion reactor reads its own config."
     }
   },
   "dead": {

@@ -61,6 +61,7 @@ public final class EnergyMeter {
         modBus.addListener(ModConfigEvent.Reloading.class, e -> configChanged(e.getConfig().getSpec()));
         gameBus.addListener(EnergyMeter::onServerTick);
         gameBus.addListener(EnergyMeter::onServerStopped);
+        gameBus.addListener(ReferenceRun::onServerTick);
     }
 
     private static void capabilities(RegisterCapabilitiesEvent event) {

@@ -3428,3 +3428,49 @@ each boot with a new world and `-Xms3G -Xmx5G`. The copy is deleted.
 | `gen_machine_usage.py --check --server-dir <copy>`, `gen_fuels.py --check`, `gen_wayshrines.py --check`, `gen_ark.py --check`, `gen_wood_classes.py --check`, `derive_ages.py --check`, `gen_stage_locks.py --check` | 282 values read back, 87 off their default, up to date; fuels up to date; 89 Wayshrine files, every ruin block Dawn (the first run named the four ruins of the review); 47 ark files, no disabled block (the first run named the eight vanilla blocks); 276 wood class files | pass |
 | `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 13 chapters, 21 reward tables, 949 lang keys; 1,374 object ids, 0 errors, 0 warnings (the proof advancements resolved from `kubejs/data`) | pass |
 | `release.ps1 -Version 0.12.0`, `export_cf.py`, `verify_install.py` | `.mrpack` 475.6 MB, CurseForge zip 75.3 MB, server pack 502.5 MB; upload zip 5.6 MB, 12 swaps, 265 manifest files, only `firmages-core-0.12.0.jar` in overrides; `cfzip` 2,866 of 2,866 and `mrpack --side server` 2,830 of 2,830, no missing, extra or wrong hash; the server pack's jar has the build's SHA-256 and the new `tallies.json`. Nothing uploaded | pass |
+
+## 1.0 round H3, measurements (2026-10-16, branch h3/measure)
+
+Harmony package A8 and the open measurements, on dev b78760f (pack and firmages-core 0.12.0). Felix's test server
+stayed off and untouched. Every boot ran on the copy `.wt/test-server-h3measure` (`robocopy` without world, logs,
+local; ports 26300 and RCON 26310; whitelist off; `debug.allowSimulate = true`), synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8330 --refresh=false` of the worktree ("Finished
+successfully", 2,872 files), the branch jar copied over the synced one, a new world per boot (seed 1001 unless named),
+`-Xms4G -Xmx5G`, Ages granted with `firmages ages simulate grant age_0` to `age_9` where a run needed them. Numbers and
+reasoning: `dev/harmonie-messung.md`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| `gradlew build` (JDK 21) | 263 unit tests, 0 failures (new: `StormForecastTest` 4, `AuroraRulesTest.bandFollowsAWarmSpawn`) | pass |
+| `runGameTestServer` in a fresh `run/gametest` | "All 116 required tests passed"; new `referenceRunMetersASmokeBuild`: `smoke_capacitor` 97.5 FE/t over 40 ticks (39 of 40 ticks fed) | pass |
+| Copy boots 2 to 8, `/firmages energy reference run <name>` (1,200 ticks after the warm-up) | Create boiler 18: 0.0 FE/t before the `AlternatorFuel` fix, 3,024.0 after; unfuelled alternator (creative motor 256 rpm) 0.0; CDG huge engine 147.0 FE/t on 0.127 mB/t diesel; Mek GBG at 1 mB/t ethene 11,339.7; More Machine large GBG at 1 mB/t 11,280.0; fission 1 mB/t + 11x11x18 turbine 78,711.4 (default) and 98,399.9 (tuned); fusion injection 20 passive 3,952,901.9 (default) and 96,769.7 (tuned); fusion with turbine 841,139.4 (tuned); DE reactor 4 blocks at 2 M extraction 1,090,601.5 net (5,245 C, steady), 2 blocks at 1 M 547,903.6, 2 at 1.5 M 430,855.9 (8,418 to 8,663 C), 4 at 3 M -1,183,339.9 (8,820 to 9,118 C) | tuned within the bands |
+| `balance.feCap` on Mekanism (`gas_burning_generator=100` in the copy's config, restart) | GBG into trash cans (FE) 11,339.7 -> 100.0 FE/t; GBG into a Mekanism basic energy cube (strict energy) 564.0 -> 100.0 FE/t | pass, no fix |
+| IE Diesel Generator | formed (`createStructure` from the south), 24,000 mB diesel, recipe found for the tank, redstone mode set to run without a signal; stays `active=false`, 0 FE/t into 15 trash cans on its roof | not measured (open) |
+| Mekanism consumers (purification, upgraded, injection, dissolution) | the machines took 0 of 64 `tfc:ore/rich_hematite` and no energy through the capability: 0 FE/t | not measured (open) |
+| Copy boot 7, after `/reload`: reference `mek_injection` | `java.lang.StackOverflowError` in TFC `HeatDefinition.matches` -> `CompoundIngredient.test` -> `Ingredient.getItems` -> `new ItemStack` -> `HeatCapability.getDefinition` (recursion), server stopped (`crash-2026-10-16_11.41.41-server.txt`); the same run on boot 8 without a `/reload` did not crash | open |
+| Wayshrine census, seeds 1001 to 1020 (`wayshrine census 4000` at the shipped and 10 spacings per boot) | see the census table below | |
+| Aurora band (`sky aurora band 4096`, the same 20 boots, fixed -10 C) | spawn averages at Y 140 from -15.18 to -1.26 C; 11 seeds with the band at the spawn (256 blocks), 15 within 2,048, 1003 at 2,816, 1010 at 3,328, 1014 at 3,072, 1005 none within 4,096 | 4 of 20 fail |
+| Aurora band with `spawn_offset` 2.5 (census boots of seeds 1003, 1005, 1010, 1014 and 1021 to 1030, branch jar) | the four failing seeds now 1,536 / 1,536 / 1,280 / 1,792 blocks (thresholds -5.81 C and up from the spawn); the ten new seeds 256 to 1,536 blocks | pass (14 of 14 within 2,000) |
+| Storm Rods, `sky storm forecast` (boot 8, seed 1001, one debug player online) | next 5 real hours: rain 18.7 % of the time, thunder 4.8 %, 24.8 strikes and 99.0 storm glass per rod = 19.8 per real hour; next 100 hours 19.3 per real hour (rain 22.8 %) | pass (10 to 25) |
+| Storm Rods live (boot 8, 8 rods, `tick sprint 144000` = 2 real hours, no override) | forecast before: 4.9 strikes per rod; measured 3, 7, 7, 6, 6, 4, 3, 3 strikes = 4.875 per rod (19.5 storm glass) | pass |
+| Storm Rods with no player online (boot 7, `tick sprint 360000`) | 0 rain, 0 strikes: TFC's calendar, which drives its weather, stands while no player is online; a later `/time set rain` skipped only 2,000 ticks | method note |
+| The Primordial (boot 7, `/firmages debug attack`, debug players at 49.5 attack damage via `/attribute`, Resistance) | 1 / 2 / 4 bots: 5.83 / 4.77 / 4.60 min, uptime 0.943 / 0.938 / 0.934, veil open 59 / 29 / 43 %, 59 / 26 / 46 %, 62 / 25 / 44 % per phase; the model with these inputs 5.40 / 4.65 / 4.29 min (+7.9 / +2.6 / +7.1 %) | pass (< 25 %) |
+| Two discarded fight records (boot 7) | a held item's attribute modifiers never apply to a debug player (not ticked): the first two fights ran at 1 damage, 21.4 and about 5 minutes without the boss falling below 92 %; then `/attribute ... base set 49.5` | method note |
+| `gen_reference_builds.py --check`, `gen_machine_usage.py --check`, `gen_fuels.py --check`, `miner_ladder.py --check` | 34 files up to date; 90 values off their default, generators.toml up to date, 325 values read back from the copy; ladder creosote < diesel < ethene < D-T 43,190,000; Digital Miner 48,000 FE/t fully upgraded against a 100,000 plant | pass |
+
+| Copy boot 9 (final jar, seed 1001, grants, hold 120 s) | `wayshrine census 4000` shipped: 7 (forest ring 3, steppe stones 3, volcanic ring 1 = the per-type prediction); aurora band at spawn (256 blocks, -10 C kept for a -15.18 C spawn); `sky storm forecast 5` 19.8 per real hour; `selftest all` 101 passed, 0 failed; `check_log.py`: 89.9 s to Done, FATAL 0, ERROR 8, STDERR 0, documented noise 252, remaining 1 ("Can't keep up", 3,020 ms during the grants and `selftest all`) | pass |
+
+Wayshrine census per type (each type is its own structure set, so the counts per type at one spacing are exact for
+any mix): 20 seeds 1001 to 1020 and 10 hold-out seeds 1021 to 1030, ten spacings each, under 0.25 s per census.
+
+| Spacing | 7 to 11 (30 seeds) | 5 to 16 | Mean | Range |
+|---|---|---|---|---|
+| 72/27 for all (0.12.0) | 14 (train 10 of 20, hold-out 4 of 10) | 25 | 9.8 | 3 to 21 |
+| 64/24 for all | 12 | | 10.4 | 1 to 20 |
+| 80/30 for all | 7 | | 6.8 | 1 to 16 |
+| per type: forest ring 72/27, spire, steppe, swamp 80/30, volcanic 48/18 (shipped) | 21 (train 16 of 20, hold-out 5 of 10) | 28 | 8.9 | 3 to 17 |
+
+- Six per-type mixes reached 16 of 20 on the training seeds; none kept it on the hold-out (best 5 of 10): the count is
+  about Poisson per type and follows the spawn's climate. Desert Arch and Reef Altar never fell within 4,000 blocks.
+- Every census was taken with `firmages wayshrine census 4000 <spacing> <separation>`; the logs are not kept.
+

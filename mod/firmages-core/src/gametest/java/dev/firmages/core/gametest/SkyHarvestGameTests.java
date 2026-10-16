@@ -80,7 +80,7 @@ public final class SkyHarvestGameTests {
         SkyHarvestData.Aurora a = before.aurora();
         // the net's own height is min_y here (the template sits far below Y 140); the band reads the test climate
         SkyHarvestDataLoader.set(new SkyHarvestData(new SkyHarvestData.Aurora(abs.getY(), a.referenceY(), a.maxAverageTemp(), a.chanceCold(),
-            a.chanceWarm(), a.mbPerHour(), a.coldHalfFactor(), a.netCapacity(), a.shareRadius(), a.colors()), before.storm(), List.of()));
+            a.chanceWarm(), a.mbPerHour(), a.coldHalfFactor(), a.netCapacity(), a.shareRadius(), a.colors(), a.spawnOffset()), before.storm(), List.of()));
         ClimateSources.set(new TestClimateSource(-15F, -20F));
         sky.setAuroraOverride("on");
         Runnable restore = () -> {

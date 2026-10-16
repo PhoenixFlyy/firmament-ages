@@ -9,6 +9,8 @@ an update, like config/createdieselgenerators-server.toml; NeoForge 21.1 reads s
   config/MekanismMoreMachine/machine-usage.toml  Mekanism: More Machine x10 (H2A, "More Machine equivalents")
   config/MekanismMoreMachine/machine-storage.toml
   config/immersiveengineering-server.toml        Excavator speed 1.0 -> 0.5 (and the [ores] of defaultconfigs/)
+  config/Mekanism/generators.toml                fission heat x1.25, fusion fuel energy x0.07 and thermocouples x0.34
+                                                 (harmony package A8, measured: dev/harmonie-messung.md)
 Evolved Mekanism has no usage config of its own: its Alloyer, Chemixer, Melter and Solidifier read Mekanism's
 combiner, pressurizedReactionBase and chemicalOxidizer (javap EMBlockTypes, Evolved Mekanism 1.2.1-fix3), so they
 follow the x10 here; its APT keeps 100,000 J/t (40,000 FE/t, the Quantum Age band).
@@ -65,6 +67,19 @@ def _mm_usage_keys():
     return {k for _, k in _keys(ROOT / "config" / "MekanismMoreMachine" / "machine-usage.toml")}
 
 
+# Harmony package A8 (dev/harmonie-messung.md): the reference plants measured on a copy with /firmages energy reference.
+# Fission 1 mB/t through an 11x11x18 turbine: 78,711 FE/t at Mekanism's 1,000,000 J per mB, 5 x the Information Age
+# plant's band top (20,000) wants 100,000: x1.25. Fusion at injection 20 (10 D + 10 T per tick): 3.95 M FE/t passive at
+# 10,000,000 J per mB, 50 x the fission plant; x0.07 (700,000 J) and thermocouples x0.34 (0.017) give about 95,000 FE/t
+# passive (<= fission) and about 860,000 FE/t through a turbine (>= 3 x fission, 43 M FE per bucket of D-T).
+GENERATORS = {("fission_reactor", "energyPerFissionFuel"): 1.25, ("fusion_reactor", "fuelEnergy"): 0.07,
+              ("fusion_reactor", "thermocoupleEfficiency"): 0.34}
+
+
+def mek_generators(sec, key):
+    return GENERATORS.get((sec, key), 1)
+
+
 def ie(sec, key):
     if (sec, key) == ("machines.excavator", "speed"):
         return 0.5
@@ -80,6 +95,7 @@ FILES = {
     "config/MekanismMoreMachine/machine-usage.toml": mm,
     "config/MekanismMoreMachine/machine-storage.toml": mm,
     "config/immersiveengineering-server.toml": ie,
+    "config/Mekanism/generators.toml": mek_generators,
 }
 VALUE = re.compile(r"^(\s*)([A-Za-z_0-9]+)(\s*=\s*)(-?[0-9][0-9.eE+-]*)(\s*)$")
 
@@ -164,7 +180,7 @@ def main():
                 if "usage" in rel and "Mekanism/" in rel:
                     print(f"  {rel.split('/')[1]:24s} {(sec + '.' if sec else '') + key:34s} "
                           f"{float(d) / J_PER_FE:>10,.0f} -> {float(v) / J_PER_FE:>10,.0f} FE/t (x{f:g})")
-                elif "Mekanism" not in rel or "general" in rel:
+                elif "Mekanism" not in rel or "general" in rel or "generators" in rel:
                     print(f"  {rel.split('/')[-1]:24s} {(sec + '.' if sec else '') + key:34s} {d} -> {v}")
     if a.server_dir:
         n = 0

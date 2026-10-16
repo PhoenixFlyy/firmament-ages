@@ -1,0 +1,30 @@
+{
+  "age": "test",
+  "kind": "smoke",
+  "sinks": [
+    "immersiveengineering:capacitor_mv"
+  ],
+  "centre": [
+    1,
+    1,
+    1
+  ],
+  "radius": 3,
+  "settle": 2,
+  "warmup": 5,
+  "seconds": 2,
+  "steps": [
+    {
+      "op": "energy",
+      "at": [
+        1,
+        1,
+        1
+      ],
+      "side": "up",
+      "amount": 100,
+      "every": 1,
+      "quiet": true
+    }
+  ]
+}

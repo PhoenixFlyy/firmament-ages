@@ -5,6 +5,10 @@ file = "config/Mekanism/general.toml"
 hash = "8fbac525c2f47382f98f23c23a95a0c1da4c416dda31193b1ddf8d018ac4f757"
 
 [[files]]
+file = "config/Mekanism/generators.toml"
+hash = "424a68f69bb8df08cb69e91e1dffdc1e2ab995e7c3668f0f3dd97abb0b6cf798"
+
+[[files]]
 file = "config/Mekanism/machine-storage.toml"
 hash = "d1f5f299929ae710c8236ed52dc7cd6230e30732f378dba442680212de273921"
 
@@ -4602,7 +4606,7 @@ hash = "3e90395e763ec9e5ed54f49698bdf9b3be8a8ae209103ce5635d7162b898d21a"
 
 [[files]]
 file = "kubejs/data/firmages/balance/fuels.json"
-hash = "54d2fa692e3ece7645989ed0b2f2e6c2ecf253a6564372571d891e9102909125"
+hash = "03e83529a3a58719c2410829794e9b9123cb96b247c70302a09c01cb3cb24116"
 
 [[files]]
 file = "kubejs/data/firmages/balance/metals.json"

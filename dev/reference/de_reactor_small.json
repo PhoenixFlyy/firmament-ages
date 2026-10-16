@@ -1,0 +1,99 @@
+{
+  "age": "age_9",
+  "kind": "generator",
+  "band": [
+    1000000,
+    3000000
+  ],
+  "centre": [
+    7,
+    4,
+    7
+  ],
+  "radius": 9,
+  "warmup": 2400,
+  "steps": [
+    {
+      "op": "de_build",
+      "at": [
+        7,
+        4,
+        7
+      ]
+    },
+    {
+      "op": "wait",
+      "ticks": 20
+    },
+    {
+      "op": "de_reactor",
+      "at": [
+        7,
+        4,
+        7
+      ],
+      "fuel": 5184,
+      "temperature": 5000,
+      "saturation": 0.5,
+      "shield": 0.6,
+      "start": true
+    },
+    {
+      "op": "de_gate",
+      "at": [
+        13,
+        4,
+        7
+      ],
+      "flow": 500000
+    },
+    {
+      "op": "de_gate",
+      "at": [
+        1,
+        4,
+        7
+      ],
+      "flow": 500000
+    },
+    {
+      "op": "de_gate",
+      "at": [
+        7,
+        4,
+        13
+      ],
+      "flow": 500000
+    },
+    {
+      "op": "de_gate",
+      "at": [
+        7,
+        4,
+        1
+      ],
+      "flow": 500000
+    },
+    {
+      "op": "de_feed",
+      "at": [
+        7,
+        4,
+        7
+      ],
+      "every": 1,
+      "quiet": true
+    }
+  ],
+  "probe": [
+    [
+      7,
+      4,
+      7
+    ]
+  ],
+  "sinks": [
+    "trashcans:energy_trash_can"
+  ],
+  "seconds": 60
+}

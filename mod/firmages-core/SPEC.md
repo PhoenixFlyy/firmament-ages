@@ -1419,12 +1419,14 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 
 - `active(x, z, time)` is true when all of these hold:
   - it is night (`dayTime % 24000` in 13000..23000);
-  - `averageTemp(x, reference_y, z) <= max_average_temp` (the cold band, hemisphere-proof);
+  - `averageTemp(x, reference_y, z) <= band` (the cold band, hemisphere-proof); `band` is the world's threshold, the
+    warmer of `max_average_temp` and the spawn's own average minus `spawn_offset` (`AuroraRules.band`, read once per
+    server start in `AuroraService.band`);
   - the overworld is not raining (vanilla flag);
   - the night roll `hash(auroraSeed, day, x >> 9, z >> 9) < chance`.
 - `chance` is `night_chance.cold` when `instantTemp(x, reference_y, z) <= averageTemp(x, reference_y, z)` (the cold half of the year there), else `night_chance.warm`. **Both ship as 1.0** (Felix S3A: "aurora every clear night in the cold band, double in winter"; review fix 0.12.0, the earlier 0.5/0.25 left nights where the Auroras mod drew northern lights overhead while Jade said "No aurora overhead"). Winter doubles the yield instead (`cold_half_factor`, §26.4). A summer group is not stuck waiting for winter.
 - **Reference height:** both temperatures are read through `ClimateSource` at the fixed `reference_y` (140), never at the net's or the camera's own height. TFC lowers the average by 0.16225 °C per block above Y 63, capped at 17.82 °C [verified, javap `Helpers.adjustAverageTemperatureByElevation`]. Without a fixed height, every isle top would count as polar, and the server and the client would disagree.
-- **Band distance:** TFC's base gradient is about 2.5 °C per 1,000 blocks (-20..30 °C over `temperature_scale` 20,000 [verified, `RegionGenerator`]). TFC's spawn lies at about 5 to 7 °C sea-level average (-5.8 °C at Y 140 on the M11 boot seed), so the planned 0.0 at Y 140 would have put spawn itself in the band. **As built: `max_average_temp` -10.0 at Y 140** (about 2.5 °C at sea level), measured on the copy boot: -7.9 °C 500 blocks north of spawn, -10.3 °C at 1,000, -11.4 °C at 2,000; the band starts about 1,000 blocks poleward.
+- **Band distance:** TFC's base gradient is about 2.5 °C per 1,000 blocks (-20..30 °C over `temperature_scale` 20,000 [verified, `RegionGenerator`]). TFC's spawn lies at about 5 to 7 °C sea-level average (-5.8 °C at Y 140 on the M11 boot seed), so the planned 0.0 at Y 140 would have put spawn itself in the band. **As built: `max_average_temp` -10.0 at Y 140** (about 2.5 °C at sea level), measured on the copy boot: -7.9 °C 500 blocks north of spawn, -10.3 °C at 1,000, -11.4 °C at 2,000; the band starts about 1,000 blocks poleward. **Round H3 (20 seeds, 1001 to 1020):** TFC spawns anywhere within 4,000 blocks of the spawn centre, so the spawn's average at Y 140 ran from -15.2 to -1.3 °C. With the fixed -10 °C, 15 seeds had the band within 2,048 blocks (11 of them at the spawn itself, 256 blocks), three at 2,816 to 3,328 and one (spawn -1.26 °C) none within 4,096 blocks. **As built since H3: `spawn_offset` 2.5 °C:** the threshold is the warmer of -10 °C and the spawn average minus 2.5 °C (about 1,000 blocks poleward at TFC's 2.1 to 2.5 °C per 1,000 blocks); a cold spawn keeps -10 °C and its band at home.
 - Intensity is 0.5..1.0, from the same hash.
 - `/firmages sky aurora on|off|auto` overrides everything but the band and the height.
 - The aurora is evaluated on the server only (the net, Jade and the status command); no client needs the seed (§26.7).
@@ -1458,7 +1460,8 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 ```json
 {
   "aurora": {"min_y": 140, "reference_y": 140, "max_average_temp": -10.0, "night_chance": {"cold": 1.0, "warm": 1.0},
-             "mb_per_hour": 100, "cold_half_factor": 2.0, "net_capacity": 4000, "share_radius": 1, "colors": ["#3CFF9E", "#7A5CFF"]},
+             "mb_per_hour": 100, "cold_half_factor": 2.0, "net_capacity": 4000, "share_radius": 1, "spawn_offset": 2.5,
+             "colors": ["#3CFF9E", "#7A5CFF"]},
   "storm": {"mean_strike_ticks_rain": 4800, "thunder_factor": 4, "sand_per_strike": 4,
             "input": "#c:sands", "result": "firmages:storm_glass"}
 }
@@ -1485,6 +1488,7 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 | `sky storm rain\|thunder\|clear [seconds]` | Sets the overworld weather for a test (default 600 s) |
 | `sky storm strike <pos>` | Strikes the Storm Rod at `pos` (either half) once: bolt and fusing, without the roll |
 | `sky storm status <pos>` | Jade reason, sand, output room, strikes since load, open sky, rain and thunder |
+| `sky storm forecast [hours]` | One rod's expected strikes and storm glass over the next real hours of TFC's own weather (`StormForecast`, replay of TFC's weather cycle from the climate model; round H3) |
 
 ### 26.9 Tests
 
@@ -1497,8 +1501,8 @@ In the Iron Age the fellowship builds Storm Rods on the base and feeds them sand
 ### 26.10 Acceptance criteria
 
 1. Aurora nets fill only in the cold band (at the reference height), at night, without rain, high and under open sky, and pipes drain them. Every clear cold-band night has an aurora, so no group waits for winter; the cold half fills twice as fast.
-2. **[PoC]** On three seeds, `sky aurora band` finds the cold band within 2,000 blocks of world spawn. Otherwise `max_average_temp` is raised in data until it does.
-3. Storm Rods make storm glass in every rain, faster in thunder, at any base climate. Over five real hours on the pack server one rod averages 10 to 25 storm glass per real hour **[PoC]**.
+2. **[PoC]** On three seeds, `sky aurora band` finds the cold band within 2,000 blocks of world spawn. Otherwise `max_average_temp` is raised in data until it does. **Measured (round H3):** 20 seeds with the fixed -10 °C, 15 within 2,048 blocks, 4 beyond (one with no band within 4,096); fixed by `spawn_offset` instead of a warmer `max_average_temp` (that would have put most spawns into the band). `dev/poc-results.md`, round H3.
+3. Storm Rods make storm glass in every rain, faster in thunder, at any base climate. Over five real hours on the pack server one rod averages 10 to 25 storm glass per real hour **[PoC]**. **Measured (round H3, seed 1001):** `sky storm forecast 5` 19.8 per real hour (rain 18.7 % of the time), 100 hours 19.3; eight live rods over a sprinted two real hours struck 4.875 times each against a forecast of 4.9. TFC's calendar, and with it the weather, stands while no player is online.
 4. No block of §25 or §26 exposes an energy capability, and no forecast exists.
 
 ## 27. The Lens Crown and the celestial alloys
@@ -1761,7 +1765,9 @@ Placement uses TFC's climate structure placement `tfc:climate` (`ClimateStructur
 
 - **Biomes:** each type lists the base biomes of the table and their TFC 4.2.11 variants (the doline, cenote, burren, shilin and tower karst families, glacial and volcanic variants; `dev/gen_wayshrines.py`, all ids in `data/tfc/worldgen/biome`). With the base biomes alone a 0.10.0 copy found no Wayshrine within 4,096 blocks of spawn: the variants cover most of the land. The `tfc:climate` placement stays the real filter.
 - **No elevation bound:** `ClimateStructurePlacement` tests the climate at y 0 of the chunk [verified, javap TFC 4.2.11], so `min_elevation` never passes; no type uses it.
-- **Density:** one structure set per ground type, `spacing` 72 chunks, `separation` 27, each with a distinct `salt`. The Wind Shrine has no structure set of its own (§28.4a). Measured for acceptance 2 (§28.11) with `/firmages wayshrine census 4000 [spacing separation]` on 20 fresh seeds (1001 to 1020, round C2):
+- **Density:** one structure set per ground type, each with a distinct `salt`; since round H3 the spacing is per type
+  (Forest Ring 72/27, Mountain Spire, Steppe Stones and Swamp Altar 80/30, Volcanic Ring 48/18, Desert Arch and Reef
+  Altar 72/27; `TYPE_SPACING` in `dev/gen_wayshrines.py`), before that 72/27 for all. The Wind Shrine has no structure set of its own (§28.4a). Measured for acceptance 2 (§28.11) with `/firmages wayshrine census 4000 [spacing separation]` on 20 fresh seeds (1001 to 1020, round C2):
 
   | Spacing / separation | Seeds with 7 to 11 | Mean | Range | Seeds below 4 |
   |---|---|---|---|---|
@@ -1772,6 +1778,21 @@ Placement uses TFC's climate structure placement `tfc:climate` (`ClimateStructur
   | 112 / 42 | 2 | 3.6 | 1 to 7 | 9 |
 
   No spacing reaches 16 of 20 seeds in the window: the count swings with the climate around the spawn (Mountain Spires dominate cold, hilly spawns; Desert Arch and Reef Altar lie beyond 4,000 blocks by design). 72 / 27 is the best measured: the most seeds in the window and none below five.
+
+  **Round H3** measured every type at ten spacings (48/18 to 128/48, separation 3/8) on seeds 1001 to 1020 and, as a
+  hold-out, 1021 to 1030 (the census per type is exact: each type is its own structure set):
+
+  | Spacing / separation | 7 to 11 on 30 seeds | Mean | Range | Below 5 | Above 11 |
+  |---|---|---|---|---|---|
+  | 72 / 27 for all (0.12.0) | 14 | 9.8 | 3 to 21 | 3 | 9 |
+  | 64 / 24 for all | 12 | 10.4 | 1 to 20 | 4 | 12 |
+  | 80 / 30 for all | 7 | 6.8 | 1 to 16 | 8 | 4 |
+  | **per type (shipped since H3)** | **21** | **8.9** | **3 to 17** | **1** | **4** |
+
+  The per-type set was chosen among the six that reach 16 of 20 on the first twenty seeds; on the hold-out ten it keeps
+  5 of 10 in the window (none below 5), 72 / 27 for all 4 of 10. 16 of 20 is not reachable with independent
+  random-spread sets: each type's count is about Poisson-distributed and follows the spawn's climate. A tighter spread
+  needs a placement by code near the spawn (open point).
 
 #### 28.4a The Wind Shrine (Felix S6B)
 
@@ -1902,7 +1923,7 @@ Validation runs every 200 ticks while the chunk is loaded, and on the next tick 
 ### 28.11 Acceptance criteria
 
 1. On every new world the tutorial Wayshrine stands 300 to 800 blocks from spawn, on land and away from anything players built; an existing world older than three days gets none by itself.
-2. On the pack server, a new world has 5 to 16 more Wayshrines within 4,000 blocks of spawn on every one of 20 test seeds, and 7 to 11 on at least half of them (`/firmages wayshrine census 4000` on fresh copies; `dev/scan_regions.py` would need 250,000 generated chunks per seed). Met in round C2 at 72 / 27: 20 of 20 in 5 to 16, 11 of 20 in 7 to 11 (§28.4). The first target, 7 to 11 on 16 of 20, is out of reach for any spacing (best 11 of 20). No Wayshrine floats or is buried more than two blocks on a slope.
+2. On the pack server, a new world has 5 to 16 more Wayshrines within 4,000 blocks of spawn on every one of 20 test seeds, and 7 to 11 on at least half of them (`/firmages wayshrine census 4000` on fresh copies; `dev/scan_regions.py` would need 250,000 generated chunks per seed). Met in round C2 at 72 / 27: 20 of 20 in 5 to 16, 11 of 20 in 7 to 11 (§28.4). The first target, 7 to 11 on 16 of 20, is out of reach for any spacing (best 11 of 20). Round H3 (30 seeds, the per-type spacing of §28.4): 28 of 30 in 5 to 16 (one at 3, one at 17), 21 of 30 in 7 to 11; 72 / 27 for all on the same 30: 25 and 14. No Wayshrine floats or is buried more than two blocks on a slope.
 3. Every type validates its restored form from the generator's own layout, and the ruin never validates.
 4. The ghost preview, offering, rite, prayer and lighting work as in §28.7 with one player and with two (half the prayer time).
 5. A lit Wayshrine gives the awakened tiers' blessings and Hearthward within 24 blocks. A new Age adds its tier without a visit. A broken pattern stops both within one validation, and the repair restores them.
@@ -2533,6 +2554,9 @@ A generic cap for a power source that a mod's own config cannot tame. Nothing is
   Hiding a source (`dev/age_map.toml` `[hidden]`) or its mod's config stays the first fix; the cap is the net.
 - **Tests:** U `FeCapsTest`. G `BalanceGameTests.feCapLimitsAPushingCapacitor` (an IE LV capacitor capped at 50
   FE/t pushes 50 per tick into an MV capacitor instead of 256; drawn out, at most 50 in a tick).
+- **Measured on Mekanism's paths (round H3, `dev/harmonie-messung.md` §4):** a Gas-Burning Generator capped at 100
+  gave 100.0 FE/t into energy trash cans (FE, 11,339.7 uncapped) and 100.0 FE/t into a Mekanism energy cube (strict
+  energy through `MekEnergyMeter`, 564.0 uncapped).
 
 ## 38. Measuring commands (harmony plan section 6)
 
@@ -2557,7 +2581,29 @@ Both need permission 2, like all of `/firmages`.
 - **Tests:** U `OreLadderTest` (on the real table: melting 1.0, purification with input counts and clumps, the IE
   crusher's wrappers and chances, the metal's first Age, a step back, an unlisted grid recipe, world data skipped).
   G `energyAuditMetersPerBlockType` (the LV capacitor gives about 256 FE/t, the MV one takes it),
-  `oreAuditReadsTheTable`.
+  `oreAuditReadsTheTable`, `referenceRunMetersASmokeBuild` (§38.1).
+
+### 38.1 Reference runs (harmony package A8, round H3)
+
+- **`/firmages energy reference list|run <name>|all [seconds]`** (`balance/ReferenceRun`, only with
+  `debug.allowSimulate`): run files `data/<ns>/firmages_energy_reference/<name>.json` and structure templates
+  `data/<ns>/structure/reference/<name>.nbt` from a datapack; `dev/gen_reference_builds.py` writes them to
+  `dev/reference/` and installs them into a server copy (`--install`). The pack ships none. Each run places its build at
+  its own forceloaded site (x 30,000 + 160 per run, y 200, z 30,000), waits `settle` ticks, runs the steps, waits
+  `warmup`, audits `seconds` (default 60) with §38's audit and reports FE per tick = the sinks' "in" minus the sources'
+  "out", minus the feeds' "in" and what steps fed past the capabilities, plus the users' net use; band and Age from the
+  run file; `logs/firmages-energy-reference.json`.
+- **Steps:** `fluid`, `item`, `energy` (capabilities; without a side every face in turn), `chemical`, `mek_tank`
+  (Mekanism tanks, past port modes), `use` (a fake player uses an item on a block: places Mekanism blocks with their side
+  configuration), `nbt`, `command` (at the site), `ie_form` (IE `createStructure`), `ie_rs` (IE redstone mode),
+  `mek_fission` (rate, active), `mek_fusion` (injection, plasma, burning), `mek_port`, `mek_upgrades`, `mek_miner`,
+  `de_build`, `de_reactor`, `de_feed` (the field's drain twice over, counted against the output), `de_gate`, `wait`;
+  `every` repeats a step until the run ends. Probes print Mekanism multiblocks, the Draconic core, Create boilers and
+  kinetics, IE logic states and fluid tanks.
+- **`/firmages debug attack <name> <seconds>`** (`command/BossFightBot`): a debug player fights The Primordial by
+  script (§39).
+- **`/firmages sky storm forecast [hours]`**: one Storm Rod's expected yield from TFC's own weather (§26.10).
+- Results of round H3: `dev/harmonie-messung.md`.
 
 ## 39. The Primordial by numbers (round C2)
 
@@ -2584,3 +2630,9 @@ The fight length comes from a model, not from a guess (`boss/FightModel`, docs/p
   pools, a 1000 hit counted as the cap, the summoned fight won by capped hits).
 - **To check on a real fight [S]:** uptime and veil share against a recording with 1, 2 and 4 players; the model's
   assumptions move with them, the settings with the model.
+- **Recorded (round H3, `/firmages debug attack`, debug players with the reference build's 49.5 attack damage, no
+  dodging, no ranged counters, shards gathered in phase 3):** 1 / 2 / 4 bots: 5.83 / 4.77 / 4.60 min, uptime 0.943 /
+  0.938 / 0.934 of the 10-tick hit windows, veil open 59-62 % (phase 1), 25-29 % (phase 2), 43-46 % (phase 3). The
+  model fed these inputs gives 5.40 / 4.65 / 4.29 min: the recordings lie +7.9 / +2.6 / +7.1 % above it, inside the
+  25 % bound, so `[boss]` stays. At the model's 60 % uptime the recorded veil shares give 9.2 / 7.5 / 7.2 min (model
+  8.4 / 7.2 / 6.5). Human uptime and veil share remain for Felix's client fight.

@@ -18,6 +18,7 @@ Dawn ends with a quest (The First Spark grants the Stone Age). From the Stone Ag
 | `dev/client-test-brief.md` | what Felix checks in the client, per version (German) |
 | `dev/style-guide.md` | rules for player text, checked by `dev/validate_quests.py --style` (German) |
 | `dev/poc-results.md` | evidence log of every server and static run |
+| `dev/harmonie-messung.md` | the measured reference plants per Age against the harmony bands, the fission/fusion tuning (German) |
 | `mod/firmages-core/SPEC.md` | the pack's own mod |
 | `CHANGELOG.md` | public changelog, newest version on top |
 | `docs/WALKTHROUGH.md` | the player walkthrough (English, linked from `README.md` and the CurseForge page); update it with every quest or shrine change |
@@ -67,6 +68,8 @@ python dev/gen_quests.py; python dev/validate_quests.py --style   # after changi
 python dev/gen_fuels.py              # after changing kubejs/data/firmages/balance/fuels.json (--check compares)
 python dev/gen_machine_usage.py      # Mekanism, More Machine and IE excavator config values (--check, --server-dir)
 python dev/miner_ladder.py --check   # miners against the ore ladder (metals.json, the configs, --dump-dir for all veins)
+python dev/gen_reference_builds.py   # reference builds of the energy measurement (dev/reference/; --install <copy> as a world datapack,
+                                     # then /firmages energy reference run <name>|all on that copy with debug.allowSimulate)
 ```
 
 Text files are LF (`.gitattributes`). packwiz hashes the working copy, GitHub serves the git copy: a file with CRLF in the working tree gets a wrong hash in `index.toml`, and every install from GitHub then fails on it. `dev/release.ps1` checks this.

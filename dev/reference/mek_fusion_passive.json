@@ -1,0 +1,100 @@
+{
+  "age": "age_8",
+  "kind": "passive",
+  "band": [
+    0,
+    120000
+  ],
+  "centre": [
+    2,
+    2,
+    2
+  ],
+  "radius": 6,
+  "warmup": 6000,
+  "steps": [
+    {
+      "op": "wait",
+      "ticks": 60
+    },
+    {
+      "op": "mek_tank",
+      "at": [
+        2,
+        2,
+        0
+      ],
+      "tank": "deuterium",
+      "id": "mekanismgenerators:deuterium",
+      "amount": 4000
+    },
+    {
+      "op": "mek_tank",
+      "at": [
+        2,
+        2,
+        0
+      ],
+      "tank": "tritium",
+      "id": "mekanismgenerators:tritium",
+      "amount": 4000
+    },
+    {
+      "op": "mek_tank",
+      "at": [
+        2,
+        2,
+        0
+      ],
+      "tank": "deuterium",
+      "id": "mekanismgenerators:deuterium",
+      "amount": 200,
+      "every": 20,
+      "quiet": true
+    },
+    {
+      "op": "mek_tank",
+      "at": [
+        2,
+        2,
+        0
+      ],
+      "tank": "tritium",
+      "id": "mekanismgenerators:tritium",
+      "amount": 200,
+      "every": 20,
+      "quiet": true
+    },
+    {
+      "op": "mek_port",
+      "at": [
+        4,
+        2,
+        2
+      ],
+      "output": true
+    },
+    {
+      "op": "mek_fusion",
+      "at": [
+        2,
+        2,
+        0
+      ],
+      "injection": 20,
+      "plasma": 500000000.0,
+      "burning": true
+    }
+  ],
+  "probe": [
+    [
+      2,
+      2,
+      0
+    ]
+  ],
+  "sinks": [
+    "trashcans:energy_trash_can"
+  ],
+  "seconds": 60
+}

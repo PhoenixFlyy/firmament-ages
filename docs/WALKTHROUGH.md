@@ -404,8 +404,8 @@ Fuse the Humming Core in the arc furnace and offer it in the Tesla Crown (ring 5
    electronic components and electrum wire; with magic a circuit board and a spirit attuned crystal; let the
    assembler make them).
 5. Aurora Steel: starsteel, storm glass, aurora light and red steel in the Lens Crown. Aurora light comes from an
-   Aurora Net (Industrial Age) at Y 140 or higher under open sky in the cold north, on every clear night (twice as
-   much in the cold half of the year); pipe it or bucket it out. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four
+   Aurora Net (Industrial Age) at Y 140 or higher under open sky in the cold north (at most about 1,000 blocks north of
+   the world spawn), on every clear night (twice as much in the cold half of the year); pipe it or bucket it out. Fuse the Humming Core in the arc furnace: an HV capacitor, with an Attuned Circuit, four
    aluminium plates, an Aurora Steel ingot and a Nether Star.
 6. Raise the Tesla Crown (15x15, 5 high): aluminium blocks on the border (51); on each corner a red steel block, an HV
    capacitor, aluminium scaffolding two high and a floodlight on top. Plinth: seven blocks from the heart.

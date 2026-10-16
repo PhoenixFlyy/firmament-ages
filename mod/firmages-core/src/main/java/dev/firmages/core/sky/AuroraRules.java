@@ -55,9 +55,27 @@ public final class AuroraRules {
         return t >= NIGHT_START && t < NIGHT_END;
     }
 
+    /**
+     * The cold band's threshold of a world (SPEC §26.3, PoC 26.10): {@code max_average_temp}, or, when the spawn's own
+     * average at the reference height lies less than {@code spawn_offset} above it, that average minus the offset. TFC
+     * spawns anywhere within 4,000 blocks of the spawn centre and its average falls about 2.1 to 2.5 °C per 1,000 blocks
+     * poleward, so the fixed threshold alone left warm spawns 2,800 blocks and more from the band (round H3, 20 seeds).
+     *
+     * @param spawnAverage yearly average at the reference height over the world spawn (NaN: unknown, the fixed value)
+     */
+    public static double band(SkyHarvestData.Aurora data, float spawnAverage) {
+        if (data.spawnOffset() <= 0 || Float.isNaN(spawnAverage)) return data.maxAverageTemp();
+        return Math.max(data.maxAverageTemp(), spawnAverage - data.spawnOffset());
+    }
+
     public static Result evaluate(SkyHarvestData.Aurora data, Input in) {
+        return evaluate(data, data.maxAverageTemp(), in);
+    }
+
+    /** {@link #evaluate(SkyHarvestData.Aurora, Input)} with the world's band threshold ({@link #band}). */
+    public static Result evaluate(SkyHarvestData.Aurora data, double band, Input in) {
         boolean night = night(in.dayTime());
-        boolean inBand = in.averageTemp() <= data.maxAverageTemp();
+        boolean inBand = in.averageTemp() <= band;
         boolean coldHalf = in.instantTemp() <= in.averageTemp();
         double chance = coldHalf ? data.chanceCold() : data.chanceWarm();
         long day = Math.floorDiv(in.dayTime(), 24000L);

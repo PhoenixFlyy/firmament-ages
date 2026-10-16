@@ -133,6 +133,32 @@ public final class BalanceGameTests {
         });
     }
 
+    /**
+     * Harmony A8 (SPEC §38.1): a reference run end to end on the GameTest server's smoke build (data/firmages/
+     * firmages_energy_reference/smoke_capacitor.json from dev/gen_reference_builds.py): placed at its site, the energy
+     * step repeated every tick, the audit, and 100 FE/t read at the sink in the result list.
+     */
+    @GameTest(template = "empty", batch = "firmages_5_balance_reference", timeoutTicks = 400)
+    public static void referenceRunMetersASmokeBuild(GameTestHelper h) {
+        if (!ModList.get().isLoaded("immersiveengineering")) {
+            h.succeed();
+            return;
+        }
+        EnergyMeter.setCapsForTest(List.of());
+        var server = h.getLevel().getServer();
+        var recipe = dev.firmages.core.balance.ReferenceRun.recipes(server).get("smoke_capacitor");
+        ok(h, recipe != null, "the smoke run file loads from the GameTest datapack: " + dev.firmages.core.balance.ReferenceRun.recipes(server).keySet());
+        int before = dev.firmages.core.balance.ReferenceRun.results().size();
+        dev.firmages.core.balance.ReferenceRun.queue(server.createCommandSourceStack().withSuppressedOutput(), List.of(recipe), 0);
+        h.succeedWhen(() -> {
+            var all = dev.firmages.core.balance.ReferenceRun.results();
+            if (all.size() <= before) h.fail("waiting for the reference run");
+            var r = all.get(all.size() - 1);
+            double fe = r.get("fe_per_tick").getAsDouble();
+            ok(h, "smoke_capacitor".equals(r.get("name").getAsString()) && fe > 95 && fe < 105, "the smoke build reads about 100 FE/t: " + r);
+        });
+    }
+
     private static double number(String line, String key) {
         java.util.regex.Matcher m = java.util.regex.Pattern.compile(java.util.regex.Pattern.quote(key) + "([0-9.]+)").matcher(line);
         return m.find() ? Double.parseDouble(m.group(1)) : -1;

@@ -1,15 +1,19 @@
 package dev.firmages.core.command;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.balance.EnergyAudit;
 import dev.firmages.core.balance.EnergyMeter;
 import dev.firmages.core.balance.OreAudit;
+import dev.firmages.core.balance.ReferenceRun;
+import dev.firmages.core.config.ServerConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 
@@ -33,7 +37,42 @@ final class BalanceCommands {
                 .then(Commands.argument("radius", IntegerArgumentType.integer(1, 128))
                     .executes(c -> energyAudit(c, IntegerArgumentType.getInteger(c, "radius"), DEFAULT_SECONDS))
                     .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 600))
-                        .executes(c -> energyAudit(c, IntegerArgumentType.getInteger(c, "radius"), IntegerArgumentType.getInteger(c, "seconds"))))));
+                        .executes(c -> energyAudit(c, IntegerArgumentType.getInteger(c, "radius"), IntegerArgumentType.getInteger(c, "seconds"))))))
+            .then(Commands.literal("reference")
+                .then(Commands.literal("list").executes(BalanceCommands::referenceList))
+                .then(Commands.literal("run")
+                    .then(Commands.argument("name", StringArgumentType.word())
+                        .suggests((c, b) -> SharedSuggestionProvider.suggest(
+                            java.util.stream.Stream.concat(java.util.stream.Stream.of("all"), ReferenceRun.recipes(c.getSource().getServer()).keySet().stream()), b))
+                        .executes(c -> referenceRun(c, 0))
+                        .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 600))
+                            .executes(c -> referenceRun(c, IntegerArgumentType.getInteger(c, "seconds")))))));
+    }
+
+    private static int referenceList(CommandContext<CommandSourceStack> c) {
+        var all = ReferenceRun.recipes(c.getSource().getServer());
+        c.getSource().sendSuccess(() -> Component.literal("Energy reference builds (" + all.size() + "): " + String.join(", ", all.keySet())), false);
+        return all.size();
+    }
+
+    /** {@code energy reference run <name>|all [seconds]} (harmony package A8): dev only, needs debug.allowSimulate. */
+    private static int referenceRun(CommandContext<CommandSourceStack> c, int seconds) {
+        CommandSourceStack src = c.getSource();
+        if (!ServerConfig.allowSimulate()) {
+            src.sendFailure(Component.literal("Reference runs are disabled; set debug.allowSimulate = true in firmages-server.toml"));
+            return 0;
+        }
+        String name = StringArgumentType.getString(c, "name");
+        var all = ReferenceRun.recipes(src.getServer());
+        java.util.List<ReferenceRun.Recipe> pick = name.equals("all") ? java.util.List.copyOf(all.values())
+            : all.containsKey(name) ? java.util.List.of(all.get(name)) : java.util.List.of();
+        if (pick.isEmpty()) {
+            src.sendFailure(Component.literal("No energy reference build " + name + "; /firmages energy reference list"));
+            return 0;
+        }
+        int n = ReferenceRun.queue(src, pick, seconds);
+        src.sendSuccess(() -> Component.literal("Energy reference: " + n + " run(s) queued; results in logs/firmages-energy-reference.json"), true);
+        return n;
     }
 
     static LiteralArgumentBuilder<CommandSourceStack> ore() {

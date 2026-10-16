@@ -1,0 +1,65 @@
+{
+  "age": "age_6",
+  "kind": "generator",
+  "band": [
+    10000,
+    20000
+  ],
+  "centre": [
+    3,
+    2,
+    3
+  ],
+  "radius": 5,
+  "warmup": 600,
+  "steps": [
+    {
+      "op": "use",
+      "at": [
+        3,
+        0,
+        3
+      ],
+      "item": "mekmm:large_gas_burning_generator",
+      "face": "up",
+      "yaw": 180
+    },
+    {
+      "op": "wait",
+      "ticks": 20
+    },
+    {
+      "op": "chemical",
+      "at": [
+        3,
+        1,
+        3
+      ],
+      "id": "mekanism:ethene",
+      "amount": 24336
+    },
+    {
+      "op": "chemical",
+      "at": [
+        3,
+        1,
+        3
+      ],
+      "id": "mekanism:ethene",
+      "amount": 20,
+      "every": 20,
+      "quiet": true
+    }
+  ],
+  "probe": [
+    [
+      3,
+      1,
+      3
+    ]
+  ],
+  "sinks": [
+    "trashcans:energy_trash_can"
+  ],
+  "seconds": 60
+}

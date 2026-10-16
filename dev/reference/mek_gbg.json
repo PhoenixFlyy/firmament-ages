@@ -1,0 +1,50 @@
+{
+  "age": "age_6",
+  "kind": "generator",
+  "band": [
+    10000,
+    20000
+  ],
+  "centre": [
+    2,
+    1,
+    2
+  ],
+  "radius": 4,
+  "warmup": 600,
+  "steps": [
+    {
+      "op": "chemical",
+      "at": [
+        2,
+        1,
+        2
+      ],
+      "id": "mekanism:ethene",
+      "amount": 2812
+    },
+    {
+      "op": "chemical",
+      "at": [
+        2,
+        1,
+        2
+      ],
+      "id": "mekanism:ethene",
+      "amount": 20,
+      "every": 20,
+      "quiet": true
+    }
+  ],
+  "probe": [
+    [
+      2,
+      1,
+      2
+    ]
+  ],
+  "sinks": [
+    "trashcans:energy_trash_can"
+  ],
+  "seconds": 60
+}

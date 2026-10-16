@@ -1,0 +1,53 @@
+{
+  "age": "age_5",
+  "kind": "side source",
+  "band": [
+    0,
+    336
+  ],
+  "centre": [
+    2,
+    2,
+    2
+  ],
+  "radius": 5,
+  "warmup": 100,
+  "steps": [
+    {
+      "op": "wait",
+      "ticks": 20
+    },
+    {
+      "op": "fluid",
+      "at": [
+        1,
+        2,
+        2
+      ],
+      "id": "immersivepetroleum:diesel",
+      "amount": 4000,
+      "every": 600
+    }
+  ],
+  "probe": [
+    [
+      1,
+      2,
+      2
+    ],
+    [
+      3,
+      2,
+      2
+    ],
+    [
+      3,
+      2,
+      3
+    ]
+  ],
+  "sinks": [
+    "trashcans:energy_trash_can"
+  ],
+  "seconds": 60
+}

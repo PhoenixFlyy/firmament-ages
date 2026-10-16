@@ -12,7 +12,7 @@ energy is what limits a base, so a ladder step is worth it when it lowers the FE
   - the Digital Miner (Space Age) costs 1 to 2 times the average excavator vein's FE per ore mB (review fix 0.12.0:
     the later miner may cost more per mB, never be useless);
   - a fully upgraded Digital Miner (8 speed, 8 energy) draws at most --plant FE/t, one Space Age plant (fission at
-    1 mB/t through a turbine, dev/harmonie-r2.md section 5).
+    1 mB/t through a turbine: 100,000 FE/t measured after the A8 tuning, dev/harmonie-messung.md).
 
 Inputs: kubejs/data/firmages/balance/metals.json (factors, grades, IE Crusher energy), config/Mekanism/machine-usage.toml
 and general.toml (usage J/t, ticksPerMine), config/immersiveengineering-server.toml (excavator consumption, speed),
@@ -84,7 +84,7 @@ def main():
     ap.add_argument("--vein-mb", type=float, default=24.0, help="mean mB per ore block of a TFC vein (TFC 4.2.11: "
                     "18.5 poor-heavy, 24.0 most iron/tin/gold veins, 29.5 rich veins)")
     ap.add_argument("--min-gain", type=float, default=0.05)
-    ap.add_argument("--plant", type=float, default=80000.0, help="FE/t of one Space Age plant (harmonie-r2 section 5)")
+    ap.add_argument("--plant", type=float, default=100000.0, help="FE/t of one Space Age plant (dev/harmonie-messung.md: fission 1 mB/t)")
     ap.add_argument("--check", action="store_true", help="exit 1 when a step fails the rule")
     a = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")

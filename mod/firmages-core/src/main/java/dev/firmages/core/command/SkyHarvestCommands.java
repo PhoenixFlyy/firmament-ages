@@ -52,7 +52,28 @@ final class SkyHarvestCommands {
                     .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, StormWeather.Mode.CLEAR, IntegerArgumentType.getInteger(c, "seconds")))))
                 .then(Commands.literal("auto").executes(c -> weather(c, StormWeather.Mode.AUTO, 0)))
                 .then(Commands.literal("strike").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::strike)))
-                .then(Commands.literal("status").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::rodStatus))));
+                .then(Commands.literal("status").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::rodStatus)))
+                .then(Commands.literal("forecast").executes(c -> forecast(c, 5))
+                    .then(Commands.argument("hours", IntegerArgumentType.integer(1, 200)).executes(c -> forecast(c, IntegerArgumentType.getInteger(c, "hours"))))));
+    }
+
+    /**
+     * {@code sky storm forecast [hours]} (SPEC §26.10, round H3): one Storm Rod's expected yield over the next real hours
+     * of TerraFirmaCraft's own weather (no override), replayed from the climate model; logged as well.
+     */
+    private static int forecast(CommandContext<CommandSourceStack> c, int hours) {
+        if (!net.neoforged.fml.ModList.get().isLoaded("tfc")) {
+            c.getSource().sendFailure(Component.literal("The forecast reads TerraFirmaCraft's weather; TFC is not loaded"));
+            return 0;
+        }
+        long ticks = hours * dev.firmages.core.sky.StormForecast.REAL_HOUR;
+        var f = dev.firmages.core.compat.tfc.TfcWeather.forecast(c.getSource().getServer().overworld(), SkyHarvestDataLoader.current().storm(), ticks);
+        String text = String.format(Locale.ROOT, "Storm forecast, next %d real hours (%d ticks) of TFC weather: rain %.1f %% of the time, "
+                + "thunder %.1f %%; one rod: %.1f strikes, %.1f storm glass, %.1f per real hour", hours, ticks, 100.0 * f.rainTicks() / ticks,
+            100.0 * f.thunderTicks() / ticks, f.strikes(), f.glass(), f.glassPerRealHour());
+        dev.firmages.core.FirmagesCore.LOGGER.info(text);
+        line(c.getSource(), text);
+        return (int) Math.round(f.glass());
     }
 
     private static void line(CommandSourceStack src, String text) {
@@ -75,7 +96,7 @@ final class SkyHarvestCommands {
         if (!level.hasChunk(pos.getX() >> 4, pos.getZ() >> 4)) {
             float avg = ClimateSources.get().averageTempUnloaded(c.getSource().getServer().overworld(), pos.getX(), a.referenceY(), pos.getZ());
             line(c.getSource(), "Column " + pos.getX() + " " + pos.getZ() + " is not loaded; average at Y " + a.referenceY() + ": " + f(avg)
-                + " C (band at or below " + f(a.maxAverageTemp()) + ")");
+                + " C (band at or below " + f(AuroraService.band(c.getSource().getServer())) + ")");
             return 1;
         }
         AuroraRules.Result r = AuroraService.at(level, pos.getX(), pos.getZ());
@@ -87,7 +108,7 @@ final class SkyHarvestCommands {
         line(c.getSource(), "Aurora at " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + ": " + (r.active() ? "ACTIVE" : "inactive")
             + " (override " + r.override().id() + ", " + level.dimension().location() + ")");
         line(c.getSource(), "  night " + r.night() + " (day time " + Math.floorMod(ow.getDayTime(), 24000L) + "), rain " + r.raining());
-        line(c.getSource(), "  at Y " + a.referenceY() + ": average " + f(avg) + " C, now " + f(inst) + " C, band at or below " + f(a.maxAverageTemp())
+        line(c.getSource(), "  at Y " + a.referenceY() + ": average " + f(avg) + " C, now " + f(inst) + " C, band at or below " + f(AuroraService.band(c.getSource().getServer()))
             + " -> " + (r.inBand() ? "in the cold band" : "too warm") + ", " + (r.coldHalf() ? "cold half" : "warm half"));
         line(c.getSource(), "  roll " + f(r.roll()) + " against chance " + f(r.chance()) + ", intensity " + f(r.intensity()));
         line(c.getSource(), "  height " + pos.getY() + " (nets need " + a.minY() + "), open sky " + sky);
@@ -107,8 +128,9 @@ final class SkyHarvestCommands {
         int[][] dirs = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
         String[] names = {"north", "south", "east", "west"};
         float here = climate.averageTempUnloaded(ow, o.getX(), a.referenceY(), o.getZ());
+        double threshold = AuroraService.band(c.getSource().getServer());
         line(c.getSource(), "Average at Y " + a.referenceY() + " here (" + o.getX() + " " + o.getZ() + "): " + f(here) + " C; band at or below "
-            + f(a.maxAverageTemp()) + " C");
+            + f(threshold) + " C (max_average_temp " + f(a.maxAverageTemp()) + ", spawn offset " + f(a.spawnOffset()) + ")");
         int best = -1;
         String bestText = "";
         for (int d = 0; d < 4; d++) {
@@ -120,7 +142,7 @@ final class SkyHarvestCommands {
                 float t = climate.averageTempUnloaded(ow, x, a.referenceY(), z);
                 if (Float.isNaN(t)) continue;
                 min = Math.min(min, t);
-                if (first < 0 && t <= a.maxAverageTemp()) {
+                if (first < 0 && t <= threshold) {
                     first = dist;
                     if (best < 0 || dist < best) {
                         best = dist;
