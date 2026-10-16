@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/Mekanism/general.toml"
-hash = "8fbac525c2f47382f98f23c23a95a0c1da4c416dda31193b1ddf8d018ac4f757"
+hash = "c2c583946024e2d7482b301fc7067bc12ebe7f6db7a024500f7c72fd2ceae466"
 
 [[files]]
 file = "config/Mekanism/generators.toml"
@@ -250,7 +250,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "beea3489f9e8d60825cc67445f12a169119d5fc0f2a4ee2dd184e568968ef393"
+hash = "270d46d3c588974babd2f6cb23060f2d1b7dce3ca5e7f561fb1ae4844f4deb1b"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -342,7 +342,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "c9a6e43770234c249f6318bcb7445d701299f787819a72d856fcab1ae8705136"
+hash = "7fc12b3da1dd2385b16ae06ed8ee80eac681f5429df8e41c7a6c3ff1d868227c"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -3470,7 +3470,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "9a250742831d2ee73ceec22c649a0535baee5c735e80e1c69cba0d12c3701869"
+hash = "f65e17b6612ef9dbd624b14fba6f53c41022f47998aee3b6bc7e67dcec1fb2be"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -6702,15 +6702,15 @@ hash = "ed049383eadc2fb2dbff19997264a387052a36db021901f063b09b724bb0edb0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
-hash = "09363c7bd25870911a67e9485fb294ddadcadcd767d7ec8d6ed2eac38e09ba03"
+hash = "4bacf56800294b3affe45732b4fafdb83c949ddc1682077326c2bdf9797b4a6b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_7.json"
-hash = "30060bc8a07b9e51b8911ec950c0a1450f2347e3be2933ba3d6ecad4a38f3461"
+hash = "ef1b19c01394aa6a96fead538c1ab52bc80c05c90851a0c77bed82c3fdddb3d0"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_8.json"
-hash = "3e7e1fb7410c0f6335482ad2dcddb7caf69e4385af52df1c5d347d0b63e1718b"
+hash = "828dec9d47a8550d501a4e1f485c4916b08866adc511d9fa09e5e889549c27c4"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
@@ -6722,7 +6722,7 @@ hash = "5431cf5ef2e40dbf80d388e2119472668f13f23d0955f29d00fb6ed275efa94c"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "e12e9b96e535aaa36ede0fffe9ddf95e137955b33d963c2d2fedbbb3694f69cd"
+hash = "03610ccb32624530184668df8698296c4c6f4f0aea49e1ad7b28e2216f295f96"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/vanilla_planks.json"
@@ -10586,7 +10586,11 @@ hash = "66384f925752e40904adc593a57cb7958f2d71c84b3c76cf71dce8ca11c0d5b4"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/iron_age.js"
-hash = "ddffe09cc66808d007a2cd6821002056bb932ca14f9d4b99152fc64e5ea6bb2c"
+hash = "75eeb85918d5ebc74294c07b97babb26b1aecc46375df74172ed2a1430123ce9"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_2/links.js"
+hash = "8f6a82ca3cd754890cb702a34ae1176ab177d133e059a1f046e8bddae5064d44"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_2/sky_metals.js"
@@ -10609,8 +10613,16 @@ file = "kubejs/server_scripts/recipes/age_3/lens_crown.js"
 hash = "bebc242a110a0ea0df2d9146d76d376cc2182120e423faf01669580eae4f3d31"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_3/links.js"
+hash = "e745919bec00bf671eb32c28cd5ad36324e2c235ca08e26b6eba485d4f5a79f5"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
 hash = "e4c2fddfac3fad695573be13318ca2ba13604ab374aa48533eac9aacb46170f1"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_4/links.js"
+hash = "16c1c04bf9785225e04e09b80538b5a92aaa0ae4ba5a399f0dfd5c2fd95ef3d2"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/sky_harvest.js"
@@ -10637,6 +10649,10 @@ file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
 hash = "3a21179da5d82f8331b398e9c0c6a191e8f2372d5a368c5d7f2c9d0014ba9e0d"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_5/links.js"
+hash = "8c9771c9a8901cdc7a451f3c3d514bf4e7f8f4a77e8c0a77cfe62d76a631ab94"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_5/starsteel.js"
 hash = "5e38a970f7f334e8783789ca4003f77b1a54765025a03b3c1dcdb96574555fba"
 
@@ -10649,12 +10665,16 @@ file = "kubejs/server_scripts/recipes/age_6/information_age.js"
 hash = "fb62ed92bf32abe8b8020fe9947268b7e189ec02c8a676a5f08cbe7f5e1d3fa1"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_6/links.js"
+hash = "48c0d01dbcb98e4c47aaf6159fa960d3d2aa2b8edf59d2e2d35949b446d5b92a"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
 hash = "aba707b300116d8500aa4434bdb8b57362161dd883d4575773c3787a5e5f1e90"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/osmium.js"
-hash = "4da63744e94967e3aa002cf8409fe4cc0501627aec2d6bf702632f4ae5569289"
+hash = "3bda6e672832516d176c845f5dff109bf9cdfeb668c5d050152592af3df0026c"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/psi.js"
@@ -10669,8 +10689,16 @@ file = "kubejs/server_scripts/recipes/age_7/launch_complex.js"
 hash = "bdfac657b36dc3ddf367fb8c37e3f6f45e7d5c40df0c2c60f0722ed7e56f0ef9"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_7/links.js"
+hash = "5c18735dd806c8d5b3f6fc80684b51ef7afefcf66ddb32233efd206eca75a1f1"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_7/space_age.js"
 hash = "e46fff5195d1d50aa81797f0c9dfc785049eb05f1e64dfb86459e10b94842687"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_8/links.js"
+hash = "fbf87267bf4718a102efd2cdb3d66fd97806be585eed09bba1e79e3e5a930b86"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"
@@ -11449,8 +11477,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-0.12.0.jar"
-hash = "5852cb69a202f614209b10572bc8d789ecf375c8008ba0bf083603e7b55c5003"
+file = "mods/firmages-core-0.13.0.jar"
+hash = "85d844be11e9d7c28c2e1bf3323503d9b8e4a94b1dea629ff44204fa4b944045"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

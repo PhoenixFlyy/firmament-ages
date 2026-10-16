@@ -11,7 +11,8 @@ This is a progression pack in the SevTech: Ages tradition, built from scratch fo
 - Tech is the main road: TerraFirmaCraft, Create, Immersive Engineering, Mekanism, Applied Energistics 2, Ad Astra and Draconic Evolution, one after the other. Magic (Occultism, Ars Nouveau, Theurgy) is there for those who want it and is never required.
 - A TerraFirmaCraft world that feels alive: climate and seasons, birds and wind, volcanoes, falling stars, auroras, islands above the clouds, ruined shrines to restore, ruins with loot of your Age, blood moons that get nastier with every Age.
 - A large building set in every TerraFirmaCraft and ArborFirmaCraft wood and rock, vanilla woods included, gated by Age like everything else.
-- The quest book (K) is the only guide, and it stays short on purpose: what to do, and later why. No recipe viewer before the Bronze Age, no map before the Iron Age.
+- The quest book (K) is the only guide, and it stays short on purpose: what to do, and later why, with pictures of knapping patterns and devices, a build guide for every ring of the shrine and three optional Great Works (a gatehouse, a living house, a rocket silo). No recipe viewer before the Bronze Age, no map before the Iron Age.
+- Every Age builds on the one before: each new machine takes a part of the last Age.
 
 ## The Ages
 
@@ -26,10 +27,10 @@ This is a progression pack in the SevTech: Ages tradition, built from scratch fo
 | Arcane Age | Occultism, Ars Nouveau, Theurgy, Apotheosis, the Nether, the Lens Crown and its celestial alloys | Arcane Keystone |
 | Industrial Age | Immersive Engineering, coke and FE power, black steel, Create packages, the Drifting Isles, the Aurora Net | Pressure Core |
 | Electric Age | IE HV, Arc Furnace, Excavator, oil and diesel | Humming Core |
-| Information Age | Mekanism, Applied Energistics 2, Mystical Agriculture, the End | Data Matrix |
+| Information Age | Mekanism, Applied Energistics 2, Mystical Agriculture, the End, the Arcane Catalyst | Data Matrix |
 | Space Age | Fission, Ad Astra rockets, the Moon and Mars, Draconic Evolution, the Launch Complex, Sky Anchors | Star Chart |
 | Quantum Age | Fusion, antimatter, Evolved Mekanism, Venus, Mercury and Glacio | Quantum Core |
-| Singularity Age | Chaotic Draconic gear, the Draconic Reactor, a Stargate | none: the final battle |
+| Singularity Age | Chaotic Draconic gear, the Draconic Reactor, the Ore Processor, a Stargate | none: the final battle |
 
 :::
 
@@ -69,7 +70,7 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 0.12.0 contains 265 mods. Thank you to every author.
+Firmament Ages 0.13.0 contains 265 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))

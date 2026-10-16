@@ -22,6 +22,7 @@
 - **Immersion.** Nothing of the pack's machinery shows before its time: join messages and popups of other mods, advancement toasts and the advancement screen (the quest book opens instead) are silenced, the Mods and Advancements buttons are hidden, and EMI and Jade stay off until the server's configured Age (`ui.emiFromAge`, `ui.jadeFromAge`). A small HUD line names the current Age and its offering (fades out, hold H to show), and every new player gets a one-time welcome. With TerraFirmaCraft, thirst is off and nutrition can only raise health above the starting value, never lower it.
 - **Proof of work.** Shrine offerings from a configured Age ask for a tithe first (`firmages_shrine/tallies.json`): the Tally Chute takes, counts per team and Age, and consumes only what the current proof still wants, from any side or a hand, so nothing counts twice; the advancement criterion `firmages:tally` (item or tag, count, optional Age) shows the count in quests. `firmages:silo_launch` fires when a crewed Ad Astra rocket starts from a pad at least 8 blocks deep under a moving Create hatch.
 - **Ponder and music.** Two Ponder scenes of the pack ("Silo Hatch", "Portcullis") that a quest picture can open, returning to the quest book afterwards; background music by Age, silent during the Firmament Night's own track and the ceremony.
+- **Endgame machines.** The Ore Processor, one block for the last step of an ore ladder (its own recipe type with a Mekanism chemical, a working fluid and an optional lubricant that buys speed, never power), and the Arcane Catalyst, which speeds up the machine it faces for Ars Nouveau Source, a turning Create shaft and the machine's own power once more. One Iron: a loot modifier and merchant rewrite turn one item into another everywhere.
 - **Tools for pack makers.** `/firmages ages`, `/firmages recipes audit|why|locked`, `/firmages energy audit` (FE/t per block type), `/firmages ore audit` (the ore ladder of the live recipes), a per-block FE cap (`balance.feCap`), `/firmages dump registry`, `/firmages shrine status`, `/firmages selftest`, `/firmages ceremony preview`, headless debug players for server-side tests, a KubeJS binding `FirmAges`, Jade tooltips for the shrine. Shrine rings, tiers, offerings, rites and blessings are data files (`data/firmages/firmages_shrine/`, `data/firmages/modonomicon/multiblocks/`) and can be replaced by a datapack.
 
 ## Dependencies
@@ -48,13 +49,25 @@ Optional (the mod hooks into them when they are present):
 
 ## Configuration
 
-`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, Wayshrines, Starfall, Sky Harvest, Drifting Isles, Launch Complex, Sky Anchors, Lens Crown, the Archipelago, the boss and its hit cap, the FE cap, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, Cave Dweller Age, Dawn tool rule and grid lock, start-up scan scope, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, star streaks, crown beams and launch effects, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays and weight/size line, Ars Nouveau HUD Age, locked-item tooltips, quest window size and paragraph gap).
+`config/firmages-server.toml` (gate, warm-up reload, stage sync batching, miner filter, prospecting, shrine, blessings, Wayshrines, Starfall, Sky Harvest, Drifting Isles, Launch Complex, Sky Anchors, Lens Crown, the Archipelago, the boss and its hit cap, the Ore Processor and the Arcane Catalyst, merchant redirects, the regrowth guard, the FE cap, ceremony timing, immersion: recipe viewer and block info Ages, welcome, TerraFirmaCraft thirst, nutrition and inventory tabs, Cave Dweller Age, Dawn tool rule and grid lock, start-up scan scope, debug commands) and `config/firmages-client.toml` (ceremony visuals and music, star streaks, crown beams and launch effects, HUD mode and fade, blocked toasts and screens, chat blocklist, hidden menu buttons, TerraFirmaCraft displays and weight/size line, Ars Nouveau HUD Age, locked-item tooltips, quest window size and paragraph gap).
 
 ## Source and license
 
 MIT License. Source: the `mod/firmages-core` folder of the pack repository, [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages/tree/main/mod/firmages-core). Issues go to the [pack's issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues). The textures are generated pixel art made for this mod.
 
 ## Changelog
+
+**0.13.0**
+
+- Ore Processor (SPEC 40): `firmages:ore_processor`, one block with an input, four outputs, a chemical tank (Mekanism `Capabilities.CHEMICAL`, insert only), a working-fluid and a lubricant tank and an FE buffer; recipe type `firmages:ore_processing` (piece count, result, chemical, sized fluid, optional lubricant, time); lubricant multiplies the speed by `machines.oreProcessorLubricantSpeed` at the same FE per operation (`machines.oreProcessorFePerTick`); Jade lines and an EMI category; `/firmages processor status|feed`.
+- Arcane Catalyst (SPEC 41): `firmages:arcane_catalyst` gives the machine it faces extra work ticks (`machines.catalyst*`, default +50 %) while it takes Ars Nouveau Source from jars in range and sees a turning Create shaft; each extra tick costs the machine's own draw once more; only machines in the block tag `firmages:catalysable`; `/firmages catalyst status`.
+- Stargate Journey costs (SPEC 16.2a): the Origin's return gate is kept charged for one trip home and its DHD loses the energy core when the arena is built; `/firmages origin gate`.
+- One Iron (SPEC 34.4): global loot modifier `firmages:replace_item`; merchant offers rewritten on interaction by `balance.merchantRedirects`.
+- TerraFirmaCraft Regrowing Forests guard (SPEC 20.1, mixin): a regrowth spread into an unloaded chunk is skipped (`perf.regrowthLoadedChunksOnly`, default on); `/firmages perf regrowth`.
+- Fixed: the alternator's fuel share counted a Create steam engine as unfuelled, so boiler-driven alternators gave 0 FE.
+- Wayshrine structure sets spaced per type.
+- Dev tools behind `debug.allowSimulate`: `/firmages energy reference` (measured reference builds), `/firmages energy charge`, `/firmages debug attack` (debug players fight The Primordial), `/firmages processor feed`, `/firmages origin gate trial`, `/firmages perf regrowth spread`; `/firmages sky storm forecast` reads TerraFirmaCraft's weather ahead. Selftest suite `endgame`.
+- Network protocol version 6 as in 0.12.0; the new blocks need 0.13.0 on client and server.
 
 **0.12.0**
 
