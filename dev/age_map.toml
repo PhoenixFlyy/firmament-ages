@@ -992,6 +992,9 @@ items = [
     "ae2:crystal_resonance_generator",
     # Create: Applied Kinetics: the energy provider (1 SU = 1 FE worth of AE, 45 times the alternator; harmony plan fix 4).
     "createappliedkinetics:energy_provider",
+    # One Iron (harmony plan fix 10, package A5): wrought iron is the iron; recipes that asked for the vanilla ingot take
+    # #c:ingots/iron (kubejs/server_scripts/recipes/unify_iron.js).
+    "minecraft:iron_ingot",
     # AdvancedAE: Quantum Armor and the strength card (it only upgrades the Quantum Armor).
     "advanced_ae:quantum_boots",
     "advanced_ae:quantum_chestplate",
