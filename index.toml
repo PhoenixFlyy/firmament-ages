@@ -234,7 +234,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "ef9077801857f355c87c2eef671789bf568d8e1640a3544971e90559a6bd0872"
+hash = "687acf5842f6d16d66441f182c9d862b4865dd951f9a79f52c25e456d1acc210"
 
 [[files]]
 file = "config/fml.toml"
@@ -310,7 +310,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "27516699df7d3a68b5e197553a93f397eb4c560f5749a5c9043a34e79533a530"
+hash = "5070c707926d36b2965f7dadb903e400651c026291c38d1a7c8062a1c8adc21c"
 
 [[files]]
 file = "config/ftbquests/quests/reward_tables/arcane_comfort.snbt"
@@ -2554,7 +2554,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "088165a3f9423cac4dcf8f0a8ac9b604c31eded9c8457ea2a8004e8d57dbe744"
+hash = "c13044ae2c8bbf5d0480a48715de0d69d76367045944b10ba0a7907c4ed6323c"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -5762,7 +5762,7 @@ hash = "c832a2bcb49c28d959f70103b9fd4eee0479c0f9d1931f747e1e516655837f0e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "ba6ae970f8f1481fcf1c44f1e856c8219fe33d80915db3a9ae825a8c07bc6bd1"
+hash = "08994955a85e524e6c4750d8ac9945b59dce7aa970b42b23dd019e57a44e21cb"
 
 [[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/arcane_creature_biomes.json"
@@ -9005,6 +9005,10 @@ file = "kubejs/server_scripts/firmages/goblin_trades.js"
 hash = "49e6b77335f8f98d51791df3878ad53b946c126ffd634768de5bb1fc6b08ea46"
 
 [[files]]
+file = "kubejs/server_scripts/firmages/wayshrine_offerings.js"
+hash = "8d2944c3145c29e9162e338ea2f4a43869a86ef35d13efaf3a5415ec082a432b"
+
+[[files]]
 file = "kubejs/server_scripts/firmages/wildlife_climate.js"
 hash = "aa9c7f0ba51b74405fc5eee3677e1db5326a66e8eb9a5a510572276c066a7806"
 
@@ -9030,7 +9034,7 @@ hash = "e5fda1d4bfe26b4348bbb05557349397ecf2744ec333bd689769f0c70a202e3d"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_age.js"
-hash = "c3b1e467ca9e6abdc8aa8fe06785bfad4340b7bcc5de821ac66314f36df50605"
+hash = "12fd0d8af3a2b5eff4d80a315a8495fcba74d247810f2b298e61a97dd4320a60"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_3/arcane_tfc_inputs.js"
@@ -9041,8 +9045,12 @@ file = "kubejs/server_scripts/recipes/age_3/ars_addons.js"
 hash = "1a20d4f12c12793bb064d4cbecaff55b5713a8bc38b6ae28b7d282cd3890e6d7"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_3/lens_crown.js"
+hash = "bebc242a110a0ea0df2d9146d76d376cc2182120e423faf01669580eae4f3d31"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_4/industrial_age.js"
-hash = "68c0b10a430eca0fce8f5313b412a006f74b00c4bfce5e7ee3c5af6bd25740fd"
+hash = "587bd7e025630cfe9a611fab9814f2eed67c7e738d60ba8422fd3603379446e9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_4/wireless_terminal.js"
@@ -9062,7 +9070,7 @@ hash = "294c5af8600e6842318bbb872916c2ba0076c9973f022c8bfb664677d4578770"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/electric_age.js"
-hash = "9e5ec8233cdd6cd7117403b906d238902f6cbcea187cf8805a9eace493db59c3"
+hash = "9fc00cfbfc8e51f8433d357c1bfca6604e241acb272168d4d7ed0ec73489ad7e"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_5/starsteel.js"
@@ -9070,7 +9078,7 @@ hash = "5e38a970f7f334e8783789ca4003f77b1a54765025a03b3c1dcdb96574555fba"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/information_age.js"
-hash = "2393e7a3d6ae8ccb492ac7bbca12dc321da2b123d704bdac016d262ebdca9914"
+hash = "bad97493ba8d9e37e08a03ff302b0977078d2b04b05511f25151f08db4b8a04a"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_6/ore_ladder.js"
@@ -9089,12 +9097,16 @@ file = "kubejs/server_scripts/recipes/age_7/laser_bridges.js"
 hash = "e6d88bc7bec456ca55d38786703d5a7b243c1b7db72371a2cd4f40d04886e062"
 
 [[files]]
+file = "kubejs/server_scripts/recipes/age_7/launch_complex.js"
+hash = "bdfac657b36dc3ddf367fb8c37e3f6f45e7d5c40df0c2c60f0722ed7e56f0ef9"
+
+[[files]]
 file = "kubejs/server_scripts/recipes/age_7/space_age.js"
-hash = "acfc50117c5162a9a73cfc6791dd5a313b9bd10b8358cee500eff7f8b8f23729"
+hash = "e46fff5195d1d50aa81797f0c9dfc785049eb05f1e64dfb86459e10b94842687"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_8/quantum_age.js"
-hash = "9f0bc2f1b7f294329ff09635a2d99d8c34d922c50c7474797e454182d29f0931"
+hash = "3f291e5669705a948f32aa935369768c33aa8f2fccc8a411a29a3f4bcb541620"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_9/chaos_bootstrap.js"
@@ -9106,7 +9118,7 @@ hash = "e634c620d501f928cdb9b44589a5706a5b820204ae670fc2f1881a54253f80e8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_9/singularity_age.js"
-hash = "86d7c4a520a8e78543135945a229195c29962266c5dc9cd98b6a585e1f925fe5"
+hash = "ea02212825ffb7bac74e9c567397e83de0ab10101899ec9b7b4dcc5d432d8e84"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/byproducts.js"
@@ -9142,7 +9154,7 @@ hash = "2ab4cd5aa2fe3672fd67f0c0ed6bd565af5366b35176862d84cc48c75f88f371"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/station_ages.js"
-hash = "dea74dc014093fd761cc3d2a8a9248e36bf9914357672ace6dd3ff762c7e84d5"
+hash = "ef8c288519ed04e8413cfeaaaa8c97e10ea1d84f40ec4ee3a5106cb875232941"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/tfc_station_inputs.js"
@@ -9211,6 +9223,10 @@ hash = "17df96428810845e8b6c6c4894385c9c0d483fef6d766d17e55e76bf939d5501"
 [[files]]
 file = "kubejs/startup_scripts/signature_blocks.js"
 hash = "c4a6600335d3f911c38f18951e052e6ab657fe4d3285d342dc990379f69f0a05"
+
+[[files]]
+file = "kubejs/startup_scripts/sky.js"
+hash = "7aed482d39c345cefa5e524ddc268e73937954f956854fbc4d7a4ad56d1d7639"
 
 [[files]]
 file = "mods/a-handful-of-acorns.pw.toml"

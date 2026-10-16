@@ -1,5 +1,5 @@
 {
-"source": "/fa_dump in D:/Minecraft/MinecraftModServer/.wt/test-server-review-fix/local/firmages (0.11.0 review copy boot, gate off, every Age granted; kubejs/server_scripts/debug/dump.js)",
+"source": "/fa_dump in C:/Users/Felix/AppData/Local/Temp/claude/D--Minecraft-MinecraftModServer/c3a2f5de-bbd4-4cb7-a72f-75a5cf2dcb28/scratchpad/m15-d0 (kubejs/server_scripts/debug/dump.js)",
 "items": [
 "ad_astra:aeronos_cap",
 "ad_astra:aeronos_door",
@@ -13863,6 +13863,7 @@
 "firmages:attuned_circuit",
 "firmages:aurora_steel_ingot",
 "firmages:awakened_keystone",
+"firmages:blessing_shard",
 "firmages:cloudsteel_ingot",
 "firmages:consecrated_brick",
 "firmages:consecrated_glass",
@@ -14154,6 +14155,7 @@
 "firmages:rock/pattern/runes/slate",
 "firmages:rock/pattern/runes/tuff",
 "firmages:shrine_heart",
+"firmages:sky_anchor",
 "firmages:sky_disc",
 "firmages:sky_rock",
 "firmages:star_anvil",
