@@ -52,7 +52,28 @@ final class SkyHarvestCommands {
                     .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 86400)).executes(c -> weather(c, StormWeather.Mode.CLEAR, IntegerArgumentType.getInteger(c, "seconds")))))
                 .then(Commands.literal("auto").executes(c -> weather(c, StormWeather.Mode.AUTO, 0)))
                 .then(Commands.literal("strike").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::strike)))
-                .then(Commands.literal("status").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::rodStatus))));
+                .then(Commands.literal("status").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(SkyHarvestCommands::rodStatus)))
+                .then(Commands.literal("forecast").executes(c -> forecast(c, 5))
+                    .then(Commands.argument("hours", IntegerArgumentType.integer(1, 200)).executes(c -> forecast(c, IntegerArgumentType.getInteger(c, "hours"))))));
+    }
+
+    /**
+     * {@code sky storm forecast [hours]} (SPEC §26.10, round H3): one Storm Rod's expected yield over the next real hours
+     * of TerraFirmaCraft's own weather (no override), replayed from the climate model; logged as well.
+     */
+    private static int forecast(CommandContext<CommandSourceStack> c, int hours) {
+        if (!net.neoforged.fml.ModList.get().isLoaded("tfc")) {
+            c.getSource().sendFailure(Component.literal("The forecast reads TerraFirmaCraft's weather; TFC is not loaded"));
+            return 0;
+        }
+        long ticks = hours * dev.firmages.core.sky.StormForecast.REAL_HOUR;
+        var f = dev.firmages.core.compat.tfc.TfcWeather.forecast(c.getSource().getServer().overworld(), SkyHarvestDataLoader.current().storm(), ticks);
+        String text = String.format(Locale.ROOT, "Storm forecast, next %d real hours (%d ticks) of TFC weather: rain %.1f %% of the time, "
+                + "thunder %.1f %%; one rod: %.1f strikes, %.1f storm glass, %.1f per real hour", hours, ticks, 100.0 * f.rainTicks() / ticks,
+            100.0 * f.thunderTicks() / ticks, f.strikes(), f.glass(), f.glassPerRealHour());
+        dev.firmages.core.FirmagesCore.LOGGER.info(text);
+        line(c.getSource(), text);
+        return (int) Math.round(f.glass());
     }
 
     private static void line(CommandSourceStack src, String text) {
