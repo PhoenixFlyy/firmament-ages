@@ -46,7 +46,7 @@ final class BalanceCommands {
                             java.util.stream.Stream.concat(java.util.stream.Stream.of("all"), ReferenceRun.recipes(c.getSource().getServer()).keySet().stream()), b))
                         .executes(c -> referenceRun(c, 0))
                         .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 600))
-                            .executes(c -> referenceRun(c, IntegerArgumentType.getInteger(c, "seconds"))))))
+                            .executes(c -> referenceRun(c, IntegerArgumentType.getInteger(c, "seconds")))))))
             .then(Commands.literal("charge").then(Commands.argument("pos", net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos())
                 .then(Commands.argument("fePerTick", IntegerArgumentType.integer(1, Integer.MAX_VALUE))
                     .then(Commands.argument("seconds", IntegerArgumentType.integer(1, 3600)).executes(BalanceCommands::charge)))));
