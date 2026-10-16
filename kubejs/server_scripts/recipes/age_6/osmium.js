@@ -2,7 +2,8 @@
 // What MekaTFC 0.1.0 did for osmium, now with pack items: the ore pieces melt in a TFC crucible or vessel into molten
 // osmium, which casts into Mekanism's osmium ingot (Doc 10 v3 section 8.1: osmium stays a Mekanism material). This is
 // the way to the first osmium ingots of the Information Age, before the Purification Chamber (ore_ladder.js) runs.
-// Two ingots weld into an osmium double ingot, which welds with a wrought iron sheet into a Mekanism Steel Casing.
+// The steel casing is a grid recipe with an IE Heavy Engineering Block (harmony link 9, recipes/age_6/links.js); its
+// TFC weld (an osmium double ingot onto a wrought iron sheet) and with it the osmium double ingot are gone.
 // The fluid is Evolved Mekanism's molten osmium (nothing else uses it); its TFC melting point and heat are in
 // kubejs/data/firmages/tfc/fluid_heat/osmium.json, item heat in kubejs/data/firmages/tfc/item_heat/.
 // Piece amounts as every TFC ore: small 10, poor 15, normal 25, rich 35 mB; ingot 100 mB.
@@ -19,7 +20,7 @@ ServerEvents.recipes((event) => {
       temperature: MELT
     }).id(`firmages:heating/ore/${g}_native_osmium`)
   })
-  ;[['nugget', 'c:nuggets/osmium', 10], ['ingot', 'c:ingots/osmium', 100], ['double_ingot', 'c:double_ingots/osmium', 200]]
+  ;[['nugget', 'c:nuggets/osmium', 10], ['ingot', 'c:ingots/osmium', 100]]
     .forEach((m) => {
       event.custom({
         type: 'tfc:heating',
@@ -37,18 +38,4 @@ ServerEvents.recipes((event) => {
       break_chance: m[1]
     }).id(`firmages:casting/osmium_ingot_${m[0]}`)
   })
-  event.custom({
-    type: 'tfc:welding',
-    first_input: { tag: 'c:ingots/osmium' },
-    second_input: { tag: 'c:ingots/osmium' },
-    result: { id: 'firmages:metal/double_ingot/osmium', count: 1 },
-    tier: 3
-  }).id('firmages:welding/osmium_double_ingot')
-  event.custom({
-    type: 'tfc:welding',
-    first_input: { tag: 'c:sheets/wrought_iron' },
-    second_input: { tag: 'c:double_ingots/osmium' },
-    result: { id: 'mekanism:steel_casing', count: 1 },
-    tier: 3
-  }).id('firmages:welding/steel_casing')
 })

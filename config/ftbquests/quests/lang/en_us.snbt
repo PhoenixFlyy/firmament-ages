@@ -397,7 +397,9 @@
 	quest.1A7B308A025FA2CD.title: "Anvil Work"
 	quest.1B12D746242380A4.quest_desc: ["Aluminium comes only from the arc furnace."]
 	quest.1B12D746242380A4.title: "Aluminium"
-	quest.1BAB0B9CCD6A8CB3.quest_desc: ["The infuser makes the alloys and the control circuits."]
+	quest.1BAB0B9CCD6A8CB3.quest_desc: [
+		"The infuser makes the alloys. Basic and advanced circuits come from the grid and the assembler."
+	]
 	quest.1BAB0B9CCD6A8CB3.title: "Metallurgic Infuser"
 	quest.1BC2A62B4D301274.quest_desc: [
 		"Hot items glow. Hover over one to read its heat; each metal melts at its own."
@@ -1194,7 +1196,7 @@
 	]
 	quest.598B671102148097.title: "Launch Complex"
 	quest.5ACC660E88F7FC61.quest_desc: [
-		"Make a steel casing. Every machine of the Factory strand is built on one."
+		"Make a steel casing around a heavy engineering block. Every machine of the Factory strand is built on one."
 	]
 	quest.5ACC660E88F7FC61.title: "Steel Casing"
 	quest.5AFB81560199F553.quest_desc: [

@@ -431,8 +431,10 @@ Offer the Data Matrix in the Data Nave (ring 6).
 ### The way
 1. Factory:
    - Osmium: melt the ore pieces in a vessel or crucible and cast them in an ingot mold. Eight ingots.
-   - Steel casing: weld two osmium ingots into a double ingot, weld that with a wrought iron sheet.
-   - Metallurgic infuser (alloys, control circuits; it also finishes weak red steel into red steel), purification
+   - Steel casing: steel ingots, an osmium ingot and glass around a heavy engineering block.
+   - Control circuits: a basic one is a circuit board with osmium and redstone; four advanced ones take four basic
+     circuits, four infused alloys and one Attuned Circuit. The assembler makes both.
+   - Metallurgic infuser (alloys, elite and ultimate circuits; it also finishes weak red steel into red steel), purification
      chamber (three times the metal per ore piece), electrolytic separator, 8 HDPE (pressurized reaction chamber,
      from ethene), gas-burning generator (the FE generator of this Age).
    - Blue steel: weak blue steel from the arc furnace, welded and worked like red steel. Four sheets for the Matrix,

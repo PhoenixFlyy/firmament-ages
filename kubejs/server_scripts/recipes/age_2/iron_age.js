@@ -107,7 +107,6 @@ ServerEvents.recipes((event) => {
   // (age_items/disabled) as a scrap output; recipes/byproducts.js removes it, otherwise the gate drops the recipe and
   // the Steel Heart has no precision mechanism.
 
-  // TODO (Doc 08 section 9.4, Iron Age backfill): Sequenced Assembly "Smithing Die" for tool heads, rods and
-  // armour parts, Create press on a heated bloom, heated compacting/welding over the TFCreate Fuel Heater.
-  // Needs the WoodenCog/TFCreate recipe types from the PoC dump (/kubejs dump registry recipe_type).
+  // The "Smithing Die" of Doc 08 section 9.4 (harmony link 2) is in recipes/age_2/links.js: hot ingots into rods on the
+  // press. Sheets, double sheets and the bloom are already on the Create line (TFCreate, WoodenCog).
 })
