@@ -1,5 +1,31 @@
 # Client-Test
 
+## 0.14.0 Nachtrag (1.0 Runde B2 2026-10-16, Pack 0.14.0, firmages-core 0.13.0)
+
+**Profil neu importieren** (das Questbuch ist neu; firmages-core bleibt 0.13.0, Protokoll 6). Eine alte Welt läuft
+weiter; zusammengelegte Quests (Copper Pickaxe, Bronze Kit, Blaze Burner, Enchantment Industry, Resource Crops,
+Ore Tripling, Wither on Demand, Blaze Cake) haben neue IDs und fangen ohne Fortschritt an. Server-Teil auf der Kopie
+geprüft (`dev/poc-results.md`, Abschnitt „1.0 round B2 (2026-10-16)“): FTB Quests lädt 4 Gruppen, 26 Kapitel,
+678 Quests, 0 Belohnungstabellen ohne Warnung; `poc_analyze.py` 129 PASS, 0 FAIL; `selftest all` 106 von 106;
+`check_log.py` 0 übrig; `validate_quests.py --style` 0 Fehler, 0 Warnungen; Q-1 524 Aufgaben mit Quelle. Im Client:
+
+1. **Belohnungen.** Eine Arbeitsquest gibt feste Items ihrer Age statt Zufalls- oder Auswahlkiste: Team-Belohnung
+   (Material für die Basis) nimmt einmal, wer zuerst klickt; Ausrüstung und Essen bekommt jeder Spieler selbst.
+   Prüfen mit zwei Spielern an einer Quest mit beiden Arten (z. B. „Copper Kit“). Opfergaben auf der Firmament-Straße
+   geben nichts (die Belohnung sitzt auf dem Age-Ziel).
+2. **Side Roads.** Neue Gruppe „Side Roads“, je Age ein Kapitel („<Age> Side Roads“), das erst mit seiner Age
+   erscheint; Reihen von vier bis sieben Quests, die erste nennt Straße und Abzweig im Untertitel. Die erste Quest
+   einer Straße hängt an einer Quest im Age-Kapitel: öffnet sie sich, sobald die abgeschlossen ist?
+3. **Great Works.** Die Pläne hängen an „Flux Mill“ (Bronze), „Brass“ (Eisen) und „Launch Pad“ (Weltraum). In diesen
+   drei Age-Karten steht neben der Quest ein Link (Form Rune, Größe 1,25) auf den Plan: Titel lesbar, Klick springt
+   ins Great-Works-Kapitel.
+4. **Firmament.** „Beyond the Firmament“ bleibt bis zur Singularitätszeit unsichtbar.
+5. **Karten.** Titel liegen nicht auf anderen Titeln oder Quests, wie in `dev/quest-preview/` (dort zeigt ein
+   Buchstabe ein Icon, das der flache Renderer nicht zeichnet; im Spiel muss das echte Icon stehen, auch für Items
+   der 57 Mods, die in Deiner Client-Instanz fehlen, etwa Alex's Mobs, Psi, Artifacts, Storage Drawers).
+6. **Texte.** Brechwalzen „about 1.5 times“, Crusher „two and a half times“; neue Knapping-Bilder für Axt-, Hammer-,
+   Messer- und Schaufelkopf in „Copper Kit“.
+
 ## 0.13.0 Review-Fixes (2026-10-16, Pack 0.13.0 neu gebaut, firmages-core 0.13.0 neu gebaut)
 
 Dreizehn Review-Befunde auf `dev` behoben (`dev/poc-results.md`, Abschnitt „0.13.0 review fixes“; Entscheidungen

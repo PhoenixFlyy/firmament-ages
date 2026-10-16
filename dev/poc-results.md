@@ -3666,3 +3666,35 @@ from my own `packwiz serve --port 8417 --refresh=false`, "Finished successfully"
 | `gen_quest_images.py --check`, `gen_quest_pictures.py --check`, `gen_textures.py --check`, `check_menus.py`, `gen_fuels.py --check`, `gen_machine_usage.py --check`, `gen_ponder_schematics.py --check`, `gen_wood_classes.py --check`, `preview_quests.py` | 36 pictures, 106,131 bytes, 0 problems (four Create Ponder stills new); quest_pictures.json up to date; 348 textures; menus pass; fuels up to date; 91 values off default; 276 wood class files | pass |
 | `release.ps1 -Version 0.13.0`, `export_cf.py`, `verify_install.py` | `.mrpack` 477.4 MB, CurseForge zip 77.1 MB, server pack 504.3 MB, SHA-256 list; upload zip 7.4 MB, 12 swaps, 265 manifest files, only `firmages-core-0.13.0.jar` in overrides (SHA-256 equal to `mods/`); `cfzip` 2,976 of 2,976 and `mrpack --side server` 2,940 of 2,940, no missing, extra or wrong hash. Nothing uploaded, nothing pushed | pass |
 | Mods | 264 metafiles plus `firmages-core`, 265 in the credits; none added or removed (content lock) | done |
+
+## 1.0 round B2 (2026-10-16)
+
+Chronicle B2 (branch `b2/content`, four commits) merged into `dev` with `--no-ff`: fixed item rewards, pacing, Side
+Roads, Great Works links. No Java and no KubeJS script changed, so firmages-core stays 0.13.0; the pack becomes 0.14.0.
+Felix's test server stayed off and untouched; every boot ran on the copy `.wt/test-server-b2` (`robocopy` without
+world, logs, local, simplebackups and crash-reports; its `kubejs/` deleted and the emptied `reward_tables/` removed
+before the boots; ports 25760 and RCON 25770; whitelist off; `debug.allowSimulate = true`), synced with
+`packwiz-installer-bootstrap -g -s server` from `packwiz serve --port 8419 --refresh=false`, "Finished successfully",
+each boot with a new world and `-Xms3G -Xmx5G`. The copy is deleted.
+
+| Check | Observed | Result |
+|---|---|---|
+| Copy boot 1 (gate off, `simulate grant` age_0 to age_9, `fa_dump`, `fa_dump_full`) | 266 mod files with 257 mods; 43,960 recipes encoded, 0 not encodable; KubeJS startup and server 0 errors; Age coverage: all 21,078 ProgressiveStages Age item locks in an Age tag | done |
+| `derive_ages.py --scan`, `derive_ages.py` on boot 1, `gen_stage_locks.py` | `dev/age_map.toml` unchanged (wixie charm already in `[derived_hidden]` from the branch), 0 files rewritten; `world_sources.json` changed only in its source line; `derive_ages.py --check` and `gen_stage_locks.py --check` up to date | pass |
+| `derive_ages.py --check` Q-1 | 524 required item tasks, 0 without a recipe, world or loot source by their chapter's Age (0.13.0: 261; the Side Roads add 263) | pass |
+| `gen_quests.py`, `validate_quests.py --style --mods <copy>/mods` | 26 chapters, 678 quests, 1,756 lang keys, no file changed (the book is idempotent); 3,211 object ids, 0 errors, 0 warnings | pass |
+| Copy boot 2 (gate on, `recipes audit`, grants, `fa_dump`, `fa_dump_full`, `recipes audit`, `ore audit`, `selftest all`) | at Dawn 43,960 recipes, 36,470 dropped; at age_9 4,404 dropped (disabled 4,397, superseded 7), 849 undetected; `ore audit` best tech factor age_0 to age_9 1 / 1 / 1.5 / 1.5 / 2.5 / 2.5 / 2.857 to 3 / 4 / 5 / 6 (magic 2.0 from age_3), as in 0.13.0; `selftest all` 106 passed, 0 failed; FTB Quests "Loaded 4 chapter groups, 26 chapters, 678 quests, 0 reward tables", no FTB Quests WARN or ERROR line | pass |
+| `poc_analyze.py --server-dir <copy> --dump-dir <boot 2> --baseline <boot 1>` | 129 PASS, 0 FAIL ("all checks PASS"): G-1 to G-4, E-1, K-1 (23 link recipes, 7 replaced routes gone), R-X to age_9, R-K, L-1 to L-7, D-1, W-1 to W-9, S-1 to S-4 | pass |
+| Copy boot 3 (gate on, grants, hold 120 s) | `check_log.py`: 87.5 s to Done; FATAL 0, ERROR 8, STDERR 0, WARN 241, documented noise 251, remaining 0; KubeJS 0 errors; FTB Quests 26 chapters, 678 quests | pass |
+| Boot 2 `check_log.py` (for comparison) | remaining 2 lines "Can't keep up" while `selftest all` and the dumps ran; no other signature | expected |
+| Quests per chapter | Ages: dawn 12, stone 26, bronze 28, iron 30, arcane 36, industrial 39, electric 32, information 36, space 38, quantum 29, singularity 25 (331; 0.13.0: 380); the_firmament 28; Great Works 3 x 6; Side Roads: dawn 4, stone 13, bronze 49, iron 38, arcane 36, industrial 45, electric 36, information 44, space 10, quantum 17, singularity 9 (301); total 678 (0.13.0: 406) | measured |
+| Rewards | 0 reward tables; 31 quests pay XP only and all 31 are entry, reading or guide quests (11 "... Age Dawns" stage quests, 17 Firmament readings and ring guides, 3 Great Works entries); 0 work quests with XP only; the 10 offering mirrors and "Beyond the Firmament" pay nothing (the reward sits on the Age goal) | pass |
+| Line crossings / lines over foreign quests per chapter (`validate_quests.map_lines`) | arcane 1/2, bronze 1/1, dawn 0/0, electric 1/0, industrial 1/1, information 0/1, iron 1/0, quantum 1/0, singularity 0/0, space 0/0, stone 0/1, the_firmament 0/0, every Side Roads and Great Works chapter 0/0 (limit 2/2) | pass |
+| Pacing model (`scratchpad/b2/pacing`, driver `scratchpad/b2int/drive.py`, gate-off dump of 0.13.0) | 3 players 54.7 h, ratio share/target: Dawn 1.13, Stone 0.83, Bronze 0.86, Iron 0.92, Arcane (Spirit Route) 0.91, Industrial 0.96, Electric 0.98, Information 1.06, Space 1.09, Quantum 1.13, Singularity 1.12, all in the 0.8 to 1.2 band; 2 players 67.3 h (Stone 0.76), 4 players 52.2 h (Dawn 1.30). The model counts quest work only and is not calibrated against a playthrough, so the ratios matter, not the hours | measured |
+| `gen_quest_images.py --check`, `gen_quest_pictures.py --check`, `preview_quests.py`, `gen_textures.py --check`, `check_menus.py`, `miner_ladder.py --check`, `gen_fuels.py`, `gen_wood_classes.py`, `gen_loot_silence.py`, `gen_wayshrines.py`, `gen_ark.py`, `gen_cold_forge.py`, `gen_recipe_overrides.py --mods <copy>/mods`, `gen_machine_usage.py --server-dir <copy>` (each `--check`) | 40 pictures, 108,910 bytes, 0 problems; quest_pictures.json up to date; 26 preview maps, 0 drawn too close, regenerated without a byte changed; 348 textures; menus pass; every other generator up to date | pass |
+| `release.ps1 -Version 0.14.0`, `gen_credits.py`, `md2html.py`, `export_cf.py`, `verify_install.py` | `.mrpack` 477.4 MB, CurseForge zip 77.1 MB, server pack 504.4 MB, SHA-256 list; credits 265 mods; upload zip 7.5 MB, 12 swaps, 265 manifest files, only `firmages-core-0.13.0.jar` in overrides; `cfzip` 2,970 of 2,970 and `mrpack --side server` 2,934 of 2,934, no missing, extra or wrong hash. Nothing uploaded, nothing pushed | pass |
+| Mods | 264 metafiles plus `firmages-core`, 265 in the credits; none added or removed (content lock) | done |
+
+Not checked on a server: how FTB Quests draws the `quest_links` and opens their target, the Side Roads chapters
+hidden until their Age in a client, the team and per-player reward flags when a quest is claimed, and
+`hide_until_deps_complete` on "Beyond the Firmament"; these are in `dev/client-test-brief.md`, "0.14.0 Nachtrag".

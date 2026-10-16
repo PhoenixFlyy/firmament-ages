@@ -1,7 +1,7 @@
 # Firmament Ages: Kontext für Agenten
 
 Diese Seite ersetzt für den Einstieg `mod/firmages-core/SPEC.md`, `dev/README.md` und die langen Notizen; die Pfade führen zu den Details.
-Stand 2026-10-16: Pack und firmages-core 0.13.0 (Release-Commit `78d1591`), Branch `dev`.
+Stand 2026-10-16: Pack 0.14.0 (1.0 Runde B2, Chronik getaktet), firmages-core 0.13.0 (unverändert seit Release-Commit `78d1591`), Branch `dev`.
 
 ## 1. Was das Pack ist
 
@@ -51,7 +51,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 
 - `python dev/derive_ages.py --scan --mods <Kopie>/mods`, dann `python dev/derive_ages.py --dump-dir <Gate-aus-Dump>`, `--check`: schreibt `[derived]` und `[derived_hidden]` in `dev/age_map.toml` (Age = später von Regel und erster Erreichbarkeit, nie erreichbar = `[derived_hidden]`); Q-1 prüft die Quest-Aufgaben.
 - `python dev/gen_stage_locks.py` (`--check`, `--registry <Dump>`, `--explain <id>`): Age-Tags und Stage-Dateien aus `dev/age_map.toml`; nur Tabellen editieren, nie die Zeilen zwischen `# >>> generated` und `# <<< generated`.
-- `python dev/gen_quests.py`, dann `python dev/validate_quests.py --style` (`--mods <Kopie>/mods` oder `--no-jars`): Buch erzeugen, 0 Fehler, 0 Warnungen; danach `git diff config/ftbquests/quests/lang/en_us.snbt` lesen.
+- `python dev/gen_quests.py`, dann `python dev/validate_quests.py --style` (`--mods <Kopie>/mods` oder `--no-jars`): Buch erzeugen, 0 Fehler, 0 Warnungen (prüft auch Linienkreuzungen und Linien über Quests, höchstens 2 je Kapitel, Side Roads und Quest-Links; `gen_quests.py` bricht bei einer Arbeitsquest ohne Item-Belohnung ab); danach `git diff config/ftbquests/quests/lang/en_us.snbt` lesen. `python dev/preview_quests.py` zeichnet jede Karte nach `dev/quest-preview/` (Buchstabe = Icon, das der flache Renderer nicht kennt; roter Punkt = Quest ohne Icon). Belege 0.14.0: 26 Kapitel, 678 Quests, FTB Quests ohne Warnung.
 - `python dev/poc_analyze.py --server-dir <Kopie> --dump-dir <Dump> --baseline <Gate-aus-Dump>`: eine PASS/FAIL-Zeile je Prüfung, Exit 1 bei FAIL. Familien: G Gate, A Stage-Rezeptsperren, C Inhalt, D Dawn-Bodenhandwerk, E EMI je Age, R Erreichbarkeit (R-0 Vanilla-Stationen, R-X ohne Magie, R-M Multiblöcke, R-K), K Querverbindungen, L Erzleiter, U Vereinheitlichung, W Holzklassen, S Himmelsmaterialien.
 - `python dev/predict_dump.py <Dump> <Ziel>` und `--sync-locks <Ziel>`: Dump einer KubeJS-Rezeptänderung ohne Boot vorhersagen; der nächste echte Dump muss `derive_ages.py --check` bestehen.
 - `python dev/check_log.py <Kopie>/logs/latest.log` (`--client` für Client-Logs): Problemzeilen gegen `dev/data/log_noise.json`, Ziel „remaining 0“.
@@ -109,7 +109,8 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 
 - Felix entscheidet (`dev/offene-punkte.md`, „Entscheidungen“): eigene Schrift, Ernährungs-Untergrenze 0,85 oder 1,0, Chunk-Laden offline, Mob-Leiter kumulativ, AdvancedAE Strength Card, Backups ohne `saveAll`, bekannte Lücken (Apothic-Tisch, Blaze-Template), Firmament-Ziel ab Start sichtbar.
 - Im Client (Felix): Review-Fixes 0.13.0, Chronik B1, Arcane Catalyst an echten Maschinen, Ore Processor, Querverbindungen; Liste je Version in `dev/client-test-brief.md`.
-- Chronik B2 (Branch `b2/content`, Changelog-Staging `dev/changelog-b2.md`): im Client prüfen; Pacing-Modell in `scratchpad/b2/pacing/`: drei Spieler 54,7 h, alle Ages im ±20-%-Band (Stone 0,83, Quantum 1,13 am Rand).
+- Im Client (Felix): Chronik B2 in 0.14.0 (Belohnungen Team/Spieler, Side Roads, Links auf die Great-Works-Pläne, „Beyond the Firmament“ ab der Singularitätszeit), `dev/client-test-brief.md` „0.14.0 Nachtrag“.
+- Pacing-Modell nur im Scratchpad (`scratchpad/b2/pacing/`, Treiber `scratchpad/b2int/drive.py`): drei Spieler 54,7 h, alle Ages im ±20-%-Band (Stone 0,83, Quantum 1,13 am Rand); als `dev/pacing.py` ins Repo holen (`dev/offene-punkte.md`).
 - Wayshrine-Dichte auf Vulkangürtel-Seeds (18 statt 7 bis 11) und die Suche des Tutorial-Wayshrines (`dev/gen_wayshrines.py`, SPEC §28).
 - Alte Origin-Arenen behalten den Fusionskern im Arena-DHD (`SgjGates.removeEnergyCore`); `derive_ages.py --scan` liest Feature-Prädikate als platzierte Blöcke.
 - Ungeprüfte Config-Keys (TFC + IE Quarz-Geode, Enchantable Machinery, Bits 'n' Bobs, Mechanical Spawner, Mekanism Additions, Stargate Journey): `dev/offene-punkte.md`, „Inhalt und Config“.
