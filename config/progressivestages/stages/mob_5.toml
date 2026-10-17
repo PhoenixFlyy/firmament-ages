@@ -1,6 +1,6 @@
 # Firmament Ages - mob ladder stage "mob_5" (Electric Age spawns).
 # Granted together with age_5 by kubejs/server_scripts/stages/grants.js.
-# DEVIATION (open point, dev/offene-punkte.md): Doc 08 wants mob_N non-cumulative (mob_(N-1) revoked).
+# DEVIATION (confirmed by Felix 2026-10-17, dev/decisions-while-away.md "G1: Mob-Leiter kumulativ"): Doc 08 wants mob_N non-cumulative (mob_(N-1) revoked).
 # ProgressiveStages locks an entry while its stage is MISSING, so revoking mob_1 at the Iron Age would
 # re-lock skeletons and re-enable the creeper replacement. grants.js therefore keeps the ladder cumulative
 # (FA.MOB_LADDER_CUMULATIVE = true); flip it only if a later rung needs to remove mobs again.

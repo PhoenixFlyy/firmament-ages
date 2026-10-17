@@ -17,8 +17,9 @@
 	force_loading: {
 		max_force_loaded_chunks: 0
 		# "never": force-loaded claims only tick while a party member is online. Matches TFC's
-		# enableTimeStopWhenServerEmpty (the calendar stops when nobody is online). Switch to "always"
-		# if automation must run offline (Doc 08 section 13 item 11, open decision).
+		# enableTimeStopWhenServerEmpty (the calendar stops when nobody is online). Decided by Felix on 2026-10-17
+		# (dev/decisions-while-away.md "G1: Chunk-Laden nur mit Team online"); "always" would let
+		# automation run offline.
 		force_load_mode: "never"
 	}
 }

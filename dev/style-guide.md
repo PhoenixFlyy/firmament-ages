@@ -15,6 +15,14 @@ Gut:   "Fire is tamed. Clay is yours now."
 Gut:   "Veins of a later Age sleep as plain stone."
 Nicht: "Embark on an epic journey through ten unique Ages!"
 
+## Keine Erklärtexte (Felix, 2026-10-17)
+
+Wird ein Feature entfernt, ersetzt oder freigeschaltet, bekommt der Spieler keinen Hinweistext dazu: keine Chat-Zeile,
+kein Toast, keine Questzeile und kein Tooltip, der es ankündigt oder erklärt, was jetzt anders ist. Die Spieler
+entdecken es selbst; die Zeremonie einer Age bleibt die einzige Ansage. Bleiben dürfen die Sperr-Rückmeldungen
+("Something Unknown", "Not of this Age", die Hotbar-Zeile, die Meldung zu einem abgelehnten Rezept), denn sie sagen,
+warum etwas gerade nicht geht. Das Skript prüft das nicht, nur von Hand.
+
 ## Questbeschreibung
 
 1. Erster Satz: was zu tun ist, im Imperativ. Zweiter Satz: wozu (was es braucht, was es öffnet).
