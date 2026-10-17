@@ -1,7 +1,3 @@
-# Firmament Ages - server.properties template. Copy to server.properties in the server folder and fill
-# motd as needed (leave server-ip empty, see the network section). server.properties is not part of the pack index: packwiz never overwrites it.
-# Vanilla keys only; everything the pack itself needs lives in config/ and defaultconfigs/.
-
 # --- access (friends only) ---
 online-mode=true
 white-list=true
@@ -51,11 +47,6 @@ server-port=25565
 enable-status=true
 enable-query=false
 query.port=25565
-# server-ip stays empty: the server then listens on all interfaces, so players in the LAN (and through a forwarded
-# 25565 from the internet) can join. 127.0.0.1 would admit only the host PC itself.
-# RCON binds to server-ip as well, so with an empty server-ip it also listens on all interfaces. Public server:
-# leave enable-rcon=false, or allow only 25565 in the firewall and never forward 25575. Home or test server with
-# enable-rcon=true: set a long random rcon.password that lives only in that server.properties.
 enable-rcon=false
 rcon.port=25575
 rcon.password=
