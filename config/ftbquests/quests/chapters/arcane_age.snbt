@@ -82,11 +82,6 @@
 			id: "354A9C13E074B572"
 			rewards: [
 				{
-					id: "48C5E8FB39EFF24E"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 4
 					id: "36784379BF6EA119"
 					item: {
@@ -122,11 +117,6 @@
 			dependencies: ["354A9C13E074B572"]
 			id: "04722DE2A3532A26"
 			rewards: [
-				{
-					id: "759572F24578A637"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 4
 					id: "789E91EA6DC6B380"
@@ -166,11 +156,6 @@
 			}
 			id: "41F6B8884809B526"
 			rewards: [
-				{
-					id: "0C5676E584E65CE5"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 4
 					id: "729EEB866C08BEE9"
@@ -228,11 +213,6 @@
 			id: "33BEA94E7673D21D"
 			rewards: [
 				{
-					id: "32E2A9E5FC6D0C0E"
-					type: "xp"
-					xp: 65
-				}
-				{
 					id: "19CE4D28446346C8"
 					item: {
 						count: 1
@@ -264,11 +244,6 @@
 			dependencies: ["33BEA94E7673D21D"]
 			id: "06055D169B0CC629"
 			rewards: [
-				{
-					id: "7E9590685628AD92"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 4
 					id: "4356C5FE8F1CB486"
@@ -306,11 +281,6 @@
 			dependencies: ["06055D169B0CC629"]
 			id: "4914DB06E3F96086"
 			rewards: [
-				{
-					id: "3BFB6B73EE14BC3C"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 2
 					id: "4703675C0A377C89"
@@ -350,11 +320,6 @@
 			}
 			id: "01A60C077F4FEDFD"
 			rewards: [
-				{
-					id: "6DFE97391B43D243"
-					type: "xp"
-					xp: 195
-				}
 				{
 					count: 8
 					id: "309EE05C15B13C00"
@@ -413,11 +378,6 @@
 			id: "69CB2309855D14E1"
 			rewards: [
 				{
-					id: "0CE1729650F75AB9"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 8
 					id: "01698571269D33BA"
 					item: {
@@ -456,11 +416,6 @@
 			}
 			id: "659EBC46D8F70B24"
 			rewards: [
-				{
-					id: "72EA4968B42C47CE"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 2
 					id: "3E24B642053D0932"
@@ -535,11 +490,6 @@
 			id: "36A59893ED5389B6"
 			rewards: [
 				{
-					id: "000DC0CDF6C3C370"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 4
 					id: "5EB71820B44C5A31"
 					item: {
@@ -575,11 +525,6 @@
 			dependencies: ["36A59893ED5389B6"]
 			id: "0BA4D1B6A66D0C59"
 			rewards: [
-				{
-					id: "50C302080A88D27A"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 8
 					id: "7C03A974DE8ACACF"
@@ -618,11 +563,6 @@
 			id: "2303CB5F822C38B6"
 			rewards: [
 				{
-					id: "5924EF20C559A586"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 4
 					id: "2048FC94C8F57475"
 					item: {
@@ -659,11 +599,6 @@
 			id: "5628873FCDD13028"
 			rewards: [
 				{
-					id: "2BE71D6F5AF11F57"
-					type: "xp"
-					xp: 65
-				}
-				{
 					id: "5DF1DAFA47D3B447"
 					item: {
 						count: 1
@@ -698,11 +633,6 @@
 			dependencies: ["5628873FCDD13028"]
 			id: "6B502DAD3EAE52D5"
 			rewards: [
-				{
-					id: "484C47EE4849404A"
-					type: "xp"
-					xp: 65
-				}
 				{
 					id: "2F4F963C95787A7C"
 					item: {
@@ -741,11 +671,6 @@
 			}
 			id: "470272BFC8013E57"
 			rewards: [
-				{
-					id: "020F3C9051845982"
-					type: "xp"
-					xp: 195
-				}
 				{
 					count: 8
 					id: "6E389558729E55FC"
@@ -803,11 +728,6 @@
 			id: "06FEAB3BC2EA4431"
 			rewards: [
 				{
-					id: "3F13007D081A2DF8"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 16
 					id: "323CF0ABD1771BCD"
 					item: {
@@ -843,11 +763,6 @@
 			dependencies: ["06FEAB3BC2EA4431"]
 			id: "4CA32185961FD920"
 			rewards: [
-				{
-					id: "76F83ED790146225"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 8
 					id: "470710D789AD4EAD"
@@ -903,11 +818,6 @@
 			id: "0FBE04E270216ADA"
 			rewards: [
 				{
-					id: "7A1B1566C3D5E68F"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 8
 					id: "1C3D6041D8375D7F"
 					item: {
@@ -943,11 +853,6 @@
 			dependencies: ["0FBE04E270216ADA"]
 			id: "0725F0C2566548FA"
 			rewards: [
-				{
-					id: "70FEAE5A789F4F48"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 4
 					id: "4EC5FADABAACFDF7"
@@ -1005,11 +910,6 @@
 			}
 			id: "373193C62E3C9E35"
 			rewards: [
-				{
-					id: "51CC6D388AEE04F1"
-					type: "xp"
-					xp: 195
-				}
 				{
 					count: 8
 					id: "7EE1ECD2253E2EB5"
@@ -1090,11 +990,6 @@
 			id: "4AD21CEABC66DCC2"
 			rewards: [
 				{
-					id: "5218A7CCCDB51F46"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 4
 					id: "266C9ABAB8872A5E"
 					item: {
@@ -1129,11 +1024,6 @@
 			dependencies: ["4AD21CEABC66DCC2"]
 			id: "574F377D613986E5"
 			rewards: [
-				{
-					id: "28C157A5A02AEFE8"
-					type: "xp"
-					xp: 195
-				}
 				{
 					count: 4
 					id: "67F84D105011BE6E"
@@ -1184,11 +1074,6 @@
 			id: "216ADE120332EDCD"
 			rewards: [
 				{
-					id: "7E731FCE6C9CE6F2"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 2
 					id: "630CE88FAE15690A"
 					item: {
@@ -1226,11 +1111,6 @@
 			id: "084B1FF3C902B47A"
 			rewards: [
 				{
-					id: "19094BD2B5B153FA"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 4
 					id: "2112B302DC3D8498"
 					item: {
@@ -1267,11 +1147,6 @@
 			id: "66EB6D8730E3AB2D"
 			rewards: [
 				{
-					id: "09AB306D46BCB2B1"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 32
 					id: "16526630D634CB8F"
 					item: {
@@ -1307,11 +1182,6 @@
 			dependencies: ["66EB6D8730E3AB2D"]
 			id: "3150B924AEF25965"
 			rewards: [
-				{
-					id: "436952901A338BFC"
-					type: "xp"
-					xp: 195
-				}
 				{
 					count: 2
 					id: "4E5D1529DEE84E2B"
@@ -1388,11 +1258,6 @@
 			id: "3B249CF88F286E7D"
 			rewards: [
 				{
-					id: "7679B479600315A7"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 8
 					id: "24095C280BA5E987"
 					item: {
@@ -1438,11 +1303,6 @@
 			}
 			id: "6932FDCAADC46220"
 			rewards: [
-				{
-					id: "3DD8C5BC1D12498C"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 16
 					id: "2121C606AFACDC62"
@@ -1490,11 +1350,6 @@
 			}
 			id: "02BAEBC0675BF246"
 			rewards: [
-				{
-					id: "7B428EA8A775A130"
-					type: "xp"
-					xp: 650
-				}
 				{
 					id: "1842E8154CF3291D"
 					item: {
@@ -1552,11 +1407,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "12E498F387F6D884"
-					type: "xp"
-					xp: 65
-				}
-				{
 					count: 8
 					id: "4980533E97A2C2DC"
 					item: {
@@ -1596,11 +1446,6 @@
 			id: "6567773B43A82031"
 			optional: true
 			rewards: [
-				{
-					id: "2925FA3A8804AF67"
-					type: "xp"
-					xp: 65
-				}
 				{
 					count: 2
 					id: "176DF8ED335BF8F2"
@@ -1675,11 +1520,6 @@
 			id: "6281CB502F09533D"
 			optional: true
 			rewards: [
-				{
-					id: "23438F6B5D0FEA1C"
-					type: "xp"
-					xp: 130
-				}
 				{
 					count: 6
 					id: "2AA8240402488B6B"

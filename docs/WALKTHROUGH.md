@@ -21,8 +21,8 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 
 ### The Chronicle
 
-Press K. The first chapter, The Firmament, holds the notes to read first (keys, the sign, the fellowship, what Dawn
-withholds, crafting by hand), the road of offerings and, from the Stone Age on, a build guide for each shrine ring
+Press K. The first chapter, The Firmament, holds the notes to read first (keys, the fellowship, the shrine, crafting
+by hand; "By Hand" must be read before the first spark), the road of offerings and, from the Stone Age on, a build guide for each shrine ring
 beside its offering: the ring rising, every layer with its blocks, then offering and rite. The end of the road,
 "Beyond the Firmament", appears with the Singularity Age. Each Age chapter winds its strands round the goal in the
 middle. The group Great Works holds three optional builds: The Gatehouse (Bronze Age, off "Flux Mill"), The Living
@@ -31,7 +31,7 @@ a click on the pictures opens the Ponder scene. The group Side Roads holds one o
 to seven quests, each row a craft of one mod that branches off a quest of the Age (its first quest says which);
 59 roads in all. Knapping patterns, the TerraFirmaCraft devices and the Lens Crown are drawn in their quests.
 
-Every quest that asks for work pays items of its Age besides experience: materials for the base go to whoever claims
+Every quest that asks for work pays items of its Age and no experience: materials for the base go to whoever claims
 them first, gear and food come to each of you. The sections below name what the keystones and the goal of each Age
 pay. Info quests (entries, notes, build guides) pay experience only.
 
@@ -73,7 +73,8 @@ Sneak is Left Ctrl here; Left Shift sprints.
 ## Dawn
 
 ### What you must reach
-The First Spark: craft a firestarter and light a firepit. The quest itself opens the Stone Age for everyone.
+The First Spark: craft a firestarter and light a firepit once the five keystones (Stone Kit, Shelter, Hunter, The
+Larder, A Shrine on the Road) are done. The quest itself opens the Stone Age for everyone.
 
 ### The way
 1. Twigs lie under trees: pick them up with an empty hand; each crafts into a stick. Leaves cut with a stone knife
@@ -92,18 +93,31 @@ The First Spark: craft a firestarter and light a firepit. The quest itself opens
    Dawn has no crafting grid (The Firmament, "By Hand"): hold the head and press V to lay it on a block, lay a stick, twig or
    bone beside it, then sneak and right-click the pile with an empty hand: a stone axe. Knife (two blades per rock), hammer,
    shovel, hoe and javelin heads are in the quest "Knapping Patterns". There is no stone pickaxe.
-4. Stone: fell a tree with the stone axe. Keystone "Stone Kit".
-5. Shelter: cut tall grass with the stone knife for straw. Four straw laid on one block make one thatch; make eight
-   ("Thatch"). Right-click two thatch blocks side by side with a large raw hide: a thatch bed. Keystone "Shelter".
-6. Hunt: knap a javelin head, craft it with a stick on the ground, kill any wild animal and bring home a large raw
+4. Stone: knap a knife blade and a hammer head and craft each with a stick on the ground ("Knife and Hammer"), then
+   fell a tree with the stone axe. Keystone "Stone Kit".
+5. Shelter: cut tall grass with the stone knife for straw (one straw per grass). Four straw laid on one block make one
+   thatch; make eight ("Thatch"), then 32 for walls and a roof ("Walls of Straw"). Right-click two thatch blocks side
+   by side with a large raw hide: a thatch bed. Keystone "Shelter".
+6. Hunt: knap a javelin head, craft it with a stick on the ground, kill three wild animals and bring home a large raw
    hide. Large prey drops it; carry a knife to butcher. Keystone "Hunter".
-7. Goal: lay two sticks on one block and sneak and right-click them: a firestarter. Throw a log, three sticks and some straw on one block and hold
-   right-click on it with the firestarter until the firepit lights. The Stone Age dawns for all of you: a short
-   ceremony, and Caelum says "A spark in the dark. I have seen you." The crafting grid (E) is open from now on.
+7. Forage: wild crops hide in the tall grass and stand ripe from June to October (a new world starts on 1 June); no
+   berry bush fruits before August. Break one for its food ("Wild Harvest"), gather the seeds of two different wild
+   crops ("Seeds of the Wild"), then twelve of one crop's food. Keystone "The Larder".
+8. Sky: walk 1,000 blocks; sprinting does not count ("Far from Home"). A ruined Wayshrine stands 300 to 800 blocks
+   from the world spawn, a faint beam above it. Look at its core (the block in its middle). Keystone "A Shrine on the
+   Road".
+9. Goal: lay two sticks on one block and sneak and right-click them: a firestarter. Throw a log, three sticks and some
+   straw on one block and hold right-click on it with the firestarter until the firepit lights. The Stone Age dawns
+   for all of you: a short ceremony, and Caelum says "A spark in the dark. I have seen you." The crafting grid (E) is
+   open from now on. "The First Spark" on the road of The Firmament waits for the note "By Hand".
 
-Rewards: the three keystones pay sticks, rocks, thatch and rope for the camp; the goal pays loose rocks, straw and rope
-for the fellowship and cooked venison for each of you. Side road: Strange Beasts (off "Hunter"): kangaroo, emu,
-roadrunner and rattlesnake.
+Side quests: "Before Dark" (a torch, off "Stone Kit"), "Hides" (three raw hides of one size) and "Bones" (eight
+bones), both off "Hunter", and "Loose and Found" (a loose rock of each family: igneous extrusive, igneous intrusive,
+metamorphic, sedimentary; a rock's family shows when you hover over it), off "Far from Home".
+
+Rewards: items only, no experience. The keystones pay sticks, food, rope, thatch, jute fiber and a spare javelin; the
+goal pays eight oak logs, straw and rope for the fellowship and cooked venison for each of you. Side road: Strange
+Beasts (off "Hunter"): kangaroo, emu, roadrunner and rattlesnake.
 
 ### Pitfalls
 - **Hands are not tools.** In Dawn logs, raw and hardened rock, ores and sandstone do not break without the right

@@ -22,11 +22,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "3F9900B5D4D4BC0C"
-					type: "xp"
-					xp: 10
-				}
-				{
 					count: 4
 					id: "00EC5C2BDA8C5B89"
 					item: {
@@ -66,11 +61,6 @@
 			id: "22B39386CC3DD54E"
 			optional: true
 			rewards: [
-				{
-					id: "65EDEEAA1AAC8334"
-					type: "xp"
-					xp: 10
-				}
 				{
 					count: 3
 					id: "3719457A7388CEED"
@@ -112,11 +102,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "5B7B6FD87A156A2D"
-					type: "xp"
-					xp: 10
-				}
-				{
 					count: 8
 					id: "253E9C39DCF94131"
 					item: {
@@ -157,18 +142,13 @@
 			optional: true
 			rewards: [
 				{
-					id: "67B3D7C07606865A"
-					type: "xp"
-					xp: 10
-				}
-				{
-					count: 2
+					count: 3
 					id: "2F32BC5350E458B2"
 					item: {
 						count: 1
-						id: "tfc:medium_raw_hide"
+						id: "tfc:food/cooked_rabbit"
 					}
-					team_reward: true
+					team_reward: false
 					type: "item"
 				}
 				{

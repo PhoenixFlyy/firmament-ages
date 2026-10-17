@@ -18,8 +18,9 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
              it), no stage reward. Goal of any other Age (Dawn): its reward grants exactly the next Age stage, with
              auto "invisible". Optional "Raise the ring" quests (tag ring): one block_state observation of
              firmages:shrine_heart with ready=true and awakened=N in the chapter of age_N, only where ring_N exists
-  rewards    book-wide (review B2): for every item task the item rewards of quests of the same or an earlier Age
-             that are not its descendants add up to at most a third of the task count (a per-player reward counts
+  rewards    a quest that pays items pays no XP (Felix, G1); book-wide (review B2): for every item task the item
+             rewards of quests of the same or an earlier Age that are not its descendants add up to at most a third
+             of the task count (a per-player reward counts
              twice); a Side Roads task item is paid by no quest that is not its descendant; no reward is an Age token,
              an offering or a chaos shard or fragment; no Dawn reward is a torch
   grants     one grant path per Age, book-wide: age_0 by one quest reward, age_1..age_9 by their shrine tier and
@@ -401,13 +402,12 @@ STYLE_TEACHING = {
     '484BD83C5FBABCE1',  # stone/info/home: the Stone Age home blocks (no viewer in the Stone Age)
     '5032B9C3899A4044',  # stone/hearth/bench: saw, lumber, planks and workbench for the 3x3 shrine recipes (no viewer)
     '33BEA94E7673D21D',  # arcane/spirit/nether: the Nether sacrifice (no recipe, no viewer, Field Guide hidden)
-    '16708A1C39158F9C',  # dawn/info/rules: what Dawn withholds, the hand-break rule, no viewer before the Bronze Age
     '1CC29E163A94FCE6',  # stone/clay/kiln: building a pit kiln (a structure, no viewer in the Stone Age)
     '7997DC1DFF73EA36',  # stone/metal/charcoal: building a charcoal pit (a structure, no viewer in the Stone Age)
     '759550A45990B3C8',  # stone/metal/ingot: casting from the vessel into a mold (a screen, no viewer shows it)
     '71B6B8FAE5353DAB',  # bronze/smith/forge: building a charcoal forge (a structure no viewer shows)
     '54432F5A30AE7695',  # stone/info/woods: the wood class table and the sapling recipes (no viewer in the Stone Age)
-    '64181B7811C2814E',  # dawn/info/hand: ground crafting, Dawn's only crafting (no grid, no viewer; SPEC 19.3)
+    '64181B7811C2814E',  # dawn/info/hand (The Firmament): ground crafting, Dawn's only crafting (no grid, no viewer; SPEC 19.3)
     '65E696893D25C27D',  # quantum/fusion/frame: water cooling through a turbine and the injection floor (config, no viewer)
     '5C0C8D3E5C081AA2',  # singularity/gate/key: what a dial costs (config values; SGJ only says NOT_ENOUGH_POWER)
     '07D0E5C2A9206383',  # information/side/catalyst: the catalyst's three conditions (a placement rule, no viewer)
@@ -696,6 +696,9 @@ def main():
     registry = json.load(open(os.path.join(ROOT, 'dev', 'data', 'registry.json'), encoding='utf-8'))
     items = set(registry['items'])
     blocks = set(registry.get('blocks', [])) | items  # block items cover placeable blocks
+    # firmages-core blocks without an item (the Wayshrine core, SPEC 28.5): their blockstate files in the mod sources
+    blocks |= {'firmages:' + os.path.basename(f)[:-5] for f in glob.glob(os.path.join(
+        ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources', 'assets', 'firmages', 'blockstates', '*.json'))}
     item_age = load_age_tags()
     derived_hidden = set(tomllib.load(open(os.path.join(ROOT, 'dev', 'age_map.toml'), 'rb'))
                          .get('derived_hidden', {}).get('items', []))
@@ -954,6 +957,10 @@ def main():
                         W('%s: command reward, check by hand' % rw)
                 else:
                     E('%s: unknown reward type %r' % (rw, typ))
+            # XP rule (Felix, G1): a quest that pays items pays no XP; XP only on quests without item rewards
+            rtypes = {r.get('type', 'item') for r in qd.get('rewards', [])}
+            if 'item' in rtypes and rtypes & {'xp', 'xp_levels'}:
+                E('%s: xp beside item rewards (a quest that pays items pays no XP)' % where)
 
         # ---- Age chapter structure (Doc 08 section 9.1)
         n_q = len(ch.get('quests', []))
