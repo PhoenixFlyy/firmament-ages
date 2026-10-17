@@ -473,7 +473,10 @@ global.FA = {
     'alexsmobs:terrapin_egg', 'alexsmobs:transmutation_table', 'alexsmobs:triops_bucket', 'alexsmobs:triops_eggs',
     'alexsmobs:unsettling_kimono', 'alexsmobs:vine_lasso', 'alexsmobs:vine_lasso_hand',
     'alexsmobs:vine_lasso_inventory', 'alexsmobs:void_worm_beak', 'alexsmobs:void_worm_effigy',
-    'alexsmobs:void_worm_eye', 'alexsmobs:void_worm_mandible', 'alexsmobs:warped_mixture', 'alexsmobs:warped_muscle'
+    'alexsmobs:void_worm_eye', 'alexsmobs:void_worm_mandible', 'alexsmobs:warped_mixture', 'alexsmobs:warped_muscle',
+    // Round G2: firmages-core structure blocks with an item for the creative pick-block only (they keep their block's
+    // Age in dev/age_map.toml, so Jade still names the blocks; SPEC 24.8).
+    'firmages:firmament_crystal_cluster', 'firmages:firmament_lode', 'firmages:wayshrine_core'
   ]
 }
 // Only plain data goes into `global`: functions created in the startup context are not reliably callable

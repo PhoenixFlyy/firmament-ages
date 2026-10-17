@@ -5,6 +5,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -22,7 +23,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
  * Wayshrine blocks, the Wayshrine Stone, the core's block entity, the {@code firmages:wayshrine} item component and the
- * lighting sound (SPEC-himmel §28.5). The core has no item (no survival source; operators use the commands).
+ * lighting sound (SPEC-himmel §28.5). The core's item exists only for the creative pick-block (round G2): no survival
+ * source, in no creative tab, hidden from the recipe viewers ({@code dev/age_map.toml [hidden]}).
  */
 public final class WayshrineRegistry {
     private WayshrineRegistry() {}
@@ -41,6 +43,9 @@ public final class WayshrineRegistry {
                 case RESTORED -> 4;
                 case RUIN -> 1;
             })));
+    /** Pick-block only (round G2, SPEC §28.5): no recipe, no loot, no creative tab. */
+    public static final DeferredItem<BlockItem> CORE_ITEM = ITEMS.register("wayshrine_core",
+        () -> new BlockItem(CORE.get(), new Item.Properties().rarity(Rarity.RARE)));
     public static final DeferredBlock<WayshrineStoneBlock> STONE = BLOCKS.register("wayshrine_stone", () -> new WayshrineStoneBlock(
         BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(1.5F, 1200.0F).sound(SoundType.AMETHYST).lightLevel(s -> 6)));
     public static final DeferredItem<WayshrineStoneItem> STONE_ITEM = ITEMS.register("wayshrine_stone",

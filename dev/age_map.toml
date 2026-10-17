@@ -450,6 +450,13 @@ block = "tfc:rock/loose/granite"
 # (clusters and the re-forming lode), reached by airship or jetpack in the Industrial Age.
 "id:firmages:skystone" = "dawn"
 "id:firmages:firmament_crystal" = "age_4"
+# Round G2 (Felix: pick-block in creative): the structure blocks of firmages-core got block items for the creative
+# pick-block only (no survival source; HIDDEN_ITEMS hides them in the recipe viewers). Each item keeps its block's Age,
+# not [hidden]: Jade judges a block by its item (SPEC 21.14), so a disabled item would show the block as "Unknown" for
+# good. The isle crystal blocks are age_4 deposits ([ore_blocks]); the Wayshrine core is a Dawn ruin block like every
+# block of the ruin templates (gen_wayshrines.py), so it stays at the [mods] Age of firmages.
+"id:firmages:firmament_crystal_cluster" = "age_4"
+"id:firmages:firmament_lode" = "age_4"
 # Launch Complex (firmages-core SPEC 24.5, 31): the complex, the probe and the sampler in the Space Age; the probes are
 # the one source of voidglass (age_7) and deep-space samples (age_8, from the deep-space module).
 "id:firmages:launch_control" = "age_7"

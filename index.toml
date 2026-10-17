@@ -7006,7 +7006,7 @@ hash = "23fa73f26378c30f937e7f7df600487d98649cadd9496554c505a8b6fd436f82"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "32fba324b194c328851937d4ab898822ad22ee3a76d2d9aaa13ce26a3642be3f"
+hash = "fdc1b91d9a3315bfca19dae733bf2571783e8c3438168a70425604ff5a6bdeda"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
@@ -7030,7 +7030,7 @@ hash = "2396eb4c6b3ff5a3749fb8ea98284ed6ddcdc7d1b82269b3daec4249bef26284"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "1c42888a9187e07205194d920e1b8903f4da79523496ab0dd8c47efebf91daaa"
+hash = "5a0467511ebc467bad3df1c88075190c17e947cfa190377747c123a94785cb48"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
@@ -11154,7 +11154,7 @@ hash = "2f259945df4d3cb1b583a75697e3e1e5895452f5caf72c44b99144aede58ec62"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "011edf22f7de82f9f0bc56debebb48fea10a491f87f9d90a9866bd59f8dfcb09"
+hash = "968885f9622e7c6af532a3e808230a10403a0176de620df1b4c5c0fc51524b4f"
 
 [[files]]
 file = "kubejs/startup_scripts/draconium.js"

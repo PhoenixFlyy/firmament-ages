@@ -29,8 +29,9 @@ import java.util.List;
 
 /**
  * The Drifting Isles' blocks, item, structure type, structure piece, loot function and sound (SPEC §30.4, §30.5,
- * §30.8). The crystal cluster and the lode have no item (the cluster drops one crystal, the lode re-forms); skystone is a
- * Dawn building block that drops itself. Nothing here is in {@code #c:ores}, {@code #c:raw_materials} or
+ * §30.8). The crystal cluster and the lode drop crystal (the lode re-forms); their items exist only for the creative
+ * pick-block (round G2: no survival source, no creative tab, hidden from the recipe viewers). Skystone is a Dawn
+ * building block that drops itself. Nothing here is in {@code #c:ores}, {@code #c:raw_materials} or
  * {@code #c:stones}, and no block gives or takes FE.
  */
 public final class IsleRegistry {
@@ -57,6 +58,10 @@ public final class IsleRegistry {
         .lightLevel(s -> 10).pushReaction(PushReaction.BLOCK)));
 
     public static final DeferredItem<BlockItem> SKYSTONE_ITEM = ITEMS.registerSimpleBlockItem("skystone", SKYSTONE);
+    /** Pick-block only (round G2, SPEC §30.4). */
+    public static final DeferredItem<BlockItem> CRYSTAL_CLUSTER_ITEM = ITEMS.registerSimpleBlockItem("firmament_crystal_cluster", CRYSTAL_CLUSTER);
+    /** Pick-block only (round G2, SPEC §30.4). */
+    public static final DeferredItem<BlockItem> LODE_ITEM = ITEMS.registerSimpleBlockItem("firmament_lode", LODE);
     public static final DeferredItem<Item> FIRMAMENT_CRYSTAL = ITEMS.registerSimpleItem("firmament_crystal", new Item.Properties().rarity(Rarity.UNCOMMON));
 
     public static final DeferredHolder<StructureType<?>, StructureType<DriftingIsleStructure>> DRIFTING_ISLE = STRUCTURE_TYPES.register("drifting_isle",
@@ -77,7 +82,7 @@ public final class IsleRegistry {
     }
 
     public static List<DeferredItem<? extends Item>> items() {
-        return List.of(SKYSTONE_ITEM, FIRMAMENT_CRYSTAL);
+        return List.of(SKYSTONE_ITEM, CRYSTAL_CLUSTER_ITEM, LODE_ITEM, FIRMAMENT_CRYSTAL);
     }
 
     public static void register(IEventBus modBus) {

@@ -891,6 +891,7 @@
     {"id": "firmages:frontier_shard", "required": false},
     {"id": "firmages:sky_rock", "required": false},
     {"id": "firmages:skystone", "required": false},
+    {"id": "firmages:wayshrine_core", "required": false},
     {"id": "firmages:wayshrine_stone", "required": false},
     {"id": "minecraft:acacia_leaves", "required": false},
     {"id": "minecraft:acacia_log", "required": false},

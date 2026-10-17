@@ -296,6 +296,8 @@
     {"id": "firmages:aurora_net", "required": false},
     {"id": "firmages:cloudsteel_ingot", "required": false},
     {"id": "firmages:firmament_crystal", "required": false},
+    {"id": "firmages:firmament_crystal_cluster", "required": false},
+    {"id": "firmages:firmament_lode", "required": false},
     {"id": "firmages:lantern/industrial", "required": false},
     {"id": "firmages:lens/arcane", "required": false},
     {"id": "firmages:pressure_core", "required": false},

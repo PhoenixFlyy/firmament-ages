@@ -899,24 +899,34 @@ public final class ShrineService {
      */
     static void grant(MinecraftServer s, AgeId stage) {
         List<ServerPlayer> players = s.getPlayerList().getPlayers();
-        StageId id = StageId.of(stage.id());
-        for (ServerPlayer p : players) {
-            try {
-                if (ProgressiveStagesAPI.hasStage(p, id)) continue;
-                if (!ProgressiveStagesAPI.grantStage(p, id, StageCause.API) && !ProgressiveStagesAPI.hasStage(p, id)) {
-                    FirmagesCore.LOGGER.warn("ProgressiveStages refused {} for {}; granting without the dependency check", stage.id(), p.getGameProfile().getName());
-                    ProgressiveStagesAPI.grantStageBypass(p, id, StageCause.API);
-                }
-            } catch (RuntimeException | LinkageError e) {
-                FirmagesCore.LOGGER.error("Cannot grant {} to {} through ProgressiveStages", stage.id(), p.getGameProfile().getName(), e);
-            }
-        }
+        for (ServerPlayer p : players) grantTo(p, stage, StageCause.API);
         if (players.isEmpty()) {
             if (ServerConfig.allowSimulate()) {
                 AgeService.simulate(s, stage, true);
             } else {
                 FirmagesCore.LOGGER.warn("Shrine granted {} with nobody online; the next player to log in receives it", stage.id());
             }
+        }
+    }
+
+    /**
+     * The shrine's grant of one Age to one player through ProgressiveStages (in {@code ftb_teams} mode to the player's
+     * team): granted normally, and without the dependency check when ProgressiveStages refuses. {@code AgeService}
+     * follows through the stage event (AgeState, the SHORT ceremony unless the shrine expects its FULL one, the swap).
+     * Also the Age path of {@code /firmages stage grant} (SPEC §10.2). @return true if the player holds the Age afterwards
+     */
+    public static boolean grantTo(ServerPlayer p, AgeId stage, StageCause cause) {
+        StageId id = StageId.of(stage.id());
+        try {
+            if (ProgressiveStagesAPI.hasStage(p, id)) return true;
+            if (!ProgressiveStagesAPI.grantStage(p, id, cause) && !ProgressiveStagesAPI.hasStage(p, id)) {
+                FirmagesCore.LOGGER.warn("ProgressiveStages refused {} for {}; granting without the dependency check", stage.id(), p.getGameProfile().getName());
+                ProgressiveStagesAPI.grantStageBypass(p, id, cause);
+            }
+            return ProgressiveStagesAPI.hasStage(p, id);
+        } catch (RuntimeException | LinkageError e) {
+            FirmagesCore.LOGGER.error("Cannot grant {} to {} through ProgressiveStages", stage.id(), p.getGameProfile().getName(), e);
+            return false;
         }
     }
 

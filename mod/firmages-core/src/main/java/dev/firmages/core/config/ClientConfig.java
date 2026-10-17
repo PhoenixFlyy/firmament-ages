@@ -21,7 +21,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue AGE_MUSIC;
 
     public static final ModConfigSpec.EnumValue<HudFade.Mode> HUD_MODE;
-    public static final ModConfigSpec.IntValue HUD_FADE_SECONDS;
+    public static final ModConfigSpec.IntValue HUD_SIGN_SECONDS;
     public static final ModConfigSpec.BooleanValue HIDE_TOASTS;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLOCKED_TOASTS;
     public static final ModConfigSpec.BooleanValue REDIRECT_ADVANCEMENTS;
@@ -77,11 +77,12 @@ public final class ClientConfig {
         b.pop();
 
         b.comment("Immersion (SPEC 18): what the client shows of the pack's machinery").push("ui");
-        HUD_MODE = b.comment("Age indicator top left: FADE = shown after joining and after an Age change, then fades;",
-                "also shown while the 'Show Age' key is held (default H). ALWAYS or NEVER.")
+        HUD_MODE = b.comment("Age sign top left (the Age, its goal and the pinned quests): FADE = shown after joining, after an Age",
+                "change and after a press of the 'Show Age' key (default H, shown while held), then fades. ALWAYS or NEVER.")
             .defineEnum("hudMode", HudFade.Mode.FADE);
-        HUD_FADE_SECONDS = b.comment("Seconds the Age indicator stays after joining or an Age change (FADE).")
-            .defineInRange("hudFadeSeconds", 6, 1, 120);
+        HUD_SIGN_SECONDS = b.comment("Seconds the Age sign stays after joining, an Age change or a press of the 'Show Age' key (FADE).",
+                "Replaces hudFadeSeconds (6) of firmages-core 1.0.2 and earlier.")
+            .defineInRange("hudSignSeconds", 8, 1, 120);
         HIDE_TOASTS = b.comment("Drop the toasts listed in blockedToasts (advancement, recipe, tutorial, book entries).")
             .define("hideToasts", true);
         BLOCKED_TOASTS = b.comment("Fully qualified toast class names to drop.")
