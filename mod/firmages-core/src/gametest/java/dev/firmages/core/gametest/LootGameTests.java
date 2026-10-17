@@ -13,6 +13,8 @@ import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.loot.AgeLoot;
 import dev.firmages.core.loot.AgeLootModifier;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -26,10 +28,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -49,7 +55,9 @@ import java.util.List;
  * Level G tests of the loot Age gate (SPEC §19.5). Test data: {@code firmages_test:age_chest} yields 3 rabbit hide
  * (Dawn in the test tags), 2 bread (untagged) and a totem of undying (age_9); {@code firmages_test:iron_chest} yields 4
  * iron ingots (age_2), which the test modifier {@code firmages_test:iron_to_copper} turns into copper ingots (age_0).
- * Each test is its own batch (they change the server's Ages) and leaves the world in Dawn.
+ * Each test is its own batch (they change the server's Ages) and leaves the world in Dawn. The template test builds its
+ * template from a chest in the test area ({@code StructureTemplate.fillFromWorld}) and places it with the real
+ * {@code placeInWorld}.
  */
 @GameTestHolder(FirmagesCore.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -257,6 +265,74 @@ public final class LootGameTests {
                 ok(h, AgeService.simulate(server, AgeId.AGE_0, false), "server revoke age_0");
             })
             .thenWaitUntil(() -> h.assertTrue(dawn(server) && idle(server), "age_0 revoke and its swap"))
+            .thenSucceed();
+    }
+
+    /** A shulker box (totem and hide), a bundle (totem) and loose stacks for the template chest. */
+    private static void fillTemplateChest(ChestBlockEntity chest) {
+        chest.setItem(0, new ItemStack(Items.RABBIT_HIDE, 3));
+        chest.setItem(1, new ItemStack(Items.TOTEM_OF_UNDYING));
+        ItemStack box = new ItemStack(Items.SHULKER_BOX);
+        box.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(List.of(new ItemStack(Items.TOTEM_OF_UNDYING), new ItemStack(Items.RABBIT_HIDE))));
+        chest.setItem(2, box);
+        ItemStack bundle = new ItemStack(Items.BUNDLE);
+        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(List.of(new ItemStack(Items.TOTEM_OF_UNDYING))));
+        chest.setItem(3, bundle);
+    }
+
+    private static ItemStack find(Container c, Item item) {
+        for (int i = 0; i < c.getContainerSize(); i++) if (c.getItem(i).is(item)) return c.getItem(i);
+        return ItemStack.EMPTY;
+    }
+
+    private static List<Item> boxItems(ItemStack box) {
+        return box.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).nonEmptyStream().map(ItemStack::getItem).toList();
+    }
+
+    private static int bundleSize(ItemStack bundle) {
+        return bundle.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).size();
+    }
+
+    /**
+     * A structure template holds a chest with 3 rabbit hide (Dawn), a totem (age_9), a shulker box with a totem and a
+     * hide, and a bundle with a totem. Placed with the server in Dawn: the hide, the box with only its hide and the empty
+     * bundle; placed with the server in age_9: everything. The template itself keeps its data.
+     */
+    @GameTest(template = "empty", batch = "firmages_6_loot_template", timeoutTicks = 1200)
+    public static void templateContentsFollowTheServersAge(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel level = h.getLevel();
+        StructureTemplate[] template = new StructureTemplate[1];
+        h.startSequence()
+            .thenWaitUntil(() -> h.assertTrue(idle(server), "reload pending"))
+            .thenExecute(() -> {
+                ok(h, dawn(server), "test starts in Dawn: " + AgeService.state(server).snapshot().unlockedIds());
+                h.setBlock(new BlockPos(1, 1, 1), Blocks.CHEST);
+                fillTemplateChest((ChestBlockEntity) h.getBlockEntity(new BlockPos(1, 1, 1)));
+                template[0] = new StructureTemplate();
+                template[0].fillFromWorld(level, h.absolutePos(new BlockPos(1, 1, 1)), new Vec3i(1, 1, 1), false, null);
+                long removedBefore = dev.firmages.core.loot.TemplateContents.counts()[1];
+                BlockPos at = h.absolutePos(new BlockPos(3, 1, 1));
+                ok(h, template[0].placeInWorld(level, at, at, new StructurePlaceSettings(), level.getRandom(), 2), "template placed");
+                ChestBlockEntity placed = (ChestBlockEntity) level.getBlockEntity(at);
+                ItemStack box = find(placed, Items.SHULKER_BOX);
+                ItemStack bundle = find(placed, Items.BUNDLE);
+                ok(h, count(Items.RABBIT_HIDE, placed) == 3 && count(Items.TOTEM_OF_UNDYING, placed) == 0,
+                    "Dawn: the hide stays, the totem goes: " + describe(placed));
+                ok(h, !box.isEmpty() && boxItems(box).equals(List.of(Items.RABBIT_HIDE)), "Dawn: the box keeps only its hide: " + boxItems(box));
+                ok(h, !bundle.isEmpty() && bundleSize(bundle) == 0, "Dawn: the bundle stays, emptied: " + bundleSize(bundle));
+                ok(h, dev.firmages.core.loot.TemplateContents.counts()[1] - removedBefore == 3, "three stacks removed (loose, in the box, in the bundle)");
+                ok(h, AgeService.simulate(server, AgeId.AGE_9, true), "server grant age_9");
+                BlockPos at9 = h.absolutePos(new BlockPos(5, 1, 1));
+                template[0].placeInWorld(level, at9, at9, new StructurePlaceSettings(), level.getRandom(), 2);
+                ChestBlockEntity all = (ChestBlockEntity) level.getBlockEntity(at9);
+                ok(h, count(Items.RABBIT_HIDE, all) == 3 && count(Items.TOTEM_OF_UNDYING, all) == 1
+                        && boxItems(find(all, Items.SHULKER_BOX)).equals(List.of(Items.TOTEM_OF_UNDYING, Items.RABBIT_HIDE))
+                        && bundleSize(find(all, Items.BUNDLE)) == 1,
+                    "age_9: everything stays, the template kept its data: " + describe(all));
+                ok(h, AgeService.simulate(server, AgeId.AGE_9, false), "server revoke age_9");
+            })
+            .thenWaitUntil(() -> h.assertTrue(dawn(server) && idle(server), "age_9 revoke and its swap"))
             .thenSucceed();
     }
 }

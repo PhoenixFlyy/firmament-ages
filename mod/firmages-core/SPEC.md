@@ -587,7 +587,7 @@ The shrine is visible and audible between ceremonies, and its state reads from f
 | `shrine.maintenanceSeconds` | 60 | §17: maintenance mode ends by itself after this many seconds (5..3600) |
 | `shrine.consecrationTicks` | 120 | §17: a ring's consecration from the heart outward takes this long (0..1200), after the Age reload |
 | `sync.coalesce` | true | §3.5: ProgressiveStages lock and stage sync once per player at the end of the tick instead of once per stage change (Age grant stall) |
-| `gate.lootFilter` | true | §19.5: generated loot keeps only items of the roll's Ages (its player's team, else the server's), never a disabled item; false = loot as rolled |
+| `gate.lootFilter` | true | §19.5: generated loot keeps only items of the roll's Ages (its player's team, else the server's), never a disabled item; prefilled containers of placed structure templates keep only items of the server's Ages; false = both off |
 | `hardship.caveDwellerUntilAge` | `age_2` | §19: first Age without Cave Dweller ReEvolved (an Age id or `never`) |
 | `hardship.toolRuleUntilAge` | `age_0` | §19.2: first Age without the hand-breaking rule (an Age id; `never` or `dawn` = off) |
 | `perf.limitTfcRegistryApiScan` | true | §20: TFCRegistryAPI scans only mod files that are or depend on TFC or TFCRegistryAPI; false = its original scan of every mod. Read once at game start (dedicated server: `<world>/serverconfig/`, then `config/`, then `defaultconfigs/`; client: `config/`, then `defaultconfigs/`) |
@@ -1058,7 +1058,8 @@ the chest until its Age.
 
 - **Classes:** `loot/LootAgeRule` (pure), `loot/AgeLootModifier` (global loot modifier, codec `firmages:age_filter`),
   `loot/AgeLoot` (registration, the filter, whose Ages, the modifier order), `loot/LootSelfTest`,
-  `mixin/LootModifierManagerMixin`. Data in the jar: `data/neoforge/loot_modifiers/global_loot_modifiers.json`
+  `mixin/LootModifierManagerMixin`; for prefilled template containers `loot/PlacedContents` (pure),
+  `loot/TemplateContents`, `mixin/StructureTemplateMixin`. Data in the jar: `data/neoforge/loot_modifiers/global_loot_modifiers.json`
   (`replace` false, entry `firmages:age_filter`) and `data/firmages/loot_modifiers/age_filter.json` (no conditions).
 - **Rule:** a generated stack stays when its item is untagged, Dawn, or of an Age in the roll's Age set; an item of
   `age_items/disabled` never stays. The set counts, not the rank (as the recipe gate and ProgressiveStages' item
@@ -1073,9 +1074,26 @@ the chest until its Age.
 - **Covered:** every roll through `LootTable.getRandomItems(LootContext)`, which ends in `CommonHooks.modifyLoot`:
   chests, barrels, chest minecarts, dispensers and pots with a loot table, archaeology, fishing, mob and block drops,
   bartering, gifts. Not loot: trades (§34.4), quest rewards (fixed items since B2, no reward tables), machine outputs
-  (recipes, §4; a machine's block drops are loot of the server's Ages). Items a structure template places into a
-  container (prefilled NBT, no loot table: 18 TFC Ruins templates hold small ores, salt, flux and clay in their
-  vessels) are never rolled and not seen; `dev/check_loot_ages.py --mods` lists them.
+  (recipes, §4; a machine's block drops are loot of the server's Ages). Prefilled containers of structure templates are
+  no loot: next item.
+- **Prefilled containers (G2 addendum):** a structure template can place a block entity with items already in it (no
+  loot table; 27 of the pack's generating templates hold later or disabled items: 18 TFC Ruins templates with small
+  ores, salt, flux and clay in their large vessels, 8 Ars Additions Nexus towers, a Stargate Journey Jaffa house;
+  `dev/check_loot_ages.py --mods`). `mixin/StructureTemplateMixin` wraps the one
+  `BlockEntity.loadWithComponents(CompoundTag, Provider)` call of `StructureTemplate.placeInWorld` [verified, javap of
+  the 21.1.252 merged jar, offset 503]: jigsaw pieces, legacy template pieces, `/place template` and structure blocks
+  all load there. `loot/TemplateContents` hands the load a copy of the data without every stack of an Age the server
+  does not hold and every disabled stack (server Ages: `AgeService.currentSnapshot()`, the Ages when the chunk
+  generates); the template keeps its data. `loot/PlacedContents` (pure) walks the data of any block entity (chests,
+  barrels, campfires, TFC vessels, piles, racks and kilns, pedestals, Stargate Journey's ring panels) and the
+  components of every stack that stays, so a shulker box (`minecraft:container`), a bundle (`minecraft:bundle_contents`)
+  or a TFC small vessel (`tfc:contents`) keeps only what may stay. A stack is a compound with a string `id` and a
+  numeric `count` (or the legacy `Count`); the block entity's own compound never counts. A stack in a list goes with
+  its element, a slot entry (`{slot, item}`) with its stack, a field stack (`itemStack`, `item`) with its field, so
+  NBT readers and component codecs read what is left. It works on the data before the load, so world generation
+  threads touch no block entity, capability or chunk. Not covered: entities a template places (item frames, armor
+  stands), Sophisticated Backpacks' contents (kept in saved data by the backpack's id, not in the item), and a mod's
+  own placement code that does not go through `placeInWorld`. Same switch `gate.lootFilter`, no message.
 - **Order:** NeoForge 21.1.252 builds the modifier map as a `HashMap` in `LootModifierManager.prepare`, so its
   "layered order" is lost, and LootJS 3.7.0 copies the map through a `HashMap` again at the RETURN of `apply` [verified,
   source and javap]: modifiers run in the hash order of their ids. The mixin answers `getAllLootMods` (what
@@ -1087,7 +1105,7 @@ the chest until its Age.
   `dev/poc_analyze.py` X-5).
 - **The pack's own tables:** the TFC ruin chests (one pool per Age, decision 2026-10-15, which counted on
   `stage_filter`) and the Cold Forge chest now grow with the opener's Ages.
-- **Config:** `gate.lootFilter` (default true; false = loot as rolled).
+- **Config:** `gate.lootFilter` (default true; false = loot as rolled and templates placed as saved).
 - **Tests:** U `LootAgeRuleTest` (3) and the `GateSuite` cases `loot_*` (4, also `/firmages selftest gate`: a table of
   one age_9 item is empty in Dawn). Selftest `server/loot_filter_runs_last`, `server/loot_filter_rolls_server_ages` (a
   chest table built in code with the first item of a locked Age, else a disabled one, and an unlocked item, rolled
@@ -1097,11 +1115,17 @@ the chest until its Age.
   (a hopper unpacks a chest without a player: Dawn no totem, age_9 everything; a fake player's roll counts as the
   server's), `grantKeepsEverything` (a real age_9 grant keeps all; `gate.lootFilter` false gives the totem in Dawn),
   `ironSwapRunsBeforeTheGate` (with age_0 and without age_2 the test iron chest gives its four copper ingots: the swap
-  ran before the gate). `EndgameGameTests.lootAndTradesLoseTheVanillaIngot` rolls with the gate off. The GameTest
+  ran before the gate), `templateContentsFollowTheServersAge` (a template made with `fillFromWorld` from a chest with 3
+  rabbit hide, a totem, a shulker box with a totem and a hide and a bundle with a totem, placed with `placeInWorld`:
+  in Dawn the hide, the box with only its hide and the empty bundle, 3 stacks removed; in age_9 everything, so the
+  template kept its data). U `PlacedContentsTest` (4: slot lists, nested shulker box, bundle and TFC vessel, two
+  levels deep, field stacks and air, legacy `Count`, dry run). `EndgameGameTests.lootAndTradesLoseTheVanillaIngot`
+  rolls with the gate off. The GameTest
   modifier list lives in `src/gametest/kubejs/data/neoforge/` because the dev mod is one union of the main and the
   gametest roots, main first: a second `global_loot_modifiers.json` in the gametest resources would be hidden.
 - **[PoC] pack server:** `/firmages selftest server` passes both loot cases; in Dawn a TFC ruin chest holds only Dawn
-  items and a hopper under a fresh dungeon chest pulls nothing of a later Age.
+  items, a large vessel of a TFC ruin generated in Dawn holds no small ore, salt or flux, and a hopper under a fresh
+  dungeon chest pulls nothing of a later Age.
 
 ## 20. Start-up performance: TFCRegistryAPI scan scope (2026-10-14)
 

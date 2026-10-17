@@ -179,8 +179,9 @@ public final class ServerConfig {
             .define("warmupReload", true);
         WARMUP_DELAY_TICKS = b.comment("Ticks after server start before the warm-up reload.").defineInRange("warmupDelayTicks", 20, 0, 6000);
         GATE_LOOT_FILTER = b.comment("Generated loot (chests, barrels, archaeology, fishing, mob and block drops) keeps only items of the Ages",
-                "its player's team holds (without a player: the server's Ages) and never an item of age_items/disabled.",
-                "false = loot as the loot tables roll it.")
+                "its player's team holds (without a player: the server's Ages) and never an item of age_items/disabled; a placed",
+                "structure template's prefilled containers keep only items of the server's Ages.",
+                "false = loot as the loot tables roll it and templates as saved.")
             .define("lootFilter", true);
         b.pop();
 

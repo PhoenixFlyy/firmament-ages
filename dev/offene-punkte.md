@@ -37,7 +37,6 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 | Team-Übernahme auf einer bestehenden Welt: der erste Spieler gründet die Party „Firmament“ mit allen Ages der Welt, ein zweiter kommt ohne Einladung dazu; belegt nur durch `TeamGameTests` | firmages-core, `server/README-SERVERPACK.md` | Felix |
 | Startkomplex: Dieseleimer per Hand in die Steuerung, mit freigeschalteter Age | firmages-core `LaunchControlBlock.useItemOn` | Felix |
 | Ruinen-Truhen und eine frische Dungeon-Truhe: in Dawn nur Dawn-Kleinkram (firmages-core-Loot-Gate, SPEC §19.5), ein Trichter unter einer frischen Truhe zieht nichts einer späteren Age; nach der nächsten Age bringt eine neue Truhe deren Items | `kubejs/data/firmages/loot_table/chests/ruin_*.json`, firmages-core `loot/` | Felix |
-| Vorbefüllte Behälter in Strukturvorlagen sieht das Loot-Gate nicht (kein Loot-Wurf): 18 Vorlagen der TFC Ruins haben in ihren Gefäßen Kleinerze, Salz, Flussmittel und Ton späterer Ages, Ars Additions (Nexus-Türme) und Stargate Journey (Jaffa-Haus) versteckte Items; Liste `python dev/check_loot_ages.py --mods <mods>`. Weg wählen: Gefäße per Prozessorliste leeren oder in Loot-Truhen wandeln, oder ein Core-Prozessor, der vorbefüllte Stapel nach Age filtert | `kubejs/data/tfc_ruins/worldgen/processor_list/`, firmages-core | Claude (nächste Runde) |
 
 ## Nach 1.0 (Ideen und Beobachtung)
 
@@ -114,3 +113,10 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 | JourneyMaps Join-Zeile bei einer alten `firmages-client.toml` (Review G1): das neue Muster stand nur im Default der Liste | Die eingebauten Muster gelten immer neben `chat.blocklist` (`ChatBlocklist.withBuiltIns`, Default der Liste leer); U `ImmersionTest.chatBlocklistBuiltInsApplyBesideAnOldConfig` mit der Liste von 1.0.0 |
 | Karte und Inventar-Knöpfe nach der Client-Config (Review G1) | `ui.mapFromAge` und `ui.inventoryButtonsFromAge` in `firmages-server.toml`, im Status `firmages:age_status`, Netzprotokoll "7"; G `ImmersionGameTests.statusFollowsAgesAndConfig`, U `MapGateTest`, `InventoryButtonsTest`; Zeile „G1-Review: Karte und Knöpfe entscheidet der Server“ |
 | Jade im Kreativmodus vor `jadeFromAge` gesperrt (Review G1) | `ViewerGate.overlayOpen` wie die anderen Gates; U `ImmersionTest.jadeOpensInCreativeBeforeItsAge` |
+
+## Erledigt in Runde G2 (mit Beleg)
+
+| Was | Beleg |
+|---|---|
+| Truhen in Strukturen enthalten Loot späterer Ages (Felix) | firmages-core-Loot-Gate `firmages:age_filter`, SPEC §19.5; G `LootGameTests` (4 Loot-Fälle); `poc-results.md` „G2 loot gate“ |
+| Vorbefüllte Behälter in Strukturvorlagen (27 generierende Vorlagen, davon 18 TFC Ruins mit Kleinerzen, Salz, Flussmittel, Ton in den Gefäßen) | `mixin/StructureTemplateMixin`, `loot/TemplateContents`, `loot/PlacedContents` (verschachtelt: Shulker-Kiste, Bündel, TFC-Gefäß); G `LootGameTests.templateContentsFollowTheServersAge`, U `PlacedContentsTest`; Liste `python dev/check_loot_ages.py --mods <mods>` |

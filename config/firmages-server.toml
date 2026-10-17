@@ -35,8 +35,9 @@
 	#the boot reconcile always reload in full.
 	ageSwap = true
 	#Generated loot (chests, barrels, archaeology, fishing, mob and block drops) keeps only items of the Ages
-	#its player's team holds (without a player: the server's Ages) and never an item of age_items/disabled.
-	#false = loot as the loot tables roll it.
+	#its player's team holds (without a player: the server's Ages) and never an item of age_items/disabled; a placed
+	#structure template's prefilled containers keep only items of the server's Ages.
+	#false = loot as the loot tables roll it and templates as saved.
 	lootFilter = true
 
 #Miner filter (m3)

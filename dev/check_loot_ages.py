@@ -17,8 +17,10 @@ Inputs
                 mob, else the [mods] Age of the namespace, else Dawn
 
 Output: totals, the namespaces with the most tables of later items, the named examples (village smiths, dungeon,
-Ad Astra temples, the TFC ruins), the tables LootJS changes at runtime (not in this scan); with --mods also the
-structure templates with prefilled containers (items placed into the world, which no loot gate sees).
+Ad Astra temples, the TFC ruins), the tables LootJS changes at runtime (not in this scan); with --mods also every
+generating structure template with prefilled containers (items placed with the block, no loot roll; nested contents
+included) that holds items of a later Age than the template or disabled ones: firmages-core removes those stacks when
+the template is placed (StructureTemplateMixin, with the server's Ages).
 
 Usage
   python dev/check_loot_ages.py [--mods DIR] [--dump-dir DIR] [--table ID ...] [--list] [--show N] [--strict]
@@ -346,11 +348,11 @@ def main():
                    (item_age.get(i) in AGES and ix(item_age[i]) > ix(world.template_age[tid]))]
             if bad:
                 late[tid] = bad
-        print(f"\nstructure templates with prefilled containers (placed items, no loot roll, the gate does not see them): "
-              f"{len(prefilled)}, {len(placed)} of them generate; {len(late)} of those hold items of a later Age than "
-              f"the template or disabled")
-        for tid, bad in sorted(late.items())[:a.show]:
-            print(f"  {tid} ({world.template_age[tid]}): {', '.join(f'{i} ({ag})' for i, ag in bad[:6])}")
+        print(f"\nstructure templates with prefilled containers (placed items, no loot roll; firmages-core removes the "
+              f"stacks of a later Age when the template is placed, with the server's Ages): {len(prefilled)}, "
+              f"{len(placed)} of them generate; {len(late)} of those hold items of a later Age than the template or disabled")
+        for tid, bad in sorted(late.items()):
+            print(f"  {tid} ({world.template_age[tid]}): {', '.join(f'{i} ({ag})' for i, ag in bad)}")
     for tid in a.table:
         print("\ntable:")
         if tid in rows:
