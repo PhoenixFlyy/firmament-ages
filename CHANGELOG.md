@@ -2,6 +2,22 @@
 
 Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## 1.0.2
+
+A fix for 1.0.1, which crashed while the game was loading, and a server that asks before it stops. 1.0.1 was never released on CurseForge, so this version also brings everything listed under 1.0.1 below. **Your 1.0.0 world keeps working.**
+
+- **The game starts again.** 1.0.1 updated TerraFirmaCraft to 4.2.12, which split a class that WoodenCog 1.2.19 still uses for its basin recipes in the recipe viewer, so the recipe viewer could not load and the game crashed on start; TerraFirmaCraft stays on 4.2.11 until WoodenCog catches up.
+- **Backups** every two hours, twelve kept (1.0.1: every hour).
+- **The server asks before it stops.** `stop` only asks; `stop confirm` within 30 seconds stops the server and ends the start script. `restart` tells everyone, counts down ten seconds, saves and stops, and the start script starts the server again. A hosting panel whose stop button sends `stop`: set `confirmStop = false` under `[commands]` in `config/firmages-server.toml`.
+- **Server pack:** `eula.txt` ships with `eula=false` (set it to `true` to accept the Minecraft EULA); `server.properties` allows 100 players; `user_jvm_args.txt` uses Aikar's flags with 8 GB. `start.bat` and `start.sh` start the server again only after `restart` or a crash (three crashes within five minutes end the loop); the `STOP` file is gone.
+
+### Technical
+
+- TerraFirmaCraft is pinned to 4.2.11 (`mods/terrafirmacraft.pw.toml`): WoodenCog 1.2.19's client mixin `jei.MixinBasinCategory` names `net.dries007.tfc.config.TemperatureDisplayStyle`, which 4.2.12 split into `ItemTemperatureDisplayStyle` and `ClimateTemperatureDisplayStyle`. A server boot does not load client mixins, so the server pack started fine.
+- `dev/check_mixin_refs.py` reads every mixin of every jar (jar-in-jar included) and reports classes a mixin names that no jar has; it runs after every mod update.
+- **Firmament Ages Core 1.0.2:** `/stop` with `/stop confirm` and `/restart` (SPEC 10.1, `commands.confirmStop`, server, default true); network protocol unchanged (7).
+- `config/simplebackups-common.toml`: `timer = 120`, `backupsToKeep = 12`.
+
 ## 1.0.1
 
 The first round of feedback on 1.0: a longer Dawn, a quieter Chronicle, a map from the Iron Age, trees that fall whole, vanilla hearts and updated mods. **Your 1.0.0 world keeps working.** Vanilla hearts only reach new worlds; see below for an existing world. The ruined Wayshrine that the new Dawn quest "A Shrine on the Road" leads to is the tutorial Wayshrine that 1.0.0 already places in a world's first three days; a world without one gets it with `/firmages wayshrine tutorial` (operator).

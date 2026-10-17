@@ -1,7 +1,7 @@
 # Firmament Ages: Kontext für Agenten
 
 Diese Seite ersetzt für den Einstieg `mod/firmages-core/SPEC.md`, `dev/README.md` und die langen Notizen; die Pfade führen zu den Details.
-Stand 2026-10-17: Pack 1.0.1 und firmages-core 1.0.1 (Runde G1, Felix' Rückmeldung zu 1.0.0; Release-Commit mit Tag `v1.0.1`), Branch `dev`.
+Stand 2026-10-17: Pack 1.0.2 und firmages-core 1.0.2 (Runde G1b: Client-Absturz von 1.0.1 behoben, TerraFirmaCraft auf 4.2.11 gepinnt, weil WoodenCog 1.2.19 `TemperatureDisplayStyle` braucht; Backups alle 2 h; mit `g1/server`: `stop` fragt nach `stop confirm`, `restart`, Server-Pack mit EULA-Datei und Neustart-Schleife; Release-Commit mit Tag `v1.0.2`), Branch `dev`. Davor 1.0.1 (Runde G1, Felix' Rückmeldung zu 1.0.0, Tag `v1.0.1`, nie auf CurseForge).
 
 ## 1. Was das Pack ist
 
@@ -112,7 +112,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 ## 7. Offene Punkte und Entscheidungen
 
 - Keine offene Entscheidung: die neun Fragen von 1.0.0 und die Codes M1A (JourneyMap ab der Eisenzeit), T1A (Enhanced Falling Trees) und Q1A (Questbuch eingefroren) sind beantwortet und umgesetzt („Erledigt in Runde G1“ in `dev/offene-punkte.md`; Zeilen „G1: …“ in `dev/decisions-while-away.md`).
-- Im Client (Felix): die „1.0.1 Checkliste“ oben in `dev/client-test-brief.md` (Runde G1), darunter die „1.0 Checkliste“ (alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age; die Abschnitte darunter sind Archiv), dazu die Client-Zeilen in `dev/offene-punkte.md`.
+- Im Client (Felix): die „1.0.1 Checkliste“ oben in `dev/client-test-brief.md` (Runde G1, gilt für 1.0.2 samt den Server-Zeilen 19 bis 21), darunter die „1.0 Checkliste“ (alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age; die Abschnitte darunter sind Archiv), dazu die Client-Zeilen in `dev/offene-punkte.md`.
 - Nach 1.0 (`dev/offene-punkte.md`, „Nach 1.0“): Pacing-Modell als `dev/pacing.py` ins Repo holen und an einem Durchgang eichen, Questbuch-Ideen, Wayshrine-Dichte, Teleporter- und Warp-Sperre in The Origin, unverifizierte Config-Keys, Live-Messungen.
 - Basis für `check_registry_parity.py dump`: `dev/data/baseline-1.0.2/` (Gate-aus-Dump der Runde G1b mit TFC 4.2.11, `registries.json.gz`, `recipes.json.gz`).
 - Entscheidungen: eine Zeile in `dev/decisions-while-away.md`, Deutsch, Format `| Datum | Thema | Entscheidung | Warum | So änderst Du es |`, neue Zeilen unten, Thema mit Runde als Präfix (z. B. „Integration F1: …“).

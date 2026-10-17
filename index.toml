@@ -110,7 +110,7 @@ hash = "22b2ba8d527037ce1f8f0ee24677d8d519cda586564ac0c03523517bcec35fcb"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "07c8bfeee5c3db4118fbae316eb8cd5d14f4a6b03de61b8d84758907f1643449"
+hash = "9f12d190811f412597df60c6f37276129e345dbf62be11dbf49b5c080e15a9af"
 
 [[files]]
 file = "config/brandon3055/DraconicAdditions.cfg"
@@ -258,7 +258,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "4380867730f52105500720be58897348939cda73b4c7cd6bafa63322427121e2"
+hash = "959f173c23ef4384b0a7b10a2656519b3389c69c7e2ba168a688286f62a35c9b"
 
 [[files]]
 file = "config/fancymenu/options.txt"

@@ -8,8 +8,10 @@ Die Client-Prüfungen der Runde G1 (Felix' Rückmeldung zu 1.0.0). Neues Profil 
 „1.0 Checkliste“ darunter dieser Liste widerspricht, gilt diese; die überholten Zeilen dort sind markiert. Server-Teil
 auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0.1 round G1“).
 
-Gilt unverändert für Pack 1.0.2 (Runde G1b): 1.0.1 stürzte beim Laden ab (WoodenCog gegen TerraFirmaCraft 4.2.12), 1.0.2
-hat wieder TFC 4.2.11 und Backups alle 120 Minuten. Zuerst prüfen: der Client lädt bis zum Titelbild, ohne Absturz.
+Gilt für Pack 1.0.2 (Runde G1b, firmages-core 1.0.2, Netzprotokoll weiter 7; Profil aus
+`dev/exports/FirmamentAges-1.0.2.mrpack`): 1.0.1 stürzte beim Laden ab (WoodenCog gegen TerraFirmaCraft 4.2.12), 1.0.2 hat
+wieder TFC 4.2.11, Backups alle 120 Minuten und die Server-Zeilen 19 bis 21. Zuerst prüfen: der Client lädt bis zum
+Titelbild, ohne Absturz.
 
 | # | Prüfung | Schritte | Erwartung |
 |---|---|---|---|
@@ -31,6 +33,9 @@ hat wieder TFC 4.2.11 und Backups alle 120 Minuten. Zuerst prüfen: der Client l
 | 16 | „Stone Kit“ | Nach dem ersten gefällten Baum die Quest ansehen | „Stone Kit“ schließt ab |
 | 17 | Profil-Update von 1.0.0 | Ein Profil von 1.0.0 (mit seiner alten `firmages-client.toml`) auf 1.0.1 aktualisieren, nicht neu importieren; als Survival-Spieler einer Dawn-Welt beitreten, Chat lesen, Inventar öffnen, J und G drücken | Keine JourneyMap-Zeile „Press [J]“ im Chat; kein Curios- und kein Attributes-Knopf, G und J tun nichts, keine Minimap (die Schwellen kommen jetzt vom Server) |
 | 18 | Karte und Jade im Kreativmodus | In Dawn `/gamemode creative`, umsehen, J, Jade auf einen Block; dann `/gamemode survival` | Im Kreativmodus Minimap da, J öffnet die Karte, Jade zeigt den Block mit Namen; zurück im Survival sind Karte und Jade wieder weg |
+| 19 | Server: `stop` fragt (Admin) | Server aus `FirmamentAges-1.0.2-server.zip` mit `start.bat` starten; in der Konsole `stop`, 40 s warten, `stop confirm`; dann `stop` und binnen 30 s `stop confirm` | Nach `stop` nur die Rückfrage „Really stop? Run /stop confirm within 30 seconds. …“, der Server läuft weiter; `stop confirm` nach 40 s: „Nothing to confirm …“; das zweite Paar speichert, hält an, und `start.bat` endet |
+| 20 | Server: `restart` (Admin) | Server mit `start.bat` laufen lassen, ein Spieler online; `restart` in der Konsole (oder als Operator im Chat) | Alle sehen „Server restarts in 10 seconds“ und den Countdown; der Server speichert und hält an, `start.bat` startet ihn von selbst neu; danach liegt keine Datei `RESTART` mehr neben den Skripten |
+| 21 | Server: EULA und Vorlage (Admin) | Server-Zip frisch entpacken, `start.bat` ohne Änderung starten; dann `eula=true` in `eula.txt` und erneut starten | Erster Start: Hinweis auf die EULA, kein Server; danach startet er; `server.properties` hat `max-players=100`, `user_jvm_args.txt` 8 GB mit Aikars Flags |
 | 19 | „The First Spark“ in The Firmament | Neue Welt, „By Hand“ nicht abhaken, die Steinzeit erreichen (Dawn-Ziel oder `/stage grant @s age_0`), The Firmament ansehen; dann „By Hand“ abhaken | Die Markierung „The First Spark“ in The Firmament erscheint erst nach abgehaktem „By Hand“; das Dawn-Ziel selbst wartet nicht darauf |
 | 20 | Hammer auf Stamm | In Dawn mit einem Steinhammer einen Stamm schlagen | Der eine Stamm bricht und gibt ein bis vier Stöcke; kein Baum fällt |
 
