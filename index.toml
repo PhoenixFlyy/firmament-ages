@@ -266,7 +266,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "dfbd2373221c3181edc973fc7788f8e178a343c8cd09bc2429a6efcdef3b7db0"
+hash = "1f98e594fe8c4a25d8a4067e51971dd6846344322536b2d35dfbef14de750e3c"
 
 [[files]]
 file = "config/fml.toml"
@@ -6919,6 +6919,10 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 [[files]]
 file = "kubejs/data/firmages/tags/block/catalysable.json"
 hash = "a37cf157fb49eac2f6dc2330633444df8007111c82e90410c6f905790348461d"
+
+[[files]]
+file = "kubejs/data/firmages/tags/block/dawn_breakable.json"
+hash = "454cdca7d90126b37325f41d6dfcbdb65b3d0f991e7a1a55a5a7d80ce2ae5812"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/sable/copycat_catwalk.json"

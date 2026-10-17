@@ -15,6 +15,8 @@ unlocked ("unlocked", written by fa_dump), and no recipe may make an item of a l
 D-1 (any dump with recipes_full.json) checks Dawn's ground crafting (firmages-core SPEC 19.3): the inventory grid is
 closed in Dawn, so every crafting recipe open in Dawn must fit a TerraFirmaCraft pile of at most four placed items
 (a 2x2 shape or at most four shapeless ingredients, no log beside other parts: a log lies alone on a block).
+D-2 (any dump) checks the Dawn breaking list (SPEC 19.5): every task of the Dawn chapter (sticks, straw, logs, thatch,
+loose rocks, wild plants, seeds) has a source block on #firmages:dawn_breakable, and no stone, ore or clay is on it.
 C-LB (any dump with recipes_full.json and laserbridges recipes) checks that no Laser Bridges recipe takes an End
 crystal: recipes/age_7/laser_bridges.js replaces the two laser-source recipes with desh-plate ones.
 With --baseline <dir> (the fa_dump files of a world with every Age unlocked) they also check that every baseline
@@ -111,6 +113,7 @@ def main():
         undetected_check(a.server_dir, check)
     unify_check(tags, item_age, check)
     ground_craft_check(base, open_in("dawn", [r for r in rows if r["type"] == "minecraft:crafting"]), check)
+    dawn_break_check(check)
     laser_crystal_check(base, rows, check)
     if unlocked is not None and not set(AGES) <= set(unlocked):
         print(f"[SKIP] A- and C- checks: they need the whole recipe set, this dump was filtered at {sorted(unlocked, key=AGES.index)}")
@@ -351,6 +354,82 @@ def ground_craft_check(base, dawn_open, check):
         fits += 1
     check(f"D-1 every crafting recipe open in Dawn fits a ground pile of at most four (SPEC 19.3): {fits} fit, "
           f"{len(allowed)} allowlisted", not bad and fits > 0, bad + allowed)
+
+
+# ================================================================================================ Dawn breaking (D-2)
+DAWN_BREAKABLE = os.path.join(REPO, "kubejs", "data", "firmages", "tags", "block", "dawn_breakable.json")
+DAWN_CHAPTER = os.path.join(REPO, "config", "ftbquests", "quests", "chapters", "dawn.snbt")
+# What a Dawn quest needs from broken blocks and the blocks that give it (SPEC 19.5): at least one pattern of each
+# need must be on #firmages:dawn_breakable (dev/gen_dawn_breakable.py). TFC 4.2.11 loot [verified, jar]: straw from
+# the tall grasses tfc:plant/*grass, sticks from groundcover, twigs, leaves and krummholz, food and seeds from the wild
+# crops, jute fiber from wild jute.
+DAWN_SOURCES = {
+    "sticks": [r"^tfc:groundcover/stick$", r"^tfc:wood/twig/", r"^tfc:wood/leaves/"],
+    "straw": [r"^tfc:plant/[a-z_]*grass$"],
+    "logs": [r"^tfc:wood/log/", r"^#minecraft:logs$"],
+    "thatch": [r"^tfc:thatch$"],
+    "loose rocks": [r"^tfc:rock/loose/"],
+    "wild plants": [r"^tfc:wild_crop/"],
+    "seeds": [r"^tfc:wild_crop/"],
+    "jute": [r"^tfc:wild_crop/jute$"],
+}
+# (task item or advancement id, its needs); an empty list = not from a broken block (mob drops). A Dawn task that
+# matches no row fails D-2, so a new quest gets a decision.
+DAWN_TASK_NEEDS = [
+    (r"^minecraft:stick$|^tfc:firestarter$", ["sticks"]),
+    (r"^tfc:torch$|^tfc:story/firepit$", ["sticks", "logs"]),
+    (r"^tfc:straw$|^tfc:story/get_straw$", ["straw"]),
+    (r"^tfc:thatch$", ["straw", "thatch"]),
+    (r"^tfc:(jute_fiber|rope)$", ["jute"]),
+    (r"^tfc:stone/|^firmages:chronicle/dawn_knife_hammer$", ["loose rocks", "sticks"]),
+    (r"^tfc:story/(find_rock|stone_age)$|^firmages:chronicle/dawn_rock_families$", ["loose rocks"]),
+    (r"^tfc:story/logging$", ["logs"]),
+    (r"^tfc:food/", ["wild plants"]),
+    (r"^firmages:chronicle/dawn_wild_seeds$", ["seeds"]),
+    (r"^tfc:(small|medium|large)_raw_hide$|^minecraft:bone$", []),
+]
+# Felix 2026-10-17: no stone, no ore in Dawn; Dawn withholds clay.
+DAWN_FORBIDDEN = re.compile(r"^tfc:rock/(?!gravel/|loose/|mossy_loose/)|^tfc:ore/|clay(?!stone)|kaolin|_ore$|"
+                            r"^#c:(ores|stones)|^minecraft:(stone|cobblestone|deepslate)$")
+
+
+def dawn_tasks(path=DAWN_CHAPTER):
+    """Item ids and advancement ids of every task in the Dawn chapter."""
+    out, block, depth = [], [], None
+    for line in open(path, encoding="utf-8"):
+        if depth is None:
+            m = re.match(r"^(\t*)tasks: \[", line)
+            if m:
+                depth, block = m.group(1), []
+            continue
+        if line.rstrip("\r\n") == depth + "]":
+            text = "".join(block)
+            out += re.findall(r'\bid: "([a-z0-9_.-]+:[^"]+)"', text) + re.findall(r'advancement: "([^"]+)"', text)
+            depth = None
+        else:
+            block.append(line)
+    return out
+
+
+def dawn_break_check(check):
+    """D-2: every Dawn quest stays reachable with #firmages:dawn_breakable, and nothing forbidden is on it (SPEC 19.5)."""
+    if not os.path.isfile(DAWN_BREAKABLE):
+        check("D-2 #firmages:dawn_breakable exists (python dev/gen_dawn_breakable.py)", False, [DAWN_BREAKABLE])
+        return
+    listed = [v["id"] if isinstance(v, dict) else v for v in json.load(open(DAWN_BREAKABLE, encoding="utf-8"))["values"]]
+    bad = [f"forbidden on the list: {v}" for v in listed if DAWN_FORBIDDEN.search(v)]
+    needs = collections.Counter()
+    for task in dawn_tasks():
+        row = next((n for rx, n in DAWN_TASK_NEEDS if re.search(rx, task)), None)
+        if row is None:
+            bad.append(f"Dawn task {task}: no source row in DAWN_TASK_NEEDS")
+            continue
+        needs.update(row)
+    for need in sorted(needs):
+        if not any(re.search(rx, v) for rx in DAWN_SOURCES[need] for v in listed):
+            bad.append(f"{need} ({needs[need]} tasks): none of {DAWN_SOURCES[need]} is on the list")
+    check(f"D-2 Dawn quests reachable with #firmages:dawn_breakable ({len(listed)} entries; needs: "
+          + ", ".join(f"{k} {v}" for k, v in sorted(needs.items())) + ")", not bad and needs, bad)
 
 
 # ================================================================================================ unification (U-1)

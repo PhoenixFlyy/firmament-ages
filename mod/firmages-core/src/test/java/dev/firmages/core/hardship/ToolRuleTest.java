@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** SPEC §19.2: {@code [hardship] toolRuleUntilAge}, the hand-breaking predicate, the hint choice and its rate limit. */
+/** SPEC §19.2, §19.5: {@code [hardship] toolRuleUntilAge}, the hand-breaking predicate and the Dawn list. */
 class ToolRuleTest {
 
     @Test
@@ -45,11 +45,24 @@ class ToolRuleTest {
 
     @Test
     void predicate() {
-        assertTrue(ToolRule.blocks(true, true, false, false), "rule on, tagged block, bare hand");
-        assertFalse(ToolRule.blocks(true, true, false, true), "correct tool");
-        assertFalse(ToolRule.blocks(true, false, false, false), "block outside the tag");
-        assertFalse(ToolRule.blocks(true, true, true, false), "creative, spectator or machine");
-        assertFalse(ToolRule.blocks(false, true, false, false), "rule off after its Age");
+        // listed = true: on the Dawn list, or the list is off
+        assertTrue(ToolRule.blocks(true, true, true, false, false), "rule on, tagged block, bare hand");
+        assertFalse(ToolRule.blocks(true, true, true, false, true), "correct tool");
+        assertFalse(ToolRule.blocks(true, true, false, false, false), "block outside the tag");
+        assertFalse(ToolRule.blocks(true, true, true, true, false), "creative, spectator or machine");
+        assertFalse(ToolRule.blocks(false, true, true, false, false), "rule off after its Age");
+    }
+
+    @Test
+    void dawnList() {
+        // SPEC §19.5 (Felix 2026-10-17): while the rule holds only listed blocks break, whatever the tool
+        assertTrue(ToolRule.blocks(true, false, false, false, false), "stone by hand: not on the list");
+        assertTrue(ToolRule.blocks(true, false, true, false, true), "stone with a pickaxe: still not on the list");
+        assertFalse(ToolRule.blocks(true, true, false, false, false), "grass by hand: listed, no tool needed");
+        assertTrue(ToolRule.blocks(true, true, true, false, false), "a listed log by hand: still needs its axe");
+        assertFalse(ToolRule.blocks(true, true, true, false, true), "a listed log with an axe");
+        assertFalse(ToolRule.blocks(true, false, false, true, false), "creative is exempt from the list");
+        assertFalse(ToolRule.blocks(false, false, true, false, true), "after Dawn stone breaks as before");
     }
 
     @Test

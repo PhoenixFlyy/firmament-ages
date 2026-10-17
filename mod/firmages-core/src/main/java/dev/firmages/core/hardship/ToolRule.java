@@ -10,7 +10,9 @@ import java.util.Optional;
  * Hand-breaking rule of the earliest Age (SPEC §19.2, Felix 2026-10-14, option A): while the world is below
  * {@code firmages-server.toml [hardship] toolRuleUntilAge} (default {@code age_0}, so only in Dawn) a block in
  * {@code #firmages:needs_tool_early} (logs, raw and hardened rock, ores, sandstone) cannot be broken at all without a
- * tool that is correct for it: no crack, no progress. {@link ToolRuleService} applies it on both sides. Pure Java
+ * tool that is correct for it: no crack, no progress. Since round G2 (Felix 2026-10-17, SPEC §19.5) the same span
+ * also has a positive list: only a block in {@code #firmages:dawn_breakable} (soil, plants, leaves, logs, loose rocks,
+ * twigs) breaks at all; an empty tag turns the list off. {@link ToolRuleService} applies it on both sides. Pure Java
  * (unit-tested).
  */
 public final class ToolRule {
@@ -37,11 +39,12 @@ public final class ToolRule {
     }
 
     /**
-     * The rule itself: breaking is stopped when the rule is active, the block is in the tag, the player is a real
-     * survival player and the held item is not a correct tool for the block.
+     * The rule itself: breaking is stopped when the rule is active, the player is a real survival player and either
+     * the block is not on the Dawn list ({@code listed} is true for every block while the list is off) or it is in the
+     * tool tag and the held item is not a correct tool for it.
      */
-    public static boolean blocks(boolean ruleActive, boolean inTag, boolean exempt, boolean correctTool) {
-        return ruleActive && inTag && !exempt && !correctTool;
+    public static boolean blocks(boolean ruleActive, boolean listed, boolean inTag, boolean exempt, boolean correctTool) {
+        return ruleActive && !exempt && (!listed || inTag && !correctTool);
     }
 
     private static boolean isNever(String value) {

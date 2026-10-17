@@ -579,6 +579,7 @@ public final class AgeService {
             writeMirror(s, st.snapshot());
             FirmagesCore.LOGGER.info("AgeState now {} (version {})", st.snapshot().unlockedIds(), st.snapshot().version());
             CaveDwellerService.despawnIfOver(s);
+            dev.firmages.core.hardship.InventoryRowsService.sweepAll(s);
         }
 
         /** Always follows {@link #persist}; the status goes out after the request, so it says whether a swap is pending. */

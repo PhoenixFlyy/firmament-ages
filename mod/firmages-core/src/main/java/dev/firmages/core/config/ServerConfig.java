@@ -3,6 +3,7 @@ package dev.firmages.core.config;
 import dev.firmages.core.age.AgeId;
 import dev.firmages.core.hardship.CaveDwellerGate;
 import dev.firmages.core.hardship.GridLock;
+import dev.firmages.core.hardship.InventoryRows;
 import dev.firmages.core.hardship.ToolRule;
 import dev.firmages.core.immersion.InventoryTab;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -104,6 +105,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_CAVE_DWELLER_UNTIL;
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_TOOL_RULE_UNTIL;
     public static final ModConfigSpec.ConfigValue<String> HARDSHIP_GRID_LOCK_UNTIL;
+    /** {@code hardship.inventoryRows.<age>}: the open main inventory rows of each Age (SPEC §19.4). */
+    public static final Map<AgeId, ModConfigSpec.IntValue> HARDSHIP_INVENTORY_ROWS;
     // perf (SPEC §20); read at mod construction through EarlyServerConfig, the value here only documents the key
     public static final ModConfigSpec.BooleanValue PERF_LIMIT_TFC_REGISTRY_API_SCAN;
     public static final ModConfigSpec.BooleanValue PERF_REGROWTH_LOADED_ONLY;
@@ -349,14 +352,22 @@ public final class ServerConfig {
         HARDSHIP_CAVE_DWELLER_UNTIL = b.comment("First Age without Cave Dweller ReEvolved, or \"never\". From this Age on it cannot spawn or be",
                 "summoned, dwellers in loaded chunks vanish, saved ones are refused when their chunk loads, and its cave noises are muted.")
             .define("caveDwellerUntilAge", CaveDwellerGate.DEFAULT_UNTIL.id(), CaveDwellerGate::isValid);
-        HARDSHIP_TOOL_RULE_UNTIL = b.comment("First Age without the hand-breaking rule, or \"never\" to turn it off. Below this Age blocks in",
-                "#firmages:needs_tool_early (logs, raw and hardened rock, ores, sandstone) cannot be broken without a correct tool:",
-                "logs need an axe (a stone axe or hammer counts), rock and ore a pickaxe. Default age_0: the rule holds in Dawn only.")
+        HARDSHIP_TOOL_RULE_UNTIL = b.comment("First Age without the hand-breaking rule, or \"never\" to turn it off. Below this Age only blocks in",
+                "#firmages:dawn_breakable (soil, sand, gravel, snow, plants, leaves, logs, loose rocks, twigs) break at all (an empty tag",
+                "turns this list off), and blocks in #firmages:needs_tool_early (logs, raw and hardened rock, ores, sandstone) not",
+                "without a correct tool: logs need an axe (a stone axe or hammer counts), rock and ore a pickaxe. Default age_0: Dawn only.")
             .define("toolRuleUntilAge", ToolRule.DEFAULT_UNTIL.id(), ToolRule::isValid);
         HARDSHIP_GRID_LOCK_UNTIL = b.comment("First Age with the 2x2 crafting grid of the inventory, or \"never\" to keep it open. Below this Age the",
                 "inventory grid (and the one of the Curios screen) is closed and hidden; items laid on a block with the place key",
                 "(TerraFirmaCraft, V) are crafted by sneaking and using the pile with an empty hand. Default age_0: Dawn only.")
             .define("gridLockUntilAge", GridLock.DEFAULT_UNTIL.id(), GridLock::isValid);
+        b.comment("Open main inventory rows (0 to 3) per Age of the world (SPEC 19.4); the hotbar is always open. The rows open",
+                "from the hotbar upward; a locked row takes no item and is painted over. Creative and spectator players are exempt.",
+                "Defaults: Dawn 0 (hotbar only), Stone Age 2, from the Bronze Age 3.").push("inventoryRows");
+        Map<AgeId, ModConfigSpec.IntValue> rows = new EnumMap<>(AgeId.class);
+        for (AgeId age : AgeId.all()) rows.put(age, b.defineInRange(age.id(), InventoryRows.defaultRows(age), 0, InventoryRows.ALL));
+        HARDSHIP_INVENTORY_ROWS = Collections.unmodifiableMap(rows);
+        b.pop();
         b.pop();
 
         b.comment("Start-up performance (SPEC 20). Read once at game start, before worlds load: a dedicated server reads",
@@ -566,6 +577,11 @@ public final class ServerConfig {
     /** {@code hardship.gridLockUntilAge}: the first Age with an open inventory crafting grid, empty when the lock is off. */
     public static Optional<AgeId> gridLockUntil() {
         return GridLock.until(loaded() ? HARDSHIP_GRID_LOCK_UNTIL.get() : GridLock.DEFAULT_UNTIL.id());
+    }
+
+    /** {@code hardship.inventoryRows.<age>}: the open main inventory rows of {@code age} (0 to 3). */
+    public static int inventoryRows(AgeId age) {
+        return loaded() ? HARDSHIP_INVENTORY_ROWS.get(age).get() : InventoryRows.defaultRows(age);
     }
 
     /** {@code team.autoJoin}. */

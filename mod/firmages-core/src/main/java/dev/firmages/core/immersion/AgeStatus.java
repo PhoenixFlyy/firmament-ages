@@ -4,6 +4,7 @@ import dev.firmages.core.age.AgeId;
 import dev.firmages.core.age.AgeSnapshot;
 import dev.firmages.core.hardship.CaveDwellerGate;
 import dev.firmages.core.hardship.GridLock;
+import dev.firmages.core.hardship.InventoryRows;
 import dev.firmages.core.hardship.ToolRule;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.function.IntFunction;
  * What a client needs to know about the world's Age (SPEC §18): the current Age, its goal item, whether the
  * recipe viewer (EMI), the block-info overlay (Jade), each of TerraFirmaCraft's inventory tabs, the Curios and Apothic
  * Attributes inventory buttons and the map (JourneyMap) are open yet, and whether the Cave Dweller still hunts, the
- * hand-breaking rule holds and the crafting grid is locked (§19). Computed on the server from the global Age state, the
+ * hand-breaking rule holds, the crafting grid is locked and how many inventory rows are open (§19). Computed on the server from the global Age state, the
  * shrine offering map and {@code firmages-server.toml [ui]} and {@code [hardship]}; sent as {@code firmages:age_status}.
  * Creative mode is the client's own exemption ({@link ViewerGate#open}). Pure Java (unit-tested).
  *
@@ -32,14 +33,18 @@ import java.util.function.IntFunction;
  * @param gridLock     the inventory crafting grid is locked (§19.3): the client hides it and predicts no result
  * @param inventoryButtons the Curios and Apothic Attributes buttons may be shown ({@code ui.inventoryButtonsFromAge}, §18.2)
  * @param map          JourneyMap may be shown ({@code ui.mapFromAge}, §18.2)
+ * @param inventoryRows the open main inventory rows, 0 to 3 ({@code hardship.inventoryRows}, §19.4): the client paints the
+ *                      locked rows over and predicts that they take nothing
  */
 public record AgeStatus(AgeId age, String goalItem, boolean recipeViewer, boolean blockInfo, Set<InventoryTab> tabs, boolean caveDweller,
-                        boolean toolRule, boolean reloadPending, boolean gathered, boolean gridLock, boolean inventoryButtons, boolean map) {
+                        boolean toolRule, boolean reloadPending, boolean gathered, boolean gridLock, boolean inventoryButtons, boolean map,
+                        int inventoryRows) {
 
     /** Before the first status arrives the client treats the world as Dawn: nothing of the machinery shows, no
-     *  inventory buttons, no map. The hand-breaking rule and the grid lock are left to the server until then (the
-     *  client predicts no block and shows the grid). */
-    public static final AgeStatus UNKNOWN = new AgeStatus(AgeId.DAWN, "", false, false, Set.of(), true, false, false, false, false, false, false);
+     *  inventory buttons, no map. The hand-breaking rule, the grid lock and the inventory rows are left to the server
+     *  until then (the client predicts no block, shows the grid and every row). */
+    public static final AgeStatus UNKNOWN = new AgeStatus(AgeId.DAWN, "", false, false, Set.of(), true, false, false, false, false, false, false,
+        InventoryRows.ALL);
 
     /**
      * @param offeringFor      tier N (worked in age_N, grants age_(N+1)) to its offering item id
@@ -56,13 +61,19 @@ public record AgeStatus(AgeId age, String goalItem, boolean recipeViewer, boolea
         if (ix >= 0 && current != AgeId.AGE_9) goal = offeringFor.apply(ix).orElse("");
         return new AgeStatus(current, goal, reached(current, viewerFrom), reached(current, overlayFrom), InventoryTab.open(current, tabFrom),
             CaveDwellerGate.hunts(current, caveDwellerUntil), ToolRule.active(current, toolRuleUntil), false, false, false,
-            reached(current, InventoryButtons.DEFAULT_FROM), reached(current, MapGate.DEFAULT_FROM));
+            reached(current, InventoryButtons.DEFAULT_FROM), reached(current, MapGate.DEFAULT_FROM), InventoryRows.defaultRows(current));
     }
 
     /** This status with the grid lock decided for its Age by {@code gridLockUntil} (the first Age with an open grid, empty for never). */
     public AgeStatus withGridLock(Optional<AgeId> gridLockUntil) {
         return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, reloadPending, gathered,
-            GridLock.active(age, gridLockUntil), inventoryButtons, map);
+            GridLock.active(age, gridLockUntil), inventoryButtons, map, inventoryRows);
+    }
+
+    /** This status with the open inventory rows of its Age by {@code rowsOf} ({@code hardship.inventoryRows}, §19.4). */
+    public AgeStatus withInventoryRows(Function<AgeId, Integer> rowsOf) {
+        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, reloadPending, gathered, gridLock,
+            inventoryButtons, map, InventoryRows.rows(age, rowsOf));
     }
 
     /**
@@ -73,17 +84,19 @@ public record AgeStatus(AgeId age, String goalItem, boolean recipeViewer, boolea
      */
     public AgeStatus withUiGates(AgeId inventoryButtonsFrom, AgeId mapFrom) {
         return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, reloadPending, gathered, gridLock,
-            reached(age, inventoryButtonsFrom), reached(age, mapFrom));
+            reached(age, inventoryButtonsFrom), reached(age, mapFrom), inventoryRows);
     }
 
     /** This status with {@link #reloadPending} set. */
     public AgeStatus withReloadPending(boolean pending) {
-        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, pending, gathered, gridLock, inventoryButtons, map);
+        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, pending, gathered, gridLock, inventoryButtons, map,
+            inventoryRows);
     }
 
     /** This status with the shrine's Gathering done or not. */
     public AgeStatus withGathered(boolean done) {
-        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, reloadPending, done, gridLock, inventoryButtons, map);
+        return new AgeStatus(age, goalItem, recipeViewer, blockInfo, tabs, caveDweller, toolRule, reloadPending, done, gridLock, inventoryButtons, map,
+            inventoryRows);
     }
 
     /** Lang key of the HUD goal when the Age has no goal item: {@code firmages.hud.goal.<age>}, after the Gathering {@code ..._gathered}. */
