@@ -163,6 +163,16 @@ class ImmersionTest {
     }
 
     @Test
+    void recipeScreensOfEmiAndJeiStayShutWhileTheViewerIsClosed() {
+        for (String screen : List.of("dev.emi.emi.screen.RecipeScreen", "dev.emi.emi.screen.BoMScreen", "mezz.jei.gui.recipes.RecipesGui")) {
+            assertTrue(ViewerGate.screenBlocked(screen, false), screen + " while closed");
+            assertFalse(ViewerGate.screenBlocked(screen, true), screen + " once open");
+        }
+        assertFalse(ViewerGate.screenBlocked("net.minecraft.client.gui.screens.inventory.InventoryScreen", false));
+        assertFalse(ViewerGate.screenBlocked(null, false));
+    }
+
+    @Test
     void nutritionKeys() {
         assertTrue(ViewerGate.isNutritionKey("tfc.tooltip.nutrition"));
         assertTrue(ViewerGate.isNutritionKey("tfc.tooltip.nutrition_water"));

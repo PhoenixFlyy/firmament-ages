@@ -66,9 +66,6 @@ public final class ImmersionClient {
     /** Ticks after the first status before the welcome title, and from the title to the welcome screen. */
     private static final int WELCOME_TITLE_DELAY = 40;
     private static final int WELCOME_SCREEN_DELAY = 100;
-    /** EMI's recipe and recipe-tree screens. {@code EmiApi.displayRecipes} and the JEI API through JEMI open them without
-     *  checking {@code EmiConfig.enabled} [verified, javap, EMI 1.1.24], e.g. from a recipe click area of another GUI. */
-    static final Set<String> EMI_SCREENS = Set.of("dev.emi.emi.screen.RecipeScreen", "dev.emi.emi.screen.BoMScreen");
 
     private static boolean keyHeld;
     private static long keyReleasedAt = Long.MIN_VALUE;
@@ -146,8 +143,8 @@ public final class ImmersionClient {
             if (ClientConfig.get(ClientConfig.BLOCKED_SCREENS, ClientConfig.DEFAULT_BLOCKED_SCREENS).contains(name)) {
                 FirmagesCore.LOGGER.info("Screen {} blocked (ui.blockedScreens)", name);
                 event.setCanceled(true);
-            } else if (EMI_SCREENS.contains(name) && !viewerOpen()) {
-                event.setCanceled(true); // the recipe viewer is not open in this Age (§21.3)
+            } else if (ViewerGate.VIEWER_SCREENS.contains(name) && ViewerGate.screenBlocked(name, viewerOpen())) {
+                event.setCanceled(true); // the recipe viewer is not open in this Age (§21.3): EMI's and JEI's recipe screens
             } else if (event.getNewScreen() instanceof AdvancementsScreen && ClientConfig.get(ClientConfig.REDIRECT_ADVANCEMENTS, true)) {
                 event.setCanceled(true);
                 openQuestsNextTick = FtbQuestsScreens.available(); // not inside setScreen

@@ -579,7 +579,6 @@ public final class AgeService {
             writeMirror(s, st.snapshot());
             FirmagesCore.LOGGER.info("AgeState now {} (version {})", st.snapshot().unlockedIds(), st.snapshot().version());
             CaveDwellerService.despawnIfOver(s);
-            dev.firmages.core.hardship.GridLockService.onAgeChanged(s); // "the crafting grid is open" when the lock lifts
         }
 
         /** Always follows {@link #persist}; the status goes out after the request, so it says whether a swap is pending. */

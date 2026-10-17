@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -53,9 +52,8 @@ import java.util.function.Predicate;
  * event is left alone and TerraFirmaCraft hands back one item as usual.</li>
  * <li>The client runs the same lookup on its recipe manager and claims the click when it finds a match, so TFC's own
  * prediction does not take an item first; the block sync corrects any difference.</li>
- * <li>While the grid is locked, laying a part that completes a recipe shows an action-bar hint naming the result, at
- * most once per minute per player ({@code mixin/tfc/PlacedItemInsertMixin}).</li>
  * </ul>
+ * No hint names ground crafting or its result (Felix 2026-10-17, SPEC §18: players find it themselves).
  * Ground crafting stays allowed after Dawn (nothing to unlearn). Fake players (deployers) do not ground-craft.
  */
 public final class GroundCraft {
@@ -74,7 +72,7 @@ public final class GroundCraft {
      * @param placed the grid as a crafting input, trimmed, with its offset in the 2x2 grid
      */
     public record Match(RecipeHolder<CraftingRecipe> recipe, int[] order, CraftingInput.Positioned placed) {
-        /** The recipe's declared result, for hints (the crafted stack is {@code assemble}'s). */
+        /** The recipe's declared result (the crafted stack is {@code assemble}'s). */
         public ItemStack preview(Level level) {
             return recipe.value().getResultItem(level.registryAccess());
         }
@@ -210,16 +208,5 @@ public final class GroundCraft {
     private static void claim(PlayerInteractEvent.RightClickBlock event) {
         event.setCanceled(true);
         event.setCancellationResult(InteractionResult.SUCCESS);
-    }
-
-    /**
-     * After a part was laid on a pile (server): while the grid is locked for the player and the pile now fits a
-     * recipe they may craft, the action bar names the result, at most once per minute.
-     */
-    public static void onPartLaid(Player player, Level level, IItemHandler pile) {
-        if (!(player instanceof ServerPlayer sp) || player instanceof FakePlayer || !GridLockService.locked(sp)) return;
-        Optional<Match> match = find(level, pile, sp.getDirection().get2DDataValue(), allowedFor(sp, pile));
-        if (match.isEmpty() || !GridLockService.takeHint(sp)) return;
-        sp.displayClientMessage(Component.translatable("firmages.hint.ground_craft", match.get().preview(level).getHoverName()), true);
     }
 }

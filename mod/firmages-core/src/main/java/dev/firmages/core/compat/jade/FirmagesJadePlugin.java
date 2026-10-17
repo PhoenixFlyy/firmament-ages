@@ -19,14 +19,22 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import snownee.jade.api.Accessor;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaPlugin;
+import snownee.jade.api.JadeIds;
 import snownee.jade.api.WailaPlugin;
 import snownee.jade.api.config.IPluginConfig;
+import snownee.jade.api.theme.IThemeHelper;
+import snownee.jade.api.ui.IBoxElement;
+import snownee.jade.api.ui.IElement;
 
 /**
  * Jade tooltips for the shrine (SPEC §7.6, M6): the heart shows its awakened tiers, whether the next ring stands,
@@ -36,7 +44,8 @@ import snownee.jade.api.config.IPluginConfig;
  * Tally Chute (SPEC §22.1) the team's count of the last item it passed and its own total.
  * Everything comes from the synced blockstates, the plinth block entity and the {@code firmages:shrine_sync}
  * payload, so no server data provider is needed. Before {@code ui.jadeFromAge} the overlay is suppressed entirely
- * (SPEC §18.3). Jade finds this class by
+ * (SPEC §18.3); after it, a block of an Age the player lacks shows only "Unknown" and a sigil ({@link Unknown}, SPEC
+ * §21.14). Jade finds this class by
  * its annotation and loads it only when Jade is installed.
  */
 @WailaPlugin
@@ -56,6 +65,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation STORM_ROD = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "storm_rod");
     static final ResourceLocation ORE_PROCESSOR = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "ore_processor");
     static final ResourceLocation ARCANE_CATALYST = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "arcane_catalyst");
+    static final ResourceLocation UNKNOWN_BLOCK = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "unknown_block");
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
@@ -78,6 +88,11 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         // (WailaTickHandler [verified, javap]); the callback also covers entities and Jade's own toggle key.
         // Priority 10000: callbacks run by ascending priority (Jade PriorityStore), so this one has the last word.
         registration.addRayTraceCallback(10000, (hit, accessor, original) -> ImmersionClient.blockInfoAllowed() ? accessor : null);
+        // SPEC §21.14: a block of an Age the player lacks is "Unknown". The icon goes through Jade's own icon slot
+        // (the last icon provider by priority wins); the name replaces everything Jade and every plugin collected, in
+        // the tooltip-collected callback, which runs after all providers (WailaTickHandler.tickClient [verified, javap]).
+        registration.registerBlockIcon(Unknown.INSTANCE, Block.class);
+        registration.addTooltipCollectedCallback(10000, Unknown::collected);
     }
 
     enum Heart implements IBlockComponentProvider {
@@ -419,6 +434,70 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public ResourceLocation getUid() {
             return this == PROCESSOR ? ORE_PROCESSOR : ARCANE_CATALYST;
+        }
+    }
+
+    /**
+     * A block of an Age the player does not have (SPEC §21.14, {@link dev.firmages.core.immersion.UnknownBlocks}): the
+     * icon becomes the sigil and the whole tooltip one line, "Unknown", tagged as Jade's object name. Required, so
+     * Jade's plugin settings cannot switch it off.
+     */
+    enum Unknown implements IBlockComponentProvider {
+        INSTANCE;
+
+        static boolean unknown(BlockAccessor accessor) {
+            Item item = accessor.isFakeBlock() ? accessor.getFakeBlock().getItem() : accessor.getBlock().asItem();
+            var player = net.minecraft.client.Minecraft.getInstance().player;
+            return dev.firmages.core.immersion.UnknownBlocks.unknown(dev.firmages.core.client.immersion.ClientAgeView.current(),
+                item == Items.AIR ? null : item, BuiltInRegistries.BLOCK.getKey(accessor.getBlock()).toString(), player != null && player.isCreative());
+        }
+
+        static void collected(IBoxElement box, Accessor<?> accessor) {
+            if (!(accessor instanceof BlockAccessor block) || !unknown(block)) return;
+            ITooltip tooltip = box.getTooltip();
+            tooltip.clear();
+            tooltip.add(IThemeHelper.get().title(Component.translatable(dev.firmages.core.immersion.UnknownBlocks.NAME_KEY)), JadeIds.CORE_OBJECT_NAME);
+            box.clearBoxProgress();
+        }
+
+        @Override
+        public IElement getIcon(BlockAccessor accessor, IPluginConfig config, IElement currentIcon) {
+            return unknown(accessor) ? new Sigil() : currentIcon;
+        }
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {}
+
+        @Override
+        public ResourceLocation getUid() {
+            return UNKNOWN_BLOCK;
+        }
+
+        @Override
+        public int getDefaultPriority() {
+            return 1_000_000; // icon providers run by ascending priority and the last one wins
+        }
+
+        @Override
+        public boolean isRequired() {
+            return true;
+        }
+    }
+
+    /** The unknown sigil, 16x16 in an 18x18 slot like Jade's item icon. */
+    static final class Sigil extends snownee.jade.api.ui.Element {
+        static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, dev.firmages.core.immersion.UnknownBlocks.SIGIL);
+
+        @Override
+        public net.minecraft.world.phys.Vec2 getSize() {
+            return new net.minecraft.world.phys.Vec2(18, 18);
+        }
+
+        @Override
+        public void render(net.minecraft.client.gui.GuiGraphics g, float x, float y, float maxX, float maxY) {
+            com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+            g.blit(TEXTURE, Math.round(x) + 1, Math.round(y) + 1, 0, 0, 16, 16, 16, 16);
+            com.mojang.blaze3d.systems.RenderSystem.disableBlend();
         }
     }
 }

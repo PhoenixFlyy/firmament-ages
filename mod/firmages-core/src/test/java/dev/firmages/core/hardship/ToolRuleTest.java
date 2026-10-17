@@ -53,18 +53,6 @@ class ToolRuleTest {
     }
 
     @Test
-    void hints() {
-        assertEquals(ToolRule.Hint.AXE, ToolRule.hintFor(true, false));
-        assertEquals(ToolRule.Hint.AXE, ToolRule.hintFor(true, true));
-        assertEquals(ToolRule.Hint.PICKAXE, ToolRule.hintFor(false, true));
-        assertEquals(ToolRule.Hint.TOOL, ToolRule.hintFor(false, false));
-        assertEquals("firmages.hint.needs_axe", ToolRule.Hint.AXE.key());
-        assertTrue(ToolRule.hintDue(null, 0));
-        assertFalse(ToolRule.hintDue(1_000L, 60_999L));
-        assertTrue(ToolRule.hintDue(1_000L, 61_000L));
-    }
-
-    @Test
     void statusCarriesTheRule() {
         Optional<AgeId> stone = Optional.of(AgeId.AGE_0);
         AgeStatus dawn = AgeStatus.of(AgeSnapshot.DAWN_ONLY, t -> Optional.empty(), AgeId.AGE_1, AgeId.AGE_1, t -> Optional.empty(),

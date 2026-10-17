@@ -52,13 +52,10 @@ class GridLockTest {
     }
 
     @Test
-    void predicateAndHint() {
+    void predicate() {
         assertTrue(GridLock.locks(true, false), "locked for a survival player");
         assertFalse(GridLock.locks(true, true), "creative, spectator or machine");
         assertFalse(GridLock.locks(false, false), "open after its Age");
-        assertTrue(GridLock.hintDue(null, 0));
-        assertFalse(GridLock.hintDue(5_000L, 64_999L));
-        assertTrue(GridLock.hintDue(5_000L, 65_000L));
     }
 
     @Test
