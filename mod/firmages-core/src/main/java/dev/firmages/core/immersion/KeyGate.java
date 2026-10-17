@@ -5,8 +5,10 @@ import com.google.gson.JsonObject;
 import dev.firmages.core.age.AgeId;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Keys and screens by mod Age (SPEC §18.10, Felix 2026-10-17, round G2: "C opens the Psi menu although Psi is locked;
@@ -19,15 +21,23 @@ import java.util.Optional;
  * changes without a core build), written by {@code dev/gen_key_gates.py} from the client jars:
  * {@code {"mods": {"psi": "age_6"}, "keys": {"psimisc.keybind": "psi"}, "packages": {"vazkii.psi": "psi"}}}. It lists only
  * mods that can be locked (an Age after Dawn, not exempt); the exempt mods (own gates such as Jade, EMI, JourneyMap and
- * Curios, the Chronicle, client tools) and their reasons are in the script.
+ * Curios, the Chronicle, client tools) and their reasons are in the script. A mod listed as {@value #NEVER} is locked in
+ * every Age (ProgressiveStages' stage tree lists every stage ahead of time); creative mode has it all the same.
  */
 public final class KeyGate {
-    /** The parsed pack file. A key or package whose mod has no valid Age is dropped. */
-    public record Table(Map<String, AgeId> mods, Map<String, String> keys, Map<String, String> packages) {
-        public static final Table EMPTY = new Table(Map.of(), Map.of(), Map.of());
+    /** The Age of a mod that no Age opens (creative mode still has it). */
+    public static final String NEVER = "never";
+
+    /**
+     * The parsed pack file: the mods with their Age, the mods no Age opens ({@value #NEVER}), keys and packages by mod.
+     * A key or package whose mod has neither is dropped.
+     */
+    public record Table(Map<String, AgeId> mods, Set<String> never, Map<String, String> keys, Map<String, String> packages) {
+        public static final Table EMPTY = new Table(Map.of(), Set.of(), Map.of(), Map.of());
 
         public Table {
             mods = Map.copyOf(mods);
+            never = Set.copyOf(never);
             keys = Map.copyOf(keys);
             packages = Map.copyOf(packages);
         }
@@ -67,11 +77,17 @@ public final class KeyGate {
     }
 
     public static boolean keyLocked(Table table, String keyName, AgeId world, boolean creative) {
-        return locked(table.modOfKey(keyName).flatMap(table::ageOf), world, creative);
+        return modLocked(table, table.modOfKey(keyName), world, creative);
     }
 
     public static boolean screenLocked(Table table, String screenClass, AgeId world, boolean creative) {
-        return locked(table.modOfClass(screenClass).flatMap(table::ageOf), world, creative);
+        return modLocked(table, table.modOfClass(screenClass), world, creative);
+    }
+
+    /** A mod of the table: locked before its Age, or in every Age when no Age opens it; never in creative mode. */
+    static boolean modLocked(Table table, Optional<String> mod, AgeId world, boolean creative) {
+        if (mod.isPresent() && table.never().contains(mod.get())) return !ViewerGate.open(false, creative);
+        return locked(mod.flatMap(table::ageOf), world, creative);
     }
 
     /** Parses {@code key_gates.json}; unknown Ages, keys and packages of unlisted mods are skipped. */
@@ -79,14 +95,18 @@ public final class KeyGate {
         if (json == null || !json.isJsonObject()) return Table.EMPTY;
         JsonObject root = json.getAsJsonObject();
         Map<String, AgeId> mods = new LinkedHashMap<>();
+        Set<String> never = new LinkedHashSet<>();
         for (Map.Entry<String, String> e : strings(root, "mods").entrySet()) {
-            AgeId.byId(e.getValue()).ifPresent(a -> mods.put(e.getKey(), a));
+            if (NEVER.equals(e.getValue())) never.add(e.getKey());
+            else AgeId.byId(e.getValue()).ifPresent(a -> mods.put(e.getKey(), a));
         }
         Map<String, String> keys = new LinkedHashMap<>();
-        strings(root, "keys").forEach((k, mod) -> { if (mods.containsKey(mod)) keys.put(k, mod); });
+        strings(root, "keys").forEach((k, mod) -> { if (mods.containsKey(mod) || never.contains(mod)) keys.put(k, mod); });
         Map<String, String> packages = new LinkedHashMap<>();
-        strings(root, "packages").forEach((p, mod) -> { if (mods.containsKey(mod) && !p.isBlank()) packages.put(p, mod); });
-        return new Table(mods, keys, packages);
+        strings(root, "packages").forEach((p, mod) -> {
+            if ((mods.containsKey(mod) || never.contains(mod)) && !p.isBlank()) packages.put(p, mod);
+        });
+        return new Table(mods, never, keys, packages);
     }
 
     private static Map<String, String> strings(JsonObject root, String member) {

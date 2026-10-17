@@ -27,7 +27,25 @@ public final class F3Veil {
     /** Vanilla 1.21.1 {@code getGameInformation}: {@code "\"%s\" server%s, %.0f tx, %.0f rx"} on a remote server. */
     private static final Pattern REMOTE_SERVER = Pattern.compile("^\".*\" server.*, \\S+ tx, \\S+ rx$");
 
+    /** GLFW key code of F3+C: copies the player's position as a teleport command (vanilla {@code KeyboardHandler}). */
+    public static final int KEY_COPY_LOCATION = 67;
+    /** GLFW key code of F3+I: copies the targeted block's or entity's data as a command. */
+    public static final int KEY_COPY_TARGET = 73;
+
     private F3Veil() {}
+
+    /**
+     * An F3 key combination while the veil is up: F3+C and F3+I copy nothing and give the answers vanilla gives with
+     * reduced debug info [verified, NeoForge 21.1.252 sources of {@code KeyboardHandler.handleDebugKeys}]: C unhandled
+     * ({@code false}, so releasing F3 still toggles the screen), I handled ({@code true}). Null: vanilla handles the key.
+     */
+    public static Boolean vetoedDebugKey(int key) {
+        return switch (key) {
+            case KEY_COPY_LOCATION -> Boolean.FALSE;
+            case KEY_COPY_TARGET -> Boolean.TRUE;
+            default -> null;
+        };
+    }
 
     public static boolean keepsModule(String simpleClassName) {
         return KEPT_BETTERF3_MODULES.contains(simpleClassName);

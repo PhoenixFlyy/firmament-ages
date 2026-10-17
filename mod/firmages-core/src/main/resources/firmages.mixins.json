@@ -62,6 +62,7 @@
     "emi.InventoryRecipeHandlerMixin",
     "mekemi.MekanismEmiMixin",
     "client.KeyMappingMixin",
+    "client.KeyboardHandlerMixin",
     "betterf3.BaseModuleMixin"
   ],
   "injectors": {

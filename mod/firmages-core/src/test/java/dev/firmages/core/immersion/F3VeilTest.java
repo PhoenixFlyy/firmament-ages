@@ -6,6 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** SPEC §18.11: the F3 veil (Felix 2026-10-17, round G2). */
@@ -60,5 +61,12 @@ class F3VeilTest {
             "MiscRightModule", "EmptyModule")) assertTrue(F3Veil.keepsModule(kept), kept);
         for (String veiled : List.of("CoordsModule", "LocationModule", "TargetModule", "EntityModule", "ChunksModule", "SoundModule",
             "MiscLeftModule", "SomeNewModule")) assertFalse(F3Veil.keepsModule(veiled), veiled);
+    }
+
+    @Test
+    void copyCombinationsCopyNothing() {
+        assertEquals(Boolean.FALSE, F3Veil.vetoedDebugKey(67), "F3+C: unhandled like reduced debug info, nothing copied");
+        assertEquals(Boolean.TRUE, F3Veil.vetoedDebugKey(73), "F3+I: handled, nothing copied");
+        for (int key : new int[] {49, 65, 66, 68, 71, 72, 76, 78, 80, 81, 84}) assertNull(F3Veil.vetoedDebugKey(key), "vanilla: " + key);
     }
 }

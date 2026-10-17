@@ -121,7 +121,8 @@ public final class KeyGateClient {
         }
         try (Reader r = res.get().openAsReader()) {
             KeyGate.Table t = KeyGate.parse(JsonParser.parseReader(r));
-            FirmagesCore.LOGGER.info("Key gate table: {} mods, {} keys, {} packages", t.mods().size(), t.keys().size(), t.packages().size());
+            FirmagesCore.LOGGER.info("Key gate table: {} mods by Age, {} never open, {} keys, {} packages", t.mods().size(), t.never().size(),
+                t.keys().size(), t.packages().size());
             return t;
         } catch (Exception e) {
             FirmagesCore.LOGGER.warn("Cannot read {}: {}", FILE, e.toString());

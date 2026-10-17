@@ -40,6 +40,23 @@ class KeyGateTest {
     }
 
     @Test
+    void neverOpenIsLockedInEveryAgeExceptCreative() {
+        KeyGate.Table t = KeyGate.parse(JsonParser.parseString("""
+            {"mods": {"progressivestages": "never", "psi": "age_6"},
+             "keys": {"key.progressivestages.open_tree": "progressivestages", "psimisc.keybind": "psi"},
+             "packages": {"com.enviouse.progressivestages": "progressivestages"}}"""));
+        assertEquals(java.util.Set.of("progressivestages"), t.never());
+        assertEquals(1, t.mods().size(), "never is no Age");
+        for (AgeId age : AgeId.all()) {
+            assertTrue(KeyGate.keyLocked(t, "key.progressivestages.open_tree", age, false), "stage tree key in survival, " + age);
+            assertFalse(KeyGate.keyLocked(t, "key.progressivestages.open_tree", age, true), "creative, " + age);
+            assertTrue(KeyGate.screenLocked(t, "com.enviouse.progressivestages.client.gui.StageTreeScreen", age, false), "stage tree, " + age);
+            assertFalse(KeyGate.screenLocked(t, "com.enviouse.progressivestages.client.gui.StageTreeScreen", age, true), "creative, " + age);
+        }
+        assertFalse(KeyGate.keyLocked(t, "psimisc.keybind", AgeId.AGE_6, false), "the Age mods as before");
+    }
+
+    @Test
     void parseSkipsUnknownAgesModsAndBlankPackages() {
         assertEquals(4, SMALL.mods().size(), "age_x dropped");
         assertEquals(List.of("key.mekanism.mode", "psimisc.keybind").stream().sorted().toList(), SMALL.keys().keySet().stream().sorted().toList(),
@@ -79,6 +96,11 @@ class KeyGateTest {
             assertEquals(Optional.of(k.mod()), t.modOfKey(k.name()), k.name());
             assertEquals(Optional.of(k.age()), t.modOfKey(k.name()).flatMap(t::ageOf), k.name());
         }
+        // ProgressiveStages' stage tree (key unbound by default, also /stage gui): no Age opens it, creative has it
+        assertEquals(Optional.of("progressivestages"), t.modOfKey("key.progressivestages.open_tree"));
+        assertTrue(KeyGate.keyLocked(t, "key.progressivestages.open_tree", AgeId.AGE_9, false));
+        assertTrue(KeyGate.screenLocked(t, "com.enviouse.progressivestages.client.gui.StageTreeScreen", AgeId.AGE_9, false));
+        assertFalse(KeyGate.screenLocked(t, "com.enviouse.progressivestages.client.gui.StageTreeScreen", AgeId.DAWN, true));
         for (String[] s : new String[][] {{"vazkii.psi.client.gui.GuiSocketSelect", "age_6"},
             {"com.hollingsworth.arsnouveau.client.gui.book.GuiSpellBook", "age_3"}, {"net.createmod.ponder.foundation.ui.PonderUI", "age_1"},
             {"com.simibubi.create.content.equipment.toolbox.RadialToolboxMenu", "age_1"}, {"mekanism.client.gui.GuiModuleTweaker", "age_6"},
