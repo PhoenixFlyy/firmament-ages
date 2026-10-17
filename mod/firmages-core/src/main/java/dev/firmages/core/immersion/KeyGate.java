@@ -19,8 +19,9 @@ import java.util.Set;
  *
  * <p>The table is the pack file {@code assets/firmages/key_gates.json} (shipped through {@code kubejs/assets}, so it
  * changes without a core build), written by {@code dev/gen_key_gates.py} from the client jars:
- * {@code {"mods": {"psi": "age_6"}, "keys": {"psimisc.keybind": "psi"}, "packages": {"vazkii.psi": "psi"}}}. It lists only
- * mods that can be locked (an Age after Dawn, not exempt); the exempt mods (own gates such as Jade, EMI, JourneyMap and
+ * {@code {"mods": {"psi": "age_6"}, "keys": {"psimisc.keybind": "psi"}, "packages": {"vazkii.psi": "psi"},
+ * "open_packages": []}}. It lists only mods that can be locked (an Age after Dawn, not exempt), and as open packages
+ * the packages of never-locked mods below a locked prefix, where the class lookup stops; the exempt mods (own gates such as Jade, EMI, JourneyMap and
  * Curios, the Chronicle, client tools) and their reasons are in the script. A mod listed as {@value #NEVER} is locked in
  * every Age (ProgressiveStages' stage tree lists every stage ahead of time); creative mode has it all the same.
  */
@@ -29,17 +30,20 @@ public final class KeyGate {
     public static final String NEVER = "never";
 
     /**
-     * The parsed pack file: the mods with their Age, the mods no Age opens ({@value #NEVER}), keys and packages by mod.
-     * A key or package whose mod has neither is dropped.
+     * The parsed pack file: the mods with their Age, the mods no Age opens ({@value #NEVER}), keys and packages by mod,
+     * and the open packages (never-locked packages below a locked prefix). A key or package whose mod has neither an
+     * Age nor {@value #NEVER} is dropped.
      */
-    public record Table(Map<String, AgeId> mods, Set<String> never, Map<String, String> keys, Map<String, String> packages) {
-        public static final Table EMPTY = new Table(Map.of(), Set.of(), Map.of(), Map.of());
+    public record Table(Map<String, AgeId> mods, Set<String> never, Map<String, String> keys, Map<String, String> packages,
+                        Set<String> openPackages) {
+        public static final Table EMPTY = new Table(Map.of(), Set.of(), Map.of(), Map.of(), Set.of());
 
         public Table {
             mods = Map.copyOf(mods);
             never = Set.copyOf(never);
             keys = Map.copyOf(keys);
             packages = Map.copyOf(packages);
+            openPackages = Set.copyOf(openPackages);
         }
 
         /** The mod that registers a key mapping (by its name), if it can be locked. */
@@ -47,12 +51,17 @@ public final class KeyGate {
             return keyName == null ? Optional.empty() : Optional.ofNullable(keys.get(keyName));
         }
 
-        /** The mod a class belongs to: the longest listed package its name starts with (whole package parts only). */
+        /**
+         * The mod a class belongs to: the longest listed package its name starts with (whole package parts only); none
+         * when an open package is longer.
+         */
         public Optional<String> modOfClass(String className) {
             if (className == null) return Optional.empty();
             int end = className.lastIndexOf('.');
             while (end > 0) {
-                String mod = packages.get(className.substring(0, end));
+                String pkg = className.substring(0, end);
+                if (openPackages.contains(pkg)) return Optional.empty();
+                String mod = packages.get(pkg);
                 if (mod != null) return Optional.of(mod);
                 end = className.lastIndexOf('.', end - 1);
             }
@@ -84,6 +93,14 @@ public final class KeyGate {
         return modLocked(table, table.modOfClass(screenClass), world, creative);
     }
 
+    /**
+     * A locked screen that is cancelled closes its menu only when the menu is the player's open one and the screen below
+     * does not show that same menu (a mod screen opened over its own container screen leaves the container open).
+     */
+    public static boolean closesMenu(Object lockedScreenMenu, Object playerMenu, Object currentScreenMenu) {
+        return lockedScreenMenu != null && lockedScreenMenu == playerMenu && currentScreenMenu != lockedScreenMenu;
+    }
+
     /** A mod of the table: locked before its Age, or in every Age when no Age opens it; never in creative mode. */
     static boolean modLocked(Table table, Optional<String> mod, AgeId world, boolean creative) {
         if (mod.isPresent() && table.never().contains(mod.get())) return !ViewerGate.open(false, creative);
@@ -106,7 +123,14 @@ public final class KeyGate {
         strings(root, "packages").forEach((p, mod) -> {
             if ((mods.containsKey(mod) || never.contains(mod)) && !p.isBlank()) packages.put(p, mod);
         });
-        return new Table(mods, never, keys, packages);
+        Set<String> open = new LinkedHashSet<>();
+        JsonElement openJson = root.get("open_packages");
+        if (openJson != null && openJson.isJsonArray()) {
+            for (JsonElement e : openJson.getAsJsonArray()) {
+                if (e.isJsonPrimitive() && !e.getAsString().isBlank()) open.add(e.getAsString());
+            }
+        }
+        return new Table(mods, never, keys, packages, open);
     }
 
     private static Map<String, String> strings(JsonObject root, String member) {

@@ -35,6 +35,7 @@ ftbquests = "dawn"               # task screens and loot crates; the book is dis
 ftblibrary = "dawn"
 gravestone = "dawn"              # graves must work from the first death; the craftable stone follows [recipes]
 azimuth = "dawn"                 # library (ponder helper item)
+ponder = "age_1"                 # Create's Ponder (no items; jar-in-jar of Create, Mechanicals, Mekanism Ponders): its W key and PonderUI wait for the Bronze Age (key gate, SPEC 18.10)
 dragonlib = "dawn"               # library
 moonlight = "dawn"               # library of Supplementaries and Every Compat
 firmages = "dawn"                # pack items: see [items]

@@ -886,11 +886,11 @@ hash = "b7dede6c58d02569e9666b63c04d3d98b425f88f5775914b3f4e0a4f3970978b"
 
 [[files]]
 file = "kubejs/assets/firmages/age_namespaces.json"
-hash = "33003c86212de24054ca2258c25a254eef305e7e287d5375b9cb50965f09f06e"
+hash = "bf80e455c7cef6c44ba0cdfde6acfdaa4ca0f728aaf2d631247737c4e2f55383"
 
 [[files]]
 file = "kubejs/assets/firmages/key_gates.json"
-hash = "b095f2144c051e4d12d17843a31674afb83bea854b3a96a7d69b4c248c4f98f2"
+hash = "f1e3888baacf487a3d616d3176cc881c9d08785abbf324eec6d639df704fc7b7"
 
 [[files]]
 file = "kubejs/assets/firmages/lang/en_us.json"

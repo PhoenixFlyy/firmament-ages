@@ -73,7 +73,6 @@
     "firmalife": "age_1",
     "firmasupps": "age_1",
     "flightlib": "age_4",
-    "flywheel": "age_1",
     "framedblocks": "age_1",
     "handcrafted": "age_1",
     "hostilenetworks": "age_6",
@@ -83,7 +82,6 @@
     "immersiveposts": "age_4",
     "infiniverse": "age_3",
     "interiors": "age_2",
-    "lambdynlights_api": "age_3",
     "laserbridges": "age_7",
     "mcwbridges": "age_1",
     "mcwdoors": "age_1",
@@ -119,7 +117,6 @@
     "railways": "age_2",
     "rechiseled": "age_1",
     "rnr": "age_1",
-    "sablecompanion": "age_1",
     "sauce": "age_3",
     "sgjourney": "age_9",
     "simulated": "age_4",
@@ -350,12 +347,9 @@
     "de.mari_023.ae2wtlib.api": "ae2wtlib_api",
     "de.mrjulsen.crn": "createrailwaysnavigator",
     "de.theidler.create_mobile_packages": "create_mobile_packages",
-    "dev.engine_room.flywheel": "flywheel",
     "dev.eriksonn.aeronautics": "aeronautics",
-    "dev.lambdaurora.lambdynlights.api": "lambdynlights_api",
     "dev.lopyluna.dndecor": "dndecor",
     "dev.ryanhcode.offroad": "offroad",
-    "dev.ryanhcode.sable.companion": "sablecompanion",
     "dev.shadowsoffire.apotheosis": "apotheosis",
     "dev.shadowsoffire.apothic_enchanting": "apothic_enchanting",
     "dev.shadowsoffire.hostilenetworks": "hostilenetworks",
@@ -412,5 +406,6 @@
     "vazkii.psi": "psi",
     "xerca.xercapaint": "xercapaint",
     "xfacthd.framedblocks": "framedblocks"
-  }
+  },
+  "open_packages": []
 }

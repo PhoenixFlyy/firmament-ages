@@ -57,6 +57,30 @@ class KeyGateTest {
     }
 
     @Test
+    void openPackageBelowALockedPrefixStaysOpen() {
+        KeyGate.Table t = KeyGate.parse(JsonParser.parseString("""
+            {"mods": {"ponder": "age_1"}, "packages": {"net.createmod": "ponder"},
+             "open_packages": ["net.createmod.catnip", ""]}"""));
+        assertEquals(java.util.Set.of("net.createmod.catnip"), t.openPackages(), "blank dropped");
+        assertEquals(Optional.of("ponder"), t.modOfClass("net.createmod.ponder.foundation.ui.PonderUI"));
+        assertEquals(Optional.empty(), t.modOfClass("net.createmod.catnip.gui.ScreenOpener"), "the open package stops the lookup");
+        assertEquals(Optional.empty(), t.modOfClass("net.createmod.catnip.gui.widget.Foo"), "also below it");
+        assertFalse(KeyGate.screenLocked(t, "net.createmod.catnip.gui.ScreenOpener", AgeId.DAWN, false));
+        assertTrue(KeyGate.screenLocked(t, "net.createmod.ponder.foundation.ui.PonderUI", AgeId.DAWN, false));
+    }
+
+    @Test
+    void lockedScreenClosesOnlyItsOwnOpenMenu() {
+        Object menu = new Object();
+        Object other = new Object();
+        assertTrue(KeyGate.closesMenu(menu, menu, null), "a locked container screen over the world closes its menu");
+        assertTrue(KeyGate.closesMenu(menu, menu, other), "over another menu's screen too");
+        assertFalse(KeyGate.closesMenu(menu, menu, menu), "a locked screen over the screen of the same menu keeps it");
+        assertFalse(KeyGate.closesMenu(menu, other, null), "not the player's open menu");
+        assertFalse(KeyGate.closesMenu(null, null, null), "no menu");
+    }
+
+    @Test
     void parseSkipsUnknownAgesModsAndBlankPackages() {
         assertEquals(4, SMALL.mods().size(), "age_x dropped");
         assertEquals(List.of("key.mekanism.mode", "psimisc.keybind").stream().sorted().toList(), SMALL.keys().keySet().stream().sorted().toList(),
@@ -119,6 +143,8 @@ class KeyGateTest {
             "iris.keybind.shaderPackSelection", "key.emotecraft.fastchoose")) {
             assertEquals(Optional.empty(), t.modOfKey(key), key);
         }
+        // a jar-in-jar library with a never-locked carrier is never locked (Sable, LambDynamicLights' runtime)
+        for (String mod : List.of("sablecompanion", "lambdynlights_api", "flywheel")) assertFalse(t.mods().containsKey(mod), mod);
         for (String mod : List.of("tfc", "firmages", "jade", "emi", "jei", "journeymap", "curios", "ftbquests", "ftbchunks",
             "sophisticatedbackpacks", "sophisticatedcore", "betterf3", "exposure", "immersiveengineering", "iris", "sodium", "controlling")) {
             assertFalse(t.mods().containsKey(mod), mod);

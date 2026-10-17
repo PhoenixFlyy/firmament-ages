@@ -102,7 +102,10 @@ public final class KeyGateClient {
         String name = screen.getClass().getName();
         if (!KeyGate.screenLocked(table, name, ClientAgeStatus.get().age(), p.isCreative())) return;
         event.setCanceled(true);
-        if (screen instanceof MenuAccess<?> access && access.getMenu() == p.containerMenu) InventoryButtonGate.closeOpenMenu();
+        if (screen instanceof MenuAccess<?> access
+            && KeyGate.closesMenu(access.getMenu(), p.containerMenu, event.getCurrentScreen() instanceof MenuAccess<?> cur ? cur.getMenu() : null)) {
+            InventoryButtonGate.closeOpenMenu();
+        }
         FirmagesCore.LOGGER.debug("Key gate: screen {} of {} not opened", name, table.modOfClass(name).orElse("?"));
     }
 
@@ -121,8 +124,8 @@ public final class KeyGateClient {
         }
         try (Reader r = res.get().openAsReader()) {
             KeyGate.Table t = KeyGate.parse(JsonParser.parseReader(r));
-            FirmagesCore.LOGGER.info("Key gate table: {} mods by Age, {} never open, {} keys, {} packages", t.mods().size(), t.never().size(),
-                t.keys().size(), t.packages().size());
+            FirmagesCore.LOGGER.info("Key gate table: {} mods by Age, {} never open, {} keys, {} packages, {} open packages", t.mods().size(),
+                t.never().size(), t.keys().size(), t.packages().size(), t.openPackages().size());
             return t;
         } catch (Exception e) {
             FirmagesCore.LOGGER.warn("Cannot read {}: {}", FILE, e.toString());
