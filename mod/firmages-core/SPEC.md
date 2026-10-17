@@ -1250,7 +1250,10 @@ the chest until its Age.
   gametest roots, main first: a second `global_loot_modifiers.json` in the gametest resources would be hidden.
 - **[PoC] pack server:** `/firmages selftest server` passes both loot cases; in Dawn a TFC ruin chest holds only Dawn
   items, a large vessel of a TFC ruin generated in Dawn holds no small ore, salt or flux, and a hopper under a fresh
-  dungeon chest pulls nothing of a later Age.
+  dungeon chest pulls nothing of a later Age. G2 review (copy boot, `dev/poc-results.md`): in Dawn
+  `/place template ad_astra:crimson_room_5` places its 9 Pygros with empty `ArmorItems` and `HandItems` and
+  `crimson_room_4` no item entity; at `age_9` the crossbows and the gold nugget are back, gold gear and the iron ingot
+  (disabled) are not.
 
 ### 19.6 Dawn breaks only soft blocks (Felix 2026-10-17, round G2)
 

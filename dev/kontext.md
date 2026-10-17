@@ -1,7 +1,7 @@
 # Firmament Ages: Kontext für Agenten
 
 Diese Seite ersetzt für den Einstieg `mod/firmages-core/SPEC.md`, `dev/README.md` und die langen Notizen; die Pfade führen zu den Details.
-Stand 2026-10-17: Pack 1.1.0 und firmages-core 1.1.0 (Runde G2, Felix' zweite Rückmeldung: Loot und vorbefüllte Strukturbehälter nach Age, Inventar-Reihen nach Age, Dawn bricht nur Weiches, Mod-Tasten und -Fenster nach Age, F3-Schleier, Karte auf M, `/firmages stage` und `locate`, Pick-Block-Items, H-Schild mit angehefteten Quests, Nachthimmel-Questpanel, Not Enough Animations und Emotecraft, Server-Pack mit `jdk`-Ordner und `release.ps1 -LocalServer`; Netzprotokoll 8; Release-Commit mit Tag `v1.1.0`), Branch `dev`. Davor 1.0.2 (Runde G1b, Tag `v1.0.2`) und 1.0.1 (Runde G1, nie auf CurseForge).
+Stand 2026-10-17: Pack 1.1.0 und firmages-core 1.1.0 (Runde G2, Felix' zweite Rückmeldung: Loot und vorbefüllte Strukturbehälter nach Age, Inventar-Reihen nach Age, Dawn bricht nur Weiches, Mod-Tasten und -Fenster nach Age, F3-Schleier, Karte auf M, `/firmages stage` und `locate`, Pick-Block-Items, H-Schild mit angehefteten Quests, Nachthimmel-Questpanel, Not Enough Animations und Emotecraft, Server-Pack mit `jdk`-Ordner und `release.ps1 -LocalServer`; Netzprotokoll 8; Release-Commit mit Tag `v1.1.0`, nach den Review-Fixes vom 2026-10-18 neu gesetzt: Sweep-Drops ohne Ablaufzeit, Vorlagen-Entities und Inhalte gewürfelter Stapel nach Age), Branch `dev`. Davor 1.0.2 (Runde G1b, Tag `v1.0.2`) und 1.0.1 (Runde G1, nie auf CurseForge).
 
 ## 1. Was das Pack ist
 
