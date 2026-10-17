@@ -1,25 +1,31 @@
 package dev.firmages.core.loot;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 /**
- * Prefilled containers of structure templates (SPEC §19.5), pure Java: walks the block entity data a template places
- * and removes every item stack the predicate drops, nested contents included. A stack is a compound with a string
+ * Prefilled containers and entities of structure templates and nested loot (SPEC §19.5), pure Java: walks the data a
+ * template places, or a rolled stack's component patch, and removes every item stack the predicate drops, nested
+ * contents included. A stack is a compound with a string
  * {@code id} and a numeric {@code count} (or the legacy {@code Count}); the block entity's own compound never counts as
  * one. What a removal leaves behind keeps every reader working:
  * <ul>
  *   <li>a stack in a list ({@code Items} of chests, barrels and TFC inventories, {@code minecraft:bundle_contents}): the
  *       element goes;</li>
  *   <li>a stack in a list that keeps its size ({@link #keepsSize}: the {@code items} of TFC's small vessel component
- *       {@code tfc:vessel}, exactly four optional stacks): the element becomes an empty compound, which
- *       {@code ItemStack.OPTIONAL_CODEC} reads as an empty slot;</li>
+ *       {@code tfc:vessel}, exactly four optional stacks, and the other positional lists of optional stacks: a mob's
+ *       or an armor stand's {@code ArmorItems} and {@code HandItems}, TFC's {@code tfc:contents}, {@code tfc:barrel}
+ *       and {@code tfc:crucible}): the element becomes an empty compound, which {@code ItemStack.OPTIONAL_CODEC} and
+ *       {@code ItemStack.parseOptional} read as an empty slot;</li>
  *   <li>a slot entry in a list whose stack goes ({@code {slot, item}} of {@code minecraft:container}): the entry goes;</li>
  *   <li>a stack in a field (a pedestal's {@code itemStack}, a pot's {@code item}): the field goes (an NBT reader then
  *       finds no item).</li>
  * </ul>
- * A stack that stays is walked too, so a shulker box, bundle or TFC vessel keeps only what may stay. {@link Nodes}
- * adapts the tree: NBT in the game, plain maps and lists in JUnit.
+ * A stack that stays is walked too, so a shulker box, bundle or TFC vessel keeps only what may stay. The same walk
+ * serves three roots: a template's block entity data ({@link #filter}), a template's entity data
+ * ({@link #filterEntity}) and the component patch of a rolled loot stack ({@link #filter}).
+ * {@link Nodes} adapts the tree: NBT in the game, plain maps and lists in JUnit.
  */
 public final class PlacedContents {
     private PlacedContents() {}
@@ -53,13 +59,30 @@ public final class PlacedContents {
     }
 
     /**
-     * A list that keeps its size: TFC 4.2.11's small vessel component {@code tfc:vessel} holds {@code items} as
-     * {@code ItemStack.OPTIONAL_CODEC.listOf(4, 4)} [verified, javap {@code VesselComponent}], so a shorter list makes
-     * the whole vessel an invalid item ("List is too short", copy boot of round G2).
+     * A list that keeps its size, because its readers take the stacks by position and read an empty compound as an
+     * empty slot:
+     * <ul>
+     *   <li>TFC 4.2.11's small vessel component {@code tfc:vessel} holds {@code items} as
+     *       {@code ItemStack.OPTIONAL_CODEC.listOf(4, 4)} [verified, javap {@code VesselComponent}], so a shorter list
+     *       makes the whole vessel an invalid item ("List is too short", copy boot of round G2); the {@code items} of
+     *       {@code tfc:barrel} and {@code tfc:crucible} and the list {@code tfc:contents} ({@code ItemListComponent})
+     *       are {@code ItemStack.OPTIONAL_CODEC.listOf()} [verified, javap], one entry per slot;</li>
+     *   <li>{@code ArmorItems} (feet, legs, chest, head) and {@code HandItems} (main hand, offhand) of a mob or an
+     *       armor stand: {@code Mob} and {@code ArmorStand} read entry i into slot i with {@code ItemStack.parseOptional}
+     *       [verified, 21.1.252 sources], so a removed helmet must not move the chestplate.</li>
+     * </ul>
      */
     static boolean keepsSize(String parentKey, String key) {
-        return "tfc:vessel".equals(parentKey) && "items".equals(key);
+        if ("ArmorItems".equals(key) || "HandItems".equals(key) || "tfc:contents".equals(key)) return true;
+        return "items".equals(key) && ("tfc:vessel".equals(parentKey) || "tfc:barrel".equals(parentKey) || "tfc:crucible".equals(parentKey));
     }
+
+    /**
+     * Keys of an entity's data the walk leaves alone: {@code Offers}, a villager's or a wandering trader's trades.
+     * {@code MerchantOffer} needs its {@code buy} and {@code sell} stacks, so a removed one would cost the entity its
+     * trades; trades are no contents (SPEC §19.5, §34.4).
+     */
+    static final Set<String> ENTITY_SKIP = Set.of("Offers");
 
     /** True when the node is an item stack: a compound with a string id and a numeric count. */
     public static boolean isStack(Object node, Nodes n) {
@@ -74,6 +97,25 @@ public final class PlacedContents {
         return node(root, null, n, drop, apply);
     }
 
+    /**
+     * {@link #filter} for the data of an entity a template places (an armor stand's or a mob's equipment, an item
+     * frame's or an item entity's {@code Item}, the {@code Items} of a chest minecart or a donkey, a piglin's
+     * {@code Inventory}): every key but {@link #ENTITY_SKIP}. {@code entity} itself is never a stack.
+     */
+    public static int filterEntity(Object entity, Nodes n, Predicate<String> drop, boolean apply) {
+        if (!n.isCompound(entity)) return 0;
+        int removed = 0;
+        for (String key : n.keys(entity)) {
+            if (!ENTITY_SKIP.contains(key)) removed += entry(entity, null, key, n, drop, apply);
+        }
+        return removed;
+    }
+
+    /** True for an item entity ({@code minecraft:item}) whose {@code Item} is gone: the template places nothing there. */
+    public static boolean itemEntityEmpty(Object entity, Nodes n) {
+        return n.isCompound(entity) && "minecraft:item".equals(n.string(entity, "id")) && !isStack(n.get(entity, "Item"), n);
+    }
+
     /** A node under the key {@code key} of its compound (null for the root and for list elements). */
     private static int node(Object o, String key, Nodes n, Predicate<String> drop, boolean apply) {
         if (n.isCompound(o)) return compound(o, key, n, drop, apply);
@@ -83,18 +125,19 @@ public final class PlacedContents {
 
     private static int compound(Object c, String ownKey, Nodes n, Predicate<String> drop, boolean apply) {
         int removed = 0;
-        for (String key : n.keys(c)) {
-            Object v = n.get(c, key);
-            if (isStack(v, n) && drop.test(n.string(v, "id"))) {
-                removed++;
-                if (apply) n.remove(c, key);
-            } else if (n.isList(v)) {
-                removed += list(v, keepsSize(ownKey, key), n, drop, apply);
-            } else {
-                removed += node(v, key, n, drop, apply);
-            }
-        }
+        for (String key : n.keys(c)) removed += entry(c, ownKey, key, n, drop, apply);
         return removed;
+    }
+
+    /** The value under {@code key} of the compound {@code c}, which sits under {@code ownKey} (null: root or list element). */
+    private static int entry(Object c, String ownKey, String key, Nodes n, Predicate<String> drop, boolean apply) {
+        Object v = n.get(c, key);
+        if (isStack(v, n) && drop.test(n.string(v, "id"))) {
+            if (apply) n.remove(c, key);
+            return 1;
+        }
+        if (n.isList(v)) return list(v, keepsSize(ownKey, key), n, drop, apply);
+        return node(v, key, n, drop, apply);
     }
 
     private static int list(Object l, boolean keepSize, Nodes n, Predicate<String> drop, boolean apply) {

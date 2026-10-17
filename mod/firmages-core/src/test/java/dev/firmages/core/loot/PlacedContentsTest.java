@@ -120,4 +120,81 @@ class PlacedContentsTest {
         assertEquals(0, PlacedContents.filter(clean, NODES, LATE, true), "nothing to drop, nothing changes");
         assertEquals(0, PlacedContents.filter(clean, NODES, id -> false, true));
     }
+
+    /** H1: a template mob's equipment (Ad Astra's Pygro with gold armor) keeps its slots; ArmorItems and HandItems are read by position. */
+    @Test
+    void entityEquipmentKeepsItsSlots() {
+        Map<String, Object> pygro = c("id", "x:pygro", "ArmorItems", l(c(), stack("x:totem"), c(), stack("x:hidden")),
+            "HandItems", l(stack("x:hide"), stack("x:totem")), "Inventory", l(stack("x:totem"), stack("x:hide")), "Health", 16);
+        assertEquals(4, PlacedContents.filterEntity(pygro, NODES, LATE, false), "dry run counts");
+        assertEquals(stack("x:totem"), list(pygro.get("ArmorItems")).get(1), "dry run changes nothing");
+        assertEquals(4, PlacedContents.filterEntity(pygro, NODES, LATE, true));
+        assertEquals(l(c(), c(), c(), c()), pygro.get("ArmorItems"), "four armor slots, the late ones empty");
+        assertEquals(l(stack("x:hide"), c()), pygro.get("HandItems"), "main hand kept, the late offhand empty");
+        assertEquals(l(stack("x:hide")), pygro.get("Inventory"), "an inventory list shrinks");
+        assertFalse(PlacedContents.itemEntityEmpty(pygro, NODES), "a mob is no item entity");
+        assertTrue(PlacedContents.keepsSize(null, "ArmorItems") && PlacedContents.keepsSize(null, "HandItems"));
+    }
+
+    /** H1: an item entity whose stack goes is not placed; an item frame stays, empty; a kept item entity stays. */
+    @Test
+    void itemEntitiesAndFrames() {
+        Map<String, Object> ingot = c("id", "minecraft:item", "Item", stack("x:totem"), "Age", 4971);
+        assertEquals(1, PlacedContents.filterEntity(ingot, NODES, LATE, true));
+        assertTrue(PlacedContents.itemEntityEmpty(ingot, NODES), "the item entity has nothing left to place");
+        Map<String, Object> hide = c("id", "minecraft:item", "Item", stack("x:hide"));
+        assertEquals(0, PlacedContents.filterEntity(hide, NODES, LATE, true));
+        assertFalse(PlacedContents.itemEntityEmpty(hide, NODES), "a kept item entity is placed");
+        Map<String, Object> frame = c("id", "minecraft:item_frame", "Item", stack("x:hidden"), "Facing", 2);
+        assertEquals(1, PlacedContents.filterEntity(frame, NODES, LATE, true));
+        assertFalse(frame.containsKey("Item"), "the frame's item goes with its field");
+        assertFalse(PlacedContents.itemEntityEmpty(frame, NODES), "the frame itself is placed");
+    }
+
+    /** H1: a chest minecart's and a donkey's inventory, nested contents; a villager's trades stay whole. */
+    @Test
+    void entityInventoriesAndTrades() {
+        Map<String, Object> box = stack("x:shulker_box", "Slot", 1, "components", c("minecraft:container", l(c("slot", 0, "item", stack("x:totem")))));
+        Map<String, Object> cart = c("id", "minecraft:chest_minecart", "Items", l(stack("x:totem", "Slot", 0), box));
+        assertEquals(2, PlacedContents.filterEntity(cart, NODES, LATE, true), "the loose totem and the one in the box");
+        assertEquals(l(box), cart.get("Items"));
+        assertEquals(List.of(), map(box.get("components")).get("minecraft:container"));
+        Map<String, Object> donkey = c("id", "minecraft:donkey", "ChestedHorse", 1, "SaddleItem", stack("x:hidden"),
+            "Items", l(stack("x:hide", "Slot", 2), stack("x:totem", "Slot", 3)));
+        assertEquals(2, PlacedContents.filterEntity(donkey, NODES, LATE, true));
+        assertFalse(donkey.containsKey("SaddleItem"));
+        assertEquals(l(stack("x:hide", "Slot", 2)), donkey.get("Items"));
+        Map<String, Object> offer = c("buy", stack("x:hide"), "sell", stack("x:totem"), "maxUses", 12);
+        Map<String, Object> villager = c("id", "minecraft:villager", "Offers", c("Recipes", l(offer)), "Inventory", l(stack("x:totem")));
+        assertEquals(1, PlacedContents.filterEntity(villager, NODES, LATE, true), "only the inventory");
+        assertEquals(stack("x:totem"), offer.get("sell"), "a trade keeps both stacks (PlacedContents.ENTITY_SKIP)");
+        assertEquals(List.of(), villager.get("Inventory"));
+    }
+
+    /**
+     * H2: the component patch of a rolled loot stack (the root AgeLoot walks): a shulker box's slot entries, a
+     * bundle's list, TFC's positional lists (tfc:contents, the items of tfc:barrel) keep their size, a field stack goes
+     * with its component.
+     */
+    @Test
+    void rolledStackComponents() {
+        Map<String, Object> barrel = c("items", l(stack("x:totem"), stack("x:hide")), "fluid", c("amount", 0), "sealedTick", 0);
+        Map<String, Object> patch = c(
+            "minecraft:container", l(c("slot", 0, "item", stack("x:totem")), c("slot", 1, "item", stack("x:hide"))),
+            "minecraft:bundle_contents", l(stack("x:hidden"), stack("x:hide")),
+            "tfc:contents", l(stack("x:totem"), stack("x:hide"), c()),
+            "tfc:barrel", barrel,
+            "x:held", stack("x:hidden"),
+            "!minecraft:food", c());
+        assertEquals(5, PlacedContents.filter(patch, NODES, LATE, false), "dry run counts");
+        assertEquals(5, PlacedContents.filter(patch, NODES, LATE, true));
+        assertEquals(l(c("slot", 1, "item", stack("x:hide"))), patch.get("minecraft:container"));
+        assertEquals(l(stack("x:hide")), patch.get("minecraft:bundle_contents"), "a bundle's list shrinks (ItemStack.CODEC, no empty entries)");
+        assertEquals(l(c(), stack("x:hide"), c()), patch.get("tfc:contents"), "tfc:contents keeps its slots");
+        assertEquals(l(c(), stack("x:hide")), barrel.get("items"), "tfc:barrel keeps its slots");
+        assertFalse(patch.containsKey("x:held"), "a field stack goes with its component");
+        assertTrue(patch.containsKey("!minecraft:food"), "a removed-component marker is no stack");
+        assertTrue(PlacedContents.keepsSize("tfc:crucible", "items") && PlacedContents.keepsSize("components", "tfc:contents"));
+        assertFalse(PlacedContents.keepsSize("x:other", "items"));
+    }
 }

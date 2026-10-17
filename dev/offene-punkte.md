@@ -8,7 +8,11 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 
 ## Entscheidungen (Felix)
 
-Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A am 2026-10-17 beantwortet, jede steht mit Beleg unter „Erledigt in Runde G1“.
+Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17 beantwortet, jede steht mit Beleg unter „Erledigt in Runde G1“.
+
+| Was | Wo | Wer |
+|---|---|---|
+| Dawn-Falle: wer in Dawn in ein Steinloch oder eine Höhle fällt, kommt ohne Erde, Sand, Kies oder Stämme im Inventar nicht heraus (Stein bricht in Dawn nicht, Klettern an Stein gibt es weder in Vanilla noch in TFC). Das galt wegen der Spitzhackenregel (Stein nur mit Spitzhacke, SPEC §19.2; in Dawn gibt es keine) schon vor 1.1.0, jetzt ausdrücklich durch die Dawn-Liste `#firmages:dawn_breakable` (SPEC §19.6). Optionen nach Ergebnis: **A** so lassen (Dawn bleibt streng: Erde oder Kies in der Hotbar tragen, sonst bleibt nur der Tod und der Respawn); **B** Stein bricht in Dawn mit der Hand, droppt aber nichts (Stufen schlagen geht, Steinmaterial gibt es weiter erst ab der Steinzeit). Prüfung: Zeile 23 der „1.1.0 Checkliste“ | `kubejs/data/firmages/tags/block/dawn_breakable.json` (`dev/gen_dawn_breakable.py`), firmages-core `ToolRule` | Felix |
 
 ## Bestehende Welten (Server)
 
@@ -16,7 +20,7 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 |---|---|---|
 | Vanilla-Herzen nur in neuen Welten: eine Welt von 1.0.0 behält TFCs Gesundheit (Default 0,85) in ihrer Welt-Config; bei gestopptem Server `nutritionMinimumHealthModifier`, `nutritionDefaultHealthModifier` und `nutritionMaximumHealthModifier` von Hand auf `1.0` setzen | `<Welt>/serverconfig/tfc-server.toml` `[mechanics.player]` | Felix |
 | Welten, die älter als drei Tage sind und keine Tutorial-Wayshrine haben (Suche vor dem Release 1.0.0 mit nur 16 Peilungen, oder vor 0.12.0 angelegt): der Dawn-Keystone „A Shrine on the Road“ (Blick auf irgendeinen `firmages:wayshrine_core`) ist dort nur über eine natürliche Wayshrine weiter draußen oder nach `/firmages wayshrine tutorial` (Operator) erfüllbar, und „The First Spark“ wartet auf ihn. Felix' Testwelt ist neu | Questbuch, firmages-core `WayshrineTutorial` | Felix, falls eine solche Welt in Dawn steht |
-| Welten von 1.0.x mit 1.1.0: Items in Inventar-Reihen, die die Age der Welt noch nicht öffnet, wandern beim ersten Login in freie Plätze oder fallen vor die Füße (Sweep, SPEC §19.4); vorbefüllte Behälter in schon erzeugten Chunks (TFC-Ruinen-Gefäße) behalten ihre Kleinerze, ungeöffnete Truhen filtert das Loot-Gate beim Öffnen (SPEC §19.5) | `[hardship.inventoryRows]` und `gate.lootFilter` in `config/firmages-server.toml` | Felix (Hinweis an Mitspieler) |
+| Welten von 1.0.x mit 1.1.0: Items in Inventar-Reihen, die die Age der Welt noch nicht öffnet, wandern beim ersten Login in freie Plätze oder fallen vor die Füße und bleiben dort ohne Ablaufzeit liegen, bis jemand sie aufhebt (Sweep, SPEC §19.4; bis zu 27 Stapel je Spieler); vorbefüllte Behälter in schon erzeugten Chunks (TFC-Ruinen-Gefäße) behalten ihre Kleinerze, ungeöffnete Truhen filtert das Loot-Gate beim Öffnen (SPEC §19.5) | `[hardship.inventoryRows]` und `gate.lootFilter` in `config/firmages-server.toml` | Felix (Hinweis an Mitspieler) |
 
 ## Im Client prüfen (Felix)
 

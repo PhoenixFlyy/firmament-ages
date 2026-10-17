@@ -6,6 +6,7 @@ import dev.firmages.core.config.ServerConfig;
 import dev.firmages.core.immersion.AgeStatus;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
@@ -31,8 +32,8 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
  * {@code moveItemStackTo} (every shift-click into the player's slots) skips locked slots, also for mod slot classes
  * that override {@code mayPlace}.</li>
  * <li>Items that are already in a locked slot (worlds from before, an Age taken back, a creative player switching to
- * survival, a lowered config) move to open slots, the rest drops at the player's feet: on login, respawn, after every
- * change of the global Age state and, as a safety net, once a second.</li>
+ * survival, a lowered config) move to open slots, the rest drops at the player's feet and never despawns: on login,
+ * respawn, after every change of the global Age state and, as a safety net, once a second.</li>
  * </ul>
  * The server decides from the global Age state, the client from {@code firmages:age_status} ({@code inventoryRows};
  * every row before the first status). Creative and spectator players and fake players (machines) are exempt. No hint:
@@ -78,8 +79,10 @@ public final class InventoryRowsService {
     }
 
     /**
-     * Moves every item out of the locked rows of {@code player}: into open slots ({@code placeItemBackInInventory},
-     * which now skips locked ones), whatever does not fit drops at the player's feet. @return the stacks moved
+     * Moves every item out of the locked rows of {@code player}: into open slots ({@code Inventory.add}, which skips
+     * locked ones); whatever does not fit drops at the player's feet as an item entity without a lifetime, so it never
+     * despawns (a 1.0.x world can hold up to 27 stacks per player in rows its Age now locks; with the default five
+     * minutes an absent-minded player would lose them). @return the stacks moved
      */
     public static int sweep(ServerPlayer player) {
         int open = openRows(player);
@@ -90,7 +93,11 @@ public final class InventoryRowsService {
             ItemStack stack = inv.getItem(i);
             if (stack.isEmpty()) continue;
             inv.setItem(i, ItemStack.EMPTY);
-            inv.placeItemBackInInventory(stack);
+            inv.add(stack);
+            if (!stack.isEmpty()) {
+                ItemEntity dropped = player.drop(stack, false, false);
+                if (dropped != null) dropped.setUnlimitedLifetime();
+            }
             moved++;
         }
         if (moved > 0) {

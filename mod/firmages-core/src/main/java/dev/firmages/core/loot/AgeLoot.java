@@ -57,7 +57,11 @@ public final class AgeLoot {
         LOOT_MODIFIERS.register(modBus);
     }
 
-    /** Removes the stacks the roll's Ages do not hold; returns how many. Does nothing with {@code gate.lootFilter} off. */
+    /**
+     * Removes the stacks the roll's Ages do not hold, then the same from the contents of every stack that stays (a
+     * shulker box, a bundle, a TFC vessel or sack: {@link NbtContents#filterNested}); returns how many. Does nothing
+     * with {@code gate.lootFilter} off.
+     */
     public static int filter(List<ItemStack> loot, LootContext context) {
         if (loot.isEmpty() || !ServerConfig.lootFilter()) return 0;
         AgeIndex idx = AgeIndex.current();
@@ -65,6 +69,7 @@ public final class AgeLoot {
         Set<AgeId> unlocked = unlockedFor(context);
         int n = LootAgeRule.filter(loot, s -> s.isEmpty() ? null : idx.ageOf(s.getItem()),
             s -> !s.isEmpty() && idx.isDisabled(s.getItem()), unlocked);
+        n += NbtContents.filterNested(loot, context.getLevel().registryAccess(), id -> NbtContents.dropped(id, idx, unlocked));
         ROLLS.incrementAndGet();
         if (n > 0) REMOVED.addAndGet(n);
         return n;

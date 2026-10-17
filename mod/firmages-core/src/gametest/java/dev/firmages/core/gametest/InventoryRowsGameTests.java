@@ -86,6 +86,18 @@ public final class InventoryRowsGameTests {
         return true;
     }
 
+    /** {@code ItemEntity.setUnlimitedLifetime} sets the age to this; such an item never despawns. */
+    private static final int UNLIMITED = -32768;
+
+    /** The item entities of {@code item} that lie around {@code p} (what the sweep dropped). */
+    private static List<ItemEntity> droppedNear(ServerPlayer p, Item item) {
+        return p.serverLevel().getEntitiesOfClass(ItemEntity.class, p.getBoundingBox().inflate(4), e -> e.isAlive() && e.getItem().is(item));
+    }
+
+    private static String ages(List<ItemEntity> items) {
+        return items.stream().map(e -> e.getItem().getCount() + " " + e.getItem().getItem() + " age " + e.getAge()).toList().toString();
+    }
+
     /**
      * Dawn (no open row): the config keys and their defaults; ten pickups fill the nine hotbar slots and the tenth
      * stays on the ground; {@code Inventory.add}, the player's item-handler capability and
@@ -135,6 +147,7 @@ public final class InventoryRowsGameTests {
                 && lockedEmpty(inv, 9, 36), "the player's item handler inserts nothing into a locked slot");
             ItemHandlerHelper.giveItemToPlayer(p, new ItemStack(Items.STRING));
             ok(h, lockedEmpty(inv, 9, 36) && inv.countItem(Items.STRING) == 0, "giveItemToPlayer drops what the hotbar cannot take");
+            droppedNear(p, Items.STRING).forEach(ItemEntity::discard);
 
             for (int m = 9; m <= 35; m++) {
                 Slot s = p.inventoryMenu.getSlot(m);
@@ -152,6 +165,9 @@ public final class InventoryRowsGameTests {
             p.setGameMode(GameType.SURVIVAL);
             ok(h, InventoryRowsService.sweep(p) == 1 && lockedEmpty(inv, 9, 36) && inv.countItem(Items.STRING) == 0,
                 "back in survival the sweep moves it out (the hotbar is full, so it drops)");
+            List<ItemEntity> string = droppedNear(p, Items.STRING);
+            ok(h, string.size() == 1 && string.get(0).getAge() == UNLIMITED, "the dropped string never despawns: " + ages(string));
+            string.forEach(ItemEntity::discard);
             ok(h, InventoryRowsService.openRows(FakePlayerFactory.getMinecraft(level)) == InventoryRows.ALL, "fake players (machines) are exempt");
         } finally {
             key.set(was);
@@ -258,9 +274,10 @@ public final class InventoryRowsGameTests {
 
     /**
      * The Stone Age opens two rows: the status of a Dawn and a Stone Age world through the live config is 0 and 2 rows
-     * (and 3 in the Bronze Age), through encoding. A login with items in locked rows (a world from before) moves
-     * them into open slots; when the rows open, the Age-change sweep moves an item out of the still locked top row and
-     * leaves the opened rows alone.
+     * (and 3 in the Bronze Age), through encoding. A login with items in locked rows (a world from before) and one
+     * free hotbar slot moves the first stack there and drops the second at the player's feet without a lifetime; when
+     * the rows open, the Age-change sweep moves an item out of the still locked top row and leaves the opened rows
+     * alone.
      */
     @GameTest(template = "empty", batch = "firmages_7_hardship")
     public static void inventoryRowsOpenWithTheStoneAge(GameTestHelper h) {
@@ -280,13 +297,18 @@ public final class InventoryRowsGameTests {
         ServerPlayer b = null;
         try {
             key.set(0);
+            for (int i = 0; i < 8; i++) a.getInventory().setItem(i, new ItemStack(Items.TORCH)); // one hotbar slot free
             a.getInventory().setItem(12, new ItemStack(Items.FLINT, 5)); // saved before the rows were locked
             a.getInventory().setItem(30, new ItemStack(Items.BONE, 3));
             DebugPlayerCommands.despawn(a);
             b = DebugPlayerCommands.spawn(server, level, "gt_rows_login", at);
             Inventory inv = b.getInventory();
-            ok(h, lockedEmpty(inv, 9, 36) && inv.countItem(Items.FLINT) == 5 && inv.countItem(Items.BONE) == 3,
-                "login: the items left the locked rows for the hotbar, flint " + inv.countItem(Items.FLINT) + ", bone " + inv.countItem(Items.BONE));
+            List<ItemEntity> bones = droppedNear(b, Items.BONE);
+            ok(h, lockedEmpty(inv, 9, 36) && inv.getItem(8).is(Items.FLINT) && inv.countItem(Items.FLINT) == 5 && inv.countItem(Items.BONE) == 0,
+                "login: the flint left the locked rows for the free hotbar slot, flint " + inv.countItem(Items.FLINT) + ", bone " + inv.countItem(Items.BONE));
+            ok(h, bones.size() == 1 && bones.get(0).getItem().getCount() == 3 && bones.get(0).getAge() == UNLIMITED,
+                "login: the bones that found no slot lie at the player's feet and never despawn: " + ages(bones));
+            bones.forEach(ItemEntity::discard);
 
             key.set(2); // the Stone Age arrives
             ok(h, InventoryRowsService.openRows(b) == 2 && ImmersionService.status(server).inventoryRows() == 2, "two rows open");

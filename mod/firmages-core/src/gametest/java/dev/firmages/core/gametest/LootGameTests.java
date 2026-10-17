@@ -25,6 +25,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.vehicle.MinecartChest;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -40,6 +45,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -54,7 +60,10 @@ import java.util.List;
 /**
  * Level G tests of the loot Age gate (SPEC §19.5). Test data: {@code firmages_test:age_chest} yields 3 rabbit hide
  * (Dawn in the test tags), 2 bread (untagged) and a totem of undying (age_9); {@code firmages_test:iron_chest} yields 4
- * iron ingots (age_2), which the test modifier {@code firmages_test:iron_to_copper} turns into copper ingots (age_0).
+ * iron ingots (age_2), which the test modifier {@code firmages_test:iron_to_copper} turns into copper ingots (age_0);
+ * {@code firmages_test:nested_chest} yields a shulker box (totem, rabbit hide) and a bundle (copper ingot, bread; a totem
+ * alone fills a bundle). The golden
+ * helmet is disabled in the test tags.
  * Each test is its own batch (they change the server's Ages) and leaves the world in Dawn. The template test builds its
  * template from a chest in the test area ({@code StructureTemplate.fillFromWorld}) and places it with the real
  * {@code placeInWorld}.
@@ -65,6 +74,7 @@ import java.util.List;
 public final class LootGameTests {
     private static final ResourceKey<LootTable> AGE_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse("firmages_test:age_chest"));
     private static final ResourceKey<LootTable> IRON_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse("firmages_test:iron_chest"));
+    private static final ResourceKey<LootTable> NESTED_CHEST = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.parse("firmages_test:nested_chest"));
     private static final StageId AGE_9 = StageId.of("age_9");
 
     @SubscribeEvent
@@ -333,6 +343,101 @@ public final class LootGameTests {
                 ok(h, AgeService.simulate(server, AgeId.AGE_9, false), "server revoke age_9");
             })
             .thenWaitUntil(() -> h.assertTrue(dawn(server) && idle(server), "age_9 revoke and its swap"))
+            .thenSucceed();
+    }
+
+    /** The entities of a class around the block {@code at} (what a one-block template placed there). */
+    private static <T extends Entity> List<T> around(ServerLevel level, Class<T> type, BlockPos at) {
+        return level.getEntitiesOfClass(type, new AABB(at).inflate(0.5), Entity::isAlive);
+    }
+
+    private static String items(List<ItemEntity> items) {
+        return items.stream().map(e -> e.getItem().getCount() + " " + e.getItem().getItem()).toList().toString();
+    }
+
+    /**
+     * H1: a template made with {@code fillFromWorld} (entities included) from an armor stand with a golden helmet
+     * (disabled) and rabbit hide in its hand, an item entity with a totem (age_9), one with 2 rabbit hide and a chest
+     * minecart with a totem in slot 0 and 3 rabbit hide in slot 1, placed with {@code placeInWorld}: in Dawn the stand
+     * without its helmet but with its hide, no totem item, the hide item, the minecart with only its hide (3 stacks
+     * removed); in age_9 the totem item and the minecart's totem are back, the disabled helmet is not.
+     */
+    @GameTest(template = "empty", batch = "firmages_6_loot_template_entities", timeoutTicks = 1200)
+    public static void templateEntitiesFollowTheServersAge(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel level = h.getLevel();
+        StructureTemplate template = new StructureTemplate();
+        BlockPos at = h.absolutePos(new BlockPos(3, 1, 1));
+        BlockPos at9 = h.absolutePos(new BlockPos(5, 1, 1));
+        h.startSequence()
+            .thenWaitUntil(() -> h.assertTrue(idle(server), "reload pending"))
+            .thenExecute(() -> {
+                ok(h, dawn(server), "test starts in Dawn: " + AgeService.state(server).snapshot().unlockedIds());
+                BlockPos src = h.absolutePos(new BlockPos(1, 1, 1));
+                Vec3 c = Vec3.atBottomCenterOf(src);
+                ArmorStand stand = new ArmorStand(level, c.x, c.y, c.z);
+                stand.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
+                stand.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.RABBIT_HIDE));
+                ItemEntity totem = new ItemEntity(level, c.x, c.y + 0.2, c.z, new ItemStack(Items.TOTEM_OF_UNDYING));
+                ItemEntity hide = new ItemEntity(level, c.x, c.y + 0.2, c.z, new ItemStack(Items.RABBIT_HIDE, 2));
+                MinecartChest cart = EntityType.CHEST_MINECART.create(level);
+                cart.moveTo(c.x, c.y, c.z);
+                cart.setItem(0, new ItemStack(Items.TOTEM_OF_UNDYING));
+                cart.setItem(1, new ItemStack(Items.RABBIT_HIDE, 3));
+                List<Entity> source = List.of(stand, totem, hide, cart);
+                source.forEach(level::addFreshEntity);
+                template.fillFromWorld(level, src, new Vec3i(1, 2, 1), true, null);
+                source.forEach(Entity::discard);
+
+                long removedBefore = dev.firmages.core.loot.TemplateContents.counts()[1];
+                ok(h, template.placeInWorld(level, at, at, new StructurePlaceSettings(), level.getRandom(), 2), "template placed");
+                List<ArmorStand> stands = around(level, ArmorStand.class, at);
+                List<ItemEntity> loose = around(level, ItemEntity.class, at);
+                List<MinecartChest> carts = around(level, MinecartChest.class, at);
+                ok(h, stands.size() == 1 && stands.get(0).getItemBySlot(EquipmentSlot.HEAD).isEmpty()
+                        && stands.get(0).getItemBySlot(EquipmentSlot.MAINHAND).is(Items.RABBIT_HIDE),
+                    "Dawn: the stand keeps its hide, not the disabled helmet: " + stands.stream().map(a -> a.getItemBySlot(EquipmentSlot.HEAD)).toList());
+                ok(h, loose.size() == 1 && loose.get(0).getItem().is(Items.RABBIT_HIDE) && loose.get(0).getItem().getCount() == 2,
+                    "Dawn: the hide lies there, the totem item was not placed: " + items(loose));
+                ok(h, carts.size() == 1 && carts.get(0).getItem(0).isEmpty() && carts.get(0).getItem(1).is(Items.RABBIT_HIDE),
+                    "Dawn: the minecart keeps only its hide: " + carts.stream().map(m -> describe(m)).toList());
+                ok(h, dev.firmages.core.loot.TemplateContents.counts()[1] - removedBefore == 3, "three stacks removed (helmet, totem item, minecart totem)");
+                ok(h, AgeService.simulate(server, AgeId.AGE_9, true), "server grant age_9");
+                template.placeInWorld(level, at9, at9, new StructurePlaceSettings(), level.getRandom(), 2);
+                List<ArmorStand> stands9 = around(level, ArmorStand.class, at9);
+                List<ItemEntity> loose9 = around(level, ItemEntity.class, at9);
+                List<MinecartChest> carts9 = around(level, MinecartChest.class, at9);
+                ok(h, stands9.size() == 1 && stands9.get(0).getItemBySlot(EquipmentSlot.HEAD).isEmpty(), "age_9: a disabled helmet never comes back");
+                ok(h, loose9.size() == 2 && loose9.stream().anyMatch(e -> e.getItem().is(Items.TOTEM_OF_UNDYING)), "age_9: the totem item is placed: " + items(loose9));
+                ok(h, carts9.size() == 1 && carts9.get(0).getItem(0).is(Items.TOTEM_OF_UNDYING), "age_9: the minecart keeps its totem, the template kept its data");
+                ok(h, AgeService.simulate(server, AgeId.AGE_9, false), "server revoke age_9");
+            })
+            .thenWaitUntil(() -> h.assertTrue(dawn(server) && idle(server), "age_9 revoke and its swap"))
+            .thenExecute(() -> {
+                for (BlockPos p : List.of(at, at9)) level.getEntitiesOfClass(Entity.class, new AABB(p).inflate(1.5), e -> !(e instanceof ServerPlayer)).forEach(Entity::discard);
+            })
+            .thenSucceed();
+    }
+
+    /**
+     * H2: rolled loot keeps only what may stay inside its stacks too. In Dawn (no player, the server's Ages) the
+     * nested test chest gives the shulker box with only its rabbit hide and the bundle with only its bread.
+     */
+    @GameTest(template = "empty", batch = "firmages_6_loot_nested", timeoutTicks = 1200)
+    public static void nestedLootFollowsTheAges(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        ServerLevel level = h.getLevel();
+        h.startSequence()
+            .thenWaitUntil(() -> h.assertTrue(idle(server), "reload pending"))
+            .thenExecute(() -> {
+                ok(h, dawn(server), "test starts in Dawn: " + AgeService.state(server).snapshot().unlockedIds());
+                List<ItemStack> loot = roll(level, NESTED_CHEST, null, h.absolutePos(new BlockPos(1, 1, 1)));
+                ItemStack box = loot.stream().filter(s -> s.is(Items.SHULKER_BOX)).findFirst().orElse(ItemStack.EMPTY);
+                ItemStack bundle = loot.stream().filter(s -> s.is(Items.BUNDLE)).findFirst().orElse(ItemStack.EMPTY);
+                ok(h, !box.isEmpty() && boxItems(box).equals(List.of(Items.RABBIT_HIDE)), "Dawn: the rolled box keeps only its hide: " + boxItems(box));
+                List<Item> inBundle = bundle.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).itemCopyStream().map(ItemStack::getItem).toList();
+                ok(h, !bundle.isEmpty() && inBundle.equals(List.of(Items.BREAD)), "Dawn: the rolled bundle keeps only its bread: " + inBundle);
+            })
             .thenSucceed();
     }
 }

@@ -1125,11 +1125,11 @@ Felix: in Dawn only the nine hotbar slots hold items, the three main rows stay e
   - `mixin/InventoryMixin` [verified, javap]: `getFreeSlot` (`ItemStack.isEmpty` in its loop) and `getSlotWithRemainingSpace` (the third `hasRemainingSpaceForItem`, the loop after the selected slot and the offhand) skip locked indices, so `Inventory.add` and `placeItemBackInInventory` fill only open slots: pickups (`ItemEntity.playerTouch`: the tenth item stays on the ground), `/give` and FTB Quests rewards (Architectury `ItemStackHooks.giveItem` = `Inventory.add`, the rest drops), TFC's 42 `ItemHandlerHelper.giveItemToPlayer` sites. The mixin adds `canPlaceItem` (Inventory had only `Container`'s default), which NeoForge's `InvWrapper.insertItem` and `isItemValid` ask: the player capability `PlayerInvWrapper`, `PlayerMainInvWrapper` and `giveItemToPlayer` insert nothing into a locked slot (Sophisticated's feeding upgrade and `insertOrDropItem` go this way).
   - `mixin/SlotMixin`: a base `Slot` whose container is a player `Inventory` and whose index is locked is inactive (not drawn, not hovered, no tooltip) and `mayPlace` is false. Every checked menu uses vanilla `Slot` for the player inventory [verified, javap]: player inventory, chests, TFC's tab screens (`net.dries007.tfc.common.container.Container`), Curios 9.5.1, AE2 19.2.18 terminals (`AEBaseMenu.createPlayerInventorySlots`; its ME shift-click checks `mayPlace`), Tom's Storage 2.4.2, Sophisticated Core 1.5.13 (its own `mergeItemStack` checks `mayPlace` too).
   - `mixin/AbstractContainerMenuMixin`: a click (every `ClickType`) on a locked slot is dropped at the head of `clicked` (not `doClick`: Sophisticated Core overrides `doClick` with a full copy but ends its `clicked` in `super.clicked`); `moveItemStackTo` (`quickMoveStack` of most menus, Tom's terminal pull) sees a locked slot as empty and not placeable, also for mod slot classes that override `mayPlace`.
-  - Sweep (`InventoryRowsService.sweep`): items already in a locked slot move to open slots, the rest drops at the player's feet; on login (worlds from before), respawn, after every change of the global Age state (`AgeService` persist step, an Age taken back) and, as a safety net, once a second per player (a creative player turning survival, a lowered config, direct writers below).
+  - Sweep (`InventoryRowsService.sweep`): items already in a locked slot move to open slots (`Inventory.add`), the rest drops at the player's feet as an item entity without a lifetime (`player.drop(stack, false, false)`, then `ItemEntity.setUnlimitedLifetime`: it never despawns, because a 1.0.x world can hold up to 27 stacks per player in rows its Age now locks; G2 review F1); on login (worlds from before), respawn, after every change of the global Age state (`AgeService` persist step, an Age taken back) and, as a safety net, once a second per player (a creative player turning survival, a lowered config, direct writers below).
 - Status: `firmages:age_status` carries `inventoryRows` (byte, network version "8"); 3 before the first status, so the server alone decides until then (a mismatch is corrected by the server's slot sync).
 - Client (`InventoryRowsClient`): NeoForge 21.1 `AbstractContainerScreen.render` posts `ContainerScreenEvent.Render.Background` after the background and before widgets and slots [verified, javap]; every container screen paints each slot of the local player's inventory with a locked index over with #C6C6C6 (the panel colour of §19.3), frame included (x - 1 .. x + 17), so a locked row reads as plain panel. Sophisticated's `StorageScreenBase` copies `render` but posts the same event in the same order. The creative inventory is untouched (creative is exempt). No text (§18).
 - Known direct writers (they bypass the slot logic; all Bronze Age or later, so with the defaults every row is open there; the once-a-second sweep catches them with another config): Sophisticated Core's "transfer to inventory" buttons (`InventoryHelper.mergeIntoPlayerInventory`, `Inventory.setItem`), AE2's `PlayerInternalInventory` (crafting terminal shift-craft, grid clear), Gravestone 1.0.40 restores by slot index (only slots that held items at death, which were open). Slot classes that override `isActive` without `super` (Ad Astra `InventorySlot`, Exposure's album slot) still draw their hover highlight over the grey; clicks and moves are refused all the same.
-- Tests: U `InventoryRowsTest` (4: defaults per Age; config values clamped, a missing Age opens all, exemption; locked indices for 0 to 3 rows; the status field through the withers and `UNKNOWN`). G `InventoryRowsGameTests` (3, batch `firmages_7_hardship`; each sets the key of the world's current Age): `inventoryRowsHotbarOnlyInDawn` (keys and defaults; 0 rows: ten pickups, nine reach the hotbar, the tenth stays on the ground; `Inventory.add`, the capability and `giveItemToPlayer` put nothing in a locked slot; inventory menu slots 9..35 inactive and take nothing, hotbar and offhand stay; status 0 through encoding; creative exempt and swept on turning survival; fake players exempt), `inventoryRowsShiftClickFromChest` (2 rows: left click, right click and number-key swap into the locked top row do nothing, an open row takes one; 27 single items shift-clicked out of a chest with 5 hotbar slots taken: 22 move, 5 stay, the top row stays empty; a mod slot that overrides `mayPlace` refuses clicks and `moveItemStackTo`), `inventoryRowsOpenWithTheStoneAge` (status of a Dawn, Stone Age and Bronze Age world through the live config: 0, 2, 3; a saved player with items in locked rows logs in with them in the hotbar; when two rows open the Age-change sweep empties the top row and leaves the open rows; with a full hotbar a pickup lands in slot 18). `gridLockedInDawn` checks the hotbar for "the inventory itself works".
+- Tests: U `InventoryRowsTest` (4: defaults per Age; config values clamped, a missing Age opens all, exemption; locked indices for 0 to 3 rows; the status field through the withers and `UNKNOWN`). G `InventoryRowsGameTests` (3, batch `firmages_7_hardship`; each sets the key of the world's current Age): `inventoryRowsHotbarOnlyInDawn` (keys and defaults; 0 rows: ten pickups, nine reach the hotbar, the tenth stays on the ground; `Inventory.add`, the capability and `giveItemToPlayer` put nothing in a locked slot; inventory menu slots 9..35 inactive and take nothing, hotbar and offhand stay; status 0 through encoding; creative exempt and swept on turning survival, the dropped stack with unlimited lifetime; fake players exempt), `inventoryRowsShiftClickFromChest` (2 rows: left click, right click and number-key swap into the locked top row do nothing, an open row takes one; 27 single items shift-clicked out of a chest with 5 hotbar slots taken: 22 move, 5 stay, the top row stays empty; a mod slot that overrides `mayPlace` refuses clicks and `moveItemStackTo`), `inventoryRowsOpenWithTheStoneAge` (status of a Dawn, Stone Age and Bronze Age world through the live config: 0, 2, 3; a saved player with items in two locked slots and one free hotbar slot logs in with the first stack in that slot and the second at his feet with unlimited lifetime; when two rows open the Age-change sweep empties the top row and leaves the open rows; with a full hotbar a pickup lands in slot 18). `gridLockedInDawn` checks the hotbar for "the inventory itself works".
 - **Client [M], for Felix:** in Dawn (survival) the inventory, a chest, the TFC tabs and the Curios screen show the three main rows as plain grey panel, no slot frames, no hover, no tooltip; walking over items fills only the hotbar, the tenth item stays on the ground; shift-clicking out of a chest fills only the hotbar; after `/stage grant @s age_0` the two lower rows (above the hotbar) open and the top row stays grey; after `age_1` all rows; the creative inventory is unchanged in every Age.
 
 ### 19.5 Loot of a later Age never generates (round G2, Felix 2026-10-17)
@@ -1145,8 +1145,9 @@ the chest until its Age.
 
 - **Classes:** `loot/LootAgeRule` (pure), `loot/AgeLootModifier` (global loot modifier, codec `firmages:age_filter`),
   `loot/AgeLoot` (registration, the filter, whose Ages, the modifier order), `loot/LootSelfTest`,
-  `mixin/LootModifierManagerMixin`; for prefilled template containers `loot/PlacedContents` (pure),
-  `loot/TemplateContents`, `mixin/StructureTemplateMixin`. Data in the jar: `data/neoforge/loot_modifiers/global_loot_modifiers.json`
+  `mixin/LootModifierManagerMixin`; for prefilled template containers and entities and for nested loot
+  `loot/PlacedContents` (pure), `loot/NbtContents` (its NBT side, shared), `loot/TemplateContents`,
+  `mixin/StructureTemplateMixin`. Data in the jar: `data/neoforge/loot_modifiers/global_loot_modifiers.json`
   (`replace` false, entry `firmages:age_filter`) and `data/firmages/loot_modifiers/age_filter.json` (no conditions).
 - **Rule:** a generated stack stays when its item is untagged, Dawn, or of an Age in the roll's Age set; an item of
   `age_items/disabled` never stays. The set counts, not the rank (as the recipe gate and ProgressiveStages' item
@@ -1159,10 +1160,20 @@ the chest until its Age.
   `AgeService.currentSnapshot()` (the live AgeState; before it loads, the boot snapshot, not marked as used by a load).
   No creative exemption: a chest rolls once, for whoever opens it.
 - **Covered:** every roll through `LootTable.getRandomItems(LootContext)`, which ends in `CommonHooks.modifyLoot`:
-  chests, barrels, chest minecarts, dispensers and pots with a loot table, archaeology, fishing, mob and block drops,
-  bartering, gifts. Not loot: trades (§34.4), quest rewards (fixed items since B2, no reward tables), machine outputs
-  (recipes, §4; a machine's block drops are loot of the server's Ages). Prefilled containers of structure templates are
-  no loot: next item.
+  chests, barrels, chest minecarts, dispensers and pots with a loot table, archaeology, fishing, the loot tables of mobs
+  and blocks, bartering, gifts. Not loot: trades (§34.4), quest rewards (fixed items since B2, no reward tables),
+  machine outputs (recipes, §4; a machine's block drops are loot of the server's Ages), and the equipment a mob drops on
+  death (`Mob.dropCustomDeathLoot`, no loot table): the gear a mob gets when it spawns (`finalizeSpawn`: natural spawns,
+  spawners, and the random gear vanilla rolls for a jigsaw piece's mobs after placing them, `SinglePoolElement` sets
+  `finalizeEntities`) stays unfiltered; ProgressiveStages' `block_item_pickup` keeps such a drop on the ground before
+  its Age. Prefilled containers and entities of structure templates are no loot: next items.
+- **Nested loot (G2 review H2):** a rolled stack that stays keeps only what may stay inside it, by the same walk as
+  template contents (`NbtContents.filterNested`, after the top-level rule): a stack with a component patch has the patch
+  encoded to NBT (`DataComponentPatch.CODEC`), walked by `PlacedContents` (a shulker box's `minecraft:container`, a
+  bundle's `minecraft:bundle_contents`, TFC's `tfc:contents`, `tfc:vessel`, `tfc:barrel`, `tfc:crucible`, any mod's
+  list or field of stacks) and decoded into a new stack of the same item and count when something went (transient
+  components, which the codec skips, do not come along). A patch that no longer decodes would let the late items through,
+  so its stack goes with a warning. Stacks without a patch cost one check.
 - **Prefilled containers (G2 addendum):** a structure template can place a block entity with items already in it (no
   loot table; 27 of the pack's generating templates hold later or disabled items: 18 TFC Ruins templates with small
   ores, salt, flux and clay in their large vessels, 8 Ars Additions Nexus towers, a Stargate Journey Jaffa house;
@@ -1177,13 +1188,28 @@ the chest until its Age.
   or a TFC small vessel (`tfc:vessel`) keeps only what may stay. A stack is a compound with a string `id` and a
   numeric `count` (or the legacy `Count`); the block entity's own compound never counts. A stack in a list goes with
   its element, a slot entry (`{slot, item}`) with its stack, a field stack (`itemStack`, `item`) with its field, so
-  NBT readers and component codecs read what is left. One list keeps its size: the `items` of TFC 4.2.11's
-  `tfc:vessel` are `ItemStack.OPTIONAL_CODEC.listOf(4, 4)` [verified, javap `VesselComponent`], so a removed stack
-  there becomes an empty compound (an empty slot; `PlacedContents.keepsSize`). The integration boot of round G2 found
+  NBT readers and component codecs read what is left. Positional lists keep their size (`PlacedContents.keepsSize`):
+  the `items` of TFC 4.2.11's `tfc:vessel` are `ItemStack.OPTIONAL_CODEC.listOf(4, 4)` [verified, javap
+  `VesselComponent`], the `items` of `tfc:barrel` and `tfc:crucible` and `tfc:contents` are
+  `ItemStack.OPTIONAL_CODEC.listOf()` one entry per slot [verified, javap], and an entity's `ArmorItems` and
+  `HandItems` are read entry i into slot i (below), so a removed stack there becomes an empty compound (an empty slot). The integration boot of round G2 found
   it: a shortened list made the whole small vessel an invalid item ("List is too short: 0, expected range [4-4]"). It works on the data before the load, so world generation
-  threads touch no block entity, capability or chunk. Not covered: entities a template places (item frames, armor
-  stands), Sophisticated Backpacks' contents (kept in saved data by the backpack's id, not in the item), and a mod's
-  own placement code that does not go through `placeInWorld`. Same switch `gate.lootFilter`, no message.
+  threads touch no block entity, capability or chunk. Not covered: Sophisticated Backpacks' contents (kept in saved
+  data by the backpack's id, not in the item) and a mod's own placement code that does not go through `placeInWorld`.
+  Same switch `gate.lootFilter`, no message.
+- **Template entities (G2 review H1):** a template also places entities with items (Ad Astra 1.16.26: 97 Pygros in
+  `crimson_room_1` to `_5`, `crimson_tower_small`, `venus_tower`, `warped_watch_tower` with golden swords, crossbows and
+  gold armor; two item entities in `crimson_room_4`, 2 iron ingots and a gold nugget). `placeInWorld` places them in
+  `addEntitiesToWorld`, which creates each from its own copy of the template entry with the one call
+  `createEntityIgnoreException(ServerLevelAccessor, CompoundTag)` (`EntityType.create`) [verified, javap of the
+  21.1.252 merged jar, offset 156]; the mixin wraps it and `TemplateContents.filterEntity` filters that copy in place
+  with the server's Ages (`PlacedContents.filterEntity`): `ArmorItems` and `HandItems` of mobs and armor stands keep
+  their size (a removed stack becomes `{}`, `Mob` and `ArmorStand` read entry i into slot i with
+  `ItemStack.parseOptional`), an item frame's `Item` goes with its field (the frame stays, empty), the `Items` of a
+  chest minecart or a donkey and a piglin's `Inventory` lose their late stacks, nested contents included; an item entity
+  (`minecraft:item`) whose `Item` went is not created at all (a created item entity without a stack would discard itself
+  and warn when added). `Offers` stays whole (`PlacedContents.ENTITY_SKIP`: a trade needs its `buy` and `sell`; trades
+  are no contents, §34.4). Jigsaw pieces then run `finalizeSpawn` on their mobs, which can roll new gear: see Covered.
 - **Order:** NeoForge 21.1.252 builds the modifier map as a `HashMap` in `LootModifierManager.prepare`, so its
   "layered order" is lost, and LootJS 3.7.0 copies the map through a `HashMap` again at the RETURN of `apply` [verified,
   source and javap]: modifiers run in the hash order of their ids. The mixin answers `getAllLootMods` (what
@@ -1208,8 +1234,17 @@ the chest until its Age.
   ran before the gate), `templateContentsFollowTheServersAge` (a template made with `fillFromWorld` from a chest with 3
   rabbit hide, a totem, a shulker box with a totem and a hide and a bundle with a totem, placed with `placeInWorld`:
   in Dawn the hide, the box with only its hide and the empty bundle, 3 stacks removed; in age_9 everything, so the
-  template kept its data). U `PlacedContentsTest` (5: slot lists, nested shulker box, bundle and a variable list, two
-  levels deep, field stacks and air, legacy `Count`, dry run; TFC's vessel keeps its four slots). `EndgameGameTests.lootAndTradesLoseTheVanillaIngot`
+  template kept its data), `templateEntitiesFollowTheServersAge` (a template made with `fillFromWorld` with entities: an
+  armor stand with a golden helmet, disabled in the test tags, and rabbit hide in its hand, an item entity with a totem,
+  one with rabbit hide and a chest minecart with a totem and rabbit hide; in Dawn the stand keeps only its hide, no
+  totem item is placed, the hide item is, the minecart keeps its hide, 3 stacks removed; in age_9 the totem item and the
+  minecart's totem are back, the helmet is not), `nestedLootFollowsTheAges` (`firmages_test:nested_chest` rolled without
+  a player in Dawn: the shulker box keeps only its rabbit hide, the bundle only its bread, the copper ingot goes).
+  U `PlacedContentsTest` (9: slot lists, nested shulker box, bundle and a variable list, two
+  levels deep, field stacks and air, legacy `Count`, dry run; TFC's vessel keeps its four slots; a mob's `ArmorItems` and
+  `HandItems` keep their slots; an item entity without its stack is not placed, a frame stays empty; a minecart's and a
+  donkey's inventory, a villager's trades untouched; a rolled stack's component patch with `tfc:contents` and
+  `tfc:barrel` keeping their slots). `EndgameGameTests.lootAndTradesLoseTheVanillaIngot`
   rolls with the gate off. The GameTest
   modifier list lives in `src/gametest/kubejs/data/neoforge/` because the dev mod is one union of the main and the
   gametest roots, main first: a second `global_loot_modifiers.json` in the gametest resources would be hidden.
