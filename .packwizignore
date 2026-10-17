@@ -1,6 +1,6 @@
 dev/
 docs/
-server/
+/server/
 tools/
 test-server/
 README.md

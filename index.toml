@@ -869,6 +869,10 @@ file = "journeymap/icon/theme/firmament/minimap/square/topright.png"
 hash = "b40b1b4c8925aac88ca4f5bccf3fb65cf72846e12590c7b04cd7fbcf0852ac70"
 
 [[files]]
+file = "journeymap/server/6.0/journeymap.server.global.config"
+hash = "eafba3d2b31998cd79b56f2646d8cf64c8d5f4c9b0dcf844d1be7db597ba21ae"
+
+[[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
 hash = "8a513d658e9248321bed95481663ef467bda02618ea80f71d2bf311ab5f37a63"
 
@@ -11819,7 +11823,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-1.0.1.jar"
-hash = "e7e6aa93c98a26b13ece59aee8170c653b98a9ac24e5226d34352a519b5390c7"
+hash = "12afb03bedbb2cf37488d587b84cfe1afcd0ea13e070a67e8f130bd3f767a3d7"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
