@@ -8,7 +8,7 @@ Inputs
                                  [derived_hidden] never reachable items; an item takes the later of rule and derived Age)
   dev/data/registry.json         snapshot of every item id, the ore/rock block ids, the item tags the rules use
                                  and the grid-recipe namespaces (refresh with --registry, see below)
-  dev/data/tfc-4.2.11-ids.json   TFC ids by kind (rocks, ore kinds, metal items; from the TFC git tree v4.2.11)
+  dev/data/tfc-4.2.12-ids.json   TFC ids by kind (rocks, ore kinds, metal items; from the TFC git tree v4.2.11, crafting ids of 4.2.12)
   config/progressivestages/stages/disabled.toml   items locked forever (they go to age_items/disabled)
 
 Outputs
@@ -54,7 +54,7 @@ ROOT = Path(__file__).resolve().parent.parent
 STAGES_DIR = ROOT / "config" / "progressivestages" / "stages"
 AGE_MAP = ROOT / "dev" / "age_map.toml"
 REGISTRY = ROOT / "dev" / "data" / "registry.json"
-TFC_IDS = ROOT / "dev" / "data" / "tfc-4.2.11-ids.json"
+TFC_IDS = ROOT / "dev" / "data" / "tfc-4.2.12-ids.json"
 TAG_DIR = ROOT / "kubejs" / "data" / "firmages" / "tags"
 NAMESPACES_ASSET = ROOT / "kubejs" / "assets" / "firmages" / "age_namespaces.json"
 HIDDEN_TAG = ROOT / "kubejs" / "data" / "c" / "tags" / "item" / "hidden_from_recipe_viewers.json"

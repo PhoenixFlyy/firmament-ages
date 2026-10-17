@@ -49,6 +49,7 @@ locked_ids = [
     # >>> generated:dawn_crafting >>>
     "name:tfc:crafting/alabaster/",
     "name:tfc:crafting/brick/",
+    "name:tfc:crafting/buoy/",
     "name:tfc:crafting/ceramic/",
     "name:tfc:crafting/coarse_dirt/",
     "name:tfc:crafting/cut_sandstone/",
@@ -144,6 +145,7 @@ locked_ids = [
     "id:tfc:crafting/lattice_windmill_blade",
     "id:tfc:crafting/lemon_jam",
     "id:tfc:crafting/light_gray_dye",
+    "id:tfc:crafting/lobster_trap",
     "id:tfc:crafting/medium_raw_hide",
     "id:tfc:crafting/melon_slice_jam",
     "id:tfc:crafting/music_disc_11",

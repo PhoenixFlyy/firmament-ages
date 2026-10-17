@@ -1,5 +1,5 @@
 {
- "source": "TerraFirmaCraft git tree tag v4.2.11 (github.com/TerraFirmaCraft/TerraFirmaCraft); ids derived from assets/tfc/blockstates, assets/tfc/models/item and src/generated/resources/data/tfc/recipe/crafting",
+ "source": "TerraFirmaCraft git tree tag v4.2.11 (github.com/TerraFirmaCraft/TerraFirmaCraft); ids derived from assets/tfc/blockstates, assets/tfc/models/item and src/generated/resources/data/tfc/recipe/crafting; TFC 4.2.12 (round G1): crafting group buoy (16) and single lobster_trap added from the 4.2.12 jar's data/tfc/recipe/crafting, nothing removed",
  "rocks": [
   "andesite",
   "basalt",
@@ -890,6 +890,7 @@
  "crafting_recipe_groups": {
   "alabaster": 97,
   "brick": 21,
+  "buoy": 16,
   "ceramic": 62,
   "coarse_dirt": 8,
   "cut_sandstone": 28,
@@ -989,6 +990,7 @@
   "lattice_windmill_blade",
   "lemon_jam",
   "light_gray_dye",
+  "lobster_trap",
   "medium_raw_hide",
   "melon_slice_jam",
   "music_disc_11",

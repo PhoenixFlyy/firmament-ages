@@ -442,7 +442,7 @@ hash = "4b482316317de13271b0340cd9030b9e0bb54329ec9fdd44cda50ef010ddb2aa"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "2405d0e7738dbf0488d7613b839a84cd72a80bbd519321ca9ee768804cd82bd7"
+hash = "16ae6c18493bb728aca6711f8fd55a308395a57f5996c2fa49acc62ff04e241c"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
@@ -470,7 +470,7 @@ hash = "62c0d7c920ad50a9177d672be1792ca30173e4bdf980ac76296cecbb1d400ac1"
 
 [[files]]
 file = "config/progressivestages/stages/age_7.toml"
-hash = "d8c585e17dd56ddf9768630040e0b8ede064dbbeb6c06b07925242cb3ec0ace4"
+hash = "1afbe188ce488e18c1f93ccbb300b70eae101f22869bcf36a4d245661f797c59"
 
 [[files]]
 file = "config/progressivestages/stages/age_8.toml"
@@ -3490,7 +3490,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "5c55584b4375cfb0132e3d0cd5c461af352a6d25e08413aea263366dd29c665b"
+hash = "eb06cab6f9eba1a8bae8c806ffadef463279f19b805b5a62534ab034f6fbfe86"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -6738,7 +6738,7 @@ hash = "96e1298f892554f1226261f5d2e282b8bf957e30f9e2044565df40987861182d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "cd63f2bf44c973f7af29bf6002715f04ea1395b90a1b2a78941740d893cd82e3"
+hash = "23fa73f26378c30f937e7f7df600487d98649cadd9496554c505a8b6fd436f82"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
@@ -6766,11 +6766,11 @@ hash = "2396eb4c6b3ff5a3749fb8ea98284ed6ddcdc7d1b82269b3daec4249bef26284"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "1c42888a9187e07205194d920e1b8903f4da79523496ab0dd8c47efebf91daaa"
+hash = "07ae8b3b6d2e47f18b14542493da68c88ec9542fd49107c9075d6be4bda2489e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "fb68ceb81faf5ae493c7be3a0634b0f116faf1215c9bc016da740d813241789e"
+hash = "0b680a8861fb7be74f9bbe3db7fc803c6ba241979722c6765acd89f195acef11"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/rope_bridges.json"
@@ -10758,7 +10758,7 @@ hash = "cdb5d92175821ca13075d19450e9835ab9f02be9497a833bc911d3cdaea359b9"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_7/laser_bridges.js"
-hash = "e6d88bc7bec456ca55d38786703d5a7b243c1b7db72371a2cd4f40d04886e062"
+hash = "90a54600afc144986a237538e5d8ef13a9d1e02fd8cb58eb1e78351873d83dc8"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_7/launch_complex.js"
@@ -10943,7 +10943,7 @@ metafile = true
 
 [[files]]
 file = "mods/ae2-draconic-fusion-autocrafter.pw.toml"
-hash = "c7a85d423442c5c5811502e115c3911a9715457467fed0f013011ff35293b8c8"
+hash = "1e454425799a8b20f812ae9e8d13e116ab6517d2be01c1ce6f1ac7886fd917cc"
 metafile = true
 
 [[files]]
@@ -10958,7 +10958,7 @@ metafile = true
 
 [[files]]
 file = "mods/alexs-mobs-continued.pw.toml"
-hash = "6a83b750a2a0dd77c418019b2fd61e1abcc07cf3b28c3c919569b9e5c89a8eb7"
+hash = "633521478b5b493b8ff1d1aef2ea686cd6588fc610799d750b37c4610f364f27"
 metafile = true
 
 [[files]]
@@ -11473,7 +11473,7 @@ metafile = true
 
 [[files]]
 file = "mods/dusty-decorations.pw.toml"
-hash = "63987a728003b283cff993b6c9f7b857fbe39ccce0710ebb9a74bebb08dde9f6"
+hash = "34a8034081fe62ef5502610796489aabd32284363adafc7198e04f045af74c78"
 metafile = true
 
 [[files]]
@@ -11523,7 +11523,7 @@ metafile = true
 
 [[files]]
 file = "mods/every-compat.pw.toml"
-hash = "59beffdccf42d026e3615c3e02e10618b863cf4a2ec3c6112d8ae0d4e3ee1228"
+hash = "b876d358304cb85a137d575c8a9403c0bfd0004bc6cdbddb6fa0b0f7de55b159"
 metafile = true
 
 [[files]]
@@ -11557,8 +11557,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-1.0.0.jar"
-hash = "1d01d4e7f829a53971bdc3de9da39725f010ee16c6eb8ede7242b99fe05042ba"
+file = "mods/firmages-core-1.0.1.jar"
+hash = "e7e6aa93c98a26b13ece59aee8170c653b98a9ac24e5226d34352a519b5390c7"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
@@ -11717,7 +11717,7 @@ metafile = true
 
 [[files]]
 file = "mods/jei.pw.toml"
-hash = "f45960e78cdfe0d4ffe832cc289f81221b1e453dc47dfaee72502bda84cded26"
+hash = "50109154721adb4a72b7f2d034b1839aea2221d84bce2c40a6dfd98368363716"
 metafile = true
 
 [[files]]
@@ -11782,7 +11782,7 @@ metafile = true
 
 [[files]]
 file = "mods/laser-bridges-doors.pw.toml"
-hash = "109db7442a7027c6476198c0b2e0df5879e7f5e6d9d60287e73fa26e534f13bf"
+hash = "9afcb60e4397e1f9ec59b376dea9094f434a78a236d4f90bd64d04e61cc05900"
 metafile = true
 
 [[files]]
@@ -12092,7 +12092,7 @@ metafile = true
 
 [[files]]
 file = "mods/sophisticated-core.pw.toml"
-hash = "d7c5f80d93574bb42131a4715f7b57d3d4a1882222ff76add9b72e60e48fb34a"
+hash = "92d83ec89c18bd44d038584f47244d827249ea27961b2f63a6222d9d4b09dddc"
 metafile = true
 
 [[files]]
@@ -12142,7 +12142,7 @@ metafile = true
 
 [[files]]
 file = "mods/terrafirmacraft.pw.toml"
-hash = "23e6cf23b64f2510d5addae6d031f167c1ef84e1942c000708f796dc64e32b58"
+hash = "e2b40e77bc51bf0462d9a9c8a6a9c42418d42d003d3b08473636e0f980672828"
 metafile = true
 
 [[files]]
