@@ -28,7 +28,7 @@ whitelist add <name>      every player, yourself included
 op <name>                 only for admin work
 ```
 
-Operators and creative players see the recipe viewer in every Age: deop yourself to play the Ages as intended.
+Only creative mode sees the recipe viewer in every Age; operators in survival play the Ages like everyone else.
 
 ## Memory
 

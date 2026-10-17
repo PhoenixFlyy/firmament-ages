@@ -1,5 +1,31 @@
 # Client-Test
 
+## 1.0.1 Checkliste (Runde G1, Pack 1.0.1, firmages-core 1.0.1, 2026-10-17)
+
+Die Client-Prüfungen der Runde G1 (Felix' Rückmeldung zu 1.0.0). Neues Profil aus
+`dev/exports/FirmamentAges-1.0.1.mrpack` (oder der CurseForge-Zip), Client und Server mit firmages-core 1.0.1. Wo die
+„1.0 Checkliste“ darunter dieser Liste widerspricht, gilt diese; die überholten Zeilen dort sind markiert. Server-Teil
+auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0.1 round G1“).
+
+| # | Prüfung | Schritte | Erwartung |
+|---|---|---|---|
+| 1 | Dawn ohne Cheats gesperrt | Neue Welt, Überleben, Cheats aus. E, dann Ctrl+O, Ctrl+R und Ctrl+U über einem Item, G | Keine Itemliste, Ctrl+O/R/U tun nichts, kein Rezeptfenster; im Inventar kein Curios- und kein Attributes-Knopf; G öffnet nichts |
+| 2 | Operator im Survival gesperrt | Welt mit Cheats an (oder `/op`), Überleben, Dawn: dieselben Tasten wie in 1 | Wie 1: auch der Operator sieht keine Itemliste und keine Knöpfe (seit G1 ist nur Kreativ ausgenommen) |
+| 3 | Kreativ sieht alles | `/gamemode creative` in Dawn, Inventar öffnen, Ctrl+O, G | Itemliste da, Rezepte per R/U, Curios- und Attributes-Knopf da; zurück auf `/gamemode survival`: wieder gesperrt |
+| 4 | Knöpfe kommen mit der Steinzeit | `/stage grant @s age_0` (oder „The First Spark“), Inventar neu öffnen | Curios- und Attributes-Knopf zurück, G öffnet Curios; keine Chatzeile, kein Toast dazu; Itemliste bleibt bis zur Bronzezeit zu |
+| 5 | Jade „Unknown“ ab Bronze | `age_1` vergeben, Jade auf einen IE- oder Mekanism-Block (per Befehl gesetzt oder aus einer Struktur) und auf Öl (Immersive Petroleum) | „Unknown“ mit dem goldenen Zeichen, keine Mod-Zeile; ein Create-Block und Granit zeigen ihren Namen; in Dawn und Steinzeit zeigt Jade gar nichts |
+| 6 | Dawn ohne Hinweistexte | In Dawn einen Stamm mit der Hand schlagen, E öffnen (graues Feld ansehen), Steinaxtkopf und Stock mit V legen und schleichend mit leerer Hand rechtsklicken, `/ponder` als Nicht-Operator | Kein Text: nichts in der Aktionsleiste, nichts im Chat, nichts auf der grauen Fläche; die Steinaxt entsteht trotzdem; `/ponder` antwortet nichts |
+| 7 | Vanilla-Herzen | Neue Welt, Lebensleiste ansehen, einseitig essen, Schaden nehmen | 20 volle Herzen ab Start, keine TFC-Leiste „850 / 1000“, die Herzen bleiben bei jeder Kost gleich |
+| 8 | Quest-Panel flach | K öffnen, F3+T einmal, Rechtsklick auf eine Quest, Kapitelleiste links aufklappen | Hintergrund flach nachtblau im Goldrahmen, keine Kachelung, nicht verschwommen; Kontextmenü und Kapitelleiste genauso |
+| 9 | Schreinbild | The Firmament, „The Shrine of Caelum“ öffnen | Bild des fertigen Schreins (alle Ringe, Herz, Plinth), scharf, nicht verzerrt |
+| 10 | Dawn-Quests | Dawn-Kapitel: „Loose and Found“, „A Shrine on the Road“, „Wild Harvest“ und „Seeds of the Wild“, „Far from Home“ | Gesteinsfamilie im Hover eines losen Steins sichtbar; der Kern der Tutorial-Wayshrine (300 bis 800 Blöcke vom Spawn, Lichtstrahl) lässt sich in Dawn ansehen und hakt die Quest ab; Wildpflanzen im hohen Gras geben Ertrag und Samen; 1 km zu Fuß hakt ab, Sprinten zählt nicht |
+| 11 | Keine Erfahrung neben Items | Eine Dawn-Quest mit Item-Belohnung abholen | Nur Items, keine XP |
+| 12 | Backups | Server 60 Minuten mit einem Spieler laufen lassen | `simplebackups/` hat nach 60 min ein Backup, höchstens zwölf bleiben |
+| 13 | Keine Karte vor der Eisenzeit | Neue Welt, Überleben, Dawn: J, B und `\` drücken, Chat beim Beitreten lesen | Keine Minimap, keine Vollbildkarte, kein Wegpunkt-Fenster, keine JourneyMap-Zeile „Press [J]“ im Chat, kein Splash |
+| 14 | Karte ab der Eisenzeit | `/stage grant @s age_2` (Ages nacheinander), umsehen, J | Runde Minimap im Firmament-Stil (nachtblau, Goldlinie, cremefarbene Schrift), Nord oben, eigene FTB-Claims auf Mini- und Vollkarte; J öffnet die Karte ohne Splash; kein Radar anderer Spieler oder Mobs; nach einem Tod kein Todespunkt |
+| 15 | Bäume fallen ganz | Steinaxt an eine wilde TFC-Eiche, danach eine Sequoia oder ein Kapok (FPS beobachten), ein 2x2-Stamm, einmal schleichend | Der Baum kippt mit Ästen und Laub, kein Ast bleibt in der Luft hängen, nach dem Fall droppen Vanilla-Stämme der Holzklasse; der große Baum fällt ganz, ohne Ruckler über Sekunden; der 2x2-Stamm fällt von einem Block aus; schleichend bricht nur ein Stamm |
+| 16 | „Stone Kit“ | Nach dem ersten gefällten Baum die Quest ansehen | „Stone Kit“ schließt ab |
+
 ## 1.0 Checkliste (Pack 1.0.0, firmages-core 1.0.0, 2026-10-17)
 
 Eine Liste für den Client-Test von 1.0. Sie fasst alle offenen Client-Punkte der Abschnitte „0.10.0 Nachtrag“ bis
@@ -30,13 +56,12 @@ dem B2-Review zwei bis sieben), die 57 fehlenden Mods der alten Client-Instanz (
 
 ### Dawn
 
-4. **Kein 2x2-Feld.** E öffnen: kein Feld, kein Pfeil, kein Rezeptbuch-Knopf; die graue Fläche sagt umgebrochen „No grid
-   yet. V: lay items on a block. Sneak + Right Button with an empty hand: craft.“ (Tasten aus der Belegung), beim ersten
-   Öffnen der Sitzung einmal in der Aktionsleiste. Dasselbe im Curios-Bildschirm und im Rucksack. Als OP in EMI ist das
-   „+“ grau.
-5. **Bodenhandwerk.** Steinaxtkopf knappen, Kopf und Stock je mit V auf denselben Block legen, Aktionsleiste „Sneak and
-   right-click with an empty hand: Stone Axe“, leere Hand, Strg halten, Rechtsklick: Steinaxt, Haufen weg, kein
-   Flackern. Vier Stroh = Thatch, zwei Stöcke = Feuerstarter. Quest „By Hand“ hakt ab.
+4. **Kein 2x2-Feld.** E öffnen: kein Feld, kein Pfeil, kein Rezeptbuch-Knopf. Dasselbe im Rucksack. **Überholt durch
+   G1:** ~~die graue Fläche sagt „No grid yet …“, Aktionsleiste beim ersten Öffnen, Curios-Bildschirm, als OP in EMI ist
+   das „+“ grau~~ (kein Text, kein Curios-Knopf in Dawn, kein EMI für Operatoren im Survival; 1.0.1 Checkliste 1, 2, 6).
+5. **Bodenhandwerk.** Steinaxtkopf knappen, Kopf und Stock je mit V auf denselben Block legen, leere Hand, Strg
+   halten, Rechtsklick: Steinaxt, Haufen weg, kein Flackern. **Überholt durch G1:** ~~Aktionsleiste „Sneak and
+   right-click with an empty hand: Stone Axe“~~ (kein Hinweis mehr). Vier Stroh = Thatch, zwei Stöcke = Feuerstarter. Quest „By Hand“ hakt ab.
 6. **Tiere und Händler.** Warme, trockene Gegend: Elefanten, Nashörner, Kängurus, Emus; kalter Wald: Waschbären und
    Blauhäher, keine Tukane. Ein Goblin in einer Höhle unter Y 40 handelt TFC-Waren der aktuellen Age, keine
    Schatzkarte. Straße „Strange Beasts“.
@@ -46,8 +71,8 @@ dem B2-Review zwei bis sieben), die 57 fehlenden Mods der alten Client-Instanz (
 
 ### Steinzeit
 
-8. **Freischaltung.** „The First Spark“: Chat „Your hands have learned: the crafting grid is open (E).“, Feld da, vier
-   Stroh geben im Feld Thatch.
+8. **Freischaltung.** „The First Spark“: Feld da, vier Stroh geben im Feld Thatch. **Überholt durch G1:** ~~Chat „Your
+   hands have learned: the crafting grid is open (E).“~~ (keine Chatzeile mehr).
 9. **Holzklassen.** Wilden TFC-Baum fällen: Vanilla-Stämme seiner Klasse (Jade nennt die Art). Säge + Vanilla-Stamm =
    2 Bretter, Säge + Bretter = Lumber der Leitart, 4 Vanilla-Bretter = Werkbank (Quest „Workbench“). Acht
    Klassen-Stämme um einen Art-Setzling = acht Stämme der Art. Vanilla-Bäume im Wald neben TFC-Bäumen: wirken sie
@@ -199,8 +224,8 @@ dem B2-Review zwei bis sieben), die 57 fehlenden Mods der alten Client-Instanz (
     „Nuts“, „Diesel“ und „Psi“; Aufgaben mit „eines von“ (Zucker, Prospektor) zeigen alle Items. **F1**
 57. **Texte.** Brechwalzen „about 1.5 times“, Crusher „two and a half times“. „The Pale Watcher“ (Cave Dweller unter
     Y 0 sehen) und „Armed Dead“ (16 Zombies) haken ab.
-58. **Jade** zeigt ab der Bronzezeit auch Namen gesperrter Blöcke (Entscheidung „F1 Gating: bleibt wie es ist“): stört
-    das?
+58. **Überholt durch G1:** ~~Jade zeigt ab der Bronzezeit auch Namen gesperrter Blöcke: stört das?~~ Felix'
+    Antwort: „Unknown“ mit Zeichen (1.0.1 Checkliste 5).
 59. **Client-Mods.** 3D Skin Layers, Cool Rain, Chat Heads, Big Sign Writer laufen ohne Meldung; BetterF3 zeigt in der
     Steinzeit keine Koordinaten.
 

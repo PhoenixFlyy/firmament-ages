@@ -130,9 +130,9 @@ Beasts (off "Hunter"): kangaroo, emu, roadrunner and rattlesnake.
   hand; a placed torch burns about 36 minutes.
 - Something hunts in deep, dark caves until the Iron Age.
 - The thatch bed sets your spawn but never skips the night. Beds that do come with the Iron Age.
-- No recipe viewer, no block tooltip and no coordinates on F3 until the Bronze Age. The Chronicle (K) is the only
-  list. Top left, a small sign names your Age and its goal; hold H to see it again.
-- No thirst. A plain diet does no harm; a varied one makes you hardier. Food rots and tools wear.
+- No recipe viewer, no block tooltip and no coordinates on F3 until the Bronze Age, operators included. The
+  Chronicle (K) is the only list. Top left, a small sign names your Age and its goal; hold H to see it again.
+- No thirst, and twenty hearts whatever you eat. Food rots and tools wear.
 - At night zombies and spiders walk the surface.
 
 ---

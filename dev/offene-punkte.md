@@ -1,6 +1,6 @@
 # Offene Punkte
 
-Stand 2026-10-17, Pack 1.0.0, firmages-core 1.0.0. Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
+Stand 2026-10-17, Pack 1.0.1, firmages-core 1.0.1. Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
 Felix trifft, Prüfungen im Client und Ideen für die Zeit nach 1.0. Erledigtes früherer Runden steht in der Git-Historie
 dieser Datei (bis Commit `7689802`) und mit Beleg in `dev/poc-results.md`; unten nur, was die Runden F1 und G1
 geschlossen haben.
@@ -8,13 +8,21 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 
 ## Entscheidungen (Felix)
 
-Keine offenen Entscheidungen: Felix hat die neun Fragen am 2026-10-17 beantwortet, jede steht mit Beleg unter „Erledigt in Runde G1“.
+Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A am 2026-10-17 beantwortet, jede steht mit Beleg unter „Erledigt in Runde G1“.
+
+## Bestehende Welten (Server)
+
+| Was | Wo | Wer |
+|---|---|---|
+| Vanilla-Herzen nur in neuen Welten: eine Welt von 1.0.0 behält TFCs Gesundheit (Default 0,85) in ihrer Welt-Config; bei gestopptem Server `nutritionMinimumHealthModifier`, `nutritionDefaultHealthModifier` und `nutritionMaximumHealthModifier` von Hand auf `1.0` setzen | `<Welt>/serverconfig/tfc-server.toml` `[mechanics.player]` | Felix |
+| Welten, die älter als drei Tage sind und keine Tutorial-Wayshrine haben (Suche bis 1.0.0 mit nur 16 Peilungen, oder vor 0.12.0 angelegt): der Dawn-Keystone „A Shrine on the Road“ ist dort unerfüllbar, und „The First Spark“ wartet auf ihn. Felix' Testwelt ist neu; eine solche Welt bräuchte die Quest von Hand abgehakt | Questbuch, firmages-core `WayshrineTutorial` | Felix, falls eine solche Welt in Dawn steht |
 
 ## Im Client prüfen (Felix)
 
 | Was | Wo | Wer |
 |---|---|---|
-| **Die „1.0 Checkliste“** oben in `dev/client-test-brief.md`: alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age geordnet, mit Schritten und Erwartung | `dev/client-test-brief.md` | Felix |
+| **Die „1.0.1 Checkliste“** oben in `dev/client-test-brief.md` (Runde G1: Betrachter und Knöpfe nach Age, nur Kreativ ausgenommen, Jade „Unknown“, keine Hinweistexte, Vanilla-Herzen, Quest-Panel, Schreinbild, neue Dawn-Quests, Backups), je Zeile Schritte und Erwartung | `dev/client-test-brief.md` | Felix |
+| **Die „1.0 Checkliste“** darunter: alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age geordnet, mit Schritten und Erwartung | `dev/client-test-brief.md` | Felix |
 | Titelbild: nach dem ersten Blick auf das Shader-Sternbild `show_compile_errors = true` wieder auf `false` | `config/fancymenu/customization/title_screen_layout.txt` | Felix sieht, Claude stellt um |
 | Industriezeit-Quest „The Thresher“ schließt beim Blick auf einen geformten Thresher ab; Loot-Crate-Opener und Task-Screen-Konfigurator fehlen in EMI | Questbuch, EMI | Felix |
 | IE-Handbuch-Vorschau von Mahlwerk, Webstuhl, Lichtbogenofen, Schaufelrad, Bagger, Koker und Pumpjack zeigt den TFC-Stahlblock | IE-Handbuch | Felix |
@@ -51,6 +59,8 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen am 2026-10-17 beantworte
 | GUI-Resourcepacks mit anderer Grundfarbe zeigen in Dawn ein graues Rechteck über dem Feld (#C6C6C6 fest); das Pack liefert keins mit | firmages-core `client/immersion/GridLockClient` | Claude, falls ein GUI-Pack dazukommt |
 | Planungsdokumente: `08-Ages-Design.md` „§0 Stand“, `10-Modliste.md` aus `mods/*.pw.toml` erzeugen, `12-Walkthrough.md` auf einen Verweis auf `docs/WALKTHROUGH.md` kürzen | `../Modpack-Planung/docs/` | Claude |
 | Der TFC-GameTest-Lauf (`-PgametestTfc`) stürzt in `IsleGameTests.shapeAndSkyLight` ab (NPE in `LightEngine.getLightValue`); der Standardlauf (125 von 125) ist grün | `src/gametest/.../IsleGameTests.java` | Claude |
+| Generierte Breitstämme (`branch_direction none` in TFCs `sequoia_large` und `douglas_fir_large`) droppen vermutlich den TFC-Stamm statt des Vanilla-Klassenstamms (HW1A); bestand schon vor G1, nie geprüft | `dev/gen_wood_classes.py`, Loot der Stämme | Claude |
+| Prism-Freunde mit einer alten `firmages-client.toml` haben den neuen Chat-Blocklist-Eintrag nicht: JourneyMaps Join-Zeile ist dort einmal zu sehen, bis die Datei neu geschrieben wird | `config/firmages-client.toml` `[chat]` | Felix, falls es stört |
 
 ## Erledigt in Runde F1 (mit Beleg)
 
@@ -92,6 +102,11 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen am 2026-10-17 beantworte
 | AdvancedAE Strength Card sperren? Antwort: sperren | `advanced_ae:strength_card` in `[hidden]` (`dev/age_map.toml`), Tag `age_items/disabled` und `HIDDEN_ITEMS`; Zeile „G1: AdvancedAE Strength Card bleibt gesperrt“ |
 | Backups ohne erzwungenes Speichern? Antwort: so lassen, Timer 30 bis 60 Minuten nach Vorbild bekannter Packs | `config/simplebackups-common.toml` `timer = 60`, `backupsToKeep = 12`, `saveAll = false`; Zeile „G1: Backups alle 60 Minuten, zwölf Stück“ (mit Vergleich und Klarstellung zu den „fünf Minuten“) |
 | Ars-Elemental-Blitzteile? Antwort: versteckt lassen | `[derived_hidden]` in `dev/age_map.toml`, kein Pack-Rezept für die Schote; Zeile „G1: Ars-Elemental-Blitzteile bleiben versteckt“ |
-| Jade-Namen gesperrter Blöcke? Antwort: geheimnisvolles Zeichen und „Unknown“ | Entschieden; Umsetzung in firmages-core 1.0.1 (Worker g1-core), erst mit dessen Merge und einem Client-Test belegt; Zeile „G1: Jade zeigt „Unknown“ bei gesperrten Blöcken“ |
+| Jade-Namen gesperrter Blöcke? Antwort: geheimnisvolles Zeichen und „Unknown“ | firmages-core 1.0.1 (`FirmagesJadePlugin`, `UnknownBlocks`, Sigil aus `dev/gen_textures.py` `MOD_GUI`), mit Pack 1.0.1 gemergt; `UnknownBlocksTest`; Client-Prüfung offen (1.0.1 Checkliste 5); Zeile „G1: Jade zeigt „Unknown“ bei gesperrten Blöcken“ |
 | Last des Arkan-Katalysators? Antwort: ohne Last | firmages-core §41.3 unverändert; Zeile „G1: Arkan-Katalysator ohne Last“ |
 | Neue Regel: keine Erklärtexte (Entfernen, Ersetzen oder Freischalten eines Features bekommt keinen Hinweistext; Sperr-Rückmeldungen bleiben) | `dev/style-guide.md` Abschnitt „Keine Erklärtexte“, `dev/kontext.md` §2; Zeile „G1: Keine Erklärtexte“ |
+| Felix sah in Dawn EMI (Operator im Einzelspieler mit Cheats) | Betrachter-Ausnahme nur noch Kreativ: `ViewerGate.open(ageAllows, creative)`, `InventoryButtons`, `InventoryButtonGate`; `gradlew build` 280 Unit-Tests, `runGameTestServer` 125 von 125; Client-Prüfung 1.0.1 Checkliste 1 bis 3; Zeile „G1: Betrachter-Ausnahme nur Kreativ“ |
+| Mods auf die neueste passende Version (Felix) | acht Updates, Supplementaries und Create: Extra Gauges gepinnt; keine Mod zurückgesetzt; Belege in `dev/poc-results.md` „1.0.1 Runde G1“; Zeile „G1: Mod-Updates auf die neueste passende Version“ |
+| Minimap (Felix M1A) | JourneyMap 6.0.9 und JourneyMap Integration 1.9.1 ab der Eisenzeit (`ui.mapFromAge`, firmages-core `MapGate`, U `MapGateTest`), Theme „Firmament“, kein Radar, keine Todespunkte; Zeilen „G1: JourneyMap ist die Karte“ und „G1: JourneyMap ohne Todespunkte“; Client-Prüfung 1.0.1 Checkliste |
+| Baumfällen (Felix T1A) | Enhanced Falling Trees 0.7.0, TFC-Fällung aus (`#tfc:logs_that_log` leer), `mixin/eft/DefaultTreeMixin` (U `TreeFamilyTest`); Zeilen „G1: Enhanced Falling Trees statt TFC-Fällung“ und „G1: Steinaxt fällt ohne Abzug“; Client-Prüfung 1.0.1 Checkliste |
+| Questbuch eingefroren (Felix Q1A) | `dev/gen_quests.py` nur mit `--unfreeze`, SNBT ist die Quelle, `dev/quests-editing.md`; Zeile „G1: Questbuch eingefroren“ |
