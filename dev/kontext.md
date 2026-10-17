@@ -67,7 +67,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 - `python dev/gen_wayshrines.py`, `python dev/gen_ark.py`, `python dev/gen_cold_forge.py` (je `--check`): Wayshrines samt Ruinen, Origin-Archipel, Cold-Forge-Vorlage.
 - `python dev/gen_recipe_overrides.py --check --mods <Kopie>/mods`: Overrides für Mod-Rezeptdateien, die KubeJS nicht lesen kann.
 - `python dev/gen_loot_silence.py` (`--check`): leere Loot-Tabellen für Compat-Blöcke fehlender Mods.
-- `powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1 -Version X.Y.Z`: LF-Prüfung, `packwiz refresh`, Version in `pack.toml` und Titelbild, Exporte nach `dev/exports/`.
+- `powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1 -Version X.Y.Z`: LF-Prüfung, `packwiz refresh`, Version in `pack.toml` und Titelbild, Exporte nach `dev/exports/`; mit `-LocalServer` (oder `-LocalServerDir <Pfad>`) danach Felix' lokaler Server-Ordner `FirmamentAges-Server-<v>` (Welt bleibt, `white-list=false`, Repo-JDK in `start.bat`; `dev/release.md` Abschnitt 1). Die Server-Pack-`start.bat` ist die einzige Startdatei (ohne `start-local.bat`) und nimmt einen Ordner `jdk` oder `java` neben sich zuerst.
 - `python dev\cf\export_cf.py`: CurseForge-Upload-Zip (Modrinth-Metadateien gegen `dev/cf/swap/` getauscht); hochladen nie.
 - `python dev/run_server.py --server-dir <Kopie> --xmx 5G --hold 240 --timeout 900` (`--wipe-world`, `--cmd "<Befehl>"`): Boot, Konsolenbefehle, Zusammenfassung, zum Schluss `stop` und `stop confirm` (firmages-core fragt seit 1.0.2 vor dem Stopp, `/restart` startet über die Startskripte neu, SPEC §10.1); nur auf einer Kopie (Abschnitt 6).
 

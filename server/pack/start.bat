@@ -11,13 +11,16 @@ set "RESTART_DELAY=10"
 set "INSTALLER=neoforge-%NEOFORGE%-installer.jar"
 set "WINARGS=libraries\net\neoforged\neoforge\%NEOFORGE%\win_args.txt"
 
-rem Java 21: the first of FA_JAVA_HOME, JAVA_HOME and java on PATH that is Java 21 (another version is skipped).
+rem Java 21: the first of the folders jdk and java next to this script, FA_JAVA_HOME, JAVA_HOME and java on PATH that is Java 21
+rem (another version is skipped). Unzip a JDK 21 into the folder jdk here (jdk\bin\java.exe) and nothing needs to be installed.
 set "JAVA="
-if defined FA_JAVA_HOME if exist "%FA_JAVA_HOME%\bin\java.exe" call :try "%FA_JAVA_HOME%\bin\java.exe"
+if exist "%~dp0jdk\bin\java.exe" call :try "%~dp0jdk\bin\java.exe"
+if not defined JAVA if exist "%~dp0java\bin\java.exe" call :try "%~dp0java\bin\java.exe"
+if not defined JAVA if defined FA_JAVA_HOME if exist "%FA_JAVA_HOME%\bin\java.exe" call :try "%FA_JAVA_HOME%\bin\java.exe"
 if not defined JAVA if defined JAVA_HOME if exist "%JAVA_HOME%\bin\java.exe" call :try "%JAVA_HOME%\bin\java.exe"
 if not defined JAVA call :try java
 if not defined JAVA (
-  echo Java 21 not found. Install Java 21, or set FA_JAVA_HOME to its folder. FA_JAVA_HOME, JAVA_HOME and PATH were checked.
+  echo Java 21 not found. Unzip a JDK 21 into the folder jdk next to this script, install Java 21, or set FA_JAVA_HOME to its folder.
   pause
   exit /b 1
 )
