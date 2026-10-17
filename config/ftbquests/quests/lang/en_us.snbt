@@ -23,7 +23,7 @@
 		"A Great Work of the Space Age: a rocket that rises from the ground."
 	]
 	chapter.1A21A4720E938BB6.title: "The Silo"
-	chapter.1D01936AE318F34B.chapter_subtitle: ["The map opens. Iron veins become visible."]
+	chapter.1D01936AE318F34B.chapter_subtitle: ["Iron veins wake."]
 	chapter.1D01936AE318F34B.title: "Iron Age"
 	chapter.1ECA2119E26A0A06.chapter_subtitle: ["Clay, pit kilns and the first cast copper."]
 	chapter.1ECA2119E26A0A06.title: "Stone Age"
@@ -204,10 +204,6 @@
 		"Datura fruit becomes Demon's Dream essence. It opens your third eye to the spirit world."
 	]
 	quest.04722DE2A3532A26.title: "Demon's Dream"
-	quest.049A5B04B3B800F6.quest_desc: [
-		"The MekaSuit and the Meka-Tool are trophies. They can be made only after the final boss falls."
-	]
-	quest.049A5B04B3B800F6.title: "After the Battle"
 	quest.049DBB559FB718EA.quest_desc: [
 		"{image:firmages:textures/gui/quests/shrine/ring_8_build.apng.png width:220 height:135 align:center}"
 		"Raise the Quantum Ring round the Star Spire. 88 new blocks in three layers:"
@@ -239,15 +235,6 @@
 	]
 	quest.049DBB559FB718EA.quest_subtitle: "The shrine ring of the Quantum Age"
 	quest.049DBB559FB718EA.title: "Quantum Ring"
-	quest.04AB34FB1FD2E8B6.quest_desc: [
-		"Each Age has one chapter. Its strands wind from the entry round the goal, the gilded star."
-		"- A strand ends in a keystone, the large engraved hexagon."
-		"- The goal needs every keystone."
-		"- Round ember ones are side paths with a gift for each."
-		"- The diamond is the shrine ring of the Age. Its picture opens the build guide."
-		"- Gears are notes. Tick them once read."
-	]
-	quest.04AB34FB1FD2E8B6.title: "Reading the Chronicle"
 	quest.04C1F441EE627382.quest_desc: [
 		"Imbue a lesser focus and wear it. Spells of its element strike harder."
 	]
@@ -272,7 +259,7 @@
 	]
 	quest.05A433B227D1F928.title: "Draconic Necklace"
 	quest.05C4B3AE61613A9B.quest_desc: [
-		"Iron veins are visible now and the map opens."
+		"Iron veins wake."
 		""
 		"Five strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival, Frontier and Sky. The Sky strand readies the Lens Crown of the next Age."
 	]
@@ -315,6 +302,10 @@
 		"Make all four pieces of leather armor from your own tanned hides. Wear them before the first winter trip."
 	]
 	quest.0672AC049845AEE4.title: "Winter Gear"
+	quest.06A8D76480AD9075.quest_desc: [
+		"Gather the food of a wild crop. Wild grain and roots ripen in summer, hidden in the tall grass."
+	]
+	quest.06A8D76480AD9075.title: "Wild Harvest"
 	quest.06ED97F3737EE971.quest_desc: [
 		"Crush a ruby into dust, or draw cinnabar from its ore. Gems pass through the machines like metal here."
 	]
@@ -395,8 +386,6 @@
 	quest.0A81ED2F8A5BB2AE.quest_desc: [
 		"Tin and zinc veins wake. Anvils, alloys and the first kinetic machines follow."
 		""
-		"The recipe viewer opens: hover over an item and press R to see how it is made, U to see what it is used for. F3 now shows coordinates."
-		""
 		"Four strands lead to the Sky Disc: Smithing, Prospecting, Alloys and Kinetics."
 	]
 	quest.0A81ED2F8A5BB2AE.quest_subtitle: "The second Age"
@@ -446,7 +435,7 @@
 	]
 	quest.0C3426C69CCC9AFB.title: "Grist Mill"
 	quest.0C379E8319A22836.quest_desc: [
-		"Your fellowship can now claim land and keep chunks loaded. Keep the chunks your lines run in loaded, or they stop when you leave."
+		"Keep the chunks your lines run in loaded, or they stop when you leave."
 	]
 	quest.0C379E8319A22836.title: "Chunk Claims"
 	quest.0C522194B14B71CC.quest_desc: ["A backpack carries a second inventory."]
@@ -654,7 +643,7 @@
 	]
 	quest.15070FF77006AFB6.title: "Reactor Online"
 	quest.153E204EC2BA3ACA.quest_desc: [
-		"Right-click two thatch blocks side by side with a large raw hide: a thatch bed. It sets your spawn but does not skip the night. Beds that do come with the Iron Age."
+		"Right-click two thatch blocks side by side with a large raw hide: a thatch bed. It sets your spawn but does not skip the night."
 	]
 	quest.153E204EC2BA3ACA.title: "Shelter"
 	quest.15673B5A9807871D.quest_desc: [
@@ -670,7 +659,7 @@
 	]
 	quest.15841564A71DE8DE.title: "Navigation Table"
 	quest.15AD3FABD5A6F24F.quest_desc: [
-		"Uraninite veins wake now. Process the ore into yellow cake, the start of fission fuel."
+		"Process uraninite ore into yellow cake, the start of fission fuel."
 	]
 	quest.15AD3FABD5A6F24F.title: "Yellow Cake"
 	quest.15C1854EDB24AD7F.quest_desc: [
@@ -685,18 +674,14 @@
 		"Land on Glacio, the frozen world. Ice shards are mined there."
 	]
 	quest.1628C003B7759E11.title: "Glacio"
+	quest.1662CE1A9F311C34.quest_desc: [
+		"Gather a loose rock of each family: igneous extrusive, igneous intrusive, metamorphic and sedimentary. Hover over a rock to read its family."
+	]
+	quest.1662CE1A9F311C34.title: "Loose and Found"
 	quest.166C4569CC75A30A.quest_desc: [
 		"Build a drying mat, the first piece of a real kitchen. Ovens, cheese and dried food follow."
 	]
 	quest.166C4569CC75A30A.title: "Kitchen"
-	quest.16708A1C39158F9C.quest_desc: [
-		"In Dawn you cannot dig clay, build pit kilns or use metal. There is no crafting grid: you craft on the ground (see \"By Hand\"), and only stone and obsidian tools, the firestarter, straw, thatch, sticks and rope. The grid opens with the Stone Age."
-		""
-		"Logs and stone do not break by hand: the stone axe fells trees, stone waits for the copper pickaxe. Every tree drops the log of its wood class: oak, birch, spruce, jungle, acacia, dark oak, mangrove or cherry. Logs of one class stack, whatever tree they came from."
-		""
-		"No recipe viewer until the Bronze Age; this book draws every pattern."
-	]
-	quest.16708A1C39158F9C.title: "What Dawn Withholds"
 	quest.168E732D468D0F98.quest_desc: [
 		"Train a Wither data model and print four Nether Stars in the loot fabricator. Awakened draconium wants them later."
 	]
@@ -764,7 +749,7 @@
 	]
 	quest.17D565AAFDDF8749.title: "ME Proxy"
 	quest.188B8BAD88328299.quest_desc: [
-		"Magic wakes: spirits, source and alchemy. It gives the best ore yield until the Information Age."
+		"Magic wakes: spirits, source and alchemy. It gives the best ore yield of this Age."
 		""
 		"The Arcane Keystone takes one of two routes. The Spirit Route binds it from the Spirits, Source and Alchemy strands. The Machine Route fills a Hollow Keystone on your machine line. Both need Starlit Iron from the Lens Crown: the Sky strand."
 	]
@@ -779,7 +764,7 @@
 	]
 	quest.18D83559159A93C7.title: "Metal Vent"
 	quest.193395E7E30FE028.quest_desc: [
-		"Right-click the glowing vessel, the pickaxe head mold in the slot. The cooled head on a stick is your first pickaxe: now you can mine."
+		"Right-click the glowing vessel, the pickaxe head mold in the slot. The cooled head on a stick is your first pickaxe."
 	]
 	quest.193395E7E30FE028.title: "Copper Pickaxe"
 	quest.1A05AE87B72A9F8F.quest_desc: [
@@ -850,10 +835,6 @@
 		"Set a junction where the tubes fork. You choose the branch as you pass through."
 	]
 	quest.1C0F00ABF4E17A0E.title: "Tube Junction"
-	quest.1C7F62ECF8FA8027.quest_desc: [
-		"Furniture opens: chairs, tables, shelves, doors and windows in every wood, vanilla wood and every tree's own wood alike. The recipe viewer shows how each is made."
-	]
-	quest.1C7F62ECF8FA8027.title: "A Home"
 	quest.1CC29E163A94FCE6.quest_desc: [
 		"{image:firmages:textures/quests/device/pit_kiln.png width:128 height:128 align:center}"
 		""
@@ -928,7 +909,7 @@
 	]
 	quest.1E229C10455C4605.title: "Mechanical Chamber"
 	quest.1E2B67282F83843D.quest_desc: [
-		"Three ways now give more metal per ore:"
+		"Three ways give more metal per ore:"
 		"- Crushing wheels: about 1.5 times."
 		"- Spagyrics: twice the metal, every grade."
 		"- The Dimensional Mineshaft: rich pieces without end."
@@ -1033,6 +1014,10 @@
 		"Build a printer. It copies a written book as often as the ink and the experience last."
 	]
 	quest.21E4F24EBD59297F.title: "Printer"
+	quest.21F5A752996C9586.quest_desc: [
+		"Knap a knife blade and a hammer head (see \"Knapping Patterns\") and craft each with a stick. The knife cuts straw; the hammer splits logs."
+	]
+	quest.21F5A752996C9586.title: "Knife and Hammer"
 	quest.220334E35F590E73.quest_desc: [
 		"Fit a steering wheel on the deck. Hold right-click and turn it; its rotation steers the bearings it drives."
 	]
@@ -1097,11 +1082,13 @@
 		"Cast the pig iron. Hammer it into high carbon steel, then into steel."
 	]
 	quest.23B8CBEFB688315B.title: "Pig Iron"
+	quest.23BC6F4B7E13EC98.quest_desc: [
+		"Bring home three raw hides of one size. Small, medium and large prey each give their own."
+	]
+	quest.23BC6F4B7E13EC98.title: "Hides"
 	quest.23C92958F20BE038.quest_desc: ["A water wheel in flowing water gives rotational force."]
 	quest.23C92958F20BE038.title: "Water Wheel"
-	quest.23FDEA7AB60AEDAF.quest_desc: [
-		"Gather greigite. It holds iron, but it will not melt for you before the Iron Age."
-	]
+	quest.23FDEA7AB60AEDAF.quest_desc: ["Gather greigite. It holds iron."]
 	quest.23FDEA7AB60AEDAF.title: "Greigite"
 	quest.2444E19A6383B59C.quest_desc: ["Hammer the bloom on an anvil until it becomes wrought iron."]
 	quest.2444E19A6383B59C.title: "Wrought Iron"
@@ -1162,6 +1149,10 @@
 	]
 	quest.28A963AA218A4EE4.quest_subtitle: "Goal of the Iron Age: Caelum opens the Arcane Age"
 	quest.28A963AA218A4EE4.title: "Offer the Steel Heart at the Shrine"
+	quest.28C8DA2831BAE76D.quest_desc: [
+		"Walk 1,000 blocks in all; sprinting does not count. Keep your eyes on the land as you go."
+	]
+	quest.28C8DA2831BAE76D.title: "Far from Home"
 	quest.28D435DE48DE8B96.quest_desc: [
 		"Set a splitter in the beam. It divides the light into up to four lines."
 	]
@@ -1170,10 +1161,6 @@
 		"Build a barrel packager. Liquid travels the package lines sealed in barrels."
 	]
 	quest.28D6266AE2645300.title: "Barrel Packager"
-	quest.28EB5F0CDDB30BAA.quest_desc: [
-		"Real beds open: wool beds and fancy beds with cushions and sheets. Sleeping in one skips the night."
-	]
-	quest.28EB5F0CDDB30BAA.title: "A Home"
 	quest.28EBCD46D69CDED4.quest_desc: [
 		"Hunt a kangaroo on open, dry ground. Its hide is tough and warm."
 	]
@@ -1258,6 +1245,10 @@
 		"Upgrade the jetpack with netherite. It is the strongest the maker of air-wings gives."
 	]
 	quest.2AD2DD3260EEBF7E.title: "Netherite Jetpack"
+	quest.2B261DA368AACAC7.quest_desc: [
+		"Make 32 thatch, enough for walls and a roof. A hut of straw keeps the night out."
+	]
+	quest.2B261DA368AACAC7.title: "Walls of Straw"
 	quest.2B9263D6A5FEA18B.quest_desc: [
 		"Make eight energy upgrades for your ore machines. Without them the fourfold and fivefold ore lines cost more power than they gain."
 	]
@@ -1271,7 +1262,7 @@
 	]
 	quest.2BE0D6CB6EF8C395.title: "Fuel Line"
 	quest.2C29644013E0FBF2.quest_desc: [
-		"Starsteel meteorites fall now. Melt their chunks in the arc furnace; the sky is its only source."
+		"Melt starsteel meteorite chunks in the arc furnace. The sky is its only source."
 	]
 	quest.2C29644013E0FBF2.title: "Starsteel"
 	quest.2CB10148DF0C66A2.quest_desc: [
@@ -1429,10 +1420,6 @@
 	]
 	quest.3240A673372AF11A.quest_subtitle: "Goal of the Stone Age"
 	quest.3240A673372AF11A.title: "Hearthstone"
-	quest.32561F3017350CAF.quest_desc: [
-		"Top left, a small sign names your Age and its offering. It fades after a few breaths. Hold H to see it again."
-	]
-	quest.32561F3017350CAF.title: "The Sign in the Corner"
 	quest.32B3BD93CA3C8CA0.quest_desc: [
 		"Tap a hevea or a rubber fig for latex and boil it with sulfur into rubber bars. Three bars make four belts."
 	]
@@ -1488,7 +1475,7 @@
 	]
 	quest.33C11901A7A16BA3.title: "What the Ruin Kept"
 	quest.3439831B7895C627.quest_desc: [
-		"Each magic function has one carrier: Starbuncles move items, Dimensional Storage stores them, spagyrics multiply ore, the Djinni crafts in pentacles. Duplicates are switched off."
+		"Each magic function has one carrier: Starbuncles move items, Dimensional Storage stores them, spagyrics multiply ore, the Djinni crafts in pentacles."
 	]
 	quest.3439831B7895C627.title: "One Carrier per Function"
 	quest.346CC5CACE990B24.quest_desc: [
@@ -1531,7 +1518,7 @@
 	]
 	quest.3544B98B44E7DD28.title: "Forests Close"
 	quest.354A9C13E074B572.quest_desc: [
-		"Datura seeds now drop from grass. Plant them on Arcane Soil, dirt charged with amethyst; plain farmland will not hold them."
+		"Datura seeds drop from grass. Plant them on Arcane Soil, dirt charged with amethyst; plain farmland will not hold them."
 	]
 	quest.354A9C13E074B572.title: "Datura"
 	quest.35875349E1B00375.quest_desc: [
@@ -1579,7 +1566,7 @@
 	]
 	quest.3815DB396BBFB360.title: "Proof of Work"
 	quest.38790CD14A01A1C1.quest_desc: [
-		"Move Source through a Source jar network or, from now on, through the ME network. Machines carry magic, magic never carries machines."
+		"Move Source through a Source jar network or through the ME network. Machines carry magic, magic never carries machines."
 	]
 	quest.38790CD14A01A1C1.title: "Source Cell"
 	quest.38BA8AD136589CDA.quest_desc: [
@@ -1640,10 +1627,6 @@
 	]
 	quest.3AAA62DD08565D0D.quest_subtitle: "The Line, off \"Trains\""
 	quest.3AAA62DD08565D0D.title: "Handcar"
-	quest.3AD1F9C2C23677C5.quest_desc: [
-		"Gather wild berries. You never thirst here, and a varied diet makes you hardier."
-	]
-	quest.3AD1F9C2C23677C5.title: "Berries and Herbs"
 	quest.3B249CF88F286E7D.quest_desc: [
 		"Bind the Arcane Keystone in the Djinni's crafting pentacle from the proofs of the magic strands."
 	]
@@ -1684,6 +1667,10 @@
 		"The Foliot and Djinni binding books each take a precision mechanism. The machine line builds the miner of the spirits."
 	]
 	quest.3C29CE19D8BA12F8.title: "Bound by Gears"
+	quest.3C30E69F299AB5D5.quest_desc: [
+		"Gather eight bones from your kills. A bone serves as a tool shaft where sticks run short."
+	]
+	quest.3C30E69F299AB5D5.title: "Bones"
 	quest.3C8510408C6A23D6.quest_desc: [
 		"The offering of the Quantum Age. Its build guide stands beside it."
 	]
@@ -1762,9 +1749,7 @@
 	]
 	quest.40280EBC4CC9F8F6.quest_subtitle: "Goal of the Information Age"
 	quest.40280EBC4CC9F8F6.title: "Data Matrix"
-	quest.40B43DE8640EAB9B.quest_desc: [
-		"Mining raw stone can collapse the ceiling. Support beams come with the Bronze Age."
-	]
+	quest.40B43DE8640EAB9B.quest_desc: ["Mining raw stone can collapse the ceiling."]
 	quest.40B43DE8640EAB9B.title: "Cave-ins"
 	quest.40BDDBC61D9D82C3.quest_desc: [
 		"{image:firmages:textures/gui/quests/shrine/ring_8.png width:180 height:111 align:center click_action:open_quest:049DBB559FB718EA text:Open%20the%20build%20guide}"
@@ -1810,7 +1795,7 @@
 	]
 	quest.41F6B8884809B526.title: "White Chalk"
 	quest.4207F8051EF451B3.quest_desc: [
-		"Fire is tamed. Clay is yours now, and with it pottery, molds and copper. Your hands have learned: the crafting grid (E) is open."
+		"Fire is tamed. Clay is yours now, and with it pottery, molds and copper."
 		""
 		"Four strands lead to the Hearthstone: Fire & Clay, First Metal, Camp, and Hearth & Shrine. The last one raises the shrine where the Hearthstone is offered to Caelum."
 	]
@@ -1825,8 +1810,6 @@
 	]
 	quest.42BF4D07BA145527.title: "Ore Times Four"
 	quest.4304B6AA00C231E8.quest_desc: [
-		"Only andesite machines exist now: water wheels, saws, presses, fans and mills. Crushing wheels, deployers and brass come with the Iron Age."
-		""
 		"Hover over a machine in your inventory and hold W to watch it work."
 	]
 	quest.4304B6AA00C231E8.title: "Kinetics in the Bronze Age"
@@ -1865,6 +1848,8 @@
 	quest.44968B0BE887DA25.quest_subtitle: "Mechanical Odds, off \"Crushing Wheels\""
 	quest.44968B0BE887DA25.title: "Andesite Powder"
 	quest.44ABD64FACE0D764.quest_desc: [
+		"{image:firmages:textures/gui/quests/shrine/complete.png width:200 height:147 align:center}"
+		""
 		"From the Stone Age on, every Age ends at the shrine. Raise the ring of the Age round the heart, lay the offering on the plinth and pray."
 		""
 		"The diamonds along the road are the build guides: the ring rising, every layer with its blocks, and the rite. Each appears when its Age dawns."
@@ -2002,11 +1987,11 @@
 	]
 	quest.4914DB06E3F96086.title: "Bind a Djinni"
 	quest.49153BBE2AD958B7.quest_desc: [
-		"Dawn gives you nothing: no pick, no clay, no fire."
+		"Begin with stone, straw and the hunt."
 		""
-		"Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out. Read \"By Hand\" and \"Hands and Keys\" in The Firmament first."
+		"Five strands lead out of Dawn: Stone, Shelter, Hunt, Forage and Sky. Share them out. Read \"By Hand\" and \"Hands and Keys\" in The Firmament first."
 		""
-		"Nights are dark. Light a fire and make torches before the first one (see \"Before Dark\"). When all three strands are done, the first fire opens the Stone Age for all of you."
+		"Nights are dark. Light a fire and make torches before the first one (see \"Before Dark\"). When all five strands are done, the first fire opens the Stone Age for all of you."
 	]
 	quest.49153BBE2AD958B7.quest_subtitle: "The prologue before the first Age"
 	quest.49153BBE2AD958B7.title: "Welcome to the Wild"
@@ -2063,7 +2048,7 @@
 	quest.4BFBAC45968A80F5.quest_subtitle: "The shrine ring of this Age"
 	quest.4BFBAC45968A80F5.title: "Raise the Star Spire"
 	quest.4C78408E6835BC56.quest_desc: [
-		"Hunt an animal; carry a knife to butcher it. Large prey drops the large hide that makes the thatch bed."
+		"Hunt three animals; carry a knife to butcher them. Large prey drops the large hide that makes the thatch bed."
 	]
 	quest.4C78408E6835BC56.title: "Hunter"
 	quest.4C9313FE2FCD30AD.quest_desc: [
@@ -2217,7 +2202,7 @@
 		""
 		"Lay it on the plinth and kindle the heart with a firestarter. Then sneak and hold right-click on the heart with an empty hand. Friends who pray with you make it faster."
 		""
-		"Caelum keeps the Hearthstone and opens the Bronze Age. From then on a thin beam over the heart shows the way home."
+		"Caelum keeps the Hearthstone and opens the Bronze Age."
 	]
 	quest.5298B856BFEE50A2.quest_subtitle: "Goal of the Stone Age: Caelum opens the Bronze Age"
 	quest.5298B856BFEE50A2.title: "Offer the Hearthstone at the Shrine"
@@ -2273,10 +2258,6 @@
 	]
 	quest.549D57AE4E7A9202.quest_subtitle: "Red Moons, off \"The Iron Age Dawns\""
 	quest.549D57AE4E7A9202.title: "Armed Dead"
-	quest.55A04983F152F598.quest_desc: [
-		"The arc furnace takes over alloying from the alloy kiln. Old stations stay in the world, but their recipes move to the new one."
-	]
-	quest.55A04983F152F598.title: "Stations Retire"
 	quest.55D1BCCE8D10146E.quest_desc: [
 		"Set a draconic pattern provider by the fusion core. The network then sends fusion crafting jobs to it like any pattern."
 	]
@@ -2317,7 +2298,7 @@
 	quest.573FF798650E3338.quest_subtitle: "Read me first"
 	quest.573FF798650E3338.title: "You Wake"
 	quest.574F377D613986E5.quest_desc: [
-		"Forge Starlit Iron under the crown from meteoric iron, storm glass and an Arcane gem. Both routes to the Arcane Keystone need it, and the Wayshrines now want it as their offering."
+		"Forge Starlit Iron under the crown from meteoric iron, storm glass and an Arcane gem. Both routes to the Arcane Keystone need it, and the Wayshrines want it as their offering."
 	]
 	quest.574F377D613986E5.title: "Starlit Iron"
 	quest.575603B66E5D1028.quest_desc: [
@@ -2571,6 +2552,10 @@
 	]
 	quest.6281CB502F09533D.quest_subtitle: "The shrine ring of this Age"
 	quest.6281CB502F09533D.title: "Raise the Spirit Circle"
+	quest.62A084197680E977.quest_desc: [
+		"Gather twelve of one wild crop's food. A full larder carries the fellowship into the Stone Age."
+	]
+	quest.62A084197680E977.title: "The Larder"
 	quest.62D59DF66CF4320C.quest_desc: [
 		"Set an accelerator on a long run. It gives the traveller speed on the way."
 	]
@@ -2579,10 +2564,6 @@
 		"Slot a copper storage upgrade into a drawer. Its capacity grows many times over."
 	]
 	quest.633F65E98FEA8DD2.title: "Copper Upgrade"
-	quest.6362412D5C02D234.quest_desc: [
-		"From now on the ME network is the one store and crafter. The storage terminal retires, and energy cubes take over from the LV and MV capacitors."
-	]
-	quest.6362412D5C02D234.title: "One Network"
 	quest.6362434FA320A007.quest_desc: [
 		"Build a chemixer. It mixes chemicals and items in one stroke."
 	]
@@ -2605,11 +2586,11 @@
 	]
 	quest.63F9623930B5DE46.title: "Refined Obsidian Pickaxe"
 	quest.64181B7811C2814E.quest_desc: [
-		"You have no crafting grid yet. Hold an item and press V to lay it on a block; up to four items fit on one block, one in each corner."
+		"Hold an item and press V to lay it on a block; up to four items fit on one block, one in each corner."
 		""
 		"Lay the parts together, then sneak and right-click the pile with an empty hand. If they make something, you get it. Where on the block each part lies does not matter."
 		""
-		"Four straw make thatch, two sticks a firestarter, a stone head and a stick a stone tool. The crafting grid (E) opens with the Stone Age."
+		"Four straw make thatch, two sticks a firestarter, a stone head and a stick a stone tool."
 	]
 	quest.64181B7811C2814E.title: "By Hand"
 	quest.641FB17315FC626A.quest_desc: [
@@ -3006,11 +2987,11 @@
 	quest.724BED62EE9DF8FB.quest_desc: [
 		"Lay two sticks on one block and sneak and right-click the pile: a firestarter. Throw a log, three sticks and some straw on one block and hold right-click on it with the firestarter until the firepit lights."
 		""
-		"Fire opens the Stone Age for all of you: clay, pit kilns, the first copper and the crafting grid (E)."
+		"Fire opens the Stone Age for all of you."
 	]
 	quest.724BED62EE9DF8FB.quest_subtitle: "Goal of Dawn: grants the Stone Age"
 	quest.724BED62EE9DF8FB.title: "The First Spark"
-	quest.72A754A7D51FBA06.quest_desc: ["Galena veins are visible now. Lead goes into capacitors."]
+	quest.72A754A7D51FBA06.quest_desc: ["Galena veins wake. Lead goes into capacitors."]
 	quest.72A754A7D51FBA06.title: "Lead"
 	quest.72DBAB3B1C9E0AD4.quest_desc: ["Electrum wire carries medium voltage."]
 	quest.72DBAB3B1C9E0AD4.title: "MV Wire"
@@ -3248,6 +3229,10 @@
 		"Craft twelve awakened injectors. Fusion at draconic level needs them: the chaotic core and the reactor parts fill all twelve."
 	]
 	quest.7B0276B3AACDABA7.title: "Awakened Injectors"
+	quest.7B69D13D449B33FD.quest_desc: [
+		"Break wild crops for their seeds. Seeds of two different crops are the start of a field."
+	]
+	quest.7B69D13D449B33FD.title: "Seeds of the Wild"
 	quest.7BC89A40B08037A9.quest_desc: [
 		"Carry a navigator. Choose a station and it shows the way, line by line."
 	]
@@ -3329,6 +3314,10 @@
 		"Crush clumps into dirty dust and clean it in the enrichment chamber. Dust is the last rung."
 	]
 	quest.7F4BB9218EAC60EC.title: "Dirty Dust"
+	quest.7F7FDC6BE3F8FE9F.quest_desc: [
+		"Find the ruined shrine of Caelum that stands 300 to 800 blocks from where you woke. A faint beam rises from it. Look at its core."
+	]
+	quest.7F7FDC6BE3F8FE9F.title: "A Shrine on the Road"
 	quest_link.07C54D511BACC902.title: "The Living House"
 	quest_link.15E363FCA882D6BA.title: "The Gatehouse"
 	quest_link.7C234500DFDA6BF1.title: "The Silo"
@@ -3367,13 +3356,16 @@
 	task.1393B8FF6A89C62F.title: "Look at the rope pulley over your gate"
 	task.144EFC3999AA1F85.title: "Read the plan"
 	task.16FDD9AB98818001.title: "Offer the Sky Disc at the shrine"
+	task.178BFF8572431A11.title: "Walk 1,000 blocks"
 	task.17B8CD9FF20237C3.title: "Copper wire"
 	task.17DC9CAF05E44B90.title: "Our cellar is stocked for the winter"
+	task.1919D8A975E4E560.title: "Seeds of two different wild crops"
 	task.19AE69BBB724B329.title: "Basic injectors"
 	task.1AAC9A0184959725.title: "A large raw hide"
 	task.1AD365B9D570D19B.title: "Dig out charcoal"
 	task.1BD7BA729BE629C7.title: "A double ingot of wrought iron"
 	task.1C63BBD78A1CE3A0.title: "A torch"
+	task.1C7E0CEFE113B790.title: "A loose rock of each family"
 	task.1CFB0568626363E1.title: "Turbine blades"
 	task.1D0D22EFA355E319.title: "Dictionary of Spirits"
 	task.1D485243176A7A7F.title: "A data model trained to tier 3"
@@ -3404,7 +3396,7 @@
 	task.2C4E966B70722C00.title: "Reach the Stone Age"
 	task.2D8D953433316F39.title: "64k storage components"
 	task.2DB5E4AC7669F346.title: "1k storage cell"
-	task.2E191734D8AA6C6F.title: "Kill any wild animal"
+	task.2E191734D8AA6C6F.title: "Kill three wild animals"
 	task.2F02F7582D1B7CDF.title: "Look at a formed excavator"
 	task.2F46393378F076FC.title: "Slay the Wilden Chimera (optional)"
 	task.30CA0794084F8E53.title: "Find a body of soulstone"
@@ -3431,6 +3423,7 @@
 	task.3B8BF5ADE31BDFC1.title: "White chalk"
 	task.3C99CD274D861CA0.title: "Wyvern injectors"
 	task.3CF5499A8D2E6BDA.title: "Read the build guide"
+	task.3D4C3FCC1674315A.title: "A stone knife and a stone hammer"
 	task.3EA910EB828696C0.title: "Feed 1,024 osmium ingots into Tally Chutes"
 	task.3FBC56717A9E3565.title: "Bronze pickaxe"
 	task.40897BEF6100181B.title: "Look at a formed improved blast furnace"
@@ -3521,6 +3514,7 @@
 	task.76120E8D8EDDC9B9.title: "Light a charcoal forge"
 	task.763BD161B2214A17.title: "Reach the Information Age"
 	task.76580C7802686F82.title: "Engineering processors"
+	task.771511A55C1DCCAC.title: "Look at the core of a ruined shrine"
 	task.77496B04A9B0626C.title: "Eyes of ender"
 	task.779342C0C35572D7.title: "Offer the Data Matrix at the shrine"
 	task.78D7806496388201.title: "Look at the clockwork bearing in your gable"

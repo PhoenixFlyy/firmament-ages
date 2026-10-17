@@ -1,0 +1,1166 @@
+{
+  "criteria": {
+    "alfalfa": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/alfalfa"
+          }
+        ]
+      }
+    },
+    "barley": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/barley"
+          }
+        ]
+      }
+    },
+    "beet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/beet"
+          }
+        ]
+      }
+    },
+    "cabbage": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/cabbage"
+          }
+        ]
+      }
+    },
+    "canola": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/canola"
+          }
+        ]
+      }
+    },
+    "carrot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/carrot"
+          }
+        ]
+      }
+    },
+    "cassava": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/cassava"
+          }
+        ]
+      }
+    },
+    "garlic": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/garlic"
+          }
+        ]
+      }
+    },
+    "green_bean": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/green_bean"
+          }
+        ]
+      }
+    },
+    "jute": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/jute"
+          }
+        ]
+      }
+    },
+    "lentil": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/lentil"
+          }
+        ]
+      }
+    },
+    "maize": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/maize"
+          }
+        ]
+      }
+    },
+    "melon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/melon"
+          }
+        ]
+      }
+    },
+    "oat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/oat"
+          }
+        ]
+      }
+    },
+    "onion": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/onion"
+          }
+        ]
+      }
+    },
+    "papyrus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/papyrus"
+          }
+        ]
+      }
+    },
+    "peanut": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/peanut"
+          }
+        ]
+      }
+    },
+    "potato": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/potato"
+          }
+        ]
+      }
+    },
+    "pumpkin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/pumpkin"
+          }
+        ]
+      }
+    },
+    "radish": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/radish"
+          }
+        ]
+      }
+    },
+    "red_bell_pepper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/red_bell_pepper"
+          }
+        ]
+      }
+    },
+    "rice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/rice"
+          }
+        ]
+      }
+    },
+    "rye": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/rye"
+          }
+        ]
+      }
+    },
+    "soybean": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/soybean"
+          }
+        ]
+      }
+    },
+    "squash": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/squash"
+          }
+        ]
+      }
+    },
+    "sugarcane": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/sugarcane"
+          }
+        ]
+      }
+    },
+    "tomato": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/tomato"
+          }
+        ]
+      }
+    },
+    "wheat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/wheat"
+          }
+        ]
+      }
+    },
+    "yellow_bell_pepper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "tfc:seeds/yellow_bell_pepper"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "sugarcane",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "tomato",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "wheat",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "yellow_bell_pepper"
+    ],
+    [
+      "alfalfa",
+      "barley",
+      "beet",
+      "cabbage",
+      "canola",
+      "carrot",
+      "cassava",
+      "garlic",
+      "green_bean",
+      "jute",
+      "lentil",
+      "maize",
+      "melon",
+      "oat",
+      "onion",
+      "papyrus",
+      "peanut",
+      "potato",
+      "pumpkin",
+      "radish",
+      "red_bell_pepper",
+      "rice",
+      "rye",
+      "soybean",
+      "squash",
+      "sugarcane",
+      "tomato",
+      "wheat"
+    ]
+  ]
+}

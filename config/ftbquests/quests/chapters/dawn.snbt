@@ -22,7 +22,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -8.264285714285714d
+			y: -7.628571428571428d
 		}
 	]
 	order_index: 0
@@ -58,20 +58,15 @@
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-10.532d
-					1.078d
-					-9.63d
-					1.407d
+					-10.032d
+					-1.979d
+					-8.032d
+					-4.438d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
 			id: "0ABF4F27145CD228"
 			rewards: [
-				{
-					id: "69FF7EE6121181F3"
-					type: "xp"
-					xp: 10
-				}
 				{
 					count: 4
 					id: "6DE8BDEDBCA6D3B8"
@@ -94,16 +89,16 @@
 					type: "item"
 				}
 			]
-			x: -9.25d
-			y: 1.4d
+			x: -5.9d
+			y: -5.6d
 		}
 		{
 			dep_control_pts: {
 				0ABF4F27145CD228: [
-					-7.709d
-					2.409d
-					-6.819d
-					3.59d
+					-4.019d
+					-5.587d
+					-2.48d
+					-4.714d
 				]
 			}
 			dependencies: ["0ABF4F27145CD228"]
@@ -112,11 +107,6 @@
 			}
 			id: "6522D484BFB67425"
 			rewards: [
-				{
-					id: "0EC68F89A02B8F93"
-					type: "xp"
-					xp: 10
-				}
 				{
 					count: 4
 					id: "0A1C6E5A16CDFFA9"
@@ -128,13 +118,12 @@
 					type: "item"
 				}
 				{
-					count: 6
 					id: "7C8FC042F160D35B"
 					item: {
 						count: 1
-						id: "tfc:rock/loose/granite"
+						id: "tfc:stone/shovel/sedimentary"
 					}
-					team_reward: true
+					team_reward: false
 					type: "item"
 				}
 			]
@@ -152,29 +141,71 @@
 					type: "advancement"
 				}
 			]
-			x: -6.0d
-			y: 3.3d
+			x: -1.4d
+			y: -5.05d
 		}
 		{
 			dep_control_pts: {
 				6522D484BFB67425: [
-					-4.224d
-					4.068d
-					-3.091d
-					3.524d
+					0.276d
+					-4.545d
+					1.682d
+					-5.171d
 				]
 			}
 			dependencies: ["6522D484BFB67425"]
+			icon: {
+				id: "tfc:stone/knife/igneous_extrusive"
+			}
+			id: "21F5A752996C9586"
+			rewards: [
+				{
+					count: 8
+					id: "74BA313365C1DB1D"
+					item: {
+						count: 1
+						id: "minecraft:stick"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 2
+					id: "7B429605BF1AAB40"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_mutton"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					advancement: "firmages:chronicle/dawn_knife_hammer"
+					criterion: ""
+					id: "3D4C3FCC1674315A"
+					type: "advancement"
+				}
+			]
+			x: 2.35d
+			y: -5.0d
+		}
+		{
+			dep_control_pts: {
+				21F5A752996C9586: [
+					4.151d
+					-3.724d
+					5.323d
+					-2.087d
+				]
+			}
+			dependencies: ["21F5A752996C9586"]
 			icon: {
 				id: "tfc:stone/axe_head/igneous_extrusive"
 			}
 			id: "63A45BCAE3254E00"
 			rewards: [
-				{
-					id: "104F1E23B51F165A"
-					type: "xp"
-					xp: 30
-				}
 				{
 					count: 16
 					id: "31A0FD4E3492CFBB"
@@ -186,13 +217,13 @@
 					type: "item"
 				}
 				{
-					count: 6
+					count: 3
 					id: "44FF31D7AE2EC76E"
 					item: {
 						count: 1
-						id: "tfc:rock/loose/basalt"
+						id: "tfc:food/cooked_rabbit"
 					}
-					team_reward: true
+					team_reward: false
 					type: "item"
 				}
 			]
@@ -207,16 +238,16 @@
 					type: "advancement"
 				}
 			]
-			x: -2.7d
-			y: 2.4d
+			x: 4.2d
+			y: -1.5d
 		}
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-9.803d
-					-0.841d
-					-8.16d
-					-2.047d
+					-10.51d
+					-0.277d
+					-9.871d
+					-1.058d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
@@ -225,11 +256,6 @@
 			}
 			id: "203071592A4D660A"
 			rewards: [
-				{
-					id: "35FE2BA18615DDB8"
-					type: "xp"
-					xp: 10
-				}
 				{
 					count: 2
 					id: "5FDA463F40DEA035"
@@ -268,29 +294,74 @@
 					type: "item"
 				}
 			]
-			x: -6.75d
-			y: -2.8d
+			x: -9.45d
+			y: -1.95d
 		}
 		{
 			dep_control_pts: {
 				203071592A4D660A: [
-					-4.771d
-					-2.393d
-					-3.287d
-					-2.329d
+					-8.081d
+					-2.035d
+					-6.983d
+					-2.228d
 				]
 			}
 			dependencies: ["203071592A4D660A"]
+			icon: {
+				id: "tfc:thatch"
+			}
+			id: "2B261DA368AACAC7"
+			rewards: [
+				{
+					count: 16
+					id: "4E6AA4E2F29C87AC"
+					item: {
+						count: 1
+						id: "tfc:straw"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 2
+					id: "4B071173AD0C1485"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_pork"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					count: 32L
+					id: "5CA4AB4FA395E58D"
+					item: {
+						count: 1
+						id: "tfc:thatch"
+					}
+					type: "item"
+				}
+			]
+			x: -6.35d
+			y: -2.8d
+		}
+		{
+			dep_control_pts: {
+				2B261DA368AACAC7: [
+					-4.582d
+					-2.31d
+					-3.352d
+					-2.402d
+				]
+			}
+			dependencies: ["2B261DA368AACAC7"]
 			icon: {
 				id: "tfc:thatch_bed"
 			}
 			id: "153E204EC2BA3ACA"
 			rewards: [
-				{
-					id: "21838F425714D22C"
-					type: "xp"
-					xp: 30
-				}
 				{
 					count: 4
 					id: "69C7DB9F45774A36"
@@ -324,16 +395,16 @@
 					type: "observation"
 				}
 			]
-			x: -2.7d
-			y: -2.4d
+			x: -2.95d
+			y: -2.6d
 		}
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-8.637d
-					-3.224d
-					-2.772d
-					-5.939d
+					-9.873d
+					1.697d
+					-8.247d
+					2.802d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
@@ -342,11 +413,6 @@
 			}
 			id: "206BCC87705BB466"
 			rewards: [
-				{
-					id: "304EEA998B0A2AAD"
-					type: "xp"
-					xp: 10
-				}
 				{
 					count: 2
 					id: "0B6DB75E299FF56C"
@@ -396,16 +462,16 @@
 					type: "item"
 				}
 			]
-			x: 0.9d
-			y: -4.65d
+			x: -6.9d
+			y: 2.75d
 		}
 		{
 			dep_control_pts: {
 				206BCC87705BB466: [
-					2.696d
-					-3.524d
-					4.399d
-					-2.469d
+					-4.968d
+					3.666d
+					-3.519d
+					3.759d
 				]
 			}
 			dependencies: ["206BCC87705BB466"]
@@ -414,11 +480,6 @@
 			}
 			id: "4C78408E6835BC56"
 			rewards: [
-				{
-					id: "754BB99EFDF4E401"
-					type: "xp"
-					xp: 30
-				}
 				{
 					count: 4
 					id: "0BEC019D68D0EEB2"
@@ -440,13 +501,12 @@
 					type: "item"
 				}
 				{
-					count: 6
 					id: "3A84AC5D48C70F51"
 					item: {
 						count: 1
-						id: "tfc:rock/loose/limestone"
+						id: "tfc:stone/javelin/igneous_extrusive"
 					}
-					team_reward: true
+					team_reward: false
 					type: "item"
 				}
 			]
@@ -459,7 +519,7 @@
 					entityTypeTag: "tfc:animals"
 					id: "2E191734D8AA6C6F"
 					type: "kill"
-					value: 1L
+					value: 3L
 				}
 				{
 					id: "1AAC9A0184959725"
@@ -470,41 +530,691 @@
 					type: "item"
 				}
 			]
-			x: 3.45d
-			y: -1.9d
+			x: -2.95d
+			y: 2.6d
+		}
+		{
+			dep_control_pts: {
+				49153BBE2AD958B7: [
+					-10.048d
+					-1.451d
+					-8.208d
+					-3.107d
+				]
+			}
+			dependencies: ["49153BBE2AD958B7"]
+			icon: {
+				id: "tfc:food/carrot"
+			}
+			id: "06A8D76480AD9075"
+			rewards: [
+				{
+					count: 2
+					id: "2D9C591D5A03D3D6"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_chicken"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "5EAD3B3C170B35B7"
+					item: {
+						count: 1
+						id: "tfc:food/barley"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "42BA2E2D5B5420B0"
+					item: {
+						count: 1
+						id: "tfc:food/beet"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "729639AF8471C9E9"
+					item: {
+						count: 1
+						id: "tfc:food/cabbage"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "714D10AF4CF8C897"
+					item: {
+						count: 1
+						id: "tfc:food/carrot"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "30135A68B7160CE1"
+					item: {
+						count: 1
+						id: "tfc:food/cassava"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "315FB2D5BF4C519E"
+					item: {
+						count: 1
+						id: "tfc:food/garlic"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "60CF2A572B891156"
+					item: {
+						count: 1
+						id: "tfc:food/green_bean"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "72F9CE8727748ED4"
+					item: {
+						count: 1
+						id: "tfc:food/lentil"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "4079E90A123EA0CB"
+					item: {
+						count: 1
+						id: "tfc:food/maize"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "306D3D31DD4B02A4"
+					item: {
+						count: 1
+						id: "tfc:food/oat"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "79284FAA52E082DC"
+					item: {
+						count: 1
+						id: "tfc:food/onion"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "635C12CB5F77035E"
+					item: {
+						count: 1
+						id: "tfc:food/peanut"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "47074B93ADD34D7E"
+					item: {
+						count: 1
+						id: "tfc:food/potato"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "3186F37181E81027"
+					item: {
+						count: 1
+						id: "tfc:food/radish"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "526038D3B08F3375"
+					item: {
+						count: 1
+						id: "tfc:food/red_bell_pepper"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "2D2601A0A743746D"
+					item: {
+						count: 1
+						id: "tfc:food/rice"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "0E0082AA343B853A"
+					item: {
+						count: 1
+						id: "tfc:food/rye"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "7ADE1F4F6EFC7A1E"
+					item: {
+						count: 1
+						id: "tfc:food/soybean"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "6885D7796DC30C33"
+					item: {
+						count: 1
+						id: "tfc:food/squash"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "51BA7BDFC85994C7"
+					item: {
+						count: 1
+						id: "tfc:food/sugarcane"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "08E0245605C93CC6"
+					item: {
+						count: 1
+						id: "tfc:food/tomato"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "39A058801FF863B4"
+					item: {
+						count: 1
+						id: "tfc:food/wheat"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "18313384A12A1AEA"
+					item: {
+						count: 1
+						id: "tfc:food/yellow_bell_pepper"
+					}
+					optional_task: true
+					type: "item"
+				}
+			]
+			x: -6.55d
+			y: -4.2d
+		}
+		{
+			dep_control_pts: {
+				06A8D76480AD9075: [
+					-4.942d
+					-4.147d
+					-3.654d
+					-4.176d
+				]
+			}
+			dependencies: ["06A8D76480AD9075"]
+			icon: {
+				id: "tfc:seeds/barley"
+			}
+			id: "7B69D13D449B33FD"
+			rewards: [
+				{
+					count: 3
+					id: "718CEE31C4465A5D"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_pork"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					advancement: "firmages:chronicle/dawn_wild_seeds"
+					criterion: ""
+					id: "1919D8A975E4E560"
+					type: "advancement"
+				}
+			]
+			x: -2.85d
+			y: -4.5d
+		}
+		{
+			dep_control_pts: {
+				7B69D13D449B33FD: [
+					-0.857d
+					-3.742d
+					0.912d
+					-3.698d
+				]
+			}
+			dependencies: ["7B69D13D449B33FD"]
+			icon: {
+				id: "tfc:food/potato"
+			}
+			id: "62A084197680E977"
+			rewards: [
+				{
+					count: 4
+					id: "7AD9D0ED20F3EC6C"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_venison"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 8
+					id: "68C41B09C63EE7A6"
+					item: {
+						count: 1
+						id: "tfc:jute_fiber"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					count: 12L
+					id: "58EEB9F2B5B715F4"
+					item: {
+						count: 1
+						id: "tfc:food/barley"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "6659D7DB52B30823"
+					item: {
+						count: 1
+						id: "tfc:food/beet"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "6A2BE9676D23C78C"
+					item: {
+						count: 1
+						id: "tfc:food/cabbage"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "2A7FA49D1F65E041"
+					item: {
+						count: 1
+						id: "tfc:food/carrot"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "3FADD56D7E756261"
+					item: {
+						count: 1
+						id: "tfc:food/cassava"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "7FCCB280D470075D"
+					item: {
+						count: 1
+						id: "tfc:food/garlic"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "596234278FF70F15"
+					item: {
+						count: 1
+						id: "tfc:food/green_bean"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "0E6B766BE4F37FD3"
+					item: {
+						count: 1
+						id: "tfc:food/lentil"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "705C411A973725C5"
+					item: {
+						count: 1
+						id: "tfc:food/maize"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "55F041819750B4E4"
+					item: {
+						count: 1
+						id: "tfc:food/oat"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "70B6FDB3827E1E1B"
+					item: {
+						count: 1
+						id: "tfc:food/onion"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "7F1A2C4E2D0A78EF"
+					item: {
+						count: 1
+						id: "tfc:food/peanut"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "3450726F5F70B97C"
+					item: {
+						count: 1
+						id: "tfc:food/potato"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "432BAC2222586C1F"
+					item: {
+						count: 1
+						id: "tfc:food/radish"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "2F65318114BD447A"
+					item: {
+						count: 1
+						id: "tfc:food/red_bell_pepper"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "56CF65DB8424103F"
+					item: {
+						count: 1
+						id: "tfc:food/rice"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "35A45947DCA858A0"
+					item: {
+						count: 1
+						id: "tfc:food/rye"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "6E009B214A660DF6"
+					item: {
+						count: 1
+						id: "tfc:food/soybean"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "22DE5A1F09906114"
+					item: {
+						count: 1
+						id: "tfc:food/squash"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "29FA1E1BCC3260A8"
+					item: {
+						count: 1
+						id: "tfc:food/sugarcane"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "6FAA44D4FB112CF2"
+					item: {
+						count: 1
+						id: "tfc:food/tomato"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "2B30A5702E8977A6"
+					item: {
+						count: 1
+						id: "tfc:food/wheat"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 12L
+					id: "0C403CFA1F1B6901"
+					item: {
+						count: 1
+						id: "tfc:food/yellow_bell_pepper"
+					}
+					optional_task: true
+					type: "item"
+				}
+			]
+			x: 1.0d
+			y: -3.2d
+		}
+		{
+			dep_control_pts: {
+				49153BBE2AD958B7: [
+					-8.747d
+					4.002d
+					-3.297d
+					6.854d
+				]
+			}
+			dependencies: ["49153BBE2AD958B7"]
+			icon: {
+				id: "minecraft:leather_boots"
+			}
+			id: "28C8DA2831BAE76D"
+			rewards: [
+				{
+					count: 3
+					id: "6C2022E1D0E6F127"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_beef"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "178BFF8572431A11"
+					stat: "minecraft:walk_one_cm"
+					type: "stat"
+					value: 100000
+				}
+			]
+			x: 0.35d
+			y: 5.0d
+		}
+		{
+			dep_control_pts: {
+				28C8DA2831BAE76D: [
+					2.252d
+					5.202d
+					4.021d
+					4.327d
+				]
+			}
+			dependencies: ["28C8DA2831BAE76D"]
+			icon: {
+				id: "firmages:wayshrine_stone"
+			}
+			id: "7F7FDC6BE3F8FE9F"
+			rewards: [
+				{
+					count: 4
+					id: "723CE4FB5697EDED"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_mutton"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					count: 4
+					id: "7031F9FD186BCAE3"
+					item: {
+						count: 1
+						id: "tfc:rope"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					id: "771511A55C1DCCAC"
+					observation_type: "block"
+					timer: 0L
+					to_observe: "firmages:wayshrine_core"
+					type: "observation"
+				}
+			]
+			x: 3.35d
+			y: 2.35d
 		}
 		{
 			dep_control_pts: {
 				153E204EC2BA3ACA: [
-					-0.322d
-					-0.606d
-					0.386d
-					0.486d
+					-0.458d
+					-0.801d
+					0.302d
+					0.419d
 				]
 				4C78408E6835BC56: [
-					4.415d
-					0.659d
-					2.436d
-					0.652d
+					-0.458d
+					3.372d
+					0.302d
+					2.152d
+				]
+				62A084197680E977: [
+					2.889d
+					-0.973d
+					1.619d
+					0.219d
 				]
 				63A45BCAE3254E00: [
-					-0.322d
-					3.178d
-					0.386d
-					2.086d
+					4.945d
+					1.171d
+					2.686d
+					0.786d
+				]
+				7F7FDC6BE3F8FE9F: [
+					4.607d
+					2.272d
+					2.402d
+					2.069d
 				]
 			}
-			dependencies: ["63A45BCAE3254E00", "153E204EC2BA3ACA", "4C78408E6835BC56"]
+			dependencies: [
+				"63A45BCAE3254E00"
+				"153E204EC2BA3ACA"
+				"4C78408E6835BC56"
+				"62A084197680E977"
+				"7F7FDC6BE3F8FE9F"
+			]
 			icon: {
 				id: "tfc:firestarter"
 			}
 			id: "724BED62EE9DF8FB"
 			rewards: [
-				{
-					id: "6DE344AB6CED2CB8"
-					type: "xp"
-					xp: 100
-				}
 				{
 					auto: "invisible"
 					id: "7B0FC31E42CA30AA"
@@ -516,7 +1226,7 @@
 					id: "75D9AA73DA1ECB33"
 					item: {
 						count: 1
-						id: "tfc:rock/loose/slate"
+						id: "minecraft:oak_log"
 					}
 					team_reward: true
 					type: "item"
@@ -577,10 +1287,10 @@
 		{
 			dep_control_pts: {
 				63A45BCAE3254E00: [
-					-1.952d
-					3.261d
-					-1.552d
-					3.745d
+					5.195d
+					-1.047d
+					5.829d
+					-0.981d
 				]
 			}
 			dependencies: ["63A45BCAE3254E00"]
@@ -590,11 +1300,6 @@
 			id: "001477EB265CFAF8"
 			optional: true
 			rewards: [
-				{
-					id: "73FCF6CF8DD63012"
-					type: "xp"
-					xp: 10
-				}
 				{
 					count: 4
 					id: "6EFE8C0D692C1363"
@@ -619,36 +1324,140 @@
 					type: "item"
 				}
 			]
-			x: -1.5d
-			y: 3.85d
+			x: 6.1d
+			y: -1.3d
 		}
 		{
 			dep_control_pts: {
-				206BCC87705BB466: [
-					1.077d
-					-4.857d
-					1.127d
-					-5.407d
+				4C78408E6835BC56: [
+					-3.018d
+					3.545d
+					-3.118d
+					4.179d
 				]
 			}
-			dependencies: ["206BCC87705BB466"]
+			dependencies: ["4C78408E6835BC56"]
 			icon: {
-				id: "tfc:food/blueberry"
+				id: "tfc:medium_raw_hide"
 			}
-			id: "3AD1F9C2C23677C5"
+			id: "23BC6F4B7E13EC98"
 			optional: true
 			rewards: [
 				{
-					id: "340B6868781CF4D2"
-					type: "xp"
-					xp: 10
-				}
-				{
-					count: 4
-					id: "39C15832B0BB5B06"
+					count: 6
+					id: "654D87B854A3D5B1"
 					item: {
 						count: 1
-						id: "tfc:food/cooked_mutton"
+						id: "tfc:jute_fiber"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					count: 3L
+					id: "2DE756CE2E7CE106"
+					item: {
+						count: 1
+						id: "tfc:small_raw_hide"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 3L
+					id: "2722915E3329C18F"
+					item: {
+						count: 1
+						id: "tfc:medium_raw_hide"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					count: 3L
+					id: "6D934B67C2197615"
+					item: {
+						count: 1
+						id: "tfc:large_raw_hide"
+					}
+					optional_task: true
+					type: "item"
+				}
+			]
+			x: -3.25d
+			y: 4.5d
+		}
+		{
+			dep_control_pts: {
+				4C78408E6835BC56: [
+					-2.492d
+					3.64d
+					-2.209d
+					4.223d
+				]
+			}
+			dependencies: ["4C78408E6835BC56"]
+			icon: {
+				id: "minecraft:bone"
+			}
+			id: "3C30E69F299AB5D5"
+			optional: true
+			rewards: [
+				{
+					count: 2
+					id: "7BB5FEDCE50832B5"
+					item: {
+						count: 1
+						id: "tfc:rope"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "ember"
+			size: 0.85d
+			tags: ["side"]
+			tasks: [
+				{
+					count: 8L
+					id: "5261037CDD378CF6"
+					item: {
+						count: 1
+						id: "minecraft:bone"
+					}
+					type: "item"
+				}
+			]
+			x: -2.1d
+			y: 4.35d
+		}
+		{
+			dep_control_pts: {
+				28C8DA2831BAE76D: [
+					0.564d
+					5.925d
+					0.598d
+					6.475d
+				]
+			}
+			dependencies: ["28C8DA2831BAE76D"]
+			icon: {
+				id: "tfc:rock/loose/basalt"
+			}
+			id: "1662CE1A9F311C34"
+			optional: true
+			rewards: [
+				{
+					count: 2
+					id: "08AA1C47600423FA"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_beef"
 					}
 					team_reward: false
 					type: "item"
@@ -659,107 +1468,14 @@
 			tags: ["side"]
 			tasks: [
 				{
-					id: "70EF10AA4460F61A"
-					item: {
-						count: 1
-						id: "tfc:food/blackberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "43E950C44CAFA128"
-					item: {
-						count: 1
-						id: "tfc:food/raspberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "434D3C46C65C2801"
-					item: {
-						count: 1
-						id: "tfc:food/blueberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "3252C56F2E6E583F"
-					item: {
-						count: 1
-						id: "tfc:food/elderberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "2A060E62A6D59323"
-					item: {
-						count: 1
-						id: "tfc:food/gooseberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "4A937D3381B5AB4A"
-					item: {
-						count: 1
-						id: "tfc:food/strawberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "3F22EA9AB8AFD156"
-					item: {
-						count: 1
-						id: "tfc:food/cloudberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "1F4101479EB6BE6E"
-					item: {
-						count: 1
-						id: "tfc:food/snowberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "6092640C8AA1654D"
-					item: {
-						count: 1
-						id: "tfc:food/bunchberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "08BA8B7282B761F0"
-					item: {
-						count: 1
-						id: "tfc:food/cranberry"
-					}
-					optional_task: true
-					type: "item"
-				}
-				{
-					id: "1487A21C149D4E09"
-					item: {
-						count: 1
-						id: "tfc:food/wintergreen_berry"
-					}
-					optional_task: true
-					type: "item"
+					advancement: "firmages:chronicle/dawn_rock_families"
+					criterion: ""
+					id: "1C7E0CEFE113B790"
+					type: "advancement"
 				}
 			]
-			x: 1.05d
-			y: -6.3d
+			x: 0.45d
+			y: 6.65d
 		}
 		{
 			dependencies: ["49153BBE2AD958B7"]

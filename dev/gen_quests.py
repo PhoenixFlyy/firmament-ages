@@ -256,10 +256,13 @@ def r_xp(n):
 # Who receives a reward (decision log 2026-10-14, "Belohnungen: Material fürs Team, Ausrüstung pro Spieler", and B2
 # 2026-10-16: fixed items in place of the random and choice tables): T = material for the shared base, claimed once
 # for the fellowship (team_reward); P = gear or a consumable, each player claims their own. Every quest that asks for
-# work pays items of its own Age (dev/validate_quests.py checks the Age); the XP of the Age stays beside them.
-# Rules of the B2 reward audit (scratchpad b2/rewards): never a task item of an open quest of the chapter, never a sky
-# material, token, offering, Wayshrine stone or blessing shard, never the tally metal from the Industrial Age on, no
-# second Wyvern or Draconic piece, nothing that fires a TFC story advancement before its quest.
+# work pays items of its own Age (dev/validate_quests.py checks the Age).
+# XP rule (Felix, G1 2026-10-17): a quest that pays items pays no XP; XP stays alone on the quests without items (entry,
+# notes, build guides). quest_rewards() applies it, dev/validate_quests.py fails on "xp beside item rewards".
+# Rules of the B2 reward audit (scratchpad b2/rewards): never a task item of an open quest of the chapter (item tasks
+# and the items of the Chronicle's own advancements, CHRONICLE_ADVANCEMENTS), never a sky material, token, offering,
+# Wayshrine stone or blessing shard, never the tally metal from the Industrial Age on, no second Wyvern or Draconic
+# piece, nothing that fires a TFC story advancement before its quest.
 def r_item(item, count=1, team=True):
     d = {'type': 'item', 'item': {'count': 1, 'id': item}, 'team_reward': bool(team)}
     if count > 1:
@@ -366,17 +369,67 @@ def ring_quest(chapter_key, age_index, ring_name, icon, desc):
 
 
 # ---------------------------------------------------------------- Dawn
+# G1 (Felix 2026-10-17: Dawn was done in ten minutes): five strands for two or three players, about three to four times
+# as long. Every task is reachable in Dawn (TFC 4.2.11 data, dev/age_map.toml Dawn items). New worlds start on 1 June
+# (config/tfc-common.toml), and no TFC berry bush fruits before August (field guide the_world/wild_fruits), so Forage
+# gathers wild crops: "mature from June to October" (field guide the_world/wild_crops), each drops one to three of its
+# food and two to three seeds (melon and pumpkin one seed, no food), loot_table/blocks/wild_crop/*.json; all 29 grow in
+# the wild (tags/worldgen/placed_feature/feature/crops.json).
+WILD_CROPS = ['alfalfa', 'barley', 'beet', 'cabbage', 'canola', 'carrot', 'cassava', 'garlic', 'green_bean', 'jute',
+              'lentil', 'maize', 'melon', 'oat', 'onion', 'papyrus', 'peanut', 'potato', 'pumpkin', 'radish',
+              'red_bell_pepper', 'rice', 'rye', 'soybean', 'squash', 'sugarcane', 'tomato', 'wheat', 'yellow_bell_pepper']
+WILD_CROP_FOOD = ['tfc:food/' + c for c in WILD_CROPS
+                  if c not in ('alfalfa', 'canola', 'jute', 'melon', 'papyrus', 'pumpkin')]   # these drop no food
+ROCK_GROUPS = ['igneous_extrusive', 'igneous_intrusive', 'metamorphic', 'sedimentary']
+
+
+def _inventory(items):
+    return {'trigger': 'minecraft:inventory_changed', 'conditions': {'items': [{'items': items}]}}
+
+
+def _at_least_two(names):
+    """Advancement requirements for "at least two of these criteria": every clause leaves one criterion out, so a single
+    one never satisfies the clause that omits it (CNF of "two of n")."""
+    return [[n for n in names if n != skip] for skip in names]
+
+
+# The Chronicle's own advancements: a quest that needs "this and that" or "two different" of a family, which FTB
+# Quests item tasks cannot ask (a quest whose tasks are all optional completes with any one of them). Hidden (no
+# display), written by main() to kubejs/data/firmages/advancement/chronicle/.
+CHRONICLE_ADV_DIR = os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'advancement', 'chronicle')
+CHRONICLE_ADVANCEMENTS = {
+    # "Knife and Hammer": a stone knife and a stone hammer, any rock group each
+    os.path.join(CHRONICLE_ADV_DIR, 'dawn_knife_hammer.json'): {
+        'criteria': {'knife': _inventory(['tfc:stone/knife/' + g for g in ROCK_GROUPS]),
+                     'hammer': _inventory(['tfc:stone/hammer/' + g for g in ROCK_GROUPS])},
+        'requirements': [['knife'], ['hammer']]},
+    # "Seeds of the Wild": seeds of two different wild crops
+    os.path.join(CHRONICLE_ADV_DIR, 'dawn_wild_seeds.json'): {
+        'criteria': {c: _inventory('tfc:seeds/' + c) for c in WILD_CROPS},
+        'requirements': _at_least_two(WILD_CROPS)},
+    # "Loose and Found": a loose rock of each rock family (TFC 4.2.11 tags tfc:stones/loose/<group>)
+    os.path.join(CHRONICLE_ADV_DIR, 'dawn_rock_families.json'): {
+        'criteria': {g: _inventory('#tfc:stones/loose/' + g) for g in ROCK_GROUPS},
+        'requirements': [[g] for g in ROCK_GROUPS]},
+}
+
+
+def t_chronicle(name, title):
+    """Task on one of CHRONICLE_ADVANCEMENTS."""
+    return t_adv('firmages:chronicle/' + name, title)
+
+
 DAWN = age_chapter(
     'dawn', 'dawn', 'Dawn', ['Prologue: stone, straw and the first spark.'], 'tfc:firestarter', 'dawn', 0,
     entry=Q('dawn/entry', 'Welcome to the Wild', t_stage('dawn'), kind='entry', icon='tfc:rock/loose/granite',
             sub='The prologue before the first Age',
-            desc=['Dawn gives you nothing: no pick, no clay, no fire.',
+            desc=['Begin with stone, straw and the hunt.',
                   '',
-                  'Three strands lead out of Dawn: Stone, Shelter and Hunt. Share them out.',
+                  'Five strands lead out of Dawn: Stone, Shelter, Hunt, Forage and Sky. Share them out.',
                   'Read "By Hand" and "Hands and Keys" in The Firmament first.',
                   '',
                   'Nights are dark. Light a fire and make torches before the first one (see "Before Dark").',
-                  'When all three strands are done, the first fire opens the Stone Age for all of you.']),
+                  'When all five strands are done, the first fire opens the Stone Age for all of you.']),
     strands=[
         ('Stone', [
             Q('dawn/stone/sticks', 'A Bundle of Sticks', t_item('minecraft:stick', 8),
@@ -403,37 +456,77 @@ DAWN = age_chapter(
                     'Craft the head with a stick, a twig or a bone on the ground (see "By Hand"): a stone axe.',
                     'The knife and the other heads: "Knapping Patterns".'],
               icon='tfc:stone/axe/sedimentary',
-              rewards=[P('tfc:food/cooked_beef', 4), T('tfc:rock/loose/granite', 6)]),
+              rewards=[P('tfc:food/cooked_beef', 4), P('tfc:stone/shovel/sedimentary')]),
+            # Knife: tfc:knapping/stone/knife_head/<group>_1, hammer: hammer_head/<group>; assembled like the axe
+            # (tfc:crafting/stone/knife/<group>, hammer/<group>). CHRONICLE_ADVANCEMENTS dawn_knife_hammer.
+            Q('dawn/stone/kit', 'Knife and Hammer',
+              t_chronicle('dawn_knife_hammer', 'A stone knife and a stone hammer'), icon='tfc:stone/knife/igneous_extrusive',
+              desc=['Knap a knife blade and a hammer head (see "Knapping Patterns") and craft each with a stick.',
+                    'The knife cuts straw; the hammer splits logs.'],
+              rewards=[T('minecraft:stick', 8), P('tfc:food/cooked_mutton', 2)]),
         ], Q('dawn/stone/key', 'Stone Kit', t_adv('tfc:story/logging', 'Fell a tree with a stone axe'),
              kind='keystone', icon='tfc:stone/axe_head/igneous_extrusive',
              desc=['Fell a tree with your stone axe. With axe, knife, hammer and shovel you have a full stone kit.'],
-             rewards=[T('minecraft:stick', 16), T('tfc:rock/loose/basalt', 6)])),
+             rewards=[T('minecraft:stick', 16), P('tfc:food/cooked_rabbit', 3)])),
         ('Shelter', [
+            # tfc:crafting/thatch: four straw in a 2x2 (ground craft: four straw on one block). Straw: one per grass
+            # block cut with #tfc:tools/sharp (loot_table/blocks/plant/<grass>.json). 32 thatch = 128 straw: about ten
+            # minutes of cutting, two stone knives and the ground crafts for one player.
             Q('dawn/shelter/thatch', 'Thatch', [t_adv('tfc:story/get_straw', 'Cut straw'), t_item('tfc:thatch', 8)],
               icon='tfc:thatch',
               desc=['Cut tall grass with a stone knife for straw. Lay four on one block, sneak and right-click the',
                     "pile: thatch, Dawn's one building block."],
               rewards=[T('tfc:rope', 2), T('tfc:straw', 8)]),
+            Q('dawn/shelter/walls', 'Walls of Straw', t_item('tfc:thatch', 32), icon='tfc:thatch',
+              desc=['Make 32 thatch, enough for walls and a roof. A hut of straw keeps the night out.'],
+              rewards=[T('tfc:straw', 16), P('tfc:food/cooked_pork', 2)]),
         ], Q('dawn/shelter/key', 'Shelter', t_observe('tfc:thatch_bed', title='Look at a finished thatch bed'),
              kind='keystone', icon='tfc:thatch_bed',
              desc=['Right-click two thatch blocks side by side with a large raw hide: a thatch bed.',
-                   'It sets your spawn but does not skip the night. Beds that do come with the Iron Age.'],
+                   'It sets your spawn but does not skip the night.'],
              rewards=[T('tfc:thatch', 4), T('tfc:rope', 2)])),
         ('Hunt', [
             Q('dawn/hunt/javelin', 'A Stone Javelin',
-              t_any_item(['tfc:stone/javelin/igneous_extrusive', 'tfc:stone/javelin/igneous_intrusive',
-                          'tfc:stone/javelin/metamorphic', 'tfc:stone/javelin/sedimentary'], 'Any stone javelin'),
+              t_any_item(['tfc:stone/javelin/' + g for g in ROCK_GROUPS], 'Any stone javelin'),
               desc=['Knap a javelin head (see "Knapping Patterns") and craft it with a stick on the ground.',
                     'Throw it or stab with it.'],
               icon='tfc:stone/javelin/sedimentary',
               rewards=[P('tfc:food/cooked_venison', 2)]),
         ], Q('dawn/hunt/kill', 'Hunter',
-             [t_kill(tag='tfc:animals', value=1, title='Kill any wild animal'),
+             [t_kill(tag='tfc:animals', value=3, title='Kill three wild animals'),
               t_item('tfc:large_raw_hide', title='A large raw hide')],
              kind='keystone', icon='tfc:large_raw_hide',
-             desc=['Hunt an animal; carry a knife to butcher it. Large prey drops the large hide that makes the',
+             desc=['Hunt three animals; carry a knife to butcher them. Large prey drops the large hide that makes the',
                    'thatch bed.'],
-             rewards=[P('tfc:food/cooked_pork', 4), T('tfc:rope', 2), T('tfc:rock/loose/limestone', 6)])),
+             rewards=[P('tfc:food/cooked_pork', 4), T('tfc:rope', 2), P('tfc:stone/javelin/igneous_extrusive')])),
+        ('Forage', [
+            Q('dawn/forage/harvest', 'Wild Harvest', t_any_item(WILD_CROP_FOOD, 'Food from any wild crop'),
+              icon='tfc:food/carrot',
+              desc=['Gather the food of a wild crop. Wild grain and roots ripen in summer, hidden in the tall grass.'],
+              rewards=[P('tfc:food/cooked_chicken', 2)]),
+            Q('dawn/forage/seeds', 'Seeds of the Wild', t_chronicle('dawn_wild_seeds', 'Seeds of two different wild crops'),
+              icon='tfc:seeds/barley',
+              desc=['Break wild crops for their seeds. Seeds of two different crops are the start of a field.'],
+              rewards=[P('tfc:food/cooked_pork', 3)]),
+        ], Q('dawn/forage/key', 'The Larder', t_any_item(WILD_CROP_FOOD, 'Twelve of one wild crop', count=12),
+             kind='keystone', icon='tfc:food/potato',
+             desc=["Gather twelve of one wild crop's food. A full larder carries the fellowship into the Stone Age."],
+             rewards=[P('tfc:food/cooked_venison', 4), T('tfc:jute_fiber', 8)])),
+        ('Sky', [
+            # Vanilla stat walk_one_cm: walking on the ground, not sprinting, crouching, swimming or riding
+            # (Player.checkMovementStatistics). FTB Quests StatTask checks it every three ticks.
+            Q('dawn/sky/walk', 'Far from Home', t_stat('minecraft:walk_one_cm', 100000, 'Walk 1,000 blocks'),
+              icon='minecraft:leather_boots',
+              desc=['Walk 1,000 blocks in all; sprinting does not count. Keep your eyes on the land as you go.'],
+              rewards=[P('tfc:food/cooked_beef', 3)]),
+        ], # The tutorial Wayshrine (firmages-core SPEC 28.4a): a forest_ring ruin placed by code 300 to 800 blocks from
+           # the world spawn on a new world, every block a Dawn block, the ruin's faint beam drawn from the start (28.8).
+           # The core (firmages:wayshrine_core) has no item, so the task observes the block.
+           Q('dawn/sky/key', 'A Shrine on the Road', t_observe('firmages:wayshrine_core', title='Look at the core of a ruined shrine'),
+             kind='keystone', icon='firmages:wayshrine_stone',
+             desc=['Find the ruined shrine of Caelum that stands 300 to 800 blocks from where you woke. A faint beam',
+                   'rises from it. Look at its core.'],
+             rewards=[P('tfc:food/cooked_mutton', 4), T('tfc:rope', 4)])),
     ],
     goal=Q('dawn/goal', 'The First Spark',
            [t_item('tfc:firestarter', title='A firestarter'), t_adv('tfc:story/firepit', 'Light a firepit')],
@@ -442,11 +535,11 @@ DAWN = age_chapter(
                  'sticks and some straw on one block and hold right-click on it with the firestarter until the',
                  'firepit lights.',
                  '',
-                 'Fire opens the Stone Age for all of you: clay, pit kilns, the first copper and the crafting grid (E).'],
-           rewards=[T('tfc:rock/loose/slate', 8), T('tfc:straw', 16), T('tfc:rope', 4), P('tfc:food/cooked_venison', 4)]),
+                 'Fire opens the Stone Age for all of you.'],
+           rewards=[T('minecraft:oak_log', 8), T('tfc:straw', 16), T('tfc:rope', 4), P('tfc:food/cooked_venison', 4)]),
     sides=[
         # The first night (More Darkness, no skipping bed): the firepit advancement also counts for the goal, which
-        # still waits for the three keystones, so lighting it early changes nothing about the Age grant.
+        # still waits for the five keystones, so lighting it early changes nothing about the Age grant.
         ('dawn/stone/key', [
             Q('dawn/side/torch', 'Before Dark', t_item('tfc:torch', title='A torch'), kind='side', icon='tfc:torch',
               desc=[Verbatim(image_line('device/firepit')), '',
@@ -457,39 +550,31 @@ DAWN = age_chapter(
                     'a placed torch burns about 36 minutes. Zombies and spiders walk at night.'],
               rewards=[P('tfc:food/cooked_chicken', 4)]),
         ]),
-        ('dawn/hunt/javelin', [
-            Q('dawn/side/berries', 'Berries and Herbs',
-              t_any_item(['tfc:food/blackberry', 'tfc:food/raspberry', 'tfc:food/blueberry',
-                          'tfc:food/elderberry', 'tfc:food/gooseberry', 'tfc:food/strawberry',
-                          'tfc:food/cloudberry', 'tfc:food/snowberry', 'tfc:food/bunchberry',
-                          'tfc:food/cranberry', 'tfc:food/wintergreen_berry'], 'Any wild berry'),
-              kind='side', icon='tfc:food/blueberry',
-              desc=['Gather wild berries. You never thirst here, and a varied diet makes you hardier.'],
-              rewards=[P('tfc:food/cooked_mutton', 4)]),
+        # Hides: rabbits drop a small hide (half the time), deer a medium one, the large beasts a large one
+        # (loot_table/entities/*.json). Bones: deer one to six, rabbits one, skeletons at night.
+        ('dawn/hunt/kill', [
+            Q('dawn/side/hides', 'Hides',
+              t_any_item(['tfc:small_raw_hide', 'tfc:medium_raw_hide', 'tfc:large_raw_hide'],
+                         'Three raw hides of one size', count=3),
+              kind='side', icon='tfc:medium_raw_hide',
+              desc=['Bring home three raw hides of one size. Small, medium and large prey each give their own.'],
+              rewards=[T('tfc:jute_fiber', 6)]),
+        ]),
+        ('dawn/hunt/kill', [
+            Q('dawn/side/bones', 'Bones', t_item('minecraft:bone', 8), kind='side', icon='minecraft:bone',
+              desc=['Gather eight bones from your kills. A bone serves as a tool shaft where sticks run short.'],
+              rewards=[T('tfc:rope', 2)]),
+        ]),
+        ('dawn/sky/walk', [
+            Q('dawn/side/rocks', 'Loose and Found',
+              t_chronicle('dawn_rock_families', 'A loose rock of each family'), kind='side',
+              icon='tfc:rock/loose/basalt',
+              desc=['Gather a loose rock of each family: igneous extrusive, igneous intrusive, metamorphic and',
+                    'sedimentary. Hover over a rock to read its family.'],
+              rewards=[P('tfc:food/cooked_beef', 2)]),
         ]),
     ],
     explains=[
-        # Felix 2026-10-15 (HW2A): the inventory grid is closed in Dawn (firmages-core SPEC 19.3); ground crafting on a
-        # TFC placed-item pile is the Dawn replacement. Teaching quest (dev/validate_quests.py STYLE_TEACHING).
-        Q('dawn/info/hand', 'By Hand', t_check(), kind='explain', icon='tfc:stone/axe/sedimentary',
-          desc=['You have no crafting grid yet. Hold an item and press V to lay it on a block; up to four items fit',
-                'on one block, one in each corner.',
-                '',
-                'Lay the parts together, then sneak and right-click the pile with an empty hand. If they make',
-                'something, you get it. Where on the block each part lies does not matter.',
-                '',
-                'Four straw make thatch, two sticks a firestarter, a stone head and a stick a stone tool.',
-                'The crafting grid (E) opens with the Stone Age.']),
-        Q('dawn/info/rules', 'What Dawn Withholds', t_check(), kind='explain', icon='minecraft:barrier',
-          desc=['In Dawn you cannot dig clay, build pit kilns or use metal. There is no crafting grid: you craft on',
-                'the ground (see "By Hand"), and only stone and obsidian tools, the firestarter, straw, thatch, sticks',
-                'and rope. The grid opens with the Stone Age.',
-                '',
-                'Logs and stone do not break by hand: the stone axe fells trees, stone waits for the copper pickaxe.',
-                'Every tree drops the log of its wood class: oak, birch, spruce, jungle, acacia, dark oak, mangrove or',
-                'cherry. Logs of one class stack, whatever tree they came from.',
-                '',
-                'No recipe viewer until the Bronze Age; this book draws every pattern.']),
         # Patterns: tfc:knapping/stone/knife_head/<group>_1 (two blades from one rock), hammer_head/<group>,
         # shovel_head/<group>, hoe_head/<group>_1 (two heads), javelin_head/<group> (TFC 4.2.11, all four rock
         # groups alike). Hammer, shovel and the single hoe are "default_on": false: the rest of the grid must be
@@ -525,8 +610,7 @@ STONE = age_chapter(
     'age_0', 1,
     entry=Q('stone/entry', 'The Stone Age Dawns', t_stage('age_0'), kind='entry', icon='tfc:ceramic/vessel',
             sub='The first Age',
-            desc=['Fire is tamed. Clay is yours now, and with it pottery, molds and copper. Your hands have learned:',
-                  'the crafting grid (E) is open.',
+            desc=['Fire is tamed. Clay is yours now, and with it pottery, molds and copper.',
                   '',
                   'Four strands lead to the Hearthstone: Fire & Clay, First Metal, Camp, and Hearth & Shrine.',
                   'The last one raises the shrine where the Hearthstone is offered to Caelum.']),
@@ -590,7 +674,7 @@ STONE = age_chapter(
               rewards=[T('tfc:ore/small_native_copper', 5)]),
             Q('stone/metal/pickaxe', 'Copper Pickaxe', t_item('tfc:metal/pickaxe/copper'),
               desc=['Right-click the glowing vessel, the pickaxe head mold in the slot. The cooled head on a stick is',
-                    'your first pickaxe: now you can mine.'],
+                    'your first pickaxe.'],
               rewards=[T('tfc:metal/ingot/copper', 2)]),
             # Patterns: TFC 4.2.11 data/tfc/recipe/knapping/ceramic/unfired_axe_head_mold.json and
             # unfired_hammer_head_mold.json (no "default_on": the rest of the grid is knocked away, like the stone heads).
@@ -680,8 +764,7 @@ STONE = age_chapter(
                  'Lay it on the plinth and kindle the heart with a firestarter. Then sneak and hold right-click on the heart',
                  'with an empty hand. Friends who pray with you make it faster.',
                  '',
-                 'Caelum keeps the Hearthstone and opens the Bronze Age. From then on a thin beam over the heart',
-                 'shows the way home.'],
+                 'Caelum keeps the Hearthstone and opens the Bronze Age.'],
            rewards=[P('tfc:metal/sword/copper'), P('tfc:metal/shield/copper'), T('tfc:metal/ingot/copper', 4), T('firmages:lantern/stone', 2)]),
     sides=[
         ('stone/clay/kiln', [
@@ -703,7 +786,7 @@ STONE = age_chapter(
         Q('stone/info/heat', 'Heat Colors', t_check(), kind='explain', icon='minecraft:charcoal',
           desc=['Hot items glow. Hover over one to read its heat; each metal melts at its own.']),
         Q('stone/info/cavein', 'Cave-ins', t_check(), kind='explain', icon='tfc:rock/loose/granite',
-          desc=['Mining raw stone can collapse the ceiling. Support beams come with the Bronze Age.']),
+          desc=['Mining raw stone can collapse the ceiling.']),
         # Patterns: TFC 4.2.11 data/tfc/recipe/knapping/ceramic/unfired_<name>.json (knapping type tfc:clay, five clay,
         # used up when the shape is taken). Ingot and pickaxe head molds are "default_on": true: the squares outside
         # their 4x5 and 5x4 shapes stay standing. The saw blade mold is a full 5x5 shape.
@@ -774,9 +857,6 @@ BRONZE = age_chapter(
     entry=Q('bronze/entry', 'The Bronze Age Dawns', t_stage('age_1'), kind='entry',
             icon='tfc:metal/ingot/bronze', sub='The second Age',
             desc=['Tin and zinc veins wake. Anvils, alloys and the first kinetic machines follow.',
-                  '',
-                  'The recipe viewer opens: hover over an item and press R to see how it is made, U to see what it',
-                  'is used for. F3 now shows coordinates.',
                   '',
                   'Four strands lead to the Sky Disc: Smithing, Prospecting, Alloys and Kinetics.']),
     strands=[
@@ -922,13 +1002,7 @@ BRONZE = age_chapter(
                 'Strike until the green marker meets the red one; your last three strikes must match the rules',
                 'shown on top.']),
         Q('bronze/info/create', 'Kinetics in the Bronze Age', t_check(), kind='explain', icon='create:andesite_alloy',
-          desc=['Only andesite machines exist now: water wheels, saws, presses, fans and mills.',
-                'Crushing wheels, deployers and brass come with the Iron Age.',
-                '',
-                'Hover over a machine in your inventory and hold W to watch it work.']),
-        Q('bronze/info/home', 'A Home', t_check(), kind='explain', icon='handcrafted:oak_chair',
-          desc=['Furniture opens: chairs, tables, shelves, doors and windows in every wood, vanilla wood and',
-                "every tree's own wood alike. The recipe viewer shows how each is made."]),
+          desc=['Hover over a machine in your inventory and hold W to watch it work.']),
     ],
     ring=ring_quest('bronze', 1, 'the Bronze Sanctum', 'tfc:bronze_bell',
                     ['Raise the Bronze Sanctum around the Hearth Circle: rock bricks, a bronze block on each corner',
@@ -936,11 +1010,11 @@ BRONZE = age_chapter(
 
 # ---------------------------------------------------------------- Iron Age
 IRON = age_chapter(
-    'iron', 'iron_age', 'Iron Age', ['The map opens. Iron veins become visible.'], 'firmages:steel_heart',
+    'iron', 'iron_age', 'Iron Age', ['Iron veins wake.'], 'firmages:steel_heart',
     'age_2', 3,
     entry=Q('iron/entry', 'The Iron Age Dawns', t_stage('age_2'), kind='entry',
             icon='tfc:metal/ingot/wrought_iron', sub='The third Age',
-            desc=['Iron veins are visible now and the map opens.',
+            desc=['Iron veins wake.',
                   '',
                   'Five strands lead to the Steel Heart: Metallurgy, Power & Motion, Survival, Frontier and Sky. The',
                   'Sky strand readies the Lens Crown of the next Age.']),
@@ -1062,8 +1136,6 @@ IRON = age_chapter(
     explains=[
         Q('iron/info/winter', 'The First Winter', t_check(), kind='explain', icon='tfc:ceramic/large_vessel',
           desc=['The year has seasons. Crops stop growing in winter and it gets cold. Plan ahead.']),
-        Q('iron/info/home', 'A Home', t_check(), kind='explain', icon='minecraft:white_bed',
-          desc=['Real beds open: wool beds and fancy beds with cushions and sheets. Sleeping in one skips the night.']),
     ],
     ring=ring_quest('iron', 2, 'the Iron Sanctum', 'tfc:metal/lamp/wrought_iron',
                     ['Raise the Iron Sanctum around the Bronze Sanctum: smooth rock pillars with wrought iron bars and',
@@ -1075,7 +1147,7 @@ ARCANE = age_chapter(
     'firmages:arcane_keystone', 'age_3', 4,
     entry=Q('arcane/entry', 'The Arcane Age Dawns', t_stage('age_3'), kind='entry', icon='ars_nouveau:source_gem',
             sub='The fourth Age',
-            desc=['Magic wakes: spirits, source and alchemy. It gives the best ore yield until the Information Age.',
+            desc=['Magic wakes: spirits, source and alchemy. It gives the best ore yield of this Age.',
                   '',
                   'The Arcane Keystone takes one of two routes. The Spirit Route binds it from the Spirits, Source and',
                   'Alchemy strands. The Machine Route fills a Hollow Keystone on your machine line. Both need Starlit',
@@ -1083,7 +1155,7 @@ ARCANE = age_chapter(
     strands=[
         ('Spirits', [
             Q('arcane/spirit/datura', 'Datura', t_item('occultism:datura_seeds'),
-              desc=['Datura seeds now drop from grass. Plant them on Arcane Soil, dirt charged with amethyst;',
+              desc=['Datura seeds drop from grass. Plant them on Arcane Soil, dirt charged with amethyst;',
                     'plain farmland will not hold them.'],
               rewards=[T('tfc:gem/amethyst', 4)]),
             Q('arcane/spirit/dream', 'Demon\'s Dream', t_item('occultism:demons_dream_essence'),
@@ -1189,7 +1261,7 @@ ARCANE = age_chapter(
               rewards=[T('tfc:gem/amethyst', 4)]),
         ], Q('arcane/sky/key', 'Starlit Iron', t_item('firmages:starlit_iron_ingot', 3), kind='keystone',
              desc=['Forge Starlit Iron under the crown from meteoric iron, storm glass and an Arcane gem. Both routes to',
-                   'the Arcane Keystone need it, and the Wayshrines now want it as their offering.'],
+                   'the Arcane Keystone need it, and the Wayshrines want it as their offering.'],
              rewards=[T('tfc:metal/sheet/steel', 4), P('artifacts:cross_necklace')])),
         # Machine Route (pacing B2): the magic-free way carries the blaze burner and the blaze enchanter as steps,
         # so a fellowship without spirits, source or alchemy still builds a line of its Age.
@@ -1247,7 +1319,7 @@ ARCANE = age_chapter(
     ],
     explains=[
         Q('arcane/info/ore', 'Ore in the Arcane Age', t_check(), kind='explain', icon='tfc:ore/rich_hematite',
-          desc=['Three ways now give more metal per ore:',
+          desc=['Three ways give more metal per ore:',
                 '- Crushing wheels: about 1.5 times.',
                 '- Spagyrics: twice the metal, every grade.',
                 '- The Dimensional Mineshaft: rich pieces without end.',
@@ -1255,7 +1327,7 @@ ARCANE = age_chapter(
                 'The spirit crusher grinds no ore.']),
         Q('arcane/info/one', 'One Carrier per Function', t_check(), kind='explain', icon='ars_nouveau:starbuncle_charm',
           desc=['Each magic function has one carrier: Starbuncles move items, Dimensional Storage stores them,',
-                'spagyrics multiply ore, the Djinni crafts in pentacles. Duplicates are switched off.']),
+                'spagyrics multiply ore, the Djinni crafts in pentacles.']),
     ],
     ring=ring_quest('arcane', 3, 'the Spirit Circle', 'ars_nouveau:sourcestone',
                     ['Raise the Spirit Circle around the Iron Sanctum: sourcestone, otherstone pillars capped with',
@@ -1322,7 +1394,7 @@ INDUSTRIAL = age_chapter(
                     'on a fired boiler.'],
               rewards=[T('createaddition:electric_motor')]),
             Q('industrial/power/lead', 'Lead', t_item('immersiveengineering:ingot_lead', 4),
-              desc=['Galena veins are visible now. Lead goes into capacitors.'],
+              desc=['Galena veins wake. Lead goes into capacitors.'],
               rewards=[T('immersiveengineering:plate_lead', 2)]),
             Q('industrial/power/capacitor', 'LV Capacitor', t_item('immersiveengineering:capacitor_lv'),
               desc=['The LV capacitor stores FE and evens out the grid.'],
@@ -1443,8 +1515,7 @@ INDUSTRIAL = age_chapter(
           desc=['The engineering machines are multiblocks: build the shape from the Engineer\'s Manual, then hit the marked',
                 'block with the Engineer\'s Hammer. Projector blueprints show the shape in the world.']),
         Q('industrial/info/claims', 'Chunk Claims', t_check(), kind='explain', icon='minecraft:map',
-          desc=['Your fellowship can now claim land and keep chunks loaded. Keep the chunks your lines run in',
-                'loaded, or they stop when you leave.']),
+          desc=['Keep the chunks your lines run in loaded, or they stop when you leave.']),
     ],
     ring=ring_quest('industrial', 4, 'the Foundry Nave', 'immersiveengineering:cokebrick',
                     ['Raise the Foundry Nave around the Spirit Circle: coke bricks, heavy engineering block bases,',
@@ -1552,7 +1623,7 @@ ELECTRIC = age_chapter(
              rewards=[T('immersiveengineering:component_electronic_adv', 4), T('immersiveengineering:plate_electrum', 4)])),
         ('Sky', [
             Q('electric/sky/starsteel', 'Starsteel', t_item('firmages:starsteel_ingot', 2),
-              desc=['Starsteel meteorites fall now. Melt their chunks in the arc furnace; the sky is its only source.'],
+              desc=['Melt starsteel meteorite chunks in the arc furnace. The sky is its only source.'],
               rewards=[T('immersiveengineering:graphite_electrode', 3)]),
             Q('electric/sky/light', 'Aurora Light', t_item('firmages:aurora_light_bucket'),
               desc=['Pipe or bucket the aurora light out of your Aurora Nets. Nothing else makes it.'],
@@ -1596,9 +1667,6 @@ ELECTRIC = age_chapter(
         Q('electric/info/voltage', 'Voltage', t_check(), kind='explain', icon='immersiveengineering:connector_hv',
           desc=['LV, MV and HV wire each take their own connectors. Transformers join the tiers.',
                 'Wire that carries too much power burns.']),
-        Q('electric/info/retire', 'Stations Retire', t_check(), kind='explain', icon='immersiveengineering:alloybrick',
-          desc=['The arc furnace takes over alloying from the alloy kiln. Old stations stay in the world,',
-                'but their recipes move to the new one.']),
     ],
     ring=ring_quest('electric', 5, 'the Tesla Crown', 'immersiveengineering:floodlight',
                     ['Raise the Tesla Crown around the Foundry Nave: aluminium, red steel bases with HV capacitors,',
@@ -1788,9 +1856,6 @@ INFORMATION = age_chapter(
         ]),
     ],
     explains=[
-        Q('information/info/one', 'One Network', t_check(), kind='explain', icon='ae2:controller',
-          desc=['From now on the ME network is the one store and crafter. The storage terminal retires, and energy',
-                'cubes take over from the LV and MV capacitors.']),
     ],
     ring=ring_quest('information', 6, 'the Data Nave', 'ae2:quartz_glass',
                     ['Raise the Data Nave around the Tesla Crown: certus quartz blocks, steel casing bases, quartz',
@@ -1812,7 +1877,7 @@ SPACE = age_chapter(
               desc=['Make four elite control circuits. The reactor parts run on them.'],
               rewards=[T('mekanism:upgrade_energy', 4)]),
             Q('space/atom/uranium', 'Yellow Cake', t_item('mekanism:yellow_cake_uranium', 8),
-              desc=['Uraninite veins wake now. Process the ore into yellow cake, the start of fission fuel.'],
+              desc=['Process uraninite ore into yellow cake, the start of fission fuel.'],
               rewards=[P('mekanism:hazmat_mask'), P('mekanism:hazmat_gown')]),
             Q('space/atom/fuel', 'Fuel Assemblies', t_item('mekanismgenerators:fission_fuel_assembly', 4),
               desc=['Build four fuel assemblies. They hold the fissile fuel inside the reactor.'],
@@ -2276,8 +2341,6 @@ SINGULARITY = age_chapter(
                 '- First: hit the grounded keel or shoot the white node.',
                 '- Nine Lights: shoot the burning node, or strike as it pulls.',
                 '- Shatter: strike with an off-hand shard, or throw one.']),
-        Q('singularity/info/finale', 'After the Battle', t_check(), kind='explain', icon='mekanism:ultimate_control_circuit',
-          desc=['The MekaSuit and the Meka-Tool are trophies. They can be made only after the final boss falls.']),
     ],
     )
 
@@ -2291,10 +2354,11 @@ GOAL_GRANTS = {'dawn': 'age_0'}
 
 # ---------------------------------------------------------------- The Firmament
 # The first chapter of the book (Felix 2026-10-15: Welcome goes, its read-me-first content moves here). Three parts:
-#  - read-me-first notes (left): waking, reading the Chronicle, keys, the sign, the fellowship, what Dawn withholds,
-#    crafting by hand, the shrine. Written in-world (Felix 2026-10-13: full immersion): no mod names, no recipe
-#    viewer, no talk of locks or stages. Keys of the welcome and Dawn notes are kept, so their ids and any ticked
-#    progress stay.
+#  - read-me-first notes (left): waking, keys, the fellowship, the shrine, crafting by hand. Written in-world (Felix
+#    2026-10-13: full immersion): no mod names, no recipe viewer, no talk of locks or stages, and no word on what an
+#    Age opens or takes away (Felix G1, 2026-10-17: players find out). Keys of the welcome and Dawn notes are kept, so
+#    their ids and any ticked progress stay. G1 dropped "Reading the Chronicle", "The Sign in the Corner" and "What
+#    Dawn Withholds".
 #  - the road: every Age's offering on one spiral that winds in to "Beyond the Firmament"; each offering appears when
 #    its Age dawns (decision A, 2026-10-14).
 #  - a build guide per shrine ring beside its offering (diamond, hidden until its Age dawns): the ring rising as an
@@ -2310,33 +2374,36 @@ FIRMAMENT_NOTES = [
             'The world is lived in Ages, from Dawn to the Singularity Age. What a later Age holds does not exist yet. '
             'Each Age ends with an offering at the shrine of Caelum, the sky itself, and its chapter appears here '
             'when it dawns.']),
-    Q('welcome/book', 'Reading the Chronicle', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:compass',
-      desc=['Each Age has one chapter. Its strands wind from the entry round the goal, the gilded star.',
-            '- A strand ends in a keystone, the large engraved hexagon.',
-            '- The goal needs every keystone.',
-            '- Round ember ones are side paths with a gift for each.',
-            '- The diamond is the shrine ring of the Age. Its picture opens the build guide.',
-            '- Gears are notes. Tick them once read.']),
     Q('firmament/note/keys', 'Hands and Keys', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:stick',
       desc=['Press K to open the Chronicle. Sneak is Left Ctrl here; Left Shift sprints.',
             '',
             'Press V to lay the item in your hand on a block. Hold H to see the sign of your Age again.']),
-    Q('welcome/sign', 'The Sign in the Corner', t_check(), deps=['welcome/start'], kind='info',
-      icon='tfc:firestarter',  # the sign shows the Age's offering; in Dawn the firestarter (oak sign is Iron Age)
-      desc=['Top left, a small sign names your Age and its offering. It fades after a few breaths. Hold H to see it again.']),
     Q('welcome/team', 'One Fellowship', t_check(), deps=['welcome/start'], kind='info', icon='minecraft:player_head',
       desc=['Everybody on this server is one fellowship. The Ages are shared by all of you.',
             'Split the strands between you: one friend smiths, one prospects, one builds.',
             '',
             'A keystone\'s supplies go to whoever claims them first. The gift of a side path and all experience come to each of you.']),
-    # 'dawn/info/rules' and 'dawn/info/hand' move here from Dawn (see DAWN_MOVED below)
+    # The finished shrine on top (G1): dev/gen_quest_pictures.py draws shrine/complete.png; until it is drawn the line
+    # takes the ring pictures' aspect (396 x 292) and dev/validate_quests.py reports the missing picture.
     Q('firmament/note/shrine', 'The Shrine of Caelum', t_check(), deps=['welcome/start'], kind='info',
       icon='firmages:shrine_heart',
-      desc=['From the Stone Age on, every Age ends at the shrine. Raise the ring of the Age round the heart, lay the '
+      desc=[Verbatim(image_line('firmages:textures/gui/quests/shrine/complete.png', size=(396, 292))), '',
+            'From the Stone Age on, every Age ends at the shrine. Raise the ring of the Age round the heart, lay the '
             'offering on the plinth and pray.',
             '',
             'The diamonds along the road are the build guides: the ring rising, every layer with its blocks, and the '
             'rite. Each appears when its Age dawns.']),
+    # Felix 2026-10-15 (HW2A): the inventory grid is closed in Dawn (firmages-core SPEC 19.3); ground crafting on a TFC
+    # placed-item pile is the Dawn replacement. Teaching quest (dev/validate_quests.py STYLE_TEACHING). Key from its
+    # Dawn days kept. G1 (Felix): a note the fellowship must read, so kind 'info' (not optional, like every note of
+    # this chapter) and "The First Spark" on the road waits for it.
+    Q('dawn/info/hand', 'By Hand', t_check(), deps=['welcome/start'], kind='info', icon='tfc:stone/axe/sedimentary',
+      desc=['Hold an item and press V to lay it on a block; up to four items fit on one block, one in each corner.',
+            '',
+            'Lay the parts together, then sneak and right-click the pile with an empty hand. If they make',
+            'something, you get it. Where on the block each part lies does not matter.',
+            '',
+            'Four straw make thatch, two sticks a firestarter, a stone head and a stick a stone tool.']),
 ]
 
 # Every Age's goal, visible from minute one; details stay hidden until the previous goal is done (linear).
@@ -2363,14 +2430,8 @@ AGE_NAME = {'dawn': 'Dawn', 'age_0': 'Stone Age', 'age_1': 'Bronze Age', 'age_2'
             'age_8': 'Quantum Age', 'age_9': 'Singularity Age'}
 
 
-
-# Felix 2026-10-15: what Dawn withholds and crafting by hand are read-me-first, so they move from Dawn's notes to The
-# Firmament (keys kept: ids, ticks and the STYLE_TEACHING entries of dev/validate_quests.py stay).
-DAWN_MOVED = [q_ for q_ in DAWN['explains'] if q_['key'] in ('dawn/info/rules', 'dawn/info/hand')]
-DAWN['explains'] = [q_ for q_ in DAWN['explains'] if q_ not in DAWN_MOVED]
-for q_ in DAWN_MOVED:
-    q_['deps'] = ['welcome/start']
-FIRMAMENT_NOTES += DAWN_MOVED
+# The road's first quest waits for "By Hand" (Felix G1): the note is required reading before the first fire.
+FIRST_SPARK_DEPS = ['dawn/info/hand']
 
 # ------------------------------------------------------------------------------------------------ pictures
 # dev/gen_quest_pictures.py renders them into kubejs/assets/firmages/textures/gui/quests/ and writes their sizes and
@@ -2477,8 +2538,11 @@ def guide_quest(n):
 # defaults. Review 0.13.0: Electric, Information, Space, Quantum and Singularity Age carry an order, picked so that no
 # two lines cross more than validate_quests.py --style allows (LINE_LIMITS) and no line runs over a quest.
 LAYOUT_HINTS = {
-    'dawn': dict(related={('Stone', 'Hunt'): 0.7, ('Stone', 'Shelter'): 0.5, ('Shelter', 'Hunt'): 0.6},
-                 style={'Stone': 'meander', 'Shelter': 'arc', 'Hunt': 'arc'}),
+    'dawn': dict(related={('Stone', 'Hunt'): 0.7, ('Stone', 'Shelter'): 0.5, ('Shelter', 'Hunt'): 0.6,
+                          ('Hunt', 'Forage'): 0.6, ('Forage', 'Sky'): 0.5, ('Shelter', 'Forage'): 0.3,
+                          ('Stone', 'Sky'): 0.2, ('Hunt', 'Sky'): 0.3},
+                 style={'Stone': 'meander', 'Shelter': 'arc', 'Hunt': 'arc', 'Forage': 'arc', 'Sky': 'arc'},
+                 order=['Shelter', 'Forage', 'Stone', 'Sky', 'Hunt']),
     'stone': dict(related={('Fire & Clay', 'First Metal'): 0.9, ('Fire & Clay', 'Hearth & Shrine'): 0.8,
                            ('First Metal', 'Hearth & Shrine'): 0.6, ('Camp', 'Fire & Clay'): 0.45,
                            ('Camp', 'First Metal'): 0.05, ('Camp', 'Hearth & Shrine'): 0.2},
@@ -2549,6 +2613,8 @@ def build_tasks(quest):
 def build_rewards(quest, rewards):
     out = []
     for n, r in enumerate(rewards):
+        if r is None:   # XP_SLOT: the reward ids of the other rewards keep their number
+            continue
         d = dict(r)
         d['id'] = qid('%s/reward/%d' % (quest['key'], n))
         out.append(d)
@@ -2740,19 +2806,24 @@ INFO_KINDS = {'entry', 'explain', 'info', 'note', 'guide'}
 XP_MULT = {'keystone': 3, 'goal': 10, 'ring': 2}
 
 
+# Until G1 the XP stood first and every item reward after it; its slot stays empty, so the reward ids
+# (qid('<key>/reward/<n>')) and every claim on a running world stay as they were.
+XP_SLOT = None
+
+
 def quest_rewards(quest, xp, mirror=False):
-    """XP of the Age (times the kind's multiplier) plus the quest's own items. mirror: a quest that only mirrors
-    another one's task (the road of offerings in The Firmament) pays nothing; the memorable reward sits on the goal."""
+    """The quest's own items, or the XP of the Age (times the kind's multiplier) on a quest without items: never both
+    (XP rule above r_item). mirror: a quest that only mirrors another one's task (the road of offerings in The
+    Firmament) pays nothing; the memorable reward sits on the goal."""
     if mirror:
         return []
-    out = [r_xp(xp * XP_MULT.get(quest['kind'], 1))] if xp else []
     if quest['kind'] in INFO_KINDS:
         if quest['rewards']:
             raise SystemExit('%s: an info quest pays XP only, no items' % quest['key'])
-        return out
+        return [r_xp(xp * XP_MULT.get(quest['kind'], 1))] if xp else []
     if not quest['rewards']:
         raise SystemExit('%s: no item reward (every quest that asks for work pays items of its Age)' % quest['key'])
-    return out + list(quest['rewards'])
+    return [XP_SLOT] + list(quest['rewards'])
 
 
 def build_age_chapter(ch):
@@ -2811,7 +2882,7 @@ def build_firmament():
         d = math.hypot(x2 - x, y2 - y)
         road_pos.append((x, y))
         node = lay.add('firmament/' + key, 'goal' if key == 'beyond' else 'keystone', x, y,
-                       deps=['firmament/' + FIRMAMENT[i - 1][0]] if i else [])
+                       deps=['firmament/' + FIRMAMENT[i - 1][0]] if i else FIRST_SPARK_DEPS)
         node.stiff = True
         lay.tang[node.key] = ((x2 - x) / d, (y2 - y) / d)
         if i:
@@ -2864,7 +2935,7 @@ def build_firmament():
             task, sub = 'Reach the ' + AGE_NAME[stage], 'Goal of ' + name
             desc = (['The first fire. It opens the Stone Age.'] if dawn else
                     ['The offering of %s. Its build guide stands beside it.' % name])
-        q_ = Q('firmament/' + key, title, t_stage(stage, task), deps=[prev] if prev else [],
+        q_ = Q('firmament/' + key, title, t_stage(stage, task), deps=[prev] if prev else FIRST_SPARK_DEPS,
                kind='goal' if final else 'keystone', icon=icon, sub=sub, desc=desc)
         # Decision A (2026-10-14): each offering appears when its Age dawns (its predecessor's Age is reached). The
         # first spark stays in view from the start; "Beyond the Firmament" waits for the Singularity Age (Felix, B2).
@@ -2918,7 +2989,7 @@ ROADS = [
               rewards=[T('tfc:jute_fiber', 8)]),
             Q('dawn/beast/rattle', 'Rattle in the Sand', t_item('alexsmobs:rattlesnake_rattle'), kind='side',
               desc=['Kill a rattlesnake and take its rattle. It warns only once.'],
-              rewards=[T('tfc:medium_raw_hide', 2), T('tfc:straw', 8)]),
+              rewards=[P('tfc:food/cooked_rabbit', 3), T('tfc:straw', 8)]),   # G1: no hide (Dawn side "Hides")
         ]),
     ]),
     dict(key='stone', filename='roads_stone_age', stage='age_0', title='Stone Age Side Roads', strands=[
@@ -2955,7 +3026,7 @@ ROADS = [
                     'mineral, so seek one that gives jet.'],
               rewards=[T('tfc:metal/lamp/copper')]),
             Q('stone/vol/greig', 'Greigite', t_item('tfcvolcanoes:mineral/greigite', 4), kind='side',
-              desc=['Gather greigite. It holds iron, but it will not melt for you before the Iron Age.'],
+              desc=['Gather greigite. It holds iron.'],
               rewards=[P('tfc:metal/chisel/copper')]),
         ]),
         # Old Stones (TFC Ruins, Cave Dweller ReEvolved, TFC Regrowing Forests)
@@ -4110,7 +4181,7 @@ ROADS = [
               desc=['Build a chemical storage cell. Gases and slurries enter the network like items.'],
               rewards=[T('mekanism:alloy_infused', 4)]),
             Q('information/bridges/source', 'Source Cell', t_item('arseng:source_storage_cell_1k'), kind='side',
-              desc=['Move Source through a Source jar network or, from now on, through the ME network. Machines',
+              desc=['Move Source through a Source jar network or through the ME network. Machines',
                       'carry magic, magic never carries machines.'],
               rewards=[T('ae2:fluix_crystal', 4)]),
             Q('information/bridges/proxy', 'ME Proxy', t_item('createappliedkinetics:me_proxy'), kind='side',
@@ -4767,7 +4838,8 @@ def main():
         write(os.path.join(OUT, 'chapters', name + '.snbt'), ch)
     write(os.path.join(OUT, 'lang', 'en_us.snbt'), LANG)
     write_chapter_shaders(chapters)
-    for path, adv in list(proof_advancements().items()) + list(WORK_ADVANCEMENTS.items()) + list(WORK_TAGS.items()):
+    for path, adv in (list(proof_advancements().items()) + list(WORK_ADVANCEMENTS.items()) + list(WORK_TAGS.items())
+                      + list(CHRONICLE_ADVANCEMENTS.items())):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w', encoding='utf-8', newline='\n') as f:
             f.write(json.dumps(adv, indent=2) + '\n')

@@ -28,7 +28,7 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
    Ausnahme Lehrquest (bis 110 Wörter): die eine Stelle, an der eine Mechanik oder ein Bauplan erklärt wird, den kein
    Rezeptbetrachter zeigt. Die Liste steht in `STYLE_TEACHING` in `dev/validate_quests.py` (Knapping-Anleitung,
    Knapping-Muster, Herdkreis, Keystone-Leihe, Dreschmaschine, Feuer und Fackeln vor der ersten Nacht, Ton-Muster,
-   Steinzeit-Heim, Werkbank, Nether-Opfer, Dawn-Regeln, Grubenofen, Kohlenmeiler, Gießen in die Form,
+   Steinzeit-Heim, Werkbank, Nether-Opfer, Bodenhandwerk ("By Hand"), Grubenofen, Kohlenmeiler, Gießen in die Form,
    Holzkohleschmiede), jede mit Grund. Neue Einträge nur mit Grund.
 3. Kein Rezept, das der Rezeptbetrachter zeigt. Ausnahmen: Dawn und Steinzeit (EMI erst ab der Bronzezeit,
    `ui.emiFromAge = age_1`) und die Opfergaben (ihre Zutaten sind die Checkliste der Stränge).
@@ -37,6 +37,16 @@ Nicht: "Embark on an epic journey through ten unique Ages!"
    one too."
 5. Gleich gebaute Quests klingen gleich: alle Ziele "Craft ... / Raise ...; the heart shows what is missing. Lay ...
    and pray. / Caelum keeps ... and opens ...". Eingänge heißen "The X Age Dawns" wie der Zeremonie-Titel.
+6. Keine Erklärtexte (Felix 2026-10-17): wird ein Feature entfernt, ersetzt oder freigeschaltet, sagt der Text nichts
+   dazu; Spieler entdecken selbst. Nicht: "the crafting grid (E) is open", "you can now ...", "No recipe viewer
+   until ...", "X comes with the Iron Age", "the storage terminal retires". In-World-Lore ("Tin and zinc veins
+   wake."), Aufgabenhinweise einer Quest und die Sperr-Rückmeldungen von ProgressiveStages bleiben.
+
+## Belohnungen
+
+- Eine Quest, die Items gibt, gibt keine XP; XP nur allein, auf Quests ohne Item-Belohnung (Eingang, Notizen,
+  Bauanleitungen). Felix 2026-10-17 (G1). `quest_rewards()` in `dev/gen_quests.py` setzt das um,
+  `dev/validate_quests.py` meldet "xp beside item rewards".
 
 ## Namen und Schreibweisen
 

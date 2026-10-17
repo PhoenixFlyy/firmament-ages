@@ -1,0 +1,58 @@
+{
+  "criteria": {
+    "igneous_extrusive": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#tfc:stones/loose/igneous_extrusive"
+          }
+        ]
+      }
+    },
+    "igneous_intrusive": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#tfc:stones/loose/igneous_intrusive"
+          }
+        ]
+      }
+    },
+    "metamorphic": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#tfc:stones/loose/metamorphic"
+          }
+        ]
+      }
+    },
+    "sedimentary": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#tfc:stones/loose/sedimentary"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "igneous_extrusive"
+    ],
+    [
+      "igneous_intrusive"
+    ],
+    [
+      "metamorphic"
+    ],
+    [
+      "sedimentary"
+    ]
+  ]
+}

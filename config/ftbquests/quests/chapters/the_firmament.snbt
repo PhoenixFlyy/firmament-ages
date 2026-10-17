@@ -22,7 +22,7 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 8.0d
-			x: -3.9251850438883986d
+			x: -4.150185043888398d
 			y: -13.127456927505834d
 		}
 		{
@@ -192,41 +192,10 @@
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-19.479d
-					-1.389d
-					-19.695d
-					-2.289d
-				]
-			}
-			dependencies: ["573FF798650E3338"]
-			icon: {
-				id: "minecraft:compass"
-			}
-			id: "04AB34FB1FD2E8B6"
-			rewards: [
-				{
-					id: "750A193BD6E11B02"
-					type: "xp"
-					xp: 5
-				}
-			]
-			tags: ["info"]
-			tasks: [
-				{
-					id: "058343D1DBF996D9"
-					type: "checkmark"
-				}
-			]
-			x: -20.0d
-			y: -3.7d
-		}
-		{
-			dep_control_pts: {
-				573FF798650E3338: [
-					-20.171d
-					-0.604d
-					-21.171d
-					-1.121d
+					-19.499d
+					-1.341d
+					-19.666d
+					-2.191d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
@@ -248,47 +217,16 @@
 					type: "checkmark"
 				}
 			]
-			x: -22.35d
-			y: -2.55d
+			x: -19.85d
+			y: -3.55d
 		}
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-19.837d
-					0.185d
-					-20.87d
-					0.418d
-				]
-			}
-			dependencies: ["573FF798650E3338"]
-			icon: {
-				id: "tfc:firestarter"
-			}
-			id: "32561F3017350CAF"
-			rewards: [
-				{
-					id: "076ABEE47F184567"
-					type: "xp"
-					xp: 5
-				}
-			]
-			tags: ["info"]
-			tasks: [
-				{
-					id: "084CCB10BE5CC37F"
-					type: "checkmark"
-				}
-			]
-			x: -22.45d
-			y: -0.3d
-		}
-		{
-			dep_control_pts: {
-				573FF798650E3338: [
-					-19.477d
-					0.31d
-					-20.077d
-					1.16d
+					-20.105d
+					-0.509d
+					-21.288d
+					-0.509d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
@@ -310,16 +248,16 @@
 					type: "checkmark"
 				}
 			]
-			x: -21.15d
-			y: 1.55d
+			x: -22.9d
+			y: -1.0d
 		}
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-18.829d
-					0.397d
-					-18.462d
-					1.247d
+					-19.328d
+					0.291d
+					-19.445d
+					1.191d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
@@ -341,16 +279,16 @@
 					type: "checkmark"
 				}
 			]
-			x: -18.25d
-			y: 1.55d
+			x: -19.7d
+			y: 1.7d
 		}
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-17.835d
-					-0.072d
-					-16.735d
-					0.395d
+					-17.763d
+					-0.27d
+					-16.596d
+					-0.003d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
@@ -358,7 +296,6 @@
 				id: "tfc:stone/axe/sedimentary"
 			}
 			id: "64181B7811C2814E"
-			optional: true
 			rewards: [
 				{
 					id: "5CAAA69D93D17A74"
@@ -366,51 +303,26 @@
 					xp: 5
 				}
 			]
-			shape: "gear"
-			tags: ["explain"]
+			tags: ["info"]
 			tasks: [
 				{
 					id: "315DDB39B747FA95"
 					type: "checkmark"
 				}
 			]
-			x: -16.05d
-			y: 0.4d
+			x: -15.85d
+			y: -0.2d
 		}
 		{
 			dep_control_pts: {
-				573FF798650E3338: [
-					-17.671d
-					-0.411d
-					-16.638d
-					-0.811d
+				64181B7811C2814E: [
+					-14.184d
+					0.319d
+					-13.284d
+					-0.081d
 				]
 			}
-			dependencies: ["573FF798650E3338"]
-			icon: {
-				id: "minecraft:barrier"
-			}
-			id: "16708A1C39158F9C"
-			optional: true
-			rewards: [
-				{
-					id: "25C4FF5E0752ED16"
-					type: "xp"
-					xp: 5
-				}
-			]
-			shape: "gear"
-			tags: ["explain"]
-			tasks: [
-				{
-					id: "4A6EBEB2D7EC07B8"
-					type: "checkmark"
-				}
-			]
-			x: -16.25d
-			y: -2.2d
-		}
-		{
+			dependencies: ["64181B7811C2814E"]
 			icon: {
 				id: "tfc:firestarter"
 			}

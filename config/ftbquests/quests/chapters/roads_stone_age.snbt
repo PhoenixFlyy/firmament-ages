@@ -25,11 +25,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "054ADB2FF0A44A10"
-					type: "xp"
-					xp: 20
-				}
-				{
 					count: 8
 					id: "09E5A7954B7B93BE"
 					item: {
@@ -84,11 +79,6 @@
 			id: "73672407CE508AF9"
 			optional: true
 			rewards: [
-				{
-					id: "1614DC6D8D3DE6D9"
-					type: "xp"
-					xp: 20
-				}
 				{
 					count: 4
 					id: "444B7D67267A6995"
@@ -152,11 +142,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "684C4BD38D7EDD10"
-					type: "xp"
-					xp: 20
-				}
-				{
 					count: 4
 					id: "7E15CE69CAB8AC50"
 					item: {
@@ -188,11 +173,6 @@
 			id: "1DC6FC26B0415CF5"
 			optional: true
 			rewards: [
-				{
-					id: "68A4B2815B8838BA"
-					type: "xp"
-					xp: 20
-				}
 				{
 					id: "089CE8BA43FCB186"
 					item: {
@@ -233,11 +213,6 @@
 			id: "785E11655A4373F7"
 			optional: true
 			rewards: [
-				{
-					id: "16302BA6C95F5478"
-					type: "xp"
-					xp: 20
-				}
 				{
 					count: 8
 					id: "612688CD2664271E"
@@ -280,11 +255,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "6B81445C9DA3F119"
-					type: "xp"
-					xp: 20
-				}
-				{
 					count: 4
 					id: "748ACD231B832345"
 					item: {
@@ -326,11 +296,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "2F5CCFCC67C63FFD"
-					type: "xp"
-					xp: 20
-				}
-				{
 					id: "77D55079003DAD7E"
 					item: {
 						count: 1
@@ -371,11 +336,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "6C0D3ECA7DB017BE"
-					type: "xp"
-					xp: 20
-				}
-				{
 					id: "1AB6AE6C8BB37280"
 					item: {
 						count: 1
@@ -410,11 +370,6 @@
 			id: "486B7720D498A44B"
 			optional: true
 			rewards: [
-				{
-					id: "7F9E03B22A3FA9E7"
-					type: "xp"
-					xp: 20
-				}
 				{
 					count: 2
 					id: "750F903A2880214D"
@@ -474,11 +429,6 @@
 			id: "33C11901A7A16BA3"
 			optional: true
 			rewards: [
-				{
-					id: "1724CF648D4E7000"
-					type: "xp"
-					xp: 20
-				}
 				{
 					count: 2
 					id: "2896594901FA510E"
@@ -551,11 +501,6 @@
 			optional: true
 			rewards: [
 				{
-					id: "4505F6F35F01EBC2"
-					type: "xp"
-					xp: 20
-				}
-				{
 					count: 4
 					id: "772008D04D4DEDEC"
 					item: {
@@ -597,11 +542,6 @@
 			id: "3544B98B44E7DD28"
 			optional: true
 			rewards: [
-				{
-					id: "2082838A76FD0172"
-					type: "xp"
-					xp: 20
-				}
 				{
 					count: 2
 					id: "0CEADAB6D8E387C2"

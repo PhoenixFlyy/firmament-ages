@@ -1,0 +1,42 @@
+{
+  "criteria": {
+    "knife": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tfc:stone/knife/igneous_extrusive",
+              "tfc:stone/knife/igneous_intrusive",
+              "tfc:stone/knife/metamorphic",
+              "tfc:stone/knife/sedimentary"
+            ]
+          }
+        ]
+      }
+    },
+    "hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tfc:stone/hammer/igneous_extrusive",
+              "tfc:stone/hammer/igneous_intrusive",
+              "tfc:stone/hammer/metamorphic",
+              "tfc:stone/hammer/sedimentary"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "knife"
+    ],
+    [
+      "hammer"
+    ]
+  ]
+}
