@@ -182,7 +182,7 @@ hash = "5868f972e3d32de91fda224402a07ae78ac32bc1e69f2a14afd341ec3c894e07"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "245f231f1c9881e17ad56f0733776e93664312d2f000689caf8e973adcaad256"
+hash = "374e89d3977ba8e1ba46e15549034cb869fd07e7dd0e956a9e799f62f00154b3"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -883,6 +883,10 @@ hash = "b7dede6c58d02569e9666b63c04d3d98b425f88f5775914b3f4e0a4f3970978b"
 [[files]]
 file = "kubejs/assets/firmages/age_namespaces.json"
 hash = "33003c86212de24054ca2258c25a254eef305e7e287d5375b9cb50965f09f06e"
+
+[[files]]
+file = "kubejs/assets/firmages/key_gates.json"
+hash = "1e84acdca07d054da3e566148ece5f255ec952690cd848f15bc33f38b2af47fd"
 
 [[files]]
 file = "kubejs/assets/firmages/lang/en_us.json"

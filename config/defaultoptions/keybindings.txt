@@ -19,7 +19,8 @@ key_key.mekanism.key_hud:key.keyboard.h:ALT
 key_key.mekanism.key_boost:key.keyboard.unknown
 key_tfc.key.place_block:key.keyboard.v
 key_key.hide_icons:key.keyboard.unknown
-key_key.ftbchunks.map:key.keyboard.m
+key_key.ftbchunks.map:key.keyboard.l
+key_key.journeymap.map_toggle_alt:key.keyboard.m
 key_tfc.key.cycle_chisel_mode:key.keyboard.semicolon
 key_key.immersivepetroleum.projector.flip:key.keyboard.unknown
 key_key.curios.open.desc:key.keyboard.g
