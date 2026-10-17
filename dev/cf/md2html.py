@@ -61,8 +61,12 @@ def convert(md: str) -> str:
         if m:
             flush_para()
             title = m.group(1) or "Spoiler"
-            # CurseForge strips <details>; its editor's own spoiler markup is a div.spoiler (collapsible on the site)
+            # CurseForge strips <details>. Its editor's spoiler button makes <div class="spoiler"><p>...</p></div>, and the
+            # site collapses that div to 20 px (one line) until a click adds .shown: the first paragraph is the visible
+            # title, so it must be the first child (no empty paragraph before it) and the div must not sit inside a
+            # table or another div (checked on the live page 2026-10-17).
             out.append('<div class="spoiler">')
+            out.append(f"<p><strong>{inline(title)}</strong></p>")
             i += 1
             continue
         if stripped == ":::":

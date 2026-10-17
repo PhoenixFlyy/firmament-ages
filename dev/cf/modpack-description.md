@@ -1,46 +1,53 @@
 # Firmament Ages
 
-Ten Ages in one TerraFirmaCraft world. You start with a rock in your hand and end with a reactor and a Stargate, and every step in between has to be earned at a shrine your whole server shares.
+You wake with nothing in your hands under a sky that watches. Ten Ages lie ahead, and your whole server climbs them together.
 
-This is a progression pack in the SevTech: Ages tradition, built from scratch for Minecraft 1.21.1 and NeoForge. Nothing from a later Age exists yet: locked items show up as "Something Unknown", ore of a later Age looks like plain rock, the Nether and the End stay closed. When your team lays the Age's offering on the shrine and prays, the next Age opens for everyone at the same moment.
+Firmament Ages is a co-op progression pack for Minecraft 1.21.1 on NeoForge. Each Age is a world of its own: what belongs to a later Age does not exist yet, not in your inventory, not in the ground, not in any menu. When your team has earned the Age's offering and lays it on the shrine, the next Age opens for everyone at once.
 
-## What to expect
+## What it feels like
 
-- Slow and deliberate. Plan on well over a hundred hours, and there is no shortcut past an Age.
-- One team per server. Everyone is in the same Age, the shrine belongs to all of you, and the last fight is fought together.
-- Tech is the main road: TerraFirmaCraft, Create, Immersive Engineering, Mekanism, Applied Energistics 2, Ad Astra and Draconic Evolution, one after the other. Magic (Occultism, Ars Nouveau, Theurgy) is there for those who want it and is never required.
-- A TerraFirmaCraft world that feels alive: climate and seasons, birds and wind, volcanoes, falling stars, auroras, islands above the clouds, ruined shrines to restore, ruins with loot of your Age, blood moons that get nastier with every Age.
-- A large building set in every TerraFirmaCraft and ArborFirmaCraft wood and rock, vanilla woods included, gated by Age like everything else.
-- The quest book (K) is the only guide, and it stays short on purpose: what to do, and later why, with pictures of knapping patterns and devices, a build guide for every ring of the shrine, three optional Great Works (a gatehouse, a living house, a rocket silo) and a Side Road for every mod. Every quest pays real items of its Age. No recipe viewer before the Bronze Age, no map before the Iron Age.
-- Every Age builds on the one before: each new machine takes a part of the last Age.
+- **Earned, not given.** Dawn is a rock, a stick and some straw. The last Age is a reactor and a gate to somewhere else. Plan on well over a hundred hours.
+- **One fellowship.** One team per server, one shrine, one last fight you face together.
+- **Nothing told in advance.** No recipe viewer in the early Ages, no map, no pop-ups that explain. You learn by doing and by looking.
+- **A world that keeps living.** Seasons and climate, birds and wind, stars that fall, nights that get worse with every Age, ruins that hold only what your Age can use.
+- **Build along the way.** A large building set in every wood and stone, unlocked Age by Age.
+- **One guide.** The Chronicle (K) says what to do and rarely why, and pays real items for it. Technology is the main road; magic is a side road and never required.
+
+## Made with
+
+::: spoiler The mods behind it (click to open)
+
+TerraFirmaCraft gives the world, the climate and the first metals. Create carries the middle Ages; Immersive Engineering, Mekanism and Applied Energistics 2 the late ones; Ad Astra and Draconic Evolution the end. Occultism, Ars Nouveau and Theurgy are the magic road. 265 mods in all; the credits at the bottom name each one.
+
+:::
 
 ## The Ages
 
-::: spoiler The Ages
+::: spoiler Ten Ages, one line each (click to open)
 
-| Age | What opens | Offering |
+| Age | What it brings | Offering |
 |---|---|---|
-| Dawn | A TerraFirmaCraft world: knapping, stone tools, thatch, the first fire | none: the first fire opens the Stone Age |
-| Stone Age | Pottery, pit kilns, copper casting, ArborFirmaCraft | Hearthstone |
-| Bronze Age | TFC anvils, three bronzes, Create (Andesite tier), Sophisticated Backpacks | Sky Disc |
-| Iron Age | Bloomery, blast furnace, steel, Create Brass tier, the world map, the Cold Forge expedition, meteoric iron, the Storm Rod | Steel Heart |
-| Arcane Age | Occultism, Ars Nouveau, Theurgy, Apotheosis, the Nether, the Lens Crown and its celestial alloys | Arcane Keystone |
-| Industrial Age | Immersive Engineering, coke and FE power, black steel, Create packages, the Drifting Isles, the Aurora Net | Pressure Core |
-| Electric Age | IE HV, Arc Furnace, Excavator, oil and diesel | Humming Core |
-| Information Age | Mekanism, Applied Energistics 2, Mystical Agriculture, the End, the Arcane Catalyst | Data Matrix |
-| Space Age | Fission, Ad Astra rockets, the Moon and Mars, Draconic Evolution, the Launch Complex, Sky Anchors | Star Chart |
-| Quantum Age | Fusion, antimatter, Evolved Mekanism, Venus, Mercury and Glacio | Quantum Core |
-| Singularity Age | Chaotic Draconic gear, the Draconic Reactor, the Ore Processor, a Stargate | none: the final battle |
+| Dawn | Knapping, stone tools, thatch, the first fire | the first fire opens the Stone Age |
+| Stone Age | Pottery, pit kilns, the first cast copper | Hearthstone |
+| Bronze Age | Anvils, three bronzes, the first machines on water and wind | Sky Disc |
+| Iron Age | Bloomery, blast furnace and steel, brass machines, the world map, an expedition into the cold | Steel Heart |
+| Arcane Age | Spirits, spells and alchemy, the Nether, the first celestial alloy | Arcane Keystone |
+| Industrial Age | Coke, steel works and the first electricity, islands above the clouds | Pressure Core |
+| Electric Age | High voltage, arc furnaces, oil and diesel | Humming Core |
+| Information Age | Chemistry, digital storage, the End | Data Matrix |
+| Space Age | Fission, rockets, the Moon and Mars, a launch complex of your own | Star Chart |
+| Quantum Age | Fusion, antimatter, the outer planets | Quantum Core |
+| Singularity Age | Chaos, the great reactor, a gate to The Origin | the final battle |
 
 :::
 
 ## The shrine
 
-::: spoiler The shrine and the finale
+::: spoiler How an Age ends (click to open)
 
-You build it yourself, one ring per Age, from a circle of cobblestone and thatch up to a ring of quantum casings. Lay the Age's offering on the plinth, fulfil the rite and pray together. The sky answers: the ring turns to consecrated stone, a blessing settles around the shrine, the offering stays behind as a relic, and the next Age is open for everyone.
+You build the shrine yourself, one ring per Age, from a circle of cobblestone and thatch up to a ring of quantum casings. Lay the Age's offering on the plinth, fulfil the rite and pray together. The sky answers: the ring turns to consecrated stone, a blessing settles around the shrine, the offering stays behind as a relic, and the next Age is open for everyone.
 
-In the Singularity Age the nine relics are fused into the Ultimate Singularity, the heart of a Stargate. Dial The Origin, a dimension of floating islands made from the stone of every Age, and face what waits there.
+In the Singularity Age the nine relics are fused into one heart, and the heart opens a gate. Beyond it lies The Origin, islands made from the stone of every Age, and what waits there.
 
 Stuck? The [walkthrough](https://github.com/PhoenixFlyy/firmament-ages/blob/main/docs/WALKTHROUGH.md) goes through every Age: the way, the ring, the pitfalls.
 
@@ -48,14 +55,14 @@ Stuck? The [walkthrough](https://github.com/PhoenixFlyy/firmament-ages/blob/main
 
 ## Install
 
-- Minecraft 1.21.1, NeoForge 21.1.252, Java 21. The CurseForge App sets up NeoForge and Java for you; the first start takes a few minutes.
-- RAM: 8 GB for the game (6 GB at the very least), set in the CurseForge App under *Settings → Minecraft → Java Settings*. The default of 4 GB is not enough. A PC with 16 GB is the practical minimum.
-- Server: a ready-to-run server pack comes with every release as an additional file. Its README covers memory and pregeneration: 8 GB of heap for up to four players, 10 GB for five to ten.
-- Multiplayer: every player joins the server's one team at the first login, no invite needed. If you want separate teams, set `team.autoJoin = false` in `firmages-server.toml`. PvP is on; set `pvp=false` in `server.properties` for a public server. Single player works too, as a team of one.
+- Minecraft 1.21.1, NeoForge 21.1.252, Java 21. The CurseForge App sets up NeoForge and Java; the first start takes a few minutes.
+- RAM: 8 GB for the game, set in the CurseForge App under *Settings → Minecraft → Java Settings*. 4 GB is not enough. 16 GB in the PC is the practical minimum.
+- Server: a ready-to-run server pack comes with every release as an additional file; its README covers memory and pregeneration.
+- Multiplayer: every player joins the server's one team at the first login. Single player works too, as a team of one.
 
 ## Version 1.0
 
-The whole road from Dawn to The Origin and its final boss is finished and checked end to end: every item waits for its Age, every quest asks for something your team can make by then, and every Age has a road without magic and without a boss. Draconic Evolution and Stargate Journey are beta mods on 1.21.1, so back up your world before the Space Age. Bugs go to the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
+The whole road from Dawn to The Origin and its final boss is finished and checked end to end. Draconic Evolution and Stargate Journey are beta mods on 1.21.1, so back up your world before the Space Age. Bugs go to the [issue tracker](https://github.com/PhoenixFlyy/firmament-ages/issues).
 
 ## Shaders
 
@@ -64,9 +71,11 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 ## Source and license
 
 - Quests, scripts, configs and the pack's own mod, Firmament Ages Core: [github.com/PhoenixFlyy/firmament-ages](https://github.com/PhoenixFlyy/firmament-ages)
-- The pack's own parts are MIT licensed (the `LICENSE` file in the repository). Every other mod belongs to its authors and keeps its own license; the credits below name each one.
+- The pack's own parts are MIT licensed (the `LICENSE` file in the repository). Every other mod belongs to its authors and keeps its own license; the credits name each one.
 
 ## Credits
+
+::: spoiler 265 mods and their authors (click to open)
 
 <!-- credits:start -->
 
@@ -339,3 +348,5 @@ Firmament Ages 1.0.0 contains 265 mods. Thank you to every author.
 - **YetAnotherConfigLib** by isXander ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/yacl))
 
 <!-- credits:end -->
+
+:::

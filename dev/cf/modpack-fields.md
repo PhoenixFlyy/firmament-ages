@@ -9,7 +9,7 @@ Every value to type or pick in the CurseForge Author Console (authors.curseforge
 | Game | Minecraft |
 | Project type (class) | Modpacks |
 | Name | `Firmament Ages` |
-| Summary (max. 150 characters, 133 used) | `A co-op TerraFirmaCraft progression pack: ten Ages from knapping flint to a Draconic reactor and a Stargate, one shrine, one final boss.` |
+| Summary (max. 150 characters, 120 used) | `A co-op progression pack: ten Ages your whole server earns together, one shrine, one last fight. Slow, quiet, unspoiled.` |
 | Avatar / project image | `dev/cf/avatar-400.png` (400 x 400, the console's required size). `dev/cf/logo.png` (512 x 512) is the same picture for places that take a larger image. |
 | Primary category | Tech |
 | Additional categories | Quests, Magic, Multiplayer, Sci-Fi, Extra Large |
