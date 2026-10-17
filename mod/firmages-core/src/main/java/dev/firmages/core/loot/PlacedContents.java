@@ -9,8 +9,11 @@ import java.util.function.Predicate;
  * {@code id} and a numeric {@code count} (or the legacy {@code Count}); the block entity's own compound never counts as
  * one. What a removal leaves behind keeps every reader working:
  * <ul>
- *   <li>a stack in a list ({@code Items} of chests, barrels and TFC inventories, {@code minecraft:bundle_contents},
- *       {@code tfc:contents}): the element goes;</li>
+ *   <li>a stack in a list ({@code Items} of chests, barrels and TFC inventories, {@code minecraft:bundle_contents}): the
+ *       element goes;</li>
+ *   <li>a stack in a list that keeps its size ({@link #keepsSize}: the {@code items} of TFC's small vessel component
+ *       {@code tfc:vessel}, exactly four optional stacks): the element becomes an empty compound, which
+ *       {@code ItemStack.OPTIONAL_CODEC} reads as an empty slot;</li>
  *   <li>a slot entry in a list whose stack goes ({@code {slot, item}} of {@code minecraft:container}): the entry goes;</li>
  *   <li>a stack in a field (a pedestal's {@code itemStack}, a pot's {@code item}): the field goes (an NBT reader then
  *       finds no item).</li>
@@ -44,6 +47,18 @@ public final class PlacedContents {
         Object get(Object list, int index);
 
         void remove(Object list, int index);
+
+        /** Replaces the element at {@code index} by an empty compound. */
+        void empty(Object list, int index);
+    }
+
+    /**
+     * A list that keeps its size: TFC 4.2.11's small vessel component {@code tfc:vessel} holds {@code items} as
+     * {@code ItemStack.OPTIONAL_CODEC.listOf(4, 4)} [verified, javap {@code VesselComponent}], so a shorter list makes
+     * the whole vessel an invalid item ("List is too short", copy boot of round G2).
+     */
+    static boolean keepsSize(String parentKey, String key) {
+        return "tfc:vessel".equals(parentKey) && "items".equals(key);
     }
 
     /** True when the node is an item stack: a compound with a string id and a numeric count. */
@@ -56,37 +71,45 @@ public final class PlacedContents {
      * accepts, at any depth. {@code root} itself is the block entity's data and never a stack.
      */
     public static int filter(Object root, Nodes n, Predicate<String> drop, boolean apply) {
-        if (n.isCompound(root)) return compound(root, n, drop, apply);
-        if (n.isList(root)) return list(root, n, drop, apply);
+        return node(root, null, n, drop, apply);
+    }
+
+    /** A node under the key {@code key} of its compound (null for the root and for list elements). */
+    private static int node(Object o, String key, Nodes n, Predicate<String> drop, boolean apply) {
+        if (n.isCompound(o)) return compound(o, key, n, drop, apply);
+        if (n.isList(o)) return list(o, false, n, drop, apply);
         return 0;
     }
 
-    private static int compound(Object c, Nodes n, Predicate<String> drop, boolean apply) {
+    private static int compound(Object c, String ownKey, Nodes n, Predicate<String> drop, boolean apply) {
         int removed = 0;
         for (String key : n.keys(c)) {
             Object v = n.get(c, key);
             if (isStack(v, n) && drop.test(n.string(v, "id"))) {
                 removed++;
                 if (apply) n.remove(c, key);
+            } else if (n.isList(v)) {
+                removed += list(v, keepsSize(ownKey, key), n, drop, apply);
             } else {
-                removed += filter(v, n, drop, apply);
+                removed += node(v, key, n, drop, apply);
             }
         }
         return removed;
     }
 
-    private static int list(Object l, Nodes n, Predicate<String> drop, boolean apply) {
+    private static int list(Object l, boolean keepSize, Nodes n, Predicate<String> drop, boolean apply) {
         int removed = 0;
         for (int i = n.size(l) - 1; i >= 0; i--) {
             Object e = n.get(l, i);
             if (isStack(e, n) && drop.test(n.string(e, "id"))) {
                 removed++;
-                if (apply) n.remove(l, i);
+                if (apply && keepSize) n.empty(l, i);
+                else if (apply) n.remove(l, i);
             } else if (slotEntryDropped(e, n, drop)) {
                 removed++;
                 if (apply) n.remove(l, i);
             } else {
-                removed += filter(e, n, drop, apply);
+                removed += node(e, null, n, drop, apply);
             }
         }
         return removed;

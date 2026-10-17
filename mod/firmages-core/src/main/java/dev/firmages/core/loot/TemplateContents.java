@@ -82,6 +82,11 @@ public final class TemplateContents {
         public void remove(Object list, int index) {
             ((ListTag) list).remove(index);
         }
+
+        @Override
+        public void empty(Object list, int index) {
+            ((ListTag) list).set(index, new CompoundTag());
+        }
     };
 
     private TemplateContents() {}

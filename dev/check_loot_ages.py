@@ -58,8 +58,6 @@ LATER_ON_PURPOSE = {
                                   "gets no Bronze Age flux",
     "firmages:blocks/starfall_core": "one block for both metals: meteoric iron cores fall from the Iron Age, starsteel "
                                      "cores (metal=starsteel) from the Electric Age (SPEC 25.4)",
-    "firmages:blocks/firmament_lode": "a Drifting Isles block, reached from the Industrial Age (SPEC 30.7)",
-    "firmages:blocks/firmament_crystal_cluster": "a Drifting Isles block, reached from the Industrial Age (SPEC 30.7)",
 }
 # Named examples of the report (Felix's G2 finding): prefixes, each matching tables are shown
 EXAMPLES = [

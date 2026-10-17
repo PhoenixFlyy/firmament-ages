@@ -27,6 +27,7 @@ class PlacedContentsTest {
         @Override public int size(Object l) { return list(l).size(); }
         @Override public Object get(Object l, int i) { return list(l).get(i); }
         @Override public void remove(Object l, int i) { list(l).remove(i); }
+        @Override public void empty(Object l, int i) { list(l).set(i, new LinkedHashMap<String, Object>()); }
     };
     private static final Predicate<String> LATE = Set.of("x:totem", "x:hidden")::contains;
 
@@ -72,13 +73,29 @@ class PlacedContentsTest {
         Map<String, Object> box = stack("x:shulker_box", "Slot", 0, "components", c("minecraft:container",
             l(c("slot", 0, "item", stack("x:totem")), c("slot", 1, "item", stack("x:hide")))));
         Map<String, Object> bundle = stack("x:bundle", "Slot", 1, "components", c("minecraft:bundle_contents", l(stack("x:totem"))));
-        Map<String, Object> vessel = stack("x:small_vessel", "Slot", 2, "components", c("tfc:contents", l(stack("x:hide"), stack("x:totem"))));
+        Map<String, Object> vessel = stack("x:small_vessel", "Slot", 2, "components", c("x:contents", l(stack("x:hide"), stack("x:totem"))));
         Map<String, Object> chest = c("id", "x:chest", "Items", l(box, bundle, vessel));
         assertEquals(3, PlacedContents.filter(chest, NODES, LATE, true));
         assertEquals(3, list(chest.get("Items")).size(), "the shulker box, the bundle and the vessel stay");
         assertEquals(List.of(c("slot", 1, "item", stack("x:hide"))), map(box.get("components")).get("minecraft:container"));
         assertEquals(List.of(), map(bundle.get("components")).get("minecraft:bundle_contents"));
-        assertEquals(List.of(stack("x:hide")), map(vessel.get("components")).get("tfc:contents"));
+        assertEquals(List.of(stack("x:hide")), map(vessel.get("components")).get("x:contents"));
+    }
+
+    /** TFC's small vessel keeps its four slots (ItemStack.OPTIONAL_CODEC.listOf(4, 4)); a removed stack becomes {}. */
+    @Test
+    void tfcVesselKeepsItsFourSlots() {
+        Map<String, Object> contents = c("fluid", c("amount", 0, "content", c()), "items",
+            l(stack("x:totem"), stack("x:hide"), c(), stack("x:hidden")));
+        Map<String, Object> vessel = stack("tfc:ceramic/vessel", "Slot", 0, "components", c("tfc:vessel", contents));
+        Map<String, Object> placed = c("id", "tfc:placed_item", "inventory", c("Size", 4, "Items", l(vessel)));
+        assertEquals(2, PlacedContents.filter(placed, NODES, LATE, false), "dry run counts");
+        assertEquals(2, PlacedContents.filter(placed, NODES, LATE, true));
+        assertEquals(l(c(), stack("x:hide"), c(), c()), contents.get("items"), "four slots, the late ones empty");
+        assertEquals(1, list(map(placed.get("inventory")).get("Items")).size(), "the vessel stays");
+        assertTrue(PlacedContents.keepsSize("tfc:vessel", "items"));
+        assertFalse(PlacedContents.keepsSize("minecraft:bundle_contents", "items"));
+        assertFalse(PlacedContents.keepsSize("tfc:vessel", "fluid"));
     }
 
     @Test
