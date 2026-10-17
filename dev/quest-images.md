@@ -108,3 +108,27 @@ und Ziel. Die Ponder-Klicks hängen auch an den `works/`-Bildern der Engine (sie
 
 | Schlüssel | Was | Status |
 |---|---|---|
+
+## Quest-Ansicht und Ember-Blur (G1, 2026-10-17)
+
+Felix nach 1.0.0: der Hintergrund der einzelnen Quest war verwaschen und gekachelt. Ursache: `panel.png` (64 px
+Value-Noise, nicht nahtlos) als `ImageIcon` mit `tile_size=64`; die FTB-Library-Engine wiederholt so eine Textur alle
+`tile_size` GUI-Pixel ab dem Bildschirmursprung (nearest, ohne mcmeta), bei GUI-Skala 2 also 2x vergroessert mit Naht
+alle 128 Bildschirmpixel. Drei Mockups in echter Groesse (GUI-Skala 2, Minecraft-Schrift aus `ascii.png`):
+`dev/quest-preview/panel_mockup_1.png` (flache Flaeche Nachtblau 95 %), `_2.png` (nahtloses feines Korn 128 px,
+`tile_size=128`), `_3.png` (Vignette, ohne `tile_size` ueber das Fenster gestreckt). Gewaehlt: 1, die flache Flaeche
+`#F2101A3E` im Goldrahmen fuer `quest_view_background`, `context_menu`, `chapter_panel_background` und
+`key_reference_background` (`kubejs/assets/ftbquests/ftb_quests_theme.txt`); nichts kachelt oder verschwimmt bei
+irgendeiner Skala, das Korn von 2 war bei dieser Dunkelheit unsichtbar bis mulmig, die Vignette von 3 wirkt weich.
+`panel.png` und `panel_texture()` in `dev/gen_quest_art.py` sind weg.
+
+`shapes/ember/*.png.mcmeta` behalten `blur: true`: die 128-px-Form auf 24, 32 und 48 px einmal GPU-bilinear (ohne
+Mipmaps) und einmal nearest gerendert; bei 24 px sind beide gleich stufig, bei 32 und 48 haelt linear den Innenring und
+den Rand etwas glatter, nearest zerlegt den Innenring in Striche. Kommentar an der mcmeta-Zeile in `gen_quest_art.py`.
+
+Bild des fertigen Schreins: `textures/gui/quests/shrine/complete.png` (432 x 266, alle Ringe in ihren Farben, Herz und
+Plinth) aus `dev/gen_quest_pictures.py` (`complete_picture`), Groesse und Blockzahlen unter `"complete"` in
+`dev/data/quest_pictures.json`. Beim Neurendern in dieser Umgebung bekamen `ring_4` bis `ring_8` die Item-Sprites der
+Laternen und Flutlichter statt blasser Ersatzwuerfel (die Jars der Instanz waren erreichbar); die Bilder sind mit
+regeneriert.
+

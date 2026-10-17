@@ -11,6 +11,7 @@ metals of SPEC 25 and the Lens Crown's items of SPEC 27) go to
 mod/firmages-core/src/main/resources/assets/firmages/textures/item/<path>.png. Block textures go to the mod,
 mod/firmages-core/src/main/resources/assets/firmages/textures/block/<name>.png, and the block models in
 models/block/*.json get their "textures" map rewritten from MODEL_TEXTURES below (the element geometry is untouched).
+GUI icons of the mod (MOD_GUI, 16x16 like the items) go to mod/.../assets/firmages/textures/gui/<name>.png.
 
 Tuning: AGE palettes are 5 tones (outline, dark, mid, light, highlight) built from the shrine beam colors
 (data/firmages/firmages_shrine/tier/ring_N.json) and the Age themes of Doc 08. Item shapes are 16-row ASCII grids,
@@ -2223,6 +2224,36 @@ def mod_item(path, label, rows, leg, post=None):
     MOD_ITEMS[path] = (label, build, None)
 
 
+MOD_GUI = {}  # mod gui texture name -> (label, builder() -> RGBA, mcmeta or None); written to MOD_TEX/gui
+
+
+def mod_gui(name, label, rows, leg):
+    MOD_GUI[name] = (label, lambda: grid_tex(rows, leg), None)
+
+
+# Jade's "unknown" sigil (SPEC 21: a block before its Age shows this instead of its name): a sky rune, a lozenge with a
+# spark in it on a short staff, gold with a one-pixel night outline so it reads on the light and the dark tooltip.
+UNKNOWN_SIGIL = [
+    ".......o........",
+    "......ogo.......",
+    ".....ogggo......",
+    "....oggoggo.....",
+    "...oggoooggo....",
+    "..oggoowooggo...",
+    ".oggoowgwooggo..",
+    "..oggoowooggo...",
+    "...oggoooggo....",
+    "....oggoggo.....",
+    ".....ogggo......",
+    "......ogo.......",
+    ".....oogoo......",
+    "....ogggggo.....",
+    ".....ooooo......",
+    "................",
+]
+mod_gui("unknown_sigil", "Jade: unknown block", UNKNOWN_SIGIL, legend(g="#e8c56a", w="#fff0a8", o="#14102c"))
+
+
 def etch(img, pal, rng, n=5, mask_alpha=True):
     """Widmanstaetten etch: short crossing diagonal lines in the metal's light tone over the opaque pixels."""
     t = tones(pal)
@@ -3679,6 +3710,10 @@ def generate():
             out = MOD_TEX / "block" / (name + ".png")
             write_with_meta(builder(), out, mcmeta)
             written.append(out)
+    for name, (label, builder, mcmeta) in MOD_GUI.items():
+        out = MOD_TEX / "gui" / (name + ".png")
+        write_with_meta(builder(), out, mcmeta)
+        written.append(out)
     for path, (label, builder, mcmeta) in MOD_ITEMS.items():
         out = MOD_TEX / "item" / (path + ".png")
         write_with_meta(builder(), out, mcmeta)
@@ -3887,6 +3922,10 @@ def check():
             errors.append(f"{f.relative_to(ROOT)}: drawn by gen_textures.py but not written (run without --check)")
     for path in MOD_ITEMS:
         f = MOD_TEX / "item" / (path + ".png")
+        if not f.exists():
+            errors.append(f"{f.relative_to(ROOT)}: drawn by gen_textures.py but not written (run without --check)")
+    for name in MOD_GUI:
+        f = MOD_TEX / "gui" / (name + ".png")
         if not f.exists():
             errors.append(f"{f.relative_to(ROOT)}: drawn by gen_textures.py but not written (run without --check)")
     for path in ITEMS:
