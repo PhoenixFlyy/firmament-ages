@@ -31,6 +31,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue HIDE_MOD_NAME_TOOLTIPS;
     public static final ModConfigSpec.BooleanValue TRIM_LOCKED_TOOLTIPS;
     public static final ModConfigSpec.ConfigValue<String> MANA_HUD_FROM_AGE;
+    public static final ModConfigSpec.ConfigValue<String> INVENTORY_BUTTONS_FROM_AGE;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLOCKED_SCREENS;
     public static final ModConfigSpec.IntValue QUEST_PARAGRAPH_GAP;
     public static final ModConfigSpec.IntValue QUEST_WINDOW_PERCENT;
@@ -101,6 +102,9 @@ public final class ClientConfig {
         MANA_HUD_FROM_AGE = b.comment("First Age with Ars Nouveau's mana bar and spell HUD (GUI layers ars_nouveau:mana_hud, ars_nouveau:spell_hud).",
                 "Before it both are hidden; the world's Age comes from the server's status (Dawn until it arrives).")
             .define("manaHudFromAge", DEFAULT_MANA_HUD_FROM_AGE.id(), ClientConfig::isAgeId);
+        INVENTORY_BUTTONS_FROM_AGE = b.comment("First Age with the Curios and Apothic Attributes buttons in the inventory, the Curios key and the Curios screen.",
+                "Before it all of them are gone (operators and creative mode excepted); the world's Age comes from the server's status (Dawn until it arrives).")
+            .define("inventoryButtonsFromAge", dev.firmages.core.immersion.InventoryButtons.DEFAULT_FROM.id(), ClientConfig::isAgeId);
         BLOCKED_SCREENS = b.comment("Fully qualified screen class names that are never opened (mod announcement screens).")
             .defineListAllowEmpty("blockedScreens", DEFAULT_BLOCKED_SCREENS, () -> "", ClientConfig::isString);
         QUEST_PARAGRAPH_GAP = b.comment("Pixels (GUI scale 1) between the paragraphs of a quest description and after its subtitle.",
@@ -144,6 +148,12 @@ public final class ClientConfig {
     /** {@code ui.manaHudFromAge}; an unknown value counts as the default. */
     public static AgeId manaHudFromAge() {
         return AgeId.byId(get(MANA_HUD_FROM_AGE, DEFAULT_MANA_HUD_FROM_AGE.id())).orElse(DEFAULT_MANA_HUD_FROM_AGE);
+    }
+
+    /** {@code ui.inventoryButtonsFromAge}; an unknown value counts as the default. */
+    public static AgeId inventoryButtonsFromAge() {
+        AgeId fallback = dev.firmages.core.immersion.InventoryButtons.DEFAULT_FROM;
+        return AgeId.byId(get(INVENTORY_BUTTONS_FROM_AGE, fallback.id())).orElse(fallback);
     }
 
     private static boolean isAgeId(Object o) {

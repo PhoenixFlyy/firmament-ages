@@ -1,5 +1,7 @@
 package dev.firmages.core.immersion;
 
+import java.util.Set;
+
 /**
  * EMI gating per Age (SPEC §18.3). Pure Java (unit-tested). EMI is forced off while the world's Age is before
  * {@code ui.emiFromAge}, its own toggle key included (the client re-applies every tick). When the Age opens it, EMI is
@@ -7,7 +9,22 @@ package dev.firmages.core.immersion;
  * creative mode have the viewer in every Age (SPEC §21.3).
  */
 public final class ViewerGate {
+    /**
+     * Recipe screens that stay shut while the viewer is closed for the player (SPEC §21.3), by class name. EMI's recipe
+     * and recipe-tree screens: {@code EmiApi.displayRecipes} and the JEI API through JEMI open them without checking
+     * {@code EmiConfig.enabled} [verified, javap, EMI 1.1.24]. JEI's own recipe screen {@code RecipesGui} (the only
+     * {@code Screen} of JEI 19.64.0.453, opened through {@code Minecraft.setScreen} [verified, javap]) is never built
+     * while EMI runs (EMI's {@code PluginCallerMixin} skips JEI's GUI plugins); it is listed in case it ever is.
+     */
+    public static final Set<String> VIEWER_SCREENS = Set.of("dev.emi.emi.screen.RecipeScreen", "dev.emi.emi.screen.BoMScreen",
+        "mezz.jei.gui.recipes.RecipesGui");
+
     private ViewerGate() {}
+
+    /** A screen of {@link #VIEWER_SCREENS} does not open while the viewer is closed ({@link #open} false). */
+    public static boolean screenBlocked(String screenClass, boolean viewerOpen) {
+        return !viewerOpen && screenClass != null && VIEWER_SCREENS.contains(screenClass);
+    }
 
     /**
      * @param ageAllows the world's Age opens the viewer ({@code ui.emiFromAge})

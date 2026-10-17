@@ -23,8 +23,6 @@ public final class GridLock {
     /** Felix 2026-10-15 (HW2A): the grid opens with the Stone Age ("The First Spark"). */
     public static final AgeId DEFAULT_UNTIL = AgeId.AGE_0;
     public static final String NEVER = "never";
-    /** At most one ground-craft hint per player in this many milliseconds (as the hand-breaking rule). */
-    public static final long HINT_INTERVAL_MS = 60_000L;
     /**
      * Slots of a TerraFirmaCraft placed-item pile. TFC 4.2.11 {@code PlacedItemBlockEntity.getSlotSelected} [verified,
      * javap]: +1 for the west half, +2 for the north half, so 0 south-east, 1 south-west, 2 north-east, 3 north-west.
@@ -52,11 +50,6 @@ public final class GridLock {
     /** The lock for one player: active and the player is a real survival player (not creative, spectator or a machine). */
     public static boolean locks(boolean active, boolean exempt) {
         return active && !exempt;
-    }
-
-    /** True if a hint may be shown at {@code nowMs} when the last one went out at {@code lastMs} (null: none yet). */
-    public static boolean hintDue(Long lastMs, long nowMs) {
-        return lastMs == null || nowMs - lastMs >= HINT_INTERVAL_MS;
     }
 
     /**

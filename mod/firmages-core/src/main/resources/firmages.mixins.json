@@ -33,7 +33,6 @@
     "RecipeBookMenuMixin",
     "curios.CuriosContainerMixin",
     "tfc.PlacedItemBlockEntityAccessor",
-    "tfc.PlacedItemInsertMixin",
     "tfcrf.RegrowthSpreadMixin",
     "tfc.ItemStackHooksMixin"
   ],
