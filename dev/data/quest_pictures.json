@@ -1,4 +1,151 @@
 {
+ "complete": {
+  "blocks": [
+   [
+    "calorite blocks",
+    75
+   ],
+   [
+    "steel plating",
+    67
+   ],
+   [
+    "quartz blocks",
+    59
+   ],
+   [
+    "aluminium blocks",
+    51
+   ],
+   [
+    "coke bricks",
+    43
+   ],
+   [
+    "smooth rock",
+    39
+   ],
+   [
+    "gilded sourcestone",
+    35
+   ],
+   [
+    "rock bricks",
+    19
+   ],
+   [
+    "desh blocks",
+    16
+   ],
+   [
+    "otherstone",
+    12
+   ],
+   [
+    "steel scaffolding",
+    12
+   ],
+   [
+    "Offering Plinth",
+    9
+   ],
+   [
+    "aluminium scaffolding",
+    8
+   ],
+   [
+    "candles",
+    8
+   ],
+   [
+    "logs of any tree",
+    8
+   ],
+   [
+    "cobblestone of any rock",
+    8
+   ],
+   [
+    "iron bars",
+    8
+   ],
+   [
+    "SPS casings or fusion reactor frames",
+    8
+   ],
+   [
+    "quartz glass",
+    8
+   ],
+   [
+    "awakened draconium blocks",
+    4
+   ],
+   [
+    "bronze blocks",
+    4
+   ],
+   [
+    "electric lanterns",
+    4
+   ],
+   [
+    "floodlights",
+    4
+   ],
+   [
+    "fluix blocks",
+    4
+   ],
+   [
+    "heavy engineering blocks",
+    4
+   ],
+   [
+    "HV capacitors",
+    4
+   ],
+   [
+    "iron lamps",
+    4
+   ],
+   [
+    "ostrum blocks",
+    4
+   ],
+   [
+    "red steel blocks",
+    4
+   ],
+   [
+    "source gem blocks",
+    4
+   ],
+   [
+    "steel casings",
+    4
+   ],
+   [
+    "thatch",
+    4
+   ],
+   [
+    "bell, bronze or brass",
+    1
+   ],
+   [
+    "Shrine Heart",
+    1
+   ]
+  ],
+  "count": 547,
+  "pictures": {
+   "complete": [
+    432,
+    266
+   ]
+  }
+ },
  "shrine": {
   "0": {
    "age": "age_0",

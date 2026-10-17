@@ -8,11 +8,13 @@ reads description images and chapter images from any resource location):
   shrine/ring_N_layer_K.png    build step K of ring N: layers below K done, layer K outlined in gold, nothing above
   shrine/ring_N_build.png      animated PNG: the ring rising layer by layer (Certain Questing Additions plays APNG;
                                any other reader shows the default image, the finished ring)
+  shrine/complete.png          the whole shrine as built: every ring in its own colours, heart and plinth
   works/<name>.png             the Great Works: gatehouse, living house, silo (from the Ponder build plans of
                                dev/gen_ponder_schematics.py where one exists)
 
 and dev/data/quest_pictures.json: the shrine build data the guides in dev/gen_quests.py print (ring names, layers,
-block counts per layer, rites, offering) and the pixel size of every picture (for width/height of {image:} lines).
+block counts per layer, rites, offering) and the pixel size of every picture (for width/height of {image:} lines);
+the whole shrine under "complete" (its size and the block totals of all rings).
 
 Sources (read only): the shrine rings and tiers in mod/firmages-core/src/main/resources/data/firmages (parsed with
 dev/shrine-viewer/render_shrine.py), the textures from the pack's mod jars (dev/qart_textures.py). Without the jars
@@ -204,30 +206,54 @@ def rite_lines(n, lang):
     return out
 
 
-def shrine_pictures(rings, materials, lang, offerings, write=True):
-    out = {}
+def shrine_scene_tools(materials, cumul):
+    """Ground slab and painter-block builder for a shrine scene; n is the ring drawn as built (older rings pale),
+    None draws every ring as built."""
     grass = grass_faces()
     by_key = {m.key: m for m in materials.values()}
+    xs = [b[0] for b in cumul]
+    zs = [b[2] for b in cumul]
+    gx, gz = (min(xs) - 1, max(xs) + 1), (min(zs) - 1, max(zs) + 1)
+    a = max(7.0, min(26.0, PIC_W / float((gx[1] - gx[0] + 1) + (gz[1] - gz[0] + 1))))
+    ground = [cube(x, -1, z, grass) for x in range(gx[0], gx[1] + 1) for z in range(gz[0], gz[1] + 1)]
+
+    def block(x, y, z, key, rn, n, **kw):
+        mat = by_key[key]
+        if n is not None and rn < n and key not in (RS.HEART_BLOCK, RS.PLINTH_BLOCK):
+            kw['tint'] = PALE
+        if key in SPRITES:
+            spr = T.icon(SPRITES[key], 32)
+            if spr is not None:
+                return dict(x=x, y=y, z=z, sprite=spr, outline=kw.get('outline'))
+        return cube(x, y, z, faces_for(mat), **kw)
+    return a, ground, block
+
+
+def complete_picture(rings, materials, write=True):
+    """The finished shrine: all rings as built (no pale tint), heart and plinth; same scale rule as the ring pictures."""
+    cumul = RS.cumulative_blocks(rings, max(r.n for r in rings), [])
+    a, ground, block = shrine_scene_tools(materials, cumul)
+    scene = list(ground) + [block(x, y, z, key, rn, None) for x, y, z, key, rn in cumul]
+    totals = {}
+    for b in cumul:
+        totals[b[3]] = totals.get(b[3], 0) + 1
+    info = {'count': len(cumul), 'pictures': {},
+            'blocks': [[MAT_NAME.get(key, RS.humanize(key).lower()), c]
+                       for key, c in sorted(totals.items(), key=lambda kv: (-kv[1], kv[0]))]}
+    if write:
+        im = ISO.render(scene, a, frame=ISO.bounds(scene, a))
+        info['pictures']['complete'] = save_png(im, os.path.join(PIC_DIR, 'shrine', 'complete.png'))
+    return info
+
+
+def shrine_pictures(rings, materials, lang, offerings, write=True):
+    out = {}
     for ring in rings:
         n = ring.n
         cumul = RS.cumulative_blocks(rings, n, [])
         new = [b for b in cumul if b[4] == n and b[3] not in (RS.HEART_BLOCK,)]
         layers = sorted(set(b[1] for b in new))
-        xs = [b[0] for b in cumul]
-        zs = [b[2] for b in cumul]
-        gx, gz = (min(xs) - 1, max(xs) + 1), (min(zs) - 1, max(zs) + 1)
-        a = max(7.0, min(26.0, PIC_W / float((gx[1] - gx[0] + 1) + (gz[1] - gz[0] + 1))))
-        ground = [cube(x, -1, z, grass) for x in range(gx[0], gx[1] + 1) for z in range(gz[0], gz[1] + 1)]
-
-        def block(x, y, z, key, rn, **kw):
-            mat = by_key[key]
-            if rn < n and key not in (RS.HEART_BLOCK, RS.PLINTH_BLOCK):
-                kw['tint'] = PALE
-            if key in SPRITES:
-                spr = T.icon(SPRITES[key], 32)
-                if spr is not None:
-                    return dict(x=x, y=y, z=z, sprite=spr, outline=kw.get('outline'))
-            return cube(x, y, z, faces_for(mat), **kw)
+        a, ground, block = shrine_scene_tools(materials, cumul)
 
         def scene(upto=None, highlight=None):
             bl = list(ground)
@@ -235,7 +261,7 @@ def shrine_pictures(rings, materials, lang, offerings, write=True):
                 if rn == n and key != RS.HEART_BLOCK and upto is not None and y > upto:
                     continue
                 hl = rn == n and highlight is not None and y == highlight and key != RS.HEART_BLOCK
-                bl.append(block(x, y, z, key, rn, outline=GOLD if hl else None))
+                bl.append(block(x, y, z, key, rn, n, outline=GOLD if hl else None))
             return bl
 
         frame = ISO.bounds(scene(), a)
@@ -424,11 +450,13 @@ def main():
         print('warning: mod jars not found (%s); blocks are drawn in flat colours' % T.MODS)
     rings, materials, lang = load_rings()
     offerings = json.load(open(DATA_ROOT / 'firmages_shrine' / 'offerings.json', encoding='utf-8'))
-    data = {'shrine': shrine_pictures(rings, materials, lang, offerings, write=not args.check)}
+    data = {'shrine': shrine_pictures(rings, materials, lang, offerings, write=not args.check),
+            'complete': complete_picture(rings, materials, write=not args.check)}
     if args.check:
         old = json.load(open(DATA_JSON, encoding='utf-8'))
         for n, info in data['shrine'].items():
             info['pictures'] = old['shrine'].get(n, {}).get('pictures', {})
+        data['complete']['pictures'] = old.get('complete', {}).get('pictures', {})
         data['works'] = old.get('works', {})
         if old != data:
             print('dev/data/quest_pictures.json is out of date: run python dev/gen_quest_pictures.py')
@@ -439,7 +467,7 @@ def main():
     with open(DATA_JSON, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(data, f, indent=1, sort_keys=True)
         f.write('\n')
-    n_files = sum(len(i['pictures']) for i in data['shrine'].values()) + len(data['works'])
+    n_files = sum(len(i['pictures']) for i in data['shrine'].values()) + len(data['complete']['pictures']) + len(data['works'])
     print('wrote %d pictures to %s and %s' % (n_files, os.path.relpath(PIC_DIR, ROOT), os.path.relpath(DATA_JSON, ROOT)))
     return 0
 

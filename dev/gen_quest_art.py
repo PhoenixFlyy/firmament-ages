@@ -6,7 +6,6 @@ Writes
                                                                   theme's `background` icon when CQA's shader is off)
   kubejs/assets/firmages/textures/gui/quests/banner_<key>.png    Age banner (1024 x 256) placed as a chapter image
   kubejs/assets/firmages/textures/gui/quests/dependency.png      dependency line texture (64 x 64)
-  kubejs/assets/firmages/textures/gui/quests/panel.png           chapter panel backdrop (64 x 64)
   kubejs/assets/firmages/textures/gui/quests/firmament.png       modpack icon of the chapter panel (64 x 64)
   kubejs/assets/ftbquests/textures/shapes/<shape>/*.png          quest shapes gilded (goal), rune (keystone, entry),
                                                                   ember (side mission); FTB Quests only loads shapes
@@ -18,7 +17,8 @@ Writes
 The shrine in every background is the cumulative shrine of the chapter's Age, rendered by
 dev/shrine-viewer/render_shrine.py (consecrated look, transparent, ground slab removed) and cached as
 dev/shrine-viewer/out/quest_cutout_age_N.png. Colours: deep night blue and violet, gold accents, one accent per Age
-from the tier files (beam_color, sky_tint). No parchment.
+from the tier files (beam_color, sky_tint). No parchment. The panels (quest view, context menu, chapter panel) are
+flat theme colours, not textures (ftb_quests_theme.txt, G1).
 
 Usage: python dev/gen_quest_art.py [--skip-shrine] [--force-shrine] [--preview-only]
 Needs Pillow, numpy, matplotlib (render_shrine).
@@ -392,16 +392,6 @@ def dependency_texture() -> Image.Image:
     return Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8), "RGB")
 
 
-def panel_texture() -> Image.Image:
-    """64 x 64 tile for the chapter panel: night blue with a faint weave."""
-    rng = np.random.default_rng(7)
-    s = 64
-    n = value_noise(s, s, 8, rng)
-    base = rgbf(NIGHT_BLUE) * 0.9
-    img = base[None, None, :] * (0.85 + 0.3 * n[..., None])
-    return Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8), "RGB")
-
-
 def firmament_icon() -> Image.Image:
     """64 x 64 gold eight-point star on a night disc: the chapter panel's modpack button."""
     ss = 4
@@ -693,12 +683,13 @@ def main(argv=None) -> int:
             save_png(banner(title, poetic, accent), TEX / f"banner_{key}.png")
             log(f"wrote bg_{key}.png, banner_{key}.png")
         save_png(dependency_texture(), TEX / "dependency.png")
-        save_png(panel_texture(), TEX / "panel.png")
         save_png(firmament_icon(), TEX / "firmament.png")
         for k, parts in shapes.items():
             for part, im in parts.items():
                 p = SHAPES / k / f"{part}.png"
                 save_png(im, p)
+                # blur (GL_LINEAR) stays: compared at 24, 32 and 48 px (G1), nearest is no sharper at the rim and
+                # breaks the inner ring into dashes; linear keeps ring and outline a touch smoother at 32 and 48
                 (SHAPES / k / f"{part}.png.mcmeta").write_text('{\n  "texture": {\n    "blur": true\n  }\n}\n',
                                                                encoding="utf-8", newline="\n")
         log("wrote shapes gilded, rune, ember (ftbquests namespace)")

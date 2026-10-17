@@ -5,11 +5,14 @@
 // so [#age_3] gives the Arcane Age its own backdrop. Chapter tags come from dev/gen_quests.py; the art from
 // dev/gen_quest_art.py (kubejs/assets/firmages/textures/gui/quests/).
 // Palette: deep night blue #101A3E and violet #2A1B4E, gold #E8C56A / #8A6A24, warm off-white text #F2E6C9.
+// Panels (quest view, context menu, chapter panel, key reference) are a flat night blue at 95 % (#F2101A3E) inside a
+// gold hollow rectangle: no texture, so nothing tiles or blurs at any GUI scale (G1, dev/quest-preview/panel_mockup_*.png;
+// an ImageIcon with tile_size repeats every tile_size GUI px anchored at the screen origin, which showed its seams).
 
 [*]
 background:                   firmages:textures/gui/quests/bg_firmament.png
-chapter_panel_background:     hollow_rectangle:{{widget_border}}; round_edges + firmages:textures/gui/quests/panel.png; tile_size=64; color=#F4FFFFFF; padding=1
-key_reference_background:     firmages:textures/gui/quests/panel.png; tile_size=64; color=#F4FFFFFF
+chapter_panel_background:     hollow_rectangle:{{widget_border}}; round_edges + #F2101A3E; padding=1
+key_reference_background:     #F2101A3E
 selected_chapter_highlight_1: #60E8C56A
 selected_chapter_highlight_2: #28E8C56A
 
@@ -26,7 +29,7 @@ button:                hollow_rectangle:{{widget_border}}
 panel:                 {{container_slot}}
 disabled_button:       hollow_rectangle:#3C3650
 hover_button:          {{button}} + {{widget_background}}; padding=1
-context_menu:          hollow_rectangle:{{widget_border}}; round_edges + firmages:textures/gui/quests/panel.png; tile_size=64; color=#F4FFFFFF; padding=1
+context_menu:          hollow_rectangle:{{widget_border}}; round_edges + #F2101A3E; padding=1
 scroll_bar_background: {{widget_background}}
 scroll_bar:            {{button}} + {{widget_background}}; padding=1
 container_slot:        {{button}}; padding=-1
