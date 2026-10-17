@@ -1965,6 +1965,10 @@ file = "kubejs/assets/firmages/textures/gui/quests/firmament.png"
 hash = "657d502300ce8435bf4178e8648e78ba2c467e497e07fb93759142ddfb3b34c0"
 
 [[files]]
+file = "kubejs/assets/firmages/textures/gui/quests/panel.png"
+hash = "86996005875daa50a3eb233a8a95a68eda9c8c3e288d220b6e4cd4875756a310"
+
+[[files]]
 file = "kubejs/assets/firmages/textures/gui/quests/shrine/complete.png"
 hash = "f63393297ea7534127f9b336701a4e2aa03007b20794794c3e210c7dbffcdb81"
 
@@ -2542,7 +2546,7 @@ hash = "80d6537847846bdb42654c161ca3ce592e2107e58c62827db760cddb017b8320"
 
 [[files]]
 file = "kubejs/assets/ftbquests/ftb_quests_theme.txt"
-hash = "636a47e7bc3739af2ca9a893cd2e850c588d6adbb89947c4f8622d22227ef127"
+hash = "bb60e76332acf170201a8ee5274dd699fe585ad0998b13a25d12b8e27bb1b5f9"
 
 [[files]]
 file = "kubejs/assets/ftbquests/textures/shapes/ember/background.png"
