@@ -15,6 +15,8 @@ unlocked ("unlocked", written by fa_dump), and no recipe may make an item of a l
 D-1 (any dump with recipes_full.json) checks Dawn's ground crafting (firmages-core SPEC 19.3): the inventory grid is
 closed in Dawn, so every crafting recipe open in Dawn must fit a TerraFirmaCraft pile of at most four placed items
 (a 2x2 shape or at most four shapeless ingredients, no log beside other parts: a log lies alone on a block).
+C-LB (any dump with recipes_full.json and laserbridges recipes) checks that no Laser Bridges recipe takes an End
+crystal: recipes/age_7/laser_bridges.js replaces the two laser-source recipes with desh-plate ones.
 With --baseline <dir> (the fa_dump files of a world with every Age unlocked) they also check that every baseline
 recipe whose outputs are all unlocked is present, so the gate drops nothing more. G-3 (dump with every Age unlocked)
 finds recipes whose chance byproduct is later than their main output and station and checks that
@@ -109,6 +111,7 @@ def main():
         undetected_check(a.server_dir, check)
     unify_check(tags, item_age, check)
     ground_craft_check(base, open_in("dawn", [r for r in rows if r["type"] == "minecraft:crafting"]), check)
+    laser_crystal_check(base, rows, check)
     if unlocked is not None and not set(AGES) <= set(unlocked):
         print(f"[SKIP] A- and C- checks: they need the whole recipe set, this dump was filtered at {sorted(unlocked, key=AGES.index)}")
         print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -281,6 +284,36 @@ def _ingredient_names(ing):
             if k in ing:
                 out += _ingredient_names(ing[k])
     return out
+
+
+LASER_SOURCES = ("laserbridges:laser_source_block", "laserbridges:laser_fence_source_block")
+
+
+def laser_crystal_check(base, rows, check):
+    """C-LB (round G1 review): Laser Bridges & Doors 6.2 builds its two laser sources from iron ingots and an End
+    crystal (its library Deimos adds them as deimos:deimosgeneratedcrafting<n>); kubejs/server_scripts/recipes/age_7/
+    laser_bridges.js removes both and adds desh-plate recipes under firmages:laserbridges/*. No recipe that makes a
+    laserbridges item may take minecraft:end_crystal. Needs recipes_full.json; a dump without laserbridges recipes
+    (the gate drops them before the Space Age) has nothing to check."""
+    made = sorted((r for r in rows if (r["result"] or "").startswith("laserbridges:")), key=lambda r: r["id"])
+    path = os.path.join(base, "recipes_full.json")
+    if not made or not os.path.isfile(path):
+        why = "no recipe makes a laserbridges item in this dump" if not made else f"{path} missing (run fa_dump_full)"
+        print(f"[SKIP] C-LB Laser Bridges without End crystal: {why}")
+        return
+    full = json.load(open(path, encoding="utf-8"))
+    crystal = []
+    for r in made:
+        raw = full.get(r["id"])
+        text = raw if isinstance(raw, str) else json.dumps(raw)
+        if "minecraft:end_crystal" in (text or ""):
+            crystal.append(f"{r['id']} -> {r['result']} takes minecraft:end_crystal")
+    pack = {r["result"] for r in made if r["id"].startswith("firmages:laserbridges/")}
+    missing = [f"no firmages:laserbridges/* recipe makes {s}" for s in LASER_SOURCES if s not in pack]
+    check("C-LB no Laser Bridges recipe takes an End crystal; both laser sources have their desh-plate pack recipe "
+          "(recipes/age_7/laser_bridges.js)", not crystal and not missing,
+          crystal + missing or [f"{len(made)} laserbridges recipes, none with an End crystal: "
+                                + ", ".join(r["id"] for r in made[:8])])
 
 
 def ground_craft_check(base, dawn_open, check):

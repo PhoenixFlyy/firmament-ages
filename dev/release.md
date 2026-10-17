@@ -193,6 +193,15 @@ verschieben und in `mods/` eine Modrinth-Metadatei derselben Datei-Version anleg
 `side`), dann `refresh`; `export_cf.py` tauscht sie von selbst. Prüfen mit einer sauberen Client-Installation
 (`dev/poc-results.md`, „Clean client install“).
 
+**Mod-Updates von Enhanced Falling Trees und JourneyMap** vorher mit `javap` gegen die Ziele von firmages-core prüfen:
+`firmages.mixins.json` ist `required`, ein fehlendes Mixin-Ziel bricht den Start ab, und die Reflection fällt sonst
+still aus. Enhanced Falling Trees: `me.adda.enhanced_falling_trees.trees.DefaultTree` mit
+`isMatchingLog(BlockState, BlockState)` und `isWithinDistance(BlockPos, BlockPos, BlockPos, int, int)` samt Konstante
+32 (`mixin/eft/DefaultTreeMixin`). JourneyMap: `journeymap.api.client.impl.ClientAPI.INSTANCE` mit
+`toggleMinimap(boolean)` und `minimapEnabled()`, die Tastennamen `key.journeymap.*` und die vier Kartenbildschirme
+(`compat/journeymap/JourneyMapBridge`, `immersion/MapGate`). Passt etwas nicht, bleibt die Mod auf ihrer Version
+(`pin`), bis firmages-core nachzieht.
+
 ## 5. Freunde und Server
 
 **Freunde (Prism, automatische Updates):**

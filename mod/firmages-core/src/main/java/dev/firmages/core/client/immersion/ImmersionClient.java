@@ -99,9 +99,10 @@ public final class ImmersionClient {
         welcomeTicks = 0;
     }
 
-    /** Jade's ray-trace callback asks this (SPEC §18.3); before the first status, nothing is shown. */
+    /** Jade's ray-trace callback asks this (SPEC §18.3); before the first status nothing is shown, except in creative mode. */
     public static boolean blockInfoAllowed() {
-        return ClientAgeStatus.known() && ClientAgeStatus.get().blockInfo();
+        LocalPlayer p = Minecraft.getInstance().player;
+        return ViewerGate.overlayOpen(ClientAgeStatus.known(), ClientAgeStatus.get().blockInfo(), p != null && p.isCreative());
     }
 
     @EventBusSubscriber(modid = FirmagesCore.MOD_ID, value = Dist.CLIENT)

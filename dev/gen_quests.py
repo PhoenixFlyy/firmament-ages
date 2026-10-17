@@ -610,7 +610,7 @@ STONE = age_chapter(
     'age_0', 1,
     entry=Q('stone/entry', 'The Stone Age Dawns', t_stage('age_0'), kind='entry', icon='tfc:ceramic/vessel',
             sub='The first Age',
-            desc=['Fire is tamed. Clay is yours now, and with it pottery, molds and copper.',
+            desc=['Fire is tamed. Clay follows, and with it pottery, molds and copper.',
                   '',
                   'Four strands lead to the Hearthstone: Fire & Clay, First Metal, Camp, and Hearth & Shrine.',
                   'The last one raises the shrine where the Hearthstone is offered to Caelum.']),
@@ -852,7 +852,7 @@ STONE = age_chapter(
 
 # ---------------------------------------------------------------- Bronze Age
 BRONZE = age_chapter(
-    'bronze', 'bronze_age', 'Bronze Age', ['The first alloys. New veins can be found.'], 'firmages:sky_disc',
+    'bronze', 'bronze_age', 'Bronze Age', ['The first alloys. New veins wake.'], 'firmages:sky_disc',
     'age_1', 2,
     entry=Q('bronze/entry', 'The Bronze Age Dawns', t_stage('age_1'), kind='entry',
             icon='tfc:metal/ingot/bronze', sub='The second Age',
@@ -1143,7 +1143,7 @@ IRON = age_chapter(
 
 # ---------------------------------------------------------------- Arcane Age
 ARCANE = age_chapter(
-    'arcane', 'arcane_age', 'Arcane Age', ['Spirits, source and alchemy. The Nether opens.'],
+    'arcane', 'arcane_age', 'Arcane Age', ['Spirits, source, alchemy and the Nether.'],
     'firmages:arcane_keystone', 'age_3', 4,
     entry=Q('arcane/entry', 'The Arcane Age Dawns', t_stage('age_3'), kind='entry', icon='ars_nouveau:source_gem',
             sub='The fourth Age',
@@ -1171,7 +1171,7 @@ ARCANE = age_chapter(
               # Beneath 2.0.4 PortalUtil (javap): a goat, pig or sheep killed with a TFC scythe, at least 7 offerings
               # within 5 blocks (y -2 to +3): skulls, anvils, gold or black steel blocks, ingot piles of gold, pig iron
               # or black steel. Blindness and nausea, an explosion at the player, a lightning bolt, a portal.
-              desc=['No portal leads to the Nether in this land. It opens to a sacrifice:',
+              desc=['Reach the Nether by sacrifice:',
                     '- Set at least seven offerings within five blocks of one spot: anvils, mob heads, gold or black',
                     'steel blocks, or piles of gold, pig iron or black steel ingots.',
                     '- Kill a goat, pig or sheep there with a scythe.',
@@ -1678,7 +1678,7 @@ INFORMATION = age_chapter(
     'firmages:data_matrix', 'age_6', 7,
     entry=Q('information/entry', 'The Information Age Dawns', t_stage('age_6'), kind='entry',
             icon='mekanism:advanced_control_circuit', sub='The seventh Age',
-            desc=['Ore triples, the ME network stores and crafts, and the End can be reached. Veins of certus quartz,',
+            desc=['Ore triples, the ME network stores and crafts, and the End waits. Veins of certus quartz,',
                   'inferium, prosperity and soulstone wake.',
                   '',
                   'Four strands lead to the Data Matrix: Digital, Factory, Mob Data and Sky. The End is a side path.',
@@ -4101,7 +4101,7 @@ ROADS = [
               rewards=[T('immersiveengineering:ingot_lead', 4)], icon='create_mechanical_spawner:spawn_fluid_pig_bucket'),
             Q('electric/liquid/blaze', 'Blaze Fluid',
               t_item('create_mechanical_spawner:spawn_fluid_blaze_bucket'), kind='side',
-              desc=['Fill a bucket with blaze spawn fluid. Blaze rods no longer need a fortress.'],
+              desc=['Fill a bucket with blaze spawn fluid. The spawner turns it into blazes and their rods.'],
               rewards=[T('immersivepetroleum:paraffin_wax', 8)]),
             Q('electric/liquid/wither', 'Wither Fluid',
               t_item('create_mechanical_spawner:spawn_fluid_wither_bucket'), kind='side',

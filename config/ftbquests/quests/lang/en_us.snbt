@@ -49,7 +49,7 @@
 		"A Great Work of the Bronze Age: a gate that shuts on its own."
 	]
 	chapter.40102C7AF88CF371.title: "The Gatehouse"
-	chapter.40D4D715E3F4DB36.chapter_subtitle: ["Spirits, source and alchemy. The Nether opens."]
+	chapter.40D4D715E3F4DB36.chapter_subtitle: ["Spirits, source, alchemy and the Nether."]
 	chapter.40D4D715E3F4DB36.title: "Arcane Age"
 	chapter.446D28774E394B73.chapter_subtitle: [
 		"Side roads of the Information Age: eight crafts to try, each off a step of its Age."
@@ -59,7 +59,7 @@
 	chapter.4472107CE8ED9B80.title: "Singularity Age"
 	chapter.544197C921D77FCB.chapter_subtitle: ["Prologue: stone, straw and the first spark."]
 	chapter.544197C921D77FCB.title: "Dawn"
-	chapter.5546E96FD2574ABB.chapter_subtitle: ["The first alloys. New veins can be found."]
+	chapter.5546E96FD2574ABB.chapter_subtitle: ["The first alloys. New veins wake."]
 	chapter.5546E96FD2574ABB.title: "Bronze Age"
 	chapter.5F08D5D897470186.chapter_subtitle: [
 		"Side roads of the Stone Age: three crafts to try, each off a step of its Age."
@@ -522,7 +522,7 @@
 	]
 	quest.0EEEF839B7D015F2.title: "Beamhouse"
 	quest.0F1AE784BF392A25.quest_desc: [
-		"Ore triples, the ME network stores and crafts, and the End can be reached. Veins of certus quartz, inferium, prosperity and soulstone wake."
+		"Ore triples, the ME network stores and crafts, and the End waits. Veins of certus quartz, inferium, prosperity and soulstone wake."
 		""
 		"Four strands lead to the Data Matrix: Digital, Factory, Mob Data and Sky. The End is a side path."
 		""
@@ -535,7 +535,7 @@
 	]
 	quest.0F521229482D3C64.title: "Metal Seeds"
 	quest.0F533D23E29FB489.quest_desc: [
-		"Fill a bucket with blaze spawn fluid. Blaze rods no longer need a fortress."
+		"Fill a bucket with blaze spawn fluid. The spawner turns it into blazes and their rods."
 	]
 	quest.0F533D23E29FB489.title: "Blaze Fluid"
 	quest.0F76089092EB0D28.quest_desc: [
@@ -1463,7 +1463,7 @@
 	]
 	quest.339049C0883429BA.title: "Fusion Neutron Activator"
 	quest.33BEA94E7673D21D.quest_desc: [
-		"No portal leads to the Nether in this land. It opens to a sacrifice:"
+		"Reach the Nether by sacrifice:"
 		"- Set at least seven offerings within five blocks of one spot: anvils, mob heads, gold or black steel blocks, or piles of gold, pig iron or black steel ingots."
 		"- Kill a goat, pig or sheep there with a scythe."
 		""
@@ -1795,7 +1795,7 @@
 	]
 	quest.41F6B8884809B526.title: "White Chalk"
 	quest.4207F8051EF451B3.quest_desc: [
-		"Fire is tamed. Clay is yours now, and with it pottery, molds and copper."
+		"Fire is tamed. Clay follows, and with it pottery, molds and copper."
 		""
 		"Four strands lead to the Hearthstone: Fire & Clay, First Metal, Camp, and Hearth & Shrine. The last one raises the shrine where the Hearthstone is offered to Caelum."
 	]

@@ -42,7 +42,8 @@ public final class ImmersionService {
             ServerConfig.emiFromAge(), ServerConfig.jadeFromAge(), ServerConfig::tabFromAge, ServerConfig.caveDwellerUntil(),
             ServerConfig.toolRuleUntil()).withReloadPending(AgeService.reloadPending())
             .withGathered(dev.firmages.core.shrine.ShrineSavedData.get(s).gathered())
-            .withGridLock(ServerConfig.gridLockUntil());
+            .withGridLock(ServerConfig.gridLockUntil())
+            .withUiGates(ServerConfig.inventoryButtonsFromAge(), ServerConfig.mapFromAge());
     }
 
     /** After every change of the global Age state, and when an Age reload is scheduled or finished (AgeService). */

@@ -6,7 +6,8 @@ import java.util.Set;
 
 /**
  * The Curios and Apothic Attributes buttons of the survival inventory by Age (SPEC §18.2, Felix 2026-10-17). Before
- * {@code firmages-client.toml [ui] inventoryButtonsFromAge} (default {@code age_0}, so only in Dawn) the inventory
+ * {@code firmages-server.toml [ui] inventoryButtonsFromAge} (default {@code age_0}, so only in Dawn; the server decides
+ * and sends {@code inventoryButtons} in {@code firmages:age_status}) the inventory
  * screen shows neither, the Curios key does nothing and the Curios screen does not open; players in creative mode have
  * both in every Age, operators in survival do not, as with the recipe viewer ({@link ViewerGate#open}). Pure Java (unit-tested);
  * the client half is {@code client/immersion/InventoryButtonGate}, the mod lookups {@code compat/curios} and
@@ -33,13 +34,13 @@ public final class InventoryButtons {
     private InventoryButtons() {}
 
     /**
-     * @param worldAge the world's Age from {@code firmages:age_status} (Dawn before it arrives)
-     * @param from     {@code ui.inventoryButtonsFromAge}
-     * @param creative the player is in creative mode
+     * @param ageAllows {@code inventoryButtons} of {@code firmages:age_status}: the world's Age is
+     *                  {@code ui.inventoryButtonsFromAge} or later (false before the first status)
+     * @param creative  the player is in creative mode
      * @return the buttons, the Curios key and the Curios screen are there for this player
      */
-    public static boolean shown(AgeId worldAge, AgeId from, boolean creative) {
-        return ViewerGate.open(AgeStatus.reached(worldAge, from), creative);
+    public static boolean shown(boolean ageAllows, boolean creative) {
+        return ViewerGate.open(ageAllows, creative);
     }
 
     /** A widget of the inventory screen that goes while the buttons are not shown (by its class name). */

@@ -9,15 +9,22 @@ sonst Deine Änderungen überschreiben würde. Claude führt es nicht mehr aus, 
 
 1. Du brauchst Operator-Rechte: auf dem Server in der Konsole `op <Dein Name>`, im Einzelspieler eine Welt mit
    Cheats (oder „Im LAN öffnen“ mit Cheats an).
-2. Im Spiel `/ftbquests editing_mode` eingeben (schaltet um; `/ftbquests editing_mode true` bzw. `false` setzt ihn
+2. **Sprache auf Englisch, sonst landen die Texte in der falschen Datei.** FTB Quests speichert jeden Text in der
+   Sprache des Editors (`ftbquests.xlate.editing_locale`, „Locale Override“; leer = Spielsprache). Mit deutschem
+   Client schreibt es Deine Texte nach `lang/de_de.snbt`, und `lang/en_us.snbt`, die Datei des Packs, bleibt alt.
+   Vor dem Bearbeiten deshalb das Spiel auf „English (US)“ stellen oder den Locale Override auf `en_us` setzen (im
+   Questbuch unter „Player Preferences“, Abschnitt „Translations“; Datei `<Instanz>/config/ftbquests-client.snbt`,
+   `xlate { editing_locale: "en_us" }`).
+3. Im Spiel `/ftbquests editing_mode` eingeben (schaltet um; `/ftbquests editing_mode true` bzw. `false` setzt ihn
    fest). Mit **K** das Buch öffnen: im Edit-Modus kannst Du Quests mit Rechtsklick bearbeiten, verschieben, neu
    anlegen und löschen, und Texte direkt ändern.
-3. Fertig? Edit-Modus wieder aus (`/ftbquests editing_mode false`), damit Du das Buch wie ein Spieler siehst.
+4. Fertig? Edit-Modus wieder aus (`/ftbquests editing_mode false`), damit Du das Buch wie ein Spieler siehst.
 
 Tipps für das Editieren:
 
-- **Texte** (Titel, Untertitel, Beschreibung) speichert FTB Quests in `lang/en_us.snbt`, nicht im Kapitel. Spielertext
-  bleibt Englisch und folgt `dev/style-guide.md` (kurz, ohne „!“, keine Erklärtexte zu Features).
+- **Texte** (Titel, Untertitel, Beschreibung) speichert FTB Quests in `lang/en_us.snbt` (nur mit Editor-Sprache
+  Englisch, Punkt 2), nicht im Kapitel. Spielertext bleibt Englisch und folgt `dev/style-guide.md` (kurz, ohne „!“,
+  keine Erklärtexte zu Features).
 - **Art einer Quest** steht in ihren Tags (Quest bearbeiten, Feld „Tags“): `entry`, `keystone`, `goal`, `side`,
   `explain`, `ring`, `guide`, `info`, `note`. Eine Quest ohne Tag ist ein normaler Schritt. Eine Quest, die nur zum
   Lesen da ist (Häkchen), braucht das Tag `note` oder `explain`, sonst verlangt die Prüfung eine Item-Belohnung.
@@ -45,6 +52,9 @@ sonst sind sie weg.
    `D:\Minecraft\MinecraftModServer\FirmamentAges\config\ftbquests\quests\` kopieren und vorhandene Dateien ersetzen.
    Gelöschte Kapitel auch im Repo löschen (am einfachsten: Repo-Ordner `chapters/` vorher leeren).
 2. Claude Bescheid sagen. Claude
+   - prüft die Sprache: es ist keine `lang/de_de.snbt` (und keine andere Sprachdatei außer `en_us.snbt`) entstanden,
+     und `git status` zeigt nur `lang/en_us.snbt` und Kapitel-SNBT-Dateien (`chapters/*.snbt`, ggf. `data.snbt`,
+     `chapter_groups.snbt`) als geändert; sonst Abschnitt 1, Punkt 2, und die Texte noch einmal auf Englisch eintragen,
    - prüft das Buch (Abschnitt 4) und zeigt Dir, was die Prüfung anmahnt,
    - führt `tools\packwiz.exe refresh` aus (ohne das passt `index.toml` nicht zu den neuen Dateien und packwiz-installer
      bricht mit „Hash invalid!“ ab),

@@ -22,7 +22,7 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 ### The Chronicle
 
 Press K. The first chapter, The Firmament, holds the notes to read first (keys, the fellowship, the shrine, crafting
-by hand; "By Hand" must be read before the first spark), the road of offerings and, from the Stone Age on, a build guide for each shrine ring
+by hand; the marker "The First Spark" waits for the note "By Hand"), the road of offerings and, from the Stone Age on, a build guide for each shrine ring
 beside its offering: the ring rising, every layer with its blocks, then offering and rite. The end of the road,
 "Beyond the Firmament", appears with the Singularity Age. Each Age chapter winds its strands round the goal in the
 middle. The group Great Works holds three optional builds: The Gatehouse (Bronze Age, off "Flux Mill"), The Living
@@ -121,18 +121,18 @@ Beasts (off "Hunter"): kangaroo, emu, roadrunner and rattlesnake.
 
 ### Pitfalls
 - **Hands are not tools.** In Dawn logs, raw and hardened rock, ores and sandstone do not break without the right
-  tool: no crack, nothing happens, one hint per minute. The stone axe and the stone hammer fell trees. With no stone
-  pickaxe, rock and ore stay whole until the Stone Age. From then on the hand works again, slowly and without drops.
+  tool: no crack, nothing happens. A stone axe fells the whole tree; a stone hammer breaks one log into one to four
+  sticks and fells nothing. With no stone pickaxe, rock and ore stay whole until the Stone Age. From then on the hand works again, slowly and without drops.
 - Dawn withholds clay, pit kilns, metal and the crafting grid. Crafting happens on the ground: up to four items laid
   with V on one block, then sneak and right-click the pile with an empty hand. It only makes stone and obsidian
-  tools, the firestarter, straw, thatch, sticks and rope. A hint names the result once a minute at most.
+  tools, the firestarter, straw, thatch, sticks and rope.
 - **Darkness.** Caves are pitch black. Nights follow the moon; a new moon is nearly black. A torch lights your way in
   hand; a placed torch burns about 36 minutes.
 - Something hunts in deep, dark caves until the Iron Age.
 - The thatch bed sets your spawn but never skips the night. Beds that do come with the Iron Age.
 - No recipe viewer, no block tooltip and no coordinates on F3 until the Bronze Age, operators included. The
   Chronicle (K) is the only list. Top left, a small sign names your Age and its goal; hold H to see it again.
-- No thirst, and twenty hearts whatever you eat. Food rots and tools wear.
+- No thirst, and ten hearts (20 health) whatever you eat. Food rots and tools wear.
 - At night zombies and spiders walk the surface.
 
 ---

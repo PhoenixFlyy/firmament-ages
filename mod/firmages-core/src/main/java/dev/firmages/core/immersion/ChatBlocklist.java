@@ -12,12 +12,15 @@ import java.util.regex.PatternSyntaxException;
  */
 public final class ChatBlocklist {
     /**
-     * Shipped defaults: the Create Train Utilities join notice, Ars Nouveau's remote Makeship ad and JourneyMap 6.0.9's
-     * join line ({@code ChatLog.announceMod}: "§eJourneyMap:§f Press [§bJ§f]", with the web map "... or open browser
-     * to ...", or "Mapping disabled."; keys {@code jm.common.chat_announcement}, {@code jm.common.mapgui_only_ready},
-     * {@code jm.common.webserver_and_mapgui_ready}, {@code jm.common.enable_mapping_false_text} [verified, javap and lang]).
+     * Built in, always applied besides {@code chat.blocklist} ({@link #withBuiltIns}): the Create Train Utilities join
+     * notice, Ars Nouveau's remote Makeship ad and JourneyMap 6.0.9's join line ({@code ChatLog.announceMod}:
+     * "§eJourneyMap:§f Press [§bJ§f]", with the web map "... or open browser to ...", or "Mapping disabled."; keys
+     * {@code jm.common.chat_announcement}, {@code jm.common.mapgui_only_ready}, {@code jm.common.webserver_and_mapgui_ready},
+     * {@code jm.common.enable_mapping_false_text} [verified, javap and lang]). Until 1.0.0 they were only the config's
+     * default, so a {@code firmages-client.toml} written by an older version kept its old list and missed the
+     * JourneyMap line.
      */
-    public static final List<String> DEFAULT_PATTERNS = List.of(
+    public static final List<String> BUILT_IN_PATTERNS = List.of(
         "^ATTENTION \\(Create Train Utilities\\)",
         "(?i)Starbuncle Plush|makeship",
         "JourneyMap:(§.)*\\s*(Press \\[|Mapping disabled)");
@@ -32,6 +35,17 @@ public final class ChatBlocklist {
         this.source = source;
         this.patterns = patterns;
         this.errors = errors;
+    }
+
+    /**
+     * The built-in patterns plus the configured ones (duplicates once). {@link #source()} is the configured list, to
+     * detect config changes.
+     */
+    public static ChatBlocklist withBuiltIns(List<? extends String> configured) {
+        java.util.LinkedHashSet<String> all = new java.util.LinkedHashSet<>(BUILT_IN_PATTERNS);
+        for (String r : configured) if (r != null) all.add(r);
+        ChatBlocklist compiled = compile(List.copyOf(all));
+        return new ChatBlocklist(List.copyOf(configured), compiled.patterns, compiled.errors);
     }
 
     public static ChatBlocklist compile(List<? extends String> regexes) {
@@ -55,7 +69,7 @@ public final class ChatBlocklist {
         return false;
     }
 
-    /** The configured list this was compiled from (to detect config changes). */
+    /** The configured list this was compiled from (to detect config changes; without the built-in patterns). */
     public List<String> source() {
         return source;
     }

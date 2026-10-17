@@ -2,7 +2,6 @@ package dev.firmages.core.client.immersion;
 
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.compat.journeymap.JourneyMapBridge;
-import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.immersion.MapGate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -34,7 +33,7 @@ public final class MapGateClient {
     /** The map is there for the local player (before the first status the world counts as Dawn). */
     public static boolean open() {
         LocalPlayer p = Minecraft.getInstance().player;
-        return MapGate.open(ClientAgeStatus.get().age(), ClientConfig.mapFromAge(), p != null && p.isCreative());
+        return MapGate.open(ClientAgeStatus.get().map(), p != null && p.isCreative());
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

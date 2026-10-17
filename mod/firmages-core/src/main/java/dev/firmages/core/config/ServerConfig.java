@@ -92,6 +92,8 @@ public final class ServerConfig {
     // ui (immersion, SPEC §18)
     public static final ModConfigSpec.ConfigValue<String> UI_EMI_FROM_AGE;
     public static final ModConfigSpec.ConfigValue<String> UI_JADE_FROM_AGE;
+    public static final ModConfigSpec.ConfigValue<String> UI_INVENTORY_BUTTONS_FROM_AGE;
+    public static final ModConfigSpec.ConfigValue<String> UI_MAP_FROM_AGE;
     /** {@code ui.calendarTabFromAge}, {@code climateTabFromAge}, {@code nutritionTabFromAge}, {@code fieldGuideTabFromAge}. */
     public static final Map<InventoryTab, ModConfigSpec.ConfigValue<String>> UI_TAB_FROM_AGE;
     public static final ModConfigSpec.BooleanValue UI_WELCOME;
@@ -312,6 +314,12 @@ public final class ServerConfig {
             .define("emiFromAge", DEFAULT_EMI_FROM_AGE.id(), ServerConfig::isAgeId);
         UI_JADE_FROM_AGE = b.comment("First Age with the block-info overlay (Jade).")
             .define("jadeFromAge", DEFAULT_JADE_FROM_AGE.id(), ServerConfig::isAgeId);
+        UI_INVENTORY_BUTTONS_FROM_AGE = b.comment("First Age with the Curios and Apothic Attributes buttons in the inventory, the Curios key and the Curios screen.",
+                "Before it all of them are gone for players in survival; creative mode keeps them.")
+            .define("inventoryButtonsFromAge", dev.firmages.core.immersion.InventoryButtons.DEFAULT_FROM.id(), ServerConfig::isAgeId);
+        UI_MAP_FROM_AGE = b.comment("First Age with JourneyMap: the minimap, the full map, the waypoint screens and JourneyMap's keys.",
+                "Before it all of them are gone for players in survival; creative mode keeps them.")
+            .define("mapFromAge", dev.firmages.core.immersion.MapGate.DEFAULT_FROM.id(), ServerConfig::isAgeId);
         Map<InventoryTab, ModConfigSpec.ConfigValue<String>> tabs = new EnumMap<>(InventoryTab.class);
         tabs.put(InventoryTab.CALENDAR, b.comment("First Age with TerraFirmaCraft's calendar tab in the inventory, or \"never\".")
             .define(InventoryTab.CALENDAR.configKey(), InventoryTab.CALENDAR.defaultValue(), InventoryTab::isValid));
@@ -502,6 +510,18 @@ public final class ServerConfig {
 
     public static AgeId jadeFromAge() {
         return loaded() ? AgeId.byId(UI_JADE_FROM_AGE.get()).orElse(DEFAULT_JADE_FROM_AGE) : DEFAULT_JADE_FROM_AGE;
+    }
+
+    /** {@code ui.inventoryButtonsFromAge}; an unknown value counts as the default. */
+    public static AgeId inventoryButtonsFromAge() {
+        AgeId fallback = dev.firmages.core.immersion.InventoryButtons.DEFAULT_FROM;
+        return loaded() ? AgeId.byId(UI_INVENTORY_BUTTONS_FROM_AGE.get()).orElse(fallback) : fallback;
+    }
+
+    /** {@code ui.mapFromAge}; an unknown value counts as the default. */
+    public static AgeId mapFromAge() {
+        AgeId fallback = dev.firmages.core.immersion.MapGate.DEFAULT_FROM;
+        return loaded() ? AgeId.byId(UI_MAP_FROM_AGE.get()).orElse(fallback) : fallback;
     }
 
     /** The first Age with TFC's {@code tab} in the inventory, empty for never. */

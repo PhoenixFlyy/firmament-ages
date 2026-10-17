@@ -5,8 +5,9 @@ import dev.firmages.core.age.AgeId;
 import java.util.Set;
 
 /**
- * JourneyMap by Age (SPEC §18.2, Felix M1A 2026-10-17): before {@code firmages-client.toml [ui] mapFromAge} (default
- * {@code age_2}, the Iron Age, as the FTB Chunks map before it) the minimap is not drawn, the full map, the waypoint
+ * JourneyMap by Age (SPEC §18.2, Felix M1A 2026-10-17): before {@code firmages-server.toml [ui] mapFromAge} (default
+ * {@code age_2}, the Iron Age, as the FTB Chunks map before it; the server decides and sends {@code map} in
+ * {@code firmages:age_status}) the minimap is not drawn, the full map, the waypoint
  * screens and the minimap options do not open and JourneyMap's keys do nothing; players in creative mode have the map
  * in every Age, operators in survival do not ({@link ViewerGate#open}). JourneyMap's splash ("About") screen, which the
  * full map opens once per JourneyMap version, never opens (no feature announcements, §18). Pure Java (unit-tested); the
@@ -38,13 +39,13 @@ public final class MapGate {
     private MapGate() {}
 
     /**
-     * @param worldAge the world's Age from {@code firmages:age_status} (Dawn before it arrives)
-     * @param from     {@code ui.mapFromAge}
-     * @param creative the player is in creative mode
+     * @param ageAllows {@code map} of {@code firmages:age_status}: the world's Age is {@code ui.mapFromAge} or later
+     *                  (false before the first status)
+     * @param creative  the player is in creative mode
      * @return minimap, full map, waypoints and keys are there for this player
      */
-    public static boolean open(AgeId worldAge, AgeId from, boolean creative) {
-        return ViewerGate.open(AgeStatus.reached(worldAge, from), creative);
+    public static boolean open(boolean ageAllows, boolean creative) {
+        return ViewerGate.open(ageAllows, creative);
     }
 
     /** A screen that does not open: the splash always, the map screens while the map is closed (by class name). */

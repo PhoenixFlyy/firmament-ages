@@ -1,7 +1,12 @@
 package dev.firmages.core.immersion;
 
 import dev.firmages.core.age.AgeId;
+import dev.firmages.core.age.AgeSnapshot;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -9,15 +14,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** SPEC §18.2: the Curios and Apothic Attributes buttons of the inventory by Age. */
 class InventoryButtonsTest {
+    private static AgeStatus status(AgeId age) {
+        List<AgeId> unlocked = new ArrayList<>();
+        for (AgeId a : AgeId.all()) if (a.ordinal() <= age.ordinal()) unlocked.add(a);
+        return AgeStatus.of(AgeSnapshot.of(unlocked, 1, 0), t -> Optional.empty(), AgeId.AGE_1, AgeId.AGE_1, t -> Optional.empty(),
+            Optional.empty(), Optional.empty());
+    }
+
     @Test
     void defaultHidesThemInDawnOnly() {
         assertEquals(AgeId.AGE_0, InventoryButtons.DEFAULT_FROM);
         for (AgeId age : AgeId.all()) {
-            assertEquals(age != AgeId.DAWN, InventoryButtons.shown(age, InventoryButtons.DEFAULT_FROM, false), "survival in " + age + ", operator or not");
-            assertTrue(InventoryButtons.shown(age, InventoryButtons.DEFAULT_FROM, true), "creative in " + age);
+            AgeStatus s = status(age).withUiGates(InventoryButtons.DEFAULT_FROM, MapGate.DEFAULT_FROM);
+            assertEquals(age != AgeId.DAWN, s.inventoryButtons(), "the server's button flag in " + age);
+            assertEquals(age != AgeId.DAWN, InventoryButtons.shown(s.inventoryButtons(), false), "survival in " + age + ", operator or not");
+            assertTrue(InventoryButtons.shown(s.inventoryButtons(), true), "creative in " + age);
         }
-        assertFalse(InventoryButtons.shown(AgeId.AGE_2, AgeId.AGE_3, false), "a later configured Age");
-        assertTrue(InventoryButtons.shown(AgeId.DAWN, AgeId.DAWN, false), "dawn: always there");
+        assertFalse(status(AgeId.AGE_2).withUiGates(AgeId.AGE_3, AgeId.AGE_2).inventoryButtons(), "a later configured Age");
+        assertTrue(status(AgeId.DAWN).withUiGates(AgeId.DAWN, AgeId.AGE_2).inventoryButtons(), "dawn: always there");
+        assertFalse(AgeStatus.UNKNOWN.inventoryButtons(), "before the first status: hidden");
+        AgeStatus s = status(AgeId.AGE_4);
+        assertEquals(s.withGridLock(Optional.of(AgeId.AGE_0)).withReloadPending(true).withGathered(true).inventoryButtons(), s.inventoryButtons(),
+            "the other with-methods keep the flags");
     }
 
     @Test

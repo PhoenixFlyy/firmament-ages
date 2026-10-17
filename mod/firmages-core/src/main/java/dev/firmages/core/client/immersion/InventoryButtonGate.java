@@ -3,7 +3,6 @@ package dev.firmages.core.client.immersion;
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.compat.apothic.AttributesPanel;
 import dev.firmages.core.compat.curios.CuriosKey;
-import dev.firmages.core.config.ClientConfig;
 import dev.firmages.core.immersion.InventoryButtons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -41,8 +40,7 @@ public final class InventoryButtonGate {
     /** The buttons are there for the local player (before the first status the world counts as Dawn). */
     public static boolean shown() {
         LocalPlayer p = Minecraft.getInstance().player;
-        return InventoryButtons.shown(ClientAgeStatus.get().age(), ClientConfig.inventoryButtonsFromAge(),
-            p != null && p.isCreative());
+        return InventoryButtons.shown(ClientAgeStatus.get().inventoryButtons(), p != null && p.isCreative());
     }
 
     @SubscribeEvent

@@ -15,7 +15,7 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 | Was | Wo | Wer |
 |---|---|---|
 | Vanilla-Herzen nur in neuen Welten: eine Welt von 1.0.0 behält TFCs Gesundheit (Default 0,85) in ihrer Welt-Config; bei gestopptem Server `nutritionMinimumHealthModifier`, `nutritionDefaultHealthModifier` und `nutritionMaximumHealthModifier` von Hand auf `1.0` setzen | `<Welt>/serverconfig/tfc-server.toml` `[mechanics.player]` | Felix |
-| Welten, die älter als drei Tage sind und keine Tutorial-Wayshrine haben (Suche bis 1.0.0 mit nur 16 Peilungen, oder vor 0.12.0 angelegt): der Dawn-Keystone „A Shrine on the Road“ ist dort unerfüllbar, und „The First Spark“ wartet auf ihn. Felix' Testwelt ist neu; eine solche Welt bräuchte die Quest von Hand abgehakt | Questbuch, firmages-core `WayshrineTutorial` | Felix, falls eine solche Welt in Dawn steht |
+| Welten, die älter als drei Tage sind und keine Tutorial-Wayshrine haben (Suche vor dem Release 1.0.0 mit nur 16 Peilungen, oder vor 0.12.0 angelegt): der Dawn-Keystone „A Shrine on the Road“ (Blick auf irgendeinen `firmages:wayshrine_core`) ist dort nur über eine natürliche Wayshrine weiter draußen oder nach `/firmages wayshrine tutorial` (Operator) erfüllbar, und „The First Spark“ wartet auf ihn. Felix' Testwelt ist neu | Questbuch, firmages-core `WayshrineTutorial` | Felix, falls eine solche Welt in Dawn steht |
 
 ## Im Client prüfen (Felix)
 
@@ -60,7 +60,7 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 | Planungsdokumente: `08-Ages-Design.md` „§0 Stand“, `10-Modliste.md` aus `mods/*.pw.toml` erzeugen, `12-Walkthrough.md` auf einen Verweis auf `docs/WALKTHROUGH.md` kürzen | `../Modpack-Planung/docs/` | Claude |
 | Der TFC-GameTest-Lauf (`-PgametestTfc`) stürzt in `IsleGameTests.shapeAndSkyLight` ab (NPE in `LightEngine.getLightValue`); der Standardlauf (125 von 125) ist grün | `src/gametest/.../IsleGameTests.java` | Claude |
 | Generierte Breitstämme (`branch_direction none` in TFCs `sequoia_large` und `douglas_fir_large`) droppen vermutlich den TFC-Stamm statt des Vanilla-Klassenstamms (HW1A); bestand schon vor G1, nie geprüft | `dev/gen_wood_classes.py`, Loot der Stämme | Claude |
-| Prism-Freunde mit einer alten `firmages-client.toml` haben den neuen Chat-Blocklist-Eintrag nicht: JourneyMaps Join-Zeile ist dort einmal zu sehen, bis die Datei neu geschrieben wird | `config/firmages-client.toml` `[chat]` | Felix, falls es stört |
+| Neue Welt, deren Tutorial-Wayshrine nie gefunden wurde (die Suche wiederholt sich jeden Vierteltag und endet, wenn die Welt drei Tage alt ist; dann ein WARN im Log): der Dawn-Keystone „A Shrine on the Road“ ist nur über eine andere Wayshrine (natürliche, weiter draußen) oder `/firmages wayshrine tutorial` (Operator) erfüllbar | firmages-core `WayshrineTutorial`, Server-Log | Felix, falls der WARN kommt |
 
 ## Erledigt in Runde F1 (mit Beleg)
 
@@ -110,3 +110,6 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 | Minimap (Felix M1A) | JourneyMap 6.0.9 und JourneyMap Integration 1.9.1 ab der Eisenzeit (`ui.mapFromAge`, firmages-core `MapGate`, U `MapGateTest`), Theme „Firmament“, kein Radar, keine Todespunkte; Zeilen „G1: JourneyMap ist die Karte“ und „G1: JourneyMap ohne Todespunkte“; Client-Prüfung 1.0.1 Checkliste |
 | Baumfällen (Felix T1A) | Enhanced Falling Trees 0.7.0, TFC-Fällung aus (`#tfc:logs_that_log` leer), `mixin/eft/DefaultTreeMixin` (U `TreeFamilyTest`); Zeilen „G1: Enhanced Falling Trees statt TFC-Fällung“ und „G1: Steinaxt fällt ohne Abzug“; Client-Prüfung 1.0.1 Checkliste |
 | Questbuch eingefroren (Felix Q1A) | `dev/gen_quests.py` nur mit `--unfreeze`, SNBT ist die Quelle, `dev/quests-editing.md`; Zeile „G1: Questbuch eingefroren“ |
+| JourneyMaps Join-Zeile bei einer alten `firmages-client.toml` (Review G1): das neue Muster stand nur im Default der Liste | Die eingebauten Muster gelten immer neben `chat.blocklist` (`ChatBlocklist.withBuiltIns`, Default der Liste leer); U `ImmersionTest.chatBlocklistBuiltInsApplyBesideAnOldConfig` mit der Liste von 1.0.0 |
+| Karte und Inventar-Knöpfe nach der Client-Config (Review G1) | `ui.mapFromAge` und `ui.inventoryButtonsFromAge` in `firmages-server.toml`, im Status `firmages:age_status`, Netzprotokoll "7"; G `ImmersionGameTests.statusFollowsAgesAndConfig`, U `MapGateTest`, `InventoryButtonsTest`; Zeile „G1-Review: Karte und Knöpfe entscheidet der Server“ |
+| Jade im Kreativmodus vor `jadeFromAge` gesperrt (Review G1) | `ViewerGate.overlayOpen` wie die anderen Gates; U `ImmersionTest.jadeOpensInCreativeBeforeItsAge` |

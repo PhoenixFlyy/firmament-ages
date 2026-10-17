@@ -13,7 +13,8 @@ public final class ViewerGate {
      * Recipe screens that stay shut while the viewer is closed for the player (SPEC §21.3), by class name. EMI's recipe
      * and recipe-tree screens: {@code EmiApi.displayRecipes} and the JEI API through JEMI open them without checking
      * {@code EmiConfig.enabled} [verified, javap, EMI 1.1.24]. JEI's own recipe screen {@code RecipesGui} (the only
-     * {@code Screen} of JEI 19.64.0.453, opened through {@code Minecraft.setScreen} [verified, javap]) is never built
+     * {@code Screen} of JEI 19.64.0.453 and of the pack's 19.64.0.455, opened through {@code Minecraft.setScreen}
+     * [verified, javap]) is never built
      * while EMI runs (EMI's {@code PluginCallerMixin} skips JEI's GUI plugins); it is listed in case it ever is.
      */
     public static final Set<String> VIEWER_SCREENS = Set.of("dev.emi.emi.screen.RecipeScreen", "dev.emi.emi.screen.BoMScreen",
@@ -33,6 +34,18 @@ public final class ViewerGate {
      */
     public static boolean open(boolean ageAllows, boolean creative) {
         return ageAllows || creative;
+    }
+
+    /**
+     * Jade's overlay (SPEC §18.3): the same exemption as the other gates.
+     *
+     * @param statusKnown the first {@code firmages:age_status} has arrived
+     * @param blockInfo   its {@code blockInfo} ({@code ui.jadeFromAge} reached)
+     * @param creative    the player is in creative mode
+     * @return Jade may show its tooltip for this player
+     */
+    public static boolean overlayOpen(boolean statusKnown, boolean blockInfo, boolean creative) {
+        return open(statusKnown && blockInfo, creative);
     }
 
     /**

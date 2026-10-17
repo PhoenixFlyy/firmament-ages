@@ -113,6 +113,31 @@ public final class ImmersionGameTests {
         } finally {
             ServerConfig.UI_EMI_FROM_AGE.set(was);
         }
+        // 1.0.1 round G1 fix: the server decides the inventory buttons and the map (network version "7")
+        ok(h, st.inventoryButtons() == AgeStatus.reached(st.age(), ServerConfig.inventoryButtonsFromAge())
+            && st.map() == AgeStatus.reached(st.age(), ServerConfig.mapFromAge()), "inventory buttons and map follow ui.*FromAge: " + st);
+        ok(h, "age_0".equals(ServerConfig.UI_INVENTORY_BUTTONS_FROM_AGE.getDefault()) && "age_2".equals(ServerConfig.UI_MAP_FROM_AGE.getDefault()),
+            "defaults inventoryButtonsFromAge = age_0, mapFromAge = age_2, got " + ServerConfig.UI_INVENTORY_BUTTONS_FROM_AGE.getDefault()
+                + ", " + ServerConfig.UI_MAP_FROM_AGE.getDefault());
+        String wasButtons = ServerConfig.UI_INVENTORY_BUTTONS_FROM_AGE.get();
+        String wasMap = ServerConfig.UI_MAP_FROM_AGE.get();
+        try {
+            ServerConfig.UI_INVENTORY_BUTTONS_FROM_AGE.set("dawn");
+            ServerConfig.UI_MAP_FROM_AGE.set("dawn");
+            AgeStatus open = ImmersionService.status(server);
+            ok(h, open.inventoryButtons() && open.map(), "inventoryButtonsFromAge = mapFromAge = dawn open both at once: " + open);
+            ServerConfig.UI_INVENTORY_BUTTONS_FROM_AGE.set("age_9");
+            ServerConfig.UI_MAP_FROM_AGE.set("age_9");
+            AgeStatus shut = ImmersionService.status(server);
+            ok(h, st.age() == AgeId.AGE_9 || !shut.inventoryButtons() && !shut.map(), "age_9 keeps both closed: " + shut);
+        } finally {
+            ServerConfig.UI_INVENTORY_BUTTONS_FROM_AGE.set(wasButtons);
+            ServerConfig.UI_MAP_FROM_AGE.set(wasMap);
+        }
+        for (AgeStatus s : List.of(st.withUiGates(AgeId.DAWN, AgeId.AGE_9), st.withUiGates(AgeId.AGE_9, AgeId.DAWN))) {
+            AgeStatus synced = sync(server, s);
+            ok(h, synced.equals(s), "firmages:age_status carries inventoryButtons and map: sent " + s + ", got " + synced);
+        }
         String name = "gt_status";
         ServerPlayer p = join(h, name);
         try {

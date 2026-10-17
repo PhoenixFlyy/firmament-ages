@@ -162,6 +162,16 @@ class ImmersionTest {
     }
 
     @Test
+    void jadeOpensInCreativeBeforeItsAge() {
+        assertFalse(ViewerGate.overlayOpen(false, false, false), "before the first status");
+        assertFalse(ViewerGate.overlayOpen(true, false, false), "survival before jadeFromAge, operator or not");
+        assertTrue(ViewerGate.overlayOpen(true, true, false), "the Age opened it");
+        assertFalse(ViewerGate.overlayOpen(false, true, false), "a stale flag without a status");
+        assertTrue(ViewerGate.overlayOpen(true, false, true), "creative before jadeFromAge");
+        assertTrue(ViewerGate.overlayOpen(false, false, true), "creative before the first status");
+    }
+
+    @Test
     void recipeScreensOfEmiAndJeiStayShutWhileTheViewerIsClosed() {
         for (String screen : List.of("dev.emi.emi.screen.RecipeScreen", "dev.emi.emi.screen.BoMScreen", "mezz.jei.gui.recipes.RecipesGui")) {
             assertTrue(ViewerGate.screenBlocked(screen, false), screen + " while closed");
@@ -204,7 +214,7 @@ class ImmersionTest {
 
     @Test
     void chatBlocklistShipsTheJoinNotices() {
-        ChatBlocklist list = ChatBlocklist.compile(ChatBlocklist.DEFAULT_PATTERNS);
+        ChatBlocklist list = ChatBlocklist.compile(ChatBlocklist.BUILT_IN_PATTERNS);
         assertTrue(list.errors().isEmpty());
         // Create Train Utilities 3.1.0, the literal from net.adeptstack.Main [verified, javap]
         assertTrue(list.blocks("ATTENTION (Create Train Utilities): \nCreate Train Utilities will be renamed Create Train Doors in version 4."));
@@ -217,6 +227,24 @@ class ImmersionTest {
         assertFalse(list.blocks("<Felix> the train utilities are great"));
         assertFalse(list.blocks("Caelum: A spark in the dark. I have seen you."));
         assertFalse(list.blocks(""));
+    }
+
+    @Test
+    void chatBlocklistBuiltInsApplyBesideAnOldConfig() {
+        // the chat.blocklist that a firmages-client.toml written by 1.0.0 still holds
+        List<String> old = List.of("^ATTENTION \\(Create Train Utilities\\)", "(?i)Starbuncle Plush|makeship");
+        ChatBlocklist list = ChatBlocklist.withBuiltIns(old);
+        assertTrue(list.errors().isEmpty());
+        assertTrue(list.blocks("§eJourneyMap:§f Press [§bJ§f]"), "JourneyMap's join line although the file lacks its pattern");
+        assertTrue(list.blocks("Click here to order a Starbuncle Plush from Makeship!"));
+        assertEquals(old, list.source(), "the source is the configured list, to detect changes");
+        ChatBlocklist none = ChatBlocklist.withBuiltIns(List.of());
+        assertTrue(none.blocks("§eJourneyMap:§f Mapping disabled."), "an empty list keeps the built-ins");
+        assertFalse(none.blocks("Backup started..."));
+        ChatBlocklist extra = ChatBlocklist.withBuiltIns(List.of("Backup (started|completed)", "([unclosed"));
+        assertTrue(extra.blocks("Backup started..."), "a configured pattern adds to the built-ins");
+        assertTrue(extra.blocks("ATTENTION (Create Train Utilities): renamed"));
+        assertEquals(1, extra.errors().size(), "an invalid configured pattern is skipped");
     }
 
     @Test

@@ -11,7 +11,7 @@ Caelum ist der Himmel selbst ("Caelum, the Firmament: the sky itself"), kein Got
 in Zeremonien (die erste beim First Spark, noch ohne Schrein) und am Schrein. Die Spieler sind "the fellowship" oder "all of you", nie "the team" im Text (FTB-Menüs bleiben, wie sie
 sind; auf der CurseForge-Seite heißt es "one team per server", weil FTB Teams so heißt).
 
-Gut:   "Fire is tamed. Clay is yours now."
+Gut:   "Fire is tamed. Clay follows."
 Gut:   "Veins of a later Age sleep as plain stone."
 Nicht: "Embark on an epic journey through ten unique Ages!"
 

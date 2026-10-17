@@ -1,7 +1,12 @@
 package dev.firmages.core.immersion;
 
 import dev.firmages.core.age.AgeId;
+import dev.firmages.core.age.AgeSnapshot;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,16 +15,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** SPEC §18.2: JourneyMap by Age (Felix M1A, 2026-10-17). */
 class MapGateTest {
+    private static AgeStatus status(AgeId age) {
+        List<AgeId> unlocked = new ArrayList<>();
+        for (AgeId a : AgeId.all()) if (a.ordinal() <= age.ordinal()) unlocked.add(a);
+        return AgeStatus.of(AgeSnapshot.of(unlocked, 1, 0), t -> Optional.empty(), AgeId.AGE_1, AgeId.AGE_1, t -> Optional.empty(),
+            Optional.empty(), Optional.empty());
+    }
+
     @Test
     void defaultOpensWithTheIronAge() {
         assertEquals(AgeId.AGE_2, MapGate.DEFAULT_FROM);
         for (AgeId age : AgeId.all()) {
             boolean iron = age.ordinal() >= AgeId.AGE_2.ordinal();
-            assertEquals(iron, MapGate.open(age, MapGate.DEFAULT_FROM, false), "survival in " + age + ", operator or not");
-            assertTrue(MapGate.open(age, MapGate.DEFAULT_FROM, true), "creative in " + age);
+            AgeStatus s = status(age).withUiGates(InventoryButtons.DEFAULT_FROM, MapGate.DEFAULT_FROM);
+            assertEquals(iron, s.map(), "the server's map flag in " + age);
+            assertEquals(s, status(age), "of() already uses the default");
+            assertEquals(iron, MapGate.open(s.map(), false), "survival in " + age + ", operator or not");
+            assertTrue(MapGate.open(s.map(), true), "creative in " + age);
         }
-        assertFalse(MapGate.open(AgeId.AGE_3, AgeId.AGE_4, false), "a later configured Age");
-        assertTrue(MapGate.open(AgeId.DAWN, AgeId.DAWN, false), "dawn: always there");
+        assertFalse(status(AgeId.AGE_3).withUiGates(AgeId.AGE_0, AgeId.AGE_4).map(), "a later configured Age");
+        assertTrue(status(AgeId.DAWN).withUiGates(AgeId.AGE_0, AgeId.DAWN).map(), "dawn: always there");
+        assertFalse(AgeStatus.UNKNOWN.map(), "before the first status: closed");
+        assertTrue(MapGate.open(AgeStatus.UNKNOWN.map(), true), "creative before the first status");
     }
 
     @Test

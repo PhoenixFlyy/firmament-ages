@@ -1,7 +1,6 @@
 package dev.firmages.core.config;
 
 import dev.firmages.core.age.AgeId;
-import dev.firmages.core.immersion.ChatBlocklist;
 import dev.firmages.core.immersion.HudFade;
 import dev.firmages.core.immersion.MenuWidgetFilter;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -31,8 +30,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue HIDE_MOD_NAME_TOOLTIPS;
     public static final ModConfigSpec.BooleanValue TRIM_LOCKED_TOOLTIPS;
     public static final ModConfigSpec.ConfigValue<String> MANA_HUD_FROM_AGE;
-    public static final ModConfigSpec.ConfigValue<String> INVENTORY_BUTTONS_FROM_AGE;
-    public static final ModConfigSpec.ConfigValue<String> MAP_FROM_AGE;
+
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLOCKED_SCREENS;
     public static final ModConfigSpec.IntValue QUEST_PARAGRAPH_GAP;
     public static final ModConfigSpec.IntValue QUEST_WINDOW_PERCENT;
@@ -103,12 +101,7 @@ public final class ClientConfig {
         MANA_HUD_FROM_AGE = b.comment("First Age with Ars Nouveau's mana bar and spell HUD (GUI layers ars_nouveau:mana_hud, ars_nouveau:spell_hud).",
                 "Before it both are hidden; the world's Age comes from the server's status (Dawn until it arrives).")
             .define("manaHudFromAge", DEFAULT_MANA_HUD_FROM_AGE.id(), ClientConfig::isAgeId);
-        INVENTORY_BUTTONS_FROM_AGE = b.comment("First Age with the Curios and Apothic Attributes buttons in the inventory, the Curios key and the Curios screen.",
-                "Before it all of them are gone (operators and creative mode excepted); the world's Age comes from the server's status (Dawn until it arrives).")
-            .define("inventoryButtonsFromAge", dev.firmages.core.immersion.InventoryButtons.DEFAULT_FROM.id(), ClientConfig::isAgeId);
-        MAP_FROM_AGE = b.comment("First Age with JourneyMap: the minimap, the full map, the waypoint screens and JourneyMap's keys.",
-                "Before it all of them are gone (creative mode excepted); the world's Age comes from the server's status (Dawn until it arrives).")
-            .define("mapFromAge", dev.firmages.core.immersion.MapGate.DEFAULT_FROM.id(), ClientConfig::isAgeId);
+
         BLOCKED_SCREENS = b.comment("Fully qualified screen class names that are never opened (mod announcement screens).")
             .defineListAllowEmpty("blockedScreens", DEFAULT_BLOCKED_SCREENS, () -> "", ClientConfig::isString);
         QUEST_PARAGRAPH_GAP = b.comment("Pixels (GUI scale 1) between the paragraphs of a quest description and after its subtitle.",
@@ -123,8 +116,9 @@ public final class ClientConfig {
 
         b.comment("Chat safety net (SPEC 18.1)").push("chat");
         CHAT_BLOCKLIST = b.comment("System and mod chat lines whose text matches one of these Java regular expressions are dropped",
-                "(player chat is never touched). Each dropped line is logged at INFO.")
-            .defineListAllowEmpty("blocklist", ChatBlocklist.DEFAULT_PATTERNS, () -> "", ClientConfig::isString);
+                "(player chat is never touched). Each dropped line is logged at INFO. The built-in patterns (the join notices of",
+                "Create Train Utilities and JourneyMap, Ars Nouveau's Makeship ad) always apply; list further ones here.")
+            .defineListAllowEmpty("blocklist", List.of(), () -> "", ClientConfig::isString);
         b.pop();
 
         b.comment("TerraFirmaCraft displays (SPEC 18.6)").push("tfc");
@@ -154,17 +148,6 @@ public final class ClientConfig {
         return AgeId.byId(get(MANA_HUD_FROM_AGE, DEFAULT_MANA_HUD_FROM_AGE.id())).orElse(DEFAULT_MANA_HUD_FROM_AGE);
     }
 
-    /** {@code ui.inventoryButtonsFromAge}; an unknown value counts as the default. */
-    public static AgeId inventoryButtonsFromAge() {
-        AgeId fallback = dev.firmages.core.immersion.InventoryButtons.DEFAULT_FROM;
-        return AgeId.byId(get(INVENTORY_BUTTONS_FROM_AGE, fallback.id())).orElse(fallback);
-    }
-
-    /** {@code ui.mapFromAge}; an unknown value counts as the default. */
-    public static AgeId mapFromAge() {
-        AgeId fallback = dev.firmages.core.immersion.MapGate.DEFAULT_FROM;
-        return AgeId.byId(get(MAP_FROM_AGE, fallback.id())).orElse(fallback);
-    }
 
     private static boolean isAgeId(Object o) {
         return o instanceof String s && AgeId.byId(s).isPresent();

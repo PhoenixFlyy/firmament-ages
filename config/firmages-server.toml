@@ -213,6 +213,12 @@
 	emiFromAge = "age_1"
 	#First Age with the block-info overlay (Jade).
 	jadeFromAge = "age_1"
+	#First Age with the Curios and Apothic Attributes buttons in the inventory, the Curios key and the Curios screen.
+	#Before it all of them are gone for players in survival; creative mode keeps them.
+	inventoryButtonsFromAge = "age_0"
+	#First Age with JourneyMap: the minimap, the full map, the waypoint screens and JourneyMap's keys.
+	#Before it all of them are gone for players in survival; creative mode keeps them.
+	mapFromAge = "age_2"
 	#Each player's first join shows the title and the one-time welcome screen.
 	welcome = true
 	#First Age with TerraFirmaCraft's calendar tab in the inventory, or "never".

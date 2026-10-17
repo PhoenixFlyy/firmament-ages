@@ -7,18 +7,18 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-/** Applies {@code chat.blocklist} for {@code mixin.client.ChatComponentMixin} (SPEC §18.1). */
+/** Applies the built-in patterns and {@code chat.blocklist} for {@code mixin.client.ChatComponentMixin} (SPEC §18.1). */
 public final class ChatSilencer {
-    private static volatile ChatBlocklist compiled = ChatBlocklist.EMPTY;
+    private static volatile ChatBlocklist compiled = ChatBlocklist.withBuiltIns(List.of());
 
     private ChatSilencer() {}
 
     /** True if the unsigned chat line must be dropped; logs it. */
     public static boolean drop(Component message) {
-        List<? extends String> configured = ClientConfig.get(ClientConfig.CHAT_BLOCKLIST, ChatBlocklist.DEFAULT_PATTERNS);
+        List<? extends String> configured = ClientConfig.get(ClientConfig.CHAT_BLOCKLIST, List.of());
         ChatBlocklist list = compiled;
         if (!list.source().equals(configured)) {
-            list = ChatBlocklist.compile(configured);
+            list = ChatBlocklist.withBuiltIns(configured);
             for (String error : list.errors()) FirmagesCore.LOGGER.warn("firmages-client.toml chat.blocklist: invalid pattern {}", error);
             compiled = list;
         }

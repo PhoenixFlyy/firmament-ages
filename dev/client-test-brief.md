@@ -3,7 +3,8 @@
 ## 1.0.1 Checkliste (Runde G1, Pack 1.0.1, firmages-core 1.0.1, 2026-10-17)
 
 Die Client-Prüfungen der Runde G1 (Felix' Rückmeldung zu 1.0.0). Neues Profil aus
-`dev/exports/FirmamentAges-1.0.1.mrpack` (oder der CurseForge-Zip), Client und Server mit firmages-core 1.0.1. Wo die
+`dev/exports/FirmamentAges-1.0.1.mrpack` (oder der CurseForge-Zip), Client und Server mit firmages-core 1.0.1
+(Netzprotokoll 7: ein 1.0.0-Client kommt nicht auf den Server). Wo die
 „1.0 Checkliste“ darunter dieser Liste widerspricht, gilt diese; die überholten Zeilen dort sind markiert. Server-Teil
 auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0.1 round G1“).
 
@@ -15,7 +16,7 @@ auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0.1 round G1“).
 | 4 | Knöpfe kommen mit der Steinzeit | `/stage grant @s age_0` (oder „The First Spark“), Inventar neu öffnen | Curios- und Attributes-Knopf zurück, G öffnet Curios; keine Chatzeile, kein Toast dazu; Itemliste bleibt bis zur Bronzezeit zu |
 | 5 | Jade „Unknown“ ab Bronze | `age_1` vergeben, Jade auf einen IE- oder Mekanism-Block (per Befehl gesetzt oder aus einer Struktur) und auf Öl (Immersive Petroleum) | „Unknown“ mit dem goldenen Zeichen, keine Mod-Zeile; ein Create-Block und Granit zeigen ihren Namen; in Dawn und Steinzeit zeigt Jade gar nichts |
 | 6 | Dawn ohne Hinweistexte | In Dawn einen Stamm mit der Hand schlagen, E öffnen (graues Feld ansehen), Steinaxtkopf und Stock mit V legen und schleichend mit leerer Hand rechtsklicken, `/ponder` als Nicht-Operator | Kein Text: nichts in der Aktionsleiste, nichts im Chat, nichts auf der grauen Fläche; die Steinaxt entsteht trotzdem; `/ponder` antwortet nichts |
-| 7 | Vanilla-Herzen | Neue Welt, Lebensleiste ansehen, einseitig essen, Schaden nehmen | 20 volle Herzen ab Start, keine TFC-Leiste „850 / 1000“, die Herzen bleiben bei jeder Kost gleich |
+| 7 | Vanilla-Herzen | Neue Welt, Lebensleiste ansehen, einseitig essen, Schaden nehmen | Zehn volle Herzen (20 Lebenspunkte) ab Start, keine TFC-Leiste „850 / 1000“, die Herzen bleiben bei jeder Kost gleich |
 | 8 | Quest-Panel flach | K öffnen, F3+T einmal, Rechtsklick auf eine Quest, Kapitelleiste links aufklappen | Hintergrund flach nachtblau im Goldrahmen, keine Kachelung, nicht verschwommen; Kontextmenü und Kapitelleiste genauso |
 | 9 | Schreinbild | The Firmament, „The Shrine of Caelum“ öffnen | Bild des fertigen Schreins (alle Ringe, Herz, Plinth), scharf, nicht verzerrt |
 | 10 | Dawn-Quests | Dawn-Kapitel: „Loose and Found“, „A Shrine on the Road“, „Wild Harvest“ und „Seeds of the Wild“, „Far from Home“ | Gesteinsfamilie im Hover eines losen Steins sichtbar; der Kern der Tutorial-Wayshrine (300 bis 800 Blöcke vom Spawn, Lichtstrahl) lässt sich in Dawn ansehen und hakt die Quest ab; Wildpflanzen im hohen Gras geben Ertrag und Samen; 1 km zu Fuß hakt ab, Sprinten zählt nicht |
@@ -25,6 +26,10 @@ auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0.1 round G1“).
 | 14 | Karte ab der Eisenzeit | `/stage grant @s age_2` (Ages nacheinander), umsehen, J | Runde Minimap im Firmament-Stil (nachtblau, Goldlinie, cremefarbene Schrift), Nord oben, eigene FTB-Claims auf Mini- und Vollkarte; J öffnet die Karte ohne Splash; kein Radar anderer Spieler oder Mobs; nach einem Tod kein Todespunkt |
 | 15 | Bäume fallen ganz | Steinaxt an eine wilde TFC-Eiche, danach eine Sequoia oder ein Kapok (FPS beobachten), ein 2x2-Stamm, einmal schleichend | Der Baum kippt mit Ästen und Laub, kein Ast bleibt in der Luft hängen, nach dem Fall droppen Vanilla-Stämme der Holzklasse; der große Baum fällt ganz, ohne Ruckler über Sekunden; der 2x2-Stamm fällt von einem Block aus; schleichend bricht nur ein Stamm |
 | 16 | „Stone Kit“ | Nach dem ersten gefällten Baum die Quest ansehen | „Stone Kit“ schließt ab |
+| 17 | Profil-Update von 1.0.0 | Ein Profil von 1.0.0 (mit seiner alten `firmages-client.toml`) auf 1.0.1 aktualisieren, nicht neu importieren; als Survival-Spieler einer Dawn-Welt beitreten, Chat lesen, Inventar öffnen, J und G drücken | Keine JourneyMap-Zeile „Press [J]“ im Chat; kein Curios- und kein Attributes-Knopf, G und J tun nichts, keine Minimap (die Schwellen kommen jetzt vom Server) |
+| 18 | Karte und Jade im Kreativmodus | In Dawn `/gamemode creative`, umsehen, J, Jade auf einen Block; dann `/gamemode survival` | Im Kreativmodus Minimap da, J öffnet die Karte, Jade zeigt den Block mit Namen; zurück im Survival sind Karte und Jade wieder weg |
+| 19 | „The First Spark“ in The Firmament | Neue Welt, „By Hand“ nicht abhaken, die Steinzeit erreichen (Dawn-Ziel oder `/stage grant @s age_0`), The Firmament ansehen; dann „By Hand“ abhaken | Die Markierung „The First Spark“ in The Firmament erscheint erst nach abgehaktem „By Hand“; das Dawn-Ziel selbst wartet nicht darauf |
+| 20 | Hammer auf Stamm | In Dawn mit einem Steinhammer einen Stamm schlagen | Der eine Stamm bricht und gibt ein bis vier Stöcke; kein Baum fällt |
 
 ## 1.0 Checkliste (Pack 1.0.0, firmages-core 1.0.0, 2026-10-17)
 

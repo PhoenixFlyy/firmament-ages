@@ -266,7 +266,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "fa1131b314ce6a1bd9bee1f26f0ccfd77ced2ebbd95588928e5a3e05010c0422"
+hash = "d226421a00f5965d6be1018646199069f7084ae187131dc8f18073e684874454"
 
 [[files]]
 file = "config/fml.toml"
@@ -398,7 +398,7 @@ hash = "97552d301ae264408d90137101d29811f48d0d5d8541185bca23d8ce35dde017"
 
 [[files]]
 file = "config/ftbquests/quests/lang/en_us.snbt"
-hash = "47f3eae6c4c69271d15402372d8475e9dbe6ddb5169a07320c36f793220921e3"
+hash = "e7eb50a7a373279eee2d127ff1d65fbcc0ff9161c4513c1a5a7e754c6275e9c4"
 
 [[files]]
 file = "config/goblintraders-entities.toml"
@@ -11823,7 +11823,7 @@ metafile = true
 
 [[files]]
 file = "mods/firmages-core-1.0.1.jar"
-hash = "12afb03bedbb2cf37488d587b84cfe1afcd0ea13e070a67e8f130bd3f767a3d7"
+hash = "8831e6f8c10a631dec4d82f8a3809860a8bcd306e9ca3b65823f9d7384adc698"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
