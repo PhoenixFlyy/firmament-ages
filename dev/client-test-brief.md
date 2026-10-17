@@ -1,5 +1,40 @@
 # Client-Test
 
+## 1.1.0 Checkliste (Runde G2, Pack 1.1.0, firmages-core 1.1.0, 2026-10-17)
+
+Die Client-Prüfungen der Runde G2 (Felix' zweite Rückmeldung). Neues Profil aus
+`dev/exports/FirmamentAges-1.1.0.mrpack` (oder der CurseForge-Zip), Server aus `FirmamentAges-1.1.0-server.zip` oder dem
+Ordner `FirmamentAges-Server-1.1.0`; Client und Server brauchen firmages-core 1.1.0 (Netzprotokoll 8: ein 1.0.x-Client
+kommt nicht auf den Server). Alle Zeilen im Survival ohne Operator-Wirkung, wo nicht anders genannt; Ages per
+`/firmages stage grant @s age_N` (als Operator; frühere Ages kommen mit). Server-Teil auf einer Kopie geprüft
+(`dev/poc-results.md`, Abschnitt „1.1.0 round G2“). Die „1.0.1 Checkliste“ darunter gilt weiter, die Kartentaste ist dort
+schon M.
+
+| # | Prüfung | Schritte | Erwartung |
+|---|---|---|---|
+| 1 | Start | Neues Profil starten, einer frischen Dawn-Welt auf dem 1.1.0-Server beitreten | Titelbild ohne Absturz, Beitritt klappt; ein 1.0.2-Profil wird vom Server abgewiesen |
+| 2 | Dorf-Truhe in Dawn | In Dawn ein Dorf suchen (oder `/place structure minecraft:village_plains` als Operator), Truhen und Fässer öffnen, Mauszeiger über jedes Item | Kein Item mit „Something Unknown“: nur, was Dawn kennt; dieselbe Truhe ist nicht leer, wenn ihre Tabelle Dawn-Items hat |
+| 3 | TFC-Ruine in Dawn | Eine TFC-Ruine (Steinruine mit großen Keramikgefäßen) in Dawn finden, Gefäße und abgelegte kleine Gefäße öffnen | Keine Kleinerze, kein Salz, kein Flussmittel (Knochen, Felle, Stämme bleiben); eine Ruine in Chunks, die erst nach `age_1` entstehen, hat ihre Kleinerze und ihr Salz |
+| 4 | Trichter unter einer Truhe | In Dawn einen Trichter unter eine noch nie geöffnete Dungeon- oder Ruinen-Truhe setzen | Der Trichter zieht nichts einer späteren Age (kein „Something Unknown“ im Trichter) |
+| 5 | Inventar in Dawn | E, eine Truhe, die TFC-Tabs (Klima, Kalender, Ernährung) und Curios (G) öffnen; über zehn Items laufen; aus einer vollen Truhe mit Shift-Klick holen | Die drei Hauptreihen sind graue Fläche ohne Rahmen, ohne Hover und Tooltip; nur die Hotbar füllt sich, das zehnte Item bleibt liegen; Shift-Klick füllt nur die Hotbar |
+| 6 | Inventar ab Steinzeit und Bronze | `age_0`, Inventar öffnen; dann `age_1`; dann `/gamemode creative` in Dawn | Steinzeit: die zwei unteren Reihen (über der Hotbar) offen, die oberste grau; Bronze: alle Reihen; das Kreativinventar ist in jeder Age unverändert |
+| 7 | Dawn-Abbau | In Dawn Stein, Rohgestein, ein Erz und Ton schlagen (Hand und Steinwerkzeug); dann Gras, Erde, Sand, Kies, Pflanzen, Blätter, lose Steine, Zweige; einen Stamm mit der Hand und mit der Steinaxt | Stein, Erz und Ton zeigen keinen Riss, nichts passiert; die weichen Blöcke brechen mit der Hand; der Stamm nur mit der Axt; nach `age_0` verhalten sich Stein und Erz wie vorher |
+| 8 | Mod-Tasten in Dawn | C, Ctrl+T, linkes Alt, W über einem Item, `\`, Alt+B, J drücken; dann `/gamemode creative` und dieselben Tasten | Survival: nichts öffnet sich, nichts passiert; Kreativ: jede Taste wirkt; im Log `Key gate (dawn): N keys of M mods locked` |
+| 9 | Mod-Tasten mit ihrer Age | Bis `age_3`: Zauberbuch in die Hand, C; Psis C; dann bis `age_6`: C (ohne und mit CAD) | Ab `age_3` öffnet Ars' C das Zauberbuch, Psis C tut noch nichts; ab `age_6` öffnet C das Psionica-Buch (ohne CAD) oder das Sockel-Rad (mit CAD) |
+| 10 | Stage-Baum nie offen | In den Steuerungen „ProgressiveStages: Stage-Baum“ auf eine freie Taste legen; in Dawn und nach `age_9` drücken; dann Kreativ | Survival: in keiner Age öffnet sich der Baum; Kreativ: er öffnet sich |
+| 11 | F3 zeigt `???` | Dawn bis Bronze: F3; in den BetterF3-Optionen BetterF3 ausschalten, F3; F3+C, dann F3+I auf einen Block, beides in den Chat einfügen; dann `age_2` (oder Kreativ) | Vor der Eisenzeit: FPS, Speicher, CPU, GPU, Display und Java wie gewohnt, Koordinaten, Biom, Licht, Blickrichtung, Ziel, Entities, Chunks und Sounds `???`, auch ohne BetterF3; F3+C und F3+I kopieren nichts (der Chat bekommt den alten Zwischenablage-Text); ab der Eisenzeit oder im Kreativmodus alles wie vorher, ohne Neu-Login |
+| 12 | Karte auf M, Claims auf L | Frisches Profil: in Dawn M und L; dann `age_2`: M, M, L | Vor der Eisenzeit tun M und L nichts; ab der Eisenzeit öffnet und schließt M JourneyMaps Vollkarte, L öffnet die FTB-Chunks-Claimkarte; J schaltet nur den Jetpack (Industriezeit) |
+| 13 | `/firmages` und `stage` (Operator) | `/firmages`; `/firmages stage grant @s age_0` in einer Dawn-Welt; `/firmages stage list`; `/firmages stage revoke @s age_0` | `/firmages` listet alle Unterbefehle; der Grant spielt die kurze Zeremonie und öffnet die Steinzeit (Feld, Reihen); `list` zeigt die Stages; `revoke` nimmt die Steinzeit und alle späteren zurück |
+| 14 | `/firmages locate` (Operator) | Nahe einer Wayshrine oder TFC-Ruine `/firmages locate`, dann `/firmages locate 2048`; eine Zeile anklicken | Gold-Kopfzeile mit Anzahl, die nächsten Bauten zuerst mit Entfernung; ein Klick teleportiert dorthin |
+| 15 | Pick-Block (Kreativ) | Mausrad auf einen Wayshrine Core, ein Shrine Heart, einen Firmament-Kristall und eine Firmament-Ader | Das passende Item liegt in der Hand |
+| 16 | H-Schild | Beitreten; H tippen; im Buch (K) zwei Quests anheften, eine davon abschließen; neun anheften | Das Schild steht 8 s nach dem Beitritt und nach H; darunter die angehefteten Quests mit Fortschritt („2/5“), die erledigte mit Haken; bei neun Pins sieben Quests und „…“ |
+| 17 | Questpanel Nachthimmel | K öffnen, F3+T einmal, Rechtsklick auf eine Quest, Kapitelleiste links, Tastenreferenz | Nachthimmel mit feinen Sternen im Goldrahmen, keine Naht, kein Muster; Kontextmenü, Kapitelleiste und Tastenreferenz genauso; Schrift gut lesbar |
+| 18 | Not Enough Animations | F5: Leiter hoch und runter, in einer 1 Block hohen Lücke kriechen, essen, eine Karte halten, Boot und Pferd | Kletter-, Kriech-, Ess- und Kartenposen in der Third-Person-Ansicht; ein zweiter Spieler sieht sie auch |
+| 19 | Emotecraft | Y; „Waving“ wählen; ein zweiter Spieler schaut zu | Das Rad mit acht Emotes öffnet sich auf Y (deutsche Tastatur: Z); der zweite Spieler sieht das Winken |
+| 20 | Tastenkonflikte | Optionen, Steuerung, Controlling: Konflikte anzeigen | Keine Konflikte bei M, L und Y (J teilen sich Jetpack und Ars-Elementar-Taste wie bisher) |
+| 21 | Server-Pack (Admin) | `FirmamentAges-1.1.0-server.zip` frisch entpacken: Dateien ansehen; einen JDK 21 als Ordner `jdk` neben `start.bat` entpacken, `start.bat` starten | Nur `start.bat` und `start.sh` als Startdateien, kein `start-local.bat`; der Server startet mit `jdkin\java.exe`, ohne installiertes Java |
+| 22 | Lokaler Server-Ordner (Admin) | `D:\Minecraft\MinecraftModServer\FirmamentAges-Server-1.1.0\start.bat` starten (einmal `eula=true` setzen) | Startet mit dem Repo-JDK (`FA_JAVA_HOME` in `start.bat`), ohne Whitelist |
+
 ## 1.0.1 Checkliste (Runde G1, Pack 1.0.1, firmages-core 1.0.1, 2026-10-17)
 
 Die Client-Prüfungen der Runde G1 (Felix' Rückmeldung zu 1.0.0). Neues Profil aus

@@ -1,8 +1,8 @@
 # Offene Punkte
 
-Stand 2026-10-17, Pack 1.0.1, firmages-core 1.0.1. Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
+Stand 2026-10-17, Pack 1.1.0, firmages-core 1.1.0 (Runde G2). Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
 Felix trifft, Prüfungen im Client und Ideen für die Zeit nach 1.0. Erledigtes früherer Runden steht in der Git-Historie
-dieser Datei (bis Commit `7689802`) und mit Beleg in `dev/poc-results.md`; unten nur, was die Runden F1 und G1
+dieser Datei (bis Commit `7689802`) und mit Beleg in `dev/poc-results.md`; unten nur, was die Runden F1, G1 und G2
 geschlossen haben.
 Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile nach unten verschieben, mit Beleg.
 
@@ -16,12 +16,14 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 |---|---|---|
 | Vanilla-Herzen nur in neuen Welten: eine Welt von 1.0.0 behält TFCs Gesundheit (Default 0,85) in ihrer Welt-Config; bei gestopptem Server `nutritionMinimumHealthModifier`, `nutritionDefaultHealthModifier` und `nutritionMaximumHealthModifier` von Hand auf `1.0` setzen | `<Welt>/serverconfig/tfc-server.toml` `[mechanics.player]` | Felix |
 | Welten, die älter als drei Tage sind und keine Tutorial-Wayshrine haben (Suche vor dem Release 1.0.0 mit nur 16 Peilungen, oder vor 0.12.0 angelegt): der Dawn-Keystone „A Shrine on the Road“ (Blick auf irgendeinen `firmages:wayshrine_core`) ist dort nur über eine natürliche Wayshrine weiter draußen oder nach `/firmages wayshrine tutorial` (Operator) erfüllbar, und „The First Spark“ wartet auf ihn. Felix' Testwelt ist neu | Questbuch, firmages-core `WayshrineTutorial` | Felix, falls eine solche Welt in Dawn steht |
+| Welten von 1.0.x mit 1.1.0: Items in Inventar-Reihen, die die Age der Welt noch nicht öffnet, wandern beim ersten Login in freie Plätze oder fallen vor die Füße (Sweep, SPEC §19.4); vorbefüllte Behälter in schon erzeugten Chunks (TFC-Ruinen-Gefäße) behalten ihre Kleinerze, ungeöffnete Truhen filtert das Loot-Gate beim Öffnen (SPEC §19.5) | `[hardship.inventoryRows]` und `gate.lootFilter` in `config/firmages-server.toml` | Felix (Hinweis an Mitspieler) |
 
 ## Im Client prüfen (Felix)
 
 | Was | Wo | Wer |
 |---|---|---|
-| **Die „1.0.1 Checkliste“** oben in `dev/client-test-brief.md` (Runde G1: Betrachter und Knöpfe nach Age, nur Kreativ ausgenommen, Jade „Unknown“, keine Hinweistexte, Vanilla-Herzen, Quest-Panel, Schreinbild, neue Dawn-Quests, Backups), je Zeile Schritte und Erwartung | `dev/client-test-brief.md` | Felix |
+| **Die „1.1.0 Checkliste (Runde G2)“** oben in `dev/client-test-brief.md` (Loot nach Age, Inventar-Reihen, Dawn-Abbau, Tasten und Fenster nach Mod-Age, F3 `???`, Karte auf M und L, `/firmages stage` und `locate`, Pick-Block, H-Schild, Nachthimmel-Panel, Animationen, Server-Pack), je Zeile Schritte und Erwartung | `dev/client-test-brief.md` | Felix |
+| **Die „1.0.1 Checkliste“** darunter in `dev/client-test-brief.md` (Runde G1: Betrachter und Knöpfe nach Age, nur Kreativ ausgenommen, Jade „Unknown“, keine Hinweistexte, Vanilla-Herzen, Quest-Panel, Schreinbild, neue Dawn-Quests, Backups), je Zeile Schritte und Erwartung | `dev/client-test-brief.md` | Felix |
 | **Die „1.0 Checkliste“** darunter: alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age geordnet, mit Schritten und Erwartung | `dev/client-test-brief.md` | Felix |
 | Titelbild: nach dem ersten Blick auf das Shader-Sternbild `show_compile_errors = true` wieder auf `false` | `config/fancymenu/customization/title_screen_layout.txt` | Felix sieht, Claude stellt um |
 | Industriezeit-Quest „The Thresher“ schließt beim Blick auf einen geformten Thresher ab; Loot-Crate-Opener und Task-Screen-Konfigurator fehlen in EMI | Questbuch, EMI | Felix |
@@ -36,7 +38,6 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 | Backup zurückspielen nach `server/README-SERVERPACK.md` (vier Schritte) einmal echt durchspielen; bisher nur die Zip-Struktur geprüft | Server | Felix oder Claude auf einer Kopie |
 | Team-Übernahme auf einer bestehenden Welt: der erste Spieler gründet die Party „Firmament“ mit allen Ages der Welt, ein zweiter kommt ohne Einladung dazu; belegt nur durch `TeamGameTests` | firmages-core, `server/README-SERVERPACK.md` | Felix |
 | Startkomplex: Dieseleimer per Hand in die Steuerung, mit freigeschalteter Age | firmages-core `LaunchControlBlock.useItemOn` | Felix |
-| Ruinen-Truhen und eine frische Dungeon-Truhe: in Dawn nur Dawn-Kleinkram (firmages-core-Loot-Gate, SPEC §19.5), ein Trichter unter einer frischen Truhe zieht nichts einer späteren Age; nach der nächsten Age bringt eine neue Truhe deren Items | `kubejs/data/firmages/loot_table/chests/ruin_*.json`, firmages-core `loot/` | Felix |
 
 ## Nach 1.0 (Ideen und Beobachtung)
 
@@ -61,6 +62,11 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 | Der TFC-GameTest-Lauf (`-PgametestTfc`) stürzt in `IsleGameTests.shapeAndSkyLight` ab (NPE in `LightEngine.getLightValue`); der Standardlauf (125 von 125) ist grün | `src/gametest/.../IsleGameTests.java` | Claude |
 | Generierte Breitstämme (`branch_direction none` in TFCs `sequoia_large` und `douglas_fir_large`) droppen vermutlich den TFC-Stamm statt des Vanilla-Klassenstamms (HW1A); bestand schon vor G1, nie geprüft | `dev/gen_wood_classes.py`, Loot der Stämme | Claude |
 | Neue Welt, deren Tutorial-Wayshrine nie gefunden wurde (die Suche wiederholt sich jeden Vierteltag und endet, wenn die Welt drei Tage alt ist; dann ein WARN im Log): der Dawn-Keystone „A Shrine on the Road“ ist nur über eine andere Wayshrine (natürliche, weiter draußen) oder `/firmages wayshrine tutorial` (Operator) erfüllbar | firmages-core `WayshrineTutorial`, Server-Log | Felix, falls der WARN kommt |
+
+| Loot-Lücken (SPEC §19.5): Entities, die eine Strukturvorlage setzt (Rahmen, Rüstungsständer), behalten ihre Items; Sophisticated-Rucksäcke halten ihren Inhalt in SavedData unter der Rucksack-ID, nicht im Item; was beim Erzeugen eines Chunks aus einem vorbefüllten Behälter fiel, kommt mit der Age nicht zurück; Mods mit eigenem Platzierungscode ohne `StructureTemplate.placeInWorld` laufen am Filter vorbei | firmages-core `loot/`, `mixin/StructureTemplateMixin` | Claude, falls sich ein Fall zeigt |
+| KeyGate-Grenzen (SPEC §18.10): Mekanisms `MekKeyBinding` (eigenes `isDown`, handelt in `setDown`) und Leser des rohen Tastencodes (Ars Nouveau, Create-Werkzeuggürtel, Ponder per GLFW, AE2, Railways, Apotheosis über `isActiveAndMatches`) erreicht das Flag nicht; was sie öffnen, fängt die Screen-Sperre, der Rest braucht das Item der Mod (Ars-Zauberbuch, Create-, AE2-Items über das Item-Gate) | firmages-core `immersion/KeyGate`, `mixin/client/KeyMappingMixin` | Claude, falls eine Taste durchrutscht |
+| Inventar-Reihen: Slot-Klassen, die `isActive` ohne `super` überschreiben (Ad Astras `InventorySlot`, Exposures Album-Slot), zeichnen ihre Hover-Markierung über dem grauen Deckel; Klicks und Verschieben bleiben gesperrt (SPEC §19.4) | firmages-core `client/immersion/InventoryRowsClient` | Claude, kosmetisch |
+| Kriechen: Vanilla kriecht nur in einer 1 Block hohen Lücke (Not Enough Animations zeigt die Pose dann in F5); eine eigene Kriech-Taste bräuchte eine weitere Mod (Inhaltssperre) | Zeile „G2-Animationen“ in `dev/decisions-while-away.md` | Felix, falls gewünscht |
 
 ## Erledigt in Runde F1 (mit Beleg)
 
@@ -120,3 +126,8 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 |---|---|
 | Truhen in Strukturen enthalten Loot späterer Ages (Felix) | firmages-core-Loot-Gate `firmages:age_filter`, SPEC §19.5; G `LootGameTests` (4 Loot-Fälle); `poc-results.md` „G2 loot gate“ |
 | Vorbefüllte Behälter in Strukturvorlagen (27 generierende Vorlagen, davon 18 TFC Ruins mit Kleinerzen, Salz, Flussmittel, Ton in den Gefäßen) | `mixin/StructureTemplateMixin`, `loot/TemplateContents`, `loot/PlacedContents` (verschachtelt: Shulker-Kiste, Bündel, TFC-Gefäß); G `LootGameTests.templateContentsFollowTheServersAge`, U `PlacedContentsTest`; Liste `python dev/check_loot_ages.py --mods <mods>` |
+| Inventar-Reihen nach Age und Dawn bricht nur Weiches (Felix) | SPEC §19.4 und §19.6, `[hardship.inventoryRows]`, `#firmages:dawn_breakable` (`dev/gen_dawn_breakable.py`, 1.116 Einträge); G `InventoryRowsGameTests` (3), `HardshipGameTests.dawnBreakableOnly`; Prüfung D-2; `poc-results.md` „1.1.0 round G2“ |
+| Mod-Tasten und -Fenster nach Age, F3 `???`, Karte auf M und FTB-Claims auf L (Felix) | SPEC §18.10 bis §18.12, `kubejs/assets/firmages/key_gates.json` (`dev/gen_key_gates.py`, 135 Tasten gesperrt), F3+C und F3+I kopieren nichts, Stage-Baum nie offen; U `KeyGateTest` (7), `F3VeilTest` (6) |
+| `/firmages stage`, `/firmages locate`, `/firmages` listet, Pick-Block-Items, H-Schild 8 s mit angehefteten Quests (Felix) | SPEC §10.2, §10.3, §18.13, §24.8; G `StageCommandGameTests`, `PickBlockGameTests`; Boot: `locate` listet eine echte TFC-Ruine und die Tutorial-Wayshrine |
+| Questpanel Nachthimmel, Not Enough Animations und Emotecraft, Server-Pack mit `jdk`-Ordner und `release.ps1 -LocalServer` (Felix) | `panel.png`, `dev/quest-images.md`; Zeile „G2-Animationen“; `server/pack/start.bat`, `dev/release.md`; Ordner `FirmamentAges-Server-1.1.0` |
+| TFC-Kleingefäß ging beim Vorlagenfilter verloren (Integrationsboot) | `PlacedContents.keepsSize`, U `PlacedContentsTest.tfcVesselKeepsItsFourSlots`; Boot C: leeres Gefäß in Dawn, volles in `age_9` |

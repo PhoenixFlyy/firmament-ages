@@ -110,7 +110,7 @@ hash = "22b2ba8d527037ce1f8f0ee24677d8d519cda586564ac0c03523517bcec35fcb"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "9f12d190811f412597df60c6f37276129e345dbf62be11dbf49b5c080e15a9af"
+hash = "ce1a69e306e73556177ea8a2ef331ff683597b22bb9477459b63c32413b6ee28"
 
 [[files]]
 file = "config/brandon3055/DraconicAdditions.cfg"
@@ -262,7 +262,7 @@ hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "959f173c23ef4384b0a7b10a2656519b3389c69c7e2ba168a688286f62a35c9b"
+hash = "3a12eb536f2a172a3bc87f018f0d2e4327ba44936366a5d80bdfd19beb0cfcef"
 
 [[files]]
 file = "config/fancymenu/options.txt"
@@ -11843,8 +11843,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-1.0.2.jar"
-hash = "158f413977751e52fd498838436275fece2b1a1f53825eb7512b369175b2a86d"
+file = "mods/firmages-core-1.1.0.jar"
+hash = "f24925da04ae0a5d6dfc01cfd36a32ae39397a94b16d572721e70df231d8f7a2"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

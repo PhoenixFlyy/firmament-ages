@@ -2,6 +2,31 @@
 
 Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## 1.1.0
+
+The second round of feedback on 1.0: every Age keeps more to itself (loot, inventory rows, breaking, mod keys, the debug screen), new commands, the Age sign with your pinned quests, a night-sky quest book and animations. **Client and server both need 1.1.0.** Your 1.0.x world keeps working: on the first login, items in inventory rows that your Age does not open yet move to free slots or drop at your feet.
+
+### New and changed
+
+- **Loot follows the Ages.** Chests, barrels, pots, archaeology, fishing, mob drops and bartering never give an item of an Age your team has not reached (a hopper or a machine that unpacks a chest rolls with the server's Ages). The containers that structures place already filled (the vessels of the TerraFirmaCraft ruins with small ores, salt and flux, for example) lose every item of a later Age when the structure generates; what they lost then does not come back later.
+- **Inventory rows by Age.** In Dawn you carry only the hotbar; the Stone Age opens two rows above it and the Bronze Age the last one. Locked rows are grey and take nothing, in every screen (chests, the TerraFirmaCraft tabs, Curios). Creative mode is unchanged.
+- **Dawn breaks only soft blocks.** Grass, dirt, sand, gravel, snow, plants, leaves, loose rocks and twigs break by hand; logs still need an axe; stone, ore, clay and ice do nothing until the Stone Age.
+- **Mod keys and screens wait for their Age.** Before a mod's Age its keys do nothing and its screens do not open: Psi's C before the Information Age, Ars Nouveau's C before the Arcane Age, Create's toolbelt and Ponder's W before the Bronze Age, Mekanism's module tweaker, Occultism's satchel and many more. ProgressiveStages' stage tree stays closed in every Age. Creative mode has everything.
+- **F3 shows `???` until the Iron Age.** Before the map opens, the debug screen shows the computer's data (FPS, memory, CPU, GPU, Java) and `???` for position, biome, target and everything else, with or without BetterF3; F3+C and F3+I copy nothing.
+- **Map on M, claims on L.** JourneyMap's full map opens with M, the FTB Chunks claim map with L, both from the Iron Age (new profiles; in an older one, Controls, Reset Keys).
+- **Commands.** `/firmages` lists its commands. `/firmages stage grant`, `revoke`, `list` and `clear` work like `/stage`, and granting an Age takes the shrine's way, ceremony included. `/firmages locate [radius]` lists the pack's structures near you (Wayshrines and their ruins, Drifting Isles, Starfall craters, Sky Anchors, the shrine, Launch Complex controls), nearest first; click a line to teleport. Both are operator commands.
+- **Pick block** (middle click in creative mode) works on the Wayshrine Core, the Firmament crystal cluster and the Firmament lode.
+- **The Age sign** (H) stays for 8 seconds and lists the quests you pinned in the Chronicle with their progress.
+- **A night sky in the quest book.** The quest panels, the chapter list and the context menu show a starry night sky in their gold frame.
+- **Animations.** Not Enough Animations shows climbing, crawling, eating, maps, lanterns, boats and horses in third person; Emotecraft adds emotes (emote wheel on Y), which other players see.
+- **Server pack:** start it with `start.bat` or `start.sh` only; a `jdk` (or `java`) folder with Java 21 next to `start.bat` is used first.
+
+### Technical
+
+- **Firmament Ages Core 1.1.0:** global loot modifier `firmages:age_filter` (after every other modifier) and the filter of prefilled structure templates, both switched by `gate.lootFilter` (server, default true); `[hardship.inventoryRows]` (one key per Age, 0 to 3 open rows; defaults Dawn 0, Stone Age 2, later 3); the Dawn list `#firmages:dawn_breakable`; the key and screen gate reads `kubejs/assets/firmages/key_gates.json`; the F3 veil; `ui.hudSignSeconds` (client, default 8) replaces `ui.hudFadeSeconds`. Network protocol 8: client and server need 1.1.0.
+- New tools: `dev/check_loot_ages.py` (loot tables and structure templates by Age), `dev/gen_key_gates.py` (the key gate table from the client jars), `dev/gen_dawn_breakable.py` (the Dawn list); `dev/release.ps1 -LocalServer` unpacks a local server folder.
+- 270 mods: Not Enough Animations 1.12.6 and Emotecraft 2.4.12 are new.
+
 ## 1.0.2
 
 A fix for 1.0.1, which crashed while the game was loading, and a server that asks before it stops. 1.0.1 was never released on CurseForge, so everything from 1.0.1 is listed here as well. **Your 1.0.0 world keeps working.**
