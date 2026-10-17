@@ -6,9 +6,9 @@ tables since B2: every quest pays fixed items). All player-facing text lives in 
 descriptions in per-locale translation tables keyed "<type>.<16-hex id>.<field>", see TranslationManager).
 
 IDs are derived from stable keys (sha1), so re-running the generator keeps every quest id and therefore every
-team's saved progress. The generator is the source of the book until someone edits it in game; after an
-in-game edit, the SNBT files are the source and this script must not be re-run over them (see
-dev/archive/quests-notes.md). Check the output with dev/validate_quests.py.
+team's saved progress. Frozen since pack 1.0.1 (Felix Q1A, 2026-10-17): the SNBT files are the source, Felix edits
+the book in game (dev/quests-editing.md), and this script runs only with --unfreeze (it would overwrite his edits).
+Check the book with dev/validate_quests.py, which reads the SNBT files and does not need this script.
 
 Format facts used here (read from the FTB Quests source at tag v2101.1.36 and the 2101.1.37 FTB Library jar):
   - ids: 16 hex digits, parsed with Long.parseLong(hex, 16): must be positive and not 0 or 1
@@ -4809,7 +4809,22 @@ def write(path, value):
         f.write(HEADER + snbt(value) + '\n')
 
 
+# Quest freeze (Felix Q1A, 2026-10-17): from pack 1.0.1 on, the SNBT files in config/ftbquests/quests/ are the source of
+# the Chronicle; Felix edits the book in game (FTB Quests edit mode) and copies the files into the repo
+# (dev/quests-editing.md). A run of this generator rewrites every chapter and lang/en_us.snbt from the code below and
+# would drop those edits, so it runs only with --unfreeze.
+FREEZE_NOTE = """gen_quests.py: das Questbuch ist eingefroren (Felix Q1A, 2026-10-17).
+Ab Pack 1.0.1 sind die SNBT-Dateien in config/ftbquests/quests/ die Quelle; Felix bearbeitet das Buch im Spiel.
+Ein Lauf schreibt alle Kapitel und lang/en_us.snbt aus diesem Skript neu und würde Felix' In-Game-Änderungen
+überschreiben. Nur ausführen, wenn seine Änderungen vorher hier übernommen sind oder er zugestimmt hat:
+    python dev/gen_quests.py --unfreeze
+Prüfen ohne Generator: python dev/validate_quests.py --style --mods <Mods-Ordner> (dev/quests-editing.md)."""
+
+
 def main():
+    if '--unfreeze' not in sys.argv[1:]:
+        print(FREEZE_NOTE, file=sys.stderr)
+        return 2
     LANG.clear()
     lang('file', '0000000000000001', 'title', 'The Chronicle')  # the quest book's one name (welcome screen, HUD, docs)
     gid = qid('group/ages')

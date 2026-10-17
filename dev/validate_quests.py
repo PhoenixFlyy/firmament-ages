@@ -66,6 +66,9 @@ import quest_layout  # noqa: E402  (dev/quest_layout.py: drawn sizes and the min
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KUBEJS_DATA = os.path.join(ROOT, 'kubejs', 'data')
 QDIR = os.path.join(ROOT, 'config', 'ftbquests', 'quests')
+# Quest kinds of dev/gen_quests.py as quest tags; a quest without one is a step. INFO_KINDS ask for reading only.
+QUEST_KINDS = {'entry', 'keystone', 'goal', 'side', 'explain', 'ring', 'guide', 'info', 'note'}
+INFO_KINDS = {'entry', 'explain', 'info', 'note', 'guide'}
 AGES = ['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6', 'age_7', 'age_8', 'age_9']
 AGE_CHAPTER_STAGES = set(AGES)  # every Age has its chapter (rule set applies to all of them)
 NEXT_STAGE = dict(zip(AGES, AGES[1:] + ['finale_won']))
@@ -961,6 +964,17 @@ def main():
             rtypes = {r.get('type', 'item') for r in qd.get('rewards', [])}
             if 'item' in rtypes and rtypes & {'xp', 'xp_levels'}:
                 E('%s: xp beside item rewards (a quest that pays items pays no XP)' % where)
+            # Items, not XP (B2; checked here since the freeze of 1.0.1, before only by dev/gen_quests.py quest_rewards):
+            # a quest that asks for reading (tag entry, explain, info, note or guide) pays XP only; every other quest
+            # pays items, except the Firmament's offering road, whose quests only mirror an Age stage
+            kind = next((t for t in qd.get('tags', []) if t in QUEST_KINDS), 'step')
+            mirror = not is_age_chapter and qd.get('tasks') and                 all(t.get('type') == 'gamestage' for t in qd.get('tasks', []))
+            if kind in INFO_KINDS:
+                if 'item' in rtypes:
+                    E('%s: a %s quest pays XP only, no items' % (where, kind))
+            elif 'item' not in rtypes and not mirror:
+                E('%s: no item reward (every quest that asks for work pays items of its Age; a quest to read needs the '
+                  'tag note, explain, info, guide or entry)' % where)
 
         # ---- Age chapter structure (Doc 08 section 9.1)
         n_q = len(ch.get('quests', []))

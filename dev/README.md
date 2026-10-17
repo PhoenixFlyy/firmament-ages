@@ -52,7 +52,7 @@ All player-facing text in the pack is English.
 - **Stages.** The Age stages are `dawn` and `age_0` … `age_9`. The mob ladder is `mob_0` … `mob_9`. Helper stages are `ftbchunks_mapping`, `tool_<station>` and `finale_won`, plus `disabled`, which is never granted. In ProgressiveStages an entry is locked while *any* stage that lists it is missing, so everything goes into the stage file that unlocks it. Stage files carry no `unlock_message`: the shrine ceremony is the only Age announcement.
 - **Generated lock lists.** TFC has 1113 ore blocks, and ProgressiveStages only accepts exact block ids in `[[ores.overrides]]`. `dev/gen_stage_locks.py` therefore writes the TFC metal, ore and override lists from `dev/age_map.toml`. It rewrites the regions between `# >>> generated:… >>>` and `# <<< generated:… <<<`. Edit the tables, never the generated lines. Run `python dev/gen_stage_locks.py`; `--check` exits 1 if a file is out of date.
 - **Age grants.** The First Spark grants `age_0`; the shrine grants `age_1` to `age_9`; firmages-core grants `finale_won` when the final boss dies. `kubejs/server_scripts/stages/grants.js` derives everything else from the Age stage: the mob ladder, the map, the station windows and the chunk quota.
-- **Player text.** Quest text lives in `dev/gen_quests.py`, never in the SNBT; the rules are in `dev/style-guide.md`. The quest book is "the Chronicle" everywhere.
+- **Player text.** Since pack 1.0.1 the quest book is frozen (Felix Q1A): the SNBT files are the source and Felix edits them in game (`dev/quests-editing.md`); `dev/gen_quests.py` runs only with `--unfreeze`; the rules are in `dev/style-guide.md`. The quest book is "the Chronicle" everywhere.
 - **Chronicle maps and pictures.** `dev/quest_layout.py` places every quest (the goal in the middle, strands on orbits round it, curved lines); the hints per chapter are `LAYOUT_HINTS` in `dev/gen_quests.py`. The Firmament is the first chapter (read-me-first notes, the road of offerings, a build guide per shrine ring); the group Great Works holds The Gatehouse, The Living House and The Silo. Pictures (shrine rings per layer, an animated `*.apng.png` per ring, the works) come from `dev/gen_quest_pictures.py`, which reads the textures from the mod jars of the CurseForge instance (`FIRMAGES_MODS_DIR`) and writes `dev/data/quest_pictures.json` for the generator. `dev/preview_quests.py` draws every chapter map into `dev/quest-preview/` (open `index.html`).
 - **Needs in-game proof.** Every line marked `// POC:` or `# POC:` still has to be checked in the game. Open checks and open config values are in `dev/offene-punkte.md`.
 
@@ -68,10 +68,10 @@ All player-facing text in the pack is English.
 tools\packwiz.exe refresh            # after any change under config/, defaultconfigs/, kubejs/ or mods/
 tools\packwiz.exe serve              # serves the working tree on http://localhost:8080/pack.toml (dev\serve.bat)
 python dev/gen_stage_locks.py        # after changing dev/age_map.toml or the Age tables in the generator
-python dev/gen_quests.py; python dev/validate_quests.py --style   # after changing quests
+python dev/validate_quests.py --style   # after changing quests (the SNBT files; gen_quests.py only with --unfreeze)
 python dev/gen_quest_images.py       # quest pictures in kubejs/assets/firmages/textures/quests (--check compares pixels)
 python dev/preview_quests.py         # the chapter maps as pictures, dev/quest-preview/index.html
-python dev/gen_quest_pictures.py     # after changing a shrine ring or a Great Works plan (then gen_quests)
+python dev/gen_quest_pictures.py     # after changing a shrine ring or a Great Works plan
 python dev/gen_fuels.py              # after changing kubejs/data/firmages/balance/fuels.json (--check compares)
 python dev/gen_machine_usage.py      # Mekanism, More Machine and IE excavator config values (--check, --server-dir)
 python dev/miner_ladder.py --check   # miners against the ore ladder (metals.json, the configs, --dump-dir for all veins)

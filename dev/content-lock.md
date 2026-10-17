@@ -36,6 +36,14 @@ Die Ages folgen `dev/age_map.toml`; abgeleitete Ages stehen im erzeugten Teil de
 | Client | 3D Skin Layers, Auroras, Cool Rain Reforged, BetterF3, Chat Heads, Big Sign Writer | Auroras: Polarlicht im Complementary-Shader aus; BetterF3 hält die Koordinaten gesperrt |
 | Bibliotheken | ForgeEndertech, Bookshelf, Prickle, Codxlib | nur als Abhängigkeit |
 
+## Ausnahmen nach der Sperre
+
+| Datum | Mod | Version (Quelle) | Lizenz | Entscheidung |
+|---|---|---|---|---|
+| 2026-10-17 | JourneyMap | 1.21.1-6.0.9, `journeymap-neoforge-1.21.1-6.0.9.jar` (CurseForge 32274, Datei 8923668; Common Networking steckt im Jar) | All Rights Reserved; nur als CurseForge-Metadatei, Jar nie im Repo oder Upload-Zip | Felix M1A 2026-10-17: Minimap mit eigenem Theme „Firmament“, Karte ab der Eisenzeit (firmages-core `ui.mapFromAge`) |
+| 2026-10-17 | JourneyMap Integration | 1.21.1-1.9.1, `jmi-neoforge-1.21.1-1.9.1.jar` (CurseForge 525447, Datei 9121304), nur Client | MIT | Felix M1A 2026-10-17: FTB-Claims auf der JourneyMap-Karte, FTB-Minimap aus |
+| 2026-10-17 | Enhanced Falling Trees | 0.7.0-1.21.1+neoforge (Beta), `efallingtrees-0.7.0-1.21.1+neoforge.jar` (CurseForge 1078653, Datei 8408217), Client und Server; braucht Cloth Config (im Pack) | MIT | Felix T1A 2026-10-17: Baum kippt sichtbar, Stämme fallen nach dem Fall; TFC-Fällung aus |
+
 ## Runde-A-Korrekturen
 
 - Carry On und MrCrayfish's Furniture: Refurbished sind raus. Framework bleibt (Goblin Traders braucht es).

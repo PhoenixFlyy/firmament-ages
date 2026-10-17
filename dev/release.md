@@ -9,6 +9,11 @@ hat), **4** Modpack hochladen, **5** Freunde und Server.
 
 ## 1. Bauen
 
+Questbuch zuerst: seit 1.0.1 sind die SNBT-Dateien die Quelle (Felix Q1A). Hat Felix im Spiel editiert, kommen seine
+Dateien vor dem Bauen nach `config/ftbquests/quests/` (`dev/quests-editing.md`); dann
+`python dev\validate_quests.py --style --mods <Mods-Ordner>` mit 0 Fehlern und 0 Warnungen. `dev\gen_quests.py`
+gehört nicht mehr zum Bauen (läuft nur mit `--unfreeze` und würde seine Änderungen überschreiben).
+
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1 -Version <v>
 python dev\cf\gen_credits.py        # Credits aus mods/*.pw.toml in modpack-description.md
@@ -65,7 +70,7 @@ Options (Shader-Voreinstellung, Sichtfeld, Tasten), das frühe Ladefenster und d
 beim ersten Start eines frischen Profils, und Client und Server brauchen dieselbe firmages-core-Version.
 
 1. CurseForge-App starten, links **Minecraft**, oben **Create Custom Profile** (oder das Plus), dann **Import**.
-2. Das Upload-Zip aus Abschnitt 1 wählen. Die App legt das Profil „Firmament Ages“ an und lädt alle 265 Mods und die
+2. Das Upload-Zip aus Abschnitt 1 wählen. Die App legt das Profil „Firmament Ages“ an und lädt alle 268 Mods und die
    zwei Shaderpacks (etwa 500 MB, einige Minuten). Java 21 richtet sie selbst ein; fragt sie nach einem Launcher, den
    normalen Minecraft Launcher nehmen.
 3. Im Profil **Settings** den RAM prüfen: 8 GB. Das Upload-Zip trägt 8 GB als Empfehlung im Manifest (`recommendedRam`);

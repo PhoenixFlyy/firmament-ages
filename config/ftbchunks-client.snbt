@@ -1,0 +1,12 @@
+# Firmament Ages (round G1, Felix M1A 2026-10-17): JourneyMap is the minimap. FTB Chunks keeps its map screen for
+# claims (stage ftbchunks_mapping, from the Iron Age); its own minimap stays off. FTB Chunks also defaults it to off
+# when JourneyMap is loaded, and JourneyMap Integration switches it off at runtime; this line makes it explicit.
+# Players may override this in <instance>/local/ftbchunks-client.snbt.
+
+{
+	minimap: {
+		# Enable minimap
+		# Default: true
+		enabled: false
+	}
+}
