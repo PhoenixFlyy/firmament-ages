@@ -37,7 +37,10 @@
     "tfc.PlacedItemBlockEntityAccessor",
     "tfcrf.RegrowthSpreadMixin",
     "tfc.ItemStackHooksMixin",
-    "eft.DefaultTreeMixin"
+    "eft.DefaultTreeMixin",
+    "InventoryMixin",
+    "SlotMixin",
+    "AbstractContainerMenuMixin"
   ],
   "client": [
     "client.ChatComponentMixin",

@@ -75,6 +75,7 @@ public final class FirmagesCore {
         CaveDwellerService.register(bus);
         ToolRuleService.register(bus);
         dev.firmages.core.hardship.GridLockService.register(bus); // Dawn grid lock and ground crafting (SPEC §19.3)
+        dev.firmages.core.hardship.InventoryRowsService.register(bus); // inventory rows by Age (SPEC §19.4)
         bus.addListener(FirmagesCommands::register);
         bus.addListener(dev.firmages.core.command.ServerCommands::register); // /stop confirm and /restart (SPEC §10.1)
         bus.addListener(dev.firmages.core.command.ServerCommands::onServerTick);

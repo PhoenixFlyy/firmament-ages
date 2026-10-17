@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:grass_block",
+    "minecraft:dirt",
+    "minecraft:short_grass",
+    "#minecraft:logs",
+    "#minecraft:leaves"
+  ]
+}

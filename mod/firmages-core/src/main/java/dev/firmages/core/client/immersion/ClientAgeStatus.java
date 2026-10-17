@@ -29,6 +29,11 @@ public final class ClientAgeStatus {
         return known && status.gridLock();
     }
 
+    /** The open main inventory rows (SPEC §19.4); all three before the first status, the server decides alone until then. */
+    public static int inventoryRows() {
+        return known ? status.inventoryRows() : dev.firmages.core.hardship.InventoryRows.ALL;
+    }
+
     /** Last login or Age change, for the indicator's fade. */
     public static long shownAt() {
         return shownAt;

@@ -182,7 +182,7 @@ public final class HardshipGameTests {
                 ok(h, speed(p, new ItemStack(Items.WOODEN_AXE), log, pos) > 0f, "axe on a log: breaks");
                 ok(h, speed(p, ItemStack.EMPTY, ore, pos) == 0f, "bare hand on ore: speed 0");
                 ok(h, speed(p, new ItemStack(Items.WOODEN_PICKAXE), ore, pos) == 0f, "too weak a pickaxe on iron ore: speed 0");
-                ok(h, speed(p, new ItemStack(Items.STONE_PICKAXE), ore, pos) > 0f, "stone pickaxe on iron ore: breaks");
+                ok(h, speed(p, new ItemStack(Items.STONE_PICKAXE), ore, pos) == 0f, "stone pickaxe on iron ore: 0, ore is not on the Dawn list (SPEC §19.6)");
                 ok(h, speed(p, ItemStack.EMPTY, dirt, pos) > 0f, "dirt by hand: breaks");
                 ok(h, breakRefused(h, p, ItemStack.EMPTY, log, pos), "bare-hand break of a log refused (safety net)");
                 ok(h, !breakRefused(h, p, new ItemStack(Items.WOODEN_AXE), log, pos), "axe break of a log allowed");
@@ -197,6 +197,46 @@ public final class HardshipGameTests {
             ok(h, speed(p, ItemStack.EMPTY, log, pos) > 0f && !breakRefused(h, p, ItemStack.EMPTY, log, pos), "off: a log breaks by hand again");
             ServerConfig.HARDSHIP_TOOL_RULE_UNTIL.set("never");
             ok(h, !ToolRuleService.active(server) && speed(p, ItemStack.EMPTY, ore, pos) > 0f, "never: off in " + current);
+        } finally {
+            ServerConfig.HARDSHIP_TOOL_RULE_UNTIL.set(was);
+        }
+        h.succeed();
+    }
+
+    /**
+     * Felix 2026-10-17 (SPEC §19.6): while the hand-breaking rule holds (Dawn) only blocks in
+     * {@code #firmages:dawn_breakable} break: stone makes no progress and its break is refused even with a pickaxe,
+     * grass and dirt break by hand, a listed log still needs its axe, creative is exempt; from the configured Age on
+     * (the Stone Age in the pack) stone breaks with a pickaxe as before. The GameTest stand-in of the tag holds grass
+     * block, dirt, short grass, logs and leaves (the pack generates the real one, {@code dev/gen_dawn_breakable.py}).
+     */
+    @GameTest(template = "empty", batch = "firmages_7_hardship")
+    public static void dawnBreakableOnly(GameTestHelper h) {
+        MinecraftServer server = h.getLevel().getServer();
+        AgeId current = AgeStatus.current(AgeService.state(server).snapshot());
+        BlockState stone = Blocks.STONE.defaultBlockState();
+        BlockState grass = Blocks.GRASS_BLOCK.defaultBlockState();
+        BlockState dirt = Blocks.DIRT.defaultBlockState();
+        BlockState log = Blocks.OAK_LOG.defaultBlockState();
+        ok(h, ToolRuleService.dawnListActive() && grass.is(ToolRuleService.DAWN_BREAKABLE) && dirt.is(ToolRuleService.DAWN_BREAKABLE)
+            && log.is(ToolRuleService.DAWN_BREAKABLE) && !stone.is(ToolRuleService.DAWN_BREAKABLE), "#firmages:dawn_breakable holds grass, dirt and logs, not stone");
+        Player p = h.makeMockPlayer(GameType.SURVIVAL);
+        BlockPos pos = h.absolutePos(new BlockPos(1, 1, 1));
+        String was = ServerConfig.HARDSHIP_TOOL_RULE_UNTIL.get();
+        try {
+            if (current != AgeId.AGE_9) {
+                ServerConfig.HARDSHIP_TOOL_RULE_UNTIL.set(AgeId.values()[current.ordinal() + 1].id()); // the rule holds, as in Dawn
+                ok(h, speed(p, ItemStack.EMPTY, stone, pos) == 0f && speed(p, new ItemStack(Items.STONE_PICKAXE), stone, pos) == 0f,
+                    "stone: no progress by hand or with a pickaxe");
+                ok(h, breakRefused(h, p, new ItemStack(Items.STONE_PICKAXE), stone, pos), "the break of stone is refused (safety net)");
+                ok(h, speed(p, ItemStack.EMPTY, grass, pos) > 0f && !breakRefused(h, p, ItemStack.EMPTY, grass, pos), "grass breaks by hand");
+                ok(h, speed(p, ItemStack.EMPTY, dirt, pos) > 0f, "dirt breaks by hand");
+                ok(h, speed(p, ItemStack.EMPTY, log, pos) == 0f && speed(p, new ItemStack(Items.WOODEN_AXE), log, pos) > 0f, "a listed log still needs its axe");
+                ok(h, speed(h.makeMockPlayer(GameType.CREATIVE), ItemStack.EMPTY, stone, pos) > 0f, "creative is exempt");
+            }
+            ServerConfig.HARDSHIP_TOOL_RULE_UNTIL.set(current.id()); // the world has reached the configured Age
+            ok(h, speed(p, new ItemStack(Items.STONE_PICKAXE), stone, pos) > 0f && !breakRefused(h, p, new ItemStack(Items.STONE_PICKAXE), stone, pos),
+                "from its Age stone breaks with a pickaxe as before (" + current + ")");
         } finally {
             ServerConfig.HARDSHIP_TOOL_RULE_UNTIL.set(was);
         }
@@ -260,7 +300,7 @@ public final class HardshipGameTests {
                 for (int i = 0; i <= 4; i++) ok(h, !menu.getSlot(i).isActive(), "slot " + i + " inactive while locked");
                 ok(h, !menu.getSlot(1).mayPlace(new ItemStack(four.part())), "a locked grid slot takes nothing");
                 ok(h, !menu.getSlot(0).mayPickup(p), "a locked result gives nothing");
-                ok(h, menu.getSlot(9).isActive() && menu.getSlot(9).mayPlace(new ItemStack(four.part())), "the inventory itself works");
+                ok(h, menu.getSlot(36).isActive() && menu.getSlot(36).mayPlace(new ItemStack(four.part())), "the inventory itself works (hotbar; the main rows follow §19.4)");
                 fillGrid(menu.getCraftSlots(), four.part());
                 ok(h, menu.getCraftSlots().isEmpty() && menu.getSlot(0).getItem().isEmpty(), "four planks in a locked grid make nothing and leave it");
                 ok(h, p.getInventory().countItem(four.part()) == 4, "the planks are back in the inventory: " + p.getInventory().countItem(four.part()));

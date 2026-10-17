@@ -15,15 +15,15 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  * S2C {@code firmages:age_status} (SPEC §11, §18, §19): the world's current Age, its goal item, whether EMI and Jade
  * may show, which TerraFirmaCraft inventory tabs are open ({@link InventoryTab} bit mask) and whether the Cave Dweller
  * still hunts, whether the hand-breaking rule holds, whether an Age swap is pending, whether the shrine's Gathering
- * is done, whether the inventory crafting grid is locked and whether the inventory buttons and the map may show
- * (network version "7"). Sent on login, after every change of the global Age state and after every Age swap or reload.
+ * is done, whether the inventory crafting grid is locked, whether the inventory buttons and the map may show
+ * (network version "7") and how many main inventory rows are open (§19.4, version "8"). Sent on login, after every change of the global Age state and after every Age swap or reload.
  * Drives the HUD Age indicator and goal, the EMI/Jade gating, the TFC tabs, the Cave Dweller sound mute, the client's
- * break-speed prediction, the single EMI reload per Age change, the hidden crafting grid (§19.3) and the inventory
- * button and map gates (§18.2).
+ * break-speed prediction, the single EMI reload per Age change, the hidden crafting grid (§19.3), the inventory
+ * button and map gates (§18.2) and the locked inventory rows (§19.4).
  */
 public record AgeStatusPayload(String age, String goalItem, boolean recipeViewer, boolean blockInfo, byte tabs, boolean caveDweller,
                                boolean toolRule, boolean reloadPending, boolean gathered, boolean gridLock, boolean inventoryButtons,
-                               boolean map)
+                               boolean map, byte inventoryRows)
     implements CustomPacketPayload {
     public static final Type<AgeStatusPayload> TYPE =
         new Type<>(ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "age_status"));
@@ -41,18 +41,19 @@ public record AgeStatusPayload(String age, String goalItem, boolean recipeViewer
             buf.writeBoolean(p.gridLock);
             buf.writeBoolean(p.inventoryButtons);
             buf.writeBoolean(p.map);
+            buf.writeByte(p.inventoryRows);
         },
         buf -> new AgeStatusPayload(buf.readUtf(), buf.readUtf(), buf.readBoolean(), buf.readBoolean(), buf.readByte(), buf.readBoolean(),
-            buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean()));
+            buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean(), buf.readByte()));
 
     public static AgeStatusPayload of(AgeStatus s) {
         return new AgeStatusPayload(s.age().id(), s.goalItem(), s.recipeViewer(), s.blockInfo(), (byte) InventoryTab.mask(s.tabs()), s.caveDweller(),
-            s.toolRule(), s.reloadPending(), s.gathered(), s.gridLock(), s.inventoryButtons(), s.map());
+            s.toolRule(), s.reloadPending(), s.gathered(), s.gridLock(), s.inventoryButtons(), s.map(), (byte) s.inventoryRows());
     }
 
     public AgeStatus status() {
         return new AgeStatus(AgeId.byId(age).orElse(AgeId.DAWN), goalItem, recipeViewer, blockInfo, InventoryTab.fromMask(tabs), caveDweller, toolRule,
-            reloadPending, gathered, gridLock, inventoryButtons, map);
+            reloadPending, gathered, gridLock, inventoryButtons, map, inventoryRows);
     }
 
     @Override
