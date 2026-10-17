@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Client half of {@link InventoryButtons} (SPEC §18.2): while the world's Age is before
- * {@code ui.inventoryButtonsFromAge} and the player is neither an operator nor in creative mode,
+ * {@code ui.inventoryButtonsFromAge} and the player is not in creative mode (operators in survival included),
  * <ul>
  * <li>the Curios button and Apothic Attributes' panel, toggle and filter button leave the survival inventory
  * ({@code ScreenEvent.Init.Post}, LOWEST, after both mods added them; {@code removeListener}), and Apothic's
@@ -42,7 +42,7 @@ public final class InventoryButtonGate {
     public static boolean shown() {
         LocalPlayer p = Minecraft.getInstance().player;
         return InventoryButtons.shown(ClientAgeStatus.get().age(), ClientConfig.inventoryButtonsFromAge(),
-            p != null && p.hasPermissions(2), p != null && p.isCreative());
+            p != null && p.isCreative());
     }
 
     @SubscribeEvent

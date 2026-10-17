@@ -226,11 +226,11 @@ public final class ImmersionClient {
         }
     }
 
-    /** The recipe viewer is open: by the Age (before the first status the world counts as Dawn), for operators and in creative. */
+    /** The recipe viewer is open: by the Age (before the first status the world counts as Dawn) and in creative. */
     private static boolean viewerOpen() {
         LocalPlayer p = Minecraft.getInstance().player;
         return ViewerGate.open(ClientAgeStatus.known() && ClientAgeStatus.get().recipeViewer(),
-            p != null && p.hasPermissions(2), p != null && p.isCreative());
+            p != null && p.isCreative());
     }
 
     /** EMI follows the Age (ViewerGate). */

@@ -13,12 +13,11 @@ class InventoryButtonsTest {
     void defaultHidesThemInDawnOnly() {
         assertEquals(AgeId.AGE_0, InventoryButtons.DEFAULT_FROM);
         for (AgeId age : AgeId.all()) {
-            assertEquals(age != AgeId.DAWN, InventoryButtons.shown(age, InventoryButtons.DEFAULT_FROM, false, false), "survival in " + age);
-            assertTrue(InventoryButtons.shown(age, InventoryButtons.DEFAULT_FROM, true, false), "operator in " + age);
-            assertTrue(InventoryButtons.shown(age, InventoryButtons.DEFAULT_FROM, false, true), "creative in " + age);
+            assertEquals(age != AgeId.DAWN, InventoryButtons.shown(age, InventoryButtons.DEFAULT_FROM, false), "survival in " + age + ", operator or not");
+            assertTrue(InventoryButtons.shown(age, InventoryButtons.DEFAULT_FROM, true), "creative in " + age);
         }
-        assertFalse(InventoryButtons.shown(AgeId.AGE_2, AgeId.AGE_3, false, false), "a later configured Age");
-        assertTrue(InventoryButtons.shown(AgeId.DAWN, AgeId.DAWN, false, false), "dawn: always there");
+        assertFalse(InventoryButtons.shown(AgeId.AGE_2, AgeId.AGE_3, false), "a later configured Age");
+        assertTrue(InventoryButtons.shown(AgeId.DAWN, AgeId.DAWN, false), "dawn: always there");
     }
 
     @Test
