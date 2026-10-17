@@ -65,6 +65,14 @@ public final class InventoryButtonGate {
     public static void opening(ScreenEvent.Opening event) {
         if (event.getNewScreen() == null || !InventoryButtons.screenBlocked(event.getNewScreen().getClass().getName()) || shown()) return;
         event.setCanceled(true);
+        closeOpenMenu();
+    }
+
+    /**
+     * Closes the menu a cancelled container screen leaves open ({@code MenuScreens.create} sets
+     * {@code player.containerMenu} before {@code setScreen}), on both sides; also used by {@link KeyGateClient}.
+     */
+    static void closeOpenMenu() {
         LocalPlayer p = Minecraft.getInstance().player;
         if (p != null && p.containerMenu != p.inventoryMenu) {
             // LocalPlayer.closeContainer without its setScreen(null), which would re-enter setScreen

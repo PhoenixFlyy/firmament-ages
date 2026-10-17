@@ -18,7 +18,8 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 | Key | Action | Mapping |
 |---|---|---|
 | K | Quest book | `key.ftbquests.quests` |
-| M | World map | `key.ftbchunks.map` |
+| M | Full map (JourneyMap, round G2; its default J; from the Iron Age) | `key.journeymap.map_toggle_alt` |
+| L | FTB Chunks claim map (round G2; was M; from the Iron Age, stage `ftbchunks_mapping`) | `key.ftbchunks.map` |
 | B | Backpack | `key.sophisticatedbackpacks.open_backpack` |
 | C | Worn Notebook (Ars Nouveau) | `key.ars_nouveau.open_book` |
 | X / Z | Next / previous spell slot (Ars) | `key.ars_nouveau.next_slot`, `previous_slot` |

@@ -55,7 +55,9 @@
     "client.InventoryScreenMixin",
     "curios.CuriosScreenMixin",
     "emi.InventoryRecipeHandlerMixin",
-    "mekemi.MekanismEmiMixin"
+    "mekemi.MekanismEmiMixin",
+    "client.KeyMappingMixin",
+    "betterf3.BaseModuleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
