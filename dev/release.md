@@ -42,6 +42,16 @@ Alle Exporte außer dem Upload-Zip enthalten fremde Jars: **nur privat** weiterg
 GitHub-Release hängen. Das Skript committet, taggt und pusht nicht. Danach von Hand: `pack.toml`, `index.toml` und
 das Titelbild-Layout committen, `dev` nach `main` mergen, Tag `vX.Y.Z`, push. Server und Freunde lesen `main`.
 
+**Lokaler Server (Felix' Rechner hat kein System-Java 21):** `release.ps1 -Version X.Y.Z -LocalServer` entpackt am Ende das
+Server-Zip nach `D:\Minecraft\MinecraftModServer\FirmamentAges-Server-<v>` (anderer Ordner: `-LocalServerDir <Pfad>`, das
+schaltet den Schritt auch allein ein; nicht mit `-SkipServerPack`). Ein vorhandener Ordner wird ersetzt, behalten werden
+`world/`, `logs/`, `simplebackups/`, `ops.json`, `whitelist.json` und eine `eula.txt` mit `eula=true`; sonst liegt die
+`eula.txt` des Zips (`eula=false`) da. In `server.properties` stehen `white-list=false` und ein leeres `server-ip=`; in `start.bat`
+setzt eine Zeile direkt nach `setlocal` `FA_JAVA_HOME` auf `tools\jdk-21` des Repos, falls die Variable nicht gesetzt ist.
+Gestartet wird mit `start.bat`, es gibt keine zweite Startdatei (`start-local.bat` der Ordner 1.0.0 bis 1.0.2 ist
+überholt). Läuft in dem Ordner noch ein Server, bricht das Skript vor dem Ersetzen ab, ohne etwas zu verlieren. Die
+öffentliche `start.bat` nimmt außerdem einen Ordner `jdk` oder `java` neben sich vor allen anderen Java-Quellen.
+
 **Zeilenenden:** Liegt eine ausgelieferte Textdatei im Arbeitsordner mit CRLF vor, während Git LF speichert, steht in
 `index.toml` ein anderer Hash als in der Datei, die GitHub ausliefert, und packwiz-installer bricht mit „Hash
 invalid!“ ab. `release.ps1` stoppt dann und listet die Dateien; `-FixLineEndings` schreibt sie mit LF neu.

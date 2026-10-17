@@ -10,8 +10,11 @@ join, or it shows recipes and locks that do not match the server.
 ## Start
 
 1. Unzip into an empty folder.
-2. Install Java 21 (for example Eclipse Temurin 21). The scripts take the first of `FA_JAVA_HOME`, `JAVA_HOME` and
-   `java` on PATH that is Java 21 (another version is skipped), and stop if none is.
+2. Provide Java 21 (for example Eclipse Temurin 21). On Windows the simplest way is to unzip a JDK 21 into a folder
+   named `jdk` next to `start.bat`, so that `jdk\bin\java.exe` exists (`java\bin\java.exe` works too); nothing needs
+   to be installed. `start.bat` takes the first Java 21 of the folder `jdk`, the folder `java`, `FA_JAVA_HOME`,
+   `JAVA_HOME` and `java` on PATH (another version is skipped) and stops if there is none. `start.sh` checks
+   `FA_JAVA_HOME`, `JAVA_HOME` and PATH.
 3. Read the [Minecraft EULA](https://aka.ms/MinecraftEULA). To accept it, open `eula.txt` and change `eula=false` to
    `eula=true`. Until then the scripts warn and the server stops right after the start.
 4. Windows: run `start.bat`. Linux: run `sh start.sh`. The first start installs NeoForge from
@@ -163,8 +166,8 @@ Chaotic gear) is in `mod/firmages-core/docs/primordial.md`; the server log names
 
 Stop the server (`stop`, then `stop confirm`). Replace `mods`, `config`, `defaultconfigs`, `kubejs`, `start.bat` and
 `start.sh` with those of the new server pack, then re-apply your edits to `config/firmages-server.toml` (for example
-`autoJoin`). Keep `world`, `simplebackups`, `server.properties`, `eula.txt`, `user_jvm_args.txt`, `whitelist.json` and
-`ops.json`.
+`autoJoin`). Keep `world`, `simplebackups`, `jdk`, `server.properties`, `eula.txt`, `user_jvm_args.txt`,
+`whitelist.json` and `ops.json`.
 
 New TerraFirmaCraft settings in `defaultconfigs/tfc-server.toml` only reach a server whose `config/tfc-server.toml`
 does not exist yet. A server from before 0.8.1 adds one line under `[general]` by hand, so that wrought iron ingots
