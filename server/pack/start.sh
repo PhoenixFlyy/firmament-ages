@@ -1,6 +1,8 @@
 #!/bin/sh
-# Firmament Ages server: installs NeoForge on the first start, then runs the server in a restart loop.
-# End the loop for good: create a file named STOP next to this script, then type "stop" in the console.
+# Firmament Ages server: installs NeoForge on the first start, then runs the server.
+# /restart (console or in game): the server stops and this script starts it again.
+# /stop, then /stop confirm: the server stops and this script ends.
+# A crash: the script starts the server again after RESTART_DELAY seconds; the third crash within five minutes ends it.
 cd "$(dirname "$0")" || exit 1
 
 NEOFORGE={{NEOFORGE}}
@@ -18,7 +20,7 @@ if [ -z "$JAVA" ]; then
   echo "Java 21 not found. Install Java 21, or set FA_JAVA_HOME to its folder. FA_JAVA_HOME, JAVA_HOME and PATH were checked."
   exit 1
 fi
-[ -f eula.txt ] || echo "WARNING: eula.txt is missing. Read https://aka.ms/MinecraftEULA and create eula.txt with eula=true."
+grep -qi '^eula=true' eula.txt 2>/dev/null || echo "WARNING: the Minecraft EULA is not accepted. Read https://aka.ms/MinecraftEULA and set eula=true in eula.txt."
 
 if [ ! -f "$UNIXARGS" ]; then
   echo "Installing NeoForge $NEOFORGE ..."
@@ -29,13 +31,33 @@ if [ ! -f "$UNIXARGS" ]; then
   fi
 fi
 
+crash_count() {
+  set -- crash-reports/*.txt
+  if [ -e "$1" ]; then echo "$#"; else echo 0; fi
+}
+
+CRASH1=""
+CRASH2=""
 while :; do
+  BEFORE=$(crash_count)
   "$JAVA" @user_jvm_args.txt @"$UNIXARGS" nogui
-  if [ -f STOP ]; then
-    rm -f STOP
-    echo "STOP file found, leaving the restart loop."
-    break
+  CODE=$?
+  if [ -f RESTART ]; then
+    rm -f RESTART
+    echo "RESTART file found, starting the server again."
+    continue
   fi
-  echo "Server stopped. Restarting in $RESTART_DELAY s (create a file named STOP to end the loop)."
+  if [ "$CODE" -eq 0 ] && [ "$(crash_count)" -le "$BEFORE" ]; then
+    echo "The server stopped. Run start.sh to start it again."
+    exit 0
+  fi
+  NOW=$(date +%s)
+  if [ -n "$CRASH1" ] && [ $((NOW - CRASH1)) -le 300 ]; then
+    echo "The server crashed three times within five minutes (exit code $CODE), not restarting. See crash-reports and logs/latest.log."
+    exit 1
+  fi
+  CRASH1=$CRASH2
+  CRASH2=$NOW
+  echo "The server crashed (exit code $CODE). Restarting in $RESTART_DELAY s."
   sleep "$RESTART_DELAY"
 done

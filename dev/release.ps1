@@ -19,8 +19,8 @@
        The script serves the repo with `packwiz serve` on -ServePort, lets packwiz-installer-bootstrap
        (-g -s server) fill dev/exports/server-work/ with every server-side file (the same sync as a live
        server), adds the server pack's start.bat and start.sh (server/pack/, without the pack sync),
-       server/user_jvm_args.txt with an 8 GB heap, server.properties (from the template), README-SERVERPACK.md
-       and tools/neoforge-<version>-installer.jar, and zips it. -SkipServerPack skips it.
+       server/user_jvm_args.txt with an 8 GB heap, server.properties (from the template), eula.txt (eula=false),
+       README-SERVERPACK.md and tools/neoforge-<version>-installer.jar, and zips it. -SkipServerPack skips it.
     6. SHA-256 list               -> dev/exports/FirmamentAges-<version>.sha256.txt
   Never commits, tags or pushes. All exports embed jars that may not be redistributed
   (CurseForge-only mods in the .mrpack, Modrinth mods in the CurseForge zip, every server jar in the server
@@ -172,6 +172,8 @@ if (-not $SkipServerPack) {
     [IO.File]::WriteAllText((Join-Path $Work 'user_jvm_args.txt'), $jvm, $Utf8)
     Copy-Item -LiteralPath (Join-Path $Server 'README-SERVERPACK.md') -Destination $Work
     Copy-Item -LiteralPath (Join-Path $Server 'server.properties.template') -Destination (Join-Path $Work 'server.properties')
+    # eula=false: the host accepts the EULA by editing it (README-SERVERPACK.md, Start).
+    Copy-Item -LiteralPath (Join-Path $Server 'eula.txt') -Destination $Work
     Copy-Item -LiteralPath $NeoInstaller -Destination $Work
 
     # Entry names with '/': ZipFile.CreateFromDirectory of .NET Framework writes '\', which Linux hosts unpack as

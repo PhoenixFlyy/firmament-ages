@@ -1,7 +1,8 @@
 @echo off
 rem Firmament Ages - dedicated server launcher with update + restart loop (cmd version of start.ps1).
-rem Every pass: packwiz sync (server side) -> NeoForge install if its version folder is missing -> start -> wait -> again.
-rem End the loop for good: create a file named STOP next to this script, then type "stop" in the console.
+rem Every pass: packwiz sync (server side) -> NeoForge install if its version folder is missing -> start.
+rem After the server ended: RESTART file (/restart) -> next pass at once; a crash -> next pass after RESTART_DELAY,
+rem the third crash within five minutes ends the loop; a clean stop (/stop, then /stop confirm) ends the loop.
 rem Usage: start.bat            update + run
 rem        start.bat noupdate   run without the packwiz sync
 setlocal
@@ -29,7 +30,10 @@ if not exist "%JAVA%" (
   pause
   exit /b 1
 )
-if not exist "eula.txt" echo WARNING: eula.txt is missing. Read https://aka.ms/MinecraftEULA and create eula.txt with eula=true yourself.
+findstr /b /i /c:"eula=true" eula.txt >nul 2>&1 || echo WARNING: the Minecraft EULA is not accepted. Read https://aka.ms/MinecraftEULA and set eula=true in eula.txt.
+
+set "CRASH1="
+set "CRASH2="
 
 :loop
 if /i not "%~1"=="noupdate" (
@@ -57,17 +61,45 @@ if not exist "%WINARGS%" (
   )
 )
 
+call :crashcount BEFORE
 "%JAVA%" @user_jvm_args.txt @%WINARGS% nogui
+set "CODE=%ERRORLEVEL%"
+call :crashcount AFTER
+if exist "RESTART" (
+  del "RESTART"
+  echo RESTART file found, next pass.
+  goto loop
+)
+if not "%CODE%"=="0" goto crashed
+if %AFTER% GTR %BEFORE% goto crashed
+echo The server stopped, leaving the loop.
+goto end
 
-if exist "STOP" (
-  del "STOP"
-  echo STOP file found, leaving the restart loop.
+:crashed
+call :now
+set "AGE=999999"
+if defined CRASH1 set /a "AGE=NOW-CRASH1"
+if %AGE% LEQ 300 (
+  echo The server crashed three times within five minutes ^(exit code %CODE%^), leaving the loop.
   goto end
 )
-echo Server stopped. Restarting in %RESTART_DELAY% s (create a file named STOP to end the loop).
+set "CRASH1=%CRASH2%"
+set "CRASH2=%NOW%"
+echo The server crashed ^(exit code %CODE%^). Next pass in %RESTART_DELAY% s.
 timeout /t %RESTART_DELAY% /nobreak >nul
 goto loop
 
 :end
 endlocal
 pause
+exit /b 0
+
+:crashcount
+set "%~1=0"
+for %%f in ("crash-reports\*.txt") do set /a "%~1+=1"
+exit /b 0
+
+:now
+set "NOW=0"
+for /f %%t in ('powershell -NoProfile -Command "[DateTimeOffset]::UtcNow.ToUnixTimeSeconds()"') do set "NOW=%%t"
+exit /b 0

@@ -6,8 +6,9 @@
     2. if libraries\net\neoforged\neoforge\<version>\ is missing, the NeoForge installer
        (neoforge-<version>-installer.jar next to this script) installs it (--installServer)
     3. NeoForge starts (java @user_jvm_args.txt @libraries\...\win_args.txt nogui)
-    4. after "stop" or a crash the loop waits and starts again
-  End the loop for good: create a file named STOP next to this script, then type "stop" in the console.
+    4. after the server ended: a RESTART file (/restart) -> next pass at once; a crash (exit code not 0 or a new
+       file in crash-reports) -> next pass after $RestartDelay seconds, the third crash within five minutes ends
+       the loop; a clean stop (/stop, then /stop confirm) ends the loop.
 
   Usage:  .\start.ps1                       update + run
           .\start.ps1 -NoUpdate             run without the packwiz sync (offline tests)
@@ -45,9 +46,12 @@ if (-not (Test-Path -LiteralPath $Java)) {
     Write-Error "Java not found at $Java. Pass -JavaHome, set FA_JAVA_HOME or edit `$DefaultJavaHome in start.ps1."
     exit 1
 }
-if (-not (Test-Path -LiteralPath 'eula.txt')) {
-    Write-Warning 'eula.txt is missing. Read https://aka.ms/MinecraftEULA and create eula.txt with eula=true yourself.'
+if (-not (Select-String -LiteralPath 'eula.txt' -Pattern '^eula=true' -Quiet -ErrorAction SilentlyContinue)) {
+    Write-Warning 'The Minecraft EULA is not accepted. Read https://aka.ms/MinecraftEULA and set eula=true in eula.txt.'
 }
+
+function Get-CrashCount { @(Get-ChildItem -Path 'crash-reports\*.txt' -File -ErrorAction SilentlyContinue).Count }
+$Crashes = New-Object System.Collections.Generic.List[datetime]
 
 while ($true) {
     if (-not $NoUpdate) {
@@ -72,14 +76,25 @@ while ($true) {
         }
     }
 
+    $Before = Get-CrashCount
     & $Java '@user_jvm_args.txt' "@$WinArgs" nogui
     $Code = $LASTEXITCODE
 
-    if (Test-Path -LiteralPath 'STOP') {
-        Remove-Item -LiteralPath 'STOP'
-        Write-Host 'STOP file found, leaving the restart loop.'
+    if (Test-Path -LiteralPath 'RESTART') {
+        Remove-Item -LiteralPath 'RESTART'
+        Write-Host 'RESTART file found, next pass.'
+        continue
+    }
+    if ($Code -eq 0 -and (Get-CrashCount) -le $Before) {
+        Write-Host 'The server stopped, leaving the loop.'
         break
     }
-    Write-Host "Server exited with code $Code. Restarting in $RestartDelay s (create a file named STOP to end the loop)."
+    $Now = Get-Date
+    if ($Crashes.Count -ge 2 -and ($Now - $Crashes[$Crashes.Count - 2]).TotalSeconds -le 300) {
+        Write-Host "The server crashed three times within five minutes (exit code $Code), leaving the loop."
+        break
+    }
+    $Crashes.Add($Now)
+    Write-Host "The server crashed (exit code $Code). Next pass in $RestartDelay s."
     Start-Sleep -Seconds $RestartDelay
 }

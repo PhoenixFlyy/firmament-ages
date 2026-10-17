@@ -68,7 +68,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 - `python dev/gen_loot_silence.py` (`--check`): leere Loot-Tabellen für Compat-Blöcke fehlender Mods.
 - `powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1 -Version X.Y.Z`: LF-Prüfung, `packwiz refresh`, Version in `pack.toml` und Titelbild, Exporte nach `dev/exports/`.
 - `python dev\cf\export_cf.py`: CurseForge-Upload-Zip (Modrinth-Metadateien gegen `dev/cf/swap/` getauscht); hochladen nie.
-- `python dev/run_server.py --server-dir <Kopie> --xmx 5G --hold 240 --timeout 900` (`--wipe-world`, `--cmd "<Befehl>"`): Boot, Konsolenbefehle, Zusammenfassung; nur auf einer Kopie (Abschnitt 6).
+- `python dev/run_server.py --server-dir <Kopie> --xmx 5G --hold 240 --timeout 900` (`--wipe-world`, `--cmd "<Befehl>"`): Boot, Konsolenbefehle, Zusammenfassung, zum Schluss `stop` und `stop confirm` (firmages-core fragt seit 1.0.2 vor dem Stopp, `/restart` startet über die Startskripte neu, SPEC §10.1); nur auf einer Kopie (Abschnitt 6).
 
 ## 5. Wo was liegt
 
@@ -81,7 +81,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
   - `hardship/` `ToolRule` (Abbau mit der Hand, §19.2), `GridLock` und `GroundCraft` (Dawn-Feld, Bodenhandwerk, §19.3), Cave Dweller (§19.1); `immersion/` EMI, Jade, HUD nach Age (§18, §21).
   - `net/` Netzprotokoll `"7"` (`FirmagesNetwork.VERSION`, §11; seit 1.0.1); `compat/<mod>` und `mixin/<mod>` laden nur mit der Mod. Mod-Updates von Enhanced Falling Trees und JourneyMap vorher per `javap` gegen die Mixin- und Reflection-Ziele prüfen (`dev/release.md`, „Mod-Updates von Enhanced Falling Trees und JourneyMap“).
   - Config (§9): `firmages-server.toml` (Pack-Kopie `config/firmages-server.toml`) mit `gate miner prospecting reactor shrine sanctuary wayshrine anchor crown launch origin ark boss sync team ui tfc hardship perf starfall skyHarvest isles balance machines debug`; `firmages-client.toml` mit `effects music ui chat tfc`.
-  - Tests: `/firmages selftest [all|core|gate|server|sky|crown|wayshrines|isles|launch|ark|endgame]` (`command/*Suite.java`); GameTests in `src/gametest/java/dev/firmages/core/gametest/*GameTests.java` (24 Klassen), JUnit in `src/test/java/`.
+  - Tests: `/firmages selftest [all|core|gate|server|sky|crown|wayshrines|isles|launch|ark|endgame]` (`command/*Suite.java`); GameTests in `src/gametest/java/dev/firmages/core/gametest/*GameTests.java` (25 Klassen), JUnit in `src/test/java/`.
 - KubeJS:
   - `kubejs/startup_scripts/00_constants.js`: `global.FA` (Stages, Titel, Mob-Leiter, `CHUNK_QUOTA`, `HIDDEN_ITEMS`, `WOOD_CLASSES`); `metal_table.js` (`global.FA_METALS`), `sky.js`, `items.js`.
   - `kubejs/server_scripts/recipes/age_N/*.js` (Rezepte je Age, `links.js` Querverbindungen) und übergreifende `recipes/*.js`; `stages/grants.js` leitet Mob-Leiter, Karte, Stationsfenster und Chunk-Kontingent aus dem Age-Stage ab; `tags/` (Age-Token, `hidden_from_viewers.js`); `debug/dump.js` (`/fa_dump`, `/fa_dump_full`).
@@ -94,7 +94,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 ## 6. Prüfregeln vor einem Commit
 
 1. `cd mod/firmages-core`, `JAVA_HOME` = `tools/jdk-21`, `gradlew build`: BUILD SUCCESSFUL, 0 Testfehler.
-2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (1.0.1: 125).
+2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (1.0.2: 127; 1.0.1: 125).
 3. Jedes betroffene `gen_*.py --check`, dazu `check_menus.py` und `miner_ladder.py --check`: alles aktuell.
 4. `python dev/derive_ages.py --check` und `python dev/gen_stage_locks.py --check`: up to date.
 5. `python dev/validate_quests.py --style`: 0 Fehler, 0 Warnungen.

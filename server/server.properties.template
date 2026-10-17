@@ -3,10 +3,14 @@ online-mode=true
 white-list=true
 enforce-whitelist=true
 enforce-secure-profile=true
-max-players=10
+# The whitelist decides who joins, not the slot count.
+max-players=100
 op-permission-level=4
 function-permission-level=2
 spawn-protection=0
+log-ips=false
+accepts-transfers=false
+prevent-proxy-connections=false
 
 # --- gameplay (PvP on, no claims or protection before the Industrial Age) ---
 pvp=true
@@ -21,22 +25,27 @@ spawn-npcs=true
 # Create contraptions, jetpacks and later flight gear would otherwise trigger the fly kick.
 allow-flight=true
 enable-command-block=false
+player-idle-timeout=0
 
 # --- world: TerraFirmaCraft preset (tfc:overworld; TFC also sets it via general.defaultWorldPreset) ---
 level-name=world
 level-seed=
 level-type=tfc\:overworld
+generator-settings={}
 generate-structures=true
 max-world-size=29999984
+region-file-compression=deflate
 
 # --- performance: TFC worldgen is heavy; pregenerate with Chunky before the first login ---
-# ProgressiveStages mob gating checks players inside the simulation distance.
 view-distance=10
+# ProgressiveStages mob gating checks players inside the simulation distance.
 simulation-distance=8
 entity-broadcast-range-percentage=100
+# A tick stuck for 2 minutes ends the server with a crash report; the start script restarts it.
 max-tick-time=120000
 network-compression-threshold=256
-sync-chunk-writes=true
+# Region files are written without a flush per chunk (much faster saves on Windows).
+sync-chunk-writes=false
 max-chained-neighbor-updates=1000000
 rate-limit=0
 use-native-transport=true
@@ -45,19 +54,20 @@ use-native-transport=true
 server-ip=
 server-port=25565
 enable-status=true
+hide-online-players=false
+motd=§6Firmament Ages
 enable-query=false
 query.port=25565
 enable-rcon=false
 rcon.port=25575
 rcon.password=
-motd=§6Firmament Ages§r §7- one team, ten Ages
-hide-online-players=false
 broadcast-console-to-ops=true
 broadcast-rcon-to-ops=true
-player-idle-timeout=0
-prevent-proxy-connections=false
+enable-jmx-monitoring=false
+bug-report-link=
 require-resource-pack=false
 resource-pack=
+resource-pack-id=
 resource-pack-prompt=
 resource-pack-sha1=
 text-filtering-config=
