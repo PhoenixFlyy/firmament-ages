@@ -4,23 +4,18 @@ Newest version on top; a CurseForge upload takes the newest section. The log rea
 
 ## 1.0.2
 
-A fix for 1.0.1, which crashed while the game was loading, and a server that asks before it stops. 1.0.1 was never released on CurseForge, so this version also brings everything listed under 1.0.1 below. **Your 1.0.0 world keeps working.**
+A fix for 1.0.1, which crashed while the game was loading, and a server that asks before it stops. 1.0.1 was never released on CurseForge, so everything from 1.0.1 is listed here as well. **Your 1.0.0 world keeps working.**
+
+### Fixed and changed in 1.0.2
 
 - **The game starts again.** 1.0.1 updated TerraFirmaCraft to 4.2.12, which split a class that WoodenCog 1.2.19 still uses for its basin recipes in the recipe viewer, so the recipe viewer could not load and the game crashed on start; TerraFirmaCraft stays on 4.2.11 until WoodenCog catches up.
 - **Backups** every two hours, twelve kept (1.0.1: every hour).
 - **The server asks before it stops.** `stop` only asks; `stop confirm` within 30 seconds stops the server and ends the start script. `restart` tells everyone, counts down ten seconds, saves and stops, and the start script starts the server again. A hosting panel whose stop button sends `stop`: set `confirmStop = false` under `[commands]` in `config/firmages-server.toml`.
 - **Server pack:** `eula.txt` ships with `eula=false` (set it to `true` to accept the Minecraft EULA); `server.properties` allows 100 players; `user_jvm_args.txt` uses Aikar's flags with 8 GB. `start.bat` and `start.sh` start the server again only after `restart` or a crash (three crashes within five minutes end the loop); the `STOP` file is gone.
 
-### Technical
+### From 1.0.1 (never published)
 
-- TerraFirmaCraft is pinned to 4.2.11 (`mods/terrafirmacraft.pw.toml`): WoodenCog 1.2.19's client mixin `jei.MixinBasinCategory` names `net.dries007.tfc.config.TemperatureDisplayStyle`, which 4.2.12 split into `ItemTemperatureDisplayStyle` and `ClimateTemperatureDisplayStyle`. A server boot does not load client mixins, so the server pack started fine.
-- `dev/check_mixin_refs.py` reads every mixin of every jar (jar-in-jar included) and reports classes a mixin names that no jar has; it runs after every mod update.
-- **Firmament Ages Core 1.0.2:** `/stop` with `/stop confirm` and `/restart` (SPEC 10.1, `commands.confirmStop`, server, default true); network protocol unchanged (7).
-- `config/simplebackups-common.toml`: `timer = 120`, `backupsToKeep = 12`.
-
-## 1.0.1
-
-The first round of feedback on 1.0: a longer Dawn, a quieter Chronicle, a map from the Iron Age, trees that fall whole, vanilla hearts and updated mods. **Your 1.0.0 world keeps working.** Vanilla hearts only reach new worlds; see below for an existing world. The ruined Wayshrine that the new Dawn quest "A Shrine on the Road" leads to is the tutorial Wayshrine that 1.0.0 already places in a world's first three days; a world without one gets it with `/firmages wayshrine tutorial` (operator).
+The first round of feedback on 1.0 brought a longer Dawn, a quieter Chronicle, a map from the Iron Age, trees that fall whole, vanilla hearts and updated mods. **Your 1.0.0 world keeps working.** Vanilla hearts only reach new worlds; see below for an existing world. The ruined Wayshrine that the new Dawn quest "A Shrine on the Road" leads to is the tutorial Wayshrine that 1.0.0 already places in a world's first three days; a world without one gets it with `/firmages wayshrine tutorial` (operator).
 
 - **A longer Dawn.** Dawn has 21 quests in five strands now, each with a keystone, and "The First Spark" waits for all five. Stone: a knife and a hammer before the axe. Shelter: 32 thatch for walls and a roof. Hunt: three wild animals. Forage: wild crops in the tall grass instead of berries (a new world starts in June, and berry bushes bear no fruit before August); one crop's food, the seeds of two different crops, then twelve of one crop's food. Sky: walk a kilometre, then find the ruined Wayshrine 300 to 800 blocks from spawn and look at its core. Side quests: Before Dark, Hides, Bones and Loose and Found (a loose rock of each rock family; hover over a rock to see its family).
 - **The Chronicle says less.** Nothing tells you any more what an Age opens or takes away; you find out yourself. Gone: the notes "Reading the Chronicle", "The Sign in the Corner" and "What Dawn Withholds", five more notes that only announced features, the chat line when the crafting grid opens, the text on the grey field of the Dawn inventory, the hints for breaking by hand and for crafting on the ground, and the line of a refused `/ponder`. What a lock says stays ("Something Unknown", "Not of this Age"). The marker "The First Spark" in The Firmament waits for the note "By Hand".
@@ -35,6 +30,11 @@ The first round of feedback on 1.0: a longer Dawn, a quieter Chronicle, a map fr
 - **Mod updates:** Just Enough Items 19.64.0.453 to 19.64.0.455, Sophisticated Core 1.5.12 to 1.5.13, Every Compat 2.11.53 to 2.11.54, Alex's Mobs Continued 2.2.2 to 2.2.3, Dusty Decorations 2.3.0 to 2.3.1 (it dyes the plain cushion, so the 48 colored cushions, cushion slabs and stairs can be made from the Arcane Age on instead of never), Laser Bridges & Doors 6.1 to 6.2, AE2 Draconic Fusion Autocrafter 0.1.6 to 0.1.7. Supplementaries stays on 3.9.9 and Create: Extra Gauges on 2.0.6 (pinned); every other mod was already on its newest version.
 
 ### Technical
+
+- TerraFirmaCraft is pinned to 4.2.11 (`mods/terrafirmacraft.pw.toml`): WoodenCog 1.2.19's client mixin `jei.MixinBasinCategory` names `net.dries007.tfc.config.TemperatureDisplayStyle`, which 4.2.12 split into `ItemTemperatureDisplayStyle` and `ClimateTemperatureDisplayStyle`. A server boot does not load client mixins, so the server pack started fine.
+- `dev/check_mixin_refs.py` reads every mixin of every jar (jar-in-jar included) and reports classes a mixin names that no jar has; it runs after every mod update.
+- **Firmament Ages Core 1.0.2:** `/stop` with `/stop confirm` and `/restart` (SPEC 10.1, `commands.confirmStop`, server, default true); network protocol unchanged (7).
+- `config/simplebackups-common.toml`: `timer = 120`, `backupsToKeep = 12`.
 
 - **Firmament Ages Core 1.0.1:** no explaining texts (SPEC 18), Curios and Apothic Attributes buttons by Age (`ui.inventoryButtonsFromAge`, server, default `age_0`), the viewer exemption for creative mode only (Jade included: creative sees it in every Age), JEI's recipe screen shut with EMI's while the viewer is closed, Jade "Unknown" with the sigil (SPEC 21.14); the built-in chat filters (JourneyMap's join line among them) apply whatever an older `firmages-client.toml` lists. Network protocol 7: client and server need 1.0.1 (the server sends whether the buttons and the map show).
 - `defaultconfigs/tfc-server.toml` sets TerraFirmaCraft's nutrition health modifier to 1.0 (minimum, default and maximum); `config/tfc-client.toml` turns its health bar off.
