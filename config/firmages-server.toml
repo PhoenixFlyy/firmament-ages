@@ -412,3 +412,9 @@
 	# Default: 64
 	# Range: 0 ~ 256
 	catalystMinRpm = 64
+
+#Operator commands of the dedicated server (SPEC 10.1)
+[commands]
+	#/stop asks for /stop confirm: a confirmed stop ends the start script's loop, /restart starts the server again.
+	#false = /stop stops at once, as in vanilla (a hosting panel whose stop button sends "stop").
+	confirmStop = true

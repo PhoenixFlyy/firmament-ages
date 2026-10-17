@@ -7,6 +7,7 @@ Sends each argument as one console command and prints the reply. Long replies ar
 Usage:
   python dev/rcon.py "stage tree" "progressivestages validate"
   python dev/rcon.py --timeout 600 "chunky start"
+  python dev/rcon.py stop "stop confirm"        stops the server (firmages-core 1.0.2 asks first)
 Exit code: 0 = all commands sent, 1 = connection or auth failure.
 """
 import argparse

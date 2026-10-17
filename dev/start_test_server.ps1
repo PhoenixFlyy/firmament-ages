@@ -1,5 +1,5 @@
 # Starts the Firmament Ages test server (test-server/) in the foreground for an open-ended test.
-# Console commands can be typed directly (op <name>, whitelist add <name>, stop); "stop" ends the server.
+# Console commands can be typed directly (op <name>, whitelist add <name>); "stop", then "stop confirm" ends the server.
 # Run from anywhere:  powershell -NoProfile -ExecutionPolicy Bypass -File dev\start_test_server.ps1
 # Fresh world: delete test-server\world first. Automated boots with commands and a timeout: dev/run_server.py.
 $ErrorActionPreference = 'Stop'
