@@ -2,8 +2,8 @@
 // Artifacts' own sources do not exist in a TFC world (vanilla structure chests, campsites on #minecraft:is_overworld,
 // suspicious sand) or are switched off (config/artifacts/general.toml: chest rarity 10000, archaeology and mob
 // equipment 0). The trinkets come from the TFC ruins, the Cold Forge and the fortresses of the Beneath instead.
-// Each list is one Age (dev/age_map.toml, Artifacts rows); ProgressiveStages' loot filter removes a trinket of a later
-// Age when the chest is opened, so a ruin opened in the Bronze Age only yields Bronze Age trinkets.
+// Each list is one Age (dev/age_map.toml, Artifacts rows); firmages-core's loot gate (SPEC 19.5) removes a trinket of a
+// later Age when the chest is opened, so a ruin opened in the Bronze Age only yields Bronze Age trinkets.
 // dev/derive_ages.py CODE_DROPS mirrors these lists (a LootJS pool is no data file the jar scan can read).
 
 (() => {

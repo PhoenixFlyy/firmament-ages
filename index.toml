@@ -266,7 +266,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "dfbd2373221c3181edc973fc7788f8e178a343c8cd09bc2429a6efcdef3b7db0"
+hash = "f945ee1d23fc8ae998205d33d0ee6c14bf38fef236ff6082dc5184dc64f863eb"
 
 [[files]]
 file = "config/fml.toml"
@@ -10874,7 +10874,7 @@ hash = "98fcbe8e1fa04083c390331deff60d24f416d416b317f4f6866eef7eec74573a"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/artifacts_loot.js"
-hash = "563c564ee8b5706728a888bf1b9aa30b55f1b0a81683d2f3616c1239bf8eeaac"
+hash = "57523e90b771532489ff2065a980f1a20f3cb2c975301b813816696812a1ee45"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/blood_moon.js"

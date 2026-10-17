@@ -7,6 +7,7 @@ import dev.firmages.core.gate.GateReport;
 import dev.firmages.core.gate.GateRules;
 import dev.firmages.core.gate.JsonOutputWalker;
 import dev.firmages.core.gate.OutputSink;
+import dev.firmages.core.loot.LootAgeRule;
 import dev.firmages.core.miner.OreRoll;
 
 import java.time.Instant;
@@ -21,8 +22,8 @@ import static dev.firmages.core.command.SelfTest.checkEquals;
 /**
  * Suite {@code gate}: the pure m2/m3 logic (SPEC §12 U tests): the JSON output walk, the decision rules (deny,
  * allow, exempt, locked, tag outputs, disabled, undetected), the classification the Age swap filters on (stations,
- * requireAge, untilAge, Create heat levels), the report, the excavator pick. No Minecraft classes, so JUnit
- * ({@code GateSuiteTest}) and {@code /firmages selftest gate} run the same cases.
+ * requireAge, untilAge, Create heat levels), the report, the excavator pick, the loot Age rule (§19.5). No Minecraft
+ * classes, so JUnit ({@code GateSuiteTest}) and {@code /firmages selftest gate} run the same cases.
  */
 public final class GateSuite implements SelfTest.Suite {
 
@@ -57,6 +58,10 @@ public final class GateSuite implements SelfTest.Suite {
         r.test("swap_config_rules_beat_stations", GateSuite::configBeatsStations);
         r.test("swap_bucket_is_latest_unmet", GateSuite::bucketLatestUnmet);
         r.test("excavator_pick", GateSuite::excavatorPick);
+        r.test("loot_age9_item_under_dawn_is_empty", GateSuite::lootAge9UnderDawn);
+        r.test("loot_keeps_untagged_and_own_ages_drops_disabled", GateSuite::lootKeepsOwnAges);
+        r.test("loot_ages_are_a_set_not_a_rank", GateSuite::lootAgesAreASet);
+        r.test("loot_player_ages_from_stage_ids", GateSuite::lootPlayerAges);
     }
 
     // ---------------------------------------------------------------- fixtures
@@ -406,6 +411,48 @@ public final class GateSuite implements SelfTest.Suite {
         checkEquals("age_6", c.verdict(DAWN).bucket(), "station later than the output");
         GateRules.Verdict v = c.verdict(AgeSnapshot.of(List.of(AgeId.AGE_6), 0, 0));
         check("age_2".equals(v.bucket()) && "minecraft:iron_ingot".equals(v.entry()), "only the output unmet: " + v);
+        return "ok";
+    }
+
+    // ---------------------------------------------------------------- loot Age gate (SPEC 19.5)
+
+    /** Item Ages of the loot cases: flint Dawn, copper age_0, echo shard age_4, nether star age_9; bedrock disabled. */
+    static final Map<String, AgeId> LOOT_AGES = Map.of("minecraft:flint", AgeId.DAWN, "minecraft:copper_ingot", AgeId.AGE_0,
+        "minecraft:echo_shard", AgeId.AGE_4, "minecraft:nether_star", AgeId.AGE_9);
+
+    /** One roll of a loot table that yields {@code ids}, filtered for {@code unlocked}. */
+    static List<String> roll(List<String> ids, Set<AgeId> unlocked) {
+        List<String> loot = new java.util.ArrayList<>(ids);
+        LootAgeRule.filter(loot, LOOT_AGES::get, "minecraft:bedrock"::equals, unlocked);
+        return loot;
+    }
+
+    private static String lootAge9UnderDawn() {
+        checkEquals(List.of(), roll(List.of("minecraft:nether_star"), DAWN.unlocked()), "an age_9 item under Dawn");
+        checkEquals(List.of("minecraft:nether_star"), roll(List.of("minecraft:nether_star"), Set.of(AgeId.DAWN, AgeId.AGE_9)),
+            "the same table once age_9 is held");
+        return "ok";
+    }
+
+    private static String lootKeepsOwnAges() {
+        List<String> table = List.of("minecraft:bread", "minecraft:flint", "minecraft:copper_ingot", "minecraft:bedrock", "minecraft:nether_star");
+        checkEquals(List.of("minecraft:bread", "minecraft:flint"), roll(table, DAWN.unlocked()), "Dawn keeps untagged and Dawn items");
+        checkEquals(List.of("minecraft:bread", "minecraft:flint", "minecraft:copper_ingot", "minecraft:nether_star"), roll(table, ALL.unlocked()),
+            "every Age keeps all but the disabled item");
+        check(!LootAgeRule.keep(null, true, ALL.unlocked()), "a disabled item never stays");
+        return "ok";
+    }
+
+    private static String lootAgesAreASet() {
+        checkEquals(List.of("minecraft:nether_star"), roll(List.of("minecraft:echo_shard", "minecraft:nether_star"), Set.of(AgeId.DAWN, AgeId.AGE_9)),
+            "age_9 without age_4 keeps no age_4 item (as ProgressiveStages and the recipe gate)");
+        return "ok";
+    }
+
+    private static String lootPlayerAges() {
+        checkEquals(java.util.EnumSet.of(AgeId.DAWN, AgeId.AGE_0, AgeId.AGE_2),
+            LootAgeRule.ages(List.of("progressivestages:age_2", "age_0", "mob_3", "finale_won", "tool_toms_storage")), "Ages of a stage list");
+        checkEquals(java.util.EnumSet.of(AgeId.DAWN), LootAgeRule.ages(List.of()), "no stages = Dawn");
         return "ok";
     }
 

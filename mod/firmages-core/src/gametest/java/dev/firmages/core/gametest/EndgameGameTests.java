@@ -261,13 +261,24 @@ public final class EndgameGameTests {
 
     // ---------------------------------------------------------------- One Iron (SPEC 34.4)
 
-    /** Test data turns iron ingots of every loot table into copper ingots (the pack: wrought iron); other loot stays. */
+    /**
+     * Test data turns iron ingots of every loot table into copper ingots (the pack: wrought iron); other loot stays.
+     * The loot Age gate (SPEC 19.5) is off for this roll: copper is age_0 in the test tags, and the world is in Dawn
+     * ({@code LootGameTests.ironSwapRunsBeforeTheGate} rolls the same table with the gate on).
+     */
     @GameTest(template = "empty", batch = "firmages_6_one_iron", timeoutTicks = 40)
     public static void lootAndTradesLoseTheVanillaIngot(GameTestHelper h) {
         ServerLevel level = h.getLevel();
         LootTable t = level.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,
             ResourceLocation.parse("firmages_test:iron_chest")));
-        List<ItemStack> loot = t.getRandomItems(new LootParams.Builder(level).create(LootContextParamSets.EMPTY));
+        boolean gate = dev.firmages.core.config.ServerConfig.GATE_LOOT_FILTER.get();
+        dev.firmages.core.config.ServerConfig.GATE_LOOT_FILTER.set(false);
+        List<ItemStack> loot;
+        try {
+            loot = t.getRandomItems(new LootParams.Builder(level).create(LootContextParamSets.EMPTY));
+        } finally {
+            dev.firmages.core.config.ServerConfig.GATE_LOOT_FILTER.set(gate);
+        }
         int copper = loot.stream().filter(s -> s.is(Items.COPPER_INGOT)).mapToInt(ItemStack::getCount).sum();
         ok(h, copper == 4 && loot.stream().noneMatch(s -> s.is(Items.IRON_INGOT)) && loot.stream().anyMatch(s -> s.is(Items.BREAD)),
             "the chest gives 4 copper ingots, no iron, and its bread: " + loot);

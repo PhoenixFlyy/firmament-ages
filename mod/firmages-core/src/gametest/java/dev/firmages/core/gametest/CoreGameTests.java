@@ -70,7 +70,7 @@ public final class CoreGameTests {
     public static void selftestSuitesPass(GameTestHelper helper) {
         SelfTest.Report report = SelfTest.run(List.of(new CoreSuite(), new GateSuite(), new ServerSuite(helper.getLevel().getServer())));
         List<String> failed = report.cases().stream().filter(c -> !c.passed()).map(c -> c.suite() + "/" + c.name() + ": " + c.detail()).toList();
-        report.cases().stream().filter(c -> c.suite().equals("server") && c.name().startsWith("crafting_table"))
+        report.cases().stream().filter(c -> c.suite().equals("server") && (c.name().startsWith("crafting_table") || c.name().startsWith("loot_")))
             .forEach(c -> FirmagesCore.LOGGER.info("GameTest selftest {}: {}", c.name(), c.detail()));
         helper.assertTrue(failed.isEmpty(), "selftest failures: " + failed);
         helper.succeed();

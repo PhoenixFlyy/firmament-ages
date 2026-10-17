@@ -587,6 +587,7 @@ The shrine is visible and audible between ceremonies, and its state reads from f
 | `shrine.maintenanceSeconds` | 60 | §17: maintenance mode ends by itself after this many seconds (5..3600) |
 | `shrine.consecrationTicks` | 120 | §17: a ring's consecration from the heart outward takes this long (0..1200), after the Age reload |
 | `sync.coalesce` | true | §3.5: ProgressiveStages lock and stage sync once per player at the end of the tick instead of once per stage change (Age grant stall) |
+| `gate.lootFilter` | true | §19.5: generated loot keeps only items of the roll's Ages (its player's team, else the server's), never a disabled item; false = loot as rolled |
 | `hardship.caveDwellerUntilAge` | `age_2` | §19: first Age without Cave Dweller ReEvolved (an Age id or `never`) |
 | `hardship.toolRuleUntilAge` | `age_0` | §19.2: first Age without the hand-breaking rule (an Age id; `never` or `dawn` = off) |
 | `perf.limitTfcRegistryApiScan` | true | §20: TFCRegistryAPI scans only mod files that are or depend on TFC or TFCRegistryAPI; false = its original scan of every mod. Read once at game start (dedicated server: `<world>/serverconfig/`, then `config/`, then `defaultconfigs/`; client: `config/`, then `defaultconfigs/`) |
@@ -1044,6 +1045,64 @@ Research: the scratch notes `2x2-machbarkeit.md` and `2x2-vorbilder.md`, decisio
 - Dawn coverage: every Dawn whitelist recipe of `config/progressivestages/stages/age_0.toml` that the pack needs fits a pile (stone tools and javelins: head and shaft; firestarter: two sticks; thatch: four straw; rope: two jute fibre; straw and sticks from twigs: one item). `dev/poc_analyze.py` check D-1 keeps it so.
 - Tests: U `GridLockTest` (5: default `age_0` equals the hand-breaking boundary and holds in Dawn only; config values with `never`, `dawn`, namespaces, unknown and null; the predicate with exemptions; the pile orders, view order first and 24 distinct permutations for every facing; the status flag through the withers and `UNKNOWN`). G `HardshipGameTests.gridLockedInDawn` (key and default; inventory slots 0 to 4 are `GridSlots`, the rest vanilla; locked: inactive, take and give nothing, four planks put straight into the grid make nothing and are back in the inventory, the recipe book places nothing, the 3x3 table still crafts, creative and fake players exempt, the status carries `gridLock` through encoding; open from the configured Age and with `never`, four planks make a crafting table), `groundCraft` (a four-slot handler with vanilla recipes: four planks make a crafting table and the pile empties; coal and a stick make torches on every pair of places, in both orders and for every facing; two planks are read as seen, side by side a pressure plate, one behind the other sticks; a lone dirt fits nothing; a honey bottle makes sugar and the glass bottle stays on its place; a recipe locked by the GameTest stage `gt_ground` is refused; with `-PgametestTfc` `TfcProbe.groundCraft` uses a real `tfc:placed_item` through `useItemOn`: head and stick give a stone axe and the pile is gone, a lone head and a use without sneaking stay TFC's), `curiosGridLocked` (grid and result are `GridSlots`, the locked grid makes nothing and returns the planks, open it crafts). Selftest `server/grid_lock_hooked` (mixins applied to `InventoryMenu` and, with Curios, `CuriosContainer`; TFC pile hooked; status agrees with the server).
 - **Client [M], for Felix:** in Dawn the inventory shows no grid, no arrow, no "Crafting" and no recipe-book button, the Curios screen likewise; EMI stays shut, for an operator in survival too (§18.3); V on a stone axe head and a stick, then sneak + use with an empty hand gives the axe with sound and particles; no text on the grey area, in the action bar or in chat; after `/stage grant @s age_0` and reopening the inventory the grid is there and no chat line came.
+### 19.5 Loot of a later Age never generates (round G2, Felix 2026-10-17)
+
+Felix's finding: chests in generated structures (vanilla villages and dungeons, the TFC ruins, Supplementaries, Alex's
+Mobs, Ad Astra) hold items of later Ages. ProgressiveStages 3.0.6 [verified, javap]: its global modifier
+`progressivestages:stage_filter` removes only items of a stage file's `[loot]` category (`isLootBlockedFor` reads
+`getRequiredStagesForLoot`, the `lootCat` that `LockDefinition.loot()` fills from the `[loot]` table of
+`StageFileParser`); the pack's stage files have no `[loot]` table, so it removed nothing, the pack's own ruin chests
+included. A click on a chest slot with a locked item is cancelled (`AbstractContainerMenuMixin`, HEAD of `doClick`,
+PICKUP, PICKUP_ALL and QUICK_MOVE, with `block_item_inventory` and `block_item_mouse_pickup` true), so the item lay in
+the chest until its Age.
+
+- **Classes:** `loot/LootAgeRule` (pure), `loot/AgeLootModifier` (global loot modifier, codec `firmages:age_filter`),
+  `loot/AgeLoot` (registration, the filter, whose Ages, the modifier order), `loot/LootSelfTest`,
+  `mixin/LootModifierManagerMixin`. Data in the jar: `data/neoforge/loot_modifiers/global_loot_modifiers.json`
+  (`replace` false, entry `firmages:age_filter`) and `data/firmages/loot_modifiers/age_filter.json` (no conditions).
+- **Rule:** a generated stack stays when its item is untagged, Dawn, or of an Age in the roll's Age set; an item of
+  `age_items/disabled` never stays. The set counts, not the rank (as the recipe gate and ProgressiveStages' item
+  locks): age_9 without age_4 keeps no age_4 item. One `AgeIndex` lookup per stack (identity maps), no tag walk.
+  Removed stacks go without a replacement or a message (§18).
+- **Whose Ages:** the first real player of `LAST_DAMAGE_PLAYER`, `THIS_ENTITY`, `ATTACKING_ENTITY`,
+  `DIRECT_ATTACKING_ENTITY` (a projectile counts as its owner, the angler's hook): the Ages among his team's
+  ProgressiveStages stages (`ProgressiveStagesAPI.getStages`). Without one (a hopper or a pipe unpacks the chest), for a
+  `FakePlayer` (Create's deployer and drill, the Digital Miner) or a mob (a piglin's barter): the server's Ages,
+  `AgeService.currentSnapshot()` (the live AgeState; before it loads, the boot snapshot, not marked as used by a load).
+  No creative exemption: a chest rolls once, for whoever opens it.
+- **Covered:** every roll through `LootTable.getRandomItems(LootContext)`, which ends in `CommonHooks.modifyLoot`:
+  chests, barrels, chest minecarts, dispensers and pots with a loot table, archaeology, fishing, mob and block drops,
+  bartering, gifts. Not loot: trades (§34.4), quest rewards (fixed items since B2, no reward tables), machine outputs
+  (recipes, §4; a machine's block drops are loot of the server's Ages). Items a structure template places into a
+  container (prefilled NBT, no loot table: 18 TFC Ruins templates hold small ores, salt, flux and clay in their
+  vessels) are never rolled and not seen; `dev/check_loot_ages.py --mods` lists them.
+- **Order:** NeoForge 21.1.252 builds the modifier map as a `HashMap` in `LootModifierManager.prepare`, so its
+  "layered order" is lost, and LootJS 3.7.0 copies the map through a `HashMap` again at the RETURN of `apply` [verified,
+  source and javap]: modifiers run in the hash order of their ids. The mixin answers `getAllLootMods` (what
+  `modifyLoot` iterates) with every `AgeLootModifier` moved behind the others, cached per map instance. So the One Iron
+  swap (§34.4: the disabled vanilla ingot becomes wrought iron, age_2) runs first, and the items other modifiers add
+  are judged (Occultism `add_item`: Datura seeds from TFC grass, the Hollow Keystone in the fortress, the flight
+  recorder in the Mars temple). LootJS `lootTables` pools (`artifacts_loot.js`) belong to their table; LootJS
+  `modifiers` run at the RETURN of `modifyLoot`, behind every modifier, and would pass the gate (the pack has none,
+  `dev/poc_analyze.py` X-5).
+- **The pack's own tables:** the TFC ruin chests (one pool per Age, decision 2026-10-15, which counted on
+  `stage_filter`) and the Cold Forge chest now grow with the opener's Ages.
+- **Config:** `gate.lootFilter` (default true; false = loot as rolled).
+- **Tests:** U `LootAgeRuleTest` (3) and the `GateSuite` cases `loot_*` (4, also `/firmages selftest gate`: a table of
+  one age_9 item is empty in Dawn). Selftest `server/loot_filter_runs_last`, `server/loot_filter_rolls_server_ages` (a
+  chest table built in code with the first item of a locked Age, else a disabled one, and an unlocked item, rolled
+  without a player through every loaded modifier). G `LootGameTests` (test table `firmages_test:age_chest`: 3 rabbit
+  hide Dawn, 2 bread untagged, a totem of undying age_9): `chestFollowsTheOpenersAge` (a Dawn player opens a chest:
+  hide and bread, no totem; with the server in age_9 and his team in Dawn still no totem), `hopperRollsWithTheServersAges`
+  (a hopper unpacks a chest without a player: Dawn no totem, age_9 everything; a fake player's roll counts as the
+  server's), `grantKeepsEverything` (a real age_9 grant keeps all; `gate.lootFilter` false gives the totem in Dawn),
+  `ironSwapRunsBeforeTheGate` (with age_0 and without age_2 the test iron chest gives its four copper ingots: the swap
+  ran before the gate). `EndgameGameTests.lootAndTradesLoseTheVanillaIngot` rolls with the gate off. The GameTest
+  modifier list lives in `src/gametest/kubejs/data/neoforge/` because the dev mod is one union of the main and the
+  gametest roots, main first: a second `global_loot_modifiers.json` in the gametest resources would be hidden.
+- **[PoC] pack server:** `/firmages selftest server` passes both loot cases; in Dawn a TFC ruin chest holds only Dawn
+  items and a hopper under a fresh dungeon chest pulls nothing of a later Age.
+
 ## 20. Start-up performance: TFCRegistryAPI scan scope (2026-10-14)
 
 TFCRegistryAPI 1.2 (required by TFCAstikorCarts and TFCRegrowingForests) [verified, javap]: `TFCRegistryAPI.<init>` calls the seven `*RegistryHelper.discoverRegistryEnums()` (metal, ore, rock, sand, soil, soil variant, wood). Each calls `Helpers.discoverRegistryEnums(Class)`, which iterates `ModList.get().getMods()`, opens every mod file with `FileSystems.newFileSystem(path, null)`, walks every `.class` whose path does not contain "mixin" or "client", `Class.forName`s it without initialising and keeps the enums that implement the interface (`RegistryEntry(values, modId)`, keyed by class). Seven full scans of ~200 jars held mod construction for 36.8 s of the 112.8 s server boot and 21.7 s of the client start, and loading client classes on the server wrote ~16,800 FATAL, DISTXFORM, STDERR and Polymorph lines per boot (`Modpack-Planung/research-raw/fb3-server-log-triage.md`, finding A).

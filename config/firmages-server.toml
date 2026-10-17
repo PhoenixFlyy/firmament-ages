@@ -34,6 +34,10 @@
 	#(9 to 15 s with the whole server frozen). false = the old full reload on every Age change. /reload, /firmages reload and
 	#the boot reconcile always reload in full.
 	ageSwap = true
+	#Generated loot (chests, barrels, archaeology, fishing, mob and block drops) keeps only items of the Ages
+	#its player's team holds (without a player: the server's Ages) and never an item of age_items/disabled.
+	#false = loot as the loot tables roll it.
+	lootFilter = true
 
 #Miner filter (m3)
 [miner]

@@ -9,6 +9,7 @@
     "ReloadableServerResourcesLateMixin",
     "RecipeManagerMixin",
     "GameTestServerMixin",
+    "LootModifierManagerMixin",
     "DisplayAccessor",
     "ie.MineralMixMixin",
     "ie.TagOutputAccessor",

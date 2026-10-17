@@ -94,6 +94,15 @@ public final class AgeService {
         return bootSnapshot().snapshot();
     }
 
+    /**
+     * The server's Ages for a runtime check outside a datapack load (the loot gate, SPEC §19.5): the live AgeState,
+     * before it is loaded the boot snapshot, which this does not mark as used by a load. Thread-safe.
+     */
+    public static AgeSnapshot currentSnapshot() {
+        AgeState live = liveState;
+        return live != null ? live.snapshot() : bootSnapshot().snapshot();
+    }
+
     public static synchronized BootSnapshot bootSnapshot() {
         if (boot == null) {
             boot = computeBoot();

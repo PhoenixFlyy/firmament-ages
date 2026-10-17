@@ -36,7 +36,8 @@ Keine offenen Entscheidungen: Felix hat die neun Fragen von 1.0.0 und die Codes 
 | Backup zurückspielen nach `server/README-SERVERPACK.md` (vier Schritte) einmal echt durchspielen; bisher nur die Zip-Struktur geprüft | Server | Felix oder Claude auf einer Kopie |
 | Team-Übernahme auf einer bestehenden Welt: der erste Spieler gründet die Party „Firmament“ mit allen Ages der Welt, ein zweiter kommt ohne Einladung dazu; belegt nur durch `TeamGameTests` | firmages-core, `server/README-SERVERPACK.md` | Felix |
 | Startkomplex: Dieseleimer per Hand in die Steuerung, mit freigeschalteter Age | firmages-core `LaunchControlBlock.useItemOn` | Felix |
-| Ruinen-Truhen: in Dawn nur Dawn-Kleinkram (ProgressiveStages `stage_filter`), Trichter unter der Truhe ziehen nichts Gesperrtes | `kubejs/data/firmages/loot_table/chests/ruin_*.json` | Felix |
+| Ruinen-Truhen und eine frische Dungeon-Truhe: in Dawn nur Dawn-Kleinkram (firmages-core-Loot-Gate, SPEC §19.5), ein Trichter unter einer frischen Truhe zieht nichts einer späteren Age; nach der nächsten Age bringt eine neue Truhe deren Items | `kubejs/data/firmages/loot_table/chests/ruin_*.json`, firmages-core `loot/` | Felix |
+| Vorbefüllte Behälter in Strukturvorlagen sieht das Loot-Gate nicht (kein Loot-Wurf): 18 Vorlagen der TFC Ruins haben in ihren Gefäßen Kleinerze, Salz, Flussmittel und Ton späterer Ages, Ars Additions (Nexus-Türme) und Stargate Journey (Jaffa-Haus) versteckte Items; Liste `python dev/check_loot_ages.py --mods <mods>`. Weg wählen: Gefäße per Prozessorliste leeren oder in Loot-Truhen wandeln, oder ein Core-Prozessor, der vorbefüllte Stapel nach Age filtert | `kubejs/data/tfc_ruins/worldgen/processor_list/`, firmages-core | Claude (nächste Runde) |
 
 ## Nach 1.0 (Ideen und Beobachtung)
 
