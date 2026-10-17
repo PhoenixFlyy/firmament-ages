@@ -7,6 +7,9 @@ Writes
   kubejs/assets/firmages/textures/gui/quests/banner_<key>.png    Age banner (1024 x 256) placed as a chapter image
   kubejs/assets/firmages/textures/gui/quests/dependency.png      dependency line texture (64 x 64)
   kubejs/assets/firmages/textures/gui/quests/firmament.png       modpack icon of the chapter panel (64 x 64)
+  kubejs/assets/firmages/textures/gui/quests/panel.png           seamless night sky of the panels (256 x 256, opaque;
+                                                                  quest view, context menu, chapter panel, key
+                                                                  reference: `tile_size=256` in the theme)
   kubejs/assets/ftbquests/textures/shapes/<shape>/*.png          quest shapes gilded (goal), rune (keystone, entry),
                                                                   ember (side mission); FTB Quests only loads shapes
                                                                   from the ftbquests namespace (QuestShape uses
@@ -17,10 +20,12 @@ Writes
 The shrine in every background is the cumulative shrine of the chapter's Age, rendered by
 dev/shrine-viewer/render_shrine.py (consecrated look, transparent, ground slab removed) and cached as
 dev/shrine-viewer/out/quest_cutout_age_N.png. Colours: deep night blue and violet, gold accents, one accent per Age
-from the tier files (beam_color, sky_tint). No parchment. The panels (quest view, context menu, chapter panel) are
-flat theme colours, not textures (ftb_quests_theme.txt, G1).
+from the tier files (beam_color, sky_tint). No parchment. The panels (quest view, context menu, chapter panel, key
+reference) tile panel.png: a seamless, periodic night sky (G2, dev/quest-images.md "Quest-Ansicht: Nachthimmel").
+The theme engine repeats an ImageIcon every tile_size GUI px from the screen origin with nearest sampling, so the
+texture must wrap on every edge and the stars must not sit on a raster.
 
-Usage: python dev/gen_quest_art.py [--skip-shrine] [--force-shrine] [--preview-only]
+Usage: python dev/gen_quest_art.py [--skip-shrine] [--force-shrine] [--preview-only] [--panel-only]
 Needs Pillow, numpy, matplotlib (render_shrine).
 """
 from __future__ import annotations
@@ -116,6 +121,67 @@ def fbm(h: int, w: int, rng: np.random.Generator, base_cells: int = 4, octaves: 
         amp *= 0.5
         cells *= 2
     return out / total
+
+
+def periodic_noise(size: int, cx: int, cy: int, rng: np.random.Generator) -> np.ndarray:
+    """Periodic value noise in [0,1]: cx x cy random cells, smoothstep interpolation, wrap-around on every edge."""
+    g = rng.random((cy, cx), dtype=np.float32)
+    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32)
+    xx = (xx + 0.5) * (cx / size)
+    yy = (yy + 0.5) * (cy / size)
+    x0, y0 = np.floor(xx).astype(int), np.floor(yy).astype(int)
+    fx, fy = xx - x0, yy - y0
+    fx, fy = fx * fx * (3 - 2 * fx), fy * fy * (3 - 2 * fy)
+    x1, y1 = (x0 + 1) % cx, (y0 + 1) % cy
+    x0, y0 = x0 % cx, y0 % cy
+    top = g[y0, x0] * (1 - fx) + g[y0, x1] * fx
+    bot = g[y1, x0] * (1 - fx) + g[y1, x1] * fx
+    return top * (1 - fy) + bot * fy
+
+
+def panel_texture(size: int = 256, seed: int = 2026) -> Image.Image:
+    """Seamless night sky for the panels: night blue mist a third of the way to violet (about 15 % brightness span,
+    non-harmonic octaves 3, 5, 7, 11, 17 cells so the repeat is not read as a pattern) and 34 fine stars per tile
+    (1 px, the brightest as 2 px crosses, three tints, random with a minimum distance on the torus, no raster).
+    Mockups and choice: dev/quest-preview/panel2_mockup_{a,b,c}.png (G2); A is this texture."""
+    rng = np.random.default_rng(seed)
+    n = np.zeros((size, size), dtype=np.float32)
+    tot = 0.0
+    for cells, amp in ((3, 1.0), (5, 0.6), (7, 0.35), (11, 0.15), (17, 0.06)):
+        n += amp * periodic_noise(size, cells, cells, rng)
+        tot += amp
+    n /= tot
+    lo, hi = np.percentile(n, 1), np.percentile(n, 99)
+    n = np.clip((n - lo) / (hi - lo), 0, 1)
+    dark = rgbf("#0E1739")                                        # a shade under night blue
+    light = rgbf(NIGHT_BLUE) * 0.68 + rgbf(VIOLET) * 0.32         # a third of the way to violet
+    base = dark[None, None, :] * (1 - n[..., None]) + light[None, None, :] * n[..., None]
+    veil = periodic_noise(size, 12, 12, rng) - 0.5               # a finer, fainter veil so the mist is not one blob
+    img = base * (1.0 + 0.04 * veil[..., None])
+    img += (rng.random((size, size, 1), dtype=np.float32) - 0.5) * (1.5 / 255)   # dither against banding at 2x
+    # stars: random positions with a minimum distance measured on the torus (no clump across the seam)
+    stars: list[tuple[int, int]] = []
+    tries = 0
+    while len(stars) < 34 and tries < 34 * 200:
+        tries += 1
+        x, y = int(rng.integers(0, size)), int(rng.integers(0, size))
+        if all((min(abs(px - x), size - abs(px - x)) ** 2 + min(abs(py - y), size - abs(py - y)) ** 2) >= 14 * 14
+               for px, py in stars):
+            stars.append((x, y))
+    tints = [rgbf(PARCHMENT_TEXT), rgbf("#C8D8FF"), rgbf("#F0DCA0")]
+
+    def add(px, py, w, tint):
+        px, py = px % size, py % size
+        img[py, px] = img[py, px] * (1 - w) + tint * w
+
+    for i, (x, y) in enumerate(stars):
+        b = 0.25 + 0.75 * (rng.random() ** 2.2)                   # brightness skewed to dim
+        tint = tints[int(rng.integers(0, 3))]
+        add(x, y, b, tint)
+        if b > 0.72 and i % 3 == 0:                               # a few 2 px crosses
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                add(x + dx, y + dy, b * 0.45, tint)
+    return Image.fromarray((np.clip(img, 0, 1) * 255 + 0.5).astype(np.uint8), "RGB")
 
 
 def save_png(im: Image.Image, path: Path, quantize: bool = False) -> None:
@@ -655,11 +721,17 @@ def main(argv=None) -> int:
     ap.add_argument("--skip-shrine", action="store_true", help="do not render shrine cutouts (use the cache or none)")
     ap.add_argument("--force-shrine", action="store_true", help="re-render the shrine cutouts")
     ap.add_argument("--preview-only", action="store_true", help="only rebuild the preview from the existing textures")
+    ap.add_argument("--panel-only", action="store_true", help="only write panel.png (the tiled night sky of the panels)")
     args = ap.parse_args(argv)
     t0 = time.perf_counter()
 
     def log(msg):
         print("[%5.1fs] %s" % (time.perf_counter() - t0, msg), flush=True)
+
+    if args.panel_only:
+        save_png(panel_texture(), TEX / "panel.png")
+        log("wrote panel.png")
+        return 0
 
     info: dict[int, dict] = {}
     if not args.skip_shrine and not args.preview_only:
@@ -684,6 +756,7 @@ def main(argv=None) -> int:
             log(f"wrote bg_{key}.png, banner_{key}.png")
         save_png(dependency_texture(), TEX / "dependency.png")
         save_png(firmament_icon(), TEX / "firmament.png")
+        save_png(panel_texture(), TEX / "panel.png")
         for k, parts in shapes.items():
             for part, im in parts.items():
                 p = SHAPES / k / f"{part}.png"

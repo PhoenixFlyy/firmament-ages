@@ -132,3 +132,27 @@ Plinth) aus `dev/gen_quest_pictures.py` (`complete_picture`), Groesse und Blockz
 Laternen und Flutlichter statt blasser Ersatzwuerfel (die Jars der Instanz waren erreichbar); die Bilder sind mit
 regeneriert.
 
+## Quest-Ansicht: Nachthimmel (G2, 2026-10-17)
+
+Felix zu 1.0.1: die flache Flaeche (G1) ist „super langweilig“. Drei Mockups in echter Groesse (GUI-Skala 2, Schrift
+aus `ascii.png`, Kachelnaht absichtlich durch die Fenstermitte): `dev/quest-preview/panel2_mockup_a.png` (A:
+nahtloser Nachthimmel 256 px, Nebel Nachtblau nach Violett, feine Sterne), `_b.png` (B: dunkles Pergamentkorn mit
+Faserstruktur und zweiter Goldlinie 2 px innen), `_c.png` (C: A plus blasse Konstellationslinien und Kreisornament bei
+10 % Deckkraft). Engine-Befund (javap FTB Library 2101.1.37, `Icon.getIcon(String)`): der Wert wird an `+` in beliebig
+viele Teile zerlegt (`CombinedIcon`, in Reihenfolge gezeichnet), `; padding=P` rueckt einen Teil um P GUI-Pixel ein
+(`IconWithPadding`); eine zweite Rahmenlinie geht also als dritter Teil, etwa `+ hollow_rectangle:#90E8C56A; padding=2`.
+
+Gewaehlt: A. Lesbarkeit: Kontrast gegen `#F2E6C9` im Mittel 13,7:1, 1. Perzentil 13,2:1 (nur Sternpixel darunter).
+Ruhe: Helligkeitsspanne des Nebels etwa 19 % (HSV-Wert, 1. bis 99. Perzentil), Oktaven 3, 5, 7, 11 und 17 Zellen,
+also nicht harmonisch; die 3x3-Kachelung zeigt kein Muster, die Randdifferenz beim Umbruch (1,3) gleicht der
+Nachbardifferenz im Inneren (1,2). Firmament-Gefuehl: 34 Sterne je Kachel, 1 px, die hellsten als 2-px-Kreuz, drei
+Toene, zufaellig mit Mindestabstand auf dem Torus (kein Raster). B liest sich bei 1x als flache Flaeche, die Flecken
+wiederholen sich in der 3x3-Kachelung sichtbar; C zeigt das Kreisornament im Kapitelpanel (540 GUI px hoch) zweimal und
+schneidet die Boegen am Fensterrand beliebig an, also genau die sichtbare Kachelung, die Felix an 1.0.0 stoerte.
+
+Umsetzung: `panel_texture()` in `dev/gen_quest_art.py` (Seed 2026, `--panel-only` schreibt nur
+`textures/gui/quests/panel.png`, 256 x 256 RGB deckend, 42 KB; ohne mcmeta, also nearest); Theme-Keys
+`context_menu`, `chapter_panel_background` (je `hollow_rectangle:{{widget_border}}; round_edges + panel.png;
+tile_size=256; padding=1`), `quest_view_background` (`{{context_menu}}`), `key_reference_background` (Textur ohne
+Rahmen). Im Spiel pruefen (F3+T laedt das Theme neu): Questfenster, Rechtsklick-Menue, Kapitelleiste links und die
+Tastenreferenz; Sterne sollen bei GUI-Skala 2 als 2x2-Punkte stehen, keine Naht, kein Muster.
