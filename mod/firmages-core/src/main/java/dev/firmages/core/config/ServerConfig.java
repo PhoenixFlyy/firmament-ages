@@ -22,6 +22,7 @@ public final class ServerConfig {
 
     // gate
     public static final ModConfigSpec.BooleanValue GATE_ENABLED;
+    public static final ModConfigSpec.BooleanValue GATE_LOOT_FILTER;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BOOT_FALLBACK_STAGES;
     public static final ModConfigSpec.IntValue RELOAD_DELAY_TICKS;
     public static final ModConfigSpec.IntValue COALESCE_TICKS;
@@ -177,6 +178,11 @@ public final class ServerConfig {
                 "Skipped when a boot reconcile reload runs anyway, when a player is online or any reload already ran.")
             .define("warmupReload", true);
         WARMUP_DELAY_TICKS = b.comment("Ticks after server start before the warm-up reload.").defineInRange("warmupDelayTicks", 20, 0, 6000);
+        GATE_LOOT_FILTER = b.comment("Generated loot (chests, barrels, archaeology, fishing, mob and block drops) keeps only items of the Ages",
+                "its player's team holds (without a player: the server's Ages) and never an item of age_items/disabled; a placed",
+                "structure template's prefilled containers keep only items of the server's Ages.",
+                "false = loot as the loot tables roll it and templates as saved.")
+            .define("lootFilter", true);
         b.pop();
 
         b.comment("Miner filter (m3)").push("miner");
@@ -504,6 +510,11 @@ public final class ServerConfig {
     /** {@code gate.ageSwap}: Age changes swap instead of reloading (true while the config is not loaded). */
     public static boolean ageSwap() {
         return !loaded() || AGE_SWAP.get();
+    }
+
+    /** {@code gate.lootFilter}: the loot Age gate (SPEC §19.5) is on (true while the config is not loaded). */
+    public static boolean lootFilter() {
+        return !loaded() || GATE_LOOT_FILTER.get();
     }
 
     public static boolean warmupReload() {

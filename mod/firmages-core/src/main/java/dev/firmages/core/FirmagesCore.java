@@ -50,6 +50,7 @@ public final class FirmagesCore {
         BossRegistry.register(modEventBus); // The Primordial, the end boss (docs/primordial.md)
         dev.firmages.core.balance.EnergyMeter.register(modEventBus, NeoForge.EVENT_BUS); // balance.feCap and the energy audit (SPEC 37, 38)
         dev.firmages.core.balance.OneIron.register(modEventBus, NeoForge.EVENT_BUS); // vanilla iron in loot and trades (SPEC 34.4)
+        dev.firmages.core.loot.AgeLoot.register(modEventBus); // loot of later Ages never generates (SPEC 19.5)
         dev.firmages.core.balance.EnergyCharge.register(NeoForge.EVENT_BUS); // /firmages energy charge, a test power line (SPEC 38)
         dev.firmages.core.sky.SkyRegistry.register(modEventBus); // Starfall blocks, metals, core, sounds, loot condition (SPEC §25)
         dev.firmages.core.crown.CrownRegistry.register(modEventBus); // Lens Crown, firmages:starforge (SPEC §27)

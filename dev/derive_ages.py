@@ -30,7 +30,7 @@ Walk (dev/poc_analyze.py make_walk, the walk of the R- checks), once per Age daw
   - transforms: the block loot of every reached block item, crop and wall blocks, INTERACTIONS (bottles, buckets,
     brewing, special crafting), fishing and piglin bartering.
   An item's first Age is the first walk that reaches it. Each loot or world output is reached on its own once its
-  Age is owned (ProgressiveStages filters locked items out of loot), recipe outputs all together.
+  Age is owned (firmages-core's loot gate filters locked items out of loot, SPEC 19.5), recipe outputs all together.
 
 Output
   dev/data/derived_ages.json   {item: [base, first, final, via]} for every item (first = null: never reached)

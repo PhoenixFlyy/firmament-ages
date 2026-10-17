@@ -192,5 +192,6 @@ public final class ServerSuite implements SelfTest.Suite {
             checkEquals(active, dev.firmages.core.immersion.ImmersionService.status(server).gridLock(), "status gridLock");
             return "locked " + active + " (until " + dev.firmages.core.config.ServerConfig.gridLockUntil().map(AgeId::id).orElse("never") + "), " + curios + ", " + tfc;
         });
+        dev.firmages.core.loot.LootSelfTest.run(r, server); // loot Age gate (SPEC 19.5)
     }
 }

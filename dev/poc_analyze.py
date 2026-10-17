@@ -240,6 +240,7 @@ def main():
     wood_checks(base, rows, tags, item_age, check)
     sapling_checks(item_age, check)
     world_checks(base, item_age, check)
+    loot_filter_check(a.server_dir, check)
     content_checks(base, a.server_dir, rows, by_id, tags, item_age, check)
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -2581,6 +2582,71 @@ def world_checks(base, item_age, check):
     check(f"X-4 every bucket, shard or charm of a spawning mob is reachable ({len(spawning)} spawning mobs)",
           not bad and not stale, bad + stale)
 
+
+
+# ================================================================================================ loot gate (X-5)
+LOOT_FILTER_ID = "firmages:age_filter"
+
+
+def loot_filter_check(server_dir, check):
+    """X-5 (round G2, firmages-core SPEC 19.5): the loot Age gate is active. gate.lootFilter is true in the pack's
+    config/firmages-server.toml and not false in the server's (config/, the world's serverconfig/); the firmages-core
+    jar the server loads (else the pack's mods/) ships the modifier firmages:age_filter and lists it in its
+    global_loot_modifiers.json; no pack global list drops it with "replace" and no pack file overrides the modifier;
+    no LootJS.modifiers script adds loot behind it (LootJS runs those at the RETURN of CommonHooks.modifyLoot, after
+    every global modifier); dev/check_loot_ages.py --strict is clean (the pack's own tables)."""
+    import glob
+    import tomllib
+    import zipfile
+    import check_loot_ages as cla
+    bad, notes = [], []
+
+    def toml_flag(path):
+        if not os.path.isfile(path):
+            return "absent"
+        gate = tomllib.load(open(path, "rb")).get("gate", {})
+        return gate.get("lootFilter", "absent")
+    pack = toml_flag(os.path.join(REPO, "config", "firmages-server.toml"))
+    if pack is not True:
+        bad.append(f"config/firmages-server.toml gate.lootFilter = {pack} (want true)")
+    for p in [os.path.join(server_dir, "config", "firmages-server.toml")] + glob.glob(
+            os.path.join(server_dir, "*", "serverconfig", "firmages-server.toml")):
+        v = toml_flag(p)
+        if v is False:
+            bad.append(f"{os.path.relpath(p, server_dir)} gate.lootFilter = false")
+        elif v != "absent":
+            notes.append(f"{os.path.relpath(p, server_dir)} gate.lootFilter = {v}")
+    jars = sorted(glob.glob(os.path.join(server_dir, "mods", "firmages-core-*.jar"))) or         sorted(glob.glob(os.path.join(REPO, "mods", "firmages-core-*.jar")))
+    if not jars:
+        bad.append("no firmages-core jar in the server's or the pack's mods/")
+    else:
+        jar = max(jars, key=os.path.getmtime)
+        z = zipfile.ZipFile(jar)
+        names = set(z.namelist())
+        mod = json.loads(z.read("data/firmages/loot_modifiers/age_filter.json"))             if "data/firmages/loot_modifiers/age_filter.json" in names else None
+        glm = json.loads(z.read("data/neoforge/loot_modifiers/global_loot_modifiers.json"))             if "data/neoforge/loot_modifiers/global_loot_modifiers.json" in names else {}
+        if not mod or mod.get("type") != LOOT_FILTER_ID or LOOT_FILTER_ID not in glm.get("entries", []):
+            bad.append(f"{os.path.basename(jar)} does not ship {LOOT_FILTER_ID} in its global loot modifiers "
+                       f"(build firmages-core and put the jar in mods/)")
+        else:
+            notes.append(f"{os.path.basename(jar)} ships {LOOT_FILTER_ID}")
+    for p in glob.glob(os.path.join(REPO, "kubejs", "data", "*", "loot_modifiers", "**", "*.json"), recursive=True):
+        rel = os.path.relpath(p, REPO).replace(os.sep, "/")
+        d = json.load(open(p, encoding="utf-8"))
+        if rel.endswith("neoforge/loot_modifiers/global_loot_modifiers.json"):
+            if d.get("replace") is True and LOOT_FILTER_ID not in d.get("entries", []):
+                bad.append(f"{rel} replaces the global list without {LOOT_FILTER_ID}")
+        elif rel == "kubejs/data/firmages/loot_modifiers/age_filter.json":
+            bad.append(f"{rel} overrides the jar's modifier ({d.get('type')}, conditions {d.get('conditions')})")
+    for p in glob.glob(os.path.join(REPO, "kubejs", "server_scripts", "**", "*.js"), recursive=True):
+        if "LootJS.modifiers" in open(p, encoding="utf-8").read():
+            bad.append(f"{os.path.relpath(p, REPO)} uses LootJS.modifiers: LootJS applies them after every global loot "
+                       f"modifier, so the gate never sees what they add; use LootJS.lootTables")
+    strict, n = cla.strict_check()
+    bad += [f"check_loot_ages --strict: {line}" for line in strict]
+    notes.append(f"check_loot_ages --strict: {n} firmages:* tables, {len(strict)} finding(s)")
+    check(f"X-5 loot filter active (gate.lootFilter, {LOOT_FILTER_ID} in the jar, no LootJS.modifiers, "
+          f"check_loot_ages --strict)", not bad, bad + notes)
 
 
 def load_metals():
