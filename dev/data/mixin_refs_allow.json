@@ -1,0 +1,257 @@
+{
+  "_doc": "Gelesen von dev/check_mixin_refs.py. Je Jar (exakter Dateiname: nach einem Update der Mod werden seine Einträge stale und die Meldungen kommen zurück, bis der Grund am neuen Jar wieder belegt ist) die Mixin-Referenzen auf fehlende Klassen, die nie geladen werden. 'mixin' und 'missing': exakter Name, Präfix mit '.' am Ende oder Glob. 'reason': der Beleg (javap, Runde G1b), warum der Mixin ohne die Zielmod nicht angewendet wird. Nur belegte Fälle; der WoodenCog-Mixin jei.MixinBasinCategory (TFC TemperatureDisplayStyle) steht bewusst nicht hier.",
+  "jars": {
+    "AdvancedAE-1.6.12-1.21.1.jar": [
+      {
+        "mixin": "net.pedroksl.advanced_ae.mixins.appflux.",
+        "missing": "com.glodblock.github.appflux.",
+        "reason": "AAEMixinPlugin.shouldApplyMixin: die appflux-Mixins (MOD_MIXINS) nur mit Mod appflux (LoadingModList/ModList); AppFlux nicht im Pack"
+      }
+    ],
+    "CreateDragonsPlus-1.11.9.jar": [
+      {
+        "mixin": "plus.dragons.createdragonsplus.mixin.garnished.",
+        "missing": "net.dakotapride.garnished.",
+        "reason": "@Restriction(require = @Condition(\"garnished\")), CDPMixinConfigPlugin extends RestrictiveMixinConfigPlugin (conditional-mixin); Create: Garnished nicht im Pack"
+      },
+      {
+        "mixin": "plus.dragons.createdragonsplus.mixin.dndesires.",
+        "missing": "dev.lopyluna.dndesires.",
+        "reason": "@Restriction(require = @Condition(\"dndesires\")), CDPMixinConfigPlugin extends RestrictiveMixinConfigPlugin; Create: Dreams & Desires nicht im Pack"
+      }
+    ],
+    "ExtendedAE-1.21-2.2.41-neoforge.jar": [
+      {
+        "mixin": "com.glodblock.github.extendedae.mixins.MixinEnderSavedData",
+        "missing": "com.buuz135.functionalstorage.",
+        "reason": "@Mixin-Ziel com.buuz135.functionalstorage.world.EnderSavedData (Functional Storage, nicht im Pack): ohne Zielklasse wendet Mixin den Mixin nie an (nur Warnung), mixins.extendedae.json required = false"
+      }
+    ],
+    "SubtleEffects-neoforge-1.21.1-1.15.1.jar": [
+      {
+        "mixin": "einstein.subtle_effects.mixin.client.compat.BetterModListModSearchMixin",
+        "missing": "com.terraformersmc.mod_menu.",
+        "reason": "@IfModLoaded(value = \"modmenu\", aliases = \"mod_menu\") über ConstraintsMixinPlugin (mixinconstraints); Mod Menu nicht im Pack"
+      }
+    ],
+    "alltheleaks-1.1.13+1.21.1-neoforge.jar": [
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.ATLBlockMixin",
+        "missing": "de.dafuqs.additionalentityattributes.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue additionalentityattributes, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.BroomItemMixin",
+        "missing": "net.joefoxe.hexerei.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue hexerei, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.ClarentEmiRecipeMixin",
+        "missing": "stepsword.mahoutsukai.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue mahoutsukai, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.EntityEmiStackMixin",
+        "missing": "stepsword.mahoutsukai.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue mahoutsukai, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.DeathWrapperEventsImplMixin",
+        "missing": "io.wispforest.accessories.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue cclayer, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.DeathWrapperEventsImplMixin",
+        "missing": "top.theillusivec4.curios.compat.CuriosWrappingUtils",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue cclayer (die Klasse gehört zu cclayer, nicht zu Curios), nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.DeathWrapperEventsImplMixin2",
+        "missing": "io.wispforest.accessories.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue accessories_compat_layer, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.EntityPageComponentMixin",
+        "missing": "net.favouriteless.modopedia.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue modopedia, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.ImageSetMixin",
+        "missing": "journeymap.client.model.ImageHolder",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue journeymap [1.21.1-6.0.0-beta.28,1.21.1-6.0.0-beta.32], Pack hat JourneyMap 1.21.1-6.0.9"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.IngredientValueDeduplicatorMixin",
+        "missing": "org.embeddedt.modernfix.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue (FixPrototypeExtension) modernfix [5.24.0+mc1.21.1,5.24.1+mc1.21.1] plus owo, Pack hat ModernFix 5.27.26 und kein owo"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.InventoryHolderBERMixin",
+        "missing": "com.direwolf20.justdirethings.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue justdirethings, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.PlayerAccessorBEMixin",
+        "missing": "com.direwolf20.justdirethings.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue justdirethings, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.JobBasedRecipeCategoryMixin",
+        "missing": "com.minecolonies.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue minecolonies, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.LootrMixin",
+        "missing": "noobanidus.mods.lootr.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue lootr, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.ModelAnimatorMixin",
+        "missing": "com.github.L_Ender.lionfishapi.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue lionfishapi, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.ProgrammableControllerBlockEntityMixin",
+        "missing": "me.desht.pneumaticcraft.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue pneumaticcraft, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.RecipeComponentBuilderMixin*",
+        "missing": "dev.latvian.mods.kubejs.recipe.component.RecipeComponentBuilder$*",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; kein @Issue der Jar nennt RecipeComponentBuilderMixin (alle Klassen durchsucht), also nie erlaubt; KubeJS 2101.7.2 hat RecipeComponentBuilder$Key und $Value nicht mehr"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.RecipeUtilsMixin",
+        "missing": "com.portingdeadmods.nautec.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue nautec [0.2.9], nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.ServerFluxNetworkMixin",
+        "missing": "sonar.fluxnetworks.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue fluxnetworks 8.0.0, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.TrailWrapperMixin",
+        "missing": "it.hurts.octostudios.octolib.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue octolib, nicht im Pack"
+      },
+      {
+        "mixin": "dev.uncandango.alltheleaks.mixin.core.main.WrappedEnchanterRecipeMixin",
+        "missing": "com.enderio.",
+        "reason": "ATLMixinPlugin.shouldApplyMixin wendet nur Mixins an, die IssueManager.getAllowedMixins() enthält: die ein @Issue nennt, dessen Mod per LoadingModList.getModFileById geladen ist und im Versionsbereich liegt; @Issue enderio [7.1.8-alpha], nicht im Pack"
+      }
+    ],
+    "copycats-3.0.9+mc.1.21.1-neoforge.jar": [
+      {
+        "mixin": "com.copycatsplus.copycats.neoforge.mixin.compat.doubleslabs.DSConfigCommonMixin",
+        "missing": "cjminecraft.doubleslabs.",
+        "reason": "@ModMixin(requiredMods = DOUBLE_SLABS), MixinPlugin.shouldApplyMixin prüft Mods.isLoaded; Double Slabs nicht im Pack"
+      }
+    ],
+    "create-1.21.1-6.0.10.jar": [
+      {
+        "mixin": "com.simibubi.create.foundation.mixin.compat.xaeros.",
+        "missing": "xaero.map.",
+        "reason": "CreateMixinPlugin.shouldApplyMixin: Paket compat.xaeros nur mit Mods.XAEROWORLDMAP.isLoaded(); Xaero's World Map nicht im Pack"
+      }
+    ],
+    "iris-neoforge-1.8.14-beta.1+mc1.21.1.jar": [
+      {
+        "mixin": "net.irisshaders.iris.compat.dh.mixin.",
+        "missing": "com.seibel.distanthorizons.",
+        "reason": "DHMixinConfigPlugin.shouldApplyMixin: nur mit isModLoaded(\"distanthorizons\"); Distant Horizons nicht im Pack"
+      }
+    ],
+    "kubejs_tfc-1.21.1-2.1.0.jar": [
+      {
+        "mixin": "io.github.notenoughmail.kubejstfc.util.mixin.entityjs.",
+        "missing": "net.liopyu.entityjs.",
+        "reason": "@IfPresent(\"entityjs\"), KubeJSTFCMixinPlugin -> MixinLoadingUtil.shouldApplyMixin (LoadingModList.getModFileById); EntityJS nicht im Pack"
+      }
+    ],
+    "modernfix-neoforge-5.27.26+mc1.21.1.jar": [
+      {
+        "mixin": "org.embeddedt.modernfix.common.mixin.perf.dynamic_resources.ctm.",
+        "missing": "team.chisel.ctm.",
+        "reason": "@RequiresMod(\"ctm\"), ModernFixEarlyConfig schaltet die Option ohne die Mod ab (requiredModId, modPresent); CTM nicht im Pack"
+      },
+      {
+        "mixin": "org.embeddedt.modernfix.common.mixin.perf.dynamic_resources.ldlib.",
+        "missing": "com.lowdragmc.lowdraglib.",
+        "reason": "@RequiresMod(\"ldlib\"), ModernFixEarlyConfig schaltet die Option ohne die Mod ab; LDLib nicht im Pack"
+      }
+    ],
+    "moonlight-1.21.1-3.7.2-neoforge.jar": [
+      {
+        "mixin": "net.mehvahdjukaar.moonlight.core.mixins.compat.PistonReactQuarkMixin",
+        "missing": "org.violetmoon.quark.",
+        "reason": "@OptionalMixin(\"org.violetmoon.quark.api.IMagnetMoveAction\"), SimpleMixinPlugin wendet ihn nur an, wenn die Klasse existiert; Quark nicht im Pack"
+      }
+    ],
+    "polymorph-neoforge-1.2.0+1.21.1.jar": [
+      {
+        "mixin": "com.illusivesoulworks.polymorph.mixin.integration.roughlyenoughitems.",
+        "missing": "me.shedaniel.rei.",
+        "reason": "IntegratedMixinPlugin.shouldApplyMixin: Paket integration.<modid> nur mit PolymorphIntegrations.isActive und isModFileLoaded; REI nicht im Pack"
+      }
+    ],
+    "railways-0.3.0-beta.2+neoforge-mc1.21.1.jar": [
+      {
+        "mixin": "com.railwayteam.railways.mixin.compat.voicechat.",
+        "missing": "de.maxhenkel.voicechat.",
+        "reason": "@ConditionalMixin(mods = VOICECHAT), CRMixinPlugin -> ConditionalMixinManager.shouldApply; Simple Voice Chat nicht im Pack"
+      }
+    ],
+    "sable-neoforge-1.21.1-2.0.6.jar": [
+      {
+        "mixin": "dev.ryanhcode.sable.mixin.compatibility.computercraft.",
+        "missing": "dan200.computercraft.",
+        "reason": "AbstractSableMixinPlugin.shouldApplyMixin: Mixins unter mixin.compatibility.<modid> nur mit Veil.platform().isModLoaded(<modid>); CC: Tweaked nicht im Pack"
+      },
+      {
+        "mixin": "dev.ryanhcode.sable.mixin.compatibility.shouldersurfing.",
+        "missing": "com.github.exopandora.shouldersurfing.",
+        "reason": "AbstractSableMixinPlugin.shouldApplyMixin: Mixins unter mixin.compatibility.<modid> nur mit Veil.platform().isModLoaded(<modid>); Shoulder Surfing nicht im Pack"
+      },
+      {
+        "mixin": "dev.ryanhcode.sable.mixin.compatibility.vista.",
+        "missing": "net.mehvahdjukaar.vista.",
+        "reason": "AbstractSableMixinPlugin.shouldApplyMixin: Mixins unter mixin.compatibility.<modid> nur mit Veil.platform().isModLoaded(<modid>); Vista nicht im Pack"
+      },
+      {
+        "mixin": "dev.ryanhcode.sable.neoforge.mixin.compatibility.pmweather.",
+        "missing": "dev.protomanly.pmweather.",
+        "reason": "AbstractSableMixinPlugin.shouldApplyMixin: Mixins unter mixin.compatibility.<modid> nur mit Veil.platform().isModLoaded(<modid>); PMWeather nicht im Pack"
+      }
+    ],
+    "supplementaries-1.21.1-3.9.9-neoforge.jar": [
+      {
+        "mixin": "net.mehvahdjukaar.supplementaries.mixins.neoforge.ZetaPistonStructureResolverMixin",
+        "missing": "org.violetmoon.zeta.",
+        "reason": "@OptionalMixin(\"org.violetmoon.zeta.piston.ZetaPistonStructureResolver\"), SimpleMixinPlugin (Moonlight) nur mit der Klasse; Zeta nicht im Pack"
+      },
+      {
+        "mixin": "net.mehvahdjukaar.supplementaries.mixins.neoforge.compat.CompatEmbFluidRendererMixin",
+        "missing": "org.embeddedt.embeddium.",
+        "reason": "@Pseudo mit Ziel org.embeddedt.embeddium...FluidRenderer: ohne Embeddium (nicht im Pack, Sodium statt dessen) nie angewendet"
+      },
+      {
+        "mixin": "net.mehvahdjukaar.supplementaries.mixins.compat.CompatEMFMixin",
+        "missing": "traben.entity_model_features.",
+        "reason": "@Pseudo mit Ziel traben.entity_model_features...EMFModelPartCustom: ohne Entity Model Features (nicht im Pack) nie angewendet"
+      }
+    ],
+    "woodencog-1.2.19-1.21.1.jar": [
+      {
+        "mixin": "net.chauvedev.woodencog.mixin.heat.MixinBaseBurnerBlockEntity",
+        "missing": "net.dragonegg.moreburners.",
+        "reason": "WoodenCogMixinPlugin.CONDITIONS: nur mit Compat.isCMBInstalled() (LoadingModList moreburners); Create: More Burners nicht im Pack"
+      },
+      {
+        "mixin": "net.chauvedev.woodencog.mixin.heat.MixinBasicBurnerBlockEntity",
+        "missing": "zeh.createlowheated.",
+        "reason": "WoodenCogMixinPlugin.CONDITIONS: nur mit Compat.isCLHInstalled() (LoadingModList createlowheated); Create: Low Heated nicht im Pack"
+      }
+    ]
+  }
+}

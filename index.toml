@@ -450,7 +450,7 @@ hash = "4b482316317de13271b0340cd9030b9e0bb54329ec9fdd44cda50ef010ddb2aa"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "16ae6c18493bb728aca6711f8fd55a308395a57f5996c2fa49acc62ff04e241c"
+hash = "2405d0e7738dbf0488d7613b839a84cd72a80bbd519321ca9ee768804cd82bd7"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
@@ -578,7 +578,7 @@ hash = "1f9cc5b88250a76060122d9647d8f7e3a80ea82b37d5ff3b271a6512163e8434"
 
 [[files]]
 file = "config/simplebackups-common.toml"
-hash = "01bdac82ad16ff896742c687e51988a5367df1bc36e144ea79d4613a0afd8e34"
+hash = "36c788077496daf3f39d97a864cb5e3e8b42aee5a235d8a91ae82705b9ab84f1"
 
 [[files]]
 file = "config/subtle_effects/entities.toml"
@@ -7022,7 +7022,7 @@ hash = "2396eb4c6b3ff5a3749fb8ea98284ed6ddcdc7d1b82269b3daec4249bef26284"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "07ae8b3b6d2e47f18b14542493da68c88ec9542fd49107c9075d6be4bda2489e"
+hash = "1c42888a9187e07205194d920e1b8903f4da79523496ab0dd8c47efebf91daaa"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
@@ -12417,7 +12417,7 @@ metafile = true
 
 [[files]]
 file = "mods/terrafirmacraft.pw.toml"
-hash = "e2b40e77bc51bf0462d9a9c8a6a9c42418d42d003d3b08473636e0f980672828"
+hash = "1b5f40e3916a0b530589c8082ef99ae78ed2248fe655a7f98d103b79e0fff48c"
 metafile = true
 
 [[files]]

@@ -202,6 +202,23 @@ still aus. Enhanced Falling Trees: `me.adda.enhanced_falling_trees.trees.Default
 (`compat/journeymap/JourneyMapBridge`, `immersion/MapGate`). Passt etwas nicht, bleibt die Mod auf ihrer Version
 (`pin`), bis firmages-core nachzieht.
 
+**Nach jedem Mod-Update (Pflicht seit 1.0.2):**
+
+```
+python dev\check_mixin_refs.py --mods <Kopie>\mods --mods <Client-only-Jars>
+```
+
+Die Server-Jars einer synchronisierten Kopie plus die Client-only-Jars (`side = "client"`; z. B. ein Ordner mit
+`packwiz-installer-bootstrap -g -s client` oder die CurseForge-Instanz des neuen Stands) müssen „MISSING: 0“ melden
+(Exit 0). Das Werkzeug liest die Mixin-Klassen aller Jars samt Jar-in-Jar und meldet jede Klasse, die ein Mixin nennt
+und kein Jar hat. So fiel 1.0.1 aus: WoodenCog 1.2.19 nennt in seinem JEI-Mixin `MixinBasinCategory`
+`net.dries007.tfc.config.TemperatureDisplayStyle`, das TerraFirmaCraft 4.2.12 aufgeteilt hat; der Client stürzte beim
+Laden ab, der Server-Boot zeigte nichts, weil der Mixin nur im Client läuft. Meldet es einen Fehler, bleibt die Mod
+auf der alten Version (`pin = true` mit Kommentar), bis die abhängige Mod nachzieht. Meldet es einen optionalen Mixin
+(Config-Plugin, `@Pseudo`, Soft-Dependency), den Grund am Jar mit `javap` belegen und in
+`dev/data/mixin_refs_allow.json` eintragen. Einträge gelten je exaktem Jar-Namen: nach dem Update einer gelisteten
+Mod kommen ihre Meldungen zurück, bis der Grund am neuen Jar neu belegt und der Eintrag umbenannt ist.
+
 ## 5. Freunde und Server
 
 **Freunde (Prism, automatische Updates):**

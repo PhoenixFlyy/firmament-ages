@@ -68,7 +68,7 @@ the Industrial Age; then the party gets 25 claims and 25 force-loaded chunks, wh
 
 ## Operation
 
-- **Backups:** Simple Backups writes a full backup every 60 minutes to `simplebackups/world/`, keeps 12 and at most
+- **Backups:** Simple Backups writes a full backup every 120 minutes to `simplebackups/world/`, keeps 12 and at most
   25 GB (`config/simplebackups-common.toml`). Each backup is one zip named after the world and the time, for example
   `world_2026-10-14_01-06-35.zip`, with the folder `world/` inside. It holds everything of the world: terrain,
   players, Ages, teams, quest progress and `world/serverconfig`. Copy `simplebackups/` to a second disk now and then.

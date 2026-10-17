@@ -1,13 +1,15 @@
 name = "TerraFirmaCraft"
-filename = "TerraFirmaCraft-NeoForge-1.21.1-4.2.12.jar"
+filename = "TerraFirmaCraft-NeoForge-1.21.1-4.2.11.jar"
 side = "both"
+# WoodenCog 1.2.19 braucht TFC 4.2.11: TemperatureDisplayStyle (4.2.12 teilt die Klasse in Item- und ClimateTemperatureDisplayStyle, der JEI-Mixin MixinBasinCategory bricht den Client-Start; Runde G1b)
+pin = true
 
 [download]
 hash-format = "sha1"
-hash = "297d45c6234310b0103191de5f574c637875254a"
+hash = "5cc6ad427442a3d4c7438e7f8276dc9252f842ad"
 mode = "metadata:curseforge"
 
 [update]
 [update.curseforge]
-file-id = 9184471
+file-id = 8995321
 project-id = 302973

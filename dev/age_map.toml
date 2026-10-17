@@ -12,7 +12,7 @@
 #   2. [items] "id:<item>"                                        -> that Age (may be EARLIER than the mod Age)
 #   3. [items] "name:<text>" / "tag:<item tag>" / "mod:<ns>" / "re:<regex, full match on the id>", in file order
 #   4. [ore_families], [ore_blocks] and the TFC tables ([tfc_ores], [tfc_metals], [tfc_powders]): ore pieces, ore blocks,
-#      metal items (derived from dev/data/tfc-4.2.12-ids.json and the registry)
+#      metal items (derived from dev/data/tfc-4.2.11-ids.json and the registry)
 #   5. max([mods] Age of the namespace, Age of every [materials] word in the item path)
 #      ("decoration of a metal or tech mod belongs to the Age of its materials", Doc 10 v3 section 8.1)
 # A namespace that is missing from [mods] makes the generator fail, so a new mod cannot slip through unmapped.

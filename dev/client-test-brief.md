@@ -8,6 +8,9 @@ Die Client-Prüfungen der Runde G1 (Felix' Rückmeldung zu 1.0.0). Neues Profil 
 „1.0 Checkliste“ darunter dieser Liste widerspricht, gilt diese; die überholten Zeilen dort sind markiert. Server-Teil
 auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0.1 round G1“).
 
+Gilt unverändert für Pack 1.0.2 (Runde G1b): 1.0.1 stürzte beim Laden ab (WoodenCog gegen TerraFirmaCraft 4.2.12), 1.0.2
+hat wieder TFC 4.2.11 und Backups alle 120 Minuten. Zuerst prüfen: der Client lädt bis zum Titelbild, ohne Absturz.
+
 | # | Prüfung | Schritte | Erwartung |
 |---|---|---|---|
 | 1 | Dawn ohne Cheats gesperrt | Neue Welt, Überleben, Cheats aus. E, dann Ctrl+O, Ctrl+R und Ctrl+U über einem Item, G | Keine Itemliste, Ctrl+O/R/U tun nichts, kein Rezeptfenster; im Inventar kein Curios- und kein Attributes-Knopf; G öffnet nichts |
@@ -21,7 +24,7 @@ auf einer Kopie geprüft (`dev/poc-results.md`, Abschnitt „1.0.1 round G1“).
 | 9 | Schreinbild | The Firmament, „The Shrine of Caelum“ öffnen | Bild des fertigen Schreins (alle Ringe, Herz, Plinth), scharf, nicht verzerrt |
 | 10 | Dawn-Quests | Dawn-Kapitel: „Loose and Found“, „A Shrine on the Road“, „Wild Harvest“ und „Seeds of the Wild“, „Far from Home“ | Gesteinsfamilie im Hover eines losen Steins sichtbar; der Kern der Tutorial-Wayshrine (300 bis 800 Blöcke vom Spawn, Lichtstrahl) lässt sich in Dawn ansehen und hakt die Quest ab; Wildpflanzen im hohen Gras geben Ertrag und Samen; 1 km zu Fuß hakt ab, Sprinten zählt nicht |
 | 11 | Keine Erfahrung neben Items | Eine Dawn-Quest mit Item-Belohnung abholen | Nur Items, keine XP |
-| 12 | Backups | Server 60 Minuten mit einem Spieler laufen lassen | `simplebackups/` hat nach 60 min ein Backup, höchstens zwölf bleiben |
+| 12 | Backups | Server 120 Minuten mit einem Spieler laufen lassen | `simplebackups/` hat nach 120 min ein Backup, höchstens zwölf bleiben |
 | 13 | Keine Karte vor der Eisenzeit | Neue Welt, Überleben, Dawn: J, B und `\` drücken, Chat beim Beitreten lesen | Keine Minimap, keine Vollbildkarte, kein Wegpunkt-Fenster, keine JourneyMap-Zeile „Press [J]“ im Chat, kein Splash |
 | 14 | Karte ab der Eisenzeit | `/stage grant @s age_2` (Ages nacheinander), umsehen, J | Runde Minimap im Firmament-Stil (nachtblau, Goldlinie, cremefarbene Schrift), Nord oben, eigene FTB-Claims auf Mini- und Vollkarte; J öffnet die Karte ohne Splash; kein Radar anderer Spieler oder Mobs; nach einem Tod kein Todespunkt |
 | 15 | Bäume fallen ganz | Steinaxt an eine wilde TFC-Eiche, danach eine Sequoia oder ein Kapok (FPS beobachten), ein 2x2-Stamm, einmal schleichend | Der Baum kippt mit Ästen und Laub, kein Ast bleibt in der Luft hängen, nach dem Fall droppen Vanilla-Stämme der Holzklasse; der große Baum fällt ganz, ohne Ruckler über Sekunden; der 2x2-Stamm fällt von einem Block aus; schleichend bricht nur ein Stamm |

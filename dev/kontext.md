@@ -57,6 +57,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 - `python dev/poc_analyze.py --server-dir <Kopie> --dump-dir <Dump> --baseline <Gate-aus-Dump>`: eine PASS/FAIL-Zeile je Prüfung, Exit 1 bei FAIL. Familien: G Gate, A Stage-Rezeptsperren, C Inhalt, D Dawn-Bodenhandwerk, E EMI je Age, R Erreichbarkeit (R-0 Vanilla-Stationen, R-X ohne Magie, R-M Multiblöcke, R-K), K Querverbindungen, L Erzleiter (L-8 kein wertschöpfender Metallkreis), U Vereinheitlichung, W Holzklassen, S Himmelsmaterialien, X Welt (Strukturen, Weltgenerierung, Vorlagen, Tierprodukte nach Age).
 - `python dev/predict_dump.py <Dump> <Ziel>` und `--sync-locks <Ziel>`: Dump einer KubeJS-Rezeptänderung ohne Boot vorhersagen; der nächste echte Dump muss `derive_ages.py --check` bestehen.
 - `python dev/check_log.py <Kopie>/logs/latest.log` (`--client` für Client-Logs): Problemzeilen gegen `dev/data/log_noise.json`, Ziel „remaining 0“.
+- `python dev/check_mixin_refs.py --mods <Kopie>/mods --mods <Client-only-Jars>` (Runde G1b): liest die Mixin-Klassen aller Jars samt Jar-in-Jar ohne javap und meldet jede Klasse, die ein Mixin nennt und kein Jar hat (1.0.1: WoodenCog 1.2.19 gegen TFC 4.2.12, nur im Client); Ziel „MISSING: 0“, Exit 1 bei Fehlern; belegte optionale Mixins (Plugin, `@Pseudo`, Soft-Dependency) in `dev/data/mixin_refs_allow.json` je exaktem Jar-Namen.
 - `python dev/check_menus.py`: FancyMenu-Titel-, Pause- und Ladebildschirm, Shader-Defaults.
 - `python dev/gen_textures.py` (`--check`): alle firmages-Texturen (KubeJS-Items, Mod-Blöcke).
 - `python dev/gen_wood_classes.py` (`--check`): Drops, Brennwerte, Tags, Vanilla-Haine und Rezeptkonstanten aus `dev/wood_classes.toml`.
@@ -100,6 +101,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 5. `python dev/validate_quests.py --style`: 0 Fehler, 0 Warnungen.
 6. `python dev/poc_analyze.py ...`: alle PASS, 0 FAIL.
 7. Boot auf einer Kopie, `check_log.py`: remaining 0. Boots macht nur der Integrator.
+8. Nach jedem Mod-Update (Pflicht seit 1.0.2): `python dev/check_mixin_refs.py --mods <Kopie>/mods --mods <Client-only-Jars>`: „MISSING: 0“. Ein Server-Boot zeigt Client-Mixins nicht (`dev/release.md`, „Nach jedem Mod-Update“).
 
 - Textdateien LF (`.gitattributes`; CRLF bricht die Hashes in `index.toml`). Autor `PhoenixFlyy <97892522+PhoenixFlyy@users.noreply.github.com>`, Trailer `Co-Authored-By: Claude <Modell> <noreply@anthropic.com>` mit dem Modell, das committet.
 - Nie pushen, nie zu CurseForge hochladen, `test-server/` nie anfassen (Felix' Server).
@@ -112,6 +114,6 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 - Keine offene Entscheidung: die neun Fragen von 1.0.0 und die Codes M1A (JourneyMap ab der Eisenzeit), T1A (Enhanced Falling Trees) und Q1A (Questbuch eingefroren) sind beantwortet und umgesetzt („Erledigt in Runde G1“ in `dev/offene-punkte.md`; Zeilen „G1: …“ in `dev/decisions-while-away.md`).
 - Im Client (Felix): die „1.0.1 Checkliste“ oben in `dev/client-test-brief.md` (Runde G1), darunter die „1.0 Checkliste“ (alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age; die Abschnitte darunter sind Archiv), dazu die Client-Zeilen in `dev/offene-punkte.md`.
 - Nach 1.0 (`dev/offene-punkte.md`, „Nach 1.0“): Pacing-Modell als `dev/pacing.py` ins Repo holen und an einem Durchgang eichen, Questbuch-Ideen, Wayshrine-Dichte, Teleporter- und Warp-Sperre in The Origin, unverifizierte Config-Keys, Live-Messungen.
-- Basis für `check_registry_parity.py dump`: `dev/data/baseline-1.0.1/` (Gate-aus-Dump der Integration G1 nach den Mod-Updates, `registries.json.gz`, `recipes.json.gz`).
+- Basis für `check_registry_parity.py dump`: `dev/data/baseline-1.0.2/` (Gate-aus-Dump der Runde G1b mit TFC 4.2.11, `registries.json.gz`, `recipes.json.gz`).
 - Entscheidungen: eine Zeile in `dev/decisions-while-away.md`, Deutsch, Format `| Datum | Thema | Entscheidung | Warum | So änderst Du es |`, neue Zeilen unten, Thema mit Runde als Präfix (z. B. „Integration F1: …“).
 - Offene Punkte: `| Was | Wo | Wer |` in `dev/offene-punkte.md`; Erledigtes mit Beleg nach unten. Belege jeder Runde: `dev/poc-results.md` (`| Check | Observed | Result |`).
