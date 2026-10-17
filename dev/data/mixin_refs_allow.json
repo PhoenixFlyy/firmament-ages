@@ -155,6 +155,13 @@
         "reason": "CreateMixinPlugin.shouldApplyMixin: Paket compat.xaeros nur mit Mods.XAEROWORLDMAP.isLoaded(); Xaero's World Map nicht im Pack"
       }
     ],
+    "emotecraft-for-MC1.21.1-2.4.12-neoforge.jar": [
+      {
+        "mixin": "io.github.kosmx.emotes.arch.mixin.emf.EMFAnimationEntityContextMixin",
+        "missing": "traben.entity_model_features.",
+        "reason": "@Pseudo mit Ziel traben.entity_model_features.models.animation.EMFAnimationEntityContext (remap = false), @WrapMethod require = 0 (javap, Runde G2): ohne Entity Model Features (nicht im Pack) nie angewendet"
+      }
+    ],
     "iris-neoforge-1.8.14-beta.1+mc1.21.1.jar": [
       {
         "mixin": "net.irisshaders.iris.compat.dh.mixin.",

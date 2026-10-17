@@ -165,6 +165,10 @@ file = "config/defaultoptions/extra/config/emi.css"
 hash = "f07814d325cf9c953876322078b4b630e3f45050211440423b113cb0a14f929b"
 
 [[files]]
+file = "config/defaultoptions/extra/config/emotecraft.json"
+hash = "6cc714ea63d4601dee470f5cac7aaeb1001a0a4e65b557ebf84c513924b8439d"
+
+[[files]]
 file = "config/defaultoptions/extra/config/iris.properties"
 hash = "986d86a083159ab70ed8a7bdbd6a12473ed5ec74fa32ce7c9e2b254893f8fbb3"
 
@@ -182,7 +186,7 @@ hash = "5868f972e3d32de91fda224402a07ae78ac32bc1e69f2a14afd341ec3c894e07"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "245f231f1c9881e17ad56f0733776e93664312d2f000689caf8e973adcaad256"
+hash = "890baef52ee9fd0ac94b253b502be28798474de9bbdf5ae5f68b6ba8d81c0dad"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -11752,6 +11756,11 @@ hash = "8491436f99726aff4cd90644496679665f910b51822d9aac38401d0c70dfc61a"
 metafile = true
 
 [[files]]
+file = "mods/emotecraft-forge.pw.toml"
+hash = "41da9deeec5e9e6f3369f890a9f459d3dae3edf59c7072cb7c5dd26b953bf7d7"
+metafile = true
+
+[[files]]
 file = "mods/enchantment-descriptions.pw.toml"
 hash = "2e137ea0702d21a9be7943d997bedf98f2c47751a621341081020a2bb53db4ae"
 metafile = true
@@ -12223,6 +12232,11 @@ metafile = true
 [[files]]
 file = "mods/mystical-customization.pw.toml"
 hash = "356febd0e1611778016cbaada29fe291b8a867aae530e23e1d005a7cf35040a1"
+metafile = true
+
+[[files]]
+file = "mods/not-enough-animations.pw.toml"
+hash = "e0f1cef5482844e62c6fc3c7771fc9ef8385c47092248f76aa1fa271220b24e8"
 metafile = true
 
 [[files]]

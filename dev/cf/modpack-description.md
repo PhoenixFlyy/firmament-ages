@@ -17,7 +17,7 @@ Firmament Ages is a co-op progression pack for Minecraft 1.21.1 on NeoForge. Eac
 
 ::: spoiler The mods behind it (click to open)
 
-TerraFirmaCraft gives the world, the climate and the first metals. Create carries the middle Ages; Immersive Engineering, Mekanism and Applied Energistics 2 the late ones; Ad Astra and Draconic Evolution the end. Occultism, Ars Nouveau and Theurgy are the magic road. 268 mods in all; the credits at the bottom name each one.
+TerraFirmaCraft gives the world, the climate and the first metals. Create carries the middle Ages; Immersive Engineering, Mekanism and Applied Energistics 2 the late ones; Ad Astra and Draconic Evolution the end. Occultism, Ars Nouveau and Theurgy are the magic road. 270 mods in all; the credits at the bottom name each one.
 
 :::
 
@@ -75,16 +75,16 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 ## Credits
 
-::: spoiler 268 mods and their authors (click to open)
+::: spoiler 270 mods and their authors (click to open)
 
 <!-- credits:start -->
 
-Firmament Ages 1.0.2 contains 268 mods. Thank you to every author.
+Firmament Ages 1.0.2 contains 270 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **A handful of acorns** by Lepidocrocite ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/a-handful-of-acorns))
-- **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
+- **Ad Astra** by terrariumearth, AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
 - **Advanced Chimneys** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-chimneys))
 - **Advanced TFC Tech Unofficial** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-tfc-tech-unofficial))
 - **AdvancedAE** by pedroksl ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advancedae))
@@ -200,6 +200,7 @@ Firmament Ages 1.0.2 contains 268 mods. Thank you to every author.
 - **Dynamic FPS** by juliand665, LostLuma ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/dynamic-fps))
 - **EMI** by EmilyPloszaj ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/emi))
 - **EMI Loot** by fzzyhmstrs ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/emi-loot))
+- **Emotecraft (Forge)** by KosmX ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/emotecraft-forge))
 - **Enchantment Descriptions** by DarkhaxDev ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enchantment-descriptions))
 - **Engineered Schematics** by Muddykat ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/engineered-schematics))
 - **Enhanced Celestials 2: Core** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-core))
@@ -294,6 +295,7 @@ Firmament Ages 1.0.2 contains 268 mods. Thank you to every author.
 - **Mystical Agradditions** by BlakeBr0 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mystical-agradditions))
 - **Mystical Agriculture** by BlakeBr0 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mystical-agriculture))
 - **Mystical Customization** by BlakeBr0 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/mystical-customization))
+- **Not Enough Animations** by tr7zw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/not-enough-animations))
 - **Occultism** by kli_kli ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/occultism))
 - **Occultism KubeJS** by kli_kli, MaxNeedsSnacks ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/occultism-kubejs))
 - **Packet Fixer** by TonimatasDEV ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/packet-fixer))

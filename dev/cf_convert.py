@@ -47,7 +47,8 @@ DISTRIBUTION_BLOCKED = {1555217: "Alternating Flux", 676721: "Create Aeronautics
                         1383031: "TFC Ruins",  # TFC Ruins: server-only, found by the server-side installer run
                         1023913: "Subtle Effects",  # client-only, found by the client-side installer run of 2026-10-14
                         1635121: "Alex's Mobs Continued",  # found by the server-side installer run of 2026-10-15
-                        521480: "Skin Layers 3D"}  # client-only, found by the .mrpack export of 2026-10-16
+                        521480: "Skin Layers 3D",  # client-only, found by the .mrpack export of 2026-10-16
+                        433760: "Not Enough Animations"}  # client-only, found by a .mrpack test export of 2026-10-17 (G2)
 SWAP = ROOT / "dev" / "cf" / "swap"
 BASE_COMMIT = "3846499"  # last commit before the conversion: source of the Modrinth metafiles
 # Same person under different names on the two sites (checked on the project pages and the GitHub repo).
