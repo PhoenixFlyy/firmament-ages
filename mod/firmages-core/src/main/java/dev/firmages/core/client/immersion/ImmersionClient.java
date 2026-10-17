@@ -167,7 +167,9 @@ public final class ImmersionClient {
         public static void tick(ClientTickEvent.Post event) {
             Minecraft mc = Minecraft.getInstance();
             boolean down = mc.player != null && SHOW_AGE.isDown();
-            if (keyHeld && !down) keyReleasedAt = Util.getMillis();
+            boolean tapped = false;
+            while (SHOW_AGE.consumeClick()) tapped = true; // a tap between two ticks counts as a press (round G2)
+            if ((keyHeld || (tapped && mc.player != null)) && !down) keyReleasedAt = Util.getMillis();
             keyHeld = down;
             if (mc.player == null) return;
             gateViewer();

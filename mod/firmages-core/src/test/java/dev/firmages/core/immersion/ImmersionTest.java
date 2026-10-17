@@ -200,11 +200,16 @@ class ImmersionTest {
         assertEquals(0.5f, HudFade.alpha(HudFade.Mode.FADE, t0 + 5500, t0, six, false, Long.MIN_VALUE), 1e-4);
         assertEquals(0f, HudFade.alpha(HudFade.Mode.FADE, t0 + 6000, t0, six, false, Long.MIN_VALUE));
         assertEquals(0f, HudFade.alpha(HudFade.Mode.FADE, t0, Long.MIN_VALUE, six, false, Long.MIN_VALUE), "never triggered");
-        // key: full while held, then a 1 s fade
+        // key: full while held, then the show time again after release (round G2: a tap shows the sign as long as a login)
         assertEquals(1f, HudFade.alpha(HudFade.Mode.FADE, t0 + 60_000, t0, six, true, Long.MIN_VALUE));
         long rel = t0 + 60_000;
-        assertEquals(0.75f, HudFade.alpha(HudFade.Mode.FADE, rel + 250, t0, six, false, rel), 1e-4);
-        assertEquals(0f, HudFade.alpha(HudFade.Mode.FADE, rel + 1000, t0, six, false, rel));
+        assertEquals(1f, HudFade.alpha(HudFade.Mode.FADE, rel + 250, t0, six, false, rel));
+        assertEquals(1f, HudFade.alpha(HudFade.Mode.FADE, rel + 4999, t0, six, false, rel));
+        assertEquals(0.75f, HudFade.alpha(HudFade.Mode.FADE, rel + 5250, t0, six, false, rel), 1e-4);
+        assertEquals(0f, HudFade.alpha(HudFade.Mode.FADE, rel + 6000, t0, six, false, rel));
+        long eight = 8000; // the default ui.hudSignSeconds
+        assertEquals(1f, HudFade.alpha(HudFade.Mode.FADE, rel + 6999, t0, eight, false, rel));
+        assertEquals(0f, HudFade.alpha(HudFade.Mode.FADE, rel + 8000, t0, eight, false, rel));
         // modes
         assertEquals(1f, HudFade.alpha(HudFade.Mode.ALWAYS, t0 + 99_999, t0, six, false, Long.MIN_VALUE));
         assertEquals(0f, HudFade.alpha(HudFade.Mode.NEVER, t0, t0, six, true, Long.MIN_VALUE));

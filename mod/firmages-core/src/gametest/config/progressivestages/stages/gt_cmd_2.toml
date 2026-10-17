@@ -1,0 +1,10 @@
+# GameTest-only stage: StageCommandGameTests (/firmages stage, SPEC 10.2); its dependency on gt_cmd_1 exercises the
+# repeat-to-bypass rule of /stage grant.
+
+[stage]
+id = "gt_cmd_2"
+display_name = "Stage command 2 (GameTest)"
+description = "GameTest stage for /firmages stage, depends on gt_cmd_1."
+icon = "minecraft:paper"
+category = "GameTest"
+dependency = "gt_cmd_1"

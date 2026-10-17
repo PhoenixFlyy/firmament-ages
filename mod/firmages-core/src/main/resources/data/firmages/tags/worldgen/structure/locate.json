@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#firmages:wayshrine",
+    "firmages:drifting_isle",
+    {"id": "firmages:cold_forge", "required": false},
+    {"id": "tfc_ruins:ruin_small", "required": false},
+    {"id": "tfc_ruins:ruin_beach", "required": false},
+    {"id": "tfc_ruins:ruin_rich", "required": false},
+    {"id": "tfc_ruins:ruin_basement", "required": false}
+  ]
+}

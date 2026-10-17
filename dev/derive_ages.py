@@ -240,6 +240,10 @@ CODE_DROPS = [
     (["firmages:wayshrine_stone"], "dawn"),             # a lit Wayshrine drops it (firmages-core, SPEC-himmel 28.7); Dawn by 24.5
     (["firmages:consecrated_shard"], "age_9"),          # The Primordial sheds six per Firmament Shatter (BossEvents, code)
     (["firmages:skystone"], "dawn"),                    # the Drifting Isles are built by code (IslePiece, SPEC 30), no template
+    # Round G2: the creative pick-block items of three structure blocks (no survival source, hidden in the viewers by
+    # HIDDEN_ITEMS). Jade judges a block by its item (SPEC 21.14), so each keeps its block's Age, never [derived_hidden].
+    (["firmages:wayshrine_core"], "dawn"),              # a Dawn ruin block of every Wayshrine template (gen_wayshrines.py)
+    (["firmages:firmament_crystal_cluster", "firmages:firmament_lode"], "age_4"),  # the isle deposits ([ore_blocks])
     # Starfall's blocks drop only chunks, but the recipe viewer shows them with an information page from their Age
     # (kubejs/client_scripts/viewer_info.js; review fix 0.12.0: hidden, nobody learnt where meteoric iron comes from)
     (["firmages:meteorite", "firmages:starfall_core"], "age_2"),

@@ -6,7 +6,8 @@ package dev.firmages.core.immersion;
  *   <li>{@code ALWAYS}: always fully shown.</li>
  *   <li>{@code NEVER}: never shown, the key included.</li>
  *   <li>{@code FADE}: shown for {@code showMillis} after login or an Age change, the last {@link #FADE_OUT_MS} of it
- *       fading out; while the indicator key is held it is fully shown, and after release it fades out again.</li>
+ *       fading out; while the indicator key is held it is fully shown, and after release it stays for {@code showMillis}
+ *       again (a tap shows it as long as a login does; round G2, Felix: the sign stands longer).</li>
  * </ul>
  */
 public final class HudFade {
@@ -19,14 +20,14 @@ public final class HudFade {
 
     /**
      * @param shownAt      when the indicator was last triggered (login, Age change), or {@code Long.MIN_VALUE} if never
-     * @param keyReleaseAt when the key was last released, or {@code Long.MIN_VALUE} if never held
+     * @param keyReleaseAt when the key was last released, or {@code Long.MIN_VALUE} if never held (it stays {@code showMillis} after)
      * @return 0..1
      */
     public static float alpha(Mode mode, long now, long shownAt, long showMillis, boolean keyHeld, long keyReleaseAt) {
         return switch (mode) {
             case ALWAYS -> 1f;
             case NEVER -> 0f;
-            case FADE -> keyHeld ? 1f : Math.max(window(now, shownAt, Math.max(0, showMillis)), window(now, keyReleaseAt, 0));
+            case FADE -> keyHeld ? 1f : Math.max(window(now, shownAt, Math.max(0, showMillis)), window(now, keyReleaseAt, Math.max(0, showMillis)));
         };
     }
 

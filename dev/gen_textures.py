@@ -3590,7 +3590,7 @@ _aurora_bucket()
 
 
 B = "firmages:block/"
-BLOCKS_WITHOUT_ITEM = {"wayshrine_core", "firmament_crystal_cluster", "firmament_lode"}  # the isle crystal blocks drop the crystal (SPEC 30.4)
+BLOCKS_WITHOUT_ITEM: set[str] = set()  # round G2: every mod block has an item (pick-block), SPEC 28.5 and 30.4
 MODEL_TEXTURES = {
     "shrine_heart": {"particle": B + "shrine_heart_base", "side": B + "shrine_heart_side",
                      "base": B + "shrine_heart_base", "top": B + "shrine_heart_top", "band": B + "shrine_heart_band"},
@@ -3884,7 +3884,7 @@ def check():
             mp = MOD_ASSETS / "models" / (path + ".json")
             if ns == "firmages" and not mp.exists():
                 errors.append(f"{p.relative_to(ROOT)}: model {m} missing")
-    # 3. mod block items need a model (the Wayshrine core has no item, SPEC-himmel 24.5)
+    # 3. mod block items need a model (since round G2 every mod block has an item, SPEC 24.5)
     for p in sorted((MOD_ASSETS / "blockstates").glob("*.json")):
         im = MOD_ASSETS / "models" / "item" / p.name
         if not im.exists() and p.stem not in BLOCKS_WITHOUT_ITEM:

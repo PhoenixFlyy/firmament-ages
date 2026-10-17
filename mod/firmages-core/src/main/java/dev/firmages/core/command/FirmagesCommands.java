@@ -54,6 +54,9 @@ public final class FirmagesCommands {
 
     static void register(CommandDispatcher<CommandSourceStack> d, net.minecraft.commands.CommandBuildContext ctx) {
         d.register(Commands.literal("firmages").requires(s -> s.hasPermission(2))
+            .executes(FirmagesHelp::list) // every subcommand (SPEC 10, round G2)
+            .then(StageCommands.stage()) // ProgressiveStages' /stage under /firmages (SPEC 10.2)
+            .then(LocateCommands.locate()) // pack structures nearby (SPEC 10.3)
             .then(Commands.literal("ages")
                 .executes(FirmagesCommands::ages)
                 .then(Commands.literal("sync").executes(FirmagesCommands::sync))

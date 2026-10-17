@@ -1,0 +1,8 @@
+# GameTest-only stage: StageCommandGameTests (/firmages stage, SPEC 10.2) grants, lists, revokes and clears it.
+
+[stage]
+id = "gt_cmd_1"
+display_name = "Stage command 1 (GameTest)"
+description = "GameTest stage for /firmages stage."
+icon = "minecraft:paper"
+category = "GameTest"
