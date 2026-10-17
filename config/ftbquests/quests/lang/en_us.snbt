@@ -1848,7 +1848,7 @@
 	quest.44968B0BE887DA25.quest_subtitle: "Mechanical Odds, off \"Crushing Wheels\""
 	quest.44968B0BE887DA25.title: "Andesite Powder"
 	quest.44ABD64FACE0D764.quest_desc: [
-		"{image:firmages:textures/gui/quests/shrine/complete.png width:200 height:147 align:center}"
+		"{image:firmages:textures/gui/quests/shrine/complete.png width:200 height:123 align:center}"
 		""
 		"From the Stone Age on, every Age ends at the shrine. Raise the ring of the Age round the heart, lay the offering on the plinth and pray."
 		""
