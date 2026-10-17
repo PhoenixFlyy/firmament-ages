@@ -139,6 +139,8 @@ public final class ServerConfig {
     public static final ModConfigSpec.IntValue CATALYST_SOURCE_PER_SECOND;
     public static final ModConfigSpec.IntValue CATALYST_SOURCE_RANGE;
     public static final ModConfigSpec.IntValue CATALYST_MIN_RPM;
+    // commands
+    public static final ModConfigSpec.BooleanValue COMMANDS_CONFIRM_STOP;
     // debug
     public static final ModConfigSpec.BooleanValue DEBUG_ALLOW_SIMULATE;
 
@@ -448,6 +450,12 @@ public final class ServerConfig {
         CATALYST_MIN_RPM = b.comment("Rotation a shaft or cog beside the catalyst must turn at.").defineInRange("catalystMinRpm", 64, 0, 256);
         b.pop();
 
+        b.comment("Operator commands of the dedicated server (SPEC 10.1)").push("commands");
+        COMMANDS_CONFIRM_STOP = b.comment("/stop asks for /stop confirm: a confirmed stop ends the start script's loop, /restart starts the server again.",
+                "false = /stop stops at once, as in vanilla (a hosting panel whose stop button sends \"stop\").")
+            .define("confirmStop", true);
+        b.pop();
+
         b.push("debug");
         DEBUG_ALLOW_SIMULATE = b.comment("Enables /firmages ages simulate (self-tests only).").define("allowSimulate", false);
         b.pop();
@@ -459,6 +467,10 @@ public final class ServerConfig {
 
     public static boolean loaded() {
         return SPEC.isLoaded();
+    }
+
+    public static boolean confirmStop() {
+        return !loaded() || COMMANDS_CONFIRM_STOP.get();
     }
 
     public static boolean prospectingEnabled() {

@@ -266,7 +266,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "d226421a00f5965d6be1018646199069f7084ae187131dc8f18073e684874454"
+hash = "dfbd2373221c3181edc973fc7788f8e178a343c8cd09bc2429a6efcdef3b7db0"
 
 [[files]]
 file = "config/fml.toml"
@@ -11822,8 +11822,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-1.0.1.jar"
-hash = "8831e6f8c10a631dec4d82f8a3809860a8bcd306e9ca3b65823f9d7384adc698"
+file = "mods/firmages-core-1.0.2.jar"
+hash = "158f413977751e52fd498838436275fece2b1a1f53825eb7512b369175b2a86d"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

@@ -600,6 +600,7 @@ The shrine is visible and audible between ceremonies, and its state reads from f
 | `anchor.radius` | 24 | §29.7 (M16b), 8..64 |
 | `isles.lodeYield` / `.fallback` / `.fallbackRadius` | 2 / true / 600 | §30.9 (M13) |
 | `launch.enabled` / `.fxRange` / `.countdownTicks` / `.autoRelaunch`, `ark.growthTicks` | true / 256 / 100 / true, 200 | §31.9 (M14, M17) |
+| `commands.confirmStop` | true | §10.1 (1.0.2): `/stop` asks for `/stop confirm`; false = `/stop` stops at once as in vanilla (a hosting panel whose stop button sends `stop`) |
 | `debug.allowSimulate` | false | Enables `/firmages ages simulate` (self-tests only) |
 
 `firmages-client.toml`:
@@ -661,6 +662,17 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `isles locate [radius]` / `shrine` / `list` / `lode <pos>` / `fallback status\|check\|place [pos]` / `place <pos>` | §30.9 (M13) |
 | `launch status [pos]` / `finish <pos>`, `ark status` / `check <island>` / `grant <island> <group>` / `reset <island>` | §31.9 (M14, M17) |
 | `selftest <suite|all>` | Server-side test suites (§12; `sky` since M10, §24.7), report in `logs/firmages-selftest.json` |
+
+### 10.1 `/stop` with a confirmation and `/restart` (1.0.2, Felix 2026-10-17)
+
+Vanilla commands of the dedicated server, permission level 4 like vanilla `/stop`; console, RCON and in-game operators use the same commands. `command/ServerCommands` registers them in `RegisterCommandsEvent` only when the selection is not `INTEGRATED` (vanilla registers `/stop` for dedicated servers only); the pure rules are `command/ServerControl` (JUnit `ServerControlTest`).
+
+- **Override [verified, source and javap]:** NeoForge 21.1.252 `Commands.<init>` registers `StopCommand` (inside `if (selection.includeDedicated)`) before `EventHooks.onCommandRegister`. Brigadier 1.3.10 `CommandNode.addChild` merges a child of the same name: it sets the existing node's `command` field to the new executor (`putfield command`) and merges the new node's children; the existing `requirement` (vanilla `hasPermission(4)`) stays. So registering `literal("stop").executes(...).then(literal("confirm"))` replaces vanilla's executor and adds `confirm`.
+- **`/stop`:** with `commands.confirmStop` it only answers "Really stop? Run /stop confirm within 30 seconds. The start script will not restart the server; use /restart for that." and remembers the source (`CommandSourceStack.getTextName()`: the player's name, `Server` for the console, `Rcon`). Without it, `/stop` is `/stop confirm`.
+- **`/stop confirm`:** counts once, within 30 s of a `/stop` of the same source; otherwise "Nothing to confirm: run /stop, then /stop confirm within 30 seconds." (result 0). It deletes a `RESTART` marker of a pending `/restart`, cancels its countdown, then does what vanilla `/stop` does (`commands.stop.stopping`, `MinecraftServer.halt(false)`). No marker: the start scripts end their loop.
+- **`/restart`:** writes `RESTART` into `MinecraftServer.getServerDirectory()` (`Path.of("")`, the working directory the start scripts `cd` into), refuses while a countdown runs or when the file cannot be written, broadcasts "Server restarts in 10 seconds" to everyone (and the log), then 5, 4, 3, 2, 1 (wall clock, after a lag spike only the latest due line), and halts like `/stop`. The start scripts delete the marker and start again.
+- **Start scripts** (`server/pack/start.bat`, `start.sh`; the developer launchers `server/start.bat`, `start.ps1`): after the JVM ended, `RESTART` = delete it and start again; exit code not 0 or a new file in `crash-reports/` = a crash, start again after `RESTART_DELAY`, the third crash within five minutes ends the loop; otherwise (a clean stop) the loop ends. A crash in the tick loop ends the JVM with exit code 0 on NeoForge 21.1.252 (`MinecraftServer.runServer` writes the crash report and returns, `DedicatedServer.onServerExit` calls no `System.exit`); only the watchdog exits with 1, so the crash report count is the second signal.
+- **Tests:** JUnit `ServerControlTest` (window, once per ask, per source, marker path, countdown schedule and lag); GameTests `ServerCommandGameTests` (2) merge into a dispatcher of their own that holds vanilla's `StopCommand`, because the GameTest server rebuilds its commands as `INTEGRATED` after a reload (`GameTestServer.isDedicatedServer()` is false).
 
 ## 11. Network (all S2C, registered in `RegisterPayloadHandlersEvent`, version "7" since 1.0.1 (`firmages:age_status` gained `inventoryButtons` and `map`, the server's `ui.inventoryButtonsFromAge` and `ui.mapFromAge`, §18.2); "5" since the sky features' M10: `firmages:starfall_streak`; "6" since 0.12.0 (the Dawn grid lock's `gridLock` in `firmages:age_status`, M14's `firmages:launch_fx` and M17's `firmages:ark_sync`, one bump for the release, §24.6); "4" since 0.9.0: `firmages:age_status` gained `reloadPending` and `gathered`, `firmages:shrine_sync` gained the living-shrine fields; "3" since 0.8.1 added `toolRule`)
 

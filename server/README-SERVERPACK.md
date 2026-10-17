@@ -12,12 +12,27 @@ join, or it shows recipes and locks that do not match the server.
 1. Unzip into an empty folder.
 2. Install Java 21 (for example Eclipse Temurin 21). The scripts take the first of `FA_JAVA_HOME`, `JAVA_HOME` and
    `java` on PATH that is Java 21 (another version is skipped), and stop if none is.
-3. Read the [Minecraft EULA](https://aka.ms/MinecraftEULA) and create `eula.txt` with the line `eula=true`.
+3. Read the [Minecraft EULA](https://aka.ms/MinecraftEULA). To accept it, open `eula.txt` and change `eula=false` to
+   `eula=true`. Until then the scripts warn and the server stops right after the start.
 4. Windows: run `start.bat`. Linux: run `sh start.sh`. The first start installs NeoForge from
-   `neoforge-21.1.252-installer.jar` once, then the server runs in a restart loop. To end the loop for good, create an
-   empty file named `STOP` next to the scripts and type `stop` in the console.
+   `neoforge-21.1.252-installer.jar` once.
    A hosting panel: run `java -jar neoforge-21.1.252-installer.jar --installServer` once and start `run.sh` or
-   `run.bat`; heap settings go into `user_jvm_args.txt`.
+   `run.bat`; heap settings go into `user_jvm_args.txt`. If the panel's stop button sends `stop`, set
+   `confirmStop = false` under `[commands]` in `config/firmages-server.toml`, so that `stop` stops at once.
+
+## Stop and restart
+
+In the server console, over RCON, or in game with operator level 4:
+
+| Command | What happens |
+|---|---|
+| `restart` | Everyone sees "Server restarts in 10 seconds" and a countdown, the server saves and stops, and the start script starts it again. Use it after copying in new mods or configs. |
+| `stop`, then `stop confirm` within 30 seconds | The server saves and stops, and the start script ends. `stop` alone only asks. |
+
+`restart` leaves a file named `RESTART` next to the scripts; the script deletes it before the next start. After a
+crash the script starts the server again after 10 seconds; the third crash within five minutes ends it (the reason is
+in `crash-reports/` and `logs/latest.log`). Do not close the console window to stop the server: Windows gives it only a
+few seconds to save.
 
 ## First start
 
@@ -32,16 +47,53 @@ Only creative mode sees the recipe viewer in every Age; operators in survival pl
 
 ## Memory
 
-`user_jvm_args.txt` holds the heap size and Aikar's G1 flags. It ships with 8 GB (`-Xms8G -Xmx8G`):
+`user_jvm_args.txt` holds the heap size, Aikar's G1 flags (https://mcflags.emc.gs) and `-Dfile.encoding=UTF-8`. It
+ships with 8 GB (`-Xms8G -Xmx8G`):
 
 | Players online | Heap |
 |---|---|
 | up to about 4 | 8 GB (as shipped) |
 | 5 to 10 | 10 GB: `-Xms10G -Xmx10G` |
 
-Keep `-Xms` equal to `-Xmx` and leave the other flags as they are. On a hosting panel with a memory limit for the
-container, set the heap to about 85 % of that limit (an 8 GB heap needs a 10 GB plan); the JVM needs the rest for
-itself, and a heap at the limit gets the server killed.
+Keep `-Xms` equal to `-Xmx`: with `-XX:+AlwaysPreTouch` the JVM takes the whole heap at the start and never resizes
+it during play. Leave the other flags as they are, except for a heap of 12 GB or more, where Aikar's flags change
+five values:
+
+```
+-XX:G1NewSizePercent=40 -XX:G1MaxNewSizePercent=50 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=15
+-XX:InitiatingHeapOccupancyPercent=20
+```
+
+On a hosting panel with a memory limit for the container, set the heap to about 85 % of that limit (an 8 GB heap
+needs a 10 GB plan); the JVM needs the rest for itself, and a heap at the limit gets the server killed.
+
+## server.properties
+
+The shipped file differs from the vanilla defaults where this table says so; every other key is vanilla. The server
+rewrites the file at every start and drops its comments.
+
+| Key | Value (vanilla) | Why |
+|---|---|---|
+| `white-list`, `enforce-whitelist` | `true` (`false`) | Friends only: `whitelist add <name>`. |
+| `max-players` | `100` (`20`) | The whitelist decides who joins, not the slot count. |
+| `online-mode`, `enforce-secure-profile` | `true` (`true`) | Mojang accounts and signed chat. |
+| `log-ips` | `false` (`true`) | Player addresses stay out of the log; the whitelist replaces IP bans. |
+| `spawn-protection` | `0` (`16`) | With 16 only operators could build near the spawn, where the first base often stands. |
+| `difficulty` | `hard` (`easy`) | The pack's choice; `/difficulty normal` lowers it. |
+| `pvp` | `true` (`true`) | See Play together. |
+| `allow-flight` | `true` (`false`) | Create contraptions, jetpacks and flight gear would trip the fly kick. |
+| `player-idle-timeout` | `0` (`0`) | Idle players stay: their farms and force-loaded chunks run only while someone is online. |
+| `level-type` | `tfc:overworld` (`minecraft:normal`) | The TerraFirmaCraft world. |
+| `view-distance` | `10` (`10`) | TerraFirmaCraft terrain is slow to generate; pregenerate instead of lowering it (below). |
+| `simulation-distance` | `8` (`10`) | Fewer ticking chunks per player. The Age gates for mobs check the players within this distance. |
+| `entity-broadcast-range-percentage` | `100` (`100`) | Lower values hide distant mobs and save little at ten players. |
+| `sync-chunk-writes` | `false` (`true`) | Region files are written without a disk flush per chunk: saves are much faster, above all on Windows. A power cut can lose the last minutes; the hourly backup covers that. |
+| `max-tick-time` | `120000` (`60000`) | The watchdog ends a server whose tick hangs for 2 minutes, writes a crash report with every thread, and the start script starts it again. `-1` would leave a hung server hanging; the longest normal stall, an Age reload, takes about 10 seconds. |
+| `network-compression-threshold` | `256` (`256`) | A home upload is the bottleneck; packets above 256 bytes are compressed. |
+| `rate-limit` | `0` (`0`) | No packet limit: a limit kicks a player whose client sends more packets per second, and mod menus send more than vanilla ones. |
+| `enable-status`, `hide-online-players` | `true`, `false` | The server list shows the pack name, the version (tooltip) and who is online. |
+| `motd` | `§6Firmament Ages` | The pack name; the pack version is in the server list tooltip. |
+| `enable-rcon`, `server-ip` | `false`, empty | See Operation (RCON). |
 
 ## Pregenerate the world
 
@@ -73,11 +125,11 @@ the Industrial Age; then the party gets 25 claims and 25 force-loaded chunks, wh
   `world_2026-10-14_01-06-35.zip`, with the folder `world/` inside. It holds everything of the world: terrain,
   players, Ages, teams, quest progress and `world/serverconfig`. Copy `simplebackups/` to a second disk now and then.
 - **Restore a backup:**
-  1. Stop the server: create `STOP` next to the scripts, then type `stop` in the console.
+  1. Stop the server: `stop`, then `stop confirm` in the console.
   2. Rename the folder `world` to `world_broken` (delete it later, once the restored world runs).
   3. Unzip the chosen backup into the server folder, so that `world/level.dat` exists again (the zip also holds a
      `backup.log`, which can be deleted).
-  4. Delete `STOP` and start the server. Everything after the time in the zip name is lost.
+  4. Start the server. Everything after the time in the zip name is lost.
 - **Repair Ages:** `/stage grant <player> age_N` grants an Age to the whole party (grant in order). The map, the
   mob ladder and the station windows follow on their own, at once or at the next login.
   If recipes or ores still behave like the old Age, run `/firmages ages sync` (works from the console): it takes
@@ -109,9 +161,10 @@ Chaotic gear) is in `mod/firmages-core/docs/primordial.md`; the server log names
 
 ## Update
 
-Replace `mods`, `config`, `defaultconfigs` and `kubejs` with the folders of the new server pack, then re-apply your
-edits to `config/firmages-server.toml` (for example `autoJoin`). Keep `world`, `simplebackups`, `server.properties`,
-`whitelist.json` and `ops.json`.
+Stop the server (`stop`, then `stop confirm`). Replace `mods`, `config`, `defaultconfigs`, `kubejs`, `start.bat` and
+`start.sh` with those of the new server pack, then re-apply your edits to `config/firmages-server.toml` (for example
+`autoJoin`). Keep `world`, `simplebackups`, `server.properties`, `eula.txt`, `user_jvm_args.txt`, `whitelist.json` and
+`ops.json`.
 
 New TerraFirmaCraft settings in `defaultconfigs/tfc-server.toml` only reach a server whose `config/tfc-server.toml`
 does not exist yet. A server from before 0.8.1 adds one line under `[general]` by hand, so that wrought iron ingots

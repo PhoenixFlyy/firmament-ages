@@ -42,7 +42,7 @@ All player-facing text in the pack is English.
 | `kubejs/` | `startup_scripts/` (items, shared constants), `server_scripts/` (recipes, tags, stage logic), `client_scripts/` (tooltips, recipe viewer), `data/` (datapack: biome modifiers, TFC item heat), `assets/` (textures, quest art) | yes | yes |
 | `dev/` | tooling (generators, `run_server.py`, `poc_analyze.py`, `release.ps1`, `make_friends_zip.ps1`, `verify_install.py`) and notes; `dev/exports/` holds the release builds (git-ignored) | yes | no |
 | `docs/` | `WALKTHROUGH.md`, the player walkthrough | yes | no |
-| `server/` | dedicated server template (`start.bat`, `start.ps1` with the pack sync, `user_jvm_args.txt`, `server.properties.template`), the server pack's own start scripts (`pack/start.bat`, `pack/start.sh`) and `README-SERVERPACK.md` | yes | no |
+| `server/` | dedicated server template (`start.bat`, `start.ps1` with the pack sync, `user_jvm_args.txt`, `server.properties.template`, `eula.txt` with `eula=false`), the server pack's own start scripts (`pack/start.bat`, `pack/start.sh`) and `README-SERVERPACK.md` | yes | no |
 | `mod/firmages-core/` | the pack's own NeoForge mod (source, `SPEC.md`) | yes | no |
 | `tools/` | local binaries: JDK 21, packwiz, packwiz-installer-bootstrap, the NeoForge installer, portable Prism | no | no |
 | `test-server/` | local PoC server | no | no |
@@ -109,11 +109,11 @@ python dev\cf\export_cf.py
 
 ## How the server is set up
 
-The live server folder is built from `server/`: copy the scripts, `server.properties.template` as `server.properties`, the NeoForge installer and `packwiz-installer-bootstrap.jar`, set `FA_JAVA_HOME` to a Java 21 and accept the EULA yourself. `start.bat` and `start.ps1` run a loop:
+The live server folder is built from `server/`: copy the scripts, `user_jvm_args.txt`, `eula.txt`, `server.properties.template` as `server.properties`, the NeoForge installer and `packwiz-installer-bootstrap.jar`, set `FA_JAVA_HOME` to a Java 21 and accept the EULA in `eula.txt` (`eula=true`). `start.bat` and `start.ps1` run a loop:
 
 1. `packwiz-installer-bootstrap -g -s server <pack.toml>` syncs the server-side files.
 2. The NeoForge installer runs once per NeoForge version (`--installServer`).
 3. NeoForge starts with `@user_jvm_args.txt @libraries/.../win_args.txt nogui`.
-4. The loop restarts after a crash or `stop`.
+4. After the server ended: a `RESTART` file (left by `/restart`) starts the next pass at once; a crash (exit code not 0, or a new file in `crash-reports/`) starts it after 10 seconds, and the third crash within five minutes ends the loop; a clean stop (`stop`, then `stop confirm`) ends the loop (firmages-core SPEC §10.1).
 
-Set the pack URL at the top of both scripts to `https://raw.githubusercontent.com/PhoenixFlyy/firmament-ages/main/pack.toml` (the default is a local `packwiz serve`). To update, push to `main`, then type `stop` in the server console. To shut down for good, create a `STOP` file first. For a NeoForge version change, set `$NeoForge` in `start.ps1` and `NEOFORGE` in `start.bat` and put the new installer next to them; the next pass installs it. Whitelist, backups and repair commands are in `server/README-SERVERPACK.md`.
+Set the pack URL at the top of both scripts to `https://raw.githubusercontent.com/PhoenixFlyy/firmament-ages/main/pack.toml` (the default is a local `packwiz serve`). To update, push to `main`, then type `restart` in the server console. To shut down for good: `stop`, then `stop confirm`. For a NeoForge version change, set `$NeoForge` in `start.ps1` and `NEOFORGE` in `start.bat` and put the new installer next to them; the next pass installs it. Whitelist, backups and repair commands are in `server/README-SERVERPACK.md`.

@@ -3,7 +3,8 @@
 
 Starts NeoForge in <repo>/test-server with the portable Temurin 21 from tools/jdk-21,
 streams the console to test-server/logs/run_server-console.log, waits for "Done (",
-optionally sends console commands (with a wait after each), then sends "stop".
+optionally sends console commands (with a wait after each), then sends "stop" and "stop confirm" (firmages-core
+1.0.2 asks before it stops; an older core stops on "stop" and answers the second line with "Incorrect argument").
 A hard timeout kills the JVM. The summary lists boot time, loaded mod count, ERROR lines,
 KubeJS errors (logs/kubejs/*.log) and ProgressiveStages errors.
 
@@ -11,7 +12,8 @@ Usage:
   python dev/run_server.py
   python dev/run_server.py --cmd "progressivestages validate" --cmd "kubejs errors server" --wait 5
   python dev/run_server.py --wipe-world --timeout 900
-  python dev/run_server.py --hold 3600 --timeout 3700   keep it running for RCON (dev/rcon.py); "stop" ends it
+  python dev/run_server.py --hold 3600 --timeout 3700   keep it running for RCON (dev/rcon.py); "stop", then
+                                                        "stop confirm" ends it
 While holding, every line appended to <server>/logs/run_server-input.txt is sent to the console (the file is
 emptied after each read). Use it for commands whose output RCON loses, e.g. spark (it replies asynchronously):
   echo "spark tps" >> test-server/logs/run_server-input.txt   -> output in logs/run_server-console.log
@@ -97,7 +99,7 @@ def main():
     ap.add_argument("--wait", type=float, default=5.0, help="seconds to wait after each command")
     ap.add_argument("--settle", type=float, default=5.0, help="seconds to wait after Done before the first command")
     ap.add_argument("--hold", type=float, default=0.0,
-                    help="seconds to keep the server running after the commands (RCON use), then send stop")
+                    help="seconds to keep the server running after the commands (RCON use), then stop it")
     ap.add_argument("--wipe-world", action="store_true", help="delete <server>/world before the boot")
     ap.add_argument("--max-lines", type=int, default=25, help="max lines per summary section")
     a = ap.parse_args()
@@ -177,7 +179,7 @@ def main():
             pump(min(deadline, time.time() + a.wait))
             current = None
         if a.hold > 0 and not state["eof"]:
-            print(f"Holding for {a.hold:.0f}s (RCON port in server.properties); send 'stop' to end early", flush=True)
+            print(f"Holding for {a.hold:.0f}s (RCON port in server.properties); send 'stop', then 'stop confirm' to end early", flush=True)
             inbox = os.path.join(logs, "run_server-input.txt")
             open(inbox, "w").close()
             hold_end = min(deadline, time.time() + a.hold)
@@ -191,6 +193,7 @@ def main():
                     for c in lines:
                         send(proc, c)
         send(proc, "stop")
+        send(proc, "stop confirm")
         stop_deadline = min(deadline + 60, time.time() + 120)
         while not state["eof"] and time.time() < stop_deadline:
             pump(min(stop_deadline, time.time() + 1))

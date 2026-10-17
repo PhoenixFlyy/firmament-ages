@@ -91,7 +91,8 @@ frische Dawn-Welt vorher `test-server\world` löschen. Dann in einem eigenen Fen
 powershell -NoProfile -ExecutionPolicy Bypass -File dev\start_test_server.ps1
 ```
 
-Der Server läuft im Vordergrund, bis Du `stop` eintippst (`python dev\run_server.py` ist nur für automatische Läufe).
+Der Server läuft im Vordergrund, bis Du `stop` und danach `stop confirm` eintippst
+(`python dev\run_server.py` ist nur für automatische Läufe).
 Nach `Done` in der CurseForge-App das Profil spielen, **Multiplayer**, Server `localhost`. Zuerst den Dawn-Join prüfen
 (stiller Join, Willkommen, kein EMI und kein Jade), **erst danach** `op DEIN_NAME` in die Server-Konsole; sonst
 stehen Op-Meldungen im Chat.
@@ -168,8 +169,9 @@ Felder: `dev/cf/modpack-fields.md`. Beschreibung: `dev/cf/modpack-description.ht
    hochgeladene Datei → **Upload Additional File** → `dev\exports\FirmamentAges-<v>-server.zip`, Display Name
    „Firmament Ages <v> Server Pack“, Release-Typ **Beta**, Changelog aus `modpack-fields.md`. Das Zip ist ein
    startfertiger Server-Ordner (`mods/`, `config/`, `defaultconfigs/`, `kubejs/`, Startskripte,
-   `server.properties`, `README-SERVERPACK.md`, NeoForge-Installer), gefüllt von packwiz-installer (`-s server`) aus
-   einem lokalen `packwiz serve`, genau wie ein echter Server synchronisiert. Größe etwa 510 MB.
+   `server.properties`, `eula.txt` mit `eula=false`, `README-SERVERPACK.md`, NeoForge-Installer), gefüllt von
+   packwiz-installer (`-s server`) aus einem lokalen `packwiz serve`, genau wie ein echter Server synchronisiert. Größe
+   etwa 510 MB.
 4. Absenden.
 
 **Was die Moderation prüft:**
@@ -234,5 +236,6 @@ holt danach den Stand von `main`. Ersatzweg ohne Prism: das `.mrpack` (Updates n
 spielen über die CurseForge-App.
 
 **Server:** `dev/README.md`, Abschnitt „How the server is set up“ (Vorlage aus `server/` kopieren, NeoForge-Installer daneben, `start.bat`; die Schleife synchronisiert
-bei jedem Start von `main`). Updaten: nach `main` pushen, dann `stop` in der Server-Konsole. Vor jeder Änderung, die
+bei jedem Start von `main`). Updaten: nach `main` pushen, dann `restart` in der Server-Konsole (`stop`, dann `stop
+confirm` beendet die Schleife). Vor jeder Änderung, die
 Welten bricht, ein Backup.

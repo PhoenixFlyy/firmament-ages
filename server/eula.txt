@@ -1,0 +1,2 @@
+# Minecraft EULA: https://aka.ms/MinecraftEULA - read it, then set eula=true to accept.
+eula=false

@@ -75,6 +75,9 @@ public final class FirmagesCore {
         ToolRuleService.register(bus);
         dev.firmages.core.hardship.GridLockService.register(bus); // Dawn grid lock and ground crafting (SPEC §19.3)
         bus.addListener(FirmagesCommands::register);
+        bus.addListener(dev.firmages.core.command.ServerCommands::register); // /stop confirm and /restart (SPEC §10.1)
+        bus.addListener(dev.firmages.core.command.ServerCommands::onServerTick);
+        bus.addListener(dev.firmages.core.command.ServerCommands::onServerStopped);
         bus.addListener(dev.firmages.core.immersion.PonderCommandGate::onCommand); // /ponder for operators only (SPEC §21.6)
         bus.addListener(DebugPlayerCommands::onServerTick);
         bus.addListener(StageSyncCoalescer::onServerTick);
