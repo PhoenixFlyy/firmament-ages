@@ -270,7 +270,7 @@ hash = "8da9165b9aed77b251b7fcf28872f539b22deec30942c4c0461317375ef99550"
 
 [[files]]
 file = "config/ftbchunks-world.snbt"
-hash = "e9531f4ced831d6e0d5263f0c14bb77dfbd28ee524ef514875a6c7dccc40ba4e"
+hash = "00bc3d68638ec877a994327bb5fc42187d6c44c2e7797360e7b5306e10c953d1"
 
 [[files]]
 file = "config/ftblibrary-client.snbt"
@@ -498,43 +498,43 @@ hash = "09c841b07bf45290443e459c403ef328e95bf0fe9a38ed3c96dda7ae961604e0"
 
 [[files]]
 file = "config/progressivestages/stages/mob_0.toml"
-hash = "4df811694e1f37aba19e02d4ebfb47c744475fa3766de39d51b18c429bf619d0"
+hash = "25b234614037706b127faf77a186f0b1fd670fa6a35a06a5deaa58f62e5c95c1"
 
 [[files]]
 file = "config/progressivestages/stages/mob_1.toml"
-hash = "6ec104c9f4e49a9f89804f13d4b2cf290368adbb44987b4c98c4bbfa0b11ec25"
+hash = "858356d465cbd9c402b7a9c218f78a71cc85a850e898e3e77b9dcfe0b4321c7a"
 
 [[files]]
 file = "config/progressivestages/stages/mob_2.toml"
-hash = "65a9ff8afd1c9d5804e91a963f8d7d6d1fe90dd573f8863c264c64cb55c6dfcc"
+hash = "839f95f753d14ba354688f0a558ed5f8da155b871c98f9c8ee32ebf727600373"
 
 [[files]]
 file = "config/progressivestages/stages/mob_3.toml"
-hash = "a34c74728ebc98fdf1087eae731b48b554db1f31da36f0c634ab02eb56397e31"
+hash = "e04f0f8f4658e21a3f33c78ea6591f6963bb4517981e4d3b868eae63d53f214f"
 
 [[files]]
 file = "config/progressivestages/stages/mob_4.toml"
-hash = "21c198209fedd6083d2478ca94dc89b13ec3905f7216d68b1f5190decd78cf0f"
+hash = "08c64f0805e066182367f7b4011da617405469853abb269076507a2120f43a04"
 
 [[files]]
 file = "config/progressivestages/stages/mob_5.toml"
-hash = "502f20cf96497ba7f7ddae19a3d95b28c582a5abc99a50b863383bb7f91aef27"
+hash = "2135e82e4b538664c5e12f4ffd76025d87f2f8766b97b105c71191cb4c9464b1"
 
 [[files]]
 file = "config/progressivestages/stages/mob_6.toml"
-hash = "8e3e488eef5f13a7422aed1bee3d9f07d7bd589676da610bfb5f3b53f4b75ebb"
+hash = "378e514fbd1c73201edb38fa11f661a5ec7d67b6fe462a56fd2e251ca54def52"
 
 [[files]]
 file = "config/progressivestages/stages/mob_7.toml"
-hash = "1a6d182c6a19cadf60c2fd1e59094d91a45957fa655e57d48a059483298d8b3a"
+hash = "9e7f6e5fc623c70052935fbe41ecd5feae56bc3a206c2d10cdb871a78555dfd2"
 
 [[files]]
 file = "config/progressivestages/stages/mob_8.toml"
-hash = "1d76b0abbdd9a83e79262f9aa72482c3bd4dfd4dc817156ea60d428a714c20ee"
+hash = "20762e556a71bbf52790f5e162aaf9ea124f1d0a84166820fd2feb675f2caced"
 
 [[files]]
 file = "config/progressivestages/stages/mob_9.toml"
-hash = "ac8b4e67f48468fc9a5690229c8a104f7fe83aa55f19ff19f076d3d965d3adbe"
+hash = "5b21a17850b6ae6f9454cf78ffdab847653f12647894b69b257c8122a11b29d5"
 
 [[files]]
 file = "config/progressivestages/stages/tool_ie_alloy_kiln.toml"
@@ -570,7 +570,7 @@ hash = "1f9cc5b88250a76060122d9647d8f7e3a80ea82b37d5ff3b271a6512163e8434"
 
 [[files]]
 file = "config/simplebackups-common.toml"
-hash = "2c95584536898171c4045cdb7dc9d68cdfddb44f2db04a011c058700d50569c4"
+hash = "01bdac82ad16ff896742c687e51988a5367df1bc36e144ea79d4613a0afd8e34"
 
 [[files]]
 file = "config/subtle_effects/entities.toml"
@@ -586,7 +586,7 @@ hash = "cc71001b543ff0142eb3bb2b89a4f99fbe2ed2a6897281062f0977814c247b20"
 
 [[files]]
 file = "config/tfc-client.toml"
-hash = "dc8b66977c99f9bb4180928db9d0e31a72555cdce4400d7de65e07611da2e76a"
+hash = "070dd92645d481f24d0f8208fe53b1f24c546e646b4d9fb9d14d098aaea46de8"
 
 [[files]]
 file = "config/tfc-common.toml"
@@ -614,7 +614,7 @@ hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
-hash = "d3b0c9dc6229075b6e9e289c347a860e60e73285c6f795d706c69b3994facfaa"
+hash = "234dd4d1c7b30b28ff7a96736ddbbe433cbccd6221bd38a4c44dcb4e7d5d561b"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"

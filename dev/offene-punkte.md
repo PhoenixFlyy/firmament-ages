@@ -2,22 +2,13 @@
 
 Stand 2026-10-17, Pack 1.0.0, firmages-core 1.0.0. Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
 Felix trifft, Prüfungen im Client und Ideen für die Zeit nach 1.0. Erledigtes früherer Runden steht in der Git-Historie
-dieser Datei (bis Commit `7689802`) und mit Beleg in `dev/poc-results.md`; unten nur, was Runde F1 geschlossen hat.
+dieser Datei (bis Commit `7689802`) und mit Beleg in `dev/poc-results.md`; unten nur, was die Runden F1 und G1
+geschlossen haben.
 Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile nach unten verschieben, mit Beleg.
 
 ## Entscheidungen (Felix)
 
-| Was | Wo | Wer |
-|---|---|---|
-| Eigene Schrift (ganzes Spiel oder nur Titel)? Logo und Knöpfe sind eigene Bilder, Texte in der Minecraft-Schrift. | FancyMenu, Resource-Pack | Felix |
-| Ernährungs-Untergrenze: TFC-Startwert 0,85 (etwa 850 Leben) oder volle Gesundheit ab Start (1,0)? | `defaultconfigs/tfc-server.toml` `nutritionDefaultHealthModifier` | Felix |
-| Chunk-Laden ohne Spieler: `"never"` (nur solange jemand aus dem Team online ist, so geschrieben) oder `"always"` (Fabriken laufen offline, der TFC-Kalender steht dann)? | `config/ftbchunks-world.snbt` `force_loading.force_load_mode` | Felix |
-| Mob-Leiter kumulativ (`mob_0` bleibt, neue Mobs kommen dazu) statt Tausch wie in Dok. 08; so seit 2026-09-30, Begründung im Kopf von `mob_1.toml`. Bestätigen oder ändern? | `config/progressivestages/stages/mob_*.toml`, `kubejs/server_scripts/stages/grants.js` | Felix |
-| AdvancedAE Strength Card wertet nur die gesperrte Quantum-Rüstung auf: sperren oder lassen? | `dev/age_map.toml` | Felix |
-| Backups ohne erzwungenes Speichern (`saveAll = false` seit 0.9.1): ein Backup hält den Stand des letzten Autosaves, also bis fünf Minuten alt, und fällt ein Backup in einen Autosave, kann eine Region-Datei halb geschrieben im Zip landen (Simple Backups 4.0.30 schaltet das Speichern nicht ab). `saveAll = true` speichert vorher, bringt aber „Could not save data“ (AccessDeniedException beim Zippen, Live-Sitzung 2026-10-14) zurück. So lassen? | `config/simplebackups-common.toml`, `dev/decisions-while-away.md` („Backups ohne erzwungenes Speichern“) | Felix |
-| Ars Elemental: Blitz-Teile (Discharge-Glyphe, Shock-Faden) und Flashjack/Sirene bleiben versteckt, weil Flashpine-Schoten und die Splitter nur aus den abgeschalteten Elementar-Biomen kommen; ein Pack-Rezept für die Schote würde sie zurückholen | `recipes/age_3/ars_addons.js` | Felix |
-| Jade zeigt ab der Bronzezeit die Namen gesperrter Blöcke (nichts davon gibt ein Item vor seiner Age). Nach Age filtern wäre eine Java-Änderung im Core mit Client-Test | `FirmagesJadePlugin`, Zeile „F1 Gating: bleibt wie es ist“ | Felix |
-| Arkan-Katalysator liest nur die Drehzahl der Welle und nimmt keine Create-Last; soll er Last ziehen (eigener kinetischer Block)? | firmages-core §41.3 | Felix (Wunsch?) |
+Keine offenen Entscheidungen: Felix hat die neun Fragen am 2026-10-17 beantwortet, jede steht mit Beleg unter „Erledigt in Runde G1“.
 
 ## Im Client prüfen (Felix)
 
@@ -38,7 +29,6 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | Team-Übernahme auf einer bestehenden Welt: der erste Spieler gründet die Party „Firmament“ mit allen Ages der Welt, ein zweiter kommt ohne Einladung dazu; belegt nur durch `TeamGameTests` | firmages-core, `server/README-SERVERPACK.md` | Felix |
 | Startkomplex: Dieseleimer per Hand in die Steuerung, mit freigeschalteter Age | firmages-core `LaunchControlBlock.useItemOn` | Felix |
 | Ruinen-Truhen: in Dawn nur Dawn-Kleinkram (ProgressiveStages `stage_filter`), Trichter unter der Truhe ziehen nichts Gesperrtes | `kubejs/data/firmages/loot_table/chests/ruin_*.json` | Felix |
-| Felix' Test-Server hält veraltete Dateien, die der packwiz-Installer nicht löscht (`mods/` mit alten Jars, `kubejs/data/twilightforest`, `kubejs/server_scripts/finale`): vor dem nächsten Start `kubejs/` löschen und alte Jars entfernen, dann synchronisieren | `test-server/` | Felix |
 
 ## Nach 1.0 (Ideen und Beobachtung)
 
@@ -90,3 +80,18 @@ Eine Zeile pro Punkt: was, wo, wer entscheidet oder erledigt. Erledigt: Zeile na
 | `everycomp-entries.toml` korrigiert | nur Felix' alte Datei aus `test-server/` (Einträge für Cataclysm und Twilight Forest); auf einer frischen Installation schreibt Every Compat die Datei ohne Korrektur |
 | Every-Compat-Schmuckschilder mit einer Rezept-ID je Namensraum (G-2 schwankte um ein Rezept) | `deco_c1.js` entfernt `everycomp:bcl/tfc/fancy_sign` und `everycomp:bcl/afc/fancy_sign`; poc 134 PASS auf den echten Dumps |
 | Tutorial-Wayshrine fehlte auf 2 von 5 neuen Welten (sechzehn Peilungen auf einem Abstand) | `WayshrineTutorial`: fünf Abstände auf 32 Peilungen, Chunks per Ticket, Wiederholung bis drei Tage (SPEC §28.4); GameTest `tutorialSearchTriesEveryDistance`, JUnit; drei neue Welten: platziert 675, 300 und 424 Blöcke vom Spawn, `check_log.py` remaining 0 (Boot mit Selftest: nur dessen „Can't keep up“) |
+
+## Erledigt in Runde G1 (mit Beleg)
+
+| Was | Beleg |
+|---|---|
+| Eigene Schrift (ganzes Spiel oder nur Titel)? Antwort: keine eigene Schrift | Entscheidungszeile „G1: Keine eigene Schrift“ |
+| Ernährungs-Untergrenze 0,85 oder 1,0? Antwort: keine TFC-Gesundheit, Vanilla-Herzen bei jeder Kost | `config/tfc-client.toml` `enableHealthBar = false`; `defaultconfigs/tfc-server.toml` `[mechanics.player]` Minimum, Default und Maximum je `1.0`; Zeile „G1: Vanilla-Herzen statt TFC-Gesundheit“ (bestehende Welten behalten ihre Werte in `<Welt>/serverconfig/tfc-server.toml`) |
+| Chunk-Laden ohne Spieler? Antwort: `never` | `config/ftbchunks-world.snbt` `force_load_mode: "never"` unverändert, gegen FTB Chunks 2101.1.22 gelesen; `CHUNK_QUOTA` ab `age_4` bleibt sinnvoll; Zeile „G1: Chunk-Laden nur mit Team online“ |
+| Mob-Leiter kumulativ? Antwort: bestätigt | `FA.MOB_LADDER_CUMULATIVE = true`, Kopf der zehn `mob_N.toml`; Zeile „G1: Mob-Leiter kumulativ bestätigt“ |
+| AdvancedAE Strength Card sperren? Antwort: sperren | `advanced_ae:strength_card` in `[hidden]` (`dev/age_map.toml`), Tag `age_items/disabled` und `HIDDEN_ITEMS`; Zeile „G1: AdvancedAE Strength Card bleibt gesperrt“ |
+| Backups ohne erzwungenes Speichern? Antwort: so lassen, Timer 30 bis 60 Minuten nach Vorbild bekannter Packs | `config/simplebackups-common.toml` `timer = 60`, `backupsToKeep = 12`, `saveAll = false`; Zeile „G1: Backups alle 60 Minuten, zwölf Stück“ (mit Vergleich und Klarstellung zu den „fünf Minuten“) |
+| Ars-Elemental-Blitzteile? Antwort: versteckt lassen | `[derived_hidden]` in `dev/age_map.toml`, kein Pack-Rezept für die Schote; Zeile „G1: Ars-Elemental-Blitzteile bleiben versteckt“ |
+| Jade-Namen gesperrter Blöcke? Antwort: geheimnisvolles Zeichen und „Unknown“ | Entschieden; Umsetzung in firmages-core 1.0.1 (Worker g1-core), erst mit dessen Merge und einem Client-Test belegt; Zeile „G1: Jade zeigt „Unknown“ bei gesperrten Blöcken“ |
+| Last des Arkan-Katalysators? Antwort: ohne Last | firmages-core §41.3 unverändert; Zeile „G1: Arkan-Katalysator ohne Last“ |
+| Neue Regel: keine Erklärtexte (Entfernen, Ersetzen oder Freischalten eines Features bekommt keinen Hinweistext; Sperr-Rückmeldungen bleiben) | `dev/style-guide.md` Abschnitt „Keine Erklärtexte“, `dev/kontext.md` §2; Zeile „G1: Keine Erklärtexte“ |

@@ -10,6 +10,16 @@
 	inferredMetals = ["ingots/iron", "double_ingots/iron"]
 
 [mechanics]
+	[mechanics.player]
+		# G1 (Felix 2026-10-17): no TFC health scale, always the 20 vanilla hearts. TFC divides incoming damage by this
+		# modifier (key path verified in ServerConfig.java at tag v4.2.11: builder "mechanics" -> "player"). Minimum,
+		# default and maximum all 1.0, so the modifier is 1.0 whatever the diet; the TFC health bar is off in
+		# config/tfc-client.toml. Defaults are 0.2 / 0.85 / 3.0. Only new worlds read this file: an existing world keeps
+		# its own <world>/serverconfig/tfc-server.toml.
+		nutritionMinimumHealthModifier = 1.0
+		nutritionDefaultHealthModifier = 1.0
+		nutritionMaximumHealthModifier = 1.0
+
 	[mechanics.vanillaChanges]
 		# Default false. The Dawn nights need surface monsters; ProgressiveStages mob_N stages subtract again.
 		enableVanillaMonstersOnSurface = true
