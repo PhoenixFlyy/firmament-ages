@@ -28,7 +28,7 @@ of the played instance (287 bindings, 2026-10-13); the conflict list is from
 | J | Jetpack on/off | `key.jetpack.toggle_active.description` |
 | R | Cart action (Astikor Carts) | `key.astikorcartsredux.action` |
 | U | Deep Learner (Hostile Networks) | `key.hostilenetworks.open_deep_learner` |
-| Y | Cataclysm ability | `key.cataclysm.ability` |
+| Y | Emote wheel (Emotecraft, round G2; its default B clashed with the backpack). On a German keyboard the key is labelled Z | `key.emotecraft.fastchoose` |
 | ' (apostrophe; Ä on a German keyboard) | Cataclysm chestplate ability (its default Y clashed with the ability) | `key.cataclysm.chestplate_ability` |
 | ; (semicolon) | TFC chisel mode | `tfc.key.cycle_chisel_mode` |
 | . (period) | Tom's Storage terminal | `key.toms_storage.open_terminal` |
