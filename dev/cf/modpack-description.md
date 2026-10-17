@@ -17,7 +17,7 @@ Firmament Ages is a co-op progression pack for Minecraft 1.21.1 on NeoForge. Eac
 
 ::: spoiler The mods behind it (click to open)
 
-TerraFirmaCraft gives the world, the climate and the first metals. Create carries the middle Ages; Immersive Engineering, Mekanism and Applied Energistics 2 the late ones; Ad Astra and Draconic Evolution the end. Occultism, Ars Nouveau and Theurgy are the magic road. 265 mods in all; the credits at the bottom name each one.
+TerraFirmaCraft gives the world, the climate and the first metals. Create carries the middle Ages; Immersive Engineering, Mekanism and Applied Energistics 2 the late ones; Ad Astra and Draconic Evolution the end. Occultism, Ars Nouveau and Theurgy are the magic road. 268 mods in all; the credits at the bottom name each one.
 
 :::
 
@@ -75,16 +75,16 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 ## Credits
 
-::: spoiler 265 mods and their authors (click to open)
+::: spoiler 268 mods and their authors (click to open)
 
 <!-- credits:start -->
 
-Firmament Ages 1.0.0 contains 265 mods. Thank you to every author.
+Firmament Ages 1.0.0 contains 268 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **A handful of acorns** by Lepidocrocite ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/a-handful-of-acorns))
-- **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
+- **Ad Astra** by terrariumearth, AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
 - **Advanced Chimneys** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-chimneys))
 - **Advanced TFC Tech Unofficial** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-tfc-tech-unofficial))
 - **AdvancedAE** by pedroksl ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advancedae))
@@ -205,6 +205,7 @@ Firmament Ages 1.0.0 contains 265 mods. Thank you to every author.
 - **Enhanced Celestials 2: Core** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-core))
 - **Enhanced Celestials 2: Default Lunar Events** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-default-lunar-events))
 - **Enhanced Celestials 2: Shader Support** by Corgi_Taco ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-celestials-2-shader-support))
+- **Enhanced Falling Trees** by addavriance ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/enhanced-falling-trees))
 - **Entity Culling Fabric/Forge** by tr7zw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/entityculling))
 - **Every Compat (Wood Good)** by MehVahdJukaar, xelbayria ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/every-compat))
 - **Evolved Mekanism** by iglee42, WoXayZ ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/evolved-mekanism))
@@ -243,6 +244,8 @@ Firmament Ages 1.0.0 contains 265 mods. Thank you to every author.
 - **Iris Shaders** by coderbot, IMS21 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/irisshaders))
 - **Iris Veil Compat** by leon_mout ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/iris-veil-compat))
 - **Jade 🔍** by Snownee ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/jade))
+- **JourneyMap** by techbrew, Mysticdrew, meme_sapiens ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/journeymap))
+- **JourneyMap Integration** by frankV ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/journeymap-integration))
 - **Joy of Painting** by xerca ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/joy-of-painting))
 - **Just Enough Immersive Multiblocks** by aronson_1 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/just-enough-immersive-multiblocks))
 - **Just Enough Items (JEI)** by mezz ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/jei))

@@ -197,6 +197,10 @@ file = "config/dummmmmmy-common.toml"
 hash = "8b98613fe784b8f72908d4df9e6518a35bf401e3cac83f333cdfa005d200f9a5"
 
 [[files]]
+file = "config/efallingtrees_common.json"
+hash = "059d2b623cfc4e3edb8d56497d3152aa87bf1cc8a1a8b1a29d1ac8e10ec1a162"
+
+[[files]]
 file = "config/enhancedcelestials2core/translations.json"
 hash = "ca187fe5c82c892b512d33479b28c0ade281734322ad2261732654cb3fb52d88"
 
@@ -267,6 +271,10 @@ hash = "fa1131b314ce6a1bd9bee1f26f0ccfd77ced2ebbd95588928e5a3e05010c0422"
 [[files]]
 file = "config/fml.toml"
 hash = "8da9165b9aed77b251b7fcf28872f539b22deec30942c4c0461317375ef99550"
+
+[[files]]
+file = "config/ftbchunks-client.snbt"
+hash = "0b8fd412295f520f37bbe7f32e146066abceca7789dd38cad06333e2f3a7b808"
 
 [[files]]
 file = "config/ftbchunks-world.snbt"
@@ -615,6 +623,250 @@ hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
 hash = "234dd4d1c7b30b28ff7a96736ddbbe433cbccd6221bd38a4c44dcb4e7d5d561b"
+
+[[files]]
+file = "journeymap/icon/theme/default.theme.config"
+hash = "814b4fe8dffbaf69175d955de52c9a2c136fe3508df87d1e9b6e2982aca2babb"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/container/htoolbar_begin.png"
+hash = "a69ccb4123a7134f3d59a649a98db66975a94fcf5f823b7aada3b09f7902dacf"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/container/htoolbar_end.png"
+hash = "75652b517cd7b2f996dec7f8557ead11353b2d61a03740b0477996191ab69386"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/container/htoolbar_inner.png"
+hash = "ad4aa03de19bcf83f7b7213c9ec4c6e00f0a354b99dfe02cd4eaff48fdcf16c9"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/container/vtoolbar_begin.png"
+hash = "2855d6993fc436b247b3fd16deed7933809fdc53c880d6e2f6ba02dab6e324a3"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/container/vtoolbar_end.png"
+hash = "acee61d82f3687507818b445713a78d5e1114075aefede8ef882e2a9f851bfba"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/container/vtoolbar_inner.png"
+hash = "39dc2ae75a43bdf99db37fc99c23923ddb5540f1909c118111fb7e0738beb04e"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/control/button_disabled.png"
+hash = "e9715e5cff2fbb79f81775933aef6ce3312d846967b451a2fd368b7ab162edf2"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/control/button_hover.png"
+hash = "481af18abe6ab3c4f72733430ce258bc9d755842da4566a2902358dfc1b65125"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/control/button_off.png"
+hash = "d3153ace134d1ec4df75cd2ba7846b5efde02feb474cd32291019bbfb9a30069"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/control/button_on.png"
+hash = "0a24154daedfa39d2f20854b6b34a6acd60c603b879577ff29bebd60c1b19e60"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/control/toggle_disabled.png"
+hash = "e9715e5cff2fbb79f81775933aef6ce3312d846967b451a2fd368b7ab162edf2"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/control/toggle_hover.png"
+hash = "481af18abe6ab3c4f72733430ce258bc9d755842da4566a2902358dfc1b65125"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/control/toggle_off.png"
+hash = "0c63eb17bbc1b1f5766f28eb674669566223cdb268279d2ef519a40e1f1d989e"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/control/toggle_on.png"
+hash = "0a24154daedfa39d2f20854b6b34a6acd60c603b879577ff29bebd60c1b19e60"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/firmament.theme2.json"
+hash = "19c56ab5a180c7d25c809943cf3537b85114cfa4240e56509c8da924ec8d0170"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/about.png"
+hash = "be782cb740816294f20c88bb477e6ab3b5f52fc2816f4527963001038ad36bc9"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/actions.png"
+hash = "35defcdecae0ed402f3c295fac265b2d0e180b067e5f01883c3c454851cbd8dc"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/alert.png"
+hash = "c5b37ed8fc7ea75feee01513249d329418f058a27db51c990ce370037dca7e0a"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/animals.png"
+hash = "985cae97dda316dd6ea808ab3fa9d75840434e9588306f8947153e5140f18f11"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/automap.png"
+hash = "c224587e9a782fca1f01f64224dcba113c966a82447a43aa0668a41b826f2722"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/biome.png"
+hash = "079965f27e6e9b074971a3a75c5aaf9e2ea45d580077ae8135132eabbff6a6b1"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/browser.png"
+hash = "36b8b43d0fd5f5f3e05b9d9434f08b5d0d9d88b54eb3d8563a41c8b4ae53ad45"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/caves.png"
+hash = "a146348f61f6981ea1aa166c8cf5d15a6b5c194bbe7ea5c2dfd11faf3e516d03"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/close.png"
+hash = "97e002591ad0748fc3df4b64f4eb49e7656b9dca154446d1c405cca785869e3f"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/colorpalette.png"
+hash = "c6b37192f8eb55d75af4b8281a58311bad4e9c6d3794a316832d3d745be33bdf"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/day.png"
+hash = "c1830f83a4f317aae55b96d7a4304a21bbd56859d9fb7d2b3fe3c3224fadde1a"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/delete.png"
+hash = "0677bbf3c8654756de7a3ebd73a9aaebf7ce00998129855fbe4c72781a23c123"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/disable.png"
+hash = "89a7a0a09a9a043b6d794f5afbc6876116dbc5e98e10b02cb686f4995d07b4bf"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/follow.png"
+hash = "9b3a1cce927da61897c7afdc53dee953d510cf73509d0d9c612c69471094968c"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/grid.png"
+hash = "93b8ae5ab047a9159c05d1a398110cc12133dbfedc8fc0fe813a8319a4fc3e00"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/keys.png"
+hash = "acc042119fba38694ad4644d9c906cfff57c01531ae7b46a7da39384ac8d3198"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/layers.png"
+hash = "fb6f3d9202a83c37eae83413537f890d5d181819955ded766107cbddb047ae2b"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/monsters.png"
+hash = "567368aefeec86a20a3c7a47977fb932735a44f4bc106d733eed9f94112c73b4"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/night.png"
+hash = "228287f049033fbaed2d2eb763e32e907abfc3c07ef9801772c3045acb1cdc2b"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/options.png"
+hash = "2ab53960492f2b4fb4997a3e88754f45019720ef3a93a1740b3c672b2725e89d"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/pets.png"
+hash = "f1eae6d68facdc01e3380db4008671795583aa0f3e8cfea6c6bd14c3c2dfb6a0"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/players.png"
+hash = "5e5b3cf0b3f39f6760c25d95577a61adf8fd64ac8c2508dbc5b81aef778b24b3"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/reset.png"
+hash = "1e8088e2cde17d64599c51572ec9e3608bc4bbf9c3370dcfcc1ea1d7de383f71"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/savemap.png"
+hash = "9d7c7e5078ed5632a4b96c56205dcf1cecd96916fe9d2363743347e876e1f7de"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/search.png"
+hash = "91f7cc108e0a3f6d30abce84034441f4d7a4afa779510209837e4943cf392c81"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/server.png"
+hash = "697d9a8fe13dce121c1bccd5ad66f7cfe27c8cee9ee255df1b1afdc9f030b583"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/topo.png"
+hash = "ecdf2d6342adc98e672c0da4f7ab0fa3eb3a21f5ef17aa1f697bac27ad6e09ec"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/villagers.png"
+hash = "1949a3db6d7afa25440c46cf95cea4fe945a9d7786748d171ac40a5ee127b4dd"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/waypoints.png"
+hash = "f41dc19eb244a49eb8538e795e27fa12a2eacaeea2f94b8348d1aee104da5d3f"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/zoomin.png"
+hash = "9693a1c0554c463101ee87ca79da0a43c884fd722a276541ff8814eb36af2223"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/icon/zoomout.png"
+hash = "ca90e31aee647dbfa2354500d753cadf8163055ac12b8dd9da6d46c707957e82"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/circle/compass_point.png"
+hash = "3e77fa5d7d86abb96d210f7154fca91b97bd4967649f106cda31d86bdba081bc"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/circle/mask_256.png"
+hash = "52698fbb9d25dabe689f34af0dfd02d1a33f41d55f84acfac4b147cd10535405"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/circle/mask_512.png"
+hash = "b768d48994ae53d20fca612248b9f9df688c788f410440470c36f110fb4f1353"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/circle/rim_256.png"
+hash = "37863dc9ea753aac9d3159e7d5a04d7fad319e2ae3866c0de66bd983eafbcdec"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/circle/rim_512.png"
+hash = "4a7b1d892e636062380b1e58ca424b9ec3144d73f1f640ad11328882d58f705e"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/bottom.png"
+hash = "28e8ee2954dec74ac60c3953ad779bc4511075b63713fc924e78179b651d4431"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/bottomleft.png"
+hash = "2ab095696fb3b8e6a566991cc77b4998b087fe33547c60c8f8eeb7ac6f39a168"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/bottomright.png"
+hash = "ab33816029af98f079db2e3dbe401fde922a7b49c59993a62a542b19692ff034"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/compass_point.png"
+hash = "3e77fa5d7d86abb96d210f7154fca91b97bd4967649f106cda31d86bdba081bc"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/left.png"
+hash = "a06b69c71b5aacfb0af3199d25928703bd15cc5ce0a9654e48312a6b59d04f91"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/right.png"
+hash = "896fb60ea760ffd443ea22070abe29f07d67e2d647b27c1464e32344efdd716d"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/top.png"
+hash = "ae967fe98caf369d8dd14afe04d839ceab57c41aea2fdfae54281fbbf46b019d"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/topleft.png"
+hash = "d58fad16e99c05fc9e4143d6d77e9d25faba69f4a642a2f5051f4ea3fc9514b7"
+
+[[files]]
+file = "journeymap/icon/theme/firmament/minimap/square/topright.png"
+hash = "b40b1b4c8925aac88ca4f5bccf3fb65cf72846e12590c7b04cd7fbcf0852ac70"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
@@ -10481,6 +10733,10 @@ file = "kubejs/data/tfc/recipe/heating/food/wheat_bread.json"
 hash = "bb6bfd6281f4c353bedf32d958cb9b96073de30a07a504b059da6c404dba5656"
 
 [[files]]
+file = "kubejs/data/tfc/tags/block/logs_that_log.json"
+hash = "78211ca3f4a5f24669bc16b1132aa4dcd29c3d053564742f1728da77430c372b"
+
+[[files]]
 file = "kubejs/data/tfc/tags/block/prospectable.json"
 hash = "fc23170db8af12f32258103069969ed68b44093cf7e0c00b17fa72ee3bc4cce2"
 
@@ -11517,6 +11773,11 @@ hash = "8e14ccc2df62fad02daa0dd60291faa502eaf9e98361da07377a89d1af3e0fbb"
 metafile = true
 
 [[files]]
+file = "mods/enhanced-falling-trees.pw.toml"
+hash = "022454c268b7a3d6052357e1f907cfe96efbc862a9a42be5a7cf6ccf0b3abc00"
+metafile = true
+
+[[files]]
 file = "mods/entityculling.pw.toml"
 hash = "426238488c9ffd843f661f8bc74aa8e585fa6b4d342c43c4ba4cb8451298b725"
 metafile = true
@@ -11718,6 +11979,16 @@ metafile = true
 [[files]]
 file = "mods/jei.pw.toml"
 hash = "f45960e78cdfe0d4ffe832cc289f81221b1e453dc47dfaee72502bda84cded26"
+metafile = true
+
+[[files]]
+file = "mods/journeymap-integration.pw.toml"
+hash = "4f959fee0f41b35f67767a3ccca6aecaae120bbfbb923e2cac5253eeb0ac13dd"
+metafile = true
+
+[[files]]
+file = "mods/journeymap.pw.toml"
+hash = "37c2484814ccc1c14c71e1bf1e166d7318cce30d2f559ab919822418d8b63a4d"
 metafile = true
 
 [[files]]

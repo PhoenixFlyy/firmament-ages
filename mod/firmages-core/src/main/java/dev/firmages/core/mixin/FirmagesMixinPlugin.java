@@ -34,6 +34,7 @@ public final class FirmagesMixinPlugin implements IMixinConfigPlugin {
         Map.entry("cca", "createaddition"),
         Map.entry("curios", "curios"),
         Map.entry("tfcrf", "tfcrf"),
+        Map.entry("eft", "efallingtrees"),
         Map.entry("mekemi", "mekanismneutronactivator"));
 
     @Override

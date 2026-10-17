@@ -209,6 +209,11 @@ class ImmersionTest {
         // Create Train Utilities 3.1.0, the literal from net.adeptstack.Main [verified, javap]
         assertTrue(list.blocks("ATTENTION (Create Train Utilities): \nCreate Train Utilities will be renamed Create Train Doors in version 4."));
         assertTrue(list.blocks("Click here to order a Starbuncle Plush from Makeship!"));
+        // JourneyMap 6.0.9 ChatLog.announceMod with its en_us strings, section signs as sent
+        assertTrue(list.blocks("§eJourneyMap:§f Press [§bJ§f]"));
+        assertTrue(list.blocks("§eJourneyMap:§f Press [§bJ§f] or open browser to§b§n http://localhost:8080 §f"));
+        assertTrue(list.blocks("§eJourneyMap:§f Mapping disabled."));
+        assertFalse(list.blocks("JourneyMap: Waypoint rendering on, press [B] to hide."), "the action bar line of a key the player pressed");
         assertFalse(list.blocks("<Felix> the train utilities are great"));
         assertFalse(list.blocks("Caelum: A spark in the dark. I have seen you."));
         assertFalse(list.blocks(""));

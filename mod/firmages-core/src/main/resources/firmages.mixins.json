@@ -34,7 +34,8 @@
     "curios.CuriosContainerMixin",
     "tfc.PlacedItemBlockEntityAccessor",
     "tfcrf.RegrowthSpreadMixin",
-    "tfc.ItemStackHooksMixin"
+    "tfc.ItemStackHooksMixin",
+    "eft.DefaultTreeMixin"
   ],
   "client": [
     "client.ChatComponentMixin",

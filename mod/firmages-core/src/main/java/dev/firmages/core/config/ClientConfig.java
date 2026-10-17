@@ -32,6 +32,7 @@ public final class ClientConfig {
     public static final ModConfigSpec.BooleanValue TRIM_LOCKED_TOOLTIPS;
     public static final ModConfigSpec.ConfigValue<String> MANA_HUD_FROM_AGE;
     public static final ModConfigSpec.ConfigValue<String> INVENTORY_BUTTONS_FROM_AGE;
+    public static final ModConfigSpec.ConfigValue<String> MAP_FROM_AGE;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> BLOCKED_SCREENS;
     public static final ModConfigSpec.IntValue QUEST_PARAGRAPH_GAP;
     public static final ModConfigSpec.IntValue QUEST_WINDOW_PERCENT;
@@ -105,6 +106,9 @@ public final class ClientConfig {
         INVENTORY_BUTTONS_FROM_AGE = b.comment("First Age with the Curios and Apothic Attributes buttons in the inventory, the Curios key and the Curios screen.",
                 "Before it all of them are gone (operators and creative mode excepted); the world's Age comes from the server's status (Dawn until it arrives).")
             .define("inventoryButtonsFromAge", dev.firmages.core.immersion.InventoryButtons.DEFAULT_FROM.id(), ClientConfig::isAgeId);
+        MAP_FROM_AGE = b.comment("First Age with JourneyMap: the minimap, the full map, the waypoint screens and JourneyMap's keys.",
+                "Before it all of them are gone (creative mode excepted); the world's Age comes from the server's status (Dawn until it arrives).")
+            .define("mapFromAge", dev.firmages.core.immersion.MapGate.DEFAULT_FROM.id(), ClientConfig::isAgeId);
         BLOCKED_SCREENS = b.comment("Fully qualified screen class names that are never opened (mod announcement screens).")
             .defineListAllowEmpty("blockedScreens", DEFAULT_BLOCKED_SCREENS, () -> "", ClientConfig::isString);
         QUEST_PARAGRAPH_GAP = b.comment("Pixels (GUI scale 1) between the paragraphs of a quest description and after its subtitle.",
@@ -154,6 +158,12 @@ public final class ClientConfig {
     public static AgeId inventoryButtonsFromAge() {
         AgeId fallback = dev.firmages.core.immersion.InventoryButtons.DEFAULT_FROM;
         return AgeId.byId(get(INVENTORY_BUTTONS_FROM_AGE, fallback.id())).orElse(fallback);
+    }
+
+    /** {@code ui.mapFromAge}; an unknown value counts as the default. */
+    public static AgeId mapFromAge() {
+        AgeId fallback = dev.firmages.core.immersion.MapGate.DEFAULT_FROM;
+        return AgeId.byId(get(MAP_FROM_AGE, fallback.id())).orElse(fallback);
     }
 
     private static boolean isAgeId(Object o) {
