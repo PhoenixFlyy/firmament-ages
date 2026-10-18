@@ -1,12 +1,12 @@
 name = "Firmament Ages"
 author = "PhoenixFlyy"
-version = "1.2.0"
+version = "1.3.0"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "ca27f7cf1a844f963b7c7ec52c592b62ba3d9015feec290246cfa3b2f3ee03e2"
+hash = "6686a58a56334d46a7d3f37d79ca1f88f6134cce263b81053f4f87e6effbdf20"
 
 [versions]
 minecraft = "1.21.1"

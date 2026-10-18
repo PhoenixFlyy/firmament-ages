@@ -39,7 +39,7 @@ element {
 
 element {
   element_type = text_v2
-  source = Firmament Ages 1.2.0
+  source = Firmament Ages 1.3.0
   source_mode = direct
   instance_identifier = fa_title_version
   anchor_point = bottom-left
