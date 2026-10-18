@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * "Nine Lights": the arena's sea lanterns (eight spoke marks in the floor, the rim lanterns on their pillars, built by
+ * "Nine Lights": the arena's lanterns (pearlescent froglights) (eight spoke marks in the floor, the rim lanterns on their pillars, built by
  * {@link OriginArena}) go out while The Primordial is in phase 2 or 3 and come back when the fight ends (death, wipe,
  * removal). Only in The Origin: a boss summoned anywhere else leaves the world's lights alone. The positions are found
  * by scanning the arena layers, so a rebuilt or edited arena still relights exactly what went out.
@@ -21,7 +21,8 @@ import java.util.List;
 public final class ArenaLights {
     private ArenaLights() {}
 
-    static final BlockState LIT = Blocks.SEA_LANTERN.defaultBlockState();
+    /** Purple light (Felix: the arena in stone, moss and purple); worlds built before still hold sea lanterns. */
+    public static final BlockState LIT = Blocks.PEARLESCENT_FROGLIGHT.defaultBlockState();
     static final BlockState OUT = Blocks.POLISHED_BLACKSTONE.defaultBlockState();
 
     public static boolean applies(ServerLevel level) {
@@ -42,11 +43,15 @@ public final class ArenaLights {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
                     p.set(x, y, z);
-                    if (level.isLoaded(p) && level.getBlockState(p).is(Blocks.SEA_LANTERN)) out.add(p.immutable());
+                    if (level.isLoaded(p) && isLantern(level.getBlockState(p))) out.add(p.immutable());
                 }
             }
         }
         return out;
+    }
+
+    static boolean isLantern(BlockState s) {
+        return s.is(Blocks.PEARLESCENT_FROGLIGHT) || s.is(Blocks.SEA_LANTERN);
     }
 
     /** Puts the lanterns out. @return the positions that went out (to be relit later) */

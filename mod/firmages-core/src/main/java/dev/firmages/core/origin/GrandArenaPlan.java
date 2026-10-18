@@ -17,7 +17,7 @@ import java.util.function.LongPredicate;
  *
  * <p>Keys: {@code <role>_<accent>} is a block of the consecrated family (role stone, brick, pillar, lamp, metal, glass or
  * trim; accent the shrine Age 0..8), {@code rock_0..4} the mixed rock of the undersides, {@code dais} the crying-obsidian
- * dais, {@code lantern} a sea lantern, {@code arena_altar} a fight altar. Every walkable block is consecrated (unbreakable).
+ * dais, {@code lantern} a pearlescent froglight, {@code arena_altar} a fight altar. Every walkable block is unbreakable arena stone (OriginArena.grandState).
  *
  * <p>Frame (round G4): the Gathering altar stays at (0, 65, 0) on the sink floor (y 64). Sink (radius 13), two steps (14,
  * 15), the fighting ring (16..35, y 67) with two trenches on the diagonals and bridges over them, three Age terraces

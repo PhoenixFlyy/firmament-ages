@@ -24,14 +24,22 @@ TEX = os.path.join(REPO, "mod", "firmages-core", "src", "main", "resources", "as
 OUT = os.path.join(REPO, "dev", "quest-preview", "origin_arena.png")
 
 VANILLA = {"rock_0": "minecraft:deepslate", "rock_1": "minecraft:tuff", "rock_2": "minecraft:blackstone",
-           "rock_3": "minecraft:stone", "rock_4": "minecraft:calcite", "dais": "minecraft:crying_obsidian",
-           "lantern": "minecraft:sea_lantern"}
+           "rock_3": "minecraft:stone", "rock_4": "minecraft:mossy_cobblestone", "dais": "minecraft:crying_obsidian",
+           "lantern": "minecraft:pearlescent_froglight"}
 FALLBACK = {"rock_0": (70, 70, 74), "rock_1": (108, 110, 102), "rock_2": (40, 36, 44), "rock_3": (125, 125, 125),
-            "rock_4": (220, 220, 215), "dais": (40, 10, 70), "lantern": (190, 230, 220)}
-ROLE_TEX = {"stone": ("consecrated_stone", "consecrated_stone"), "brick": ("consecrated_brick", "consecrated_brick"),
-            "pillar": ("consecrated_pillar_top", "consecrated_pillar_side"), "lamp": ("consecrated_lamp_lit", "consecrated_lamp_lit"),
-            "metal": ("consecrated_metal", "consecrated_metal"), "glass": ("consecrated_glass", "consecrated_glass"),
-            "trim": ("consecrated_trim", "consecrated_trim")}
+            "rock_4": (100, 118, 84), "dais": (40, 10, 70), "lantern": (232, 210, 220)}
+# OriginArena.ARENA_PALETTE: the unbreakable arena stone of a role per accent group (accent % 3: dark, moss, purple)
+PALETTE = {"stone": ("polished_deepslate", "mossy_stone_bricks", "deepslate_tiles"),
+           "brick": ("deepslate_bricks", "stone_bricks", "polished_blackstone_bricks"),
+           "trim": ("purpur_block", "moss_block", "amethyst_block"),
+           "pillar": ("purpur_pillar",) * 3, "metal": ("chiseled_deepslate", "mossy_cobblestone", "chiseled_deepslate"),
+           "lamp": ("pearlescent_froglight",) * 3, "glass": ("tinted_glass",) * 3,
+           "scaffold": ("polished_deepslate", "mossy_stone_bricks", "deepslate_tiles")}
+STONE_RGB = {"polished_deepslate": (72, 72, 73), "mossy_stone_bricks": (115, 121, 105), "deepslate_tiles": (54, 54, 55),
+             "deepslate_bricks": (70, 70, 71), "stone_bricks": (122, 121, 122), "polished_blackstone_bricks": (48, 42, 49),
+             "purpur_block": (170, 125, 170), "moss_block": (89, 110, 45), "amethyst_block": (133, 97, 191),
+             "purpur_pillar": (171, 129, 171), "chiseled_deepslate": (54, 54, 54), "mossy_cobblestone": (110, 118, 94),
+             "pearlescent_froglight": (232, 210, 220), "tinted_glass": (44, 38, 46)}
 _faces = {}
 
 
@@ -59,11 +67,11 @@ def faces(key):
         f = (top, side)
     else:
         role, accent = key.rsplit("_", 1)
-        top, side = (own(n) for n in ROLE_TEX[role])
-        ov = own("consecrated_accent_" + accent)
-        if ov is not None:
-            top, side = (Image.alpha_composite(t, ov) for t in (top, side))
-        f = (top, side)
+        name = PALETTE[role][int(accent) % 3]
+        f = T.block_faces("minecraft:" + name) if T.available() else None
+        if f is None:
+            t = ISO.solid_tex(STONE_RGB[name])
+            f = (t, t)
     _faces[key] = f
     return f
 

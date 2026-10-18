@@ -86,7 +86,7 @@ public final class OriginArena {
 
     private static final BlockState[] ROCK = {
         Blocks.DEEPSLATE.defaultBlockState(), Blocks.TUFF.defaultBlockState(), Blocks.BLACKSTONE.defaultBlockState(),
-        Blocks.STONE.defaultBlockState(), Blocks.CALCITE.defaultBlockState()};
+        Blocks.STONE.defaultBlockState(), Blocks.MOSSY_COBBLESTONE.defaultBlockState()};
 
     private OriginArena() {}
 
@@ -107,7 +107,7 @@ public final class OriginArena {
                 boolean southGap = z > 0 && Math.abs(x) <= 2;
                 if (rim && !southGap) {
                     set(level, x, FLOOR_Y + 1, z, Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState());
-                    if (pillar(x, z)) set(level, x, FLOOR_Y + 2, z, Blocks.SEA_LANTERN.defaultBlockState());
+                    if (pillar(x, z)) set(level, x, FLOOR_Y + 2, z, dev.firmages.core.boss.ArenaLights.LIT);
                 }
                 // Underside: an inverted cone of mixed rock, so the arena reads as a floating island.
                 int depth = (int) Math.round(12 * (1 - d / (r + 1)) + (Math.floorMod(x * 31 + z * 17, 3)));
@@ -195,28 +195,42 @@ public final class OriginArena {
     }
 
     /**
+     * The arena stone of a consecrated role per accent group (accent mod 3: dark, moss, purple). Felix: the arena in
+     * stone, dark stone, moss and purple tones instead of the shrines' colourful family.
+     */
+    private static final java.util.Map<Consecration.Role, String[]> ARENA_PALETTE = java.util.Map.of(
+        Consecration.Role.STONE, new String[] {"polished_deepslate", "mossy_stone_bricks", "deepslate_tiles"},
+        Consecration.Role.BRICK, new String[] {"deepslate_bricks", "stone_bricks", "polished_blackstone_bricks"},
+        Consecration.Role.TRIM, new String[] {"purpur_block", "moss_block", "amethyst_block"},
+        Consecration.Role.PILLAR, new String[] {"purpur_pillar", "purpur_pillar", "purpur_pillar"},
+        Consecration.Role.METAL, new String[] {"chiseled_deepslate", "mossy_cobblestone", "chiseled_deepslate"},
+        Consecration.Role.LAMP, new String[] {"pearlescent_froglight", "pearlescent_froglight", "pearlescent_froglight"},
+        Consecration.Role.GLASS, new String[] {"tinted_glass", "tinted_glass", "tinted_glass"},
+        Consecration.Role.SCAFFOLD, new String[] {"polished_deepslate", "mossy_stone_bricks", "deepslate_tiles"});
+
+    /**
      * The block state of a {@link GrandArenaPlan} material key: {@code rock_N} mixed rock, {@code dais}, {@code lantern},
-     * {@code arena_altar}, else {@code <role>_<accent>} of the consecrated family.
+     * {@code arena_altar}, else {@code <role>_<accent>}, an unbreakable arena stone of {@link #ARENA_PALETTE}.
      */
     public static BlockState grandState(String key) {
         if (key.startsWith("rock_")) return ROCK[Integer.parseInt(key.substring(5))];
         switch (key) {
             case "dais": return Blocks.CRYING_OBSIDIAN.defaultBlockState();
-            case "lantern": return Blocks.SEA_LANTERN.defaultBlockState();
+            case "lantern": return dev.firmages.core.boss.ArenaLights.LIT;
             case "arena_altar": return OriginRegistry.ARENA_ALTAR.get().defaultBlockState();
             default: break;
         }
         int us = key.lastIndexOf('_');
         Optional<Consecration.Role> role = us > 0 ? Consecration.Role.byId(key.substring(0, us)) : Optional.empty();
         if (role.isEmpty()) throw new IllegalArgumentException("unknown grand arena material " + key);
-        return ShrineRegistry.consecrated(role.get(), Integer.parseInt(key.substring(us + 1)));
+        return OriginRegistry.arenaStone(ARENA_PALETTE.get(role.get())[Integer.parseInt(key.substring(us + 1)) % 3]);
     }
 
     private static BlockState floor(int x, int z, double d) {
         if (d > RADIUS - 1.5) return Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState();
         boolean spoke = x == 0 || z == 0 || Math.abs(x) == Math.abs(z);
-        if (Math.abs(d - 10) < 0.5 && spoke) return Blocks.SEA_LANTERN.defaultBlockState();
-        if (Math.abs(d - 10) < 0.6 || Math.abs(d - 4) < 0.6) return Blocks.GILDED_BLACKSTONE.defaultBlockState();
+        if (Math.abs(d - 10) < 0.5 && spoke) return dev.firmages.core.boss.ArenaLights.LIT;
+        if (Math.abs(d - 10) < 0.6 || Math.abs(d - 4) < 0.6) return Blocks.AMETHYST_BLOCK.defaultBlockState();
         return Blocks.POLISHED_DEEPSLATE.defaultBlockState();
     }
 

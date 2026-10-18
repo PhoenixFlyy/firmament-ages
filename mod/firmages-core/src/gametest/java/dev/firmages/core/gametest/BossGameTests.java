@@ -198,7 +198,7 @@ public final class BossGameTests {
 
                     b.hurt(b.damageSources().genericKill(), Float.MAX_VALUE);
                     ok(h, b.isDeadOrDying(), "it dies");
-                    ok(h, ArenaLights.lit(o).size() == lit.size() && lit.stream().allMatch(pos -> o.getBlockState(pos).is(Blocks.SEA_LANTERN)),
+                    ok(h, ArenaLights.lit(o).size() == lit.size() && lit.stream().allMatch(pos -> o.getBlockState(pos).is(Blocks.PEARLESCENT_FROGLIGHT)),
                         "every lantern burns again after its death");
                 } finally {
                     if (b != null && !b.isRemoved()) b.discard();

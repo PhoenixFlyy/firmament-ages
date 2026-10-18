@@ -144,7 +144,7 @@ public final class ArenaGameTests {
             BlockState want = states.computeIfAbsent(e.getValue(), OriginArena::grandState);
             BlockState is = o.getBlockState(p);
             boolean same = e.getValue().equals("arena_altar") ? is.is(want.getBlock())
-                : e.getValue().equals("lantern") ? is.is(Blocks.SEA_LANTERN) || is.is(Blocks.POLISHED_BLACKSTONE)
+                : e.getValue().equals("lantern") ? is.is(Blocks.PEARLESCENT_FROGLIGHT) || is.is(Blocks.POLISHED_BLACKSTONE)
                 : is == want;
             checked++;
             if (same) found.merge(e.getValue(), 1, Integer::sum);
