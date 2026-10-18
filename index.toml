@@ -186,7 +186,7 @@ hash = "5868f972e3d32de91fda224402a07ae78ac32bc1e69f2a14afd341ec3c894e07"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "7680001c378aa37ee0b9bd5caa758c39449782bdea2170699c6b994b8fd5d5a0"
+hash = "043e48977cf42f3a5c54dd12bd11a577e729a78d768d452fe12b15d291551c56"
 
 [[files]]
 file = "config/defaultoptions/options.txt"

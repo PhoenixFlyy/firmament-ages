@@ -35,6 +35,12 @@ RECOMMENDED_RAM_MB = 8192
 # Reserved; CurseForge has only its old resource pack. It is data only, so a CurseForge client still sees the flags on
 # a server that runs the packwiz server pack; a CurseForge single-player world has no banner flags.
 MODRINTH_ONLY = {"banner-flags.pw.toml"}
+# Modrinth metafiles whose mod is replaced by a different CurseForge mod in the upload (metafile in dev/cf/replace/).
+# Ok Zoomer (1.4.0): All Rights Reserved and not on CurseForge, so its jar must not go into overrides/; the CurseForge
+# upload carries WI Zoom (CF 349630, file 6288498) instead, which CurseForge clients download themselves. Both zoom
+# keys default to C (config/defaultoptions/keybindings.txt) and both mods are exempt in dev/gen_key_gates.py.
+REPLACE_DIR = ROOT / "dev" / "cf" / "replace"
+REPLACE = {"ok-zoomer.pw.toml": "wi-zoom.pw.toml"}
 
 
 def set_recommended_ram(zip_path: Path, mb: int) -> dict:
@@ -69,6 +75,10 @@ def main():
     for name in sorted(MODRINTH_ONLY):
         (WORK / "mods" / name).unlink()
     swapped = []
+    for mr_name, cf_name in sorted(REPLACE.items()):
+        (WORK / "mods" / mr_name).unlink()
+        shutil.copy2(REPLACE_DIR / cf_name, WORK / "mods" / cf_name)
+        swapped.append(f"mods/{mr_name} -> {cf_name} (replaced)")
     for cf in sorted(SWAP.glob("*.pw.toml")):
         cf_data = tomllib.loads(cf.read_text(encoding="utf-8"))
         for mr in sorted((WORK / "mods").glob("*.pw.toml")) + sorted((WORK / "shaderpacks").glob("*.pw.toml")):

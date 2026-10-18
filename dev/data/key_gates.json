@@ -37,7 +37,8 @@
     "skinlayers3d": "client tool",
     "sodium": "client tool: video settings",
     "sophisticatedbackpacks": "the backpack key opens only a worn or carried backpack (an item from the Bronze Age)",
-    "sophisticatedcore": "sort and transfer keys act only inside a Sophisticated storage screen (the backpack's)"
+    "sophisticatedcore": "sort and transfer keys act only inside a Sophisticated storage screen (the backpack's)",
+    "wi_zoom": "client tool (Felix 2026-10-18): zoom key.wi_zoom.zoom on C in every Age (CurseForge upload only, replaces Ok Zoomer there)"
   },
   "never_open": {
     "progressivestages": "the stage tree (key.progressivestages.open_tree, unbound by default; StageTreeScreen, also behind /stage gui) lists every stage and what it unlocks ahead of time (round G2 integration)"
