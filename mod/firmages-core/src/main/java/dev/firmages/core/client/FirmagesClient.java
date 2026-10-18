@@ -2,6 +2,7 @@ package dev.firmages.core.client;
 
 import dev.firmages.core.FirmagesCore;
 import dev.firmages.core.boss.BossRegistry;
+import dev.firmages.core.client.boss.AgeShotRenderer;
 import dev.firmages.core.client.boss.PrimordialRenderer;
 import dev.firmages.core.client.boss.StarFallRenderer;
 import dev.firmages.core.net.ReloadStatePayload;
@@ -34,12 +35,19 @@ public final class FirmagesClient {
             event.registerBlockEntityRenderer(ShrineRegistry.OFFERING_PLINTH_BE.get(), OfferingPlinthRenderer::new);
             event.registerEntityRenderer(BossRegistry.PRIMORDIAL.get(), PrimordialRenderer::new);
             event.registerEntityRenderer(BossRegistry.STAR_FALL.get(), StarFallRenderer::new);
+            event.registerEntityRenderer(BossRegistry.AGE_SHOT.get(), AgeShotRenderer::new); // the halo's shots (SPEC §39.2)
             event.registerEntityRenderer(BossRegistry.THROWN_SHARD.get(), ThrownItemRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.STAR_ANVIL_BE.get(), CrownRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.crown.CrownRegistry.LENS_MOUNT_BE.get(), LensMountRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.wayshrine.WayshrineRegistry.CORE_BE.get(), WayshrineCoreRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.anchor.AnchorRegistry.SKY_ANCHOR_BE.get(), SkyAnchorRenderer::new);
             event.registerBlockEntityRenderer(dev.firmages.core.launch.LaunchRegistry.PROBE_CRADLE_BE.get(), LaunchRenderer::new);
+        }
+
+        /** The Origin's sky by phase is the dimension's own sky (SPEC §16.6): the dimension type names firmages:origin. */
+        @SubscribeEvent
+        public static void dimensionEffects(net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent event) {
+            event.register(OriginSkyEffects.ID, new OriginSkyEffects());
         }
 
         /** Lens items: layer 1 (the glass) in the colour of the lens's shrine tier (SPEC §27.4), white until synced. */
@@ -94,8 +102,7 @@ public final class FirmagesClient {
 
         @SubscribeEvent
         public static void stage(RenderLevelStageEvent event) {
-            OriginSky.onRenderStage(event); // before the ceremony tint, which draws over it
-            SkyEffects.onRenderStage(event);
+            SkyEffects.onRenderStage(event); // the Origin's sky is the dimension's own sky pass (OriginSkyEffects)
             SkyStreaks.onRenderStage(event); // the falling star (SPEC §25.9)
             ArkClient.onRenderStage(event); // the Archipelago's beams at the altar (SPEC §31.8)
             LaunchFx.onRenderStage(event); // launches beyond the loaded chunks (SPEC §31.7)

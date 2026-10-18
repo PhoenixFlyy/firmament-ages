@@ -176,9 +176,9 @@
 #6.5 minutes. The server log names the model's numbers each time it wakes.
 [boss]
 	#Effective health for one player.
-	# Default: 13000.0
+	# Default: 10000.0
 	# Range: 100.0 ~ 1000000.0
-	effectiveHealth = 13000.0
+	effectiveHealth = 10000.0
 	#Share of the effective health each further player of the Gathering adds (0.7: 2 players 1.7x, 4 players 3.1x).
 	# Default: 0.7
 	# Range: 0.0 ~ 1.0

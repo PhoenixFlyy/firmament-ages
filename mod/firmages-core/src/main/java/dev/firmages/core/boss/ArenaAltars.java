@@ -12,8 +12,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
@@ -135,12 +133,7 @@ public final class ArenaAltars {
         if (i < 0) return -1;
         setBlock(level, i, false);
         BlockPos p = OriginArena.altars().get(i);
-        LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
-        if (bolt != null) {
-            bolt.moveTo(p.getX() + 0.5, p.getY() + 1, p.getZ() + 0.5);
-            bolt.setVisualOnly(true);
-            level.addFreshEntity(bolt);
-        }
+        PrimordialEntity.strikeVisual(level, p.getX() + 0.5, p.getY() + 1, p.getZ() + 0.5); // the storm's harmless bolt (round G4)
         level.playSound(null, p, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 2.0F, 0.7F);
         return i;
     }

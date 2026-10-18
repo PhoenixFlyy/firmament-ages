@@ -11,6 +11,7 @@ import dev.firmages.core.boss.BossRegistry;
 import dev.firmages.core.boss.FightModel;
 import dev.firmages.core.boss.PrimordialAbility;
 import dev.firmages.core.boss.PrimordialEntity;
+import dev.firmages.core.boss.PrimordialGeometry;
 import dev.firmages.core.boss.StarFallEntity;
 import dev.firmages.core.command.DebugPlayerCommands;
 import dev.firmages.core.config.ServerConfig;
@@ -143,7 +144,7 @@ public final class BossGameTests {
 
     private static Vec3 aboveAltar() {
         BlockPos a = OriginArena.ALTAR;
-        return new Vec3(a.getX() + 0.5, a.getY() + 2.5, a.getZ() + 0.5);
+        return new Vec3(a.getX() + 0.5, a.getY() + PrimordialGeometry.HOVER, a.getZ() + 0.5);
     }
 
     /** 14 blocks south of the altar: inside the arena, outside the gather radius (no Gathering in these tests). */
@@ -216,7 +217,7 @@ public final class BossGameTests {
         PrimordialEntity b = spawnBoss(level, h.absoluteVec(new Vec3(1.5, 1, 1.5)));
         ServerPlayer p = player(h, level, "gt_boss_veil", h.absoluteVec(new Vec3(1.5, 1, 9.5)));
         try {
-            ok(h, Math.abs(b.getY() - (b.floorY() + 2.5)) < 1.0E-6, "hovers 2.5 blocks above its floor");
+            ok(h, Math.abs(b.getY() - (b.floorY() + PrimordialGeometry.HOVER)) < 1.0E-6, "hovers " + PrimordialGeometry.HOVER + " blocks above its floor");
             float closed = hit(b, p, 20);
             ok(h, closed > 0 && !b.veilOpen(), "a hit lands on the closed veil, " + closed);
             cooldown(b);
@@ -248,11 +249,11 @@ public final class BossGameTests {
         ServerPlayer p = player(h, level, "gt_boss_p", h.absoluteVec(new Vec3(1.5, 1, 9.5)));
         ServerPlayer q = player(h, level, "gt_boss_q", h.absoluteVec(new Vec3(3.5, 1, 9.5)));
         try {
-            ok(h, Math.abs(b.effectivePool() - 13000) < 1.0E-6, "one player: effective health 13000, was " + b.effectivePool());
+            ok(h, Math.abs(b.effectivePool() - 10000) < 1.0E-6, "one player: effective health 10000, was " + b.effectivePool());
             b.setPartySize(2);
-            ok(h, Math.abs(b.effectivePool() - 22100) < 1.0E-6, "two players: 22100");
+            ok(h, Math.abs(b.effectivePool() - 17000) < 1.0E-6, "two players: 17000");
             b.setPartySize(4);
-            ok(h, Math.abs(b.effectivePool() - 40300) < 1.0E-6, "four players: 40300");
+            ok(h, Math.abs(b.effectivePool() - 31000) < 1.0E-6, "four players: 31000");
             b.setPartySize(1);
 
             float first = hit(b, p, 20);
@@ -260,14 +261,14 @@ public final class BossGameTests {
             float other = hit(b, q, 20);
             ok(h, first > 0 && again == 0, "the same attacker within 10 ticks does not count twice");
             ok(h, Math.abs(other - first) < 1.0E-3, "a second attacker's hit counts in full in the same tick: " + first + " and " + other);
-            // 20 damage, armour 12 / toughness 8 -> 14.4, times 1024 / 13000, times the closed veil 0.25
-            float expected = (float) (14.4 * PrimordialEntity.MAX_HEALTH / 13000 * ServerConfig.bossVeilFactor());
+            // 20 damage, armour 12 / toughness 8 -> 14.4, times 1024 / 10000, times the closed veil 0.25
+            float expected = (float) (14.4 * PrimordialEntity.MAX_HEALTH / 10000 * ServerConfig.bossVeilFactor());
             ok(h, Math.abs(first - expected) < 0.01, "scaled to the effective pool behind the closed veil: " + first + ", expected " + expected);
             // 1000 damage -> 904 after armour, counted as the hit cap 40
             cooldown(b);
             b.openVeil(PrimordialEntity.VEIL_MELEE);
             float big = hit(b, q, 1000);
-            float capped = (float) (FightModel.HIT_CAP * PrimordialEntity.MAX_HEALTH / 13000);
+            float capped = (float) (FightModel.HIT_CAP * PrimordialEntity.MAX_HEALTH / 10000);
             ok(h, Math.abs(big - capped) < 0.01, "a huge hit counts as the cap: " + big + ", expected " + capped);
         } finally {
             b.discard();
@@ -288,13 +289,13 @@ public final class BossGameTests {
             b.startAbility(PrimordialAbility.SHATTER);
             steps(b, PrimordialEntity.SHATTER_PEAK);
             Vec3 home = b.home();
-            AABB floor = new AABB(home, home).inflate(10, 4, 10);
+            AABB floor = new AABB(home, home).inflate(10, PrimordialGeometry.HOVER + 2, 10);
             List<ItemEntity> shards = level.getEntitiesOfClass(ItemEntity.class, floor, e -> e.getItem().is(BossRegistry.CONSECRATED_SHARD.get()));
             ok(h, shards.size() == PrimordialEntity.SHARDS_PER_SHATTER, "six consecrated shards on the floor, found " + shards.size());
             ok(h, shards.stream().allMatch(s -> s.lifespan == PrimordialEntity.SHARD_LIFESPAN), "shards on the floor vanish after 60 s");
             List<StarFallEntity> stars = level.getEntitiesOfClass(StarFallEntity.class, new AABB(home, home).inflate(16, 40, 16));
             ok(h, stars.size() == 9, "nine stars fall at once, found " + stars.size());
-            ok(h, b.getY() > home.y + 2.5, "it rose for the shatter, y " + b.getY());
+            ok(h, b.getY() > home.y + 2.0, "it rose for the shatter, y " + b.getY());
             ok(h, hit(b, p, 20) == 0, "untouchable while the sky breaks");
             shards.forEach(Entity::discard);
         } finally {
@@ -505,9 +506,9 @@ public final class BossGameTests {
             bones.add(b.getName());
             todo.addAll(b.getChildBones());
         }
-        ok(h, bones.size() == 28, "28 bones baked, found " + bones.size());
+        ok(h, bones.size() == 29, "29 bones baked (round G4: ten shards), found " + bones.size());
         for (String b : List.of("halo", "halo_spin", "eye", "core_a", "core_b", "keel", "spire")) ok(h, bones.contains(b), "bone " + b);
-        for (int i = 0; i < 9; i++) ok(h, bones.contains("shard_" + i), "node shard " + i);
+        for (int i = 0; i < PrimordialGeometry.SHARDS; i++) ok(h, bones.contains("shard_" + i), "node shard " + i);
         BakedAnimations anims = KeyFramesAdapter.GEO_GSON
             .fromJson(GsonHelper.getAsJsonObject(animJson, "animations"), BakedAnimations.class);
         for (String a : List.of("idle", "hurt", "veil_open", "veil_close", "split", "die")) ok(h, anims.getAnimation(a) != null, "animation " + a);

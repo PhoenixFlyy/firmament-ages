@@ -309,6 +309,7 @@ tasks.matching { it.name == 'runGameTestServer' }.configureEach { dependsOn prep
 tasks.named('processResources', ProcessResources) {
     from('../../kubejs/data/firmages/balance/metals.json') { into 'data/firmages/balance' }
     from('../../kubejs/data/firmages/balance/nights.json') { into 'data/firmages/balance' } // Creeping Darkness (SPEC 19.7)
+    from('../../kubejs/data/firmages/balance/boss_shots.json') { into 'data/firmages/balance' } // The Primordial's ring shots (SPEC 39.2)
 }
 
 tasks.named('test', Test) {

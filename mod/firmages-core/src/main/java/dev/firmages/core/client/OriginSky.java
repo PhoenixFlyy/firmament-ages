@@ -1,7 +1,12 @@
 package dev.firmages.core.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.MeshData;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Axis;
@@ -11,53 +16,38 @@ import dev.firmages.core.boss.PrimordialEntity;
 import dev.firmages.core.boss.PrimordialGeometry;
 import dev.firmages.core.origin.OriginRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 import org.joml.Matrix4f;
 
 /**
- * The Origin's sky by the fight (round G3, SPEC §16.6): {@link OriginSkyState} picks the mood from the phase the boss
- * entity syncs (its own entity data, no new packet) and eases it over 2 s. The fog colour follows every mood (that is
- * all a shader pack sees: with an Iris shader pack in use only the fog changes); without one, camera-relative quads
- * right after the sky draw a star field (phase 1 and 2), aurora curtains in the Lens Crown's colours (phase 2), an
- * eclipse with a red horizon and a slowly tilting constellation (phase 3) and a dawn gradient after the boss falls.
- * The End sky of the dimension type stays underneath. No shader files.
+ * The Origin's sky by the fight (round G3, SPEC §16.6; round G4 drawn as the dimension's own sky): {@link OriginSkyState}
+ * picks the mood from the phase the boss entity syncs (its own entity data, no new packet) and eases it over 2 s. The
+ * fog colour follows every mood (that is all a shader pack sees: with an Iris shader pack in use only the fog
+ * changes); without one {@link OriginSkyEffects#renderSky} calls {@link #draw} inside the sky pass: a dark violet dome,
+ * a star field (phase 1 and 2), aurora curtains in the Lens Crown's colours (phase 2), an eclipse with a red horizon
+ * and a slowly tilting constellation (phase 3), a dawn gradient after the boss falls, and the storm's flashes. No
+ * shader files.
  */
 public final class OriginSky {
     private OriginSky() {}
 
     private static final OriginSkyState STATE = new OriginSkyState();
-    private static final int STARS = 360;
+    private static final int STARS = 600;
     private static final float[][] STAR_DIRS = new float[STARS][];
-    private static final float D = 60;
+    /** The sky's radius: the vanilla sun's distance, inside every far plane. */
+    private static final float D = 100;
     private static int irisCheck;
     private static boolean irisShaders;
 
     static {
         RandomSource r = RandomSource.create(0x0F1A_A6E5L);
         for (int i = 0; i < STARS; i++) {
-            double y = r.nextDouble() * 1.4 - 0.4, a = r.nextDouble() * Math.PI * 2, h = Math.sqrt(1 - y * y);
-            STAR_DIRS[i] = new float[] {(float) (Math.cos(a) * h), (float) y, (float) (Math.sin(a) * h), 0.15F + r.nextFloat() * 0.25F};
+            double y = r.nextDouble() * 1.3 - 0.3, a = r.nextDouble() * Math.PI * 2, h = Math.sqrt(1 - y * y);
+            STAR_DIRS[i] = new float[] {(float) (Math.cos(a) * h), (float) y, (float) (Math.sin(a) * h), 0.25F + r.nextFloat() * 0.45F};
         }
-    }
-
-    private static final class SkyType extends RenderType {
-        private SkyType() {
-            super("firmages_origin_sky", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, () -> {}, () -> {});
-        }
-
-        static final RenderType SKY = create("firmages_origin_sky", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 4096, false, true,
-            CompositeState.builder()
-                .setShaderState(POSITION_COLOR_SHADER)
-                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-                .setCullState(NO_CULL)
-                .setDepthTestState(NO_DEPTH_TEST)
-                .setWriteMaskState(COLOR_WRITE)
-                .createCompositeState(false));
     }
 
     static void tick(Minecraft mc) {
@@ -83,7 +73,16 @@ public final class OriginSky {
         }
     }
 
-    /** True when Iris is loaded and a shader pack is on (reflection: Iris is optional). */
+    /** The sky's state (the mood weights) for the HUD and tests. */
+    public static OriginSkyState state() {
+        return STATE;
+    }
+
+    /** True when Iris is loaded and a shader pack is on (reflection: Iris is optional); refreshed every 5 s. */
+    static boolean irisShaders() {
+        return irisShaders;
+    }
+
     private static boolean irisShadersInUse() {
         try {
             Class<?> api = Class.forName("net.irisshaders.iris.api.v0.IrisApi");
@@ -115,17 +114,21 @@ public final class OriginSky {
         event.setBlue(b);
     }
 
-    static void onRenderStage(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_SKY || !inOrigin() || irisShaders) return;
-        Minecraft mc = Minecraft.getInstance();
-        float partial = event.getPartialTick().getGameTimeDeltaPartialTick(false);
-        double t = mc.level.getGameTime() + partial;
-        PoseStack pose = new PoseStack();
-        pose.mulPose(event.getModelViewMatrix());
-        MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
-        VertexConsumer vc = buffers.getBuffer(SkyType.SKY);
+    /**
+     * Draws the whole sky around the camera with the position-colour shader: the dome, the moods, the stars, the aurora.
+     * Called inside the level's sky pass (depth writes off, blending on), {@code t} the game time with the partial tick,
+     * {@code flash} while a lightning bolt lights the sky.
+     */
+    static void draw(PoseStack pose, Matrix4f projection, double t, boolean flash) {
         float eclipse = STATE.weight(Mood.ECLIPSE), aurora = STATE.weight(Mood.AURORA), dawn = STATE.weight(Mood.DAWN);
         Matrix4f m = pose.last().pose();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        BufferBuilder vc = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        // the dome: dark violet at the horizon, near black at the zenith and below; a flash lifts it to pale violet
+        int f = flash ? 120 : 0;
+        dome(vc, m, -90, -10, 5 + f, 3 + f, 12 + f, 255, 20 + f, 10 + f, 36 + f, 255);
+        dome(vc, m, -10, 12, 20 + f, 10 + f, 36 + f, 255, 34 + f, 16 + f, 58 + f, 255);
+        dome(vc, m, 12, 90, 34 + f, 16 + f, 58 + f, 255, 6 + f, 3 + f, 14 + f, 255);
         if (eclipse > 0) {
             dome(vc, m, -90, 90, 0, 0, 0, (int) (eclipse * 190), 0, 0, 0, (int) (eclipse * 190));
             dome(vc, m, -12, 0, 140, 10, 10, 0, 170, 12, 8, (int) (eclipse * 200));
@@ -143,14 +146,20 @@ public final class OriginSky {
             pose.mulPose(Axis.XP.rotationDegrees((float) (t * 0.02 % 360) * eclipse));
             Matrix4f sm = pose.last().pose();
             int sr = 255, sg = (int) (255 - 170 * eclipse), sb = (int) (255 - 190 * eclipse);
-            for (float[] s : STAR_DIRS) star(vc, sm, s, sr, sg, sb, (int) (starA * 220));
+            float twinkle = (float) (0.85 + 0.15 * Math.sin(t * 0.11));
+            for (int i = 0; i < STARS; i++) {
+                float[] s = STAR_DIRS[i];
+                float a = starA * (i % 3 == 0 ? twinkle : 1) * 230;
+                star(vc, sm, s, sr, sg, sb, (int) a);
+            }
             pose.popPose();
         }
         if (aurora > 0) {
             int[] cols = PrimordialGeometry.NODE_COLORS;
             for (int k = 0; k < 6; k++) curtain(vc, m, k * 60 + 15, 110, 14 + (k % 2) * 6, cols[3 + k], aurora, t, k);
         }
-        buffers.endBatch(SkyType.SKY);
+        MeshData mesh = vc.build();
+        if (mesh != null) BufferUploader.drawWithShader(mesh);
     }
 
     /** A ring band from elevation {@code e0} to {@code e1} (degrees), colour and alpha from the lower to the upper edge. */

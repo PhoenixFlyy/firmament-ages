@@ -160,8 +160,8 @@ public final class OriginGameTests {
     public static void originDimensionArenaAndGate(GameTestHelper h) {
         MinecraftServer server = h.getLevel().getServer();
         ServerLevel o = origin(h);
-        ok(h, !o.dimensionType().hasSkyLight() && o.dimensionType().effectsLocation().equals(ResourceLocation.withDefaultNamespace("the_end")),
-            "void-like dimension type (no skylight, End sky)");
+        ok(h, !o.dimensionType().hasSkyLight() && o.dimensionType().effectsLocation().equals(ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "origin")),
+            "void-like dimension type (no skylight, its own sky effects firmages:origin, round G4)");
         ok(h, o.getBiome(OriginArena.ALTAR).is(ResourceKey.create(Registries.BIOME, OriginRegistry.ORIGIN_ID)), "biome firmages:origin");
         OriginSavedData sd = OriginSavedData.get(server);
         ok(h, sd.arenaVersion() == OriginArena.VERSION && sd.gateBuilt(), "arena v" + sd.arenaVersion() + " and gate built at server start");

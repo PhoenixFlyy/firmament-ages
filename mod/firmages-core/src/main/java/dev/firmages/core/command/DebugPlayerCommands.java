@@ -163,8 +163,24 @@ public final class DebugPlayerCommands {
         ChannelAttributes.setPayloadSetup(connection, new NetworkPayloadSetup(new AllProtocols()));
         server.getPlayerList().placeNewPlayer(connection, player, cookie);
         player.teleportTo(level, at.x, at.y, at.z, player.getYRot(), player.getXRot());
+        // A headless player is never ticked: its 60 ticks of spawn invulnerability would never run out, and a cross-dimension
+        // teleport would leave isChangingDimension set until a client confirms. Both made it invulnerable for good (round G4:
+        // the ring's shots must land on the test players).
+        clearSpawnInvulnerability(player);
+        player.hasChangedDimension();
         FirmagesCore.LOGGER.info("[debug-player {}] joined as {} at {} (channel open {})", name, profile.getId(), BlockPos.containing(at).toShortString(), channel.isOpen());
         return player;
+    }
+
+    /** {@code ServerPlayer.spawnInvulnerableTime} is private and only its tick counts it down (Mojang names at run time, as BossFightBot). */
+    private static void clearSpawnInvulnerability(ServerPlayer player) {
+        try {
+            java.lang.reflect.Field f = ServerPlayer.class.getDeclaredField("spawnInvulnerableTime");
+            f.setAccessible(true);
+            f.setInt(player, 0);
+        } catch (ReflectiveOperationException e) {
+            FirmagesCore.LOGGER.warn("debug player: cannot clear the spawn invulnerability: {}", e.toString());
+        }
     }
 
     /** Starts (or restarts) recording every mod payload the test player {@code name} receives. */

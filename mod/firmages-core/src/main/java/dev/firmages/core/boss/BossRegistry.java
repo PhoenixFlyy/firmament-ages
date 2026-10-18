@@ -24,7 +24,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
- * The Primordial, the end boss of The Origin (docs/primordial.md): its entity, the two projectiles, the consecrated
+ * The Primordial, the end boss of The Origin (docs/primordial.md): its entity, the three projectiles, the consecrated
  * shard it sheds, the Firmament Ward the shard grants, the cosmetic Firmament Glass and the sounds (sounds.json maps
  * them onto vanilla events).
  */
@@ -44,6 +44,10 @@ public final class BossRegistry {
     public static final DeferredHolder<EntityType<?>, EntityType<StarFallEntity>> STAR_FALL = ENTITY_TYPES.register("star_fall",
         () -> EntityType.Builder.<StarFallEntity>of(StarFallEntity::new, MobCategory.MISC).sized(0.6F, 0.6F).fireImmune()
             .clientTrackingRange(8).updateInterval(1).build("star_fall"));
+    /** Round G4 (SPEC §39.2): a shot of the halo, one class, its Age chosen by synched data and the shot table. */
+    public static final DeferredHolder<EntityType<?>, EntityType<AgeShotEntity>> AGE_SHOT = ENTITY_TYPES.register("age_shot",
+        () -> EntityType.Builder.<AgeShotEntity>of(AgeShotEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).fireImmune()
+            .clientTrackingRange(8).updateInterval(1).build("age_shot"));
     public static final DeferredHolder<EntityType<?>, EntityType<ThrownShard>> THROWN_SHARD = ENTITY_TYPES.register("thrown_shard",
         () -> EntityType.Builder.<ThrownShard>of(ThrownShard::new, MobCategory.MISC).sized(0.25F, 0.25F)
             .clientTrackingRange(4).updateInterval(10).build("thrown_shard"));

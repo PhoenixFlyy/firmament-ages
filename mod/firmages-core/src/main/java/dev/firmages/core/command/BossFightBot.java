@@ -34,7 +34,9 @@ import java.util.Map;
  * damage pipeline runs (armour, {@code boss.hitCap}, the pool scaling, the closed veil, the counters: a melee hit on the
  * grounded keel or from below during the pull opens the veil). In phase 3 it picks up the consecrated shards that fell
  * within 24 blocks into its off hand, as a player gathers them. It never dodges and never shoots, and it is healed every
- * swing (its survival is not what is measured). A debug player is not ticked, so a held item's attribute modifiers
+ * swing (its survival is not what is measured: the ring's shots, the close strike and the storm of round G4 land on it
+ * like on a standing player, the incoming side of the model is {@code FightModel.secondsToDie}, not this bot). It floats
+ * at the boss's own height (HOVER 7 since round G4), so its swings reach the body as a flying player's would. A debug player is not ticked, so a held item's attribute modifiers
  * never apply: give it the reference build's numbers with {@code /attribute <name> minecraft:generic.attack_damage base
  * set 49.5} (a Chaotic sword with two Chaotic damage modules, SPEC §39). A recorder samples the boss every tick while any bot fights: ticks,
  * veil-open ticks and counted hits per phase; at the boss's death or the bots' end it logs one summary and writes

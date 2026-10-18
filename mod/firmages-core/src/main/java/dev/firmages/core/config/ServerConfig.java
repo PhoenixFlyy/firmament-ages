@@ -287,8 +287,9 @@ public final class ServerConfig {
 
         b.comment("The Primordial, the end boss (docs/primordial.md). Its health stays at the attribute cap of 1024; the damage it takes is",
                 "scaled so the fight lasts as if it had effectiveHealth * ((1 - perPlayerFactor) + perPlayerFactor * players) health.",
-                "The defaults come from the fight model (SPEC 39, boss/FightModel): 1, 2 and 4 players in Chaotic gear fight 8.4, 7.2 and",
-                "6.5 minutes. The server log names the model's numbers each time it wakes.").push("boss");
+                "The defaults come from the fight model (SPEC 39, boss/FightModel): 1, 2 and 4 players in Chaotic gear fight about 8, 6 and",
+                "5 minutes with the altars. The server log names the model's numbers each time it wakes. The ring's shots, its close strike",
+                "and the storm come from data/firmages/balance/boss_shots.json (SPEC 39.2).").push("boss");
         BOSS_EFFECTIVE_HEALTH = b.comment("Effective health for one player.")
             .defineInRange("effectiveHealth", dev.firmages.core.boss.FightModel.EFFECTIVE_HEALTH, 100.0, 1000000.0);
         BOSS_PER_PLAYER = b.comment("Share of the effective health each further player of the Gathering adds (0.7: 2 players 1.7x, 4 players 3.1x).")

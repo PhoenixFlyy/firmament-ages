@@ -8,7 +8,8 @@
 Writes into mod/firmages-core/src/main/resources/assets/firmages/:
   geo/entity/primordial.geo.json               GeckoLib geometry, format 1.12.0, per-face UVs on a 128x128 atlas
   animations/entity/primordial.animation.json  the eleven animations (format 1.8.0, keyframes only, no molang)
-  textures/entity/primordial.png               128x128 atlas: dark glass with gold edges, void, eye, nine Age nodes
+  textures/entity/primordial.png               128x128 atlas: dark glass with gold edges, void, eye, ten Age nodes
+  textures/entity/shot_<age>.png               16x16 sprites of the halo's ten shots (round G4, SPEC 39.2)
   textures/entity/primordial_glowmask.png      emissive layer (PrimordialGlowLayer): nodes, void specks, faint gold
   textures/entity/primordial_glowmask_eye.png  emissive eye, drawn only from phase 3 on (the eye wakes when the core splits)
   textures/entity/primordial_flare.png         16x16 soft dot for the node flares (PrimordialRenderer)
@@ -71,7 +72,9 @@ NODES = [rgb(c) for c in BEAM_FALLBACK] + [WHITE_VIOLET]  # node_0..8 Age beams,
 BODY_Y = 56              # body pivot: the core's centre, 3.5 blocks above the entity origin
 HALO_R = 44              # shard bar inner radius
 NODE_CENTRE = (44.0, 55.5, 17.0)  # node cube centre of shard_0 (bedrock px), see PrimordialGeometry
-SHARD_STEP = 40          # degrees between shards (nine Ages)
+SHARDS = 10              # one shard per Age 0..9 (round G4: the Singularity segment joined the ring; was nine)
+SHARD_STEP = 360 / SHARDS  # degrees between shards
+SHARD_LEN = 24           # shard bar length (28 with nine shards; ten need the gap)
 HITBOX_W, HITBOX_H = 6.0, 7.0
 HOVER = 2.5
 
@@ -118,13 +121,13 @@ def bones():
     for k in range(4):
         bone(f"veil_{k}", "body", (0, 44, 0), rot=(0, 45 + 90 * k, 0))
         bone(f"veil_{k}_plate", f"veil_{k}", (12, 44, 0), rot=(0, 0, -6), cubes=[cube((12, 8, -7), (2, 34, 14), "veil")])
-    # the halo: tilt (code), spin (code), nine tangential shards with their Age node at the leading end
+    # the halo: tilt (code), spin (code), ten tangential shards with their Age node at the leading end
     bone("halo", "body", (0, BODY_Y, 0))
     bone("halo_spin", "halo", (0, BODY_Y, 0))
     nx, ny, nz = NODE_CENTRE
-    for i in range(9):
+    for i in range(SHARDS):
         bone(f"shard_{i}", "halo_spin", (0, BODY_Y, 0), rot=(0, SHARD_STEP * i, 0) if i else None, cubes=[
-            cube((HALO_R - 3, BODY_Y - 3, -14), (6, 6, 28), "shard"),
+            cube((HALO_R - 3, BODY_Y - 3, -SHARD_LEN // 2), (6, 6, SHARD_LEN), "shard"),
             cube((nx - 3, ny - 3.5, nz - 3), (6, 7, 6), f"node_{i}", (0, 45, 0), (nx, ny, nz)),
         ])
     return b
@@ -264,6 +267,77 @@ def flare():
     return img
 
 
+# ---- the halo's shots (round G4, SPEC 39.2): one 16x16 sprite per Age, the Age colour, a motif each -------------------
+SHOT_MOTIFS = {
+    "stone": [  # a rough boulder
+        "................", "................", "......xxxx......", "....xxhhhhxx....", "...xhhhhhhhhx...", "...xhhmmmmhhx...",
+        "..xhmmmmmmmmhx..", "..xhmmmmmmmmdx..", "..xhmmmmmmmddx..", "..xmmmmmmmdddx..", "...xmmmmmdddx...", "...xmmmdddddx...",
+        "....xxddddxx....", "......xxxx......", "................", "................"],
+    "bronze": [  # a glowing splinter
+        "................", "...........xx...", "..........xhhx..", ".........xhhhx..", "........xhhmx...", ".......xhmmx....",
+        "......xhmmx.....", ".....xhmmx......", "....xhmmdx......", "...xhmmdx.......", "..xhmmdx........", "..xmmdx.........",
+        "..xddx..........", "..xxx...........", "................", "................"],
+    "iron": [  # a lance
+        "................", ".......xx.......", ".......xhx......", ".......xhhx.....", "......xhmhx.....", "......xhmmx.....",
+        "......xhmmx.....", "......xhmmx.....", "......xhmmx.....", "......xhmdx.....", "......xmmdx.....", "......xmddx.....",
+        ".....xxmdxx.....", ".....xdddx......", "......xxx.......", "................"],
+    "arcane": [  # an orb in a ring
+        "................", ".....xxxxxx.....", "....x......x....", "...x..xxxx..x...", "..x..xhhhhx..x..", ".x..xhhmmmhx..x.",
+        ".x..xhmmmmmx..x.", ".x..xhmmmmdx..x.", ".x..xmmmmddx..x.", ".x..xmmdddx...x.", "..x..xdddx...x..", "...x..xxxx..x...",
+        "....x......x....", ".....xxxxxx.....", "................", "................"],
+    "industrial": [  # a gear
+        "................", ".....x..x..x....", "....xxxxxxxx....", "...xhhhhhhhhx...", "..xxhhmmmmhhxx..", "...xhmm..mmhx...",
+        "..xxhm....mhxx..", "...xhm....mdx...", "..xxhm....mdxx..", "...xmmm..mmdx...", "..xxmmmmmmddxx..", "...xmddddddddx..",
+        "....xxxxxxxx....", ".....x..x..x....", "................", "................"],
+    "electric": [  # a bolt in a ball
+        "................", "......xxxx......", "....xxhhhhxx....", "...xhhhhhhhhx...", "..xhhhhwwhhhhx..", "..xhhhwwhhhhhx..",
+        ".xhhhwwwwwhhhhx.", ".xhhhhhhwwhhhhx.", ".xmmmmmwwmmmmmx.", ".xmmmmwwmmmmmmx.", "..xmmmwmmmmmmx..", "..xmmmmmmmmmdx..",
+        "...xmmmmmmddx...", "....xxddddxx....", "......xxxx......", "................"],
+    "information": [  # a data splinter: a triangle of bits
+        "................", ".......xx.......", "......xhhx......", "......xhhx......", ".....xhwhhx.....", ".....xhhhhx.....",
+        "....xhhwhwhx....", "....xhhhhhhx....", "...xhwhhhhwhx...", "...xmmmmmmmmx...", "..xmwmmwmmwmmx..", "..xmmmmmmmmmdx..",
+        ".xmmwmmmmmmwddx.", ".xddddddddddddx.", "..xxxxxxxxxxxx..", "................"],
+    "space": [  # a swirl
+        "................", "......xxxx......", "....xxhhhhxx....", "...xhhxxxxhhx...", "..xhhx....xhhx..", "..xhx..xx..xhx..",
+        ".xhx..xhhx..xmx.", ".xhx.xhmmhx.xmx.", ".xhx..xmmx..xmx.", ".xmx...xx...xmx.", "..xmx......xmx..", "..xmmx....xmmx..",
+        "...xmmxxxxmmx...", "....xxmmmmxx....", "......xxxx......", "................"],
+    "quantum": [  # a frost core: a snowflake
+        "................", ".......xx.......", "....x..hh..x....", ".....x.hh.x.....", "......xhhx......", "..xx..xhhx..xx..",
+        "...xxxhmmhxxx...", "..hhhhhmmhhhhh..", "..hhhhhmmhhhhh..", "...xxxhmmhxxx...", "..xx..xmmx..xx..", "......xmmx......",
+        ".....x.mm.x.....", "....x..mm..x....", ".......xx.......", "................"],
+    "singularity": [  # a black disc with a bright rim
+        "................", ".....xxxxxx.....", "...xxhhhhhhxx...", "..xhh......hhx..", ".xh..........hx.", ".xh..........hx.",
+        "xh............hx", "xh............hx", "xh............hx", "xm............mx", ".xm..........mx.", ".xm..........mx.",
+        "..xmm......mmx..", "...xxmmmmmmxx...", ".....xxxxxx.....", "................"],
+}
+
+
+def shot_sprite(i, key):
+    """Age i's shot: the motif in the Age colour (highlight, mid, dark, outline), 'w' white, '.' clear."""
+    col = tuple(NODES[i][:3]) + (255,)
+    leg = {"x": scale_rgb(col, 0.35), "d": scale_rgb(col, 0.7), "m": col, "h": scale_rgb(col, 1.35), "w": (255, 255, 255, 255)}
+    if key == "singularity":
+        leg["."] = (0, 0, 0, 0)
+        inner = (8, 4, 16, 235)
+    else:
+        inner = None
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    px = img.load()
+    rows = SHOT_MOTIFS[key]
+    for y in range(16):
+        for x in range(16):
+            ch = rows[y][x]
+            if ch in leg and ch != ".":
+                px[x, y] = tuple(leg[ch])
+            elif inner and ch == "." and 1 < x < 14 and 1 < y < 14 and (x - 7.5) ** 2 + (y - 7.5) ** 2 < 36:
+                px[x, y] = inner
+    return img
+
+
+SHOT_AGES = ["stone", "bronze", "iron", "arcane", "industrial", "electric", "information", "space", "quantum", "singularity"]
+SHOTS = {ASSETS / "textures" / "entity" / f"shot_{k}.png": i for i, k in enumerate(SHOT_AGES)}
+
+
 def shard_item():
     rows = [
         "................",
@@ -337,7 +411,7 @@ def kf(*pairs, easing="linear"):
 
 
 def radial(i, d):
-    """Bedrock-space offset of d px outward from the centre for shard i (bone y rotation 40 i)."""
+    """Bedrock-space offset of d px outward from the centre for shard i (bone y rotation SHARD_STEP i)."""
     a = math.radians(SHARD_STEP * i)
     return [round(d * math.cos(a), 3), 0, round(-d * math.sin(a), 3)]
 
@@ -398,7 +472,7 @@ def animations():
         "body": {"position": kf((0, [0, 0, 0]), (2, [0, 2, 0]), (4, [0, 0, 0]), easing="easeInOutSine")},
     }
     scatter = []
-    for i in range(9):
+    for i in range(SHARDS):
         off = radial(i, 22 + rnd.uniform(0, 10))
         off[1] = round(rnd.uniform(-26, 26), 2)
         r0 = [round(rnd.uniform(-60, 60), 1), 0, round(rnd.uniform(-50, 50), 1)]
@@ -569,7 +643,7 @@ def check_nodes(model):
     worst = 0.0
     for spin in (0.0, 0.7, 2.9):
         for tilt in (0.0, math.radians(18), math.radians(35)):
-            for i in range(9):
+            for i in range(SHARDS):
                 a, b = node_chain(model, i, spin, tilt), node_closed_form(i, spin, tilt)
                 worst = max(worst, max(abs(x - y) for x, y in zip(a, b)))
     return worst
@@ -727,6 +801,7 @@ def outputs():
         GEO: dumps(geo_json(model, atlas)),
         ANIM: dumps(animations()),
         TEX: base, GLOW: glow, EYE_GLOW: eye_glow, FLARE: flare(), SHARD: shard_item(), FGLASS: firmament_glass(), WARD: ward_icon(),
+        **{path: shot_sprite(i, SHOT_AGES[i]) for path, i in SHOTS.items()},
     }
 
 
