@@ -186,7 +186,7 @@ hash = "5868f972e3d32de91fda224402a07ae78ac32bc1e69f2a14afd341ec3c894e07"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "a68c7590c1d83169cdb233983e89b27e64acbdf2fa5fa9561d3b649146280170"
+hash = "7680001c378aa37ee0b9bd5caa758c39449782bdea2170699c6b994b8fd5d5a0"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -12575,6 +12575,11 @@ hash = "0f50947005dda918ee83c306efd22a2af5dae9c4325cbc089f439e13ca9be97a"
 metafile = true
 
 [[files]]
+file = "mods/ok-zoomer.pw.toml"
+hash = "413494b5ba534461e22545173a8cc6e98b04962a0ee9514498b830b99d4acabe"
+metafile = true
+
+[[files]]
 file = "mods/packet-fixer.pw.toml"
 hash = "75d42d0a0bcfbcce376fb229f72b75e3a40592fdff5490b997c19ef439a9c832"
 metafile = true
@@ -12847,11 +12852,6 @@ metafile = true
 [[files]]
 file = "mods/trash-cans.pw.toml"
 hash = "565ec8138372853c5d32dffbf78d48c4673248eeb84847e9544df772fb0c227b"
-metafile = true
-
-[[files]]
-file = "mods/wi-zoom.pw.toml"
-hash = "27b53eabd439894741057c9217db2bb6f815f119e4c00cd9a9bb796b736b63cb"
 metafile = true
 
 [[files]]

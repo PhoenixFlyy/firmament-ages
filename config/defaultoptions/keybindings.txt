@@ -62,4 +62,4 @@ key_iris.keybind.shaderPackSelection:key.keyboard.o
 key_iris.keybind.wireframe:key.keyboard.unknown
 key_key.emotecraft.fastchoose:key.keyboard.y
 key_psimisc.keybind:key.keyboard.p:ALT
-key_key.wi_zoom.zoom:key.keyboard.c
+key_key.ok_zoomer.zoom:key.keyboard.c

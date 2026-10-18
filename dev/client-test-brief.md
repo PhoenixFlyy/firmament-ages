@@ -9,7 +9,7 @@ mit einer frischen Welt; Client und Server brauchen firmages-core 1.4.0.
 | # | Was | Wie | Erwartet |
 |---|---|---|---|
 | 1 | ESC-Menü | im Spiel ESC | Welt sichtbar hinter den Knöpfen, kein Firmament-Hintergrund |
-| 2 | Zoom in Dawn | frische Welt, in Dawn C halten | WI Zoom zoomt; Alt+C öffnet das Ars-Buch erst in seiner Age, Alt+P Psi |
+| 2 | Zoom in Dawn | frische Welt, in Dawn C halten | Ok Zoomer zoomt; Alt+C öffnet das Ars-Buch erst in seiner Age, Alt+P Psi |
 | 3 | Dawn-Questkette | Dawn-Kapitel durchspielen | Sammelkette optional, Hunter vor Shelter, „And I would walk 500 miles“ zählt 500 Blöcke ohne Sprint, Thatch gibt 28 Thatch, „Knife and Hammer“ verlangt Messer- und Hammerkopf |
 | 4 | Arena-Look | `/firmages origin tp @s force` (alte Welt vorher `/firmages origin rebuild`) | Stein, Tiefenschiefer, Moos und Purpur, Froschlichter; Jade zeigt „Unbreakable“; Wither und Kolben bewegen nichts |
 
