@@ -36,9 +36,9 @@ class FightModelTest {
     @Test
     void theFightLastsSixToTenMinutes() {
         double one = S.fightSeconds(1, REF), two = S.fightSeconds(2, REF), four = S.fightSeconds(4, REF);
-        assertEquals(505.9, one, 0.5, "one player");
-        assertEquals(430.5, two, 0.5, "two players");
-        assertEquals(392.8, four, 0.5, "four players");
+        assertEquals(592.1, one, 0.5, "one player");
+        assertEquals(464.4, two, 0.5, "two players");
+        assertEquals(408.1, four, 0.5, "four players");
         for (double t : new double[] {one, two, four}) assertTrue(t >= 360 && t <= 600, "6 to 10 minutes: " + t + " s");
         assertTrue(one < FightModel.ENRAGE_MINUTES * 60, "the soft enrage only meets a slower fight than the model's");
         assertTrue(FightModel.STARFALL_ENRAGE_MINUTES > FightModel.ENRAGE_MINUTES);
@@ -54,6 +54,19 @@ class FightModelTest {
     @Test
     void withoutTheCapAFullGridWouldEndItInAMinute() {
         FightModel.Settings uncapped = new FightModel.Settings(S.effectiveHealth(), S.perPlayer(), S.veilFactor(), 0);
-        assertTrue(uncapped.fightSeconds(1, FightModel.chaoticSword(40)) < 60, "why the cap exists");
+        assertTrue(uncapped.fightSecondsWithoutAltars(1, FightModel.chaoticSword(40)) < 60, "why the cap exists");
+    }
+
+    /** Round G3 (SPEC §39.1): the altar shield of phase 2 and 3 adds at most 20 % to the fight of 1, 2 and 4 players. */
+    @Test
+    void theAltarsAddAtMostAFifth() {
+        assertEquals(43.08, FightModel.altarSeconds(1), 0.01, "one player lights four altars against a strike every 20 s");
+        assertEquals(16.97, FightModel.altarSeconds(2), 0.01);
+        assertEquals(7.67, FightModel.altarSeconds(4), 0.01);
+        for (int n : new int[] {1, 2, 4}) {
+            double before = S.fightSecondsWithoutAltars(n, REF), after = S.fightSeconds(n, REF);
+            assertEquals(505.9, S.fightSecondsWithoutAltars(1, REF), 0.5, "the model before the altars");
+            assertTrue(after / before - 1 <= FightModel.ALTAR_MAX_GROWTH, n + " players: +" + (after / before - 1));
+        }
     }
 }

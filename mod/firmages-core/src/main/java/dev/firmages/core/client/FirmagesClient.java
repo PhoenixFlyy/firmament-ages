@@ -74,6 +74,7 @@ public final class FirmagesClient {
             CeremonyPlayer.tick();
             ShrineAmbience.tick(Minecraft.getInstance());
             LaunchFx.tick(Minecraft.getInstance()); // the launch trail, trench jets and landing (SPEC §31.7)
+            OriginSky.tick(Minecraft.getInstance()); // The Origin's sky by the boss's phase (SPEC §16.6)
             Minecraft mc = Minecraft.getInstance();
             // The reload hint stays on the actionbar for the whole freeze (the server cannot send anything then).
             if (ReloadStatePayload.clientRunning() && mc.player != null) {
@@ -88,10 +89,12 @@ public final class FirmagesClient {
         @SubscribeEvent
         public static void fog(ViewportEvent.ComputeFogColor event) {
             SkyEffects.onFogColor(event);
+            OriginSky.onFogColor(event);
         }
 
         @SubscribeEvent
         public static void stage(RenderLevelStageEvent event) {
+            OriginSky.onRenderStage(event); // before the ceremony tint, which draws over it
             SkyEffects.onRenderStage(event);
             SkyStreaks.onRenderStage(event); // the falling star (SPEC §25.9)
             ArkClient.onRenderStage(event); // the Archipelago's beams at the altar (SPEC §31.8)

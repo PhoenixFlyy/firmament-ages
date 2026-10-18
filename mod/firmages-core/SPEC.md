@@ -654,6 +654,7 @@ The immersion keys of `firmages-server.toml` (`ui.emiFromAge`, `ui.jadeFromAge`,
 | `origin fight` | 0.9.0, for tests: the final boss is summoned at once, without the Gathering (`OriginEvent.SummonBoss`, §16.3); fails when nothing answers, when the answer is a refusal (the boss is alive) or once the finale is won |
 | `origin kill` | N5, for tests: kills every hostile (`Enemy`) loaded in The Origin except the final boss, the boss's helpers among them (1.0: the Gateways wave branch is gone with the mod); fails when there is nothing to kill |
 | `origin kill boss` | N5, for tests: kills every loaded entity with the tag `firmages.final_boss` in The Origin with the damage of `/kill` (generic_kill bypasses invulnerability, so a boss's damage cap and invulnerable animations do not apply); its death wins the finale the normal way (§16.3); fails without a boss |
+| `origin altars reset\|complete` (round G3) | Every fight altar of the grand arena dark or lit at once (§39.1); fails in a classic arena |
 | `origin status` / `origin reset` / `origin rebuild` | Arena version, return gate, altar, Gathering count, whether the fight runs (N5), boss state / let the Gathering and the boss happen again (finale_won stays) / rebuild the arena and place the gate again |
 | `balance cells` | §34.2: item types of fresh AE2, portable, MEGA item cells and a fluid cell |
 | `balance alternator <pos>` | §34.1: the sources of the kinetic network at pos, their capacity, which burn fuel, and the fuelled share |
@@ -855,7 +856,7 @@ Design source: Doc 08 §10 (finale: Ultimate Singularity, Stargate, The Origin, 
 - **Altar `firmages:origin_altar`:** unbreakable in survival (hardness -1), no loot table, light 12; Age map `age_9`; never crafted; listed in `minecraft:wither_immune`/`dragon_immune` (until 0.9.x also in every Cataclysm `*_immune` tag; those files left with Cataclysm in 1.0).
 - **Stargate Journey 0.6.49, again 0.6.51 [verified, javap and jar data]:** `data/firmages/sgjourney/space_location/origin.json` (point of origin `sgjourney:floating_islands`, symbols `sgjourney:galaxy_milky_way`, address region `firmages:origin`, `preload_stargate`; `in_stargate_network` defaults to true, `generate_in_address_tables` to false, so the address never appears on cartouches) and `data/firmages/sgjourney/address_region/origin.json` (name `solar_system.firmages.origin` = "The Origin"; Milky Way address **9-16-21-33-2-37** plus the point of origin, extragalactic 1-30-9-16-21-33-2; both `randomizable: false`). The address does not collide with the regions SGJ ships. The quests give the address (hand-off).
 - **Return gate:** with Stargate Journey loaded, `OriginArena.buildGate` places SGJ's own template `sgjourney:stargate/milky_way/pedestal/stargate_pedestal_1` (Milky Way gate with its DHD) south of the arena (gate base (0, 66, 31) facing north, DHD (0, 65, 25)) and `compat/sgjourney/SgjGates.finishPlacement` does what SGJ's worldgen does for its structures: `generateInStructure` (SETUP to READY) and `generate()` (the gate joins the network, the DHD gets its energy core). Without that step a code-placed gate never joins the network, because its chunk does not tick. G `originDimensionArenaAndGate`: dimension type and biome, arena, altar, gate and DHD block entities, the space location with the region and the exact address, the gate in `StargateNetwork`. G `overworldGateCanDialTheOrigin`: a pedestal gate placed in the overworld test area dials 9-16-21-33-2-37 with SGJ's `Dialing.Action.SIMULATE_ENOUGH_ENERGY` and gets `CONNECTION_ESTABLISHED_INTERSTELLAR`; an unknown address gets `INVALID_ADDRESS`.
-- **Commands:** `/firmages origin tp [players]` (normal teleport, so the age_9 lock applies), `origin tp <players> force`, `origin gathering`, `origin fight` (0.9.0, operators' test shortcuts), `origin kill [boss]` (N5), `origin status`, `origin reset`, `origin rebuild` (§10).
+- **Commands:** `/firmages origin tp [players]` (normal teleport, so the age_9 lock applies), `origin tp <players> force`, `origin gathering`, `origin fight` (0.9.0, operators' test shortcuts), `origin kill [boss]` (N5), `origin status`, `origin reset`, `origin rebuild`, `origin altars reset|complete` (round G3, §39.1) (§10). Since round G3 the classic arena of this section is the one of an Origin built before; a new Origin gets the grand arena of §16.5, and every position here that moved (arrival, gate, islands) is a method of `OriginArena` that follows the world's layout.
 - **Test (0.9.0):** `originDimensionArenaAndGate` also checks every island top (consecrated stone with its accent, trim rim, no end rod) and, with the island chunks forced, one echo per island whose signature item exists in the run (the test datapack's three), with the right item, tag and place, and no duplicate after a second tick.
 
 ### 16.2a What a dial costs (round H3, harmony plan link 22, 2026-10-16)
@@ -901,6 +902,50 @@ the Gathering sink 1 G FE, the Ultimate Singularity 2 G FE; the DE reactor band 
 - **Arena:** in phase 2 and 3 the arena's sea lanterns become polished blackstone and come back when it dies, withdraws (wipe) or is removed (`boss/ArenaLights`, positions saved with the entity); while it lives nothing spawns within 48 blocks of it (`OriginSpawns`).
 - **Summon:** the core itself, `BossEvents` on `OriginEvent.Gathering` and `OriginEvent.SummonBoss` (§16.3); `/summon firmages:primordial ~ ~ ~ {PartySize:n}` works too (0 or absent: the players present at birth). Config: `[boss]` in `firmages-server.toml` (`effectiveHealth`, `perPlayerFactor`, `veilFactor`, `enrageMinutes`, `starfallEnrageMinutes`, `wipeSeconds`); the Gathering itself keeps `origin.gatherRadius`, `origin.gatherIdleMinutes` and `origin.gatherCooldownSeconds`.
 - **Tests:** G `BossGameTests` (phases and lanterns, veil and keel window, per-attacker damage and pool, shatter, finale through the tag, `summonedFightIsWonByScaledDamage`: `/firmages origin fight` without a script, party size from the two players present, every hit loses exactly the scaled amount and stops at the phase floor, the players' last hit grants `finale_won`; home, leftovers, GeckoLib asset parse), G `OriginGameTests` (the Gathering and `origin fight` wake it, §16.3), U `OriginSpawnListTest`.
+
+### 16.5 The grand arena (round G3, Felix A1B and A2e, 2026-10-18)
+
+- **Layout per world (`origin/OriginLayout`, `OriginSavedData` `layout`):** an Origin generated before round G3 (arena
+  version above 0, no stored layout) keeps the classic arena of §16.2 for good; an Origin generated since is `grand`
+  (`GrandArenaPlan.isGrand`, U `GrandArenaPlanTest.oldWorldsKeepTheClassicArena`). No migration touches a played
+  arena (like `migrateDhdCore`, only new generation changes). `OriginArena.radius()`, `arrival()`, `gateOrigin()`,
+  `gateBase()`, `dhd()`, `islandTop(i)` and `altars()` follow the layout (`OriginService.ensureBuilt` sets it at start).
+- **Geometry (`origin/GrandArenaPlan`, pure Java, integer arithmetic):** radius 60 at y 64, three times the classic 20.
+  Inner fighting floor to radius 35 (polished deepslate, gilded blackstone at 4, 12 and 24, sea lanterns on the eight
+  spokes at 30), nine two-block bands of the consecrated family from 36 to 53, one per shrine Age, Age 0 outermost and
+  Age 8 innermost (inner row trim, outer row stone; the Archipelago's materials from outside in), an open rim of
+  polished blackstone bricks from 54 to 60 with eleven chiseled lantern posts (every 30 degrees, the south one left
+  out) and the void beyond; the rock cone below is 3 to 20 deep. The Gathering altar stays at (0, 65, 0) on the
+  crying-obsidian dais. The islands move out by 50 blocks (95 to 125 from the centre).
+- **Arrival (A2e):** a raised platform in the south (x -12..12, z 57..84, y 72, polished deepslate with a rim, a rock
+  cone below) carries Stargate Journey's pedestal gate (template origin (-3, 72, 68): gate base (0, 74, 77), DHD
+  (0, 73, 71), facing north over the arena); `origin tp` puts players at (0, 73, 62). An arch of the consecrated
+  family in the Quantum accent (pillars, a trim lintel, a lamp keystone; the family's last accent, unbreakable, no
+  loot) stands over the head of an 11-wide stair of seven steps down to the floor at z 49. Nine vitrines (a
+  consecrated pillar and a consecrated glass cell in the Age's accent, x -10 for Ages 0..4, x 10 for 5..8) hold the
+  Ages' relics: `origin/OriginRelics`, item displays of the signature items of `offerings.json` inside the glass
+  (fixed UUID per Age, tag `firmages.origin_relic`, scale 0.6, full bright, turning like the echoes), no item frame,
+  nothing to take.
+- **Blocks:** 115,320 cells (`dev/data/origin_arena.json`, written by `python dev/gen_ark.py`, which mirrors the plan;
+  `--check` compares). U `GrandArenaPlanTest` (counts of the Java plan = the file, layout facts); G
+  `ArenaGameTests.grandArenaMatchesThePlan` (a new GameTest world is grand; every cell of the plan stands in the built
+  Origin, the gate pedestal and dark lanterns aside; fight altars, Gathering altar, arrival, islands beyond the
+  rim; one relic per signature item, never twice). Built once in about a second at the first start.
+- **Nine Lights:** `ArenaLights` scans the world's radius, so the grand arena's spoke and post lanterns go out in phase
+  2 and 3 as before. The boss's leash (24), its spawn guard and the wipe radius (48) are unchanged; star-falls land
+  within the world's radius.
+
+### 16.6 The Origin's sky by phase (round G3, Felix A2a)
+
+- **Client only (`client/OriginSky`, state in `boss/OriginSkyState`):** the phase comes from the boss entity's synced
+  data (`DATA_PHASE`, tracked within 160 blocks), no new packet; the network version stays "8". Moods: no fight or
+  phase 1 clear (a star field over the End sky), phase 2 aurora (six waving curtains in the Lens Crown's colours,
+  `PrimordialGeometry.NODE_COLORS` 3..8), phase 3 eclipse (a dark dome, a red horizon band, the stars red and the
+  constellation tilting slowly about the x axis), the boss's fall dawn for two minutes (orange horizon to pale blue),
+  then clear. Every change eases over 2 s (40 ticks). Fog colour follows every mood (`ViewportEvent.ComputeFogColor`);
+  the sky quads are drawn at `AFTER_SKY` without depth (like `SkyEffects`). With an Iris shader pack in use
+  (`IrisApi.isShaderPackInUse` by reflection) only the fog colour changes; no shader files. U `OriginSkyStateTest`.
+  **[C]** client check: each mood and the fades.
 
 ## 17. M7: Consecration and maintenance mode (Felix, 2026-10-01)
 
@@ -2992,8 +3037,9 @@ The fight length comes from a model, not from a guess (`boss/FightModel`, docs/p
   `perPlayerFactor` 0.7 (pools 13,000 / 22,100 / 40,300 for 1 / 2 / 4 players), `veilFactor` 0.25, `hitCap` 40,
   phases at 69 % and 38 % health (each phase a third of the fight), `enrageMinutes` 10 and `starfallEnrageMinutes`
   12 (only a fight slower than the model meets them).
-- **Result:** 1 player 8.4 min (505.9 s), 2 players 7.2 min (430.5 s), 4 players 6.5 min (392.8 s). The wake log line
-  names the model for the party at hand.
+- **Result:** 1 player 8.4 min (505.9 s), 2 players 7.2 min (430.5 s), 4 players 6.5 min (392.8 s) without the
+  altars; with the altar shield of the grand arena (§39.1) 9.9 min (592.1 s), 7.7 min (464.4 s), 6.8 min (408.1 s).
+  The wake log line names the model for the party at hand.
 - **Tests:** U `FightModelTest` (the jar stats, armour and the cap, the pools, 6 to 10 minutes for 1, 2 and 4, each
   phase a third within 1 %, the uncapped full grid under a minute). G `BossGameTests` (phase floors at 69 % and 38 %,
   pools, a 1000 hit counted as the cap, the summoned fight won by capped hits).
@@ -3005,6 +3051,33 @@ The fight length comes from a model, not from a guess (`boss/FightModel`, docs/p
   model fed these inputs gives 5.40 / 4.65 / 4.29 min: the recordings lie +7.9 / +2.6 / +7.1 % above it, inside the
   25 % bound, so `[boss]` stays. At the model's 60 % uptime the recorded veil shares give 9.2 / 7.5 / 7.2 min (model
   8.4 / 7.2 / 6.5). Human uptime and veil share remain for Felix's client fight.
+
+### 39.1 The altar shield (round G3, Felix A2b, 2026-10-18)
+
+- **Altars:** four `firmages:arena_altar` blocks (no item, unbreakable, no loot, wither- and dragon-immune, light 6, 15
+  when lit; blockstate `lit`) on 3x3 sockets of consecrated brick (accents Stone, Arcane, Information, Quantum) 16
+  blocks north, east, south and west of the centre, only in the grand arena (§16.5). A right click with an empty hand
+  starts a 3 s channel (`boss/ArenaAltars`, state machine `boss/AltarCircuit`): enchanting glyphs, an end-rod light
+  rising, a beacon hum; the player must stay within 3.5 blocks, alive and in The Origin, or it ends; one channel per
+  altar and per player; order free; at the end the altar lights with the beacon sound. Lit flags live in the blocks
+  (they survive a restart), channels in memory.
+- **Shield:** entering phase 2 and phase 3 darkens all four altars and raises the shield (`PrimordialEntity`
+  `DATA_SHIELD`, saved as `Shield` and `ShieldTicks`): no hit counts (a shield-block sound at most twice a second,
+  enchanted-hit sparks around it); the first fight step with all four lit drops it (veil-open sound, end-rod burst).
+  While it stands the boss strikes one lit altar every 20 s (`AltarCircuit.STRIKE_TICKS`): a visual-only lightning bolt
+  and the altar goes dark. No adds. Death, wipe and removal darken the altars. In a classic arena and for a boss
+  summoned elsewhere there is no shield. `/firmages debug attack` bots channel a dark altar while the shield stands.
+- **Fight model:** `FightModel.altarSeconds(n)` = 4 / (n / (4 s walk + 3 s channel) - 1 / 20 s): 43.1 s for one
+  player, 17.0 s for two, 7.7 s for four, twice per fight. The fight grows by 17.0 % / 7.9 % / 3.9 % (bound 20 %,
+  `ALTAR_MAX_GROWTH`): 9.9 / 7.7 / 6.8 min. `enrageMinutes` and `starfallEnrageMinutes` move to 12 and 14 (defaults
+  and the pack's `config/firmages-server.toml`), so the lone player's model (592 s) stays below the enrage.
+- **Commands:** `/firmages origin altars reset|complete` (operators), `origin status` shows layout, radius and lit altars.
+- **Tests:** U `AltarCircuitTest` (channel 3 s, one per altar and player, any order, the strike), U `FightModelTest`
+  (`theAltarsAddAtMostAFifth`, the new totals). G `ArenaGameTests.altarChannelLightsAnAltar` (a full hand does nothing,
+  an empty hand channels, lit after 3 s, walking off ends it), `shieldFallsWhenTheFourAltarsBurn` (phase 2 raises it
+  and darkens the altars, no hit counts with three lit, the fourth drops it, phase 3 raises it again; a classic layout
+  has none), `bossStrikesALitAltarEveryTwentySeconds`. P `selftest endgame` `origin_arena_and_altars`,
+  `fight_model_with_altars`. **[C]** client check of a real fight: channel feedback, strikes, the shield's feel.
 
 ## 40. The Ore Processor (harmony plan section 5 and link 23, package A10, round H3)
 

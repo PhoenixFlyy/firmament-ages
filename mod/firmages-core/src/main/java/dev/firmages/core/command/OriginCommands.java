@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * {@code /firmages origin tp [players [force]] | gathering | fight | kill [boss] | status | reset | rebuild} and
+ * {@code /firmages origin tp [players [force]] | gathering | fight | kill [boss] | status | reset | rebuild | altars reset|complete} and
  * {@code /firmages reactor status [pos]} (SPEC §10, operators only like every {@code /firmages} command).
  * {@code origin tp} uses the normal teleport path, so the age_9 dimension locks apply: a player without
  * {@code age_9} (and outside creative) stays where they are; {@code force} gives the players a forced visit that
@@ -53,6 +53,9 @@ final class OriginCommands {
             .then(Commands.literal("status").executes(OriginCommands::status))
             .then(Commands.literal("reset").executes(OriginCommands::reset))
             .then(Commands.literal("rebuild").executes(OriginCommands::rebuild))
+            .then(Commands.literal("altars")
+                .then(Commands.literal("reset").executes(c -> altars(c, false)))
+                .then(Commands.literal("complete").executes(c -> altars(c, true))))
             .then(Commands.literal("gate").executes(OriginCommands::gate)
                 .then(Commands.literal("trial").then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(OriginCommands::gateTrial))));
     }
@@ -64,7 +67,7 @@ final class OriginCommands {
             return 0;
         }
         for (String l : dev.firmages.core.compat.sgjourney.SgjGates.statusLines(c.getSource().getServer(), OriginService.level(c.getSource().getServer()),
-            OriginArena.GATE_BASE)) {
+            OriginArena.gateBase())) {
             dev.firmages.core.FirmagesCore.LOGGER.info("origin gate: {}", l);
             c.getSource().sendSuccess(() -> Component.literal(l), false);
         }
@@ -83,7 +86,7 @@ final class OriginCommands {
         }
         BlockPos pos = BlockPosArgument.getLoadedBlockPos(c, "pos");
         for (String l : dev.firmages.core.compat.sgjourney.SgjGates.trial(c.getSource().getLevel(), pos, OriginArena.GATE_TEMPLATE,
-            new BlockPos(3, 2, 9), new int[] {9, 16, 21, 33, 2, 37}, OriginService.level(c.getSource().getServer()), OriginArena.GATE_BASE)) {
+            new BlockPos(3, 2, 9), new int[] {9, 16, 21, 33, 2, 37}, OriginService.level(c.getSource().getServer()), OriginArena.gateBase())) {
             dev.firmages.core.FirmagesCore.LOGGER.info("origin gate trial: {}", l);
             c.getSource().sendSuccess(() -> Component.literal(l), false);
         }
@@ -105,7 +108,7 @@ final class OriginCommands {
     private static int tp(CommandContext<CommandSourceStack> c, Collection<ServerPlayer> players, boolean force) throws CommandSyntaxException {
         ServerLevel level = origin(c);
         OriginService.ensureBuilt(c.getSource().getServer());
-        BlockPos a = OriginArena.ARRIVAL;
+        BlockPos a = OriginArena.arrival();
         int moved = 0;
         for (ServerPlayer p : players) {
             if (force) OriginAccess.allowForcedVisit(p);
@@ -195,11 +198,26 @@ final class OriginCommands {
             sd.won() ? "DEFEATED (finale_won)" : "alive"));
         long echoes = java.util.stream.IntStream.range(0, OriginArena.ISLANDS).filter(i -> level.getEntity(dev.firmages.core.origin.OriginEchoes.uuid(i)) != null).count();
         line(c, "  Island echoes loaded: " + echoes + " of " + OriginArena.ISLANDS + " (they appear while players are in The Origin)");
+        line(c, "  Arena: " + OriginArena.layout().name().toLowerCase(Locale.ROOT) + ", radius " + OriginArena.radius()
+            + (OriginArena.altars().isEmpty() ? ", no fight altars" : ", fight altars lit: " + dev.firmages.core.boss.ArenaAltars.activeCount(level) + " of 4"));
         line(c, "  Spawn list "
             + java.util.Arrays.stream(net.minecraft.world.entity.MobCategory.values()).filter(m -> !dev.firmages.core.origin.OriginSpawns.spawns(m).isEmpty())
                 .map(m -> m.getSerializedName() + " " + dev.firmages.core.origin.OriginSpawns.spawns(m).stream()
                     .map(d -> net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(d.type) + " w" + d.getWeight().asInt()).toList()).toList());
         return 1;
+    }
+
+    /** {@code origin altars reset|complete} (round G3, SPEC §39.1): every fight altar dark or lit at once. */
+    private static int altars(CommandContext<CommandSourceStack> c, boolean complete) throws CommandSyntaxException {
+        ServerLevel level = origin(c);
+        if (OriginArena.altars().isEmpty()) {
+            c.getSource().sendFailure(Component.literal("This Origin has the classic arena; it has no fight altars"));
+            return 0;
+        }
+        int n = complete ? dev.firmages.core.boss.ArenaAltars.completeAll(level) : dev.firmages.core.boss.ArenaAltars.resetAll(level);
+        c.getSource().sendSuccess(() -> Component.literal("The Origin: " + n + " of 4 altars " + (complete ? "lit" : "dark")
+            + (n < 4 ? " (the others are not loaded)" : "")), true);
+        return n;
     }
 
     private static int reset(CommandContext<CommandSourceStack> c) {

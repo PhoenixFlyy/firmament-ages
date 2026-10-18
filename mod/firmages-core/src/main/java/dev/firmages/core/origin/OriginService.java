@@ -65,6 +65,7 @@ public final class OriginService {
         // LOWEST: a script or totem that cancels the death runs first, and a cancelled death wins nothing.
         bus.addListener(EventPriority.LOWEST, OriginService::onLivingDeath);
         bus.addListener(OriginService::onLogin);
+        dev.firmages.core.boss.ArenaAltars.register(bus);
     }
 
     @Nullable
@@ -92,6 +93,10 @@ public final class OriginService {
             return;
         }
         OriginSavedData sd = OriginSavedData.get(server);
+        // Round G3: a new Origin gets the grand arena; an Origin built before keeps its classic arena (SPEC §16.5).
+        OriginLayout layout = sd.layout();
+        sd.setLayout(layout);
+        OriginArena.setLayout(layout);
         if (sd.arenaVersion() < OriginArena.VERSION) {
             // Version 2 to 3 is an air-only step (the Archipelago, SPEC §31.8): it never touches a player's build.
             // Older and new worlds get the full layout first (version 1 to 2 rebuilt the islands as before).
@@ -116,10 +121,13 @@ public final class OriginService {
         if (server.getTickCount() % CHECK_PERIOD != 0) return;
         checkGathering(server);
         ServerLevel level = level(server);
-        if (level != null && !level.players().isEmpty()) OriginEchoes.tick(level);
+        if (level != null && !level.players().isEmpty()) {
+            OriginEchoes.tick(level);
+            OriginRelics.tick(level);
+        }
         // the return gate keeps one trip home (SPEC §16.2a), while its chunk is loaded
-        if (level != null && ModList.get().isLoaded("sgjourney") && level.isLoaded(OriginArena.GATE_BASE)) {
-            dev.firmages.core.compat.sgjourney.SgjGates.keepCharged(level, OriginArena.GATE_BASE);
+        if (level != null && ModList.get().isLoaded("sgjourney") && level.isLoaded(OriginArena.gateBase())) {
+            dev.firmages.core.compat.sgjourney.SgjGates.keepCharged(level, OriginArena.gateBase());
             migrateDhdCore(server, level);
         }
     }
@@ -133,8 +141,8 @@ public final class OriginService {
      */
     public static void migrateDhdCore(MinecraftServer server, ServerLevel level) {
         OriginSavedData sd = OriginSavedData.get(server);
-        if (!sd.gateBuilt() || sd.dhdCoreTaken() || !level.isLoaded(OriginArena.DHD)) return;
-        boolean had = dev.firmages.core.compat.sgjourney.SgjGates.removeEnergyCore(level, OriginArena.DHD);
+        if (!sd.gateBuilt() || sd.dhdCoreTaken() || !level.isLoaded(OriginArena.dhd())) return;
+        boolean had = dev.firmages.core.compat.sgjourney.SgjGates.removeEnergyCore(level, OriginArena.dhd());
         sd.setDhdCoreTaken(true);
         FirmagesCore.LOGGER.info("The Origin: return gate built by an older version; DHD energy core taken: {}", had);
     }

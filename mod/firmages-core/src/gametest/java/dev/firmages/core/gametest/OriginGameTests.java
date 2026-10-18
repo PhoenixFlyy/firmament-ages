@@ -138,9 +138,9 @@ public final class OriginGameTests {
         ServerLevel o = origin(h);
         OriginSavedData sd = OriginSavedData.get(server);
         ok(h, sd.gateBuilt() && sd.dhdCoreTaken(), "the gate built at server start records its DHD core as taken");
-        o.getChunk(OriginArena.DHD);
-        if (!(o.getBlockEntity(OriginArena.DHD) instanceof net.povstalec.sgjourney.common.block_entities.dhd.AbstractDHDEntity dhd)) {
-            h.fail("no DHD at " + OriginArena.DHD);
+        o.getChunk(OriginArena.dhd());
+        if (!(o.getBlockEntity(OriginArena.dhd()) instanceof net.povstalec.sgjourney.common.block_entities.dhd.AbstractDHDEntity dhd)) {
+            h.fail("no DHD at " + OriginArena.dhd());
             return;
         }
         net.minecraft.world.item.ItemStack core = new net.minecraft.world.item.ItemStack(
@@ -166,15 +166,15 @@ public final class OriginGameTests {
         OriginSavedData sd = OriginSavedData.get(server);
         ok(h, sd.arenaVersion() == OriginArena.VERSION && sd.gateBuilt(), "arena v" + sd.arenaVersion() + " and gate built at server start");
         ok(h, o.getBlockState(OriginArena.ALTAR).is(OriginRegistry.ORIGIN_ALTAR.get()), "altar in the arena centre");
-        ok(h, !o.getBlockState(new BlockPos(12, OriginArena.FLOOR_Y, 5)).isAir() && o.getBlockState(new BlockPos(0, OriginArena.FLOOR_Y, 40)).isAir(),
+        ok(h, !o.getBlockState(new BlockPos(12, OriginArena.FLOOR_Y, 5)).isAir() && o.getBlockState(new BlockPos(OriginArena.radius() + 20, OriginArena.FLOOR_Y, 0)).isAir(),
             "arena floor inside, void outside");
         ok(h, o.getBlockState(OriginArena.ALTAR).getDestroySpeed(o, OriginArena.ALTAR) < 0, "altar is unbreakable");
-        BlockEntity gate = o.getBlockEntity(OriginArena.GATE_BASE);
-        BlockEntity dhd = o.getBlockEntity(OriginArena.DHD);
+        BlockEntity gate = o.getBlockEntity(OriginArena.gateBase());
+        BlockEntity dhd = o.getBlockEntity(OriginArena.dhd());
         ok(h, gate != null && "sgjourney:milky_way_stargate".equals(String.valueOf(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(gate.getType()))),
-            "Milky Way stargate at " + OriginArena.GATE_BASE + ", found " + gate);
+            "Milky Way stargate at " + OriginArena.gateBase() + ", found " + gate);
         ok(h, dhd != null && "sgjourney:milky_way_dhd".equals(String.valueOf(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(dhd.getType()))),
-            "DHD at " + OriginArena.DHD + ", found " + dhd);
+            "DHD at " + OriginArena.dhd() + ", found " + dhd);
 
         // Stargate Journey: The Origin is a space location in its own address region with the fixed address.
         SpaceLocation sl = SpaceLocation.fromDimension(server, OriginRegistry.ORIGIN);
@@ -336,7 +336,7 @@ public final class OriginGameTests {
         try {
             p.setGameMode(GameType.SURVIVAL);
             ok(h, DimensionEnforcer.isDimensionLockedForPlayer(p, OriginRegistry.ORIGIN_ID), "ProgressiveStages locks firmages:origin without age_9");
-            BlockPos a = OriginArena.ARRIVAL;
+            BlockPos a = OriginArena.arrival();
             p.teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
             ok(h, p.level() != o, "a survival player without age_9 is not let in");
         } finally {
@@ -353,7 +353,7 @@ public final class OriginGameTests {
         gatherings = 0;
         victories = 0;
         // The altar's chunk ticks entities, as it does for players who stand there: the summoned boss is then loaded.
-        List<BlockPos> area = List.of(OriginArena.ALTAR, OriginArena.ARRIVAL);
+        List<BlockPos> area = List.of(OriginArena.ALTAR, OriginArena.arrival());
         forceChunks(o, area, true);
         h.startSequence()
             .thenWaitUntil(() -> entitiesLoaded(h, o, area))
@@ -365,7 +365,7 @@ public final class OriginGameTests {
         ServerPlayer p = DebugPlayerCommands.spawn(server, h.getLevel(), "gt_origin", Vec3.atCenterOf(h.absolutePos(new BlockPos(1, 1, 1))));
         try {
             p.setGameMode(GameType.CREATIVE); // creative bypasses the age_9 lock (ProgressiveStages allow_creative_bypass)
-            BlockPos a = OriginArena.ARRIVAL;
+            BlockPos a = OriginArena.arrival();
             server.getCommands().performPrefixedCommand(p.createCommandSourceStack().withPermission(2), "firmages origin tp");
             ok(h, p.level() == o && p.blockPosition().equals(a), "/firmages origin tp put the creative test player at the arrival point, at " + p.blockPosition());
             server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), "firmages origin status");
@@ -433,7 +433,7 @@ public final class OriginGameTests {
         gatherings = 0;
         int cooldown = ServerConfig.ORIGIN_GATHER_COOLDOWN.get();
         BlockPos al = OriginArena.ALTAR;
-        BlockPos a = OriginArena.ARRIVAL;
+        BlockPos a = OriginArena.arrival();
         List<BlockPos> area = List.of(al, al.south(8), a);
         ServerPlayer[] p = new ServerPlayer[1];
         Runnable cleanup = () -> {
@@ -563,7 +563,7 @@ public final class OriginGameTests {
                 EntityTravelToDimensionEvent nether = new EntityTravelToDimensionEvent(p[0], net.minecraft.world.level.Level.NETHER);
                 OriginAccess.onTravel(nether);
                 ok(h, !nether.isCanceled(), "other dimensions are none of its business");
-                BlockPos a = OriginArena.ARRIVAL;
+                BlockPos a = OriginArena.arrival();
                 p[0].teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
                 ok(h, p[0].level() != o, "the wormhole path leaves a player without age_9 outside");
                 p[0].setGameMode(GameType.CREATIVE);
@@ -574,7 +574,7 @@ public final class OriginGameTests {
             .thenWaitUntil(() -> h.assertTrue(AgeService.state(server).snapshot().isUnlocked(AgeId.AGE_9) && reloadIdle(server), "age_9 grant and its reload"))
             .thenExecute(() -> {
                 ok(h, OriginAccess.mayEnter(p[0]), "age_9 opens The Origin");
-                BlockPos a = OriginArena.ARRIVAL;
+                BlockPos a = OriginArena.arrival();
                 p[0].teleportTo(o, a.getX() + 0.5, a.getY(), a.getZ() + 0.5, 0, 0);
                 ok(h, p[0].level() == o, "an age_9 player comes through the wormhole path, now in " + p[0].level().dimension().location());
                 BlockPos back = h.absolutePos(new BlockPos(1, 1, 1));

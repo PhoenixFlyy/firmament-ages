@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "minecraft:block/chiseled_polished_blackstone",
+    "top": "firmages:block/origin_altar_top",
+    "bottom": "minecraft:block/polished_blackstone"
+  }
+}

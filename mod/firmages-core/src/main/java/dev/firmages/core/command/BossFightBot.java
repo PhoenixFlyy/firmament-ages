@@ -82,6 +82,10 @@ final class BossFightBot {
     }
 
     private static void swing(ServerPlayer p, PrimordialEntity boss, int index) {
+        if (boss.shielded() && boss.level() instanceof ServerLevel sl && dev.firmages.core.boss.ArenaAltars.present(sl)) {
+            tendAltar(p, sl, index);
+            return;
+        }
         double a = index * Math.PI / 2 + boss.tickCount * 0.01;
         p.teleportTo((ServerLevel) boss.level(), boss.getX() + Math.cos(a) * 1.8, boss.getY(), boss.getZ() + Math.sin(a) * 1.8, p.getYRot(), p.getXRot());
         p.lookAt(EntityAnchorArgument.Anchor.EYES, boss.getEyePosition());
@@ -96,6 +100,25 @@ final class BossFightBot {
         p.swing(InteractionHand.MAIN_HAND);
         float lost = before - boss.getHealth();
         if (rec != null) rec.hit(phase, veil, boss.veilOpen(), lost);
+    }
+
+    /**
+     * Round G3 (SPEC §39.1): while the altar shield stands the bot walks to a dark altar (its own first, by index) and
+     * channels it with an empty hand, standing on the socket.
+     */
+    private static void tendAltar(ServerPlayer p, ServerLevel sl, int index) {
+        dev.firmages.core.boss.ArenaAltars.sync(sl);
+        var circuit = dev.firmages.core.boss.ArenaAltars.circuit();
+        java.util.List<net.minecraft.core.BlockPos> altars = dev.firmages.core.origin.OriginArena.altars();
+        for (int k = 0; k < altars.size(); k++) {
+            int i = (index + k) % altars.size();
+            if (circuit.active(i) || (circuit.channeler(i) != null && !circuit.channeler(i).equals(p.getUUID()))) continue;
+            net.minecraft.core.BlockPos a = altars.get(i);
+            p.teleportTo(sl, a.getX() + 1.5, a.getY(), a.getZ() + 0.5, p.getYRot(), p.getXRot());
+            p.setHealth(p.getMaxHealth());
+            dev.firmages.core.boss.ArenaAltars.startChannel(sl, a, p);
+            return;
+        }
     }
 
     /** The shards on the floor near the bot go to its off hand (walking over them). */

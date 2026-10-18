@@ -43,13 +43,32 @@ public final class FightModel {
 
     /** The defaults of {@code [boss]} in firmages-server.toml. */
     public static final double EFFECTIVE_HEALTH = 13000, PER_PLAYER_FACTOR = 0.7, VEIL_FACTOR = 0.25, HIT_CAP = 40;
-    public static final int ENRAGE_MINUTES = 10, STARFALL_ENRAGE_MINUTES = 12;
+    /** Round G3: 12 and 14 (were 10 and 12), so the altar time of a lone player (+86 s) does not run into them. */
+    public static final int ENRAGE_MINUTES = 12, STARFALL_ENRAGE_MINUTES = 14;
+
+    /**
+     * The altar shield of phase 2 and 3 (round G3, SPEC §39.1): four altars, a 3 s channel each, a walk of about 4 s
+     * between two of them (16 blocks out, 22.6 apart, sprinting), the boss strikes one lit altar every 20 s.
+     */
+    public static final int ALTARS = 4;
+    public static final double ALTAR_CHANNEL_S = 3, ALTAR_WALK_S = 4, ALTAR_STRIKE_S = 20;
+    /** The fight may grow by at most this share through the altars (Felix A2b). */
+    public static final double ALTAR_MAX_GROWTH = 0.20;
 
     /** Assumptions (see the class comment). */
     public static final double UPTIME = 0.6;
     public static final double[] VEIL_OPEN = {1.0 / 3, 1.0 / 3, 0.6};
 
     private FightModel() {}
+
+    /**
+     * Seconds the party needs to light the four altars once: {@code players} players light {@code players / (walk +
+     * channel)} altars a second, the strikes undo one every 20 s, so the net rate is the difference.
+     */
+    public static double altarSeconds(int players) {
+        double rate = Math.max(1, players) / (ALTAR_WALK_S + ALTAR_CHANNEL_S) - 1 / ALTAR_STRIKE_S;
+        return ALTARS / rate;
+    }
 
     /** Vanilla armour ({@code CombatRules.getDamageAfterAbsorb}) without enchantments or effects. */
     public static double afterArmour(double damage, double armour, double toughness) {
@@ -105,10 +124,15 @@ public final class FightModel {
             return t;
         }
 
-        /** The whole fight in seconds: the three phases and the phase locks. */
-        public double fightSeconds(int players, double damage) {
+        /** The fight without the altars (the model before round G3): the three phases and the phase locks. */
+        public double fightSecondsWithoutAltars(int players, double damage) {
             double[] t = phaseSeconds(players, damage);
             return t[0] + t[1] + t[2] + (PHASE2_LOCK + PHASE3_LOCK) / 20.0;
+        }
+
+        /** The whole fight in seconds: the three phases, the phase locks and the altar shield of phase 2 and 3. */
+        public double fightSeconds(int players, double damage) {
+            return fightSecondsWithoutAltars(players, damage) + 2 * altarSeconds(players);
         }
 
         /** One log line: the expected length for 1, 2 and 4 players and the party at hand, reference build. */
