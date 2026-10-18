@@ -952,17 +952,33 @@ the Gathering sink 1 G FE, the Ultimate Singularity 2 G FE; the DE reactor band 
   and 3; the ring lanterns at y 67 and the consecrated lamps stay lit. The boss's leash (24), its spawn guard and the wipe
   radius (48) are unchanged; star-falls land within the world's radius.
 
-### 16.6 The Origin's sky by phase (round G3, Felix A2a)
+### 16.6 The Origin's sky by phase (round G3, Felix A2a; round G4 as the dimension's own sky)
 
-- **Client only (`client/OriginSky`, state in `boss/OriginSkyState`):** the phase comes from the boss entity's synced
-  data (`DATA_PHASE`, tracked within 160 blocks), no new packet; the network version stays "8". Moods: no fight or
-  phase 1 clear (a star field over the End sky), phase 2 aurora (six waving curtains in the Lens Crown's colours,
-  `PrimordialGeometry.NODE_COLORS` 3..8), phase 3 eclipse (a dark dome, a red horizon band, the stars red and the
-  constellation tilting slowly about the x axis), the boss's fall dawn for two minutes (orange horizon to pale blue),
-  then clear. Every change eases over 2 s (40 ticks). Fog colour follows every mood (`ViewportEvent.ComputeFogColor`);
-  the sky quads are drawn at `AFTER_SKY` without depth (like `SkyEffects`). With an Iris shader pack in use
-  (`IrisApi.isShaderPackInUse` by reflection) only the fog colour changes; no shader files. U `OriginSkyStateTest`.
-  **[C]** client check: each mood and the fades.
+- **The dimension's own sky (round G4):** `dimension_type/origin.json` names `firmages:origin` as its `effects`;
+  `client/OriginSkyEffects` (a `DimensionSpecialEffects`, registered in `RegisterDimensionSpecialEffectsEvent`) draws the
+  sky in the level renderer's sky pass through `renderSky`: before the terrain, depth writes off, the level's projection,
+  so floors, walls and ceilings cover it like any sky. Until G4 the sky was camera-relative quads at `AFTER_SKY` without
+  a depth test (`OriginSky.onRenderStage`); on Felix's client (Sodium and Iris in the pack) its star points stood over
+  stone floors and stairs. Fog and lightmap rules are the End's (fog at 0.15 of the biome colour, never foggy, no
+  sunrise); with an Iris shader pack in use the hook is skipped (Iris draws the End sky of the sky type) and only the
+  fog colour follows the mood. No shader files.
+- **Moods (`client/OriginSky.draw`, state in `boss/OriginSkyState`):** the phase comes from the boss entity's synced data
+  (`DATA_PHASE`, tracked within 160 blocks), no new packet; the network version stays "8". A dark violet dome always; no
+  fight or phase 1: 600 clear stars (a third of them twinkling); phase 2: aurora curtains in the Lens Crown's colours
+  (`ShotAge.COLORS` 3..8); phase 3: eclipse (a dark dome, a red horizon band, the stars red and the constellation
+  tilting slowly about the x axis); the boss's fall: dawn for two minutes (orange horizon to pale blue), then clear.
+  Every change eases over 2 s (40 ticks). Fog colour follows every mood (`ViewportEvent.ComputeFogColor`). Blindness and
+  Darkness hide the sky as in vanilla (the Arcane shot's blindness, §39.2).
+- **The storm (round G4):** while the boss lives, a visual-only vanilla `LightningBolt` (`setVisualOnly`: no fire, no
+  damage, no rods, no copper) strikes somewhere between the fighting floor's edge and the rim (0.6 to 1.0 of the arena
+  radius from the altar) every 6 s in phase 1, 3 s in phase 2, 1.5 s in phase 3 (`storm_interval_ticks` in
+  `balance/boss_shots.json`, `PrimordialEntity.stepStorm`), only in The Origin's arena. The sky flash of the bolt lifts
+  the dome to pale violet (`ClientLevel.getSkyFlashTime`). The altar strikes of §39.1 and the Electric shot's impact use
+  the same bolt (`PrimordialEntity.strikeVisual`).
+- **Tests:** U `OriginSkyStateTest`; G `RingGameTests.skyMoodFollowsThePhaseAndTheStormIsHarmless` (the mood per synced
+  phase and at death, four bolts in 6 s of phase 3 inside the rim band, no fire, the player untouched). **[C]** client
+  check: the sky only in the sky (never through floors, walls, ceilings), each mood and the fades, the bolts and their
+  flashes.
 
 ## 17. M7: Consecration and maintenance mode (Felix, 2026-10-01)
 
@@ -3078,16 +3094,19 @@ The fight length comes from a model, not from a guess (`boss/FightModel`, docs/p
   with it the reference build (two Chaotic damage modules, 49.5, 44.7 after armour) is at the cap.
 - **Assumptions:** a player hits 60 % of the time; the veil is open a third of the time in phases 1 and 2 (countered
   slams and pulls) and 60 % in phase 3 (shards); the shatter makes it untouchable 3 s in 25; the phase locks cost 3 s.
-- **Settings** (defaults of `[boss]`, the pack's `config/firmages-server.toml` the same): `effectiveHealth` 13000,
-  `perPlayerFactor` 0.7 (pools 13,000 / 22,100 / 40,300 for 1 / 2 / 4 players), `veilFactor` 0.25, `hitCap` 40,
-  phases at 69 % and 38 % health (each phase a third of the fight), `enrageMinutes` 10 and `starfallEnrageMinutes`
-  12 (only a fight slower than the model meets them).
-- **Result:** 1 player 8.4 min (505.9 s), 2 players 7.2 min (430.5 s), 4 players 6.5 min (392.8 s) without the
-  altars; with the altar shield of the grand arena (§39.1) 9.9 min (592.1 s), 7.7 min (464.4 s), 6.8 min (408.1 s).
-  The wake log line names the model for the party at hand.
-- **Tests:** U `FightModelTest` (the jar stats, armour and the cap, the pools, 6 to 10 minutes for 1, 2 and 4, each
-  phase a third within 1 %, the uncapped full grid under a minute). G `BossGameTests` (phase floors at 69 % and 38 %,
-  pools, a 1000 hit counted as the cap, the summoned fight won by capped hits).
+- **Settings** (defaults of `[boss]`, the pack's `config/firmages-server.toml` the same): `effectiveHealth` 10000
+  (round G4, Felix: about 8 / 6 / 5 minutes; 13000 until 1.2.0), `perPlayerFactor` 0.7 (pools 10,000 / 17,000 /
+  31,000 for 1 / 2 / 4 players), `veilFactor` 0.25, `hitCap` 40, phases at 69 % and 38 % health (each phase a third of
+  the fight), `enrageMinutes` 12 and `starfallEnrageMinutes` 14 (only a fight slower than the model meets them).
+- **Result (round G4):** 1 player 6.5 min (389.9 s), 2 players 5.5 min (331.8 s), 4 players 5.0 min (302.8 s) without
+  the altars; with the altar shield of the grand arena (§39.1) 7.9 min (476.0 s), 6.1 min (365.8 s), 5.3 min (318.1 s):
+  about 8, 6 and 5 minutes. The ring's shots do not change the outgoing side of the model (the uptime assumption stays
+  60 %; a player who dodges the ring hits less, one who does not dies, §39.2). The wake log line names both sides for
+  the party at hand. Until 1.2.0: 8.4 / 7.2 / 6.5 min without and 9.9 / 7.7 / 6.8 min with the altars.
+- **Tests:** U `FightModelTest` (the jar stats, armour and the cap, the pools, about 8 / 6 / 5 minutes for 1, 2 and 4,
+  each phase a third within 1 %, the uncapped full grid under a minute, the no-dodge death of §39.2). G `BossGameTests`
+  (phase floors at 69 % and 38 %, pools, a 1000 hit counted as the cap, the summoned fight won by capped hits). P
+  `selftest endgame` `fight_model_with_altars` (8 / 6 / 5 within a minute) and `boss_shots_table`.
 - **To check on a real fight [S]:** uptime and veil share against a recording with 1, 2 and 4 players; the model's
   assumptions move with them, the settings with the model.
 - **Recorded (round H3, `/firmages debug attack`, debug players with the reference build's 49.5 attack damage, no
@@ -3113,9 +3132,10 @@ The fight length comes from a model, not from a guess (`boss/FightModel`, docs/p
   and the altar goes dark. No adds. Death, wipe and removal darken the altars. In a classic arena and for a boss
   summoned elsewhere there is no shield. `/firmages debug attack` bots channel a dark altar while the shield stands.
 - **Fight model:** `FightModel.altarSeconds(n)` = 4 / (n / (4 s walk + 3 s channel) - 1 / 20 s): 43.1 s for one
-  player, 17.0 s for two, 7.7 s for four, twice per fight. The fight grows by 17.0 % / 7.9 % / 3.9 % (bound 20 %,
-  `ALTAR_MAX_GROWTH`): 9.9 / 7.7 / 6.8 min. `enrageMinutes` and `starfallEnrageMinutes` move to 12 and 14 (defaults
-  and the pack's `config/firmages-server.toml`), so the lone player's model (592 s) stays below the enrage.
+  player, 17.0 s for two, 7.7 s for four, twice per fight. With the shorter fight of round G4 the altars add 22.1 % /
+  10.2 % / 5.1 % (bound 25 %, `ALTAR_MAX_GROWTH`; 20 % until G4, when they added 17.0 % / 7.9 % / 3.9 %): 7.9 / 6.1 /
+  5.3 min. `enrageMinutes` and `starfallEnrageMinutes` are 12 and 14 (defaults and the pack's
+  `config/firmages-server.toml`), so the lone player's model (476 s) stays well below the enrage.
 - **Commands:** `/firmages origin altars reset|complete` (operators), `origin status` shows layout, radius and lit altars.
 - **Tests:** U `AltarCircuitTest` (channel 3 s, one per altar and player, any order, the strike), U `FightModelTest`
   (`theAltarsAddAtMostAFifth`, the new totals). G `ArenaGameTests.altarChannelLightsAnAltar` (a full hand does nothing,
@@ -3123,6 +3143,83 @@ The fight length comes from a model, not from a guess (`boss/FightModel`, docs/p
   and darkens the altars, no hit counts with three lit, the fourth drops it, phase 3 raises it again; a classic layout
   has none), `bossStrikesALitAltarEveryTwentySeconds`. P `selftest endgame` `origin_arena_and_altars`,
   `fight_model_with_altars`. **[C]** client check of a real fight: channel feedback, strikes, the shield's feel.
+
+### 39.2 The halo's shots, the close strike and the pace (round G4, Felix, 2026-10-18)
+
+Felix after 1.2.0: too easy, too slow, too little action. The ring with the Age colours stays and becomes the weapon.
+
+- **The ring:** ten shards, one per Age 0..9 (`PrimordialGeometry.SHARDS`, `dev/gen_primordial.py` `SHARDS`; nine until
+  1.2.0, the Singularity segment in the white-violet of the spire tip joined), each with its node in the Age's colour
+  (`ShotAge.COLORS`, the table `PrimordialGeometry.NODE_COLORS` points at). It spins 27 degrees a tick, 1.5 turns a
+  second (`SPIN_DEGREES_PER_TICK`; 0.6 degrees until 1.2.0), set in code on both sides as before, so the server fires
+  from where the client draws the node. The model has 29 bones and 32 cubes.
+- **Hover:** `PrimordialGeometry.HOVER` 7 (2.5 until 1.2.0): the body floats at y 72 over the grand arena's domes and
+  altar pedestals (to y 70, g4-arena); the slam still brings the keel to the floor (the drop clamps at 1 block a tick).
+  A player on the floor reaches the body only when it comes down (slam, pull) or from the terraces; melee players fight
+  from the terraces or in the air (Draconic flight), ranged players anywhere **[S]**: the model's 60 % uptime assumes
+  the body in reach; to check on Felix's fight.
+- **The segments fire in order** (`boss/ShotSequence`, pure Java): Stone, Bronze, Iron, Arcane, Industrial, Electric,
+  Information, Space, Quantum, then Singularity when the phase allows (phase 3) and the ring cycle is its turn (one in
+  three), then Stone again; every `interval_ticks` of the phase (30 / 20 / 14: 1.5 s, 1.0 s, 0.7 s), at a random
+  player of the fight, from the segment's node (`PrimordialEntity.fireSegment`, `nodeWorld`), with a flash and the
+  charge sound a semitone higher per Age. Not during the shatter or a phase lock; a phase change restarts the timer and
+  keeps the ring's place. Saved as `ShotIndex`, `ShotCycle`, `ShotTimer`.
+- **One entity class, the Age by data (`boss/AgeShotEntity`, `firmages:age_shot`):** synced `DATA_AGE` (and
+  `DATA_WELL` for the renderer), the Age in NBT by codec (`AGE_CODEC`, the row's key), never saved with the chunk, at
+  most 200 ticks of flight plus the well. Straight flight at the row's speed, a dust trail in the Age colour; it bursts
+  on a block or a living target: the row's damage in its radius (`mobProjectile`, the boss as the attacker), the
+  knockback, and the Age's mark. Players under Firmament Ward are passed over, like the star-falls; spectators and
+  creative players too. The boss's death, wipe and removal take its shots with it.
+- **The table `kubejs/data/firmages/balance/boss_shots.json`** (the build copies it into the jar as
+  `data/firmages/balance/boss_shots.json`, the pack's datapack copy wins; `boss/BossShots` parses it,
+  `BossShotsService` caches the server's copy per resource manager; built-in defaults mirror the pack's rows, so a
+  broken datapack never stops the fight): per Age `speed` (blocks a tick), `damage` (before the player's armour),
+  `radius`, `knockback`, `count` and `spread_deg` (a fan), `pierce`, `trail`, the marks below, `phase_from` and
+  `every_cycles`; `interval_ticks` per phase, `melee` (range, damage, knockback, cooldown), `storm_interval_ticks`.
+
+  | Age | Shot | Mark on the target (table defaults) |
+  |---|---|---|
+  | Stone | boulder, 0.9 b/t, 14, radius 2.5 | knockback 1.6, an explosion burst (no block damage) |
+  | Bronze | glowing splinter, 1.1, 9 | on fire 6 s |
+  | Iron | lance, 1.8, 20, radius 0.8 | runs through two living targets, then stops |
+  | Arcane | spirit orb, 0.8, 8 | Levitation 3 s, Blindness 1.5 s |
+  | Industrial | steam shell, 0.9, 6 | an `AreaEffectCloud` 4 s, radius 2.5: Slowness II and Poison |
+  | Electric | ball lightning, 1.3, 12 | a visual bolt at the impact; the chain jumps to the nearest other player twice (6 blocks, 7 each) |
+  | Information | data splinters, 1.2, 6, a fan of three at 10 degrees | Hunger 8 s, Wither 3 s |
+  | Space | gravity well, 1.0, 8 | the shot stays 3 s (radius 8, pull 0.35 a tick), then a shove (1.6, up 0.4) |
+  | Quantum | frost core, 1.0, 10, radius 2 | fully frozen 2 s (`ticksFrozen` past the threshold, thawing two a tick), Slowness II 3 s, a ring of snowflakes |
+  | Singularity | black hole, 0.7, 10; phase 3 only, one ring cycle in three | stays 3 s (radius 10, pull 0.25), swallows items and players' projectiles within a block, then an implosion of 40 in radius 4 |
+
+- **The close strike (`stepMelee`):** a player of the fight within 4 blocks of its axis (on the floor under it up to 8
+  above its origin) takes the ring's edge every 2 s: 10 damage (`mobAttack`), knockback 2.2, a sweep particle and the
+  slam sound high. Not during the shatter or a phase lock.
+- **Pace:** the drift speeds are 2.5x those of 1.2.0 (idle 0.15, chase 0.5, return 0.375 blocks a tick; the orbit
+  0.01 rad a tick), the turn 6 degrees a tick (was 2). In phase 3 it jumps every 15 s (`JUMP_TICKS`) 3 blocks behind
+  a random player's back, at most 20 blocks from home, with portal particles and the enderman's sound, and faces him.
+- **The incoming side of the model (`FightModel.incomingDps`, `secondsToDie`):** a player in reach who never dodges
+  takes the ring (`BossShots.shotDps`: every row's expected damage, the burst, the fire, the poison, the wither, the
+  implosion, weighted by how often it fires, over the phase's interval: 8.5 / 12.8 / 18.3 a second in phase 1 / 2 / 3),
+  the close strike (5 a second) and phase 3's star-fall (14 every 2 s, landing on a standing player 45 % of the time:
+  3.2 a second). Against the reference target, 20 health plus a Draconic Chaotic shield control (capacity 20, recharge 5
+  a second) with one Chaotic capacity module (+500) [verified, javap of `DEModules.shieldData`: control 20 / 5.0,
+  capacity 500 / 250 / 125 by tier], armour left out: he dies in 63 s of phase 1, 42 s of phase 2, 23.6 s of phase 3
+  (target about 25 s). The wake log line prints the three.
+- **Client:** `client/boss/AgeShotRenderer` (the Age's 16 x 16 sprite `textures/entity/shot_<age>.png` from
+  `dev/gen_primordial.py` as a turning, full-bright, camera-facing quad over a flare in the Age colour; a well three
+  times as large and spinning). The storm and the sky: §16.6.
+- **`/firmages debug attack`:** the bots do not dodge; they float at the boss's height and are healed every swing, so
+  the recording measures the outgoing side only (uptime, veil share, counted hits); the incoming side is the model's
+  `secondsToDie`, not the bots.
+- **Tests:** U `BossShotsTest` (the pack's table parses, every row, the pace and the marks, the defaults mirror it, the
+  damage a second grows by phase), U `ShotSequenceTest` (phase 1 nine Ages in order every 30 ticks, phase 3 the black
+  hole once in three cycles, a phase change restarts the timer and keeps the place, load), U `FightModelTest`
+  (`aPlayerWhoNeverDodgesDiesInPhaseThreeWithinHalfAMinute`). G `RingGameTests` (`ringFiresEveryAgeInOrder`: nothing
+  before the interval, the first shot Stone from node 0 at 0.9 b/t, nine segments in order and the fan of three, no
+  black hole in phase 1, nothing during the phase lock, one black hole in 28 shots of phase 3, the shots go with the
+  boss; `everyAgeLeavesItsMark`: each Age's burst on a survival player and its mark; `theRingsEdgeStrikesWithinFourBlocks`;
+  `skyMoodFollowsThePhaseAndTheStormIsHarmless`). P `selftest endgame` `boss_shots_table`. **[C]** client check: the
+  ring's spin and colours, the shot sprites and trails, each Age's effect, the close strike, the jump, death without
+  dodging in phase 3.
 
 ## 40. The Ore Processor (harmony plan section 5 and link 23, package A10, round H3)
 

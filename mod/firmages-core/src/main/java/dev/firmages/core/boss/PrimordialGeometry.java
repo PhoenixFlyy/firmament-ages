@@ -12,24 +12,31 @@ import net.minecraft.world.phys.Vec3;
 public final class PrimordialGeometry {
     private PrimordialGeometry() {}
 
-    /** The entity hovers this far above the floor; the hitbox (6 x 7) starts there, the keel tip touches its bottom. */
-    public static final double HOVER = 2.5;
+    /**
+     * The entity hovers this far above its floor (the altar's top, y 65); the hitbox (6 x 7) starts there, the keel tip
+     * touches its bottom. Round G4: 7 (was 2.5), so it floats at y 72 over the grand arena's domes (to y 70) and the
+     * altar pedestals (y 70); the slam still brings the keel down to the floor.
+     */
+    public static final double HOVER = 7.0;
     /** The core's centre above the entity origin (body pivot, 56 px). */
     public static final double BODY_Y = 56 / 16.0;
     /** Node 0's centre in Java model pixels, relative to the body pivot (bedrock (44, 55.5, 17), x mirrored). */
     private static final double NODE_X = -44, NODE_Y = 55.5 - 56, NODE_Z = 17;
-    private static final double SHARD_STEP = Math.toRadians(40);
-    /** The halo turns 0.6 degrees per tick in its own plane (a turn in 30 s). */
-    private static final double SPIN_PER_TICK = Math.toRadians(0.6);
+    /** Ten shards, one per Age 0..9 (round G4: the Singularity segment joined the ring). */
+    public static final int SHARDS = 10;
+    private static final double SHARD_STEP = Math.toRadians(360.0 / SHARDS);
+    /** The halo turns 27 degrees per tick in its own plane: 1.5 turns a second (round G4; was 0.6 degrees, a turn in 30 s). */
+    public static final double SPIN_DEGREES_PER_TICK = 27;
+    private static final double SPIN_PER_TICK = Math.toRadians(SPIN_DEGREES_PER_TICK);
     /** Horizontal distance of the beam's floor point from the entity (between the d 4 and d 10 rings). */
     public static final double BEAM_RADIUS = 9.0;
     /** A node counts as hit when a projectile's path passes this close to its centre. */
     public static final double NODE_HIT_RADIUS = 1.25;
     /**
      * Node colours: nodes 0..8 in the ceremony beam colour of Age 0..8 (BEAM_FALLBACK in dev/gen_textures.py, the same
-     * the texture is painted with), 9 the white-violet of Age 9 (the spire tip, the lit eye).
+     * the texture is painted with), 9 the white-violet of Age 9 (the tenth shard, the spire tip, the lit eye).
      */
-    public static final int[] NODE_COLORS = {0xFFB347, 0xFFD54A, 0xE06030, 0x9B59FF, 0xF0F0F0, 0x40E0FF, 0x40FF80, 0xE0E8FF, 0xE0B0FF, 0xF4F0FF};
+    public static final int[] NODE_COLORS = ShotAge.COLORS;
 
     /** A node cube's centre inside its shard bone, in Java model space (blocks): the same for every shard. */
     public static org.joml.Vector3f nodeCentreModel() {
@@ -48,6 +55,21 @@ public final class PrimordialGeometry {
     /** Halo spin (Java radians) at a game time in ticks (with the partial tick on the client). */
     public static float spin(double gameTime) {
         return (float) ((gameTime * SPIN_PER_TICK) % (Math.PI * 2));
+    }
+
+    /** The node that stands highest on the tilted, spinning ring at game time {@code gameTime} (the segment "on top"). */
+    public static int topNode(int phase, double gameTime) {
+        float tilt = tilt(phase), spin = spin(gameTime);
+        int best = 0;
+        double by = -Double.MAX_VALUE;
+        for (int i = 0; i < SHARDS; i++) {
+            double y = nodeModel(i, tilt, spin).y;
+            if (y > by) {
+                by = y;
+                best = i;
+            }
+        }
+        return best;
     }
 
     /** Node {@code i}'s centre in Java model space (blocks, before the entity yaw). */

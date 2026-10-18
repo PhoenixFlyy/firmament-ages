@@ -32,6 +32,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -70,6 +71,11 @@ import java.util.UUID;
  * <p>Server state machine: {@link #fightStep} once per tick from {@code customServerAiStep} (frozen with NoAI, which
  * the GameTests use to drive it by hand). Synched to clients: phase, ability, veil, lit node and the beam's angle; the
  * pose follows from those, GeckoLib's triggered animation only adds the hurt flinch.
+ *
+ * <p>Round G4 (SPEC §39.2): beside the phase abilities the halo of ten Age segments fires one shot after the other
+ * ({@link ShotSequence}, {@link AgeShotEntity}, the table of {@code balance/boss_shots.json}), a player within four
+ * blocks takes the ring's edge every 2 s, the body drifts 2.5x as fast, jumps behind a player every 15 s in phase 3,
+ * and a visual storm of harmless bolts stands over the arena, denser with every phase.
  */
 public class PrimordialEntity extends Monster implements GeoEntity {
     private static final EntityDataAccessor<Integer> DATA_PHASE = SynchedEntityData.defineId(PrimordialEntity.class, EntityDataSerializers.INT);
@@ -103,6 +109,12 @@ public class PrimordialEntity extends Monster implements GeoEntity {
     /** Beyond this horizontal distance from home (a /tp, a push) it returns at once. */
     public static final double LEASH = 24;
     static final double DRIFT_LIMIT = 10, ARENA = 48, PULL_RANGE = 24;
+    /** Round G4: the drift speeds (blocks per tick), 2.5x those of 1.2.0 (0.06, 0.2, 0.15), the turn 6 degrees a tick. */
+    static final double IDLE_SPEED = 0.15, CHASE_SPEED = 0.5, RETURN_SPEED = 0.375, ORBIT_PER_TICK = 0.01;
+    static final float TURN_PER_TICK = 6.0F;
+    /** Round G4: in phase 3 it jumps behind a player every 15 s, this far behind him, never farther from home than this. */
+    public static final int JUMP_TICKS = 300;
+    static final double JUMP_BEHIND = 3.0, JUMP_LEASH = LEASH - 4;
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation SPLIT = RawAnimation.begin().thenLoop("split");
@@ -144,6 +156,15 @@ public class PrimordialEntity extends Monster implements GeoEntity {
     /** Ticks the altar shield has stood (its strikes come every AltarCircuit.STRIKE_TICKS). */
     private int shieldTicks;
     private int lastDeflect = -100;
+    // round G4 (SPEC §39.2): the ring's shots, the close strike, the storm and the jump
+    private BossShots shotTable = BossShots.defaults();
+    private ShotSequence sequence = new ShotSequence(shotTable);
+    private int meleeTimer;
+    private int stormTimer;
+    private int jumpTimer;
+    private int shotsFired;
+    private int meleeStrikes;
+    private int stormBolts;
 
     /** Client: the halo tilt eases toward the phase's tilt (PrimordialModel). */
     public float clientTilt = Float.NaN;
@@ -243,6 +264,28 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         return List.copyOf(darkened);
     }
 
+    /** The ring's firing order and timer (round G4). */
+    public ShotSequence shotSequence() {
+        return sequence;
+    }
+
+    public BossShots shotTable() {
+        return shotTable;
+    }
+
+    /** Shots the ring has fired, close strikes it has landed, storm bolts it has called (counters for the tests). */
+    public int shotsFired() {
+        return shotsFired;
+    }
+
+    public int meleeStrikes() {
+        return meleeStrikes;
+    }
+
+    public int stormBolts() {
+        return stormBolts;
+    }
+
     /** The Gathering's size (BossEvents, or NBT {@code PartySize}); unset, the players present at birth. */
     public void setPartySize(int n) {
         partySize = Math.max(1, n);
@@ -304,6 +347,10 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         }
         addTag(OriginService.FINAL_BOSS_TAG);
         if (partySize <= 0) partySize = Math.max(1, nearbyPlayers(false).size());
+        shotTable = BossShotsService.table(sl.getServer());
+        ShotSequence fresh = new ShotSequence(shotTable);
+        fresh.load(sequence.index(), sequence.cycle(), sequence.timer());
+        sequence = fresh;
         nextReady[PrimordialAbility.NODE_VOLLEY.ordinal()] = 60;
         nextReady[PrimordialAbility.KEEL_SLAM.ordinal()] = 100;
         title(Component.translatable("entity.firmages.primordial").withStyle(ChatFormatting.DARK_PURPLE),
@@ -311,7 +358,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         sound(BossRegistry.IDLE.get(), 2.0F, 1.0F);
         FirmagesCore.LOGGER.info("The Primordial wakes at {} in {} for a Gathering of {} (effective health {}); {}", BlockPos.containing(home),
             sl.dimension().location(), partySize, Math.round(effectivePool()), new FightModel.Settings(ServerConfig.bossEffectiveHealth(),
-                ServerConfig.bossPerPlayer(), ServerConfig.bossVeilFactor(), ServerConfig.bossHitCap()).describe(partySize));
+                ServerConfig.bossPerPlayer(), ServerConfig.bossVeilFactor(), ServerConfig.bossHitCap()).describe(partySize, shotTable));
     }
 
     @Override
@@ -346,9 +393,106 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         if (wipe(sl)) return;
         stepAbility(sl);
         stepStarfall(sl);
+        stepRing(sl);
+        stepMelee(sl);
+        stepJump(sl);
+        stepStorm(sl);
         move();
         turn();
         ambient(sl);
+    }
+
+    // ---- the halo's shots, the close strike, the jump and the storm (round G4, SPEC §39.2) --------------------------------
+
+    /**
+     * The ring fires its segments one after the other at the phase's pace (1.5 s, 1 s, 0.7 s), each shot from the
+     * segment's node at a random player; not while the sky breaks (the shatter) or the phase changes.
+     */
+    private void stepRing(ServerLevel sl) {
+        if (ability == PrimordialAbility.SHATTER || phaseLock > 0) return;
+        List<Player> tg = targets();
+        if (tg.isEmpty()) return;
+        ShotAge age = sequence.tick(phase());
+        if (age == null) return;
+        fireSegment(sl, age, tg.get(random.nextInt(tg.size())));
+    }
+
+    /** Segment {@code age} fires at {@code target} from its node's position now (public for the GameTests). */
+    public List<AgeShotEntity> fireSegment(ServerLevel sl, ShotAge age, Player target) {
+        Vec3 from = nodeWorld(age.ordinal());
+        Vec3 to = target.getEyePosition().add(0, -0.3, 0);
+        shotsFired++;
+        sl.sendParticles(ParticleTypes.FLASH, from.x, from.y, from.z, 1, 0, 0, 0, 0);
+        sound(BossRegistry.CHARGE.get(), 1.2F, 1.4F + 0.05F * age.ordinal());
+        return AgeShotEntity.fire(sl, this, shotTable, age, from, to);
+    }
+
+    /** A player within the ring's reach takes its edge: strong knockback, medium damage, every 2 s. */
+    private void stepMelee(ServerLevel sl) {
+        if (meleeTimer > 0 && --meleeTimer > 0) return;
+        if (ability == PrimordialAbility.SHATTER || phaseLock > 0) return;
+        BossShots.Melee m = shotTable.melee();
+        boolean struck = false;
+        for (Player p : targets()) {
+            double dx = p.getX() - getX(), dz = p.getZ() - getZ();
+            // the ring hangs HOVER above the floor: a player on the floor under it or beside its body is in reach
+            if (dx * dx + dz * dz > m.range() * m.range() || p.getY() < floorY - 1 || p.getY() > getY() + 8) continue;
+            if (!p.hurt(damageSources().mobAttack(this), m.damage())) continue;
+            p.knockback(m.knockback(), getX() - p.getX(), getZ() - p.getZ());
+            sl.sendParticles(ParticleTypes.SWEEP_ATTACK, p.getX(), p.getY() + 1, p.getZ(), 1, 0, 0, 0, 0);
+            struck = true;
+        }
+        if (!struck) return;
+        meleeStrikes++;
+        meleeTimer = m.cooldownTicks();
+        sound(BossRegistry.SLAM.get(), 2.0F, 1.3F);
+    }
+
+    /** Phase 3: every 15 s it jumps behind a random player (3 blocks behind his back, within the leash of home). */
+    private void stepJump(ServerLevel sl) {
+        if (phase() < 3 || ability != PrimordialAbility.NONE) return;
+        if (++jumpTimer < JUMP_TICKS) return;
+        jumpTimer = 0;
+        List<Player> tg = targets();
+        if (tg.isEmpty()) return;
+        Player p = tg.get(random.nextInt(tg.size()));
+        Vec3 look = p.getLookAngle();
+        Vec3 back = new Vec3(look.x, 0, look.z);
+        back = back.lengthSqr() < 1.0E-4 ? new Vec3(0, 0, -1) : back.normalize();
+        double x = p.getX() - back.x * JUMP_BEHIND, z = p.getZ() - back.z * JUMP_BEHIND;
+        double dx = x - home.x, dz = z - home.z, d = Math.sqrt(dx * dx + dz * dz);
+        if (d > JUMP_LEASH) {
+            x = home.x + dx * JUMP_LEASH / d;
+            z = home.z + dz * JUMP_LEASH / d;
+        }
+        sl.sendParticles(ParticleTypes.REVERSE_PORTAL, getX(), getY() + 3, getZ(), 60, 2, 3, 2, 0.1);
+        setPos(x, floorY + PrimordialGeometry.HOVER, z);
+        sl.sendParticles(ParticleTypes.PORTAL, x, getY() + 3, z, 60, 2, 3, 2, 0.1);
+        sound(SoundEvents.ENDERMAN_TELEPORT, 3.0F, 0.5F);
+        setYRot((float) (Mth.atan2(p.getZ() - z, p.getX() - x) * Mth.RAD_TO_DEG) - 90.0F);
+    }
+
+    /**
+     * The storm over the arena: a harmless bolt (visual only: no fire, no damage, no rods) somewhere between the
+     * fighting floor's edge and the rim, every 6 s, 3 s and 1.5 s by phase, only in The Origin's arena.
+     */
+    private void stepStorm(ServerLevel sl) {
+        if (!ArenaLights.applies(sl)) return;
+        if (++stormTimer < shotTable.stormIntervalTicks(phase())) return;
+        stormTimer = 0;
+        double r = OriginArena.radius();
+        double dist = r * 0.6 + random.nextDouble() * (r * 0.4 - 2), a = random.nextDouble() * Math.PI * 2;
+        strikeVisual(sl, home.x + Math.cos(a) * dist, floorY, home.z + Math.sin(a) * dist);
+        stormBolts++;
+    }
+
+    /** A visual-only lightning bolt at (x, y, z): the storm's and the altar strikes' bolt. */
+    public static void strikeVisual(ServerLevel sl, double x, double y, double z) {
+        LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(sl);
+        if (bolt == null) return;
+        bolt.moveTo(x, y, z);
+        bolt.setVisualOnly(true);
+        sl.addFreshEntity(bolt);
     }
 
     /** Back home at once when dragged beyond {@link #LEASH} (horizontal) or 12 blocks off its floor. @return true if it jumped */
@@ -598,10 +742,10 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         double tx, tz, speed;
         switch (ability) {
             case NONE -> {
-                orbit += 0.004;
+                orbit += ORBIT_PER_TICK;
                 tx = home.x + Math.cos(orbit) * 4;
                 tz = home.z + Math.sin(orbit) * 4;
-                speed = 0.06;
+                speed = IDLE_SPEED;
             }
             case KEEL_SLAM -> {
                 Player p = abilityTick < SLAM_IMPACT - 8 ? nearestTarget() : null;
@@ -612,7 +756,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
                     tx = home.x + dx * DRIFT_LIMIT / d;
                     tz = home.z + dz * DRIFT_LIMIT / d;
                 }
-                speed = 0.2;
+                speed = CHASE_SPEED;
             }
             case NODE_VOLLEY -> {
                 tx = getX();
@@ -622,7 +766,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
             default -> {
                 tx = home.x;
                 tz = home.z;
-                speed = 0.15;
+                speed = RETURN_SPEED;
             }
         }
         double dx = tx - getX(), dz = tz - getZ(), d = Math.sqrt(dx * dx + dz * dz);
@@ -630,7 +774,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
             dx = d < 1.0E-6 ? 0 : dx * speed / d;
             dz = d < 1.0E-6 ? 0 : dz * speed / d;
         }
-        double dy = Mth.clamp(floorY + targetHeight() - getY(), -0.6, 0.6);
+        double dy = Mth.clamp(floorY + targetHeight() - getY(), -1.0, 1.0); // the slam drops 7.5 blocks in 8 ticks (round G4)
         setPos(getX() + dx, getY() + dy, getZ() + dz);
     }
 
@@ -638,7 +782,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         Player p = nearestTarget();
         if (p == null) return;
         float want = (float) (Mth.atan2(p.getZ() - getZ(), p.getX() - getX()) * Mth.RAD_TO_DEG) - 90.0F;
-        setYRot(Mth.approachDegrees(getYRot(), want, 2.0F));
+        setYRot(Mth.approachDegrees(getYRot(), want, TURN_PER_TICK));
     }
 
     private void ambient(ServerLevel sl) {
@@ -797,6 +941,8 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         entityData.set(DATA_PHASE, p);
         endAbility();
         starTimer = 0;
+        sequence.restart();
+        jumpTimer = 0;
         if (darkened.isEmpty()) darkened.addAll(ArenaLights.extinguish(sl));
         if (p == 2) {
             phaseLock = PHASE2_LOCK;
@@ -863,9 +1009,12 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         darkened.clear();
     }
 
-    /** Its own star-falls and bolts go with it. */
+    /** Its own star-falls, bolts and ring shots go with it. */
     private void clearStars(ServerLevel sl) {
         for (StarFallEntity s : sl.getEntitiesOfClass(StarFallEntity.class, getBoundingBox().inflate(64), s -> s.getOwner() == this || s.getOwner() == null)) {
+            s.discard();
+        }
+        for (AgeShotEntity s : sl.getEntitiesOfClass(AgeShotEntity.class, getBoundingBox().inflate(64), s -> s.getOwner() == this || s.getOwner() == null)) {
             s.discard();
         }
     }
@@ -971,6 +1120,9 @@ public class PrimordialEntity extends Monster implements GeoEntity {
             tag.putDouble("FloorY", floorY);
         }
         tag.put("Darkened", new LongArrayTag(darkened.stream().mapToLong(BlockPos::asLong).toArray()));
+        tag.putInt("ShotIndex", sequence.index());
+        tag.putInt("ShotCycle", sequence.cycle());
+        tag.putInt("ShotTimer", sequence.timer());
     }
 
     @Override
@@ -990,6 +1142,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         }
         darkened.clear();
         for (long l : tag.getLongArray("Darkened")) darkened.add(BlockPos.of(l));
+        sequence.load(tag.getInt("ShotIndex"), tag.getInt("ShotCycle"), tag.getInt("ShotTimer"));
     }
 
     @Override

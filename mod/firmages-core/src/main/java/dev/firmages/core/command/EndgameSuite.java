@@ -151,14 +151,30 @@ public final class EndgameSuite implements SelfTest.Suite {
                 ServerConfig.bossVeilFactor(), ServerConfig.bossHitCap());
             double d = dev.firmages.core.boss.FightModel.chaoticSword(dev.firmages.core.boss.FightModel.REFERENCE_DAMAGE_MODULES);
             StringBuilder out = new StringBuilder();
+            int[] want = {8, 6, 5}; // round G4 (Felix): about 8, 6 and 5 minutes with the altars
+            int i = 0;
             for (int n : new int[] {1, 2, 4}) {
                 double before = s.fightSecondsWithoutAltars(n, d), after = s.fightSeconds(n, d);
                 check(after / before - 1 <= dev.firmages.core.boss.FightModel.ALTAR_MAX_GROWTH + 1e-9,
                     n + " players: the altars add " + Math.round((after / before - 1) * 100) + " %");
                 check(after < ServerConfig.bossEnrageMinutes() * 60, n + " players: " + Math.round(after) + " s reach boss.enrageMinutes");
+                check(Math.abs(after / 60 - want[i++]) <= 1.0, n + " players: " + Math.round(after / 60) + " min, wanted about " + want[i - 1]);
                 out.append(n).append(": ").append(String.format(java.util.Locale.ROOT, "%.1f", after / 60)).append(" min ");
             }
             return out.toString().trim();
+        });
+        r.test("boss_shots_table", () -> {
+            // round G4 (SPEC §39.2): data/firmages/balance/boss_shots.json is loaded, ten segments, the pace and the incoming side
+            check(dev.firmages.core.boss.BossShotsService.tablePresent(server), "data/firmages/balance/boss_shots.json missing");
+            var t = dev.firmages.core.boss.BossShotsService.table(server);
+            check(t.intervalTicks(1) > t.intervalTicks(2) && t.intervalTicks(2) > t.intervalTicks(3), "the ring does not quicken by phase");
+            for (var a : dev.firmages.core.boss.ShotAge.values()) check(t.shot(a).speed() > 0 && t.shot(a).damage() > 0, a.key + " row empty");
+            check(t.shot(dev.firmages.core.boss.ShotAge.SINGULARITY).phaseFrom() == 3, "the black hole fires before phase 3");
+            double die = dev.firmages.core.boss.FightModel.secondsToDie(t, 3, true);
+            check(die >= 15 && die <= 35, "a player who never dodges lasts " + Math.round(die) + " s in phase 3 (wanted about 25)");
+            return "10 segments, " + t.intervalTicks(1) + "/" + t.intervalTicks(2) + "/" + t.intervalTicks(3) + " ticks, no dodge: "
+                + Math.round(dev.firmages.core.boss.FightModel.secondsToDie(t, 1, true)) + "/" + Math.round(dev.firmages.core.boss.FightModel.secondsToDie(t, 2, true))
+                + "/" + Math.round(die) + " s";
         });
         r.test("regrowth_guard_on", () -> {
             check(ServerConfig.regrowthLoadedChunksOnly(), "perf.regrowthLoadedChunksOnly is off");

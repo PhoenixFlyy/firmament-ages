@@ -5,7 +5,7 @@ import java.util.Locale;
 /**
  * The fight model of The Primordial (SPEC §39, docs/primordial.md "Numbers"): the expected length of the fight for 1, 2
  * and 4 players in Chaotic Draconic gear, from the stats in the Draconic Evolution jar and the boss's own rules. The
- * defaults of {@code [boss]} are set so that every party size lands in 6 to 10 minutes; {@code FightModelTest} holds
+ * defaults of {@code [boss]} are set so that 1, 2 and 4 players land near 8, 6 and 5 minutes with the altars (round G4); {@code FightModelTest} holds
  * the numbers and {@code PrimordialEntity.initFight} logs the model for the party it wakes for. Pure Java.
  *
  * <p>Draconic Evolution 1.21.1-3.1.4.633 [verified, javap of {@code EquipCfg}, {@code DEModules}, {@code ModuleCfg},
@@ -41,8 +41,8 @@ public final class FightModel {
     /** Shatter: every 25 s it is untouchable for 3 s (phase 3). */
     public static final double SHATTER_CYCLE_S = 25, SHATTER_UNTOUCHABLE_S = 3;
 
-    /** The defaults of {@code [boss]} in firmages-server.toml. */
-    public static final double EFFECTIVE_HEALTH = 13000, PER_PLAYER_FACTOR = 0.7, VEIL_FACTOR = 0.25, HIT_CAP = 40;
+    /** The defaults of {@code [boss]} in firmages-server.toml (round G4: 10,000, was 13,000: 8 / 6 / 5 minutes with the altars). */
+    public static final double EFFECTIVE_HEALTH = 10000, PER_PLAYER_FACTOR = 0.7, VEIL_FACTOR = 0.25, HIT_CAP = 40;
     /** Round G3: 12 and 14 (were 10 and 12), so the altar time of a lone player (+86 s) does not run into them. */
     public static final int ENRAGE_MINUTES = 12, STARFALL_ENRAGE_MINUTES = 14;
 
@@ -52,14 +52,39 @@ public final class FightModel {
      */
     public static final int ALTARS = 4;
     public static final double ALTAR_CHANNEL_S = 3, ALTAR_WALK_S = 4, ALTAR_STRIKE_S = 20;
-    /** The fight may grow by at most this share through the altars (Felix A2b). */
-    public static final double ALTAR_MAX_GROWTH = 0.20;
+    /** The fight may grow by at most this share through the altars (Felix A2b: 20 %; round G4: 25 %, the shorter fight of 8 / 6 / 5 minutes makes the lone player's 86 s of altars 22 %). */
+    public static final double ALTAR_MAX_GROWTH = 0.25;
 
     /** Assumptions (see the class comment). */
     public static final double UPTIME = 0.6;
     public static final double[] VEIL_OPEN = {1.0 / 3, 1.0 / 3, 0.6};
 
+    /**
+     * What a player takes who does not dodge (round G4, SPEC §39.2): the ring's shots ({@link BossShots#shotDps}), the
+     * close strike for a melee player, and phase 3's star-fall (14 damage every 2 s, radius 2 around a point up to 3
+     * blocks off the player: it lands on a standing player about 45 % of the time). The reference target: vanilla's
+     * 20 health plus a Draconic Evolution Chaotic shield control module (capacity 20, recharge 5 a second) with one
+     * Chaotic shield capacity module (+500) [verified, javap of {@code DEModules.shieldData}: control 20 / 5.0, capacity
+     * 500]; armour is left out (Draconic armour protects through the shield). The target is about 25 s in phase 3.
+     */
+    public static final double PLAYER_HEALTH = 20, REFERENCE_SHIELD = 20 + 500, SHIELD_RECHARGE_PER_S = 5;
+    public static final double STARFALL_DAMAGE = 14, STARFALL_EVERY_S = 2, STARFALL_HIT_SHARE = 0.45;
+
     private FightModel() {}
+
+    /** Damage a second a player takes in {@code phase} who stands still in reach ({@code melee}) and never dodges. */
+    public static double incomingDps(BossShots table, int phase, boolean melee) {
+        double d = table.shotDps(phase);
+        if (melee) d += table.meleeDps();
+        if (phase >= 3) d += STARFALL_DAMAGE * STARFALL_HIT_SHARE / STARFALL_EVERY_S;
+        return d;
+    }
+
+    /** Seconds until the reference target dies in {@code phase} without dodging; infinite when the shield keeps up. */
+    public static double secondsToDie(BossShots table, int phase, boolean melee) {
+        double net = incomingDps(table, phase, melee) - SHIELD_RECHARGE_PER_S;
+        return net <= 0 ? Double.POSITIVE_INFINITY : (PLAYER_HEALTH + REFERENCE_SHIELD) / net;
+    }
 
     /**
      * Seconds the party needs to light the four altars once: {@code players} players light {@code players / (walk +
@@ -137,12 +162,19 @@ public final class FightModel {
 
         /** One log line: the expected length for 1, 2 and 4 players and the party at hand, reference build. */
         public String describe(int party) {
+            return describe(party, BossShots.defaults());
+        }
+
+        /** The log line with the fight's shot table (the incoming side of the model). */
+        public String describe(int party, BossShots shots) {
             double d = chaoticSword(REFERENCE_DAMAGE_MODULES);
             return String.format(Locale.ROOT,
                 "fight model (Chaotic sword +%d damage modules, %.1f per hit, %.1f to the pool, %.1f hits/s, uptime %.0f%%): "
-                    + "1 player %.1f min, 2 players %.1f min, 4 players %.1f min; this party of %d: %.1f min, pool %.0f",
+                    + "1 player %.1f min, 2 players %.1f min, 4 players %.1f min; this party of %d: %.1f min, pool %.0f; "
+                    + "a player who never dodges dies in %.0f s (phase 1), %.0f s (phase 2), %.0f s (phase 3)",
                 REFERENCE_DAMAGE_MODULES, d, poolPerHit(d), hitsPerSecond(0), UPTIME * 100, fightSeconds(1, d) / 60, fightSeconds(2, d) / 60,
-                fightSeconds(4, d) / 60, party, fightSeconds(party, d) / 60, pool(party));
+                fightSeconds(4, d) / 60, party, fightSeconds(party, d) / 60, pool(party), secondsToDie(shots, 1, true), secondsToDie(shots, 2, true),
+                secondsToDie(shots, 3, true));
         }
     }
 }
