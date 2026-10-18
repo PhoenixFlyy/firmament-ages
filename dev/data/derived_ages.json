@@ -370,6 +370,7 @@
   "aquaculture:treasure_chest": ["dawn","age_2","age_2","fishing (aquaculture:gameplay/fishing/junk, Aquaculture code)"],
   "aquaculture:tuna_bucket": ["dawn","age_5","age_5","interaction tuna+water_bucket"],
   "aquaculture:turtle_soup": ["dawn","age_5","age_5","aquaculture:turtle_soup"],
+  "aquaculture:worm_farm": ["dawn","age_0","age_0","aquaculture:worm_farm"],
   "ars_additions:ancient_codex_entry": ["age_3",null,"disabled",null],
   "ars_additions:archwood_lantern": ["age_3","age_4","age_4","ars_additions:crafting/lanterns/archwood_lantern"],
   "ars_additions:codex_entry": ["age_3","age_6","age_6","structure ars_additions:nexus_tower"],

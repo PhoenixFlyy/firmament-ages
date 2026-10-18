@@ -1,8 +1,30 @@
 # Client-Test
 
+## 1.3.0 Checkliste (Runde G4, Pack 1.3.0, firmages-core 1.3.0, 2026-10-18)
+
+Die neueste offene Liste; die 1.2.0-Zeilen darunter gelten weiter. Neues Profil aus
+`dev/exports/FirmamentAges-1.3.0.mrpack` (oder der CurseForge-Zip), Server aus dem Ordner `FirmamentAges-Server-1.3.0`
+mit einer frischen Welt; Client und Server brauchen firmages-core 1.3.0. Ages per `/firmages stage grant @s age_N`,
+The Origin per `/firmages origin tp @s force`. Server-Teil auf einer Kopie geprüft (`dev/poc-results.md`, „1.3.0 round G4“).
+
+| # | Was | Wie | Erwartet |
+|---|---|---|---|
+| 1 | Ankunft und Aufstieg | `origin tp`, von der Plattform (y 34) den Aufstieg hoch | Weg mit drei Läufen, zwei Brücken, neun Vitrinen, ohne Sprung begehbar bis zum Bogen am Südtor |
+| 2 | Arena als Gelände | über Rand, Terrassen, Ring, Gräben, Brücken, Senke laufen | keine Lücke, kein Erstickungsblock, Kuppeln und Podeste mit Altären sichtbar |
+| 3 | Altar-Texturen | einen Altar ansehen, dann (leere Hand, 3 s) entzünden | nachtblau mit Gold und Windrosen, entzündet animiert |
+| 4 | Himmel hinter der Welt | in der Origin nach oben und auf Böden und Treppen sehen, Phase 1 bis 3 | Sterne, Aurora, Finsternis nur am Himmel, nie über Böden oder Wänden; mit Shaderpack nur die Nebelfarbe |
+| 5 | Blitze | Kampf starten (`origin fight`) | Blitze über der Arena, dichter je Phase, kein Schaden, kein Feuer |
+| 6 | Ring mit zehn Shards | Boss ansehen | zehn Segmente drehen sich, feuern nacheinander je ein Age-Geschoss mit eigenem Sprite |
+| 7 | Geschosse | jedem Geschoss ausweichen und eins treffen lassen | Wirkung je Age (Brocken, Splitter, Lanze, Kette, Schwerkraft, Frost, in Phase 3 Schwarzes Loch), Treffer schmerzen spürbar |
+| 8 | Nahkampf | näher als 4 Blöcke an den Ring | alle 2 s Schaden durch die Ringkante; von den Terrassen aus (HOVER 7) noch erreichbar? |
+| 9 | Tempo und Dauer | allein mit Altären kämpfen, Zeit stoppen | Boss treibt schneller, springt in Phase 3 hinter Dich; etwa 8 min allein |
+| 10 | Dawn: Icons und Abhängigkeiten | Dawn-Kapitel öffnen | „Stone Tools“ prüft den Axtkopf, „Thatch“ wartet auf das Messer, „By Hand“ fehlt (in „Hands and Keys“), „The First Spark“ wartet auf „You Wake“ |
+| 11 | Stone Age: Icons und Abhängigkeiten | Steinzeit-Kapitel öffnen | Stamm Ton, Grubenofen, Formen vor den drei Strängen, Werkbank in „First Metal“; kein Icon zeigt ein späteres Item |
+| 12 | Schrein-Ziel-Quest je Age | je Age die Ziel-Quest am Schrein lesen und erfüllen | drei Aufgaben (Ring beobachten, Opfergabe im Besitz, nächste Age), drei Seiten Text; keine „Raise …“-Quests, Bauanleitung in der Straßenmarkierung von The Firmament |
+
 ## 1.2.0 Checkliste (Runde G3, Pack 1.2.0, firmages-core 1.2.0, 2026-10-18)
 
-Die einzige offene Client-Liste; alles bis 1.1.0 liegt im Archiv `dev/archive/client-test-brief-bis-1.1.0.md`.
+Gilt weiter neben der 1.3.0-Liste; alles bis 1.1.0 liegt im Archiv `dev/archive/client-test-brief-bis-1.1.0.md`.
 Neues Profil aus `dev/exports/FirmamentAges-1.2.0.mrpack` (oder der CurseForge-Zip), Server aus dem Ordner
 `FirmamentAges-Server-1.2.0` mit einer frischen Welt; Client und Server brauchen firmages-core 1.2.0. Survival ohne
 Operator-Wirkung, wo nicht anders genannt; Ages per `/firmages stage grant @s age_N` (als Operator). Server-Teil auf

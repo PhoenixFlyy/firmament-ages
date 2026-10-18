@@ -1,6 +1,6 @@
 # Offene Punkte
 
-Stand 2026-10-18, Pack 1.2.0, firmages-core 1.2.0 (Runde G3). Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
+Stand 2026-10-18, Pack 1.3.0, firmages-core 1.3.0 (Runde G4). Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
 Felix trifft, Prüfungen im Client und Ideen für die Zeit nach 1.0. Erledigtes früherer Runden steht in der Git-Historie
 dieser Datei (bis Commit `7689802`) und mit Beleg in `dev/poc-results.md`; unten nur, was die Runden F1, G1 und G2
 geschlossen haben.
@@ -23,6 +23,8 @@ Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17
 
 | Was | Wo | Wer |
 |---|---|---|
+| G4: Welten, deren Origin vor 1.3.0 erzeugt wurde, behalten die flache große Arena von 1.2.0 (ohne Gelände, Aufstieg, Kuppeln; der Boss schwebt dort mit HOVER 7 höher als zuvor). Umstellen: `/firmages origin rebuild` (Operator), nicht automatisch | `OriginLayout`, `OriginCommands.rebuild` | Felix (Info) |
+| G4: Quest-Fortschritt verschobener oder zusammengelegter Tasks (Schrein-Ziel-Quests statt „Raise …“, „By Hand“ in „Hands and Keys“, neue Abhängigkeiten): Teams einer 1.2.0-Welt sehen erledigte Quests eventuell wieder offen oder gesperrt; ein Operator schließt sie im Questbuch ab | `config/ftbquests/quests/`, `dev/quests-editing.md` | Felix (Hinweis an Mitspieler) |
 | G3: Welten, deren Origin vor Runde G3 erzeugt wurde, behalten die kleine Arena (Radius 20, ohne Altäre, Schild, Treppe, Vitrinen); nur eine neu erzeugte Origin bekommt die große (SPEC §16.5). Umstellen hieße `origin rebuild` nach Löschen der Origin-Region, nicht automatisch | `OriginLayout`, `OriginSavedData.layout` | Felix (Info) |
 | Vanilla-Herzen nur in neuen Welten: eine Welt von 1.0.0 behält TFCs Gesundheit (Default 0,85) in ihrer Welt-Config; bei gestopptem Server `nutritionMinimumHealthModifier`, `nutritionDefaultHealthModifier` und `nutritionMaximumHealthModifier` von Hand auf `1.0` setzen | `<Welt>/serverconfig/tfc-server.toml` `[mechanics.player]` | Felix |
 | Welten, die älter als drei Tage sind und keine Tutorial-Wayshrine haben (Suche vor dem Release 1.0.0 mit nur 16 Peilungen, oder vor 0.12.0 angelegt): der Dawn-Keystone „A Shrine on the Road“ (Blick auf irgendeinen `firmages:wayshrine_core`) ist dort nur über eine natürliche Wayshrine weiter draußen oder nach `/firmages wayshrine tutorial` (Operator) erfüllbar, und „The First Spark“ wartet auf ihn. Felix' Testwelt ist neu | Questbuch, firmages-core `WayshrineTutorial` | Felix, falls eine solche Welt in Dawn steht |
@@ -32,6 +34,8 @@ Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17
 
 | Was | Wo | Wer |
 |---|---|---|
+| **Die „1.3.0 Checkliste (Runde G4)“** in `dev/client-test-brief.md` (Aufstieg, Arena-Gelände, Altar-Texturen, Himmel hinter der Welt, Blitze, Ring und Geschosse, Nahkampf, Tempo, Dawn-/Stone-Icons und Abhängigkeiten, Schrein-Ziel-Quests) | `dev/client-test-brief.md` | Felix |
+| G4: Nahkampf mit HOVER 7: ob die Ringkante (4 Blöcke) Spieler auf den Terrassen und Podesten erreicht und ob Nahkämpfer den Boss von dort treffen; sonst HOVER oder Reichweite anpassen | `PrimordialGeometry.HOVER`, Zeile 8 der 1.3.0-Liste | Felix prüft, Claude stellt ein |
 | **Die „1.2.0 Checkliste (Runde G3)“** in `dev/client-test-brief.md` (die einzige offene Liste: Arena, Altäre und Schild, Himmel je Phase, Origin ohne Monster, Insel-Ruine, Meerestiere, Wracks, Aquaculture, Nächte je Age, Blutmond, Cave Dweller, Apotheosis-Stufe, Karte auf M, Radar, Something Unknown, TabTPS, Menüs, Resourcepacks, Dusty; ältere Listen im Archiv `dev/archive/client-test-brief-bis-1.1.0.md`) | `dev/client-test-brief.md` | Felix |
 | Titelbild: nach dem ersten Blick auf das Shader-Sternbild `show_compile_errors = true` wieder auf `false` | `config/fancymenu/customization/title_screen_layout.txt` | Felix sieht, Claude stellt um |
 | Industriezeit-Quest „The Thresher“ schließt beim Blick auf einen geformten Thresher ab; Loot-Crate-Opener und Task-Screen-Konfigurator fehlen in EMI | Questbuch, EMI | Felix |

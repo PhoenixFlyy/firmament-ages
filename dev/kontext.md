@@ -1,7 +1,7 @@
 # Firmament Ages: Kontext für Agenten
 
 Diese Seite ersetzt für den Einstieg `mod/firmages-core/SPEC.md`, `dev/README.md` und die langen Notizen; die Pfade führen zu den Details.
-Stand 2026-10-18: Pack 1.2.0 und firmages-core 1.2.0 (Runde G3, Felix' dritte Rückmeldung: große Origin-Arena mit Ankunftsplattform, vier Altären und Schild in Phase 2 und 3, Himmel je Phase, Enrage 12/14 min; The Origin ohne natürliche Monster; Insel-Ruinen mit Wind-Siegeln; Alex's-Mobs-Meerestiere nach Mob-Leiter, Wracks und versunkene Ruinen, Aquaculture 2; Nächte je Age „Creeping Darkness“; Karte auf M repariert, Radar, „Something Unknown“ überall, TabTPS, Menü-Hintergründe, Resourcepack-Voreinstellung; Netzprotokoll 8 unverändert; Release-Commit mit Tag `v1.2.0`), Branch `dev`. Davor 1.1.0 (Runde G2, Tag `v1.1.0`), 1.0.2 (Runde G1b) und 1.0.1 (Runde G1, nie auf CurseForge).
+Stand 2026-10-18: Pack 1.3.0 und firmages-core 1.3.0 (Runde G4, Felix' vierte Rückmeldung: Origin-Himmel als Dimensionseffekt `OriginSkyEffects` hinter dem Terrain, optische Blitze; Boss-Rework: Ring mit zehn Shards feuert Age-Geschosse `firmages:age_shot` nach `boss_shots.json`, Nahkampf der Ringkante, schneller, HOVER 7, `effectiveHealth` 10000, Modell 7,9/6,1/5,3 min; Arena als Gelände mit Aufstieg von der Plattform y 34, Kuppeln, Altar-Texturen; Questbuch: `gen_quests.py` wieder Quelle, Schrein-Ziel-Quests, Icon- und Abhängigkeitsregeln, 646 Quests; Netzprotokoll 8 unverändert; Release-Commit mit Tag `v1.3.0`), Branch `dev`. Davor 1.2.0 (Runde G3, Tag `v1.2.0`), 1.1.0 (Runde G2), 1.0.2 (Runde G1b) und 1.0.1 (Runde G1, nie auf CurseForge).
 
 ## 1. Was das Pack ist
 
@@ -94,7 +94,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
   - `loot/` Loot-Gate `firmages:age_filter` (§19.5): jedes erzeugte Loot behält nur Items der Ages des Spielers des Wurfs (sein Team), ohne Spieler der Server-Ages; `age_items/disabled` fällt immer; `mixin/LootModifierManagerMixin` stellt ihn hinter alle anderen Loot-Modifier. Vorbefüllte Behälter und Entities platzierter Strukturvorlagen filtert `mixin/StructureTemplateMixin` mit `TemplateContents` und `PlacedContents` nach der Server-Age, verschachtelte Inhalte eingeschlossen; dieselbe Rekursion filtert die Stapel gewürfelten Loots (`NbtContents.filterNested`).
   - `net/` Netzprotokoll `"8"` (`FirmagesNetwork.VERSION`, §11; seit 1.1.0, `firmages:age_status` trägt `inventoryRows`; Client und Server brauchen dieselbe Version); `compat/<mod>` und `mixin/<mod>` laden nur mit der Mod. Mod-Updates von Enhanced Falling Trees und JourneyMap vorher per `javap` gegen die Mixin- und Reflection-Ziele prüfen (`dev/release.md`, „Mod-Updates von Enhanced Falling Trees und JourneyMap“).
   - Config (§9): `firmages-server.toml` (Pack-Kopie `config/firmages-server.toml`) mit `gate miner prospecting reactor shrine sanctuary wayshrine anchor crown launch origin ark boss sync team ui tfc hardship perf starfall skyHarvest isles balance machines debug`; `firmages-client.toml` mit `effects music ui chat tfc`.
-  - Tests: `/firmages selftest [all|core|gate|server|sky|crown|wayshrines|isles|launch|ark|endgame]` (`command/*Suite.java`; 1.2.0: `selftest all` 115 bestanden, 1.1.0: 112); GameTests in `src/gametest/java/dev/firmages/core/gametest/*GameTests.java` (30 Klassen), JUnit in `src/test/java/`.
+  - Tests: `/firmages selftest [all|core|gate|server|sky|crown|wayshrines|isles|launch|ark|endgame]` (`command/*Suite.java`; 1.3.0: `selftest all` 116 bestanden, 1.2.0: 115); GameTests in `src/gametest/java/dev/firmages/core/gametest/*GameTests.java` (31 Klassen), JUnit in `src/test/java/`.
 - KubeJS:
   - `kubejs/startup_scripts/00_constants.js`: `global.FA` (Stages, Titel, Mob-Leiter, `CHUNK_QUOTA`, `HIDDEN_ITEMS`, `WOOD_CLASSES`); `metal_table.js` (`global.FA_METALS`), `sky.js`, `items.js`.
   - `kubejs/server_scripts/recipes/age_N/*.js` (Rezepte je Age, `links.js` Querverbindungen) und übergreifende `recipes/*.js`; `stages/grants.js` leitet Mob-Leiter, Karte, Stationsfenster und Chunk-Kontingent aus dem Age-Stage ab; `tags/` (Age-Token, `hidden_from_viewers.js`); `debug/dump.js` (`/fa_dump`, `/fa_dump_full`).
@@ -106,8 +106,8 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 
 ## 6. Prüfregeln vor einem Commit
 
-1. `cd mod/firmages-core`, `JAVA_HOME` = `tools/jdk-21`, `gradlew build`: BUILD SUCCESSFUL, 0 Testfehler (1.2.0: 366 Unit-Tests; 1.1.0: 346).
-2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (1.2.0: 149; 1.1.0: 142).
+1. `cd mod/firmages-core`, `JAVA_HOME` = `tools/jdk-21`, `gradlew build`: BUILD SUCCESSFUL, 0 Testfehler (1.3.0: 378 Unit-Tests; 1.2.0: 366).
+2. `gradlew runGameTestServer` in einem frischen `run/gametest`: „All N required tests passed“ (1.3.0: 154; 1.2.0: 149).
 3. Jedes betroffene `gen_*.py --check`, dazu `check_menus.py` und `miner_ladder.py --check`: alles aktuell.
 4. `python dev/derive_ages.py --check` und `python dev/gen_stage_locks.py --check`: up to date.
 5. `python dev/validate_quests.py --style`: 0 Fehler, 0 Warnungen.
@@ -123,9 +123,9 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 
 ## 7. Offene Punkte und Entscheidungen
 
-- Offene Entscheidungen (Felix, oben in `dev/offene-punkte.md`): G3-Quest-Edits (Insel-Ruine, Aquaculture-Side-Road), Endgame-Studie (`dev/endgame-studie.md`), Apotheosis manuelle Weltstufe, Aquaculture-Biome. Bewusst gewählt: `worldPlayerRadar` ALL; eine vor 1.2.0 erzeugte Origin behält die kleine Arena.
-- Im Client (Felix): nur die „1.2.0 Checkliste (Runde G3)“ in `dev/client-test-brief.md` (23 Zeilen); alle älteren Listen liegen im Archiv `dev/archive/client-test-brief-bis-1.1.0.md`; dazu die Client-Zeilen in `dev/offene-punkte.md`.
+- Offene Entscheidungen (Felix, oben in `dev/offene-punkte.md`): G3-Quest-Edits (Insel-Ruine, Aquaculture-Side-Road), Endgame-Studie (`dev/endgame-studie.md`), Apotheosis manuelle Weltstufe, Aquaculture-Biome. Bewusst gewählt: `worldPlayerRadar` ALL; eine vor 1.2.0 erzeugte Origin behält die kleine Arena, eine mit 1.2.0 erzeugte die flache große bis `origin rebuild`.
+- Im Client (Felix): die „1.3.0 Checkliste (Runde G4)“ (12 Zeilen) und darunter die „1.2.0 Checkliste (Runde G3)“ (23 Zeilen) in `dev/client-test-brief.md`; alle älteren Listen liegen im Archiv `dev/archive/client-test-brief-bis-1.1.0.md`; dazu die Client-Zeilen in `dev/offene-punkte.md`.
 - Nach 1.0 (`dev/offene-punkte.md`, „Nach 1.0“): Pacing-Modell als `dev/pacing.py` ins Repo holen und an einem Durchgang eichen, Questbuch-Ideen, Wayshrine-Dichte, Teleporter- und Warp-Sperre in The Origin, unverifizierte Config-Keys, Live-Messungen.
-- Basis für `check_registry_parity.py dump`: `dev/data/baseline-1.2.0/` (Gate-aus-Dump der Runde G3, 36.776 Items, 43.963 Rezepte, `registries.json.gz`, `recipes.json.gz`); `gen_dawn_breakable.py` liest die neueste Basis.
+- Basis für `check_registry_parity.py dump`: `dev/data/baseline-1.3.0/` (Gate-aus-Dump der Runde G4, 36.776 Items, 43.963 Rezepte, neu nur die Entity `firmages:age_shot`, `registries.json.gz`, `recipes.json.gz`); `gen_dawn_breakable.py` liest die neueste Basis.
 - Entscheidungen: eine Zeile in `dev/decisions-while-away.md`, Deutsch, Format `| Datum | Thema | Entscheidung | Warum | So änderst Du es |`, neue Zeilen unten, Thema mit Runde als Präfix (z. B. „Integration F1: …“).
 - Offene Punkte: `| Was | Wo | Wer |` in `dev/offene-punkte.md`; Erledigtes mit Beleg nach unten. Belege jeder Runde: `dev/poc-results.md` (`| Check | Observed | Result |`).

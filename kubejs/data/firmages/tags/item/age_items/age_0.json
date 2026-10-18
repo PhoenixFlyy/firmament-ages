@@ -19,6 +19,7 @@
     {"id": "alexsmobs:emu_leggings", "required": false},
     {"id": "alexsmobs:flying_fish_boots", "required": false},
     {"id": "alexsmobs:maraca", "required": false},
+    {"id": "aquaculture:worm_farm", "required": false},
     {"id": "decorative_blocks:acacia_beam", "required": false},
     {"id": "decorative_blocks:acacia_palisade", "required": false},
     {"id": "decorative_blocks:acacia_seat", "required": false},

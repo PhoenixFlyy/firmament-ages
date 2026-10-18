@@ -915,7 +915,6 @@
     {"id": "aquaculture:tambaqui", "required": false},
     {"id": "aquaculture:tuna", "required": false},
     {"id": "aquaculture:worm", "required": false},
-    {"id": "aquaculture:worm_farm", "required": false},
     {"id": "firmages:frontier_shard", "required": false},
     {"id": "firmages:sky_rock", "required": false},
     {"id": "firmages:skystone", "required": false},

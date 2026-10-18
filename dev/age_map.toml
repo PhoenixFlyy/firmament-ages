@@ -1960,6 +1960,7 @@ mods = { mcwfurnitures = "mcfur", handcrafted = "hc", mcwwindows = "mcw", mcwdoo
 "aquaculture:treasure_chest" = "age_2"
 "aquaculture:tuna_bucket" = "age_5"
 "aquaculture:turtle_soup" = "age_5"
+"aquaculture:worm_farm" = "age_0"
 "ars_additions:archwood_lantern" = "age_4"
 "ars_additions:codex_entry" = "age_6"
 "ars_additions:fire_resistance_charm" = "age_5"
