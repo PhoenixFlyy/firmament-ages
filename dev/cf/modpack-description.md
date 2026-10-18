@@ -79,12 +79,12 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 1.3.0 contains 272 mods. Thank you to every author.
+Firmament Ages 1.3.0 contains 273 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **A handful of acorns** by Lepidocrocite ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/a-handful-of-acorns))
-- **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
+- **Ad Astra** by terrariumearth, AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
 - **Advanced Chimneys** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-chimneys))
 - **Advanced TFC Tech Unofficial** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-tfc-tech-unofficial))
 - **AdvancedAE** by pedroksl ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advancedae))
@@ -351,6 +351,7 @@ Firmament Ages 1.3.0 contains 272 mods. Thank you to every author.
 - **Torque Link Create To TFC** by Vvxzv ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/torque-link-create-to-tfc))
 - **Totemic** by ljfa2, Forge_User_22859052 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/totemic))
 - **Trash Cans** by SuperMartijn642 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/trash-cans))
+- **WI Zoom** by alexander9892 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/wi-zoom))
 - **WoodenCog** by Manwe_b ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/woodencog))
 - **YetAnotherConfigLib** by isXander ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/yacl))
 

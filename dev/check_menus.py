@@ -40,7 +40,7 @@ Static proof for config/fancymenu/ (FancyMenu 3.9.14, Drippy 3.1.5, MC 1.21.1, N
              whose value ends with "{" (or a value that continues on a line starting with "}") breaks the layout
   backdrops  (G3) every screen in BACKDROP has a layout (identifier = FancyMenu's universal id) and is enabled in
              customizablemenus.txt by its class; its menu_background equals the title's (same shader source and
-             settings), it has no wordmark or version line, and FancyMenu's global button style in options.txt uses
+             settings; the pause screen in WORLD_VISIBLE has none), it has no wordmark or version line, and FancyMenu's global button style in options.txt uses
              the title buttons' textures and label colours
   shader     the title menu_background is background_type = glsl with use_input = false; its inline_shader_source,
              decoded like PropertyContainer.deserializePropertyValue (%%!serialized_property_newline!%% -> line
@@ -424,6 +424,9 @@ BACKDROP = {
     "pause_screen": "net.minecraft.client.gui.screens.PauseScreen",
 }
 
+# Screens over a running world keep the vanilla transparent background (Felix 2026-10-18): only the button styles.
+WORLD_VISIBLE = {"pause_screen"}
+
 
 def check_backdrops(layouts, cm, errors):
     _, tsecs = layouts.get("title_screen", (None, []))
@@ -440,7 +443,10 @@ def check_backdrops(layouts, cm, errors):
             continue
         f, secs = layouts[ident]
         bg = next((d for n, d in secs if n == "menu_background"), None)
-        if bg != tbg:
+        if ident in WORLD_VISIBLE:
+            if bg is not None:
+                errors.append(f"{f.name}: menu_background set; the world stays visible behind this screen")
+        elif bg != tbg:
             errors.append(f"{f.name}: menu_background differs from the title's")
         for n, d in secs:
             if d.get("instance_identifier") in ("fa_title_wordmark", "fa_title_version"):
