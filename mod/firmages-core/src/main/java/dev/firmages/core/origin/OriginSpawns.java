@@ -15,7 +15,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
+import net.minecraft.world.entity.MobSpawnType;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public final class OriginSpawns extends SimpleJsonResourceReloadListener {
     public static void register(IEventBus bus) {
         bus.addListener((AddReloadListenerEvent e) -> e.addListener(new OriginSpawns()));
         bus.addListener(EventPriority.LOWEST, OriginSpawns::onPotentialSpawns);
+        bus.addListener(EventPriority.LOWEST, OriginSpawns::onPositionCheck);
     }
 
     public static OriginSpawnList list() {
@@ -93,5 +96,16 @@ public final class OriginSpawns extends SimpleJsonResourceReloadListener {
         if (event.getSpawnerDataList().equals(want)) return;
         for (MobSpawnSettings.SpawnerData d : List.copyOf(event.getSpawnerDataList())) event.removeSpawnerData(d);
         want.forEach(event::addSpawnerData);
+    }
+
+    /** G3 (Felix): no natural monster spawns in The Origin; the boss and its adds come from commands and code, not these types. */
+    static boolean deniesNatural(MobSpawnType type, MobCategory category) {
+        return category == MobCategory.MONSTER && (type == MobSpawnType.NATURAL || type == MobSpawnType.CHUNK_GENERATION);
+    }
+
+    /** Guard behind the empty spawn list: a natural monster spawn in {@code firmages:origin} is always denied. */
+    static void onPositionCheck(MobSpawnEvent.PositionCheck event) {
+        if (!(event.getLevel() instanceof ServerLevel level) || level.dimension() != OriginRegistry.ORIGIN) return;
+        if (deniesNatural(event.getSpawnType(), event.getEntity().getType().getCategory())) event.setResult(MobSpawnEvent.PositionCheck.Result.FAIL);
     }
 }

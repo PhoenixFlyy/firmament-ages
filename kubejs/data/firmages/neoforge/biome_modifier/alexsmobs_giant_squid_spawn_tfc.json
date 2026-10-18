@@ -1,0 +1,13 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "tfc:deep_ocean",
+    "tfc:deep_ocean_trench"
+  ],
+  "spawners": {
+    "type": "alexsmobs:giant_squid",
+    "weight": 1,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

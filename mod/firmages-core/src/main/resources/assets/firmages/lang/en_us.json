@@ -357,6 +357,8 @@
   "block.firmages.skystone": "Skystone",
   "block.firmages.firmament_crystal_cluster": "Firmament Crystal Cluster",
   "block.firmages.firmament_lode": "Firmament Lode",
+  "block.firmages.wind_seal": "Wind Seal",
+  "block.firmages.wind_seal_lid": "Sealed Skystone",
   "item.firmages.firmament_crystal": "Firmament Crystal",
   "subtitles.firmages.lode.reform": "A lode re-forms",
   "firmages.jade.starfall_core.glowing": "Glowing: cools in %s",

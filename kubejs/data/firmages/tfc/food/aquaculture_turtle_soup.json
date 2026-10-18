@@ -1,0 +1,10 @@
+{
+  "ingredient": {
+    "item": "aquaculture:turtle_soup"
+  },
+  "hunger": 4,
+  "saturation": 2.0,
+  "water": 5.0,
+  "protein": 2.0,
+  "decay_modifier": 1.5
+}

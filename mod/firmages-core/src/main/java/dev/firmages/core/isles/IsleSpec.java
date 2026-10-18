@@ -7,7 +7,12 @@ package dev.firmages.core.isles;
  * these values alone ({@link IsleShape}), so a structure piece, the fallback placer and a GameTest draw the same isle.
  */
 public record IsleSpec(int x, int z, int radius, IsleSize size, int top, int depth, long seed, boolean lode, boolean shrine, int trees,
-                       int crystals) {
+                       int crystals, boolean ruin) {
+    /** The same isle with or without the cluster's ruin (G3, {@link IsleRuin}). */
+    public IsleSpec withRuin(boolean r) {
+        return new IsleSpec(x, z, radius, size, top, depth, seed, lode, shrine, trees, crystals, r);
+    }
+
     /** The underside tip (the lode sits there). */
     public int tip() {
         return top - depth;

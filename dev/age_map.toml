@@ -178,6 +178,7 @@ aeroengineering = "age_5"        # AeroEngine jet engines on Immersive Petroleum
 buildinggadgets2 = "age_5"       # Building Gadgets 2: building, exchanging, destruction; copy/cut-paste hidden
 draconicadditions = "age_9"      # Draconic Additions: the three necklaces only (V2A)
 alexsmobs = "dawn"               # Alex's Mobs Continued: 22 species TFC lacks (V1B); the rest is hidden
+aquaculture = "dawn"             # Aquaculture 2 (G3, O1C): fish TFC lacks, tackle, Neptunium; TFC doubles hidden
 
 # ------------------------------------------------------------------------------------------------ recipes
 # Grid-recipe lock per recipe namespace ("mod:<ns>" in [recipes].locked_ids of that stage). Default: the
@@ -458,6 +459,10 @@ block = "tfc:rock/loose/granite"
 # block of the ruin templates (gen_wayshrines.py), so it stays at the [mods] Age of firmages.
 "id:firmages:firmament_crystal_cluster" = "age_4"
 "id:firmages:firmament_lode" = "age_4"
+# G3 (Felix I1B): the isle ruin's Wind Seals and sealed lid are ruin blocks like the Wayshrine core: Dawn (the isles
+# are reachable before the Industrial Age), pick-block items only; the seals answer only from age_4 (SPEC 30.13).
+"id:firmages:wind_seal" = "dawn"
+"id:firmages:wind_seal_lid" = "dawn"
 # Launch Complex (firmages-core SPEC 24.5, 31): the complex, the probe and the sampler in the Space Age; the probes are
 # the one source of voidglass (age_7) and deep-space samples (age_8, from the deep-space module).
 "id:firmages:launch_control" = "age_7"
@@ -743,8 +748,38 @@ block = "tfc:rock/loose/granite"
 # kubejs/startup_scripts/00_constants.js hides them in EMI; they are NOT in the ProgressiveStages "disabled" stage,
 # because every item there costs lock-sync time per player on every reload (2026-10-01: these 512 items made a
 # reload with 2 players 1 s slower). None of them can be obtained without a recipe.
+# G3 (Felix O1C): Aquaculture 2 tackle by metal (gear rule), Neptunium after steel (sea treasure only)
+"id:aquaculture:stone_fillet_knife" = "age_0"
+"re:aquaculture:(iron_fishing_rod|iron_fillet_knife|iron_hook|light_hook|heavy_hook|double_hook|note_hook|glowstone_hook|redstone_hook|gold_hook|quartz_hook|soul_sand_hook|obsidian_hook|double_obsidian_hook|obsidian_note_hook|bobber|fishing_line|tackle_box)" = "age_2"
+"re:aquaculture:neptun.*" = "age_3"
+# G3 (Felix O1A): Alex's Mobs sea species TFC lacks; their useful drops wait for the species' rung of the mob ladder
+"id:alexsmobs:cachalot_whale_tooth" = "age_1"
+"id:alexsmobs:echolocator" = "age_1"
+"id:alexsmobs:shark_tooth" = "age_2"
+"id:alexsmobs:shark_tooth_arrow" = "age_2"
+"id:alexsmobs:lost_tentacle" = "age_2"
+"id:alexsmobs:squid_grapple" = "age_2"
+
 [hidden]
 items = [
+    # G3 (O1C): Aquaculture 2 species TFC already has, and tackle of materials outside the gear rule
+    "aquaculture:atlantic_cod",
+    "aquaculture:atlantic_cod_bucket",
+    "aquaculture:pink_salmon",
+    "aquaculture:pink_salmon_bucket",
+    "aquaculture:rainbow_trout",
+    "aquaculture:rainbow_trout_bucket",
+    "aquaculture:smallmouth_bass",
+    "aquaculture:smallmouth_bass_bucket",
+    "aquaculture:bluegill",
+    "aquaculture:bluegill_bucket",
+    "aquaculture:jellyfish",
+    "aquaculture:jellyfish_bucket",
+    "aquaculture:gold_fishing_rod",
+    "aquaculture:diamond_fishing_rod",
+    "aquaculture:wooden_fillet_knife",
+    "aquaculture:gold_fillet_knife",
+    "aquaculture:diamond_fillet_knife",
     # ---- Electric to Singularity Age (Doc 10 v3 section 7.2). Ids from the /fa_dump registry, 2026-10-01. ----
     # Immersive Petroleum: the gas generator (the IE Diesel Generator is the one FE generator of the Electric Age).
     "immersivepetroleum:gas_generator",
@@ -1454,7 +1489,6 @@ items = [
     "alexsmobs:blood_sac",
     "alexsmobs:blood_sprayer",
     "alexsmobs:bone_serpent_tooth",
-    "alexsmobs:cachalot_whale_tooth",
     "alexsmobs:caiman_egg",
     "alexsmobs:capsid",
     "alexsmobs:centipede_leg",
@@ -1487,7 +1521,6 @@ items = [
     "alexsmobs:dimensional_carver_shard_8",
     "alexsmobs:dimensional_carver_shard_9",
     "alexsmobs:dropbear_claw",
-    "alexsmobs:echolocator",
     "alexsmobs:effect_item",
     "alexsmobs:elastic_tendon",
     "alexsmobs:ender_residue",
@@ -1523,7 +1556,6 @@ items = [
     "alexsmobs:leafcutter_anthill",
     "alexsmobs:lobster_bucket",
     "alexsmobs:lobster_tail",
-    "alexsmobs:lost_tentacle",
     "alexsmobs:maggot",
     "alexsmobs:medium_catfish_bucket",
     "alexsmobs:mimic_octopus_bucket",
@@ -1554,8 +1586,6 @@ items = [
     "alexsmobs:sand_circle",
     "alexsmobs:sculk_boomer",
     "alexsmobs:serrated_shark_tooth",
-    "alexsmobs:shark_tooth",
-    "alexsmobs:shark_tooth_arrow",
     "alexsmobs:shattered_dimensional_carver",
     "alexsmobs:shed_snake_skin",
     "alexsmobs:shield_of_the_deep",
@@ -1637,7 +1667,6 @@ items = [
     "alexsmobs:spawn_egg_warped_toad",
     "alexsmobs:spiked_scute",
     "alexsmobs:spiked_turtle_shell",
-    "alexsmobs:squid_grapple",
     "alexsmobs:stink_bottle",
     "alexsmobs:stink_ray",
     "alexsmobs:stink_ray_empty_hand",

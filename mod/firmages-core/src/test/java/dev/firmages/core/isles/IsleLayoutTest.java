@@ -94,7 +94,7 @@ class IsleLayoutTest {
                 int rad = r.min() + (int) (seed % (r.max() - r.min() + 1));
                 boolean shrine = seed % 3 == 0 && rad >= IsleShape.SHRINE_MIN_RADIUS;
                 IsleSpec spec = new IsleSpec(100, -50, rad, size, 250, IsleLayout.depth(rad), seed * 31 + size.ordinal(), size != IsleSize.SMALL,
-                    shrine, (int) (seed % 3), IsleSpec.crystalsFor(rad, 3F));
+                    shrine, (int) (seed % 3), IsleSpec.crystalsFor(rad, 3F), false);
                 IsleShape shape = IsleShape.of(spec);
                 List<Block> order = new ArrayList<>();
                 shape.emitAll((x, y, z, k) -> order.add(new Block(x, y, z, k)));
@@ -141,5 +141,30 @@ class IsleLayoutTest {
                 }
             }
         }
+    }
+
+    /** G3 (I1B): at most one ruin per cluster, nearly every cluster has one, and its footprint keeps clear of trees and shrine. */
+    @Test
+    void oneRuinPerCluster() {
+        int with = 0;
+        int total = 0;
+        for (int i = 0; i < 400; i++) {
+            List<IsleSpec> c = cluster(9000L + i, i * 3, -i * 5, FLAT);
+            if (c.isEmpty()) continue;
+            total++;
+            long ruins = c.stream().filter(IsleSpec::ruin).count();
+            assertTrue(ruins <= 1, "more than one ruin in cluster " + i);
+            if (ruins == 0) continue;
+            with++;
+            IsleSpec r = c.stream().filter(IsleSpec::ruin).findFirst().orElseThrow();
+            int[] site = IsleRuinSite.site(r).orElseThrow();
+            IsleShape shape = IsleShape.of(r);
+            for (IsleShape.Tree t : shape.trees()) {
+                assertTrue(Math.hypot(t.x() - r.x() - site[0], t.z() - r.z() - site[1]) >= IsleRuinSite.HALF + 3, "tree in the ruin");
+            }
+            if (r.shrine()) assertTrue(Math.hypot(site[0], site[1]) >= IsleShape.SHRINE_FLAT + IsleRuinSite.HALF + 3, "ruin on the shrine's floor");
+            assertEquals(IsleRuinSite.site(r.withRuin(false)).orElseThrow()[0], site[0], "the site does not depend on the flag");
+        }
+        assertTrue(with >= total * 0.85, "clusters with a ruin: " + with + " of " + total);
     }
 }

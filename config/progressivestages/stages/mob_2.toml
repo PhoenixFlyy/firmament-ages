@@ -17,6 +17,10 @@ hidden = true
 # Iron: + witches, phantoms, slimes. Twilight Forest mobs are gated by the dimension lock in age_2.
 [mobs]
 locked_spawns = [
+    # G3 (Felix O1A): Alex's Mobs sea species (hunters)
+    "id:alexsmobs:hammerhead_shark",
+    "id:alexsmobs:frilled_shark",
+    "id:alexsmobs:giant_squid",
     "id:minecraft:witch",
     "id:minecraft:phantom",
     "id:minecraft:slime",

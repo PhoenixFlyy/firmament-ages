@@ -184,6 +184,34 @@ public final class IsleService {
         }
     }
 
+    private record RuinStep(IsleSpec spec, BoundingBox slice) implements Step {
+        @Override
+        public int cost() {
+            return slice.getXSpan() * slice.getYSpan() * slice.getZSpan();
+        }
+
+        @Override
+        public boolean run(ServerLevel level) {
+            if (!level.isLoaded(new BlockPos(slice.minX(), slice.minY(), slice.minZ())) || !level.isLoaded(new BlockPos(slice.maxX(), slice.minY(), slice.maxZ()))) {
+                return false;
+            }
+            IsleRuin.place(level, spec, slice);
+            return true;
+        }
+    }
+
+    /** The isle ruin's box (G3) cut into one-layer slices. */
+    static List<BoundingBox> ruinSlices(ServerLevel level, IsleSpec spec) {
+        Optional<StructureTemplate> t = level.getStructureManager().get(IsleRuin.TEMPLATE);
+        if (t.isEmpty()) return List.of();
+        Optional<BoundingBox> box = IsleRuin.box(t.get(), spec);
+        if (box.isEmpty()) return List.of();
+        List<BoundingBox> out = new ArrayList<>();
+        BoundingBox b = box.get();
+        for (int y = b.minY(); y <= b.maxY(); y++) out.add(new BoundingBox(b.minX(), y, b.minZ(), b.maxX(), y, b.maxZ()));
+        return out;
+    }
+
     private static final class Job {
         final long cluster;
         final int isle;
@@ -255,6 +283,7 @@ public final class IsleService {
         shape.emitAll((x, y, z, kind) -> steps.add(new BlockStep(new BlockPos(x, y, z), IsleWriter.state(kind))));
         for (IsleShape.Tree t : shape.trees()) steps.add(new TreeStep(shape, t));
         if (spec.shrine()) for (BoundingBox slice : shrineSlices(level, spec)) steps.add(new ShrineStep(spec, slice));
+        if (spec.ruin()) for (BoundingBox slice : ruinSlices(level, spec)) steps.add(new RuinStep(spec, slice));
         JOBS.add(new Job(c.id, isle, steps));
         FirmagesCore.LOGGER.info("Drifting Isles: placing isle {} of cluster {} at {} {} (top {}, {} steps)", isle, c.id, spec.x(), spec.z(), spec.top(),
             steps.size());

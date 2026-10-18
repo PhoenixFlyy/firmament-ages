@@ -14,12 +14,16 @@ import dev.firmages.core.isles.IsleShape;
 import dev.firmages.core.isles.IsleSize;
 import dev.firmages.core.isles.IsleSpec;
 import dev.firmages.core.isles.IsleWriter;
+import dev.firmages.core.isles.IsleRuin;
+import dev.firmages.core.isles.IsleRuinSite;
+import dev.firmages.core.isles.WindSealBlock;
 import dev.firmages.core.sky.DeferredSites;
 import dev.firmages.core.wayshrine.WayshrineCoreBlockEntity;
 import dev.firmages.core.wayshrine.WayshrinePlacement;
 import dev.firmages.core.wayshrine.WayshrinePointer;
 import dev.firmages.core.wayshrine.WayshrineSavedData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -87,7 +91,7 @@ public final class IsleGameTests {
     private static IsleSpec spec(GameTestHelper h, int radius, IsleSize size, boolean shrine, long seed) {
         BlockPos c = h.absolutePos(new BlockPos(CX, TOP, CZ));
         return new IsleSpec(c.getX(), c.getZ(), radius, size, c.getY(), IsleLayout.depth(radius), seed, size != IsleSize.SMALL, shrine, 1,
-            IsleSpec.crystalsFor(radius, 3F));
+            IsleSpec.crystalsFor(radius, 3F), false);
     }
 
     private static void clear(GameTestHelper h) {
@@ -114,7 +118,7 @@ public final class IsleGameTests {
     public static void shapeAndSkyLight(GameTestHelper h) {
         ServerLevel level = h.getLevel();
         IsleSpec s = new IsleSpec(h.absolutePos(new BlockPos(CX, 0, CZ)).getX(), h.absolutePos(new BlockPos(CX, 0, CZ)).getZ(), 11, IsleSize.MEDIUM,
-            h.absolutePos(new BlockPos(0, 22, 0)).getY(), IsleLayout.depth(11), 77L, true, false, 1, IsleSpec.crystalsFor(11, 3F));
+            h.absolutePos(new BlockPos(0, 22, 0)).getY(), IsleLayout.depth(11), 77L, true, false, 1, IsleSpec.crystalsFor(11, 3F), false);
         IsleShape shape = IsleShape.of(s);
         BlockPos[] under = new BlockPos[1];
         h.startSequence()
@@ -319,5 +323,81 @@ public final class IsleGameTests {
         WayshrineSavedData.get(level.getServer()).remove(GlobalPos.of(Level.OVERWORLD, core));
         clear(h);
         h.succeed();
+    }
+
+    /** G3 (I1B, SPEC §30.13): the ruin of a cluster, written chunk box by chunk box, stands in the isle's top surface. */
+    @GameTest(template = "sky_area", batch = "firmages_13_isles_ruin", timeoutTicks = 400)
+    public static void ruinPlacesByChunks(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        IsleSpec s = null;
+        for (long seed = 1; seed < 60 && s == null; seed++) {
+            IsleSpec c = spec(h, 11, IsleSize.SMALL, false, seed);
+            if (IsleRuinSite.site(c).isPresent()) s = c.withRuin(true);
+        }
+        ok(h, s != null, "no radius-11 isle with room for the ruin in 60 seeds");
+        IsleSpec spec = s;
+        IsleShape shape = IsleShape.of(spec);
+        BlockPos core = IsleRuin.core(spec).orElseThrow();
+        clear(h);
+        for (BoundingBox box : chunkBoxes(spec)) {
+            IsleWriter.body(level, shape, box);
+            IsleRuin.place(level, spec, box);
+        }
+        int seals = 0;
+        int first = 0;
+        int lids = 0;
+        int clusters = 0;
+        for (BlockPos p : BlockPos.betweenClosed(core.offset(-4, -4, -4), core.offset(4, 4, 4))) {
+            BlockState st = level.getBlockState(p);
+            if (st.is(IsleRegistry.WIND_SEAL.get())) {
+                seals++;
+                if (st.getValue(WindSealBlock.FIRST)) first++;
+                ok(h, p.getY() == core.getY() + 1, "a seal off the top surface at " + p.toShortString());
+            }
+            if (st.is(IsleRegistry.WIND_SEAL_LID.get())) {
+                lids++;
+                ok(h, p.getY() == core.getY(), "a lid off the top surface at " + p.toShortString());
+            }
+            if (st.is(IsleRegistry.CRYSTAL_CLUSTER.get()) && p.getY() < core.getY()) clusters++;
+        }
+        ok(h, seals == 4 && first == 1, "seals " + seals + ", worn " + first);
+        ok(h, lids == 9, "lid blocks " + lids);
+        ok(h, clusters >= 3, "crystal clusters in the chamber " + clusters);
+        h.succeed();
+    }
+
+    /** G3 (I1B): the Wind Seals wake from the worn one clockwise; a wrong seal puts all back to sleep; the fourth opens the lid. */
+    @GameTest(template = "empty", batch = "firmages_13_isles_seals", timeoutTicks = 200)
+    public static void windSealPuzzle(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        BlockPos c = new BlockPos(4, 2, 4);
+        BlockState seal = IsleRegistry.WIND_SEAL.get().defaultBlockState();
+        BlockPos n = c.north(3);
+        BlockPos e = c.east(3);
+        BlockPos so = c.south(3);
+        BlockPos w = c.west(3);
+        h.setBlock(n, seal.setValue(WindSealBlock.FACING, Direction.NORTH).setValue(WindSealBlock.FIRST, true));
+        h.setBlock(e, seal.setValue(WindSealBlock.FACING, Direction.EAST));
+        h.setBlock(so, seal.setValue(WindSealBlock.FACING, Direction.SOUTH));
+        h.setBlock(w, seal.setValue(WindSealBlock.FACING, Direction.WEST));
+        h.setBlock(c.below(), IsleRegistry.WIND_SEAL_LID.get());
+        h.setBlock(c.below().east(), IsleRegistry.WIND_SEAL_LID.get());
+        agesUpTo(level.getServer(), AgeId.AGE_3);
+        ok(h, WindSealBlock.press(level, h.absolutePos(n)) == WindSealBlock.Outcome.ASLEEP, "a seal woke before the Industrial Age");
+        agesUpTo(level.getServer(), AgeId.AGE_4);
+        ok(h, WindSealBlock.press(level, h.absolutePos(e)) == WindSealBlock.Outcome.WRONG, "east first was taken");
+        ok(h, WindSealBlock.press(level, h.absolutePos(n)) == WindSealBlock.Outcome.AWAKE, "the worn seal did not wake");
+        ok(h, WindSealBlock.press(level, h.absolutePos(so)) == WindSealBlock.Outcome.WRONG, "south after north was taken");
+        ok(h, !h.getBlockState(n).getValue(WindSealBlock.LIT), "a wrong seal left the worn one awake");
+        ok(h, WindSealBlock.press(level, h.absolutePos(n)) == WindSealBlock.Outcome.AWAKE, "north");
+        ok(h, WindSealBlock.press(level, h.absolutePos(e)) == WindSealBlock.Outcome.AWAKE, "east");
+        ok(h, WindSealBlock.press(level, h.absolutePos(so)) == WindSealBlock.Outcome.AWAKE, "south");
+        h.assertBlockPresent(IsleRegistry.WIND_SEAL_LID.get(), c.below());
+        ok(h, WindSealBlock.press(level, h.absolutePos(w)) == WindSealBlock.Outcome.SOLVED, "west did not open the chamber");
+        h.assertBlockNotPresent(IsleRegistry.WIND_SEAL_LID.get(), c.below());
+        h.assertBlockNotPresent(IsleRegistry.WIND_SEAL_LID.get(), c.below().east());
+        ok(h, WindSealBlock.press(level, h.absolutePos(w)) == WindSealBlock.Outcome.NOTHING, "a solved seal answered again");
+        agesUpTo(level.getServer(), AgeId.DAWN);
+        h.succeedWhen(() -> ok(h, reloadIdle(level.getServer()), "the reload after the Age change still runs"));
     }
 }

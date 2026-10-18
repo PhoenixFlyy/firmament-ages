@@ -50,12 +50,18 @@ LAUNCHER_JAR = os.path.join(os.path.expanduser("~"), "curseforge", "minecraft", 
 
 # firmages:* tables whose later items are on purpose: the loot gate holds each back until its Age. table -> reason
 LATER_ON_PURPOSE = {
+    "firmages:chests/isle_ruin": "the Drifting Isles ruin (Felix I1B), one pool per Age from the Industrial to the "
+                                 "Information Age; empty for a player who climbs up before age_4",
     "firmages:chests/ruin_small": "TFC ruins, one pool per Age up to the Iron Age (decision 2026-10-15); the chest grows "
                                   "with the opener's Ages",
     "firmages:chests/ruin_rich": "TFC ruins, one pool per Age up to the Electric Age (decision 2026-10-15); the chest grows "
                                  "with the opener's Ages",
     "firmages:chests/cold_forge": "the Iron Age expedition's chest (decision 2026-10-14); a Dawn player who stumbles on it "
                                   "gets no Bronze Age flux",
+    "firmages:chests/ocean_wreck": "ocean wrecks (Felix O1B), one pool per Age up to the Industrial Age; the chest grows "
+                                   "with the opener's Ages",
+    "firmages:chests/ocean_ruin": "sunken ruins (Felix O1B), one pool per Age up to the Industrial Age; the chest grows "
+                                  "with the opener's Ages",
     "firmages:blocks/starfall_core": "one block for both metals: meteoric iron cores fall from the Iron Age, starsteel "
                                      "cores (metal=starsteel) from the Electric Age (SPEC 25.4)",
 }

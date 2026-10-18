@@ -57,11 +57,24 @@ public final class IsleRegistry {
         .mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(50.0F, 1200.0F).sound(SoundType.AMETHYST)
         .lightLevel(s -> 10).pushReaction(PushReaction.BLOCK)));
 
+    /** A Wind Seal of the isle ruin (G3, I1B): unbreakable, no drops, wakes from the Industrial Age. */
+    public static final DeferredBlock<WindSealBlock> WIND_SEAL = BLOCKS.register("wind_seal", () -> new WindSealBlock(BlockBehaviour.Properties.of()
+        .mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(-1.0F, 3600000.0F).noLootTable().sound(SoundType.CALCITE)
+        .lightLevel(s -> s.getValue(WindSealBlock.LIT) ? 9 : 0).pushReaction(PushReaction.BLOCK).isValidSpawn((state, level, pos, type) -> false)));
+    /** The lid over the ruin's crystal chamber (G3, I1B): unbreakable until the four seals wake. */
+    public static final DeferredBlock<Block> WIND_SEAL_LID = BLOCKS.register("wind_seal_lid", () -> new Block(BlockBehaviour.Properties.of()
+        .mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(-1.0F, 3600000.0F).noLootTable().sound(SoundType.CALCITE)
+        .pushReaction(PushReaction.BLOCK).isValidSpawn((state, level, pos, type) -> false)));
+
     public static final DeferredItem<BlockItem> SKYSTONE_ITEM = ITEMS.registerSimpleBlockItem("skystone", SKYSTONE);
     /** Pick-block only (round G2, SPEC §30.4). */
     public static final DeferredItem<BlockItem> CRYSTAL_CLUSTER_ITEM = ITEMS.registerSimpleBlockItem("firmament_crystal_cluster", CRYSTAL_CLUSTER);
     /** Pick-block only (round G2, SPEC §30.4). */
     public static final DeferredItem<BlockItem> LODE_ITEM = ITEMS.registerSimpleBlockItem("firmament_lode", LODE);
+    /** Pick-block only (G3). */
+    public static final DeferredItem<BlockItem> WIND_SEAL_ITEM = ITEMS.registerSimpleBlockItem("wind_seal", WIND_SEAL);
+    /** Pick-block only (G3). */
+    public static final DeferredItem<BlockItem> WIND_SEAL_LID_ITEM = ITEMS.registerSimpleBlockItem("wind_seal_lid", WIND_SEAL_LID);
     public static final DeferredItem<Item> FIRMAMENT_CRYSTAL = ITEMS.registerSimpleItem("firmament_crystal", new Item.Properties().rarity(Rarity.UNCOMMON));
 
     public static final DeferredHolder<StructureType<?>, StructureType<DriftingIsleStructure>> DRIFTING_ISLE = STRUCTURE_TYPES.register("drifting_isle",
@@ -78,11 +91,11 @@ public final class IsleRegistry {
 
     /** Every isle block, for the self-test (none may be an ore, a stone or a collapse block). */
     public static List<DeferredBlock<? extends Block>> blocks() {
-        return List.of(SKYSTONE, CRYSTAL_CLUSTER, LODE);
+        return List.of(SKYSTONE, CRYSTAL_CLUSTER, LODE, WIND_SEAL, WIND_SEAL_LID);
     }
 
     public static List<DeferredItem<? extends Item>> items() {
-        return List.of(SKYSTONE_ITEM, CRYSTAL_CLUSTER_ITEM, LODE_ITEM, FIRMAMENT_CRYSTAL);
+        return List.of(SKYSTONE_ITEM, CRYSTAL_CLUSTER_ITEM, LODE_ITEM, WIND_SEAL_ITEM, WIND_SEAL_LID_ITEM, FIRMAMENT_CRYSTAL);
     }
 
     public static void register(IEventBus modBus) {
