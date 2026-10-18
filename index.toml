@@ -186,7 +186,7 @@ hash = "5868f972e3d32de91fda224402a07ae78ac32bc1e69f2a14afd341ec3c894e07"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "562a97a44b82f54c58dfdc08f27859c1072935fd60328a0482bd84e288e499b8"
+hash = "a68c7590c1d83169cdb233983e89b27e64acbdf2fa5fa9561d3b649146280170"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -346,7 +346,7 @@ hash = "27b36c745a9e4af03a24fb2354700f4d2254e8c93d4bb57d7e7b2cc48dba308d"
 
 [[files]]
 file = "config/fancymenu/customization/pause_screen_layout.txt"
-hash = "97abbd4bd4c0cdf250724d920797d6dddc15465f84316441efa32ba040a3be69"
+hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
 
 [[files]]
 file = "config/fancymenu/customization/progress_screen_layout.txt"
@@ -12847,6 +12847,11 @@ metafile = true
 [[files]]
 file = "mods/trash-cans.pw.toml"
 hash = "565ec8138372853c5d32dffbf78d48c4673248eeb84847e9544df772fb0c227b"
+metafile = true
+
+[[files]]
+file = "mods/wi-zoom.pw.toml"
+hash = "27b53eabd439894741057c9217db2bb6f815f119e4c00cd9a9bb796b736b63cb"
 metafile = true
 
 [[files]]
