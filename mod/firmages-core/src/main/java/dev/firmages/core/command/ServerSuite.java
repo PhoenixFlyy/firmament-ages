@@ -44,6 +44,15 @@ public final class ServerSuite implements SelfTest.Suite {
 
     @Override
     public void run(SelfTest.Recorder r) {
+        r.test("nights_table", () -> {
+            // Creeping Darkness (SPEC §19.7): data/firmages/balance/nights.json is loaded and keeps rules N-1 to N-5, N-8
+            check(dev.firmages.core.hardship.NightsService.tablePresent(server), "data/firmages/balance/nights.json missing");
+            dev.firmages.core.hardship.Nights t = dev.firmages.core.hardship.NightsService.table(server);
+            checkEquals(List.of(), t.problems(), "night table rules");
+            dev.firmages.core.hardship.Nights.Row now = dev.firmages.core.hardship.NightsService.row(server);
+            return now.age().id() + ": health x" + now.health() + ", damage x" + now.damage() + ", gear " + now.gear() + " " + now.gearChance()
+                + ", apoth " + now.apothTier();
+        });
         r.test("dawn_unlocked", () -> {
             check(AgeService.state(server).snapshot().isUnlocked(AgeId.DAWN), "dawn locked");
             return "ok";

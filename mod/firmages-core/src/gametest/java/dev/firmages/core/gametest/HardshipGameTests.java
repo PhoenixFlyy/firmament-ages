@@ -12,6 +12,8 @@ import dev.firmages.core.hardship.GridLockMenu;
 import dev.firmages.core.hardship.GridLockService;
 import dev.firmages.core.hardship.GridSlots;
 import dev.firmages.core.hardship.GroundCraft;
+import dev.firmages.core.hardship.Nights;
+import dev.firmages.core.hardship.NightsService;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.CraftingMenu;
@@ -441,5 +443,49 @@ public final class HardshipGameTests {
             DebugPlayerCommands.despawn(p);
         }
         h.succeed();
+    }
+
+    /**
+     * Creeping Darkness (SPEC §19.7): a zombie that spawns naturally at night gets the row of the world's Age through the
+     * real FinalizeSpawnEvent and join path; the age_5 row on a zombie gives max health x1.7 and damage x1.4 by modifier.
+     */
+    @GameTest(template = "empty", batch = "firmages_7_nights", timeoutTicks = 100)
+    public static void nightZombieGetsTheAgeRow(GameTestHelper h) {
+        ServerLevel level = h.getLevel();
+        MinecraftServer server = level.getServer();
+        long time = level.getDayTime();
+        level.setDayTime(18000);
+        h.runAfterDelay(3, () -> {
+            try {
+                Nights.Row now = NightsService.row(server);
+                BlockPos pos = h.absolutePos(new BlockPos(1, 2, 1));
+                ok(h, NightsService.dark(level, pos), "midnight is dark at " + pos);
+                net.minecraft.world.entity.monster.Zombie z = EntityType.ZOMBIE.create(level);
+                z.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
+                net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(z, level, level.getCurrentDifficultyAt(pos), net.minecraft.world.entity.MobSpawnType.NATURAL, null);
+                ok(h, z.getPersistentData().contains(NightsService.MARK), "natural night spawn not marked");
+                level.addFreshEntity(z);
+                ok(h, !z.getPersistentData().contains(NightsService.MARK), "mark not consumed on join");
+                ok(h, Math.abs(z.getMaxHealth() - 20 * now.health()) < 1e-6, now.age().id() + ": max health " + z.getMaxHealth() + " != 20 x " + now.health());
+                z.discard();
+
+                Nights.Row row5 = NightsService.table(server).row(AgeId.AGE_5);
+                net.minecraft.world.entity.monster.Zombie z5 = EntityType.ZOMBIE.create(level);
+                NightsService.apply(z5, row5);
+                var hm = z5.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH).getModifier(NightsService.HEALTH_ID);
+                var dm = z5.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE).getModifier(NightsService.DAMAGE_ID);
+                ok(h, row5.health() == 1.7 && row5.damage() == 1.4, "age_5 row " + row5);
+                ok(h, hm != null && Math.abs(hm.amount() - 0.7) < 1e-9, "age_5 health modifier " + hm);
+                ok(h, dm != null && Math.abs(dm.amount() - 0.4) < 1e-9, "age_5 damage modifier " + dm);
+                ok(h, Math.abs(z5.getHealth() - 34) < 1e-6, "age_5 zombie health " + z5.getHealth());
+
+                net.minecraft.world.entity.animal.Cow cow = EntityType.COW.create(level);
+                ok(h, !NightsService.eligible(cow, net.minecraft.world.entity.MobSpawnType.NATURAL), "a cow is no night mob");
+                ok(h, !NightsService.eligible(z5, net.minecraft.world.entity.MobSpawnType.SPAWNER), "spawner mobs stay vanilla");
+            } finally {
+                level.setDayTime(time);
+            }
+            h.succeed();
+        });
     }
 }

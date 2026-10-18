@@ -304,10 +304,11 @@ def prepareGametestConfig = tasks.register('prepareGametestConfig', Copy) {
 }
 tasks.matching { it.name == 'runGameTestServer' }.configureEach { dependsOn prepareGametestRun, prepareGametestConfig, fetchLibs }
 
-// The metal table ships in the jar for /firmages ore audit (SPEC 38): kubejs/data/firmages/balance/metals.json stays the
+// The metal and night tables ship in the jar for /firmages ore audit (SPEC 38): kubejs/data/firmages/balance/metals.json stays the
 // one source (the pack's datapack copy has the same id and wins over the jar's).
 tasks.named('processResources', ProcessResources) {
     from('../../kubejs/data/firmages/balance/metals.json') { into 'data/firmages/balance' }
+    from('../../kubejs/data/firmages/balance/nights.json') { into 'data/firmages/balance' } // Creeping Darkness (SPEC 19.7)
 }
 
 tasks.named('test', Test) {

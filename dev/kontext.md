@@ -67,6 +67,7 @@ Das Herz zieht zusätzlich FE: 10 M an der Data Nave, 100 M am Quantum Ring, 1 G
 - `python dev/gen_textures.py` (`--check`): alle firmages-Texturen (KubeJS-Items, Mod-Blöcke).
 - `python dev/gen_wood_classes.py` (`--check`): Drops, Brennwerte, Tags, Vanilla-Haine und Rezeptkonstanten aus `dev/wood_classes.toml`.
 - `python dev/gen_fuels.py` (`--check`): Generatordaten aus `kubejs/data/firmages/balance/fuels.json`.
+- `python dev/gen_nights.py` (`--check`; Runde G3): Nachttabelle `kubejs/data/firmages/balance/nights.json` (Creeping Darkness, SPEC §19.7) prüfen und normieren, Regeln N-1 bis N-8.
 - `python dev/gen_machine_usage.py` (`--check --server-dir <Kopie>`): Mekanism-, More-Machine-, Generators- und IE-Configs als volle Dateien.
 - `python dev/miner_ladder.py --check`: Digital Miner und Excavator gegen die Erzleiter (jede Stufe senkt die FE je Barren).
 - `python dev/gen_wayshrines.py`, `python dev/gen_ark.py`, `python dev/gen_cold_forge.py` (je `--check`): Wayshrines samt Ruinen, Origin-Archipel, Cold-Forge-Vorlage.
