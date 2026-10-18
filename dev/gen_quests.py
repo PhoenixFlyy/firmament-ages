@@ -546,7 +546,7 @@ DAWN = age_chapter(
              rewards=[P('tfc:food/cooked_venison', 4), T('tfc:jute_fiber', 8)]),
         ]),
         # The first night (More Darkness, no skipping bed): the firepit advancement also counts for the goal, which
-        # still waits for the five keystones, so lighting it early changes nothing about the Age grant.
+        # still waits for the four keystones, so lighting it early changes nothing about the Age grant.
         ('dawn/stone/key', [
             Q('dawn/side/torch', 'Before Dark', t_item('tfc:torch', title='A torch'), kind='side', icon='tfc:torch',
               desc=[Verbatim(image_line('device/firepit')), '',

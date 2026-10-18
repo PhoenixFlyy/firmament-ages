@@ -269,6 +269,7 @@
   "firmages.jade.consecrated.original": "Original: %s",
   "firmages.jade.consecrated.no_original": "Original: unknown",
   "firmages.jade.consecrated.locked": "Unbreakable (maintenance mode at the heart)",
+  "firmages.jade.arena_stone": "Unbreakable",
   "firmages.jade.maintenance": "Maintenance mode: %s s left",
   "subtitles.firmages.shrine.consecrate": "Shrine block consecrated",
   "subtitles.firmages.shrine.maintenance": "Shrine maintenance toggled",

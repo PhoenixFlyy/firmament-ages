@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "#firmages:arena_stone",
+      "required": false
+    },
+    {
       "id": "firmages:firmament_lode",
       "required": false
     }

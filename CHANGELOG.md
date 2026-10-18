@@ -2,6 +2,22 @@
 
 Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## 1.4.0
+
+A small round: a clearer pause menu, zoom from the start, a reworked Dawn and a darker Origin arena. **Client and server both need 1.4.0.** Your 1.3.0 world keeps working; an Origin built before 1.4.0 keeps its old arena look until an operator runs `/firmages origin rebuild`.
+
+### New and changed
+
+- **Pause menu:** the world stays visible behind it; the Firmament backdrop is gone.
+- **Zoom on C** in every Age, from Dawn on (WI Zoom). The Ars Nouveau book moved to Alt+C and the Psi key to Alt+P.
+- **Dawn quests:** the forage quests are an optional chain; "Hunter" comes before "Shelter"; a new quest "And I would walk 500 miles" asks you to walk 500 blocks (sprinting does not count); "Thatch" rewards 28 thatch; "Knife and Hammer" asks for a stone knife blade and a stone hammer head; the firepit quest tells how to relight a burnt-out firepit.
+- **The Origin arena** is built from stone, deepslate, moss and purple stone instead of the consecrated blocks; its altars are dark stone with amethyst. The arena stone is unbreakable and immovable like the rest of the Origin's consecrated ground.
+
+### Technical
+
+- **Firmament Ages Core 1.4.0:** 14 `firmages:arena_*` blocks (tag `#firmages:arena_stone`, in the wither, dragon, feature, Create, relocation and Mekanism cardboard protection lists; Jade shows them as unbreakable). Network protocol stays 8, but client and server need the same core version.
+- New mod: WI Zoom (client only).
+
 ## 1.3.0
 
 The fourth round: a finale that fights back, an arena you climb into and a Chronicle that follows the rules again. **Client and server both need 1.3.0.** Your 1.2.0 world keeps working: an Origin built before 1.3.0 keeps its flat arena until an operator runs `/firmages origin rebuild`, and quests that moved or merged may need their progress checked (see below).

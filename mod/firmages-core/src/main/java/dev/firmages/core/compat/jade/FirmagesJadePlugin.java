@@ -53,7 +53,9 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation HEART = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "shrine_heart");
     static final ResourceLocation PLINTH = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "offering_plinth");
     static final ResourceLocation CONSECRATED = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "consecrated");
-    static final ResourceLocation TALLY = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "tally_chute");
+    static final net.minecraft.tags.TagKey<Block> ARENA_STONE_TAG = net.minecraft.tags.TagKey.create(
+        net.minecraft.core.registries.Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "arena_stone"));
+    static final ResourceLocation TALLY =ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "tally_chute");
     static final ResourceLocation STARFALL_CORE = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "starfall_core");
     static final ResourceLocation ANVIL = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "star_anvil");
     static final ResourceLocation MOUNT = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "lens_mount");
@@ -72,7 +74,8 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     public void registerClient(IWailaClientRegistration registration) {
         registration.registerBlockComponent(Heart.INSTANCE, ShrineHeartBlock.class);
         registration.registerBlockComponent(Plinth.INSTANCE, OfferingPlinthBlock.class);
-        registration.registerBlockComponent(Consecrated.INSTANCE, ConsecratedBlock.class);
+        // Block.class: also the Origin arena stone (#firmages:arena_stone), which is not a ConsecratedBlock
+        registration.registerBlockComponent(Consecrated.INSTANCE, Block.class);
         registration.registerBlockComponent(Tally.INSTANCE, TallyChuteBlock.class);
         registration.registerBlockComponent(StarfallCore.INSTANCE, dev.firmages.core.sky.StarfallCoreBlock.class);
         registration.registerBlockComponent(Crown.ANVIL, dev.firmages.core.crown.StarAnvilBlock.class);
@@ -150,6 +153,11 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
 
         @Override
         public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+            if (accessor.getBlockState().is(ARENA_STONE_TAG)) {
+                // the Origin arena stone (1.4.0): unbreakable for good, no ring, no original, no maintenance
+                tooltip.add(Component.translatable("firmages.jade.arena_stone").withStyle(ChatFormatting.GRAY));
+                return;
+            }
             if (!(accessor.getBlock() instanceof ConsecratedBlock cb)) return;
             int accent = accessor.getBlockState().getValue(ConsecratedBlock.ACCENT);
             tooltip.add(Component.translatable("firmages.jade.consecrated.role", Component.translatable("firmages.role." + cb.role().id()))

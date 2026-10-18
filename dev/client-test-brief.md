@@ -1,8 +1,21 @@
 # Client-Test
 
+## 1.4.0 Checkliste (Pack 1.4.0, firmages-core 1.4.0, 2026-10-18)
+
+Die neueste offene Liste; die 1.3.0- und 1.2.0-Zeilen darunter gelten weiter. Neues Profil aus
+`dev/exports/FirmamentAges-1.4.0.mrpack` (oder der CurseForge-Zip), Server aus dem Ordner `FirmamentAges-Server-1.4.0`
+mit einer frischen Welt; Client und Server brauchen firmages-core 1.4.0.
+
+| # | Was | Wie | Erwartet |
+|---|---|---|---|
+| 1 | ESC-Menü | im Spiel ESC | Welt sichtbar hinter den Knöpfen, kein Firmament-Hintergrund |
+| 2 | Zoom in Dawn | frische Welt, in Dawn C halten | WI Zoom zoomt; Alt+C öffnet das Ars-Buch erst in seiner Age, Alt+P Psi |
+| 3 | Dawn-Questkette | Dawn-Kapitel durchspielen | Sammelkette optional, Hunter vor Shelter, „And I would walk 500 miles“ zählt 500 Blöcke ohne Sprint, Thatch gibt 28 Thatch, „Knife and Hammer“ verlangt Messer- und Hammerkopf |
+| 4 | Arena-Look | `/firmages origin tp @s force` (alte Welt vorher `/firmages origin rebuild`) | Stein, Tiefenschiefer, Moos und Purpur, Froschlichter; Jade zeigt „Unbreakable“; Wither und Kolben bewegen nichts |
+
 ## 1.3.0 Checkliste (Runde G4, Pack 1.3.0, firmages-core 1.3.0, 2026-10-18)
 
-Die neueste offene Liste; die 1.2.0-Zeilen darunter gelten weiter. Neues Profil aus
+Gilt weiter neben der 1.4.0-Liste; die 1.2.0-Zeilen darunter gelten auch. Neues Profil aus
 `dev/exports/FirmamentAges-1.3.0.mrpack` (oder der CurseForge-Zip), Server aus dem Ordner `FirmamentAges-Server-1.3.0`
 mit einer frischen Welt; Client und Server brauchen firmages-core 1.3.0. Ages per `/firmages stage grant @s age_N`,
 The Origin per `/firmages origin tp @s force`. Server-Teil auf einer Kopie geprüft (`dev/poc-results.md`, „1.3.0 round G4“).
