@@ -244,6 +244,7 @@ CODE_DROPS = [
     # HIDDEN_ITEMS). Jade judges a block by its item (SPEC 21.14), so each keeps its block's Age, never [derived_hidden].
     (["firmages:wayshrine_core"], "dawn"),              # a Dawn ruin block of every Wayshrine template (gen_wayshrines.py)
     (["firmages:firmament_crystal_cluster", "firmages:firmament_lode"], "age_4"),  # the isle deposits ([ore_blocks])
+    (["firmages:wind_seal", "firmages:wind_seal_lid"], "dawn"),  # G3: blocks of the isle ruin (gen_isle_ruin.py), Dawn like the Wayshrine core
     # Starfall's blocks drop only chunks, but the recipe viewer shows them with an information page from their Age
     # (kubejs/client_scripts/viewer_info.js; review fix 0.12.0: hidden, nobody learnt where meteoric iron comes from)
     (["firmages:meteorite", "firmages:starfall_core"], "age_2"),

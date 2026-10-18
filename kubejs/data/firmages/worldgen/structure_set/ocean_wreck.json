@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:ocean_wreck",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 573190244,
+    "spacing": 28,
+    "separation": 10
+  }
+}

@@ -30,7 +30,15 @@
     rattlesnake: [15, 99, 0, 200],
     komodo_dragon: [22, 99, 100, 300],
     raccoon: [0, 22, 150, 999],
-    tasmanian_devil: [5, 18, 150, 400]
+    tasmanian_devil: [5, 18, 150, 400],
+    // G3 (Felix O1A): sea species TFC lacks; rain does not matter at sea
+    comb_jelly: [-99, 99, 0, 9999],
+    blobfish: [-99, 15, 0, 9999],
+    mimic_octopus: [18, 99, 0, 9999],
+    cachalot_whale: [-99, 99, 0, 9999],
+    hammerhead_shark: [15, 99, 0, 9999],
+    frilled_shark: [-99, 99, 0, 9999],
+    giant_squid: [-99, 99, 0, 9999]
   }
   const CHECKED = ['NATURAL', 'CHUNK_GENERATION']
 

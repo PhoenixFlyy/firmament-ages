@@ -139,9 +139,9 @@ public final class IsleLayout {
                 top = Math.max(lo, Math.min(hi, mainTop + p.topOffset()));
             }
             out.add(new IsleSpec(p.x(), p.z(), p.radius(), p.size(), top, depth, p.seed(), p.lode(), p.shrine(), p.trees(),
-                IsleSpec.crystalsFor(p.radius(), s.crystalsPer100Top())));
+                IsleSpec.crystalsFor(p.radius(), s.crystalsPer100Top()), false));
         }
-        return out;
+        return new ArrayList<>(IsleRuinSite.mark(out));
     }
 
     /** The lowest top surface the band, the cloud margin and the terrain allow for an isle. */

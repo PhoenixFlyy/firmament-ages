@@ -2494,6 +2494,98 @@ def _():
     return img
 
 
+# Isle ruin (G3, Felix I1B): the four Wind Seals and the sealed lid over the crystal chamber.
+WIND_GLYPH = [
+    "................",
+    "................",
+    "....hhhhhh......",
+    "...h......h.....",
+    "..........h.....",
+    ".hhhhhhhhh......",
+    "................",
+    "...hhhhhhhhhhh..",
+    "..............h.",
+    "..............h.",
+    "...hhhhhhhhhhh..",
+    "................",
+    ".hhhhhhh........",
+    "........h.......",
+    ".......h........",
+    "................",
+]
+SEAL_RING = [
+    "................",
+    "................",
+    "......hhhh......",
+    "....hh....hh....",
+    "...h........h...",
+    "...h........h...",
+    "..h..........h..",
+    "..h..........h..",
+    "..h..........h..",
+    "..h..........h..",
+    "...h........h...",
+    "...h........h...",
+    "....hh....hh....",
+    "......hhhh......",
+    "................",
+    "................",
+]
+
+
+def _seal_base(name):
+    img = new_tex()
+    noise_fill(img, "skystone", seeded(name), weights=(1, 3, 6, 3, 1), cluster=2, grain=0.2)
+    bevel(img, "skystone")
+    return img
+
+
+@block("wind_seal_side", "wind seal side")
+def _():
+    return _seal_base("wind_seal_side")
+
+
+@block("wind_seal_front", "wind seal front (wind glyph)")
+def _():
+    img = _seal_base("wind_seal_front")
+    t = tones("skystone")
+    overlay(img, WIND_GLYPH, legend(h=t[0]))
+    return img
+
+
+@block("wind_seal_top", "wind seal top")
+def _():
+    img = _seal_base("wind_seal_top")
+    overlay(img, SEAL_RING, legend(h=tones("skystone")[0]))
+    return img
+
+
+@block("wind_seal_top_first", "wind seal top, the first seal (worn by the wind)")
+def _():
+    img = _seal_base("wind_seal_top_first")
+    t = tones("skystone")
+    overlay(img, SEAL_RING, legend(h=t[0]))
+    overlay(img, WIND_GLYPH[4:12] + ["." * 16] * 8, legend(h=t[1]), oy=4)
+    return img
+
+
+@block("wind_seal_top_lit", "wind seal top, awake")
+def _():
+    img = _seal_base("wind_seal_top_lit")
+    overlay(img, SEAL_RING, legend(h=tones("firmament")[3]))
+    return img
+
+
+@block("wind_seal_lid", "sealed skystone over the crystal chamber")
+def _():
+    img = new_tex()
+    noise_fill(img, "skystone", seeded("wind_seal_lid"), weights=(2, 4, 6, 2, 0), cluster=2, grain=0.2)
+    t = tones("firmament")
+    overlay(img, ["h..............h"] + ["." * 16] * 14 + ["h..............h"], legend(h=t[1]))
+    overlay(img, SEAL_RING, legend(h=tones("skystone")[0]))
+    return img
+
+
 CRYSTAL_CLUSTER = [
     "................",
     "................",

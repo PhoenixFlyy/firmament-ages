@@ -65,6 +65,8 @@
     {"id": "ahandfulofacorns:roast_coconut_meat", "required": false},
     {"id": "ahandfulofacorns:roast_hickory_nut", "required": false},
     {"id": "alexsmobs:animal_dictionary", "required": false},
+    {"id": "alexsmobs:cachalot_whale_tooth", "required": false},
+    {"id": "alexsmobs:echolocator", "required": false},
     {"id": "alexsmobs:roadrunner_boots", "required": false},
     {"id": "another_furniture:acacia_bench", "required": false},
     {"id": "another_furniture:acacia_chair", "required": false},

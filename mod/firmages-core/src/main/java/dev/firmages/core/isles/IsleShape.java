@@ -65,6 +65,8 @@ public final class IsleShape {
     private final Map<Long, Kind> specials = new LinkedHashMap<>();
     private final List<Tree> trees = new ArrayList<>();
     private int hollowR;
+    private int hollowX;
+    private int hollowZ;
 
     private IsleShape(IsleSpec spec) {
         this.s = spec;
@@ -166,6 +168,8 @@ public final class IsleShape {
                 hx = (int) Math.round(Math.cos(angle) * dist);
                 hz = (int) Math.round(Math.sin(angle) * dist);
                 hy = s.top() - hr - 1;
+                hollowX = hx;
+                hollowZ = hz;
             }
         }
         // trees and their dirt pockets
@@ -268,6 +272,11 @@ public final class IsleShape {
     /** The trees with their trunk positions (world coordinates). */
     public List<Tree> trees() {
         return trees;
+    }
+
+    /** The hollow's centre column relative to the isle centre (meaningful when {@link #hollowRadius} is above 0). */
+    public int[] hollowCentre() {
+        return new int[] {hollowX, hollowZ};
     }
 
     /** Radius of the hollow, 0 without one. */

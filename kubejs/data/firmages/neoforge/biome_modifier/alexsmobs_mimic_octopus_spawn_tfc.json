@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#firmages:wildlife_ocean",
+  "spawners": {
+    "type": "alexsmobs:mimic_octopus",
+    "weight": 3,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

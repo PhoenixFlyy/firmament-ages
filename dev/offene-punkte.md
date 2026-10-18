@@ -26,6 +26,9 @@ Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17
 
 | Was | Wo | Wer |
 |---|---|---|
+| G3 Quest-Edit (Felix, Questbuch eingefroren): in der Industriezeit-Side-Road eine Quest „Isle ruin“ (z. B. Aufgabe: `firmages:wind_seal` beobachten oder Firmament Crystal aus der Kammer); Aquaculture 2 braucht nach der Regel „jede Nicht-Deko-Mod im Quest-Strang“ eine Side Road (Haken, Neptunium). | `config/ftbquests/quests/` | Felix |
+| G3: Aquaculture-Arten der Kälte, des Dschungels und der Pilzinseln sind beim Angeln unerreichbar (TFC hat keine `c:is_cold`/`c:is_hot`/`c:is_jungle`-Tags); eigene Biome-Tags oder hinnehmen. | `kubejs/data/c/tags/worldgen/biome/` | Felix |
+| G3: `derive_ages.py` braucht einen neuen Dump (Aquaculture, Wind-Siegel, Alex's-Meerestiere fehlen in `baseline-1.1.0`). | Integrator | Integrator |
 | **Die „1.1.0 Checkliste (Runde G2)“** oben in `dev/client-test-brief.md` (Loot nach Age, Inventar-Reihen, Dawn-Abbau, Tasten und Fenster nach Mod-Age, F3 `???`, Karte auf M und L, `/firmages stage` und `locate`, Pick-Block, H-Schild, Nachthimmel-Panel, Animationen, Server-Pack), je Zeile Schritte und Erwartung | `dev/client-test-brief.md` | Felix |
 | **Die „1.0.1 Checkliste“** darunter in `dev/client-test-brief.md` (Runde G1: Betrachter und Knöpfe nach Age, nur Kreativ ausgenommen, Jade „Unknown“, keine Hinweistexte, Vanilla-Herzen, Quest-Panel, Schreinbild, neue Dawn-Quests, Backups), je Zeile Schritte und Erwartung | `dev/client-test-brief.md` | Felix |
 | **Die „1.0 Checkliste“** darunter: alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age geordnet, mit Schritten und Erwartung | `dev/client-test-brief.md` | Felix |

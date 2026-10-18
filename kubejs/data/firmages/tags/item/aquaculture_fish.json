@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "aquaculture:blackfish",
+    "aquaculture:pacific_halibut",
+    "aquaculture:atlantic_halibut",
+    "aquaculture:atlantic_herring",
+    "aquaculture:pollock",
+    "aquaculture:bayad",
+    "aquaculture:boulti",
+    "aquaculture:capitaine",
+    "aquaculture:synodontis",
+    "aquaculture:brown_trout",
+    "aquaculture:carp",
+    "aquaculture:catfish",
+    "aquaculture:gar",
+    "aquaculture:muskellunge",
+    "aquaculture:perch",
+    "aquaculture:arapaima",
+    "aquaculture:piranha",
+    "aquaculture:tambaqui",
+    "aquaculture:brown_shrooma",
+    "aquaculture:red_shrooma",
+    "aquaculture:red_grouper",
+    "aquaculture:tuna"
+  ]
+}

@@ -16,12 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class OriginSpawnListTest {
 
     @Test
-    void shippedListHasOnlyVanillaMonsters() throws IOException {
+    void shippedListIsEmpty() throws IOException {
         OriginSpawnList l = OriginSpawnList.parse(JsonParser.parseString(Files.readString(Path.of("src/main/resources/data/firmages/origin/spawns.json"))));
         assertEquals(List.of(), l.errors());
-        assertEquals(java.util.Set.of("monster"), l.spawners().keySet(), "no passive, ambient or water mobs");
-        List<OriginSpawnList.Entry> m = l.of("monster");
-        assertEquals(List.of(new OriginSpawnList.Entry("minecraft:enderman", 10, 1, 2)), m, "endermen only: The Primordial has no adds");
+        assertTrue(l.spawners().isEmpty(), "G3 (Felix): no natural spawns in The Origin");
+        assertTrue(l.of("monster").isEmpty());
         assertTrue(l.of("creature").isEmpty());
     }
 

@@ -79,12 +79,12 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 1.1.0 contains 270 mods. Thank you to every author.
+Firmament Ages 1.1.0 contains 271 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
 - **A handful of acorns** by Lepidocrocite ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/a-handful-of-acorns))
-- **Ad Astra** by AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
+- **Ad Astra** by terrariumearth, AlexNijjar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/ad-astra))
 - **Advanced Chimneys** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-chimneys))
 - **Advanced TFC Tech Unofficial** by HermitOwO ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advanced-tfc-tech-unofficial))
 - **AdvancedAE** by pedroksl ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/advancedae))
@@ -103,6 +103,7 @@ Firmament Ages 1.1.0 contains 270 mods. Thank you to every author.
 - **Applied Energistics 2** by thetechnici4n, shartte, TeamAppliedEnergistics ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2))
 - **Applied Energistics 2 Wireless Terminals** by Mari_023 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2-wireless-terminals))
 - **Applied Mekanistics** by ramidzkh, shartte, thetechnici4n ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/applied-mekanistics))
+- **Aquaculture 2** by Shadow, Girafi ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/aquaculture))
 - **ArborFirmaCraft** by Therighton ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/arborfirmacraft))
 - **Architectury API** by shedaniel, Juicebus, MaxNeedsSnacks, st0x0ef ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/architectury-api))
 - **Armor Statues** by Fuzs ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/armor-statues))

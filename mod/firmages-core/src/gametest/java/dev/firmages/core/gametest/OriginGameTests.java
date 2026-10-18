@@ -594,12 +594,16 @@ public final class OriginGameTests {
         WeightedRandomList<MobSpawnSettings.SpawnerData> none = WeightedRandomList.create();
         List<Object> monsters = EventHooks.getPotentialSpawns(o, MobCategory.MONSTER, OriginArena.ALTAR.above(), none).unwrap().stream()
             .map(d -> (Object) d.type).toList();
-        ok(h, monsters.equals(List.of(EntityType.ENDERMAN)), "Origin monsters from the spawn list: " + monsters);
+        ok(h, monsters.isEmpty(), "no natural monsters in The Origin (G3): " + monsters);
         WeightedRandomList<MobSpawnSettings.SpawnerData> cows = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(EntityType.COW, 8, 4, 4));
         ok(h, EventHooks.getPotentialSpawns(o, MobCategory.CREATURE, OriginArena.ALTAR.above(), cows).isEmpty(), "no passive mobs in The Origin");
         ok(h, EventHooks.getPotentialSpawns(h.getLevel(), MobCategory.CREATURE, h.absolutePos(BlockPos.ZERO), cows).unwrap().size() == 1,
             "other dimensions keep their own lists");
-        ok(h, OriginSpawns.list().errors().isEmpty() && OriginSpawns.list().of("monster").size() == 1, "spawn list file parsed: " + OriginSpawns.list());
+        net.minecraft.world.entity.monster.Zombie zo = EntityType.ZOMBIE.create(o);
+        zo.moveTo(OriginArena.ALTAR.getX() + 0.5, OriginArena.ALTAR.getY() + 1, OriginArena.ALTAR.getZ() + 0.5);
+        ok(h, !net.neoforged.neoforge.event.EventHooks.checkSpawnPosition(zo, o, net.minecraft.world.entity.MobSpawnType.NATURAL),
+            "natural monster spawn denied in The Origin");
+        ok(h, OriginSpawns.list().errors().isEmpty() && OriginSpawns.list().of("monster").isEmpty(), "spawn list file parsed: " + OriginSpawns.list());
         h.succeed();
     }
 

@@ -1,0 +1,10 @@
+{
+  "ingredient": {
+    "item": "aquaculture:sushi"
+  },
+  "hunger": 3,
+  "saturation": 1.0,
+  "protein": 1.5,
+  "vegetables": 0.5,
+  "decay_modifier": 3.0
+}

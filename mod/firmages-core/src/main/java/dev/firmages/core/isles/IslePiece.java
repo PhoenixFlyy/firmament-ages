@@ -59,12 +59,13 @@ public final class IslePiece extends StructurePiece {
         tag.putBoolean("Shrine", s.shrine());
         tag.putInt("Trees", s.trees());
         tag.putInt("Crystals", s.crystals());
+        tag.putBoolean("Ruin", s.ruin());
     }
 
     public static IsleSpec read(CompoundTag tag) {
         return new IsleSpec(tag.getInt("X"), tag.getInt("Z"), tag.getInt("R"), IsleSize.byId(tag.getString("Size")).orElse(IsleSize.SMALL),
             tag.getInt("Top"), tag.getInt("Depth"), tag.getLong("Seed"), tag.getBoolean("Lode"), tag.getBoolean("Shrine"), tag.getInt("Trees"),
-            tag.getInt("Crystals"));
+            tag.getInt("Crystals"), tag.getBoolean("Ruin"));
     }
 
     @Override
@@ -76,5 +77,6 @@ public final class IslePiece extends StructurePiece {
             if (box.isInside(t.x(), box.minY(), t.z())) IsleWriter.tree(level, generator, shape, t);
         }
         if (spec.shrine()) IsleWriter.shrine(level, spec, box);
+        if (spec.ruin()) IsleRuin.place(level, spec, box);
     }
 }

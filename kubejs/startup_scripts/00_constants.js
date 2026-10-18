@@ -382,6 +382,13 @@ global.FA = {
     // Exposure: the Interplanar Projector loads pictures from a URL or the player's disk (n7-world; projecting is off
     // in defaultconfigs/exposure-server.toml)
     'exposure:interplanar_projector', 'exposure:broken_interplanar_projector',
+    // G3 (O1C): Aquaculture 2 doubles of TFC and tackle outside the gear rule; same list as [hidden]
+    'aquaculture:atlantic_cod', 'aquaculture:atlantic_cod_bucket', 'aquaculture:pink_salmon',
+    'aquaculture:pink_salmon_bucket', 'aquaculture:rainbow_trout', 'aquaculture:rainbow_trout_bucket',
+    'aquaculture:smallmouth_bass', 'aquaculture:smallmouth_bass_bucket', 'aquaculture:bluegill',
+    'aquaculture:bluegill_bucket', 'aquaculture:jellyfish', 'aquaculture:jellyfish_bucket',
+    'aquaculture:gold_fishing_rod', 'aquaculture:diamond_fishing_rod', 'aquaculture:wooden_fillet_knife',
+    'aquaculture:gold_fillet_knife', 'aquaculture:diamond_fillet_knife',
     // 1.0 round C (vorauswahl 2026-10-15): the hidden parts of Artifacts, Ars Energistique, Building Gadgets 2, AeroEngine,
     // Draconic Additions and Alex's Mobs Continued; same list as [hidden] in dev/age_map.toml
     'artifacts:eternal_steak', 'artifacts:everlasting_beef', 'artifacts:pickaxe_heater', 'artifacts:digging_claws',
@@ -406,7 +413,7 @@ global.FA = {
     'alexsmobs:banner_pattern_new_mexico', 'alexsmobs:bear_dust', 'alexsmobs:bear_fur', 'alexsmobs:bison_carpet',
     'alexsmobs:bison_fur', 'alexsmobs:bison_fur_block', 'alexsmobs:blobfish', 'alexsmobs:blobfish_bucket',
     'alexsmobs:blood_sac', 'alexsmobs:blood_sprayer', 'alexsmobs:bone_serpent_tooth',
-    'alexsmobs:cachalot_whale_tooth', 'alexsmobs:caiman_egg', 'alexsmobs:capsid', 'alexsmobs:centipede_leg',
+    'alexsmobs:caiman_egg', 'alexsmobs:capsid', 'alexsmobs:centipede_leg',
     'alexsmobs:centipede_leggings', 'alexsmobs:chorus_on_a_stick', 'alexsmobs:cockroach_ootheca',
     'alexsmobs:cockroach_wing', 'alexsmobs:cockroach_wing_fragment', 'alexsmobs:comb_jelly_bucket',
     'alexsmobs:cooked_catfish', 'alexsmobs:cooked_lobster_tail', 'alexsmobs:cooked_moose_ribs',
@@ -418,7 +425,7 @@ global.FA = {
     'alexsmobs:dimensional_carver_shard_4', 'alexsmobs:dimensional_carver_shard_5',
     'alexsmobs:dimensional_carver_shard_6', 'alexsmobs:dimensional_carver_shard_7',
     'alexsmobs:dimensional_carver_shard_8', 'alexsmobs:dimensional_carver_shard_9', 'alexsmobs:dropbear_claw',
-    'alexsmobs:echolocator', 'alexsmobs:effect_item', 'alexsmobs:elastic_tendon', 'alexsmobs:ender_residue',
+    'alexsmobs:effect_item', 'alexsmobs:elastic_tendon', 'alexsmobs:ender_residue',
     'alexsmobs:enderiophage_rocket', 'alexsmobs:endolocator', 'alexsmobs:falconry_glove',
     'alexsmobs:falconry_glove_hand', 'alexsmobs:falconry_glove_inventory', 'alexsmobs:falconry_hood',
     'alexsmobs:fancy_item', 'alexsmobs:farseer_arm', 'alexsmobs:fedora', 'alexsmobs:fish_bones',
@@ -428,7 +435,7 @@ global.FA = {
     'alexsmobs:hemolymph_sac', 'alexsmobs:kangaroo_burger', 'alexsmobs:komodo_spit', 'alexsmobs:komodo_spit_bottle',
     'alexsmobs:large_catfish_bucket', 'alexsmobs:lava_bottle', 'alexsmobs:leafcutter_ant_chamber',
     'alexsmobs:leafcutter_ant_pupa', 'alexsmobs:leafcutter_anthill', 'alexsmobs:lobster_bucket',
-    'alexsmobs:lobster_tail', 'alexsmobs:lost_tentacle', 'alexsmobs:maggot', 'alexsmobs:medium_catfish_bucket',
+    'alexsmobs:lobster_tail', 'alexsmobs:maggot', 'alexsmobs:medium_catfish_bucket',
     'alexsmobs:mimic_octopus_bucket', 'alexsmobs:mimicream', 'alexsmobs:moose_antler', 'alexsmobs:moose_headgear',
     'alexsmobs:moose_ribs', 'alexsmobs:mosquito_larva', 'alexsmobs:mosquito_proboscis',
     'alexsmobs:mosquito_repellent_stew', 'alexsmobs:mungal_spores', 'alexsmobs:music_disc_daze',
@@ -436,8 +443,7 @@ global.FA = {
     'alexsmobs:platypus_egg', 'alexsmobs:pocket_sand', 'alexsmobs:poison_bottle', 'alexsmobs:potted_flutter',
     'alexsmobs:pupfish_locator', 'alexsmobs:rainbow_glass', 'alexsmobs:rainbow_jelly', 'alexsmobs:raw_catfish',
     'alexsmobs:red_sand_circle', 'alexsmobs:rocky_chestplate', 'alexsmobs:rocky_shell', 'alexsmobs:sand_circle',
-    'alexsmobs:sculk_boomer', 'alexsmobs:serrated_shark_tooth', 'alexsmobs:shark_tooth',
-    'alexsmobs:shark_tooth_arrow', 'alexsmobs:shattered_dimensional_carver', 'alexsmobs:shed_snake_skin',
+    'alexsmobs:sculk_boomer', 'alexsmobs:serrated_shark_tooth', 'alexsmobs:shattered_dimensional_carver', 'alexsmobs:shed_snake_skin',
     'alexsmobs:shield_of_the_deep', 'alexsmobs:shrimp_fried_rice', 'alexsmobs:skelewag_sword',
     'alexsmobs:skelewag_sword_hand', 'alexsmobs:skelewag_sword_inventory', 'alexsmobs:skreecher_soul',
     'alexsmobs:small_catfish_bucket', 'alexsmobs:sombrero', 'alexsmobs:sopa_de_macaco', 'alexsmobs:soul_heart',
@@ -464,7 +470,7 @@ global.FA = {
     'alexsmobs:spawn_egg_terrapin', 'alexsmobs:spawn_egg_tiger', 'alexsmobs:spawn_egg_triops',
     'alexsmobs:spawn_egg_tusklin', 'alexsmobs:spawn_egg_underminer', 'alexsmobs:spawn_egg_void_worm',
     'alexsmobs:spawn_egg_warped_mosco', 'alexsmobs:spawn_egg_warped_toad', 'alexsmobs:spiked_scute',
-    'alexsmobs:spiked_turtle_shell', 'alexsmobs:squid_grapple', 'alexsmobs:stink_bottle', 'alexsmobs:stink_ray',
+    'alexsmobs:spiked_turtle_shell', 'alexsmobs:stink_bottle', 'alexsmobs:stink_ray',
     'alexsmobs:stink_ray_empty_hand', 'alexsmobs:stink_ray_empty_inventory', 'alexsmobs:stink_ray_hand',
     'alexsmobs:stink_ray_inventory', 'alexsmobs:straddle_helmet', 'alexsmobs:straddle_saddle',
     'alexsmobs:straddleboard', 'alexsmobs:straddlite', 'alexsmobs:straddlite_block', 'alexsmobs:stradpole_bucket',
@@ -476,7 +482,8 @@ global.FA = {
     'alexsmobs:void_worm_eye', 'alexsmobs:void_worm_mandible', 'alexsmobs:warped_mixture', 'alexsmobs:warped_muscle',
     // Round G2: firmages-core structure blocks with an item for the creative pick-block only (they keep their block's
     // Age in dev/age_map.toml, so Jade still names the blocks; SPEC 24.8).
-    'firmages:firmament_crystal_cluster', 'firmages:firmament_lode', 'firmages:wayshrine_core'
+    'firmages:firmament_crystal_cluster', 'firmages:firmament_lode', 'firmages:wayshrine_core', 'firmages:wind_seal',
+    'firmages:wind_seal_lid'
   ]
 }
 // Only plain data goes into `global`: functions created in the startup context are not reliably callable

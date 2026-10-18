@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "tfc:ocean",
+      "required": false
+    },
+    {
+      "id": "tfc:ocean_reef",
+      "required": false
+    },
+    {
+      "id": "tfc:deep_ocean",
+      "required": false
+    }
+  ]
+}

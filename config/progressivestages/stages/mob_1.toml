@@ -17,6 +17,9 @@ hidden = true
 # Bronze: + skeletons, creepers (in mob_0 creepers are replaced by zombies, no skeletons).
 [mobs]
 locked_spawns = [
+    # G3 (Felix O1A): Alex's Mobs sea species (harmless)
+    "id:alexsmobs:mimic_octopus",
+    "id:alexsmobs:cachalot_whale",
     "id:minecraft:skeleton",
     "id:minecraft:stray",
 ]

@@ -1,7 +1,3 @@
 {
-  "spawners": {
-    "monster": [
-      { "type": "minecraft:enderman", "weight": 10, "minCount": 1, "maxCount": 2 }
-    ]
-  }
+  "spawners": {}
 }

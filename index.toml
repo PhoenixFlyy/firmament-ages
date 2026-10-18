@@ -514,11 +514,11 @@ hash = "25b234614037706b127faf77a186f0b1fd670fa6a35a06a5deaa58f62e5c95c1"
 
 [[files]]
 file = "config/progressivestages/stages/mob_1.toml"
-hash = "858356d465cbd9c402b7a9c218f78a71cc85a850e898e3e77b9dcfe0b4321c7a"
+hash = "a7f62ff0c5a983bc00ad1621766b019a9bbb2dd046a52635a4c282291658822c"
 
 [[files]]
 file = "config/progressivestages/stages/mob_2.toml"
-hash = "839f95f753d14ba354688f0a558ed5f8da155b871c98f9c8ee32ebf727600373"
+hash = "de4e6b4748484d30eea6df57f75f25e89593baeab932c58c422adce6aecefd23"
 
 [[files]]
 file = "config/progressivestages/stages/mob_3.toml"
@@ -886,7 +886,7 @@ hash = "b7dede6c58d02569e9666b63c04d3d98b425f88f5775914b3f4e0a4f3970978b"
 
 [[files]]
 file = "kubejs/assets/firmages/age_namespaces.json"
-hash = "bf80e455c7cef6c44ba0cdfde6acfdaa4ca0f728aaf2d631247737c4e2f55383"
+hash = "a8fe67fbf15740e39b3be7c422e99eccb171bdbc827a211f27b191ce101791cf"
 
 [[files]]
 file = "kubejs/assets/firmages/key_gates.json"
@@ -3451,6 +3451,50 @@ hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
 [[files]]
 file = "kubejs/data/apotheosis/tags/worldgen/biome/tower_spruce.json"
 hash = "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e"
+
+[[files]]
+file = "kubejs/data/aquaculture/loot_table/gameplay/fishing/fish.json"
+hash = "4797a84a6a40819dbe88345726c547bf1f25ef719986359cef67267f32992c13"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/atlantic_cod_spawn_beach.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/atlantic_cod_spawn_ocean.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/bluegill_spawn.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/jellyfish_spawn.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/pink_salmon_spawn_beach.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/pink_salmon_spawn_water.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/rainbow_trout_spawn_beach.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/rainbow_trout_spawn_ocean.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/rainbow_trout_spawn_river.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
+
+[[files]]
+file = "kubejs/data/aquaculture/neoforge/biome_modifier/smallmouth_bass_spawn.json"
+hash = "99b969132018e9da1071065a8593ba9564928b1ed0aa5ae3ab45f9dac071f7d5"
 
 [[files]]
 file = "kubejs/data/astikorcartsredux/recipe/acacia_animal_cart.json"
@@ -6081,6 +6125,18 @@ file = "kubejs/data/firmages/loot_table/chests/cold_forge.json"
 hash = "9007f4b632709206ce1d3377558790815fa583c50430d19f23ce4288ddad1291"
 
 [[files]]
+file = "kubejs/data/firmages/loot_table/chests/isle_ruin.json"
+hash = "564c9e0f6d25fc43de0d09ea5c4d5e3059984dc7ecb3c42458d5730c26df1076"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/chests/ocean_ruin.json"
+hash = "c8f5b57b7f31400227da8c9039f869f9b4a8f4bb108e7b7889755926892d593f"
+
+[[files]]
+file = "kubejs/data/firmages/loot_table/chests/ocean_wreck.json"
+hash = "1fc4657974521b28170c9ff50508d15e515b1e37cbfc71e1f62f22fc7b7dc2d4"
+
+[[files]]
 file = "kubejs/data/firmages/loot_table/chests/ruin_rich.json"
 hash = "88376544dcd9593916b83575a9315e941e19c096f03753ae9681807193209c83"
 
@@ -6093,12 +6149,24 @@ file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_anteater_spawn_tf
 hash = "f8ae24192df4592e9a256e921a7097d8abf927de69bc757c2f195346405de148"
 
 [[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_blobfish_spawn_tfc.json"
+hash = "371ea26f91fb471ca26c232577a005e360fae92a5c48654b760c95492c18bb16"
+
+[[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_blue_jay_spawn_tfc.json"
 hash = "c8a269a117e998ac086a4915007f0303ffa7ace7f414cb5f26659d5c9e15807c"
 
 [[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_cachalot_whale_spawn_tfc.json"
+hash = "be38c8952eb90e1753aa42998eee5abcacef6934483fb592513f6d2b5952f8af"
+
+[[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_capuchin_monkey_spawn_tfc.json"
 hash = "7dc824363f5af4a479d502972e928fde6fe95a2ac54fa756fd0823cf75137872"
+
+[[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_comb_jelly_spawn_tfc.json"
+hash = "6cd429fbde8fc123518c3caed9cb55c4bfdca8f03939f1ce2e1359f6710e7057"
 
 [[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_elephant_spawn_tfc.json"
@@ -6113,12 +6181,24 @@ file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_flying_fish_spawn
 hash = "6a7cdfe29dd0d5f8242c1faa68d27cba532c728c1e8326ab25e463ea16f60c7f"
 
 [[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_frilled_shark_spawn_tfc.json"
+hash = "eae231dfce979188e4812a55002f9bf125f0d960f4d0408a2f2ed1acea9a334e"
+
+[[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_gelada_monkey_spawn_tfc.json"
 hash = "1f8cb0638178a8dedda7989dfff6f26d0e4d9bc4daa1889e408ccb5867fa7ad5"
 
 [[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_giant_squid_spawn_tfc.json"
+hash = "3a13697f2ac94dcea587156a067a60596915125fef2baaadb72e9aa5bfec6e5f"
+
+[[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_gorilla_spawn_tfc.json"
 hash = "a978a4558967f8352ecec2844203d66c2efa20c7f0fe19d20485ac95fa0a0a65"
+
+[[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_hammerhead_shark_spawn_tfc.json"
+hash = "e7a309edfc95e9e011a49a2f8a67f53764e2ae08a3b8271bbfd2d006f35af19f"
 
 [[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_hummingbird_spawn_tfc.json"
@@ -6131,6 +6211,10 @@ hash = "7f8fb8426d60400b855c808e3fc41bd4a90efdf518c6c4c854531d48593ffb8d"
 [[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_komodo_dragon_spawn_tfc.json"
 hash = "30fc7c66c28ca40df1b529ecbec203f6d7f40395219267c2a5082e32013a5b66"
+
+[[files]]
+file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_mimic_octopus_spawn_tfc.json"
+hash = "a7f985610359d8178769cad34e39fb425246042d422a9c15634f0663af25df8e"
 
 [[files]]
 file = "kubejs/data/firmages/neoforge/biome_modifier/alexsmobs_mudskipper_spawn_tfc.json"
@@ -6881,8 +6965,32 @@ file = "kubejs/data/firmages/recipe/heating/alexsmobs_cooked_kangaroo_meat.json"
 hash = "2a5a2dbf97c07e65e1f3540b51d9b447cc0c4b9450dc4959dce3b9f310c91c3e"
 
 [[files]]
+file = "kubejs/data/firmages/recipe/heating/aquaculture_fish_fillet_cooked.json"
+hash = "65f55c329083f0f301eab34b8c0e4c89c35beac3c1bacacff795120b6b1d2d08"
+
+[[files]]
 file = "kubejs/data/firmages/structure/cold_forge.nbt"
 hash = "6018122d6dc60bd52ea2a38d4db73098d1014ba908ed85ae5b195eb046278ad2"
+
+[[files]]
+file = "kubejs/data/firmages/structure/ocean/ruin_colonnade.nbt"
+hash = "2941b9e424b1a2a8c7d7217c1e195a0472a569f317c568fb8727f3679bbf011f"
+
+[[files]]
+file = "kubejs/data/firmages/structure/ocean/ruin_shrine.nbt"
+hash = "94bb54587aea126bd4d7d990a8e51a995c339a62faddd9aa54a2b4f262861532"
+
+[[files]]
+file = "kubejs/data/firmages/structure/ocean/wreck_cog.nbt"
+hash = "e6268b98d8b8d13cf2b84198caeb539048178a9f47ea461a683e900df4dc0a1d"
+
+[[files]]
+file = "kubejs/data/firmages/structure/ocean/wreck_mast.nbt"
+hash = "b4de905ff0b74d954dca592d5d6a5ed05dd0ce73fb8713b4b5a822fc13cd392b"
+
+[[files]]
+file = "kubejs/data/firmages/structure/ocean/wreck_skiff.nbt"
+hash = "3e6b62974b78fdbe5b3aa41957f792badc70daa5152e1788e9bd274d0329b959"
 
 [[files]]
 file = "kubejs/data/firmages/tags/block/age_blocks/age_0.json"
@@ -7002,11 +7110,11 @@ hash = "4c7bf327c8364a6f54a9e458066b7890bc5789398919ccbb870c27990cb94a7d"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "650dcf8052979f457115bca08ae46de3e0ae81ab91df08b63105af55b3207e4e"
+hash = "e80321264d2cdc2443813c538b2b49d454c6f9eacf05d72679ce8d75a15121e4"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "96e1298f892554f1226261f5d2e282b8bf957e30f9e2044565df40987861182d"
+hash = "fc92ef42001f2c0b5c64d2ee3b6a6b0e488b98de76c8a35ce9a89b21bcfa51ea"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
@@ -7042,7 +7150,11 @@ hash = "5a0467511ebc467bad3df1c88075190c17e947cfa190377747c123a94785cb48"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "0b680a8861fb7be74f9bbe3db7fc803c6ba241979722c6765acd89f195acef11"
+hash = "dfde8830c4161e8b46900c7e6608de217ba7691710dfc5ac4e61cb5b561a6613"
+
+[[files]]
+file = "kubejs/data/firmages/tags/item/aquaculture_fish.json"
+hash = "ee2bdd270d61c1ee10442f56a0ff508754d21797acc0cb189305dcd5b8f2babf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/rope_bridges.json"
@@ -7221,6 +7333,14 @@ file = "kubejs/data/firmages/tags/worldgen/biome/has_structure/cold_forge.json"
 hash = "287a196bf299d598845bc5624403d272c5ea079ce289d1e8ab6384246c66dd5f"
 
 [[files]]
+file = "kubejs/data/firmages/tags/worldgen/biome/has_structure/ocean_ruin.json"
+hash = "78115be1f2d09e3b7d39c9b278c1e98cf04a2baed7e8091b7954bd76af2c4d70"
+
+[[files]]
+file = "kubejs/data/firmages/tags/worldgen/biome/has_structure/ocean_wreck.json"
+hash = "94458bca8c635479236d80bc4b359faaade3659a1b34c585ba7f1d17bc2cc098"
+
+[[files]]
 file = "kubejs/data/firmages/tags/worldgen/biome/has_vanilla_trees.json"
 hash = "274685ae71b0e1937d2113e2e7a94e7c3783c7fff6fa80390c702e9070890436"
 
@@ -7263,6 +7383,26 @@ hash = "110a37759ae873b7e8557ddf5aea128f92318dc809d339235ef495a5a4237241"
 [[files]]
 file = "kubejs/data/firmages/tfc/food/alexsmobs_kangaroo_meat.json"
 hash = "aa5802d75806bf42cffbeda7f9259128d59b51af353f2573ec17583fe5f8a3bf"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/food/aquaculture_fish.json"
+hash = "0a668b3db9d536b025cffd33c3b67aa02e037fbed6e60f7f05fe6825871da53d"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/food/aquaculture_fish_fillet_cooked.json"
+hash = "d60b8fe6e2eaad4cf567ed07e7859c261438dc7211cc61365c66d768c235dffe"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/food/aquaculture_fish_fillet_raw.json"
+hash = "f5b2a526e720538ba64fb1d873211b6c54b18b8264165c94a2b6b2cc41319932"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/food/aquaculture_sushi.json"
+hash = "d3fe1f5b344176a6d891fe334e9df33f003e377b6b729bd1a06f755bf0c848b2"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/food/aquaculture_turtle_soup.json"
+hash = "9026bf919de87d59daddfab89d7323a099e97d3567e3771e85bb550c253951c2"
 
 [[files]]
 file = "kubejs/data/firmages/tfc/fuel/acacia_logs.json"
@@ -7355,6 +7495,14 @@ hash = "095680c091d35b87b02d48e9f654b8f44182d96a5a07622da61b687c9377b187"
 [[files]]
 file = "kubejs/data/firmages/tfc/item_heat/alexsmobs_kangaroo_meat.json"
 hash = "07863e40bd37858144c147e06e0a3602e65865fc8b8180fd3e410a128df1c370"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/aquaculture_fish_fillet_cooked.json"
+hash = "c2c9f9ea1cb9e0c80315739ff7ab81f431db20b23af33668a0746a4169b541fd"
+
+[[files]]
+file = "kubejs/data/firmages/tfc/item_heat/aquaculture_fish_fillet_raw.json"
+hash = "b2b526e542cc93889154322160f854bfffd73a363a6a6454bb21088e35640b2e"
 
 [[files]]
 file = "kubejs/data/firmages/tfc/item_heat/create_brass_nugget.json"
@@ -7609,16 +7757,44 @@ file = "kubejs/data/firmages/worldgen/processor_list/cold_forge.json"
 hash = "1357e554caeecc96cb1fd83eaa67132594a9b0c85ae89982e939e9bcbfeb4733"
 
 [[files]]
+file = "kubejs/data/firmages/worldgen/processor_list/ocean_ruin.json"
+hash = "fe1cc4ffaee44ebf4ec3bf434ae00d5f6fd3f43f11b00dd9c6f708ba972f6ebc"
+
+[[files]]
 file = "kubejs/data/firmages/worldgen/structure/cold_forge.json"
 hash = "bffd54ccb6c87c76a20dd70cb9a3fdaf2e413768240f1f273d89505cd39a035c"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/structure/ocean_ruin.json"
+hash = "9a1be577c02112443c8a203d6bb078e4f9b36b5f22cc9e4e836840db93476bdd"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/structure/ocean_wreck.json"
+hash = "afe3cd3c5a609d29298da8699bc1234b4c005569ccaa5b8d68309adda8ed0ae3"
 
 [[files]]
 file = "kubejs/data/firmages/worldgen/structure_set/cold_forge.json"
 hash = "6b99cb9876ff25d0dffc226e4b50718e7fe91fac8d92906093fbd328ba25188f"
 
 [[files]]
+file = "kubejs/data/firmages/worldgen/structure_set/ocean_ruin.json"
+hash = "19f32fd93e045f5d382b62e252fbc95f81af0db68551dc01022b9a44ef88bf42"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/structure_set/ocean_wreck.json"
+hash = "d4bd4bc02352cbd140d47f520d3c4fc1889e6132ae214eca1093be4a7cf55fe8"
+
+[[files]]
 file = "kubejs/data/firmages/worldgen/template_pool/cold_forge.json"
 hash = "5a83cf800733cb941c3495c0d5782efe04c78ef5f25e9397789b6217aaf1b882"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/template_pool/ocean_ruin.json"
+hash = "574249703bcd575eb17663aa069ca501ca78d203b6def397d725639badb23149"
+
+[[files]]
+file = "kubejs/data/firmages/worldgen/template_pool/ocean_wreck.json"
+hash = "7ea5c8e3bffa90fa4ad74aa860cfd78fa27593329f7fd9ff3dce5aa0d88f0285"
 
 [[files]]
 file = "kubejs/data/firmalife/tags/item/cellar_insulation.json"
@@ -10918,7 +11094,11 @@ hash = "8d2944c3145c29e9162e338ea2f4a43869a86ef35d13efaf3a5415ec082a432b"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/wildlife_climate.js"
-hash = "aa9c7f0ba51b74405fc5eee3677e1db5326a66e8eb9a5a510572276c066a7806"
+hash = "31de10c92abc394c6d593f30e1427de76edbaf65986707863c9029815a9c7698"
+
+[[files]]
+file = "kubejs/server_scripts/recipes/age_0/aquaculture.js"
+hash = "1d70429083a96adf352d9d74e89676c9f1b7e51a27fa10eec52da66fe20b32dc"
 
 [[files]]
 file = "kubejs/server_scripts/recipes/age_0/stone_age.js"
@@ -11162,7 +11342,7 @@ hash = "2f259945df4d3cb1b583a75697e3e1e5895452f5caf72c44b99144aede58ec62"
 
 [[files]]
 file = "kubejs/startup_scripts/00_constants.js"
-hash = "968885f9622e7c6af532a3e808230a10403a0176de620df1b4c5c0fc51524b4f"
+hash = "0dadc4e9b1a63bb19cc7c1fc3c8427d5b3df49c92af62d08e8c2b3daad8272c0"
 
 [[files]]
 file = "kubejs/startup_scripts/draconium.js"
@@ -11295,6 +11475,11 @@ metafile = true
 [[files]]
 file = "mods/applied-mekanistics.pw.toml"
 hash = "f15037bbd326999cb63b1267628f64c29ca3df1650c2276e492cb5ff88fbed7e"
+metafile = true
+
+[[files]]
+file = "mods/aquaculture.pw.toml"
+hash = "fbbea448bb6a8bdab5d9f10fb5d27d177a0e7998fb4d797287f0a83b6f89e6d2"
 metafile = true
 
 [[files]]

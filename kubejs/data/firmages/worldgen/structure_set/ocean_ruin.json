@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "firmages:ocean_ruin",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 820461337,
+    "spacing": 36,
+    "separation": 12
+  }
+}

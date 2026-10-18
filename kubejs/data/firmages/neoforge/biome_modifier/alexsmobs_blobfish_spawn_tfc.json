@@ -1,0 +1,13 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "tfc:deep_ocean",
+    "tfc:deep_ocean_trench"
+  ],
+  "spawners": {
+    "type": "alexsmobs:blobfish",
+    "weight": 4,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}

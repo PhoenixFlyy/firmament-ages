@@ -244,6 +244,7 @@ def main():
     sapling_checks(item_age, check)
     world_checks(base, item_age, check)
     loot_filter_check(a.server_dir, check)
+    ocean_template_check(item_age, check)
     content_checks(base, a.server_dir, rows, by_id, tags, item_age, check)
 
     print(f"\n{len(failed)} FAIL: {failed}" if failed else "\nall checks PASS")
@@ -2726,6 +2727,59 @@ def loot_filter_check(server_dir, check):
     notes.append(f"check_loot_ages --strict: {n} firmages:* tables, {len(strict)} finding(s)")
     check(f"X-5 loot filter active (gate.lootFilter, {LOOT_FILTER_ID} in the jar, no LootJS.modifiers, "
           f"check_loot_ages --strict)", not bad, bad + notes)
+
+
+# ================================================================================================ ocean structures (X-6)
+OCEAN_MAX_AGE = "age_0"
+OCEAN_NO_ITEM_OK = {"minecraft:water"}   # blocks without an item that a template may hold
+OCEAN_DIR = os.path.join(REPO, "kubejs", "data", "firmages", "structure", "ocean")
+
+
+def ocean_template_check(item_age, check):
+    """X-6 (Felix O1B, dev/gen_ocean.py): every firmages ocean template (structure/ocean/*.nbt) holds only blocks of an
+    Age up to the Stone Age (the block's item Age; Dawn and age_0), no air (it would carve a dry pocket into the sea),
+    and every chest names a loot table that exists in kubejs/data or firmages-core's source; every template pool
+    element firmages:ocean/* names an existing template. Needs no dump."""
+    import glob
+    import derive_ages as da
+    bad, n = [], 0
+    roots = [os.path.join(REPO, "kubejs", "data"),
+             os.path.join(REPO, "mod", "firmages-core", "src", "main", "resources", "data")]
+
+    def table_exists(tid):
+        ns, path = tid.split(":", 1)
+        return any(os.path.isfile(os.path.join(r, ns, "loot_table", *path.split("/")) + ".json") for r in roots)
+    files = sorted(glob.glob(os.path.join(OCEAN_DIR, "*.nbt")))
+    if not files:
+        bad.append("no template in kubejs/data/firmages/structure/ocean/ (run dev/gen_ocean.py)")
+    for f in files:
+        n += 1
+        tid = "firmages:ocean/" + os.path.basename(f)[:-4]
+        root = da._nbt(open(f, "rb").read())
+        for b in sorted({e["Name"] for e in root["palette"]}):
+            a = item_age.get(b)
+            if b == "minecraft:air":
+                bad.append(f"{tid}: minecraft:air (leave the position out, the sea stays)")
+            elif a is None and b not in OCEAN_NO_ITEM_OK:
+                bad.append(f"{tid}: {b} has no Age (not in age_items)")
+            elif a is not None and (a not in AGES or AGES.index(a) > AGES.index(OCEAN_MAX_AGE)):
+                bad.append(f"{tid}: {b} is {a} (want at most {OCEAN_MAX_AGE})")
+        chests = [blk.get("nbt", {}) for blk in root["blocks"] if "nbt" in blk]
+        for be in chests:
+            lt = be.get("LootTable")
+            if not lt:
+                bad.append(f"{tid}: block entity {be.get('id')} without LootTable")
+            elif not table_exists(lt):
+                bad.append(f"{tid}: loot table {lt} does not exist")
+        if not chests:
+            bad.append(f"{tid}: no chest")
+    for pf in glob.glob(os.path.join(REPO, "kubejs", "data", "firmages", "worldgen", "template_pool", "*.json")):
+        for el in json.load(open(pf, encoding="utf-8")).get("elements", []):
+            loc = el.get("element", {}).get("location", "")
+            if loc.startswith("firmages:ocean/") and not os.path.isfile(os.path.join(OCEAN_DIR, loc.split("/", 1)[1] + ".nbt")):
+                bad.append(f"{os.path.basename(pf)}: {loc} has no template")
+    check(f"X-6 ocean templates hold only blocks up to {OCEAN_MAX_AGE}, no air, and chests with existing loot tables "
+          f"({n} templates)", not bad, bad)
 
 
 def load_metals():
