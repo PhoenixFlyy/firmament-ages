@@ -117,6 +117,8 @@ public final class IsleSuite implements SelfTest.Suite {
             List<String> missing = new ArrayList<>();
             for (var b : IsleRegistry.blocks()) {
                 ResourceKey<LootTable> key = b.get().getLootTable();
+                // the isle ruin's Wind Seals are unbreakable and drop nothing by design (noLootTable, round G3)
+                if (key.equals(net.minecraft.world.level.storage.loot.BuiltInLootTables.EMPTY)) continue;
                 if (server.reloadableRegistries().getLootTable(key) == LootTable.EMPTY) missing.add(key.location().toString());
             }
             checkEquals(List.of(), missing, "isle blocks without a loot table");

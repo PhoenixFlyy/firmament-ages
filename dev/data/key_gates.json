@@ -7,7 +7,7 @@
     "keys_never_locked": 16,
     "mods_with_keys": 63,
     "mods_locked": 132,
-    "packages": 314,
+    "packages": 315,
     "packages_locked": 134,
     "packages_open_below_locked": 0
   },
@@ -140,6 +140,10 @@
     },
     "appmek": {
       "age": "age_6",
+      "age_from": "[mods]"
+    },
+    "aquaculture": {
+      "age": "dawn",
       "age_from": "[mods]"
     },
     "architectury": {
@@ -2406,7 +2410,7 @@
       "mod": "firmages",
       "age": "dawn",
       "age_from": "[mods]",
-      "jar": "firmages-core-1.1.0.jar",
+      "jar": "firmages-core-1.2.0.jar",
       "found_in": "class"
     },
     "key.ftbchunks.add_waypoint": {
@@ -4859,6 +4863,10 @@
     "com.tadashi": {
       "mod": "tfcbetterbf",
       "age": "age_2"
+    },
+    "com.teammetallurgy.aquaculture": {
+      "mod": "aquaculture",
+      "age": "dawn"
     },
     "com.teamresourceful.resourcefulconfig": {
       "mod": "resourcefulconfig",

@@ -708,7 +708,6 @@
     {"id": "minecraft:jungle_trapdoor", "required": false},
     {"id": "minecraft:jungle_wood", "required": false},
     {"id": "minecraft:ladder", "required": false},
-    {"id": "minecraft:lead", "required": false},
     {"id": "minecraft:lever", "required": false},
     {"id": "minecraft:light_blue_banner", "required": false},
     {"id": "minecraft:light_blue_carpet", "required": false},

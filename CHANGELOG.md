@@ -2,8 +2,21 @@
 
 Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
-## Unreleased (G3)
+## 1.2.0
 
+The third round of feedback: a grand arena for the finale, nights that grow worse with every Age, ruins on the Drifting Isles, life and wrecks in the ocean, the map fixed and a night sky behind every menu. **Client and server both need 1.2.0.** Your 1.1.0 world keeps working: an Origin generated before 1.2.0 keeps its classic arena; the isle ruins and ocean structures only appear in chunks generated from now on.
+
+### New and changed
+
+- **A grand arena in The Origin.** A new Origin has an arena three times as wide, with a ring of stone for each Age, a raised arrival platform with the return gate, an arch, a stair down to the floor and nine vitrines with the relics of the Ages.
+- **Four altars and a shield.** In the second and third phase The Primordial raises a shield that no hit gets through; light the four altars around the arena (empty hand, three seconds) to drop it. While it stands, the boss strikes a lit altar every 20 seconds. The enrage comes after 12 minutes (14 with star-falls).
+- **The Origin's sky follows the fight:** clear stars, an aurora in the second phase, an eclipse in the third and a dawn after the boss falls.
+- **No monsters in The Origin** besides The Primordial and what it summons.
+- **Nights grow worse with every Age.** Monsters that spawn in the dark get more health and damage with each Age, from the Bronze Age they can wear armour one Age behind yours, and later nights bring more of them. Blood moons begin in the Iron Age and come more often with each Age, super blood moons from the Electric Age. The Cave Dweller hunts less in Dawn and the Stone Age. Apotheosis' world tier follows your Age.
+- **Ruins on the Drifting Isles.** Each isle cluster holds a small ruin with a chest and four Wind Seals; the right order opens a chamber below.
+- **Life in the ocean.** Comb jellies, blobfish, mimic octopuses, cachalot whales, hammerhead sharks, frilled sharks and giant squid from Alex's Mobs, each with its Age.
+- **Wrecks and sunken ruins** on the sea floor, with loot by Age.
+- **Aquaculture 2:** fish TerraFirmaCraft lacks, hooks, bait and treasures of the sea; its fish decay like TerraFirmaCraft food, and the fish both mods have stay TerraFirmaCraft's.
 - **M opens the map again.** JourneyMap's full map closed itself on the first press of every version; it now stays open.
 - **Radar on the map.** From the Iron Age the minimap and the full map show players (with names), villagers, animals and mobs; teammates show anywhere in the world.
 - **Something Unknown.** An item of an Age you have not reached is "Something Unknown" in every tooltip, in chat, on name tags and in Jade (item frames, items on the ground). Creative mode sees every name.
@@ -11,6 +24,12 @@ Newest version on top; a CurseForge upload takes the newest section. The log rea
 - **Menus in the night sky.** The title's constellation backdrop is behind world selection, multiplayer, world creation, options, resource packs, the pause menu and the loading screens; every button wears the gold frame.
 - **Resource packs on by default** in new profiles: TFC-ified Supplementaries and Darker Ropes on top of the mod packs.
 - Dusty Decorations no longer shows its "Updating to 2.0" screen on the first start.
+
+### Technical
+
+- **Firmament Ages Core 1.2.0:** the grand arena (`origin/GrandArenaPlan`, layout per world), the fight altars `firmages:arena_altar` and the shield, `/firmages origin altars reset|complete`, the Origin sky (client), the Origin spawn guard, the isle ruin with `firmages:wind_seal` and `wind_seal_lid`, the night table `kubejs/data/firmages/balance/nights.json` (`hardship/NightsService`). Network protocol stays 8, but client and server need the same core version.
+- New tools: `dev/gen_isle_ruin.py`, `dev/gen_ocean.py`, `dev/gen_nights.py` (each with `--check`), `dev/cf/gen_credits.py` rewritten.
+- 272 mods: Aquaculture 2 2.7.21 and TabTPS 1.3.25 (server only) are new.
 
 ## 1.1.0
 

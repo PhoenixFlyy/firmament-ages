@@ -566,7 +566,7 @@ hash = "4b482316317de13271b0340cd9030b9e0bb54329ec9fdd44cda50ef010ddb2aa"
 
 [[files]]
 file = "config/progressivestages/stages/age_0.toml"
-hash = "2405d0e7738dbf0488d7613b839a84cd72a80bbd519321ca9ee768804cd82bd7"
+hash = "934e615c4555c2cc90d0450d8bab2c3fd94a933c99803fb86746b6ea7122672a"
 
 [[files]]
 file = "config/progressivestages/stages/age_1.toml"
@@ -743,10 +743,6 @@ hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
 hash = "234dd4d1c7b30b28ff7a96736ddbbe433cbccd6221bd38a4c44dcb4e7d5d561b"
-
-[[files]]
-file = "gt4.log"
-hash = "ab244d05038ddc92d9a70b41e340969a60d0869fbec369cb995f2fc4d17d9bef"
 
 [[files]]
 file = "journeymap/icon/theme/default.theme.config"
@@ -3922,7 +3918,7 @@ hash = "7db368d247b3583e5995c8ce6c4e692fe34902b9695f4fb4f20c99f7c55b63d0"
 
 [[files]]
 file = "kubejs/data/c/tags/item/hidden_from_recipe_viewers.json"
-hash = "eb06cab6f9eba1a8bae8c806ffadef463279f19b805b5a62534ab034f6fbfe86"
+hash = "5d541cdb0920fced8be342ec3375d0f3f4a1f9e283b2f4ca864b0937b89dbeca"
 
 [[files]]
 file = "kubejs/data/copycats/physics_block_properties/copycat_catwalk.json"
@@ -5459,6 +5455,10 @@ hash = "03e83529a3a58719c2410829794e9b9123cb96b247c70302a09c01cb3cb24116"
 [[files]]
 file = "kubejs/data/firmages/balance/metals.json"
 hash = "2450b04dba8798348b1bbbf34e9aef5245403dcf965478ead3b1a19b22ce5039"
+
+[[files]]
+file = "kubejs/data/firmages/balance/nights.json"
+hash = "12cc6a11d9bf70ac2eb1fac5d5b757759d1b1d19ab489e5eeb30a9fb695e01d7"
 
 [[files]]
 file = "kubejs/data/firmages/chiseling_recipes/andesite.json"
@@ -7226,27 +7226,27 @@ hash = "0846dbafb7268c471c5b7d8fec6459579a59ecf9a5184023b40b42a4706f3faf"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_0.json"
-hash = "4c7bf327c8364a6f54a9e458066b7890bc5789398919ccbb870c27990cb94a7d"
+hash = "e8fb6b73ea9cb0a90882d310de3272ef01b5e88049cda35c4e01c17b4172225b"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_1.json"
-hash = "e80321264d2cdc2443813c538b2b49d454c6f9eacf05d72679ce8d75a15121e4"
+hash = "a355fba1e26a960a485a05119f413c8119f8e704be2016a648e376040f74cdc2"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_2.json"
-hash = "fc92ef42001f2c0b5c64d2ee3b6a6b0e488b98de76c8a35ce9a89b21bcfa51ea"
+hash = "1828d56d8c342517193e82dccce579610dadde40ec619e9e526c714fe7008d32"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_3.json"
-hash = "23fa73f26378c30f937e7f7df600487d98649cadd9496554c505a8b6fd436f82"
+hash = "099898df1fbc8ca130e17ee2110dbd7a717541bc6ff9e537b95cbd5d1b8d3991"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_4.json"
-hash = "fdc1b91d9a3315bfca19dae733bf2571783e8c3438168a70425604ff5a6bdeda"
+hash = "788a99ecab109e4aa6c8ac81d529b4eb73aecb3f78efca223fee2b944b09c062"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_5.json"
-hash = "718b61e8c57d8d109ba0b026778f7e4cca5039123f509a36222488538449dff7"
+hash = "ed0ff30105d42d815997d4ed5977c4bc6b60f8dedb04f9c918b81af3100afe8e"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_6.json"
@@ -7262,15 +7262,15 @@ hash = "63cdabe5737e786f87c6a28adbd703ee8006c751c03c8997925701de41352d26"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/age_9.json"
-hash = "2396eb4c6b3ff5a3749fb8ea98284ed6ddcdc7d1b82269b3daec4249bef26284"
+hash = "5c561ac29e19fac1f46c5925d9dc220ad995f124270d670d602a65f6bec210c4"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/dawn.json"
-hash = "5a0467511ebc467bad3df1c88075190c17e947cfa190377747c123a94785cb48"
+hash = "84a906a81ea940dc94a376b0127564e46e7b1c485b11f5eadc0c2029729d2860"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/age_items/disabled.json"
-hash = "dfde8830c4161e8b46900c7e6608de217ba7691710dfc5ac4e61cb5b561a6613"
+hash = "bc527226743b909386cbd361444fed4e172df289631d8f7d929e648856ac14ef"
 
 [[files]]
 file = "kubejs/data/firmages/tags/item/aquaculture_fish.json"
@@ -11121,6 +11121,10 @@ file = "kubejs/data/trainutilities/advancement/platform_block.json"
 hash = "e11638548d9f044456d122a96dba7f8e9308124b9bea7ba514c5a713ef56ccf7"
 
 [[files]]
+file = "kubejs/data/twilightforest/tags/worldgen/biome/in_twilight_forest.json"
+hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
+
+[[files]]
 file = "kubejs/data/undergarden/tags/worldgen/biome/is_undergarden.json"
 hash = "f74498097708215ee46031db7467ce3abed880ed8188eff156e81993d9787e31"
 
@@ -11190,7 +11194,7 @@ hash = "57523e90b771532489ff2065a980f1a20f3cb2c975301b813816696812a1ee45"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/blood_moon.js"
-hash = "6c0587f6090f8c4d9f533d24b69c3cf1b4a7f38c637c0896a5d131c0399499fa"
+hash = "8f7a7c87c9442942aaa482690ee9f69b0dbbb162fdd7d466b679222381554ab3"
 
 [[files]]
 file = "kubejs/server_scripts/firmages/firmament_night.js"
@@ -11422,7 +11426,7 @@ hash = "1f52459ad85a8a43a04c7173d9e1d026d5f4381aa163065cd4c5e375fbc0adfd"
 
 [[files]]
 file = "kubejs/server_scripts/stages/grants.js"
-hash = "d7881d1c1750fed2fab349b62b115eeef520c34fbf280f7a312efc258a5b8fe1"
+hash = "1a5c496eb9c853b5e8b21d1609e5d336f510bc6c2f2e8ca60e29852446fde62e"
 
 [[files]]
 file = "kubejs/server_scripts/stages/mobs.js"
@@ -12148,8 +12152,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-1.1.0.jar"
-hash = "1b64c6e5c45f62133b143778def32a75509aae05e73b306fe86eee144c7de388"
+file = "mods/firmages-core-1.2.0.jar"
+hash = "5bbeeafb044c1404a443f35e6b459cd76751a1d85455b4616229c8092d828fa9"
 
 [[files]]
 file = "mods/firmalife.pw.toml"

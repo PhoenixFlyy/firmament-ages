@@ -3682,7 +3682,7 @@ _aurora_bucket()
 
 
 B = "firmages:block/"
-BLOCKS_WITHOUT_ITEM: set[str] = set()  # round G2: every mod block has an item (pick-block), SPEC 28.5 and 30.4
+BLOCKS_WITHOUT_ITEM: set[str] = {"arena_altar"}  # round G2: every mod block has an item (pick-block), SPEC 28.5 and 30.4; G3: the fight altar picks the Gathering altar's item (SPEC 39.1)
 MODEL_TEXTURES = {
     "shrine_heart": {"particle": B + "shrine_heart_base", "side": B + "shrine_heart_side",
                      "base": B + "shrine_heart_base", "top": B + "shrine_heart_top", "band": B + "shrine_heart_band"},

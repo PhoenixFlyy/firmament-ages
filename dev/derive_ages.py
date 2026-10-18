@@ -128,6 +128,10 @@ BUILT_MOBS = [("minecraft:wither", "dawn", ["minecraft:soul_sand", "minecraft:wi
               ("minecraft:snow_golem", "dawn", ["minecraft:snow_block", "minecraft:carved_pumpkin"])]
 # Vanilla interactions and special crafting recipes (no JSON output): (first Age, items needed, items made).
 # Special grid recipes are vanilla grid recipes, so they need age_0 (mod:minecraft lock).
+# Aquaculture 2 fish with a bucket item and their own entity (G3).
+AQUACULTURE_FISH = ("arapaima", "atlantic_halibut", "atlantic_herring", "bayad", "blackfish", "boulti", "brown_shrooma",
+                    "brown_trout", "capitaine", "carp", "catfish", "gar", "minnow", "muskellunge", "pacific_halibut",
+                    "perch", "piranha", "pollock", "red_grouper", "red_shrooma", "synodontis", "tambaqui", "tuna")
 INTERACTIONS = [
     ("dawn", ["minecraft:glass_bottle"], ["minecraft:potion"]),                       # bottle of water
     ("dawn", ["minecraft:bucket"], ["minecraft:water_bucket", "minecraft:lava_bucket", "minecraft:powder_snow_bucket"]),
@@ -193,6 +197,11 @@ INTERACTIONS = [
     # Alex's Mobs: a water bucket used on a flying fish, mudskipper or platypus (three of the 22 kept species).
     *[("dawn", [f"entity:alexsmobs:{m}", "minecraft:water_bucket"], [f"alexsmobs:{m}_bucket"])
       for m in ("flying_fish", "mudskipper", "platypus")],
+    # Aquaculture 2 (G3, O1C): a water bucket used on one of its fish (the TFC doubles are hidden in dev/age_map.toml),
+    # the fillet knife's special crafting recipe (aquaculture:fish_fillet, code) on any fish.
+    *[("dawn", [f"entity:aquaculture:{m}", "minecraft:water_bucket"], [f"aquaculture:{m}_bucket"])
+      for m in AQUACULTURE_FISH],
+    ("dawn", ["aquaculture:stone_fillet_knife", "aquaculture:carp"], ["aquaculture:fish_fillet_raw"]),
 ]
 # Roads and Roofs: poured concrete dries in the world, trodden roads crack: (wet or fresh block, the block it becomes).
 WORLD_CHANGES = [("rnr:wet_concrete_road", "rnr:concrete_road"), ("rnr:wet_concrete_road_panel", "rnr:concrete_road_panel"),
@@ -245,6 +254,12 @@ CODE_DROPS = [
     (["firmages:wayshrine_core"], "dawn"),              # a Dawn ruin block of every Wayshrine template (gen_wayshrines.py)
     (["firmages:firmament_crystal_cluster", "firmages:firmament_lode"], "age_4"),  # the isle deposits ([ore_blocks])
     (["firmages:wind_seal", "firmages:wind_seal_lid"], "dawn"),  # G3: blocks of the isle ruin (gen_isle_ruin.py), Dawn like the Wayshrine core
+    # G3 (O1A): Alex's Mobs Continued drops in code (its entity loot tables are empty JSON); Ages of the mob ladder,
+    # Cachalot mob_1 (Bronze), Hammerhead, Frilled Shark and Giant Squid mob_2 (Iron); echolocator, shark tooth arrow
+    # and squid grapple follow by recipe.
+    (["alexsmobs:cachalot_whale_tooth"], "age_1"),
+    (["alexsmobs:shark_tooth", "alexsmobs:lost_tentacle"], "age_2"),
+    (["aquaculture:worm"], None),                       # Aquaculture 2: dug from grass and dirt (code), the worm farm
     # Starfall's blocks drop only chunks, but the recipe viewer shows them with an information page from their Age
     # (kubejs/client_scripts/viewer_info.js; review fix 0.12.0: hidden, nobody learnt where meteoric iron comes from)
     (["firmages:meteorite", "firmages:starfall_core"], "age_2"),
@@ -1011,6 +1026,13 @@ def derive(dump_dir, show, rewards=True):
     # fishing and piglin bartering
     fish = sorted(table_items("minecraft:gameplay/fishing"))
     transforms.append((0, ("minecraft:fishing_rod",), fish, "fishing (minecraft:gameplay/fishing)"))
+    # Aquaculture 2 rolls its own fishing tables in code (G3) for a loot-fishing hook: the vanilla rod is hidden and a
+    # TFC rod hooks fish entities, so its iron rod is the way in; only the tables' own items (the neptunium table's nested vanilla
+    # treasure stays with vanilla fishing). Its boxes roll their tables when opened, and the loot gate filters what
+    # comes out by the player's Age (SPEC 19.5), so the box contents keep their own Ages and are no step here.
+    for tid in ("aquaculture:gameplay/fishing/fish", "aquaculture:gameplay/fishing/junk", "aquaculture:gameplay/fishing/neptunium"):
+        own = sorted(i for i in loot.get(tid, {}).get("items", []) if i in base)
+        transforms.append((0, ("aquaculture:iron_fishing_rod",), own, f"fishing ({tid}, Aquaculture code)"))
     if "minecraft:piglin" in entity_age:
         transforms.append((AGES.index(entity_age["minecraft:piglin"][0]), ("minecraft:gold_ingot",),
                            sorted(table_items("minecraft:gameplay/piglin_bartering")), "piglin bartering"))

@@ -1,6 +1,6 @@
 # Offene Punkte
 
-Stand 2026-10-17, Pack 1.1.0, firmages-core 1.1.0 (Runde G2). Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
+Stand 2026-10-18, Pack 1.2.0, firmages-core 1.2.0 (Runde G3). Hier steht nur, was nach 1.0 wirklich offen ist: Entscheidungen, die
 Felix trifft, Prüfungen im Client und Ideen für die Zeit nach 1.0. Erledigtes früherer Runden steht in der Git-Historie
 dieser Datei (bis Commit `7689802`) und mit Beleg in `dev/poc-results.md`; unten nur, was die Runden F1, G1 und G2
 geschlossen haben.
@@ -12,14 +12,18 @@ Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17
 
 | Was | Wo | Wer |
 |---|---|---|
-| G3 Arena: Welten, deren Origin vor Runde G3 erzeugt wurde, behalten die kleine Arena (Radius 20, ohne Altäre, Schild, Treppe, Vitrinen); nur eine neu erzeugte Origin bekommt die große (SPEC §16.5). Umstellen hieße `origin rebuild` nach Löschen der Origin-Region, nicht automatisch | `OriginLayout`, `OriginSavedData.layout` | Felix (Info) |
-| G3 Client-Prüfung: Arena-Größe (Radius 60, neun Age-Ringe), Ankunftsplattform mit Tor, Bogen, Treppe und Vitrinen, Altäre (Kanal 3 s, Blitz alle 20 s, Schild in Phase 2 und 3), Himmel je Phase (Sterne, Aurora, Finsternis mit kippendem Sternbild, Morgendämmerung; mit Iris nur Nebelfarbe) | SPEC §16.5, §16.6, §39.1 | Felix |
+| G3 Quest-Edits (Questbuch eingefroren, Felix editiert im Spiel): (a) Industriezeit-Side-Road eine Quest zur Insel-Ruine (z. B. `firmages:wind_seal` beobachten oder Firmament Crystal aus der Kammer); (b) Aquaculture 2 braucht nach der Regel „jede Nicht-Deko-Mod im Quest-Strang“ eine Side Road (Haken, Neptunium); `validate_quests --style --mods` danach 0/0 | `config/ftbquests/quests/`, `dev/quests-editing.md` | Felix |
+| G3 Endgame-Studie: ob eine Nach-Finale-Schicht gewollt ist (Vorschläge A „Ages-Stern“, B Wellen-Verteidigung, C New Game Plus) und ob dafür eine Mod-Ausnahme (Gateways to Eternity) in die Inhaltssperre darf | `dev/endgame-studie.md` | Felix |
+| G3 Apotheosis: die Weltstufe folgt der Age (`nights.json` `apoth_tier`, bei jedem Age-Grant und Login gesetzt), aber die manuelle Wahl (Config „Enable Manual World Tier Changes“) ist an: Spieler können die Stufe im Auswahlfenster ändern. Abschalten oder so lassen; dazu die Apotheosis-Tiefendungeons in Dimensionen mit Boden ab y = 0 („Empty height range“, Rauschliste) | `kubejs/server_scripts/stages/grants.js`, Apotheosis-Config | Felix |
+| G3 Radar bewusst gewählt (Felix R1A): `worldPlayerRadar` ALL, Teammitglieder und alle Spieler weltweit auf der Karte (ab `ui.mapFromAge`); auf öffentlichen Servern sieht so jeder jeden. Nur ändern, wenn das stört | `journeymap/server/6.0/journeymap.server.global.config` | Felix (Info) |
+| G3: Aquaculture-Arten der Kälte, des Dschungels und der Pilzinseln sind beim Angeln unerreichbar (TFC hat keine `c:is_cold`/`c:is_hot`/`c:is_jungle`-Tags); eigene Biome-Tags oder hinnehmen | `kubejs/data/c/tags/worldgen/biome/` | Felix |
 | Dawn-Falle: wer in Dawn in ein Steinloch oder eine Höhle fällt, kommt ohne Erde, Sand, Kies oder Stämme im Inventar nicht heraus (Stein bricht in Dawn nicht, Klettern an Stein gibt es weder in Vanilla noch in TFC). Das galt wegen der Spitzhackenregel (Stein nur mit Spitzhacke, SPEC §19.2; in Dawn gibt es keine) schon vor 1.1.0, jetzt ausdrücklich durch die Dawn-Liste `#firmages:dawn_breakable` (SPEC §19.6). Optionen nach Ergebnis: **A** so lassen (Dawn bleibt streng: Erde oder Kies in der Hotbar tragen, sonst bleibt nur der Tod und der Respawn); **B** Stein bricht in Dawn mit der Hand, droppt aber nichts (Stufen schlagen geht, Steinmaterial gibt es weiter erst ab der Steinzeit). Prüfung: Zeile 23 der „1.1.0 Checkliste“ | `kubejs/data/firmages/tags/block/dawn_breakable.json` (`dev/gen_dawn_breakable.py`), firmages-core `ToolRule` | Felix |
 
 ## Bestehende Welten (Server)
 
 | Was | Wo | Wer |
 |---|---|---|
+| G3: Welten, deren Origin vor Runde G3 erzeugt wurde, behalten die kleine Arena (Radius 20, ohne Altäre, Schild, Treppe, Vitrinen); nur eine neu erzeugte Origin bekommt die große (SPEC §16.5). Umstellen hieße `origin rebuild` nach Löschen der Origin-Region, nicht automatisch | `OriginLayout`, `OriginSavedData.layout` | Felix (Info) |
 | Vanilla-Herzen nur in neuen Welten: eine Welt von 1.0.0 behält TFCs Gesundheit (Default 0,85) in ihrer Welt-Config; bei gestopptem Server `nutritionMinimumHealthModifier`, `nutritionDefaultHealthModifier` und `nutritionMaximumHealthModifier` von Hand auf `1.0` setzen | `<Welt>/serverconfig/tfc-server.toml` `[mechanics.player]` | Felix |
 | Welten, die älter als drei Tage sind und keine Tutorial-Wayshrine haben (Suche vor dem Release 1.0.0 mit nur 16 Peilungen, oder vor 0.12.0 angelegt): der Dawn-Keystone „A Shrine on the Road“ (Blick auf irgendeinen `firmages:wayshrine_core`) ist dort nur über eine natürliche Wayshrine weiter draußen oder nach `/firmages wayshrine tutorial` (Operator) erfüllbar, und „The First Spark“ wartet auf ihn. Felix' Testwelt ist neu | Questbuch, firmages-core `WayshrineTutorial` | Felix, falls eine solche Welt in Dawn steht |
 | Welten von 1.0.x mit 1.1.0: Items in Inventar-Reihen, die die Age der Welt noch nicht öffnet, wandern beim ersten Login in freie Plätze oder fallen vor die Füße und bleiben dort ohne Ablaufzeit liegen, bis jemand sie aufhebt (Sweep, SPEC §19.4; bis zu 27 Stapel je Spieler); vorbefüllte Behälter in schon erzeugten Chunks (TFC-Ruinen-Gefäße) behalten ihre Kleinerze, ungeöffnete Truhen filtert das Loot-Gate beim Öffnen (SPEC §19.5) | `[hardship.inventoryRows]` und `gate.lootFilter` in `config/firmages-server.toml` | Felix (Hinweis an Mitspieler) |
@@ -28,12 +32,7 @@ Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17
 
 | Was | Wo | Wer |
 |---|---|---|
-| G3 Quest-Edit (Felix, Questbuch eingefroren): in der Industriezeit-Side-Road eine Quest „Isle ruin“ (z. B. Aufgabe: `firmages:wind_seal` beobachten oder Firmament Crystal aus der Kammer); Aquaculture 2 braucht nach der Regel „jede Nicht-Deko-Mod im Quest-Strang“ eine Side Road (Haken, Neptunium). | `config/ftbquests/quests/` | Felix |
-| G3: Aquaculture-Arten der Kälte, des Dschungels und der Pilzinseln sind beim Angeln unerreichbar (TFC hat keine `c:is_cold`/`c:is_hot`/`c:is_jungle`-Tags); eigene Biome-Tags oder hinnehmen. | `kubejs/data/c/tags/worldgen/biome/` | Felix |
-| G3: `derive_ages.py` braucht einen neuen Dump (Aquaculture, Wind-Siegel, Alex's-Meerestiere fehlen in `baseline-1.1.0`). | Integrator | Integrator |
-| **Die „1.1.0 Checkliste (Runde G2)“** oben in `dev/client-test-brief.md` (Loot nach Age, Inventar-Reihen, Dawn-Abbau, Tasten und Fenster nach Mod-Age, F3 `???`, Karte auf M und L, `/firmages stage` und `locate`, Pick-Block, H-Schild, Nachthimmel-Panel, Animationen, Server-Pack), je Zeile Schritte und Erwartung | `dev/client-test-brief.md` | Felix |
-| **Die „1.0.1 Checkliste“** darunter in `dev/client-test-brief.md` (Runde G1: Betrachter und Knöpfe nach Age, nur Kreativ ausgenommen, Jade „Unknown“, keine Hinweistexte, Vanilla-Herzen, Quest-Panel, Schreinbild, neue Dawn-Quests, Backups), je Zeile Schritte und Erwartung | `dev/client-test-brief.md` | Felix |
-| **Die „1.0 Checkliste“** darunter: alle offenen Client-Punkte von 0.10.0 bis 1.0.0 nach Age geordnet, mit Schritten und Erwartung | `dev/client-test-brief.md` | Felix |
+| **Die „1.2.0 Checkliste (Runde G3)“** in `dev/client-test-brief.md` (die einzige offene Liste: Arena, Altäre und Schild, Himmel je Phase, Origin ohne Monster, Insel-Ruine, Meerestiere, Wracks, Aquaculture, Nächte je Age, Blutmond, Cave Dweller, Apotheosis-Stufe, Karte auf M, Radar, Something Unknown, TabTPS, Menüs, Resourcepacks, Dusty; ältere Listen im Archiv `dev/archive/client-test-brief-bis-1.1.0.md`) | `dev/client-test-brief.md` | Felix |
 | Titelbild: nach dem ersten Blick auf das Shader-Sternbild `show_compile_errors = true` wieder auf `false` | `config/fancymenu/customization/title_screen_layout.txt` | Felix sieht, Claude stellt um |
 | Industriezeit-Quest „The Thresher“ schließt beim Blick auf einen geformten Thresher ab; Loot-Crate-Opener und Task-Screen-Konfigurator fehlen in EMI | Questbuch, EMI | Felix |
 | IE-Handbuch-Vorschau von Mahlwerk, Webstuhl, Lichtbogenofen, Schaufelrad, Bagger, Koker und Pumpjack zeigt den TFC-Stahlblock | IE-Handbuch | Felix |
@@ -61,7 +60,6 @@ Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17
 | Helfer-Items (Tom's Storage-Terminal, Alloy Kiln, Kondensatoren, Mechanical Spawner) verlieren ihr Bau-Rezept in einer späteren Age; Nicht-Operatoren lesen dann „Its making belongs to a later Age“ | `config/progressivestages/stages/tool_*.toml` | Claude |
 | Werkzeuge: `derive_ages.py --scan` liest Block-Prädikate von Features als platzierte Blöcke (Vanilla-Eichensetzling in der Arkanzeit); die R-Prüfungen rechnen Dawn noch mit Raster statt Bodenhandwerk (D-1 sichert es ab); Ark-Vorlagen laden TFC-Blöcke in GameTests ohne TFC als Luft | `dev/derive_ages.py`, `dev/poc_analyze.py`, `ArkGameTests` | Claude |
 | Messungen live: Verbraucher (Mek Purification, Injection, Dissolution, SPS, Digital Miner voll aufgerüstet, IE Crusher, Arc Furnace, Excavator), Reload-Zeiten (`firmages reload` dreimal bei age_9; ein voller `/reload` hielt den Server-Thread in Runde F1 15,3 s an), erster Login (6 s Ruckler), Ethen-Kette mit vollen Upgrades (Spaltung überspringen?), Mekanism-Strahlung und Reaktor-Balance | `dev/harmonie-messung.md`, `fuels.json` | Claude |
-| Apotheosis: manuelle Weltstufen-Wahl (Config „Enable Manual World Tier Changes“) ist noch offen, Spieler können die per Age gesetzte Stufe (`nights.json`, G3) im Auswahlfenster ändern; Apotheosis-Tiefendungeons in Dimensionen mit Boden ab y = 0 („Empty height range“, Rauschliste) | `kubejs/server_scripts/stages/grants.js`, `kubejs/data/apotheosis/neoforge/biome_modifier/` | Claude |
 | Starfall: Ausschluss um FTB-Chunks-Claims ohne Test, Tarnung vor age_2 nur aus den Stage-Overrides | firmages-core `sky/`, `compat/ftbchunks` | Claude |
 | `create_dragons_plus:sandpaper_polishing/*`: die Zahl dieser erzeugten Rezepte schwankt zwischen Boots um eins; G-2 kann daran rot werden, ohne dass das Gate etwas falsch macht | `poc_analyze.py` G-2 | Claude |
 | Debug-Befehle `/fa_dump` und `/firmages selftest all` halten den Server-Thread 2 bis 4 s an („Can't keep up“); Log-Prüfungen laufen darum auf Boots ohne sie | `kubejs/server_scripts/debug/dump.js`, `command/SelfTest*` | Claude, falls es stört |
@@ -128,6 +126,14 @@ Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17
 | JourneyMaps Join-Zeile bei einer alten `firmages-client.toml` (Review G1): das neue Muster stand nur im Default der Liste | Die eingebauten Muster gelten immer neben `chat.blocklist` (`ChatBlocklist.withBuiltIns`, Default der Liste leer); U `ImmersionTest.chatBlocklistBuiltInsApplyBesideAnOldConfig` mit der Liste von 1.0.0 |
 | Karte und Inventar-Knöpfe nach der Client-Config (Review G1) | `ui.mapFromAge` und `ui.inventoryButtonsFromAge` in `firmages-server.toml`, im Status `firmages:age_status`, Netzprotokoll "7"; G `ImmersionGameTests.statusFollowsAgesAndConfig`, U `MapGateTest`, `InventoryButtonsTest`; Zeile „G1-Review: Karte und Knöpfe entscheidet der Server“ |
 | Jade im Kreativmodus vor `jadeFromAge` gesperrt (Review G1) | `ViewerGate.overlayOpen` wie die anderen Gates; U `ImmersionTest.jadeOpensInCreativeBeforeItsAge` |
+
+## Erledigt in Runde G3 (mit Beleg)
+
+| Was | Beleg |
+|---|---|
+| `derive_ages.py` mit neuem Dump (Aquaculture, Wind-Siegel, Alex's-Meerestiere) | Boot A der Integration, `baseline-1.2.0`, `dev/poc-results.md` „1.2.0 round G3“ |
+| Apotheosis-Weltstufe pro Age: Befehlssyntax | `/apoth set_world_tier <Spieler> <Stufe>` in `grants.js`, im Boot C2 „Set Bot2's world tier to haven“ |
+| Client-Prüfliste der Arena (Größe, Ankunft, Altäre, Himmel) | in die 1.2.0 Checkliste übernommen (Zeilen 1 bis 4) |
 
 ## Erledigt in Runde G2 (mit Beleg)
 
