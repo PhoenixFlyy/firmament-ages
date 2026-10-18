@@ -22,11 +22,11 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -8.014285714285714d
+			y: -8.064285714285713d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:346CC5CACE990B24"
+			click_action: "open_quest:04DAC1D51AABFF20"
 			color: 16777215
 			height: 2.8d
 			id: "24EB52BDB5D9976B"
@@ -49,7 +49,7 @@
 			shape: "rune"
 			size: 1.25d
 			x: -1.2d
-			y: -4.05d
+			y: -4.1d
 		}
 	]
 	quests: [
@@ -75,16 +75,16 @@
 					type: "gamestage"
 				}
 			]
-			x: -11.6d
+			x: -11.85d
 			y: 0.0d
 		}
 		{
 			dep_control_pts: {
 				0A81ED2F8A5BB2AE: [
-					-9.973d
-					-2.019d
-					-7.467d
-					-4.066d
+					-10.16d
+					-2.124d
+					-7.497d
+					-4.233d
 				]
 			}
 			dependencies: ["0A81ED2F8A5BB2AE"]
@@ -127,21 +127,21 @@
 					type: "advancement"
 				}
 			]
-			x: -5.25d
-			y: -5.15d
+			x: -5.15d
+			y: -5.3d
 		}
 		{
 			dep_control_pts: {
 				71B6B8FAE5353DAB: [
-					-3.515d
-					-5.045d
-					-2.161d
-					-5.4d
+					-3.412d
+					-5.173d
+					-2.057d
+					-5.517d
 				]
 			}
 			dependencies: ["71B6B8FAE5353DAB"]
 			icon: {
-				id: "tfc:quern"
+				id: "tfc:powder/flux"
 			}
 			id: "3BAC7E39FA05241C"
 			rewards: [
@@ -182,16 +182,16 @@
 					type: "item"
 				}
 			]
-			x: -1.25d
-			y: -5.7d
+			x: -1.15d
+			y: -5.8d
 		}
 		{
 			dep_control_pts: {
 				3BAC7E39FA05241C: [
-					0.506d
-					-5.144d
-					1.85d
-					-4.732d
+					0.609d
+					-5.226d
+					1.955d
+					-4.8d
 				]
 			}
 			dependencies: ["3BAC7E39FA05241C"]
@@ -219,16 +219,16 @@
 					type: "advancement"
 				}
 			]
-			x: 2.55d
-			y: -4.45d
+			x: 2.65d
+			y: -4.5d
 		}
 		{
 			dep_control_pts: {
 				271B9FEFDBDBD98F: [
-					4.234d
-					-3.152d
-					5.403d
-					-1.496d
+					4.327d
+					-3.187d
+					5.427d
+					-1.482d
 				]
 			}
 			dependencies: ["271B9FEFDBDBD98F"]
@@ -274,85 +274,13 @@
 		{
 			dep_control_pts: {
 				0A81ED2F8A5BB2AE: [
-					-10.538d
-					1.072d
-					-9.622d
-					1.361d
+					-10.742d
+					1.111d
+					-9.774d
+					1.431d
 				]
 			}
 			dependencies: ["0A81ED2F8A5BB2AE"]
-			id: "2F40BC4F2411937D"
-			rewards: [
-				{
-					count: 2
-					id: "452CD7E7D17682ED"
-					item: {
-						count: 1
-						id: "tfc:metal/ingot/copper"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			tasks: [
-				{
-					id: "2DF99A23F558906F"
-					item: {
-						count: 1
-						id: "tfc:ore/small_cassiterite"
-					}
-					type: "item"
-				}
-			]
-			x: -9.25d
-			y: 1.35d
-		}
-		{
-			dep_control_pts: {
-				2F40BC4F2411937D: [
-					-8.257d
-					2.073d
-					-8.081d
-					2.944d
-				]
-			}
-			dependencies: ["2F40BC4F2411937D"]
-			id: "41B46B0D9C0E8AB4"
-			rewards: [
-				{
-					count: 8
-					id: "67FA81AB226D2530"
-					item: {
-						count: 1
-						id: "tfc:torch"
-					}
-					team_reward: false
-					type: "item"
-				}
-			]
-			tasks: [
-				{
-					id: "7191775DB3B76975"
-					item: {
-						count: 1
-						id: "tfc:ore/small_sphalerite"
-					}
-					type: "item"
-				}
-			]
-			x: -7.9d
-			y: 2.7d
-		}
-		{
-			dep_control_pts: {
-				41B46B0D9C0E8AB4: [
-					-6.84d
-					3.319d
-					-6.227d
-					2.506d
-				]
-			}
-			dependencies: ["41B46B0D9C0E8AB4"]
 			icon: {
 				id: "tfc:metal/propick/copper"
 			}
@@ -380,58 +308,52 @@
 			]
 			tasks: [
 				{
-					advancement: "tfc:story/propick"
-					criterion: ""
 					id: "1EF473BFB6DAFB3C"
-					type: "advancement"
-				}
-				{
-					id: "0F725E0F88F08279"
 					item: {
 						count: 1
-						id: "precisionprospecting:metal/mineral_prospector/copper"
+						id: "tfc:metal/propick/copper"
 					}
 					optional_task: true
 					type: "item"
 				}
 				{
-					id: "3374E251F328323F"
+					id: "183E1D7F3A0BD0B7"
 					item: {
 						count: 1
-						id: "precisionprospecting:metal/mineral_prospector/bronze"
+						id: "tfc:metal/propick/bronze"
 					}
 					optional_task: true
 					type: "item"
 				}
 				{
-					id: "5187D8F49C75F33A"
+					id: "75EF66FB1212BAE1"
 					item: {
 						count: 1
-						id: "precisionprospecting:metal/mineral_prospector/bismuth_bronze"
+						id: "tfc:metal/propick/bismuth_bronze"
 					}
 					optional_task: true
 					type: "item"
 				}
 				{
-					id: "4C8C3A2787C21A14"
+					id: "0FF7758331277CFE"
 					item: {
 						count: 1
-						id: "precisionprospecting:metal/mineral_prospector/black_bronze"
+						id: "tfc:metal/propick/black_bronze"
 					}
 					optional_task: true
 					type: "item"
 				}
 			]
-			x: -6.0d
-			y: 2.15d
+			x: -9.35d
+			y: 1.45d
 		}
 		{
 			dep_control_pts: {
 				063F1A5EA37B6B16: [
-					-4.955d
-					2.647d
-					-4.589d
-					3.586d
+					-7.873d
+					2.429d
+					-7.098d
+					3.652d
 				]
 			}
 			dependencies: ["063F1A5EA37B6B16"]
@@ -460,21 +382,21 @@
 					type: "observation"
 				}
 			]
-			x: -4.4d
-			y: 3.1d
+			x: -6.35d
+			y: 3.35d
 		}
 		{
 			dep_control_pts: {
 				66EDA08DBD082046: [
-					-3.147d
-					3.686d
-					-2.613d
-					3.301d
+					-4.457d
+					4.127d
+					-3.192d
+					3.583d
 				]
 			}
 			dependencies: ["66EDA08DBD082046"]
 			icon: {
-				id: "tfc:ore/normal_cassiterite"
+				id: "tfc:metal/ingot/tin"
 			}
 			id: "29BF6EA4F2FCD8F4"
 			rewards: [
@@ -528,10 +450,10 @@
 		{
 			dep_control_pts: {
 				0A81ED2F8A5BB2AE: [
-					-10.554d
-					1.944d
-					-9.747d
-					3.503d
+					-10.923d
+					1.638d
+					-10.234d
+					2.851d
 				]
 			}
 			dependencies: ["0A81ED2F8A5BB2AE"]
@@ -569,19 +491,55 @@
 					type: "advancement"
 				}
 			]
-			x: -8.9d
-			y: 4.1d
+			x: -9.65d
+			y: 3.25d
 		}
 		{
 			dep_control_pts: {
 				23B75CB262B7C101: [
-					-7.695d
-					5.153d
-					-6.577d
-					5.145d
+					-8.411d
+					4.341d
+					-7.499d
+					4.905d
 				]
 			}
 			dependencies: ["23B75CB262B7C101"]
+			id: "2F40BC4F2411937D"
+			rewards: [
+				{
+					count: 2
+					id: "452CD7E7D17682ED"
+					item: {
+						count: 1
+						id: "tfc:metal/ingot/copper"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "2DF99A23F558906F"
+					item: {
+						count: 1
+						id: "tfc:ore/small_cassiterite"
+					}
+					type: "item"
+				}
+			]
+			x: -6.95d
+			y: 4.85d
+		}
+		{
+			dep_control_pts: {
+				2F40BC4F2411937D: [
+					-5.566d
+					5.644d
+					-4.54d
+					5.832d
+				]
+			}
+			dependencies: ["2F40BC4F2411937D"]
 			icon: {
 				id: "tfc:metal/ingot/bronze"
 			}
@@ -626,16 +584,16 @@
 					type: "item"
 				}
 			]
-			x: -6.05d
-			y: 5.0d
+			x: -3.95d
+			y: 5.5d
 		}
 		{
 			dep_control_pts: {
 				20986504959DC566: [
-					-4.34d
-					5.809d
-					-2.957d
-					5.784d
+					-2.407d
+					6.035d
+					-1.272d
+					5.886d
 				]
 			}
 			dependencies: ["20986504959DC566"]
@@ -663,16 +621,16 @@
 					type: "advancement"
 				}
 			]
-			x: -2.05d
-			y: 5.3d
+			x: -0.6d
+			y: 5.25d
 		}
 		{
 			dep_control_pts: {
 				3B636FCBEF145ABE: [
-					-0.373d
-					5.677d
-					0.964d
-					5.694d
+					0.823d
+					5.491d
+					1.896d
+					5.354d
 				]
 			}
 			dependencies: ["3B636FCBEF145ABE"]
@@ -733,16 +691,16 @@
 					type: "item"
 				}
 			]
-			x: 1.65d
-			y: 4.7d
+			x: 2.3d
+			y: 4.35d
 		}
 		{
 			dep_control_pts: {
 				60E3F99CA819E486: [
-					3.385d
-					4.789d
-					4.775d
-					3.439d
+					3.777d
+					4.417d
+					4.723d
+					3.233d
 				]
 			}
 			dependencies: ["60E3F99CA819E486"]
@@ -809,13 +767,49 @@
 		{
 			dep_control_pts: {
 				0A81ED2F8A5BB2AE: [
-					-10.484d
-					-0.27d
-					-9.84d
-					-1.068d
+					-10.74d
+					-0.256d
+					-10.227d
+					-1.172d
 				]
 			}
 			dependencies: ["0A81ED2F8A5BB2AE"]
+			id: "41B46B0D9C0E8AB4"
+			rewards: [
+				{
+					count: 8
+					id: "67FA81AB226D2530"
+					item: {
+						count: 1
+						id: "tfc:torch"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "7191775DB3B76975"
+					item: {
+						count: 1
+						id: "tfc:ore/small_sphalerite"
+					}
+					type: "item"
+				}
+			]
+			x: -9.8d
+			y: -2.05d
+		}
+		{
+			dep_control_pts: {
+				41B46B0D9C0E8AB4: [
+					-8.731d
+					-1.958d
+					-7.964d
+					-0.862d
+				]
+			}
+			dependencies: ["41B46B0D9C0E8AB4"]
 			id: "289281EB5946B550"
 			rewards: [
 				{
@@ -840,16 +834,16 @@
 					type: "item"
 				}
 			]
-			x: -9.4d
-			y: -1.95d
+			x: -7.7d
+			y: -1.5d
 		}
 		{
 			dep_control_pts: {
 				289281EB5946B550: [
-					-8.302d
-					-1.87d
-					-7.455d
-					-1.096d
+					-6.563d
+					-1.285d
+					-6.707d
+					-2.792d
 				]
 			}
 			dependencies: ["289281EB5946B550"]
@@ -876,16 +870,16 @@
 					type: "item"
 				}
 			]
-			x: -7.15d
-			y: -1.7d
+			x: -6.4d
+			y: -3.3d
 		}
 		{
 			dep_control_pts: {
 				23C92958F20BE038: [
-					-5.834d
-					-1.483d
-					-5.283d
-					-2.691d
+					-5.311d
+					-2.943d
+					-4.732d
+					-2.337d
 				]
 			}
 			dependencies: ["23C92958F20BE038"]
@@ -943,16 +937,16 @@
 					type: "item"
 				}
 			]
-			x: -4.8d
-			y: -3.1d
+			x: -4.5d
+			y: -2.7d
 		}
 		{
 			dep_control_pts: {
 				2EC89EF1F5DED2A1: [
-					-3.419d
-					-2.441d
-					-2.726d
-					-2.068d
+					-3.236d
+					-1.995d
+					-2.571d
+					-2.026d
 				]
 			}
 			dependencies: ["2EC89EF1F5DED2A1"]
@@ -1026,32 +1020,32 @@
 					type: "item"
 				}
 			]
-			x: -2.7d
+			x: -2.65d
 			y: -2.4d
 		}
 		{
 			dep_control_pts: {
 				07D42ECD95337D7C: [
-					-0.322d
-					-0.606d
-					0.386d
+					-0.288d
+					-0.602d
+					0.402d
 					0.486d
 				]
 				157E197DE71E5ECA: [
-					4.627d
-					1.38d
+					4.6d
+					1.363d
 					2.652d
 					0.919d
 				]
 				26D594F0567CC39A: [
-					4.51d
-					1.672d
+					4.479d
+					1.684d
 					2.519d
 					1.836d
 				]
 				29BF6EA4F2FCD8F4: [
-					-0.322d
-					3.178d
+					-0.327d
+					3.168d
 					0.386d
 					2.086d
 				]
@@ -1112,6 +1106,22 @@
 			tasks: [
 				{
 					id: "16FDD9AB98818001"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=1,ready=true]"
+					type: "observation"
+				}
+				{
+					consume_items: false
+					id: "649CC86711B7263B"
+					item: {
+						count: 1
+						id: "firmages:sky_disc"
+					}
+					type: "item"
+				}
+				{
+					id: "00FE5EFB5E684E5C"
 					stage: "age_2"
 					type: "gamestage"
 				}
@@ -1122,10 +1132,10 @@
 		{
 			dep_control_pts: {
 				271B9FEFDBDBD98F: [
-					3.156d
-					-4.596d
-					3.323d
-					-5.129d
+					3.256d
+					-4.646d
+					3.423d
+					-5.179d
 				]
 			}
 			dependencies: ["271B9FEFDBDBD98F"]
@@ -1165,16 +1175,16 @@
 					type: "item"
 				}
 			]
-			x: 3.05d
-			y: -6.05d
+			x: 3.15d
+			y: -6.1d
 		}
 		{
 			dep_control_pts: {
 				20986504959DC566: [
-					-5.995d
-					5.816d
-					-6.329d
-					6.249d
+					-3.792d
+					6.377d
+					-4.025d
+					6.877d
 				]
 			}
 			dependencies: ["20986504959DC566"]
@@ -1215,16 +1225,16 @@
 					type: "item"
 				}
 			]
-			x: -7.05d
-			y: 6.3d
+			x: -4.65d
+			y: 7.0d
 		}
 		{
 			dep_control_pts: {
 				2F40BC4F2411937D: [
-					-9.066d
-					2.372d
-					-9.382d
-					2.955d
+					-6.49d
+					5.772d
+					-6.524d
+					6.322d
 				]
 			}
 			dependencies: ["2F40BC4F2411937D"]
@@ -1255,8 +1265,8 @@
 					type: "item"
 				}
 			]
-			x: -10.2d
-			y: 3.1d
+			x: -7.05d
+			y: 6.5d
 		}
 		{
 			dependencies: ["0A81ED2F8A5BB2AE"]
@@ -1274,7 +1284,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -14.75d
+			x: -15.0d
 			y: -0.05d
 		}
 		{
@@ -1293,7 +1303,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -14.6d
+			x: -14.9d
 			y: 1.85d
 		}
 		{
@@ -1312,43 +1322,8 @@
 					type: "checkmark"
 				}
 			]
-			x: -12.9d
+			x: -13.2d
 			y: 3.0d
-		}
-		{
-			dependencies: ["0A81ED2F8A5BB2AE"]
-			hide_dependency_lines: true
-			icon: {
-				id: "tfc:bronze_bell"
-			}
-			id: "51D1F56529776258"
-			optional: true
-			rewards: [
-				{
-					count: 6
-					id: "66DE0A1C141EF789"
-					item: {
-						count: 1
-						id: "firmages:lantern/bronze"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["ring"]
-			tasks: [
-				{
-					id: "4197F6859B0FBD4A"
-					observation_type: "block_state"
-					timer: 0L
-					to_observe: "firmages:shrine_heart[awakened=1,ready=true]"
-					type: "observation"
-				}
-			]
-			x: -7.0d
-			y: 0.2d
 		}
 	]
 	tags: ["age_1"]

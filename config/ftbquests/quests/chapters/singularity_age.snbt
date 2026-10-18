@@ -303,8 +303,14 @@
 					5.686d
 					-4.127d
 				]
+				5959E93431484DD5: [
+					-0.187d
+					-1.348d
+					2.463d
+					-1.048d
+				]
 			}
-			dependencies: ["4B5686EB34477AC2"]
+			dependencies: ["4B5686EB34477AC2", "5959E93431484DD5"]
 			icon: {
 				id: "firmages:ultimate_singularity"
 			}
@@ -445,8 +451,14 @@
 					-7.153d
 					3.514d
 				]
+				4F513B23D9320098: [
+					2.066d
+					2.049d
+					-1.75d
+					3.816d
+				]
 			}
-			dependencies: ["1B74C0B3BA4F7609"]
+			dependencies: ["1B74C0B3BA4F7609", "4F513B23D9320098"]
 			icon: {
 				id: "sgjourney:classic_stargate_chevron_block"
 			}
@@ -755,19 +767,8 @@
 					0.152d
 					0.286d
 				]
-				5C0C8D3E5C081AA2: [
-					-0.708d
-					3.732d
-					0.152d
-					2.286d
-				]
 			}
-			dependencies: [
-				"4F513B23D9320098"
-				"5C0C8D3E5C081AA2"
-				"5959E93431484DD5"
-				"2E30926B1075171A"
-			]
+			dependencies: ["4F513B23D9320098", "5959E93431484DD5", "2E30926B1075171A"]
 			icon: {
 				id: "sgjourney:classic_stargate"
 			}

@@ -17,7 +17,7 @@
 	quest_links: [ ]
 	quests: [
 		{
-			dependencies: ["0DD300C809C84163"]
+			dependencies: ["7B0276B3AACDABA7"]
 			id: "4CF21D31C1F4373A"
 			optional: true
 			rewards: [
@@ -264,7 +264,7 @@
 			y: -0.45d
 		}
 		{
-			dependencies: ["0DD300C809C84163"]
+			dependencies: ["7B0276B3AACDABA7"]
 			id: "6362434FA320A007"
 			optional: true
 			rewards: [

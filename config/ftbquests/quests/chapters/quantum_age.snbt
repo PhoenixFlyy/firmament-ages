@@ -22,11 +22,11 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -11.228571428571428d
+			y: -7.178571428571429d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:049DBB559FB718EA"
+			click_action: "open_quest:3C8510408C6A23D6"
 			color: 16777215
 			height: 3.36d
 			id: "20160D9C4692E771"
@@ -66,16 +66,16 @@
 					type: "gamestage"
 				}
 			]
-			x: -13.85d
+			x: -12.6d
 			y: 0.0d
 		}
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-12.344d
-					-1.878d
-					-10.265d
-					-3.876d
+					-11.598d
+					-0.213d
+					-11.059d
+					-0.928d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -103,16 +103,16 @@
 					type: "item"
 				}
 			]
-			x: -8.35d
-			y: -5.3d
+			x: -10.75d
+			y: -1.8d
 		}
 		{
 			dep_control_pts: {
 				65E696893D25C27D: [
-					-5.684d
-					-5.821d
-					-2.556d
-					-6.096d
+					-9.729d
+					-1.728d
+					-8.962d
+					-1.66d
 				]
 			}
 			dependencies: ["65E696893D25C27D"]
@@ -139,16 +139,16 @@
 					type: "item"
 				}
 			]
-			x: -1.9d
-			y: -8.7d
+			x: -8.75d
+			y: -2.35d
 		}
 		{
 			dep_control_pts: {
 				10708C5D853308E7: [
-					-1.208d
-					-8.8d
-					-0.3d
-					-9.035d
+					-7.837d
+					-2.119d
+					-8.029d
+					-3.146d
 				]
 			}
 			dependencies: ["10708C5D853308E7"]
@@ -192,16 +192,16 @@
 					type: "item"
 				}
 			]
-			x: -0.2d
-			y: -9.2d
+			x: -7.95d
+			y: -3.7d
 		}
 		{
 			dep_control_pts: {
 				79DA4E6D4518762C: [
-					0.785d
-					-8.494d
-					1.156d
-					-7.578d
+					-6.839d
+					-3.44d
+					-6.522d
+					-1.957d
 				]
 			}
 			dependencies: ["79DA4E6D4518762C"]
@@ -241,16 +241,16 @@
 					type: "item"
 				}
 			]
-			x: 0.45d
-			y: -7.45d
+			x: -6.25d
+			y: -2.45d
 		}
 		{
 			dep_control_pts: {
 				5EE99FD47DD299FC: [
-					0.01d
-					-4.635d
-					6.408d
-					-2.63d
+					-5.292d
+					-2.07d
+					-5.502d
+					-3.412d
 				]
 			}
 			dependencies: ["5EE99FD47DD299FC"]
@@ -276,9 +276,6 @@
 					type: "item"
 				}
 			]
-			shape: "rune"
-			size: 1.5d
-			tags: ["keystone"]
 			tasks: [
 				{
 					count: 2L
@@ -290,16 +287,67 @@
 					type: "item"
 				}
 			]
-			x: 4.35d
-			y: -1.3d
+			x: -5.4d
+			y: -3.8d
+		}
+		{
+			dep_control_pts: {
+				4954E2BC98921D04: [
+					-3.979d
+					-3.097d
+					-3.283d
+					-2.643d
+				]
+			}
+			dependencies: ["4954E2BC98921D04"]
+			id: "0DD300C809C84163"
+			rewards: [
+				{
+					count: 4
+					id: "6B26ECF5A9A37B03"
+					item: {
+						count: 1
+						id: "mekanism:upgrade_speed"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 2
+					id: "3CBE9A12F714CCB3"
+					item: {
+						count: 1
+						id: "mekanism:ultimate_control_circuit"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
+			tasks: [
+				{
+					consume_items: false
+					count: 2L
+					id: "31244AE90EDDC4C3"
+					item: {
+						count: 1
+						id: "evolvedmekanism:alloy_subatomic"
+					}
+					type: "item"
+				}
+			]
+			x: -3.2d
+			y: -3.0d
 		}
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-12.903d
-					1.632d
-					-12.049d
-					2.707d
+					-11.705d
+					1.661d
+					-10.903d
+					2.8d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -326,16 +374,16 @@
 					type: "item"
 				}
 			]
-			x: -11.5d
-			y: 3.15d
+			x: -10.35d
+			y: 3.25d
 		}
 		{
 			dep_control_pts: {
 				6CBAA83920DDC925: [
-					-10.44d
-					4.142d
-					-10.483d
-					5.359d
+					-9.29d
+					4.243d
+					-9.186d
+					5.365d
 				]
 			}
 			dependencies: ["6CBAA83920DDC925"]
@@ -361,16 +409,16 @@
 					type: "dimension"
 				}
 			]
-			x: -10.15d
+			x: -8.85d
 			y: 5.3d
 		}
 		{
 			dep_control_pts: {
 				2562E428698729A6: [
-					-8.462d
-					6.34d
-					-6.888d
-					5.372d
+					-7.157d
+					6.33d
+					-5.59d
+					5.485d
 				]
 			}
 			dependencies: ["2562E428698729A6"]
@@ -397,16 +445,16 @@
 					type: "item"
 				}
 			]
-			x: -5.95d
-			y: 5.25d
+			x: -4.65d
+			y: 5.35d
 		}
 		{
 			dep_control_pts: {
 				69FBE953FD290F68: [
-					-4.565d
-					5.893d
-					-4.002d
-					7.234d
+					-3.444d
+					5.945d
+					-3.017d
+					7.085d
 				]
 			}
 			dependencies: ["69FBE953FD290F68"]
@@ -433,16 +481,16 @@
 					type: "item"
 				}
 			]
-			x: -3.45d
-			y: 6.8d
+			x: -2.65d
+			y: 6.65d
 		}
 		{
 			dep_control_pts: {
 				7544B0CD7D29A814: [
-					-1.894d
-					7.222d
-					-1.011d
-					6.166d
+					-1.147d
+					7.07d
+					-0.31d
+					6.054d
 				]
 			}
 			dependencies: ["7544B0CD7D29A814"]
@@ -468,16 +516,16 @@
 					type: "dimension"
 				}
 			]
-			x: -0.35d
-			y: 5.45d
+			x: 0.3d
+			y: 5.35d
 		}
 		{
 			dep_control_pts: {
 				1628C003B7759E11: [
-					1.028d
-					5.628d
-					2.151d
-					5.729d
+					1.639d
+					5.537d
+					2.714d
+					5.679d
 				]
 			}
 			dependencies: ["1628C003B7759E11"]
@@ -505,16 +553,16 @@
 					type: "item"
 				}
 			]
-			x: 2.5d
+			x: 3.05d
 			y: 4.7d
 		}
 		{
 			dep_control_pts: {
 				4CB0E2CEF90AD9CE: [
-					3.893d
-					4.763d
-					4.597d
-					3.64d
+					4.45d
+					4.798d
+					5.153d
+					3.819d
 				]
 			}
 			dependencies: ["4CB0E2CEF90AD9CE"]
@@ -544,16 +592,16 @@
 					type: "item"
 				}
 			]
-			x: 3.65d
-			y: 2.1d
+			x: 4.4d
+			y: 2.25d
 		}
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-12.725d
-					1.109d
-					-11.969d
-					1.749d
+					-11.541d
+					1.133d
+					-10.832d
+					1.792d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -591,16 +639,16 @@
 					type: "item"
 				}
 			]
-			x: -11.55d
-			y: 1.8d
+			x: -10.45d
+			y: 1.85d
 		}
 		{
 			dep_control_pts: {
 				716420BDBE218479: [
-					-10.227d
-					2.735d
-					-9.219d
-					3.031d
+					-8.933d
+					2.933d
+					-7.674d
+					3.318d
 				]
 			}
 			dependencies: ["716420BDBE218479"]
@@ -628,67 +676,19 @@
 					type: "item"
 				}
 			]
-			x: -8.65d
-			y: 2.85d
+			x: -6.85d
+			y: 3.1d
 		}
 		{
 			dep_control_pts: {
 				7B0276B3AACDABA7: [
-					-7.297d
-					3.508d
-					-6.323d
-					3.51d
+					-5.335d
+					3.889d
+					-4.38d
+					3.967d
 				]
 			}
 			dependencies: ["7B0276B3AACDABA7"]
-			id: "0DD300C809C84163"
-			rewards: [
-				{
-					count: 4
-					id: "6B26ECF5A9A37B03"
-					item: {
-						count: 1
-						id: "mekanism:upgrade_speed"
-					}
-					team_reward: true
-					type: "item"
-				}
-				{
-					count: 2
-					id: "3CBE9A12F714CCB3"
-					item: {
-						count: 1
-						id: "mekanism:ultimate_control_circuit"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			tasks: [
-				{
-					consume_items: false
-					count: 2L
-					id: "31244AE90EDDC4C3"
-					item: {
-						count: 1
-						id: "evolvedmekanism:alloy_subatomic"
-					}
-					type: "item"
-				}
-			]
-			x: -5.8d
-			y: 3.05d
-		}
-		{
-			dep_control_pts: {
-				0DD300C809C84163: [
-					-4.196d
-					3.661d
-					-3.165d
-					3.678d
-				]
-			}
-			dependencies: ["0DD300C809C84163"]
 			id: "6B60917A5984A799"
 			rewards: [
 				{
@@ -714,66 +714,16 @@
 					type: "item"
 				}
 			]
-			x: -2.95d
-			y: 2.6d
+			x: -4.2d
+			y: 3.0d
 		}
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-9.75d
-					-3.123d
-					-0.066d
-					-7.32d
-				]
-			}
-			dependencies: ["29BB85F4AE1E4A82"]
-			id: "485FE6EFB6565F6E"
-			rewards: [
-				{
-					count: 2
-					id: "0DBB9982CE83F521"
-					item: {
-						count: 1
-						id: "evolvedmekanism:overclocked_control_circuit"
-					}
-					team_reward: true
-					type: "item"
-				}
-				{
-					count: 8
-					id: "037D62C198B8FABD"
-					item: {
-						count: 1
-						id: "mekanism:alloy_reinforced"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "rune"
-			size: 1.5d
-			tags: ["keystone"]
-			tasks: [
-				{
-					consume_items: false
-					id: "3C192C0A7ADBAC82"
-					item: {
-						count: 1
-						id: "firmages:awakened_keystone"
-					}
-					type: "item"
-				}
-			]
-			x: 1.15d
-			y: -3.2d
-		}
-		{
-			dep_control_pts: {
-				29BB85F4AE1E4A82: [
-					-11.474d
-					-1.241d
-					-8.981d
-					-2.602d
+					-9.302d
+					-3.823d
+					-2.285d
+					-6.963d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -800,16 +750,16 @@
 					type: "item"
 				}
 			]
-			x: -6.85d
-			y: -3.2d
+			x: 1.9d
+			y: -5.15d
 		}
 		{
 			dep_control_pts: {
 				3C03E230F16471D7: [
-					-4.897d
-					-2.644d
-					-3.478d
-					-2.602d
+					3.691d
+					-3.949d
+					5.193d
+					-2.875d
 				]
 			}
 			dependencies: ["3C03E230F16471D7"]
@@ -840,49 +790,84 @@
 					type: "item"
 				}
 			]
-			x: -2.95d
-			y: -2.65d
+			x: 4.4d
+			y: -2.25d
+		}
+		{
+			dep_control_pts: {
+				0DD300C809C84163: [
+					-2.817d
+					-0.759d
+					-2.434d
+					0.958d
+				]
+				6B60917A5984A799: [
+					-3.016d
+					3.244d
+					-2.299d
+					2.961d
+				]
+			}
+			dependencies: ["0DD300C809C84163", "6B60917A5984A799"]
+			id: "485FE6EFB6565F6E"
+			rewards: [
+				{
+					count: 2
+					id: "0DBB9982CE83F521"
+					item: {
+						count: 1
+						id: "evolvedmekanism:overclocked_control_circuit"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 8
+					id: "037D62C198B8FABD"
+					item: {
+						count: 1
+						id: "mekanism:alloy_reinforced"
+					}
+					team_reward: true
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					consume_items: false
+					id: "3C192C0A7ADBAC82"
+					item: {
+						count: 1
+						id: "firmages:awakened_keystone"
+					}
+					type: "item"
+				}
+			]
+			x: -2.05d
+			y: 2.15d
 		}
 		{
 			dep_control_pts: {
 				3B35B4F1EAA55F1D: [
-					-0.486d
-					-0.766d
-					0.302d
-					0.402d
+					5.492d
+					0.672d
+					2.752d
+					0.536d
 				]
 				485FE6EFB6565F6E: [
-					2.848d
-					-0.858d
-					1.669d
-					0.219d
-				]
-				4954E2BC98921D04: [
-					4.754d
-					1.215d
-					2.736d
-					0.852d
+					-0.278d
+					2.532d
+					0.406d
+					1.815d
 				]
 				4CB43131B416FB17: [
-					4.486d
-					2.056d
-					2.502d
-					1.986d
-				]
-				6B60917A5984A799: [
-					-0.496d
-					3.292d
-					0.302d
-					2.152d
+					5.492d
+					1.9d
+					2.752d
+					2.036d
 				]
 			}
-			dependencies: [
-				"4954E2BC98921D04"
-				"4CB43131B416FB17"
-				"6B60917A5984A799"
-				"485FE6EFB6565F6E"
-				"3B35B4F1EAA55F1D"
-			]
+			dependencies: ["4CB43131B416FB17", "3B35B4F1EAA55F1D", "485FE6EFB6565F6E"]
 			icon: {
 				id: "firmages:quantum_core"
 			}
@@ -923,6 +908,22 @@
 			tasks: [
 				{
 					id: "3989D0404E562EAF"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=8,ready=true]"
+					type: "observation"
+				}
+				{
+					consume_items: false
+					id: "6BDEFF2B9E189AB7"
+					item: {
+						count: 1
+						id: "firmages:quantum_core"
+					}
+					type: "item"
+				}
+				{
+					id: "1BF0FA33974A79A6"
 					stage: "age_9"
 					type: "gamestage"
 				}
@@ -933,10 +934,10 @@
 		{
 			dep_control_pts: {
 				29BB85F4AE1E4A82: [
-					-14.357d
-					0.218d
-					-15.024d
-					-0.232d
+					-13.124d
+					0.226d
+					-13.807d
+					-0.224d
 				]
 			}
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -967,16 +968,16 @@
 					type: "advancement"
 				}
 			]
-			x: -15.85d
+			x: -14.65d
 			y: -1.35d
 		}
 		{
 			dep_control_pts: {
 				65E696893D25C27D: [
-					-8.074d
-					-5.59d
-					-8.424d
-					-6.04d
+					-10.44d
+					-2.07d
+					-10.757d
+					-2.52d
 				]
 			}
 			dependencies: ["65E696893D25C27D"]
@@ -1007,16 +1008,16 @@
 					type: "item"
 				}
 			]
-			x: -9.4d
-			y: -6.65d
+			x: -11.7d
+			y: -3.15d
 		}
 		{
 			dep_control_pts: {
 				7B0276B3AACDABA7: [
-					-7.971d
-					3.708d
-					-7.755d
-					4.241d
+					-6.35d
+					3.922d
+					-6.3d
+					4.388d
 				]
 			}
 			dependencies: ["7B0276B3AACDABA7"]
@@ -1047,16 +1048,16 @@
 					type: "item"
 				}
 			]
-			x: -8.0d
-			y: 4.45d
+			x: -6.7d
+			y: 4.5d
 		}
 		{
 			dep_control_pts: {
 				7479AAADAC50C431: [
-					-7.987d
-					5.29d
-					-8.17d
-					5.823d
+					-6.475d
+					5.48d
+					-6.425d
+					6.08d
 				]
 			}
 			dependencies: ["7479AAADAC50C431"]
@@ -1087,16 +1088,16 @@
 					type: "item"
 				}
 			]
-			x: -8.55d
-			y: 6.05d
+			x: -6.55d
+			y: 6.3d
 		}
 		{
 			dep_control_pts: {
 				6CBAA83920DDC925: [
-					-11.407d
-					4.046d
-					-11.673d
-					4.579d
+					-10.273d
+					4.129d
+					-10.556d
+					4.645d
 				]
 			}
 			dependencies: ["6CBAA83920DDC925"]
@@ -1138,8 +1139,8 @@
 					type: "item"
 				}
 			]
-			x: -12.3d
-			y: 4.75d
+			x: -11.2d
+			y: 4.8d
 		}
 		{
 			dependencies: ["29BB85F4AE1E4A82"]
@@ -1157,7 +1158,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -17.05d
+			x: -15.8d
 			y: 0.8d
 		}
 		{
@@ -1176,43 +1177,8 @@
 					type: "checkmark"
 				}
 			]
-			x: -16.3d
+			x: -15.05d
 			y: 2.75d
-		}
-		{
-			dependencies: ["29BB85F4AE1E4A82"]
-			hide_dependency_lines: true
-			icon: {
-				id: "ad_astra:calorite_block"
-			}
-			id: "40BDDBC61D9D82C3"
-			optional: true
-			rewards: [
-				{
-					count: 6
-					id: "47FD48366F6A3648"
-					item: {
-						count: 1
-						id: "firmages:lantern/quantum"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["ring"]
-			tasks: [
-				{
-					id: "29D0A23AC7AFD1C3"
-					observation_type: "block_state"
-					timer: 0L
-					to_observe: "firmages:shrine_heart[awakened=8,ready=true]"
-					type: "observation"
-				}
-			]
-			x: -7.8d
-			y: 0.2d
 		}
 	]
 	tags: ["age_8"]

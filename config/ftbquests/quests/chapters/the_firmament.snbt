@@ -22,12 +22,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 8.0d
-			x: -4.150185043888398d
-			y: -13.127456927505834d
+			x: -4.495787759960694d
+			y: -12.295555244282413d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:47EADFDE57EAF836"
+			click_action: "open_quest:3240A673372AF11A"
 			color: 16777215
 			dependency: "4581C5CB23AD4CD5"
 			height: 2.3595959595959597d
@@ -37,12 +37,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: -12.919657076094547d
-			y: -7.441540596000763d
+			x: -11.900183724957422d
+			y: -6.966799431200723d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:346CC5CACE990B24"
+			click_action: "open_quest:04DAC1D51AABFF20"
 			color: 16777215
 			dependency: "3240A673372AF11A"
 			height: 2.0444444444444447d
@@ -52,12 +52,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: -4.7564814016667585d
-			y: -10.505234705283613d
+			x: -4.2985836169543665d
+			y: -9.673333022060191d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:2AD10B433A5BEAFD"
+			click_action: "open_quest:652657C4C5B8CAC5"
 			color: 16777215
 			dependency: "04DAC1D51AABFF20"
 			height: 2.251851851851852d
@@ -67,12 +67,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: 4.793145857825138d
-			y: -9.902703784532411d
+			x: 4.310463966962204d
+			y: -9.078720936937238d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:2CBD5C8E76F766A8"
+			click_action: "open_quest:077BFA2D599B1A4B"
 			color: 16777215
 			dependency: "652657C4C5B8CAC5"
 			height: 2.1703703703703705d
@@ -82,12 +82,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: 11.264890625006224d
-			y: -6.093420289659042d
+			x: 10.23162871009025d
+			y: -5.635754449726566d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:16D1C406E00151F0"
+			click_action: "open_quest:663A4EAE1B3FAF8C"
 			color: 16777215
 			dependency: "077BFA2D599B1A4B"
 			height: 2.2074074074074073d
@@ -97,12 +97,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: 13.42820134079463d
-			y: -1.5018019080579228d
+			x: 12.236995908650037d
+			y: -1.3930399645003033d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:79D2D4E17FC9732D"
+			click_action: "open_quest:32D33BE8EB20FCA6"
 			color: 16777215
 			dependency: "663A4EAE1B3FAF8C"
 			height: 2.1481481481481484d
@@ -112,12 +112,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: 12.145102375591108d
-			y: 2.591367259056908d
+			x: 10.976666531209878d
+			y: 2.3863033821054054d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:0CDFA3FE518F620D"
+			click_action: "open_quest:40280EBC4CC9F8F6"
 			color: 16777215
 			dependency: "32D33BE8EB20FCA6"
 			height: 2.0296296296296297d
@@ -127,12 +127,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: 8.01165431123275d
-			y: 5.962356012545454d
+			x: 7.089196048523322d
+			y: 5.386723926159544d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:589B89079D60A34B"
+			click_action: "open_quest:33818E6B3089AF9E"
 			color: 16777215
 			dependency: "40280EBC4CC9F8F6"
 			height: 2.066666666666667d
@@ -142,12 +142,12 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: 0.938612718243341d
-			y: 7.628236692536876d
+			x: 0.8102156399551368d
+			y: 6.733403338198501d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:049DBB559FB718EA"
+			click_action: "open_quest:3C8510408C6A23D6"
 			color: 16777215
 			dependency: "33818E6B3089AF9E"
 			height: 1.9703703703703705d
@@ -157,8 +157,8 @@
 			position_locked: true
 			rotation: 0.0d
 			width: 3.2d
-			x: -4.730912322772883d
-			y: 6.223174471418655d
+			x: -4.068106182192235d
+			y: 5.4729165082787565d
 		}
 	]
 	order_index: 0
@@ -223,10 +223,10 @@
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-20.105d
-					-0.509d
-					-21.288d
-					-0.509d
+					-19.914d
+					-0.051d
+					-20.93d
+					0.415d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
@@ -248,21 +248,21 @@
 					type: "checkmark"
 				}
 			]
-			x: -22.9d
-			y: -1.0d
+			x: -22.4d
+			y: 0.4d
 		}
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-19.328d
-					0.291d
-					-19.445d
-					1.191d
+					-18.31d
+					0.27d
+					-17.51d
+					0.853d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
 			icon: {
-				id: "firmages:shrine_heart"
+				id: "firmages:wayshrine_stone"
 			}
 			id: "44ABD64FACE0D764"
 			rewards: [
@@ -279,50 +279,19 @@
 					type: "checkmark"
 				}
 			]
-			x: -19.7d
-			y: 1.7d
+			x: -16.95d
+			y: 0.75d
 		}
 		{
 			dep_control_pts: {
 				573FF798650E3338: [
-					-17.763d
-					-0.27d
-					-16.596d
-					-0.003d
+					-16.647d
+					-0.586d
+					-14.58d
+					-0.72d
 				]
 			}
 			dependencies: ["573FF798650E3338"]
-			icon: {
-				id: "tfc:stone/axe/sedimentary"
-			}
-			id: "64181B7811C2814E"
-			rewards: [
-				{
-					id: "5CAAA69D93D17A74"
-					type: "xp"
-					xp: 5
-				}
-			]
-			tags: ["info"]
-			tasks: [
-				{
-					id: "315DDB39B747FA95"
-					type: "checkmark"
-				}
-			]
-			x: -15.85d
-			y: -0.2d
-		}
-		{
-			dep_control_pts: {
-				64181B7811C2814E: [
-					-14.184d
-					0.319d
-					-13.284d
-					-0.081d
-				]
-			}
-			dependencies: ["64181B7811C2814E"]
 			icon: {
 				id: "tfc:firestarter"
 			}
@@ -371,10 +340,10 @@
 		{
 			dep_control_pts: {
 				3240A673372AF11A: [
-					-6.518d
-					-5.908d
-					-4.421d
-					-6.397d
+					-6.515d
+					-5.91d
+					-4.425d
+					-6.447d
 				]
 			}
 			dependencies: ["3240A673372AF11A"]
@@ -394,15 +363,15 @@
 				}
 			]
 			x: -3.0d
-			y: -7.2d
+			y: -7.25d
 		}
 		{
 			dep_control_pts: {
 				04DAC1D51AABFF20: [
-					-0.37d
-					-6.711d
-					1.682d
-					-6.525d
+					-0.371d
+					-6.761d
+					1.684d
+					-6.625d
 				]
 			}
 			dependencies: ["04DAC1D51AABFF20"]
@@ -422,15 +391,15 @@
 				}
 			]
 			x: 2.95d
-			y: -6.6d
+			y: -6.7d
 		}
 		{
 			dep_control_pts: {
 				652657C4C5B8CAC5: [
-					5.165d
-					-5.49d
-					6.785d
-					-4.819d
+					5.18d
+					-5.585d
+					6.774d
+					-4.83d
 				]
 			}
 			dependencies: ["652657C4C5B8CAC5"]
@@ -455,10 +424,10 @@
 		{
 			dep_control_pts: {
 				077BFA2D599B1A4B: [
-					8.775d
-					-2.823d
-					9.433d
-					-1.635d
+					8.78d
+					-2.818d
+					9.483d
+					-1.642d
 				]
 			}
 			dependencies: ["077BFA2D599B1A4B"]
@@ -477,16 +446,16 @@
 					type: "gamestage"
 				}
 			]
-			x: 8.8d
+			x: 8.85d
 			y: -1.1d
 		}
 		{
 			dep_control_pts: {
 				663A4EAE1B3FAF8C: [
-					9.451d
-					0.583d
-					9.003d
-					1.683d
+					9.502d
+					0.589d
+					9.007d
+					1.679d
 				]
 			}
 			dependencies: ["663A4EAE1B3FAF8C"]
@@ -619,258 +588,6 @@
 			]
 			x: -3.85d
 			y: 1.7d
-		}
-		{
-			dependencies: ["4581C5CB23AD4CD5"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "firmages:offering_plinth"
-			}
-			id: "47EADFDE57EAF836"
-			optional: true
-			rewards: [
-				{
-					id: "41BE8FA9215717C2"
-					type: "xp"
-					xp: 20
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "32982D0B256D8BD6"
-					type: "checkmark"
-				}
-			]
-			x: -10.8d
-			y: -6.5d
-		}
-		{
-			dependencies: ["3240A673372AF11A"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "tfc:bronze_bell"
-			}
-			id: "346CC5CACE990B24"
-			optional: true
-			rewards: [
-				{
-					id: "20BB404759692B83"
-					type: "xp"
-					xp: 35
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "5695F5E6FED3E709"
-					type: "checkmark"
-				}
-			]
-			x: -3.8d
-			y: -8.9d
-		}
-		{
-			dependencies: ["04DAC1D51AABFF20"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "tfc:metal/lamp/wrought_iron"
-			}
-			id: "2AD10B433A5BEAFD"
-			optional: true
-			rewards: [
-				{
-					id: "64E1AF6BD31F4F92"
-					type: "xp"
-					xp: 50
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "68DDEBC52D237F8A"
-					type: "checkmark"
-				}
-			]
-			x: 3.8d
-			y: -8.35d
-		}
-		{
-			dependencies: ["652657C4C5B8CAC5"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "ars_nouveau:sourcestone"
-			}
-			id: "2CBD5C8E76F766A8"
-			optional: true
-			rewards: [
-				{
-					id: "2B3A049D7453D1CA"
-					type: "xp"
-					xp: 65
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "5B16F4CC9E177845"
-					type: "checkmark"
-				}
-			]
-			x: 9.1d
-			y: -5.2d
-		}
-		{
-			dependencies: ["077BFA2D599B1A4B"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "immersiveengineering:cokebrick"
-			}
-			id: "16D1C406E00151F0"
-			optional: true
-			rewards: [
-				{
-					id: "18B9C0415B1F7E31"
-					type: "xp"
-					xp: 80
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "47CF49747E646CDC"
-					type: "checkmark"
-				}
-			]
-			x: 11.0d
-			y: -1.3d
-		}
-		{
-			dependencies: ["663A4EAE1B3FAF8C"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "immersiveengineering:floodlight"
-			}
-			id: "79D2D4E17FC9732D"
-			optional: true
-			rewards: [
-				{
-					id: "77B67537046E1BE1"
-					type: "xp"
-					xp: 100
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "79C58CBEDEC0DC2B"
-					type: "checkmark"
-				}
-			]
-			x: 9.7d
-			y: 2.2d
-		}
-		{
-			dependencies: ["32D33BE8EB20FCA6"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "ae2:quartz_glass"
-			}
-			id: "0CDFA3FE518F620D"
-			optional: true
-			rewards: [
-				{
-					id: "3759D3D9526B12A7"
-					type: "xp"
-					xp: 120
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "0774FDB7B4523A99"
-					type: "checkmark"
-				}
-			]
-			x: 6.1d
-			y: 4.8d
-		}
-		{
-			dependencies: ["40280EBC4CC9F8F6"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "ad_astra:desh_block"
-			}
-			id: "589B89079D60A34B"
-			optional: true
-			rewards: [
-				{
-					id: "4905D20F5B374557"
-					type: "xp"
-					xp: 140
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "3CF5499A8D2E6BDA"
-					type: "checkmark"
-				}
-			]
-			x: 0.65d
-			y: 5.85d
-		}
-		{
-			dependencies: ["33818E6B3089AF9E"]
-			hide_dependency_lines: true
-			hide_until_deps_complete: true
-			icon: {
-				id: "ad_astra:calorite_block"
-			}
-			id: "049DBB559FB718EA"
-			optional: true
-			rewards: [
-				{
-					id: "57C7B702C38E1CAD"
-					type: "xp"
-					xp: 160
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["guide"]
-			tasks: [
-				{
-					id: "5905AA2A69FF3E70"
-					type: "checkmark"
-				}
-			]
-			x: -3.35d
-			y: 4.7d
 		}
 	]
 	tags: ["firmament"]

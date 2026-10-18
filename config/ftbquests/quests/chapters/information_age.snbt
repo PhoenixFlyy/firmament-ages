@@ -26,7 +26,7 @@
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:0CDFA3FE518F620D"
+			click_action: "open_quest:40280EBC4CC9F8F6"
 			color: 16777215
 			height: 3.36d
 			id: "67995DB96522F225"
@@ -1228,6 +1228,22 @@
 			tasks: [
 				{
 					id: "779342C0C35572D7"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=6,ready=true]"
+					type: "observation"
+				}
+				{
+					consume_items: false
+					id: "68F4E299AC620C83"
+					item: {
+						count: 1
+						id: "firmages:data_matrix"
+					}
+					type: "item"
+				}
+				{
+					id: "28B0F7473F7FECA6"
 					stage: "age_7"
 					type: "gamestage"
 				}
@@ -1286,7 +1302,7 @@
 			}
 			dependencies: ["1D238635FCC5C642"]
 			icon: {
-				id: "minecraft:end_stone"
+				id: "minecraft:end_portal_frame"
 			}
 			id: "64E0D1AE8C5265E7"
 			optional: true
@@ -1353,7 +1369,7 @@
 			}
 			dependencies: ["64E0D1AE8C5265E7"]
 			icon: {
-				id: "minecraft:dragon_head"
+				id: "minecraft:dragon_breath"
 			}
 			id: "41B3251BB5EB3A3A"
 			optional: true
@@ -1519,41 +1535,6 @@
 			]
 			x: -2.25d
 			y: -4.3d
-		}
-		{
-			dependencies: ["0F1AE784BF392A25"]
-			hide_dependency_lines: true
-			icon: {
-				id: "ae2:quartz_glass"
-			}
-			id: "022B6F2B50E24B10"
-			optional: true
-			rewards: [
-				{
-					count: 6
-					id: "0C746FEEC441344B"
-					item: {
-						count: 1
-						id: "firmages:lantern/information"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["ring"]
-			tasks: [
-				{
-					id: "794087CA08B1FDE3"
-					observation_type: "block_state"
-					timer: 0L
-					to_observe: "firmages:shrine_heart[awakened=6,ready=true]"
-					type: "observation"
-				}
-			]
-			x: -7.8d
-			y: 0.2d
 		}
 	]
 	tags: ["age_6"]

@@ -21,9 +21,10 @@ From the first rock to the last gate. One fellowship, one shrine, nine offerings
 
 ### The Chronicle
 
-Press K. The first chapter, The Firmament, holds the notes to read first (keys, the fellowship, the shrine, crafting
-by hand; the marker "The First Spark" waits for the note "By Hand"), the road of offerings and, from the Stone Age on, a build guide for each shrine ring
-beside its offering: the ring rising, every layer with its blocks, then offering and rite. The end of the road,
+Press K. The first chapter, The Firmament, holds the notes to read first (keys and crafting by hand, the fellowship,
+the shrine; the marker "The First Spark" waits for the note "You Wake") and the road of offerings. From the Stone Age
+on, each offering's marker carries the build guide of its shrine ring: the ring rising, every layer with its blocks,
+then offering and rite; the finished ring stands beside it as a picture. The end of the road,
 "Beyond the Firmament", appears with the Singularity Age. Each Age chapter winds its strands round the goal in the
 middle. The group Great Works holds three optional builds: The Gatehouse (Bronze Age, off "Flux Mill"), The Living
 House (Iron Age, off "Brass") and The Silo (Space Age, off "Launch Pad"); each Age map carries a link to its plan, and
@@ -33,7 +34,8 @@ to seven quests, each row a craft of one mod that branches off a quest of the Ag
 
 Every quest that asks for work pays items of its Age and no experience: materials for the base go to whoever claims
 them first, gear and food come to each of you. The sections below name what the keystones and the goal of each Age
-pay. Info quests (entries, notes, build guides) pay experience only.
+pay. Info quests (entries, notes) pay experience only. The goal of each shrine Age is one quest for ring, offering
+and rite: it ticks when the ring stands, the offering is in hand and Caelum has opened the next Age.
 
 ### The shrine in brief (Stone Age to Quantum Age)
 
@@ -80,9 +82,9 @@ Larder, A Shrine on the Road) are done. The quest itself opens the Stone Age for
 1. Twigs lie under trees: pick them up with an empty hand; each crafts into a stick. Leaves cut with a stone knife
    drop sticks too. Eight sticks ("A Bundle of Sticks").
 2. Loose rocks lie everywhere. Right-click one with an empty hand. Collect about ten of one kind.
-3. Knap ("Stone Tools"): hold two or more loose rocks of one kind and right-click into the air. A 5x5 grid opens. A click knocks a
-   square away for good; the first click uses one rock; closing the grid early wastes it. The axe head
-   (X stays, - is knocked away):
+3. Knap: hold two or more loose rocks of one kind and right-click into the air. A 5x5 grid opens. A click knocks a
+   square away for good; the first click uses one rock; closing the grid early wastes it. First a knife blade and a
+   hammer head ("Knife and Hammer"), then the axe head ("Stone Tools"; X stays, - is knocked away):
    ```
    - X - - -
    X X X X -
@@ -90,16 +92,15 @@ Larder, A Shrine on the Road) are done. The quest itself opens the Stone Age for
    X X X X -
    - X - - -
    ```
-   Dawn has no crafting grid (The Firmament, "By Hand"): hold the head and press V to lay it on a block, lay a stick, twig or
+   Dawn has no crafting grid (The Firmament, "Hands and Keys"): hold the head and press V to lay it on a block, lay a stick, twig or
    bone beside it, then sneak and right-click the pile with an empty hand: a stone axe. Knife (two blades per rock), hammer,
    shovel, hoe and javelin heads are in the quest "Knapping Patterns". There is no stone pickaxe.
-4. Stone: knap a knife blade and a hammer head and craft each with a stick on the ground ("Knife and Hammer"), then
-   fell a tree with the stone axe. Keystone "Stone Kit".
-5. Shelter: cut tall grass with the stone knife for straw (one straw per grass). Four straw laid on one block make one
+4. Stone: fell a tree with the stone axe. Keystone "Stone Kit".
+5. Shelter (off "Knife and Hammer"): cut tall grass with the stone knife for straw (one straw per grass). Four straw laid on one block make one
    thatch; make eight ("Thatch"), then 32 for walls and a roof ("Walls of Straw"). Right-click two thatch blocks side
    by side with a large raw hide: a thatch bed. Keystone "Shelter".
 6. Hunt: knap a javelin head, craft it with a stick on the ground, kill three wild animals and bring home a large raw
-   hide. Large prey drops it; carry a knife to butcher. Keystone "Hunter".
+   hide. Large prey drops it. Keystone "Hunter".
 7. Forage: wild crops hide in the tall grass and stand ripe from June to October (a new world starts on 1 June); no
    berry bush fruits before August. Break one for its food ("Wild Harvest"), gather the seeds of two different wild
    crops ("Seeds of the Wild"), then twelve of one crop's food. Keystone "The Larder".
@@ -109,7 +110,7 @@ Larder, A Shrine on the Road) are done. The quest itself opens the Stone Age for
 9. Goal: lay two sticks on one block and sneak and right-click them: a firestarter. Throw a log, three sticks and some
    straw on one block and hold right-click on it with the firestarter until the firepit lights. The Stone Age dawns
    for all of you: a short ceremony, and Caelum says "A spark in the dark. I have seen you." The crafting grid (E) is
-   open from now on. "The First Spark" on the road of The Firmament waits for the note "By Hand".
+   open from now on. "The First Spark" on the road of The Firmament waits for the note "You Wake".
 
 Side quests: "Before Dark" (a torch, off "Stone Kit"), "Hides" (three raw hides of one size) and "Bones" (eight
 bones), both off "Hunter", and "Loose and Found" (a loose rock of each family: igneous extrusive, igneous intrusive,
@@ -140,7 +141,9 @@ Beasts (off "Hunter"): kangaroo, emu, roadrunner and rattlesnake.
 ## Stone Age
 
 ### What you must reach
-Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in the Hearth Circle (ring 0).
+Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in the Hearth Circle (ring 0). Clay,
+the pit kiln and the molds come first for everyone (the trunk of the chapter); then three strands: First Metal, Camp
+and Hearth & Shrine.
 
 ### The way
 1. Clay lies under grass near water. Athyrium fern, canna, goldenrod, pampas grass, perovskia and water canna
@@ -148,7 +151,7 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
 2. Knap five clay into a vessel, jug, bowl or mold, then fire it ("Potter"). Pit kiln: dig a hole one block deep. Hold an unfired piece, look at the floor of the hole and press V (the
    place key); up to four pieces fit. Right-click the pile with eight straw (or two thatch), then with eight logs,
    and light the top with a firestarter. After about six minutes the pottery is fired. The kiln reaches 1400 °C.
-3. Fire a small vessel, an ingot mold and a pickaxe head mold in one burn. Keystone "Pottery for Metal".
+3. Fire a small vessel, an ingot mold and a pickaxe head mold in one burn ("Pottery for Metal").
 4. Copper ore pieces (native copper, malachite, tetrahedrite) lie on the surface above copper veins.
 5. Charcoal pit: sneak and right-click the ground with logs for a log pile and right-click it with more logs.
    Cover every side with dirt, leave the top open, light it, then close the gap with dirt. When the smoke stops,
@@ -159,8 +162,8 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
    glows and right-click it; put a fired mold in the slot and the copper pours in. Each small piece holds
    10 units of metal, an ingot 100: ten small pieces make one ingot. When the mold has cooled, right-click it to
    take the ingot out. Two ingots, then the pickaxe head mold the same way; set the head on a stick: a copper
-   pickaxe. Then the Copper Kit: cast axe, hammer, knife, shovel and saw heads in their molds (about 50 small
-   ore pieces) and haft them. Keystone "Copper Kit".
+   pickaxe. Build the workbench (step 9), then the Copper Kit: cast axe, hammer, knife, shovel and saw heads in
+   their molds (about 50 small ore pieces) and haft them. Keystone "Copper Kit".
    ```
    Axe head mold      Hammer head mold   Knife blade mold   Shovel head mold
    X - X X X          X X X X X          X X - X X          X - - - X
@@ -180,7 +183,7 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
    - X X X -
    X X - X X
    ```
-9. Build a workbench: the shrine recipes need its 3x3 grid (the inventory grid is 2x2).
+9. Build a workbench ("Workbench", First Metal): the shrine recipes need its 3x3 grid (the inventory grid is 2x2).
    - Knap a saw blade mold from five clay, fire it, cast copper into it from the glowing vessel. The blade above
      a stick is a saw.
      ```
@@ -203,11 +206,12 @@ Offer the Hearthstone at the shrine. Raise the shrine first: the Shrine Heart in
     S H S           S S S              C H C
     - S -                              - K -
     ```
-11. Place the heart where 21 by 21 blocks are free. Build the Hearth Circle (5x5, 3 high): eight cobblestone around
-    the heart; on each corner a log post two high with thatch (or hay) on top; the plinth in the middle of one side,
-    two blocks from the heart. The heart glows when the circle is whole. Keystone "Raise the Shrine".
+11. Place the heart where 21 by 21 blocks are free. Keystone "The Shrine Heart" (after "Copper Kit"). Build the
+    Hearth Circle (5x5, 3 high): eight cobblestone around the heart; on each corner a log post two high with thatch
+    (or hay) on top; the plinth in the middle of one side, two blocks from the heart. The heart glows when the circle
+    is whole.
 12. Lay the Hearthstone on the plinth. Kindle the heart with a firestarter (flint and steel, a fire charge or a
-    torch work too). Pray.
+    torch work too). Pray. The goal quest ticks the ring, the Hearthstone in hand and the new Age.
 13. The Bronze Age dawns. Caelum keeps the Hearthstone. Blessing **Hearthward**: no monster spawns naturally near the
     heart. The circle turns to consecrated stone, and from now on a thin beam over the heart shows the way home.
 
@@ -215,7 +219,7 @@ After the ceremony the recipe viewer, the block tooltip and F3 coordinates appea
 gold, graphite, borax and the salts wake.
 
 Rewards: "Pottery for Metal" pays the four other tool molds (axe, hammer, knife, shovel), "Copper Kit" 16 copper ore
-pieces and two copper javelins for each of you, "Stocked Camp" wool cloth and cooked beef for each of you, "Raise the Shrine" stone lanterns and torches; the
+pieces and two copper javelins for each of you, "Stocked Camp" wool cloth and cooked beef for each of you, "The Shrine Heart" stone lanterns and torches; the
 goal pays a copper sword and a copper shield for each of you, copper and stone lanterns. Side roads: Goblins Below
 (off "Gatherer"), Fire Mountain (off "Native Copper"), Old Stones (off "The Stone Age Dawns": ruins, the cave
 watcher, regrowing forests).
@@ -600,11 +604,11 @@ Fuse the Star Chart at wyvern level and offer it in the Star Spire (ring 7).
 1. Atomic: 4 elite control circuits; 8 yellow cake (uraninite wakes now); 4 fuel assemblies; the fission reactor
    (32 casings); a thermoelectric boiler and an industrial turbine (4 rotors, 8 blades). Keystone: 24 polonium
    pellets from reactor waste: one for the Star Chart, the rest for the fusion frames and SPS casings of the next Age.
-2. Rocketry & Moon: NASA workbench; a full space suit; one bucket of diesel or kerosene from the distillation tower; a
-   launch pad (The Silo, a Great Work, branches off here); the tier 1 rocket; land on the Moon; mine 16 desh.
-   Keystone: 32 desh plates from the metal press.
-3. Mars: tier 2 rocket, Mars, 16 ostrum. The temple on Mars keeps a flight recorder in its chest. Keystone: 32
-   ostrum plates.
+2. Rocketry: NASA workbench; a full space suit; one bucket of diesel or kerosene from the distillation tower; a
+   launch pad (The Silo, a Great Work, branches off here); the tier 1 rocket; land on the Moon; 32 desh plates from
+   the metal press; the tier 2 rocket; Mars; 32 ostrum plates. The temple on Mars keeps a flight recorder in its
+   chest. Keystone "The Mars Temple".
+3. (Mars is part of the Rocketry strand: the tier 2 rocket needs the desh of the Moon.)
 4. Draconium: 16 draconium ingots. Draconium veins wake now, deep in granite, diorite and gabbro; the ore ladder
    turns the pieces into clumps, shards and slurry. A dragon heart: wyvern fusion of a draconium block with two
    polonium and two plutonium pellets, two ostrum plates and a draconium core (the dragon drops one too). A fusion
@@ -649,13 +653,14 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
 1. Fusion: 32 reactor frames, the controller, fusion fuel (deuterium and tritium) in a hohlraum and a laser. Cool the
    reactor with water and run the steam through an industrial turbine (about 840,000 FE/t, fewer than 100,000
    air-cooled); below injection 20 it goes out. The SPS
-   (16 casings, 2 supercharged coils) turns polonium into antimatter. Keystone: 2 antimatter pellets.
+   (16 casings, 2 supercharged coils) turns polonium into antimatter; 2 antimatter pellets. Keystone: 2 subatomic
+   alloy (hypercharged alloy and antimatter in the antiprotonic nucleosynthesizer).
 2. Inner Planets: tier 3 rocket (ostrum); Venus, 16 calorite; tier 4 rocket (calorite); Glacio, 8 ice shards.
    Keystone: 32 calorite plates. Mercury waits for the Singularity Age (naquadah).
 3. Awakened: 16 awakened draconium (draconium blocks, a dragon heart and the four Nether Stars the fabricator printed
-   in the Information Age); 12 awakened injectors (the chaotic core and the reactor parts fill all twelve); 2 subatomic alloy (hypercharged alloy and antimatter in the
-   antiprotonic nucleosynthesizer). Keystone: an awakened core.
-4. Keystone:
+   in the Information Age); 12 awakened injectors (the chaotic core and the reactor parts fill all twelve).
+   Keystone: an awakened core.
+4. Awakened Keystone (the bridge after "Subatomic Alloy" and "Awakened Core"):
    - 4 atomic alloy (part of the keystone).
    - Take the Arcane Keystone from its plinth: sneak and right-click the Spirit Circle plinth with an empty hand. Or make
      a second one (Create line or Djinni).
@@ -665,7 +670,7 @@ Fuse the Quantum Core at draconic level and offer it in the Quantum Ring (ring 8
      book, purified ink, an awakened feather and green dye; two atomic alloys and a wyvern core). Bind the Marid and
      awaken the Keystone in the Marid crafting pentacle: Arcane Keystone, two atomic alloys, a wyvern core, a
      subatomic alloy.
-   - Lay the Awakened Keystone on the Spirit Circle plinth. Keystone "Awakened Keystone".
+   - Lay the Awakened Keystone on the Spirit Circle plinth ("Awakened Keystone").
 5. Quasar Alloy: voidglass, a deep-space sample, aurora light and calorite in the Lens Crown. Deep-space samples come
    back from probes with the deep-space module (Void Steel). Fuse the Quantum Core at draconic level: the awakened
    core on the fusion core; two antimatter pellets, a

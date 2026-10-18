@@ -22,11 +22,11 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -8.32857142857143d
+			y: -7.878571428571428d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:47EADFDE57EAF836"
+			click_action: "open_quest:3240A673372AF11A"
 			color: 16777215
 			height: 2.8d
 			id: "68EE54CEEE34416C"
@@ -66,16 +66,16 @@
 					type: "gamestage"
 				}
 			]
-			x: -11.6d
+			x: -18.75d
 			y: 0.0d
 		}
 		{
 			dep_control_pts: {
 				4207F8051EF451B3: [
-					-9.286d
-					3.683d
-					-5.073d
-					6.185d
+					-17.555d
+					0.429d
+					-16.788d
+					0.429d
 				]
 			}
 			dependencies: ["4207F8051EF451B3"]
@@ -103,16 +103,16 @@
 					type: "advancement"
 				}
 			]
-			x: -1.75d
-			y: 5.5d
+			x: -16.45d
+			y: 0.0d
 		}
 		{
 			dep_control_pts: {
 				0B2CE763E15475FA: [
-					-0.007d
-					5.839d
-					1.386d
-					5.685d
+					-15.255d
+					0.429d
+					-14.488d
+					0.429d
 				]
 			}
 			dependencies: ["0B2CE763E15475FA"]
@@ -156,16 +156,16 @@
 					type: "advancement"
 				}
 			]
-			x: 2.1d
-			y: 4.6d
+			x: -14.15d
+			y: 0.0d
 		}
 		{
 			dep_control_pts: {
 				1CC29E163A94FCE6: [
-					3.837d
-					4.615d
-					5.194d
-					3.051d
+					-12.955d
+					0.429d
+					-12.188d
+					0.429d
 				]
 			}
 			dependencies: ["1CC29E163A94FCE6"]
@@ -221,9 +221,6 @@
 					type: "item"
 				}
 			]
-			shape: "rune"
-			size: 1.5d
-			tags: ["keystone"]
 			tasks: [
 				{
 					id: "549B75B02A349FB4"
@@ -250,19 +247,19 @@
 					type: "item"
 				}
 			]
-			x: 3.95d
-			y: 1.3d
+			x: -11.85d
+			y: 0.0d
 		}
 		{
 			dep_control_pts: {
-				4207F8051EF451B3: [
-					-10.662d
-					-0.839d
-					-10.186d
-					-2.265d
+				3213BFEF5EB29C5C: [
+					-10.91d
+					-0.91d
+					-10.167d
+					-2.248d
 				]
 			}
-			dependencies: ["4207F8051EF451B3"]
+			dependencies: ["3213BFEF5EB29C5C"]
 			icon: {
 				id: "tfc:ore/small_native_copper"
 			}
@@ -308,16 +305,16 @@
 					type: "item"
 				}
 			]
-			x: -9.55d
-			y: -3.55d
+			x: -9.5d
+			y: -3.6d
 		}
 		{
 			dep_control_pts: {
 				3A5D0F3FAA56A074: [
-					-8.065d
-					-3.972d
-					-6.423d
-					-3.488d
+					-8.25d
+					-3.864d
+					-7.129d
+					-4.098d
 				]
 			}
 			dependencies: ["3A5D0F3FAA56A074"]
@@ -354,16 +351,16 @@
 					type: "item"
 				}
 			]
-			x: -5.55d
-			y: -4.3d
+			x: -6.55d
+			y: -4.9d
 		}
 		{
 			dep_control_pts: {
 				7997DC1DFF73EA36: [
-					-3.777d
-					-4.267d
-					-2.822d
-					-5.941d
+					-5.048d
+					-4.87d
+					-3.963d
+					-5.34d
 				]
 			}
 			dependencies: ["7997DC1DFF73EA36"]
@@ -391,16 +388,16 @@
 					type: "item"
 				}
 			]
-			x: -1.85d
-			y: -6.3d
+			x: -3.25d
+			y: -5.85d
 		}
 		{
 			dep_control_pts: {
 				759550A45990B3C8: [
-					-0.065d
-					-5.804d
-					0.932d
-					-4.514d
+					-1.718d
+					-5.5d
+					-0.598d
+					-5.325d
 				]
 			}
 			dependencies: ["759550A45990B3C8"]
@@ -427,19 +424,67 @@
 					type: "item"
 				}
 			]
-			x: 1.7d
-			y: -4.3d
+			x: 0.05d
+			y: -5.5d
 		}
 		{
 			dep_control_pts: {
 				193395E7E30FE028: [
-					3.38d
-					-3.101d
-					4.977d
-					-1.93d
+					1.625d
+					-4.802d
+					2.735d
+					-4.239d
 				]
 			}
 			dependencies: ["193395E7E30FE028"]
+			icon: {
+				id: "minecraft:crafting_table"
+			}
+			id: "5032B9C3899A4044"
+			rewards: [
+				{
+					count: 8
+					id: "2F10DFB0829E25CE"
+					item: {
+						count: 1
+						id: "tfc:straw"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					count: 4
+					id: "148456C87EA3D282"
+					item: {
+						count: 1
+						id: "tfc:torch"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "0218609437AB5F8E"
+					observation_type: "block_tag"
+					timer: 0L
+					to_observe: "tfc:workbenches"
+					type: "observation"
+				}
+			]
+			x: 3.2d
+			y: -3.9d
+		}
+		{
+			dep_control_pts: {
+				5032B9C3899A4044: [
+					4.614d
+					-2.594d
+					5.389d
+					-1.181d
+				]
+			}
+			dependencies: ["5032B9C3899A4044"]
 			icon: {
 				id: "tfc:metal/axe/copper"
 			}
@@ -511,19 +556,19 @@
 					type: "item"
 				}
 			]
-			x: 3.85d
-			y: -1.5d
+			x: 4.15d
+			y: -1.0d
 		}
 		{
 			dep_control_pts: {
-				4207F8051EF451B3: [
-					-10.463d
-					1.147d
-					-9.466d
-					1.512d
+				3213BFEF5EB29C5C: [
+					-10.685d
+					-0.311d
+					-9.896d
+					-1.036d
 				]
 			}
-			dependencies: ["4207F8051EF451B3"]
+			dependencies: ["3213BFEF5EB29C5C"]
 			icon: {
 				id: "tfc:seeds/wheat"
 			}
@@ -558,16 +603,16 @@
 					type: "advancement"
 				}
 			]
-			x: -9.0d
-			y: 1.55d
+			x: -9.4d
+			y: -1.95d
 		}
 		{
 			dep_control_pts: {
 				0D0AB1CA40800F5A: [
-					-7.776d
-					2.393d
-					-7.444d
-					3.571d
+					-8.291d
+					-1.878d
+					-7.419d
+					-1.195d
 				]
 			}
 			dependencies: ["0D0AB1CA40800F5A"]
@@ -595,21 +640,21 @@
 					type: "observation"
 				}
 			]
-			x: -7.0d
-			y: 3.35d
+			x: -7.1d
+			y: -1.8d
 		}
 		{
 			dep_control_pts: {
 				7448E77754C5FDAD: [
-					-5.848d
-					3.951d
-					-5.215d
-					3.044d
+					-5.836d
+					-1.568d
+					-5.279d
+					-2.645d
 				]
 			}
 			dependencies: ["7448E77754C5FDAD"]
 			icon: {
-				id: "tfc:ceramic/pot"
+				id: "tfc:ceramic/jug"
 			}
 			id: "7794323527566501"
 			rewards: [
@@ -650,16 +695,16 @@
 					type: "advancement"
 				}
 			]
-			x: -4.9d
-			y: 2.6d
+			x: -4.85d
+			y: -3.05d
 		}
 		{
 			dep_control_pts: {
 				7794323527566501: [
-					-3.504d
-					3.227d
-					-2.69d
-					3.36d
+					-3.459d
+					-2.387d
+					-2.733d
+					-2.079d
 				]
 			}
 			dependencies: ["7794323527566501"]
@@ -699,19 +744,19 @@
 					type: "item"
 				}
 			]
-			x: -2.65d
-			y: 2.4d
+			x: -2.7d
+			y: -2.4d
 		}
 		{
 			dep_control_pts: {
-				4207F8051EF451B3: [
-					-10.5d
-					-0.253d
-					-9.869d
-					-1.029d
+				3213BFEF5EB29C5C: [
+					-10.016d
+					1.708d
+					-8.199d
+					2.683d
 				]
 			}
-			dependencies: ["4207F8051EF451B3"]
+			dependencies: ["3213BFEF5EB29C5C"]
 			id: "3B588CB49C0F4193"
 			rewards: [
 				{
@@ -746,74 +791,32 @@
 					type: "item"
 				}
 			]
-			x: -9.45d
-			y: -1.9d
+			x: -6.75d
+			y: 2.55d
 		}
 		{
 			dep_control_pts: {
 				3B588CB49C0F4193: [
-					-8.337d
-					-1.828d
-					-7.522d
-					-1.842d
+					-4.773d
+					3.403d
+					-3.277d
+					3.623d
+				]
+				6DE0808A3F92C2E7: [
+					3.105d
+					1.975d
+					0.821d
+					3.108d
 				]
 			}
-			dependencies: ["3B588CB49C0F4193"]
-			icon: {
-				id: "minecraft:crafting_table"
-			}
-			id: "5032B9C3899A4044"
-			rewards: [
-				{
-					count: 8
-					id: "2F10DFB0829E25CE"
-					item: {
-						count: 1
-						id: "tfc:straw"
-					}
-					team_reward: true
-					type: "item"
-				}
-				{
-					count: 4
-					id: "148456C87EA3D282"
-					item: {
-						count: 1
-						id: "tfc:torch"
-					}
-					team_reward: false
-					type: "item"
-				}
-			]
-			tasks: [
-				{
-					id: "0218609437AB5F8E"
-					observation_type: "block_tag"
-					timer: 0L
-					to_observe: "tfc:workbenches"
-					type: "observation"
-				}
-			]
-			x: -7.2d
-			y: -2.45d
-		}
-		{
-			dep_control_pts: {
-				5032B9C3899A4044: [
-					-6.046d
-					-2.194d
-					-5.317d
-					-2.437d
-				]
-			}
-			dependencies: ["5032B9C3899A4044"]
+			dependencies: ["3B588CB49C0F4193", "6DE0808A3F92C2E7"]
 			icon: {
 				id: "firmages:shrine_heart"
 			}
 			id: "7755ECDE0FFE3821"
 			rewards: [
 				{
-					count: 2
+					count: 4
 					id: "2C7F2DF4BE35B776"
 					item: {
 						count: 1
@@ -822,47 +825,9 @@
 					team_reward: true
 					type: "item"
 				}
-			]
-			tasks: [
-				{
-					id: "6912FF34FC324B3D"
-					observation_type: "block"
-					timer: 0L
-					to_observe: "firmages:shrine_heart"
-					type: "observation"
-				}
-			]
-			x: -5.0d
-			y: -2.85d
-		}
-		{
-			dep_control_pts: {
-				7755ECDE0FFE3821: [
-					-3.576d
-					-2.191d
-					-2.765d
-					-2.087d
-				]
-			}
-			dependencies: ["7755ECDE0FFE3821"]
-			icon: {
-				id: "firmages:offering_plinth"
-			}
-			id: "30A13F8701E9EF80"
-			rewards: [
 				{
 					count: 4
-					id: "4B1EB300F9564B2E"
-					item: {
-						count: 1
-						id: "firmages:lantern/stone"
-					}
-					team_reward: true
-					type: "item"
-				}
-				{
-					count: 4
-					id: "5366BDC52746472C"
+					id: "1C1CEF0811A92A20"
 					item: {
 						count: 1
 						id: "tfc:torch"
@@ -876,49 +841,38 @@
 			tags: ["keystone"]
 			tasks: [
 				{
-					id: "4B6C1BDA1DC7E548"
-					observation_type: "block_state"
+					id: "6912FF34FC324B3D"
+					observation_type: "block"
 					timer: 0L
-					to_observe: "firmages:shrine_heart[ready=true]"
+					to_observe: "firmages:shrine_heart"
 					type: "observation"
 				}
 			]
 			x: -2.7d
-			y: -2.4d
+			y: 2.4d
 		}
 		{
 			dep_control_pts: {
-				30A13F8701E9EF80: [
-					-0.322d
-					-0.606d
+				4A34D752E7A4B499: [
+					-0.327d
+					-0.597d
 					0.386d
 					0.486d
 				]
-				3213BFEF5EB29C5C: [
-					4.575d
-					1.367d
-					2.602d
-					1.719d
+				6DE0808A3F92C2E7: [
+					4.602d
+					1.438d
+					2.669d
+					0.952d
 				]
-				4A34D752E7A4B499: [
-					-0.284d
-					3.183d
-					0.402d
+				7755ECDE0FFE3821: [
+					-0.327d
+					3.168d
+					0.386d
 					2.086d
 				]
-				6DE0808A3F92C2E7: [
-					4.569d
-					1.041d
-					2.569d
-					0.786d
-				]
 			}
-			dependencies: [
-				"3213BFEF5EB29C5C"
-				"6DE0808A3F92C2E7"
-				"4A34D752E7A4B499"
-				"30A13F8701E9EF80"
-			]
+			dependencies: ["6DE0808A3F92C2E7", "4A34D752E7A4B499", "7755ECDE0FFE3821"]
 			icon: {
 				id: "firmages:hearthstone"
 			}
@@ -969,6 +923,22 @@
 			tasks: [
 				{
 					id: "6494AD8893357940"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=0,ready=true]"
+					type: "observation"
+				}
+				{
+					consume_items: false
+					id: "1655D67A968D0BA8"
+					item: {
+						count: 1
+						id: "firmages:hearthstone"
+					}
+					type: "item"
+				}
+				{
+					id: "0A0C8C7BBBD0AB96"
 					stage: "age_1"
 					type: "gamestage"
 				}
@@ -979,10 +949,10 @@
 		{
 			dep_control_pts: {
 				1CC29E163A94FCE6: [
-					2.788d
-					5.414d
-					3.188d
-					5.781d
+					-13.834d
+					-0.237d
+					-14.001d
+					-0.804d
 				]
 			}
 			dependencies: ["1CC29E163A94FCE6"]
@@ -1014,21 +984,21 @@
 					type: "item"
 				}
 			]
-			x: 3.3d
-			y: 5.7d
+			x: -14.65d
+			y: -1.7d
 		}
 		{
 			dep_control_pts: {
 				0D0AB1CA40800F5A: [
-					-8.584d
-					2.367d
-					-8.518d
-					2.817d
+					-9.574d
+					-1.955d
+					-10.124d
+					-2.305d
 				]
 			}
 			dependencies: ["0D0AB1CA40800F5A"]
 			icon: {
-				id: "tfc:seeds/wheat"
+				id: "minecraft:lead"
 			}
 			id: "5CC2939838550FB5"
 			optional: true
@@ -1064,8 +1034,8 @@
 					type: "advancement"
 				}
 			]
-			x: -8.8d
-			y: 2.9d
+			x: -11.05d
+			y: -3.0d
 		}
 		{
 			dependencies: ["4207F8051EF451B3"]
@@ -1083,7 +1053,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -13.25d
+			x: -20.45d
 			y: -2.55d
 		}
 		{
@@ -1102,7 +1072,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -15.4d
+			x: -22.55d
 			y: -1.4d
 		}
 		{
@@ -1121,7 +1091,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -14.75d
+			x: -21.9d
 			y: 0.8d
 		}
 		{
@@ -1140,7 +1110,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -14.05d
+			x: -21.2d
 			y: 2.85d
 		}
 		{
@@ -1159,7 +1129,7 @@
 					type: "checkmark"
 				}
 			]
-			x: -11.95d
+			x: -19.05d
 			y: 3.3d
 		}
 		{
@@ -1178,8 +1148,8 @@
 					type: "checkmark"
 				}
 			]
-			x: -10.25d
-			y: 3.4d
+			x: -16.85d
+			y: 3.15d
 		}
 	]
 	tags: ["age_0"]

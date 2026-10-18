@@ -238,6 +238,7 @@ class Layout:
 
 # ------------------------------------------------------------------------------------------------ Age chapters
 R_KEY = 3.6               # keystone ring round the goal
+TRUNK_STEP = 2.3          # spacing of the trunk quests west of the orbits (G4)
 A0, A1 = 52.0, 308.0      # keystone slots: degrees from the west, clockwise over the top (0 = west)
 ASPECT = (1.22, 0.84)     # orbits are ellipses: screens are wide
 
@@ -329,7 +330,8 @@ def _frame(pts, i):
 
 def age_chapter(spec, hints=None):
     """spec: key, entry, goal, strands [(name, [quest keys, keystone last])], sides [(attach, [keys])], explains
-    [keys], ring (key or None), links [(key, [deps])] for quests between keystones and goal (bridge, routes), kinds
+    [keys], trunk [keys] (G4: required steps between the entry and every strand, drawn on the axis west of the
+    orbits), ring (key or None), links [(key, [deps])] for quests between keystones and goal (bridge, routes), kinds
     {key: kind}, deps {key: [deps]}, hide_lines {keys}. hints: related {(a, b): 0..1}, style {name: arc|meander|
     circle}, axis (strand name), shrine (ring number for the picture, or None), r_key, r_entry, order (strand names
     in slot order from the top-west round to the bottom-west: replaces the search by relatedness). spec may carry
@@ -354,9 +356,21 @@ def age_chapter(spec, hints=None):
     goal.fixed = True
     lay.focus = spec['goal']
     entry = add(spec['entry'])
-    entry.x, entry.y = -r_entry * ASPECT[0], 0.0
+    trunk = list(spec.get('trunk') or [])
+    entry.x, entry.y = -r_entry * ASPECT[0] - TRUNK_STEP * len(trunk), 0.0
     entry.fixed = True
     flow = []
+    origin, prev_t = spec['entry'], spec['entry']
+    for k, key in enumerate(trunk):   # the trunk runs straight east from the entry; its last quest starts the orbits
+        nd = add(key)
+        nd.x, nd.y = entry.x + TRUNK_STEP * (k + 1), 0.0
+        nd.fixed = True
+        lay.tang[key] = (1.0, 0.0)
+        flow.append((prev_t, key))
+        prev_t = key
+    if trunk:
+        lay.tang[spec['entry']] = (1.0, 0.0)
+        origin = trunk[-1]
     for j, si in enumerate(order):
         a_end = sl[j]
         up = a_end <= 180
@@ -406,7 +420,7 @@ def age_chapter(spec, hints=None):
                 loop.append(((c[0] + rc * math.cos(ang), c[1] + rc * math.sin(ang)), cidx,
                              (-math.sin(ang) * sgn, math.cos(ang) * sgn)))
             pos = pos[:n_arc] + loop + [pos[-1]]
-        prev = spec['entry']
+        prev = origin
         for k, key in enumerate(keys):
             nd = add(key)
             (x, y), _i, t = pos[k]
@@ -416,7 +430,7 @@ def age_chapter(spec, hints=None):
             nd.x, nd.y = x, y
             lay.tang[key] = t
             flow.append((prev, key))
-            if prev == spec['entry']:   # leave the entry along this strand's own orbit, not along a shared trunk
+            if prev == origin:   # leave the origin along this strand's own orbit, not along a shared trunk
                 i0 = min(len(pts) - 1, max(3, pos[0][1] // 4))
                 dx, dy = pts[i0][0] - pts[0][0], pts[i0][1] - pts[0][1]
                 dl = math.hypot(dx, dy) or 1.0

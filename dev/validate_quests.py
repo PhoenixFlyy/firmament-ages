@@ -11,13 +11,23 @@ Parses the SNBT subset FTB Quests 2101.1.36 writes (and the comment lines its re
              kubejs/data/firmages/tags/item/age_items/); disabled items are never allowed, except as an icon when
              dev/derive_ages.py found them never reachable ([derived_hidden]: hidden in EMI, not stage-locked)
   structure  every Age chapter: required stage set, one entry quest (gamestage task = chapter stage), one goal
-             quest that depends on every keystone, 3-4 keystones, 2-4 optional side quests, explanations
-             optional. Goal of a shrine Age (an entry in the shrine offerings, see below): one gamestage
-             task on the next Age, the offering as icon, no stage reward (the shrine grants it). Goal of the
-             Singularity Age (age_9, no shrine tier): one gamestage task on finale_won (the end boss script grants
-             it), no stage reward. Goal of any other Age (Dawn): its reward grants exactly the next Age stage, with
-             auto "invisible". Optional "Raise the ring" quests (tag ring): one block_state observation of
-             firmages:shrine_heart with ready=true and awakened=N in the chapter of age_N, only where ring_N exists
+             quest that depends on every keystone, 3-5 keystones, 2-6 optional side quests, explanations
+             optional. Goal of a shrine Age (an entry in the shrine offerings, see below; G4, Felix: ring, offering
+             and rite are one quest): exactly three tasks, a block_state observation of firmages:shrine_heart with
+             ready=true and awakened=N in the chapter of age_N (ring_N must exist), an item task on the offering and
+             a gamestage task on the next Age; the offering as icon, no stage reward (the shrine grants it). Goal of
+             the Singularity Age (age_9, no shrine tier): one gamestage task on finale_won (the end boss script
+             grants it), no stage reward. Goal of any other Age (Dawn): its reward grants exactly the next Age stage,
+             with auto "invisible". No ring or guide quests (tags ring, guide) since G4
+  icons      rule A (G4, Felix): a quest's icon is what the quest itself checks or gives, never a later item. A quest
+             with item tasks or observed blocks that are items takes its icon from them or from its item rewards; any
+             icon belongs to the chapter's Age or earlier by dev/age_map.toml [derived] (a road marker of The
+             Firmament, a quest of gamestage tasks only: the Age before the stage it waits for); reading quests
+             (INFO_KINDS) choose freely within the Age
+  deps       rule B (G4): a quest depends on nothing that asks for a later item: every task item and observed block
+             of every dependency (any chapter) belongs to the quest's Age or earlier by [derived]. Rule C (every task
+             doable with the state of its predecessors) is read by hand, dev/gen_quests.py notes the cross-strand
+             prerequisites per chapter
   rewards    a quest that pays items pays no XP (Felix, G1); book-wide (review B2): for every item task the item
              rewards of quests of the same or an earlier Age that are not its descendants add up to at most a third
              of the task count (a per-player reward counts
@@ -67,8 +77,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KUBEJS_DATA = os.path.join(ROOT, 'kubejs', 'data')
 QDIR = os.path.join(ROOT, 'config', 'ftbquests', 'quests')
 # Quest kinds of dev/gen_quests.py as quest tags; a quest without one is a step. INFO_KINDS ask for reading only.
-QUEST_KINDS = {'entry', 'keystone', 'goal', 'side', 'explain', 'ring', 'guide', 'info', 'note'}
-INFO_KINDS = {'entry', 'explain', 'info', 'note', 'guide'}
+QUEST_KINDS = {'entry', 'keystone', 'goal', 'side', 'explain', 'info', 'note'}
+INFO_KINDS = {'entry', 'explain', 'info', 'note'}
+RETIRED_KINDS = {'ring', 'guide'}   # G4: the ring quests went into the goals, the build guides into the road markers
 AGES = ['dawn', 'age_0', 'age_1', 'age_2', 'age_3', 'age_4', 'age_5', 'age_6', 'age_7', 'age_8', 'age_9']
 AGE_CHAPTER_STAGES = set(AGES)  # every Age has its chapter (rule set applies to all of them)
 NEXT_STAGE = dict(zip(AGES, AGES[1:] + ['finale_won']))
@@ -366,7 +377,7 @@ VANILLA_ENTITIES = {'minecraft:wither', 'minecraft:ender_dragon', 'minecraft:zom
                     'minecraft:wither_skeleton', 'minecraft:enderman'}
 
 
-OPTIONAL_TAGS = {'side', 'explain', 'ring'}
+OPTIONAL_TAGS = {'side', 'explain'}
 
 
 def finale_script_grant():
@@ -385,19 +396,21 @@ def finale_script_grant():
 
 # ------------------------------------------------------------------------------------------------ style lint
 # dev/style-guide.md. Word limits per quest kind (the quest's tag; untagged = step, Welcome chapter = info).
-STYLE_LIMITS = {'step': 25, 'side': 25, 'keystone': 40, 'explain': 40, 'ring': 40, 'entry': 70, 'goal': 70,
-                'info': 70, 'note': 70, 'guide': 90}
+STYLE_LIMITS = {'step': 25, 'side': 25, 'keystone': 40, 'explain': 40, 'entry': 70, 'goal': 70,
+                'info': 70, 'note': 70}
 # Build guides (tag guide: the shrine rings, a build no viewer shows, so the teaching limit) are counted per page
 # ({@pagebreak}); every other description as a whole. Picture lines
 # ({image:...}) and page breaks are never counted and never linted as words.
-PER_PAGE = {'guide'}
+# A description with {@pagebreak} lines is counted per page (G4: the goals of the shrine Ages and the road markers of
+# The Firmament carry the build guides): up to STYLE_PAGE words on a page.
+STYLE_PAGE = 90
 # Teaching quests: the one place a mechanic, or a build no recipe viewer shows, is explained (style guide rules 3
 # and 4). They may run to STYLE_TEACH words (knapping and crafting grid lines are never counted).
 STYLE_TEACH = 110
 STYLE_TEACHING = {
     '6522D484BFB67425',  # dawn/stone/tool: knapping, step by step (Dawn has no recipe viewer)
     '7E2D0099177BFBE8',  # dawn/info/knapping: the other knapping patterns
-    '30A13F8701E9EF80',  # stone/shrine/key: the Hearth Circle and the ghost preview
+    '5298B856BFEE50A2',  # stone/goal: the Hearth Circle, the plinth and the ghost preview (G4: ring in the goal)
     '485FE6EFB6565F6E',  # quantum/marid/key: lending the Arcane Keystone and laying it back
     '124DDC9853158E78',  # industrial/logi/atfc: the thresher's blocks (no manual page, no viewer)
     '001477EB265CFAF8',  # dawn/side/torch: firepit and torches before the first night (Dawn has no recipe viewer)
@@ -410,7 +423,7 @@ STYLE_TEACHING = {
     '759550A45990B3C8',  # stone/metal/ingot: casting from the vessel into a mold (a screen, no viewer shows it)
     '71B6B8FAE5353DAB',  # bronze/smith/forge: building a charcoal forge (a structure no viewer shows)
     '54432F5A30AE7695',  # stone/info/woods: the wood class table and the sapling recipes (no viewer in the Stone Age)
-    '64181B7811C2814E',  # dawn/info/hand (The Firmament): ground crafting, Dawn's only crafting (no grid, no viewer; SPEC 19.3)
+    '48803AB38AE3E466',  # firmament/note/keys: keys and ground crafting, Dawn's only crafting (no grid, no viewer; SPEC 19.3)
     '65E696893D25C27D',  # quantum/fusion/frame: water cooling through a turbine and the injection floor (config, no viewer)
     '5C0C8D3E5C081AA2',  # singularity/gate/key: what a dial costs (config values; SGJ only says NOT_ENOUGH_POWER)
     '07D0E5C2A9206383',  # information/side/catalyst: the catalyst's three conditions (a placement rule, no viewer)
@@ -664,8 +677,11 @@ def style_lint(lang, chapters, W):
         if typ == 'quest' and field == 'quest_desc':
             kind = kinds.get(oid, 'step')
             limit = STYLE_TEACH if oid in STYLE_TEACHING else STYLE_LIMITS[kind]
-            for n_page, page in enumerate(pages if kind in PER_PAGE else [texts]):
-                at = '%s page %d' % (where, n_page + 1) if kind in PER_PAGE else where
+            paged = len(pages) > 1
+            if paged:
+                limit = max(limit, STYLE_PAGE)
+            for n_page, page in enumerate(pages if paged else [texts]):
+                at = '%s page %d' % (where, n_page + 1) if paged else where
                 words = sum(len(t.split()) for t in page if not figure(t))
                 if words > limit:
                     W('%s: %d words, the limit for a %s is %d' % (at, words, kind, limit))
@@ -703,8 +719,26 @@ def main():
     blocks |= {'firmages:' + os.path.basename(f)[:-5] for f in glob.glob(os.path.join(
         ROOT, 'mod', 'firmages-core', 'src', 'main', 'resources', 'assets', 'firmages', 'blockstates', '*.json'))}
     item_age = load_age_tags()
-    derived_hidden = set(tomllib.load(open(os.path.join(ROOT, 'dev', 'age_map.toml'), 'rb'))
-                         .get('derived_hidden', {}).get('items', []))
+    age_map = tomllib.load(open(os.path.join(ROOT, 'dev', 'age_map.toml'), 'rb'))
+    derived_hidden = set(age_map.get('derived_hidden', {}).get('items', []))
+    derived = age_map.get('derived', {})   # item -> Age of first reachability (dev/derive_ages.py), rules A and B
+
+    def reach_age(iid):
+        """The Age an item is first reachable in: [derived], else its Age tag; None when unknown."""
+        a = derived.get(iid) or item_age.get(iid)
+        return a if a in AGES else None
+
+    def need_items(qd):
+        """What a quest checks: its item tasks and the observed blocks that are items."""
+        out = set()
+        for t in qd.get('tasks', []):
+            if t.get('type') == 'item':
+                out.add(t.get('item', {}).get('id'))
+            elif t.get('type') == 'observation' and t.get('observation_type') in ('block', 'block_state'):
+                bid = (strval(t.get('to_observe')) or '').split('[')[0]
+                if bid in items:
+                    out.add(bid)
+        return {i for i in out if isinstance(i, str)}
     stage_ids = load_stage_ids()
     portal_tags = load_portal_tags()
 
@@ -864,11 +898,41 @@ def main():
             tags = qd.get('tags', [])
             for k in tags:
                 kinds.setdefault(k, []).append(qd)
+            kind = next((t for t in tags if t in QUEST_KINDS), 'step')
+            for t in tags:
+                if t in RETIRED_KINDS:
+                    E('%s: tag %s retired in G4 (rings live in the goals, build guides in the road markers)' % (where, t))
+            mirror = not is_age_chapter and qd.get('tasks') and \
+                all(t.get('type') == 'gamestage' for t in qd.get('tasks', []))
             if 'icon' in qd:
-                check_item(qd['icon'].get('id'), where, None, 'icon')
+                icon = qd['icon'].get('id')
+                check_item(icon, where, None, 'icon')
+                # rule A: the icon is what the quest checks or gives, and never a later item
+                checked, paid = need_items(qd), {r.get('item', {}).get('id') for r in qd.get('rewards', [])
+                                                 if r.get('type', 'item') == 'item'}
+                if kind not in INFO_KINDS and checked and icon not in checked | paid:
+                    E('%s: icon %s is not an item the quest checks (%s) or gives (%s)'
+                      % (where, icon, ', '.join(sorted(checked)), ', '.join(sorted(paid)) or 'nothing'))
+                icon_age = reach_age(icon)
+                if mirror:
+                    waits = [t.get('stage') for t in qd.get('tasks', []) if t.get('stage') in AGES + ['finale_won']]
+                    limit = AGES[max(0, (AGES + ['finale_won']).index(waits[0]) - 1)] if waits else cage
+                else:
+                    limit = cage
+                if icon_age and age_index(icon_age) > age_index(limit):
+                    E('%s: icon %s is reachable in %s, after %s' % (where, icon, icon_age, limit))
             for dep in qd.get('dependencies', []):
                 if str(dep).upper() not in quests and str(dep).upper() not in {c['id'].upper() for c in chapters.values()}:
                     E('%s: dependency %s does not resolve' % (where, dep))
+                    continue
+                # rule B: no dependency asks for an item of a later Age than this quest's chapter
+                if str(dep).upper() in quests:
+                    dcname, dq = quests[str(dep).upper()]
+                    for iid in sorted(need_items(dq)):
+                        a = reach_age(iid)
+                        if a and age_index(a) > age_index(cage):
+                            E('%s: depends on chapters/%s quest %s, which asks for %s (%s, after %s)'
+                              % (where, dcname, dq.get('id'), iid, a, cage))
             if not qd.get('tasks'):
                 E('%s: quest has no task' % where)
             for t in qd.get('tasks', []):
@@ -967,8 +1031,6 @@ def main():
             # Items, not XP (B2; checked here since the freeze of 1.0.1, before only by dev/gen_quests.py quest_rewards):
             # a quest that asks for reading (tag entry, explain, info, note or guide) pays XP only; every other quest
             # pays items, except the Firmament's offering road, whose quests only mirror an Age stage
-            kind = next((t for t in qd.get('tags', []) if t in QUEST_KINDS), 'step')
-            mirror = not is_age_chapter and qd.get('tasks') and                 all(t.get('type') == 'gamestage' for t in qd.get('tasks', []))
             if kind in INFO_KINDS:
                 if 'item' in rtypes:
                     E('%s: a %s quest pays XP only, no items' % (where, kind))
@@ -996,39 +1058,24 @@ def main():
                 E('chapters/%s: %d keystones (required strands), expected 3-5' % (cname, len(keys)))
             if not 2 <= len(sides) <= 6:
                 E('chapters/%s: %d side missions, expected 2-6' % (cname, len(sides)))
-            rings = kinds.get('ring', [])
-            for s in sides + kinds.get('explain', []) + rings:
+            for s in sides + kinds.get('explain', []):
                 if not s.get('optional'):
-                    E('chapters/%s: side/explanation/ring quest %s is not optional' % (cname, s['id']))
+                    E('chapters/%s: side/explanation quest %s is not optional' % (cname, s['id']))
             for qd in ch['quests']:
                 tags = qd.get('tags', [])
                 if not OPTIONAL_TAGS & set(tags) and qd.get('optional'):
                     E('chapters/%s: required quest %s is marked optional' % (cname, qd['id']))
-            # "Raise the ring": only where the Age has its own ring, one block_state observation of the heart
             n_age = int(stage[4:]) if stage.startswith('age_') else None
-            if len(rings) > 1:
-                E('chapters/%s: %d ring quests, expected at most 1' % (cname, len(rings)))
-            for rq in rings:
-                rqw = 'chapters/%s ring quest %s' % (cname, rq['id'])
-                if n_age is None or n_age not in ring_tiers:
-                    E('%s: %s has no shrine ring (no tier ring_N file)' % (rqw, stage))
-                ts = rq.get('tasks', [])
-                target = strval(ts[0].get('to_observe')) if len(ts) == 1 else None
-                if len(ts) != 1 or ts[0].get('type') != 'observation' or ts[0].get('observation_type') != 'block_state':
-                    E('%s: needs exactly one block_state observation task' % rqw)
-                elif not target or not target.startswith('firmages:shrine_heart['):
-                    E('%s: observes %r, expected firmages:shrine_heart[...]' % (rqw, target))
-                else:
-                    props = dict(kv.split('=', 1) for kv in target[target.index('[') + 1:-1].split(',') if '=' in kv)
-                    if props.get('ready') != 'true' or props.get('awakened') != str(n_age):
-                        E('%s: %s must set ready=true and awakened=%s' % (rqw, target, n_age))
             if len(goals) == 1:
                 g = goals[0]
                 gdeps = {d.upper() for d in g.get('dependencies', [])}
+                by_id = {qd['id'].upper(): qd for qd in ch.get('quests', [])}
                 if g.get('dependency_requirement') == 'one_completed':
                     # routes (the Arcane Age): the goal waits for any one route; every keystone lies on some route
-                    by_id = {qd['id'].upper(): qd for qd in ch.get('quests', [])}
                     gdeps = {d.upper() for r in gdeps if r in by_id for d in by_id[r].get('dependencies', [])}
+                else:
+                    # a bridge (G4): the keystones it waits for reach the goal through it, without a second line
+                    gdeps |= {d.upper() for r in gdeps if r in by_id for d in by_id[r].get('dependencies', [])}
                 missing = [k['id'] for k in keys if k['id'].upper() not in gdeps]
                 if missing:
                     E('chapters/%s: goal does not depend on keystone(s) %s' % (cname, ', '.join(missing)))
@@ -1038,15 +1085,33 @@ def main():
                 # Dawn: the goal grants age_0. From the Stone Age the shrine grants the next Age: the goal waits for
                 # it with a gamestage task and must not grant it too (one grant path, firmages-core 0.3.0).
                 if stage in offerings:
+                    gw = 'chapters/%s goal' % cname
                     if grants:
-                        E('chapters/%s: goal of a shrine Age grants %r; the shrine grants %s, drop the reward'
-                          % (cname, grants, nxt))
+                        E('%s: goal of a shrine Age grants %r; the shrine grants %s, drop the reward' % (gw, grants, nxt))
                     if waits != [nxt]:
-                        E('chapters/%s: goal of a shrine Age must wait for %s with one gamestage task; waits for %r'
-                          % (cname, nxt, waits))
+                        E('%s: goal of a shrine Age must wait for %s with one gamestage task; waits for %r'
+                          % (gw, nxt, waits))
                     if g.get('icon', {}).get('id') != offerings[stage]:
-                        E('chapters/%s: goal icon %r is not the offering %s' % (cname, g.get('icon', {}).get('id'),
-                                                                                offerings[stage]))
+                        E('%s: goal icon %r is not the offering %s' % (gw, g.get('icon', {}).get('id'), offerings[stage]))
+                    # G4: ring, offering and rite in the goal: the ring's observation, the offering in hand, the stage
+                    gts = g.get('tasks', [])
+                    if n_age is None or n_age not in ring_tiers:
+                        E('%s: %s has no shrine ring (no tier ring_N file)' % (gw, stage))
+                    obs = [t for t in gts if t.get('type') == 'observation']
+                    target = strval(obs[0].get('to_observe')) if len(obs) == 1 else None
+                    if len(obs) != 1 or obs[0].get('observation_type') != 'block_state':
+                        E('%s: needs exactly one block_state observation task of the heart with its ring complete' % gw)
+                    elif not target or not target.startswith('firmages:shrine_heart['):
+                        E('%s: observes %r, expected firmages:shrine_heart[...]' % (gw, target))
+                    else:
+                        props = dict(kv.split('=', 1) for kv in target[target.index('[') + 1:-1].split(',') if '=' in kv)
+                        if props.get('ready') != 'true' or props.get('awakened') != str(n_age):
+                            E('%s: %s must set ready=true and awakened=%s' % (gw, target, n_age))
+                    held = [t.get('item', {}).get('id') for t in gts if t.get('type') == 'item']
+                    if held != [offerings[stage]]:
+                        E('%s: needs exactly one item task on the offering %s, has %r' % (gw, offerings[stage], held))
+                    if len(gts) != 3:
+                        E('%s: a shrine goal has three tasks (ring, offering, next Age), has %d' % (gw, len(gts)))
                 elif nxt == 'finale_won':
                     # Singularity Age: the end boss script grants finale_won; the goal only waits for it
                     if grants:
@@ -1301,9 +1366,9 @@ def main():
     # ---- report
     for cname in chapters:
         c = counts[cname]
-        print('%-16s %3d quests  (entry %d, keystones %d, goal %d, side %d, explanations %d, ring %d)' % (
+        print('%-16s %3d quests  (entry %d, keystones %d, goal %d, side %d, explanations %d)' % (
             cname, c['total'], c.get('entry', 0), c.get('keystone', 0), c.get('goal', 0), c.get('side', 0),
-            c.get('explain', 0), c.get('ring', 0)))
+            c.get('explain', 0)))
     for cname, qid_, st in interim:
         print('interim stage reward: chapters/%s quest %s grants %s (shrine will grant this)' % (cname, qid_, st))
     print('shrine offerings: %s' % ', '.join('%s %s' % kv for kv in sorted(offerings.items())))

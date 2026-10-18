@@ -216,7 +216,7 @@
 			}
 			dependencies: ["6FBF7C800CAD422B"]
 			icon: {
-				id: "create:elevator_pulley"
+				id: "create:elevator_contact"
 			}
 			id: "79F8E831F68430F0"
 			rewards: [

@@ -22,11 +22,11 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -11.128571428571428d
+			y: -8.878571428571428d
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:2AD10B433A5BEAFD"
+			click_action: "open_quest:652657C4C5B8CAC5"
 			color: 16777215
 			height: 2.8d
 			id: "2F6D0E5FDA06D68B"
@@ -48,8 +48,8 @@
 			linked_quest: "687CBF7A7AA65BF4"
 			shape: "rune"
 			size: 1.25d
-			x: -9.5d
-			y: -6.8d
+			x: -12.7d
+			y: 3.6d
 		}
 	]
 	quests: [
@@ -81,10 +81,10 @@
 		{
 			dep_control_pts: {
 				05C4B3AE61613A9B: [
-					-12.872d
-					1.649d
-					-11.879d
-					2.648d
+					-12.942d
+					1.676d
+					-11.788d
+					2.557d
 				]
 			}
 			dependencies: ["05C4B3AE61613A9B"]
@@ -111,16 +111,16 @@
 					type: "item"
 				}
 			]
-			x: -11.3d
-			y: 3.1d
+			x: -11.25d
+			y: 3.05d
 		}
 		{
 			dep_control_pts: {
 				7594B03DF7F3FE55: [
-					-10.179d
-					4.134d
-					-9.85d
-					5.179d
+					-10.088d
+					4.178d
+					-9.926d
+					5.472d
 				]
 			}
 			dependencies: ["7594B03DF7F3FE55"]
@@ -148,15 +148,15 @@
 				}
 			]
 			x: -9.45d
-			y: 5.15d
+			y: 5.5d
 		}
 		{
 			dep_control_pts: {
 				349C4476B51DAC16: [
-					-8.136d
-					6.006d
-					-7.03d
-					5.307d
+					-8.054d
+					6.417d
+					-6.827d
+					5.782d
 				]
 			}
 			dependencies: ["349C4476B51DAC16"]
@@ -184,16 +184,16 @@
 					type: "item"
 				}
 			]
-			x: -6.5d
-			y: 5.1d
+			x: -6.2d
+			y: 5.6d
 		}
 		{
 			dep_control_pts: {
 				2444E19A6383B59C: [
-					-5.021d
-					5.771d
-					-4.399d
-					7.219d
+					-4.652d
+					6.29d
+					-3.921d
+					7.721d
 				]
 			}
 			dependencies: ["2444E19A6383B59C"]
@@ -219,16 +219,16 @@
 					type: "item"
 				}
 			]
-			x: -3.75d
-			y: 6.8d
+			x: -3.2d
+			y: 7.3d
 		}
 		{
 			dep_control_pts: {
 				11D75C261FA24AE3: [
-					-2.267d
-					7.238d
-					-1.648d
-					5.823d
+					-1.622d
+					7.737d
+					-0.887d
+					6.303d
 				]
 			}
 			dependencies: ["11D75C261FA24AE3"]
@@ -265,16 +265,16 @@
 					type: "item"
 				}
 			]
-			x: -1.05d
-			y: 5.15d
+			x: -0.2d
+			y: 5.6d
 		}
 		{
 			dep_control_pts: {
 				34A20DCC53F255CC: [
-					0.354d
-					5.347d
-					1.555d
-					5.95d
+					1.285d
+					5.768d
+					2.584d
+					6.347d
 				]
 			}
 			dependencies: ["34A20DCC53F255CC"]
@@ -302,16 +302,16 @@
 					type: "item"
 				}
 			]
-			x: 1.95d
-			y: 4.95d
+			x: 3.05d
+			y: 5.3d
 		}
 		{
 			dep_control_pts: {
 				23B8CBEFB688315B: [
-					3.377d
-					5.049d
-					4.073d
-					3.98d
+					4.564d
+					5.341d
+					5.316d
+					4.195d
 				]
 			}
 			dependencies: ["23B8CBEFB688315B"]
@@ -361,16 +361,16 @@
 					type: "item"
 				}
 			]
-			x: 3.25d
-			y: 2.4d
+			x: 4.55d
+			y: 2.5d
 		}
 		{
 			dep_control_pts: {
 				05C4B3AE61613A9B: [
-					-12.367d
-					-1.824d
-					-10.504d
-					-3.934d
+					-12.798d
+					1.119d
+					-11.959d
+					1.583d
 				]
 			}
 			dependencies: ["05C4B3AE61613A9B"]
@@ -416,16 +416,16 @@
 					type: "item"
 				}
 			]
-			x: -8.65d
-			y: -5.35d
+			x: -11.6d
+			y: 1.65d
 		}
 		{
 			dep_control_pts: {
 				3EAA8BE972DC58F9: [
-					-5.964d
-					-5.898d
-					-2.66d
-					-5.915d
+					-10.323d
+					2.612d
+					-9.929d
+					3.834d
 				]
 			}
 			dependencies: ["3EAA8BE972DC58F9"]
@@ -452,16 +452,16 @@
 					type: "item"
 				}
 			]
-			x: -2.0d
-			y: -8.55d
+			x: -9.4d
+			y: 3.7d
 		}
 		{
 			dep_control_pts: {
 				36C48EC86A43AA92: [
-					-1.301d
-					-8.67d
-					-0.37d
-					-8.942d
+					-8.023d
+					4.42d
+					-7.013d
+					3.692d
 				]
 			}
 			dependencies: ["36C48EC86A43AA92"]
@@ -489,16 +489,16 @@
 					type: "item"
 				}
 			]
-			x: -0.25d
-			y: -9.1d
+			x: -6.45d
+			y: 3.3d
 		}
 		{
 			dep_control_pts: {
 				6C112D72835F57BD: [
-					0.694d
-					-8.417d
-					0.933d
-					-7.537d
+					-4.857d
+					3.978d
+					-3.837d
+					4.203d
 				]
 			}
 			dependencies: ["6C112D72835F57BD"]
@@ -524,6 +524,9 @@
 					type: "item"
 				}
 			]
+			shape: "rune"
+			size: 1.5d
+			tags: ["keystone"]
 			tasks: [
 				{
 					id: "699101C9BA1BCC18"
@@ -534,68 +537,16 @@
 					type: "item"
 				}
 			]
-			x: 0.25d
-			y: -7.45d
-		}
-		{
-			dep_control_pts: {
-				136A6DB3C34D16EB: [
-					-0.191d
-					-4.61d
-					6.397d
-					-2.715d
-				]
-			}
-			dependencies: ["136A6DB3C34D16EB"]
-			icon: {
-				id: "tfc:raw_iron_bloom"
-			}
-			id: "61EE57DC75EED266"
-			rewards: [
-				{
-					count: 4
-					id: "476EF58CE023E426"
-					item: {
-						count: 1
-						id: "tfc:metal/sheet/wrought_iron"
-					}
-					team_reward: true
-					type: "item"
-				}
-				{
-					id: "49C9A6818259F6A5"
-					item: {
-						count: 1
-						id: "tfc:metal/chestplate/wrought_iron"
-					}
-					team_reward: false
-					type: "item"
-				}
-			]
-			shape: "rune"
-			size: 1.5d
-			tags: ["keystone"]
-			tasks: [
-				{
-					count: 32L
-					id: "04E950EE546968F8"
-					item: {
-						count: 1
-						id: "tfc:metal/ingot/wrought_iron"
-					}
-					type: "item"
-				}
-			]
-			x: 4.35d
-			y: -1.35d
+			x: -3.6d
+			y: 3.2d
 		}
 		{
 			dep_control_pts: {
 				05C4B3AE61613A9B: [
-					-12.631d
-					-0.789d
-					-11.726d
-					-2.01d
+					-12.708d
+					-0.813d
+					-11.823d
+					-2.02d
 				]
 			}
 			dependencies: ["05C4B3AE61613A9B"]
@@ -639,16 +590,16 @@
 					type: "advancement"
 				}
 			]
-			x: -10.95d
-			y: -3.25d
+			x: -11.1d
+			y: -3.3d
 		}
 		{
 			dep_control_pts: {
 				6DE17D691978916D: [
-					-9.507d
-					-3.505d
-					-8.259d
-					-3.778d
+					-9.663d
+					-3.617d
+					-8.426d
+					-4.023d
 				]
 			}
 			dependencies: ["6DE17D691978916D"]
@@ -702,16 +653,16 @@
 					type: "item"
 				}
 			]
-			x: -7.5d
-			y: -4.5d
+			x: -7.65d
+			y: -4.8d
 		}
 		{
 			dep_control_pts: {
 				0672AC049845AEE4: [
-					-5.853d
-					-4.373d
-					-4.569d
-					-4.564d
+					-5.992d
+					-4.727d
+					-4.699d
+					-4.998d
 				]
 			}
 			dependencies: ["0672AC049845AEE4"]
@@ -739,16 +690,16 @@
 					type: "item"
 				}
 			]
-			x: -3.75d
-			y: -4.85d
+			x: -3.85d
+			y: -5.35d
 		}
 		{
 			dep_control_pts: {
 				214D6B55DD018CDF: [
-					-1.818d
-					-4.06d
-					-0.343d
-					-3.64d
+					-1.902d
+					-4.629d
+					-0.441d
+					-4.322d
 				]
 			}
 			dependencies: ["214D6B55DD018CDF"]
@@ -776,16 +727,16 @@
 					type: "checkmark"
 				}
 			]
-			x: -0.2d
-			y: -3.25d
+			x: -0.15d
+			y: -4.05d
 		}
 		{
 			dep_control_pts: {
 				05C4B3AE61613A9B: [
-					-12.488d
-					-0.462d
-					-11.197d
-					-0.889d
+					-12.678d
+					-0.383d
+					-11.676d
+					-0.923d
 				]
 			}
 			dependencies: ["05C4B3AE61613A9B"]
@@ -811,16 +762,16 @@
 					type: "item"
 				}
 			]
-			x: -10.45d
-			y: -1.85d
+			x: -11.15d
+			y: -1.9d
 		}
 		{
 			dep_control_pts: {
 				6A2C745F47AF776B: [
-					-8.864d
-					-1.946d
-					-7.689d
-					-2.588d
+					-9.608d
+					-2.112d
+					-8.441d
+					-2.775d
 				]
 			}
 			dependencies: ["6A2C745F47AF776B"]
@@ -848,16 +799,16 @@
 					type: "item"
 				}
 			]
-			x: -6.85d
-			y: -3.1d
+			x: -7.6d
+			y: -3.4d
 		}
 		{
 			dep_control_pts: {
 				4E069E7BCFBE1D68: [
-					-4.899d
-					-2.543d
-					-3.476d
-					-2.551d
+					-5.638d
+					-2.961d
+					-4.193d
+					-3.063d
 				]
 			}
 			dependencies: ["4E069E7BCFBE1D68"]
@@ -897,21 +848,21 @@
 					type: "item"
 				}
 			]
-			x: -2.95d
-			y: -2.6d
+			x: -3.6d
+			y: -3.2d
 		}
 		{
 			dep_control_pts: {
 				05C4B3AE61613A9B: [
-					-12.761d
-					1.074d
-					-12.076d
-					1.724d
+					-11.554d
+					-3.17d
+					-7.417d
+					-6.156d
 				]
 			}
 			dependencies: ["05C4B3AE61613A9B"]
 			icon: {
-				id: "firmages:meteorite"
+				id: "firmages:meteoric_iron_chunk"
 			}
 			id: "3A926BAFE803B76E"
 			rewards: [
@@ -936,16 +887,16 @@
 					type: "item"
 				}
 			]
-			x: -11.7d
-			y: 1.75d
+			x: -3.8d
+			y: -6.85d
 		}
 		{
 			dep_control_pts: {
 				3A926BAFE803B76E: [
-					-10.329d
-					2.712d
-					-9.323d
-					3.168d
+					-1.966d
+					-6.514d
+					-0.543d
+					-6.291d
 				]
 			}
 			dependencies: ["3A926BAFE803B76E"]
@@ -973,16 +924,16 @@
 					type: "item"
 				}
 			]
-			x: -8.7d
-			y: 3.0d
+			x: 0.4d
+			y: -6.4d
 		}
 		{
 			dep_control_pts: {
 				71C01B7FCAA1DFB4: [
-					-7.3d
-					3.669d
-					-6.272d
-					3.611d
+					2.104d
+					-5.674d
+					3.457d
+					-5.34d
 				]
 			}
 			dependencies: ["71C01B7FCAA1DFB4"]
@@ -1009,16 +960,16 @@
 					type: "item"
 				}
 			]
-			x: -5.7d
-			y: 3.15d
+			x: 4.05d
+			y: -4.95d
 		}
 		{
 			dep_control_pts: {
 				0610CB3104268435: [
-					-4.123d
-					3.762d
-					-3.141d
-					3.666d
+					5.662d
+					-3.531d
+					6.633d
+					-1.975d
 				]
 			}
 			dependencies: ["0610CB3104268435"]
@@ -1058,48 +1009,96 @@
 					type: "item"
 				}
 			]
-			x: -2.95d
+			x: 5.45d
+			y: -1.5d
+		}
+		{
+			dep_control_pts: {
+				136A6DB3C34D16EB: [
+					-1.849d
+					3.126d
+					-0.482d
+					2.926d
+				]
+				2DC5143776D7B7D7: [
+					3.618d
+					2.535d
+					2.268d
+					2.569d
+				]
+			}
+			dependencies: ["136A6DB3C34D16EB", "2DC5143776D7B7D7"]
+			icon: {
+				id: "tfc:metal/ingot/wrought_iron"
+			}
+			id: "61EE57DC75EED266"
+			rewards: [
+				{
+					count: 4
+					id: "476EF58CE023E426"
+					item: {
+						count: 1
+						id: "tfc:metal/sheet/wrought_iron"
+					}
+					team_reward: true
+					type: "item"
+				}
+				{
+					id: "49C9A6818259F6A5"
+					item: {
+						count: 1
+						id: "tfc:metal/chestplate/wrought_iron"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					count: 32L
+					id: "04E950EE546968F8"
+					item: {
+						count: 1
+						id: "tfc:metal/ingot/wrought_iron"
+					}
+					type: "item"
+				}
+			]
+			x: 0.5d
 			y: 2.6d
 		}
 		{
 			dep_control_pts: {
-				2DC5143776D7B7D7: [
-					4.282d
-					2.363d
-					2.369d
-					2.086d
-				]
 				3F2796853AD668B5: [
-					-0.496d
-					3.292d
-					0.302d
-					2.152d
+					5.916d
+					1.482d
+					3.102d
+					0.786d
 				]
 				3F8D45ADF9515576: [
-					1.743d
-					-1.101d
-					1.219d
-					0.202d
+					2.1d
+					-1.819d
+					1.236d
+					-0.064d
 				]
 				61EE57DC75EED266: [
-					4.765d
-					1.18d
-					2.736d
-					0.836d
+					1.169d
+					3.106d
+					1.003d
+					2.239d
 				]
 				6E4438CCF1A5BF3D: [
-					-0.496d
-					-0.721d
-					0.302d
-					0.419d
+					-0.828d
+					-1.306d
+					0.086d
+					0.219d
 				]
 			}
 			dependencies: [
-				"2DC5143776D7B7D7"
-				"61EE57DC75EED266"
 				"3F8D45ADF9515576"
 				"6E4438CCF1A5BF3D"
 				"3F2796853AD668B5"
+				"61EE57DC75EED266"
 			]
 			icon: {
 				id: "firmages:steel_heart"
@@ -1151,6 +1150,22 @@
 			tasks: [
 				{
 					id: "377CE4E779C2C6AA"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=2,ready=true]"
+					type: "observation"
+				}
+				{
+					consume_items: false
+					id: "3D8F0CE2AD688534"
+					item: {
+						count: 1
+						id: "firmages:steel_heart"
+					}
+					type: "item"
+				}
+				{
+					id: "6EAB7D99792F0601"
 					stage: "age_3"
 					type: "gamestage"
 				}
@@ -1161,10 +1176,10 @@
 		{
 			dep_control_pts: {
 				3EAA8BE972DC58F9: [
-					-7.927d
-					-5.554d
-					-7.793d
-					-6.17d
+					-11.847d
+					1.98d
+					-12.397d
+					2.146d
 				]
 			}
 			dependencies: ["3EAA8BE972DC58F9"]
@@ -1206,16 +1221,16 @@
 					type: "item"
 				}
 			]
-			x: -8.25d
-			y: -7.2d
+			x: -13.25d
+			y: 2.15d
 		}
 		{
 			dep_control_pts: {
 				6DE17D691978916D: [
-					-11.189d
-					-3.183d
-					-11.806d
-					-3.45d
+					-11.323d
+					-3.232d
+					-11.923d
+					-3.499d
 				]
 			}
 			dependencies: ["6DE17D691978916D"]
@@ -1256,8 +1271,8 @@
 					type: "item"
 				}
 			]
-			x: -12.8d
-			y: -4.05d
+			x: -12.9d
+			y: -4.1d
 		}
 		{
 			dependencies: ["05C4B3AE61613A9B"]
@@ -1277,41 +1292,6 @@
 			]
 			x: -16.65d
 			y: 1.8d
-		}
-		{
-			dependencies: ["05C4B3AE61613A9B"]
-			hide_dependency_lines: true
-			icon: {
-				id: "tfc:metal/lamp/wrought_iron"
-			}
-			id: "11F575AA30F154A5"
-			optional: true
-			rewards: [
-				{
-					count: 6
-					id: "45A316E3BACDA9C3"
-					item: {
-						count: 1
-						id: "firmages:lantern/iron"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["ring"]
-			tasks: [
-				{
-					id: "3468980A6E8C7F7C"
-					observation_type: "block_state"
-					timer: 0L
-					to_observe: "firmages:shrine_heart[awakened=2,ready=true]"
-					type: "observation"
-				}
-			]
-			x: -7.0d
-			y: 0.2d
 		}
 	]
 	tags: ["age_2"]

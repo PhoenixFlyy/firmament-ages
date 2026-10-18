@@ -9,10 +9,9 @@ hat), **4** Modpack hochladen, **5** Freunde und Server.
 
 ## 1. Bauen
 
-Questbuch zuerst: seit 1.0.1 sind die SNBT-Dateien die Quelle (Felix Q1A). Hat Felix im Spiel editiert, kommen seine
-Dateien vor dem Bauen nach `config/ftbquests/quests/` (`dev/quests-editing.md`); dann
-`python dev\validate_quests.py --style --mods <Mods-Ordner>` mit 0 Fehlern und 0 Warnungen. `dev\gen_quests.py`
-gehört nicht mehr zum Bauen (läuft nur mit `--unfreeze` und würde seine Änderungen überschreiben).
+Questbuch zuerst: `python dev\gen_quests.py` ist seit G4 wieder die Quelle (der Freeze von 1.0.1 ist aufgehoben,
+`dev/quests-editing.md`). Hat Felix trotzdem im Spiel editiert, kommen seine Änderungen vor dem Bauen in den
+Generator; dann `python dev\validate_quests.py --style --mods <Mods-Ordner>` mit 0 Fehlern und 0 Warnungen.
 
 ```
 powershell -NoProfile -ExecutionPolicy Bypass -File dev\release.ps1 -Version <v>

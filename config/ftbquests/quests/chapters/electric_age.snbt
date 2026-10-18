@@ -26,7 +26,7 @@
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:79D2D4E17FC9732D"
+			click_action: "open_quest:32D33BE8EB20FCA6"
 			color: 16777215
 			height: 3.36d
 			id: "15DB5FBD2D09B7DE"
@@ -700,7 +700,7 @@
 			}
 			dependencies: ["1BF2818DC437F21D"]
 			icon: {
-				id: "immersiveengineering:bucket_wheel"
+				id: "immersiveengineering:excavator"
 			}
 			id: "15673B5A9807871D"
 			rewards: [
@@ -1172,6 +1172,22 @@
 			tasks: [
 				{
 					id: "10059F1778A7C84F"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=5,ready=true]"
+					type: "observation"
+				}
+				{
+					consume_items: false
+					id: "2DBC128F091F757D"
+					item: {
+						count: 1
+						id: "firmages:humming_core"
+					}
+					type: "item"
+				}
+				{
+					id: "6C992707CEE70E89"
 					stage: "age_6"
 					type: "gamestage"
 				}
@@ -1358,41 +1374,6 @@
 			]
 			x: -15.7d
 			y: 1.6d
-		}
-		{
-			dependencies: ["44B3F8C53C417220"]
-			hide_dependency_lines: true
-			icon: {
-				id: "immersiveengineering:floodlight"
-			}
-			id: "2184B4EB21075F37"
-			optional: true
-			rewards: [
-				{
-					count: 6
-					id: "017024D83722F26E"
-					item: {
-						count: 1
-						id: "firmages:lantern/electric"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["ring"]
-			tasks: [
-				{
-					id: "715F70D28A1A4B47"
-					observation_type: "block_state"
-					timer: 0L
-					to_observe: "firmages:shrine_heart[awakened=5,ready=true]"
-					type: "observation"
-				}
-			]
-			x: -7.8d
-			y: 0.2d
 		}
 	]
 	tags: ["age_5"]
