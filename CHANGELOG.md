@@ -2,6 +2,16 @@
 
 Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## Unreleased (G3)
+
+- **M opens the map again.** JourneyMap's full map closed itself on the first press of every version; it now stays open.
+- **Radar on the map.** From the Iron Age the minimap and the full map show players (with names), villagers, animals and mobs; teammates show anywhere in the world.
+- **Something Unknown.** An item of an Age you have not reached is "Something Unknown" in every tooltip, in chat, on name tags and in Jade (item frames, items on the ground). Creative mode sees every name.
+- **TabTPS:** ping, TPS, MSPT and memory in the tab list footer (server only).
+- **Menus in the night sky.** The title's constellation backdrop is behind world selection, multiplayer, world creation, options, resource packs, the pause menu and the loading screens; every button wears the gold frame.
+- **Resource packs on by default** in new profiles: TFC-ified Supplementaries and Darker Ropes on top of the mod packs.
+- Dusty Decorations no longer shows its "Updating to 2.0" screen on the first start.
+
 ## 1.1.0
 
 The second round of feedback on 1.0: every Age keeps more to itself (loot, inventory rows, breaking, mod keys, the debug screen), new commands, the Age sign with your pinned quests, a night-sky quest book and animations. **Client and server both need 1.1.0.** Your 1.0.x world keeps working: on the first login, items in inventory rows that your Age does not open yet move to free slots or drop at your feet, where they stay until you pick them up (they do not despawn).

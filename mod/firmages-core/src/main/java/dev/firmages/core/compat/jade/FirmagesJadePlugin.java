@@ -65,6 +65,7 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
     static final ResourceLocation STORM_ROD = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "storm_rod");
     static final ResourceLocation ORE_PROCESSOR = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "ore_processor");
     static final ResourceLocation ARCANE_CATALYST = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "arcane_catalyst");
+    static final ResourceLocation UNKNOWN_ITEM = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "unknown_item");
     static final ResourceLocation UNKNOWN_BLOCK = ResourceLocation.fromNamespaceAndPath(FirmagesCore.MOD_ID, "unknown_block");
 
     @Override
@@ -93,6 +94,10 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         // the tooltip-collected callback, which runs after all providers (WailaTickHandler.tickClient [verified, javap]).
         registration.registerBlockIcon(Unknown.INSTANCE, Block.class);
         registration.addTooltipCollectedCallback(10000, Unknown::collected);
+        // SPEC §21.15 (G3): an item entity or item frame with an item of a locked Age is "Something Unknown"
+        registration.registerEntityIcon(UnknownItem.INSTANCE, net.minecraft.world.entity.item.ItemEntity.class);
+        registration.registerEntityIcon(UnknownItem.INSTANCE, net.minecraft.world.entity.decoration.ItemFrame.class);
+        registration.addTooltipCollectedCallback(10000, UnknownItem::collected);
     }
 
     enum Heart implements IBlockComponentProvider {
@@ -476,6 +481,47 @@ public final class FirmagesJadePlugin implements IWailaPlugin {
         @Override
         public int getDefaultPriority() {
             return 1_000_000; // icon providers run by ascending priority and the last one wins
+        }
+
+        @Override
+        public boolean isRequired() {
+            return true;
+        }
+    }
+
+    /** An item entity or item frame holding an item of a locked Age (SPEC §21.15): sigil and "Something Unknown" only. */
+    enum UnknownItem implements snownee.jade.api.IEntityComponentProvider {
+        INSTANCE;
+
+        static boolean unknown(snownee.jade.api.EntityAccessor accessor) {
+            return dev.firmages.core.client.immersion.UnknownItemsClient.masked(
+                dev.firmages.core.client.immersion.UnknownItemsClient.shown(accessor.getEntity()));
+        }
+
+        static void collected(IBoxElement box, Accessor<?> accessor) {
+            if (!(accessor instanceof snownee.jade.api.EntityAccessor entity) || !unknown(entity)) return;
+            ITooltip tooltip = box.getTooltip();
+            tooltip.clear();
+            tooltip.add(IThemeHelper.get().title(Component.translatable(dev.firmages.core.immersion.UnknownItems.NAME_KEY)), JadeIds.CORE_OBJECT_NAME);
+            box.clearBoxProgress();
+        }
+
+        @Override
+        public IElement getIcon(snownee.jade.api.EntityAccessor accessor, IPluginConfig config, IElement currentIcon) {
+            return unknown(accessor) ? new Sigil() : currentIcon;
+        }
+
+        @Override
+        public void appendTooltip(ITooltip tooltip, snownee.jade.api.EntityAccessor accessor, IPluginConfig config) {}
+
+        @Override
+        public ResourceLocation getUid() {
+            return UNKNOWN_ITEM;
+        }
+
+        @Override
+        public int getDefaultPriority() {
+            return 1_000_000;
         }
 
         @Override

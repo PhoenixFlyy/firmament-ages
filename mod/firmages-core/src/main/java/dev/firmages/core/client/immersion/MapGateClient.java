@@ -22,7 +22,8 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
  * ({@code ClientTickEvent.Pre}, HIGHEST; JourneyMap reads in {@code Post});</li>
  * <li>the full map, the waypoint manager and editor and the minimap options do not open ({@code ScreenEvent.Opening}).</li>
  * </ul>
- * JourneyMap's splash screen never opens. Without JourneyMap nothing happens.
+ * JourneyMap's splash screen never opens: before the full map initialises the splash is marked as viewed
+ * ({@link JourneyMapBridge#markSplashViewed}), so the full map does not close itself to show it. Without JourneyMap nothing happens.
  */
 @EventBusSubscriber(modid = FirmagesCore.MOD_ID, value = Dist.CLIENT)
 public final class MapGateClient {
@@ -53,6 +54,7 @@ public final class MapGateClient {
         if (event.getNewScreen() == null || !JourneyMapBridge.loaded()) return;
         String name = event.getNewScreen().getClass().getName();
         if (!name.startsWith("journeymap.")) return;
+        if (MapGate.FULLSCREEN.equals(name)) JourneyMapBridge.markSplashViewed();
         if (MapGate.screenBlocked(name, open())) event.setCanceled(true);
     }
 }

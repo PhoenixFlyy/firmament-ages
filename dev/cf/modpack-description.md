@@ -79,7 +79,7 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 1.1.0 contains 270 mods. Thank you to every author.
+Firmament Ages 1.1.0 contains 271 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
@@ -332,6 +332,7 @@ Firmament Ages 1.1.0 contains 270 mods. Thank you to every author.
 - **SuperMartijn642's Config Lib** by SuperMartijn642 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/supermartijn642s-config-lib))
 - **SuperMartijn642's Core Lib** by SuperMartijn642 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/supermartijn642s-core-lib))
 - **Supplementaries** by MehVahdJukaar ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/supplementaries))
+- **TabTPS** by Algebrafreak ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tabtps))
 - **TerraFirmaCraft** by Dries007, EERussianguy, Therighton ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/terrafirmacraft))
 - **TerraFirmaCraft AnvilHelper** by Fox2Code ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/terrafirmacraft-anvilhelper))
 - **TFC + IE Crossover** by Nmagpie ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ie-crossover))

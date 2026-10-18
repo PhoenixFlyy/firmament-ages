@@ -18,3 +18,9 @@ B:show_welcome_screen = 'false';
 
 ##[dev]
 B:mcp_server_enabled = 'false';
+
+##[global_customizations]
+S:global_button_background_normal = '[source:local]/config/fancymenu/assets/firmament/btn_normal.png';
+S:global_button_background_hover = '[source:local]/config/fancymenu/assets/firmament/btn_hover.png';
+S:global_button_label_base_color = '#ECE4FF';
+S:global_button_label_hover_color = '#F4D68C';

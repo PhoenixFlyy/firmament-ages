@@ -74,6 +74,32 @@ public final class JourneyMapBridge {
         }
     }
 
+    /**
+     * Sets JourneyMap's {@code CoreProperties.splashViewed} to the running version, so {@code Fullscreen.init} does not
+     * open the splash ({@code UIManager.openSplash} closes the full map first). JourneyMap 6.0.9 [verified, javap]:
+     * {@code JourneymapClient.getInstance().getCoreProperties().splashViewed} (public {@code StringField} with
+     * {@code get()}, {@code set(String)}, {@code save()}), version {@code Journeymap.JM_VERSION.toString()}.
+     *
+     * @return true if it was written now
+     */
+    public static boolean markSplashViewed() {
+        if (!loaded()) return false;
+        try {
+            String version = String.valueOf(Class.forName("journeymap.common.Journeymap").getField("JM_VERSION").get(null));
+            Class<?> client = Class.forName("journeymap.client.JourneymapClient");
+            Object core = client.getMethod("getCoreProperties").invoke(client.getMethod("getInstance").invoke(null));
+            Object field = core.getClass().getField("splashViewed").get(core);
+            Object viewed = field.getClass().getMethod("get").invoke(field);
+            if (!MapGate.splashPending(viewed == null ? null : viewed.toString(), version)) return false;
+            field.getClass().getMethod("set", String.class).invoke(field, version);
+            field.getClass().getMethod("save").invoke(field);
+            return true;
+        } catch (ReflectiveOperationException | RuntimeException | LinkageError e) {
+            FirmagesCore.LOGGER.warn("JourneyMap splash not marked as viewed ({})", e.toString());
+            return false;
+        }
+    }
+
     /** Drops every pending press of JourneyMap's keys; @return how many were dropped. */
     public static int drainKeys() {
         if (!loaded()) return 0;

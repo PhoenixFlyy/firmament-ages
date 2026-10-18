@@ -190,7 +190,7 @@ hash = "562a97a44b82f54c58dfdc08f27859c1072935fd60328a0482bd84e288e499b8"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
-hash = "6da1af4a5ba9bf5d2eceb04d67fda86e6975f1bee768166011386bff1dc5469b"
+hash = "0fcfd76d97514fa48d482cb3c7ccc78a6f69ab25aa3e29c35cf9a118e04ba984"
 
 [[files]]
 file = "config/drippyloadingscreen/options.txt"
@@ -199,6 +199,10 @@ hash = "71f0c2ab6c14dc769b9461fad07cf5903a821494a9dd8a98f855bc9190d4fd5b"
 [[files]]
 file = "config/dummmmmmy-common.toml"
 hash = "8b98613fe784b8f72908d4df9e6518a35bf401e3cac83f333cdfa005d200f9a5"
+
+[[files]]
+file = "config/dustydecorations-client.toml"
+hash = "b6b794c8e986ed14a4ec7328cac55cdf13d8cc343ca1fa72126d1adf9ddc2aa4"
 
 [[files]]
 file = "config/efallingtrees_common.json"
@@ -250,23 +254,131 @@ hash = "378b1b12826591e6a68421a9f78dfeed9783c223d2f976fe5b571454c31da07d"
 
 [[files]]
 file = "config/fancymenu/customizablemenus.txt"
-hash = "ce0d84b2b57cf5f1f8223fe000ffe065ed91791a27b82411a9028bf2b85d8647"
+hash = "286216c90014ef66decfb30437ca9aa23c6dacbdacf7c6a2d0a0c1f7d0593704"
+
+[[files]]
+file = "config/fancymenu/customization/accessibility_options_screen_layout.txt"
+hash = "124fc88cd324044606d4391feeaaf6954d2b4947970871528f96c321dd48f6d2"
+
+[[files]]
+file = "config/fancymenu/customization/chat_options_screen_layout.txt"
+hash = "bc10a65643e975113f0adcbb4d6fa104578deb79bc9ee45972acd0c438740e90"
+
+[[files]]
+file = "config/fancymenu/customization/connect_screen_layout.txt"
+hash = "10ccb06ba6e1a89ba2c7628d627c4381a2ca3433443234bd0b369b73944c2fb1"
+
+[[files]]
+file = "config/fancymenu/customization/controls_screen_layout.txt"
+hash = "0e00d2efbb3c9e1ffc339915f7f39d5073e163d32c5fdfbf7e50e1867b205840"
+
+[[files]]
+file = "config/fancymenu/customization/create_world_screen_layout.txt"
+hash = "739672047506835d25fcee9a41ecb9db901eec0f89c09c17d9ad1a814fd7f78b"
+
+[[files]]
+file = "config/fancymenu/customization/direct_join_server_screen_layout.txt"
+hash = "22442c23c3fccee383fefae1845213403fdf8956fc0f3b7b09fdd00a5da0c5ee"
+
+[[files]]
+file = "config/fancymenu/customization/disconnected_screen_layout.txt"
+hash = "6b367368f0030424dca325f342d731445596162ffd59255129ddb545ab304799"
 
 [[files]]
 file = "config/fancymenu/customization/drippy_loading_overlay_layout.txt"
 hash = "dc61a5641d764d681cd1f7233aeff9c88424b5641227e8353d3bdd22cd200ede"
 
 [[files]]
+file = "config/fancymenu/customization/edit_game_rules_screen_layout.txt"
+hash = "97e3ee7f98e6628d8bfcb55ee0f283c70600832c475382a66a5b00efc1439a80"
+
+[[files]]
+file = "config/fancymenu/customization/edit_server_screen_layout.txt"
+hash = "949e545a39428e443f3d9de34bb1404d66e0a8e49bbd0355854efe08bd6c8734"
+
+[[files]]
+file = "config/fancymenu/customization/edit_world_screen_layout.txt"
+hash = "0ab0ee7a8f47a6ccc840dec1705adf1b106d2f91a2a2669492df8f71b67e02ab"
+
+[[files]]
+file = "config/fancymenu/customization/experiments_screen_layout.txt"
+hash = "d9a8b75f1c96c1ad2d8b44d6a0f15f886b69cddbf76c4762bf9ee9452cedb8d6"
+
+[[files]]
+file = "config/fancymenu/customization/generic_dirt_message_screen_layout.txt"
+hash = "29128b80f1b4f409a8936780b3f19a48d711b93cbfa18a5f3269d20b0d73c361"
+
+[[files]]
+file = "config/fancymenu/customization/generic_waiting_screen_layout.txt"
+hash = "8cccdf6b602d9d65e2556eb2b5f4a0b3c2b28b888a8209b62a94603a1a809132"
+
+[[files]]
+file = "config/fancymenu/customization/join_multiplayer_screen_layout.txt"
+hash = "3805fc59714a721f9572dfeecf9f49b05bc72a2a8da61ab87153840bec9ad6af"
+
+[[files]]
+file = "config/fancymenu/customization/key_binds_screen_layout.txt"
+hash = "d6bda902691907dfd4b3f58dd235a7331a6c3d72c33d6413dbbd75a8bd389a94"
+
+[[files]]
+file = "config/fancymenu/customization/language_select_screen_layout.txt"
+hash = "a65fb50170cd8994611fcbdb429b8842767688db3951388e1e43052163d77e26"
+
+[[files]]
+file = "config/fancymenu/customization/level_loading_screen_layout.txt"
+hash = "4f91ec874c79230b5c656ece2a559b01653ed595b19684935909319e7185a156"
+
+[[files]]
+file = "config/fancymenu/customization/mouse_settings_screen_layout.txt"
+hash = "aa4e181a30ab8ecb71fe5a181aeaebb149e8bdc3843809036ed9f4e8882d9a20"
+
+[[files]]
+file = "config/fancymenu/customization/online_options_screen_layout.txt"
+hash = "588886d5555685a1264d3efaafc261295c5e0689fb5ae0566629285c8862afc9"
+
+[[files]]
+file = "config/fancymenu/customization/options_screen_layout.txt"
+hash = "4de90cc12cddcc1c6d8540ce1b8fa5d3c30c68d508ae486c1d892ae2de3016d1"
+
+[[files]]
+file = "config/fancymenu/customization/pack_selection_screen_layout.txt"
+hash = "27b36c745a9e4af03a24fb2354700f4d2254e8c93d4bb57d7e7b2cc48dba308d"
+
+[[files]]
 file = "config/fancymenu/customization/pause_screen_layout.txt"
-hash = "06708615c3ec5ac4458612c677bb59e910e3c6112f45241e73b0bc8c62c686f1"
+hash = "97abbd4bd4c0cdf250724d920797d6dddc15465f84316441efa32ba040a3be69"
+
+[[files]]
+file = "config/fancymenu/customization/progress_screen_layout.txt"
+hash = "90f5bcb3b2c47f64edec83099a5657c3504c0a300c4fc5ef2f630c94d1833017"
+
+[[files]]
+file = "config/fancymenu/customization/receiving_level_screen_layout.txt"
+hash = "249f4e5a1f7621b7c37ca60f8c5e0dec53f8a289ad2887771f13fc31674c972a"
+
+[[files]]
+file = "config/fancymenu/customization/select_world_screen_layout.txt"
+hash = "d463363492e5fb3dab7d8350bad0982aa980cdbcf671eb64c31fb3b3ada77bf8"
+
+[[files]]
+file = "config/fancymenu/customization/skin_customization_screen_layout.txt"
+hash = "722f609c6c55cdbe8098259a81e8c21e2c68f734a57029d845f10843e225ef3c"
+
+[[files]]
+file = "config/fancymenu/customization/sound_options_screen_layout.txt"
+hash = "1ded61ab7c558465c5ca6d23884572a2b6948949bc69fde6a12d45ee44c68720"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
 hash = "3a12eb536f2a172a3bc87f018f0d2e4327ba44936366a5d80bdfd19beb0cfcef"
 
 [[files]]
+file = "config/fancymenu/customization/video_settings_screen_layout.txt"
+hash = "8a7aa9a251e1636a0cacf078d0c321f4b3cadf688c120d02665c7c05a4e6b29d"
+
+[[files]]
 file = "config/fancymenu/options.txt"
-hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
+hash = "87c591731a4ea3bb00b9703ecaf84cdeaf29c2cf12fb3ed5ab3a927e44bf1218"
 
 [[files]]
 file = "config/firmages-server.toml"
@@ -597,6 +709,10 @@ file = "config/supplementaries-common.toml"
 hash = "cc71001b543ff0142eb3bb2b89a4f99fbe2ed2a6897281062f0977814c247b20"
 
 [[files]]
+file = "config/tabtps/display-configs/default.conf"
+hash = "680130acaea891ceeb38571e1553763fe747dfa6f9d648219f5ef4cbf3494ff8"
+
+[[files]]
 file = "config/tfc-client.toml"
 hash = "070dd92645d481f24d0f8208fe53b1f24c546e646b4d9fb9d14d098aaea46de8"
 
@@ -874,7 +990,7 @@ hash = "b40b1b4c8925aac88ca4f5bccf3fb65cf72846e12590c7b04cd7fbcf0852ac70"
 
 [[files]]
 file = "journeymap/server/6.0/journeymap.server.global.config"
-hash = "eafba3d2b31998cd79b56f2646d8cf64c8d5f4c9b0dcf844d1be7db597ba21ae"
+hash = "a714c2c64d496a9f1e84164bd2390d0095637ae844854c099fe75503e8fee35c"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
@@ -12434,6 +12550,11 @@ metafile = true
 [[files]]
 file = "mods/supplementaries.pw.toml"
 hash = "d60aacb38960c44b4a2f6fdf8cf8f9e5a0f83a3396218e760a75774e6eaa37b3"
+metafile = true
+
+[[files]]
+file = "mods/tabtps.pw.toml"
+hash = "137b41f2f153e86fe26f6527a5c62b9e7690cd3bbdced1ea42d403933ef91a81"
 metafile = true
 
 [[files]]

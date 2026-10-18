@@ -203,8 +203,15 @@ public final class ImmersionClient {
         @SubscribeEvent(priority = EventPriority.LOWEST) // after every mod added its lines
         public static void tooltip(ItemTooltipEvent event) {
             List<Component> lines = event.getToolTip();
+            // SPEC §21.15 (G3): an item of a locked Age is "Something Unknown" with only ProgressiveStages' lock block
+            boolean unknown = !lines.isEmpty() && UnknownItemsClient.masked(event.getItemStack());
+            if (unknown) lines.set(0, UnknownItemsClient.name());
             if (lines.size() < 2) return;
             if (ClientConfig.get(ClientConfig.TRIM_LOCKED_TOOLTIPS, true) && lockedTooltips() && LockedTooltip.trim(event.getItemStack(), lines)) return;
+            if (unknown) {
+                lines.subList(1, lines.size()).clear();
+                return;
+            }
             boolean nutrition = ClientConfig.get(ClientConfig.HIDE_NUTRITION, true);
             boolean modName = ClientConfig.get(ClientConfig.HIDE_MOD_NAME_TOOLTIPS, true);
             boolean sizeWeight = ClientConfig.get(ClientConfig.HIDE_SIZE_WEIGHT, true);

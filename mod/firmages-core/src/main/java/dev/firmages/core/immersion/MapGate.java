@@ -10,7 +10,10 @@ import java.util.Set;
  * {@code firmages:age_status}) the minimap is not drawn, the full map, the waypoint
  * screens and the minimap options do not open and JourneyMap's keys do nothing; players in creative mode have the map
  * in every Age, operators in survival do not ({@link ViewerGate#open}). JourneyMap's splash ("About") screen, which the
- * full map opens once per JourneyMap version, never opens (no feature announcements, §18). Pure Java (unit-tested); the
+ * full map opens once per JourneyMap version, never opens (no feature announcements, §18): the gate marks it as viewed
+ * before the full map initialises ({@link #splashPending}); cancelling the splash itself closed the full map, because
+ * {@code UIManager.open(Screen)} closes the current screen (the full map) before it opens the splash (G3, M did nothing).
+ * Pure Java (unit-tested); the
  * client half is {@code client/immersion/MapGateClient}, the mod lookups {@code compat/journeymap/JourneyMapBridge}.
  *
  * <p>JourneyMap 6.0.9 [verified, javap]: it registers no GUI layer; {@code NeoForgeHudOverlayEvents} draws the minimap
@@ -52,6 +55,14 @@ public final class MapGate {
     public static boolean screenBlocked(String screenClass, boolean mapOpen) {
         if (screenClass == null) return false;
         return SPLASH.equals(screenClass) || !mapOpen && MAP_SCREENS.contains(screenClass);
+    }
+
+    /**
+     * The full map would open the splash: JourneyMap's {@code CoreProperties.splashViewed} is empty or not the running
+     * version ({@code Fullscreen.init} [verified, javap 6.0.9]).
+     */
+    public static boolean splashPending(String viewed, String version) {
+        return version != null && !version.equals(viewed);
     }
 
     /** A JourneyMap key mapping (by its name), whose presses are dropped while the map is closed. */
