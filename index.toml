@@ -110,7 +110,7 @@ hash = "22b2ba8d527037ce1f8f0ee24677d8d519cda586564ac0c03523517bcec35fcb"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "ce1a69e306e73556177ea8a2ef331ff683597b22bb9477459b63c32413b6ee28"
+hash = "c5034e3da282eabf470fb1047bcd6f920c301ba0c5953851e7fe71dd5449bdad"
 
 [[files]]
 file = "config/brandon3055/DraconicAdditions.cfg"
@@ -370,7 +370,7 @@ hash = "1ded61ab7c558465c5ca6d23884572a2b6948949bc69fde6a12d45ee44c68720"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "3a12eb536f2a172a3bc87f018f0d2e4327ba44936366a5d80bdfd19beb0cfcef"
+hash = "90d436dbac2354142557726c830c7fca977882918d49dae1d1e0d079ce818666"
 
 [[files]]
 file = "config/fancymenu/customization/video_settings_screen_layout.txt"
