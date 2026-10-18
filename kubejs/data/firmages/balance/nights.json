@@ -1,0 +1,42 @@
+{
+  "_doc": [
+    "Firmament Ages - Creeping Darkness (S1f, Felix 2026-10-18): the night grows worse with every Age, the day stays as it is.",
+    "One row per Age (the world's Age, AgeService snapshot). firmages-core hardship/NightsService reads it (the build copies it into",
+    "the jar, this datapack copy wins): a hostile mob that spawns naturally in the dark (night under the open sky, or no sky light at",
+    "all: caves, the Nether) gets health and damage x the row, and the 'gear' armour and sword with 'gear_chance' per piece",
+    "(entity tags firmages:blood_moon_armored / blood_moon_melee, only empty slots). 'night_spawn' > 1: each natural dark spawn",
+    "brings a second mob of its kind with chance night_spawn - 1. Bosses (c:bosses), the Cave Dweller, spawners, eggs and",
+    "commands are never touched; passive mobs and pets are no monsters. kubejs/server_scripts/firmages/blood_moon.js keeps the",
+    "share 'blood_moon_keep' of the blood moons Enhanced Celestials 2 rolls (0 = none; mob_2 gate stays) and turns super blood",
+    "moons into plain ones while 'super_blood_moon' is false. CaveDwellerService lets a timed Cave Dweller spawn with chance",
+    "'cave_dweller_hunt' (0 from hardship.caveDwellerUntilAge on, H12). kubejs/server_scripts/stages/grants.js sets the Apotheosis",
+    "world tier 'apoth_tier' on every Age grant and login (/apoth set_world_tier <player> <tier>, Apotheosis 8.9.0 javap).",
+    "More Darkness is client-only with one static config, so the darkness itself does not change per Age.",
+    "Gear: a TFC metal (tfc:metal/<helmet|chestplate|greaves|boots|sword>/<metal>) one Age behind the players, or the vanilla",
+    "diamond / netherite set late. Checked by dev/gen_nights.py --check, NightsTableTest and /firmages selftest nights."
+  ],
+  "ages": [
+    {"age": "dawn", "gear": "", "gear_chance": 0.0, "health": 1.0, "damage": 1.0, "night_spawn": 1.0, "blood_moon_keep": 0.0, "super_blood_moon": false, "cave_dweller_hunt": 0.5, "apoth_tier": "haven",
+     "why": "Bare hands and flint: vanilla nights are already deadly; the Cave Dweller hunts at half rate in the deep caves."},
+    {"age": "age_0", "gear": "", "gear_chance": 0.0, "health": 1.1, "damage": 1.0, "night_spawn": 1.0, "blood_moon_keep": 0.0, "super_blood_moon": false, "cave_dweller_hunt": 0.75, "apoth_tier": "haven",
+     "why": "Stone tools and first copper: a little tougher, no gear yet, the player has no metal armour either."},
+    {"age": "age_1", "gear": "copper", "gear_chance": 0.05, "health": 1.2, "damage": 1.1, "night_spawn": 1.1, "blood_moon_keep": 0.0, "super_blood_moon": false, "cave_dweller_hunt": 1.0, "apoth_tier": "haven",
+     "why": "Bronze armour on the player (ore ladder 1): rare copper pieces on mobs, one Age behind."},
+    {"age": "age_2", "gear": "bronze", "gear_chance": 0.08, "health": 1.3, "damage": 1.15, "night_spawn": 1.2, "blood_moon_keep": 0.4, "super_blood_moon": false, "cave_dweller_hunt": 0.0, "apoth_tier": "haven",
+     "why": "Wrought iron and steel for the player: bronze mobs, first blood moons (mob_2); the Cave Dweller is gone (H12)."},
+    {"age": "age_3", "gear": "wrought_iron", "gear_chance": 0.1, "health": 1.4, "damage": 1.2, "night_spawn": 1.3, "blood_moon_keep": 0.5, "super_blood_moon": false, "cave_dweller_hunt": 0.0, "apoth_tier": "frontier",
+     "why": "Steel armour plus arcane wards: wrought iron mobs; Apotheosis opens here, Frontier tier."},
+    {"age": "age_4", "gear": "steel", "gear_chance": 0.12, "health": 1.55, "damage": 1.3, "night_spawn": 1.4, "blood_moon_keep": 0.6, "super_blood_moon": false, "cave_dweller_hunt": 0.0, "apoth_tier": "frontier",
+     "why": "Black steel for the player (ore ladder 2.5): steel mobs, blood moons more often."},
+    {"age": "age_5", "gear": "black_steel", "gear_chance": 0.15, "health": 1.7, "damage": 1.4, "night_spawn": 1.5, "blood_moon_keep": 0.7, "super_blood_moon": true, "cave_dweller_hunt": 0.0, "apoth_tier": "ascent",
+     "why": "Red steel and powered tools: black steel mobs; super blood moons join the sky."},
+    {"age": "age_6", "gear": "red_steel", "gear_chance": 0.18, "health": 1.85, "damage": 1.55, "night_spawn": 1.6, "blood_moon_keep": 0.8, "super_blood_moon": true, "cave_dweller_hunt": 0.0, "apoth_tier": "ascent",
+     "why": "Blue steel and Mekanism armour start: red steel mobs."},
+    {"age": "age_7", "gear": "blue_steel", "gear_chance": 0.22, "health": 2.0, "damage": 1.7, "night_spawn": 1.75, "blood_moon_keep": 0.9, "super_blood_moon": true, "cave_dweller_hunt": 0.0, "apoth_tier": "summit",
+     "why": "MekaSuit and Draconic wyvern gear: blue steel mobs, nights twice as tough as Dawn."},
+    {"age": "age_8", "gear": "diamond", "gear_chance": 0.26, "health": 2.25, "damage": 2.0, "night_spawn": 1.9, "blood_moon_keep": 1.0, "super_blood_moon": true, "cave_dweller_hunt": 0.0, "apoth_tier": "summit",
+     "why": "Draconic armour with shields: diamond mobs, every blood moon Enhanced Celestials rolls."},
+    {"age": "age_9", "gear": "netherite", "gear_chance": 0.3, "health": 2.5, "damage": 2.5, "night_spawn": 2.0, "blood_moon_keep": 1.0, "super_blood_moon": true, "cave_dweller_hunt": 0.0, "apoth_tier": "pinnacle",
+     "why": "Chaotic armour: netherite mobs, double spawns, Pinnacle tier; the darkest nights of the pack."}
+  ]
+}

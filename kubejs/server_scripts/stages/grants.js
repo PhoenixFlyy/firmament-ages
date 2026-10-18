@@ -89,14 +89,30 @@
     })
   }
 
+  // Apotheosis world tier per Age (Creeping Darkness, SPEC 19.7): 'apoth_tier' of the player's highest Age in
+  // kubejs/data/firmages/balance/nights.json. Syntax from Apotheosis 8.9.0 (javap): root 'apoth' (Apothic Attributes
+  // ApotheosisCommandEvent), WorldTierCommand 'set_world_tier <target_player> <tier>', tier = WorldTier name in any case.
+  const APOTH_TIER = {}
+  try {
+    JSON.parse(String(JsonIO.readString('kubejs/data/firmages/balance/nights.json'))).ages.forEach((r) => (APOTH_TIER[r.age] = r.apoth_tier))
+  } catch (e) {
+    console.warn(`[firmages] grants: nights.json not read (${e}), Apotheosis world tier untouched`)
+  }
+  const setWorldTier = (player) => {
+    if (!Platform.isLoaded('apotheosis')) return
+    let tier = null
+    for (let i = FA.AGES.length - 1; i >= 0 && tier === null; i--) {
+      if (ProgressiveStages.has(player, FA.AGES[i]) && APOTH_TIER[FA.AGES[i]]) tier = APOTH_TIER[FA.AGES[i]]
+    }
+    if (tier !== null) player.server.runCommandSilent(`apoth set_world_tier ${player.username} ${tier}`)
+  }
+
   ProgressiveStages.onGranted((player, stage) => {
     const s = short(stage)
     if (FA.AGES.indexOf(s) >= 0) {
       reconcile(player)
       if (s === FA.CHUNK_QUOTA.stage) grantChunkQuota(player)
-      // POC: Apotheosis world tier per Age (Haven/Frontier/Ascent/Summit/Pinnacle, Doc 08 section 8).
-      // The command syntax is unverified, see dev/offene-punkte.md. Example shape only:
-      // player.server.runCommandSilent(`apotheosis world_tier set ${player.username} frontier`)
+      setWorldTier(player)
     }
   })
 
@@ -106,6 +122,7 @@
 
   PlayerEvents.loggedIn((event) => {
     reconcile(event.player)
+    setWorldTier(event.player)
     // Late joiners: the quota is per player; give it to the newcomer once the team has the Industrial Age.
     // POC: with party_limit_mode "largest" this is redundant but keeps "owner"/"sum" modes working.
     if (ProgressiveStages.has(event.player, FA.CHUNK_QUOTA.stage)) grantChunkQuota(event.player)

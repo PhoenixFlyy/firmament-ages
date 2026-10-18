@@ -50,6 +50,12 @@ public final class CaveDwellerService {
             event.setCanceled(true);
             FirmagesCore.LOGGER.debug("Cave Dweller refused at {} (hardship.caveDwellerUntilAge)", event.getEntity().blockPosition());
         }
+        // Creeping Darkness (SPEC §19.7): a fresh dweller hunts with the night row's cave_dweller_hunt; a refused one
+        // comes back with the mod's next spawn timer
+        else if (s != null && !event.loadedFromDisk() && event.getLevel().getRandom().nextDouble() >= NightsService.row(s).caveDwellerHunt()) {
+            event.setCanceled(true);
+            FirmagesCore.LOGGER.debug("Cave Dweller held back at {} (nights.json cave_dweller_hunt)", event.getEntity().blockPosition());
+        }
     }
 
     /** After every change of the global Age state (AgeService): discards the dwellers in loaded chunks once the Age is reached. @return how many. */
