@@ -5,13 +5,12 @@ import net.minecraft.core.BlockPos;
 /**
  * Which arena a world's Origin has (round G3, SPEC §16.5). A world whose Origin was generated before round G3
  * keeps the {@link #CLASSIC} arena (radius 20, gate on a pedestal south of it, islands 45 to 75 blocks out); an
- * Origin generated since gets the {@link #GRAND} arena (radius 60, gate on the raised arrival platform, islands moved
- * out by 50 blocks). The choice is stored in {@link OriginSavedData} ({@code layout}) and never changes for a world.
+ * Origin generated since gets the {@link #GRAND} arena (radius 60, gate on the arrival platform 37 blocks below the rim
+ * with the ascent up to it, islands moved out by 50 blocks). The choice is stored in {@link OriginSavedData} ({@code layout}) and never changes for a world.
  */
 public enum OriginLayout {
     CLASSIC(20, 0, new BlockPos(0, OriginArena.FLOOR_Y + 1, 14), new BlockPos(-3, OriginArena.FLOOR_Y, 22)),
-    GRAND(GrandArenaPlan.RADIUS, 50, new BlockPos(0, GrandArenaPlan.PLATFORM_Y + 1, 62),
-        new BlockPos(-3, GrandArenaPlan.PLATFORM_Y, 68));
+    GRAND(GrandArenaPlan.RADIUS, 50, pos(GrandArenaPlan.arrival()), pos(GrandArenaPlan.gateOrigin()));
 
     public final int radius;
     /** Added to every island's distance from the centre. */
@@ -20,6 +19,10 @@ public enum OriginLayout {
     public final BlockPos arrival;
     /** Origin of Stargate Journey's pedestal template (gate base at (3, 2, 9), DHD at (3, 1, 3) from here). */
     public final BlockPos gateOrigin;
+
+    private static BlockPos pos(int[] p) {
+        return new BlockPos(p[0], p[1], p[2]);
+    }
 
     OriginLayout(int radius, int islandOffset, BlockPos arrival, BlockPos gateOrigin) {
         this.radius = radius;

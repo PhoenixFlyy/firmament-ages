@@ -10,9 +10,10 @@ mod/firmages-core/src/main/resources/data/firmages/:
                                            hanging vines, allium; without TFC those cells load as air)
   tags/item/ark/*.json                     the flora tags the rules name (entries "required": false)
   tags/block/ark/*.json                    the work tags the rules name
-and dev/data/origin_arena.json: the block counts of The Origin's grand arena (round G3, SPEC section 16.5), a mirror
-of GrandArenaPlan.java (integer geometry, the same keys); GrandArenaPlanTest and the GameTest
-ArenaGameTests.grandArenaMatchesThePlan compare the Java plan and the built arena with this file.
+and dev/data/origin_arena.json: the block counts of The Origin's grand arena (rounds G3 and G4, SPEC section 16.5) from
+dev/origin_arena_plan.py, the mirror of GrandArenaPlan.java (integer geometry, the same keys), and the length of the walk
+from the arrival point up to the rim; GrandArenaPlanTest and the GameTests ArenaGameTests.grandArenaMatchesThePlan and
+ascentIsWalkable compare the Java plan and the built arena with this file.
 
 Template frame (shared with ArkGrowth.java): 25 by 22 by 25 blocks; the island's top centre is template (12, 6, 12),
 so dy = y - 6 is the height above the island's surface. A stage writes only into air or into blocks of the island's
@@ -40,6 +41,7 @@ import zlib
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_wayshrines import nbt_bytes, same  # noqa: E402
+import origin_arena_plan as arena_plan  # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(REPO, "mod", "firmages-core", "src", "main", "resources", "data", "firmages")
@@ -470,107 +472,13 @@ STAGES = {1: stage_1, 2: stage_2, 3: stage_3}
 # ---------------------------------------------------------------------------------------------------------------------
 # Files and checks
 # ---------------------------------------------------------------------------------------------------------------------
-# ---- the grand arena of The Origin (mirror of mod/.../origin/GrandArenaPlan.java) -------------------------------------
-ARENA_R, ARENA_Y, PLAT_Y = 60, 64, 72
-PLAT_HALF, PLAT_Z0, PLAT_Z1 = 12, 57, 84
-STAIR_HALF, STAIR_STEPS = 5, 7
-ARCH_Z, ARCH_HALF, ARCH_HEIGHT = 58, 7, 8
-ALTARS = [(0, -16), (16, 0), (0, 16), (-16, 0)]
-ALTAR_AGES = [0, 3, 6, 8]
-POSTS = [(59, 0), (51, 30), (30, 51), (-30, 51), (-51, 30), (-59, 0), (-51, -30), (-30, -51), (0, -59), (30, -51), (51, -30)]
-
-
-def vitrine(i):
-    return (-10, 62 + 4 * i) if i < 5 else (10, 62 + 4 * (i - 5))
-
-
-def in_disc(x, z):
-    return x * x + z * z <= ARENA_R * ARENA_R + ARENA_R
-
-
-def arena_rock(x, y, z):
-    h = (x * 31 + y * 17 + z * 13) % 97
-    return "rock_%d" % (0 if h < 50 else 1 if h < 70 else 2 if h < 85 else 3 if h < 93 else 4)
-
-
-def arena_top(x, z):
-    d2 = x * x + z * z
-    k = math.isqrt(d2)
-    if d2 <= 5:
-        return "dais"
-    if k <= 35:
-        spoke = x == 0 or z == 0 or abs(x) == abs(z)
-        if k in (4, 12, 24):
-            return "gilded"
-        if k == 30 and spoke:
-            return "lantern"
-        return "floor"
-    if k <= 53:
-        age = 8 - (k - 36) // 2
-        return f"age_{age}" + ("_trim" if (k - 36) % 2 == 0 else "_stone")
-    return "rim"
-
-
-def arena_cells():
-    """GrandArenaPlan.cells(): {(x, y, z): key}, later entries overriding earlier ones."""
-    m = {}
-    for x in range(-ARENA_R, ARENA_R + 1):
-        for z in range(-ARENA_R, ARENA_R + 1):
-            if not in_disc(x, z):
-                continue
-            m[(x, ARENA_Y, z)] = arena_top(x, z)
-            k = math.isqrt(x * x + z * z)
-            depth = 3 + (ARENA_R - k) * 15 // ARENA_R + (x * 31 + z * 17) % 3
-            for dy in range(1, depth + 1):
-                m[(x, ARENA_Y - dy, z)] = arena_rock(x, ARENA_Y - dy, z)
-    for px, pz in POSTS:
-        m[(px, ARENA_Y + 1, pz)] = "post"
-        m[(px, ARENA_Y + 2, pz)] = "lantern"
-    for (ax, az), age in zip(ALTARS, ALTAR_AGES):
-        for dx in (-1, 0, 1):
-            for dz in (-1, 0, 1):
-                m[(ax + dx, ARENA_Y + 1, az + dz)] = f"socket_{age}"
-        m[(ax, ARENA_Y + 2, az)] = "arena_altar"
-    for x in range(-PLAT_HALF, PLAT_HALF + 1):
-        for z in range(PLAT_Z0, PLAT_Z1 + 1):
-            edge = abs(x) == PLAT_HALF or z == PLAT_Z1
-            m[(x, PLAT_Y, z)] = "platform_rim" if edge else "platform"
-            if in_disc(x, z):
-                for y in range(ARENA_Y + 1, PLAT_Y):
-                    m[(x, y, z)] = "wall"
-            else:
-                depth = 2 + min(PLAT_HALF - abs(x), PLAT_Z1 - z) // 2
-                for dy in range(1, depth + 1):
-                    m[(x, PLAT_Y - dy, z)] = arena_rock(x, PLAT_Y - dy, z)
-            if z == PLAT_Z0 and abs(x) > STAIR_HALF:
-                m[(x, PLAT_Y + 1, z)] = "platform_rim"
-    for j in range(1, STAIR_STEPS + 1):
-        z, y = PLAT_Z0 - j, PLAT_Y - j
-        for x in range(-STAIR_HALF, STAIR_HALF + 1):
-            m[(x, y, z)] = "stair"
-            for yy in range(ARENA_Y + 1, y):
-                m[(x, yy, z)] = "wall"
-        for sgn in (-1, 1):
-            for yy in range(ARENA_Y + 1, y + 2):
-                m[(sgn * (STAIR_HALF + 1), yy, z)] = "wall"
-    for y in range(PLAT_Y + 1, PLAT_Y + ARCH_HEIGHT):
-        m[(-ARCH_HALF, y, ARCH_Z)] = "arch_pillar"
-        m[(ARCH_HALF, y, ARCH_Z)] = "arch_pillar"
-    for x in range(-ARCH_HALF, ARCH_HALF + 1):
-        m[(x, PLAT_Y + ARCH_HEIGHT, ARCH_Z)] = "arch_lamp" if x == 0 else "arch_trim"
-    for i in range(9):
-        vx, vz = vitrine(i)
-        m[(vx, PLAT_Y + 1, vz)] = f"vitrine_base_{i}"
-        m[(vx, PLAT_Y + 2, vz)] = f"vitrine_glass_{i}"
-    return m
-
-
+# ---- the grand arena of The Origin: dev/origin_arena_plan.py mirrors mod/.../origin/GrandArenaPlan.java -------------
 def arena_counts():
-    counts = {}
-    for k in arena_cells().values():
-        counts[k] = counts.get(k, 0) + 1
-    counts = dict(sorted(counts.items()))
-    return {"radius": ARENA_R, "classic_radius": 20, "cells": sum(counts.values()), "counts": counts}
+    counts = arena_plan.counts()
+    walk = arena_plan.ascent_ok()
+    assert walk > 0, "the ascent of the grand arena is not walkable from the arrival point"
+    return {"radius": arena_plan.RADIUS, "classic_radius": 20, "cells": sum(counts.values()), "ascent_steps": walk,
+            "counts": counts}
 
 
 def all_files():

@@ -2,6 +2,13 @@
 
 Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## Unreleased
+
+### New and changed
+
+- **The Origin's arena is terrain now.** A new Origin's grand arena has a sink around the Gathering altar, a fighting ring with two trenches and bridges, three Age terraces, a rim with a parapet, a wreath of pillars and four towers, raised podiums under the four altars and six open domes to take cover in. You arrive on a platform far below and climb a winding ascent with two bridges and the nine relic vitrines up to the arch of the south gate. Every walkable block is consecrated. An Origin built by 1.2.0 keeps its flat arena (`/firmages origin rebuild` builds the new one).
+- **The Altar of the Four Winds has its own look:** night-blue stone with a gold frame and wind roses, lit when it burns.
+
 ## 1.2.0
 
 The third round of feedback: a grand arena for the finale, nights that grow worse with every Age, ruins on the Drifting Isles, life and wrecks in the ocean, the map fixed and a night sky behind every menu. **Client and server both need 1.2.0.** Your 1.1.0 world keeps working: an Origin generated before 1.2.0 keeps its classic arena; the isle ruins and ocean structures only appear in chunks generated from now on.

@@ -1672,6 +1672,95 @@ def _():
     return img
 
 
+# The Altar of the Four Winds (SPEC 39.1, round G4 textures): night-blue void stone with a gold frame; a wind rose on
+# every side, four small roses on the top (the four winds), lit gold when the altar burns.
+WIND_ROSE = [
+    "................",
+    ".......g........",
+    ".......g........",
+    "......ggg.......",
+    "...g..gGg..g....",
+    "....g.gGg.g.....",
+    ".....gGGGg......",
+    ".gggggGWGggggg..",
+    ".....gGGGg......",
+    "....g.gGg.g.....",
+    "...g..gGg..g....",
+    "......ggg.......",
+    ".......g........",
+    ".......g........",
+    "................",
+    "................",
+]
+SMALL_ROSE = [
+    "..g..",
+    ".gGg.",
+    "gGWGg",
+    ".gGg.",
+    "..g..",
+]
+
+
+def _four_winds_top(img, lit, oy=0):
+    """Four small wind roses in the corners, a ring in the middle."""
+    g, G, W = (("gold", 1), ("gold", 3), ("gold", 4)) if lit else (("navy", 4), ("star", 1), ("star", 3))
+    rows = ["." * 16 for _ in range(16)]
+    grid = [list(r) for r in rows]
+    for ox, oy2 in ((1, 1), (10, 1), (1, 10), (10, 10)):
+        for yy, row in enumerate(SMALL_ROSE):
+            for xx, ch in enumerate(row):
+                if ch != ".":
+                    grid[oy2 + yy][ox + xx] = ch
+    overlay(img, ["".join(r) for r in grid], legend(g=g, G=G, W=W), oy=oy)
+    ring = tones("gold")[3 if lit else 1]
+    px = img.load()
+    for x, y in ring_pixels(1.6, 2.6):
+        px[x, y + oy] = ring
+    return img
+
+
+@block("arena_altar_side", "altar of the four winds, side (wind rose)")
+def _():
+    img = new_tex()
+    noise_fill(img, "navy", seeded("arena_altar_side"), weights=(1, 4, 6, 2, 0), cluster=2)
+    bevel(img, "gold", light=3, dark=1, corner=2)
+    overlay(img, WIND_ROSE, legend(g=("gold", 1), G=("gold", 2), W=("gold", 4)))
+    return img
+
+
+@block("arena_altar_top", "altar of the four winds, top (four roses, dark)")
+def _():
+    img = new_tex()
+    noise_fill(img, "navy", seeded("arena_altar_top"), weights=(2, 4, 6, 2, 0), cluster=2)
+    bevel(img, "gold", light=3, dark=1, corner=2)
+    return _four_winds_top(img, False)
+
+
+@block("arena_altar_top_active", "altar of the four winds, top, lit (4 frames)", anim(5, True))
+def _():
+    frames = 4
+    img = new_tex(16 * frames)
+    for f in range(frames):
+        oy = 16 * f
+        noise_fill(img, "navy", seeded("arena_altar_top"), weights=(2, 4, 6, 2, 0), cluster=2, oy=oy)
+        bevel(img, "gold", light=3, dark=1, corner=2, oy=oy)
+        _four_winds_top(img, True, oy=oy)
+        px = img.load()
+        glow = tones("gold")[4 if f in (1, 2) else 3]
+        for x, y in ring_pixels(1.6, 2.6):
+            px[x, y + oy] = glow
+        px[7, 7 + oy] = px[8, 7 + oy] = px[7, 8 + oy] = px[8, 8 + oy] = (255, 255, 255, 255) if f == 2 else tones("gold")[4]
+    return img
+
+
+@block("arena_altar_bottom", "altar of the four winds, bottom")
+def _():
+    img = new_tex()
+    noise_fill(img, "navy", seeded("arena_altar_bottom"), weights=(2, 4, 6, 2, 0), cluster=2)
+    bevel(img, "navy")
+    return img
+
+
 # The island plinth of the Origin Archipelago (SPEC 31.8): the altar's void stone with a sprout on top (an island
 # that grows) and nine notches on the sides (the nine islands).
 ARK_SPROUT = [
@@ -3695,6 +3784,9 @@ MODEL_TEXTURES = {
                                  "top": B + "offering_plinth_top_awakened"},
     "origin_altar": {"side": B + "origin_altar_side", "top": B + "origin_altar_top",
                      "bottom": B + "origin_altar_bottom"},
+    "arena_altar": {"side": B + "arena_altar_side", "top": B + "arena_altar_top", "bottom": B + "arena_altar_bottom"},
+    "arena_altar_active": {"side": B + "arena_altar_side", "top": B + "arena_altar_top_active",
+                           "bottom": B + "arena_altar_bottom"},
     "ark_plinth": {"particle": B + "ark_plinth_side", "side": B + "ark_plinth_side", "top": B + "ark_plinth_top",
                    "bottom": B + "ark_plinth_bottom"},
     "reactor_controller": {"side": B + "reactor_controller_side", "top": B + "reactor_controller_top",
