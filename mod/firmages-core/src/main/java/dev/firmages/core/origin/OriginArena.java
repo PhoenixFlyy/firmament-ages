@@ -76,11 +76,11 @@ public final class OriginArena {
         return layout.dhd();
     }
 
-    /** The four fight altars of the grand arena (north, east, south, west); empty in a classic arena. */
+    /** The four fight altars of the grand arena (north, east, south, west) on their podiums; empty in a classic arena. */
     public static List<BlockPos> altars() {
         if (!layout.hasAltars()) return List.of();
         List<BlockPos> out = new java.util.ArrayList<>();
-        for (int[] a : GrandArenaPlan.ALTARS) out.add(new BlockPos(a[0], FLOOR_Y + 2, a[1]));
+        for (int[] a : GrandArenaPlan.ALTARS) out.add(new BlockPos(a[0], GrandArenaPlan.ALTAR_Y, a[1]));
         return out;
     }
 
@@ -175,8 +175,9 @@ public final class OriginArena {
     }
 
     /**
-     * The grand arena (round G3, SPEC §16.5): every cell of {@link GrandArenaPlan}, the Gathering altar in the centre and
-     * the islands. Sets every block (a new Origin, {@code origin rebuild}).
+     * The grand arena (rounds G3 and G4, SPEC §16.5): every cell of {@link GrandArenaPlan} (the terraced disc, the altar
+     * podiums, domes, towers, the arrival platform far below and the ascent), the Gathering altar in the centre and the
+     * islands. Sets every block (a new Origin, {@code origin rebuild}).
      */
     public static void buildGrand(ServerLevel level) {
         long t0 = System.nanoTime();
@@ -193,31 +194,22 @@ public final class OriginArena {
         FirmagesCore.LOGGER.info("The Origin: grand arena (radius {}) built, {} blocks, in {} ms", GrandArenaPlan.RADIUS, n, (System.nanoTime() - t0) / 1_000_000);
     }
 
-    /** The block state of a {@link GrandArenaPlan} material key. */
+    /**
+     * The block state of a {@link GrandArenaPlan} material key: {@code rock_N} mixed rock, {@code dais}, {@code lantern},
+     * {@code arena_altar}, else {@code <role>_<accent>} of the consecrated family.
+     */
     public static BlockState grandState(String key) {
         if (key.startsWith("rock_")) return ROCK[Integer.parseInt(key.substring(5))];
-        if (key.startsWith("age_")) {
-            int age = key.charAt(4) - '0';
-            return ShrineRegistry.consecrated(key.endsWith("_trim") ? Consecration.Role.TRIM : Consecration.Role.STONE, age);
+        switch (key) {
+            case "dais": return Blocks.CRYING_OBSIDIAN.defaultBlockState();
+            case "lantern": return Blocks.SEA_LANTERN.defaultBlockState();
+            case "arena_altar": return OriginRegistry.ARENA_ALTAR.get().defaultBlockState();
+            default: break;
         }
-        if (key.startsWith("socket_")) return ShrineRegistry.consecrated(Consecration.Role.BRICK, Integer.parseInt(key.substring(7)));
-        if (key.startsWith("vitrine_base_")) return ShrineRegistry.consecrated(Consecration.Role.PILLAR, Integer.parseInt(key.substring(13)));
-        if (key.startsWith("vitrine_glass_")) return ShrineRegistry.consecrated(Consecration.Role.GLASS, Integer.parseInt(key.substring(14)));
-        return switch (key) {
-            case "dais" -> Blocks.CRYING_OBSIDIAN.defaultBlockState();
-            case "floor", "platform" -> Blocks.POLISHED_DEEPSLATE.defaultBlockState();
-            case "gilded" -> Blocks.GILDED_BLACKSTONE.defaultBlockState();
-            case "lantern" -> Blocks.SEA_LANTERN.defaultBlockState();
-            case "rim", "wall", "platform_rim" -> Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState();
-            case "post" -> Blocks.CHISELED_POLISHED_BLACKSTONE.defaultBlockState();
-            case "stair" -> Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS.defaultBlockState()
-                .setValue(net.minecraft.world.level.block.StairBlock.FACING, net.minecraft.core.Direction.SOUTH);
-            case "arena_altar" -> OriginRegistry.ARENA_ALTAR.get().defaultBlockState();
-            case "arch_pillar" -> ShrineRegistry.consecrated(Consecration.Role.PILLAR, Consecration.MAX_ACCENT);
-            case "arch_trim" -> ShrineRegistry.consecrated(Consecration.Role.TRIM, Consecration.MAX_ACCENT);
-            case "arch_lamp" -> ShrineRegistry.consecrated(Consecration.Role.LAMP, Consecration.MAX_ACCENT);
-            default -> throw new IllegalArgumentException("unknown grand arena material " + key);
-        };
+        int us = key.lastIndexOf('_');
+        Optional<Consecration.Role> role = us > 0 ? Consecration.Role.byId(key.substring(0, us)) : Optional.empty();
+        if (role.isEmpty()) throw new IllegalArgumentException("unknown grand arena material " + key);
+        return ShrineRegistry.consecrated(role.get(), Integer.parseInt(key.substring(us + 1)));
     }
 
     private static BlockState floor(int x, int z, double d) {

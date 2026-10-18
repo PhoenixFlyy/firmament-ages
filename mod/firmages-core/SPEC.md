@@ -903,37 +903,54 @@ the Gathering sink 1 G FE, the Ultimate Singularity 2 G FE; the DE reactor band 
 - **Summon:** the core itself, `BossEvents` on `OriginEvent.Gathering` and `OriginEvent.SummonBoss` (§16.3); `/summon firmages:primordial ~ ~ ~ {PartySize:n}` works too (0 or absent: the players present at birth). Config: `[boss]` in `firmages-server.toml` (`effectiveHealth`, `perPlayerFactor`, `veilFactor`, `enrageMinutes`, `starfallEnrageMinutes`, `wipeSeconds`); the Gathering itself keeps `origin.gatherRadius`, `origin.gatherIdleMinutes` and `origin.gatherCooldownSeconds`.
 - **Tests:** G `BossGameTests` (phases and lanterns, veil and keel window, per-attacker damage and pool, shatter, finale through the tag, `summonedFightIsWonByScaledDamage`: `/firmages origin fight` without a script, party size from the two players present, every hit loses exactly the scaled amount and stops at the phase floor, the players' last hit grants `finale_won`; home, leftovers, GeckoLib asset parse), G `OriginGameTests` (the Gathering and `origin fight` wake it, §16.3), U `OriginSpawnListTest`.
 
-### 16.5 The grand arena (round G3, Felix A1B and A2e, 2026-10-18)
+### 16.5 The grand arena (round G3, Felix A1B and A2e; terrain and ascent round G4, 2026-10-18)
 
 - **Layout per world (`origin/OriginLayout`, `OriginSavedData` `layout`):** an Origin generated before round G3 (arena
   version above 0, no stored layout) keeps the classic arena of §16.2 for good; an Origin generated since is `grand`
   (`GrandArenaPlan.isGrand`, U `GrandArenaPlanTest.oldWorldsKeepTheClassicArena`). No migration touches a played
-  arena (like `migrateDhdCore`, only new generation changes). `OriginArena.radius()`, `arrival()`, `gateOrigin()`,
+  arena (like `migrateDhdCore`, only new generation changes): a world whose grand arena was built by 1.2.0 keeps that
+  flat G3 arena until an operator runs `origin rebuild`. `OriginArena.radius()`, `arrival()`, `gateOrigin()`,
   `gateBase()`, `dhd()`, `islandTop(i)` and `altars()` follow the layout (`OriginService.ensureBuilt` sets it at start).
-- **Geometry (`origin/GrandArenaPlan`, pure Java, integer arithmetic):** radius 60 at y 64, three times the classic 20.
-  Inner fighting floor to radius 35 (polished deepslate, gilded blackstone at 4, 12 and 24, sea lanterns on the eight
-  spokes at 30), nine two-block bands of the consecrated family from 36 to 53, one per shrine Age, Age 0 outermost and
-  Age 8 innermost (inner row trim, outer row stone; the Archipelago's materials from outside in), an open rim of
-  polished blackstone bricks from 54 to 60 with eleven chiseled lantern posts (every 30 degrees, the south one left
-  out) and the void beyond; the rock cone below is 3 to 20 deep. The Gathering altar stays at (0, 65, 0) on the
-  crying-obsidian dais. The islands move out by 50 blocks (95 to 125 from the centre).
-- **Arrival (A2e):** a raised platform in the south (x -12..12, z 57..84, y 72, polished deepslate with a rim, a rock
-  cone below) carries Stargate Journey's pedestal gate (template origin (-3, 72, 68): gate base (0, 74, 77), DHD
-  (0, 73, 71), facing north over the arena); `origin tp` puts players at (0, 73, 62). An arch of the consecrated
-  family in the Quantum accent (pillars, a trim lintel, a lamp keystone; the family's last accent, unbreakable, no
-  loot) stands over the head of an 11-wide stair of seven steps down to the floor at z 49. Nine vitrines (a
-  consecrated pillar and a consecrated glass cell in the Age's accent, x -10 for Ages 0..4, x 10 for 5..8) hold the
-  Ages' relics: `origin/OriginRelics`, item displays of the signature items of `offerings.json` inside the glass
-  (fixed UUID per Age, tag `firmages.origin_relic`, scale 0.6, full bright, turning like the echoes), no item frame,
-  nothing to take.
-- **Blocks:** 115,320 cells (`dev/data/origin_arena.json`, written by `python dev/gen_ark.py`, which mirrors the plan;
-  `--check` compares). U `GrandArenaPlanTest` (counts of the Java plan = the file, layout facts); G
-  `ArenaGameTests.grandArenaMatchesThePlan` (a new GameTest world is grand; every cell of the plan stands in the built
-  Origin, the gate pedestal and dark lanterns aside; fight altars, Gathering altar, arrival, islands beyond the
-  rim; one relic per signature item, never twice). Built once in about a second at the first start.
-- **Nine Lights:** `ArenaLights` scans the world's radius, so the grand arena's spoke and post lanterns go out in phase
-  2 and 3 as before. The boss's leash (24), its spawn guard and the wipe radius (48) are unchanged; star-falls land
-  within the world's radius.
+- **Geometry (`origin/GrandArenaPlan`, pure Java, integer arithmetic; mirror `dev/origin_arena_plan.py`):** radius 60,
+  three times the classic 20, a terraced disc around the Gathering altar, which stays at (0, 65, 0) on the crying-obsidian
+  dais (the boss reads `OriginArena.ALTAR` and hovers over it, §39). From the centre out: the **sink** (radius 13, y 64;
+  rings of consecrated metal at 4 and 12, sea lanterns on the eight spokes at 12), two steps (14 and 15), the **fighting
+  ring** (16..35, y 67; a metal ring at 24, spoke lanterns at 30) with two **trenches** three deep on the north-east and
+  south-west diagonal wedges (rings 20..22) and a trim bridge over each on the diagonal, three **Age terraces** (36..41
+  y 68, 42..47 y 69, 48..53 y 70; two rings per shrine Age, Age 8 innermost, Age 0 outermost, trim row inside, stone row
+  outside), the **rim** (54..60, y 71) with a parapet on 59..60, merlons on 60, a wreath of 18 consecrated pillars at
+  56 (every 20 degrees, five high with a lit lamp, accents 0..8 in turn; the south one left out for the gate), four
+  3-by-3 towers on the diagonals (eight high, trim cap, lamp) and the void beyond; the rock cone below the sink level is
+  3 to 20 deep as before. Four **altar podiums** 16 blocks out (north Age 0, east 3, south 6, west 8): 5 by 5 at y 68,
+  3 by 3 at y 69, the `arena_altar` at y 70 (`GrandArenaPlan.ALTAR_Y`). Six **open domes** of diameter 7 on the ring at
+  distance 29 (every 60 degrees from 30 on, Ages 1, 2, 4, 5, 7, 3): a two-high brick wall ring with four doorways on
+  the axes and slits in the upper row, a trim cap at y 70 with an oculus (3 high, so the boss's hover and the
+  projectiles clear them). The islands move out by 50 blocks (95 to 125 from the centre).
+- **Materials:** every walkable block is of the consecrated family (§17; unbreakable, no loot): stone, brick, trim,
+  metal, pillar, lamp and glass with the Age accent (`<role>_<accent>` keys, accent 8 for the Origin's own floors). Only
+  the dais (crying obsidian), the sea lanterns and the rock of the undersides are vanilla.
+- **Arrival (A2e, G4: from below):** the arrival platform lies 37 blocks under the rim in the south (x -10..10, z 78..98,
+  y 34, a stone rim with four lamp posts, a rock cone below) and carries Stargate Journey's pedestal gate (template
+  origin (-3, 34, 84): gate base (0, 36, 93), DHD (0, 35, 87), facing north); `origin tp` puts players at (0, 35, 81).
+  The **ascent** (`GrandArenaPlan.ASCENT`, eight segments, three wide with an edge row and a trim rail on each side,
+  accents 0..6 along the way): flight 1a west (16 cells, one block up per two), bridge 1 over the void (6 cells, no
+  support), flight 1b west, flight 2 north, flight 3a east, bridge 2, flight 3b east and a level approach at x -1..1
+  that meets the rim at z 60 under an **arch** (consecrated pillars at x +-4, z 58, y 72..78, a trim lintel with a lamp
+  keystone at y 79). The parapet is cut at x -1..1. Nine **vitrines** stand on the edge rows of the flights (a consecrated
+  pillar with a consecrated glass cell in the Age's accent, `GrandArenaPlan.vitrine(i)` = the glass cell) and hold the
+  Ages' relics: `origin/OriginRelics`, item displays of the signature items of `offerings.json` inside the glass (fixed
+  UUID per Age, tag `firmages.origin_relic`, scale 0.6, full bright, turning like the echoes), nothing to take.
+- **Blocks:** 168,787 cells (`dev/data/origin_arena.json`, written by `python dev/gen_ark.py` from
+  `dev/origin_arena_plan.py`; `--check` compares; `ascent_steps` 98 is the walk from the arrival point to the rim).
+  U `GrandArenaPlanTest` (counts of the Java plan = the file, layout facts, heights, `ascentIsWalkable`: a breadth-first
+  walk over the plan with steps of at most one up or down reaches the rim); G `ArenaGameTests.grandArenaMatchesThePlan`
+  (a new GameTest world is grand; every cell of the plan stands in the built Origin, the gate pedestal and dark lanterns
+  aside; fight altars on their podiums, Gathering altar, arrival on the platform, islands beyond the rim; one relic per
+  signature item, never twice) and `ascentIsWalkable` (the same walk over the built world, as long as the plan's).
+  Preview: `python dev/gen_arena_preview.py` draws the plan to `dev/quest-preview/origin_arena.png`.
+- **Nine Lights:** `ArenaLights` scans the world's radius at y 64..66, so the sink's spoke lanterns go out in phase 2
+  and 3; the ring lanterns at y 67 and the consecrated lamps stay lit. The boss's leash (24), its spawn guard and the wipe
+  radius (48) are unchanged; star-falls land within the world's radius.
 
 ### 16.6 The Origin's sky by phase (round G3, Felix A2a)
 

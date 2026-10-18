@@ -38,7 +38,7 @@ public final class OriginRelics {
     /** The glass cell of vitrine {@code i}. */
     public static BlockPos position(int i) {
         int[] v = GrandArenaPlan.vitrine(i);
-        return new BlockPos(v[0], GrandArenaPlan.PLATFORM_Y + 2, v[1]);
+        return new BlockPos(v[0], v[1], v[2]);
     }
 
     /** Spawns missing relics and turns the others. @return the relics present */

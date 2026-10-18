@@ -28,20 +28,53 @@ class GrandArenaPlanTest {
     @Test
     void layoutFacts() {
         Map<Long, String> m = GrandArenaPlan.cells();
-        assertEquals("floor", m.get(GrandArenaPlan.pack(20, 64, 0)), "fighting floor");
-        assertEquals("age_0_stone", m.get(GrandArenaPlan.pack(0, 64, -53)), "the outermost band is the Stone Age");
-        assertEquals("age_8_trim", m.get(GrandArenaPlan.pack(0, 64, -36)), "the innermost band is the Quantum Age");
-        assertEquals("rim", m.get(GrandArenaPlan.pack(-58, 64, 0)));
+        assertEquals("brick_8", m.get(GrandArenaPlan.pack(8, 64, 0)), "the sink floor");
+        assertEquals("dais", m.get(GrandArenaPlan.pack(0, 64, 0)));
+        assertEquals("stone_8", m.get(GrandArenaPlan.pack(20, 67, 0)), "the fighting ring three above the sink");
+        assertEquals("stone_0", m.get(GrandArenaPlan.pack(0, 70, -53)), "the outermost terrace is the Stone Age");
+        assertEquals("trim_8", m.get(GrandArenaPlan.pack(0, 68, -36)), "the innermost terrace is the Quantum Age");
+        assertEquals("brick_8", m.get(GrandArenaPlan.pack(-58, 71, 0)), "the rim");
+        assertEquals("brick_8", m.get(GrandArenaPlan.pack(-59, 72, 0)), "the parapet");
+        assertTrue(!m.containsKey(GrandArenaPlan.pack(0, 72, 59)), "the parapet is cut at the south gate");
         assertEquals(4, m.values().stream().filter("arena_altar"::equals).count());
-        assertEquals(9, m.values().stream().filter(v -> v.startsWith("vitrine_glass_")).count());
-        // the stair: the last step sits one above the floor next to it, the platform 8 above the floor
-        assertEquals("stair", m.get(GrandArenaPlan.pack(0, 65, 50)));
-        assertEquals("stair", m.get(GrandArenaPlan.pack(0, 71, 56)));
-        assertEquals("platform", m.get(GrandArenaPlan.pack(0, 72, 62)));
-        assertTrue(!m.containsKey(GrandArenaPlan.pack(0, 65, 49)), "the floor in front of the stair is open");
+        assertEquals("arena_altar", m.get(GrandArenaPlan.pack(0, GrandArenaPlan.ALTAR_Y, -16)), "the altar on its podium");
+        assertEquals("brick_0", m.get(GrandArenaPlan.pack(2, 68, -16)), "the podium's lower step");
+        assertEquals(9, m.values().stream().filter(v -> v.startsWith("glass_")).count());
+        // trench and bridge on the north-east diagonal
+        assertEquals("brick_8", m.get(GrandArenaPlan.pack(18, 64, -10)), "the trench floor");
+        assertTrue(!m.containsKey(GrandArenaPlan.pack(18, 67, -10)), "the trench is open");
+        assertEquals("trim_8", m.get(GrandArenaPlan.pack(15, 67, -15)), "the bridge over it");
+        // the platform far below and the ascent's first and last cells
+        assertEquals("brick_8", m.get(GrandArenaPlan.pack(0, GrandArenaPlan.PLATFORM_Y, 81)), "the platform under the arrival");
+        assertEquals("brick_0", m.get(GrandArenaPlan.pack(-1, 35, 76)), "the first step of the ascent");
+        assertEquals("trim_0", m.get(GrandArenaPlan.pack(-20, 42, 76)), "the first bridge");
+        assertTrue(!m.containsKey(GrandArenaPlan.pack(-20, 41, 76)), "nothing under the bridge");
+        assertEquals("brick_6", m.get(GrandArenaPlan.pack(0, 71, 61)), "the approach ends level with the rim");
+        for (int i = 0; i < 9; i++) {
+            int[] v = GrandArenaPlan.vitrine(i);
+            assertEquals("glass_" + i, m.get(GrandArenaPlan.pack(v[0], v[1], v[2])), "vitrine " + i);
+            assertEquals("pillar_" + i, m.get(GrandArenaPlan.pack(v[0], v[1] - 1, v[2])), "vitrine pillar " + i);
+        }
         for (long p : new long[] {GrandArenaPlan.pack(-60, 64, 0), GrandArenaPlan.pack(3, -7, -60)}) {
             assertEquals(p, GrandArenaPlan.pack(GrandArenaPlan.unpackX(p), GrandArenaPlan.unpackY(p), GrandArenaPlan.unpackZ(p)));
         }
+    }
+
+    /** From the arrival point the rim is reached on foot: a step of at most one up or down, never a jump of two. */
+    @Test
+    void ascentIsWalkable() {
+        int steps = GrandArenaPlan.planWalkToRim();
+        assertTrue(steps > 80 && steps < 140, "a path from the platform to the rim, " + steps + " steps");
+    }
+
+    /** The boss's and the sky's reading of the arena: the Gathering altar's floor and the podium heights. */
+    @Test
+    void heights() {
+        assertEquals(64, GrandArenaPlan.FLOOR_Y);
+        assertEquals(70, GrandArenaPlan.ALTAR_Y);
+        assertEquals(71, GrandArenaPlan.RIM_Y);
+        assertEquals(34, GrandArenaPlan.PLATFORM_Y);
+        assertEquals(37, GrandArenaPlan.RIM_Y - GrandArenaPlan.PLATFORM_Y, "the climb");
     }
 
     /** An Origin built before round G3 keeps the classic arena; a new one is grand; a stored choice stays. */

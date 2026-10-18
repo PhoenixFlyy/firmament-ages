@@ -154,7 +154,9 @@ public final class ArenaGameTests {
         ok(h, checked > 100_000, "the whole plan was checked: " + checked);
         for (BlockPos a : OriginArena.altars()) ok(h, o.getBlockState(a).is(OriginRegistry.ARENA_ALTAR.get()), "fight altar at " + a.toShortString());
         ok(h, o.getBlockState(OriginArena.ALTAR).is(OriginRegistry.ORIGIN_ALTAR.get()), "the Gathering altar in the centre");
-        ok(h, o.getBlockState(OriginArena.arrival().below()).is(Blocks.POLISHED_DEEPSLATE), "arrival on the platform");
+        ok(h, o.getBlockState(OriginArena.arrival().below()) == OriginArena.grandState("brick_8"), "arrival on the platform");
+        ok(h, OriginArena.arrival().getY() == GrandArenaPlan.PLATFORM_Y + 1 && OriginArena.altars().get(0).getY() == GrandArenaPlan.ALTAR_Y,
+            "the arrival far below, the altars on their podiums");
         ok(h, o.getBlockState(OriginArena.islandTop(0)).isSolid() && OriginArena.islandTop(0).getX() > GrandArenaPlan.RADIUS,
             "the islands lie beyond the arena");
         // relics: one per signature item, once
@@ -169,7 +171,7 @@ public final class ArenaGameTests {
         OriginRelics.tick(o);
         h.startSequence()
             .thenWaitUntil(() -> {
-                List<Display.ItemDisplay> relics = o.getEntitiesOfClass(Display.ItemDisplay.class, new AABB(-12, 70, 55, 13, 80, 85),
+                List<Display.ItemDisplay> relics = o.getEntitiesOfClass(Display.ItemDisplay.class, new AABB(-46, 30, 60, 6, 76, 80),
                     d -> d.getTags().contains(OriginRelics.TAG));
                 if (relics.size() != expected) {
                     OriginRelics.tick(o);
@@ -178,6 +180,21 @@ public final class ArenaGameTests {
             })
             .thenExecute(() -> release(o, relicChunks))
             .thenSucceed();
+    }
+
+    /** The ascent in the built world: from the arrival point a walker reaches the rim with steps of at most one (G4). */
+    @GameTest(template = "empty", batch = "firmages_6_arena_plan", timeoutTicks = 600)
+    public static void ascentIsWalkable(GameTestHelper h) {
+        ServerLevel o = origin(h);
+        BlockPos a = OriginArena.arrival();
+        ok(h, o.getBlockState(a).isAir() && o.getBlockState(a.above()).isAir() && !o.getBlockState(a.below()).isAir(), "the arrival point stands free");
+        java.util.Map<Long, Boolean> solid = new java.util.HashMap<>();
+        int steps = GrandArenaPlan.walkToRim(p -> solid.computeIfAbsent(p, k -> !o.getBlockState(BlockPos.of(k)).isAir()),
+            new int[] {a.getX(), a.getY(), a.getZ()});
+        ok(h, steps > 80 && steps < 140, "a path from the platform to the rim, " + steps + " steps");
+        int plan = GrandArenaPlan.planWalkToRim();
+        ok(h, steps == plan, "the built ascent walks like the plan: " + steps + " vs " + plan);
+        h.succeed();
     }
 
     /** A right click with an empty hand channels an altar for 3 s; walking off ends it; a full hand does nothing. */
