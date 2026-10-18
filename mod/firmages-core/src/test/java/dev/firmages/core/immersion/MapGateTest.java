@@ -74,4 +74,15 @@ class MapGateTest {
         assertNull(MapGate.minimapTarget(true, false, false), "another mod switched it off: left alone");
         assertNull(MapGate.minimapTarget(true, true, false), "open and on");
     }
+
+    @Test
+    void splashIsMarkedBeforeTheFullMapOpens() {
+        // G3: cancelling the splash closed the full map (UIManager.open closes the current screen first), so M did nothing
+        assertTrue(MapGate.splashPending(null, "1.21.1-6.0.9"), "never viewed");
+        assertTrue(MapGate.splashPending("", "1.21.1-6.0.9"), "empty");
+        assertTrue(MapGate.splashPending("1.21.1-6.0.8", "1.21.1-6.0.9"), "older version");
+        assertFalse(MapGate.splashPending("1.21.1-6.0.9", "1.21.1-6.0.9"), "viewed");
+        assertFalse(MapGate.splashPending(null, null), "no version");
+        assertTrue(MapGate.screenBlocked(MapGate.SPLASH, true), "the splash itself stays blocked");
+    }
 }

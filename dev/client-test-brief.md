@@ -1,5 +1,17 @@
 # Client-Test
 
+## G3 Checkliste (Runde G3, 2026-10-18)
+
+| # | Was | Wie | Erwartet |
+|---|---|---|---|
+| 1 | Karte auf M | Eisenzeit Survival und Kreativ, M zweimal | Vollkarte öffnet und bleibt offen (kein Info-Fenster), zweites M schließt |
+| 2 | Radar | Eisenzeit, Tiere, Mobs, zweiter Spieler | Minimap und Vollkarte zeigen alle samt Spielernamen |
+| 3 | Something Unknown | Bronzezeit, Mekanism-Item in Truhe, am Boden (Jade), im Item-Rahmen, `[item]` im Chat | überall „Something Unknown“, keine Mod-Zeile; Kreativ zeigt Namen |
+| 4 | TabTPS | Tab halten | Fußzeile Ping, TPS, MSPT, Speicher; keine Koordinaten |
+| 5 | Menüs | Einzelspieler, Mehrspieler, Direktverbindung, Welt erstellen, Optionen samt Unterseiten, Ressourcenpakete, Pause, Laden | Sternbild-Hintergrund, Goldrahmen-Knöpfe, kein Logo; Mod-Fenster-Knöpfe ansehen (auch Goldrahmen) |
+| 6 | Resourcepacks | neues Profil, Optionen, Ressourcenpakete | aktiv: Mod Resources, Moonlight, AFC-Compat (2), Firmalife, TFC-ified Supplementaries, Darker Ropes |
+| 7 | Dusty Decorations | neues Profil, erster Start | kein „Updating to 2.0“-Fenster |
+
 ## 1.1.0 Checkliste (Runde G2, Pack 1.1.0, firmages-core 1.1.0, 2026-10-17)
 
 Die Client-Prüfungen der Runde G2 (Felix' zweite Rückmeldung). Neues Profil aus

@@ -38,6 +38,10 @@ Static proof for config/fancymenu/ (FancyMenu 3.9.14, Drippy 3.1.5, MC 1.21.1, N
   parser     no property line of a layout trips FancyMenu's PropertiesParser: it strips all whitespace from a line,
              opens a section when the result ends with "{" and closes one when it starts with "}", so a property
              whose value ends with "{" (or a value that continues on a line starting with "}") breaks the layout
+  backdrops  (G3) every screen in BACKDROP has a layout (identifier = FancyMenu's universal id) and is enabled in
+             customizablemenus.txt by its class; its menu_background equals the title's (same shader source and
+             settings), it has no wordmark or version line, and FancyMenu's global button style in options.txt uses
+             the title buttons' textures and label colours
   shader     the title menu_background is background_type = glsl with use_input = false; its inline_shader_source,
              decoded like PropertyContainer.deserializePropertyValue (%%!serialized_property_newline!%% -> line
              break), equals dev/title-shader/constellation.glsl, defines void mainImage(...) (Shadertoy entry point)
@@ -387,6 +391,76 @@ def check_loading(layouts, errors, notes, fancymenu_jar):
     notes.append(f"loading overlay: bar on game_loading_progress, memory line '{shown}' in {mem['width']}x{mem['height']}")
 
 
+# G3 (Felix): the title backdrop on every menu screen; universal id -> class (UniversalScreenIdentifierRegistry, javap
+# FancyMenu 3.9.14; key_binds_screen is registered there with KeyBindsList, the screen class is KeyBindsScreen).
+BACKDROP = {
+    "select_world_screen": "net.minecraft.client.gui.screens.worldselection.SelectWorldScreen",
+    "create_world_screen": "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen",
+    "edit_world_screen": "net.minecraft.client.gui.screens.worldselection.EditWorldScreen",
+    "experiments_screen": "net.minecraft.client.gui.screens.worldselection.ExperimentsScreen",
+    "edit_game_rules_screen": "net.minecraft.client.gui.screens.worldselection.EditGameRulesScreen",
+    "join_multiplayer_screen": "net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen",
+    "direct_join_server_screen": "net.minecraft.client.gui.screens.DirectJoinServerScreen",
+    "edit_server_screen": "net.minecraft.client.gui.screens.EditServerScreen",
+    "options_screen": "net.minecraft.client.gui.screens.options.OptionsScreen",
+    "video_settings_screen": "net.minecraft.client.gui.screens.options.VideoSettingsScreen",
+    "sound_options_screen": "net.minecraft.client.gui.screens.options.SoundOptionsScreen",
+    "controls_screen": "net.minecraft.client.gui.screens.options.controls.ControlsScreen",
+    "key_binds_screen": "net.minecraft.client.gui.screens.options.controls.KeyBindsScreen",
+    "mouse_settings_screen": "net.minecraft.client.gui.screens.options.MouseSettingsScreen",
+    "language_select_screen": "net.minecraft.client.gui.screens.options.LanguageSelectScreen",
+    "chat_options_screen": "net.minecraft.client.gui.screens.options.ChatOptionsScreen",
+    "skin_customization_screen": "net.minecraft.client.gui.screens.options.SkinCustomizationScreen",
+    "accessibility_options_screen": "net.minecraft.client.gui.screens.options.AccessibilityOptionsScreen",
+    "online_options_screen": "net.minecraft.client.gui.screens.options.OnlineOptionsScreen",
+    "pack_selection_screen": "net.minecraft.client.gui.screens.packs.PackSelectionScreen",
+    "connect_screen": "net.minecraft.client.gui.screens.ConnectScreen",
+    "level_loading_screen": "net.minecraft.client.gui.screens.LevelLoadingScreen",
+    "receiving_level_screen": "net.minecraft.client.gui.screens.ReceivingLevelScreen",
+    "generic_dirt_message_screen": "net.minecraft.client.gui.screens.GenericMessageScreen",
+    "generic_waiting_screen": "net.minecraft.client.gui.screens.GenericWaitingScreen",
+    "progress_screen": "net.minecraft.client.gui.screens.ProgressScreen",
+    "disconnected_screen": "net.minecraft.client.gui.screens.DisconnectedScreen",
+    "pause_screen": "net.minecraft.client.gui.screens.PauseScreen",
+}
+
+
+def check_backdrops(layouts, cm, errors):
+    _, tsecs = layouts.get("title_screen", (None, []))
+    tbg = next((d for n, d in tsecs if n == "menu_background"), None)
+    tbuttons = [d for n, d in tsecs if n == "vanilla_button" and d.get("is_hidden") != "true"]
+    if tbg is None or not tbuttons:
+        errors.append("backdrops: title layout has no menu_background or no restyled button")
+        return
+    for ident, cls in BACKDROP.items():
+        if not re.search(r"^" + re.escape(cls) + r" \{$", cm, re.M):
+            errors.append(f"customizablemenus.txt: {cls} not enabled")
+        if ident not in layouts:
+            errors.append(f"backdrops: no layout for {ident}")
+            continue
+        f, secs = layouts[ident]
+        bg = next((d for n, d in secs if n == "menu_background"), None)
+        if bg != tbg:
+            errors.append(f"{f.name}: menu_background differs from the title's")
+        for n, d in secs:
+            if d.get("instance_identifier") in ("fa_title_wordmark", "fa_title_version"):
+                errors.append(f"{f.name}: {d['instance_identifier']} belongs on the title screen only")
+        for d in secs:
+            if d[0] == "vanilla_button" and d[1].get("is_hidden") != "true":
+                for k in ("backgroundnormal", "backgroundhovered", "label_base_color", "label_hover_color"):
+                    if d[1].get(k) != tbuttons[0].get(k):
+                        errors.append(f"{f.name}: {d[1].get('instance_identifier')} {k} differs from the title buttons")
+    opts = (FM / "options.txt").read_text(encoding="utf-8")
+    want = {"global_button_background_normal": tbuttons[0].get("backgroundnormal"),
+            "global_button_background_hover": tbuttons[0].get("backgroundhovered"),
+            "global_button_label_base_color": tbuttons[0].get("label_base_color"),
+            "global_button_label_hover_color": tbuttons[0].get("label_hover_color")}
+    for k, v in want.items():
+        m = re.search(rf"^S:{k} = '([^']*)';$", opts, re.M)
+        if not m or m[1] != v:
+            errors.append(f"fancymenu/options.txt: {k} = {m[1] if m else None!r}, expected {v!r} (title buttons)")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--jar", type=Path, default=None, help="FancyMenu 3.9.14 jar to cross-check the KNOWN ids")
@@ -437,6 +511,7 @@ def main():
     check_files(layouts, errors)
     check_parser(layouts, errors)
     check_title_shader(layouts, errors, notes)
+    check_backdrops(layouts, cm, errors)
 
     # firmages-core part of the hide list
     src = MENU_BUTTONS.read_text(encoding="utf-8")
