@@ -382,7 +382,7 @@ hash = "87c591731a4ea3bb00b9703ecaf84cdeaf29c2cf12fb3ed5ab3a927e44bf1218"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "50ccf350ab771a3ce061cc1fc0445d2b68b1919a3add0023d2be6f009f4a617f"
+hash = "166beb11a2ac38e049ce40bbffb87444ed3914f8d96d9a60c1cac5c691e20851"
 
 [[files]]
 file = "config/fml.toml"
@@ -5447,6 +5447,10 @@ hash = "3e90395e763ec9e5ed54f49698bdf9b3be8a8ae209103ce5635d7162b898d21a"
 [[files]]
 file = "kubejs/data/firmages/advancement/works/rope_bridges.json"
 hash = "ebcd99c07499312595c0952e34e953ebd950eba52b5e8d967bbc9a7ce5de8485"
+
+[[files]]
+file = "kubejs/data/firmages/balance/boss_shots.json"
+hash = "fc4197a5f23471e7f1b27dcb965450f4d894259727dc26075e45f7b305d5235f"
 
 [[files]]
 file = "kubejs/data/firmages/balance/fuels.json"
@@ -12152,8 +12156,8 @@ hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
 metafile = true
 
 [[files]]
-file = "mods/firmages-core-1.2.0.jar"
-hash = "5bbeeafb044c1404a443f35e6b459cd76751a1d85455b4616229c8092d828fa9"
+file = "mods/firmages-core-1.3.0.jar"
+hash = "5e8de31b7176f28c49bab637d3d418864a5c0246272a59742ce32a63a4a5cc7b"
 
 [[files]]
 file = "mods/firmalife.pw.toml"
