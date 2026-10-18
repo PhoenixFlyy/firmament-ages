@@ -397,10 +397,10 @@ def _at_least_two(names):
 # display), written by main() to kubejs/data/firmages/advancement/chronicle/.
 CHRONICLE_ADV_DIR = os.path.join(ROOT, 'kubejs', 'data', 'firmages', 'advancement', 'chronicle')
 CHRONICLE_ADVANCEMENTS = {
-    # "Knife and Hammer": a stone knife and a stone hammer, any rock group each
+    # "Knife and Hammer": a stone knife blade and a stone hammer head, any rock group each
     os.path.join(CHRONICLE_ADV_DIR, 'dawn_knife_hammer.json'): {
-        'criteria': {'knife': _inventory(['tfc:stone/knife/' + g for g in ROCK_GROUPS]),
-                     'hammer': _inventory(['tfc:stone/hammer/' + g for g in ROCK_GROUPS])},
+        'criteria': {'knife': _inventory(['tfc:stone/knife_head/' + g for g in ROCK_GROUPS]),
+                     'hammer': _inventory(['tfc:stone/hammer_head/' + g for g in ROCK_GROUPS])},
         'requirements': [['knife'], ['hammer']]},
     # "Seeds of the Wild": seeds of two different wild crops
     os.path.join(CHRONICLE_ADV_DIR, 'dawn_wild_seeds.json'): {
@@ -424,11 +424,11 @@ DAWN = age_chapter(
             sub='The prologue before the first Age',
             desc=['Begin with stone, straw and the hunt.',
                   '',
-                  'Five strands lead out of Dawn: Stone, Shelter, Hunt, Forage and Sky. Share them out.',
+                  'Four strands lead out of Dawn: Stone, Shelter, Hunt and Sky. Share them out.',
                   'Read "Hands and Keys" in The Firmament first.',
                   '',
                   'Nights are dark. Light a fire and make torches before the first one (see "Before Dark").',
-                  'When all five strands are done, the first fire opens the Stone Age for all of you.']),
+                  'When all four strands are done, the first fire opens the Stone Age for all of you.']),
     strands=[
         ('Stone', [
             Q('dawn/stone/sticks', 'A Bundle of Sticks', t_item('minecraft:stick', 8),
@@ -437,7 +437,8 @@ DAWN = age_chapter(
               rewards=[T('tfc:jute_fiber', 4)]),
             # G4 (rule C): the knife comes before the axe head, so "Thatch" (straw needs the knife) can wait for it.
             Q('dawn/stone/kit', 'Knife and Hammer',
-              t_chronicle('dawn_knife_hammer', 'A stone knife and a stone hammer'), icon='tfc:stone/knife/igneous_extrusive',
+              t_chronicle('dawn_knife_hammer', 'A stone knife blade and a stone hammer head'),
+              icon='tfc:stone/knife_head/igneous_extrusive',
               desc=['Knap a knife blade and a hammer head (see "Knapping Patterns") and craft each with a stick.',
                     'The knife cuts straw; the hammer splits logs.'],
               rewards=[T('minecraft:stick', 8), P('tfc:food/cooked_mutton', 2)]),
@@ -479,47 +480,34 @@ DAWN = age_chapter(
               icon='tfc:thatch', deps=['dawn/stone/kit'],
               desc=['Cut tall grass with a stone knife for straw. Lay four on one block, sneak and right-click the',
                     "pile: thatch, Dawn's one building block."],
-              rewards=[T('tfc:rope', 2), T('tfc:straw', 8)]),
+              rewards=[T('tfc:thatch', 28)]),
             Q('dawn/shelter/walls', 'Walls of Straw', t_item('tfc:thatch', 32), icon='tfc:thatch',
               desc=['Make 32 thatch, enough for walls and a roof. A hut of straw keeps the night out.'],
               rewards=[T('tfc:straw', 16), P('tfc:food/cooked_pork', 2)]),
+            # Felix 2026-10-18: the hunt for the bed's large hide sits between the walls and the bed.
+            Q('dawn/hunt/kill', 'Hunter',
+              [t_kill(tag='tfc:animals', value=3, title='Kill three wild animals'),
+               t_item('tfc:large_raw_hide', title='A large raw hide')],
+              icon='tfc:large_raw_hide',
+              desc=['Hunt three animals. Large prey drops the large hide that makes the thatch bed.'],
+              rewards=[P('tfc:food/cooked_pork', 4), T('tfc:rope', 2)]),
         ], Q('dawn/shelter/key', 'Shelter', t_observe('tfc:thatch_bed', title='Look at a finished thatch bed'),
              kind='keystone', icon='tfc:thatch_bed',
              desc=['Right-click two thatch blocks side by side with a large raw hide: a thatch bed.',
                    'It sets your spawn but does not skip the night.'],
              rewards=[T('tfc:thatch', 4), T('tfc:rope', 2)])),
-        ('Hunt', [
-            Q('dawn/hunt/javelin', 'A Stone Javelin',
+        ('Hunt', [], Q('dawn/hunt/javelin', 'A Stone Javelin',
               t_any_item(['tfc:stone/javelin/' + g for g in ROCK_GROUPS], 'Any stone javelin'),
               desc=['Knap a javelin head (see "Knapping Patterns") and craft it with a stick on the ground.',
                     'Throw it or stab with it.'],
-              icon='tfc:stone/javelin/sedimentary',
-              rewards=[P('tfc:food/cooked_venison', 2)]),
-        ], Q('dawn/hunt/kill', 'Hunter',
-             [t_kill(tag='tfc:animals', value=3, title='Kill three wild animals'),
-              t_item('tfc:large_raw_hide', title='A large raw hide')],
-             kind='keystone', icon='tfc:large_raw_hide',
-             desc=['Hunt three animals. Large prey drops the large hide that makes the thatch bed.'],
-             rewards=[P('tfc:food/cooked_pork', 4), T('tfc:rope', 2), P('tfc:stone/javelin/igneous_extrusive')])),
-        ('Forage', [
-            Q('dawn/forage/harvest', 'Wild Harvest', t_any_item(WILD_CROP_FOOD, 'Food from any wild crop'),
-              icon='tfc:food/carrot',
-              desc=['Gather the food of a wild crop. Wild grain and roots ripen in summer, hidden in the tall grass.'],
-              rewards=[P('tfc:food/cooked_chicken', 2)]),
-            Q('dawn/forage/seeds', 'Seeds of the Wild', t_chronicle('dawn_wild_seeds', 'Seeds of two different wild crops'),
-              icon='tfc:seeds/barley',
-              desc=['Break wild crops for their seeds. Seeds of two different crops are the start of a field.'],
-              rewards=[P('tfc:food/cooked_pork', 3)]),
-        ], Q('dawn/forage/key', 'The Larder', t_any_item(WILD_CROP_FOOD, 'Twelve of one wild crop', count=12),
-             kind='keystone', icon='tfc:food/potato',
-             desc=["Gather twelve of one wild crop's food. A full larder carries the fellowship into the Stone Age."],
-             rewards=[P('tfc:food/cooked_venison', 4), T('tfc:jute_fiber', 8)])),
+              kind='keystone', icon='tfc:stone/javelin/sedimentary',
+              rewards=[P('tfc:food/cooked_venison', 2)])),
         ('Sky', [
             # Vanilla stat walk_one_cm: walking on the ground, not sprinting, crouching, swimming or riding
             # (Player.checkMovementStatistics). FTB Quests StatTask checks it every three ticks.
-            Q('dawn/sky/walk', 'Far from Home', t_stat('minecraft:walk_one_cm', 100000, 'Walk 1,000 blocks'),
+            Q('dawn/sky/walk', 'And I would walk 500 miles', t_stat('minecraft:walk_one_cm', 50000, 'Walk 500 blocks'),
               icon='minecraft:leather_boots',
-              desc=['Walk 1,000 blocks in all; sprinting does not count. Keep your eyes on the land as you go.'],
+              desc=['Walk 500 blocks in all; sprinting does not count. Keep your eyes on the land as you go.'],
               rewards=[P('tfc:food/cooked_beef', 3)]),
         ], # The tutorial Wayshrine (firmages-core SPEC 28.4a): a forest_ring ruin placed by code 300 to 800 blocks from
            # the world spawn on a new world, every block a Dawn block, the ruin's faint beam drawn from the start (28.8).
@@ -537,9 +525,26 @@ DAWN = age_chapter(
                  'sticks and some straw on one block and hold right-click on it with the firestarter until the',
                  'firepit lights.',
                  '',
+                 'To relight a burnt-out firepit, put a log in its top fuel slot and use the firestarter on it.',
+                 '',
                  'Fire opens the Stone Age for all of you.'],
            rewards=[T('minecraft:oak_log', 8), T('tfc:straw', 16), T('tfc:rope', 4), P('tfc:food/cooked_venison', 4)]),
     sides=[
+        # Forage (Felix 2026-10-18): an optional chain from the entry; nothing required waits for it.
+        ('dawn/entry', [
+            Q('dawn/forage/harvest', 'Wild Harvest', t_any_item(WILD_CROP_FOOD, 'Food from any wild crop'),
+              kind='side', icon='tfc:food/carrot',
+              desc=['Gather the food of a wild crop. Wild grain and roots ripen in summer, hidden in the tall grass.'],
+              rewards=[P('tfc:food/cooked_chicken', 2)]),
+            Q('dawn/forage/seeds', 'Seeds of the Wild', t_chronicle('dawn_wild_seeds', 'Seeds of two different wild crops'),
+              kind='side', icon='tfc:seeds/barley',
+              desc=['Break wild crops for their seeds. Seeds of two different crops are the start of a field.'],
+              rewards=[P('tfc:food/cooked_pork', 3)]),
+            Q('dawn/forage/key', 'The Larder', t_any_item(WILD_CROP_FOOD, 'Twelve of one wild crop', count=12),
+             kind='side', icon='tfc:food/potato',
+             desc=["Gather twelve of one wild crop's food. A full larder keeps the fellowship fed."],
+             rewards=[P('tfc:food/cooked_venison', 4), T('tfc:jute_fiber', 8)]),
+        ]),
         # The first night (More Darkness, no skipping bed): the firepit advancement also counts for the goal, which
         # still waits for the five keystones, so lighting it early changes nothing about the Age grant.
         ('dawn/stone/key', [
@@ -2484,10 +2489,9 @@ def guide_desc(n):
 # two lines cross more than validate_quests.py --style allows (LINE_LIMITS) and no line runs over a quest.
 LAYOUT_HINTS = {
     'dawn': dict(related={('Stone', 'Hunt'): 0.7, ('Stone', 'Shelter'): 0.5, ('Shelter', 'Hunt'): 0.6,
-                          ('Hunt', 'Forage'): 0.6, ('Forage', 'Sky'): 0.5, ('Shelter', 'Forage'): 0.3,
                           ('Stone', 'Sky'): 0.2, ('Hunt', 'Sky'): 0.3},
-                 style={'Stone': 'meander', 'Shelter': 'arc', 'Hunt': 'arc', 'Forage': 'arc', 'Sky': 'arc'},
-                 order=['Stone', 'Shelter', 'Forage', 'Sky', 'Hunt']),
+                 style={'Stone': 'meander', 'Shelter': 'arc', 'Hunt': 'arc', 'Sky': 'arc'},
+                 order=['Stone', 'Shelter', 'Sky', 'Hunt']),
     'stone': dict(related={('First Metal', 'Hearth & Shrine'): 0.9, ('Camp', 'First Metal'): 0.1,
                            ('Camp', 'Hearth & Shrine'): 0.2},
                   style={'First Metal': 'arc', 'Camp': 'circle', 'Hearth & Shrine': 'arc'},

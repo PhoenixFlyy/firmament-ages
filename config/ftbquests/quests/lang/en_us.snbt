@@ -1107,9 +1107,9 @@
 	quest.28A963AA218A4EE4.quest_subtitle: "Goal of the Iron Age: Caelum opens the Arcane Age"
 	quest.28A963AA218A4EE4.title: "Offer the Steel Heart at the Shrine"
 	quest.28C8DA2831BAE76D.quest_desc: [
-		"Walk 1,000 blocks in all; sprinting does not count. Keep your eyes on the land as you go."
+		"Walk 500 blocks in all; sprinting does not count. Keep your eyes on the land as you go."
 	]
-	quest.28C8DA2831BAE76D.title: "Far from Home"
+	quest.28C8DA2831BAE76D.title: "And I would walk 500 miles"
 	quest.28D435DE48DE8B96.quest_desc: [
 		"Set a splitter in the beam. It divides the light into up to four lines."
 	]
@@ -1955,9 +1955,9 @@
 	quest.49153BBE2AD958B7.quest_desc: [
 		"Begin with stone, straw and the hunt."
 		""
-		"Five strands lead out of Dawn: Stone, Shelter, Hunt, Forage and Sky. Share them out. Read \"Hands and Keys\" in The Firmament first."
+		"Four strands lead out of Dawn: Stone, Shelter, Hunt and Sky. Share them out. Read \"Hands and Keys\" in The Firmament first."
 		""
-		"Nights are dark. Light a fire and make torches before the first one (see \"Before Dark\"). When all five strands are done, the first fire opens the Stone Age for all of you."
+		"Nights are dark. Light a fire and make torches before the first one (see \"Before Dark\"). When all four strands are done, the first fire opens the Stone Age for all of you."
 	]
 	quest.49153BBE2AD958B7.quest_subtitle: "The prologue before the first Age"
 	quest.49153BBE2AD958B7.title: "Welcome to the Wild"
@@ -2476,7 +2476,7 @@
 	]
 	quest.623C908B3CDF2E3E.title: "Desh Plates"
 	quest.62A084197680E977.quest_desc: [
-		"Gather twelve of one wild crop's food. A full larder carries the fellowship into the Stone Age."
+		"Gather twelve of one wild crop's food. A full larder keeps the fellowship fed."
 	]
 	quest.62A084197680E977.title: "The Larder"
 	quest.62D59DF66CF4320C.quest_desc: [
@@ -2979,6 +2979,8 @@
 	quest.724BED62EE9DF8FB.quest_desc: [
 		"Lay two sticks on one block and sneak and right-click the pile: a firestarter. Throw a log, three sticks and some straw on one block and hold right-click on it with the firestarter until the firepit lights."
 		""
+		"To relight a burnt-out firepit, put a log in its top fuel slot and use the firestarter on it."
+		""
 		"Fire opens the Stone Age for all of you."
 	]
 	quest.724BED62EE9DF8FB.quest_subtitle: "Goal of Dawn: grants the Stone Age"
@@ -3312,7 +3314,7 @@
 	task.144EFC3999AA1F85.title: "Read the plan"
 	task.1655D67A968D0BA8.title: "The Hearthstone in hand"
 	task.16FDD9AB98818001.title: "Look at the heart with the Bronze Sanctum complete"
-	task.178BFF8572431A11.title: "Walk 1,000 blocks"
+	task.178BFF8572431A11.title: "Walk 500 blocks"
 	task.17B8CD9FF20237C3.title: "Copper wire"
 	task.17DC9CAF05E44B90.title: "Our cellar is stocked for the winter"
 	task.1919D8A975E4E560.title: "Seeds of two different wild crops"
@@ -3381,7 +3383,7 @@
 	task.3A2A187B984181EF.title: "SPS casings"
 	task.3B8BF5ADE31BDFC1.title: "White chalk"
 	task.3C99CD274D861CA0.title: "Wyvern injectors"
-	task.3D4C3FCC1674315A.title: "A stone knife and a stone hammer"
+	task.3D4C3FCC1674315A.title: "A stone knife blade and a stone hammer head"
 	task.3D8F0CE2AD688534.title: "The Steel Heart in hand"
 	task.3EA910EB828696C0.title: "Feed 1,024 osmium ingots into Tally Chutes"
 	task.3FBC56717A9E3565.title: "Bronze pickaxe"

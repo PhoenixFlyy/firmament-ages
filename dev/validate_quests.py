@@ -271,6 +271,9 @@ REWARD_BLOCKLIST = {'draconicevolution:chaos_shard', 'draconicevolution:large_ch
                     'draconicevolution:medium_chaos_frag', 'draconicevolution:small_chaos_frag'}
 # Never a reward of a Dawn chapter: the first torch is the work of "Before Dark" (decision log "Dawn ohne Fackel").
 DAWN_REWARD_BLOCKLIST = {'tfc:torch'}
+# Rewards that may pay more than a third of a later task (Felix's explicit choice): item ids.
+# tfc:thatch: "Thatch" rewards 28 thatch toward "Walls of Straw" (Felix 2026-10-18).
+REWARD_PAYS_AHEAD_OK = {'tfc:thatch'}
 PER_PLAYER_WEIGHT = 2   # a per-player reward counts for the smallest fellowship the pack is tuned for (2 to 4 players)
 
 
@@ -327,7 +330,7 @@ def check_reward_overlap(quests, chapters, chapter_age, offerings, E):
             if road and src:
                 E('chapters/%s quest %s: Side Roads task %s is paid by %s' % (
                     cname, q, iid, ', '.join('chapters/%s quest %s' % (rc, rq) for rq, n, rc in src)))
-            elif 3 * head > need:
+            elif 3 * head > need and iid not in REWARD_PAYS_AHEAD_OK:
                 E('chapters/%s quest %s: task %s x%d gets %d from rewards of quests that are not its descendants (%s), '
                   'more than a third' % (cname, q, iid, need, head,
                                          ', '.join('%s/%s x%d' % (rc, rq, n) for rq, n, rc in src
@@ -1053,11 +1056,12 @@ def main():
             if len(goals) != 1:
                 E('chapters/%s: %d goal quests, expected exactly 1' % (cname, len(goals)))
             # 3-5 strands: from the Iron Age a Sky strand teaches the celestial alloys (V4A, review fix 0.12.0); up to
-            # six side missions: the Proof of Work quests of the Industrial to the Quantum Age join them
+            # six side missions: the Proof of Work quests of the Industrial to the Quantum Age join them; seven in
+            # Dawn, whose Forage chain became optional (Felix 2026-10-18)
             if not 3 <= len(keys) <= 5:
                 E('chapters/%s: %d keystones (required strands), expected 3-5' % (cname, len(keys)))
-            if not 2 <= len(sides) <= 6:
-                E('chapters/%s: %d side missions, expected 2-6' % (cname, len(sides)))
+            if not 2 <= len(sides) <= (7 if stage == 'dawn' else 6):
+                E('chapters/%s: %d side missions, expected 2-%d' % (cname, len(sides), 7 if stage == 'dawn' else 6))
             for s in sides + kinds.get('explain', []):
                 if not s.get('optional'):
                     E('chapters/%s: side/explanation quest %s is not optional' % (cname, s['id']))
