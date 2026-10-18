@@ -79,7 +79,7 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 <!-- credits:start -->
 
-Firmament Ages 1.4.0 contains 273 mods. Thank you to every author.
+Firmament Ages 1.4.1 contains 273 mods. Thank you to every author.
 
 - **"To the Bat Poles!"** by EnderLanky ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/to-the-bat-poles))
 - **[NoCube's] Explore: TFC Ruins - Structures for TerraFirmaCraft** by NoCube ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/tfc-ruins))
@@ -252,6 +252,7 @@ Firmament Ages 1.4.0 contains 273 mods. Thank you to every author.
 - **Just Enough Immersive Multiblocks** by aronson_1 ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/just-enough-immersive-multiblocks))
 - **Just Enough Items (JEI)** by mezz ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/jei))
 - **Just Enough Mekanism Multiblocks** by gisellevonbingen ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/just-enough-mekanism-multiblocks))
+- **Just Zoom** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/just-zoom))
 - **KleeSlabs** by BlayTheNinth ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/kleeslabs))
 - **Konkrete** by Keksuccino ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/konkrete))
 - **Kotlin for Forge** by thedarkcolour ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/kotlin-for-forge))
@@ -299,7 +300,6 @@ Firmament Ages 1.4.0 contains 273 mods. Thank you to every author.
 - **Not Enough Animations** by tr7zw ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/not-enough-animations))
 - **Occultism** by kli_kli ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/occultism))
 - **Occultism KubeJS** by kli_kli, MaxNeedsSnacks ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/occultism-kubejs))
-- **Ok Zoomer - It's Zoom!** by Ennui, Up ([Modrinth](https://modrinth.com/mod/ok-zoomer))
 - **Packet Fixer** by TonimatasDEV ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/packet-fixer))
 - **Particle Rain** by PigCart ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/particle-rain))
 - **Patchouli** by Vazkii ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/patchouli))

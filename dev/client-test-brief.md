@@ -1,5 +1,17 @@
 # Client-Test
 
+## 1.4.1 Checkliste (Pack 1.4.1, firmages-core 1.4.0, 2026-10-18)
+
+Die neueste offene Liste; die 1.4.0-Zeilen darunter gelten weiter, ihre Zeile 2 (Zoom auf C) ersetzt diese Liste. Neues Profil aus
+`dev/exports/FirmamentAges-1.4.1.mrpack` (oder der CurseForge-Zip), Server aus dem Ordner `FirmamentAges-Server-1.4.1`.
+Tastenbelegung gilt nur für ein frisches Profil (Default Options schreibt `keybindings.txt` nur ohne `options.txt`).
+
+| # | Was | Wie | Erwartet |
+|---|---|---|---|
+| 1 | Zoom in Dawn | frische Welt, in Dawn Y (deutsche Tastatur, GLFW Z) halten, dabei Mausrad | Just Zoom zoomt weich, Mausrad ändert die Stärke, kein HUD, keine Hand, kein Fernrohr-Rand, kein Toast „Press … to open the zoom options“ |
+| 2 | Fernrohr | ab seiner Age ein Fernrohr benutzen | Fernrohr-Rand und -Geräusch, Mausrad zoomt weiter |
+| 3 | Ars- und Psi-Tasten | Steuerung öffnen, ab `age_3` Zauberbuch in der Hand | C öffnet das Ars-Buch, X nächster und Shift+X vorheriger Slot, Psi auf Alt+P; keine rote Doppelbelegung auf Z, C oder X |
+
 ## 1.4.0 Checkliste (Pack 1.4.0, firmages-core 1.4.0, 2026-10-18)
 
 Die neueste offene Liste; die 1.3.0- und 1.2.0-Zeilen darunter gelten weiter. Neues Profil aus

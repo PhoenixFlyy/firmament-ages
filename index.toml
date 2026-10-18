@@ -110,7 +110,7 @@ hash = "22b2ba8d527037ce1f8f0ee24677d8d519cda586564ac0c03523517bcec35fcb"
 
 [[files]]
 file = "config/bcc-common.toml"
-hash = "53b58a3ad1e3d95adf4c7cf006e0396350ac13870b261840dbabecccf5865a18"
+hash = "1b5c5e51dc7d9843c0303f32a1de559347fe4f1a8583897db138da22d900a328"
 
 [[files]]
 file = "config/brandon3055/DraconicAdditions.cfg"
@@ -186,7 +186,7 @@ hash = "5868f972e3d32de91fda224402a07ae78ac32bc1e69f2a14afd341ec3c894e07"
 
 [[files]]
 file = "config/defaultoptions/keybindings.txt"
-hash = "043e48977cf42f3a5c54dd12bd11a577e729a78d768d452fe12b15d291551c56"
+hash = "03b4fd7d5717afaedb8c13128598e5cb4fd3476aa0d714433756dd014f3c3123"
 
 [[files]]
 file = "config/defaultoptions/options.txt"
@@ -370,7 +370,7 @@ hash = "1ded61ab7c558465c5ca6d23884572a2b6948949bc69fde6a12d45ee44c68720"
 
 [[files]]
 file = "config/fancymenu/customization/title_screen_layout.txt"
-hash = "8eb313a20d42081f81a5780632ce7bf013f7b2d254049a38652fd6d9b453dedf"
+hash = "cbcc089e955c65e96ba4a63c8fca9247c9e014d5f02592937caafeff98171441"
 
 [[files]]
 file = "config/fancymenu/customization/video_settings_screen_layout.txt"
@@ -539,6 +539,10 @@ hash = "bbbe37be0a43648724ab55c2defa7ea3e5883b5312f102e0cf5e57ca0e9ca038"
 [[files]]
 file = "config/jei/client/default/jei-mod-id-format.ini"
 hash = "cb630b2561ab3c192709d34f00e1535a483fc8873bd17f6309218722aa5a3a5f"
+
+[[files]]
+file = "config/justzoom/config.json"
+hash = "b7b8847d8048ac4cfacedcb1878f05664c2ce9ba9b0919799cb38ad10e9606ab"
 
 [[files]]
 file = "config/lithium.properties"
@@ -991,6 +995,10 @@ hash = "b40b1b4c8925aac88ca4f5bccf3fb65cf72846e12590c7b04cd7fbcf0852ac70"
 [[files]]
 file = "journeymap/server/6.0/journeymap.server.global.config"
 hash = "a714c2c64d496a9f1e84164bd2390d0095637ae844854c099fe75503e8fee35c"
+
+[[files]]
+file = "justzoom_instance_data/persistence_data.json"
+hash = "4bc3fa413c4508f4680d8d2a3c4b1d95338b5eae23a759d7fc4e6fe93124a9a0"
 
 [[files]]
 file = "kubejs/assets/certain_questing_additions/chapter_shaders.json"
@@ -12345,6 +12353,11 @@ hash = "bbb880e43d194d68b3cd5916e7eb8886f3b15ba8a79845ff57f8492a37bcff6e"
 metafile = true
 
 [[files]]
+file = "mods/just-zoom.pw.toml"
+hash = "68ebb7a8ec29b5a349199531238e945e9ef2515a65e438c22d547725fa9f23c5"
+metafile = true
+
+[[files]]
 file = "mods/kleeslabs.pw.toml"
 hash = "ae8c2feb4f1731d7ddfcd0be96b5d6483a6cdc6f8afac9a810494fe167f884af"
 metafile = true
@@ -12572,11 +12585,6 @@ metafile = true
 [[files]]
 file = "mods/occultism.pw.toml"
 hash = "0f50947005dda918ee83c306efd22a2af5dae9c4325cbc089f439e13ca9be97a"
-metafile = true
-
-[[files]]
-file = "mods/ok-zoomer.pw.toml"
-hash = "413494b5ba534461e22545173a8cc6e98b04962a0ee9514498b830b99d4acabe"
 metafile = true
 
 [[files]]

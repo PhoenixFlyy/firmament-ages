@@ -30,10 +30,10 @@ key_key.jetpack.toggle_active.description:key.keyboard.j
 key_key.jetpack.toggle_hover.description:key.keyboard.j:ALT
 key_create_mobile_packages.keyinfo.open_portable_stock_ticker:key.keyboard.g:ALT
 key_create_mobile_packages.keyinfo.open_player_networks_screen:key.keyboard.unknown
-key_key.ars_nouveau.open_book:key.keyboard.c:ALT
+key_key.ars_nouveau.open_book:key.keyboard.c
 key_key.ars_nouveau.selection_hud:key.keyboard.v:ALT
 key_key.ars_nouveau.next_slot:key.keyboard.x
-key_key.ars_nouveau.previous_slot:key.keyboard.z
+key_key.ars_nouveau.previous_slot:key.keyboard.x:SHIFT
 key_key.ars_nouveau.open_documentation:key.keyboard.unknown
 key_key.createbigcannons.pitch_mode:key.keyboard.unknown
 key_key.draconicevolution.tool_config:key.keyboard.unknown
@@ -62,5 +62,5 @@ key_iris.keybind.shaderPackSelection:key.keyboard.o
 key_iris.keybind.wireframe:key.keyboard.unknown
 key_key.emotecraft.fastchoose:key.keyboard.y
 key_psimisc.keybind:key.keyboard.p:ALT
-key_key.wi_zoom.zoom:key.keyboard.c
-key_key.ok_zoomer.zoom:key.keyboard.c
+key_justzoom.keybinds.keybind.zoom:key.keyboard.z
+key_justzoom.keybinds.keybind.open_options:key.keyboard.unknown

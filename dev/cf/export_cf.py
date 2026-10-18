@@ -36,11 +36,9 @@ RECOMMENDED_RAM_MB = 8192
 # a server that runs the packwiz server pack; a CurseForge single-player world has no banner flags.
 MODRINTH_ONLY = {"banner-flags.pw.toml"}
 # Modrinth metafiles whose mod is replaced by a different CurseForge mod in the upload (metafile in dev/cf/replace/).
-# Ok Zoomer (1.4.0): All Rights Reserved and not on CurseForge, so its jar must not go into overrides/; the CurseForge
-# upload carries WI Zoom (CF 349630, file 6288498) instead, which CurseForge clients download themselves. Both zoom
-# keys default to C (config/defaultoptions/keybindings.txt) and both mods are exempt in dev/gen_key_gates.py.
+# 1.4.1: empty; Just Zoom (zoom on Z) is a CurseForge mod for both platforms, so WI Zoom and Ok Zoomer are gone.
 REPLACE_DIR = ROOT / "dev" / "cf" / "replace"
-REPLACE = {"ok-zoomer.pw.toml": "wi-zoom.pw.toml"}
+REPLACE: dict[str, str] = {}
 
 
 def set_recommended_ram(zip_path: Path, mb: int) -> dict:

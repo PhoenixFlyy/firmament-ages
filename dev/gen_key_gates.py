@@ -87,8 +87,7 @@ EXEMPT = {
     "emotecraft": "cosmetic emotes (round G2, branch g2/anim): the emote wheel key.emotecraft.fastchoose on Y and "
                   "key.emotecraft.stop are there in every Age",
     "notenoughanimations": "cosmetic animations, client only (round G2, branch g2/anim)",
-    "wi_zoom": "client tool (Felix 2026-10-18): zoom key.wi_zoom.zoom on C in every Age (CurseForge upload only, replaces Ok Zoomer there)",
-    "ok_zoomer": "client tool (Felix 2026-10-18): zoom key.ok_zoomer.zoom on C in every Age (replaced WI Zoom, no third-party download)",
+    "justzoom": "client tool (Felix 2026-10-18, 1.4.1): zoom justzoom.keybinds.keybind.zoom on Z in every Age, also the spyglass zoom (Just Zoom on CurseForge and Modrinth)",
     "jade": "own gate: Jade's overlay by Age (SPEC 18.3)",
     "emi": "own gate: the recipe viewer by Age (SPEC 18.3, 21.3)",
     "jei": "own gate: JEI's recipe screen shuts with EMI's (SPEC 18.3, 21.3)",

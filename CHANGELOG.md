@@ -2,6 +2,15 @@
 
 Newest version on top; a CurseForge upload takes the newest section. The log reaches back to 0.5.0, the first release candidate, which was never published.
 
+## 1.4.1
+
+A small client update. **Client and server should both update to 1.4.1;** firmages-core stays 1.4.0 and your 1.4.0 world keeps working.
+
+### New and changed
+
+- **Zoom on Z** (Y on German keyboards) with Just Zoom on every platform, from Dawn on; the mouse wheel changes the zoom while you hold it, and the spyglass zooms the same way. Just Zoom replaces WI Zoom and Ok Zoomer.
+- **Ars Nouveau** opens its book on C again; its previous-slot key moved from Z to Shift+X. Psi stays on Alt+P, because C is the Ars book.
+
 ## 1.4.0
 
 A small round: a clearer pause menu, zoom from the start, a reworked Dawn and a darker Origin arena. **Client and server both need 1.4.0.** Your 1.3.0 world keeps working; an Origin built before 1.4.0 keeps its old arena look until an operator runs `/firmages origin rebuild`.
