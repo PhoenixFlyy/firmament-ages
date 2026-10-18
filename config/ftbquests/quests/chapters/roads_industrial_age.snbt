@@ -783,7 +783,7 @@
 			}
 			dependencies: ["2D59040C3939B766"]
 			icon: {
-				id: "advancedtfctech:pirn"
+				id: "advancedtfctech:power_loom"
 			}
 			id: "2CBF6F7478F86FD5"
 			optional: true
@@ -825,7 +825,7 @@
 			}
 			dependencies: ["2CBF6F7478F86FD5"]
 			icon: {
-				id: "advancedtfctech:pirn"
+				id: "advancedtfctech:grist_mill"
 			}
 			id: "0C3426C69CCC9AFB"
 			optional: true
@@ -867,7 +867,7 @@
 			}
 			dependencies: ["0C3426C69CCC9AFB"]
 			icon: {
-				id: "advancedtfctech:pirn"
+				id: "advancedtfctech:beamhouse"
 			}
 			id: "0EEEF839B7D015F2"
 			optional: true

@@ -26,7 +26,7 @@
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:2CBD5C8E76F766A8"
+			click_action: "open_quest:077BFA2D599B1A4B"
 			color: 16777215
 			height: 3.36d
 			id: "1A7DB444C6B25DF5"
@@ -1063,14 +1063,14 @@
 		}
 		{
 			dep_control_pts: {
-				188B8BAD88328299: [
-					-13.512d
-					-0.279d
-					-12.84d
-					-1.005d
+				33BEA94E7673D21D: [
+					-8.286d
+					1.971d
+					-9.719d
+					-0.079d
 				]
 			}
-			dependencies: ["188B8BAD88328299"]
+			dependencies: ["33BEA94E7673D21D"]
 			id: "216ADE120332EDCD"
 			rewards: [
 				{
@@ -1274,6 +1274,15 @@
 					id: "7D84FBB687A46412"
 					item: {
 						count: 1
+						id: "occultism:book_of_binding_bound_djinni"
+					}
+					type: "item"
+				}
+				{
+					consume_items: false
+					id: "4F8B333F49F12B2B"
+					item: {
+						count: 1
 						id: "firmages:arcane_keystone"
 					}
 					type: "item"
@@ -1318,6 +1327,15 @@
 				{
 					consume_items: false
 					id: "25160AD2BEFD5C46"
+					item: {
+						count: 1
+						id: "create:mechanical_press"
+					}
+					type: "item"
+				}
+				{
+					consume_items: false
+					id: "2172401C3BC47969"
 					item: {
 						count: 1
 						id: "firmages:arcane_keystone"
@@ -1386,6 +1404,22 @@
 			tasks: [
 				{
 					id: "3522DB90824FEBF5"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=3,ready=true]"
+					type: "observation"
+				}
+				{
+					consume_items: false
+					id: "65CB4A33AF150AF7"
+					item: {
+						count: 1
+						id: "firmages:arcane_keystone"
+					}
+					type: "item"
+				}
+				{
+					id: "2F1001072FE512B4"
 					stage: "age_4"
 					type: "gamestage"
 				}
@@ -1510,41 +1544,6 @@
 			]
 			x: -17.0d
 			y: 2.75d
-		}
-		{
-			dependencies: ["188B8BAD88328299"]
-			hide_dependency_lines: true
-			icon: {
-				id: "ars_nouveau:sourcestone"
-			}
-			id: "6281CB502F09533D"
-			optional: true
-			rewards: [
-				{
-					count: 6
-					id: "2AA8240402488B6B"
-					item: {
-						count: 1
-						id: "firmages:lantern/arcane"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["ring"]
-			tasks: [
-				{
-					id: "7DE98C1EB81384D1"
-					observation_type: "block_state"
-					timer: 0L
-					to_observe: "firmages:shrine_heart[awakened=3,ready=true]"
-					type: "observation"
-				}
-			]
-			x: -7.8d
-			y: 0.2d
 		}
 	]
 	tags: ["age_3"]

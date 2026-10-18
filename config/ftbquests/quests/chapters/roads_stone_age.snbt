@@ -537,7 +537,7 @@
 			}
 			dependencies: ["5BCEF3BCCD6A832E"]
 			icon: {
-				id: "minecraft:oak_sapling"
+				id: "tfc:wood/sapling/oak"
 			}
 			id: "3544B98B44E7DD28"
 			optional: true

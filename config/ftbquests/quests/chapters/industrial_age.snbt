@@ -26,7 +26,7 @@
 		}
 		{
 			alpha: 255
-			click_action: "open_quest:16D1C406E00151F0"
+			click_action: "open_quest:663A4EAE1B3FAF8C"
 			color: 16777215
 			height: 3.36d
 			id: "135B23363A221BA7"
@@ -125,7 +125,7 @@
 			}
 			dependencies: ["15E3FB7395A86F61"]
 			icon: {
-				id: "immersiveengineering:cokebrick"
+				id: "immersiveengineering:coke_oven"
 			}
 			id: "4D59CA22796434A3"
 			rewards: [
@@ -200,7 +200,7 @@
 			}
 			dependencies: ["3AA65FA513DA3CEC"]
 			icon: {
-				id: "immersiveengineering:blastbrick"
+				id: "immersiveengineering:blast_furnace"
 			}
 			id: "4EAD51182D51E618"
 			rewards: [
@@ -274,7 +274,7 @@
 			}
 			dependencies: ["6C89D8CCD3EEFE88"]
 			icon: {
-				id: "immersiveengineering:blastbrick_reinforced"
+				id: "immersiveengineering:advanced_blast_furnace"
 			}
 			id: "5B849EF8FE147622"
 			rewards: [
@@ -682,7 +682,7 @@
 			}
 			dependencies: ["5F74A3FDB04E14F6"]
 			icon: {
-				id: "immersiveengineering:heavy_engineering"
+				id: "immersiveengineering:crusher"
 			}
 			id: "6F0E9B4D0BD4227A"
 			rewards: [
@@ -775,7 +775,7 @@
 			}
 			dependencies: ["1BDF51DA8C6CA794"]
 			icon: {
-				id: "immersiveengineering:alloybrick"
+				id: "immersiveengineering:alloy_smelter"
 			}
 			id: "79BD86B5CD663079"
 			rewards: [
@@ -1044,7 +1044,7 @@
 			}
 			dependencies: ["1BDBAA8EB6E2DA83"]
 			icon: {
-				id: "advancedtfctech:pirn"
+				id: "advancedtfctech:thresher"
 			}
 			id: "124DDC9853158E78"
 			rewards: [
@@ -1082,7 +1082,7 @@
 			}
 			dependencies: ["124DDC9853158E78"]
 			icon: {
-				id: "create:package_frogport"
+				id: "tfc:metal/sheet/steel"
 			}
 			id: "40FA4C9F6A00F51F"
 			rewards: [
@@ -1330,6 +1330,22 @@
 			tasks: [
 				{
 					id: "5EE1D4B01D9C11FE"
+					observation_type: "block_state"
+					timer: 0L
+					to_observe: "firmages:shrine_heart[awakened=4,ready=true]"
+					type: "observation"
+				}
+				{
+					consume_items: false
+					id: "2BD8B771914A4B83"
+					item: {
+						count: 1
+						id: "firmages:pressure_core"
+					}
+					type: "item"
+				}
+				{
+					id: "1D4453057E7F637C"
 					stage: "age_5"
 					type: "gamestage"
 				}
@@ -1611,41 +1627,6 @@
 			]
 			x: -17.4d
 			y: 2.95d
-		}
-		{
-			dependencies: ["5F74A3FDB04E14F6"]
-			hide_dependency_lines: true
-			icon: {
-				id: "immersiveengineering:cokebrick"
-			}
-			id: "3F916E93EBA922A5"
-			optional: true
-			rewards: [
-				{
-					count: 6
-					id: "7FFA69E114544271"
-					item: {
-						count: 1
-						id: "firmages:lantern/industrial"
-					}
-					team_reward: true
-					type: "item"
-				}
-			]
-			shape: "diamond"
-			size: 1.25d
-			tags: ["ring"]
-			tasks: [
-				{
-					id: "7E630C4FA5596BD2"
-					observation_type: "block_state"
-					timer: 0L
-					to_observe: "firmages:shrine_heart[awakened=4,ready=true]"
-					type: "observation"
-				}
-			]
-			x: -7.8d
-			y: 0.2d
 		}
 	]
 	tags: ["age_4"]

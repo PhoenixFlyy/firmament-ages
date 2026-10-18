@@ -22,7 +22,7 @@
 			rotation: 0.0d
 			width: 8.0d
 			x: 0.0d
-			y: -7.628571428571428d
+			y: -7.828571428571428d
 		}
 	]
 	order_index: 0
@@ -58,10 +58,10 @@
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-10.032d
-					-1.979d
-					-8.032d
-					-4.438d
+					-10.549d
+					-0.235d
+					-10.17d
+					-1.186d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
@@ -89,71 +89,19 @@
 					type: "item"
 				}
 			]
-			x: -5.9d
-			y: -5.6d
+			x: -9.8d
+			y: -2.05d
 		}
 		{
 			dep_control_pts: {
 				0ABF4F27145CD228: [
-					-4.019d
-					-5.587d
-					-2.48d
-					-4.714d
+					-8.523d
+					-2.084d
+					-7.407d
+					-1.328d
 				]
 			}
 			dependencies: ["0ABF4F27145CD228"]
-			icon: {
-				id: "tfc:stone/axe/sedimentary"
-			}
-			id: "6522D484BFB67425"
-			rewards: [
-				{
-					count: 4
-					id: "0A1C6E5A16CDFFA9"
-					item: {
-						count: 1
-						id: "tfc:food/cooked_beef"
-					}
-					team_reward: false
-					type: "item"
-				}
-				{
-					id: "7C8FC042F160D35B"
-					item: {
-						count: 1
-						id: "tfc:stone/shovel/sedimentary"
-					}
-					team_reward: false
-					type: "item"
-				}
-			]
-			tasks: [
-				{
-					advancement: "tfc:story/find_rock"
-					criterion: ""
-					id: "0AA203CAB8D4A2D0"
-					type: "advancement"
-				}
-				{
-					advancement: "tfc:story/stone_age"
-					criterion: ""
-					id: "319476C720BB440C"
-					type: "advancement"
-				}
-			]
-			x: -1.4d
-			y: -5.05d
-		}
-		{
-			dep_control_pts: {
-				6522D484BFB67425: [
-					0.276d
-					-4.545d
-					1.682d
-					-5.171d
-				]
-			}
-			dependencies: ["6522D484BFB67425"]
 			icon: {
 				id: "tfc:stone/knife/igneous_extrusive"
 			}
@@ -188,21 +136,97 @@
 					type: "advancement"
 				}
 			]
-			x: 2.35d
-			y: -5.0d
+			x: -6.9d
+			y: -2.0d
 		}
 		{
 			dep_control_pts: {
 				21F5A752996C9586: [
-					4.151d
-					-3.724d
-					5.323d
-					-2.087d
+					-5.747d
+					-1.76d
+					-5.32d
+					-2.767d
 				]
 			}
 			dependencies: ["21F5A752996C9586"]
 			icon: {
-				id: "tfc:stone/axe_head/igneous_extrusive"
+				id: "tfc:stone/axe_head/sedimentary"
+			}
+			id: "6522D484BFB67425"
+			rewards: [
+				{
+					count: 4
+					id: "0A1C6E5A16CDFFA9"
+					item: {
+						count: 1
+						id: "tfc:food/cooked_beef"
+					}
+					team_reward: false
+					type: "item"
+				}
+				{
+					id: "7C8FC042F160D35B"
+					item: {
+						count: 1
+						id: "tfc:stone/shovel/sedimentary"
+					}
+					team_reward: false
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "0AA203CAB8D4A2D0"
+					item: {
+						count: 1
+						id: "tfc:stone/axe_head/igneous_extrusive"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "646F41B836DF159A"
+					item: {
+						count: 1
+						id: "tfc:stone/axe_head/igneous_intrusive"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "461660AC6F38FC0F"
+					item: {
+						count: 1
+						id: "tfc:stone/axe_head/metamorphic"
+					}
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "4532B87DBD48252B"
+					item: {
+						count: 1
+						id: "tfc:stone/axe_head/sedimentary"
+					}
+					optional_task: true
+					type: "item"
+				}
+			]
+			x: -5.0d
+			y: -3.2d
+		}
+		{
+			dep_control_pts: {
+				6522D484BFB67425: [
+					-3.645d
+					-2.561d
+					-2.962d
+					-2.236d
+				]
+			}
+			dependencies: ["6522D484BFB67425"]
+			icon: {
+				id: "tfc:stone/axe/igneous_extrusive"
 			}
 			id: "63A45BCAE3254E00"
 			rewards: [
@@ -238,19 +262,19 @@
 					type: "advancement"
 				}
 			]
-			x: 4.2d
-			y: -1.5d
+			x: -2.95d
+			y: -2.6d
 		}
 		{
 			dep_control_pts: {
-				49153BBE2AD958B7: [
-					-10.51d
-					-0.277d
-					-9.871d
-					-1.058d
+				21F5A752996C9586: [
+					-6.771d
+					-2.276d
+					-6.805d
+					-2.992d
 				]
 			}
-			dependencies: ["49153BBE2AD958B7"]
+			dependencies: ["21F5A752996C9586"]
 			icon: {
 				id: "tfc:thatch"
 			}
@@ -294,16 +318,16 @@
 					type: "item"
 				}
 			]
-			x: -9.45d
-			y: -1.95d
+			x: -7.0d
+			y: -4.15d
 		}
 		{
 			dep_control_pts: {
 				203071592A4D660A: [
-					-8.081d
-					-2.035d
-					-6.983d
-					-2.228d
+					-5.511d
+					-4.094d
+					-4.394d
+					-4.489d
 				]
 			}
 			dependencies: ["203071592A4D660A"]
@@ -344,16 +368,16 @@
 					type: "item"
 				}
 			]
-			x: -6.35d
-			y: -2.8d
+			x: -3.7d
+			y: -4.85d
 		}
 		{
 			dep_control_pts: {
 				2B261DA368AACAC7: [
-					-4.582d
-					-2.31d
-					-3.352d
-					-2.402d
+					-1.515d
+					-4.114d
+					0.391d
+					-3.862d
 				]
 			}
 			dependencies: ["2B261DA368AACAC7"]
@@ -395,8 +419,8 @@
 					type: "observation"
 				}
 			]
-			x: -2.95d
-			y: -2.6d
+			x: 0.65d
+			y: -3.25d
 		}
 		{
 			dep_control_pts: {
@@ -536,10 +560,10 @@
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-10.048d
-					-1.451d
-					-8.208d
-					-3.107d
+					-9.219d
+					-2.994d
+					-4.796d
+					-5.728d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
@@ -768,16 +792,16 @@
 					type: "item"
 				}
 			]
-			x: -6.55d
-			y: -4.2d
+			x: -1.3d
+			y: -5.8d
 		}
 		{
 			dep_control_pts: {
 				06A8D76480AD9075: [
-					-4.942d
-					-4.147d
-					-3.654d
-					-4.176d
+					0.531d
+					-5.244d
+					1.973d
+					-4.899d
 				]
 			}
 			dependencies: ["06A8D76480AD9075"]
@@ -805,16 +829,16 @@
 					type: "advancement"
 				}
 			]
-			x: -2.85d
-			y: -4.5d
+			x: 2.75d
+			y: -4.6d
 		}
 		{
 			dep_control_pts: {
 				7B69D13D449B33FD: [
-					-0.857d
-					-3.742d
-					0.912d
-					-3.698d
+					4.439d
+					-3.325d
+					5.525d
+					-1.758d
 				]
 			}
 			dependencies: ["7B69D13D449B33FD"]
@@ -1079,16 +1103,16 @@
 					type: "item"
 				}
 			]
-			x: 1.0d
-			y: -3.2d
+			x: 4.35d
+			y: -1.3d
 		}
 		{
 			dep_control_pts: {
 				49153BBE2AD958B7: [
-					-8.747d
-					4.002d
-					-3.297d
-					6.854d
+					-8.618d
+					4.198d
+					-2.595d
+					7.149d
 				]
 			}
 			dependencies: ["49153BBE2AD958B7"]
@@ -1116,21 +1140,21 @@
 					value: 100000
 				}
 			]
-			x: 0.35d
-			y: 5.0d
+			x: 1.15d
+			y: 4.9d
 		}
 		{
 			dep_control_pts: {
 				28C8DA2831BAE76D: [
-					2.252d
-					5.202d
-					4.021d
-					4.327d
+					3.004d
+					5.014d
+					4.692d
+					3.891d
 				]
 			}
 			dependencies: ["28C8DA2831BAE76D"]
 			icon: {
-				id: "firmages:wayshrine_stone"
+				id: "firmages:wayshrine_core"
 			}
 			id: "7F7FDC6BE3F8FE9F"
 			rewards: [
@@ -1167,16 +1191,16 @@
 					type: "observation"
 				}
 			]
-			x: 3.35d
-			y: 2.35d
+			x: 3.8d
+			y: 1.95d
 		}
 		{
 			dep_control_pts: {
 				153E204EC2BA3ACA: [
-					-0.458d
-					-0.801d
-					0.302d
-					0.419d
+					2.581d
+					-1.067d
+					1.502d
+					0.202d
 				]
 				4C78408E6835BC56: [
 					-0.458d
@@ -1185,22 +1209,22 @@
 					2.152d
 				]
 				62A084197680E977: [
-					2.889d
-					-0.973d
-					1.619d
-					0.219d
+					4.977d
+					1.348d
+					2.736d
+					0.852d
 				]
 				63A45BCAE3254E00: [
-					4.945d
-					1.171d
-					2.686d
-					0.786d
+					-0.458d
+					-0.801d
+					0.302d
+					0.419d
 				]
 				7F7FDC6BE3F8FE9F: [
-					4.607d
-					2.272d
-					2.402d
-					2.069d
+					4.817d
+					1.838d
+					2.552d
+					1.936d
 				]
 			}
 			dependencies: [
@@ -1287,10 +1311,10 @@
 		{
 			dep_control_pts: {
 				63A45BCAE3254E00: [
-					5.195d
-					-1.047d
-					5.829d
-					-0.981d
+					-2.284d
+					-2.759d
+					-2.001d
+					-3.293d
 				]
 			}
 			dependencies: ["63A45BCAE3254E00"]
@@ -1324,8 +1348,8 @@
 					type: "item"
 				}
 			]
-			x: 6.1d
-			y: -1.3d
+			x: -2.1d
+			y: -4.2d
 		}
 		{
 			dep_control_pts: {
@@ -1439,10 +1463,10 @@
 		{
 			dep_control_pts: {
 				28C8DA2831BAE76D: [
-					0.564d
-					5.925d
-					0.598d
-					6.475d
+					1.414d
+					5.842d
+					1.498d
+					6.392d
 				]
 			}
 			dependencies: ["28C8DA2831BAE76D"]
@@ -1474,8 +1498,8 @@
 					type: "advancement"
 				}
 			]
-			x: 0.45d
-			y: 6.65d
+			x: 1.4d
+			y: 6.55d
 		}
 		{
 			dependencies: ["49153BBE2AD958B7"]

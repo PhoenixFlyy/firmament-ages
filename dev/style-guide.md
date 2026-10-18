@@ -31,20 +31,22 @@ warum etwas gerade nicht geht. Das Skript prüft das nicht, nur von Hand.
 2. Höchstens drei Absätze. Wortgrenzen: Schritt und Nebenquest 25, Keystone, Hinweis (Zahnrad) und Ring 40,
    Eingang, Ziel und Welcome-Quest 70. Knapping-Raster (Verbatim-Zeilen aus `X` und `-`) zählen nicht, die Prosa
    drumherum schon; ein Absatz mit Raster und Überschrift zählt nicht als Absatz.
-   Bauanleitungen der Schreinringe (Tag `guide`, The Firmament) zählen je Seite (`{@pagebreak}`), bis 90 Wörter.
+   Beschreibungen mit Seitenumbrüchen (`{@pagebreak}`: die Ziele der Schrein-Ages und die Straßenmarkierungen in
+   The Firmament mit den Bauanleitungen der Ringe) zählen je Seite, bis 90 Wörter.
    Bildzeilen (`{image:...}`) und Seitenumbrüche zählen nie als Text.
    Ausnahme Lehrquest (bis 110 Wörter): die eine Stelle, an der eine Mechanik oder ein Bauplan erklärt wird, den kein
    Rezeptbetrachter zeigt. Die Liste steht in `STYLE_TEACHING` in `dev/validate_quests.py` (Knapping-Anleitung,
    Knapping-Muster, Herdkreis, Keystone-Leihe, Dreschmaschine, Feuer und Fackeln vor der ersten Nacht, Ton-Muster,
-   Steinzeit-Heim, Werkbank, Nether-Opfer, Bodenhandwerk ("By Hand"), Grubenofen, Kohlenmeiler, Gießen in die Form,
+   Steinzeit-Heim, Werkbank, Nether-Opfer, Tasten und Bodenhandwerk ("Hands and Keys"), Grubenofen, Kohlenmeiler, Gießen in die Form,
    Holzkohleschmiede), jede mit Grund. Neue Einträge nur mit Grund.
 3. Kein Rezept, das der Rezeptbetrachter zeigt. Ausnahmen: Dawn und Steinzeit (EMI erst ab der Bronzezeit,
    `ui.emiFromAge = age_1`) und die Opfergaben (ihre Zutaten sind die Checkliste der Stränge).
-4. Jede Mechanik wird an genau einer Stelle erklärt (Geistervorschau am Herz: "Raise the Shrine"; Gebet: Ziel der
-   Steinzeit; Leihe: "Awakened Keystone"). Sonst ein Halbsatz: "the heart shows what is missing", "The Wither drops
+4. Jede Mechanik wird an genau einer Stelle erklärt (Geistervorschau am Herz und Gebet: Ziel der Steinzeit; Leihe:
+   "Awakened Keystone"). Sonst ein Halbsatz: "the heart shows what is missing", "The Wither drops
    one too."
-5. Gleich gebaute Quests klingen gleich: alle Ziele "Craft ... / Raise ...; the heart shows what is missing. Lay ...
-   and pray. / Caelum keeps ... and opens ...". Eingänge heißen "The X Age Dawns" wie der Zeremonie-Titel.
+5. Gleich gebaute Quests klingen gleich: alle Ziele der Schrein-Ages haben drei Seiten (Rezept der Opfergabe mit dem
+   fertigen Ring; der Ring; Opfergabe, Zehnt und Ritus, "Caelum keeps ... and opens ..."), erzeugt von `shrine_goal`
+   in `dev/gen_quests.py`. Eingänge heißen "The X Age Dawns" wie der Zeremonie-Titel.
 6. Keine Erklärtexte (Felix 2026-10-17): wird ein Feature entfernt, ersetzt oder freigeschaltet, sagt der Text nichts
    dazu; Spieler entdecken selbst. Nicht: "the crafting grid (E) is open", "you can now ...", "No recipe viewer
    until ...", "X comes with the Iron Age", "the storage terminal retires". In-World-Lore ("Tin and zinc veins
