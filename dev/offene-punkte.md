@@ -12,6 +12,8 @@ Die neun Fragen von 1.0.0 und die Codes M1A, T1A und Q1A hat Felix am 2026-10-17
 
 | Was | Wo | Wer |
 |---|---|---|
+| G3 Arena: Welten, deren Origin vor Runde G3 erzeugt wurde, behalten die kleine Arena (Radius 20, ohne Altäre, Schild, Treppe, Vitrinen); nur eine neu erzeugte Origin bekommt die große (SPEC §16.5). Umstellen hieße `origin rebuild` nach Löschen der Origin-Region, nicht automatisch | `OriginLayout`, `OriginSavedData.layout` | Felix (Info) |
+| G3 Client-Prüfung: Arena-Größe (Radius 60, neun Age-Ringe), Ankunftsplattform mit Tor, Bogen, Treppe und Vitrinen, Altäre (Kanal 3 s, Blitz alle 20 s, Schild in Phase 2 und 3), Himmel je Phase (Sterne, Aurora, Finsternis mit kippendem Sternbild, Morgendämmerung; mit Iris nur Nebelfarbe) | SPEC §16.5, §16.6, §39.1 | Felix |
 | Dawn-Falle: wer in Dawn in ein Steinloch oder eine Höhle fällt, kommt ohne Erde, Sand, Kies oder Stämme im Inventar nicht heraus (Stein bricht in Dawn nicht, Klettern an Stein gibt es weder in Vanilla noch in TFC). Das galt wegen der Spitzhackenregel (Stein nur mit Spitzhacke, SPEC §19.2; in Dawn gibt es keine) schon vor 1.1.0, jetzt ausdrücklich durch die Dawn-Liste `#firmages:dawn_breakable` (SPEC §19.6). Optionen nach Ergebnis: **A** so lassen (Dawn bleibt streng: Erde oder Kies in der Hotbar tragen, sonst bleibt nur der Tod und der Respawn); **B** Stein bricht in Dawn mit der Hand, droppt aber nichts (Stufen schlagen geht, Steinmaterial gibt es weiter erst ab der Steinzeit). Prüfung: Zeile 23 der „1.1.0 Checkliste“ | `kubejs/data/firmages/tags/block/dawn_breakable.json` (`dev/gen_dawn_breakable.py`), firmages-core `ToolRule` | Felix |
 
 ## Bestehende Welten (Server)

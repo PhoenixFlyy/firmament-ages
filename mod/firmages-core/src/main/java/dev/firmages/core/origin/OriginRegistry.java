@@ -35,6 +35,11 @@ public final class OriginRegistry {
     public static final DeferredItem<BlockItem> ORIGIN_ALTAR_ITEM = ITEMS.register("origin_altar",
         () -> new BlockItem(ORIGIN_ALTAR.get(), new Item.Properties().rarity(Rarity.EPIC)));
 
+    /** The four fight altars of the grand arena (round G3, SPEC §39.1); no item, unbreakable, lit while active. */
+    public static final DeferredBlock<ArenaAltarBlock> ARENA_ALTAR = BLOCKS.register("arena_altar", () -> new ArenaAltarBlock(
+        BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(-1.0F, 3600000.0F).noLootTable()
+            .sound(SoundType.LODESTONE).lightLevel(s -> s.getValue(ArenaAltarBlock.ACTIVE) ? 15 : 6).pushReaction(PushReaction.BLOCK)));
+
     public static void register(IEventBus modBus) {
         BLOCKS.register(modBus);
         ITEMS.register(modBus);

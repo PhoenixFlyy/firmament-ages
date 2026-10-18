@@ -114,6 +114,11 @@ public final class BossGameTests {
 
     /** Hits {@code b} for {@code amount} as {@code p}. @return the health it lost (0 when the hit did not count) */
     private static float hit(PrimordialEntity b, ServerPlayer p, float amount) {
+        if (b.shielded() && b.level() instanceof ServerLevel sl) {
+            // round G3: the altar shield of the grand arena (SPEC §39.1) falls with the four altars lit
+            dev.firmages.core.boss.ArenaAltars.completeAll(sl);
+            b.fightStep();
+        }
         float before = b.getHealth();
         b.hurt(p.damageSources().playerAttack(p), amount);
         return before - b.getHealth();
@@ -318,11 +323,14 @@ public final class BossGameTests {
             DebugPlayerCommands.despawn(p);
             OriginService.reset(server);
         }
+        // the die animation runs while its chunk ticks entities (round G3: other Origin tests release the forced chunks)
         h.startSequence()
-            .thenIdle(PrimordialEntity.DEATH_TICKS + 2)
+            .thenWaitUntil(() -> {
+                if (!b.isRemoved()) h.fail("the body is still there after " + b.deathTime + " death ticks");
+            })
             .thenExecute(() -> {
                 release(o, chunks);
-                ok(h, b.isRemoved(), "the body is gone after the die animation");
+                ok(h, b.deathTime >= PrimordialEntity.DEATH_TICKS, "the body went after the die animation");
             })
             .thenSucceed();
     }

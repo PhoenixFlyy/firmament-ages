@@ -324,7 +324,7 @@ public final class EndgameGameTests {
         BlockPos at = h.absolutePos(new BlockPos(1, 0, 1));
         long cost = SgjGates.costs()[1];
         List<String> lines = SgjGates.trial(level, at, OriginArena.GATE_TEMPLATE, new BlockPos(3, 2, 9), new int[] {9, 16, 21, 33, 2, 37},
-            dev.firmages.core.origin.OriginService.level(level.getServer()), OriginArena.GATE_BASE);
+            dev.firmages.core.origin.OriginService.level(level.getServer()), OriginArena.gateBase());
         FirmagesCore.LOGGER.info("GameTest stargate cost {} FE: {}", cost, lines);
         ok(h, lines.size() == 2, "two dials: " + lines);
         ok(h, lines.get(0).contains("NOT_ENOUGH_POWER"), "one FE short: " + lines.get(0));

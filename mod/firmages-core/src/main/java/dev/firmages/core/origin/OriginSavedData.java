@@ -14,6 +14,8 @@ public final class OriginSavedData extends SavedData {
     private static final String NAME = "firmages_origin";
 
     private int arenaVersion;
+    /** {@link OriginLayout} name, empty until {@link OriginService#ensureBuilt} decides it (round G3). */
+    private String layout = "";
     private boolean gateBuilt;
     private boolean dhdCoreTaken;
     private boolean won;
@@ -28,6 +30,7 @@ public final class OriginSavedData extends SavedData {
     private static OriginSavedData load(CompoundTag tag, HolderLookup.Provider registries) {
         OriginSavedData d = new OriginSavedData();
         d.arenaVersion = tag.getInt("arena_version");
+        d.layout = tag.getString("layout");
         d.gateBuilt = tag.getBoolean("gate_built");
         d.dhdCoreTaken = tag.getBoolean("dhd_core_taken");
         d.won = tag.getBoolean("won");
@@ -39,6 +42,7 @@ public final class OriginSavedData extends SavedData {
     @Override
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         tag.putInt("arena_version", arenaVersion);
+        tag.putString("layout", layout);
         tag.putBoolean("gate_built", gateBuilt);
         tag.putBoolean("dhd_core_taken", dhdCoreTaken);
         tag.putBoolean("won", won);
@@ -48,6 +52,12 @@ public final class OriginSavedData extends SavedData {
     }
 
     public int arenaVersion() { return arenaVersion; }
+    /** The arena layout of this world: an Origin built before round G3 (arena version above 0, no layout) is classic. */
+    public OriginLayout layout() {
+        return OriginLayout.decide(layout, arenaVersion);
+    }
+    /** Public for the GameTests of the old-world path. */
+    public void setLayout(OriginLayout l) { layout = l.name().toLowerCase(java.util.Locale.ROOT); setDirty(); }
     public boolean gateBuilt() { return gateBuilt; }
     /** The return gate's DHD holds no energy core (taken when the gate was built, or once by the 1.0 migration). */
     public boolean dhdCoreTaken() { return dhdCoreTaken; }

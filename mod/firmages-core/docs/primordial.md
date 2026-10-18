@@ -25,7 +25,7 @@ Entering phase 2 or 3 locks it for 1 s or 2 s (no damage, no attacks). A single 
 a hit stops at the phase floor. Death: the die animation (3 s), the halo collapses into the core, a last star rises;
 its star-falls vanish, the lanterns burn again. The loot table is empty: the win is `finale_won` (the trophies).
 
-Soft enrage: after `enrageMinutes` (10) the veil stays open half as long; after `starfallEnrageMinutes` (12) star-fall
+Soft enrage: after `enrageMinutes` (12, round G3; was 10) the veil stays open half as long; after `starfallEnrageMinutes` (14) star-fall
 rains in every phase, every second.
 
 Wipe: with no living player within 48 blocks of the altar for `wipeSeconds` (30), it withdraws: the lanterns return,
@@ -57,7 +57,8 @@ Expected length (the fight model, `boss/FightModel`, SPEC §39): Draconic Evolut
 damage and 3.2 swings a second, each Chaotic damage module +16 (javap of `EquipCfg`, `DEModules`). The reference
 build (two damage modules, 49.5 per hit, 44.7 after armour) is at the hit cap of 40, and each attacker counts twice a
 second. With a player hitting 60 % of the time and the veil open a third of the time in phases 1 and 2 and 60 % in
-phase 3: 1 player 8.4 minutes, 2 players 7.2, 4 players 6.5. Without the cap a sword full of damage modules (657.5)
+phase 3: 1 player 8.4 minutes, 2 players 7.2, 4 players 6.5; with the altar shield of the grand arena (round G3, SPEC
+§39.1: four altars to light in phase 2 and in phase 3, a strike every 20 s) 9.9 / 7.7 / 6.8 minutes. Without the cap a sword full of damage modules (657.5)
 would end it in under a minute. `FightModelTest` holds these numbers; the wake log line prints them for the party.
 
 ## Tuning knobs
@@ -68,7 +69,7 @@ Per world, without a rebuild (`serverconfig/firmages-server.toml`, section `[bos
 - `perPlayerFactor` (0.7): how much each further player adds.
 - `veilFactor` (0.25): how much the closed veil protects; 1 makes the counters pointless, 0 makes them mandatory.
 - `hitCap` (40): the most one hit counts after armour; 0 lets Draconic damage modules end the fight in seconds.
-- `enrageMinutes` (10), `starfallEnrageMinutes` (12): when the soft enrage starts.
+- `enrageMinutes` (12), `starfallEnrageMinutes` (14): when the soft enrage starts (round G3: two minutes later for the altars).
 - `wipeSeconds` (30): how long it waits for players before it withdraws.
 
 In code (`PrimordialEntity` constants, a rebuild): damage per attack, cooldowns, veil windows, the slam and pull

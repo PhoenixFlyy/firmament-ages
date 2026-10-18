@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "firmages:arena_altar",
+      "required": false
+    },
+    {
       "id": "#firmages:consecrated",
       "required": false
     },

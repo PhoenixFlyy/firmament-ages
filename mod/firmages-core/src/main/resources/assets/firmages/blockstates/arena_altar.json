@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "firmages:block/arena_altar"
+    },
+    "active=true": {
+      "model": "firmages:block/arena_altar_active"
+    }
+  }
+}

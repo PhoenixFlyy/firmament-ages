@@ -35,17 +35,54 @@ public final class OriginArena {
     public static final int VERSION = 3;
     /** The islands, one per shrine Age 0..8. */
     public static final int ISLANDS = 9;
+    /** Radius of the classic arena (layout {@link OriginLayout#CLASSIC}); {@link #radius()} is the world's. */
     public static final int RADIUS = 20;
     public static final int FLOOR_Y = 64;
     public static final BlockPos ALTAR = new BlockPos(0, FLOOR_Y + 1, 0);
-    /** Where {@code /firmages origin tp} puts players: on the arena, between gate and altar, outside the Gathering. */
-    public static final BlockPos ARRIVAL = new BlockPos(0, FLOOR_Y + 1, 14);
     /** Stargate Journey's pedestal template (7 x 9 x 13; gate base at template (3, 2, 9) facing north, DHD at (3, 1, 3)). */
     public static final ResourceLocation GATE_TEMPLATE = ResourceLocation.fromNamespaceAndPath("sgjourney", "stargate/milky_way/pedestal/stargate_pedestal_1");
-    public static final BlockPos GATE_ORIGIN = new BlockPos(-3, FLOOR_Y, 22);
-    /** The gate's base block (template offset (3, 2, 9) from {@link #GATE_ORIGIN}). */
-    public static final BlockPos GATE_BASE = GATE_ORIGIN.offset(3, 2, 9);
-    public static final BlockPos DHD = GATE_ORIGIN.offset(3, 1, 3);
+
+    /** The running world's layout (set by {@link OriginService#ensureBuilt} from {@link OriginSavedData}); new worlds are grand. */
+    private static volatile OriginLayout layout = OriginLayout.GRAND;
+
+    public static OriginLayout layout() {
+        return layout;
+    }
+
+    public static void setLayout(OriginLayout l) {
+        layout = l;
+    }
+
+    /** The arena radius of this world. */
+    public static int radius() {
+        return layout.radius;
+    }
+
+    /** Where {@code /firmages origin tp} puts players: outside the Gathering (classic: on the disc; grand: on the arrival platform). */
+    public static BlockPos arrival() {
+        return layout.arrival;
+    }
+
+    public static BlockPos gateOrigin() {
+        return layout.gateOrigin;
+    }
+
+    /** The return gate's base block (template offset (3, 2, 9) from {@link #gateOrigin}). */
+    public static BlockPos gateBase() {
+        return layout.gateBase();
+    }
+
+    public static BlockPos dhd() {
+        return layout.dhd();
+    }
+
+    /** The four fight altars of the grand arena (north, east, south, west); empty in a classic arena. */
+    public static List<BlockPos> altars() {
+        if (!layout.hasAltars()) return List.of();
+        List<BlockPos> out = new java.util.ArrayList<>();
+        for (int[] a : GrandArenaPlan.ALTARS) out.add(new BlockPos(a[0], FLOOR_Y + 2, a[1]));
+        return out;
+    }
 
     private static final BlockState[] ROCK = {
         Blocks.DEEPSLATE.defaultBlockState(), Blocks.TUFF.defaultBlockState(), Blocks.BLACKSTONE.defaultBlockState(),
@@ -53,8 +90,12 @@ public final class OriginArena {
 
     private OriginArena() {}
 
-    /** Arena, altar and islands (not the gate). */
+    /** Arena, altar and islands (not the gate) of the world's layout. */
     public static void buildArena(ServerLevel level) {
+        if (layout == OriginLayout.GRAND) {
+            buildGrand(level);
+            return;
+        }
         long t0 = System.nanoTime();
         int r = RADIUS;
         for (int x = -r; x <= r; x++) {
@@ -81,7 +122,7 @@ public final class OriginArena {
         level.setBlock(ALTAR, OriginRegistry.ORIGIN_ALTAR.get().defaultBlockState(), Block.UPDATE_ALL);
         // Bridge to the gate pedestal (also under the pedestal, whose own floor is one layer thick).
         for (int x = -4; x <= 4; x++) {
-            for (int z = r - 1; z <= GATE_ORIGIN.getZ() + 13; z++) {
+            for (int z = r - 1; z <= gateOrigin().getZ() + 13; z++) {
                 if (z <= r && x * x + z * z <= (r + 0.5) * (r + 0.5) && Math.abs(x) > 2) continue;
                 set(level, x, FLOOR_Y, z, Math.abs(x) == 4 ? Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState() : Blocks.POLISHED_DEEPSLATE.defaultBlockState());
                 set(level, x, FLOOR_Y - 1, z, rock(x, FLOOR_Y - 1, z));
@@ -122,14 +163,61 @@ public final class OriginArena {
         if (t.isEmpty()) return false;
         // Air in the template is skipped, so the bridge floor under the pedestal stays.
         StructurePlaceSettings settings = new StructurePlaceSettings().addProcessor(BlockIgnoreProcessor.AIR);
-        t.get().placeInWorld(level, GATE_ORIGIN, GATE_ORIGIN, settings, level.random, Block.UPDATE_CLIENTS);
-        int generated = SgjGates.finishPlacement(level, t.get().getBoundingBox(settings, GATE_ORIGIN));
-        boolean core = SgjGates.removeEnergyCore(level, DHD);
-        long added = SgjGates.keepCharged(level, GATE_BASE);
+        BlockPos origin = gateOrigin();
+        t.get().placeInWorld(level, origin, origin, settings, level.random, Block.UPDATE_CLIENTS);
+        int generated = SgjGates.finishPlacement(level, t.get().getBoundingBox(settings, origin));
+        boolean core = SgjGates.removeEnergyCore(level, dhd());
+        long added = SgjGates.keepCharged(level, gateBase());
         FirmagesCore.LOGGER.info("The Origin: return stargate placed at {} (DHD {}), {} Stargate Journey parts generated, in the network: {}; "
-            + "DHD energy core taken: {}, gate charged with {} FE for one trip home", GATE_BASE, DHD, generated,
+            + "DHD energy core taken: {}, gate charged with {} FE for one trip home", gateBase(), dhd(), generated,
             SgjGates.inNetwork(level.getServer(), level.dimension()), core, added);
         return true;
+    }
+
+    /**
+     * The grand arena (round G3, SPEC §16.5): every cell of {@link GrandArenaPlan}, the Gathering altar in the centre and
+     * the islands. Sets every block (a new Origin, {@code origin rebuild}).
+     */
+    public static void buildGrand(ServerLevel level) {
+        long t0 = System.nanoTime();
+        java.util.Map<String, BlockState> states = new java.util.HashMap<>();
+        int n = 0;
+        for (var e : GrandArenaPlan.cells().entrySet()) {
+            long p = e.getKey();
+            BlockState s = states.computeIfAbsent(e.getValue(), OriginArena::grandState);
+            level.setBlock(new BlockPos(GrandArenaPlan.unpackX(p), GrandArenaPlan.unpackY(p), GrandArenaPlan.unpackZ(p)), s, Block.UPDATE_CLIENTS);
+            n++;
+        }
+        level.setBlock(ALTAR, OriginRegistry.ORIGIN_ALTAR.get().defaultBlockState(), Block.UPDATE_ALL);
+        for (int i = 0; i < ISLANDS; i++) buildIslandV2(level, islandTop(i), i);
+        FirmagesCore.LOGGER.info("The Origin: grand arena (radius {}) built, {} blocks, in {} ms", GrandArenaPlan.RADIUS, n, (System.nanoTime() - t0) / 1_000_000);
+    }
+
+    /** The block state of a {@link GrandArenaPlan} material key. */
+    public static BlockState grandState(String key) {
+        if (key.startsWith("rock_")) return ROCK[Integer.parseInt(key.substring(5))];
+        if (key.startsWith("age_")) {
+            int age = key.charAt(4) - '0';
+            return ShrineRegistry.consecrated(key.endsWith("_trim") ? Consecration.Role.TRIM : Consecration.Role.STONE, age);
+        }
+        if (key.startsWith("socket_")) return ShrineRegistry.consecrated(Consecration.Role.BRICK, Integer.parseInt(key.substring(7)));
+        if (key.startsWith("vitrine_base_")) return ShrineRegistry.consecrated(Consecration.Role.PILLAR, Integer.parseInt(key.substring(13)));
+        if (key.startsWith("vitrine_glass_")) return ShrineRegistry.consecrated(Consecration.Role.GLASS, Integer.parseInt(key.substring(14)));
+        return switch (key) {
+            case "dais" -> Blocks.CRYING_OBSIDIAN.defaultBlockState();
+            case "floor", "platform" -> Blocks.POLISHED_DEEPSLATE.defaultBlockState();
+            case "gilded" -> Blocks.GILDED_BLACKSTONE.defaultBlockState();
+            case "lantern" -> Blocks.SEA_LANTERN.defaultBlockState();
+            case "rim", "wall", "platform_rim" -> Blocks.POLISHED_BLACKSTONE_BRICKS.defaultBlockState();
+            case "post" -> Blocks.CHISELED_POLISHED_BLACKSTONE.defaultBlockState();
+            case "stair" -> Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.StairBlock.FACING, net.minecraft.core.Direction.SOUTH);
+            case "arena_altar" -> OriginRegistry.ARENA_ALTAR.get().defaultBlockState();
+            case "arch_pillar" -> ShrineRegistry.consecrated(Consecration.Role.PILLAR, Consecration.MAX_ACCENT);
+            case "arch_trim" -> ShrineRegistry.consecrated(Consecration.Role.TRIM, Consecration.MAX_ACCENT);
+            case "arch_lamp" -> ShrineRegistry.consecrated(Consecration.Role.LAMP, Consecration.MAX_ACCENT);
+            default -> throw new IllegalArgumentException("unknown grand arena material " + key);
+        };
     }
 
     private static BlockState floor(int x, int z, double d) {
@@ -154,7 +242,7 @@ public final class OriginArena {
     /** The top centre of island {@code i} (0..8, the shrine Age it stands for), a fixed spot of the ring. */
     public static BlockPos islandTop(int i) {
         double angle = Math.toRadians(i * 40 + 12);
-        int dist = 45 + (i % 3) * 15;
+        int dist = 45 + (i % 3) * 15 + layout.islandOffset;
         return new BlockPos((int) Math.round(Math.cos(angle) * dist), FLOOR_Y - 6 + (i * 7) % 17, (int) Math.round(Math.sin(angle) * dist));
     }
 

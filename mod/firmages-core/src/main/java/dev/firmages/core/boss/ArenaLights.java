@@ -36,7 +36,7 @@ public final class ArenaLights {
     /** The lit lanterns of the arena: the floor layer and the two layers above it, within the arena radius. */
     public static List<BlockPos> lit(ServerLevel level) {
         List<BlockPos> out = new ArrayList<>();
-        int r = OriginArena.RADIUS + 1;
+        int r = OriginArena.radius() + 1;
         BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
         for (int y = OriginArena.FLOOR_Y; y <= OriginArena.FLOOR_Y + 2; y++) {
             for (int x = -r; x <= r; x++) {

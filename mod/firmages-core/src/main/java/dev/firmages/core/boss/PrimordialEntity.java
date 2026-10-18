@@ -77,6 +77,8 @@ public class PrimordialEntity extends Monster implements GeoEntity {
     private static final EntityDataAccessor<Boolean> DATA_VEIL = SynchedEntityData.defineId(PrimordialEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_NODE = SynchedEntityData.defineId(PrimordialEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_BEAM = SynchedEntityData.defineId(PrimordialEntity.class, EntityDataSerializers.FLOAT);
+    /** Round G3 (SPEC §39.1): the altar shield of phase 2 and 3 stands. */
+    private static final EntityDataAccessor<Boolean> DATA_SHIELD = SynchedEntityData.defineId(PrimordialEntity.class, EntityDataSerializers.BOOLEAN);
 
     public static final float NO_BEAM = -1000.0F;
     public static final float MAX_HEALTH = 1024.0F;
@@ -139,6 +141,9 @@ public class PrimordialEntity extends Monster implements GeoEntity {
     private double orbit;
     private float beamStart;
     private int beamDir = 1;
+    /** Ticks the altar shield has stood (its strikes come every AltarCircuit.STRIKE_TICKS). */
+    private int shieldTicks;
+    private int lastDeflect = -100;
 
     /** Client: the halo tilt eases toward the phase's tilt (PrimordialModel). */
     public float clientTilt = Float.NaN;
@@ -171,6 +176,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         builder.define(DATA_VEIL, false);
         builder.define(DATA_NODE, -1);
         builder.define(DATA_BEAM, NO_BEAM);
+        builder.define(DATA_SHIELD, false);
     }
 
     @Override
@@ -188,6 +194,15 @@ public class PrimordialEntity extends Monster implements GeoEntity {
 
     public boolean veilOpen() {
         return entityData.get(DATA_VEIL);
+    }
+
+    /** The altar shield stands (round G3, SPEC §39.1): no hit counts until the four altars burn. */
+    public boolean shielded() {
+        return entityData.get(DATA_SHIELD);
+    }
+
+    public int shieldTicks() {
+        return shieldTicks;
     }
 
     /** The node that charges, washes or casts the beam, -1 for none. */
@@ -325,6 +340,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         fightTicks++;
         if (phaseLock > 0) phaseLock--;
         if (veilTicks > 0 && --veilTicks == 0) closeVeil();
+        stepShield(sl);
         if (fightTicks % 200 == 0) lastHit.values().removeIf(t -> tickCount - t > IFRAMES);
         if (leash()) return;
         if (wipe(sl)) return;
@@ -548,9 +564,9 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         Player p = tg.get(random.nextInt(tg.size()));
         double x = p.getX() + (random.nextDouble() - 0.5) * 6, z = p.getZ() + (random.nextDouble() - 0.5) * 6;
         double dx = x - home.x, dz = z - home.z, d = Math.sqrt(dx * dx + dz * dz);
-        if (d > OriginArena.RADIUS - 1) {
-            x = home.x + dx * (OriginArena.RADIUS - 1) / d;
-            z = home.z + dz * (OriginArena.RADIUS - 1) / d;
+        if (d > OriginArena.radius() - 1) {
+            x = home.x + dx * (OriginArena.radius() - 1) / d;
+            z = home.z + dz * (OriginArena.radius() - 1) / d;
         }
         StarFallEntity.fall(sl, this, x, floorY, z, PrimordialGeometry.NODE_COLORS[random.nextInt(9)], STAR_DAMAGE);
     }
@@ -654,6 +670,13 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         // Only what someone does to it counts: no fall, fire, drowning, lightning or other bystanders' harm.
         if (attacker == null || attacker == this) return false;
         if (!initialised) initFight();
+        if (shielded()) {
+            if (tickCount - lastDeflect >= IFRAMES) {
+                lastDeflect = tickCount;
+                sound(net.minecraft.sounds.SoundEvents.SHIELD_BLOCK, 2.0F, 0.6F);
+            }
+            return false;
+        }
         Integer last = lastHit.get(attacker.getUUID());
         if (last != null && tickCount - last < IFRAMES) return false;
         counterplay(source, attacker);
@@ -728,6 +751,40 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         sound(BossRegistry.VEIL_CLOSE.get(), 2.0F, 1.0F);
     }
 
+    /**
+     * Raises the altar shield at the start of phase 2 and 3, only in an arena with the four altars (a classic Origin and
+     * a boss summoned elsewhere fight as before): every altar goes dark and the boss takes no hit until all four burn.
+     */
+    private void raiseShield(ServerLevel sl) {
+        if (!ArenaAltars.present(sl)) return;
+        ArenaAltars.resetAll(sl);
+        entityData.set(DATA_SHIELD, true);
+        shieldTicks = 0;
+        sl.sendParticles(ParticleTypes.ENCHANTED_HIT, getX(), getY() + 3.5, getZ(), 60, 3, 3, 3, 0.1);
+    }
+
+    /** The shield falls when the four altars burn; while it stands, a lit altar is struck every 20 s. */
+    private void stepShield(ServerLevel sl) {
+        if (!shielded()) return;
+        if (ArenaAltars.allActive(sl) || !ArenaAltars.present(sl)) {
+            dropShield(sl);
+            return;
+        }
+        shieldTicks++;
+        if (shieldTicks % AltarCircuit.STRIKE_TICKS == 0) {
+            int i = ArenaAltars.strike(sl, random);
+            if (i >= 0) FirmagesCore.LOGGER.debug("The Primordial strikes altar {}", i);
+        }
+        if (shieldTicks % 10 == 0) sl.sendParticles(ParticleTypes.ENCHANTED_HIT, getX(), getY() + 3.5, getZ(), 12, 3, 3, 3, 0.02);
+    }
+
+    private void dropShield(ServerLevel sl) {
+        entityData.set(DATA_SHIELD, false);
+        sound(BossRegistry.VEIL_OPEN.get(), 3.0F, 0.6F);
+        sl.sendParticles(ParticleTypes.END_ROD, getX(), getY() + 3.5, getZ(), 80, 3, 3, 3, 0.15);
+        FirmagesCore.LOGGER.info("The Primordial: the four altars burn, its shield falls after {} s", shieldTicks / 20);
+    }
+
     private void checkPhase() {
         float max = getMaxHealth(), h = getHealth();
         if (phase() == 1 && h <= max * FightModel.PHASE2_AT + 0.01F) enterPhase(2);
@@ -755,6 +812,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
             title(Component.translatable("firmages.boss.primordial.phase.3").withStyle(ChatFormatting.LIGHT_PURPLE),
                 Component.translatable("firmages.boss.primordial.voice.shatter"), "firmages.boss.primordial.voice.shatter");
         }
+        raiseShield(sl);
         FirmagesCore.LOGGER.info("The Primordial: phase {} at {} health after {} s", p, Math.round(getHealth()), fightTicks / 20);
     }
 
@@ -769,6 +827,8 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         entityData.set(DATA_VEIL, false);
         relight(sl);
         clearStars(sl);
+        entityData.set(DATA_SHIELD, false);
+        if (ArenaAltars.present(sl)) ArenaAltars.resetAll(sl);
         bossEvent.setProgress(0);
         sound(BossRegistry.DEATH.get(), 5.0F, 0.5F);
     }
@@ -791,6 +851,7 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         if (level() instanceof ServerLevel sl && reason.shouldDestroy()) {
             relight(sl);
             clearStars(sl);
+            if (ArenaAltars.present(sl)) ArenaAltars.resetAll(sl);
             bossEvent.removeAllPlayers();
         }
         super.remove(reason);
@@ -900,6 +961,8 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         tag.putInt("PartySize", partySize);
         tag.putInt("FightTicks", fightTicks);
         tag.putInt("VeilTicks", veilTicks);
+        tag.putBoolean("Shield", shielded());
+        tag.putInt("ShieldTicks", shieldTicks);
         tag.putBoolean("Initialised", initialised);
         if (initialised) {
             tag.putDouble("HomeX", home.x);
@@ -918,6 +981,8 @@ public class PrimordialEntity extends Monster implements GeoEntity {
         fightTicks = tag.getInt("FightTicks");
         veilTicks = tag.getInt("VeilTicks");
         entityData.set(DATA_VEIL, veilTicks > 0);
+        entityData.set(DATA_SHIELD, tag.getBoolean("Shield"));
+        shieldTicks = tag.getInt("ShieldTicks");
         if (tag.getBoolean("Initialised") && tag.contains("HomeX")) {
             initialised = true;
             home = new Vec3(tag.getDouble("HomeX"), tag.getDouble("HomeY"), tag.getDouble("HomeZ"));

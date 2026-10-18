@@ -105,7 +105,7 @@ public final class AnchorGameTests {
         MinecraftServer server = h.getLevel().getServer();
         ServerLevel o = OriginService.level(server);
         if (o == null) h.fail("firmages:origin is not loaded");
-        BlockPos pos = OriginArena.ARRIVAL.offset(0, 6, 0);
+        BlockPos pos = OriginArena.arrival().offset(0, 6, 0);
         ShrineState.Snapshot prev = ShrineState.get();
         BlockPos farHeart = h.absolutePos(new BlockPos(1, 1, 1)).east(500);
         ServerPlayer[] p = new ServerPlayer[1];
@@ -197,7 +197,7 @@ public final class AnchorGameTests {
         if (o == null) h.fail("firmages:origin is not loaded");
         BlockPos heart = h.absolutePos(new BlockPos(5, 1, 5));
         BlockPos keystone = heart.east(5);
-        BlockPos pos = OriginArena.ARRIVAL.offset(4, 6, 0);
+        BlockPos pos = OriginArena.arrival().offset(4, 6, 0);
         ShrineState.Snapshot prev = ShrineState.get();
         boolean gatheredBefore = ShrineSavedData.get(server).gathered();
         ServerPlayer[] p = new ServerPlayer[1];

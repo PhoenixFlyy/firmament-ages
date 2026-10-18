@@ -145,6 +145,7 @@
   "subtitles.firmages.shrine.ambient": "The shrine hums",
   "block.firmages.reactor_controller": "Reactor Controller",
   "block.firmages.origin_altar": "Altar of the Origin",
+  "block.firmages.arena_altar": "Altar of the Four Winds",
   "solar_system.firmages.origin": "The Origin",
   "firmages.origin.gathering": "The altar answers: all of you stand before it. Something wakes in the dark.",
   "firmages.origin.waiting": "The altar waits for %s more: %s",

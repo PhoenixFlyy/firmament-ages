@@ -130,6 +130,36 @@ public final class EndgameSuite implements SelfTest.Suite {
             check(c[1] >= REACTOR_DIAL, "interstellar dial " + c[1] + " FE, below the reactor scale " + REACTOR_DIAL);
             return "system-wide " + c[0] + " FE, interstellar " + c[1] + " FE, wormhole " + c[2] + " FE/t";
         });
+        r.test("origin_arena_and_altars", () -> {
+            // round G3 (SPEC §16.5, §39.1): the world's arena layout; a grand one has its four altars, a classic one none
+            ServerLevel o = dev.firmages.core.origin.OriginService.level(server);
+            check(o != null, "The Origin is not loaded");
+            var layout = dev.firmages.core.origin.OriginArena.layout();
+            int altars = dev.firmages.core.origin.OriginArena.altars().size();
+            check(altars == (layout.hasAltars() ? 4 : 0), layout + " arena with " + altars + " altar positions");
+            int standing = 0;
+            for (var a : dev.firmages.core.origin.OriginArena.altars()) {
+                o.getChunk(a);
+                if (o.getBlockState(a).is(dev.firmages.core.origin.OriginRegistry.ARENA_ALTAR.get())) standing++;
+            }
+            check(standing == altars, standing + " of " + altars + " altars stand");
+            return layout.name().toLowerCase(java.util.Locale.ROOT) + " arena, radius " + dev.firmages.core.origin.OriginArena.radius()
+                + ", " + standing + " altars";
+        });
+        r.test("fight_model_with_altars", () -> {
+            var s = new dev.firmages.core.boss.FightModel.Settings(ServerConfig.bossEffectiveHealth(), ServerConfig.bossPerPlayer(),
+                ServerConfig.bossVeilFactor(), ServerConfig.bossHitCap());
+            double d = dev.firmages.core.boss.FightModel.chaoticSword(dev.firmages.core.boss.FightModel.REFERENCE_DAMAGE_MODULES);
+            StringBuilder out = new StringBuilder();
+            for (int n : new int[] {1, 2, 4}) {
+                double before = s.fightSecondsWithoutAltars(n, d), after = s.fightSeconds(n, d);
+                check(after / before - 1 <= dev.firmages.core.boss.FightModel.ALTAR_MAX_GROWTH + 1e-9,
+                    n + " players: the altars add " + Math.round((after / before - 1) * 100) + " %");
+                check(after < ServerConfig.bossEnrageMinutes() * 60, n + " players: " + Math.round(after) + " s reach boss.enrageMinutes");
+                out.append(n).append(": ").append(String.format(java.util.Locale.ROOT, "%.1f", after / 60)).append(" min ");
+            }
+            return out.toString().trim();
+        });
         r.test("regrowth_guard_on", () -> {
             check(ServerConfig.regrowthLoadedChunksOnly(), "perf.regrowthLoadedChunksOnly is off");
             long[] n = dev.firmages.core.perf.RegrowthGuard.counts();

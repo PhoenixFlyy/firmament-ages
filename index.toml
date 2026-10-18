@@ -270,7 +270,7 @@ hash = "b203225274e66ee7d7dd7aecb21a4b4ee1475db6b0793499580f369eedc0a976"
 
 [[files]]
 file = "config/firmages-server.toml"
-hash = "288eef6a290825c47b19010ca60efcecf23d5ff09a9b16a7cfeb38bc8ccced62"
+hash = "50ccf350ab771a3ce061cc1fc0445d2b68b1919a3add0023d2be6f009f4a617f"
 
 [[files]]
 file = "config/fml.toml"
@@ -627,6 +627,10 @@ hash = "2938ddd6d378e879022d2639c93a7f4af2b87eb5272b3576284210f9762f1928"
 [[files]]
 file = "defaultconfigs/tfc-server.toml"
 hash = "234dd4d1c7b30b28ff7a96736ddbbe433cbccd6221bd38a4c44dcb4e7d5d561b"
+
+[[files]]
+file = "gt4.log"
+hash = "ab244d05038ddc92d9a70b41e340969a60d0869fbec369cb995f2fc4d17d9bef"
 
 [[files]]
 file = "journeymap/icon/theme/default.theme.config"

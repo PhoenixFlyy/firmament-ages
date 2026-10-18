@@ -193,13 +193,13 @@
 	# Range: 0.0 ~ 10000.0
 	hitCap = 40.0
 	#After this many minutes of fighting the veil stays open only half as long.
-	# Default: 10
-	# Range: 1 ~ 120
-	enrageMinutes = 10
-	#After this many minutes star-fall rains in every phase, twice as often.
 	# Default: 12
 	# Range: 1 ~ 120
-	starfallEnrageMinutes = 12
+	enrageMinutes = 12
+	#After this many minutes star-fall rains in every phase, twice as often.
+	# Default: 14
+	# Range: 1 ~ 120
+	starfallEnrageMinutes = 14
 	#With no living player within 48 blocks of the altar for this many seconds, the boss withdraws and the
 	#lanterns come back (a wipe); the next Gathering summons it anew.
 	# Default: 30
