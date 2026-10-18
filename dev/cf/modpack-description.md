@@ -17,7 +17,7 @@ Firmament Ages is a co-op progression pack for Minecraft 1.21.1 on NeoForge. Eac
 
 ::: spoiler The mods behind it (click to open)
 
-TerraFirmaCraft gives the world, the climate and the first metals. Create carries the middle Ages; Immersive Engineering, Mekanism and Applied Energistics 2 the late ones; Ad Astra and Draconic Evolution the end. Occultism, Ars Nouveau and Theurgy are the magic road. 270 mods in all; the credits at the bottom name each one.
+TerraFirmaCraft gives the world, the climate and the first metals. Create carries the middle Ages; Immersive Engineering, Mekanism and Applied Energistics 2 the late ones; Ad Astra and Draconic Evolution the end. Occultism, Ars Nouveau and Theurgy are the magic road. 273 mods in all; the credits at the bottom name each one.
 
 :::
 
@@ -75,7 +75,7 @@ Firmament Ages starts with shaders turned on. It uses Complementary Shaders – 
 
 ## Credits
 
-::: spoiler 270 mods and their authors (click to open)
+::: spoiler 273 mods and their authors (click to open)
 
 <!-- credits:start -->
 
